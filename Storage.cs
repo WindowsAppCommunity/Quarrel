@@ -133,7 +133,7 @@ namespace Discord_UWP
         public bool Vibrate = false;
         public bool mutedChnEffectServer = false;
         public bool ShowWelcomeMessage = true;
-        public bool EnableAcrylic = false;
+        public bool Acrylics = false;
         //public bool VoiceChannels = false;
         public bool UseCompression = true;
         //public bool VideoAd = false;

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using UICompositionAnimations.Brushes;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.AppService;
@@ -508,7 +509,7 @@ namespace Discord_UWP
                     return; // this means that resources have already been initialized (=app pelaunched)
                 Color UserBackground = ((SolidColorBrush) Current.Resources["AcrylicUserBackground"]).Color;
                 Color CommandBarColor = ((SolidColorBrush) Current.Resources["AcrylicCommandBarBackground"]).Color;
-                if (!CinematicMode && Storage.Settings.EnableAcrylic && !Storage.Settings.CustomBG)
+                if (!CinematicMode && Storage.Settings.Acrylics && !Storage.Settings.CustomBG)
                 {
                     Color ChannelColor = ((SolidColorBrush) Current.Resources["AcrylicChannelPaneBackground"]).Color;
                     Current.Resources["AcrylicChannelPaneBackground"] = new AcrylicBrush
@@ -546,46 +547,127 @@ namespace Discord_UWP
                         FallbackColor = UserBackground,
                         BackgroundSource = AcrylicBackgroundSource.HostBackdrop
                     };
+
+                    Current.Resources["AcrylicUserBackground"] = new AcrylicBrush
+                    {
+                        TintOpacity = 0.3,
+                        //Opacity = 1,
+                        TintColor = UserBackground,
+                        FallbackColor = UserBackground,
+                        BackgroundSource = AcrylicBackgroundSource.Backdrop
+                    };
+
+                    Current.Resources["AcrylicUserBackgroundDarker"] = new AcrylicBrush
+                    {
+                        TintOpacity = 0.3,
+                        //Opacity = 1,
+                        TintColor = CommandBarColor,
+                        FallbackColor = CommandBarColor,
+                        BackgroundSource = AcrylicBackgroundSource.Backdrop
+                    };
+
+                    Color FlyoutColor = ((SolidColorBrush)Current.Resources["AcrylicFlyoutBackground"]).Color;
+                    Current.Resources["AcrylicFlyoutBackground"] = new AcrylicBrush
+                    {
+                        TintOpacity = 0.7,
+                        //Opacity = 0.9,
+                        TintColor = FlyoutColor,
+                        FallbackColor = FlyoutColor,
+                        BackgroundSource = AcrylicBackgroundSource.Backdrop
+                    };
+
+                    Color DeepBGColor = ((SolidColorBrush)Current.Resources["DeepBG"]).Color;
+                    Current.Resources["DeepBG"] = new AcrylicBrush
+                    {
+                        TintOpacity = 0.9,
+                        //Opacity = 1,
+                        TintColor = DeepBGColor,
+                        FallbackColor = DeepBGColor,
+                        BackgroundSource = AcrylicBackgroundSource.Backdrop
+                    };
                 }
 
-                Current.Resources["AcrylicUserBackground"] = new AcrylicBrush
-                {
-                    TintOpacity = 0.3,
-                    //Opacity = 1,
-                    TintColor = UserBackground,
-                    FallbackColor = UserBackground,
-                    BackgroundSource = AcrylicBackgroundSource.Backdrop
-                };
-
-                Current.Resources["AcrylicUserBackgroundDarker"] = new AcrylicBrush
-                {
-                    TintOpacity = 0.3,
-                    //Opacity = 1,
-                    TintColor = CommandBarColor,
-                    FallbackColor = CommandBarColor,
-                    BackgroundSource = AcrylicBackgroundSource.Backdrop
-                };
-
-                Color FlyoutColor = ((SolidColorBrush) Current.Resources["AcrylicFlyoutBackground"]).Color;
-                Current.Resources["AcrylicFlyoutBackground"] = new AcrylicBrush
-                {
-                    TintOpacity = 0.7,
-                    //Opacity = 0.9,
-                    TintColor = FlyoutColor,
-                    FallbackColor = FlyoutColor,
-                    BackgroundSource = AcrylicBackgroundSource.Backdrop
-                };
-
-                Color DeepBGColor = ((SolidColorBrush) Current.Resources["DeepBG"]).Color;
-                Current.Resources["DeepBG"] = new AcrylicBrush
-                {
-                    TintOpacity = 0.9,
-                    //Opacity = 1,
-                    TintColor = DeepBGColor,
-                    FallbackColor = DeepBGColor,
-                    BackgroundSource = AcrylicBackgroundSource.Backdrop
-                };
             }
+            // else if (Storage.Settings.Acrylics)
+            //{
+            //    Color ChannelColor = ((SolidColorBrush)Current.Resources["AcrylicChannelPaneBackground"]).Color;
+            //    Current.Resources["AcrylicChannelPaneBackground"] = new CustomAcrylicBrush
+            //    {
+            //        BlurAmount = Storage.Settings.SecondaryOpacity * 10,
+            //        Opacity = 0.7,
+            //        Tint = ChannelColor,
+            //        FallbackColor = ChannelColor,
+            //        //Mode = UICompositionAnimations.Behaviours.Effects.AcrylicEffectMode.HostBackdrop
+            //    };
+            //    Color GuildColor = ((SolidColorBrush)Current.Resources["AcrylicGuildPaneBackground"]).Color;
+            //    Current.Resources["AcrylicGuildPaneBackground"] = new CustomAcrylicBrush
+            //    {
+            //        BlurAmount = Storage.Settings.TertiaryOpacity * 10,
+            //        Opacity = 0.7,
+            //        Tint = GuildColor,
+            //        FallbackColor = GuildColor,
+            //        //Mode = UICompositionAnimations.Behaviours.Effects.AcrylicEffectMode.HostBackdrop
+            //    };
+
+            //    Color CommandBarColor = ((SolidColorBrush)Current.Resources["AcrylicCommandBarBackground"]).Color;
+            //    Current.Resources["AcrylicCommandBarBackground"] = new CustomAcrylicBrush
+            //    {
+            //        BlurAmount = Storage.Settings.CmdOpacity * 10,
+            //        Opacity = 0.7,
+            //        Tint = CommandBarColor,
+            //        FallbackColor = CommandBarColor,
+            //        //Mode = UICompositionAnimations.Behaviours.Effects.AcrylicEffectMode.HostBackdrop
+            //    };
+
+            //    Color MessageColor = ((SolidColorBrush)Current.Resources["AcrylicMessageBackground"]).Color;
+            //    Color UserBackground = ((SolidColorBrush)Current.Resources["AcrylicUserBackground"]).Color;
+            //    Current.Resources["AcrylicMessageBackground"] = new CustomAcrylicBrush
+            //    {
+            //        BlurAmount = Storage.Settings.MainOpacity * 10,
+            //        Opacity = 0.7,
+            //        Tint = UserBackground,
+            //        FallbackColor = UserBackground,
+            //        //Mode = UICompositionAnimations.Behaviours.Effects.AcrylicEffectMode.HostBackdrop
+            //    };
+
+            //    Current.Resources["AcrylicUserBackground"] = new CustomAcrylicBrush
+            //    {
+            //        BlurAmount = 0.3 * 10,
+            //        Opacity = 0.7,
+            //        Tint = UserBackground,
+            //        FallbackColor = UserBackground,
+            //        //Mode = UICompositionAnimations.Behaviours.Effects.AcrylicEffectMode.InAppBlur
+            //    };
+
+            //    Current.Resources["AcrylicUserBackgroundDarker"] = new CustomAcrylicBrush
+            //    {
+            //        BlurAmount = 0.3 * 10,
+            //        Opacity = 0.7,
+            //        Tint = CommandBarColor,
+            //        FallbackColor = CommandBarColor,
+            //        //Mode = UICompositionAnimations.Behaviours.Effects.AcrylicEffectMode.InAppBlur
+            //    };
+
+            //    Color FlyoutColor = ((SolidColorBrush)Current.Resources["AcrylicFlyoutBackground"]).Color;
+            //    Current.Resources["AcrylicFlyoutBackground"] = new CustomAcrylicBrush
+            //    {
+            //        BlurAmount = 0.7 * 10,
+            //        Opacity = 0.7,
+            //        Tint = FlyoutColor,
+            //        FallbackColor = FlyoutColor,
+            //        //Mode = UICompositionAnimations.Behaviours.Effects.AcrylicEffectMode.InAppBlur
+            //    };
+
+            //    Color DeepBGColor = ((SolidColorBrush)Current.Resources["DeepBG"]).Color;
+            //    Current.Resources["DeepBG"] = new CustomAcrylicBrush
+            //    {
+            //        BlurAmount = 0.9,
+            //        Opacity = 0.7,
+            //        Tint = DeepBGColor,
+            //        FallbackColor = DeepBGColor,
+            //        //Mode = UICompositionAnimations.Behaviours.Effects.AcrylicEffectMode.InAppBlur
+            //    };
+            //}
 
             if (CinematicMode)
                 ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);

@@ -68,7 +68,7 @@ namespace Discord_UWP.SubPages
             RespUI_XL.Value = Storage.Settings.RespUiXl;
             //AppBarAtBottom_checkbox.IsChecked = Storage.Settings.AppBarAtBottom;
             ShowWelcome.IsChecked = Storage.Settings.ShowWelcomeMessage;
-            EnableAcrylic.IsChecked = Storage.Settings.EnableAcrylic;
+            EnableAcrylic.IsChecked = Storage.Settings.Acrylics;
             ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
             //DropShadowPresence.IsChecked = Storage.Settings.DropShadowPresence;
             UseCompression.IsChecked = Storage.Settings.UseCompression;
@@ -364,7 +364,7 @@ namespace Discord_UWP.SubPages
             
             Storage.Settings.AccentBrush = (bool)radioAccent_Windows.IsChecked;
             Storage.Settings.DerivedColor = (bool)DerviedColor.IsChecked;
-            Storage.Settings.EnableAcrylic = (bool)EnableAcrylic.IsChecked;
+            Storage.Settings.Acrylics = (bool)EnableAcrylic.IsChecked;
             Storage.Settings.ExpensiveRender = (bool)ExpensiveUI.IsChecked;
             //Storage.Settings.DropShadowPresence = (bool)DropShadowPresence.IsChecked;
             Storage.Settings.ShowWelcomeMessage = (bool)ShowWelcome.IsChecked;
