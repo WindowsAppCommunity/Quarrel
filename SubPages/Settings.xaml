@@ -569,13 +569,23 @@
                                     <RadioButton x:Uid="/Settings/LightRadio" x:Name="radio_Light" Style="{StaticResource DiscordRadioButton}" Content="Light" GroupName="Theme" Margin="0,0,0,-4"/>
                                     <RadioButton x:Uid="/Settings/WindowsRadio" x:Name="radio_Windows" Style="{StaticResource DiscordRadioButton}" Content="Windows" GroupName="Theme" Margin="0,0,0,-4"/>
                                     <RadioButton x:Uid="/Settings/DiscordRadio" x:Name="radio_Discord" Style="{StaticResource DiscordRadioButton}" Content="Discord" GroupName="Theme"/>
-                                    <CheckBox x:Uid="/Settings/EnableAcrylic" x:Name="EnableAcrylic" Content="Enable Acrylic effects (background blur)" Style="{StaticResource CheckBoxStyle1}"/>
+                                    <CheckBox x:Name="EnableAcrylic" Style="{StaticResource CheckBoxStyle1}">
+                                        <StackPanel Margin="0,2,0,0">
+                                            <TextBlock x:Uid="/Settings/EnableAcrylicTB" Text="Acyrlic Brushes"/>
+                                            <TextBlock x:Uid="/Settings/EnableAcrylicDescTB" Text="Blurred Backgrounds" FontSize="11" Opacity="0.5"/>
+                                        </StackPanel>
+                                    </CheckBox>
 
                                     <TextBlock x:Uid="/Settings/AccentColorTB" Text="Accent color" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                     <RadioButton x:Uid="/Settings/BlurpleRadio" x:Name="radioAccent_Discord" Style="{StaticResource DiscordRadioButton}" Foreground="#FF7289DA" Content="Discord Blurple" GroupName="Accent" Margin="0,6,0,-4" Checked="BlurpleChecked"/>
                                     <RadioButton x:Uid="/Settings/AccentRadio" x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" Content="System accent color" GroupName="Accent" Checked="AccentChecked"/>
 
-                                    <CheckBox x:Uid="/Settings/DerivedRadio" x:Name="DerviedColor" Style="{ThemeResource CheckBoxStyle2}" Content="Derived Color" Foreground="{ThemeResource InvertedBG}" IsChecked="True"/>
+                                    <CheckBox x:Name="DerviedColor" Style="{ThemeResource CheckBoxStyle2}" Foreground="{ThemeResource InvertedBG}" IsChecked="True" MaxWidth="350">
+                                        <StackPanel Margin="0,2,0,0">
+                                            <TextBlock x:Uid="/Settings/DerivedColorTB" Text="Derived Color"/>
+                                            <TextBlock x:Uid="/Settings/DerivedColorDescTB" Text="The Accent color on user related pages will be derived from the user's profile icon" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords" Foreground="{ThemeResource InvertedBG}"/>
+                                        </StackPanel>
+                                    </CheckBox>
 
 
 
@@ -592,8 +602,13 @@
                                         <Slider x:Name="FontSizeSlider" Minimum="6" Value="14" Maximum="40" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" Style="{ThemeResource DiscordSlider}"/>
                                         <TextBlock x:Uid="/Settings/AaTB"  Grid.Column="2" VerticalAlignment="Center" FontSize="40" Text="Aa" Margin="0,-8,0,0"/>
                                     </Grid>
-                                    <CheckBox x:Uid="/Settings/CompactModeCB" x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact messages" Margin="0,6,0,0"/>
-                                    <CheckBox x:Uid="/Settings/MentionGlowCB"  x:Name="MentionGlow" Style="{StaticResource CheckBoxStyle1}" Content="Glow the left side of the screen when you are mentioned" Margin="0,0,0,6"/>
+                                    <CheckBox x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact messages" Margin="0,6,0,0"/>
+                                    <CheckBox x:Name="MentionGlow" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,6">
+                                        <StackPanel Margin="0,2,0,0">
+                                            <TextBlock x:Uid="/Settings/MentionGlowTB" Text="Mention Glow"/>
+                                            <TextBlock x:Uid="/Settings/MentionGlowDescTB" Text="The left side of the screen glows when you are mentioned" FontSize="11" Opacity="0.5"/>
+                                        </StackPanel>
+                                    </CheckBox>
 
                                     <!--<CheckBox x:Uid="/Settings/GifsOnHoverCB" x:Name="GifsOnHover" Style="{StaticResource CheckBoxStyle1}" Content="Only play gifs on hover or click" Margin="0,0,0,0"/>-->
 
@@ -625,9 +640,25 @@
                                     <TextBox x:Uid="/Settings/CustomTimeF" x:Name="CustomTimeF"  Header="Custom Time Format" Style="{StaticResource TextBoxStyle1}" Margin="0,6,0,0"/>
 
                                     <TextBlock x:Uid="/Settings/OTHERTB" Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
-                                    <CheckBox x:Uid="/Settings/ExpensiveRenderCB" x:Name="ExpensiveUI" Content="Expensive Rendering" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0"/>
-                                    <CheckBox x:Uid="/Settings/ShowServerMuteCB" x:Name="ShowServerMute" Style="{StaticResource CheckBoxStyle1}" Content="Show Mute icon on servers" Margin="0,0,0,0"/>
-                                    <CheckBox x:Uid="/Settings/ShowWelcomeCB" x:Name="ShowWelcome" Style="{StaticResource CheckBoxStyle1}" Content="Show welcome messages" Margin="0,0,0,0"/>
+                                    <CheckBox x:Name="ExpensiveUI" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0" MaxWidth="350">
+                                        <StackPanel Margin="0,2,0,0">
+                                            <TextBlock x:Uid="/Settings/ExpensiveRenderTB" Text="Expensive Rendering"/>
+                                            <TextBlock x:Uid="/Settings/ExpensiveRenderDescTB" Text="Enable various expensive graphics such as Blur Effects and Audio Visualizers" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
+                                        </StackPanel>
+                                    </CheckBox>
+                                    <!--<CheckBox x:Uid="/Settings/DropShadowPresenceCB" x:Name="DropShadowPresence" Style="{StaticResource CheckBoxStyle1}" Content="Drop Shadow Presence" Margin="0,0,0,0"/>-->
+                                    <CheckBox x:Name="ShowServerMute" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0">
+                                        <StackPanel Margin="0,2,0,0">
+                                            <TextBlock x:Uid="/Settings/ServerMuteIconTB" Text="Server Mute Icon"/>
+                                            <TextBlock x:Uid="/Settings/ServerMuteIconDescTB" Text="A mute icon that shows over muted servers on the server list" FontSize="11" Opacity="0.5"/>
+                                        </StackPanel>
+                                    </CheckBox>
+                                    <CheckBox x:Name="ShowWelcome" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0">
+                                        <StackPanel Margin="0,2,0,0">
+                                            <TextBlock x:Uid="/Settings/ShowWelcomeTB" Text="Show Welcome Messages"/>
+                                            <TextBlock x:Uid="/Settings/ShowWelcomeDescTB" Text="Those cute little messages on the loading screen, you can disable them if you want. Why not" FontSize="11" Opacity="0.5"/>
+                                        </StackPanel>
+                                    </CheckBox>
                                     <ComboBox x:Uid="/Settings/LanguageComboB" FontSize="13.333" x:Name="LanguageSelection" Header="Language (requires restart)" Margin="0,12,0,48">
                                         <ComboBoxItem x:Uid="/Settings/DefaultComboBI" Content="Default" Tag=" "/>
                                     </ComboBox>
@@ -652,11 +683,31 @@
                                     <CheckBox x:Uid="/Settings/BGNotifyMutedMentionsCB" x:Name="bgNotifyMutedMention" Margin="12,0,0,0" Content="New mentions in Muted Servers" Style="{StaticResource CheckBoxStyle1}"/>
                                     <StackPanel Margin="12,0,0,0">
                                         <TextBlock x:Uid="/Settings/IAPNotifsTB" Text="IN-APP NOTIFICATIONS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
-                                        <CheckBox x:Uid="/Settings/HighlightEveryoneCB" x:Name="HighlightEveryone" Content="Highlight @everyone" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0"/>
-                                        <CheckBox x:Uid="/Settings/VibrateCB" x:Name="Vibrate" Content="Vibrate on message reception" Style="{StaticResource CheckBoxStyle1}"/>
+                                        <CheckBox x:Name="HighlightEveryone" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0">
+                                            <StackPanel Margin="0,2,0,0">
+                                                <TextBlock x:Uid="/Settings/HighlightEveryoneTB" Text="Hightlight @everyone"/>
+                                                <TextBlock x:Uid="/Settings/HighlightEveryoneDescTB" Text="@everyone spam ain't a problem no more" FontSize="11" Opacity="0.5"/>
+                                            </StackPanel>
+                                        </CheckBox>
+                                        <CheckBox x:Name="Vibrate" Style="{StaticResource CheckBoxStyle1}">
+                                            <StackPanel Margin="0,2,0,0">
+                                                <TextBlock x:Uid="/Settings/VibrateTB" Text="Vibrate on Receival"/>
+                                                <TextBlock x:Uid="/Settings/VibrateDescTB" Text="When you recieve a message in your active channel, your device will vibrate, if it can" FontSize="11" Opacity="0.5"/>
+                                            </StackPanel>
+                                        </CheckBox>
                                         <!--<CheckBox x:Uid="/Settings/ShowToastsCB" x:Name="Toasts" Content="Show in-app toast notifications" Style="{StaticResource CheckBoxStyle1}"/>-->
-                                        <CheckBox x:Uid="/Settings/LiveTileCB" x:Name="LiveTile" Content="Show newest message on Start tile and lock screen" Style="{StaticResource CheckBoxStyle1}"/>
-                                        <CheckBox x:Uid="/Settings/BadgeCB" x:Name="Badge" Content="Show mention count as badge" Style="{StaticResource CheckBoxStyle1}"/>
+                                        <CheckBox x:Name="LiveTile" Style="{StaticResource CheckBoxStyle1}">
+                                            <StackPanel Margin="0,2,0,0">
+                                                <TextBlock x:Uid="/Settings/LiveTileTB" Text="Live Tile"/>
+                                                <TextBlock x:Uid="/Settings/LiveTileDescTB" Text="Show some messages on the live tile, spruce up the start menu" FontSize="11" Opacity="0.5"/>
+                                            </StackPanel>
+                                        </CheckBox>
+                                        <CheckBox x:Name="Badge" Style="{StaticResource CheckBoxStyle1}">
+                                            <StackPanel Margin="0,2,0,0">
+                                                <TextBlock x:Uid="/Settings/BadgeCountTB" Text="Badge Count"/>
+                                                <TextBlock x:Uid="/Settings/BadgeCountDescTB" Text="Show mention count as badge" FontSize="11" Opacity="0.5"/>
+                                            </StackPanel>
+                                        </CheckBox>
                                         <TextBlock x:Uid="/Settings/FriendsNotifyTB" Text="What adds to Friends list notifications?" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
                                         <CheckBox x:Uid="/Settings/DMsCB" x:Name="FriendsNotifyDMs" Content="DMs" Style="{StaticResource CheckBoxStyle1}"/>
                                         <CheckBox x:Uid="/Settings/FriendRequestsCB" x:Name="FriendsNotifyFriendRequests" Content="Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>
@@ -666,15 +717,16 @@
 
                                         <TextBlock Text="Override Category Collapse" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
                                         <RadioButton x:Uid="/Settings/NoneRB" Content="No Override" x:Name="NoOverride" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
-                                        <RadioButton x:Uid="/Settings/UnreadRB" Content="Unread" x:Name="OverrideUnread" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
                                         <RadioButton x:Uid="/Settings/MentionsRB" Content="Mentions" x:Name="OverrideMention" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
+                                        <RadioButton x:Uid="/Settings/UnreadRB" Content="Unread" x:Name="OverrideUnread" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
+                                        
 
                                         <!--<TextBlock Text="NOTIFY ME FOR..." FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
-                                <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications" Margin="0,6,0,0" HorizontalAlignment="Left">Nothing</RadioButton>
-                                <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Only mentions and direct messages (default)</RadioButton>
-                                <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything in the selected channel</RadioButton>
-                                <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything in the selected server</RadioButton>
-                                <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything everywhere</RadioButton>-->
+                                        <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications" Margin="0,6,0,0" HorizontalAlignment="Left">Nothing</RadioButton>
+                                        <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Only mentions and direct messages (default)</RadioButton>
+                                        <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything in the selected channel</RadioButton>
+                                        <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything in the selected server</RadioButton>
+                                        <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything everywhere</RadioButton>-->
 
                                     </StackPanel>
                                 </StackPanel>
@@ -716,7 +768,12 @@
                             <ScrollViewer Margin="0,0,-12,0" Padding="0,0,24,0">
                                 <StackPanel>
                                     <TextBlock Text="CONNECTION" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
-                                    <CheckBox x:Uid="/Settings/UseCompression" x:Name="UseCompression" Content="Enable compression (Faster)" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0"/>
+                                    <CheckBox x:Name="UseCompression" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0" MaxWidth="450">
+                                        <StackPanel Margin="0,2,0,0">
+                                            <TextBlock x:Uid="/Settings/UseCompressionTB" Text="Data Compression"/>
+                                            <TextBlock x:Uid="/Settings/UseCompressionDescTB" Text="Data compression makes gateway messages smaller and faster to recieve. This is a little more expensive on the CPU but significantly faster with lower internet speed." FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
+                                        </StackPanel>
+                                    </CheckBox>
 
                                     <TextBlock x:Uid="/Settings/ResponsiveUiBreaksTB" Text="RESPONSIVE UI BREAKPOINTS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
                                     <TextBlock x:Uid="/Settings/ResponsiveUiBreaksDescTB" Text="These are the trigger widths at which the UI shows more or less info on the screen, depending on the screen width." TextWrapping="Wrap" FontSize="13" Opacity="0.5" Margin="0,6,0,12"/>
