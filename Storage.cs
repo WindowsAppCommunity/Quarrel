@@ -122,6 +122,7 @@ namespace Discord_UWP
         public double TertiaryOpacity = 0.4;
         public double CmdOpacity = 0.7;
         public bool ExpensiveRender = false;
+        //public bool DropShadowPresence = false;
         public bool ShowOfflineMembers = false;
         public bool DevMode = false;
         public bool DiscordLightTheme = false;
@@ -150,5 +151,4 @@ namespace Discord_UWP
         public int NoiseSensitivity = -40;
         public SerializableDictionary<string, string> SelectedChannels = new SerializableDictionary<string, string>();
     }
-
 }
