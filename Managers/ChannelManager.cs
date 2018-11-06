@@ -190,7 +190,7 @@ namespace Discord_UWP.Managers
                         }
                         break;
                     case 4:
-                        if (LocalState.CurrentGuild.channels[sc.Id].permissions.ReadMessages)
+                        if (LocalState.CurrentGuild.channels[sc.Id].permissions.ReadMessages || LocalState.CurrentGuild.channels[sc.Id].permissions.Connect)
                         {
                             sc.Name = sc.Name.ToUpper();
                             returnChannels.Add(sc);

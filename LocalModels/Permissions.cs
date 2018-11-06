@@ -77,7 +77,9 @@ namespace Discord_UWP.LocalModels
                 //  All Role Allows
                 //  Member denies
                 //  Member allows
-                
+
+                GuildPermission roleDenies = 0;
+                GuildPermission roleAllows = 0;
                 GuildPermission memberDenies = 0;
                 GuildPermission memberAllows = 0;
 
@@ -87,18 +89,19 @@ namespace Discord_UWP.LocalModels
                         AddDenies((GuildPermission)overwrite.Deny);
                         AddAllows((GuildPermission)overwrite.Allow);
                     }
-                    else if (overwrite.Type == "role" &&
-                             LocalState.Guilds[guildId].members[userId].Roles.Contains(overwrite.Id))
+                    else if (overwrite.Type == "role" && LocalState.Guilds[guildId].members[userId].Roles.Contains(overwrite.Id))
                     {
-                        AddDenies((GuildPermission)overwrite.Deny);
-                        AddAllows((GuildPermission)overwrite.Allow);
+                        roleDenies = (GuildPermission)overwrite.Deny;
+                        roleAllows = (GuildPermission)overwrite.Allow;
                     }
                     else if (overwrite.Type == "member" && overwrite.Id == userId)
                     {
                         memberDenies = (GuildPermission)overwrite.Deny;
                         memberAllows = (GuildPermission)overwrite.Allow;
                     }
-               
+
+                AddDenies(roleDenies);
+                AddAllows(roleAllows);
                 AddDenies(memberDenies);
                 AddAllows(memberAllows);
             }
