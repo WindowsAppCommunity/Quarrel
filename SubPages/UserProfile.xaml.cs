@@ -77,6 +77,8 @@ namespace Discord_UWP.SubPages
                 navFromFlyout = true;
             }
             
+            
+
             if (imageAnimation != null)
             {
                 imageAnimation.TryStart(FullAvatar);

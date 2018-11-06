@@ -59,6 +59,8 @@ namespace Discord_UWP.SubPages
         bool navFromFlyout = false;
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            SteamImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/ConnectionLogos/steam" + (App.Current.RequestedTheme == ApplicationTheme.Dark ? "_light" : "_dark") + ".png"));
+
             usernameBox.Text = LocalState.CurrentUser.Username;
             emailBox.Text = LocalState.CurrentUser.Email;
 

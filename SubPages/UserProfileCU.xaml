@@ -28,6 +28,64 @@
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
+        <Style x:Key="ConnectionButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{ThemeResource InvertedBG}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="RootGrid" Background="{TemplateBinding Background}" CornerRadius="0,4,4,0">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" To="1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" To="0.8">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" To="0.6">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" To="0.1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentTransitions="{TemplateBinding ContentTransitions}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Opacity="1" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Padding="10,10,10,10"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
     </Page.Resources>
     <Page.RenderTransform>
@@ -83,7 +141,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Rectangle Tapped="UIElement_OnTapped" Fill="Transparent" Margin="-100"/>
-        <Grid x:Name="grid" MaxWidth="512" MaxHeight="600" >
+        <Grid x:Name="grid" MaxWidth="1000" MaxHeight="800" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
             <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
                 <Grid>
@@ -119,8 +177,11 @@
                                     <HyperlinkButton x:Uid="/Settings/ChangePswrdHLBTN" x:Name="changepass"  FontSize="13.33" Content="Change password" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0" HorizontalAlignment="Left" Click="changepass_Click"/>
                                     <PasswordBox x:Uid="/Settings/NewPswrdPBox" x:Name="newpassword" Visibility="Collapsed" Style="{StaticResource PasswordBoxStyle1}" Header="New password" Margin="0,6,0,0"/>
                                     <TextBlock x:Uid="/Settings/ConnectionsTB" Text="Connections" Margin="0,12" Visibility="Collapsed"/>
-                                    
-                                    <Grid Height="100" Margin="25,0" Visibility="Collapsed">
+
+
+                                    <TextBlock x:Uid="/Settings/ConnectionsTB" Text="CONNECTIONS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
+
+                                    <Grid x:Name="ConnectionGrid" Height="100" Margin="0,4">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
@@ -129,50 +190,66 @@
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <Button Tag="twitch" Grid.Column="0" Margin="10" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" Background="Transparent" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                                        <Button Style="{ThemeResource ConnectionButton}" Tag="twitch" Grid.Column="0" Margin="4" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" Background="Transparent" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                                             <Rectangle>
                                                 <Rectangle.Fill>
                                                     <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/ConnectionLogos/twitch.png"/>
                                                 </Rectangle.Fill>
                                             </Rectangle>
                                         </Button>
-                                        <Button Tag="youtube" Grid.Column="1" Margin="10" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="Transparent">
+                                        <Button Style="{ThemeResource ConnectionButton}" Tag="youtube" Grid.Column="1" Margin="4" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="Transparent">
                                             <Rectangle>
                                                 <Rectangle.Fill>
                                                     <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/ConnectionLogos/youtube.png"/>
                                                 </Rectangle.Fill>
                                             </Rectangle>
                                         </Button>
-                                        <Button Tag="reddit" Grid.Column="2" Margin="10" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" Background="Transparent" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                                        <Button Style="{ThemeResource ConnectionButton}" Tag="battlenet" Grid.Column="2" Margin="4" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" Background="Transparent" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                                            <Rectangle VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                                <Rectangle.Fill>
+                                                    <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/ConnectionLogos/battlenet.png"/>
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                        </Button>
+                                        <Button Style="{ThemeResource ConnectionButton}" Tag="steam" Grid.Column="3" Margin="4" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" Background="Transparent" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                                            <Rectangle VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                                <Rectangle.Fill>
+                                                    <ImageBrush x:Name="SteamImage" Stretch="Uniform" ImageSource="ms-appx:///Assets/ConnectionLogos/xbox.png"/>
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                        </Button>
+                                        <Button Style="{ThemeResource ConnectionButton}" Tag="reddit" Grid.Column="4" Margin="4" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" Background="Transparent" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                                             <Rectangle>
                                                 <Rectangle.Fill>
                                                     <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/ConnectionLogos/reddit.png"/>
                                                 </Rectangle.Fill>
                                             </Rectangle>
                                         </Button>
-                                        <Button Tag="facebook" Grid.Column="3" Margin="10" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="#01FFFFFF">
+                                        <Button Style="{ThemeResource ConnectionButton}" Tag="facebook" Grid.Column="5" Margin="4" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="#01FFFFFF">
                                             <Rectangle>
                                                 <Rectangle.Fill>
                                                     <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/ConnectionLogos/facebook.png"/>
                                                 </Rectangle.Fill>
                                             </Rectangle>
                                         </Button>
-                                        <Button Tag="twitter" Grid.Column="4" Margin="10" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" Background="Transparent" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                                        <Button Style="{ThemeResource ConnectionButton}" Tag="twitter" Grid.Column="6" Margin="4" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" Background="Transparent" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                                             <Rectangle>
                                                 <Rectangle.Fill>
                                                     <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/ConnectionLogos/twitter.png"/>
                                                 </Rectangle.Fill>
                                             </Rectangle>
                                         </Button>
-                                        <Button Tag="spotify" Grid.Column="5" HorizontalAlignment="Stretch" Click="MakeConnection" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="Transparent" Padding="20">
+                                        <Button Style="{ThemeResource ConnectionButton}" Tag="spotify" Grid.Column="7" Margin="4" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="Transparent">
                                             <Rectangle>
                                                 <Rectangle.Fill>
                                                     <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/ConnectionLogos/spotify.png"/>
                                                 </Rectangle.Fill>
                                             </Rectangle>
                                         </Button>
-                                        <Button Tag="xbox" Grid.Column="6" HorizontalAlignment="Stretch" Click="MakeConnection" Background="Transparent" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="12">
+                                        <Button Style="{ThemeResource ConnectionButton}" Tag="xbox" Grid.Column="8" Margin="4" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" Background="Transparent" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                                             <Rectangle VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                                 <Rectangle.Fill>
                                                     <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/ConnectionLogos/xbox.png"/>

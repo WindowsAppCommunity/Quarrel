@@ -457,4 +457,7 @@
   <data name="Unread" xml:space="preserve">
     <value>Unread</value>
   </data>
+  <data name="ConnectionsTB.Text" xml:space="preserve">
+    <value>CONNECTIONS</value>
+  </data>
 </root>
