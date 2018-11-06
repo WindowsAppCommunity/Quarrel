@@ -1275,6 +1275,18 @@ namespace Discord_UWP
             SubFrameNavigator(typeof(CreateChannel));
         }
 
+        private void LeaveGuildFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (LocalState.CurrentGuild.Raw.OwnerId == LocalState.CurrentUser.Id)
+            {
+                App.NavigateToDeleteServer(LocalState.CurrentGuild.Raw.Id);
+            }
+            else
+            {
+                App.NavigateToLeaveServer(LocalState.CurrentGuild.Raw.Id);
+            }
+        }
+
         private void AddFriend_Click(object sender, RoutedEventArgs e)
         {
             SendFriendTB.Focus(FocusState.Keyboard);
@@ -2383,7 +2395,9 @@ namespace Discord_UWP
                 if (App.Insider) AddFriend.Visibility = Visibility.Visible;
             }
 
-            AddChannelButton.Visibility = Visibility.Collapsed;
+            AddChannelFlyoutSep.Visibility = Visibility.Collapsed;
+            AddChannelFlyoutItem.Visibility = Visibility.Collapsed;
+
             ChannelName.Text = /*CompChannelName.Text =*/ ChannelTopic.Text = /*CompChannelTopic.Text =*/ "";
 
             ChannelList.Items.Clear();
@@ -2423,12 +2437,42 @@ namespace Discord_UWP
                 ServerNameButton.Visibility = Visibility.Visible;
             FriendsItem.Visibility = Visibility.Collapsed;
             DirectMessageBlock.Visibility = Visibility.Collapsed;
-            if (LocalState.Guilds[App.CurrentGuildId].permissions.ManageChannels ||
-                LocalState.Guilds[App.CurrentGuildId].permissions.Administrator ||
-                LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId == LocalState.CurrentUser.Id)
-                AddChannelButton.Visibility = Visibility.Visible;
+
+            if (LocalState.CurrentGuild.permissions.CreateInstantInvite)
+            {
+                CreateInviteFlyoutItem.Visibility = Visibility.Visible;
+                CreateInviteFlyoutSep.Visibility = Visibility.Visible;
+            }
             else
-                AddChannelButton.Visibility = Visibility.Collapsed;
+            {
+                CreateInviteFlyoutItem.Visibility = Visibility.Collapsed;
+                CreateInviteFlyoutSep.Visibility = Visibility.Collapsed;
+            }
+
+            if (LocalState.CurrentGuild.permissions.ViewAuditLog)
+            {
+                AuditLogFlyoutItem.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                AuditLogFlyoutItem.Visibility = Visibility.Collapsed;
+            }
+
+            if (LocalState.CurrentGuild.permissions.ManageChannels)
+            {
+                AddChannelFlyoutSep.Visibility = Visibility.Visible;
+                AddChannelFlyoutItem.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                AddChannelFlyoutSep.Visibility = Visibility.Collapsed;
+                AddChannelFlyoutItem.Visibility = Visibility.Collapsed;
+            }
+
+            if (LocalState.CurrentGuild.Raw.OwnerId == LocalState.CurrentUser.Id)
+            {
+                LeaveGuildFlyoutItem.Text = App.GetString("/Main/DeleteMFI.Text");
+            }
 
             ChannelName.Text = /*CompChannelName.Text =*/ ChannelTopic.Text = /*CompChannelTopic.Text =*/ "";
 

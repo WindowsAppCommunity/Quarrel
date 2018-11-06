@@ -334,4 +334,22 @@
   <data name="AddAttachementTB.Text" xml:space="preserve">
     <value>ADD ATTACHMENT</value>
   </data>
+  <data name="AddChannelMFI.Text" xml:space="preserve">
+    <value>Add channel</value>
+  </data>
+  <data name="AuditLogMFI.Text" xml:space="preserve">
+    <value>Audit Log</value>
+  </data>
+  <data name="CreateInviteMFI.Text" xml:space="preserve">
+    <value>Create Invite</value>
+  </data>
+  <data name="DeleteMFI.Text" xml:space="preserve">
+    <value>Delete Server</value>
+  </data>
+  <data name="LeaveMFI.Text" xml:space="preserve">
+    <value>Leave Server</value>
+  </data>
+  <data name="SettingsMFI.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
 </root>
