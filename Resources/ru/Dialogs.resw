@@ -919,4 +919,64 @@
   <data name="Remove" xml:space="preserve">
     <value>Удалить</value>
   </data>
+  <data name="PrivacySettingsTB.Text" xml:space="preserve">
+    <value>ПАРАМЕТРЫ КОНФИДЕНЦИАЛЬНОСТИ </value>
+  </data>
+  <data name="AllowDMsCB.Content" xml:space="preserve">
+    <value>Разрешить DM от участников сервера</value>
+  </data>
+  <data name="ModerationSettingsTB.Text" xml:space="preserve">
+    <value>ПАРАМЕТРЫ МОДЕРАЦИИ</value>
+  </data>
+  <data name="VFLevelsTB.Text" xml:space="preserve">
+    <value>Уровень верификации</value>
+  </data>
+  <data name="NoneVfTB.Text" xml:space="preserve">
+    <value>Никто</value>
+  </data>
+  <data name="NoneDescVfTB.Text" xml:space="preserve">
+    <value>Неограниченный</value>
+  </data>
+  <data name="LowVfTB.Text" xml:space="preserve">
+    <value>Низкий</value>
+  </data>
+  <data name="LowDescVfTB.Text" xml:space="preserve">
+    <value>Должен иметь подтвержденный адрес электронной почты, прикрепленный к аккаунту.</value>
+  </data>
+  <data name="MediumVfTB.Text" xml:space="preserve">
+    <value>Средний</value>
+  </data>
+  <data name="MediumDescVfTB.Text" xml:space="preserve">
+    <value>Должен быть зарегестрирован в Дискорде не более 5 минут.</value>
+  </data>
+  <data name="HighDescVfTB.Text" xml:space="preserve">
+    <value>Должен быть зарегестрирован в Дискорде не более 10 минут.</value>
+  </data>
+  <data name="VeryHighDescVFTB.Text" xml:space="preserve">
+    <value>Должен иметь подтвержденный номер телефона на своем аккаунте.</value>
+  </data>
+  <data name="ECFTB.Text" xml:space="preserve">
+    <value>Откровенный фильтр контента</value>
+  </data>
+  <data name="ECF0TB.Text" xml:space="preserve">
+    <value>Не просматривать сообщения.</value>
+  </data>
+  <data name="ECF0DescTB.Text" xml:space="preserve">
+    <value>Разве это не вечеринка, как чаепитие моей бабушки.</value>
+  </data>
+  <data name="ECF1TB.Text" xml:space="preserve">
+    <value>Сканировать сообщения от участников без роли.</value>
+  </data>
+  <data name="ECF1DescTB.Text" xml:space="preserve">
+    <value>Рекомендуемая опция для серверов, использующих доверенных роли участников</value>
+  </data>
+  <data name="ECF2TB.Text" xml:space="preserve">
+    <value>Сканировать сообщения от участников.</value>
+  </data>
+  <data name="ECF2DescTB.Text" xml:space="preserve">
+    <value>Рекомендуемый вариант, когда вам нужен этот скрипучий чистый блеск.</value>
+  </data>
+  <data name="AuditLogsTB.Content" xml:space="preserve">
+    <value>Журнал логов</value>
+  </data>
 </root>

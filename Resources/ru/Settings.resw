@@ -467,4 +467,7 @@
   <data name="DMsCB.Content" xml:space="preserve">
     <value>DM's</value>
   </data>
+  <data name="AppSettingsHLBTN.Content" xml:space="preserve">
+    <value>Параметры приложения</value>
+  </data>
 </root>
