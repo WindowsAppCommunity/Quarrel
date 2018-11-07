@@ -97,7 +97,6 @@ namespace Discord_UWP
     {
         //Tuple<string, User> ActiveUser;
         public int BackgroundTaskTime = 9;
-        public string lastVerison = "0";
         public bool LockChannels = false;
         public bool AutoHideChannels = true;
         public bool AutoHidePeople = false;

@@ -216,9 +216,6 @@
   <data name="WindowsRadio.Content" xml:space="preserve">
     <value>ระบบ</value>
   </data>
-  <data name="FriendRequestsCB" xml:space="preserve">
-    <value>คำขอเป็นเพื่อน</value>
-  </data>
   <data name="AccentRadio.Content" xml:space="preserve">
     <value>สีประจำจากระบบ</value>
   </data>

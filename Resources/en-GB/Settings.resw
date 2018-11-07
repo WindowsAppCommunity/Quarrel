@@ -216,9 +216,6 @@
   <data name="WindowsRadio.Content" xml:space="preserve">
     <value>Windows</value>
   </data>
-  <data name="FriendRequestsCB" xml:space="preserve">
-    <value>Friend Requests</value>
-  </data>
   <data name="AccentRadio.Content" xml:space="preserve">
     <value>System accent colour</value>
   </data>
@@ -452,5 +449,80 @@
   </data>
   <data name="DMsCB.Content" xml:space="preserve">
     <value>DMs</value>
+  </data>
+  <data name="AppSettingsHLBTN.Content" xml:space="preserve">
+    <value>Application Settings</value>
+  </data>
+  <data name="BadgeCountDescTB.Text" xml:space="preserve">
+    <value>Show mention count as badge</value>
+  </data>
+  <data name="BadgeCountTB.Text" xml:space="preserve">
+    <value>Badge Count</value>
+  </data>
+  <data name="ConnectionsTB.Text" xml:space="preserve">
+    <value>CONNECTIONS</value>
+  </data>
+  <data name="DerivedColorDescTB.Text" xml:space="preserve">
+    <value>The Accent color on user related pages will be derived from the user's profile icon</value>
+  </data>
+  <data name="DerivedColorTB.Text" xml:space="preserve">
+    <value>Derived Color</value>
+  </data>
+  <data name="EnableAcrylicDescTB.Text" xml:space="preserve">
+    <value>Blurred Backgrounds</value>
+  </data>
+  <data name="EnableAcrylicTB.Text" xml:space="preserve">
+    <value>Acrylic Brushes</value>
+  </data>
+  <data name="ExpensiveRenderDescTB.Text" xml:space="preserve">
+    <value>Enable various expensive graphics such as Blur Effects and Audio Visualizers</value>
+  </data>
+  <data name="ExpensiveRenderTB.Text" xml:space="preserve">
+    <value>Expensive Rendering</value>
+  </data>
+  <data name="HighlightEveryoneDescTB.Text" xml:space="preserve">
+    <value>@everyone spam ain't a problem no more</value>
+  </data>
+  <data name="HighlightEveryoneTB.Text" xml:space="preserve">
+    <value>Highlight @everyone</value>
+  </data>
+  <data name="LiveTileDescTB.Text" xml:space="preserve">
+    <value>Show some messages on the live tile, spruce up the start menu</value>
+  </data>
+  <data name="LiveTileTB.Text" xml:space="preserve">
+    <value>Live Tile</value>
+  </data>
+  <data name="MentionGlowDescTB.Text" xml:space="preserve">
+    <value>The left side of the screen glows when you are mentioned</value>
+  </data>
+  <data name="MentionGlowTB.Text" xml:space="preserve">
+    <value>Mention Glow</value>
+  </data>
+  <data name="Mentions" xml:space="preserve">
+    <value>Mentions</value>
+  </data>
+  <data name="ServerMuteIconDescTB.Text" xml:space="preserve">
+    <value>A mute icon that shows over muted servers on the server list</value>
+  </data>
+  <data name="ServerMuteIconTB.Text" xml:space="preserve">
+    <value>Server Mute Icon</value>
+  </data>
+  <data name="ShowWelcomeDescTB.Text" xml:space="preserve">
+    <value>Those cute little messages on the loading screen, you can disable them if you want. Why not</value>
+  </data>
+  <data name="ShowWelcomeTB.Text" xml:space="preserve">
+    <value>Show Welcome Messages</value>
+  </data>
+  <data name="UseCompressionDescTB.Text" xml:space="preserve">
+    <value>Data compression makes gateway messages smaller and faster to recieve. This is a little more expensive on the CPU but significantly faster with lower internet speed.</value>
+  </data>
+  <data name="UseCompressionTB.Text" xml:space="preserve">
+    <value>Data Compression</value>
+  </data>
+  <data name="VibrateDescTB.Text" xml:space="preserve">
+    <value>When you recieve a message in your active channel, your device will vibrate, if it can</value>
+  </data>
+  <data name="VibrateTB.Text" xml:space="preserve">
+    <value>Vibrate on Receival</value>
   </data>
 </root>
