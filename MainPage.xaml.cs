@@ -1458,82 +1458,81 @@ namespace Discord_UWP
             SubscribeToIndividualChannels = false;
             ServerWarnings.Children.Clear();
             SaveDraft();
-            if (memberscvs != null)
-                memberscvs.Clean();
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
-                {
-                    (ServerList.SelectedItem as SimpleGuild).IsSelected = true;
-                    MembersCvs.Source = null;
-                });
+            memberscvs?.Clean();
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                (ServerList.SelectedItem as SimpleGuild).IsSelected = true;
+                MembersCvs.Source = null;
+            });
             App.CurrentGuildIsDM = e.GuildId == "@me"; //Could combine...
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                foreach (SimpleGuild guild in ServerList.Items)
                 {
-                    foreach (SimpleGuild guild in ServerList.Items)
-                        if (guild.Id == e.GuildId)
-                        {
-                            ServerList.SelectedItem = guild;
-                            guild.IsSelected = true;
-                        }
-                        else
-                        {
-                            guild.IsSelected = false;
-                        }
-
-                    if (e.GuildId != "@me")
+                    if (guild.Id == e.GuildId)
                     {
-                        if (UISize.CurrentState.Name != "ExtraLarge") MemberToggle.Visibility = Visibility.Visible;
-
-                        App.CurrentGuildId = e.GuildId;
-                        UserDetails.Visibility = Visibility.Collapsed;
-                        MemberListFull.Visibility = Visibility.Collapsed;
-                        CallUser.Visibility = Visibility.Collapsed;
-                        if (App.Insider) AddFriend.Visibility = Visibility.Collapsed;
-                        RenderGuildChannels();
-                        if (App.ShowAds) Ad.Visibility = Visibility.Visible;
+                        ServerList.SelectedItem = guild;
+                        guild.IsSelected = true;
                     }
                     else
                     {
-                        Ad.Visibility = Visibility.Collapsed;
-
-                        App.CurrentGuildId = null;
-                        MemberToggle.Visibility = Visibility.Collapsed;
-                        //HideMemberToggle.Begin();
-                        RenderDMChannels();
+                        guild.IsSelected = false;
                     }
+                }
 
-                    if (App.CurrentGuildId == null)
-                    {
-                        string[] channels = new string[LocalState.DMs.Count];
-                        for (int x = 0; x < LocalState.DMs.Count; x++)
-                            channels[x] = LocalState.DMs.Values.ToList()[x].Id;
-                        SubscribeToGuild(channels);
-                    }
+                if (e.GuildId != "@me")
+                {
+                    if (UISize.CurrentState.Name != "ExtraLarge") MemberToggle.Visibility = Visibility.Visible;
+
+                    App.CurrentGuildId = e.GuildId;
+                    UserDetails.Visibility = Visibility.Collapsed;
+                    MemberListFull.Visibility = Visibility.Visible;
+                    CallUser.Visibility = Visibility.Collapsed;
+                    if (App.Insider) AddFriend.Visibility = Visibility.Collapsed;
+                    RenderGuildChannels();
+                    if (App.ShowAds) Ad.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    Ad.Visibility = Visibility.Collapsed;
+
+                    App.CurrentGuildId = null;
+                    MemberToggle.Visibility = Visibility.Collapsed;
+                    //HideMemberToggle.Begin();
+                    RenderDMChannels();
+                }
+
+                if (App.CurrentGuildId == null)
+                {
+                    string[] channels = new string[LocalState.DMs.Count];
+                    for (int x = 0; x < LocalState.DMs.Count; x++)
+                        channels[x] = LocalState.DMs.Values.ToList()[x].Id;
+                    SubscribeToGuild(channels);
+                }
+                else
+                {
+                    string[] channels = new string[LocalState.Guilds[App.CurrentGuildId].channels.Count];
+                    channels[0] = App.CurrentGuildId;
+                    for (int x = 1; x < LocalState.Guilds[App.CurrentGuildId].channels.Count; x++)
+                        channels[x] = LocalState.Guilds[App.CurrentGuildId].channels.Values.ToList()[x].raw.Id;
+                    SubscribeToGuild(channels);
+                }
+
+                if (!App.ShowAds && Storage.Settings.SelectedChannels.ContainsKey(e.GuildId))
+                {
+                    foreach (SimpleChannel chn in ChannelList.Items)
+                        if (chn.Id == Storage.Settings.SelectedChannels[e.GuildId])
+                        {
+                            lastChangeProgrammatic = true;
+                            ChannelList.SelectedItem = chn;
+                        }
+
+                    if (e.GuildId == "@me")
+                        App.NavigateToDMChannel(Storage.Settings.SelectedChannels[e.GuildId]);
                     else
-                    {
-                        string[] channels = new string[LocalState.Guilds[App.CurrentGuildId].channels.Count];
-                        channels[0] = App.CurrentGuildId;
-                        for (int x = 1; x < LocalState.Guilds[App.CurrentGuildId].channels.Count; x++)
-                            channels[x] = LocalState.Guilds[App.CurrentGuildId].channels.Values.ToList()[x].raw.Id;
-                        SubscribeToGuild(channels);
-                    }
-
-                    if (!App.ShowAds && Storage.Settings.SelectedChannels.ContainsKey(e.GuildId))
-                    {
-                        foreach (SimpleChannel chn in ChannelList.Items)
-                            if (chn.Id == Storage.Settings.SelectedChannels[e.GuildId])
-                            {
-                                lastChangeProgrammatic = true;
-                                ChannelList.SelectedItem = chn;
-                            }
-
-                        if (e.GuildId == "@me")
-                            App.NavigateToDMChannel(Storage.Settings.SelectedChannels[e.GuildId]);
-                        else
-                            App.NavigateToGuildChannel(e.GuildId, Storage.Settings.SelectedChannels[e.GuildId]);
-                    }
-                });
+                        App.NavigateToGuildChannel(e.GuildId, Storage.Settings.SelectedChannels[e.GuildId]);
+                }
+            });
             App.UpdateUnreadIndicators();
         }
 
