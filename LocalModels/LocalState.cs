@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Discord_UWP.API.Game;
 using Discord_UWP.SharedModels;
@@ -29,6 +28,6 @@ namespace Discord_UWP.LocalModels
         public static Dictionary<string, List<GameNews>> GameNews = new Dictionary<string, List<GameNews>>();
         public static FeedSettings FeedSettings = new FeedSettings();
 
-        public static Guild CurrentGuild => Guilds[App.CurrentGuildId];
+        public static Guild CurrentGuild => App.CurrentGuildId != null && Guilds.ContainsKey(App.CurrentGuildId) ? Guilds[App.CurrentGuildId] : null;
     }
 }
