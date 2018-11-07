@@ -370,10 +370,11 @@ namespace Discord_UWP.LocalModels
         {
             Permissions cachedPerms = new Permissions(guildId);
             return (cachedPerms.ChangeNickname && userId == LocalState.CurrentUser.Id) || cachedPerms.ManageNicknames &&
-                   LocalState.Guilds[guildId]
-                       .roles[LocalState.Guilds[guildId].members[LocalState.CurrentUser.Id].Roles.FirstOrDefault()]
-                       .Position >= LocalState.Guilds[guildId]
-                       .roles[LocalState.Guilds[guildId].members[userId].Roles.FirstOrDefault()].Position;
+                   (!LocalState.Guilds[guildId].members[userId].Roles.Any() ||
+                    LocalState.Guilds[guildId]
+                        .roles[LocalState.Guilds[guildId].members[LocalState.CurrentUser.Id].Roles.FirstOrDefault()]
+                        .Position >= LocalState.Guilds[guildId]
+                        .roles[LocalState.Guilds[guildId].members[userId].Roles.FirstOrDefault()].Position);
         }
     }
 }
