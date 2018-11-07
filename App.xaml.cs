@@ -211,7 +211,7 @@ namespace Discord_UWP
         private void LaunchProcedure(SplashScreen splash, ApplicationExecutionState PreviousExecutionState,
             bool PrelaunchActivated, string Arguments)
         {
-            dispatcher = CoreApplication.GetCurrentView().Dispatcher;
+               dispatcher = CoreApplication.GetCurrentView().Dispatcher;
             try
             {
                 LicenseInformation licenseInformation = CurrentApp.LicenseInformation;

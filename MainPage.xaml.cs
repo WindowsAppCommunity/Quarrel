@@ -963,6 +963,7 @@ namespace Discord_UWP
                 (ChannelList.SelectedItem as SimpleChannel).IsSelected = false;
             ChannelList.SelectedIndex = -1;
             friendPanel.Visibility = Visibility.Visible;
+            CallUser.Visibility = Visibility.Collapsed;
             if (App.Insider) AddFriend.Visibility = Visibility.Visible;
             MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
             sideDrawer.CloseLeft();
@@ -1291,6 +1292,18 @@ namespace Discord_UWP
         {
             SendFriendTB.Focus(FocusState.Keyboard);
         }
+        private void CallUser_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if(App.CurrentGuildIsDM)
+                    App.ConnectToVoice(App.CurrentChannelId, null, "@User", "");
+            }
+            catch (Exception err)
+            {
+                Debug.WriteLine(err);
+            }
+        }
 
         private enum VisibilityPosition
         {
@@ -1471,7 +1484,8 @@ namespace Discord_UWP
 
                         App.CurrentGuildId = e.GuildId;
                         UserDetails.Visibility = Visibility.Collapsed;
-                        MemberListFull.Visibility = Visibility.Visible;
+                        MemberListFull.Visibility = Visibility.Collapsed;
+                        CallUser.Visibility = Visibility.Collapsed;
                         if (App.Insider) AddFriend.Visibility = Visibility.Collapsed;
                         RenderGuildChannels();
                         if (App.ShowAds) Ad.Visibility = Visibility.Visible;
@@ -1572,6 +1586,7 @@ namespace Discord_UWP
             else //Out of guild navigation
             {
                 if (App.Insider) AddFriend.Visibility = Visibility.Collapsed;
+                CallUser.Visibility = Visibility.Collapsed;
                 if (!e.OnBack) navigationHistory.Push(_currentPage);
 
                 foreach (SimpleGuild guild in ServerList.Items)
@@ -1619,7 +1634,7 @@ namespace Discord_UWP
             if (App.CurrentGuildIsDM)
             {
                 App.CurrentChannelId = e.ChannelId;
-
+                CallUser.Visibility = Visibility.Visible;
                 if (!App.Insider)
                     AddFriend.Visibility = e.ChannelId == null ? Visibility.Visible : Visibility.Collapsed;
 
@@ -2392,6 +2407,7 @@ namespace Discord_UWP
                 FriendsItem.IsSelected = true;
                 friendPanel.Visibility = Visibility.Visible;
                 MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
+                CallUser.Visibility = Visibility.Collapsed;
                 if (App.Insider) AddFriend.Visibility = Visibility.Visible;
             }
 
@@ -2409,6 +2425,7 @@ namespace Discord_UWP
                     if (id != null && channel.Id == id)
                     {
                         if (App.Insider) AddFriend.Visibility = Visibility.Collapsed;
+                        CallUser.Visibility = Visibility.Collapsed;
                         ChannelList.SelectedItem = channel;
                         App.CurrentChannelId = id;
                     }
