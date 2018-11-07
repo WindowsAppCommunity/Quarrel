@@ -408,4 +408,7 @@
   <data name="AuditLogRoleUpdateHoistTrue" xml:space="preserve">
     <value>Rol mostrado por separado en la lista de miembros</value>
   </data>
+  <data name="AuditLogBanReason" xml:space="preserve">
+    <value>Con razón: &lt;reason&gt;</value>
+  </data>
 </root>

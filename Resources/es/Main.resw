@@ -333,4 +333,16 @@
   <data name="IgnoreHLBTN.Content" xml:space="preserve">
     <value>IGNORAR</value>
   </data>
+  <data name="CreateInviteMFI.Text" xml:space="preserve">
+    <value>Crear Invitación</value>
+  </data>
+  <data name="DeleteMFI.Text" xml:space="preserve">
+    <value>Eliminar servidor</value>
+  </data>
+  <data name="LeaveMFI.Text" xml:space="preserve">
+    <value>Salir del servidor</value>
+  </data>
+  <data name="SettingsMFI.Text" xml:space="preserve">
+    <value>Ajustes</value>
+  </data>
 </root>

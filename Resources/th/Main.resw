@@ -333,4 +333,16 @@
   <data name="AddAttachementTB.Text" xml:space="preserve">
     <value>เพิ่มไฟล์</value>
   </data>
+  <data name="CreateInviteMFI.Text" xml:space="preserve">
+    <value>สร้างเซิฟเวอร์</value>
+  </data>
+  <data name="DeleteMFI.Text" xml:space="preserve">
+    <value>ลบเซิฟเวอร์</value>
+  </data>
+  <data name="LeaveMFI.Text" xml:space="preserve">
+    <value>ออกจากเซิฟเวอร์</value>
+  </data>
+  <data name="SettingsMFI.Text" xml:space="preserve">
+    <value>ตั้งค่า</value>
+  </data>
 </root>
