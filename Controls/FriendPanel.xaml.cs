@@ -198,30 +198,37 @@ namespace Discord_UWP.Controls
             BlockedView.Items.Clear();
             int pending = 0;
             var contactManager = new Managers.ContactManager();
-            foreach (var f in LocalState.Friends)
+            foreach (var f in LocalState.Friends.ToList())
             {
-                var friend = await NewSF(f);
-                if (f.Value.Type == 3 || f.Value.Type == 4)
+                try
                 {
-                    pending++;
-                    PendingView.Items.Add(friend);
-                }
-                else if (friend.RelationshipStatus == 1)
-                {
-                    AllView.Items.Add(friend);
-                    try
+                    var friend = await NewSF(f);
+                    if (f.Value.Type == 3 || f.Value.Type == 4)
                     {
-                        await contactManager.AddContact(f.Value.user);
+                        pending++;
+                        PendingView.Items.Add(friend);
+                    }
+                    else if (friend.RelationshipStatus == 1)
+                    {
+                        AllView.Items.Add(friend);
+                        try
+                        {
+                            await contactManager.AddContact(f.Value.user);
+                        }
+
+                        catch (Exception exception)
+                        {
+                            Debug.WriteLine(exception.Message);
+                        }
                     }
 
-                    catch (Exception exception)
-                    {
-                        Debug.WriteLine(exception.Message);
-                    }
+                    else if (friend.RelationshipStatus == 2)
+                        BlockedView.Items.Add(friend);
                 }
-                    
-                else if (friend.RelationshipStatus == 2)
-                    BlockedView.Items.Add(friend);
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                }
             }
             PendingCounter.Text = pending.ToString();
             App.FriendNotifications = pending;
