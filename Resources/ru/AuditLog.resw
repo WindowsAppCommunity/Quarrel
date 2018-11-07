@@ -338,4 +338,49 @@
   <data name="AuditLogBanReason" xml:space="preserve">
     <value>По причине: &lt;reason&gt;</value>
   </data>
+  <data name="AuditLogChannelCreate" xml:space="preserve">
+    <value>&lt;user&gt; создал канал &lt;channel&gt;
+</value>
+  </data>
+  <data name="AuditLogChannelDelete" xml:space="preserve">
+    <value>&lt;user&gt; удалил канал &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateValid" xml:space="preserve">
+    <value>&lt;user&gt; обновил канал &lt;channel&gt;
+</value>
+  </data>
+  <data name="AuditLogChannelUpdateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; обновил канал &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogDeletedChannel" xml:space="preserve">
+    <value>Удален канал</value>
+  </data>
+  <data name="AuditLogDeletedRole" xml:space="preserve">
+    <value>Удалена роль
+</value>
+  </data>
+  <data name="AuditLogEmojiCreate" xml:space="preserve">
+    <value>&lt;user&gt; создал эмодзи &lt;emojiname&gt;
+</value>
+  </data>
+  <data name="AuditLogEmojiUpdate" xml:space="preserve">
+    <value>&lt;user&gt; обновил эмодзи &lt;emojiname&gt;
+</value>
+  </data>
+  <data name="AuditLogEmojiDelete" xml:space="preserve">
+    <value>&lt;user&gt; удалил эмодзи &lt;emojiname&gt;
+</value>
+  </data>
+  <data name="AuditLogGuildUpdate" xml:space="preserve">
+    <value>&lt;user&gt; обновил информацию о сервере
+</value>
+  </data>
+  <data name="AuditLogInviteCreate" xml:space="preserve">
+    <value>&lt;user&gt; создал инвайт &lt;code&gt;
+</value>
+  </data>
+  <data name="AuditLogInviteUpdate" xml:space="preserve">
+    <value>&lt;user&gt; обновил инвайт &lt;code&gt;
+</value>
+  </data>
 </root>

@@ -3131,40 +3131,9 @@ namespace Discord_UWP
                     string version = packageId.Version.Build + packageId.Version.Major.ToString() +
                                      packageId.Version.Minor;
 
-                    if (Storage.Settings.lastVerison == "0")
+                    if (Microsoft.Toolkit.Uwp.Helpers.SystemInformation.IsAppUpdated)
                     {
-                        Storage.Settings.lastVerison = version;
-                        Storage.SaveAppSettings();
-
                         App.NavigateToAbout(true);
-                        SubFrameNavigator(typeof(DynamicSubPage), new SubPageData
-                        {
-                            Message = "Mypeople intergration.",
-                            ConfirmMessage = "",
-                            SubMessage = "Quarrel now supports mypeople intergration! The app has created contacts in your People app for all your friends in Discord.",
-                            StartText = "",
-                            PlaceHolderText = null,
-                            ConfirmRed = false,
-                            ReadOnly = true,
-                            CanBeFancy = false
-                        });
-                    }
-                    else if (Storage.Settings.lastVerison != version)
-                    {
-                        Storage.Settings.lastVerison = version;
-                        Storage.SaveAppSettings();
-                        App.NavigateToAbout(true);
-                        SubFrameNavigator(typeof(DynamicSubPage), new SubPageData
-                        {
-                            Message = "Mypeople intergration.",
-                            ConfirmMessage = "",
-                            SubMessage = "Quarrel now supports mypeople intergration!",
-                            StartText = "",
-                            PlaceHolderText = null,
-                            ConfirmRed = false,
-                            ReadOnly = true,
-                            CanBeFancy = false
-                        });
                     }
 
                     loadingStack.Loaded("Finished");

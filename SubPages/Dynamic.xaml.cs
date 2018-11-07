@@ -68,7 +68,7 @@ namespace Discord_UWP.SubPages
                 StringArg.IsReadOnly = data.ReadOnly;
             }
 
-            if (App.Insider && data.CanBeFancy) MakeFancy.Visibility = Visibility.Visible;
+            if (data.CanBeFancy) MakeFancy.Visibility = Visibility.Visible;
             else MakeFancy.Visibility = Visibility.Collapsed;
 
             SubMessage.Text = data.SubMessage;
