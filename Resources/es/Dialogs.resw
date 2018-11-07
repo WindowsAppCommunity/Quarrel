@@ -909,4 +909,40 @@
   <data name="Remove" xml:space="preserve">
     <value>Eliminar</value>
   </data>
+  <data name="PrivacySettingsTB.Text" xml:space="preserve">
+    <value>AJUSTES DE PRIVACIDAD</value>
+  </data>
+  <data name="ModerationSettingsTB.Text" xml:space="preserve">
+    <value>AJUSTES DE MODERACIÓN</value>
+  </data>
+  <data name="VFLevelsTB.Text" xml:space="preserve">
+    <value>Niveles de Verificación</value>
+  </data>
+  <data name="NoneVfTB.Text" xml:space="preserve">
+    <value>Nunca</value>
+  </data>
+  <data name="NoneDescVfTB.Text" xml:space="preserve">
+    <value>Sin Restricción</value>
+  </data>
+  <data name="LowVfTB.Text" xml:space="preserve">
+    <value>Bajo</value>
+  </data>
+  <data name="MediumVfTB.Text" xml:space="preserve">
+    <value>Medio</value>
+  </data>
+  <data name="ECFTB.Text" xml:space="preserve">
+    <value>Filtrado de contenido explícito</value>
+  </data>
+  <data name="ECF0TB.Text" xml:space="preserve">
+    <value>No escanear ningún mensaje</value>
+  </data>
+  <data name="ECF1TB.Text" xml:space="preserve">
+    <value>Escanear los mensajes de miembros sin rol</value>
+  </data>
+  <data name="ECF2TB.Text" xml:space="preserve">
+    <value>Escanear los mensajes enviados por todos los miembros</value>
+  </data>
+  <data name="AuditLogsTB.Content" xml:space="preserve">
+    <value>Registro de Auditoría</value>
+  </data>
 </root>

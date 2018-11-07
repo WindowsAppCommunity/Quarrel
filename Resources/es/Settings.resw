@@ -453,4 +453,13 @@
   <data name="DMsCB.Content" xml:space="preserve">
     <value>MDs</value>
   </data>
+  <data name="AppSettingsHLBTN.Content" xml:space="preserve">
+    <value>Ajustes de la Aplicación</value>
+  </data>
+  <data name="ConnectionsTB.Text" xml:space="preserve">
+    <value>CONEXIONES</value>
+  </data>
+  <data name="DerivedColorTB.Text" xml:space="preserve">
+    <value>Color Derivado</value>
+  </data>
 </root>

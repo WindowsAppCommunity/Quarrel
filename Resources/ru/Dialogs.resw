@@ -621,8 +621,7 @@
     <value>&lt;user&gt; обновил канал &lt;channel&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateInvalid" xml:space="preserve">
-    <value>&lt;user&gt; обновил удалённый канал (&lt;channelid&gt;)
-</value>
+    <value>&lt;user&gt; обновил удалённый канал (&lt;channelid&gt;)</value>
   </data>
   <data name="AuditLogChannelDelete" xml:space="preserve">
     <value>&lt;user&gt; удалил канал &lt;channel&gt;</value>

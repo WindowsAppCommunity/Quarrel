@@ -453,4 +453,7 @@
   <data name="DMsCB.Content" xml:space="preserve">
     <value>PW</value>
   </data>
+  <data name="AppSettingsHLBTN.Content" xml:space="preserve">
+    <value>Ustawienia Aplikacji</value>
+  </data>
 </root>

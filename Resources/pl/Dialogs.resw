@@ -682,37 +682,37 @@
     <value>&lt;user&gt; usunął/ęła webhook &lt;webhook&gt;</value>
   </data>
   <data name="AuditLogChannelPermissionCreateInvalid" xml:space="preserve">
-    <value>&lt;user&gt; utworzył nadpisanie uprawnień dla usuniętego już kanału</value>
+    <value>&lt;user&gt; utowrzył pozwolenia dla już nie istniejącego kanału</value>
   </data>
   <data name="AuditLogChannelPermissionCreateValid" xml:space="preserve">
-    <value>&lt;user&gt; utworzył nadpisanie uprawnień dla &lt;channel&gt;</value>
+    <value>&lt;user&gt; utowrzył pozwolenia dla kanału &lt;channel&gt;</value>
   </data>
   <data name="AuditLogChannelPermissionRemoveInvalid" xml:space="preserve">
-    <value>&lt;user&gt; usunął/ęła nadpisanie uprawnień dla usunętego już kanału</value>
+    <value>&lt;user&gt; ususnął pozwolenia dla już nie istniejącego kanału</value>
   </data>
   <data name="AuditLogChannelPermissionRemoveValid" xml:space="preserve">
-    <value>&lt;user&gt; usunął/ęła nadpisanie uprawnień dla &lt;channel&gt;</value>
+    <value>&lt;user&gt; usunął pozwolenia dla kanału &lt;channel&gt;</value>
   </data>
   <data name="AuditLogChannelPermissionUpdateInvalid" xml:space="preserve">
-    <value>&lt;user&gt; zaktualizował(a) nadpisanie uprawnień dla nie istniejącego już kanału</value>
+    <value>&lt;user&gt; zaaktalizował pozwolenia dla już nie istniejącego kanału</value>
   </data>
   <data name="AuditLogChannelPermissionUpdateValid" xml:space="preserve">
-    <value>&lt;user&gt; zaktualizował(a) nadpisanie uprawnień dla &lt;channel&gt;</value>
+    <value>&lt;user&gt; zaaktalizował pozwolenia dla kanału &lt;channel&gt;</value>
   </data>
   <data name="AuditLogMemberUpdate" xml:space="preserve">
-    <value>&lt;user&gt; zaktualizował(a) &lt;user2&gt;</value>
+    <value>&lt;user&gt; zaaktalizował &lt;user2&gt;</value>
   </data>
   <data name="AuditLogInviteDelete" xml:space="preserve">
     <value>&lt;user&gt; usunął zaproszenie &lt;code&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateBitrate" xml:space="preserve">
-    <value>Bitrate określono na &lt;bitrate&gt;</value>
+    <value>Bitrate ustawiony na &lt;bitrate&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateBitrateChange" xml:space="preserve">
-    <value>Zmieniono bitrate z &lt;old&gt; na &lt;new&gt;</value>
+    <value>Ustawiono bitrate na &lt;bitrate</value>
   </data>
   <data name="AuditLogChannelUpdateName" xml:space="preserve">
-    <value>Nazwa zmieniona na &lt;name&gt;</value>
+    <value>Nazwa ustawiona na &lt;name&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateNsfwFalse" xml:space="preserve">
     <value>Utworzono kanał **SFW**</value>
@@ -733,16 +733,16 @@
     <value>**Usunięto** uprawnienie &lt;permission&gt; dla &lt;role&gt;</value>
   </data>
   <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
-    <value>Kanał AFK ustawiony na &lt;channel&gt;</value>
+    <value>Temat zdefiniowany jako &lt;subject&gt;</value>
   </data>
   <data name="AuditLogServerUpdateAfkTimeout" xml:space="preserve">
-    <value>Maksymalny czas AFK ustawiony na &lt;time&gt; **minut**</value>
+    <value>Zmieniono temat z &lt;old&gt; na &lt;new&gt;</value>
   </data>
   <data name="AuditLogServerUpdateIcon" xml:space="preserve">
-    <value>Zmieniono ikonę serwera</value>
+    <value>**Przyznano** uprawnienie &lt;permission&gt; dla &lt;role&gt;</value>
   </data>
   <data name="AuditLogServerUpdateNotificationZero" xml:space="preserve">
-    <value>Domyślna opcja powiadomień ustawiona na **wszystkie wiadomości**</value>
+    <value>**Usunięto** uprawnienie &lt;permission&gt; dla &lt;role&gt;</value>
   </data>
   <data name="AuditLogServerUpdateNotificationOne" xml:space="preserve">
     <value>Domyślna opcja powiadomień ustawiona na **tylko wzmianki**</value>
@@ -763,7 +763,7 @@
     <value>Filtr jawnych informacji zmieniono z &lt;old&gt; na &lt;new&gt;</value>
   </data>
   <data name="AuditLogServerUpdateExplicitFilterOne" xml:space="preserve">
-    <value>użytkownice bez roli</value>
+    <value>użytkownicy bez roli</value>
   </data>
   <data name="AuditLogServerUpdateExplicitFilterTwo" xml:space="preserve">
     <value>wszyscy</value>
@@ -908,5 +908,65 @@
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Usuń</value>
+  </data>
+  <data name="PrivacySettingsTB.Text" xml:space="preserve">
+    <value>USATWIENIA PRYWATNOŚCI</value>
+  </data>
+  <data name="AllowDMsCB.Content" xml:space="preserve">
+    <value>Zezwól na wysyłanie Pprywatnych wiadomości do mnie przez członków tego serwera</value>
+  </data>
+  <data name="ModerationSettingsTB.Text" xml:space="preserve">
+    <value>USTAWIENIA MODERACJI</value>
+  </data>
+  <data name="VFLevelsTB.Text" xml:space="preserve">
+    <value>Poziom weryfikacji</value>
+  </data>
+  <data name="NoneVfTB.Text" xml:space="preserve">
+    <value>Żaden</value>
+  </data>
+  <data name="NoneDescVfTB.Text" xml:space="preserve">
+    <value>Bez rystrykcji</value>
+  </data>
+  <data name="LowVfTB.Text" xml:space="preserve">
+    <value>Niski</value>
+  </data>
+  <data name="LowDescVfTB.Text" xml:space="preserve">
+    <value>Wymaga potwierdzenia adresu e-mail konta Disocrd.</value>
+  </data>
+  <data name="MediumVfTB.Text" xml:space="preserve">
+    <value>Średni</value>
+  </data>
+  <data name="MediumDescVfTB.Text" xml:space="preserve">
+    <value> Wymaga dodatkowo posiadanie konta Discord dłużej niż 5 minut.</value>
+  </data>
+  <data name="HighDescVfTB.Text" xml:space="preserve">
+    <value>Wymaga dodatkowo członkostwa ba serwerze dłuższego niż 10 minut.</value>
+  </data>
+  <data name="VeryHighDescVFTB.Text" xml:space="preserve">
+    <value>Wymaga potwierdzenia numeru telefonu na koncie Discord</value>
+  </data>
+  <data name="ECFTB.Text" xml:space="preserve">
+    <value>Filtr nieodpowiedniej zawartości</value>
+  </data>
+  <data name="ECF0TB.Text" xml:space="preserve">
+    <value>Nie skanuj żadnych wiadomości</value>
+  </data>
+  <data name="ECF0DescTB.Text" xml:space="preserve">
+    <value>Nie ma to jak w domu.</value>
+  </data>
+  <data name="ECF1TB.Text" xml:space="preserve">
+    <value>Skanuj wiaodmości od członków bez przypisanej roli</value>
+  </data>
+  <data name="ECF1DescTB.Text" xml:space="preserve">
+    <value>Zalecena opcja dla serwerów używających ról dla zaufanych członków</value>
+  </data>
+  <data name="ECF2TB.Text" xml:space="preserve">
+    <value>Skanuj wiadomości od wszyskich członków</value>
+  </data>
+  <data name="ECF2DescTB.Text" xml:space="preserve">
+    <value>Zalecana opcja, gdy chcesz mieć czysto na błysk.</value>
+  </data>
+  <data name="AuditLogsTB.Content" xml:space="preserve">
+    <value>Dziennik zdarzeń</value>
   </data>
 </root>
