@@ -154,7 +154,7 @@ namespace Discord_UWP.Flyouts
                     //Icon = new SymbolIcon(Symbol.)
                 };
 
-                foreach (SharedModels.Role role in LocalState.Guilds[App.CurrentGuildId].roles.Values.OrderByDescending(x => x.Position))
+                foreach (Role role in LocalState.CurrentGuild.roles.Values.OrderByDescending(x => x.Position))
                 {
                     ToggleMenuFlyoutItem roleItem = new ToggleMenuFlyoutItem()
                     {

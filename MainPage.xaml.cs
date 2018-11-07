@@ -1292,12 +1292,15 @@ namespace Discord_UWP
         {
             SendFriendTB.Focus(FocusState.Keyboard);
         }
-        private void CallUser_Click(object sender, RoutedEventArgs e)
+        private async void CallUser_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if(App.CurrentGuildIsDM)
+                if (App.CurrentGuildIsDM)
+                {
+                    await RESTCalls.StartCall(App.CurrentChannelId);
                     App.ConnectToVoice(App.CurrentChannelId, null, "@User", "");
+                }
             }
             catch (Exception err)
             {
