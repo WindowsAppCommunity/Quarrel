@@ -513,26 +513,33 @@ namespace Discord_UWP.Controls
             if (giphySearch.Text == previousSearch)
                 return;
             previousSearch = giphySearch.Text;
-            var service = GiphyAPI.GiphyAPI.GetGiphyService();
-            
-            GiphyAPI.Models.SearchResult gifs;
+            try
+            {
+                var service = GiphyAPI.GiphyAPI.GetGiphyService();
 
-            if (giphySearch.Text == null || giphySearch.Text == "")
-            {
-                gifs = await service.Trending();
-            }
-            else
-            {
-                gifs = await service.Search(giphySearch.Text);
-            }
-            await (Window.Current.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                progring.Visibility = Visibility.Collapsed;
-                foreach (var gif in gifs.Gif)
+                GiphyAPI.Models.SearchResult gifs;
+
+                if (giphySearch.Text == null || giphySearch.Text == "")
                 {
-                    GiphyList.Items.Add(gif);
+                    gifs = await service.Trending();
                 }
-            }));
+                else
+                {
+                    gifs = await service.Search(giphySearch.Text);
+                }
+                await (Window.Current.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    progring.Visibility = Visibility.Collapsed;
+                    foreach (var gif in gifs.Gif)
+                    {
+                        GiphyList.Items.Add(gif);
+                    }
+                }));
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception);
+            }
         }
 
         DispatcherTimer searchCooldown = new DispatcherTimer();

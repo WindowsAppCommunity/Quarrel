@@ -5,10 +5,59 @@
     xmlns:local="using:Discord_UWP.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:simpleClasses="using:Discord_UWP.SimpleClasses"
+    xmlns:controls="using:Discord_UWP.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
 
-    <Grid>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Work in progress</TextBlock>
+    <Grid Background="{ThemeResource AcrylicChannelPaneBackground}">
+        <Grid x:Name="MessageAreaContainer">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="MessageAreaCMD"></Grid>
+            <Grid x:Name="MessageArea" Grid.Row="1"  Margin="12,0,12,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}" Margin="0,0,-12,0" Padding="0,0,12,0">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsStackPanel Loaded="ItemsStackPanel_Loaded" SizeChanged="ItemStackPanel_SizeChanged" Margin="0,0,0,-4" ItemsUpdatingScrollMode="KeepLastItemInView">
+                                <ItemsStackPanel.ChildrenTransitions>
+                                    <TransitionCollection/>
+                                </ItemsStackPanel.ChildrenTransitions>
+                            </ItemsStackPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="simpleClasses:MessageContainer">
+                            <controls:MessageControl Message="{x:Bind Message, Mode=OneWay}"
+                                 IsContinuation="{x:Bind IsContinuation, Mode=OneWay}"
+                                 MessageType="{x:Bind MessageType, Mode=OneWay}"
+                                 Header="{x:Bind Header, Mode=OneWay}"
+                                 IsPending="{x:Bind Pending, Mode=OneWay}"
+                                 IsBlocked="{x:Bind Blocked, Mode=OneWay}"
+                                 LastRead="{x:Bind LastRead, Mode=OneWay}"
+                                 Edited="{x:Bind Edit, Mode=OneWay}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackPanel x:Name="SendMessage" Grid.Row="2" Padding="0,16,12,0">
+                    <Rectangle x:Name="rectangle" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
+                    <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced" OpenSpotify="MessageBox1_OpenSpotify"/>
+                    <StackPanel x:Name="TypingStackPanel" Opacity="0" Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32" VerticalAlignment="Bottom">
+                        <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+        </Grid>
     </Grid>
 </Page>
