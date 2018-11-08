@@ -3884,6 +3884,7 @@ namespace Discord_UWP
         {
             userFlyout.Hide();
             App.NavigateToSettings();
+            //App.NavigateToProfileSettings();
         }
 
         private void ServerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
