@@ -118,140 +118,120 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDesc1.Text" xml:space="preserve">
-    <value>Quarrel is an</value>
-    <comment>Disclaimer</comment>
+    <value>Quarrel ist eine</value>
   </data>
   <data name="AboutDesc2.Text" xml:space="preserve">
-    <value>unofficial</value>
-    <comment>Disclaimer pt. 2 in bold</comment>
+    <value>inoffizielle</value>
   </data>
   <data name="AboutDesc3.Text" xml:space="preserve">
-    <value>client for Discord.</value>
-    <comment>Discaimer pt. 3</comment>
+    <value>UWP-App für Discord</value>
   </data>
   <data name="AboutDesc4.Text" xml:space="preserve">
-    <value>The developers are in no way affiliated with Discord, Inc.</value>
-    <comment>Disclaimer pt. 4 in bold</comment>
+    <value>Es besteht keine Verbindung zwischen den Entwicklern und den Machern von Discord.</value>
   </data>
   <data name="AboutDesc5.Text" xml:space="preserve">
-    <value>If something goes wrong while you are using this app, please contact support via any of the methods below. However any issues we cannot resolve we are not liable for.</value>
-    <comment>Disclaimer pt. 5 in bold</comment>
+    <value>Nutzen Sie bitte die untenstehenden Kontaktmöglichkeiten, falls es bei der Nutzung der App zu Problemen kommen sollte. Die Entwickler sind für etwaige Fehler nicht verantwortlich.</value>
   </data>
   <data name="AboutTB.Text" xml:space="preserve">
-    <value>ABOUT</value>
-    <comment>ABOUT header</comment>
+    <value>Über diese App</value>
   </data>
   <data name="AustinAndelinCredit.Text" xml:space="preserve">
-    <value>Austin Andelin, for conceptualizing the app's icon</value>
+    <value>"Austin Andelin", für das Design des App-Icons</value>
   </data>
   <data name="Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Version</value>
   </data>
   <data name="ChangelogTB.Text" xml:space="preserve">
-    <value>CHANGELOG</value>
-    <comment>CHANGELOG header</comment>
+    <value>Änderungen in dieser Version</value>
   </data>
   <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
-    <value>Christopher Blackman (who wrote the awesome MyTube app) for the invaluable tips and help</value>
+    <value>"Christopher Blackmann", für unbeschreiblich wertvolle Tipps und Hilfe</value>
   </data>
   <data name="Commit" xml:space="preserve">
-    <value>Commit</value>
+    <value>Verplichtet</value>
   </data>
   <data name="DesignerCreditTB.Text" xml:space="preserve">
-    <value>Designed by Lightmagic Apps</value>
-    <comment>The designer</comment>
+    <value>Ein Design von "Lightmagic Apps"</value>
   </data>
   <data name="DevelopperCreditTB.Text" xml:space="preserve">
-    <value>Developed by Avid29 and KarmaEcrivain94</value>
-    <comment>The developer</comment>
+    <value>Eine Entwicklung von "Avid29" und "KarmaEcrivain94"</value>
   </data>
   <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
-    <value>Discuss on Twitter</value>
-    <comment>Button to discuss on twitter</comment>
+    <value>Auf Twitter diskutieren</value>
   </data>
   <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
-    <value>Don't have an account?</value>
+    <value>Noch kein Konto?</value>
   </data>
   <data name="EmailTBox.PlaceholderText" xml:space="preserve">
-    <value>Email</value>
-    <comment>Placeholder text for the email login</comment>
+    <value>E-Mail</value>
   </data>
   <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
-    <value>Forgot your password?</value>
+    <value>Passwort vergessen?</value>
   </data>
   <data name="JoinDiscordUWPServer" xml:space="preserve">
-    <value>Join the app's Discord server</value>
-    <comment>Text "Join the app's discord server"</comment>
+    <value>Tritt dem Discord Server der Quarrel-App bei</value>
   </data>
   <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
-    <value>Join the app's Discord server</value>
-    <comment>Button to join the Quarrel server</comment>
+    <value>Tritt dem Discord Server der Quarrel-App bei</value>
   </data>
   <data name="JoinFail" xml:space="preserve">
-    <value>Failed to join server!</value>
-    <comment>Message if joining the server fails</comment>
+    <value>Fehler beim Betreten des Discord Server!</value>
   </data>
   <data name="JoinSucess" xml:space="preserve">
-    <value>Success!</value>
-    <comment>Message when joining the server works</comment>
+    <value>Fertig!</value>
   </data>
   <data name="JoinWait" xml:space="preserve">
-    <value>Joining...</value>
-    <comment>Text while the app is trying to join the server</comment>
+    <value>Tritt bei...</value>
   </data>
   <data name="LeaveFeedbackTB.Text" xml:space="preserve">
-    <value>Leave feedback</value>
-    <comment>Leave feedback button</comment>
+    <value>Feedback abgeben</value>
   </data>
   <data name="LicensesHLBTN.Content" xml:space="preserve">
-    <value>Licenses</value>
+    <value>Lizenz</value>
   </data>
   <data name="LicensesTB.Text" xml:space="preserve">
-    <value>LICENSES</value>
+    <value>LIZENZ</value>
   </data>
   <data name="LoginTB.Text" xml:space="preserve">
-    <value>LOGIN</value>
+    <value>ANMELDEN</value>
   </data>
   <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>Authentication code</value>
-    <comment>Placeholder text for the authentication code login box</comment>
+    <value>Authentifizierungsschlüssel</value>
   </data>
   <data name="MFATB.Text" xml:space="preserve">
-    <value>Two-factor authentication:</value>
-    <comment>Label for "Two-factor authentication:"</comment>
+    <value>Zwei-Faktor-Authentifizierung</value>
   </data>
   <data name="OfflineDescTB.Text" xml:space="preserve">
-    <value>You're either offline or on too slow a connection to start the Gateway</value>
+    <value>Es besteht keine oder eine zu langsame Verbindung zum Internet, um einen Gateway zu starten</value>
   </data>
   <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
-    <comment>Placeholder text for the password login box</comment>
+    <value>Passwort</value>
   </data>
   <data name="QuarrelDescTB.Text" xml:space="preserve">
-    <value>Discord client for the Universal Windows Platform</value>
+    <value>Discord-Klient für die universelle Windows-Plattform (Universal Windows Platform, UWP)</value>
   </data>
   <data name="QuarrelLicensesDesc" xml:space="preserve">
-    <value>Quarrel uses a few external libraries to function:</value>
+    <value>Quarrel nutzt externen Quelltext:</value>
   </data>
   <data name="RetryLoginTB.Text" xml:space="preserve">
-    <value>Retry Login</value>
+    <value>Anmeldeversuch wiederholen</value>
   </data>
   <data name="SpecialThxTB.Text" xml:space="preserve">
-    <value>Special Thanks:</value>
+    <value>Speziellen Dank an:</value>
   </data>
   <data name="InboundRun.Text" xml:space="preserve">
-    <value>Inbound:</value>
+    <value>Eingehend</value>
   </data>
   <data name="OutboundRun.Text" xml:space="preserve">
-    <value>Outbound:</value>
+    <value>Ausgehend</value>
   </data>
   <data name="AccordingToMicrosoftTB.Text" xml:space="preserve">
-    <value>According to Microsoft's Licensing you have bought:</value>
+    <value>Laut Microsofts Lizensierung die du ekauft hast</value>
   </data>
   <data name="MicrosoftNoteTB.Text" xml:space="preserve">
-    <value>If this is wrong, I have a strongly worded email to write to the Microsoft Store team</value>
+    <value>Ist das Falsch, habe ich eine start formulierte E-Mail an das Microsoft Team gesendet</value>
   </data>
   <data name="WantMoreHLBTN.Content" xml:space="preserve">
-    <value>Want More?</value>
+    <value>Möchtest du mehr?</value>
   </data>
 </root>
