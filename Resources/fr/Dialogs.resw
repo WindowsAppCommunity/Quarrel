@@ -910,4 +910,64 @@
   <data name="Remove" xml:space="preserve">
     <value>Enlever</value>
   </data>
+  <data name="AllowDMsCB.Content" xml:space="preserve">
+    <value>Autoriser les messages privés en provenance des membres du serveur</value>
+  </data>
+  <data name="AuditLogsTB.Content" xml:space="preserve">
+    <value>Logs du serveur</value>
+  </data>
+  <data name="ECF0DescTB.Text" xml:space="preserve">
+    <value>Aucune fête n'égale les goûters de ma mamie</value>
+  </data>
+  <data name="ECF0TB.Text" xml:space="preserve">
+    <value>Analyser aucun message</value>
+  </data>
+  <data name="ECF1DescTB.Text" xml:space="preserve">
+    <value>Option recommandée pour les serveurs qui utilisent des rôles pour les membres de confiance</value>
+  </data>
+  <data name="ECF1TB.Text" xml:space="preserve">
+    <value>Analyser les messages des membres sans rôle.</value>
+  </data>
+  <data name="ECF2DescTB.Text" xml:space="preserve">
+    <value>Option recommandée lorsque vous voulez un nettoyage brillant</value>
+  </data>
+  <data name="ECF2TB.Text" xml:space="preserve">
+    <value>Analyser les messages de tous les membres</value>
+  </data>
+  <data name="ECFTB.Text" xml:space="preserve">
+    <value>Filtre de contenu explicite</value>
+  </data>
+  <data name="HighDescVfTB.Text" xml:space="preserve">
+    <value>Doit aussi avoir été un membre du serveur pendant plus de 10 minutes.</value>
+  </data>
+  <data name="LowDescVfTB.Text" xml:space="preserve">
+    <value>Doit avoir un email vérifié sur son compte Discord</value>
+  </data>
+  <data name="LowVfTB.Text" xml:space="preserve">
+    <value>Bas</value>
+  </data>
+  <data name="MediumDescVfTB.Text" xml:space="preserve">
+    <value>Doit avoir été membre de Discord pendant plus de 5 minutes.</value>
+  </data>
+  <data name="MediumVfTB.Text" xml:space="preserve">
+    <value>Moyen</value>
+  </data>
+  <data name="ModerationSettingsTB.Text" xml:space="preserve">
+    <value>OPTIONS DE MODERATION</value>
+  </data>
+  <data name="NoneDescVfTB.Text" xml:space="preserve">
+    <value>Aucune réstriction</value>
+  </data>
+  <data name="NoneVfTB.Text" xml:space="preserve">
+    <value>Aucun</value>
+  </data>
+  <data name="PrivacySettingsTB.Text" xml:space="preserve">
+    <value>OPTIONS DE CONFIDENTIALITÉE</value>
+  </data>
+  <data name="VeryHighDescVFTB.Text" xml:space="preserve">
+    <value>Doit avoir un téléphone vérifié sur son compte Discord</value>
+  </data>
+  <data name="VFLevelsTB.Text" xml:space="preserve">
+    <value>Niveaux de vérification</value>
+  </data>
 </root>
