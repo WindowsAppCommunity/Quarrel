@@ -329,7 +329,7 @@ namespace Discord_UWP
                     Window.Current.Content = rootFrame;
 
                     // Navigate to the page that shows the Contact UI.
-                    rootFrame.Navigate(typeof(ContactPanePage), args);
+                        rootFrame.Navigate(typeof(ContactPanePage), args);
 
                     // Ensure the current window is active
                     Window.Current.Activate();
