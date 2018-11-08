@@ -404,6 +404,7 @@ namespace Discord_UWP
             App.NavigateToChannelTopicHandler += App_NavigateToChannelTopicHandler;
             App.NavigateToCreateChannelHandler += App_NavigateToCreateChannelHandler;
             App.NavigateToSettingsHandler += App_NavigateToSettingsHandler;
+            App.NavigateToAccountSettingsHandler += App_NavigateToAccountSettingsHandler;
             App.NavigateToAboutHandler += App_NavigateToAboutHandler;
             App.NavigateToAddServerHandler += App_NavigateToAddServerHandler;
             App.NavigateToMessageEditorHandler += App_NavigateToMessageEditorHandler;
@@ -1940,6 +1941,11 @@ namespace Discord_UWP
         private void App_NavigateToSettingsHandler(object sender, EventArgs e)
         {
             SubFrameNavigator(typeof(SubPages.Settings));
+        }
+
+        private void App_NavigateToAccountSettingsHandler(object sender, EventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.UserProfileCU));
         }
 
         private void App_NavigateToAboutHandler(object sender, bool e)
@@ -3883,8 +3889,7 @@ namespace Discord_UWP
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
             userFlyout.Hide();
-            App.NavigateToSettings();
-            //App.NavigateToProfileSettings();
+            App.NavigateToAccountSettings();
         }
 
         private void ServerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
