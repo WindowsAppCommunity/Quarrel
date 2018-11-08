@@ -537,6 +537,12 @@
     </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
     <None Include="PreBuild.ps1" />
+    <PRIResource Include="Resources\de\Settings.resw" />
+    <PRIResource Include="Resources\de\Main.resw" />
+    <PRIResource Include="Resources\de\Flyouts.resw" />
+    <PRIResource Include="Resources\de\Dialogs.resw" />
+    <PRIResource Include="Resources\de\Controls.resw" />
+    <PRIResource Include="Resources\de\About.resw" />
     <PRIResource Include="Resources\ru\Permissions.resw" />
     <PRIResource Include="Resources\ru\AuditLog.resw" />
     <PRIResource Include="Resources\ru\Settings.resw" />
