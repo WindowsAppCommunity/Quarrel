@@ -453,4 +453,76 @@
   <data name="DMsCB.Content" xml:space="preserve">
     <value>DMs</value>
   </data>
+  <data name="AppSettingsHLBTN.Content" xml:space="preserve">
+    <value>Paramètres de l'application</value>
+  </data>
+  <data name="ConnectionsTB.Text" xml:space="preserve">
+    <value>CONNECTIONS</value>
+  </data>
+  <data name="BadgeCountDescTB.Text" xml:space="preserve">
+    <value>Montrer le nombre de mentions comme badge</value>
+  </data>
+  <data name="BadgeCountTB.Text" xml:space="preserve">
+    <value>Mentions sur badge</value>
+  </data>
+  <data name="DerivedColorDescTB.Text" xml:space="preserve">
+    <value>La couleur d'accent sur les pages liés a un utilisateur sera dérivée de son avatar</value>
+  </data>
+  <data name="DerivedColorTB.Text" xml:space="preserve">
+    <value>Couleur dérivée</value>
+  </data>
+  <data name="EnableAcrylicDescTB.Text" xml:space="preserve">
+    <value>Arrière-plans floutés</value>
+  </data>
+  <data name="EnableAcrylicTB.Text" xml:space="preserve">
+    <value>Effets "Acrylic"</value>
+  </data>
+  <data name="ExpensiveRenderDescTB.Text" xml:space="preserve">
+    <value>Active certains effets stylés mais exigeants (effets de flous, visualizeurs audio)</value>
+  </data>
+  <data name="ExpensiveRenderTB.Text" xml:space="preserve">
+    <value>Rendu stylé</value>
+  </data>
+  <data name="HighlightEveryoneDescTB.Text" xml:space="preserve">
+    <value>Le spam @everyone est un problème du passé</value>
+  </data>
+  <data name="HighlightEveryoneTB.Text" xml:space="preserve">
+    <value>Mettre les mentions @everyone en évidence</value>
+  </data>
+  <data name="LiveTileDescTB.Text" xml:space="preserve">
+    <value>Afficher des messages sur le menu démarrer</value>
+  </data>
+  <data name="LiveTileTB.Text" xml:space="preserve">
+    <value>Live Tile</value>
+  </data>
+  <data name="MentionGlowDescTB.Text" xml:space="preserve">
+    <value>Le côté gauche de l'écran brille lorsque vous êtes mentionnés</value>
+  </data>
+  <data name="MentionGlowTB.Text" xml:space="preserve">
+    <value>Lueur de mention</value>
+  </data>
+  <data name="ServerMuteIconDescTB.Text" xml:space="preserve">
+    <value>Une icône "sourdine" s'affiche par-dessus les serveurs mis en sourdine</value>
+  </data>
+  <data name="ServerMuteIconTB.Text" xml:space="preserve">
+    <value>Icône de sourdine</value>
+  </data>
+  <data name="ShowWelcomeDescTB.Text" xml:space="preserve">
+    <value>Les messages pleins d'humour et de bonne humeur sur l'écran de chargement</value>
+  </data>
+  <data name="ShowWelcomeTB.Text" xml:space="preserve">
+    <value>Afficher les messages de bienvenue</value>
+  </data>
+  <data name="UseCompressionTB.Text" xml:space="preserve">
+    <value>Compression des données</value>
+  </data>
+  <data name="UseCompressionDescTB.Text" xml:space="preserve">
+    <value>La compression des données rend les messages qu'on échange avec les serveurs Discord plus petits et rapides, en échange d'un tout petit plus d'effort demandé au CPU (mais c'est beaucoup plus rapide)</value>
+  </data>
+  <data name="VibrateDescTB.Text" xml:space="preserve">
+    <value>Lorsque vous recevez un message dans le salon actif, votre appareil vibrera (si il en est capable)</value>
+  </data>
+  <data name="VibrateTB.Text" xml:space="preserve">
+    <value>Vibrer sur réception</value>
+  </data>
 </root>

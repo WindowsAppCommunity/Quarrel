@@ -333,4 +333,22 @@
   <data name="AddAttachementTB.Text" xml:space="preserve">
     <value>AJOUTER UNE PIÈCE JOINTE</value>
   </data>
+  <data name="AddChannelMFI.Text" xml:space="preserve">
+    <value>Créer un salon</value>
+  </data>
+  <data name="AuditLogMFI.Text" xml:space="preserve">
+    <value>Logs du serveur</value>
+  </data>
+  <data name="CreateInviteMFI.Text" xml:space="preserve">
+    <value>Créer une invitation</value>
+  </data>
+  <data name="DeleteMFI.Text" xml:space="preserve">
+    <value>Supprimer le serveur</value>
+  </data>
+  <data name="LeaveMFI.Text" xml:space="preserve">
+    <value>Quitter le serveur</value>
+  </data>
+  <data name="SettingsMFI.Text" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
 </root>
