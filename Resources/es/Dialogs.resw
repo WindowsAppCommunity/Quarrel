@@ -688,10 +688,10 @@
     <value>&lt;user&gt; creó permisos para el canal &lt;channel&gt;</value>
   </data>
   <data name="AuditLogChannelPermissionRemoveInvalid" xml:space="preserve">
-    <value>&lt;user&gt; removió permisos para un canal ahora borrado</value>
+    <value>&lt;user&gt; eliminó permisos para un canal ahora borrado.</value>
   </data>
   <data name="AuditLogChannelPermissionRemoveValid" xml:space="preserve">
-    <value>&lt;user&gt; removió permisos para el canal &lt;channel&gt;</value>
+    <value>&lt;user&gt; eliminó permisos para el canal &lt;channel&gt;</value>
   </data>
   <data name="AuditLogChannelPermissionUpdateInvalid" xml:space="preserve">
     <value>&lt;user&gt; actualizó permisos para un canal ahora borrado</value>
@@ -709,7 +709,7 @@
     <value>Bitrate definido como &lt;bitrate&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateBitrateChange" xml:space="preserve">
-    <value>Bitrate cambiado de &lt;old&gt; a &lt;new&gt;</value>
+    <value>Cambió el bitrate de &lt;old&gt; a &lt;new&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateName" xml:space="preserve">
     <value>Nombre establecido como &lt;name&gt;</value>
@@ -721,16 +721,16 @@
     <value>Hizo el canal **NSFW**</value>
   </data>
   <data name="AuditLogChannelUpdateTopic" xml:space="preserve">
-    <value>Topico definido como &lt;subject&gt;</value>
+    <value>Tópico del canal definido como &lt;subject&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateTopicChange" xml:space="preserve">
     <value>Cambió el tópico de &lt;old&gt; a &lt;new&gt;</value>
   </data>
   <data name="AuditLogPermissionGiven" xml:space="preserve">
-    <value>**Otorgó** el permiso &lt;permission&gt; al rol &lt;role&gt;</value>
+    <value>**Otorgó** el permiso &lt;permission&gt;</value>
   </data>
   <data name="AuditLogPermissionRevoked" xml:space="preserve">
-    <value>**Revocó** el permiso &lt;permission&gt; al rol &lt;role&gt;</value>
+    <value>**Revocó** el permiso &lt;permission&gt;</value>
   </data>
   <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
     <value>Canal AFK establecido en &lt;channel&gt;</value>
@@ -811,13 +811,13 @@
     <value>Cambió el apodo de &lt;old&gt; a &lt;new&gt;</value>
   </data>
   <data name="AuditLogMemberUpdateNickRemove" xml:space="preserve">
-    <value>Eliminó el apodo &lt;old&gt;</value>
+    <value>Eliminó apodo &lt;old&gt;</value>
   </data>
   <data name="AuditLogMemberUpdateRoleAdd" xml:space="preserve">
-    <value>Añadió el rol &lt;role&gt;</value>
+    <value>Añadió rol &lt;role&gt;</value>
   </data>
   <data name="AuditLogMemberUpdateRoleRemove" xml:space="preserve">
-    <value>Eliminó el rol &lt;role&gt;</value>
+    <value>Eliminó rol &lt;role&gt;</value>
   </data>
   <data name="AuditLogServerUpdateVanityUrl" xml:space="preserve">
     <value>Vanity URL establecida como &lt;url&gt;</value>
@@ -931,7 +931,7 @@
     <value>Medio</value>
   </data>
   <data name="ECFTB.Text" xml:space="preserve">
-    <value>Filtrado de contenido explícito</value>
+    <value>Filtro de Contenido Explícito</value>
   </data>
   <data name="ECF0TB.Text" xml:space="preserve">
     <value>No escanear ningún mensaje</value>
@@ -944,5 +944,29 @@
   </data>
   <data name="AuditLogsTB.Content" xml:space="preserve">
     <value>Registro de Auditoría</value>
+  </data>
+  <data name="AllowDMsCB.Content" xml:space="preserve">
+    <value>Permitir Mensajes Directos de los Miembros del Servidor</value>
+  </data>
+  <data name="LowDescVfTB.Text" xml:space="preserve">
+    <value>Deben tener un correo electrónico registrado en su cuenta.</value>
+  </data>
+  <data name="MediumDescVfTB.Text" xml:space="preserve">
+    <value>También debe llevar registrado en Discord 5 minutos al menos.</value>
+  </data>
+  <data name="HighDescVfTB.Text" xml:space="preserve">
+    <value>También debe ser miembro de este servidor por 10 minutos al menos.</value>
+  </data>
+  <data name="VeryHighDescVFTB.Text" xml:space="preserve">
+    <value>Deben tener un teléfono verificado en su cuenta de Discord.</value>
+  </data>
+  <data name="ECF0DescTB.Text" xml:space="preserve">
+    <value>No hay mejor fiesta que la fiesta del té de mi abuela.</value>
+  </data>
+  <data name="ECF1DescTB.Text" xml:space="preserve">
+    <value>Opción recomendada para servidores que usan roles para mebresía de confianza.</value>
+  </data>
+  <data name="ECF2DescTB.Text" xml:space="preserve">
+    <value>Opción recomendada cuando quieres que rechine de limpio</value>
   </data>
 </root>
