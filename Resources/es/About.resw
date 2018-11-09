@@ -232,7 +232,7 @@
     <value>Commit</value>
   </data>
   <data name="RetryLoginTB.Text" xml:space="preserve">
-    <value>Reintentar Login</value>
+    <value>Reintentar Ingreso</value>
   </data>
   <data name="InboundRun.Text" xml:space="preserve">
     <value>Entrante:</value>

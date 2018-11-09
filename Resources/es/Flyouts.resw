@@ -124,10 +124,10 @@
     <value>Agregar amigo</value>
   </data>
   <data name="BanMember" xml:space="preserve">
-    <value>Ban miembro</value>
+    <value>Bloquear miembro</value>
   </data>
   <data name="Block" xml:space="preserve">
-    <value>Bloquear</value>
+    <value>Bloqueados</value>
   </data>
   <data name="ChangeNickname" xml:space="preserve">
     <value>Cambiar apodo</value>
