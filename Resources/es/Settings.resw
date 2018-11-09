@@ -462,4 +462,40 @@
   <data name="DerivedColorTB.Text" xml:space="preserve">
     <value>Color Derivado</value>
   </data>
+  <data name="BadgeCountDescTB.Text" xml:space="preserve">
+    <value>Mostrar contador de menciones en una insignia</value>
+  </data>
+  <data name="BadgeCountTB.Text" xml:space="preserve">
+    <value>Insignia del Contador</value>
+  </data>
+  <data name="DerivedColorDescTB.Text" xml:space="preserve">
+    <value>El color de acento en las páginas relacionadas con el usuario será definido por el icono del perfil del usuario</value>
+  </data>
+  <data name="EnableAcrylicDescTB.Text" xml:space="preserve">
+    <value>Fondos Difuminados</value>
+  </data>
+  <data name="EnableAcrylicTB.Text" xml:space="preserve">
+    <value>Acabados Acrílicos</value>
+  </data>
+  <data name="ExpensiveRenderDescTB.Text" xml:space="preserve">
+    <value>Habilita varios gráficos exigentes, como los Efectos de Difuminado y los Visualizadores del Audio</value>
+  </data>
+  <data name="ExpensiveRenderTB.Text" xml:space="preserve">
+    <value>Renderizado Exigente</value>
+  </data>
+  <data name="HighlightEveryoneDescTB.Text" xml:space="preserve">
+    <value>el spam con @everyone ya no será un problema</value>
+  </data>
+  <data name="HighlightEveryoneTB.Text" xml:space="preserve">
+    <value>Resaltar @everyone</value>
+  </data>
+  <data name="LiveTileDescTB.Text" xml:space="preserve">
+    <value>Mostrar algunos mensajes en el live tile, pon al día tu menú de inicio</value>
+  </data>
+  <data name="LiveTileTB.Text" xml:space="preserve">
+    <value>Live Tile</value>
+  </data>
+  <data name="UseCompressionTB.Text" xml:space="preserve">
+    <value>Compresión de datos </value>
+  </data>
 </root>
