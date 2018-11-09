@@ -172,7 +172,7 @@
     <value>Сбросить реагирования по умолчанию</value>
   </data>
   <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
-    <value>Это полоса, при которой пользовательский интерфейс 
+    <value>Это полоски, при которой пользовательский интерфейс 
 показывает более или менее информацию на экране в зависимости от ширины экрана.</value>
   </data>
   <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">
@@ -466,5 +466,75 @@
   </data>
   <data name="AppSettingsHLBTN.Content" xml:space="preserve">
     <value>Параметры приложения</value>
+  </data>
+  <data name="BadgeCountDescTB.Text" xml:space="preserve">
+    <value>Показывать счетчик упоминаний как значок</value>
+  </data>
+  <data name="BadgeCountTB.Text" xml:space="preserve">
+    <value>Счетчик</value>
+  </data>
+  <data name="ConnectionsTB.Text" xml:space="preserve">
+    <value>ПОДКЛЮЧЕНИЕ</value>
+  </data>
+  <data name="DerivedColorDescTB.Text" xml:space="preserve">
+    <value>Цвет Accent на страницах, связанных с 
+пользователем, будет получен из значка профиля пользователя</value>
+  </data>
+  <data name="DerivedColorTB.Text" xml:space="preserve">
+    <value>Производный цвет</value>
+  </data>
+  <data name="EnableAcrylicDescTB.Text" xml:space="preserve">
+    <value>Размытый фон</value>
+  </data>
+  <data name="EnableAcrylicTB.Text" xml:space="preserve">
+    <value>Акриловые кисти</value>
+  </data>
+  <data name="ExpensiveRenderDescTB.Text" xml:space="preserve">
+    <value>Включите различные графические эффекты, такие как размытия и аудиовизуализаторы</value>
+  </data>
+  <data name="ExpensiveRenderTB.Text" xml:space="preserve">
+    <value>Максимальный рендеринг</value>
+  </data>
+  <data name="HighlightEveryoneDescTB.Text" xml:space="preserve">
+    <value>@everyone спам больше не проблема</value>
+  </data>
+  <data name="HighlightEveryoneTB.Text" xml:space="preserve">
+    <value>Выдвижение @everyone</value>
+  </data>
+  <data name="LiveTileDescTB.Text" xml:space="preserve">
+    <value>Показывать некоторые сообщения в живых плитках в меню "пуск"</value>
+  </data>
+  <data name="LiveTileTB.Text" xml:space="preserve">
+    <value>Живые плитки</value>
+  </data>
+  <data name="MentionGlowDescTB.Text" xml:space="preserve">
+    <value>Левая сторона экрана светится, когда вы упомянуты</value>
+  </data>
+  <data name="MentionGlowTB.Text" xml:space="preserve">
+    <value>Упоминание о свечении</value>
+  </data>
+  <data name="ServerMuteIconDescTB.Text" xml:space="preserve">
+    <value>Значок отключения звука, отображает отключенные звук в списке серверов</value>
+  </data>
+  <data name="ServerMuteIconTB.Text" xml:space="preserve">
+    <value>Безвучная иконка сервера</value>
+  </data>
+  <data name="ShowWelcomeDescTB.Text" xml:space="preserve">
+    <value>Эти милые маленькие сообщения на экране загрузки, вы можете отключить их, если хотите. Почему бы и нет?)</value>
+  </data>
+  <data name="ShowWelcomeTB.Text" xml:space="preserve">
+    <value>Показывать сообщения приветствия</value>
+  </data>
+  <data name="UseCompressionDescTB.Text" xml:space="preserve">
+    <value>Сжатие данных делает сообщения шлюза меньше и быстрее. Потребуется мощный процессор, но зато значительно быстрее при более низкой скорости интернета.</value>
+  </data>
+  <data name="UseCompressionTB.Text" xml:space="preserve">
+    <value>Сжатие данных</value>
+  </data>
+  <data name="VibrateDescTB.Text" xml:space="preserve">
+    <value>Когда вы получаете сообщение в своем активном канале, ваше устройство будет вибрировать, если оно имеет такую возможность</value>
+  </data>
+  <data name="VibrateTB.Text" xml:space="preserve">
+    <value>Вибрация при приёме</value>
   </data>
 </root>
