@@ -139,22 +139,22 @@
     <value>Crear Invitación Instantánea</value>
   </data>
   <data name="DEAFEN_MEMBERS" xml:space="preserve">
-    <value>Ensordecer Miembros</value>
+    <value>Ensordecer miembros</value>
   </data>
   <data name="EMBED_LINKS" xml:space="preserve">
     <value>Insertar Enlaces</value>
   </data>
   <data name="KICK_MEMBERS" xml:space="preserve">
-    <value>Expulsar Miembros</value>
+    <value>Expulsar miembros</value>
   </data>
   <data name="MANAGE_CHANNELS" xml:space="preserve">
-    <value>Administrar Canales</value>
+    <value>Administrar canales</value>
   </data>
   <data name="MANAGE_EMOJIS" xml:space="preserve">
     <value>Administrar emojis</value>
   </data>
   <data name="MANAGE_GUILD" xml:space="preserve">
-    <value>Administrar el Servidor</value>
+    <value>Administrar el servidor</value>
   </data>
   <data name="MANAGE_MESSAGES" xml:space="preserve">
     <value>Administrar mensajes</value>
@@ -163,10 +163,10 @@
     <value>Administrar apodos</value>
   </data>
   <data name="MANAGE_ROLES" xml:space="preserve">
-    <value>Administrar Roles</value>
+    <value>Administrar roles</value>
   </data>
   <data name="MANAGE_WEBHOOKS" xml:space="preserve">
-    <value>Administrar Webhooks</value>
+    <value>Administrar webhooks</value>
   </data>
   <data name="MENTION_EVERYONE" xml:space="preserve">
     <value>Mencionar a todos</value>

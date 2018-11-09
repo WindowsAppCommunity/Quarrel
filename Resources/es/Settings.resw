@@ -496,6 +496,33 @@
     <value>Live Tile</value>
   </data>
   <data name="UseCompressionTB.Text" xml:space="preserve">
-    <value>Compresión de datos </value>
+    <value>Compresión de Datos </value>
+  </data>
+  <data name="MentionGlowDescTB.Text" xml:space="preserve">
+    <value>El lado izquierdo de la pantalla se ilumoina cuando eres mencionado</value>
+  </data>
+  <data name="MentionGlowTB.Text" xml:space="preserve">
+    <value>Iluminación en Menciones</value>
+  </data>
+  <data name="ServerMuteIconDescTB.Text" xml:space="preserve">
+    <value>Un icono de silencio que se muestra sobre los servidores silenciados de la lista</value>
+  </data>
+  <data name="ServerMuteIconTB.Text" xml:space="preserve">
+    <value>Icono de Silencio del Servidor</value>
+  </data>
+  <data name="ShowWelcomeDescTB.Text" xml:space="preserve">
+    <value>Los lindos mensajes en la pantalla de carga, puedes deshabilitarlos si quieres. ¿Por qué no?</value>
+  </data>
+  <data name="ShowWelcomeTB.Text" xml:space="preserve">
+    <value>Mostrar Mensajes de Bienvenida</value>
+  </data>
+  <data name="UseCompressionDescTB.Text" xml:space="preserve">
+    <value>La compresión de datos hace más pequeños los mensajes recibidos y cargan más rápido. Es un poco más exigente con la CPU pero significativamente más rápido en conexiones lentas.</value>
+  </data>
+  <data name="VibrateDescTB.Text" xml:space="preserve">
+    <value>Cuando recibas un mensaje en tu canal activo, tu dispositivo vibrará, si puede hacerlo</value>
+  </data>
+  <data name="VibrateTB.Text" xml:space="preserve">
+    <value>Vibrar al Recibir</value>
   </data>
 </root>
