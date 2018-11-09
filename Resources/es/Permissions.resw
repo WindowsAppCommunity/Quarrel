@@ -127,7 +127,7 @@
     <value>Adjuntar Archivos</value>
   </data>
   <data name="BAN_MEMBERS" xml:space="preserve">
-    <value>Banear Miembros</value>
+    <value>Bloquear Miembros</value>
   </data>
   <data name="CHANGE_NICKNAME" xml:space="preserve">
     <value>Cambiar apodo</value>
@@ -193,10 +193,10 @@
     <value>Hablar</value>
   </data>
   <data name="USE_EXTERNAL_EMOJIS" xml:space="preserve">
-    <value>Usar Emojis externos</value>
+    <value>Usar emojis externos</value>
   </data>
   <data name="USE_VAD" xml:space="preserve">
-    <value>Usar la activida de voz</value>
+    <value>Usar detección de voz activa</value>
   </data>
   <data name="VIEW_AUDIT_LOG" xml:space="preserve">
     <value>Ver el registro de auditoría</value>

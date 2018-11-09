@@ -118,237 +118,219 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutABB.Label" xml:space="preserve">
-    <value>À propos</value>
+    <value>Über</value>
   </data>
   <data name="AddChannelTB.Text" xml:space="preserve">
-    <value>Ajouter un salon</value>
+    <value>Raum hinzufügen</value>
   </data>
   <data name="at" xml:space="preserve">
-    <value>à </value>
+    <value>an</value>
   </data>
   <data name="Connected" xml:space="preserve">
-    <value>CONNECTÉ</value>
+    <value>VEBUNDEN</value>
   </data>
   <data name="DNDRadio.Content" xml:space="preserve">
-    <value>Ne pas déranger</value>
+    <value>Nicht Stören</value>
   </data>
   <data name="EmailTBox.PlaceholderText" xml:space="preserve">
-    <value>Courriel</value>
+    <value>E-Mail</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Erreur</value>
+    <value>Fehler</value>
   </data>
   <data name="Error400" xml:space="preserve">
-    <value>Erreur 400 : Il y a eu un problème lors de la connexion. Si vous ne vous êtes pas encore connecté depuis cet appareil, cherchez un éventuel courriel de vérification de Discord et tentez de vous reconnecter</value>
+    <value>Fehler 400</value>
   </data>
   <data name="Error401" xml:space="preserve">
-    <value>Erreur 401 : Il y a eu un problème d'interaction avec le serveur.</value>
+    <value>Fehler 401</value>
   </data>
   <data name="Error403" xml:space="preserve">
-    <value>Erreur 403 : Vous n'avez pas le droit de vous connecter depuis ici. Si vous ne vous êtes pas encore connecté depuis cet endroit cherchez un éventuel courriel de vérification de Discord et tentez de vous reconnecter</value>
+    <value>Fehler 403</value>
   </data>
   <data name="Error429" xml:space="preserve">
-    <value>Erreur 429 : Vous avez été limité suite à un excès d'appels aux serveurs Discord. Ré-essayez dans quelques nano-secondes.</value>
+    <value>Fehler 429</value>
   </data>
   <data name="Error500" xml:space="preserve">
-    <value>Erreur 500:  Il y a eu un problème d'interaction avec le serveur, et c'est de sa faute. Essayez de vous reconnecter dans quelques instants, Discord répare généralement leurs serveurs rapidement.</value>
+    <value>Fehler 500</value>
   </data>
   <data name="ErrorGeneric" xml:space="preserve">
-    <value>Réessayez après avoir vérifié vos courriels pour savoir s'il est nécessaire de vérifier cet endroit de connexion.</value>
+    <value>Versuche es erneut, und überpüfe deine E-Mails und schau ob der Standort verifizieren musst</value>
   </data>
   <data name="Everyone" xml:space="preserve">
-    <value>TOUT LE MONDE</value>
+    <value>JEDER</value>
   </data>
   <data name="GameTBox.PlaceholderText" xml:space="preserve">
-    <value>Jeu</value>
+    <value>Spiel</value>
   </data>
   <data name="IapABB.Label" xml:space="preserve">
-    <value>Achats dans l'application</value>
+    <value>In-App-Käufe</value>
   </data>
   <data name="IdleRadio.Content" xml:space="preserve">
-    <value>Inactif</value>
+    <value>Im Prozess...</value>
   </data>
   <data name="InvisibleRadio.Content" xml:space="preserve">
-    <value>Invisible</value>
+    <value>Ausgeblendet</value>
   </data>
   <data name="Loaded" xml:space="preserve">
-    <value>CHARGÉ</value>
+    <value>GELADEN</value>
   </data>
   <data name="LoadMoreMessagesTB.Text" xml:space="preserve">
-    <value>Charger plus de messages</value>
+    <value>Mehr Nachrichten laden</value>
   </data>
   <data name="LoggingIn" xml:space="preserve">
-    <value>CONNEXION...</value>
+    <value>EINLOGGEN...</value>
   </data>
   <data name="LoginTB.Text" xml:space="preserve">
-    <value>Se connecter</value>
+    <value>LOGIN</value>
   </data>
   <data name="MemberListABB.Label" xml:space="preserve">
-    <value>Liste des membres</value>
+    <value>Mitgliedsliste</value>
   </data>
   <data name="MuteABB.Label" xml:space="preserve">
-    <value>Mettre en sourdine</value>
+    <value>Stumm schalten</value>
   </data>
   <data name="NoChannelsCachedTB.Text" xml:space="preserve">
-    <value>Aucun salon dans le cache</value>
+    <value>Keine Kanäle im Cache abgespeichert</value>
   </data>
   <data name="NoMessagesCachedTB.Text" xml:space="preserve">
-    <value>Aucun message dans le cache</value>
+    <value>Keine Nachrichten im Cache abgespeichert</value>
   </data>
   <data name="Offline" xml:space="preserve">
-    <value>Hors-ligne</value>
+    <value>Offline</value>
   </data>
   <data name="OnlineRadio.Content" xml:space="preserve">
-    <value>En ligne</value>
+    <value>Online</value>
   </data>
   <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>Mot de passe</value>
+    <value>Passwort</value>
   </data>
   <data name="PinnedMessagesABB.Label" xml:space="preserve">
-    <value>Messages épinglés</value>
+    <value>Angepinnte Nachrichten</value>
   </data>
   <data name="PlayingTB.Text" xml:space="preserve">
-    <value>Joue à</value>
+    <value>Spielt</value>
   </data>
   <data name="RefreshABB.Label" xml:space="preserve">
-    <value>Rafraîchir</value>
+    <value>Aktualisieren</value>
   </data>
   <data name="SettingsABB.Label" xml:space="preserve">
-    <value>Paramètres</value>
+    <value>Optionen</value>
   </data>
   <data name="TextChannelsTB.Text" xml:space="preserve">
-    <value>SALONS TEXTUELS</value>
+    <value>TEXT-KANÄLE</value>
   </data>
   <data name="Today" xml:space="preserve">
-    <value>Aujourd'hui</value>
+    <value>Heute</value>
   </data>
   <data name="UpvoteForVoiceDescTB.Text" xml:space="preserve">
-    <value>Votez pour les salons vocaux</value>
+    <value>Stimme für den Sprachkanal</value>
   </data>
   <data name="UpvoteForVoiceTB.Text" xml:space="preserve">
-    <value>Cliquez ici pour demander à Microsoft les ressources nécessaires aux développeurs pour ajouter les salons vocaux, qui sont actuellement indisponibles.</value>
+    <value>Das wurde von Microsoft angefordert für die benötigten Resourcen für die Programmierer damit Sprachkanäle hinzugefügt werden. Das kannst du nicht aktivieren.</value>
   </data>
   <data name="VoiceChannelsTB.Text" xml:space="preserve">
-    <value>SALONS VOCAUX</value>
+    <value>SPRACHKANÄLE</value>
   </data>
   <data name="Yesterday" xml:space="preserve">
-    <value>Hier</value>
+    <value>Gestern</value>
   </data>
   <data name="DirectMessages" xml:space="preserve">
-    <value>Messages privés</value>
+    <value>Direktnachrichten</value>
   </data>
   <data name="members" xml:space="preserve">
-    <value>&lt;count&gt; membres</value>
+    <value>&lt;count&gt; Mitglieder</value>
   </data>
   <data name="Notifications_sentMessageOn" xml:space="preserve">
-    <value>a envoyé un message sur</value>
+    <value>sende eine Nachricht an</value>
   </data>
   <data name="PromptMessageSaveError" xml:space="preserve">
-    <value>Il y a eu un probleme lors du chargement de l'historique des messages. Celui-ci a été nettoyé.</value>
+    <value>Fehler bei Laden aufgetreten</value>
   </data>
   <data name="PromptMutedCacheError" xml:space="preserve">
-    <value>Il y a eu un probleme lors du chargement de l'historique des salons muets. Celui-ci a été nettoyé.</value>
+    <value>Fehler bei Laden aufgetreten</value>
   </data>
   <data name="PromptNoCache" xml:space="preserve">
-    <value>Le cache de l'application était vide, il va être utilisé pour améliorer les temps de chargement.</value>
+    <value>Du hast keine zwischengespeicherte daten, die App wird nun starten und wird zwischenspeicher, damit die Ladezeiten verkürzen.</value>
   </data>
   <data name="TypingAnd" xml:space="preserve">
-    <value>et </value>
+    <value>und</value>
   </data>
   <data name="TypingPlural" xml:space="preserve">
-    <value>sont en train d'écrire...</value>
+    <value>schreiben...</value>
   </data>
   <data name="TypingSingular" xml:space="preserve">
-    <value>est en train d'écrire...</value>
+    <value>schreibt...</value>
   </data>
   <data name="SubmittedBy" xml:space="preserve">
-    <value>Soumis par</value>
+    <value>Vorgeschlagen von</value>
   </data>
   <data name="DirectMessagesTB.Text" xml:space="preserve">
-    <value>MESSAGES PRIVÉS</value>
+    <value>DIREKTNACHRICHTEN</value>
   </data>
   <data name="FriendsTB.Text" xml:space="preserve">
-    <value>AMIS</value>
+    <value>FREUNDE</value>
   </data>
   <data name="Notifications_SentAFriendRequest" xml:space="preserve">
-    <value>vous a envoyé une demande d'ami</value>
+    <value>hat dir eine Freundschaftsanfrage gesendet</value>
   </data>
   <data name="Notifications_Accept" xml:space="preserve">
-    <value>Accepter</value>
+    <value>Annehmen</value>
   </data>
   <data name="Notifications_Refuse" xml:space="preserve">
-    <value>Refuser</value>
+    <value>Ignorieren</value>
   </data>
   <data name="Notifications_Reply" xml:space="preserve">
-    <value>Réponse</value>
+    <value>Ablehnen</value>
   </data>
   <data name="RecentMentionsABB.Label" xml:space="preserve">
-    <value>Mentions récentes</value>
+    <value>Neue Erwähnung</value>
   </data>
   <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>Code d'authentification</value>
+    <value>Sicherheits Code</value>
   </data>
   <data name="DirectMessageTB.Text" xml:space="preserve">
-    <value>MESSAGES PRIVÉS</value>
+    <value>DIREKTNACHRICHTEN</value>
   </data>
   <data name="FriendsButtonText.Text" xml:space="preserve">
-    <value>Amis</value>
+    <value>Freunde</value>
   </data>
   <data name="RemoveAdsABB.Label" xml:space="preserve">
-    <value>Retirer les publicités</value>
+    <value>Entferne Werbung</value>
   </data>
   <data name="ShowPinnedABB.Label" xml:space="preserve">
-    <value>Afficher les messages épinglés</value>
+    <value>Zeige angeheftete Nachrichten</value>
   </data>
   <data name="ToggleMember.Label" xml:space="preserve">
-    <value>Afficher la liste des membres</value>
+    <value>Verstecke Midgliedsliste</value>
   </data>
   <data name="WhatsNewABB.Label" xml:space="preserve">
-    <value>Quoi de neuf</value>
+    <value>Was ist den so alles neu?</value>
   </data>
   <data name="&lt;count&gt; members" xml:space="preserve">
-    <value>&lt;count&gt; membres</value>
+    <value>&lt;count&gt; Mitglieder</value>
   </data>
   <data name="NewMessageHLBTN.Content" xml:space="preserve">
-    <value>Nouveaux messages</value>
+    <value>NEUE NACHRICHTEN </value>
   </data>
   <data name="IgnoreHLBTN.Content" xml:space="preserve">
-    <value>Ignorer</value>
+    <value>IGNORIEREN</value>
   </data>
   <data name="ReturnToPresentHLBTN.Content" xml:space="preserve">
-    <value>REVENIR AU PRÉSENT</value>
+    <value>ZURÜCK ZUM CHATANFANG</value>
   </data>
   <data name="AboutMFI.Text" xml:space="preserve">
-    <value>À propos</value>
+    <value>Über</value>
   </data>
   <data name="WhatsNewMFI.Text" xml:space="preserve">
-    <value>Quoi de neuf ?</value>
+    <value>Was ist den so alles neu?</value>
   </data>
   <data name="RemoveAds.Text" xml:space="preserve">
-    <value>Retirer les publicités</value>
+    <value>Entferne Werbung</value>
   </data>
   <data name="Settings.Text" xml:space="preserve">
-    <value>Paramètres</value>
+    <value>Einstellungen</value>
   </data>
   <data name="AddAttachementTB.Text" xml:space="preserve">
-    <value>AJOUTER UNE PIÈCE JOINTE</value>
-  </data>
-  <data name="AddChannelMFI.Text" xml:space="preserve">
-    <value>Créer un salon</value>
-  </data>
-  <data name="AuditLogMFI.Text" xml:space="preserve">
-    <value>Logs du serveur</value>
-  </data>
-  <data name="CreateInviteMFI.Text" xml:space="preserve">
-    <value>Créer une invitation</value>
-  </data>
-  <data name="DeleteMFI.Text" xml:space="preserve">
-    <value>Supprimer le serveur</value>
-  </data>
-  <data name="LeaveMFI.Text" xml:space="preserve">
-    <value>Quitter le serveur</value>
-  </data>
-  <data name="SettingsMFI.Text" xml:space="preserve">
-    <value>Paramètres</value>
+    <value>Lade Bild/Datei hoch</value>
   </data>
 </root>

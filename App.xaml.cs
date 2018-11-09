@@ -1217,6 +1217,13 @@ namespace Discord_UWP
             NavigateToSettingsHandler?.Invoke(typeof(App), null);
         }
 
+        public static event EventHandler NavigateToAccountSettingsHandler;
+
+        public static void NavigateToAccountSettings()
+        {
+            NavigateToAccountSettingsHandler?.Invoke(typeof(App), null);
+        }
+
         #endregion
 
         #region About
