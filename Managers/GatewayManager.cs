@@ -389,10 +389,11 @@ namespace Discord_UWP.Managers
                     if (LocalState.DMs.ContainsKey(e.EventData.ChannelId))
                     {
                         IsDM = true;
-                        //if (e.EventData.Type == 3)
-                        //{
-                        //    //TODO: Handle calls
-                        //}
+                        if (e.EventData.Type == 3)
+                        {
+                            //TODO: Handle calls
+                            NotificationManager.CreateCallNotification(e.EventData);
+                        }
                         if (e.EventData.User.Id != LocalState.CurrentUser.Id)
                         {
                             LocalState.DMs[e.EventData.ChannelId].UpdateLMID(e.EventData.Id);
@@ -436,7 +437,7 @@ namespace Discord_UWP.Managers
                                 }
                                 else
                                 {
-                                    if (e.EventData.Mentions.Count() > 0 && e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser?.Id)?.Id != null || e.EventData.MentionEveryone)
+                                    if (e.EventData.Mentions.Any() && e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser?.Id)?.Id != null || e.EventData.MentionEveryone)
                                     {
                                         var editReadState = LocalState.RPC[e.EventData.ChannelId];
                                         editReadState.MentionCount++;
