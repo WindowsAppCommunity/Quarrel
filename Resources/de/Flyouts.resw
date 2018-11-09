@@ -118,105 +118,102 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AcceptFriendRequest" xml:space="preserve">
-    <value>Accepter la demande d'ami</value>
+    <value>Freundschaftsanfrage annehmen</value>
   </data>
   <data name="AddFriend" xml:space="preserve">
-    <value>Ajouter un ami</value>
+    <value>Freund hinzufügen</value>
   </data>
   <data name="BanMember" xml:space="preserve">
-    <value>Bannir un membre</value>
+    <value>Mitglied bannen</value>
   </data>
   <data name="Block" xml:space="preserve">
-    <value>Bloquer</value>
+    <value>Blockieren</value>
   </data>
   <data name="ChangeNickname" xml:space="preserve">
-    <value>Changer de pseudo</value>
+    <value>Nutzername ändern</value>
   </data>
   <data name="CloseDM" xml:space="preserve">
-    <value>Fermer le MP</value>
+    <value>PN schließen</value>
   </data>
   <data name="Deafen" xml:space="preserve">
-    <value>Assourdir</value>
+    <value>Taub stellen</value>
   </data>
   <data name="DeleteChannel" xml:space="preserve">
-    <value>Supprimer le salon</value>
+    <value>Raum löschen</value>
   </data>
   <data name="DeleteServer" xml:space="preserve">
-    <value>Supprimer le serveur</value>
+    <value>Server löschen</value>
   </data>
   <data name="EditChannel" xml:space="preserve">
-    <value>Modifier le salon</value>
+    <value>Raum bearbeiten</value>
   </data>
   <data name="EditServer" xml:space="preserve">
-    <value>Modifier le serveur</value>
+    <value>Server bearbeiten</value>
   </data>
   <data name="InviteToServer" xml:space="preserve">
-    <value>Inviter sur le serveur</value>
+    <value>Auf den Server einladen</value>
   </data>
   <data name="KickMember" xml:space="preserve">
-    <value>Expulser le membre</value>
+    <value>Mitglied kicken</value>
   </data>
   <data name="LeaveGroup" xml:space="preserve">
-    <value>Quitter le groupe</value>
+    <value>Gruppe verlassen</value>
   </data>
   <data name="LeaveServer" xml:space="preserve">
-    <value>Quitter le serveur</value>
+    <value>Server verlassen</value>
   </data>
   <data name="MarkAsRead" xml:space="preserve">
-    <value>Marquer comme lu</value>
+    <value>Als gelesen markieren</value>
   </data>
   <data name="Message" xml:space="preserve">
-    <value>Message</value>
+    <value>Nachricht</value>
   </data>
   <data name="MoveChannel" xml:space="preserve">
-    <value>Déplacer le salon</value>
+    <value>Raum bewegen</value>
   </data>
   <data name="Mute" xml:space="preserve">
-    <value>Mettre en sourdine</value>
+    <value>Stumm</value>
   </data>
   <data name="MuteChannel" xml:space="preserve">
-    <value>Mettre le salon en sourdine</value>
+    <value>Raum stumm schalten</value>
   </data>
   <data name="MuteServer" xml:space="preserve">
-    <value>Mettre le serveur en sourdine</value>
+    <value>Server stumm schalten</value>
   </data>
   <data name="PinFailed" xml:space="preserve">
-    <value>Échec de l'épinglement</value>
+    <value>Anheften fehlgeschlagen :'(</value>
   </data>
   <data name="PinSucess" xml:space="preserve">
-    <value>Épinglé avec succès !</value>
+    <value>Erfolgreich angeheftet</value>
   </data>
   <data name="PinToStart" xml:space="preserve">
-    <value>Épingler à l'écran de démarrage</value>
+    <value>An Start heften</value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profil</value>
   </data>
   <data name="RemoveFriend" xml:space="preserve">
-    <value>Retirer des amis</value>
+    <value>Freund entfernen</value>
   </data>
   <data name="RemoveFromGroup" xml:space="preserve">
-    <value>Retirer du groupe</value>
+    <value>Aus der Gruppe entfernen</value>
   </data>
   <data name="Roles" xml:space="preserve">
-    <value>Rôles</value>
+    <value>Rollen</value>
   </data>
   <data name="Unblock" xml:space="preserve">
-    <value>Débloquer</value>
+    <value>Nicht mehr blockieren</value>
   </data>
   <data name="UnmuteChannel" xml:space="preserve">
-    <value>Supprimer la sourdine</value>
+    <value>Raum nicht mehr Stumm schalten</value>
   </data>
   <data name="UnmuteServer" xml:space="preserve">
-    <value>Supprimer la sourdine</value>
+    <value>Server Nicht mehr Stumm schalten</value>
   </data>
   <data name="UnpinFromStart" xml:space="preserve">
-    <value>Désépingler de l'écran d'acceuil</value>
+    <value>Von Start entfernen</value>
   </data>
   <data name="UnpinSucess" xml:space="preserve">
-    <value>Déséspinglé avec succès !</value>
-  </data>
-  <data name="SavePicture" xml:space="preserve">
-    <value>Enregistrer l'image</value>
+    <value>Erfolgreich entfernt!</value>
   </data>
 </root>

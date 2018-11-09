@@ -117,223 +117,220 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AcceptFriendRequest?" xml:space="preserve">
-    <value>¿Aceptar solicitud de amistad?</value>
+  <data name="AcceptFriendRequestQ" xml:space="preserve">
+    <value>Freundschaftsanfrage akzeptieren?</value>
   </data>
   <data name="ACTIVITIES" xml:space="preserve">
-    <value>ACTIVIDADES</value>
+    <value>AKTIVITÄTEN</value>
   </data>
   <data name="AddReacItem.Text" xml:space="preserve">
-    <value>Agregar Reacción</value>
-  </data>
-  <data name="AllLI.Content" xml:space="preserve">
-    <value>TODOS</value>
+    <value>Reaktion hinzufügen</value>
   </data>
   <data name="BlockedLI.Content" xml:space="preserve">
-    <value>BLOQUEADO</value>
+    <value>BLOCKIERT</value>
   </data>
   <data name="BotTB.Text" xml:space="preserve">
     <value>BOT</value>
   </data>
   <data name="CopyIdItem.Text" xml:space="preserve">
-    <value>Copiar ID</value>
+    <value>ID kopieren</value>
   </data>
   <data name="DeleteItem.Text" xml:space="preserve">
-    <value>Eliminar</value>
+    <value>Löschen</value>
   </data>
   <data name="EditItem.Text" xml:space="preserve">
-    <value>Editar</value>
+    <value>Bearbeiten</value>
   </data>
   <data name="FLAGS" xml:space="preserve">
-    <value>BANDERAS</value>
+    <value>FLAGGEN</value>
   </data>
   <data name="FOOD" xml:space="preserve">
-    <value>COMIDA</value>
+    <value>ESSEN</value>
   </data>
   <data name="FriendRequestSent" xml:space="preserve">
-    <value>Solicitud de amistad enviada</value>
+    <value>Freundschaftsanfrage gesendet</value>
   </data>
   <data name="InviteExpired" xml:space="preserve">
-    <value>Invitación caducada</value>
+    <value>Einladung abgelaufen</value>
   </data>
   <data name="InviteInvalid" xml:space="preserve">
-    <value>Invitación caducada o inválida</value>
+    <value>Einladung abgelaufen oder ungültig</value>
   </data>
   <data name="InviteJoin" xml:space="preserve">
-    <value>Unirse</value>
+    <value>Beitreten</value>
   </data>
   <data name="InviteJoined" xml:space="preserve">
-    <value>Te has unido a</value>
+    <value>Sie sind beigetreten</value>
   </data>
   <data name="InviteMaxUses" xml:space="preserve">
-    <value>Cantidad máxima de usos alcanzados</value>
+    <value>Maximale Anzahl Nutzer erreicht</value>
   </data>
   <data name="InviteTempDesc" xml:space="preserve">
-    <value>Las personas que utilicen este vínculo se expulsarán automáticamente cuando se desconecten, a menos que se les asigne un rol.</value>
+    <value>Nutzer dieses Links werden beim Verlassen automatisch rausgeschmissen, es sei denn, ihnen wurde eine Rolle zugewiesen.</value>
   </data>
   <data name="NATURE" xml:space="preserve">
-    <value>NATURALEZA</value>
+    <value>NATUR</value>
   </data>
   <data name="OBJECTS" xml:space="preserve">
-    <value>OBJETOS</value>
+    <value>OBJEKTE</value>
   </data>
   <data name="OnlyOnlineFriendsCB.Content" xml:space="preserve">
-    <value>Solo mostrar amigos en línea</value>
+    <value>Nur angemeldete Nutzer anzeigen</value>
   </data>
   <data name="PendingTB.Text" xml:space="preserve">
-    <value>PENDIENTE</value>
+    <value>AUSSTEHEND</value>
   </data>
   <data name="PEOPLE" xml:space="preserve">
-    <value>GENTE</value>
+    <value>LEUTE</value>
   </data>
   <data name="PinItem.Text" xml:space="preserve">
-    <value>Anclar</value>
+    <value>Angeheftet</value>
   </data>
   <data name="Playing" xml:space="preserve">
-    <value>Jugando a</value>
+    <value>Spielt</value>
   </data>
   <data name="RevokeBanTB.Text" xml:space="preserve">
-    <value>Revocar la prohibición</value>
+    <value>Bann zurückziehen</value>
   </data>
   <data name="RoleTB.Text" xml:space="preserve">
-    <value>Rol</value>
+    <value>Rolle</value>
   </data>
   <data name="SearchTBox.PlaceholderText" xml:space="preserve">
-    <value>Buscar...</value>
+    <value>Suche...</value>
   </data>
   <data name="SendMessagePlaceholderText" xml:space="preserve">
-    <value>Enviar mensaje</value>
+    <value>Nachricht senden</value>
   </data>
   <data name="Streaming" xml:space="preserve">
-    <value>Transmisión</value>
+    <value>Überträgt</value>
   </data>
   <data name="SYMBOLS" xml:space="preserve">
-    <value>SÍMBOLOS</value>
+    <value>SYMBOLE</value>
   </data>
   <data name="TemporaryInviteTB.Text" xml:space="preserve">
-    <value>Invitación temporal</value>
+    <value>Temporäre Einladung</value>
   </data>
   <data name="TRAVEL" xml:space="preserve">
-    <value>VIAJE</value>
+    <value>REISEN</value>
   </data>
   <data name="UsePlural" xml:space="preserve">
-    <value>usos</value>
+    <value>nutzt</value>
   </data>
   <data name="UseSingular" xml:space="preserve">
-    <value>usar</value>
+    <value>nutzen</value>
   </data>
   <data name="Edited" xml:space="preserve">
-    <value>Editado</value>
+    <value>Bearbeitet</value>
   </data>
   <data name="ExpiredLink" xml:space="preserve">
-    <value>Vínculo vencido</value>
+    <value>Abgelaufener Link</value>
   </data>
   <data name="expiresIn" xml:space="preserve">
-    <value>caduca en &lt;time&gt;</value>
+    <value>läuft ab in &lt;time&gt;</value>
   </data>
   <data name="expiresNever" xml:space="preserve">
-    <value>nunca caduca</value>
+    <value>läuft nie ab</value>
   </data>
   <data name="InviteTo" xml:space="preserve">
-    <value>Invitar a</value>
+    <value>Einladen zu</value>
   </data>
   <data name="Pin" xml:space="preserve">
-    <value>Anclar</value>
+    <value>Anheften</value>
   </data>
   <data name="Unpin" xml:space="preserve">
-    <value>Liberar</value>
-  </data>
-  <data name="AcceptFriendRequestQ" xml:space="preserve">
-    <value>¿Aceptar solicitud de amistad?</value>
+    <value>Entfernen</value>
   </data>
   <data name="RemoveFromFriends.Text" xml:space="preserve">
-    <value>Quitar de los amigos</value>
+    <value>Aus der Freundesliste entfernen</value>
   </data>
   <data name="SendMessage.Text" xml:space="preserve">
-    <value>Enviar mensaje</value>
+    <value>Nachricht senden</value>
   </data>
   <data name="Call.Text" xml:space="preserve">
-    <value>Llamada</value>
+    <value>Anrufen</value>
   </data>
   <data name="FriendsLI.Content" xml:space="preserve">
-    <value>AMIGOS</value>
+    <value>FREUNDE</value>
+  </data>
+  <data name="AllLI.Content" xml:space="preserve">
+    <value>ALLE</value>
+  </data>
+  <data name="AcceptFriendRequest?" xml:space="preserve">
+    <value>Freundschaftsanfrage annehmen?</value>
   </data>
   <data name="AddedUser" xml:space="preserve">
-    <value>añadió a</value>
+    <value>hat</value>
   </data>
   <data name="RemovedUser" xml:space="preserve">
-    <value>quitó a</value>
+    <value>entfernte</value>
   </data>
   <data name="ToTheConversation" xml:space="preserve">
-    <value>&lt;user&gt; a la conversación</value>
+    <value>&lt;user&gt; zur Konversation hinzugefügt</value>
   </data>
   <data name="FromTheConversation" xml:space="preserve">
-    <value>&lt;user&gt; de la conversación</value>
+    <value>&lt;user&gt; aus der Konversation</value>
   </data>
   <data name="YouMissedACall" xml:space="preserve">
-    <value>Te perdiste una llamada de</value>
+    <value>Sie haben einen Anruf von &lt;user&gt; verpasst</value>
   </data>
   <data name="PinnedAMessageInThisChannel" xml:space="preserve">
-    <value>ha fijado un mensaje en este canal.</value>
+    <value>hat eine Nachricht in diesem Channel angeheftet.</value>
   </data>
   <data name="CallStartedBy" xml:space="preserve">
-    <value>Llamada iniciada por &lt;user&gt;</value>
+    <value>Anruf gestartet von &lt;user&gt;</value>
   </data>
   <data name="StartedACall" xml:space="preserve">
-    <value>inició una llamada</value>
+    <value>haben einen Anruf gestartet</value>
   </data>
   <data name="You" xml:space="preserve">
-    <value>Tu</value>
+    <value>Sie</value>
   </data>
   <data name="PlayingTB.Text" xml:space="preserve">
-    <value>JUGANDO</value>
+    <value>SPIELEN</value>
   </data>
   <data name="JoinedTheServer" xml:space="preserve">
-    <value>se unió al servidor!</value>
+    <value>trat dem Server bei!</value>
   </data>
   <data name="EditedAt" xml:space="preserve">
-    <value>Editado, &lt;time&gt;</value>
+    <value>Bearbeitet am &lt;time&gt;</value>
   </data>
   <data name="JoinListenSessionBTN.Content" xml:space="preserve">
-    <value>Unirse a la sesión de escucha</value>
+    <value>Trete einer Hörsitzung bei</value>
   </data>
   <data name="SessionOverTB.Text" xml:space="preserve">
-    <value> LA SESIÓN DE SPOTIFY HA TERMINADO :'(</value>
+    <value>SPOTIFY-SITZUNG IST ZU ENDE</value>
   </data>
   <data name="AddAttachMFI.Text" xml:space="preserve">
-    <value>Adjuntos</value>
+    <value>Anhang</value>
   </data>
   <data name="GiphySearchTBox.PlaceholderText" xml:space="preserve">
-    <value>Buscar con Giphy</value>
+    <value>Mit Giphy suchen</value>
   </data>
   <data name="ListeningTo" xml:space="preserve">
-    <value>Escuchando</value>
+    <value>Hört</value>
   </data>
   <data name="LoadingTB.Text" xml:space="preserve">
-    <value>CARGANDO</value>
+    <value>LÄDT</value>
   </data>
   <data name="SearchGiphyMFI.Text" xml:space="preserve">
-    <value>Buscar en Giphy</value>
+    <value>Suche Giphy</value>
   </data>
   <data name="SendSpotifyInvMFI.Text" xml:space="preserve">
-    <value>Mandar una invitación de Spotify</value>
+    <value>Einladung zu Spotify versenden</value>
   </data>
   <data name="BlockedMessageTB.Text" xml:space="preserve">
-    <value>Mensaje Bloqueado</value>
+    <value>Ausgeblendete Nachricht</value>
   </data>
   <data name="NoteTBox.PlaceholderText" xml:space="preserve">
-    <value>Agregar una nota</value>
+    <value>Notiz hinzufügen</value>
   </data>
   <data name="VolumeSlide.Header" xml:space="preserve">
-    <value>Volumen</value>
+    <value>Lautstärke</value>
   </data>
   <data name="TryResetBTN.Content" xml:space="preserve">
-    <value>¿Tienes problemas? Intenta reiniciar Quarrel</value>
+    <value>Du hast Probleme? Versuche Quarrel zurückzusetzen</value>
   </data>
   <data name="ACTIVITESLI.Content" xml:space="preserve">
-    <value>ACTIVIDADES</value>
-  </data>
-  <data name="Watching" xml:space="preserve">
-    <value>Mirando</value>
+    <value>Aktiviäten</value>
   </data>
 </root>
