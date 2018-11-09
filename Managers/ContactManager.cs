@@ -81,7 +81,7 @@ namespace Discord_UWP.Managers
             return annotationList;
         }
 
-        public  async Task<Contact> GetContact(string id)
+        public async Task<Contact> GetContact(string id)
         {
             if (contactList == null)
             {
@@ -105,6 +105,32 @@ namespace Discord_UWP.Managers
             }
 
             return await contactList.GetContactFromRemoteIdAsync(id);
+        }
+
+        public async Task<Contact> GetContactlocal(string id)
+        {
+            if (contactList == null)
+            {
+                store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
+
+                if (store == null)
+                {
+                    return null;
+                }
+
+                IReadOnlyList<ContactList> contactLists = await store.FindContactListsAsync();
+
+                if (contactLists.Count == 0)
+                {
+                    contactList = await store.CreateContactListAsync("Discord");
+                }
+                else
+                {
+                    contactList = contactLists[0];
+                }
+            }
+
+            return (await contactList.GetContactReader().ReadBatchAsync()).Contacts.FirstOrDefault(contact => contact.AggregateId == id);
         }
 
         private  async Task<bool> CheckContact(SharedModels.User user)
