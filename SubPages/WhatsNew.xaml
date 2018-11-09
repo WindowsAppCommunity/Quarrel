@@ -109,6 +109,10 @@
                                 <Run Text="• Added Call button"/>
                             </Paragraph>
                             <Paragraph FontSize="8"/>
+                            <Paragraph>
+                                <Run Text="• Improved myPeople integration"/>
+                            </Paragraph>
+                            <Paragraph FontSize="8"/>
                         </RichTextBlock>
                         <ScrollViewer x:Name="Detailed" Visibility="Collapsed">
                             <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" FontSize="12" Margin="0,32,0,12">

@@ -3888,6 +3888,11 @@ namespace Discord_UWP
 
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
+            App.NavigateToSettings();
+        }
+
+        private void OpenAccountSettings(object sender, RoutedEventArgs e)
+        {
             userFlyout.Hide();
             App.NavigateToAccountSettings();
         }
