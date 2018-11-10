@@ -46,8 +46,7 @@ namespace Discord_UWP.SubPages
             MessagesLoading.Visibility = Visibility.Visible;
             var contactManager = new ContactManager();
             ContactPanelActivatedEventArgs panelArgs = (ContactPanelActivatedEventArgs) e.Parameter;
-            Contact contact = await contactManager.GetContactlocal(panelArgs.Contact.Id);
-            userID = contact.RemoteId;
+            userID = await contactManager.ContactIdToRemoteId(panelArgs.Contact.Id);
             DMChannelID = LocalState.DMs
                               ?.FirstOrDefault(dm =>
                                   dm.Value?.Type == 1 && dm.Value.Users.FirstOrDefault()?.Id == userID).Value?.Id ??

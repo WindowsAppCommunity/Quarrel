@@ -1194,7 +1194,7 @@
                             </Flyout>
                         </AppBarButton.Flyout>
                     </AppBarButton>
-                    <AppBarButton x:Uid="/Main/CallUser" x:Name="CallUser" Background="Transparent"  Icon="Phone" Label="Toggle Member List" Visibility="Collapsed" Click="CallUser_Click">
+                    <AppBarButton x:Uid="/Main/CallUser" x:Name="CallUser" Background="Transparent" Icon="Phone" Label="Call" Visibility="Collapsed" Click="CallUser_Click">
                         <AppBarButton.RenderTransform>
                             <ScaleTransform x:Name="CallUserTransform" ScaleX="1" ScaleY="1"/>
                         </AppBarButton.RenderTransform>
