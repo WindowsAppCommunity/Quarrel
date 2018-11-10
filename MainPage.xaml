@@ -1033,13 +1033,13 @@
                                         <Rectangle x:Name="HighContrastBorder" x:DeferLoadStrategy="Lazy" Grid.ColumnSpan="2"  Visibility="Collapsed" VerticalAlignment="Stretch" Stroke="{ThemeResource SystemControlForegroundTransparentBrush}" StrokeThickness="1"/>
                                     </Grid>
                                 </Grid>
-                                <Rectangle x:Name="cmdBarShadow" Loaded="cmdBarShadow_Loaded" Opacity="0.15" Margin="0,0,0,0"  Visibility="Collapsed" Height="12" VerticalAlignment="Top"  IsHitTestVisible="False" Grid.RowSpan="2">
+                                <Rectangle x:Name="cmdBarShadow" Loaded="cmdBarShadow_Loaded" Opacity="{StaticResource ShadowOpacity}" Margin="0,0,0,0"  Visibility="Collapsed" Height="12" VerticalAlignment="Top"  IsHitTestVisible="False" Grid.RowSpan="2">
                                     <Rectangle.RenderTransform>
                                         <TranslateTransform x:Name="ShadowTransform" Y="{ThemeResource AppBarThemeCompactHeight}"/>
                                     </Rectangle.RenderTransform>
                                     <Rectangle.Fill>
                                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                            <GradientStop Offset="0" Color="Black"/>
+                                            <GradientStop Offset="0" Color="{ThemeResource ShadowColor}"/>
                                             <GradientStop Offset="1" Color="#00000000"/>
                                         </LinearGradientBrush>
                                     </Rectangle.Fill>
@@ -1284,7 +1284,7 @@
                                 <Rectangle.Fill>
                                     <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
                                         <GradientStop Offset="1"/>
-                                        <GradientStop Color="Black" Offset="0"/>
+                                        <GradientStop Color="{ThemeResource ShadowColor}" Offset="0"/>
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
@@ -1441,7 +1441,7 @@
                                 <Rectangle.Fill>
                                     <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
                                         <GradientStop Offset="1"/>
-                                        <GradientStop Color="Black" Offset="0"/>
+                                        <GradientStop Color="{ThemeResource ShadowColor}" Offset="0"/>
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>

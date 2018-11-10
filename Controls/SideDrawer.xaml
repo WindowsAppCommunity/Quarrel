@@ -41,11 +41,11 @@
                 <Rectangle Visibility="Visible" IsHitTestVisible="False" x:Name="leftPanelCache" Fill="Black"/>
             </Grid>
             <Grid x:Name="leftSecondaryPanel" Background="{ThemeResource AcrylicChannelPaneBackground}" Margin="0,0,0,0" HorizontalAlignment="Left">
-                <Rectangle Visibility="Visible" IsHitTestVisible="False" Width="12" HorizontalAlignment="Left" Opacity="0.2" Margin="-12,0,0,0">
+                <Rectangle Visibility="Visible" IsHitTestVisible="False" Width="12" HorizontalAlignment="Left" Opacity="{StaticResource ShadowOpacity}" Margin="-12,0,0,0">
                     <Rectangle.Fill>
                         <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
                             <GradientStop Offset="1"/>
-                            <GradientStop Color="Black" Offset="0"/>
+                            <GradientStop Color="{ThemeResource ShadowColor}" Offset="0"/>
                         </LinearGradientBrush>
                     </Rectangle.Fill>
                 </Rectangle>
@@ -58,19 +58,19 @@
             <Rectangle Visibility="Visible" IsHitTestVisible="False" x:Name="rightPanelCache" Fill="Black"/>
         </Grid>
         <Grid x:Name="content"  Background="{ThemeResource AcrylicMessageBackground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Rectangle IsHitTestVisible="False" Width="12" HorizontalAlignment="Left" Opacity="0.2" Margin="-12,0,0,0">
+            <Rectangle IsHitTestVisible="False" Width="12" HorizontalAlignment="Left" Opacity="{StaticResource ShadowOpacity}" Margin="-12,0,0,0">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
                         <GradientStop Offset="1"/>
-                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="{ThemeResource ShadowColor}" Offset="0"/>
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle IsHitTestVisible="False" Width="12" HorizontalAlignment="Right" Opacity="0.2" Margin="0,0,-12,0">
+            <Rectangle IsHitTestVisible="False" Width="12" HorizontalAlignment="Right" Opacity="{StaticResource ShadowOpacity}" Margin="0,0,-12,0">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
                         <GradientStop Offset="0"/>
-                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="{ThemeResource ShadowColor}" Offset="1"/>
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
