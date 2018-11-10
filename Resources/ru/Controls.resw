@@ -127,7 +127,7 @@
     <value>Добавить реакцию</value>
   </data>
   <data name="BlockedLI.Content" xml:space="preserve">
-    <value>ЗАБЛОКИРОВАНЫ</value>
+    <value>ЗАБЛОКИРОВАН</value>
   </data>
   <data name="BotTB.Text" xml:space="preserve">
     <value>BOT</value>
@@ -182,7 +182,7 @@
     <value>Показать друзей в онлайне</value>
   </data>
   <data name="PendingTB.Text" xml:space="preserve">
-    <value>ЗАПРОСЫ</value>
+    <value>ОЖИДАНИЕ</value>
   </data>
   <data name="PEOPLE" xml:space="preserve">
     <value>ЛЮДИ</value>
