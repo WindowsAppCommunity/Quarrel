@@ -65,9 +65,8 @@
                     <SolidColorBrush x:Key="LinkColor" Color="#0096cf"/>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
-
                     <SolidColorBrush x:Key="Background" Color="#1B1B1B"/>
-                    <SolidColorBrush x:Key="AcrylicMessageBackground" Color="#FF222326"/>
+                    <SolidColorBrush x:Key="AcrylicMessageBackground" Color="#FF303238"/>
                     <!--<AcrylicBrush x:Key="AcrylicMessageBackground"
                     BackgroundSource="HostBackdrop"
                     TintColor="#FF33353b"
