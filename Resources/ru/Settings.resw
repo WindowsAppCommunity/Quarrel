@@ -172,7 +172,7 @@
     <value>Сбросить реагирования по умолчанию</value>
   </data>
   <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
-    <value>Это полоски, при которой пользовательский интерфейс 
+    <value>Это полоса, при которой пользовательский интерфейс 
 показывает более или менее информацию на экране в зависимости от ширины экрана.</value>
   </data>
   <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">

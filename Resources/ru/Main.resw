@@ -176,7 +176,7 @@ Discord имеет тенденцию быстро исправлять ошиб
     <value>Покупки в приложении</value>
   </data>
   <data name="IdleRadio.Content" xml:space="preserve">
-    <value>Не активен</value>
+    <value>Видимый</value>
   </data>
   <data name="InvisibleRadio.Content" xml:space="preserve">
     <value>Невидимый</value>
@@ -276,7 +276,7 @@ Discord имеет тенденцию быстро исправлять ошиб
     <value>Печатает...</value>
   </data>
   <data name="SubmittedBy" xml:space="preserve">
-    <value>Представлен</value>
+    <value>Представленный</value>
   </data>
   <data name="DirectMessagesTB.Text" xml:space="preserve">
     <value>ПРЯМЫЕ СООБЩЕНИЯ</value>

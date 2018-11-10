@@ -157,7 +157,7 @@
 бесценные советы и помощи</value>
   </data>
   <data name="Commit" xml:space="preserve">
-    <value>Коммит</value>
+    <value>Комит</value>
   </data>
   <data name="DesignerCreditTB.Text" xml:space="preserve">
     <value>Дизайн от Lightmagic Apps</value>
@@ -206,7 +206,7 @@ Discord серверу!</value>
     <value>ЛИЦЕНЗИИ</value>
   </data>
   <data name="LoginTB.Text" xml:space="preserve">
-    <value>ВОЙТИ</value>
+    <value>ЛОГИН</value>
   </data>
   <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
     <value>Код аутентификации</value>
