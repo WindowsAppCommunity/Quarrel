@@ -134,6 +134,8 @@
             <x:Double x:Key="ShadowOpacity">0.1</x:Double>
             <x:Boolean x:Key="ShowFocusVisuals">True</x:Boolean>
 
+            <Color x:Key="ShadowColor">#FF000000</Color>
+
             <BitmapImage x:Key="BGImage"/>
             <Style x:Key="CheckBoxStyle1" TargetType="CheckBox">
                 <Setter Property="Background" Value="{ThemeResource CheckBoxBackgroundUnchecked}"/>
