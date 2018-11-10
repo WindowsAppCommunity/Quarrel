@@ -140,83 +140,82 @@ namespace Discord_UWP
 
         public async void Setup(object o, EventArgs args)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                //Reset everything, for when accounts are being switched
+                ServerList.Items.Clear();
+                //Setup UI
+                MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
+                LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
+                ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
+                TransitionCollection collection = new TransitionCollection();
+                NavigationThemeTransition theme = new NavigationThemeTransition();
+                DrillInNavigationTransitionInfo info = new DrillInNavigationTransitionInfo();
+                theme.DefaultNavigationTransitionInfo = info;
+                collection.Add(theme);
+                SubFrame.ContentTransitions = collection;
+
+                //Setup cinematic mode
+                if (App.CinematicMode)
                 {
-                    //Reset everything, for when accounts are being switched
-                    ServerList.Items.Clear();
-                    //Setup UI
-                    MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
-                    LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
-                    ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
-                    TransitionCollection collection = new TransitionCollection();
-                    NavigationThemeTransition theme = new NavigationThemeTransition();
-                    DrillInNavigationTransitionInfo info = new DrillInNavigationTransitionInfo();
-                    theme.DefaultNavigationTransitionInfo = info;
-                    collection.Add(theme);
-                    SubFrame.ContentTransitions = collection;
+                    cmdBar.Visibility = Visibility.Collapsed;
+                    TitleBarHolder.Visibility = Visibility.Collapsed;
+                    userButton.Padding = new Thickness(0, 0, 0, 48);
+                    userButton.Height = 112;
+                    //ServerList.Padding = new Thickness(0, 84, 0, 48);
+                    //ChannelList.Padding = new Thickness(0, 84, 0, 48);
+                    ServerScrollviewer.Margin = new Thickness(0, 42, 0, 48);
+                    ChannelScrollviewer.Margin = new Thickness(0, 84, 0, 0);
+                    MembersListView.Margin = new Thickness(0, 48, 0, 48);
 
-                    //Setup cinematic mode
-                    if (App.CinematicMode)
-                    {
-                        cmdBar.Visibility = Visibility.Collapsed;
-                        TitleBarHolder.Visibility = Visibility.Collapsed;
-                        userButton.Padding = new Thickness(0, 0, 0, 48);
-                        userButton.Height = 112;
-                        //ServerList.Padding = new Thickness(0, 84, 0, 48);
-                        //ChannelList.Padding = new Thickness(0, 84, 0, 48);
-                        ServerScrollviewer.Margin = new Thickness(0, 42, 0, 48);
-                        ChannelScrollviewer.Margin = new Thickness(0, 84, 0, 0);
-                        MembersListView.Margin = new Thickness(0, 48, 0, 48);
-
-                        CinematicChannelName.Visibility = Visibility.Visible;
-                        CineGuildNameBTN.Visibility = Visibility.Visible;
-                        ServerNameButton.Visibility = Visibility.Collapsed;
-                        friendPanel.Margin = new Thickness(0, 84, 0, 0);
-                        MessageList.Padding = new Thickness(0, 84, 0, 0);
-                        MessageArea.Margin = new Thickness(0);
-                        CinematicMask1.Visibility = Visibility.Visible;
-                        CinematicMask2.Visibility = Visibility.Visible;
-                        ControllerHints.Visibility = Visibility.Visible;
-                        if (App.ShowAds) XBOXAd.Visibility = Visibility.Visible;
-                        PCAd.Visibility = Visibility.Collapsed;
-                        Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
-                        sideDrawer.DrawOpenedLeft += SideDrawer_DrawOpenedLeft;
-                        sideDrawer.DrawOpenedRight += SideDrawer_DrawOpenedRight;
-                        sideDrawer.DrawsClosed += SideDrawer_DrawsClosed;
-                        SubFrame.FocusDisengaged += SubFrame_FocusDisengaged;
-                        userButton.IsTabStop = false;
-                        ApplicationView.GetForCurrentView().TryResizeView(new Size(960, 540));
-                    }
-                    else
-                    {
-                        ServerScrollviewer.Margin = new Thickness(0, 0, 0, 0);
-                    }
-
-                    //Setup BackButton
-                    SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                        AppViewBackButtonVisibility.Visible;
-                    SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
-                    //Setup Controller input
-                    Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
-                    Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
+                    CinematicChannelName.Visibility = Visibility.Visible;
+                    CineGuildNameBTN.Visibility = Visibility.Visible;
+                    ServerNameButton.Visibility = Visibility.Collapsed;
+                    friendPanel.Margin = new Thickness(0, 84, 0, 0);
+                    MessageList.Padding = new Thickness(0, 84, 0, 0);
+                    MessageArea.Margin = new Thickness(0);
+                    CinematicMask1.Visibility = Visibility.Visible;
+                    CinematicMask2.Visibility = Visibility.Visible;
+                    ControllerHints.Visibility = Visibility.Visible;
+                    if (App.ShowAds) XBOXAd.Visibility = Visibility.Visible;
+                    PCAd.Visibility = Visibility.Collapsed;
                     Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
-                    //Setup MessageList infinite scroll
+                    sideDrawer.DrawOpenedLeft += SideDrawer_DrawOpenedLeft;
+                    sideDrawer.DrawOpenedRight += SideDrawer_DrawOpenedRight;
+                    sideDrawer.DrawsClosed += SideDrawer_DrawsClosed;
+                    SubFrame.FocusDisengaged += SubFrame_FocusDisengaged;
+                    userButton.IsTabStop = false;
+                    ApplicationView.GetForCurrentView().TryResizeView(new Size(960, 540));
+                }
+                else
+                {
+                    ServerScrollviewer.Margin = new Thickness(0, 0, 0, 0);
+                }
 
-                    if (!Storage.Settings.CustomBG) BackgroundImage.Visibility = Visibility.Collapsed;
+                //Setup BackButton
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                    AppViewBackButtonVisibility.Visible;
+                SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
+                //Setup Controller input
+                Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
+                Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
+                Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
+                //Setup MessageList infinite scroll
 
-                    if (App.DontLogin) return;
+                if (!Storage.Settings.CustomBG) BackgroundImage.Visibility = Visibility.Collapsed;
 
-                    //Hook up the login Event
-                    App.LoggingInHandler += App_LoggingInHandlerAsync;
+                if (App.DontLogin) return;
 
-                    UISize.CurrentStateChanged += UISize_CurrentStateChanged;
-                    //Verify if a token exists, if not navigate to login page
-                    if (App.LoggedIn() == false)
-                        SubFrameNavigator(typeof(LogScreen));
-                    else
-                        App_LoggingInHandlerAsync(null, null);
-                });
+                //Hook up the login Event
+                App.LoggingInHandler += App_LoggingInHandlerAsync;
+
+                UISize.CurrentStateChanged += UISize_CurrentStateChanged;
+                //Verify if a token exists, if not navigate to login page
+                if (App.LoggedIn() == false)
+                    SubFrameNavigator(typeof(LogScreen));
+                else
+                    App.LogIn();
+            });
         }
 
         private void SubFrame_FocusDisengaged(Control sender, FocusDisengagedEventArgs args)
@@ -224,7 +223,7 @@ namespace Discord_UWP
             App.SubpageClose();
         }
 
-        private void UISize_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+            private void UISize_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
             if (e.NewState == Large || e.NewState == ExtraLarge)
             {
@@ -1326,15 +1325,6 @@ namespace Discord_UWP
             Loading.Show(false);
             SubFrameMask.Opacity = 0;
             loadingStack.Loading("LoggingIn", "LOGGING IN");
-            try
-            {
-                await RESTCalls.SetupToken();
-            }
-            catch
-            {
-                App.CheckOnline();
-                return;
-            }
 
             IReadOnlyList<PasswordCredential> credentials = Storage.PasswordVault.FindAllByResource("Token");
             AccountView.Items.Clear();
@@ -1347,12 +1337,12 @@ namespace Discord_UWP
                 loadingStack.Loading("GatewayConnecting", "CONNECTING");
                 loadingStack.Loaded("LoggingIn");
                 SetupEvents();
+                if (App.Ready)
+                    App_ReadyRecievedHandler(null, null);
                 if (GatewayManager.Gateway != null)
                 {
-                    GatewayManager.StartGateway();
                     GatewayManager.Gateway.GatewayClosed += Gateway_GatewayClosed;
                     GatewayManager.Gateway.Resumed += Gateway_Resumed;
-                    Common.LoadEmojiDawg();
                     //Debug.Write(Windows.UI.Notifications.BadgeUpdateManager.GetTemplateContent(Windows.UI.Notifications.BadgeTemplateType.BadgeNumber).GetXml());
                     BeginExtendedExecution();
                     BackgroundTaskManager.TryRegisterBackgroundTask();
@@ -1368,6 +1358,7 @@ namespace Discord_UWP
                                 LocalState.SupportedGamesNames.Add(game.Name, game.Id);
                         }
                     }
+
                 }
                 else
                 {
@@ -3104,72 +3095,71 @@ namespace Discord_UWP
 
             if (App.Insider && App.IsDesktop) StartAppService();
 
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                friendPanel.Load();
+                DisconnectedMask.Visibility = Visibility.Collapsed;
+                SetupUI();
+                RenderCurrentUser();
+                RenderGuilds();
+                ServerList.SelectedIndex = 0;
+
+                UserStatusIndicator.Fill =
+                    (SolidColorBrush) Application.Current.Resources[
+                        LocalState.PresenceDict[LocalState.CurrentUser.Id].Status];
+                switch (LocalState.PresenceDict[LocalState.CurrentUser.Id].Status)
                 {
-                    friendPanel.Load();
-                    DisconnectedMask.Visibility = Visibility.Collapsed;
-                    SetupUI();
-                    RenderCurrentUser();
-                    RenderGuilds();
-                    ServerList.SelectedIndex = 0;
+                    case "online":
+                        UserStatusOnline.IsChecked = true;
+                        break;
+                    case "idle":
+                        UserStatusIdle.IsChecked = true;
+                        break;
+                    case "dnd":
+                        UserStatusDND.IsChecked = true;
+                        break;
+                    case "invisible":
+                    case "offline":
+                        UserStatusInvisible.IsChecked = true;
+                        break;
+                }
 
-                    UserStatusIndicator.Fill =
-                        (SolidColorBrush) Application.Current.Resources[
-                            LocalState.PresenceDict[LocalState.CurrentUser.Id].Status];
-                    switch (LocalState.PresenceDict[LocalState.CurrentUser.Id].Status)
+                App.UpdateUnreadIndicators();
+                App.FullyLoaded = true;
+                if (App.PostLoadTask != null)
+                    switch (App.PostLoadTask)
                     {
-                        case "online":
-                            UserStatusOnline.IsChecked = true;
+                        case "SelectGuildChannelTask":
+                            App.SelectGuildChannel(((App.GuildChannelSelectArgs) App.PostLoadTaskArgs).GuildId,
+                                ((App.GuildChannelSelectArgs) App.PostLoadTaskArgs).ChannelId);
                             break;
-                        case "idle":
-                            UserStatusIdle.IsChecked = true;
+                        case "SelectDMChannelTask":
+                            App.SelectDMChannel((App.DMChannelSelectArgs) App.PostLoadTaskArgs);
                             break;
-                        case "dnd":
-                            UserStatusDND.IsChecked = true;
-                            break;
-                        case "invisible":
-                        case "offline":
-                            UserStatusInvisible.IsChecked = true;
+                        case "invite":
+                            App.NavigateToJoinServer(((App.GuildChannelSelectArgs) App.PostLoadTaskArgs).GuildId);
                             break;
                     }
+                //Check version number, and if it's different from before, open the what's new page
+                Package package = Package.Current;
+                PackageId packageId = package.Id;
+                string version = packageId.Version.Build + packageId.Version.Major.ToString() +
+                                 packageId.Version.Minor;
 
-                    App.UpdateUnreadIndicators();
-                    App.FullyLoaded = true;
-                    if (App.PostLoadTask != null)
-                        switch (App.PostLoadTask)
-                        {
-                            case "SelectGuildChannelTask":
-                                App.SelectGuildChannel(((App.GuildChannelSelectArgs) App.PostLoadTaskArgs).GuildId,
-                                    ((App.GuildChannelSelectArgs) App.PostLoadTaskArgs).ChannelId);
-                                break;
-                            case "SelectDMChannelTask":
-                                App.SelectDMChannel((App.DMChannelSelectArgs) App.PostLoadTaskArgs);
-                                break;
-                            case "invite":
-                                App.NavigateToJoinServer(((App.GuildChannelSelectArgs) App.PostLoadTaskArgs).GuildId);
-                                break;
-                        }
-                    //Check version number, and if it's different from before, open the what's new page
-                    Package package = Package.Current;
-                    PackageId packageId = package.Id;
-                    string version = packageId.Version.Build + packageId.Version.Major.ToString() +
-                                     packageId.Version.Minor;
+                if (Microsoft.Toolkit.Uwp.Helpers.SystemInformation.IsAppUpdated)
+                {
+                    App.NavigateToAbout(true);
+                }
 
-                    if (Microsoft.Toolkit.Uwp.Helpers.SystemInformation.IsAppUpdated)
-                    {
-                        App.NavigateToAbout(true);
-                    }
-
-                    loadingStack.Loaded("Finished");
-                    //if (Storage.Settings.VideoAd)
-                    //{
-                    //    InterstitialAd videoAd = new InterstitialAd();
-                    //    videoAd.AdReady += VideoAd_AdReady;
-                    //    videoAd.ErrorOccurred += VideoAd_ErrorOccurred;
-                    //    videoAd.RequestAd(AdType.Video, "9nbrwj777c8r", "1100015338");
-                    //}
-                });
+                loadingStack.Loaded("Finished");
+                //if (Storage.Settings.VideoAd)
+                //{
+                //    InterstitialAd videoAd = new InterstitialAd();
+                //    videoAd.AdReady += VideoAd_AdReady;
+                //    videoAd.ErrorOccurred += VideoAd_ErrorOccurred;
+                //    videoAd.RequestAd(AdType.Video, "9nbrwj777c8r", "1100015338");
+                //}
+            });
             if (_setupArgs != "")
             {
                 if (_setupArgs.StartsWith("quarrel://"))

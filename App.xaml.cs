@@ -208,7 +208,7 @@ namespace Discord_UWP
             Window.Current.Activate();*/
         }
 
-        private void LaunchProcedure(SplashScreen splash, ApplicationExecutionState PreviousExecutionState,
+        private async void LaunchProcedure(SplashScreen splash, ApplicationExecutionState PreviousExecutionState,
             bool PrelaunchActivated, string Arguments)
         {
                dispatcher = CoreApplication.GetCurrentView().Dispatcher;
@@ -231,6 +231,32 @@ namespace Discord_UWP
             if (IsXbox && Insider) CinematicMode = true;
 
             Frame rootFrame = Window.Current.Content as Frame;
+
+            if (GatewayManager.Gateway == null)
+            {
+                try
+                {
+                    await RESTCalls.SetupToken();
+                }
+                catch
+                {
+                    CheckOnline();
+                    return;
+                }
+
+                if (LoggedIn())
+                {
+                    if (GatewayManager.Gateway != null)
+                    {
+                        GatewayManager.StartGateway();
+                        Common.LoadEmojiDawg();
+                    }
+                    else
+                    {
+                        CheckOnline();
+                    }
+                }
+            }
 
             if (PrelaunchActivated == false)
             {
@@ -323,13 +349,37 @@ namespace Discord_UWP
 
                 case ActivationKind.ContactPanel:
                 {
+                    if (GatewayManager.Gateway == null)
+                    {
+                        try
+                        {
+                            await RESTCalls.SetupToken();
+                        }
+                        catch
+                        {
+                            CheckOnline();
+                            return;
+                        }
+                        if (LoggedIn())
+                        {
+                            if (GatewayManager.Gateway != null)
+                            {
+                                GatewayManager.StartGateway();
+                                Common.LoadEmojiDawg();
+                            }
+                            else
+                            {
+                                CheckOnline();
+                            }
+                        }
+                    }
                     Frame rootFrame = new Frame();
 
                     // Place the frame in the current Window
                     Window.Current.Content = rootFrame;
 
                     // Navigate to the page that shows the Contact UI.
-                        rootFrame.Navigate(typeof(ContactPanePage), args);
+                    rootFrame.Navigate(typeof(ContactPanePage), args);
 
                     // Ensure the current window is active
                     Window.Current.Activate();
@@ -771,11 +821,13 @@ namespace Discord_UWP
         }
 
         public static event EventHandler ReadyRecievedHandler;
-
+        public static bool Ready;
         public static void ReadyRecieved()
         {
             ReadyRecievedHandler?.Invoke(typeof(App), new EventArgs());
+            Ready = true;
         }
+        
 
         #endregion
 

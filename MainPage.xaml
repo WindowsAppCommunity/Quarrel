@@ -1540,7 +1540,7 @@
                         </Grid>
                     </controls:SideDrawer.ContentLeftSecondary>
                     <controls:SideDrawer.ContentMain>
-                        <Grid x:Name="MessageAreaContaine">
+                        <Grid x:Name="MessageAreaContainer">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition/>
