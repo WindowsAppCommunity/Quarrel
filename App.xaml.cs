@@ -642,8 +642,6 @@ namespace Discord_UWP
                 }
             } else
             {
-                Current.RequestedTheme = ApplicationTheme.Dark;
-
                 Color OLEDBlack = Color.FromArgb(255, 0, 0, 0);
                 Color BlarringWhite = Color.FromArgb(255, 255, 255, 255);
                 Color CommandBarColor = ((SolidColorBrush)Current.Resources["AcrylicCommandBarBackground"]).Color;
@@ -689,6 +687,11 @@ namespace Discord_UWP
                 };
 
                 Current.Resources["DarkBG"] = new SolidColorBrush
+                {
+                    Color = OLEDBlack
+                };
+
+                Current.Resources["MidBG"] = new SolidColorBrush
                 {
                     Color = OLEDBlack
                 };
