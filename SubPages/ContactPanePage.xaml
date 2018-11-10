@@ -54,7 +54,7 @@
                         <HyperlinkButton x:Uid="/Main/ReturnToPresentHLBTN" FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="RETURN TO PRESENT" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Click="ReturnToPresent_Click"/>
                     </StackPanel>
                 </Grid>
-                <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}" Margin="0,0,-12,0" Padding="0,0,12,0">
+                <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}" Margin="0,0,-12,12" Padding="0,0,12,0">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsStackPanel Loaded="ItemsStackPanel_Loaded" SizeChanged="ItemStackPanel_SizeChanged" Margin="0,0,0,-4" ItemsUpdatingScrollMode="KeepLastItemInView">
