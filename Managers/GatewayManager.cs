@@ -373,7 +373,6 @@ namespace Discord_UWP.Managers
                     {
                         AudioManager.PlaySoundEffect(e.EventData.Type == 3 ? /*"inring"*/ "" :"message");
                     }
-                    App.MessageCreated(e.EventData);
                    /* if (App.IsFocused)
                     {
                         App.MarkMessageAsRead(e.EventData.Id, e.EventData.ChannelId);
@@ -469,8 +468,6 @@ namespace Discord_UWP.Managers
             }
             else
             {
-                if(App.CurrentChannelId == e.EventData.ChannelId)
-                    App.MessageCreated(e.EventData);
                 if (LocalState.RPC.ContainsKey(e.EventData.ChannelId))
                 {
                     var clone = LocalState.RPC[e.EventData.ChannelId];
@@ -482,6 +479,7 @@ namespace Discord_UWP.Managers
                     LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = e.EventData.Id });
                 }
             }
+            App.MessageCreated(e.EventData);
 
             if (!IsDM)
             {
@@ -517,9 +515,9 @@ namespace Discord_UWP.Managers
 
         private static void Gateway_MessageDeleted(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.MessageDelete> e)
         {
+            App.MessageDeleted(e.EventData.MessageId, e.EventData.ChannelId);
             if (App.CurrentChannelId == e.EventData.ChannelId)
             {
-                App.MessageDeleted(e.EventData.MessageId);
             } else
             {
                 //TODO: Notifications (maybe)
@@ -528,9 +526,9 @@ namespace Discord_UWP.Managers
 
         private static void Gateway_MessageUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
         {
+            App.MessageEdited(e.EventData);
             if (App.CurrentChannelId == e.EventData.ChannelId)
             {
-                App.MessageEdited(e.EventData);
             } else
             {
                 //TODO: Notifications (I'm actually really happy with this idea)

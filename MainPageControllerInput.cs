@@ -1,12 +1,5 @@
 ﻿using Discord_UWP.SimpleClasses;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Gaming.Input;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -26,35 +19,35 @@ namespace Discord_UWP
 
         private void SideDrawer_DrawsClosed(object sender, EventArgs e)
         {
-
+/*
             if (MessageList.Items.Count > 0)
-                MessageList.Focus(Windows.UI.Xaml.FocusState.Keyboard);
-            else if (MessageArea.Visibility == Windows.UI.Xaml.Visibility.Visible)
-                MessageBox1.Focus(Windows.UI.Xaml.FocusState.Keyboard);
-            else if (friendPanel.Visibility == Windows.UI.Xaml.Visibility.Visible)
-                friendPanel.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+                MessageList.Focus(FocusState.Keyboard);
+            else if (MessageArea.Visibility == Visibility.Visible)
+                MessageBox1.Focus(FocusState.Keyboard);
+            else if (friendPanel.Visibility == Visibility.Visible)
+                friendPanel.Focus(FocusState.Keyboard);*/
 
         }
 
         private void SideDrawer_DrawOpenedRight(object sender, EventArgs e)
         {
             if(MembersListView.Items.Count>0)
-                MembersListView.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+                MembersListView.Focus(FocusState.Keyboard);
         }
 
         private void SideDrawer_DrawOpenedLeft(object sender, EventArgs e)
         {
             if (ChannelList.SelectedItem != null)
-                ChannelList.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+                ChannelList.Focus(FocusState.Keyboard);
             else
-                ServerList.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+                ServerList.Focus(FocusState.Keyboard);
         }
 
         private void Dispatcher_AcceleratorKeyActivated(CoreDispatcher sender, AcceleratorKeyEventArgs args)
         {
-            if (args.VirtualKey == Windows.System.VirtualKey.Shift)
+            if (args.VirtualKey == VirtualKey.Shift)
             {
-                MessageBox1.ShiftDown();
+           //     MessageBox1.ShiftDown();
             }
             /*
             else if (args.VirtualKey == VirtualKey.S)
@@ -68,40 +61,40 @@ namespace Discord_UWP
                     args.Handled = true;
                 }
             }*/
-            else if (args.VirtualKey == Windows.System.VirtualKey.GamepadLeftThumbstickLeft)
+            else if (args.VirtualKey == VirtualKey.GamepadLeftThumbstickLeft)
             {
                 // args.Handled = true;
             }
-            else if (args.VirtualKey == Windows.System.VirtualKey.GamepadLeftThumbstickRight)
+            else if (args.VirtualKey == VirtualKey.GamepadLeftThumbstickRight)
             {
                 //  args.Handled = true;
             }
-            else if (args.VirtualKey == Windows.System.VirtualKey.GamepadLeftThumbstickUp)
+            else if (args.VirtualKey == VirtualKey.GamepadLeftThumbstickUp)
             {
                 // args.Handled = true;
             }
-            else if (args.VirtualKey == Windows.System.VirtualKey.GamepadLeftThumbstickDown)
+            else if (args.VirtualKey == VirtualKey.GamepadLeftThumbstickDown)
             {
                 //  args.Handled = true;
                 //  ScrollviewerFromGamepad();
             }
-            else if (args.VirtualKey == Windows.System.VirtualKey.GamepadLeftShoulder)
+            else if (args.VirtualKey == VirtualKey.GamepadLeftShoulder)
             {
-                if (SubFrame.Visibility == Windows.UI.Xaml.Visibility.Visible) return;
+                if (SubFrame.Visibility == Visibility.Visible) return;
                 args.Handled = true;
                 if (args.KeyStatus.RepeatCount == 1 && !args.KeyStatus.IsKeyReleased)
                     sideDrawer.ToggleLeft();
             }
-            else if (args.VirtualKey == Windows.System.VirtualKey.GamepadRightShoulder)
+            else if (args.VirtualKey == VirtualKey.GamepadRightShoulder)
             {
-                if (SubFrame.Visibility == Windows.UI.Xaml.Visibility.Visible) return;
+                if (SubFrame.Visibility == Visibility.Visible) return;
                 args.Handled = true;
                 if (args.KeyStatus.RepeatCount == 1 && !args.KeyStatus.IsKeyReleased)
                     sideDrawer.ToggleRight();
             }
-            else if (args.VirtualKey == Windows.System.VirtualKey.GamepadView)
+            else if (args.VirtualKey == VirtualKey.GamepadView)
             {
-                if (SubFrame.Visibility == Windows.UI.Xaml.Visibility.Visible) return;
+                if (SubFrame.Visibility == Visibility.Visible) return;
                 args.Handled = true;
                 if (args.KeyStatus.IsKeyReleased)
                 {
@@ -111,9 +104,9 @@ namespace Discord_UWP
                 else
                     MenuHint.Press();
             }
-            else if (args.VirtualKey == Windows.System.VirtualKey.GamepadX)
+            else if (args.VirtualKey == VirtualKey.GamepadX)
             {
-                if (SubFrame.Visibility == Windows.UI.Xaml.Visibility.Visible) return;
+                if (SubFrame.Visibility == Visibility.Visible) return;
                 args.Handled = true;
                 if (args.KeyStatus.IsKeyReleased)
                 {
@@ -186,16 +179,16 @@ namespace Discord_UWP
         }
         private void CoreWindow_KeyUp(CoreWindow sender, KeyEventArgs args)
         {
-            if (args.VirtualKey == Windows.System.VirtualKey.Shift)
+            if (args.VirtualKey == VirtualKey.Shift)
             {
-                MessageBox1.ShiftUp();
+            //    MessageBox1.ShiftUp();
             }
-            if (args.VirtualKey == Windows.System.VirtualKey.GamepadMenu)
+            if (args.VirtualKey == VirtualKey.GamepadMenu)
             {
 
             }
 
-            else if(args.VirtualKey == Windows.System.VirtualKey.GamepadY)
+            else if(args.VirtualKey == VirtualKey.GamepadY)
             {
                 YHint.Release();
             }
