@@ -2487,7 +2487,10 @@ namespace Discord_UWP
 
             if (LocalState.CurrentGuild.Raw.OwnerId == LocalState.CurrentUser.Id)
             {
-                LeaveGuildFlyoutItem.Text = App.GetString("/Main/DeleteMFI.Text");
+                LeaveGuildFlyoutItem.Text = App.GetString("/Main/DeleteServerMFI");
+            } else
+            {
+                LeaveGuildFlyoutItem.Text = App.GetString("/Main/LeaveServerMFI");
             }
 
             ChannelName.Text = /*CompChannelName.Text =*/ ChannelTopic.Text = /*CompChannelTopic.Text =*/ "";
