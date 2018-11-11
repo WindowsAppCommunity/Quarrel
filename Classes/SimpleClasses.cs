@@ -273,8 +273,8 @@ namespace Discord_UWP.SimpleClasses
             set { if (_name == value) return; _name = value; OnPropertyChanged("Name"); }
         }
 
-        private Presence _userstatus;
-        public Presence UserStatus
+        private Dictionary<string, Presence> _userstatus;
+        public Dictionary<string, Presence> UserStatus
         {
             get { return _userstatus; }
             set { if (_userstatus == value) return; _userstatus = value; OnPropertyChanged("UserStatus"); }
@@ -435,8 +435,8 @@ namespace Discord_UWP.SimpleClasses
             set { if (_memberhoistrole != null && _memberhoistrole.Equals(value)) return; _memberhoistrole = value; OnPropertyChanged("MemberHoistRole"); }
         }
 
-        public SharedModels.Presence _status;
-        public SharedModels.Presence status
+        public Dictionary<string, SharedModels.Presence> _status;
+        public Dictionary<string, SharedModels.Presence> status
         {
             get { return _status; }
             set { if (_status == value) return; _status = value; OnPropertyChanged("status"); }

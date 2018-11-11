@@ -65,14 +65,14 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
-        public Presence UserStatus
+        public Dictionary<string, Presence> UserStatus
         {
-            get { return (Presence)GetValue(UserStatusProperty); }
+            get { return (Dictionary<string, Presence>)GetValue(UserStatusProperty); }
             set { SetValue(UserStatusProperty, value); }
         }
         public static readonly DependencyProperty UserStatusProperty = DependencyProperty.Register(
             nameof(UserStatus),
-            typeof(Presence),
+            typeof(Dictionary<string, Presence>),
             typeof(ChannelControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
@@ -278,16 +278,18 @@ namespace Discord_UWP.Controls
             }
             else if (prop == UserStatusProperty)
             {
-                if (UserStatus!= null && UserStatus.Status != null && UserStatus.Status != "invisible")
-                    rectangle.Fill = (SolidColorBrush)App.Current.Resources[UserStatus.Status];
+                if (UserStatus!= null && UserStatus.FirstOrDefault().Value.Status != null && UserStatus.FirstOrDefault().Value.Status != "invisible")
+                    rectangle.Fill = (SolidColorBrush)App.Current.Resources[UserStatus.FirstOrDefault().Value.Status];
                 else
                     rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
-                if (UserStatus != null && UserStatus.Game != null)
+
+                if (UserStatus != null && UserStatus.Count == 1 && UserStatus.FirstOrDefault().Value.Game != null)
                 {
+                    var Game = UserStatus.FirstOrDefault().Value.Game;
                     playing.Visibility = Visibility.Visible;
                     game.Visibility = Visibility.Visible;
-                    game.Text = UserStatus.Game.Name;
-                    if (UserStatus.Game.State != null || UserStatus.Game.Details != null || UserStatus.Game.SessionId != null)
+                    game.Text = Game.Name;
+                    if (Game.State != null || Game.Details != null || Game.SessionId != null)
                     {
                         game.Opacity = 1;
                         rich.Visibility = Visibility.Visible;
@@ -297,7 +299,7 @@ namespace Discord_UWP.Controls
                         game.Opacity = 0.4;
                         rich.Visibility = Visibility.Collapsed;
                     }
-                    switch (UserStatus.Game.Type)
+                    switch (Game.Type)
                     {
                         case 0:
                             playing.Text = App.GetString("/Controls/Playing");
@@ -313,6 +315,10 @@ namespace Discord_UWP.Controls
                             break;
                     }
                 }
+                //else if (UserStatus.Count > 1)
+                //{
+                //    //TODO: MulitStatus
+                //}
                 else
                 {
                     playing.Visibility = Visibility.Collapsed;

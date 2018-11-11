@@ -122,12 +122,13 @@
                                         <StackPanel x:Name="BadgePanel" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                                     </Grid>
                                     <StackPanel>
-                                        <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{Binding Visibility, ElementName=richPresence}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,6"/>
+                                        <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{Binding Visibility, ElementName=RichStack}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,6"/>
                                         <Border Margin="-48,0" Padding="48,12">
                                             <Border.Background>
                                                 <SolidColorBrush Opacity="0.5"/>
                                             </Border.Background>
-                                            <c:RichPresenceControl x:Name="richPresence" IsLarge="True"/>
+                                            <StackPanel x:Name="RichStack"/>
+                                            <!--<c:RichPresenceControl x:Name="richPresence" IsLarge="True"/>-->
                                         </Border>
                                         <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                         <TextBox x:Uid="/Dialogs/NoteTBox" BorderThickness="0" x:Name="NoteBox" Style="{StaticResource TextBoxStyle1}" PlaceholderText="No Note" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>
