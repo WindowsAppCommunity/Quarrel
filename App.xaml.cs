@@ -550,7 +550,12 @@ namespace Discord_UWP
                     {Color = cmdColor, Opacity = Storage.Settings.CmdOpacity};
             }
 
-            if (CinematicMode) Current.Resources["ShowFocusVisuals"] = true;
+            if (CinematicMode)
+            {
+                Current.Resources["ShowFocusVisuals"] = true;
+                //ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(1280, 720));
+            }
+                
             //if the acrylic brushes exist AND the app is not running in cinematic mode, replace the app resources with them:
             if (!Storage.Settings.OLED)
             {
@@ -1934,7 +1939,7 @@ namespace Discord_UWP
         internal static int AllNotifications;
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
-        internal const bool Insider = false;
+        internal const bool Insider = true;
         internal static bool CinematicMode;
         internal static bool GatewayCreated;
         internal static bool FullyLoaded = false;

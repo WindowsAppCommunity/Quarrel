@@ -532,7 +532,7 @@
   <data name="CustomCBI.Content" xml:space="preserve">
     <value>Custom</value>
   </data>
-  <data name="InputDevicesCB.Content" xml:space="preserve">
+  <data name="InputDevicesCB.Header" xml:space="preserve">
     <value>Input Devices</value>
   </data>
   <data name="NoiseSensitivitySD.Header" xml:space="preserve">
