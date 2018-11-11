@@ -565,7 +565,7 @@ namespace Discord_UWP
             if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
                 m.status = LocalState.PresenceDict[m.Raw.User.Id];
             else
-                m.status = null;
+                m.status = new Presence {Status = "offline", Game = null};
             if (m.Raw.Nick != null)
                 m.DisplayName = m.Raw.Nick;
             else
@@ -629,7 +629,7 @@ namespace Discord_UWP
                 if (App.CurrentGuildIsDM)
                     foreach (SimpleChannel channel in ChannelList.Items)
                         if (channel.UserId != null && channel.UserId == e.UserId)
-                            channel.UserStatus[e.Presence.Game.Type.ToString()] = e.Presence;
+                            channel.UserStatus = e.Presence;
                 //if the memberscvs isn't null, and either the current guild is DMs or the currentguild isn't null and contains the member
                 if (memberscvs != null && (App.CurrentGuildIsDM || App.CurrentGuildId != null &&
                                            LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(e.UserId)))
@@ -649,12 +649,12 @@ namespace Discord_UWP
                             member.DisplayName = member.Raw.Nick;
                         else
                             member.DisplayName = member.Raw.User.Username;
-                        member.status[e.Presence.Game.Type.ToString()] = e.Presence;
+                        member.status = e.Presence;
                         memberscvs.Add(member);
                     }
                     else if (e.Presence.Status != "offline" && e.Presence.Status != "invisible")
                     {
-                        member.status[e.Presence.Game.Type.ToString()] = e.Presence;
+                        member.status = e.Presence;
                     }
                     else
                     {
@@ -2709,7 +2709,7 @@ namespace Discord_UWP
                 if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
                     m.status = LocalState.PresenceDict[m.Raw.User.Id];
                 else
-                    m.status = null;
+                    m.status = new Presence {Status = "offline", Game = null};
                 tempMembers.Add(m);
             }
 
@@ -2722,7 +2722,7 @@ namespace Discord_UWP
             if (LocalState.PresenceDict.ContainsKey(cm.Raw.User.Id))
                 cm.status = LocalState.PresenceDict[cm.Raw.User.Id];
             else
-                cm.status = null;
+                cm.status = new Presence {Status = "offline", Game = null};
             tempMembers.Add(cm);
 
             memberscvs = new GroupedObservableCollection<HoistRole, Member>(c => c.MemberHoistRole, tempMembers);
@@ -3106,8 +3106,8 @@ namespace Discord_UWP
 
                 UserStatusIndicator.Fill =
                     (SolidColorBrush) Application.Current.Resources[
-                        LocalState.PresenceDict[LocalState.CurrentUser.Id]["default"].Status];
-                switch (LocalState.PresenceDict[LocalState.CurrentUser.Id]["default"].Status)
+                        LocalState.PresenceDict[LocalState.CurrentUser.Id].Status];
+                switch (LocalState.PresenceDict[LocalState.CurrentUser.Id].Status)
                 {
                     case "online":
                         UserStatusOnline.IsChecked = true;
@@ -3311,11 +3311,10 @@ namespace Discord_UWP
 
                         Member member = FindMember(LocalState.CurrentUser.Id);
                         if (member == null) return;
-                        member.status.Add("default", null);
-                        member.status["default"] = new Presence
+                        member.status = new Presence
                         {
-                            Game = member.status["default"].Game, GuildId = member.status["default"].GuildId, Roles = member.status["default"].Roles,
-                            Status = e.Settings.Status, User = member.status["default"].User
+                            Game = member.status.Game, GuildId = member.status.GuildId, Roles = member.status.Roles,
+                            Status = e.Settings.Status, User = member.status.User
                         };
                         if (LocalState.PresenceDict.ContainsKey(LocalState.CurrentUser.Id))
                             LocalState.PresenceDict[LocalState.CurrentUser.Id] = member.status;
@@ -3645,26 +3644,16 @@ namespace Discord_UWP
                 IEnumerable<GuildMember> members = e.Members;
                 IEnumerable<Presence> presences = e.Presences;
                 foreach (Presence presence in presences)
-                {
                     if (e.IsLarge && presence.Status == "offline")
                     {
                     }
                     else
                     {
-                        if (LocalState.PresenceDict.ContainsKey(presence.User.Id) && LocalState.PresenceDict[presence.User.Id].ContainsKey(presence.Game != null ? presence.Game.Type.ToString() : "default"))
-                        {
-                            LocalState.PresenceDict[presence.User.Id][presence.Game != null ? presence.Game.Type.ToString() : "default"] = presence;
-                        }
+                        if (LocalState.PresenceDict.ContainsKey(presence.User.Id))
+                            LocalState.PresenceDict[presence.User.Id] = presence;
                         else
-                        {
-                            if (!LocalState.PresenceDict.ContainsKey(presence.User.Id))
-                            {
-                                LocalState.PresenceDict.Add(presence.User.Id, new Dictionary<string, Presence>());
-                            }
-                            LocalState.PresenceDict[presence.User.Id].Add(presence.Game != null ? presence.Game.Type.ToString() : "default", presence);
-                        }
+                            LocalState.PresenceDict.Add(presence.User.Id, presence);
                     }
-                }
 
                 int totalrolecounter = 0;
 
@@ -3735,7 +3724,7 @@ namespace Discord_UWP
                                 if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
                                     m.status = LocalState.PresenceDict[m.Raw.User.Id];
                                 else
-                                    m.status = null;
+                                    m.status = new Presence {Status = "offline", Game = null};
                                 if (member.Nick != null)
                                     m.DisplayName = member.Nick;
                                 else
@@ -3828,7 +3817,7 @@ namespace Discord_UWP
                     if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
                         m.status = LocalState.PresenceDict[m.Raw.User.Id];
                     else
-                        m.status = null;
+                        m.status = new Presence {Status = "offline", Game = null};
                     // if (memberscvs.ContainsKey(m.Raw.User.Id))
                     // {
                     //     memberscvs.Remove(m.Raw.User.Id);

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4" IgnorableNamespaces="uap mp">
   <Identity Name="38062AvishaiDernis.DiscordUWP" Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B" Version="10.2.1.0" />
-  <mp:PhoneIdentity PhoneProductId="48a18a0d-d390-4552-8889-ab2e6e83f009" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <mp:PhoneIdentity PhoneProductId="69853adf-5f21-4e45-984d-9ad288ac97d0" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Quarrel</DisplayName>
     <PublisherDisplayName>Avishai Dernis</PublisherDisplayName>

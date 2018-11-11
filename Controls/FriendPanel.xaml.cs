@@ -186,12 +186,11 @@ namespace Discord_UWP.Controls
                     });
             }*/
             if (LocalState.PresenceDict.ContainsKey(f.user.Id))
-                friend.UserStatus = LocalState.PresenceDict[f.user.Id].FirstOrDefault().Value.Status;
+                friend.UserStatus = LocalState.PresenceDict[f.user.Id].Status;
             else
                 friend.UserStatus = "offline";
             return friend;
         }
-
         public async void Load()
         {
             AllView.Items.Clear();

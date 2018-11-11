@@ -17,7 +17,7 @@ namespace Discord_UWP.LocalModels
 
         public static Dictionary<string, Dictionary<string, DispatcherTimer>> Typers = new Dictionary<string, Dictionary<string, DispatcherTimer>>();
         public static List<DispatcherTimer> TyperTimers = new List<DispatcherTimer>();
-        public static Dictionary<string, Dictionary<string, Presence>> PresenceDict = new Dictionary<string, Dictionary<string, Presence>>();
+        public static Dictionary<string, Presence> PresenceDict = new Dictionary<string, Presence>();
         public static Dictionary<string, VoiceState> VoiceDict = new Dictionary<string, VoiceState>();
         public static Dictionary<string, ReadState> RPC = new Dictionary<string, ReadState>();
         public static Dictionary<string, GuildSetting> GuildSettings = new Dictionary<string, GuildSetting>();

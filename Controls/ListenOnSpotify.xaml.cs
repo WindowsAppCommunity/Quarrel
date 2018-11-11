@@ -29,9 +29,9 @@ namespace Discord_UWP.Controls
         public void Setup(string user_id, string party_id)
         {
             userid = user_id;
-            if (LocalState.PresenceDict.ContainsKey(user_id) && LocalState.PresenceDict[user_id]["2"].Game != null)
+            if (LocalState.PresenceDict.ContainsKey(user_id) && LocalState.PresenceDict[user_id].Game != null)
             {
-                var presence = LocalState.PresenceDict[user_id]["2"].Game;
+                var presence = LocalState.PresenceDict[user_id].Game;
                 if (presence.Party != null && presence.Party.Id == party_id)
                 {
                     UpdateUI(true, presence.State, presence.Details, GetSpotifyImageLink(presence.Assets.LargeImage));
