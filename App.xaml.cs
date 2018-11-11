@@ -816,9 +816,21 @@ namespace Discord_UWP
             ReadyRecievedHandler?.Invoke(typeof(App), new EventArgs());
             Ready = true;
         }
-        
+
 
         #endregion
+
+        public static event EventHandler<ShowSubFrameEventArgs> ShowSubFrameHandler;
+
+        public static void ShowSubFrame(Type page, object args = null)
+        {
+            ShowSubFrameHandler?.Invoke(typeof(App), new ShowSubFrameEventArgs(){page = page, args = args});
+        }
+        public class ShowSubFrameEventArgs : EventArgs
+        {
+            public Type page { get; set; }
+            public object args { get; set; }
+        }
 
         #region Logout
 
@@ -943,6 +955,7 @@ namespace Discord_UWP
         public static void NavigateToGuildChannel(string guildId, string channelId, string message = null,
             bool send = false, bool onBack = false)
         {
+            App.CurrentChannelId = channelId;
             NavigateToGuildChannelHandler?.Invoke(typeof(App),
                 new GuildChannelNavigationArgs
                     {GuildId = guildId, ChannelId = channelId, Message = message, Send = send, OnBack = onBack});
@@ -967,13 +980,19 @@ namespace Discord_UWP
             bool user = false)
         {
             if (!user)
+            {
+                CurrentChannelId = Id;
                 NavigateToDMChannelHandler?.Invoke(typeof(App),
                     new DMChannelNavigationArgs
                         {ChannelId = Id, UserId = null, Message = message, Send = send, OnBack = onBack});
+            }
             else
+            {
+                CurrentChannelId = null;
                 NavigateToDMChannelHandler?.Invoke(typeof(App),
                     new DMChannelNavigationArgs
                         {UserId = Id, ChannelId = null, Message = message, Send = send, OnBack = onBack});
+            }
         }
 
         #endregion
@@ -983,6 +1002,18 @@ namespace Discord_UWP
         public static void NavigateToLogin()
         {
             NavigateToLoginHandler?.Invoke(null, null);
+        }
+
+
+        public static event EventHandler SaveDraftHandler;
+        public static void SaveDraft()
+        {
+            SaveDraftHandler.Invoke(null, null);
+        }
+        public static event EventHandler LoadDraftHandler;
+        public static void LoadDraft()
+        {
+            LoadDraftHandler.Invoke(null, null);
         }
 
         #endregion
@@ -1338,13 +1369,14 @@ namespace Discord_UWP
         public class MessageDeletedArgs
         {
             public string MessageId;
+            public string ChannelId;
         }
 
         public static event EventHandler<MessageDeletedArgs> MessageDeletedHandler;
 
-        public static void MessageDeleted(string messageId)
+        public static void MessageDeleted(string messageId, string channelId)
         {
-            MessageDeletedHandler?.Invoke(typeof(App), new MessageDeletedArgs {MessageId = messageId});
+            MessageDeletedHandler?.Invoke(typeof(App), new MessageDeletedArgs {MessageId = messageId, ChannelId = channelId });
         }
 
         public class MessageEditedArgs
@@ -1514,7 +1546,7 @@ namespace Discord_UWP
             public string ChannelId;
             public MessageUpsert Message;
         }
-
+        
         public static event EventHandler<CreateMessageArgs> CreateMessageHandler;
 
         public static void CreateMessage(string channelId, string message)
