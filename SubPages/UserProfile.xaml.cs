@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Discord_UWP.Controls;
 using Discord_UWP.Gateway;
 using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
@@ -120,9 +121,9 @@ namespace Discord_UWP.SubPages
 
             if (LocalState.PresenceDict.ContainsKey(userid))
             {
-                if (LocalState.PresenceDict[userid].Status != null && LocalState.PresenceDict[userid].Status != "invisible")
-                    rectangle.Fill = (SolidColorBrush)App.Current.Resources[LocalState.PresenceDict[userid].Status];
-                else if (LocalState.PresenceDict[userid].Status == "invisible")
+                if (LocalState.PresenceDict[userid] != null && LocalState.PresenceDict[userid].FirstOrDefault().Value.Status != null && LocalState.PresenceDict[userid].FirstOrDefault().Value.Status != "invisible")
+                    rectangle.Fill = (SolidColorBrush)App.Current.Resources[LocalState.PresenceDict[userid].FirstOrDefault().Value.Status];
+                else
                     rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
             }
             else
@@ -139,15 +140,27 @@ namespace Discord_UWP.SubPages
 
             if (LocalState.PresenceDict.ContainsKey(profile.user.Id))
             {
-                if (LocalState.PresenceDict[profile.user.Id].Game != null)
+                foreach (var presence in LocalState.PresenceDict[profile.user.Id].Values)
                 {
-                    richPresence.GameContent = LocalState.PresenceDict[profile.user.Id].Game;
+                    if (presence.Game != null)
+                    {
+                        RichPresenceControl richPresence = new RichPresenceControl();
+                        richPresence.Tag = presence.Game.Type.ToString();
+                        richPresence.IsLarge = true;
+                        richPresence.GameContent = presence.Game;
+                        RichStack.Children.Add(richPresence);
+                    }
+                    else
+                    {
+
+                        RichStack.Visibility = Visibility.Collapsed;
+                    }
                 }
-                else
-                    richPresence.Visibility = Visibility.Collapsed;
             }
             else
-                richPresence.Visibility = Visibility.Collapsed;
+            {
+                RichStack.Visibility = Visibility.Collapsed;
+            }
             UpdateBorderColor();
 
             username.Text = profile.user.Username;
@@ -354,13 +367,13 @@ namespace Discord_UWP.SubPages
 
         private async void UpdateBorderColor()
         {
-            if (richPresence.GameContent != null)
+            if (RichStack.Children.Count == 1)
             {
-                richPresence.Visibility = Visibility.Visible;
+                RichPresenceControl control = RichStack.Children.FirstOrDefault() as RichPresenceControl;
                 SolidColorBrush color = (SolidColorBrush)Application.Current.Resources["Blurple"];
-                if (LocalState.PresenceDict[userid].Game != null)
+                if (LocalState.PresenceDict[userid][control.Tag.ToString()].Game != null)
                 {
-                    switch (richPresence.GameContent.Type)
+                    switch (control.GameContent.Type)
                     {
                         case 1:
                             {
@@ -375,7 +388,7 @@ namespace Discord_UWP.SubPages
                                 break;
                             }
                     }
-                    if (LocalState.PresenceDict[profile.user.Id].Game != null && LocalState.PresenceDict[profile.user.Id].Game.ApplicationId == "438122941302046720")
+                    if (LocalState.PresenceDict[profile.user.Id][control.Tag.ToString()].Game != null && LocalState.PresenceDict[profile.user.Id][control.Tag.ToString()].Game.ApplicationId == "438122941302046720")
                     {
                         //xbox
                         color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
@@ -390,6 +403,10 @@ namespace Discord_UWP.SubPages
                 }
                 ChangeAccentColor(color);
             }
+            //else if (RichStack.Children.Count > 1)
+            //{
+            //    //TODO: Multicolor
+            //}
             else if (Storage.Settings.DerivedColor)
             {
                 Color? color = await App.getUserColor(profile.user);
@@ -417,19 +434,53 @@ namespace Discord_UWP.SubPages
                             if (e.EventData.Game != null)
                             {
                                 var game = e.EventData.Game;
-                                richPresence.GameContent = game;
-                                richPresence.Visibility = Visibility.Visible;
-                            }
-                            else
-                            {
-                                richPresence.Visibility = Visibility.Collapsed;
-                            }
 
-                            if (e.EventData.Status != null && e.EventData.Status != "invisible")
-                                rectangle.Fill = (SolidColorBrush)App.Current.Resources[e.EventData.Status];
-                            else if (e.EventData.Status == "invisible")
-                                rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
-                            UpdateBorderColor();
+                                bool containsTag = false;
+                                foreach (RichPresenceControl control in RichStack.Children)
+                                {
+                                    if (control.Tag.ToString() == game.Type.ToString())
+                                    {
+                                        containsTag = true;
+                                        control.GameContent = game;
+                                    }
+                                }
+
+                                if (!containsTag)
+                                {
+                                    RichPresenceControl richPresence = new RichPresenceControl();
+                                    richPresence.Tag = game.Type.ToString();
+                                    richPresence.GameContent = game;
+                                    SolidColorBrush color = (SolidColorBrush)Application.Current.Resources["Blurple"];
+                                    switch (game.Type)
+                                    {
+                                        case 1:
+                                            {
+                                                //streaming
+                                                color = new SolidColorBrush(Color.FromArgb(255, 100, 65, 164));
+                                                break;
+                                            }
+                                        case 2:
+                                            {
+                                                //spotify
+                                                color = new SolidColorBrush(Color.FromArgb(255, 30, 215, 96));
+                                                break;
+                                            }
+                                    }
+                                    if (game.ApplicationId == "438122941302046720")
+                                    {
+                                        //xbox
+                                        color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
+                                    }
+                                    ChangeAccentColor(color);
+                                    RichStack.Children.Add(richPresence);
+                                }
+
+                                if (e.EventData.Status != null && e.EventData.Status != "invisible")
+                                    rectangle.Fill = (SolidColorBrush)App.Current.Resources[e.EventData.Status];
+                                else if (e.EventData.Status == "invisible")
+                                    rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
+                                UpdateBorderColor();
+                            }
                         }
                     });
         }

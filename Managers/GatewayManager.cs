@@ -177,13 +177,17 @@ namespace Discord_UWP.Managers
                 {
                     foreach (var presence in guild.Presences)
                     {
-                        if (LocalState.PresenceDict.ContainsKey(presence.User.Id))
+                        if (LocalState.PresenceDict.ContainsKey(presence.User.Id) && LocalState.PresenceDict[presence.User.Id].ContainsKey(presence.Game != null ? presence.Game.Type.ToString() : "default"))
                         {
-                            LocalState.PresenceDict[presence.User.Id] = presence;
+                            LocalState.PresenceDict[presence.User.Id][presence.Game != null ? presence.Game.Type.ToString() : "default"] = presence;
                         }
                         else
                         {
-                            LocalState.PresenceDict.Add(presence.User.Id, presence);
+                            if (!LocalState.PresenceDict.ContainsKey(presence.User.Id))
+                            {
+                                LocalState.PresenceDict.Add(presence.User.Id, new Dictionary<string, Presence>());
+                            }
+                            LocalState.PresenceDict[presence.User.Id].Add(presence.Game != null ? presence.Game.Type.ToString() : "default", presence);
                         }
                     }
                 } else
@@ -218,14 +222,20 @@ namespace Discord_UWP.Managers
             #region Presence
             foreach (Presence presence in e.EventData.Presences)
             {
-                if (LocalState.PresenceDict.ContainsKey(presence.User.Id))
+                if (LocalState.PresenceDict.ContainsKey(presence.User.Id) && LocalState.PresenceDict[presence.User.Id].ContainsKey(presence.Game != null ? presence.Game.Type.ToString() : "default"))
                 {
-                    LocalState.PresenceDict[presence.User.Id] = presence;
-                } else
+                    LocalState.PresenceDict[presence.User.Id][presence.Game != null ? presence.Game.Type.ToString() : "default"] = presence;
+                }
+                else
                 {
-                    LocalState.PresenceDict.Add(presence.User.Id, presence);
+                    if (!LocalState.PresenceDict.ContainsKey(presence.User.Id))
+                    {
+                        LocalState.PresenceDict.Add(presence.User.Id, new Dictionary<string, Presence>());
+                    }
+                    LocalState.PresenceDict[presence.User.Id].Add(presence.Game != null ? presence.Game.Type.ToString() : "default", presence);
                 }
             }
+
             if (App.AslansBullshit)
                 await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set LocalSate.PresenceDict (ln 236-245)"); });
             #endregion
@@ -294,14 +304,18 @@ namespace Discord_UWP.Managers
 
             #region CurrentUserPresence
 
-            if (LocalState.PresenceDict.ContainsKey(e.EventData.User.Id))
+
+            if (LocalState.PresenceDict.ContainsKey(e.EventData.User.Id) && LocalState.PresenceDict[e.EventData.User.Id].ContainsKey("default"))
             {
-                LocalState.PresenceDict[e.EventData.User.Id] = new Presence() { User = e.EventData.User, Status = e.EventData.Settings.Status };
+                LocalState.PresenceDict[e.EventData.User.Id]["default"] = new Presence() { User = e.EventData.User, Status = e.EventData.Settings.Status };
             }
             else
             {
-                LocalState.PresenceDict.Add(e.EventData.User.Id, new Presence() { User = e.EventData.User, Status = e.EventData.Settings.Status });
+                LocalState.PresenceDict.Add(e.EventData.User.Id, new Dictionary<string, Presence>());
+                LocalState.PresenceDict[e.EventData.User.Id].Add("default", new Presence() { User = e.EventData.User, Status = e.EventData.Settings.Status });
             }
+            
+
             App.UserStatusChanged(e.EventData.Settings);
             if (App.AslansBullshit)
                 await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set CurrentUserPresence (ln 296-304)"); });
@@ -649,14 +663,14 @@ namespace Discord_UWP.Managers
                 
                 foreach (var presence in e.EventData.Presences)
                 {
-                    //TODO Optimize this, ContainsKey is running twice
-                    if (LocalState.PresenceDict.ContainsKey(presence.User.Id))
+                    if (LocalState.PresenceDict.ContainsKey(presence.User.Id) && LocalState.PresenceDict[presence.User.Id].ContainsKey(presence.Game.ApplicationId))
                     {
-                        LocalState.PresenceDict[presence.User.Id] = presence;
+                        LocalState.PresenceDict[presence.User.Id][presence.Game.ApplicationId] = presence;
                     }
                     else
                     {
-                        LocalState.PresenceDict.Add(presence.User.Id, presence);
+                        LocalState.PresenceDict.Add(presence.User.Id, new Dictionary<string, Presence>());
+                        LocalState.PresenceDict[presence.User.Id].Add(presence.Game.ApplicationId, presence);
                     }
                 }
                 foreach (var voiceState in e.EventData.VoiceStates)
@@ -753,12 +767,14 @@ namespace Discord_UWP.Managers
         #region Presence
         private static void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Presence> e)
         {
-            if (LocalState.PresenceDict.ContainsKey(e.EventData.User.Id))
+            if (LocalState.PresenceDict.ContainsKey(e.EventData.User.Id) && LocalState.PresenceDict[e.EventData.User.Id].ContainsKey(e.EventData.Game.Type.ToString()))
             {
-                LocalState.PresenceDict[e.EventData.User.Id] = e.EventData;
-            } else
+                LocalState.PresenceDict[e.EventData.User.Id][e.EventData.Game.Type.ToString()] = e.EventData;
+            }
+            else
             {
-                LocalState.PresenceDict.Add(e.EventData.User.Id, e.EventData);
+                LocalState.PresenceDict.Add(e.EventData.User.Id, new Dictionary<string, Presence>());
+                LocalState.PresenceDict[e.EventData.User.Id].Add(e.EventData.Game.Type.ToString(), e.EventData);
             }
             App.PresenceUpdated(e.EventData.User.Id, e.EventData);
         }
@@ -847,9 +863,9 @@ namespace Discord_UWP.Managers
         #region User
         private static void Gateway_UserSettingsUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.UserSettings> e)
         {
-            var temp = LocalState.PresenceDict[LocalState.CurrentUser.Id];
+            var temp = LocalState.PresenceDict[LocalState.CurrentUser.Id]["default"];
             temp.Status = e.EventData.Status;
-            LocalState.PresenceDict[LocalState.CurrentUser.Id] = temp;
+            LocalState.PresenceDict[LocalState.CurrentUser.Id]["default"] = temp;
             App.UserStatusChanged(e.EventData);
             LocalState.Settings = e.EventData;
         }

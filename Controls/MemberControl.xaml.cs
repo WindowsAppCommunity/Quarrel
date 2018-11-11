@@ -1,4 +1,6 @@
-﻿using Windows.Devices.Input;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Windows.Devices.Input;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -27,18 +29,18 @@ namespace Discord_UWP.Controls
             typeof(MemberControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
-        public Presence Status
+        public Dictionary<string, Presence> Status
         {
             get {
                 object pr = GetValue(PresenceProperty);
-                if (pr != null) return (Presence)pr;
-                else return new Presence();
+                if (pr != null) return (Dictionary<string, Presence>)pr;
+                else return new Dictionary<string, Presence>();
             }
             set => SetValue(PresenceProperty, value);
         }
         public static readonly DependencyProperty PresenceProperty = DependencyProperty.Register(
             nameof(Status),
-            typeof(Presence),
+            typeof(Dictionary<string, Presence>),
             typeof(MemberControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
@@ -110,17 +112,19 @@ namespace Discord_UWP.Controls
             }
             else if(prop == PresenceProperty)
             {
-                if (Status.Status != null && Status.Status != "invisible")
-                    rectangle.Fill = (SolidColorBrush)App.Current.Resources[Status.Status];
-                else if (Status.Status == "invisible")
+                if (Status != null && Status.Count != 0 && Status.FirstOrDefault().Value.Status != null && Status.FirstOrDefault().Value.Status != "invisible")
+                    rectangle.Fill = (SolidColorBrush)App.Current.Resources[Status.FirstOrDefault().Value.Status];
+                else
                     rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
-                if (Status.Game != null)
-                {   
+
+                if (Status != null && Status.Count == 1 && Status.FirstOrDefault().Value.Game != null)
+                {
+                    var Game = Status.FirstOrDefault().Value.Game;
                     playing.Visibility = Visibility.Visible;
                     game.Visibility = Visibility.Visible;
-                    game.Text = Status.Game.Name;
+                    game.Text = Game.Name;
                     UpdateColor();
-                    if (Status.Game.State != null || Status.Game.Details != null || Status.Game.Assets != null)
+                    if (Game.State != null || Game.Details != null || Game.Assets != null)
                     {
                         game.Opacity = 1;
                         rich.Visibility = Visibility.Visible;
@@ -131,7 +135,7 @@ namespace Discord_UWP.Controls
                         rich.Visibility = Visibility.Collapsed;
                     }
 
-                    switch (Status.Game.Type)
+                    switch (Game.Type)
                     {
                         case 0:
                             playing.Text = App.GetString("/Controls/Playing");

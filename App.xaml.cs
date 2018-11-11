@@ -241,7 +241,6 @@ namespace Discord_UWP
                 catch
                 {
                     CheckOnline();
-                    return;
                 }
 
                 if (LoggedIn())
@@ -698,7 +697,7 @@ namespace Discord_UWP
 
                 Current.Resources["LightBG"] = new SolidColorBrush
                 {
-                    Color = BlarringWhite
+                    Color = OLEDBlack
                 };
 
                 Current.Resources["InvertedBG"] = new SolidColorBrush

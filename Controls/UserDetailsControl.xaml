@@ -225,7 +225,10 @@
             </StackPanel>
             <Grid>
                 <Rectangle Opacity="0.5" Fill="{Binding ElementName=PresenceColor, Path=Fill, UpdateSourceTrigger=PropertyChanged}" />
-                <local:RichPresenceControl Foreground="White" Margin="12,8" Visibility="Collapsed" x:Name="richPresence"/>
+                <!--<local:RichPresenceControl Foreground="White" Margin="12,8" Visibility="Collapsed" x:Name="richPresence"/>-->
+                    <StackPanel x:Name="RichStack" Margin="12,8">
+                        
+                    </StackPanel>
             </Grid>
         </StackPanel>
         <Grid x:Name="Row1Grid"  Grid.Row="1" Background="{ThemeResource Background}">

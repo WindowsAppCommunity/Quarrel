@@ -85,21 +85,21 @@ namespace Discord_UWP.Managers
                     if (LocalState.PresenceDict.ContainsKey(channel.Users.FirstOrDefault().Id))
                     {
                         sc.UserStatus = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id];
-                        sc.Playing = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game;
-                        if (LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game != null)
-                        {
-                            sc.Playing = new Game()
-                            {
-                                Name = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game
-                                .Name,
-                                Type = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Type,
-                                Url = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Url
-                            };
-                        }
+                        sc.Playing = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Count > 1 ? new Game() { Name = "Multiple Games"} : LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].FirstOrDefault().Value.Game;
+                        //if (LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game != null)
+                        //{
+                        //    sc.Playing = new Game()
+                        //    {
+                        //        Name = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game
+                        //        .Name,
+                        //        Type = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Type,
+                        //        Url = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Url
+                        //    };
+                        //}
                     }
                     else
                     {
-                        sc.UserStatus = new Presence() { Status = "offline" };
+                        sc.UserStatus = null;
                     }
                     //sc.IsMuted = LocalState.GuildSettings.ContainsKey(channel.raw.GuildId) ? (LocalState.GuildSettings[channel.raw.GuildId].channelOverrides.ContainsKey(channel.raw.Id) ? LocalState.GuildSettings[channel.raw.GuildId].channelOverrides[channel.raw.Id].Muted : false) : false;
                     if (LocalState.RPC.ContainsKey(sc.Id))
@@ -241,21 +241,21 @@ namespace Discord_UWP.Managers
                         if (LocalState.PresenceDict.ContainsKey(channel.Users.FirstOrDefault().Id))
                         {
                             sc.UserStatus = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id];
-                            sc.Playing = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game;
-                            if (LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game != null)
-                            {
-                                sc.Playing = new Game()
-                                {
-                                    Name = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game
-                                    .Name,
-                                    Type = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Type,
-                                    Url = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Url
-                                };
-                            }
+                            sc.Playing = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Count > 1 ? new Game() { Name = "Multipule Games" } : LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].FirstOrDefault().Value.Game;
+                            //if (LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game != null)
+                            //{
+                            //    sc.Playing = new Game()
+                            //    {
+                            //        Name = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game
+                            //        .Name,
+                            //        Type = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Type,
+                            //        Url = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Url
+                            //    };
+                            //}
                         }
                         else
                         {
-                            sc.UserStatus = new Presence() { Status = "offline" };
+                            sc.UserStatus = null;
                         }
                         //sc.IsMuted = LocalState.GuildSettings.ContainsKey(channel.raw.GuildId) ? (LocalState.GuildSettings[channel.raw.GuildId].channelOverrides.ContainsKey(channel.raw.Id) ? LocalState.GuildSettings[channel.raw.GuildId].channelOverrides[channel.raw.Id].Muted : false) : false;
                         if (LocalState.RPC.ContainsKey(sc.Id))
