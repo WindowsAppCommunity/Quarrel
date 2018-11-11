@@ -185,7 +185,6 @@ namespace Discord_UWP
                     sideDrawer.DrawsClosed += SideDrawer_DrawsClosed;
                     SubFrame.FocusDisengaged += SubFrame_FocusDisengaged;
                     userButton.IsTabStop = false;
-                    ApplicationView.GetForCurrentView().TryResizeView(new Size(960, 540));
                 }
                 else
                 {
