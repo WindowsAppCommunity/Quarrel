@@ -602,7 +602,7 @@
                                         <Slider x:Name="FontSizeSlider" Minimum="6" Value="14" Maximum="40" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" Style="{ThemeResource DiscordSlider}"/>
                                         <TextBlock x:Uid="/Settings/AaTB"  Grid.Column="2" VerticalAlignment="Center" FontSize="40" Text="Aa" Margin="0,-8,0,0"/>
                                     </Grid>
-                                    <CheckBox x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact messages" Margin="0,6,0,0"/>
+                                    <CheckBox x:Uid="/Settings/CompactMessagesCB" x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact Messages" Margin="0,6,0,0"/>
                                     <CheckBox x:Name="MentionGlow" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,6">
                                         <StackPanel Margin="0,2,0,0">
                                             <TextBlock x:Uid="/Settings/MentionGlowTB" Text="Mention Glow"/>
@@ -619,7 +619,7 @@
                                             <ComboBoxItem Content="M/d/yy"/>
                                             <ComboBoxItem Content="MM/dd/yy"/>
                                             <ComboBoxItem Content="MMM/dd/yyyy"/>
-                                            <ComboBoxItem Content="Custom"/>
+                                            <ComboBoxItem x:Uid="/Settings/CustomCBI" Content="Custom"/>
                                         </ComboBox>
                                         <TextBlock x:Name="DateExample" VerticalAlignment="Center" Text="12/7/2001" Margin="5,25,0,0" Foreground="{ThemeResource ButtonBackgroundPressed}"/>
                                     </StackPanel>
@@ -632,7 +632,7 @@
                                             <ComboBoxItem Content="H:mm"/>
                                             <ComboBoxItem Content="hh:mm:ss tt"/>
                                             <ComboBoxItem Content="HH:mm:ss"/>
-                                            <ComboBoxItem Content="Custom"/>
+                                            <ComboBoxItem x:Uid="/Settings/CustomCBI" Content="Custom"/>
                                         </ComboBox>
                                         <TextBlock x:Name="TimeExample" VerticalAlignment="Center" Text="04:20" Margin="5,25,0,0" Foreground="{ThemeResource ButtonBackgroundPressed}"/>
                                     </StackPanel>
@@ -754,7 +754,7 @@
                                 <StackPanel>
                                     <!--<CheckBox x:Uid="/Settings/ExpVoiceChannels" x:Name="VoiceChannels" Style="{StaticResource CheckBoxStyle1}" Content="(EXPERIMENTAL) Voice Channels" Margin="0,6,0,0"/>-->
                                     <ComboBox x:Uid="/Settings/OutputDevicesCB" x:Name="OutputDevices" Header="Output Devices"/>
-                                    <ComboBox x:Name="InputDevices" x:Uid="/Settings/InputDevicesCB" Header="Input Devices"/>
+                                    <ComboBox x:Uid="/Settings/InputDevicesCB" x:Name="InputDevices" Header="Input Devices"/>
                                     <TextBlock x:Uid="/Settings/DeviceOverrideTB" Text="Can be overriden by session by right clicking or holding the Deafen button in Voice Channel" TextWrapping="WrapWholeWords" Margin="0, 0, 0, 10" Opacity="0.5" FontStyle="Italic"/>
                                     <Grid>
                                         <ProgressBar x:Name="NoiseVisual" Minimum="-100" Maximum="0" Padding="0,36,0,22" VerticalAlignment="Stretch" Background="Transparent"/>
@@ -788,7 +788,7 @@
                                     <Slider x:Uid="/Settings/SliderL" x:Name="RespUI_L" Header="L (Servers + Channels)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
                                     <Slider x:Uid="/Settings/SliderXL" x:Name="RespUI_XL" Header="XL (Servers + Channels + Members)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
                                     <HyperlinkButton x:Uid="/Settings/ResetRespUiHyperlink" Content="Reset default breakpoints" FontSize="13.333" Click="HyperlinkButton_Click" Foreground="{ThemeResource SystemControlDisabledBaseHighBrush}"/>
-                                    <HyperlinkButton Content="Reset Quarrel" FontSize="13.333" Click="HyperlinkButton_Click_1" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource dnd}"/>
+                                    <HyperlinkButton x:Uid="/Settings/ResetQuarrelBTN" Content="Reset Quarrel" FontSize="13.333" Click="HyperlinkButton_Click_1" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource dnd}"/>
 
                                 </StackPanel>
                             </ScrollViewer>
