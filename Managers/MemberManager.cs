@@ -38,6 +38,4 @@ namespace Discord_UWP.Managers
             }
         }
     }
-
-
 }
