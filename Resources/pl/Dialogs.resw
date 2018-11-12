@@ -682,37 +682,37 @@
     <value>&lt;user&gt; usunął/ęła webhook &lt;webhook&gt;</value>
   </data>
   <data name="AuditLogChannelPermissionCreateInvalid" xml:space="preserve">
-    <value>&lt;user&gt; utworzył nadpisanie uprawnień dla usuniętego już kanału</value>
+    <value>&lt;user&gt; utowrzył pozwolenia dla już nie istniejącego kanału</value>
   </data>
   <data name="AuditLogChannelPermissionCreateValid" xml:space="preserve">
-    <value>&lt;user&gt; utworzył nadpisanie uprawnień dla &lt;channel&gt;</value>
+    <value>&lt;user&gt; utowrzył pozwolenia dla kanału &lt;channel&gt;</value>
   </data>
   <data name="AuditLogChannelPermissionRemoveInvalid" xml:space="preserve">
-    <value>&lt;user&gt; usunął/ęła nadpisanie uprawnień dla usunętego już kanału</value>
+    <value>&lt;user&gt; ususnął pozwolenia dla już nie istniejącego kanału</value>
   </data>
   <data name="AuditLogChannelPermissionRemoveValid" xml:space="preserve">
-    <value>&lt;user&gt; usunął/ęła nadpisanie uprawnień dla &lt;channel&gt;</value>
+    <value>&lt;user&gt; usunął pozwolenia dla kanału &lt;channel&gt;</value>
   </data>
   <data name="AuditLogChannelPermissionUpdateInvalid" xml:space="preserve">
-    <value>&lt;user&gt; zaktualizował(a) nadpisanie uprawnień dla nie istniejącego już kanału</value>
+    <value>&lt;user&gt; zaaktalizował pozwolenia dla już nie istniejącego kanału</value>
   </data>
   <data name="AuditLogChannelPermissionUpdateValid" xml:space="preserve">
-    <value>&lt;user&gt; zaktualizował(a) nadpisanie uprawnień dla &lt;channel&gt;</value>
+    <value>&lt;user&gt; zaaktalizował pozwolenia dla kanału &lt;channel&gt;</value>
   </data>
   <data name="AuditLogMemberUpdate" xml:space="preserve">
-    <value>&lt;user&gt; zaktualizował(a) &lt;user2&gt;</value>
+    <value>&lt;user&gt; zaaktalizował &lt;user2&gt;</value>
   </data>
   <data name="AuditLogInviteDelete" xml:space="preserve">
     <value>&lt;user&gt; usunął zaproszenie &lt;code&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateBitrate" xml:space="preserve">
-    <value>Bitrate określono na &lt;bitrate&gt;</value>
+    <value>Bitrate ustawiony na &lt;bitrate&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateBitrateChange" xml:space="preserve">
-    <value>Zmieniono bitrate z &lt;old&gt; na &lt;new&gt;</value>
+    <value>Ustawiono bitrate na &lt;bitrate</value>
   </data>
   <data name="AuditLogChannelUpdateName" xml:space="preserve">
-    <value>Nazwa zmieniona na &lt;name&gt;</value>
+    <value>Nazwa ustawiona na &lt;name&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateNsfwFalse" xml:space="preserve">
     <value>Utworzono kanał **SFW**</value>
@@ -733,16 +733,16 @@
     <value>**Usunięto** uprawnienie &lt;permission&gt; dla &lt;role&gt;</value>
   </data>
   <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
-    <value>Kanał AFK ustawiony na &lt;channel&gt;</value>
+    <value>Temat zdefiniowany jako &lt;subject&gt;</value>
   </data>
   <data name="AuditLogServerUpdateAfkTimeout" xml:space="preserve">
-    <value>Maksymalny czas AFK ustawiony na &lt;time&gt; **minut**</value>
+    <value>Zmieniono temat z &lt;old&gt; na &lt;new&gt;</value>
   </data>
   <data name="AuditLogServerUpdateIcon" xml:space="preserve">
-    <value>Zmieniono ikonę serwera</value>
+    <value>**Przyznano** uprawnienie &lt;permission&gt; dla &lt;role&gt;</value>
   </data>
   <data name="AuditLogServerUpdateNotificationZero" xml:space="preserve">
-    <value>Domyślna opcja powiadomień ustawiona na **wszystkie wiadomości**</value>
+    <value>**Usunięto** uprawnienie &lt;permission&gt; dla &lt;role&gt;</value>
   </data>
   <data name="AuditLogServerUpdateNotificationOne" xml:space="preserve">
     <value>Domyślna opcja powiadomień ustawiona na **tylko wzmianki**</value>
@@ -763,7 +763,7 @@
     <value>Filtr jawnych informacji zmieniono z &lt;old&gt; na &lt;new&gt;</value>
   </data>
   <data name="AuditLogServerUpdateExplicitFilterOne" xml:space="preserve">
-    <value>użytkownice bez roli</value>
+    <value>użytkownicy bez roli</value>
   </data>
   <data name="AuditLogServerUpdateExplicitFilterTwo" xml:space="preserve">
     <value>wszyscy</value>

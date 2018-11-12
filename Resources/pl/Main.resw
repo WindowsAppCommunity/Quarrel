@@ -333,4 +333,10 @@
   <data name="AddAttachementTB.Text" xml:space="preserve">
     <value>DODAJ UPRAWNIENIA</value>
   </data>
+  <data name="CreateInviteMFI.Text" xml:space="preserve">
+    <value>Stwórz zaproszenie</value>
+  </data>
+  <data name="DeleteMFI.Text" xml:space="preserve">
+    <value>Usuń Serwer</value>
+  </data>
 </root>

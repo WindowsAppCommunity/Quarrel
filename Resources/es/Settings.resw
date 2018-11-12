@@ -525,4 +525,7 @@
   <data name="VibrateTB.Text" xml:space="preserve">
     <value>Vibrar al Recibir</value>
   </data>
+  <data name="CustomCBI.Content" xml:space="preserve">
+    <value>Personalizado</value>
+  </data>
 </root>
