@@ -307,7 +307,7 @@
     <value>เปล่งแสงที่แถบด้านซ้ายของจอเมื่อถูกกล่าวถึง</value>
   </data>
   <data name="OutputDevicesCB.Header" xml:space="preserve">
-    <value>เล่นเสียงผ่านอุปกรณ์นี้</value>
+    <value>เสียงขาออก</value>
   </data>
   <data name="DeviceOverrideCB.Content" xml:space="preserve">
     <value>สามารถเปลี่ยนได้โดยคลิกขวาที่ปุ่มปิดเสียงในแชนเนลเสียง</value>
@@ -524,5 +524,26 @@
   </data>
   <data name="VibrateTB.Text" xml:space="preserve">
     <value>สั่นเมื่อได้รับข้อความ</value>
+  </data>
+  <data name="CustomCBI.Content" xml:space="preserve">
+    <value>กำหนดเอง</value>
+  </data>
+  <data name="CompactMessagesCB.Content" xml:space="preserve">
+    <value>โหมดกระชับข้อความ</value>
+  </data>
+  <data name="InputDevicesCB.Header" xml:space="preserve">
+    <value>เสียงขาเข้า</value>
+  </data>
+  <data name="NoiseSensitivitySD.Header" xml:space="preserve">
+    <value>ระดับความดังเสียงรบกวน</value>
+  </data>
+  <data name="OLEDDescTB.Text" xml:space="preserve">
+    <value>เปลี่ยนสีพื้นหลังแอพให้มืดดำสนิท ซึ่งจะประหยัดแบตเตอร์รี่บนจอแบบ OLED</value>
+  </data>
+  <data name="OLEDTB.Text" xml:space="preserve">
+    <value>มืดสนิท</value>
+  </data>
+  <data name="ResetQuarrelBTN.Content" xml:space="preserve">
+    <value>รีเซทแอพ</value>
   </data>
 </root>

@@ -454,7 +454,7 @@
     <value>Tomar foto</value>
   </data>
   <data name="on" xml:space="preserve">
-    <value>on</value>
+    <value>a las</value>
   </data>
   <data name="SavingAudio" xml:space="preserve">
     <value>Creando archivo...</value>
@@ -892,13 +892,13 @@
     <value>Eliminó color del rol &lt;old&gt;</value>
   </data>
   <data name="AuditLogRoleUpdateHoistFalse" xml:space="preserve">
-    <value>Rol no mostrado por srparado en la lista de miembros</value>
+    <value>Rol no mostrado por separado en la lista de miembros</value>
   </data>
   <data name="AuditLogRoleUpdateHoistTrue" xml:space="preserve">
     <value>Rol mostrado por separado en la lista de miembros</value>
   </data>
   <data name="Leave" xml:space="preserve">
-    <value>Dejar</value>
+    <value>Salir</value>
   </data>
   <data name="LeaveGroup" xml:space="preserve">
     <value>¿Estás seguro que quieres salir de &lt;group&gt;?</value>
@@ -931,7 +931,7 @@
     <value>Medio</value>
   </data>
   <data name="ECFTB.Text" xml:space="preserve">
-    <value>Filtrado de contenido explícito</value>
+    <value>Filtro de Contenido Explícito</value>
   </data>
   <data name="ECF0TB.Text" xml:space="preserve">
     <value>No escanear ningún mensaje</value>
@@ -944,5 +944,29 @@
   </data>
   <data name="AuditLogsTB.Content" xml:space="preserve">
     <value>Registro de Auditoría</value>
+  </data>
+  <data name="AllowDMsCB.Content" xml:space="preserve">
+    <value>Permitir Mensajes Directos de los Miembros del Servidor</value>
+  </data>
+  <data name="LowDescVfTB.Text" xml:space="preserve">
+    <value>Deben tener un correo electrónico registrado en su cuenta.</value>
+  </data>
+  <data name="MediumDescVfTB.Text" xml:space="preserve">
+    <value>También debe llevar registrado en Discord 5 minutos al menos.</value>
+  </data>
+  <data name="HighDescVfTB.Text" xml:space="preserve">
+    <value>También debe ser miembro de este servidor por 10 minutos al menos.</value>
+  </data>
+  <data name="VeryHighDescVFTB.Text" xml:space="preserve">
+    <value>Deben tener un teléfono verificado en su cuenta de Discord.</value>
+  </data>
+  <data name="ECF0DescTB.Text" xml:space="preserve">
+    <value>No hay mejor fiesta que la fiesta del té de mi abuela.</value>
+  </data>
+  <data name="ECF1DescTB.Text" xml:space="preserve">
+    <value>Opción recomendada para servidores que usan roles para membresía de confianza.</value>
+  </data>
+  <data name="ECF2DescTB.Text" xml:space="preserve">
+    <value>Opción recomendada cuando quieres que rechine de limpio</value>
   </data>
 </root>

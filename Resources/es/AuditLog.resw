@@ -280,7 +280,7 @@
     <value>Eliminó apodo &lt;old&gt;</value>
   </data>
   <data name="AuditLogMemberUpdateRoleAdd" xml:space="preserve">
-    <value>Añadió rol &lt;role&gt;</value>
+    <value>Agregó el rol &lt;role&gt;</value>
   </data>
   <data name="Leave" xml:space="preserve">
     <value>Dejar</value>
@@ -295,7 +295,7 @@
     <value>Eliminar</value>
   </data>
   <data name="AuditLogMemberUpdateRoleRemove" xml:space="preserve">
-    <value>Eliminó rol &lt;role&gt;</value>
+    <value>Eliminó el rol &lt;role&gt;</value>
   </data>
   <data name="AuditLogServerUpdateExplicitFilter" xml:space="preserve">
     <value>Filtrado de contenido explícito establecido como &lt;level&gt;</value>
@@ -319,7 +319,7 @@
     <value>Autenticación de dos factores **habilitada**</value>
   </data>
   <data name="AuditLogServerUpdateSplash" xml:space="preserve">
-    <value>Splash screen modificada</value>
+    <value>Pantalla de inicio modificada</value>
   </data>
   <data name="AuditLogServerUpdateVanityUrl" xml:space="preserve">
     <value>Vanity URL establecida como &lt;url&gt;</value>

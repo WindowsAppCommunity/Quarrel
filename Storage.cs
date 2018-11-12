@@ -121,6 +121,7 @@ namespace Discord_UWP
         public double TertiaryOpacity = 0.4;
         public double CmdOpacity = 0.7;
         public bool ExpensiveRender = false;
+        public bool OLED = false;
         //public bool DropShadowPresence = false;
         public bool ShowOfflineMembers = false;
         public bool DevMode = false;

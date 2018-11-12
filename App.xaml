@@ -65,9 +65,8 @@
                     <SolidColorBrush x:Key="LinkColor" Color="#0096cf"/>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
-
                     <SolidColorBrush x:Key="Background" Color="#1B1B1B"/>
-                    <SolidColorBrush x:Key="AcrylicMessageBackground" Color="#FF222326"/>
+                    <SolidColorBrush x:Key="AcrylicMessageBackground" Color="#FF303238"/>
                     <!--<AcrylicBrush x:Key="AcrylicMessageBackground"
                     BackgroundSource="HostBackdrop"
                     TintColor="#FF33353b"
@@ -134,6 +133,8 @@
             <Color x:Key="InvisibleColor">#747f8d</Color>
             <x:Double x:Key="ShadowOpacity">0.1</x:Double>
             <x:Boolean x:Key="ShowFocusVisuals">True</x:Boolean>
+
+            <Color x:Key="ShadowColor">#FF000000</Color>
 
             <BitmapImage x:Key="BGImage"/>
             <Style x:Key="CheckBoxStyle1" TargetType="CheckBox">

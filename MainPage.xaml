@@ -13,7 +13,7 @@
     xmlns:simpleclass="using:Discord_UWP.SimpleClasses"
     xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
-    mc:Ignorable="d" SizeChanged="Page_SizeChanged" x:Name="Page" Loaded="Page_Loaded">
+    mc:Ignorable="d" SizeChanged="Page_SizeChanged" x:Name="Page">
     <Page.Resources>
         <Storyboard x:Name="ChangeStatusColor">
             <ColorAnimation x:Name="StatusColorAnimation" Duration="0:0:0.4" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="UserStatusIndicator" d:IsOptimized="True">
@@ -1033,13 +1033,13 @@
                                         <Rectangle x:Name="HighContrastBorder" x:DeferLoadStrategy="Lazy" Grid.ColumnSpan="2"  Visibility="Collapsed" VerticalAlignment="Stretch" Stroke="{ThemeResource SystemControlForegroundTransparentBrush}" StrokeThickness="1"/>
                                     </Grid>
                                 </Grid>
-                                <Rectangle x:Name="cmdBarShadow" Loaded="cmdBarShadow_Loaded" Opacity="0.15" Margin="0,0,0,0"  Visibility="Collapsed" Height="12" VerticalAlignment="Top"  IsHitTestVisible="False" Grid.RowSpan="2">
+                                <Rectangle x:Name="cmdBarShadow" Loaded="cmdBarShadow_Loaded" Opacity="{StaticResource ShadowOpacity}" Margin="0,0,0,0"  Visibility="Collapsed" Height="12" VerticalAlignment="Top"  IsHitTestVisible="False" Grid.RowSpan="2">
                                     <Rectangle.RenderTransform>
                                         <TranslateTransform x:Name="ShadowTransform" Y="{ThemeResource AppBarThemeCompactHeight}"/>
                                     </Rectangle.RenderTransform>
                                     <Rectangle.Fill>
                                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                            <GradientStop Offset="0" Color="Black"/>
+                                            <GradientStop Offset="0" Color="{ThemeResource ShadowColor}"/>
                                             <GradientStop Offset="1" Color="#00000000"/>
                                         </LinearGradientBrush>
                                     </Rectangle.Fill>
@@ -1194,7 +1194,7 @@
                             </Flyout>
                         </AppBarButton.Flyout>
                     </AppBarButton>
-                    <AppBarButton x:Uid="/Main/CallUser" x:Name="CallUser" Background="Transparent"  Icon="Phone" Label="Toggle Member List" Visibility="Collapsed" Click="CallUser_Click">
+                    <AppBarButton x:Uid="/Main/CallUser" x:Name="CallUser" Background="Transparent" Icon="Phone" Label="Call" Visibility="Collapsed" Click="CallUser_Click">
                         <AppBarButton.RenderTransform>
                             <ScaleTransform x:Name="CallUserTransform" ScaleX="1" ScaleY="1"/>
                         </AppBarButton.RenderTransform>
@@ -1284,7 +1284,7 @@
                                 <Rectangle.Fill>
                                     <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
                                         <GradientStop Offset="1"/>
-                                        <GradientStop Color="Black" Offset="0"/>
+                                        <GradientStop Color="{ThemeResource ShadowColor}" Offset="0"/>
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
@@ -1441,7 +1441,7 @@
                                 <Rectangle.Fill>
                                     <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
                                         <GradientStop Offset="1"/>
-                                        <GradientStop Color="Black" Offset="0"/>
+                                        <GradientStop Color="{ThemeResource ShadowColor}" Offset="0"/>
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
@@ -1474,7 +1474,7 @@
                                 <Button.Flyout>
                                     <Flyout x:Name="userFlyout" FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle2}">
                                         <StackPanel Padding="12" Width="280">
-                                            <AppBarButton Width="48" Height="48" HorizontalAlignment="Right" Icon="Setting" Margin="0,-12,-12,0" Click="OpenSettings"/>
+                                            <AppBarButton Width="48" Height="48" HorizontalAlignment="Right" Icon="Setting" Margin="0,-12,-12,0" Click="OpenAccountSettings"/>
                                             <Rectangle x:Name="LargeAvatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="0,-36,0,0"/>
                                             <TextBlock x:Name="LargeUsername" FontSize="18" FontWeight="SemiLight" Text="{Binding Text, ElementName=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,6,0,0"/>
                                             <TextBlock x:Name="LargeDiscriminator" Text="{Binding Text, ElementName=Discriminator, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontWeight="SemiBold" Opacity="0.5" FontSize="13" HorizontalAlignment="Center"/>
@@ -1540,105 +1540,19 @@
                         </Grid>
                     </controls:SideDrawer.ContentLeftSecondary>
                     <controls:SideDrawer.ContentMain>
-                        <Grid x:Name="MessageAreaContainer">
+                        <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Grid x:Name="MessageAreaCMD"></Grid>
                             <Grid x:Name="MessageArea" Grid.Row="1"  Margin="12,0,12,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition/>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-
-                                <Grid x:Name="MoreNewMessageIndicator" Canvas.ZIndex="2" Visibility="Collapsed" Opacity="0" Height="72" VerticalAlignment="Top" Margin="-12,0,-12,0" Grid.RowSpan="2">
-
-                                    <!--<Grid.Background>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="{ThemeResource DarkBGColor}"/>
-                                        <GradientStop Offset="1" Color="{ThemeResource DarkBGColorTransparent}"/>
-                                    </LinearGradientBrush>
-                                </Grid.Background>-->
-                                    <Rectangle IsHitTestVisible="False">
-                                        <Rectangle.Fill>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                <GradientStop Offset="-1.5" Color="{ThemeResource BlurpleColor}"/>
-                                                <GradientStop Offset="0.6" Color="{ThemeResource BlurpleColorTransparent}"/>
-                                            </LinearGradientBrush>
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                    <StackPanel HorizontalAlignment="Right"  Orientation="Horizontal" Margin="12,8,12,0" >
-                                        <FontIcon Glyph="" FontSize="12" Margin="0,2,0,0"  VerticalAlignment="Top"/>
-                                        <HyperlinkButton x:Uid="/Main/NewMessageHLBTN" FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="NEW MESSAGES" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Click="GoToLastRead_Click"/>
-                                        <HyperlinkButton x:Uid="/Main/IgnoreHLBTN" FontSize="12" VerticalAlignment="Top" Margin="12,0,0,0" Content="IGNORE" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Click="IgnoreNewMessages_Click"/>
-                                    </StackPanel>
-                                </Grid>
-                                <Grid x:Name="ReturnToPresentIndicator" Canvas.ZIndex="2" Grid.Row="1"  Visibility="Collapsed" Opacity="0" Height="64" VerticalAlignment="Bottom" Margin="-12,0,-12,0">
-                                    <!--<Grid.Background>
-                                    <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
-                                        <GradientStop Offset="0" Color="{ThemeResource DarkBGColor}"/>
-                                        <GradientStop Offset="1" Color="{ThemeResource DarkBGColorTransparent}"/>
-                                    </LinearGradientBrush>
-                                </Grid.Background>-->
-                                    <Rectangle IsHitTestVisible="False">
-                                        <Rectangle.Fill>
-                                            <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
-                                                <GradientStop Offset="-1.5" Color="{ThemeResource BlurpleColor}"/>
-                                                <GradientStop Offset="0.5" Color="{ThemeResource BlurpleColorTransparent}"/>
-                                            </LinearGradientBrush>
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                    <StackPanel HorizontalAlignment="Right"  Orientation="Horizontal" VerticalAlignment="Bottom"  Margin="12,8,24,8" >
-                                        <FontIcon Glyph="" FontSize="12" Margin="0,2,0,0"  VerticalAlignment="Top" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
-                                        <HyperlinkButton x:Uid="/Main/ReturnToPresentHLBTN" FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="RETURN TO PRESENT" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Click="ReturnToPresent_Click"/>
-                                    </StackPanel>
-                                </Grid>
-                                <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}" Margin="0,0,-12,0" Padding="0,0,12,0">
-                                    <ListView.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <ItemsStackPanel Loaded="ItemsStackPanel_Loaded" SizeChanged="ItemStackPanel_SizeChanged" Margin="0,0,0,-4" ItemsUpdatingScrollMode="KeepLastItemInView">
-                                                <ItemsStackPanel.ChildrenTransitions>
-                                                    <TransitionCollection/>
-                                                </ItemsStackPanel.ChildrenTransitions>
-                                            </ItemsStackPanel>
-                                        </ItemsPanelTemplate>
-                                    </ListView.ItemsPanel>
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate x:DataType="simpleclass:MessageContainer">
-                                            <controls:MessageControl Message="{x:Bind Message, Mode=OneWay}"
-                                                 IsContinuation="{x:Bind IsContinuation, Mode=OneWay}"
-                                                 MessageType="{x:Bind MessageType, Mode=OneWay}"
-                                                 Header="{x:Bind Header, Mode=OneWay}"
-                                                 IsPending="{x:Bind Pending, Mode=OneWay}"
-                                                 IsBlocked="{x:Bind Blocked, Mode=OneWay}"
-                                                 LastRead="{x:Bind LastRead, Mode=OneWay}"
-                                                 Edited="{x:Bind Edit, Mode=OneWay}"/>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                    <ListView.Footer>
-                                        <Grid Height="22" Margin="0,0,0,0">
-                                            <TextBlock x:Uid="/Main/NoMessagesTB" Margin="12,-12.1,12,0" x:Name="NoMessage" Text="No messages" TextWrapping="Wrap" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                        </Grid>
-                                    </ListView.Footer>
-                                </ListView>
-                                <ProgressBar x:Name="MessagesLoadingTop" Grid.Row="0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Top" Visibility="Collapsed"/>
-                                <ProgressBar x:Name="MessagesLoading" Grid.Row="1" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
-                                <StackPanel x:Name="SendMessage" Grid.Row="2" Padding="0,16,12,0">
-                                    <Rectangle x:Name="rectangle" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
-                                    <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced" OpenSpotify="MessageBox1_OpenSpotify"/>
-                                    <StackPanel x:Name="TypingStackPanel" Opacity="0" Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32" VerticalAlignment="Bottom">
-                                        <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center"/>
-                                        <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                    <ads:AdControl x:Name="MobileAd" HorizontalAlignment="Center"
+                                <controls:MessageBodyControl x:Name="MessageBody"/>
+                                <ads:AdControl x:Name="MobileAd" HorizontalAlignment="Center"
                                                Visibility="Collapsed" Background="Red"
                                                Height="50" Width="320"
                                                ApplicationId="9nbrwj777c8r"
                                                AdUnitId="336795"/>
-                                </StackPanel>
                                 <controls:FriendPanel x:Name="friendPanel" Grid.RowSpan="3" Visibility="Collapsed"/>
 
                                 <ads:AdControl x:Name="Ad" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
@@ -1659,7 +1573,7 @@
                                 <Grid x:Name="ControllerHints" Visibility="Collapsed" Grid.Row="3">
                                     <StackPanel Margin="0,2,12,48" HorizontalAlignment="Right" Orientation="Horizontal">
                                         <controls:ControllerHint x:Name="YHint" ButtonGlyph="" Label="Context Menu" Margin="0,0,24,0" Opacity="0"/>
-                                       
+
                                         <controls:ControllerHint x:Name="MenuHint" ButtonGlyph="" Label="Menu">
                                             <controls:ControllerHint.ContextFlyout>
                                                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
@@ -1679,7 +1593,6 @@
                                                AdUnitId="336795" Grid.RowSpan="2"/>
                                 </Grid>
                             </Grid>
-
                         </Grid>
                     </controls:SideDrawer.ContentMain>
                     <controls:SideDrawer.ContentRight>

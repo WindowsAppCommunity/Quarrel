@@ -442,4 +442,7 @@
   <data name="VibrateTB.Text" xml:space="preserve">
     <value>Bei Erhalt vibrieren</value>
   </data>
+  <data name="InputDevicesCB.Header" xml:space="preserve">
+    <value>Eingabegeräte</value>
+  </data>
 </root>

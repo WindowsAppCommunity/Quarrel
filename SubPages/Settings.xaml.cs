@@ -72,6 +72,7 @@ namespace Discord_UWP.SubPages
             ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
             //DropShadowPresence.IsChecked = Storage.Settings.DropShadowPresence;
             UseCompression.IsChecked = Storage.Settings.UseCompression;
+            OLED.IsChecked = Storage.Settings.OLED;
             //VoiceChannels.IsChecked = Storage.Settings.VoiceChannels;
             //GifsOnHover.IsChecked = Storage.Settings.GifsOnHover;
 
@@ -301,8 +302,16 @@ namespace Discord_UWP.SubPages
             if (LanguageSelection.SelectedIndex == -1)
                 LanguageSelection.SelectedIndex = 0;
 
-            await AudioManager.CreateInputDeviceNode(Storage.Settings.InputDevice);
-            AudioManager.InputRecieved += AudioManager_InputRecieved;
+            if (await AudioManager.CreateInputDeviceNode(Storage.Settings.InputDevice))
+            {
+                AudioManager.InputRecieved += AudioManager_InputRecieved;
+            } else
+            {
+                NoiseSensitivity.IsEnabled = false;
+                InputDevices.IsEnabled = false;
+                NoInputMessage.Visibility = Visibility.Visible;
+            }
+
         }
 
         private async void AudioManager_InputRecieved(object sender, float[] e)
@@ -369,6 +378,7 @@ namespace Discord_UWP.SubPages
             //Storage.Settings.DropShadowPresence = (bool)DropShadowPresence.IsChecked;
             Storage.Settings.ShowWelcomeMessage = (bool)ShowWelcome.IsChecked;
             Storage.Settings.UseCompression = (bool)UseCompression.IsChecked;
+            Storage.Settings.OLED = (bool)OLED.IsChecked;
             //Storage.Settings.VoiceChannels = (bool)VoiceChannels.IsChecked;
             //Storage.Settings.GifsOnHover = (bool)GifsOnHover.IsChecked;
             Storage.Settings.ServerMuteIcons = (bool)ShowServerMute.IsChecked;

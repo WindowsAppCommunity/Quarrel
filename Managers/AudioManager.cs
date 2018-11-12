@@ -123,11 +123,11 @@ namespace Discord_UWP
                 }
         }
 
-        public static async Task CreateAudioGraphs()
+        public static async Task<bool> CreateAudioGraphs()
         {
             Storage.SettingsChangedHandler += Storage_SettingsChangedHandler;
             await CreateOutputDeviceNode(Storage.Settings.OutputDevice);
-            await CreateInputDeviceNode(Storage.Settings.InputDevice);
+            return await CreateInputDeviceNode(Storage.Settings.InputDevice);
         }
 
         private static async void Storage_SettingsChangedHandler(object sender, EventArgs e)
@@ -210,7 +210,7 @@ namespace Discord_UWP
             outgraph.Start();
         }
 
-        public static async Task CreateInputDeviceNode(string deviceId)
+        public static async Task<bool> CreateInputDeviceNode(string deviceId)
         {
             if (ingraph != null && deviceId != InputDeviceID)
             {
@@ -236,7 +236,8 @@ namespace Discord_UWP
             if (graphresult.Status != AudioGraphCreationStatus.Success)
             {
                 // Cannot create graph
-                return;
+                inGraphCount--;
+                return false;
             }
 
             ingraph = graphresult.Graph;
@@ -254,12 +255,20 @@ namespace Discord_UWP
 
             if (deviceId == "Default" || deviceId == null)
             {
-                selectedDevice = await DeviceInformation.CreateFromIdAsync(Windows.Media.Devices.MediaDevice.GetDefaultAudioCaptureId(Windows.Media.Devices.AudioDeviceRole.Default));
-                Windows.Media.Devices.MediaDevice.DefaultAudioCaptureDeviceChanged += MediaDevice_DefaultAudioCaptureDeviceChanged;
-                //inputDeviceWatcher = DeviceInformation.CreateWatcher(DeviceClass.AudioCapture);
-                //inputDeviceWatcher.Added += InputDeviceWatcher_Added;
-                //inputDeviceWatcher.Removed += InputDeviceWatcher_Removed;
-                //inputDeviceWatcher.Updated += InputDeviceWatcher_Updated;
+                string device = Windows.Media.Devices.MediaDevice.GetDefaultAudioCaptureId(Windows.Media.Devices.AudioDeviceRole.Default);
+                if (!string.IsNullOrEmpty(device))
+                {
+                    selectedDevice = await DeviceInformation.CreateFromIdAsync(device);
+                    Windows.Media.Devices.MediaDevice.DefaultAudioCaptureDeviceChanged += MediaDevice_DefaultAudioCaptureDeviceChanged;
+                    //inputDeviceWatcher = DeviceInformation.CreateWatcher(DeviceClass.AudioCapture);
+                    //inputDeviceWatcher.Added += InputDeviceWatcher_Added;
+                    //inputDeviceWatcher.Removed += InputDeviceWatcher_Removed;
+                    //inputDeviceWatcher.Updated += InputDeviceWatcher_Updated;
+                } else
+                {
+                    inGraphCount--;
+                    return false;
+                }
             }
             else
             {
@@ -279,7 +288,8 @@ namespace Discord_UWP
             if (result.Status != AudioDeviceNodeCreationStatus.Success)
             {
                 // Cannot create device output node
-                return;
+                inGraphCount--;
+                return false;
             }
 
 
@@ -288,6 +298,7 @@ namespace Discord_UWP
             InputDeviceID = deviceId;
             frameOutputNode.Start();
             ingraph.Start();
+            return true;
         }
 
         #region OuputUpdate
