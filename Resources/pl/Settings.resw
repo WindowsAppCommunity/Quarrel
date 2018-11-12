@@ -456,4 +456,22 @@
   <data name="AppSettingsHLBTN.Content" xml:space="preserve">
     <value>Ustawienia Aplikacji</value>
   </data>
+  <data name="ConnectionsTB.Text" xml:space="preserve">
+    <value>POŁĄCZENIA</value>
+  </data>
+  <data name="DerivedColorDescTB.Text" xml:space="preserve">
+    <value>Dominujący kolor na powiązanych z użytkowniiem stronach będzie czerpany z profilowej ikony</value>
+  </data>
+  <data name="DerivedColorTB.Text" xml:space="preserve">
+    <value>Zaczerpnięty kolor</value>
+  </data>
+  <data name="EnableAcrylicDescTB.Text" xml:space="preserve">
+    <value>Rozmyte tło</value>
+  </data>
+  <data name="EnableAcrylicTB.Text" xml:space="preserve">
+    <value>Pędzel akrylowy</value>
+  </data>
+  <data name="ExpensiveRenderDescTB.Text" xml:space="preserve">
+    <value>Włącza </value>
+  </data>
 </root>

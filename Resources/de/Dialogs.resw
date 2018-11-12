@@ -732,4 +732,7 @@
   <data name="AuditLogPermissionRevoked" xml:space="preserve">
     <value>**Nahm** Berechtigung &lt;permission&gt; von &lt;role&gt;</value>
   </data>
+  <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
+    <value>&lt;channel&gt; ist jetzt der AFK-Channel</value>
+  </data>
 </root>

@@ -298,7 +298,7 @@
     <value>Trete einer Hörsitzung bei</value>
   </data>
   <data name="SessionOverTB.Text" xml:space="preserve">
-    <value>SPOTIFY-SITZUNG IST ZU ENDE</value>
+    <value>SPOTIFY-SITZUNG IST VORBEI :'(</value>
   </data>
   <data name="AddAttachMFI.Text" xml:space="preserve">
     <value>Anhang</value>
