@@ -109,6 +109,16 @@ namespace Discord_UWP
             sideDrawer.SetupInteraction();
             loadingStack.FinishedLoading += LoadingStack_FinishedLoading;
             loadingStack.LoaderChanged += LoadingStack_LoaderChanged;
+
+#if DEBUG
+            AppBarButton debugPageButton = new AppBarButton();
+            debugPageButton.Click += (sender, arg) =>
+              {
+                  SubFrameNavigator(typeof(SubPages.Debug));
+              };
+            debugPageButton.Label = "Debug stuff";
+            cmdBar.SecondaryCommands.Add(debugPageButton);
+#endif
         }
 
         private void LoadingStack_LoaderChanged(object sender, LoadingStack.Loader e)
