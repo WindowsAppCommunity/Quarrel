@@ -553,7 +553,7 @@ namespace Discord_UWP
             if (CinematicMode)
             {
                 Current.Resources["ShowFocusVisuals"] = true;
-                //ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(1280, 720));
+                ApplicationViewScaling.TrySetDisableLayoutScaling(false);
             }
                 
             //if the acrylic brushes exist AND the app is not running in cinematic mode, replace the app resources with them:
