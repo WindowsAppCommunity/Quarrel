@@ -527,7 +527,7 @@
     <value>Vibrate on Receival</value>
   </data>
   <data name="CompactMessagesCB.Content" xml:space="preserve">
-    <value>CompactMessages</value>
+    <value>Compact Messages</value>
   </data>
   <data name="CustomCBI.Content" xml:space="preserve">
     <value>Custom</value>
