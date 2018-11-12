@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+using System;
+using System.IO;
+using System.IO.Compression;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -22,6 +25,8 @@ namespace Discord_UWP.SubPages
                 Events.Items.Add(new ListViewItem() { Content = item });
             }
             App.EventListUpdatedHandler += App_EventListUpdatedHandler;
+            _compressed = new MemoryStream();
+            _decompressor = new DeflateStream(_compressed, CompressionMode.Decompress);
         }
 
         private void NavAway_Completed(object sender, object e)
@@ -52,5 +57,60 @@ namespace Discord_UWP.SubPages
             NavAway.Begin();
             App.SubpageClosed();
         }
+
+        private void TextBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+           if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                HandleMessage(decodeBox.Text);
+            }
+        }
+
+        private MemoryStream _compressed;
+        private DeflateStream _decompressor;
+        private async void HandleMessage(string base64)
+        {
+            try
+            {
+                using (var ms = new MemoryStream(Convert.FromBase64String(base64)))
+                {
+                    ms.Position = 0;
+                    byte[] data = new byte[ms.Length];
+                    ms.Read(data, 0, (int)ms.Length);
+                    int index = 0;
+                    int count = data.Length;
+                    using (var decompressed = new MemoryStream())
+                    {
+                        if (data[0] == 0x78)
+                        {
+                            _compressed.Write(data, index + 2, count - 2);
+                            _compressed.SetLength(count - 2);
+                        }
+                        else
+                        {
+                            _compressed.Write(data, index, count);
+                            _compressed.SetLength(count);
+                        }
+
+                        _compressed.Position = 0;
+                        _decompressor.CopyTo(decompressed);
+                        _compressed.Position = 0;
+                        decompressed.Position = 0;
+
+                        using (var reader = new StreamReader(decompressed))
+                        {
+                            string content = await reader.ReadToEndAsync();
+                            decodeBox.Text = content;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                decodeBox.Text = "Failed to decode text";
+            }
+        }
+
     }
 }

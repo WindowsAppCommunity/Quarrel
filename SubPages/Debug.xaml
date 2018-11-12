@@ -124,8 +124,9 @@
         <Grid x:Name="grid" MaxWidth="512" MaxHeight="600" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
             <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
-                <Grid>
+                <Grid Margin="0,0,0,0">
                     <Grid.RowDefinitions>
+                        <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
@@ -148,6 +149,10 @@
                                 </StackPanel>
                             </ListView.Header>
                         </ListView>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <TextBlock Text="DEFLATE BASE64"/>
+                        <TextBox x:Name="decodeBox" Margin="0,48,0,24" KeyDown="TextBox_KeyDown"></TextBox>
                     </Grid>
                 </Grid>
             </Border>
