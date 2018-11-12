@@ -526,4 +526,28 @@
   <data name="VibrateTB.Text" xml:space="preserve">
     <value>Vibrate on Receival</value>
   </data>
+  <data name="CompactMessagesCB.Content" xml:space="preserve">
+    <value>CompactMessages</value>
+  </data>
+  <data name="CustomCBI.Content" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="InputDevicesCB.Header" xml:space="preserve">
+    <value>Input Devices</value>
+  </data>
+  <data name="NoiseSensitivitySD.Header" xml:space="preserve">
+    <value>Noise Tolerance (dB)</value>
+  </data>
+  <data name="OLEDDescTB.Text" xml:space="preserve">
+    <value>This changes the theme of the app for OLED devices in ways that will save battery (featuring a full black background)</value>
+  </data>
+  <data name="OLEDTB.Text" xml:space="preserve">
+    <value>OLED Theme</value>
+  </data>
+  <data name="ResetQuarrelBTN.Content" xml:space="preserve">
+    <value>Reset Quarrel</value>
+  </data>
+  <data name="NoInput.Text" xml:space="preserve">
+    <value>Unfortunatly, Quarrel wasn't able to find or use an input device. Listening in voice channels will stil work but speaking won't</value>
+  </data>
 </root>

@@ -693,4 +693,46 @@
   <data name="AuditLogChannelPermissionRemoveValid" xml:space="preserve">
     <value>&lt;user&gt; entfernte Zugangseinstellungen für den Kanal &lt;channel&gt;</value>
   </data>
+  <data name="AuditLogChannelPermissionUpdateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; bearbeitete Zugangseinstellugnen für gelöschten Kanal</value>
+  </data>
+  <data name="AuditLogChannelPermissionUpdateValid" xml:space="preserve">
+    <value>&lt;user&gt; bearbeitete Zugangseinstellungen für den Kanal &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdate" xml:space="preserve">
+    <value>&lt;user&gt; bearbeitete &lt;user2&gt;</value>
+  </data>
+  <data name="AuditLogInviteDelete" xml:space="preserve">
+    <value>&lt;user&gt; löschte die Einladung &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateBitrate" xml:space="preserve">
+    <value>Bitrate auf &lt;bitrate&gt; gestellt</value>
+  </data>
+  <data name="AuditLogChannelUpdateBitrateChange" xml:space="preserve">
+    <value>Änderte Bitrate von &lt;old&gt; zu &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateName" xml:space="preserve">
+    <value>Name geändert zu &lt;name&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateNsfwFalse" xml:space="preserve">
+    <value>Kanal auf **SFW** gestellt</value>
+  </data>
+  <data name="AuditLogChannelUpdateNsfwTrue" xml:space="preserve">
+    <value>Kanal auf **NSWF** gestellt</value>
+  </data>
+  <data name="AuditLogChannelUpdateTopic" xml:space="preserve">
+    <value>Thema auf &lt;subject&gt; gestellt</value>
+  </data>
+  <data name="AuditLogChannelUpdateTopicChange" xml:space="preserve">
+    <value>Thema von &lt;old&gt; zu &lt;new&gt; geändert</value>
+  </data>
+  <data name="AuditLogPermissionGiven" xml:space="preserve">
+    <value>**Gab** Berechtigung &lt;permission&gt; an &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogPermissionRevoked" xml:space="preserve">
+    <value>**Nahm** Berechtigung &lt;permission&gt; von &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
+    <value>&lt;channel&gt; ist jetzt der AFK-Channel</value>
+  </data>
 </root>

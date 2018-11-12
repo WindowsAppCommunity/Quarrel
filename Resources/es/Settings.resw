@@ -462,4 +462,70 @@
   <data name="DerivedColorTB.Text" xml:space="preserve">
     <value>Color Derivado</value>
   </data>
+  <data name="BadgeCountDescTB.Text" xml:space="preserve">
+    <value>Mostrar contador de menciones en una insignia</value>
+  </data>
+  <data name="BadgeCountTB.Text" xml:space="preserve">
+    <value>Insignia del Contador</value>
+  </data>
+  <data name="DerivedColorDescTB.Text" xml:space="preserve">
+    <value>El color de acento en las páginas relacionadas con el usuario será definido por el icono del perfil del usuario</value>
+  </data>
+  <data name="EnableAcrylicDescTB.Text" xml:space="preserve">
+    <value>Fondos Difuminados</value>
+  </data>
+  <data name="EnableAcrylicTB.Text" xml:space="preserve">
+    <value>Acabados Acrílicos</value>
+  </data>
+  <data name="ExpensiveRenderDescTB.Text" xml:space="preserve">
+    <value>Habilita varios gráficos exigentes, como los Efectos de Difuminado y los Visualizadores del Audio</value>
+  </data>
+  <data name="ExpensiveRenderTB.Text" xml:space="preserve">
+    <value>Renderizado Exigente</value>
+  </data>
+  <data name="HighlightEveryoneDescTB.Text" xml:space="preserve">
+    <value>el spam con @everyone ya no será un problema</value>
+  </data>
+  <data name="HighlightEveryoneTB.Text" xml:space="preserve">
+    <value>Resaltar @everyone</value>
+  </data>
+  <data name="LiveTileDescTB.Text" xml:space="preserve">
+    <value>Mostrar algunos mensajes en el live tile, pon al día tu menú de inicio</value>
+  </data>
+  <data name="LiveTileTB.Text" xml:space="preserve">
+    <value>Live Tile</value>
+  </data>
+  <data name="UseCompressionTB.Text" xml:space="preserve">
+    <value>Compresión de Datos </value>
+  </data>
+  <data name="MentionGlowDescTB.Text" xml:space="preserve">
+    <value>El lado izquierdo de la pantalla se ilumoina cuando eres mencionado</value>
+  </data>
+  <data name="MentionGlowTB.Text" xml:space="preserve">
+    <value>Iluminación en Menciones</value>
+  </data>
+  <data name="ServerMuteIconDescTB.Text" xml:space="preserve">
+    <value>Un icono de silencio que se muestra sobre los servidores silenciados de la lista</value>
+  </data>
+  <data name="ServerMuteIconTB.Text" xml:space="preserve">
+    <value>Icono de Silencio del Servidor</value>
+  </data>
+  <data name="ShowWelcomeDescTB.Text" xml:space="preserve">
+    <value>Los lindos mensajes en la pantalla de carga, puedes deshabilitarlos si quieres. ¿Por qué no?</value>
+  </data>
+  <data name="ShowWelcomeTB.Text" xml:space="preserve">
+    <value>Mostrar Mensajes de Bienvenida</value>
+  </data>
+  <data name="UseCompressionDescTB.Text" xml:space="preserve">
+    <value>La compresión de datos hace más pequeños los mensajes recibidos y cargan más rápido. Es un poco más exigente con la CPU pero significativamente más rápido en conexiones lentas.</value>
+  </data>
+  <data name="VibrateDescTB.Text" xml:space="preserve">
+    <value>Cuando recibas un mensaje en tu canal activo, tu dispositivo vibrará, si puede hacerlo</value>
+  </data>
+  <data name="VibrateTB.Text" xml:space="preserve">
+    <value>Vibrar al Recibir</value>
+  </data>
+  <data name="CustomCBI.Content" xml:space="preserve">
+    <value>Personalizado</value>
+  </data>
 </root>

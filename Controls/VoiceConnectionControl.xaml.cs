@@ -115,6 +115,11 @@ namespace Discord_UWP.Controls
             channelid = e.ChannelId;
             ChannelName.Text = e.ChannelName;
             GuildName.Text = e.GuildName;
+            if (VoiceManager.lockMute)
+            {
+                Mute.IsEnabled = false;
+                Mute.IsChecked = true;
+            }
         }
 
         private void Disconnect_Click(object sender, RoutedEventArgs e)

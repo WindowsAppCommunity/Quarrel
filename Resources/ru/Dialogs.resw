@@ -152,10 +152,10 @@
     <value>Баны</value>
   </data>
   <data name="BlockTB.Text" xml:space="preserve">
-    <value>Блок</value>
+    <value>Заблокировать</value>
   </data>
   <data name="BodyTB.Text" xml:space="preserve">
-    <value>ТЕЛО</value>
+    <value>Сообщение</value>
   </data>
   <data name="CancelBTN.Content" xml:space="preserve">
     <value>Отмена</value>
@@ -977,6 +977,6 @@
     <value>Рекомендуемый вариант, когда вам нужен этот скрипучий чистый блеск.</value>
   </data>
   <data name="AuditLogsTB.Content" xml:space="preserve">
-    <value>Журнал логов</value>
+    <value>Журнал действий</value>
   </data>
 </root>

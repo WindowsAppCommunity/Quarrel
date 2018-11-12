@@ -81,7 +81,7 @@ namespace Discord_UWP.Managers
             return annotationList;
         }
 
-        public  async Task<Contact> GetContact(string id)
+        public async Task<Contact> GetContact(string id)
         {
             if (contactList == null)
             {
@@ -105,6 +105,25 @@ namespace Discord_UWP.Managers
             }
 
             return await contactList.GetContactFromRemoteIdAsync(id);
+        }
+
+        public async Task<string> ContactIdToRemoteId(string id)
+        {
+            if (store == null)
+            {
+                store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
+            }
+
+            var fullContact = await store.GetContactAsync(id);
+
+            var contactAnnotations = await (await Windows.ApplicationModel.Contacts.ContactManager.RequestAnnotationStoreAsync(ContactAnnotationStoreAccessType.AppAnnotationsReadWrite)).FindAnnotationsForContactAsync(fullContact);
+
+            if (contactAnnotations.Count >= 0)
+            {
+                return contactAnnotations[0].RemoteId;
+            }
+
+            return string.Empty;
         }
 
         private  async Task<bool> CheckContact(SharedModels.User user)

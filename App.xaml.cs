@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using UICompositionAnimations.Brushes;
+//using UICompositionAnimations.Brushes;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.AppService;
@@ -189,8 +189,8 @@ namespace Discord_UWP
         {
             shareop = args.ShareOperation;
             Frame rootFrame = new Frame();
-            SetupTitleBar();
             InitializeResources();
+            SetupTitleBar();
 
             if (args.ShareOperation.Contacts.Count > 0)
                 rootFrame.Navigate(typeof(ExtendedMessageEditor), args.ShareOperation.Contacts[0]);
@@ -208,7 +208,7 @@ namespace Discord_UWP
             Window.Current.Activate();*/
         }
 
-        private void LaunchProcedure(SplashScreen splash, ApplicationExecutionState PreviousExecutionState,
+        private async void LaunchProcedure(SplashScreen splash, ApplicationExecutionState PreviousExecutionState,
             bool PrelaunchActivated, string Arguments)
         {
                dispatcher = CoreApplication.GetCurrentView().Dispatcher;
@@ -232,19 +232,45 @@ namespace Discord_UWP
 
             Frame rootFrame = Window.Current.Content as Frame;
 
+            if (GatewayManager.Gateway == null)
+            {
+                try
+                {
+                    await RESTCalls.SetupToken();
+                }
+                catch
+                {
+                    CheckOnline();
+                    return;
+                }
+
+                if (LoggedIn())
+                {
+                    if (GatewayManager.Gateway != null)
+                    {
+                        GatewayManager.StartGateway();
+                        Common.LoadEmojiDawg();
+                    }
+                    else
+                    {
+                        CheckOnline();
+                    }
+                }
+            }
+
             if (PrelaunchActivated == false)
             {
                 if (PreviousExecutionState == ApplicationExecutionState.Suspended && WasPreLaunched)
                 {
-                    SetupTitleBar();
                     InitializeResources();
+                    SetupTitleBar();
                     SetupMainPage?.Invoke(null, null);
                 }
                 else
                 {
                     Splash = splash;
-                    SetupTitleBar();
                     InitializeResources();
+                    SetupTitleBar();
                     // Do not repeat app initialization when the Window already has content,
                     // just ensure that the window is active
                     if (rootFrame == null)
@@ -323,6 +349,30 @@ namespace Discord_UWP
 
                 case ActivationKind.ContactPanel:
                 {
+                    if (GatewayManager.Gateway == null)
+                    {
+                        try
+                        {
+                            await RESTCalls.SetupToken();
+                        }
+                        catch
+                        {
+                            CheckOnline();
+                            return;
+                        }
+                        if (LoggedIn())
+                        {
+                            if (GatewayManager.Gateway != null)
+                            {
+                                GatewayManager.StartGateway();
+                                Common.LoadEmojiDawg();
+                            }
+                            else
+                            {
+                                CheckOnline();
+                            }
+                        }
+                    }
                     Frame rootFrame = new Frame();
 
                     // Place the frame in the current Window
@@ -500,174 +550,171 @@ namespace Discord_UWP
                     {Color = cmdColor, Opacity = Storage.Settings.CmdOpacity};
             }
 
-            if (CinematicMode) Current.Resources["ShowFocusVisuals"] = true;
-            //if the acrylic brushes exist AND the app is not running in cinematic mode, replace the app resources with them:
-            if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.AcrylicBrush"))
+            if (CinematicMode)
             {
-                Brush brush = (Brush) Current.Resources["AcrylicUserBackground"];
-                if (brush.GetType() == typeof(AcrylicBrush))
-                    return; // this means that resources have already been initialized (=app pelaunched)
-                Color UserBackground = ((SolidColorBrush) Current.Resources["AcrylicUserBackground"]).Color;
-                Color CommandBarColor = ((SolidColorBrush) Current.Resources["AcrylicCommandBarBackground"]).Color;
-                if (!CinematicMode && Storage.Settings.Acrylics && !Storage.Settings.CustomBG)
-                {
-                    Color ChannelColor = ((SolidColorBrush) Current.Resources["AcrylicChannelPaneBackground"]).Color;
-                    Current.Resources["AcrylicChannelPaneBackground"] = new AcrylicBrush
-                    {
-                        TintOpacity = Storage.Settings.SecondaryOpacity,
-                        //Opacity = 1,
-                        TintColor = ChannelColor,
-                        FallbackColor = ChannelColor,
-                        BackgroundSource = AcrylicBackgroundSource.HostBackdrop
-                    };
-                    Color GuildColor = ((SolidColorBrush) Current.Resources["AcrylicGuildPaneBackground"]).Color;
-                    Current.Resources["AcrylicGuildPaneBackground"] = new AcrylicBrush
-                    {
-                        TintOpacity = Storage.Settings.TertiaryOpacity,
-                        //Opacity = 0.0,
-                        TintColor = GuildColor,
-                        FallbackColor = GuildColor,
-                        BackgroundSource = AcrylicBackgroundSource.HostBackdrop
-                    };
-
-                    Current.Resources["AcrylicCommandBarBackground"] = new AcrylicBrush
-                    {
-                        TintOpacity = Storage.Settings.CmdOpacity,
-                        //Opacity = 0.0,
-                        TintColor = CommandBarColor,
-                        FallbackColor = CommandBarColor,
-                        BackgroundSource = AcrylicBackgroundSource.HostBackdrop
-                    };
-                    Color MessageColor = ((SolidColorBrush) Current.Resources["AcrylicMessageBackground"]).Color;
-                    Current.Resources["AcrylicMessageBackground"] = new AcrylicBrush
-                    {
-                        TintOpacity = Storage.Settings.MainOpacity,
-                        //Opacity = 0,
-                        TintColor = UserBackground,
-                        FallbackColor = UserBackground,
-                        BackgroundSource = AcrylicBackgroundSource.HostBackdrop
-                    };
-
-                    Current.Resources["AcrylicUserBackground"] = new AcrylicBrush
-                    {
-                        TintOpacity = 0.3,
-                        //Opacity = 1,
-                        TintColor = UserBackground,
-                        FallbackColor = UserBackground,
-                        BackgroundSource = AcrylicBackgroundSource.Backdrop
-                    };
-
-                    Current.Resources["AcrylicUserBackgroundDarker"] = new AcrylicBrush
-                    {
-                        TintOpacity = 0.3,
-                        //Opacity = 1,
-                        TintColor = CommandBarColor,
-                        FallbackColor = CommandBarColor,
-                        BackgroundSource = AcrylicBackgroundSource.Backdrop
-                    };
-
-                    Color FlyoutColor = ((SolidColorBrush)Current.Resources["AcrylicFlyoutBackground"]).Color;
-                    Current.Resources["AcrylicFlyoutBackground"] = new AcrylicBrush
-                    {
-                        TintOpacity = 0.7,
-                        //Opacity = 0.9,
-                        TintColor = FlyoutColor,
-                        FallbackColor = FlyoutColor,
-                        BackgroundSource = AcrylicBackgroundSource.Backdrop
-                    };
-
-                    Color DeepBGColor = ((SolidColorBrush)Current.Resources["DeepBG"]).Color;
-                    Current.Resources["DeepBG"] = new AcrylicBrush
-                    {
-                        TintOpacity = 0.9,
-                        //Opacity = 1,
-                        TintColor = DeepBGColor,
-                        FallbackColor = DeepBGColor,
-                        BackgroundSource = AcrylicBackgroundSource.Backdrop
-                    };
-                }
-
+                Current.Resources["ShowFocusVisuals"] = true;
+                ApplicationViewScaling.TrySetDisableLayoutScaling(false);
             }
-            // else if (Storage.Settings.Acrylics)
-            //{
-            //    Color ChannelColor = ((SolidColorBrush)Current.Resources["AcrylicChannelPaneBackground"]).Color;
-            //    Current.Resources["AcrylicChannelPaneBackground"] = new CustomAcrylicBrush
-            //    {
-            //        BlurAmount = Storage.Settings.SecondaryOpacity * 10,
-            //        Opacity = 0.7,
-            //        Tint = ChannelColor,
-            //        FallbackColor = ChannelColor,
-            //        //Mode = UICompositionAnimations.Behaviours.Effects.AcrylicEffectMode.HostBackdrop
-            //    };
-            //    Color GuildColor = ((SolidColorBrush)Current.Resources["AcrylicGuildPaneBackground"]).Color;
-            //    Current.Resources["AcrylicGuildPaneBackground"] = new CustomAcrylicBrush
-            //    {
-            //        BlurAmount = Storage.Settings.TertiaryOpacity * 10,
-            //        Opacity = 0.7,
-            //        Tint = GuildColor,
-            //        FallbackColor = GuildColor,
-            //        //Mode = UICompositionAnimations.Behaviours.Effects.AcrylicEffectMode.HostBackdrop
-            //    };
+                
+            //if the acrylic brushes exist AND the app is not running in cinematic mode, replace the app resources with them:
+            if (!Storage.Settings.OLED)
+            {
+                if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.AcrylicBrush"))
+                {
+                    Brush brush = (Brush)Current.Resources["AcrylicUserBackground"];
+                    if (brush.GetType() == typeof(AcrylicBrush))
+                        return; // this means that resources have already been initialized (=app pelaunched)
+                    Color UserBackground = ((SolidColorBrush)Current.Resources["AcrylicUserBackground"]).Color;
+                    Color CommandBarColor = ((SolidColorBrush)Current.Resources["AcrylicCommandBarBackground"]).Color;
+                    if (!CinematicMode && Storage.Settings.Acrylics && !Storage.Settings.CustomBG)
+                    {
+                        Color ChannelColor = ((SolidColorBrush)Current.Resources["AcrylicChannelPaneBackground"]).Color;
+                        Current.Resources["AcrylicChannelPaneBackground"] = new AcrylicBrush
+                        {
+                            TintOpacity = Storage.Settings.SecondaryOpacity,
+                            //Opacity = 1,
+                            TintColor = ChannelColor,
+                            FallbackColor = ChannelColor,
+                            BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                        };
+                        Color GuildColor = ((SolidColorBrush)Current.Resources["AcrylicGuildPaneBackground"]).Color;
+                        Current.Resources["AcrylicGuildPaneBackground"] = new AcrylicBrush
+                        {
+                            TintOpacity = Storage.Settings.TertiaryOpacity,
+                            //Opacity = 0.0,
+                            TintColor = GuildColor,
+                            FallbackColor = GuildColor,
+                            BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                        };
 
-            //    Color CommandBarColor = ((SolidColorBrush)Current.Resources["AcrylicCommandBarBackground"]).Color;
-            //    Current.Resources["AcrylicCommandBarBackground"] = new CustomAcrylicBrush
-            //    {
-            //        BlurAmount = Storage.Settings.CmdOpacity * 10,
-            //        Opacity = 0.7,
-            //        Tint = CommandBarColor,
-            //        FallbackColor = CommandBarColor,
-            //        //Mode = UICompositionAnimations.Behaviours.Effects.AcrylicEffectMode.HostBackdrop
-            //    };
+                        Current.Resources["AcrylicCommandBarBackground"] = new AcrylicBrush
+                        {
+                            TintOpacity = Storage.Settings.CmdOpacity,
+                            //Opacity = 0.0,
+                            TintColor = CommandBarColor,
+                            FallbackColor = CommandBarColor,
+                            BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                        };
+                        Color MessageColor = ((SolidColorBrush)Current.Resources["AcrylicMessageBackground"]).Color;
+                        Current.Resources["AcrylicMessageBackground"] = new AcrylicBrush
+                        {
+                            TintOpacity = Storage.Settings.MainOpacity,
+                            //Opacity = 0,
+                            TintColor = UserBackground,
+                            FallbackColor = UserBackground,
+                            BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                        };
 
-            //    Color MessageColor = ((SolidColorBrush)Current.Resources["AcrylicMessageBackground"]).Color;
-            //    Color UserBackground = ((SolidColorBrush)Current.Resources["AcrylicUserBackground"]).Color;
-            //    Current.Resources["AcrylicMessageBackground"] = new CustomAcrylicBrush
-            //    {
-            //        BlurAmount = Storage.Settings.MainOpacity * 10,
-            //        Opacity = 0.7,
-            //        Tint = UserBackground,
-            //        FallbackColor = UserBackground,
-            //        //Mode = UICompositionAnimations.Behaviours.Effects.AcrylicEffectMode.HostBackdrop
-            //    };
+                        Current.Resources["AcrylicUserBackground"] = new AcrylicBrush
+                        {
+                            TintOpacity = 0.3,
+                            //Opacity = 1,
+                            TintColor = UserBackground,
+                            FallbackColor = UserBackground,
+                            BackgroundSource = AcrylicBackgroundSource.Backdrop
+                        };
 
-            //    Current.Resources["AcrylicUserBackground"] = new CustomAcrylicBrush
-            //    {
-            //        BlurAmount = 0.3 * 10,
-            //        Opacity = 0.7,
-            //        Tint = UserBackground,
-            //        FallbackColor = UserBackground,
-            //        //Mode = UICompositionAnimations.Behaviours.Effects.AcrylicEffectMode.InAppBlur
-            //    };
+                        Current.Resources["AcrylicUserBackgroundDarker"] = new AcrylicBrush
+                        {
+                            TintOpacity = 0.3,
+                            //Opacity = 1,
+                            TintColor = CommandBarColor,
+                            FallbackColor = CommandBarColor,
+                            BackgroundSource = AcrylicBackgroundSource.Backdrop
+                        };
 
-            //    Current.Resources["AcrylicUserBackgroundDarker"] = new CustomAcrylicBrush
-            //    {
-            //        BlurAmount = 0.3 * 10,
-            //        Opacity = 0.7,
-            //        Tint = CommandBarColor,
-            //        FallbackColor = CommandBarColor,
-            //        //Mode = UICompositionAnimations.Behaviours.Effects.AcrylicEffectMode.InAppBlur
-            //    };
+                        Color FlyoutColor = ((SolidColorBrush)Current.Resources["AcrylicFlyoutBackground"]).Color;
+                        Current.Resources["AcrylicFlyoutBackground"] = new AcrylicBrush
+                        {
+                            TintOpacity = 0.7,
+                            //Opacity = 0.9,
+                            TintColor = FlyoutColor,
+                            FallbackColor = FlyoutColor,
+                            BackgroundSource = AcrylicBackgroundSource.Backdrop
+                        };
 
-            //    Color FlyoutColor = ((SolidColorBrush)Current.Resources["AcrylicFlyoutBackground"]).Color;
-            //    Current.Resources["AcrylicFlyoutBackground"] = new CustomAcrylicBrush
-            //    {
-            //        BlurAmount = 0.7 * 10,
-            //        Opacity = 0.7,
-            //        Tint = FlyoutColor,
-            //        FallbackColor = FlyoutColor,
-            //        //Mode = UICompositionAnimations.Behaviours.Effects.AcrylicEffectMode.InAppBlur
-            //    };
+                        Color DeepBGColor = ((SolidColorBrush)Current.Resources["DeepBG"]).Color;
+                        Current.Resources["DeepBG"] = new AcrylicBrush
+                        {
+                            TintOpacity = 0.9,
+                            //Opacity = 1,
+                            TintColor = DeepBGColor,
+                            FallbackColor = DeepBGColor,
+                            BackgroundSource = AcrylicBackgroundSource.Backdrop
+                        };
+                    }
 
-            //    Color DeepBGColor = ((SolidColorBrush)Current.Resources["DeepBG"]).Color;
-            //    Current.Resources["DeepBG"] = new CustomAcrylicBrush
-            //    {
-            //        BlurAmount = 0.9,
-            //        Opacity = 0.7,
-            //        Tint = DeepBGColor,
-            //        FallbackColor = DeepBGColor,
-            //        //Mode = UICompositionAnimations.Behaviours.Effects.AcrylicEffectMode.InAppBlur
-            //    };
-            //}
+                }
+            } else
+            {
+                Color OLEDBlack = Color.FromArgb(255, 0, 0, 0);
+                Color BlarringWhite = Color.FromArgb(255, 255, 255, 255);
+                Color CommandBarColor = ((SolidColorBrush)Current.Resources["AcrylicCommandBarBackground"]).Color;
+
+                Current.Resources["AcrylicChannelPaneBackground"] = new SolidColorBrush
+                {
+                    Color = OLEDBlack
+                };
+
+                Current.Resources["AcrylicGuildPaneBackground"] = new SolidColorBrush
+                {
+                    Color = OLEDBlack
+                };
+
+                Current.Resources["AcrylicCommandBarBackground"] = new SolidColorBrush
+                {
+                    Color = OLEDBlack
+                };
+
+                Current.Resources["AcrylicMessageBackground"] = new SolidColorBrush
+                {
+                    Color = OLEDBlack
+                };
+
+                Current.Resources["AcrylicUserBackground"] = new SolidColorBrush
+                {
+                    Color = OLEDBlack
+                };
+
+                Current.Resources["AcrylicUserBackgroundDarker"] = new SolidColorBrush
+                {
+                    Color = OLEDBlack
+                };
+                
+                Current.Resources["AcrylicFlyoutBackground"] = new SolidColorBrush
+                {
+                    Color = OLEDBlack
+                };
+                
+                Current.Resources["DeepBG"] = new SolidColorBrush
+                {
+                    Color = OLEDBlack
+                };
+
+                Current.Resources["DarkBG"] = new SolidColorBrush
+                {
+                    Color = OLEDBlack
+                };
+
+                Current.Resources["MidBG"] = new SolidColorBrush
+                {
+                    Color = OLEDBlack
+                };
+
+                Current.Resources["LightBG"] = new SolidColorBrush
+                {
+                    Color = BlarringWhite
+                };
+
+                Current.Resources["InvertedBG"] = new SolidColorBrush
+                {
+                    Color = BlarringWhite
+                };
+
+                Current.Resources["ShadowColor"] = Color.FromArgb(255, 50, 50, 50) ; //(Color)Current.Resources["SystemAccentColor"];
+                Current.Resources["ShadowOpacity"] = 0.5;
+            }
+            
 
             if (CinematicMode)
                 ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
@@ -728,7 +775,7 @@ namespace Discord_UWP
             ApplicationViewTitleBar titleBar = view.TitleBar;
             titleBar.ButtonBackgroundColor = Colors.Transparent;
             titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-
+            
             if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
             {
                 StatusBar statusBar = StatusBar.GetForCurrentView();
@@ -771,13 +818,27 @@ namespace Discord_UWP
         }
 
         public static event EventHandler ReadyRecievedHandler;
-
+        public static bool Ready;
         public static void ReadyRecieved()
         {
             ReadyRecievedHandler?.Invoke(typeof(App), new EventArgs());
+            Ready = true;
         }
 
+
         #endregion
+
+        public static event EventHandler<ShowSubFrameEventArgs> ShowSubFrameHandler;
+
+        public static void ShowSubFrame(Type page, object args = null)
+        {
+            ShowSubFrameHandler?.Invoke(typeof(App), new ShowSubFrameEventArgs(){page = page, args = args});
+        }
+        public class ShowSubFrameEventArgs : EventArgs
+        {
+            public Type page { get; set; }
+            public object args { get; set; }
+        }
 
         #region Logout
 
@@ -902,6 +963,7 @@ namespace Discord_UWP
         public static void NavigateToGuildChannel(string guildId, string channelId, string message = null,
             bool send = false, bool onBack = false)
         {
+            App.CurrentChannelId = channelId;
             NavigateToGuildChannelHandler?.Invoke(typeof(App),
                 new GuildChannelNavigationArgs
                     {GuildId = guildId, ChannelId = channelId, Message = message, Send = send, OnBack = onBack});
@@ -926,13 +988,19 @@ namespace Discord_UWP
             bool user = false)
         {
             if (!user)
+            {
+                CurrentChannelId = Id;
                 NavigateToDMChannelHandler?.Invoke(typeof(App),
                     new DMChannelNavigationArgs
                         {ChannelId = Id, UserId = null, Message = message, Send = send, OnBack = onBack});
+            }
             else
+            {
+                CurrentChannelId = null;
                 NavigateToDMChannelHandler?.Invoke(typeof(App),
                     new DMChannelNavigationArgs
                         {UserId = Id, ChannelId = null, Message = message, Send = send, OnBack = onBack});
+            }
         }
 
         #endregion
@@ -942,6 +1010,18 @@ namespace Discord_UWP
         public static void NavigateToLogin()
         {
             NavigateToLoginHandler?.Invoke(null, null);
+        }
+
+
+        public static event EventHandler SaveDraftHandler;
+        public static void SaveDraft()
+        {
+            SaveDraftHandler.Invoke(null, null);
+        }
+        public static event EventHandler LoadDraftHandler;
+        public static void LoadDraft()
+        {
+            LoadDraftHandler.Invoke(null, null);
         }
 
         #endregion
@@ -1297,13 +1377,14 @@ namespace Discord_UWP
         public class MessageDeletedArgs
         {
             public string MessageId;
+            public string ChannelId;
         }
 
         public static event EventHandler<MessageDeletedArgs> MessageDeletedHandler;
 
-        public static void MessageDeleted(string messageId)
+        public static void MessageDeleted(string messageId, string channelId)
         {
-            MessageDeletedHandler?.Invoke(typeof(App), new MessageDeletedArgs {MessageId = messageId});
+            MessageDeletedHandler?.Invoke(typeof(App), new MessageDeletedArgs {MessageId = messageId, ChannelId = channelId });
         }
 
         public class MessageEditedArgs
@@ -1473,7 +1554,7 @@ namespace Discord_UWP
             public string ChannelId;
             public MessageUpsert Message;
         }
-
+        
         public static event EventHandler<CreateMessageArgs> CreateMessageHandler;
 
         public static void CreateMessage(string channelId, string message)

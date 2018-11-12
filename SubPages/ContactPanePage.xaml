@@ -5,10 +5,13 @@
     xmlns:local="using:Discord_UWP.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:simpleClasses="using:Discord_UWP.SimpleClasses"
+    xmlns:controls="using:Discord_UWP.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Work in progress</TextBlock>
+    <Grid Background="{ThemeResource AcrylicChannelPaneBackground}">
+
+        <controls:MessageBodyControl x:Name="MessageBody"/>
     </Grid>
 </Page>

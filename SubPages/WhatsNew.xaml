@@ -86,29 +86,16 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="header" Text="Version 10.2" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                    <TextBlock x:Name="header" Text="Version 10.3" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <StackPanel Margin="0,12,0,0">
                         <RichTextBlock x:Name="notDetailed" TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,12">
                             <Paragraph>
-                                <Run Text="• Connections"/>
+                                <Run Text="• OLED Options"/>
                             </Paragraph>
                             <Paragraph FontSize="8"/>
                             <Paragraph>
-                                <Run Text="• Fixed up Settings"/>
+                                <Run Text="• Fixed crashing with no Mic"/>
                             </Paragraph>
-                            <Paragraph FontSize="8"/>
-                            <Paragraph>
-                                <Run Text="• Fixed role based permissions"/>
-                            </Paragraph>
-                            <Paragraph FontSize="8"/>
-                            <Paragraph>
-                                <Run Text="• Finally made Make Fancy public"/>
-                            </Paragraph>
-                            <Paragraph FontSize="8"/>
-                            <Paragraph>
-                                <Run Text="• Added Call button"/>
-                            </Paragraph>
-                            <Paragraph FontSize="8"/>
                         </RichTextBlock>
                         <ScrollViewer x:Name="Detailed" Visibility="Collapsed">
                             <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" FontSize="12" Margin="0,32,0,12">

@@ -176,7 +176,7 @@ Discord имеет тенденцию быстро исправлять ошиб
     <value>Покупки в приложении</value>
   </data>
   <data name="IdleRadio.Content" xml:space="preserve">
-    <value>Видимый</value>
+    <value>Не активен</value>
   </data>
   <data name="InvisibleRadio.Content" xml:space="preserve">
     <value>Невидимый</value>
@@ -276,7 +276,7 @@ Discord имеет тенденцию быстро исправлять ошиб
     <value>Печатает...</value>
   </data>
   <data name="SubmittedBy" xml:space="preserve">
-    <value>Представленный</value>
+    <value>Представлен</value>
   </data>
   <data name="DirectMessagesTB.Text" xml:space="preserve">
     <value>ПРЯМЫЕ СООБЩЕНИЯ</value>
@@ -346,5 +346,17 @@ Discord имеет тенденцию быстро исправлять ошиб
   </data>
   <data name="AddAttachementTB.Text" xml:space="preserve">
     <value>ДОБАВИТЬ ПРИВЯЗКУ</value>
+  </data>
+  <data name="CreateInviteMFI.Text" xml:space="preserve">
+    <value>Создать инвайт</value>
+  </data>
+  <data name="DeleteMFI.Text" xml:space="preserve">
+    <value>Удалить сервер</value>
+  </data>
+  <data name="LeaveMFI.Text" xml:space="preserve">
+    <value>Выйти из сервера</value>
+  </data>
+  <data name="SettingsMFI.Text" xml:space="preserve">
+    <value>Параметры</value>
   </data>
 </root>

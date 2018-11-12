@@ -151,7 +151,7 @@
     <value>Error 429: Su tasa ha sido limitada, intente de nuevo en unos pocos nanosegundos.</value>
   </data>
   <data name="Error500" xml:space="preserve">
-    <value>Error 500: hay un problema interactuando con el servidor, y es culpa del servidor. Inténtelo de nuevo más tarde, Discord tiende a arreglar los bloqueos del servidor rápidamente.</value>
+    <value>Error 500: Hay un problema interactuando con el servidor, y es culpa del servidor. Inténtelo de nuevo más tarde, Discord tiende a arreglar los bloqueos del servidor rápidamente.</value>
   </data>
   <data name="ErrorGeneric" xml:space="preserve">
     <value>Inténtelo de nuevo después de revisar su correo electrónico para ver si necesita verificar esta ubicación de registro.</value>

@@ -205,7 +205,7 @@
     <value>Enviar mensaje</value>
   </data>
   <data name="Streaming" xml:space="preserve">
-    <value>Transmisión</value>
+    <value>Transmitiendo</value>
   </data>
   <data name="SYMBOLS" xml:space="preserve">
     <value>SÍMBOLOS</value>
@@ -262,7 +262,7 @@
     <value>añadió a</value>
   </data>
   <data name="RemovedUser" xml:space="preserve">
-    <value>quitó a</value>
+    <value>eliminó a</value>
   </data>
   <data name="ToTheConversation" xml:space="preserve">
     <value>&lt;user&gt; a la conversación</value>
@@ -334,6 +334,6 @@
     <value>ACTIVIDADES</value>
   </data>
   <data name="Watching" xml:space="preserve">
-    <value>Mirando a</value>
+    <value>Mirando</value>
   </data>
 </root>
