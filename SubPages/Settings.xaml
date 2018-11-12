@@ -760,7 +760,8 @@
                                         <ProgressBar x:Name="NoiseVisual" Minimum="-100" Maximum="0" Padding="0,36,0,22" VerticalAlignment="Stretch" Background="Transparent"/>
                                         <Slider x:Name="NoiseSensitivity" x:Uid="/Settings/NoiseSensitivitySD" Header="Noise Tolerance (dB)" Value="-40" Minimum="-100" Maximum="0" Style="{ThemeResource DiscordSlider}"/>
                                     </Grid>
-                                    
+                                    <TextBlock Visibility="Collapsed" x:Uid="/Settings/NoInput" x:Name="NoInputMessage" Text="Unfortunatly, Quarrel wasn't able to find or use an input device. Listening in voice channels will stil work but speaking won't" Opacity="0.5"/>
+
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>

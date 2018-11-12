@@ -547,4 +547,7 @@
   <data name="ResetQuarrelBTN.Content" xml:space="preserve">
     <value>Reset Quarrel</value>
   </data>
+  <data name="NoInput.Text" xml:space="preserve">
+    <value>Unfortunatly, Quarrel wasn't able to find or use an input device. Listening in voice channels will stil work but speaking won't</value>
+  </data>
 </root>

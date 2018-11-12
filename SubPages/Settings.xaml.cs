@@ -302,8 +302,16 @@ namespace Discord_UWP.SubPages
             if (LanguageSelection.SelectedIndex == -1)
                 LanguageSelection.SelectedIndex = 0;
 
-            await AudioManager.CreateInputDeviceNode(Storage.Settings.InputDevice);
-            AudioManager.InputRecieved += AudioManager_InputRecieved;
+            if (await AudioManager.CreateInputDeviceNode(Storage.Settings.InputDevice))
+            {
+                AudioManager.InputRecieved += AudioManager_InputRecieved;
+            } else
+            {
+                NoiseSensitivity.IsEnabled = false;
+                InputDevices.IsEnabled = false;
+                NoInputMessage.Visibility = Visibility.Visible;
+            }
+
         }
 
         private async void AudioManager_InputRecieved(object sender, float[] e)

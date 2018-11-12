@@ -96,7 +96,7 @@ namespace Discord_UWP.Controls
 
         private void ItemStackPanel_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (_messageStacker != null &&
+            if (_messageScrollviewer != null && _messageStacker != null &&
                 _messageStacker.ItemsUpdatingScrollMode == ItemsUpdatingScrollMode.KeepLastItemInView)
                 if (MessageList.Items.Count > 0 &&
                     _messageScrollviewer.VerticalOffset + 24 > _messageScrollviewer.ExtentHeight)

@@ -40,7 +40,7 @@ namespace Discord_UWP.Managers
         private static async void StopSpeaking()
         {
             stopSpeaking = true;
-            if (!muted)
+            if (!noiseMuted)
             {
                 await Task.Delay(2000);
             }
@@ -57,7 +57,7 @@ namespace Discord_UWP.Managers
         }
         private static void App_UpdateVoiceStateHandler(object sender, EventArgs e)
         {
-            muted = LocalState.VoiceState.SelfMute;
+            noiseMuted = LocalState.VoiceState.SelfMute;
         }
 
         private static void AudioManager_InputRecieved(object sender, float[] e)
@@ -77,7 +77,7 @@ namespace Discord_UWP.Managers
             }
             else
             {
-                if (!muted)
+                if (!noiseMuted)
                 {
                     stopSpeaking = false;
                     if (!hasSentSpeeking)
@@ -98,6 +98,7 @@ namespace Discord_UWP.Managers
 
 
         public static VoiceConnection VoiceConnection;
-        public static bool muted = false;
+        public static bool noiseMuted = false;
+        public static bool lockMute = false;
     }
 }
