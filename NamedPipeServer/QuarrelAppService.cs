@@ -26,45 +26,61 @@ namespace NamedPipeServer
         /// Fired when the connection to the app service is opened
         /// </summary>
         public event EventHandler ConnectionOpened;
-        public enum ActivityType { Playing, Listening, Watching }
-        public class Activity
+        public enum ActivityType { Playing, Streaming, Listening, Watching }
+
+        public class GameBase
         {
+            [JsonProperty("name")]
+            public string Name { get; set; }
+            [JsonProperty("type")]
+            public ActivityType Type { get; set; }
+        }
+
+        public class Game : GameBase
+        {
+            [JsonProperty("url")]
+            public string Url { get; set; }
+            [JsonProperty("timestamps")]
+            public timestamps TimeStamps { get; set; }
             [JsonProperty("state")]
             public string State { get; set; }
             [JsonProperty("details")]
             public string Details { get; set; }
-            [JsonProperty("timestamps")]
-            public TimestampsClass Timestamps { get; set; }
-            [JsonProperty("assets")]
-            public AssetClass Assets { get; set; }
+            [JsonProperty("session_id")]
+            public string SessionId { get; set; }
             [JsonProperty("party")]
-            public PartyClass Party { get; set; }
-            public class TimestampsClass
-            {
-                [JsonProperty("start")]
-                public DateTimeOffset Start { get; set; }
-                [JsonProperty("end")]
-                public DateTimeOffset End { get; set; }
-            }
-            public class AssetClass
-            {
-                [JsonProperty("large_text")]
-                public string LargeImageText { get; set; }
-                [JsonProperty("large_image")]
-                public string LargeImageKey { get; set; }
-                [JsonProperty("small_text")]
-                public string SmallImageText { get; set; }
-                [JsonProperty("small_image")]
-                public string SmallImageKey { get; set; }
-            }
-            public class PartyClass
-            {
-                public string PartyId { get; set; }
-                public int PartySize { get; set; }
-                public int PartyMax { get; set; }
-                public string SpectateSecret { get; set; }
-                public string JoinSecret { get; set; }
-            }
+            public party Party { get; set; }
+            [JsonProperty("flags")]
+            public int Flags { get; set; }
+            [JsonProperty("assets")]
+            public assets Assets { get; set; }
+            [JsonProperty("application_id")]
+            public string ApplicationId { get; set; }
+        }
+        public class timestamps
+        {
+            [JsonProperty("start")]
+            public long? Start;
+            [JsonProperty("end")]
+            public long? End;
+        }
+        public class party
+        {
+            [JsonProperty("size")]
+            public int?[] Size { get; set; }
+            [JsonProperty("id")]
+            public string Id { get; set; }
+        }
+        public class assets
+        {
+            [JsonProperty("small_image")]
+            public string SmallImage { get; set; }
+            [JsonProperty("large_image")]
+            public string LargeImage { get; set; }
+            [JsonProperty("small_text")]
+            public string SmallText { get; set; }
+            [JsonProperty("large_text")]
+            public string LargeText { get; set; }
         }
         private uint pid = ProcessDiagnosticInfo.GetForCurrentProcess().ProcessId;
         private string ApplicationId;
@@ -98,17 +114,18 @@ namespace NamedPipeServer
         /// <param name="activity"></param>
         /// <param name="applicationId">If the application ID was not specified during initialization, it MUST be specified here</param>
         /// <returns></returns>
-        public async Task<bool> SetActivity(Activity activity, string applicationId = null)
+        public async Task<bool> SetActivity(GameBase activity, string applicationId = null)
         {
             if(ApplicationId == null)
             {
                 if (applicationId == null) throw new NullApplicationIdException("The Application ID has not been specified during initialization, nor during this function call");
                 else ApplicationId = applicationId;
             }
-            //Conver the activity to a valid JSON request
+
             ValueSet valueset = new ValueSet();
-            valueset.Add("SET_ACTIVITY", "");
-            var response = connection.SendMessageAsync(valueset);
+            //Convert the activity to a valid JSON request
+            valueset.Add("SET_ACTIVITY", JsonConvert.SerializeObject(activity));
+            var response = await connection.SendMessageAsync(valueset);
             return false;
         }
 
@@ -119,6 +136,9 @@ namespace NamedPipeServer
         /// <returns></returns>
         public async Task<bool> SetActivity(string activity)
         {
+            ValueSet valueset = new ValueSet();
+            valueset.Add("SET_ACTIVITY", activity);
+            var response = await connection.SendMessageAsync(valueset);
             return false;
         }
 
