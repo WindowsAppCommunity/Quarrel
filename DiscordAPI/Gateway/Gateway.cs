@@ -375,6 +375,10 @@ namespace Discord_UWP.Gateway
         }
         public async void UpdateStatus(string onlinestatus, int? idleSince, GameBase game)
         {
+            if (game is Game)
+            {
+                (game as Game).SessionId = lastReady.SessionId;
+            }
             await UpdateStatus(new StatusUpdate()
                 {
                     Status = onlinestatus,

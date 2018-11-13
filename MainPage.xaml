@@ -1508,13 +1508,13 @@
                                             <RadioButton x:Uid="/Main/IdleRadio" x:Name="UserStatusIdle" Foreground="#faa61a" GroupName="status" Content="Idle" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
                                             <RadioButton x:Uid="/Main/DNDRadio" x:Name="UserStatusDND" Foreground="#f04747" GroupName="status" Tag="You will receive no notifications" Content="Do not disturb"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
                                             <RadioButton x:Uid="/Main/InvisibleRadio" x:Name="UserStatusInvisible" Foreground="#747f8d" GroupName="status" Tag="You will appear offline to other users, but will still get normal Discord features" Content="Invisible"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
-                                            <HyperlinkButton Content="Playing..." Click="HyperlinkButton_Click" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}">
+                                            <!--<HyperlinkButton Content="Playing..." Click="HyperlinkButton_Click" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}">
                                                 <HyperlinkButton.ContextFlyout>
                                                     <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}" Closed="Flyout_Closed">
                                                     <TextBox  x:Name="PlayingBox" Style="{StaticResource TextBoxStyle1}" PlaceholderText="No games" Width="256" Margin="12"/>
                                     </Flyout>
                                                 </HyperlinkButton.ContextFlyout>
-                                            </HyperlinkButton>
+                                            </HyperlinkButton>-->
                                         </StackPanel>
                                     </Flyout>
                                 </Button.Flyout>

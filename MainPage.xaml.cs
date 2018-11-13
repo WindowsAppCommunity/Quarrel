@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -127,22 +128,37 @@ namespace Discord_UWP
             Loading.Hide(true);
         }
 
-        private async void AppServiceConnection_RequestReceived(AppServiceConnection sender,
+
+        private void App_ConnectedToAppService(object sender, EventArgs e)
+        {
+            App._appServiceConnection.RequestReceived += OnAppServiceRequestReceived;
+            App._appServiceConnection.ServiceClosed += OnAppServicesClosed;
+        }
+
+        private async void OnAppServiceRequestReceived(AppServiceConnection sender,
             AppServiceRequestReceivedEventArgs args)
         {
             AppServiceDeferral deferral = args.GetDeferral();
             string content = "";
             if (args.Request.Message.ContainsKey("ConnectionUpdate"))
                 content = args.Request.Message["ConnectionUpdate"].ToString();
-            else if (args.Request.Message.ContainsKey("Message")) content = args.Request.Message["Message"].ToString();
-            MessageDialog md = new MessageDialog(content);
-            await md.ShowAsync();
+            else if (args.Request.Message.ContainsKey("SET_ACTIVITY")) content = args.Request.Message["SET_ACTIVITY"].ToString();
+            
+            //MessageDialog md = new MessageDialog(content);
+            //await md.ShowAsync();
+
+            GatewayManager.Gateway.UpdateStatus(LocalState.CurrentUserPresence.Status, null, JsonConvert.DeserializeObject<GameBase>(content));
+
             ValueSet valueSet = new ValueSet();
             valueSet.Add("response", "success");
             await args.Request.SendResponseAsync(valueSet);
             deferral.Complete();
         }
 
+        private void OnAppServicesClosed(AppServiceConnection sender, AppServiceClosedEventArgs args)
+        {
+            App._appServiceDeferral.Complete();
+        }
 
         public async void Setup(object o, EventArgs args)
         {
@@ -448,6 +464,7 @@ namespace Discord_UWP
 
             App.ToggleCOModeHandler += App_ToggleCOModeHandler;
 
+            App.ConnectedToAppService += App_ConnectedToAppService;
 
             _networkCheckTimer.Tick += _networkCheckTimer_Tick;
         }
@@ -1182,13 +1199,13 @@ namespace Discord_UWP
             ((HyperlinkButton) sender).ContextFlyout.ShowAt((HyperlinkButton) sender);
         }
 
-        private void Flyout_Closed(object sender, object e)
-        {
-            if (string.IsNullOrWhiteSpace(PlayingBox.Text))
-                GatewayManager.Gateway.UpdateStatus(null, 0, null);
-            else
-                GatewayManager.Gateway.UpdateStatus(null, 0, new GameBase {Type = 0, Name = PlayingBox.Text});
-        }
+        //private void Flyout_Closed(object sender, object e)
+        //{
+        //    if (string.IsNullOrWhiteSpace(PlayingBox.Text))
+        //        GatewayManager.Gateway.UpdateStatus(null, 0, null);
+        //    else
+        //        GatewayManager.Gateway.UpdateStatus(null, 0, new GameBase {Type = 0, Name = PlayingBox.Text});
+        //}
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
@@ -2622,7 +2639,10 @@ namespace Discord_UWP
         private async void StartAppService()
         {
             //Permission not set
-            //await Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+            if (App.IsDesktop)
+            {
+                await Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+            }
         }
 
         private async void App_ReadyRecievedHandler(object sender, EventArgs e)

@@ -85,6 +85,8 @@ namespace Discord_UWP
             refocusGuildid = guildid;
         }
 
+        public static AppServiceConnection _appServiceConnection;
+        public static BackgroundTaskDeferral _appServiceDeferral;
         public static event EventHandler ConnectedToAppService;
 
         protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
@@ -92,10 +94,18 @@ namespace Discord_UWP
             base.OnBackgroundActivated(args);
             if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails)
             {
-                BackgroundTaskDeferral appServiceDeferral = args.TaskInstance.GetDeferral();
-                AppServiceDetails = args.TaskInstance.TriggerDetails as AppServiceTriggerDetails;
+                IBackgroundTaskInstance taskInstance = args.TaskInstance;
+                AppServiceTriggerDetails appService = taskInstance.TriggerDetails as AppServiceTriggerDetails;
+                _appServiceDeferral = taskInstance.GetDeferral();
+                taskInstance.Canceled += TaskInstance_Canceled;
+                _appServiceConnection = appService.AppServiceConnection;
                 ConnectedToAppService?.Invoke(null, null);
             }
+        }
+
+        private void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
+        {
+            _appServiceDeferral.Complete();
         }
 
         private async Task SendRequest()

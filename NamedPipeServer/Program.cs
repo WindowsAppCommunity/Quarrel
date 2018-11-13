@@ -40,12 +40,13 @@ namespace NamedPipeServer
 
         private static async void Server_ConnectionUpdate(object sender, DiscordPipeServer.ConnectionState e)
         {
+
         }
 
         private static async void Server_MessageReceived(object sender, string e)
         {
-            service.SetActivity(e);
-            throw new NotImplementedException();
+            await service.SetActivity(e);
+            //throw new NotImplementedException();
         }
     }
 }
