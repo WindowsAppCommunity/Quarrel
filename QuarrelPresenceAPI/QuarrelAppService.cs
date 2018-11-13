@@ -42,20 +42,24 @@ namespace QuarrelPresence
             public string Url { get; set; }
             [JsonProperty("timestamps")]
             public timestamps TimeStamps { get; set; }
-            [JsonProperty("state")]
-            public string State { get; set; }
-            [JsonProperty("details")]
-            public string Details { get; set; }
-            [JsonProperty("session_id")]
-            public string SessionId { get; set; }
-            [JsonProperty("party")]
-            public party Party { get; set; }
-            [JsonProperty("flags")]
-            public int Flags { get; set; }
-            [JsonProperty("assets")]
-            public assets Assets { get; set; }
             [JsonProperty("application_id")]
             public string ApplicationId { get; set; }
+            [JsonProperty("details")]
+            public string Details { get; set; }
+            [JsonProperty("state")]
+            public string State { get; set; }
+            [JsonProperty("party")]
+            public party Party { get; set; }
+            [JsonProperty("assets")]
+            public assets Assets { get; set; }
+            [JsonProperty("secrets")]
+            public secrets Secrets { get; set; }
+            [JsonProperty("flags")]
+            public int Flags { get; set; }
+            [JsonProperty("instance")]
+            public bool Instance { get; set; }
+            [JsonProperty("session_id")]
+            public string SessionId { get; set; }
         }
         public class timestamps
         {
@@ -81,6 +85,15 @@ namespace QuarrelPresence
             public string SmallText { get; set; }
             [JsonProperty("large_text")]
             public string LargeText { get; set; }
+        }
+        public class secrets
+        {
+            [JsonProperty("join")]
+            public string Join { get; set; }
+            [JsonProperty("spectate")]
+            public string Spectate { get; set; }
+            [JsonProperty("match")]
+            public string Match { get; set; }
         }
         private uint pid = ProcessDiagnosticInfo.GetForCurrentProcess().ProcessId;
         private string ApplicationId;
