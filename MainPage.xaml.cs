@@ -53,6 +53,7 @@ using GuildChannel = Discord_UWP.LocalModels.GuildChannel;
 using GuildSetting = Discord_UWP.SharedModels.GuildSetting;
 using User = Discord_UWP.SharedModels.User;
 using UserProfile = Discord_UWP.SubPages.UserProfile;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -80,6 +81,7 @@ namespace Discord_UWP
         private readonly LoadingStack loadingStack = new LoadingStack();
 
         public GroupedObservableCollection<HoistRole, Member> memberscvs;
+        public ObservableCollection<SimpleChannel> channelCollection = new ObservableCollection<SimpleChannel>();
 
         private readonly Stack<Tuple<string, string>> navigationHistory = new Stack<Tuple<string, string>>();
 
@@ -629,7 +631,7 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 if (App.CurrentGuildIsDM)
-                    foreach (SimpleChannel channel in ChannelList.Items)
+                    foreach (SimpleChannel channel in channelCollection)
                         if (channel.UserId != null && channel.UserId == e.UserId)
                             channel.UserStatus = e.Presence;
                 //if the memberscvs isn't null, and either the current guild is DMs or the currentguild isn't null and contains the member
@@ -869,7 +871,7 @@ namespace Discord_UWP
 
 
             ServerList.Items.Clear();
-            ChannelList.Items.Clear();
+            channelCollection.Clear();
             MembersListView.Items.Clear();
         }
 
@@ -981,7 +983,7 @@ namespace Discord_UWP
 
         private void ServerList_LostFocus(object sender, RoutedEventArgs e)
         {
-            // ChannelList.SelectedItem = ChannelList.Items.FirstOrDefault(x => ((SimpleChannel)x).Id == App.CurrentChannelId);
+            // ChannelList.SelectedItem = channelCollection.FirstOrDefault(x => ((SimpleChannel)x).Id == App.CurrentChannelId);
         }
 
         private void sideDrawer_SecondaryLeftFocused_1(object sender, EventArgs e)
@@ -1445,7 +1447,7 @@ namespace Discord_UWP
 
                 if (!App.ShowAds && Storage.Settings.SelectedChannels.ContainsKey(e.GuildId))
                 {
-                    foreach (SimpleChannel chn in ChannelList.Items)
+                    foreach (SimpleChannel chn in channelCollection)
                         if (chn.Id == Storage.Settings.SelectedChannels[e.GuildId])
                         {
                             lastChangeProgrammatic = true;
@@ -1494,14 +1496,14 @@ namespace Discord_UWP
                 _currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
 
                 if (e.OnBack)
-                    foreach (SimpleChannel chn in ChannelList.Items)
+                    foreach (SimpleChannel chn in channelCollection)
                         if (chn.Id == e.ChannelId)
                         {
                             lastChangeProgrammatic = true;
                             ChannelList.SelectedItem = chn;
                         }
 
-                foreach (SimpleChannel chn in ChannelList.Items)
+                foreach (SimpleChannel chn in channelCollection)
                     if (chn.Id == e.ChannelId)
                         chn.IsSelected = true;
                     else if (chn.Type != 2)
@@ -1526,7 +1528,7 @@ namespace Discord_UWP
                     }
 
                 RenderGuildChannels();
-                foreach (SimpleChannel chn in ChannelList.Items)
+                foreach (SimpleChannel chn in channelCollection)
                     if (chn.Id == e.ChannelId)
                     {
                         chn.IsSelected = true;
@@ -1608,14 +1610,14 @@ namespace Discord_UWP
                 App.MarkChannelAsRead(e.ChannelId);
 
                 if (e.OnBack)
-                    foreach (SimpleChannel chn in ChannelList.Items)
+                    foreach (SimpleChannel chn in channelCollection)
                         if (chn.Id == e.ChannelId)
                         {
                             lastChangeProgrammatic = true;
                             ChannelList.SelectedItem = chn;
                         }
 
-                foreach (SimpleChannel chn in ChannelList.Items)
+                foreach (SimpleChannel chn in channelCollection)
                     if (chn.Id == e.ChannelId)
                     {
                         chn.IsSelected = true;
@@ -2118,7 +2120,7 @@ namespace Discord_UWP
                 VoiceController.Show();
             else
                 VoiceController.Hide();
-            foreach (SimpleChannel chn in ChannelList.Items)
+            foreach (SimpleChannel chn in channelCollection)
                 if (chn.Type == 2)
                 {
                     if (e.ChannelId == chn.Id)
@@ -2207,7 +2209,7 @@ namespace Discord_UWP
                 ServerList.Items.Add(sg);
             }
         }
-
+        
         public void RenderDMChannels(string id = null)
         {
             friendPanel.Visibility = Visibility.Collapsed;
@@ -2239,12 +2241,12 @@ namespace Discord_UWP
 
             ChannelName.Text = /*CompChannelName.Text =*/ ChannelTopic.Text = /*CompChannelTopic.Text =*/ "";
 
-            ChannelList.Items.Clear();
+            channelCollection.Clear();
 
             foreach (SimpleChannel channel in ChannelManager.OrderChannels(LocalState.DMs.Values.ToList()))
                 if (App.CurrentGuildIsDM)
                 {
-                    ChannelList.Items.Add(channel);
+                    channelCollection.Add(channel);
                     if (id != null && channel.Id == id)
                     {
                         if (App.Insider) AddFriend.Visibility = Visibility.Collapsed;
@@ -2323,14 +2325,14 @@ namespace Discord_UWP
 
             ServerName.Text = LocalState.Guilds[App.CurrentGuildId].Raw.Name;
 
-            ChannelList.Items.Clear();
+            channelCollection.Clear();
 
             foreach (SimpleChannel channel in ChannelManager.OrderChannels(LocalState.Guilds[App.CurrentGuildId]
                 .channels.Values.ToList()))
             {
                 if (VoiceController.channelid == channel.Id)
                     channel.IsSelected = true;
-                ChannelList.Items.Add(channel);
+                channelCollection.Add(channel);
                 if (!string.IsNullOrEmpty(_autoselectchannel))
                     if (channel.Id == _autoselectchannel)
                     {
@@ -2439,7 +2441,7 @@ namespace Discord_UWP
 
         public void UpdateTyping()
         {
-            foreach (SimpleChannel channel in ChannelList.Items)
+            foreach (SimpleChannel channel in channelCollection)
                 channel.IsTyping = LocalState.Typers.ContainsKey(channel.Id);
         }
 
@@ -2554,7 +2556,7 @@ namespace Discord_UWP
 
                     if (App.CurrentGuildIsDM)
                     {
-                        foreach (SimpleChannel sc in ChannelList.Items)
+                        foreach (SimpleChannel sc in channelCollection)
                         {
                             if (LocalState.RPC.ContainsKey(sc.Id))
                             {
@@ -2576,7 +2578,7 @@ namespace Discord_UWP
                     else
                     {
                         if (App.CurrentGuildId != null) //Incase called before intiialization
-                            foreach (SimpleChannel sc in ChannelList.Items)
+                            foreach (SimpleChannel sc in channelCollection)
                                 if (LocalState.RPC.ContainsKey(sc.Id) &&
                                     LocalState.Guilds[App.CurrentGuildId].channels.ContainsKey(sc.Id))
                                 {
@@ -2760,7 +2762,7 @@ namespace Discord_UWP
             if (App.CurrentGuildIsDM)
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    foreach (SimpleChannel sc in ChannelList.Items)
+                    foreach (SimpleChannel sc in channelCollection)
                         if (sc.Id == e.EventData.channel_id && LocalState.DMs.ContainsKey(e.EventData.channel_id))
                             sc.Subtitle = App.GetString("/Main/members").Replace("<count>",
                                 (LocalState.DMs[e.EventData.channel_id].Users.Count() + 1).ToString());
@@ -2780,7 +2782,7 @@ namespace Discord_UWP
             if (App.CurrentGuildIsDM)
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    foreach (SimpleChannel sc in ChannelList.Items)
+                    foreach (SimpleChannel sc in channelCollection)
                         if (sc.Id == e.EventData.channel_id && LocalState.DMs.ContainsKey(e.EventData.channel_id))
 
                             sc.Subtitle = App.GetString("/Main/members").Replace("<count>",
@@ -2891,11 +2893,11 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (ChannelList.Items.Count > 0)
+                    if (channelCollection.Count > 0)
                     {
                         SimpleChannel chn = ChannelManager.MakeChannel(e.DMChannel);
                         if (chn != null)
-                            ChannelList.Items.Insert(findLocation(chn), chn);
+                            channelCollection.Insert(findLocation(chn), chn);
                     }
                 });
         }
@@ -2905,9 +2907,9 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    foreach (SimpleChannel chn in ChannelList.Items)
+                    foreach (SimpleChannel chn in channelCollection)
                         if (chn.Id == e.DMId)
-                            ChannelList.Items.Remove(chn);
+                            channelCollection.Remove(chn);
                 });
         }
 
@@ -2916,11 +2918,11 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    foreach (SimpleChannel chn in ChannelList.Items)
+                    foreach (SimpleChannel chn in channelCollection)
                         if (chn.Id == e.Id)
                         {
-                            ChannelList.Items.Remove(chn);
-                            ChannelList.Items.Insert(0, chn);
+                            channelCollection.Remove(chn);
+                            channelCollection.Insert(0, chn);
                         }
                 });
         }
@@ -2934,12 +2936,12 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (ChannelList.Items.Count > 0)
+                    if (channelCollection.Count > 0)
                     {
                         SimpleChannel chn =
                             ChannelManager.MakeChannel(LocalState.Guilds[App.CurrentGuildId].channels[e.Channel.Id]);
                         if (chn != null)
-                            ChannelList.Items.Insert(0, chn);
+                            channelCollection.Insert(0, chn);
                     }
                 });
         }
@@ -2949,10 +2951,10 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (ChannelList.Items.Count > 0)
-                        foreach (SimpleChannel channel in ChannelList.Items)
+                    if (channelCollection.Count > 0)
+                        foreach (SimpleChannel channel in channelCollection)
                             if (channel.Id == e.ChannelId)
-                                ChannelList.Items.Remove(channel);
+                                channelCollection.Remove(channel);
                 });
         }
 
@@ -2960,7 +2962,7 @@ namespace Discord_UWP
         {
             //App_GuildChannelDeletedHandler(sender, new App.GuildChannelDeletedArgs() { ChannelId = e.Channel.Id, GuildId = e.Channel.GuildId});
             //App_GuildChannelCreatedHandler(sender, new App.GuildChannelCreatedArgs() { Channel = e.Channel});
-            foreach (SimpleChannel chn in ChannelList.Items)
+            foreach (SimpleChannel chn in channelCollection)
                 if (chn.Id == e.Channel.Id)
                 {
                     if (chn.Position == e.Channel.Position)
@@ -2969,7 +2971,7 @@ namespace Discord_UWP
                     }
                     else
                     {
-                        ChannelList.Items.Remove(chn);
+                        channelCollection.Remove(chn);
                         App.GuildChannelCreated(e.Channel);
                     }
 
@@ -2984,7 +2986,7 @@ namespace Discord_UWP
                 if (c.Type != 4)
                 {
                     int pos = 0;
-                    foreach (SimpleChannel chn in ChannelList.Items)
+                    foreach (SimpleChannel chn in channelCollection)
                     {
                         if (chn.Id == c.ParentId)
                         {
@@ -3003,7 +3005,7 @@ namespace Discord_UWP
             else // type == 1 or 3
             {
                 int pos = 0;
-                foreach (SimpleChannel chn in ChannelList.Items)
+                foreach (SimpleChannel chn in channelCollection)
                 {
                     if (Common.SnowflakeToTime(c.LastMessageId) > Common.SnowflakeToTime(chn.LastMessageId)) return pos;
                     pos++;
@@ -3334,7 +3336,7 @@ namespace Discord_UWP
                             SimpleChannel channel = ChannelList.SelectedItem as SimpleChannel;
                             if (channel.Type == 4) //CATEGORY
                             {
-                                foreach (SimpleChannel item in ChannelList.Items.Where(x =>
+                                foreach (SimpleChannel item in channelCollection.Where(x =>
                                     (x as SimpleChannel).ParentId == channel.Id))
                                     if (item.Hidden)
                                         item.Hidden = false;
