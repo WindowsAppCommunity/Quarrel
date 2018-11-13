@@ -126,7 +126,7 @@ namespace QuarrelPresence
             //Conver the activity to a valid JSON request
             ValueSet valueset = new ValueSet();
             valueset.Add("SET_ACTIVITY", JsonConvert.SerializeObject(activity));
-            var response = connection.SendMessageAsync(valueset);
+            var response = await connection.SendMessageAsync(valueset);
             return true;
         }
 

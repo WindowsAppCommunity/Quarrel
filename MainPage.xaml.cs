@@ -149,7 +149,7 @@ namespace Discord_UWP
             //MessageDialog md = new MessageDialog(content);
             //await md.ShowAsync();
 
-            GatewayManager.Gateway.UpdateStatus(LocalState.CurrentUserPresence.Status, null, JsonConvert.DeserializeObject<GameBase>(content));
+            GatewayManager.Gateway.UpdateStatus(LocalState.CurrentUserPresence.Status, null, JsonConvert.DeserializeObject<Game>(content));
 
             ValueSet valueSet = new ValueSet();
             valueSet.Add("response", "success");
