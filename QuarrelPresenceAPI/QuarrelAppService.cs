@@ -96,9 +96,8 @@ namespace QuarrelPresence
         /// <summary>
         /// Try connecting to Quarrel
         /// </summary>
-        /// <param name="connectIfClosed">Connect to Quarrel when it is opened, if it is currently closed</param>
         /// <returns></returns>
-        public async Task TryConnectAsync(bool connectIfClosed)
+        public async Task<AppServiceConnectionStatus> TryConnectAsync()
         {
             connection.RequestReceived += Connection_RequestReceived;
             connection.ServiceClosed += Connection_ServiceClosed;
@@ -106,41 +105,44 @@ namespace QuarrelPresence
             connection.PackageFamilyName = "38062AvishaiDernis.DiscordUWP_q72k3wbnqqnj6";
 
             Status = await connection.OpenAsync();
-            Console.WriteLine("AppService connection status=" + Status);
+            return Status;
+            //Console.WriteLine("AppService connection status=" + Status);
         }
-
-        private string tempActivity = null;
+        
         /// <summary>
         /// Set the current activity through a <see cref="Activity"/> object
         /// </summary>
         /// <param name="activity"></param>
         /// <param name="applicationId">If the application ID was not specified during initialization, it MUST be specified here</param>
-        /// <returns></returns>
-        public async Task<bool> SetActivity(GameBase activity, string applicationId = null)
+        /// <returns>The response status of the sent Message</returns>
+        public async Task<AppServiceResponseStatus> SetActivity(GameBase activity, string applicationId = null)
         {
             if (ApplicationId == null)
             {
                 if (applicationId == null) throw new NullApplicationIdException("The Application ID has not been specified during initialization, nor during this function call");
                 else ApplicationId = applicationId;
             }
+
             //Conver the activity to a valid JSON request
             ValueSet valueset = new ValueSet();
             valueset.Add("SET_ACTIVITY", JsonConvert.SerializeObject(activity));
-            var response = connection.SendMessageAsync(valueset);
-            return true;
+            var response = await connection.SendMessageAsync(valueset);
+
+            return response.Status;
         }
 
         /// <summary>
         /// Set the current activity directly with a JSON string (not recommended)
         /// </summary>
         /// <param name="activity"></param>
-        /// <returns></returns>
-        public async Task<bool> SetActivity(string activity)
+        /// <returns>The response status of the sent Message</returns>
+        public async Task<AppServiceResponseStatus> SetActivity(string activity)
         {
             ValueSet valueset = new ValueSet();
             valueset.Add("SET_ACTIVITY", activity);
-            var response = connection.SendMessageAsync(valueset);
-            return true;
+            var response = await connection.SendMessageAsync(valueset);
+
+            return response.Status;
         }
 
         private void Connection_ServiceClosed(AppServiceConnection sender, AppServiceClosedEventArgs args)
