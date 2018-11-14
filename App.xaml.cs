@@ -139,19 +139,26 @@ namespace Discord_UWP
             else
                 ResetSettings();
 
-            switch (Storage.Settings.Theme)
+
+            if (Storage.Settings.OLED)
             {
-                case Theme.Dark:
-                    RequestedTheme = ApplicationTheme.Dark;
-                    break;
-                case Theme.Light:
-                    RequestedTheme = ApplicationTheme.Light;
-                    break;
-                case Theme.Discord:
-                    RequestedTheme = Storage.Settings.DiscordLightTheme
-                        ? ApplicationTheme.Light
-                        : ApplicationTheme.Dark;
-                    break;
+                RequestedTheme = ApplicationTheme.Dark;
+            } else
+            {
+                switch (Storage.Settings.Theme)
+                {
+                    case Theme.Dark:
+                        RequestedTheme = ApplicationTheme.Dark;
+                        break;
+                    case Theme.Light:
+                        RequestedTheme = ApplicationTheme.Light;
+                        break;
+                    case Theme.Discord:
+                        RequestedTheme = Storage.Settings.DiscordLightTheme
+                            ? ApplicationTheme.Light
+                            : ApplicationTheme.Dark;
+                        break;
+                }
             }
         }
 
@@ -444,8 +451,6 @@ namespace Discord_UWP
                                 else if (segments[1] == "decline") RESTCalls.DeclineCall(segments[2]);
                             }
                         }
-
-                        ;
                     }
                     else
                     {
