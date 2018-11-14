@@ -98,7 +98,7 @@ namespace Discord_UWP.Controls
                 Avatar.ImageSource = new BitmapImage(Common.AvatarUri(RawMember.User.Avatar, RawMember.User.Id, "?size=64"));
                 AvatarBG.Fill = RawMember.User.Avatar != null ? Common.GetSolidColorBrush("#00000000") : Common.DiscriminatorColor(RawMember.User.Discriminator);
                 
-                OwnerIndicator.Visibility = RawMember.User.Id == (App.CurrentGuildIsDM ? LocalState.DMs[App.CurrentChannelId].OwnerId : LocalState.CurrentGuild.Raw.OwnerId) ? Visibility.Visible : Visibility.Collapsed;
+                OwnerIndicator.Visibility = RawMember.User.Id == (App.CurrentGuildIsDM ? (App.CurrentChannelId != null ? LocalState.DMs[App.CurrentChannelId].OwnerId : "") : (App.CurrentGuildId != null ? LocalState.CurrentGuild.Raw.OwnerId : "")) ? Visibility.Visible : Visibility.Collapsed;
                 BotIndicator.Visibility = RawMember.User.Bot ? Visibility.Visible : Visibility.Collapsed;
             }
             else if(prop == IsTypingProperty)

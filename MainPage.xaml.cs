@@ -2643,7 +2643,7 @@ namespace Discord_UWP
             //Permission not set
             if (App.IsDesktop)
             {
-                await Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+                //await Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
             }
         }
 
