@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-using QuarrelRichPresence;
+using Quarrel.RichPresence;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -35,7 +35,7 @@ namespace Tester
             await service.TryConnectAsync();
             if (service.Status == Windows.ApplicationModel.AppService.AppServiceConnectionStatus.Success)
             {
-                await service.SetActivity(new QuarrelAppService.Game() { ApplicationId = "511732870231097374", Name = "Quarrel Tester", Type = QuarrelAppService.ActivityType.Playing, Details = "If you can see this, it works", State = "Testing Quarrel Presence"});
+                await service.SetActivity(new Game() { ApplicationId = "511732870231097374", Name = "myTube!", Type = ActivityType.Watching});
             } else
             {
 

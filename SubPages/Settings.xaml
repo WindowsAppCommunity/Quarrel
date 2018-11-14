@@ -569,7 +569,14 @@
                                     <RadioButton x:Uid="/Settings/LightRadio" x:Name="radio_Light" Style="{StaticResource DiscordRadioButton}" Content="Light" GroupName="Theme" Margin="0,0,0,-4"/>
                                     <RadioButton x:Uid="/Settings/WindowsRadio" x:Name="radio_Windows" Style="{StaticResource DiscordRadioButton}" Content="Windows" GroupName="Theme" Margin="0,0,0,-4"/>
                                     <RadioButton x:Uid="/Settings/DiscordRadio" x:Name="radio_Discord" Style="{StaticResource DiscordRadioButton}" Content="Discord" GroupName="Theme"/>
-                                    <CheckBox x:Name="EnableAcrylic" Style="{StaticResource CheckBoxStyle1}">
+                                    <RadioButton x:Name="OLED" Style="{StaticResource DiscordRadioButton}" Margin="0,0,0,0" MaxWidth="450" GroupName="Theme">
+                                        <StackPanel Margin="0,-2,0,0">
+                                            <TextBlock x:Uid="/Settings/OLEDTB" Text="OLED Theme"/>
+                                            <TextBlock x:Uid="/Settings/OLEDDescTB" Text="This changes the theme of the app for OLED devices in ways that will save battery (featuring a full black background)" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
+                                        </StackPanel>
+                                    </RadioButton>
+                                    
+                                    <CheckBox x:Name="EnableAcrylic" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0">
                                         <StackPanel Margin="0,2,0,0">
                                             <TextBlock x:Uid="/Settings/EnableAcrylicTB" Text="Acyrlic Brushes"/>
                                             <TextBlock x:Uid="/Settings/EnableAcrylicDescTB" Text="Blurred Backgrounds" FontSize="11" Opacity="0.5"/>
@@ -776,13 +783,6 @@
                                         </StackPanel>
                                     </CheckBox>
 
-                                    <CheckBox x:Name="OLED" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0" MaxWidth="450">
-                                        <StackPanel Margin="0,2,0,0">
-                                            <TextBlock x:Uid="/Settings/OLEDTB" Text="OLED Theme"/>
-                                            <TextBlock x:Uid="/Settings/OLEDDescTB" Text="This changes the theme of the app for OLED devices in ways that will save battery (featuring a full black background)" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
-                                        </StackPanel>
-                                    </CheckBox>
-                                    
                                     <TextBlock x:Uid="/Settings/ResponsiveUiBreaksTB" Text="RESPONSIVE UI BREAKPOINTS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
                                     <TextBlock x:Uid="/Settings/ResponsiveUiBreaksDescTB" Text="These are the trigger widths at which the UI shows more or less info on the screen, depending on the screen width." TextWrapping="Wrap" FontSize="13" Opacity="0.5" Margin="0,6,0,12"/>
                                     <Slider x:Uid="/Settings/SliderM" x:Name="RespUI_M" Header="M (Servers)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Margin="0,6,0,0" Maximum="2000" Style="{StaticResource DiscordSlider}"/>

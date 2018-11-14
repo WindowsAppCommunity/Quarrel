@@ -72,7 +72,6 @@ namespace Discord_UWP.SubPages
             ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
             //DropShadowPresence.IsChecked = Storage.Settings.DropShadowPresence;
             UseCompression.IsChecked = Storage.Settings.UseCompression;
-            OLED.IsChecked = Storage.Settings.OLED;
             //VoiceChannels.IsChecked = Storage.Settings.VoiceChannels;
             //GifsOnHover.IsChecked = Storage.Settings.GifsOnHover;
 
@@ -215,14 +214,20 @@ namespace Discord_UWP.SubPages
                 CustomDateF.Visibility = Visibility.Collapsed;
             }
 
-            if (Storage.Settings.Theme == Theme.Dark)
-                radio_Dark.IsChecked = true;
-            else if (Storage.Settings.Theme == Theme.Light)
-                radio_Light.IsChecked = true;
-            else if (Storage.Settings.Theme == Theme.Windows)
-                radio_Windows.IsChecked = true;
-            else if (Storage.Settings.Theme == Theme.Discord)
-                radio_Discord.IsChecked = true;
+            if (!Storage.Settings.OLED)
+            {
+                if (Storage.Settings.Theme == Theme.Dark)
+                    radio_Dark.IsChecked = true;
+                else if (Storage.Settings.Theme == Theme.Light)
+                    radio_Light.IsChecked = true;
+                else if (Storage.Settings.Theme == Theme.Windows)
+                    radio_Windows.IsChecked = true;
+                else if (Storage.Settings.Theme == Theme.Discord)
+                    radio_Discord.IsChecked = true;
+            }
+            
+            OLED.IsChecked = Storage.Settings.OLED;
+
 
             if (Storage.Settings.collapseOverride == CollapseOverride.None)
                 NoOverride.IsChecked = true;
