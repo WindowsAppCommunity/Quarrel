@@ -424,16 +424,23 @@ namespace Discord_UWP.Controls
                     HashtagIcon.Visibility = Visibility.Visible;
                     VoiceIcon.Visibility = Visibility.Collapsed;
                     MemberList.Visibility = Visibility.Collapsed;
+                    ChannelImage.Visibility = Visibility.Collapsed;
+                    ChannelImageBackdrop.Visibility = Visibility.Collapsed;
+                    rectangle.Visibility = Visibility.Collapsed;
                     Tapped -= JoinVoiceChannel;
+                    grid.Height = Double.NaN;
                 }
                 else if (Type == 2)
                 {
                     //VOICE
                     HashtagIcon.Visibility = Visibility.Collapsed;
+                    ChannelImage.Visibility = Visibility.Collapsed;
                     VoiceIcon.Visibility = Visibility.Visible;
-
+                    Chevron.Visibility = Visibility.Collapsed;
+                    ChannelImageBackdrop.Visibility = Visibility.Collapsed;
+                    rectangle.Visibility = Visibility.Collapsed;
                     VoiceMembers = new Dictionary<string, VoiceMemberContainer>();
-
+                    grid.Height = Double.NaN;
                     GatewayManager.Gateway.VoiceStateUpdated += Gateway_VoiceStateUpdated;
 
                     foreach (var user in LocalState.VoiceDict.Values)
@@ -466,10 +473,13 @@ namespace Discord_UWP.Controls
                 {
                     //DM
                     HashtagIcon.Visibility = Visibility.Collapsed;
+                    VoiceIcon.Visibility = Visibility.Collapsed;
                     ChannelImageBackdrop.Visibility =
                              LocalState.DMs[Id].Users.FirstOrDefault().Avatar == null ?
                              Visibility.Visible : Visibility.Collapsed;
                     ChannelImage.Visibility = Visibility.Visible;
+                    rectangle.Visibility = Visibility.Visible;
+                    Chevron.Visibility = Visibility.Collapsed;
                     rectangle.Visibility = Visibility.Visible;
                     grid.Height = 48;
                     ChannelImage.Margin = new Thickness(0, 6, 6, 6);
@@ -482,9 +492,11 @@ namespace Discord_UWP.Controls
                 {
                     //GROUP DM
                     HashtagIcon.Visibility = Visibility.Collapsed;
+                    VoiceIcon.Visibility = Visibility.Collapsed;
                     ChannelImageBackdrop.Visibility = Visibility.Collapsed;
                     ChannelImage.Visibility = Visibility.Visible;
-                    rectangle.Visibility = Visibility.Collapsed;
+                    rectangle.Visibility = Visibility.Visible;
+                    Chevron.Visibility = Visibility.Collapsed;
                     grid.Height = 48;
                     //ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("ms-appx:///Assets/DiscordAssets/groupchat.svg"));
 
@@ -515,7 +527,7 @@ namespace Discord_UWP.Controls
                     this.Margin = new Thickness(0, 18, 0, 0);
                     MemberList.Visibility = Visibility.Collapsed;
                     Tapped -= JoinVoiceChannel;
-                    
+                    grid.Height = Double.NaN;
                 }
                 UpdateOpacity();
                 if (Type != 2)
