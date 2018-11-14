@@ -140,12 +140,7 @@ namespace QuarrelPresence
             ValueSet valueset = new ValueSet();
             valueset.Add("SET_ACTIVITY", JsonConvert.SerializeObject(activity));
             var response = await connection.SendMessageAsync(valueset);
-<<<<<<< HEAD
-
             return response.Status;
-=======
-            return true;
->>>>>>> 4519297032af08fb46191a54f0316795bc675e2d
         }
 
         /// <summary>
