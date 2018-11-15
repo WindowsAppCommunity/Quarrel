@@ -296,7 +296,7 @@ namespace Discord_UWP.Managers
 
             if (LocalState.PresenceDict.ContainsKey(e.EventData.User.Id))
             {
-                LocalState.PresenceDict[e.EventData.User.Id] = new Presence() { User = e.EventData.User, Status = e.EventData.Settings.Status };
+                LocalState.PresenceDict[e.EventData.User.Id].Status = e.EventData.Settings.Status;
             }
             else
             {
@@ -845,7 +845,7 @@ namespace Discord_UWP.Managers
         #region User
         private static void Gateway_UserSettingsUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.UserSettings> e)
         {
-            var temp = LocalState.PresenceDict[LocalState.CurrentUser.Id];
+            var temp = LocalState.CurrentUserPresence;
             temp.Status = e.EventData.Status;
             LocalState.PresenceDict[LocalState.CurrentUser.Id] = temp;
             App.UserStatusChanged(e.EventData);
