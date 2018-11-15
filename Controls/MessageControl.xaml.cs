@@ -835,6 +835,7 @@ namespace Discord_UWP.Controls
             {
                 MoreEdit.Visibility = Visibility.Visible;
                 MoreReply.Visibility = Visibility.Collapsed;
+                MoreDelete.Visibility = Visibility.Visible;
             }
             //if (Storage.Settings.savedMessages.ContainsKey(messageid))
             //{
@@ -860,6 +861,7 @@ namespace Discord_UWP.Controls
                 {
                     MoreEdit.Visibility = Visibility.Visible;
                     MoreReply.Visibility = Visibility.Collapsed;
+                    MoreDelete.Visibility = Visibility.Visible;
                 }
                 
                 UIElement tappedItem = (UIElement)e.OriginalSource;

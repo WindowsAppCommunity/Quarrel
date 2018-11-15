@@ -31,7 +31,7 @@ BindingGeneric=    new ToastBindingGeneric()
 
         new AdaptiveText()
         {
-            Text = "Full Voice support and myPeople integration with version 10.1!"
+            Text = "Quarrel has been updated and we think you might like it"
         }
                 }
                 }
