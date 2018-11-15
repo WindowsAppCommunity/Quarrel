@@ -550,4 +550,10 @@
   <data name="NoInput.Text" xml:space="preserve">
     <value>Unfortunatly, Quarrel wasn't able to find or use an input device. Listening in voice channels will stil work but speaking won't</value>
   </data>
+  <data name="RichPresenceDescTB.Text" xml:space="preserve">
+    <value>Allow other UWP apps to connect to Quarrel to set the user's Rich Presence</value>
+  </data>
+  <data name="RichPresenceTB.Text" xml:space="preserve">
+    <value>Rich Presence</value>
+  </data>
 </root>

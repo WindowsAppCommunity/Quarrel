@@ -136,6 +136,7 @@ namespace Discord_UWP
         public bool Acrylics = false;
         //public bool VoiceChannels = false;
         public bool UseCompression = true;
+        public bool RichPresence = true;
         //public bool VideoAd = false;
         //public bool GifsOnHover = true;
         //public bool AutoChannelSelect = !App.IsMobile;

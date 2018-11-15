@@ -72,6 +72,7 @@ namespace Discord_UWP.SubPages
             ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
             //DropShadowPresence.IsChecked = Storage.Settings.DropShadowPresence;
             UseCompression.IsChecked = Storage.Settings.UseCompression;
+            RichPresence.IsChecked = Storage.Settings.RichPresence;
             //VoiceChannels.IsChecked = Storage.Settings.VoiceChannels;
             //GifsOnHover.IsChecked = Storage.Settings.GifsOnHover;
 
@@ -214,7 +215,7 @@ namespace Discord_UWP.SubPages
                 CustomDateF.Visibility = Visibility.Collapsed;
             }
 
-            if (!Storage.Settings.OLED)
+            if (!(OLED.IsChecked = Storage.Settings.OLED).Value)
             {
                 if (Storage.Settings.Theme == Theme.Dark)
                     radio_Dark.IsChecked = true;
@@ -225,8 +226,20 @@ namespace Discord_UWP.SubPages
                 else if (Storage.Settings.Theme == Theme.Discord)
                     radio_Discord.IsChecked = true;
             }
-            
-            OLED.IsChecked = Storage.Settings.OLED;
+
+            //if (!Storage.Settings.OLED)
+            //{
+            //    if (Storage.Settings.Theme == Theme.Dark)
+            //        radio_Dark.IsChecked = true;
+            //    else if (Storage.Settings.Theme == Theme.Light)
+            //        radio_Light.IsChecked = true;
+            //    else if (Storage.Settings.Theme == Theme.Windows)
+            //        radio_Windows.IsChecked = true;
+            //    else if (Storage.Settings.Theme == Theme.Discord)
+            //        radio_Discord.IsChecked = true;
+            //}
+
+            //OLED.IsChecked = Storage.Settings.OLED;
 
 
             if (Storage.Settings.collapseOverride == CollapseOverride.None)
@@ -383,6 +396,7 @@ namespace Discord_UWP.SubPages
             //Storage.Settings.DropShadowPresence = (bool)DropShadowPresence.IsChecked;
             Storage.Settings.ShowWelcomeMessage = (bool)ShowWelcome.IsChecked;
             Storage.Settings.UseCompression = (bool)UseCompression.IsChecked;
+            Storage.Settings.RichPresence = (bool)RichPresence.IsChecked;
             Storage.Settings.OLED = (bool)OLED.IsChecked;
             //Storage.Settings.VoiceChannels = (bool)VoiceChannels.IsChecked;
             //Storage.Settings.GifsOnHover = (bool)GifsOnHover.IsChecked;
