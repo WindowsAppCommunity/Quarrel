@@ -849,11 +849,12 @@ namespace Discord_UWP.Controls
             if (MessageType != MessageTypes.Advert)
             {
 
-                if (App.CurrentGuildId != null)
+                if (App.CurrentGuildId != null && App.CurrentChannelId != null)
                 {
-                    if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id && LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId != LocalState.CurrentUser.Id)
+                    if (!LocalState.CurrentChannel.permissions.ManageMessages)
                     {
                         MoreDelete.Visibility = Visibility.Collapsed;
+                        MorePin.Visibility = Visibility.Collapsed;
                     }
                 }
 
