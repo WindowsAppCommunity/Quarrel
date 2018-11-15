@@ -84,7 +84,6 @@ namespace Discord_UWP.Controls
 
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-           
             if(prop == TextProperty)
             {
                 if (Text == null) return;

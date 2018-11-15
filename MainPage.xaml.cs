@@ -2670,8 +2670,8 @@ namespace Discord_UWP
 
                 UserStatusIndicator.Fill =
                     (SolidColorBrush) Application.Current.Resources[
-                        LocalState.PresenceDict[LocalState.CurrentUser.Id].Status];
-                switch (LocalState.PresenceDict[LocalState.CurrentUser.Id].Status)
+                        LocalState.CurrentUserPresence.Status];
+                switch (LocalState.CurrentUserPresence.Status)
                 {
                     case "online":
                         UserStatusOnline.IsChecked = true;
