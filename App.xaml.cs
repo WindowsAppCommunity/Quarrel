@@ -92,7 +92,7 @@ namespace Discord_UWP
         protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
         {
             base.OnBackgroundActivated(args);
-            if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails)
+            if (Storage.Settings.RichPresence && args.TaskInstance.TriggerDetails is AppServiceTriggerDetails)
             {
                 IBackgroundTaskInstance taskInstance = args.TaskInstance;
                 AppServiceTriggerDetails appService = taskInstance.TriggerDetails as AppServiceTriggerDetails;

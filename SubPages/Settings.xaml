@@ -783,6 +783,13 @@
                                         </StackPanel>
                                     </CheckBox>
 
+                                    <CheckBox x:Name="RichPresence" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0" MaxWidth="450">
+                                        <StackPanel Margin="0,2,0,0">
+                                            <TextBlock x:Uid="/Settings/RichPresenceTB" Text="Rich Presence"/>
+                                            <TextBlock x:Uid="/Settings/RichPresenceDescTB" Text="Allow other UWP apps to connect to Quarrel to set the user's Rich Presence" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
+                                        </StackPanel>
+                                    </CheckBox>
+
                                     <TextBlock x:Uid="/Settings/ResponsiveUiBreaksTB" Text="RESPONSIVE UI BREAKPOINTS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
                                     <TextBlock x:Uid="/Settings/ResponsiveUiBreaksDescTB" Text="These are the trigger widths at which the UI shows more or less info on the screen, depending on the screen width." TextWrapping="Wrap" FontSize="13" Opacity="0.5" Margin="0,6,0,12"/>
                                     <Slider x:Uid="/Settings/SliderM" x:Name="RespUI_M" Header="M (Servers)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Margin="0,6,0,0" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
