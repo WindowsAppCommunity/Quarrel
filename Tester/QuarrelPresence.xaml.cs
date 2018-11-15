@@ -35,7 +35,7 @@ namespace Tester
             await service.TryConnectAsync();
             if (service.Status == Windows.ApplicationModel.AppService.AppServiceConnectionStatus.Success)
             {
-                await service.SetActivity(new Game() { ApplicationId = "511732870231097374", Name = "myTube!", Type = ActivityType.Watching, Assets = new assets() { LargeImage = "mytube", LargeText = "myTube!"}, State = "Not Actually", Details = "Just testing out Rich Presence" });
+                await service.SetActivity(new Game() { ApplicationId = "511732870231097374", Name = "myTube!", Type = ActivityType.Watching, Assets = new assets() { LargeImage = "mytube", LargeText = "myTube!"}, Details = "Not Actually", State = "Just testing out Rich Presence" });
             } else
             {
 

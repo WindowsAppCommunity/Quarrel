@@ -212,10 +212,10 @@
     <value>Удалена роль &lt;role&gt;</value>
   </data>
   <data name="AuditLogServerUpdateExplicitFilter" xml:space="preserve">
-    <value>Явный фильтр содержимого установлен на &lt;level&gt;</value>
+    <value>Фильтр откровенного контента установлен на &lt;level&gt;</value>
   </data>
   <data name="AuditLogServerUpdateExplicitFilterChange" xml:space="preserve">
-    <value>Явный фильр содержимого изменён из &lt;old&gt; на &lt;new&gt;</value>
+    <value>Фильтр откровенного контента изменён из &lt;old&gt; на &lt;new&gt;</value>
   </data>
   <data name="AuditLogServerUpdateExplicitFilterOne" xml:space="preserve">
     <value>Участники без ролей</value>

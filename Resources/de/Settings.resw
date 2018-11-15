@@ -445,4 +445,19 @@
   <data name="InputDevicesCB.Header" xml:space="preserve">
     <value>Eingabegeräte</value>
   </data>
+  <data name="DerivedColorTB.Text" xml:space="preserve">
+    <value>Akzentfarbe</value>
+  </data>
+  <data name="EnableAcrylicDescTB.Text" xml:space="preserve">
+    <value>Verschwommene Hintergründe</value>
+  </data>
+  <data name="EnableAcrylicTB.Text" xml:space="preserve">
+    <value>Akryl Pinsel</value>
+  </data>
+  <data name="ExpensiveRenderDescTB.Text" xml:space="preserve">
+    <value>Erlaube verschiedene leistungsintensive Grafiken wie Unschärfe-Effekte und Audio-Visualisierer</value>
+  </data>
+  <data name="ExpensiveRenderTB.Text" xml:space="preserve">
+    <value>Leistungsintensive Darstellung</value>
+  </data>
 </root>
