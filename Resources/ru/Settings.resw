@@ -393,7 +393,7 @@
   </data>
   <data name="DMFilterExpoTB.Text" xml:space="preserve">
     <value>Анализ и автоматическое удаление прямых сообщений,
- содержащих явный контент</value>
+ содержащих откровенный контент</value>
   </data>
   <data name="ProtectMeTB.Text" xml:space="preserve">
     <value>Защити меня</value>
@@ -477,7 +477,7 @@
     <value>ПОДКЛЮЧЕНИЕ</value>
   </data>
   <data name="DerivedColorDescTB.Text" xml:space="preserve">
-    <value>Цвет Accent на страницах, связанных с 
+    <value>Главный цвет на страницах, связанных с 
 пользователем, будет получен из значка профиля пользователя</value>
   </data>
   <data name="DerivedColorTB.Text" xml:space="preserve">
@@ -493,7 +493,7 @@
     <value>Включите различные графические эффекты, такие как размытия и аудиовизуализаторы</value>
   </data>
   <data name="ExpensiveRenderTB.Text" xml:space="preserve">
-    <value>Максимальный рендеринг</value>
+    <value>Ресурсоёмкий рендеринг</value>
   </data>
   <data name="HighlightEveryoneDescTB.Text" xml:space="preserve">
     <value>@everyone спам больше не проблема</value>
@@ -511,7 +511,7 @@
     <value>Левая сторона экрана светится, когда вы упомянуты</value>
   </data>
   <data name="MentionGlowTB.Text" xml:space="preserve">
-    <value>Упоминание о свечении</value>
+    <value>Свечение при упоминании</value>
   </data>
   <data name="ServerMuteIconDescTB.Text" xml:space="preserve">
     <value>Значок отключения звука, отображает отключенные звук в списке серверов</value>
@@ -536,5 +536,26 @@
   </data>
   <data name="VibrateTB.Text" xml:space="preserve">
     <value>Вибрация при приёме</value>
+  </data>
+  <data name="CustomCBI.Content" xml:space="preserve">
+    <value>Свой</value>
+  </data>
+  <data name="CompactMessagesCB.Content" xml:space="preserve">
+    <value>CompactMessages</value>
+  </data>
+  <data name="InputDevicesCB.Header" xml:space="preserve">
+    <value>Устройства ввода</value>
+  </data>
+  <data name="NoiseSensitivitySD.Header" xml:space="preserve">
+    <value>Допуск шума (dB)</value>
+  </data>
+  <data name="OLEDDescTB.Text" xml:space="preserve">
+    <value>_x000D_Это изменяет тему для OLED-устройств таким образом, чтобы сэкономить аккумулятор (с полным черным фоном)</value>
+  </data>
+  <data name="OLEDTB.Text" xml:space="preserve">
+    <value>OLED тема</value>
+  </data>
+  <data name="ResetQuarrelBTN.Content" xml:space="preserve">
+    <value>Сбросить Quarrel</value>
   </data>
 </root>

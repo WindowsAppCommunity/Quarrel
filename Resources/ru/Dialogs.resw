@@ -735,7 +735,7 @@
     <value>Изменена тема из &lt;old&gt; в &lt;new&gt;</value>
   </data>
   <data name="AuditLogPermissionGiven" xml:space="preserve">
-    <value>**Дал** привелелгие &lt;permission&gt; для &lt;role&gt;</value>
+    <value>**Дал** привелегие &lt;permission&gt; для &lt;role&gt;</value>
   </data>
   <data name="AuditLogPermissionRevoked" xml:space="preserve">
     <value>**убрал** привелегие &lt;permission&gt; для&lt;role&gt;</value>
@@ -766,10 +766,10 @@
     <value>&lt;user&gt; удалил &lt;x&gt; сообщений от &lt;user2&gt; на &lt;channel&gt;</value>
   </data>
   <data name="AuditLogServerUpdateExplicitFilter" xml:space="preserve">
-    <value>Явный фильтр содержимого установлен на &lt;level&gt;</value>
+    <value>Фильтр откровенного контента установлен на &lt;level&gt;</value>
   </data>
   <data name="AuditLogServerUpdateExplicitFilterChange" xml:space="preserve">
-    <value>Явный фильр содержимого изменён из &lt;old&gt; на &lt;new&gt;</value>
+    <value>Фильтр откровенного контента изменён из &lt;old&gt; на &lt;new&gt;</value>
   </data>
   <data name="AuditLogServerUpdateExplicitFilterOne" xml:space="preserve">
     <value>Участники без ролей</value>
@@ -929,7 +929,7 @@
     <value>ПАРАМЕТРЫ МОДЕРАЦИИ</value>
   </data>
   <data name="VFLevelsTB.Text" xml:space="preserve">
-    <value>Уровень верификации</value>
+    <value>Уровни проверки</value>
   </data>
   <data name="NoneVfTB.Text" xml:space="preserve">
     <value>Никто</value>
@@ -947,34 +947,34 @@
     <value>Средний</value>
   </data>
   <data name="MediumDescVfTB.Text" xml:space="preserve">
-    <value>Должен быть зарегестрирован в Дискорде не более 5 минут.</value>
+    <value>Должен быть зарегестрирован в Дискорде более 5 минут.</value>
   </data>
   <data name="HighDescVfTB.Text" xml:space="preserve">
-    <value>Должен быть зарегестрирован в Дискорде не более 10 минут.</value>
+    <value>Должен быть зарегестрирован в Дискорде более 10 минут.</value>
   </data>
   <data name="VeryHighDescVFTB.Text" xml:space="preserve">
     <value>Должен иметь подтвержденный номер телефона на своем аккаунте.</value>
   </data>
   <data name="ECFTB.Text" xml:space="preserve">
-    <value>Откровенный фильтр контента</value>
+    <value>Фильтр откровенного контента</value>
   </data>
   <data name="ECF0TB.Text" xml:space="preserve">
     <value>Не просматривать сообщения.</value>
   </data>
   <data name="ECF0DescTB.Text" xml:space="preserve">
-    <value>Разве это не вечеринка, как чаепитие моей бабушки.</value>
+    <value>Нет вечеринки лучше, чем бабушкино чаепитие.</value>
   </data>
   <data name="ECF1TB.Text" xml:space="preserve">
     <value>Сканировать сообщения от участников без роли.</value>
   </data>
   <data name="ECF1DescTB.Text" xml:space="preserve">
-    <value>Рекомендуемая опция для серверов, использующих доверенных роли участников</value>
+    <value>Рекомендуемая опция для серверов, использующих роли для доверенных участников</value>
   </data>
   <data name="ECF2TB.Text" xml:space="preserve">
     <value>Сканировать сообщения от участников.</value>
   </data>
   <data name="ECF2DescTB.Text" xml:space="preserve">
-    <value>Рекомендуемый вариант, когда вам нужен этот скрипучий чистый блеск.</value>
+    <value>Рекомендуемый вариант, когда вам нужен этот скрипуче-чистый блеск.</value>
   </data>
   <data name="AuditLogsTB.Content" xml:space="preserve">
     <value>Журнал действий</value>

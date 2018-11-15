@@ -682,22 +682,22 @@
     <value>&lt;user&gt; löschte das Webhook &lt;webhook&gt;</value>
   </data>
   <data name="AuditLogChannelPermissionCreateInvalid" xml:space="preserve">
-    <value>&lt;user&gt; erstellte Zugangseinstellungen für einen gelöschten Kanal</value>
+    <value>&lt;user&gt; erstellte Berechtigung für einen gelöschten Kanal</value>
   </data>
   <data name="AuditLogChannelPermissionCreateValid" xml:space="preserve">
-    <value>&lt;user&gt; erstellte Zugangseinstellungen für den Kanal &lt;channel&gt;</value>
+    <value>&lt;user&gt; erstellte Berechtigung für den Kanal &lt;channel&gt;</value>
   </data>
   <data name="AuditLogChannelPermissionRemoveInvalid" xml:space="preserve">
-    <value>&lt;user&gt; entfernte Zugangseinstellungen für einen gelöschten Kanal</value>
+    <value>&lt;user&gt; entfernte Berechtigung für einen gelöschten Kanal</value>
   </data>
   <data name="AuditLogChannelPermissionRemoveValid" xml:space="preserve">
-    <value>&lt;user&gt; entfernte Zugangseinstellungen für den Kanal &lt;channel&gt;</value>
+    <value>&lt;user&gt; entfernte Berechtigung für den Kanal &lt;channel&gt;</value>
   </data>
   <data name="AuditLogChannelPermissionUpdateInvalid" xml:space="preserve">
-    <value>&lt;user&gt; bearbeitete Zugangseinstellugnen für gelöschten Kanal</value>
+    <value>&lt;user&gt; bearbeitete Berechtigung für gelöschten Kanal</value>
   </data>
   <data name="AuditLogChannelPermissionUpdateValid" xml:space="preserve">
-    <value>&lt;user&gt; bearbeitete Zugangseinstellungen für den Kanal &lt;channel&gt;</value>
+    <value>&lt;user&gt; bearbeitete Berechtigung für den Kanal &lt;channel&gt;</value>
   </data>
   <data name="AuditLogMemberUpdate" xml:space="preserve">
     <value>&lt;user&gt; bearbeitete &lt;user2&gt;</value>
