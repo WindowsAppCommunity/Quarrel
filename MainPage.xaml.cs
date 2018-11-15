@@ -2919,11 +2919,14 @@ namespace Discord_UWP
                 () =>
                 {
                     foreach (SimpleChannel chn in channelCollection)
+                    {
                         if (chn.Id == e.Id)
                         {
                             channelCollection.Remove(chn);
                             channelCollection.Insert(0, chn);
+                            break;
                         }
+                    }
                 });
         }
 
