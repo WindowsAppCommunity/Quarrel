@@ -55,7 +55,7 @@ using Microsoft.Toolkit.Uwp;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using FFT.Processing;
 
-namespace Discord_UWP
+namespace Discord_UWP.Managers
 {
     [ComImport]
     [Guid("5B0D3235-4DBA-4D44-865E-8F1D0E4FD04D")]
@@ -123,11 +123,11 @@ namespace Discord_UWP
                 }
         }
 
-        public static async Task<bool> CreateAudioGraphs()
+        public static async void CreateAudioGraphs()
         {
             Storage.SettingsChangedHandler += Storage_SettingsChangedHandler;
             await CreateOutputDeviceNode(Storage.Settings.OutputDevice);
-            return await CreateInputDeviceNode(Storage.Settings.InputDevice);
+            await CreateInputDeviceNode(Storage.Settings.InputDevice);
         }
 
         private static async void Storage_SettingsChangedHandler(object sender, EventArgs e)
@@ -237,6 +237,8 @@ namespace Discord_UWP
             {
                 // Cannot create graph
                 inGraphCount--;
+                LocalState.VoiceState.SelfMute = true;
+                VoiceManager.lockMute = true;
                 return false;
             }
 
@@ -267,6 +269,8 @@ namespace Discord_UWP
                 } else
                 {
                     inGraphCount--;
+                    LocalState.VoiceState.SelfMute = true;
+                    VoiceManager.lockMute = true;
                     return false;
                 }
             }
@@ -289,6 +293,8 @@ namespace Discord_UWP
             {
                 // Cannot create device output node
                 inGraphCount--;
+                LocalState.VoiceState.SelfMute = true;
+                VoiceManager.lockMute = true;
                 return false;
             }
 
