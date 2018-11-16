@@ -856,12 +856,13 @@ namespace Discord_UWP.Managers
         #region Voice
         private static async void Gateway_VoiceServerUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.VoiceServerUpdate> e)
         {
-            if (!await AudioManager.CreateAudioGraphs())
+            VoiceManager.ConnectToVoiceChannel(e.EventData);
+            bool lockedMute = !await AudioManager.CreateAudioGraphs();
+            if (lockedMute)
             {
                 LocalState.VoiceState.SelfMute = true;
                 VoiceManager.lockMute = true;
             }
-            VoiceManager.ConnectToVoiceChannel(e.EventData);
         }
 
         private static void Gateway_VoiceStateUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.VoiceState> e)
