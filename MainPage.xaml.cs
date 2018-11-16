@@ -1910,7 +1910,7 @@ namespace Discord_UWP
             e.Flyout.ShowAt(sender as UIElement, e.Point);
         }
 
-        private async void App_ShowMemberFlyoutHandler(object sender, App.ProfileNavigationArgs e)
+        private void App_ShowMemberFlyoutHandler(object sender, App.ProfileNavigationArgs e)
         {
             if (!App.CurrentGuildIsDM)
             {

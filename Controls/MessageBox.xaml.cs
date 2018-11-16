@@ -545,7 +545,7 @@ namespace Discord_UWP.Controls
         }
 
         DispatcherTimer searchCooldown = new DispatcherTimer();
-        private async void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             GiphyList.Items.Clear();
             progring.Visibility = Visibility.Visible;

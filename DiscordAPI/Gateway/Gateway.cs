@@ -360,7 +360,7 @@ namespace Discord_UWP.Gateway
             await ConnectAsync();
             //The actual Resume payload is sent when a connection has been established
         }
-        public async Task SendResumeRequest()
+        public async void SendResumeRequest()
         {
             //Reconnect the socket
             var token = _authenticator.GetToken();

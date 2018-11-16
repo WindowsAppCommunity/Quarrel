@@ -105,12 +105,12 @@ namespace Discord_UWP.Managers
         //private static bool started = false;
         //public static 
 
-        public static async void ChangeVolume(double value)
+        public static void ChangeVolume(double value)
         {
             if(ready)
                 deviceOutputNode.OutgoingGain = value;
         }
-        public static async void ChangeDeafStatus(bool deaf)
+        public static void ChangeDeafStatus(bool deaf)
         {
             if (ready)
                 if (deaf)
