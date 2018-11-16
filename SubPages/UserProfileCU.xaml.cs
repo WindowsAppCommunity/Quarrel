@@ -57,7 +57,7 @@ namespace Discord_UWP.SubPages
         private SharedModels.UserProfile profile;
         string userid;
         bool navFromFlyout = false;
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             SteamImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/ConnectionLogos/steam" + (App.Current.RequestedTheme == ApplicationTheme.Dark ? "_light" : "_dark") + ".png"));
 
