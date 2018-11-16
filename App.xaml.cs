@@ -251,18 +251,16 @@ namespace Discord_UWP
 
             if (GatewayManager.Gateway == null)
             {
-                try
-                {
-                    await RESTCalls.SetupToken();
-                }
-                catch
-                {
-                    CheckOnline();
-                    return;
-                }
-
                 if (LoggedIn())
                 {
+                    try
+                    {
+                        await RESTCalls.SetupToken();
+                    }
+                    catch
+                    {
+                        CheckOnline();
+                    }
                     if (GatewayManager.Gateway != null)
                     {
                         GatewayManager.StartGateway();
@@ -272,6 +270,9 @@ namespace Discord_UWP
                     {
                         CheckOnline();
                     }
+                } else
+                {
+                    App.NavigateToLogin();
                 }
             }
 
