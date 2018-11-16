@@ -81,13 +81,13 @@ namespace Quarrel.RichPresence
         /// </summary>
         /// <param name="activity"></param>
         /// <returns>The response status of the sent Message</returns>
-        public async Task<AppServiceResponseStatus> SetActivity(string activity)
+        public async Task<Tuple<AppServiceResponseStatus, ResponseType>> SetActivity(string activity)
         {
             ValueSet valueset = new ValueSet();
             valueset.Add("SET_ACTIVITY", activity);
             var response = await connection.SendMessageAsync(valueset);
 
-            return response.Status;
+            return new Tuple<AppServiceResponseStatus, ResponseType>(response.Status, (response.Message["response"] as ResponseType?).HasValue ? (response.Message["response"] as Nullable<ResponseType>).Value : ResponseType.NotReached);
         }
 
         private void Connection_ServiceClosed(AppServiceConnection sender, AppServiceClosedEventArgs args)
