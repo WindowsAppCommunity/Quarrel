@@ -214,7 +214,7 @@
   <data name="SearchTBox.PlaceholderText" xml:space="preserve">
     <value>Search...</value>
   </data>
-  <data name="SendMessagePlaceholderText" xml:space="preserve">
+  <data name="SendMessageTB.PlaceholderText" xml:space="preserve">
     <value>Send message</value>
   </data>
   <data name="Streaming" xml:space="preserve">
@@ -258,9 +258,6 @@
   </data>
   <data name="RemoveFromFriends.Text" xml:space="preserve">
     <value>Remove from friends</value>
-  </data>
-  <data name="SendMessage.Text" xml:space="preserve">
-    <value>Send message</value>
   </data>
   <data name="Call.Text" xml:space="preserve">
     <value>Call</value>
@@ -351,5 +348,14 @@
   </data>
   <data name="Watching" xml:space="preserve">
     <value>Watching</value>
+  </data>
+  <data name="NoSendPermission" xml:space="preserve">
+    <value>You don't have permission to post in this channel</value>
+  </data>
+  <data name="SendMessage.Text" xml:space="preserve">
+    <value>Send message</value>
+  </data>
+  <data name="SendMessagePlaceHolder" xml:space="preserve">
+    <value>Send message</value>
   </data>
 </root>

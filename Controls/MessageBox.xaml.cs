@@ -138,8 +138,10 @@ namespace Discord_UWP.Controls
             if (prop == IsEnabledProperty)
             {
                 MessageEditor.IsEnabled = IsEnabled;
+                MessageEditor.PlaceholderText = IsEnabled ? App.GetString("/Controls/SendMessagePlaceHolder") : App.GetString("/Controls/NoSendPermission");
                 SendBox.IsEnabled = IsEnabled;
                 EmojiButton.IsEnabled = IsEnabled;
+                attachButton.IsEnabled = IsEnabled;
             }
             if(prop == TextProperty)
             {
