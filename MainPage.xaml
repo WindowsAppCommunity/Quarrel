@@ -1244,7 +1244,7 @@
                     <controls:SideDrawer.ContentLeft>
                         <Grid>
                             <ScrollViewer x:Name="ServerScrollviewer"  VerticalScrollBarVisibility="Hidden" PointerPressed="ScrollViewer_PointerPressed" ViewChanged="ServerScrollviewer_ViewChanged">
-                                <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" ItemClick="ServerList_ItemClick" IsItemClickEnabled="True"  Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" Style="{StaticResource SimplifiedListView}" XYFocusRight="{x:Bind ChannelList}" XYFocusRightNavigationStrategy="Projection" GotFocus="ServerList_GotFocus" LostFocus="ServerList_LostFocus">
+                                <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" ItemClick="ServerList_ItemClick" IsItemClickEnabled="True" Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" Style="{StaticResource SimplifiedListView}" XYFocusRight="{x:Bind ChannelList}" XYFocusRightNavigationStrategy="Projection" GotFocus="ServerList_GotFocus" LostFocus="ServerList_LostFocus">
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="simpleclass:SimpleGuild" >
                                             <controls:GuildControl Id="{x:Bind Id, Mode=OneWay}" 

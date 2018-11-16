@@ -102,7 +102,7 @@
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <Border CornerRadius="4" x:Name="bgDisabled" Opacity="0" BorderBrush="{ThemeResource Greyple}" BorderThickness="1"/>
+                            <Border CornerRadius="4" x:Name="bgDisabled" Opacity="0"/>
                             <Border CornerRadius="4" x:Name="bgColor" Background="{TemplateBinding Background}"/>
                             <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
 
@@ -1021,7 +1021,7 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Uid="/Controls/SendMessagePlaceholderText" x:Name="MessageEditor" PlaceholderText="Send message" Grid.Column="1" TextChanged="MessageEditor_OnTextChanged" KeyDown="MessageEditor_OnKeyDown" LostFocus="MessageEditor_OnLostFocus" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MaxHeight="256" Paste="MessageEditor_Paste" KeyUp="MessageEditor_KeyUp"/>
+        <TextBox x:Uid="/Controls/SendMessageTB" x:Name="MessageEditor" PlaceholderText="Send message" Grid.Column="1" TextChanged="MessageEditor_OnTextChanged" KeyDown="MessageEditor_OnKeyDown" LostFocus="MessageEditor_OnLostFocus" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MaxHeight="256" Paste="MessageEditor_Paste" KeyUp="MessageEditor_KeyUp"/>
         <Button x:Name="SendBox" Grid.Column="2" Style="{StaticResource SendButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="SendBox_OnClick" Grid.Row="0" IsEnabled="False" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Width="48"/>
         
         <Popup x:Name="SuggestionPopup" IsOpen="False" Margin="24,0,0,0" Grid.ColumnSpan="2">
