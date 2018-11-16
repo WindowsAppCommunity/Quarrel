@@ -100,6 +100,11 @@ namespace Discord_UWP
                 taskInstance.Canceled += TaskInstance_Canceled;
                 _appServiceConnection = appService.AppServiceConnection;
                 ConnectedToAppService?.Invoke(null, null);
+            } else if (!Storage.Settings.RichPresence && args.TaskInstance.TriggerDetails is AppServiceTriggerDetails)
+            {
+                IBackgroundTaskInstance taskInstance = args.TaskInstance;
+                AppServiceTriggerDetails appService = taskInstance.TriggerDetails as AppServiceTriggerDetails;
+                taskInstance.GetDeferral().Complete();
             }
         }
 
