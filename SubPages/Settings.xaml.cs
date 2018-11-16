@@ -19,6 +19,8 @@ using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Uwp;
 using Windows.UI.Popups;
 
+using Discord_UWP.Managers;
+
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Discord_UWP.SubPages
