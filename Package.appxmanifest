@@ -16,6 +16,7 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Quarrel.App">
       <Extensions>
+        <uap:Extension Category="windows.voipCall"></uap:Extension>
         <uap4:Extension Category="windows.contactPanel" />
         <Extension Category="windows.backgroundTasks" EntryPoint="DiscordBackgroundTask1.MainClass">
           <BackgroundTasks>
@@ -75,6 +76,7 @@
     <Capability Name="internetClientServer" />
     <Capability Name="privateNetworkClientServer" />
     <uap:Capability Name="contacts" />
+    <uap:Capability Name="voipCall" />
     <DeviceCapability Name="microphone" />
   </Capabilities>
   <!--<Extensions>

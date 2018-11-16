@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Windows.ApplicationModel.Calls;
 using Discord_UWP.Voice;
 using Discord_UWP.LocalModels;
 
@@ -20,11 +21,21 @@ namespace Discord_UWP.Managers
         private static bool hasSentSpeeking;
         private static bool stopSpeaking;
         private static readonly object syncLock = new object();
+        public static VoipPhoneCall voipCall;
         public static event EventHandler<ConnectToVoiceArgs> ConnectoToVoiceHandler;
 
         public static async void ConnectToVoiceChannel(SharedModels.VoiceServerUpdate data)
         {
-            if(data.GuildId == null) data.GuildId = data.ChannelId;
+            string name;
+            if (data.GuildId == null)
+            {
+                data.GuildId = data.ChannelId;
+                name = $"DM - {LocalState.DMs[data.ChannelId].Name}";
+            }
+            else
+            {
+                name = $"{LocalState.Guilds[data.GuildId].Raw.Name} - {LocalState.Guilds[data.GuildId].channels[LocalState.VoiceState.ChannelId].raw.Name}";
+            }
             App.UpdateLocalDeaf(false);
             App.UpdateVoiceStateHandler += App_UpdateVoiceStateHandler;
             //App.UpdateLocalMute(true); //LocalState.Muted);
@@ -33,8 +44,9 @@ namespace Discord_UWP.Managers
             await VoiceConnection.ConnectAsync();
 
             ConnectoToVoiceHandler?.Invoke(typeof(App), new ConnectToVoiceArgs() { ChannelId = LocalState.VoiceState.ChannelId, GuildId = data.GuildId });
-            
             AudioManager.InputRecieved += AudioManager_InputRecieved;
+            voipCall = VoipCallCoordinator.GetDefault().RequestNewOutgoingCall("", name, "Quarrel", VoipPhoneCallMedia.Audio);
+            voipCall.NotifyCallActive();
         }
 
         private static async void StopSpeaking()

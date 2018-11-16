@@ -2119,7 +2119,11 @@ namespace Discord_UWP
             if (e.ChannelId != null)
                 VoiceController.Show();
             else
+            {
                 VoiceController.Hide();
+                VoiceManager.voipCall.NotifyCallEnded();
+            }
+
             foreach (SimpleChannel chn in channelCollection)
                 if (chn.Type == 2)
                 {
