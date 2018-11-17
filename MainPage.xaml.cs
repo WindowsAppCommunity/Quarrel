@@ -2130,7 +2130,7 @@ namespace Discord_UWP
             else
             {
                 VoiceController.Hide();
-                VoiceManager.voipCall.NotifyCallEnded();
+                //VoiceManager.voipCall.NotifyCallEnded();
             }
 
             foreach (SimpleChannel chn in channelCollection)

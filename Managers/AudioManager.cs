@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Core;
 using Windows.Devices.Enumeration;
 using Windows.Foundation;
@@ -29,8 +30,22 @@ namespace Discord_UWP.Managers
         void GetBuffer(out byte* buffer, out uint capacity);
     }
 
-    public static class AudioManager
+    public class AudioManager //: IBackgroundTask
     {
+        //BackgroundTaskDeferral taskDeferral;
+
+        //public void Run(IBackgroundTaskInstance taskInstance)
+        //{
+        //    taskDeferral = taskInstance.GetDeferral();
+
+        //    taskInstance.Canceled += TaskInstance_Canceled;
+        //}
+
+        //private void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
+        //{
+        //    taskDeferral.Complete();
+        //}
+
         private static int inGraphCount = 0;
         private static int outGraphCount = 0;
 
