@@ -30,21 +30,21 @@ namespace Discord_UWP.Managers
         void GetBuffer(out byte* buffer, out uint capacity);
     }
 
-    public class AudioManager //: IBackgroundTask
+    public class AudioManager : IBackgroundTask
     {
-        //BackgroundTaskDeferral taskDeferral;
+        BackgroundTaskDeferral taskDeferral;
 
-        //public void Run(IBackgroundTaskInstance taskInstance)
-        //{
-        //    taskDeferral = taskInstance.GetDeferral();
+        public void Run(IBackgroundTaskInstance taskInstance)
+        {
+            taskDeferral = taskInstance.GetDeferral();
 
-        //    taskInstance.Canceled += TaskInstance_Canceled;
-        //}
+            taskInstance.Canceled += TaskInstance_Canceled;
+        }
 
-        //private void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
-        //{
-        //    taskDeferral.Complete();
-        //}
+        private void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
+        {
+            taskDeferral.Complete();
+        }
 
         private static int inGraphCount = 0;
         private static int outGraphCount = 0;

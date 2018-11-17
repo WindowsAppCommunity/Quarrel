@@ -400,40 +400,41 @@ namespace Discord_UWP.Voice
 
         private void processUdpPacket(object sender, PacketReceivedEventArgs e)
         {
-            byte[] packet = (byte[])e.Message;
-            byte[] nonce = new byte[24];
-            byte[] data;
-            Buffer.BlockCopy(packet, 0, nonce, 0, 12);
-            data = new byte[packet.Length - 12 - 16];
-
-
-
-            int payloadType = packet[1];
-            switch (payloadType)
+            if (secretkey != null)
             {
-                case 120:
-                    //Opus Audio
-                    if (data.Length != Cypher.decrypt(packet, 12, packet.Length - 12, data, 0, nonce, secretkey))
-                    {
-                        throw new Exception("Conflicting sizes"); //Conflicting sizes
-                    }
-                    processVoicePacket(packet, data);
-                    break;
-                case 101:
-                    //VP8 Video
-                    if (data.Length != Cypher.decrypt(packet, 12, packet.Length - 12, data, 0, nonce, secretkey))
-                    {
-                        throw new Exception("Conflicting sizes"); //Conflicting sizes
-                    }
-                    processVP8Packet(packet, data);
-                    break;
-                case 102:
-                    //TODO: RTX Video
-                    Debug.WriteLine($"RTX payload: {payloadType}");
-                    break;
-                default:
-                    Debug.WriteLine($"Unknown payload Type: {payloadType}");
-                    break;
+                byte[] packet = (byte[])e.Message;
+                byte[] nonce = new byte[24];
+                byte[] data;
+                Buffer.BlockCopy(packet, 0, nonce, 0, 12);
+                data = new byte[packet.Length - 12 - 16];
+
+                int payloadType = packet[1];
+                switch (payloadType)
+                {
+                    case 120:
+                        //Opus Audio
+                        if (data.Length != Cypher.decrypt(packet, 12, packet.Length - 12, data, 0, nonce, secretkey))
+                        {
+                            throw new Exception("Conflicting sizes"); //Conflicting sizes
+                        }
+                        processVoicePacket(packet, data);
+                        break;
+                    case 101:
+                        //VP8 Video
+                        if (data.Length != Cypher.decrypt(packet, 12, packet.Length - 12, data, 0, nonce, secretkey))
+                        {
+                            throw new Exception("Conflicting sizes"); //Conflicting sizes
+                        }
+                        processVP8Packet(packet, data);
+                        break;
+                    case 102:
+                        //TODO: RTX Video
+                        Debug.WriteLine($"RTX payload: {payloadType}");
+                        break;
+                    default:
+                        Debug.WriteLine($"Unknown payload Type: {payloadType}");
+                        break;
+                }
             }
         }
 

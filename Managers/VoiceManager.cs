@@ -21,7 +21,7 @@ namespace Discord_UWP.Managers
         private static bool hasSentSpeeking;
         private static bool stopSpeaking;
         private static readonly object syncLock = new object();
-        //public static VoipPhoneCall voipCall;
+        public static VoipPhoneCall voipCall;
         public static event EventHandler<ConnectToVoiceArgs> ConnectoToVoiceHandler;
 
         public static async void ConnectToVoiceChannel(SharedModels.VoiceServerUpdate data)
@@ -45,10 +45,10 @@ namespace Discord_UWP.Managers
 
             ConnectoToVoiceHandler?.Invoke(typeof(App), new ConnectToVoiceArgs() { ChannelId = LocalState.VoiceState.ChannelId, GuildId = data.GuildId });
             AudioManager.InputRecieved += AudioManager_InputRecieved;
-            //VoipCallCoordinator vcc = VoipCallCoordinator.GetDefault();
-            //await vcc.ReserveCallResourcesAsync("Discord_UWP.Managers.VoiceManager");
-            //voipCall = vcc.RequestNewOutgoingCall("", name, "Quarrel", VoipPhoneCallMedia.Audio);
-            //voipCall.NotifyCallActive();
+
+            VoipCallCoordinator vcc = VoipCallCoordinator.GetDefault();
+            voipCall = vcc.RequestNewOutgoingCall("", name, "Quarrel", VoipPhoneCallMedia.Audio);
+            voipCall.NotifyCallActive();
         }
 
         private static async void StopSpeaking()
