@@ -45,7 +45,9 @@ namespace Discord_UWP.Managers
 
             ConnectoToVoiceHandler?.Invoke(typeof(App), new ConnectToVoiceArgs() { ChannelId = LocalState.VoiceState.ChannelId, GuildId = data.GuildId });
             AudioManager.InputRecieved += AudioManager_InputRecieved;
-            voipCall = VoipCallCoordinator.GetDefault().RequestNewOutgoingCall("", name, "Quarrel", VoipPhoneCallMedia.Audio);
+            VoipCallCoordinator vcc = VoipCallCoordinator.GetDefault();
+            await vcc.ReserveCallResourcesAsync("Discord_UWP.Managers.VoiceManager");
+            voipCall = vcc.RequestNewOutgoingCall("", name, "Quarrel", VoipPhoneCallMedia.Audio);
             voipCall.NotifyCallActive();
         }
 
