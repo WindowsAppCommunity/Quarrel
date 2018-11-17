@@ -488,7 +488,7 @@ namespace Discord_UWP.Controls
                 if (App.IsDesktop) MessageBox1.FocusTextBox();
             }
 
-            MessageBox1.IsEnabled = LocalState.CurrentChannel.permissions.SendMessages;
+            MessageBox1.IsEnabled = LocalState.CurrentChannel.permissions.SendMessages || App.CurrentGuildIsDM;
 
             UpdateTyping();
             App_SaveDraft(null, null);
