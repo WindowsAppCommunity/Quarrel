@@ -76,6 +76,19 @@ namespace Quarrel.RichPresence
             return response.Status;
         }
 
+        public async Task<AppServiceResponseStatus> ClearActivity()
+        {
+            ValueSet valueset = new ValueSet();
+            valueset.Add("SET_ACTIVITY", "");
+            var response = await connection.SendMessageAsync(valueset);
+            return response.Status;
+        }
+
+        public void CloseAppServiceConnection()
+        {
+            connection.Dispose();
+        }
+
         /// <summary>
         /// Set the current activity directly with a JSON string (not recommended)
         /// </summary>
