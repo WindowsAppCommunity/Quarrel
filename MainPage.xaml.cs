@@ -137,7 +137,6 @@ namespace Discord_UWP
             App._appServiceConnection.ServiceClosed += OnAppServicesClosed;
         }
 
-        public enum AppServiceResponseType { Success, AppNotOpen }
         private async void OnAppServiceRequestReceived(AppServiceConnection sender,
             AppServiceRequestReceivedEventArgs args)
         {
@@ -146,22 +145,14 @@ namespace Discord_UWP
             if (args.Request.Message.ContainsKey("ConnectionUpdate"))
                 content = args.Request.Message["ConnectionUpdate"].ToString();
             else if (args.Request.Message.ContainsKey("SET_ACTIVITY")) content = args.Request.Message["SET_ACTIVITY"].ToString();
-
-            ValueSet valueSet = new ValueSet();
-
+            
             //MessageDialog md = new MessageDialog(content);
             //await md.ShowAsync();
-            if (GatewayManager.Gateway != null)
-            {
-                GatewayManager.Gateway.UpdateStatus(LocalState.CurrentUserPresence.Status, null, JsonConvert.DeserializeObject<Game>(content));
-                valueSet.Add("response", AppServiceResponseType.Success);
-            }
-            else
-            {
-                valueSet.Add("response", AppServiceResponseType.AppNotOpen);
-            }
-            
 
+            GatewayManager.Gateway.UpdateStatus(LocalState.CurrentUserPresence.Status, null, JsonConvert.DeserializeObject<Game>(content));
+
+            ValueSet valueSet = new ValueSet();
+            valueSet.Add("response", "success");
             await args.Request.SendResponseAsync(valueSet);
             deferral.Complete();
         }

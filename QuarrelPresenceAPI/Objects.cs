@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 namespace Quarrel.RichPresence
 {
     public enum ActivityType { Playing, Streaming, Listening, Watching }
-    public enum ResponseType { NotReached = -1, Success, AppNotOpen }
-
     public class GameBase
     {
         [JsonProperty("name")]
