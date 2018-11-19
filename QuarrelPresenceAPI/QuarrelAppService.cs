@@ -25,7 +25,7 @@ namespace Quarrel.RichPresence
         /// <summary>
         /// Fired when the connection to the app service is opened
         /// </summary>
-        public event EventHandler ConnectionOpened;
+        //public event EventHandler ConnectionOpened;
 
         
         private uint pid = ProcessDiagnosticInfo.GetForCurrentProcess().ProcessId;
