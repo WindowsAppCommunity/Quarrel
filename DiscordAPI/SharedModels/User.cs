@@ -27,5 +27,7 @@ namespace Discord_UWP.SharedModels
         public string Email { get; set; }
         [JsonProperty("flags")]
         public int Flags { get; set; }
+        [JsonProperty("premium")]
+        public bool Premium { get; set; }
     }
 }
