@@ -1,5 +1,6 @@
 ﻿using DiscordPipeImpersonator.Payload;
 using NamedPipeWrapper;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static NamedPipeServer.QuarrelAppService;
 
 namespace DiscordPipeImpersonator
 {
@@ -15,7 +17,34 @@ namespace DiscordPipeImpersonator
     {
         public enum ConnectionState { Disconnected, Connecting, Connected }
         public event EventHandler<ConnectionState> ConnectionUpdate;
-        public event EventHandler<string> MessageReceived;
+        public event EventHandler<Game> MessageReceived;
+        public event EventHandler<string> SetAppId;
+
+        public class HandshakeFrame
+        {
+            public string client_id { get; set; }
+        }
+
+        public partial class FrameMessage
+        {
+            [JsonProperty("cmd")]
+            public string Cmd { get; set; }
+
+            [JsonProperty("args")]
+            public FrameArgs Args { get; set; }
+
+            [JsonProperty("nonce")]
+            public string Nonce { get; set; }
+        }
+
+        public partial class FrameArgs
+        {
+            [JsonProperty("pid")]
+            public long Pid { get; set; }
+
+            [JsonProperty("activity")]
+            public Game Activity { get; set; }
+        }
         public class Frame
         {
             public string message { get; set; }
@@ -134,6 +163,8 @@ namespace DiscordPipeImpersonator
             {
                 //Respond with handshake
                 Console.WriteLine("Sending handshake response");
+                HandshakeFrame handshakeFrame = JsonConvert.DeserializeObject<HandshakeFrame>(frame.Message);
+                SetAppId?.Invoke(null, handshakeFrame.client_id);
                 Ready.Data ready = new Ready.Data()
                 {
                     Config = new Ready.Config()
@@ -154,9 +185,10 @@ namespace DiscordPipeImpersonator
                 };
                 SendFrame(Command.Dispatch, ServerEvent.Ready, ready);
             }
-            else
+            else if(frame.Opcode == Opcode.Frame)
             {
-                MessageReceived?.Invoke(null, frame.Message);
+                var frameMessage = JsonConvert.DeserializeObject<FrameMessage>(frame.Message);
+                MessageReceived?.Invoke(null, frameMessage.Args.Activity);
             }
             Console.ForegroundColor = ConsoleColor.White;
         }
