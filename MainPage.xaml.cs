@@ -1386,12 +1386,17 @@ namespace Discord_UWP
             ServerWarnings.Children.Clear();
             App.SaveDraft();
 
-            memberscvs?.Clean();
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            if (e.GuildId != App.CurrentGuildId)
             {
-                (ServerList.SelectedItem as SimpleGuild).IsSelected = true;
-                MembersCvs.Source = null;
-            });
+                memberscvs?.Clean();
+
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    (ServerList.SelectedItem as SimpleGuild).IsSelected = true;
+                    MembersCvs.Source = null;
+                });
+            }
+
             App.CurrentGuildIsDM = e.GuildId == "@me"; //Could combine...
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
