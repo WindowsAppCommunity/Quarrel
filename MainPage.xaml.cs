@@ -3054,8 +3054,6 @@ namespace Discord_UWP
                             LocalState.PresenceDict.Add(presence.User.Id, presence);
                     }
 
-                int totalrolecounter = 0;
-
                 foreach (GuildMember member in members)
                 {
                     member.setRoles(member.Roles
@@ -3117,6 +3115,7 @@ namespace Discord_UWP
                                 m.MemberHoistRole = MemberManager.GetRole(
                                     m.Raw.Roles.FirstOrDefault(
                                         x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId);
+                                
                                 // });
 
 

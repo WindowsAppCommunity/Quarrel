@@ -19,7 +19,10 @@ namespace Discord_UWP.Managers
         {
             string dicrole = roleid ?? "0";
             if (TempRoleCache.ContainsKey(dicrole))
+            {
+                //TempRoleCache[dicrole].Membercount++;
                 return TempRoleCache[dicrole];
+            }
             else
             {
                 HoistRole role;
@@ -31,7 +34,7 @@ namespace Discord_UWP.Managers
                 else
                 {
                     var storageRole = LocalState.Guilds[guildid].roles[roleid];
-                    role = new HoistRole(roleid, storageRole.Position, storageRole.Name.ToUpper(), storageRole.MemberCount, storageRole.Color);
+                    role = new HoistRole(roleid, storageRole.Position, storageRole.Name.ToUpper(), 0, storageRole.Color);
                     TempRoleCache.Add(dicrole, role);
                 }
                 return role;
