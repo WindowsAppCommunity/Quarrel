@@ -662,6 +662,7 @@ namespace Discord_UWP
                     }
                     else
                     {
+                        member.MemberHoistRole.Membercount--;
                         memberscvs.Remove(member);
                     }
                 }
@@ -3035,6 +3036,7 @@ namespace Discord_UWP
 
         private async void App_GuildSyncedHandler(object sender, GuildSync e)
         {
+            MemberManager.ClearRoles();
             App.MemberListTrie = new PatriciaTrie<Common.AutoComplete>();
             if (!App.CurrentGuildIsDM && App.CurrentGuildId != null && App.CurrentGuildId == e.GuildId
             ) //Reduntant I know
