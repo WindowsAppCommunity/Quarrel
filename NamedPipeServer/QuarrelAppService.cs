@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace NamedPipeServer
 {
-    class QuarrelAppService
+    public class QuarrelAppService
     {
         private class NullApplicationIdException : Exception
         {
@@ -100,9 +100,9 @@ namespace NamedPipeServer
         {
             connection.RequestReceived += Connection_RequestReceived;
             connection.ServiceClosed += Connection_ServiceClosed;
-            connection.AppServiceName = "PresenceService";
+            connection.AppServiceName = "Quarrel.Presence";
             connection.PackageFamilyName = "38062AvishaiDernis.DiscordUWP_q72k3wbnqqnj6";
-          
+
             Status = await connection.OpenAsync();
             Console.WriteLine("AppService connection status=" + Status);
         }
@@ -114,7 +114,7 @@ namespace NamedPipeServer
         /// <param name="activity"></param>
         /// <param name="applicationId">If the application ID was not specified during initialization, it MUST be specified here</param>
         /// <returns></returns>
-        public async Task<bool> SetActivity(GameBase activity, string applicationId = null)
+        public async Task<bool> SetActivity(Game activity, string applicationId = null)
         {
             if(ApplicationId == null)
             {
@@ -124,6 +124,7 @@ namespace NamedPipeServer
 
             ValueSet valueset = new ValueSet();
             //Convert the activity to a valid JSON request
+            activity.ApplicationId = ApplicationId;
             valueset.Add("SET_ACTIVITY", JsonConvert.SerializeObject(activity));
             var response = await connection.SendMessageAsync(valueset);
             return false;

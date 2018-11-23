@@ -24,8 +24,15 @@ namespace NamedPipeServer
             await service.TryConnectAsync(true);
             DiscordPipeServer server = new DiscordPipeServer();
             server.MessageReceived += Server_MessageReceived;
+            server.SetAppId += Server_SetAppId;
             server.ConnectionUpdate += Server_ConnectionUpdate;
             server.Start();
+        }
+
+        static string currentAppId = null;
+        private static void Server_SetAppId(object sender, string e)
+        {
+            currentAppId = e;
         }
 
         private static void Connection_ServiceClosed(AppServiceConnection sender, AppServiceClosedEventArgs args)
@@ -43,10 +50,9 @@ namespace NamedPipeServer
 
         }
 
-        private static async void Server_MessageReceived(object sender, string e)
+        private static async void Server_MessageReceived(object sender, QuarrelAppService.Game e)
         {
-            await service.SetActivity(e);
-            //throw new NotImplementedException();
+            await service.SetActivity(e, currentAppId);
         }
     }
 }
