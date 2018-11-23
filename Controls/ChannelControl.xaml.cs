@@ -153,6 +153,17 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        public bool HavePermission
+        {
+            get { return (bool)GetValue(HavePermissionProperty); }
+            set { SetValue(HavePermissionProperty, value); }
+        }
+        public static readonly DependencyProperty HavePermissionProperty = DependencyProperty.Register(
+            nameof(HavePermission),
+            typeof(bool),
+            typeof(ChannelControl),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
         public bool IsTyping
         {
             get { return (bool)GetValue(IsTypingProperty); }
@@ -218,22 +229,30 @@ namespace Discord_UWP.Controls
             instance?.OnPropertyChanged(d, e.Property);
         }
        private void UpdateOpacity()
-        {
-            if ((IsUnread && !IsMuted) | Type == 4)
+       {
+            if ((IsUnread && !IsMuted && HavePermission) || Type == 4)
             {
                 ChannelName.Fade(1, 200).Start();
             }
             else
             {
-                if(IsMuted)
+                if (!HavePermission)
+                {
+                    ChannelName.Fade(0.15f, 200).Start();
+                    HashtagIcon.Fade(0.15f, 200).Start();
+                    VoiceIcon.Fade(0.15f, 200).Start();
+                }
+                else if (IsMuted)
                 {
                     ChannelName.Fade(0.35f, 200).Start();
                     HashtagIcon.Fade(0.35f, 200).Start();
+                    VoiceIcon.Fade(0.35f, 200).Start();
                 }
                 else
                 {
                     ChannelName.Fade(0.55f, 200).Start();
                     HashtagIcon.Fade(0.55f, 200).Start();
+                    VoiceIcon.Fade(0.55f, 200).Start();
                 }
             }
         }
@@ -355,6 +374,18 @@ namespace Discord_UWP.Controls
                 }
                 UpdateOpacity();
                 UpdateHidden();
+            }
+            if (prop == HavePermissionProperty)
+            {
+                if (HavePermission)
+                {
+                    IsEnabled = true;
+                    UpdateOpacity();
+                } else
+                {
+                    IsEnabled = false;
+                    UpdateOpacity();
+                }
             }
             if (prop == IsMutedProperty)
             {
