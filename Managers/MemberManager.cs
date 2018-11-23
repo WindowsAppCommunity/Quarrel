@@ -40,5 +40,9 @@ namespace Discord_UWP.Managers
                 return role;
             }
         }
+        public static void ClearRoles()
+        {
+            TempRoleCache.Clear();
+        }
     }
 }
