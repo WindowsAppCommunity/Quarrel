@@ -495,7 +495,7 @@ namespace Discord_UWP.Controls
                     VoiceIcon.Visibility = Visibility.Collapsed;
                     ChannelImageBackdrop.Visibility = Visibility.Collapsed;
                     ChannelImage.Visibility = Visibility.Visible;
-                    rectangle.Visibility = Visibility.Visible;
+                    rectangle.Visibility = Visibility.Collapsed;
                     Chevron.Visibility = Visibility.Collapsed;
                     grid.Height = 48;
                     //ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("ms-appx:///Assets/DiscordAssets/groupchat.svg"));
