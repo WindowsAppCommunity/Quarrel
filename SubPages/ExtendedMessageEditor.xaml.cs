@@ -200,7 +200,12 @@ namespace Discord_UWP.SubPages
             foreach (var file in files)
             {
                 if (file == null) continue;
-                if ((await file.GetBasicPropertiesAsync()).Size > 8388608)
+                var filesize = (await file.GetBasicPropertiesAsync()).Size;
+                if(LocalState.CurrentUser != null && LocalState.CurrentUser.Premium && filesize > 52428800)
+                {
+                    FilesTooLarge.Add(file.DisplayName);
+                }
+                else if (filesize > 8388608)
                 {
                     FilesTooLarge.Add(file.DisplayName);
                 }
