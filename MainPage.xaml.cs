@@ -2355,6 +2355,7 @@ namespace Discord_UWP
         {
             FriendsItem.IsSelected = false;
             friendPanel.Visibility = Visibility.Collapsed;
+            PinnedMessags.Visibility = Visibility.Visible;
 
             if (UISize.CurrentState == Small) sideDrawer.CloseLeft();
             if (ChannelList.SelectedItem != null)
