@@ -308,6 +308,13 @@ namespace Discord_UWP.SimpleClasses
             set { if (_icon == value) return; _icon = value; OnPropertyChanged("Icon"); }
         }
 
+        private bool _havepermissions;
+        public bool HavePermissions
+        {
+            get { return _havepermissions; }
+            set { if (_havepermissions == value) return; _havepermissions = value; OnPropertyChanged("HavePermissions"); }
+        }
+
         private bool _isselected;
         public bool IsSelected
         {

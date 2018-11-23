@@ -29,17 +29,16 @@ namespace Discord_UWP.Managers
                         var StorageChannel = LocalState.Guilds[App.CurrentGuildId].channels[sc.Id];
                         sc.IsUnread = StorageChannel?.raw.LastMessageId != null && readstate.LastMessageId != StorageChannel.raw.LastMessageId;
                     }
-                    if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.ReadMessages || App.CurrentGuildId == sc.Id)
-                    {
-                        return sc;
-                    }
-                    break;
+                    sc.HavePermissions = 
+                        LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.ReadMessages 
+                        || App.CurrentGuildId == sc.Id;
+
+                    return sc;
                 case 2:
-                    if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Connect || App.CurrentGuildId == sc.Id)
-                    {
-                        return sc;
-                    }
-                    break;
+                    sc.HavePermissions = 
+                        LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Connect 
+                        || App.CurrentGuildId == sc.Id;
+                    return sc;
                 case 4:
                     //TODO: Categories
                     break;
@@ -60,6 +59,9 @@ namespace Discord_UWP.Managers
             sc.Position = channel.Position;
             sc.ParentId = channel.ParentId;
             sc.Icon = channel.Icon;
+            sc.HavePermissions = 
+                LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.ReadMessages
+                || App.CurrentGuildId == sc.Id;
             return sc;
 
         }
@@ -148,6 +150,7 @@ namespace Discord_UWP.Managers
                         else
                             sc.IsUnread = false;
                     }
+                    sc.HavePermissions = true;
                     return sc;
             }
             return null;
@@ -176,25 +179,25 @@ namespace Discord_UWP.Managers
                             sc.NotificationCount = readstate.MentionCount;
                             var storageChannel = LocalState.CurrentGuild.channels[sc.Id];
                             sc.IsUnread = storageChannel?.raw.LastMessageId != null &&
-                                          readstate.LastMessageId != storageChannel.raw.LastMessageId;
+                                readstate.LastMessageId != storageChannel.raw.LastMessageId;
                         }
-                        if (LocalState.CurrentGuild.channels[sc.Id].permissions.ReadMessages || App.CurrentGuildId == sc.Id)
-                        {
-                            returnChannels.Add(sc);
-                        }
+                        sc.HavePermissions = 
+                            LocalState.CurrentGuild.channels[sc.Id].permissions.ReadMessages 
+                            || App.CurrentGuildId == sc.Id;
+                        returnChannels.Add(sc);
                         break;
                     case 2:
-                        if (LocalState.CurrentGuild.channels[sc.Id].permissions.Connect || App.CurrentGuildId == sc.Id)
-                        {
-                            returnChannels.Add(sc);
-                        }
+                        sc.HavePermissions = 
+                            LocalState.CurrentGuild.channels[sc.Id].permissions.Connect 
+                            || App.CurrentGuildId == sc.Id;
+                        returnChannels.Add(sc);
                         break;
                     case 4:
-                        if (LocalState.CurrentGuild.channels[sc.Id].permissions.ReadMessages || LocalState.CurrentGuild.channels[sc.Id].permissions.Connect)
-                        {
-                            sc.Name = sc.Name.ToUpper();
-                            returnChannels.Add(sc);
-                        }
+                        sc.HavePermissions = 
+                            LocalState.CurrentGuild.channels[sc.Id].permissions.ReadMessages 
+                            || LocalState.CurrentGuild.channels[sc.Id].permissions.Connect;
+                        sc.Name = sc.Name.ToUpper();
+                        returnChannels.Add(sc);
                         break;
                 }
             }
@@ -269,6 +272,7 @@ namespace Discord_UWP.Managers
                             else
                                 sc.IsUnread = false;
                         }
+                        sc.HavePermissions = true;
                         returnChannels.Add(sc);
                         break;
                     case 3: //Group
@@ -305,6 +309,7 @@ namespace Discord_UWP.Managers
                             else
                                 sc.IsUnread = false;
                         }
+                        sc.HavePermissions = true;
                         returnChannels.Add(sc);
                         break;
                 }

@@ -3321,99 +3321,104 @@ namespace Discord_UWP
             //When selecting a category, we want to simulate ListView's Mode = Click, 
             //so we use IgnoreChange to immediately re-select the unselected item 
             //after having clicked on a category (without reloading anything)
-
-            if (!lastChangeProgrammatic)
+            if ((ChannelList.SelectedItem as SimpleChannel).HavePermissions)
             {
-                if (!IgnoreChange) //True if the last selection was a category, Voice channel
+                if (!lastChangeProgrammatic)
                 {
-                    if (ChannelSelectionWasClicked)
+                    if (!IgnoreChange) //True if the last selection was a category, Voice channel
                     {
-                        ChannelSelectionWasClicked =
-                            false; //clearly it was, but the next one will not necessarily be clicked. So set to false.
-
-                        if (App.ShowAds && !App.CinematicMode)
+                        if (ChannelSelectionWasClicked)
                         {
-                            if (UISize.CurrentState == Large || UISize.CurrentState == ExtraLarge)
-                            {
-                                PCAd.Visibility = Visibility.Visible;
-                                MobileAd.Visibility = Visibility.Collapsed;
-                            }
-                            else
-                            {
-                                PCAd.Visibility = Visibility.Collapsed;
-                                MobileAd.Visibility = Visibility.Visible;
-                            }
-                        }
+                            ChannelSelectionWasClicked =
+                                false; //clearly it was, but the next one will not necessarily be clicked. So set to false.
 
-                        if (ChannelList.SelectedItem != null) //Called on clear
-                        {
-                            SimpleChannel channel = ChannelList.SelectedItem as SimpleChannel;
-                            if (channel.Type == 4) //CATEGORY
+                            if (App.ShowAds && !App.CinematicMode)
                             {
-                                foreach (SimpleChannel item in channelCollection.Where(x =>
-                                    (x as SimpleChannel).ParentId == channel.Id))
-                                    if (item.Hidden)
-                                        item.Hidden = false;
-                                    else
-                                        item.Hidden = true;
-                                channel.Hidden = !channel.Hidden;
-                                if (previousSelection == null)
-                                    ChannelList.SelectedIndex = -1;
-                                else
-                                    ChannelList.SelectedItem = previousSelection;
-                            }
-                            else if (channel.Type == 2) //VOICE
-                            {
-                                IgnoreChange = true;
-                                App.ConnectToVoice(channel.Id, App.CurrentGuildId, channel.Name,
-                                    LocalState.Guilds[App.CurrentGuildId].Raw.Name);
-                                if (previousSelection == null)
-                                    ChannelList.SelectedIndex = -1;
-                                else
-                                    ChannelList.SelectedItem = previousSelection;
-                            }
-                            else
-                            {
-                                sideDrawer.CloseLeft();
-                                previousSelection = ChannelList.SelectedItem;
-
-                                if (App.CurrentGuildIsDM)
+                                if (UISize.CurrentState == Large || UISize.CurrentState == ExtraLarge)
                                 {
-                                    string cid = (ChannelList.SelectedItem as SimpleChannel).Id;
-                                    if (!string.IsNullOrEmpty(_autoselectchannelcontent))
-                                        App.NavigateToDMChannel(cid, _autoselectchannelcontent,
-                                            _autoselectchannelcontentsend);
-                                    else
-                                        App.NavigateToDMChannel(cid);
-                                    Task.Run(() => { UserActivityManager.SwitchSession(cid); });
+                                    PCAd.Visibility = Visibility.Visible;
+                                    MobileAd.Visibility = Visibility.Collapsed;
                                 }
                                 else
                                 {
-                                    App.NavigateToGuildChannel(App.CurrentGuildId,
-                                        (ChannelList.SelectedItem as SimpleChannel).Id);
+                                    PCAd.Visibility = Visibility.Collapsed;
+                                    MobileAd.Visibility = Visibility.Visible;
+                                }
+                            }
+
+                            if (ChannelList.SelectedItem != null) //Called on clear
+                            {
+                                SimpleChannel channel = ChannelList.SelectedItem as SimpleChannel;
+                                if (channel.Type == 4) //CATEGORY
+                                {
+                                    foreach (SimpleChannel item in channelCollection.Where(x =>
+                                        (x as SimpleChannel).ParentId == channel.Id))
+                                        if (item.Hidden)
+                                            item.Hidden = false;
+                                        else
+                                            item.Hidden = true;
+                                    channel.Hidden = !channel.Hidden;
+                                    if (previousSelection == null)
+                                        ChannelList.SelectedIndex = -1;
+                                    else
+                                        ChannelList.SelectedItem = previousSelection;
+                                }
+                                else if (channel.Type == 2) //VOICE
+                                {
+                                    IgnoreChange = true;
+                                    App.ConnectToVoice(channel.Id, App.CurrentGuildId, channel.Name,
+                                        LocalState.Guilds[App.CurrentGuildId].Raw.Name);
+                                    if (previousSelection == null)
+                                        ChannelList.SelectedIndex = -1;
+                                    else
+                                        ChannelList.SelectedItem = previousSelection;
+                                }
+                                else
+                                {
+                                    sideDrawer.CloseLeft();
+                                    previousSelection = ChannelList.SelectedItem;
+
+                                    if (App.CurrentGuildIsDM)
+                                    {
+                                        string cid = (ChannelList.SelectedItem as SimpleChannel).Id;
+                                        if (!string.IsNullOrEmpty(_autoselectchannelcontent))
+                                            App.NavigateToDMChannel(cid, _autoselectchannelcontent,
+                                                _autoselectchannelcontentsend);
+                                        else
+                                            App.NavigateToDMChannel(cid);
+                                        Task.Run(() => { UserActivityManager.SwitchSession(cid); });
+                                    }
+                                    else
+                                    {
+                                        App.NavigateToGuildChannel(App.CurrentGuildId,
+                                            (ChannelList.SelectedItem as SimpleChannel).Id);
+                                    }
                                 }
                             }
                         }
                     }
+                    else
+                    {
+                        IgnoreChange = false;
+                    }
                 }
                 else
                 {
-                    IgnoreChange = false;
+                    lastChangeProgrammatic = false;
                 }
-            }
-            else
-            {
-                lastChangeProgrammatic = false;
             }
         }
 
         private void ChannelList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            _autoselectchannel = null;
-            ChannelSelectionWasClicked = true;
-            if (e.ClickedItem == ChannelList.SelectedItem)
-                //This is for xbox one, because when "clicking" on a channel, it is already selected
-                ChannelList_SelectionChanged(null, null);
+            if ((e.ClickedItem as SimpleChannel).HavePermissions)
+            {
+                _autoselectchannel = null;
+                ChannelSelectionWasClicked = true;
+                if (e.ClickedItem == ChannelList.SelectedItem)
+                    //This is for xbox one, because when "clicking" on a channel, it is already selected
+                    ChannelList_SelectionChanged(null, null);
+            }
         }
 
         private void ServerList_ItemClick(object sender, ItemClickEventArgs e)

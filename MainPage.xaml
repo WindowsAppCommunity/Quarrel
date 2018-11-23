@@ -1414,10 +1414,12 @@
                                                                          IsUnread="{x:Bind IsUnread, Mode=OneWay}" 
                                                                          IsTyping="{x:Bind IsTyping, Mode=OneWay}" 
                                                                          IsMuted="{x:Bind IsMuted, Mode=OneWay}"
+                                                                         HavePermission="{x:Bind HavePermissions, Mode=OneWay}"
                                                                          IsHidden="{x:Bind Hidden, Mode=OneWay}"
                                                                          IsSelected="{x:Bind IsSelected, Mode=OneWay}"
                                                                          NSFW="{x:Bind Nsfw, Mode=OneWay}"
-                                                                         Icon="{x:Bind Icon, Mode=OneWay}"/>
+                                                                         Icon="{x:Bind Icon, Mode=OneWay}"
+                                                                         IsEnabled="{x:Bind HavePermissions, Mode=OneWay}"/>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                         <ListView.Header>
