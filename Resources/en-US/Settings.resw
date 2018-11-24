@@ -556,4 +556,10 @@
   <data name="RichPresenceTB.Text" xml:space="preserve">
     <value>Rich Presence</value>
   </data>
+  <data name="ShowNoPermissionsChannelsDescTB.Text" xml:space="preserve">
+    <value>Gaze upon that which yee cannot enter</value>
+  </data>
+  <data name="ShowNoPermissionsChannelsTB.Text" xml:space="preserve">
+    <value>Show No Permissions Channels</value>
+  </data>
 </root>
