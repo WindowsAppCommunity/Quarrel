@@ -197,7 +197,7 @@
                         <Button x:Name="avatarButton" Width="96" Height="96" Style="{StaticResource DimButton}" Click="Button_Click">
                             <Grid x:Name="FullAvatar">
                                 <Rectangle x:Name="AvatarBG" Height="96" Width="96" RadiusX="48" RadiusY="48"/>
-                                <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48" Opacity="0">
+                                <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48" Opacity="0" RightTapped="AvatarRectangle_RightTapped" Holding="AvatarRectangle_Holding">
                                     <Rectangle.Fill>
                                         <ImageBrush x:Name="Avatar" ImageOpened="Avatar_OnImageOpened"/>
                                     </Rectangle.Fill>

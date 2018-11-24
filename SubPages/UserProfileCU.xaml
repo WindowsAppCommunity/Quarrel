@@ -160,7 +160,7 @@
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
                                         <Rectangle VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128" Fill="{ThemeResource InvertedBG}" Opacity="0.1"/>
-                                        <Rectangle x:Name="UserIconRect" Opacity="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128">
+                                        <Rectangle x:Name="UserIconRect" Opacity="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128" RightTapped="UserIconRect_RightTapped" Holding="UserIconRect_Holding">
                                             <Rectangle.Fill>
                                                 <ImageBrush x:Name="UserIcon" Stretch="UniformToFill" ImageOpened="GuildIcon_ImageOpened"/>
                                             </Rectangle.Fill>

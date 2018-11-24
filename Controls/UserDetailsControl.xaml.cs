@@ -499,5 +499,23 @@ namespace Discord_UWP.Controls
         {
             AvatarRectangle.Fade(1,300, 0, EasingType.Circle).Start();
         }
+
+        private void AvatarRectangle_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            if (e.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Touch)
+            {
+                App.ShowMenuFlyout(this, Common.AvatarString(DisplayedMember.User.Avatar, DisplayedMember.User.Id), e.GetPosition(this));
+            }
+        }
+
+        private void AvatarRectangle_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            e.Handled = true;
+            if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
+            {
+                App.ShowMenuFlyout(this, Common.AvatarString(DisplayedMember.User.Avatar, DisplayedMember.User.Id), e.GetPosition(this));
+            }
+        }
     }
 }

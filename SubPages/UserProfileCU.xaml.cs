@@ -172,7 +172,7 @@ namespace Discord_UWP.SubPages
                 if (string.IsNullOrEmpty(LocalState.CurrentUser.Avatar))
                     UserIcon.ImageSource = null;
                 else
-                    UserIcon.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + LocalState.CurrentUser.Id + "/" + LocalState.CurrentUser.Avatar + ".png?size=512"));
+                    UserIcon.ImageSource = new BitmapImage(Common.AvatarUri(LocalState.CurrentUser.Avatar, LocalState.CurrentUser.Id, "?size=512"));
                 base64img = null;
                 deleteImage.Content = "Delete";
                 DeletedImage = false;
@@ -349,6 +349,24 @@ namespace Discord_UWP.SubPages
             LocalState.Settings = await RESTCalls.ModifyUserSettings(modify);
 
             CloseButton_Click(null, null);
+        }
+
+        private void UserIconRect_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            if (e.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Touch)
+            {
+                App.ShowMenuFlyout(this, Common.AvatarString(LocalState.CurrentUser.Avatar, LocalState.CurrentUser.Id), e.GetPosition(this));
+            }
+        }
+
+        private void UserIconRect_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            e.Handled = true;
+            if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
+            {
+                App.ShowMenuFlyout(this, Common.AvatarString(LocalState.CurrentUser.Avatar, LocalState.CurrentUser.Id), e.GetPosition(this));
+            }
         }
     }
 }

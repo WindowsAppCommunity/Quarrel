@@ -41,7 +41,7 @@
                     <Image x:Name="ThumbnailImage" Height="80" Stretch="Uniform" Grid.Column="1" VerticalAlignment="Top"/>
                 </Grid>
                 <Viewbox x:Name="ImageViewbox"  HorizontalAlignment="Left" Visibility="Collapsed" StretchDirection="DownOnly" Grid.Row="4" MaxWidth="480" MaxHeight="300"  Grid.Column="1" Margin="6">
-                    <Image x:Name="ImageViewer" Tapped="AttachedImageViewer_Tapped"/>
+                    <Image x:Name="ImageViewer" Tapped="AttachedImageViewer_Tapped" RightTapped="ImageViewer_RightTapped" Holding="ImageViewer_Holding"/>
                 </Viewbox>
                 <ProgressRing x:Name="LoadingImage" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="6" Visibility="Collapsed"/>
                 <Grid>

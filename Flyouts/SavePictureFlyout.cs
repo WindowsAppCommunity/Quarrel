@@ -17,7 +17,7 @@ namespace Discord_UWP.Flyouts
 {
     partial class FlyoutCreator
     {
-        public static MenuFlyout MakeSavePictureFlyout(ImageBrush Image)
+        public static MenuFlyout MakeSavePictureFlyout(string url)
         {
             MenuFlyout menu = new MenuFlyout();
             menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
@@ -25,10 +25,10 @@ namespace Discord_UWP.Flyouts
             MenuFlyoutItem Save = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/SavePicture"),
-                Tag = Image,
+                Tag = url,
                 Icon = new SymbolIcon(Symbol.Save)
             };
-            Save.Click += FlyoutManager.SavePictrue;
+            Save.Click += FlyoutManager.SavePicture;
 
             menu.Items.Add(Save);
             return menu;
