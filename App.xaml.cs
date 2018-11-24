@@ -1758,6 +1758,19 @@ namespace Discord_UWP
                 new MarkMessageAsReadArgs {MessageId = messageId, ChannelId = channelId});
         }
 
+        public class MarkCategoryAsReadArgs : EventArgs
+        {
+            public string ChannelId { get; set; }
+            public string GuildId { get; set; }
+        }
+
+        public static event EventHandler<MarkCategoryAsReadArgs> MarkCategoryAsReadHandler;
+
+        public static void MarkCategoryAsRead(string channelId, string guildId)
+        {
+            MarkCategoryAsReadHandler?.Invoke(typeof(App), new MarkCategoryAsReadArgs { ChannelId = channelId, GuildId = guildId});
+        }
+
         public class MarkChannelAsReadArgs : EventArgs
         {
             public string ChannelId { get; set; }

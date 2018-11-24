@@ -431,6 +431,7 @@ namespace Discord_UWP
             App.AddFriendHandler += App_AddFriendHandler;
             App.BlockUserHandler += App_BlockUserHandler;
             App.MarkMessageAsReadHandler += App_MarkMessageAsReadHandler;
+            App.MarkCategoryAsReadHandler += App_MarkCategoryAsReadHandler;
             App.MarkChannelAsReadHandler += App_MarkChannelAsReadHandler;
             App.MarkGuildAsReadHandler += App_MarkGuildAsReadHandler;
             App.MuteChannelHandler += App_MuteChannelHandler;
@@ -2043,6 +2044,17 @@ namespace Discord_UWP
         private async void App_MarkMessageAsReadHandler(object sender, App.MarkMessageAsReadArgs e)
         {
             await RESTCalls.AckMessage(e.ChannelId, e.MessageId);
+        }
+
+        private void App_MarkCategoryAsReadHandler(object sender, App.MarkCategoryAsReadArgs e)
+        {
+            foreach (var channel in LocalState.Guilds[e.GuildId].channels.Values)
+            {
+                if (channel.raw.ParentId == e.ChannelId)
+                {
+                    App.MarkChannelAsRead(channel.raw.Id);
+                }
+            }
         }
 
         private async void App_MarkChannelAsReadHandler(object sender, App.MarkChannelAsReadArgs e)
