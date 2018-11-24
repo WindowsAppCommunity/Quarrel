@@ -3483,6 +3483,28 @@ namespace Discord_UWP
             App.UniversalPointerDown(e);
         }
 
+        private async void DisconnectedMask_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (GatewayManager.Gateway.ConnectedSocket == false)
+                if (NetworkInformation.GetInternetConnectionProfile()?.GetNetworkConnectivityLevel() ==
+                    NetworkConnectivityLevel.InternetAccess)
+                {
+                    try
+                    {
+                        await GatewayManager.Gateway.ResumeAsync();
+                    }
+                    catch
+                    {
+                        App.CheckOnline();
+                    }
+
+                    if (GatewayManager.Gateway.ConnectedSocket)
+                        _networkCheckTimer.Stop();
+                    else
+                        App.CheckOnline();
+                }
+        }
         #endregion
+
     }
 }

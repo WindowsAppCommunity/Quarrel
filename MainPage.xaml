@@ -1723,7 +1723,7 @@
                                      HorizontalAlignment="Center"/>-->
 
         <controls:VoiceConnectionControl x:Name="COVoice" Visibility="Collapsed" FullScreen="True" HorizontalAlignment="Stretch" SizeChanged="COVoice_SizeChanged" VerticalAlignment="Stretch"/>
-        <Grid x:Name="DisconnectedMask" Visibility="Collapsed" Opacity="0">
+        <Grid x:Name="DisconnectedMask" Visibility="Collapsed" Opacity="0" Tapped="DisconnectedMask_Tapped">
             <Grid.Background>
                 <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.65"/>
             </Grid.Background>
