@@ -672,6 +672,9 @@ namespace Discord_UWP.Controls
                     case 3: /*Group*/
                         App.ShowMenuFlyout(this, FlyoutManager.Type.GroupChn, Id, App.CurrentGuildId, e.GetPosition(this));
                         break;
+                    case 4: /*Category*/
+                        App.ShowMenuFlyout(this, FlyoutManager.Type.Category, Id, App.CurrentGuildId, e.GetPosition(this));
+                        break;
                 }
         }
 

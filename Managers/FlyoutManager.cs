@@ -25,7 +25,7 @@ namespace Discord_UWP.Managers
 {
     public class FlyoutManager
     {
-        public enum Type { Guild, GuildMember, GroupMember, TextChn, DMChn, GroupChn, VoiceMember, SavePicture }
+        public enum Type { Guild, GuildMember, GroupMember, Category, TextChn, DMChn, GroupChn, VoiceMember, SavePicture }
 
         public static async Task<MenuFlyout> ShowMenu(User user)
         {
@@ -63,8 +63,17 @@ namespace Discord_UWP.Managers
                 case Type.GroupChn:
                     flyout = FlyoutCreator.MakeGroupChannelMenu(LocalState.DMs[id]);
                     break;
+                case Type.Category:
+                    if (parentId != null)
+                    {
+                        flyout = FlyoutCreator.MakeCategoryMenu(LocalState.Guilds[parentId].channels[id].raw, parentId);
+                    }
+                    break;
                 case Type.TextChn:
-                    flyout = FlyoutCreator.MakeTextChnMenu(LocalState.Guilds[parentId].channels[id]);
+                    if (parentId != null)
+                    {
+                        flyout = FlyoutCreator.MakeTextChnMenu(LocalState.Guilds[parentId].channels[id]);
+                    }
                     break;
                 case Type.GuildMember:
                     if (parentId != null)
@@ -238,6 +247,12 @@ namespace Discord_UWP.Managers
         public static void MarkChannelasRead(object sender, RoutedEventArgs e)
         {
             App.MarkChannelAsRead((sender as MenuFlyoutItem).Tag.ToString());
+        }
+
+        public static void MarkCategoryAsRead(object sender, RoutedEventArgs e)
+        {
+            var tuple = ((sender as MenuFlyoutItem).Tag as Tuple<string, string>);
+            App.MarkCategoryAsRead(tuple.Item1, tuple.Item2);
         }
 
         public static void MuteChannel(object sender, RoutedEventArgs e)
