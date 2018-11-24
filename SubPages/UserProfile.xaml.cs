@@ -735,7 +735,20 @@ namespace Discord_UWP.SubPages
 
         private void Avatar_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            //App.ShowMenuFlyout(this, AvatarFull, e.GetPosition(this));
+            e.Handled = true;
+            if (e.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Touch)
+            {
+                App.ShowMenuFlyout(this, Common.AvatarString(profile.user.Avatar, userid), e.GetPosition(this));
+            }
+        }
+
+        private void Avatar_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            e.Handled = true;
+            if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
+            {
+                App.ShowMenuFlyout(this, Common.AvatarString(profile.user.Avatar, userid), e.GetPosition(this));
+            }
         }
     }
 

@@ -188,7 +188,7 @@
                                 <Grid>
                                     <Grid x:Name="FullAvatar" VerticalAlignment="Top" HorizontalAlignment="Left">
                                         <Rectangle x:Name="AvatarBG" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                                        <Rectangle x:Name="Avatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" RightTapped="Avatar_RightTapped">
+                                        <Rectangle x:Name="Avatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" RightTapped="Avatar_RightTapped" Holding="Avatar_Holding">
                                             <Rectangle.Fill>
                                                 <ImageBrush x:Name="AvatarFull" Stretch="Uniform" ImageSource="ms-appx:///Assets/DiscordResources/default_avatar_2.jpg" ImageOpened="AvatarFull_OnImageOpened"/>
                                             </Rectangle.Fill>

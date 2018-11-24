@@ -148,5 +148,23 @@ namespace Discord_UWP.Controls
                 await Launcher.LaunchUriAsync(new Uri("file:///" + Uri.EscapeUriString(DisplayedAttachement.Url.Replace('\\','/'))));
             }
         }
+
+        private void AttachedImageViewer_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            if (e.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Touch)
+            {
+                App.ShowMenuFlyout(this, DisplayedAttachement.Url, e.GetPosition(this));
+            }
+        }
+
+        private void AttachedImageViewer_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            e.Handled = true;
+            if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
+            {
+                App.ShowMenuFlyout(this, DisplayedAttachement.Url, e.GetPosition(this));
+            }
+        }
     }
 }

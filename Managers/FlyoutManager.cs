@@ -8,6 +8,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics.Display;
 using Windows.Graphics.Imaging;
+using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
@@ -107,9 +108,9 @@ namespace Discord_UWP.Managers
             return flyout;
         }
 
-        public static MenuFlyout ShowMenu(ImageBrush Image)
+        public static MenuFlyout ShowMenu(string url)
         {
-            return FlyoutCreator.MakeSavePictureFlyout(Image);
+            return FlyoutCreator.MakeSavePictureFlyout(url);
         }
 
         public static Flyout MakeUserDetailsFlyout(GuildMember member, bool webhook)
@@ -360,19 +361,20 @@ namespace Discord_UWP.Managers
 
         #region Other
 
-        public static void SavePictrue(object sender, RoutedEventArgs e)
-        {
-            SavePictureAsync(((sender as MenuFlyoutItem).Tag as ImageBrush));
-        }
-
-        public static async void SavePictureAsync(ImageBrush bitimage)
+        public static async void SavePicture(object sender, RoutedEventArgs e)
         {
             var savePicker = new FileSavePicker();
             savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            savePicker.FileTypeChoices.Add("Photo", new List<string>() { ".png" });
+
+            savePicker.FileTypeChoices.Add("Photo", new List<string>()
+            { "." + (sender as MenuFlyoutItem).Tag.ToString().Split('.').Last()});
+
             savePicker.SuggestedFileName = "Avatar";
             var file = await savePicker.PickSaveFileAsync();
-            
+
+            var downloader = new BackgroundDownloader();
+            var download = downloader.CreateDownload(new Uri((sender as MenuFlyoutItem).Tag.ToString()), file);
+            await download.StartAsync();
         }
 
         #endregion

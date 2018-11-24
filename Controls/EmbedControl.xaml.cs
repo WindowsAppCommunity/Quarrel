@@ -313,5 +313,23 @@ namespace Discord_UWP.Controls
         {
             Dispose();
         }
+
+        private void ImageViewer_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            if (e.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Touch)
+            {
+                App.ShowMenuFlyout(this, EmbedContent.Image.Url, e.GetPosition(this));
+            }
+        }
+
+        private void ImageViewer_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            e.Handled = true;
+            if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
+            {
+                App.ShowMenuFlyout(this, EmbedContent.Image.Url, e.GetPosition(this));
+            }
+        }
     }
 }
