@@ -33,12 +33,22 @@ namespace Discord_UWP.Managers
                         LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.ReadMessages 
                         || App.CurrentGuildId == sc.Id;
 
-                    return sc;
+                    if (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels)
+                    {
+                        return sc;
+                    }
+                    break;
+
                 case 2:
                     sc.HavePermissions = 
                         LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Connect 
                         || App.CurrentGuildId == sc.Id;
-                    return sc;
+                    if (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels)
+                    {
+                        return sc;
+                    }
+                    break;
+
                 case 4:
                     //TODO: Categories
                     break;
@@ -62,8 +72,12 @@ namespace Discord_UWP.Managers
             sc.HavePermissions = 
                 LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.ReadMessages
                 || App.CurrentGuildId == sc.Id;
-            return sc;
 
+            if (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels)
+            {
+                return sc;
+            }
+            return null;
         }
         public static SimpleChannel MakeChannel(SharedModels.DirectMessageChannel channel)
         {
@@ -184,20 +198,34 @@ namespace Discord_UWP.Managers
                         sc.HavePermissions = 
                             LocalState.CurrentGuild.channels[sc.Id].permissions.ReadMessages 
                             || App.CurrentGuildId == sc.Id;
-                        returnChannels.Add(sc);
+
+                        if (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels)
+                        {
+                            returnChannels.Add(sc);
+                        }
                         break;
+
                     case 2:
                         sc.HavePermissions = 
                             LocalState.CurrentGuild.channels[sc.Id].permissions.Connect 
                             || App.CurrentGuildId == sc.Id;
-                        returnChannels.Add(sc);
+
+                        if (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels)
+                        {
+                            returnChannels.Add(sc);
+                        }
                         break;
+
                     case 4:
                         sc.HavePermissions = 
                             LocalState.CurrentGuild.channels[sc.Id].permissions.ReadMessages 
                             || LocalState.CurrentGuild.channels[sc.Id].permissions.Connect;
                         sc.Name = sc.Name.ToUpper();
-                        returnChannels.Add(sc);
+
+                        if (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels)
+                        {
+                            returnChannels.Add(sc);
+                        }
                         break;
                 }
             }
