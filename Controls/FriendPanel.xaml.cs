@@ -164,16 +164,20 @@ namespace Discord_UWP.Controls
             if (f.Type != 2)
             {
                 UserProfile profile = await RESTCalls.GetUserProfile(friend.User.Id);
-                foreach (MutualGuild guild in profile.MutualGuilds)
+                if (profile.MutualGuilds != null)
                 {
-                    friend.SharedGuilds.Add(new SimpleFriend.SharedGuild()
+                    foreach (MutualGuild guild in profile.MutualGuilds)
                     {
-                        Id = guild.Id,
-                        ImageUrl = LocalState.Guilds[guild.Id].Raw.Icon,
-                        Name = LocalState.Guilds[guild.Id].Raw.Name
-                    });
+                        friend.SharedGuilds.Add(new SimpleFriend.SharedGuild()
+                        {
+                            Id = guild.Id,
+                            ImageUrl = LocalState.Guilds[guild.Id].Raw.Icon,
+                            Name = LocalState.Guilds[guild.Id].Raw.Name
+                        });
 
+                    }
                 }
+                
             }
           /*  foreach (var guild in LocalState.Guilds)
             {
