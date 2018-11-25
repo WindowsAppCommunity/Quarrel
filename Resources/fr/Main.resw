@@ -351,4 +351,10 @@
   <data name="SettingsMFI.Text" xml:space="preserve">
     <value>Paramètres</value>
   </data>
+  <data name="DeleteServerMFI" xml:space="preserve">
+    <value>Supprimer le serveur</value>
+  </data>
+  <data name="LeaveServerMFI" xml:space="preserve">
+    <value>Quitter le serveur</value>
+  </data>
 </root>
