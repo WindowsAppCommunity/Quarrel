@@ -336,4 +336,13 @@
   <data name="Watching" xml:space="preserve">
     <value>Regarde</value>
   </data>
+  <data name="SendMessageTB.PlaceholderText" xml:space="preserve">
+    <value>Envoyer un message</value>
+  </data>
+  <data name="NoSendPermission" xml:space="preserve">
+    <value>Vous n'avez pas le droit de publier des messages dans ce salon</value>
+  </data>
+  <data name="SendMessagePlaceHolder" xml:space="preserve">
+    <value>Envoyer un message</value>
+  </data>
 </root>
