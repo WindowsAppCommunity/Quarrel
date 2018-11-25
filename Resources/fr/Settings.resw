@@ -525,4 +525,40 @@
   <data name="VibrateTB.Text" xml:space="preserve">
     <value>Vibrer sur réception</value>
   </data>
+  <data name="CompactMessagesCB.Content" xml:space="preserve">
+    <value>Messages compacts</value>
+  </data>
+  <data name="CustomCBI.Content" xml:space="preserve">
+    <value>Personalisé</value>
+  </data>
+  <data name="InputDevicesCB.Header" xml:space="preserve">
+    <value>Périphériques d'entrée</value>
+  </data>
+  <data name="NoiseSensitivitySD.Header" xml:space="preserve">
+    <value>Sensibilité de la détection vocale</value>
+  </data>
+  <data name="OLEDDescTB.Text" xml:space="preserve">
+    <value>Change le theme de l'application pour économiser de la batterie sur les écrans OLED (avec un fond complètement noir)</value>
+  </data>
+  <data name="OLEDTB.Text" xml:space="preserve">
+    <value>Thème OLED</value>
+  </data>
+  <data name="ResetQuarrelBTN.Content" xml:space="preserve">
+    <value>Réinitialiser Quarrel</value>
+  </data>
+  <data name="NoInput.Text" xml:space="preserve">
+    <value>Malheuresement Quarrel n'a trouvé aucun périphérique d'entrée audio. Vous pourrez toujours écouter dans les salons vocaux, mais pas parler.</value>
+  </data>
+  <data name="RichPresenceDescTB.Text" xml:space="preserve">
+    <value>Autoriser la connexion d'autres applications UWP avec Quarrel afin de définir votre "rich presence"</value>
+  </data>
+  <data name="RichPresenceTB.Text" xml:space="preserve">
+    <value>"Rich Presence"</value>
+  </data>
+  <data name="ShowNoPermissionsChannelsDescTB.Text" xml:space="preserve">
+    <value>Admirer ce que vous ne pouvez atteindre</value>
+  </data>
+  <data name="ShowNoPermissionsChannelsTB.Text" xml:space="preserve">
+    <value>Afficher les salons sans permission</value>
+  </data>
 </root>
