@@ -671,5 +671,15 @@ namespace Discord_UWP.SubPages
         {
             Frame.Navigate(typeof(SubPages.AuditLog), guildId);
         }
+
+        private void GuildIconRect_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+
+        }
+
+        private void GuildIconRect_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+
+        }
     }
 }

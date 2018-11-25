@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    xmlns:controls="using:Discord_UWP.Controls"
     mc:Ignorable="d"
     d:DesignHeight="150"
     d:DesignWidth="250" RequestedTheme="Dark" x:Name="ContentGrid">
@@ -780,7 +781,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <canvas:CanvasAnimatedControl  Grid.ColumnSpan="6" Grid.RowSpan="3" Draw="CanvasAnimatedControl_Draw" SizeChanged="CanvasAnimatedControl_SizeChanged"/>
+            <controls:FFTVisualizer AudioIn="false" Grid.ColumnSpan="5" Grid.RowSpan="2"/>
             <ToggleButton Style="{StaticResource ToggleButtonStyle2}" x:Name="Minimode" Content="" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="MiniView_Click"/>
             <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Mute" Content="" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Mute_Click" RightTapped="OpenAudioCaptrueFlyout" Holding="OpenAudioCaptureFlyout"/>
             <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Deafen" Content="" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Deafen_Click" RightTapped="OpenAudioRenderFlyout" Holding="OpenAudioRenderFlyout"/>
