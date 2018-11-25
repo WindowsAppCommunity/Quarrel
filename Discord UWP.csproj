@@ -135,6 +135,9 @@
     <Compile Include="Controls\ControllerHint.xaml.cs">
       <DependentUpon>ControllerHint.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FFTVisualizer.xaml.cs">
+      <DependentUpon>FFTVisualizer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\GameDetailsControl.xaml.cs">
       <DependentUpon>GameDetailsControl.xaml</DependentUpon>
     </Compile>
@@ -701,6 +704,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ControllerHint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\FFTVisualizer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
