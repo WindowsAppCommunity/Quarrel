@@ -69,16 +69,27 @@ namespace Discord_UWP.Managers
         private static int quantum = 0;
         private static double theta = 0;
         private static bool ready = false;
-        public static float AudioSpec1 = 0;
-        public static float AudioSpec2 = 0;
-        public static float AudioSpec3 = 0;
-        public static float AudioSpec4 = 0;
-        public static float AudioSpec5 = 0;
-        public static float AudioSpec6 = 0;
-        public static float AudioSpec7 = 0;
-        public static float AudioSpec8 = 0;
-        public static float AudioSpec9 = 0;
-        public static float AudioAverage = 0;
+        public static float AudioOutSpec1 = 0;
+        public static float AudioOutSpec2 = 0;
+        public static float AudioOutSpec3 = 0;
+        public static float AudioOutSpec4 = 0;
+        public static float AudioOutSpec5 = 0;
+        public static float AudioOutSpec6 = 0;
+        public static float AudioOutSpec7 = 0;
+        public static float AudioOutSpec8 = 0;
+        public static float AudioOutSpec9 = 0;
+        public static float AudioOutAverage = 0;
+
+        public static float AudioInSpec1 = 0;
+        public static float AudioInSpec2 = 0;
+        public static float AudioInSpec3 = 0;
+        public static float AudioInSpec4 = 0;
+        public static float AudioInSpec5 = 0;
+        public static float AudioInSpec6 = 0;
+        public static float AudioInSpec7 = 0;
+        public static float AudioInSpec8 = 0;
+        public static float AudioInSpec9 = 0;
+        public static float AudioInAverage = 0;
 
         //private static bool started = false;
         //public static 
@@ -424,16 +435,16 @@ namespace Discord_UWP.Managers
                 }
                 if (LocalState.VoiceState.SelfDeaf || LocalState.VoiceState.ServerDeaf)
                 {
-                    AudioSpec1 = 0;
-                    AudioSpec2 = 0;
-                    AudioSpec3 = 0;
-                    AudioSpec4 = 0;
-                    AudioSpec5 = 0;
-                    AudioSpec6 = 0;
-                    AudioSpec7 = 0;
-                    AudioSpec8 = 0;
-                    AudioSpec9 = 0;
-                    AudioAverage = 0;
+                    AudioOutSpec1 = 0;
+                    AudioOutSpec2 = 0;
+                    AudioOutSpec3 = 0;
+                    AudioOutSpec4 = 0;
+                    AudioOutSpec5 = 0;
+                    AudioOutSpec6 = 0;
+                    AudioOutSpec7 = 0;
+                    AudioOutSpec8 = 0;
+                    AudioOutSpec9 = 0;
+                    AudioOutAverage = 0;
                 }
                 else
                 {
@@ -442,16 +453,16 @@ namespace Discord_UWP.Managers
 
                     float[] leftChannel = channelData[1];
 
-                    AudioSpec1 = HelperMethods.Max(leftChannel, 0, 1);
-                    AudioSpec2 = HelperMethods.Max(leftChannel, 2, 3);
-                    AudioSpec3 = HelperMethods.Max(leftChannel, 3, 4);
-                    AudioSpec4 = HelperMethods.Max(leftChannel, 4, 5);
-                    AudioSpec5 = HelperMethods.Max(leftChannel, 5, 6);
-                    AudioSpec6 = HelperMethods.Max(leftChannel, 7, 8);
-                    AudioSpec7 = HelperMethods.Max(leftChannel, 9, 10);
-                    AudioSpec8 = HelperMethods.Max(leftChannel, 10, 12);
-                    AudioSpec9 = HelperMethods.Max(leftChannel, 14, 26);
-                    AudioAverage = (AudioSpec1 + AudioSpec2 + AudioSpec3 + AudioSpec4 + AudioSpec5 + AudioSpec5 + AudioSpec6 + AudioSpec7 + AudioSpec8 + AudioSpec9) / 9;
+                    AudioOutSpec1 = HelperMethods.Max(leftChannel, 0, 1);
+                    AudioOutSpec2 = HelperMethods.Max(leftChannel, 2, 3);
+                    AudioOutSpec3 = HelperMethods.Max(leftChannel, 3, 4);
+                    AudioOutSpec4 = HelperMethods.Max(leftChannel, 4, 5);
+                    AudioOutSpec5 = HelperMethods.Max(leftChannel, 5, 6);
+                    AudioOutSpec6 = HelperMethods.Max(leftChannel, 7, 8);
+                    AudioOutSpec7 = HelperMethods.Max(leftChannel, 9, 10);
+                    AudioOutSpec8 = HelperMethods.Max(leftChannel, 10, 12);
+                    AudioOutSpec9 = HelperMethods.Max(leftChannel, 14, 26);
+                    AudioOutAverage = (AudioOutSpec1 + AudioOutSpec2 + AudioOutSpec3 + AudioOutSpec4 + AudioOutSpec5 + AudioOutSpec5 + AudioOutSpec6 + AudioOutSpec7 + AudioOutSpec8 + AudioOutSpec9) / 9;
                 }
                 frameInputNode.AddFrame(frame);
         }
@@ -551,6 +562,38 @@ namespace Discord_UWP.Managers
                 {
                     dataInFloats[i] = dataInFloat[i];
                 }
+
+                //if (LocalState.VoiceState.SelfMute || LocalState.VoiceState.ServerMute)
+                //{
+                //    AudioInSpec1 = 0;
+                //    AudioInSpec2 = 0;
+                //    AudioInSpec3 = 0;
+                //    AudioInSpec4 = 0;
+                //    AudioInSpec5 = 0;
+                //    AudioInSpec6 = 0;
+                //    AudioInSpec7 = 0;
+                //    AudioInSpec8 = 0;
+                //    AudioInSpec9 = 0;
+                //    AudioInAverage = 0;
+                //}
+                //else
+                //{
+                //    List<float[]> amplitudeData = FFT.Processing.HelperMethods.ProcessFrameOutput(frame);
+                //    List<float[]> channelData = FFT.Processing.HelperMethods.GetFftData(FFT.Processing.HelperMethods.ConvertTo512(amplitudeData, ingraph), ingraph);
+
+                //    float[] leftChannel = channelData[1];
+
+                //    AudioInSpec1 = HelperMethods.Max(leftChannel, 0, 1);
+                //    AudioInSpec2 = HelperMethods.Max(leftChannel, 2, 3);
+                //    AudioInSpec3 = HelperMethods.Max(leftChannel, 3, 4);
+                //    AudioInSpec4 = HelperMethods.Max(leftChannel, 4, 5);
+                //    AudioInSpec5 = HelperMethods.Max(leftChannel, 5, 6);
+                //    AudioInSpec6 = HelperMethods.Max(leftChannel, 7, 8);
+                //    AudioInSpec7 = HelperMethods.Max(leftChannel, 9, 10);
+                //    AudioInSpec8 = HelperMethods.Max(leftChannel, 10, 12);
+                //    AudioInSpec9 = HelperMethods.Max(leftChannel, 14, 26);
+                //    AudioInAverage = (AudioInSpec1 + AudioInSpec2 + AudioInSpec3 + AudioInSpec4 + AudioInSpec5 + AudioInSpec5 + AudioInSpec6 + AudioInSpec7 + AudioInSpec8 + AudioInSpec9) / 9;
+                //}
 
                 InputRecieved?.Invoke(null, dataInFloats);
             }

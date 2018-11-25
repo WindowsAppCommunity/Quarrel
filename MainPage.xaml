@@ -1474,7 +1474,7 @@
                                 <Button Content="Decline" Grid.Row="1" Grid.Column="1" Style="{ThemeResource DiscordButton}" Click="DeclineCall"/>
                             </Grid>
                             <controls:VoiceConnectionControl x:Name="VoiceController" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Visibility="Collapsed"/>
-                            <Button x:Name="userButton" Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="3" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
+                            <Button x:Name="userButton" Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="3" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Stretch">
                                 <Button.Flyout>
                                     <Flyout x:Name="userFlyout" FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle2}">
                                         <StackPanel Padding="12" Width="280">
@@ -1522,24 +1522,27 @@
                                         </StackPanel>
                                     </Flyout>
                                 </Button.Flyout>
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ControllerHint x:Name="XHint" Label="" ButtonGlyph="" Margin="6,0,-16,0"/>
-                                    <Grid>
-                                        <Rectangle x:Name="AvatarBG" Width="36" Height="36" RadiusX="48" RadiusY="48" Margin="12,0,0,0"/>
-                                        <Rectangle x:Name="Avatar" Width="36" Height="36" RadiusX="48" RadiusY="48" Margin="12,0,0,0">
-                                            <Rectangle.Fill>
-                                                <ImageBrush Stretch="Uniform" ImageSource="Assets/DiscordAssets/default_avatar.jpg"/>
-                                            </Rectangle.Fill>
-                                        </Rectangle>
-                                    </Grid>
-                                    <Ellipse x:Name="UserStatusIndicator" Fill="#ff43b581"  Width="12" Height="12" VerticalAlignment="Bottom" Margin="-12,0,0,0"/>
+                                <Grid>
+                                    <controls:FFTVisualizer x:Name="InVisualizer" AudioIn="true"/>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <controls:ControllerHint x:Name="XHint" Label="" ButtonGlyph="" Margin="6,0,-16,0"/>
+                                        <Grid>
+                                            <Rectangle x:Name="AvatarBG" Width="36" Height="36" RadiusX="48" RadiusY="48" Margin="12,0,0,0"/>
+                                            <Rectangle x:Name="Avatar" Width="36" Height="36" RadiusX="48" RadiusY="48" Margin="12,0,0,0">
+                                                <Rectangle.Fill>
+                                                    <ImageBrush Stretch="Uniform" ImageSource="Assets/DiscordAssets/default_avatar.jpg"/>
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                        </Grid>
+                                        <Ellipse x:Name="UserStatusIndicator" Fill="#ff43b581"  Width="12" Height="12" VerticalAlignment="Bottom" Margin="-12,0,0,0"/>
 
-                                    <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
+                                        <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
 
-                                        <TextBlock x:Name="Username" Text="Username" FontWeight="SemiBold"/>
-                                        <TextBlock x:Name="Discriminator" FontSize="12" Text="Discriminator" Opacity="0.5"/>
+                                            <TextBlock x:Name="Username" Text="Username" FontWeight="SemiBold"/>
+                                            <TextBlock x:Name="Discriminator" FontSize="12" Text="Discriminator" Opacity="0.5"/>
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
+                                </Grid>
                             </Button>
                         </Grid>
                     </controls:SideDrawer.ContentLeftSecondary>
