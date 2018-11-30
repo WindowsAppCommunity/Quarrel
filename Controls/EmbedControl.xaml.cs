@@ -150,6 +150,7 @@ namespace Discord_UWP.Controls
             if (EmbedContent.Image != null)
             {
                 //everythingisnull = false;
+                player.Visibility = Visibility.Collapsed;
                 ImageViewbox.Visibility = Visibility.Visible;
                 ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Image.Url));
                 if((EmbedContent.Author == null || (EmbedContent.Author.Name == null && EmbedContent.Author.IconUrl == null))
@@ -160,10 +161,25 @@ namespace Discord_UWP.Controls
                     stacker.Margin = new Thickness(0);
                     SideBorder.Width = 0;
                 }
-            }
-            else
+            } else if (EmbedContent.Video != null)
             {
                 ImageViewbox.Visibility = Visibility.Collapsed;
+                player.Visibility = Visibility.Visible;
+                player.Source = new Uri(EmbedContent.Video.Url);
+                player.Height = Math.Min(EmbedContent.Video.Height, this.Height);
+                player.Width = Math.Min(EmbedContent.Video.Width, this.Width);
+                if ((EmbedContent.Author == null || (EmbedContent.Author.Name == null && EmbedContent.Author.IconUrl == null))
+                    && EmbedContent.Description == null && EmbedContent.Fields != null
+                    && EmbedContent.Fields.Count() == 0 && EmbedContent.Footer.Text == null
+                    && EmbedContent.Footer.IconUrl == null && EmbedContent.Title == null)
+                {
+                    stacker.Margin = new Thickness(0);
+                    SideBorder.Width = 0;
+                }
+            } else
+            {
+                ImageViewbox.Visibility = Visibility.Collapsed;
+                player.Visibility = Visibility.Collapsed;
             }
 
             //Footer
