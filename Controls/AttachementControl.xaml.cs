@@ -53,6 +53,9 @@ namespace Discord_UWP.Controls
         }
 
         readonly string[] ImageFiletypes = { ".jpg", ".jpeg", ".gif", ".tif", ".tiff", ".png", ".bmp", ".gif", ".ico" };
+        readonly string[] AudioFiletypes = { ".mp3", ".wav"};
+        readonly string[] VideoFiletypes = { ".mp4"};
+
         private void OnPropertyChanged(DependencyObject d, DependencyProperty property)
         {
             if (property == AttachementProperty)
@@ -79,29 +82,62 @@ namespace Discord_UWP.Controls
             if (DisplayedAttachement == null) return;
 
             bool IsImage = false;
+            bool IsAudio = false;
+            bool IsVideo = false;
             if (images)
             {
-                foreach (string ext in ImageFiletypes)
-                    if (DisplayedAttachement.Filename.ToLower().EndsWith(ext))
+                if (ImageFiletypes.Contains("." + DisplayedAttachement.Filename.Split('.').Last().ToLower()))
+                {
+                    IsImage = true;
+                    if (DisplayedAttachement.Filename.EndsWith(".svg"))
                     {
-                        IsImage = true;
-                        if (DisplayedAttachement.Filename.EndsWith(".svg"))
-                        {
-                            AttachedImageViewer.Source = new SvgImageSource(new Uri(DisplayedAttachement.Url));
-                        }
-
-                        else
-                        {
-                            AttachedImageViewer.Source = new BitmapImage(new Uri(DisplayedAttachement.Url));
-                        }
-                        break;
+                        AttachedImageViewer.Source = new SvgImageSource(new Uri(DisplayedAttachement.Url));
                     }
+                    else
+                    {
+                        AttachedImageViewer.Source = new BitmapImage(new Uri(DisplayedAttachement.Url));
+                    }
+                } else if (AudioFiletypes.Contains("." + DisplayedAttachement.Filename.Split('.').Last().ToLower()))
+                {
+                    IsAudio = true;
+                    player.AudioCategory = AudioCategory.Media;
+                    player.Source = new Uri(DisplayedAttachement.Url);
+                } else if (VideoFiletypes.Contains("." + DisplayedAttachement.Filename.Split('.').Last().ToLower()))
+                {
+                    IsVideo = true;
+                    player.AudioCategory = AudioCategory.Media;
+                    player.Source = new Uri(DisplayedAttachement.Url);
+                    if (DisplayedAttachement.Height.HasValue)
+                    {
+                        player.Height = DisplayedAttachement.Height.Value;
+                    }
+                    if (DisplayedAttachement.Width.HasValue)
+                    {
+                        player.Width = DisplayedAttachement.Width.Value;
+                    }
+                    if (player.Height > 300)
+                    {
+                        player.Width = player.Width / (player.Height / 300);
+                        player.Height = 300;
+                    }
+                    if (player.Width > 300)
+                    {
+                        player.Height = player.Height / (player.Width / 300);
+                        player.Width = 300;
+                    }
+                }
             }
             if (IsImage)
             {
                 AttachedImageViewbox.Visibility = Visibility.Visible;
                 LoadingImage.Visibility = Visibility.Visible;
                 LoadingImage.IsActive = true;
+            } else if (IsAudio)
+            {
+                player.Visibility = Visibility.Visible;
+            } else if (IsVideo)
+            {
+                player.Visibility = Visibility.Visible;
             }
             else
             {
@@ -110,6 +146,7 @@ namespace Discord_UWP.Controls
                 FileName.Content = DisplayedAttachement.Filename;
                 FileSize.Text = Common.HumanizeFileSize(DisplayedAttachement.Size);
                 AttachedFileViewer.Visibility = Visibility.Visible;
+                player.Visibility = Visibility.Collapsed;
             }
         }
 

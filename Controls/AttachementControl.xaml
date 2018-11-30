@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
+    xmlns:controls="using:Discord_UWP.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -14,6 +15,12 @@
         <Viewbox x:Name="AttachedImageViewbox" extensions:Mouse.Cursor="Hand" HorizontalAlignment="Left" Visibility="Visible" StretchDirection="DownOnly" Grid.Row="4" MaxWidth="480" MaxHeight="300"  Grid.Column="1" Margin="6">
             <Image x:Name="AttachedImageViewer" Tapped="AttachedImageViewer_Tapped" ImageOpened="AttachedImageViewer_ImageLoaded" ImageFailed="AttachementImageViewer_ImageFailed" RightTapped="AttachedImageViewer_RightTapped" Holding="AttachedImageViewer_Holding"/>
         </Viewbox>
+        <MediaElement x:Name="player" Height="100" Width="auto" HorizontalAlignment="Stretch" AreTransportControlsEnabled="True" AutoPlay="False" Visibility="Collapsed">
+            <MediaElement.TransportControls>
+                <MediaTransportControls IsCompact="True" IsZoomButtonVisible="False"/>
+            </MediaElement.TransportControls>
+        </MediaElement>
+
         <ProgressRing x:Name="LoadingImage" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="6" Visibility="Visible"/>
         <Grid x:Name="AttachedFileViewer" Margin="0" Padding="6" Grid.Row="4" Grid.Column="1" Visibility="Visible" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
