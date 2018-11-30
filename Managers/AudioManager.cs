@@ -549,6 +549,7 @@ namespace Discord_UWP.Managers
 
         private static unsafe void ProcessFrameOutput(AudioFrame frame)
         {
+            float[] dataInFloats;
             using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
             using (IMemoryBufferReference reference = buffer.CreateReference())
             {
@@ -556,47 +557,47 @@ namespace Discord_UWP.Managers
                 ((IMemoryBufferByteAccess)reference).GetBuffer(out byte* dataInBytes, out uint capacityInBytes);
 
                 float* dataInFloat = (float*)dataInBytes;
-                float[] dataInFloats = new float[capacityInBytes/sizeof(float)];
+                dataInFloats = new float[capacityInBytes/sizeof(float)];
 
                 for (int i = 0; i < capacityInBytes / sizeof(float); i++)
                 {
                     dataInFloats[i] = dataInFloat[i];
                 }
-
-                //if (LocalState.VoiceState.SelfMute || LocalState.VoiceState.ServerMute)
-                //{
-                //    AudioInSpec1 = 0;
-                //    AudioInSpec2 = 0;
-                //    AudioInSpec3 = 0;
-                //    AudioInSpec4 = 0;
-                //    AudioInSpec5 = 0;
-                //    AudioInSpec6 = 0;
-                //    AudioInSpec7 = 0;
-                //    AudioInSpec8 = 0;
-                //    AudioInSpec9 = 0;
-                //    AudioInAverage = 0;
-                //}
-                //else
-                //{
-                //    List<float[]> amplitudeData = FFT.Processing.HelperMethods.ProcessFrameOutput(frame);
-                //    List<float[]> channelData = FFT.Processing.HelperMethods.GetFftData(FFT.Processing.HelperMethods.ConvertTo512(amplitudeData, ingraph), ingraph);
-
-                //    float[] leftChannel = channelData[1];
-
-                //    AudioInSpec1 = HelperMethods.Max(leftChannel, 0, 1);
-                //    AudioInSpec2 = HelperMethods.Max(leftChannel, 2, 3);
-                //    AudioInSpec3 = HelperMethods.Max(leftChannel, 3, 4);
-                //    AudioInSpec4 = HelperMethods.Max(leftChannel, 4, 5);
-                //    AudioInSpec5 = HelperMethods.Max(leftChannel, 5, 6);
-                //    AudioInSpec6 = HelperMethods.Max(leftChannel, 7, 8);
-                //    AudioInSpec7 = HelperMethods.Max(leftChannel, 9, 10);
-                //    AudioInSpec8 = HelperMethods.Max(leftChannel, 10, 12);
-                //    AudioInSpec9 = HelperMethods.Max(leftChannel, 14, 26);
-                //    AudioInAverage = (AudioInSpec1 + AudioInSpec2 + AudioInSpec3 + AudioInSpec4 + AudioInSpec5 + AudioInSpec5 + AudioInSpec6 + AudioInSpec7 + AudioInSpec8 + AudioInSpec9) / 9;
-                //}
-
-                InputRecieved?.Invoke(null, dataInFloats);
             }
+
+            if (LocalState.VoiceState.SelfMute || LocalState.VoiceState.ServerMute)
+            {
+                AudioInSpec1 = 0;
+                AudioInSpec2 = 0;
+                AudioInSpec3 = 0;
+                AudioInSpec4 = 0;
+                AudioInSpec5 = 0;
+                AudioInSpec6 = 0;
+                AudioInSpec7 = 0;
+                AudioInSpec8 = 0;
+                AudioInSpec9 = 0;
+                AudioInAverage = 0;
+            }
+            else
+            {
+                List<float[]> amplitudeData = FFT.Processing.HelperMethods.ProcessFrameOutput(frame);
+                List<float[]> channelData = FFT.Processing.HelperMethods.GetFftData(FFT.Processing.HelperMethods.ConvertTo512(amplitudeData, ingraph), ingraph);
+
+                float[] leftChannel = channelData[1];
+
+                AudioInSpec1 = HelperMethods.Max(leftChannel, 0, 1);
+                AudioInSpec2 = HelperMethods.Max(leftChannel, 2, 3);
+                AudioInSpec3 = HelperMethods.Max(leftChannel, 3, 4);
+                AudioInSpec4 = HelperMethods.Max(leftChannel, 4, 5);
+                AudioInSpec5 = HelperMethods.Max(leftChannel, 5, 6);
+                AudioInSpec6 = HelperMethods.Max(leftChannel, 7, 8);
+                AudioInSpec7 = HelperMethods.Max(leftChannel, 9, 10);
+                AudioInSpec8 = HelperMethods.Max(leftChannel, 10, 12);
+                AudioInSpec9 = HelperMethods.Max(leftChannel, 14, 26);
+                AudioInAverage = (AudioInSpec1 + AudioInSpec2 + AudioInSpec3 + AudioInSpec4 + AudioInSpec5 + AudioInSpec5 + AudioInSpec6 + AudioInSpec7 + AudioInSpec8 + AudioInSpec9) / 9;
+            }
+
+            InputRecieved?.Invoke(null, dataInFloats);
         }
 
         private static void node_QuantumStarted(AudioFrameInputNode sender, FrameInputNodeQuantumStartedEventArgs args)
