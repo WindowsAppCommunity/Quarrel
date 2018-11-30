@@ -3333,7 +3333,7 @@ namespace Discord_UWP
             //When selecting a category, we want to simulate ListView's Mode = Click, 
             //so we use IgnoreChange to immediately re-select the unselected item 
             //after having clicked on a category (without reloading anything)
-            if (ChannelList.SelectedItem != null && (ChannelList.SelectedItem as SimpleChannel).HavePermissions)
+            if (ChannelList.SelectedItem != null && ((ChannelList.SelectedItem as SimpleChannel).HavePermissions || (ChannelList.SelectedItem as SimpleChannel).Type == 4))
             {
                 if (!lastChangeProgrammatic)
                 {
@@ -3423,7 +3423,7 @@ namespace Discord_UWP
 
         private void ChannelList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if ((e.ClickedItem as SimpleChannel).HavePermissions)
+            if ((e.ClickedItem as SimpleChannel).HavePermissions || (e.ClickedItem as SimpleChannel).Type == 4)
             {
                 _autoselectchannel = null;
                 ChannelSelectionWasClicked = true;
