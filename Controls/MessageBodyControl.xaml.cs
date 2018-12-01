@@ -146,7 +146,7 @@ namespace Discord_UWP.Controls
             if (e == null)
                 App.NavigateToMessageEditor(MessageBox1.Text, false);
             else
-                App.NavigateToMessageEditor(MessageBox1.Text, e.Paste);
+                App.NavigateToMessageEditor(e.Content, e.Paste);
             MessageBox1.Text = "";
         }
 
