@@ -44,7 +44,7 @@ namespace Discord_UWP.Gateway
 
         public event EventHandler<GatewayEventArgs<Ready>> Ready;
         public event EventHandler<GatewayEventArgs<Resumed>> Resumed;
-        public event EventHandler<EventArgs> GatewayClosed;
+        public event EventHandler<WebSocketClosedEventArgs> GatewayClosed;
 
         public event EventHandler<GatewayEventArgs<Guild>> GuildCreated;
         public event EventHandler<GatewayEventArgs<Guild>> GuildUpdated;
@@ -126,7 +126,7 @@ namespace Discord_UWP.Gateway
         private void HandleClosed(object sender, WebSocketClosedEventArgs args)
         {
             ConnectedSocket = false;
-            GatewayClosed?.Invoke(null,null);
+            GatewayClosed?.Invoke(null, args);
             Debug.WriteLine("Gateway closed with code " + args.Code + " and reason \"" + args.Reason + "\"");
         }
         private async void HandleMessage(object sender, MessageWebSocketMessageReceivedEventArgs e)
