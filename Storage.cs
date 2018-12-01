@@ -152,6 +152,6 @@ namespace Discord_UWP
         //public Dictionary<string, Message> savedMessages = new Dictionary<string, Message>();
         public int NoiseSensitivity = -40;
         public SerializableDictionary<string, string> SelectedChannels = new SerializableDictionary<string, string>();
-        public bool BackgroundVoice = false;
+        public bool BackgroundVoice = !App.IsMobile;
     }
 }
