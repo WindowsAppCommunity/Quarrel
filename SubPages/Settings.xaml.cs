@@ -72,6 +72,7 @@ namespace Discord_UWP.SubPages
             ShowWelcome.IsChecked = Storage.Settings.ShowWelcomeMessage;
             ShowNoPermissionsChannels.IsChecked = Storage.Settings.ShowNoPermissionChannels;
             EnableAcrylic.IsChecked = Storage.Settings.Acrylics;
+            EnableBackgroundVoice.IsChecked = Storage.Settings.BackgroundVoice;
             ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
             //DropShadowPresence.IsChecked = Storage.Settings.DropShadowPresence;
             UseCompression.IsChecked = Storage.Settings.UseCompression;
@@ -395,6 +396,7 @@ namespace Discord_UWP.SubPages
             Storage.Settings.AccentBrush = (bool)radioAccent_Windows.IsChecked;
             Storage.Settings.DerivedColor = (bool)DerviedColor.IsChecked;
             Storage.Settings.Acrylics = (bool)EnableAcrylic.IsChecked;
+            Storage.Settings.BackgroundVoice = (bool)EnableBackgroundVoice.IsChecked;
             Storage.Settings.ExpensiveRender = (bool)ExpensiveUI.IsChecked;
             //Storage.Settings.DropShadowPresence = (bool)DropShadowPresence.IsChecked;
             Storage.Settings.ShowWelcomeMessage = (bool)ShowWelcome.IsChecked;

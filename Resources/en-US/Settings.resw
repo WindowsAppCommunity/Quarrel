@@ -481,6 +481,12 @@
   <data name="ExpensiveRenderDescTB.Text" xml:space="preserve">
     <value>Enable various expensive graphics such as Blur Effects and Audio Visualizers</value>
   </data>
+  <data name="EnableBackgroundVoiceTB.Text" xml:space="preserve">
+    <value>Background Voice Support</value>
+  </data>
+  <data name="EnableBackgroundVoiceDescTB.Text" xml:space="preserve">
+    <value>Experimental, may cause crashes</value>
+  </data>
   <data name="ExpensiveRenderTB.Text" xml:space="preserve">
     <value>Expensive Rendering</value>
   </data>

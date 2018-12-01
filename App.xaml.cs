@@ -268,7 +268,9 @@ namespace Discord_UWP
                     }
                     if (GatewayManager.Gateway != null)
                     {
+                        GatewayManager.Gateway.GatewayClosed += Gateway_GatewayClosed;
                         GatewayManager.StartGateway();
+                       
                         Common.LoadEmojiDawg();
                     }
                     else
@@ -355,6 +357,14 @@ namespace Discord_UWP
             // Ensure the current window is active
             Window.Current.Activate();
             Window.Current.CoreWindow.Activated += WindowFocusChanged;
+        }
+       
+        private void Gateway_GatewayClosed(object sender, Windows.Networking.Sockets.WebSocketClosedEventArgs e)
+        {
+            if(e.Code == 4004)
+            {
+                //TODO Dunno what we can do here
+            }
         }
 
         public static event EventHandler SetupMainPage;
