@@ -112,7 +112,7 @@ namespace Discord_UWP.Managers
                 }
         }
 
-        public static async void CreateAudioGraphs()
+        public static async Task CreateAudioGraphs()
         {
             Storage.SettingsChangedHandler += Storage_SettingsChangedHandler;
             await CreateOutputDeviceNode(Storage.Settings.OutputDevice);
