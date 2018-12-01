@@ -93,6 +93,11 @@ namespace Discord_UWP
             if (!App.IsDesktop) TitleBarHolder.Visibility = Visibility.Collapsed;
             NetworkInformation.NetworkStatusChanged += NetworkInformation_NetworkStatusChanged;
             App.WentOffline += App_WentOffline;
+            if (GatewayManager.Gateway != null)
+            {
+                GatewayManager.Gateway.GatewayClosed += Gateway_GatewayClosed;
+                GatewayManager.Gateway.Resumed += Gateway_Resumed;
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -513,17 +518,28 @@ namespace Discord_UWP
                     await GatewayManager.Gateway.ResumeAsync();
         }
 
-        private async void Gateway_GatewayClosed(object sender, EventArgs e)
+        private async void Gateway_GatewayClosed(object sender, Windows.Networking.Sockets.WebSocketClosedEventArgs e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (DisconnectedMask.Opacity != 1)
+                    if (e.Code == 4004)
+                    {
+                        //Authentication failed
+                        loadingStack.Clear();
+                        SubFrameNavigator(typeof(LogScreen));
+                        Loading.Hide(true);
+                        MessageDialog md = new MessageDialog("Sorry, but we couldn't connect to Discord's servers with your login information!", "Authentication failed");
+
+                        
+                    }
+                    else if (DisconnectedMask.Opacity != 1)
                     {
                         DisconnectedMask.Opacity = 0;
                         DisconnectedMask.Visibility = Visibility.Visible;
                         DisconnectedMask.Fade(1, 300).Start();
                         _networkCheckTimer.Start();
+                        loadingStack.Loaded("GatewayConnecting");
                     }
                 });
         }
