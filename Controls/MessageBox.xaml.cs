@@ -24,6 +24,7 @@ namespace Discord_UWP.Controls
     {
         public class OpenAdvancedArgs : EventArgs
         {
+            public string Content { get; set; }
             public bool Paste { get; set; }
         }
         public event EventHandler<TextChangedEventArgs> TextChanged;
@@ -620,7 +621,7 @@ namespace Discord_UWP.Controls
             DataPackageView dataPackageView = Clipboard.GetContent();
             if (dataPackageView.Contains(StandardDataFormats.Bitmap) || dataPackageView.Contains(StandardDataFormats.StorageItems))
             {
-                OpenAdvanced(null, new OpenAdvancedArgs() { Paste = true });
+                OpenAdvanced(null, new OpenAdvancedArgs() { Paste = true, Content = MessageEditor.Text });
             }
         }
 
