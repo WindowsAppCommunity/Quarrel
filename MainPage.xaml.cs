@@ -2155,7 +2155,10 @@ namespace Discord_UWP
             else
             {
                 VoiceController.Hide();
-                //VoiceManager.voipCall.NotifyCallEnded();
+                if (Storage.Settings.BackgroundVoice)
+                {
+                    VoiceManager.voipCall.NotifyCallEnded();
+                }
             }
 
             foreach (SimpleChannel chn in channelCollection)
