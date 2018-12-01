@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4" IgnorableNamespaces="uap mp">
-  <Identity Name="38062AvishaiDernis.QuarrelInsider" Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B" Version="10.3.2.0" />
-  <mp:PhoneIdentity PhoneProductId="50628b0d-3213-4dd0-8611-9a87b8b7dccc" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="38062AvishaiDernis.DiscordUWP" Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B" Version="10.3.1.0" />
+  <mp:PhoneIdentity PhoneProductId="dd4e41cb-7fee-4d94-98de-92a60de04b4b" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Quarrel Insider</DisplayName>
+    <DisplayName>Discord UWP</DisplayName>
     <PublisherDisplayName>Avishai Dernis</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -16,13 +16,14 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Quarrel.App">
       <Extensions>
-        <uap:Extension Category="windows.voipCall"></uap:Extension>
+        <uap:Extension Category="windows.voipCall">
+        </uap:Extension>
+        <uap4:Extension Category="windows.contactPanel" />
         <Extension Category="windows.backgroundTasks" EntryPoint="Discord_UWP.Managers.AudioManager">
           <BackgroundTasks ServerName="VoipHost">
             <Task Type="systemEvent" />
           </BackgroundTasks>
         </Extension>
-        <uap4:Extension Category="windows.contactPanel" />
         <Extension Category="windows.backgroundTasks" EntryPoint="DiscordBackgroundTask1.MainClass">
           <BackgroundTasks>
             <Task Type="timer" />
@@ -63,7 +64,7 @@
           <uap3:AppService Name="Quarrel.Presence" SupportsRemoteSystems="true" />
         </uap:Extension>
       </Extensions>
-      <uap:VisualElements DisplayName="Quarrel Insider" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Unofficial client for Discord" BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="Discord UWP" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Unofficial client for Discord" BackgroundColor="transparent">
         <uap:LockScreen Notification="badgeAndTileText" BadgeLogo="Assets\BadgeLogo.png" />
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="Quarrel" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
           <uap:ShowNameOnTiles>
