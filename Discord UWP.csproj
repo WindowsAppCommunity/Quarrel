@@ -950,7 +950,7 @@
       <Version>6.1.9</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Services.Store.Engagement">
-      <Version>10.1711.28001</Version>
+      <Version>10.1810.16002</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit">
       <Version>4.0.0</Version>
@@ -980,7 +980,7 @@
       <Version>1.0.3.5</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>11.0.2</Version>
+      <Version>12.0.1</Version>
     </PackageReference>
     <PackageReference Include="QueryString.NET">
       <Version>1.0.0</Version>
