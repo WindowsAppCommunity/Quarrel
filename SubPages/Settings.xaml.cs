@@ -77,6 +77,11 @@ namespace Discord_UWP.SubPages
             //DropShadowPresence.IsChecked = Storage.Settings.DropShadowPresence;
             UseCompression.IsChecked = Storage.Settings.UseCompression;
             RichPresence.IsChecked = Storage.Settings.RichPresence;
+            if (App.IsXbox)
+            {
+                Scaling.Visibility = Visibility.Visible;
+                Scaling.IsChecked = Storage.Settings.Scaling;
+            }
             //VoiceChannels.IsChecked = Storage.Settings.VoiceChannels;
             //GifsOnHover.IsChecked = Storage.Settings.GifsOnHover;
 
@@ -403,6 +408,7 @@ namespace Discord_UWP.SubPages
             Storage.Settings.ShowNoPermissionChannels = (bool)ShowNoPermissionsChannels.IsChecked;
             Storage.Settings.UseCompression = (bool)UseCompression.IsChecked;
             Storage.Settings.RichPresence = (bool)RichPresence.IsChecked;
+            Storage.Settings.Scaling = (bool)Scaling.IsChecked;
             Storage.Settings.OLED = (bool)OLED.IsChecked;
             //Storage.Settings.VoiceChannels = (bool)VoiceChannels.IsChecked;
             //Storage.Settings.GifsOnHover = (bool)GifsOnHover.IsChecked;
