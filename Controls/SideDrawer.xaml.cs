@@ -510,15 +510,21 @@ namespace Discord_UWP.Controls
 
         private void VisualStateGroup_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
-            var state = VisualStateGroup.CurrentState;
-            if (state == Small)
+            if (App.CinematicMode)
                 SmallInteractable(e.OldState);
-            else if (state == Mid)
-                MidInteractable(e.OldState);
-            else if (state == Large)
-                LargeInteractable(e.OldState);
-            else if (state == ExtraLarge)
-                ExtraLargeInteractable(e.OldState);
+            else
+            {
+                var state = VisualStateGroup.CurrentState;
+                if (state == Small)
+                    SmallInteractable(e.OldState);
+                else if (state == Mid)
+                    MidInteractable(e.OldState);
+                else if (state == Large)
+                    LargeInteractable(e.OldState);
+                else if (state == ExtraLarge)
+                    ExtraLargeInteractable(e.OldState);
+            }
+
         }
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
