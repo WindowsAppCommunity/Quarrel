@@ -84,6 +84,15 @@ namespace Discord_UWP
                 args.Handled = true;
                 if (args.KeyStatus.RepeatCount == 1 && !args.KeyStatus.IsKeyReleased)
                     sideDrawer.ToggleLeft();
+
+                if (args.KeyStatus.IsKeyReleased)
+                {
+                    LBumperHint.Release();
+                }
+                else
+                {
+                    LBumperHint.Press();
+                }
             }
             else if (args.VirtualKey == VirtualKey.GamepadRightShoulder)
             {
@@ -91,6 +100,15 @@ namespace Discord_UWP
                 args.Handled = true;
                 if (args.KeyStatus.RepeatCount == 1 && !args.KeyStatus.IsKeyReleased)
                     sideDrawer.ToggleRight();
+
+                if (args.KeyStatus.IsKeyReleased)
+                {
+                    RBumperHint.Release();
+                }
+                else
+                {
+                    RBumperHint.Press();
+                }
             }
             else if (args.VirtualKey == VirtualKey.GamepadView)
             {
@@ -102,28 +120,8 @@ namespace Discord_UWP
                     MenuHint.ContextFlyout.ShowAt(MenuHint);
                 }
                 else
+                {
                     MenuHint.Press();
-            }
-            else if (args.VirtualKey == VirtualKey.GamepadX)
-            {
-                if (SubFrame.Visibility == Visibility.Visible) return;
-                args.Handled = true;
-                if (args.KeyStatus.IsKeyReleased)
-                {
-                    XHint.Release();
-                    var focused = (Windows.UI.Xaml.DependencyObject)FocusManager.GetFocusedElement();
-                    if (focused.GetType() == typeof(ListViewItem))
-                    {
-                        var type = ((ListViewItem)focused).Content.GetType();
-                        if (type == typeof(SimpleChannel) || type == typeof(SimpleGuild))
-                        {
-                            userButton.Flyout.ShowAt(userButton);
-                        }
-                    }
-                }
-                else
-                {
-                    XHint.Press();
                 }
             }
             /*
@@ -173,27 +171,45 @@ namespace Discord_UWP
                 // args.Handled = true;
             }*/
         }
+
         private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
         {
- 
+            if (args.VirtualKey == VirtualKey.GamepadMenu)
+            {
+                SelectHint.Press();
+            }
+            else if (args.VirtualKey == VirtualKey.GamepadX)
+            {
+                //XHint.Press();
+            }
         }
+
         private void CoreWindow_KeyUp(CoreWindow sender, KeyEventArgs args)
         {
             if (args.VirtualKey == VirtualKey.Shift)
             {
-            //    MessageBox1.ShiftUp();
+                //    MessageBox1.ShiftUp();
             }
-            if (args.VirtualKey == VirtualKey.GamepadMenu)
+            else if (args.VirtualKey == VirtualKey.GamepadMenu)
             {
-
+                SelectHint.Release();
             }
-
-            else if(args.VirtualKey == VirtualKey.GamepadY)
+            else if (args.VirtualKey == VirtualKey.GamepadX)
             {
-                YHint.Release();
+                if (SubFrame.Visibility == Visibility.Visible) return;
+                args.Handled = true;
+                //XHint.Release();
+                var focused = (Windows.UI.Xaml.DependencyObject)FocusManager.GetFocusedElement();
+                if (focused.GetType() == typeof(ListViewItem))
+                {
+                    var type = ((ListViewItem)focused).Content.GetType();
+                    if (type == typeof(SimpleChannel) || type == typeof(SimpleGuild))
+                    {
+                        userButton.Flyout.ShowAt(userButton);
+                    }
+                }
             }
         }
-
 
         private void KeyboardAccelerator_OnInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
         {

@@ -1525,7 +1525,7 @@
                                 <Grid>
                                     <controls:FFTVisualizer x:Name="InVisualizer" AudioIn="true"/>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                        <controls:ControllerHint x:Name="XHint" Label="" ButtonGlyph="" Margin="6,0,-16,0"/>
+                                        <!--<controls:ControllerHint x:Name="XHint" Label="" ButtonGlyph="" Margin="6,0,-16,0"/>-->
                                         <Grid>
                                             <Rectangle x:Name="AvatarBG" Width="36" Height="36" RadiusX="48" RadiusY="48" Margin="12,0,0,0"/>
                                             <Rectangle x:Name="Avatar" Width="36" Height="36" RadiusX="48" RadiusY="48" Margin="12,0,0,0">
@@ -1577,7 +1577,11 @@
 
                                 <Grid x:Name="ControllerHints" Visibility="Collapsed" Grid.Row="3">
                                     <StackPanel Margin="0,2,12,48" HorizontalAlignment="Right" Orientation="Horizontal">
-                                        <controls:ControllerHint x:Name="YHint" ButtonGlyph="" Label="Context Menu" Margin="0,0,24,0" Opacity="0"/>
+
+                                        <controls:ControllerHint x:Name="LBumperHint" ButtonGlyph="" Label="Left Pane" Margin="0,0,24,0"/>
+                                        <controls:ControllerHint x:Name="RBumperHint" ButtonGlyph="" Label="Right Pane" Margin="0,0,24,0"/>
+
+                                        <controls:ControllerHint x:Name="SelectHint" ButtonGlyph="" Label="Context Menu" Margin="0,0,24,0" Opacity="0"/>
 
                                         <controls:ControllerHint x:Name="MenuHint" ButtonGlyph="" Label="Menu">
                                             <controls:ControllerHint.ContextFlyout>
