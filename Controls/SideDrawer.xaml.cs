@@ -65,6 +65,8 @@ namespace Discord_UWP.Controls
             if (App.CinematicMode)
             {
                 leftPanel.Margin = new Thickness(9, 0, 0, 0);
+                contentRight.Margin = new Thickness(0, 0, 48, 0);
+                rightSide.Background = new SolidColorBrush(Windows.UI.Colors.Transparent);
             }
         }
         bool fullscreen = false;
