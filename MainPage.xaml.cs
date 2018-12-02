@@ -194,16 +194,15 @@ namespace Discord_UWP
                     //ServerList.Padding = new Thickness(0, 84, 0, 48);
                     //ChannelList.Padding = new Thickness(0, 84, 0, 48);
                     ServerScrollviewer.Margin = new Thickness(0, 42, 0, 48);
-                    ChannelScrollviewer.Margin = new Thickness(0, 84, 0, 0);
+                    ChannelScrollviewer.Margin = new Thickness(0, 42, 0, 0);
                     MembersListView.Margin = new Thickness(0, 48, 0, 48);
 
                     CinematicChannelName.Visibility = Visibility.Visible;
-                    CineGuildNameBTN.Visibility = Visibility.Visible;
-                    ServerNameButton.Visibility = Visibility.Collapsed;
-                    friendPanel.Margin = new Thickness(0, 84, 0, 0);
+                    //CineGuildNameBTN.Visibility = Visibility.Visible;
+                    //ServerNameButton.Visibility = Visibility.Collapsed;
+                    friendPanel.Margin = new Thickness(0, 42, 0, 0);
                     MessageArea.Margin = new Thickness(0);
                     CinematicMask1.Visibility = Visibility.Visible;
-                    CinematicMask2.Visibility = Visibility.Visible;
                     ControllerHints.Visibility = Visibility.Visible;
                     if (App.ShowAds) XBOXAd.Visibility = Visibility.Visible;
                     PCAd.Visibility = Visibility.Collapsed;
@@ -970,6 +969,8 @@ namespace Discord_UWP
             friendPanel.Visibility = Visibility.Visible;
             CallUser.Visibility = Visibility.Collapsed;
             if (App.Insider) AddFriend.Visibility = Visibility.Visible;
+            ChannelName.Text = ChannelTopic.Text = "";
+            if (App.CinematicMode) CinematicChannelName.Visibility = Visibility.Collapsed;
           //  MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
             sideDrawer.CloseLeft();
         }
@@ -1161,7 +1162,7 @@ namespace Discord_UWP
         private void cmdBarShadow_Loaded(object sender, RoutedEventArgs e)
         {
             cmdBarShadow = (Rectangle) sender;
-
+            
             UISize_CurrentStateChanged(null, new VisualStateChangedEventArgs {NewState = UISize.CurrentState});
         }
 
@@ -1615,6 +1616,7 @@ namespace Discord_UWP
 
             if (e.ChannelId != null)
             {
+                if (App.CinematicMode) CinematicChannelName.Visibility = Visibility.Visible;
                 if (LocalState.DMs[e.ChannelId].Type == 1)
                 {
                     UserDetails.DisplayedMember = new GuildMember
@@ -2259,10 +2261,11 @@ namespace Discord_UWP
 
             ChannelLoading.IsActive = true;
             ChannelLoading.Visibility = Visibility.Visible;
-            if (App.CinematicMode)
-                CineGuildNameBTN.Visibility = Visibility.Collapsed;
-            else
+            //if (App.CinematicMode)
+            //    CineGuildNameBTN.Visibility = Visibility.Collapsed;
+            //else
                 ServerNameButton.Visibility = Visibility.Collapsed;
+
             FriendsItem.Visibility = Visibility.Visible;
             DirectMessageBlock.Visibility = Visibility.Visible;
 
@@ -2275,12 +2278,13 @@ namespace Discord_UWP
                 //MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
                 CallUser.Visibility = Visibility.Collapsed;
                 if (App.Insider) AddFriend.Visibility = Visibility.Visible;
+                if (App.CinematicMode) CinematicChannelName.Visibility = Visibility.Collapsed;
             }
 
             AddChannelFlyoutSep.Visibility = Visibility.Collapsed;
             AddChannelFlyoutItem.Visibility = Visibility.Collapsed;
 
-            ChannelName.Text = /*CompChannelName.Text =*/ ChannelTopic.Text = /*CompChannelTopic.Text =*/ "";
+            ChannelName.Text =  ChannelTopic.Text = CinematicChannelName.Text = "";
 
             channelCollection.Clear();
 
@@ -2316,9 +2320,9 @@ namespace Discord_UWP
 
             ChannelLoading.IsActive = true;
             ChannelLoading.Visibility = Visibility.Visible;
-            if (App.CinematicMode)
-                CineGuildNameBTN.Visibility = Visibility.Visible;
-            else
+            //if (App.CinematicMode)
+            //    CineGuildNameBTN.Visibility = Visibility.Visible;
+            //else
                 ServerNameButton.Visibility = Visibility.Visible;
             FriendsItem.Visibility = Visibility.Collapsed;
             DirectMessageBlock.Visibility = Visibility.Collapsed;
@@ -2362,7 +2366,7 @@ namespace Discord_UWP
                 LeaveGuildFlyoutItem.Text = App.GetString("/Main/LeaveServerMFI");
             }
 
-            ChannelName.Text = /*CompChannelName.Text =*/ ChannelTopic.Text = /*CompChannelTopic.Text =*/ "";
+            ChannelName.Text = ChannelTopic.Text = CinematicChannelName.Text = "";
 
             ServerName.Text = LocalState.Guilds[App.CurrentGuildId].Raw.Name;
 
@@ -2394,6 +2398,7 @@ namespace Discord_UWP
             friendPanel.Visibility = Visibility.Collapsed;
             PinnedMessags.Visibility = Visibility.Visible;
 
+            if (App.CinematicMode) CinematicChannelName.Visibility = Visibility.Visible;
             if (UISize.CurrentState == Small) sideDrawer.CloseLeft();
             if (ChannelList.SelectedItem != null)
             {

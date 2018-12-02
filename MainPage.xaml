@@ -1449,7 +1449,7 @@
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
-                            <Rectangle x:Name="CinematicMask1" Visibility="Collapsed" Height="96" VerticalAlignment="Top" Width="228">
+                            <Rectangle x:Name="CinematicMask1" Visibility="Collapsed" Height="48" VerticalAlignment="Top" Width="228">
                                 <Rectangle.Fill>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                         <GradientStop Color="#FF1C1D20" Offset="0.75"/>
@@ -1457,9 +1457,9 @@
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
-                            <Button x:Name="CineGuildNameBTN" Click="ServerNameButton_Click" Visibility="Collapsed" VerticalAlignment="Top" Margin="20,48,0,0">
+                            <!--<Button x:Name="CineGuildNameBTN" Style="{StaticResource}" Click="ServerNameButton_Click" Visibility="Collapsed" VerticalAlignment="Top" Margin="20,48,0,0">
                                 <TextBlock x:Name="CinematicGuildName" Text="{Binding Text, ElementName=ServerName}" FontSize="20" FontWeight="SemiBold" />
-                            </Button>
+                            </Button>-->
                             <Grid x:Name="AcceptCallUI" Grid.Row="1" Visibility="Collapsed" Background="{ThemeResource AcrylicUserBackground}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
@@ -1552,7 +1552,9 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Grid x:Name="MessageAreaCMD"></Grid>
+                            <Grid x:Name="MessageAreaCMD">
+                                <TextBlock x:Name="CinematicChannelName" Visibility="Collapsed" Text="#general" FontSize="20" FontWeight="SemiLight" VerticalAlignment="Top" Margin="18,48,0,8" Grid.RowSpan="12"/>
+                            </Grid>
                             <Grid x:Name="MessageArea" Grid.Row="1"  Margin="12,0,12,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
@@ -1572,15 +1574,7 @@
                                                ApplicationId="9nbrwj777c8r"
                                                AdUnitId="336795"/>
 
-                                <Rectangle x:Name="CinematicMask2" Visibility="Collapsed" Height="112" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="12">
-                                    <Rectangle.Fill>
-                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                            <GradientStop Color="#FF222326" Offset="0.75"/>
-                                            <GradientStop Color="#00222326" Offset="1"/>
-                                        </LinearGradientBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                                <TextBlock x:Name="CinematicChannelName" Visibility="Collapsed" Text="#general" FontSize="20" FontWeight="SemiLight" VerticalAlignment="Top" Margin="18,48,0,0" Grid.RowSpan="12"/>
+
                                 <Grid x:Name="ControllerHints" Visibility="Collapsed" Grid.Row="3">
                                     <StackPanel Margin="0,2,12,48" HorizontalAlignment="Right" Orientation="Horizontal">
                                         <controls:ControllerHint x:Name="YHint" ButtonGlyph="" Label="Context Menu" Margin="0,0,24,0" Opacity="0"/>
