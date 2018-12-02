@@ -2016,7 +2016,7 @@ namespace Discord_UWP
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
         internal const bool Insider = false;
-        internal static bool CinematicMode = true;
+        internal static bool CinematicMode;
         internal static bool GatewayCreated;
         internal static bool FullyLoaded = false;
         internal static bool DontLogin;
