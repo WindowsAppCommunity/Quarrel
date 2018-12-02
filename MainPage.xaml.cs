@@ -997,7 +997,7 @@ namespace Discord_UWP
 
         private void ServerList_GotFocus(object sender, RoutedEventArgs e)
         {
-            YHint.Show();
+            SelectHint.Show();
         }
 
         private void ServerList_LostFocus(object sender, RoutedEventArgs e)

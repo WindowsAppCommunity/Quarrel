@@ -250,7 +250,7 @@ namespace Discord_UWP
                 ShowAds = true;
             }
 
-            if (IsXbox && Insider) CinematicMode = true;
+            if (IsXbox) CinematicMode = true;
 
             Frame rootFrame = Window.Current.Content as Frame;
 
