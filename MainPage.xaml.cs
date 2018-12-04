@@ -480,7 +480,90 @@ namespace Discord_UWP
 
             App.ConnectedToAppService += App_ConnectedToAppService;
 
+            App.VirtualKeyHitHandler += App_VirtualKeyHitHandler;
+
             _networkCheckTimer.Tick += _networkCheckTimer_Tick;
+        }
+
+        private void App_VirtualKeyHitHandler(object sender, App.KeyHitArgs e)
+        {
+
+            if (e.Key == VirtualKey.Shift)
+            {
+                //     MessageBox1.ShiftDown();
+            }
+            /*
+            else if (args.VirtualKey == VirtualKey.S)
+            {
+                if (args.KeyStatus.IsKeyReleased && CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Control) != CoreVirtualKeyStates.None)
+                {
+                    SubFrameNavigator(typeof(SubPages.DiscordStatus));
+                }
+                else
+                {
+                    args.Handled = true;
+                }
+            }*/
+            else if (e.Key == VirtualKey.GamepadLeftThumbstickLeft)
+            {
+                // args.Handled = true;
+            }
+            else if (e.Key == VirtualKey.GamepadLeftThumbstickRight)
+            {
+                //  args.Handled = true;
+            }
+            else if (e.Key == VirtualKey.GamepadLeftThumbstickUp)
+            {
+                // args.Handled = true;
+            }
+            else if (e.Key == VirtualKey.GamepadLeftThumbstickDown)
+            {
+                //  args.Handled = true;
+                //  ScrollviewerFromGamepad();
+            }
+            else if (e.Key == VirtualKey.GamepadLeftShoulder)
+            {
+                if (SubFrame.Visibility == Visibility.Visible) return;
+                if (!e.Released)
+                    sideDrawer.ToggleLeft();
+
+                if (e.Released)
+                {
+                    LBumperHint.Release();
+                }
+                else
+                {
+                    LBumperHint.Press();
+                }
+            }
+            else if (e.Key == VirtualKey.GamepadRightShoulder)
+            {
+                if (SubFrame.Visibility == Visibility.Visible) return;
+                if (!e.Released)
+                    sideDrawer.ToggleRight();
+
+                if (e.Released)
+                {
+                    RBumperHint.Release();
+                }
+                else
+                {
+                    RBumperHint.Press();
+                }
+            }
+            else if (e.Key == VirtualKey.GamepadView)
+            {
+                if (SubFrame.Visibility == Visibility.Visible) return;
+                if (e.Released)
+                {
+                    MenuHint.Release();
+                    MenuHint.ContextFlyout.ShowAt(MenuHint);
+                }
+                else
+                {
+                    MenuHint.Press();
+                }
+            }
         }
 
         private async void _networkCheckTimer_Tick(object sender, object e)

@@ -115,7 +115,7 @@ namespace Discord_UWP.Controls
 
         private void UserControl_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            //TODO: Simulate Key hit
+            App.HandleKeyPress(key);
         }
     }
 }
