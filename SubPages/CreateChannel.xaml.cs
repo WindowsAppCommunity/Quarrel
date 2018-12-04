@@ -54,7 +54,7 @@ namespace Discord_UWP.SubPages
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            await RESTCalls.CreateChannel(App.CurrentGuildId, GuildName.Text, TextChannel.IsChecked == true ? "text" : "voice"); //TODO: Rig to App.Events
+            await RESTCalls.CreateChannel(App.CurrentGuildId, GuildName.Text, TextChannel.IsChecked == true ? "text" : "voice");
             CloseButton_Click(null, null);
         }
     }

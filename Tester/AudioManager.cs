@@ -187,8 +187,6 @@ namespace Tester
             Windows.Devices.Enumeration.DeviceInformation selectedDevice =
              await Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync(Windows.Media.Devices.MediaDevice.GetDefaultAudioCaptureId(Windows.Media.Devices.AudioDeviceRole.Default));
 
-            //TODO: Show UI to allow the user to select a device
-
             CreateAudioDeviceInputNodeResult result =
                 await ingraph.CreateDeviceInputNodeAsync(MediaCategory.Media, nodesettings.EncodingProperties, selectedDevice);
             if (result.Status != AudioDeviceNodeCreationStatus.Success)

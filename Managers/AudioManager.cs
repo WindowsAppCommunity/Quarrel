@@ -326,9 +326,9 @@ namespace Discord_UWP.Managers
 
         #region InputUpdate
 
-        private static void MediaDevice_DefaultAudioCaptureDeviceChanged(object sender, Windows.Media.Devices.DefaultAudioCaptureDeviceChangedEventArgs args)
+        private static async void MediaDevice_DefaultAudioCaptureDeviceChanged(object sender, Windows.Media.Devices.DefaultAudioCaptureDeviceChangedEventArgs args)
         {
-            //TODO: Update InputDevice
+            await CreateInputDeviceNode(args.Id);
         }
 
         //private static void InputDeviceWatcher_Added(DeviceWatcher sender, DeviceInformation args)
