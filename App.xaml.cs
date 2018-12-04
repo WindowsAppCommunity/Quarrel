@@ -1918,6 +1918,17 @@ namespace Discord_UWP
 
         #endregion
 
+        public static event EventHandler<KeyHitArgs> VirtualKeyHitHandler;
+        public class KeyHitArgs
+        {
+            public Windows.System.VirtualKey Key;
+            public bool Released = false;
+        }
+        public static void HandleKeyPress(Windows.System.VirtualKey key, bool released = false)
+        {
+            VirtualKeyHitHandler?.Invoke(null, new KeyHitArgs() { Key = key, Released = released });
+        }
+
         public static event EventHandler<StatusPageClasses.Index> WentOffline;
         private static bool runningNetworkTest;
 
