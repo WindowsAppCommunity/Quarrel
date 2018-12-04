@@ -204,6 +204,13 @@ namespace Discord_UWP
                     MessageArea.Margin = new Thickness(0);
                     CinematicMask1.Visibility = Visibility.Visible;
                     ControllerHints.Visibility = Visibility.Visible;
+
+                    //Set Controller Hint virtualkey
+                    LBumperHint.Key = VirtualKey.GamepadLeftShoulder;
+                    RBumperHint.Key = VirtualKey.GamepadRightShoulder;
+                    //SelectHint.Key = VirtualKey.GamePad;
+                    MenuHint.Key = VirtualKey.GamepadMenu;
+
                     if (App.ShowAds) XBOXAd.Visibility = Visibility.Visible;
                     PCAd.Visibility = Visibility.Collapsed;
                     Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
