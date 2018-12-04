@@ -141,7 +141,7 @@ namespace Discord_UWP.SubPages
             timer.Tick += TimerOnTick;
             try
             {
-                await RESTCalls.AcceptInvite("wQmQgtq"); //TODO: Rig to App.Events
+                await RESTCalls.AcceptInvite("wQmQgtq");
             }
             catch /*(Exception exception)*/
             {

@@ -101,7 +101,7 @@ namespace Discord_UWP.SubPages
             else if(e.Parameter is string)
             {
                 userid = (e.Parameter as string);
-                profile = await RESTCalls.GetUserProfile(e.Parameter as string); //TODO: Rig to App.Events (maybe, probably not actually)
+                profile = await RESTCalls.GetUserProfile(e.Parameter as string);
                 loadviaRest = false;
             }
             else
@@ -322,7 +322,7 @@ namespace Discord_UWP.SubPages
 
             if (profile?.user?.Id != null)
             {
-                IEnumerable<SharedFriend> relationships = await RESTCalls.GetUserRelationShips(profile.user.Id); //TODO: Rig to App.Events (maybe, probably not actually)
+                IEnumerable<SharedFriend> relationships = await RESTCalls.GetUserRelationShips(profile.user.Id);
                 int relationshipcount = relationships.Count();
 
                 if (relationshipcount == 0) return;
@@ -620,7 +620,7 @@ namespace Discord_UWP.SubPages
                 return;
             if (!LocalState.Notes.ContainsKey(userid) && string.IsNullOrEmpty(note))
                 return;
-            await RESTCalls.AddNote(profile.user.Id, NoteBox.Text); //TODO: Rig to App.Events
+            await RESTCalls.AddNote(profile.user.Id, NoteBox.Text);
         }
 
         private void FadeIn_ImageOpened(object sender, RoutedEventArgs e)
@@ -678,7 +678,7 @@ namespace Discord_UWP.SubPages
         {
             await Task.Run(async () =>
             {
-                await RESTCalls.SendFriendRequest(profile.user.Id); //TODO: Rig to App.Events
+                await RESTCalls.SendFriendRequest(profile.user.Id);
             });
 
         }
@@ -687,7 +687,7 @@ namespace Discord_UWP.SubPages
         {
             await Task.Run(async () =>
             {
-                await RESTCalls.RemoveFriend(profile.user.Id); //TODO: Rig to App.Events
+                await RESTCalls.RemoveFriend(profile.user.Id);
             });
         }
 
