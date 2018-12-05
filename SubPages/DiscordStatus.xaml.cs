@@ -19,6 +19,8 @@ using Discord_UWP.Classes;
 using Discord_UWP.Controls;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System.Numerics;
+using Microsoft.Graphics.Canvas.Text;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -120,9 +122,13 @@ namespace Discord_UWP.SubPages
 
             if (status.Status != null)
             {
-                var statusColor = ColorFromStatus(status.Status.Indicator);
-                statusContainer.Background = statusColor;
-                border.BorderBrush = statusColor;
+                var statusBrush = ColorFromStatus(status.Status.Indicator);
+                statusColor = statusBrush.Color;
+                statusContainer.Background = statusBrush;
+                border.BorderBrush = statusBrush;
+                dayDuration.Foreground = statusBrush;
+                weekDuration.Foreground = statusBrush;
+                monthDuration.Foreground = statusBrush;
                 statusDescription.Text = status.Status.Description;
                 statusContainer.Visibility = Visibility.Visible;
             }
@@ -149,6 +155,7 @@ namespace Discord_UWP.SubPages
         }
 
         private bool ChangedMetricsDisplay = false;
+        Dictionary<int, Discord_UWP.Classes.StatusPageClasses.Datum> datavalues = new Dictionary<int, Discord_UWP.Classes.StatusPageClasses.Datum>();
         private async void ShowMetrics(string duration)
         {
             if (ChangedMetricsDisplay)
@@ -160,13 +167,16 @@ namespace Discord_UWP.SubPages
             var metrics = await StatusPage.GetMetrics(duration);
             if (metrics != null && metrics.Metrics != null && metrics.Metrics.Length > 0)
             {
+                
                 var metric = metrics.Metrics[0];
                 int pos = 0;
                 _data.Clear();
+                datavalues.Clear();
                 _max = 0;
                 _min = 0;
                 for (var i = 0; i < metric.Data.Length; i++)
                 {
+                    datavalues.Add(i, metric.Data[i]);
                     _data.Add(metric.Data[i].Value);
                     if (metric.Data[i].Value > _max)
                     {
@@ -188,13 +198,13 @@ namespace Discord_UWP.SubPages
         }
         private readonly List<double> _data = new List<double>();
         private const float DataStrokeThickness = 1;
-        private Color blurple = (Color) Application.Current.Resources["BlurpleColor"];
+        private Color statusColor = (Color) Application.Current.Resources["BlurpleColor"];
         private readonly ChartRenderer _chartRenderer;
         private double _min = 0;
         private double _max = 0;
         private void CanvasControl_OnDraw(CanvasControl sender, CanvasDrawEventArgs args)
         {
-            _chartRenderer.RenderData(chartCanvas, args, blurple, DataStrokeThickness, _data, false, _max);
+            _chartRenderer.RenderData(chartCanvas, args, statusColor, DataStrokeThickness, _data, false, _max);
         }
 
         private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -236,11 +246,61 @@ namespace Discord_UWP.SubPages
         {
             CursorPosition = Convert.ToSingle(e.GetCurrentPoint(chartCanvas).Position.X);
             chartIndicator.Invalidate();
+            
         }
 
         private void ChartIndicator_OnDraw(CanvasControl sender, CanvasDrawEventArgs args)
         {
-            args.DrawingSession.DrawLine(new Vector2(CursorPosition, 0), new Vector2(CursorPosition, (float)chartIndicator.ActualHeight), Colors.White);
+            if (_chartRenderer.stepsize != 0)
+            {
+                var location = Convert.ToInt32(Math.Round(CursorPosition / _chartRenderer.stepsize));
+                if (datavalues.ContainsKey(location))
+                {
+                    var item = datavalues[location];
+                    CanvasTextFormat format = new CanvasTextFormat { FontSize = 12.0f, WordWrapping = CanvasWordWrapping.NoWrap };
+                    CanvasTextLayout textLayout = new CanvasTextLayout(args.DrawingSession, item.Value+"ms", format, 0.0f, 0.0f);
+
+                    CanvasTextFormat format2 = new CanvasTextFormat { FontSize = 12.0f, WordWrapping = CanvasWordWrapping.NoWrap };
+
+                    DateTimeOffset date = DateTimeOffset.FromUnixTimeSeconds(item.Timestamp);
+                    string durationText;
+                    if (!dayDuration.IsEnabled)
+                    {
+                        durationText = date.TimeOfDay.ToString();
+                    }
+                    else if (!weekDuration.IsEnabled)
+                    {
+                        durationText = date.TimeOfDay.ToString() + " " + date.DayOfWeek.ToString();
+                    }
+                    else
+                    {
+                        durationText = date.ToString();
+                    }
+                    CanvasTextLayout textLayout2 = new CanvasTextLayout(args.DrawingSession, durationText, format, 0.0f, 0.0f);
+
+                    if (chartIndicator.ActualWidth - (CursorPosition + textLayout.DrawBounds.Width) < 0)
+                    {
+                        args.DrawingSession.DrawTextLayout(textLayout, new Vector2(Convert.ToSingle((CursorPosition - textLayout.DrawBounds.Width-12)), 0), Color.FromArgb(255, 255, 255, 255));
+                    }
+                    else
+                    {
+                        args.DrawingSession.DrawTextLayout(textLayout, new Vector2(CursorPosition + 4, 0), Color.FromArgb(255, 255, 255, 255));
+                        args.DrawingSession.DrawTextLayout(textLayout2, new Vector2(CursorPosition + 4, 14), Color.FromArgb(120, 255, 255, 255));
+                    }
+                }
+                args.DrawingSession.DrawLine(new Vector2(CursorPosition, 0), new Vector2(CursorPosition, (float)chartIndicator.ActualHeight), Colors.White);
+                
+            }
+        }
+
+        private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+        //    chartIndicator.Fade(1, 300);
+        }
+
+        private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+        //    chartIndicator.Fade(0, 300);
         }
     }
 }

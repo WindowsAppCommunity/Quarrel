@@ -13,7 +13,7 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 namespace Discord_UWP.Classes
 {
 
-    class ChartRenderer
+    public class ChartRenderer
     {
         public void RenderAxes(CanvasControl canvas, CanvasDrawEventArgs args)
         {
@@ -60,11 +60,11 @@ namespace Discord_UWP.Classes
             args.DrawingSession.DrawText("0", midWidth + 5, height - 30, Colors.Gray);
             args.DrawingSession.DrawText("1", midWidth + 5, 5, Colors.Gray);
         }
-
+        public float stepsize;
         public void RenderData(CanvasControl canvas, CanvasDrawEventArgs args, Color color, float thickness, List<double> data, bool renderArea, double max)
         {
             if (data.Count == 0) return;
-            var stepsize = Convert.ToSingle(canvas.ActualWidth / data.Count);
+            stepsize = Convert.ToSingle(canvas.ActualWidth / data.Count);
             using (var cpb = new CanvasPathBuilder(args.DrawingSession))
             {
                 cpb.BeginFigure(new Vector2(0, (float)(canvas.ActualHeight * (1 - data[0]/max))));
