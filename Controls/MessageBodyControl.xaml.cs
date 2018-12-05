@@ -748,7 +748,10 @@ namespace Discord_UWP.Controls
                         MessageList.Items.Remove(message);
 
                         //the previous message was deleted, new item i is the old i++
-                        (MessageList.Items[i] as MessageContainer).IsContinuation = false;
+                        if (i + 1 < MessageList.Items.Count)
+                        {
+                            (MessageList.Items[i] as MessageContainer).IsContinuation = false;
+                        }
 
                         if (LocalState.RPC[ChannelId].LastMessageId == e.MessageId)
                         {

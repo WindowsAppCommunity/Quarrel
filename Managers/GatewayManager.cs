@@ -20,7 +20,7 @@ namespace Discord_UWP.Managers
         {
             if (Gateway == null)
             {
-                return;
+                await RESTCalls.SetupToken();
             }
             //Ready
             Gateway.Ready += Gateway_Ready;

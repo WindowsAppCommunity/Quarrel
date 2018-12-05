@@ -266,7 +266,7 @@ namespace Discord_UWP
                     {
                         CheckOnline();
                     }
-                    if (GatewayManager.Gateway != null)
+                    if (IsOnline())
                     {
                         GatewayManager.Gateway.GatewayClosed += Gateway_GatewayClosed;
                         GatewayManager.StartGateway();
@@ -395,7 +395,7 @@ namespace Discord_UWP
                         }
                         if (LoggedIn())
                         {
-                            if (GatewayManager.Gateway != null)
+                            if (IsOnline())
                             {
                                 GatewayManager.StartGateway();
                                 Common.LoadEmojiDawg();
@@ -1931,6 +1931,7 @@ namespace Discord_UWP
 
         public static event EventHandler<StatusPageClasses.Index> WentOffline;
         private static bool runningNetworkTest;
+        
 
         public static async void CheckOnline()
         {
