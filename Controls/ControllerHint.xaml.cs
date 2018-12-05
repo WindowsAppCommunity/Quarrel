@@ -30,12 +30,21 @@ namespace Discord_UWP.Controls
             get { return label.Text; }
             set { label.Text = value; }
         }
+
+        private Windows.System.VirtualKey key;
+        public Windows.System.VirtualKey Key
+        {
+            get { return Key; }
+            set { key = value; }
+        }
+
         public ControllerHint()
         {
             this.InitializeComponent();
             if (!App.CinematicMode)
                 Visibility = Visibility.Collapsed;
         }
+
         List<AnimationSet> animations = new List<AnimationSet>();
         AnimationSet anim;
         AnimationSet anim2;
@@ -102,6 +111,11 @@ namespace Discord_UWP.Controls
         public void Dispose()
         {
             //Nothing to dispose
+        }
+
+        private void UserControl_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            App.HandleKeyPress(key);
         }
     }
 }

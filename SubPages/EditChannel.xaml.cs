@@ -256,7 +256,7 @@ namespace Discord_UWP.SubPages
         private async void InviteControl_OnDeleteInvite(object sender, EventArgs e)
         {
             string code = ((Invite)sender).String;
-            await RESTCalls.DeleteInvite(code); //TODO: Rig to App.Events
+            await RESTCalls.DeleteInvite(code);
             InviteView.Items.Remove(InviteView.Items.FirstOrDefault(x => ((Invite)x).String == code));
         }
 
