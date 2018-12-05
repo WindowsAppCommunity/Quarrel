@@ -204,6 +204,13 @@ namespace Discord_UWP
                     MessageArea.Margin = new Thickness(0);
                     CinematicMask1.Visibility = Visibility.Visible;
                     ControllerHints.Visibility = Visibility.Visible;
+
+                    //Set Controller Hint virtualkey
+                    LBumperHint.Key = VirtualKey.GamepadLeftShoulder;
+                    RBumperHint.Key = VirtualKey.GamepadRightShoulder;
+                    //SelectHint.Key = VirtualKey.GamePad;
+                    MenuHint.Key = VirtualKey.GamepadMenu;
+
                     if (App.ShowAds) XBOXAd.Visibility = Visibility.Visible;
                     PCAd.Visibility = Visibility.Collapsed;
                     Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
@@ -473,7 +480,90 @@ namespace Discord_UWP
 
             App.ConnectedToAppService += App_ConnectedToAppService;
 
+            App.VirtualKeyHitHandler += App_VirtualKeyHitHandler;
+
             _networkCheckTimer.Tick += _networkCheckTimer_Tick;
+        }
+
+        private void App_VirtualKeyHitHandler(object sender, App.KeyHitArgs e)
+        {
+
+            if (e.Key == VirtualKey.Shift)
+            {
+                //     MessageBox1.ShiftDown();
+            }
+            /*
+            else if (args.VirtualKey == VirtualKey.S)
+            {
+                if (args.KeyStatus.IsKeyReleased && CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Control) != CoreVirtualKeyStates.None)
+                {
+                    SubFrameNavigator(typeof(SubPages.DiscordStatus));
+                }
+                else
+                {
+                    args.Handled = true;
+                }
+            }*/
+            else if (e.Key == VirtualKey.GamepadLeftThumbstickLeft)
+            {
+                // args.Handled = true;
+            }
+            else if (e.Key == VirtualKey.GamepadLeftThumbstickRight)
+            {
+                //  args.Handled = true;
+            }
+            else if (e.Key == VirtualKey.GamepadLeftThumbstickUp)
+            {
+                // args.Handled = true;
+            }
+            else if (e.Key == VirtualKey.GamepadLeftThumbstickDown)
+            {
+                //  args.Handled = true;
+                //  ScrollviewerFromGamepad();
+            }
+            else if (e.Key == VirtualKey.GamepadLeftShoulder)
+            {
+                if (SubFrame.Visibility == Visibility.Visible) return;
+                if (!e.Released)
+                    sideDrawer.ToggleLeft();
+
+                if (e.Released)
+                {
+                    LBumperHint.Release();
+                }
+                else
+                {
+                    LBumperHint.Press();
+                }
+            }
+            else if (e.Key == VirtualKey.GamepadRightShoulder)
+            {
+                if (SubFrame.Visibility == Visibility.Visible) return;
+                if (!e.Released)
+                    sideDrawer.ToggleRight();
+
+                if (e.Released)
+                {
+                    RBumperHint.Release();
+                }
+                else
+                {
+                    RBumperHint.Press();
+                }
+            }
+            else if (e.Key == VirtualKey.GamepadView)
+            {
+                if (SubFrame.Visibility == Visibility.Visible) return;
+                if (e.Released)
+                {
+                    MenuHint.Release();
+                    MenuHint.ContextFlyout.ShowAt(MenuHint);
+                }
+                else
+                {
+                    MenuHint.Press();
+                }
+            }
         }
 
         private async void _networkCheckTimer_Tick(object sender, object e)
@@ -1585,7 +1675,7 @@ namespace Discord_UWP
                 if (!App.Insider)
                     AddFriend.Visibility = e.ChannelId == null ? Visibility.Visible : Visibility.Collapsed;
 
-                if (LocalState.RPC.ContainsKey(e.ChannelId))
+                if (e.ChannelId != null && LocalState.RPC.ContainsKey(e.ChannelId))
                     App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
                 else
                     App.LastReadMsgId = null;
@@ -1656,6 +1746,9 @@ namespace Discord_UWP
                 UpdateTyping();
 
                 RenderMessages();
+            } else
+            {
+                OpenFriendPanel(null, null);
             }
 
             _currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
@@ -2998,13 +3091,16 @@ namespace Discord_UWP
 
         private async void App_GuildChannelDeletedHandler(object sender, App.GuildChannelDeletedArgs e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     if (channelCollection.Count > 0)
-                        foreach (SimpleChannel channel in channelCollection)
-                            if (channel.Id == e.ChannelId)
-                                channelCollection.Remove(channel);
+                        for (int i = 0; i < channelCollection.Count; i++)
+                            if (channelCollection[i].Id == e.ChannelId)
+                            {
+                                channelCollection.RemoveAt(i);
+                                break;
+                            }
                 });
         }
 

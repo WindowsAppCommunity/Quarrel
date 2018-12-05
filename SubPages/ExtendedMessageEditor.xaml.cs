@@ -179,7 +179,7 @@ namespace Discord_UWP.SubPages
                 scale.CenterX = this.ActualWidth / 2;
                 NavAway.Begin();
                 App.SubpageClosed();
-                RESTCalls.MessageUploadProgress -= Session_MessageUploadProgress; //TODO: Rig to App.Events
+                RESTCalls.MessageUploadProgress -= Session_MessageUploadProgress;
             }
         }
         private async void OpenFile(object sender, RoutedEventArgs e)
@@ -247,7 +247,7 @@ namespace Discord_UWP.SubPages
 
             }
             ProgressViewer.Visibility = Visibility.Visible;
-            RESTCalls.MessageUploadProgress += Session_MessageUploadProgress; //TODO: Rig to App.Events
+            RESTCalls.MessageUploadProgress += Session_MessageUploadProgress;
             
             FullUploadSize = 0;
             foreach(var file in attachements)

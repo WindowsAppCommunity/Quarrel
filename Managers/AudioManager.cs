@@ -326,9 +326,9 @@ namespace Discord_UWP.Managers
 
         #region InputUpdate
 
-        private static void MediaDevice_DefaultAudioCaptureDeviceChanged(object sender, Windows.Media.Devices.DefaultAudioCaptureDeviceChangedEventArgs args)
+        private static async void MediaDevice_DefaultAudioCaptureDeviceChanged(object sender, Windows.Media.Devices.DefaultAudioCaptureDeviceChangedEventArgs args)
         {
-            //TODO: Update InputDevice
+            await CreateInputDeviceNode(args.Id);
         }
 
         //private static void InputDeviceWatcher_Added(DeviceWatcher sender, DeviceInformation args)
@@ -359,10 +359,7 @@ namespace Discord_UWP.Managers
         {
             if (inGraphCount <= 1)
             {
-                ingraph?.Dispose();
-                frameOutputNode = null;
-                deviceInputNode = null;
-                ingraph = null;
+                HeavyDisposeInGraph();
                 inGraphCount = 0;
             }
             else
@@ -375,10 +372,7 @@ namespace Discord_UWP.Managers
         {
             if (outGraphCount <= 1)
             {
-                outgraph?.Dispose();
-                frameInputNode = null;
-                deviceOutputNode = null;
-                outgraph = null;
+                HeavyDisposeOutGraph();
                 outGraphCount = 0;
             } else
             {
@@ -398,6 +392,16 @@ namespace Discord_UWP.Managers
             frameOutputNode = null;
             deviceInputNode = null;
             ingraph = null;
+            AudioInSpec1 = 0;
+            AudioInSpec2 = 0;
+            AudioInSpec3 = 0;
+            AudioInSpec4 = 0;
+            AudioInSpec5 = 0;
+            AudioInSpec6 = 0;
+            AudioInSpec7 = 0;
+            AudioInSpec8 = 0;
+            AudioInSpec9 = 0;
+            AudioInAverage = 0;
         }
 
         public static void HeavyDisposeOutGraph()
@@ -406,6 +410,16 @@ namespace Discord_UWP.Managers
             frameInputNode = null;
             deviceOutputNode = null;
             outgraph = null;
+            AudioOutSpec1 = 0;
+            AudioOutSpec2 = 0;
+            AudioOutSpec3 = 0;
+            AudioOutSpec4 = 0;
+            AudioOutSpec5 = 0;
+            AudioOutSpec6 = 0;
+            AudioOutSpec7 = 0;
+            AudioOutSpec8 = 0;
+            AudioOutSpec9 = 0;
+            AudioOutAverage = 0;
         }
 
         public static unsafe void AddFrame(float[] framedata, uint samples)

@@ -106,7 +106,7 @@ namespace Discord_UWP.SubPages
                     modifyguild = new API.Guild.Models.ModifyGuildIcon() { Name = GuildName.Text, Icon = null, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout, VerificationLevel = GetVfLvl(), ExplicitContentFilter = GetECFLvl() };
                 await Task.Run(async () =>
                 {
-                    await RESTCalls.ModifyGuild(guildId, modifyguild); //TODO: Rig to App.Events
+                    await RESTCalls.ModifyGuild(guildId, modifyguild);
                 });
 
                 CloseButton_Click(null, null);
@@ -192,7 +192,7 @@ namespace Discord_UWP.SubPages
 
                     Task.Run(async () =>
                     {
-                        await RESTCalls.ModifyGuildRole(guildId, roleId, modifyguildrole); //TODO: Rig to App.Events
+                        await RESTCalls.ModifyGuildRole(guildId, roleId, modifyguildrole);
                     });
                 }
             }
@@ -424,7 +424,7 @@ namespace Discord_UWP.SubPages
                 IEnumerable<Invite> invites = null;
                 await Task.Run(async () =>
                 {
-                    invites = await RESTCalls.GetChannelInvites(guildId); //TODO: Rig to App.Events
+                    invites = await RESTCalls.GetChannelInvites(guildId);
                 });
                 if (invites != null)
                 {
@@ -449,7 +449,7 @@ namespace Discord_UWP.SubPages
                 IEnumerable<Ban> bans = null;
                 await Task.Run(async () =>
                 {
-                    bans = await RESTCalls.GetGuildBans(guildId); //TODO: Rig to App.Events
+                    bans = await RESTCalls.GetGuildBans(guildId);
                 });
                 if (bans != null)
                 {
@@ -473,7 +473,7 @@ namespace Discord_UWP.SubPages
             string code = ((Invite)sender).String;
             try
             {
-                await RESTCalls.DeleteInvite(code); //TODO: Rig to App.Events
+                await RESTCalls.DeleteInvite(code);
                 InviteView.Items.Remove(InviteView.Items.FirstOrDefault(x => ((Invite) x).String == code));
             }
             catch (Exception)

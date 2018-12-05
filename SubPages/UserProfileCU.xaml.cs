@@ -292,7 +292,7 @@ namespace Discord_UWP.SubPages
 
                 await Task.Run(async () =>
                 {
-                    response = await RESTCalls.ModifyCurrentUser(modifyuser); //TODO: Rig to App.Events
+                    response = await RESTCalls.ModifyCurrentUser(modifyuser);
                 });
                 if (response == null || response?.Id == null)
                 {

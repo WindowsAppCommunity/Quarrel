@@ -266,7 +266,7 @@ namespace Discord_UWP
                     {
                         CheckOnline();
                     }
-                    if (GatewayManager.Gateway != null)
+                    if (IsOnline())
                     {
                         GatewayManager.Gateway.GatewayClosed += Gateway_GatewayClosed;
                         GatewayManager.StartGateway();
@@ -395,7 +395,7 @@ namespace Discord_UWP
                         }
                         if (LoggedIn())
                         {
-                            if (GatewayManager.Gateway != null)
+                            if (IsOnline())
                             {
                                 GatewayManager.StartGateway();
                                 Common.LoadEmojiDawg();
@@ -584,7 +584,7 @@ namespace Discord_UWP
             if (CinematicMode)
             {
                 Current.Resources["ShowFocusVisuals"] = true;
-                ApplicationViewScaling.TrySetDisableLayoutScaling(true);
+                ApplicationViewScaling.TrySetDisableLayoutScaling(!Storage.Settings.Scaling);
             }
                 
             //if the acrylic brushes exist AND the app is not running in cinematic mode, replace the app resources with them:
@@ -1918,8 +1918,20 @@ namespace Discord_UWP
 
         #endregion
 
+        public static event EventHandler<KeyHitArgs> VirtualKeyHitHandler;
+        public class KeyHitArgs
+        {
+            public Windows.System.VirtualKey Key;
+            public bool Released = false;
+        }
+        public static void HandleKeyPress(Windows.System.VirtualKey key, bool released = false)
+        {
+            VirtualKeyHitHandler?.Invoke(null, new KeyHitArgs() { Key = key, Released = released });
+        }
+
         public static event EventHandler<StatusPageClasses.Index> WentOffline;
         private static bool runningNetworkTest;
+        
 
         public static async void CheckOnline()
         {
