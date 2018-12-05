@@ -3088,13 +3088,16 @@ namespace Discord_UWP
 
         private async void App_GuildChannelDeletedHandler(object sender, App.GuildChannelDeletedArgs e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     if (channelCollection.Count > 0)
-                        foreach (SimpleChannel channel in channelCollection)
-                            if (channel.Id == e.ChannelId)
-                                channelCollection.Remove(channel);
+                        for (int i = 0; i < channelCollection.Count; i++)
+                            if (channelCollection[i].Id == e.ChannelId)
+                            {
+                                channelCollection.RemoveAt(i);
+                                break;
+                            }
                 });
         }
 
