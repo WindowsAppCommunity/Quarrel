@@ -100,6 +100,7 @@ namespace Discord_UWP.SubPages
                 OfflineMode = true;
                 cache.Fill = (SolidColorBrush) Application.Current.Resources["AcrylicMessageBackground"];
             }
+            blurple = (Color)Application.Current.Resources["BlurpleColor"];
             grid.Opacity = 0;
             grid.Visibility = Visibility.Collapsed;
             LoadingRing.IsActive = true;
@@ -188,7 +189,7 @@ namespace Discord_UWP.SubPages
         }
         private readonly List<double> _data = new List<double>();
         private const float DataStrokeThickness = 1;
-        private Color blurple = (Color) Application.Current.Resources["BlurpleColor"];
+        private Color blurple;
         private readonly ChartRenderer _chartRenderer;
         private double _min = 0;
         private double _max = 0;
