@@ -58,8 +58,6 @@ namespace Discord_UWP.SubPages
         private void UpdateStats()
         {
             var stats = GatewayManager.Gateway.GetStats();
-            incomingData.Text = Common.HumanizeBandwidth(stats.InboundBitsPerSecond);
-            outgoingData.Text = Common.HumanizeBandwidth(stats.OutboundBitsPerSecond);
         }
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -164,6 +162,11 @@ namespace Discord_UWP.SubPages
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(SubPages.Licenses));
+        }
+
+        private void HyperlinkButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SubPages.DiscordStatus));
         }
     }
 }
