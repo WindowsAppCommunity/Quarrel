@@ -1675,7 +1675,7 @@ namespace Discord_UWP
                 if (!App.Insider)
                     AddFriend.Visibility = e.ChannelId == null ? Visibility.Visible : Visibility.Collapsed;
 
-                if (LocalState.RPC.ContainsKey(e.ChannelId))
+                if (e.ChannelId != null && LocalState.RPC.ContainsKey(e.ChannelId))
                     App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
                 else
                     App.LastReadMsgId = null;
@@ -1746,6 +1746,9 @@ namespace Discord_UWP
                 UpdateTyping();
 
                 RenderMessages();
+            } else
+            {
+                OpenFriendPanel(null, null);
             }
 
             _currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
