@@ -3047,9 +3047,12 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    foreach (SimpleChannel chn in channelCollection)
-                        if (chn.Id == e.DMId)
-                            channelCollection.Remove(chn);
+                    for (int i = 0; i < channelCollection.Count; i++)
+                        if (channelCollection[i].Id == e.DMId)
+                        {
+                            channelCollection.RemoveAt(i);
+                            break;
+                        }
                 });
         }
 
