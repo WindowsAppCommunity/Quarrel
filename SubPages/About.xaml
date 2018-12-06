@@ -180,7 +180,7 @@
                                 <TextBlock x:Uid="/About/ChristopherBlackmanCredit"  TextWrapping="Wrap" Text="Christopher Blackman (who wrote the awesome MyTube app) for the invaluable tips and help" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
                                 <!--<TextBlock x:Uid="/About/TranslatorsCredit" TextWrapping="Wrap" Text="Translators: " FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>-->
                                 <HyperlinkButton x:Uid="/About/LicensesHLBTN" Content="Licenses" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0" Click="HyperlinkButton_Click"/>
-
+                                <HyperlinkButton x:Uid="/About/DiscordStatusHLBTN" Content="Discord Server status" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0" Click="HyperlinkButton_Click_1"/>
                                 <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
                                     <TextBlock x:Uid="/About/AccordingToMicrosoftTB" Text="According to Microsoft's Licensing you have bought:" FontWeight="Bold"/>
                                     <TextBlock x:Name="PuracheList"/>
@@ -190,26 +190,7 @@
                                 </StackPanel>
 
                             <StackPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,24,0,12">
-                                <RichTextBlock Margin="0,24,0,0" FontSize="12" FontFamily="Consolas">
-                                    <Paragraph>
-                                        <Run x:Uid="/About/InboundRun" Text="Inbound:"/>
-                                        <Run x:Name="incomingData">
-                                            <Run.Foreground>
-                                                <SolidColorBrush Color="{StaticResource SystemBaseHighColor}" Opacity="0.4"/>
-                                            </Run.Foreground>
-                                        </Run>
-                                    </Paragraph>
-                                    <Paragraph>
-                                        <Run x:Uid="/About/OutboundRun" Text="Outbound:"/>
-                                        <Run x:Name="outgoingData">
-                                            <Run.Foreground>
-                                                <SolidColorBrush Color="{StaticResource SystemBaseHighColor}" Opacity="0.4"/>
-                                            </Run.Foreground>
-                                        </Run>
-                                    </Paragraph>
-                                </RichTextBlock>
-
-<TextBlock FontSize="16" x:Name="appVersion" Opacity="1" FontWeight="SemiBold" Text="Quarrel Magor.Minor.Build"/>
+                                <TextBlock FontSize="16" x:Name="appVersion" Opacity="1" FontWeight="SemiBold" Text="Quarrel Magor.Minor.Build"/>
                                 <TextBlock x:Name="buildNumber" Visibility="Collapsed" Text="Build 0000" FontSize="13.333" Margin="0,4,0,0"/>
                                 <TextBlock x:Name="buildId" Visibility="Collapsed" Opacity="0.5" FontSize="12" Margin="0" Text="Commit ##### from ######" />
                                 <TextBlock x:Name="token" Visibility="Collapsed" Text="test" FontSize="9" IsTextSelectionEnabled="True" Opacity="0.5" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontFamily="Consolas" Margin="0,12,0,0" />

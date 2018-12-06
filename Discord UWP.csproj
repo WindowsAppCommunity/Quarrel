@@ -491,6 +491,7 @@
     <None Include="Discord UWP_TemporaryKey.pfx" />
     <None Include="Javascript sources\Games.json" />
     <None Include="Javascript sources\GUILD_SYNC.json" />
+    <None Include="Javascript sources\OutageIndex.json" />
     <None Include="Javascript sources\READY - Copy.json" />
     <None Include="Javascript sources\READY.json" />
     <None Include="Javascript sources\Source1.js" />
