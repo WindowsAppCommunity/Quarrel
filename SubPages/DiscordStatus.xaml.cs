@@ -210,6 +210,7 @@ namespace Discord_UWP.SubPages
         private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             chartClip.Rect = new Rect(-chartCanvas.ActualWidth, 0, chartCanvas.ActualWidth, chartCanvas.ActualHeight);
+            chartClipTransform.X = chartCanvas.ActualWidth;
             ShowChartDa.To = chartCanvas.ActualWidth;
             HideChartDa.From = chartCanvas.ActualWidth;
         }
@@ -251,6 +252,7 @@ namespace Discord_UWP.SubPages
 
         private void ChartIndicator_OnDraw(CanvasControl sender, CanvasDrawEventArgs args)
         {
+            
             if (_chartRenderer.stepsize != 0)
             {
                 var location = Convert.ToInt32(Math.Round(CursorPosition / _chartRenderer.stepsize));
@@ -266,21 +268,22 @@ namespace Discord_UWP.SubPages
                     string durationText;
                     if (!dayDuration.IsEnabled)
                     {
-                        durationText = date.TimeOfDay.ToString();
+                        durationText = date.ToString("t");
                     }
                     else if (!weekDuration.IsEnabled)
                     {
-                        durationText = date.TimeOfDay.ToString() + " " + date.DayOfWeek.ToString();
+                        durationText = date.DayOfWeek.ToString() + " " + date.ToString("t");
                     }
                     else
                     {
-                        durationText = date.ToString();
+                        durationText = date.ToString("g");
                     }
                     CanvasTextLayout textLayout2 = new CanvasTextLayout(args.DrawingSession, durationText, format, 0.0f, 0.0f);
 
-                    if (chartIndicator.ActualWidth - (CursorPosition + textLayout.DrawBounds.Width) < 0)
+                    if (CursorPosition + textLayout2.DrawBounds.Width + 36 > chartIndicator.ActualWidth || CursorPosition + textLayout.DrawBounds.Width + 36 > chartIndicator.ActualWidth)
                     {
                         args.DrawingSession.DrawTextLayout(textLayout, new Vector2(Convert.ToSingle((CursorPosition - textLayout.DrawBounds.Width-12)), 0), Color.FromArgb(255, 255, 255, 255));
+                        args.DrawingSession.DrawTextLayout(textLayout2, new Vector2(Convert.ToSingle((CursorPosition - textLayout2.DrawBounds.Width - 12)), 14), Color.FromArgb(120, 255, 255, 255));
                     }
                     else
                     {
@@ -295,12 +298,13 @@ namespace Discord_UWP.SubPages
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-        //    chartIndicator.Fade(1, 300);
+
+            chartIndicator.Fade(1, 300).Start();
         }
 
         private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-        //    chartIndicator.Fade(0, 300);
+            chartIndicator.Fade(0, 300).Start();
         }
     }
 }
