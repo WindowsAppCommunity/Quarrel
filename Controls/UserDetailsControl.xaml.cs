@@ -347,23 +347,56 @@ namespace Discord_UWP.Controls
 
         private async void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<Presence> e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 try
                 {
                     if (e.EventData.User.Id == DisplayedMember.User.Id)
                     {
+                        if (e.EventData.Status != null && e.EventData.Status != "invisible")
+                            rectangle.Fill = (SolidColorBrush)App.Current.Resources[e.EventData.Status];
+                        else if (e.EventData.Status == "invisible")
+                            rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
+
                         if (e.EventData.Game != null)
                         {
-                           // PlayingHeader.Visibility = Visibility.Visible;
-                            var game = e.EventData.Game;
-                            richPresence.GameContent = game;
+                            // PlayingHeader.Visibility = Visibility.Visible;
+                            richPresence.GameContent = e.EventData.Game;
                             richPresence.Visibility = Visibility.Visible;
+                            SolidColorBrush color = (SolidColorBrush)Application.Current.Resources["Blurple"];
+                            switch (e.EventData.Game.Type)
+                            {
+                                case 1:
+                                    {
+                                        //streaming
+                                        color = new SolidColorBrush(Color.FromArgb(255, 100, 65, 164));
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        //spotify
+                                        color = new SolidColorBrush(Color.FromArgb(255, 30, 215, 96));
+                                        break;
+                                    }
+                            }
+                            if (e.EventData.Game.ApplicationId == "438122941302046720")
+                            {
+                                //xbox
+                                color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
+                            }
+                            ChangeAccentColor(color);
                         }
                         else
                         {
-                          //  PlayingHeader.Visibility = Visibility.Collapsed;
                             richPresence.Visibility = Visibility.Collapsed;
+                            if (Storage.Settings.DerivedColor)
+                            {
+                                Color? color = await App.getUserColor(DisplayedMember.User);
+                                if (color.HasValue)
+                                {
+                                    ChangeAccentColor(new SolidColorBrush(color.Value));
+                                }
+                            }
                         }
                     }
                 }
