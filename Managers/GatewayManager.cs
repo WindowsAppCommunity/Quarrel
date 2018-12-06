@@ -388,7 +388,7 @@ namespace Discord_UWP.Managers
                     if (LocalState.DMs.ContainsKey(e.EventData.ChannelId))
                     {
                         IsDM = true;
-                        if (e.EventData.Type == 3)
+                        if (e.EventData.Type == 3 && e.EventData.User.Id != LocalState.CurrentUser.Id)
                         {
                             //TODO: Handle calls
                             NotificationManager.CreateCallNotification(e.EventData);

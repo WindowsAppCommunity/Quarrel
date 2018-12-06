@@ -615,7 +615,7 @@ namespace Discord_UWP.Controls
             if (ChannelId != e.Message.ChannelId) return;
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
-                if (e.Message.Type == 3)
+                if (e.Message.Type == 3 && e.Message.User.Id != LocalState.CurrentUser.Id)
                 {
                     //TODO: Pretty up this shit (animations)
                     // AcceptCallUI.Tag = e.Message.ChannelId;
