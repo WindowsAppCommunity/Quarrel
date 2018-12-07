@@ -3342,7 +3342,7 @@ namespace Discord_UWP
 
             foreach (KeyValuePair<string, GuildMember> member in LocalState.Guilds[App.CurrentGuildId].members)
                 if (LocalState.Guilds[App.CurrentGuildId].Raw.MemberCount < 1000 ||
-                    LocalState.PresenceDict.ContainsKey(member.Key)) //Small guild
+                    (LocalState.PresenceDict.ContainsKey(member.Key) && LocalState.PresenceDict[member.Key].Status != "offline")) //Small guild
                 {
                     Member m = new Member(member.Value);
                     m.Raw.Roles = m.Raw.Roles.TakeWhile(x => LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x))
