@@ -90,7 +90,7 @@ namespace Discord_UWP
                 }
             }
             
-            switch (rand.Next(0, 127))
+            switch (rand.Next(0, 132))
             {
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
@@ -218,6 +218,11 @@ namespace Discord_UWP
                 case 125: return kvp("Okay, this is epic", "@austinception#8911");
                 case 126: return kvp("Starting in Greenland");
                 case 127: return kvp("Kowalski, Analysis");
+                case 128: return kvp("Whipping developers...", "@WPFI#9651");
+                case 129: return kvp("Taking the red pill...", "@WPFI#9651");
+                case 130: return kvp("Taking the red pill...", "@WPFI#9651");
+                case 131: return kvp("Adopting woodlice", "@austinception#5634");
+                case 132: return kvp("Adopting woodlice", "@austinception#5634");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
