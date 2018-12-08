@@ -546,4 +546,97 @@
   <data name="ResetQuarrelBTN.Content" xml:space="preserve">
     <value>Reset Quarrel</value>
   </data>
+  <data name="NoInput.Text" xml:space="preserve">
+    <value>Unfortunatly, Quarrel wasn't able to find or use an input device. Listening in voice channels will stil work but speaking won't</value>
+  </data>
+  <data name="TTLTB.Text" xml:space="preserve">
+    <value>TTL Attachments</value>
+  </data>
+  <data name="TTLDescTB.Text" xml:space="preserve">
+    <value>TTL (Tap To Load). Images, Audio or Videos in messages will not show unless you tap a replacement icon first</value>
+  </data>
+  <data name="Theme.Header" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="ADVANCEDTB.Text" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="RichPresenceDescTB.Text" xml:space="preserve">
+    <value>Allow other UWP apps to connect to Quarrel to set the user's Rich Presence</value>
+  </data>
+  <data name="EnableBackgroundVoiceTB.Text" xml:space="preserve">
+    <value>Background Voice Support</value>
+  </data>
+  <data name="BehaviorPI.Header" xml:space="preserve">
+    <value>Behavior</value>
+  </data>
+  <data name="DeviceOverrideTB.Text" xml:space="preserve">
+    <value>Can be overriden by session by right clicking or holding the Deafen button in Voice Channel</value>
+  </data>
+  <data name="CHANNELSTB.Text" xml:space="preserve">
+    <value>CHANNELS</value>
+  </data>
+  <data name="DataLimitingTB.Text" xml:space="preserve">
+    <value>Data Limiting</value>
+  </data>
+  <data name="DataLimiting2TB.Text" xml:space="preserve">
+    <value>Data Limiting on Mobile Data</value>
+  </data>
+  <data name="DisplayPI.Header" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="EnableBackgroundVoiceDescTB.Text" xml:space="preserve">
+    <value>Experimental, may cause crashes</value>
+  </data>
+  <data name="ShowNoPermissionsChannelsDescTB.Text" xml:space="preserve">
+    <value>Gaze upon that which yee cannot enter</value>
+  </data>
+  <data name="IntegrationTB.Text" xml:space="preserve">
+    <value>INTEGRATION</value>
+  </data>
+  <data name="MyPeopleTB.Text" xml:space="preserve">
+    <value>MyPeople</value>
+  </data>
+  <data name="NetworkPI.Header" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="OnMDTB.Text" xml:space="preserve">
+    <value>On Mobile Data</value>
+  </data>
+  <data name="ScalingDescTB.Text" xml:space="preserve">
+    <value>On smaller screens everything can be a bit small on Xbox so you can enabled scaling to make it all bigger</value>
+  </data>
+  <data name="OtherPI.Header" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="OverrideCategoryCollaspseTB.Text" xml:space="preserve">
+    <value>Override Category Collapse</value>
+  </data>
+  <data name="ResetQuarrelSettingsBTN.Content" xml:space="preserve">
+    <value>Reset Quarrel Settings</value>
+  </data>
+  <data name="RichPresenceTB.Text" xml:space="preserve">
+    <value>Rich Presence</value>
+  </data>
+  <data name="RunEveryLabelTB.Text" xml:space="preserve">
+    <value>Run background process every:</value>
+  </data>
+  <data name="ScalingTB.Text" xml:space="preserve">
+    <value>Scaling</value>
+  </data>
+  <data name="MyPeopleDescTB.Text" xml:space="preserve">
+    <value>Show Discord contacts in the People app and on the taskbar</value>
+  </data>
+  <data name="ShowNoPermissionsChannelsTB.Text" xml:space="preserve">
+    <value>Show No Permissions Channels</value>
+  </data>
+  <data name="StandardTB.Text" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="BGTaskNoSuccessfulRun" xml:space="preserve">
+    <value>The background task has not run succesfully yet</value>
+  </data>
+  <data name="BGTaskNoRun" xml:space="preserve">
+    <value>The background task has not run yet</value>
+  </data>
 </root>

@@ -609,7 +609,7 @@
                                 <StackPanel>
                                     <TextBlock x:Uid="/Settings/CHANNELSTB" Text="CHANNELS" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
 
-                                    <TextBlock Text="Override Category Collapse" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                    <TextBlock x:Uid="/Settings/OverrideCategoryCollaspseTB" Text="Override Category Collapse" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                     <RadioButton x:Uid="/Settings/NoneRB" Content="No Override" x:Name="NoOverride" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
                                     <RadioButton x:Uid="/Settings/MentionsRB" Content="Mentions" x:Name="OverrideMention" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
                                     <RadioButton x:Uid="/Settings/UnreadRB" Content="Unread" x:Name="OverrideUnread" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
@@ -746,7 +746,7 @@
                                     <TextBlock x:Uid="/Settings/BGNotifsTB" Text="BACKGROUND NOTIFICATIONS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="12,12,0,0"/>
                                     <ToggleSwitch x:Uid="/Settings/BGEnableTS" x:Name="bgEnabler" FontSize="13.333" VerticalContentAlignment="Top" Style="{StaticResource DiscordToggleSwitch}" Margin="12,0,12,0" OffContent="Enable background notifications" Toggled="bgEnabler_Toggled" OnContent="Enable background notifications" HorizontalAlignment="Stretch"/>
                                     <TextBlock x:Uid="/Settings/BGNotifInfoTB" Text="You will receive notifications for whatever is selected below every time the background process runs" TextWrapping="Wrap" FontSize="10" Opacity="0.5" Margin="12,-16,72,0"/>
-                                    <TextBlock x:Name="RunEveryLabel" Text="Run background process every:" FontSize="13.333" Margin="12,6,0,0"/>
+                                    <TextBlock x:Uid="/Settings/RunEveryLabelTB" x:Name="RunEveryLabel" Text="Run background process every:" FontSize="13.333" Margin="12,6,0,0"/>
                                     <TextBlock x:Name="sliderTime" Text="15min" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="28" Margin="12,0,0,0" FontWeight="SemiLight"/>
                                     <Slider x:Name="timeSlider" Margin="12,-4,12,0"  Style="{StaticResource DiscordSlider}" Maximum="288" ValueChanged="Slider_ValueChanged" Minimum="3" IsThumbToolTipEnabled="False"/>
                                     <TextBlock x:Name="bgLastRuntime" Text="The background task has not run yet" FontSize="11" Opacity="0.5" Margin="12,0,0,0" TextWrapping="Wrap"/>

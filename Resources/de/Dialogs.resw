@@ -553,7 +553,7 @@
     <value>E-Mail</value>
   </data>
   <data name="Sorry" xml:space="preserve">
-    <value>Entschuldigung : /</value>
+    <value>Verzeihung : /</value>
   </data>
   <data name="ThereWasAnErrorClarify" xml:space="preserve">
     <value>Beim Ändern Ihrer Kontoinformationen ist ein Fehler aufgetreten. Sind Sie sicher, dass auch alles richtig ist?</value>
@@ -734,5 +734,89 @@
   </data>
   <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
     <value>&lt;channel&gt; ist jetzt der AFK-Channel</value>
+  </data>
+  <data name="AuditLogServerUpdateAfkTimeout" xml:space="preserve">
+    <value>Maximale AFK-Zeit auf &lt;time&gt; **Minuten** gestellt</value>
+  </data>
+  <data name="AuditLogServerUpdateIcon" xml:space="preserve">
+    <value>Server-Icon aktualisiert</value>
+  </data>
+  <data name="AuditLogServerUpdateNotificationZero" xml:space="preserve">
+    <value>Standardbenachrichtigungsoption auf **alle Nachrichten** gestellt</value>
+  </data>
+  <data name="AuditLogServerUpdateNotificationOne" xml:space="preserve">
+    <value>Standardbenachrichtigungsoption auf **nur Erwähnungen** gestellt</value>
+  </data>
+  <data name="AuditLogServerUpdateRegion" xml:space="preserve">
+    <value>Region auf &lt;region&gt; gestellt</value>
+  </data>
+  <data name="AuditLogServerUpdateRegionChange" xml:space="preserve">
+    <value>Region von &lt;old&gt; auf &lt;new&gt; gestellt</value>
+  </data>
+  <data name="AuditLogChannelDeletePlural" xml:space="preserve">
+    <value>&lt;user&gt; hat &lt;x&gt; Nachrichten von &lt;user2&gt; in &lt;channel&gt; gelöscht</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilter" xml:space="preserve">
+    <value>Expliziter Inhaltsfilter auf &lt;level&gt; gestellt</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterChange" xml:space="preserve">
+    <value>Expliziter Inhaltsfilter von &lt;old&gt; auf &lt;new&gt; gestellt</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterOne" xml:space="preserve">
+    <value>Mitglieder ohne Rollen</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterTwo" xml:space="preserve">
+    <value>Jeder</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterZero" xml:space="preserve">
+    <value>Deaktiviert</value>
+  </data>
+  <data name="AuditLogServerUpdateMfaDisabled" xml:space="preserve">
+    <value>Zwei-Faktor-Authentifizierung **deaktiviert**</value>
+  </data>
+  <data name="AuditLogServerUpdateMfaEnabled" xml:space="preserve">
+    <value>Zwei-Faktor-Authentifizierung **aktiviert**</value>
+  </data>
+  <data name="AuditLogServerUpdateSplash" xml:space="preserve">
+    <value>Eröffnungsbildschirm bearbeitet</value>
+  </data>
+  <data name="AuditLogServerUpdateVerification" xml:space="preserve">
+    <value>Verifizierungs-Level auf &lt;level&gt; gestellt</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationChange" xml:space="preserve">
+    <value>Verifizierungs-Level von &lt;old&gt; auf &lt;new&gt; gestellt</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationFour" xml:space="preserve">
+    <value>┻━┻ミヽ(ಠ益ಠ)ノ彡┻━┻</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationOne" xml:space="preserve">
+    <value>Niedrig</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationThree" xml:space="preserve">
+    <value>(╯°□°）╯︵ ┻━┻</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationTwo" xml:space="preserve">
+    <value>Mittelmäßig</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationZero" xml:space="preserve">
+    <value>Keines</value>
+  </data>
+  <data name="AuditLogChannelUpdateTopicRemove" xml:space="preserve">
+    <value>Thema des Kanals entfernt</value>
+  </data>
+  <data name="AuditLogMemberUpdateNick" xml:space="preserve">
+    <value>Nickname zu &lt;nick&gt; geändert</value>
+  </data>
+  <data name="AuditLogMemberUpdateNickChange" xml:space="preserve">
+    <value>Nickname von &lt;old&gt; zu &lt;new&gt; geändert</value>
+  </data>
+  <data name="AuditLogMemberUpdateNickRemove" xml:space="preserve">
+    <value>Nickname &lt;old&gt; entfernt</value>
+  </data>
+  <data name="AuditLogMemberUpdateRoleAdd" xml:space="preserve">
+    <value>Rolle &lt;role&gt; hinzugefügt</value>
+  </data>
+  <data name="AuditLogMemberUpdateRoleRemove" xml:space="preserve">
+    <value>Rolle &lt;role&gt; entfernt</value>
   </data>
 </root>

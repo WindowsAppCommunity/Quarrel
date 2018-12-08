@@ -351,4 +351,13 @@
   <data name="SettingsMFI.Text" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="LeaveServerMFI" xml:space="preserve">
+    <value>Leave Server</value>
+  </data>
+  <data name="CallUserABB.Label" xml:space="preserve">
+    <value>Call</value>
+  </data>
+  <data name="DeleteServerMFI" xml:space="preserve">
+    <value>Delete Server</value>
+  </data>
 </root>

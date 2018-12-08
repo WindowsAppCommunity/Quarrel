@@ -117,13 +117,91 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AuditLogChannelUpdateBitrate" xml:space="preserve">
-    <value>Bitrate auf &lt;bitrate&gt; gestellt</value>
+  <data name="ADD_REACTIONS" xml:space="preserve">
+    <value>İfade ekle</value>
   </data>
-  <data name="AuditLogChannelUpdateBitrateChange" xml:space="preserve">
-    <value>Bitrate von &lt;old&gt; auf &lt;new&gt; gestellt</value>
+  <data name="ADMINISTRATOR" xml:space="preserve">
+    <value>Yönetici</value>
   </data>
-  <data name="AuditLogChannelUpdateName" xml:space="preserve">
-    <value>Name auf &lt;name&gt; gestellt</value>
+  <data name="ATTACH_FILES" xml:space="preserve">
+    <value>Dosya ekle</value>
+  </data>
+  <data name="BAN_MEMBERS" xml:space="preserve">
+    <value>Üye yasakla</value>
+  </data>
+  <data name="CHANGE_NICKNAME" xml:space="preserve">
+    <value>Kullanıcı adı değiştir</value>
+  </data>
+  <data name="CONNECT" xml:space="preserve">
+    <value>Bağlan</value>
+  </data>
+  <data name="CREATE_INSTANT_INVITE" xml:space="preserve">
+    <value>Anlık davet oluştur</value>
+  </data>
+  <data name="DEAFEN_MEMBERS" xml:space="preserve">
+    <value>Üyeleri sağırlaştır</value>
+  </data>
+  <data name="EMBED_LINKS" xml:space="preserve">
+    <value>Bağlantıları göm</value>
+  </data>
+  <data name="KICK_MEMBERS" xml:space="preserve">
+    <value>Üyeleri at</value>
+  </data>
+  <data name="MANAGE_CHANNELS" xml:space="preserve">
+    <value>Kanalları yönet</value>
+  </data>
+  <data name="MANAGE_EMOJIS" xml:space="preserve">
+    <value>İfadeleri yönet</value>
+  </data>
+  <data name="MANAGE_GUILD" xml:space="preserve">
+    <value>Sunucuyu yönet</value>
+  </data>
+  <data name="MANAGE_MESSAGES" xml:space="preserve">
+    <value>Mesajları yönet</value>
+  </data>
+  <data name="MANAGE_NICKNAMES" xml:space="preserve">
+    <value>Kullanıcı adlarını yönet</value>
+  </data>
+  <data name="MANAGE_ROLES" xml:space="preserve">
+    <value>Rolleri yönet</value>
+  </data>
+  <data name="MANAGE_WEBHOOKS" xml:space="preserve">
+    <value>Webhook'ları yönet</value>
+  </data>
+  <data name="MENTION_EVERYONE" xml:space="preserve">
+    <value>Herkese seslen</value>
+  </data>
+  <data name="MOVE_MEMBERS" xml:space="preserve">
+    <value>Üyeleri taşı</value>
+  </data>
+  <data name="MUTE_MEMBERS" xml:space="preserve">
+    <value>Üyeleri sessize al</value>
+  </data>
+  <data name="PRIORITY_SPEAKER" xml:space="preserve">
+    <value>Öncelikli konuşmacı</value>
+  </data>
+  <data name="READ_MESSAGE_HISTORY" xml:space="preserve">
+    <value>Mesaj geçmişini oku</value>
+  </data>
+  <data name="SEND_MESSAGES" xml:space="preserve">
+    <value>Mesaj gönder</value>
+  </data>
+  <data name="SEND_TTS_MESSAGES" xml:space="preserve">
+    <value>TTS mesajı gönder</value>
+  </data>
+  <data name="SPEAK" xml:space="preserve">
+    <value>Konuş</value>
+  </data>
+  <data name="USE_EXTERNAL_EMOJIS" xml:space="preserve">
+    <value>Dış ifadeler kullan</value>
+  </data>
+  <data name="USE_VAD" xml:space="preserve">
+    <value>Konuşma-etkinliği algılama kullan</value>
+  </data>
+  <data name="VIEW_AUDIT_LOG" xml:space="preserve">
+    <value>Denetim kaydını görüntüle</value>
+  </data>
+  <data name="VIEW_CHANNEL" xml:space="preserve">
+    <value>Kanalları görüntüle</value>
   </data>
 </root>

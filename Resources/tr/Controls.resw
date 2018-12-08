@@ -118,247 +118,222 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AcceptFriendRequestQ" xml:space="preserve">
-    <value>Accept friend request?</value>
-    <comment>Accept friend request?</comment>
+    <value>Arkadaşlık isteğini kabul et?</value>
   </data>
   <data name="ACTIVITIES" xml:space="preserve">
-    <value>ACTIVITIES</value>
-    <comment>Emoji category "Activities"</comment>
+    <value>ETKİNLİK</value>
   </data>
   <data name="AddReacItem.Text" xml:space="preserve">
-    <value>Add Reaction</value>
-    <comment>Add reaction text</comment>
+    <value>Tepki Ekle</value>
   </data>
   <data name="BlockedLI.Content" xml:space="preserve">
-    <value>BLOCKED</value>
-    <comment>Pivot header for blocked people (in friends pivot)</comment>
+    <value>SUSTURULMUŞ</value>
   </data>
   <data name="BotTB.Text" xml:space="preserve">
     <value>BOT</value>
-    <comment>"BOT", in all caps</comment>
   </data>
   <data name="CopyIdItem.Text" xml:space="preserve">
-    <value>Copy Id</value>
-    <comment>Copy ID text</comment>
+    <value>ID Kopyala</value>
   </data>
   <data name="DeleteItem.Text" xml:space="preserve">
-    <value>Delete</value>
-    <comment>Delete text</comment>
+    <value>Sil</value>
   </data>
   <data name="EditItem.Text" xml:space="preserve">
-    <value>Edit</value>
-    <comment>Edit text</comment>
+    <value>Düzenle</value>
   </data>
   <data name="FLAGS" xml:space="preserve">
-    <value>FLAGS</value>
-    <comment>Emoji category "Flags"</comment>
+    <value>BAYRAK</value>
   </data>
   <data name="FOOD" xml:space="preserve">
-    <value>FOOD</value>
-    <comment>Emoji category "Food"</comment>
+    <value>BESİN</value>
   </data>
   <data name="FriendRequestSent" xml:space="preserve">
-    <value>Friend request sent</value>
-    <comment>Friend request sent text</comment>
+    <value>Arkadaşlık isteği gönderildi</value>
   </data>
   <data name="InviteExpired" xml:space="preserve">
-    <value>Expired invite</value>
-    <comment>Expired invite</comment>
+    <value>Sona ermiş davet</value>
   </data>
   <data name="InviteInvalid" xml:space="preserve">
-    <value>Expired or invalid invite</value>
-    <comment>Expired or invalid invite</comment>
+    <value>Sona ermiş veya geçersiz davet</value>
   </data>
   <data name="InviteJoin" xml:space="preserve">
-    <value>Join</value>
-    <comment>Join an invite</comment>
+    <value>Katıl</value>
   </data>
   <data name="InviteJoined" xml:space="preserve">
-    <value>You have joined</value>
+    <value>Katıldın</value>
   </data>
   <data name="InviteMaxUses" xml:space="preserve">
-    <value>Max amount of uses reached</value>
+    <value>Kullanım sınırına ulaşıldı</value>
   </data>
   <data name="InviteTempDesc" xml:space="preserve">
-    <value>People who use this link will automatically be kicked out when they disconnect, unless they have been assigned a role.</value>
+    <value>Bu bağlantıyı kullanan kişiler, bir role atanmadıkça, çıkış yaptıklarında otomatik olarak atılacaklar.</value>
   </data>
   <data name="NATURE" xml:space="preserve">
-    <value>NATURE</value>
-    <comment>Emoji category "Nature"</comment>
+    <value>DOĞA</value>
   </data>
   <data name="OBJECTS" xml:space="preserve">
-    <value>OBJECTS</value>
-    <comment>Emoji category "Objects"</comment>
+    <value>NESNE</value>
   </data>
   <data name="OnlyOnlineFriendsCB.Content" xml:space="preserve">
-    <value>Only show online friends</value>
+    <value>Sadece çevrimiçi arkadaşları göster</value>
   </data>
   <data name="PendingTB.Text" xml:space="preserve">
-    <value>PENDING</value>
+    <value>BEKLEMEDE</value>
   </data>
   <data name="PEOPLE" xml:space="preserve">
-    <value>PEOPLE</value>
+    <value>KİŞİLER</value>
   </data>
   <data name="PinItem.Text" xml:space="preserve">
-    <value>Pin</value>
+    <value>Sabitle</value>
   </data>
   <data name="Playing" xml:space="preserve">
-    <value>Playing</value>
+    <value>Oyunda</value>
   </data>
   <data name="RevokeBanTB.Text" xml:space="preserve">
-    <value>Revoke ban</value>
+    <value>Yasağı kaldır</value>
   </data>
   <data name="RoleTB.Text" xml:space="preserve">
-    <value>Role</value>
+    <value>Rol</value>
   </data>
   <data name="SearchTBox.PlaceholderText" xml:space="preserve">
-    <value>Search...</value>
+    <value>Ara...</value>
   </data>
   <data name="SendMessagePlaceholderText" xml:space="preserve">
-    <value>Send message</value>
+    <value>Mesaj gönder</value>
   </data>
   <data name="Streaming" xml:space="preserve">
-    <value>Streaming</value>
+    <value>Yayında</value>
   </data>
   <data name="SYMBOLS" xml:space="preserve">
-    <value>SYMBOLS</value>
+    <value>SEMBOL</value>
   </data>
   <data name="TemporaryInviteTB.Text" xml:space="preserve">
-    <value>Temporary invite</value>
+    <value>Geçici davet</value>
   </data>
   <data name="TRAVEL" xml:space="preserve">
-    <value>TRAVEL</value>
+    <value>SEYAHAT</value>
   </data>
   <data name="UsePlural" xml:space="preserve">
-    <value>uses</value>
+    <value>kullanıyor</value>
   </data>
   <data name="UseSingular" xml:space="preserve">
-    <value>use</value>
+    <value>kullanıyor</value>
   </data>
   <data name="Edited" xml:space="preserve">
-    <value>Edited</value>
+    <value>Düzenlendi</value>
   </data>
   <data name="ExpiredLink" xml:space="preserve">
-    <value>Expired link</value>
+    <value>Süresi dolmuş bağlantı</value>
   </data>
   <data name="expiresIn" xml:space="preserve">
-    <value>expires in &lt;time&gt;</value>
+    <value>&lt;time&gt; içinde sona eriyor</value>
   </data>
   <data name="expiresNever" xml:space="preserve">
-    <value>never expires</value>
+    <value>asla sona ermez</value>
   </data>
   <data name="InviteTo" xml:space="preserve">
-    <value>Invite to</value>
+    <value>Şuraya davet et</value>
   </data>
   <data name="Pin" xml:space="preserve">
-    <value>Pin</value>
+    <value>Sabitle</value>
   </data>
   <data name="Unpin" xml:space="preserve">
-    <value>Unpin</value>
+    <value>Sabitlemeyi kaldır</value>
   </data>
   <data name="RemoveFromFriends.Text" xml:space="preserve">
-    <value>Remove from friends</value>
+    <value>Arkadaşlardan çıkar</value>
   </data>
   <data name="SendMessage.Text" xml:space="preserve">
-    <value>Send message</value>
+    <value>Mesaj gönder</value>
   </data>
   <data name="Call.Text" xml:space="preserve">
-    <value>Call</value>
+    <value>Ara</value>
   </data>
   <data name="FriendsLI.Content" xml:space="preserve">
-    <value>FRIENDS</value>
+    <value>ARKADAŞLAR</value>
   </data>
   <data name="AllLI.Content" xml:space="preserve">
-    <value>ALL</value>
+    <value>TÜMÜ</value>
   </data>
   <data name="AcceptFriendRequest?" xml:space="preserve">
-    <value>Accept friend request?</value>
+    <value>Arkadaşlık isteğini kabul et?</value>
   </data>
   <data name="AddedUser" xml:space="preserve">
-    <value>added </value>
+    <value>eklendi</value>
   </data>
   <data name="RemovedUser" xml:space="preserve">
-    <value>removed </value>
+    <value>çıkarıldı</value>
   </data>
   <data name="ToTheConversation" xml:space="preserve">
-    <value>&lt;user&gt; to the conversation</value>
+    <value>&lt;user&gt; sohbete</value>
   </data>
   <data name="FromTheConversation" xml:space="preserve">
-    <value>&lt;user&gt; from the conversation</value>
+    <value>&lt;user&gt; sohbetten</value>
   </data>
   <data name="YouMissedACall" xml:space="preserve">
-    <value>You missed a call from &lt;user&gt;</value>
+    <value>&lt;user&gt; kişisinden cevapsız arama</value>
   </data>
   <data name="PinnedAMessageInThisChannel" xml:space="preserve">
-    <value>pinned a message in this channel.</value>
+    <value>bu kanalda bir mesaj sabitledi.</value>
   </data>
   <data name="CallStartedBy" xml:space="preserve">
-    <value>Call started by &lt;user&gt;</value>
+    <value>Arama &lt;user&gt; tarafından başlatıldı</value>
   </data>
   <data name="StartedACall" xml:space="preserve">
-    <value>started a call</value>
+    <value>bir arama başlattı</value>
   </data>
   <data name="You" xml:space="preserve">
-    <value>You</value>
+    <value>Sen</value>
   </data>
   <data name="PlayingTB.Text" xml:space="preserve">
-    <value>PLAYING</value>
+    <value>OYUNDA</value>
   </data>
   <data name="JoinedTheServer" xml:space="preserve">
-    <value>joined the server!</value>
+    <value>sunucuya katıldı!</value>
   </data>
   <data name="EditedAt" xml:space="preserve">
-    <value>Edited at &lt;time&gt;</value>
+    <value>Düzenlenme zamanı &lt;time&gt; </value>
   </data>
   <data name="JoinListenSessionBTN.Content" xml:space="preserve">
-    <value>Join listening session</value>
+    <value>Dinleme oturumuna katıl</value>
   </data>
   <data name="SessionOverTB.Text" xml:space="preserve">
-    <value>SPOTIFY SESSION IS OVER :'(</value>
+    <value>SPOTIFY OTURUMU SONA ERDİ :'(</value>
   </data>
   <data name="AddAttachMFI.Text" xml:space="preserve">
-    <value>Attachments</value>
+    <value>Ekler</value>
   </data>
   <data name="GiphySearchTBox.PlaceholderText" xml:space="preserve">
-    <value>Search with Giphy</value>
+    <value>Giphy ile ara</value>
   </data>
   <data name="ListeningTo" xml:space="preserve">
-    <value>Listening to</value>
+    <value>Dinleniyor</value>
   </data>
   <data name="LoadingTB.Text" xml:space="preserve">
-    <value>LOADING</value>
+    <value>YÜKLENİYOR</value>
   </data>
   <data name="SearchGiphyMFI.Text" xml:space="preserve">
-    <value>Search Giphy</value>
+    <value>Giphy ara</value>
   </data>
   <data name="SendSpotifyInvMFI.Text" xml:space="preserve">
-    <value>Send Spotify Invite</value>
+    <value>Spotify Daveti Gönder</value>
   </data>
   <data name="BlockedMessageTB.Text" xml:space="preserve">
-    <value>Blocked Message</value>
+    <value>Engellenmiş Mesaj</value>
   </data>
   <data name="NoteTBox.PlaceholderText" xml:space="preserve">
-    <value>Add Note</value>
+    <value>Not Ekle</value>
   </data>
   <data name="VolumeSlide.Header" xml:space="preserve">
-    <value>Volume</value>
+    <value>Ses Seviyesi</value>
   </data>
   <data name="TryResetBTN.Content" xml:space="preserve">
-    <value>Having issues? Try resetting Quarrel</value>
+    <value>Sorun mu var? Quarrel'ı sıfırlamayı dene</value>
   </data>
   <data name="ACTIVITESLI.Content" xml:space="preserve">
-    <value>ACTIVITES</value>
+    <value>ETKİNLİK</value>
   </data>
   <data name="Watching" xml:space="preserve">
-    <value>Watching</value>
-  </data>
-  <data name="SendMessageTB.PlaceholderText" xml:space="preserve">
-    <value>Send message</value>
-  </data>
-  <data name="NoSendPermission" xml:space="preserve">
-    <value>You don't have permission to post in this channel</value>
-  </data>
-  <data name="SendMessagePlaceHolder" xml:space="preserve">
-    <value>Send message</value>
+    <value>İzliyor</value>
   </data>
 </root>

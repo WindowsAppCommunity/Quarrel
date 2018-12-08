@@ -42,17 +42,8 @@ namespace Discord_UWP.SubPages
             App.SubpageCloseHandler -= App_SubpageCloseHandler;
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        private async void LoadSettings()
         {
-            base.OnNavigatedTo(e);
-
-            DerviedColor.Foreground = App.Current.RequestedTheme == ApplicationTheme.Dark ? DarkThemeAccentGradient : LightThemeAccentGradient;
-
-            if (!App.Insider)
-            {
-                pivotBase.Items.Remove(SoundsPI);
-            }
-
             //TODO: Settings
             HighlightEveryone.IsChecked = Storage.Settings.HighlightEveryone;
             //Toasts.IsChecked = Storage.Settings.Toasts;
@@ -89,7 +80,8 @@ namespace Discord_UWP.SubPages
             if (Storage.Settings.DiscordSounds)
             {
                 radio_DiscordSounds.IsChecked = true;
-            } else
+            }
+            else
             {
                 radio_WindowsSounds.IsChecked = true;
             }
@@ -135,9 +127,9 @@ namespace Discord_UWP.SubPages
             if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey("bgTaskLastrun"))
             {
                 if (bgLastRuntimeStatus.Visibility == Visibility.Collapsed)
-                    bgLastRuntime.Text = "The background task has not run yet";
+                    bgLastRuntime.Text = App.GetString("/Settings/BGTaskNoRun");
                 else
-                    bgLastRuntime.Text = "The background task has not run succesfully yet";
+                    bgLastRuntime.Text = App.GetString("/Settings/BGTaskNoSuccessfulRun");
             }
             else
             {
@@ -270,13 +262,14 @@ namespace Discord_UWP.SubPages
 
 
             //Output Devices
+            OutputDevices.Items.Clear();
             var odevices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioRender);
             OutputDevices.Items.Add(new ComboBoxItem() { Content = "Default", Tag = "Default" });
             OutputDevices.SelectedIndex = 0;
             int i = 1;
             foreach (var device in odevices)
             {
-                OutputDevices.Items.Add(new ComboBoxItem() { Content = device.Name, Tag = device.Id, IsEnabled = device.IsEnabled});
+                OutputDevices.Items.Add(new ComboBoxItem() { Content = device.Name, Tag = device.Id, IsEnabled = device.IsEnabled });
                 if (device.Id == Storage.Settings.OutputDevice)
                 {
                     OutputDevices.SelectedIndex = i;
@@ -285,6 +278,7 @@ namespace Discord_UWP.SubPages
             }
 
             //Input Devices
+            InputDevices.Items.Clear();
             var idevices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioCapture);
             InputDevices.Items.Add(new ComboBoxItem() { Content = "Default", Tag = "Default" });
             InputDevices.SelectedIndex = 0;
@@ -302,15 +296,15 @@ namespace Discord_UWP.SubPages
 
             foreach (var language in ApplicationLanguages.ManifestLanguages)
             {
-               var lang = new Windows.Globalization.Language(language);
-               ComboBoxItem item = new ComboBoxItem();
+                var lang = new Windows.Globalization.Language(language);
+                ComboBoxItem item = new ComboBoxItem();
                 item.Content = UppercaseFirst(lang.NativeName);
-                if(lang.NativeName != lang.DisplayName) item.Content+= " (" + lang.DisplayName + ")";
+                if (lang.NativeName != lang.DisplayName) item.Content += " (" + lang.DisplayName + ")";
                 item.Tag = language;
-               LanguageSelection.Items.Add(item);
+                LanguageSelection.Items.Add(item);
             }
 
-            if(string.IsNullOrWhiteSpace(ApplicationLanguages.PrimaryLanguageOverride))
+            if (string.IsNullOrWhiteSpace(ApplicationLanguages.PrimaryLanguageOverride))
             {
                 LanguageSelection.SelectedIndex = 0;
             }
@@ -318,7 +312,7 @@ namespace Discord_UWP.SubPages
             {
                 foreach (var item in LanguageSelection.Items)
                 {
-                    if (((ComboBoxItem) item).Tag.ToString() == ApplicationLanguages.PrimaryLanguageOverride)
+                    if (((ComboBoxItem)item).Tag.ToString() == ApplicationLanguages.PrimaryLanguageOverride)
                     {
                         LanguageSelection.SelectedItem = item;
                         break;
@@ -328,6 +322,21 @@ namespace Discord_UWP.SubPages
 
             if (LanguageSelection.SelectedIndex == -1)
                 LanguageSelection.SelectedIndex = 0;
+
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            DerviedColor.Foreground = App.Current.RequestedTheme == ApplicationTheme.Dark ? DarkThemeAccentGradient : LightThemeAccentGradient;
+
+            LoadSettings();
+
+            if (!App.Insider)
+            {
+                pivotBase.Items.Remove(SoundsPI);
+            }
 
             if (await AudioManager.CreateInputDeviceNode(Storage.Settings.InputDevice))
             {
@@ -727,7 +736,7 @@ namespace Discord_UWP.SubPages
 
         private void HyperlinkButton_Click_2(object sender, RoutedEventArgs e)
         {
-
+            Storage.Settings = new Discord_UWP.Settings();
         }
     }
 }

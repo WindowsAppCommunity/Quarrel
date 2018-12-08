@@ -117,13 +117,106 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AuditLogChannelUpdateBitrate" xml:space="preserve">
-    <value>Bitrate auf &lt;bitrate&gt; gestellt</value>
+  <data name="AcceptFriendRequest" xml:space="preserve">
+    <value>Arkadaşlık isteğini kabul et</value>
   </data>
-  <data name="AuditLogChannelUpdateBitrateChange" xml:space="preserve">
-    <value>Bitrate von &lt;old&gt; auf &lt;new&gt; gestellt</value>
+  <data name="AddFriend" xml:space="preserve">
+    <value>Arkadaş ekle</value>
   </data>
-  <data name="AuditLogChannelUpdateName" xml:space="preserve">
-    <value>Name auf &lt;name&gt; gestellt</value>
+  <data name="BanMember" xml:space="preserve">
+    <value>Üye yasakla</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Engelle</value>
+  </data>
+  <data name="ChangeNickname" xml:space="preserve">
+    <value>Kullanıcı adı değiştir</value>
+  </data>
+  <data name="CloseDM" xml:space="preserve">
+    <value>DM kapat</value>
+  </data>
+  <data name="Deafen" xml:space="preserve">
+    <value>Sağırlaştır</value>
+  </data>
+  <data name="DeleteChannel" xml:space="preserve">
+    <value>Kanalı sil</value>
+  </data>
+  <data name="DeleteServer" xml:space="preserve">
+    <value>Sunucuyu sil</value>
+  </data>
+  <data name="EditChannel" xml:space="preserve">
+    <value>Kanalı düzenle</value>
+  </data>
+  <data name="EditServer" xml:space="preserve">
+    <value>Sunucuyu düzenle</value>
+  </data>
+  <data name="InviteToServer" xml:space="preserve">
+    <value>Sunucuya davet et</value>
+  </data>
+  <data name="KickMember" xml:space="preserve">
+    <value>Üye at</value>
+  </data>
+  <data name="LeaveGroup" xml:space="preserve">
+    <value>Gruptan Ayrıl</value>
+  </data>
+  <data name="LeaveServer" xml:space="preserve">
+    <value>Sunucudan ayrıl</value>
+  </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Okundu olarak işaretle</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Mesaj</value>
+  </data>
+  <data name="MoveChannel" xml:space="preserve">
+    <value>Kanalı taşı</value>
+  </data>
+  <data name="Mute" xml:space="preserve">
+    <value>Sessize al</value>
+  </data>
+  <data name="MuteChannel" xml:space="preserve">
+    <value>Kanalı sessize al</value>
+  </data>
+  <data name="MuteServer" xml:space="preserve">
+    <value>Sunucuyu sessize al</value>
+  </data>
+  <data name="PinFailed" xml:space="preserve">
+    <value>Sabitleme başarısız :'(</value>
+  </data>
+  <data name="PinSucess" xml:space="preserve">
+    <value>Sabitleme başarılı!</value>
+  </data>
+  <data name="PinToStart" xml:space="preserve">
+    <value>Başlangıç'a sabitle</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="RemoveFriend" xml:space="preserve">
+    <value>Arkadaşı çıkar</value>
+  </data>
+  <data name="RemoveFromGroup" xml:space="preserve">
+    <value>Gruptan Çıkar</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Roller</value>
+  </data>
+  <data name="Unblock" xml:space="preserve">
+    <value>Engeli Kaldır</value>
+  </data>
+  <data name="UnmuteChannel" xml:space="preserve">
+    <value>Kanal sesini aç</value>
+  </data>
+  <data name="UnmuteServer" xml:space="preserve">
+    <value>Sunucu sesini aç</value>
+  </data>
+  <data name="UnpinFromStart" xml:space="preserve">
+    <value>Başlangıç'tan kaldır</value>
+  </data>
+  <data name="UnpinSucess" xml:space="preserve">
+    <value>Kaldırma başarılı!</value>
+  </data>
+  <data name="SavePicture" xml:space="preserve">
+    <value>Görsel Kaydet</value>
   </data>
 </root>
