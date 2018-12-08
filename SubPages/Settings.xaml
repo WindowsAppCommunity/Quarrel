@@ -242,7 +242,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style x:Key="RadioCheckBox" TargetType="CheckBox">
             <Setter Property="Background" Value="{ThemeResource RadioButtonBackground}"/>
             <Setter Property="Foreground" Value="{ThemeResource RadioButtonForeground}"/>
@@ -557,13 +557,13 @@
                     </Grid.RowDefinitions>
                     <TextBlock x:Uid="/Settings/SettingsTB" x:Name="header" Text="SETTINGS" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <Pivot x:Name="pivotBase" Grid.ColumnSpan="2" Margin="-12,24,-24,0" Grid.Row="0" Padding="0">
-                        <PivotItem x:Uid="/Settings/UiPI" Header="UI" Margin="12,0,0,0">
+                        <PivotItem x:Uid="/Settings/DisplayPI" Header="Display" Margin="12,0,0,0">
                             <ScrollViewer Padding="0,0,12,0">
                                 <StackPanel x:Name="UI_Menu">
                                     <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
                                     <!-- <TextBlock x:Uid="/Settings/ResponsiveUiTB" Text="RESPONSIVE UI" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>-->
                                     <!--<CheckBox x:Uid="/Settings/AppBarAtBottomCB" x:Name="AppBarAtBottom_checkbox" Content="Align app Bar to the bottom" Style="{StaticResource CheckBoxStyle1}"/>-->
-                                    <TextBlock x:Uid="/Settings/ThemeTB" Text="THEME" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0"/>
+                                    <TextBlock x:Uid="/Settings/ThemeTB" Text="THEME" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0"/>
                                     <TextBlock x:Uid="/Settings/RestartRequiredTB" Text="(Restart required)" FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.75"/>
                                     <RadioButton x:Uid="/Settings/DarkRadio" x:Name="radio_Dark" Style="{StaticResource DiscordRadioButton}" Content="Dark" GroupName="Theme" Margin="0,6,0,-4"/>
                                     <RadioButton x:Uid="/Settings/LightRadio" x:Name="radio_Light" Style="{StaticResource DiscordRadioButton}" Content="Light" GroupName="Theme" Margin="0,0,0,-4"/>
@@ -575,7 +575,7 @@
                                             <TextBlock x:Uid="/Settings/OLEDDescTB" Text="This changes the theme of the app for OLED devices in ways that will save battery (featuring a full black background)" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
                                         </StackPanel>
                                     </RadioButton>
-                                    
+
                                     <CheckBox x:Name="EnableAcrylic" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0">
                                         <StackPanel Margin="0,2,0,0">
                                             <TextBlock x:Uid="/Settings/EnableAcrylicTB" Text="Acyrlic Brushes"/>
@@ -594,10 +594,28 @@
                                         </StackPanel>
                                     </CheckBox>
 
+                                    <TextBlock x:Uid="/Settings/ADVANCEDTB" Text="ADVANCED" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
+                                    <TextBlock x:Uid="/Settings/ResponsiveUiBreaksTB" Text="RESPONSIVE UI BREAKPOINTS" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                    <TextBlock x:Uid="/Settings/ResponsiveUiBreaksDescTB" Text="These are the trigger widths at which the UI shows more or less info on the screen, depending on the screen width." TextWrapping="Wrap" FontSize="13" Opacity="0.5" Margin="0,6,0,12"/>
+                                    <Slider x:Uid="/Settings/SliderM" x:Name="RespUI_M" Header="M (Servers)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Margin="0,6,0,0" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
+                                    <Slider x:Uid="/Settings/SliderL" x:Name="RespUI_L" Header="L (Servers + Channels)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
+                                    <Slider x:Uid="/Settings/SliderXL" x:Name="RespUI_XL" Header="XL (Servers + Channels + Members)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
+                                    <HyperlinkButton x:Uid="/Settings/ResetRespUiHyperlink" Content="Reset default breakpoints" FontSize="13.333" Click="HyperlinkButton_Click" Foreground="{ThemeResource SystemControlDisabledBaseHighBrush}"/>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </PivotItem>
+                        <PivotItem x:Uid="/Settings/BehaviorPI" Header="Behavior" Margin="12,0,0,0">
+                            <ScrollViewer Padding="0,0,12,0">
+                                <StackPanel>
+                                    <TextBlock x:Uid="/Settings/CHANNELSTB" Text="CHANNELS" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
 
+                                    <TextBlock Text="Override Category Collapse" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                    <RadioButton x:Uid="/Settings/NoneRB" Content="No Override" x:Name="NoOverride" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
+                                    <RadioButton x:Uid="/Settings/MentionsRB" Content="Mentions" x:Name="OverrideMention" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
+                                    <RadioButton x:Uid="/Settings/UnreadRB" Content="Unread" x:Name="OverrideUnread" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
 
-                                    <TextBlock x:Uid="/Settings/MESSAGESTB" Text="MESSAGES" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
-                                    
+                                    <TextBlock x:Uid="/Settings/MESSAGESTB" Text="MESSAGES" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
+
                                     <TextBlock x:Uid="/Settings/FontSizeTB" Text="Message font size" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -646,13 +664,22 @@
 
                                     <TextBox x:Uid="/Settings/CustomTimeF" x:Name="CustomTimeF"  Header="Custom Time Format" Style="{StaticResource TextBoxStyle1}" Margin="0,6,0,0"/>
 
-                                    <TextBlock x:Uid="/Settings/OTHERTB" Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
+                                    <TextBlock x:Uid="/Settings/OTHERTB" Text="OTHER" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
+
+                                    <CheckBox x:Name="Scaling" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0" MaxWidth="450" Visibility="Collapsed">
+                                        <StackPanel Margin="0,2,0,0">
+                                            <TextBlock x:Uid="/Settings/ScalingTB" Text="Scaling"/>
+                                            <TextBlock x:Uid="/Settings/ScalingDescTB" Text="On smaller screens everything can be a bit small on Xbox so you can enabled scaling to make it all bigger" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
+                                        </StackPanel>
+                                    </CheckBox>
+
                                     <CheckBox x:Name="ExpensiveUI" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0" MaxWidth="350">
                                         <StackPanel Margin="0,2,0,0">
                                             <TextBlock x:Uid="/Settings/ExpensiveRenderTB" Text="Expensive Rendering"/>
                                             <TextBlock x:Uid="/Settings/ExpensiveRenderDescTB" Text="Enable various expensive graphics such as Blur Effects and Audio Visualizers" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
                                         </StackPanel>
                                     </CheckBox>
+
                                     <!--<CheckBox x:Uid="/Settings/DropShadowPresenceCB" x:Name="DropShadowPresence" Style="{StaticResource CheckBoxStyle1}" Content="Drop Shadow Presence" Margin="0,0,0,0"/>-->
                                     <CheckBox x:Name="ShowServerMute" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0">
                                         <StackPanel Margin="0,2,0,0">
@@ -672,10 +699,44 @@
                                             <TextBlock x:Uid="/Settings/ShowNoPermissionsChannelsDescTB" Text="Gaze upon that which yee cannot enter" FontSize="11" Opacity="0.5"/>
                                         </StackPanel>
                                     </CheckBox>
-                                    <ComboBox x:Uid="/Settings/LanguageComboB" FontSize="13.333" x:Name="LanguageSelection" Header="Language (requires restart)" Margin="0,12,0,48">
-                                        <ComboBoxItem x:Uid="/Settings/DefaultComboBI" Content="Default" Tag=" "/>
-                                    </ComboBox>
-                                    <!--<CheckBox x:Uid="/Settings/myPeopleCB" Content="myPeople integration"/>-->
+
+
+                                    <!--<TextBlock x:Uid="/Settings/DataLimitingTB" Text="Data Limiting" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0"/>
+                                    <TextBlock x:Uid="/Settings/StandardTB" Text="Standard" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                    <CheckBox x:Name="TTLAttachments" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450">
+                                        <StackPanel Margin="0,2,0,0">
+                                            <TextBlock x:Uid="/Settings/TTLTB" Text="TTL Attachments"/>
+                                            <TextBlock x:Uid="/Settings/TTLDescTB" Text="TTL (Tap To Load). Images, Audio or Videos in messages will not show unless you tap a replacement icon first" TextWrapping="WrapWholeWords" FontSize="11" Opacity="0.5"/>
+                                        </StackPanel>
+                                    </CheckBox>
+                                    <CheckBox x:Name="HideSIcons" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450">
+                                        <StackPanel Margin="0,2,0,0">
+                                            <TextBlock x:Uid="/Settings/HideSIconsTB" Text="Hide Small Icons"/>
+                                            <TextBlock x:Uid="/Settings/HideSIconsDescTB" Text="Small Icons (like User Icons in Messages and the Member List) will not show" TextWrapping="WrapWholeWords" FontSize="11" Opacity="0.5"/>
+                                        </StackPanel>
+                                    </CheckBox>
+
+                                    <TextBlock x:Uid="/Settings/OnMDTB" Text="On Mobile Data" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                    <CheckBox x:Name="TTLAttachmentsMD" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450">
+                                        <StackPanel Margin="0,2,0,0">
+                                            <TextBlock x:Uid="/Settings/TTLTB" Text="TTL Attachments"/>
+                                            <TextBlock x:Uid="/Settings/TTLDescTB" Text="TTL (Tap To Load). Images, Audio or Videos in messages will not show unless you tap a replacement icon first" TextWrapping="WrapWholeWords" FontSize="11" Opacity="0.5"/>
+                                        </StackPanel>
+                                    </CheckBox>
+                                    <CheckBox x:Name="HideSIconsMD" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450">
+                                        <StackPanel Margin="0,2,0,0">
+                                            <TextBlock x:Uid="/Settings/HideSIconsTB" Text="Hide Small Icons"/>
+                                            <TextBlock x:Uid="/Settings/HideSIconsDescTB" Text="Small Icons (like User Icons in Messages and the Member List) will not show" TextWrapping="WrapWholeWords" FontSize="11" Opacity="0.5"/>
+                                        </StackPanel>
+                                    </CheckBox>-->
+
+                                    <TextBlock x:Uid="/Settings/ADVANCEDTB" Text="ADVANCED" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
+                                    <CheckBox x:Name="UseCompression" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0" MaxWidth="450">
+                                        <StackPanel Margin="0,2,0,0">
+                                            <TextBlock x:Uid="/Settings/UseCompressionTB" Text="Data Compression"/>
+                                            <TextBlock x:Uid="/Settings/UseCompressionDescTB" Text="Data compression makes gateway messages smaller and faster to recieve. This is a little more expensive on the CPU but significantly faster with lower internet speed." FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
+                                        </StackPanel>
+                                    </CheckBox>
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
@@ -728,11 +789,6 @@
                                         <!--<CheckBox x:Uid="/Settings/IncomingFriendsCB" x:Name="FriendsNotifyIncomingFriendRequests" Content="Incoming Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>
                                         <CheckBox x:Uid="/Settings/OutgoingFriendsCB" x:Name="FriendsNotifyOutgoingFriendRequests" Content="Outgoing Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>-->
 
-                                        <TextBlock Text="Override Category Collapse" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
-                                        <RadioButton x:Uid="/Settings/NoneRB" Content="No Override" x:Name="NoOverride" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
-                                        <RadioButton x:Uid="/Settings/MentionsRB" Content="Mentions" x:Name="OverrideMention" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
-                                        <RadioButton x:Uid="/Settings/UnreadRB" Content="Unread" x:Name="OverrideUnread" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
-                                        
 
                                         <!--<TextBlock Text="NOTIFY ME FOR..." FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
                                         <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications" Margin="0,6,0,0" HorizontalAlignment="Left">Nothing</RadioButton>
@@ -745,7 +801,7 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
-                        <PivotItem x:Uid="/Settings/SoundsPI" x:Name="SoundsPI" Header="Sounds" Margin="12,0,0,0">
+                        <PivotItem x:Uid="/Settings/SoundsPI" x:Name="SoundsPI" Header="Sounds" Margin="12,0,0,0" Visibility="Collapsed">
                             <ScrollViewer Padding="0,0,12,0">
                                 <StackPanel>
                                     <CheckBox x:Name="NotificationSounds" x:Uid="/Settings/SoundsCB" Content="Sounds" Margin="12,12,0,0" Style="{StaticResource CheckBoxStyle1}"/>
@@ -784,16 +840,10 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
-                        <PivotItem x:Uid="/Settings/AdvancedPI" Header="Advanced">
+                        <PivotItem x:Uid="/Settings/OtherPI" Header="Other">
                             <ScrollViewer Margin="0,0,-12,0" Padding="0,0,24,0">
                                 <StackPanel>
-                                    <TextBlock Text="CONNECTION" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
-                                    <CheckBox x:Name="UseCompression" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0" MaxWidth="450">
-                                        <StackPanel Margin="0,2,0,0">
-                                            <TextBlock x:Uid="/Settings/UseCompressionTB" Text="Data Compression"/>
-                                            <TextBlock x:Uid="/Settings/UseCompressionDescTB" Text="Data compression makes gateway messages smaller and faster to recieve. This is a little more expensive on the CPU but significantly faster with lower internet speed." FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
-                                        </StackPanel>
-                                    </CheckBox>
+                                    <TextBlock x:Uid="/Settings/IntergrationTB" Text="INTEGRATION" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
 
                                     <CheckBox x:Name="RichPresence" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0" MaxWidth="450">
                                         <StackPanel Margin="0,2,0,0">
@@ -802,19 +852,20 @@
                                         </StackPanel>
                                     </CheckBox>
 
-                                    <CheckBox x:Name="Scaling" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0" MaxWidth="450" Visibility="Collapsed">
+                                    <!--<CheckBox x:Name="MyPeople" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0" MaxWidth="450">
                                         <StackPanel Margin="0,2,0,0">
-                                            <TextBlock x:Uid="/Settings/ScalingTB" Text="Scaling"/>
-                                            <TextBlock x:Uid="/Settings/ScalingDescTB" Text="On smaller screens everything can be a bit small on Xbox so you can enabled scaling to make it all bigger" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
+                                            <TextBlock x:Uid="/Settings/MyPeopleTB" Text="MyPeople"/>
+                                            <TextBlock x:Uid="/Settings/MyPeopleDescTB" Text="Show Discord contacts in the People app and on the taskbar" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
                                         </StackPanel>
-                                    </CheckBox>
-                                    
-                                    <TextBlock x:Uid="/Settings/ResponsiveUiBreaksTB" Text="RESPONSIVE UI BREAKPOINTS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
-                                    <TextBlock x:Uid="/Settings/ResponsiveUiBreaksDescTB" Text="These are the trigger widths at which the UI shows more or less info on the screen, depending on the screen width." TextWrapping="Wrap" FontSize="13" Opacity="0.5" Margin="0,6,0,12"/>
-                                    <Slider x:Uid="/Settings/SliderM" x:Name="RespUI_M" Header="M (Servers)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Margin="0,6,0,0" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
-                                    <Slider x:Uid="/Settings/SliderL" x:Name="RespUI_L" Header="L (Servers + Channels)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
-                                    <Slider x:Uid="/Settings/SliderXL" x:Name="RespUI_XL" Header="XL (Servers + Channels + Members)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
-                                    <HyperlinkButton x:Uid="/Settings/ResetRespUiHyperlink" Content="Reset default breakpoints" FontSize="13.333" Click="HyperlinkButton_Click" Foreground="{ThemeResource SystemControlDisabledBaseHighBrush}"/>
+                                    </CheckBox>-->
+
+                                    <TextBlock x:Uid="/Settings/OTHERTB" Text="OTHER" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
+
+                                    <ComboBox x:Uid="/Settings/LanguageComboB" FontSize="13.333" x:Name="LanguageSelection" Header="Language (requires restart)" Margin="0,12,0,0">
+                                        <ComboBoxItem x:Uid="/Settings/DefaultComboBI" Content="Default" Tag=" "/>
+                                    </ComboBox>
+
+                                    <HyperlinkButton x:Uid="/Settings/ResetQuarrelSettingsBTN" Content="Reset Quarrel Settings" FontSize="13.333" Click="HyperlinkButton_Click_2" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource idle}"/>
                                     <HyperlinkButton x:Uid="/Settings/ResetQuarrelBTN" Content="Reset Quarrel" FontSize="13.333" Click="HyperlinkButton_Click_1" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource dnd}"/>
 
                                 </StackPanel>

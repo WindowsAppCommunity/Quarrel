@@ -724,5 +724,10 @@ namespace Discord_UWP.SubPages
             ((App.Current.Resources.ThemeDictionaries["Light"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color = (Color)Resources["SystemAccentColor"];
             ((App.Current.Resources.ThemeDictionaries["Dark"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color = (Color)Resources["SystemAccentColor"];
         }
+
+        private void HyperlinkButton_Click_2(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
