@@ -31,6 +31,15 @@ namespace Discord_UWP.SubPages
     /// </summary>
     public sealed partial class DiscordStatus : Page
     {
+        public class ComplexComponent
+        {
+            public string Description { get; set; }
+            public string Name { get; set; }
+            public string Status { get; set; }
+            public string Time { get; set; }
+            public List<SimpleComponent> Items { get; set; }
+            public SolidColorBrush Color { get; set; }
+        }
         public class SimpleComponent
         {
             public string Description { get; set; }
@@ -83,7 +92,7 @@ namespace Discord_UWP.SubPages
             {
                 return (SolidColorBrush)Application.Current.Resources["online"];
             }
-            else if (status == "partial_outage")
+            else if (status == "partial_outage" | status == "minor")
             {
                 return (SolidColorBrush)Application.Current.Resources["idle"];
             }
@@ -119,6 +128,46 @@ namespace Discord_UWP.SubPages
             {
                 FailedToLoad.Visibility = Visibility.Collapsed;
             }
+            if (status.Incidents != null)
+            {
+                foreach (var incident in status.Incidents)
+                {
+                    if(incident.Status != "resolved")
+                    {
+                        List<SimpleComponent> updates = new List<SimpleComponent>();
+                        for (int i = 0; i < incident.IncidentUpdates.Length; i++)
+                        {
+                            updates.Add(new SimpleComponent()
+                            {
+                                Status = incident.IncidentUpdates[i].Status,
+                                Description = incident.IncidentUpdates[i].Body,
+                                Name = incident.IncidentUpdates[i].UpdatedAt.ToString("t")
+                            });
+                        }
+                        ComplexComponent sc = new ComplexComponent()
+                        {
+                            Name = incident.Name,
+                            Status = incident.Status,
+                            Color = ColorFromStatus(incident.Status),
+                            Items = updates
+                        };
+                       
+                        if(!string.IsNullOrWhiteSpace(sc.Name))
+                            IncidentsPanel.Items.Add(sc);
+                    }
+                }
+            }
+            
+            if(IncidentsPanel.Items.Count > 0)
+            {
+                IncidentsPanel.Visibility = Visibility.Visible;
+                IncidentsScroller.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                IncidentsPanel.Visibility = Visibility.Collapsed;
+                IncidentsScroller.Visibility = Visibility.Collapsed;
+            }
 
             if (status.Status != null)
             {
@@ -126,9 +175,10 @@ namespace Discord_UWP.SubPages
                 statusColor = statusBrush.Color;
                 statusContainer.Background = statusBrush;
                 border.BorderBrush = statusBrush;
-                dayDuration.Foreground = statusBrush;
-                weekDuration.Foreground = statusBrush;
-                monthDuration.Foreground = statusBrush;
+                //dayDuration.Foreground = statusBrush;
+                //weekDuration.Foreground = statusBrush;
+                //monthDuration.Foreground = statusBrush;
+                IncidentsScroller.Background = new SolidColorBrush(statusBrush.Color) { Opacity = 0.25 };
                 statusDescription.Text = status.Status.Description;
                 statusContainer.Visibility = Visibility.Visible;
             }
@@ -280,7 +330,7 @@ namespace Discord_UWP.SubPages
                     }
                     CanvasTextLayout textLayout2 = new CanvasTextLayout(args.DrawingSession, durationText, format, 0.0f, 0.0f);
 
-                    if (CursorPosition + textLayout2.DrawBounds.Width + 36 > chartIndicator.ActualWidth || CursorPosition + textLayout.DrawBounds.Width + 36 > chartIndicator.ActualWidth)
+                    if (CursorPosition + textLayout2.DrawBounds.Width + 6 > chartIndicator.ActualWidth || CursorPosition + textLayout.DrawBounds.Width + 6 > chartIndicator.ActualWidth)
                     {
                         args.DrawingSession.DrawTextLayout(textLayout, new Vector2(Convert.ToSingle((CursorPosition - textLayout.DrawBounds.Width-12)), 0), Color.FromArgb(255, 255, 255, 255));
                         args.DrawingSession.DrawTextLayout(textLayout2, new Vector2(Convert.ToSingle((CursorPosition - textLayout2.DrawBounds.Width - 12)), 14), Color.FromArgb(120, 255, 255, 255));
@@ -298,7 +348,6 @@ namespace Discord_UWP.SubPages
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-
             chartIndicator.Fade(1, 300).Start();
         }
 

@@ -235,4 +235,7 @@
   <data name="WantMoreHLBTN.Content" xml:space="preserve">
     <value>Vous en voulez plus?</value>
   </data>
+  <data name="DiscordStatusHLBTN.Content" xml:space="preserve">
+    <value>État des serveurs Discord</value>
+  </data>
 </root>
