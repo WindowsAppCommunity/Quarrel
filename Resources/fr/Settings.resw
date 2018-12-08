@@ -561,4 +561,58 @@
   <data name="ShowNoPermissionsChannelsTB.Text" xml:space="preserve">
     <value>Afficher les salons sans permission</value>
   </data>
+  <data name="BehaviorPI.Header" xml:space="preserve">
+    <value>Comportement</value>
+  </data>
+  <data name="CHANNELSTB.Text" xml:space="preserve">
+    <value>SALONS</value>
+  </data>
+  <data name="DisplayPI.Header" xml:space="preserve">
+    <value>Interface</value>
+  </data>
+  <data name="EnableBackgroundVoiceDescTB.Text" xml:space="preserve">
+    <value>Expérimental, peut causer des crashs</value>
+  </data>
+  <data name="EnableBackgroundVoiceTB.Text" xml:space="preserve">
+    <value>Voix en arrière-plan</value>
+  </data>
+  <data name="IntegrationTB.Text" xml:space="preserve">
+    <value>INTEGRATION</value>
+  </data>
+  <data name="NetworkPI.Header" xml:space="preserve">
+    <value>Réseau</value>
+  </data>
+  <data name="OtherPI.Header" xml:space="preserve">
+    <value>AUTRE</value>
+  </data>
+  <data name="ResetQuarrelSettingsBTN.Content" xml:space="preserve">
+    <value>Réinitialiser les paramètres de Quarrel</value>
+  </data>
+  <data name="ScalingTB.Text" xml:space="preserve">
+    <value>Redimensionner</value>
+  </data>
+  <data name="ScalingDescTB.Text" xml:space="preserve">
+    <value>Sur des petits écrans, vous risquez de ne pas y voir grand chose. Activez le redimensionnement pour voir en plus grand.</value>
+  </data>
+  <data name="StandardTB.Text" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Theme.Header" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="TTLDescTB.Text" xml:space="preserve">
+    <value>TPT (Tapper Pour Télécharger). Les Images, Sons, ou Videos seront uniquement téléchargé lorsque vous tappez dessus.</value>
+  </data>
+  <data name="TTLTB.Text" xml:space="preserve">
+    <value>Attachements TPT</value>
+  </data>
+  <data name="OnMDTB.Text" xml:space="preserve">
+    <value>Sur les données mobiles</value>
+  </data>
+  <data name="DataLimitingTB.Text" xml:space="preserve">
+    <value>Limitation des données</value>
+  </data>
+  <data name="DataLimiting2TB.Text" xml:space="preserve">
+    <value>Limiter les données sur une connexion cellulaire</value>
+  </data>
 </root>
