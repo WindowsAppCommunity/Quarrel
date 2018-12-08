@@ -122,7 +122,6 @@
   </data>
   <data name="AdvancedPI.Header" xml:space="preserve">
     <value>Advanced</value>
-    <comment>Iconic tile template, used for badge tile updates</comment>
   </data>
   <data name="AppBarAtBottomCB.Content" xml:space="preserve">
     <value>Align command bar at the bottom</value>
@@ -567,5 +566,56 @@
   </data>
   <data name="ShowNoPermissionsChannelsTB.Text" xml:space="preserve">
     <value>Show No Permissions Channels</value>
+  </data>
+  <data name="ScalingDescTB.Text" xml:space="preserve">
+    <value>On smaller screens everything can be a bit small on Xbox so you can enabled scaling to make it all bigger</value>
+  </data>
+  <data name="ScalingTB.Text" xml:space="preserve">
+    <value>Scaling</value>
+  </data>
+  <data name="ADVANCEDTB.Text" xml:space="preserve">
+    <value>ADVANCED</value>
+  </data>
+  <data name="BehaviorPI.Header" xml:space="preserve">
+    <value>Behavior</value>
+  </data>
+  <data name="CHANNELSTB.Text" xml:space="preserve">
+    <value>CHANNELS</value>
+  </data>
+  <data name="DataLimiting2TB.Text" xml:space="preserve">
+    <value>Data Limiting on Mobile Data</value>
+  </data>
+  <data name="DataLimitingTB.Text" xml:space="preserve">
+    <value>Data Limiting</value>
+  </data>
+  <data name="DisplayPI.Header" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="IntegrationTB.Text" xml:space="preserve">
+    <value>INTEGRATION</value>
+  </data>
+  <data name="NetworkPI.Header" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="OnMDTB.Text" xml:space="preserve">
+    <value>On Mobile Data</value>
+  </data>
+  <data name="OtherPI.Header" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="ResetQuarrelSettingsBTN.Content" xml:space="preserve">
+    <value>Reset Quarrel Settings</value>
+  </data>
+  <data name="StandardTB.Text" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Theme.Header" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="TTLDescTB.Text" xml:space="preserve">
+    <value>TTL (Tap To Load). Images, Audio or Videos in messages will not show unless you tap a replacement icon first</value>
+  </data>
+  <data name="TTLTB.Text" xml:space="preserve">
+    <value>TTL Attachments</value>
   </data>
 </root>
