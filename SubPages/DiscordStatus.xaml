@@ -113,21 +113,57 @@
             <Rectangle x:Name="cache" Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
         <ProgressRing x:Name="LoadingRing" IsEnabled="True" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <TextBlock x:Name="FailedToLoad" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0" Text="FAILED TO GET DISCORD STATUS :/" TextWrapping="Wrap" FontWeight="SemiBold" Margin="12"/>
-        <Grid x:Name="grid" MaxWidth="400" Opacity="1" MaxHeight="512" Visibility="Visible" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+        <Grid x:Name="grid" MaxWidth="400" Opacity="1" MaxHeight="600" Visibility="Visible" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                 <Grid.RenderTransform>
                     <ScaleTransform x:Name="scale2"/>
                 </Grid.RenderTransform>
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
-            <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
+            <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="0" Margin="0,48,0,0">
                 <StackPanel>
-                        <TextBlock Text="DISCORD STATUS" FontWeight="SemiBold" Margin="0,0,0,0" FontSize="20"/>
-                        <Border x:Name="statusContainer" Visibility="Collapsed" Margin="-24,12" Padding="24,12" Background="{ThemeResource online}">
+                    <Grid>
+                        <TextBlock Text="DISCORD STATUS" FontWeight="SemiBold" Margin="24,14,0,0" FontSize="20"/>
+                        <HyperlinkButton NavigateUri="https://status.discordapp.com" HorizontalAlignment="Right" Content="Details" Style="{StaticResource PlainHyperlinkStyle}" VerticalAlignment="Center" FontSize="12" Foreground="{ThemeResource Blurple}" Opacity="0.75" Margin="0,17,24,0"/>
+                    </Grid>
+                        
+                        <Border x:Name="statusContainer" Visibility="Collapsed" Margin="0,12,0,0" Padding="24,12" Background="{ThemeResource online}">
                             <TextBlock x:Name="statusDescription" Text="ALL SYSTEMS OPERATIONAL" TextWrapping="Wrap" FontSize="16" FontWeight="SemiLight" Foreground="White"/>
                         </Border>
-                    <ItemsControl x:Name="ComponentsPanel" Margin="0,0,0,24">
+                    <ScrollViewer x:Name="IncidentsScroller">
+                        <ItemsControl x:Name="IncidentsPanel" Margin="24,6,18,12">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="0,6,0,6">
+                                        <TextBlock FontSize="16" Text="{Binding Name}" TextWrapping="Wrap"/>
+                                        <ItemsControl ItemsSource="{Binding Items}" Margin="0,4,0,0">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="12" Opacity="0.75"/>
+                                                        <RichTextBlock Grid.Column="1" TextWrapping="Wrap" FontSize="11" Opacity="0.5" Margin="12,0,0,0">
+                                                            <Paragraph>
+                                                                <Run FontWeight="SemiBold" Text="{Binding Status}"></Run>
+                                                                <Run Text=" - "></Run>
+                                                                <Run Text="{Binding Description}"></Run>
+                                                            </Paragraph>
+                                                        </RichTextBlock>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                    </ScrollViewer>
+                    <ItemsControl x:Name="ComponentsPanel" Margin="18,12,18,12">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="6">
+                                <Grid Margin="6,4" MaxWidth="200">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition/>
@@ -137,23 +173,23 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Column="1" FontSize="16" Text="{Binding Name}" />
+                                    <TextBlock Grid.Column="1" Opacity="0.6" FontWeight="Light" FontSize="14" Text="{Binding Name}"/>
                                     <TextBlock Grid.Column="2" Text="{Binding Status}" VerticalAlignment="Bottom" Foreground="{Binding Color}" FontSize="11" Opacity="1" Margin="0,-2,0,0"/>
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                    <Grid>
+                    <Grid Margin="24,0,24,0">
                         <TextBlock Grid.Column="1" FontWeight="SemiLight" FontSize="16"  Text="API Response Time"/>
                         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Bottom">
-                            <HyperlinkButton x:Name="dayDuration" Content="Day" Margin="2,0" IsEnabled="False" FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"  Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click"/>
+                            <HyperlinkButton x:Name="dayDuration" Content="Day" Margin="2,0" IsEnabled="False" FontSize="12" Foreground="{ThemeResource Blurple}"  Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click"/>
                             <TextBlock Text="/" FontSize="12" Margin="2,0" Opacity="0.2"/>
-                            <HyperlinkButton x:Name="weekDuration" Content="Week"  Margin="2,0" FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"   Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click_1"/>
+                            <HyperlinkButton x:Name="weekDuration" Content="Week"  Margin="2,0" FontSize="12" Foreground="{ThemeResource Blurple}"   Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click_1"/>
                             <TextBlock Text="/" FontSize="12" Margin="2,0" Opacity="0.2"/>
-                            <HyperlinkButton x:Name="monthDuration" Content="Month" Margin="2,0" FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"   Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click_2"/>
+                            <HyperlinkButton x:Name="monthDuration" Content="Month" Margin="2,0" FontSize="12" Foreground="{ThemeResource Blurple}"   Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click_2"/>
                         </StackPanel>
                     </Grid>
-                    <Grid SizeChanged="FrameworkElement_OnSizeChanged"  Margin="-48,12,-48,6" PointerMoved="chartCanvas_PointerMoved" PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Grid SizeChanged="FrameworkElement_OnSizeChanged"  Margin="0,12,0,6" PointerMoved="chartCanvas_PointerMoved" PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
                         <xaml:CanvasControl x:Name="chartCanvas" Height="96" Draw="CanvasControl_OnDraw" >
                             <xaml:CanvasControl.Clip>
                                 <RectangleGeometry x:Name="chartClip">
