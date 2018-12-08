@@ -969,4 +969,7 @@
   <data name="VFLevelsTB.Text" xml:space="preserve">
     <value>Verification Levels</value>
   </data>
+  <data name="SendBTN.Content" xml:space="preserve">
+    <value>Send</value>
+  </data>
 </root>

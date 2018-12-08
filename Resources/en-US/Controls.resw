@@ -358,4 +358,7 @@
   <data name="SendMessagePlaceHolder" xml:space="preserve">
     <value>Send message</value>
   </data>
+  <data name="SendMessagePlaceholderText" xml:space="preserve">
+    <value>Send message</value>
+  </data>
 </root>

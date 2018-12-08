@@ -118,231 +118,231 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutABB.Label" xml:space="preserve">
-    <value>Über</value>
+    <value>Hakkında</value>
   </data>
   <data name="AddChannelTB.Text" xml:space="preserve">
-    <value>Raum hinzufügen</value>
+    <value>Kanal ekle</value>
   </data>
   <data name="at" xml:space="preserve">
-    <value>an</value>
+    <value>şuraya</value>
   </data>
   <data name="Connected" xml:space="preserve">
-    <value>VEBUNDEN</value>
+    <value>BAĞLANDI</value>
   </data>
   <data name="DNDRadio.Content" xml:space="preserve">
-    <value>Nicht Stören</value>
+    <value>Rahatsız etme</value>
   </data>
   <data name="EmailTBox.PlaceholderText" xml:space="preserve">
-    <value>E-Mail</value>
+    <value>Eposta</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Fehler</value>
+    <value>Hata</value>
   </data>
   <data name="Error400" xml:space="preserve">
-    <value>Fehler 400</value>
+    <value>Hata 400: Bir sorun oluştu, bu cihazda oturum açmadıysanız, gelen kutunuzu Discord'dan gelen bir e-posta için kontrol etmeye ve tekrar denemeye değer.</value>
   </data>
   <data name="Error401" xml:space="preserve">
-    <value>Fehler 401</value>
+    <value>Hata 401: Sunucuyla etkileşimde bir sorun oluştu, tekrar deneyin.</value>
   </data>
   <data name="Error403" xml:space="preserve">
-    <value>Fehler 403</value>
+    <value>Hata 403: Bu işlemi gerçekleştirmeniz yasaktır, bu konumdan henüz giriş yapmadıysanız bu oturum açma yerini doğrulamak için e-postanızı kontrol edip tekrar deneyin.</value>
   </data>
   <data name="Error429" xml:space="preserve">
-    <value>Fehler 429</value>
+    <value>Hata 429: Sınırlandırıldınız, birkaç nanosaniye içinde tekrar deneyin.</value>
   </data>
   <data name="Error500" xml:space="preserve">
-    <value>Fehler 500</value>
+    <value>Hata 500: Sunucuyla etkileşimde bir sorun var ve sunucunun hatası. Daha sonra tekrar deneyin, Discord sunucu çökmelerini hızlıca düzeltmeye çalışıyor.</value>
   </data>
   <data name="ErrorGeneric" xml:space="preserve">
-    <value>Versuche es erneut, und überpüfe deine E-Mails und schau ob der Standort verifizieren musst</value>
+    <value>Bu oturum açma konumunu doğrulamanız gerekip gerekmediğini görmek için e-postanızı kontrol ettikten sonra tekrar deneyin.</value>
   </data>
   <data name="Everyone" xml:space="preserve">
-    <value>JEDER</value>
+    <value>HERKES</value>
   </data>
   <data name="GameTBox.PlaceholderText" xml:space="preserve">
-    <value>Spiel</value>
+    <value>Oyun</value>
   </data>
   <data name="IapABB.Label" xml:space="preserve">
-    <value>In-App-Käufe</value>
+    <value>Uygulama içi satın alımlar</value>
   </data>
   <data name="IdleRadio.Content" xml:space="preserve">
-    <value>Im Prozess...</value>
+    <value>Boşta</value>
   </data>
   <data name="InvisibleRadio.Content" xml:space="preserve">
-    <value>Ausgeblendet</value>
+    <value>Görünmez</value>
   </data>
   <data name="Loaded" xml:space="preserve">
-    <value>GELADEN</value>
+    <value>YÜKLENDİ</value>
   </data>
   <data name="LoadMoreMessagesTB.Text" xml:space="preserve">
-    <value>Mehr Nachrichten laden</value>
+    <value>Daha fazla mesaj yükle</value>
   </data>
   <data name="LoggingIn" xml:space="preserve">
-    <value>EINLOGGEN...</value>
+    <value>OTURUM AÇILIYOR...</value>
   </data>
   <data name="LoginTB.Text" xml:space="preserve">
-    <value>LOGIN</value>
+    <value>Oturum aç</value>
   </data>
   <data name="MemberListABB.Label" xml:space="preserve">
-    <value>Mitgliedsliste</value>
+    <value>Üye listesi</value>
   </data>
   <data name="MuteABB.Label" xml:space="preserve">
-    <value>Stumm schalten</value>
+    <value>Sessize al</value>
   </data>
   <data name="NoChannelsCachedTB.Text" xml:space="preserve">
-    <value>Keine Kanäle im Cache abgespeichert</value>
+    <value>Belleklenmiş kanal yok</value>
   </data>
   <data name="NoMessagesCachedTB.Text" xml:space="preserve">
-    <value>Keine Nachrichten im Cache abgespeichert</value>
+    <value>Belleklenmiş mesaj yok</value>
   </data>
   <data name="Offline" xml:space="preserve">
-    <value>Offline</value>
+    <value>Çevrimdışı</value>
   </data>
   <data name="OnlineRadio.Content" xml:space="preserve">
-    <value>Online</value>
+    <value>Çevrimiçi</value>
   </data>
   <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>Passwort</value>
+    <value>Parola</value>
   </data>
   <data name="PinnedMessagesABB.Label" xml:space="preserve">
-    <value>Angepinnte Nachrichten</value>
+    <value>Sabitlenmiş mesajlar</value>
   </data>
   <data name="PlayingTB.Text" xml:space="preserve">
-    <value>Spielt</value>
+    <value>Oyunda</value>
   </data>
   <data name="RefreshABB.Label" xml:space="preserve">
-    <value>Aktualisieren</value>
+    <value>Yenile</value>
   </data>
   <data name="SettingsABB.Label" xml:space="preserve">
-    <value>Optionen</value>
+    <value>Ayarlar</value>
   </data>
   <data name="TextChannelsTB.Text" xml:space="preserve">
-    <value>TEXT-KANÄLE</value>
+    <value>YAZIŞMA KANALLARI</value>
   </data>
   <data name="Today" xml:space="preserve">
-    <value>Heute</value>
+    <value>Bugün</value>
   </data>
   <data name="UpvoteForVoiceDescTB.Text" xml:space="preserve">
-    <value>Stimme für den Sprachkanal</value>
+    <value>Konuşma Kanalları için buna oy ver</value>
   </data>
   <data name="UpvoteForVoiceTB.Text" xml:space="preserve">
-    <value>Das wurde von Microsoft angefordert für die benötigten Resourcen für die Programmierer damit Sprachkanäle hinzugefügt werden. Das kannst du nicht aktivieren.</value>
+    <value>Bu, Microsoft'un geliştiriciler için talep ettiği konuşma kanalı kaynağıdır. Daha fazlasına imkan vermiyor.</value>
   </data>
   <data name="VoiceChannelsTB.Text" xml:space="preserve">
-    <value>SPRACHKANÄLE</value>
+    <value>KONUŞMA KANALLARI</value>
   </data>
   <data name="Yesterday" xml:space="preserve">
-    <value>Gestern</value>
+    <value>Dün</value>
   </data>
   <data name="DirectMessages" xml:space="preserve">
-    <value>Direktnachrichten</value>
+    <value>Doğrudan Mesajlar</value>
   </data>
   <data name="members" xml:space="preserve">
-    <value>&lt;count&gt; Mitglieder</value>
+    <value>&lt;count&gt; üye</value>
   </data>
   <data name="Notifications_sentMessageOn" xml:space="preserve">
-    <value>sende eine Nachricht an</value>
+    <value>şu yolla bir mesaj gönder</value>
   </data>
   <data name="PromptMessageSaveError" xml:space="preserve">
-    <value>Fehler bei Laden aufgetreten</value>
+    <value>Kaydedilen mesaj geçmişi yüklenirken bir sorun oluştu. Geçmiş temizlendi, böylece artık çalışabilir.</value>
   </data>
   <data name="PromptMutedCacheError" xml:space="preserve">
-    <value>Fehler bei Laden aufgetreten</value>
+    <value>Sessize alınmış kanallar yüklenirken bir sorun oluştu. Temizlendi, böylece artık çalışabilir.</value>
   </data>
   <data name="PromptNoCache" xml:space="preserve">
-    <value>Du hast keine zwischengespeicherte daten, die App wird nun starten und wird zwischenspeicher, damit die Ladezeiten verkürzen.</value>
+    <value>Önbelleğiniz yoktu, uygulama artık yükleme sürelerini iyileştirmek için verileri önbelleğe almaya başlayacak.</value>
   </data>
   <data name="TypingAnd" xml:space="preserve">
-    <value>und</value>
+    <value>ve</value>
   </data>
   <data name="TypingPlural" xml:space="preserve">
-    <value>schreiben...</value>
+    <value>yazıyor...</value>
   </data>
   <data name="TypingSingular" xml:space="preserve">
-    <value>schreibt...</value>
+    <value>yazıyor...</value>
   </data>
   <data name="SubmittedBy" xml:space="preserve">
-    <value>Vorgeschlagen von</value>
+    <value>Gönderen</value>
   </data>
   <data name="DirectMessagesTB.Text" xml:space="preserve">
-    <value>DIREKTNACHRICHTEN</value>
+    <value>DOĞRUDAN MESAJLAR</value>
   </data>
   <data name="FriendsTB.Text" xml:space="preserve">
-    <value>FREUNDE</value>
+    <value>ARKADAŞLAR</value>
   </data>
   <data name="Notifications_SentAFriendRequest" xml:space="preserve">
-    <value>hat dir eine Freundschaftsanfrage gesendet</value>
+    <value>sana bir arkadaşlık isteği gönderdi</value>
   </data>
   <data name="Notifications_Accept" xml:space="preserve">
-    <value>Annehmen</value>
+    <value>Kabul et</value>
   </data>
   <data name="Notifications_Refuse" xml:space="preserve">
-    <value>Ignorieren</value>
+    <value>Reddet</value>
   </data>
   <data name="Notifications_Reply" xml:space="preserve">
-    <value>Ablehnen</value>
+    <value>Yanıtla</value>
   </data>
   <data name="RecentMentionsABB.Label" xml:space="preserve">
-    <value>Neue Erwähnung</value>
+    <value>Son bahsetmeler</value>
   </data>
   <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>Sicherheits Code</value>
+    <value>Doğrulama kodu</value>
   </data>
   <data name="DirectMessageTB.Text" xml:space="preserve">
-    <value>DIREKTNACHRICHTEN</value>
+    <value>DOĞRUDAN MESAJLAR</value>
   </data>
   <data name="FriendsButtonText.Text" xml:space="preserve">
-    <value>Freunde</value>
+    <value>Arkadaşlar</value>
   </data>
   <data name="RemoveAdsABB.Label" xml:space="preserve">
-    <value>Entferne Werbung</value>
+    <value>Reklamları kaldır</value>
   </data>
   <data name="ShowPinnedABB.Label" xml:space="preserve">
-    <value>Zeige angeheftete Nachrichten</value>
+    <value>Sabitlenmiş Mesajları Göster</value>
   </data>
   <data name="ToggleMember.Label" xml:space="preserve">
-    <value>Verstecke Mitgliederliste</value>
+    <value>Üye Listesine Geç</value>
   </data>
   <data name="WhatsNewABB.Label" xml:space="preserve">
-    <value>Was gibt's neues</value>
+    <value>Neler Yeni</value>
   </data>
   <data name="&lt;count&gt; members" xml:space="preserve">
-    <value>&lt;count&gt; Mitglieder</value>
+    <value>&lt;count&gt; üye</value>
   </data>
   <data name="NewMessageHLBTN.Content" xml:space="preserve">
-    <value>NEUE NACHRICHTEN </value>
+    <value>YENİ MESAJLAR</value>
   </data>
   <data name="IgnoreHLBTN.Content" xml:space="preserve">
-    <value>IGNORIEREN</value>
+    <value>GÖRMEZDEN GEL</value>
   </data>
   <data name="ReturnToPresentHLBTN.Content" xml:space="preserve">
-    <value>ZURÜCK ZUM CHATANFANG</value>
+    <value>ŞİMDİYE DÖN</value>
   </data>
   <data name="AboutMFI.Text" xml:space="preserve">
-    <value>Über</value>
+    <value>Hakkında</value>
   </data>
   <data name="WhatsNewMFI.Text" xml:space="preserve">
-    <value>Was ist den so alles neu?</value>
+    <value>Neler Yeni?</value>
   </data>
   <data name="RemoveAds.Text" xml:space="preserve">
-    <value>Entferne Werbung</value>
+    <value>Reklamları kaldır</value>
   </data>
   <data name="Settings.Text" xml:space="preserve">
-    <value>Einstellungen</value>
+    <value>Ayarlar</value>
   </data>
   <data name="AddAttachementTB.Text" xml:space="preserve">
-    <value>Lade Bild/Datei hoch</value>
+    <value>EK TUTTUR</value>
   </data>
   <data name="CreateInviteMFI.Text" xml:space="preserve">
-    <value>Einladung erstellen</value>
+    <value>Davet Oluştur</value>
   </data>
   <data name="DeleteMFI.Text" xml:space="preserve">
-    <value>Server löschen</value>
+    <value>Sunucuyu Sil</value>
   </data>
   <data name="LeaveMFI.Text" xml:space="preserve">
-    <value>Server verlassen</value>
+    <value>Sunucudan Ayrıl</value>
   </data>
   <data name="SettingsMFI.Text" xml:space="preserve">
-    <value>Einstellungen</value>
+    <value>Ayarlar</value>
   </data>
 </root>

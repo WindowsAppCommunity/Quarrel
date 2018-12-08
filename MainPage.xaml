@@ -1195,12 +1195,12 @@
                             </Flyout>
                         </AppBarButton.Flyout>
                     </AppBarButton>
-                    <AppBarButton x:Uid="/Main/CallUser" x:Name="CallUser" Background="Transparent" Icon="Phone" Label="Call" Visibility="Collapsed" Click="CallUser_Click">
+                    <AppBarButton x:Uid="/Main/CallUserABB" x:Name="CallUser" Background="Transparent" Icon="Phone" Label="Call" Visibility="Collapsed" Click="CallUser_Click">
                         <AppBarButton.RenderTransform>
                             <ScaleTransform x:Name="CallUserTransform" ScaleX="1" ScaleY="1"/>
                         </AppBarButton.RenderTransform>
                     </AppBarButton>
-                    <AppBarButton x:Uid="/Main/ShowPinned" x:Name="PinnedMessags" Background="Transparent" Icon="Pin" HorizontalAlignment="Right" Label="Show Pinned Messages">
+                    <AppBarButton x:Uid="/Main/ShowPinnedABB" x:Name="PinnedMessags" Background="Transparent" Icon="Pin" HorizontalAlignment="Right" Label="Show Pinned Messages">
                         <AppBarButton.Flyout>
                             <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1NOLISTVIEW}">
                                 <Grid>
