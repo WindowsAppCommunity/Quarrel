@@ -701,7 +701,7 @@
                                     </CheckBox>
 
 
-                                    <!--<TextBlock x:Uid="/Settings/DataLimitingTB" Text="Data Limiting" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0"/>
+                                    <TextBlock x:Uid="/Settings/DataLimitingTB" Text="Data Limiting" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0"/>
                                     <TextBlock x:Uid="/Settings/StandardTB" Text="Standard" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                     <CheckBox x:Name="TTLAttachments" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450">
                                         <StackPanel Margin="0,2,0,0">
@@ -728,7 +728,7 @@
                                             <TextBlock x:Uid="/Settings/HideSIconsTB" Text="Hide Small Icons"/>
                                             <TextBlock x:Uid="/Settings/HideSIconsDescTB" Text="Small Icons (like User Icons in Messages and the Member List) will not show" TextWrapping="WrapWholeWords" FontSize="11" Opacity="0.5"/>
                                         </StackPanel>
-                                    </CheckBox>-->
+                                    </CheckBox>
 
                                     <TextBlock x:Uid="/Settings/ADVANCEDTB" Text="ADVANCED" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
                                     <CheckBox x:Name="UseCompression" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0" MaxWidth="450">

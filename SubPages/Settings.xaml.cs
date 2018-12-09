@@ -36,6 +36,10 @@ namespace Discord_UWP.SubPages
             App.SubpageCloseHandler += App_SubpageCloseHandler;
         }
 
+        NetworkSettings standardNetwork;
+        NetworkSettings mobileNetwork;
+
+
         private void App_SubpageCloseHandler(object sender, EventArgs e)
         {
             CloseButton_Click(null, null);
@@ -323,6 +327,13 @@ namespace Discord_UWP.SubPages
             if (LanguageSelection.SelectedIndex == -1)
                 LanguageSelection.SelectedIndex = 0;
 
+            standardNetwork = new NetworkSettings(Storage.Settings.StandardData);
+            mobileNetwork = new NetworkSettings(Storage.Settings.MobileData);
+
+            TTLAttachments.IsChecked = standardNetwork.TTL;
+            HideSIcons.IsChecked = standardNetwork.SmallIcons;
+            TTLAttachmentsMD.IsChecked = mobileNetwork.TTL;
+            HideSIconsMD.IsChecked = mobileNetwork.SmallIcons;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -508,6 +519,16 @@ namespace Discord_UWP.SubPages
 
             Storage.Settings.OutputDevice = (OutputDevices.SelectedItem as ComboBoxItem).Tag.ToString();
             Storage.Settings.InputDevice = (InputDevices.SelectedItem as ComboBoxItem).Tag.ToString();
+
+
+            standardNetwork.TTL = (bool)TTLAttachments.IsChecked;
+            standardNetwork.SmallIcons = (bool)HideSIcons.IsChecked;
+            mobileNetwork.TTL = (bool)TTLAttachmentsMD.IsChecked;
+            mobileNetwork.SmallIcons = (bool)HideSIconsMD.IsChecked;
+
+            Storage.Settings.StandardData = standardNetwork.GetInt();
+            Storage.Settings.MobileData = mobileNetwork.GetInt();
+
 
             Storage.SaveAppSettings();
             Storage.SettingsChanged();
