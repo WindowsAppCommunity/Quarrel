@@ -46,6 +46,10 @@ namespace Discord_UWP.Controls
 
         public event EventHandler<EventArgs> Delete;
 
+        private enum Type { File, Image, Audio, Video};
+
+        private Type type = Type.File;
+
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as AttachementControl;
@@ -80,67 +84,42 @@ namespace Discord_UWP.Controls
             if (IsFake) ClearButton.Visibility = Visibility.Visible;
 
             if (DisplayedAttachement == null) return;
-
-            bool IsImage = false;
-            bool IsAudio = false;
-            bool IsVideo = false;
+            
             if (images)
             {
                 if (ImageFiletypes.Contains("." + DisplayedAttachement.Filename.Split('.').Last().ToLower()))
                 {
-                    IsImage = true;
-                    if (DisplayedAttachement.Filename.EndsWith(".svg"))
+                    type = Type.Image;
+                    PreviewIcon.Glyph = "";
+                    if (!NetworkSettings.GetTTL())
                     {
-                        AttachedImageViewer.Source = new SvgImageSource(new Uri(DisplayedAttachement.Url));
-                    }
-                    else
-                    {
-                        AttachedImageViewer.Source = new BitmapImage(new Uri(DisplayedAttachement.Url));
+                        ShowPreview();
                     }
                 } else if (AudioFiletypes.Contains("." + DisplayedAttachement.Filename.Split('.').Last().ToLower()))
                 {
-                    IsAudio = true;
+                    type = Type.Audio;
+                    PreviewIcon.Glyph = "";
                     player.AudioCategory = AudioCategory.Media;
-                    player.Source = new Uri(DisplayedAttachement.Url);
+
+                    if (!NetworkSettings.GetTTL())
+                    {
+                        ShowPreview();
+                    }
+
                 } else if (VideoFiletypes.Contains("." + DisplayedAttachement.Filename.Split('.').Last().ToLower()))
                 {
-                    IsVideo = true;
+                    type = Type.Video;
+                    PreviewIcon.Glyph = "";
                     player.AudioCategory = AudioCategory.Media;
-                    player.Source = new Uri(DisplayedAttachement.Url);
-                    if (DisplayedAttachement.Height.HasValue)
+                    if (!NetworkSettings.GetTTL())
                     {
-                        player.Height = DisplayedAttachement.Height.Value;
-                    }
-                    if (DisplayedAttachement.Width.HasValue)
-                    {
-                        player.Width = DisplayedAttachement.Width.Value;
-                    }
-                    if (player.Height > 300)
-                    {
-                        player.Width = player.Width / (player.Height / 300);
-                        player.Height = 300;
-                    }
-                    if (player.Width > 300)
-                    {
-                        player.Height = player.Height / (player.Width / 300);
-                        player.Width = 300;
+                        ShowPreview();
                     }
                 }
             }
-            if (IsImage)
-            {
-                AttachedImageViewbox.Visibility = Visibility.Visible;
-                LoadingImage.Visibility = Visibility.Visible;
-                LoadingImage.IsActive = true;
-            } else if (IsAudio)
-            {
-                player.Visibility = Visibility.Visible;
-            } else if (IsVideo)
-            {
-                player.Visibility = Visibility.Visible;
-            }
-            else
-            {
+            if (type == Type.File || NetworkSettings.GetTTL())
+            { 
+                if (type != Type.File) { PreviewButton.Visibility = Visibility.Visible; }
                 if(!IsFake)
                     FileName.NavigateUri = new Uri(DisplayedAttachement.Url);
                 FileName.Content = DisplayedAttachement.Filename;
@@ -202,6 +181,58 @@ namespace Discord_UWP.Controls
             {
                 App.ShowMenuFlyout(this, DisplayedAttachement.Url, e.GetPosition(this));
             }
+        }
+
+        private void ShowPreview(object sender, RoutedEventArgs e)
+        {
+            ShowPreview();
+        }
+
+        private void ShowPreview()
+        {
+            switch (type)
+            {
+                case Type.Image:
+                    if (DisplayedAttachement.Filename.EndsWith(".svg"))
+                    {
+                        AttachedImageViewer.Source = new SvgImageSource(new Uri(DisplayedAttachement.Url));
+                    }
+                    else
+                    {
+                        AttachedImageViewer.Source = new BitmapImage(new Uri(DisplayedAttachement.Url));
+                    }
+                    AttachedImageViewbox.Visibility = Visibility.Visible;
+                    LoadingImage.Visibility = Visibility.Visible;
+                    LoadingImage.IsActive = true;
+                    break;
+                case Type.Audio:
+                    player.Source = new Uri(DisplayedAttachement.Url);
+                    player.Visibility = Visibility.Visible;
+                    break;
+                case Type.Video:
+                    player.Source = new Uri(DisplayedAttachement.Url);
+                    if (DisplayedAttachement.Height.HasValue)
+                    {
+                        player.Height = DisplayedAttachement.Height.Value;
+                    }
+                    if (DisplayedAttachement.Width.HasValue)
+                    {
+                        player.Width = DisplayedAttachement.Width.Value;
+                    }
+                    if (player.Height > 300)
+                    {
+                        player.Width = player.Width / (player.Height / 300);
+                        player.Height = 300;
+                    }
+                    if (player.Width > 300)
+                    {
+                        player.Height = player.Height / (player.Width / 300);
+                        player.Width = 300;
+                    }
+                    player.Visibility = Visibility.Visible;
+                    break;
+            }
+            AttachedFileViewer.Visibility = Visibility.Collapsed;
         }
     }
 }
