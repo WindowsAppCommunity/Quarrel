@@ -735,7 +735,7 @@
     <value>Изменена тема из &lt;old&gt; в &lt;new&gt;</value>
   </data>
   <data name="AuditLogPermissionGiven" xml:space="preserve">
-    <value>**Дал** привелегие &lt;permission&gt; для &lt;role&gt;</value>
+    <value>**Дал** привелелгие &lt;permission&gt; для &lt;role&gt;</value>
   </data>
   <data name="AuditLogPermissionRevoked" xml:space="preserve">
     <value>**убрал** привелегие &lt;permission&gt; для&lt;role&gt;</value>

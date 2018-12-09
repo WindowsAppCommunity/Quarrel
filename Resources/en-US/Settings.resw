@@ -526,7 +526,7 @@
   <data name="UseCompressionTB.Text" xml:space="preserve">
     <value>Data Compression</value>
   </data>
-  <data name="VibrateDescTB.Text" xml:space="preserve">
+  <data name="x" xml:space="preserve">
     <value>When you recieve a message in your active channel, your device will vibrate, if it can</value>
   </data>
   <data name="VibrateTB.Text" xml:space="preserve">
@@ -639,5 +639,8 @@
   </data>
   <data name="RunEveryLabelTB.Text" xml:space="preserve">
     <value>Run background process every:</value>
+  </data>
+  <data name="VibrateDescTB.Text" xml:space="preserve">
+    <value>When you recieve a message in your active channel, your device will vibrate, if it can</value>
   </data>
 </root>

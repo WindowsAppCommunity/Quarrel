@@ -531,7 +531,7 @@
   <data name="UseCompressionTB.Text" xml:space="preserve">
     <value>Сжатие данных</value>
   </data>
-  <data name="VibrateDescTB.Text" xml:space="preserve">
+  <data name="x" xml:space="preserve">
     <value>Когда вы получаете сообщение в своем активном канале, ваше устройство будет вибрировать, если оно имеет такую возможность</value>
   </data>
   <data name="VibrateTB.Text" xml:space="preserve">
@@ -557,5 +557,23 @@
   </data>
   <data name="ResetQuarrelBTN.Content" xml:space="preserve">
     <value>Сбросить Quarrel</value>
+  </data>
+  <data name="VibrateDescTB.Text" xml:space="preserve">
+    <value>Когда вы получаете сообщение в своем активном канале, ваше устройство будет вибрировать, если оно имеет такую возможность</value>
+  </data>
+  <data name="NoInput.Text" xml:space="preserve">
+    <value>К сожалению, Quarrel не смог найти или использовать устройство ввода. Прослушивание голосовых каналов будет работать, но говорить вы не сможете.</value>
+  </data>
+  <data name="RichPresenceDescTB.Text" xml:space="preserve">
+    <value>Разрешить другим приложениям UWP подключаться к Quarrel для установки детализированного статуса пользователя</value>
+  </data>
+  <data name="RichPresenceTB.Text" xml:space="preserve">
+    <value>Детализированные статусы</value>
+  </data>
+  <data name="ShowNoPermissionsChannelsDescTB.Text" xml:space="preserve">
+    <value>Взгляните, что yee не может войти</value>
+  </data>
+  <data name="ShowNoPermissionsChannelsTB.Text" xml:space="preserve">
+    <value>Показать каналы без разрешений</value>
   </data>
 </root>

@@ -519,7 +519,7 @@
   <data name="UseCompressionDescTB.Text" xml:space="preserve">
     <value>La compression des données rend les messages qu'on échange avec les serveurs Discord plus petits et rapides, en échange d'un tout petit plus d'effort demandé au CPU (mais c'est beaucoup plus rapide)</value>
   </data>
-  <data name="VibrateDescTB.Text" xml:space="preserve">
+  <data name="x" xml:space="preserve">
     <value>Lorsque vous recevez un message dans le salon actif, votre appareil vibrera (si il en est capable)</value>
   </data>
   <data name="VibrateTB.Text" xml:space="preserve">

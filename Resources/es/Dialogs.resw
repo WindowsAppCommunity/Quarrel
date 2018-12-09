@@ -969,4 +969,7 @@
   <data name="ECF2DescTB.Text" xml:space="preserve">
     <value>Opción recomendada cuando quieres que rechine de limpio</value>
   </data>
+  <data name="SendBTN.Content" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
 </root>

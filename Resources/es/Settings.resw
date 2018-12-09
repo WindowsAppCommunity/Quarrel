@@ -499,7 +499,7 @@
     <value>Compresión de Datos </value>
   </data>
   <data name="MentionGlowDescTB.Text" xml:space="preserve">
-    <value>El lado izquierdo de la pantalla se ilumoina cuando eres mencionado</value>
+    <value>El lado izquierdo de la pantalla se ilumina cuando eres mencionado</value>
   </data>
   <data name="MentionGlowTB.Text" xml:space="preserve">
     <value>Iluminación en Menciones</value>
@@ -519,7 +519,7 @@
   <data name="UseCompressionDescTB.Text" xml:space="preserve">
     <value>La compresión de datos hace más pequeños los mensajes recibidos y cargan más rápido. Es un poco más exigente con la CPU pero significativamente más rápido en conexiones lentas.</value>
   </data>
-  <data name="VibrateDescTB.Text" xml:space="preserve">
+  <data name="x" xml:space="preserve">
     <value>Cuando recibas un mensaje en tu canal activo, tu dispositivo vibrará, si puede hacerlo</value>
   </data>
   <data name="VibrateTB.Text" xml:space="preserve">
@@ -527,5 +527,113 @@
   </data>
   <data name="CustomCBI.Content" xml:space="preserve">
     <value>Personalizado</value>
+  </data>
+  <data name="CompactMessagesCB.Content" xml:space="preserve">
+    <value>MensajesCompactos</value>
+  </data>
+  <data name="InputDevicesCB.Header" xml:space="preserve">
+    <value>Dispositivos de Entrada</value>
+  </data>
+  <data name="NoiseSensitivitySD.Header" xml:space="preserve">
+    <value>Tolerancia al ruido (dB)</value>
+  </data>
+  <data name="OLEDDescTB.Text" xml:space="preserve">
+    <value>Esto cambia el tema de la aplicación para los dispositivos OLED de modo que ahorren batería (Incluye un fondo totalmente negro)</value>
+  </data>
+  <data name="OLEDTB.Text" xml:space="preserve">
+    <value>Tema OLED</value>
+  </data>
+  <data name="ResetQuarrelBTN.Content" xml:space="preserve">
+    <value>Reiniciar Quarrel</value>
+  </data>
+  <data name="NoInput.Text" xml:space="preserve">
+    <value>Desafortunadamente, Quarrel no pudo encontrar o usar algún dispositivo de entrada. La escucha en los canales de voz seguirá funcionando, pero no podrás hablar.</value>
+  </data>
+  <data name="RichPresenceDescTB.Text" xml:space="preserve">
+    <value>Permitir que las otras apps UWP se conecten con Quarrel para activar la Presencia Enriquecida del usuario.</value>
+  </data>
+  <data name="RichPresenceTB.Text" xml:space="preserve">
+    <value>Presencia Enriquecida</value>
+  </data>
+  <data name="ShowNoPermissionsChannelsDescTB.Text" xml:space="preserve">
+    <value>Un vistazo de aquello a lo que no puedes acceder</value>
+  </data>
+  <data name="ShowNoPermissionsChannelsTB.Text" xml:space="preserve">
+    <value>Mostrar los Canales Sin Permisos</value>
+  </data>
+  <data name="ScalingDescTB.Text" xml:space="preserve">
+    <value>Con pantallas pequeñas todo se puede ver un poco más chico en Xbox así que puedes activar el escalado para hacerlo más grande</value>
+  </data>
+  <data name="ScalingTB.Text" xml:space="preserve">
+    <value>Escalado</value>
+  </data>
+  <data name="ADVANCEDTB.Text" xml:space="preserve">
+    <value>AVANZADO</value>
+  </data>
+  <data name="BehaviorPI.Header" xml:space="preserve">
+    <value>Comportamiento</value>
+  </data>
+  <data name="CHANNELSTB.Text" xml:space="preserve">
+    <value>CANALES</value>
+  </data>
+  <data name="DataLimiting2TB.Text" xml:space="preserve">
+    <value>Limitación de Datos en Datos Móviles</value>
+  </data>
+  <data name="DataLimitingTB.Text" xml:space="preserve">
+    <value>Limitación de Datos</value>
+  </data>
+  <data name="DisplayPI.Header" xml:space="preserve">
+    <value>Pantalla</value>
+  </data>
+  <data name="IntegrationTB.Text" xml:space="preserve">
+    <value>INTEGRACIÓN</value>
+  </data>
+  <data name="NetworkPI.Header" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="OnMDTB.Text" xml:space="preserve">
+    <value>En Datos Móviles</value>
+  </data>
+  <data name="OtherPI.Header" xml:space="preserve">
+    <value>Otros</value>
+  </data>
+  <data name="ResetQuarrelSettingsBTN.Content" xml:space="preserve">
+    <value>Reiniciar ajustes de Quarrel</value>
+  </data>
+  <data name="StandardTB.Text" xml:space="preserve">
+    <value>Estándar</value>
+  </data>
+  <data name="Theme.Header" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="TTLDescTB.Text" xml:space="preserve">
+    <value>TCP (Toca para Cargar) Las imágenes, audios y videos en los mensajes no se mostrarán  a menos que toques primero el icono de reemplazo</value>
+  </data>
+  <data name="TTLTB.Text" xml:space="preserve">
+    <value>Adjuntos TPC</value>
+  </data>
+  <data name="BGTaskNoRun" xml:space="preserve">
+    <value>La tarea en segundo plano no se ha ejecutado todavía</value>
+  </data>
+  <data name="BGTaskNoSuccessfulRun" xml:space="preserve">
+    <value>La tarea en segundo plano todavía no se ha ejecutafo con éxito</value>
+  </data>
+  <data name="DeviceOverrideTB.Text" xml:space="preserve">
+    <value>Puede ser anulado en cada sesión dando clic derecho o sosteniendo pulsado el icono de Ensordecer en el Canal de Voz</value>
+  </data>
+  <data name="MyPeopleDescTB.Text" xml:space="preserve">
+    <value>Muestra los contactos de Discord en la aplicación de Contactos y en la barra de tareas </value>
+  </data>
+  <data name="MyPeopleTB.Text" xml:space="preserve">
+    <value>MyPeople</value>
+  </data>
+  <data name="OverrideCategoryCollaspseTB.Text" xml:space="preserve">
+    <value>Anular Categorias Colapsadas</value>
+  </data>
+  <data name="RunEveryLabelTB.Text" xml:space="preserve">
+    <value>Ejecutar proceso en segundo plano cada:</value>
+  </data>
+  <data name="VibrateDescTB.Text" xml:space="preserve">
+    <value>Cuando recibas un mensaje en tu canal activo, tu dispositivo vibrará, si puede hacerlo</value>
   </data>
 </root>
