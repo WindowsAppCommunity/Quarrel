@@ -519,7 +519,7 @@
   <data name="UseCompressionTB.Text" xml:space="preserve">
     <value>บีบอัดข้อมูล</value>
   </data>
-  <data name="VibrateDescTB.Text" xml:space="preserve">
+  <data name="x" xml:space="preserve">
     <value>เมื่อคุณกำลังคุยอยู่ในแชนเนลใดก็ตามแล้วมีข้อความใหม่ อุปกรณ์จะสั่นให้รู้ ถ้าสั่นได้</value>
   </data>
   <data name="VibrateTB.Text" xml:space="preserve">
@@ -545,5 +545,11 @@
   </data>
   <data name="ResetQuarrelBTN.Content" xml:space="preserve">
     <value>รีเซทแอพ</value>
+  </data>
+  <data name="VibrateDescTB.Text" xml:space="preserve">
+    <value>เมื่อคุณกำลังคุยอยู่ในแชนเนลใดก็ตามแล้วมีข้อความใหม่ อุปกรณ์จะสั่นให้รู้ ถ้าสั่นได้</value>
+  </data>
+  <data name="NoInput.Text" xml:space="preserve">
+    <value>ไม่พบไมโครโฟนมี่สามารถใช้งานได้! หากเข้าไปคุยในแชนเนลใดก็ตามคุณจะฟังได้ แต่คุณจะไม่สามารถพูดได้</value>
   </data>
 </root>

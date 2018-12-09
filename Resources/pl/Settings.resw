@@ -472,6 +472,93 @@
     <value>Pędzel akrylowy</value>
   </data>
   <data name="ExpensiveRenderDescTB.Text" xml:space="preserve">
-    <value>Włącza </value>
+    <value>Włącza kosztowne efekty graficzne tajkie jak rozmycie czy Wizuarytory Audio</value>
+  </data>
+  <data name="BadgeCountDescTB.Text" xml:space="preserve">
+    <value>Pokazuj licznik wzmianek jako odznakę</value>
+  </data>
+  <data name="BadgeCountTB.Text" xml:space="preserve">
+    <value>Licznik odznak</value>
+  </data>
+  <data name="ExpensiveRenderTB.Text" xml:space="preserve">
+    <value>Kosztowne Renderowanie</value>
+  </data>
+  <data name="HighlightEveryoneDescTB.Text" xml:space="preserve">
+    <value>Spam @everyone nie stanowi już problemu</value>
+  </data>
+  <data name="HighlightEveryoneTB.Text" xml:space="preserve">
+    <value>Podświetl @everyone</value>
+  </data>
+  <data name="LiveTileDescTB.Text" xml:space="preserve">
+    <value>Pokazuj wiadomości na Live Title</value>
+  </data>
+  <data name="LiveTileTB.Text" xml:space="preserve">
+    <value>LIve Title</value>
+  </data>
+  <data name="MentionGlowDescTB.Text" xml:space="preserve">
+    <value>Lewa strona ekranu rozjaśnia się, kiedy zostajesz wspomniany</value>
+  </data>
+  <data name="MentionGlowTB.Text" xml:space="preserve">
+    <value>Rozjaśnienie wspomnienia</value>
+  </data>
+  <data name="ServerMuteIconDescTB.Text" xml:space="preserve">
+    <value>Ikona wyciszenia pojawia się na wyciszonych serwerach na pasku serwerów</value>
+  </data>
+  <data name="ServerMuteIconTB.Text" xml:space="preserve">
+    <value>Ikona Wyciszenia Serwera</value>
+  </data>
+  <data name="ShowWelcomeDescTB.Text" xml:space="preserve">
+    <value>Te słodkie małe powiadomionka na ekranie ładowania, możesz je wyłączyć, jeśli chcesz. Czemu nie?</value>
+  </data>
+  <data name="ShowWelcomeTB.Text" xml:space="preserve">
+    <value>Pokazuj Wiadomości Powitalne</value>
+  </data>
+  <data name="UseCompressionDescTB.Text" xml:space="preserve">
+    <value>Kompresowanie danych zmniejsza wielkość danych do odebrania. Jest to bardziej procesorożerne, ale działa znacznie lepiej, przy wolnym łączu internetowym</value>
+  </data>
+  <data name="UseCompressionTB.Text" xml:space="preserve">
+    <value>Kompresowanie Danych</value>
+  </data>
+  <data name="VibrateDescTB.Text" xml:space="preserve">
+    <value>Kiedy otrzymasz wiadomość w kanale w którm się znajdujesz, twoje urządzenie zawibruje, jeżeli może</value>
+  </data>
+  <data name="VibrateTB.Text" xml:space="preserve">
+    <value>Wibracje przy Odbieraniu</value>
+  </data>
+  <data name="CustomCBI.Content" xml:space="preserve">
+    <value>Dostosuj</value>
+  </data>
+  <data name="CompactMessagesCB.Content" xml:space="preserve">
+    <value>KompaktoweWiadomości</value>
+  </data>
+  <data name="InputDevicesCB.Header" xml:space="preserve">
+    <value>Urządzenia wejścia</value>
+  </data>
+  <data name="NoiseSensitivitySD.Header" xml:space="preserve">
+    <value>Tolerancja szumu (dB)</value>
+  </data>
+  <data name="OLEDDescTB.Text" xml:space="preserve">
+    <value>Zmienia to motyw aplikacji dla urządzeń OLED w celu oszczędzania baterii (całkowicie czarne tło)</value>
+  </data>
+  <data name="OLEDTB.Text" xml:space="preserve">
+    <value>Motyw OLED</value>
+  </data>
+  <data name="ResetQuarrelBTN.Content" xml:space="preserve">
+    <value>Zresetuj Quarrel'a</value>
+  </data>
+  <data name="NoInput.Text" xml:space="preserve">
+    <value>Niestet, Quarrel nie był w stanie znaleść urządzenia wejścia. Słuchanie w kanałach głosowych będzie działać, ale mówienie nie.</value>
+  </data>
+  <data name="RichPresenceDescTB.Text" xml:space="preserve">
+    <value>Pozwala innym aplikacjom UWP na połącznie z Quarrel'em aby użyć Bogatej Prezentacji (rozbudowana informacja o grze itd.)</value>
+  </data>
+  <data name="RichPresenceTB.Text" xml:space="preserve">
+    <value>Bogata Prezentacja</value>
+  </data>
+  <data name="ShowNoPermissionsChannelsDescTB.Text" xml:space="preserve">
+    <value>Zobacz to czego do czego nie możesz wejść</value>
+  </data>
+  <data name="ShowNoPermissionsChannelsTB.Text" xml:space="preserve">
+    <value>Pokazuj Kanały Bez Dostępu</value>
   </data>
 </root>

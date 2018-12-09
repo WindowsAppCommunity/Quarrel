@@ -682,22 +682,22 @@
     <value>&lt;user&gt;, &lt;webhook&gt; webhook'unu sildi</value>
   </data>
   <data name="AuditLogChannelPermissionCreateInvalid" xml:space="preserve">
-    <value>&lt;user&gt;, şimdi silinen bir kanal için izinler oluşturdu</value>
+    <value>&lt;user&gt;, şimdi silinen bir kanal için izin oluşturdu</value>
   </data>
   <data name="AuditLogChannelPermissionCreateValid" xml:space="preserve">
-    <value>&lt;user&gt; , &lt;channel&gt; kanalı için izinler oluşturdu</value>
+    <value>&lt;user&gt;, &lt;channel&gt; kanalı için izin oluşturdu</value>
   </data>
   <data name="AuditLogChannelPermissionRemoveInvalid" xml:space="preserve">
-    <value>&lt;user&gt;, şimdi silinen bir kanal için izinleri kaldırdı</value>
+    <value>&lt;user&gt;, şimdi silinen bir kanal için izin kaldırdı</value>
   </data>
   <data name="AuditLogChannelPermissionRemoveValid" xml:space="preserve">
-    <value>&lt;user&gt;, &lt;channel&gt; kanalı için izinleri kaldırdı</value>
+    <value>&lt;user&gt;, &lt;channel&gt; kanalı için izin kaldırdı</value>
   </data>
   <data name="AuditLogChannelPermissionUpdateInvalid" xml:space="preserve">
-    <value>&lt;user&gt;, şimdi silinen bir kanal için izinleri güncelledi</value>
+    <value>&lt;user&gt;, şimdi silinen bir kanal için izin güncelledi</value>
   </data>
   <data name="AuditLogChannelPermissionUpdateValid" xml:space="preserve">
-    <value>&lt;user&gt;, &lt;channel&gt; kanalı için izinleri güncelledi</value>
+    <value>&lt;user&gt;, &lt;channel&gt; kanalı için izin güncelledi</value>
   </data>
   <data name="AuditLogMemberUpdate" xml:space="preserve">
     <value>&lt;user&gt;, &lt;user2&gt; kişisini güncelledi</value>
@@ -727,10 +727,10 @@
     <value>Konu, &lt;old&gt; iken &lt;new&gt; olarak değiştirildi</value>
   </data>
   <data name="AuditLogPermissionGiven" xml:space="preserve">
-    <value>&lt;role&gt; rolüne &lt;permission&gt; izni **verildi**</value>
+    <value>&lt;permission&gt; izni **verildi**</value>
   </data>
   <data name="AuditLogPermissionRevoked" xml:space="preserve">
-    <value>&lt;role&gt; rolünden &lt;permission&gt; izni **geri alındı**</value>
+    <value>&lt;permission&gt; izni **geri alındı**</value>
   </data>
   <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
     <value>AFK Kanalı, &lt;channel&gt; olarak ayarlandı</value>
@@ -968,5 +968,8 @@
   </data>
   <data name="AuditLogsTB.Content" xml:space="preserve">
     <value>Denetim kaydı</value>
+  </data>
+  <data name="SendBTN.Content" xml:space="preserve">
+    <value>Gönder</value>
   </data>
 </root>

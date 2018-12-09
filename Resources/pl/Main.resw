@@ -339,4 +339,10 @@
   <data name="DeleteMFI.Text" xml:space="preserve">
     <value>Usuń Serwer</value>
   </data>
+  <data name="LeaveMFI.Text" xml:space="preserve">
+    <value>Opuść serwer</value>
+  </data>
+  <data name="SettingsMFI.Text" xml:space="preserve">
+    <value>Ustawienia Aplikacji</value>
+  </data>
 </root>

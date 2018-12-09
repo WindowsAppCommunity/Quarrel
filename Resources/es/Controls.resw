@@ -336,4 +336,7 @@
   <data name="Watching" xml:space="preserve">
     <value>Mirando</value>
   </data>
+  <data name="SendMessagePlaceHolder" xml:space="preserve">
+    <value>Enviar mensaje</value>
+  </data>
 </root>

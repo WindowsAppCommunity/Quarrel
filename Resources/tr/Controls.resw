@@ -336,4 +336,7 @@
   <data name="Watching" xml:space="preserve">
     <value>İzliyor</value>
   </data>
+  <data name="SendMessagePlaceHolder" xml:space="preserve">
+    <value>Mesaj gönder</value>
+  </data>
 </root>
