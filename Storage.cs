@@ -202,9 +202,22 @@ namespace Discord_UWP
             set => Set(DataSettings.TTL, value);
         }
 
+        private static int GetSettings()
+        {
+            var temp = Windows.Networking.Connectivity.NetworkInformation.GetInternetConnectionProfile();
+            if (temp.IsWwanConnectionProfile)
+            {
+                return Storage.Settings.MobileData;
+            }
+            else
+            {
+                return Storage.Settings.StandardData;
+            }
+        }
+
         public static bool GetTTL()
         {
-            int settings = Storage.Settings.StandardData; //TODO: Standard vs Mobile data
+            int settings = GetSettings();
             return (settings & (int)DataSettings.TTL) == (int)DataSettings.TTL;
         }
 
@@ -216,7 +229,7 @@ namespace Discord_UWP
 
         public static bool GetSmallIcons()
         {
-            int settings = Storage.Settings.StandardData; //TODO: Standard vs Mobile data
+            int settings = GetSettings();
             return (settings & (int)DataSettings.SmallIcons) == (int)DataSettings.SmallIcons;
         }
 

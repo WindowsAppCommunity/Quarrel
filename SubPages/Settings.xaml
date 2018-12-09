@@ -709,7 +709,7 @@
                                             <TextBlock x:Uid="/Settings/TTLDescTB" Text="TTL (Tap To Load). Images, Audio or Videos in messages will not show unless you tap a replacement icon first" TextWrapping="WrapWholeWords" FontSize="11" Opacity="0.5"/>
                                         </StackPanel>
                                     </CheckBox>
-                                    <CheckBox x:Name="HideSIcons" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450">
+                                    <CheckBox x:Name="HideSIcons" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450" Visibility="Collapsed">
                                         <StackPanel Margin="0,2,0,0">
                                             <TextBlock x:Uid="/Settings/HideSIconsTB" Text="Hide Small Icons"/>
                                             <TextBlock x:Uid="/Settings/HideSIconsDescTB" Text="Small Icons (like User Icons in Messages and the Member List) will not show" TextWrapping="WrapWholeWords" FontSize="11" Opacity="0.5"/>
@@ -723,7 +723,7 @@
                                             <TextBlock x:Uid="/Settings/TTLDescTB" Text="TTL (Tap To Load). Images, Audio or Videos in messages will not show unless you tap a replacement icon first" TextWrapping="WrapWholeWords" FontSize="11" Opacity="0.5"/>
                                         </StackPanel>
                                     </CheckBox>
-                                    <CheckBox x:Name="HideSIconsMD" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450">
+                                    <CheckBox x:Name="HideSIconsMD" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450" Visibility="Collapsed">
                                         <StackPanel Margin="0,2,0,0">
                                             <TextBlock x:Uid="/Settings/HideSIconsTB" Text="Hide Small Icons"/>
                                             <TextBlock x:Uid="/Settings/HideSIconsDescTB" Text="Small Icons (like User Icons in Messages and the Member List) will not show" TextWrapping="WrapWholeWords" FontSize="11" Opacity="0.5"/>
