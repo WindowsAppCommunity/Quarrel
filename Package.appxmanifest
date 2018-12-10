@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4" IgnorableNamespaces="uap mp">
-  <Identity Name="38062AvishaiDernis.DiscordUWP" Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B" Version="10.4.2.0" />
-  <mp:PhoneIdentity PhoneProductId="00dc4dca-2b3d-4cc9-ba88-a893b5fb9073" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="38062AvishaiDernis.QuarrelInsider" Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B" Version="10.4.3.0" />
+  <mp:PhoneIdentity PhoneProductId="5d6585c4-4a53-458a-b897-4ec0cfac87ef" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Quarrel</DisplayName>
+    <DisplayName>Quarrel Insider</DisplayName>
     <PublisherDisplayName>Avishai Dernis</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -64,7 +64,7 @@
           <uap3:AppService Name="Quarrel.Presence" SupportsRemoteSystems="true" />
         </uap:Extension>
       </Extensions>
-      <uap:VisualElements DisplayName="Quarrel" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Unofficial client for Discord" BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="Quarrel Insider" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Unofficial client for Discord" BackgroundColor="transparent">
         <uap:LockScreen Notification="badgeAndTileText" BadgeLogo="Assets\BadgeLogo.png" />
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="Quarrel" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
           <uap:ShowNameOnTiles>
