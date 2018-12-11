@@ -839,11 +839,13 @@ namespace Discord_UWP.Controls
             if (displayedTyperCounter == 0)
             {
                 TypingStackPanel.Fade(0, 200).Start();
+                TypingStackPanel.Visibility = Visibility.Collapsed;
             }
             else
             {
                 TypingIndicator.Text = typingString;
                 TypingStackPanel.Fade(1, 200).Start();
+                TypingStackPanel.Visibility = Visibility.Visible;
             }
         }
 
