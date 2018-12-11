@@ -1185,16 +1185,6 @@
                             </AppBarButton.Flyout>
                         </AppBarButton>-->
                     <!--<AppBarButton Icon="Find" Click="Search_Click"/>-->
-                    <AppBarButton x:Name="AddFriend" x:Uid="/Main/AddFriendABB" Icon="AddFriend" Label="Add Friend" Visibility="Collapsed" Click="AddFriend_Click">
-                        <AppBarButton.Flyout>
-                            <Flyout>
-                                <StackPanel>
-                                    <TextBox x:Name="SendFriendTB" x:Uid="/Main/AddFriendTB" PlaceholderText="Enter DiscordTag#0000" Style="{ThemeResource TextBoxStyle1}" Width="400"/>
-                                    <Button x:Uid="/Main/SendFriendRequestBTN" Content="Send Friend Request" Click="SendFriendRequest" Style="{ThemeResource DiscordButton}" Width="400"/>
-                                </StackPanel>
-                            </Flyout>
-                        </AppBarButton.Flyout>
-                    </AppBarButton>
                     <AppBarButton x:Uid="/Main/CallUserABB" x:Name="CallUser" Background="Transparent" Icon="Phone" Label="Call" Visibility="Collapsed" Click="CallUser_Click">
                         <AppBarButton.RenderTransform>
                             <ScaleTransform x:Name="CallUserTransform" ScaleX="1" ScaleY="1"/>

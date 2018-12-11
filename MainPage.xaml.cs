@@ -1058,7 +1058,6 @@ namespace Discord_UWP
             ChannelList.SelectedIndex = -1;
             friendPanel.Visibility = Visibility.Visible;
             CallUser.Visibility = Visibility.Collapsed;
-            if (App.Insider) AddFriend.Visibility = Visibility.Visible;
             ChannelName.Text = ChannelTopic.Text = "";
             if (App.CinematicMode) CinematicChannelName.Visibility = Visibility.Collapsed;
           //  MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
@@ -1280,26 +1279,6 @@ namespace Discord_UWP
             }
         }
 
-        private async void SendFriendRequest(object sender, RoutedEventArgs e)
-        {
-            string[] strings = SendFriendTB.Text.Split('#');
-            if (strings.Count() == 2)
-            {
-                SendFriendRequestResponse result =
-                    await RESTCalls.SendFriendRequest(strings[0], Convert.ToInt32(strings[1]));
-                if (result != null && result.Message != null)
-                    SendFriendTB.Header =
-                        result.Message; //App.GetString(result.Message.Replace(' ', '\0')); //TODO: Translate
-                else
-                    SendFriendTB.Header = "Success!"; //TODO: Translate
-            }
-            else
-            {
-                SendFriendTB.Header = "You need a discriminator to send a friend request"; //TODO: Translate
-            }
-        }
-
-
         private void NavToDiscordStatus(object sender, RoutedEventArgs e)
         {
             SubFrameNavigator(typeof(DiscordStatus));
@@ -1357,11 +1336,7 @@ namespace Discord_UWP
                 App.NavigateToLeaveServer(LocalState.CurrentGuild.Raw.Id);
             }
         }
-
-        private void AddFriend_Click(object sender, RoutedEventArgs e)
-        {
-            SendFriendTB.Focus(FocusState.Keyboard);
-        }
+        
         private async void CallUser_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -1529,7 +1504,6 @@ namespace Discord_UWP
                     UserDetails.Visibility = Visibility.Collapsed;
                     MemberListFull.Visibility = Visibility.Visible;
                     CallUser.Visibility = Visibility.Collapsed;
-                    if (App.Insider) AddFriend.Visibility = Visibility.Collapsed;
                     RenderGuildChannels();
                     if (App.ShowAds) Ad.Visibility = Visibility.Visible;
                 }
@@ -1626,7 +1600,6 @@ namespace Discord_UWP
             }
             else //Out of guild navigation
             {
-                if (App.Insider) AddFriend.Visibility = Visibility.Collapsed;
                 CallUser.Visibility = Visibility.Collapsed;
                 if (!e.OnBack) navigationHistory.Push(_currentPage);
 
@@ -1672,8 +1645,6 @@ namespace Discord_UWP
             if (App.CurrentGuildIsDM)
             {
                 CallUser.Visibility = Visibility.Visible;
-                if (!App.Insider)
-                    AddFriend.Visibility = e.ChannelId == null ? Visibility.Visible : Visibility.Collapsed;
 
                 if (e.ChannelId != null && LocalState.RPC.ContainsKey(e.ChannelId))
                     App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
@@ -2370,7 +2341,6 @@ namespace Discord_UWP
                 friendPanel.Visibility = Visibility.Visible;
                 //MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
                 CallUser.Visibility = Visibility.Collapsed;
-                if (App.Insider) AddFriend.Visibility = Visibility.Visible;
                 if (App.CinematicMode) CinematicChannelName.Visibility = Visibility.Collapsed;
             }
 
@@ -2387,7 +2357,6 @@ namespace Discord_UWP
                     channelCollection.Add(channel);
                     if (id != null && channel.Id == id)
                     {
-                        if (App.Insider) AddFriend.Visibility = Visibility.Collapsed;
                         CallUser.Visibility = Visibility.Collapsed;
                         ChannelList.SelectedItem = channel;
                         App.CurrentChannelId = id;

@@ -75,7 +75,20 @@ namespace Discord_UWP
             InitializeComponent();
             Suspending += OnSuspending;
             Resuming += App_Resuming;
+            //UnhandledException += App_UnhandledException;
             CoreApplication.EnablePrelaunch(false);
+        }
+
+        private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            switch ((uint)e.Exception.HResult)
+            {
+                case 0x8007000E: //OutOfMemory
+                    App.Current.Exit();
+                    break;
+            }
+
+            //TODO: Display indicator of exeption
         }
 
         public static void ReadWhenFocused(string messageid, string channelid, string guildid)
