@@ -634,7 +634,22 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                     <ListView.Header>
-                        <CheckBox x:Uid="/Controls/OnlyOnlineFriendsCB" Style="{StaticResource CheckBoxStyle1}" Content="Only show online friends" Padding="0,5,0,0" Margin="0,0,0,12" Visibility="Collapsed"/>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <TextBox x:Uid="/Controls/AddFriendTBox" x:Name="SendFriendTB" PlaceholderText="Enter Discordtag#0000" Style="{StaticResource TextBoxStyle1}"/>
+                                <Button x:Uid="/Controls/SendFriendRequestBTN" Content="Send Friend Request" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource DiscordButton}" Grid.Column="1" Click="SendFriendRequest"/>
+                                <TextBlock x:Name="FriendRequestStatus" Text="" FontSize="12" Grid.Row="1" Grid.ColumnSpan="2"/>
+                            </Grid>
+                            <CheckBox x:Uid="/Controls/OnlyOnlineFriendsCB" Style="{StaticResource CheckBoxStyle1}" Content="Only show online friends" Padding="0,5,0,0" Margin="0,0,0,12" Visibility="Collapsed"/>
+                        </StackPanel>
                     </ListView.Header>
                 </ListView>
             </PivotItem>
