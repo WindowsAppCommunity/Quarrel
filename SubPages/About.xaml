@@ -179,8 +179,8 @@
                                 <TextBlock x:Uid="/About/AustinAndelinCredit"  TextWrapping="Wrap" Text="Austin Andelin, for conecptualizing the app's icon" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
                                 <TextBlock x:Uid="/About/ChristopherBlackmanCredit"  TextWrapping="Wrap" Text="Christopher Blackman (who wrote the awesome MyTube app) for the invaluable tips and help" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
                                 <!--<TextBlock x:Uid="/About/TranslatorsCredit" TextWrapping="Wrap" Text="Translators: " FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>-->
-                                <HyperlinkButton x:Uid="/About/LicensesHLBTN" Content="Licenses" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0" Click="HyperlinkButton_Click"/>
-                                <HyperlinkButton x:Uid="/About/DiscordStatusHLBTN" Content="Discord Server status" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0" Click="HyperlinkButton_Click_1"/>
+                                <HyperlinkButton x:Uid="/About/LicensesHLBTN" Content="Licenses" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0" Click="HyperlinkButton_Click"/>
+                                <HyperlinkButton x:Uid="/About/DiscordStatusHLBTN" Content="Discord Server status" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0" Click="HyperlinkButton_Click_1"/>
                                 <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
                                     <TextBlock x:Uid="/About/AccordingToMicrosoftTB" Text="According to Microsoft's Licensing you have bought:" FontWeight="Bold"/>
                                     <TextBlock x:Name="PuracheList"/>
