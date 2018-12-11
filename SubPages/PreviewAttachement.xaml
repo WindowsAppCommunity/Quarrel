@@ -822,6 +822,8 @@
                     <ScrollViewer HorizontalScrollMode="Auto" VerticalScrollMode="Auto" HorizontalScrollBarVisibility="Auto" ZoomMode="Enabled" MinZoomFactor="1" ViewChanged="ScrollViewer_ViewChanged" Tapped="ScrollViewer_Tapped">
                         <Grid>
                             <Rectangle Fill="Transparent" Tapped="Rectangle_Tapped"/>
+                            <StackPanel x:Name="MultiPageStacker" MinWidth="240" MaxWidth="1000" Margin="68,0">
+                            </StackPanel>
                             <Image x:Name="ImageViewer" 
                                    HorizontalAlignment="Center" VerticalAlignment="Center"
                                    Opacity="0" ImageOpened="ImageViewer_ImageOpened"/>

@@ -20,6 +20,7 @@
                 <MediaTransportControls IsCompact="True" IsZoomButtonVisible="False"/>
             </MediaElement.TransportControls>
         </MediaElement>
+        
 
         <ProgressRing x:Name="LoadingImage" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="6" Visibility="Visible"/>
         <Grid x:Name="AttachedFileViewer" Margin="0" Padding="6" Grid.Row="4" Grid.Column="1" Visibility="Visible" VerticalAlignment="Top">

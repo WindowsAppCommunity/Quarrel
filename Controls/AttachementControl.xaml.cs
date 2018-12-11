@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Data.Pdf;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage.Streams;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -46,9 +50,9 @@ namespace Discord_UWP.Controls
 
         public event EventHandler<EventArgs> Delete;
 
-        private enum Type { File, Image, Audio, Video};
+        private enum Type { Unknown, Image, Audio, Video, PDF};
 
-        private Type type = Type.File;
+        private Type type = Type.Unknown;
 
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -87,7 +91,8 @@ namespace Discord_UWP.Controls
             
             if (images)
             {
-                if (ImageFiletypes.Contains("." + DisplayedAttachement.Filename.Split('.').Last().ToLower()))
+                string extension = "." + DisplayedAttachement.Filename.Split('.').Last().ToLower();
+                if (ImageFiletypes.Contains(extension))
                 {
                     type = Type.Image;
                     PreviewIcon.Glyph = "";
@@ -95,7 +100,7 @@ namespace Discord_UWP.Controls
                     {
                         ShowPreview();
                     }
-                } else if (AudioFiletypes.Contains("." + DisplayedAttachement.Filename.Split('.').Last().ToLower()))
+                } else if (AudioFiletypes.Contains(extension))
                 {
                     type = Type.Audio;
                     PreviewIcon.Glyph = "";
@@ -106,7 +111,7 @@ namespace Discord_UWP.Controls
                         ShowPreview();
                     }
 
-                } else if (VideoFiletypes.Contains("." + DisplayedAttachement.Filename.Split('.').Last().ToLower()))
+                } else if (VideoFiletypes.Contains(extension))
                 {
                     type = Type.Video;
                     PreviewIcon.Glyph = "";
@@ -115,11 +120,15 @@ namespace Discord_UWP.Controls
                     {
                         ShowPreview();
                     }
+                } else if (".pdf" == extension)
+                {
+                    type = Type.PDF;
+                    PreviewIcon.Glyph = "";
                 }
             }
-            if (type == Type.File || NetworkSettings.GetTTL())
+            if (type == Type.Unknown || type == Type.PDF || NetworkSettings.GetTTL())
             { 
-                if (type != Type.File) { PreviewButton.Visibility = Visibility.Visible; }
+                if (type != Type.Unknown) { PreviewButton.Visibility = Visibility.Visible; }
                 if(!IsFake)
                     FileName.NavigateUri = new Uri(DisplayedAttachement.Url);
                 FileName.Content = DisplayedAttachement.Filename;
@@ -188,7 +197,7 @@ namespace Discord_UWP.Controls
             ShowPreview();
         }
 
-        private void ShowPreview()
+        private async void ShowPreview()
         {
             switch (type)
             {
@@ -231,8 +240,37 @@ namespace Discord_UWP.Controls
                     }
                     player.Visibility = Visibility.Visible;
                     break;
+                case Type.PDF:
+                    HttpClient client = new HttpClient();
+                    var stream = await
+                        client.GetStreamAsync(DisplayedAttachement.Url);
+                    var memStream = new MemoryStream();
+                    await stream.CopyToAsync(memStream);
+                    memStream.Position = 0;
+                    PdfDocument doc = await PdfDocument.LoadFromStreamAsync(memStream.AsRandomAccessStream());
+                    LoadPDF(doc);
+                    break;
             }
             AttachedFileViewer.Visibility = Visibility.Collapsed;
+        }
+
+        async void LoadPDF(PdfDocument pdfDoc)
+        {
+            for (uint i = 0; i < pdfDoc.PageCount; i++)
+            {
+                BitmapImage image = new BitmapImage();
+
+                var page = pdfDoc.GetPage(i);
+
+                using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
+                {
+                    await page.RenderToStreamAsync(stream);
+                    await image.SetSourceAsync(stream);
+                }
+
+                AttachedImageViewer.Source = image;
+            }
+            AttachedImageViewbox.Visibility = Visibility.Visible;
         }
     }
 }
