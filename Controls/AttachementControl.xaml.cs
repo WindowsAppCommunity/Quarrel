@@ -246,6 +246,7 @@ namespace Discord_UWP.Controls
                     FileIcon.Visibility = Visibility.Collapsed;
                     FileName.FontSize = 14;
                     AttachedFileViewer.Visibility = Visibility.Visible;
+                    PreviewButton.Visibility = Visibility.Collapsed;
                     player.HorizontalAlignment = HorizontalAlignment.Stretch;
                     player.Source = new Uri(DisplayedAttachement.Url);
                     player.Visibility = Visibility.Visible;
@@ -255,6 +256,7 @@ namespace Discord_UWP.Controls
                     FileIcon.Visibility = Visibility.Collapsed;
                     FileName.FontSize = 14;
                     AttachedFileViewer.Visibility = Visibility.Visible;
+                    PreviewButton.Visibility = Visibility.Collapsed;
                     player.Source = new Uri(DisplayedAttachement.Url);
                     player.Visibility = Visibility.Visible;
                     player.HorizontalAlignment = HorizontalAlignment.Left;
