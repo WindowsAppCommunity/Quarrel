@@ -32,10 +32,10 @@
             </Grid.ColumnDefinitions>
 
             <FontIcon x:Name="FileIcon" FontSize="32" Glyph="" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Left" Margin="0,0,6,0" Grid.Column="1"/>
-            <HyperlinkButton x:Name="PreviewButton" Background="Transparent" VerticalAlignment="Top" Margin="0,-4,12,0" Visibility="Collapsed" Grid.Column="1" Click="ShowPreview">
+            <HyperlinkButton x:Name="PreviewButton"  Foreground="{ThemeResource LinkColor}"  Background="Transparent" VerticalAlignment="Top" Margin="0,-4,12,0" Style="{StaticResource PlainHyperlinkStyle}" Visibility="Collapsed" Grid.Column="1" Click="ShowPreview">
                 <StackPanel>
-                    <FontIcon x:Name="PreviewIcon" Glyph="" Foreground="{ThemeResource LinkColor}" FontSize="32"/>
-                    <TextBlock x:Name="PreviewText" Text="Show" Foreground="{ThemeResource LinkColor}" FontSize="8" HorizontalAlignment="Center"/>
+                    <FontIcon x:Name="PreviewIcon" Glyph="" FontSize="32"/>
+                    <TextBlock x:Name="PreviewText" Text="Show" FontSize="8" HorizontalAlignment="Center"/>
                 </StackPanel>
             </HyperlinkButton>
             <StackPanel Grid.Column="2">
