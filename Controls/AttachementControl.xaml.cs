@@ -61,8 +61,8 @@ namespace Discord_UWP.Controls
         }
 
         readonly string[] ImageFiletypes = { ".jpg", ".jpeg", ".gif", ".tif", ".tiff", ".png", ".bmp", ".gif", ".ico" };
-        readonly string[] AudioFiletypes = { ".mp3", ".wav"};
-        readonly string[] VideoFiletypes = { ".mp4"};
+        readonly string[] AudioFiletypes = { ".mp3", ".wav" };
+        readonly string[] VideoFiletypes = { ".mp4", ".wmv" };
 
         private void OnPropertyChanged(DependencyObject d, DependencyProperty property)
         {
@@ -128,7 +128,7 @@ namespace Discord_UWP.Controls
             }
             if (type == Type.Unknown || type == Type.PDF || NetworkSettings.GetTTL())
             { 
-                if (type != Type.Unknown) { PreviewButton.Visibility = Visibility.Visible; }
+                if (type != Type.Unknown) { PreviewButton.Visibility = Visibility.Visible; FileIcon.Visibility = Visibility.Collapsed; }
                 if(!IsFake)
                     FileName.NavigateUri = new Uri(DisplayedAttachement.Url);
                 FileName.Content = DisplayedAttachement.Filename;

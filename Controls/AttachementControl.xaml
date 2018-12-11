@@ -31,19 +31,20 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <FontIcon FontSize="32" Glyph="" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Left" Margin="0,0,6,0" Grid.Column="1"/>
+            <FontIcon x:Name="FileIcon" FontSize="32" Glyph="" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Left" Margin="0,0,6,0" Grid.Column="1"/>
+            <HyperlinkButton x:Name="PreviewButton" Background="Transparent" VerticalAlignment="Top" Margin="0,-4,12,0" Visibility="Collapsed" Grid.Column="1" Click="ShowPreview">
+                <StackPanel>
+                    <FontIcon x:Name="PreviewIcon" Glyph="" Foreground="{ThemeResource LinkColor}" FontSize="32"/>
+                    <TextBlock x:Name="PreviewText" Text="Show" Foreground="{ThemeResource LinkColor}" FontSize="8" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </HyperlinkButton>
             <StackPanel Grid.Column="2">
 
                 <HyperlinkButton x:Name="FileName" Content="File.txt" FontSize="18" Foreground="{ThemeResource LinkColor}" Padding="0" Style="{StaticResource PlainHyperlinkStyle}" Click="FileName_Click"/>
                 <TextBlock x:Name="FileSize" FontSize="11" Opacity="0.5" Text="0 B" Margin="0,4,0,0"/>
             </StackPanel>
-            <HyperlinkButton x:Name="PreviewButton" Grid.Column="3" Background="Transparent" VerticalAlignment="Center" Margin="0,0,12,0" Visibility="Collapsed" Click="ShowPreview">
-                <StackPanel>
-                    <FontIcon x:Name="PreviewIcon" Glyph="" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="16"/>
-                    <TextBlock x:Name="PreviewText" Text="Show" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="8"/>
-                </StackPanel>
-            </HyperlinkButton>
-            <Button x:Name="ClearButton" Style="{StaticResource IntegratedButton}" VerticalAlignment="Center" Click="Button_Click" Margin="0,0,12,0">
+            
+            <Button x:Name="ClearButton" Style="{StaticResource IntegratedButton}" VerticalAlignment="Top" Click="Button_Click" Margin="0,12,12,0">
                 <SymbolIcon Symbol="Clear"/>
             </Button>
         </Grid>
