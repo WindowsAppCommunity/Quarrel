@@ -15,7 +15,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <FontIcon x:Name="icon" Glyph="" Opacity="0.8" FontSize="16" Foreground="{ThemeResource dnd}" Margin="0,2,0,0"/>
-        <HyperlinkButton x:Name="details" Content="" Click="details_Click" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource dnd}" Opacity="0.8" FontSize="11" Grid.Column="1" VerticalAlignment="Center" Margin="6,0,0,0">
+        <HyperlinkButton x:Name="details" Content="" Click="details_Click" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource dnd}" Opacity="0.8" FontSize="11" Grid.Column="1" VerticalAlignment="Center" Margin="6,0,0,0">
             <HyperlinkButton.ContextFlyout>
                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
                     <StackPanel>

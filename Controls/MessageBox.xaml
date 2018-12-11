@@ -1064,7 +1064,7 @@
             </Button>
         </StackPanel>
         
-        <HyperlinkButton x:Uid="/Dialogs/CancelBTN" x:Name="CancelButton" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right"  Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="Cancel" Margin="0,4,0,6" Click="CancelButton_Click"/>
+        <HyperlinkButton x:Uid="/Dialogs/CancelBTN" x:Name="CancelButton" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right"  Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="Cancel" Margin="0,4,0,6" Click="CancelButton_Click"/>
         <Button x:Name="attachButton" Style="{StaticResource ContentButton}" Foreground="{ThemeResource InvertedBG}" Opacity="1" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" Padding="8" Click="Button_Click_1">
             <Grid>
                 <Grid.RenderTransform>

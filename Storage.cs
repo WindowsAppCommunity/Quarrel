@@ -154,5 +154,93 @@ namespace Discord_UWP
         public int NoiseSensitivity = -40;
         public SerializableDictionary<string, string> SelectedChannels = new SerializableDictionary<string, string>();
         public bool BackgroundVoice = !App.IsMobile;
+        public int StandardData = 0;
+        public int MobileData = 1;
+    }
+
+    [Flags]
+    public enum DataSettings
+    {
+        TTL = 0x1,
+        SmallIcons = 0x2
+    }
+
+    public class NetworkSettings
+    {
+        private DataSettings settings;
+
+        private bool Get(DataSettings setting)
+        {
+            return (settings & setting) == setting;
+        }
+
+        private void Set(DataSettings setting, bool value)
+        {
+            if (value)
+            {
+                Add(setting);
+            }
+            else
+            {
+                Remove(setting);
+            }
+        }
+
+        private void Add(DataSettings add)
+        {
+            settings |= add;
+        }
+
+        private void Remove(DataSettings del)
+        {
+            settings &= ~del;
+        }
+
+        public bool TTL
+        {
+            get => Get(DataSettings.TTL);
+            set => Set(DataSettings.TTL, value);
+        }
+
+        private static int GetSettings()
+        {
+            var temp = Windows.Networking.Connectivity.NetworkInformation.GetInternetConnectionProfile();
+            if (temp.IsWwanConnectionProfile)
+            {
+                return Storage.Settings.MobileData;
+            }
+            else
+            {
+                return Storage.Settings.StandardData;
+            }
+        }
+
+        public static bool GetTTL()
+        {
+            int settings = GetSettings();
+            return (settings & (int)DataSettings.TTL) == (int)DataSettings.TTL;
+        }
+
+        public bool SmallIcons
+        {
+            get => Get(DataSettings.SmallIcons);
+            set => Set(DataSettings.SmallIcons, value);
+        }
+
+        public static bool GetSmallIcons()
+        {
+            int settings = GetSettings();
+            return (settings & (int)DataSettings.SmallIcons) == (int)DataSettings.SmallIcons;
+        }
+
+        public NetworkSettings(int settings)
+        {
+            this.settings = (DataSettings)settings;
+        }
+
+        public int GetInt()
+        {
+            return (int)settings;
+        }
     }
 }

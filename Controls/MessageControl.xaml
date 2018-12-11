@@ -186,7 +186,7 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
         </Button>
         </Canvas>
         <StackPanel x:Name="contentStacker" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" PointerPressed="UserControl_PointerPressed">
-            <HyperlinkButton x:Name="username" Foreground="{ThemeResource Foreground}" VerticalAlignment="Bottom" Content="Username" Margin="6,0" FontWeight="Normal" Style="{StaticResource PlainHyperlinkStyle}" Click="Username_OnClick" RightTapped="username_RightTapped" Holding="username_Holding" PointerPressed="UserControl_PointerPressed"/>
+            <HyperlinkButton x:Name="username" Foreground="{ThemeResource Foreground}" VerticalAlignment="Bottom" Content="Username" Margin="6,0" FontWeight="Normal" Style="{StaticResource PlainTextHyperlinkStyle}" Click="Username_OnClick" RightTapped="username_RightTapped" Holding="username_Holding" PointerPressed="UserControl_PointerPressed"/>
             <Border x:Name="BotIndicator" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,2,6,0" CornerRadius="2" Visibility="Collapsed">
                 <TextBlock x:Uid="/Controls/BotTB" Text="BOT" FontSize="10" Margin="4,0" FontWeight="Bold" VerticalAlignment="Center" Foreground="White"/>
             </Border>

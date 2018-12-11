@@ -610,9 +610,9 @@
                                     <TextBlock x:Uid="/Settings/CHANNELSTB" Text="CHANNELS" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
 
                                     <TextBlock x:Uid="/Settings/OverrideCategoryCollaspseTB" Text="Override Category Collapse" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                    <RadioButton x:Uid="/Settings/NoneRB" Content="No Override" x:Name="NoOverride" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
-                                    <RadioButton x:Uid="/Settings/MentionsRB" Content="Mentions" x:Name="OverrideMention" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
-                                    <RadioButton x:Uid="/Settings/UnreadRB" Content="Unread" x:Name="OverrideUnread" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
+                                    <RadioButton x:Uid="/Settings/NoneRB" Content="No Override" x:Name="NoOverride" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,0,0,-4" HorizontalAlignment="Left"/>
+                                    <RadioButton x:Uid="/Settings/MentionsRB" Content="Mentions" x:Name="OverrideMention" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,0,0,-4" HorizontalAlignment="Left"/>
+                                    <RadioButton x:Uid="/Settings/UnreadRB" Content="Unread" x:Name="OverrideUnread" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,0,0,-4" HorizontalAlignment="Left"/>
 
                                     <TextBlock x:Uid="/Settings/MESSAGESTB" Text="MESSAGES" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
 
@@ -701,7 +701,7 @@
                                     </CheckBox>
 
 
-                                    <!--<TextBlock x:Uid="/Settings/DataLimitingTB" Text="Data Limiting" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0"/>
+                                    <TextBlock x:Uid="/Settings/DataLimitingTB" Text="Data Limiting" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0"/>
                                     <TextBlock x:Uid="/Settings/StandardTB" Text="Standard" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                     <CheckBox x:Name="TTLAttachments" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450">
                                         <StackPanel Margin="0,2,0,0">
@@ -709,7 +709,7 @@
                                             <TextBlock x:Uid="/Settings/TTLDescTB" Text="TTL (Tap To Load). Images, Audio or Videos in messages will not show unless you tap a replacement icon first" TextWrapping="WrapWholeWords" FontSize="11" Opacity="0.5"/>
                                         </StackPanel>
                                     </CheckBox>
-                                    <CheckBox x:Name="HideSIcons" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450">
+                                    <CheckBox x:Name="HideSIcons" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450" Visibility="Collapsed">
                                         <StackPanel Margin="0,2,0,0">
                                             <TextBlock x:Uid="/Settings/HideSIconsTB" Text="Hide Small Icons"/>
                                             <TextBlock x:Uid="/Settings/HideSIconsDescTB" Text="Small Icons (like User Icons in Messages and the Member List) will not show" TextWrapping="WrapWholeWords" FontSize="11" Opacity="0.5"/>
@@ -723,12 +723,12 @@
                                             <TextBlock x:Uid="/Settings/TTLDescTB" Text="TTL (Tap To Load). Images, Audio or Videos in messages will not show unless you tap a replacement icon first" TextWrapping="WrapWholeWords" FontSize="11" Opacity="0.5"/>
                                         </StackPanel>
                                     </CheckBox>
-                                    <CheckBox x:Name="HideSIconsMD" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450">
+                                    <CheckBox x:Name="HideSIconsMD" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450" Visibility="Collapsed">
                                         <StackPanel Margin="0,2,0,0">
                                             <TextBlock x:Uid="/Settings/HideSIconsTB" Text="Hide Small Icons"/>
                                             <TextBlock x:Uid="/Settings/HideSIconsDescTB" Text="Small Icons (like User Icons in Messages and the Member List) will not show" TextWrapping="WrapWholeWords" FontSize="11" Opacity="0.5"/>
                                         </StackPanel>
-                                    </CheckBox>-->
+                                    </CheckBox>
 
                                     <TextBlock x:Uid="/Settings/ADVANCEDTB" Text="ADVANCED" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
                                     <CheckBox x:Name="UseCompression" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0" MaxWidth="450">
@@ -801,7 +801,7 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
-                        <PivotItem x:Uid="/Settings/SoundsPI" x:Name="SoundsPI" Header="Sounds" Margin="12,0,0,0" Visibility="Collapsed">
+                        <PivotItem x:Uid="/Settings/SoundsPI" x:Name="SoundsPI" Header="Sounds" Margin="12,0,0,0">
                             <ScrollViewer Padding="0,0,12,0">
                                 <StackPanel>
                                     <CheckBox x:Name="NotificationSounds" x:Uid="/Settings/SoundsCB" Content="Sounds" Margin="12,12,0,0" Style="{StaticResource CheckBoxStyle1}"/>
