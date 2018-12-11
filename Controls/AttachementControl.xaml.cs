@@ -126,16 +126,22 @@ namespace Discord_UWP.Controls
                     PreviewIcon.Glyph = "";
                 }
             }
+            if (!IsFake)
+                FileName.NavigateUri = new Uri(DisplayedAttachement.Url);
+            FileName.Content = DisplayedAttachement.Filename;
+            FileSize.Text = Common.HumanizeFileSize(DisplayedAttachement.Size);
             if (type == Type.Unknown || type == Type.PDF || NetworkSettings.GetTTL())
             { 
                 if (type != Type.Unknown) { PreviewButton.Visibility = Visibility.Visible; FileIcon.Visibility = Visibility.Collapsed; }
-                if(!IsFake)
-                    FileName.NavigateUri = new Uri(DisplayedAttachement.Url);
-                FileName.Content = DisplayedAttachement.Filename;
-                FileSize.Text = Common.HumanizeFileSize(DisplayedAttachement.Size);
                 AttachedFileViewer.Visibility = Visibility.Visible;
-                attachementGlyph.Visibility = Visibility.Visible;
                 player.Visibility = Visibility.Collapsed;
+            }
+            else if (type == Type.Audio || type == Type.Video)
+            {
+                player.Visibility = Visibility.Visible;
+                if(type == Type.Audio)
+                    player.Height = 48;
+                
             }
         }
 
@@ -231,37 +237,32 @@ namespace Discord_UWP.Controls
                     {
                         AttachedImageViewer.Source = new BitmapImage(new Uri(DisplayedAttachement.Url));
                     }
+                    AttachedFileViewer.Visibility = Visibility.Collapsed;
                     AttachedImageViewbox.Visibility = Visibility.Visible;
                     LoadingImage.Visibility = Visibility.Visible;
                     LoadingImage.IsActive = true;
                     break;
                 case Type.Audio:
+                    FileIcon.Visibility = Visibility.Collapsed;
+                    FileName.FontSize = 14;
+                    AttachedFileViewer.Visibility = Visibility.Visible;
+                    player.HorizontalAlignment = HorizontalAlignment.Stretch;
                     player.Source = new Uri(DisplayedAttachement.Url);
                     player.Visibility = Visibility.Visible;
+                    player.Height = 48;
                     break;
                 case Type.Video:
+                    FileIcon.Visibility = Visibility.Collapsed;
+                    FileName.FontSize = 14;
+                    AttachedFileViewer.Visibility = Visibility.Visible;
                     player.Source = new Uri(DisplayedAttachement.Url);
-                    if (DisplayedAttachement.Height.HasValue)
-                    {
-                        player.Height = DisplayedAttachement.Height.Value;
-                    }
-                    if (DisplayedAttachement.Width.HasValue)
-                    {
-                        player.Width = DisplayedAttachement.Width.Value;
-                    }
-                    if (player.Height > 300)
-                    {
-                        player.Width = player.Width / (player.Height / 300);
-                        player.Height = 300;
-                    }
-                    if (player.Width > 300)
-                    {
-                        player.Height = player.Height / (player.Width / 300);
-                        player.Width = 300;
-                    }
                     player.Visibility = Visibility.Visible;
+                    player.HorizontalAlignment = HorizontalAlignment.Left;
                     break;
                 case Type.PDF:
+                    AttachedFileViewer.Visibility = Visibility.Collapsed;
+                    LoadingImage.Visibility = Visibility.Visible;
+                    LoadingImage.IsActive = true;
                     HttpClient client = new HttpClient();
                     var stream = await
                         client.GetStreamAsync(DisplayedAttachement.Url);
@@ -272,9 +273,9 @@ namespace Discord_UWP.Controls
                     LoadPDF(doc);
                     break;
             }
-            AttachedFileViewer.Visibility = Visibility.Collapsed;
+            
+            //AttachedFileViewer.Visibility = Visibility.Collapsed;
         }
-
         async void LoadPDF(PdfDocument pdfDoc)
         {
             BitmapImage image = new BitmapImage();
@@ -291,6 +292,8 @@ namespace Discord_UWP.Controls
             PDFPages.Text = "Page <page> of <pagecount>".Replace("<page>", "1").Replace("<pagecount>", pdfDoc.PageCount.ToString()); //TODO: Translate
             AttachedImageViewbox.Visibility = Visibility.Visible;
             PDFPages.Visibility = Visibility.Visible;
+            LoadingImage.Visibility = Visibility.Collapsed;
+            LoadingImage.IsActive = true;
         }
     }
 }
