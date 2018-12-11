@@ -193,7 +193,7 @@
                                 </Paragraph>
                             </RichTextBlock>
                         </ScrollViewer>
-                        <!--<HyperlinkButton x:Name="detailsBtn" Click="HyperlinkButton_Click" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="+ Show more details" Style="{StaticResource PlainHyperlinkStyle}" Margin="0,0,0,12"/>-->
+                        <!--<HyperlinkButton x:Name="detailsBtn" Click="HyperlinkButton_Click" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="+ Show more details" Style="{StaticResource PlainTextHyperlinkStyle}" Margin="0,0,0,12"/>-->
                     </StackPanel>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >

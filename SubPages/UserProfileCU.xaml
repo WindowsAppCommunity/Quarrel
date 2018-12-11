@@ -166,15 +166,15 @@
                                             </Rectangle.Fill>
                                         </Rectangle>
                                         <StackPanel Margin="0,6,0,0"  Grid.Row="1">
-                                            <HyperlinkButton x:Uid="/Settings/UploadImageHLBTN" x:Name="uploadImage" Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="Upload image"/>
-                                            <HyperlinkButton x:Uid="/Settings/DeleteImageHLBTN" x:Name="deleteImage" Click="deleteImage_Click" Style="{StaticResource PlainHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"/>
+                                            <HyperlinkButton x:Uid="/Settings/UploadImageHLBTN" x:Name="uploadImage" Style="{StaticResource PlainTextHyperlinkStyle}" Click="HyperlinkButton_Click" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="Upload image"/>
+                                            <HyperlinkButton x:Uid="/Settings/DeleteImageHLBTN" x:Name="deleteImage" Click="deleteImage_Click" Style="{StaticResource PlainTextHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"/>
                                         </StackPanel>
                                     </Grid>
                                     <TextBox x:Uid="/Settings/UsernameBox" x:Name="usernameBox" Style="{StaticResource TextBoxStyle1}" Header="Username" Margin="0,24,0,0" TextChanged="usernameBox_TextChanged"/>
                                     <TextBox x:Uid="/Settings/EmailBox" x:Name="emailBox" Style="{StaticResource TextBoxStyle1}" Header="Email" Margin="0,12,0,0" TextChanged="emailBox_TextChanged"/>
                                     <TextBlock x:Name="MustFill" x:Uid="/Settings/MustFillOut" Visibility="Collapsed" Text="Must fill out Current Password" Foreground="Red" Margin="0,12,0,-12"/>
                                     <PasswordBox x:Uid="/Settings/CurrentPswrdPBox" x:Name="password" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,12,0,0"/>
-                                    <HyperlinkButton x:Uid="/Settings/ChangePswrdHLBTN" x:Name="changepass"  FontSize="13.33" Content="Change password" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0" HorizontalAlignment="Left" Click="changepass_Click"/>
+                                    <HyperlinkButton x:Uid="/Settings/ChangePswrdHLBTN" x:Name="changepass"  FontSize="13.33" Content="Change password" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0" HorizontalAlignment="Left" Click="changepass_Click"/>
                                     <PasswordBox x:Uid="/Settings/NewPswrdPBox" x:Name="newpassword" Visibility="Collapsed" Style="{StaticResource PasswordBoxStyle1}" Header="New password" Margin="0,6,0,0"/>
                                     <TextBlock x:Uid="/Settings/ConnectionsTB" Text="Connections" Margin="0,12" Visibility="Collapsed"/>
 

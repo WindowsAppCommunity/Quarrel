@@ -24,17 +24,17 @@
                         <ColumnDefinition x:Name="ThumbnailColumn" MinWidth="48" MaxWidth="80"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Margin="0,0,16,0">
-                        <HyperlinkButton x:Name="ProviderHyperlink" Style="{StaticResource PlainHyperlinkStyle}" FontSize="12" Opacity="0.5" Foreground="{ThemeResource InvertedBG}"/>
+                        <HyperlinkButton x:Name="ProviderHyperlink" Style="{StaticResource PlainTextHyperlinkStyle}" FontSize="12" Opacity="0.5" Foreground="{ThemeResource InvertedBG}"/>
                         <StackPanel x:Name="AuthorSP" Orientation="Horizontal">
                             <Rectangle RadiusX="10" RadiusY="10" x:Name="AuthorImage" Width="20" Height="20" Margin="0,0,10,0">
                                 <Rectangle.Fill>
                                     <ImageBrush  x:Name="AuthorImageBrush"/>
                                 </Rectangle.Fill>
                             </Rectangle>
-                            <HyperlinkButton x:Name="AuthorText" Content="AuthorName" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Foreground}"/>
+                            <HyperlinkButton x:Name="AuthorText" Content="AuthorName" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource Foreground}"/>
                         </StackPanel>
                         <TextBlock x:Name="PlainTitleBlock"  FontSize="13" Text="title" FontWeight="SemiBold" Margin="0,4,0,0"/>
-                        <HyperlinkButton x:Name="UrlTitleBlock" Content="Title" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource LinkColor}" Margin="0,4,0,0"/>
+                        <HyperlinkButton x:Name="UrlTitleBlock" Content="Title" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource LinkColor}" Margin="0,4,0,0"/>
                         <mtb:MarkdownTextBlock x:Name="DescriptionBlock" Opacity="0.75" FontSize="13" Margin="0,0,0,0" EnableHiddenLinks="True"/>
                         <StackPanel x:Name="FieldsStacker"/>
                     </StackPanel>

@@ -44,7 +44,7 @@
                 </StackPanel>
                 <StackPanel x:Name="MFAuth" Visibility="Collapsed">
                     <PasswordBox x:Uid="/About/MFAPasswordTBox" TabIndex="0" InputScope="Number" Header="Two-factor authentication:" x:Name="MFAPassword" VerticalAlignment="Center" PlaceholderText="Authentication code" Padding="12" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="MFAPassword_KeyDown"/>
-                    <HyperlinkButton x:Name="MFAsms" Click="MFAsms_Click" Style="{StaticResource PlainHyperlinkStyle}" FontSize="13" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,4,0,4" >Send code by SMS</HyperlinkButton>
+                    <HyperlinkButton x:Name="MFAsms" Click="MFAsms_Click" Style="{StaticResource PlainTextHyperlinkStyle}" FontSize="13" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,4,0,4" >Send code by SMS</HyperlinkButton>
                 </StackPanel>
             </Grid>
             <Button x:Name="loginButton" HorizontalAlignment="Stretch" TabIndex="2" Click="LogIn" Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}">

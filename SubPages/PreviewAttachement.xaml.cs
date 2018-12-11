@@ -90,6 +90,7 @@ namespace Discord_UWP.SubPages
 
                 Image UIImage = new Image();
                 UIImage.Source = image;
+                UIImage.Margin = new Thickness(0, 0, 0, 12);
                 MultiPageStacker.Children.Add(UIImage);
             }
         }

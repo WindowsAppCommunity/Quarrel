@@ -47,7 +47,7 @@ namespace Discord_UWP.Controls
         private void AddDistributorButton(string title, string uri)
         {
             var button = new HyperlinkButton();
-            button.Style = (Style)Application.Current.Resources["PlainHyperlinkStyle"];
+            button.Style = (Style)Application.Current.Resources["PlainTextHyperlinkStyle"];
             button.Foreground = (SolidColorBrush)Application.Current.Resources["Blurple"];
             button.NavigateUri = new Uri(uri);
             if(firstbutton) button.Margin = new Thickness(0, 6, 0, 0);

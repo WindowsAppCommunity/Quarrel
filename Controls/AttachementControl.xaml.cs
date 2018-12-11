@@ -256,21 +256,20 @@ namespace Discord_UWP.Controls
 
         async void LoadPDF(PdfDocument pdfDoc)
         {
-            for (uint i = 0; i < pdfDoc.PageCount; i++)
+            BitmapImage image = new BitmapImage();
+
+            var page = pdfDoc.GetPage(0); //TODO: PasswordProtected PDF support
+
+            using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
             {
-                BitmapImage image = new BitmapImage();
-
-                var page = pdfDoc.GetPage(i);
-
-                using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
-                {
-                    await page.RenderToStreamAsync(stream);
-                    await image.SetSourceAsync(stream);
-                }
-
-                AttachedImageViewer.Source = image;
+                await page.RenderToStreamAsync(stream);
+                await image.SetSourceAsync(stream);
             }
+
+            AttachedImageViewer.Source = image;
+            PDFPages.Text = "Page <page> of <pagecount>".Replace("<page>", "1").Replace("<pagecount>", pdfDoc.PageCount.ToString()); //TODO: Translate
             AttachedImageViewbox.Visibility = Visibility.Visible;
+            PDFPages.Visibility = Visibility.Visible;
         }
     }
 }
