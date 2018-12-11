@@ -291,7 +291,7 @@ namespace Discord_UWP.Controls
             }
 
             AttachedImageViewer.Source = image;
-            PDFPages.Text = "Page <page> of <pagecount>".Replace("<page>", "1").Replace("<pagecount>", pdfDoc.PageCount.ToString()); //TODO: Translate
+            PDFPages.Text = App.GetString("/Controls/PDFPage").Replace("<page>", "1").Replace("<pagecount>", pdfDoc.PageCount.ToString());
             AttachedImageViewbox.Visibility = Visibility.Visible;
             PDFPages.Visibility = Visibility.Visible;
             LoadingImage.Visibility = Visibility.Collapsed;
