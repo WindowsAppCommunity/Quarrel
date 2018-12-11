@@ -30,20 +30,19 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
 
             <FontIcon x:Name="FileIcon" FontSize="32" Glyph="" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Left" Margin="0,0,6,0" Grid.Column="1"/>
-            <HyperlinkButton x:Name="PreviewButton"  Foreground="{ThemeResource LinkColor}" Background="Transparent" VerticalAlignment="Top" Margin="0,-4,12,0" Style="{StaticResource PlainHyerlinkStyle}" Visibility="Collapsed" Grid.Column="1" Click="ShowPreview">
+            <HyperlinkButton x:Name="PreviewButton"  Foreground="{ThemeResource LinkColor}" Background="Transparent" VerticalAlignment="Top" Margin="0,0,12,0" Style="{StaticResource PlainHyerlinkStyle}" Visibility="Collapsed" Grid.Column="1" Click="ShowPreview">
                 <StackPanel>
-                    <FontIcon x:Name="PreviewIcon" Glyph="" FontSize="32"/>
-                    <TextBlock x:Name="PreviewText" Text="Show" FontSize="8" HorizontalAlignment="Center"/>
+                    <FontIcon x:Name="PreviewIcon" Glyph="" FontSize="32"/>
+                    <TextBlock x:Name="PreviewText" Text="Show" FontSize="12" Margin="0,-2,0,0" HorizontalAlignment="Center"/>
                 </StackPanel>
             </HyperlinkButton>
             <StackPanel Grid.Column="2">
