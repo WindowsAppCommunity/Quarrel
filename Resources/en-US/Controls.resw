@@ -361,4 +361,13 @@
   <data name="SendMessagePlaceholderText" xml:space="preserve">
     <value>Send message</value>
   </data>
+  <data name="PDFPage" xml:space="preserve">
+    <value>Page &lt;page&gt; of &lt;pagecount&gt;</value>
+  </data>
+  <data name="NeedDesc" xml:space="preserve">
+    <value>You need a discriminator to send a friend request</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
 </root>
