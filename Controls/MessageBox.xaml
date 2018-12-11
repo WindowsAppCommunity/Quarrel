@@ -405,10 +405,10 @@
                                     <VisualState x:Name="ButtonCollapsed"/>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <Border CornerRadius="4,0,0,4" x:Name="BorderElement" Opacity="0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{ThemeResource InvertedBG}" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="1"/>
+                            <Border CornerRadius="0,0,0,0" x:Name="BorderElement" Opacity="0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{ThemeResource InvertedBG}" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="1"/>
                             <ContentPresenter x:Name="HeaderContentPresenter" Grid.ColumnSpan="2" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Foreground="{ThemeResource TextControlHeaderForeground}" FontWeight="Normal" Margin="0,0,0,8" Grid.Row="0" TextWrapping="{TemplateBinding TextWrapping}" Visibility="Collapsed" x:DeferLoadStrategy="Lazy"/>
-                            <ScrollViewer x:Name="ContentElement" AutomationProperties.AccessibilityView="Raw" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsTabStop="False" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" Margin="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Grid.Row="1" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="Disabled"/>
-                            <ContentPresenter x:Name="PlaceholderTextContentPresenter" Grid.ColumnSpan="2" Content="{TemplateBinding PlaceholderText}" Foreground="{ThemeResource TextControlPlaceholderForeground}" IsHitTestVisible="False" Margin="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Grid.Row="1" TextWrapping="{TemplateBinding TextWrapping}"/>
+                            <ScrollViewer x:Name="ContentElement" VerticalAlignment="Center" AutomationProperties.AccessibilityView="Raw" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsTabStop="False" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" Margin="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Grid.Row="1" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="Disabled"/>
+                            <ContentPresenter x:Name="PlaceholderTextContentPresenter" Grid.ColumnSpan="2" Content="{TemplateBinding PlaceholderText}" Foreground="{ThemeResource TextControlPlaceholderForeground}" IsHitTestVisible="False" Margin="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Grid.Row="1" TextWrapping="{TemplateBinding TextWrapping}" VerticalAlignment="Center"/>
                             <Button x:Name="DeleteButton" AutomationProperties.AccessibilityView="Raw" BorderThickness="{TemplateBinding BorderThickness}" Grid.Column="1" FontSize="{TemplateBinding FontSize}" IsTabStop="False" Margin="{ThemeResource HelperButtonThemePadding}" MinWidth="34" Grid.Row="1" Style="{StaticResource DeleteButtonStyle}" Visibility="Collapsed" VerticalAlignment="Stretch"/>
                         </Grid>
                     </ControlTemplate>
@@ -527,8 +527,8 @@
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <Border x:Name="bg"  Background="{ThemeResource InvertedBG}" CornerRadius="0,4,4,0"/>
-                            <Border x:Name="bbg"  Background="{ThemeResource SystemControlBackgroundAccentBrush}" CornerRadius="0,4,4,0"/>
+                            <Border x:Name="bg"  Background="{ThemeResource InvertedBG}" CornerRadius="0,0,0,0"/>
+                            <Border x:Name="bbg"  Background="{ThemeResource SystemControlBackgroundAccentBrush}" CornerRadius="0,0,0,0"/>
                             <TextBlock x:Name="blurple" Opacity="0" Text="&#xE122;" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="18" Margin="8,0,8,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             <TextBlock x:Name="fg" Opacity="0" Text="&#xE122;" Foreground="{ThemeResource AcrylicMessageBackground}" FontSize="18" Margin="8,0,8,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
@@ -1014,15 +1014,9 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
-        <TextBox x:Uid="/Controls/SendMessageTB" x:Name="MessageEditor" PlaceholderText="Send message" Grid.Column="1" TextChanged="MessageEditor_OnTextChanged" KeyDown="MessageEditor_OnKeyDown" LostFocus="MessageEditor_OnLostFocus" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MaxHeight="256" Paste="MessageEditor_Paste" KeyUp="MessageEditor_KeyUp"/>
-        <Button x:Name="SendBox" Grid.Column="2" Style="{StaticResource SendButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="SendBox_OnClick" Grid.Row="0" IsEnabled="False" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Width="48"/>
+        <TextBox x:Uid="/Controls/SendMessageTB" Padding="64,0,48,0" VerticalAlignment="Stretch" x:Name="MessageEditor" PlaceholderText="Send message" Grid.Column="1" TextChanged="MessageEditor_OnTextChanged" KeyDown="MessageEditor_OnKeyDown" LostFocus="MessageEditor_OnLostFocus" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MaxHeight="256" Paste="MessageEditor_Paste" KeyUp="MessageEditor_KeyUp"/>
+        <Button x:Name="SendBox" Grid.Column="2" Style="{StaticResource SendButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Stretch" Click="SendBox_OnClick" Grid.Row="0" IsEnabled="False" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Width="48"/>
         
         <Popup x:Name="SuggestionPopup" IsOpen="False" Margin="24,0,0,0" Grid.ColumnSpan="2">
             <Popup.RenderTransform>
@@ -1058,14 +1052,12 @@
             </Border>
         </Popup>
 
-        <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Top"  HorizontalAlignment="Right">
-            <Button x:Name="EmojiButton" Foreground="{ThemeResource InvertedBG}" Style="{StaticResource ContentButton}" Opacity="1" Background="Transparent" Click="Button_Click" Padding="8">
-                <SymbolIcon Symbol="Emoji"/>
-            </Button>
-        </StackPanel>
-        
+        <Button x:Name="EmojiButton" HorizontalAlignment="Right" Margin="0,0,48,0" Foreground="{ThemeResource InvertedBG}" Style="{StaticResource ContentButton}" Opacity="1" Background="Transparent" Click="Button_Click" Padding="8">
+            <SymbolIcon Symbol="Emoji"/>
+        </Button>
+
         <HyperlinkButton x:Uid="/Dialogs/CancelBTN" x:Name="CancelButton" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right"  Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="Cancel" Margin="0,4,0,6" Click="CancelButton_Click"/>
-        <Button x:Name="attachButton" Style="{StaticResource ContentButton}" Foreground="{ThemeResource InvertedBG}" Opacity="1" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" Padding="8" Click="Button_Click_1">
+        <Button x:Name="attachButton" Style="{StaticResource ContentButton}" Foreground="{ThemeResource InvertedBG}" Opacity="1" Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Left" Padding="8" Click="Button_Click_1" Margin="12,0,0,0">
             <Grid>
                 <Grid.RenderTransform>
                     <ScaleTransform x:Name="attachButtonScale" CenterX="10" CenterY="10"/>
@@ -1094,7 +1086,7 @@
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
         </Button>
-        <SymbolIcon x:Name="spotifyActive" Symbol="More" Opacity="0" Foreground="#1DB954" Visibility="Visible" VerticalAlignment="Top" Margin="0,8,0,0" IsHitTestVisible="False"></SymbolIcon>
+        <SymbolIcon x:Name="spotifyActive" Symbol="More" Opacity="0" Foreground="#1DB954" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" IsHitTestVisible="False"></SymbolIcon>
 
         <Grid x:Name="GiphySelect" Grid.Row="2" Grid.ColumnSpan="3" Visibility="Collapsed">
             <Grid.RowDefinitions>

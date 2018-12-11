@@ -31,7 +31,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -54,11 +54,20 @@
             <Button x:Name="ClearButton" Style="{StaticResource IntegratedButton}" VerticalAlignment="Top" Click="Button_Click" Margin="0,12,12,0">
                 <SymbolIcon Symbol="Clear"/>
             </Button>
-            <MediaElement x:Name="player" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" MinHeight="48" MinWidth="100" MaxWidth="512" Margin="0,6,0,0" Width="auto" Height="auto" AreTransportControlsEnabled="True" AutoPlay="False" Visibility="Collapsed" SizeChanged="player_SizeChanged">
-                <MediaElement.TransportControls>
-                    <MediaTransportControls IsCompact="True" IsZoomButtonVisible="False"/>
-                </MediaElement.TransportControls>
-            </MediaElement>
+            <Grid Grid.Row="1" Grid.ColumnSpan="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MaxWidth="512"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition MaxHeight="512"/>
+                </Grid.RowDefinitions>
+                <MediaElement x:Name="player" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinHeight="48" MinWidth="100" Margin="0,6,0,0" Width="auto" Height="auto" AreTransportControlsEnabled="True" AutoPlay="False" Visibility="Collapsed" SizeChanged="player_SizeChanged">
+                    <MediaElement.TransportControls>
+                        <MediaTransportControls IsCompact="True" IsZoomButtonVisible="False"/>
+                    </MediaElement.TransportControls>
+                </MediaElement>
+            </Grid>
+            
         </Grid>
     </Grid>
 </UserControl>
