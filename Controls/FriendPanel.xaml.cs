@@ -24,6 +24,7 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using Windows.UI.Notifications;
 using Microsoft.QueryStringDotNET;
 
+using Discord_UWP.API.User.Models;
 using Discord_UWP.Managers;
 using Discord_UWP.LocalModels;
 using Windows.ApplicationModel.Contacts;
@@ -387,6 +388,25 @@ namespace Discord_UWP.Controls
             ToastNotification notification = new ToastNotification(toastContent.GetXml());
             // And then send the toast
             ToastNotificationManager.CreateToastNotifier().Show(notification);
+        }
+
+        private async void SendFriendRequest(object sender, RoutedEventArgs e)
+        {
+            string[] strings = SendFriendTB.Text.Split('#');
+            if (strings.Count() == 2)
+            {
+                SendFriendRequestResponse result =
+                    await RESTCalls.SendFriendRequest(strings[0], Convert.ToInt32(strings[1]));
+                if (result != null && result.Message != null)
+                    FriendRequestStatus.Text =
+                        result.Message; //App.GetString(result.Message.Replace(' ', '\0')); //TODO: Translate
+                else
+                    FriendRequestStatus.Text = App.GetString("/Controls/Success");
+            }
+            else
+            {
+                FriendRequestStatus.Text = App.GetString("/Controls/NeedDesc");
+            }
         }
 
         public void Dispose()
