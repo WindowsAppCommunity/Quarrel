@@ -755,7 +755,13 @@
                                     <CheckBox x:Uid="/Settings/BGNotifyDMCB" x:Name="bgNotifyDM" Margin="12,0,0,0" Content="Unread DMs" Style="{StaticResource CheckBoxStyle1}"/>
                                     <CheckBox x:Uid="/Settings/BGNotifyMentionsCB" x:Name="bgNotifyMention" Margin="12,0,0,0" Content="New mentions" Style="{StaticResource CheckBoxStyle1}"/>
                                     <CheckBox x:Uid="/Settings/BGNotifyMutedMentionsCB" x:Name="bgNotifyMutedMention" Margin="12,0,0,0" Content="New mentions in Muted Servers" Style="{StaticResource CheckBoxStyle1}"/>
+                                    
                                     <StackPanel Margin="12,0,0,0">
+
+                                        <TextBlock x:Uid="/Settings/FriendsNotifyTB" Text="What adds to Friends list notifications?" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
+                                        <CheckBox x:Uid="/Settings/DMsCB" x:Name="FriendsNotifyDMs" Content="DMs" Style="{StaticResource CheckBoxStyle1}"/>
+                                        <CheckBox x:Uid="/Settings/FriendRequestsCB" x:Name="FriendsNotifyFriendRequests" Content="Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>
+                                        <CheckBox x:Uid="/Settings/mutedChannelsAffectServerCB" x:Name="mutedChannelsAffectServer" Content="Muted channels effect server unread status?" Style="{StaticResource CheckBoxStyle1}"/>
                                         <TextBlock x:Uid="/Settings/IAPNotifsTB" Text="IN-APP NOTIFICATIONS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
                                         <CheckBox x:Name="HighlightEveryone" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0">
                                             <StackPanel Margin="0,2,0,0">
@@ -782,10 +788,7 @@
                                                 <TextBlock x:Uid="/Settings/BadgeCountDescTB" Text="Show mention count as badge" FontSize="11" Opacity="0.5"/>
                                             </StackPanel>
                                         </CheckBox>
-                                        <TextBlock x:Uid="/Settings/FriendsNotifyTB" Text="What adds to Friends list notifications?" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
-                                        <CheckBox x:Uid="/Settings/DMsCB" x:Name="FriendsNotifyDMs" Content="DMs" Style="{StaticResource CheckBoxStyle1}"/>
-                                        <CheckBox x:Uid="/Settings/FriendRequestsCB" x:Name="FriendsNotifyFriendRequests" Content="Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>
-                                        <CheckBox x:Uid="/Settings/mutedChannelsAffectServerCB" x:Name="mutedChannelsAffectServer" Content="Muted channels effect server unread status?" Style="{StaticResource CheckBoxStyle1}"/>
+                                        
                                         <!--<CheckBox x:Uid="/Settings/IncomingFriendsCB" x:Name="FriendsNotifyIncomingFriendRequests" Content="Incoming Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>
                                         <CheckBox x:Uid="/Settings/OutgoingFriendsCB" x:Name="FriendsNotifyOutgoingFriendRequests" Content="Outgoing Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>-->
 
@@ -796,7 +799,53 @@
                                         <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything in the selected channel</RadioButton>
                                         <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything in the selected server</RadioButton>
                                         <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything everywhere</RadioButton>-->
-
+                                    </StackPanel>
+                                    
+                                    <!--<TextBlock x:Uid="/Settings/SoundTypesTB" Text="Sound Types" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="12,12,0,0"/>-->
+                                    <!--<RadioButton x:Name="radio_DiscordSounds" x:Uid="/Settings/DiscordRB" Content="Discord" GroupName="SoundStyle" Margin="12,-4,12,0" Style="{StaticResource DiscordRadioButton}"/>-->
+                                    <!--<RadioButton x:Name="radio_WindowsSounds" x:Uid="/Settings/WindowsRB" Content="Windows" GroupName="SoundStyle" Margin="12,-4,12,0" Style="{StaticResource DiscordRadioButton}"/>-->
+                                    <TextBlock x:Uid="/Settings/SoundsTB" Text="Sounds" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="12,12,0,0"/>
+                                    <StackPanel Orientation="Horizontal" Margin="12,0,12,0">
+                                        <CheckBox Content="Message" MinWidth="30"/>
+                                        <Button Background="Transparent" Tag="message" Click="PlaySound">
+                                            <SymbolIcon Symbol="Play"/>
+                                        </Button>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="12,0,12,0" Visibility="Collapsed">
+                                        <CheckBox Content="Deafen" MinWidth="30"/>
+                                        <Button Background="Transparent" Tag="deafen" Click="PlaySound">
+                                            <SymbolIcon Symbol="Play"/>
+                                        </Button>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="12,0,12,0" Visibility="Collapsed">
+                                        <CheckBox Content="Undeafen" MinWidth="30"/>
+                                        <Button Background="Transparent" Tag="undeafen" Click="PlaySound">
+                                            <SymbolIcon Symbol="Play"/>
+                                        </Button>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="12,0,12,0" Visibility="Collapsed">
+                                        <CheckBox Content="Mute" MinWidth="30"/>
+                                        <Button Background="Transparent" Tag="mute" Click="PlaySound">
+                                            <SymbolIcon Symbol="Play"/>
+                                        </Button>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="12,0,12,0">
+                                        <CheckBox Content="Voice Disconnect" MinWidth="30"/>
+                                        <Button Background="Transparent" Tag="voicedc" Click="PlaySound">
+                                            <SymbolIcon Symbol="Play"/>
+                                        </Button>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="12,0,12,0">
+                                        <CheckBox Content="User Join" MinWidth="30"/>
+                                        <Button Background="Transparent" Tag="userjoin" Click="PlaySound">
+                                            <SymbolIcon Symbol="Play"/>
+                                        </Button>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="12,0,12,0">
+                                        <CheckBox Content="User Leave" MinWidth="30"/>
+                                        <Button Background="Transparent" Tag="userleave" Click="PlaySound">
+                                            <SymbolIcon Symbol="Play"/>
+                                        </Button>
                                     </StackPanel>
                                 </StackPanel>
                             </ScrollViewer>
@@ -804,17 +853,7 @@
                         <PivotItem x:Uid="/Settings/SoundsPI" x:Name="SoundsPI" Header="Sounds" Margin="12,0,0,0">
                             <ScrollViewer Padding="0,0,12,0">
                                 <StackPanel>
-                                    <CheckBox x:Name="NotificationSounds" x:Uid="/Settings/SoundsCB" Content="Sounds" Margin="12,12,0,0" Style="{StaticResource CheckBoxStyle1}"/>
-                                    <TextBlock x:Uid="/Settings/SoundTypesTB" Text="Sound Types" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="12,12,0,0"/>
-                                    <RadioButton x:Name="radio_DiscordSounds" x:Uid="/Settings/DiscordRB" Content="Discord" GroupName="SoundStyle" Margin="12,-4,12,0" Style="{StaticResource DiscordRadioButton}"/>
-                                    <RadioButton x:Name="radio_WindowsSounds" x:Uid="/Settings/WindowsRB" Content="Windows" GroupName="SoundStyle" Margin="12,-4,12,0" Style="{StaticResource DiscordRadioButton}"/>
-                                    <TextBlock x:Uid="/Settings/SoundsTB" Text="Sounds" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="12,12,0,0"/>
-                                    <StackPanel Orientation="Horizontal" Margin="12,-4,12,0">
-                                        <CheckBox Content="Message" MinWidth="30"/>
-                                        <Button Background="Transparent" Tag="message" Click="PlaySound">
-                                            <SymbolIcon Symbol="Play"/>
-                                        </Button>
-                                    </StackPanel>
+                                    
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
