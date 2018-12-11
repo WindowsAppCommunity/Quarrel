@@ -27,7 +27,7 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
         </Storyboard>
     </UserControl.Resources>
 
-    <Grid x:Name="rootGrid" Margin="0,18,12,0" HorizontalAlignment="Stretch" Background="Transparent">
+    <Grid x:Name="rootGrid" Margin="0,18,12,0" HorizontalAlignment="Stretch">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Advert">
@@ -193,12 +193,12 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
             <TextBlock x:Name="timestamp" FontSize="11" Text="Today at 10:20" Margin="0,0,0,1" VerticalAlignment="Bottom" Opacity="0.3"/>
         </StackPanel>
         <FontIcon x:Name="AlternativeIcon" Visibility="Collapsed" Margin="8,0,0,-40" FontSize="18" Glyph="" Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <md:MarkdownTextBlock RightTapped="UserControl_RightTapped" Holding="UserControl_Holding"  MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" FontSize="14" VerticalAlignment="Top" LineHeight="17" Background="Red" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Padding="3,0,3,0" Margin="0,4,0,0" PointerPressed="UserControl_PointerPressed" Foreground="{ThemeResource MessageForeground}"/>
+        <md:MarkdownTextBlock RightTapped="UserControl_RightTapped" Holding="UserControl_Holding"  MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" FontSize="14" VerticalAlignment="Top" LineHeight="17"  FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Padding="6,0,3,0" Margin="0,4,0,0" PointerPressed="UserControl_PointerPressed" Foreground="{ThemeResource MessageForeground}"/>
         <StackPanel x:Name="BlockedMessage" Visibility="Collapsed" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock x:Uid="/Controls/BlockedMessageTB" Text="Message Blocked" HorizontalAlignment="Center"/>
             <HyperlinkButton Foreground="{ThemeResource Greyple}" Content="View" FontSize="10" HorizontalAlignment="Center" Click="HyperlinkButton_Click"/>
         </StackPanel>
-        <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Opacity="1" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click" PointerPressed="UserControl_PointerPressed">
+        <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Opacity="1" Grid.Row="2" Grid.Column="2" Grid.RowSpan="4" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click" PointerPressed="UserControl_PointerPressed">
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout  MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
                     <!--<MenuFlyoutItem x:Uid="/Controls/ReplyItem" x:Name="MoreCopy" Padding="12,4" Icon="MailReply" Text="Reply" Click="MoreReply_Click_1"/>-->
@@ -215,6 +215,6 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
             </FlyoutBase.AttachedFlyout>
             <SymbolIcon x:Name="moresymbol" Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top" Visibility="Visible"/>
         </Button>
-        <StackPanel x:Name="EmbedViewer" Grid.Row="3" Grid.Column="1" Padding="0" Margin="0,0,0,12" Visibility="Visible"/>
+        <StackPanel  x:Name="EmbedViewer" Grid.Row="3" Grid.Column="1" Padding="0" Margin="0,0,0,12" Visibility="Visible"/>
     </Grid>
 </UserControl>
