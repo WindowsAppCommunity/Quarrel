@@ -154,7 +154,7 @@ namespace Discord_UWP.Controls
         AdControl advert;
         string originalcontent = "";
         /* IT IS VERY IMPORTANT TO REMEMBER THE MESSAGECONTROL GET RECYCLED BY VIRTUALIZATION, AND THAT VALUES MUST SYSTEMATICALLY BE RESET
-         * For example, if you change a color depending on a boolean property, make sure to include a `else` that will reset the color */
+         * For example, if you change a color depending on a boolean property, make sure to include an `else` that will reset the color */
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
             if (prop == IsContinuationProperty)
@@ -471,7 +471,7 @@ namespace Discord_UWP.Controls
         public void UpdateMessage(bool edited = false)
         {
             content.FontSize = Storage.Settings.MSGFontSize;
-            content.Padding = new Thickness(5, 3, 3, content.FontSize / 4 + 1);
+            content.Padding = new Thickness(6, 3, 3, content.FontSize / 4 + 1);
 
             if (rootGrid.Children.Contains(advert))
                 rootGrid.Children.Remove(advert);
@@ -664,6 +664,16 @@ namespace Discord_UWP.Controls
 
                 /* The resetting of the embed and attachement related stuff is handled by this function: */
                 LoadEmbedsAndAttachements();
+            }
+            if (string.IsNullOrEmpty(content.Text))
+            {
+                content.Visibility = Visibility.Collapsed;
+                Grid.SetRow(moreButton, 3);
+            }
+            else
+            {
+                content.Visibility = Visibility.Visible;
+                Grid.SetRow(moreButton, 2);
             }
         }
         public static IEnumerable<int> AllIndexesOf(string str, string searchstring)
@@ -926,6 +936,7 @@ namespace Discord_UWP.Controls
             Grid.SetColumn(editBox, 1);
             rootGrid.Children.Add(editBox);
             content.Visibility = Visibility.Collapsed;
+            
         }
 
         private void EditBox_Cancel(object sender, RoutedEventArgs e)

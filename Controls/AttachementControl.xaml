@@ -15,21 +15,19 @@
         <Viewbox x:Name="AttachedImageViewbox" extensions:Mouse.Cursor="Hand" HorizontalAlignment="Left" Visibility="Visible" StretchDirection="DownOnly" Grid.Row="4" MaxWidth="480" MaxHeight="300"  Grid.Column="1" Margin="6">
             <Image x:Name="AttachedImageViewer" Tapped="AttachedImageViewer_Tapped" ImageOpened="AttachedImageViewer_ImageLoaded" ImageFailed="AttachementImageViewer_ImageFailed" RightTapped="AttachedImageViewer_RightTapped" Holding="AttachedImageViewer_Holding"/>
         </Viewbox>
-        <MediaElement x:Name="player" Height="100" Width="auto" HorizontalAlignment="Stretch" AreTransportControlsEnabled="True" AutoPlay="False" Visibility="Collapsed">
-            <MediaElement.TransportControls>
-                <MediaTransportControls IsCompact="True" IsZoomButtonVisible="False"/>
-            </MediaElement.TransportControls>
-        </MediaElement>
-
         <ProgressRing x:Name="LoadingImage" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="6" Visibility="Visible"/>
         <Grid x:Name="AttachedFileViewer" Margin="0" Padding="6" Grid.Row="4" Grid.Column="1" Visibility="Visible" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-
-            <FontIcon FontSize="32" Glyph="" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Left" Margin="0,0,6,0" Grid.Column="1"/>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <FontIcon x:Name="attachementGlyph" FontSize="32" Glyph="" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Left" Margin="0,0,6,0" Grid.Column="1"/>
             <StackPanel Grid.Column="2">
 
                 <HyperlinkButton x:Name="FileName" Content="File.txt" FontSize="18" Foreground="{ThemeResource LinkColor}" Padding="0" Style="{StaticResource PlainHyperlinkStyle}" Click="FileName_Click"/>
@@ -38,6 +36,11 @@
             <Button x:Name="ClearButton" Style="{StaticResource IntegratedButton}" VerticalAlignment="Center" Click="Button_Click" Margin="0,0,12,0">
                 <SymbolIcon Symbol="Clear"/>
             </Button>
+            <MediaElement x:Name="player" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" MinHeight="48" MinWidth="100" MaxWidth="512" Margin="0,6,0,0" Width="auto" Height="auto" AreTransportControlsEnabled="True" AutoPlay="False" Visibility="Collapsed" SizeChanged="player_SizeChanged">
+                <MediaElement.TransportControls>
+                    <MediaTransportControls IsCompact="True" IsZoomButtonVisible="False"/>
+                </MediaElement.TransportControls>
+            </MediaElement>
         </Grid>
     </Grid>
 </UserControl>

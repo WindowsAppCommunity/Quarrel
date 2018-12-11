@@ -52,9 +52,9 @@ namespace Discord_UWP.Controls
             instance?.OnPropertyChanged(d, e.Property);
         }
 
-        readonly string[] ImageFiletypes = { ".jpg", ".jpeg", ".gif", ".tif", ".tiff", ".png", ".bmp", ".gif", ".ico" };
-        readonly string[] AudioFiletypes = { ".mp3", ".wav"};
-        readonly string[] VideoFiletypes = { ".mp4"};
+        readonly string[] ImageFiletypes = { ".jpg", ".jpeg", ".gif", ".tif", ".tiff", ".png", ".bmp", ".gif", ".ico", ".jxr", ".hdp", ".wdp" };
+        readonly string[] AudioFiletypes = { ".mp3", ".wav", ".m4a", ".ac3", ".ec3", ".flac", ".3gp", ".amr"};
+        readonly string[] VideoFiletypes = { ".3g2", ".3gp2", ".3gp", ".m4v", ".mp4v", ".mp4", ".mov", ".m2ts", ".asf", ".wm", ".wmv", ".avi"};
 
         private void OnPropertyChanged(DependencyObject d, DependencyProperty property)
         {
@@ -102,50 +102,46 @@ namespace Discord_UWP.Controls
                     IsAudio = true;
                     player.AudioCategory = AudioCategory.Media;
                     player.Source = new Uri(DisplayedAttachement.Url);
+                  
                 } else if (VideoFiletypes.Contains("." + DisplayedAttachement.Filename.Split('.').Last().ToLower()))
                 {
                     IsVideo = true;
                     player.AudioCategory = AudioCategory.Media;
                     player.Source = new Uri(DisplayedAttachement.Url);
-                    if (DisplayedAttachement.Height.HasValue)
-                    {
-                        player.Height = DisplayedAttachement.Height.Value;
-                    }
-                    if (DisplayedAttachement.Width.HasValue)
-                    {
-                        player.Width = DisplayedAttachement.Width.Value;
-                    }
-                    if (player.Height > 300)
-                    {
-                        player.Width = player.Width / (player.Height / 300);
-                        player.Height = 300;
-                    }
-                    if (player.Width > 300)
-                    {
-                        player.Height = player.Height / (player.Width / 300);
-                        player.Width = 300;
-                    }
                 }
             }
+            if (!IsFake)
+                FileName.NavigateUri = new Uri(DisplayedAttachement.Url);
+            FileName.Content = DisplayedAttachement.Filename;
+            FileSize.Text = Common.HumanizeFileSize(DisplayedAttachement.Size);
             if (IsImage)
             {
                 AttachedImageViewbox.Visibility = Visibility.Visible;
                 LoadingImage.Visibility = Visibility.Visible;
                 LoadingImage.IsActive = true;
+                AttachedFileViewer.Visibility = Visibility.Collapsed;
+                player.Visibility = Visibility.Collapsed;
             } else if (IsAudio)
             {
                 player.Visibility = Visibility.Visible;
+                player.HorizontalAlignment = HorizontalAlignment.Stretch;
+                player.Height = 48;
+                attachementGlyph.Visibility = Visibility.Collapsed;
+                AttachedFileViewer.Visibility = Visibility.Visible;
+                FileName.FontSize = 14;
             } else if (IsVideo)
             {
                 player.Visibility = Visibility.Visible;
+                player.HorizontalAlignment = HorizontalAlignment.Left;
+                //player.Height = double.NaN;
+                attachementGlyph.Visibility = Visibility.Collapsed;
+                AttachedFileViewer.Visibility = Visibility.Visible;
+                FileName.FontSize = 14;
             }
             else
             {
-                if(!IsFake)
-                    FileName.NavigateUri = new Uri(DisplayedAttachement.Url);
-                FileName.Content = DisplayedAttachement.Filename;
-                FileSize.Text = Common.HumanizeFileSize(DisplayedAttachement.Size);
                 AttachedFileViewer.Visibility = Visibility.Visible;
+                attachementGlyph.Visibility = Visibility.Visible;
                 player.Visibility = Visibility.Collapsed;
             }
         }
@@ -202,6 +198,26 @@ namespace Discord_UWP.Controls
             {
                 App.ShowMenuFlyout(this, DisplayedAttachement.Url, e.GetPosition(this));
             }
+        }
+
+        private void player_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            /*
+            if(DisplayedAttachement.Width.HasValue && DisplayedAttachement.Height.HasValue)
+            {
+                double aspectratio = (double)DisplayedAttachement.Width.Value / (double)DisplayedAttachement.Height.Value;
+                if (aspectratio < 1)
+                {
+                    //Player should be higher than it is wide
+                    player.Height = player.ActualWidth / aspectratio;
+                }
+                else
+                {
+                    //Player should be wider than it is high
+                    player.Width = player.ActualHeight / aspectratio;
+                }
+            }*/
+            
         }
     }
 }
