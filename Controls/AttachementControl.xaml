@@ -12,28 +12,47 @@
     d:DesignWidth="400">
 
     <Grid>
-        <Viewbox x:Name="AttachedImageViewbox" extensions:Mouse.Cursor="Hand" HorizontalAlignment="Left" Visibility="Visible" StretchDirection="DownOnly" Grid.Row="4" MaxWidth="480" MaxHeight="300"  Grid.Column="1" Margin="6">
-            <Image x:Name="AttachedImageViewer" Tapped="AttachedImageViewer_Tapped" ImageOpened="AttachedImageViewer_ImageLoaded" ImageFailed="AttachementImageViewer_ImageFailed" RightTapped="AttachedImageViewer_RightTapped" Holding="AttachedImageViewer_Holding"/>
-        </Viewbox>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Viewbox x:Name="AttachedImageViewbox" extensions:Mouse.Cursor="Hand" HorizontalAlignment="Left" Visibility="Visible" StretchDirection="DownOnly" MaxWidth="480" MaxHeight="300"  Grid.Column="1" Margin="6">
+                <Image x:Name="AttachedImageViewer" Tapped="AttachedImageViewer_Tapped" ImageOpened="AttachedImageViewer_ImageLoaded" ImageFailed="AttachementImageViewer_ImageFailed" RightTapped="AttachedImageViewer_RightTapped" Holding="AttachedImageViewer_Holding"/>
+            </Viewbox>
+            <TextBlock x:Name="PDFPages" Text="Page 1 of 1" Grid.Row="1" Opacity="0.3" Margin="6,0,0,0" Visibility="Collapsed"/>
+        </Grid>
+
+        
+
         <ProgressRing x:Name="LoadingImage" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="6" Visibility="Visible"/>
         <Grid x:Name="AttachedFileViewer" Margin="0" Padding="6" Grid.Row="4" Grid.Column="1" Visibility="Visible" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <FontIcon x:Name="attachementGlyph" FontSize="32" Glyph="" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Left" Margin="0,0,6,0" Grid.Column="1"/>
+
+            <FontIcon x:Name="FileIcon" FontSize="32" Glyph="" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Left" Margin="0,0,6,0" Grid.Column="1"/>
+            <HyperlinkButton x:Name="PreviewButton"  Foreground="{ThemeResource LinkColor}" Background="Transparent" VerticalAlignment="Top" Margin="0,-4,12,0" Style="{StaticResource PlainHyerlinkStyle}" Visibility="Collapsed" Grid.Column="1" Click="ShowPreview">
+                <StackPanel>
+                    <FontIcon x:Name="PreviewIcon" Glyph="" FontSize="32"/>
+                    <TextBlock x:Name="PreviewText" Text="Show" FontSize="8" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </HyperlinkButton>
             <StackPanel Grid.Column="2">
 
-                <HyperlinkButton x:Name="FileName" Content="File.txt" FontSize="18" Foreground="{ThemeResource LinkColor}" Padding="0" Style="{StaticResource PlainHyperlinkStyle}" Click="FileName_Click"/>
+                <HyperlinkButton x:Name="FileName" Content="File.txt" FontSize="18" Foreground="{ThemeResource LinkColor}" Padding="0" Style="{StaticResource PlainTextHyperlinkStyle}" Click="FileName_Click"/>
                 <TextBlock x:Name="FileSize" FontSize="11" Opacity="0.5" Text="0 B" Margin="0,4,0,0"/>
             </StackPanel>
-            <Button x:Name="ClearButton" Style="{StaticResource IntegratedButton}" VerticalAlignment="Center" Click="Button_Click" Margin="0,0,12,0">
+            
+            <Button x:Name="ClearButton" Style="{StaticResource IntegratedButton}" VerticalAlignment="Top" Click="Button_Click" Margin="0,12,12,0">
                 <SymbolIcon Symbol="Clear"/>
             </Button>
             <MediaElement x:Name="player" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" MinHeight="48" MinWidth="100" MaxWidth="512" Margin="0,6,0,0" Width="auto" Height="auto" AreTransportControlsEnabled="True" AutoPlay="False" Visibility="Collapsed" SizeChanged="player_SizeChanged">

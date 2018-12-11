@@ -89,7 +89,7 @@
                     <StackPanel Margin="0,0,0,24">
                         <TextBlock x:Name="Message" Text="Message" FontWeight="Bold" FontSize="20" Margin="0,0,0,12" TextWrapping="WrapWholeWords"/>
                         <TextBox x:Name="StringArg" Margin="0,0,0,12" Style="{ThemeResource TextBoxStyle1}" Visibility="Collapsed"/>
-                        <HyperlinkButton x:Name="MakeFancy" Visibility="Collapsed" Content="Make fancy" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Click="MakeFancy_OnClick" Margin="0,-12,0,12"/>
+                        <HyperlinkButton x:Name="MakeFancy" Visibility="Collapsed" Content="Make fancy" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Click="MakeFancy_OnClick" Margin="0,-12,0,12"/>
                             <md:MarkdownTextBlock x:Name="SubMessage" Text="Topic" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Foreground="{ThemeResource ButtonBackgroundPressed}"/>
                     </StackPanel>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,0">

@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Data.Pdf;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Networking.BackgroundTransfer;
@@ -55,10 +57,42 @@ namespace Discord_UWP.SubPages
                 attachement = (SharedModels.Attachment)e.Parameter;
                 if (attachement.Url.EndsWith(".svg"))
                     ImageViewer.Source = new SvgImageSource(new Uri(attachement.Url));
+                else if (attachement.Url.EndsWith(".pdf"))
+                    LoadPDF();
                 else
                     ImageViewer.Source = new BitmapImage(new Uri(attachement.Url));
             }
             base.OnNavigatedTo(e);
+        }
+
+        private async void LoadPDF()
+        {
+            ImageViewer.Visibility = Visibility.Collapsed;
+            HttpClient client = new HttpClient();
+            var stream = await
+                client.GetStreamAsync(attachement.Url);
+            var memStream = new MemoryStream();
+            await stream.CopyToAsync(memStream);
+            memStream.Position = 0;
+            PdfDocument doc = await PdfDocument.LoadFromStreamAsync(memStream.AsRandomAccessStream());
+
+            for (uint i = 0; i < doc.PageCount; i++)
+            {
+                BitmapImage image = new BitmapImage();
+
+                var page = doc.GetPage(i);
+
+                using (InMemoryRandomAccessStream RAstream = new InMemoryRandomAccessStream())
+                {
+                    await page.RenderToStreamAsync(RAstream);
+                    await image.SetSourceAsync(RAstream);
+                }
+
+                Image UIImage = new Image();
+                UIImage.Source = image;
+                UIImage.Margin = new Thickness(0, 0, 0, 12);
+                MultiPageStacker.Children.Add(UIImage);
+            }
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
