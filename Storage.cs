@@ -156,6 +156,13 @@ namespace Discord_UWP
         public bool BackgroundVoice = !App.IsMobile;
         public int StandardData = 0;
         public int MobileData = 1;
+
+        #region NotificationSounds
+        public bool MessageSound = true;
+        public bool VoiceDCSound = true;
+        public bool UserJoinSound = true;
+        public bool UserLeaveSound = true;
+        #endregion
     }
 
     [Flags]
