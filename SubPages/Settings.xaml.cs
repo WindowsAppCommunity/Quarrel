@@ -93,6 +93,11 @@ namespace Discord_UWP.SubPages
             MentionGlow.IsChecked = Storage.Settings.GlowOnMention;
             ShowServerMute.IsChecked = Storage.Settings.ServerMuteIcons;
 
+            MessageNotification.IsChecked = Storage.Settings.MessageSound;
+            VoiceDCNotification.IsChecked = Storage.Settings.VoiceDCSound;
+            UserJoinNotification.IsChecked = Storage.Settings.UserJoinSound;
+            UserLeaveNotification.IsChecked = Storage.Settings.UserLeaveSound;
+
             if (Storage.Settings.BackgroundTaskTime == 0)
             {
                 bgEnabler.IsOn = false;
@@ -343,12 +348,7 @@ namespace Discord_UWP.SubPages
             DerviedColor.Foreground = App.Current.RequestedTheme == ApplicationTheme.Dark ? DarkThemeAccentGradient : LightThemeAccentGradient;
 
             LoadSettings();
-
-            if (!App.Insider)
-            {
-                pivotBase.Items.Remove(SoundsPI);
-            }
-
+            
             if (await AudioManager.CreateInputDeviceNode(Storage.Settings.InputDevice))
             {
                 AudioManager.InputRecieved += AudioManager_InputRecieved;
@@ -434,6 +434,11 @@ namespace Discord_UWP.SubPages
             //Storage.Settings.GifsOnHover = (bool)GifsOnHover.IsChecked;
             Storage.Settings.ServerMuteIcons = (bool)ShowServerMute.IsChecked;
             Storage.Settings.GlowOnMention = (bool)MentionGlow.IsChecked;
+
+            Storage.Settings.MessageSound = (bool)MessageNotification.IsChecked;
+            Storage.Settings.VoiceDCSound = (bool)VoiceDCNotification.IsChecked;
+            Storage.Settings.UserJoinSound = (bool)UserJoinNotification.IsChecked;
+            Storage.Settings.UserLeaveSound = (bool)UserLeaveNotification.IsChecked;
 
             //Storage.Settings.SoundNotifications = (bool)NotificationSounds.IsChecked;
             //Storage.Settings.DiscordSounds = (bool)radio_DiscordSounds.IsChecked;
