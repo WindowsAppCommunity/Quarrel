@@ -650,7 +650,8 @@ namespace Discord_UWP.Managers
                 () =>
                 {
                     MediaElement element = new MediaElement();
-                    element.AudioCategory = AudioCategory.Alerts;
+                    element.Volume = 2;
+                    element.AudioCategory = AudioCategory.Other; //Alerts dims other sounds
                     element.SetPlaybackSource(Windows.Media.Core.MediaSource.CreateFromUri(
                         new Uri("ms-appx:///Assets/SoundEffects/" + /*(Storage.Settings.DiscordSounds ? "discord" : "windows") + "_" + */ file + ".wav")));
                     element.MediaEnded += Element_MediaEnded;
