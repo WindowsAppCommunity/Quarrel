@@ -269,9 +269,6 @@ namespace Discord_UWP.Controls
         }
         public void SetupInteraction(UIElement DetachedHeader = null)
         {
-
-
-
             //Set up tracker
             var containerVisual = compositor.CreateContainerVisual();
             contentVis = ElementCompositionPreview.GetElementVisual(content);
@@ -412,7 +409,7 @@ namespace Discord_UWP.Controls
                 {
                     interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(maingrid));
                 }
-                catch (Exception) { }
+                catch { }
             }
         }
 
@@ -420,7 +417,6 @@ namespace Discord_UWP.Controls
         {
             rootVisual = ElementCompositionPreview.GetElementVisual(maingrid);
             compositor = rootVisual.Compositor;
-
         }
 
         //bool animout = false;
