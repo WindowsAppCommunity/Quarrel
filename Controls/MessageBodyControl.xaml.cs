@@ -270,7 +270,7 @@ namespace Discord_UWP.Controls
             }
 
             Message last = MessageList.Items.Count > 0 ? (MessageList.Items.Last() as MessageContainer).Message : null;
-            if (last != null && CurrentGuildId != null && ChannelId != null && last.Id !=
+            if (last != null && CurrentGuildId != null && ChannelId != null && LocalState.CurrentGuild.channels.ContainsKey(ChannelId) && last.Id !=
                 LocalState.CurrentGuild.channels[ChannelId].raw.LastMessageId)
             {
                 ReturnToPresentIndicator.Opacity = 1;
