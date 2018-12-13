@@ -591,6 +591,9 @@
   <data name="ShowNoPermissionsChannelsDescTB.Text" xml:space="preserve">
     <value>Gaze upon that which yee cannot enter</value>
   </data>
+  <data name="HideMutedChannelsDescTB.Text" xml:space="preserve">
+    <value>Hides channels that you have muted</value>
+  </data>
   <data name="IntegrationTB.Text" xml:space="preserve">
     <value>INTEGRATION</value>
   </data>
@@ -629,6 +632,10 @@
   </data>
   <data name="ShowNoPermissionsChannelsTB.Text" xml:space="preserve">
     <value>Show No Permissions Channels</value>
+  </data>
+
+  <data name="HideMutedChannelsTB.Text" xml:space="preserve">
+    <value>Hide muted channels</value>
   </data>
   <data name="StandardTB.Text" xml:space="preserve">
     <value>Standard</value>
