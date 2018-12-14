@@ -614,6 +614,19 @@
                                     <RadioButton x:Uid="/Settings/MentionsRB" Content="Mentions" x:Name="OverrideMention" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,0,0,-4" HorizontalAlignment="Left"/>
                                     <RadioButton x:Uid="/Settings/UnreadRB" Content="Unread" x:Name="OverrideUnread" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,0,0,-4" HorizontalAlignment="Left"/>
 
+                                    <CheckBox x:Name="ShowNoPermissionsChannels" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0">
+                                        <StackPanel Margin="0,2,0,0">
+                                            <TextBlock x:Uid="/Settings/ShowNoPermissionsChannelsTB" Text="Show No Permissions Channels"/>
+                                            <TextBlock x:Uid="/Settings/ShowNoPermissionsChannelsDescTB" Text="Gaze upon that which yee cannot enter" FontSize="11" Opacity="0.5"/>
+                                        </StackPanel>
+                                    </CheckBox>
+                                    <CheckBox x:Name="HideMutedChannels" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0">
+                                        <StackPanel Margin="0,2,0,0">
+                                            <TextBlock x:Uid="/Settings/HideMutedChannelsTB" Text="Hide muted channels"/>
+                                            <TextBlock x:Uid="/Settings/HideMutedChannelsDescTB" Text="Hides channels that you have muted" FontSize="11" Opacity="0.5"/>
+                                        </StackPanel>
+                                    </CheckBox>
+                                    
                                     <TextBlock x:Uid="/Settings/MESSAGESTB" Text="MESSAGES" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
 
                                     <TextBlock x:Uid="/Settings/FontSizeTB" Text="Message font size" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
@@ -691,18 +704,6 @@
                                         <StackPanel Margin="0,2,0,0">
                                             <TextBlock x:Uid="/Settings/ShowWelcomeTB" Text="Show Welcome Messages"/>
                                             <TextBlock x:Uid="/Settings/ShowWelcomeDescTB" Text="Those cute little messages on the loading screen, you can disable them if you want. Why not" FontSize="11" Opacity="0.5"/>
-                                        </StackPanel>
-                                    </CheckBox>
-                                    <CheckBox x:Name="ShowNoPermissionsChannels" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0">
-                                        <StackPanel Margin="0,2,0,0">
-                                            <TextBlock x:Uid="/Settings/ShowNoPermissionsChannelsTB" Text="Show No Permissions Channels"/>
-                                            <TextBlock x:Uid="/Settings/ShowNoPermissionsChannelsDescTB" Text="Gaze upon that which yee cannot enter" FontSize="11" Opacity="0.5"/>
-                                        </StackPanel>
-                                    </CheckBox>
-                                    <CheckBox x:Name="HideMutedChannels" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0">
-                                        <StackPanel Margin="0,2,0,0">
-                                            <TextBlock x:Uid="/Settings/HideMutedChannelsTB" Text="Hide muted channels"/>
-                                            <TextBlock x:Uid="/Settings/HideMutedChannelsDescTB" Text="Hides channels that you have muted" FontSize="11" Opacity="0.5"/>
                                         </StackPanel>
                                     </CheckBox>
 
