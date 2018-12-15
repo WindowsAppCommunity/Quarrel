@@ -1304,7 +1304,12 @@ namespace Discord_UWP
 
         private async void CreateInvite(object sender, RoutedEventArgs e)
         {
-            Invite invite = await RESTCalls.CreateInvite(App.CurrentGuildId, new CreateInvite());
+            //TODO: Create new "create invite" system
+            Invite invite = await RESTCalls.CreateInvite(
+                !string.IsNullOrEmpty(App.CurrentChannelId)
+                    ? App.CurrentChannelId
+                    : LocalState.CurrentGuild.channels.First().Value.raw.Id,
+                new CreateInvite() {MaxAge = 86400, MaxUses = 0, Temporary = false});
             SubFrameNavigator(typeof(DynamicSubPage), new SubPageData
             {
                 Message = "Invite Link",
