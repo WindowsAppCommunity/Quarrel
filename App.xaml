@@ -13,6 +13,8 @@
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
                     <SolidColorBrush x:Key="Background" Color="#FFE5E5E5"/>
+                    <Color x:Key="AcrylicMessageBackgroundColorTransparent">#00FFFFFF</Color>
+                    <Color x:Key="AcrylicMessageBackgroundColor">#FFFFFFFF</Color>
                     <SolidColorBrush x:Key="AcrylicMessageBackground" Color="#FFFFFFFF"/>
                     <!--<AcrylicBrush x:Key="AcrylicMessageBackground"
                     BackgroundSource="HostBackdrop"
@@ -66,6 +68,8 @@
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
                     <SolidColorBrush x:Key="Background" Color="#1B1B1B"/>
+                    <Color x:Key="AcrylicMessageBackgroundColorTransparent">#00303238</Color>
+                    <Color x:Key="AcrylicMessageBackgroundColor">#FF303238</Color>
                     <SolidColorBrush x:Key="AcrylicMessageBackground" Color="#FF303238"/>
                     <!--<AcrylicBrush x:Key="AcrylicMessageBackground"
                     BackgroundSource="HostBackdrop"

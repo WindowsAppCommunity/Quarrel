@@ -836,16 +836,16 @@ namespace Discord_UWP.Controls
             else
                 typingString += " " + App.GetString("/Main/TypingSingular");
 
+            TypingIndicator.Text = typingString;
+
             if (displayedTyperCounter == 0)
             {
-                TypingStackPanel.Fade(0, 200).Start();
-                TypingStackPanel.Visibility = Visibility.Collapsed;
+                TypingStackPanel.Fade(0, 300).Start();
             }
             else
             {
                 TypingIndicator.Text = typingString;
-                TypingStackPanel.Fade(1, 200).Start();
-                TypingStackPanel.Visibility = Visibility.Visible;
+                TypingStackPanel.Fade(1, 300).Start();
             }
         }
 

@@ -8,7 +8,6 @@
     xmlns:ads="using:Microsoft.Advertising.WinRT.UI"
     xmlns:simpleclass="using:Discord_UWP.SimpleClasses"
     mc:Ignorable="d" Loaded="Page_Loaded">
-
     <Grid x:Name="MessageArea" Margin="12,0,12,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -59,7 +58,7 @@
                 <HyperlinkButton x:Uid="/Main/ReturnToPresentHLBTN" FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="RETURN TO PRESENT" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource PlainTextHyperlinkStyle}" FontWeight="SemiBold" Click="ReturnToPresent_Click"/>
             </StackPanel>
         </Grid>
-        <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}" Margin="0,0,-12,0" Padding="0,0,12,0">
+        <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}" Margin="0,0,-12,0" Padding="0,0,12,12">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsStackPanel Loaded="ItemsStackPanel_Loaded" SizeChanged="ItemStackPanel_SizeChanged" Margin="0,0,0,-4" ItemsUpdatingScrollMode="KeepLastItemInView">
@@ -89,22 +88,21 @@
         </ListView>
         <ProgressBar x:Name="MessagesLoadingTop" Grid.Row="0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Top" Visibility="Collapsed"/>
         <ProgressBar x:Name="MessagesLoading" Grid.Row="1" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
-        <StackPanel VerticalAlignment="Bottom" Margin="-24,0" Grid.Row="1">
-            <Rectangle IsHitTestVisible="False" Grid.Row="1" Height="12" Opacity="{StaticResource ShadowOpacity}" Grid.ColumnSpan="3" VerticalAlignment="Bottom">
+        <Grid x:Name="TypingStackPanel" Opacity="1" Grid.Row="1" Grid.ColumnSpan="4" Height="32" VerticalAlignment="Bottom">
+            <Rectangle IsHitTestVisible="False" Grid.Row="1" Margin="-18,-16,-24,0" Grid.ColumnSpan="3" VerticalAlignment="Stretch">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
-                        <GradientStop Offset="1"/>
-                        <GradientStop Color="{ThemeResource ShadowColor}" Offset="0"/>
+                        <GradientStop Color="{ThemeResource AcrylicMessageBackgroundColorTransparent}" Offset="1"/>
+                        <GradientStop Color="{ThemeResource AcrylicMessageBackgroundColor}" Offset="0"/>
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <StackPanel x:Name="TypingStackPanel" Background="{ThemeResource AcrylicMessageBackground}" Opacity="0" Grid.Row="1" Grid.ColumnSpan="4" Orientation="Horizontal" Height="32" VerticalAlignment="Bottom">
-                <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center"/>
-                <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
-            </StackPanel>
-        </StackPanel>
+            <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="36,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            
+        </Grid>
 
-        <Rectangle IsHitTestVisible="False" Grid.Row="1" Height="12" Margin="-24,0" Opacity="{StaticResource ShadowOpacity}" Grid.ColumnSpan="3" VerticalAlignment="Bottom">
+        <Rectangle x:Name="messageShadow" IsHitTestVisible="False" Grid.Row="1" Height="12" Margin="-24,0" Opacity="{StaticResource ShadowOpacity}" Grid.ColumnSpan="3" VerticalAlignment="Bottom">
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
                     <GradientStop Offset="1"/>
@@ -112,8 +110,11 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <StackPanel x:Name="SendMessage" Height="64" Grid.Row="2" Padding="0,0,0,0" Margin="-24,0">
-            <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced" OpenSpotify="MessageBox1_OpenSpotify" Height="64"/>
+        <StackPanel x:Name="SendMessage" Background="{ThemeResource AcrylicMessageBackground}" Height="48" Grid.Row="3" Padding="0,0,0,0" Margin="-24,0" RenderTransformOrigin="0.5,0.5">
+            <StackPanel.RenderTransform>
+                <CompositeTransform/>
+            </StackPanel.RenderTransform>
+            <controls:MessageBox x:Name="MessageBox1" Height="48" Grid.ColumnSpan="3" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced" OpenSpotify="MessageBox1_OpenSpotify"/>
         </StackPanel>
     </Grid>
 
