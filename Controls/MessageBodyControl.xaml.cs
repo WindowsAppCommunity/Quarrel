@@ -89,8 +89,14 @@ namespace Discord_UWP.Controls
             RenderMessages();
         }
 
+        private void MessageList_Loaded(object sender, RoutedEventArgs e)
+        {
+        }
+
         private void ItemsStackPanel_Loaded(object sender, RoutedEventArgs e)
         {
+            _messageScrollviewer = Common.GetScrollViewer(MessageList);
+            if (_messageScrollviewer != null) _messageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
             _messageStacker = sender as ItemsStackPanel;
         }
 
@@ -270,8 +276,8 @@ namespace Discord_UWP.Controls
             }
 
             Message last = MessageList.Items.Count > 0 ? (MessageList.Items.Last() as MessageContainer).Message : null;
-            if (last != null && CurrentGuildId != null && ChannelId != null && LocalState.CurrentGuild.channels.ContainsKey(ChannelId) && last.Id !=
-                LocalState.CurrentGuild.channels[ChannelId].raw.LastMessageId)
+            if (last != null && CurrentGuildId != null && ChannelId != null && LocalState.CurrentGuild.channels.ContainsKey(ChannelId) && LocalState.CurrentGuild.channels[ChannelId].raw.LastMessageId != null && Convert.ToInt64(last.Id) >
+                Convert.ToInt64(LocalState.CurrentGuild.channels[ChannelId].raw.LastMessageId))
             {
                 ReturnToPresentIndicator.Opacity = 1;
                 ReturnToPresentIndicator.Visibility = Visibility.Visible;
@@ -334,13 +340,7 @@ namespace Discord_UWP.Controls
             return false;
         }
 
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            _messageScrollviewer = Common.GetScrollViewer(MessageList);
-            if (_messageScrollviewer != null) _messageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
-        }
-
+        
         private void MessageScrollviewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             if (MessageList.Items.Count > 0)
