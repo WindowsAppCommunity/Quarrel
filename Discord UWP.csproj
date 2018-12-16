@@ -245,6 +245,9 @@
     <Compile Include="SubPages\AuditLog.xaml.cs">
       <DependentUpon>AuditLog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\BSOD.xaml.cs">
+      <DependentUpon>BSOD.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\ContactPanePage.xaml.cs">
       <DependentUpon>ContactPanePage.xaml</DependentUpon>
     </Compile>
@@ -809,6 +812,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\AuditLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\BSOD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
