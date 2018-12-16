@@ -643,4 +643,10 @@
   <data name="VibrateDescTB.Text" xml:space="preserve">
     <value>When you recieve a message in your active channel, your device will vibrate, if it can</value>
   </data>
+  <data name="HideMutedChannelsDescTB.Text" xml:space="preserve">
+    <value>Hides channels that you have muted</value>
+  </data>
+  <data name="HideMutedChannelsTB.Text" xml:space="preserve">
+    <value>Hide muted channels</value>
+  </data>
 </root>

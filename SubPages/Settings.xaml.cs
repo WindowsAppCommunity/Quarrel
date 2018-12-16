@@ -66,6 +66,7 @@ namespace Discord_UWP.SubPages
             //AppBarAtBottom_checkbox.IsChecked = Storage.Settings.AppBarAtBottom;
             ShowWelcome.IsChecked = Storage.Settings.ShowWelcomeMessage;
             ShowNoPermissionsChannels.IsChecked = Storage.Settings.ShowNoPermissionChannels;
+            HideMutedChannels.IsChecked = Storage.Settings.HideMutedChannels;
             EnableAcrylic.IsChecked = Storage.Settings.Acrylics;
             EnableBackgroundVoice.IsChecked = Storage.Settings.BackgroundVoice;
             ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
@@ -80,18 +81,23 @@ namespace Discord_UWP.SubPages
             //VoiceChannels.IsChecked = Storage.Settings.VoiceChannels;
             //GifsOnHover.IsChecked = Storage.Settings.GifsOnHover;
 
-            NotificationSounds.IsChecked = Storage.Settings.SoundNotifications;
-            if (Storage.Settings.DiscordSounds)
-            {
-                radio_DiscordSounds.IsChecked = true;
-            }
-            else
-            {
-                radio_WindowsSounds.IsChecked = true;
-            }
+            //NotificationSounds.IsChecked = Storage.Settings.SoundNotifications;
+            //if (Storage.Settings.DiscordSounds)
+            //{
+            //    radio_DiscordSounds.IsChecked = true;
+            //}
+            //else
+            //{
+            //    radio_WindowsSounds.IsChecked = true;
+            //}
 
             MentionGlow.IsChecked = Storage.Settings.GlowOnMention;
             ShowServerMute.IsChecked = Storage.Settings.ServerMuteIcons;
+
+            MessageNotification.IsChecked = Storage.Settings.MessageSound;
+            VoiceDCNotification.IsChecked = Storage.Settings.VoiceDCSound;
+            UserJoinNotification.IsChecked = Storage.Settings.UserJoinSound;
+            UserLeaveNotification.IsChecked = Storage.Settings.UserLeaveSound;
 
             if (Storage.Settings.BackgroundTaskTime == 0)
             {
@@ -343,12 +349,7 @@ namespace Discord_UWP.SubPages
             DerviedColor.Foreground = App.Current.RequestedTheme == ApplicationTheme.Dark ? DarkThemeAccentGradient : LightThemeAccentGradient;
 
             LoadSettings();
-
-            if (!App.Insider)
-            {
-                pivotBase.Items.Remove(SoundsPI);
-            }
-
+            
             if (await AudioManager.CreateInputDeviceNode(Storage.Settings.InputDevice))
             {
                 AudioManager.InputRecieved += AudioManager_InputRecieved;
@@ -426,6 +427,7 @@ namespace Discord_UWP.SubPages
             //Storage.Settings.DropShadowPresence = (bool)DropShadowPresence.IsChecked;
             Storage.Settings.ShowWelcomeMessage = (bool)ShowWelcome.IsChecked;
             Storage.Settings.ShowNoPermissionChannels = (bool)ShowNoPermissionsChannels.IsChecked;
+            Storage.Settings.HideMutedChannels = (bool)HideMutedChannels.IsChecked;
             Storage.Settings.UseCompression = (bool)UseCompression.IsChecked;
             Storage.Settings.RichPresence = (bool)RichPresence.IsChecked;
             Storage.Settings.Scaling = (bool)Scaling.IsChecked;
@@ -435,8 +437,13 @@ namespace Discord_UWP.SubPages
             Storage.Settings.ServerMuteIcons = (bool)ShowServerMute.IsChecked;
             Storage.Settings.GlowOnMention = (bool)MentionGlow.IsChecked;
 
-            Storage.Settings.SoundNotifications = (bool)NotificationSounds.IsChecked;
-            Storage.Settings.DiscordSounds = (bool)radio_DiscordSounds.IsChecked;
+            Storage.Settings.MessageSound = (bool)MessageNotification.IsChecked;
+            Storage.Settings.VoiceDCSound = (bool)VoiceDCNotification.IsChecked;
+            Storage.Settings.UserJoinSound = (bool)UserJoinNotification.IsChecked;
+            Storage.Settings.UserLeaveSound = (bool)UserLeaveNotification.IsChecked;
+
+            //Storage.Settings.SoundNotifications = (bool)NotificationSounds.IsChecked;
+            //Storage.Settings.DiscordSounds = (bool)radio_DiscordSounds.IsChecked;
 
             ApplicationLanguages.PrimaryLanguageOverride = ((ComboBoxItem)LanguageSelection.SelectedItem).Tag.ToString().Trim();
 
@@ -732,7 +739,8 @@ namespace Discord_UWP.SubPages
 
         private void PlaySound(object sender, RoutedEventArgs e)
         {
-            AudioManager.PlaySoundEffect((sender as Button).Tag.ToString(), (radio_DiscordSounds.IsChecked.Value) ? "discord" : "windows");
+            //AudioManager.PlaySoundEffect((sender as Button).Tag.ToString(), /*(radio_DiscordSounds.IsChecked.Value) ? "discord" : "windows"*/ "quarrel");
+            AudioManager.PlaySoundEffect((sender as Button).Tag.ToString());
         }
 
         private void BlurpleChecked(object sender, RoutedEventArgs e)

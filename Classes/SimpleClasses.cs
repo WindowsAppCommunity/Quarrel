@@ -269,7 +269,7 @@ namespace Discord_UWP.SimpleClasses
         private string _name;
         public string Name
         {
-            get { return _name; }
+            get { return String.IsNullOrEmpty(_name) ? "Unnamed" : _name ; }
             set { if (_name == value) return; _name = value; OnPropertyChanged("Name"); }
         }
 
