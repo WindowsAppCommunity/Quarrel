@@ -134,6 +134,7 @@ namespace Discord_UWP
         public bool mutedChnEffectServer = false;
         public bool ShowWelcomeMessage = true;
         public bool ShowNoPermissionChannels = false;
+        public bool HideMutedChannels = false;
         public bool Acrylics = false;
         //public bool VoiceChannels = false;
         public bool UseCompression = true;
@@ -156,6 +157,13 @@ namespace Discord_UWP
         public bool BackgroundVoice = !App.IsMobile;
         public int StandardData = 0;
         public int MobileData = 1;
+
+        #region NotificationSounds
+        public bool MessageSound = true;
+        public bool VoiceDCSound = true;
+        public bool UserJoinSound = true;
+        public bool UserLeaveSound = true;
+        #endregion
     }
 
     [Flags]

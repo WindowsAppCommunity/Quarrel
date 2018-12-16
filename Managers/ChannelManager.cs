@@ -10,18 +10,23 @@ namespace Discord_UWP.Managers
     {
         public static SimpleChannel MakeChannel(LocalModels.GuildChannel channel)
         {
-            SimpleChannel sc = new SimpleChannel();
-            sc.Id = channel.raw.Id;
-            sc.Name = channel.raw.Name;
-            sc.Type = channel.raw.Type;
-            sc.Nsfw = channel.raw.NSFW;
-            sc.Position = channel.raw.Position;
-            sc.ParentId = channel.raw.ParentId;
-            sc.Icon = channel.raw.Icon;
+            SimpleChannel sc = new SimpleChannel
+            {
+                Id = channel.raw.Id,
+                Name = channel.raw.Name,
+                Type = channel.raw.Type,
+                Nsfw = channel.raw.NSFW,
+                Position = channel.raw.Position,
+                ParentId = channel.raw.ParentId,
+                Icon = channel.raw.Icon
+            };
             switch (channel.raw.Type)
             {
                 case 0:
-                    sc.IsMuted = LocalState.GuildSettings.ContainsKey(channel.raw.GuildId) && (LocalState.GuildSettings[channel.raw.GuildId].channelOverrides.ContainsKey(channel.raw.Id) && LocalState.GuildSettings[channel.raw.GuildId].channelOverrides[channel.raw.Id].Muted);
+                    sc.IsMuted = LocalState.GuildSettings.ContainsKey(channel.raw.GuildId) &&
+                                 (LocalState.GuildSettings[channel.raw.GuildId].channelOverrides
+                                      .ContainsKey(channel.raw.Id) && LocalState.GuildSettings[channel.raw.GuildId]
+                                      .channelOverrides[channel.raw.Id].Muted);
                     if (LocalState.RPC.ContainsKey(sc.Id))
                     {
                         ReadState readstate = LocalState.RPC[sc.Id];
@@ -33,7 +38,7 @@ namespace Discord_UWP.Managers
                         LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.ReadMessages 
                         || App.CurrentGuildId == sc.Id;
 
-                    if (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels)
+                    if (!(sc.IsMuted && Storage.Settings.HideMutedChannels) && (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels))
                     {
                         return sc;
                     }
@@ -43,7 +48,7 @@ namespace Discord_UWP.Managers
                     sc.HavePermissions = 
                         LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Connect 
                         || App.CurrentGuildId == sc.Id;
-                    if (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels)
+                    if (!(sc.IsMuted && Storage.Settings.HideMutedChannels) && (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels))
                     {
                         return sc;
                     }
@@ -57,23 +62,22 @@ namespace Discord_UWP.Managers
         }
         public static SimpleChannel MakeChannel(SharedModels.GuildChannel channel, string overridelastmessageid = null)
         {
-            SimpleChannel sc = new SimpleChannel();
-            sc.Id = channel.Id;
-            sc.Name = channel.Name;
-            sc.Type = channel.Type;
-            sc.Nsfw = channel.NSFW;
-            if (overridelastmessageid == null)
-                sc.LastMessageId = channel.LastMessageId;
-            else
-                sc.LastMessageId = overridelastmessageid;
-            sc.Position = channel.Position;
-            sc.ParentId = channel.ParentId;
-            sc.Icon = channel.Icon;
+            SimpleChannel sc = new SimpleChannel
+            {
+                Id = channel.Id,
+                Name = channel.Name,
+                Type = channel.Type,
+                Nsfw = channel.NSFW,
+                LastMessageId = overridelastmessageid ?? channel.LastMessageId,
+                Position = channel.Position,
+                ParentId = channel.ParentId,
+                Icon = channel.Icon
+            };
             sc.HavePermissions = 
                 LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.ReadMessages
                 || App.CurrentGuildId == sc.Id;
 
-            if (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels)
+            if (!(sc.IsMuted && Storage.Settings.HideMutedChannels) && (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels))
             {
                 return sc;
             }
@@ -199,7 +203,7 @@ namespace Discord_UWP.Managers
                             LocalState.CurrentGuild.channels[sc.Id].permissions.ReadMessages 
                             || App.CurrentGuildId == sc.Id;
 
-                        if (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels)
+                        if (!(sc.IsMuted && Storage.Settings.HideMutedChannels) && (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels))
                         {
                             returnChannels.Add(sc);
                         }
@@ -210,7 +214,7 @@ namespace Discord_UWP.Managers
                             LocalState.CurrentGuild.channels[sc.Id].permissions.Connect 
                             || App.CurrentGuildId == sc.Id;
 
-                        if (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels)
+                        if (!(sc.IsMuted && Storage.Settings.HideMutedChannels) && (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels))
                         {
                             returnChannels.Add(sc);
                         }
@@ -222,7 +226,7 @@ namespace Discord_UWP.Managers
                             || LocalState.CurrentGuild.channels[sc.Id].permissions.Connect;
                         sc.Name = sc.Name.ToUpper();
 
-                        if (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels)
+                        if (!(sc.IsMuted && Storage.Settings.HideMutedChannels) && (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels))
                         {
                             returnChannels.Add(sc);
                         }
