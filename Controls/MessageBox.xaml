@@ -1015,7 +1015,7 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBox x:Uid="/Controls/SendMessageTB" Padding="64,0,48,0" VerticalAlignment="Stretch" x:Name="MessageEditor" PlaceholderText="Send message" Grid.Column="1" TextChanged="MessageEditor_OnTextChanged" KeyDown="MessageEditor_OnKeyDown" LostFocus="MessageEditor_OnLostFocus" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MaxHeight="256" Paste="MessageEditor_Paste" KeyUp="MessageEditor_KeyUp"/>
+        <TextBox x:Uid="/Controls/SendMessageTB" Padding="52,0,48,0" VerticalAlignment="Stretch" x:Name="MessageEditor" PlaceholderText="Send message" Grid.Column="1" TextChanged="MessageEditor_OnTextChanged" KeyDown="MessageEditor_OnKeyDown" LostFocus="MessageEditor_OnLostFocus" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MaxHeight="256" Paste="MessageEditor_Paste" KeyUp="MessageEditor_KeyUp"/>
         <Button x:Name="SendBox" Grid.Column="2" Style="{StaticResource SendButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Stretch" Click="SendBox_OnClick" Grid.Row="0" IsEnabled="False" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Width="48"/>
         
         <Popup x:Name="SuggestionPopup" IsOpen="False" Margin="24,0,0,0" Grid.ColumnSpan="2">
@@ -1057,7 +1057,7 @@
         </Button>
 
         <HyperlinkButton x:Uid="/Dialogs/CancelBTN" x:Name="CancelButton" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right"  Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="Cancel" Margin="0,4,0,6" Click="CancelButton_Click"/>
-        <Button x:Name="attachButton" Style="{StaticResource ContentButton}" Foreground="{ThemeResource InvertedBG}" Opacity="1" Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Left" Padding="8" Click="Button_Click_1" Margin="12,0,0,0">
+        <Button x:Name="attachButton" Style="{StaticResource ContentButton}" Foreground="{ThemeResource InvertedBG}" Opacity="1" Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Left" Padding="12" Click="Button_Click_1" Margin="4,0,0,0">
             <Grid>
                 <Grid.RenderTransform>
                     <ScaleTransform x:Name="attachButtonScale" CenterX="10" CenterY="10"/>
