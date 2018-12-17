@@ -795,7 +795,7 @@ namespace Discord_UWP.Controls
                 UpdateTyping);
         }
 
-        public void UpdateTyping()
+        public async void UpdateTyping()
         {
             string typingString = "";
             List<string> NamesTyping = new List<string>();
@@ -810,7 +810,15 @@ namespace Discord_UWP.Controls
                         }
                         else
                         {
-                            GuildMember member = LocalState.Guilds[CurrentGuildId].members[typer.Key];
+                            GuildMember member;
+                            if (LocalState.Guilds[CurrentGuildId].members.ContainsKey(typer.Key))
+                            {
+                                member = LocalState.Guilds[CurrentGuildId].members[typer.Key];
+                            }
+                            else
+                            {
+                                member = new GuildMember() { User = await RESTCalls.GetUser(typer.Key) };
+                            }
                             string displayedName = member.User.Username;
                             if (member.Nick != null) displayedName = member.Nick;
                             NamesTyping.Add(displayedName);
