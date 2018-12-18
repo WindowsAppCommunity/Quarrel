@@ -122,12 +122,12 @@ namespace Discord_UWP.Controls
             Task.Run(async () =>
             {
                 if (CurrentGuildIsDM)
-                    await UserActivityManager.GenerateActivityAsync("@me", LocalState.CurrentChannel.raw.Name,
-                        LocalState.CurrentChannel.raw.Icon, LocalState.CurrentChannel.raw.Id, "");
+                    await UserActivityManager.GenerateActivityAsync(LocalState.CurrentDMChannel.Id, LocalState.CurrentDMChannel.Name,
+                        Common.GetChannelIconUriString(LocalState.CurrentDMChannel.Id, LocalState.CurrentDMChannel.Icon));
                 else
                     await UserActivityManager.GenerateActivityAsync(LocalState.CurrentGuild.Raw.Id,
-                        LocalState.CurrentGuild.Raw.Name, LocalState.CurrentGuild.Raw.Icon,
-                        LocalState.CurrentChannel.raw.Id, "#" + LocalState.CurrentChannel.raw.Name);
+                        LocalState.CurrentGuild.Raw.Name, Common.GetGuildIconUriString(LocalState.CurrentGuild.Raw.Id, LocalState.CurrentGuild.Raw.Icon),
+                        LocalState.CurrentGuildChannel.raw.Id, "#" + LocalState.CurrentGuildChannel.raw.Name);
             });
         }
 
@@ -488,7 +488,7 @@ namespace Discord_UWP.Controls
                 if (App.IsDesktop) MessageBox1.FocusTextBox();
             }
 
-            MessageBox1.IsEnabled = LocalState.CurrentChannel.permissions.SendMessages || App.CurrentGuildIsDM;
+            MessageBox1.IsEnabled = LocalState.CurrentGuildChannel.permissions.SendMessages || App.CurrentGuildIsDM;
 
             UpdateTyping();
             App_SaveDraft(null, null);
