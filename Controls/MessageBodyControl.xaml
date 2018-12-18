@@ -110,12 +110,12 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <StackPanel x:Name="SendMessage" Background="{ThemeResource AcrylicMessageBackground}" Height="48" Grid.Row="3" Padding="0,0,0,0" Margin="-24,0" RenderTransformOrigin="0.5,0.5">
-            <StackPanel.RenderTransform>
+        <Grid x:Name="SendMessage" Background="{ThemeResource AcrylicMessageBackground}" Grid.Row="3" Padding="0,0,0,0" Margin="-24,0" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
                 <CompositeTransform/>
-            </StackPanel.RenderTransform>
-            <controls:MessageBox x:Name="MessageBox1" Height="48" Grid.ColumnSpan="3" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced" OpenSpotify="MessageBox1_OpenSpotify"/>
-        </StackPanel>
+            </Grid.RenderTransform>
+            <controls:MessageBox x:Name="MessageBox1" MinHeight="48" Grid.ColumnSpan="3" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced" OpenSpotify="MessageBox1_OpenSpotify"/>
+        </Grid>
     </Grid>
 
 </UserControl>
