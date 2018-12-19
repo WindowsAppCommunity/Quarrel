@@ -375,7 +375,7 @@ namespace Discord_UWP.Controls
             try
             {
                 Message last = (MessageList.Items.Last() as MessageContainer)?.Message;
-                if (last != null && last.Id != LocalState.RPC[ChannelId].LastMessageId)
+                if (last != null && LocalState.RPC.ContainsKey(ChannelId) && last.Id != LocalState.RPC[ChannelId].LastMessageId)
                 {
                     // var offset = MessageScrollviewer.VerticalOffset;
                     MessagesLoading.Visibility = Visibility.Visible;
