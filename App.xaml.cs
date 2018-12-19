@@ -258,7 +258,6 @@ namespace Discord_UWP
             }
             catch
             {
-                //Debug mode
                 ShowAds = true;
             }
 
