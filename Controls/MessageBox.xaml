@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    d:DesignHeight="100"
+    d:DesignHeight="250"
     d:DesignWidth="400">
     <UserControl.Resources>
         <Style x:Key="ContentButton" TargetType="Button">
@@ -1115,6 +1115,9 @@
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
+            <Button Style="{StaticResource DiscordOpaqueButton}" Padding="10,6" Background="{ThemeResource AcrylicMessageBackground}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Button_Click_2">
+                <FontIcon x:Name="Chevron" Grid.Column="2" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Glyph="" Grid.ColumnSpan="4" FontSize="14"/>
+            </Button>
             <TextBox x:Uid="/Controls/GiphySearchTBox" x:Name="giphySearch" PlaceholderText="Search with Giphy" Style="{StaticResource TextBoxStyle1}" VerticalAlignment="Bottom" Margin="0,0,0,6" TextChanged="TextBox_TextChanged" Grid.Row="1"/>
         </Grid>
     </Grid>
