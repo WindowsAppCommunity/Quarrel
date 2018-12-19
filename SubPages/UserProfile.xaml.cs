@@ -475,6 +475,7 @@ namespace Discord_UWP.SubPages
                     case 0:
                         //No relationship
                         Block.Visibility = Visibility.Visible;
+                        Unblock.Visibility = Visibility.Collapsed;
                         if (!profile.user.Bot)
                         {
                             sendFriendRequest.Visibility = Visibility.Visible;
@@ -488,6 +489,7 @@ namespace Discord_UWP.SubPages
                         }
                         SendMessageLink.Visibility = Visibility.Visible;
                         Block.Visibility = Visibility.Visible;
+                        Unblock.Visibility = Visibility.Collapsed;
                         break;
                     case 2:
                         //Blocked
@@ -502,6 +504,7 @@ namespace Discord_UWP.SubPages
                         }
                         SendMessageLink.Visibility = Visibility.Visible;
                         Block.Visibility = Visibility.Visible;
+                        Unblock.Visibility = Visibility.Collapsed;
                         break;
                     case 4:
                         //Pending outgoing friend request
@@ -511,6 +514,7 @@ namespace Discord_UWP.SubPages
                         }
                         SendMessageLink.Visibility = Visibility.Visible;
                         Block.Visibility = Visibility.Visible;
+                        Unblock.Visibility = Visibility.Collapsed;
                         break;
                 }
             });
@@ -701,7 +705,7 @@ namespace Discord_UWP.SubPages
             if (channelid == null)
                 channelid = (await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { (sender as MenuFlyoutItem).Tag.ToString() }.AsEnumerable() })).Id;
             if (string.IsNullOrEmpty(channelid)) return;
-            App.SelectGuildChannel("@me", channelid);
+            App.SelectDMChannel(channelid);
         }
 
         private void Block_Click(object sender, RoutedEventArgs e)
