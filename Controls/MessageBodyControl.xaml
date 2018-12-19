@@ -114,7 +114,7 @@
             <Grid.RenderTransform>
                 <CompositeTransform/>
             </Grid.RenderTransform>
-            <controls:MessageBox x:Name="MessageBox1" MinHeight="48" Grid.ColumnSpan="3" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced" OpenSpotify="MessageBox1_OpenSpotify"/>
+            <controls:MessageBox x:Name="MessageBox1" MinHeight="64" Grid.ColumnSpan="3" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced" OpenSpotify="MessageBox1_OpenSpotify"/>
         </Grid>
     </Grid>
 
