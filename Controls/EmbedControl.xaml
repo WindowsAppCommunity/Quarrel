@@ -40,8 +40,14 @@
                     </StackPanel>
                     <Image x:Name="ThumbnailImage" Height="80" Stretch="Uniform" Grid.Column="1" VerticalAlignment="Top"/>
                 </Grid>
+                <HyperlinkButton x:Name="PreviewButton"  Foreground="{ThemeResource LinkColor}" Background="Transparent" VerticalAlignment="Top" Margin="0,0,12,0" Style="{StaticResource PlainHyerlinkStyle}" Visibility="Collapsed" Grid.Column="1" Click="ShowPreview">
+                    <StackPanel>
+                        <FontIcon x:Name="PreviewIcon" Glyph="" FontSize="32"/>
+                        <TextBlock x:Uid="/Controls/ShowTB" x:Name="PreviewText" Text="Show" FontSize="12" Margin="0,-2,0,0" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </HyperlinkButton>
                 <Viewbox x:Name="ImageViewbox"  HorizontalAlignment="Left" Visibility="Collapsed" StretchDirection="DownOnly" Grid.Row="4" MaxWidth="480" MaxHeight="300"  Grid.Column="1" Margin="6">
-                    <Image x:Name="ImageViewer" Tapped="AttachedImageViewer_Tapped" RightTapped="ImageViewer_RightTapped" Holding="ImageViewer_Holding"/>
+                    <Image x:Name="ImageViewer" Tapped="AttachedImageViewer_Tapped" RightTapped="ImageViewer_RightTapped" Holding="ImageViewer_Holding" ImageOpened="ImageOpened"/>
                 </Viewbox>
                 <MediaElement x:Name="player" Height="100" Width="auto" HorizontalAlignment="Stretch" AreTransportControlsEnabled="True" AutoPlay="False" Visibility="Collapsed">
                     <MediaElement.TransportControls>
