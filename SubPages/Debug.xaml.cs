@@ -112,5 +112,9 @@ namespace Discord_UWP.SubPages
             }
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            throw new Exception("BSOD Test");
+        }
     }
 }

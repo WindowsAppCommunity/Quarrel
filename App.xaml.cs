@@ -75,19 +75,19 @@ namespace Discord_UWP
             InitializeComponent();
             Suspending += OnSuspending;
             Resuming += App_Resuming;
-            //UnhandledException += App_UnhandledException;
+            if (App.Insider || App.isDebug)
+            {
+                UnhandledException += App_UnhandledException;
+            }
             CoreApplication.EnablePrelaunch(false);
         }
 
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            switch ((uint)e.Exception.HResult)
-            {
-                case 0x8007000E: //OutOfMemory
-                    App.Current.Exit();
-                    break;
-            }
-
+            e.Handled = true;
+            Frame rootFrame = new Frame();
+            Window.Current.Content = rootFrame;
+            rootFrame.Navigate(typeof(BSOD), e);
             //TODO: Display indicator of exeption
         }
 
@@ -259,7 +259,6 @@ namespace Discord_UWP
             }
             catch
             {
-                //Debug mode
                 ShowAds = true;
             }
 

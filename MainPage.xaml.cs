@@ -856,6 +856,10 @@ namespace Discord_UWP
                             ServerSelectionWasClicked =
                                 true; //It wasn't actually, hehehe. Let me teach you a lesson in trickery, this is going down in history...
                             ServerList.SelectedItem = g;
+                            if (App.CurrentGuildId == guildid || (App.CurrentGuildIsDM && guildid == "@me"))
+                            {
+                                ServerList_SelectionChanged(null, null);
+                            }
                         }
             }
             else if (e.Send)

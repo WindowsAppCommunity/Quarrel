@@ -11,6 +11,7 @@ using Discord_UWP.API.Voice;
 using Discord_UWP.API.Invite;
 using Discord_UWP.API.Connections;
 using Discord_UWP.API.Game;
+using Discord_UWP.API.Misc;
 
 namespace Discord_UWP.API
 {
@@ -42,6 +43,11 @@ namespace Discord_UWP.API
         public IUserService GetUserService()
         {
             return RestService.For<IUserService>(GetAuthenticatingHttpClient());
+        }
+
+        public IMiscService GetMiscService()
+        {
+            return RestService.For<IMiscService>(GetAuthenticatingHttpClient());
         }
 
         public IChannelService GetChannelService()

@@ -29,7 +29,8 @@ namespace Discord_UWP.LocalModels
         public static FeedSettings FeedSettings = new FeedSettings();
 
         public static Guild CurrentGuild => App.CurrentGuildId != null && Guilds.ContainsKey(App.CurrentGuildId) ? Guilds[App.CurrentGuildId] : null;
-        public static GuildChannel CurrentChannel => CurrentGuild != null && CurrentGuild.channels.ContainsKey(App.CurrentChannelId) ? CurrentGuild.channels[App.CurrentChannelId] : null;
+        public static GuildChannel CurrentGuildChannel => CurrentGuild != null && CurrentGuild.channels.ContainsKey(App.CurrentChannelId) ? CurrentGuild.channels[App.CurrentChannelId] : null;
+        public static DirectMessageChannel CurrentDMChannel => App.CurrentChannelId != null && DMs.ContainsKey(App.CurrentChannelId) ? DMs[App.CurrentChannelId] : null;
         public static Presence CurrentUserPresence => PresenceDict.ContainsKey(LocalState.CurrentUser.Id) ? PresenceDict[LocalState.CurrentUser.Id] : null;
     }
 }
