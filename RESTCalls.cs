@@ -32,10 +32,9 @@ using Discord_UWP.Managers;
 using Discord_UWP.API.Connections;
 using Discord_UWP.API.Game;
 
-using GiphyAPI;
-using GiphyAPI.Models;
 using System.Threading;
 using DiscordAPI.API.Guild.Models;
+using Discord_UWP.API.Misc;
 
 namespace Discord_UWP
 {
@@ -1588,8 +1587,24 @@ namespace Discord_UWP
         }
         #endregion
 
-        #region Giphy
-        public async Task<SearchResult> SearchGiphy(string query, int limit = 20, int offset = 0)
+        #region Other
+
+        public static async Task<IEnumerable<API.Misc.Models.GifSearchResult>> SearchGiphy(string query)
+        {
+            try
+            {
+                IMiscService miscservice = AuthenticatedRestFactory.GetMiscService();
+                return await miscservice.SearchGiphy(query);
+            }
+            catch /*(Exception exception)*/
+            {
+                App.CheckOnline();
+                //App.NavigateToBugReport(exception);
+            }
+            return null;
+        }
+
+        /*public async Task<SearchResult> SearchGiphy(string query, int limit = 20, int offset = 0)
         {
             try
             {
@@ -1615,7 +1630,7 @@ namespace Discord_UWP
                 App.CheckOnline();
             }
             return new SearchResult();
-        }
+        }*/
         #endregion
 
         #region Random
