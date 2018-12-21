@@ -1102,7 +1102,7 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <MediaElement Source="{Binding Images.Preview.Mp4Url}" AutoPlay="True" MediaEnded="MediaElement_MediaEnded"/>
+                        <Image Source="{Binding Url}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
                 <ListView.ItemContainerStyle>
