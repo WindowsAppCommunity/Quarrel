@@ -488,15 +488,16 @@ namespace Discord_UWP.Controls
                 if (App.IsDesktop) MessageBox1.FocusTextBox();
             }
 
-            bool oldstate = MessageBox1.IsEnabled;
-            bool newstate = LocalState.CurrentGuildChannel.permissions.SendMessages || App.CurrentGuildIsDM;
-            MessageBox1.IsEnabled = newstate;
+            
+            bool? oldstate = MessageBox1?.IsEnabled;
+            bool? newstate = LocalState.CurrentGuildChannel.permissions.SendMessages || App.CurrentGuildIsDM;
+            MessageBox1.IsEnabled = newstate.Value;
             if(oldstate != newstate)
             {
                 if (MessageBox1.IsEnabled)
-                    messageShadow.Fade(1, 300).Start();
-                else
                     messageShadow.Fade(Convert.ToSingle((Double)Application.Current.Resources["ShadowOpacity"]), 300).Start();
+                else
+                    messageShadow.Fade(Convert.ToSingle((Double)Application.Current.Resources["ShadowOpacity"])/2, 300).Start();
             }
             
 

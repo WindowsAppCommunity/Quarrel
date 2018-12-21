@@ -72,7 +72,7 @@ namespace Discord_UWP.Controls
             nameof(IsEnabled),
             typeof(bool),
             typeof(MessageBox),
-            new PropertyMetadata("", OnPropertyChangedStatic));
+            new PropertyMetadata(false, OnPropertyChangedStatic));
 
         public bool IsEdit
         {
@@ -530,6 +530,7 @@ namespace Discord_UWP.Controls
                         progring.Visibility = Visibility.Collapsed;
                         foreach (var gif in gifs)
                         {
+                            
                             GiphyList.Items.Add(gif);
                         }
                     }));
@@ -552,7 +553,7 @@ namespace Discord_UWP.Controls
 
         private void GiphyList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Text += (e.ClickedItem as GiphyAPI.Models.Gif?).Value.BitlyUrl;
+            Text += (e.ClickedItem as API.Misc.Models.GifSearchResult).Src;
             GiphySelect.Visibility = Visibility.Collapsed;
             giphySearch.Text = "";
         }
