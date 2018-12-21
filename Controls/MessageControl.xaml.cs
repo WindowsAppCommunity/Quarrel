@@ -861,7 +861,7 @@ namespace Discord_UWP.Controls
 
                 if (App.CurrentGuildId != null && App.CurrentChannelId != null)
                 {
-                    if (!LocalState.CurrentChannel.permissions.ManageMessages)
+                    if (!LocalState.CurrentGuildChannel.permissions.ManageMessages)
                     {
                         MoreDelete.Visibility = Visibility.Collapsed;
                         MorePin.Visibility = Visibility.Collapsed;

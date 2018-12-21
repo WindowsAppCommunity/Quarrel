@@ -119,17 +119,13 @@ namespace Discord_UWP.Controls
         }
         private async void Gateway_RelationShipAdded(object sender, Gateway.GatewayEventArgs<Friend> e)
         {
-            try
+            if (e.EventData.Type == 1)
             {
                 await RemoveRelationshipFromUI(e);
             }
-            catch (Exception exception)
-            {
-                App.NavigateToBugReport(exception);
-            }
-
             await AddRelationshipToUI(e);
         }
+
         private async Task AddRelationshipToUI(Gateway.GatewayEventArgs<Friend> e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -147,7 +143,7 @@ namespace Discord_UWP.Controls
                         App.FriendNotifications += 1;
                         App.UpdateUnreadIndicators();
                         PendingCounter.Text = App.FriendNotifications.ToString();
-                        PendingView.Items.Add(NewSF(e.EventData));
+                        PendingView.Items.Add(sfriend);
                     }
                 });
         }

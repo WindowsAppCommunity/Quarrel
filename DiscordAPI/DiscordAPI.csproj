@@ -126,6 +126,8 @@
     <Compile Include="API\Login\ILoginService.cs" />
     <Compile Include="API\Login\Models\LoginRequest.cs" />
     <Compile Include="API\Login\Models\LoginResult.cs" />
+    <Compile Include="API\Misc\IMiscService.cs" />
+    <Compile Include="API\Misc\Models\Integrations.cs" />
     <Compile Include="API\User\IUserService.cs" />
     <Compile Include="API\User\Models\CreateDM.cs" />
     <Compile Include="API\User\Models\ModifyUser.cs" />

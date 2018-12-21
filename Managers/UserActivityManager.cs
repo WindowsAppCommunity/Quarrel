@@ -29,27 +29,25 @@ namespace Discord_UWP.Managers
            
         }
 
-        //Every time the user sends a message
-        public static async Task GenerateActivityAsync(string GuildId, string GuildName, string GuildImage, string ChannelId, string ChannelName)
+        //Every time the user sends a message in a Guild
+        public static async Task GenerateActivityAsync(string GuildId, string GuildName, string Image, string ChannelId, string ChannelName)
         {
             channel = UserActivityChannel.GetDefault();
-            if (GuildId == "@me")
-                userActivity = await channel.GetOrCreateUserActivityAsync(ChannelId);
-            else
-                userActivity = await channel.GetOrCreateUserActivityAsync(GuildId);
+            userActivity = await channel.GetOrCreateUserActivityAsync(GuildId);
 
             //Populate required properties
             timelinecard = timelinecard.Replace("$TITLE", GuildName);
             timelinecard = timelinecard.Replace("$SUBTITLE", ChannelName);
-            if(GuildImage != null)
-                timelinecard = timelinecard.Replace("$IMAGE", GuildImage);
 
-             userActivity.VisualElements.Content = AdaptiveCardBuilder.CreateAdaptiveCardFromJson(timelinecard);
-            //userActivity.VisualElements.DisplayText = "Hello Activities";
+            if(Image != null)
+                timelinecard = timelinecard.Replace("$IMAGE", Image);
 
-            userActivity.ActivationUri = new Uri("quarrel://channels/"+ GuildId+ "/"+ChannelId);
-            if(GuildImage != null)
-                userActivity.ContentUri = new Uri(GuildImage);
+            userActivity.VisualElements.Content = AdaptiveCardBuilder.CreateAdaptiveCardFromJson(timelinecard);
+            userActivity.VisualElements.DisplayText = "Hello Activities";
+
+            userActivity.ActivationUri = new Uri("quarrel://channels/" + GuildId + "/"+ChannelId);
+            if(Image != null)
+                userActivity.ContentUri = new Uri(Image);
             userActivity.ContentInfo = UserActivityContentInfo.FromJson("{\"@context\":\"~~http~~://schema.org\",\"@type\": \"CommunicateAction\",\"subjectOf\": \""+ChannelName+"\"}");
             userActivity.FallbackUri = new Uri("http://discordapp.com/channels/" + GuildId + "/" + ChannelId);
 
@@ -62,7 +60,39 @@ namespace Discord_UWP.Managers
             {
                 _currentActivity = userActivity.CreateSession();
             });
-            
+        }
+
+        public static async Task GenerateActivityAsync(string ChannelId, string ChannelName, string Image)
+        {
+            channel = UserActivityChannel.GetDefault();
+            userActivity = await channel.GetOrCreateUserActivityAsync(ChannelId);
+
+            //Populate required properties
+            timelinecard = timelinecard.Replace("$TITLE", ChannelName);
+            timelinecard = timelinecard.Replace("$SUBTITLE", "");
+
+            if (Image != null)
+                timelinecard = timelinecard.Replace("$IMAGE", Image);
+
+            userActivity.VisualElements.Content = AdaptiveCardBuilder.CreateAdaptiveCardFromJson(timelinecard);
+            userActivity.VisualElements.DisplayText = "Hello Activities";
+
+            userActivity.ActivationUri = new Uri("quarrel://channels/@me/" + ChannelId);
+            if (Image != null)
+                userActivity.ContentUri = new Uri(Image);
+            userActivity.ContentInfo = UserActivityContentInfo.FromJson("{\"@context\":\"~~http~~://schema.org\",\"@type\": \"CommunicateAction\",\"subjectOf\": \"" + ChannelName + "\"}");
+            userActivity.FallbackUri = new Uri("http://discordapp.com/channels/@me/" + ChannelId);
+
+
+            //Save
+            await userActivity.SaveAsync(); //save the new metadata
+            _currentActivity?.Dispose();
+            await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                _currentActivity = userActivity.CreateSession();
+            });
+
 
         }
     }

@@ -246,6 +246,9 @@
     <Compile Include="SubPages\AuditLog.xaml.cs">
       <DependentUpon>AuditLog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\BSOD.xaml.cs">
+      <DependentUpon>BSOD.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\ContactPanePage.xaml.cs">
       <DependentUpon>ContactPanePage.xaml</DependentUpon>
     </Compile>
@@ -813,6 +816,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SubPages\BSOD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SubPages\ContactPanePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1012,10 +1019,6 @@
     <ProjectReference Include="DiscordBackgroundTask1\DiscordBackgroundTask1.csproj">
       <Project>{89e34785-a142-43dc-8916-41cd073e9bbe}</Project>
       <Name>DiscordBackgroundTask1</Name>
-    </ProjectReference>
-    <ProjectReference Include="GiphyAPI.csproj">
-      <Project>{cf993df8-e392-44b4-afa7-4da1750d24f2}</Project>
-      <Name>GiphyAPI</Name>
     </ProjectReference>
     <ProjectReference Include="InvisibleBackgroundTask\InvisibleBackgroundTask.csproj">
       <Project>{54fc239a-42f9-4e75-a001-61098d6416a7}</Project>
