@@ -85,7 +85,8 @@ namespace Discord_UWP
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             e.Handled = true;
-            Frame rootFrame = Window.Current.Content as Frame;
+            Frame rootFrame = new Frame();
+            Window.Current.Content = rootFrame;
             rootFrame.Navigate(typeof(BSOD), e);
             //TODO: Display indicator of exeption
         }
