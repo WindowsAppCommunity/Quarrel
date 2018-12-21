@@ -521,26 +521,19 @@ namespace Discord_UWP.Controls
             previousSearch = giphySearch.Text;
             try
             {
-                var service = GiphyAPI.GiphyAPI.GetGiphyService();
 
-                GiphyAPI.Models.SearchResult gifs;
-
-                if (giphySearch.Text == null || giphySearch.Text == "")
+                if (!string.IsNullOrEmpty(giphySearch.Text))
                 {
-                    gifs = await service.Trending();
-                }
-                else
-                {
-                    gifs = await service.Search(giphySearch.Text);
-                }
-                await (Window.Current.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    progring.Visibility = Visibility.Collapsed;
-                    foreach (var gif in gifs.Gif)
+                    var gifs = await RESTCalls.SearchGiphy(giphySearch.Text);
+                    await (Window.Current.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
-                        GiphyList.Items.Add(gif);
-                    }
-                }));
+                        progring.Visibility = Visibility.Collapsed;
+                        foreach (var gif in gifs)
+                        {
+                            GiphyList.Items.Add(gif);
+                        }
+                    }));
+                }
             }
             catch (Exception exception)
             {
