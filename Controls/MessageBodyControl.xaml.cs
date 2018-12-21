@@ -89,8 +89,14 @@ namespace Discord_UWP.Controls
             RenderMessages();
         }
 
+        private void MessageList_Loaded(object sender, RoutedEventArgs e)
+        {
+        }
+
         private void ItemsStackPanel_Loaded(object sender, RoutedEventArgs e)
         {
+            _messageScrollviewer = Common.GetScrollViewer(MessageList);
+            if (_messageScrollviewer != null) _messageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
             _messageStacker = sender as ItemsStackPanel;
         }
 
@@ -116,12 +122,12 @@ namespace Discord_UWP.Controls
             Task.Run(async () =>
             {
                 if (CurrentGuildIsDM)
-                    await UserActivityManager.GenerateActivityAsync("@me", LocalState.CurrentChannel.raw.Name,
-                        LocalState.CurrentChannel.raw.Icon, LocalState.CurrentChannel.raw.Id, "");
+                    await UserActivityManager.GenerateActivityAsync(LocalState.CurrentDMChannel.Id, LocalState.CurrentDMChannel.Name,
+                        Common.GetChannelIconUriString(LocalState.CurrentDMChannel.Id, LocalState.CurrentDMChannel.Icon));
                 else
                     await UserActivityManager.GenerateActivityAsync(LocalState.CurrentGuild.Raw.Id,
-                        LocalState.CurrentGuild.Raw.Name, LocalState.CurrentGuild.Raw.Icon,
-                        LocalState.CurrentChannel.raw.Id, "#" + LocalState.CurrentChannel.raw.Name);
+                        LocalState.CurrentGuild.Raw.Name, Common.GetGuildIconUriString(LocalState.CurrentGuild.Raw.Id, LocalState.CurrentGuild.Raw.Icon),
+                        LocalState.CurrentGuildChannel.raw.Id, "#" + LocalState.CurrentGuildChannel.raw.Name);
             });
         }
 
@@ -270,8 +276,8 @@ namespace Discord_UWP.Controls
             }
 
             Message last = MessageList.Items.Count > 0 ? (MessageList.Items.Last() as MessageContainer).Message : null;
-            if (last != null && CurrentGuildId != null && ChannelId != null && LocalState.CurrentGuild.channels.ContainsKey(ChannelId) && last.Id !=
-                LocalState.CurrentGuild.channels[ChannelId].raw.LastMessageId)
+            if (last != null && CurrentGuildId != null && ChannelId != null && LocalState.CurrentGuild.channels.ContainsKey(ChannelId) && LocalState.CurrentGuild.channels[ChannelId].raw.LastMessageId != null && Convert.ToInt64(last.Id) >
+                Convert.ToInt64(LocalState.CurrentGuild.channels[ChannelId].raw.LastMessageId))
             {
                 ReturnToPresentIndicator.Opacity = 1;
                 ReturnToPresentIndicator.Visibility = Visibility.Visible;
@@ -334,13 +340,7 @@ namespace Discord_UWP.Controls
             return false;
         }
 
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            _messageScrollviewer = Common.GetScrollViewer(MessageList);
-            if (_messageScrollviewer != null) _messageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
-        }
-
+        
         private void MessageScrollviewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             if (MessageList.Items.Count > 0)
@@ -375,7 +375,7 @@ namespace Discord_UWP.Controls
             try
             {
                 Message last = (MessageList.Items.Last() as MessageContainer)?.Message;
-                if (last != null && last.Id != LocalState.RPC[ChannelId].LastMessageId)
+                if (last != null && LocalState.RPC.ContainsKey(ChannelId) && last.Id != LocalState.RPC[ChannelId].LastMessageId)
                 {
                     // var offset = MessageScrollviewer.VerticalOffset;
                     MessagesLoading.Visibility = Visibility.Visible;
@@ -488,7 +488,7 @@ namespace Discord_UWP.Controls
                 if (App.IsDesktop) MessageBox1.FocusTextBox();
             }
 
-            MessageBox1.IsEnabled = LocalState.CurrentChannel.permissions.SendMessages || App.CurrentGuildIsDM;
+            MessageBox1.IsEnabled = LocalState.CurrentGuildChannel.permissions.SendMessages || App.CurrentGuildIsDM;
 
             UpdateTyping();
             App_SaveDraft(null, null);
@@ -795,7 +795,7 @@ namespace Discord_UWP.Controls
                 UpdateTyping);
         }
 
-        public void UpdateTyping()
+        public async void UpdateTyping()
         {
             string typingString = "";
             List<string> NamesTyping = new List<string>();
@@ -810,7 +810,15 @@ namespace Discord_UWP.Controls
                         }
                         else
                         {
-                            GuildMember member = LocalState.Guilds[CurrentGuildId].members[typer.Key];
+                            GuildMember member;
+                            if (LocalState.Guilds[CurrentGuildId].members.ContainsKey(typer.Key))
+                            {
+                                member = LocalState.Guilds[CurrentGuildId].members[typer.Key];
+                            }
+                            else
+                            {
+                                member = new GuildMember() { User = await RESTCalls.GetUser(typer.Key) };
+                            }
                             string displayedName = member.User.Username;
                             if (member.Nick != null) displayedName = member.Nick;
                             NamesTyping.Add(displayedName);

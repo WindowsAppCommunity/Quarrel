@@ -309,6 +309,9 @@ namespace Discord_UWP.Controls
                     InsertNewLine();
                 }
                 e.Handled = true;
+            } else if (e.Key == VirtualKey.Escape)
+            {
+                GiphySelect.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -751,6 +754,10 @@ namespace Discord_UWP.Controls
             }
         }
 
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            GiphySelect.Visibility = Visibility.Collapsed;
+        }
     }
 
 }
