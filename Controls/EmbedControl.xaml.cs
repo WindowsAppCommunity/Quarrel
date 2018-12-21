@@ -43,6 +43,11 @@ namespace Discord_UWP.Controls
             instance?.OnPropertyChanged(d, e.Property);
         }
 
+
+        private enum Type { Unknown, Image, Audio, Video, PDF };
+
+        private Type type = Type.Unknown;
+
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
             //bool everythingisnull = true;
@@ -149,10 +154,17 @@ namespace Discord_UWP.Controls
             //Image
             if (EmbedContent.Image != null)
             {
-                //everythingisnull = false;
+                type = Type.Image;
+                ImageViewbox.Visibility = Visibility.Collapsed;
                 player.Visibility = Visibility.Collapsed;
-                ImageViewbox.Visibility = Visibility.Visible;
-                ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Image.Url));
+                PreviewIcon.Glyph = "";
+                if (!NetworkSettings.GetTTL())
+                {
+                    ShowPreview();
+                } else
+                {
+                    PreviewButton.Visibility = Visibility.Visible;
+                }
                 if((EmbedContent.Author == null || (EmbedContent.Author.Name == null && EmbedContent.Author.IconUrl == null))
                     && EmbedContent.Description == null && EmbedContent.Fields != null
                     && EmbedContent.Fields.Count() == 0  && EmbedContent.Footer.Text == null
@@ -163,9 +175,17 @@ namespace Discord_UWP.Controls
                 }
             } else if (EmbedContent.Video != null)
             {
+                type = Type.Video;
                 ImageViewbox.Visibility = Visibility.Collapsed;
-                player.Visibility = Visibility.Visible;
-                player.Source = new Uri(EmbedContent.Video.Url);
+                player.Visibility = Visibility.Collapsed;
+                PreviewIcon.Glyph = "";
+                if (!NetworkSettings.GetTTL())
+                {
+                    ShowPreview();
+                } else
+                {
+                    PreviewButton.Visibility = Visibility.Visible;
+                }
                 player.Height = Math.Min(EmbedContent.Video.Height, this.Height);
                 player.Width = Math.Min(EmbedContent.Video.Width, this.Width);
                 if ((EmbedContent.Author == null || (EmbedContent.Author.Name == null && EmbedContent.Author.IconUrl == null))
@@ -346,6 +366,65 @@ namespace Discord_UWP.Controls
             {
                 App.ShowMenuFlyout(this, EmbedContent.Image.Url, e.GetPosition(this));
             }
+        }
+
+
+        private void ShowPreview(object sender, RoutedEventArgs e)
+        {
+            ShowPreview();
+        }
+
+        private async void ShowPreview()
+        {
+            switch (type)
+            {
+                case Type.Image:
+                    if (EmbedContent.Image.Url.EndsWith(".svg"))
+                    {
+                        ImageViewer.Source = new SvgImageSource(new Uri(EmbedContent.Image.Url));
+                    }
+                    else
+                    {
+                        ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Image.Url));
+                    }
+                    PreviewButton.Visibility = Visibility.Collapsed;
+                    ImageViewbox.Visibility = Visibility.Visible;
+                    LoadingImage.Visibility = Visibility.Visible;
+                    LoadingImage.IsActive = true;
+                    break;
+                case Type.Audio:
+                    PreviewButton.Visibility = Visibility.Collapsed;
+                    player.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    player.Source = new Uri(EmbedContent.Video.Url);
+                    player.Visibility = Visibility.Visible;
+                    player.Height = 48;
+                    break;
+                case Type.Video:
+                    PreviewButton.Visibility = Visibility.Collapsed;
+                    player.Source = new Uri(EmbedContent.Video.Url);
+                    player.Visibility = Visibility.Visible;
+                    player.HorizontalAlignment = HorizontalAlignment.Left;
+                    break;
+                //case Type.PDF:
+                //    LoadingImage.Visibility = Visibility.Visible;
+                //    LoadingImage.IsActive = true;
+                //    HttpClient client = new HttpClient();
+                //    var stream = await
+                //        client.GetStreamAsync(DisplayedAttachement.Url);
+                //    var memStream = new MemoryStream();
+                //    await stream.CopyToAsync(memStream);
+                //    memStream.Position = 0;
+                //    PdfDocument doc = await PdfDocument.LoadFromStreamAsync(memStream.AsRandomAccessStream());
+                //    LoadPDF(doc);
+                //    break;
+            }
+            
+        }
+
+        private void ImageOpened(object sender, RoutedEventArgs e)
+        {
+            LoadingImage.Visibility = Visibility.Collapsed;
+            LoadingImage.IsActive = false;
         }
     }
 }

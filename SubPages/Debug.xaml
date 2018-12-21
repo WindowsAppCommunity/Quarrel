@@ -154,6 +154,7 @@
                         <TextBlock Text="DEFLATE BASE64"/>
                         <TextBox x:Name="decodeBox" Margin="0,48,0,24" KeyDown="TextBox_KeyDown"></TextBox>
                     </Grid>
+                    <Button Grid.Row="2" Content="Throw" Click="Button_Click"/>
                 </Grid>
             </Border>
         </Grid>

@@ -64,6 +64,27 @@ namespace Discord_UWP
             if (String.IsNullOrEmpty(id)) return new DateTimeOffset();
             return DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64((double)((Convert.ToInt64(id) / (4194304)) + 1420070400000)));
         }
+
+        public static string GetChannelIconUriString(string Id, string Icon)
+        {
+            return "https://cdn.discordapp.com/channel-icons/" + Id + "/" + Icon + ".png";
+        }
+
+        public static Uri GetChannelIconUri(string Id, string Icon)
+        {
+            return new Uri("https://cdn.discordapp.com/channel-icons/" + Id + "/" + Icon + ".png");
+        }
+
+        public static string GetGuildIconUriString(string Id, string Icon)
+        {
+            return "https://cdn.discordapp.com/icons/" + Id + "/" + Icon + ".png";
+        }
+
+        public static Uri GetGuildIconUri(string Id, string Icon)
+        {
+            return new Uri("https://cdn.discordapp.com/icons/" + Id + "/" + Icon + ".png");
+        }
+
         public static string RemoveDiacritics(string input)
         {
             string stFormD = input.Normalize(NormalizationForm.FormD);

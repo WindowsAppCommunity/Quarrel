@@ -768,6 +768,9 @@ namespace Discord_UWP.Managers
             if (!LocalState.Friends.ContainsKey(e.EventData.Id))
             {
                 LocalState.Friends.Add(e.EventData.Id, e.EventData);
+            } else
+            {
+                LocalState.Friends[e.EventData.Id] = e.EventData;
             }
             if(e.EventData.Type == 3)
             {
