@@ -99,7 +99,6 @@
             </Rectangle>
             <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="36,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            
         </Grid>
 
         <Rectangle x:Name="messageShadow" IsHitTestVisible="False" Grid.Row="1" Height="12" Margin="-24,0" Opacity="{StaticResource ShadowOpacity}" Grid.ColumnSpan="3" VerticalAlignment="Bottom">
