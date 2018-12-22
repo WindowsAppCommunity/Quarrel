@@ -6,10 +6,10 @@ namespace Discord_UWP.API.Misc.Models
     public class GifSearchResult
     {
         [JsonProperty("url")]
-        public Uri Url { get; set; }
+        public string Url { get; set; }
 
         [JsonProperty("src")]
-        public Uri Src { get; set; }
+        public string Src { get; set; }
 
         [JsonProperty("height")]
         public long Height { get; set; }
