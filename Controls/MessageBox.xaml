@@ -1103,7 +1103,10 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <Image Source="{Binding Src}"/>
+                            <Grid.Background>
+                                <SolidColorBrush Color="{ThemeResource ForegroundColor}" Opacity="0.1"/>
+                            </Grid.Background>
+                            <Image Height="100" Width="{Binding AdjustedWidth}"  Source="{Binding Src}"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
