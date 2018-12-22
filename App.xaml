@@ -49,7 +49,7 @@
                     <SolidColorBrush x:Key="AcrylicUserBackgroundDark" Color="#FFF2F2F3"/>
                     <SolidColorBrush x:Key="AcrylicUserBackgroundDarker" Color="#FFE0E0E5"/>
                     <SolidColorBrush x:Key="Foreground" Color="Black"/>
-
+                    <Color x:Key="ForegroundColor">Black</Color>
                     <SolidColorBrush x:Key="Greyple" Color="#99AAB5"/>
                     <SolidColorBrush x:Key="LiteBG" Color="#e0ebfa"/>
                     <SolidColorBrush x:Key="DeepBG" Color="#ffff"/>
@@ -104,7 +104,7 @@
                     <SolidColorBrush x:Key="AcrylicUserBackgroundDark" Color="Black"/>
                     <SolidColorBrush x:Key="AcrylicUserBackgroundDarker" Color="#FF141618"/>
                     <SolidColorBrush x:Key="Foreground" Color="White"/>
-
+                    <Color x:Key="ForegroundColor">White</Color>
                     <SolidColorBrush x:Key="Greyple" Color="#99AAB5"/>
                     <SolidColorBrush x:Key="LiteBG" Color="#2a2c31"/>
                     <SolidColorBrush x:Key="DeepBG" Color="#222529"/>

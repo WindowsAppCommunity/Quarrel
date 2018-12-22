@@ -19,5 +19,7 @@ namespace Discord_UWP.API.Misc.Models
 
         [JsonProperty("width")]
         public long Width { get; set; }
+
+        public long AdjustedWidth { get; set; }
     }
 }

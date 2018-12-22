@@ -530,7 +530,7 @@ namespace Discord_UWP.Controls
                         progring.Visibility = Visibility.Collapsed;
                         foreach (var gif in gifs)
                         {
-                            
+                            gif.AdjustedWidth = (gif.Height * gif.Width) / 100;
                             GiphyList.Items.Add(gif);
                         }
                     }));
