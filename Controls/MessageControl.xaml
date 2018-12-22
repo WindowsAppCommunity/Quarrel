@@ -215,6 +215,6 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
             </FlyoutBase.AttachedFlyout>
             <SymbolIcon x:Name="moresymbol" Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top" Visibility="Visible"/>
         </Button>
-        <StackPanel x:Name="EmbedViewer" Grid.Row="3" Grid.Column="1" Padding="0" Margin="6,4,0,12" Visibility="Visible"/>
+        <StackPanel x:Name="EmbedViewer" Grid.Row="3" Grid.Column="1" Padding="0" Margin="0,4,0,12" Visibility="Visible"/>
     </Grid>
 </UserControl>
