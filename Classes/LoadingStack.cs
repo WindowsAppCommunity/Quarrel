@@ -58,7 +58,8 @@ namespace Discord_UWP.Classes
         /// <param name="status"></param>
         public void Loading(string name, string status)
         {
-            loaders.Add(name, new Loader(name, status));
+            if(!loaders.Contains(name))
+                loaders.Add(name, new Loader(name, status));
             CheckLatest();
         }
 

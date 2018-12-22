@@ -8,8 +8,8 @@
     mc:Ignorable="d">
 
     <StackPanel Background="#0078d7" Padding="80">
-        <TextBlock Text=":(" FontSize="150"/>
-        <TextBlock Text="Quarrel ran into an issue that it couldn't handle. I thought this was cute so I made it happen internally. Anyway, info's below:" FontSize="36" TextWrapping="WrapWholeWords"/>
-        <TextBlock x:Name="Message" Text="Info" FontSize="30" Margin="0,20,0,0"/>
+        <TextBlock Text=":(" FontSize="150" Foreground="White"/>
+        <TextBlock Foreground="White" Text="Quarrel ran into an issue that it couldn't handle. I thought this was cute so I made it happen internally. Anyway, info's below:" FontSize="30" TextWrapping="WrapWholeWords"/>
+        <TextBlock x:Name="Message" Text="Info" FontSize="20" Opacity="0.75" Margin="0,20,0,0" Foreground="White"/>
     </StackPanel>
 </Page>

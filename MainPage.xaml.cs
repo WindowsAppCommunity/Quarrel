@@ -612,7 +612,7 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (e.Code == 4004)
+                    if (e != null && e.Code == 4004)
                     {
                         //Authentication failed
                         loadingStack.Clear();

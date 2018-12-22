@@ -373,7 +373,7 @@ namespace Discord_UWP
        
         private void Gateway_GatewayClosed(object sender, Windows.Networking.Sockets.WebSocketClosedEventArgs e)
         {
-            if(e.Code == 4004)
+            if(e!= null && e.Code == 4004)
             {
                 //TODO Dunno what we can do here
             }
