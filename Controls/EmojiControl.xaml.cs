@@ -129,28 +129,33 @@ namespace Discord_UWP.Controls
             string json = await FileIO.ReadTextAsync(file);
             RootObject root = JsonConvert.DeserializeObject<RootObject>(json);
             var guildEmojis = new List<GuildSide>();
-            try
+
+            if (!App.CurrentGuildIsDM)
             {
-                foreach (var emoji in LocalState.Guilds[App.CurrentGuildId].Raw.Emojis)
+                try
                 {
-                    //Does the user have the authorization to use the emoji?
-                    if (emoji.Roles.Count() != 0 && !LocalState.Guilds[App.CurrentGuildId].members[LocalState.CurrentUser.Id]
-                            .Roles.Intersect(emoji.Roles)
-                            .Any()) return;
-                    string extension = ".png";
-                    if (emoji.Animated) extension = ".gif";
-                    guildEmojis.Add(new GuildSide()
+                    foreach (var emoji in LocalState.Guilds[App.CurrentGuildId].Raw.Emojis)
                     {
-                        category = LocalState.Guilds[App.CurrentGuildId].Raw.Name.ToUpper(),
-                        hasDiversity = false,
-                        names = new List<string>() { emoji.Name },
-                        surrogates = "https://cdn.discordapp.com/emojis/" + emoji.Id + extension,
-                        id = emoji.Id,
-                        CustomEmoji = true
-                    });
+                        //Does the user have the authorization to use the emoji?
+                        if (emoji.Roles.Count() != 0 && !LocalState.Guilds[App.CurrentGuildId].members[LocalState.CurrentUser.Id]
+                                .Roles.Intersect(emoji.Roles)
+                                .Any()) return;
+                        string extension = ".png";
+                        if (emoji.Animated) extension = ".gif";
+                        guildEmojis.Add(new GuildSide()
+                        {
+                            category = LocalState.Guilds[App.CurrentGuildId].Raw.Name.ToUpper(),
+                            hasDiversity = false,
+                            names = new List<string>() { emoji.Name },
+                            surrogates = "https://cdn.discordapp.com/emojis/" + emoji.Id + extension,
+                            id = emoji.Id,
+                            CustomEmoji = true
+                        });
+                    }
                 }
+                catch (Exception) { }
             }
-            catch (Exception) { }
+                
             emojis = guildEmojis.Concat<ISimpleEmoji> (root.people)
                                 .Concat(root.nature)
                                 .Concat(root.food)
