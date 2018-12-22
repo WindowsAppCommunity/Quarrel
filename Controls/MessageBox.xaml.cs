@@ -682,7 +682,7 @@ namespace Discord_UWP.Controls
                     string query = text.Remove(0, i);
                     querylength = query.Length;
                     ReplacePrefix = false;
-                    if (App.EmojiTrie != null)
+                    if (App.MemberListTrie != null)
                         DisplayList(App.MemberListTrie.Retrieve(query.ToLower()));
                     return;
                 }
@@ -695,6 +695,7 @@ namespace Discord_UWP.Controls
                     Debug.WriteLine("Codeblock query is " + query);
                     return;
                 }
+
             }
             //If the code reaches this far, there have been no matches
             SuggestionBlock.ItemsSource = null;
@@ -716,6 +717,22 @@ namespace Discord_UWP.Controls
                 DisplayList(list);
             }
         }
+
+        List<Common.AutoComplete> Commands = new List<Common.AutoComplete>()
+        {
+            new Common.AutoComplete("giphy","Search giphy"),
+            new Common.AutoComplete("tenor","Search tenor")
+        };
+        private void SearchAndDisplayCommands(string query)
+        {
+            List<Common.AutoComplete> list = new List<Common.AutoComplete>();
+            foreach (var command in Commands)
+            {
+                if (command.name.ToLower().StartsWith(query))
+                    list.Add(command);
+            }
+        }
+
         private void DisplayList(IEnumerable<Common.AutoComplete> list)
         {
             int counter = 0;
