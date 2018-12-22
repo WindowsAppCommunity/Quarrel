@@ -1093,7 +1093,7 @@
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <ProgressRing x:Name="progring" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" IsActive="True"/>
+            <ProgressRing x:Name="progring" Foreground="{ThemeResource Blurple}" Visibility="Visible"/>
             <ListView x:Name="GiphyList" Height="100" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.VerticalScrollMode="Disabled" SelectionMode="None" IsItemClickEnabled="True" ItemClick="GiphyList_ItemClick">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
