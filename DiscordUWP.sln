@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NamedPipeServer", "NamedPip
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuarrelRichPresence", "QuarrelPresenceAPI\QuarrelRichPresence.csproj", "{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpusWrapper", "Opus.NET\OpusWrapper\OpusWrapper.csproj", "{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -200,12 +202,28 @@ Global
 		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Release|x64.Build.0 = Release|x64
 		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Release|x86.ActiveCfg = Release|x86
 		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Release|x86.Build.0 = Release|x86
+		{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}.Debug|ARM.Build.0 = Debug|Any CPU
+		{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}.Debug|x64.Build.0 = Debug|Any CPU
+		{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}.Debug|x86.Build.0 = Debug|Any CPU
+		{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}.Release|ARM.ActiveCfg = Release|Any CPU
+		{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}.Release|ARM.Build.0 = Release|Any CPU
+		{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}.Release|x64.ActiveCfg = Release|Any CPU
+		{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}.Release|x64.Build.0 = Release|Any CPU
+		{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{838BDB0B-5EB1-4C1E-9026-0A8842AC00C6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {793268B2-B709-4010-BEE5-D4C758C84E61}
 		RESX_CodeReferences = {"Items":[{"Expression":"\\W($File.$Key)\\W","Extensions":".cs,.xaml,.cshtml","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"ResourceManager.GetString\\(\"($Key)\"\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"typeof\\((\\w+\\.)*($File)\\).+\"($Key)\"|\"($Key)\".+typeof\\((\\w+\\.)*($File)\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($Key)\\W","Extensions":".vb","IsCaseSensitive":false,"SingleLineComment":"'"},{"Expression":"\\W($File::$Key)\\W","Extensions":".cpp,.c,.hxx,.h","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"<%\\$\\s+Resources:\\s*($File)\\s*,\\s*($Key)\\s*%>","Extensions":".aspx,.ascx","IsCaseSensitive":true,"SingleLineComment":null},{"Expression":"StringResourceKey\\.($Key)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"x:Uid=\"$Key\"","Extensions":".xaml","IsCaseSensitive":false,"SingleLineComment":null}]}
+		SolutionGuid = {793268B2-B709-4010-BEE5-D4C758C84E61}
 	EndGlobalSection
 EndGlobal
