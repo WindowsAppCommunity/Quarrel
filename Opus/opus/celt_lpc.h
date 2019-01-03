@@ -32,7 +32,7 @@
 #include "cpu_support.h"
 
 #if defined(OPUS_X86_MAY_HAVE_SSE4_1)
-#include "x86/celt_lpc_sse.h"
+#include "celt_lpc_sse.h"
 #endif
 
 #define LPC_ORDER 24
