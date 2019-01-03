@@ -38,11 +38,11 @@
 #include "modes.h"
 
 #if (defined(OPUS_X86_MAY_HAVE_SSE2) && !defined(FIXED_POINT))
-#include "x86/vq_sse.h"
+#include "vq_sse.h"
 #endif
 
 #if defined(MIPSr1_ASM)
-#include "mips/vq_mipsr1.h"
+#include "vq_mipsr1.h"
 #endif
 
 void exp_rotation(celt_norm *X, int len, int dir, int stride, int K, int spread);

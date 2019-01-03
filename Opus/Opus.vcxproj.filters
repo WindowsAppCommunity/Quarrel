@@ -382,9 +382,6 @@
     <ClCompile Include="opus\biquad_alt.c">
       <Filter>Source Files\opus</Filter>
     </ClCompile>
-    <ClCompile Include="opus\biquad_alt_neon_intr.c">
-      <Filter>Source Files\opus</Filter>
-    </ClCompile>
     <ClCompile Include="opus\bwexpander.c">
       <Filter>Source Files\opus</Filter>
     </ClCompile>
@@ -614,6 +611,9 @@
       <Filter>Source Files\opus</Filter>
     </ClCompile>
     <ClCompile Include="opus\VQ_WMat_EC.c">
+      <Filter>Source Files\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="opus\biquad_alt_neon_intr.c">
       <Filter>Source Files\opus</Filter>
     </ClCompile>
   </ItemGroup>
