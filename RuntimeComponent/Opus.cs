@@ -24,11 +24,11 @@ namespace RuntimeComponent
         [DllImport("opus.dll", EntryPoint = "OpusDecode", CallingConvention = CallingConvention.Cdecl)]
         internal static extern int OpusDecode(IntPtr st, byte[] data, int len, IntPtr pcm, int frame_size, int decode_fec);
 
-        [DllImport("opus.dll", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern int opus_encoder_ctl(IntPtr st, Ctl request, int value);
+        [DllImport("opus.dll", EntryPoint = "OpusEncoderCtl", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int OpusEncoderCtl(IntPtr st, Ctl request, int value);
 
-        [DllImport("opus.dll", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern int opus_encoder_ctl(IntPtr st, Ctl request, out int value);
+        [DllImport("opus.dll", EntryPoint = "OpusDecoderCtl", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int OpusDecoderCtl(IntPtr st, Ctl request, out int value);
     }
 
     public enum Ctl : int
