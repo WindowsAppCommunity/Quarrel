@@ -38,7 +38,7 @@ using Discord_UWP.API.Misc;
 
 namespace Discord_UWP
 {
-    public class RESTCalls
+    public static class RESTCalls
     {
         #region ILogin
         static string EmailInUse;
