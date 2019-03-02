@@ -32,6 +32,9 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class ChannelControl : UserControl
     {
+        /// <summary>
+        /// ID of channel to display
+        /// </summary>
         public string Id
         {
             get { return (string)GetValue(IdProperty); }
@@ -43,6 +46,9 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
+        /// <summary>
+        /// IconUrl of channel to display
+        /// </summary>
         public string Icon
         {
             get { return (string)GetValue(IconProperty); }
@@ -54,6 +60,9 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// Name of channel to display
+        /// </summary>
         public string CName
         {
             get { return (string)GetValue(ChnNameProperty); }
@@ -65,6 +74,9 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
+        /// <summary>
+        /// The presense of the user if channel is DM
+        /// </summary>
         public Presence UserStatus
         {
             get { return (Presence)GetValue(UserStatusProperty); }
@@ -76,6 +88,9 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// Subtitle for channel (for example: Member Count in Group DM)
+        /// </summary>
         public string Subtitle
         {
             get { return (string)GetValue(SubtitleProperty); }
@@ -87,6 +102,9 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
+        /// <summary>
+        /// The Game the user is playing if the channel is a DM
+        /// </summary>
         public Game Playing
         {
             get { try { return (Game)GetValue(PlayingProperty); } catch { return null; } }
@@ -98,6 +116,9 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
+        /// <summary>
+        /// URL of user avatar if the channel is a DM
+        /// </summary>
         public string ImageUrl
         {
             get { return (string)GetValue(ImageUrlProperty); }
@@ -109,6 +130,13 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
+        /// <summary>
+        /// 0: Text channel
+        /// 1: Direct Message
+        /// 2: Voice channel
+        /// 3: Group DM
+        /// 4: Guild category
+        /// </summary>
         public int Type
         {
             get { return (int)GetValue(TypeProperty); }
@@ -120,6 +148,9 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(0, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// Number of notifcations for channel
+        /// </summary>
         public int NotificationCount
         {
             get { return (int)GetValue(NotificationCountProperty); }
@@ -131,6 +162,9 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(0, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// True if latest message in the channel is unread
+        /// </summary>
         public bool IsUnread
         {
             get { return (bool)GetValue(IsUnreadProperty); }
@@ -142,6 +176,9 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// True if the channel group is collapsed
+        /// </summary>
         public bool IsHidden
         {
             get { return (bool)GetValue(IsHiddenProperty); }
@@ -153,6 +190,9 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// True if the user has Read Permsissions on the channel
+        /// </summary>
         public bool HavePermission
         {
             get { return (bool)GetValue(HavePermissionProperty); }
@@ -164,6 +204,9 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// True if someone is typing in the channel
+        /// </summary>
         public bool IsTyping
         {
             get { return (bool)GetValue(IsTypingProperty); }
@@ -175,6 +218,9 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// True if the channel is muted
+        /// </summary>
         public bool IsMuted
         {
             get { return (bool)GetValue(IsMutedProperty); }
@@ -186,6 +232,9 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// True if the channel is currently selected by the user
+        /// </summary>
         public bool IsSelected
         {
             get { return (bool)GetValue(IsSelectedProperty); }
@@ -197,6 +246,9 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// True if the channel is marked NSFW
+        /// </summary>
         public bool NSFW
         {
             get { return (bool)GetValue(NSFWProperty); }
@@ -208,6 +260,9 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// List members if the channel is a DM
+        /// </summary>
         public List<string> Members
         {
             get { try { return (List<string>)GetValue(MembersProperty); } catch { return null; } }
@@ -219,6 +274,9 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// Dictionary of Voice Status if the channel is a Voice Channel
+        /// </summary>
         public Dictionary<string, VoiceMemberContainer> VoiceMembers;
 
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -228,48 +286,50 @@ namespace Discord_UWP.Controls
             // Defer to the instance method.
             instance?.OnPropertyChanged(d, e.Property);
         }
-       private void UpdateOpacity()
-       {
+
+        /// <summary>
+        /// Update the opacities of elements in the ChannelControl
+        /// </summary>
+        private void UpdateOpacity()
+        {
             if ((IsUnread && !IsMuted && HavePermission) || Type == 4)
             {
+                // Show the text at 100% because there's an unread message
                 ChannelName.Fade(1, 200).Start();
             }
             else
             {
                 if (!HavePermission)
                 {
+                    // Show at 15% because the user can't enter the channel
                     ChannelName.Fade(0.15f, 200).Start();
                     HashtagIcon.Fade(0.15f, 200).Start();
                     VoiceIcon.Fade(0.15f, 200).Start();
                 }
                 else if (IsMuted)
                 {
+                    // Show at 35% because the channel is muted
                     ChannelName.Fade(0.35f, 200).Start();
                     HashtagIcon.Fade(0.35f, 200).Start();
                     VoiceIcon.Fade(0.35f, 200).Start();
                 }
                 else
                 {
+                    // Show at 55%, standard opacity
                     ChannelName.Fade(0.55f, 200).Start();
                     HashtagIcon.Fade(0.55f, 200).Start();
                     VoiceIcon.Fade(0.55f, 200).Start();
                 }
             }
         }
+
         private async void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-            //if (!App.CurrentGuildIsDM && Id != "")
-            //{
-            //    if (!Storage.Cache.Guilds[App.CurrentGuildId].Channels[Id].chnPerms.EffectivePerms.Administrator && !Storage.Cache.Guilds[App.CurrentGuildId].Channels[Id].chnPerms.EffectivePerms.ReadMessages)
-            //    {
-            //        this.Visibility = Visibility.Collapsed;
-            //    }
-            //}
-
             if (prop == IsSelectedProperty)
             {
                 if (Type == 2)
                 {
+                    // Because it's a Voice Channel the Voice Icon needs to be brighter too
                     if (IsSelected)
                     {
                         VoiceIcon.Fade(1, 200).Start();
@@ -283,6 +343,7 @@ namespace Discord_UWP.Controls
                 }
                 else
                 {
+                    // Show Selected indicator if selected
                     if (IsSelected)
                     {
                         SelectIndicator.Fade(1, 200).Start();
@@ -292,20 +353,30 @@ namespace Discord_UWP.Controls
                         SelectIndicator.Fade(0, 200).Start();
                     }
                 }
+
+                // Tie up loose ends
                 UpdateOpacity();
                 UpdateHidden();
             }
-            else if (prop == UserStatusProperty)
+            if (prop == UserStatusProperty)
             {
+                // Set the Presense icon
                 if (UserStatus!= null && UserStatus.Status != null && UserStatus.Status != "invisible")
                     rectangle.Fill = (SolidColorBrush)App.Current.Resources[UserStatus.Status];
                 else
                     rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
+
+                // Set the game status
                 if (UserStatus != null && UserStatus.Game != null)
                 {
+                    // There's a game, show it
                     playing.Visibility = Visibility.Visible;
                     game.Visibility = Visibility.Visible;
+
+                    // Set name of the game
                     game.Text = UserStatus.Game.Name;
+
+                    // Check if Rich Presence
                     if (UserStatus.Game.State != null || UserStatus.Game.Details != null || UserStatus.Game.SessionId != null)
                     {
                         game.Opacity = 1;
@@ -316,6 +387,8 @@ namespace Discord_UWP.Controls
                         game.Opacity = 0.4;
                         rich.Visibility = Visibility.Collapsed;
                     }
+
+                    // Check type of rich-presense 
                     switch (UserStatus.Game.Type)
                     {
                         case 0:
@@ -334,13 +407,16 @@ namespace Discord_UWP.Controls
                 }
                 else
                 {
+                    // There's no game, hide it all
                     playing.Visibility = Visibility.Collapsed;
                     rich.Visibility = Visibility.Collapsed;
                     game.Visibility = Visibility.Collapsed;
                 }
+
             }
             if (prop == SubtitleProperty)
             {
+                // Update Subtitle text
                 if (Subtitle != "")
                 {
                     SubTitle.Visibility = Visibility.Visible;
@@ -351,27 +427,20 @@ namespace Discord_UWP.Controls
                     SubTitle.Visibility = Visibility.Collapsed;
                 }
             }
-
             if (prop == IsUnreadProperty)
             {
                 if (IsUnread && !IsMuted)
                 {
+                    // Show indicator
                     UnreadIndicator.Visibility = Visibility.Visible;
-                    if (IsHidden)
-                    {
-                        //await this.Fade(0, 200, 0).StartAsync();
-                        this.Visibility = Visibility.Collapsed;
-                    }
                 }
                 else
                 {
+                    // Hide indicator
                     UnreadIndicator.Visibility = Visibility.Collapsed;
-                    if (IsHidden)
-                    {
-                        this.Visibility = Visibility.Visible;
-                        //this.Fade(1, 200, 0).Start();
-                    }
                 }
+
+                // Tie up loose ends
                 UpdateOpacity();
                 UpdateHidden();
             }
@@ -379,10 +448,12 @@ namespace Discord_UWP.Controls
             {
                 if (HavePermission)
                 {
+                    // Enable the channel if it can be entered
                     IsEnabled = true;
                     UpdateOpacity();
                 } else
                 {
+                    // Disable the channel if it can't be entered
                     IsEnabled = false;
                     UpdateOpacity();
                 }
@@ -391,15 +462,23 @@ namespace Discord_UWP.Controls
             {
                 if (IsMuted)
                 {
+                    // Show muted icon
                     MuteIcon.Visibility = Visibility.Visible;
+
+                    // Hide unread
                     UnreadIndicator.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
+                    // Hide muted icon
                     MuteIcon.Visibility = Visibility.Collapsed;
+
+                    // Show unread
                     if(IsUnread)
                         UnreadIndicator.Visibility = Visibility.Visible;
                 }
+                
+                // Tie up loose ends
                 UpdateOpacity();
                 UpdateHidden();
             }
@@ -407,11 +486,13 @@ namespace Discord_UWP.Controls
             {
                 if (IsTyping && !IsMuted)
                 {
+                    // Show typing indicator
                     TypingIndic.Visibility = Visibility.Visible;
                     TypingIndic.Fade(1, 200).Start();
                 }
                 else
                 {
+                    // Hide typing indicator
                     await TypingIndic.Fade(0,200).StartAsync();
                     TypingIndic.Visibility = Visibility.Collapsed;
                 }
@@ -420,28 +501,35 @@ namespace Discord_UWP.Controls
             {
                 if (NotificationCount > 0)
                 {
+                    // Show Notification text
                     NotificationCounter.Text = NotificationCount.ToString();
                     ShowBadge.Begin();
                 }
                 else
                 {
+                    // Hide Notification text
                     HideBadge.Begin();
                 }
+
+                //Tie up loose ends
                 UpdateHidden();
             }
             if (prop == ChnNameProperty)
             {
-                    ChannelName.Text = CName;
+                // Update Channel Name
+                ChannelName.Text = CName;
             }
             if (prop == ImageUrlProperty)
             {
                 if (ImageUrl != "")
                 {
+                    // Update Image Source
                     ChannelImageBrush.ImageSource = new BitmapImage(new Uri(ImageUrl));
                 }
             }
             if (prop == TypeProperty)
             {
+                // Reset
                 ChannelName.FontWeight = FontWeights.Normal;
                 ChannelName.Foreground = (SolidColorBrush)App.Current.Resources["Foreground"];
                 Chevron.Visibility = Visibility.Collapsed;
@@ -449,21 +537,21 @@ namespace Discord_UWP.Controls
 
                 this.Margin = new Thickness(0);
 
+                //TEXT
                 if (Type == 0)
                 {
-                    //TEXT
                     HashtagIcon.Visibility = Visibility.Visible;
                     VoiceIcon.Visibility = Visibility.Collapsed;
                     MemberList.Visibility = Visibility.Collapsed;
                     ChannelImage.Visibility = Visibility.Collapsed;
                     ChannelImageBackdrop.Visibility = Visibility.Collapsed;
                     rectangle.Visibility = Visibility.Collapsed;
-                    Tapped -= JoinVoiceChannel;
                     grid.Height = Double.NaN;
                 }
+
+                //VOICE
                 else if (Type == 2)
                 {
-                    //VOICE
                     HashtagIcon.Visibility = Visibility.Collapsed;
                     ChannelImage.Visibility = Visibility.Collapsed;
                     VoiceIcon.Visibility = Visibility.Visible;
@@ -472,8 +560,11 @@ namespace Discord_UWP.Controls
                     rectangle.Visibility = Visibility.Collapsed;
                     VoiceMembers = new Dictionary<string, VoiceMemberContainer>();
                     grid.Height = Double.NaN;
+
+                    // Subscribe to event of VoiceState changing
                     GatewayManager.Gateway.VoiceStateUpdated += Gateway_VoiceStateUpdated;
 
+                    // Add users to list of voice members
                     foreach (var user in LocalState.VoiceDict.Values)
                     {
                         if (user.ChannelId == Id)
@@ -482,7 +573,8 @@ namespace Discord_UWP.Controls
                         }
                     }
 
-                    if (VoiceMembers != null && VoiceMembers.Count>0)
+                    // Add Voice Members to display
+                    if (VoiceMembers != null && VoiceMembers.Count > 0)
                     {
                         MemberList.Visibility = Visibility.Visible;
                         foreach (VoiceMemberContainer member in VoiceMembers.Values)
@@ -492,17 +584,16 @@ namespace Discord_UWP.Controls
                                 MemberList.Items.Add(member);
                             }
                         }
-                        //Debug MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id] });
                     }
                     else
                     {
-                        MemberList.Visibility = Visibility.Visible;
+                        MemberList.Visibility = Visibility.Collapsed;
                     }
-                    //Tapped += JoinVoiceChannel;
                 }
+
+                //DM
                 else if (Type == 1)
                 {
-                    //DM
                     HashtagIcon.Visibility = Visibility.Collapsed;
                     VoiceIcon.Visibility = Visibility.Collapsed;
                     ChannelImageBackdrop.Visibility =
@@ -517,11 +608,11 @@ namespace Discord_UWP.Controls
                     ChannelImageBackdrop.Fill = Common.DiscriminatorColor(LocalState.DMs[Id].Users.FirstOrDefault().Discriminator);
                     ChannelImageBrush.ImageSource = new BitmapImage(Common.AvatarUri(LocalState.DMs[Id].Users.FirstOrDefault().Avatar, LocalState.DMs[Id].Users.FirstOrDefault().Id, "?size=64"));
                     MemberList.Visibility = Visibility.Collapsed;
-                    Tapped -= JoinVoiceChannel;
                 }
+
+                //GROUP DM
                 else if (Type == 3)
                 {
-                    //GROUP DM
                     HashtagIcon.Visibility = Visibility.Collapsed;
                     VoiceIcon.Visibility = Visibility.Collapsed;
                     ChannelImageBackdrop.Visibility = Visibility.Collapsed;
@@ -529,23 +620,22 @@ namespace Discord_UWP.Controls
                     rectangle.Visibility = Visibility.Collapsed;
                     Chevron.Visibility = Visibility.Collapsed;
                     grid.Height = 48;
-                    //ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("ms-appx:///Assets/DiscordAssets/groupchat.svg"));
 
+                    // Set icon (if null)
                     if (string.IsNullOrEmpty(Icon)){
                         if (App.Current.RequestedTheme == ApplicationTheme.Dark)
                             ChannelImageBrush.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/DiscordAssets/Friends_dark.png"));
                         else
                             ChannelImageBrush.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/DiscordAssets/Friends_light.png"));
-
                     }
 
                     ChannelImage.Margin = new Thickness(0,6,6,6);
                     MemberList.Visibility = Visibility.Collapsed;
-                    Tapped -= JoinVoiceChannel;
                 }
+
+                //CHANNEL CATEGORY
                 else if (Type == 4)
                 {
-                    //CHANNEL CATEGORY
                     HashtagIcon.Visibility = Visibility.Collapsed;
                     VoiceIcon.Visibility = Visibility.Collapsed;
                     ChannelImageBackdrop.Visibility = Visibility.Collapsed;
@@ -557,10 +647,13 @@ namespace Discord_UWP.Controls
                     HoverCache.Visibility = Visibility.Visible;
                     this.Margin = new Thickness(0, 18, 0, 0);
                     MemberList.Visibility = Visibility.Collapsed;
-                    Tapped -= JoinVoiceChannel;
                     grid.Height = Double.NaN;
                 }
+
+                // Tie up loose ends
                 UpdateOpacity();
+
+                // Clear Voice Update event if applicable
                 if (Type != 2)
                 {
                     GatewayManager.Gateway.VoiceStateUpdated -= Gateway_VoiceStateUpdated;
@@ -589,13 +682,18 @@ namespace Discord_UWP.Controls
             }
         }
 
+        /// <summary>
+        /// Voice State changed
+        /// </summary>
         private async void Gateway_VoiceStateUpdated(object sender, Gateway.GatewayEventArgs<VoiceState> e)
         {
+            // Run on UI thread
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
                      if (e.EventData.ChannelId == Id)
                      {
+                         // Add updated voice user to this list
                          if (!VoiceMembers.ContainsKey(e.EventData.UserId))
                          {
                              VoiceMembers.Add(e.EventData.UserId, new VoiceMemberContainer() { VoiceState = e.EventData });
@@ -606,6 +704,7 @@ namespace Discord_UWP.Controls
                      }
                      else if (VoiceMembers.ContainsKey(e.EventData.UserId))
                      {
+                         // Remove updated voice user from this list
                          MemberList.Items.Remove(VoiceMembers[e.EventData.UserId]);
                          VoiceMembers.Remove(e.EventData.UserId);
                          if (VoiceMembers.Count == 0)
@@ -614,11 +713,9 @@ namespace Discord_UWP.Controls
                  });
         }
 
-        private void JoinVoiceChannel(object sender, TappedRoutedEventArgs e)
-        {
-            //await GatewayManager.Gateway.VoiceStatusUpdate(Id, App.CurrentGuildId, true, false);
-        }
-
+        /// <summary>
+        /// Update the Hidden Status of the control
+        /// </summary>
         public void UpdateHidden()
         {
             if ((IsMuted || !((Storage.Settings.collapseOverride == CollapseOverride.Unread && IsUnread) || (Storage.Settings.collapseOverride == CollapseOverride.Mention && NotificationCount > 0))) && !IsSelected)
@@ -626,22 +723,27 @@ namespace Discord_UWP.Controls
                 if (IsHidden)
                 {
                     if (Type == 4)
+                    {
+                        // Rotate Chevron on side
                         Chevron.Rotate(-90, 7, 7, 400, 0, EasingType.Circle).Start();
+                    }
                     else
                     {
-                        //await this.Fade(0, 200, 0).StartAsync();
+                        // Hide item
                         this.Visibility = Visibility.Collapsed;
                     }
-
                 }
                 else
                 {
                     if (Type == 4)
+                    {
+                        // Rotate Chevron upright
                         Chevron.Rotate(0, 7, 7, 400, 0, EasingType.Circle).Start();
+                    }
                     else
                     {
+                        // Show item
                         this.Visibility = Visibility.Visible;
-                        this.Fade(1, 200, 0).Start();
                     }
                 }
             }
@@ -654,77 +756,82 @@ namespace Discord_UWP.Controls
             this.RightTapped += OpenMenuFlyout;
         }
 
+        /// <summary>
+        /// Open flyout (right-tapped)
+        /// </summary>
         private void OpenMenuFlyout(object sender, RightTappedRoutedEventArgs e)
         {
             e.Handled = true;
-            if(e.PointerDeviceType != PointerDeviceType.Touch)
-                switch (Type)
-                {
-                    case 0: /*Text*/
-                        App.ShowMenuFlyout(this, FlyoutManager.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition((this)));
-                        break;
-                    case 1: /*DM*/
-                        App.ShowMenuFlyout(this, FlyoutManager.Type.DMChn, Id, null, e.GetPosition(this));
-                        break;
-                    case 2: /*Voice*/
-
-                        break;
-                    case 3: /*Group*/
-                        App.ShowMenuFlyout(this, FlyoutManager.Type.GroupChn, Id, App.CurrentGuildId, e.GetPosition(this));
-                        break;
-                    case 4: /*Category*/
-                        App.ShowMenuFlyout(this, FlyoutManager.Type.Category, Id, App.CurrentGuildId, e.GetPosition(this));
-                        break;
-                }
+            if (e.PointerDeviceType != PointerDeviceType.Touch)
+                OpenMenuFlyout();
         }
 
+        /// <summary>
+        /// Open flyout (holding)
+        /// </summary>
         private void OpenMenuFlyout(object sender, HoldingRoutedEventArgs e)
         {
             e.Handled = true;
             try
             {
                 if (e.HoldingState == HoldingState.Started)
-                    switch (Type)
-                    {
-                        case 0: /*Text*/
-                            App.ShowMenuFlyout(this, FlyoutManager.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition(this));
-                            break;
-                        case 1: /*DM*/
-                            App.ShowMenuFlyout(this, FlyoutManager.Type.DMChn, Id, null, e.GetPosition(this));
-                            break;
-                        case 2: /*Voice*/
-                            break;
-                        case 3: /*Group*/
-                            App.ShowMenuFlyout(this, FlyoutManager.Type.GroupChn, Id, App.CurrentGuildId, e.GetPosition(this));
-                            break;
-                    }
+                    OpenMenuFlyout();
+                    
             }
             catch { }
         }
 
-        private void HideBadge_Completed(object sender, object e)
+        /// <summary>
+        /// Open Menu Flyout by type
+        /// </summary>
+        private void OpenMenuFlyout()
         {
-            //NotificationBorder.Visibility = Visibility.Collapsed;
+            switch (Type)
+            {
+                case 0: /*Text*/
+                    App.ShowMenuFlyout(this, FlyoutManager.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition(this));
+                    break;
+                case 1: /*DM*/
+                    App.ShowMenuFlyout(this, FlyoutManager.Type.DMChn, Id, null, e.GetPosition(this));
+                    break;
+                case 2: /*Voice*/
+                    break;
+                case 3: /*Group*/
+                    App.ShowMenuFlyout(this, FlyoutManager.Type.GroupChn, Id, App.CurrentGuildId, e.GetPosition(this));
+                    break;
+            }
         }
 
+        /// <summary>
+        /// Universal Pointer down (for SideDrawer)
+        /// </summary>
         private void UserControl_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             App.UniversalPointerDown(e);
         }
 
-        public void Dispose()
-        {
-            GatewayManager.Gateway.VoiceStateUpdated -= Gateway_VoiceStateUpdated;
-            //Tapped -= JoinVoiceChannel;
-            this.Holding -= OpenMenuFlyout;
-            this.RightTapped -= OpenMenuFlyout;
-        }
 
+        /// <summary>
+        /// Unloaded
+        /// </summary>
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
             Dispose();
         }
 
+        /// <summary>
+        /// Dispose of this object
+        /// </summary>
+        public void Dispose()
+        {
+            GatewayManager.Gateway.VoiceStateUpdated -= Gateway_VoiceStateUpdated;
+            this.Holding -= OpenMenuFlyout;
+            this.RightTapped -= OpenMenuFlyout;
+        }
+
+        /// <summary>
+        /// Show UserFlyout from Voice-MemberList
+        /// </summary>
         private void MemberList_ItemClick(object sender, ItemClickEventArgs e)
         {
             var memberItem = (ListViewItem)MemberList.ContainerFromItem(e.ClickedItem);
