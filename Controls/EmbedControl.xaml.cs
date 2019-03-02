@@ -25,6 +25,7 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class EmbedControl : UserControl
     {
+        // API Embed Data to display
         public Embed EmbedContent
         {
             get { return (Embed)GetValue(EmbedContentProperty); }
@@ -43,40 +44,53 @@ namespace Discord_UWP.Controls
             instance?.OnPropertyChanged(d, e.Property);
         }
 
-
+        /// <summary>
+        /// Types of Embeds
+        /// </summary>
         private enum Type { Unknown, Image, Audio, Video, PDF };
 
+        /// <summary>
+        /// Type of embed this embed displays
+        /// </summary>
         private Type type = Type.Unknown;
 
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-            //bool everythingisnull = true;
-            //Accent color
+            // Accent color
             if (EmbedContent.Color != 0)
+            {
                 SideBorder.Background = Common.IntToColor(EmbedContent.Color);
+            }
             else
+            {
                 SideBorder.Background = (SolidColorBrush)App.Current.Resources["LightBG"];
+            }
 
-            //Author
+            // Author
             if (EmbedContent.Author != null)
             {
-                //everythingisnull = false;
                 AuthorSP.Visibility=Visibility.Visible;
                 AuthorText.Content = EmbedContent.Author.Name;
                 if(EmbedContent.Author.Url != null)
                     AuthorText.NavigateUri = new Uri(EmbedContent.Author.Url);
-                if(EmbedContent.Author.IconUrl == null) AuthorImage.Visibility = Visibility.Collapsed;
+                if (EmbedContent.Author.IconUrl == null)
+                {
+                    AuthorImage.Visibility = Visibility.Collapsed;
+                }
                 else
-                { AuthorImage.Visibility = Visibility.Visible; AuthorImageBrush.ImageSource = new BitmapImage(new Uri(EmbedContent.Author.IconUrl)); }
+                {
+                    AuthorImage.Visibility = Visibility.Visible;
+                    AuthorImageBrush.ImageSource = new BitmapImage(new Uri(EmbedContent.Author.IconUrl));
+                }
             }
             else
             {
                 AuthorSP.Visibility=Visibility.Collapsed;
             }
-            //Title
+
+            // Title
             if (EmbedContent.Title != null)
             {
-                //everythingisnull = false;
                 if (EmbedContent.Url == null)
                 {
                     UrlTitleBlock.Visibility = Visibility.Collapsed;
@@ -89,6 +103,8 @@ namespace Discord_UWP.Controls
                     UrlTitleBlock.Visibility = Visibility.Visible;
                     UrlTitleBlock.Content = EmbedContent.Title;
                     UrlTitleBlock.NavigateUri = new Uri(EmbedContent.Url);
+                    
+                    // Share Icon (CU is weird here)
                     if (App.FCU)
                     {
                         ShareButton.Visibility = Visibility.Visible;
@@ -104,10 +120,10 @@ namespace Discord_UWP.Controls
                 PlainTitleBlock.Visibility = Visibility.Collapsed;
                 UrlTitleBlock.Visibility = Visibility.Collapsed;
             }
-            //Description
+
+            // Description
             if (EmbedContent.Description != null)
             {
-                //everythingisnull = false;
                 DescriptionBlock.Visibility = Visibility.Visible;
                 DescriptionBlock.Text = EmbedContent.Description;
             }
@@ -116,12 +132,11 @@ namespace Discord_UWP.Controls
                 DescriptionBlock.Visibility = Visibility.Collapsed;
             }
 
-            //Fields
+            // Fields
             UniversalWrapPanel previousWrapPanel= null;
             FieldsStacker.Children.Clear();
             if (EmbedContent.Fields != null)
             {
-                //everythingisnull = false;
                 FieldsStacker.Visibility = Visibility.Visible;
                 foreach (var field in EmbedContent.Fields)
                 {
@@ -151,7 +166,7 @@ namespace Discord_UWP.Controls
                 FieldsStacker.Visibility = Visibility.Collapsed;
             }
 
-            //Image
+            // Content
             if (EmbedContent.Image != null)
             {
                 type = Type.Image;
@@ -173,7 +188,8 @@ namespace Discord_UWP.Controls
                     stacker.Margin = new Thickness(0);
                     SideBorder.Width = 0;
                 }
-            } else if (EmbedContent.Video != null)
+            }
+            else if (EmbedContent.Video != null)
             {
                 type = Type.Video;
                 ImageViewbox.Visibility = Visibility.Collapsed;
@@ -196,15 +212,18 @@ namespace Discord_UWP.Controls
                     stacker.Margin = new Thickness(0);
                     SideBorder.Width = 0;
                 }
-            } else
+            }
+            else
             {
                 ImageViewbox.Visibility = Visibility.Collapsed;
                 player.Visibility = Visibility.Collapsed;
             }
 
-            //Footer
+            // Footer
             if (EmbedContent.Footer == null && EmbedContent.Timestamp == null)
+            {
                 FooterSP.Visibility = Visibility.Collapsed;
+            }
             else
             {
                 FooterSP.Visibility = Visibility.Visible;
@@ -232,10 +251,9 @@ namespace Discord_UWP.Controls
                 }
             }
 
-            //Provider
+            // Provider
             if (EmbedContent.Provider != null)
             {
-                //everythingisnull = false;
                 ProviderHyperlink.Visibility = Visibility.Visible;
                 ProviderHyperlink.Content = EmbedContent.Provider.Name;
                 if (EmbedContent.Provider.Url != null)
@@ -245,7 +263,8 @@ namespace Discord_UWP.Controls
             {
                 ProviderHyperlink.Visibility = Visibility.Collapsed;
             }
-            //Thumbnail
+
+            // Thumbnail
             if (EmbedContent.Thumbnail != null)
             {
                 if (EmbedContent.Type == "article")
@@ -269,6 +288,11 @@ namespace Discord_UWP.Controls
             }
         }
 
+        /// <summary>
+        /// Creates a UIElement (StackPanel) for field in Embed
+        /// </summary>
+        /// <param name="field">Field to add</param>
+        /// <returns>StackPanel display of field</returns>
         private StackPanel GenerateField(EmbedField field)
         {
             StackPanel sp = new StackPanel();
@@ -284,12 +308,16 @@ namespace Discord_UWP.Controls
             sp.Margin = new Thickness(0, 6, 0, 0);
             return sp;
         }
+
         public EmbedControl()
         {
             this.InitializeComponent();
             RegisterPropertyChangedCallback(EmbedContentProperty, OnPropertyChanged);
         }
 
+        /// <summary>
+        /// Open Attachment full window
+        /// </summary>
         private void AttachedImageViewer_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (EmbedContent.Image != null)
@@ -318,14 +346,24 @@ namespace Discord_UWP.Controls
             }
             
         }
+
         DataTransferManager transfermanager;
+
+        #region Sharing
+        /// <summary>
+        /// Share with Windows Sharing
+        /// </summary>
         private void ShareEmbed(object sender, RoutedEventArgs e)
         {
             transfermanager = Windows.ApplicationModel.DataTransfer.DataTransferManager.GetForCurrentView();
             Windows.ApplicationModel.DataTransfer.DataTransferManager.ShowShareUI();
             transfermanager.DataRequested += EmbedControl_DataRequested;
         }
+        #endregion
 
+        /// <summary>
+        /// Give Data for Windows Share
+        /// </summary>
         private void EmbedControl_DataRequested(Windows.ApplicationModel.DataTransfer.DataTransferManager sender, Windows.ApplicationModel.DataTransfer.DataRequestedEventArgs args)
         {
             if (!string.IsNullOrEmpty(EmbedContent.Url))
@@ -339,17 +377,26 @@ namespace Discord_UWP.Controls
             }
         }
 
-        public void Dispose()
-        {
-            if(transfermanager != null)
-            transfermanager.DataRequested -= EmbedControl_DataRequested;
-        }
-
+        /// <summary>
+        /// Unloaded
+        /// </summary>
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
             Dispose();
         }
 
+        /// <summary>
+        /// Dispose of this object
+        /// </summary>
+        public void Dispose()
+        {
+            if (transfermanager != null)
+                transfermanager.DataRequested -= EmbedControl_DataRequested;
+        }
+
+        /// <summary>
+        /// Save Picture flyout (right-tapped)
+        /// </summary>
         private void ImageViewer_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             e.Handled = true;
@@ -359,6 +406,9 @@ namespace Discord_UWP.Controls
             }
         }
 
+        /// <summary>
+        /// Save Picture flyout (holding)
+        /// </summary>
         private void ImageViewer_Holding(object sender, HoldingRoutedEventArgs e)
         {
             e.Handled = true;
@@ -368,12 +418,17 @@ namespace Discord_UWP.Controls
             }
         }
 
-
+        /// <summary>
+        /// Show Embed Preview
+        /// </summary>
         private void ShowPreview(object sender, RoutedEventArgs e)
         {
             ShowPreview();
         }
 
+        /// <summary>
+        /// Show Embed Preview
+        /// </summary>
         private async void ShowPreview()
         {
             switch (type)
@@ -421,6 +476,9 @@ namespace Discord_UWP.Controls
             
         }
 
+        /// <summary>
+        /// Image Loaded Successfully
+        /// </summary>
         private void ImageOpened(object sender, RoutedEventArgs e)
         {
             LoadingImage.Visibility = Visibility.Collapsed;
