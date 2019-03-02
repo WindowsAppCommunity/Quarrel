@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
+
 using RuntimeComponent;
 
 //Discord DOCs https://discordapp.com/developers/docs/topics/voice-connections
@@ -267,9 +268,9 @@ namespace Discord_UWP.Voice
             {
                 Address = ip,
                 Port = port,
-                Codecs = new List<Codec>()
+                Codecs = new List<UpstreamEvents.Codec>()
                 {
-                    new Codec()
+                    new UpstreamEvents.Codec()
                     {
                         Name = "opus",
                         payloadType = 120,
@@ -277,7 +278,7 @@ namespace Discord_UWP.Voice
                         Type = "audio",
                         rtxPayloadType = 120
                     },
-                    new Codec()
+                    new UpstreamEvents.Codec()
                     {
                         Name = "VP8",
                         payloadType = 101,
