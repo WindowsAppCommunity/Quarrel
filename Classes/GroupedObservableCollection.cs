@@ -9,15 +9,27 @@ using Discord_UWP.SimpleClasses;
 
 namespace Discord_UWP.Classes
 {
-
-
+    /// <summary>
+    /// Group of items for <see cref="GroupedObservableCollection{TKey, TElement}"/> collection
+    /// </summary>
+    /// <typeparam name="TKey">The group data</typeparam>
+    /// <typeparam name="TElement">Individual item data</typeparam>
     public class Grouping<TKey, TElement> : ObservableCollection<TElement>, IGrouping<TKey, TElement>
     {
+        /// <summary>
+        /// Initialize with grouping data to add contents later
+        /// </summary>
+        /// <param name="key">Grouping data</param>
         public Grouping(TKey key)
         {
             this.Key = key;
         }
 
+        /// <summary>
+        /// Initalize with grouping data and contents
+        /// </summary>
+        /// <param name="key">Grouping data</param>
+        /// <param name="items">Collection items</param>
         public Grouping(TKey key, IEnumerable<TElement> items)
             : this(key)
         {
@@ -30,10 +42,17 @@ namespace Discord_UWP.Classes
         public TKey Key { get; }
     }
 
-    
-
+    /// <summary>
+    /// Used for getting the order of two <seealso cref="Member"/> items
+    /// </summary>
     public class MemberComparer : IComparer<Member>
     {
+        /// <summary>
+        /// Compares two <seealso cref="Member"/> items
+        /// </summary>
+        /// <param name="x">First item to compare</param>
+        /// <param name="y">Second item to compare</param>
+        /// <returns>An indication wheather item x follows, proceeds or is equal in position to y</returns>
         public int Compare(Member x, Member y)
         {
             return (x.DisplayName.CompareTo(y.DisplayName));
@@ -43,8 +62,8 @@ namespace Discord_UWP.Classes
     /// <summary>
     /// A Grouped yet observable collection.
     /// </summary>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TElement"></typeparam>
+    /// <typeparam name="TKey">Grouping type</typeparam>
+    /// <typeparam name="TElement">Item types</typeparam>
     public class GroupedObservableCollection<TKey, TElement> : ObservableCollection<Grouping<TKey, TElement>>
         where TKey : IComparable<TKey>
     {
@@ -75,18 +94,30 @@ namespace Discord_UWP.Classes
         }
 
         /// <summary>
-        /// This FULLY clears and resets the member list, including the optimization-related objects
+        /// This fully clears and resets the member list, including the optimization-related objects
         /// </summary>
         public void Clean()
         {
             Clear();
             RoleIndexer.Clear();
         }
+
+        /// <summary>
+        /// Checks if Collection contains item
+        /// </summary>
+        /// <param name="item">item to check for</param>
+        /// <returns>Wheather or not the item is in the collection</returns>
         public bool Contains(TElement item)
         {
             return this.Contains(item, (a, b) => a.Equals(b));
         }
 
+        /// <summary>
+        /// Checks if Collection contains item according to <paramref name="compare"/> function
+        /// </summary>
+        /// <param name="item">Item to check if contained</param>
+        /// <param name="compare">Function to compare with</param>
+        /// <returns>Wheather or not the collection contains the item</returns>
         public bool Contains(TElement item, Func<TElement, TElement, bool> compare)
         {
             var key = this.readKey(item);
@@ -95,22 +126,35 @@ namespace Discord_UWP.Classes
             return group != null && group.Any(i => compare(item, i));
         }
 
+        /// <summary>
+        /// Get the collection as <seealso cref="IEnumerable{T}"/>
+        /// </summary>
+        /// <returns>IEnumberable of collection items</returns>
         public IEnumerable<TElement> EnumerateItems()
         {
             return this.SelectMany(g => g);
         }
 
+        /// <summary>
+        /// Add <paramref name="item"/> to collection
+        /// </summary>
+        /// <param name="item"><seealso cref="TElement"/> to add</param>
         public void Add(TElement item)
         {
             var key = this.readKey(item);
-            var member = (item as Member);
+
+            // Give the item a group
             var ogroup = this.FindOrCreateGroup(key);
+            
+            // No longer so dynamic...
+            var member = (item as Member);
             Grouping<HoistRole, Member> group = ogroup as Grouping<HoistRole, Member>;
             (ogroup.Key as HoistRole).Membercount++;
             string DisplayName = member.DisplayName;
             
             if(!RoleIndexer.ContainsKey(member.Raw.User.Id))
                 RoleIndexer.Add(member.Raw.User.Id, key);
+
             //try to insert logically
             for(var i = 0; i < group.Count; i++)
             {
@@ -125,8 +169,15 @@ namespace Discord_UWP.Classes
             ogroup.Add(item);
         }
 
+        /// <summary>
+        /// Change the Group of an item
+        /// </summary>
+        /// <param name="item">Item to change group of</param>
+        /// <param name="previousKey">The previous group</param>
+        /// <param name="newKey">The new group</param>
         public void ChangeKey(TElement item, TKey previousKey, TKey newKey)
         {
+            // Remove from old group
             var previousgroup = this.TryFindGroup(previousKey);
             previousgroup.Remove(item);
             (previousgroup.Key as HoistRole).Membercount--;
@@ -137,11 +188,22 @@ namespace Discord_UWP.Classes
                 this.Remove(previousgroup);
                 this.LastAffectedGroup = null;
             }
+
+            // Add to new group
             Add(item);
         }
 
+        /// <summary>
+        /// List of groups in Collection
+        /// </summary>
         public IEnumerable<TKey> Keys => this.Select(i => i.Key);
 
+        /// <summary>
+        /// Swap the collection with another collection
+        /// </summary>
+        /// <param name="replacementCollection">New collection</param>
+        /// <param name="itemComparer">Comparer used on items of that collection</param>
+        /// <returns>New collection</returns>
         public GroupedObservableCollection<TKey, TElement> ReplaceWith(GroupedObservableCollection<TKey, TElement> replacementCollection, IEqualityComparer<TElement> itemComparer)
         {
             // First make sure that the top level group containers match
@@ -159,7 +221,7 @@ namespace Discord_UWP.Classes
 
             return this;
         }
-
+        
         private static void MergeGroup(Grouping<TKey, TElement> current, Grouping<TKey, TElement> replacement, IEqualityComparer<TElement> itemComparer)
         {
             // Shortcut the matching and reordering process if the sequences are the same
@@ -176,9 +238,6 @@ namespace Discord_UWP.Classes
             }
 
             Debug.Assert(new HashSet<TElement>(current, itemComparer).IsSubsetOf(replacement), "Expected the current group to be a subset of the replacement group");
-
-            // var currentItemIndexes = current.Select((item, index) => new { item, index }).ToDictionary(i => i.item, i => i.index, itemComparer);
-            // var replacementItemIndexes = replacement.Select((item, index) => new { item, index }).ToDictionary(i => i.item, i => i.index, itemComparer);
 
             var currentItemSet = new HashSet<TElement>(current, itemComparer);
             for (var i = 0; i < replacement.Count; i++)
@@ -245,7 +304,12 @@ namespace Discord_UWP.Classes
                 }
             }
         }
-
+        
+        /// <summary>
+        /// Removes an item from the collection
+        /// </summary>
+        /// <param name="item">Item to remove</param>
+        /// <returns>Wheather or not the item was removed</returns>
         public bool Remove(TElement item)
         {
             
@@ -263,6 +327,11 @@ namespace Discord_UWP.Classes
             return success;
         }
 
+        /// <summary>
+        /// Gets a grouping if it exists
+        /// </summary>
+        /// <param name="key">Group data of grouping</param>
+        /// <returns>Found Grouping or null if not present</returns>
         private Grouping<TKey, TElement> TryFindGroup(TKey key)
         {
             if (this.LastAffectedGroup != null && this.LastAffectedGroup.Key.Equals(key))
@@ -275,6 +344,11 @@ namespace Discord_UWP.Classes
             return group;
         }
 
+        /// <summary>
+        /// Gets a grouping and creates one if it doesn't yet exist
+        /// </summary>
+        /// <param name="key">The group data to get a grouping for</param>
+        /// <returns>The grouping either found or created</returns>
         private Grouping<TKey, TElement> FindOrCreateGroup(TKey key)
         {
             if (this.LastAffectedGroup != null && (this.LastAffectedGroup.Key).Equals(key))
