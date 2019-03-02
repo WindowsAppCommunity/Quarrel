@@ -7,22 +7,40 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Classes
 {
+    /// <summary>
+    /// Used for fancy-text nicknames
+    /// </summary>
     public class FancyText
     {
+        /// <summary>
+        /// Initalize converts for Fancy Generator
+        /// </summary>
+        /// <param name="baseType">Type the current text is</param>
         public FancyText(Converters baseType)
         {
+            // Add a conversion from the current type to each other type
             foreach (Converters type in ConverterValues)
             {
-                FancyConverters.Add(type, new FancyGenerator(baseType, type));
+                FancyConverters.Add(type, new FancyConverter(baseType, type));
             }
         }
 
-        public class FancyGenerator
+        /// <summary>
+        /// Class that converts from one text format to another
+        /// </summary>
+        public class FancyConverter
         {
-            public FancyGenerator(Converters from, Converters to)
+            /// <summary>
+            /// Setup converter
+            /// </summary>
+            /// <param name="from">Input text-format</param>
+            /// <param name="to">Output text-format</param>
+            public FancyConverter(Converters from, Converters to)
             {
                 CharacterConversions = new Dictionary<string, string>();
                 ReplaceDiacritics = true;
+
+                // The "Reversed" requires Pre/Post processing
                 if (to == Converters.Reversed)
                 {
                     PostProcess = input => ReverseString(input.ToLower());
@@ -32,6 +50,7 @@ namespace Discord_UWP.Classes
                     PreProcess = input => ReverseString(Common.CapitalizeMulti(input));
                 }
 
+                // Key-Value the character in the text formats
                 var fromList = GetListFromConverter(from);
                 var toList = GetListFromConverter(to);
                 for (int i = 0; i < fromList.Count-1; i++)
@@ -52,6 +71,11 @@ namespace Discord_UWP.Classes
             public bool Random { get; set; }
         }
 
+        /// <summary>
+        /// Get Character list from converter enum
+        /// </summary>
+        /// <param name="converter">The list to get</param>
+        /// <returns>Character list of the <paramref name="converter"/> type</returns>
         public static List<string> GetListFromConverter(Converters converter)
         {
             switch (converter)
@@ -83,15 +107,21 @@ namespace Discord_UWP.Classes
             }
             return Standard;
         }
-
+        
+        /// <summary>
+        /// Reverse string <paramref name="s"/>
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns><paramref name="s"/> with the characters in reverse order</returns>
         public static string ReverseString(string s)
         {
             if (s == null) return null;
             char[] charArray = s.ToCharArray();
             int len = s.Length - 1;
-
+            
             for (int i = 0; i < len; i++, len--)
             {
+                // Copy the values at i to len and vice versa
                 charArray[i] ^= charArray[len];
                 charArray[len] ^= charArray[i];
                 charArray[i] ^= charArray[len];
@@ -101,6 +131,7 @@ namespace Discord_UWP.Classes
         }
         public enum Converters { Standard, Circled, Script, ScriptBold, Gothic, GothicBold, Hollow, Money, TheGreatTuna, Reversed, Typewriter, Random, Spacious }
 
+        #region Raw Converter CharLists
         public static List<string> Standard = new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
         public static List<string> Circled = new List<string> { "0", "\u2460", "\u2461", "\u2462", "\u2463", "\u2464", "\u2465", "\u2466", "\u2467", "\u2468", "\u24d0", "\u24d1", "\u24d2", "\u24d3", "\u24d4", "\u24d5", "\u24d6", "\u24d7", "\u24d8", "\u24d9", "\u24da", "\u24db", "\u24dc", "\u24dd", "\u24de", "\u24df", "\u24e0", "\u24e1", "\u24e2", "\u24e3", "\u24e4", "\u24e5", "\u24e6", "\u24e7", "\u24e8", "\u24e9", "\u24b6", "\u24b7", "\u24b8", "\u24b9", "\u24ba", "\u24bb", "\u24bc", "\u24bd", "\u24be", "\u24bf", "\u24c0", "\u24c1", "\u24c2", "\u24c3", "\u24c4", "\u24c5", "\u24c6", "\u24c7", "\u24c8", "\u24c9", "\u24ca", "\u24cb", "\u24cc", "\u24cd", "\u24ce", "\u24cf" };
         public static List<string> Script = new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "𝒶", "𝒷", "𝒸", "𝒹", "𝑒", "𝒻", "𝑔", "𝒽", "𝒾", "𝒿", "𝓀", "𝓁", "𝓂", "𝓃", "𝑜", "𝓅", "𝓆", "𝓇", "𝓈", "𝓉", "𝓊", "𝓋", "𝓌", "𝓍", "𝓎", "𝓏", "𝓐", "𝓑", "𝓒", "𝓓", "𝓔", "𝓕", "𝓖", "𝓗", "𝓘", "𝓙", "𝓚", "𝓛", "𝓜", "𝓝", "𝓞", "𝓟", "𝓠", "𝓡", "𝓢", "𝓣", "𝓤", "𝓥", "𝓦", "𝓧", "𝓨", "𝓩" };
@@ -113,7 +144,7 @@ namespace Discord_UWP.Classes
         public static List<string> Reversed = new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "ɐ", "q", "ɔ","p", "ǝ","ɟ", "ɓ", "ɥ", "ı", "ɾ", "ʞ", "l", "ɯ", "u", "o", "p", "q", "ɹ", "s", "ʇ", "u", "ʌ", "ʍ", "x", "ʎ", "z", "ɐ", "q", "ɔ", "p", "ǝ", "ɟ", "ɓ", "ɥ", "ı", "ɾ", "ʞ", "l", "ɯ", "u", "o", "p", "q", "ɹ", "s", "ʇ", "u", "ʌ", "ʍ", "x", "ʎ", "z" };
         public static List<string> Typewriter = new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "𝚊", "𝚋", "𝚌", "𝚍", "𝚎", "𝚏", "𝚐", "𝚑", "𝚒", "𝚓", "𝚔", "𝚕", "𝚖", "𝚗", "𝚘", "𝚙", "𝚚", "𝚛", "𝚜", "𝚝", "𝚞", "𝚟", "𝚠", "𝚡", "𝚢", "𝚣", "𝙰", "𝙱", "𝙲", "𝙳", "𝙴", "𝙵", "𝙶", "𝙷", "𝙸", "𝙹", "𝙺", "𝙻", "𝙼", "𝙽", "𝙾", "𝙿", "𝚀", "𝚁", "𝚂", "𝚃", "𝚄", "𝚅", "𝚆", "𝚇", "𝚈", "𝚉"};
         public static List<string> Spacious = new List<string> { "０", "１", "２", "３", "４", "５", "６", "７", "８", "９", "ａ", "ｂ", "ｃ", "ｄ", "ｅ", "ｆ", "ｇ", "ｈ", "ｉ", "ｊ", "ｋ", "ｌ", "ｍ", "ｎ", "ｏ", "ｐ", "ｑ", "ｒ", "ｓ", "ｔ", "ｕ", "ｖ", "ｗ", "ｘ", "ｙ", "ｚ", "Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ", "Ｇ", "Ｈ", "Ｉ", "Ｊ", "Ｋ", "Ｌ", "Ｍ", "Ｎ", "Ｏ", "Ｐ", "Ｑ", "Ｒ", "Ｓ", "Ｔ", "Ｕ", "Ｖ", "Ｗ", "Ｘ", "Ｙ", "Ｚ"};
-
+        #endregion
 
         public Converters[] ConverterValues = new Converters[]
         {
@@ -131,10 +162,12 @@ namespace Discord_UWP.Classes
             Converters.Spacious
             //Converters.Random
         };
+        
+        /// <summary>
+        /// Dictionary of Converts by Converter enum
+        /// </summary>
+        public Dictionary<Converters, FancyConverter> FancyConverters = new Dictionary<Converters, FancyConverter>();
 
-        #region Depricated
-        public Dictionary<Converters, FancyGenerator> FancyConverters = new Dictionary<Converters, FancyGenerator>();
-        #endregion
 
         /// <summary>
         /// Convert the input using all available converters
@@ -156,27 +189,34 @@ namespace Discord_UWP.Classes
             return results;
         }
 
+        // Random used for getting a random converter
         Random rnd = new Random();
+
         /// <summary>
         /// Convert the text with the specified converter
+        /// TODO: Improve "random" feature, don't know what I was thinking
         /// </summary>
         /// <param name="converter">The text converter</param>
         /// <param name="input">The text to convert</param>
         /// <returns>The transformed text</returns>
         public string MakeFancy(Converters converter, string input)
         {
-            var convert = FancyConverters[converter];
+            // The get converter by Converter enum
+            FancyConverter convert = FancyConverters[converter];
 
             if (convert.ReplaceDiacritics)
                 input = Common.RemoveDiacritics(input);
             if (convert.PreProcess != null)
                 input = convert.PreProcess(input);
             string output = "";
-            for (var i = 0; i < input.Length;)
+            
+            // Convert each character and it to output when done
+            for (int i = 0; i < input.Length;)
             {
+                // If the converter is random, just pick a random different converter and convert as that (if not also random
                 if (convert.Random)
                 {
-                    var randomconverter = FancyConverters[ConverterValues[rnd.Next(0, ConverterValues.Length-1)]];
+                    FancyConverter randomconverter = FancyConverters[ConverterValues[rnd.Next(0, ConverterValues.Length-1)]];
                     if (!randomconverter.Random)
                     {
                         string character = input[i].ToString();
@@ -206,12 +246,18 @@ namespace Discord_UWP.Classes
                 }
             }
 
+            // Run the post process
             if (convert.PostProcess != null)
                 output = convert.PostProcess(output);
 
             return output;  
         }
 
+        /// <summary>
+        /// Determine the text-format of <paramref name="input"/>
+        /// </summary>
+        /// <param name="input">string to check</param>
+        /// <returns>text-format of <paramref name="input"/> as Converter enum</returns>
         public static Converters FindFancy(string input)
         {
             string c = input[0].ToString();
