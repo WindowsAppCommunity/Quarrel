@@ -22,6 +22,9 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class ActivitesControl : UserControl
     {
+        /// <summary>
+        /// The API ActivityData to display
+        /// </summary>
         public ActivityData Activity
         {
             get { return (ActivityData)GetValue(ActivityProperty); }
@@ -36,24 +39,27 @@ namespace Discord_UWP.Controls
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as ActivitesControl;
+
             // Defer to the instance method.
             instance?.OnPropertyChanged(d, e.Property);
         }
 
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-
             if (prop == ActivityProperty)
             {
+                // If the Activity isn't null and it's a supported game
                 if (Activity != null && !string.IsNullOrEmpty(Activity.ApplicationId))
                 {
                     if (LocalState.SupportedGames.ContainsKey(Activity.ApplicationId))
                     {
+                        // Determine the game
                         var game = LocalState.SupportedGames[Activity.ApplicationId];
                         GameIcon.Source = new BitmapImage(new Uri("https://cdn.discordapp.com/game-assets/"+game.Id+"/"+game.Icon+".png?size=256"));
                         GameTitle.Text = game.Name;
                         GameSectionBg.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/game-assets/" + game.Id + "/" + game.Splash));
 
+                        // If a friend is playing it, show that
                         if (LocalState.Friends.ContainsKey(Activity.UserId))
                         {
                             var friend = LocalState.Friends[Activity.UserId];
@@ -68,7 +74,6 @@ namespace Discord_UWP.Controls
 
                         if (LocalState.GameNews.ContainsKey(Activity.ApplicationId))
                         {
-                            
                             //TODO ADD LATEST NEWS
                         }
                     }
