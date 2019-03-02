@@ -27,9 +27,9 @@ namespace Discord_UWP.Classes
             }
         }
     }
+
     class LoadingStack
     {
-
         public class Loader
         {
             public Loader(string name, string status)
@@ -40,10 +40,12 @@ namespace Discord_UWP.Classes
             public string Status { get; set; }
             public string Name { get; set; }
         }
+
         /// <summary>
         /// All components have finished loading
         /// </summary>
         public event EventHandler FinishedLoading;
+
         /// <summary>
         /// The status at the top of the stack has changed
         /// </summary>
@@ -63,7 +65,6 @@ namespace Discord_UWP.Classes
             CheckLatest();
         }
 
-        
         /// <summary>
         /// Remove a loading indicator from the stack
         /// </summary>
@@ -93,7 +94,12 @@ namespace Discord_UWP.Classes
             loaders.Clear();
             FinishedLoading?.Invoke(null, null);
         }
+
         private string previousLoader = null;
+        
+        /// <summary>
+        /// Invoke LoaderChanged
+        /// </summary>
         private void CheckLatest()
         {
             if (loaders.Count == 0) return;
