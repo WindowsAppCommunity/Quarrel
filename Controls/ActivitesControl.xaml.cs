@@ -64,7 +64,7 @@ namespace Discord_UWP.Controls
                         {
                             var friend = LocalState.Friends[Activity.UserId];
                             var membercontrol = new MemberControl();
-                            membercontrol.Text = friend.user.Username;
+                            membercontrol.Username = friend.user.Username;
                             if (LocalState.PresenceDict.ContainsKey(Activity.UserId))
                                 membercontrol.Status = LocalState.PresenceDict[Activity.UserId];
                             membercontrol.RawMember = new GuildMember(){Deaf=false,User = friend.user };
