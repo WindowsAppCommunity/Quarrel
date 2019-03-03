@@ -23,6 +23,9 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class InviteControl : UserControl
     {
+        /// <summary>
+        /// API Data of invite to display
+        /// </summary>
         public Invite DisplayedInvite
         {
             get { return (Invite)GetValue(DisplayedInviteProperty); }
@@ -34,17 +37,9 @@ namespace Discord_UWP.Controls
             typeof(InviteControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
-        public string ShareText
-        {
-            get { return (string) GetValue(ShareTextProperty); }
-            set { SetValue(ShareTextProperty, value);}
-        }
-        public static readonly DependencyProperty ShareTextProperty = DependencyProperty.Register(
-            nameof(ShareText),
-            typeof(string),
-            typeof(InviteControl),
-            new PropertyMetadata("", OnPropertyChangedStatic));
-
+        /// <summary>
+        /// Event invoked when deleting invite
+        /// </summary>
         public event EventHandler DeleteInvite;
 
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -59,18 +54,26 @@ namespace Discord_UWP.Controls
         {
             if (prop == DisplayedInviteProperty)
             {
+                // Update user details
                 Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedInvite.Inviter.Avatar, DisplayedInvite.Inviter.Id));
                 Username.Text = DisplayedInvite.Inviter.Username;
-                var creationTime = DateTime.Parse(DisplayedInvite.CreatedAt);
+
+                // Update invite code
                 InviteCode.Text = DisplayedInvite.String;
 
+                // Updated uses
                 string useField = DisplayedInvite.Uses.ToString();
                 if (DisplayedInvite.MaxUses != 0) useField += "/" + DisplayedInvite.MaxUses;
                 if (DisplayedInvite.Uses == 1)
+                {
                     useField += " " + App.GetString("/Controls/UseSingular") + ", ";
+                }
                 else
+                {
                     useField += " " + App.GetString("/Controls/UsePlural") + ", ";
+                }
 
+                // Temporary invite details
                 if (DisplayedInvite.Temporary)
                 {
                     TempInvite.Visibility = Visibility.Visible;
@@ -80,6 +83,9 @@ namespace Discord_UWP.Controls
                 {
                     TempInvite.Visibility = Visibility.Collapsed;
                 }
+
+                // Update expiration time
+                var creationTime = DateTime.Parse(DisplayedInvite.CreatedAt);
                 if (DisplayedInvite.MaxAge != 0)
                 {
                     var timeDiff = TimeSpan.FromSeconds(DisplayedInvite.MaxAge -
@@ -103,8 +109,11 @@ namespace Discord_UWP.Controls
                     };
                 }
                 else
+                {
                     useField += App.GetString("/Controls/expiresNever");
+                }
 
+                // Description
                 Description.Text = useField;
             }
         }
@@ -114,16 +123,17 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
+        /// <summary>
+        /// Delete Invite
+        /// </summary>
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
             DeleteInvite?.Invoke(this.DataContext,null);
         }
 
+        /// <summary>
+        /// Copy invite code to clipboard
+        /// </summary>
         private void HyperlinkButton_Click_1(object sender, RoutedEventArgs e)
         {
             DataPackage dp = new DataPackage();
@@ -131,6 +141,9 @@ namespace Discord_UWP.Controls
             Clipboard.SetContent(dp);
         }
 
+        /// <summary>
+        /// Share invite code
+        /// </summary>
         private void HyperlinkButton_Click_2(object sender, RoutedEventArgs e)
         {
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
@@ -145,6 +158,9 @@ namespace Discord_UWP.Controls
             DataTransferManager.ShowShareUI();
         }
 
+        /// <summary>
+        /// Dispose of this object
+        /// </summary>
         public void Dipose()
         {
             //Nothing to dispose
