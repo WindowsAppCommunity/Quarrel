@@ -29,6 +29,9 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class FriendControl : UserControl
     {
+        /// <summary>
+        /// Friend data to display
+        /// </summary>
         public FriendPanel.SimpleFriend DisplayedFriend
         {
             get { return GetValue(DisplayedFriendProperty) is FriendPanel.SimpleFriend ? (FriendPanel.SimpleFriend)GetValue(DisplayedFriendProperty) : null; }
@@ -40,10 +43,18 @@ namespace Discord_UWP.Controls
             typeof(FriendControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
+        /// <summary>
+        /// Invoked when accept friend request button is pressed
+        /// </summary>
         public event EventHandler AcceptFriend;
+        
+        /// <summary>
+        /// Invoked when remove friend or decline friend request button is pressed 
+        /// </summary>
         public event EventHandler RemovedFriend;
+
+        // TODO: Add ability to start call from friends list
         //public event EventHandler StartVoiceCall;
-        //public event EventHandler SentMessage;
 
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -54,23 +65,33 @@ namespace Discord_UWP.Controls
         {
             if (prop == DisplayedFriendProperty)
             {
+                // Null check
                 if (DisplayedFriend == null) return;
+
+                // Adjust User dewtails
                 username.Text = DisplayedFriend.User.Username;
                 discriminator.Text = "#" + DisplayedFriend.User.Discriminator;
                 Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedFriend.User.Avatar, DisplayedFriend.User.Id));
+
+                // If the Avater is null, show default image
                 if (DisplayedFriend.User.Avatar != null)
                     AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
                 else
                     AvatarBG.Fill = Common.DiscriminatorColor(DisplayedFriend.User.Discriminator);
 
+                // Show what guilds both members are a part of
                 SharedGuildContainer.Children.Clear();
-                if(DisplayedFriend.SharedGuilds != null)
-                foreach (var guild in DisplayedFriend.SharedGuilds)
+                if (DisplayedFriend.SharedGuilds != null)
                 {
+                    foreach (var guild in DisplayedFriend.SharedGuilds)
+                    {
+                        // Create Border content
                         Border content = new Border();
                         content.Width = 32;
                         content.Height = 32;
                         content.CornerRadius = new CornerRadius(16);
+
+                        // Add image
                         if (string.IsNullOrEmpty(guild.ImageUrl))
                         {
                             var blurplecolor = ((Color)App.Current.Resources["BlurpleColor"]);
@@ -81,31 +102,39 @@ namespace Discord_UWP.Controls
                                                             .Cast<Match>()
                                                             .Select(m => m.Value)
                                                             .ToArray()),
-                                FontSize=12,
-                                Opacity=1,
-                                HorizontalAlignment=HorizontalAlignment.Center,
+                                FontSize = 12,
+                                Opacity = 1,
+                                HorizontalAlignment = HorizontalAlignment.Center,
                                 VerticalAlignment = VerticalAlignment.Center
                             };
                         }
                         else
                         {
-                            content.Background = new ImageBrush(){ ImageSource = new BitmapImage(new Uri("https://discordapp.com/api/guilds/" + guild.Id + "/icons/" + guild.ImageUrl + ".jpg")) };
+                            content.Background = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://discordapp.com/api/guilds/" + guild.Id + "/icons/" + guild.ImageUrl + ".jpg")) };
                         }
-                        
-                    Button b = new Button()
-                    {
-                        Padding = new Thickness(0),
-                        Background = new SolidColorBrush(Windows.UI.Colors.Transparent),
-                        Margin = new Thickness(2,0,2,0),
-                        Content = content,
-                        Tag = guild.Id
-                    };
+
+                        // Create container button
+                        Button b = new Button()
+                        {
+                            Padding = new Thickness(0),
+                            Background = new SolidColorBrush(Windows.UI.Colors.Transparent),
+                            Margin = new Thickness(2, 0, 2, 0),
+                            Content = content,
+                            Tag = guild.Id
+                        };
                         ToolTipService.SetToolTip(b, guild.Name);
-                    b.Click += ClickedGuild;
-                    SharedGuildContainer.Children.Add(b);
+                        b.Click += ClickedGuild;
+
+                        // Add to StackPanel
+                        SharedGuildContainer.Children.Add(b);
+                    }
                 }
-                if(DisplayedFriend.UserStatus != null)
-                status.Fill = (SolidColorBrush)App.Current.Resources[DisplayedFriend.UserStatus];
+
+                // Adjust presence status
+                if (DisplayedFriend.UserStatus != null)
+                    status.Fill = (SolidColorBrush)App.Current.Resources[DisplayedFriend.UserStatus];
+
+                // Toggle visible buttons by relationship status
                 switch (DisplayedFriend.RelationshipStatus)
                 {
                     case 1: //Friend
@@ -138,6 +167,9 @@ namespace Discord_UWP.Controls
             }
         }
 
+        /// <summary>
+        /// Navigate to Guild by Tag (for Shared Guild buttons)
+        /// </summary>
         private void ClickedGuild(object sender, RoutedEventArgs e)
         {
             App.NavigateToGuild((sender as Button).Tag as string);
@@ -149,41 +181,65 @@ namespace Discord_UWP.Controls
             GatewayManager.Gateway.PresenceUpdated += Gateway_PresenceUpdated;
         }
 
+        /// <summary>
+        /// Event handled when a User Presence is updated
+        /// </summary>
         private async void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Presence> e)
         {
+            // Run on UI thread
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
+                    // Null check object
                     if (DisplayedFriend == null) return;
-                    DisplayedFriend.UserStatus = e.EventData.Status;
+
+                    // If it's the same user
                     if (e.EventData.User.Id == DisplayedFriend.User.Id)
+                    {
+                        // Update user status
+                        DisplayedFriend.UserStatus = e.EventData.Status;
                         status.Fill = (SolidColorBrush)App.Current.Resources[e.EventData.Status];
+                    }
                 });
         }
 
+        /// <summary>
+        /// Accept Friend request
+        /// </summary>
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             await RESTCalls.SendFriendRequest(DisplayedFriend.User.Id);
             AcceptFriend?.Invoke(null,null);
         }
 
+        /// <summary>
+        /// Remove friend or decline friend request
+        /// </summary>
         private async void RemoveRelationship(object sender, RoutedEventArgs e)
         {
             await RESTCalls.RemoveFriend(DisplayedFriend.User.Id);
             RemovedFriend?.Invoke(null,null);
         }
 
+        /// <summary>
+        /// Open context menu
+        /// </summary>
         private void moreButton_Click(object sender, RoutedEventArgs e)
         {
             moreButton.Flyout.ShowAt(moreButton);
         }
 
-
+        /// <summary>
+        /// Member flyout
+        /// </summary>
         private void Username_OnClick(object sender, RoutedEventArgs e)
         {
             App.ShowMemberFlyout(username, DisplayedFriend.User, false);
         }
 
+        /// <summary>
+        /// User flyout (right-tapped)
+        /// </summary>
         private void username_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
@@ -193,6 +249,9 @@ namespace Discord_UWP.Controls
             }
         }
 
+        /// <summary>
+        /// User flyout (holding)
+        /// </summary>
         private void username_Holding(object sender, HoldingRoutedEventArgs e)
         {
             if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
@@ -202,6 +261,9 @@ namespace Discord_UWP.Controls
             }
         }
 
+        /// <summary>
+        /// Dispose of this object
+        /// </summary>
         public void Dispose()
         {
             SharedGuildContainer.Children.Clear();
