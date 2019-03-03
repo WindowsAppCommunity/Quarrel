@@ -763,7 +763,7 @@ namespace Discord_UWP.Controls
         {
             e.Handled = true;
             if (e.PointerDeviceType != PointerDeviceType.Touch)
-                OpenMenuFlyout();
+                OpenMenuFlyout(e.GetPosition(this));
         }
 
         /// <summary>
@@ -775,7 +775,7 @@ namespace Discord_UWP.Controls
             try
             {
                 if (e.HoldingState == HoldingState.Started)
-                    OpenMenuFlyout();
+                    OpenMenuFlyout(e.GetPosition(this));
                     
             }
             catch { }
@@ -784,20 +784,20 @@ namespace Discord_UWP.Controls
         /// <summary>
         /// Open Menu Flyout by type
         /// </summary>
-        private void OpenMenuFlyout()
+        private void OpenMenuFlyout(Point e)
         {
             switch (Type)
             {
                 case 0: /*Text*/
-                    App.ShowMenuFlyout(this, FlyoutManager.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition(this));
+                    App.ShowMenuFlyout(this, FlyoutManager.Type.TextChn, Id, App.CurrentGuildId, e);
                     break;
                 case 1: /*DM*/
-                    App.ShowMenuFlyout(this, FlyoutManager.Type.DMChn, Id, null, e.GetPosition(this));
+                    App.ShowMenuFlyout(this, FlyoutManager.Type.DMChn, Id, null,  e);
                     break;
                 case 2: /*Voice*/
                     break;
                 case 3: /*Group*/
-                    App.ShowMenuFlyout(this, FlyoutManager.Type.GroupChn, Id, App.CurrentGuildId, e.GetPosition(this));
+                    App.ShowMenuFlyout(this, FlyoutManager.Type.GroupChn, Id, App.CurrentGuildId, e);
                     break;
             }
         }
