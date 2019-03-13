@@ -334,6 +334,8 @@ namespace Discord_UWP.Controls
 
             // Set the Attachmenet image to PDF preview
             AttachedImageViewer.Source = image;
+
+            // TODO: ADD MORE COMMENTS 
             PDFPages.Text = App.GetString("/Controls/PDFPage").Replace("<page>", "1").Replace("<pagecount>", pdfDoc.PageCount.ToString());
             AttachedImageViewbox.Visibility = Visibility.Visible;
             PDFPages.Visibility = Visibility.Visible;
