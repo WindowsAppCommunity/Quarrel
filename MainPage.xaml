@@ -1607,7 +1607,7 @@
                                                                             IsTyping="{x:Bind IsTyping, Mode=OneWay}" 
                                                                             Role="{x:Bind MemberHoistRole,Mode=OneWay}" 
                                                                             Status="{x:Bind status, Mode=OneWay}" 
-                                                                            Text="{x:Bind DisplayName, Mode=OneWay}"/>
+                                                                            Username="{x:Bind DisplayName, Mode=OneWay}"/>
                                                 </Grid>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
