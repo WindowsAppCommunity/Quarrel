@@ -9,7 +9,7 @@
 xmlns:md="using:Discord_UWP.MarkdownTextBlock"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400" Unloaded="UserControl_Unloaded" Margin="0,0,0,0" PointerPressed="UserControl_PointerPressed" PointerEntered="UserControl_PointerEntered" PointerExited="UserControl_PointerExited">
+    d:DesignWidth="400" Unloaded="UserControl_Unloaded" Margin="0,0,0,0" PointerPressed="UserControl_PointerPressed">
     <UserControl.Resources>
         <Storyboard x:Name="ShowMoreButton" Duration="0:0:0.2">
             <DoubleAnimation Storyboard.TargetName="moreButton" Storyboard.TargetProperty="Opacity" To="1">
@@ -201,11 +201,8 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
         <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Opacity="1" Grid.Row="2" Grid.Column="2" Grid.RowSpan="4" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click" PointerPressed="UserControl_PointerPressed">
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout  MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
-                    <!--<MenuFlyoutItem x:Uid="/Controls/ReplyItem" x:Name="MoreCopy" Padding="12,4" Icon="MailReply" Text="Reply" Click="MoreReply_Click_1"/>-->
-                    <!--<MenuFlyoutSeparator x:Name="MoreCopySplit"/>-->
                     <MenuFlyoutItem x:Uid="/Controls/ReplyItem" x:Name="MoreReply" Padding="12,4" Icon="MailReply" Text="Reply" Click="MoreReply_Click"/>
                     <MenuFlyoutItem x:Uid="/Controls/PinItem" x:Name="MorePin" Padding="12,4" Icon="Pin" Text="Pin" Click="MorePin_Click"/>
-                    <!--<MenuFlyoutItem x:Uid="/Controls/SaveItem" x:Name="MoreSave" Padding="12,4" Text="Save" Click="MoreSave_Click"/>-->
                     <MenuFlyoutItem x:Uid="/Controls/AddReacItem" Icon="Emoji" Text="Add reaction" Padding="12,4" Click="MenuFlyoutItem_Click_2"/>
                     <MenuFlyoutItem x:Uid="/Controls/EditItem" x:Name="MoreEdit" Padding="12,4" Icon="Edit" Text="Edit" Click="MenuFlyoutItem_Click" Visibility="Collapsed"/>
                     <MenuFlyoutItem x:Uid="/Controls/DeleteItem" x:Name="MoreDelete" Padding="12,4" Icon="Delete" Text="Delete" Click="MenuFlyoutItem_Click_1" Foreground="#FFF04747"/>
