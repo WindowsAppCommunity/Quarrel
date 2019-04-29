@@ -272,7 +272,7 @@ namespace Discord_UWP.Controls
                 MessageEditor.Text = MessageEditor.Text.Remove(selectionstart, MessageEditor.SelectionLength);
             }
 
-            MessageEditor.Text = MessageEditor.Text.Insert(selectionstart, "\n");
+            MessageEditor.Text = MessageEditor.Text.Insert(selectionstart, "\r");
             MessageEditor.SelectionStart = selectionstart + 1;
         }
         private void MessageEditor_OnKeyDown(object sender, KeyRoutedEventArgs e)
