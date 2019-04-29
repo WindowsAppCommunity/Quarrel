@@ -265,6 +265,13 @@ namespace Discord_UWP.Controls
         private void InsertNewLine()
         {
             int selectionstart = MessageEditor.SelectionStart;
+
+            if (MessageEditor.SelectionLength > 0)
+            {
+                // Remove selected text first
+                MessageEditor.Text = MessageEditor.Text.Remove(selectionstart, MessageEditor.SelectionLength);
+            }
+
             MessageEditor.Text = MessageEditor.Text.Insert(selectionstart, "\n");
             MessageEditor.SelectionStart = selectionstart + 1;
         }
