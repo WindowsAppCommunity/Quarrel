@@ -1055,6 +1055,23 @@ namespace Discord_UWP.MarkdownTextBlock
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
         /// <summary>
+        /// Gets or sets the IsRightTapHandled property
+        /// </summary>
+        public bool IsRightTapHandled
+        {
+            get { return (bool)GetValue(IsRightTapHandledProperty); }
+            set { SetValue(IsRightTapHandledProperty, value); }
+        }
+        /// <summary>
+        /// Gets the dependency property for <see cref="IsRightTapHandled"/>.
+        /// </summary>
+        public static readonly DependencyProperty IsRightTapHandledProperty = DependencyProperty.Register(
+            nameof(IsRightTapHandled),
+            typeof(bool),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
+        /// <summary>
         /// Gets or sets the line height.
         /// </summary>
         public Double LineHeight
@@ -1122,6 +1139,7 @@ namespace Discord_UWP.MarkdownTextBlock
             RegisterPropertyChangedCallback(FontWeightProperty, OnPropertyChanged);
             RegisterPropertyChangedCallback(ForegroundProperty, OnPropertyChanged);
             RegisterPropertyChangedCallback(PaddingProperty, OnPropertyChanged);
+            RegisterPropertyChangedCallback(IsRightTapHandledProperty, OnPropertyChanged);
         }
 
         /// <inheritdoc />
@@ -1249,7 +1267,8 @@ namespace Discord_UWP.MarkdownTextBlock
                     TextWrapping = TextWrapping,
                     LineHeight=LineHeight,
                     LinkForeground = LinkForeground,
-                    ImageStretch = ImageStretch
+                    ImageStretch = ImageStretch,
+                    IsRightTapHandled = IsRightTapHandled
                 };
                 _rootElement.Child = renderer.Render();
                 _rootElement.Child.PointerPressed += Child_PointerPressed;
