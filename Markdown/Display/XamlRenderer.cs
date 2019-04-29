@@ -131,6 +131,11 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         public bool IsTextSelectionEnabled { get; set; }
 
         /// <summary>
+        /// Gets or sets a flag indicating that the RightTapped event is handled
+        /// </summary>
+        public bool IsRightTapHandled { get; set; }
+
+        /// <summary>
         /// Gets or sets the distance between the border and its child object.
         /// </summary>
         public Thickness Padding { get; set; }
@@ -1438,8 +1443,13 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                 Foreground = context.Foreground,
                 IsTextSelectionEnabled = IsTextSelectionEnabled,
                 TextWrapping = TextWrapping,
-                
             };
+
+            if(IsRightTapHandled) result.ContextMenuOpening += delegate (object sender, ContextMenuEventArgs e)
+            {
+                e.Handled = true;
+            };
+
             blockUIElementCollection?.Add(result);
 
             return result;
