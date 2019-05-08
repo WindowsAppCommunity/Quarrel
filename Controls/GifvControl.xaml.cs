@@ -23,11 +23,15 @@ namespace Discord_UWP.Controls
     {
         private DependencyProperty EmbedContentProperty;
 
+        /// <summary>
+        /// API Embed Content to display
+        /// </summary>
         public Embed EmbedContent
         {
             get { return (Embed)GetValue(EmbedContentProperty); }
             set {
                 mediaelement.AutoPlay = true;
+                mediaelement.IsLooping = true;
                 mediaelement.Source = new Uri(value.Video.Url);
                 if (value.Video.Width < 400) mediaelement.MaxWidth = value.Video.Width;
                 mediaelement.MaxHeight = value.Video.Height;
@@ -38,91 +42,18 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
         }
-        private void mediaelement_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            mediaelement.Position = TimeSpan.Zero;
-            mediaelement.Play();
-        }
 
+        /// <summary>
+        /// Media finished loading
+        /// </summary>
         private void mediaelement_MediaOpened(object sender, RoutedEventArgs e)
         {
-            
-            /*
-            await mediaelement.Fade(1, 100).StartAsync();
-            if (!Storage.Settings.GifsOnHover)
-            {
-                mediaelement.AutoPlay = true;
-            }     
-            else
-            {
-                mediaelement.AutoPlay = false;
-                if (above)
-                    mediaelement.Play();
-            }
-                */
             LoadingIndic.Visibility = Visibility.Collapsed;
         }
 
-        private void content_Loaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-           
-        }
-
-        bool above = false;
-        private void mediaelement_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {/*
-            above = true;
-            if(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse && Storage.Settings.GifsOnHover)
-            {
-                mediaelement.Position = TimeSpan.Zero;
-                if(mediaelement.CurrentState == MediaElementState.Stopped)
-                mediaelement.Play();
-            }*/
-        }
-
-        private void mediaelement_PointerExited(object sender, PointerRoutedEventArgs e)
-        {/*
-            above = false;
-            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse && Storage.Settings.GifsOnHover)
-            {
-                mediaelement.Position = TimeSpan.Zero;
-                mediaelement.Stop();
-            }*/
-        }
-
-        private void mediaelement_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            
-        }
-
-        private void mediaelement_PointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-            /*
-            if (e.Pointer.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Mouse && Storage.Settings.GifsOnHover)
-            {
-                if (above)
-                {
-                    above = false;
-                    mediaelement.Position = TimeSpan.Zero;
-                    if (mediaelement.CurrentState == MediaElementState.Playing)
-                        mediaelement.Stop();
-                }
-                else
-                {
-                    above = true;
-                    mediaelement.Position = TimeSpan.Zero;
-                    if (mediaelement.CurrentState == MediaElementState.Stopped)
-                        mediaelement.Play();
-                }
-
-            }*/
-        }
-
+        /// <summary>
+        /// Dispose of this object
+        /// </summary>
         public void Dispose()
         {
             //Nothing to dipose

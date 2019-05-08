@@ -39,11 +39,26 @@ namespace Discord_UWP.Controls
         {
             public class SharedGuild
             {
+                /// <summary>
+                /// Id of Guild
+                /// </summary>
                 public string Id { get; set; }
+
+                /// <summary>
+                /// Name of Guild
+                /// </summary>
                 public string Name { get; set; }
+
+                /// <summary>
+                /// Url of Guild Icon
+                /// </summary>
                 public string ImageUrl { get; set; }
             }
+
             private User _user;
+            /// <summary>
+            /// User object of Friend
+            /// </summary>
             public User User
             {
                 get { return _user; }
@@ -51,6 +66,9 @@ namespace Discord_UWP.Controls
             }
 
             private string _userstatus;
+            /// <summary>
+            /// Presence Online Status of Friend user
+            /// </summary>
             public string UserStatus
             {
                 get { return _userstatus; }
@@ -58,6 +76,9 @@ namespace Discord_UWP.Controls
             }
 
             private int _relationshipstatus;
+            /// <summary>
+            /// The relationship status of Friend according to Current User
+            /// </summary>
             public int RelationshipStatus
             {
                 get { return _relationshipstatus; }
@@ -65,6 +86,9 @@ namespace Discord_UWP.Controls
             }
 
             public List<SharedGuild> _sharedGuilds;
+            /// <summary>
+            /// List of Guilds both Friend User and Current User are part of
+            /// </summary>
             public List<SharedGuild> SharedGuilds
             {
                 get { return _sharedGuilds; }
@@ -75,35 +99,51 @@ namespace Discord_UWP.Controls
             public void OnPropertyChanged(string propertyName)
             { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
         }
+
         public FriendPanel()
         {
             this.InitializeComponent();
             if (!App.Insider)
             {
+                // Hide Activies Panel because it's broken
                 ActivitiesLVI.Visibility = Visibility.Collapsed;
                 ActivitiesPI.Visibility = Visibility.Collapsed;
                 pivot.SelectedIndex = 1;
             }
         }
 
+        /// <summary>
+        /// Update Relationship when changed
+        /// </summary>
         private async void Gateway_RelationShipUpdated(object sender, Gateway.GatewayEventArgs<Friend> e)
         {
             await RemoveRelationshipFromUI(e);
             await AddRelationshipToUI(e);
         }
+
+        /// <summary>
+        /// Remove Relationship when removed
+        /// </summary>
         private async void Gateway_RelationShipRemoved(object sender, Gateway.GatewayEventArgs<Friend> e)
         {
             await RemoveRelationshipFromUI(e);
         }
+
+        /// <summary>
+        /// Remove user from Panel
+        /// </summary>
         private async Task RemoveRelationshipFromUI(Gateway.GatewayEventArgs<Friend> e)
         {
+            // Run on UI thread
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
+                    // Item from All View
                     var insideAllView = AllView.Items.FirstOrDefault(x => (x as SimpleFriend).User.Id == e.EventData.Id);
                     if (insideAllView != null)
                         AllView.Items.Remove(insideAllView);
 
+                    // Remove from Pending View
                     var insidePendingView = PendingView.Items.FirstOrDefault(x => (x as SimpleFriend).User.Id == e.EventData.Id);
                     if (insidePendingView != null)
                     {
@@ -112,11 +152,16 @@ namespace Discord_UWP.Controls
                         PendingCounter.Text = App.FriendNotifications.ToString();
                     }
 
+                    // Remove from Blocked View
                     var insideBlockedView = BlockedView.Items.FirstOrDefault(x => (x as SimpleFriend).User.Id == e.EventData.Id);
                     if (insideBlockedView != null)
                         BlockedView.Items.Remove(insideBlockedView);
                 });
         }
+
+        /// <summary>
+        /// Add RelationShip when added
+        /// </summary>
         private async void Gateway_RelationShipAdded(object sender, Gateway.GatewayEventArgs<Friend> e)
         {
             if (e.EventData.Type == 1)
@@ -126,12 +171,19 @@ namespace Discord_UWP.Controls
             await AddRelationshipToUI(e);
         }
 
+        /// <summary>
+        /// Add relation ship to Panel
+        /// </summary>
         private async Task AddRelationshipToUI(Gateway.GatewayEventArgs<Friend> e)
         {
+            // Run on UI thread
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 async () =>
                 {
+                    // Create SimpleFriend Object
                     SimpleFriend sfriend = await NewSF(e.EventData);
+
+                    // Add to appropiate list(s)
                     if (sfriend.RelationshipStatus == 1)
                         AllView.Items.Add(sfriend);
                     else if (sfriend.RelationshipStatus == 2)
@@ -147,15 +199,32 @@ namespace Discord_UWP.Controls
                     }
                 });
         }
+
+        /// <summary>
+        /// Create SimpleFriend from Dictionary item
+        /// </summary>
+        /// <param name="f">KeyValuePair</param>
+        /// <returns>SimpleFriend</returns>
         private async Task<SimpleFriend> NewSF(KeyValuePair<string, Friend> f)
         {
             return await NewSF(f.Value);
         }
+
+        /// <summary>
+        /// Create SimpleFriend from API Friend data
+        /// </summary>
+        /// <param name="f">API Friend data</param>
+        /// <returns>SimpleFriend</returns>
         private async Task<SimpleFriend> NewSF(Friend f)
         {
+            // Blank tample
             var friend = new SimpleFriend();
+
+            // Set basic user details
             friend.User = f.user;
             friend.RelationshipStatus = f.Type;
+
+            // Add Shared Guilds to List: "SharedGuilds"
             friend.SharedGuilds = new List<SimpleFriend.SharedGuild>();
             //TODO: real fix instead of work around.
             if (f.Type != 2)
@@ -173,37 +242,43 @@ namespace Discord_UWP.Controls
                         });
 
                     }
-                }
-                
+                }   
             }
-          /*  foreach (var guild in LocalState.Guilds)
-            {
-                if (guild.Value.members.ContainsKey(friend.User.Id))
-                    friend.SharedGuilds.Add(new SimpleFriend.SharedGuild()
-                    {
-                        Id = guild.Value.Raw.Id,
-                        ImageUrl = guild.Value.Raw.Icon,
-                        Name = guild.Value.Raw.Name
-                    });
-            }*/
+
+            // Set Presence
             if (LocalState.PresenceDict.ContainsKey(f.user.Id))
                 friend.UserStatus = LocalState.PresenceDict[f.user.Id].Status;
             else
                 friend.UserStatus = "offline";
+
+            // Return value
             return friend;
         }
+
+        /// <summary>
+        /// Load Page
+        /// </summary>
         public async void Load()
         {
+            // Clear old items
             AllView.Items.Clear();
             PendingView.Items.Clear();
             BlockedView.Items.Clear();
+
+            // pending is the number of pending friend requests to display
             int pending = 0;
+            
+            // Quarrel integrates with People app
             var contactManager = new Managers.ContactManager();
+
             foreach (var f in LocalState.Friends.ToList())
             {
                 try
                 {
+                    // Create Friend object
                     var friend = await NewSF(f);
+
+                    // Add Friend to appropiate list(s)
                     if (f.Value.Type == 3 || f.Value.Type == 4)
                     {
                         pending++;
@@ -211,6 +286,7 @@ namespace Discord_UWP.Controls
                     }
                     else if (friend.RelationshipStatus == 1)
                     {
+                        // Add friends to list and people app s
                         AllView.Items.Add(friend);
                         try
                         {
@@ -231,11 +307,17 @@ namespace Discord_UWP.Controls
                     Debug.WriteLine(e);
                 }
             }
+
+            // Set UI and global pending values
             PendingCounter.Text = pending.ToString();
             App.FriendNotifications = pending;
+
+            // Add update events
             GatewayManager.Gateway.RelationShipAdded += Gateway_RelationShipAdded;
             GatewayManager.Gateway.RelationShipRemoved += Gateway_RelationShipRemoved;
             GatewayManager.Gateway.RelationShipUpdated += Gateway_RelationShipUpdated;
+
+            // Load Activities
             LoadFeed();
         }
 
@@ -246,14 +328,23 @@ namespace Discord_UWP.Controls
             return false;
         }
 
+        /// <summary>
+        /// Load Activites panel
+        /// </summary>
         public async void LoadFeed()
         {
             //Get feed settings
             LocalState.FeedSettings = await RESTCalls.GetFeedSettings();
+
+            // Get activies
             var activities = await RESTCalls.GetActivites();
-            string GameIDs;
+
+            // Id list of Relevant Activites
             List<string> relevantIds = new List<string>();
+            // Actives actually in use by friends
             List<ActivityData> relevantActivities = new List<ActivityData>();
+
+            // Determine relevant activites
             foreach(var activity in activities)
             {
                 if (!ContainsString(LocalState.FeedSettings.UnsubscribedUsers, activity.UserId) || !ContainsString(LocalState.FeedSettings.UnsubscribedGames, activity.ApplicationId))
@@ -262,6 +353,8 @@ namespace Discord_UWP.Controls
                     relevantActivities.Add(activity);
                 }
             }
+
+            // Get news feed
             var gamenews = await RESTCalls.GetGameNews(relevantIds.ToArray());
             Dictionary<string, GameNews> heroNews = new Dictionary<string, GameNews>();
             if (gamenews != null)
@@ -287,17 +380,21 @@ namespace Discord_UWP.Controls
                 }
             }
 
+            // Hero news list is the FlipView news
             var heroNewsList = new List<GameNews>();
             foreach (var value in heroNews)
                 heroNewsList.Add(value.Value);
             heroNewsList.Sort((x, y) => DateTimeOffset.Compare(y.Timestamp, x.Timestamp));
+
+            // Add top 4 more recent news items to the FlipView in reverse order
             for (var i = 0; i < Math.Min(heroNewsList.Count, 4); i++)
             {
                 if (LocalState.SupportedGames.ContainsKey(heroNewsList[i].GameId))
                     heroNewsList[i].GameTitle = LocalState.SupportedGames[heroNewsList[i].GameId].Name.ToUpper();
                 HeroFeed.Items.Insert(0, heroNewsList[i]);
             }
-                
+
+            // If empty, hide FlipView
             if (HeroFeed.Items.Count == 0)
             {
                 HeroFeed.Visibility = Visibility.Collapsed;
@@ -307,12 +404,21 @@ namespace Discord_UWP.Controls
                 HeroFeed.SelectedIndex = 0;
             }
 
+            // Show activites
             Feed.ItemsSource = relevantActivities;
         }
+
+        /// <summary>
+        /// Navigate to Friend Requests panel
+        /// </summary>
         public void NavigateToFriendRequests()
         {
             pivot.SelectedIndex = 1;
         }
+
+        /// <summary>
+        /// Show Toast of recieving a Friend Request
+        /// </summary>
         public void FriendNotification(User user)
         {
             string toastTitle = user.Username + " " + App.GetString("/Main/Notifications_SentAfriendRequest");
@@ -330,10 +436,6 @@ namespace Discord_UWP.Controls
                                 Text = toastTitle,
                                 HintMaxLines = 6
                             }
-                            /*new AdaptiveImage()
-                            {
-                                Source = imageurl
-                            }*/
                         },
                     AppLogoOverride = new ToastGenericAppLogo()
                     {
@@ -342,9 +444,8 @@ namespace Discord_UWP.Controls
                     }
                 }
             };
+
             // Construct the actions for the toast (inputs and buttons)
-
-
             ToastActionsCustom actions = new ToastActionsCustom()
             {
                 Buttons =
@@ -380,17 +481,25 @@ namespace Discord_UWP.Controls
                         { "page", "Friends" }
                     }.ToString()
             };
+
             // And create the toast notification
             ToastNotification notification = new ToastNotification(toastContent.GetXml());
+
             // And then send the toast
             ToastNotificationManager.CreateToastNotifier().Show(notification);
         }
 
+        /// <summary>
+        /// Send Friend Request Button pressed
+        /// </summary>
         private async void SendFriendRequest(object sender, RoutedEventArgs e)
         {
+            // Split at Descriminator
             string[] strings = SendFriendTB.Text.Split('#');
+
             if (strings.Count() == 2)
             {
+                // Send Friend Request
                 SendFriendRequestResponse result =
                     await RESTCalls.SendFriendRequest(strings[0], Convert.ToInt32(strings[1]));
                 if (result != null && result.Message != null)
@@ -401,10 +510,14 @@ namespace Discord_UWP.Controls
             }
             else
             {
+                // Invalid input
                 FriendRequestStatus.Text = App.GetString("/Controls/NeedDesc");
             }
         }
 
+        /// <summary>
+        /// Dispose of this object
+        /// </summary>
         public void Dispose()
         {
             GatewayManager.Gateway.RelationShipAdded -= Gateway_RelationShipAdded;

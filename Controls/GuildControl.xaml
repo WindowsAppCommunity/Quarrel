@@ -21,7 +21,7 @@
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
-        <Storyboard x:Name="HideBadge" Completed="HideBadge_Completed">
+        <Storyboard x:Name="HideBadge">
             <DoubleAnimation Duration="0:0:0.6" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase EasingMode="EaseIn"/>

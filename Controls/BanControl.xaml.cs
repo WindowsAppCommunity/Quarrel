@@ -28,6 +28,9 @@ namespace Discord_UWP.Controls
     /// </summary>
     public sealed partial class BanControl : Page
     {
+        /// <summary>
+        /// API ban data to display
+        /// </summary>
         public Ban DisplayedBan
         {
             get { return (Ban)GetValue(DisplayedBanProperty); }
@@ -44,13 +47,17 @@ namespace Discord_UWP.Controls
             var instance = d as BanControl;
             instance?.OnPropertyChanged(d, e.Property);
         }
+
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
             if (prop == DisplayedBanProperty)
             {
+                // Set User details
                 username.Text = DisplayedBan.User.Username;
                 discriminator.Text = "#"+DisplayedBan.User.Discriminator;
                 Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedBan.User.Avatar, DisplayedBan.User.Id));
+
+                // Set Ban details
                 if (!string.IsNullOrWhiteSpace(DisplayedBan.Reason))
                 {
                     reason.Visibility = Visibility.Visible;
@@ -68,6 +75,9 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
         }
 
+        /// <summary>
+        /// Make API call to revoke ban
+        /// </summary>
         private async void RevokeBan(object sender, RoutedEventArgs e)
         {
             await RESTCalls.RemoveBan(DisplayedBan.GuildId, DisplayedBan.User.Id);

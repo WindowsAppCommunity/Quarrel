@@ -26,21 +26,36 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class SideDrawer : UserControl
     {
+        /// <summary>
+        /// Control to display in Left Panel
+        /// </summary>
         public object ContentLeft
         {
             get { return contentLeft1.Content; }
             set { contentLeft1.Content = value; }
         }
+
+        /// <summary>
+        /// Control to display in Left Secondary Panel
+        /// </summary>
         public object ContentLeftSecondary
         {
             get { return contentLeft2.Content; }
             set { contentLeft2.Content = value; }
         }
+
+        /// <summary>
+        /// Control to display in Main Panel
+        /// </summary>
         public object ContentMain
         {
             get { return ContentControl1.Content; }
             set { ContentControl1.Content = value; }
         }
+
+        /// <summary>
+        /// Control to display in Rigth Panel
+        /// </summary>
         public object ContentRight
         {
             get { return contentRight.Content; }
@@ -55,13 +70,25 @@ namespace Discord_UWP.Controls
         public event EventHandler DrawOpenedLeft;
         public event EventHandler DrawOpenedRight;
         public event EventHandler DrawsClosed;
+
+        /// <summary>
+        /// Intializes SideDrawer
+        /// </summary>
         public SideDrawer()
         {
             this.InitializeComponent();
+
+            // Handle Settings changing
             Storage.SettingsChangedHandler += App_LocalSettingsUpdatedHandler;
+
+            // Link objects for easy access
             rootVisual = ElementCompositionPreview.GetElementVisual(maingrid);
-            compositor = rootVisual.Compositor;         
+            compositor = rootVisual.Compositor;  
+
+            // Handle dragging
             App.UniversalPointerDownHandler += Content_PointerPressed;
+
+            // Adjust for Cinematic View
             if (App.CinematicMode)
             {
                 leftPanel.Margin = new Thickness(9, 0, 0, 0);
@@ -69,6 +96,7 @@ namespace Discord_UWP.Controls
                 rightSide.Background = new SolidColorBrush(Windows.UI.Colors.Transparent);
             }
         }
+
         bool fullscreen = false;
         public void ToggleFullScreen()
         {
@@ -90,6 +118,7 @@ namespace Discord_UWP.Controls
             }
             VisualStateGroup_CurrentStateChanged(null, new VisualStateChangedEventArgs() { OldState = VisualStateGroup.CurrentState });
         }
+
         private void App_LocalSettingsUpdatedHandler(object sender, EventArgs e)
         {
             MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;

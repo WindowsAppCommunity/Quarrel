@@ -24,8 +24,21 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class ListenOnSpotify : UserControl
     {
+        /// <summary>
+        /// ID of user sharing session
+        /// </summary>
         string userid;
+
+        /// <summary>
+        /// ID of session
+        /// </summary>
         string partyid;
+
+        /// <summary>
+        /// Setup UI
+        /// </summary>
+        /// <param name="user_id">ID of user sharing</param>
+        /// <param name="party_id">Session ID</param>
         public void Setup(string user_id, string party_id)
         {
             userid = user_id;
@@ -40,7 +53,9 @@ namespace Discord_UWP.Controls
                     UpdateUI(false);
             }
             else
+            {
                 UpdateUI(false);
+            }
         }
 
         private void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Presence> e)
@@ -56,10 +71,20 @@ namespace Discord_UWP.Controls
                 }
             }
         }
+
+        /// <summary>
+        /// Get AlbumArt from Asset Id
+        /// </summary>
+        /// <param name="id">Asset Id from Discord</param>
+        /// <returns>AlbumArt url</returns>
         public string GetSpotifyImageLink(string id)
         {
             return "https://i.scdn.co/image/" + id.Remove(0, 8);
         }
+
+        /// <summary>
+        /// True if the Control is displaying a preview
+        /// </summary>
         bool preview = false;
         public void SetupPreview()
         {
@@ -77,6 +102,9 @@ namespace Discord_UWP.Controls
             }
         }
 
+        /// <summary>
+        /// If this is the active session, update preview
+        /// </summary>
         private async void SpotifyManager_SpotifyStateUpdated(object sender, EventArgs e)
         {
             if (preview)
@@ -84,11 +112,17 @@ namespace Discord_UWP.Controls
                 try
                 {
                     if (Managers.SpotifyManager.SpotifyState != null && Managers.SpotifyManager.SpotifyState.IsPlaying)
+                    {
+                        // Update details
                         UpdateUI(true, string.Join(", ", Managers.SpotifyManager.SpotifyState.Item.Artists.Select(x => x.Name)),
                             Managers.SpotifyManager.SpotifyState.Item.Name,
                             Managers.SpotifyManager.SpotifyState.Item.Album.Images.FirstOrDefault().Url);
+                    }
                     else
+                    {
+                        // Session's over
                         UpdateUI(false);
+                    }
                 }
                 catch (Exception)
                 {
@@ -97,13 +131,22 @@ namespace Discord_UWP.Controls
             }
         }
 
-        private async void UpdateUI(bool visible, string artists = "", string title = "", string albumart = "")
+        /// <summary>
+        /// Update session details
+        /// </summary>
+        /// <param name="ongoing">False if the session is over</param>
+        /// <param name="artists">The artist playing</param>
+        /// <param name="title">The name of the track playing</param>
+        /// <param name="albumart">Url of AlbumArt image</param>
+        private async void UpdateUI(bool ongoing, string artists = "", string title = "", string albumart = "")
         {
-        await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            // Run on UI thread
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                    () =>
                    {
-                       if (visible)
+                       if (ongoing)
                        {
+                           // Update display
                            sessionOver.Visibility = Visibility.Collapsed;
                            bgArtwork.Visibility = Visibility.Visible;
                            contentGrid.Visibility = Visibility.Visible;
@@ -119,6 +162,7 @@ namespace Discord_UWP.Controls
                        }
                        else
                        {
+                           // Hide details, sessions over
                            sessionOver.Visibility = Visibility.Visible;
                            bgArtwork.Visibility = Visibility.Collapsed;
                            contentGrid.Visibility = Visibility.Collapsed;
@@ -131,7 +175,18 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
         }
 
+        /// <summary>
+        /// When control is unloaded
+        /// </summary>
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Dispose();
+        }
+
+        /// <summary>
+        /// Dispose of this object
+        /// </summary>
+        private void Dispose()
         {
             Managers.GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
             Managers.SpotifyManager.SpotifyStateUpdated -= SpotifyManager_SpotifyStateUpdated;
