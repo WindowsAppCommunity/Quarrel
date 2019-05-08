@@ -22,6 +22,9 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class RichPresenceControl : UserControl
     {
+        /// <summary>
+        /// Game of Rich Content
+        /// </summary>
         public Game GameContent
         {
             get { return (Game)GetValue(GameContentProperty); }
@@ -33,6 +36,9 @@ namespace Discord_UWP.Controls
             typeof(RichPresenceControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// Bool for if the Control is for a small or large display
+        /// </summary>
         public bool IsLarge
         {
             get { return IsLarge; }
@@ -58,12 +64,14 @@ namespace Discord_UWP.Controls
                 }
             }
         }
+
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as RichPresenceControl;
             // Defer to the instance method.
             instance?.OnPropertyChanged(d, e.Property);
         }
+
         DispatcherTimer timer;
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
@@ -193,72 +201,23 @@ namespace Discord_UWP.Controls
             {
                 GameTB.IsEnabled = false;
             }
-
-            /* else if (game.Value.Name != null)
-             {
-
-                 GameListItem? gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Name == game.Value.Name);
-                 if (!gli.HasValue)
-                     gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Id == game.Value.ApplicationId);
-                 if (gli.HasValue)
-                 {
-                     if (gli.Value.Splash != null)
-                     {
-                         Largeimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Splash, gli.Value.Id, true, ""));
-                         if (gli.Value.Icon != null)
-                         {
-                             Smallimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Icon, gli.Value.Id, true, ""));
-                             if (!IsLarge)
-                             {
-                                 SmallimgRect.RadiusX = 4;
-                                 SmallimgRect.RadiusY = 4;
-                                 SmallimgRect.Width = 24;
-                                 SmallimgRect.Height = 24;
-                                 SmallimgRect.Margin = new Thickness(0, 0, 7, -7);
-                             }
-                             else
-                             {
-                                 SmallimgRect.RadiusX = 8;
-                                 SmallimgRect.RadiusY = 8;
-                                 SmallimgRect.Width = 48;
-                                 SmallimgRect.Height = 48;
-                                 SmallimgRect.Margin = new Thickness(0, 0, 14, -14);
-                             }
-                         }
-
-                         else
-                             SmallimgRect.Visibility = Visibility.Collapsed;
-                     }
-                     else if (gli.Value.Icon != null)
-                     {
-                         Largeimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Icon, gli.Value.Id, true, ""));
-                     }
-                     else
-                     {
-                         LargeImgRect.Visibility = Visibility.Collapsed;
-                         SmallimgRect.Visibility = Visibility.Collapsed;
-                     }
-
-                 }
-                 else
-                 {
-                     LargeImgRect.Visibility = Visibility.Collapsed;
-                     SmallimgRect.Visibility = Visibility.Collapsed;
-                 }
-
-             }*/
-
-
-
         }
 
+        /// <summary>
+        /// Runs every second to update timer progress bar
+        /// </summary>
         private void UpdateTimer(object sender, object e)
         {
+            // If the content has an end time
             if (GameContent.TimeStamps.End.HasValue)
             {
+                // Get end time
                 var t = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.End.Value);
 
+                // Get as timespan from now
                 var timeleft = t.Subtract(DateTimeOffset.Now);
+
+                // Update time left
                 if(timeleft.Hours == 0)
                     TimeTB.Text = timeleft.ToString(@"mm\:ss") + " left";
                 else
@@ -266,54 +225,92 @@ namespace Discord_UWP.Controls
             }
             else if (GameContent.TimeStamps.Start.HasValue)
             {
+                // Get start time
                 var t = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.Start.Value);
+
+                // Get as timespan from now
                 var timeleft = DateTimeOffset.Now.Subtract(t);
+
+                // Update time taken
                 if (timeleft.Hours == 0)
                     TimeTB.Text = timeleft.ToString(@"mm\:ss") + " elapsed";
                 else
                     TimeTB.Text = timeleft.ToString(@"hh\:mm\:ss") + " elapsed";
             }
         }
+
+        /// <summary>
+        /// Update progress bar if the content has a start and end time
+        /// </summary>
         private void UpdateProgressBar(object sender, object e)
         {
-            DateTimeOffset st, et;
+            // Has no start value, no update
             if (!GameContent.TimeStamps.Start.HasValue)
                 return;
+
+            // Has no end value, no update
             if (!GameContent.TimeStamps.End.HasValue)
                 return;
+
+            // Get start and end time
+            DateTimeOffset st, et;
             st = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.Start.Value);
             et = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.End.Value);
 
-            //full length
+            // Update end time text
             var length = et.Subtract(st);
             EndTime.Text = length.ToString(@"mm\:ss");
 
-            //time left
+            // Update start time text
             var time = DateTimeOffset.Now.Subtract(st);
             StartTime.Text= time.ToString(@"mm\:ss");
 
+            // Update progress bar
             progbar.Maximum = length.TotalMilliseconds;
             progbar.Value = time.TotalMilliseconds;
         }
+
+        /// <summary>
+        /// Get Image for game
+        /// </summary>
+        /// <param name="id">Image Id</param>
+        /// <param name="gameid">Game Id</param>
+        /// <param name="game">true if the image query if for a game</param>
+        /// <param name="append">Query appending data</param>
+        /// <returns>Image URL</returns>
         public Uri GetImageLink(string id, string gameid, bool game = false, string append = "?size=512")
         {
+            // Set type in query 
             string type = "app";
             if (game) type = "game";
-            var uri= new Uri("https://cdn.discordapp.com/" + type + "-assets/" + gameid + "/" + id + ".png" + append);
-            return uri;
+
+            // Query URL
+            return new Uri("https://cdn.discordapp.com/" + type + "-assets/" + gameid + "/" + id + ".png" + append);
         }
+
+        /// <summary>
+        /// Get Image from Spotify
+        /// </summary>
+        /// <param name="id">Spotify song Id</param>
+        /// <returns>Image URl</returns>
         public Uri GetSpotifyImageLink(string id)
         {
+            // Query URL
             return new Uri("https://i.scdn.co/image/" + id.Remove(0, 8));
         }
+
         public RichPresenceControl()
         {
             this.InitializeComponent();
             Unloaded += RichPresenceControl_Unloaded;
         }
 
+        /// <summary>
+        /// Dispose of timer
+        /// </summary>
         private void RichPresenceControl_Unloaded(object sender, RoutedEventArgs e)
         {
+            // If the timer isn't null, dispose
             if(timer != null)
             {
                 timer.Stop();
@@ -323,21 +320,28 @@ namespace Discord_UWP.Controls
 
         private void Spectate_Click(object sender, RoutedEventArgs e)
         {
-
+            // TODO
         }
 
         private void AskToJoin_Click(object sender, RoutedEventArgs e)
         {
-
+            // TODO
         }
 
+        /// <summary>
+        /// Dispose of RichPresenceControl
+        /// </summary>
         public void Dispose()
         {
             Unloaded -= RichPresenceControl_Unloaded;
         }
 
+        /// <summary>
+        /// Show Game Flyout
+        /// </summary>
         private void GameTB_OnClick(object sender, RoutedEventArgs e)
         {
+            // If avaible, show game flyout
             if (!string.IsNullOrEmpty(GameContent?.ApplicationId))
             {
                 App.ShowGameFlyout(sender, GameContent.ApplicationId);

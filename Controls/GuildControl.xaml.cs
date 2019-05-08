@@ -29,6 +29,9 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class GuildControl : UserControl
     {
+        /// <summary>
+        /// Id of Guild to display
+        /// </summary>
         public string Id
         {
             get { return (string)GetValue(IdProperty); }
@@ -40,6 +43,9 @@ namespace Discord_UWP.Controls
             typeof(GuildControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
+        /// <summary>
+        /// Name of Guild to display
+        /// </summary>
         public string GuildName
         {
             get { return (string)GetValue(GuildNameProperty); }
@@ -51,6 +57,9 @@ namespace Discord_UWP.Controls
             typeof(GuildControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
+        /// <summary>
+        /// Icon url of Guild to display
+        /// </summary>
         public string ImageUrl
         {
             get { return (string)GetValue(ImageUrlProperty); }
@@ -62,6 +71,9 @@ namespace Discord_UWP.Controls
             typeof(GuildControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
+        /// <summary>
+        /// Number of notifications in Guild to display
+        /// </summary>
         public int NotificationCount
         {
             get { return (int)GetValue(NotificationCountProperty); }
@@ -73,6 +85,9 @@ namespace Discord_UWP.Controls
             typeof(GuildControl),
             new PropertyMetadata(0, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// True if an unmuted channel in Guild is unread
+        /// </summary>
         public bool IsUnread
         {
             get { return (bool)GetValue(IsUnreadProperty); }
@@ -84,6 +99,9 @@ namespace Discord_UWP.Controls
             typeof(GuildControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// True if the Guild is muted
+        /// </summary>
         public bool IsMuted
         {
             get { return (bool)GetValue(IsMutedProperty); }
@@ -95,6 +113,9 @@ namespace Discord_UWP.Controls
             typeof(GuildControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// True if the Guild Control represents the DM item
+        /// </summary>
         public bool IsDM
         {
             get { return (bool)GetValue(IsDMProperty); }
@@ -106,6 +127,9 @@ namespace Discord_UWP.Controls
             typeof(GuildControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// False if the server is having connection issues
+        /// </summary>
         public bool IsValid
         {
             get { return (bool)GetValue(IsValidProperty); }
@@ -117,6 +141,9 @@ namespace Discord_UWP.Controls
             typeof(GuildControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// True if it's the selected Guild in the GuildList
+        /// </summary>
         public bool IsSelected
         {
             get { return (bool)GetValue(IsSelectedProperty); }
@@ -140,6 +167,7 @@ namespace Discord_UWP.Controls
         {
             if(prop == IsSelectedProperty)
             {
+                // Toggle Selection indicator
                 if (IsSelected)
                 {
                     SelectIndicator.Fade(1, 200).Start();
@@ -151,6 +179,7 @@ namespace Discord_UWP.Controls
             }
             if (prop == IsUnreadProperty)
             {
+                // Update unread indicator visibilty
                 if (IsUnread && !IsMuted)
                 {
                     UnreadIndicator.Visibility = Visibility.Visible;
@@ -162,6 +191,7 @@ namespace Discord_UWP.Controls
             }
             if (prop == IsMutedProperty)
             {
+                // Update muted icon
                 if (IsMuted && Storage.Settings.ServerMuteIcons)
                 {
                     MutedIcon.Visibility = Visibility.Visible;
@@ -171,6 +201,7 @@ namespace Discord_UWP.Controls
                     HideMute.Begin();
                 }
 
+                // Override unread
                 if (IsMuted)
                 {
                     UnreadIndicator.Visibility = Visibility.Collapsed;
@@ -182,6 +213,7 @@ namespace Discord_UWP.Controls
             }
             if (prop == NotificationCountProperty)
             {
+                // Update notification visiblity 
                 if (NotificationCount > 0)
                 {
                     NotificationCounter.Text = NotificationCount.ToString();
@@ -198,10 +230,12 @@ namespace Discord_UWP.Controls
             }
             if (prop == GuildNameProperty)
             {
+                // Update Tooltip
                 ToolTipService.SetToolTip(this, GuildName);
             }
             if (prop == ImageUrlProperty)
             {
+                // Update Icon
                 if (ImageUrl != "empty" && ImageUrl != "")
                 {
                     GuildImageBrush.ImageSource = new BitmapImage(new Uri(ImageUrl));
@@ -223,6 +257,7 @@ namespace Discord_UWP.Controls
             }
             if (prop == IdProperty)
             {
+                // Update DM Guild status
                 if (Id != null && Id == "@me")
                 {
                     DMView.Visibility = Visibility.Visible;
@@ -235,6 +270,7 @@ namespace Discord_UWP.Controls
             }
             if (prop == IsValidProperty)
             {
+                // Update Invalid Guild Overlay
                 InvalidOverlay.Visibility = IsValid ? Visibility.Collapsed : Visibility.Visible;
             }
         }
@@ -248,11 +284,17 @@ namespace Discord_UWP.Controls
             Storage.SettingsChangedHandler += Storage_SettingsChangedHandler;
         }
 
+        /// <summary>
+        /// When the settings are updated, update the Mute icon status
+        /// </summary>
         private void Storage_SettingsChangedHandler(object sender, EventArgs e)
         {
             OnPropertyChanged(null, IsMutedProperty);
         }
 
+        /// <summary>
+        /// Open Guild Flyout (right-tapped)
+        /// </summary>
         private void OpenMenuFlyout(object sender, RightTappedRoutedEventArgs e)
         {
             e.Handled = true;
@@ -260,6 +302,9 @@ namespace Discord_UWP.Controls
                 App.ShowMenuFlyout(this, FlyoutManager.Type.Guild, Id, null, e.GetPosition(this));
         }
 
+        /// <summary>
+        /// Open Guild Flyout (holding)
+        /// </summary>
         private void OpenMenuFlyout(object sender, HoldingRoutedEventArgs e)
         {
             e.Handled = true;
@@ -267,16 +312,17 @@ namespace Discord_UWP.Controls
                 App.ShowMenuFlyout(this, FlyoutManager.Type.Guild, Id, null, e.GetPosition(this));
         }
 
-        private void HideBadge_Completed(object sender, object e)
-        {
-
-        }
-
+        /// <summary>
+        /// For SideDrawer
+        /// </summary>
         private void UserControl_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             App.UniversalPointerDown(e);
         }
 
+        /// <summary>
+        /// Dispose of this object
+        /// </summary>
         public void Dipose()
         {
             this.Holding -= OpenMenuFlyout;
@@ -284,6 +330,9 @@ namespace Discord_UWP.Controls
             Storage.SettingsChangedHandler -= Storage_SettingsChangedHandler;
         }
 
+        /// <summary>
+        /// Finish hiding mute button
+        /// </summary>
         private void HideMute_Completed(object sender, object e)
         {
             MutedIcon.Visibility = Visibility.Collapsed;
