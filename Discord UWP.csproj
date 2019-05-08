@@ -162,9 +162,9 @@
     <Compile Include="Flyouts\CategoryFlyout.cs" />
     <Compile Include="Flyouts\SavePictureFlyout.cs" />
     <Compile Include="Flyouts\MessageFlyout.cs" />
-    <Compile Include="Javascript sources\DiffieHellman\BigInt.cs" />
-    <Compile Include="Javascript sources\DiffieHellman\DiffieHellman.cs" />
-    <Compile Include="Javascript sources\DiffieHellman\StrongNumberProvider.cs" />
+    <Compile Include="DiffieHellman\BigInt.cs" />
+    <Compile Include="DiffieHellman\DiffieHellman.cs" />
+    <Compile Include="DiffieHellman\StrongNumberProvider.cs" />
     <Compile Include="Flyouts\VoiceMemberFlyout.cs" />
     <Compile Include="MainPageControllerInput.cs" />
     <Compile Include="Controls\AttachementControl.xaml.cs">
@@ -492,13 +492,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Discord UWP_TemporaryKey.pfx" />
-    <None Include="Javascript sources\Games.json" />
-    <None Include="Javascript sources\GUILD_SYNC.json" />
-    <None Include="Javascript sources\OutageIndex.json" />
-    <None Include="Javascript sources\READY - Copy.json" />
-    <None Include="Javascript sources\READY.json" />
-    <None Include="Javascript sources\Source1.js" />
-    <None Include="Javascript sources\SourceEmbedStuff.js" />
     <Content Include="Assets\hangup.png" />
     <Content Include="Assets\message.png" />
     <Content Include="Assets\MyTubeSmall.png" />
@@ -528,9 +521,7 @@
     <Content Include="Assets\xbox_dark.png" />
     <Content Include="Assets\xbox_light.png" />
     <Content Include="Assets\CommitInfo.txt" />
-    <Content Include="Javascript sources\ReCaptcha.html" />
     <None Include="Package.xml" />
-    <None Include="Javascript sources\Source2.js" />
     <Content Include="Markdown\About.txt" />
     <Content Include="Markdown\oltheme.txt" />
     <Content Include="SodiumC.dll" />
@@ -1042,6 +1033,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>powershell -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)PreBuild.ps1  -PlatformName:$(PlatformName) -ProjectDir:$(ProjectDir)</PreBuildEvent>
-    <PreBuildEvent>copy /y "$(SolutionDir)$(PlatformName)\SodiumC.dll" "$(ProjectDir)"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>

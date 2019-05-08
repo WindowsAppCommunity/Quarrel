@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.AppService;
-using Windows.Foundation.Collections;
 
 namespace NamedPipeServer
 {
