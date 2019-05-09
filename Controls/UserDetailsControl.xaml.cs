@@ -26,6 +26,9 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class UserDetailsControl : UserControl
     {
+        /// <summary>
+        /// Data for displayed member
+        /// </summary>
         public GuildMember DisplayedMember
         {
             get => (GuildMember)GetValue(DisplayedMemberProperty);
@@ -37,6 +40,9 @@ namespace Discord_UWP.Controls
             typeof(UserDetailsControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// True if the Control is in the Right Panel for a DM
+        /// </summary>
         public bool DMPane
         {
             get => (bool)GetValue(DMPaneProperty);
@@ -48,6 +54,9 @@ namespace Discord_UWP.Controls
             typeof(UserDetailsControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// Not documented
+        /// </summary>
         public bool Webhook
         {
             get => (bool)GetValue(WebhookProperty);
@@ -69,6 +78,7 @@ namespace Discord_UWP.Controls
         {
             if (prop == WebhookProperty)
             {
+                // Hide avatar and user details for webhook 
                 if (Webhook)
                 {
                     Row1Grid.Visibility = Visibility.Collapsed;
@@ -82,19 +92,26 @@ namespace Discord_UWP.Controls
             }
             if (prop == DisplayedMemberProperty)
             {
+                // Update user
                 var user = DisplayedMember.User;
+
+                // Hide SendDM if current user
                 if (user.Id == LocalState.CurrentUser.Id)
                 {
                     SendDM.Visibility = Visibility.Collapsed;
                 }
+
+                // If user has a nickname
                 if (DisplayedMember.Nick != null)
                 {
+                    // Show nickname
                     UserStacker.Opacity = 0.5;
                     UserStacker.Margin = new Thickness(0, 0, 0, 20);
                     Nick.Text = DisplayedMember.Nick;
                 } 
                 else
                 {
+                    // Hide nickname and show Username#discriminator in place
                     UserStacker.Opacity = 1;
                     UserStacker.Margin = new Thickness(0, 0, 0, 20);
                     Username.FontSize = 16;
@@ -102,18 +119,24 @@ namespace Discord_UWP.Controls
                     Discriminator.FontSize = 14;
                     Nick.Visibility = Visibility.Collapsed;
                 }
+
+                // Assign Username text
                 Username.Text = user.Username;
                 Discriminator.Text = "#" + user.Discriminator;
+
+                // Set Avatar Icon
                 var imageURL = Common.AvatarUri(user.Avatar, user.Id);
                 Avatar.ImageSource = new BitmapImage(imageURL);
                 var image = new BitmapImage(Common.AvatarUri(user.Avatar, user.Id));
                 Avatar.ImageSource = image;
 
+                // Set blurred background 
                 SetupComposition(imageURL);
 
-
+                // Handle null avatars 
                 AvatarBG.Fill = user.Avatar == null ? Common.DiscriminatorColor(user.Discriminator) : Common.GetSolidColorBrush("#00000000");
 
+                // Check presence
                 if (LocalState.PresenceDict.ContainsKey(user.Id))
                 {
                     if (LocalState.PresenceDict[user.Id].Status != null && LocalState.PresenceDict[user.Id].Status != "invisible")
@@ -125,6 +148,7 @@ namespace Discord_UWP.Controls
                     rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
                 }
 
+                // Roles
                 if (DisplayedMember.JoinedAt.Ticks != 0)
                 {
                     if (!DisplayedMember.Roles.Any())
@@ -136,6 +160,7 @@ namespace Discord_UWP.Controls
                         var roles = LocalState.Guilds[App.CurrentGuildId].roles;
                         foreach (var roleStr in DisplayedMember.Roles)
                         {
+                            // Load role
                             var role = roles[roleStr];
                             var c = Common.IntToColor(role.Color);
                             Visibility ellipseView = Visibility.Visible;
@@ -193,6 +218,7 @@ namespace Discord_UWP.Controls
                 else
                     Note.Text = "";
 
+                // Check Rich Presense status
                 if (LocalState.PresenceDict.ContainsKey(DisplayedMember.User.Id))
                 {
                     if(LocalState.PresenceDict[DisplayedMember.User.Id].Game != null)
@@ -292,7 +318,7 @@ namespace Discord_UWP.Controls
                 _loadedSurface.LoadCompleted += _loadedSurface_LoadCompleted;
                 _imageBrush.Surface = _loadedSurface;
 
-
+                // Apply black and white filter for background
                 var saturationEffect = new SaturationEffect
                 {
                     Saturation = 0.0f,
@@ -302,6 +328,7 @@ namespace Discord_UWP.Controls
                 var effectBrush = effectFactory.CreateBrush();
                 effectBrush.SetSourceParameter("image", _imageBrush);
 
+                // Apply blur for background
                 var blurEffect = new GaussianBlurEffect
                 {
                     BlurAmount = 8,
@@ -319,7 +346,7 @@ namespace Discord_UWP.Controls
             }
             catch
             {
-                //Fuck this shit
+                // I guess it'll just look a little worse
             }
         }
 
@@ -432,56 +459,6 @@ namespace Discord_UWP.Controls
 
         }
 
-
-        private void AvatarShowMidAnimation()
-        {
-            //AvatarRectangle.Blur(2, 200, 0).Start();
-            //CacheRectangle.Fade(0.6f, 200).Start();
-            //ShowProfile.Fade(0.8f, 200).Start();
-        }
-        private void AvatarShowFullAnimation()
-        {
-            //AvatarRectangle.Blur(4, 200, 0).Start();
-            //CacheRectangle.Fade(1, 200).Start();
-            //ShowProfile.Fade(1, 200).Start();
-        }
-        private void AvatarHideAnimation()
-        {
-            //AvatarRectangle.Blur(0, 200, 0).Start();
-            //CacheRectangle.Fade(0, 200).Start();
-            //ShowProfile.Fade(0, 200).Start();
-        }
-
-        private void Button_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            AvatarShowMidAnimation();
-        }
-
-        private void Button_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            AvatarHideAnimation();
-        }
-
-        private void Button_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
-        {
-            AvatarHideAnimation();
-        }
-
-        private void Button_PointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-            AvatarShowFullAnimation();
-        }
-
-        private void Button_LostFocus(object sender, RoutedEventArgs e)
-        {
-            AvatarHideAnimation();
-        }
-
-        private void Button_GotFocus(object sender, RoutedEventArgs e)
-        {
-            AvatarShowMidAnimation();
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if ((Parent is FlyoutPresenter))
@@ -489,7 +466,6 @@ namespace Discord_UWP.Controls
                 ((Parent as FlyoutPresenter).Parent as Popup).IsOpen = false;
             }
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("avatar", FullAvatar);
-      //      ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("richpresence", richPresence);
             App.navImageCache = Avatar.ImageSource;
             App.NavigateToProfile(DisplayedMember.User);
         }
