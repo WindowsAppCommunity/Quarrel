@@ -16,11 +16,18 @@ namespace Discord_UWP.Flyouts
 {
     partial class FlyoutCreator
     {
+        /// <summary>
+        /// Make flyout for Category
+        /// </summary>
+        /// <param name="category">Category control</param>
+        /// <param name="parentId">Guild Id</param>
+        /// <returns>A MenuFlyout item to display</returns>
         public static MenuFlyout MakeCategoryMenu(SharedModels.GuildChannel category, string parentId)
         {
             MenuFlyout menu = new MenuFlyout();
             menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
 
+            // Add "Mark As Read" button
             MenuFlyoutItem markasread = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/MarkAsRead"),

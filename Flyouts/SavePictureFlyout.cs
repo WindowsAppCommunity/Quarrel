@@ -22,6 +22,7 @@ namespace Discord_UWP.Flyouts
             MenuFlyout menu = new MenuFlyout();
             menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
 
+            // Add "Save Picture" button
             MenuFlyoutItem Save = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/SavePicture"),
@@ -29,8 +30,8 @@ namespace Discord_UWP.Flyouts
                 Icon = new SymbolIcon(Symbol.Save)
             };
             Save.Click += FlyoutManager.SavePicture;
-
             menu.Items.Add(Save);
+
             return menu;
         }
     }
