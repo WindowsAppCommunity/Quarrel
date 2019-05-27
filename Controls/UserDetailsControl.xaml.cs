@@ -1,31 +1,34 @@
-﻿using System;
+﻿// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
+using Discord_UWP.LocalModels;
+using Discord_UWP.Managers;
+using Discord_UWP.SharedModels;
+using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.Toolkit.Uwp.UI.Animations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
+using System.Threading.Tasks;
 using Windows.UI;
+using Windows.UI.Composition;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
-using Microsoft.Toolkit.Uwp.UI.Animations;
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-using Discord_UWP.LocalModels;
-using Discord_UWP.Managers;
-using Discord_UWP.SharedModels;
-using Windows.UI.Core;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Shapes;
-using Windows.UI.Composition;
-using Microsoft.Graphics.Canvas.Effects;
-using Windows.UI.Xaml.Hosting;
-using System.Numerics;
 
 namespace Discord_UWP.Controls
 {
     public sealed partial class UserDetailsControl : UserControl
     {
+        /// <summary>
+        /// Data for displayed member
+        /// </summary>
         public GuildMember DisplayedMember
         {
             get => (GuildMember)GetValue(DisplayedMemberProperty);
@@ -37,6 +40,9 @@ namespace Discord_UWP.Controls
             typeof(UserDetailsControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// True if the Control is in the Right Panel for a DM
+        /// </summary>
         public bool DMPane
         {
             get => (bool)GetValue(DMPaneProperty);
@@ -48,6 +54,9 @@ namespace Discord_UWP.Controls
             typeof(UserDetailsControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// Not documented
+        /// </summary>
         public bool Webhook
         {
             get => (bool)GetValue(WebhookProperty);
@@ -69,6 +78,7 @@ namespace Discord_UWP.Controls
         {
             if (prop == WebhookProperty)
             {
+                // Hide avatar and user details for webhook 
                 if (Webhook)
                 {
                     Row1Grid.Visibility = Visibility.Collapsed;
@@ -82,19 +92,26 @@ namespace Discord_UWP.Controls
             }
             if (prop == DisplayedMemberProperty)
             {
+                // Update user
                 var user = DisplayedMember.User;
+
+                // Hide SendDM if current user
                 if (user.Id == LocalState.CurrentUser.Id)
                 {
                     SendDM.Visibility = Visibility.Collapsed;
                 }
+
+                // If user has a nickname
                 if (DisplayedMember.Nick != null)
                 {
+                    // Show nickname
                     UserStacker.Opacity = 0.5;
                     UserStacker.Margin = new Thickness(0, 0, 0, 20);
                     Nick.Text = DisplayedMember.Nick;
                 } 
                 else
                 {
+                    // Hide nickname and show Username#discriminator in place
                     UserStacker.Opacity = 1;
                     UserStacker.Margin = new Thickness(0, 0, 0, 20);
                     Username.FontSize = 16;
@@ -102,18 +119,24 @@ namespace Discord_UWP.Controls
                     Discriminator.FontSize = 14;
                     Nick.Visibility = Visibility.Collapsed;
                 }
+
+                // Assign Username text
                 Username.Text = user.Username;
                 Discriminator.Text = "#" + user.Discriminator;
+
+                // Set Avatar Icon
                 var imageURL = Common.AvatarUri(user.Avatar, user.Id);
                 Avatar.ImageSource = new BitmapImage(imageURL);
                 var image = new BitmapImage(Common.AvatarUri(user.Avatar, user.Id));
                 Avatar.ImageSource = image;
 
+                // Set blurred background 
                 SetupComposition(imageURL);
 
-
+                // Handle null avatars 
                 AvatarBG.Fill = user.Avatar == null ? Common.DiscriminatorColor(user.Discriminator) : Common.GetSolidColorBrush("#00000000");
 
+                // Check basic presence
                 if (LocalState.PresenceDict.ContainsKey(user.Id))
                 {
                     if (LocalState.PresenceDict[user.Id].Status != null && LocalState.PresenceDict[user.Id].Status != "invisible")
@@ -125,33 +148,29 @@ namespace Discord_UWP.Controls
                     rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
                 }
 
-                if (DisplayedMember.JoinedAt.Ticks != 0)
+                // If the user has any roles
+                if (DisplayedMember.JoinedAt.Ticks != 0 && DisplayedMember.Roles.Any())
                 {
-                    if (!DisplayedMember.Roles.Any())
+                    var roles = LocalState.Guilds[App.CurrentGuildId].roles;
+                    foreach (var roleStr in DisplayedMember.Roles)
                     {
-                     //   RoleHeader.Visibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        var roles = LocalState.Guilds[App.CurrentGuildId].roles;
-                        foreach (var roleStr in DisplayedMember.Roles)
+                        // Load role
+                        var role = roles[roleStr];
+                        var c = Common.IntToColor(role.Color);
+                        Visibility ellipseView = Visibility.Visible;
+                        if (role.Color == 0)
+                            ellipseView = Visibility.Collapsed;
+                        else
                         {
-                            var role = roles[roleStr];
-                            var c = Common.IntToColor(role.Color);
-                            Visibility ellipseView = Visibility.Visible;
-                            if (role.Color == 0)
-                                ellipseView = Visibility.Collapsed;
-                            else
+                            Border b = new Border()
                             {
-                                Border b = new Border()
+                                CornerRadius = new CornerRadius(10, 10, 10, 10),
+                                BorderThickness = new Thickness(1),
+                                BorderBrush = c,
+                                Margin = new Thickness(2, 2, 2, 2),
+                                Child = new StackPanel()
                                 {
-                                    CornerRadius = new CornerRadius(10, 10, 10, 10),
-                                    BorderThickness = new Thickness(1),
-                                    BorderBrush = c,
-                                    Margin = new Thickness(2, 2, 2, 2),
-                                    Child = new StackPanel()
-                                    {
-                                        Children =
+                                    Children =
                                     {
                                         new Ellipse
                                         {
@@ -171,76 +190,66 @@ namespace Discord_UWP.Controls
                                         },
 
                                     },
-                                        Orientation = Orientation.Horizontal
-                                    },
-                                    Tag = roleStr
-                                };
+                                    Orientation = Orientation.Horizontal
+                                },
+                                Tag = roleStr
+                            };
 
-                                RoleWrapper.Children.Add(b);
-                            }
-
+                            RoleWrapper.Children.Add(b);
                         }
+
                     }
                 }
                 else
                 {
-                   // RoleHeader.Visibility = Visibility.Collapsed;
+                    // Hide Role Presenter
                     RoleWrapper.Visibility = Visibility.Collapsed;
                 }
 
+                // Load notes
                 if (LocalState.Notes.ContainsKey(DisplayedMember.User.Id))
                     Note.Text = LocalState.Notes[DisplayedMember.User.Id];
                 else
                     Note.Text = "";
 
-                if (LocalState.PresenceDict.ContainsKey(DisplayedMember.User.Id))
+                // Check Rich Presense status 
+                if (LocalState.PresenceDict.ContainsKey(DisplayedMember.User.Id) && LocalState.PresenceDict[DisplayedMember.User.Id].Game != null)
                 {
-                    if(LocalState.PresenceDict[DisplayedMember.User.Id].Game != null)
+                    // Initialize richPresense display control
+                    richPresence.GameContent = LocalState.PresenceDict[DisplayedMember.User.Id].Game;
+                    richPresence.Visibility = Visibility.Visible;
+
+                    // Determine control accent color
+                    SolidColorBrush color = (SolidColorBrush)Application.Current.Resources["Blurple"];
+                    switch (LocalState.PresenceDict[DisplayedMember.User.Id].Game.Type)
                     {
-                       // PlayingHeader.Visibility = Visibility.Visible;
-                        richPresence.GameContent = LocalState.PresenceDict[DisplayedMember.User.Id].Game;
-                        richPresence.Visibility = Visibility.Visible;
-                        SolidColorBrush color = (SolidColorBrush)Application.Current.Resources["Blurple"];
-                        switch (LocalState.PresenceDict[DisplayedMember.User.Id].Game.Type)
-                        {
-                            case 1:
-                                {
-                                    //streaming
-                                    color = new SolidColorBrush(Color.FromArgb(255, 100, 65, 164));
-                                    break;
-                                }
-                            case 2:
-                                {
-                                    //spotify
-                                    color = new SolidColorBrush(Color.FromArgb(255, 30, 215, 96));
-                                    break;
-                                }
-                        }
-                        if (LocalState.PresenceDict[DisplayedMember.User.Id].Game.ApplicationId == "438122941302046720")
-                        {
-                            //xbox
-                            color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
-                        }
-                        ChangeAccentColor(color);
-                    }
-                    else 
-                    {
-                        richPresence.Visibility = Visibility.Collapsed;
-                        if (Storage.Settings.DerivedColor)
-                        {
-                            Color? color = await App.getUserColor(user);
-                            if (color.HasValue)
+                        case 1:
                             {
-                                ChangeAccentColor(new SolidColorBrush(color.Value));
+                                // Streaming
+                                color = new SolidColorBrush(Color.FromArgb(255, 100, 65, 164));
+                                break;
                             }
-                        }
+                        case 2:
+                            {
+                                // Spotify
+                                color = new SolidColorBrush(Color.FromArgb(255, 30, 215, 96));
+                                break;
+                            }
                     }
+                    if (LocalState.PresenceDict[DisplayedMember.User.Id].Game.ApplicationId == "438122941302046720")
+                    {
+                        // Xbox
+                        color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
+                    }
+                    ChangeAccentColor(color);
                 }
                 else
                 {
+                    // User has no presence or is not playing a game
                     richPresence.Visibility = Visibility.Collapsed;
                     if (Storage.Settings.DerivedColor)
                     {
+                        // Get color by avatar
                         Color? color = await App.getUserColor(user);
                         if (color.HasValue)
                         {
@@ -254,28 +263,46 @@ namespace Discord_UWP.Controls
             {
                 if (DMPane)
                 {
+                    // Remove DM block
                     SendDM.Visibility = Visibility.Collapsed;
-                    borderColor.Width = 228;
-                    borderColor.CornerRadius = new CornerRadius(0);
-                    borderColor.BorderThickness = new Thickness(0);
+                    
+                    // Adjust allignment
+                    borderColor.Width = 228; // 228 is the right-panel width
+                    borderColor.CornerRadius = new CornerRadius(0); // No corners
+                    borderColor.BorderThickness = new Thickness(0); // No borders
+
+                    // Adjust content layout
                     Nick.Margin = new Thickness(12, 12, 0, 0);
                     UserStacker.Margin = new Thickness(12, 6, 0, 12);
                     Username.FontSize = 14;
                     Discriminator.FontSize = 12;
                     profileGrid.Margin = new Thickness(12, 24, 0, 0);
+
+                    // Adjust color
                     Row1Grid.Background = new SolidColorBrush(Colors.Transparent);
                 } else
                 {
-                   //Not actually necessary, because there is absolutely no risk of the control getting recycled in a different situation
+                   // Not actually necessary, because there is absolutely no risk of the control getting recycled in a different situation
                 }
             }
         }
+
+        /// <summary>
+        /// Changes the accent color of the color to <paramref name="color"/>
+        /// </summary>
+        /// <param name="color">The new accent color for the control</param>
         private void ChangeAccentColor(SolidColorBrush color)
         {
             PresenceColor.Fill = color;
             borderColor.BorderBrush = color;
         }
+
         SpriteVisual _imageVisual;
+
+        /// <summary>
+        /// Setup compositional graphics for background
+        /// </summary>
+        /// <param name="imageURL">Image URL for the background</param>
         private void SetupComposition(Uri imageURL)
         {
             try
@@ -292,7 +319,7 @@ namespace Discord_UWP.Controls
                 _loadedSurface.LoadCompleted += _loadedSurface_LoadCompleted;
                 _imageBrush.Surface = _loadedSurface;
 
-
+                // Apply black and white filter for background
                 var saturationEffect = new SaturationEffect
                 {
                     Saturation = 0.0f,
@@ -302,6 +329,7 @@ namespace Discord_UWP.Controls
                 var effectBrush = effectFactory.CreateBrush();
                 effectBrush.SetSourceParameter("image", _imageBrush);
 
+                // Apply blur for background
                 var blurEffect = new GaussianBlurEffect
                 {
                     BlurAmount = 8,
@@ -319,10 +347,13 @@ namespace Discord_UWP.Controls
             }
             catch
             {
-                //Fuck this shit
+                // I guess it'll just look a little worse
             }
         }
 
+        /// <summary>
+        /// Fade in composition on loading
+        /// </summary>
         private void _loadedSurface_LoadCompleted(LoadedImageSurface sender, LoadedImageSourceLoadCompletedEventArgs args)
         {
             AvatarContainer.Fade(0.35f,300,0,EasingType.Circle).Start();
@@ -340,57 +371,70 @@ namespace Discord_UWP.Controls
             Unloaded += UserDetailsControl_Unloaded;
         }
 
+        /// <summary>
+        /// Dipose control on unloading
+        /// </summary>
         private void UserDetailsControl_Unloaded(object sender, RoutedEventArgs e)
         {
             Dispose();
         }
 
+        /// <summary>
+        /// User presence updated event
+        /// </summary>
         private async void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<Presence> e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 try
                 {
+                    // If the updated user is the current user
                     if (e.EventData.User.Id == DisplayedMember.User.Id)
                     {
+                        // Set new basic presence
                         if (e.EventData.Status != null && e.EventData.Status != "invisible")
                             rectangle.Fill = (SolidColorBrush)App.Current.Resources[e.EventData.Status];
                         else if (e.EventData.Status == "invisible")
                             rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
 
+                        // Update game
                         if (e.EventData.Game != null)
                         {
-                            // PlayingHeader.Visibility = Visibility.Visible;
+                            // Update rich presence control
                             richPresence.GameContent = e.EventData.Game;
                             richPresence.Visibility = Visibility.Visible;
+
+                            // Determine new accent color
                             SolidColorBrush color = (SolidColorBrush)Application.Current.Resources["Blurple"];
                             switch (e.EventData.Game.Type)
                             {
                                 case 1:
                                     {
-                                        //streaming
+                                        // Streaming
                                         color = new SolidColorBrush(Color.FromArgb(255, 100, 65, 164));
                                         break;
                                     }
                                 case 2:
                                     {
-                                        //spotify
+                                        // Spotify
                                         color = new SolidColorBrush(Color.FromArgb(255, 30, 215, 96));
                                         break;
                                     }
                             }
                             if (e.EventData.Game.ApplicationId == "438122941302046720")
                             {
-                                //xbox
+                                // Xbox
                                 color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
                             }
                             ChangeAccentColor(color);
                         }
                         else
                         {
+                            // There's no game, hide game control
                             richPresence.Visibility = Visibility.Collapsed;
                             if (Storage.Settings.DerivedColor)
                             {
+                                // Get accent color by avatar
                                 Color? color = await App.getUserColor(DisplayedMember.User);
                                 if (color.HasValue)
                                 {
@@ -405,103 +449,80 @@ namespace Discord_UWP.Controls
           
         }
 
+        /// <summary>
+        /// User-note updated
+        /// </summary>
         private async void Gateway_UserNoteUpdated(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.UserNote> e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
+                        // If current user, update note
                         if(e.EventData.UserId == DisplayedMember.User.Id)
-                        Note.Text = e.EventData.Note;
+                            Note.Text = e.EventData.Note;
                     });
         }
 
+        /// <summary>
+        /// Send DM from DM block
+        /// </summary>
         private async void SendDirectMessage(object sender, RoutedEventArgs e)
         {
             string channelid = null;
+            
+            // If user already has DM, use it
             foreach (var dm in LocalState.DMs)
                 if (dm.Value.Type == 1 && dm.Value.Users.FirstOrDefault()?.Id == DisplayedMember.User.Id)
                     channelid = dm.Value.Id;
+
+            // If the user doesn't have a DM, create one
             if (channelid == null)
                 channelid = (await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { DisplayedMember.User.Id }.AsEnumerable() })).Id;
+
+            // return if failed
             if (string.IsNullOrEmpty(channelid)) return;
-            App.SelectGuildChannel("@me", channelid, SendDM.Text, true);
+
+            //TODO: The above may be handled by a prefined function, check that
+            // Send DM
+            App.SelectGuildChannel("@me", channelid, SendDM.Text, true); 
         }
 
-        private void FadeIn_ImageOpened(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
-        private void AvatarShowMidAnimation()
-        {
-            //AvatarRectangle.Blur(2, 200, 0).Start();
-            //CacheRectangle.Fade(0.6f, 200).Start();
-            //ShowProfile.Fade(0.8f, 200).Start();
-        }
-        private void AvatarShowFullAnimation()
-        {
-            //AvatarRectangle.Blur(4, 200, 0).Start();
-            //CacheRectangle.Fade(1, 200).Start();
-            //ShowProfile.Fade(1, 200).Start();
-        }
-        private void AvatarHideAnimation()
-        {
-            //AvatarRectangle.Blur(0, 200, 0).Start();
-            //CacheRectangle.Fade(0, 200).Start();
-            //ShowProfile.Fade(0, 200).Start();
-        }
-
-        private void Button_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            AvatarShowMidAnimation();
-        }
-
-        private void Button_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            AvatarHideAnimation();
-        }
-
-        private void Button_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
-        {
-            AvatarHideAnimation();
-        }
-
-        private void Button_PointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-            AvatarShowFullAnimation();
-        }
-
-        private void Button_LostFocus(object sender, RoutedEventArgs e)
-        {
-            AvatarHideAnimation();
-        }
-
-        private void Button_GotFocus(object sender, RoutedEventArgs e)
-        {
-            AvatarShowMidAnimation();
-        }
-
+        /// <summary>
+        /// Open full profile for user
+        /// </summary>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            // Close popup
             if ((Parent is FlyoutPresenter))
             {
                 ((Parent as FlyoutPresenter).Parent as Popup).IsOpen = false;
             }
+
+            // Connected animation
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("avatar", FullAvatar);
-      //      ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("richpresence", richPresence);
             App.navImageCache = Avatar.ImageSource;
+
+            // Navigate to subpage
             App.NavigateToProfile(DisplayedMember.User);
         }
 
+        /// <summary>
+        /// Update notes when the note block losses focus
+        /// </summary>
         private async void Note_LostFocus(object sender, RoutedEventArgs e)
         {
             var userid = DisplayedMember.User.Id;
             var note = Note.Text.Trim();
+
+            // If there's no change, return
             if (LocalState.Notes.ContainsKey(userid) && note == LocalState.Notes[userid].Trim())
                 return;
+
+            // The notes are null and there's no notes to overrides, return
             if (!LocalState.Notes.ContainsKey(userid) && string.IsNullOrEmpty(note))
                 return;
+
+            // Update note
             await Task.Run(async () =>
             {
                 await RESTCalls.AddNote(userid, note);
@@ -516,6 +537,9 @@ namespace Discord_UWP.Controls
             }
         }
 
+        /// <summary>
+        /// Dipose of control
+        /// </summary>
         public void Dispose()
         {
             SendDM.Send -= SendDirectMessage;
@@ -528,13 +552,20 @@ namespace Discord_UWP.Controls
            
         }
 
+        /// <summary>
+        /// Fade in avatar on load
+        /// </summary>
         private void Avatar_OnImageOpened(object sender, RoutedEventArgs e)
         {
             AvatarRectangle.Fade(1,300, 0, EasingType.Circle).Start();
         }
 
+        /// <summary>
+        /// Handle right-tap on avatar
+        /// </summary>
         private void AvatarRectangle_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
+            // Prompt, "save photo"
             e.Handled = true;
             if (e.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Touch)
             {
@@ -542,8 +573,12 @@ namespace Discord_UWP.Controls
             }
         }
 
+        /// <summary>
+        /// Handle holding on avatar
+        /// </summary>
         private void AvatarRectangle_Holding(object sender, HoldingRoutedEventArgs e)
         {
+            // Prompt "save photo"
             e.Handled = true;
             if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
             {

@@ -30,45 +30,89 @@ namespace Discord_UWP.Managers
         void GetBuffer(out byte* buffer, out uint capacity);
     }
 
-    public class AudioManager //: IBackgroundTask
+    public class AudioManager
     {
-        //BackgroundTaskDeferral taskDeferral;
-
-        //public void Run(IBackgroundTaskInstance taskInstance)
-        //{
-        //    taskDeferral = taskInstance.GetDeferral();
-
-        //    taskInstance.Canceled += TaskInstance_Canceled;
-        //}
-
-        //private void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
-        //{
-        //    taskDeferral.Complete();
-        //}
-
+        /// <summary>
+        /// Current number of places the ingraph is in use
+        /// </summary>
         private static int inGraphCount = 0;
+
+        /// <summary>
+        /// Current number of places the outgraph is in use
+        /// </summary>
         private static int outGraphCount = 0;
 
+        /// <summary>
+        /// Event for when Audio packet is recorded
+        /// </summary>
         public static event EventHandler<float[]> InputRecieved;
         
+        /// <summary>
+        /// AudioGraph for recording
+        /// </summary>
         static AudioGraph ingraph;
+
+        /// <summary>
+        /// AudioGraph for playing
+        /// </summary>
         static AudioGraph outgraph;
 
+        /// <summary>
+        /// Audio recording device
+        /// </summary>
         private static AudioDeviceInputNode deviceInputNode;
+
+        /// <summary>
+        /// Audio playback device
+        /// </summary>
         private static AudioDeviceOutputNode deviceOutputNode;
 
+        /// <summary>
+        /// Audio playback device Id
+        /// </summary>
         private static string OutputDeviceID;
+
+        /// <summary>
+        /// Audio recording device Id
+        /// </summary>
         private static string InputDeviceID;
 
+        /// <summary>
+        /// Frame output node on ingraph
+        /// </summary>
         private static AudioFrameOutputNode frameOutputNode;
+        
+        /// <summary>
+        /// Frame input node on outgraph
+        /// </summary>
         private static AudioFrameInputNode frameInputNode;
 
+        /// <summary>
+        /// Device watcher for input changing
+        /// </summary>
         private static DeviceWatcher inputDeviceWatcher;
+        
+        /// <summary>
+        /// Device watcher for output changing
+        /// </summary>
         private static DeviceWatcher outputDeviceWatcher;
 
+        /// <summary>
+        /// Current quantum
+        /// </summary>
         private static int quantum = 0;
+
+        /// <summary>
+        /// Current theta
+        /// </summary>
         private static double theta = 0;
+
+        /// <summary>
+        /// True if ready for playback and recording
+        /// </summary>
         private static bool ready = false;
+
+        // Output FFT specs
         public static float AudioOutSpec1 = 0;
         public static float AudioOutSpec2 = 0;
         public static float AudioOutSpec3 = 0;
@@ -80,6 +124,7 @@ namespace Discord_UWP.Managers
         public static float AudioOutSpec9 = 0;
         public static float AudioOutAverage = 0;
 
+        // Input FFT specs
         public static float AudioInSpec1 = 0;
         public static float AudioInSpec2 = 0;
         public static float AudioInSpec3 = 0;
@@ -90,15 +135,21 @@ namespace Discord_UWP.Managers
         public static float AudioInSpec8 = 0;
         public static float AudioInSpec9 = 0;
         public static float AudioInAverage = 0;
-
-        //private static bool started = false;
-        //public static 
-
+        
+        /// <summary>
+        /// Adjust volume (1 is normal)
+        /// </summary>
+        /// <param name="value">volume level</param>
         public static void ChangeVolume(double value)
         {
             if(ready)
                 deviceOutputNode.OutgoingGain = value;
         }
+
+        /// <summary>
+        /// Mute output
+        /// </summary>
+        /// <param name="deaf">Deafen status</param>
         public static void ChangeDeafStatus(bool deaf)
         {
             if (ready)
@@ -112,6 +163,9 @@ namespace Discord_UWP.Managers
                 }
         }
 
+        /// <summary>
+        /// Create input and output audio graphs
+        /// </summary>
         public static async Task CreateAudioGraphs()
         {
             Storage.SettingsChangedHandler += Storage_SettingsChangedHandler;
@@ -119,23 +173,34 @@ namespace Discord_UWP.Managers
             await CreateInputDeviceNode(Storage.Settings.InputDevice);
         }
 
+        /// <summary>
+        /// Handle settings changing to recreate graphs
+        /// </summary>
         private static async void Storage_SettingsChangedHandler(object sender, EventArgs e)
         {
             await CreateOutputDeviceNode(Storage.Settings.OutputDevice);
             await CreateInputDeviceNode(Storage.Settings.InputDevice);
         }
 
-        public static async Task CreateOutputDeviceNode(string deviceId)
+        /// <summary>
+        /// Create output audio graph
+        /// </summary>
+        /// <param name="deviceId">Overload for default ouput device id</param>
+        public static async Task CreateOutputDeviceNode(string deviceId = null)
         {
+            // If not in use, redo dispose
             if (outgraph != null && OutputDeviceID != outgraph.PrimaryRenderDevice.Id)
             {
                 HeavyDisposeOutGraph();
-            } else
+            }
+            // Increment use counter
+            else
             {
                 outGraphCount++;
             }
 
             Console.WriteLine("Creating AudioGraphs");
+
             // Create an AudioGraph with default settings
             AudioGraphSettings graphsettings = new AudioGraphSettings(AudioRenderCategory.Media);
             graphsettings.EncodingProperties = new AudioEncodingProperties();
@@ -145,15 +210,12 @@ namespace Discord_UWP.Managers
             graphsettings.EncodingProperties.BitsPerSample = 32;
             graphsettings.EncodingProperties.Bitrate = 3072000;
 
+            // Determine selected device
             DeviceInformation selectedDevice;
             if (deviceId == "Default" || deviceId == null)
             {
                 selectedDevice = await DeviceInformation.CreateFromIdAsync(Windows.Media.Devices.MediaDevice.GetDefaultAudioRenderId(Windows.Media.Devices.AudioDeviceRole.Default));
                 Windows.Media.Devices.MediaDevice.DefaultAudioRenderDeviceChanged += MediaDevice_DefaultAudioRenderDeviceChanged;
-                //outputDeviceWatcher = DeviceInformation.CreateWatcher(DeviceClass.AudioRender);
-                //outputDeviceWatcher.Added += OutputDeviceWatcher_Added;
-                //outputDeviceWatcher.Removed += OutputDeviceWatcher_Removed;
-                //outputDeviceWatcher.Updated += OutputDeviceWatcher_Updated;
             }
             else
             {
@@ -168,20 +230,21 @@ namespace Discord_UWP.Managers
                 }
             }
 
+            // Set selected device
             graphsettings.PrimaryRenderDevice = selectedDevice;
 
+            // Create graph
             CreateAudioGraphResult graphresult = await AudioGraph.CreateAsync(graphsettings);
-
             if (graphresult.Status != AudioGraphCreationStatus.Success)
             {
                 // Cannot create graph
                 return;
             }
 
+            // "Save" graph
             outgraph = graphresult.Graph;
 
             // Create a device output node
-            
             CreateAudioDeviceOutputNodeResult deviceOutputNodeResult = await outgraph.CreateDeviceOutputNodeAsync();
             if (deviceOutputNodeResult.Status != AudioDeviceNodeCreationStatus.Success)
             {
@@ -194,22 +257,32 @@ namespace Discord_UWP.Managers
             frameInputNode = outgraph.CreateFrameInputNode(outgraph.EncodingProperties);
             frameInputNode.AddOutgoingConnection(deviceOutputNode);
             OutputDeviceID = deviceId;
+
+            // Begin playing
             frameInputNode.Start();
             ready = true;
             outgraph.Start();
         }
 
-        public static async Task<bool> CreateInputDeviceNode(string deviceId)
+        /// <summary>
+        /// Create input audio graph
+        /// </summary>
+        /// <param name="deviceId">Override for default input device id</param>
+        public static async Task<bool> CreateInputDeviceNode(string deviceId = null)
         {
+            // If not in use, redo dispose
             if (ingraph != null && deviceId != InputDeviceID)
             {
                 HeavyDisposeInGraph();
-            } else
+            }
+            // Increment use counter
+            else
             {
                 inGraphCount++;
             }
 
             Console.WriteLine("Creating AudioGraphs");
+
             // Create an AudioGraph with default settings
             AudioGraphSettings graphsettings = new AudioGraphSettings(AudioRenderCategory.Media);
             graphsettings.EncodingProperties = new AudioEncodingProperties();
@@ -218,8 +291,6 @@ namespace Discord_UWP.Managers
             graphsettings.EncodingProperties.ChannelCount = 2;
             graphsettings.EncodingProperties.BitsPerSample = 32;
             graphsettings.EncodingProperties.Bitrate = 3072000;
-            //settings.DesiredSamplesPerQuantum = 960;
-            //settings.QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired;
             CreateAudioGraphResult graphresult = await AudioGraph.CreateAsync(graphsettings);
 
             if (graphresult.Status != AudioGraphCreationStatus.Success)
@@ -231,9 +302,10 @@ namespace Discord_UWP.Managers
                 return false;
             }
 
+            // "Save" graph
             ingraph = graphresult.Graph;
 
-
+            // Create frameOutputNode
             AudioGraphSettings nodesettings = new AudioGraphSettings(AudioRenderCategory.GameChat);
             nodesettings.EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 32);
             nodesettings.DesiredSamplesPerQuantum = 960;
@@ -242,8 +314,8 @@ namespace Discord_UWP.Managers
             quantum = 0;
             ingraph.QuantumStarted += Graph_QuantumStarted;
 
+            // Determine selected device
             DeviceInformation selectedDevice;
-
             if (deviceId == "Default" || deviceId == null)
             {
                 string device = Windows.Media.Devices.MediaDevice.GetDefaultAudioCaptureId(Windows.Media.Devices.AudioDeviceRole.Default);
@@ -251,10 +323,6 @@ namespace Discord_UWP.Managers
                 {
                     selectedDevice = await DeviceInformation.CreateFromIdAsync(device);
                     Windows.Media.Devices.MediaDevice.DefaultAudioCaptureDeviceChanged += MediaDevice_DefaultAudioCaptureDeviceChanged;
-                    //inputDeviceWatcher = DeviceInformation.CreateWatcher(DeviceClass.AudioCapture);
-                    //inputDeviceWatcher.Added += InputDeviceWatcher_Added;
-                    //inputDeviceWatcher.Removed += InputDeviceWatcher_Removed;
-                    //inputDeviceWatcher.Updated += InputDeviceWatcher_Updated;
                 } else
                 {
                     inGraphCount--;
@@ -288,9 +356,12 @@ namespace Discord_UWP.Managers
             }
 
 
+            // Attach input device
             deviceInputNode = result.DeviceInputNode;
             deviceInputNode.AddOutgoingConnection(frameOutputNode);
             InputDeviceID = deviceId;
+
+            // Begin playing
             frameOutputNode.Start();
             ingraph.Start();
             return true;
@@ -298,96 +369,88 @@ namespace Discord_UWP.Managers
 
         #region OuputUpdate
 
+        /// <summary>
+        /// When registered input device changes, recreate graph with it
+        /// </summary>
         private static async void MediaDevice_DefaultAudioRenderDeviceChanged(object sender, Windows.Media.Devices.DefaultAudioRenderDeviceChangedEventArgs args)
         {
-            HeavyDisposeOutGraph();
             await CreateOutputDeviceNode(OutputDeviceID);
         }
-
-        //private static void OutputDeviceWatcher_Added(DeviceWatcher sender, DeviceInformation args)
-        //{
-        //    if (args.IsDefault)
-        //    {
-        //        UpdateOutputDeviceID("Default");
-        //    }
-        //}
-
-        //private static void OutputDeviceWatcher_Removed(DeviceWatcher sender, DeviceInformationUpdate args)
-        //{
-        //    UpdateOutputDeviceID("Default");
-        //}
-
-        //private static void OutputDeviceWatcher_Updated(DeviceWatcher sender, DeviceInformationUpdate args)
-        //{
-        //    UpdateOutputDeviceID("Default");
-        //}
 
         #endregion
 
         #region InputUpdate
 
+        /// <summary>
+        /// When registered input device changes, recreate graph with it
+        /// </summary>
         private static async void MediaDevice_DefaultAudioCaptureDeviceChanged(object sender, Windows.Media.Devices.DefaultAudioCaptureDeviceChangedEventArgs args)
         {
             await CreateInputDeviceNode(args.Id);
         }
 
-        //private static void InputDeviceWatcher_Added(DeviceWatcher sender, DeviceInformation args)
-        //{
-        //    //TODO: Update InputDevice
-        //}
-
-        //private static void InputDeviceWatcher_Removed(DeviceWatcher sender, DeviceInformationUpdate args)
-        //{
-
-        //}
-
-        //private static void InputDeviceWatcher_Updated(DeviceWatcher sender, DeviceInformationUpdate args)
-        //{
-
-        //}
-
         #endregion
 
-
+        /// <summary>
+        /// Light dispose both graphs
+        /// </summary>
         public static void LightDisposeAudioGraphs()
         {
             LightDisposeInGraph();
             LightDisposeOutGraph();
         }
 
+        /// <summary>
+        /// Light dispose in graph
+        /// </summary>
         public static void LightDisposeInGraph()
         {
+            // If last, heavy dipose
             if (inGraphCount <= 1)
             {
                 HeavyDisposeInGraph();
                 inGraphCount = 0;
             }
+            // If not, decrement use count
             else
             {
                 inGraphCount--;
             }
         }
 
+        /// <summary>
+        /// Light dipose out graph
+        /// </summary>
         public static void LightDisposeOutGraph()
         {
+            // If last, heavy dipose
             if (outGraphCount <= 1)
             {
                 HeavyDisposeOutGraph();
                 outGraphCount = 0;
-            } else
+            }
+            // If not, decrement use count
+            else
             {
                 outGraphCount--;
             }
         }
 
+        /// <summary>
+        /// Heavy dipose both graphs
+        /// </summary>
         public static void HeavyDisposeAudioGraphs()
         {
             HeavyDisposeInGraph();
             HeavyDisposeOutGraph();
         }
 
+        /// <summary>
+        /// Heavy dispose in graph
+        /// </summary>
         public static void HeavyDisposeInGraph()
         {
+            // Clear data
             ingraph?.Dispose();
             frameOutputNode = null;
             deviceInputNode = null;
@@ -404,8 +467,12 @@ namespace Discord_UWP.Managers
             AudioInAverage = 0;
         }
 
+        /// <summary>
+        /// Heavy dipose out graph
+        /// </summary>
         public static void HeavyDisposeOutGraph()
         {
+            // Clear data
             outgraph?.Dispose();
             frameInputNode = null;
             deviceOutputNode = null;
@@ -422,65 +489,79 @@ namespace Discord_UWP.Managers
             AudioOutAverage = 0;
         }
 
+        /// <summary>
+        /// Add frame to out graph queue
+        /// </summary>
+        /// <param name="framedata">raw frame data</param>
+        /// <param name="samples">sample count</param>
         public static unsafe void AddFrame(float[] framedata, uint samples)
         {
+            // not ready, return
             if (!ready)
                 return;
-            //if (!started)
-            //{
-            //    //graph.Start();
-            //    //started = true;
-            //}
-                AudioFrame frame = new AudioFrame(samples * 2 * sizeof(float));
-                using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
-                using (IMemoryBufferReference reference = buffer.CreateReference())
+
+            AudioFrame frame = new AudioFrame(samples * 2 * sizeof(float));
+            using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
+            using (IMemoryBufferReference reference = buffer.CreateReference())
+            {
+                // Get the buffer from the AudioFrame
+                ((IMemoryBufferByteAccess)reference).GetBuffer(out byte* dataInBytes, out uint _);
+
+                // Cast to float since the data we are generating is float
+                float* dataInFloat = (float*)dataInBytes;
+                fixed (float* frames = framedata)
                 {
-                    // Get the buffer from the AudioFrame
-                    ((IMemoryBufferByteAccess)reference).GetBuffer(out byte* dataInBytes, out uint _);
-                    // Cast to float since the data we are generating is float
-                    float* dataInFloat = (float*)dataInBytes;
-                    fixed (float* frames = framedata)
+                    for (int i = 0; i < samples * 2; i++)
                     {
-                        for (int i = 0; i < samples * 2; i++)
-                        {
-                            dataInFloat[i] = frames[i];
-                        }
+                        dataInFloat[i] = frames[i];
                     }
                 }
-                if (LocalState.VoiceState.SelfDeaf || LocalState.VoiceState.ServerDeaf)
-                {
-                    AudioOutSpec1 = 0;
-                    AudioOutSpec2 = 0;
-                    AudioOutSpec3 = 0;
-                    AudioOutSpec4 = 0;
-                    AudioOutSpec5 = 0;
-                    AudioOutSpec6 = 0;
-                    AudioOutSpec7 = 0;
-                    AudioOutSpec8 = 0;
-                    AudioOutSpec9 = 0;
-                    AudioOutAverage = 0;
-                }
-                else
-                {
-                    List<float[]> amplitudeData = FFT.Processing.HelperMethods.ProcessFrameOutput(frame);
-                    List<float[]> channelData = FFT.Processing.HelperMethods.GetFftData(FFT.Processing.HelperMethods.ConvertTo512(amplitudeData, outgraph), outgraph);
+            }
 
-                    float[] leftChannel = channelData[1];
+            // Don't bother if deafend
+            if (LocalState.VoiceState.SelfDeaf || LocalState.VoiceState.ServerDeaf)
+            {
+                AudioOutSpec1 = 0;
+                AudioOutSpec2 = 0;
+                AudioOutSpec3 = 0;
+                AudioOutSpec4 = 0;
+                AudioOutSpec5 = 0;
+                AudioOutSpec6 = 0;
+                AudioOutSpec7 = 0;
+                AudioOutSpec8 = 0;
+                AudioOutSpec9 = 0;
+                AudioOutAverage = 0;
+            }
+            else
+            {
+                // Determine FFT data
+                List<float[]> amplitudeData = FFT.Processing.HelperMethods.ProcessFrameOutput(frame);
+                List<float[]> channelData = FFT.Processing.HelperMethods.GetFftData(FFT.Processing.HelperMethods.ConvertTo512(amplitudeData, outgraph), outgraph);
 
-                    AudioOutSpec1 = HelperMethods.Max(leftChannel, 0, 1);
-                    AudioOutSpec2 = HelperMethods.Max(leftChannel, 2, 3);
-                    AudioOutSpec3 = HelperMethods.Max(leftChannel, 3, 4);
-                    AudioOutSpec4 = HelperMethods.Max(leftChannel, 4, 5);
-                    AudioOutSpec5 = HelperMethods.Max(leftChannel, 5, 6);
-                    AudioOutSpec6 = HelperMethods.Max(leftChannel, 7, 8);
-                    AudioOutSpec7 = HelperMethods.Max(leftChannel, 9, 10);
-                    AudioOutSpec8 = HelperMethods.Max(leftChannel, 10, 12);
-                    AudioOutSpec9 = HelperMethods.Max(leftChannel, 14, 26);
-                    AudioOutAverage = (AudioOutSpec1 + AudioOutSpec2 + AudioOutSpec3 + AudioOutSpec4 + AudioOutSpec5 + AudioOutSpec5 + AudioOutSpec6 + AudioOutSpec7 + AudioOutSpec8 + AudioOutSpec9) / 9;
-                }
-                frameInputNode.AddFrame(frame);
+                float[] leftChannel = channelData[1];
+
+                // Assign each FFT data out channel
+                AudioOutSpec1 = HelperMethods.Max(leftChannel, 0, 1);
+                AudioOutSpec2 = HelperMethods.Max(leftChannel, 2, 3);
+                AudioOutSpec3 = HelperMethods.Max(leftChannel, 3, 4);
+                AudioOutSpec4 = HelperMethods.Max(leftChannel, 4, 5);
+                AudioOutSpec5 = HelperMethods.Max(leftChannel, 5, 6);
+                AudioOutSpec6 = HelperMethods.Max(leftChannel, 7, 8);
+                AudioOutSpec7 = HelperMethods.Max(leftChannel, 9, 10);
+                AudioOutSpec8 = HelperMethods.Max(leftChannel, 10, 12);
+                AudioOutSpec9 = HelperMethods.Max(leftChannel, 14, 26);
+                AudioOutAverage = (AudioOutSpec1 + AudioOutSpec2 + AudioOutSpec3 + AudioOutSpec4 + AudioOutSpec5 + AudioOutSpec5 + AudioOutSpec6 + AudioOutSpec7 + AudioOutSpec8 + AudioOutSpec9) / 9;
+            }
+
+            // Add frame to queue
+            frameInputNode.AddFrame(frame);
         }
 
+        /// <summary>
+        /// Generates empty data for a neccessary quantity of samples
+        /// </summary>
+        /// <param name="samples">Sampel count</param>
+        /// <returns>AudioFrame of sample count</returns>
         public static unsafe AudioFrame GenerateAudioData(uint samples)
         {
             // Buffer size is (number of samples) * (size of each sample) * (number of channels)
@@ -501,8 +582,6 @@ namespace Discord_UWP.Managers
                 int sampleRate = (int)outgraph.EncodingProperties.SampleRate;
                 double sampleIncrement = (freq * (Math.PI * 2)) / sampleRate;
 
-
-
                 // Generate a 17kHz sine wave and populate the values in the memory buffer
                 for (int i = 0; i < samples; i++)
                 {
@@ -512,45 +591,20 @@ namespace Discord_UWP.Managers
                 }
             }
 
-            #region Empty Generation
-            //using (IMemoryBufferReference reference = buffer.CreateReference())
-            //{
-            //    byte* dataInBytes;
-            //    uint capacityInBytes;
-            //    float* dataInFloat;
-
-            //    Get the buffer from the AudioFrame
-            //   ((IMemoryBufferByteAccess) reference).GetBuffer(out dataInBytes, out capacityInBytes);
-
-            //    Cast to float since the data we are generating is float
-            //   dataInFloat = (float*)dataInBytes;
-
-            //    float freq = 13000; // choosing to generate frequency of 13kHz
-            //    float amplitude = 0.3f;
-            //    int sampleRate = (int)graph.EncodingProperties.SampleRate;
-            //    double sampleIncrement = (freq * (Math.PI * 2)) / sampleRate;
-
-
-
-            //    Generate a 1kHz sine wave and populate the values in the memory buffer
-            //        for (int i = 0; i < samples; i++)
-            //    {
-            //        double sinValue = amplitude * Math.Sin(theta);
-            //        dataInFloat[i] = (float)sinValue;
-            //        theta += sampleIncrement;
-            //    }
-            //}
-            #endregion
-
             return frame;
         }
 
+        /// <summary>
+        /// Handle new quantum from in graph
+        /// </summary>
         private static void Graph_QuantumStarted(AudioGraph sender, object args)
         {
+            // If odd quantum
            if (++quantum % 2 == 0)
            {
                try
                {
+                   // Record frame
                    AudioFrame frame = frameOutputNode.GetFrame();
                    ProcessFrameOutput(frame);
                }
@@ -561,6 +615,10 @@ namespace Discord_UWP.Managers
            }
         }
 
+        /// <summary>
+        /// Handle frame of mic input
+        /// </summary>
+        /// <param name="frame"></param>
         private static unsafe void ProcessFrameOutput(AudioFrame frame)
         {
             float[] dataInFloats;
@@ -579,6 +637,7 @@ namespace Discord_UWP.Managers
                 }
             }
 
+            // Don't bother if muted
             if (LocalState.VoiceState.SelfMute || LocalState.VoiceState.ServerMute)
             {
                 AudioInSpec1 = 0;
@@ -594,11 +653,13 @@ namespace Discord_UWP.Managers
             }
             else
             {
+                // Determine FFT data
                 List<float[]> amplitudeData = FFT.Processing.HelperMethods.ProcessFrameOutput(frame);
                 List<float[]> channelData = FFT.Processing.HelperMethods.GetFftData(FFT.Processing.HelperMethods.ConvertTo512(amplitudeData, ingraph), ingraph);
 
                 float[] leftChannel = channelData[1];
 
+                // Assign each FFT data out channel
                 AudioInSpec1 = HelperMethods.Max(leftChannel, 0, 1);
                 AudioInSpec2 = HelperMethods.Max(leftChannel, 2, 3);
                 AudioInSpec3 = HelperMethods.Max(leftChannel, 3, 4);
@@ -614,6 +675,9 @@ namespace Discord_UWP.Managers
             InputRecieved?.Invoke(null, dataInFloats);
         }
 
+        /// <summary>
+        /// Handle new quantum for out graph
+        /// </summary>
         private static void node_QuantumStarted(AudioFrameInputNode sender, FrameInputNodeQuantumStartedEventArgs args)
         {
             // GenerateAudioData can provide PCM audio data by directly synthesizing it or reading from a file.
@@ -622,11 +686,18 @@ namespace Discord_UWP.Managers
             uint numSamplesNeeded = (uint)args.RequiredSamples;
             if (numSamplesNeeded != 0)
             {
+                // Generate empty data if extra samples are needed
                 AudioFrame audioData = GenerateAudioData(numSamplesNeeded);
+
+                // Play recieved data
                 frameInputNode.AddFrame(audioData);
             }
         }
 
+        /// <summary>
+        /// Update out device by id
+        /// </summary>
+        /// <param name="outID">New out device Id</param>
         public static async void UpdateOutputDeviceID(string outID)
         {
             if (outID != OutputDeviceID)
@@ -635,6 +706,10 @@ namespace Discord_UWP.Managers
             }
         }
 
+        /// <summary>
+        /// Update in device by id
+        /// </summary>
+        /// <param name="inID">New in device Id</param>
         public static async void UpdateInputDeviceID(string inID)
         {
             if (inID != InputDeviceID)
@@ -643,7 +718,10 @@ namespace Discord_UWP.Managers
             }
         }
 
-
+        /// <summary>
+        /// Play sound effect by file
+        /// </summary>
+        /// <param name="file">File name</param>
         public static async void PlaySoundEffect(string file)
         {
             await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -653,30 +731,10 @@ namespace Discord_UWP.Managers
                     element.Volume = 2;
                     element.AudioCategory = AudioCategory.Other; //Alerts dims other sounds
                     element.SetPlaybackSource(Windows.Media.Core.MediaSource.CreateFromUri(
-                        new Uri("ms-appx:///Assets/SoundEffects/" + /*(Storage.Settings.DiscordSounds ? "discord" : "windows") + "_" + */ file + ".wav")));
-                    element.MediaEnded += Element_MediaEnded;
+                        new Uri("ms-appx:///Assets/SoundEffects/" + file + ".wav")));
                     element.Play();
                 });
         }
-
-        public static async void PlaySoundEffect(string file, string type)
-        {
-            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
-                {
-                    MediaElement element = new MediaElement();
-                    element.AudioCategory = AudioCategory.Alerts;
-                    element.SetPlaybackSource(
-                        Windows.Media.Core.MediaSource.CreateFromUri(
-                            new Uri("ms-appx:///Assets/SoundEffects/" + type + "_" + file + ".mp3")));
-                    element.MediaEnded += Element_MediaEnded;
-                    element.Play();
-                });
-        }
-
-        private static void Element_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            //Dispose?
-        }
+        
     }
 }

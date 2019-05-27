@@ -16,10 +16,17 @@ namespace Discord_UWP.Flyouts
 {
     partial class FlyoutCreator
     {
+        /// <summary>
+        /// Make Flyout for DMChannel
+        /// </summary>
+        /// <param name="dm">DM Channel</param>
+        /// <returns>A MenuFlyout for the DM</returns>
         public static MenuFlyout MakeDMChannelMenu(DirectMessageChannel dm)
         {
             MenuFlyout menu = new MenuFlyout();
             menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
+
+            // Add "Profile" button
             MenuFlyoutItem profile = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/Profile"),
@@ -28,8 +35,14 @@ namespace Discord_UWP.Flyouts
             };
             profile.Click += FlyoutManager.OpenProfile;
             menu.Items.Add(profile);
+            
+
+            // Add seperator
             MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
             menu.Items.Add(sep1);
+
+
+            // Create "Remove Friend" button
             MenuFlyoutItem removeFriend = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/RemoveFriend"),
@@ -38,6 +51,8 @@ namespace Discord_UWP.Flyouts
                 Tag = dm.Users.FirstOrDefault().Id
             };
             removeFriend.Click += FlyoutManager.RemoveFriend;
+
+            // Create "Add Friend" button
             MenuFlyoutItem addFriend = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/AddFriend"),
@@ -45,6 +60,8 @@ namespace Discord_UWP.Flyouts
                 Tag = dm.Users.FirstOrDefault().Id
             };
             addFriend.Click += FlyoutManager.AddFriend;
+
+            // Create "Accept Friend Request" button
             MenuFlyoutItem acceptFriendRequest = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/AcceptFriendRequest"),
@@ -52,6 +69,8 @@ namespace Discord_UWP.Flyouts
                 Tag = dm.Users.FirstOrDefault().Id
             };
             acceptFriendRequest.Click += FlyoutManager.AddFriend;
+
+            // Create "Block" button
             MenuFlyoutItem block = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/Block"),
@@ -61,6 +80,7 @@ namespace Discord_UWP.Flyouts
             };
             block.Click += FlyoutManager.BlockUser;
 
+            // Create "Unblock" button
             MenuFlyoutItem unBlock = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/Unblock"),
@@ -69,39 +89,58 @@ namespace Discord_UWP.Flyouts
             };
             unBlock.Click += FlyoutManager.RemoveFriend;
 
+            // Choose buttons to add
             if (LocalState.Friends.ContainsKey(dm.Users.FirstOrDefault().Id))
             {
                 switch (LocalState.Friends[dm.Users.FirstOrDefault().Id].Type)
                 {
+                    // No relation
                     case 0:
+                        // Add "Add Friend" and "Block" buttons
                         menu.Items.Add(addFriend);
                         menu.Items.Add(block);
                         break;
+
+                    // Friend
                     case 1:
+                        // Add "Remove Friend" and "Block" buttons
                         menu.Items.Add(removeFriend);
                         menu.Items.Add(block);
                         break;
+
+                    // Blocked
                     case 2:
+                        // Add "Unblock" button
                         menu.Items.Add(unBlock);
                         break;
+
+                    // Incoming Friend Request
                     case 3:
+                        // Add "Accept Friend Request" and "Block" buttons
                         menu.Items.Add(acceptFriendRequest);
                         menu.Items.Add(block);
                         break;
+
+                    // Outgoing Friend Request
                     case 4:
+                        // Add "Block" button
                         menu.Items.Add(block);
                         break;
                 }
             }
             else
             {
+                // Default to no relation
                 menu.Items.Add(addFriend);
                 menu.Items.Add(block);
             }
 
+
+            // Add Seperator
             MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
             menu.Items.Add(sep2);
 
+            // Add "Close DM" button
             MenuFlyoutItem CloseDM = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/CloseDM"),
@@ -110,7 +149,6 @@ namespace Discord_UWP.Flyouts
                 Tag = dm.Id,
             };
             CloseDM.Click += FlyoutManager.DeleteChannel;
-
             menu.Items.Add(CloseDM);
 
             return menu;

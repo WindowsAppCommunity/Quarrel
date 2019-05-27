@@ -20,6 +20,8 @@ namespace Discord_UWP.Flyouts
         {
             MenuFlyout menu = new MenuFlyout();
             menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
+
+            // Add "Edit Server" button
             MenuFlyoutItem editServer = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/EditServer"),
@@ -28,22 +30,32 @@ namespace Discord_UWP.Flyouts
             };
             editServer.Click += FlyoutManager.EditServer;
             menu.Items.Add(editServer);
+
+
+            // Add Seperator
             MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
             menu.Items.Add(sep1);
+
+            // Create "Mute/Unmute" button
             MenuFlyoutItem mute = new MenuFlyoutItem()
             {
-              //  Text = App.GetString("/Flyouts/MuteServer"),
-                //Text = "Mute Server",
                 Icon = new SymbolIcon(Symbol.Mute),
                 Tag = guild.Raw.Id,
             };
+            mute.Click += FlyoutManager.MuteServer;
+
+            // If muted, unmute
             if (LocalState.GuildSettings.ContainsKey(guild.Raw.Id) && LocalState.GuildSettings[guild.Raw.Id].raw.Muted)
                 mute.Text = App.GetString("/Flyouts/UnmuteServer");
+
+            // If not muted, mute
             else
                 mute.Text = App.GetString("/Flyouts/MuteServer");
 
-            mute.Click += FlyoutManager.MuteServer;
+            // Add "Mute/Unmute" button
             menu.Items.Add(mute);
+
+            // Add "Mark as Read" button
             MenuFlyoutItem markasread = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/MarkAsRead"),
@@ -53,8 +65,11 @@ namespace Discord_UWP.Flyouts
             };
             markasread.Click += FlyoutManager.MarkGuildasRead;
             menu.Items.Add(markasread);
+
+            // If current user is owner
             if (guild.Raw.OwnerId == LocalState.CurrentUser.Id)
             {
+                // Add "Delete Server" button
                 MenuFlyoutItem deleteServer = new MenuFlyoutItem()
                 {
                     Text = App.GetString("/Flyouts/DeleteServer"),
@@ -67,6 +82,7 @@ namespace Discord_UWP.Flyouts
             }
             else
             {
+                // Add "Leave Server" button
                 MenuFlyoutItem leaveServer = new MenuFlyoutItem()
                 {
                     Text = App.GetString("/Flyouts/LeaveServer"),
@@ -77,19 +93,6 @@ namespace Discord_UWP.Flyouts
                 leaveServer.Click += FlyoutManager.LeaveServer;
                 menu.Items.Add(leaveServer);
             }
-
-            /* if (guild.permissions.ChangeNickname)
-             {
-                 MenuFlyoutItem changeNick = new MenuFlyoutItem()
-                 {
-                     Text = App.GetString("/Flyouts/ChangeNickname"),
-                     Tag = guild.Raw.Id,
-                     Icon = new SymbolIcon(Symbol.Rename),
-                     Margin = new Thickness(-26, 0, 0, 0)
-                 };
-                 changeNick.Click += FlyoutManager.ChangeNickname;
-                 menu.Items.Add(changeNick);
-             }*/
              
             return menu;
         }
