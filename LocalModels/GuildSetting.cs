@@ -10,11 +10,18 @@ namespace Discord_UWP.LocalModels
 {
     public class GuildSetting
     {
+        /// <summary>
+        /// Initialize GuildSettings from API model
+        /// </summary>
+        /// <param name="input"></param>
         public GuildSetting(SharedModels.GuildSetting input)
         {
             raw = input;
+            
+            // If guild has channel overrides
             if (raw.ChannelOverrides != null)
             {
+                // Put each override in an Id'd Dictionary
                 foreach (var channel in raw.ChannelOverrides)
                 {
                     channelOverrides.Add(channel.Channel_Id, channel);
@@ -22,7 +29,14 @@ namespace Discord_UWP.LocalModels
             }
         }
 
+        /// <summary>
+        /// Channel overrides by Id
+        /// </summary>
         public Dictionary<string, ChannelOverride> channelOverrides = new Dictionary<string, ChannelOverride>();
+
+        /// <summary>
+        /// API object
+        /// </summary>
         public SharedModels.GuildSetting raw = new SharedModels.GuildSetting();
     }
 }

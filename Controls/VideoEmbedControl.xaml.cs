@@ -24,6 +24,9 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class VideoEmbedControl : UserControl
     {
+        /// <summary>
+        /// Embedded Content
+        /// </summary>
         public Embed EmbedContent
         {
             get { return (Embed)GetValue(EmbedContentProperty); }
@@ -44,7 +47,6 @@ namespace Discord_UWP.Controls
 
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-            bool everythingisnull = true;
             //Accent color
             if (EmbedContent.Color != 0)
                 SideBorder.Background = Common.IntToColor(EmbedContent.Color);
@@ -54,7 +56,6 @@ namespace Discord_UWP.Controls
             //Author
             if (EmbedContent.Author != null)
             {
-                everythingisnull = false;
                 AuthorSP.Visibility=Visibility.Visible;
                 AuthorText.Content = EmbedContent.Author.Name;
                 if(EmbedContent.Author.Url != null)
@@ -70,19 +71,22 @@ namespace Discord_UWP.Controls
             //Title
             if (EmbedContent.Title != null)
             {
-                everythingisnull = false;
                 if (EmbedContent.Url == null)
                 {
+                    // Hide title and url content
                     UrlTitleBlock.Visibility = Visibility.Collapsed;
                     PlainTitleBlock.Visibility = Visibility.Visible;
                     PlainTitleBlock.Text = EmbedContent.Title;
                 }
                 else
                 {
+                    // Show title and url
                     PlainTitleBlock.Visibility = Visibility.Collapsed;
                     UrlTitleBlock.Visibility = Visibility.Visible;
                     UrlTitleBlock.Content = EmbedContent.Title;
                     UrlTitleBlock.NavigateUri = new Uri(EmbedContent.Url);
+                    
+                    // For some reason, the creators update will crash if you show the icon in the wrong way
                     if (App.FCU)
                     {
                         ShareButton.Visibility = Visibility.Visible;
@@ -95,13 +99,14 @@ namespace Discord_UWP.Controls
             }
             else
             {
+                // No title, collapse url and title
                 PlainTitleBlock.Visibility = Visibility.Collapsed;
                 UrlTitleBlock.Visibility = Visibility.Collapsed;
             }
+
             //Description
             if (EmbedContent.Description != null)
             {
-                everythingisnull = false;
                 DescriptionBlock.Visibility = Visibility.Visible;
                 DescriptionBlock.Text = EmbedContent.Description;
             }
@@ -112,13 +117,18 @@ namespace Discord_UWP.Controls
 
             //Fields
             UniversalWrapPanel previousWrapPanel= null;
+
+            // Clear fields
             FieldsStacker.Children.Clear();
+
+            // If there are fields
             if (EmbedContent.Fields != null)
             {
-                everythingisnull = false;
+                // Show field stacker
                 FieldsStacker.Visibility = Visibility.Visible;
                 foreach (var field in EmbedContent.Fields)
                 {
+                    // Add feed in line
                     if (field.Inline)
                     {
                         if (previousWrapPanel == null)
@@ -127,6 +137,7 @@ namespace Discord_UWP.Controls
                     }
                     else
                     {
+                        // Add feed at end
                         if (previousWrapPanel != null)
                         {
                             FieldsStacker.Children.Add(previousWrapPanel);
@@ -142,15 +153,18 @@ namespace Discord_UWP.Controls
             }
             else
             {
+                // No feeds, hide stacker
                 FieldsStacker.Visibility = Visibility.Collapsed;
             }
 
             //Image
             if (EmbedContent.Image != null)
             {
-                everythingisnull = false;
+                // Show Image
                 ImageViewbox.Visibility = Visibility.Visible;
                 ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Image.Url));
+
+                // Show with no border if all other fields are null
                 if(EmbedContent.Author.Name == null && EmbedContent.Author.IconUrl == null
                     && EmbedContent.Description == null && EmbedContent.Fields.Count() == 0 
                     && EmbedContent.Footer.Text == null && EmbedContent.Footer.IconUrl == null
@@ -162,18 +176,28 @@ namespace Discord_UWP.Controls
             }
             else
             {
+                // Hide image
                 ImageViewbox.Visibility = Visibility.Collapsed;
             }
 
             //Footer
+            // If there's no footer and no timestamp
             if (EmbedContent.Footer == null && EmbedContent.Timestamp == null)
+            {
+                // Hide footer
                 FooterSP.Visibility = Visibility.Collapsed;
+            }
             else
             {
+                // Show footer
                 FooterSP.Visibility = Visibility.Visible;
                 string footertext = "";
+
+                // Footer
                 if (EmbedContent.Footer.Text != null)
                     footertext = EmbedContent.Footer.Text;
+
+                // Timestamp
                 if (EmbedContent.Timestamp != null)
                 {
                     if (footertext != "") footertext += " | ";
@@ -184,6 +208,8 @@ namespace Discord_UWP.Controls
                 {
                     FooterText.Text = footertext;
                 }
+
+                // Icon
                 if (EmbedContent.Footer != null)
                 {
                     FooterImage.Visibility = Visibility.Visible;
@@ -195,10 +221,10 @@ namespace Discord_UWP.Controls
                 }
             }
 
-            //Provider
+            // Provider
             if (EmbedContent.Provider != null)
             {
-                everythingisnull = false;
+                // Show domain
                 ProviderHyperlink.Visibility = Visibility.Visible;
                 ProviderHyperlink.Content = EmbedContent.Provider.Name;
                 if (EmbedContent.Provider.Url != null)
@@ -206,20 +232,27 @@ namespace Discord_UWP.Controls
             }
             else
             {
+                // Hide domain view
                 ProviderHyperlink.Visibility = Visibility.Collapsed;
             }
-            //Thumbnail
+
+            // Thumbnail
             if (EmbedContent.Thumbnail != null)
             {
+                // Article Thumbnail
                 if (EmbedContent.Type == "article")
                 {
+                    // Hide thumbnail view
                     ThumbnailColumn.Width = new GridLength(0, GridUnitType.Pixel);
                     ThumbnailImage.Visibility = Visibility.Collapsed;
+
+                    // Show article thumbnail
                     ImageViewbox.Visibility = Visibility.Visible;
                     ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
                 }
                 else
                 {
+                    // Other thumbnails
                     ThumbnailColumn.Width = new GridLength(1, GridUnitType.Star);
                     ThumbnailImage.Visibility = Visibility.Visible;
                     ThumbnailImage.Source = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
@@ -227,10 +260,12 @@ namespace Discord_UWP.Controls
             }
             else
             {
+                // Hide thumbnail view
                 ThumbnailColumn.Width = new GridLength(0, GridUnitType.Pixel);
                 ThumbnailImage.Visibility = Visibility.Collapsed;
             }
 
+            // Show open in myTube button
             if (EmbedContent.Url.Contains("youtube") || EmbedContent.Url.Contains("youtu.be"))
             {
                 myTubeButton.Visibility = Visibility.Visible;
@@ -239,32 +274,51 @@ namespace Discord_UWP.Controls
                 myTubeButton.Visibility = Visibility.Collapsed;
             }
         }
-
+        /// <summary>
+        /// Make StackPanel control from <paramref name="field"/>
+        /// </summary>
+        /// <param name="field">Field to parse</param>
+        /// <returns>StackPanel of Field Control</returns>
         private StackPanel GenerateField(EmbedField field)
         {
             StackPanel sp = new StackPanel();
+            
+            // If there's a name, add a name
             if (field.Name != null)
                 sp.Children.Add(new MarkdownTextBlock.MarkdownTextBlock() { Text = field.Name, FontSize = 13, EnableHiddenLinks = true, FontWeight = FontWeights.SemiBold });
+
+            // If there's content, add content
             if (field.Value != null)
                 sp.Children.Add(new MarkdownTextBlock.MarkdownTextBlock() { Text = field.Value, FontSize = 13, Opacity = 0.75, EnableHiddenLinks = true });
+
+            // If it's line, set a max width a height
             if (field.Inline)
             {
                 sp.MinWidth = 150;
                 sp.MaxWidth = 204;
             }
+
+            // Add margin
             sp.Margin = new Thickness(0, 6, 0, 0);
+
             return sp;
         }
+
         public VideoEmbedControl()
         {
             this.InitializeComponent();
             RegisterPropertyChangedCallback(EmbedContentProperty, OnPropertyChanged);
         }
 
+        /// <summary>
+        /// Open image in SubPage
+        /// </summary>
         private void AttachedImageViewer_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            // If there's an image
             if (EmbedContent.Image.Url != null)
             {
+                // Open Image
                 App.OpenAttachement(new Attachment()
                 {
                     Filename = new Uri(EmbedContent.Image.Url).Segments.Last(),
@@ -275,8 +329,10 @@ namespace Discord_UWP.Controls
                     Size = 0
                 });
             }
+            // If there's a thumbnail
             else if(EmbedContent.Thumbnail.Url != null)
             {
+                // Open Thumbnail
                 App.OpenAttachement(new Attachment()
                 {
                     Filename = new Uri(EmbedContent.Thumbnail.Url).Segments.Last(),
@@ -290,28 +346,43 @@ namespace Discord_UWP.Controls
             
         }
 
+        /// <summary>
+        /// Open share prompt for embedded content
+        /// </summary>
         private void ShareEmbed(object sender, RoutedEventArgs e)
         {
+            // Show prompt
             Windows.ApplicationModel.DataTransfer.DataTransferManager.ShowShareUI();
             Windows.ApplicationModel.DataTransfer.DataTransferManager.GetForCurrentView().DataRequested += EmbedControl_DataRequested;
         }
 
+        /// <summary>
+        /// Requested from share prompt
+        /// </summary>
         private void EmbedControl_DataRequested(Windows.ApplicationModel.DataTransfer.DataTransferManager sender, Windows.ApplicationModel.DataTransfer.DataRequestedEventArgs args)
         {
+            // If there's content
             if (!string.IsNullOrEmpty(EmbedContent.Url))
             {
+                // Share content
                 args.Request.Data.SetText(EmbedContent.Url);
                 args.Request.Data.Properties.Title = Windows.ApplicationModel.Package.Current.DisplayName;
             }
             else
             {
+                // Nothing to share
                 args.Request.FailWithDisplayText("Nothing to share");
             }
 
         }
 
+        /// <summary>
+        /// Open in myTube
+        /// </summary>
         private async void OpenInmyTube(object sender, RoutedEventArgs e)
         {
+            // TODO: Switch to regex
+
             string videoID = "";
             if (EmbedContent.Url.Contains("youtube"))
             {
@@ -334,11 +405,15 @@ namespace Discord_UWP.Controls
                     videoID = videoID.Substring(0, videoID.LastIndexOf("?"));
                 }
             }
-
+            
+            // Plug in uri and launch
             var uri = new Uri(@"rykentube:Video?ID=" + videoID);
             await Windows.System.Launcher.LaunchUriAsync(uri);
         }
 
+        /// <summary>
+        /// Dispose of Control
+        /// </summary>
         public void Dispose()
         {
             Windows.ApplicationModel.DataTransfer.DataTransferManager.GetForCurrentView().DataRequested -= EmbedControl_DataRequested;
