@@ -30,23 +30,43 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class EmojiControl : UserControl
     {
-        
+        /// <summary>
+        /// Event for when an emoji is selected
+        /// </summary>
         public event EventHandler<ISimpleEmoji> PickedEmoji; 
         
         public class ChangedDiversityArgs : EventArgs
         {
             public int skintone { get; set; }
         }
+        /// <summary>
+        /// Event for when skin-tone is changed
+        /// </summary>
         public event EventHandler<ChangedDiversityArgs> ChangedDiversity;
+
         public class ISimpleEmoji : INotifyPropertyChanged
         {
+            /// <summary>
+            /// split string by skin-tone suffix
+            /// </summary>
             public List<string> names { get; set; }
+            /// <summary>
+            /// True if the Emoji supports multiple skintones
+            /// </summary>
             public bool? hasDiversity { get; set; }
+            /// <summary>
+            /// True if the emoji is from Discord instead of Unicode
+            /// </summary>
             public bool CustomEmoji { get; set; }
+            /// <summary>
+            /// The category the emoji is from
+            /// </summary>
             public virtual string category { get; set; }
-            public int position { get; set; }
 
             private string _surrogates;
+            /// <summary>
+            /// How the emoji is displayed in drafts
+            /// </summary>
             public string surrogates
             {
                 get => _surrogates;
@@ -59,10 +79,12 @@ namespace Discord_UWP.Controls
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
 
+            /// <summary>
+            /// Change the skin-tone on this emoji 
+            /// </summary>
             public void Emoji_ChangedDiversity(object sender, ChangedDiversityArgs e)
             {
-                if(e.skintone == -1)
-                    
+                // Change the suffix name to a skin-tone
                 if (names.Count > 1)
                 {
                     names[1] = "skin-tone-" + e.skintone.ToString();
@@ -74,6 +96,7 @@ namespace Discord_UWP.Controls
             }
         }
 
+        #region Emoji Default Categories
         public class Person : ISimpleEmoji
         { public override string category => App.GetString("/Controls/PEOPLE"); }
 
@@ -98,12 +121,26 @@ namespace Discord_UWP.Controls
         public class Flag : ISimpleEmoji
         { public override string category => App.GetString("/Controls/FLAGS"); }
 
+        #endregion
+
         public class GuildSide : ISimpleEmoji
         {
             public override string category { get; set; }
+
+            /// <summary>
+            /// True if the user can use this emoji in the current guild
+            /// </summary>
             public bool IsEnabled { get; set; }
+
+            /// <summary>
+            /// Discord ID of the emoji
+            /// </summary>
             public string id { get; set; }
         }
+
+        /// <summary>
+        /// Root container of all emojis
+        /// </summary>
         public class RootObject
         {
             public List<Person> people { get; set; }
@@ -125,11 +162,12 @@ namespace Discord_UWP.Controls
         private IEnumerable<ISimpleEmoji> emojis;
         private async void LoadEmojis()
         {
+            // Read unicode emoji list from json file
             var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/emojis.json"));
             string json = await FileIO.ReadTextAsync(file);
             RootObject root = JsonConvert.DeserializeObject<RootObject>(json);
-            var guildEmojis = new List<GuildSide>();
 
+            var guildEmojis = new List<GuildSide>();
             if (!App.CurrentGuildIsDM)
             {
                 try
@@ -140,8 +178,12 @@ namespace Discord_UWP.Controls
                         if (emoji.Roles.Count() != 0 && !LocalState.Guilds[App.CurrentGuildId].members[LocalState.CurrentUser.Id]
                                 .Roles.Intersect(emoji.Roles)
                                 .Any()) return;
+                        
+                        // Determine file type of emoji
                         string extension = ".png";
                         if (emoji.Animated) extension = ".gif";
+
+                        // Add emoji to list
                         guildEmojis.Add(new GuildSide()
                         {
                             category = LocalState.Guilds[App.CurrentGuildId].Raw.Name.ToUpper(),
@@ -156,6 +198,7 @@ namespace Discord_UWP.Controls
                 catch (Exception) { }
             }
                 
+            // Merge emoji lists
             emojis = guildEmojis.Concat<ISimpleEmoji> (root.people)
                                 .Concat(root.nature)
                                 .Concat(root.food)
@@ -164,43 +207,33 @@ namespace Discord_UWP.Controls
                                 .Concat(root.objects)
                                 .Concat(root.symbols)
                                 .Concat(root.flags);
+            
+            // Register changed diversity event for all applicable emojis
             foreach(var emoji in emojis)
             {
                 if(emoji.hasDiversity == true)
                      ChangedDiversity += emoji.Emoji_ChangedDiversity;
             }
+
+            // Group emojis by Category
             var grouped = emojis.GroupBy(x => x.category);
+
+            // Display grouped collection
             EmojiCVS.Source = grouped;
         }
 
-
-
-        private void Grid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
-        {
-            if (dragTransform.X <= 0 &&  dragTransform.X >= -48)
-                dragTransform.X += e.Delta.Translation.X;
-        }
-
-        private void Grid_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
-        {
-            if(dragTransform.X < -24)
-                Snap.Begin();
-            else
-                SnapBack.Begin();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if(dragTransform.X != -48)
-                Snap.Begin();
-            else
-                SnapBack.Begin();
-        }
-
+        /// <summary>
+        /// Invoke emoji selected event
+        /// </summary>
         private void EmojiView_OnItemClick(object sender, ItemClickEventArgs e)
         {
             PickedEmoji?.Invoke(null, (e.ClickedItem as ISimpleEmoji));
         }
+
+        /// <summary>
+        /// Get Emoji name with skin-tone
+        /// </summary>
+        /// <returns>Emoji name</returns>
         private string GetEmojiName(ISimpleEmoji e)
         {
             string suffix = "";
@@ -219,11 +252,20 @@ namespace Discord_UWP.Controls
             }
             return "<:" + e.names[0] + ":" + suffix ;
         }
+
+        /// <summary>
+        /// Indicates if the Control has finished loading
+        /// </summary>
         private bool loaded = false;
+
+        /// <summary>
+        /// Called when a skin-tone is selected
+        /// </summary>
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {
             if (loaded)
             {
+                // Clear previous skin-tone
                 if (sender as ToggleButton != SkinTone1)
                     SkinTone1.IsChecked = false;
 
@@ -241,26 +283,43 @@ namespace Discord_UWP.Controls
 
                 if (sender as ToggleButton != SkinTone0)
                     SkinTone0.IsChecked = false;
+
+                // Invoke event
                 ChangedDiversity?.Invoke(null, new ChangedDiversityArgs() { skintone = Convert.ToInt16((sender as ToggleButton).Tag as string) });
             }
         }
 
+        /// <summary>
+        /// Control finished loading
+        /// </summary>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             loaded = true;
         }
 
+        /// <summary>
+        /// Show emoji-name tooltip
+        /// </summary>
         private void Emoji_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
             Searchbox.PlaceholderText = ":" + ToolTipService.GetToolTip(sender as UIElement) + ":";
         }
 
+        /// <summary>
+        /// Query the emoji list
+        /// </summary>
         private async void Searchbox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            // Filter groupings
             IEnumerable grouped = null;
+            
+            // All emoji names are lower case
             string query = Searchbox.Text.ToLower();
+
+
             await Task.Run(() =>
             {
+                // Create a new emoji list with only emojis from query
                 var filtered = new List<ISimpleEmoji>();
                 foreach (var emoji in emojis)
                 {
@@ -269,29 +328,47 @@ namespace Discord_UWP.Controls
                         filtered.Add(emoji);
                     }
                 }
+
+                // Sort by accuracy then group new listing
                 grouped = filtered.OrderBy(x => x.names[0].StartsWith(query)).GroupBy(x => x.category);
             });
            
+            // Show new listing
             EmojiCVS.Source = grouped;
         }
 
+        /// <summary>
+        /// Dispose of this object
+        /// </summary>
         public void Dispose()
         {
             //Nothing to dispose
         }
     }
 
+    /// <summary>
+    /// Extensions for emojis
+    /// </summary>
     static class EmojiSkinToneManager
     {
-        public static string ChangeSkinTone(this string emoji,
-        int skinTone)
+
+        public static string ChangeSkinTone(this string emoji, int skinTone)
         {
+            // Remove old skintone
             emoji = emoji.Replace("🏻", "").Replace("🏼", "").Replace("🏽", "").Replace("🏾", "").Replace("🏿", "");
+
+            // Add new skin-tone
             if (skinTone == 0) return emoji;
             else
                 emoji += GetSkinTone(skinTone);
+
+            // Return result
             return emoji;
         }
+
+        /// <summary>
+        /// Get a skintone modifier character from an integer
+        /// </summary>
         private static string GetSkinTone(int skintone)
         {
             switch (skintone)
@@ -306,6 +383,9 @@ namespace Discord_UWP.Controls
         }
     }
 
+    /// <summary>
+    /// DataTemplate for Emojis
+    /// </summary>
     public class EmojiDataTemplateSelector : DataTemplateSelector
     {
         public DataTemplate PlainEmojiTemplate { get; set; }

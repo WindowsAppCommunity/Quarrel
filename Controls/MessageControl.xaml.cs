@@ -44,15 +44,18 @@ namespace Discord_UWP.Controls
     public sealed partial class MessageControl : UserControl
     {
 
-        //Is the more button visible?
+        /// <summary>
+        /// Is the more button visible?
+        /// </summary>
         public Visibility MoreButtonVisibility
         {
             get { return moreButton.Visibility; }
             set { moreButton.Visibility = value; }
         }
 
-        //Is the message an advert?
-        
+        /// <summary>
+        /// Is the message an advert?
+        /// </summary>
         public MessageTypes MessageType
         {
             get { return (MessageTypes)GetValue(MessageTypeProperty); }
@@ -64,7 +67,9 @@ namespace Discord_UWP.Controls
             typeof(MessageControl),
             new PropertyMetadata(MessageTypes.Default, OnPropertyChangedStatic));
 
-        //Is the message the continuation of another one?
+        /// <summary>
+        /// Is the message the continuation of another one?
+        /// </summary>
         public bool IsContinuation
         {
             get { return (bool)GetValue(IsContinuationProperty); }
@@ -76,6 +81,9 @@ namespace Discord_UWP.Controls
             typeof(MessageControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// Ture if the message is pending being sent (depricated)
+        /// </summary>
         public bool IsPending
         {
             get { return (bool)GetValue(IsPendingProperty); }
@@ -87,6 +95,9 @@ namespace Discord_UWP.Controls
             typeof(MessageControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// True if the message has been edited
+        /// </summary>
         public bool Edited
         {
             get { return (bool)GetValue(EditedProperty); }
@@ -98,6 +109,9 @@ namespace Discord_UWP.Controls
             typeof(MessageControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// True if the current user has blocked the user that posted the message
+        /// </summary>
         public bool IsBlocked
         {
             get { return (bool)GetValue(IsBlockedProperty); }
@@ -109,7 +123,9 @@ namespace Discord_UWP.Controls
             typeof(MessageControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
-        //The header of the messages, that can indicate data such as "new messages" or the date
+        /// <summary>
+        /// The header of the messages, that can indicate data such as "new messages" or the date (depricated)
+        /// </summary>
         public string Header
         {
             get { return (string)GetValue(HeaderProperty); }
@@ -121,6 +137,9 @@ namespace Discord_UWP.Controls
             typeof(MessageControl),
             new PropertyMetadata(string.Empty, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// True if it was the last read message in the channel before being opened
+        /// </summary>
         public bool LastRead
         {
             get { return (bool)GetValue(LastReadProperty); }
@@ -132,20 +151,24 @@ namespace Discord_UWP.Controls
             typeof(MessageControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
-        //The message to be displayed
-        public SharedModels.Message Message
+        /// <summary>
+        /// The message to be displayed
+        /// </summary>
+        public Message Message
         {
-            get { return (SharedModels.Message)GetValue(MessageProperty); }
+            get { return (Message)GetValue(MessageProperty); }
             set { SetValue(MessageProperty, value); }
         }
         public static readonly DependencyProperty MessageProperty = DependencyProperty.Register(
             nameof(Message),
-            typeof(SharedModels.Message),
+            typeof(Message),
             typeof(MessageControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
 
-        //Calls OnPropertyChanged for this instance of the control
+        /// <summary>
+        /// Calls OnPropertyChanged for this instance of the control
+        /// </summary>
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as MessageControl;
@@ -153,22 +176,33 @@ namespace Discord_UWP.Controls
         }
         AdControl advert;
         string originalcontent = "";
+
         /* IT IS VERY IMPORTANT TO REMEMBER THE MESSAGECONTROL GET RECYCLED BY VIRTUALIZATION, AND THAT VALUES MUST SYSTEMATICALLY BE RESET
-         * For example, if you change a color depending on a boolean property, make sure to include an `else` that will reset the color */
+         * For example, if a color property is changed depending on a boolean property, make sure to include an `else` that will reset the color */
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
+            // If the status of the message being a continuation is updated
             if (prop == IsContinuationProperty)
             {
+                // Make continuation
                 if (IsContinuation)
                     VisualStateManager.GoToState(((MessageControl)d), "Continuation", false);
+                // Go to default
                 else
                     VisualStateManager.GoToState(((MessageControl)d), "VisualState", false);
             }
-            if(Storage.Settings.CompactMode)
-                VisualStateManager.GoToState(((MessageControl)d), "Compact", false);
 
+            // Enter compact
+            if (Storage.Settings.CompactMode)
+                VisualStateManager.GoToState(((MessageControl)d), "Compact", false);
+            // Leave compact
+            else
+                VisualStateManager.GoToState(((MessageControl)d), "VisualState", false);
+
+            // If message type changed
             if (prop == MessageTypeProperty)
             {
+                // Is advert (depricated)
                 if (MessageType == MessageTypes.Advert)
                 {
                     if (rootGrid.Children.Contains(reactionView))
@@ -185,15 +219,18 @@ namespace Discord_UWP.Controls
                     Grid.SetColumnSpan(advert, 10);
                     Grid.SetRowSpan(advert, 10);
                     rootGrid.Children.Add(advert);
-                    if(reactionView!=null)
-                    rootGrid.Children.Remove(reactionView);
+                    if (reactionView != null)
+                        rootGrid.Children.Remove(reactionView);
                     return;
-                } else
+                }
+                else
                 {
+                    // Remove advert control
                     if (rootGrid.Children.Contains(advert))
                         rootGrid.Children.Remove(advert);
                     advert = null;
 
+                    // Recipient Added to Group DM message
                     if (MessageType == MessageTypes.RecipientAdded)
                     {
                         if (rootGrid.Children.Contains(reactionView))
@@ -202,6 +239,7 @@ namespace Discord_UWP.Controls
                         SetAltIcon("", (SolidColorBrush)App.Current.Resources["online"]);
                         content.Text = "**" + Message.User.Username + "** " + App.GetString("/Controls/AddedUser") + App.GetString("/Controls/ToTheConversation").Replace("<user>", "**" + Message.Mentions.First().Username + "**");
                     }
+                    // Recipient Removed to Group DM message
                     else if (MessageType == MessageTypes.RecipientRemoved)
                     {
                         if (rootGrid.Children.Contains(reactionView))
@@ -210,14 +248,16 @@ namespace Discord_UWP.Controls
                         SetAltIcon("", (SolidColorBrush)App.Current.Resources["dnd"]);
                         content.Text = "**" + Message.User.Username + "** " + App.GetString("/Controls/RemovedUser") + App.GetString("/Controls/FromTheConversation").Replace("<user>", "**" + Message.Mentions.First().Username + "**");
                     }
-                    else if(MessageType == MessageTypes.ChannelIconChanged)
+                    // Channel Icon Changed message
+                    else if (MessageType == MessageTypes.ChannelIconChanged)
                     {
                         if (rootGrid.Children.Contains(reactionView))
                             rootGrid.Children.Remove(reactionView);
                         VisualStateManager.GoToState(this, "Alternative", false);
                         SetAltIcon("", (SolidColorBrush)App.Current.Resources["InvertedBG"]);
-                        content.Text = "**" + Message.User.Username + "** changed the channel's icon"; 
+                        content.Text = "**" + Message.User.Username + "** changed the channel's icon";
                     }
+                    // Channel Name Changed message
                     else if (MessageType == MessageTypes.ChannelNameChanged)
                     {
                         if (rootGrid.Children.Contains(reactionView))
@@ -226,6 +266,7 @@ namespace Discord_UWP.Controls
                         SetAltIcon("", (SolidColorBrush)App.Current.Resources["InvertedBG"]);
                         content.Text = "**" + Message.User.Username + "** changed the channel's name";
                     }
+                    // Call message
                     else if (MessageType == MessageTypes.Call)
                     {
                         if (rootGrid.Children.Contains(reactionView))
@@ -249,9 +290,10 @@ namespace Discord_UWP.Controls
                                 content.Text = App.GetString("/Controls/CallStartedBy").Replace("<user>", "**" + Message.User.Username + "**");
                         }
                         AlternativeIcon.FontSize = 18;
-                        
+
                         //content.Text = App.GetString("/Controls/YouMissedACall") + " **" + Message.Value.User.Username + "**";
                     }
+                    // Message Pinned message
                     else if (MessageType == MessageTypes.PinnedMessage)
                     {
                         if (rootGrid.Children.Contains(reactionView))
@@ -263,19 +305,16 @@ namespace Discord_UWP.Controls
                         SetAltIcon("", (SolidColorBrush)App.Current.Resources["InvertedBG"]);
                         content.Text = "**" + Message.User.Username + "** " + App.GetString("/Controls/PinnedAMessageInThisChannel");
                     }
-
+                    // Member Joined message
                     else if (MessageType == MessageTypes.GuildMemberJoined)
                     {
                         if (rootGrid.Children.Contains(reactionView))
                             rootGrid.Children.Remove(reactionView);
                         VisualStateManager.GoToState(this, "Alternative", false);
-                        SetAltIcon("", (SolidColorBrush) App.Current.Resources["online"]);
-                        content.Text = "**"+Message.User.Username + "**" + " joined the server!";
+                        SetAltIcon("", (SolidColorBrush)App.Current.Resources["online"]);
+                        content.Text = "**" + Message.User.Username + "**" + " joined the server!";
                     }
-                    else if(MessageType == MessageTypes.ChannelIconChanged)
-                    {
-
-                    }
+                    // Revert to standard Message template
                     else if (MessageType == MessageTypes.Default)
                     {
                         if (IsContinuation)
@@ -285,90 +324,111 @@ namespace Discord_UWP.Controls
                     }
                 }
             }
+            // Message changed
             if (prop == MessageProperty)
             {
                 UpdateMessage(Edited);
             }
+            // Last Read updated
             if (prop == LastReadProperty)
             {
                 if (LastRead)
                 {
+                    // Show "NEW MESSAGES" header
                     HeaderUI.Visibility = Visibility.Visible;
-                } else
+                }
+                else
                 {
+                    // Hide "NEW MESSAGES" header
                     HeaderUI.Visibility = Visibility.Collapsed;
                 }
             }
-            //if (prop == HeaderProperty)
-            //{
-            //    if (Header != null && Header != "null")
-            //    {
-            //        HeaderUI.Visibility = Visibility.Visible;
-            //        HeaderText.Text = Header;
-            //    } else
-            //    {
-            //        HeaderUI.Visibility = Visibility.Collapsed;
-            //    }
-            //}
+            // Is Pending updated
             if (prop == IsPendingProperty)
             {
                 if (IsPending)
                 {
                     content.Opacity = 0.5;
-                } else
+                }
+                else
                 {
                     content.Opacity = 1;
                 }
             }
+            // Is Blocked updated
             if (prop == IsBlockedProperty)
             {
                 if (IsBlocked)
                 {
+                    // Hide content, show blocked message
                     content.Visibility = Visibility.Collapsed;
                     BlockedMessage.Visibility = Visibility.Visible;
-                } else
+                }
+                else
                 {
+                    // Show content, hide blocked message
                     content.Visibility = Visibility.Visible;
                     BlockedMessage.Visibility = Visibility.Collapsed;
                 }
             }
         }
 
-        private void MoreButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         public MessageControl()
         {
             this.InitializeComponent();
-            if (GatewayManager.Gateway != null) //idrk
+
+            // Somehow the Gatewat can be null when some messages are loaded. Just ignore it in that case
+            if (GatewayManager.Gateway != null)
             {
                 GatewayManager.Gateway.MessageReactionAdded += GatewayOnMessageReactionAdded;
                 GatewayManager.Gateway.MessageReactionRemoved += GatewayOnMessageReactionRemoved;
             }
         }
 
+        /// <summary>
+        /// Set Icon for non-default message type
+        /// </summary>
+        /// <param name="glyph">Icon</param>
+        /// <param name="color">Color</param>
+        /// <param name="fontsize">FontSize</param>
+        /// <param name="mirrored">True if the glyoh should be mirrored from it's usual direction</param>
         private void SetAltIcon(string glyph, SolidColorBrush color, int fontsize = 18, bool mirrored = false)
         {
+            // Set icon
             AlternativeIcon.Glyph = glyph;
             AlternativeIcon.FontSize = fontsize;
             AlternativeIcon.Foreground = color;
-            AlternativeIcon.RenderTransform = mirrored ? new ScaleTransform(){ ScaleX = -1, CenterX = 9} : new ScaleTransform() { ScaleX = 1 };
+
+            // Mirror glyph
+            AlternativeIcon.RenderTransform = mirrored ? new ScaleTransform() { ScaleX = -1, CenterX = 9 } : new ScaleTransform() { ScaleX = 1 };
         }
 
+        /// <summary>
+        /// Triggered when Gateway Reaction Removed event is recieved
+        /// </summary>
         private async void GatewayOnMessageReactionRemoved(object sender, GatewayEventArgs<MessageReactionUpdate> gatewayEventArgs)
         {
+            // If not this message, forget it
             if (gatewayEventArgs.EventData.MessageId != messageid) return;
+
+            // Run on UI thread
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 async () =>
                 {
+                    // Shouldn't be true but can get weird with Visualization recycling
                     if (reactionView == null)
                         reactionView = GenerateWrapGrid();
+
+                    // The button to remove or decriment from
                     ToggleButton toRemove = null;
+
+                    // Check all reactions for removed reaction
                     foreach (ToggleButton toggle in reactionView.Children)
                     {
+                        // Get Button Data
                         var tuple = toggle.Tag as Tuple<string, string, Reactions>;
+
+                        // If the button is for the emoji
                         if (tuple.Item3.Emoji.Name == gatewayEventArgs.EventData.Emoji.Name)
                         {
                             var tb = ((toggle.Content as StackPanel).Children.Last() as TextBlock);
@@ -376,28 +436,40 @@ namespace Discord_UWP.Controls
                             //var rt = ((toggle.Content as StackPanel).Children.Last() as TextBlock).RenderTransform = new TranslateTransform();
                             if (text == "1")
                             {
+                                // If the reaction had only 1 instance, remove it
                                 toRemove = toggle;
                                 break;
                             }
+
+                            // Uncheck button if user had checked it
                             if (tuple.Item3.Me)
                                 toggle.IsChecked = false;
+
+                            // Animate Text Change
                             AnimationSet.UseComposition = true;
                             await tb.Offset(22, -18, 150, 0, EasingType.Back, EasingMode.EaseIn).StartAsync();
                             tb.Text = (Convert.ToInt32(text) - 1).ToString();
-
                             await tb.Offset(22, 18, 0).StartAsync();
                             await tb.Offset(22, 0, 180, 0, EasingType.Back, EasingMode.EaseOut).StartAsync();
                             AnimationSet.UseComposition = false;
                         }
                     }
+
+                    // Remove button
                     if (toRemove != null)
                         reactionView.Children.Remove(toRemove);
                 });
         }
 
+        /// <summary>
+        /// Triggered when Gateway Reaction Added event is recieved
+        /// </summary>
         private async void GatewayOnMessageReactionAdded(object sender, GatewayEventArgs<MessageReactionUpdate> gatewayEventArgs)
         {
+            // If not this message, forget it
             if (gatewayEventArgs.EventData.MessageId != messageid) return;
+
+            // Run on UI thread
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 async () =>
                 {
@@ -407,29 +479,37 @@ namespace Discord_UWP.Controls
                         rootGrid.Children.Add(reactionView);
                     }
 
-
+                    // True if the button was available to be incrimented
                     bool success = false;
+
                     foreach (ToggleButton toggle in reactionView.Children)
                     {
+                        // Get Button Data
                         var tuple = toggle.Tag as Tuple<string, string, Reactions>;
+
+                        // If the Button is for the Emoji
                         if (tuple.Item3.Emoji.Name == gatewayEventArgs.EventData.Emoji.Name)
                         {
+                            // Button found
                             success = true;
+
+                            // Update text
                             var tb = ((toggle.Content as StackPanel).Children.Last() as TextBlock);
                             var text = tb.Text;
-                            //animate from the top
-                           // var rt = tb.RenderTransform = new TranslateTransform();
                             if (tuple.Item3.Me)
                                 toggle.IsChecked = true;
+
+                            // Animate Text Change
                             AnimationSet.UseComposition = true;
                             await tb.Offset(22, 18, 180, 0, EasingType.Back, EasingMode.EaseIn).StartAsync();
                             tb.Text = (Convert.ToInt32(text) + 1).ToString();
-                            
                             await tb.Offset(22, -18, 0).StartAsync();
                             await tb.Offset(22, 0, 180, 0, EasingType.Back, EasingMode.EaseOut).StartAsync();
                             AnimationSet.UseComposition = false;
                         }
                     }
+
+                    // If there wasn't a button to be incrimented
                     if (!success)
                     {
                         var data = gatewayEventArgs.EventData;
@@ -447,41 +527,59 @@ namespace Discord_UWP.Controls
                 });
         }
 
-        private void Sb_Completed(object sender, object e)
-        {
-            
-        }
-
+        /// <summary>
+        /// WrapPanel containing reactions
+        /// </summary>
         private WrapPanel reactionView;
-        //private Attachment attachement;
+
+        // ID of Author
         private string userid = "";
+        
+        // ID of Message
         public string messageid = "";
-        public Microsoft.Toolkit.Uwp.UI.Controls.WrapPanel GenerateWrapGrid()
+
+        /// <summary>
+        /// Generate Slightly modified WrapPanel
+        /// </summary>
+        /// <returns>Generated WrapPanel</returns>
+        public WrapPanel GenerateWrapGrid()
         {
             var wg = new WrapPanel()
             {
-                Orientation=Orientation.Horizontal,
+                Orientation = Orientation.Horizontal,
                 Margin = new Thickness(6, 4, 0, 0),
-                HorizontalSpacing=4,
-                VerticalSpacing=4
+                HorizontalSpacing = 4,
+                VerticalSpacing = 4
             };
             return wg;
         }
 
+        /// <summary>
+        /// Update message properties
+        /// </summary>
+        /// <param name="edited">True if the message edited</param>
         public void UpdateMessage(bool edited = false)
         {
+            // Reset fontsize and padding
             content.FontSize = Storage.Settings.MSGFontSize;
             content.Padding = new Thickness(6, 3, 3, content.FontSize / 4 + 1);
 
+            // Clear ad
             if (rootGrid.Children.Contains(advert))
                 rootGrid.Children.Remove(advert);
             advert = null;
-            
+
+            // If it's an enitrely new message, remove reactions
             if (!edited && rootGrid.Children.Contains(reactionView))
                 rootGrid.Children.Remove(reactionView);
+
+            // New message is not null
             if (Message != null)
             {
+                // Set Message Id
                 messageid = Message.Id;
+
+                // Adjust Background for mention indication
                 if (MessageType == MessageTypes.Default && (Message.MentionEveryone || Message.Mentions?.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id) != null))
                 {
                     content.Background = GetSolidColorBrush("#14FAA61A");
@@ -495,20 +593,28 @@ namespace Discord_UWP.Controls
                     content.BorderThickness = new Thickness(0);
                 }
 
+                // If the message has no author return
                 if (Message.User == null) return;
+
+                // Set Author by username
                 if (Message.User.Username != null)
                     username.Content = Message.User.Username;
                 else
                     username.Content = "";
+
+                // Override Author by Nickname
+                // Author as GuildMember
                 GuildMember member;
                 if (Message.User.Id != null) userid = Message.User.Id;
                 else userid = "";
                 if (App.CurrentGuildId != null && Message.User.Id != null)
                 {
+                    // Get Member by userId
                     if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(Message.User.Id))
                     {
                         member = LocalState.Guilds[App.CurrentGuildId].members[Message.User.Id];
-                    } else
+                    }
+                    else
                     {
                         member = new GuildMember() { User = Message.User };
                     }
@@ -517,35 +623,21 @@ namespace Discord_UWP.Controls
                 {
                     member = new GuildMember();
                 }
-
                 if (member.Nick != null)
                 {
                     username.Content = member.Nick;
                 }
 
+                // Handle Message embeded activies
                 if (Message.Activity != null)
                 {
-                    if(Message.Activity.Type == 3)
+                    if (Message.Activity.Type == 3)
                     {
                         //Spotify
-                        
                     }
                 }
 
-                //if (member.User.Id != null && LocalState.PresenceDict.ContainsKey(member.User.Id))
-                //{
-                //    if (LocalState.PresenceDict[member.User.Id].Status != null && LocalState.PresenceDict[member.User.Id].Status != "invisible")
-                //        ShadowPresence.Color = (Color)App.Current.Resources[Common.Capitalize(LocalState.PresenceDict[member.User.Id].Status) + "Color"];
-                //    else if (LocalState.PresenceDict[member.User.Id].Status == "invisible")
-                //        //ShadowPresence.Color = (Color)App.Current.Resources["OfflineColor"];
-                //        ShadowPresence.Visibility = Visibility.Collapsed;
-                //}
-                //else
-                //{
-                //    //ShadowPresence.Color = (Color)App.Current.Resources["OfflineColor"];
-                //    ShadowPresence.Visibility = Visibility.Collapsed;
-                //}
-
+                // Adjust Author color for Roles
                 if (member.Roles != null && member.Roles.Any())
                 {
                     bool changed = false;
@@ -564,35 +656,45 @@ namespace Discord_UWP.Controls
                     username.Foreground = (SolidColorBrush)App.Current.Resources["Foreground"];
                 }
 
+                // Toggle bot indicator
                 if (Message.User.Bot == true)
                     BotIndicator.Visibility = Visibility.Visible;
                 else
                     BotIndicator.Visibility = Visibility.Collapsed;
+
+                // Toggle pin/unpin message on pin/unpin button
                 if (Message.Pinned)
                     MorePin.Text = App.GetString("/Controls/Unpin");
                 else
                     MorePin.Text = App.GetString("/Controls/Pin") + " ";
 
-                if (!Storage.Settings.DevMode)
+                // Toggle dev tool visibilty
+                if (Storage.Settings.DevMode)
+                    MoreCopyId.Visibility = MoreDevSplit.Visibility = Visibility.Visible;
+                else
                     MoreCopyId.Visibility = MoreDevSplit.Visibility = Visibility.Collapsed;
 
+                // Set Author Avatar
                 AvatarBrush.ImageSource = new BitmapImage(Common.AvatarUri(Message.User.Avatar, Message.User.Id));
 
+                // Set Author Avatar backdrop
                 if (Message.User.Avatar == null)
                     AvatarBG.Fill = Common.DiscriminatorColor(Message.User.Discriminator);
                 else
                     AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
 
+                // Set timestamps
                 timestamp.Text = Common.HumanizeDate(Message.Timestamp, null);
                 if (Message.EditedTimestamp.HasValue)
                     timestamp.Text += " (" + App.GetString("/Controls/Edited") + " " + Common.HumanizeEditedDate(Message.EditedTimestamp.Value,
                                           Message.Timestamp) + ")";
 
-                
+                // Load Attachments
                 LoadEmbedsAndAttachements();
 
                 if (!edited)
                 {
+                    // Load reactions
                     if (Message.Reactions != null)
                     {
                         reactionView = GenerateWrapGrid();
@@ -613,7 +715,10 @@ namespace Discord_UWP.Controls
                     }
                 }
 
+                // Give Markdown parser Mentioned members
                 content.Users = Message.Mentions;
+
+                // Toggle content visiblity
                 if (Message?.Content == "")
                 {
                     content.Visibility = Visibility.Collapsed;
@@ -624,36 +729,41 @@ namespace Discord_UWP.Controls
                     content.Visibility = Visibility.Visible;
                     Grid.SetRow(moreButton, 2);
                 }
+                // Update content
                 content.Text = Message.Content;
+
+                // Handle invite ocdes
                 Regex regex = new Regex("(discord\\.(gg|io|me|li)\\/|discordapp\\.com\\/invite\\/)(([A-Za-z]|[0-9])+)");
                 foreach (Match match in regex.Matches(content.Text))
                 {
                     if (match.Groups.Count >= 3)
                     {
                         EmbedViewer.Visibility = Visibility.Visible;
-                        EmbedViewer.Children.Add(new EmbededInviteControl(){ InviteCode=match.Groups[3].Value });
+                        EmbedViewer.Children.Add(new EmbededInviteControl() { InviteCode = match.Groups[3].Value });
                     }
                 }
-                //string startLink = "";
 
-
+                // Check if the Author is blocked
                 if (LocalState.Blocked.ContainsKey(userid))
                 {
                     IsBlocked = true;
                     content.Visibility = Visibility.Collapsed;
                     BlockedMessage.Visibility = Visibility.Visible;
-                } else
+                }
+                else
                 {
                     IsBlocked = false;
                     BlockedMessage.Visibility = Visibility.Collapsed;
                     content.Visibility = Visibility.Visible;
                 }
             }
+            // Clear message
             else
             {
+                // Clear MessageId
                 messageid = "";
                 content.Visibility = Visibility.Visible;
-                Grid.SetRow(moreButton,2);
+                Grid.SetRow(moreButton, 2);
                 username.Content = "";
                 Avatar.Fill = null;
                 timestamp.Text = "";
@@ -665,6 +775,8 @@ namespace Discord_UWP.Controls
                 /* The resetting of the embed and attachement related stuff is handled by this function: */
                 LoadEmbedsAndAttachements();
             }
+
+            // Update content visibility
             if (string.IsNullOrEmpty(content.Text))
             {
                 content.Visibility = Visibility.Collapsed;
@@ -676,6 +788,13 @@ namespace Discord_UWP.Controls
                 Grid.SetRow(moreButton, 2);
             }
         }
+
+        /// <summary>
+        /// Find all indexes of <paramref name="searchstring"/> in <paramref name="str"/>
+        /// </summary>
+        /// <param name="str">String to search in</param>
+        /// <param name="searchstring">String to search for</param>
+        /// <returns>List of indexes for <paramref name="searchstring"/></returns>
         public static IEnumerable<int> AllIndexesOf(string str, string searchstring)
         {
             if (str != null)
@@ -688,19 +807,33 @@ namespace Discord_UWP.Controls
                 }
             }
         }
+
         ToggleButton reactionToggle;
+
+        /// <summary>
+        /// Generate ToggleButton for reaction
+        /// </summary>
+        /// <param name="reaction">Reaction to make button for</param>
+        /// <returns>ToggleButton</returns>
         private ToggleButton GenerateReactionToggle(Reactions reaction)
         {
+            // Make button
             reactionToggle = new ToggleButton();
             reactionToggle.IsChecked = reaction.Me;
             reactionToggle.Tag =
                 new Tuple<string, string, Reactions>(Message.ChannelId, Message.Id, reaction);
             reactionToggle.Click += ToggleReaction;
+
+            // Toggle CurrentUser reaction participation
             if (reaction.Me)
             {
                 reactionToggle.IsChecked = true;
             }
+
+            // Stack, reaction content
             StackPanel stack = new StackPanel() { Orientation = Orientation.Horizontal };
+
+            // Get server emoji (if it's a server emoji)
             string serversideEmoji = null;
             if (!App.CurrentGuildIsDM)
             {
@@ -716,9 +849,11 @@ namespace Discord_UWP.Controls
 
                     }
             }
+            
+            // Display server emoji
             if (serversideEmoji != null)
             {
-                stack.Children.Add(new Windows.UI.Xaml.Controls.Image()
+                stack.Children.Add(new Image()
                 {
                     Width = 18,
                     Height = 18,
@@ -729,6 +864,8 @@ namespace Discord_UWP.Controls
             else
             {
                 string emoji = reaction.Emoji.Name;
+
+                // Display standard emoji in Twitter emoji font
                 if (NeoSmart.Unicode.Emoji.IsEmoji(emoji))
                 {
                     stack.Children.Add(new TextBlock()
@@ -739,11 +876,12 @@ namespace Discord_UWP.Controls
                         VerticalAlignment = VerticalAlignment.Center
                     });
                 }
+                // Display Discord emoji
                 else
                 {
                     string extension = ".png";
                     if (reaction.Emoji.Animated) extension = ".gif";
-                    stack.Children.Add(new Windows.UI.Xaml.Controls.Image()
+                    stack.Children.Add(new Image()
                     {
                         Width = 18,
                         Height = 18,
@@ -752,63 +890,83 @@ namespace Discord_UWP.Controls
                     });
                 }
             }
+
+            // Add reaction count
             stack.Children.Add(new TextBlock() { Text = reaction.Count.ToString(), Margin = new Thickness(4, 0, 0, 0) });
-            stack.Clip = new RectangleGeometry(){Rect=new Rect(0,-4,96,28)};
+            stack.Clip = new RectangleGeometry() { Rect = new Rect(0, -4, 96, 28) };
             reactionToggle.Content = stack;
             reactionToggle.Style = (Style)App.Current.Resources["EmojiButton"];
             reactionToggle.MinHeight = 0;
             reactionToggle.Height = 32;
             return reactionToggle;
         }
+
+        /// <summary>
+        /// Load or clear all Embeds and attachments
+        /// </summary>
         private void LoadEmbedsAndAttachements()
         {
+            // Clear Embeds
             EmbedViewer.Visibility = Visibility.Collapsed;
             EmbedViewer.Children.Clear();
 
+            // If the Message is null return
             if (Message == null) return;
+
+            // If there's any embeds or attachments show the EmbedViewer
             if (Message.Embeds.Any() || Message.Attachments.Any() || Message.Activity != null)
                 EmbedViewer.Visibility = Visibility.Visible;
-            
+
+            // If there's any embeds
             if (Message.Embeds != null)
             {
                 foreach (Embed embed in Message.Embeds)
                 {
+                    // Handle gifv
                     if (embed.Type == "gifv")
                     {
                         EmbedViewer.Children.Add(new GifvControl() { EmbedContent = embed });
-                        //TODO add attachement control instead of embed control
+                        // TODO: add attachement control instead of embed control
                     }
-                    else if(embed.Type == "image")
+                    // Handle images
+                    else if (embed.Type == "image")
                     {
-                        EmbedViewer.Children.Add(new AttachementControl() { DisplayedAttachement = new Attachment()
+                        EmbedViewer.Children.Add(new AttachementControl()
                         {
-                            Filename = "file.jpg",
-                            Width = embed.Thumbnail.Width,
-                            Height = embed.Thumbnail.Height,
-                            Url = embed.Thumbnail.Url,
-                            Size = 0
-                        }
+                            DisplayedAttachement = new Attachment()
+                            {
+                                Filename = "file.jpg",
+                                Width = embed.Thumbnail.Width,
+                                Height = embed.Thumbnail.Height,
+                                Url = embed.Thumbnail.Url,
+                                Size = 0
+                            }
                         });
                     }
-                    else if(embed.Type == "video")
+                    // Handle videos
+                    else if (embed.Type == "video")
                     {
                         //TODO: Handle video differently
                         if (embed.Url.Contains("youtube"))
                         {
                             EmbedViewer.Children.Add(new VideoEmbedControl() { EmbedContent = embed });
-                        } else
+                        }
+                        else
                         {
                             EmbedViewer.Children.Add(new VideoEmbedControl() { EmbedContent = embed });
                         }
                     }
+                    // Handle all else with EmbedControl
                     else
                     {
                         //The difference between rich content and article is done within the EmbedControl
                         EmbedViewer.Children.Add(new EmbedControl() { EmbedContent = embed });
                     }
-                    
+
                 }
             }
+
+            // If there's any attachments
             if (Message.Attachments != null)
             {
                 foreach (Attachment attach in Message.Attachments)
@@ -816,23 +974,35 @@ namespace Discord_UWP.Controls
                     EmbedViewer.Children.Add(new AttachementControl() { DisplayedAttachement = attach });
                 }
             }
+
+            // Handle Activity
             if (Message.Activity != null)
             {
-                if(Message.Activity.Type == 3)
+                // Spotify
+                if (Message.Activity.Type == 3)
                 {
+                    // Show SpotifyShare Control
                     var spotifylisten = new ListenOnSpotify();
                     EmbedViewer.Children.Add(spotifylisten);
                     spotifylisten.Setup(Message.User.Id, Message.Activity.PartyId);
                 }
             }
         }
+
+        /// <summary>
+        /// TODO: Determine if embed should display content without border
+        /// </summary>
         private bool EmbedIsNoBorder(Embed embed)
         {
             return false;
         }
 
+        /// <summary>
+        /// Open MessageContext menu
+        /// </summary>
         private void moreButton_Click(object sender, RoutedEventArgs e)
         {
+            // Handle delete button visibility in Guild
             if (App.CurrentGuildId != null)
             {
                 if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.ManageMessages)
@@ -841,24 +1011,27 @@ namespace Discord_UWP.Controls
                 }
             }
 
+            // Override for CurrentUser message
             if (Message?.User.Id == LocalState.CurrentUser.Id)
             {
                 MoreEdit.Visibility = Visibility.Visible;
                 MoreReply.Visibility = Visibility.Collapsed;
                 MoreDelete.Visibility = Visibility.Visible;
             }
-            //if (Storage.Settings.savedMessages.ContainsKey(messageid))
-            //{
-            //    MoreSave.Text = "Unsave"; //TODO:Translate
-            //}
+
+            // Show Menu
             FlyoutBase.ShowAttachedFlyout(sender as Button);
         }
 
+        /// <summary>
+        /// Show Context Menu at right click point
+        /// </summary>
         private void UserControl_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
+            // If not an advert
             if (MessageType != MessageTypes.Advert)
             {
-
+                // Handle delete button visibility in Guild
                 if (App.CurrentGuildId != null && App.CurrentChannelId != null)
                 {
                     if (!LocalState.CurrentGuildChannel.permissions.ManageMessages)
@@ -868,23 +1041,34 @@ namespace Discord_UWP.Controls
                     }
                 }
 
+                // Override for CurrentUser message
                 if (Message?.User.Id == LocalState.CurrentUser.Id)
                 {
                     MoreEdit.Visibility = Visibility.Visible;
                     MoreReply.Visibility = Visibility.Collapsed;
                     MoreDelete.Visibility = Visibility.Visible;
                 }
-                
+
+                // Get display target element 
                 UIElement tappedItem = (UIElement)e.OriginalSource;
+
+                // Get menu to display
                 MenuFlyout attachedFlyout = (MenuFlyout)FlyoutBase.GetAttachedFlyout(moreButton);
+
+                // Display menu
                 attachedFlyout.ShowAt(tappedItem, e.GetPosition(tappedItem));
             }
         }
 
+        /// <summary>
+        /// Show Content Menu at holding point
+        /// </summary>
         private void UserControl_Holding(object sender, HoldingRoutedEventArgs e)
         {
+            // If not an advert
             if (MessageType != MessageTypes.Advert)
             {
+                // Handle delete button visibility in Guild
                 if (App.CurrentGuildId != null)
                 {
                     if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id && LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId != LocalState.CurrentUser.Id)
@@ -892,40 +1076,75 @@ namespace Discord_UWP.Controls
                         MoreDelete.Visibility = Visibility.Collapsed;
                     }
                 }
+
+                // Override for CurrentUser message
                 if (Message?.User.Id == LocalState.CurrentUser.Id)
                 {
                     MoreEdit.Visibility = Visibility.Visible;
                     MoreReply.Visibility = Visibility.Collapsed;
                 }
-                FlyoutBase.ShowAttachedFlyout(moreButton);
+
+                // Get display target element 
+                UIElement tappedItem = (UIElement)e.OriginalSource;
+
+                // Get menu to display
+                MenuFlyout attachedFlyout = (MenuFlyout)FlyoutBase.GetAttachedFlyout(moreButton);
+
+                // Display menu
+                attachedFlyout.ShowAt(tappedItem, e.GetPosition(tappedItem));
             }
         }
 
+        /// <summary>
+        /// Toggle reaction on API
+        /// </summary>
         private async void ToggleReaction(object sender, RoutedEventArgs e)
         {
-            var counter = ((StackPanel) ((ToggleButton) sender).Content).Children.Last() as TextBlock;
+            // Get reaction name
             var tuple = (sender as ToggleButton).Tag as Tuple<string, string, Reactions>;
             var reaction = tuple.Item3;
             string emojiStr = reaction.Emoji.Name;
+
+            // Get emoji Id
             if (reaction.Emoji.Id != null)
                 emojiStr += ":" + reaction.Emoji.Id;
-            if ((sender as ToggleButton)?.IsChecked == false) //Inverted since it changed
-                await RESTCalls.DeleteReactionAsync(tuple.Item1, tuple.Item2, emojiStr);
-            else
-                await RESTCalls.CreateReactionAsync(tuple.Item1, tuple.Item2, emojiStr);
-    }
 
+            // Send Reaction Request
+            if ((sender as ToggleButton)?.IsChecked == false) // Inverted since it changed
+            {
+                // Delete reaction
+                await RESTCalls.DeleteReactionAsync(tuple.Item1, tuple.Item2, emojiStr);
+            }
+            else
+            {
+                // Add reaction
+                await RESTCalls.CreateReactionAsync(tuple.Item1, tuple.Item2, emojiStr);
+            }
+        }
+
+        /// <summary>
+        /// Value typed for edit
+        /// </summary>
         string EditValue = "";
+
+        /// <summary>
+        /// MessageBox object used for editing message
+        /// </summary>
         MessageBox editBox;
+
+        /// <summary>
+        /// Open edit UI
+        /// </summary>
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
+            // Initialize editBox
             if (EditValue.Trim() == "") EditValue = content.Text;
             editBox = new MessageBox()
             {
                 Text = EditValue.Trim(),
-                Background = new SolidColorBrush(Windows.UI.Colors.Transparent),
+                Background = new SolidColorBrush(Colors.Transparent),
                 Padding = new Thickness(-14, 4, 0, 6),
-                FontSize=14,
+                FontSize = 14,
                 IsEdit = true
             };
             editBox.Send += EditBox_Send;
@@ -934,164 +1153,225 @@ namespace Discord_UWP.Controls
             //editBox.LostFocus += EditBox_Cancel;
             Grid.SetRow(editBox, 2);
             Grid.SetColumn(editBox, 1);
+
+            // Show editBox
             rootGrid.Children.Add(editBox);
+
+            // Hide content
             content.Visibility = Visibility.Collapsed;
-            
         }
 
+        /// <summary>
+        /// Cancel EditBox
+        /// </summary>
         private void EditBox_Cancel(object sender, RoutedEventArgs e)
         {
+            // Dispose EditBox
             editBox.Send -= EditBox_Send;
             editBox.Cancel -= EditBox_Cancel;
             editBox.TextChanged -= EditBox_TextChanged;
             editBox.LostFocus -= EditBox_Cancel;
+
+            // Hide EditBox
             rootGrid.Children.Remove(editBox);
+
+            // Show content
             content.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Update EditValue
+        /// </summary>
         private void EditBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            // Update EditValue
             EditValue = editBox.Text;
         }
 
+        /// <summary>
+        /// Edit message on API
+        /// </summary>
         private async void EditBox_Send(object sender, RoutedEventArgs e)
         {
+            // Disable edit box
             editBox.IsEnabled = false;
+
+            // Edit value
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await RESTCalls.EditMessageAsync(Message.ChannelId, Message.Id, editBox.Text));
+
+            // Dispose EditBox
             editBox.Send -= EditBox_Send;
             editBox.Cancel -= EditBox_Cancel;
             editBox.TextChanged -= EditBox_TextChanged;
             editBox.LostFocus -= EditBox_Cancel;
+
+            // Hide editBox
             rootGrid.Children.Remove(editBox);
+
+            // Show content
             content.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Update bin status
+        /// </summary>
         private async void MorePin_Click(object sender, RoutedEventArgs e)
         {
             if (Message.Pinned)
             {
+                // Unpin message
                 await RESTCalls.UnpinMessage(Message.ChannelId, Message.Id);
-            } else
+            }
+            else
             {
+                // Pin message
                 await RESTCalls.PinMessage(Message.ChannelId, Message.Id);
             }
         }
 
+        /// <summary>
+        /// Delete Message
+        /// </summary>
         private void MenuFlyoutItem_Click_1(object sender, RoutedEventArgs e)
         {
+            // Create app prompt to delete message
             App.DeleteMessage(Message.ChannelId, Message.Id);
         }
 
+        /// <summary>
+        /// Copy ID to clipboard
+        /// </summary>
         private void MoreCopyId_Click(object sender, RoutedEventArgs e)
         {
+            // Copy ID to clipboard
             var dataPackage = new DataPackage();
             dataPackage.SetText(Message.Id);
             Clipboard.SetContent(dataPackage);
         }
 
+        /// <summary>
+        /// Show MemberFlyout
+        /// </summary>
         private void Username_OnClick(object sender, RoutedEventArgs e)
         {
-            App.ShowMemberFlyout(username, Message.User, Message.WebHookid!=null);
+            // Prompt app for MemberFlyout
+            App.ShowMemberFlyout(username, Message.User, Message.WebHookid != null);
         }
 
+        /// <summary>
+        /// Show User Context Menu on right-click
+        /// </summary>
         private void username_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
                 if (!App.CurrentGuildIsDM)
+                    // Prompt app for flyout
                     App.ShowMenuFlyout(this, FlyoutManager.Type.GuildMember, Message.User.Id, App.CurrentGuildId, e.GetPosition(this));
             }
         }
 
+        /// <summary>
+        /// Show User Context Menu on holding
+        /// </summary>
         private void username_Holding(object sender, HoldingRoutedEventArgs e)
         {
             if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
             {
                 if (!App.CurrentGuildIsDM)
+                    // Prompt app for flyout
                     App.ShowMenuFlyout(this, FlyoutManager.Type.GuildMember, Message.User.Id, App.CurrentGuildId, e.GetPosition(this));
             }
         }
 
+        /// <summary>
+        /// Flyout containing emojiPicker
+        /// </summary>
         Flyout PickReaction;
+
+        /// <summary>
+        /// emoji Picker for selecting reaction
+        /// </summary>
         EmojiControl emojiPicker;
+
+        /// <summary>
+        /// Show emoji picker
+        /// </summary>
         private void MenuFlyoutItem_Click_2(object sender, RoutedEventArgs e)
         {
+            // Initalize pickers
             PickReaction = new Flyout();
-            EmojiControl emojiPicker = new EmojiControl();
+            emojiPicker = new EmojiControl();
             emojiPicker.PickedEmoji += ReactionSelected;
             PickReaction.FlyoutPresenterStyle = (Style)App.Current.Resources["FlyoutPresenterStyle1"];
             PickReaction.Content = emojiPicker;
+
+            // Show picker
             PickReaction.ShowAt(moreButton);
         }
 
+        /// <summary>
+        /// When an emoji is selected from emojiPicker
+        /// </summary>
         private async void ReactionSelected(object sender, EmojiControl.ISimpleEmoji e)
         {
-            if(!CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down))
+            // Hide control if not holding shift
+            if (!CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down))
                 PickReaction.Hide();
+
+            // Get emoji as string
             string emojiStr = e.surrogates;
-            if(e.GetType() == typeof(EmojiControl.GuildSide))
+            if (e.GetType() == typeof(EmojiControl.GuildSide))
             {
                 var emoji = (EmojiControl.GuildSide)e;
                 emojiStr = emoji.names[0] + ":" + emoji.id;
             }
+
+            // Create reaction
             await RESTCalls.CreateReactionAsync(Message.ChannelId, messageid, emojiStr);
         }
 
+        /// <summary>
+        /// Add reply to draft
+        /// </summary>
         private void MoreReply_Click(object sender, RoutedEventArgs e)
         {
+            // Prompt app to add reply to draft
             App.MentionUser(Message.User.Username, Message.User.Discriminator);
         }
 
+        /// <summary>
+        /// Inform SideDrawer of Content Press
+        /// </summary>
         private void UserControl_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             App.UniversalPointerDown(e);
         }
 
-        private void contentStacker_PointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Show blocked message
+        /// </summary>
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
             IsBlocked = false;
+            // Show content
             content.Visibility = Visibility.Visible;
+
+            // Hide blocked cover
             BlockedMessage.Visibility = Visibility.Collapsed;
         }
 
-        private void UserControl_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-       //     if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse && moreButton.Opacity!=1 && ShowMoreButton.GetCurrentState() == ClockState.Stopped)
-       //         ShowMoreButton.Begin();
-            
-        }
-
-        private void UserControl_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
-     //       if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse && moreButton.Opacity != 0 && HideMoreButton.GetCurrentState() == ClockState.Stopped)
-       //         HideMoreButton.Begin();
-        }
-
-        //private void MoreSave_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (Storage.Settings.savedMessages.ContainsKey(messageid))
-        //    {
-        //        Storage.Settings.savedMessages.Remove(messageid);
-        //    }
-        //    else
-        //    {
-        //        Storage.Settings.savedMessages.Add(messageid, Message.Value);
-        //    }
-        //}
-
+        /// <summary>
+        /// Dispose of this object
+        /// </summary>
         public void Dispose()
         {
             Debug.WriteLine("Disposed of messagecontrol");
             GatewayManager.Gateway.MessageReactionAdded -= GatewayOnMessageReactionAdded;
             GatewayManager.Gateway.MessageReactionRemoved -= GatewayOnMessageReactionRemoved;
-            if(emojiPicker!= null)
+            if (emojiPicker != null)
                 emojiPicker.PickedEmoji -= ReactionSelected;
-            if(reactionToggle!=null)
+            if (reactionToggle != null)
                 reactionToggle.Click -= ToggleReaction;
             if (editBox != null)
             {
@@ -1101,14 +1381,12 @@ namespace Discord_UWP.Controls
             }
         }
 
+        /// <summary>
+        /// Dispose on unloading
+        /// </summary>
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
             Dispose();
-        }
-
-        private void MoreReply_Click_1(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

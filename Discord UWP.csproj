@@ -18,7 +18,7 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>Discord UWP_StoreKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>9761F6446948B6C291EE3BB6BDA82AA06F78061B</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>3A86794914156C7AAA8E8E621AE7355DB033055D</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
@@ -494,6 +494,7 @@
     </Content>
     <None Include="Discord UWP_TemporaryKey.pfx" />
     <Content Include="Assets\hangup.png" />
+    <Content Include="Assets\Legere256.png" />
     <Content Include="Assets\message.png" />
     <Content Include="Assets\MyTubeSmall.png" />
     <Content Include="Assets\ConnectionLogos\spotify.png" />
@@ -953,7 +954,7 @@
       <Version>6.1.9</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Services.Store.Engagement">
-      <Version>10.1810.16002</Version>
+      <Version>10.1901.28001</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit">
       <Version>4.0.0</Version>

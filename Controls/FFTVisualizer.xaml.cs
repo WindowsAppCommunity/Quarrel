@@ -33,39 +33,34 @@ namespace Discord_UWP.Controls
             Unloaded += fftDipose;
         }
 
-
         private bool _audioIn;
+        /// <summary>
+        /// True if it's a visuallizer for input audio, false if for output
+        /// </summary>
         public bool AudioIn
         {
             get { return _audioIn; }
             set { _audioIn = value;  }
         }
 
+        /// <summary>
+        /// Setup FFT async
+        /// </summary>
         private async void fftInitialize()
         {
+            // Run on UI thread
             await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                if (Storage.Settings.ExpensiveRender)
-                {
-                    smoother1 = new Smoother(4, 6);
-                    smoother2 = new Smoother(4, 12);
-                    smoother3 = new Smoother(4, 14);
-                    smoother4 = new Smoother(4, 14);
-                    smoother5 = new Smoother(4, 15);
-                    smoother6 = new Smoother(4, 16);
-                    smoother7 = new Smoother(4, 16);
-                    smoother8 = new Smoother(4, 15);
-                    smoother9 = new Smoother(4, 14);
-                    averageSmoother = new Smoother(1000, 100);
-                    Blurple = (Color)App.Current.Resources["BlurpleColor"];
-                    TransparentBlurple = (Color)App.Current.Resources["BlurpleColorTransparent"];
-                    initailized = true;
-                }
+                fftInitialize(null, null);
             });
         }
 
+        /// <summary>
+        /// Setup FFT
+        /// </summary>
         private void fftInitialize(object sender, RoutedEventArgs e)
         {
+            // If FFT is enabled, setup render smoothers for each data point
             if (Storage.Settings.ExpensiveRender)
             {
                 smoother1 = new Smoother(4, 6);
@@ -84,8 +79,12 @@ namespace Discord_UWP.Controls
             }
         }
 
+        /// <summary>
+        /// Dispose of FFT object
+        /// </summary>
         private void fftDipose(object sender, RoutedEventArgs e)
         {
+            // Clear FFT
             smoother1 = null;
             smoother2 = null;
             smoother3 = null;
@@ -97,8 +96,13 @@ namespace Discord_UWP.Controls
             smoother9 = null;
             averageSmoother = null;
             initailized = false;
+            
+            // Unsubscribe from events
+            Loaded -= fftInitialize;
+            Unloaded -= fftDipose;
         }
 
+        #region Smoothers
         Smoother smoother1;
         Smoother smoother2;
         Smoother smoother3;
@@ -110,6 +114,7 @@ namespace Discord_UWP.Controls
         Smoother smoother9;
         Smoother averageSmoother;
         bool initailized = false;
+        #endregion
 
         public class Smoother
         {
@@ -134,10 +139,12 @@ namespace Discord_UWP.Controls
             public float SmoothTime = 0;
             public float PreviousVal = 0;
             public float SmoothLimit = 0.82f;
-            //If the difference with the previous sample isn't too big, This function uses a simple moving average formula to smooth the value out
+
+            /// <summary>
+            /// If the difference with the previous sample isn't too big, This function uses a simple moving average formula to smooth the value out
+            /// </summary>
             public float Smooth(float input)
             {
-                //if ((input - PreviousVal) < SmoothingThresholdUp && (PreviousVal - input) < SmoothingThresholdDown && input < SmoothLimit)
                 input = (((PreviousVal * SmoothTime) + input) / (SmoothTime + 1));
 
                 PreviousVal = input;
@@ -145,10 +152,27 @@ namespace Discord_UWP.Controls
             }
         }
 
+        /// <summary>
+        /// Color to render polygon
+        /// </summary>
         Color Blurple;
+
+        /// <summary>
+        /// Near the top it gradients to transparent. This needs to have the same RGB as <see cref="Blurple"/> but with 00 A
+        /// </summary>
         Color TransparentBlurple;
+
+        /// <summary>
+        /// Height of object - 1 (will change if not 47)
+        /// </summary>
         float height = 47;
+
+        /// <summary>
+        /// The middle offset of a data point
+        /// </summary>
         float HalfPoint;
+
+        #region Data Points
         float Point0 = 0;
         float Point1;
         float Point2;
@@ -158,16 +182,38 @@ namespace Discord_UWP.Controls
         float Point6;
         float Point7;
         float Point8;
+        #endregion
 
+        /// <summary>
+        /// Get left Curve point
+        /// </summary>
+        /// <param name="input">Data point</param>
+        /// <returns>Point to render left bezier</returns>
         Vector2 GetC1(Vector2 input)
         {
             return new Vector2(input.X + HalfPoint, input.Y);
         }
+
+        /// <summary>
+        /// Get right Curve point
+        /// </summary>
+        /// <param name="input">Data point</param>
+        /// <returns>point to render right bezier</returns>
         Vector2 GetC2(Vector2 input)
         {
             return new Vector2(input.X - HalfPoint, input.Y);
         }
+
+        /// <summary>
+        /// Average value of points
+        /// </summary>
         float average = 0;
+
+        /// <summary>
+        /// Adjust render value based on average
+        /// </summary>
+        /// <param name="input">Data point</param>
+        /// <returns>Y Scale data point</returns>
         float Adjust(float input)
         {
             float multiplier = 1 + ((1 - average) * 4);
@@ -175,20 +221,26 @@ namespace Discord_UWP.Controls
             return input * multiplier;
         }
 
+        /// <summary>
+        /// Draws each frame of the Canvas
+        /// </summary>
         private void CanvasAnimatedControl_Draw(Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedDrawEventArgs args)
         {
             if (Storage.Settings.ExpensiveRender)
             {
                 if (!initailized)
                 {
+                    // If not initialized take one from to initialize
                     fftInitialize();
                 }
                 else
                 {
                     using (var cpb = new CanvasPathBuilder(args.DrawingSession))
                     {
+                        // Start curve at 0
                         cpb.BeginFigure(0, height);
 
+                        // Initialize render points
                         Vector2 p0;
                         Vector2 p1;
                         Vector2 p2;
@@ -199,6 +251,7 @@ namespace Discord_UWP.Controls
                         Vector2 p7;
                         Vector2 p8;
 
+                        // Set render points 
                         if (_audioIn)
                         {
                             average = averageSmoother.Smooth(AudioManager.AudioInAverage);
@@ -226,7 +279,7 @@ namespace Discord_UWP.Controls
                             p8 = new Vector2(Point8, height - Adjust(smoother9.Smooth(AudioManager.AudioOutSpec9)) * height);
                         }
 
-
+                        // Render points
                         cpb.AddLine(p0);
                         cpb.AddCubicBezier(GetC1(p0), GetC2(p1), p1);
                         cpb.AddCubicBezier(GetC1(p1), GetC2(p2), p2);
@@ -237,9 +290,9 @@ namespace Discord_UWP.Controls
                         cpb.AddCubicBezier(GetC1(p6), GetC2(p7), p7);
                         cpb.AddCubicBezier(GetC1(p7), GetC2(p8), p8);
                         cpb.AddLine(new Vector2(p8.X, height));
-
-
                         cpb.EndFigure(CanvasFigureLoop.Closed);
+
+                        // Render
                         CanvasLinearGradientBrush gradient = new CanvasLinearGradientBrush(sender, TransparentBlurple, Blurple)
                         {
                             EndPoint = new Vector2(0, height + 48),
@@ -253,6 +306,9 @@ namespace Discord_UWP.Controls
             }
         }
 
+        /// <summary>
+        /// Adjust size of Control
+        /// </summary>
         private void CanvasAnimatedControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             height = (float)e.NewSize.Height - 1;

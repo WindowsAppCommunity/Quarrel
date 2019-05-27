@@ -78,25 +78,36 @@ namespace Discord_UWP.SubPages
             JoinServerText.Text = App.GetString("/About/JoinDiscordUWPServer");
         }
 
-        //private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if(detailsBtn.Content.ToString() == "+ Show more details")
-        //    {
-        //        detailsBtn.Content = "- Show less details"; //TODO: Translate
-        //        notDetailed.Visibility = Visibility.Collapsed;
-        //        Detailed.Visibility = Visibility.Visible;
-        //    }
-        //    else
-        //    {
-        //        detailsBtn.Content = "+ Show more details";
-        //        notDetailed.Visibility = Visibility.Visible;
-        //        Detailed.Visibility = Visibility.Collapsed;
-        //    }
-        //}
-
+        /// <summary>
+        /// Open Patreon page
+        /// </summary>
         private async void Paetron_Click(object sender, RoutedEventArgs e)
         {
             await Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.patreon.com/QuarrelUWP"));
+        }
+
+        /// <summary>
+        /// Open Legere store page
+        /// </summary>
+        private void Legere_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Link Legere in store
+        }
+
+        /// <summary>
+        /// Navigate to GitHub project
+        /// </summary>
+        private async void Hyperlink_Click(Windows.UI.Xaml.Documents.Hyperlink sender, Windows.UI.Xaml.Documents.HyperlinkClickEventArgs args)
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://github.com/Avid29/Quarrel"));
+        }
+
+        /// <summary>
+        /// Navigate to GitHub project
+        /// </summary>
+        private async void GitHub_Click(object sender, RoutedEventArgs e)
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://github.com/Avid29/Quarrel"));
         }
     }
 }
