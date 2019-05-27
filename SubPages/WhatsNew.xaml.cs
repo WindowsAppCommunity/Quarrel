@@ -89,9 +89,9 @@ namespace Discord_UWP.SubPages
         /// <summary>
         /// Open Legere store page
         /// </summary>
-        private void Legere_Click(object sender, RoutedEventArgs e)
+        private async void Legere_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Link Legere in store
+            await Windows.System.Launcher.LaunchUriAsync(new Uri(" https://www.microsoft.com/store/apps/9PHJRVCSKVJZ"));
         }
 
         /// <summary>
@@ -108,6 +108,11 @@ namespace Discord_UWP.SubPages
         private async void GitHub_Click(object sender, RoutedEventArgs e)
         {
             await Windows.System.Launcher.LaunchUriAsync(new Uri("https://github.com/Avid29/Quarrel"));
+        }
+
+        private void LegereClick_HyperLink(Windows.UI.Xaml.Documents.Hyperlink sender, Windows.UI.Xaml.Documents.HyperlinkClickEventArgs args)
+        {
+
         }
     }
 }
