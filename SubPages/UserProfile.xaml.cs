@@ -334,7 +334,7 @@ namespace Discord_UWP.SubPages
                     var relationship = relationships.ElementAt(i);
                     relationship.Discriminator = "#" + relationship.Discriminator;
                     if (relationship.Avatar != null) relationship.ImagePath = "https://cdn.discordapp.com/avatars/" + relationship.Id + "/" + relationship.Avatar + ".png";
-                    else relationship.ImagePath = "ms-appx:///Assets/DiscordIcon.png";
+                    else relationship.ImagePath = "ms-appx:///Assets/DiscordIcon-old.png";
 
                     MutualFriends.Items.Add(relationship);
                 }
