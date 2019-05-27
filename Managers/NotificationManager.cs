@@ -203,12 +203,8 @@ namespace Discord_UWP.Managers
                 var badge = new BadgeNotification(badgeXml);
                 BadgeUpdateManager.CreateBadgeUpdaterForApplication().Update(badge);
 
-                // Create a badge notification from the XML content.
-                string payload = App.GetString("/TileTemplates/Iconic");
-                var tileXml = new Windows.Data.Xml.Dom.XmlDocument();
-                tileXml.LoadXml(payload);
-                var badgeNotification = new TileNotification(tileXml);
-                TileUpdateManager.CreateTileUpdaterForApplication().Update(badgeNotification);
+                
+                TileUpdateManager.CreateTileUpdaterForApplication().Clear();
                 previousvalue = value;
             }
         }

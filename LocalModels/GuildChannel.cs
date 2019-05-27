@@ -10,20 +10,34 @@ namespace Discord_UWP.LocalModels
 {
     public class GuildChannel
     {
+        /// <summary>
+        /// Create GuildChannel object from API model
+        /// </summary>
+        /// <param name="channel">API model</param>
         public GuildChannel(SharedModels.GuildChannel channel)
         {
             raw = channel;
-            //GetPermissions(); Called to early
         }
 
+        /// <summary>
+        /// Create GuildChannel from API model with missing guildId
+        /// </summary>
+        /// <param name="channel">API model</param>
+        /// <param name="guildId">Guild ID</param>
         public GuildChannel(SharedModels.GuildChannel channel, string guildId)
         {
             raw = channel;
             raw.GuildId = guildId;
         }
 
+        /// <summary>
+        /// Get user permissions in channel
+        /// </summary>
         public Permissions permissions => new Permissions(raw.GuildId, raw.Id);
 
+        /// <summary>
+        /// API Model object
+        /// </summary>
         public SharedModels.GuildChannel raw;
     }
 }

@@ -20,15 +20,8 @@ namespace Discord_UWP.Flyouts
         {
             MenuFlyout menu = new MenuFlyout();
             menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
-            //MenuFlyoutItem PinChannel = new MenuFlyoutItem()
-            //{
-            //    Text = SecondaryTile.Exists(chn.Raw.Id) ? "Unpin From Start" : "Pin To Start",
-            //    Tag = chn.Raw,
-            //    Icon = SecondaryTile.Exists(chn.Raw.Id) ? new SymbolIcon(Symbol.UnPin) : new SymbolIcon(Symbol.Pin),
-            //    Margin = new Thickness(-26, 0, 0, 0)
-            //};
-            //PinChannel.Click += PinChannelToStart;
-            //menu.Items.Add(PinChannel);
+
+            // Add "Edit Channel" button
             MenuFlyoutItem editchannel = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/EditChannel"),
@@ -38,23 +31,35 @@ namespace Discord_UWP.Flyouts
             };
             editchannel.Click += FlyoutManager.EditChannel;
             menu.Items.Add(editchannel);
+
+
+            // Add Separator
             MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
             menu.Items.Add(sep1);
+
+
+            // Create "Mute/Unmute" button
             ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
             {
                 Icon = new SymbolIcon(Symbol.Mute),
                 Tag = chn.raw.Id,
                 Margin = new Thickness(-26, 0, 0, 0)
             };
+            mute.Click += FlyoutManager.MuteChannel;
             //mute.IsChecked = LocalState.GuildSettings.Contains(chn.Raw.Id);
 
+            // If muted, unmute
             if (LocalState.GuildSettings.ContainsKey(App.CurrentGuildId) && LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.ContainsKey(chn.raw.Id) && LocalState.GuildSettings[App.CurrentGuildId].channelOverrides[chn.raw.Id].Muted)
                 mute.Text = App.GetString("/Flyouts/UnmuteChannel");
+
+            // If not muted, mute
             else
                 mute.Text = App.GetString("/Flyouts/MuteChannel");
 
-            mute.Click += FlyoutManager.MuteChannel;
+            // Add "Mute/Unmute" button
             menu.Items.Add(mute);
+
+            // Add "Mark as Read" button
             MenuFlyoutItem markasread = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/MarkAsRead"),
@@ -64,10 +69,16 @@ namespace Discord_UWP.Flyouts
                 //IsEnabled = false
                 //IsEnabled = (TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == chn.Raw.Id) as SimpleChannel).IsUnread
             };
-            menu.Items.Add(markasread);
             markasread.Click += FlyoutManager.MarkChannelasRead;
+            menu.Items.Add(markasread);
+
+
+            // Add Separator
             MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
             menu.Items.Add(sep2);
+
+
+            // Create "Delete Channel" button
             MenuFlyoutItem deleteChannel = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/DeleteChannel"),
@@ -76,13 +87,15 @@ namespace Discord_UWP.Flyouts
                 Icon = new SymbolIcon(Symbol.Delete),
                 Margin = new Thickness(-26, 0, 0, 0),
             };
-
-            if (!chn.permissions.ManageChannels && !chn.permissions.Administrator && LocalState.Guilds[chn.raw.GuildId].Raw.OwnerId != LocalState.CurrentUser.Id)
-            {
-                deleteChannel.IsEnabled = false;
-            }
-            menu.Items.Add(deleteChannel);
             deleteChannel.Click += FlyoutManager.DeleteChannel;
+            
+            // If permissions to delete channel
+            if (chn.permissions.ManageChannels || chn.permissions.Administrator || LocalState.Guilds[chn.raw.GuildId].Raw.OwnerId == LocalState.CurrentUser.Id)
+            {
+                // Add "Delete Channel" button
+                menu.Items.Add(deleteChannel);
+            }
+
 
             return menu;
         }

@@ -244,7 +244,7 @@ namespace Discord_UWP
         public static Uri AvatarUri(string s, string userid = "", string suffix = "")
         {
             if (String.IsNullOrEmpty(s))
-                return new Uri("ms-appx:///Assets/DiscordIcon.png");
+                return new Uri("ms-appx:///Assets/DiscordIcon-old.png");
             else if (s.StartsWith("a_"))
                 return new Uri("https://cdn.discordapp.com/avatars/" + userid + "/" + s + ".gif" + suffix);
             else 
@@ -253,7 +253,7 @@ namespace Discord_UWP
         public static string AvatarString(string s, string userid = "")
         {
             if (String.IsNullOrEmpty(s))
-                return "ms-appx:///Assets/DiscordIcon.png";
+                return "ms-appx:///Assets/DiscordIcon-old.png";
             else if (s.StartsWith("a_"))
                 return "https://cdn.discordapp.com/avatars/" + userid + "/" + s + ".gif";
             else
