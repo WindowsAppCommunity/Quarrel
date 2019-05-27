@@ -51,7 +51,7 @@
                 <TextBlock x:Name="FileSize" FontSize="11" Opacity="0.5" Text="0 B" Margin="0,4,0,0"/>
             </StackPanel>
             
-            <Button x:Name="ClearButton" Style="{StaticResource IntegratedButton}" VerticalAlignment="Top" Click="Button_Click" Margin="0,12,12,0">
+            <Button x:Name="ClearButton" Style="{StaticResource IntegratedButton}" VerticalAlignment="Top" Click="RemoveAttachement" Margin="0,12,12,0">
                 <SymbolIcon Symbol="Clear"/>
             </Button>
             <Grid Grid.Row="1" Grid.ColumnSpan="4">
@@ -61,7 +61,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition MaxHeight="512"/>
                 </Grid.RowDefinitions>
-                <MediaElement x:Name="player" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinHeight="48" MinWidth="100" Margin="0,6,0,0" Width="auto" Height="auto" AreTransportControlsEnabled="True" AutoPlay="False" Visibility="Collapsed" SizeChanged="player_SizeChanged">
+                <MediaElement x:Name="player" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinHeight="48" MinWidth="100" Margin="0,6,0,0" Width="auto" Height="auto" AreTransportControlsEnabled="True" AutoPlay="False" Visibility="Collapsed">
                     <MediaElement.TransportControls>
                         <MediaTransportControls IsCompact="True" IsZoomButtonVisible="False"/>
                     </MediaElement.TransportControls>

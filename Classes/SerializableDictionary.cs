@@ -73,9 +73,8 @@ namespace Discord_UWP.Classes
         #endregion
         #region IXmlSerializable Members
 
-        void IXmlSerializable.WriteXml(System.Xml.XmlWriter writer)
+        void IXmlSerializable.WriteXml(XmlWriter writer)
         {
-            //writer.WriteStartElement(DictionaryNodeName);
             foreach (KeyValuePair<TKey, TVal> kvp in this)
             {
                 writer.WriteStartElement(ItemNodeName);
@@ -87,10 +86,9 @@ namespace Discord_UWP.Classes
                 writer.WriteEndElement();
                 writer.WriteEndElement();
             }
-            //writer.WriteEndElement();
         }
 
-        void IXmlSerializable.ReadXml(System.Xml.XmlReader reader)
+        void IXmlSerializable.ReadXml(XmlReader reader)
         {
             if (reader.IsEmptyElement)
             {
@@ -102,8 +100,7 @@ namespace Discord_UWP.Classes
             {
                 throw new XmlException("Error in Deserialization of Dictionary");
             }
-
-            //reader.ReadStartElement(DictionaryNodeName);
+            
             while (reader.NodeType != XmlNodeType.EndElement)
             {
                 reader.ReadStartElement(ItemNodeName);
@@ -117,7 +114,6 @@ namespace Discord_UWP.Classes
                 this.Add(key, value);
                 reader.MoveToContent();
             }
-            //reader.ReadEndElement();
 
             reader.ReadEndElement(); // Read End Element to close Read of containing node
         }

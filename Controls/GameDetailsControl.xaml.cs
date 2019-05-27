@@ -26,6 +26,9 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class GameDetailsControl : UserControl
     {
+        /// <summary>
+        /// ActivityId of the Game
+        /// </summary>
         public string GameId
         {
             get { return (string)GetValue(GameIdProperty); }
@@ -43,7 +46,16 @@ namespace Discord_UWP.Controls
             instance?.OnPropertyChanged(d, e.Property);
         }
 
+        /// <summary>
+        /// Used for to determine padding on generated buttons
+        /// </summary>
         bool firstbutton = true;
+
+        /// <summary>
+        /// Add button showing where game can be found
+        /// </summary>
+        /// <param name="title">Text to display</param>
+        /// <param name="uri">Navigation uri to launch game at</param>
         private void AddDistributorButton(string title, string uri)
         {
             var button = new HyperlinkButton();
@@ -64,7 +76,10 @@ namespace Discord_UWP.Controls
                 firstbutton = true; //Just to be safe if ever the control is recycled
                 if (LocalState.SupportedGames.ContainsKey(GameId))
                 {
+                    // Get game
                     var game = LocalState.SupportedGames[GameId];
+
+                    // Show Game basic details
                     GameName.Text = game.Name;
                     if (game.Developers != null && game.Developers.Count>0)
                     {
@@ -76,7 +91,7 @@ namespace Discord_UWP.Controls
                         DevName.Visibility = Visibility.Collapsed;
                     }
 
-                    //Icon
+                    // Show Game Icon
                     if (!string.IsNullOrEmpty(game.Icon))
                     {
                         GameIcon.Source = new BitmapImage(new Uri("https://cdn.discordapp.com/game-assets/"+game.Id+"/"+game.Icon+".png"));
@@ -86,11 +101,14 @@ namespace Discord_UWP.Controls
                     {
                         GameIcon.Visibility = Visibility.Collapsed;
                     }
+
+                    // Show game splash
                     if (!string.IsNullOrEmpty(game.Splash))
                     {
                         SetupComposition(new Uri("https://cdn.discordapp.com/game-assets/" + game.Id + "/" + game.Splash + ".png?size=1024"));
                     }
-                    //Summary
+
+                    // Summary
                     if (!string.IsNullOrEmpty(game.Summary))
                     {
                         GameDescription.Text = game.Summary;
@@ -101,7 +119,7 @@ namespace Discord_UWP.Controls
                         GameDescription.Visibility = Visibility.Collapsed;
                     }
 
-                    //Launch buttons
+                    // Launch buttons
                     if (game.DistributorGames != null)
                     {
                         foreach (var distributor in game.DistributorGames)
@@ -130,6 +148,7 @@ namespace Discord_UWP.Controls
                         }
                     }
 
+                    // Game News
                     try
                     {
                         var gamenews = await RESTCalls.GetGameNews(new string[] {game.Id});
@@ -152,12 +171,16 @@ namespace Discord_UWP.Controls
                     {
                         NewsFeed.Visibility = Visibility.Visible;
                     }
-
                 }
             }
         }
 
         SpriteVisual _imageVisual;
+
+        /// <summary>
+        /// Show Compositon effects on image
+        /// </summary>
+        /// <param name="imageURL">Image to effect</param>
         private void SetupComposition(Uri imageURL)
         {
             try
@@ -174,7 +197,7 @@ namespace Discord_UWP.Controls
                 _loadedSurface.LoadCompleted += _loadedSurface_LoadCompleted;
                 _imageBrush.Surface = _loadedSurface;
 
-
+                // Saturate
                 var saturationEffect = new SaturationEffect
                 {
                     Saturation = 1,
@@ -184,6 +207,7 @@ namespace Discord_UWP.Controls
                 var effectBrush = effectFactory.CreateBrush();
                 effectBrush.SetSourceParameter("image", _imageBrush);
 
+                // Blur
                 var blurEffect = new GaussianBlurEffect
                 {
                     BlurAmount = 8,
@@ -201,10 +225,13 @@ namespace Discord_UWP.Controls
             }
             catch
             {
-                //Fuck this shit
+                // I guess it'll just look meh
             }
         }
 
+        /// <summary>
+        /// Composition effects completed
+        /// </summary>
         private void _loadedSurface_LoadCompleted(LoadedImageSurface sender, LoadedImageSourceLoadCompletedEventArgs args)
         {
             BackgroundContainer.Fade(0.35f, 300, 0, EasingType.Circle).Start();
@@ -215,6 +242,9 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
         }
 
+        /// <summary>
+        /// Adjust image size with Controls
+        /// </summary>
         private void BackgroundContainer_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (_imageVisual != null)

@@ -20,6 +20,9 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class TypingIndicator : UserControl
     {
+        /// <summary>
+        /// If true, set to white
+        /// </summary>
         public bool IsWhite
         {
             set
@@ -29,18 +32,25 @@ namespace Discord_UWP.Controls
                     ellipse.Fill = new SolidColorBrush(Windows.UI.Colors.White);
                     ellipse1.Fill = new SolidColorBrush(Windows.UI.Colors.White);
                     ellipse2.Fill = new SolidColorBrush(Windows.UI.Colors.White);
-
                 }
             }
         }
+
+        /// <summary>
+        /// Render and begin indicator animation
+        /// </summary>
         public TypingIndicator()
         {
             this.InitializeComponent();
             Typing.Begin();
         }
 
+        /// <summary>
+        /// Dispose of Control
+        /// </summary>
         public void Dispose()
         {
+            // Nothing to dipose
         }
     }
 }
