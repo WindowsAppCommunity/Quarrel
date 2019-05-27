@@ -7,7 +7,14 @@ namespace Discord_UWP.LocalModels
 {
     public class PermissionDifference
     {
+        /// <summary>
+        /// Removed Permissions in the form of a string list
+        /// </summary>
         public IEnumerable<string> RemovedPermissions { get; set; }
+
+        /// <summary>
+        /// Added permissions in the form of a string list
+        /// </summary>
         public IEnumerable<string> AddedPermissions { get; set; }
     }
 
@@ -49,21 +56,42 @@ namespace Discord_UWP.LocalModels
     {
         private GuildPermission _perms;
 
+        /// <summary>
+        /// Intiailize permissions by int
+        /// </summary>
+        /// <param name="perms">int permissions</param>
         public Permissions(int perms)
         {
             _perms = (GuildPermission)perms;
         }
+
+        /// <summary>
+        /// Initialize permissions by enum
+        /// </summary>
+        /// <param name="perms">enum permissions</param>
         public Permissions(GuildPermission perms)
         {
             _perms = perms;
         }
 
+        /// <summary>
+        /// Initilize Permissions by guild, channel and user Ids
+        /// </summary>
+        /// <param name="guildId">GuildId</param>
+        /// <param name="channelId">ChannelId (default none)</param>
+        /// <param name="userId">UserId (default current user)</param>
         public Permissions(string guildId, string channelId = "", string userId = "")
         {
+            // If no user is selected, current user
             if (userId == "") userId = LocalState.CurrentUser.Id;
 
+            // Initialize as none
             _perms = 0;
+
+            // Add allows for @everyone role
             AddAllows((GuildPermission)(LocalState.Guilds[guildId].roles.First(a => a.Value.Position == 0).Value.Permissions));
+
+            // Add allows for each role
             if (LocalState.Guilds[guildId].members.ContainsKey(userId))
                 foreach (string role in LocalState.Guilds[guildId].members[userId].Roles)
                     AddAllows((GuildPermission)LocalState.Guilds[guildId].roles[role].Permissions);
@@ -106,17 +134,28 @@ namespace Discord_UWP.LocalModels
                 AddAllows(memberAllows);
             }
 
+            // If owner, add admin
             if (LocalState.Guilds[guildId].Raw.OwnerId == userId)
             {
                 SetPerm(GuildPermission.Administrator, true);
             }
         }
 
+        /// <summary>
+        /// Get permission by enum
+        /// </summary>
+        /// <param name="perm">permssion</param>
+        /// <returns>Permission of Perm</returns>
         private bool GetPerm(GuildPermission perm)
         {
             return ((_perms & perm) == perm || (_perms & GuildPermission.Administrator) == GuildPermission.Administrator);
         }
 
+        /// <summary>
+        /// Set permission by enum
+        /// </summary>
+        /// <param name="perm">permission</param>
+        /// <param name="value">status</param>
         private void SetPerm(GuildPermission perm, bool value)
         {
             if (value)
@@ -129,180 +168,272 @@ namespace Discord_UWP.LocalModels
             }
         }
 
+        /// <summary>
+        /// Permissions Create Instant Invite status
+        /// </summary>
         public bool CreateInstantInvite
         {
             get => GetPerm(GuildPermission.CreateInstantInvite);
             set => SetPerm(GuildPermission.CreateInstantInvite, value);
         }
 
+        /// <summary>
+        /// Permissions Kick Members status
+        /// </summary>
         public bool KickMembers
         {
             get => GetPerm(GuildPermission.KickMembers);
             set => SetPerm(GuildPermission.KickMembers, value);
         }
 
+        /// <summary>
+        /// Permissions Ban Members status
+        /// </summary>
         public bool BanMembers
         {
             get => GetPerm(GuildPermission.BanMembers);
             set => SetPerm(GuildPermission.BanMembers, value);
         }
 
+        /// <summary>
+        /// Permissions Admin status
+        /// </summary>
         public bool Administrator
         {
             get => GetPerm(GuildPermission.Administrator);
             set => SetPerm(GuildPermission.Administrator, value);
         }
 
+        /// <summary>
+        /// Permissions Manage Channels status
+        /// </summary>
         public bool ManageChannels
         {
             get => GetPerm(GuildPermission.ManageChannels);
             set => SetPerm(GuildPermission.ManageChannels, value);
         }
 
+        /// <summary>
+        /// Permissions Manage Guild status
+        /// </summary>
         public bool ManangeGuild
         {
             get => GetPerm(GuildPermission.ManangeGuild);
             set => SetPerm(GuildPermission.ManangeGuild, value);
         }
 
+        /// <summary>
+        /// Permissions Add Reactions status
+        /// </summary>
         public bool AddReactions
         {
             get => GetPerm(GuildPermission.AddReactions);
             set => SetPerm(GuildPermission.AddReactions, value);
         }
 
+        /// <summary>
+        /// Permissions View Audit Log status
+        /// </summary>
         public bool ViewAuditLog
         {
             get => GetPerm(GuildPermission.ViewAuditLog);
             set => SetPerm(GuildPermission.ViewAuditLog, value);
         }
 
+        /// <summary>
+        /// Permissions Read Messages status 
+        /// </summary>
         public bool ReadMessages
         {
             get => GetPerm(GuildPermission.ReadMessages);
             set => SetPerm(GuildPermission.ReadMessages, value);
         }
 
+        /// <summary>
+        /// Permissions Send Messages status
+        /// </summary>
         public bool SendMessages
         {
             get => GetPerm(GuildPermission.SendMessages);
             set => SetPerm(GuildPermission.SendMessages, value);
         }
 
+        /// <summary>
+        /// Permissions Send TTS Messages status
+        /// </summary>
         public bool SendTtsMessages
         {
             get => GetPerm(GuildPermission.SendTtsMessages);
             set => SetPerm(GuildPermission.SendTtsMessages, value);
         }
 
+        /// <summary>
+        /// Permissions Manage Messages status
+        /// </summary>
         public bool ManageMessages
         {
             get => GetPerm(GuildPermission.ManageMessages);
             set => SetPerm(GuildPermission.ManageMessages, value);
         }
 
+        /// <summary>
+        /// Permissions EmbedLinks status
+        /// </summary>
         public bool EmbedLinks
         {
             get => GetPerm(GuildPermission.EmbedLinks);
             set => SetPerm(GuildPermission.EmbedLinks, value);
         }
 
+        /// <summary>
+        /// Permissions Attach Files status
+        /// </summary>
         public bool AttachFiles
         {
             get => GetPerm(GuildPermission.AttachFiles);
             set => SetPerm(GuildPermission.AttachFiles, value);
         }
 
+        /// <summary>
+        /// Permissions Read Message History status
+        /// </summary>
         public bool ReadMessageHistory
         {
             get => GetPerm(GuildPermission.ReadMessageHistory);
             set => SetPerm(GuildPermission.ReadMessageHistory, value);
         }
 
+        /// <summary>
+        /// Permissions Mention @everyone status
+        /// </summary>
         public bool MentionEveryone
         {
             get => GetPerm(GuildPermission.MentionEveryone);
             set => SetPerm(GuildPermission.MentionEveryone, value);
         }
 
+        /// <summary>
+        /// Permissions External Emojis status
+        /// </summary>
         public bool UseExternalEmojis
         {
             get => GetPerm(GuildPermission.UseExternalEmojis);
             set => SetPerm(GuildPermission.UseExternalEmojis, value);
         }
 
+        /// <summary>
+        /// Permissions Connect status
+        /// </summary>
         public bool Connect
         {
             get => GetPerm(GuildPermission.Connect);
             set => SetPerm(GuildPermission.Connect, value);
         }
 
+        /// <summary>
+        /// Permissions Speak status
+        /// </summary>
         public bool Speak
         {
             get => GetPerm(GuildPermission.Speak);
             set => SetPerm(GuildPermission.Speak, value);
         }
 
+        /// <summary>
+        /// Permissions Mute Members status
+        /// </summary>
         public bool MuteMembers
         {
             get => GetPerm(GuildPermission.MuteMembers);
             set => SetPerm(GuildPermission.MuteMembers, value);
         }
 
+        /// <summary>
+        /// Permissions Deafen Members status
+        /// </summary>
         public bool DeafenMembers
         {
             get => GetPerm(GuildPermission.DeafenMembers);
             set => SetPerm(GuildPermission.DeafenMembers, value);
         }
 
+        /// <summary>
+        /// Permissions Move Member status
+        /// </summary>
         public bool MoveMembers
         {
             get => GetPerm(GuildPermission.MoveMembers);
             set => SetPerm(GuildPermission.MoveMembers, value);
         }
 
+        /// <summary>
+        /// Permissions Vad status
+        /// </summary>
         public bool UseVad
         {
             get => GetPerm(GuildPermission.UseVad);
             set => SetPerm(GuildPermission.UseVad, value);
         }
 
+        /// <summary>
+        /// Permissions Change Nickname status
+        /// </summary>
         public bool ChangeNickname
         {
             get => GetPerm(GuildPermission.ChangeNickname);
             set => SetPerm(GuildPermission.ChangeNickname, value);
         }
 
+        /// <summary>
+        /// Permissions Manage Nicknames status
+        /// </summary>
         public bool ManageNicknames
         {
             get => GetPerm(GuildPermission.ManageNicknames);
             set => SetPerm(GuildPermission.ManageNicknames, value);
         }
 
+        /// <summary>
+        /// Permissions Manage Roles status
+        /// </summary>
         public bool ManageRoles
         {
             get => GetPerm(GuildPermission.ManageRoles);
             set => SetPerm(GuildPermission.ManageRoles, value);
         }
 
+        /// <summary>
+        /// Permissions Manage Webhooks status
+        /// </summary>
         public bool ManageWebhooks
         {
             get => GetPerm(GuildPermission.ManageWebhooks);
             set => SetPerm(GuildPermission.ManageWebhooks, value);
         }
 
+        /// <summary>
+        /// Permissions Manage Emojis status
+        /// </summary>
         public bool ManageEmojis
         {
             get => GetPerm(GuildPermission.ManageEmojis);
             set => SetPerm(GuildPermission.ManageEmojis, value);
         }
 
+        /// <summary>
+        /// Permissions Priority Speaker status
+        /// </summary>
         public bool PrioritySpeaker
         {
             get => GetPerm(GuildPermission.PrioritySpeaker);
             set => SetPerm(GuildPermission.PrioritySpeaker, value);
         }
 
+        /// <summary>
+        /// Compare old set of permissions with current set
+        /// </summary>
+        /// <param name="oldPermissions">Old Permissions object</param>
+        /// <returns>String difference of permssions</returns>
         public PermissionDifference GetDifference(Permissions oldPermissions)
         {
             List<string> oldperms = oldPermissions.GetPermissions();
@@ -351,11 +482,19 @@ namespace Discord_UWP.LocalModels
             return perms;
         }
 
+        /// <summary>
+        /// Add permissions by flagged enum
+        /// </summary>
+        /// <param name="set"></param>
         private void AddAllows(GuildPermission set)
         {
             _perms |= set;
         }
 
+        /// <summary>
+        /// Remove permissions by flagged enum
+        /// </summary>
+        /// <param name="set"></param>
         private void AddDenies(GuildPermission set)
         {
             _perms &= ~set;
@@ -366,6 +505,12 @@ namespace Discord_UWP.LocalModels
             return (int)_perms;
         }
 
+        /// <summary>
+        /// Check if current user can change user's Nickname
+        /// </summary>
+        /// <param name="userId">User Id to change</param>
+        /// <param name="guildId">Guild Id for Nickname</param>
+        /// <returns>Current User's nickname changing permissions for user in a guild</returns>
         public static bool CanChangeNickname(string userId, string guildId)
         {
             Permissions cachedPerms = new Permissions(guildId);
