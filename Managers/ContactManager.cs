@@ -13,34 +13,63 @@ namespace Discord_UWP.Managers
 {
     public class ContactManager
     {
+        /// <summary>
+        /// Setup manager on creation
+        /// </summary>
         public ContactManager()
         {
             Setup();
         }
+
+        /// <summary>
+        /// Setup ContactManager
+        /// </summary>
         public async void Setup()
         {
-            contactList = await GetContactList();
-            annotationList = await GetContactAnnotationList();
+            await GetContactList();
+            await GetContactAnnotationList();
         }
 
+        /// <summary>
+        /// Contact store
+        /// </summary>
          ContactStore store;
+
+        /// <summary>
+        /// Contact annotations store
+        /// </summary>
          ContactAnnotationStore annotationStore;
+
+        /// <summary>
+        /// Contact list 
+        /// </summary>
          ContactList contactList;
+
+        /// <summary>
+        /// Contact annotations list
+        /// </summary>
          ContactAnnotationList annotationList;
 
+        /// <summary>
+        /// Load contact list
+        /// </summary>
+        /// <returns>Contact list</returns>
         private async Task<ContactList> GetContactList()
         {
+            // If contact list is already determined, just return it
             if (contactList == null)
             {
+                // Initialize contact store
                 store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
 
                 if (store == null)
                 {
+                    // Unavailable, call it quits
                     return null;
                 }
 
+                // Get contact list
                 IReadOnlyList<ContactList> contactLists = await store.FindContactListsAsync();
-
                 if (contactLists.Count == 0)
                 {
                     contactList = await store.CreateContactListAsync("Discord");
@@ -51,23 +80,30 @@ namespace Discord_UWP.Managers
                 }
             }
             
+            // Return contact list
             return contactList;
         }
 
-        private  async Task<ContactAnnotationList> GetContactAnnotationList()
+        /// <summary>
+        /// Load ContactAnnotation List
+        /// </summary>
+        /// <returns></returns>
+        private async Task<ContactAnnotationList> GetContactAnnotationList()
         {
+            // If annotation list is already determined, return it
             if (annotationList == null)
             {
+                // Initialize annotations contact store
                 annotationStore = await Windows.ApplicationModel.Contacts.ContactManager.RequestAnnotationStoreAsync(ContactAnnotationStoreAccessType.AppAnnotationsReadWrite);
 
                 if (annotationStore == null)
                 {
+                    // Unavailable, call it quits
                     return null;
                 }
 
-
+                // Get annotations list
                 IReadOnlyList<ContactAnnotationList> annotationLists = await annotationStore.FindAnnotationListsAsync();
-
                 if (annotationLists.Count == 0)
                 {
                     annotationList = await annotationStore.CreateAnnotationListAsync();
@@ -81,53 +117,51 @@ namespace Discord_UWP.Managers
             return annotationList;
         }
 
+        /// <summary>
+        /// Get contact by Id
+        /// </summary>
+        /// <param name="id">ContactId</param>
+        /// <returns>Contact of Id</returns>
         public async Task<Contact> GetContact(string id)
         {
-            if (contactList == null)
-            {
-                store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
-
-                if (store == null)
-                {
-                    return null;
-                }
-
-                IReadOnlyList<ContactList> contactLists = await store.FindContactListsAsync();
-
-                if (contactLists.Count == 0)
-                {
-                    contactList = await store.CreateContactListAsync("Discord");
-                }
-                else
-                {
-                    contactList = contactLists[0];
-                }
-            }
-
-            return await contactList.GetContactFromRemoteIdAsync(id);
+            return await (await GetContactList()).GetContactFromRemoteIdAsync(id);
         }
 
+        /// <summary>
+        /// Get DiscordId from ContactId
+        /// </summary>
+        /// <param name="id">ContactId</param>
+        /// <returns>DiscordId</returns>
         public async Task<string> ContactIdToRemoteId(string id)
         {
             if (store == null)
             {
-                store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
+                //Unavailable, call it quits
+                return string.Empty;
             }
 
+            // Get contact annotations
             var fullContact = await store.GetContactAsync(id);
-
             var contactAnnotations = await (await Windows.ApplicationModel.Contacts.ContactManager.RequestAnnotationStoreAsync(ContactAnnotationStoreAccessType.AppAnnotationsReadWrite)).FindAnnotationsForContactAsync(fullContact);
 
+            // If contact contains annotations
             if (contactAnnotations.Count >= 0)
             {
+                // Return RemoteId
                 return contactAnnotations[0].RemoteId;
             }
 
             return string.Empty;
         }
 
-        private  async Task<bool> CheckContact(SharedModels.User user)
+        /// <summary>
+        /// Check if contact exists
+        /// </summary>
+        /// <param name="user">User to check</param>
+        /// <returns>True if the user does not exist</returns>
+        private async Task<bool> CheckContact(SharedModels.User user)
         {
+            // Intialize store if not done
             if (store == null)
             {
                 store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
@@ -135,13 +169,14 @@ namespace Discord_UWP.Managers
 
             if (store == null)
             {
+                // Unavailable, call it quits
                 return true;
             }
 
             ContactList contactList;
 
+            // Get contact lists for Discord
             IReadOnlyList<ContactList> contactLists = await store.FindContactListsAsync();
-
             if (contactLists.Count == 0)
             {
                 contactList = await store.CreateContactListAsync("Discord");
@@ -150,220 +185,94 @@ namespace Discord_UWP.Managers
             {
                 contactList = contactLists[0];
             }
+
+            // Get user
             var returnval = await contactList.GetContactFromRemoteIdAsync(user.Id);
+
+            // If user is null, return true
             return returnval != null;
         }
-
-        private async void CreateTestContacts()
-        {
-            Contact contact1 = new Contact();
-            contact1.FirstName = "TestContact1";
-
-            ContactEmail email1 = new ContactEmail();
-            email1.Address = "TestContact1@contoso.com";
-            contact1.Emails.Add(email1);
-
-            ContactPhone phone1 = new ContactPhone();
-            phone1.Number = "4255550100";
-            contact1.Phones.Add(phone1);
-
-            Contact contact2 = new Contact();
-            contact2.FirstName = "TestContact2";
-
-            ContactEmail email2 = new ContactEmail();
-            email2.Address = "TestContact2@contoso.com";
-            email2.Kind = ContactEmailKind.Other;
-            contact2.Emails.Add(email2);
-
-            ContactPhone phone2 = new ContactPhone();
-            phone2.Number = "4255550101";
-            phone2.Kind = ContactPhoneKind.Mobile;
-            contact2.Phones.Add(phone2);
-
-            // Save the contacts
-            ContactList contactList = await GetContactList();
-
-            if (null == contactList)
-            {
-                return;
-            }
-
-            await contactList.SaveContactAsync(contact1);
-            await contactList.SaveContactAsync(contact2);
-
-            //
-            // Create annotations for those test contacts.
-            // Annotation is the contact meta data that allows People App to generate deep links
-            // in the contact card that takes the user back into this app.
-            //
-
-            ContactAnnotationList annotationList = await GetContactAnnotationList();
-
-            if (null == annotationList)
-            {
-                return;
-            }
-
-            ContactAnnotation annotation = new ContactAnnotation();
-            annotation.ContactId = contact1.Id;
-
-            // Remote ID: The identifier of the user relevant for this app. When this app is
-            // launched into from the People App, this id will be provided as context on which user
-            // the operation (e.g. ContactProfile) is for.
-            annotation.RemoteId = "user12";
-
-            // The supported operations flags indicate that this app can fulfill these operations
-            // for this contact. These flags are read by apps such as the People App to create deep
-            // links back into this app. This app must also be registered for the relevant
-            // protocols in the Package.appxmanifest (in this case, ms-contact-profile).
-            annotation.SupportedOperations = ContactAnnotationOperations.ContactProfile;
-
-            if (!await annotationList.TrySaveAnnotationAsync(annotation))
-            {
-                return;
-            }
-
-            annotation = new ContactAnnotation();
-            annotation.ContactId = contact2.Id;
-            annotation.RemoteId = "user22";
-
-            // You can also specify multiple supported operations for a contact in a single
-            // annotation. In this case, this annotation indicates that the user can be
-            // communicated via VOIP call, Video Call, or IM via this application.
-            annotation.SupportedOperations = ContactAnnotationOperations.ContactProfile | ContactAnnotationOperations.Message;
-
-            if (!await annotationList.TrySaveAnnotationAsync(annotation))
-            {
-                return;
-            }
-
-        }
+        
+        /// <summary>
+        /// Add contact
+        /// </summary>
+        /// <param name="user">Discord User</param>
         public async Task AddContact(SharedModels.User user)
         {
             if (!await CheckContact(user))
             {
+                // Create contact
                 Contact contact = new Contact();
                 contact.Name = user.Username + "#" + user.Discriminator;
-                
                 contact.RemoteId = user.Id;
-               // string contactid = Guid.NewGuid().ToString();
-               // contact.Id = contactid;
-
                 contact.SourceDisplayPicture = RandomAccessStreamReference.CreateFromUri(Common.AvatarUri(user.Avatar, user.Id));
-
-                //ContactEmail email1 = new ContactEmail();
-                //email1.Address = "TestContact1@contoso.com";
-                //contact1.Emails.Add(email1);
-
-                //ContactPhone phone1 = new ContactPhone();
-                //phone1.Number = "4255550100";
-                //contact1.Phones.Add(phone1);
 
                 // Save the contacts
                 ContactList contactList = await GetContactList();
-
                 if (null == contactList)
                 {
                     return;
                 }
-
                 try
                 {
                     await contactList.SaveContactAsync(contact);
                 }
                 catch
                 {
-
+                    // :shrug:
                 }
 
-                //
-                // Create annotations for those test contacts.
-                // Annotation is the contact meta data that allows People App to generate deep links
-                // in the contact card that takes the user back into this app.
-                //
-
-                
                 if (annotationList == null)
                 {
                     return;
                 }
 
+                // Create annotations for contact
                 ContactAnnotation annotation = new ContactAnnotation();
-                //annotation.ContactId = contact.Id;
-                //annotation.ContactListId = "Discord";
-
-                // Remote ID: The identifier of the user relevant for this app. When this app is
-                // launched into from the People App, this id will be provided as context on which user
-                // the operation (e.g. ContactProfile) is for.
                 annotation.RemoteId = user.Id;
                 annotation.ContactId = contact.Id;
-
-                // The supported operations flags indicate that this app can fulfill these operations
-                // for this contact. These flags are read by apps such as the People App to create deep
-                // links back into this app. This app must also be registered for the relevant
-                // protocols in the Package.appxmanifest (in this case, ms-contact-profile).
                 annotation.SupportedOperations = ContactAnnotationOperations.ContactProfile | ContactAnnotationOperations.Message | ContactAnnotationOperations.Share;
-
                 annotation.ProviderProperties.Add("ContactPanelAppID", Windows.ApplicationModel.Package.Current.Id.FamilyName + "!App");
 
+                // Save annotations on contact
                 if(!await annotationList.TrySaveAnnotationAsync(annotation))
                 {
                     Debug.WriteLine("Failed to save contact " + user.Username);
                 }
-
             }
         }
 
+        /// <summary>
+        /// Add contact by Discord friend object
+        /// </summary>
+        /// <param name="user">Discord User</param>
         public async void AddContact(SharedModels.Friend user)
         {
+            // Create contact
             Contact contact = new Contact();
             contact.FirstName = user.user.Username;
             contact.SourceDisplayPicture = RandomAccessStreamReference.CreateFromUri(Common.AvatarUri(user.user.Avatar, user.Id));
-            //ContactEmail email1 = new ContactEmail();
-            //email1.Address = "TestContact1@contoso.com";
-            //contact1.Emails.Add(email1);
-
-            //ContactPhone phone1 = new ContactPhone();
-            //phone1.Number = "4255550100";
-            //contact1.Phones.Add(phone1);
-
-            // Save the contacts
             
-
+            // Save contact
             if (contactList == null)
             {
                 return;
             }
-
             await contactList.SaveContactAsync(contact);
 
-            //
-            // Create annotations for those test contacts.
-            // Annotation is the contact meta data that allows People App to generate deep links
-            // in the contact card that takes the user back into this app.
-            //
-
             ContactAnnotationList annotationList = await GetContactAnnotationList();
-
             if (annotationList == null)
             {
                 return;
             }
 
+            // Creeate annotations of contact
             ContactAnnotation annotation = new ContactAnnotation();
             annotation.ContactId = contact.Id;
-
-            // Remote ID: The identifier of the user relevant for this app. When this app is
-            // launched into from the People App, this id will be provided as context on which user
-            // the operation (e.g. ContactProfile) is for.
             annotation.RemoteId = user.Id;
-
-            // The supported operations flags indicate that this app can fulfill these operations
-            // for this contact. These flags are read by apps such as the People App to create deep
-            // links back into this app. This app must also be registered for the relevant
-            // protocols in the Package.appxmanifest (in this case, ms-contact-profile).
             annotation.SupportedOperations = ContactAnnotationOperations.ContactProfile | ContactAnnotationOperations.Message | ContactAnnotationOperations.Share;
 
+            // Save annotations on contact
             if (!await annotationList.TrySaveAnnotationAsync(annotation))
             {
                 return;
