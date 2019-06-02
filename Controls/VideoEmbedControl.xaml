@@ -12,7 +12,8 @@
     xmlns:RykenUI="using:Ryken.UI"
     mc:Ignorable="d"
     d:DesignHeight="200"
-    d:DesignWidth="400" HorizontalAlignment="Left">
+    d:DesignWidth="400" HorizontalAlignment="Left"
+    Unloaded="UserControl_Unloaded">
 
     <Grid>
         <Border x:Name="EmbedView" CornerRadius="4" Background="{ThemeResource MidBG}">
@@ -71,6 +72,7 @@
 
         <RykenUI:RykenMediaContainer
             x:Name="RykenPlayer" 
-            Visibility="Visible"/>
+            ShowFullscreenButton="False"
+            Visibility="Collapsed"/>
     </Grid>
 </UserControl>
