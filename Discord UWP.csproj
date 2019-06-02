@@ -992,7 +992,7 @@
       <Version>0.7.3</Version>
     </PackageReference>
     <PackageReference Include="RykenLibrary">
-      <Version>0.9.12-beta</Version>
+      <Version>0.9.13-beta</Version>
     </PackageReference>
     <PackageReference Include="Unicode.net">
       <Version>0.1.2</Version>
