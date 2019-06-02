@@ -276,7 +276,7 @@ namespace Discord_UWP.Controls
             var match = YouTubeRegex.Match(EmbedContent.Url);
             if (match.Success)
             {
-                //EmbedView.Visibility = Visibility.Collapsed;
+                EmbedView.Visibility = Visibility.Collapsed;
                 RykenPlayer.Visibility = Visibility.Visible;
 
                 if (RykenPlayer.CurrentMediaHandler == null)
@@ -427,6 +427,14 @@ namespace Discord_UWP.Controls
             var uri = new Uri(@"rykentube:Video?ID=" + videoID);
             await Windows.System.Launcher.LaunchUriAsync(uri);
         }
+        
+        /// <summary>
+        /// Unload control
+        /// </summary>
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Dispose();
+        }
 
         /// <summary>
         /// Dispose of Control
@@ -434,6 +442,9 @@ namespace Discord_UWP.Controls
         public void Dispose()
         {
             Windows.ApplicationModel.DataTransfer.DataTransferManager.GetForCurrentView().DataRequested -= EmbedControl_DataRequested;
+            RykenPlayer.CurrentMediaHandler.Stop();
         }
+
+        
     }
 }
