@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.RegularExpressions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Text;
@@ -17,6 +18,11 @@ using Windows.UI.Xaml.Navigation;
 using Discord_UWP.SharedModels;
 using Gregstoll;
 using Discord_UWP.MarkdownTextBlock;
+
+using myTube.Playback.Handlers;
+using Ryken.Media.Core;
+using Ryken.UI;
+using RykenTube;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -45,7 +51,7 @@ namespace Discord_UWP.Controls
             instance?.OnPropertyChanged(d, e.Property);
         }
 
-        private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
+        private async void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
             //Accent color
             if (EmbedContent.Color != 0)
@@ -265,13 +271,23 @@ namespace Discord_UWP.Controls
                 ThumbnailImage.Visibility = Visibility.Collapsed;
             }
 
-            // Show open in myTube button
-            if (EmbedContent.Url.Contains("youtube") || EmbedContent.Url.Contains("youtu.be"))
+            // Show RykenTube player
+            Regex YouTubeRegex = new Regex(@"(?:https:\/\/)?(?:(?:www\.)?youtube\.com\/watch\?.*?v=([\w\-]+)|youtu\.be\/([\w\-]+))", RegexOptions.Compiled);
+            var match = YouTubeRegex.Match(EmbedContent.Url);
+            if (match.Success)
             {
-                myTubeButton.Visibility = Visibility.Visible;
-            } else
-            {
-                myTubeButton.Visibility = Visibility.Collapsed;
+                //EmbedView.Visibility = Visibility.Collapsed;
+                RykenPlayer.Visibility = Visibility.Visible;
+
+                if (RykenPlayer.CurrentMediaHandler == null)
+                {
+                    myTubeHandlerContainer mediaHandler = new myTubeHandlerContainer();
+                    RykenPlayer.CurrentMediaHandler = mediaHandler;
+                    await mediaHandler.SetCurrentVideoHandler(new MediaPlayerHandler { UseMediaPlayerElement = false });
+                    mediaHandler.CurrentVideoHandler.HandlesTransportControls = true; // Disable the media transport controls
+                    await mediaHandler.CurrentVideoHandler.OpenVideo(new YouTubeEntry { ID = match.Groups[1].Value != "" ? match.Groups[1].Value : match.Groups[2].Value }, YouTubeQuality.HD);
+                    await mediaHandler.CurrentVideoHandler.Pause();
+                }
             }
         }
         /// <summary>

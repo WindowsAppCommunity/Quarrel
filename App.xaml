@@ -6,10 +6,15 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:rykenUI="using:Ryken.UI"
     x:Class="Discord_UWP.App"
     >
     <Application.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <rykenUI:RykenLibraryStyles />
+            </ResourceDictionary.MergedDictionaries>
+            
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
                     <SolidColorBrush x:Key="Background" Color="#FFE5E5E5"/>
@@ -139,7 +144,7 @@
             <x:Boolean x:Key="ShowFocusVisuals">True</x:Boolean>
 
             <Color x:Key="ShadowColor">#FF000000</Color>
-
+            
             <BitmapImage x:Key="BGImage"/>
             <Style x:Key="CheckBoxStyle1" TargetType="CheckBox">
                 <Setter Property="Background" Value="{ThemeResource CheckBoxBackgroundUnchecked}"/>
