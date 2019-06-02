@@ -62,7 +62,7 @@ namespace Discord_UWP.SubPages
             SteamImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/ConnectionLogos/steam" + (App.Current.RequestedTheme == ApplicationTheme.Dark ? "_light" : "_dark") + ".png"));
 
             usernameBox.Text = LocalState.CurrentUser.Username;
-            emailBox.Text = LocalState.CurrentUser.Email;
+            emailBox.Text = LocalState.CurrentUser.Email ?? "";
 
             switch (LocalState.Settings.ExplicitContentFilter)
             {
