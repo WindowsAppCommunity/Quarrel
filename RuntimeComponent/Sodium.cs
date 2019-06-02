@@ -43,7 +43,7 @@ namespace RuntimeComponent
         private static extern int Encrypt(byte* output, byte* input, long inputLength, byte* nonce, byte* secret);
         [DllImport("SodiumC.dll", EntryPoint = "Decrypt", CallingConvention = CallingConvention.Cdecl)]
         private static extern int Decrypt(byte* output, byte* input, long inputLength, byte* nonce, byte* secret);
-
+        
         public static int encrypt([ReadOnlyArray()]byte[] input, int inputOffset, int inputLength, [WriteOnlyArray()]byte[] output, int outputOffset, [ReadOnlyArray()]byte[] nonce, [ReadOnlyArray()]byte[] secret)
         {
             fixed (byte* inPtr = input)
