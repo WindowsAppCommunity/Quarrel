@@ -9,16 +9,29 @@ namespace Discord_UWP.Managers
 {
     public static class BackgroundTaskManager
     {
+        /// <summary>
+        /// Try register Background Task
+        /// </summary>
         public static async void TryRegisterBackgroundTask()
         {
             await UpdateNotificationBGTask();
             await RegisterBG("Main", "InvisibleBackgroundTask", new ToastNotificationActionTrigger(), false);
         }
+
+        /// <summary>
+        /// Register a background task
+        /// </summary>
+        /// <param name="taskName">Class</param>
+        /// <param name="name">Entry point</param>
+        /// <param name="trigger">Trigger event</param>
         private static async Task RegisterBG(string taskName, string name, IBackgroundTrigger trigger, bool internetRequired)
         {
+            // Check access status
             var access = await BackgroundExecutionManager.RequestAccessAsync();
             if (access == BackgroundAccessStatus.DeniedBySystemPolicy || access == BackgroundAccessStatus.DeniedByUser)
                 return;
+
+            // Check if stask is registered
             var taskRegistered = false;
             foreach (var task in BackgroundTaskRegistration.AllTasks)
                 if (BackgroundTaskRegistration.AllTasks.Any(i => i.Value.Name.Equals(taskName)))
@@ -26,6 +39,8 @@ namespace Discord_UWP.Managers
                     taskRegistered = true;
                     break;
                 }
+
+            // Register task
             if (!taskRegistered)
             {
                 var builder = new BackgroundTaskBuilder();
@@ -37,6 +52,10 @@ namespace Discord_UWP.Managers
                 builder.Register();
             }
         }
+
+        /// <summary>
+        /// Register notification Background task
+        /// </summary>
         public static async Task UpdateNotificationBGTask()
         {
             //Unregister task
@@ -45,6 +64,7 @@ namespace Discord_UWP.Managers
             foreach (var task in BackgroundTaskRegistration.AllTasks)
                 if (task.Value.Name == taskName)
                     task.Value.Unregister(true);
+
             //Re-register task
             if (Storage.Settings.BackgroundTaskTime != 0)
             {

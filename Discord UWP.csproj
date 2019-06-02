@@ -526,7 +526,6 @@
     <None Include="Package.xml" />
     <Content Include="Markdown\About.txt" />
     <Content Include="Markdown\oltheme.txt" />
-    <Content Include="SodiumC.dll" />
     <Content Include="TrieNet\CustomDictionary.xml" />
     <!--<Content Include="SodiumCARM.dll"/>
     <Content Include="SodiumCWin32.dll" />
@@ -930,10 +929,10 @@
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
-    <SDKReference Include="WindowsDesktop, Version=10.0.16299.0">
+    <SDKReference Include="WindowsDesktop, Version=10.0.17134.0">
       <Name>Windows Desktop Extensions for the UWP</Name>
     </SDKReference>
-    <SDKReference Include="WindowsMobile, Version=10.0.16299.0">
+    <SDKReference Include="WindowsMobile, Version=10.0.17763.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
@@ -992,6 +991,9 @@
     <PackageReference Include="Robmikh.CompositionSurfaceFactory">
       <Version>0.7.3</Version>
     </PackageReference>
+    <PackageReference Include="RykenLibrary">
+      <Version>0.9.13-beta</Version>
+    </PackageReference>
     <PackageReference Include="Unicode.net">
       <Version>0.1.2</Version>
     </PackageReference>
@@ -1024,9 +1026,22 @@
       <Name>UpdateNotificationTask</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="myTubeAppLibrary">
+      <HintPath>RykenTube\myTubeAppLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="myTubePlaybackLibrary">
+      <HintPath>RykenTube\myTubePlaybackLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="RykenTubeWinRT">
+      <HintPath>RykenTube\RykenTubeWinRT.dll</HintPath>
+    </Reference>
+    <Reference Include="XmlHelper">
+      <HintPath>RykenTube\XmlHelper.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
