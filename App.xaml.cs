@@ -932,9 +932,9 @@ namespace Discord_UWP
                 new MenuArgs {Flyout = await FlyoutManager.ShowMenu(type, Id, parentId), Point = point});
         }
 
-        public static async void ShowMenuFlyout(object sender, User user, Point point)
+        public static void ShowMenuFlyout(object sender, User user, Point point)
         {
-            MenuHandler?.Invoke(sender, new MenuArgs {Flyout = await FlyoutManager.ShowMenu(user), Point = point});
+            MenuHandler?.Invoke(sender, new MenuArgs { Flyout = FlyoutManager.ShowMenu(user), Point = point});
         }
 
         public static void ShowMenuFlyout(object sender, string url, Point point)

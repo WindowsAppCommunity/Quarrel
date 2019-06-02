@@ -26,6 +26,12 @@ namespace Discord_UWP.Managers
             public string Icon { get; set; }
             public string Name { get; set; }
         }
+        
+        /// <summary>
+        /// Get bot features by id
+        /// </summary>
+        /// <param name="botId">Id of bot</param>
+        /// <returns>List of features</returns>
         public static SpecialFeature[] GetBotFeatures(string botId)
         {
             var lastfeature = new SpecialFeature("DiscordBots.org", "", "https://discordbots.org/bot/" + botId);

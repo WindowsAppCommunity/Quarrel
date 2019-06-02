@@ -26,56 +26,78 @@ namespace Discord_UWP.Managers
 {
     public class FlyoutManager
     {
+        /// <summary>
+        /// Types of flyouts
+        /// </summary>
         public enum Type { Guild, GuildMember, GroupMember, Category, TextChn, DMChn, GroupChn, VoiceMember, SavePicture }
 
-        public static async Task<MenuFlyout> ShowMenu(User user)
+        /// <summary>
+        /// Show Flyout for User
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>MenuFlyout</returns>
+        public static MenuFlyout ShowMenu(User user)
         {
             MenuFlyout flyout = new MenuFlyout();
-            if (App.CinematicMode)
-                flyout.LightDismissOverlayMode = LightDismissOverlayMode.On;
+
+            // Create flyout
             flyout = FlyoutCreator.MakeGuildMemberMenu(new GuildMember()
             {
                 User = user
             });
+
+            // Light dismiss for cinematic
+            if (App.CinematicMode)
+                flyout.LightDismissOverlayMode = LightDismissOverlayMode.On;
+
+            // Style items
             foreach (var item in flyout.Items)
             {
                 if (item.GetType() == typeof(MenuFlyoutItem))
                     item.Style = (Style)Application.Current.Resources["MenuFlyoutItemStyle1"];
             }
+            
+            // Return flyout
             return flyout;
         }
 
         public static async Task<MenuFlyout> ShowMenu(Type type, string id, string parentId)
         {
             MenuFlyout flyout = new MenuFlyout();
-            if (App.CinematicMode)
-                flyout.LightDismissOverlayMode = LightDismissOverlayMode.On;
+
+            // Handle flyout type
             switch (type)
             {
+                // Guild
                 case Type.Guild:
                     if (id != "@me")
                     {
                         flyout = FlyoutCreator.MakeGuildMenu(LocalState.Guilds[id]);
                     }
                     break;
+                // DM Channel
                 case Type.DMChn:
                     flyout = FlyoutCreator.MakeDMChannelMenu(LocalState.DMs[id]);
                     break;
+                // Group Channel
                 case Type.GroupChn:
                     flyout = FlyoutCreator.MakeGroupChannelMenu(LocalState.DMs[id]);
                     break;
+                // Category
                 case Type.Category:
                     if (parentId != null)
                     {
                         flyout = FlyoutCreator.MakeCategoryMenu(LocalState.Guilds[parentId].channels[id].raw, parentId);
                     }
                     break;
+                // Text Channel
                 case Type.TextChn:
                     if (parentId != null)
                     {
                         flyout = FlyoutCreator.MakeTextChnMenu(LocalState.Guilds[parentId].channels[id]);
                     }
                     break;
+                // Guild Member
                 case Type.GuildMember:
                     if (parentId != null)
                     {
@@ -85,6 +107,7 @@ namespace Discord_UWP.Managers
                         }
                     }
                     break;
+                // Voice Member
                 case Type.VoiceMember:
                     if (parentId != null)
                     {
@@ -98,16 +121,27 @@ namespace Discord_UWP.Managers
                     }
                     break;
             }
+
+            // Light dismiss for cinematic
             if (App.CinematicMode)
                 flyout.LightDismissOverlayMode = LightDismissOverlayMode.On;
-            foreach(var item in flyout.Items)
+
+            // Style items
+            foreach (var item in flyout.Items)
             {
                 if(item.GetType() == typeof(MenuFlyoutItem))
                     item.Style = (Style)Application.Current.Resources["MenuFlyoutItemStyle1"];
             }
+
+            // Return flyout
             return flyout;
         }
 
+        /// <summary>
+        /// Show Save Picture flyout
+        /// </summary>
+        /// <param name="url">Picture url</param>
+        /// <returns>Save picture flyout</returns>
         public static MenuFlyout ShowMenu(string url)
         {
             return FlyoutCreator.MakeSavePictureFlyout(url);
