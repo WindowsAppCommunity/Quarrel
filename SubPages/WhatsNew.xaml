@@ -78,7 +78,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
-        <Grid x:Name="grid" MaxWidth="512" MaxHeight="600" VerticalAlignment="Center">
+        <Grid x:Name="grid" MaxWidth="750" MaxHeight="600" VerticalAlignment="Center">
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
             <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
                 <Grid>
@@ -103,17 +103,18 @@
                         </RichTextBlock>
 
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                            <Image Source="ms-appx:///Assets/Legere256.png" Height="48"/>
+                            <Image Source="ms-appx:///Assets/Legere256.png" Height="36"/>
                             <TextBlock Text="Legere (Reddit Client)" VerticalAlignment="Center" FontWeight="SemiBold" Margin="12,0,0,0" FontSize="20"/>
                         </StackPanel>
-                        <RichTextBlock HorizontalAlignment="Left" Width="600">
-                            <Paragraph>
+                        <RichTextBlock HorizontalAlignment="Left" Width="600" Margin="0,0,8,12">
+                            <Paragraph FontSize="14">
                                 <Run Text="Wondered why there's been so little work on Quarrel? This is why. This reddit client is now available on the Microsoft Store for PC. "/>
+                                <Hyperlink Click="LegereClick_HyperLink">
+                                    <Run Text="Get it here" Foreground="#FFFF4500"/>
+                                </Hyperlink>
                             </Paragraph>
                         </RichTextBlock>
 
-                        <Button Content="Get it here" Background="#FFFF4500" Margin="0,12,0,0" Style="{ThemeResource DiscordButton}" Click="Legere_Click"/>
-                        
                         <ScrollViewer x:Name="Detailed" Visibility="Collapsed">
                             <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" FontSize="12" Margin="0,32,0,12">
                                 <Paragraph>
@@ -211,7 +212,7 @@
                                 <HyperlinkButton x:Name="Legere" Foreground="#FFFF4500" Background="Transparent" Click="Legere_Click" Style="{StaticResource HyperlinkButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,6,0">
                                     <StackPanel Orientation="Horizontal">
                                         <Image Source="ms-appx:///Assets/Legere256.png" Width="20" Height="20" Margin="0,0,0,0"/>
-                                        <TextBlock Text="Legere (Reddit Client)" HorizontalAlignment="Stretch" Height="20" VerticalAlignment="Top"/>
+                                        <TextBlock Text="Legere (Reddit Client)" HorizontalAlignment="Stretch" Height="20" Margin="6,0,0,0" VerticalAlignment="Top"/>
                                     </StackPanel>
                                 </HyperlinkButton>
                                 <!--<HyperlinkButton x:Name="Paetron" Foreground="#fa7664" Background="Transparent" Click="Paetron_Click" Style="{StaticResource HyperlinkButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,6,0">

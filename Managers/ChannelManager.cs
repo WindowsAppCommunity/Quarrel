@@ -8,8 +8,14 @@ namespace Discord_UWP.Managers
 {
     public static class ChannelManager
     {
+        /// <summary>
+        /// Make SimpleChannel based on GuildChannel
+        /// </summary>
+        /// <param name="channel">GuildChannel</param>
+        /// <returns>SimpleChannel</returns>
         public static SimpleChannel MakeChannel(LocalModels.GuildChannel channel)
         {
+            // Create basic SimpleChannel
             SimpleChannel sc = new SimpleChannel
             {
                 Id = channel.raw.Id,
@@ -20,13 +26,18 @@ namespace Discord_UWP.Managers
                 ParentId = channel.raw.ParentId,
                 Icon = channel.raw.Icon
             };
+
             switch (channel.raw.Type)
             {
+                // Text Channel
                 case 0:
+                    // Determine muted status
                     sc.IsMuted = LocalState.GuildSettings.ContainsKey(channel.raw.GuildId) &&
                                  (LocalState.GuildSettings[channel.raw.GuildId].channelOverrides
                                       .ContainsKey(channel.raw.Id) && LocalState.GuildSettings[channel.raw.GuildId]
                                       .channelOverrides[channel.raw.Id].Muted);
+
+                    // Determine is unread and notification count
                     if (LocalState.RPC.ContainsKey(sc.Id))
                     {
                         ReadState readstate = LocalState.RPC[sc.Id];
@@ -34,16 +45,20 @@ namespace Discord_UWP.Managers
                         var StorageChannel = LocalState.Guilds[App.CurrentGuildId].channels[sc.Id];
                         sc.IsUnread = StorageChannel?.raw.LastMessageId != null && readstate.LastMessageId != StorageChannel.raw.LastMessageId;
                     }
+
+                    // Assing if user has read permissions
                     sc.HavePermissions = 
                         LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.ReadMessages 
                         || App.CurrentGuildId == sc.Id;
 
+                    // Determine if SimpleChannel should be shown
                     if (!(sc.IsMuted && Storage.Settings.HideMutedChannels) && (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels))
                     {
                         return sc;
                     }
                     break;
-
+                
+                // Voice channel
                 case 2:
                     sc.HavePermissions = 
                         LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Connect 
@@ -53,55 +68,81 @@ namespace Discord_UWP.Managers
                         return sc;
                     }
                     break;
-
+                
+                // Category channel
                 case 4:
                     //TODO: Categories
                     break;
             }
+
             return null;
         }
+
+        /// <summary>
+        /// Make SimpleChannel from GuildChannel with overriden LastMessageId
+        /// </summary>
+        /// <param name="channel">GuildChannel</param>
+        /// <param name="overridelastmessageid">New LastMessageId</param>
+        /// <returns>SimpleChannel</returns>
         public static SimpleChannel MakeChannel(SharedModels.GuildChannel channel, string overridelastmessageid = null)
         {
+            // Create basic SimpleChannel
             SimpleChannel sc = new SimpleChannel
             {
                 Id = channel.Id,
                 Name = channel.Name,
                 Type = channel.Type,
                 Nsfw = channel.NSFW,
+                // Override LastMessageId
                 LastMessageId = overridelastmessageid ?? channel.LastMessageId,
                 Position = channel.Position,
                 ParentId = channel.ParentId,
                 Icon = channel.Icon
             };
+
+            // Determine if has permission
             sc.HavePermissions = 
                 LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.ReadMessages
                 || App.CurrentGuildId == sc.Id;
 
+            // Determine if SimpleChannel should be displayed
             if (!(sc.IsMuted && Storage.Settings.HideMutedChannels) && (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels))
             {
                 return sc;
             }
+
             return null;
         }
+
+        /// <summary>
+        /// Make SimpleChannel from DMChannel
+        /// </summary>
+        /// <param name="channel">DMChannel</param>
+        /// <returns>SimpleChannel</returns>
         public static SimpleChannel MakeChannel(SharedModels.DirectMessageChannel channel)
         {
+            // Create basic SimpleChannel
             SimpleChannel sc = new SimpleChannel();
             sc.Id = channel.Id;
             sc.Type = channel.Type;
            
             switch (channel.Type)
             {
-                case 1: //DM
+                // DM
+                case 1:
+                    // Assign basic DM info
                     sc.Name = "@" + channel.Users.FirstOrDefault().Username;
                     sc.LastMessageId = channel.LastMessageId;
                     sc.ImageURL = "https://cdn.discordapp.com/avatars/" + channel.Users.FirstOrDefault().Id + "/" + channel.Users.FirstOrDefault().Avatar + ".png?size=64";
 
+                    // Add members
                     sc.Members = new Dictionary<string, User>();
                     foreach (User user in channel.Users)
                     {
                         sc.Members.Add(user.Id, user);
                     }
 
+                    // Determine presence
                     if (LocalState.PresenceDict.ContainsKey(channel.Users.FirstOrDefault().Id))
                     {
                         sc.UserStatus = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id];
@@ -121,6 +162,7 @@ namespace Discord_UWP.Managers
                     {
                         sc.UserStatus = new Presence() { Status = "offline" };
                     }
+
                     //sc.IsMuted = LocalState.GuildSettings.ContainsKey(channel.raw.GuildId) ? (LocalState.GuildSettings[channel.raw.GuildId].channelOverrides.ContainsKey(channel.raw.Id) ? LocalState.GuildSettings[channel.raw.GuildId].channelOverrides[channel.raw.Id].Muted : false) : false;
                     if (LocalState.RPC.ContainsKey(sc.Id))
                     {
@@ -134,17 +176,16 @@ namespace Discord_UWP.Managers
                             sc.IsUnread = false;
                     }
                     return sc;
-                case 3: //Group
+
+                // Group DM
+                case 3:
+                    // Assign basic Group DM info
                     sc.Name = channel.Name;
                     sc.LastMessageId = channel.LastMessageId;
                     sc.Subtitle = App.GetString("/Main/members").Replace("<count>", (channel.Users.Count() + 1).ToString());
                     sc.Icon = channel.Icon;
-                    //sc.Members = new Dictionary<string, User>();
-                    //foreach (User user in channel.Users)
-                    //{
-                    //    sc.Members.Add(user.Id, user);
-                    //}
 
+                    // Override null name
                     if (!string.IsNullOrEmpty(channel.Name))
                     {
                         sc.Name = channel.Name;
@@ -157,6 +198,7 @@ namespace Discord_UWP.Managers
                         sc.Name = string.Join(", ", channelMembers);
                     }
 
+                    // Determine Unread and Notification status
                     if (LocalState.RPC.ContainsKey(sc.Id))
                     {
                         ReadState readstate = LocalState.RPC[sc.Id];
@@ -168,17 +210,28 @@ namespace Discord_UWP.Managers
                         else
                             sc.IsUnread = false;
                     }
+                    
+                    // Show SimpleChannel
                     sc.HavePermissions = true;
                     return sc;
             }
             return null;
         }
 
+        /// <summary>
+        /// Make a List of SimpleChannels from a List of GuildChannels
+        /// </summary>
+        /// <param name="channels">List of GuildChannels</param>
+        /// <returns>List of SimpleChannels</returns>
         public static List<SimpleChannel> OrderChannels(List<LocalModels.GuildChannel> channels)
         {
+            // Create return list
             List<SimpleChannel> returnChannels = new List<SimpleChannel>();
+
+            // For each channel
             foreach (var channel in channels)
             {
+                // Create basic SimpleChannel
                 SimpleChannel sc = new SimpleChannel();
                 sc.Id = channel.raw.Id;
                 sc.Name = channel.raw.Name;
@@ -189,8 +242,12 @@ namespace Discord_UWP.Managers
 
                 switch (channel.raw.Type)
                 {
+                    // Text Channel
                     case 0:
+                        // Determine muted
                         sc.IsMuted = LocalState.GuildSettings.ContainsKey(channel.raw.GuildId) && (LocalState.GuildSettings[channel.raw.GuildId].channelOverrides.ContainsKey(channel.raw.Id) && LocalState.GuildSettings[channel.raw.GuildId].channelOverrides[channel.raw.Id].Muted);
+
+                        // Determine Unread and Notification status
                         if (LocalState.RPC.ContainsKey(sc.Id))
                         {
                             ReadState readstate = LocalState.RPC[sc.Id];
@@ -199,27 +256,34 @@ namespace Discord_UWP.Managers
                             sc.IsUnread = storageChannel?.raw.LastMessageId != null &&
                                 readstate.LastMessageId != storageChannel.raw.LastMessageId;
                         }
+
+                        // Detemine if user has read permissions
                         sc.HavePermissions = 
                             LocalState.CurrentGuild.channels[sc.Id].permissions.ReadMessages 
                             || App.CurrentGuildId == sc.Id;
 
+                        // Determine if user should see channel
                         if (!(sc.IsMuted && Storage.Settings.HideMutedChannels) && (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels))
                         {
                             returnChannels.Add(sc);
                         }
                         break;
 
+                    // Voice Channel
                     case 2:
+                        // Determine if user has Connect permissions
                         sc.HavePermissions = 
                             LocalState.CurrentGuild.channels[sc.Id].permissions.Connect 
                             || App.CurrentGuildId == sc.Id;
 
+                        // Determine if user should see channel
                         if (!(sc.IsMuted && Storage.Settings.HideMutedChannels) && (sc.HavePermissions || Storage.Settings.ShowNoPermissionChannels))
                         {
                             returnChannels.Add(sc);
                         }
                         break;
 
+                    // Category
                     case 4:
                         sc.HavePermissions = 
                             LocalState.CurrentGuild.channels[sc.Id].permissions.ReadMessages 
@@ -251,9 +315,16 @@ namespace Discord_UWP.Managers
             return Sorted;
         }
 
+        /// <summary>
+        /// Create a List of SimpleChannels from a List of DirectMessageChannels
+        /// </summary>
+        /// <param name="channels">List of DirectMessageChannels</param>
+        /// <returns>List of SimpleChannels</returns>
         public static List<SimpleChannel> OrderChannels(List<DirectMessageChannel> channels)
         {
+            // Create return list
             List<SimpleChannel> returnChannels = new List<SimpleChannel>();
+
             foreach (var channel in channels)
             {
                 SimpleChannel sc = new SimpleChannel();
@@ -261,18 +332,22 @@ namespace Discord_UWP.Managers
                 sc.Type = channel.Type;
                 switch (channel.Type)
                 {
-                    case 1: //DM
+                    // DM
+                    case 1:
+                        // Assign basic DM info
                         sc.Name = "@" + channel.Users.FirstOrDefault().Username;
                         sc.UserId = channel.Users.FirstOrDefault().Id;
                         sc.LastMessageId = channel.LastMessageId;
                         sc.ImageURL = "https://cdn.discordapp.com/avatars/" + channel.Users.FirstOrDefault().Id + "/" + channel.Users.FirstOrDefault().Avatar + ".png?size=64";
 
+                        // Add members 
                         sc.Members = new Dictionary<string, User>();
                         foreach (User user in channel.Users)
                         {
                             sc.Members.Add(user.Id, user);
                         }
 
+                        // Determine presence
                         if (LocalState.PresenceDict.ContainsKey(channel.Users.FirstOrDefault().Id))
                         {
                             sc.UserStatus = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id];
@@ -292,7 +367,9 @@ namespace Discord_UWP.Managers
                         {
                             sc.UserStatus = new Presence() { Status = "offline" };
                         }
-                        //sc.IsMuted = LocalState.GuildSettings.ContainsKey(channel.raw.GuildId) ? (LocalState.GuildSettings[channel.raw.GuildId].channelOverrides.ContainsKey(channel.raw.Id) ? LocalState.GuildSettings[channel.raw.GuildId].channelOverrides[channel.raw.Id].Muted : false) : false;
+
+
+                        // Determine unread and notifcation status
                         if (LocalState.RPC.ContainsKey(sc.Id))
                         {
                             ReadState readstate = LocalState.RPC[sc.Id];
@@ -304,20 +381,21 @@ namespace Discord_UWP.Managers
                             else
                                 sc.IsUnread = false;
                         }
+
+                        // Add to return channel list
                         sc.HavePermissions = true;
                         returnChannels.Add(sc);
                         break;
-                    case 3: //Group
+
+                    // Group DM
+                    case 3:
+                        // Assign basic Group info
                         sc.Name = channel.Name;
                         sc.LastMessageId = channel.LastMessageId;
                         sc.Subtitle = App.GetString("/Main/members").Replace("<count>", (channel.Users.Count() + 1).ToString());
                         sc.Icon = channel.Icon;
-                        //sc.Members = new Dictionary<string, User>();
-                        //foreach (User user in channel.Users)
-                        //{
-                        //    sc.Members.Add(user.Id, user);
-                        //}
 
+                        // Override group name
                         if (channel.Name != null && channel.Name != "")
                         {
                             sc.Name = channel.Name;
@@ -330,6 +408,7 @@ namespace Discord_UWP.Managers
                             sc.Name = string.Join(", ", channelMembers);
                         }
 
+                        // Determine unread and notification status
                         if (LocalState.RPC.ContainsKey(sc.Id))
                         {
                             ReadState readstate = LocalState.RPC[sc.Id];
@@ -341,13 +420,15 @@ namespace Discord_UWP.Managers
                             else
                                 sc.IsUnread = false;
                         }
+
+                        // Add channel to return list
                         sc.HavePermissions = true;
                         returnChannels.Add(sc);
                         break;
                 }
             }
 
-            
+            // Order by LastMessageId
             return returnChannels.OrderByDescending(x => x.LastMessageId).ToList();
         }
     }
