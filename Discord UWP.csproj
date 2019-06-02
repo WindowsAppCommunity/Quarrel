@@ -991,6 +991,9 @@
     <PackageReference Include="Robmikh.CompositionSurfaceFactory">
       <Version>0.7.3</Version>
     </PackageReference>
+    <PackageReference Include="RykenLibrary">
+      <Version>0.9.12-beta</Version>
+    </PackageReference>
     <PackageReference Include="Unicode.net">
       <Version>0.1.2</Version>
     </PackageReference>
@@ -1023,9 +1026,22 @@
       <Name>UpdateNotificationTask</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="myTubeAppLibrary">
+      <HintPath>RykenTube\myTubeAppLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="myTubePlaybackLibrary">
+      <HintPath>RykenTube\myTubePlaybackLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="RykenTubeWinRT">
+      <HintPath>RykenTube\RykenTubeWinRT.dll</HintPath>
+    </Reference>
+    <Reference Include="XmlHelper">
+      <HintPath>RykenTube\XmlHelper.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
