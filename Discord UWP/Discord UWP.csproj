@@ -1005,23 +1005,23 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="DiscordAPI\DiscordAPI.csproj">
+    <ProjectReference Include="..\DiscordAPI\DiscordAPI.csproj">
       <Project>{03c1fc3a-410f-46d9-802b-316c7280e180}</Project>
       <Name>DiscordAPI</Name>
     </ProjectReference>
-    <ProjectReference Include="DiscordBackgroundTask1\DiscordBackgroundTask1.csproj">
+    <ProjectReference Include="..\DiscordBackgroundTask1\DiscordBackgroundTask1.csproj">
       <Project>{89e34785-a142-43dc-8916-41cd073e9bbe}</Project>
       <Name>DiscordBackgroundTask1</Name>
     </ProjectReference>
-    <ProjectReference Include="InvisibleBackgroundTask\InvisibleBackgroundTask.csproj">
+    <ProjectReference Include="..\InvisibleBackgroundTask\InvisibleBackgroundTask.csproj">
       <Project>{54fc239a-42f9-4e75-a001-61098d6416a7}</Project>
       <Name>InvisibleBackgroundTask</Name>
     </ProjectReference>
-    <ProjectReference Include="RuntimeComponent\RuntimeComponent.csproj">
+    <ProjectReference Include="..\RuntimeComponent\RuntimeComponent.csproj">
       <Project>{7a537745-ce73-4c4a-9fc5-0b6d28ca891c}</Project>
       <Name>RuntimeComponent</Name>
     </ProjectReference>
-    <ProjectReference Include="UpdateNotificationTask\UpdateNotificationTask.csproj">
+    <ProjectReference Include="..\UpdateNotificationTask\UpdateNotificationTask.csproj">
       <Project>{e8978980-da38-480b-850b-0bbd28baa6fc}</Project>
       <Name>UpdateNotificationTask</Name>
     </ProjectReference>
