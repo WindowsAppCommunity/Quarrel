@@ -7,8 +7,8 @@
     <ProjectGuid>{BA48EDC4-2A93-4CA0-99B5-DFA8AED075A4}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Discord_UWP</RootNamespace>
-    <AssemblyName>Discord UWP</AssemblyName>
+    <RootNamespace>Quarrel</RootNamespace>
+    <AssemblyName>Quarrel</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
