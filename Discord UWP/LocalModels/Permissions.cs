@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Discord_UWP.SharedModels;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP.LocalModels
+namespace Quarrel.LocalModels
 {
     public class PermissionDifference
     {

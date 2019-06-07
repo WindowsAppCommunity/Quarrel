@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Discord_UWP.Classes
+namespace Quarrel.Classes
 {
     static class ExtensionMethods
     {

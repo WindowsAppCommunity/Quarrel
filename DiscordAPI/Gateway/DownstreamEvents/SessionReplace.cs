@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Discord_UWP.Gateway.DownstreamEvents
+namespace Quarrel.Gateway.DownstreamEvents
 {
     public class SessionReplace
     {

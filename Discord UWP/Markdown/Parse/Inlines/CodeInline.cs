@@ -12,7 +12,7 @@
 
 using System.Collections.Generic;
 
-namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
+namespace Quarrel.MarkdownTextBlock.Parse.Inlines
 {
     /// <summary>
     /// Represents a span containing code, or other text that is to be displayed using a

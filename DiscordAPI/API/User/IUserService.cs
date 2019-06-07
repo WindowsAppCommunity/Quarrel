@@ -1,13 +1,13 @@
-﻿using Discord_UWP.API.User.Models;
-using Discord_UWP.SharedModels;
-using Refit;
+﻿using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Quarrel.API.User.Models;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP.API.User
+namespace Quarrel.API.User
 {
     public interface IUserService
     {

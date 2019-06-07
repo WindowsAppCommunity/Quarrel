@@ -8,7 +8,7 @@ using System.Linq;
 using System.Numerics;
 using Windows.UI;
 
-namespace Discord_UWP.Classes
+namespace Quarrel.Classes
 {
     /// <summary>
     /// Class to assist with rendering the DiscordStatus graph

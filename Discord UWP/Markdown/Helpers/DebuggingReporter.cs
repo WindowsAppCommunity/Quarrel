@@ -12,7 +12,7 @@
 
 using System.Diagnostics;
 
-namespace Discord_UWP.MarkdownTextBlock.Helpers
+namespace Quarrel.MarkdownTextBlock.Helpers
 {
     internal class DebuggingReporter
     {

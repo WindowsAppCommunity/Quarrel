@@ -10,7 +10,7 @@
 // THE CODE OR THE USE OR OTHER DEALINGS IN THE CODE.
 // ******************************************************************
 
-namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
+namespace Quarrel.MarkdownTextBlock.Parse.Inlines
 {
     /// <summary>
     /// Implemented by all inline link elements.

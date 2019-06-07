@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Discord_UWP.API.Channel.Models
+namespace Quarrel.API.Channel.Models
 {
     public class EditMessage
     {

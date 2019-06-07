@@ -1,12 +1,12 @@
-﻿using Discord_UWP.Gateway.DownstreamEvents;
-using Discord_UWP.SharedModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Quarrel.Gateway.DownstreamEvents;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP.Gateway
+namespace Quarrel.Gateway
 {
     public interface IGateway
     {

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Discord_UWP.SharedModels;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP.Gateway.UpstreamEvents
+namespace Quarrel.Gateway.UpstreamEvents
 {
 
     public class VoiceStatusUpdate

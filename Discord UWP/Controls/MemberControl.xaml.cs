@@ -5,14 +5,14 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Discord_UWP.LocalModels;
-using Discord_UWP.SharedModels;
-using Discord_UWP.Managers;
-using Discord_UWP.SimpleClasses;
+using Quarrel.LocalModels;
+using Quarrel.Managers;
+using Quarrel.SharedModels;
+using Quarrel.SimpleClasses;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Discord_UWP.Controls
+namespace Quarrel.Controls
 {
     public sealed partial class MemberControl : UserControl
     {

@@ -21,12 +21,11 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Threading.Tasks;
-
-using Discord_UWP.LocalModels;
+using Quarrel.LocalModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Discord_UWP.Controls
+namespace Quarrel.Controls
 {
     public sealed partial class EmojiControl : UserControl
     {

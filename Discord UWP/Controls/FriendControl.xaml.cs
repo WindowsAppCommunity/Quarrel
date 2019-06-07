@@ -21,11 +21,11 @@ using Windows.UI.Xaml.Shapes;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-using Discord_UWP.LocalModels;
-using Discord_UWP.Managers;
+using Quarrel.LocalModels;
 using System.Text.RegularExpressions;
+using Quarrel.Managers;
 
-namespace Discord_UWP.Controls
+namespace Quarrel.Controls
 {
     public sealed partial class FriendControl : UserControl
     {

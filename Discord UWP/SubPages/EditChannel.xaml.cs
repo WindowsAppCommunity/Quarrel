@@ -18,16 +18,16 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Discord_UWP.Gateway;
-using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-
-using Discord_UWP.LocalModels;
-using Discord_UWP.Managers;
+using Quarrel.API.Channel.Models;
+using Quarrel.Gateway;
+using Quarrel.LocalModels;
+using Quarrel.Managers;
+using Quarrel.SharedModels;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Discord_UWP.SubPages
+namespace Quarrel.SubPages
 {
     /// <summary>
     /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
@@ -48,7 +48,7 @@ namespace Discord_UWP.SubPages
 
         private void SaveChannelSettings(object sender, RoutedEventArgs e)
         {
-            Discord_UWP.API.Channel.Models.ModifyChannel modifychannel = new Discord_UWP.API.Channel.Models.ModifyChannel() {
+            ModifyChannel modifychannel = new ModifyChannel() {
                 Name = ChannelName.Text,
                 Topic = ChannelTopic.Text,
                 Bitrate = 64000,

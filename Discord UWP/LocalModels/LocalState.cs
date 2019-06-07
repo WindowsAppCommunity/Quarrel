@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Windows.UI.Xaml;
-using Discord_UWP.API.Game;
-using Discord_UWP.SharedModels;
+using Quarrel.API.Game;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP.LocalModels
+namespace Quarrel.LocalModels
 {
     public static class LocalState
     {

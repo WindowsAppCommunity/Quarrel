@@ -1,10 +1,10 @@
-﻿using Discord_UWP.API.Gateway;
-using Discord_UWP.API.Login;
-using Refit;
+﻿using Refit;
 using System;
 using System.Net.Http;
+using Quarrel.API.Gateway;
+using Quarrel.API.Login;
 
-namespace Discord_UWP.API
+namespace Quarrel.API
 {
     public class BasicRestFactory
     {

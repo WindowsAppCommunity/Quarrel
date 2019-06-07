@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using Discord_UWP.SharedModels;
+using Quarrel.LocalModels;
+using Quarrel.SharedModels;
+using Quarrel.SimpleClasses;
 
-using Discord_UWP.LocalModels;
-using Discord_UWP.SimpleClasses;
-
-namespace Discord_UWP.Managers
+namespace Quarrel.Managers
 {
     class GuildManager
     {

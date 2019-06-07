@@ -12,7 +12,7 @@
 
 using System.Collections.Generic;
 
-namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
+namespace Quarrel.MarkdownTextBlock.Parse.Inlines
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="IInlineContainer"/> class.

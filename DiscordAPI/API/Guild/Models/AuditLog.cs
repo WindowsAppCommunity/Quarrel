@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.SharedModels;
-using Discord_UWP.SharedModels;
+using Quarrel.SharedModels;
 using Newtonsoft.Json;
 
 namespace DiscordAPI.API.Guild.Models

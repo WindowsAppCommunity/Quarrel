@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Discord_UWP.SharedModels;
+using Quarrel.SharedModels;
 using Newtonsoft.Json;
 
-namespace Discord_UWP.SharedModels
+namespace Quarrel.SharedModels
 {
     public class Webhook
     {

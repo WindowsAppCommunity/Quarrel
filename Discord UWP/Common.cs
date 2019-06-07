@@ -9,22 +9,21 @@ using System.Threading.Tasks;
 using Windows.System.UserProfile;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
-using Discord_UWP.SharedModels;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.Core;
 using System.Xml.Linq;
 using System.Xml;
-
-using Discord_UWP.LocalModels;
 using System.Collections;
 using Windows.UI.Xaml.Data;
 using Windows.Storage;
 using Newtonsoft.Json;
 using Gma.DataStructures.StringSearch;
+using Quarrel.LocalModels;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP
+namespace Quarrel
 {
     public class IntToColorConverter : IValueConverter
     {

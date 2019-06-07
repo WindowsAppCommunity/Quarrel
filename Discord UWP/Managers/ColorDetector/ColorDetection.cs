@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI;
 
-namespace Discord_UWP.SmartColor
+namespace Quarrel.SmartColor
 {
 
     public class ColorDetection

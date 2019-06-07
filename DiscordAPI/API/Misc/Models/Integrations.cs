@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace Discord_UWP.API.Misc.Models
+namespace Quarrel.API.Misc.Models
 {
     public class GifSearchResult
     {

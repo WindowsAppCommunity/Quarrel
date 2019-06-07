@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
+namespace Quarrel.MarkdownTextBlock.Parse.Inlines
 {
 
 
@@ -44,7 +44,7 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Discord_UWP.MarkdownTextBlock.Parse.Inlines.EmojiInline"/> class.
+        /// Initializes a new instance of the <see cref="EmojiInline"/> class.
         /// </summary>
         public EmojiInline()
             : base(MarkdownInlineType.Emoji)

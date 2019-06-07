@@ -1,8 +1,4 @@
-﻿using Discord_UWP.Authentication;
-using Discord_UWP.Gateway.DownstreamEvents;
-using Discord_UWP.Sockets;
-using Discord_UWP.Gateway.UpstreamEvents;
-using Discord_UWP.SharedModels;
+﻿using Quarrel.Sockets;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -15,8 +11,12 @@ using System.IO.Compression;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.Web;
+using Quarrel.Authentication;
+using Quarrel.Gateway.DownstreamEvents;
+using Quarrel.Gateway.UpstreamEvents;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP.Gateway
+namespace Quarrel.Gateway
 {
     public class GatewayEventArgs<T> : EventArgs
     {

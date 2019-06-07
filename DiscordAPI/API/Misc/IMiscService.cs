@@ -1,13 +1,13 @@
-﻿using Discord_UWP.API.Misc.Models;
-using Refit;
+﻿using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Quarrel.API.Misc.Models;
 
 
-namespace Discord_UWP.API.Misc
+namespace Quarrel.API.Misc
 {
     public interface IMiscService
     {

@@ -20,18 +20,17 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-using Discord_UWP.LocalModels;
-using Discord_UWP.Managers;
 using Windows.Graphics.Imaging;
 using Windows.UI.Popups;
 using Windows.Web.Http;
-using Discord_UWP.SimpleClasses;
 using Windows.ApplicationModel.Contacts;
+using Quarrel.LocalModels;
+using Quarrel.Managers;
+using Quarrel.SimpleClasses;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Discord_UWP.SubPages
+namespace Quarrel.SubPages
 {
     /// <summary>
     /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.

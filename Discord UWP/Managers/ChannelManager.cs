@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Discord_UWP.LocalModels;
-using Discord_UWP.SharedModels;
-using Discord_UWP.SimpleClasses;
+using Quarrel.LocalModels;
+using Quarrel.SharedModels;
+using Quarrel.SimpleClasses;
 
-namespace Discord_UWP.Managers
+namespace Quarrel.Managers
 {
     public static class ChannelManager
     {

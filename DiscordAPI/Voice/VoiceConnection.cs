@@ -1,8 +1,4 @@
 ﻿using Concentus.Structs;
-using Discord_UWP.SharedModels;
-using Discord_UWP.Sockets;
-using Discord_UWP.Voice.DownstreamEvents;
-using Discord_UWP.Voice.UpstreamEvents;
 using Newtonsoft.Json;
 //using Sodium;
 using System;
@@ -10,12 +6,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
+using Quarrel.SharedModels;
+using Quarrel.Sockets;
+using Quarrel.Voice.DownstreamEvents;
+using Quarrel.Voice.UpstreamEvents;
 using RuntimeComponent;
 
 //Discord DOCs https://discordapp.com/developers/docs/topics/voice-connections
 
 
-namespace Discord_UWP.Voice
+namespace Quarrel.Voice
 {
 
     public class VoiceConnectionEventArgs<T> : EventArgs

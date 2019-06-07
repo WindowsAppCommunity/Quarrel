@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI;
 
-namespace Discord_UWP.SmartColor
+namespace Quarrel.SmartColor
 {
     public static class ColorUtility
     {

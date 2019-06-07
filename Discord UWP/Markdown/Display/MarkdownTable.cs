@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 
-namespace Discord_UWP.MarkdownTextBlock.Display
+namespace Quarrel.MarkdownTextBlock.Display
 {
     /// <summary>
     /// A custom panel control that arranges elements similar to how an HTML table would.

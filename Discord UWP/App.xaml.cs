@@ -27,20 +27,20 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using Discord_UWP.API.Channel.Models;
-using Discord_UWP.Classes;
-using Discord_UWP.LocalModels;
-using Discord_UWP.Managers;
-using Discord_UWP.MarkdownTextBlock;
-using Discord_UWP.SharedModels;
-using Discord_UWP.SmartColor;
-using Discord_UWP.SubPages;
 using Gma.DataStructures.StringSearch;
 using Microsoft.Toolkit.Uwp.Helpers;
-using Guild = Discord_UWP.SharedModels.Guild;
-using GuildChannel = Discord_UWP.SharedModels.GuildChannel;
+using Quarrel.API.Channel.Models;
+using Quarrel.Classes;
+using Quarrel.LocalModels;
+using Quarrel.Managers;
+using Quarrel.MarkdownTextBlock;
+using Quarrel.SharedModels;
+using Quarrel.SmartColor;
+using Quarrel.SubPages;
+using Guild = Quarrel.SharedModels.Guild;
+using GuildChannel = Quarrel.SharedModels.GuildChannel;
 
-namespace Discord_UWP
+namespace Quarrel
 {
     /// <summary>
     ///     Provides application-specific behavior to supplement the default Application class.
@@ -1290,12 +1290,12 @@ namespace Discord_UWP
 
         public class ChannelTopicNavigationArgs : EventArgs
         {
-            public GuildChannel Channel { get; set; }
+            public SharedModels.GuildChannel Channel { get; set; }
         }
 
         public static event EventHandler<ChannelTopicNavigationArgs> NavigateToChannelTopicHandler;
 
-        public static void NavigateToChannelTopic(GuildChannel channel)
+        public static void NavigateToChannelTopic(SharedModels.GuildChannel channel)
         {
             NavigateToChannelTopicHandler?.Invoke(typeof(App), new ChannelTopicNavigationArgs {Channel = channel});
         }
@@ -1489,12 +1489,12 @@ namespace Discord_UWP
 
         public class GuildChannelCreatedArgs
         {
-            public GuildChannel Channel;
+            public SharedModels.GuildChannel Channel;
         }
 
         public static event EventHandler<GuildChannelCreatedArgs> GuildChannelCreatedHandler;
 
-        public static void GuildChannelCreated(GuildChannel channel)
+        public static void GuildChannelCreated(SharedModels.GuildChannel channel)
         {
             GuildChannelCreatedHandler?.Invoke(typeof(App), new GuildChannelCreatedArgs {Channel = channel});
         }
@@ -1515,12 +1515,12 @@ namespace Discord_UWP
 
         public class GuildChannelUpdatedArgs
         {
-            public GuildChannel Channel;
+            public SharedModels.GuildChannel Channel;
         }
 
         public static event EventHandler<GuildChannelUpdatedArgs> GuildChannelUpdatedHandler;
 
-        public static void GuildChannelUpdated(GuildChannel channel)
+        public static void GuildChannelUpdated(SharedModels.GuildChannel channel)
         {
             GuildChannelUpdatedHandler?.Invoke(typeof(App), new GuildChannelUpdatedArgs {Channel = channel});
         }
@@ -1531,19 +1531,19 @@ namespace Discord_UWP
 
         public class GuildCreatedArgs
         {
-            public Guild Guild;
+            public SharedModels.Guild Guild;
         }
 
         public static event EventHandler<GuildCreatedArgs> GuildCreatedHandler;
 
-        public static void GuildCreated(Guild guild)
+        public static void GuildCreated(SharedModels.Guild guild)
         {
             GuildCreatedHandler?.Invoke(typeof(App), new GuildCreatedArgs {Guild = guild});
         }
 
-        public static event EventHandler<Guild> GuildUpdatedHandler;
+        public static event EventHandler<SharedModels.Guild> GuildUpdatedHandler;
 
-        public static void GuildUpdated(Guild guild)
+        public static void GuildUpdated(SharedModels.Guild guild)
         {
             GuildUpdatedHandler?.Invoke(typeof(App), guild);
         }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Discord_UWP.Managers
+namespace Quarrel.Managers
 {
     public static class BotExtrasManager
     {

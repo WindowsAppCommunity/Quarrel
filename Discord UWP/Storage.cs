@@ -13,13 +13,13 @@ using Windows.UI.Popups;
 using System.ComponentModel;
 using Windows.Security.Credentials;
 
-using Discord_UWP.LocalModels;
-using Discord_UWP.SharedModels;
+using Quarrel.LocalModels;
+using Quarrel.SharedModels;
 using Newtonsoft.Json;
 using Windows.UI.Xaml;
-using Discord_UWP.Classes;
+using Quarrel.Classes;
 
-namespace Discord_UWP
+namespace Quarrel
 {
     public class Storage
     {

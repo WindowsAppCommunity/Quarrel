@@ -4,10 +4,10 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
-using Discord_UWP.Managers;
-using Discord_UWP.SimpleClasses;
+using Quarrel.Managers;
+using Quarrel.SimpleClasses;
 
-namespace Discord_UWP.Classes
+namespace Quarrel.Classes
 {
     /// <summary>
     /// Group of items for <see cref="GroupedObservableCollection{TKey, TElement}"/> collection

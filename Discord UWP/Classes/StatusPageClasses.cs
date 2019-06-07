@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Newtonsoft.Json;
 
-namespace Discord_UWP.Classes
+namespace Quarrel.Classes
 {
     public class StatusPageClasses
     {

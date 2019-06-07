@@ -1,12 +1,12 @@
-﻿using Discord_UWP.SharedModels;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP.Gateway.DownstreamEvents
+namespace Quarrel.Gateway.DownstreamEvents
 {
     public class Ready
     {

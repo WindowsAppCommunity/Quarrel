@@ -16,11 +16,11 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
-using Discord_UWP.SharedModels;
+using Quarrel.SharedModels;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Discord_UWP.Controls
+namespace Quarrel.Controls
 {
 
     /// <summary>

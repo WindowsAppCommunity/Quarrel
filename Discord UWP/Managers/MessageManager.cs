@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using Discord_UWP.SharedModels;
-using Discord_UWP.LocalModels;
-using Discord_UWP.SimpleClasses;
+using Quarrel.API.Channel.Models;
+using Quarrel.LocalModels;
+using Quarrel.SharedModels;
+using Quarrel.SimpleClasses;
 
-namespace Discord_UWP.Managers
+namespace Quarrel.Managers
 {
     public class MessageManager
     {
@@ -66,7 +67,7 @@ namespace Discord_UWP.Managers
             if (lastread) msg.LastRead = true;
             return msg;
         }
-        public static MessageContainer MakeMessage(string chnId, Discord_UWP.API.Channel.Models.MessageUpsert upsert)
+        public static MessageContainer MakeMessage(string chnId, MessageUpsert upsert)
         {
             Message message = new Message() { ChannelId = chnId, Content = upsert.Content, User = LocalState.CurrentUser, TTS = upsert.TTS, Timestamp = DateTime.Now };
             MessageContainer msg = new MessageContainer(message, GetMessageType(message.Type), false, null, true);

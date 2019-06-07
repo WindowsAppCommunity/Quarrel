@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Discord_UWP.Gateway.DownstreamEvents
+namespace Quarrel.Gateway.DownstreamEvents
 {
     public class UserNote
     {

@@ -23,23 +23,22 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using static Discord_UWP.Common;
+using static Quarrel.Common;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml.Media.Animation;
-using Discord_UWP.Controls;
-using Discord_UWP.Gateway;
-using Discord_UWP.Gateway.DownstreamEvents;
-using Discord_UWP.SharedModels;
-
-using Discord_UWP.LocalModels;
-using Discord_UWP.Managers;
-using static Discord_UWP.Managers.MessageManager;
+using Quarrel.Controls;
+using static Quarrel.Managers.MessageManager;
 using Microsoft.Toolkit.Uwp.UI.Controls;
-using Discord_UWP.SimpleClasses;
 using Windows.System;
+using Quarrel.Gateway;
+using Quarrel.Gateway.DownstreamEvents;
+using Quarrel.LocalModels;
+using Quarrel.Managers;
+using Quarrel.SharedModels;
+using Quarrel.SimpleClasses;
 
-namespace Discord_UWP.Controls
+namespace Quarrel.Controls
 {
     public sealed partial class MessageControl : UserControl
     {

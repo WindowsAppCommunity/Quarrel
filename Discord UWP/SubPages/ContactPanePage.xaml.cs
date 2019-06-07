@@ -12,18 +12,18 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Discord_UWP.API.User.Models;
-using Discord_UWP.Controls;
-using Discord_UWP.LocalModels;
-using Discord_UWP.Managers;
-using Discord_UWP.SharedModels;
-using Discord_UWP.SimpleClasses;
+using Quarrel.Controls;
+using Quarrel.Managers;
+using Quarrel.SharedModels;
+using Quarrel.SimpleClasses;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using ContactManager = Discord_UWP.Managers.ContactManager;
+using Quarrel.API.User.Models;
+using Quarrel.LocalModels;
+using ContactManager = Quarrel.Managers.ContactManager;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Discord_UWP.SubPages
+namespace Quarrel.SubPages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -33,7 +33,7 @@ namespace Discord_UWP.SubPages
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var contactManager = new ContactManager();
+            var contactManager = new Managers.ContactManager();
             ContactPanelActivatedEventArgs panelArgs = (ContactPanelActivatedEventArgs)e.Parameter;
             string userID = await contactManager.ContactIdToRemoteId(panelArgs.Contact.Id);
             string DmChannelID = LocalState.DMs

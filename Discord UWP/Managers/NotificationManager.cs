@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Microsoft.QueryStringDotNET;
 using Windows.UI.Notifications;
-
-using Discord_UWP.LocalModels;
-using Discord_UWP.SharedModels;
 using System.Xml.Linq;
 using System.Xml;
 using System.Diagnostics;
+using Quarrel.LocalModels;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP.Managers
+namespace Quarrel.Managers
 {
     public class NotificationManager
     {

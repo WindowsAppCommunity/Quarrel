@@ -12,10 +12,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Discord_UWP.MarkdownTextBlock.Parse;
-using Discord_UWP.MarkdownTextBlock.Parse.Inlines;
+using Quarrel.MarkdownTextBlock.Parse;
+using Quarrel.MarkdownTextBlock.Parse.Inlines;
 
-namespace Discord_UWP.MarkdownTextBlock.Helpers
+namespace Quarrel.MarkdownTextBlock.Helpers
 {
     internal class Common
     {

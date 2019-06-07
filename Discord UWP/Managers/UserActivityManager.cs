@@ -8,7 +8,7 @@ using Windows.ApplicationModel.UserActivities;
 using Windows.UI.Core;
 using Windows.UI.Shell;
 
-namespace Discord_UWP.Managers
+namespace Quarrel.Managers
 {
     class UserActivityManager
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Discord_UWP.API.Connections
+namespace Quarrel.API.Connections
 {
     public interface IConnectionsService
     {

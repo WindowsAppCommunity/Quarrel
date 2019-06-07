@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
 
-namespace Discord_UWP.Classes
+namespace Quarrel.Classes
 {
     /// <summary>
     /// Independant API for discord outage metrics

@@ -13,7 +13,7 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 
-namespace Discord_UWP.MarkdownTextBlock.Display
+namespace Quarrel.MarkdownTextBlock.Display
 {
     /// <summary>
     /// An internal interface used to handle links in the markdown.

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 
-namespace Discord_UWP.Managers
+namespace Quarrel.Managers
 {
     public static class BackgroundTaskManager
     {
