@@ -17,15 +17,14 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using Discord_UWP.SharedModels;
+using Quarrel.SharedModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using System.Text.RegularExpressions;
-
-using Discord_UWP.Managers;
+using Quarrel.Managers;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Discord_UWP.Controls
+namespace Quarrel.Controls
 {
     public sealed partial class GuildControl : UserControl
     {

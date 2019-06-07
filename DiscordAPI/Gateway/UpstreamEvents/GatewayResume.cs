@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Discord_UWP.Gateway.UpstreamEvents
+namespace Quarrel.Gateway.UpstreamEvents
 {
     public class GatewayResume
     {

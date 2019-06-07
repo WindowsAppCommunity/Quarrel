@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace Discord_UWP.SharedModels
+namespace Quarrel.SharedModels
 {
     public class MutualGuild
     {

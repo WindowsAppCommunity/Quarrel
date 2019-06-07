@@ -13,7 +13,7 @@ using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 
-namespace Discord_UWP.Managers
+namespace Quarrel.Managers
 {
     public static class SpotifyManager
     {

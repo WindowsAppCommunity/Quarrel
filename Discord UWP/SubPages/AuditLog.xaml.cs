@@ -1,6 +1,4 @@
-﻿using Discord_UWP.LocalModels;
-using Discord_UWP.SharedModels;
-using DiscordAPI.API.Guild.Models;
+﻿using DiscordAPI.API.Guild.Models;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
@@ -9,10 +7,12 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Newtonsoft.Json.Linq;
+using Quarrel.LocalModels;
+using Quarrel.SharedModels;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Discord_UWP.SubPages
+namespace Quarrel.SubPages
 {
     public static class Extensions
     {

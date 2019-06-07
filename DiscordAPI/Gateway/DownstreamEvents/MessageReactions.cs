@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Discord_UWP.SharedModels;
 using Newtonsoft.Json;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP.Gateway.DownstreamEvents
+namespace Quarrel.Gateway.DownstreamEvents
 {
     public class MessageReactionUpdate
     {

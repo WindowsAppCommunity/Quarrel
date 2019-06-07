@@ -13,9 +13,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Discord_UWP.MarkdownTextBlock.Parse.Blocks;
+using Quarrel.MarkdownTextBlock.Parse.Blocks;
 
-namespace Discord_UWP.MarkdownTextBlock.Parse
+namespace Quarrel.MarkdownTextBlock.Parse
 {
     /// <summary>
     /// A class used to represent abstract markdown.

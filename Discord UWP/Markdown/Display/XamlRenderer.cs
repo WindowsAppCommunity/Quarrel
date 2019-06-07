@@ -22,17 +22,17 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
-using Discord_UWP.MarkdownTextBlock.Parse;
-using Discord_UWP.MarkdownTextBlock.Parse.Blocks;
-using Discord_UWP.MarkdownTextBlock.Parse.Inlines;
 using Windows.Foundation.Metadata;
 using System.Reflection;
-using Discord_UWP.LocalModels;
-using Discord_UWP.SharedModels;
+using Quarrel.SharedModels;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
+using Quarrel.LocalModels;
+using Quarrel.MarkdownTextBlock.Parse;
+using Quarrel.MarkdownTextBlock.Parse.Blocks;
+using Quarrel.MarkdownTextBlock.Parse.Inlines;
 using Emoji = NeoSmart.Unicode.Emoji;
 
-namespace Discord_UWP.MarkdownTextBlock.Display
+namespace Quarrel.MarkdownTextBlock.Display
 {
     internal class XamlRenderer
     {

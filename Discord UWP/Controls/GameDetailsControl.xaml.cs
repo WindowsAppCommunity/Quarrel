@@ -16,13 +16,13 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using Discord_UWP.LocalModels;
 using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Toolkit.Uwp.UI.Animations;
+using Quarrel.LocalModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Discord_UWP.Controls
+namespace Quarrel.Controls
 {
     public sealed partial class GameDetailsControl : UserControl
     {

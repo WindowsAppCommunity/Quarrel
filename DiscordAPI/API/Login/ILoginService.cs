@@ -1,12 +1,12 @@
-﻿using Discord_UWP.API.Login.Models;
-using Refit;
+﻿using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Quarrel.API.Login.Models;
 
-namespace Discord_UWP.API.Login
+namespace Quarrel.API.Login
 {
     public interface ILoginService
     {

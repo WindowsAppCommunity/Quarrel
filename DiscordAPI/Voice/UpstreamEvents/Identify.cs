@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Discord_UWP.Voice.UpstreamEvents
+namespace Quarrel.Voice.UpstreamEvents
 {
     public class Identify
     {

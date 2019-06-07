@@ -11,18 +11,18 @@ using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Discord_UWP.API.Channel.Models;
-using Discord_UWP.LocalModels;
-using Discord_UWP.Managers;
-using Discord_UWP.SharedModels;
-using Discord_UWP.SimpleClasses;
-using Discord_UWP.SubPages;
 using Microsoft.Toolkit.Uwp.UI.Animations;
+using Quarrel.API.Channel.Models;
+using Quarrel.LocalModels;
+using Quarrel.Managers;
+using Quarrel.SharedModels;
+using Quarrel.SimpleClasses;
+using Quarrel.SubPages;
 using Debug = System.Diagnostics.Debug;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Discord_UWP.Controls
+namespace Quarrel.Controls
 {
     public sealed partial class MessageBodyControl : UserControl
     {

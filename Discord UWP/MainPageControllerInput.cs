@@ -1,13 +1,13 @@
-﻿using Discord_UWP.SimpleClasses;
-using System;
+﻿using System;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Discord_UWP.SubPages;
+using Quarrel.SimpleClasses;
+using Quarrel.SubPages;
 
-namespace Discord_UWP
+namespace Quarrel
 {
     public sealed partial class MainPage : Page
     {

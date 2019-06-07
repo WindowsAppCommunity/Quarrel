@@ -1,9 +1,6 @@
 ﻿// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-using Discord_UWP.Flyouts;
-using Discord_UWP.LocalModels;
-using Discord_UWP.Managers;
-using Discord_UWP.SharedModels;
+using Quarrel.Flyouts;
 using System;
 using System.ComponentModel;
 using Windows.ApplicationModel.Core;
@@ -12,8 +9,11 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
+using Quarrel.LocalModels;
+using Quarrel.Managers;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP.Controls
+namespace Quarrel.Controls
 {
     public sealed partial class VoiceMemberControl : UserControl
     {

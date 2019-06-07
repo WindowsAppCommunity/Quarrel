@@ -1,14 +1,14 @@
-﻿using Discord_UWP.API.Guild.Models;
-using Discord_UWP.SharedModels;
-using Refit;
+﻿using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.API.Guild.Models;
+using Quarrel.API.Guild.Models;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP.API.Guild
+namespace Quarrel.API.Guild
 {
     public interface IGuildService
     {

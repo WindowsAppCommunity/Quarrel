@@ -1,7 +1,5 @@
 ﻿// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-using Discord_UWP.LocalModels;
-using Discord_UWP.Managers;
-using Discord_UWP.SharedModels;
+
 using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
@@ -21,8 +19,11 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
+using Quarrel.LocalModels;
+using Quarrel.Managers;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP.Controls
+namespace Quarrel.Controls
 {
     public sealed partial class UserDetailsControl : UserControl
     {

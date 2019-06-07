@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Calls;
-using Discord_UWP.Voice;
-using Discord_UWP.LocalModels;
+using Quarrel.LocalModels;
+using Quarrel.Voice;
 
-namespace Discord_UWP.Managers
+namespace Quarrel.Managers
 {
     public static class VoiceManager
     {

@@ -1,5 +1,4 @@
-﻿using Discord_UWP.SharedModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
@@ -11,14 +10,15 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.Devices.Input;
-using Discord_UWP.LocalModels;
-using Discord_UWP.Managers;
 using Windows.ApplicationModel.DataTransfer;
 using Microsoft.Toolkit.Uwp.UI.Animations;
+using Quarrel.LocalModels;
+using Quarrel.Managers;
+using Quarrel.SharedModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Discord_UWP.Controls
+namespace Quarrel.Controls
 {
     public sealed partial class MessageBox : UserControl
     {

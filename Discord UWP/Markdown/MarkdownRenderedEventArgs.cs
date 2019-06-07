@@ -12,7 +12,7 @@
 
 using System;
 
-namespace Discord_UWP.MarkdownTextBlock
+namespace Quarrel.MarkdownTextBlock
 {
     /// <summary>
     /// Arguments for the OnMarkdownRendered event which indicates when the markdown has been

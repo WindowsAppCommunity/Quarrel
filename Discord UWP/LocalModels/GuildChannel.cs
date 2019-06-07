@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Discord_UWP.SharedModels;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP.LocalModels
+namespace Quarrel.LocalModels
 {
     public class GuildChannel
     {

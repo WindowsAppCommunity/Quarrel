@@ -19,20 +19,20 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Discord_UWP.Gateway;
-using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-
-using Discord_UWP.LocalModels;
-using Discord_UWP.Managers;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Storage;
 using Windows.Graphics.Imaging;
 using Windows.UI.Popups;
+using Quarrel.API.Guild.Models;
+using Quarrel.Gateway;
+using Quarrel.LocalModels;
+using Quarrel.Managers;
+using Quarrel.SharedModels;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Discord_UWP.SubPages
+namespace Quarrel.SubPages
 {
 
     /// <summary>
@@ -179,8 +179,8 @@ namespace Discord_UWP.SubPages
                     perms.MoveMembers = MoveMembers.IsOn;
                     perms.UseVad = UseVad.IsOn;
                     string roleId = (RolesView.SelectedItem as SimpleRole).Id;
-                    Discord_UWP.API.Guild.Models.ModifyGuildRole modifyguildrole =
-                        new Discord_UWP.API.Guild.Models.ModifyGuildRole()
+                    ModifyGuildRole modifyguildrole =
+                        new ModifyGuildRole()
                         {
                             Name = RoleName.Text,
                             Color = LocalState.Guilds[guildId].roles[(RolesView.SelectedItem as SimpleRole).Id].Color,

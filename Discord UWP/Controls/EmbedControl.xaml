@@ -1,15 +1,15 @@
 ﻿<UserControl
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Discord_UWP.Controls"
+    xmlns:local="using:Quarrel.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:mtb="using:Discord_UWP.MarkdownTextBlock"
+    xmlns:mtb="using:Quarrel.MarkdownTextBlock"
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:gregstoll="using:Gregstoll"
     xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
-    x:Class="Discord_UWP.Controls.EmbedControl"
+    x:Class="Quarrel.Controls.EmbedControl"
     mc:Ignorable="d"
     d:DesignHeight="200"
     d:DesignWidth="400" HorizontalAlignment="Left" Unloaded="UserControl_Unloaded">

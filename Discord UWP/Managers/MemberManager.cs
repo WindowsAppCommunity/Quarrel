@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
-
-using Discord_UWP.LocalModels;
-using Discord_UWP.SharedModels;
+using Quarrel.SharedModels;
 using System.ComponentModel;
-using Discord_UWP.SimpleClasses;
+using Quarrel.LocalModels;
+using Quarrel.SimpleClasses;
 
-namespace Discord_UWP.Managers
+namespace Quarrel.Managers
 {
     class MemberManager
     {

@@ -15,16 +15,16 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-using Discord_UWP.Classes;
-using Discord_UWP.Controls;
+using Quarrel.Controls;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System.Numerics;
 using Microsoft.Graphics.Canvas.Text;
 using Microsoft.Toolkit.Uwp.UI.Animations;
+using Quarrel.Classes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Discord_UWP.SubPages
+namespace Quarrel.SubPages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -205,7 +205,7 @@ namespace Discord_UWP.SubPages
         }
 
         private bool ChangedMetricsDisplay = false;
-        Dictionary<int, Discord_UWP.Classes.StatusPageClasses.Datum> datavalues = new Dictionary<int, Discord_UWP.Classes.StatusPageClasses.Datum>();
+        Dictionary<int, StatusPageClasses.Datum> datavalues = new Dictionary<int, StatusPageClasses.Datum>();
         private async void ShowMetrics(string duration)
         {
             if (ChangedMetricsDisplay)

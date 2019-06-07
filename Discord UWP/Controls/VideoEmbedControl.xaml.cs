@@ -15,18 +15,18 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using Discord_UWP.SharedModels;
 using Gregstoll;
-using Discord_UWP.MarkdownTextBlock;
+using Quarrel.MarkdownTextBlock;
 
 using myTube.Playback.Handlers;
+using Quarrel.SharedModels;
 using Ryken.Media.Core;
 using Ryken.UI;
 using RykenTube;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Discord_UWP.Controls
+namespace Quarrel.Controls
 {
     public sealed partial class VideoEmbedControl : UserControl
     {

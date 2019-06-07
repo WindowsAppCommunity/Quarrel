@@ -1,6 +1,6 @@
 ﻿using Windows.UI.Xaml.Documents;
 
-namespace Discord_UWP.MarkdownTextBlock.Display
+namespace Quarrel.MarkdownTextBlock.Display
 {
 
     public interface ICodeBlockResolver

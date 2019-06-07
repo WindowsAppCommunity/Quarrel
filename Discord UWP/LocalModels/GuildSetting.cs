@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Quarrel.SharedModels;
 
-using Discord_UWP.SharedModels;
-
-namespace Discord_UWP.LocalModels
+namespace Quarrel.LocalModels
 {
     public class GuildSetting
     {

@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
+namespace Quarrel.MarkdownTextBlock.Parse.Inlines
 {
     internal enum HyperlinkType
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Specialized;
 using System.Collections;
 
-namespace Discord_UWP.Classes
+namespace Quarrel.Classes
 {
     public static class Extensions
     {

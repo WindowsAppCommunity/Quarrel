@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Contacts;
 using Windows.Storage.Streams;
 
-namespace Discord_UWP.Managers
+namespace Quarrel.Managers
 {
     public class ContactManager
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Discord_UWP.API.Game
+namespace Quarrel.API.Game
 {
     public interface IGameService
     {

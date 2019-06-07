@@ -1,14 +1,14 @@
-﻿using Discord_UWP.LocalModels;
-using Discord_UWP.SharedModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Quarrel.LocalModels;
+using Quarrel.SharedModels;
 
 // TODO: Replace with proper MVVM
-namespace Discord_UWP.SimpleClasses
+namespace Quarrel.SimpleClasses
 {
     /// <summary>
     /// Types of Messages

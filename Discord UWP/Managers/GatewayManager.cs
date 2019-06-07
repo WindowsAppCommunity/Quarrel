@@ -8,11 +8,11 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 
-using Discord_UWP.Managers;
-using Discord_UWP.LocalModels;
-using Discord_UWP.SharedModels;
+using Quarrel.Managers;
+using Quarrel.LocalModels;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP.Managers
+namespace Quarrel.Managers
 {
     public class GatewayManager
     {

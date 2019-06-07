@@ -1,5 +1,4 @@
-﻿using Discord_UWP.Authentication;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -7,8 +6,9 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Quarrel.Authentication;
 
-namespace Discord_UWP.API
+namespace Quarrel.API
 {
     public class AuthenticatingHttpClientHandler : HttpClientHandler
     {

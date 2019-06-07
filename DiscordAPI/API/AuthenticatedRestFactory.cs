@@ -1,19 +1,19 @@
-﻿using Discord_UWP.API.User;
-using Discord_UWP.API.Channel;
-using Discord_UWP.Authentication;
-using Refit;
+﻿using Refit;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Discord_UWP.API.Activities;
-using Discord_UWP.API.Guild;
-using Discord_UWP.API.Voice;
-using Discord_UWP.API.Invite;
-using Discord_UWP.API.Connections;
-using Discord_UWP.API.Game;
-using Discord_UWP.API.Misc;
+using Quarrel.API.Activities;
+using Quarrel.API.Channel;
+using Quarrel.API.Connections;
+using Quarrel.API.Game;
+using Quarrel.API.Guild;
+using Quarrel.API.Invite;
+using Quarrel.API.Misc;
+using Quarrel.API.User;
+using Quarrel.API.Voice;
+using Quarrel.Authentication;
 
-namespace Discord_UWP.API
+namespace Quarrel.API
 {
     public class AuthenticatedRestFactory
     {

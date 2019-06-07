@@ -18,12 +18,11 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Uwp;
 using Windows.UI.Popups;
-
-using Discord_UWP.Managers;
+using Quarrel.Managers;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Discord_UWP.SubPages
+namespace Quarrel.SubPages
 {
     /// <summary>
     /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
@@ -765,7 +764,7 @@ namespace Discord_UWP.SubPages
 
         private void HyperlinkButton_Click_2(object sender, RoutedEventArgs e)
         {
-            Storage.Settings = new Discord_UWP.Settings();
+            Storage.Settings = new Quarrel.Settings();
         }
     }
 }

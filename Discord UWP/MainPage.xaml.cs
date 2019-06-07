@@ -29,35 +29,35 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
-using Discord_UWP.API.Channel.Models;
-using Discord_UWP.API.Game;
-using Discord_UWP.API.Guild.Models;
-using Discord_UWP.API.User.Models;
-using Discord_UWP.Classes;
-using Discord_UWP.Controls;
-using Discord_UWP.Gateway;
-using Discord_UWP.Gateway.DownstreamEvents;
-using Discord_UWP.LocalModels;
-using Discord_UWP.Managers;
-using Discord_UWP.MarkdownTextBlock;
-using Discord_UWP.SharedModels;
-using Discord_UWP.SimpleClasses;
-using Discord_UWP.SubPages;
+using Quarrel.API.Channel.Models;
 using Gma.DataStructures.StringSearch;
 using Microsoft.Advertising.WinRT.UI;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Debug = System.Diagnostics.Debug;
-using EditChannel = Discord_UWP.SubPages.EditChannel;
-using Guild = Discord_UWP.SharedModels.Guild;
-using GuildChannel = Discord_UWP.LocalModels.GuildChannel;
-using GuildSetting = Discord_UWP.SharedModels.GuildSetting;
-using User = Discord_UWP.SharedModels.User;
-using UserProfile = Discord_UWP.SubPages.UserProfile;
+using EditChannel = Quarrel.SubPages.EditChannel;
+using Guild = Quarrel.SharedModels.Guild;
+using GuildChannel = Quarrel.LocalModels.GuildChannel;
+using GuildSetting = Quarrel.SharedModels.GuildSetting;
+using User = Quarrel.SharedModels.User;
+using UserProfile = Quarrel.SubPages.UserProfile;
 using System.Collections.ObjectModel;
+using Quarrel.API.Game;
+using Quarrel.API.Guild.Models;
+using Quarrel.API.User.Models;
+using Quarrel.Classes;
+using Quarrel.Controls;
+using Quarrel.Gateway;
+using Quarrel.Gateway.DownstreamEvents;
+using Quarrel.LocalModels;
+using Quarrel.Managers;
+using Quarrel.MarkdownTextBlock;
+using Quarrel.SharedModels;
+using Quarrel.SimpleClasses;
+using Quarrel.SubPages;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace Discord_UWP
+namespace Quarrel
 {
     /// <summary>
     ///     An empty page that can be used on its own or navigated to within a Frame.
@@ -784,7 +784,7 @@ namespace Discord_UWP
                      });*/
         }
 
-        private async void App_GuildUpdatedHandler(object sender, Guild e)
+        private async void App_GuildUpdatedHandler(object sender, SharedModels.Guild e)
         {
             //update localstate guilds
             LocalState.Guilds[e.Id].Raw = e;
@@ -890,7 +890,7 @@ namespace Discord_UWP
 
         public void ClearData()
         {
-            LocalState.CurrentUser = new User();
+            LocalState.CurrentUser = new SharedModels.User();
             LocalState.DMs.Clear();
             LocalState.Friends.Clear();
             LocalState.Guilds.Clear();
@@ -1793,7 +1793,7 @@ namespace Discord_UWP
 
         private void App_NavigateToChannelEditHandler(object sender, App.ChannelEditNavigationArgs e)
         {
-            SubFrameNavigator(typeof(EditChannel), e.ChannelId);
+            SubFrameNavigator(typeof(SubPages.EditChannel), e.ChannelId);
         }
 
         private void App_NavigateToCreateBanHandler(object sender, App.CreateBanNavigationArgs e)
@@ -1938,7 +1938,7 @@ namespace Discord_UWP
 
         private void App_NavigateToProfileHandler(object sender, App.ProfileNavigationArgs e)
         {
-            SubFrameNavigator(typeof(UserProfile), e.User);
+            SubFrameNavigator(typeof(SubPages.UserProfile), e.User);
         }
 
         private void App_OpenAttachementHandler(object sender, Attachment e)
@@ -2178,7 +2178,7 @@ namespace Discord_UWP
             ChannelOverride chan;
             if (!LocalState.GuildSettings.ContainsKey(App.CurrentGuildId))
                 LocalState.GuildSettings.Add(App.CurrentGuildId,
-                    new LocalModels.GuildSetting(new GuildSetting {GuildId = App.CurrentGuildId}));
+                    new LocalModels.GuildSetting(new SharedModels.GuildSetting {GuildId = App.CurrentGuildId}));
 
             if (!LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.ContainsKey(e.ChannelId))
                 LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.Add(e.ChannelId,
@@ -2189,7 +2189,7 @@ namespace Discord_UWP
             chan.Muted = !chan.Muted;
             chns.Add(e.ChannelId, chan);
 
-            GuildSetting returned = await RESTCalls.ModifyGuildSettings(App.CurrentGuildId,
+            SharedModels.GuildSetting returned = await RESTCalls.ModifyGuildSettings(App.CurrentGuildId,
                 new GuildSettingModify {ChannelOverrides = chns});
 
             LocalState.GuildSettings[App.CurrentGuildId].raw = returned;
@@ -2311,7 +2311,7 @@ namespace Discord_UWP
                 sg.IsMuted = LocalState.GuildSettings.ContainsKey(guild.Key) &&
                              LocalState.GuildSettings[guild.Key].raw.Muted;
                 sg.IsUnread = false; //Will change if true
-                foreach (GuildChannel chn in guild.Value.channels.Values)
+                foreach (LocalModels.GuildChannel chn in guild.Value.channels.Values)
                     if (LocalState.RPC.ContainsKey(chn.raw.Id))
                     {
                         ReadState readstate = LocalState.RPC[chn.raw.Id];
@@ -2522,7 +2522,7 @@ namespace Discord_UWP
             if (memberscvs != null)
                 memberscvs.Clean();
             List<Member> tempMembers = new List<Member>();
-            foreach (User user in LocalState.DMs[App.CurrentChannelId].Users)
+            foreach (SharedModels.User user in LocalState.DMs[App.CurrentChannelId].Users)
             {
                 Member m = new Member(new GuildMember
                 {
@@ -2639,10 +2639,10 @@ namespace Discord_UWP
                             int keycount = channelkeys.Count;
                             foreach (string key in channelkeys)
                             {
-                                GuildChannel chn = LocalState.Guilds[gclone.Id].channels[key];
+                                LocalModels.GuildChannel chn = LocalState.Guilds[gclone.Id].channels[key];
                                 if (LocalState.RPC.ContainsKey(chn.raw.Id))
                                 {
-                                    GuildChannel chan = LocalState.Guilds[gclone.Id].channels[chn.raw.Id];
+                                    LocalModels.GuildChannel chan = LocalState.Guilds[gclone.Id].channels[chn.raw.Id];
                                     ReadState readstate = LocalState.RPC[chn.raw.Id];
 
                                     bool Muted = LocalState.GuildSettings.ContainsKey(gclone.Id)
@@ -2702,7 +2702,7 @@ namespace Discord_UWP
                                 {
                                     ReadState readstate = LocalState.RPC[sc.Id];
                                     sc.NotificationCount = readstate.MentionCount;
-                                    GuildChannel storageChannel = LocalState.Guilds[App.CurrentGuildId].channels[sc.Id];
+                                    LocalModels.GuildChannel storageChannel = LocalState.Guilds[App.CurrentGuildId].channels[sc.Id];
                                     if (storageChannel != null && storageChannel.raw.LastMessageId != null &&
                                         readstate.LastMessageId != storageChannel.raw.LastMessageId)
                                         sc.IsUnread = true;

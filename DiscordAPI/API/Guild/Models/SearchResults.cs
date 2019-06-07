@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Quarrel.SharedModels;
 
-using Discord_UWP.SharedModels;
-
-namespace Discord_UWP.API.Guild.Models
+namespace Quarrel.API.Guild.Models
 {
     public class SearchResults
     {

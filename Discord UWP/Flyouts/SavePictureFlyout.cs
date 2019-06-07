@@ -8,12 +8,11 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using Quarrel.LocalModels;
+using Quarrel.SharedModels;
+using Quarrel.Managers;
 
-using Discord_UWP.Managers;
-using Discord_UWP.LocalModels;
-using Discord_UWP.SharedModels;
-
-namespace Discord_UWP.Flyouts
+namespace Quarrel.Flyouts
 {
     partial class FlyoutCreator
     {

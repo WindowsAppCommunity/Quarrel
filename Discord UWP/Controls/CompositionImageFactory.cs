@@ -1,6 +1,6 @@
 ﻿using Windows.UI.Composition;
 
-namespace Discord_UWP.Controls
+namespace Quarrel.Controls
 {
     internal class CompositionImageFactory
     {

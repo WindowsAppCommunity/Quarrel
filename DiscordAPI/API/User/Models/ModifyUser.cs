@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Discord_UWP.SharedModels;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP.API.User.Models
+namespace Quarrel.API.User.Models
 {
     public class ModifyUser
     {

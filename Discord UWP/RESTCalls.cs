@@ -9,34 +9,32 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Credentials;
 using Windows.Web.Http;
-
-using Discord_UWP.API;
-using Discord_UWP.API.Activities;
-using Discord_UWP.API.Channel;
-using Discord_UWP.API.Channel.Models;
-using Discord_UWP.API.Gateway;
-using Discord_UWP.API.Guild;
-using Discord_UWP.API.Guild.Models;
-using Discord_UWP.API.Invite;
-using Discord_UWP.API.Login;
-using Discord_UWP.API.Login.Models;
-using Discord_UWP.API.User;
-using Discord_UWP.API.User.Models;
-using Discord_UWP.Authentication;
-
-using Discord_UWP.SharedModels;
-using Discord_UWP.LocalModels;
-
-using Discord_UWP.Managers;
-
-using Discord_UWP.API.Connections;
-using Discord_UWP.API.Game;
-
 using System.Threading;
 using DiscordAPI.API.Guild.Models;
-using Discord_UWP.API.Misc;
+using Quarrel.API;
+using Quarrel.API.Activities;
+using Quarrel.API.Channel;
+using Quarrel.API.Channel.Models;
+using Quarrel.API.Connections;
+using Quarrel.API.Game;
+using Quarrel.API.Gateway;
+using Quarrel.API.Guild;
+using Quarrel.API.Guild.Models;
+using Quarrel.API.Invite;
+using Quarrel.API.Login;
+using Quarrel.API.Login.Models;
+using Quarrel.API.Misc;
+using Quarrel.API.User;
+using Quarrel.API.User.Models;
+using Quarrel.Authentication;
+using Quarrel.LocalModels;
+using Quarrel.Managers;
+using Quarrel.SharedModels;
+using ModifyUser = Quarrel.API.User.Models.ModifyUser;
+using ModifyUserSettings = Quarrel.API.User.Models.ModifyUserSettings;
+using SendFriendRequestResponse = Quarrel.API.User.Models.SendFriendRequestResponse;
 
-namespace Discord_UWP
+namespace Quarrel
 {
     public static class RESTCalls
     {
@@ -491,7 +489,7 @@ namespace Discord_UWP
             try
             {
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
-                return await userservice.SendFriendRequest(new SendFriendRequest() { Username = username, Discriminator = discriminator});
+                return await userservice.SendFriendRequest(new API.User.Models.SendFriendRequest() { Username = username, Discriminator = discriminator});
             }
             catch /*(Exception exception)*/
             {

@@ -20,12 +20,12 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
-using Discord_UWP.MarkdownTextBlock.Display;
-using Discord_UWP.MarkdownTextBlock.Helpers;
-using Discord_UWP.MarkdownTextBlock.Parse;
 using ColorSyntax;
+using Quarrel.MarkdownTextBlock.Display;
+using Quarrel.MarkdownTextBlock.Helpers;
+using Quarrel.MarkdownTextBlock.Parse;
 
-namespace Discord_UWP.MarkdownTextBlock
+namespace Quarrel.MarkdownTextBlock
 {
     /// <summary>
     /// An efficient and extensible control that can parse and render markdown.

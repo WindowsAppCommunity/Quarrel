@@ -14,14 +14,14 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using Discord_UWP.SharedModels;
 using Gregstoll;
-using Discord_UWP.MarkdownTextBlock;
+using Quarrel.MarkdownTextBlock;
 using Windows.ApplicationModel.DataTransfer;
+using Quarrel.SharedModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Discord_UWP.Controls
+namespace Quarrel.Controls
 {
     public sealed partial class EmbedControl : UserControl
     {

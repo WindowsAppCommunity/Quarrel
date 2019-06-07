@@ -1,7 +1,7 @@
 ﻿using System.Xml;
 using System.Xml.Linq;
 
-namespace Discord_UWP
+namespace Quarrel
 {
     public static class XmlExtensions
     {

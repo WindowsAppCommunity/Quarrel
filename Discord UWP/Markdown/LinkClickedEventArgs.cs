@@ -13,7 +13,7 @@
 using System;
 using Windows.UI.Xaml.Documents;
 
-namespace Discord_UWP.MarkdownTextBlock
+namespace Quarrel.MarkdownTextBlock
 {
     /// <summary>
     /// Arguments for the OnLinkClicked event which is fired then the user presses a link.

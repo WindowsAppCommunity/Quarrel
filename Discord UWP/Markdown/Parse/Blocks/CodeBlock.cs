@@ -12,7 +12,7 @@
 
 using System.Text;
 
-namespace Discord_UWP.MarkdownTextBlock.Parse.Blocks
+namespace Quarrel.MarkdownTextBlock.Parse.Blocks
 {
     /// <summary>
     /// Represents a block of text that is displayed in a fixed-width font.  Inline elements and

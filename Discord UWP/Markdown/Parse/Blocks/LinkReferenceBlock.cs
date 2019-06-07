@@ -10,9 +10,9 @@
 // THE CODE OR THE USE OR OTHER DEALINGS IN THE CODE.
 // ******************************************************************
 
-using Discord_UWP.MarkdownTextBlock.Parse.Inlines;
+using Quarrel.MarkdownTextBlock.Parse.Inlines;
 
-namespace Discord_UWP.MarkdownTextBlock.Parse.Blocks
+namespace Quarrel.MarkdownTextBlock.Parse.Blocks
 {
     /// <summary>
     /// Represents the target of a reference ([ref][]).

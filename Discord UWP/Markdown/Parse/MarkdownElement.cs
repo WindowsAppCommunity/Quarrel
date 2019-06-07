@@ -10,7 +10,7 @@
 // THE CODE OR THE USE OR OTHER DEALINGS IN THE CODE.
 // ******************************************************************
 
-namespace Discord_UWP.MarkdownTextBlock.Parse
+namespace Quarrel.MarkdownTextBlock.Parse
 {
     /// <summary>
     /// This is an internal class used as the base class of all markdown elements.

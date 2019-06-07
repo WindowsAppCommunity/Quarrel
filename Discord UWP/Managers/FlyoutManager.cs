@@ -16,13 +16,12 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using Quarrel.Controls;
+using Quarrel.Flyouts;
+using Quarrel.LocalModels;
+using Quarrel.SharedModels;
 
-using Discord_UWP.Controls;
-using Discord_UWP.Flyouts;
-using Discord_UWP.LocalModels;
-using Discord_UWP.SharedModels;
-
-namespace Discord_UWP.Managers
+namespace Quarrel.Managers
 {
     public class FlyoutManager
     {

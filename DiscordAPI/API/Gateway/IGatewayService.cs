@@ -1,12 +1,12 @@
-﻿using Discord_UWP.SharedModels;
-using Refit;
+﻿using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Quarrel.SharedModels;
 
-namespace Discord_UWP.API.Gateway
+namespace Quarrel.API.Gateway
 {
     public interface IGatewayConfigService
     {
