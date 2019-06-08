@@ -119,13 +119,13 @@ namespace Discord_UWP.LocalModels
                     }
                     else if (overwrite.Type == "role" && LocalState.Guilds[guildId].members[userId].Roles.Contains(overwrite.Id))
                     {
-                        roleDenies |= (GuildPermission)overwrite.Deny;
-                        roleAllows |= (GuildPermission)overwrite.Allow;
+                        roleDenies = (GuildPermission)overwrite.Deny;
+                        roleAllows = (GuildPermission)overwrite.Allow;
                     }
                     else if (overwrite.Type == "member" && overwrite.Id == userId)
                     {
-                        memberDenies |= (GuildPermission)overwrite.Deny;
-                        memberAllows |= (GuildPermission)overwrite.Allow;
+                        memberDenies = (GuildPermission)overwrite.Deny;
+                        memberAllows = (GuildPermission)overwrite.Allow;
                     }
 
                 AddDenies(roleDenies);
