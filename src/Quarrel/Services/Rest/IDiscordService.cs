@@ -1,7 +1,7 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
 using JetBrains.Annotations;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

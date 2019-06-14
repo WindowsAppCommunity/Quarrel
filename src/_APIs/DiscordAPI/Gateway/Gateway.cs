@@ -14,7 +14,7 @@ using Windows.Web;
 using Quarrel.Authentication;
 using Quarrel.Gateway.DownstreamEvents;
 using Quarrel.Gateway.UpstreamEvents;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 
 namespace Quarrel.Gateway
 {
@@ -272,7 +272,7 @@ namespace Quarrel.Gateway
             var frame = new SocketFrame()
             {
                 Operation = 8,
-                Payload = new DiscordAPI.SharedModels.Search
+                Payload = new DiscordAPI.Models.Search
                 {
                     query = query,
                     limit = limit,

@@ -12,7 +12,7 @@ using DiscordAPI.API.Login;
 using DiscordAPI.API.Misc;
 using DiscordAPI.API.User;
 using DiscordAPI.API.Voice;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.API.User.Models;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 
 namespace DiscordAPI.API.User
 {

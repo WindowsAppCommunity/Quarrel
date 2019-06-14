@@ -40,9 +40,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SodiumC", "src\_Libs\Sodium
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quarrel", "src\Quarrel\Quarrel.csproj", "{63365B53-1CE1-4F12-BDD8-D93FC3DC8AF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordAPI-Old", "old\DiscordAPI-Old\DiscordAPI-Old.csproj", "{A4E1C8F0-DD41-44E3-9457-23B470380713}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\_Tasks\Quarrel.Shared\Quarrel.Shared.projitems*{4b411328-a42f-4bf2-b7b9-5dc44b9006bc}*SharedItemsImports = 13
+		src\_Tasks\Quarrel.Shared\Quarrel.Shared.projitems*{63365b53-1ce1-4f12-bdd8-d93fc3dc8af3}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -307,6 +310,22 @@ Global
 		{63365B53-1CE1-4F12-BDD8-D93FC3DC8AF3}.Release|x86.ActiveCfg = Release|x86
 		{63365B53-1CE1-4F12-BDD8-D93FC3DC8AF3}.Release|x86.Build.0 = Release|x86
 		{63365B53-1CE1-4F12-BDD8-D93FC3DC8AF3}.Release|x86.Deploy.0 = Release|x86
+		{A4E1C8F0-DD41-44E3-9457-23B470380713}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{A4E1C8F0-DD41-44E3-9457-23B470380713}.Debug|ARM.ActiveCfg = Debug|ARM
+		{A4E1C8F0-DD41-44E3-9457-23B470380713}.Debug|ARM.Build.0 = Debug|ARM
+		{A4E1C8F0-DD41-44E3-9457-23B470380713}.Debug|ARM64.ActiveCfg = Debug|x86
+		{A4E1C8F0-DD41-44E3-9457-23B470380713}.Debug|x64.ActiveCfg = Debug|x64
+		{A4E1C8F0-DD41-44E3-9457-23B470380713}.Debug|x64.Build.0 = Debug|x64
+		{A4E1C8F0-DD41-44E3-9457-23B470380713}.Debug|x86.ActiveCfg = Debug|x86
+		{A4E1C8F0-DD41-44E3-9457-23B470380713}.Debug|x86.Build.0 = Debug|x86
+		{A4E1C8F0-DD41-44E3-9457-23B470380713}.Release|Any CPU.ActiveCfg = Release|x86
+		{A4E1C8F0-DD41-44E3-9457-23B470380713}.Release|ARM.ActiveCfg = Release|ARM
+		{A4E1C8F0-DD41-44E3-9457-23B470380713}.Release|ARM.Build.0 = Release|ARM
+		{A4E1C8F0-DD41-44E3-9457-23B470380713}.Release|ARM64.ActiveCfg = Release|x86
+		{A4E1C8F0-DD41-44E3-9457-23B470380713}.Release|x64.ActiveCfg = Release|x64
+		{A4E1C8F0-DD41-44E3-9457-23B470380713}.Release|x64.Build.0 = Release|x64
+		{A4E1C8F0-DD41-44E3-9457-23B470380713}.Release|x86.ActiveCfg = Release|x86
+		{A4E1C8F0-DD41-44E3-9457-23B470380713}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -325,6 +344,7 @@ Global
 		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8} = {1606927E-BD6E-447A-B8B4-92B8ED3B2D85}
 		{7A537745-CE73-4C4A-9FC5-0B6D28CA891C} = {1606927E-BD6E-447A-B8B4-92B8ED3B2D85}
 		{E7AC7946-CA02-4DD6-A168-37AC806F9E18} = {1606927E-BD6E-447A-B8B4-92B8ED3B2D85}
+		{A4E1C8F0-DD41-44E3-9457-23B470380713} = {DE4F0E6F-1C65-469D-95CC-1B6F466C680F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {793268B2-B709-4010-BEE5-D4C758C84E61}

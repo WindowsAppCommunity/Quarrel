@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Refit;
 using DiscordAPI.API.Channel.Models;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 
 namespace DiscordAPI.API.Channel
 {

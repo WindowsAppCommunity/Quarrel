@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DiscordAPI.SharedModels;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
+using DiscordAPI.Models;
 using Newtonsoft.Json;
 
 namespace DiscordAPI.API.Guild.Models

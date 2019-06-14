@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.API.Guild.Models;
 using DiscordAPI.API.Guild.Models;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 
 namespace DiscordAPI.API.Guild
 {
