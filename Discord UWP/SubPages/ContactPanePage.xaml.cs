@@ -14,10 +14,10 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Quarrel.Controls;
 using Quarrel.Managers;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 using Quarrel.SimpleClasses;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using Quarrel.API.User.Models;
+using DiscordAPI.API.User.Models;
 using Quarrel.LocalModels;
 using ContactManager = Quarrel.Managers.ContactManager;
 

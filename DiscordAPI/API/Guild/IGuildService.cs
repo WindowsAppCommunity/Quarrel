@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.API.Guild.Models;
-using Quarrel.API.Guild.Models;
-using Quarrel.SharedModels;
+using DiscordAPI.API.Guild.Models;
+using DiscordAPI.SharedModels;
 
-namespace Quarrel.API.Guild
+namespace DiscordAPI.API.Guild
 {
     public interface IGuildService
     {

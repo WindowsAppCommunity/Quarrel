@@ -17,7 +17,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using System.Text.RegularExpressions;
 using Quarrel.Managers;

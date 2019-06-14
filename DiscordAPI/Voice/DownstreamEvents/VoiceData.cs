@@ -1,4 +1,4 @@
-﻿using Quarrel.SharedModels;
+﻿using DiscordAPI.SharedModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

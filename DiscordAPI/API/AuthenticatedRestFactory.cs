@@ -2,18 +2,18 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Quarrel.API.Activities;
-using Quarrel.API.Channel;
-using Quarrel.API.Connections;
-using Quarrel.API.Game;
-using Quarrel.API.Guild;
-using Quarrel.API.Invite;
-using Quarrel.API.Misc;
-using Quarrel.API.User;
-using Quarrel.API.Voice;
+using DiscordAPI.API.Activities;
+using DiscordAPI.API.Channel;
+using DiscordAPI.API.Connections;
+using DiscordAPI.API.Game;
+using DiscordAPI.API.Guild;
+using DiscordAPI.API.Invite;
+using DiscordAPI.API.Misc;
+using DiscordAPI.API.User;
+using DiscordAPI.API.Voice;
 using Quarrel.Authentication;
 
-namespace Quarrel.API
+namespace DiscordAPI.API
 {
     public class AuthenticatedRestFactory
     {

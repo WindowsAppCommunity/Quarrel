@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 using Quarrel.Sockets;
 using Quarrel.Voice.DownstreamEvents;
 using Quarrel.Voice.UpstreamEvents;

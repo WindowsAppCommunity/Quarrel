@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
 using Quarrel.Managers;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 using Quarrel.LocalModels;
 
 namespace Quarrel.Flyouts

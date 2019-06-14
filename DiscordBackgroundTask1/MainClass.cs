@@ -248,7 +248,7 @@ namespace DiscordBackgroundTask1
                                 foreach (var json_guild in ready["guilds"])
                                 {
                                     var guild = json_guild.ToObject<Guild>();
-                                    if(guild != null && guild.channels != null && (GetSetting("bgNotifyMutedMention") || !ready["user_guild_settings"].ToObject<IEnumerable<Quarrel.SharedModels.GuildSetting>>().FirstOrDefault(x => x.GuildId == guild.id).Muted))
+                                    if(guild != null && guild.channels != null && (GetSetting("bgNotifyMutedMention") || !ready["user_guild_settings"].ToObject<IEnumerable<DiscordAPI.SharedModels.GuildSetting>>().FirstOrDefault(x => x.GuildId == guild.id).Muted))
                                     foreach (var channel in guild.channels)
                                     {
                                         if (readstates.ContainsKey(channel.id) && readstates[channel.id].mention_count > 0)

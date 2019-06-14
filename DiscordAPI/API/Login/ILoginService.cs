@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Quarrel.API.Login.Models;
+using DiscordAPI.API.Login.Models;
 
-namespace Quarrel.API.Login
+namespace DiscordAPI.API.Login
 {
     public interface ILoginService
     {

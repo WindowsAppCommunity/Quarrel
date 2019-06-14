@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.API.User.Models
+namespace DiscordAPI.API.User.Models
 {
     public class Note
     {

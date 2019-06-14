@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Quarrel.API.Misc.Models;
+using DiscordAPI.API.Misc.Models;
 
 
-namespace Quarrel.API.Misc
+namespace DiscordAPI.API.Misc
 {
     public interface IMiscService
     {

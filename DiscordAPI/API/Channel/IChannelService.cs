@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Refit;
-using Quarrel.API.Channel.Models;
-using Quarrel.SharedModels;
+using DiscordAPI.API.Channel.Models;
+using DiscordAPI.SharedModels;
 
-namespace Quarrel.API.Channel
+namespace DiscordAPI.API.Channel
 {
     public interface IChannelService
     {

@@ -11,28 +11,33 @@ using Windows.Security.Credentials;
 using Windows.Web.Http;
 using System.Threading;
 using DiscordAPI.API.Guild.Models;
-using Quarrel.API;
-using Quarrel.API.Activities;
-using Quarrel.API.Channel;
-using Quarrel.API.Channel.Models;
-using Quarrel.API.Connections;
-using Quarrel.API.Game;
-using Quarrel.API.Gateway;
-using Quarrel.API.Guild;
-using Quarrel.API.Guild.Models;
-using Quarrel.API.Invite;
-using Quarrel.API.Login;
-using Quarrel.API.Login.Models;
-using Quarrel.API.Misc;
-using Quarrel.API.User;
-using Quarrel.API.User.Models;
+using DiscordAPI.API;
+using DiscordAPI.API.Activities;
+using DiscordAPI.API.Channel;
+using DiscordAPI.API.Channel.Models;
+using DiscordAPI.API.Connections;
+using DiscordAPI.API.Game;
+using DiscordAPI.API.Gateway;
+using DiscordAPI.API.Guild;
+using DiscordAPI.API.Invite;
+using DiscordAPI.API.Login;
+using DiscordAPI.API.Login.Models;
+using DiscordAPI.API.Misc;
+using DiscordAPI.API.Misc.Models;
+using DiscordAPI.API.User;
+using DiscordAPI.API.User.Models;
 using Quarrel.Authentication;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using Quarrel.SharedModels;
-using ModifyUser = Quarrel.API.User.Models.ModifyUser;
-using ModifyUserSettings = Quarrel.API.User.Models.ModifyUserSettings;
-using SendFriendRequestResponse = Quarrel.API.User.Models.SendFriendRequestResponse;
+using DiscordAPI.SharedModels;
+using ModifyUser = DiscordAPI.API.User.Models.ModifyUser;
+using ModifyUserSettings = DiscordAPI.API.User.Models.ModifyUserSettings;
+using SendFriendRequestResponse = DiscordAPI.API.User.Models.SendFriendRequestResponse;
+using GuildSetting = DiscordAPI.SharedModels.GuildSetting;
+using Connection = DiscordAPI.SharedModels.Connection;
+using Guild = DiscordAPI.SharedModels.Guild;
+using GuildChannel = DiscordAPI.SharedModels.GuildChannel;
+using GuildMember = DiscordAPI.SharedModels.GuildMember;
 
 namespace Quarrel
 {
@@ -217,7 +222,7 @@ namespace Quarrel
         #region CurrentUser
 
         #region Get
-        public static async Task<IEnumerable<SharedModels.UserGuild>> GetGuilds()
+        public static async Task<IEnumerable<UserGuild>> GetGuilds()
         {
             try
             {
@@ -247,7 +252,7 @@ namespace Quarrel
             return LocalState.CurrentUser;
         }
 
-        public static async Task<IEnumerable<SharedModels.Message>> GetRecentMentions(int limit, bool ShowRoles, bool ShowEveryone)
+        public static async Task<IEnumerable<Message>> GetRecentMentions(int limit, bool ShowRoles, bool ShowEveryone)
         {
             try
             {
@@ -294,7 +299,7 @@ namespace Quarrel
             return LocalState.Settings;
         }
 
-        public static async Task<SharedModels.GuildSetting> ModifyGuildSettings(string guildId, SharedModels.GuildSettingModify guildSettings)
+        public static async Task<GuildSetting> ModifyGuildSettings(string guildId, GuildSettingModify guildSettings)
         {
             try
             {
@@ -435,7 +440,7 @@ namespace Quarrel
                 App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
-            return new SharedModels.UserProfile();
+            return new UserProfile();
         }
 
         public static async Task<IEnumerable<SharedFriend>> GetUserRelationShips(string id)
@@ -453,7 +458,7 @@ namespace Quarrel
             return null;
         }
 
-        public static async Task<IEnumerable<SharedModels.Connection>> GetUserConnections(string id)
+        public static async Task<IEnumerable<Connection>> GetUserConnections(string id)
         {
             try
             {
@@ -489,7 +494,7 @@ namespace Quarrel
             try
             {
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
-                return await userservice.SendFriendRequest(new API.User.Models.SendFriendRequest() { Username = username, Discriminator = discriminator});
+                return await userservice.SendFriendRequest(new SendFriendRequest() { Username = username, Discriminator = discriminator});
             }
             catch /*(Exception exception)*/
             {
@@ -598,7 +603,7 @@ namespace Quarrel
 
             return null;
         }
-        public static async Task<SharedModels.Guild> GetGuild(string id)
+        public static async Task<Guild> GetGuild(string id)
         {
             try
             {
@@ -610,9 +615,9 @@ namespace Quarrel
                 App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
-            return new SharedModels.Guild();
+            return new Guild();
         }
-        public static async Task<IEnumerable<SharedModels.GuildChannel>> GetGuildChannels(string id)
+        public static async Task<IEnumerable<GuildChannel>> GetGuildChannels(string id)
         {
             try
             {
@@ -627,7 +632,7 @@ namespace Quarrel
             return null;
         }
 
-        public static async Task<IEnumerable<SharedModels.GuildChannel>> GetGuildData(string id)
+        public static async Task<IEnumerable<GuildChannel>> GetGuildData(string id)
         {
             try
             {
@@ -642,7 +647,7 @@ namespace Quarrel
             return null;
         }
 
-        public static async Task<IEnumerable<SharedModels.GuildMember>> GetGuildMembers(string id)
+        public static async Task<IEnumerable<GuildMember>> GetGuildMembers(string id)
         {
             try
             {
@@ -669,7 +674,7 @@ namespace Quarrel
                 App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
-            return new SharedModels.GuildMember();
+            return new GuildMember();
         }
 
         public static async Task<IEnumerable<Ban>> GetGuildBans(string guildId)
@@ -733,7 +738,7 @@ namespace Quarrel
             return new Role();
         }
 
-        public static async Task<SharedModels.Guild> CreateGuild(string name)
+        public static async Task<Guild> CreateGuild(string name)
         {
             try
             {
@@ -747,9 +752,9 @@ namespace Quarrel
                 App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
-            return new SharedModels.Guild();
+            return new Guild();
         }
-        public static async Task<SharedModels.Guild> CreateGuild(object args)
+        public static async Task<Guild> CreateGuild(object args)
         {
             try
             {
@@ -763,10 +768,10 @@ namespace Quarrel
                 App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
-            return new SharedModels.Guild();
+            return new Guild();
         }
 
-        public static async Task<SharedModels.Guild> ModifyGuild(string guildid, ModifyGuild modifyguild)
+        public static async Task<Guild> ModifyGuild(string guildid, ModifyGuild modifyguild)
         {
             try
             {
@@ -778,10 +783,10 @@ namespace Quarrel
                 App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
-            return new SharedModels.Guild();
+            return new Guild();
         }
 
-        public static async Task<SharedModels.Guild> DeleteGuild(string guildid)
+        public static async Task<Guild> DeleteGuild(string guildid)
         {
             try
             {
@@ -793,9 +798,9 @@ namespace Quarrel
                 App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
-            return new SharedModels.Guild();
+            return new Guild();
         }
-        public static async Task<SharedModels.Guild> DeleteGuild(object guildid)
+        public static async Task<Guild> DeleteGuild(object guildid)
         {
             try
             {
@@ -807,10 +812,10 @@ namespace Quarrel
                 App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
-            return new SharedModels.Guild();
+            return new Guild();
         }
 
-        public static async Task<IEnumerable<SharedModels.GuildChannel>> ModifyGuildChannelPositions(string channelid, int Position)
+        public static async Task<IEnumerable<GuildChannel>> ModifyGuildChannelPositions(string channelid, int Position)
         {
             try
             {
@@ -958,7 +963,7 @@ namespace Quarrel
         #region IChannel
 
         #region Get
-        public static async Task<SharedModels.GuildChannel> GetGuildChannel(string id)
+        public static async Task<GuildChannel> GetGuildChannel(string id)
         {
             try
             {
@@ -970,10 +975,10 @@ namespace Quarrel
                 App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
-            return new SharedModels.GuildChannel();
+            return new GuildChannel();
         }
 
-        public static async Task<IEnumerable<SharedModels.Message>> GetChannelMessages(string id, int limit = 50)
+        public static async Task<IEnumerable<Message>> GetChannelMessages(string id, int limit = 50)
         {
             try
             {
@@ -988,7 +993,7 @@ namespace Quarrel
             return null;
         }
 
-        public static async Task<IEnumerable<SharedModels.Message>> GetChannelMessagesBefore(string id, string msgpos)
+        public static async Task<IEnumerable<Message>> GetChannelMessagesBefore(string id, string msgpos)
         {
             try
             {
@@ -1003,7 +1008,7 @@ namespace Quarrel
             return null;
         }
        
-        public static async Task<IEnumerable<SharedModels.Message>> GetChannelMessagesAround(string id, string msgpos)
+        public static async Task<IEnumerable<Message>> GetChannelMessagesAround(string id, string msgpos)
         {
             try
             {
@@ -1018,7 +1023,7 @@ namespace Quarrel
             return null;
         }
 
-        public static async Task<IEnumerable<SharedModels.Message>> GetChannelMessagesAfter(string id, string msgpos)
+        public static async Task<IEnumerable<Message>> GetChannelMessagesAfter(string id, string msgpos)
         {
             try
             {
@@ -1033,7 +1038,7 @@ namespace Quarrel
             return null;
         }
 
-        public static async Task<IEnumerable<SharedModels.Message>> GetChannelPinnedMessages(string id)
+        public static async Task<IEnumerable<Message>> GetChannelPinnedMessages(string id)
         {
             try
             {
@@ -1060,7 +1065,7 @@ namespace Quarrel
                 App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
-            return new SharedModels.Message();
+            return new Message();
         }
 
         public static async Task<IEnumerable<Invite>> GetChannelInvites(string channelId)
@@ -1225,7 +1230,7 @@ namespace Quarrel
             }
         }
 
-        public static async Task<SharedModels.GuildChannel> CreateChannel(string guildid, string name, string type = "text")
+        public static async Task<GuildChannel> CreateChannel(string guildid, string name, string type = "text")
         {
             try
             {
@@ -1241,7 +1246,7 @@ namespace Quarrel
                 App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
-            return new SharedModels.GuildChannel();
+            return new GuildChannel();
         }
 
         public static async Task DeleteChannel(string chnid)
@@ -1587,7 +1592,7 @@ namespace Quarrel
 
         #region Other
 
-        public static async Task<IEnumerable<API.Misc.Models.GifSearchResult>> SearchGiphy(string query)
+        public static async Task<IEnumerable<GifSearchResult>> SearchGiphy(string query)
         {
             try
             {

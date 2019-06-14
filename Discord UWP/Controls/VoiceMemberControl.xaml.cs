@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 
 namespace Quarrel.Controls
 {

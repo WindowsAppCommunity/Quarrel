@@ -19,7 +19,7 @@ using Gregstoll;
 using Quarrel.MarkdownTextBlock;
 
 using myTube.Playback.Handlers;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 using Ryken.Media.Core;
 using Ryken.UI;
 using RykenTube;

@@ -21,7 +21,7 @@ using Windows.Storage;
 using Newtonsoft.Json;
 using Gma.DataStructures.StringSearch;
 using Quarrel.LocalModels;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 
 namespace Quarrel
 {

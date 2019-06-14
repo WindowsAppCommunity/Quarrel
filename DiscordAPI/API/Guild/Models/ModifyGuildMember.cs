@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 
-namespace Quarrel.API.Guild.Models
+namespace DiscordAPI.API.Guild.Models
 {
     public class IModifyGuildMember
     {

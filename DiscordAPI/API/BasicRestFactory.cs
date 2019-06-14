@@ -1,10 +1,10 @@
 ﻿using Refit;
 using System;
 using System.Net.Http;
-using Quarrel.API.Gateway;
-using Quarrel.API.Login;
+using DiscordAPI.API.Gateway;
+using DiscordAPI.API.Login;
 
-namespace Quarrel.API
+namespace DiscordAPI.API
 {
     public class BasicRestFactory
     {

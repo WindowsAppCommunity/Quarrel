@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.API.Channel.Models
+namespace DiscordAPI.API.Channel.Models
 {
     public class BulkDelete
     {

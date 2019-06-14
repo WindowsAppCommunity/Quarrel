@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.API.Connections
+namespace DiscordAPI.API.Connections
 {
     public class Connection
     {

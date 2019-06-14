@@ -14,7 +14,7 @@ using Windows.Web;
 using Quarrel.Authentication;
 using Quarrel.Gateway.DownstreamEvents;
 using Quarrel.Gateway.UpstreamEvents;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 
 namespace Quarrel.Gateway
 {

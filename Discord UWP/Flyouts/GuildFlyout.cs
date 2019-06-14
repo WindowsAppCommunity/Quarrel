@@ -7,7 +7,7 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
 

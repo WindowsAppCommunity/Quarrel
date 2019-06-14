@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.API.Guild.Models
+namespace DiscordAPI.API.Guild.Models
 {
     public class ModifyGuildChannel
     {

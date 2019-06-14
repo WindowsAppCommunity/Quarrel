@@ -17,7 +17,7 @@ using Windows.UI.Xaml.Navigation;
 using Gregstoll;
 using Quarrel.MarkdownTextBlock;
 using Windows.ApplicationModel.DataTransfer;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Quarrel.LocalModels;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 
 // TODO: Replace with proper MVVM
 namespace Quarrel.SimpleClasses

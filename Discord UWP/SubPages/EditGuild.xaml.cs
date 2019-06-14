@@ -24,11 +24,11 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.Storage;
 using Windows.Graphics.Imaging;
 using Windows.UI.Popups;
-using Quarrel.API.Guild.Models;
+using DiscordAPI.API.Guild.Models;
 using Quarrel.Gateway;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 

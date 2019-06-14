@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.API.Login.Models
+namespace DiscordAPI.API.Login.Models
 {
     public class LoginResult
     {

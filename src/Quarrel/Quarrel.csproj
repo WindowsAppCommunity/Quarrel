@@ -127,6 +127,8 @@
     <Compile Include="Controls\Shell\SideDrawer.xaml.cs">
       <DependentUpon>SideDrawer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\Rest\IDiscordService.cs" />
+    <Compile Include="Services\ServicesManager.cs" />
     <Compile Include="WindowHost.xaml.cs">
       <DependentUpon>WindowHost.xaml</DependentUpon>
     </Compile>
@@ -178,6 +180,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations">
+      <Version>2019.1.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.8</Version>
     </PackageReference>
@@ -195,7 +200,18 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Converters\" />
+    <Folder Include="Messages\" />
+    <Folder Include="Models\" />
     <Folder Include="SubPages\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DiscordAPI\DiscordAPI.csproj">
+      <Project>{03c1fc3a-410f-46d9-802b-316c7280e180}</Project>
+      <Name>DiscordAPI</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

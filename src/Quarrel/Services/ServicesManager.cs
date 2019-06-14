@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiscordAPI.API
+namespace Quarrel.Services
 {
-    public struct DiscordApiConfiguration
+    class ServicesManager
     {
-        public string BaseUrl { get; set; }
     }
 }

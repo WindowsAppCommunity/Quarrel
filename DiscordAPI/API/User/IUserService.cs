@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Quarrel.API.User.Models;
-using Quarrel.SharedModels;
+using DiscordAPI.API.User.Models;
+using DiscordAPI.SharedModels;
 
-namespace Quarrel.API.User
+namespace DiscordAPI.API.User
 {
     public interface IUserService
     {

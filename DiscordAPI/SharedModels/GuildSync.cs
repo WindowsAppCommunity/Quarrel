@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 
-namespace Quarrel.SharedModels
+namespace DiscordAPI.SharedModels
 {
     public class GuildSync
     {

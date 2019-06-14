@@ -14,7 +14,7 @@ using Windows.ApplicationModel.DataTransfer;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 

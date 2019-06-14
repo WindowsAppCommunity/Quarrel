@@ -10,7 +10,7 @@ using System.Xml.Linq;
 using System.Xml;
 using System.Diagnostics;
 using Quarrel.LocalModels;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 
 namespace Quarrel.Managers
 {

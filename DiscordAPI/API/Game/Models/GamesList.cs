@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Quarrel.API.Game
+namespace DiscordAPI.API.Game
 {
 
     public class Executable

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.SharedModels
+namespace DiscordAPI.SharedModels
 {
     public class SimpleInvite : INotifyPropertyChanged
     {

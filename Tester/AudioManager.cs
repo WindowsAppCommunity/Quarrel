@@ -1,6 +1,6 @@
-﻿using Quarrel.API;
-using Quarrel.API.User;
-using Quarrel.API.User.Models;
+﻿using DiscordAPI.API;
+using DiscordAPI.API.User;
+using DiscordAPI.API.User.Models;
 using Quarrel.Authentication;
 using Newtonsoft.Json;
 using System;
@@ -44,7 +44,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 using Quarrel.Gateway.DownstreamEvents;
 using Quarrel.Gateway;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 using Microsoft.Toolkit.Uwp;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 

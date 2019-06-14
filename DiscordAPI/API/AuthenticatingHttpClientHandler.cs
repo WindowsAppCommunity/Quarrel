@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Quarrel.Authentication;
 
-namespace Quarrel.API
+namespace DiscordAPI.API
 {
     public class AuthenticatingHttpClientHandler : HttpClientHandler
     {

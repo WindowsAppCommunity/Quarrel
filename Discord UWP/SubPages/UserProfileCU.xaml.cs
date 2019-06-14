@@ -25,7 +25,7 @@ using Windows.Storage;
 using Windows.Graphics.Imaging;
 using Windows.UI.Popups;
 using Quarrel.LocalModels;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 

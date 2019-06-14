@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 
-namespace Quarrel.API.Channel.Models
+namespace DiscordAPI.API.Channel.Models
 {
     public class ModifyChannel
     {

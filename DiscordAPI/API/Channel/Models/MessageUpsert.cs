@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Quarrel.API.Channel.Models
+namespace DiscordAPI.API.Channel.Models
 {
     public class MessageActivity
     {

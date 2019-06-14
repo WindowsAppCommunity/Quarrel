@@ -23,10 +23,10 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using Windows.UI.Notifications;
 using Microsoft.QueryStringDotNET;
 using Windows.ApplicationModel.Contacts;
-using Quarrel.API.User.Models;
+using DiscordAPI.API.User.Models;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 

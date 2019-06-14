@@ -35,7 +35,7 @@ using Quarrel.Gateway;
 using Quarrel.Gateway.DownstreamEvents;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using Quarrel.SharedModels;
+using DiscordAPI.SharedModels;
 using Quarrel.SimpleClasses;
 
 namespace Quarrel.Controls
