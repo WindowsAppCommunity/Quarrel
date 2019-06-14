@@ -1,4 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿// Special thanks to Sergio Pedri for the basis of this design
+
+using JetBrains.Annotations;
 using DiscordAPI.SharedModels;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,6 @@ using DiscordAPI.API.Misc;
 using DiscordAPI.API.User;
 using DiscordAPI.API.Voice;
 using System.ServiceModel.Channels;
-using Quarrel.Gateway;
 
 namespace Quarrel.Services.Rest
 {
