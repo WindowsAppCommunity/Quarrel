@@ -61,7 +61,7 @@ namespace Quarrel.Services.Rest
         /// Gets the <see cref="IGatewayService"/> instance to retrieve Gateway data
         /// </summary>
         [NotNull]
-        IGatewayService GatewayService { get; }
+        IGatewayConfigService GatewayService { get; }
 
         /// <summary>
         /// Gets the <see cref="IGuildService"/> instance to retrieve Guild data

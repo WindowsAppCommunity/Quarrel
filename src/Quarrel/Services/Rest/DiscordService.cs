@@ -38,7 +38,7 @@ namespace Quarrel.Services.Rest
         public IGameService GameService { get; private set; }
 
         /// <inheritdoc/>
-        public IGatewayService GatewayService { get; private set; }
+        public IGatewayConfigService GatewayService { get; private set; }
 
         /// <inheritdoc/>
         public IGuildService GuildService { get; private set; }
