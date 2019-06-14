@@ -28,7 +28,7 @@ namespace Quarrel.Gateway
         }
     }
 
-    public class Gateway : IGateway
+    public class Gateway : IGatewayService
     {
         private delegate void GatewayEventHandler(SocketFrame gatewayEvent);
 

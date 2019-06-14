@@ -8,7 +8,7 @@ using DiscordAPI.SharedModels;
 
 namespace Quarrel.Gateway
 {
-    public interface IGateway
+    public interface IGatewayService
     {
         event EventHandler<GatewayEventArgs<Ready>> Ready;
         event EventHandler<GatewayEventArgs<Resumed>> Resumed;
