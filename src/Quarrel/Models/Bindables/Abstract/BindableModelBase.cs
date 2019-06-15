@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight;
+﻿// Special thanks to Sergio Pedri for the basis of this design
+
+using GalaSoft.MvvmLight;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;

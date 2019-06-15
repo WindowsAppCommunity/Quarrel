@@ -11,12 +11,12 @@ namespace DiscordAPI.API.Invite
     public interface IInviteService
     {
         [Get("/invites/{inviteCode}?with_counts=true")]
-        Task<SharedModels.Invite> GetInvite([AliasAs("inviteCode")] string inviteCode);
+        Task<DiscordAPI.Models.Invite> GetInvite([AliasAs("inviteCode")] string inviteCode);
 
         [Delete("/invites/{inviteCode}")]
-        Task<SharedModels.Invite> DeleteInvite([AliasAs("inviteCode")] string inviteCode);
+        Task<DiscordAPI.Models.Invite> DeleteInvite([AliasAs("inviteCode")] string inviteCode);
 
         [Post("/invites/{inviteCode}")]
-        Task<SharedModels.Invite> AcceptInvite([AliasAs("inviteCode")] string inviteCode);
+        Task<DiscordAPI.Models.Invite> AcceptInvite([AliasAs("inviteCode")] string inviteCode);
     }
 }

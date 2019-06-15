@@ -1,4 +1,6 @@
-﻿using DiscordAPI.Models;
+﻿// Special thanks to Sergio Pedri for the basis of this design
+
+using DiscordAPI.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Views;
 using JetBrains.Annotations;

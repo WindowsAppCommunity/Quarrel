@@ -12,10 +12,10 @@ namespace DiscordAPI.API.User
     public interface IUserService
     {
         [Get("/users")]
-        Task<IEnumerable<SharedModels.User>> GetUsers([AliasAs("q")] string usernameQuery, [AliasAs("limit")] int limit);
+        Task<IEnumerable<DiscordAPI.Models.User>> GetUsers([AliasAs("q")] string usernameQuery, [AliasAs("limit")] int limit);
 
         [Get("/v6/users/@me")]
-        Task<SharedModels.User> GetCurrentUser();
+        Task<DiscordAPI.Models.User> GetCurrentUser();
         
         [Patch("/v6/users/@me/guilds/{guildId}/settings")]
         [Headers("Content-Type: application/json;")]
@@ -34,10 +34,10 @@ namespace DiscordAPI.API.User
         Task UpdateGame([Body] string game);
 
         [Patch("/users/@me")]
-        Task<SharedModels.User> ModifyCurrentUser([Body] ModifyUser modifyUser);
+        Task<DiscordAPI.Models.User> ModifyCurrentUser([Body] ModifyUser modifyUser);
 
         [Get("/users/{userId}")]
-        Task<SharedModels.User> GetUser([AliasAs("userId")] string userId);
+        Task<DiscordAPI.Models.User> GetUser([AliasAs("userId")] string userId);
 
         [Get("/users/@me/guilds")]
         Task<IEnumerable<UserGuild>> GetCurrentUserGuilds();

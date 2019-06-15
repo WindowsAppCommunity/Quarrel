@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.API.Guild.Models;
-using DiscordAPI.API.Guild.Models;
 using DiscordAPI.Models;
 
 namespace DiscordAPI.API.Guild
@@ -13,16 +12,16 @@ namespace DiscordAPI.API.Guild
     public interface IGuildService
     {
         [Post("/v6/guilds")]
-        Task<SharedModels.Guild> CreateGuild([Body] CreateGuild createGuild);
+        Task<DiscordAPI.Models.Guild> CreateGuild([Body] CreateGuild createGuild);
 
         [Get("/guilds/{guildId}")]
-        Task<SharedModels.Guild> GetGuild([AliasAs("guildId")] string guildId);
+        Task<DiscordAPI.Models.Guild> GetGuild([AliasAs("guildId")] string guildId);
 
         [Patch("/v6/guilds/{guildId}")]
-        Task<SharedModels.Guild> ModifyGuild([AliasAs("guildId")] string guildId, [Body] ModifyGuild modifyGuild);
+        Task<DiscordAPI.Models.Guild> ModifyGuild([AliasAs("guildId")] string guildId, [Body] ModifyGuild modifyGuild);
 
         [Delete("/guilds/{guildId}")]
-        Task<SharedModels.Guild> DeleteGuild([AliasAs("guildId")] string guildId);
+        Task<DiscordAPI.Models.Guild> DeleteGuild([AliasAs("guildId")] string guildId);
 
         [Get("/guilds/{guildId}/channels")]
         Task<IEnumerable<GuildChannel>> GetGuildChannels([AliasAs("guildId")] string guildId);
@@ -91,7 +90,7 @@ namespace DiscordAPI.API.Guild
         Task<IEnumerable<VoiceRegion>> GetGuildVoiceRegions([AliasAs("guildId")] string guildId);
 
         [Get("/guilds/{guildId}/invites")]
-        Task<IEnumerable<SharedModels.Invite>> GetGuildInvites([AliasAs("guildId")] string guildId);
+        Task<IEnumerable<DiscordAPI.Models.Invite>> GetGuildInvites([AliasAs("guildId")] string guildId);
 
         [Get("/guilds/{guildId}/integrations")]
         Task<IEnumerable<Integration>> GetGuildIntegrations([AliasAs("guildId")] string guildId);
