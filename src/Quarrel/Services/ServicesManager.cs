@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Quarrel.Services
 {
-    class ServicesManager
+    internal class ServicesManager
     {
+
     }
 }
