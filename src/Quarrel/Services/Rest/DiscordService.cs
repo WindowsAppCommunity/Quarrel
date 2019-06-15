@@ -64,7 +64,7 @@ namespace Quarrel.Services.Rest
 
         /// <inheritdoc/>
         [NotNull]
-        public IGatewayService Gateway { get; private set; }
+        public IGatewayService Gateway { get; private set; } = new GatewayService();
 
         /// <inheritdoc/>
         public User CurrentUser { get; private set; }
@@ -86,8 +86,6 @@ namespace Quarrel.Services.Rest
 
             _AccessToken = result.Token;
 
-            Gateway.InitializeGateway(_AccessToken);
-
             IAuthenticator authenticator = new DiscordAuthenticator(_AccessToken);
             AuthenticatedRestFactory authenticatedRestFactory = new AuthenticatedRestFactory(new DiscordApiConfiguration() { BaseUrl = "https://discordapp.com/api" }, authenticator);
 
@@ -101,7 +99,7 @@ namespace Quarrel.Services.Rest
             UserService = authenticatedRestFactory.GetUserService();
             VoiceService = authenticatedRestFactory.GetVoiceService();
 
-            
+            Gateway.InitializeGateway(_AccessToken);
         }
 
         #endregion

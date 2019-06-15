@@ -12,9 +12,9 @@ namespace Quarrel.Messages.Gateway
     {
         public GatewayReadyMessage(Ready ready)
         {
-
+            Ready = ready;
         }
 
-        Ready Ready { get; }
+        public Ready Ready { get; }
     }
 }

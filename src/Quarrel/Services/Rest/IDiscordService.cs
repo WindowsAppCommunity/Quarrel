@@ -105,5 +105,8 @@ namespace Quarrel.Services.Rest
         /// </summary>
         [NotNull]
         IGatewayService Gateway { get; }
+
+
+        void Login([NotNull] string email, [NotNull] string password);
     }
 }

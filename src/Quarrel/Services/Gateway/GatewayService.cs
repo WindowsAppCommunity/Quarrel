@@ -30,6 +30,8 @@ namespace Quarrel.Services.Gateway
             Gateway = new DiscordAPI.Gateway.Gateway(gatewayConfig, authenticator);
 
             Gateway.Ready += Gateway_Ready;
+
+            await Gateway.ConnectAsync();
         }
 
         #region Events
