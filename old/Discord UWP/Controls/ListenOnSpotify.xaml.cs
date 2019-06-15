@@ -17,6 +17,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Quarrel.LocalModels;
+using DiscordAPI.Gateway;
+using DiscordAPI.Models;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -58,7 +60,7 @@ namespace Quarrel.Controls
             }
         }
 
-        private void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Presence> e)
+        private void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
         {
             if (!preview)
             {

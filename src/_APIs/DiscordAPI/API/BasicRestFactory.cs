@@ -10,6 +10,11 @@ namespace DiscordAPI.API
     {
         private readonly DiscordApiConfiguration _apiConfig;
 
+        public BasicRestFactory()
+        {
+            _apiConfig = new DiscordApiConfiguration() { BaseUrl = "https://discordapp.com/api" };
+        }
+
         public BasicRestFactory(DiscordApiConfiguration config)
         {
             _apiConfig = config;

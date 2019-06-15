@@ -6,15 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Quarrel.LocalModels;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 using Quarrel.SimpleClasses;
+
+using Guild = DiscordAPI.Models.Guild;
 
 namespace Quarrel.Managers
 {
     class GuildManager
     {
 
-        public static SimpleGuild CreateGuild(SharedModels.Guild guild)
+        public static SimpleGuild CreateGuild(Guild guild)
         {
             var sg = new SimpleGuild()
             {
@@ -39,7 +41,7 @@ namespace Quarrel.Managers
                 }
             return sg;
         }
-        public static SimpleGuild CreateGuild(SharedModels.UserGuild guild)
+        public static SimpleGuild CreateGuild(UserGuild guild)
         {
              return new SimpleGuild()
             {

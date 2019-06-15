@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Calls;
 using Quarrel.LocalModels;
 using Quarrel.Voice;
+using DiscordAPI.Models;
 
 namespace Quarrel.Managers
 {
@@ -24,7 +25,7 @@ namespace Quarrel.Managers
         public static VoipPhoneCall voipCall;
         public static event EventHandler<ConnectToVoiceArgs> ConnectoToVoiceHandler;
 
-        public static async void ConnectToVoiceChannel(SharedModels.VoiceServerUpdate data)
+        public static async void ConnectToVoiceChannel(VoiceServerUpdate data)
         {
             string name;
             if (data.GuildId == null)

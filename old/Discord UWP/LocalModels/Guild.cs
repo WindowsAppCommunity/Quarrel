@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 
 namespace Quarrel.LocalModels
 {
@@ -15,7 +15,7 @@ namespace Quarrel.LocalModels
         /// </summary>
         public Guild()
         {
-            Raw = new SharedModels.Guild();
+            Raw = new DiscordAPI.Models.Guild();
             Position = 0;
         }
 
@@ -23,7 +23,7 @@ namespace Quarrel.LocalModels
         /// Create LocalModel based on API model
         /// </summary>
         /// <param name="guild">API model</param>
-        public Guild(SharedModels.Guild guild)
+        public Guild(DiscordAPI.Models.Guild guild)
         {
             Raw = guild;
             Position = 0;
@@ -84,7 +84,7 @@ namespace Quarrel.LocalModels
         /// <summary>
         /// API Guild object
         /// </summary>
-        public SharedModels.Guild Raw { get; set; }
+        public DiscordAPI.Models.Guild Raw { get; set; }
 
         /// <summary>
         /// Member objects paired to Ids

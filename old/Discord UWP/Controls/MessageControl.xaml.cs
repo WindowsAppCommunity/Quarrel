@@ -32,11 +32,12 @@ using static Quarrel.Managers.MessageManager;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using Windows.System;
 using DiscordAPI.API.Gateway;
-using DiscordAPI.API.Gateway.DownstreamEvents;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 using Quarrel.SimpleClasses;
+using DiscordAPI.Gateway;
+using DiscordAPI.Gateway.DownstreamEvents;
 
 namespace Quarrel.Controls
 {

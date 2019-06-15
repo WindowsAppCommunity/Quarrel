@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.Gateway.UpstreamEvents
+namespace DiscordAPI.Gateway.UpstreamEvents
 {
     public class GuildMembersRequest
     {

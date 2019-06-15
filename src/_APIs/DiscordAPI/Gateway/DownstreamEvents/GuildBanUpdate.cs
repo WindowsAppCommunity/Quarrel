@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.Models;
 
-namespace Quarrel.Gateway.DownstreamEvents
+namespace DiscordAPI.Gateway.DownstreamEvents
 {
     public class GuildBanUpdate
     {

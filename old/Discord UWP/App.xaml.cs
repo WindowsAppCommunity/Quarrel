@@ -34,11 +34,11 @@ using Quarrel.Classes;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
 using Quarrel.MarkdownTextBlock;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 using Quarrel.SmartColor;
 using Quarrel.SubPages;
-using Guild = DiscordAPI.SharedModels.Guild;
-using GuildChannel = DiscordAPI.SharedModels.GuildChannel;
+using Guild = DiscordAPI.Models.Guild;
+using GuildChannel = DiscordAPI.Models.GuildChannel;
 
 namespace Quarrel
 {
@@ -1290,12 +1290,12 @@ namespace Quarrel
 
         public class ChannelTopicNavigationArgs : EventArgs
         {
-            public SharedModels.GuildChannel Channel { get; set; }
+            public GuildChannel Channel { get; set; }
         }
 
         public static event EventHandler<ChannelTopicNavigationArgs> NavigateToChannelTopicHandler;
 
-        public static void NavigateToChannelTopic(SharedModels.GuildChannel channel)
+        public static void NavigateToChannelTopic(GuildChannel channel)
         {
             NavigateToChannelTopicHandler?.Invoke(typeof(App), new ChannelTopicNavigationArgs {Channel = channel});
         }
@@ -1489,12 +1489,12 @@ namespace Quarrel
 
         public class GuildChannelCreatedArgs
         {
-            public SharedModels.GuildChannel Channel;
+            public GuildChannel Channel;
         }
 
         public static event EventHandler<GuildChannelCreatedArgs> GuildChannelCreatedHandler;
 
-        public static void GuildChannelCreated(SharedModels.GuildChannel channel)
+        public static void GuildChannelCreated(GuildChannel channel)
         {
             GuildChannelCreatedHandler?.Invoke(typeof(App), new GuildChannelCreatedArgs {Channel = channel});
         }
@@ -1515,12 +1515,12 @@ namespace Quarrel
 
         public class GuildChannelUpdatedArgs
         {
-            public SharedModels.GuildChannel Channel;
+            public GuildChannel Channel;
         }
 
         public static event EventHandler<GuildChannelUpdatedArgs> GuildChannelUpdatedHandler;
 
-        public static void GuildChannelUpdated(SharedModels.GuildChannel channel)
+        public static void GuildChannelUpdated(GuildChannel channel)
         {
             GuildChannelUpdatedHandler?.Invoke(typeof(App), new GuildChannelUpdatedArgs {Channel = channel});
         }
@@ -1531,19 +1531,19 @@ namespace Quarrel
 
         public class GuildCreatedArgs
         {
-            public SharedModels.Guild Guild;
+            public Guild Guild;
         }
 
         public static event EventHandler<GuildCreatedArgs> GuildCreatedHandler;
 
-        public static void GuildCreated(SharedModels.Guild guild)
+        public static void GuildCreated(Guild guild)
         {
             GuildCreatedHandler?.Invoke(typeof(App), new GuildCreatedArgs {Guild = guild});
         }
 
-        public static event EventHandler<SharedModels.Guild> GuildUpdatedHandler;
+        public static event EventHandler<Guild> GuildUpdatedHandler;
 
-        public static void GuildUpdated(SharedModels.Guild guild)
+        public static void GuildUpdated(Guild guild)
         {
             GuildUpdatedHandler?.Invoke(typeof(App), guild);
         }

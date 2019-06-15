@@ -8,9 +8,12 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 
-using Quarrel.Managers;
 using Quarrel.LocalModels;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
+using DiscordAPI.Gateway;
+using DiscordAPI.Gateway.DownstreamEvents;
+using GuildChannel = DiscordAPI.Models.GuildChannel;
+using Guild = DiscordAPI.Models.Guild;
 
 namespace Quarrel.Managers
 {
@@ -77,7 +80,7 @@ namespace Quarrel.Managers
         }
 
 
-        private static void Gateway_SessionReplaced(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.SessionReplace> e)
+        private static void Gateway_SessionReplaced(object sender, GatewayEventArgs<SessionReplace> e)
         {
             if (e.EventData != null)
             {
@@ -88,7 +91,7 @@ namespace Quarrel.Managers
         #region Ready
         //Aparently can contain nullref, (~2% of crashes)
         public static string session = "";
-        private static async void Gateway_Ready(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
+        private static async void Gateway_Ready(object sender, GatewayEventArgs<Ready> e)
         {
             session = e.EventData.SessionId;
             Storage.UNSdeferralStart(); //This improves performance, it means that every UpdateNotificationTask() won't save to disk (but UNSdeferralEnd() MUST be called to save the values!
@@ -257,7 +260,7 @@ namespace Quarrel.Managers
             #region GuildSettings (Notifications)
             if (e.EventData.GuildSettings != null)
             {
-                foreach (SharedModels.GuildSetting guild in e.EventData.GuildSettings)
+                foreach (DiscordAPI.Models.GuildSetting guild in e.EventData.GuildSettings)
                 {
                     if (guild.GuildId != null)
                     {
@@ -358,7 +361,7 @@ namespace Quarrel.Managers
         #endregion
 
         #region Message
-        private static void Gateway_MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
+        private static void Gateway_MessageCreated(object sender, GatewayEventArgs<Message> e)
         {
             if (App.CurrentGuildIsDM)
             {
@@ -513,7 +516,7 @@ namespace Quarrel.Managers
             
         }
 
-        private static void Gateway_MessageDeleted(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.MessageDelete> e)
+        private static void Gateway_MessageDeleted(object sender, GatewayEventArgs<MessageDelete> e)
         {
             App.MessageDeleted(e.EventData.MessageId, e.EventData.ChannelId);
             if (App.CurrentChannelId == e.EventData.ChannelId)
@@ -524,7 +527,7 @@ namespace Quarrel.Managers
             }
         }
 
-        private static void Gateway_MessageUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
+        private static void Gateway_MessageUpdated(object sender, GatewayEventArgs<Message> e)
         {
             App.MessageEdited(e.EventData);
             if (App.CurrentChannelId == e.EventData.ChannelId)
@@ -535,7 +538,7 @@ namespace Quarrel.Managers
             }
         }
 
-        private static void Gateway_MessageAck(object sender, Gateway.GatewayEventArgs<SharedModels.MessageAck> e)
+        private static void Gateway_MessageAck(object sender, GatewayEventArgs<MessageAck> e)
         {
             try
             {
@@ -549,24 +552,24 @@ namespace Quarrel.Managers
         #endregion
 
         #region MessageReaction
-        private static void Gateway_MessageReactionRemovedAll(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.MessageReactionRemoveAll> e)
+        private static void Gateway_MessageReactionRemovedAll(object sender, GatewayEventArgs<MessageReactionRemoveAll> e)
         {
             //Managed in MessageControl
         }
 
-        private static void Gateway_MessageReactionRemoved(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.MessageReactionUpdate> e)
+        private static void Gateway_MessageReactionRemoved(object sender, GatewayEventArgs<MessageReactionUpdate> e)
         {
             //Managed in MessageControl
         }
 
-        private static void Gateway_MessageReactionAdded(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.MessageReactionUpdate> e)
+        private static void Gateway_MessageReactionAdded(object sender, GatewayEventArgs<MessageReactionUpdate> e)
         {
             //Managed in MessageControl
         }
         #endregion
 
         #region DMs
-        private static void Gateway_DirectMessageChannelCreated(object sender, Gateway.GatewayEventArgs<SharedModels.DirectMessageChannel> e)
+        private static void Gateway_DirectMessageChannelCreated(object sender, GatewayEventArgs<DirectMessageChannel> e)
         {
             if (!LocalState.DMs.ContainsKey(e.EventData.Id))
             {
@@ -579,7 +582,7 @@ namespace Quarrel.Managers
             }
         }
 
-        private static void Gateway_DirectMessageChannelDeleted(object sender, Gateway.GatewayEventArgs<SharedModels.DirectMessageChannel> e)
+        private static void Gateway_DirectMessageChannelDeleted(object sender, GatewayEventArgs<DirectMessageChannel> e)
         {
             if (LocalState.DMs.ContainsKey(e.EventData.Id))
             {
@@ -594,7 +597,7 @@ namespace Quarrel.Managers
         #endregion
 
         #region GuildChannel
-        private static void Gateway_GuildChannelCreated(object sender, Gateway.GatewayEventArgs<SharedModels.GuildChannel> e)
+        private static void Gateway_GuildChannelCreated(object sender, GatewayEventArgs<GuildChannel> e)
         {
             LocalState.Guilds[e.EventData.GuildId].channels.TryAdd(e.EventData.Id, new LocalModels.GuildChannel(e.EventData));
 
@@ -604,7 +607,7 @@ namespace Quarrel.Managers
             }
         }
 
-        private static void Gateway_GuildChannelDeleted(object sender, Gateway.GatewayEventArgs<SharedModels.GuildChannel> e)
+        private static void Gateway_GuildChannelDeleted(object sender, GatewayEventArgs<GuildChannel> e)
         {
             LocalModels.GuildChannel channel;
             LocalState.Guilds[e.EventData.GuildId].channels.TryRemove(e.EventData.Id, out channel);
@@ -615,7 +618,7 @@ namespace Quarrel.Managers
             }
         }
 
-        private static void Gateway_GuildChannelUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.GuildChannel> e)
+        private static void Gateway_GuildChannelUpdated(object sender, GatewayEventArgs<GuildChannel> e)
         {
             if (LocalState.Guilds[e.EventData.GuildId].channels.ContainsKey(e.EventData.Id))
             {
@@ -630,7 +633,7 @@ namespace Quarrel.Managers
         #endregion
 
         #region Guild
-        private static void Gateway_GuildCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Guild> e)
+        private static void Gateway_GuildCreated(object sender, GatewayEventArgs<Guild> e)
         {
             if (!LocalState.Guilds.ContainsKey(e.EventData.Id))
             {
@@ -672,7 +675,7 @@ namespace Quarrel.Managers
                 App.GuildCreated(e.EventData);
             }
         }
-        private static void Gateway_GuildDeleted(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.GuildDelete> e)
+        private static void Gateway_GuildDeleted(object sender, GatewayEventArgs<GuildDelete> e)
         {
             //TODO: Deal with guild outages
             if (LocalState.Guilds.ContainsKey(e.EventData.GuildId))
@@ -680,14 +683,14 @@ namespace Quarrel.Managers
                 App.GuildDeleted(e.EventData.GuildId);
             }
         }
-        private static void Gateway_GuildUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Guild> e)
+        private static void Gateway_GuildUpdated(object sender, GatewayEventArgs<Guild> e)
         {
             if (LocalState.Guilds.ContainsKey(e.EventData.Id))
             {
                 App.GuildUpdated(e.EventData);
             }
         }
-        private static void Gateway_GuildSynced(object sender, Gateway.GatewayEventArgs<GuildSync> e)
+        private static void Gateway_GuildSynced(object sender, GatewayEventArgs<GuildSync> e)
         {
             App.GuildSynced(e.EventData);
         }
@@ -695,7 +698,7 @@ namespace Quarrel.Managers
         #endregion
 
         #region GuildMember
-        private static void Gateway_GuildMemberAdded(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberAdd> e)
+        private static void Gateway_GuildMemberAdded(object sender, GatewayEventArgs<GuildMemberAdd> e)
         {
             //TODO Optimize this, ContainsKey is running twice
             if (LocalState.Guilds[e.EventData.guildId].members.ContainsKey(e.EventData.User.Id))
@@ -707,13 +710,13 @@ namespace Quarrel.Managers
             }
         }
 
-        private static void Gateway_GuildMemberRemoved(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberRemove> e)
+        private static void Gateway_GuildMemberRemoved(object sender, GatewayEventArgs<GuildMemberRemove> e)
         {
             LocalState.Guilds[e.EventData.guildId].members.TryRemove(e.EventData.User.Id, out GuildMember member);
             member = null;
         }
 
-        private static void Gateway_GuildMemberUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberUpdate> e)
+        private static void Gateway_GuildMemberUpdated(object sender, GatewayEventArgs<GuildMemberUpdate> e)
         {
             if (LocalState.Guilds[e.EventData.guildId].members.ContainsKey(e.EventData.User.Id))
             {
@@ -724,7 +727,7 @@ namespace Quarrel.Managers
             }
         }
 
-        private static void Gateway_GuildMemberChunk(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberChunk> e)
+        private static void Gateway_GuildMemberChunk(object sender, GatewayEventArgs<GuildMemberChunk> e)
         {
             foreach (var member in e.EventData.Members)
             {
@@ -737,19 +740,19 @@ namespace Quarrel.Managers
         #endregion
 
         #region GuildBan
-        private static void Gateway_GuildBanRemoved(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.GuildBanUpdate> e)
+        private static void Gateway_GuildBanRemoved(object sender, GatewayEventArgs<GuildBanUpdate> e)
         {
 
         }
 
-        private static void Gateway_GuildBanAdded(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.GuildBanUpdate> e)
+        private static void Gateway_GuildBanAdded(object sender, GatewayEventArgs<GuildBanUpdate> e)
         {
 
         }
         #endregion
 
         #region Presence
-        private static void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Presence> e)
+        private static void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
         {
             if (LocalState.PresenceDict.ContainsKey(e.EventData.User.Id))
             {
@@ -763,7 +766,7 @@ namespace Quarrel.Managers
         #endregion
 
         #region RelationShip
-        private static void Gateway_RelationShipAdded(object sender, Gateway.GatewayEventArgs<SharedModels.Friend> e)
+        private static void Gateway_RelationShipAdded(object sender, GatewayEventArgs<Friend> e)
         {
             if (!LocalState.Friends.ContainsKey(e.EventData.Id))
             {
@@ -778,7 +781,7 @@ namespace Quarrel.Managers
             }
         }
 
-        private static void Gateway_RelationShipRemoved(object sender, Gateway.GatewayEventArgs<SharedModels.Friend> e)
+        private static void Gateway_RelationShipRemoved(object sender, GatewayEventArgs<Friend> e)
         {
             if (LocalState.Friends.ContainsKey(e.EventData.Id))
             {
@@ -786,7 +789,7 @@ namespace Quarrel.Managers
             }
         }
 
-        private static void Gateway_RelationShipUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Friend> e)
+        private static void Gateway_RelationShipUpdated(object sender, GatewayEventArgs<Friend> e)
         {
             if (LocalState.Friends.ContainsKey(e.EventData.Id))
             {
@@ -796,7 +799,7 @@ namespace Quarrel.Managers
         #endregion
 
         #region Typing
-        private static async void Gateway_TypingStarted(object sender, Gateway.GatewayEventArgs<SharedModels.TypingStart> e)
+        private static async void Gateway_TypingStarted(object sender, GatewayEventArgs<TypingStart> e)
         {
             await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
@@ -839,14 +842,14 @@ namespace Quarrel.Managers
         #endregion
 
         #region Note
-        private static void Gateway_UserNoteUpdated(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.UserNote> e)
+        private static void Gateway_UserNoteUpdated(object sender, GatewayEventArgs<UserNote> e)
         {
             LocalState.Notes[e.EventData.UserId] = e.EventData.Note;
         }
         #endregion
 
         #region User
-        private static void Gateway_UserSettingsUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.UserSettings> e)
+        private static void Gateway_UserSettingsUpdated(object sender, GatewayEventArgs<UserSettings> e)
         {
             var temp = LocalState.CurrentUserPresence;
             temp.Status = e.EventData.Status;
@@ -857,13 +860,13 @@ namespace Quarrel.Managers
         #endregion
 
         #region Voice
-        private static async void Gateway_VoiceServerUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.VoiceServerUpdate> e)
+        private static async void Gateway_VoiceServerUpdated(object sender, GatewayEventArgs<VoiceServerUpdate> e)
         {
             await AudioManager.CreateAudioGraphs();
             VoiceManager.ConnectToVoiceChannel(e.EventData);
         }
 
-        private static void Gateway_VoiceStateUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.VoiceState> e)
+        private static void Gateway_VoiceStateUpdated(object sender, GatewayEventArgs<VoiceState> e)
         {
             try
             {
@@ -898,6 +901,6 @@ namespace Quarrel.Managers
         #endregion
 
 
-        public static Gateway.Gateway Gateway;
+        public static Gateway Gateway;
     }
 }

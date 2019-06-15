@@ -23,7 +23,8 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using Windows.UI.Text;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
+using DiscordAPI.Gateway;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -684,7 +685,7 @@ namespace Quarrel.Controls
         /// <summary>
         /// Voice State changed
         /// </summary>
-        private async void Gateway_VoiceStateUpdated(object sender, Gateway.GatewayEventArgs<VoiceState> e)
+        private async void Gateway_VoiceStateUpdated(object sender, GatewayEventArgs<VoiceState> e)
         {
             // Run on UI thread
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,

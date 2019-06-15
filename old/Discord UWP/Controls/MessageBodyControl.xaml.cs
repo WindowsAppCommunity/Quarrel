@@ -15,7 +15,7 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using DiscordAPI.API.Channel.Models;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 using Quarrel.SimpleClasses;
 using Quarrel.SubPages;
 using Debug = System.Diagnostics.Debug;

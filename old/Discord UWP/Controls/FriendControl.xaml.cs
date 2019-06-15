@@ -18,6 +18,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
+using DiscordAPI.Gateway;
+using DiscordAPI.Models;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -184,7 +186,7 @@ namespace Quarrel.Controls
         /// <summary>
         /// Event handled when a User Presence is updated
         /// </summary>
-        private async void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Presence> e)
+        private async void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
         {
             // Run on UI thread
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,

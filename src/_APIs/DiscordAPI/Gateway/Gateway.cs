@@ -1,4 +1,4 @@
-﻿using Quarrel.Sockets;
+﻿using DiscordAPI.Sockets;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,12 +11,13 @@ using System.IO.Compression;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.Web;
-using Quarrel.Authentication;
-using Quarrel.Gateway.DownstreamEvents;
-using Quarrel.Gateway.UpstreamEvents;
+using DiscordAPI.Authentication;
+using DiscordAPI.Gateway.DownstreamEvents;
+using DiscordAPI.Gateway.UpstreamEvents;
 using DiscordAPI.Models;
+using DiscordAPI.API;
 
-namespace Quarrel.Gateway
+namespace DiscordAPI.Gateway
 {
     public class GatewayEventArgs<T> : EventArgs
     {
@@ -94,6 +95,7 @@ namespace Quarrel.Gateway
         private MemoryStream _compressed;
         private DeflateStream _decompressor;
         public bool ConnectedSocket = false;
+
         public Gateway(GatewayConfig config, IAuthenticator authenticator)
         {
             CreateSocket();
@@ -105,8 +107,6 @@ namespace Quarrel.Gateway
             _gatewayConfig = config;
             eventHandlers = GetEventHandlers();
             operationHandlers = GetOperationHandlers();
-            
-     //       PrepareSocket();
         }
 
         public BandwidthStatistics GetStats()
@@ -272,7 +272,7 @@ namespace Quarrel.Gateway
             var frame = new SocketFrame()
             {
                 Operation = 8,
-                Payload = new DiscordAPI.Models.Search
+                Payload = new Search
                 {
                     query = query,
                     limit = limit,

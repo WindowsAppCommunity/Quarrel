@@ -19,6 +19,7 @@ using DiscordAPI.API.Misc;
 using DiscordAPI.API.User;
 using DiscordAPI.API.Voice;
 using System.ServiceModel.Channels;
+using Quarrel.Services.Gateway;
 
 namespace Quarrel.Services.Rest
 {
@@ -98,5 +99,11 @@ namespace Quarrel.Services.Rest
         /// </summary>
         [NotNull]
         IVoiceService VoiceService { get; }
+
+        /// <summary>
+        /// Gets the default <see cref="IGatewayService"/> implementation (see <see cref="GatewayService"/>)
+        /// </summary>
+        [NotNull]
+        IGatewayService Gateway { get; }
     }
 }

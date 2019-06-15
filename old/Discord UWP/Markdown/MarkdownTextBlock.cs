@@ -24,6 +24,7 @@ using ColorSyntax;
 using Quarrel.MarkdownTextBlock.Display;
 using Quarrel.MarkdownTextBlock.Helpers;
 using Quarrel.MarkdownTextBlock.Parse;
+using DiscordAPI.Models;
 
 namespace Quarrel.MarkdownTextBlock
 {
@@ -106,9 +107,9 @@ namespace Quarrel.MarkdownTextBlock
         /// <summary>
         /// Gets or sets the markdown text to display.
         /// </summary>
-        public IEnumerable<SharedModels.User> Users
+        public IEnumerable<User> Users
         {
-            get { return (IEnumerable<SharedModels.User>)GetValue(UsersProperty); }
+            get { return (IEnumerable<User>)GetValue(UsersProperty); }
             set { SetValue(UsersProperty, value); }
         }
         /// <summary>
@@ -116,7 +117,7 @@ namespace Quarrel.MarkdownTextBlock
         /// </summary>
         public static readonly DependencyProperty UsersProperty = DependencyProperty.Register(
             nameof(Users),
-            typeof(IEnumerable<SharedModels.User>),
+            typeof(IEnumerable<User>),
             typeof(MarkdownTextBlock),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 

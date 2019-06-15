@@ -18,6 +18,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Quarrel.Services.Gateway;
+using DiscordAPI.API;
+using DiscordAPI.Authentication;
+using Windows.Networking.Connectivity;
 
 namespace Quarrel.Services.Rest
 {
@@ -59,6 +63,10 @@ namespace Quarrel.Services.Rest
         public IVoiceService VoiceService { get; private set; }
 
         /// <inheritdoc/>
+        [NotNull]
+        public IGatewayService Gateway { get; private set; }
+
+        /// <inheritdoc/>
         public User CurrentUser { get; private set; }
 
         // The access token for the current user
@@ -69,7 +77,32 @@ namespace Quarrel.Services.Rest
 
         #region Login
 
+        public async void Login([NotNull] string email, [NotNull] string password)
+        {
+            BasicRestFactory restFactory = new BasicRestFactory();
+            LoginService = restFactory.GetLoginService();
 
+            var result = await LoginService.Login(new DiscordAPI.API.Login.Models.LoginRequest() { Email = email, Password = password });
+
+            _AccessToken = result.Token;
+
+            Gateway.InitializeGateway(_AccessToken);
+
+            IAuthenticator authenticator = new DiscordAuthenticator(_AccessToken);
+            AuthenticatedRestFactory authenticatedRestFactory = new AuthenticatedRestFactory(new DiscordApiConfiguration() { BaseUrl = "https://discordapp.com/api" }, authenticator);
+
+            ActivitesService = authenticatedRestFactory.GetActivitesService();
+            ChannelService = authenticatedRestFactory.GetChannelService();
+            ConnectionsService = authenticatedRestFactory.GetConnectionService();
+            GameService = authenticatedRestFactory.GetGameService();
+            GuildService = authenticatedRestFactory.GetGuildService();
+            InviteService = authenticatedRestFactory.GetInviteService();
+            MiscService = authenticatedRestFactory.GetMiscService();
+            UserService = authenticatedRestFactory.GetUserService();
+            VoiceService = authenticatedRestFactory.GetVoiceService();
+
+            
+        }
 
         #endregion
     }

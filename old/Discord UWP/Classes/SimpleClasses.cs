@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Quarrel.LocalModels;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
+using GuildChannel = DiscordAPI.Models.GuildChannel;
 
 // TODO: Replace with proper MVVM
 namespace Quarrel.SimpleClasses
@@ -247,7 +248,7 @@ namespace Quarrel.SimpleClasses
 
     public class SimpleChannel : INotifyPropertyChanged
     {
-        public void Update(SharedModels.GuildChannel guildChannel)
+        public void Update(GuildChannel guildChannel)
         {
             _id = guildChannel.Id;
             _name = guildChannel.Name;

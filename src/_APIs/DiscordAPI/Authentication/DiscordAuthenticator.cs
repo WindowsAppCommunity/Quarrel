@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.Authentication
+namespace DiscordAPI.Authentication
 {
     public class DiscordAuthenticator : IAuthenticator
     {

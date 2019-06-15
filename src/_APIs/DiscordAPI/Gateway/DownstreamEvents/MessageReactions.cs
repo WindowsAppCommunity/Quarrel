@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using DiscordAPI.Models;
 
-namespace Quarrel.Gateway.DownstreamEvents
+namespace DiscordAPI.Gateway.DownstreamEvents
 {
     public class MessageReactionUpdate
     {

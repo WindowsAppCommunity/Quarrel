@@ -24,7 +24,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
 using Windows.Foundation.Metadata;
 using System.Reflection;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
 using Quarrel.LocalModels;
 using Quarrel.MarkdownTextBlock.Parse;
@@ -48,8 +48,8 @@ namespace Quarrel.MarkdownTextBlock.Display
 
         private string _messageid;
         private bool _halfopacity;
-        private IEnumerable<SharedModels.User> _users;
-        public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<SharedModels.User> users, string MessageId, ICodeBlockResolver codeBlockResolver, ref Border border, bool halfopacity)
+        private IEnumerable<User> _users;
+        public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<User> users, string MessageId, ICodeBlockResolver codeBlockResolver, ref Border border, bool halfopacity)
         {
             _document = document;
             _halfopacity = halfopacity;

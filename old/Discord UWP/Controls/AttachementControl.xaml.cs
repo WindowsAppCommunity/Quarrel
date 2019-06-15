@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using DiscordAPI.Models;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -28,14 +29,14 @@ namespace Quarrel.Controls
         /// <summary>
         /// The API data Attachment to display
         /// </summary>
-        public SharedModels.Attachment DisplayedAttachement
+        public Attachment DisplayedAttachement
         {
-            get { return (SharedModels.Attachment)GetValue(AttachementProperty); }
+            get { return (Attachment)GetValue(AttachementProperty); }
             set { SetValue(AttachementProperty, value); }
         }
         public static readonly DependencyProperty AttachementProperty = DependencyProperty.Register(
             nameof(DisplayedAttachement),
-            typeof(SharedModels.Attachment),
+            typeof(Attachment),
             typeof(AttachementControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
         

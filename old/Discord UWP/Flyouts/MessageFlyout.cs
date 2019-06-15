@@ -9,14 +9,14 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
 using Quarrel.Managers;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 using Quarrel.LocalModels;
 
 namespace Quarrel.Flyouts
 {
     partial class FlyoutCreator
     {
-        public static MenuFlyout MakeMessageMenu(SharedModels.Message message)
+        public static MenuFlyout MakeMessageMenu(Message message)
         {
             MenuFlyout menu = new MenuFlyout();
             menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];

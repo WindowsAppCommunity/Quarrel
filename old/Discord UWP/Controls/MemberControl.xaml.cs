@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 using Quarrel.SimpleClasses;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236

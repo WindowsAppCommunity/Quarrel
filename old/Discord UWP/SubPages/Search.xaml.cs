@@ -14,6 +14,9 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Quarrel.Managers;
 
+using DiscordAPI.Models;
+using DiscordAPI.Gateway;
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Quarrel.SubPages
@@ -38,7 +41,7 @@ namespace Quarrel.SubPages
             GatewayManager.Gateway.GuildMemberChunk += Gateway_GuildMemberChunk;
         }
 
-        private void Gateway_GuildMemberChunk(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberChunk> e)
+        private void Gateway_GuildMemberChunk(object sender, GatewayEventArgs<GuildMemberChunk> e)
         {
             foreach (var member in e.EventData.Members)
                 SearchResults.Items.Add(member.User.Username);

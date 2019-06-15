@@ -25,7 +25,7 @@ using Windows.Storage;
 using Windows.Graphics.Imaging;
 using Windows.UI.Popups;
 using Quarrel.LocalModels;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -53,7 +53,7 @@ namespace Quarrel.SubPages
             Frame.Visibility = Visibility.Collapsed;
         }
 
-        private SharedModels.UserProfile profile;
+        private DiscordAPI.Models.UserProfile profile;
         string userid;
         bool navFromFlyout = false;
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -275,18 +275,18 @@ namespace Quarrel.SubPages
             saveBTNtext.Opacity = 0;
             SaveButton.IsEnabled = false;
             saveBTNprog.Visibility = Visibility.Visible;
-            API.User.Models.ModifyUser modifyuser;
+            DiscordAPI.API.User.Models.ModifyUser modifyuser;
             if (!String.IsNullOrEmpty(password.Password))
             {
                 string newpass = null;
                 if (string.IsNullOrWhiteSpace(newpassword.Password))
                     newpass = null;
                 if (string.IsNullOrEmpty(base64img))
-                    modifyuser = new API.User.Models.ModifyUser() { Username = usernameBox.Text, Password = password.Password, NewPassword = newpass };
+                    modifyuser = new DiscordAPI.API.User.Models.ModifyUser() { Username = usernameBox.Text, Password = password.Password, NewPassword = newpass };
                 else
-                    modifyuser = new API.User.Models.ModifyUserAndAvatar() { Username = usernameBox.Text, Password = password.Password, Avatar = base64img, NewPassword = newpass };
+                    modifyuser = new DiscordAPI.API.User.Models.ModifyUserAndAvatar() { Username = usernameBox.Text, Password = password.Password, Avatar = base64img, NewPassword = newpass };
                 if (DeletedImage)
-                    modifyuser = new API.User.Models.ModifyUserAndAvatar() { Username = usernameBox.Text, Password = password.Password, Avatar = null, NewPassword = newpass };
+                    modifyuser = new DiscordAPI.API.User.Models.ModifyUserAndAvatar() { Username = usernameBox.Text, Password = password.Password, Avatar = null, NewPassword = newpass };
                 User response = null;
 
                 await Task.Run(async () =>
@@ -326,7 +326,7 @@ namespace Quarrel.SubPages
 
         private async void SaveUserSettings()
         {
-            var modify = new API.User.Models.ModifyUserSettings(LocalState.Settings);
+            var modify = new DiscordAPI.API.User.Models.ModifyUserSettings(LocalState.Settings);
 
             if (Filtering2.IsChecked == true)
             {

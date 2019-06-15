@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Contacts;
 using Windows.Storage.Streams;
+using DiscordAPI.Models;
 
 namespace Quarrel.Managers
 {
@@ -159,7 +160,7 @@ namespace Quarrel.Managers
         /// </summary>
         /// <param name="user">User to check</param>
         /// <returns>True if the user does not exist</returns>
-        private async Task<bool> CheckContact(SharedModels.User user)
+        private async Task<bool> CheckContact(User user)
         {
             // Intialize store if not done
             if (store == null)
@@ -197,7 +198,7 @@ namespace Quarrel.Managers
         /// Add contact
         /// </summary>
         /// <param name="user">Discord User</param>
-        public async Task AddContact(SharedModels.User user)
+        public async Task AddContact(User user)
         {
             if (!await CheckContact(user))
             {
@@ -246,7 +247,7 @@ namespace Quarrel.Managers
         /// Add contact by Discord friend object
         /// </summary>
         /// <param name="user">Discord User</param>
-        public async void AddContact(SharedModels.Friend user)
+        public async void AddContact(Friend user)
         {
             // Create contact
             Contact contact = new Contact();

@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Quarrel.Controls;
 using Quarrel.Flyouts;
 using Quarrel.LocalModels;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 
 namespace Quarrel.Managers
 {
@@ -372,7 +372,7 @@ namespace Quarrel.Managers
 
         public static async void AddRole(object sender, RoutedEventArgs e)
         {
-            var modify = new API.Guild.Models.ModifyGuildMember(LocalState.Guilds[App.CurrentGuildId].members[((sender as MenuFlyoutItem).Tag as Tuple<string, string>).Item2]);
+            var modify = new DiscordAPI.API.Guild.Models.ModifyGuildMember(LocalState.Guilds[App.CurrentGuildId].members[((sender as MenuFlyoutItem).Tag as Tuple<string, string>).Item2]);
             modify.ToggleRole((((sender as MenuFlyoutItem).Tag as Tuple<string, string>).Item1));
             await RESTCalls.ModifyGuildMember(App.CurrentGuildId, ((sender as MenuFlyoutItem).Tag as Tuple<string, string>).Item2, modify);
         }

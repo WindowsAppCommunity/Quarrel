@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using DiscordAPI.API.Gateway.DownstreamEvents;
+using DiscordAPI.API.Gateway;
 using Windows.UI.Core;
 using Windows.ApplicationModel.Core;
 using System.Threading.Tasks;
@@ -26,7 +26,8 @@ using Windows.ApplicationModel.Contacts;
 using DiscordAPI.API.User.Models;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Gateway;
+using DiscordAPI.Models;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -114,7 +115,7 @@ namespace Quarrel.Controls
         /// <summary>
         /// Update Relationship when changed
         /// </summary>
-        private async void Gateway_RelationShipUpdated(object sender, Gateway.GatewayEventArgs<Friend> e)
+        private async void Gateway_RelationShipUpdated(object sender, GatewayEventArgs<Friend> e)
         {
             await RemoveRelationshipFromUI(e);
             await AddRelationshipToUI(e);
@@ -123,7 +124,7 @@ namespace Quarrel.Controls
         /// <summary>
         /// Remove Relationship when removed
         /// </summary>
-        private async void Gateway_RelationShipRemoved(object sender, Gateway.GatewayEventArgs<Friend> e)
+        private async void Gateway_RelationShipRemoved(object sender, GatewayEventArgs<Friend> e)
         {
             await RemoveRelationshipFromUI(e);
         }
@@ -131,7 +132,7 @@ namespace Quarrel.Controls
         /// <summary>
         /// Remove user from Panel
         /// </summary>
-        private async Task RemoveRelationshipFromUI(Gateway.GatewayEventArgs<Friend> e)
+        private async Task RemoveRelationshipFromUI(GatewayEventArgs<Friend> e)
         {
             // Run on UI thread
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -161,7 +162,7 @@ namespace Quarrel.Controls
         /// <summary>
         /// Add RelationShip when added
         /// </summary>
-        private async void Gateway_RelationShipAdded(object sender, Gateway.GatewayEventArgs<Friend> e)
+        private async void Gateway_RelationShipAdded(object sender, GatewayEventArgs<Friend> e)
         {
             if (e.EventData.Type == 1)
             {
@@ -173,7 +174,7 @@ namespace Quarrel.Controls
         /// <summary>
         /// Add relation ship to Panel
         /// </summary>
-        private async Task AddRelationshipToUI(Gateway.GatewayEventArgs<Friend> e)
+        private async Task AddRelationshipToUI(GatewayEventArgs<Friend> e)
         {
             // Run on UI thread
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,

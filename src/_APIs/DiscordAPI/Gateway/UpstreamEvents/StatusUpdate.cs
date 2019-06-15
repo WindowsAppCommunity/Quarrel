@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.Models;
 
-namespace Quarrel.Gateway.UpstreamEvents
+namespace DiscordAPI.Gateway.UpstreamEvents
 {
 
     public struct StatusUpdate

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Quarrel.LocalModels;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 using Quarrel.SimpleClasses;
+using GuildChannel = DiscordAPI.Models.GuildChannel;
 
 namespace Quarrel.Managers
 {
@@ -84,7 +85,7 @@ namespace Quarrel.Managers
         /// <param name="channel">GuildChannel</param>
         /// <param name="overridelastmessageid">New LastMessageId</param>
         /// <returns>SimpleChannel</returns>
-        public static SimpleChannel MakeChannel(SharedModels.GuildChannel channel, string overridelastmessageid = null)
+        public static SimpleChannel MakeChannel(GuildChannel channel, string overridelastmessageid = null)
         {
             // Create basic SimpleChannel
             SimpleChannel sc = new SimpleChannel
@@ -119,7 +120,7 @@ namespace Quarrel.Managers
         /// </summary>
         /// <param name="channel">DMChannel</param>
         /// <returns>SimpleChannel</returns>
-        public static SimpleChannel MakeChannel(SharedModels.DirectMessageChannel channel)
+        public static SimpleChannel MakeChannel(DirectMessageChannel channel)
         {
             // Create basic SimpleChannel
             SimpleChannel sc = new SimpleChannel();

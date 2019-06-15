@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Windows.UI.Xaml;
 using DiscordAPI.API.Game;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 
 namespace Quarrel.LocalModels
 {

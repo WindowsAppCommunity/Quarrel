@@ -12,6 +12,7 @@
 
 using System;
 using Windows.UI.Xaml.Documents;
+using DiscordAPI.Models;
 
 namespace Quarrel.MarkdownTextBlock
 {
@@ -30,7 +31,7 @@ namespace Quarrel.MarkdownTextBlock
         /// </summary>
         public string Link { get; }
 
-        public SharedModels.User User { get; set; }
+        public User User { get; set; }
     }
     public class CodeBlockResolvingEventArgs : EventArgs
     {

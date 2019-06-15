@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.Models;
-using Quarrel.Sockets;
+using DiscordAPI.Sockets;
 using Quarrel.Voice.DownstreamEvents;
 using Quarrel.Voice.UpstreamEvents;
 using RuntimeComponent;

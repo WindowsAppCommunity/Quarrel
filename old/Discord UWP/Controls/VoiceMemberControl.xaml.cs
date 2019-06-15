@@ -11,7 +11,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Gateway;
+using DiscordAPI.Models;
 
 namespace Quarrel.Controls
 {
@@ -101,8 +102,8 @@ namespace Quarrel.Controls
             this.InitializeComponent();
             RightTapped += OpenVoiceFlyout;
             Holding += OpenVoiceFlyout;
-            Managers.GatewayManager.Gateway.VoiceStateUpdated += Gateway_VoiceStateUpdated;
-            Managers.VoiceManager.ConnectoToVoiceHandler += VoiceManager_ConnectoToVoiceHandler;
+            GatewayManager.Gateway.VoiceStateUpdated += Gateway_VoiceStateUpdated;
+            VoiceManager.ConnectoToVoiceHandler += VoiceManager_ConnectoToVoiceHandler;
         }
 
         private void OpenVoiceFlyout(object sender, HoldingRoutedEventArgs e)
@@ -152,7 +153,7 @@ namespace Quarrel.Controls
                  });
         }
 
-        private async void Gateway_VoiceStateUpdated(object sender, Gateway.GatewayEventArgs<VoiceState> e)
+        private async void Gateway_VoiceStateUpdated(object sender, GatewayEventArgs<VoiceState> e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>

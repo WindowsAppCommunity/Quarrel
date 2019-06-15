@@ -139,7 +139,7 @@ namespace Quarrel
             else if(MFAuth.Visibility == Visibility.Visible)
             {
                 //2FA AUTHENTICATION
-                API.Login.Models.LoginResult result = new API.Login.Models.LoginResult();
+                LoginResult result = new LoginResult();
                 var mfapass = MFAPassword.Password;
                 await Task.Run(async () =>
                 {

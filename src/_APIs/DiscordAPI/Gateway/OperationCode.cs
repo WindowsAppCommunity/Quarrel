@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.Gateway
+namespace DiscordAPI.Gateway
 {
     public enum OperationCode : int
     {

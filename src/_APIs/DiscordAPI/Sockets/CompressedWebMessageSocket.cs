@@ -10,7 +10,7 @@ using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
 
 
-namespace Quarrel.Sockets
+namespace DiscordAPI.Sockets
 {/*
     public class CompressedWebMessageSocket : IWebMessageSocket
     {

@@ -19,7 +19,10 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
+using DiscordAPI.Gateway;
+using DiscordAPI.Gateway.DownstreamEvents;
+using Guild = DiscordAPI.Models.Guild;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -207,7 +210,7 @@ namespace Quarrel.Controls
             GatewayManager.Gateway.GuildCreated += Gateway_GuildCreated;
         }
 
-        private async void Gateway_GuildCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Guild> e)
+        private async void Gateway_GuildCreated(object sender, GatewayEventArgs<Guild> e)
         {
             // If the guild is this guild
             if (DisplayedInvite?.Guild != null && e.EventData.Id == DisplayedInvite.Guild.Id)
@@ -219,7 +222,7 @@ namespace Quarrel.Controls
                 });
         }
 
-        private async void Gateway_GuildDeleted(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.GuildDelete> e)
+        private async void Gateway_GuildDeleted(object sender, GatewayEventArgs<GuildDelete> e)
         {
             // If the guild is this guild
             if (DisplayedInvite?.Guild != null && e.EventData.GuildId == DisplayedInvite.Guild.Id)

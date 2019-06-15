@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Networking.Sockets;
 
-namespace Quarrel.Sockets
+namespace DiscordAPI.Sockets
 {
     public class MessageReceivedEventArgs : EventArgs
     {

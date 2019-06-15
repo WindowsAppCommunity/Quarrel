@@ -11,7 +11,7 @@ using DiscordAPI.API.Invite;
 using DiscordAPI.API.Misc;
 using DiscordAPI.API.User;
 using DiscordAPI.API.Voice;
-using Quarrel.Authentication;
+using DiscordAPI.Authentication;
 
 namespace DiscordAPI.API
 {

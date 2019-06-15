@@ -35,10 +35,10 @@ using Microsoft.Advertising.WinRT.UI;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Debug = System.Diagnostics.Debug;
 using EditChannel = Quarrel.SubPages.EditChannel;
-using Guild = DiscordAPI.SharedModels.Guild;
+using Guild = DiscordAPI.Models.Guild;
 using GuildChannel = Quarrel.LocalModels.GuildChannel;
-using GuildSetting = DiscordAPI.SharedModels.GuildSetting;
-using User = DiscordAPI.SharedModels.User;
+using GuildSetting = DiscordAPI.Models.GuildSetting;
+using User = DiscordAPI.Models.User;
 using UserProfile = Quarrel.SubPages.UserProfile;
 using System.Collections.ObjectModel;
 using DiscordAPI.API.Game;
@@ -47,11 +47,12 @@ using DiscordAPI.API.User.Models;
 using Quarrel.Classes;
 using Quarrel.Controls;
 using DiscordAPI.API.Gateway;
-using DiscordAPI.API.Gateway.DownstreamEvents;
+using DiscordAPI.Gateway;
+using DiscordAPI.Gateway.DownstreamEvents;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
 using Quarrel.MarkdownTextBlock;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 using Quarrel.SimpleClasses;
 using Quarrel.SubPages;
 
@@ -784,7 +785,7 @@ namespace Quarrel
                      });*/
         }
 
-        private async void App_GuildUpdatedHandler(object sender, SharedModels.Guild e)
+        private async void App_GuildUpdatedHandler(object sender, Guild e)
         {
             //update localstate guilds
             LocalState.Guilds[e.Id].Raw = e;
@@ -890,7 +891,7 @@ namespace Quarrel
 
         public void ClearData()
         {
-            LocalState.CurrentUser = new SharedModels.User();
+            LocalState.CurrentUser = new User();
             LocalState.DMs.Clear();
             LocalState.Friends.Clear();
             LocalState.Guilds.Clear();
@@ -1165,7 +1166,7 @@ namespace Quarrel
 
         private void Search_Click(object sender, RoutedEventArgs e)
         {
-            SubFrameNavigator(typeof(Search));
+            SubFrameNavigator(typeof(SubPages.Search));
         }
 
         private void COVoice_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -1303,7 +1304,7 @@ namespace Quarrel
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            SubFrameNavigator(typeof(AuditLog), App.CurrentGuildId);
+            SubFrameNavigator(typeof(SubPages.AuditLog), App.CurrentGuildId);
         }
 
         private async void CreateInvite(object sender, RoutedEventArgs e)
@@ -2178,7 +2179,7 @@ namespace Quarrel
             ChannelOverride chan;
             if (!LocalState.GuildSettings.ContainsKey(App.CurrentGuildId))
                 LocalState.GuildSettings.Add(App.CurrentGuildId,
-                    new LocalModels.GuildSetting(new SharedModels.GuildSetting {GuildId = App.CurrentGuildId}));
+                    new LocalModels.GuildSetting(new GuildSetting {GuildId = App.CurrentGuildId}));
 
             if (!LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.ContainsKey(e.ChannelId))
                 LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.Add(e.ChannelId,
@@ -2189,7 +2190,7 @@ namespace Quarrel
             chan.Muted = !chan.Muted;
             chns.Add(e.ChannelId, chan);
 
-            SharedModels.GuildSetting returned = await RESTCalls.ModifyGuildSettings(App.CurrentGuildId,
+            GuildSetting returned = await RESTCalls.ModifyGuildSettings(App.CurrentGuildId,
                 new GuildSettingModify {ChannelOverrides = chns});
 
             LocalState.GuildSettings[App.CurrentGuildId].raw = returned;
@@ -2316,7 +2317,7 @@ namespace Quarrel
                     {
                         ReadState readstate = LocalState.RPC[chn.raw.Id];
                         sg.NotificationCount += readstate.MentionCount;
-                        SharedModels.GuildChannel storageChannel = LocalState.Guilds[sg.Id].channels[chn.raw.Id].raw;
+                        GuildChannel storageChannel = LocalState.Guilds[sg.Id].channels[chn.raw.Id].raw;
                         if (readstate.LastMessageId != storageChannel.LastMessageId && !sg.IsMuted)
                             sg.IsUnread = true;
                     }

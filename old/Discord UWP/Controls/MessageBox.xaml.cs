@@ -14,7 +14,8 @@ using Windows.ApplicationModel.DataTransfer;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
+using User = DiscordAPI.Models.User;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -178,7 +179,7 @@ namespace Quarrel.Controls
                     int discIndex = mention.IndexOf('#');
                     string username = mention.Substring(1, discIndex-1);
                     string disc = mention.Substring(1 + discIndex);
-                    SharedModels.User user;
+                    User user;
                     if (App.CurrentGuildIsDM)
                     {
                         user = LocalState.DMs[App.CurrentChannelId].Users.FirstOrDefault(x => x.Username == username && x.Discriminator == disc);
@@ -560,7 +561,7 @@ namespace Quarrel.Controls
 
         private void GiphyList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Text += (e.ClickedItem as API.Misc.Models.GifSearchResult).Src;
+            Text += (e.ClickedItem as DiscordAPI.API.Misc.Models.GifSearchResult).Src;
             GiphySelect.Visibility = Visibility.Collapsed;
             giphySearch.Text = "";
         }

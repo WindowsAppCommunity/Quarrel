@@ -20,10 +20,12 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using DiscordAPI.API.Channel.Models;
-using DiscordAPI.API.Gateway;
+using DiscordAPI.Gateway;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
+
+using GuildChannel = DiscordAPI.Models.GuildChannel;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -80,7 +82,7 @@ namespace Quarrel.SubPages
             ChannelTopic_OnTextChanged(null,null);
         }
 
-        private async void ChannelUpdated(object sender, GatewayEventArgs<SharedModels.GuildChannel> e)
+        private async void ChannelUpdated(object sender, GatewayEventArgs<GuildChannel> e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>

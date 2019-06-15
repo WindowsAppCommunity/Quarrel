@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.Sockets
+namespace DiscordAPI.Sockets
 {
     public static class IWebSocketExtensions
     {

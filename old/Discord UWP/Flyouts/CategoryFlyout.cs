@@ -8,8 +8,10 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Quarrel.LocalModels;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
 using Quarrel.Managers;
+
+using GuildChannel = DiscordAPI.Models.GuildChannel;
 
 namespace Quarrel.Flyouts
 {
@@ -21,7 +23,7 @@ namespace Quarrel.Flyouts
         /// <param name="category">Category control</param>
         /// <param name="parentId">Guild Id</param>
         /// <returns>A MenuFlyout item to display</returns>
-        public static MenuFlyout MakeCategoryMenu(SharedModels.GuildChannel category, string parentId)
+        public static MenuFlyout MakeCategoryMenu(GuildChannel category, string parentId)
         {
             MenuFlyout menu = new MenuFlyout();
             menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];

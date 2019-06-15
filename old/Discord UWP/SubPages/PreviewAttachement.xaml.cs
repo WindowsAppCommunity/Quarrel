@@ -22,6 +22,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using DiscordAPI.Models;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -49,12 +50,12 @@ namespace Quarrel.SubPages
             CloseButton_Click(null, null);
         }
 
-        private SharedModels.Attachment attachement;
+        private Attachment attachement;
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter is SharedModels.Attachment)
+            if (e.Parameter is Attachment)
             {
-                attachement = (SharedModels.Attachment)e.Parameter;
+                attachement = (Attachment)e.Parameter;
                 if (attachement.Url.EndsWith(".svg"))
                     ImageViewer.Source = new SvgImageSource(new Uri(attachement.Url));
                 else if (attachement.Url.EndsWith(".pdf"))

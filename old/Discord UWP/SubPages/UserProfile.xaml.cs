@@ -27,7 +27,9 @@ using System.Numerics;
 using DiscordAPI.API.Gateway;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Models;
+using DiscordAPI.Gateway;
+using DiscordAPI.Gateway.DownstreamEvents;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -60,7 +62,7 @@ namespace Quarrel.SubPages
             Frame.Visibility = Visibility.Collapsed;
         }
 
-        private SharedModels.UserProfile profile;
+        private DiscordAPI.Models.UserProfile profile;
         string userid;
         bool navFromFlyout = false;
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -90,7 +92,7 @@ namespace Quarrel.SubPages
             bool loadviaRest = true;
             if (e.Parameter is User)
             {
-                    profile = new SharedModels.UserProfile();
+                    profile = new DiscordAPI.Models.UserProfile();
                     profile.user = (User)e.Parameter;
                 if(profile.user.Bot)
                     grid.VerticalAlignment = VerticalAlignment.Center;
@@ -585,7 +587,7 @@ namespace Quarrel.SubPages
             }
 
         }
-        private async void Gateway_UserNoteUpdated(object sender, GatewayEventArgs<Gateway.DownstreamEvents.UserNote> e)
+        private async void Gateway_UserNoteUpdated(object sender, GatewayEventArgs<UserNote> e)
         {
             if (e.EventData.UserId == profile.user.Id)
             {
@@ -702,7 +704,7 @@ namespace Quarrel.SubPages
                 if (dm.Value.Type == 1 && dm.Value.Users.FirstOrDefault()?.Id == userid)
                     channelid = dm.Value.Id;
             if (channelid == null)
-                channelid = (await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { (sender as MenuFlyoutItem).Tag.ToString() }.AsEnumerable() })).Id;
+                channelid = (await RESTCalls.CreateDM(new DiscordAPI.API.User.Models.CreateDM() { Recipients = new List<string>() { (sender as MenuFlyoutItem).Tag.ToString() }.AsEnumerable() })).Id;
             if (string.IsNullOrEmpty(channelid)) return;
             App.SelectDMChannel(channelid);
         }

@@ -130,11 +130,14 @@
     <Compile Include="Controls\Shell\SideDrawer.xaml.cs">
       <DependentUpon>SideDrawer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Messages\Gateway\GatewayReadyMessage.cs" />
     <Compile Include="Models\Bindables\Abstract\BindableModelBase.cs" />
     <Compile Include="Models\Bindables\BindableChannel.cs" />
     <Compile Include="Models\Bindables\BindableGuild.cs" />
     <Compile Include="Models\Bindables\BindableMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Gateway\GatewayService.cs" />
+    <Compile Include="Services\Gateway\IGatewayService.cs" />
     <Compile Include="Services\Rest\DiscordService.cs" />
     <Compile Include="Services\Rest\IDiscordService.cs" />
     <Compile Include="Services\ServicesManager.cs" />
@@ -165,7 +168,6 @@
     <Folder Include="Controls\Channels\" />
     <Folder Include="Controls\Messages\Embeds\" />
     <Folder Include="Converters\" />
-    <Folder Include="Messages\" />
     <Folder Include="Models\Bindables\Base\" />
     <Folder Include="SubPages\" />
   </ItemGroup>

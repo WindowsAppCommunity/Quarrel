@@ -21,7 +21,9 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.SharedModels;
+using DiscordAPI.Gateway;
+using DiscordAPI.Gateway.DownstreamEvents;
+using DiscordAPI.Models;
 
 namespace Quarrel.Controls
 {
@@ -383,7 +385,7 @@ namespace Quarrel.Controls
         /// <summary>
         /// User presence updated event
         /// </summary>
-        private async void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<Presence> e)
+        private async void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
@@ -453,7 +455,7 @@ namespace Quarrel.Controls
         /// <summary>
         /// User-note updated
         /// </summary>
-        private async void Gateway_UserNoteUpdated(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.UserNote> e)
+        private async void Gateway_UserNoteUpdated(object sender, GatewayEventArgs<UserNote> e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
@@ -478,7 +480,7 @@ namespace Quarrel.Controls
 
             // If the user doesn't have a DM, create one
             if (channelid == null)
-                channelid = (await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { DisplayedMember.User.Id }.AsEnumerable() })).Id;
+                channelid = (await RESTCalls.CreateDM(new DiscordAPI.API.User.Models.CreateDM() { Recipients = new List<string>() { DisplayedMember.User.Id }.AsEnumerable() })).Id;
 
             // return if failed
             if (string.IsNullOrEmpty(channelid)) return;
