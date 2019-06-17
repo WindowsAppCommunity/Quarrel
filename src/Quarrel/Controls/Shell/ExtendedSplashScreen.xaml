@@ -118,22 +118,22 @@
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stack" d:IsOptimized="True">
+            <!--<DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stack" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase EasingMode="EaseIn"/>
                 </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
+            </DoubleAnimation>-->
 
             <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="FullLayer" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase EasingMode="EaseIn"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
-            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="rectangle" d:IsOptimized="True">
+            <!--<DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="rectangle" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase EasingMode="EaseIn"/>
                 </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
+            </DoubleAnimation>-->
         </Storyboard>
 
     </UserControl.Resources>

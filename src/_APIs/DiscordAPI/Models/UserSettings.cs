@@ -108,7 +108,7 @@ namespace DiscordAPI.Models
     public class ChannelOverride
     {
         [JsonProperty("channel_id")]
-        public string Channel_Id { get; set; }
+        public string ChannelId { get; set; }
 
         [JsonProperty("muted")]
         public bool Muted { get; set; }

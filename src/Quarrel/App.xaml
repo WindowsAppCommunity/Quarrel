@@ -43,6 +43,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Brushes.xaml"/>
                 <ResourceDictionary Source="Resources/MiscResources.xaml"/>
+                <ResourceDictionary Source="Styles/ListViewItemStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -5,11 +5,19 @@
     xmlns:local="using:Quarrel.Controls.Shell"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="using:Quarrel.Views"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
     <Grid>
-        <local:SideDrawer x:Name="ContentContainer"/>
+        <local:SideDrawer x:Name="ContentContainer">
+            <local:SideDrawer.ContentLeft>
+                <views:GuildView/>
+            </local:SideDrawer.ContentLeft>
+            <local:SideDrawer.ContentLeftSecondary>
+                <views:ChannelView/>
+            </local:SideDrawer.ContentLeftSecondary>
+        </local:SideDrawer>
     </Grid>
 </UserControl>

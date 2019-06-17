@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿// Special thanks to Sergio Pedri for the basis of this design
+
+using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 using DiscordAPI.Gateway;
 using System;
@@ -38,7 +40,8 @@ namespace Quarrel.Services.Gateway
 
         private void Gateway_Ready(object sender, GatewayEventArgs<Ready> e)
         {
-            Messenger.Default.Send(new GatewayReadyMessage(e.EventData));
+            e.EventData.Cache();
+            Messenger.Default.Send(new GatewayReadyMessage());
         }
 
         #endregion

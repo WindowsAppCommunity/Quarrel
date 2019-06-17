@@ -11,7 +11,7 @@
     <AssemblyName>Quarrel</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17763.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -28,6 +28,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -40,6 +41,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -51,6 +53,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <OutputPath>bin\ARM\Release\</OutputPath>
@@ -63,6 +66,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
     <DebugSymbols>true</DebugSymbols>
@@ -75,6 +79,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
     <OutputPath>bin\ARM64\Release\</OutputPath>
@@ -87,6 +92,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -98,6 +104,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -110,6 +117,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
@@ -117,6 +125,9 @@
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Channels\ChannelTemplate.xaml.cs">
+      <DependentUpon>ChannelTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Guilds\GuildTemplate.xaml.cs">
       <DependentUpon>GuildTemplate.xaml</DependentUpon>
@@ -130,18 +141,42 @@
     <Compile Include="Controls\Shell\SideDrawer.xaml.cs">
       <DependentUpon>SideDrawer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\UI\Base\NotBoolToBoolConverter.cs" />
+    <Compile Include="Converters\UI\Base\NotBoolToVisibiltyConverter.cs" />
+    <Compile Include="Converters\UI\Base\UriToImageSourceConverter.cs" />
+    <Compile Include="Converters\UI\Channel\MutedToOpacityConverter.cs" />
+    <Compile Include="Converters\UI\Channel\TypeToBrushConverter.cs" />
+    <Compile Include="Converters\UI\Channel\TypeToMinHeight.cs" />
+    <Compile Include="Converters\UI\Guild\MutedToOpacityConverter.cs" />
+    <Compile Include="Extensions\DiscordAPI.Gateway.DownstreamEvents\ReadyExtenions.cs" />
+    <Compile Include="Extensions\System.Collections.Generic\IEnumerableExtensions.cs" />
+    <Compile Include="Extensions\System\NumericExtensions.cs" />
+    <Compile Include="Extensions\System\StringExtensions.cs" />
+    <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Messages\Gateway\GatewayReadyMessage.cs" />
+    <Compile Include="Messages\Navigation\GuildNavigateMessage.cs" />
     <Compile Include="Models\Bindables\Abstract\BindableModelBase.cs" />
     <Compile Include="Models\Bindables\BindableChannel.cs" />
     <Compile Include="Models\Bindables\BindableGuild.cs" />
     <Compile Include="Models\Bindables\BindableMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Cache\CacheService.cs" />
+    <Compile Include="Services\Cache\ICacheService.cs" />
+    <Compile Include="Services\Cache\Persistant\CacheLocation.cs" />
+    <Compile Include="Services\Cache\Persistant\IPersistentCacheService.cs" />
+    <Compile Include="Services\Cache\Persistant\PersistentCacheService.cs" />
+    <Compile Include="Services\Cache\Runtime\IRuntimeCacheService.cs" />
+    <Compile Include="Services\Cache\Runtime\RuntimeCacheService.cs" />
     <Compile Include="Services\Gateway\GatewayService.cs" />
     <Compile Include="Services\Gateway\IGatewayService.cs" />
     <Compile Include="Services\Rest\DiscordService.cs" />
     <Compile Include="Services\Rest\IDiscordService.cs" />
     <Compile Include="Services\ServicesManager.cs" />
+    <Compile Include="ViewModels\ChannelViewModel.cs" />
     <Compile Include="ViewModels\GuildViewModel.cs" />
+    <Compile Include="Views\ChannelView.xaml.cs">
+      <DependentUpon>ChannelView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GuildView.xaml.cs">
       <DependentUpon>GuildView.xaml</DependentUpon>
     </Compile>
@@ -165,9 +200,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\Channels\" />
     <Folder Include="Controls\Messages\Embeds\" />
-    <Folder Include="Converters\" />
     <Folder Include="Models\Bindables\Base\" />
     <Folder Include="SubPages\" />
   </ItemGroup>
@@ -176,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\Channels\ChannelTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Guilds\GuildTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -201,6 +238,14 @@
     <Page Include="Resources\MiscResources.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ListViewItemStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChannelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GuildView.xaml">
       <SubType>Designer</SubType>

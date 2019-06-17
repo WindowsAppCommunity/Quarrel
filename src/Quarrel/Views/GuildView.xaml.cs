@@ -1,4 +1,4 @@
-﻿using Quarrel.ViewModels;
+﻿using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +13,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Quarrel.Messages.Navigation;
+using Quarrel.Models.Bindables;
+using Quarrel.ViewModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -23,8 +26,14 @@ namespace Quarrel.Views
         public GuildView()
         {
             this.InitializeComponent();
+            DataContext = new GuildViewModel();
         }
 
-        private GuildViewModel ViewModel => DataContext as GuildViewModel;
+        public GuildViewModel ViewModel => DataContext as GuildViewModel;
+
+        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Messenger.Default.Send(new GuildNavigateMessage((e.ClickedItem as BindableGuild).Model.Id));
+        }
     }
 }

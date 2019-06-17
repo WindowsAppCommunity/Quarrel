@@ -1,9 +1,10 @@
-﻿using Quarrel.Models.Bindables;
+﻿using Quarrel.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UICompositionAnimations.Brushes;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -16,19 +17,16 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Quarrel.Controls.Guilds
+namespace Quarrel.Views
 {
-    public sealed partial class GuildTemplate : UserControl
+    public sealed partial class ChannelView : UserControl
     {
-        public GuildTemplate()
+        public ChannelView()
         {
             this.InitializeComponent();
-            this.DataContextChanged += (s, e) =>
-            {
-                this.Bindings.Update();
-            };
+            DataContext = new ChannelViewModel();
         }
 
-        public BindableGuild ViewModel => DataContext as BindableGuild;
+        public ChannelViewModel ViewModel => DataContext as ChannelViewModel;
     }
 }

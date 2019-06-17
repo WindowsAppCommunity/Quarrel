@@ -6,24 +6,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Quarrel.Helpers;
-using Quarrel.Models.Bindables;
 using Quarrel.Messages.Gateway;
+using Quarrel.Messages.Navigation;
+using Quarrel.Models.Bindables;
 using Quarrel.Services;
-using Quarrel.Services.Cache;
-using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using UICompositionAnimations.Helpers;
 
 namespace Quarrel.ViewModels
 {
-    public class GuildViewModel
+    public class ChannelViewModel
     {
-        public GuildViewModel()
+        public ChannelViewModel()
         {
-            Messenger.Default.Register<GatewayReadyMessage>(this, async _ =>
+            Messenger.Default.Register<GuildNavigateMessage>(this, async m =>
             {
                 await DispatcherHelper.RunAsync(() =>
                 {
-                    var itemList = ServicesManager.Cache.Runtime.TryGetValue<List<BindableGuild>>(Constants.Cache.Keys.GuildList);
+                    Source.Clear();
+                    var itemList = ServicesManager.Cache.Runtime.TryGetValue<List<BindableChannel>>(Constants.Cache.Keys.ChannelList, m.GuildId);
                     foreach (var item in itemList)
                     {
                         Source.Add(item);
@@ -32,6 +32,6 @@ namespace Quarrel.ViewModels
             });
         }
 
-        public ObservableCollection<BindableGuild> Source { get; private set; } = new ObservableCollection<BindableGuild>();
+        public ObservableCollection<BindableChannel> Source { get; private set; } = new ObservableCollection<BindableChannel>();
     }
 }

@@ -1,4 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿// Special thanks to Sergio Pedri for the basis of this design
+
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;

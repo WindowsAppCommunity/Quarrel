@@ -23,8 +23,12 @@ namespace Quarrel.Controls.Shell
         public Shell()
         {
             this.InitializeComponent();
+
+            // Setup SideDrawer
             ContentContainer.SetupInteraction();
-            ServicesManager.Discord.Login("<username>", "<password>");
+
+            // Setup Discord Service
+            ServicesManager.Discord.Login("<email>", "<password>");
         }
     }
 }

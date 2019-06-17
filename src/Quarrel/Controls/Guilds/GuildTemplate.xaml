@@ -5,9 +5,12 @@
     xmlns:local="using:Quarrel.Controls.Guilds"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:convertbase="using:Quarrel.Converters.UI.Base"
+    xmlns:convertguild="using:Quarrel.Converters.UI.Guild"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignHeight="60"
+    d:DesignWidth="72">
     <UserControl.Resources>
         <Storyboard x:Name="ShowBadge">
             <DoubleAnimation Duration="0:0:0.6" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border" d:IsOptimized="True">
@@ -77,23 +80,31 @@
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
+
+        <convertbase:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
+        <convertbase:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
+        <convertguild:MutedToOpacityConverter x:Key="MutedToOpacityConverter"/>
     </UserControl.Resources>
+    
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0,4" Margin="5,0,0,0">
-        <Border x:Name="SelectIndicator" Opacity="0" BorderBrush="{Binding Background, ElementName=UnreadIndicator}" BorderThickness="3,0,0,0" HorizontalAlignment="Stretch" Margin="-12,-6">
+        <Border x:Name="SelectIndicator" Opacity="0" BorderThickness="3,0,0,0" HorizontalAlignment="Stretch" Margin="-12,-6">
             <Border.Background>
                 <SolidColorBrush Opacity="0.2" Color="{ThemeResource SystemAccentColor}"/>
             </Border.Background>
         </Border>
         <Border x:Name="UnreadIndicator" Visibility="Collapsed" Height="12" Width="3" Opacity="0.75" Background="{ThemeResource Foreground}" Margin="-12,2,4,0" HorizontalAlignment="Left"/>
         <Rectangle x:Name="GuildImageBackdrop" Width="50" Height="50" RadiusX="25" RadiusY="25" Fill="{ThemeResource Foreground}" Opacity="0.1"/>
-        <Rectangle x:Name="GuildImage" Width="50" Height="50" RadiusX="25" RadiusY="25">
+        <Rectangle Width="50" Height="50" RadiusX="25" RadiusY="25" Visibility="{x:Bind ViewModel.HasIcon, Mode=OneWay}" Opacity="{x:Bind ViewModel.Muted, Converter={StaticResource MutedToOpacityConverter}, Mode=OneWay}">
+            <animations:Implicit.Animations>
+                <animations:OpacityAnimation Duration="0:0:0.3"/>
+            </animations:Implicit.Animations>
             <Rectangle.Fill>
-                <ImageBrush x:Name="GuildImageBrush"/>
+                <ImageBrush x:Name="GuildImageBrush" ImageSource="{x:Bind ViewModel.IconUri, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
             </Rectangle.Fill>
         </Rectangle>
         <TextBlock x:Name="InvalidOverlay" Visibility="Collapsed" Text="" FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <TextBlock Visibility="Visible" Foreground="{ThemeResource Foreground}" x:Name="TextIcon" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Light" Margin="0,-2,0,0"/>
+        <TextBlock Visibility="{x:Bind ViewModel.HasIcon, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Foreground="{ThemeResource Foreground}" Text="{x:Bind ViewModel.Model.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Light" Margin="0,-2,0,0"/>
 
         <TextBlock Visibility="Collapsed" x:Name="DMView" FontFamily="Segoe MDL2 Assets" Text="" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
@@ -110,6 +121,14 @@
                 </TextBlock.RenderTransform>
             </TextBlock>
         </Border>
-        <SymbolIcon x:Name="MutedIcon" Visibility="Collapsed" Canvas.ZIndex="20" Symbol="Mute" Foreground="{ThemeResource Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,2,0,0" Opacity="0"/>
+        
+        <SymbolIcon Visibility="{x:Bind ViewModel.Muted}" Canvas.ZIndex="20" Symbol="Mute" Foreground="{ThemeResource Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,2,0,0">
+            <animations:Implicit.ShowAnimations>
+                <animations:OpacityAnimation Duration="0:0:0.3" From="0" To="1"/>
+            </animations:Implicit.ShowAnimations>
+            <animations:Implicit.HideAnimations>
+                <animations:OpacityAnimation Duration="0:0:0.3" From="1" To="0"/>
+            </animations:Implicit.HideAnimations>
+        </SymbolIcon>
     </Grid>
 </UserControl>

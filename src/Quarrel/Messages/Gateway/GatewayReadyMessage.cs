@@ -10,11 +10,7 @@ namespace Quarrel.Messages.Gateway
 {
     public sealed class GatewayReadyMessage
     {
-        public GatewayReadyMessage(Ready ready)
-        {
-            Ready = ready;
-        }
-
-        public Ready Ready { get; }
+        public GatewayReadyMessage()
+        { }
     }
 }

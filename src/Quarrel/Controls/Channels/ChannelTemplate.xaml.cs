@@ -16,11 +16,11 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Quarrel.Controls.Guilds
+namespace Quarrel.Controls.Channels
 {
-    public sealed partial class GuildTemplate : UserControl
+    public sealed partial class ChannelTemplate : UserControl
     {
-        public GuildTemplate()
+        public ChannelTemplate()
         {
             this.InitializeComponent();
             this.DataContextChanged += (s, e) =>
@@ -29,6 +29,6 @@ namespace Quarrel.Controls.Guilds
             };
         }
 
-        public BindableGuild ViewModel => DataContext as BindableGuild;
+        public BindableChannel ViewModel => DataContext as BindableChannel;
     }
 }

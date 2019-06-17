@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Quarrel.Services.Gateway;
+using Quarrel.Services.Cache;
 
 namespace Quarrel.Services
 {
@@ -18,6 +19,12 @@ namespace Quarrel.Services
         /// </summary>
         [NotNull]
         public static IDiscordService Discord { get; } = new DiscordService();
+
+        /// <summary>
+        /// Gets the default <see cref="IDiscordService"/> implementation (see <see cref="DiscordService"/>)
+        /// </summary>
+        [NotNull]
+        public static ICacheService Cache { get; } = new CacheService();
 
     }
 }

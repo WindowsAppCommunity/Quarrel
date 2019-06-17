@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using Quarrel.Messages.Gateway;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using UICompositionAnimations.Helpers;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -23,6 +26,13 @@ namespace Quarrel.Controls.Shell
         public ExtendedSplashScreen()
         {
             this.InitializeComponent();
+            Messenger.Default.Register<GatewayReadyMessage>(this, async _ => 
+            {
+                await DispatcherHelper.RunAsync(() => 
+                {
+                    LoadOut.Begin();
+                });
+            });
         }
 
         public void InitializeAnimation(SplashScreen ogSplash)
