@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Quarrel.Models.Bindables.Abstract;
+using System.ComponentModel;
 
 namespace Quarrel.Models.Bindables
 {
@@ -72,7 +73,7 @@ namespace Quarrel.Models.Bindables
         #region Misc
         public string ParentId
         {
-            get { return Model is GuildChannel gcModel ? gcModel.ParentId : null; }
+            get { return Model is GuildChannel gcModel ? (IsCategory ? gcModel.Id : gcModel.ParentId ) : null; }
         }
 
         public int Position
@@ -94,6 +95,28 @@ namespace Quarrel.Models.Bindables
                 return Model.Name;
             }
         }
+
+        #endregion
+
+        #region Display
+
+        private bool _Collapsed;
+
+        public bool Hidden
+        {
+            get => IsCategory ? false : _Collapsed;
+        }
+
+        public bool Collapsed
+        {
+            get => _Collapsed;
+            set
+            {
+                if (Set(ref _Collapsed, value))
+                    RaisePropertyChanged(nameof(Hidden));
+            }
+        }
+
         #endregion
     }
 }

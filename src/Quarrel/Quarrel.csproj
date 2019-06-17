@@ -126,6 +126,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Channels\CategoryChveron.xaml.cs">
+      <DependentUpon>CategoryChveron.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Channels\ChannelTemplate.xaml.cs">
       <DependentUpon>ChannelTemplate.xaml</DependentUpon>
     </Compile>
@@ -209,6 +212,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\Channels\CategoryChveron.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Channels\ChannelTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

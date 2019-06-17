@@ -1,4 +1,7 @@
-﻿using Quarrel.ViewModels;
+﻿using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Messaging;
+using Quarrel.Models.Bindables;
+using Quarrel.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,5 +31,18 @@ namespace Quarrel.Views
         }
 
         public ChannelViewModel ViewModel => DataContext as ChannelViewModel;
+
+        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            bool newState = !(e.ClickedItem as BindableChannel).Collapsed;
+            for (int i = ChannelList.Items.IndexOf(e.ClickedItem); 
+                i < ChannelList.Items.Count
+                && (ChannelList.Items[i] is BindableChannel bChannel) 
+                && bChannel.ParentId == (e.ClickedItem as BindableChannel).Model.Id;
+                i++)
+            {
+                bChannel.Collapsed = newState;
+            }
+        }
     }
 }

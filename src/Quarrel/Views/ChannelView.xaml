@@ -11,8 +11,10 @@
     d:DesignWidth="400">
 
     <Grid>
-        <ListView ItemsSource="{x:Bind ViewModel.Source}"
-                  ItemContainerStyle="{StaticResource ChannelListItemStyle}">
+        <ListView x:Name="ChannelList"
+                  ItemsSource="{x:Bind ViewModel.Source}"
+                  ItemContainerStyle="{StaticResource ChannelListItemStyle}"
+                  IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <channelcontrol:ChannelTemplate/>
