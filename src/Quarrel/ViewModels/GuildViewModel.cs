@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Data;
 using Quarrel.Helpers;
 using Quarrel.Models.Bindables;
 using Quarrel.Messages.Gateway;
@@ -12,6 +13,7 @@ using Quarrel.Services;
 using Quarrel.Services.Cache;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using UICompositionAnimations.Helpers;
+using DiscordAPI.Models;
 
 namespace Quarrel.ViewModels
 {
@@ -23,14 +25,21 @@ namespace Quarrel.ViewModels
             {
                 await DispatcherHelper.RunAsync(() =>
                 {
-                    var itemList = ServicesManager.Cache.Runtime.TryGetValue<List<BindableGuild>>(Constants.Cache.Keys.GuildList);
-                    foreach (var item in itemList)
+                    // Load guild list
+                    var guildList = ServicesManager.Cache.Runtime.TryGetValue<List<BindableGuild>>(Constants.Cache.Keys.GuildList);
+
+                    // Show guilds
+                    foreach (var guild in guildList)
                     {
-                        Source.Add(item);
+                        Source.Add(guild);
                     }
                 });
             });
+
+            ViewSource = new CollectionViewSource() { Source = this.Source };
         }
+
+        public CollectionViewSource ViewSource { get; }
 
         public ObservableCollection<BindableGuild> Source { get; private set; } = new ObservableCollection<BindableGuild>();
     }

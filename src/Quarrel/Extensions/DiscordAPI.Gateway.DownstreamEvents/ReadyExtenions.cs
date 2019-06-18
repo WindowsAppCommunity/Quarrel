@@ -36,6 +36,30 @@ namespace DiscordAPI.Gateway.DownstreamEvents
             #region Guilds and Channels
 
             List<BindableGuild> guildList = new List<BindableGuild>();
+
+
+            // Add DM
+            var dmGuild = new BindableGuild(new Guild() { Name = "DM", Id = "DM" });
+            guildList.Add(dmGuild);
+
+            // Add DM channels
+            if (ready.PrivateChannels != null && ready.PrivateChannels.Count() > 0)
+            {
+                List<BindableChannel> channelList = new List<BindableChannel>();
+
+                foreach (var channel in ready.PrivateChannels)
+                {
+                    BindableChannel bChannel = new BindableChannel(channel);
+                    channelList.Add(bChannel);
+                }
+
+                // Sort by last message timestamp
+                channelList = channelList.OrderByDescending(x => Convert.ToUInt64(x.Model.LastMessageId)).ToList();
+
+                ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.ChannelList, channelList, "DM");
+            }
+
+
             foreach (var guild in ready.Guilds)
             {
                 BindableGuild bGuild = new BindableGuild(guild);

@@ -38,7 +38,7 @@ namespace DiscordAPI.Models
                     cache += ", " + user.Username;
                 }
             }
-            return cache;
+            return string.IsNullOrEmpty(cache) ? "Unnamed" : cache;
         }
     }
 }

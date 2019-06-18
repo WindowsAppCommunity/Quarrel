@@ -22,6 +22,7 @@ using Quarrel.Services.Gateway;
 using DiscordAPI.API;
 using DiscordAPI.Authentication;
 using Windows.Networking.Connectivity;
+using System.Collections;
 
 namespace Quarrel.Services.Rest
 {
@@ -101,6 +102,12 @@ namespace Quarrel.Services.Rest
 
             Gateway.InitializeGateway(_AccessToken);
         }
+
+        #endregion
+
+        #region Channel
+
+
 
         #endregion
     }
