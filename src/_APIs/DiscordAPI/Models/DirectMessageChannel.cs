@@ -18,6 +18,8 @@ namespace DiscordAPI.Models
         [JsonProperty("recipients")]
         public List<User> Users { get; set; }
 
+        [JsonProperty("icon")]
+        public string Icon { get; set; }
         public override string Name
         {
             get { return _name == null ? NameFromUsers() : _name; }

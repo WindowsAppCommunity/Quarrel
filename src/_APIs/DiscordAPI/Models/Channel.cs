@@ -31,9 +31,6 @@ namespace DiscordAPI.Models
         [JsonProperty("type")]
         public int Type { get; set; }
 
-        [JsonProperty("icon")]
-        public string Icon { get; set; }
-
         [JsonProperty("last_message_id")]
         public string LastMessageId { get; set; }
 

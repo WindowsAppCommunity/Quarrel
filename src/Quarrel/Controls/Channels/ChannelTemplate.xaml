@@ -38,6 +38,7 @@
         </Storyboard>
 
         <convertbase:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
+        <convertbase:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
         <convertchannel:MutedToOpacityConverter x:Key="MutedToOpacityConverter"/>
         <convertchannel:TypeToBrushConverter x:Key="TypeToBrushConverter"/>
         <convertchannel:TypeToMinHeightConverter x:Key="TypeToMinHeightConverter"/>
@@ -76,10 +77,10 @@
                 </TextBlock.RenderTransform>
             </TextBlock>
         </Grid>
-        <Rectangle Visibility="Collapsed" x:Name="ChannelImageBackdrop" Width="36" Height="36"  Margin="0,6,6,6" RadiusX="18" RadiusY="18" Opacity="1"/>
-        <Rectangle Visibility="Collapsed" x:Name="ChannelImage" Width="36" Height="36" Margin="0,6,6,6" RadiusX="18" RadiusY="18">
+        <Rectangle Visibility="{x:Bind ViewModel.IsPrivateChannel}" x:Name="ChannelImageBackdrop" Width="36" Height="36"  Margin="0,6,6,6" RadiusX="18" RadiusY="18" Opacity="1"/>
+        <Rectangle Visibility="{x:Bind ViewModel.IsPrivateChannel}" x:Name="ChannelImage" Width="36" Height="36" Margin="0,6,6,6" RadiusX="18" RadiusY="18">
             <Rectangle.Fill>
-                <ImageBrush x:Name="ChannelImageBrush"/>
+                <ImageBrush x:Name="ChannelImageBrush" ImageSource="{x:Bind ViewModel.ImageUri, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
             </Rectangle.Fill>
         </Rectangle>
         <!--<Rectangle Visibility="Collapsed" x:Name="rectangle" Fill="#43b581" StrokeThickness="2" Stroke="{ThemeResource LightBG}" Width="14" Height="14" RadiusX="6" RadiusY="6"  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,24,4,0" RenderTransformOrigin="0.5,0.5">

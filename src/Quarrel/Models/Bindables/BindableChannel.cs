@@ -30,6 +30,8 @@ namespace Quarrel.Models.Bindables
 
         public bool IsCategory { get { return Model.Type == 4; } }
 
+        public bool IsPrivateChannel { get { return IsDirectChannel || IsGroupChannel; } }
+
         #endregion
 
         #region Settings
@@ -117,6 +119,22 @@ namespace Quarrel.Models.Bindables
             }
         }
 
+        public Uri ImageUri
+        {
+            get
+            {
+                if (IsDirectChannel)
+                {
+                    return (Model as DirectMessageChannel).Users[0].AvatarUri();
+                }
+                else if (IsGroupChannel)
+                {
+                    return null;
+                }
+
+                return null;
+            }
+        }
         #endregion
     }
 }

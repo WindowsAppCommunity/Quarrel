@@ -29,5 +29,21 @@ namespace DiscordAPI.Models
         public int Flags { get; set; }
         [JsonProperty("premium")]
         public bool Premium { get; set; }
+        
+
+        public string AvatarUrl(string suffix = "")
+        {
+            if (String.IsNullOrEmpty(Avatar))
+                return "ms-appx:///Assets/DiscordIcon-old.png";
+            else if (Avatar.StartsWith("a_"))
+                return "https://cdn.discordapp.com/avatars/" + Id + "/" + Avatar + ".gif" + suffix;
+            else
+                return "https://cdn.discordapp.com/avatars/" + Id + "/" + Avatar + ".png" + suffix;
+        }
+
+        public Uri AvatarUri(string suffix = "")
+        {
+            return new Uri(AvatarUrl(suffix));
+        }
     }
 }
