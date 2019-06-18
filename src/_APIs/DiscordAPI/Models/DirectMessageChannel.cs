@@ -42,5 +42,15 @@ namespace DiscordAPI.Models
             }
             return string.IsNullOrEmpty(cache) ? "Unnamed" : cache;
         }
+
+        public string IconUrl()
+        {
+            return "https://cdn.discordapp.com/channel-icons/" + Id + "/" + Icon + ".png";
+        }
+
+        public Uri IconUri()
+        {
+            return new Uri(IconUrl());
+        }
     }
 }

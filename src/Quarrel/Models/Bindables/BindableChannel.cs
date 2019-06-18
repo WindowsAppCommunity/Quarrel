@@ -123,13 +123,16 @@ namespace Quarrel.Models.Bindables
         {
             get
             {
-                if (IsDirectChannel)
+                if (Model is DirectMessageChannel dmModel)
                 {
-                    return (Model as DirectMessageChannel).Users[0].AvatarUri();
-                }
-                else if (IsGroupChannel)
-                {
-                    return null;
+                    if (IsDirectChannel)
+                    {
+                        return dmModel.Users[0].AvatarUri();
+                    }
+                    else if (IsGroupChannel)
+                    {
+                        return dmModel.IconUri();
+                    }
                 }
 
                 return null;
