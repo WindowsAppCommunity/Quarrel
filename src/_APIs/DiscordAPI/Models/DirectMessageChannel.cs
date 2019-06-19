@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace DiscordAPI.Models
 {
@@ -43,14 +44,25 @@ namespace DiscordAPI.Models
             return string.IsNullOrEmpty(cache) ? "Unnamed" : cache;
         }
 
-        public string IconUrl()
+        public string IconUrl(bool useDefault = true, bool darkTheme = false)
         {
-            return "https://cdn.discordapp.com/channel-icons/" + Id + "/" + Icon + ".png";
+            if (Icon != null)
+            {
+                return "https://cdn.discordapp.com/channel-icons/" + Id + "/" + Icon + ".png";
+            }
+
+            if (useDefault)
+            {
+                return "ms-appx:///Assets/DefaultAvatars/Group_" + (darkTheme ? "dark" : "light") + ".png";
+            }
+
+            return null;
         }
 
-        public Uri IconUri()
+        public Uri IconUri(bool useDefault = true, bool darkTheme = false)
         {
-            return new Uri(IconUrl());
+            var url = IconUrl(useDefault, darkTheme);
+            return url != null ? new Uri(url) : null;
         }
     }
 }

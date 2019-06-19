@@ -119,6 +119,26 @@ namespace Quarrel.Models.Bindables
             }
         }
 
+        public bool HasIcon
+        {
+            get
+            {
+                if (Model is DirectMessageChannel dmModel)
+                {
+                    if (IsDirectChannel)
+                    {
+                        return dmModel.Users[0].AvatarUri(false) != null;
+                    }
+                    else if (IsGroupChannel)
+                    {
+                        return dmModel.IconUri(false) == null;
+                    }
+                }
+
+                return false;
+            }
+        }
+
         public Uri ImageUri
         {
             get
@@ -131,12 +151,22 @@ namespace Quarrel.Models.Bindables
                     }
                     else if (IsGroupChannel)
                     {
-                        return dmModel.IconUri();
+                        return dmModel.IconUri(true, App.Current.RequestedTheme == Windows.UI.Xaml.ApplicationTheme.Dark);
                     }
                 }
 
                 return null;
             }
+        }
+
+        public int FirstUserDiscriminator
+        {
+            get => Model is DirectMessageChannel dmModel ? (dmModel.Users.Count > 0 ? Convert.ToInt32(dmModel.Users[0].Discriminator) : 0) : 0;
+        }
+
+        public bool ShowIconBackdrop
+        {
+            get => IsDirectChannel && !HasIcon;
         }
         #endregion
     }

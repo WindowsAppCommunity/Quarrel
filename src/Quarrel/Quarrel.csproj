@@ -146,10 +146,12 @@
     </Compile>
     <Compile Include="Converters\UI\Base\NotBoolToBoolConverter.cs" />
     <Compile Include="Converters\UI\Base\NotBoolToVisibiltyConverter.cs" />
+    <Compile Include="Converters\UI\Base\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\UI\Base\UriToImageSourceConverter.cs" />
     <Compile Include="Converters\UI\Channel\MutedToOpacityConverter.cs" />
     <Compile Include="Converters\UI\Channel\TypeToBrushConverter.cs" />
     <Compile Include="Converters\UI\Channel\TypeToMinHeight.cs" />
+    <Compile Include="Converters\UI\Discord\DiscriminatorToBrush.cs" />
     <Compile Include="Converters\UI\Guild\MutedToOpacityConverter.cs" />
     <Compile Include="Extensions\DiscordAPI.Gateway.DownstreamEvents\ReadyExtenions.cs" />
     <Compile Include="Extensions\System.Collections.Generic\IEnumerableExtensions.cs" />
@@ -197,6 +199,9 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\DefaultAvatars\Group_dark.png" />
+    <Content Include="Assets\DefaultAvatars\Group_light.png" />
+    <Content Include="Assets\DefaultAvatars\QuarrelClassicIcon.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
