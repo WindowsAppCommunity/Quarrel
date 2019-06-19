@@ -22,6 +22,7 @@ namespace Quarrel.Helpers
                 public const string ChannelList = nameof(ChannelList);
                 public const string GuildSettings = nameof(GuildSettings);
                 public const string ChannelSettings = nameof(ChannelSettings);
+                public const string ReadState = nameof(ReadState);
             }
         }
     }

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Quarrel.Models.Bindables.Abstract;
+using Quarrel.Services;
 using System.ComponentModel;
 
 namespace Quarrel.Models.Bindables
@@ -139,6 +140,24 @@ namespace Quarrel.Models.Bindables
             }
         }
 
+        public bool ShowUnread
+        {
+            get => IsUnread && !Muted;
+        }
+
+        public double TextOpacity
+        {
+            get
+            {
+                if (Muted)
+                    return 0.35;
+                else if (IsUnread)
+                    return 1;
+                else
+                    return 0.55;
+            }
+        }
+
         public Uri ImageUri
         {
             get
@@ -168,6 +187,25 @@ namespace Quarrel.Models.Bindables
         {
             get => IsDirectChannel && !HasIcon;
         }
+        #endregion
+
+        #region ReadState
+
+        public bool IsUnread
+        {
+            get => ReadState == null ? false : Convert.ToUInt64(ReadState.LastMessageId) < Convert.ToUInt64(Model.LastMessageId);
+        }
+
+        public int MentionCount
+        {
+            get => ReadState == null ? 0 : ReadState.MentionCount;
+        }
+
+        ReadState ReadState
+        {
+            get => ServicesManager.Cache.Runtime.TryGetValue<ReadState>(Quarrel.Helpers.Constants.Cache.Keys.ReadState, Model.Id);
+        }
+
         #endregion
     }
 }

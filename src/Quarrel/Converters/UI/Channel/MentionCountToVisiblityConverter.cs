@@ -7,11 +7,11 @@ namespace Quarrel.Converters.UI.Channel
     /// <summary>
     /// 
     /// </summary>
-    public sealed class MutedToOpacityConverter : IValueConverter
+    public sealed class MentionCountToVisiblityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return ((bool)value ? 0.35 : 0.55);
+            return (int)value > 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

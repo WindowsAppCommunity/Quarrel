@@ -31,8 +31,6 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
             #endregion
 
-
-
             #region Guilds and Channels
 
             List<BindableGuild> guildList = new List<BindableGuild>();
@@ -104,9 +102,18 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
             guildList = guildList.OrderBy(x => x.Position).ToList();
 
+            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildList, guildList);
+
             #endregion
 
-            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildList, guildList);
+            #region ReadStates
+
+            foreach (var state in ready.ReadStates)
+            {
+                ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.ReadState, state, state.Id);
+            }
+
+            #endregion
         }
     }
 }

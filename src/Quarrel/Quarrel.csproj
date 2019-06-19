@@ -148,7 +148,7 @@
     <Compile Include="Converters\UI\Base\NotBoolToVisibiltyConverter.cs" />
     <Compile Include="Converters\UI\Base\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\UI\Base\UriToImageSourceConverter.cs" />
-    <Compile Include="Converters\UI\Channel\MutedToOpacityConverter.cs" />
+    <Compile Include="Converters\UI\Channel\MentionCountToVisiblityConverter.cs" />
     <Compile Include="Converters\UI\Channel\TypeToBrushConverter.cs" />
     <Compile Include="Converters\UI\Channel\TypeToMinHeight.cs" />
     <Compile Include="Converters\UI\Discord\DiscriminatorToBrush.cs" />
