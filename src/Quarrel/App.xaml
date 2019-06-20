@@ -16,7 +16,7 @@
                     BackgroundSource="HostBackdrop"
                     TintColor="#FF33353b"
                     TintOpacity="1"
-                    FallbackColor="#FF222529"/>
+                    FallbackColor="#FF33353b"/>
                     
                     <AcrylicBrush x:Key="AcrylicChannelPaneBackground"
                     BackgroundSource="HostBackdrop"
