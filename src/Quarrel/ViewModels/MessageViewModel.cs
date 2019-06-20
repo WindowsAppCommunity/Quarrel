@@ -25,7 +25,7 @@ namespace Quarrel.ViewModels
                     var itemList = await Services.ServicesManager.Discord.ChannelService.GetChannelMessages(m.ChannelId);
                     foreach (var item in itemList)
                     {
-                        _Source.Add(new BindableMessage(item));
+                        _Source.Add(new BindableMessage(item, m.GuildId));
                         RaisePropertyChanged(nameof(Source));
                     }
                 });

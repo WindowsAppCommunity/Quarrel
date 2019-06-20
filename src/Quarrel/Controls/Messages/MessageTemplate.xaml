@@ -11,6 +11,7 @@
     d:DesignWidth="400">
 
     <UserControl.Resources>
+        <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
     </UserControl.Resources>
     
@@ -36,7 +37,7 @@
         </Grid>
 
         <Grid Grid.Column="1">
-            <TextBlock Text="{x:Bind ViewModel.Model.User.Username, Mode=OneWay}"/>
+            <TextBlock Text="{x:Bind ViewModel.AuthorName, Mode=OneWay}" Foreground="{x:Bind ViewModel.AuthorColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}"/>
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="1">

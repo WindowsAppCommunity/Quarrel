@@ -23,6 +23,7 @@ namespace Quarrel.ViewModels
             {
                 await DispatcherHelper.RunAsync(() =>
                 {
+                    GuildId = m.GuildId;
                     Source.Clear();
                     var itemList = ServicesManager.Cache.Runtime.TryGetValue<List<BindableChannel>>(Constants.Cache.Keys.ChannelList, m.GuildId);
                     foreach (var item in itemList)
@@ -32,6 +33,8 @@ namespace Quarrel.ViewModels
                 });
             });
         }
+
+        public string GuildId;
 
         public ObservableCollection<BindableChannel> Source { get; private set; } = new ObservableCollection<BindableChannel>();
     }

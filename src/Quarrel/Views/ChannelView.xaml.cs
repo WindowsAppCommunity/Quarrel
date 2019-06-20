@@ -47,7 +47,7 @@ namespace Quarrel.Views
                 }
             } else
             {
-                Messenger.Default.Send(new Messages.Navigation.ChannelNavigateMessage((e.ClickedItem as BindableChannel).Model.Id));
+                Messenger.Default.Send(new Messages.Navigation.ChannelNavigateMessage((e.ClickedItem as BindableChannel).Model.Id, ViewModel.GuildId));
             }
         }
     }

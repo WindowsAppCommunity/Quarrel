@@ -147,6 +147,7 @@
     <Compile Include="Controls\Shell\SideDrawer.xaml.cs">
       <DependentUpon>SideDrawer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\UI\Base\IntColorToBrushConverter.cs" />
     <Compile Include="Converters\UI\Base\NotBoolToBoolConverter.cs" />
     <Compile Include="Converters\UI\Base\NotBoolToVisibiltyConverter.cs" />
     <Compile Include="Converters\UI\Base\NullToVisibilityConverter.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Models\Bindables\Abstract\BindableModelBase.cs" />
     <Compile Include="Models\Bindables\BindableChannel.cs" />
     <Compile Include="Models\Bindables\BindableGuild.cs" />
+    <Compile Include="Models\Bindables\BindableGuildMember.cs" />
     <Compile Include="Models\Bindables\BindableMessage.cs" />
     <Compile Include="Models\Interfaces\IGuild.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

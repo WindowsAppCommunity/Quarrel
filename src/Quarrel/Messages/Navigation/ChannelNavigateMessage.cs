@@ -9,11 +9,14 @@ namespace Quarrel.Messages.Navigation
 {
     public sealed class ChannelNavigateMessage
     {
-        public ChannelNavigateMessage(string channelId)
+        public ChannelNavigateMessage(string channelId, string guildId)
         {
             ChannelId = channelId;
+            GuildId = guildId;
         }
 
         public string ChannelId { get; }
+
+        public string GuildId { get; }
     }
 }

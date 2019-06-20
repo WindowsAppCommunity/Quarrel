@@ -72,6 +72,7 @@ namespace DiscordAPI.Gateway.DownstreamEvents
                 // Guild Order
                 bGuild.Position = ready.Settings.GuildOrder.IndexOf(x => x == bGuild.Model.Id);
 
+                // Guild Channels
                 List<BindableChannel> channelList = new List<BindableChannel>();
                 foreach (var channel in guild.Channels)
                 {
@@ -96,6 +97,21 @@ namespace DiscordAPI.Gateway.DownstreamEvents
                 ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.ChannelList, channelList, guild.Id);
 
                 bGuild.Model.Channels = null;
+
+                // Guild Members (Step #1)
+                // Full list from GuildMemberChunk
+                foreach (var user in guild.Members)
+                {
+                    BindableGuildMember bgMember = new BindableGuildMember(user);
+                    bgMember.GuildId = guild.Id;
+                    ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildMember, bgMember, guild.Id + user.User.Id);
+                }
+
+                // Guild Roles
+                foreach (var role in guild.Roles)
+                {
+                    ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildRole, role, guild.Id + role.Id);
+                }
 
                 guildList.Add(bGuild);
             }
