@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,7 +15,7 @@ using UICompositionAnimations.Helpers;
 
 namespace Quarrel.ViewModels
 {
-    public class ChannelViewModel
+    public class ChannelViewModel : ViewModelBase
     {
         public ChannelViewModel()
         {

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Quarrel.Models.Bindables;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -13,23 +13,22 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Quarrel.Messages.Navigation;
-using UICompositionAnimations.Helpers;
-using Quarrel.Models.Bindables;
-using Quarrel.ViewModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Quarrel.Views
+namespace Quarrel.Controls.Messages
 {
-    public sealed partial class MessageView : UserControl
+    public sealed partial class MessageTemplate : UserControl
     {
-        public MessageView()
+        public MessageTemplate()
         {
             this.InitializeComponent();
-            DataContext = new MessageViewModel();
+            this.DataContextChanged += (s, e) =>
+            {
+                this.Bindings.Update();
+            };
         }
 
-        public MessageViewModel ViewModels => DataContext as MessageViewModel;
+        public BindableMessage ViewModel => DataContext as BindableMessage;
     }
 }

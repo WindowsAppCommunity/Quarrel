@@ -34,14 +34,20 @@ namespace Quarrel.Views
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            bool newState = !(e.ClickedItem as BindableChannel).Collapsed;
-            for (int i = ChannelList.Items.IndexOf(e.ClickedItem); 
-                i < ChannelList.Items.Count
-                && (ChannelList.Items[i] is BindableChannel bChannel) 
-                && bChannel.ParentId == (e.ClickedItem as BindableChannel).Model.Id;
-                i++)
+            if ((e.ClickedItem as BindableChannel).IsCategory)
             {
-                bChannel.Collapsed = newState;
+                bool newState = !(e.ClickedItem as BindableChannel).Collapsed;
+                for (int i = ChannelList.Items.IndexOf(e.ClickedItem);
+                    i < ChannelList.Items.Count
+                    && (ChannelList.Items[i] is BindableChannel bChannel)
+                    && bChannel.ParentId == (e.ClickedItem as BindableChannel).Model.Id;
+                    i++)
+                {
+                    bChannel.Collapsed = newState;
+                }
+            } else
+            {
+                Messenger.Default.Send(new Messages.Navigation.ChannelNavigateMessage((e.ClickedItem as BindableChannel).Model.Id));
             }
         }
     }

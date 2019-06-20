@@ -1,0 +1,47 @@
+﻿<UserControl
+    x:Class="Quarrel.Controls.Messages.MessageTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Quarrel.Controls.Messages"
+    xmlns:baseconvert="using:Quarrel.Converters.UI.Base"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        
+        <Grid Grid.RowSpan="2" Padding="12,4">
+            <Rectangle Width="40" Height="40" 
+                       RadiusX="20" RadiusY="20"
+                       VerticalAlignment="Top">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <TextBlock Text="{x:Bind ViewModel.Model.User.Username, Mode=OneWay}"/>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <TextBlock Text="{x:Bind ViewModel.Model.Content}"
+                       TextWrapping="WrapWholeWords" FontWeight="SemiLight" Opacity="0.9"/>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -479,7 +479,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="ChannelListItemStyle" TargetType="ListViewItem" >
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="TabNavigation" Value="Local"/>
@@ -870,5 +870,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
 </ResourceDictionary>

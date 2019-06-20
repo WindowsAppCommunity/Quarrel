@@ -18,6 +18,9 @@
             <local:SideDrawer.ContentLeftSecondary>
                 <views:ChannelView/>
             </local:SideDrawer.ContentLeftSecondary>
+            <local:SideDrawer.ContentMain>
+                <views:MessageView/>
+            </local:SideDrawer.ContentMain>
         </local:SideDrawer>
     </Grid>
 </UserControl>

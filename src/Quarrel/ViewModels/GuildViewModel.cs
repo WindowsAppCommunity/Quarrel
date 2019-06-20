@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,7 +18,7 @@ using DiscordAPI.Models;
 
 namespace Quarrel.ViewModels
 {
-    public class GuildViewModel
+    public class GuildViewModel : ViewModelBase
     {
         public GuildViewModel()
         {

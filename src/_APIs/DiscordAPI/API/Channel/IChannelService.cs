@@ -29,7 +29,7 @@ namespace DiscordAPI.API.Channel
         Task<Message> GetChannelMessage([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId);
 
         [Get("/v6/channels/{channelId}/messages?limit={limit}")]
-        Task<IEnumerable<Message>> GetChannelMessages([AliasAs("channelId")] string channelId, [AliasAs("limit")] int limit = 1000);
+        Task<IEnumerable<Message>> GetChannelMessages([AliasAs("channelId")] string channelId, [AliasAs("limit")] int limit = 100);
 
         [Get("/v6/channels/{channelId}/messages?limit=50&before={messageId}")]
         Task<IEnumerable<Message>> GetChannelMessagesBefore([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId);

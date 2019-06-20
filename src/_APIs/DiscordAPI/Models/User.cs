@@ -55,5 +55,7 @@ namespace DiscordAPI.Models
             string url = AvatarUrl(useDefault, suffix);
             return url != null ? new Uri(url) : null;
         }
+
+        public Uri AvatarUriProperty => AvatarUri();
     }
 }
