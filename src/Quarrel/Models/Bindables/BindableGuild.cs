@@ -55,6 +55,33 @@ namespace Quarrel.Models.Bindables
 
         #region Icon
 
+        public string DisplayText
+        {
+            get
+            {
+                if (IsDM) { return ""; }
+                else
+                {
+                    string text = "";
+                    bool addNext = true;
+                    foreach (char c in Model.Name)
+                    {
+                        if (c == ' ')
+                        {
+                            addNext = true;
+                        }
+                        else
+                        {
+                            if (addNext)
+                                text += c;
+                            addNext = false;
+                        }
+                    }
+                    return text;
+                }
+            }
+        }
+
         public string IconUrl
         {
             get { return "https://cdn.discordapp.com/icons/" + Model.Id + "/" + Model.Icon + ".png"; }

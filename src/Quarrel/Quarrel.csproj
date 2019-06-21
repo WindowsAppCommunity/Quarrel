@@ -159,6 +159,7 @@
     <Compile Include="Converters\UI\Channel\TypeToBrushConverter.cs" />
     <Compile Include="Converters\UI\Channel\TypeToMinHeight.cs" />
     <Compile Include="Converters\UI\Discord\DiscriminatorToBrush.cs" />
+    <Compile Include="Converters\UI\Guild\IsDMToFontFamilyConverter.cs" />
     <Compile Include="Converters\UI\Guild\MutedToOpacityConverter.cs" />
     <Compile Include="Extensions\DiscordAPI.Gateway.DownstreamEvents\ReadyExtensions.cs" />
     <Compile Include="Extensions\DiscordAPI.Models\GuildMemberChunkExtensions.cs" />
