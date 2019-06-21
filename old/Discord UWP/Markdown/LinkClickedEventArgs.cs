@@ -12,7 +12,7 @@
 
 using System;
 using Windows.UI.Xaml.Documents;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 
 namespace Quarrel.MarkdownTextBlock
 {

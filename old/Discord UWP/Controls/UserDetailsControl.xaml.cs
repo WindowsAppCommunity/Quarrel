@@ -21,9 +21,9 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.Gateway;
-using DiscordAPI.Gateway.DownstreamEvents;
-using DiscordAPI.Models;
+using DiscordAPI.API.Gateway;
+using DiscordAPI.API.Gateway.DownstreamEvents;
+using DiscordAPI.SharedModels;
 
 namespace Quarrel.Controls
 {

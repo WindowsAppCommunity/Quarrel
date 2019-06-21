@@ -9,11 +9,11 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 
 using Quarrel.LocalModels;
-using DiscordAPI.Models;
-using DiscordAPI.Gateway;
-using DiscordAPI.Gateway.DownstreamEvents;
-using GuildChannel = DiscordAPI.Models.GuildChannel;
-using Guild = DiscordAPI.Models.Guild;
+using DiscordAPI.SharedModels;
+using DiscordAPI.API.Gateway;
+using DiscordAPI.API.Gateway.DownstreamEvents;
+using GuildChannel = DiscordAPI.SharedModels.GuildChannel;
+using Guild = DiscordAPI.SharedModels.Guild;
 
 namespace Quarrel.Managers
 {
@@ -260,7 +260,7 @@ namespace Quarrel.Managers
             #region GuildSettings (Notifications)
             if (e.EventData.GuildSettings != null)
             {
-                foreach (DiscordAPI.Models.GuildSetting guild in e.EventData.GuildSettings)
+                foreach (DiscordAPI.SharedModels.GuildSetting guild in e.EventData.GuildSettings)
                 {
                     if (guild.GuildId != null)
                     {

@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 
 namespace Quarrel.Flyouts
 {
@@ -211,7 +211,7 @@ namespace Quarrel.Flyouts
                 };
 
                 // Add Server's roles to Role SubItem
-                foreach (SharedModels.Role role in LocalState.Guilds[App.CurrentGuildId].roles.Values.OrderByDescending(x => x.Position))
+                foreach (DiscordAPI.SharedModels.Role role in LocalState.Guilds[App.CurrentGuildId].roles.Values.OrderByDescending(x => x.Position))
                 {
                     ToggleMenuFlyoutItem roleItem = new ToggleMenuFlyoutItem()
                     {

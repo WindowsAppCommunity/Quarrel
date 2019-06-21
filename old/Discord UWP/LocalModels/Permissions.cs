@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 
 namespace Quarrel.LocalModels
 {

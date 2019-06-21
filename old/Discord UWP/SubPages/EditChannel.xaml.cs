@@ -20,12 +20,12 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using DiscordAPI.API.Channel.Models;
-using DiscordAPI.Gateway;
+using DiscordAPI.API.Gateway;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 
-using GuildChannel = DiscordAPI.Models.GuildChannel;
+using GuildChannel = DiscordAPI.SharedModels.GuildChannel;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 

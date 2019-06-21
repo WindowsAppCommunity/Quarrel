@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Contacts;
 using Windows.Storage.Streams;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 
 namespace Quarrel.Managers
 {

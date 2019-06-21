@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
-xmlns:md="using:Quarrel.MarkdownTextBlock"
+    xmlns:md="using:Quarrel.MarkdownTextBlock"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400" Unloaded="UserControl_Unloaded" Margin="0,0,0,0" PointerPressed="UserControl_PointerPressed">
@@ -193,7 +193,7 @@ xmlns:md="using:Quarrel.MarkdownTextBlock"
             <TextBlock x:Name="timestamp" FontSize="11" Text="Today at 10:20" Margin="0,0,0,1" VerticalAlignment="Bottom" Opacity="0.3"/>
         </StackPanel>
         <FontIcon x:Name="AlternativeIcon" Visibility="Collapsed" Margin="8,0,0,-40" FontSize="18" Glyph="" Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <!--<md:MarkdownTextBlock IsRightTapHandled="True"  RightTapped="UserControl_RightTapped" Holding="UserControl_Holding"  MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" FontSize="14" VerticalAlignment="Top" LineHeight="17"  FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Padding="6,0,3,0" Margin="0,4,0,0" PointerPressed="UserControl_PointerPressed" Foreground="{ThemeResource MessageForeground}"/>-->
+        <md:MarkdownTextBlock IsRightTapHandled="True"  RightTapped="UserControl_RightTapped" Holding="UserControl_Holding"  MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" FontSize="14" VerticalAlignment="Top" LineHeight="17"  FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Padding="6,0,3,0" Margin="0,4,0,0" PointerPressed="UserControl_PointerPressed" Foreground="{ThemeResource MessageForeground}"/>
         <StackPanel x:Name="BlockedMessage" Visibility="Collapsed" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock x:Uid="/Controls/BlockedMessageTB" Text="Message Blocked" HorizontalAlignment="Center"/>
             <HyperlinkButton Foreground="{ThemeResource Greyple}" Content="View" FontSize="10" HorizontalAlignment="Center" Click="HyperlinkButton_Click"/>

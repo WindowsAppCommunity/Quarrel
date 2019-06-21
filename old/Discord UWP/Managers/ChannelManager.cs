@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Quarrel.LocalModels;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 using Quarrel.SimpleClasses;
-using GuildChannel = DiscordAPI.Models.GuildChannel;
+using GuildChannel = DiscordAPI.SharedModels.GuildChannel;
 
 namespace Quarrel.Managers
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 using System.ComponentModel;
 using Quarrel.LocalModels;
 using Quarrel.SimpleClasses;

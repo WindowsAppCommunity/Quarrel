@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 
 namespace Quarrel.LocalModels
 {
@@ -13,7 +13,7 @@ namespace Quarrel.LocalModels
         /// Initialize GuildSettings from API model
         /// </summary>
         /// <param name="input"></param>
-        public GuildSetting(DiscordAPI.Models.GuildSetting input)
+        public GuildSetting(DiscordAPI.SharedModels.GuildSetting input)
         {
             raw = input;
             
@@ -36,6 +36,6 @@ namespace Quarrel.LocalModels
         /// <summary>
         /// API object
         /// </summary>
-        public DiscordAPI.Models.GuildSetting raw = new DiscordAPI.Models.GuildSetting();
+        public DiscordAPI.SharedModels.GuildSetting raw = new DiscordAPI.SharedModels.GuildSetting();
     }
 }

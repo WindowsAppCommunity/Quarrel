@@ -26,8 +26,8 @@ using Windows.ApplicationModel.Contacts;
 using DiscordAPI.API.User.Models;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.Gateway;
-using DiscordAPI.Models;
+using DiscordAPI.API.Gateway;
+using DiscordAPI.SharedModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 

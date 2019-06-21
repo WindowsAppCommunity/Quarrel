@@ -34,11 +34,11 @@ using Quarrel.Classes;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
 using Quarrel.MarkdownTextBlock;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 using Quarrel.SmartColor;
 using Quarrel.SubPages;
-using Guild = DiscordAPI.Models.Guild;
-using GuildChannel = DiscordAPI.Models.GuildChannel;
+using Guild = DiscordAPI.SharedModels.Guild;
+using GuildChannel = DiscordAPI.SharedModels.GuildChannel;
 
 namespace Quarrel
 {

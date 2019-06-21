@@ -13,7 +13,7 @@ using DiscordAPI.Models;
 
 namespace DiscordAPI.Gateway.DownstreamEvents
 {
-    internal static class ReadyExtenions
+    internal static class ReadyExtentions
     {
         public static void Cache(this Ready ready)
         {

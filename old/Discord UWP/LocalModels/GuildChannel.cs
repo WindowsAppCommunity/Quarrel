@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 
 namespace Quarrel.LocalModels
 {
@@ -14,7 +14,7 @@ namespace Quarrel.LocalModels
         /// Create GuildChannel object from API model
         /// </summary>
         /// <param name="channel">API model</param>
-        public GuildChannel(DiscordAPI.Models.GuildChannel channel)
+        public GuildChannel(DiscordAPI.SharedModels.GuildChannel channel)
         {
             raw = channel;
         }
@@ -24,7 +24,7 @@ namespace Quarrel.LocalModels
         /// </summary>
         /// <param name="channel">API model</param>
         /// <param name="guildId">Guild ID</param>
-        public GuildChannel(DiscordAPI.Models.GuildChannel channel, string guildId)
+        public GuildChannel(DiscordAPI.SharedModels.GuildChannel channel, string guildId)
         {
             raw = channel;
             raw.GuildId = guildId;
@@ -38,6 +38,6 @@ namespace Quarrel.LocalModels
         /// <summary>
         /// API Model object
         /// </summary>
-        public DiscordAPI.Models.GuildChannel raw;
+        public DiscordAPI.SharedModels.GuildChannel raw;
     }
 }

@@ -14,7 +14,7 @@ using System.ComponentModel;
 using Windows.Security.Credentials;
 
 using Quarrel.LocalModels;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 using Newtonsoft.Json;
 using Windows.UI.Xaml;
 using Quarrel.Classes;

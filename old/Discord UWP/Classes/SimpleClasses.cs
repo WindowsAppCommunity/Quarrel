@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Quarrel.LocalModels;
-using DiscordAPI.Models;
-using GuildChannel = DiscordAPI.Models.GuildChannel;
+using DiscordAPI.SharedModels;
+using GuildChannel = DiscordAPI.SharedModels.GuildChannel;
 
 // TODO: Replace with proper MVVM
 namespace Quarrel.SimpleClasses

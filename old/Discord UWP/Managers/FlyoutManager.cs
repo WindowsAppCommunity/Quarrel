@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Quarrel.Controls;
 using Quarrel.Flyouts;
 using Quarrel.LocalModels;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 
 namespace Quarrel.Managers
 {
@@ -189,7 +189,7 @@ namespace Quarrel.Managers
         #region Profile
         public static void OpenProfile(object sender, RoutedEventArgs e)
         {
-            App.NavigateToProfile(((sender as MenuFlyoutItem).Tag as SharedModels.User));
+            App.NavigateToProfile(((sender as MenuFlyoutItem).Tag as DiscordAPI.SharedModels.User));
         }
         #endregion
 
@@ -235,7 +235,7 @@ namespace Quarrel.Managers
                 if (dm.Value.Type == 1 && dm.Value.Users.FirstOrDefault()?.Id == (sender as MenuFlyoutItem).Tag.ToString())
                     channelid = dm.Value.Id;
             if(channelid == null)
-                channelid = (await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { (sender as MenuFlyoutItem).Tag.ToString() }.AsEnumerable() })).Id;
+                channelid = (await RESTCalls.CreateDM(new DiscordAPI.API.User.Models.CreateDM() { Recipients = new List<string>() { (sender as MenuFlyoutItem).Tag.ToString() }.AsEnumerable() })).Id;
             if (string.IsNullOrEmpty(channelid)) return;
             App.SelectGuildChannel("@me", channelid);
         }

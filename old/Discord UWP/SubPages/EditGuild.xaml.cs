@@ -28,11 +28,11 @@ using DiscordAPI.API.Guild.Models;
 using DiscordAPI.API.Gateway;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.Models;
-using DiscordAPI.Gateway;
-using DiscordAPI.Gateway.DownstreamEvents;
+using DiscordAPI.SharedModels;
+using DiscordAPI.API.Gateway;
+using DiscordAPI.API.Gateway.DownstreamEvents;
 
-using Guild = DiscordAPI.Models.Guild;
+using Guild = DiscordAPI.SharedModels.Guild;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 

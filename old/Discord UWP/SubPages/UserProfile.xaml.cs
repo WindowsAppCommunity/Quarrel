@@ -27,9 +27,9 @@ using System.Numerics;
 using DiscordAPI.API.Gateway;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.Models;
-using DiscordAPI.Gateway;
-using DiscordAPI.Gateway.DownstreamEvents;
+using DiscordAPI.SharedModels;
+using DiscordAPI.API.Gateway;
+using DiscordAPI.API.Gateway.DownstreamEvents;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -62,7 +62,7 @@ namespace Quarrel.SubPages
             Frame.Visibility = Visibility.Collapsed;
         }
 
-        private DiscordAPI.Models.UserProfile profile;
+        private DiscordAPI.SharedModels.UserProfile profile;
         string userid;
         bool navFromFlyout = false;
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -92,7 +92,7 @@ namespace Quarrel.SubPages
             bool loadviaRest = true;
             if (e.Parameter is User)
             {
-                    profile = new DiscordAPI.Models.UserProfile();
+                    profile = new DiscordAPI.SharedModels.UserProfile();
                     profile.user = (User)e.Parameter;
                 if(profile.user.Bot)
                     grid.VerticalAlignment = VerticalAlignment.Center;

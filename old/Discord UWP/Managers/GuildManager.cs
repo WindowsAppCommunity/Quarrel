@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Quarrel.LocalModels;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 using Quarrel.SimpleClasses;
 
-using Guild = DiscordAPI.Models.Guild;
+using Guild = DiscordAPI.SharedModels.Guild;
 
 namespace Quarrel.Managers
 {

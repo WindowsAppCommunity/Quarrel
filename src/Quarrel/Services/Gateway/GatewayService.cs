@@ -10,10 +10,12 @@ using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.Gateway.DownstreamEvents;
 using Quarrel.Messages.Gateway;
-using DiscordAPI.Models;
+using Quarrel.Messages.Navigation;
 using DiscordAPI.API;
 using DiscordAPI.API.Gateway;
 using DiscordAPI.Authentication;
+using DiscordAPI.Models;
+using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 
 namespace Quarrel.Services.Gateway
 {
@@ -32,8 +34,22 @@ namespace Quarrel.Services.Gateway
             Gateway = new DiscordAPI.Gateway.Gateway(gatewayConfig, authenticator);
 
             Gateway.Ready += Gateway_Ready;
-
+            Gateway.GuildMemberChunk += Gateway_GuildMemberChunk;
+            Gateway.GuildSynced += Gateway_GuildSynced;
+            
             await Gateway.ConnectAsync();
+
+            Messenger.Default.Register<GuildNavigateMessage>(this, async m =>
+            {
+                // TODO: Channel typing check
+                //var channelList = ServicesManager.Cache.Runtime.TryGetValue<List<Channel>>(Quarrel.Helpers.Constants.Cache.Keys.ChannelList, m.GuildId);
+                //var idList = channelList.ConvertAll(x => x.Id);
+
+                List<string> idList = new List<string>();
+                idList.Add(m.GuildId);
+
+                await Gateway.SubscribeToGuild(idList.ToArray());
+            });
         }
 
         #region Events
@@ -42,6 +58,16 @@ namespace Quarrel.Services.Gateway
         {
             e.EventData.Cache();
             Messenger.Default.Send(new GatewayReadyMessage());
+        }
+
+        private void Gateway_GuildMemberChunk(object sender, GatewayEventArgs<GuildMemberChunk> e)
+        {
+            e.EventData.Cache();
+        }
+
+        private void Gateway_GuildSynced(object sender, GatewayEventArgs<GuildSync> e)
+        {
+            e.EventData.Cache();
         }
 
         #endregion

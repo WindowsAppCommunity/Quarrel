@@ -8,10 +8,10 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Quarrel.LocalModels;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 using Quarrel.Managers;
 
-using GuildChannel = DiscordAPI.Models.GuildChannel;
+using GuildChannel = DiscordAPI.SharedModels.GuildChannel;
 
 namespace Quarrel.Flyouts
 {

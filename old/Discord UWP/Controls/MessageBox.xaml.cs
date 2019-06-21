@@ -14,8 +14,8 @@ using Windows.ApplicationModel.DataTransfer;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.Models;
-using User = DiscordAPI.Models.User;
+using DiscordAPI.SharedModels;
+using User = DiscordAPI.SharedModels.User;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 

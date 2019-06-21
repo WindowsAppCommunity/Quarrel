@@ -29,15 +29,15 @@ using DiscordAPI.API.User.Models;
 using DiscordAPI.Authentication;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 using ModifyUser = DiscordAPI.API.User.Models.ModifyUser;
 using ModifyUserSettings = DiscordAPI.API.User.Models.ModifyUserSettings;
 using SendFriendRequestResponse = DiscordAPI.API.User.Models.SendFriendRequestResponse;
-using GuildSetting = DiscordAPI.Models.GuildSetting;
-using Connection = DiscordAPI.Models.Connection;
-using Guild = DiscordAPI.Models.Guild;
-using GuildChannel = DiscordAPI.Models.GuildChannel;
-using GuildMember = DiscordAPI.Models.GuildMember;
+using GuildSetting = DiscordAPI.SharedModels.GuildSetting;
+using Connection = DiscordAPI.SharedModels.Connection;
+using Guild = DiscordAPI.SharedModels.Guild;
+using GuildChannel = DiscordAPI.SharedModels.GuildChannel;
+using GuildMember = DiscordAPI.SharedModels.GuildMember;
 
 namespace Quarrel
 {
@@ -107,8 +107,8 @@ namespace Quarrel
 
                 GatewayConfig gateconfig = await gatewayService.GetGatewayConfig();
 
-                DiscordAPI.Gateway.Gateway.UseCompression = Storage.Settings.UseCompression;
-                GatewayManager.Gateway = new DiscordAPI.Gateway.Gateway(gateconfig, authenticator);
+                Gateway.UseCompression = Storage.Settings.UseCompression;
+                GatewayManager.Gateway = new Gateway(gateconfig, authenticator);
             }
 
         }

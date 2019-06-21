@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Calls;
 using Quarrel.LocalModels;
 using Quarrel.Voice;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 
 namespace Quarrel.Managers
 {

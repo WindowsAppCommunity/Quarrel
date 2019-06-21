@@ -23,8 +23,8 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using Windows.UI.Text;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.Models;
-using DiscordAPI.Gateway;
+using DiscordAPI.SharedModels;
+using DiscordAPI.API.Gateway;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 

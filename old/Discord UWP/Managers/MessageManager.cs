@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using DiscordAPI.API.Channel.Models;
 using Quarrel.LocalModels;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 using Quarrel.SimpleClasses;
 
 namespace Quarrel.Managers

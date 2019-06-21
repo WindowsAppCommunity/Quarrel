@@ -14,8 +14,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Quarrel.Managers;
 
-using DiscordAPI.Models;
-using DiscordAPI.Gateway;
+using DiscordAPI.SharedModels;
+using DiscordAPI.API.Gateway;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 

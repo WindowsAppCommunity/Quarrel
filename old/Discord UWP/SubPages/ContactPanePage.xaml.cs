@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Quarrel.Controls;
 using Quarrel.Managers;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 using Quarrel.SimpleClasses;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using DiscordAPI.API.User.Models;

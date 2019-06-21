@@ -25,7 +25,7 @@ using Windows.Storage;
 using Windows.Graphics.Imaging;
 using Windows.UI.Popups;
 using Quarrel.LocalModels;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -53,7 +53,7 @@ namespace Quarrel.SubPages
             Frame.Visibility = Visibility.Collapsed;
         }
 
-        private DiscordAPI.Models.UserProfile profile;
+        private DiscordAPI.SharedModels.UserProfile profile;
         string userid;
         bool navFromFlyout = false;
         protected override void OnNavigatedTo(NavigationEventArgs e)

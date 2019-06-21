@@ -19,10 +19,10 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
-using DiscordAPI.Models;
-using DiscordAPI.Gateway;
-using DiscordAPI.Gateway.DownstreamEvents;
-using Guild = DiscordAPI.Models.Guild;
+using DiscordAPI.SharedModels;
+using DiscordAPI.API.Gateway;
+using DiscordAPI.API.Gateway.DownstreamEvents;
+using Guild = DiscordAPI.SharedModels.Guild;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 

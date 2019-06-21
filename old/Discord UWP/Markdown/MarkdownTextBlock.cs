@@ -24,7 +24,7 @@ using ColorSyntax;
 using Quarrel.MarkdownTextBlock.Display;
 using Quarrel.MarkdownTextBlock.Helpers;
 using Quarrel.MarkdownTextBlock.Parse;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 
 namespace Quarrel.MarkdownTextBlock
 {

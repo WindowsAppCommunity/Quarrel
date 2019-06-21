@@ -24,7 +24,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
 using Windows.Foundation.Metadata;
 using System.Reflection;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
 using Quarrel.LocalModels;
 using Quarrel.MarkdownTextBlock.Parse;

@@ -157,7 +157,9 @@
     <Compile Include="Converters\UI\Channel\TypeToMinHeight.cs" />
     <Compile Include="Converters\UI\Discord\DiscriminatorToBrush.cs" />
     <Compile Include="Converters\UI\Guild\MutedToOpacityConverter.cs" />
-    <Compile Include="Extensions\DiscordAPI.Gateway.DownstreamEvents\ReadyExtenions.cs" />
+    <Compile Include="Extensions\DiscordAPI.Gateway.DownstreamEvents\ReadyExtensions.cs" />
+    <Compile Include="Extensions\DiscordAPI.Models\GuildMemberChunkExtensions.cs" />
+    <Compile Include="Extensions\DiscordAPI.Models\GuildSyncExtensions.cs" />
     <Compile Include="Extensions\System.Collections.Generic\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\System\NumericExtensions.cs" />
     <Compile Include="Extensions\System\StringExtensions.cs" />

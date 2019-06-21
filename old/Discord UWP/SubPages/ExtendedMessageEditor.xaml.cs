@@ -356,7 +356,7 @@ namespace Quarrel.SubPages
             {
                 IsFake = true,
                 DisplayedAttachement = 
-                new SharedModels.Attachment()
+                new DiscordAPI.SharedModels.Attachment()
                 {
                     Filename = file.Name,
                     Url = file.Path,

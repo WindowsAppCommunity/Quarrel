@@ -35,10 +35,10 @@ using Microsoft.Advertising.WinRT.UI;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Debug = System.Diagnostics.Debug;
 using EditChannel = Quarrel.SubPages.EditChannel;
-using Guild = DiscordAPI.Models.Guild;
+using Guild = DiscordAPI.SharedModels.Guild;
 using GuildChannel = Quarrel.LocalModels.GuildChannel;
-using GuildSetting = DiscordAPI.Models.GuildSetting;
-using User = DiscordAPI.Models.User;
+using GuildSetting = DiscordAPI.SharedModels.GuildSetting;
+using User = DiscordAPI.SharedModels.User;
 using UserProfile = Quarrel.SubPages.UserProfile;
 using System.Collections.ObjectModel;
 using DiscordAPI.API.Game;
@@ -47,12 +47,11 @@ using DiscordAPI.API.User.Models;
 using Quarrel.Classes;
 using Quarrel.Controls;
 using DiscordAPI.API.Gateway;
-using DiscordAPI.Gateway;
-using DiscordAPI.Gateway.DownstreamEvents;
+using DiscordAPI.API.Gateway.DownstreamEvents;
 using Quarrel.LocalModels;
 using Quarrel.Managers;
 using Quarrel.MarkdownTextBlock;
-using DiscordAPI.Models;
+using DiscordAPI.SharedModels;
 using Quarrel.SimpleClasses;
 using Quarrel.SubPages;
 
@@ -2317,7 +2316,7 @@ namespace Quarrel
                     {
                         ReadState readstate = LocalState.RPC[chn.raw.Id];
                         sg.NotificationCount += readstate.MentionCount;
-                        GuildChannel storageChannel = LocalState.Guilds[sg.Id].channels[chn.raw.Id].raw;
+                        DiscordAPI.SharedModels.GuildChannel storageChannel = LocalState.Guilds[sg.Id].channels[chn.raw.Id].raw;
                         if (readstate.LastMessageId != storageChannel.LastMessageId && !sg.IsMuted)
                             sg.IsUnread = true;
                     }
@@ -2523,7 +2522,7 @@ namespace Quarrel
             if (memberscvs != null)
                 memberscvs.Clean();
             List<Member> tempMembers = new List<Member>();
-            foreach (SharedModels.User user in LocalState.DMs[App.CurrentChannelId].Users)
+            foreach (DiscordAPI.SharedModels.User user in LocalState.DMs[App.CurrentChannelId].Users)
             {
                 Member m = new Member(new GuildMember
                 {

@@ -1,5 +1,4 @@
-﻿using Quarrel.Sockets;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,8 @@ using System.IO.Compression;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.Web;
-using Quarrel.Authentication;
+using DiscordAPI.Authentication;
+using DiscordAPI.Sockets;
 using DiscordAPI.API.Gateway.DownstreamEvents;
 using DiscordAPI.API.Gateway.UpstreamEvents;
 using DiscordAPI.SharedModels;
@@ -46,8 +46,8 @@ namespace DiscordAPI.API.Gateway
         public event EventHandler<GatewayEventArgs<Resumed>> Resumed;
         public event EventHandler<WebSocketClosedEventArgs> GatewayClosed;
 
-        public event EventHandler<GatewayEventArgs<Guild>> GuildCreated;
-        public event EventHandler<GatewayEventArgs<Guild>> GuildUpdated;
+        public event EventHandler<GatewayEventArgs<SharedModels.Guild>> GuildCreated;
+        public event EventHandler<GatewayEventArgs<SharedModels.Guild>> GuildUpdated;
         public event EventHandler<GatewayEventArgs<GuildDelete>> GuildDeleted;
         public event EventHandler<GatewayEventArgs<GuildSync>> GuildSynced;
 
@@ -381,9 +381,9 @@ namespace DiscordAPI.API.Gateway
                 {
                     game.Type = 0;
                 }
-                if (game is Game)
+                if (game is SharedModels.Game)
                 {
-                    (game as Game).SessionId = lastReady.SessionId;
+                    (game as SharedModels.Game).SessionId = lastReady.SessionId;
                 }
             }
             await UpdateStatus(new StatusUpdate()
