@@ -89,6 +89,7 @@ namespace DiscordAPI.Gateway.DownstreamEvents
                     if (!string.IsNullOrEmpty(bChannel.ParentId))
                         bChannel.ParentPostion = guild.Channels.First(x => x.Id == bChannel.ParentId).Position;
 
+                    ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Channel, bChannel, bChannel.Model.Id);
                     channelList.Add(bChannel);
                 }
 
@@ -114,6 +115,7 @@ namespace DiscordAPI.Gateway.DownstreamEvents
                 }
 
                 guildList.Add(bGuild);
+                ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Guild, bGuild, bGuild.Model.Id);
             }
 
             guildList = guildList.OrderBy(x => x.Position).ToList();

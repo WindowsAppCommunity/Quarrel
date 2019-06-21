@@ -34,7 +34,19 @@ namespace Quarrel.ViewModels
             });
         }
 
-        public string GuildId;
+        private string _GuildId;
+
+        public string GuildId
+        {
+            get => _GuildId;
+            set
+            {
+                if (Set(ref _GuildId, value))
+                    RaisePropertyChanged(nameof(Guild));
+            }
+        }
+
+        public BindableGuild Guild { get => ServicesManager.Cache.Runtime.TryGetValue<BindableGuild>(Quarrel.Helpers.Constants.Cache.Keys.Guild, GuildId); }
 
         public ObservableCollection<BindableChannel> Source { get; private set; } = new ObservableCollection<BindableChannel>();
     }

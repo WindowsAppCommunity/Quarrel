@@ -18,13 +18,18 @@ namespace Quarrel.Helpers
             /// </summary>
             public static class Keys
             {
-                public const string GuildList = nameof(GuildList);
-                public const string ChannelList = nameof(ChannelList);
+                public const string Guild = nameof(Guild);
                 public const string GuildSettings = nameof(GuildSettings);
+                public const string GuildList = nameof(GuildList);
                 public const string GuildMember = nameof(GuildMember);
+
                 public const string GuildRole = nameof(GuildRole);
                 public const string GuildRoleList = nameof(GuildRoleList);
+
+                public const string Channel = nameof(Channel);
                 public const string ChannelSettings = nameof(ChannelSettings);
+                public const string ChannelList = nameof(ChannelList);
+
                 public const string ReadState = nameof(ReadState);
             }
         }

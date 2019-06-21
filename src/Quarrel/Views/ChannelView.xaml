@@ -15,6 +15,9 @@
                   ItemsSource="{x:Bind ViewModel.Source}"
                   ItemContainerStyle="{StaticResource ChannelListItemStyle}"
                   IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
+            <ListView.Header>
+                <channelcontrol:ChannelListHeader DataContext="{x:Bind ViewModel.Guild, Mode=OneWay}"/>
+            </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <channelcontrol:ChannelTemplate/>

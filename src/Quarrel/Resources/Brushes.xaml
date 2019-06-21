@@ -4,10 +4,24 @@
     
     
     <Color x:Key="ShadowColor">#FF000000</Color>
+    <Color x:Key="LightRed">#fff04747</Color>
+
     <Color x:Key="DiscordBlurple">#7289DA</Color>
     <Color x:Key="DiscordGray">#747F8D</Color>
     <Color x:Key="DiscordGreen">#43B581</Color>
     <Color x:Key="DiscordYellow">#FAA61A</Color>
     <Color x:Key="DiscordRed">#FA4747</Color>
+
+    
+    <SolidColorBrush x:Key="online" Color="#ff43b581"/>
+    <Color x:Key="OnlineColor">#ff43b581</Color>
+    <SolidColorBrush x:Key="idle" Color="#fffaa61a"/>
+    <Color x:Key="IdleColor">#fffaa61a</Color>
+    <SolidColorBrush x:Key="dnd" Color="#fff04747"/>
+    <Color x:Key="DndColor">#fff04747</Color>
+    <SolidColorBrush x:Key="offline" Color="#747f8d"/>
+    <Color x:Key="OfflineColor">#747f8d</Color>
+    <SolidColorBrush x:Key="invisible" Color="#747f8d"/>
+    <Color x:Key="InvisibleColor">#747f8d</Color>
 
 </ResourceDictionary>

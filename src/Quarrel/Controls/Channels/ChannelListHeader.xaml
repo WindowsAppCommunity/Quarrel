@@ -1,0 +1,31 @@
+﻿<UserControl
+    x:Class="Quarrel.Controls.Channels.ChannelListHeader"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Quarrel.Controls.Channels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="48"
+    d:DesignWidth="224">
+
+    <Button Style="{ThemeResource DiscordOpaqueButton}" Background="Transparent"
+            VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+            Height="48" HorizontalContentAlignment="Left">
+        <Button.Flyout>
+            <MenuFlyout Placement="Bottom" MenuFlyoutPresenterStyle="{StaticResource GuildButtonFlyoutStyle}">
+                <MenuFlyoutItem Icon="AddFriend" Text="Invite People" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource SystemAccentColor}"/>
+                <MenuFlyoutSeparator/>
+                <MenuFlyoutItem Icon="Setting" Text="Settings" Style="{ThemeResource GuildButtonFlyoutItemStyle}"/>
+                <MenuFlyoutItem Icon="List" Text="Audit Log" Style="{ThemeResource GuildButtonFlyoutItemStyle}"/>
+                <MenuFlyoutSeparator/>
+                <MenuFlyoutItem Icon="Add" Text="Add Channel" Style="{ThemeResource GuildButtonFlyoutItemStyle}"/>
+                <MenuFlyoutSeparator/>
+                <MenuFlyoutItem Icon="Clear" Text="Leave Server" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource LightRed}"/>
+            </MenuFlyout>
+        </Button.Flyout>
+        <Viewbox>
+            <TextBlock Text="{x:Bind ViewModel.Model.Name, Mode=OneWay}" FontSize="18" Margin="12,0,0,0"/>
+        </Viewbox>
+    </Button>
+</UserControl>
