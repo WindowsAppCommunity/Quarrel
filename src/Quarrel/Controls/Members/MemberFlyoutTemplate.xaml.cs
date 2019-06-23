@@ -17,6 +17,7 @@ using Quarrel.Models.Bindables;
 using Quarrel.Messages;
 using Quarrel.Messages.Gateway;
 using UICompositionAnimations.Helpers;
+using Quarrel.Services;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -40,8 +41,22 @@ namespace Quarrel.Controls.Members
                         this.Bindings.Update();
                 });
             });
+
+            Messenger.Default.Register<GatewayNoteUpdatedMessage>(this, async m =>
+            {
+                await DispatcherHelper.RunAsync(() =>
+                {
+                    if (ViewModel != null && m.UserId == ViewModel.Model.User.Id)
+                        this.Bindings.Update();
+                });
+            });
         }
 
         public BindableGuildMember ViewModel => DataContext as BindableGuildMember;
+
+        private void NoteBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            ServicesManager.Discord.UserService.AddNote(ViewModel.Model.User.Id, new DiscordAPI.API.User.Models.Note() { Content = (sender as TextBox).Text });
+        }
     }
 }

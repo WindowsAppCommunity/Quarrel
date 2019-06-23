@@ -139,6 +139,15 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
             #endregion
 
+            #region Notes
+
+            foreach (var note in ready.Notes)
+            {
+                ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Note, note.Value, note.Key);
+            }
+
+            #endregion
+
             #region ReadStates
 
             foreach (var state in ready.ReadStates)

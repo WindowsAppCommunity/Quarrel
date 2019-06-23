@@ -10,6 +10,6 @@ namespace DiscordAPI.API.User.Models
     public class Note
     {
         [JsonProperty("note")]
-        public string note { get; set; }
+        public string Content { get; set; }
     }
 }

@@ -81,6 +81,11 @@ namespace Quarrel.Models.Bindables
             get => !string.IsNullOrEmpty(Model.Nick);
         }
 
+        public string Note
+        {
+            get => ServicesManager.Cache.Runtime.TryGetValue<string>(Quarrel.Helpers.Constants.Cache.Keys.Note, Model.User.Id);
+        }
+
         #endregion
 
         #region Interfaces
