@@ -17,7 +17,7 @@ using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 
 namespace Quarrel.Models.Bindables
 {
-    public class BindableGuildMember : BindableModelBase<GuildMember>
+    public class BindableGuildMember : BindableModelBase<GuildMember>, IEquatable<BindableGuildMember>, IComparable<BindableGuildMember>
     {
         public BindableGuildMember([NotNull] GuildMember model) : base(model) { }
 
@@ -39,7 +39,46 @@ namespace Quarrel.Models.Bindables
 
         public Role TopRole
         {
-            get => Roles.FirstOrDefault();
+            get => Roles.FirstOrDefault() ?? new Role() { Name = "Everyone" };
         }
+
+        public Role TopHoistRole
+        {
+            get => Roles.FirstOrDefault(x => x.Hoist) ?? new Role() { Name = "Everyone" };
+        }
+
+        #region Display 
+
+        public string DisplayName
+        {
+            get
+            {
+                return Model.Nick ?? Model.User.Username;
+            }
+        }
+
+        #endregion
+
+        #region Interfaces
+
+        /// <inheritdoc/>
+        public bool Equals(BindableGuildMember other) => Model.User.Id.Equals(other.Model.User.Id);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (obj == this) return true;
+            return obj is BindableGuildMember other && Equals(other);
+
+        }
+
+        /// <inheritdoc/>
+        public int CompareTo(BindableGuildMember other)
+        {
+            return TopHoistRole.CompareTo(other.TopHoistRole);
+        }
+
+        #endregion
     }
 }

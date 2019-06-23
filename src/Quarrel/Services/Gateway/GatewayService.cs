@@ -68,6 +68,7 @@ namespace Quarrel.Services.Gateway
         private void Gateway_GuildSynced(object sender, GatewayEventArgs<GuildSync> e)
         {
             e.EventData.Cache();
+            Messenger.Default.Send(new GatewayGuildSyncMessage(e.EventData.GuildId));
         }
 
         #endregion

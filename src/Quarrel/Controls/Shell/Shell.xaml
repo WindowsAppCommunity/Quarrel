@@ -21,6 +21,9 @@
             <local:SideDrawer.ContentMain>
                 <views:MessageView/>
             </local:SideDrawer.ContentMain>
+            <local:SideDrawer.ContentRight>
+                <views:MemberView/>
+            </local:SideDrawer.ContentRight>
         </local:SideDrawer>
     </Grid>
 </UserControl>

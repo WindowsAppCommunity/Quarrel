@@ -45,6 +45,7 @@ namespace Quarrel.Models.Bindables
                 return Author != null && Author.TopRole != null ? Author.TopRole.Color : -1;
             }
         }
+
         #endregion
     }
 }

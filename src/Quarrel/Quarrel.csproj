@@ -138,6 +138,9 @@
     <Compile Include="Controls\Guilds\GuildTemplate.xaml.cs">
       <DependentUpon>GuildTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Members\GuildMemberListItemTemplate.xaml.cs">
+      <DependentUpon>GuildMemberListItemTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Messages\MessageTemplate.xaml.cs">
       <DependentUpon>MessageTemplate.xaml</DependentUpon>
     </Compile>
@@ -165,9 +168,12 @@
     <Compile Include="Extensions\DiscordAPI.Models\GuildMemberChunkExtensions.cs" />
     <Compile Include="Extensions\DiscordAPI.Models\GuildSyncExtensions.cs" />
     <Compile Include="Extensions\System.Collections.Generic\IEnumerableExtensions.cs" />
+    <Compile Include="Extensions\System.Collections.ObjectModel\GroupedObservableCollection.cs" />
+    <Compile Include="Extensions\System.Collections.ObjectModel\Grouping.cs" />
     <Compile Include="Extensions\System\NumericExtensions.cs" />
     <Compile Include="Extensions\System\StringExtensions.cs" />
     <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Messages\Gateway\GatewayGuildSyncMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayReadyMessage.cs" />
     <Compile Include="Messages\Navigation\ChannelNavigateMessage.cs" />
     <Compile Include="Messages\Navigation\GuildNavigateMessage.cs" />
@@ -192,12 +198,16 @@
     <Compile Include="Services\ServicesManager.cs" />
     <Compile Include="ViewModels\ChannelViewModel.cs" />
     <Compile Include="ViewModels\GuildViewModel.cs" />
+    <Compile Include="ViewModels\MemberViewModel.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
     <Compile Include="Views\ChannelView.xaml.cs">
       <DependentUpon>ChannelView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GuildView.xaml.cs">
       <DependentUpon>GuildView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MemberView.xaml.cs">
+      <DependentUpon>MemberView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MessageView.xaml.cs">
       <DependentUpon>MessageView.xaml</DependentUpon>
@@ -250,6 +260,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Members\GuildMemberListItemTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Messages\MessageTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -293,6 +307,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GuildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MemberView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DiscordAPI.Models
 {
-    public class Role
+    public class Role : IEquatable<Role>, IComparable<Role>
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -27,5 +27,27 @@ namespace DiscordAPI.Models
         public bool Mentionable { get; set; }
 
         public int MemberCount { get; set; }
+
+        #region Interfaces
+
+        /// <inheritdoc/>
+        public bool Equals(Role other)
+        {
+            return Id == other.Id;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is Role other && Equals(other);
+        }
+
+        /// <inheritdoc/>
+        public int CompareTo(Role other)
+        {
+            return Position.CompareTo(other.Position);
+        }
+
+        #endregion
     }
 }
