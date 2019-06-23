@@ -41,7 +41,7 @@
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="{Binding Key.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.75" Margin="0"/>
-                                        <!--<TextBlock Grid.Column="1" Text="{Binding Key}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.35"/>-->
+                                        <TextBlock Grid.Column="1" Text="{Binding Count}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.35"/>
                                     </Grid>
                                 </DataTemplate>
                             </GroupStyle.HeaderTemplate>
@@ -72,7 +72,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding Group.Key.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Group.Key.Color, Converter={StaticResource IntColorToBrushConverter}}" Opacity="0.75" Margin="0"/>
-                                <!--<TextBlock Grid.Column="1" Text="{Binding Key}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.35"/>-->
+                                <TextBlock Grid.Column="1" Text="{Binding Group.Count}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.35"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

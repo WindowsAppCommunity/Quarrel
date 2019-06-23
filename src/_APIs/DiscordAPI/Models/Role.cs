@@ -26,6 +26,7 @@ namespace DiscordAPI.Models
         [JsonProperty("mentionable")]
         public bool Mentionable { get; set; }
 
+        [JsonIgnore]
         public int MemberCount { get; set; }
 
         #region Interfaces
