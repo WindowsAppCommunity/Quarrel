@@ -47,6 +47,11 @@ namespace Quarrel.Models.Bindables
             get => Roles.FirstOrDefault(x => x.Hoist) ?? new Role() { Name = "Everyone" };
         }
 
+        public Presence Presence
+        {
+            get => ServicesManager.Cache.Runtime.TryGetValue<Presence>(Quarrel.Helpers.Constants.Cache.Keys.Presence, Model.User.Id) ?? new Presence() { Status = "offline", User = Model.User };
+        }
+
         #region Display 
 
         public string DisplayName

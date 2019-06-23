@@ -161,7 +161,9 @@
     <Compile Include="Converters\UI\Channel\MentionCountToVisiblityConverter.cs" />
     <Compile Include="Converters\UI\Channel\TypeToBrushConverter.cs" />
     <Compile Include="Converters\UI\Channel\TypeToMinHeight.cs" />
-    <Compile Include="Converters\UI\Discord\DiscriminatorToBrush.cs" />
+    <Compile Include="Converters\UI\Discord\DiscriminatorToBrushConverter.cs" />
+    <Compile Include="Converters\UI\Discord\PresenseToColorConverter.cs" />
+    <Compile Include="Converters\UI\Discord\PresenseToBrushConverter.cs" />
     <Compile Include="Converters\UI\Guild\IsDMToFontFamilyConverter.cs" />
     <Compile Include="Converters\UI\Guild\MutedToOpacityConverter.cs" />
     <Compile Include="Extensions\DiscordAPI.Gateway.DownstreamEvents\ReadyExtensions.cs" />
@@ -174,6 +176,7 @@
     <Compile Include="Extensions\System\StringExtensions.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Messages\Gateway\GatewayGuildSyncMessage.cs" />
+    <Compile Include="Messages\Gateway\GatewayPresenceUpdated.cs" />
     <Compile Include="Messages\Gateway\GatewayReadyMessage.cs" />
     <Compile Include="Messages\Navigation\ChannelNavigateMessage.cs" />
     <Compile Include="Messages\Navigation\GuildNavigateMessage.cs" />

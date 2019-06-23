@@ -36,6 +36,8 @@ namespace Quarrel.Services.Gateway
             Gateway.Ready += Gateway_Ready;
             Gateway.GuildMemberChunk += Gateway_GuildMemberChunk;
             Gateway.GuildSynced += Gateway_GuildSynced;
+
+            Gateway.PresenceUpdated += Gateway_PresenceUpdated;
             
             await Gateway.ConnectAsync();
 
@@ -69,6 +71,12 @@ namespace Quarrel.Services.Gateway
         {
             e.EventData.Cache();
             Messenger.Default.Send(new GatewayGuildSyncMessage(e.EventData.GuildId));
+        }
+
+        private void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
+        {
+            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, e.EventData, e.EventData.User.Id);
+            Messenger.Default.Send(new GatewayPresenceUpdated(e.EventData.User.Id));
         }
 
         #endregion

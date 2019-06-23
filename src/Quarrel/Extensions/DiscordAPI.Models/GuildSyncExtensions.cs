@@ -17,6 +17,7 @@ namespace DiscordAPI.Models
     {
         public static void Cache(this GuildSync sync)
         {
+            #region Members
             var memberList = ServicesManager.Cache.Runtime.TryGetValue<List<BindableGuildMember>>(Quarrel.Helpers.Constants.Cache.Keys.GuildMemberList, sync.GuildId);
 
             if (memberList == null)
@@ -38,6 +39,17 @@ namespace DiscordAPI.Models
             }
 
             ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildMemberList, memberList, sync.GuildId);
+
+            #endregion
+
+            #region Presense
+
+            foreach(var presense in sync.Presences)
+            {
+                ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, presense, presense.User.Id);
+            }
+
+            #endregion
         }
     }
 }

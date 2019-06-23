@@ -114,6 +114,12 @@ namespace DiscordAPI.Gateway.DownstreamEvents
                     ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildRole, role, guild.Id + role.Id);
                 }
 
+                // Guild Presences
+                foreach(var presence in guild.Presences)
+                {
+                    ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, presence, presence.User.Id);
+                }
+
                 guildList.Add(bGuild);
                 ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Guild, bGuild, bGuild.Model.Id);
             }
@@ -121,6 +127,15 @@ namespace DiscordAPI.Gateway.DownstreamEvents
             guildList = guildList.OrderBy(x => x.Position).ToList();
 
             ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildList, guildList);
+
+            #endregion
+
+            #region Presence
+
+            foreach (var presence in ready.Presences)
+            {
+                ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, presence, presence.User.Id);
+            }
 
             #endregion
 

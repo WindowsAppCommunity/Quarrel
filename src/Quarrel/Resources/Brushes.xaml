@@ -14,14 +14,14 @@
 
     
     <SolidColorBrush x:Key="online" Color="#ff43b581"/>
-    <Color x:Key="OnlineColor">#ff43b581</Color>
+    <Color x:Key="onlineColor">#ff43b581</Color>
     <SolidColorBrush x:Key="idle" Color="#fffaa61a"/>
-    <Color x:Key="IdleColor">#fffaa61a</Color>
+    <Color x:Key="idleColor">#fffaa61a</Color>
     <SolidColorBrush x:Key="dnd" Color="#fff04747"/>
-    <Color x:Key="DndColor">#fff04747</Color>
+    <Color x:Key="dndColor">#fff04747</Color>
     <SolidColorBrush x:Key="offline" Color="#747f8d"/>
-    <Color x:Key="OfflineColor">#747f8d</Color>
+    <Color x:Key="offlineColor">#747f8d</Color>
     <SolidColorBrush x:Key="invisible" Color="#747f8d"/>
-    <Color x:Key="InvisibleColor">#747f8d</Color>
+    <Color x:Key="invisibleColor">#747f8d</Color>
 
 </ResourceDictionary>

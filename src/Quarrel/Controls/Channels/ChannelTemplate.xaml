@@ -44,7 +44,7 @@
         <convertchannel:MentionCountToVisiblityConverter x:Key="MentionCountToVisiblityConverter"/>
         <convertchannel:TypeToBrushConverter x:Key="TypeToBrushConverter"/>
         <convertchannel:TypeToMinHeightConverter x:Key="TypeToMinHeightConverter"/>
-        <convertdiscord:DiscriminatorToBrush x:Key="DiscriminatorToBrush"/>
+        <convertdiscord:DiscriminatorToBrushConverter x:Key="DiscriminatorToBrush"/>
     </UserControl.Resources>
 
     <Grid Visibility="{x:Bind ViewModel.Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" MinHeight="{x:Bind ViewModel.Model.Type, Converter={StaticResource TypeToMinHeightConverter}, Mode=OneWay}" Background="Transparent">

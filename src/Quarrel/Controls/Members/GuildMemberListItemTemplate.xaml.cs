@@ -13,6 +13,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Quarrel.Models.Bindables;
+using GalaSoft.MvvmLight.Messaging;
+using Quarrel.Messages.Gateway;
+using UICompositionAnimations.Helpers;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -27,6 +30,15 @@ namespace Quarrel.Controls.Members
             {
                 this.Bindings.Update();
             };
+
+            Messenger.Default.Register<GatewayPresenceUpdated>(this, async m =>
+            {
+                await DispatcherHelper.RunAsync(() => 
+                {
+                    if (ViewModel != null && m.UserId == ViewModel.Model.User.Id)
+                        this.Bindings.Update();
+                });
+            });
         }
 
         public BindableGuildMember ViewModel => DataContext as BindableGuildMember;

@@ -9,7 +9,7 @@ namespace Quarrel.Converters.UI.Discord
     /// <summary>
     /// A converter that returns an inverted <see cref="Visibility"/> value for the input <see langword="bool"/> value
     /// </summary>
-    public sealed class DiscriminatorToBrush : IValueConverter
+    public sealed class DiscriminatorToBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
