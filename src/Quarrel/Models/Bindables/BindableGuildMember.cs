@@ -76,6 +76,11 @@ namespace Quarrel.Models.Bindables
             }
         }
 
+        public bool HasNickname
+        {
+            get => !string.IsNullOrEmpty(Model.Nick);
+        }
+
         #endregion
 
         #region Interfaces

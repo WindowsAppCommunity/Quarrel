@@ -24,9 +24,11 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Rectangle x:Name="AvatarBG" Width="36" Height="36" Margin="6" RadiusX="36" RadiusY="36"/>
+        <Rectangle Fill="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToBrushConverter}, Mode=OneWay}" 
+                   Width="2" Height="24" HorizontalAlignment="Left"/>
+        <Rectangle x:Name="AvatarBG" Width="36" Height="36" Margin="10,6,6,6" RadiusX="36" RadiusY="36"/>
         <controls:DropShadowPanel Color="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
-                                  BlurRadius="15" VerticalAlignment="Center" Margin="6">
+                                  BlurRadius="15" VerticalAlignment="Center" Margin="10,6,6,6">
             <Rectangle Width="36" Height="36" RadiusX="18" RadiusY="18">
                 <Rectangle.Fill>
                     <ImageBrush x:Name="Avatar" ImageSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>

@@ -181,6 +181,7 @@
         </Style>
 
         <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
+        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
         <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
     </UserControl.Resources>
@@ -241,12 +242,18 @@
                     SHOW<LineBreak/>PROFILE
                 </TextBlock>-->
                 </Grid>
-
-                <TextBlock x:Name="Nick" Foreground="White" Text="{x:Bind ViewModel.Model.Nick}" FontWeight="SemiBold" TextWrapping="Wrap" FontSize="16" HorizontalAlignment="Center" MaxWidth="200" Margin="0,20,0,0"/>
-                <StackPanel x:Name="UserStacker" Opacity="0.5" HorizontalAlignment="Center" Orientation="Horizontal" MaxWidth="200" Margin="0,2,0,20">
-                    <TextBlock Foreground="White" FontSize="12" Text="{x:Bind ViewModel.Model.User.Username}"/>
+                
+                <StackPanel Visibility="{x:Bind ViewModel.HasNickname, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" HorizontalAlignment="Center" Orientation="Horizontal" MaxWidth="200" Margin="0,2,0,20">
+                    <TextBlock Foreground="White" FontSize="16" Text="{x:Bind ViewModel.Model.User.Username, Mode=OneWay}"/>
+                    <TextBlock Foreground="White" FontSize="15" Text="#" Opacity="0.75" VerticalAlignment="Bottom"/>
+                    <TextBlock Foreground="White" FontSize="15" Text="{x:Bind ViewModel.Model.User.Discriminator, Mode=OneWay}" Opacity="0.75" VerticalAlignment="Bottom"/>
+                </StackPanel>
+                
+                <TextBlock Visibility="{x:Bind ViewModel.HasNickname, Mode=OneWay}" Foreground="White" Text="{x:Bind ViewModel.Model.Nick, Mode=OneWay}" FontWeight="SemiBold" TextWrapping="Wrap" FontSize="16" HorizontalAlignment="Center" MaxWidth="200" Margin="0,20,0,0"/>
+                <StackPanel Visibility="{x:Bind ViewModel.HasNickname, Mode=OneWay}" Opacity="0.5" HorizontalAlignment="Center" Orientation="Horizontal" MaxWidth="200" Margin="0,2,0,20">
+                    <TextBlock Foreground="White" FontSize="12" Text="{x:Bind ViewModel.Model.User.Username, Mode=OneWay}"/>
                     <TextBlock Foreground="White" FontSize="11" Text="#" Opacity="0.75" VerticalAlignment="Bottom"/>
-                    <TextBlock Foreground="White" FontSize="11" Text="{x:Bind ViewModel.Model.User.Discriminator}" Opacity="0.75" VerticalAlignment="Bottom"/>
+                    <TextBlock Foreground="White" FontSize="11" Text="{x:Bind ViewModel.Model.User.Discriminator, Mode=OneWay}" Opacity="0.75" VerticalAlignment="Bottom"/>
                 </StackPanel>
                 <Grid>
                     <Rectangle Opacity="0.5" Fill="{Binding ElementName=PresenceColor, Path=Fill, UpdateSourceTrigger=PropertyChanged}" />
