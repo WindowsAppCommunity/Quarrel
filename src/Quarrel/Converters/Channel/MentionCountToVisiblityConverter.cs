@@ -1,18 +1,17 @@
 ﻿using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
 
-namespace Quarrel.Converters.UI.Guild
+namespace Quarrel.Converters.Channel
 {
     /// <summary>
-    /// A converter that returns an inverted <see cref="Visibility"/> value for the input <see langword="bool"/> value
+    /// 
     /// </summary>
-    public sealed class IsDMToFontFamilyConverter : IValueConverter
+    public sealed class MentionCountToVisiblityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return ((bool)value ? new FontFamily("Segoe MDL2 Assets") : new FontFamily("Segoe UI"));
+            return (int)value > 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

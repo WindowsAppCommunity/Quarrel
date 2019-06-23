@@ -1,16 +1,17 @@
 ﻿using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace Quarrel.Converters.UI.Channel
+namespace Quarrel.Converters.Guild
 {
     /// <summary>
-    /// 
+    /// A converter that returns an inverted <see cref="Visibility"/> value for the input <see langword="bool"/> value
     /// </summary>
-    public sealed class TypeToBrushConverter : IValueConverter
+    public sealed class MutedToOpacityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return (int)value == 4 ? App.Current.Resources["SystemControlBackgroundAccentBrush"] : App.Current.Resources["Foreground"];
+            return ((bool)value ? 0.5 : 1);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

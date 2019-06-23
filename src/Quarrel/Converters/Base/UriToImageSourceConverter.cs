@@ -2,7 +2,7 @@
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace Quarrel.Converters.UI.Base
+namespace Quarrel.Converters.Base
 {
     /// <summary>
     /// A simple converter that converts a given <see cref="Uri"/> to an <see cref="BitmapImage"/>

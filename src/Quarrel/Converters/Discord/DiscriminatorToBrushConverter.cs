@@ -4,7 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
-namespace Quarrel.Converters.UI.Discord
+namespace Quarrel.Converters.Discord
 {
     /// <summary>
     /// A converter that returns an inverted <see cref="Visibility"/> value for the input <see langword="bool"/> value

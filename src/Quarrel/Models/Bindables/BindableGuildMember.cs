@@ -16,7 +16,7 @@ using System.Collections;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
-using Quarrel.Converters.UI.Discord;
+using Quarrel.Converters.Discord;
 
 namespace Quarrel.Models.Bindables
 {

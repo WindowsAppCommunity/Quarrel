@@ -156,19 +156,19 @@
     <Compile Include="Controls\Shell\SideDrawer.xaml.cs">
       <DependentUpon>SideDrawer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\UI\Base\IntColorToBrushConverter.cs" />
-    <Compile Include="Converters\UI\Base\NotBoolToBoolConverter.cs" />
-    <Compile Include="Converters\UI\Base\NotBoolToVisibiltyConverter.cs" />
-    <Compile Include="Converters\UI\Base\NullToVisibilityConverter.cs" />
-    <Compile Include="Converters\UI\Base\UriToImageSourceConverter.cs" />
-    <Compile Include="Converters\UI\Channel\MentionCountToVisiblityConverter.cs" />
-    <Compile Include="Converters\UI\Channel\TypeToBrushConverter.cs" />
-    <Compile Include="Converters\UI\Channel\TypeToMinHeight.cs" />
-    <Compile Include="Converters\UI\Discord\DiscriminatorToBrushConverter.cs" />
-    <Compile Include="Converters\UI\Discord\PresenseToColorConverter.cs" />
-    <Compile Include="Converters\UI\Discord\PresenseToBrushConverter.cs" />
-    <Compile Include="Converters\UI\Guild\IsDMToFontFamilyConverter.cs" />
-    <Compile Include="Converters\UI\Guild\MutedToOpacityConverter.cs" />
+    <Compile Include="Converters\Base\IntColorToBrushConverter.cs" />
+    <Compile Include="Converters\Base\NotBoolToBoolConverter.cs" />
+    <Compile Include="Converters\Base\NotBoolToVisibiltyConverter.cs" />
+    <Compile Include="Converters\Base\NullToVisibilityConverter.cs" />
+    <Compile Include="Converters\Base\UriToImageSourceConverter.cs" />
+    <Compile Include="Converters\Channel\MentionCountToVisiblityConverter.cs" />
+    <Compile Include="Converters\Channel\TypeToBrushConverter.cs" />
+    <Compile Include="Converters\Channel\TypeToMinHeight.cs" />
+    <Compile Include="Converters\Discord\DiscriminatorToBrushConverter.cs" />
+    <Compile Include="Converters\Discord\PresenseToColorConverter.cs" />
+    <Compile Include="Converters\Discord\PresenseToBrushConverter.cs" />
+    <Compile Include="Converters\Guild\IsDMToFontFamilyConverter.cs" />
+    <Compile Include="Converters\Guild\MutedToOpacityConverter.cs" />
     <Compile Include="Extensions\DiscordAPI.Gateway.DownstreamEvents\ReadyExtensions.cs" />
     <Compile Include="Extensions\DiscordAPI.Models\GuildMemberChunkExtensions.cs" />
     <Compile Include="Extensions\DiscordAPI.Models\GuildSyncExtensions.cs" />

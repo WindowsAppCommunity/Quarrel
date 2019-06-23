@@ -2,16 +2,16 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace Quarrel.Converters.UI.Base
+namespace Quarrel.Converters.Channel
 {
     /// <summary>
-    /// A converter that returns an <see cref="Visibility.Visible"/> value if the input <see langword="object"/> is <see langword="null"/>
+    /// 
     /// </summary>
-    public sealed class NullToVisibilityConverter : IValueConverter
+    public sealed class TypeToMinHeightConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return value == null ? Visibility.Visible : Visibility.Collapsed;
+            return (double)((int)value == 4 ? 48 : 40);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

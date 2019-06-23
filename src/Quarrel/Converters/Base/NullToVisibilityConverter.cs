@@ -2,16 +2,16 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace Quarrel.Converters.UI.Guild
+namespace Quarrel.Converters.Base
 {
     /// <summary>
-    /// A converter that returns an inverted <see cref="Visibility"/> value for the input <see langword="bool"/> value
+    /// A converter that returns an <see cref="Visibility.Visible"/> value if the input <see langword="object"/> is <see langword="null"/>
     /// </summary>
-    public sealed class MutedToOpacityConverter : IValueConverter
+    public sealed class NullToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return ((bool)value ? 0.5 : 1);
+            return value == null ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
