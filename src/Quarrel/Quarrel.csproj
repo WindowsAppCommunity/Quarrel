@@ -184,6 +184,7 @@
     <Compile Include="Messages\Gateway\GatewayReadyMessage.cs" />
     <Compile Include="Messages\Navigation\ChannelNavigateMessage.cs" />
     <Compile Include="Messages\Navigation\GuildNavigateMessage.cs" />
+    <Compile Include="Messages\Services\Settings\SettingChangedMessage.cs" />
     <Compile Include="Models\Bindables\Abstract\BindableModelBase.cs" />
     <Compile Include="Models\Bindables\BindableChannel.cs" />
     <Compile Include="Models\Bindables\BindableGuild.cs" />
@@ -203,6 +204,10 @@
     <Compile Include="Services\Rest\DiscordService.cs" />
     <Compile Include="Services\Rest\IDiscordService.cs" />
     <Compile Include="Services\ServicesManager.cs" />
+    <Compile Include="Services\Settings\Enums\SettingLocation.cs" />
+    <Compile Include="Services\Settings\ISettingsService.cs" />
+    <Compile Include="Services\Settings\SettingKeys.cs" />
+    <Compile Include="Services\Settings\SettingsService.cs" />
     <Compile Include="ViewModels\ChannelViewModel.cs" />
     <Compile Include="ViewModels\GuildViewModel.cs" />
     <Compile Include="ViewModels\MemberViewModel.cs" />
@@ -349,6 +354,9 @@
     </PackageReference>
     <PackageReference Include="MvvmLight">
       <Version>5.4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
+      <Version>4.5.2</Version>
     </PackageReference>
     <PackageReference Include="UICompositionAnimations">
       <Version>4.1.0</Version>
