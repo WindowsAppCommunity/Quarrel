@@ -872,14 +872,19 @@ namespace Quarrel.Managers
                     LocalState.VoiceState = e.EventData;
                     if (String.IsNullOrEmpty(e.EventData.ChannelId))
                     {
-                        AudioManager.PlaySoundEffect("voicedc");
+                        if (Storage.Settings.VoiceDCSound)
+                            AudioManager.PlaySoundEffect("voicedc");
                     }
-                } else if (e.EventData.ChannelId == LocalState.VoiceState.ChannelId)
+                }
+                else if (e.EventData.ChannelId == LocalState.VoiceState.ChannelId)
                 {
-                    AudioManager.PlaySoundEffect("userjoin");
-                } else if (LocalState.VoiceDict.ContainsKey(e.EventData.UserId) && LocalState.VoiceDict[e.EventData.UserId].ChannelId == LocalState.VoiceState.ChannelId)
+                    if (Storage.Settings.UserJoinSound)
+                        AudioManager.PlaySoundEffect("userjoin");
+                }
+                else if (LocalState.VoiceDict.ContainsKey(e.EventData.UserId) && LocalState.VoiceDict[e.EventData.UserId].ChannelId == LocalState.VoiceState.ChannelId)
                 {
-                    AudioManager.PlaySoundEffect("userleave");
+                    if (Storage.Settings.UserLeaveSound)
+                        AudioManager.PlaySoundEffect("userleave");
                 }
                 if (LocalState.VoiceDict.ContainsKey(e.EventData.UserId))
                 {
