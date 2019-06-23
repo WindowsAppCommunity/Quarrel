@@ -36,6 +36,12 @@
                     TintOpacity="0.7"
                     FallbackColor="#FF1E2124"/>
                     
+                    <AcrylicBrush x:Key="AcrylicFlyoutBackground"
+                    BackgroundSource="Backdrop"
+                    TintColor="#DDFFFFFF"
+                    TintOpacity="0.8"
+                    FallbackColor="#DDFFFFFF"/>
+                    
                     <SolidColorBrush x:Key="DarkBG" Color="#1e2124"/>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>

@@ -141,6 +141,9 @@
     <Compile Include="Controls\Members\GuildMemberListItemTemplate.xaml.cs">
       <DependentUpon>GuildMemberListItemTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Members\MemberFlyoutTemplate.xaml.cs">
+      <DependentUpon>MemberFlyoutTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Messages\MessageTemplate.xaml.cs">
       <DependentUpon>MessageTemplate.xaml</DependentUpon>
     </Compile>
@@ -264,6 +267,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Members\GuildMemberListItemTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Members\MemberFlyoutTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

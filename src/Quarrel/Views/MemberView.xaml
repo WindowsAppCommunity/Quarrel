@@ -18,12 +18,20 @@
     <Grid>
         <SemanticZoom>
             <SemanticZoom.ZoomedInView>
-                <ListView ItemsSource="{x:Bind ViewModel.ViewSource.View, Mode=OneWay}"
+                <ListView x:Name="MemberList"
+                          ItemsSource="{x:Bind ViewModel.ViewSource.View, Mode=OneWay}"
                           ItemContainerStyle="{StaticResource ChannelListItemStyle}"
-                          IsItemClickEnabled="True" SelectionMode="None">
+                          IsItemClickEnabled="True" SelectionMode="None"
+                          ItemClick="ListView_ItemClick">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <membercontrols:GuildMemberListItemTemplate/>
+                            <membercontrols:GuildMemberListItemTemplate>
+                                <FlyoutBase.AttachedFlyout>
+                                    <Flyout FlyoutPresenterStyle="{StaticResource MemberFlyoutStyle}">
+                                        <membercontrols:MemberFlyoutTemplate/>
+                                    </Flyout>
+                                </FlyoutBase.AttachedFlyout>
+                            </membercontrols:GuildMemberListItemTemplate>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                     <ListView.GroupStyle>
