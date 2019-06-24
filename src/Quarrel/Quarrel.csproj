@@ -147,6 +147,9 @@
     <Compile Include="Controls\Messages\MessageTemplate.xaml.cs">
       <DependentUpon>MessageTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Shell\CurrentUserButton.xaml.cs">
+      <DependentUpon>CurrentUserButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Shell\ExtendedSplashScreen.xaml.cs">
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
     </Compile>
@@ -180,8 +183,9 @@
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Messages\Gateway\GatewayGuildSyncMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayNoteUpdatedMessage.cs" />
-    <Compile Include="Messages\Gateway\GatewayPresenceUpdated.cs" />
+    <Compile Include="Messages\Gateway\GatewayPresenceUpdatedMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayReadyMessage.cs" />
+    <Compile Include="Messages\Gateway\GatewayUserSettingUpdatedMessage.cs" />
     <Compile Include="Messages\Navigation\ChannelNavigateMessage.cs" />
     <Compile Include="Messages\Navigation\GuildNavigateMessage.cs" />
     <Compile Include="Messages\Services\Settings\SettingChangedMessage.cs" />
@@ -281,6 +285,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Messages\MessageTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Shell\CurrentUserButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

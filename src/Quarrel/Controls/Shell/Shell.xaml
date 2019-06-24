@@ -16,7 +16,24 @@
                 <views:GuildView/>
             </local:SideDrawer.ContentLeft>
             <local:SideDrawer.ContentLeftSecondary>
-                <views:ChannelView/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <views:ChannelView/>
+
+                    <Rectangle IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" VerticalAlignment="Bottom">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+                                <GradientStop Offset="1"/>
+                                <GradientStop Color="{ThemeResource ShadowColor}" Offset="0"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <local:CurrentUserButton Grid.Row="1"/>
+                </Grid>
             </local:SideDrawer.ContentLeftSecondary>
             <local:SideDrawer.ContentMain>
                 <views:MessageView/>

@@ -759,7 +759,7 @@ namespace DiscordAPI.Gateway
                 Payload = status
             };
             await SendMessageAsync(JsonConvert.SerializeObject(statusevent));
-           // await _webMessageSocket.SendJsonObjectAsync(statusevent);
+            //await _webMessageSocket.SendJsonObjectAsync(statusevent);
         }
 
 #endregion

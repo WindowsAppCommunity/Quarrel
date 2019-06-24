@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,5 +20,29 @@ namespace DiscordAPI.Models
         public string GuildId { get; set; }
         [JsonProperty("status")]
         public string Status { get; set; }
+
+        [JsonIgnore]
+        public bool IsOnline
+        {
+            get => Status == "online";
+        }
+
+        [JsonIgnore]
+        public bool IsIdle
+        {
+            get => Status == "idle";
+        }
+
+        [JsonIgnore]
+        public bool IsDnd
+        {
+            get => Status == "dnd";
+        }
+
+        [JsonIgnore]
+        public bool IsOffline
+        {
+            get => Status == "offline" || Status == "invisible";
+        }
     }
 }

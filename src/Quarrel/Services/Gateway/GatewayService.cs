@@ -16,6 +16,7 @@ using DiscordAPI.API.Gateway;
 using DiscordAPI.Authentication;
 using DiscordAPI.Models;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
+using Quarrel.Models.Bindables;
 
 namespace Quarrel.Services.Gateway
 {
@@ -39,6 +40,7 @@ namespace Quarrel.Services.Gateway
 
             Gateway.PresenceUpdated += Gateway_PresenceUpdated;
             Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
+            Gateway.UserSettingsUpdated += Gateway_UserSettingsUpdated;
             
             await Gateway.ConnectAsync();
 
@@ -53,6 +55,13 @@ namespace Quarrel.Services.Gateway
 
                 await Gateway.SubscribeToGuild(idList.ToArray());
             });
+        }
+
+        private void Gateway_UserSettingsUpdated(object sender, GatewayEventArgs<UserSettings> e)
+        {
+            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = e.EventData.Status }, 
+                ServicesManager.Cache.Runtime.TryGetValue<BindableGuildMember>(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser).Model.User.Id);
+            Messenger.Default.Send(new GatewayUserSettingsUpdatedMessage());
         }
 
         #region Events
@@ -77,7 +86,7 @@ namespace Quarrel.Services.Gateway
         private void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
         {
             ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, e.EventData, e.EventData.User.Id);
-            Messenger.Default.Send(new GatewayPresenceUpdated(e.EventData.User.Id));
+            Messenger.Default.Send(new GatewayPresenceUpdatedMessage(e.EventData.User.Id));
         }
 
         private void Gateway_UserNoteUpdated(object sender, GatewayEventArgs<UserNote> e)

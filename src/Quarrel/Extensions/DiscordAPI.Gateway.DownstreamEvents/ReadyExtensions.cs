@@ -156,6 +156,13 @@ namespace DiscordAPI.Gateway.DownstreamEvents
             }
 
             #endregion
+
+            #region Current User
+
+            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = ready.Settings.Status }, ready.User.Id);
+            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser, new BindableGuildMember(new GuildMember() { User = ready.User }));
+
+            #endregion
         }
     }
 }

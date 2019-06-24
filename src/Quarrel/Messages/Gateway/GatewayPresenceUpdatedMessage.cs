@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Quarrel.Messages.Gateway
 {
-    public sealed class GatewayPresenceUpdated
+    public sealed class GatewayPresenceUpdatedMessage
     {
-        public GatewayPresenceUpdated(string userId)
+        public GatewayPresenceUpdatedMessage(string userId)
         {
             UserId = userId;
         }

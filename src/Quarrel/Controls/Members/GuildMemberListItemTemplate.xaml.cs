@@ -31,7 +31,7 @@ namespace Quarrel.Controls.Members
                 this.Bindings.Update();
             };
 
-            Messenger.Default.Register<GatewayPresenceUpdated>(this, async m =>
+            Messenger.Default.Register<GatewayPresenceUpdatedMessage>(this, async m =>
             {
                 await DispatcherHelper.RunAsync(() => 
                 {

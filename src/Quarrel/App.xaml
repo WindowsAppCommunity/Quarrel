@@ -13,35 +13,43 @@
                     <SolidColorBrush x:Key="Background" Color="#1B1B1B"/>
                     
                     <AcrylicBrush x:Key="AcrylicMessageBackground"
-                    BackgroundSource="HostBackdrop"
-                    TintColor="#FF33353b"
-                    TintOpacity="1"
-                    FallbackColor="#FF33353b"/>
+                                  BackgroundSource="HostBackdrop"
+                                  TintColor="#FF33353b"
+                                  TintOpacity="1"
+                                  FallbackColor="#FF33353b"/>
                     
                     <AcrylicBrush x:Key="AcrylicChannelPaneBackground"
-                    BackgroundSource="HostBackdrop"
-                    TintColor="#FF2a2c31"
-                    TintOpacity="0.8"
-                    FallbackColor="#FF2F3136"/>
+                                  BackgroundSource="HostBackdrop"
+                                  TintColor="#FF2a2c31"
+                                  TintOpacity="0.8"
+                                  FallbackColor="#FF2F3136"/>
                     
                     <AcrylicBrush x:Key="AcrylicGuildPaneBackground"
-                    BackgroundSource="HostBackdrop"
-                    TintColor="#FF1E2124"
-                    TintOpacity="0.6"
-                    FallbackColor="#FF1E2124"/>
+                                  BackgroundSource="HostBackdrop"
+                                  TintColor="#FF1E2124"
+                                  TintOpacity="0.6"
+                                  FallbackColor="#FF1E2124"/>
                     
                     <AcrylicBrush x:Key="AcrylicCommandBarBackground"
-                    BackgroundSource="HostBackdrop"
-                    TintColor="#FF1E2124"
-                    TintOpacity="0.7"
-                    FallbackColor="#FF1E2124"/>
+                                  BackgroundSource="HostBackdrop"
+                                  TintColor="#FF1E2124"
+                                  TintOpacity="0.7"
+                                  FallbackColor="#FF1E2124"/>
                     
                     <AcrylicBrush x:Key="AcrylicFlyoutBackground"
-                    BackgroundSource="Backdrop"
-                    TintColor="#DDFFFFFF"
-                    TintOpacity="0.8"
-                    FallbackColor="#DDFFFFFF"/>
+                                  BackgroundSource="Backdrop"
+                                  TintColor="#DD000000"
+                                  TintOpacity="0.8"
+                                  FallbackColor="#DD000000"/>
                     
+                    <AcrylicBrush x:Key="AcrylicUserBackground"
+                                  BackgroundSource="Backdrop"
+                                  TintColor="#FF303238"
+                                  TintOpacity="0.85"
+                                  FallbackColor="#FF303238"/>
+
+
+
                     <SolidColorBrush x:Key="DarkBG" Color="#1e2124"/>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
