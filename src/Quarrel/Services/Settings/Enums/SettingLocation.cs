@@ -1,4 +1,6 @@
-﻿namespace Quarrel.Services.Settings.Enums
+﻿// Special thanks to Sergio Pedri for the basis of this design
+
+namespace Quarrel.Services.Settings.Enums
 {
     /// <summary>
     /// An <see langword="enum"/> that indicates the location of an app setting

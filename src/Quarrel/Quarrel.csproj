@@ -180,7 +180,9 @@
     <Compile Include="Extensions\System.Collections.ObjectModel\Grouping.cs" />
     <Compile Include="Extensions\System\NumericExtensions.cs" />
     <Compile Include="Extensions\System\StringExtensions.cs" />
+    <Compile Include="Extensions\Windows.UI.Xaml\UIExtensions.cs" />
     <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Messages\Abstract\ValueChangedMessageBase.cs" />
     <Compile Include="Messages\Gateway\GatewayGuildSyncMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayNoteUpdatedMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayPresenceUpdatedMessage.cs" />
@@ -188,6 +190,9 @@
     <Compile Include="Messages\Gateway\GatewayUserSettingUpdatedMessage.cs" />
     <Compile Include="Messages\Navigation\ChannelNavigateMessage.cs" />
     <Compile Include="Messages\Navigation\GuildNavigateMessage.cs" />
+    <Compile Include="Messages\Navigation\SubFrame\SubFrameCloseRequestMessage.cs" />
+    <Compile Include="Messages\Navigation\SubFrame\SubFrameContentUnlockedMessage.cs" />
+    <Compile Include="Messages\Navigation\SubFrame\SubFrameNavigationRequestMessage.cs" />
     <Compile Include="Messages\Services\Settings\SettingChangedMessage.cs" />
     <Compile Include="Models\Bindables\Abstract\BindableModelBase.cs" />
     <Compile Include="Models\Bindables\BindableChannel.cs" />
@@ -212,6 +217,12 @@
     <Compile Include="Services\Settings\ISettingsService.cs" />
     <Compile Include="Services\Settings\SettingKeys.cs" />
     <Compile Include="Services\Settings\SettingsService.cs" />
+    <Compile Include="SubPages\Host\SubFrameHost.xaml.cs">
+      <DependentUpon>SubFrameHost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\Interfaces\IAdaptiveSubPage.cs" />
+    <Compile Include="SubPages\Interfaces\IConstrainedSubPage.cs" />
+    <Compile Include="SubPages\Interfaces\IView.cs" />
     <Compile Include="ViewModels\ChannelViewModel.cs" />
     <Compile Include="ViewModels\GuildViewModel.cs" />
     <Compile Include="ViewModels\MemberViewModel.cs" />
@@ -253,7 +264,6 @@
   <ItemGroup>
     <Folder Include="Controls\Messages\Embeds\" />
     <Folder Include="Models\Bindables\Base\" />
-    <Folder Include="SubPages\" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -323,6 +333,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\MiscStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\Host\SubFrameHost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

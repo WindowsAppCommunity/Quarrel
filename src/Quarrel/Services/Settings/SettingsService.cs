@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Special thanks to Sergio Pedri for the basis of this design
+
+using System;
 using System.Runtime.CompilerServices;
 using Windows.Foundation.Collections;
 using Windows.Storage;
