@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Views;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,22 +63,7 @@ namespace Quarrel.Models.Bindables
                 if (IsDM) { return ""; }
                 else
                 {
-                    string text = "";
-                    bool addNext = true;
-                    foreach (char c in Model.Name)
-                    {
-                        if (c == ' ')
-                        {
-                            addNext = true;
-                        }
-                        else
-                        {
-                            if (addNext)
-                                text += c;
-                            addNext = false;
-                        }
-                    }
-                    return text;
+                    return String.Concat(Model.Name.Split(' ').Select(s => StringInfo.GetNextTextElement(s, 0)).ToArray());
                 }
             }
         }
