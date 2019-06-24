@@ -425,15 +425,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-<<<<<<< HEAD
-    <Page Include="SubPages\Host\SubFrameHost.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-=======
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
->>>>>>> 7e878e5aa7fdeb22dd4de46026cb445601a0fca9
+    </Page>
+    <Page Include="SubPages\Host\SubFrameHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ChannelView.xaml">
       <SubType>Designer</SubType>
