@@ -6,6 +6,7 @@
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:markdownTextBlock="using:Quarrel.MarkdownTextBlock"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -41,7 +42,7 @@
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="1">
-            <TextBlock Text="{x:Bind ViewModel.Model.Content}"
+            <markdownTextBlock:MarkdownTextBlock Text="{x:Bind ViewModel.Model.Content}"
                        TextWrapping="WrapWholeWords" FontWeight="SemiLight" Opacity="0.9"/>
         </Grid>
     </Grid>

@@ -138,6 +138,93 @@
     <Compile Include="Controls\Guilds\GuildTemplate.xaml.cs">
       <DependentUpon>GuildTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\CodeColorizerBase.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Common\ExtensionMethods.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Common\Guard.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Common\ILanguageRepository.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Common\LanguageId.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Common\LanguageRepository.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Common\Regex.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Common\ScopeName.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Common\TextInsertion.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\CompiledLanguage.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\ILanguageCompiler.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\LanguageCompiler.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Arduino.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Asax.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Ashx.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Aspx.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\AspxCs.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\AspxVb.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Cpp.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\CSharp.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Css.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Diff.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Fortran.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\FSharp.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Haskell.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Html.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Java.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\JavaScript.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Koka.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Markdown.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Php.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\PowerShell.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Python.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Sql.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Typescript.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\VbDotNet.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Xml.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\RuleCaptures.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Compilation\RuleFormats.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\ILanguage.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\LanguageRule.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Languages.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Parsing\ILanguageParser.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Parsing\LanguageParser.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Parsing\Scope.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Styling\Style.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Styling\StyleDictionary.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Styling\StyleDictionary.DefaultDark.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Styling\StyleDictionary.DefaultLight.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.UWP\Common\ExtensionMethods.cs" />
+    <Compile Include="Controls\Markdown\ColorCode\ColorCode.UWP\RichTextBlockFormatter.cs" />
+    <Compile Include="Controls\Markdown\Display\ICodeBlockResolver.cs" />
+    <Compile Include="Controls\Markdown\Display\ILinkRegister.cs" />
+    <Compile Include="Controls\Markdown\Display\MarkdownTable.cs" />
+    <Compile Include="Controls\Markdown\Display\XamlRenderer.cs" />
+    <Compile Include="Controls\Markdown\Helpers\Common.cs" />
+    <Compile Include="Controls\Markdown\Helpers\DebuggingReporter.cs" />
+    <Compile Include="Controls\Markdown\LinkClickedEventArgs.cs" />
+    <Compile Include="Controls\Markdown\MarkdownRenderedEventArgs.cs" />
+    <Compile Include="Controls\Markdown\MarkdownTextBlock.cs" />
+    <Compile Include="Controls\Markdown\Parse\Blocks\CodeBlock.cs" />
+    <Compile Include="Controls\Markdown\Parse\Blocks\HeaderBlock.cs" />
+    <Compile Include="Controls\Markdown\Parse\Blocks\HorizontalRuleBlock.cs" />
+    <Compile Include="Controls\Markdown\Parse\Blocks\LinkReferenceBlock.cs" />
+    <Compile Include="Controls\Markdown\Parse\Blocks\ListBlock.cs" />
+    <Compile Include="Controls\Markdown\Parse\Blocks\ParagraphBlock.cs" />
+    <Compile Include="Controls\Markdown\Parse\Blocks\QuoteBlock.cs" />
+    <Compile Include="Controls\Markdown\Parse\Blocks\TableBlock.cs" />
+    <Compile Include="Controls\Markdown\Parse\Inlines\BoldItalicTextInline.cs" />
+    <Compile Include="Controls\Markdown\Parse\Inlines\BoldTextInline.cs" />
+    <Compile Include="Controls\Markdown\Parse\Inlines\CodeInline.cs" />
+    <Compile Include="Controls\Markdown\Parse\Inlines\EmojiInline.cs" />
+    <Compile Include="Controls\Markdown\Parse\Inlines\HyperlinkInline.cs" />
+    <Compile Include="Controls\Markdown\Parse\Inlines\IInlineContainer.cs" />
+    <Compile Include="Controls\Markdown\Parse\Inlines\IInlineLeaf.cs" />
+    <Compile Include="Controls\Markdown\Parse\Inlines\ILinkElement.cs" />
+    <Compile Include="Controls\Markdown\Parse\Inlines\ImageInline.cs" />
+    <Compile Include="Controls\Markdown\Parse\Inlines\ItalicTextInline.cs" />
+    <Compile Include="Controls\Markdown\Parse\Inlines\MarkdownLinkInline.cs" />
+    <Compile Include="Controls\Markdown\Parse\Inlines\StrikethroughTextInline.cs" />
+    <Compile Include="Controls\Markdown\Parse\Inlines\SuperscriptTextInline.cs" />
+    <Compile Include="Controls\Markdown\Parse\Inlines\TextRunInline.cs" />
+    <Compile Include="Controls\Markdown\Parse\Inlines\UnderlineTextInline.cs" />
+    <Compile Include="Controls\Markdown\Parse\MarkdownBlock.cs" />
+    <Compile Include="Controls\Markdown\Parse\MarkdownDocument.cs" />
+    <Compile Include="Controls\Markdown\Parse\MarkdownElement.cs" />
+    <Compile Include="Controls\Markdown\Parse\MarkdownInline.cs" />
     <Compile Include="Controls\Members\GuildMemberListItemTemplate.xaml.cs">
       <DependentUpon>GuildMemberListItemTemplate.xaml</DependentUpon>
     </Compile>
@@ -241,6 +328,8 @@
     <Content Include="Assets\DefaultAvatars\Group_dark.png" />
     <Content Include="Assets\DefaultAvatars\Group_light.png" />
     <Content Include="Assets\DefaultAvatars\QuarrelClassicIcon.png" />
+    <Content Include="Controls\Markdown\About.txt" />
+    <Content Include="Controls\Markdown\oltheme.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -326,6 +415,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\ChannelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -368,6 +461,9 @@
     </PackageReference>
     <PackageReference Include="UICompositionAnimations">
       <Version>4.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Unicode.net">
+      <Version>0.1.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
