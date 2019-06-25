@@ -3,10 +3,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using ColorSyntax.Common;
-using ColorSyntax.Compilation;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation;
 
-namespace ColorSyntax.Parsing
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Parsing
 {
     public class LanguageParser : ILanguageParser
     {

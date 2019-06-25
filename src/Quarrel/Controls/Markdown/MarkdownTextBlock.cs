@@ -12,21 +12,20 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Windows.UI.Core;
-using Windows.UI.Notifications;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
-using ColorSyntax;
 using DiscordAPI.Models;
-using Quarrel.MarkdownTextBlock.Display;
-using Quarrel.MarkdownTextBlock.Helpers;
-using Quarrel.MarkdownTextBlock.Parse;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.UWP;
+using Quarrel.Controls.Markdown.Display;
+using Quarrel.Controls.Markdown.Helpers;
+using Quarrel.Controls.Markdown.Parse;
 
-namespace Quarrel.MarkdownTextBlock
+namespace Quarrel.Controls.Markdown
 {
     /// <summary>
     /// An efficient and extensible control that can parse and render markdown.
@@ -1389,10 +1388,8 @@ namespace Quarrel.MarkdownTextBlock
                 return;
             }
 
-            // Fire off the event.
-            var eventArgs = new LinkClickedEventArgs(url);
-            //TODO: this
-            // App.FireLinkClicked(this, eventArgs);
+            // Handle url
+            await Windows.System.Launcher.LaunchUriAsync(new Uri(url));
         }
         public event EventHandler<CodeBlockResolvingEventArgs> CodeBlockResolving;
 

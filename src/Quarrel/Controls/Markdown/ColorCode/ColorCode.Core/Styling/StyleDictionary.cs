@@ -2,7 +2,7 @@
 
 using System.Collections.ObjectModel;
 
-namespace ColorSyntax.Styling
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Styling
 {
     /// <summary>
     /// A dictionary of <see cref="Style" /> instances, keyed by the styles' scope name.

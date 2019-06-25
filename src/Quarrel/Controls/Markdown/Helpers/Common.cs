@@ -12,10 +12,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Quarrel.MarkdownTextBlock.Parse;
-using Quarrel.MarkdownTextBlock.Parse.Inlines;
+using Quarrel.Controls.Markdown.Parse;
+using Quarrel.Controls.Markdown.Parse.Inlines;
 
-namespace Quarrel.MarkdownTextBlock.Helpers
+namespace Quarrel.Controls.Markdown.Helpers
 {
     internal class Common
     {

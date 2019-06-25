@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using ColorSyntax.Common;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
 
-namespace ColorSyntax.Compilation
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
 {
     public class LanguageCompiler : ILanguageCompiler
     {

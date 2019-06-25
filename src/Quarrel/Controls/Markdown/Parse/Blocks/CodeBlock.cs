@@ -12,7 +12,7 @@
 
 using System.Text;
 
-namespace Quarrel.MarkdownTextBlock.Parse.Blocks
+namespace Quarrel.Controls.Markdown.Parse.Blocks
 {
     /// <summary>
     /// Represents a block of text that is displayed in a fixed-width font.  Inline elements and

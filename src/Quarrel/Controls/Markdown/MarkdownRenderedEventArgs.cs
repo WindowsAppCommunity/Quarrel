@@ -12,7 +12,7 @@
 
 using System;
 
-namespace Quarrel.MarkdownTextBlock
+namespace Quarrel.Controls.Markdown
 {
     /// <summary>
     /// Arguments for the OnMarkdownRendered event which indicates when the markdown has been

@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml.Media;
 
-namespace ColorSyntax.UWP.Common
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.UWP.Common
 {
     public static class ExtensionMethods
     {

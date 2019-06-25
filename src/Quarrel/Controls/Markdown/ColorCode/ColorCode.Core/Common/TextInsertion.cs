@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
-using ColorSyntax.Parsing;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Parsing;
 
-namespace ColorSyntax.Common
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common
 {
     public class TextInsertion
     {

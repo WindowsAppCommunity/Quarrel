@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Quarrel.MarkdownTextBlock.Parse.Inlines
+namespace Quarrel.Controls.Markdown.Parse.Inlines
 {
     /// <summary>
     /// Represents a span containing plain text.

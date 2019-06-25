@@ -13,7 +13,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Quarrel.MarkdownTextBlock.Parse.Inlines
+namespace Quarrel.Controls.Markdown.Parse.Inlines
 {
     /// <summary>
     /// Represents a type of hyperlink where the text can be different from the target URL.

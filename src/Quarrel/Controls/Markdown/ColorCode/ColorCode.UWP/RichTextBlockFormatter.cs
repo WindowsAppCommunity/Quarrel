@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
-using ColorSyntax.Parsing;
+using Windows.UI.Text;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
-using ColorSyntax.Styling;
-using Windows.UI.Text;
-using ColorSyntax.UWP.Common;
-using ColorSyntax.Common;
-using Windows.UI.Xaml;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Parsing;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Styling;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.UWP.Common;
+using Style = Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Styling.Style;
 
-namespace ColorSyntax
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.UWP
 {
     /// <summary>
     /// Creates a <see cref="RichTextBlockFormatter"/>, for rendering Syntax Highlighted code to a RichTextBlock.
@@ -117,7 +119,7 @@ namespace ColorSyntax
 
             if (Styles.Contains(Scope.Name))
             {
-                Styling.Style style = Styles[Scope.Name];
+                Style style = Styles[Scope.Name];
 
                 foreground = style.Foreground;
                 background = style.Background;

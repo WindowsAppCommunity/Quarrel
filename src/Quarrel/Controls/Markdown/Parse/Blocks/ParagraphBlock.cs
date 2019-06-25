@@ -12,7 +12,7 @@
 
 using System.Collections.Generic;
 
-namespace Quarrel.MarkdownTextBlock.Parse.Blocks
+namespace Quarrel.Controls.Markdown.Parse.Blocks
 {
     /// <summary>
     /// Represents a block of text that is displayed as a single paragraph.

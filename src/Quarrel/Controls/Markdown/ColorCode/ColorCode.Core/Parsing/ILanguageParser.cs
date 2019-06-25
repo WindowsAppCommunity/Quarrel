@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ColorSyntax.Parsing
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Parsing
 {
     public interface ILanguageParser
     {

@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace ColorSyntax
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
 {
     /// <summary>
     /// Defines how ColorSyntax will parse the source code of a given language.

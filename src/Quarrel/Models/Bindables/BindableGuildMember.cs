@@ -31,6 +31,9 @@ namespace Quarrel.Models.Bindables
         {
             get
             {
+                if (Model.Roles == null)
+                    return null;
+
                 List<Role> Roles = new List<Role>();
                 foreach (var role in Model.Roles)
                 {
@@ -42,12 +45,26 @@ namespace Quarrel.Models.Bindables
 
         public Role TopRole
         {
-            get => Roles.FirstOrDefault() ?? new Role() { Name = "Everyone" };
+            get
+            {
+                if (Roles != null)
+                {
+                    return Roles.FirstOrDefault() ?? new Role() { Name = "Everyone" };
+                }
+                return new Role() { Name = "Everyone" };
+            }
         }
 
         public Role TopHoistRole
         {
-            get => Roles.FirstOrDefault(x => x.Hoist) ?? new Role() { Name = "Everyone" };
+            get
+            {
+                if (Roles != null)
+                {
+                    return Roles.FirstOrDefault(x => x.Hoist) ?? new Role() { Name = "Everyone" };
+                }
+                return new Role() { Name = "Everyone" };
+            }
         }
 
         public Presence Presence

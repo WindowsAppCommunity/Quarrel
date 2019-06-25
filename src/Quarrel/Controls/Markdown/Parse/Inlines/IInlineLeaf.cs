@@ -10,7 +10,7 @@
 // THE CODE OR THE USE OR OTHER DEALINGS IN THE CODE.
 // ******************************************************************
 
-namespace Quarrel.MarkdownTextBlock.Parse.Inlines
+namespace Quarrel.Controls.Markdown.Parse.Inlines
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="IInlineLeaf"/> class.

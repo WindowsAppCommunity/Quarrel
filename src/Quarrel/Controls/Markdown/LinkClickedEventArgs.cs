@@ -14,7 +14,7 @@ using System;
 using Windows.UI.Xaml.Documents;
 using DiscordAPI.Models;
 
-namespace Quarrel.MarkdownTextBlock
+namespace Quarrel.Controls.Markdown
 {
     /// <summary>
     /// Arguments for the OnLinkClicked event which is fired then the user presses a link.

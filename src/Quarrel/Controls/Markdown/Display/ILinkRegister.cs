@@ -13,7 +13,7 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 
-namespace Quarrel.MarkdownTextBlock.Display
+namespace Quarrel.Controls.Markdown.Display
 {
     /// <summary>
     /// An internal interface used to handle links in the markdown.

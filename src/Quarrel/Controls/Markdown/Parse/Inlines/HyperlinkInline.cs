@@ -12,10 +12,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
-namespace Quarrel.MarkdownTextBlock.Parse.Inlines
+namespace Quarrel.Controls.Markdown.Parse.Inlines
 {
     internal enum HyperlinkType
     {

@@ -1,9 +1,9 @@
-﻿using ColorSyntax.Compilation;
-using ColorSyntax.Parsing;
-using ColorSyntax.Styling;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Parsing;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Styling;
 
-namespace ColorSyntax
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
 {
     /// <summary>
     /// Creates a <see cref="CodeColorizerBase"/>, for creating Syntax Highlighted code.

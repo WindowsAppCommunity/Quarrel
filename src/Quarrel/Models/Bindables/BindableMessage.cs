@@ -25,7 +25,8 @@ namespace Quarrel.Models.Bindables
 
         public BindableGuildMember Author
         {
-            get => ServicesManager.Cache.Runtime.TryGetValue<BindableGuildMember>(Quarrel.Helpers.Constants.Cache.Keys.GuildMember, GuildId + Model.User.Id);
+            get => ServicesManager.Cache.Runtime.TryGetValue<BindableGuildMember>(Quarrel.Helpers.Constants.Cache.Keys.GuildMember, GuildId + Model.User.Id) ??
+                new BindableGuildMember(new GuildMember() { User = Model.User });
         }
 
         #region Display

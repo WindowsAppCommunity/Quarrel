@@ -12,7 +12,7 @@
 
 using System.Collections.Generic;
 
-namespace Quarrel.MarkdownTextBlock.Parse.Inlines
+namespace Quarrel.Controls.Markdown.Parse.Inlines
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="IInlineContainer"/> class.

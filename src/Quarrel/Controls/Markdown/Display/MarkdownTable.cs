@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 
-namespace Quarrel.MarkdownTextBlock.Display
+namespace Quarrel.Controls.Markdown.Display
 {
     /// <summary>
     /// A custom panel control that arranges elements similar to how an HTML table would.

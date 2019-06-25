@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
-namespace ColorSyntax.Common
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common
 {
     public static class LanguageId
     {

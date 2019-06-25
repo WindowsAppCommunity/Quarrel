@@ -12,26 +12,23 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Reflection;
 using System.Text;
-using Windows.Data.Pdf;
+using Windows.Foundation.Metadata;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Shapes;
-using Windows.Foundation.Metadata;
-using System.Reflection;
 using DiscordAPI.Models;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
-using Quarrel.MarkdownTextBlock.Parse;
-using Quarrel.MarkdownTextBlock.Parse.Blocks;
-using Quarrel.MarkdownTextBlock.Parse.Inlines;
+using Quarrel.Controls.Markdown.Parse;
+using Quarrel.Controls.Markdown.Parse.Blocks;
+using Quarrel.Controls.Markdown.Parse.Inlines;
 using Emoji = NeoSmart.Unicode.Emoji;
 
-namespace Quarrel.MarkdownTextBlock.Display
+namespace Quarrel.Controls.Markdown.Display
 {
     internal class XamlRenderer
     {

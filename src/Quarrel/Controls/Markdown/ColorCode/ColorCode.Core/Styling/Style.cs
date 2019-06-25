@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
-using ColorSyntax.Common;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
 
-namespace ColorSyntax.Styling
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Styling
 {
     /// <summary>
     /// Defines the styling for a given scope.

@@ -2,9 +2,9 @@
 
 using System;
 using System.Collections.Generic;
-using ColorSyntax.Common;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
 
-namespace ColorSyntax.Parsing
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Parsing
 {
     public class Scope
     {

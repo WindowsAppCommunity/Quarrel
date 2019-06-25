@@ -10,7 +10,7 @@
 // THE CODE OR THE USE OR OTHER DEALINGS IN THE CODE.
 // ******************************************************************
 
-namespace Quarrel.MarkdownTextBlock.Parse
+namespace Quarrel.Controls.Markdown.Parse
 {
     internal enum MarkdownInlineType
     {

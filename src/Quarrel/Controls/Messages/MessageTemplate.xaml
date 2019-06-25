@@ -6,7 +6,8 @@
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:markdownTextBlock="using:Quarrel.MarkdownTextBlock"
+    xmlns:markdown="using:Quarrel.Controls.Markdown"
+    xmlns:membercontrols="using:Quarrel.Controls.Members"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -25,7 +26,6 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
         
         <Grid Grid.RowSpan="2" Padding="12,4">
             <Rectangle Width="40" Height="40" 
@@ -38,11 +38,19 @@
         </Grid>
 
         <Grid Grid.Column="1">
-            <TextBlock Text="{x:Bind ViewModel.AuthorName, Mode=OneWay}" Foreground="{x:Bind ViewModel.AuthorColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}"/>
+            <HyperlinkButton Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind ViewModel.AuthorName, Mode=OneWay}" 
+                             Foreground="{x:Bind ViewModel.AuthorColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}"
+                             Click="Username_Clicked">
+                <FlyoutBase.AttachedFlyout>
+                    <Flyout FlyoutPresenterStyle="{StaticResource MemberFlyoutStyle}">
+                        <membercontrols:MemberFlyoutTemplate DataContext="{x:Bind ViewModel.Author, Mode=OneWay}"/>
+                    </Flyout>
+                </FlyoutBase.AttachedFlyout>
+            </HyperlinkButton>
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="1">
-            <markdownTextBlock:MarkdownTextBlock Text="{x:Bind ViewModel.Model.Content}"
+            <markdown:MarkdownTextBlock Text="{x:Bind ViewModel.Model.Content}"
                        TextWrapping="WrapWholeWords" FontWeight="SemiLight" Opacity="0.9"/>
         </Grid>
     </Grid>

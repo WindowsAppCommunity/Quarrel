@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace ColorSyntax.Common
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common
 {
     public class LanguageRepository : ILanguageRepository
     {

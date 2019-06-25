@@ -13,9 +13,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Quarrel.MarkdownTextBlock.Parse.Blocks;
+using Quarrel.Controls.Markdown.Parse.Blocks;
 
-namespace Quarrel.MarkdownTextBlock.Parse
+namespace Quarrel.Controls.Markdown.Parse
 {
     /// <summary>
     /// A class used to represent abstract markdown.

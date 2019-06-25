@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ColorSyntax.Common
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common
 {
     public static class Guard
     {

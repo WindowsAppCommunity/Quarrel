@@ -2,9 +2,9 @@
 
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using ColorSyntax.Common;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
 
-namespace ColorSyntax.Compilation
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
 {
     public class CompiledLanguage
     {

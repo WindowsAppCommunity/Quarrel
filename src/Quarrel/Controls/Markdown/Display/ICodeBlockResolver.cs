@@ -1,6 +1,6 @@
 ﻿using Windows.UI.Xaml.Documents;
 
-namespace Quarrel.MarkdownTextBlock.Display
+namespace Quarrel.Controls.Markdown.Display
 {
 
     public interface ICodeBlockResolver

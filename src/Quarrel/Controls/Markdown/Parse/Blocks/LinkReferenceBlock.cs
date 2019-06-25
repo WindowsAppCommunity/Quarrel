@@ -10,9 +10,9 @@
 // THE CODE OR THE USE OR OTHER DEALINGS IN THE CODE.
 // ******************************************************************
 
-using Quarrel.MarkdownTextBlock.Parse.Inlines;
+using Quarrel.Controls.Markdown.Parse.Inlines;
 
-namespace Quarrel.MarkdownTextBlock.Parse.Blocks
+namespace Quarrel.Controls.Markdown.Parse.Blocks
 {
     /// <summary>
     /// Represents the target of a reference ([ref][]).

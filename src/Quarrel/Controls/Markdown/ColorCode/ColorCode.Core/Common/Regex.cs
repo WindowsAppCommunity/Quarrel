@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
-using System.Collections.Generic;
-
-namespace ColorSyntax.Common
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common
 {
     public static class Regexes
     {

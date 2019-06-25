@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 
 using System.Collections.Generic;
-using ColorSyntax.Common;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
 
-namespace ColorSyntax
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
 {
     /// <summary>
     /// Defines a single rule for a language. For instance a language rule might define string literals for a given language.

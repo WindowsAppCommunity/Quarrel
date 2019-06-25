@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="using:Quarrel.MarkdownTextBlock">
+                    xmlns:markdown="using:Quarrel.Controls.Markdown">
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default" />
@@ -20,7 +20,7 @@
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
-    <Style TargetType="local:MarkdownTextBlock">
+    <Style TargetType="markdown:MarkdownTextBlock">
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="LinkForeground" Value="{ThemeResource LinkColor}" />
         <Setter Property="QuoteBackground" Value="{ThemeResource MarkdownBackgroundBrush}" />
@@ -73,7 +73,7 @@
         <Setter Property="LineHeight" Value="20" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="local:MarkdownTextBlock">
+                <ControlTemplate TargetType="markdown:MarkdownTextBlock">
                     <Border x:Name="RootElement"
                             CornerRadius="4"
                             Background="{TemplateBinding Background}"

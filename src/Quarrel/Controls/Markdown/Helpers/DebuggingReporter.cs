@@ -12,7 +12,7 @@
 
 using System.Diagnostics;
 
-namespace Quarrel.MarkdownTextBlock.Helpers
+namespace Quarrel.Controls.Markdown.Helpers
 {
     internal class DebuggingReporter
     {

@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
 using System.Collections.Generic;
-using ColorSyntax.Common;
-using ColorSyntax.Compilation;
-using ColorSyntax.Compilation.Languages;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languages;
 
-namespace ColorSyntax
+namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
 {
     /// <summary>
     /// Provides easy access to ColorSyntax's built-in languages, as well as methods to load and find custom languages.
@@ -42,7 +42,7 @@ namespace ColorSyntax
             Load<FSharp>();
             Load<Koka>();
             Load<Haskell>();
-            Load<Markdown>();
+            Load<Compilation.Languages.Markdown>();
             Load<Fortran>();
             Load<Diff>();
             Load<Python>();
