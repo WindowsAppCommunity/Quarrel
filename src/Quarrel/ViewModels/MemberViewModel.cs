@@ -28,7 +28,7 @@ namespace Quarrel.ViewModels
                     Source.Clear();
 
                     // Load guild list
-                    var guildMemberList = ServicesManager.Cache.Runtime.TryGetValue<List<BindableGuildMember>>(Constants.Cache.Keys.GuildMemberList, m.GuildId);
+                    var guildMemberList = ServicesManager.Cache.Runtime.TryGetValue<List<BindableUser>>(Constants.Cache.Keys.GuildMemberList, m.GuildId);
 
                     // Show members
                     foreach (var member in guildMemberList)
@@ -38,7 +38,7 @@ namespace Quarrel.ViewModels
                 });
             });
 
-            Source = new GroupedObservableCollection<Role, BindableGuildMember>(x => x.TopHoistRole);
+            Source = new GroupedObservableCollection<Role, BindableUser>(x => x.TopHoistRole);
             ViewSource = new CollectionViewSource() { Source = this.Source, IsSourceGrouped = true };
         }
 
@@ -48,6 +48,6 @@ namespace Quarrel.ViewModels
         /// Gets the collection of grouped feeds to display
         /// </summary>
         [NotNull]
-        public GroupedObservableCollection<Role, BindableGuildMember> Source { get; }
+        public GroupedObservableCollection<Role, BindableUser> Source { get; }
     }
 }

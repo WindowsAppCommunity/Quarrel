@@ -60,7 +60,7 @@ namespace Quarrel.Services.Gateway
         private void Gateway_UserSettingsUpdated(object sender, GatewayEventArgs<UserSettings> e)
         {
             ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = e.EventData.Status }, 
-                ServicesManager.Cache.Runtime.TryGetValue<BindableGuildMember>(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser).Model.User.Id);
+                ServicesManager.Cache.Runtime.TryGetValue<BindableUser>(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser).Model.User.Id);
             Messenger.Default.Send(new GatewayUserSettingsUpdatedMessage());
         }
 

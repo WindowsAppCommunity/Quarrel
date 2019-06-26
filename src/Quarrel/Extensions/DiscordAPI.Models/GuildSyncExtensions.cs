@@ -18,16 +18,16 @@ namespace DiscordAPI.Models
         public static void Cache(this GuildSync sync)
         {
             #region Members
-            var memberList = ServicesManager.Cache.Runtime.TryGetValue<List<BindableGuildMember>>(Quarrel.Helpers.Constants.Cache.Keys.GuildMemberList, sync.GuildId);
+            var memberList = ServicesManager.Cache.Runtime.TryGetValue<List<BindableUser>>(Quarrel.Helpers.Constants.Cache.Keys.GuildMemberList, sync.GuildId);
 
             if (memberList == null)
             {
-                memberList = new List<BindableGuildMember>();
+                memberList = new List<BindableUser>();
             }
 
             foreach (var user in sync.Members)
             {
-                BindableGuildMember bgMember = new BindableGuildMember(user);
+                BindableUser bgMember = new BindableUser(user);
                 bgMember.GuildId = sync.GuildId;
 
                 if (!memberList.Contains(bgMember))

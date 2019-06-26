@@ -23,10 +23,10 @@ namespace Quarrel.Models.Bindables
 
         private string GuildId;
 
-        public BindableGuildMember Author
+        public BindableUser Author
         {
-            get => ServicesManager.Cache.Runtime.TryGetValue<BindableGuildMember>(Quarrel.Helpers.Constants.Cache.Keys.GuildMember, GuildId + Model.User.Id) ??
-                new BindableGuildMember(new GuildMember() { User = Model.User });
+            get => ServicesManager.Cache.Runtime.TryGetValue<BindableUser>(Quarrel.Helpers.Constants.Cache.Keys.GuildMember, GuildId + Model.User.Id) ??
+                new BindableUser(new GuildMember() { User = Model.User });
         }
 
         #region Display

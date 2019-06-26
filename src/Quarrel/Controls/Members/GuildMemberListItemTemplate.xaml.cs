@@ -41,6 +41,6 @@ namespace Quarrel.Controls.Members
             });
         }
 
-        public BindableGuildMember ViewModel => DataContext as BindableGuildMember;
+        public BindableUser ViewModel => DataContext as BindableUser;
     }
 }

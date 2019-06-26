@@ -16,8 +16,10 @@ using Windows.UI.Xaml.Navigation;
 using Quarrel.Models.Bindables;
 using Quarrel.Messages;
 using Quarrel.Messages.Gateway;
-using UICompositionAnimations.Helpers;
+using Quarrel.Messages.Navigation.SubFrame;
 using Quarrel.Services;
+using Quarrel.SubPages;
+using UICompositionAnimations.Helpers;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -52,11 +54,16 @@ namespace Quarrel.Controls.Members
             });
         }
 
-        public BindableGuildMember ViewModel => DataContext as BindableGuildMember;
+        public BindableUser ViewModel => DataContext as BindableUser;
 
         private void NoteBox_LostFocus(object sender, RoutedEventArgs e)
         {
             ServicesManager.Discord.UserService.AddNote(ViewModel.Model.User.Id, new DiscordAPI.API.User.Models.Note() { Content = (sender as TextBox).Text });
+        }
+
+        private void AvatarButton_Click(object sender, RoutedEventArgs e)
+        {
+            Messenger.Default.Send(SubFrameNavigationRequestMessage.To(new UserProfilePage(ViewModel)));
         }
     }
 }

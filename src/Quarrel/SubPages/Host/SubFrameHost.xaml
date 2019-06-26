@@ -12,7 +12,6 @@
         <!--Visual states-->
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualGroup">
-
                 <!--Top back button-->
                 <VisualState x:Name="TopBackButton">
                     <VisualState.Setters>
@@ -104,11 +103,12 @@
                 <!--Close button-->
                 <Button 
                     x:Name="CloseButton"
+                    Background="Transparent"
+                    BorderThickness="0"
                     VerticalAlignment="Top"
                     Height="48" Width="48"
-                    Style="{StaticResource SimpleRevealButtonStyle}"
                     Click="CloseButton_OnClick">
-                    <SymbolIcon Symbol="Clear" Foreground="{StaticResource ForegroundBrush}"/>
+                    <SymbolIcon Symbol="Clear" Foreground="{StaticResource Foreground}"/>
                 </Button>
 
                 <!--Content-->
@@ -116,7 +116,7 @@
                     x:Name="ContentBorder"
                     Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                     BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
-                    Background="{ThemeResource SubFrameBackgroundBrush}" 
+                    Background="{ThemeResource DarkBG}" 
                     BorderThickness="1" CornerRadius="1">
                     <ContentControl 
                         x:Name="HostControl" IsTabStop="False"

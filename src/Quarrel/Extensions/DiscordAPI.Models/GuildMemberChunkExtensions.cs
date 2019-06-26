@@ -19,7 +19,7 @@ namespace DiscordAPI.Models
         {
             foreach (var user in chunk.Members)
             {
-                BindableGuildMember bgMember = new BindableGuildMember(user);
+                BindableUser bgMember = new BindableUser(user);
                 bgMember.GuildId = chunk.GuildId;
                 ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildMember, bgMember, chunk.GuildId + user.User.Id);
             }

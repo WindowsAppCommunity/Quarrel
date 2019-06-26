@@ -103,7 +103,7 @@ namespace DiscordAPI.Gateway.DownstreamEvents
                 // Full list from GuildMemberChunk
                 foreach (var user in guild.Members)
                 {
-                    BindableGuildMember bgMember = new BindableGuildMember(user);
+                    BindableUser bgMember = new BindableUser(user);
                     bgMember.GuildId = guild.Id;
                     ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildMember, bgMember, guild.Id + user.User.Id);
                 }
@@ -160,7 +160,7 @@ namespace DiscordAPI.Gateway.DownstreamEvents
             #region Current User
 
             ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = ready.Settings.Status }, ready.User.Id);
-            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser, new BindableGuildMember(new GuildMember() { User = ready.User }));
+            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser, new BindableUser(new GuildMember() { User = ready.User }));
 
             #endregion
         }

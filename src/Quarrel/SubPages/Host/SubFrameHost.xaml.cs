@@ -127,7 +127,7 @@ namespace Quarrel.SubPages.Host
                 if (double.IsNaN(width))
                 {
                     targetWidth = double.PositiveInfinity;
-                    contentBorderThickness.Left = contentBorderThickness.Right = 0;
+                    contentBorderThickness = new Thickness(0);
                 }
                 else targetWidth = width;
 
@@ -135,7 +135,6 @@ namespace Quarrel.SubPages.Host
                 if (double.IsNaN(height))
                 {
                     ContentGrid.MaxHeight = double.PositiveInfinity;
-                    contentBorderThickness.Top = contentBorderThickness.Bottom = 0;
 
                     // Visual state update
                     if (targetWidth > size.Width - 48 * 2)

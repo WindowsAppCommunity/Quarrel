@@ -58,7 +58,7 @@ namespace Quarrel.Controls.Shell
             });
         }
 
-        public BindableGuildMember ViewModel => ServicesManager.Cache.Runtime.TryGetValue<BindableGuildMember>(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser);
+        public BindableUser ViewModel => ServicesManager.Cache.Runtime.TryGetValue<BindableUser>(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser);
 
         private async void StatusSelected(object sender, RoutedEventArgs e)
         {

@@ -48,8 +48,17 @@
                                   TintOpacity="0.85"
                                   FallbackColor="#FF303238"/>
 
+                    <!--Sub frame background-->
+                    <AcrylicBrush x:Key="SubFrameHostBackgroundBrush"
+                                  BackgroundSource="Backdrop"
+                                  TintColor="#A0000000"
+                                  TintOpacity="0.7"
+                                  FallbackColor="#A0000000"/>
 
 
+
+                    <SolidColorBrush x:Key="LightBG" Color="#2e3136"/>
+                    <SolidColorBrush x:Key="MidBG" Color="#2a2c31"/>
                     <SolidColorBrush x:Key="DarkBG" Color="#1e2124"/>
                     <SolidColorBrush x:Key="LinkColor" Color="#0096cf"/>
                 </ResourceDictionary>
@@ -61,6 +70,7 @@
                 <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
                 <ResourceDictionary Source="Styles/ListViewItemStyles.xaml"/>
                 <ResourceDictionary Source="Styles/MiscStyles.xaml"/>
+                <ResourceDictionary Source="Styles/TextBoxStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
