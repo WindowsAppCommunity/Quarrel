@@ -14,6 +14,7 @@
 
     <UserControl.Resources>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
+        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
     </UserControl.Resources>
     
     <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="0" CornerRadius="0">
@@ -53,7 +54,7 @@
                             <StackPanel x:Name="BadgePanel" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         </Grid>
                         <StackPanel>
-                            <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{Binding Visibility, ElementName=richPresence}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,6"/>
+                            <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{x:Bind ViewModel.Presence.Game, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,6"/>
                             <Border Margin="-48,0" Padding="48,12">
                                 <Border.Background>
                                     <SolidColorBrush Opacity="0.5"/>

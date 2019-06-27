@@ -105,6 +105,12 @@ namespace Quarrel.Models.Bindables
 
         #endregion
 
+        #region Friend Actions
+
+
+
+        #endregion
+
         #region Interfaces
 
         /// <inheritdoc/>
