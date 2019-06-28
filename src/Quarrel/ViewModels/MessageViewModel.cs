@@ -10,6 +10,7 @@ using Quarrel.Messages.Navigation;
 using Quarrel.Models.Bindables;
 using UICompositionAnimations.Helpers;
 using System.Collections;
+using DiscordAPI.Models;
 
 namespace Quarrel.ViewModels
 {
@@ -21,18 +22,20 @@ namespace Quarrel.ViewModels
             {
                 await DispatcherHelper.RunAsync(async () =>
                 {
-                    _Source.Clear();
+                    Source.Clear();
                     var itemList = await Services.ServicesManager.Discord.ChannelService.GetChannelMessages(m.ChannelId);
-                    foreach (var item in itemList)
+
+                    Message lastItem = null;
+
+                    foreach (Message item in itemList.Reverse())
                     {
-                        _Source.Add(new BindableMessage(item, m.GuildId));
-                        RaisePropertyChanged(nameof(Source));
+                        Source.Add(new BindableMessage(item, m.GuildId, lastItem));
+                        lastItem = item;
                     }
                 });
             });
         }
-        public ObservableCollection<BindableMessage> _Source { get; private set; } = new ObservableCollection<BindableMessage>();
 
-        public IEnumerable<BindableMessage> Source { get => _Source.Reverse(); }
+        public ObservableCollection<BindableMessage> Source { get; private set; } = new ObservableCollection<BindableMessage>();
     }
 }

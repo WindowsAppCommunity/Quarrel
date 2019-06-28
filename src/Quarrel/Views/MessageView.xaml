@@ -23,7 +23,7 @@
         </ListView.ItemsPanel>
         <ListView.ItemTemplate>
             <DataTemplate>
-                <messagecontrols:MessageTemplate Margin="0,0,0,8"/>
+                <messagecontrols:MessageTemplate Margin="0,0,0,0"/>
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
