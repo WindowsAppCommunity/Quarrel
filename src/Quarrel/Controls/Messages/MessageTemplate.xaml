@@ -8,6 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:markdown="using:Quarrel.Controls.Markdown"
     xmlns:membercontrols="using:Quarrel.Controls.Members"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -16,21 +19,39 @@
         <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
     </UserControl.Resources>
-    
+
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Continuation">
+                    <VisualState.Setters>
+                        <Setter Target="row1.(Height)" Value="0"/>
+                        <Setter Target="body.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>40,-8,0,8</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="userImg.(UIElement.Visibility)">
+                            <Setter.Value>
+                                <Visibility>Collapsed</Visibility>
+                            </Setter.Value>
+                        </Setter>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" x:Name="row1"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
         <Grid Grid.RowSpan="2" Padding="12,4">
             <Rectangle Width="40" Height="40" 
                        RadiusX="20" RadiusY="20"
-                       VerticalAlignment="Top">
+                       VerticalAlignment="Top" x:Name="userImg">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
                 </Rectangle.Fill>
@@ -39,19 +60,30 @@
 
         <Grid Grid.Column="1">
             <HyperlinkButton Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind ViewModel.AuthorName, Mode=OneWay}" 
-                             Foreground="{x:Bind ViewModel.AuthorColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}"
-                             Click="Username_Clicked">
+                             Foreground="{x:Bind ViewModel.AuthorColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}">
                 <FlyoutBase.AttachedFlyout>
                     <Flyout FlyoutPresenterStyle="{StaticResource MemberFlyoutStyle}">
                         <membercontrols:MemberFlyoutTemplate DataContext="{x:Bind ViewModel.Author, Mode=OneWay}"/>
                     </Flyout>
                 </FlyoutBase.AttachedFlyout>
+                <i:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="Tapped">
+                        <behaviors:OpenFlyoutAction />
+                    </core:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
             </HyperlinkButton>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="1">
+        <Grid Grid.Column="1" Grid.Row="1"  x:Name="body" Margin="0,0,0,8">
             <markdown:MarkdownTextBlock Text="{x:Bind ViewModel.Model.Content}"
                        TextWrapping="WrapWholeWords" FontWeight="SemiLight" Opacity="0.9"/>
         </Grid>
+
+        <i:Interaction.Behaviors>
+            <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsContinuation}"
+                                      ComparisonCondition="Equal" Value="True">
+                <core:GoToStateAction StateName="Continuation" />
+            </core:DataTriggerBehavior>
+        </i:Interaction.Behaviors>
     </Grid>
 </UserControl>

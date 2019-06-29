@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
+using GalaSoft.MvvmLight.Command;
 using Quarrel.Services;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Posts.Requests;
@@ -18,9 +20,12 @@ namespace Quarrel.Models.Bindables
 {
     public class BindableMessage : BindableModelBase<Message>
     {
-        public BindableMessage([NotNull] Message model, [CanBeNull] string guildId) : base(model)
+        private Message _previousMessage;
+
+        public BindableMessage([NotNull] Message model, [CanBeNull] string guildId, [CanBeNull] Message previousMessage) : base(model)
         {
             GuildId = guildId;
+            _previousMessage = previousMessage;
         }
 
         private string GuildId;
@@ -33,21 +38,27 @@ namespace Quarrel.Models.Bindables
 
         #region Display
 
-        public string AuthorName
+        public string AuthorName => Author != null ? Author.Model.Nick ?? Author.Model.User.Username : Model.User.Username;
+
+        public int AuthorColor => Author?.TopRole?.Color ?? -1;
+
+        public bool IsContinuation => _previousMessage != null && _previousMessage.Type == 0 &&
+                                      Model.Timestamp.Subtract(_previousMessage.Timestamp).Minutes < 2 &&
+                                      _previousMessage.User.Id == Model.User.Id;
+
+        private bool showFlyout;
+        public bool ShowFlyout
         {
-            get
-            {
-                return Author != null ? Author.Model.Nick ?? Author.Model.User.Username : Model.User.Username;
-            }
+            get => showFlyout;
+            set => Set(ref showFlyout, value);
         }
 
-        public int AuthorColor
-        {
-            get
-            {
-                return Author != null && Author.TopRole != null ? Author.TopRole.Color : -1;
-            }
-        }
+        private RelayCommand showFlyoutCommand;
+
+        public RelayCommand ShowFlyoutCommand => showFlyoutCommand ?? (showFlyoutCommand = new RelayCommand(() =>
+                                                     {
+                                                         ShowFlyout = true;
+                                                     }));
 
         #endregion
     }

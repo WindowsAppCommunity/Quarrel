@@ -11,7 +11,7 @@
     d:DesignWidth="400">
 
     <ListView ItemsSource="{x:Bind ViewModels.Source, Mode=OneWay}"
-              SelectionMode="None" IsItemClickEnabled="False">
+              SelectionMode="None" IsItemClickEnabled="False" ItemContainerStyle="{StaticResource MessageListItemStyle}">
         <ListView.ItemsPanel>
             <ItemsPanelTemplate>
                 <ItemsStackPanel Margin="8,0,0,0" ItemsUpdatingScrollMode="KeepLastItemInView">
@@ -23,7 +23,7 @@
         </ListView.ItemsPanel>
         <ListView.ItemTemplate>
             <DataTemplate>
-                <messagecontrols:MessageTemplate Margin="0,0,0,8"/>
+                <messagecontrols:MessageTemplate/>
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
