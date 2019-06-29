@@ -369,7 +369,6 @@
   <ItemGroup>
     <Folder Include="Controls\Messages\Embeds\" />
     <Folder Include="Models\Bindables\Base\" />
-    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

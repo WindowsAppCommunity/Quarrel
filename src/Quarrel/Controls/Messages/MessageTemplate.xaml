@@ -12,7 +12,7 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
     mc:Ignorable="d"
-    d:DesignHeight="300"
+    d:DesignHeight="64"
     d:DesignWidth="400">
 
     <UserControl.Resources>
@@ -20,15 +20,15 @@
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid x:Name="rootGrid" Padding="0,8,0,0">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Continuation">
                     <VisualState.Setters>
                         <Setter Target="row1.(Height)" Value="0"/>
-                        <Setter Target="body.(FrameworkElement.Margin)">
+                        <Setter Target="rootGrid.(Padding)">
                             <Setter.Value>
-                                <Thickness>40,-8,0,8</Thickness>
+                                <Thickness>0,0,0,0</Thickness>
                             </Setter.Value>
                         </Setter>
                         <Setter Target="userImg.(UIElement.Visibility)">
@@ -41,22 +41,23 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="64"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" x:Name="row1"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.RowSpan="2" Padding="12,4">
-            <Rectangle Width="40" Height="40" 
-                       RadiusX="20" RadiusY="20"
-                       VerticalAlignment="Top" x:Name="userImg">
+
+        <Canvas VerticalAlignment="Top" Margin="12,0">
+            <Rectangle x:Name="userImg"
+                   Width="40" Height="40" 
+                   RadiusX="20" RadiusY="20">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
                 </Rectangle.Fill>
             </Rectangle>
-        </Grid>
+        </Canvas>
 
         <Grid Grid.Column="1">
             <HyperlinkButton Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind ViewModel.AuthorName, Mode=OneWay}" 
@@ -74,9 +75,10 @@
             </HyperlinkButton>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="1"  x:Name="body" Margin="0,0,0,8">
+        <Grid Grid.Column="1" Grid.Row="1" x:Name="body" Margin="0,0,0,2">
             <markdown:MarkdownTextBlock Text="{x:Bind ViewModel.Model.Content}"
-                       TextWrapping="WrapWholeWords" FontWeight="SemiLight" Opacity="0.9"/>
+                                        TextWrapping="WrapWholeWords"
+                                        FontWeight="SemiLight" Opacity="0.9"/>
         </Grid>
 
         <i:Interaction.Behaviors>
