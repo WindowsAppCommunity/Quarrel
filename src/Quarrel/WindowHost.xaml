@@ -13,8 +13,8 @@
     <Grid>
         <shell:Shell/>
 
-        <subpage:SubFrameHost/>
-
         <shell:ExtendedSplashScreen x:Name="ExtendedSplashScreen"/>
+
+        <subpage:SubFrameHost/>
     </Grid>
 </Page>

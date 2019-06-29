@@ -36,6 +36,8 @@ namespace Quarrel.Helpers
 
                 public const string CurrentUser = nameof(CurrentUser);
                 public const string Note = nameof(Note);
+
+                public const string AccessToken = nameof(AccessToken);
             }
         }
     }

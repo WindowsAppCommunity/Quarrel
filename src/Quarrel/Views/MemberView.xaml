@@ -34,7 +34,7 @@
                         <DataTemplate>
                             <membercontrols:GuildMemberListItemTemplate>
                                 <FlyoutBase.AttachedFlyout>
-                                    <Flyout FlyoutPresenterStyle="{StaticResource MemberFlyoutStyle}">
+                                    <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
                                         <membercontrols:MemberFlyoutTemplate/>
                                     </Flyout>
                                 </FlyoutBase.AttachedFlyout>

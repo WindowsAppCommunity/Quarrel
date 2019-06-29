@@ -321,7 +321,11 @@
     </Compile>
     <Compile Include="SubPages\Interfaces\IAdaptiveSubPage.cs" />
     <Compile Include="SubPages\Interfaces\IConstrainedSubPage.cs" />
+    <Compile Include="SubPages\Interfaces\IFullscreenSubPage.cs" />
     <Compile Include="SubPages\Interfaces\IView.cs" />
+    <Compile Include="SubPages\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\UserProfilePage.xaml.cs">
       <DependentUpon>UserProfilePage.xaml</DependentUpon>
     </Compile>
@@ -443,6 +447,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\TextBoxStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
