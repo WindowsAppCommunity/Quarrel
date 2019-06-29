@@ -87,6 +87,20 @@ namespace Quarrel.Services.Rest
 
             _AccessToken = result.Token;
 
+            await ServicesManager.Cache.Persistent.Roaming.SetValueAsync(Quarrel.Helpers.Constants.Cache.Keys.AccessToken, (object)_AccessToken);
+
+            Login();
+        }
+
+        public void Login([NotNull] string token)
+        {
+            _AccessToken = token;
+
+            Login();
+        }
+
+        private void Login()
+        {
             IAuthenticator authenticator = new DiscordAuthenticator(_AccessToken);
             AuthenticatedRestFactory authenticatedRestFactory = new AuthenticatedRestFactory(new DiscordApiConfiguration() { BaseUrl = "https://discordapp.com/api" }, authenticator);
 

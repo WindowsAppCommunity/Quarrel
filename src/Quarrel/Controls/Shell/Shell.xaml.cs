@@ -12,7 +12,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Quarrel.Messages.Navigation.SubFrame;
 using Quarrel.Services;
+using GalaSoft.MvvmLight.Messaging;
+using Quarrel.SubPages;
+using System.Threading.Tasks;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -27,8 +31,21 @@ namespace Quarrel.Controls.Shell
             // Setup SideDrawer
             ContentContainer.SetupInteraction();
 
-            // Setup Discord Service
-            ServicesManager.Discord.Login("mcollins4850@gmail.com", "7TGlH#o5DbqW");
+            Login();
+        }
+
+        public async void Login()
+        {
+            var token = (string)(await ServicesManager.Cache.Persistent.Roaming.TryGetValueAsync<object>(Quarrel.Helpers.Constants.Cache.Keys.AccessToken));
+            if (string.IsNullOrEmpty(token))
+            {
+                await Task.Delay(100);
+                Messenger.Default.Send(SubFrameNavigationRequestMessage.To(new LoginPage()));
+            }
+            else
+            {
+                ServicesManager.Discord.Login(token);
+            }
         }
     }
 }

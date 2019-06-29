@@ -63,7 +63,7 @@
             <HyperlinkButton Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind ViewModel.AuthorName, Mode=OneWay}" 
                              Foreground="{x:Bind ViewModel.AuthorColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}">
                 <FlyoutBase.AttachedFlyout>
-                    <Flyout FlyoutPresenterStyle="{StaticResource MemberFlyoutStyle}">
+                    <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
                         <membercontrols:MemberFlyoutTemplate DataContext="{x:Bind ViewModel.Author, Mode=OneWay}"/>
                     </Flyout>
                 </FlyoutBase.AttachedFlyout>

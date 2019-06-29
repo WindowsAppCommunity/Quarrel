@@ -24,10 +24,11 @@ namespace Quarrel
         {
             this.InitializeComponent();
         }
-        string mfaTicket;
 
         string cusername;
         string cpassword;
+
+        string mfaTicket;
 
         private async void LogIn(object sender, RoutedEventArgs e)
         {
@@ -203,6 +204,7 @@ namespace Quarrel
             LoginText.Visibility = Visibility.Visible;
 
         }
+
         private async void Register(object sender, RoutedEventArgs e)
         {
             await Windows.System.Launcher.LaunchUriAsync(new Uri("https://discordapp.com/register"));
@@ -280,7 +282,6 @@ namespace Quarrel
                 MFAPassword.Header = "Code sent to " + result.PhoneNumber+":";
                 sms = true;
             }
-            
         }
 
         private void Navigating(WebView sender, WebViewNavigationStartingEventArgs args)

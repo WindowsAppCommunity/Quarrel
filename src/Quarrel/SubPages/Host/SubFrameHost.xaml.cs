@@ -178,6 +178,12 @@ namespace Quarrel.SubPages.Host
                         break;
                     }
 
+                case IFullscreenSubPage fullscreen:
+                    {
+                        UpdateLayout(double.NaN, double.NaN);
+                        break;
+                    }
+
                 // Any content, that toggles between almost full screen and the compact state
                 case object _:
                     {
