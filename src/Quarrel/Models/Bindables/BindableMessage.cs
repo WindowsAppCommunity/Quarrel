@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using GalaSoft.MvvmLight.Command;
 using Quarrel.Services;
 
 namespace Quarrel.Models.Bindables
@@ -40,6 +41,20 @@ namespace Quarrel.Models.Bindables
         public bool IsContinuation => _previousMessage != null && _previousMessage.Type == 0 &&
                                       Model.Timestamp.Subtract(_previousMessage.Timestamp).Minutes < 2 &&
                                       _previousMessage.User.Id == Model.User.Id;
+
+        private bool showFlyout;
+        public bool ShowFlyout
+        {
+            get => showFlyout;
+            set => Set(ref showFlyout, value);
+        }
+
+        private RelayCommand showFlyoutCommand;
+
+        public RelayCommand ShowFlyoutCommand => showFlyoutCommand ?? (showFlyoutCommand = new RelayCommand(() =>
+                                                     {
+                                                         ShowFlyout = true;
+                                                     }));
 
         #endregion
     }

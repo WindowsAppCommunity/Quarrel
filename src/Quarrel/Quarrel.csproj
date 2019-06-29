@@ -339,6 +339,7 @@
     <Compile Include="WindowHost.xaml.cs">
       <DependentUpon>WindowHost.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Xaml.Behaviors\OpenFlyoutAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

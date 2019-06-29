@@ -10,6 +10,7 @@
     xmlns:membercontrols="using:Quarrel.Controls.Members"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -59,13 +60,17 @@
 
         <Grid Grid.Column="1">
             <HyperlinkButton Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind ViewModel.AuthorName, Mode=OneWay}" 
-                             Foreground="{x:Bind ViewModel.AuthorColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}"
-                             Click="Username_Clicked">
+                             Foreground="{x:Bind ViewModel.AuthorColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}">
                 <FlyoutBase.AttachedFlyout>
                     <Flyout FlyoutPresenterStyle="{StaticResource MemberFlyoutStyle}">
                         <membercontrols:MemberFlyoutTemplate DataContext="{x:Bind ViewModel.Author, Mode=OneWay}"/>
                     </Flyout>
                 </FlyoutBase.AttachedFlyout>
+                <i:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="Tapped">
+                        <behaviors:OpenFlyoutAction />
+                    </core:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
             </HyperlinkButton>
         </Grid>
 
