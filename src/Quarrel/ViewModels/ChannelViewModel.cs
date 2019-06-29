@@ -68,7 +68,7 @@ namespace Quarrel.ViewModels
             }
             else
             {
-                Messenger.Default.Send(new ChannelNavigateMessage(channel.Model.Id, Guild.Model.Id));
+                Messenger.Default.Send(new ChannelNavigateMessage(channel, Guild));
             }
         }));
     }

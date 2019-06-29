@@ -149,7 +149,7 @@ namespace Quarrel.ViewModels
 
         public RelayCommand<BindableGuild> NavigateGuildCommand => navigateGuildCommand ?? (navigateGuildCommand = new RelayCommand<BindableGuild>((guild) =>
         {
-            Messenger.Default.Send(new GuildNavigateMessage(guild.Model.Id));
+            Messenger.Default.Send(new GuildNavigateMessage(guild));
         }));
     }
 }

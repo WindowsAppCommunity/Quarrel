@@ -23,13 +23,13 @@ namespace Quarrel.ViewModels
                 await DispatcherHelper.RunAsync(async () =>
                 {
                     Source.Clear();
-                    var itemList = await Services.ServicesManager.Discord.ChannelService.GetChannelMessages(m.ChannelId);
+                    var itemList = await Services.ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id);
 
                     Message lastItem = null;
 
                     foreach (Message item in itemList.Reverse())
                     {
-                        Source.Add(new BindableMessage(item, m.GuildId, lastItem));
+                        Source.Add(new BindableMessage(item, m.Guild.Model.Id, lastItem));
                         lastItem = item;
                     }
                 });

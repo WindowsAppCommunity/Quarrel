@@ -42,9 +42,10 @@ namespace Quarrel.Models.Bindables
 
         public int AuthorColor => Author?.TopRole?.Color ?? -1;
 
-        public bool IsContinuation => _previousMessage != null && _previousMessage.Type == 0 &&
-                                      Model.Timestamp.Subtract(_previousMessage.Timestamp).Minutes < 2 &&
-                                      _previousMessage.User.Id == Model.User.Id;
+        public bool IsContinuation => _previousMessage != null &&
+                                      _previousMessage.User.Id == Model.User.Id &&
+                                      _previousMessage.Type == 0 &&
+                                      Model.Timestamp.Subtract(_previousMessage.Timestamp).Minutes < 2;
 
         private bool showFlyout;
         public bool ShowFlyout

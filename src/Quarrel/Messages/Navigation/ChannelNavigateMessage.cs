@@ -1,4 +1,5 @@
 ﻿using DiscordAPI.Models;
+using Quarrel.Models.Bindables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,14 @@ namespace Quarrel.Messages.Navigation
 {
     public sealed class ChannelNavigateMessage
     {
-        public ChannelNavigateMessage(string channelId, string guildId)
+        public ChannelNavigateMessage(BindableChannel channel, BindableGuild guild)
         {
-            ChannelId = channelId;
-            GuildId = guildId;
+            Channel = channel;
+            Guild = guild;
         }
 
-        public string ChannelId { get; }
+        public BindableChannel Channel { get; }
 
-        public string GuildId { get; }
+        public BindableGuild Guild { get; }
     }
 }
