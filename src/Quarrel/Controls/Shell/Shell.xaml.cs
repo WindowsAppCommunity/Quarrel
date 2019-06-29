@@ -28,7 +28,7 @@ namespace Quarrel.Controls.Shell
             ContentContainer.SetupInteraction();
 
             // Setup Discord Service
-            ServicesManager.Discord.Login("<email>", "<password>");
+            ServicesManager.Discord.Login("mcollins4850@gmail.com", "7TGlH#o5DbqW");
         }
     }
 }
