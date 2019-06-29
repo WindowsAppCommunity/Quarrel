@@ -27,9 +27,6 @@ namespace Quarrel.Views
         public ChannelView()
         {
             this.InitializeComponent();
-            DataContext = new ChannelViewModel();
         }
-
-        public ChannelViewModel ViewModel => DataContext as ChannelViewModel;
     }
 }

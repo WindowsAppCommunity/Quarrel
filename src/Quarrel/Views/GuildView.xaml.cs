@@ -26,9 +26,6 @@ namespace Quarrel.Views
         public GuildView()
         {
             this.InitializeComponent();
-            DataContext = new GuildViewModel();
         }
-
-        public GuildViewModel ViewModel => DataContext as GuildViewModel;
     }
 }

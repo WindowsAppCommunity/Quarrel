@@ -6,11 +6,16 @@
     xmlns:messagecontrols="using:Quarrel.Controls.Messages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:Quarrel.ViewModels"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <ListView ItemsSource="{x:Bind ViewModels.Source, Mode=OneWay}"
+    <UserControl.DataContext>
+        <viewModels:MessageViewModel x:Name="ViewModel" />
+    </UserControl.DataContext>
+
+    <ListView ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
               SelectionMode="None" IsItemClickEnabled="False" ItemContainerStyle="{StaticResource MessageListItemStyle}">
         <ListView.ItemsPanel>
             <ItemsPanelTemplate>

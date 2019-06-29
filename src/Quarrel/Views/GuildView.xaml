@@ -10,9 +10,14 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:helpers="using:Quarrel.Helpers"
+    xmlns:viewModels="using:Quarrel.ViewModels"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
+
+    <UserControl.DataContext>
+        <viewModels:GuildViewModel x:Name="ViewModel" />
+    </UserControl.DataContext>
 
     <Grid>
         <ListView ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"

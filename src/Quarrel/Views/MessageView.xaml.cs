@@ -27,9 +27,6 @@ namespace Quarrel.Views
         public MessageView()
         {
             this.InitializeComponent();
-            DataContext = new MessageViewModel();
         }
-
-        public MessageViewModel ViewModels => DataContext as MessageViewModel;
     }
 }
