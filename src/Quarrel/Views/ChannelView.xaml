@@ -6,6 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:channelcontrol="using:Quarrel.Controls.Channels"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:helpers="using:Quarrel.Helpers"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -14,7 +17,8 @@
         <ListView x:Name="ChannelList"
                   ItemsSource="{x:Bind ViewModel.Source}"
                   ItemContainerStyle="{StaticResource ChannelListItemStyle}"
-                  IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
+                  IsItemClickEnabled="True"
+                  helpers:ItemClickCommand.Command="{x:Bind ViewModel.NavigateChannelCommand}">
             <ListView.Header>
                 <channelcontrol:ChannelListHeader DataContext="{x:Bind ViewModel.Guild, Mode=OneWay}"/>
             </ListView.Header>
