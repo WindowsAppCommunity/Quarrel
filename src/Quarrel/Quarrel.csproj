@@ -267,6 +267,7 @@
     <Compile Include="Extensions\System.Collections.Generic\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\GroupedObservableCollection.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\Grouping.cs" />
+    <Compile Include="Extensions\System.Collections.ObjectModel\ObservableDictionary.cs" />
     <Compile Include="Extensions\System.Threading.Tasks\AggregateExceptionHandler.cs" />
     <Compile Include="Extensions\System.Threading.Tasks\TaskExtensions.cs" />
     <Compile Include="Extensions\System\NumericExtensions.cs" />
