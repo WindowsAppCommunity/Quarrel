@@ -273,6 +273,7 @@
     <Compile Include="Extensions\System\StringExtensions.cs" />
     <Compile Include="Extensions\Windows.UI.Xaml\UIExtensions.cs" />
     <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Helpers\ItemClickCommand.cs" />
     <Compile Include="Messages\Abstract\AsyncRequestMessageBase.cs" />
     <Compile Include="Messages\Abstract\RequestMessageBase{T1,T2}.cs" />
     <Compile Include="Messages\Abstract\RequestMessageBase{T}.cs" />
@@ -340,6 +341,7 @@
       <DependentUpon>WindowHost.xaml</DependentUpon>
     </Compile>
     <Compile Include="Xaml.Behaviors\OpenFlyoutAction.cs" />
+    <Compile Include="Xaml.Behaviors\OpenListViewItemFlyoutAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -364,6 +366,7 @@
   <ItemGroup>
     <Folder Include="Controls\Messages\Embeds\" />
     <Folder Include="Models\Bindables\Base\" />
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

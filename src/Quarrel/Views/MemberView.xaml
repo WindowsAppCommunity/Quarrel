@@ -7,6 +7,9 @@
     xmlns:membercontrols="using:Quarrel.Controls.Members"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -21,8 +24,12 @@
                 <ListView x:Name="MemberList"
                           ItemsSource="{x:Bind ViewModel.ViewSource.View, Mode=OneWay}"
                           ItemContainerStyle="{StaticResource ChannelListItemStyle}"
-                          IsItemClickEnabled="True" SelectionMode="None"
-                          ItemClick="ListView_ItemClick">
+                          IsItemClickEnabled="True" SelectionMode="None">
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="ItemClick">
+                            <behaviors:OpenListViewItemFlyoutAction/>
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <membercontrols:GuildMemberListItemTemplate>

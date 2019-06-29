@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight.Command;
 using Quarrel.Helpers;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Navigation;
@@ -46,8 +47,32 @@ namespace Quarrel.ViewModels
             }
         }
 
-        public BindableGuild Guild { get => ServicesManager.Cache.Runtime.TryGetValue<BindableGuild>(Quarrel.Helpers.Constants.Cache.Keys.Guild, GuildId); }
+        public BindableGuild Guild => ServicesManager.Cache.Runtime.TryGetValue<BindableGuild>(Quarrel.Helpers.Constants.Cache.Keys.Guild, GuildId);
 
         public ObservableCollection<BindableChannel> Source { get; private set; } = new ObservableCollection<BindableChannel>();
+
+
+        private RelayCommand<BindableChannel> navigateChannelCommand;
+
+        public RelayCommand<BindableChannel> NavigateChannelCommand => navigateChannelCommand ?? (navigateChannelCommand = new RelayCommand<BindableChannel>((channel) =>
+        {
+
+            if (channel.IsCategory)
+            {
+                bool newState = !channel.Collapsed;
+                for (int i = Source.IndexOf(channel);
+                    i < Source.Count
+                    && (Source[i] is BindableChannel bChannel)
+                    && bChannel.ParentId == channel.Model.Id;
+                    i++)
+                {
+                    bChannel.Collapsed = newState;
+                }
+            }
+            else
+            {
+                Messenger.Default.Send(new ChannelNavigateMessage(channel.Model.Id, GuildId));
+            }
+        }));
     }
 }

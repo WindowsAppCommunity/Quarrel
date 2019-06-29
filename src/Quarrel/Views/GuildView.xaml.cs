@@ -31,9 +31,5 @@ namespace Quarrel.Views
 
         public GuildViewModel ViewModel => DataContext as GuildViewModel;
 
-        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            Messenger.Default.Send(new GuildNavigateMessage((e.ClickedItem as BindableGuild).Model.Id));
-        }
     }
 }

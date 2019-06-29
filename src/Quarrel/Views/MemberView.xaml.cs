@@ -27,10 +27,5 @@ namespace Quarrel.Views
         }
 
         public MemberViewModel ViewModel => DataContext as MemberViewModel;
-
-        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            FlyoutBase.ShowAttachedFlyout(((sender as ListView).ContainerFromItem(e.ClickedItem) as ListViewItem).ContentTemplateRoot as FrameworkElement);
-        }
     }
 }

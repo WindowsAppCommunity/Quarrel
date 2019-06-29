@@ -15,6 +15,8 @@ using Quarrel.Services.Cache;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using UICompositionAnimations.Helpers;
 using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Command;
+using Quarrel.Messages.Navigation;
 
 namespace Quarrel.ViewModels
 {
@@ -43,5 +45,12 @@ namespace Quarrel.ViewModels
         public CollectionViewSource ViewSource { get; }
 
         public ObservableCollection<BindableGuild> Source { get; private set; } = new ObservableCollection<BindableGuild>();
+
+        private RelayCommand<BindableGuild> navigateGuildCommand;
+
+        public RelayCommand<BindableGuild> NavigateGuildCommand => navigateGuildCommand ?? (navigateGuildCommand = new RelayCommand<BindableGuild>((guild) =>
+        {
+            Messenger.Default.Send(new GuildNavigateMessage(guild.Model.Id));
+        }));
     }
 }

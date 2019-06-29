@@ -7,6 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:guildcontrol="using:Quarrel.Controls.Guilds"
     xmlns:models="using:Quarrel.Models.Bindables"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:helpers="using:Quarrel.Helpers"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -15,7 +18,8 @@
         <ListView ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
                   ItemContainerStyle="{StaticResource GuildListItemStyle}"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                  IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
+                  IsItemClickEnabled="True"
+                  helpers:ItemClickCommand.Command="{x:Bind ViewModel.NavigateGuildCommand}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <guildcontrol:GuildTemplate/>
