@@ -870,4 +870,9 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="MessageListItemStyle" TargetType="ListViewItem">
+        <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
+    </Style>
 </ResourceDictionary>
