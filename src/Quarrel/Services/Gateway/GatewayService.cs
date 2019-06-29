@@ -51,7 +51,12 @@ namespace Quarrel.Services.Gateway
                 //var idList = channelList.ConvertAll(x => x.Id);
 
                 List<string> idList = new List<string>();
-                idList.Add(m.Guild.Model.Id);
+
+                // Guild Sync
+                if (m.Guild.Model.Id != "DM")
+                {
+                    idList.Add(m.Guild.Model.Id);
+                }
 
                 await Gateway.SubscribeToGuild(idList.ToArray());
             });
