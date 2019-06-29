@@ -12,6 +12,7 @@ using Quarrel.Models.Bindables;
 using UICompositionAnimations.Helpers;
 using Quarrel.Helpers;
 using Quarrel.Messages.Gateway;
+using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services;
 using DiscordAPI.Models;
 
@@ -37,6 +38,8 @@ namespace Quarrel.ViewModels
                     }
                 });
             });
+
+            Messenger.Default.Register<BindableUserRequestMessage>(this, m => m.ReportResult(Source.Elements.FirstOrDefault(x => x.Model.User.Id == m.UserId)));
 
             Source = new GroupedObservableCollection<Role, BindableUser>(x => x.TopHoistRole);
             ViewSource = new CollectionViewSource() { Source = this.Source, IsSourceGrouped = true };

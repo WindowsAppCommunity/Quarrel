@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using UICompositionAnimations.Helpers;
 using DiscordAPI.Gateway;
+using Quarrel.Messages.Posts.Requests;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -30,9 +31,12 @@ namespace Quarrel.Controls.Shell
         {
             this.InitializeComponent();
 
-            Messenger.Default.Register<GatewayReadyMessage>(this, async _ =>
+            Messenger.Default.Register<GatewayReadyMessage>(this, async m =>
             {
-                await DispatcherHelper.RunAsync(() => { this.Bindings.Update(); });
+                await DispatcherHelper.RunAsync(() => 
+                {
+                    DataContext = new BindableUser(new GuildMember() { User = m.EventData.User });
+                });
             });
 
             Messenger.Default.Register<GatewayGuildSyncMessage>(this, async _ =>
@@ -56,9 +60,19 @@ namespace Quarrel.Controls.Shell
                     this.Bindings.Update();
                 });
             });
+
+            Messenger.Default.Register<CurrentUserRequestMessage>(this, m =>
+            {
+                m.ReportResult(ViewModel);
+            });
+
+            this.DataContextChanged += (s, e) =>
+            {
+                this.Bindings.Update();
+            };
         }
 
-        public BindableUser ViewModel => ServicesManager.Cache.Runtime.TryGetValue<BindableUser>(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser);
+        public BindableUser ViewModel => DataContext as BindableUser;
 
         private async void StatusSelected(object sender, RoutedEventArgs e)
         {

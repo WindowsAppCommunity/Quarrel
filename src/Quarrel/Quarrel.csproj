@@ -287,11 +287,14 @@
     <Compile Include="Messages\Navigation\SubFrame\SubFrameCloseRequestMessage.cs" />
     <Compile Include="Messages\Navigation\SubFrame\SubFrameContentUnlockedMessage.cs" />
     <Compile Include="Messages\Navigation\SubFrame\SubFrameNavigationRequestMessage.cs" />
+    <Compile Include="Messages\Requests\BindableChannelsRequestMessage.cs" />
+    <Compile Include="Messages\Requests\BindableUserRequestMessage.cs" />
+    <Compile Include="Messages\Requests\CurrentUserRequestMessage.cs" />
     <Compile Include="Messages\Services\Settings\SettingChangedMessage.cs" />
     <Compile Include="Models\Bindables\Abstract\BindableModelBase.cs" />
     <Compile Include="Models\Bindables\BindableChannel.cs" />
     <Compile Include="Models\Bindables\BindableGuild.cs" />
-    <Compile Include="Models\Bindables\BindableGuildMember.cs" />
+    <Compile Include="Models\Bindables\BindableUser.cs" />
     <Compile Include="Models\Bindables\BindableMessage.cs" />
     <Compile Include="Models\Interfaces\IGuild.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

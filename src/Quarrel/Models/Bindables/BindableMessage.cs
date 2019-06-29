@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Quarrel.Services;
+using GalaSoft.MvvmLight.Messaging;
+using Quarrel.Messages.Posts.Requests;
 
 namespace Quarrel.Models.Bindables
 {
@@ -25,7 +27,7 @@ namespace Quarrel.Models.Bindables
 
         public BindableUser Author
         {
-            get => ServicesManager.Cache.Runtime.TryGetValue<BindableUser>(Quarrel.Helpers.Constants.Cache.Keys.GuildMember, GuildId + Model.User.Id) ??
+            get => Messenger.Default.Request<BindableUserRequestMessage, BindableUser>(new BindableUserRequestMessage(Model.User.Id)) ??
                 new BindableUser(new GuildMember() { User = Model.User });
         }
 

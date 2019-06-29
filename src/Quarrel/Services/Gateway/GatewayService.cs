@@ -51,7 +51,7 @@ namespace Quarrel.Services.Gateway
                 //var idList = channelList.ConvertAll(x => x.Id);
 
                 List<string> idList = new List<string>();
-                idList.Add(m.GuildId);
+                idList.Add(m.Guild.Model.Id);
 
                 await Gateway.SubscribeToGuild(idList.ToArray());
             });
@@ -69,7 +69,7 @@ namespace Quarrel.Services.Gateway
         private void Gateway_Ready(object sender, GatewayEventArgs<Ready> e)
         {
             e.EventData.Cache();
-            Messenger.Default.Send(new GatewayReadyMessage());
+            Messenger.Default.Send(new GatewayReadyMessage(e.EventData));
         }
 
         private void Gateway_GuildMemberChunk(object sender, GatewayEventArgs<GuildMemberChunk> e)

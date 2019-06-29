@@ -21,11 +21,17 @@ namespace Quarrel.Models.Bindables
 {
     public class BindableGuild : BindableModelBase<Guild>, IGuild
     {
-        public BindableGuild([NotNull] Guild model) : base(model) { }
+        public BindableGuild([NotNull] Guild model) : base(model)
+        {
+            _Channels = new List<BindableChannel>();
+        }
+
+        private List<BindableChannel> _Channels;
 
         public List<BindableChannel> Channels
         {
-            get { return ServicesManager.Cache.Runtime.TryGetValue<List<BindableChannel>>(Constants.Cache.Keys.ChannelList, Model.Id); }
+            get  => _Channels;
+            set => Set(ref _Channels, value);
         }
 
         public bool IsDM

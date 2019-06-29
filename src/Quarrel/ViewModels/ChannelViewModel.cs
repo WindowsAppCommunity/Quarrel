@@ -12,6 +12,8 @@ using Quarrel.Messages.Navigation;
 using Quarrel.Models.Bindables;
 using Quarrel.Services;
 using UICompositionAnimations.Helpers;
+using Quarrel.Messages.Posts.Requests;
+using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 
 namespace Quarrel.ViewModels
 {
@@ -23,9 +25,10 @@ namespace Quarrel.ViewModels
             {
                 await DispatcherHelper.RunAsync(() =>
                 {
-                    GuildId = m.GuildId;
+                    Guild = m.Guild;
                     Source.Clear();
-                    var itemList = ServicesManager.Cache.Runtime.TryGetValue<List<BindableChannel>>(Constants.Cache.Keys.ChannelList, m.GuildId);
+
+                    var itemList = m.Guild.Channels;
                     foreach (var item in itemList)
                     {
                         Source.Add(item);
@@ -34,19 +37,13 @@ namespace Quarrel.ViewModels
             });
         }
 
-        private string _GuildId;
+        private BindableGuild _Guild;
 
-        public string GuildId
+        public BindableGuild Guild
         {
-            get => _GuildId;
-            set
-            {
-                if (Set(ref _GuildId, value))
-                    RaisePropertyChanged(nameof(Guild));
-            }
+            get => _Guild;
+            set => Set(ref _Guild, value);
         }
-
-        public BindableGuild Guild { get => ServicesManager.Cache.Runtime.TryGetValue<BindableGuild>(Quarrel.Helpers.Constants.Cache.Keys.Guild, GuildId); }
 
         public ObservableCollection<BindableChannel> Source { get; private set; } = new ObservableCollection<BindableChannel>();
     }

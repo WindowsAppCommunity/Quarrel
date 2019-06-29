@@ -10,7 +10,11 @@ namespace Quarrel.Messages.Gateway
 {
     public sealed class GatewayReadyMessage
     {
-        public GatewayReadyMessage()
-        { }
+        public GatewayReadyMessage(Ready packet)
+        {
+            EventData = packet;
+        }
+
+        public Ready EventData;
     }
 }

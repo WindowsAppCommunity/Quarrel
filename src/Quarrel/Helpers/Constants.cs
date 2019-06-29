@@ -18,7 +18,7 @@ namespace Quarrel.Helpers
             /// </summary>
             public static class Keys
             {
-                public const string Guild = nameof(Guild);
+                //public const string Guild = nameof(Guild);
                 public const string GuildSettings = nameof(GuildSettings);
                 public const string GuildList = nameof(GuildList);
                 public const string GuildMember = nameof(GuildMember);
@@ -27,16 +27,15 @@ namespace Quarrel.Helpers
                 public const string GuildRole = nameof(GuildRole);
                 public const string GuildRoleList = nameof(GuildRoleList);
 
-                public const string Channel = nameof(Channel);
+                //public const string Channel = nameof(Channel);
                 public const string ChannelSettings = nameof(ChannelSettings);
-                public const string ChannelList = nameof(ChannelList);
+                //public const string ChannelList = nameof(ChannelList);
 
                 public const string ReadState = nameof(ReadState);
                 public const string Presence = nameof(Presence);
 
-                public const string Note = nameof(Note);
-
                 public const string CurrentUser = nameof(CurrentUser);
+                public const string Note = nameof(Note);
             }
         }
     }
