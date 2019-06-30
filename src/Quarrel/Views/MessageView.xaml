@@ -6,6 +6,7 @@
     xmlns:messagecontrols="using:Quarrel.Controls.Messages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:msgcontrol="using:Quarrel.Controls.Messages"
     xmlns:viewModels="using:Quarrel.ViewModels"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -15,21 +16,40 @@
         <viewModels:MessageViewModel x:Name="ViewModel" />
     </UserControl.DataContext>
 
-    <ListView ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>
+
+        <ListView ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
               SelectionMode="None" IsItemClickEnabled="False" ItemContainerStyle="{StaticResource MessageListItemStyle}">
-        <ListView.ItemsPanel>
-            <ItemsPanelTemplate>
-                <ItemsStackPanel ItemsUpdatingScrollMode="KeepLastItemInView">
-                    <ItemsStackPanel.ChildrenTransitions>
-                        <TransitionCollection/>
-                    </ItemsStackPanel.ChildrenTransitions>
-                </ItemsStackPanel>
-            </ItemsPanelTemplate>
-        </ListView.ItemsPanel>
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <messagecontrols:MessageTemplate/>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel ItemsUpdatingScrollMode="KeepLastItemInView">
+                        <ItemsStackPanel.ChildrenTransitions>
+                            <TransitionCollection/>
+                        </ItemsStackPanel.ChildrenTransitions>
+                    </ItemsStackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <messagecontrols:MessageTemplate/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+        <Rectangle IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" VerticalAlignment="Bottom">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+                    <GradientStop Offset="1"/>
+                    <GradientStop Color="{ThemeResource ShadowColor}" Offset="0"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <msgcontrol:MessageBox Grid.Row="1"/>
+    </Grid>
 </UserControl>

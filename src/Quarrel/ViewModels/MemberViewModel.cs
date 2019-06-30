@@ -28,41 +28,32 @@ namespace Quarrel.ViewModels
                 await DispatcherHelper.RunAsync(() =>
                 {
                     Source.Clear();
+
                     // Load guild list
                     var guildMemberList = ServicesManager.Cache.Runtime.TryGetValue<List<BindableUser>>(Constants.Cache.Keys.GuildMemberList, m.GuildId);
 
                     // Show members
-                    //TODO: much better way of doing this
                     foreach (var member in guildMemberList)
                     {
-                        bool added = false;
-                        for (int i = 0; i < Source.Count; i++)
-                        {
-                            if (Source[i].Key.Equals(member.TopHoistRole))
-                            {
-                                added = true;
-                                Source[i] = new Grouping<Role, BindableUser>(member.TopHoistRole, Source[i].Concat(new []{member}));
-                            }
-                        }
-
-                        if (!added)
-                        {
-                            Source.Add(new Grouping<Role, BindableUser>(member.TopHoistRole, new [] {member}));
-                        }
+                        Source.Add(member);
                     }
-
                 });
             });
 
-          //  Messenger.Default.Register<BindableUserRequestMessage>(this, m => m.ReportResult(Source.FirstOrDefault(x => x.Model.User.Id == m.UserId)));
+            Messenger.Default.Register<BindableUserRequestMessage>(this, m => m.ReportResult(Source.Elements.FirstOrDefault(x => x.Model.User.Id == m.UserId)));
 
+            Messenger.Default.Register<CurrentMemberListRequestMessage>(this, m => m.ReportResult(Source.Elements.ToList()));
+
+            Source = new GroupedObservableCollection<Role, BindableUser>(x => x.TopHoistRole);
+            ViewSource = new CollectionViewSource() { Source = Source, IsSourceGrouped = true };
         }
 
+        public CollectionViewSource ViewSource { get; }
 
         /// <summary>
         /// Gets the collection of grouped feeds to display
         /// </summary>
         [NotNull]
-        public ObservableCollection<IGrouping<Role, BindableUser>> Source { get; set; } = new ObservableCollection<IGrouping<Role, BindableUser>>();
+        public GroupedObservableCollection<Role, BindableUser> Source { get; set; }
     }
 }

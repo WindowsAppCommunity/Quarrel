@@ -15,6 +15,7 @@ using Quarrel.Services;
 using UICompositionAnimations.Helpers;
 using Quarrel.Messages.Posts.Requests;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
+using DiscordAPI.Models;
 
 namespace Quarrel.ViewModels
 {
@@ -36,6 +37,8 @@ namespace Quarrel.ViewModels
                     }
                 });
             });
+
+            Messenger.Default.Register<CurrentGuildRequestMessage>(this, m => m.ReportResult(Guild));
         }
 
         private BindableGuild _Guild;

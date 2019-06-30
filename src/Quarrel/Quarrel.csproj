@@ -231,6 +231,9 @@
     <Compile Include="Controls\Members\MemberFlyoutTemplate.xaml.cs">
       <DependentUpon>MemberFlyoutTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Messages\MessageBox.xaml.cs">
+      <DependentUpon>MessageBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Messages\MessageTemplate.xaml.cs">
       <DependentUpon>MessageTemplate.xaml</DependentUpon>
     </Compile>
@@ -280,6 +283,7 @@
     <Compile Include="Messages\Abstract\RequestMessageBase{T}.cs" />
     <Compile Include="Messages\Abstract\ValueChangedMessageBase.cs" />
     <Compile Include="Messages\Gateway\GatewayGuildSyncMessage.cs" />
+    <Compile Include="Messages\Gateway\GatewayMessageRecievedMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayNoteUpdatedMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayPresenceUpdatedMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayReadyMessage.cs" />
@@ -291,6 +295,8 @@
     <Compile Include="Messages\Navigation\SubFrame\SubFrameNavigationRequestMessage.cs" />
     <Compile Include="Messages\Requests\BindableChannelsRequestMessage.cs" />
     <Compile Include="Messages\Requests\BindableUserRequestMessage.cs" />
+    <Compile Include="Messages\Requests\CurrentGuildRequestMessage.cs" />
+    <Compile Include="Messages\Requests\CurrentMemberListRequestMessage.cs" />
     <Compile Include="Messages\Requests\CurrentUserRequestMessage.cs" />
     <Compile Include="Messages\Services\Settings\SettingChangedMessage.cs" />
     <Compile Include="Models\Bindables\Abstract\BindableModelBase.cs" />
@@ -403,6 +409,10 @@
     <Page Include="Controls\Members\MemberFlyoutTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Messages\MessageBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\Messages\MessageTemplate.xaml">
       <SubType>Designer</SubType>

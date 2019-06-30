@@ -16,13 +16,8 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <UserControl.DataContext>
-        <viewModels:MemberViewModel x:Name="ViewModel" />
-    </UserControl.DataContext>
-
     <UserControl.Resources>
         <baseconverts:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
-        <CollectionViewSource Source="{x:Bind ViewModel.Source}" x:Key="CollectionViewSource" IsSourceGrouped="True" />
     </UserControl.Resources>
 
     <Grid>
@@ -31,8 +26,7 @@
                 <ListView x:Name="MemberList"
                           ItemContainerStyle="{StaticResource ChannelListItemStyle}"
                           IsItemClickEnabled="True" SelectionMode="None"
-                          ItemsSource="{Binding Source={StaticResource CollectionViewSource}}"
-                          >
+                          ItemsSource="{x:Bind ViewModel.ViewSource.View, Mode=OneWay}">
 
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="ItemClick">
@@ -74,7 +68,7 @@
                 </ListView>
             </SemanticZoom.ZoomedInView>
             <SemanticZoom.ZoomedOutView>
-                <ListView ItemsSource="{Binding CollectionGroups, Source={StaticResource CollectionViewSource}}" Margin="0" >
+                <ListView ItemsSource="{x:Bind ViewModel.ViewSource.View.CollectionGroups, Mode=OneWay}" Margin="0" >
                     <ListView.Background>
                         <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.1"/>
                     </ListView.Background>

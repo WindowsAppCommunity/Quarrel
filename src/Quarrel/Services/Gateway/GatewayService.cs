@@ -38,6 +38,8 @@ namespace Quarrel.Services.Gateway
             Gateway.GuildMemberChunk += Gateway_GuildMemberChunk;
             Gateway.GuildSynced += Gateway_GuildSynced;
 
+            Gateway.MessageCreated += Gateway_MessageCreated;
+
             Gateway.PresenceUpdated += Gateway_PresenceUpdated;
             Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
             Gateway.UserSettingsUpdated += Gateway_UserSettingsUpdated;
@@ -62,19 +64,17 @@ namespace Quarrel.Services.Gateway
             });
         }
 
-        private void Gateway_UserSettingsUpdated(object sender, GatewayEventArgs<UserSettings> e)
-        {
-            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = e.EventData.Status }, 
-                ServicesManager.Cache.Runtime.TryGetValue<BindableUser>(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser).Model.User.Id);
-            Messenger.Default.Send(new GatewayUserSettingsUpdatedMessage());
-        }
-
         #region Events
 
         private void Gateway_Ready(object sender, GatewayEventArgs<Ready> e)
         {
             e.EventData.Cache();
             Messenger.Default.Send(new GatewayReadyMessage(e.EventData));
+        }
+
+        private void Gateway_MessageCreated(object sender, GatewayEventArgs<Message> e)
+        {
+            Messenger.Default.Send(new GatewayMessageRecievedMessage(e.EventData));
         }
 
         private void Gateway_GuildMemberChunk(object sender, GatewayEventArgs<GuildMemberChunk> e)
@@ -98,6 +98,13 @@ namespace Quarrel.Services.Gateway
         {
             ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Note, e.EventData.Note, e.EventData.UserId);
             Messenger.Default.Send(new GatewayNoteUpdatedMessage(e.EventData.UserId));
+        }
+
+        private void Gateway_UserSettingsUpdated(object sender, GatewayEventArgs<UserSettings> e)
+        {
+            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = e.EventData.Status },
+                ServicesManager.Cache.Runtime.TryGetValue<BindableUser>(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser).Model.User.Id);
+            Messenger.Default.Send(new GatewayUserSettingsUpdatedMessage());
         }
 
         #endregion

@@ -23,6 +23,9 @@ namespace Quarrel.Views
         public MemberView()
         {
             this.InitializeComponent();
+            DataContext = new MemberViewModel();
         }
+
+        public MemberViewModel ViewModel => DataContext as MemberViewModel;
     }
 }
