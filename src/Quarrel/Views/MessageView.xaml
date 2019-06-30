@@ -22,7 +22,7 @@
             <RowDefinition Height="64"/>
         </Grid.RowDefinitions>
 
-        <ListView ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
+        <ListView ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}" Padding="0,0,0,12"
               SelectionMode="None" IsItemClickEnabled="False" ItemContainerStyle="{StaticResource MessageListItemStyle}">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -39,7 +39,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
 
         <Rectangle IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" VerticalAlignment="Bottom">
             <Rectangle.Fill>
