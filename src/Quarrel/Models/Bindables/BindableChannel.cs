@@ -194,7 +194,18 @@ namespace Quarrel.Models.Bindables
 
         public bool IsUnread
         {
-            get => ReadState == null ? false : Convert.ToUInt64(ReadState.LastMessageId) < Convert.ToUInt64(Model.LastMessageId);
+            get
+            {
+                if ((IsTextChannel || IsPrivateChannel || IsGroupChannel) && !string.IsNullOrEmpty(Model.LastMessageId))
+                {
+                    if (ReadState != null)
+                    {
+                        return ReadState.LastMessageId != Model.LastMessageId;
+                    }
+                    return true;
+                }
+                return false;
+            }
         }
 
         public int MentionCount
@@ -202,9 +213,34 @@ namespace Quarrel.Models.Bindables
             get => ReadState == null ? 0 : ReadState.MentionCount;
         }
 
-        ReadState ReadState
+        private ReadState _ReadState;
+
+        public ReadState ReadState
         {
-            get => ServicesManager.Cache.Runtime.TryGetValue<ReadState>(Quarrel.Helpers.Constants.Cache.Keys.ReadState, Model.Id);
+            get => _ReadState;
+            set
+            {
+                if (Set(ref _ReadState, value))
+                {
+                    DispatcherHelper.Run(() =>
+                    {
+                        RaisePropertyChanged(nameof(IsUnread));
+                        RaisePropertyChanged(nameof(ShowUnread));
+                        RaisePropertyChanged(nameof(TextOpacity));
+                    });
+                }
+            }
+        }
+
+        public async void UpdateLRMID(string id)
+        {
+            ReadState.LastMessageId = id;
+            await DispatcherHelper.RunAsync(() =>
+            {
+                RaisePropertyChanged(nameof(IsUnread));
+                RaisePropertyChanged(nameof(ShowUnread));
+                RaisePropertyChanged(nameof(TextOpacity));
+            });
         }
 
         public async void UpdateLMID(string id)

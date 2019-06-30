@@ -50,15 +50,6 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
             #endregion
 
-            #region ReadStates
-
-            foreach (var state in ready.ReadStates)
-            {
-                ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.ReadState, state, state.Id);
-            }
-
-            #endregion
-
             #region Current User
 
             ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = ready.Settings.Status }, ready.User.Id);

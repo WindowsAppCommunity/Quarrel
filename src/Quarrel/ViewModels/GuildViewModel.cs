@@ -43,6 +43,16 @@ namespace Quarrel.ViewModels
                     }
                     #endregion
 
+                    #region SortReadStates
+
+                    Dictionary<string, ReadState> readStates = new Dictionary<string, ReadState>();
+                    foreach (var state in m.EventData.ReadStates)
+                    {
+                        readStates.Add(state.Id, state);
+                    }
+
+                    #endregion
+
                     #region Guilds and Channels
 
                     List<BindableGuild> guildList = new List<BindableGuild>();
@@ -59,6 +69,9 @@ namespace Quarrel.ViewModels
                             BindableChannel bChannel = new BindableChannel(channel);
 
                             dmGuild.Channels.Add(bChannel);
+
+                            if (readStates.ContainsKey(bChannel.Model.Id))
+                                bChannel.ReadState = readStates[bChannel.Model.Id];
                         }
 
                         // Sort by last message timestamp
@@ -95,6 +108,9 @@ namespace Quarrel.ViewModels
                             // Find parent position
                             if (!string.IsNullOrEmpty(bChannel.ParentId))
                                 bChannel.ParentPostion = guild.Channels.First(x => x.Id == bChannel.ParentId).Position;
+
+                            if (readStates.ContainsKey(bChannel.Model.Id))
+                                bChannel.ReadState = readStates[bChannel.Model.Id];
 
                             bGuild.Channels.Add(bChannel);
                         }

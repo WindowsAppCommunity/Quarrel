@@ -41,6 +41,7 @@ namespace Quarrel.Services.Gateway
             Gateway.GuildSynced += Gateway_GuildSynced;
 
             Gateway.MessageCreated += Gateway_MessageCreated;
+            Gateway.MessageAck += Gateway_MessageAck;
 
             Gateway.PresenceUpdated += Gateway_PresenceUpdated;
             Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
@@ -74,12 +75,25 @@ namespace Quarrel.Services.Gateway
             Messenger.Default.Send(new GatewayReadyMessage(e.EventData));
         }
 
+
+        #region Messages
+
         private void Gateway_MessageCreated(object sender, GatewayEventArgs<Message> e)
         {
             var channel = Messenger.Default.Request<BindableChannelRequestMessage, BindableChannel>(new BindableChannelRequestMessage(e.EventData.ChannelId));
-            channel.UpdateLMID(e.EventData.Id);
+            if (e.EventData.User != null)
+                channel.UpdateLMID(e.EventData.Id);
+            else
+                e.EventData.User = Messenger.Default.Request<CurrentUserRequestMessage, BindableUser>(new CurrentUserRequestMessage()).Model.User;
             Messenger.Default.Send(new GatewayMessageRecievedMessage(e.EventData));
         }
+
+        private void Gateway_MessageAck(object sender, GatewayEventArgs<MessageAck> e)
+        {
+            Messenger.Default.Request<BindableChannelRequestMessage, BindableChannel>(new BindableChannelRequestMessage(e.EventData.ChannelId)).UpdateLRMID(e.EventData.Id);
+        }
+
+        #endregion
 
         private void Gateway_GuildMemberChunk(object sender, GatewayEventArgs<GuildMemberChunk> e)
         {
