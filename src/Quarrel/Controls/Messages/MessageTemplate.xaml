@@ -54,8 +54,7 @@
 
         <Canvas VerticalAlignment="Top" Margin="12,0">
             <Button Height="40" Width="40"
-                    Style="{StaticResource DimButton}"
-                    Click="Button_Click">
+                    Style="{StaticResource DimButton}">
                 <Rectangle x:Name="userImg"
                            extensions:Mouse.Cursor="Hand"
                            Width="40" Height="40" 
@@ -64,6 +63,12 @@
                         <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
                     </Rectangle.Fill>
                 </Rectangle>
+
+                <i:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="Click">
+                        <behaviors:OpenFlyoutAction TargetObject="{x:Bind AuthorHyperlink}"/>
+                    </core:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
             </Button>
         </Canvas>
 
