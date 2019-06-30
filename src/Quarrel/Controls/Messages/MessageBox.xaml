@@ -6,6 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
     mc:Ignorable="d"
     d:DesignHeight="64"
     d:DesignWidth="400">
@@ -1015,8 +1018,23 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBox x:Uid="/Controls/SendMessageTB" Padding="52,12,96,12" VerticalAlignment="Stretch" x:Name="MessageEditor" PlaceholderText="Send message" TextChanged="MessageEditor_TextChanged" KeyDown="MessageEditor_OnKeyDown" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MaxHeight="256"/>
-        <Button x:Name="SendBox" Grid.Column="2" Style="{StaticResource SendButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Stretch" Click="SendBox_OnClick" Grid.Row="0" IsEnabled="False" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Width="48"/>
+        <local:SelectionBindingTextBox x:Uid="/Controls/SendMessageTB"  Text="{x:Bind ViewModel.MessageText, Mode=TwoWay}" BindableSelectionStart="{x:Bind ViewModel.SelectionStart, Mode=TwoWay}" BindableSelectionLength="{x:Bind ViewModel.SelectionLength, Mode=TwoWay}" Padding="52,12,96,12" VerticalAlignment="Stretch" x:Name="MessageEditor" PlaceholderText="Send message" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MaxHeight="256">
+            <interactivity:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="KeyDown">
+                    <behaviors:KeyDownCommandAction Key="Enter" Command="{x:Bind ViewModel.SendMessageCommand}" ShiftCommand="{x:Bind ViewModel.NewLineCommand}" ExecuteShiftCommandIfNoKeyboard="True"/>
+                </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+        </local:SelectionBindingTextBox>
+        <Button x:Name="SendBox" Grid.Column="2"  Style="{StaticResource SendButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Stretch" Command="{x:Bind ViewModel.SendMessageCommand}" Grid.Row="0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Width="48">
+            <interactivity:Interaction.Behaviors>
+                <core:DataTriggerBehavior Binding="{x:Bind ViewModel.MessageText, Mode=OneWay}" Value="">
+                    <core:ChangePropertyAction PropertyName="IsEnabled" Value="False"/>
+                </core:DataTriggerBehavior>
+                <core:DataTriggerBehavior Binding="{x:Bind ViewModel.MessageText, Mode=OneWay}" Value="" ComparisonCondition="NotEqual">
+                    <core:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
+                </core:DataTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+        </Button>
 
         <!--<Button x:Name="EmojiButton" HorizontalAlignment="Right" Margin="0,0,48,0" Foreground="{ThemeResource Foreground}" Style="{StaticResource ContentButton}" Opacity="1" Background="Transparent" Padding="8">
             <SymbolIcon Symbol="Emoji"/>

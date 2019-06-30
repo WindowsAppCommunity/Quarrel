@@ -237,6 +237,7 @@
     <Compile Include="Controls\Messages\MessageTemplate.xaml.cs">
       <DependentUpon>MessageTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Messages\SelectionBindingTextBox.cs" />
     <Compile Include="Controls\Shell\CurrentUserButton.xaml.cs">
       <DependentUpon>CurrentUserButton.xaml</DependentUpon>
     </Compile>
@@ -355,6 +356,7 @@
     <Compile Include="WindowHost.xaml.cs">
       <DependentUpon>WindowHost.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Xaml.Behaviors\KeyDownCommandAction.cs" />
     <Compile Include="Xaml.Behaviors\OpenFlyoutAction.cs" />
     <Compile Include="Xaml.Behaviors\OpenListViewItemFlyoutAction.cs" />
   </ItemGroup>
