@@ -17,6 +17,8 @@ using DiscordAPI.Authentication;
 using DiscordAPI.Models;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Quarrel.Models.Bindables;
+using Quarrel.Messages.Posts.Requests;
+using UICompositionAnimations.Helpers;
 
 namespace Quarrel.Services.Gateway
 {
@@ -74,6 +76,8 @@ namespace Quarrel.Services.Gateway
 
         private void Gateway_MessageCreated(object sender, GatewayEventArgs<Message> e)
         {
+            var channel = Messenger.Default.Request<BindableChannelRequestMessage, BindableChannel>(new BindableChannelRequestMessage(e.EventData.ChannelId));
+            channel.UpdateLMID(e.EventData.Id);
             Messenger.Default.Send(new GatewayMessageRecievedMessage(e.EventData));
         }
 
