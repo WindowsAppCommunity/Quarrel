@@ -107,6 +107,8 @@ namespace Quarrel.Services.Rest
         IGatewayService Gateway { get; }
 
 
+        void Login([NotNull] string token);
+
         void Login([NotNull] string email, [NotNull] string password);
     }
 }

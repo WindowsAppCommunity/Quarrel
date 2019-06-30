@@ -205,7 +205,7 @@
     </Style>
 
 
-    <Style x:Key="MemberFlyoutStyle" TargetType="FlyoutPresenter">
+    <Style x:Key="GenericFlyoutStyle" TargetType="FlyoutPresenter">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
         <Setter Property="IsTabStop" Value="False"/>
