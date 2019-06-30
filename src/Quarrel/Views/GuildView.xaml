@@ -20,7 +20,7 @@
     </UserControl.DataContext>
 
     <Grid>
-        <ListView ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
+        <ListView ItemsSource="{x:Bind ViewModel.Source.Values, Mode=OneWay}"
                   ItemContainerStyle="{StaticResource GuildListItemStyle}"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
                   IsItemClickEnabled="True"

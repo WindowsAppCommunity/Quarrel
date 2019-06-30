@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -51,7 +52,7 @@ namespace Quarrel.ViewModels
                     guildList.Add(dmGuild);
 
                     // Add DM channels
-                    if (m.EventData.PrivateChannels != null && m.EventData.PrivateChannels.Count() > 0)
+                    if (m.EventData.PrivateChannels != null && m.EventData.PrivateChannels.Any())
                     {
                         foreach (var channel in m.EventData.PrivateChannels)
                         {
@@ -132,12 +133,12 @@ namespace Quarrel.ViewModels
                     // Show guilds
                     foreach (var guild in guildList)
                     {
-                        Source.Add(guild);
+                        Source.Add(guild.Model.Id, guild);
                     }
                 });
             });
 
-            Messenger.Default.Register<BindableGuildRequestMessage>(this, m => m.ReportResult(Source.FirstOrDefault(x => x.Model.Id == m.GuildId)));
+            Messenger.Default.Register<BindableGuildRequestMessage>(this, m => m.ReportResult(Source[m.GuildId]);;
 
             Messenger.Default.Register<BindableChannelRequestMessage>(this, m =>
             {
@@ -150,7 +151,7 @@ namespace Quarrel.ViewModels
             });
         }
 
-        public ObservableCollection<BindableGuild> Source { get; private set; } = new ObservableCollection<BindableGuild>();
+        public ObservableConcurrentDictionary<string, BindableGuild> Source { get; private set; } = new ObservableConcurrentDictionary<string, BindableGuild>();
 
         private RelayCommand<BindableGuild> navigateGuildCommand;
 
