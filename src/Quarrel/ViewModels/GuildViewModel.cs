@@ -138,9 +138,16 @@ namespace Quarrel.ViewModels
                 });
             });
 
-            Messenger.Default.Register<BindableGuildRequestMessage>(this, m =>
+            Messenger.Default.Register<BindableGuildRequestMessage>(this, m => m.ReportResult(Source[m.GuildId]);;
+
+            Messenger.Default.Register<BindableChannelRequestMessage>(this, m =>
             {
-                m.ReportResult(Source[m.GuildId]);
+                foreach (var guild in Source)
+                {
+                    var chn = guild.Channels.FirstOrDefault(x => x.Model.Id == m.ChannelId);
+                    if (chn != null)
+                        m.ReportResult(chn);
+                }
             });
         }
 

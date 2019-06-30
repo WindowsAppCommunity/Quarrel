@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Quarrel.Models.Bindables.Abstract;
 using Quarrel.Services;
 using System.ComponentModel;
+using UICompositionAnimations.Helpers;
 
 namespace Quarrel.Models.Bindables
 {
@@ -206,6 +207,15 @@ namespace Quarrel.Models.Bindables
             get => ServicesManager.Cache.Runtime.TryGetValue<ReadState>(Quarrel.Helpers.Constants.Cache.Keys.ReadState, Model.Id);
         }
 
+        public async void UpdateLMID(string id)
+        {
+            Model.UpdateLMID(id);
+            await DispatcherHelper.RunAsync(() => 
+            {
+                RaisePropertyChanged(nameof(IsUnread));
+                RaisePropertyChanged(nameof(ShowUnread));
+            });
+        }
         #endregion
     }
 }
