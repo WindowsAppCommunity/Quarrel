@@ -31,9 +31,5 @@ namespace Quarrel.Controls.Messages
 
         public BindableMessage ViewModel => DataContext as BindableMessage;
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            FlyoutBase.ShowAttachedFlyout(AuthorHyperlink);
-        }
     }
 }
