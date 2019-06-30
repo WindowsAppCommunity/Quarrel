@@ -338,7 +338,8 @@ namespace DiscordAPI.Gateway
         {
             _webMessageSocket.MessageReceived += OnSocketMessageReceived;
         }*/
-        public static bool UseCompression;
+        public static bool UseCompression = true;
+
         public async Task ConnectAsync()
         {
             string append = "";

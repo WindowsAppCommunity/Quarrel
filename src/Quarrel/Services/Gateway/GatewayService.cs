@@ -36,6 +36,7 @@ namespace Quarrel.Services.Gateway
 
             Gateway = new DiscordAPI.Gateway.Gateway(gatewayConfig, authenticator);
 
+
             Gateway.Ready += Gateway_Ready;
             Gateway.GuildMemberChunk += Gateway_GuildMemberChunk;
             Gateway.GuildSynced += Gateway_GuildSynced;
@@ -80,11 +81,14 @@ namespace Quarrel.Services.Gateway
 
         private void Gateway_MessageCreated(object sender, GatewayEventArgs<Message> e)
         {
+            var currentUser = Messenger.Default.Request<CurrentUserRequestMessage, BindableUser>(new CurrentUserRequestMessage()).Model.User;
             var channel = Messenger.Default.Request<BindableChannelRequestMessage, BindableChannel>(new BindableChannelRequestMessage(e.EventData.ChannelId));
-            if (e.EventData.User != null)
-                channel.UpdateLMID(e.EventData.Id);
-            else
-                e.EventData.User = Messenger.Default.Request<CurrentUserRequestMessage, BindableUser>(new CurrentUserRequestMessage()).Model.User;
+            if (channel.IsDirectChannel || channel.IsGroupChannel || e.EventData.Mentions.Contains(currentUser))
+                channel.ReadState.MentionCount++;
+            channel.UpdateLMID(e.EventData.Id);
+
+            if (e.EventData.User == null)
+                e.EventData.User = currentUser;
             Messenger.Default.Send(new GatewayMessageRecievedMessage(e.EventData));
         }
 

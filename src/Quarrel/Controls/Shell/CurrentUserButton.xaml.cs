@@ -61,9 +61,9 @@ namespace Quarrel.Controls.Shell
                 });
             });
 
-            Messenger.Default.Register<CurrentUserRequestMessage>(this, m =>
+            Messenger.Default.Register<CurrentUserRequestMessage>(this, async m =>
             {
-                m.ReportResult(ViewModel);
+                await DispatcherHelper.RunAsync(() => m.ReportResult(ViewModel));
             });
 
             this.DataContextChanged += (s, e) =>

@@ -235,11 +235,13 @@ namespace Quarrel.Models.Bindables
         public async void UpdateLRMID(string id)
         {
             ReadState.LastMessageId = id;
+            ReadState.MentionCount = 0;
             await DispatcherHelper.RunAsync(() =>
             {
                 RaisePropertyChanged(nameof(IsUnread));
                 RaisePropertyChanged(nameof(ShowUnread));
                 RaisePropertyChanged(nameof(TextOpacity));
+                RaisePropertyChanged(nameof(MentionCount));
             });
         }
 
@@ -251,6 +253,7 @@ namespace Quarrel.Models.Bindables
                 RaisePropertyChanged(nameof(IsUnread));
                 RaisePropertyChanged(nameof(ShowUnread));
                 RaisePropertyChanged(nameof(TextOpacity));
+                RaisePropertyChanged(nameof(MentionCount));
             });
         }
         #endregion
