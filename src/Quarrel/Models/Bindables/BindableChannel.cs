@@ -214,6 +214,7 @@ namespace Quarrel.Models.Bindables
             {
                 RaisePropertyChanged(nameof(IsUnread));
                 RaisePropertyChanged(nameof(ShowUnread));
+                RaisePropertyChanged(nameof(TextOpacity));
             });
         }
         #endregion

@@ -10,13 +10,16 @@
     xmlns:membercontrols="using:Quarrel.Controls.Members"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
     mc:Ignorable="d"
     d:DesignHeight="64"
     d:DesignWidth="400">
 
     <UserControl.Resources>
+        <baseconvert:DateTimeToTextConverter x:Key="DateTimeToTextConverter"/>
         <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
+        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
     </UserControl.Resources>
 
@@ -50,29 +53,47 @@
         </Grid.RowDefinitions>
 
         <Canvas VerticalAlignment="Top" Margin="12,0">
-            <Rectangle x:Name="userImg"
-                   Width="40" Height="40" 
-                   RadiusX="20" RadiusY="20">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
-                </Rectangle.Fill>
-            </Rectangle>
+            <Button Height="40" Width="40"
+                    Style="{StaticResource DimButton}"
+                    Click="Button_Click">
+                <Rectangle x:Name="userImg"
+                           extensions:Mouse.Cursor="Hand"
+                           Width="40" Height="40" 
+                           RadiusX="20" RadiusY="20">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
         </Canvas>
 
         <Grid Grid.Column="1">
-            <HyperlinkButton Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind ViewModel.AuthorName, Mode=OneWay}" 
+            <StackPanel Orientation="Horizontal">
+                <HyperlinkButton x:Name="AuthorHyperlink"
+                             Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind ViewModel.AuthorName, Mode=OneWay}" 
                              Foreground="{x:Bind ViewModel.AuthorColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}">
-                <FlyoutBase.AttachedFlyout>
-                    <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
-                        <membercontrols:MemberFlyoutTemplate DataContext="{x:Bind ViewModel.Author, Mode=OneWay}"/>
-                    </Flyout>
-                </FlyoutBase.AttachedFlyout>
-                <i:Interaction.Behaviors>
-                    <core:EventTriggerBehavior EventName="Tapped">
-                        <behaviors:OpenFlyoutAction />
-                    </core:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
-            </HyperlinkButton>
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
+                            <membercontrols:MemberFlyoutTemplate DataContext="{x:Bind ViewModel.Author, Mode=OneWay}"/>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
+                    <i:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="Tapped">
+                            <behaviors:OpenFlyoutAction />
+                        </core:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </HyperlinkButton>
+                <TextBlock Text="{x:Bind ViewModel.Model.Timestamp, Converter={StaticResource DateTimeToTextConverter}, Mode=OneWay}"
+                           Margin="4,0,0,2" VerticalAlignment="Bottom" FontSize="11" Opacity="0.3"/>
+                
+                <TextBlock Text="(Edited" Visibility="{x:Bind ViewModel.Model.EditedTimestamp, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
+                           Margin="4,0,0,2" VerticalAlignment="Bottom" FontSize="9" Opacity="0.25"/>
+                <TextBlock Text="{x:Bind ViewModel.Model.EditedTimestamp, Converter={StaticResource DateTimeToTextConverter}, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.Model.EditedTimestamp, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
+                           Margin="2,0,0,2" VerticalAlignment="Bottom" FontSize="9" Opacity="0.25"/>
+                <TextBlock Text=") " Visibility="{x:Bind ViewModel.Model.EditedTimestamp, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
+                           Margin="0,0,0,2" VerticalAlignment="Bottom" FontSize="9" Opacity="0.25"/>
+            </StackPanel>
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="1" x:Name="body" Margin="0,0,0,2">

@@ -8,12 +8,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:msgcontrol="using:Quarrel.Controls.Messages"
     xmlns:viewModels="using:Quarrel.ViewModels"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
+    <UserControl.Resources>
+        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+    </UserControl.Resources>
+    
     <UserControl.DataContext>
-        <viewModels:MessageViewModel x:Name="ViewModel" />
+        <viewModels:MessageViewModel x:Name="ViewModel"/>
     </UserControl.DataContext>
 
     <Grid>
@@ -22,7 +27,7 @@
             <RowDefinition Height="64"/>
         </Grid.RowDefinitions>
 
-        <ListView ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}" Padding="0,0,0,12"
+        <ListView ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}" Padding="0,0,0,16"
               SelectionMode="None" IsItemClickEnabled="False" ItemContainerStyle="{StaticResource MessageListItemStyle}">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -40,7 +45,8 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Rectangle IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" VerticalAlignment="Bottom">
+        <Rectangle Visibility="{x:Bind ViewModel.Channel, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
+                   IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" VerticalAlignment="Bottom">
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
                     <GradientStop Offset="1"/>
@@ -49,6 +55,7 @@
             </Rectangle.Fill>
         </Rectangle>
 
-        <msgcontrol:MessageBox Grid.Row="1"/>
+        <msgcontrol:MessageBox Grid.Row="1"
+                               Visibility="{x:Bind ViewModel.Channel, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"/>
     </Grid>
 </UserControl>
