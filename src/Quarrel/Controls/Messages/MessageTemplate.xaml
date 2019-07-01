@@ -27,6 +27,9 @@
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Continuation">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{x:Bind ViewModel.IsContinuation, Mode=OneWay}"/>
+                    </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="row2.(Height)" Value="0"/>
                         <Setter Target="rootGrid.(Padding)">
@@ -119,12 +122,5 @@
                                         TextWrapping="WrapWholeWords"
                                         FontWeight="SemiLight" Opacity="0.9"/>
         </Grid>
-
-        <i:Interaction.Behaviors>
-            <core:DataTriggerBehavior Binding="{x:Bind ViewModel.IsContinuation}"
-                                      ComparisonCondition="Equal" Value="true">
-                <core:GoToStateAction StateName="Continuation" />
-            </core:DataTriggerBehavior>
-        </i:Interaction.Behaviors>
     </Grid>
 </UserControl>
