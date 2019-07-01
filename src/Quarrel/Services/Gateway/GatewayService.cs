@@ -107,7 +107,7 @@ namespace Quarrel.Services.Gateway
         private void Gateway_GuildSynced(object sender, GatewayEventArgs<GuildSync> e)
         {
             e.EventData.Cache();
-            Messenger.Default.Send(new GatewayGuildSyncMessage(e.EventData.GuildId));
+            Messenger.Default.Send(new GatewayGuildSyncMessage(e.EventData.GuildId, e.EventData.Members.ToList()));
         }
 
         private void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)

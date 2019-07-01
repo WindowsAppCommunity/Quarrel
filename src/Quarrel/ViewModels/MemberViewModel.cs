@@ -16,6 +16,7 @@ using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services;
 using DiscordAPI.Models;
 using Quarrel.Converters.Base;
+using Windows.Networking.Sockets;
 
 namespace Quarrel.ViewModels
 {
@@ -29,13 +30,12 @@ namespace Quarrel.ViewModels
                 {
                     Source.Clear();
 
-                    // Load guild list
-                    var guildMemberList = ServicesManager.Cache.Runtime.TryGetValue<List<BindableUser>>(Constants.Cache.Keys.GuildMemberList, m.GuildId);
-
                     // Show members
-                    foreach (var member in guildMemberList)
+                    foreach (var member in m.Members)
                     {
-                        Source.Add(member);
+                        BindableUser bUser = new BindableUser(member);
+                        bUser.GuildId = m.GuildId;
+                        Source.Add(bUser);
                     }
                 });
             });

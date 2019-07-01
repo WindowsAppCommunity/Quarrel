@@ -21,7 +21,7 @@ namespace DiscordAPI.Models
             {
                 BindableUser bgMember = new BindableUser(user);
                 bgMember.GuildId = chunk.GuildId;
-                ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildMember, bgMember, chunk.GuildId + user.User.Id);
+                // TODO: add to list
             }
         }
     }

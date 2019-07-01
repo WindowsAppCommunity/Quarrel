@@ -119,14 +119,13 @@ namespace Quarrel.ViewModels
 
                         bGuild.Model.Channels = null;
 
-                        // Guild Members (Step #1)
-                        // Full list from GuildMemberChunk
-                        foreach (var user in guild.Members)
-                        {
-                            BindableUser bgMember = new BindableUser(user);
-                            bgMember.GuildId = guild.Id;
-                            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildMember, bgMember, guild.Id + user.User.Id);
-                        }
+
+                        //foreach (var user in guild.Members)
+                        //{
+                        //    BindableUser bgMember = new BindableUser(user);
+                        //    bgMember.GuildId = guild.Id;
+                        //    // TODO: Add to Memberlist
+                        //}
 
                         // Guild Roles
                         foreach (var role in guild.Roles)

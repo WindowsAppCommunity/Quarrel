@@ -21,8 +21,8 @@ namespace Quarrel.Helpers
                 //public const string Guild = nameof(Guild);
                 public const string GuildSettings = nameof(GuildSettings);
                 public const string GuildList = nameof(GuildList);
-                public const string GuildMember = nameof(GuildMember);
-                public const string GuildMemberList = nameof(GuildMemberList);
+                //public const string GuildMember = nameof(GuildMember);
+                //public const string GuildMemberList = nameof(GuildMemberList);
 
                 public const string GuildRole = nameof(GuildRole);
                 public const string GuildRoleList = nameof(GuildRoleList);
