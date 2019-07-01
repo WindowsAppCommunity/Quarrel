@@ -32,7 +32,7 @@
                   SelectionMode="None" IsItemClickEnabled="False" ItemContainerStyle="{StaticResource MessageListItemStyle}">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ItemsStackPanel ItemsUpdatingScrollMode="KeepLastItemInView">
+                    <ItemsStackPanel Loaded="ItemsStackPanel_Loaded" ItemsUpdatingScrollMode="KeepLastItemInView">
                         <ItemsStackPanel.ChildrenTransitions>
                             <TransitionCollection/>
                         </ItemsStackPanel.ChildrenTransitions>

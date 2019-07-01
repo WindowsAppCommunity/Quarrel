@@ -263,5 +263,51 @@ namespace Quarrel.ViewModels
             set => Set(ref _SelectionLength, value);
         }
 
+
+        private bool _RequestInProgress = false;
+
+        public async void LoadOlderMessages()
+        {
+            if (!_RequestInProgress)
+            {
+                _RequestInProgress = true;
+                IEnumerable<Message> itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesBefore(Channel.Model.Id, Source.FirstOrDefault().Model.Id);
+
+                await DispatcherHelper.RunAsync(() =>
+                {
+                    Message lastItem = null;
+                    foreach (var item in itemList)
+                    {
+                        // Can't be last read item
+                        Source.Insert(0, new BindableMessage(item, guildId, lastItem));
+                        lastItem = item;
+                    }
+                });
+
+                _RequestInProgress = false;
+            }
+        }
+
+        public async void LoadNewerMessages()
+        {
+            if (!_RequestInProgress)
+            {
+                _RequestInProgress = true;
+                IEnumerable<Message> itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, Source.FirstOrDefault().Model.Id);
+
+                await DispatcherHelper.RunAsync(() =>
+                {
+                    Message lastItem = null;
+                    foreach (var item in itemList.Reverse())
+                    {
+                        // Can't be last read item
+                        Source.Add(new BindableMessage(item, guildId, lastItem));
+                        lastItem = item;
+                    }
+                });
+
+                _RequestInProgress = false;
+            }
+        }
     }
 }

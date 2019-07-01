@@ -30,6 +30,32 @@ namespace Quarrel.Views
             ViewModel.ScrollTo += ViewModel_ScrollTo;
         }
 
+        private ScrollViewer _MessageScrollViewer;
+
+        private void ItemsStackPanel_Loaded(object sender, RoutedEventArgs e)
+        {
+            _MessageScrollViewer = MessageList.FindChild<ScrollViewer>();
+            if (_MessageScrollViewer != null) _MessageScrollViewer.ViewChanged += _messageScrollViewer_ViewChanged; ;
+        }
+
+        private void _messageScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            if (MessageList.Items.Count > 0)
+            {
+                // Distance from top
+                double fromTop = _MessageScrollViewer.VerticalOffset;
+
+                //Distance from bottom
+                double fromBottom = _MessageScrollViewer.ScrollableHeight - fromTop;
+
+                // Load messages
+                if (fromTop < 100)
+                    ViewModel.LoadOlderMessages();
+                //if (fromBottom < 200)
+                    //ViewModel.LoadNewerMessages();
+            }
+        }
+
         private void ViewModel_ScrollTo(object sender, BindableMessage e)
         {
             MessageList.ScrollIntoView(e);
