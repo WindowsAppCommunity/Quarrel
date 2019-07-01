@@ -27,8 +27,9 @@
             <RowDefinition Height="64"/>
         </Grid.RowDefinitions>
 
-        <ListView ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}" Padding="0,0,0,16"
-              SelectionMode="None" IsItemClickEnabled="False" ItemContainerStyle="{StaticResource MessageListItemStyle}">
+        <ListView x:Name="MessageList"
+                  ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}" Padding="0,0,0,16"
+                  SelectionMode="None" IsItemClickEnabled="False" ItemContainerStyle="{StaticResource MessageListItemStyle}">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsStackPanel ItemsUpdatingScrollMode="KeepLastItemInView">

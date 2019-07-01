@@ -22,10 +22,11 @@ namespace Quarrel.Models.Bindables
     {
         private Message _previousMessage;
 
-        public BindableMessage([NotNull] Message model, [CanBeNull] string guildId, [CanBeNull] Message previousMessage) : base(model)
+        public BindableMessage([NotNull] Message model, [CanBeNull] string guildId, [CanBeNull] Message previousMessage, bool isLastRead = false) : base(model)
         {
             GuildId = guildId;
             _previousMessage = previousMessage;
+            IsLastReadMessage = isLastRead;
         }
 
         private string GuildId;
@@ -36,13 +37,22 @@ namespace Quarrel.Models.Bindables
                 new BindableUser(new GuildMember() { User = Model.User });
         }
 
+        private bool _IsLastReadMessage;
+
+        public bool IsLastReadMessage
+        {
+            get => _IsLastReadMessage;
+            set => Set(ref _IsLastReadMessage, value);
+        }
+
         #region Display
 
         public string AuthorName => Author != null ? Author.Model.Nick ?? Author.Model.User.Username : Model.User.Username;
 
         public int AuthorColor => Author?.TopRole?.Color ?? -1;
 
-        public bool IsContinuation => _previousMessage != null &&
+        public bool IsContinuation => !IsLastReadMessage &&
+                                      _previousMessage != null &&
                                       _previousMessage.User.Id == Model.User.Id &&
                                       _previousMessage.Type == 0 &&
                                       Model.Timestamp.Subtract(_previousMessage.Timestamp).Minutes < 2;

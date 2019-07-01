@@ -27,6 +27,12 @@ namespace Quarrel.Views
         public MessageView()
         {
             this.InitializeComponent();
+            ViewModel.ScrollTo += ViewModel_ScrollTo;
+        }
+
+        private void ViewModel_ScrollTo(object sender, BindableMessage e)
+        {
+            MessageList.ScrollIntoView(e);
         }
     }
 }

@@ -874,5 +874,7 @@
     <Style x:Key="MessageListItemStyle" TargetType="ListViewItem">
         <Setter Property="MinHeight" Value="0"/>
         <Setter Property="Margin" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
     </Style>
 </ResourceDictionary>

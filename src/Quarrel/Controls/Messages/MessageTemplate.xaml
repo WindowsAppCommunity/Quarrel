@@ -28,7 +28,7 @@
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Continuation">
                     <VisualState.Setters>
-                        <Setter Target="row1.(Height)" Value="0"/>
+                        <Setter Target="row2.(Height)" Value="0"/>
                         <Setter Target="rootGrid.(Padding)">
                             <Setter.Value>
                                 <Thickness>0,0,0,0</Thickness>
@@ -48,11 +48,24 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" x:Name="row1"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" x:Name="row2"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Canvas VerticalAlignment="Top" Margin="12,0">
+        <Grid Grid.ColumnSpan="2" Visibility="{x:Bind ViewModel.IsLastReadMessage, Mode=OneWay}" Margin="8,8,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle Height="1" Stroke="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,6,0"/>
+            <TextBlock x:Name="HeaderText" Text="NEW MESSAGES" FontWeight="SemiLight" Grid.Column="1" FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+            <Rectangle Height="1" Stroke="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="6,0,0,0" Grid.Column="2"/>
+        </Grid>
+        
+        <Canvas Grid.Row="1" VerticalAlignment="Top" Margin="12,0">
             <Button Height="40" Width="40"
                     Style="{StaticResource DimButton}">
                 <Rectangle x:Name="userImg"
@@ -72,7 +85,7 @@
             </Button>
         </Canvas>
 
-        <Grid Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1">
             <StackPanel Orientation="Horizontal">
                 <HyperlinkButton x:Name="AuthorHyperlink"
                              Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind ViewModel.AuthorName, Mode=OneWay}" 
@@ -101,7 +114,7 @@
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="1" x:Name="body" Margin="0,0,0,2">
+        <Grid Grid.Column="1" Grid.Row="2" x:Name="body" Margin="0,0,0,2">
             <markdown:MarkdownTextBlock Text="{x:Bind ViewModel.Model.Content}"
                                         TextWrapping="WrapWholeWords"
                                         FontWeight="SemiLight" Opacity="0.9"/>

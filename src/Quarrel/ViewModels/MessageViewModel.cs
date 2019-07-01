@@ -24,20 +24,36 @@ namespace Quarrel.ViewModels
         {
             Messenger.Default.Register<ChannelNavigateMessage>(this, async m =>
             {
-                await DispatcherHelper.RunAsync(async () =>
-                {
-                    Channel = m.Channel;
+                Channel = m.Channel;
 
+                IEnumerable<Message> itemList = null;
+                if (Channel.ReadState == null)
+                    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id);
+                else
+                    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAround(m.Channel.Model.Id, m.Channel.ReadState.LastMessageId);
+
+                await DispatcherHelper.RunAsync(() =>
+                {
                     Source.Clear();
-                    var itemList = await Services.ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id);
 
                     Message lastItem = null;
 
+                    BindableMessage scrollItem = null;
+
                     foreach (Message item in itemList.Reverse())
                     {
-                        Source.Add(new BindableMessage(item, guildId, lastItem));
+                        Source.Add(new BindableMessage(item, guildId, lastItem, lastItem != null && lastItem.Id == m.Channel.ReadState.LastMessageId));
+
+                        if (lastItem != null && lastItem.Id == m.Channel.ReadState.LastMessageId)
+                        {
+                            scrollItem = Source.LastOrDefault();
+                        }
+
                         lastItem = item;
                     }
+
+                    if (scrollItem != null)
+                        ScrollTo?.Invoke(this, scrollItem);
                 });
             });
 
@@ -50,6 +66,8 @@ namespace Quarrel.ViewModels
                 });
             });
         }
+
+        public event EventHandler<BindableMessage> ScrollTo;
 
         private string guildId
         {
