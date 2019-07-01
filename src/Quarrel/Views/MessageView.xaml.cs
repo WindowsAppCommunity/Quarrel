@@ -17,6 +17,7 @@ using Quarrel.Messages.Navigation;
 using UICompositionAnimations.Helpers;
 using Quarrel.Models.Bindables;
 using Quarrel.ViewModels;
+using DiscordAPI.Models;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -51,8 +52,8 @@ namespace Quarrel.Views
                 // Load messages
                 if (fromTop < 100)
                     ViewModel.LoadOlderMessages();
-                //if (fromBottom < 200)
-                    //ViewModel.LoadNewerMessages();
+                if (fromBottom < 200)
+                    ViewModel.LoadNewerMessages();
             }
         }
 

@@ -290,7 +290,7 @@ namespace Quarrel.ViewModels
 
         public async void LoadNewerMessages()
         {
-            if (!_RequestInProgress)
+            if (!_RequestInProgress && Channel.Model.LastMessageId != Source.LastOrDefault().Model.Id)
             {
                 _RequestInProgress = true;
                 IEnumerable<Message> itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, Source.FirstOrDefault().Model.Id);
