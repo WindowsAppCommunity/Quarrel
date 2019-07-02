@@ -1,6 +1,7 @@
 ﻿using Quarrel.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -13,6 +14,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using DiscordAPI.Models;
+using JetBrains.Annotations;
+using Quarrel.Models.Bindables;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -23,9 +27,6 @@ namespace Quarrel.Views
         public MemberView()
         {
             this.InitializeComponent();
-            DataContext = new MemberViewModel();
         }
-
-        public MemberViewModel ViewModel => DataContext as MemberViewModel;
     }
 }

@@ -1,22 +1,14 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System.Collections.Generic;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Data;
 using Quarrel.Models.Bindables;
 using UICompositionAnimations.Helpers;
-using Quarrel.Helpers;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
-using Quarrel.Services;
 using DiscordAPI.Models;
-using Quarrel.Converters.Base;
-using Windows.Networking.Sockets;
 
 namespace Quarrel.ViewModels
 {
@@ -35,7 +27,7 @@ namespace Quarrel.ViewModels
                     {
                         BindableUser bUser = new BindableUser(member);
                         bUser.GuildId = m.GuildId;
-                        Source.Add(bUser);
+                        Source.AddElement(bUser);
                     }
                 });
             });
@@ -45,10 +37,7 @@ namespace Quarrel.ViewModels
             Messenger.Default.Register<CurrentMemberListRequestMessage>(this, m => m.ReportResult(Source.Elements.ToList()));
 
             Source = new GroupedObservableCollection<Role, BindableUser>(x => x.TopHoistRole);
-            ViewSource = new CollectionViewSource() { Source = Source, IsSourceGrouped = true };
         }
-
-        public CollectionViewSource ViewSource { get; }
 
         /// <summary>
         /// Gets the collection of grouped feeds to display

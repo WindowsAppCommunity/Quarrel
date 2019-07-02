@@ -80,7 +80,7 @@ namespace System.Collections.ObjectModel
         /// </summary>
         /// <param name="item">The new item to add to the grouping collection</param>
         [CollectionAccess(CollectionAccessType.UpdatedContent)]
-        public void Add([NotNull] TElement item)
+        public void AddElement([NotNull] TElement item)
         {
             // Get the target group for the new item
             TKey key = KeyReader(item);
