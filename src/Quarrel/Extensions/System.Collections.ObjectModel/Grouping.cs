@@ -9,12 +9,14 @@ namespace System.Collections.ObjectModel
     /// </summary>
     /// <typeparam name="TKey">They type of the key of each group</typeparam>
     /// <typeparam name="TElement">The type of elements in each group</typeparam>
-    public sealed class Grouping<TKey, TElement> : ObservableCollection<TElement>, IGrouping<TKey, TElement>
+    public class Grouping<TKey, TElement> : ObservableCollection<TElement>, IGrouping<TKey, TElement>, Grouping
     {
         /// <summary>
         /// Gets the key associated with the current group
         /// </summary>
         public TKey Key { get; }
+
+        object Grouping.Key => Key;
 
         /// <summary>
         /// Creates a new <see cref="Grouping{TKey, TElement}"/> instance with the specified key
@@ -31,5 +33,11 @@ namespace System.Collections.ObjectModel
         {
             foreach (TElement item in items) Add(item);
         }
+    }
+    public interface Grouping
+    {
+        object Key { get; }
+        int Count { get; }
+
     }
 }

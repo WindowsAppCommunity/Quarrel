@@ -2,7 +2,8 @@
     x:Class="Quarrel.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Quarrel">
+    xmlns:local="using:Quarrel"
+    xmlns:Windows10version1903="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 8)">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
@@ -15,37 +16,43 @@
                     <AcrylicBrush x:Key="AcrylicMessageBackground"
                                   BackgroundSource="HostBackdrop"
                                   TintColor="#FF33353b"
-                                  TintOpacity="1"
+                                  TintOpacity="0.8"
+                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FF33353b"/>
                     
                     <AcrylicBrush x:Key="AcrylicChannelPaneBackground"
                                   BackgroundSource="HostBackdrop"
                                   TintColor="#FF2a2c31"
                                   TintOpacity="0.8"
+                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FF2F3136"/>
                     
                     <AcrylicBrush x:Key="AcrylicGuildPaneBackground"
                                   BackgroundSource="HostBackdrop"
                                   TintColor="#FF1E2124"
                                   TintOpacity="0.6"
+                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FF1E2124"/>
                     
                     <AcrylicBrush x:Key="AcrylicCommandBarBackground"
                                   BackgroundSource="HostBackdrop"
                                   TintColor="#FF1E2124"
                                   TintOpacity="0.7"
+                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FF1E2124"/>
                     
                     <AcrylicBrush x:Key="AcrylicFlyoutBackground"
                                   BackgroundSource="Backdrop"
                                   TintColor="#DD000000"
                                   TintOpacity="0.8"
+                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#DD000000"/>
                     
                     <AcrylicBrush x:Key="AcrylicUserBackground"
                                   BackgroundSource="Backdrop"
                                   TintColor="#FF303238"
                                   TintOpacity="0.85"
+                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FF303238"/>
 
                     <!--Sub frame background-->

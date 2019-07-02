@@ -49,6 +49,13 @@ namespace DiscordAPI.Models
             return Position.CompareTo(other.Position);
         }
 
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return (Id ?? Name).GetHashCode();
+        }
+
+
         #endregion
     }
 }
