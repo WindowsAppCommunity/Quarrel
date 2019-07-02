@@ -42,9 +42,9 @@ namespace Quarrel.ViewModels
 
                     foreach (Message item in itemList.Reverse())
                     {
-                        Source.Add(new BindableMessage(item, guildId, lastItem, lastItem != null && lastItem.Id == m.Channel.ReadState.LastMessageId));
+                        Source.Add(new BindableMessage(item, guildId, lastItem, lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId));
 
-                        if (lastItem != null && lastItem.Id == m.Channel.ReadState.LastMessageId)
+                        if (lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId)
                         {
                             scrollItem = Source.LastOrDefault();
                         }
