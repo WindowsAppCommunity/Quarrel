@@ -50,6 +50,15 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
             #endregion
 
+            #region Friends
+
+            foreach (var friend in ready.Friends)
+            {
+                ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Friend, friend, friend.Id);
+            }
+
+            #endregion
+
             #region Current User
 
             ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = ready.Settings.Status }, ready.User.Id);

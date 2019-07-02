@@ -265,6 +265,11 @@
     <Compile Include="Converters\Discord\PresenseToBrushConverter.cs" />
     <Compile Include="Converters\Guild\IsDMToFontFamilyConverter.cs" />
     <Compile Include="Converters\Guild\MutedToOpacityConverter.cs" />
+    <Compile Include="Converters\Profile\Relationships\RelationToAcceptFriendConverter.cs" />
+    <Compile Include="Converters\Profile\Relationships\RelationToAddFriendConverter.cs" />
+    <Compile Include="Converters\Profile\Relationships\RelationToBlockConverter.cs" />
+    <Compile Include="Converters\Profile\Relationships\RelationToRemoveFriendConverter.cs" />
+    <Compile Include="Converters\Profile\Relationships\RelationToUnblock.cs" />
     <Compile Include="Extensions\DiscordAPI.Gateway.DownstreamEvents\ReadyExtensions.cs" />
     <Compile Include="Extensions\DiscordAPI.Models\GuildMemberChunkExtensions.cs" />
     <Compile Include="Extensions\DiscordAPI.Models\GuildSyncExtensions.cs" />

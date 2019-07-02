@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Navigation;
 using Quarrel.Models.Bindables;
 using Quarrel.Services;
 using Quarrel.SubPages.Interfaces;
+using DiscordAPI.Models;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -31,9 +32,22 @@ namespace Quarrel.SubPages
         public UserProfilePage([NotNull] BindableUser member) : this()
         {
             this.DataContext = member;
+            LoadProfile();
+        }
+
+        public async void LoadProfile()
+        {
+            _Profile = await ServicesManager.Discord.UserService.GetUserProfile(ViewModel.Model.User.Id);
+            _Profile.Friend = ServicesManager.Cache.Runtime.TryGetValue<Friend>(Quarrel.Helpers.Constants.Cache.Keys.Friend, ViewModel.Model.User.Id);
+            if (_Profile.Friend == null)
+                _Profile.Friend = new Friend() { Type = 0, Id = ViewModel.Model.User.Id, user = ViewModel.Model.User };
+            this.Bindings.Update();
         }
 
         BindableUser ViewModel => DataContext as BindableUser;
+
+        private UserProfile _Profile;
+
 
         private void NoteBox_LostFocus(object sender, RoutedEventArgs e)
         {
