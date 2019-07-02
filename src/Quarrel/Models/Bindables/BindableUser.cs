@@ -125,6 +125,11 @@ namespace Quarrel.Models.Bindables
 
         }
 
+        public override int GetHashCode()
+        {
+            return Model.User?.Id?.GetHashCode() ?? 0;
+        }
+
         /// <inheritdoc/>
         public int CompareTo(BindableUser other)
         {
