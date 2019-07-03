@@ -1074,6 +1074,8 @@ namespace Quarrel.Controls
         /// </summary>
         private async void App_TypingHandler(object sender, App.TypingArgs e)
         {
+            if (!Storage.Settings.ShowTypingIndicator)
+                return;
             // Run on UI thread
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 UpdateTyping);

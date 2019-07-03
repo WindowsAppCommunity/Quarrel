@@ -649,4 +649,10 @@
   <data name="HideMutedChannelsTB.Text" xml:space="preserve">
     <value>Hide muted channels</value>
   </data>
+  <data name="UseTypingIndicatorTB.Text" xml:space="preserve">
+    <value>Use typing indicator</value>
+  </data>
+  <data name="UseTypingIndicatorTBDesc.Text" xml:space="preserve">
+    <value>Are those 3 dots that show up when typing annoy you? Turn it off if you want!</value>
+  </data>
 </root>
