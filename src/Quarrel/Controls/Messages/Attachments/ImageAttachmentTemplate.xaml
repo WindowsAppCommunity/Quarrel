@@ -12,7 +12,9 @@
 
     <Grid>
         <toolkit:ImageEx Source="{x:Bind ViewModel.Url, Mode=OneWay}"
+                         MaxHeight="500" MaxWidth="800"
                          Height="{x:Bind ViewModel.ActualHeight, Mode=OneWay}"
-                         Width="{x:Bind ViewModel.ActualWidth, Mode=OneWay}"/>
+                         Width="{x:Bind ViewModel.ActualWidth, Mode=OneWay}"
+                         HorizontalAlignment="Left"/>
     </Grid>
 </UserControl>

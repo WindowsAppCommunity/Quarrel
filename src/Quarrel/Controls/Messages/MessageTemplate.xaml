@@ -143,7 +143,11 @@
             <ListView ItemsSource="{x:Bind ViewModel.Model.Attachments}"
                       ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"
                       SelectionMode="None">
-                
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
 
