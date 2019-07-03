@@ -24,6 +24,8 @@ namespace Quarrel.ViewModels
         {
             Messenger.Default.Register<ChannelNavigateMessage>(this, async m =>
             {
+                _RequestInProgress = true;
+
                 Channel = m.Channel;
 
                 IEnumerable<Message> itemList = null;
@@ -65,6 +67,8 @@ namespace Quarrel.ViewModels
                         Source.Add(new BindableMessage(m.Message, guildId, Source.LastOrDefault().Model));
                 });
             });
+
+            _RequestInProgress = false;
         }
 
         public event EventHandler<BindableMessage> ScrollTo;
