@@ -298,7 +298,7 @@ namespace Quarrel.ViewModels
                 await DispatcherHelper.RunAsync(() =>
                 {
                     Message lastItem = null;
-                    foreach (var item in itemList.Reverse())
+                    foreach (var item in itemList)
                     {
                         // Can't be last read item
                         Source.Add(new BindableMessage(item, guildId, lastItem));
