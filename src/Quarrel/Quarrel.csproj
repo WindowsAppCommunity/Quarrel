@@ -231,6 +231,12 @@
     <Compile Include="Controls\Members\MemberFlyoutTemplate.xaml.cs">
       <DependentUpon>MemberFlyoutTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Messages\Attachments\ImageAttachmentTemplate.xaml.cs">
+      <DependentUpon>ImageAttachmentTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Messages\Embeds\ImageEmbedTemplate.xaml.cs">
+      <DependentUpon>ImageEmbedTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Messages\MessageBox.xaml.cs">
       <DependentUpon>MessageBox.xaml</DependentUpon>
     </Compile>
@@ -346,6 +352,8 @@
     <Compile Include="SubPages\UserProfilePage.xaml.cs">
       <DependentUpon>UserProfilePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TemplateSelectors\AttachmentTemplateSelector.cs" />
+    <Compile Include="TemplateSelectors\EmbedTemplateSelector.cs" />
     <Compile Include="ViewModels\ChannelViewModel.cs" />
     <Compile Include="ViewModels\GuildViewModel.cs" />
     <Compile Include="ViewModels\MemberViewModel.cs" />
@@ -390,7 +398,6 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\Messages\Embeds\" />
     <Folder Include="Models\Bindables\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -419,6 +426,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Members\MemberFlyoutTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Messages\Attachments\ImageAttachmentTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Messages\Embeds\ImageEmbedTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

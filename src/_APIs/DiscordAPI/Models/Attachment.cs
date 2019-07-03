@@ -23,5 +23,11 @@ namespace DiscordAPI.Models
         public int? Height { get; set; }
         [JsonProperty("width")]
         public int? Width { get; set; }
+
+        [JsonIgnore]
+        public double ActualHeight { get => Height.HasValue ? (double)Height : double.NaN; }
+
+        [JsonIgnore]
+        public double ActualWidth { get => Width.HasValue ? (double)Width : double.NaN; }
     }
 }
