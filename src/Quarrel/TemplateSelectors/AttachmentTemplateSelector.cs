@@ -11,6 +11,7 @@ namespace Quarrel.TemplateSelectors
     /// </summary>
     public sealed class AttachmentTemplateSelector : DataTemplateSelector
     {
+        public DataTemplate ImageAttachmentTemplate { get; set; }
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
             if (container is FrameworkElement parent && item is Attachment attachment)
@@ -21,7 +22,7 @@ namespace Quarrel.TemplateSelectors
                 {
                     case "png":
                     case "jpg":
-                    case "jpef": return parent.FindResource<DataTemplate>("ImageAttachmentTemplate");
+                    case "jpef": return ImageAttachmentTemplate;
                 }
             }
 
