@@ -231,6 +231,9 @@
     <Compile Include="Controls\Members\MemberFlyoutTemplate.xaml.cs">
       <DependentUpon>MemberFlyoutTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Messages\Attachments\DefaultAttachmentTemplate.xaml.cs">
+      <DependentUpon>DefaultAttachmentTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Messages\Attachments\ImageAttachmentTemplate.xaml.cs">
       <DependentUpon>ImageAttachmentTemplate.xaml</DependentUpon>
     </Compile>
@@ -275,9 +278,9 @@
     <Compile Include="Converters\Discord\DiscriminatorToBrushConverter.cs" />
     <Compile Include="Converters\Discord\PresenseToColorConverter.cs" />
     <Compile Include="Converters\Discord\PresenseToBrushConverter.cs" />
-    <Compile Include="Converters\Embeds\EmbedToHeaderVisiblityConverter.cs" />
     <Compile Include="Converters\Guild\IsDMToFontFamilyConverter.cs" />
     <Compile Include="Converters\Guild\MutedToOpacityConverter.cs" />
+    <Compile Include="Converters\Messages\SizeToHumanizedSizeConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToAcceptFriendConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToAddFriendConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToBlockConverter.cs" />
@@ -433,6 +436,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Members\MemberFlyoutTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Messages\Attachments\DefaultAttachmentTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

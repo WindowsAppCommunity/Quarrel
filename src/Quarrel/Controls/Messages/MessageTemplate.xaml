@@ -26,6 +26,9 @@
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
 
         <templates:AttachmentTemplateSelector x:Key="AttachmentTemplateSelector"/>
+        <DataTemplate x:Key="DefaultAttachmentTemplate">
+            <attach:DefaultAttachmentTemplate/>
+        </DataTemplate>
         <DataTemplate x:Key="ImageAttachmentTemplate">
             <attach:ImageAttachmentTemplate/>
         </DataTemplate>
@@ -148,21 +151,13 @@
         <Grid Grid.Column="1" Grid.Row="3">
             <ListView ItemsSource="{x:Bind ViewModel.Model.Attachments}"
                       ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"
-                      SelectionMode="None">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalAlignment" Value="Left"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
-            </ListView>
+                      SelectionMode="None"/>
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="4">
             <ListView ItemsSource="{x:Bind ViewModel.Model.Embeds}"
                       ItemTemplateSelector="{StaticResource EmbedTemplateSelector}"
-                      SelectionMode="None">
-                
-            </ListView>
+                      SelectionMode="None"/>
         </Grid>
     </Grid>
 </UserControl>
