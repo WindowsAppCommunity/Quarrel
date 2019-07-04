@@ -246,6 +246,9 @@
     <Compile Include="Controls\Messages\Embeds\ImageEmbedTemplate.xaml.cs">
       <DependentUpon>ImageEmbedTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Messages\Embeds\YoutubeEmbedTemplate.xaml.cs">
+      <DependentUpon>YoutubeEmbedTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Messages\MessageBox.xaml.cs">
       <DependentUpon>MessageBox.xaml</DependentUpon>
     </Compile>
@@ -459,6 +462,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Messages\Embeds\YoutubeEmbedTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\Messages\MessageBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -571,12 +578,33 @@
     <PackageReference Include="Unicode.net">
       <Version>0.1.2</Version>
     </PackageReference>
+    <PackageReference Include="RykenLibrary">
+      <Version>0.9.20-beta</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\_APIs\DiscordAPI\DiscordAPI.csproj">
       <Project>{03c1fc3a-410f-46d9-802b-316c7280e180}</Project>
       <Name>DiscordAPI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="myTubeAppLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Libs\RykenTube\myTubeAppLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="myTubePlaybackLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Libs\RykenTube\myTubePlaybackLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="RykenTubeWinRT, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Libs\RykenTube\RykenTubeWinRT.dll</HintPath>
+    </Reference>
+    <Reference Include="XmlHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Libs\RykenTube\XmlHelper.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="..\_Tasks\Quarrel.Shared\Quarrel.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
