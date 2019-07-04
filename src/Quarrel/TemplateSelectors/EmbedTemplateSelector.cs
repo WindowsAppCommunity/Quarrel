@@ -19,6 +19,7 @@ namespace Quarrel.TemplateSelectors
                 switch ((item as Embed).Type)
                 {
                     case "image": return parent.FindResource<DataTemplate>("ImageEmbedTemplate");
+                    default: return parent.FindResource<DataTemplate>("DefaultEmbedTemplate");
                 }
             }
 

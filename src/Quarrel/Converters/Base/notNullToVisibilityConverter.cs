@@ -11,7 +11,16 @@ namespace Quarrel.Converters.Base
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return value != null ? Visibility.Visible : Visibility.Collapsed;
+            bool v;
+            if (value is string sValue)
+            {
+                 v = !string.IsNullOrEmpty(sValue);
+            }
+            else
+            {
+                v = value != null;
+            }
+            return v ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

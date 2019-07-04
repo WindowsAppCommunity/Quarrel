@@ -31,6 +31,9 @@
         </DataTemplate>
         
         <templates:EmbedTemplateSelector x:Key="EmbedTemplateSelector"/>
+        <DataTemplate x:Key="DefaultEmbedTemplate">
+            <embeds:DefaultEmbedTemplate/>
+        </DataTemplate>
         <DataTemplate x:Key="ImageEmbedTemplate">
             <embeds:ImageEmbedTemplate/>
         </DataTemplate>

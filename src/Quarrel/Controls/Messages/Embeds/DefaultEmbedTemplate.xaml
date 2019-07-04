@@ -1,0 +1,65 @@
+﻿<UserControl
+    x:Class="Quarrel.Controls.Messages.Embeds.DefaultEmbedTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Quarrel.Controls.Messages.Embeds"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:markdown="using:Quarrel.Controls.Markdown"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
+        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+        <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
+    </UserControl.Resources>
+
+    <Border CornerRadius="4" Background="{ThemeResource MidBG}">
+        <Grid>
+            <Border x:Name="SideBorder" Width="4" HorizontalAlignment="Left" Background="{x:Bind ViewModel.Color, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}" CornerRadius="4,0,0,4"/>
+            <StackPanel x:Name="stacker" Margin="16,8,4,8">
+                <Grid x:Name="HeaderGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition x:Name="MainColumn"/>
+                        <ColumnDefinition x:Name="ThumbnailColumn" Width="auto" MaxWidth="80"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="0,0,16,0">
+                        <HyperlinkButton Content="{x:Bind ViewModel.Provider.Name, Mode=OneWay}" NavigateUri="{x:Bind ViewModel.Provider.Url, Mode=OneWay}" Visibility="{x:Bind ViewModel.Provider, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Style="{StaticResource PlainTextHyperlinkStyle}" FontSize="12" Opacity="0.5" Foreground="{ThemeResource Foreground}"/>
+                        <StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.Author, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}">
+                            <Rectangle RadiusX="10" RadiusY="10" Width="20" Height="20" Margin="0,0,10,0" Visibility="{x:Bind ViewModel.Author.IconUrl, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="{x:Bind ViewModel.Author.ProxyIconUrl, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <HyperlinkButton x:Name="AuthorText" Content="{x:Bind ViewModel.Author.Name, Mode=OneWay}" NavigateUri="{x:Bind ViewModel.Author.Url, Mode=OneWay}" Visibility="{x:Bind ViewModel.Author.Name, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource Foreground}"/>
+                        </StackPanel>
+                        <TextBlock Text="{x:Bind ViewModel.Title, Mode=OneWay}" Visibility="{x:Bind ViewModel.Title, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Margin="0,4,0,0"/>
+                        <markdown:MarkdownTextBlock Text="{x:Bind ViewModel.Description, Mode=OneWay}" Visibility="{x:Bind ViewModel.Description, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Opacity="0.75" FontSize="13" Margin="0,0,0,0" EnableHiddenLinks="True"/>
+                        <StackPanel x:Name="FieldsStacker"/>
+                    </StackPanel>
+                    <tk:ImageEx Source="{x:Bind ViewModel.Thumbnail.ProxyUrl, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}" Visibility="{x:Bind ViewModel.Thumbnail, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Height="80" Stretch="Uniform" Grid.Column="1" VerticalAlignment="Top"/>
+                </Grid>
+                <Viewbox HorizontalAlignment="Left" Visibility="{x:Bind ViewModel.Image, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" StretchDirection="DownOnly" Grid.Row="4" MaxWidth="480" MaxHeight="300"  Grid.Column="1" Margin="6">
+                    <tk:ImageEx Source="{x:Bind ViewModel.Image.ProxyUrl, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                </Viewbox>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Visibility="{x:Bind ViewModel.Footer, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Orientation="Horizontal">
+                        <tk:ImageEx Source="{x:Bind ViewModel.Footer.ProxyIconUrl, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}" Visibility="{x:Bind ViewModel.Footer.ProxyIconUrl, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Width="18" Height="18" Margin="0,0,8,0"/>
+                        <TextBlock Text="{x:Bind ViewModel.Footer.Text, Mode=OneWay}" FontSize="12" FontWeight="SemiBold" Opacity="0.4" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <Button Visibility="Collapsed" Click="ShareEmbed" Style="{StaticResource IntegratedButton}" Grid.Column="1" HorizontalAlignment="Right">
+                        <SymbolIcon Symbol="Share"/>
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

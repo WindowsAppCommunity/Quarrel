@@ -158,6 +158,64 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="IntegratedButton" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{ThemeResource Foreground}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid CornerRadius="0,4,4,0" x:Name="RootGrid" Background="{TemplateBinding Background}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ContentPresenter" To="0.2" Duration="0:0:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ContentPresenter" To="0.4" Duration="0:0:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ContentPresenter" To="0.6" Duration="0:0:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ContentPresenter" To="0.1" Duration="0:0:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter Opacity="0.2" x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <Style x:Key="DiscordButton" TargetType="Button">
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -476,7 +534,68 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
+    <Style x:Key="PlainHyerlinkStyle" TargetType="HyperlinkButton">
+        <Setter Property="Background" Value="{ThemeResource HyperlinkButtonBackground}"/>
+        <Setter Property="Foreground" Value="{ThemeResource HyperlinkButtonForeground}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource HyperlinkButtonBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="{ThemeResource HyperlinkButtonBorderThemeThickness}"/>
+        <Setter Property="Padding" Value="6,6,6,6"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+        <Setter Property="UseSystemFocusVisuals" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="HyperlinkButton">
+                    <Grid x:Name="RootGrid">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation To="1" Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <DoubleAnimation To="0.75" Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation To="0.5" Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation To="0.6" Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter x:Name="ContentPresenter" TextWrapping="Wrap" AutomationProperties.AccessibilityView="Raw" Content="{TemplateBinding Content}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <Style x:Key="PlainTextHyperlinkStyle" TargetType="HyperlinkButton">
         <Setter Property="Background" Value="{ThemeResource HyperlinkButtonBackground}"/>
         <Setter Property="Foreground" Value="{ThemeResource HyperlinkButtonForeground}"/>

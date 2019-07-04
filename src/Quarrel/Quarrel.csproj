@@ -234,6 +234,9 @@
     <Compile Include="Controls\Messages\Attachments\ImageAttachmentTemplate.xaml.cs">
       <DependentUpon>ImageAttachmentTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Messages\Embeds\DefaultEmbedTemplate.xaml.cs">
+      <DependentUpon>DefaultEmbedTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Messages\Embeds\ImageEmbedTemplate.xaml.cs">
       <DependentUpon>ImageEmbedTemplate.xaml</DependentUpon>
     </Compile>
@@ -269,6 +272,7 @@
     <Compile Include="Converters\Discord\DiscriminatorToBrushConverter.cs" />
     <Compile Include="Converters\Discord\PresenseToColorConverter.cs" />
     <Compile Include="Converters\Discord\PresenseToBrushConverter.cs" />
+    <Compile Include="Converters\Embeds\EmbedToHeaderVisiblityConverter.cs" />
     <Compile Include="Converters\Guild\IsDMToFontFamilyConverter.cs" />
     <Compile Include="Converters\Guild\MutedToOpacityConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToAcceptFriendConverter.cs" />
@@ -430,6 +434,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Messages\Attachments\ImageAttachmentTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Messages\Embeds\DefaultEmbedTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
