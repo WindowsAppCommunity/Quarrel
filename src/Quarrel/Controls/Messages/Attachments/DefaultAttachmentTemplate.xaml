@@ -21,7 +21,7 @@
         </Grid.ColumnDefinitions>
         <FontIcon x:Name="FileIcon" FontSize="32" Glyph="" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Left" Margin="0,0,6,0"/>
         <StackPanel Grid.Column="1">
-            <HyperlinkButton Content="{x:Bind ViewModel.Filename, Mode=OneWay}" FontSize="18" Foreground="{ThemeResource LinkColor}" Padding="0" Style="{StaticResource PlainTextHyperlinkStyle}"/>
+            <HyperlinkButton Content="{x:Bind ViewModel.Filename, Mode=OneWay}" NavigateUri="{x:Bind ViewModel.ProxyUrl, Mode=OneWay}" FontSize="18" Foreground="{ThemeResource LinkColor}" Padding="0" Style="{StaticResource PlainTextHyperlinkStyle}"/>
             <TextBlock Text="{x:Bind ViewModel.Size, Converter={StaticResource SizeToHumanizedSizeConverter}, Mode=OneWay}" FontSize="11" Opacity="0.5" Margin="0,4,0,0"/>
         </StackPanel>
     </Grid>
