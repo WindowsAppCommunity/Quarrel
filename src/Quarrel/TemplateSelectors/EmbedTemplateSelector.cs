@@ -14,9 +14,9 @@ namespace Quarrel.TemplateSelectors
     {
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
-            if (container is FrameworkElement parent)
+            if (container is FrameworkElement parent && item is Embed embed)
             {
-                switch ((item as Embed).Type)
+                switch (embed.Type)
                 {
                     case "image": return parent.FindResource<DataTemplate>("ImageEmbedTemplate");
                 }
