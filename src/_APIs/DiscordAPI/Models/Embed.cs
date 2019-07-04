@@ -65,10 +65,18 @@ namespace DiscordAPI.Models
     {
         [JsonProperty("url")]
         public string Url { get; set; }
+
         [JsonProperty("height")]
         public int Height { get; set; }
+
         [JsonProperty("width")]
         public int Width { get; set; }
+
+        [JsonIgnore]
+        public double ActualHeight { get => Height != 0 ? Height : double.NaN; }
+
+        [JsonIgnore]
+        public double ActualWidth { get => Width != 0 ? Width : double.NaN; }
     }
 
     public class EmbedProvider

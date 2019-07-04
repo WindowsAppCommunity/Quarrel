@@ -237,6 +237,9 @@
     <Compile Include="Controls\Messages\Embeds\DefaultEmbedTemplate.xaml.cs">
       <DependentUpon>DefaultEmbedTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Messages\Embeds\GifvEmbedTemplate.xaml.cs">
+      <DependentUpon>GifvEmbedTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Messages\Embeds\ImageEmbedTemplate.xaml.cs">
       <DependentUpon>ImageEmbedTemplate.xaml</DependentUpon>
     </Compile>
@@ -438,6 +441,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Messages\Embeds\DefaultEmbedTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Messages\Embeds\GifvEmbedTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

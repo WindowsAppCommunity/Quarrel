@@ -19,6 +19,7 @@ namespace Quarrel.TemplateSelectors
                 switch (embed.Type)
                 {
                     case "image": return parent.FindResource<DataTemplate>("ImageEmbedTemplate");
+                    case "gifv": return parent.FindResource<DataTemplate>("GifvEmbedTemplate");
                     default: return parent.FindResource<DataTemplate>("DefaultEmbedTemplate");
                 }
             }
