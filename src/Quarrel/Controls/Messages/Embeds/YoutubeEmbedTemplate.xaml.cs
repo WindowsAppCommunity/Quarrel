@@ -39,7 +39,6 @@ namespace Quarrel.Controls.Messages.Embeds
             {
                 if (ViewModel?.Url != null)
                 {
-                    Debug.WriteLine("sdfsdfsdjkfhsdklufhsd");
                     SetupMytube(ViewModel.Url);
                 }
             };
@@ -47,13 +46,6 @@ namespace Quarrel.Controls.Messages.Embeds
 
         async void SetupMytube(string url)
         {
-            Debug.WriteLine("sdfsdfsdjkfhsdklufhsd");
-            Debug.WriteLine("sdfsdfsdjkfhsdklufhsd");
-            Debug.WriteLine("sdfsdfsdjkfhsdklufhsd");
-            Debug.WriteLine("sdfsdfsdjkfhsdklufhsd");
-            Debug.WriteLine("sdfsdfsdjkfhsdklufhsd");
-            Debug.WriteLine("sdfsdfsdjkfhsdklufhsd");
-            Debug.WriteLine("sdfsdfsdjkfhsdklufhsddfgdf");
             Regex YouTubeRegex = new Regex(@"(?:https:\/\/)?(?:(?:www\.)?youtube\.com\/watch\?.*?v=([\w\-]+)|youtu\.be\/([\w\-]+))", RegexOptions.Compiled);
             var match = YouTubeRegex.Match(url);
             if (match.Success)
