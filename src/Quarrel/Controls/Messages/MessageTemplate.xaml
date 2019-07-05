@@ -22,6 +22,7 @@
     <UserControl.Resources>
         <baseconvert:DateTimeToTextConverter x:Key="DateTimeToTextConverter"/>
         <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
+        <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
 
@@ -84,7 +85,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.ColumnSpan="2" Visibility="{x:Bind ViewModel.IsLastReadMessage, Mode=OneWay}" Margin="8,8,0,8">
+        <Grid Grid.ColumnSpan="2" x:Name="HeaderGrid" x:Load="{x:Bind ViewModel.IsLastReadMessage, Mode=OneWay}" Margin="8,8,0,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
@@ -151,13 +152,13 @@
                                         FontWeight="SemiLight" Opacity="0.9"/>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="3">
+        <Grid Grid.Column="1" Grid.Row="3" x:Name="AttachmentList" x:Load="{x:Bind ViewModel.Model.Attachments, Converter={StaticResource NotNullToBoolConverter}}">
             <ListView ItemsSource="{x:Bind ViewModel.Model.Attachments}"
                       ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"
                       SelectionMode="None"/>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="4">
+        <Grid Grid.Column="1" Grid.Row="4" x:Name="EmbedList" x:Load="{x:Bind ViewModel.Model.Embeds, Converter={StaticResource NotNullToBoolConverter}}">
             <ListView ItemsSource="{x:Bind ViewModel.Model.Embeds}"
                       ItemTemplateSelector="{StaticResource EmbedTemplateSelector}"
                       SelectionMode="None"/>

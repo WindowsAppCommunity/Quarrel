@@ -28,7 +28,6 @@
                         <ColumnDefinition x:Name="ThumbnailColumn" Width="auto" MaxWidth="80"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Margin="0,0,16,0">
-                        <HyperlinkButton Content="{x:Bind ViewModel.Provider.Name, Mode=OneWay}" NavigateUri="{x:Bind ViewModel.Provider.Url, Mode=OneWay}" x:Name="ProviderHLBTN" x:Load="{x:Bind ViewModel.Provider, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Style="{StaticResource PlainTextHyperlinkStyle}" FontSize="12" Opacity="0.5" Foreground="{ThemeResource Foreground}"/>
                         <StackPanel Orientation="Horizontal" x:Name="AuthorSP" x:Load="{x:Bind ViewModel.Author, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
                             <Rectangle RadiusX="10" RadiusY="10" Width="20" Height="20" Margin="0,0,10,0" x:Name="AuthorRect" x:Load="{x:Bind ViewModel.Author.IconUrl, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
                                 <Rectangle.Fill>
