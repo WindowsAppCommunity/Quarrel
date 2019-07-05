@@ -168,8 +168,6 @@ namespace System.Collections.ObjectModel
 
         #region Properties
 
-
-
         public int Count => _dict.Count;
 
         public bool IsReadOnly { get; }
