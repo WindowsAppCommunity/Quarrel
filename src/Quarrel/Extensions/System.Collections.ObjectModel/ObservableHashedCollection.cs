@@ -9,8 +9,9 @@ using System.Threading;
 namespace System.Collections.ObjectModel
 {
     public class ObservableHashedCollection<TKey, TValue> :
-         ICollection<KeyValuePair<TKey, TValue>>, IDictionary<TKey, TValue>,
-         INotifyCollectionChanged, INotifyPropertyChanged
+        ICollection<KeyValuePair<TKey, TValue>>, IDictionary<TKey, TValue>,
+        IEnumerable<TValue>,
+        INotifyCollectionChanged, INotifyPropertyChanged
     {
         private readonly SynchronizationContext _context;
         private HashedCollection<TKey, TValue> _hashedCollection;
@@ -96,7 +97,7 @@ namespace System.Collections.ObjectModel
             _hashedCollection.CopyTo(array, arrayIndex);
         }
 
-        int ICollection<KeyValuePair<TKey, TValue>>.Count => _hashedCollection.Count;
+        public int Count => _hashedCollection.Count;
 
         bool ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly => _hashedCollection.IsReadOnly;
 
@@ -111,6 +112,11 @@ namespace System.Collections.ObjectModel
         IEnumerator<KeyValuePair<TKey, TValue>> IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator()
         {
             return _hashedCollection.GetEnumerator();
+        }
+
+        IEnumerator<TValue> IEnumerable<TValue>.GetEnumerator()
+        {
+            return _hashedCollection.Values.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

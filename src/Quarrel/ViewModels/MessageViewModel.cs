@@ -342,7 +342,8 @@ namespace Quarrel.ViewModels
                 NewItemsLoading = true;
                 if (Channel.Model.LastMessageId != Source.LastOrDefault().Model.Id)
                 {
-                    IEnumerable<Message> itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, Source.LastOrDefault().Model.Id);
+                    IEnumerable<Message> itemList = null;
+                    await Task.Run( async () => itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, Source.LastOrDefault().Model.Id));
 
                     await DispatcherHelper.RunAsync(() =>
                     {

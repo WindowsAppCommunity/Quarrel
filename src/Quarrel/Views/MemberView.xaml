@@ -23,7 +23,7 @@
     <UserControl.Resources>
         <baseconverts:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
         <viewModels:MemberViewModel x:Name="ViewModel"/>
-        <CollectionViewSource x:Name="ViewSource"  Source="{x:Bind ViewModel.Source}" IsSourceGrouped="True" />
+        <CollectionViewSource x:Name="ViewSource" Source="{x:Bind ViewModel.Source}" IsSourceGrouped="True" />
     </UserControl.Resources>
 
     <Grid>
@@ -32,7 +32,7 @@
                 <ListView x:Name="MemberList"
                           ItemContainerStyle="{StaticResource ChannelListItemStyle}"
                           IsItemClickEnabled="True" SelectionMode="None"
-                          ItemsSource="{x:Bind ViewSource.View, Mode=OneWay}">
+                          ItemsSource="{x:Bind ViewModel.Source.Elements, Mode=OneWay}">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="ItemClick">
                             <behaviors:OpenListViewItemFlyoutAction/>
@@ -49,7 +49,7 @@
                             </membercontrols:GuildMemberListItemTemplate>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                    <ListView.GroupStyle>
+                    <!--<ListView.GroupStyle>
                         <GroupStyle HidesIfEmpty="True">
                             <GroupStyle.HeaderContainerStyle>
                                 <Style TargetType="ListViewBaseHeaderItem">
@@ -57,23 +57,23 @@
                                 </Style>
                             </GroupStyle.HeaderContainerStyle>
                             <GroupStyle.HeaderTemplate>
-                                <DataTemplate x:DataType="objectModel:Grouping">
+                                <DataTemplate x:DataType="objectModel:HashedGrouping">
                                     <Grid VerticalAlignment="Top">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Text="{x:Bind Key.(models:Role.Name)}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.75" Margin="0"/>
+                                        <TextBlock Text="{x:Bind Group.(models:Role.Name)}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.75" Margin="0"/>
                                         <TextBlock Grid.Column="1" Text="{x:Bind Count}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.35"/>
                                     </Grid>
                                 </DataTemplate>
                             </GroupStyle.HeaderTemplate>
                         </GroupStyle>
-                    </ListView.GroupStyle>
+                    </ListView.GroupStyle>-->
                 </ListView>
             </SemanticZoom.ZoomedInView>
             <SemanticZoom.ZoomedOutView>
-                <ListView ItemsSource="{x:Bind ViewSource.View.CollectionGroups, Mode=OneWay}" Margin="0" >
+                <ListView ItemsSource="{x:Bind ViewModel.Source.Groups, Mode=OneWay}" Margin="0" >
                     <ListView.Background>
                         <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.1"/>
                     </ListView.Background>
@@ -88,15 +88,15 @@
                         </Style>
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="ICollectionViewGroup">
+                        <DataTemplate x:DataType="models:Role">
                             <Grid VerticalAlignment="Top">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{x:Bind Group.(objectModel:Grouping.Key).(models:Role.Name)}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Group.Key.Color, Converter={StaticResource IntColorToBrushConverter}}" Opacity="0.75" Margin="0"/>
-                                <TextBlock Grid.Column="1" Text="{x:Bind Group.(objectModel:Grouping.Count)}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.35"/>
+                                <TextBlock Text="{x:Bind Name}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Group.Key.Color, Converter={StaticResource IntColorToBrushConverter}}" Opacity="0.75" Margin="0"/>
+                                <!--<TextBlock Grid.Column="1" Text="{x:Bind Group.(objectModel:HashedGrouping.Count)}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.35"/>-->
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

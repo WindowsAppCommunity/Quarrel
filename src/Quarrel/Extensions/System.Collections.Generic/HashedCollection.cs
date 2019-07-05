@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Threading;
+using Quarrel.Models.Bindables;
 
 namespace System.Collections.ObjectModel
 {
@@ -35,7 +36,7 @@ namespace System.Collections.ObjectModel
 
         public TValue this[TKey key]
         {
-            get => _dict[key];
+            get => _dict.ContainsKey(key) ? _dict[key] : default;
 
             set => _dict[key] = value;
         }

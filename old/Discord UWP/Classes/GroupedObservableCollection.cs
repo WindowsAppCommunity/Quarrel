@@ -22,7 +22,7 @@ namespace Quarrel.Classes
         /// <param name="key">Grouping data</param>
         public Grouping(TKey key)
         {
-            this.Key = key;
+            this.Group = key;
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Quarrel.Classes
             }
         }
         
-        public TKey Key { get; }
+        public TKey Group { get; }
     }
 
     /// <summary>
@@ -149,7 +149,7 @@ namespace Quarrel.Classes
             // No longer so dynamic...
             var member = (item as Member);
             Grouping<HoistRole, Member> group = ogroup as Grouping<HoistRole, Member>;
-            (ogroup.Key as HoistRole).Membercount++;
+            (ogroup.Group as HoistRole).Membercount++;
             string DisplayName = member.DisplayName;
             
             if(!RoleIndexer.ContainsKey(member.Raw.User.Id))
@@ -180,7 +180,7 @@ namespace Quarrel.Classes
             // Remove from old group
             var previousgroup = this.TryFindGroup(previousKey);
             previousgroup.Remove(item);
-            (previousgroup.Key as HoistRole).Membercount--;
+            (previousgroup.Group as HoistRole).Membercount--;
             var newgroup = FindOrCreateGroup(newKey);
             RoleIndexer.Remove((item as Member).Raw.User.Id);
             if (previousgroup != null && previousgroup.Count == 0)
@@ -196,7 +196,7 @@ namespace Quarrel.Classes
         /// <summary>
         /// List of groups in Collection
         /// </summary>
-        public IEnumerable<TKey> Keys => this.Select(i => i.Key);
+        public IEnumerable<TKey> Keys => this.Select(i => i.Group);
 
         /// <summary>
         /// Swap the collection with another collection
@@ -286,7 +286,7 @@ namespace Quarrel.Classes
 
             for (var i = 0; i < requiredKeys.Count; i++)
             {
-                if (this.Count <= i || !this[i].Key.Equals(requiredKeys[i]))
+                if (this.Count <= i || !this[i].Group.Equals(requiredKeys[i]))
                 {
                     this.Insert(i, new Grouping<TKey, TElement>(requiredKeys[i]));
                 }
@@ -298,7 +298,7 @@ namespace Quarrel.Classes
             var keySet = new HashSet<TKey>(keys);
             for (var i = this.Count - 1; i >= 0; i--)
             {
-                if (keySet.Contains(this[i].Key))
+                if (keySet.Contains(this[i].Group))
                 {
                     this.RemoveAt(i);
                 }
@@ -334,12 +334,12 @@ namespace Quarrel.Classes
         /// <returns>Found Grouping or null if not present</returns>
         private Grouping<TKey, TElement> TryFindGroup(TKey key)
         {
-            if (this.LastAffectedGroup != null && this.LastAffectedGroup.Key.Equals(key))
+            if (this.LastAffectedGroup != null && this.LastAffectedGroup.Group.Equals(key))
             {
                 return this.LastAffectedGroup;
             }
 
-            var group = this.FirstOrDefault(i => i.Key.Equals(key));
+            var group = this.FirstOrDefault(i => i.Group.Equals(key));
             this.LastAffectedGroup = group;
             return group;
         }
@@ -351,14 +351,14 @@ namespace Quarrel.Classes
         /// <returns>The grouping either found or created</returns>
         private Grouping<TKey, TElement> FindOrCreateGroup(TKey key)
         {
-            if (this.LastAffectedGroup != null && (this.LastAffectedGroup.Key).Equals(key))
+            if (this.LastAffectedGroup != null && (this.LastAffectedGroup.Group).Equals(key))
                 return this.LastAffectedGroup;
 
             Grouping<TKey, TElement> result;
             
             foreach (var group in this)
             {
-                if (group.Key.Equals(key))
+                if (group.Group.Equals(key))
                 {
                     result = group;
                     this.LastAffectedGroup = result;
@@ -374,7 +374,7 @@ namespace Quarrel.Classes
                 for (var i = 0; i < this.Count; i++)
                 {
 
-                    if ((result.Key as HoistRole).Position > (this[i].Key as HoistRole).Position)
+                    if ((result.Group as HoistRole).Position > (this[i].Group as HoistRole).Position)
                     {
                         //Loop until a group has a position which is higher, then insert the new group just before
                         this.Insert(i, result);
