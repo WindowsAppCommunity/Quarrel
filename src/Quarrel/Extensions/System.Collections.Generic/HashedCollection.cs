@@ -66,6 +66,35 @@ namespace System.Collections.ObjectModel
             Add(item.Key, item.Value);
         }
 
+        public void Insert(int position, TKey key, TValue value)
+        {
+            Insert(position, new KeyValuePair<TKey, TValue>(key, value));
+        }
+
+        public void Insert(int position, KeyValuePair<TKey, TValue> item)
+        {
+            if(!TryInsert(position, item))
+            {
+                throw new InvalidOperationException("Insert is not support with " + _collect.GetType());
+            }
+        }
+
+        public void TryInsert(int position, TKey key, TValue value)
+        {
+            TryInsert(position, new KeyValuePair<TKey, TValue>(key, value));
+        }
+
+        public bool TryInsert(int position, KeyValuePair<TKey, TValue> item)
+        {
+            if (_collect is IList<KeyValuePair<TKey, TValue>> list)
+            {
+                _dict.Add(item.Key, item.Value);
+                list.Insert(position, item);
+                return true;
+            }
+            return false;
+        }
+
         public void Clear()
         {
             _collect.Clear();
