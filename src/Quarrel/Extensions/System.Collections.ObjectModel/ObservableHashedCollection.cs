@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Threading;
+using MoreLinq;
 
 namespace System.Collections.ObjectModel
 {
@@ -149,7 +150,7 @@ namespace System.Collections.ObjectModel
             return _hashedCollection.TryGetValue(key, out value);
         }
 
-        public ICollection<TValue> Values => _hashedCollection.Values;
+        public ICollection<TValue> Values => _hashedCollection.Values.Distinct().ToList();
 
         public TValue this[TKey key]
         {

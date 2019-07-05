@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
+using MoreLinq;
 
 namespace System.Collections.ObjectModel
 {
@@ -89,7 +92,6 @@ namespace System.Collections.ObjectModel
             // Get the target group for the new item
             TGroup group = KeyReader(item);
             HashedGrouping<TKey, TGroup, TElement> hashGroup = FindOrCreateGroup(key, group);
-            Add(key, hashGroup);
 
             // Insert the item in the right position in the group
             for (int i = 0; i < hashGroup.Count; i++)
@@ -104,6 +106,7 @@ namespace System.Collections.ObjectModel
 
             _Elements.Add(item);
             hashGroup.Add(key, item);
+            Add(key, hashGroup);
         }
 
         /// <summary>
