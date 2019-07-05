@@ -24,39 +24,40 @@ namespace Quarrel.ViewModels
         {
             Messenger.Default.Register<ChannelNavigateMessage>(this, async m =>
             {
-                _RequestInProgress = true;
-
                 Channel = m.Channel;
 
-                IEnumerable<Message> itemList = null;
-                if (Channel.ReadState == null)
-                    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id);
-                else
-                    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAround(m.Channel.Model.Id, m.Channel.ReadState.LastMessageId);
-
-                await DispatcherHelper.RunAsync(() =>
+                using (await SourceMutex.LockAsync())
                 {
-                    Source.Clear();
+                    IEnumerable<Message> itemList = null;
+                    if (Channel.ReadState == null)
+                        itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id);
+                    else
+                        itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAround(m.Channel.Model.Id, m.Channel.ReadState.LastMessageId);
 
-                    Message lastItem = null;
-
-                    BindableMessage scrollItem = null;
-
-                    foreach (Message item in itemList.Reverse())
+                    await DispatcherHelper.RunAsync(() =>
                     {
-                        Source.Add(new BindableMessage(item, guildId, lastItem, lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId));
+                        Source.Clear();
 
-                        if (lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId)
+                        Message lastItem = null;
+
+                        BindableMessage scrollItem = null;
+
+                        foreach (Message item in itemList.Reverse())
                         {
-                            scrollItem = Source.LastOrDefault();
+                            Source.Add(new BindableMessage(item, guildId, lastItem, lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId));
+
+                            if (lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId)
+                            {
+                                scrollItem = Source.LastOrDefault();
+                            }
+
+                            lastItem = item;
                         }
 
-                        lastItem = item;
-                    }
-
-                    if (scrollItem != null)
-                        ScrollTo?.Invoke(this, scrollItem);
-                });
+                        if (scrollItem != null)
+                            ScrollTo?.Invoke(this, scrollItem);
+                    });
+                }
             });
 
             Messenger.Default.Register<GatewayMessageRecievedMessage>(this, async m =>
@@ -67,8 +68,6 @@ namespace Quarrel.ViewModels
                         Source.Add(new BindableMessage(m.Message, guildId, Source.LastOrDefault().Model));
                 });
             });
-
-            _RequestInProgress = false;
         }
 
         public event EventHandler<BindableMessage> ScrollTo;
@@ -93,6 +92,8 @@ namespace Quarrel.ViewModels
             get => _MessageText;
             set => Set(ref _MessageText, value);
         }
+
+        private protected AsyncMutex SourceMutex { get; } = new AsyncMutex();
 
         public ObservableCollection<BindableMessage> Source { get; private set; } = new ObservableCollection<BindableMessage>();
 
@@ -267,14 +268,10 @@ namespace Quarrel.ViewModels
             set => Set(ref _SelectionLength, value);
         }
 
-
-        private bool _RequestInProgress = false;
-
         public async void LoadOlderMessages()
         {
-            if (!_RequestInProgress)
+            using (await SourceMutex.LockAsync())
             {
-                _RequestInProgress = true;
                 IEnumerable<Message> itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesBefore(Channel.Model.Id, Source.FirstOrDefault().Model.Id);
 
                 await DispatcherHelper.RunAsync(() =>
@@ -287,30 +284,28 @@ namespace Quarrel.ViewModels
                         lastItem = item;
                     }
                 });
-
-                _RequestInProgress = false;
             }
         }
 
         public async void LoadNewerMessages()
         {
-            if (!_RequestInProgress && Channel.Model.LastMessageId != Source.LastOrDefault().Model.Id)
+            using (await SourceMutex.LockAsync())
             {
-                _RequestInProgress = true;
-                IEnumerable<Message> itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, Source.FirstOrDefault().Model.Id);
-
-                await DispatcherHelper.RunAsync(() =>
+                if (Channel.Model.LastMessageId != Source.LastOrDefault().Model.Id)
                 {
-                    Message lastItem = null;
-                    foreach (var item in itemList)
-                    {
-                        // Can't be last read item
-                        Source.Add(new BindableMessage(item, guildId, lastItem));
-                        lastItem = item;
-                    }
-                });
+                    IEnumerable<Message> itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, Source.FirstOrDefault().Model.Id);
 
-                _RequestInProgress = false;
+                    await DispatcherHelper.RunAsync(() =>
+                    {
+                        Message lastItem = null;
+                        foreach (var item in itemList)
+                        {
+                            // Can't be last read item
+                            Source.Add(new BindableMessage(item, guildId, lastItem));
+                            lastItem = item;
+                        }
+                    });
+                }
             }
         }
     }
