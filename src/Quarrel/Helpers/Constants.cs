@@ -45,7 +45,7 @@ namespace Quarrel.Helpers
 
         public static class Regex
         {
-            public static string YouTubeRegex = @"(?:https:\/\/)?(?:(?:www\.)?youtube\.com\/watch\?.*?v=([\w\-]+)|youtu\.be\/([\w\-]+))";
+            public static string YouTubeRegex = @"(?:https:\/\/)?(?:(?:www\.)?youtube\.com\/(?:(?:watch\?.*?v=)|(?:embed\/))([\w\-]+)|youtu\.be\/(?:embed\/)?([\w\-]+))";
         }
     }
 }
