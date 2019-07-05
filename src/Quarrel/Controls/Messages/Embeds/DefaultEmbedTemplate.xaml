@@ -14,7 +14,7 @@
 
     <UserControl.Resources>
         <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
-        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+        <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
     </UserControl.Resources>
 
@@ -28,22 +28,22 @@
                         <ColumnDefinition x:Name="ThumbnailColumn" Width="auto" MaxWidth="80"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Margin="0,0,16,0">
-                        <HyperlinkButton Content="{x:Bind ViewModel.Provider.Name, Mode=OneWay}" NavigateUri="{x:Bind ViewModel.Provider.Url, Mode=OneWay}" Visibility="{x:Bind ViewModel.Provider, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Style="{StaticResource PlainTextHyperlinkStyle}" FontSize="12" Opacity="0.5" Foreground="{ThemeResource Foreground}"/>
-                        <StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.Author, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}">
-                            <Rectangle RadiusX="10" RadiusY="10" Width="20" Height="20" Margin="0,0,10,0" Visibility="{x:Bind ViewModel.Author.IconUrl, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}">
+                        <HyperlinkButton Content="{x:Bind ViewModel.Provider.Name, Mode=OneWay}" NavigateUri="{x:Bind ViewModel.Provider.Url, Mode=OneWay}" x:Name="ProviderHLBTN" x:Load="{x:Bind ViewModel.Provider, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Style="{StaticResource PlainTextHyperlinkStyle}" FontSize="12" Opacity="0.5" Foreground="{ThemeResource Foreground}"/>
+                        <StackPanel Orientation="Horizontal" x:Name="AuthorSP" x:Load="{x:Bind ViewModel.Author, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+                            <Rectangle RadiusX="10" RadiusY="10" Width="20" Height="20" Margin="0,0,10,0" x:Name="AuthorRect" x:Load="{x:Bind ViewModel.Author.IconUrl, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
                                 <Rectangle.Fill>
-                                    <ImageBrush ImageSource="{x:Bind ViewModel.Author.ProxyIconUrl, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                                    <ImageBrush ImageSource="{x:Bind ViewModel.Author.ProxyIconUrl, Mode=OneWay}"/>
                                 </Rectangle.Fill>
                             </Rectangle>
-                            <HyperlinkButton x:Name="AuthorText" Content="{x:Bind ViewModel.Author.Name, Mode=OneWay}" NavigateUri="{x:Bind ViewModel.Author.Url, Mode=OneWay}" Visibility="{x:Bind ViewModel.Author.Name, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource Foreground}"/>
+                            <HyperlinkButton x:Name="AuthorText" Content="{x:Bind ViewModel.Author.Name, Mode=OneWay}" NavigateUri="{x:Bind ViewModel.Author.Url, Mode=OneWay}" x:Load="{x:Bind ViewModel.Author.Name, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource Foreground}"/>
                         </StackPanel>
-                        <TextBlock Text="{x:Bind ViewModel.Title, Mode=OneWay}" Visibility="{x:Bind ViewModel.Title, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Margin="0,4,0,0"/>
-                        <markdown:MarkdownTextBlock Text="{x:Bind ViewModel.Description, Mode=OneWay}" Visibility="{x:Bind ViewModel.Description, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Opacity="0.75" FontSize="13" Margin="0,0,0,0" EnableHiddenLinks="True"/>
+                        <TextBlock Text="{x:Bind ViewModel.Title, Mode=OneWay}" x:Name="TitleTB" x:Load="{x:Bind ViewModel.Title, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Margin="0,4,0,0"/>
+                        <markdown:MarkdownTextBlock Text="{x:Bind ViewModel.Description, Mode=OneWay}" x:Name="ContentMDBlock" x:Load="{x:Bind ViewModel.Description, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Opacity="0.75" FontSize="13" Margin="0,0,0,0" EnableHiddenLinks="True"/>
                         <StackPanel x:Name="FieldsStacker"/>
                     </StackPanel>
-                    <tk:ImageEx Source="{x:Bind ViewModel.Thumbnail.ProxyUrl, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}" Visibility="{x:Bind ViewModel.Thumbnail, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Height="80" Stretch="Uniform" Grid.Column="1" VerticalAlignment="Top"/>
+                    <tk:ImageEx Source="{x:Bind ViewModel.Thumbnail.ProxyUrl, Mode=OneWay}" x:Name="ThumbnailImage" x:Load="{x:Bind ViewModel.Thumbnail, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Height="80" Stretch="Uniform" Grid.Column="1" VerticalAlignment="Top"/>
                 </Grid>
-                <Viewbox HorizontalAlignment="Left" Visibility="{x:Bind ViewModel.Image.ProxyUrl, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" StretchDirection="DownOnly" MaxWidth="480" MaxHeight="300">
+                <Viewbox HorizontalAlignment="Left" x:Name="ImageVB" x:Load="{x:Bind ViewModel.Image, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" StretchDirection="DownOnly" MaxWidth="480" MaxHeight="300">
                     <tk:ImageEx Source="{x:Bind ViewModel.Image.ProxyUrl, Mode=OneWay}"/>
                 </Viewbox>
                 <Grid>
@@ -51,8 +51,8 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Visibility="{x:Bind ViewModel.Footer, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Orientation="Horizontal">
-                        <tk:ImageEx Source="{x:Bind ViewModel.Footer.ProxyIconUrl, Mode=OneWay}" Visibility="{x:Bind ViewModel.Footer.ProxyIconUrl, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Width="18" Height="18" Margin="0,0,8,0"/>
+                    <StackPanel x:Name="FooterSP" x:Load="{x:Bind ViewModel.Footer, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Orientation="Horizontal">
+                        <tk:ImageEx Source="{x:Bind ViewModel.Footer.ProxyIconUrl, Mode=OneWay}" x:Name="FooterImage" x:Load="{x:Bind ViewModel.Footer.ProxyIconUrl, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Width="18" Height="18" Margin="0,0,8,0"/>
                         <TextBlock Text="{x:Bind ViewModel.Footer.Text, Mode=OneWay}" FontSize="12" FontWeight="SemiBold" Opacity="0.4" VerticalAlignment="Center"/>
                     </StackPanel>
                     <Button Visibility="Collapsed" Click="ShareEmbed" Style="{StaticResource IntegratedButton}" Grid.Column="1" HorizontalAlignment="Right">

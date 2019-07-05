@@ -15,6 +15,7 @@ using GalaSoft.MvvmLight.Command;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services;
+using Windows.Web.Syndication;
 
 namespace Quarrel.ViewModels
 {
@@ -28,11 +29,9 @@ namespace Quarrel.ViewModels
 
                 using (await SourceMutex.LockAsync())
                 {
+                    NewItemsLoading = true;
                     IEnumerable<Message> itemList = null;
-                    if (Channel.ReadState == null)
-                        itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id);
-                    else
-                        itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAround(m.Channel.Model.Id, m.Channel.ReadState.LastMessageId);
+                    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id);
 
                     await DispatcherHelper.RunAsync(() =>
                     {
@@ -57,6 +56,7 @@ namespace Quarrel.ViewModels
                         if (scrollItem != null)
                             ScrollTo?.Invoke(this, scrollItem);
                     });
+                    NewItemsLoading = false;
                 }
             });
 
@@ -94,6 +94,12 @@ namespace Quarrel.ViewModels
         }
 
         private protected AsyncMutex SourceMutex { get; } = new AsyncMutex();
+
+        public bool NewItemsLoading;
+
+        public bool OldItemsLoading;
+
+        private bool ItemsLoading => NewItemsLoading || OldItemsLoading;
 
         public ObservableCollection<BindableMessage> Source { get; private set; } = new ObservableCollection<BindableMessage>();
 
@@ -270,8 +276,10 @@ namespace Quarrel.ViewModels
 
         public async void LoadOlderMessages()
         {
+            if (ItemsLoading) return;
             using (await SourceMutex.LockAsync())
             {
+                OldItemsLoading = true;
                 IEnumerable<Message> itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesBefore(Channel.Model.Id, Source.FirstOrDefault().Model.Id);
 
                 await DispatcherHelper.RunAsync(() =>
@@ -284,14 +292,17 @@ namespace Quarrel.ViewModels
                         lastItem = item;
                     }
                 });
+                OldItemsLoading = false;
             }
         }
 
         public async void LoadNewerMessages()
         {
+            if (ItemsLoading) return;
             using (await SourceMutex.LockAsync())
             {
-                if (Channel.Model.LastMessageId != Source.LastOrDefault().Model.Id)
+                NewItemsLoading = true;
+                if (Convert.ToInt64(Channel.Model.LastMessageId) > Convert.ToInt64(Source.LastOrDefault().Model.Id))
                 {
                     IEnumerable<Message> itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, Source.FirstOrDefault().Model.Id);
 
@@ -306,6 +317,7 @@ namespace Quarrel.ViewModels
                         }
                     });
                 }
+                NewItemsLoading = false;
             }
         }
     }
