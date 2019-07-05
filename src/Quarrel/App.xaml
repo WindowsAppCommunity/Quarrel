@@ -75,6 +75,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <rykenUI:RykenLibraryStyles />
                 <ResourceDictionary Source="Resources/Brushes.xaml"/>
+                <ResourceDictionary Source="Resources/FontIcons.xaml"/>
                 <ResourceDictionary Source="Resources/MiscResources.xaml"/>
                 <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
                 <ResourceDictionary Source="Styles/ListViewItemStyles.xaml"/>

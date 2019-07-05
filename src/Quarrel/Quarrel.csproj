@@ -286,6 +286,9 @@
     <Compile Include="Converters\Discord\PresenseToBrushConverter.cs" />
     <Compile Include="Converters\Guild\IsDMToFontFamilyConverter.cs" />
     <Compile Include="Converters\Guild\MutedToOpacityConverter.cs" />
+    <Compile Include="Converters\Messages\ActionMessage\TypeToColorConverter.cs" />
+    <Compile Include="Converters\Messages\ActionMessage\TypeToIconConverter.cs" />
+    <Compile Include="Converters\Messages\ActionMessage\TypeToTextConverter.cs" />
     <Compile Include="Converters\Messages\SizeToHumanizedSizeConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToAcceptFriendConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToAddFriendConverter.cs" />
@@ -504,6 +507,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Resources\FontIcons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\MiscResources.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

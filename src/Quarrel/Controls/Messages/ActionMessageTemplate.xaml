@@ -5,20 +5,27 @@
     xmlns:local="using:Quarrel.Controls.Messages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:actmsgconvert="using:Quarrel.Converters.Messages.ActionMessage"
     xmlns:markdown="using:Quarrel.Controls.Markdown"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <actmsgconvert:TypeToColorConverter x:Key="TypeToColorConverter"/>
+        <actmsgconvert:TypeToIconConverter x:Key="TypeToIconConverter"/>
+        <actmsgconvert:TypeToTextConverter x:Key="TypeToTextConverter"/>
+    </UserControl.Resources>
 
     <Grid Height="32">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="64"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <FontIcon Glyph="" Foreground="{StaticResource online}"/>
+        <FontIcon Glyph="{x:Bind ViewModel.Model.Type, Converter={StaticResource TypeToIconConverter}, Mode=OneWay}" Foreground="{x:Bind ViewModel.Model.Type, Converter={StaticResource TypeToColorConverter}, Mode=OneWay}"/>
         <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center">
-            <TextBlock Text="{x:Bind ViewModel.AuthorName}" FontWeight="Bold"/>
-            <TextBlock Text="Joined the Server!" FontWeight="SemiLight" Opacity="0.9" Margin="8,0,0,0"/>
+            <TextBlock Text="{x:Bind ViewModel.AuthorName, Mode=OneWay}" FontWeight="Bold"/>
+            <TextBlock Text="{x:Bind ViewModel.Model.Type, Converter={StaticResource TypeToTextConverter}, Mode=OneWay}" FontWeight="SemiLight" Opacity="0.9" Margin="8,0,0,0"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -1,0 +1,11 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <x:String x:Key="RecipientAddIcon"></x:String>
+    <x:String x:Key="RecipientRemoveIcon"></x:String>
+    <x:String x:Key="EditIcon"></x:String>
+    <x:String x:Key="CallIcon"></x:String>
+    <x:String x:Key="PinIcon"></x:String>
+
+</ResourceDictionary>
