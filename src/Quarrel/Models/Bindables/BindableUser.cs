@@ -1,21 +1,12 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
 using DiscordAPI.Models;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Views;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Quarrel.Models.Bindables.Abstract;
 using Quarrel.Services;
-using System.ComponentModel;
-using System.Collections;
-using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
-using Windows.UI;
-using Windows.UI.Xaml.Media;
 using Quarrel.Converters.Discord;
 
 namespace Quarrel.Models.Bindables
@@ -82,16 +73,6 @@ namespace Quarrel.Models.Bindables
             }
         }
 
-        public SolidColorBrush PresenceBrush
-        {
-            get
-            {
-                if (Presence.Status == "offline" || Presence.Status == "invisible")
-                    return new SolidColorBrush((Color)App.Current.Resources["SystemAccentColor"]);
-                else
-                    return (SolidColorBrush)new PresenseToBrushConverter().Convert(Presence.Status, null, null, null);
-            }
-        }
 
         public bool HasNickname
         {

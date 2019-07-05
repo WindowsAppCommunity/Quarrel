@@ -4,18 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Quarrel.Messages.Navigation;
 using Quarrel.Models.Bindables;
-using UICompositionAnimations.Helpers;
-using System.Collections;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Threading;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services;
-using Windows.Web.Syndication;
 
 namespace Quarrel.ViewModels
 {

@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Quarrel.Models.Bindables;
-using UICompositionAnimations.Helpers;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
 using DiscordAPI.Models;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
+using GalaSoft.MvvmLight.Threading;
 
 namespace Quarrel.ViewModels
 {

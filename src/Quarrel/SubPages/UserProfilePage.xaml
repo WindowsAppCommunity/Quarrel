@@ -9,6 +9,7 @@
     xmlns:tkmedia="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:relationconvert="using:Quarrel.Converters.Profile.Relationships"
+    xmlns:discord="using:Quarrel.Converters.Discord"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -21,6 +22,7 @@
         <relationconvert:RelationToBlockConverter x:Key="RelationToBlockConverter"/>
         <relationconvert:RelationToRemoveFriendConverter x:Key="RelationToRemoveFriendConverter"/>
         <relationconvert:RelationToUnblockConverter x:Key="RelationToUnblockConverter"/>
+        <discord:PresenseToBrushConverter x:Key="PresenseToBrushConverter" UseSystemAccentColor="True"/>
     </UserControl.Resources>
     
     <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="0" CornerRadius="0">
@@ -38,7 +40,7 @@
                             <tkmedia:BackdropSaturationBrush Saturation="0"/>
                         </Grid.Background>
                     </Grid>
-                    <Rectangle Fill="{x:Bind ViewModel.PresenceBrush, Mode=OneWay}" Opacity="0.25"/>
+                <Rectangle Fill="{x:Bind ViewModel.Presence.Status, Mode=OneWay, Converter={StaticResource PresenseToBrushConverter}}" Opacity="0.25"/>
                     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <Grid.Background>
                             <tkmedia:BackdropBlurBrush Amount="10"/>
