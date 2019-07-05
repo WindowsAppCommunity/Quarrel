@@ -19,18 +19,17 @@ namespace Quarrel.ViewModels
         {
             Messenger.Default.Register<GatewayGuildSyncMessage>(this, async m =>
             {
-                await DispatcherHelper.RunAsync(() =>
-                {
-                    Source.Clear();
+                var tempSource = new GroupedObservableHashedCollection<string, Role, BindableUser>(x => x.TopHoistRole, new List<KeyValuePair<string, HashedGrouping<string, Role, BindableUser>>>());
 
-                    // Show members
-                    foreach (var member in m.Members)
-                    {
-                        BindableUser bUser = new BindableUser(member);
-                        bUser.GuildId = m.GuildId;
-                        Source.AddElement(member.User.Id, bUser);
-                    }
-                });
+                // Show members
+                foreach (var member in m.Members)
+                {
+                    BindableUser bUser = new BindableUser(member);
+                    bUser.GuildId = m.GuildId;
+                    tempSource.AddElement(member.User.Id, bUser);
+                }
+
+                await DispatcherHelper.RunAsync(() => { Source = tempSource; RaisePropertyChanged(nameof(Source)); });
             });
 
             Messenger.Default.Register<BindableUserRequestMessage>(this, m => m.ReportResult(Source.ContainsKey(m.UserId) ? Source[m.UserId][m.UserId] : default));
