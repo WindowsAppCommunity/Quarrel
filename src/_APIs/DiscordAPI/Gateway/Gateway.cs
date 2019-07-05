@@ -164,9 +164,9 @@ namespace DiscordAPI.Gateway
 
                             using (var reader = new StreamReader(decompressed))
                             {
-#if DEBUG
+                                #if DEBUG
                                 string content = await reader.ReadToEndAsync();
-                                Debug.WriteLine("<<< " + content);
+                                Debug.WriteLine("<<< " + (content.Length > 80 ? content.Substring(0, 80) + "..." : content));
                                 SocketFrame frame = JsonConvert.DeserializeObject<SocketFrame>(content);
                                 if(frame.SequenceNumber.HasValue) lastGatewayEventSeq = frame.SequenceNumber.Value;
                                 if (operationHandlers.ContainsKey(frame.Operation.GetValueOrDefault()))
@@ -178,8 +178,8 @@ namespace DiscordAPI.Gateway
                                 {
                                     eventHandlers[frame.Type](frame);
                                 }
-
-#else
+                                
+                                #else
                                 using (JsonReader jsreader = new JsonTextReader(reader))
                                 {
                                     JsonSerializer serializer = new JsonSerializer();
@@ -195,8 +195,7 @@ namespace DiscordAPI.Gateway
                                         eventHandlers[frame.Type](frame);
                                     }
                                 }
-#endif
-
+                                #endif
                             }
 
                         }
@@ -248,7 +247,7 @@ namespace DiscordAPI.Gateway
         public async Task SendMessageAsync(string message)
         {
 #if DEBUG
-            Debug.WriteLine(">>> " + message);
+            Debug.WriteLine(">>> " + (message.Length > 80 ? message.Substring(0, 80) + "..." : message));
 #endif
             try
             {
