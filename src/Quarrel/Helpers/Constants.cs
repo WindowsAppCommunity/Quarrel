@@ -42,5 +42,10 @@ namespace Quarrel.Helpers
                 public const string AccessToken = nameof(AccessToken);
             }
         }
+
+        public static class Regex
+        {
+            public static string YouTubeRegex = @"(?:https:\/\/)?(?:(?:www\.)?youtube\.com\/watch\?.*?v=([\w\-]+)|youtu\.be\/([\w\-]+))";
+        }
     }
 }

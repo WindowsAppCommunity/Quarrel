@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Quarrel.Controls.Messages.Embeds;
@@ -12,10 +13,6 @@ namespace Quarrel.TemplateSelectors
     /// </summary>
     public sealed class EmbedTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate ImageEmbedTemplate { get; set; }
-        public DataTemplate GifvEmbedTemplate { get; set; }
-        public DataTemplate YoutubeEmbedTemplate { get; set; }
-        public DataTemplate DefaultEmbedTemplate { get; set; }
 
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
@@ -23,18 +20,17 @@ namespace Quarrel.TemplateSelectors
             {
                 switch (embed.Type)
                 {
-                    case "image": return ImageEmbedTemplate;
-                    case "gifv": return GifvEmbedTemplate;
+                    case "image": return parent.FindResource<DataTemplate>("ImageEmbedTemplate");
+                    case "gifv": return parent.FindResource<DataTemplate>("GifvEmbedTemplate");
                     case "video":
                     {
-                        switch (new Uri(embed.Video?.Url).Host)
+                        if (Regex.IsMatch(embed.Video?.Url, Helpers.Constants.Regex.YouTubeRegex))
                         {
-                            case "www.youtube.com":
-                            case "youtube.com": return YoutubeEmbedTemplate;
+                            return parent.FindResource<DataTemplate>("YoutubeEmbedTemplate");
                         }
                         break;
                     }
-                    default: return DefaultEmbedTemplate;
+                    default: return parent.FindResource<DataTemplate>("DefaultEmbedTemplate");
                 }
             }
 

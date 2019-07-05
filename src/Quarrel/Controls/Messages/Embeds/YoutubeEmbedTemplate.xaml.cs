@@ -46,8 +46,7 @@ namespace Quarrel.Controls.Messages.Embeds
 
         async void SetupMytube(string url)
         {
-            Regex YouTubeRegex = new Regex(@"(?:https:\/\/)?(?:(?:www\.)?youtube\.com\/watch\?.*?v=([\w\-]+)|youtu\.be\/([\w\-]+))", RegexOptions.Compiled);
-            var match = YouTubeRegex.Match(url);
+            var match = Regex.Match(url, Helpers.Constants.Regex.YouTubeRegex);
             if (match.Success)
             {
                 if (RykenPlayer.CurrentMediaHandler == null)
