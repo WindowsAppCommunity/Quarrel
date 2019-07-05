@@ -136,7 +136,7 @@
                         </core:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </HyperlinkButton>
-                <TextBlock Text="{x:Bind ViewModel.Model.Timestamp, Converter={StaticResource DateTimeToTextConverter}, Mode=OneWay}"
+                <TextBlock Text="{x:Bind ViewModel.Model.Timestamp, Converter={StaticResource DateTimeToTextConverter}}"
                            Margin="4,0,0,2" VerticalAlignment="Bottom" FontSize="11" Opacity="0.3"/>
                 
                 <TextBlock Text="(Edited" Visibility="{x:Bind ViewModel.Model.EditedTimestamp, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
@@ -150,19 +150,19 @@
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="2" x:Name="body" Margin="0,0,0,2">
-            <markdown:MarkdownTextBlock Text="{x:Bind ViewModel.Model.Content}"
+            <markdown:MarkdownTextBlock Text="{x:Bind ViewModel.Model.Content, Mode=OneWay}"
                                         TextWrapping="WrapWholeWords"
                                         FontWeight="SemiLight" Opacity="0.9"/>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="3" x:Name="AttachmentList" x:Load="{x:Bind ViewModel.Model.Attachments, Converter={StaticResource NotNullToBoolConverter}}">
-            <ListView ItemsSource="{x:Bind ViewModel.Model.Attachments}"
+        <Grid Grid.Column="1" Grid.Row="3" x:Name="AttachmentList" x:Load="{x:Bind ViewModel.Model.Attachments, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+            <ListView ItemsSource="{x:Bind ViewModel.Model.Attachments, Mode=OneWay}"
                       ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"
                       SelectionMode="None"/>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="4" x:Name="EmbedList" x:Load="{x:Bind ViewModel.Model.Embeds, Converter={StaticResource NotNullToBoolConverter}}">
-            <ListView ItemsSource="{x:Bind ViewModel.Model.Embeds}"
+        <Grid Grid.Column="1" Grid.Row="4" x:Name="EmbedList" x:Load="{x:Bind ViewModel.Model.Embeds, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+            <ListView ItemsSource="{x:Bind ViewModel.Model.Embeds, Mode=OneWay}"
                       ItemTemplateSelector="{StaticResource EmbedTemplateSelector}"
                       SelectionMode="None"/>
         </Grid>

@@ -72,5 +72,10 @@ namespace Quarrel.Models.Bindables
                                                      }));
 
         #endregion
+
+        public void Update(Message message)
+        {
+            Model = message;
+        }
     }
 }

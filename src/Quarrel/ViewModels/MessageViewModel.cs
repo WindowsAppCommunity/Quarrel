@@ -74,6 +74,38 @@ namespace Quarrel.ViewModels
                         Source.Add(new BindableMessage(m.Message, guildId, Source.LastOrDefault().Model));
                 });
             });
+
+            Messenger.Default.Register<GatewayMessageDeletedMessage>(this, async m => 
+            {
+                if (Channel.Model.Id == m.ChannelId)
+                {
+                    await DispatcherHelper.RunAsync(() =>
+                    {
+                        // LastOrDefault to start from the bottom
+                        var msg = Source.LastOrDefault(x => x.Model.Id == m.MessageId);
+                        if (msg != null)
+                        {
+                            Source.Remove(msg);
+                        }
+                    });
+                }
+            });
+
+            Messenger.Default.Register<GatewayMessageUpdatedMessage>(this, async m =>
+            {
+                if (Channel.Model.Id == m.Message.ChannelId)
+                {
+                    await DispatcherHelper.RunAsync(() =>
+                    {
+                        // LastOrDefault to start from the bottom
+                        var msg = Source.LastOrDefault(x => x.Model.Id == m.Message.Id);
+                        if (msg != null)
+                        {
+                            msg.Update(m.Message);
+                        }
+                    });
+                }
+            });
         }
 
         public event EventHandler<BindableMessage> ScrollTo;

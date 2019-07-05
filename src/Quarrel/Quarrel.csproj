@@ -320,11 +320,13 @@
     <Compile Include="Messages\Abstract\RequestMessageBase{T}.cs" />
     <Compile Include="Messages\Abstract\ValueChangedMessageBase.cs" />
     <Compile Include="Messages\Gateway\GatewayGuildSyncMessage.cs" />
-    <Compile Include="Messages\Gateway\GatewayMessageRecievedMessage.cs" />
+    <Compile Include="Messages\Gateway\Messages\GatewayMessageDeletedMessage.cs" />
+    <Compile Include="Messages\Gateway\Messages\GatewayMessageRecievedMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayNoteUpdatedMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayPresenceUpdatedMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayReadyMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayUserSettingUpdatedMessage.cs" />
+    <Compile Include="Messages\Gateway\Messages\GatewayMessageUpdatedMessage.cs" />
     <Compile Include="Messages\Navigation\ChannelNavigateMessage.cs" />
     <Compile Include="Messages\Navigation\GuildNavigateMessage.cs" />
     <Compile Include="Messages\Navigation\SubFrame\SubFrameCloseRequestMessage.cs" />

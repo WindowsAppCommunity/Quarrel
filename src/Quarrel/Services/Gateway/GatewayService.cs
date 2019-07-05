@@ -42,11 +42,14 @@ namespace Quarrel.Services.Gateway
             Gateway.GuildSynced += Gateway_GuildSynced;
 
             Gateway.MessageCreated += Gateway_MessageCreated;
+            Gateway.MessageDeleted += Gateway_MessageDeleted;
+            Gateway.MessageUpdated += Gateway_MessageUpdated;
             Gateway.MessageAck += Gateway_MessageAck;
 
             Gateway.PresenceUpdated += Gateway_PresenceUpdated;
             Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
             Gateway.UserSettingsUpdated += Gateway_UserSettingsUpdated;
+            
             
             await Gateway.ConnectAsync();
 
@@ -83,13 +86,23 @@ namespace Quarrel.Services.Gateway
         {
             var currentUser = Messenger.Default.Request<CurrentUserRequestMessage, BindableUser>(new CurrentUserRequestMessage()).Model.User;
             var channel = Messenger.Default.Request<BindableChannelRequestMessage, BindableChannel>(new BindableChannelRequestMessage(e.EventData.ChannelId));
-            if (channel.IsDirectChannel || channel.IsGroupChannel || e.EventData.Mentions.Contains(currentUser))
+            if (channel.IsDirectChannel || channel.IsGroupChannel || e.EventData.Mentions.Contains(currentUser) || e.EventData.MentionEveryone)
                 channel.ReadState.MentionCount++;
             channel.UpdateLMID(e.EventData.Id);
 
             if (e.EventData.User == null)
                 e.EventData.User = currentUser;
             Messenger.Default.Send(new GatewayMessageRecievedMessage(e.EventData));
+        }
+
+        private void Gateway_MessageDeleted(object sender, GatewayEventArgs<MessageDelete> e)
+        {
+            Messenger.Default.Send(new GatewayMessageDeletedMessage(e.EventData.ChannelId, e.EventData.MessageId));
+        }
+
+        private void Gateway_MessageUpdated(object sender, GatewayEventArgs<Message> e)
+        {
+            Messenger.Default.Send(new GatewayMessageUpdatedMessage(e.EventData));
         }
 
         private void Gateway_MessageAck(object sender, GatewayEventArgs<MessageAck> e)
