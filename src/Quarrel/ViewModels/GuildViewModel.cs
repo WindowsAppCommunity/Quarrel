@@ -166,7 +166,7 @@ namespace Quarrel.ViewModels
             });
         }
 
-        public ObservableConcurrentDictionary<string, BindableGuild> Source { get; private set; } = new ObservableConcurrentDictionary<string, BindableGuild>();
+        public ObservableHashedCollection<string, BindableGuild> Source { get; private set; } = new ObservableHashedCollection<string, BindableGuild>(new List<KeyValuePair<string, BindableGuild>>());
 
         private RelayCommand<BindableGuild> navigateGuildCommand;
 
