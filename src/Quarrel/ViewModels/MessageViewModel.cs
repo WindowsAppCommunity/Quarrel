@@ -31,7 +31,10 @@ namespace Quarrel.ViewModels
                 {
                     NewItemsLoading = true;
                     IEnumerable<Message> itemList = null;
-                    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id);
+                    if (Channel.ReadState == null)
+                        itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id);
+                    else
+                        itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAround(m.Channel.Model.Id, Channel.ReadState.LastMessageId, 50);
 
                     await DispatcherHelper.RunAsync(() =>
                     {
@@ -302,9 +305,9 @@ namespace Quarrel.ViewModels
             using (await SourceMutex.LockAsync())
             {
                 NewItemsLoading = true;
-                if (Convert.ToInt64(Channel.Model.LastMessageId) > Convert.ToInt64(Source.LastOrDefault().Model.Id))
+                if (Channel.Model.LastMessageId != Source.LastOrDefault().Model.Id)
                 {
-                    IEnumerable<Message> itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, Source.FirstOrDefault().Model.Id);
+                    IEnumerable<Message> itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, Source.LastOrDefault().Model.Id);
 
                     await DispatcherHelper.RunAsync(() =>
                     {
