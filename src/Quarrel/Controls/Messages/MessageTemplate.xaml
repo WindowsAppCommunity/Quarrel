@@ -27,13 +27,16 @@
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
 
         <templates:AttachmentTemplateSelector x:Key="AttachmentTemplateSelector" />
-        <DataTemplate x:Key="ImageAttachmentTemplate">
-            <attach:ImageAttachmentTemplate/>
-        </DataTemplate>
         <DataTemplate x:Key="DefaultAttachmentTemplate">
             <attach:DefaultAttachmentTemplate/>
         </DataTemplate>
-
+        <DataTemplate x:Key="ImageAttachmentTemplate">
+            <attach:ImageAttachmentTemplate/>
+        </DataTemplate>
+        <DataTemplate x:Key="VideoAttachmentTemplate">
+            <attach:VideoAttachmentTemplate/>
+        </DataTemplate>
+        
         <templates:EmbedTemplateSelector x:Key="EmbedTemplateSelector"/>
         <DataTemplate x:Key="GifvEmbedTemplate">
             <embeds:GifvEmbedTemplate/>

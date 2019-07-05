@@ -56,7 +56,7 @@ namespace Quarrel.Controls.Messages.Embeds
                     await mediaHandler.SetCurrentVideoHandler(new MediaPlayerHandler { UseMediaPlayerElement = false });
                     mediaHandler.CurrentVideoHandler.HandlesTransportControls = true; // Disable the media transport controls
                     mediaHandler.CurrentVideoHandler.StopOnMediaEnded = false; // Keep video loaded when ended
-                    await mediaHandler.CurrentVideoHandler.OpenVideo(new YouTubeEntry { ID = match.Groups[1].Value != "" ? match.Groups[1].Value : match.Groups[2].Value }, YouTubeQuality.HD);
+                    await mediaHandler.CurrentVideoHandler.OpenVideo(new YouTubeEntry { ID = !string.IsNullOrEmpty(match.Groups[1].Value) ? match.Groups[1].Value : match.Groups[2].Value }, YouTubeQuality.HD);
                     await mediaHandler.CurrentVideoHandler.Pause();
                 }
             }

@@ -22,6 +22,8 @@ namespace Quarrel.TemplateSelectors
                     case "png":
                     case "jpg":
                     case "jpeg": return parent.FindResource<DataTemplate>("ImageAttachmentTemplate");
+                    case "mov":
+                    case "mp4": return parent.FindResource<DataTemplate>("VideoAttachmentTemplate");
                     default: return parent.FindResource<DataTemplate>("DefaultAttachmentTemplate");
                 }
             }
