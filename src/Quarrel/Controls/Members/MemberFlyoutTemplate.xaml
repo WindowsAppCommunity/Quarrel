@@ -42,10 +42,11 @@
         <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
+        <discordconvert:PresenseToBrushConverter x:Key="PresenseToBrushConverter" UseSystemAccentColor="True"/>
         <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
     </UserControl.Resources>
 
-    <Border x:Name="borderColor" Margin="0" CornerRadius="4" BorderThickness="1" Grid.RowSpan="2" Width="248" BorderBrush="{x:Bind ViewModel.PresenceBrush, Mode=OneWay}">
+    <Border x:Name="borderColor" Margin="0" CornerRadius="4" BorderThickness="1" Grid.RowSpan="2" Width="248" BorderBrush="{x:Bind ViewModel.Presence.Status, Mode=OneWay, Converter={StaticResource PresenseToBrushConverter}}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -64,7 +65,7 @@
                         <tkmedia:BackdropSaturationBrush Saturation="0"/>
                     </Grid.Background>
                 </Grid>
-                <Rectangle Fill="{x:Bind ViewModel.PresenceBrush, Mode=OneWay}" Opacity="0.25"/>
+                <Rectangle Fill="{x:Bind ViewModel.Presence.Status, Mode=OneWay, Converter={StaticResource PresenseToBrushConverter}}" Opacity="0.25"/>
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Grid.Background>
                         <tkmedia:BackdropBlurBrush Amount="10"/>

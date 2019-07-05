@@ -1,18 +1,9 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
 using DiscordAPI.Models;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Views;
 using Quarrel.Models.Bindables.Abstract;
 using JetBrains.Annotations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
 using GalaSoft.MvvmLight.Command;
-using Quarrel.Services;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Posts.Requests;
 

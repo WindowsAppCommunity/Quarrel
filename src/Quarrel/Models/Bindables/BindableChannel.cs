@@ -1,18 +1,10 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
 using DiscordAPI.Models;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Views;
 using JetBrains.Annotations;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Quarrel.Models.Bindables.Abstract;
-using Quarrel.Services;
-using System.ComponentModel;
-using UICompositionAnimations.Helpers;
+using GalaSoft.MvvmLight.Threading;
 
 namespace Quarrel.Models.Bindables
 {
@@ -222,7 +214,7 @@ namespace Quarrel.Models.Bindables
             {
                 if (Set(ref _ReadState, value))
                 {
-                    DispatcherHelper.Run(() =>
+                    DispatcherHelper.RunAsync(() =>
                     {
                         RaisePropertyChanged(nameof(IsUnread));
                         RaisePropertyChanged(nameof(ShowUnread));
