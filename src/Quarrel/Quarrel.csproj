@@ -303,13 +303,10 @@
     <Compile Include="Extensions\DiscordAPI.Models\GuildMemberChunkExtensions.cs" />
     <Compile Include="Extensions\DiscordAPI.Models\GuildSyncExtensions.cs" />
     <Compile Include="Extensions\GalaSoft.MvvmLight.Messaging\MessengerExtensions.cs" />
-    <Compile Include="Extensions\System.Collections.Generic\HashDeque.cs" />
     <Compile Include="Extensions\System.Collections.Generic\HashedCollection.cs" />
     <Compile Include="Extensions\System.Collections.Generic\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\GroupedObservableCollection.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\Grouping.cs" />
-    <Compile Include="Extensions\System.Collections.ObjectModel\ObservableDictionary.cs" />
-    <Compile Include="Extensions\System.Collections.ObjectModel\ObservableHashDeque.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\ObservableHashedCollection.cs" />
     <Compile Include="Extensions\System.Threading.Tasks\AggregateExceptionHandler.cs" />
     <Compile Include="Extensions\System.Threading.Tasks\TaskExtensions.cs" />
