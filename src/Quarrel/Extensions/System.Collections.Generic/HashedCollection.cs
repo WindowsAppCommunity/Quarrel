@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Threading;
-using Nito.Collections;
 
 namespace System.Collections.ObjectModel
 {
