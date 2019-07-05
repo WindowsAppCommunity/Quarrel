@@ -3,9 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Quarrel.Views"
-    xmlns:messagecontrols="using:Quarrel.Controls.Messages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:templates="using:Quarrel.TemplateSelectors"
     xmlns:msgcontrol="using:Quarrel.Controls.Messages"
     xmlns:viewModels="using:Quarrel.ViewModels"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
@@ -15,6 +15,14 @@
 
     <UserControl.Resources>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+
+        <templates:MessageTemplateSelector x:Key="MessageTemplateSelector"/>
+        <DataTemplate x:Key="MessageTemplate">
+            <msgcontrol:MessageTemplate/>
+        </DataTemplate>
+        <DataTemplate x:Key="ActionMessageTemplate">
+            <msgcontrol:ActionMessageTemplate/>
+        </DataTemplate>
     </UserControl.Resources>
     
     <UserControl.DataContext>
@@ -29,6 +37,7 @@
 
         <ListView x:Name="MessageList"
                   ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}" Padding="0,0,0,16"
+                  ItemTemplateSelector="{StaticResource MessageTemplateSelector}"
                   SelectionMode="None" IsItemClickEnabled="False" ItemContainerStyle="{StaticResource MessageListItemStyle}">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -39,11 +48,6 @@
                     </ItemsStackPanel>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <messagecontrols:MessageTemplate/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
         </ListView>
 
         <Rectangle Visibility="{x:Bind ViewModel.Channel, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"

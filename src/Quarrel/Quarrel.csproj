@@ -231,6 +231,9 @@
     <Compile Include="Controls\Members\MemberFlyoutTemplate.xaml.cs">
       <DependentUpon>MemberFlyoutTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Messages\ActionMessageTemplate.xaml.cs">
+      <DependentUpon>ActionMessageTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Messages\Attachments\DefaultAttachmentTemplate.xaml.cs">
       <DependentUpon>DefaultAttachmentTemplate.xaml</DependentUpon>
     </Compile>
@@ -367,6 +370,7 @@
     </Compile>
     <Compile Include="TemplateSelectors\AttachmentTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\EmbedTemplateSelector.cs" />
+    <Compile Include="TemplateSelectors\MessageTemplateSelector.cs" />
     <Compile Include="ViewModels\ChannelViewModel.cs" />
     <Compile Include="ViewModels\GuildViewModel.cs" />
     <Compile Include="ViewModels\MemberViewModel.cs" />
@@ -439,6 +443,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Members\MemberFlyoutTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Messages\ActionMessageTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
