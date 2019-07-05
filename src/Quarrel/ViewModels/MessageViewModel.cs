@@ -31,10 +31,11 @@ namespace Quarrel.ViewModels
                 {
                     NewItemsLoading = true;
                     IEnumerable<Message> itemList = null;
-                    if (Channel.ReadState == null)
-                        itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id);
-                    else
-                        itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAround(m.Channel.Model.Id, Channel.ReadState.LastMessageId, 50);
+                    //if (Channel.ReadState == null)
+                    //    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id);
+                    //else
+                    //    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAround(m.Channel.Model.Id, Channel.ReadState.LastMessageId, 50);
+                    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id, 50);
 
                     await DispatcherHelper.RunAsync(() =>
                     {
@@ -58,6 +59,8 @@ namespace Quarrel.ViewModels
 
                         if (scrollItem != null)
                             ScrollTo?.Invoke(this, scrollItem);
+                        else
+                            ScrollTo?.Invoke(this, Source.LastOrDefault());
                     });
                     NewItemsLoading = false;
                 }
@@ -319,6 +322,10 @@ namespace Quarrel.ViewModels
                             lastItem = item;
                         }
                     });
+                }
+                else if (Channel.Model.LastMessageId != Channel.ReadState.LastMessageId)
+                {
+                    await ServicesManager.Discord.ChannelService.AckMessage(Channel.Model.Id, Source.LastOrDefault().Model.Id);
                 }
                 NewItemsLoading = false;
             }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -29,13 +30,20 @@ namespace Quarrel.Views
         {
             this.InitializeComponent();
             ViewModel.ScrollTo += ViewModel_ScrollTo;
+            Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
+            {
+                _ItemsStackPanel.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepLastItemInView;
+            });
         }
 
+        private ItemsStackPanel _ItemsStackPanel;
         private ScrollViewer _MessageScrollViewer;
 
         private void ItemsStackPanel_Loaded(object sender, RoutedEventArgs e)
         {
             _MessageScrollViewer = MessageList.FindChild<ScrollViewer>();
+            _ItemsStackPanel = (sender as ItemsStackPanel);
+            _ItemsStackPanel.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepItemsInView;
             if (_MessageScrollViewer != null) _MessageScrollViewer.ViewChanged += _messageScrollViewer_ViewChanged; ;
         }
 
