@@ -68,16 +68,16 @@ namespace Quarrel.ViewModels
 
             Messenger.Default.Register<GatewayMessageRecievedMessage>(this, async m =>
             {
-                await DispatcherHelper.RunAsync(() =>
-                {
-                    if (Channel != null && Channel.Model.Id == m.Message.ChannelId)
+                if (Channel != null && Channel.Model.Id == m.Message.ChannelId)
+                    await DispatcherHelper.RunAsync(() =>
+                    {
                         Source.Add(new BindableMessage(m.Message, guildId, Source.LastOrDefault().Model));
-                });
+                    });
             });
 
             Messenger.Default.Register<GatewayMessageDeletedMessage>(this, async m => 
             {
-                if (Channel.Model.Id == m.ChannelId)
+                if (Channel != null && Channel.Model.Id == m.ChannelId)
                 {
                     await DispatcherHelper.RunAsync(() =>
                     {
@@ -93,7 +93,7 @@ namespace Quarrel.ViewModels
 
             Messenger.Default.Register<GatewayMessageUpdatedMessage>(this, async m =>
             {
-                if (Channel.Model.Id == m.Message.ChannelId)
+                if (Channel != null && Channel.Model.Id == m.Message.ChannelId)
                 {
                     await DispatcherHelper.RunAsync(() =>
                     {

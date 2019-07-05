@@ -29,16 +29,16 @@ namespace DiscordAPI.API.Channel
         Task<Message> GetChannelMessage([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId);
 
         [Get("/v6/channels/{channelId}/messages?limit={limit}")]
-        Task<IEnumerable<Message>> GetChannelMessages([AliasAs("channelId")] string channelId, [AliasAs("limit")] int limit = 100);
+        Task<IEnumerable<Message>> GetChannelMessages([AliasAs("channelId")] string channelId, [AliasAs("limit")] int limit = 50);
 
         [Get("/v6/channels/{channelId}/messages?limit={limit}&before={messageId}")]
-        Task<IEnumerable<Message>> GetChannelMessagesBefore([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [AliasAs("limit")] int limit = 100);
+        Task<IEnumerable<Message>> GetChannelMessagesBefore([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [AliasAs("limit")] int limit = 50);
 
         [Get("/v6/channels/{channelId}/messages?limit={limit}&after={messageId}")]
-        Task<IEnumerable<Message>> GetChannelMessagesAfter([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [AliasAs("limit")] int limit = 100);
+        Task<IEnumerable<Message>> GetChannelMessagesAfter([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [AliasAs("limit")] int limit = 50);
         
         [Get("/v6/channels/{channelId}/messages?limit={limit}&around={messageId}")]
-        Task<IEnumerable<Message>> GetChannelMessagesAround([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [AliasAs("limit")] int limit = 100);
+        Task<IEnumerable<Message>> GetChannelMessagesAround([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [AliasAs("limit")] int limit = 50);
 
         [Get("/channels/{channelId}/pins")]
         Task<IEnumerable<Message>> GetPinnedMessages([AliasAs("channelId")] string channelId);

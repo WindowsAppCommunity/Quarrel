@@ -303,10 +303,12 @@
     <Compile Include="Extensions\DiscordAPI.Models\GuildMemberChunkExtensions.cs" />
     <Compile Include="Extensions\DiscordAPI.Models\GuildSyncExtensions.cs" />
     <Compile Include="Extensions\GalaSoft.MvvmLight.Messaging\MessengerExtensions.cs" />
+    <Compile Include="Extensions\System.Collections.Generic\HashDeque.cs" />
     <Compile Include="Extensions\System.Collections.Generic\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\GroupedObservableCollection.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\Grouping.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\ObservableDictionary.cs" />
+    <Compile Include="Extensions\System.Collections.ObjectModel\ObservableHashDeque.cs" />
     <Compile Include="Extensions\System.Threading.Tasks\AggregateExceptionHandler.cs" />
     <Compile Include="Extensions\System.Threading.Tasks\TaskExtensions.cs" />
     <Compile Include="Extensions\System\DateTimeExtensions.cs" />
@@ -593,6 +595,9 @@
     </PackageReference>
     <PackageReference Include="MvvmLight">
       <Version>5.4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Nito.Collections.Deque">
+      <Version>1.0.4</Version>
     </PackageReference>
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
       <Version>4.5.2</Version>
