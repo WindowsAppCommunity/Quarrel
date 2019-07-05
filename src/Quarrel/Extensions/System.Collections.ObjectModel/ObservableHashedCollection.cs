@@ -40,6 +40,7 @@ namespace System.Collections.ObjectModel
                         propertyHandler(this, new PropertyChangedEventArgs("Count"));
                         propertyHandler(this, new PropertyChangedEventArgs("Keys"));
                         propertyHandler(this, new PropertyChangedEventArgs("Values"));
+                        propertyHandler(this, new PropertyChangedEventArgs("DistinctSortedValues"));
                     }
                 }, null);
             }
@@ -150,7 +151,9 @@ namespace System.Collections.ObjectModel
             return _hashedCollection.TryGetValue(key, out value);
         }
 
-        public ICollection<TValue> Values => _hashedCollection.Values.Distinct().ToList();
+        public ICollection<TValue> DistinctSortedValues => Values.Distinct().OrderByDescending(x => x.GetHashCode()).ToList();
+
+        public ICollection<TValue> Values => _hashedCollection.Values;
 
         public TValue this[TKey key]
         {

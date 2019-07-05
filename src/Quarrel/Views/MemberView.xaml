@@ -23,7 +23,7 @@
     <UserControl.Resources>
         <baseconverts:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
         <viewModels:MemberViewModel x:Name="ViewModel"/>
-        <CollectionViewSource x:Name="ViewSource" Source="{x:Bind ViewModel.Source.Values, Mode=OneWay}" IsSourceGrouped="True" />
+        <CollectionViewSource x:Name="ViewSource" Source="{x:Bind ViewModel.Source.DistinctSortedValues, Mode=OneWay}" IsSourceGrouped="True" />
     </UserControl.Resources>
 
     <Grid>

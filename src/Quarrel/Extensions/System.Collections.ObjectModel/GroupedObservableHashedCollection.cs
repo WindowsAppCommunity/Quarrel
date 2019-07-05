@@ -186,9 +186,9 @@ namespace System.Collections.ObjectModel
 
             // The group doesn't exist already, create a new one in the correct position
             HashedGrouping<TKey, TGroup, TElement> result = _LastAffectedGroup = new HashedGrouping<TKey, TGroup, TElement>(group, new List<KeyValuePair<TKey, TElement>>());
-            for (var i = 0; i < Count; i++)
+            for (var i = 0; i < Values.Count; i++)
             {
-                if (result.Key.CompareTo(this.Values.ElementAt(i).Key) > 0)
+                if (result.Key.CompareTo(this.Values.ElementAt(i).Key) <= 0)
                 {
                     Add(key, result);
                     return result;

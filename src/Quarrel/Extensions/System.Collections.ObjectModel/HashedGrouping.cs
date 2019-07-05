@@ -18,6 +18,11 @@ namespace System.Collections.ObjectModel
 
         object HashedGrouping.Group => Key;
 
+        public override int GetHashCode()
+        {
+            return Key.GetHashCode();
+        }
+
         /// <summary>
         /// Creates a new <see cref="Grouping{TKey, TElement}"/> instance with the specified key and items collection
         /// </summary>
