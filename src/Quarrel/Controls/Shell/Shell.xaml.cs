@@ -34,6 +34,11 @@ namespace Quarrel.Controls.Shell
             Login();
         }
 
+        private bool IsViewLarge
+        {
+            get => UISize.CurrentState == Large || UISize.CurrentState == ExtraLarge;
+        }
+
         public async void Login()
         {
             var token = (string)(await ServicesManager.Cache.Persistent.Roaming.TryGetValueAsync<object>(Quarrel.Helpers.Constants.Cache.Keys.AccessToken));
@@ -46,6 +51,21 @@ namespace Quarrel.Controls.Shell
             {
                 ServicesManager.Discord.Login(token);
             }
+        }
+
+        private void ToggleSplitView(object sender, RoutedEventArgs e)
+        {
+            ContentContainer.ToggleLeft();
+        }
+
+        private void ToggleMemberPane(object sender, RoutedEventArgs e)
+        {
+            ContentContainer.ToggleRight();
+        }
+
+        private void UISize_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        {
+            this.Bindings.Update();
         }
     }
 }
