@@ -15,6 +15,7 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
+    xmlns:models="using:DiscordAPI.Models"
     mc:Ignorable="d"
     d:DesignHeight="64"
     d:DesignWidth="400">
@@ -31,14 +32,14 @@
                                               ImageAttachmentTemplate="{StaticResource ImageAttachmentTemplate}"
                                               VideoAttachmentTemplate="{StaticResource VideoAttachmentTemplate}"
                                               />
-        <DataTemplate x:Key="DefaultAttachmentTemplate">
-            <attach:DefaultAttachmentTemplate/>
+        <DataTemplate x:Key="DefaultAttachmentTemplate" x:DataType="models:Attachment">
+            <attach:DefaultAttachmentTemplate DataContext="{x:Bind}"/>
         </DataTemplate>
-        <DataTemplate x:Key="ImageAttachmentTemplate">
-            <attach:ImageAttachmentTemplate/>
+        <DataTemplate x:Key="ImageAttachmentTemplate" x:DataType="models:Attachment">
+            <attach:ImageAttachmentTemplate DataContext="{x:Bind}"/>
         </DataTemplate>
-        <DataTemplate x:Key="VideoAttachmentTemplate">
-            <attach:VideoAttachmentTemplate/>
+        <DataTemplate x:Key="VideoAttachmentTemplate" x:DataType="models:Attachment">
+            <attach:VideoAttachmentTemplate DataContext="{x:Bind}"/>
         </DataTemplate>
 
         <templates:EmbedTemplateSelector x:Key="EmbedTemplateSelector" 
@@ -47,17 +48,17 @@
                                          ImageEmbedTemplate="{StaticResource ImageEmbedTemplate}"
                                          DefaultEmbedTemplate="{StaticResource DefaultEmbedTemplate}"
                                          />
-        <DataTemplate x:Key="GifvEmbedTemplate">
-            <embeds:GifvEmbedTemplate/>
+        <DataTemplate x:Key="GifvEmbedTemplate" x:DataType="models:Embed">
+            <embeds:GifvEmbedTemplate DataContext="{x:Bind}"/>
         </DataTemplate>
-        <DataTemplate x:Key="YoutubeEmbedTemplate">
-            <embeds:YoutubeEmbedTemplate/>
+        <DataTemplate x:Key="YoutubeEmbedTemplate" x:DataType="models:Embed">
+            <embeds:YoutubeEmbedTemplate DataContext="{x:Bind}"/>
         </DataTemplate>
-        <DataTemplate x:Key="ImageEmbedTemplate">
-            <embeds:ImageEmbedTemplate/>
+        <DataTemplate x:Key="ImageEmbedTemplate" x:DataType="models:Embed">
+            <embeds:ImageEmbedTemplate DataContext="{x:Bind}"/>
         </DataTemplate>
-        <DataTemplate x:Key="DefaultEmbedTemplate">
-            <embeds:DefaultEmbedTemplate/>
+        <DataTemplate x:Key="DefaultEmbedTemplate" x:DataType="models:Embed">
+            <embeds:DefaultEmbedTemplate DataContext="{x:Bind}"/>
         </DataTemplate>
         
     </UserControl.Resources>
