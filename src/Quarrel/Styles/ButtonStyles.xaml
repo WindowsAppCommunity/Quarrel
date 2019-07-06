@@ -539,7 +539,7 @@
         <Setter Property="Foreground" Value="{ThemeResource AppBarEllipsisButtonForeground}"/>
         <Setter Property="BorderBrush" Value="{ThemeResource AppBarEllipsisButtonBorderBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="0,0,9,0"/>
+        <Setter Property="Padding" Value="0,0,0,0"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalContentAlignment" Value="Right"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>

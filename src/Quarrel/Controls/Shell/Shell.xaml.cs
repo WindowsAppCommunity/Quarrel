@@ -53,19 +53,19 @@ namespace Quarrel.Controls.Shell
             }
         }
 
-        private void ToggleSplitView(object sender, RoutedEventArgs e)
+        private void UISize_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        {
+            this.Bindings.Update();
+        }
+
+        private void HamburgerClicked(object sender, EventArgs e)
         {
             ContentContainer.ToggleLeft();
         }
 
-        private void ToggleMemberPane(object sender, RoutedEventArgs e)
+        private void MemberListButtonClicked(object sender, EventArgs e)
         {
             ContentContainer.ToggleRight();
-        }
-
-        private void UISize_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
-        {
-            this.Bindings.Update();
         }
     }
 }
