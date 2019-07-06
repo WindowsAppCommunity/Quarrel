@@ -13,24 +13,27 @@ namespace Quarrel.TemplateSelectors
     /// </summary>
     public sealed class EmbedTemplateSelector : DataTemplateSelector
     {
-
+        public DataTemplate ImageEmbedTemplate { get; set; }
+        public DataTemplate GifvEmbedTemplate { get; set; }
+        public DataTemplate YoutubeEmbedTemplate { get; set; }
+        public DataTemplate DefaultEmbedTemplate { get; set; }
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
             if (container is FrameworkElement parent && item is Embed embed)
             {
                 switch (embed.Type)
                 {
-                    case "image": return parent.FindResource<DataTemplate>("ImageEmbedTemplate");
-                    case "gifv": return parent.FindResource<DataTemplate>("GifvEmbedTemplate");
+                    case "image": return ImageEmbedTemplate;
+                    case "gifv": return GifvEmbedTemplate;
                     case "video":
                     {
                         if (Regex.IsMatch(embed.Video?.Url, Helpers.Constants.Regex.YouTubeRegex))
                         {
-                            return parent.FindResource<DataTemplate>("YoutubeEmbedTemplate");
+                            return YoutubeEmbedTemplate;
                         }
                         break;
                     }
-                    default: return parent.FindResource<DataTemplate>("DefaultEmbedTemplate");
+                    default: return DefaultEmbedTemplate;
                 }
             }
 
