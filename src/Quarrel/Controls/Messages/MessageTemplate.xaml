@@ -165,13 +165,16 @@
                                         FontWeight="SemiLight" Opacity="0.9"/>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="3" x:Name="AttachmentList" x:Load="{x:Bind ViewModel.Model.Attachments, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+        <!--
+            x:Load causes slowdowns here
+        -->
+        <Grid Grid.Column="1" Grid.Row="3" x:Name="AttachmentList">
             <ListView ItemsSource="{x:Bind ViewModel.Model.Attachments, Mode=OneWay}"
                       ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"
                       SelectionMode="None"/>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="4" x:Name="EmbedList" x:Load="{x:Bind ViewModel.Model.Embeds, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+        <Grid Grid.Column="1" Grid.Row="4" x:Name="EmbedList">
             <ListView ItemsSource="{x:Bind ViewModel.Model.Embeds, Mode=OneWay}"
                       ItemTemplateSelector="{StaticResource EmbedTemplateSelector}"
                       SelectionMode="None"/>
