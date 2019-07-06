@@ -26,7 +26,7 @@
                             <VisualStateGroup x:Name="FocusStates">
                                 <VisualState x:Name="Focused">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="bgIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.075">
+                                        <DoubleAnimation Storyboard.TargetName="bgHoverIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.075">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
@@ -68,7 +68,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="focusGlow" Storyboard.TargetProperty="Visibility">
                                             <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="Collapsed" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <DoubleAnimation Storyboard.TargetName="bgIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                        <DoubleAnimation Storyboard.TargetName="bgHoverIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseIn"/>
                                             </DoubleAnimation.EasingFunction>
@@ -90,7 +90,12 @@
                                 <VisualState x:Name="Normal">
                                     <Storyboard>
                                         <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
-                                        <DoubleAnimation Storyboard.TargetName="bgIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                        <DoubleAnimation Storyboard.TargetName="bgSelectedIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseIn"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="bgHoverIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseIn"/>
                                             </DoubleAnimation.EasingFunction>
@@ -110,7 +115,12 @@
                                 </VisualState>
                                 <VisualState x:Name="PointerOver">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="bgIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.075">
+                                        <DoubleAnimation Storyboard.TargetName="bgSelectedIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseIn"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="bgHoverIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.1">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
@@ -136,7 +146,12 @@
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="bgIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.15">
+                                        <DoubleAnimation Storyboard.TargetName="bgSelectedIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseIn"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="bgHoverIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.2">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
@@ -162,17 +177,22 @@
                                 </VisualState>
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="bgIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                        <DoubleAnimation Storyboard.TargetName="bgSelectedIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.4">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseIn"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                        <DoubleAnimation Storyboard.TargetName="bgHoverIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseIn"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.2" To="0">
+                                        <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="1">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseIn"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.2" To="1">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseIn"/>
                                             </DoubleAnimation.EasingFunction>
@@ -182,17 +202,22 @@
                                 </VisualState>
                                 <VisualState x:Name="PointerOverSelected">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="bgIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.075">
+                                        <DoubleAnimation Storyboard.TargetName="bgSelectedIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.4">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseIn"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="bgHoverIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.1">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.5">
+                                        <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="1">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.2" To="0.4">
+                                        <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.2" To="1">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
@@ -208,6 +233,11 @@
                                 </VisualState>
                                 <VisualState x:Name="PressedSelected">
                                     <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="bgSelectedIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.4">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseIn"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="bgIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.075">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut"/>
@@ -393,6 +423,7 @@
                     Fill="Transparent"
                     Opacity="0"
                     Control.IsTemplateFocusTarget="True" Visibility="Collapsed"/>
+                        <Rectangle x:Name="bgSelectedIndic" Fill="{ThemeResource SystemAccentColor}" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                         <controls:DropShadowPanel x:Name="focusGlow"  Visibility="Collapsed" Opacity="0" Margin="9,0,0,0"  OffsetX="0" OffsetY="5" BlurRadius="10" Color="{ThemeResource SystemAccentColor}">
                             <Rectangle Width="54" Height="54" RadiusX="30" RadiusY="30" Fill="{ThemeResource SystemControlBackgroundAccentBrush}"/>
                         </controls:DropShadowPanel>
@@ -467,7 +498,7 @@
                     Margin="18,9,0,0"
                     AutomationProperties.AccessibilityView="Raw"
                     Grid.ColumnSpan="2"/>
-                        <Rectangle x:Name="bgIndic" Fill="{ThemeResource Foreground}" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        <Rectangle x:Name="bgHoverIndic" Fill="{ThemeResource Foreground}" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                         <Border x:Name="Indic" Background="{ThemeResource Foreground}" Width="2" Opacity="0" HorizontalAlignment="Left" >
                             <Border.RenderTransform>
                                 <ScaleTransform x:Name="IndicScale" ScaleY="0" CenterY="32"/>
