@@ -308,6 +308,7 @@
     <Compile Include="Extensions\GalaSoft.MvvmLight.Messaging\MessengerExtensions.cs" />
     <Compile Include="Extensions\System.Collections.Generic\HashedCollection.cs" />
     <Compile Include="Extensions\System.Collections.Generic\IEnumerableExtensions.cs" />
+    <Compile Include="Extensions\System.Collections.ObjectModel\FilteredSortedGroupedObservableHashedCollection.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\GroupedObservableCollection.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\GroupedObservableHashedCollection.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\Grouping.cs" />
