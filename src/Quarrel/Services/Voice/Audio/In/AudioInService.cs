@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
@@ -46,14 +47,14 @@ namespace Quarrel.Services.Voice.Audio.In
 
         public AudioInService(string deviceId = null)
         {
-            CreateGraph(deviceId);
+
         }
 
         #endregion
 
-        #region Helper Methods
+        #region Methods
 
-        private async void CreateGraph(string deviceId = null)
+        public async void CreateGraph(string deviceId = null)
         {
             // Get Default Settings
             var graphResult = await AudioGraph.CreateAsync(GetDefaultGraphSettings());
@@ -95,6 +96,10 @@ namespace Quarrel.Services.Voice.Audio.In
             _FrameOutputNode.Start();
             _Graph.Start();
         }
+
+        #endregion
+
+        #region Helper Methods
 
         private void _Graph_QuantumStarted(AudioGraph sender, object args)
         {
@@ -190,13 +195,18 @@ namespace Quarrel.Services.Voice.Audio.In
         }
 
         #endregion
-
-        #region Dependencies
-        unsafe interface IMemoryBufferByteAccess
-        {
-            void GetBuffer(out byte* buffer, out uint capacity);
-        }
-
-        #endregion
     }
+
+    #region Dependencies
+
+    [ComImport]
+    [Guid("5B0D3235-4DBA-4D44-865E-8F1D0E4FD04D")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+
+    unsafe interface IMemoryBufferByteAccess
+    {
+        void GetBuffer(out byte* buffer, out uint capacity);
+    }
+
+    #endregion
 }

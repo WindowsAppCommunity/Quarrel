@@ -13,6 +13,8 @@ using Quarrel.Services.Voice.Audio.Out;
 using DiscordAPI.Models;
 using DiscordAPI.Voice;
 using DiscordAPI.Voice.DownstreamEvents;
+using Quarrel.Messages.Gateway;
+using Quarrel.Messages.Posts.Requests;
 
 namespace Quarrel.Services.Voice
 {
@@ -20,9 +22,21 @@ namespace Quarrel.Services.Voice
     {
         #region Public Properties
 
-        public IAudioInService InAudioService { get; } = new AudioInService();
+        public IAudioInService AudioInService { get; } = new AudioInService();
 
-        public IAudioOutService OutAudioService { get; } = new AudioOutService();
+        public IAudioOutService AudioOutService { get; } = new AudioOutService();
+
+        #endregion
+
+        #region Constructor
+
+        public VoiceService()
+        {
+            Messenger.Default.Register<GatewayVoiceServerUpdateMessage>(this, m => 
+            {
+                ConnectToVoiceChannel(m.VoiceServer, Messenger.Default.Request<CurrentUserVoiceStateRequestMessage, VoiceState>(new CurrentUserVoiceStateRequestMessage()));
+            });
+        }
 
         #endregion
 
@@ -36,24 +50,31 @@ namespace Quarrel.Services.Voice
 
         public async void ConnectToVoiceChannel(VoiceServerUpdate data, VoiceState state)
         {
+            AudioOutService.CreateGraph();
             _VoiceConnection = new VoiceConnection(data, state);
-            _VoiceConnection.VoiceDataRecieved += _VoiceConnection_VoiceDataRecieved;
+            _VoiceConnection.VoiceDataRecieved += VoiceDataRecieved;
             await _VoiceConnection.ConnectAsync();
-            InAudioService.InputRecieved += InAudioService_InputRecieved;
-            InAudioService.SpeakingChanged += InAudioService_SpeakingChanged; ;
+
+            AudioInService.InputRecieved += InputRecieved;
+            AudioInService.SpeakingChanged += SpeakingChanged;
+            AudioInService.CreateGraph();
         }
 
-        private void InAudioService_InputRecieved(object sender, float[] e)
+        #endregion
+
+        #region Helper Methods
+
+        private void InputRecieved(object sender, float[] e)
         {
             _VoiceConnection.SendVoiceData(e);
         }
 
-        private void _VoiceConnection_VoiceDataRecieved(object sender, VoiceConnectionEventArgs<VoiceData> e)
+        private void VoiceDataRecieved(object sender, VoiceConnectionEventArgs<VoiceData> e)
         {
-            OutAudioService.AddFrame(e.EventData.data, e.EventData.samples);
+            AudioOutService.AddFrame(e.EventData.data, e.EventData.samples);
         }
 
-        private void InAudioService_SpeakingChanged(object sender, bool e)
+        private void SpeakingChanged(object sender, bool e)
         {
             _VoiceConnection.SendSpeaking(e);
         }

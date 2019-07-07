@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
@@ -35,47 +36,14 @@ namespace Quarrel.Services.Voice.Audio.Out
 
         public AudioOutService(string deviceId = null)
         {
-            CreateGraph(deviceId);
+
         }
 
         #endregion
 
         #region Methods
 
-        public unsafe void AddFrame(float[] framedata, uint samples)
-        {
-            if (!_Ready)
-                return;
-
-            AudioFrame frame = new AudioFrame(samples * 2 * sizeof(float));
-            using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
-            using (IMemoryBufferReference reference = buffer.CreateReference())
-            {
-                // Get the buffer from the AudioFrame
-                ((IMemoryBufferByteAccess)reference).GetBuffer(out byte* dataInBytes, out uint _);
-
-                // Cast to float since the data we are generating is float
-                float* dataInFloat = (float*)dataInBytes;
-                fixed (float* frames = framedata)
-                {
-                    for (int i = 0; i < samples * 2; i++)
-                    {
-                        dataInFloat[i] = frames[i];
-                    }
-                }
-            }
-
-            // TODO: FFT
-            
-            // Add frame to queue
-            _FrameInputNode.AddFrame(frame);
-        }
-
-        #endregion
-
-        #region Helper Methods
-
-        private async void CreateGraph(string deviceId = null)
+        public async void CreateGraph(string deviceId = null)
         {
             // Get Default Settings
             var graphSettings = GetDefaultGraphSettings();
@@ -119,6 +87,39 @@ namespace Quarrel.Services.Voice.Audio.Out
             _Graph.Start();
         }
 
+        public unsafe void AddFrame(float[] framedata, uint samples)
+        {
+            if (!_Ready)
+                return;
+
+            AudioFrame frame = new AudioFrame(samples * 2 * sizeof(float));
+            using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
+            using (IMemoryBufferReference reference = buffer.CreateReference())
+            {
+                // Get the buffer from the AudioFrame
+                ((IMemoryBufferByteAccess)reference).GetBuffer(out byte* dataInBytes, out uint _);
+
+                // Cast to float since the data we are generating is float
+                float* dataInFloat = (float*)dataInBytes;
+                fixed (float* frames = framedata)
+                {
+                    for (int i = 0; i < samples * 2; i++)
+                    {
+                        dataInFloat[i] = frames[i];
+                    }
+                }
+            }
+
+            // TODO: FFT
+            
+            // Add frame to queue
+            _FrameInputNode.AddFrame(frame);
+        }
+
+        #endregion
+
+        #region Helper Methods
+
         private AudioGraphSettings GetDefaultGraphSettings()
         {
             AudioGraphSettings graphsettings = new AudioGraphSettings(AudioRenderCategory.Communications);
@@ -141,12 +142,17 @@ namespace Quarrel.Services.Voice.Audio.Out
         }
 
         #endregion
-
-        #region Dependencies
-        unsafe interface IMemoryBufferByteAccess
-        {
-            void GetBuffer(out byte* buffer, out uint capacity);
-        }
-        #endregion
     }
+
+    #region Dependencies
+
+    [ComImport]
+    [Guid("5B0D3235-4DBA-4D44-865E-8F1D0E4FD04D")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+
+    unsafe interface IMemoryBufferByteAccess
+    {
+        void GetBuffer(out byte* buffer, out uint capacity);
+    }
+    #endregion
 }

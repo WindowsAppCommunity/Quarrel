@@ -7,6 +7,8 @@ using GalaSoft.MvvmLight.Threading;
 using Quarrel.Messages.Navigation;
 using Quarrel.Models.Bindables;
 using Quarrel.Messages.Posts.Requests;
+using Quarrel.Services;
+using DiscordAPI.Models;
 
 namespace Quarrel.ViewModels
 {
@@ -48,9 +50,8 @@ namespace Quarrel.ViewModels
 
         private RelayCommand<BindableChannel> navigateChannelCommand;
 
-        public RelayCommand<BindableChannel> NavigateChannelCommand => navigateChannelCommand ?? (navigateChannelCommand = new RelayCommand<BindableChannel>((channel) =>
+        public RelayCommand<BindableChannel> NavigateChannelCommand => navigateChannelCommand ?? (navigateChannelCommand = new RelayCommand<BindableChannel>(async (channel) =>
         {
-
             if (channel.IsCategory)
             {
                 bool newState = !channel.Collapsed;
@@ -62,6 +63,11 @@ namespace Quarrel.ViewModels
                 {
                     bChannel.Collapsed = newState;
                 }
+            }
+            else if (channel.IsVoiceChannel)
+            {
+                if (channel.Model is GuildChannel gChannel)
+                    await ServicesManager.Discord.Gateway.Gateway.VoiceStatusUpdate(Guild.Model.Id, gChannel.Id, false, false);
             }
             else
             {

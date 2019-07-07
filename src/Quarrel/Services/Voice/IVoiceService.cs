@@ -14,8 +14,8 @@ namespace Quarrel.Services.Voice
 {
     public interface IVoiceService
     {
-        IAudioInService InAudioService { get; }
+        IAudioInService AudioInService { get; }
 
-        IAudioOutService OutAudioService { get; }
+        IAudioOutService AudioOutService { get; }
     }
 }

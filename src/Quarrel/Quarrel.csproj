@@ -333,6 +333,8 @@
     <Compile Include="Messages\Gateway\GatewayReadyMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayUserSettingUpdatedMessage.cs" />
     <Compile Include="Messages\Gateway\Messages\GatewayMessageUpdatedMessage.cs" />
+    <Compile Include="Messages\Gateway\Voice\GatewayVoiceServerUpdateMessage.cs" />
+    <Compile Include="Messages\Gateway\Voice\GatewayVoiceStateUpdateMessage.cs" />
     <Compile Include="Messages\Navigation\ChannelNavigateMessage.cs" />
     <Compile Include="Messages\Navigation\GuildNavigateMessage.cs" />
     <Compile Include="Messages\Navigation\SubFrame\SubFrameCloseRequestMessage.cs" />
@@ -344,6 +346,7 @@
     <Compile Include="Messages\Requests\CurrentMemberListRequestMessage.cs" />
     <Compile Include="Messages\Requests\CurrentUserRequestMessage.cs" />
     <Compile Include="Messages\Requests\BindableChannelRequestMessage.cs" />
+    <Compile Include="Messages\Requests\CurrentUserVoiceStateRequestMessage.cs" />
     <Compile Include="Messages\Services\Settings\SettingChangedMessage.cs" />
     <Compile Include="Models\Bindables\Abstract\BindableModelBase.cs" />
     <Compile Include="Models\Bindables\BindableChannel.cs" />
@@ -435,6 +438,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="SodiumC.dll" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Bindables\Base\" />

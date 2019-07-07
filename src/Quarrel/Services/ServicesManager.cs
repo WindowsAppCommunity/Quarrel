@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Quarrel.Services.Gateway;
 using Quarrel.Services.Cache;
+using Quarrel.Services.Voice;
 
 namespace Quarrel.Services
 {
@@ -26,5 +27,6 @@ namespace Quarrel.Services
         [NotNull]
         public static ICacheService Cache { get; } = new CacheService();
 
+        public static IVoiceService VoiceService { get; } = new VoiceService();
     }
 }
