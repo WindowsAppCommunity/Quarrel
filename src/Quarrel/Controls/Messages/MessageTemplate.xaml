@@ -60,7 +60,19 @@
         <DataTemplate x:Key="DefaultEmbedTemplate" x:DataType="models:Embed">
             <embeds:DefaultEmbedTemplate DataContext="{x:Bind}"/>
         </DataTemplate>
-        
+
+        <DataTemplate x:Key="Reaction" x:DataType="models:Reactions">
+            <ToggleButton IsChecked="{x:Bind Me}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{x:Bind Emoji.Name}" Margin="0,0,2,0"/>
+                    <TextBlock Text="{x:Bind Count}" Margin="2,0,0,0" Grid.Column="1"/>
+                </Grid>
+            </ToggleButton>
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid x:Name="rootGrid" Padding="0,8,0,0">
@@ -94,6 +106,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto" x:Name="row2"/>
             <RowDefinition/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
@@ -179,5 +192,26 @@
                       ItemTemplateSelector="{StaticResource EmbedTemplateSelector}"
                       SelectionMode="None"/>
         </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="5" x:Name="ReactionList">
+            <ListView ItemsSource="{x:Bind ViewModel.Model.Reactions, Mode=OneWay}"
+                      ItemTemplate="{StaticResource Reaction}"
+                      SelectionMode="None">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Margin" Value="4,0"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="MinWidth" Value="48"/>
+                        <Setter Property="MaxWidth" Value="60"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </Grid>
+        
     </Grid>
 </UserControl>
