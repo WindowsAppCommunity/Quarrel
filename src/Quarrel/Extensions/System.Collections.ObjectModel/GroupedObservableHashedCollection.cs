@@ -12,7 +12,7 @@ namespace System.Collections.ObjectModel
     /// </summary>
     /// <typeparam name="TGroup">They type of the key of each group</typeparam>
     /// <typeparam name="TElement">The type of elements in each group</typeparam>
-    public sealed class GroupedObservableHashedCollection<TKey, TGroup, TElement>
+    public class GroupedObservableHashedCollection<TKey, TGroup, TElement>
         : ObservableHashedCollection<TKey, HashedGrouping<TKey, TGroup, TElement>>
         where TGroup : IEquatable<TGroup>, IComparable<TGroup>
         where TElement : class, IEquatable<TElement>, IComparable<TElement>
@@ -105,7 +105,6 @@ namespace System.Collections.ObjectModel
 
             _Elements.Add(item);
             hashGroup.Add(key, item);
-            Add(key, hashGroup);
         }
 
         /// <summary>

@@ -31,10 +31,10 @@ namespace DiscordAPI.Models
 
 
         [JsonIgnore]
-        public static Role Offline => new Role() { Name = "Offline", Position = int.MinValue, Id = "offline"};
+        public static Role Offline => new Role() { Name = "Offline", Position = int.MinValue + 1, Id = "offline"};
 
         [JsonIgnore]
-        public static Role Everyone => new Role() { Name = "Everyone", Position = int.MinValue + 1, Id = "everyone" };
+        public static Role Everyone => new Role() { Name = "Everyone", Position = int.MinValue + 2, Id = "everyone" };
 
         #region Interfaces
 

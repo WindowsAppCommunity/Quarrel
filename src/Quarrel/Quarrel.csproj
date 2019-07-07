@@ -313,6 +313,7 @@
     <Compile Include="Extensions\System.Collections.ObjectModel\Grouping.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\HashedGrouping.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\ObservableHashedCollection.cs" />
+    <Compile Include="Extensions\System.Collections.ObjectModel\SortedGroupedObservableHashedCollection.cs" />
     <Compile Include="Extensions\System.Threading.Tasks\AggregateExceptionHandler.cs" />
     <Compile Include="Extensions\System.Threading.Tasks\TaskExtensions.cs" />
     <Compile Include="Extensions\System\DateTimeExtensions.cs" />
