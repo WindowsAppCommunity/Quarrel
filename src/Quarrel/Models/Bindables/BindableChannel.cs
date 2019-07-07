@@ -3,14 +3,38 @@
 using DiscordAPI.Models;
 using JetBrains.Annotations;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Models.Bindables.Abstract;
 using GalaSoft.MvvmLight.Threading;
+using Quarrel.Messages.Gateway;
+using Quarrel.Services.Users;
 
 namespace Quarrel.Models.Bindables
 {
     public class BindableChannel : BindableModelBase<Channel>
     {
-        public BindableChannel([NotNull] Channel model) : base(model) { }
+        public ICurrentUsersService UserService => SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+
+        public BindableChannel([NotNull] Channel model) : base(model)
+        {
+            Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, async e =>
+            {
+                await DispatcherHelper.RunAsync(() =>
+                {
+                    if (ConnectedUsers.ContainsKey(e.VoiceState.UserId))
+                    {
+                        ConnectedUsers.Remove(e.VoiceState.UserId);
+                    }
+                    else if (e.VoiceState.ChannelId == Model.Id)
+                    {
+                        ConnectedUsers.Add(e.VoiceState.UserId, new BindableVoiceUser(e.VoiceState));
+                    }
+                });
+            });
+        }
 
         #region ChannelType
 
@@ -180,6 +204,9 @@ namespace Quarrel.Models.Bindables
         {
             get => IsDirectChannel && !HasIcon;
         }
+
+        public ObservableHashedCollection<string, BindableVoiceUser> ConnectedUsers = new ObservableHashedCollection<string, BindableVoiceUser>();
+
         #endregion
 
         #region ReadState

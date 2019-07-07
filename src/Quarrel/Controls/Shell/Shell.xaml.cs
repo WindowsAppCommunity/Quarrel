@@ -18,6 +18,8 @@ using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Navigation;
 using Quarrel.SubPages;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight.Ioc;
+using Quarrel.Services.Users;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -31,6 +33,7 @@ namespace Quarrel.Controls.Shell
 
             // Setup SideDrawer
             ContentContainer.SetupInteraction();
+            SimpleIoc.Default.Register<ICurrentUsersService, CurrentUsersService>();
 
             Messenger.Default.Register<GuildNavigateMessage>(this, m =>
             {

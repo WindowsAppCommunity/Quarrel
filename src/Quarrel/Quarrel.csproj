@@ -135,6 +135,9 @@
     <Compile Include="Controls\Channels\ChannelTemplate.xaml.cs">
       <DependentUpon>ChannelTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Channels\VoiceMemberControl.xaml.cs">
+      <DependentUpon>VoiceMemberControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Guilds\GuildTemplate.xaml.cs">
       <DependentUpon>GuildTemplate.xaml</DependentUpon>
     </Compile>
@@ -353,6 +356,7 @@
     <Compile Include="Models\Bindables\BindableGuild.cs" />
     <Compile Include="Models\Bindables\BindableUser.cs" />
     <Compile Include="Models\Bindables\BindableMessage.cs" />
+    <Compile Include="Models\Bindables\BindableVoiceUser.cs" />
     <Compile Include="Models\Interfaces\IGuild.cs" />
     <Compile Include="Navigation\FrameNavigationService.cs" />
     <Compile Include="Navigation\IFrameNavigationService.cs" />
@@ -373,6 +377,8 @@
     <Compile Include="Services\Settings\ISettingsService.cs" />
     <Compile Include="Services\Settings\SettingKeys.cs" />
     <Compile Include="Services\Settings\SettingsService.cs" />
+    <Compile Include="Services\Users\ICurrentUsersService.cs" />
+    <Compile Include="Services\Users\CurrentUsersService.cs" />
     <Compile Include="Services\Voice\Audio\In\AudioInService.cs" />
     <Compile Include="Services\Voice\Audio\In\IAudioInService.cs" />
     <Compile Include="Services\Voice\Audio\Out\AudioOutService.cs" />
@@ -457,6 +463,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Channels\ChannelTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Channels\VoiceMemberControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

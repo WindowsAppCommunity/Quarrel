@@ -71,12 +71,14 @@
                     <SolidColorBrush x:Key="MidBG_focus" Color="#303238"/>
                     <SolidColorBrush x:Key="DarkBG" Color="#1e2124"/>
                     <SolidColorBrush x:Key="LinkColor" Color="#0096cf"/>
+                    <SolidColorBrush x:Key="InvertedBG" Color="#e2e7f7"/>
 
                     <x:Double x:Key="AppBarThemeCompactHeight">48</x:Double>
                     <x:Double x:Key="AppBarThemeMinHeight">48</x:Double>
                     <x:Double x:Key="AppBarButtonContentHeight">20</x:Double>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
+            <Color x:Key="BlurpleColor">#7289DA</Color>
 
             <ResourceDictionary.MergedDictionaries>
                 <rykenUI:RykenLibraryStyles />
