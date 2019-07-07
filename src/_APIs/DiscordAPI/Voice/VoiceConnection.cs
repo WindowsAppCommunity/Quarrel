@@ -160,14 +160,14 @@ namespace DiscordAPI.Voice
             }
         }
 
-        public async void SendSpeaking(bool speaking)
+        public async void SendSpeaking(int speaking)
         {
             DownstreamEvents.Speak Event = new DownstreamEvents.Speak
             {
                 Speaking = speaking
             };
             Speak?.Invoke(this, new VoiceConnectionEventArgs<DownstreamEvents.Speak>(Event));
-            if (speaking == false)
+            if (speaking == 0)
             {
                 SendSilence();
             }
@@ -384,12 +384,12 @@ namespace DiscordAPI.Voice
 
 
             //Needs to speak 100 silent frames to get first listen packet
-            SendSpeaking(true);
+            SendSpeaking(1);
             for (int i = 0; i < 100; i++)
             {
                 SendSilence();
             }
-            SendSpeaking(false);
+            SendSpeaking(0);
         }
 
         private void OnSpeaking(SocketFrame Event)

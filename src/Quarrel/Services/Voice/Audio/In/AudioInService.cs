@@ -39,7 +39,7 @@ namespace Quarrel.Services.Voice.Audio.In
 
         public event EventHandler<float[]> InputRecieved;
 
-        public event EventHandler<bool> SpeakingChanged;
+        public event EventHandler<int> SpeakingChanged;
 
         #endregion
 
@@ -153,7 +153,7 @@ namespace Quarrel.Services.Voice.Audio.In
             {
                 if (_IsSpeaking)
                 {
-                    SpeakingChanged(this, false);
+                    SpeakingChanged(this, 0);
                     _IsSpeaking = false;
                 }
             }
@@ -163,7 +163,7 @@ namespace Quarrel.Services.Voice.Audio.In
 
                 if (!_IsSpeaking)
                 {
-                    SpeakingChanged(this, true);
+                    SpeakingChanged(this, 1);
                     _IsSpeaking = true;
                 }
 
