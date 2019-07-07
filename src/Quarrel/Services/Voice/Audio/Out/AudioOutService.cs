@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
+using Windows.Foundation;
+using Windows.Media;
 using Windows.Media.Audio;
 using Windows.Media.Devices;
 using Windows.Media.MediaProperties;
 using Windows.Media.Render;
 
-namespace Quarrel.Services.Voice.Audio
+namespace Quarrel.Services.Voice.Audio.Out
 {
 
-    public class AudioOutService : IAudioService
+    public class AudioOutService : IAudioOutService
     {
         #region Public Properties
 
@@ -25,6 +27,7 @@ namespace Quarrel.Services.Voice.Audio
 
         private AudioGraph _Graph;
         private AudioFrameInputNode _FrameInputNode;
+        private bool _Ready = false;
 
         #endregion
 
@@ -33,6 +36,39 @@ namespace Quarrel.Services.Voice.Audio
         public AudioOutService(string deviceId = null)
         {
             CreateGraph(deviceId);
+        }
+
+        #endregion
+
+        #region Methods
+
+        public unsafe void AddFrame(float[] framedata, uint samples)
+        {
+            if (!_Ready)
+                return;
+
+            AudioFrame frame = new AudioFrame(samples * 2 * sizeof(float));
+            using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
+            using (IMemoryBufferReference reference = buffer.CreateReference())
+            {
+                // Get the buffer from the AudioFrame
+                ((IMemoryBufferByteAccess)reference).GetBuffer(out byte* dataInBytes, out uint _);
+
+                // Cast to float since the data we are generating is float
+                float* dataInFloat = (float*)dataInBytes;
+                fixed (float* frames = framedata)
+                {
+                    for (int i = 0; i < samples * 2; i++)
+                    {
+                        dataInFloat[i] = frames[i];
+                    }
+                }
+            }
+
+            // TODO: FFT
+            
+            // Add frame to queue
+            _FrameInputNode.AddFrame(frame);
         }
 
         #endregion
@@ -79,6 +115,7 @@ namespace Quarrel.Services.Voice.Audio
 
             // Begin play
             _FrameInputNode.Start();
+            _Ready = true;
             _Graph.Start();
         }
 
@@ -104,8 +141,6 @@ namespace Quarrel.Services.Voice.Audio
         }
 
         #endregion
-
-
 
         #region Dependencies
         unsafe interface IMemoryBufferByteAccess

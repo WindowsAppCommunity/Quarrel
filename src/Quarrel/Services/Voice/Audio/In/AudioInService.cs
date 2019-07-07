@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
+using Windows.Foundation;
+using Windows.Media;
 using Windows.Media.Audio;
 using Windows.Media.Capture;
 using Windows.Media.Devices;
 using Windows.Media.MediaProperties;
 using Windows.Media.Render;
 
-namespace Quarrel.Services.Voice.Audio
+namespace Quarrel.Services.Voice.Audio.In
 {
 
-    public class AudioInService : IAudioService
+    public class AudioInService : IAudioInService
     {
         #region Public Properties
 
@@ -92,7 +95,43 @@ namespace Quarrel.Services.Voice.Audio
 
         private void _Graph_QuantumStarted(AudioGraph sender, object args)
         {
-            throw new NotImplementedException();
+            // If odd quantum
+            if (++_Quantum % 2 == 0)
+            {
+                try
+                {
+                    // Record frame
+                    AudioFrame frame = _FrameOutputNode.GetFrame();
+                    ProcessFrameOutput(frame);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                }
+            }
+        }
+
+        private unsafe void ProcessFrameOutput(AudioFrame frame)
+        {
+            float[] dataInFloats;
+            using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
+            using (IMemoryBufferReference reference = buffer.CreateReference())
+            {
+                // Get the buffer from the AudioFrame
+                ((IMemoryBufferByteAccess)reference).GetBuffer(out byte* dataInBytes, out uint capacityInBytes);
+
+                float* dataInFloat = (float*)dataInBytes;
+                dataInFloats = new float[capacityInBytes / sizeof(float)];
+
+                for (int i = 0; i < capacityInBytes / sizeof(float); i++)
+                {
+                    dataInFloats[i] = dataInFloat[i];
+                }
+            }
+
+            // TODO: FFT
+
+            InputRecieved?.Invoke(null, dataInFloats);
         }
 
         private AudioGraphSettings GetDefaultGraphSettings()
@@ -123,6 +162,7 @@ namespace Quarrel.Services.Voice.Audio
         {
             void GetBuffer(out byte* buffer, out uint capacity);
         }
+
         #endregion
     }
 }

@@ -371,8 +371,10 @@
     <Compile Include="Services\Settings\SettingKeys.cs" />
     <Compile Include="Services\Settings\SettingsService.cs" />
     <Compile Include="Services\Voice\Audio\In\AudioInService.cs" />
+    <Compile Include="Services\Voice\Audio\In\IAudioInService.cs" />
     <Compile Include="Services\Voice\Audio\Out\AudioOutService.cs" />
     <Compile Include="Services\Voice\Audio\IAudioService.cs" />
+    <Compile Include="Services\Voice\Audio\Out\IAudioOutService.cs" />
     <Compile Include="Services\Voice\IVoiceService.cs" />
     <Compile Include="Services\Voice\VoiceService.cs" />
     <Compile Include="SubPages\Host\SubFrameHost.xaml.cs">

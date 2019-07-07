@@ -7,13 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Quarrel.Services.Settings.Enums;
-using Quarrel.Services.Voice.Audio;
+using Quarrel.Services.Voice.Audio.In;
+using Quarrel.Services.Voice.Audio.Out;
 
 namespace Quarrel.Services.Voice
 {
     public interface IVoiceService
     {
-        IAudioService InAudioService { get; }
-        IAudioService OutAudioService { get; }
+        IAudioInService InAudioService { get; }
+
+        IAudioOutService OutAudioService { get; }
     }
 }
