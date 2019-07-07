@@ -40,9 +40,9 @@ namespace Quarrel.Models.Bindables
             {
                 if (Roles != null)
                 {
-                    return Roles.FirstOrDefault() ?? new Role() { Name = "Everyone" };
+                    return Roles.FirstOrDefault() ?? new Role() { Name = "Everyone", Position = int.MinValue };
                 }
-                return new Role() { Name = "Everyone" };
+                return new Role() { Name = "Everyone", Position = int.MinValue };
             }
         }
 
@@ -52,9 +52,9 @@ namespace Quarrel.Models.Bindables
             {
                 if (Roles != null)
                 {
-                    return Roles.FirstOrDefault(x => x.Hoist) ?? new Role() { Name = "Everyone" };
+                    return Roles.FirstOrDefault(x => x.Hoist) ?? new Role() { Name = "Everyone", Position = int.MinValue };
                 }
-                return new Role() { Name = "Everyone" };
+                return new Role() { Name = "Everyone", Position = int.MinValue };
             }
         }
 

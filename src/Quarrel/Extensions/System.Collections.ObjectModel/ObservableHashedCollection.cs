@@ -5,12 +5,14 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Threading;
+using MoreLinq;
 
 namespace System.Collections.ObjectModel
 {
     public class ObservableHashedCollection<TKey, TValue> :
-         ICollection<KeyValuePair<TKey, TValue>>, IDictionary<TKey, TValue>,
-         INotifyCollectionChanged, INotifyPropertyChanged
+        ICollection<KeyValuePair<TKey, TValue>>, IDictionary<TKey, TValue>,
+        IEnumerable<TValue>,
+        INotifyCollectionChanged, INotifyPropertyChanged
     {
         private readonly SynchronizationContext _context;
         private HashedCollection<TKey, TValue> _hashedCollection;
@@ -38,6 +40,7 @@ namespace System.Collections.ObjectModel
                         propertyHandler(this, new PropertyChangedEventArgs("Count"));
                         propertyHandler(this, new PropertyChangedEventArgs("Keys"));
                         propertyHandler(this, new PropertyChangedEventArgs("Values"));
+                        propertyHandler(this, new PropertyChangedEventArgs("DistinctSortedValues"));
                     }
                 }, null);
             }
@@ -96,7 +99,7 @@ namespace System.Collections.ObjectModel
             _hashedCollection.CopyTo(array, arrayIndex);
         }
 
-        int ICollection<KeyValuePair<TKey, TValue>>.Count => _hashedCollection.Count;
+        public int Count => _hashedCollection.Count;
 
         bool ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly => _hashedCollection.IsReadOnly;
 
@@ -111,6 +114,11 @@ namespace System.Collections.ObjectModel
         IEnumerator<KeyValuePair<TKey, TValue>> IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator()
         {
             return _hashedCollection.GetEnumerator();
+        }
+
+        IEnumerator<TValue> IEnumerable<TValue>.GetEnumerator()
+        {
+            return _hashedCollection.Values.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -142,6 +150,8 @@ namespace System.Collections.ObjectModel
         {
             return _hashedCollection.TryGetValue(key, out value);
         }
+
+        public ICollection<TValue> DistinctSortedValues => Values.Distinct().OrderByDescending(x => x.GetHashCode()).ToList();
 
         public ICollection<TValue> Values => _hashedCollection.Values;
 

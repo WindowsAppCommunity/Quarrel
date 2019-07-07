@@ -695,7 +695,7 @@ namespace Quarrel
                 HoistRole key = memberscvs.RoleIndexer[id];
                 Grouping<HoistRole, Member> group = null;
                 foreach (Grouping<HoistRole, Member> g in memberscvs)
-                    if (key.Id == g.Key.Id)
+                    if (key.Id == g.Group.Id)
                         group = g;
                 if (group != null)
                     return group.FirstOrDefault(x => x.Raw.User.Id == id);
@@ -2062,7 +2062,7 @@ namespace Quarrel
             {
                 string val = e.Link.Remove(0, 2);
                 foreach (Grouping<HoistRole, Member> group in memberscvs)
-                    if (group.Key.Id == val)
+                    if (group.Group.Id == val)
                     {
                         sideDrawer.OpenRight();
                         MembersListView.ScrollIntoView(group);

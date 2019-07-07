@@ -309,7 +309,9 @@
     <Compile Include="Extensions\System.Collections.Generic\HashedCollection.cs" />
     <Compile Include="Extensions\System.Collections.Generic\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\GroupedObservableCollection.cs" />
+    <Compile Include="Extensions\System.Collections.ObjectModel\GroupedObservableHashedCollection.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\Grouping.cs" />
+    <Compile Include="Extensions\System.Collections.ObjectModel\HashedGrouping.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\ObservableHashedCollection.cs" />
     <Compile Include="Extensions\System.Threading.Tasks\AggregateExceptionHandler.cs" />
     <Compile Include="Extensions\System.Threading.Tasks\TaskExtensions.cs" />
@@ -598,6 +600,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
       <Version>5.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="morelinq">
+      <Version>3.1.1</Version>
     </PackageReference>
     <PackageReference Include="MvvmLight">
       <Version>5.4.1.1</Version>

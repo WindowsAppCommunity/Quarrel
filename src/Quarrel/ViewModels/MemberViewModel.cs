@@ -8,6 +8,7 @@ using Quarrel.Models.Bindables;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
 using DiscordAPI.Models;
+using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using GalaSoft.MvvmLight.Threading;
 
 namespace Quarrel.ViewModels
@@ -18,31 +19,30 @@ namespace Quarrel.ViewModels
         {
             Messenger.Default.Register<GatewayGuildSyncMessage>(this, async m =>
             {
-                await DispatcherHelper.RunAsync(() =>
-                {
-                    Source.Clear();
+                var tempSource = new GroupedObservableHashedCollection<string, Role, BindableUser>(x => x.TopHoistRole, new List<KeyValuePair<string, HashedGrouping<string, Role, BindableUser>>>());
 
-                    // Show members
-                    foreach (var member in m.Members)
-                    {
-                        BindableUser bUser = new BindableUser(member);
-                        bUser.GuildId = m.GuildId;
-                        Source.AddElement(bUser);
-                    }
-                });
+                // Show members
+                foreach (var member in m.Members)
+                {
+                    BindableUser bUser = new BindableUser(member);
+                    bUser.GuildId = m.GuildId;
+                    tempSource.AddElement(member.User.Id, bUser);
+                }
+
+                await DispatcherHelper.RunAsync(() => { Source = tempSource; RaisePropertyChanged(nameof(Source)); });
             });
 
-            Messenger.Default.Register<BindableUserRequestMessage>(this, m => m.ReportResult(Source.Elements.FirstOrDefault(x => x.Model.User.Id == m.UserId)));
+            Messenger.Default.Register<BindableUserRequestMessage>(this, m => m.ReportResult(Source.ContainsKey(m.UserId) ? Source[m.UserId][m.UserId] : default));
 
             Messenger.Default.Register<CurrentMemberListRequestMessage>(this, m => m.ReportResult(Source.Elements.ToList()));
 
-            Source = new GroupedObservableCollection<Role, BindableUser>(x => x.TopHoistRole);
+            Source = new GroupedObservableHashedCollection<string, Role, BindableUser>(x => x.TopHoistRole, new List<KeyValuePair<string, HashedGrouping<string, Role, BindableUser>>>());
         }
 
         /// <summary>
         /// Gets the collection of grouped feeds to display
         /// </summary>
         [NotNull]
-        public GroupedObservableCollection<Role, BindableUser> Source { get; set; }
+        public GroupedObservableHashedCollection<string, Role, BindableUser> Source { get; set; }
     }
 }

@@ -52,7 +52,7 @@ namespace DiscordAPI.Models
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (Id ?? Name).GetHashCode();
+            return Position;
         }
 
 
