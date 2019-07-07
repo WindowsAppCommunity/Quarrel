@@ -30,12 +30,15 @@ namespace Quarrel.Services.Voice.Audio.In
         private AudioGraph _Graph;
         private AudioFrameOutputNode _FrameOutputNode;
         private int _Quantum;
+        private bool _IsSpeaking;
 
         #endregion
 
         #region Events
 
         public event EventHandler<float[]> InputRecieved;
+
+        public event EventHandler<bool> SpeakingChanged;
 
         #endregion
 
@@ -113,6 +116,7 @@ namespace Quarrel.Services.Voice.Audio.In
 
         private unsafe void ProcessFrameOutput(AudioFrame frame)
         {
+            #region GetPCM
             float[] dataInFloats;
             using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
             using (IMemoryBufferReference reference = buffer.CreateReference())
@@ -129,9 +133,38 @@ namespace Quarrel.Services.Voice.Audio.In
                 }
             }
 
-            // TODO: FFT
+            #endregion
 
-            InputRecieved?.Invoke(null, dataInFloats);
+
+            #region Parse PCM
+
+            double decibels = 0f;
+            foreach (var sample in dataInFloats)
+            {
+                decibels += Math.Abs(sample);
+            }
+            decibels = 20 * Math.Log10(decibels / dataInFloats.Length);
+            if (decibels < -40)
+            {
+                if (_IsSpeaking)
+                {
+                    SpeakingChanged(this, false);
+                    _IsSpeaking = false;
+                }
+            }
+            else
+            {
+                // TODO: FFT
+
+                if (!_IsSpeaking)
+                {
+                    SpeakingChanged(this, true);
+                    _IsSpeaking = true;
+                }
+                InputRecieved?.Invoke(null, dataInFloats);
+            }
+
+            #endregion
         }
 
         private AudioGraphSettings GetDefaultGraphSettings()
