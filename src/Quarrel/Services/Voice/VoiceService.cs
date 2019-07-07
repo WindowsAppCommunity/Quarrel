@@ -40,6 +40,7 @@ namespace Quarrel.Services.Voice
             _VoiceConnection.VoiceDataRecieved += _VoiceConnection_VoiceDataRecieved;
             await _VoiceConnection.ConnectAsync();
             InAudioService.InputRecieved += InAudioService_InputRecieved;
+            InAudioService.SpeakingChanged += InAudioService_SpeakingChanged; ;
         }
 
         private void InAudioService_InputRecieved(object sender, float[] e)
@@ -50,6 +51,11 @@ namespace Quarrel.Services.Voice
         private void _VoiceConnection_VoiceDataRecieved(object sender, VoiceConnectionEventArgs<VoiceData> e)
         {
             OutAudioService.AddFrame(e.EventData.data, e.EventData.samples);
+        }
+
+        private void InAudioService_SpeakingChanged(object sender, bool e)
+        {
+            _VoiceConnection.SendSpeaking(e);
         }
 
         #endregion

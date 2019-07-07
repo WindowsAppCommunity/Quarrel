@@ -161,6 +161,7 @@ namespace Quarrel.Services.Voice.Audio.In
                     SpeakingChanged(this, true);
                     _IsSpeaking = true;
                 }
+
                 InputRecieved?.Invoke(null, dataInFloats);
             }
 
