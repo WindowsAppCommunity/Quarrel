@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using Quarrel.Messages.Navigation.SubFrame;
 using Quarrel.Services;
 using GalaSoft.MvvmLight.Messaging;
+using Quarrel.Messages.Navigation;
 using Quarrel.SubPages;
 using System.Threading.Tasks;
 
@@ -30,6 +31,16 @@ namespace Quarrel.Controls.Shell
 
             // Setup SideDrawer
             ContentContainer.SetupInteraction();
+
+            Messenger.Default.Register<GuildNavigateMessage>(this, m =>
+            {
+                ContentContainer.OpenLeft();
+            });
+
+            Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
+            {
+                ContentContainer.CloseLeft();
+            });
 
             Login();
         }

@@ -238,7 +238,7 @@
                                                 <CircleEase EasingMode="EaseIn"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="bgIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.075">
+                                        <DoubleAnimation Storyboard.TargetName="bgHoverIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.075">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
