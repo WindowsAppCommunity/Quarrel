@@ -9,6 +9,7 @@
     xmlns:msgcontrol="using:Quarrel.Controls.Messages"
     xmlns:viewModels="using:Quarrel.ViewModels"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
+    xmlns:bindables="using:Quarrel.Models.Bindables"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -16,12 +17,14 @@
     <UserControl.Resources>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
 
-        <templates:MessageTemplateSelector x:Key="MessageTemplateSelector"/>
-        <DataTemplate x:Key="MessageTemplate">
-            <msgcontrol:MessageTemplate/>
+        <templates:MessageTemplateSelector x:Key="MessageTemplateSelector"
+                                           MessageTemplate="{StaticResource MessageTemplate}"
+                                           ActionMessageTemplate="{StaticResource ActionMessageTemplate}"/>
+        <DataTemplate x:Key="MessageTemplate" x:DataType="bindables:BindableMessage">
+            <msgcontrol:MessageTemplate DataContext="{x:Bind}"/>
         </DataTemplate>
-        <DataTemplate x:Key="ActionMessageTemplate">
-            <msgcontrol:ActionMessageTemplate/>
+        <DataTemplate x:Key="ActionMessageTemplate" x:DataType="bindables:BindableMessage">
+            <msgcontrol:ActionMessageTemplate DataContext="{x:Bind}"/>
         </DataTemplate>
     </UserControl.Resources>
     

@@ -9,11 +9,14 @@ namespace Quarrel.TemplateSelectors
 {
     public sealed class MessageTemplateSelector : DataTemplateSelector
     {
+        public DataTemplate MessageTemplate { get; set; }
+        public DataTemplate ActionMessageTemplate { get; set; }
+
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
             if (container is FrameworkElement parent && item is BindableMessage msg)
             {
-                return parent.FindResource<DataTemplate>(msg.Model.Type == 0 ? "MessageTemplate" : "ActionMessageTemplate");
+                return msg.Model.Type == 0 ? MessageTemplate : ActionMessageTemplate;
             }
             return null;
         }
