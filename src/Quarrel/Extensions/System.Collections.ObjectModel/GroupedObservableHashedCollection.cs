@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
-using MoreLinq;
 
 namespace System.Collections.ObjectModel
 {
