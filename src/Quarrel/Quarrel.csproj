@@ -370,6 +370,10 @@
     <Compile Include="Services\Settings\ISettingsService.cs" />
     <Compile Include="Services\Settings\SettingKeys.cs" />
     <Compile Include="Services\Settings\SettingsService.cs" />
+    <Compile Include="Services\Voice\Audio\AudioService.cs" />
+    <Compile Include="Services\Voice\Audio\IAudioService.cs" />
+    <Compile Include="Services\Voice\IVoiceService.cs" />
+    <Compile Include="Services\Voice\VoiceService.cs" />
     <Compile Include="SubPages\Host\SubFrameHost.xaml.cs">
       <DependentUpon>SubFrameHost.xaml</DependentUpon>
     </Compile>
