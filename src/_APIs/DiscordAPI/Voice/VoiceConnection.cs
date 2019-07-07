@@ -8,14 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.Models;
 using DiscordAPI.Sockets;
-using Quarrel.Voice.DownstreamEvents;
-using Quarrel.Voice.UpstreamEvents;
+using DiscordAPI.Voice.DownstreamEvents;
+using DiscordAPI.Voice.UpstreamEvents;
 using RuntimeComponent;
 
 //Discord DOCs https://discordapp.com/developers/docs/topics/voice-connections
 
 
-namespace Quarrel.Voice
+namespace DiscordAPI.Voice
 {
 
     public class VoiceConnectionEventArgs<T> : EventArgs
