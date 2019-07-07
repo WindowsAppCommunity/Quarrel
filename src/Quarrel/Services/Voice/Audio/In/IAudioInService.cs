@@ -9,6 +9,6 @@ namespace Quarrel.Services.Voice.Audio.In
     public interface IAudioInService : IAudioService
     {
         event EventHandler<float[]> InputRecieved;
-        event EventHandler<bool> SpeakingChanged;
+        event EventHandler<int> SpeakingChanged;
     }
 }

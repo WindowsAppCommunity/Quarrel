@@ -74,7 +74,7 @@ namespace Quarrel.Services.Voice
             AudioOutService.AddFrame(e.EventData.data, e.EventData.samples);
         }
 
-        private void SpeakingChanged(object sender, bool e)
+        private void SpeakingChanged(object sender, int e)
         {
             _VoiceConnection.SendSpeaking(e);
         }
