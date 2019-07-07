@@ -6,10 +6,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="using:Quarrel.Controls.Markdown"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
+    <CommandBar.Resources>
+        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
+    </CommandBar.Resources>
+    
     <CommandBar.Style>
         <Style TargetType="CommandBar">
             <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeMediumBrush}" />
@@ -797,8 +802,8 @@
     </CommandBar.Style>
     
     <CommandBar.Content>
-        <StackPanel Orientation="Horizontal">
-            <AppBarButton Click="ToggleSplitView" Canvas.ZIndex="1" Background="Transparent" Width="72">
+        <StackPanel Height="60" Orientation="Horizontal">
+            <AppBarButton Visibility="{x:Bind ShowHamburger, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Click="ToggleSplitView" Canvas.ZIndex="1" Background="Transparent" Width="72">
                 <AppBarButton.Content>
                     <FontIcon Glyph="&#xE700;" FontSize="24" Margin="0,4,0,0"/>
                 </AppBarButton.Content>

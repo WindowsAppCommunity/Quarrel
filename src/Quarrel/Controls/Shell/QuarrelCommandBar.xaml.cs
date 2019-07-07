@@ -24,6 +24,8 @@ namespace Quarrel.Controls.Shell
             this.InitializeComponent();
         }
 
+        public bool ShowHamburger { get; set; }
+
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();

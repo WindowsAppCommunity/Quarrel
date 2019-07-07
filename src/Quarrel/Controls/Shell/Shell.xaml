@@ -28,7 +28,7 @@
                 </VisualState>
                 <VisualState x:Name="Medium">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger x:Name="MediumTrigger" MinWindowWidth="500"/>
+                        <AdaptiveTrigger x:Name="MediumTrigger" MinWindowWidth="350"/>
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="Large">
@@ -86,9 +86,8 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <local:QuarrelCommandBar x:Name="LargeViewCommandBar" x:Load="{x:Bind IsViewLarge, Mode=OneWay}" Grid.Row="1" Canvas.ZIndex="1"  Background="{StaticResource AcrylicMessageBackground}" Margin="0,0"
-                                             HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked"/>
-
+                    <local:QuarrelCommandBar x:Name="LargeViewCommandBar" x:Load="{x:Bind IsViewLarge, Mode=OneWay}" Grid.Row="1" Canvas.ZIndex="1" Background="{StaticResource AcrylicMessageBackground}"
+                                             HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked" ShowHamburger="True"/>
 
                     <views:MessageView Grid.Row="1"/>
                 </Grid>
