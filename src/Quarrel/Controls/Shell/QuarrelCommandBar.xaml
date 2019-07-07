@@ -13,6 +13,8 @@
 
     <CommandBar.Resources>
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
+        <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
     </CommandBar.Resources>
     
     <CommandBar.Style>
@@ -808,9 +810,10 @@
                     <FontIcon Glyph="&#xE700;" FontSize="24" Margin="0,4,0,0"/>
                 </AppBarButton.Content>
             </AppBarButton>
-            <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="12,4,0,0" HorizontalAlignment="Left">
-                <TextBlock Text="Channel Name" FontWeight="SemiBold"/>
-                <md:MarkdownTextBlock LineHeight="24" Text="Channel Topic" FontSize="10" Margin="0,5,0,0" IsTextSelectionEnabled="False"/>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="12,-6,0,0" HorizontalAlignment="Left">
+                <TextBlock Text="{x:Bind Channel.FormattedName, Mode=OneWay}" Visibility="{x:Bind ChannelTopic, Converter={StaticResource NullToVisibilityConverter},Mode=OneWay}" FontWeight="SemiBold" FontSize="18"/>
+                <TextBlock Text="{x:Bind Channel.FormattedName, Mode=OneWay}" Visibility="{x:Bind ChannelTopic, Converter={StaticResource NotNullToVisibilityConverter},Mode=OneWay}" FontWeight="SemiBold" FontSize="14"/>
+                <md:MarkdownTextBlock LineHeight="24" Text="{x:Bind ChannelTopic, Mode=OneWay}" FontSize="10" Margin="0,5,0,0" IsTextSelectionEnabled="False"/>
             </StackPanel>
         </StackPanel>
     </CommandBar.Content>

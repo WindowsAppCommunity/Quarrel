@@ -86,7 +86,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <local:QuarrelCommandBar x:Name="LargeViewCommandBar" x:Load="{x:Bind IsViewLarge, Mode=OneWay}" Grid.Row="1" Canvas.ZIndex="1" Background="{StaticResource AcrylicMessageBackground}"
+                    <local:QuarrelCommandBar x:Name="LargeViewCommandBar" x:Load="{x:Bind IsViewLarge, Mode=OneWay}" Canvas.ZIndex="1" Background="{StaticResource AcrylicMessageBackground}"
                                              HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked" ShowHamburger="True"/>
 
                     <views:MessageView Grid.Row="1"/>

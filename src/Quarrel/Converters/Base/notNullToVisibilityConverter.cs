@@ -14,7 +14,7 @@ namespace Quarrel.Converters.Base
             bool v;
             if (value is string sValue)
             {
-                 v = !string.IsNullOrEmpty(sValue);
+                v = !string.IsNullOrEmpty(sValue);
             }
             else
             {

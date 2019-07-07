@@ -1,4 +1,8 @@
-﻿using System;
+﻿using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Messaging;
+using Quarrel.Messages.Navigation;
+using Quarrel.Models.Bindables;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +26,25 @@ namespace Quarrel.Controls.Shell
         public QuarrelCommandBar()
         {
             this.InitializeComponent();
+
+            this.DataContextChanged += (s, e) =>
+            {
+                this.Bindings.Update();
+            };
+
+            Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
+            {
+                DataContext = m.Channel;
+            });
         }
 
         public bool ShowHamburger { get; set; }
+
+        private BindableChannel Channel => DataContext as BindableChannel;
+
+        private GuildChannel GuildChannel { get => Channel != null ? Channel.Model as GuildChannel : null; }
+
+        private string ChannelTopic { get => GuildChannel != null ? GuildChannel.Topic : ""; }
 
         protected override void OnApplyTemplate()
         {
