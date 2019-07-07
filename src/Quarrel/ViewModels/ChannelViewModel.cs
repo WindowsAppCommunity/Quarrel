@@ -16,17 +16,20 @@ namespace Quarrel.ViewModels
         {
             Messenger.Default.Register<GuildNavigateMessage>(this, async m =>
             {
-                await DispatcherHelper.RunAsync(() =>
+                if (Guild != m.Guild)
                 {
-                    Guild = m.Guild;
-                    Source.Clear();
-
-                    var itemList = m.Guild.Channels;
-                    foreach (var item in itemList)
+                    await DispatcherHelper.RunAsync(() =>
                     {
-                        Source.Add(item);
-                    }
-                });
+                        Guild = m.Guild;
+                        Source.Clear();
+
+                        var itemList = m.Guild.Channels;
+                        foreach (var item in itemList)
+                        {
+                            Source.Add(item);
+                        }
+                    });
+                }
             });
 
             Messenger.Default.Register<CurrentGuildRequestMessage>(this, m => m.ReportResult(Guild));
