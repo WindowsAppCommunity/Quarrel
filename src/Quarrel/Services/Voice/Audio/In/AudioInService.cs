@@ -31,7 +31,7 @@ namespace Quarrel.Services.Voice.Audio.In
         private AudioGraph _Graph;
         private AudioFrameOutputNode _FrameOutputNode;
         private int _Quantum;
-        private bool _IsSpeaking;
+        private bool _IsSpeaking = false;
 
         #endregion
 
@@ -74,13 +74,15 @@ namespace Quarrel.Services.Voice.Audio.In
             // Get Device
             if (string.IsNullOrEmpty(deviceId) || deviceId == "Default")
             {
-                deviceId = MediaDevice.GetDefaultAudioRenderId(AudioDeviceRole.Default);
+                deviceId = MediaDevice.GetDefaultAudioCaptureId(AudioDeviceRole.Default);
             }
             DeviceInformation selectedDevice = await DeviceInformation.CreateFromIdAsync(deviceId);
 
             CreateAudioDeviceInputNodeResult nodeResult = await _Graph.CreateDeviceInputNodeAsync(MediaCategory.Communications, GetDefaultNodeSettings().EncodingProperties, selectedDevice);
             if (nodeResult.Status != AudioDeviceNodeCreationStatus.Success)
             {
+                // TODO: Handle no mic permission
+
                 // Cannot create device input node
                 _Graph.Dispose();
                 return;
