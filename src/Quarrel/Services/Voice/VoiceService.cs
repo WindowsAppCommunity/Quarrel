@@ -14,8 +14,8 @@ namespace Quarrel.Services.Voice
 {
     public sealed class VoiceService : IVoiceService
     {
-        public IAudioService InAudioService { get; } = new AudioService();
+        public IAudioService InAudioService { get; } = new AudioOutService();
 
-        public IAudioService OutAudioService { get; } = new AudioService();
+        public IAudioService OutAudioService { get; } = new AudioOutService();
     }
 }

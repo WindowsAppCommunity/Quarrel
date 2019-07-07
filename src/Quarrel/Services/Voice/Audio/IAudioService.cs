@@ -8,5 +8,6 @@ namespace Quarrel.Services.Voice.Audio
 {
     public interface IAudioService
     {
+        string DeviceId { get; }
     }
 }

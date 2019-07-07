@@ -11,9 +11,8 @@ using Windows.Media.Render;
 
 namespace Quarrel.Services.Voice.Audio
 {
-    public enum AudioType { In, Out }
 
-    public class AudioService : IAudioService
+    public class AudioOutService : IAudioService
     {
         #region Public Properties
 
@@ -25,30 +24,25 @@ namespace Quarrel.Services.Voice.Audio
         #region Variables
 
         private AudioGraph _Graph;
-
-        #endregion
-
-        #region Events
-
-        public event EventHandler<float[]> InputRecieved;
+        private AudioFrameInputNode _FrameInputNode;
 
         #endregion
 
         #region Constructors
 
-        public AudioService(AudioType type, string deviceId = null)
+        public AudioOutService(string deviceId = null)
         {
-
+            CreateGraph(deviceId);
         }
 
         #endregion
 
         #region Helper Methods
 
-        private async void CreateAsOutGraph(string deviceId = null)
+        private async void CreateGraph(string deviceId = null)
         {
             // Get Default Settings
-            var graphSettings = GetDefaultGraphSetting();
+            var graphSettings = GetDefaultGraphSettings();
 
             // Get Device
             if (string.IsNullOrEmpty(deviceId) || deviceId == "Default")
@@ -77,20 +71,20 @@ namespace Quarrel.Services.Voice.Audio
             }
 
             // Connect Nodes
-            AudioFrameInputNode frameInputNode = _Graph.CreateFrameInputNode(_Graph.EncodingProperties);
-            frameInputNode.AddOutgoingConnection(deviceOutputNodeResult.DeviceOutputNode);
+            _FrameInputNode = _Graph.CreateFrameInputNode(_Graph.EncodingProperties);
+            _FrameInputNode.AddOutgoingConnection(deviceOutputNodeResult.DeviceOutputNode);
 
             // Finalize
             DeviceId = deviceId;
 
             // Begin play
-            frameInputNode.Start();
+            _FrameInputNode.Start();
             _Graph.Start();
         }
 
-        private AudioGraphSettings GetDefaultGraphSetting()
+        private AudioGraphSettings GetDefaultGraphSettings()
         {
-            AudioGraphSettings graphsettings = new AudioGraphSettings(AudioRenderCategory.Media);
+            AudioGraphSettings graphsettings = new AudioGraphSettings(AudioRenderCategory.Communications);
             graphsettings.EncodingProperties = new AudioEncodingProperties();
             graphsettings.EncodingProperties.Subtype = "Float";
             graphsettings.EncodingProperties.SampleRate = 48000;
@@ -98,6 +92,15 @@ namespace Quarrel.Services.Voice.Audio
             graphsettings.EncodingProperties.BitsPerSample = 32;
             graphsettings.EncodingProperties.Bitrate = 3072000;
             return graphsettings;
+        }
+
+        private AudioGraphSettings GetDefaultNodeSettings()
+        {
+            AudioGraphSettings nodesettings = new AudioGraphSettings(AudioRenderCategory.GameChat);
+            nodesettings.EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 32);
+            nodesettings.DesiredSamplesPerQuantum = 960;
+            nodesettings.QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired;
+            return nodesettings;
         }
 
         #endregion
