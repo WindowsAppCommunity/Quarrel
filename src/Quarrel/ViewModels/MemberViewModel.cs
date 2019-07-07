@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Quarrel.Models.Bindables;
