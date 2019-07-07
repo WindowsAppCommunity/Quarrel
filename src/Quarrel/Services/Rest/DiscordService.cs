@@ -68,7 +68,7 @@ namespace Quarrel.Services.Rest
         public IGatewayService Gateway { get; private set; } = new GatewayService();
 
         /// <inheritdoc/>
-        public User CurrentUser { get; private set; }
+        public User CurrentUser { get; set; }
 
         // The access token for the current user
         [NotNull]

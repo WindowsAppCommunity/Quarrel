@@ -128,7 +128,7 @@ namespace Quarrel.Services.Voice.Audio.Out
             graphsettings.EncodingProperties.SampleRate = 48000;
             graphsettings.EncodingProperties.ChannelCount = 2;
             graphsettings.EncodingProperties.BitsPerSample = 32;
-            graphsettings.EncodingProperties.Bitrate = 3072000;
+            graphsettings.EncodingProperties.Bitrate = 64000;
             return graphsettings;
         }
 

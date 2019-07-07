@@ -15,6 +15,8 @@ using DiscordAPI.Voice;
 using DiscordAPI.Voice.DownstreamEvents;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
+using System.Collections.Generic;
+using Quarrel.Models.Bindables;
 
 namespace Quarrel.Services.Voice
 {
@@ -28,21 +30,36 @@ namespace Quarrel.Services.Voice
 
         #endregion
 
+        #region Variables
+
+        private VoiceConnection _VoiceConnection;
+
+        // TODO: Move to UI
+        private Dictionary<string, VoiceState> VoiceStates = new Dictionary<string, VoiceState>();
+
+        #endregion
+
         #region Constructor
 
         public VoiceService()
         {
+            Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, m =>
+            {
+                if (VoiceStates.ContainsKey(m.VoiceState.UserId))
+                {
+                    VoiceStates[m.VoiceState.UserId] = m.VoiceState;
+                }
+                else
+                {
+                    VoiceStates.Add(m.VoiceState.UserId, m.VoiceState);
+                }
+            });
+
             Messenger.Default.Register<GatewayVoiceServerUpdateMessage>(this, m => 
             {
-                ConnectToVoiceChannel(m.VoiceServer, Messenger.Default.Request<CurrentUserVoiceStateRequestMessage, VoiceState>(new CurrentUserVoiceStateRequestMessage()));
+                ConnectToVoiceChannel(m.VoiceServer, VoiceStates[ServicesManager.Discord.CurrentUser.Id]);
             });
         }
-
-        #endregion
-
-        #region Variables
-
-        private VoiceConnection _VoiceConnection;
 
         #endregion
 
