@@ -6,7 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Threading;
 using JetBrains.Annotations;
+using Quarrel.Messages.Gateway;
 using Quarrel.Models.Bindables.Abstract;
 using Quarrel.Services.Users;
 
@@ -28,7 +31,51 @@ namespace Quarrel.Models.Bindables
 
         public BindableVoiceUser([NotNull] VoiceState model) : base(model)
         {
+            Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, async e =>
+                {
+                    await DispatcherHelper.RunAsync(() =>
+                    {
+                        if (e.VoiceState.UserId == Model.UserId)
+                        {
+                            if (e.VoiceState.SelfDeaf != Model.SelfDeaf)
+                            {
+                                Model.SelfDeaf = e.VoiceState.SelfDeaf;
+                                UpateProperties();
+                            }
+
+                            if (e.VoiceState.SelfMute != Model.SelfMute)
+                            {
+                                Model.SelfMute = e.VoiceState.SelfMute;
+                                UpateProperties();
+                            }
+
+                            if (e.VoiceState.ServerDeaf != Model.ServerDeaf)
+                            {
+                                Model.ServerDeaf = e.VoiceState.ServerDeaf;
+                                UpateProperties();
+                            }
+
+                            if (e.VoiceState.ServerMute != Model.ServerMute)
+                            {
+                                Model.ServerMute = e.VoiceState.ServerMute;
+                                UpateProperties();
+                            }
+                        }
+                    });
+                }
+            );
         }
+
+        private void UpateProperties()
+        {
+            RaisePropertyChanged(nameof(ShowDeaf));
+            RaisePropertyChanged(nameof(ServerDeaf));
+            RaisePropertyChanged(nameof(LocalDeaf));
+            RaisePropertyChanged(nameof(ShowMute));
+            RaisePropertyChanged(nameof(ServerMute));
+            RaisePropertyChanged(nameof(LocalMute));
+        }
+
         public bool Equals(BindableVoiceUser other)
         {
             throw new NotImplementedException();

@@ -24,13 +24,16 @@ namespace Quarrel.Models.Bindables
             {
                 await DispatcherHelper.RunAsync(() =>
                 {
-                    if (ConnectedUsers.ContainsKey(e.VoiceState.UserId))
+                    if (e.VoiceState.ChannelId == Model.Id)
+                    {
+                        if (!ConnectedUsers.ContainsKey(e.VoiceState.UserId))
+                        {
+                            ConnectedUsers.Add(e.VoiceState.UserId, new BindableVoiceUser(e.VoiceState));
+                        }
+                    }
+                    else if (ConnectedUsers.ContainsKey(e.VoiceState.UserId))
                     {
                         ConnectedUsers.Remove(e.VoiceState.UserId);
-                    }
-                    else if (e.VoiceState.ChannelId == Model.Id)
-                    {
-                        ConnectedUsers.Add(e.VoiceState.UserId, new BindableVoiceUser(e.VoiceState));
                     }
                 });
             });
