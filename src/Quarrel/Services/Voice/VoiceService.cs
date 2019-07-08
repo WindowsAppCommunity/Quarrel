@@ -59,6 +59,27 @@ namespace Quarrel.Services.Voice
             {
                 ConnectToVoiceChannel(m.VoiceServer, VoiceStates[ServicesManager.Discord.CurrentUser.Id]);
             });
+
+            Messenger.Default.Register<GatewayReadyMessage>(this, m => 
+            {
+                foreach (var guild in m.EventData.Guilds)
+                {
+                    if(guild.VoiceStates != null)
+                    {
+                        foreach (var state in guild.VoiceStates)
+                        {
+                            if (VoiceStates.ContainsKey(state.UserId))
+                            {
+                                VoiceStates[state.UserId] = state;
+                            }
+                            else
+                            {
+                                VoiceStates.Add(state.UserId, state);
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         #endregion

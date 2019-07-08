@@ -89,7 +89,8 @@ namespace Quarrel.ViewModels
                         // Guild Channels
                         foreach (var channel in guild.Channels)
                         {
-                            BindableChannel bChannel = new BindableChannel(channel);
+                            IEnumerable<VoiceState> state = guild.VoiceStates?.Where(x => x.ChannelId == channel.Id);
+                            BindableChannel bChannel = new BindableChannel(channel, state);
 
                             // Handle channel settings
                             ChannelOverride cSettings = ServicesManager.Cache.Runtime.TryGetValue<ChannelOverride>(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, channel.Id);

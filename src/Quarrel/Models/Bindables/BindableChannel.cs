@@ -11,14 +11,15 @@ using Quarrel.Models.Bindables.Abstract;
 using GalaSoft.MvvmLight.Threading;
 using Quarrel.Messages.Gateway;
 using Quarrel.Services.Users;
+using Quarrel.Services.Voice;
 
 namespace Quarrel.Models.Bindables
 {
     public class BindableChannel : BindableModelBase<Channel>
     {
-        public ICurrentUsersService UserService => SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+        public IVoiceService VoiceService { get; } = SimpleIoc.Default.GetInstance<IVoiceService>();
 
-        public BindableChannel([NotNull] Channel model) : base(model)
+        public BindableChannel([NotNull] Channel model, [CanBeNull] IEnumerable<VoiceState> states = null) : base(model)
         {
             Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, async e =>
             {
@@ -37,6 +38,16 @@ namespace Quarrel.Models.Bindables
                     }
                 });
             });
+            if (states != null)
+            {
+                foreach (var state in states)
+                {
+                    if (state.ChannelId == Model.Id)
+                    {
+                        ConnectedUsers.Add(state.UserId, new BindableVoiceUser(state));
+                    }
+                }
+            }
         }
 
         #region ChannelType
