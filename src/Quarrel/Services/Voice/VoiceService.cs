@@ -16,6 +16,7 @@ using DiscordAPI.Voice.DownstreamEvents;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
 using System.Collections.Generic;
+using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Models.Bindables;
 
 namespace Quarrel.Services.Voice
@@ -24,9 +25,9 @@ namespace Quarrel.Services.Voice
     {
         #region Public Properties
 
-        public IAudioInService AudioInService { get; } = new AudioInService();
+        public IAudioInService AudioInService { get; } = SimpleIoc.Default.GetInstance<IAudioInService>();
 
-        public IAudioOutService AudioOutService { get; } = new AudioOutService();
+        public IAudioOutService AudioOutService { get; } = SimpleIoc.Default.GetInstance<IAudioOutService>();
 
         #endregion
 
@@ -34,8 +35,7 @@ namespace Quarrel.Services.Voice
 
         private VoiceConnection _VoiceConnection;
 
-        // TODO: Move to UI
-        private Dictionary<string, VoiceState> VoiceStates = new Dictionary<string, VoiceState>();
+        public Dictionary<string, VoiceState> VoiceStates { get; } = new Dictionary<string, VoiceState>();
 
         #endregion
 

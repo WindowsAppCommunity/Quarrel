@@ -13,6 +13,7 @@ using Windows.Media.Capture;
 using Windows.Media.Devices;
 using Windows.Media.MediaProperties;
 using Windows.Media.Render;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace Quarrel.Services.Voice.Audio.In
 {
@@ -45,7 +46,13 @@ namespace Quarrel.Services.Voice.Audio.In
 
         #region Constructors
 
-        public AudioInService(string deviceId = null)
+        [PreferredConstructor]
+        public AudioInService()
+        {
+
+        }
+
+        public AudioInService(string deviceId)
         {
 
         }

@@ -20,6 +20,9 @@ using Quarrel.SubPages;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Services.Users;
+using Quarrel.Services.Voice;
+using Quarrel.Services.Voice.Audio.In;
+using Quarrel.Services.Voice.Audio.Out;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -34,6 +37,12 @@ namespace Quarrel.Controls.Shell
             // Setup SideDrawer
             ContentContainer.SetupInteraction();
             SimpleIoc.Default.Register<ICurrentUsersService, CurrentUsersService>();
+            SimpleIoc.Default.Register<IVoiceService, VoiceService>();
+            SimpleIoc.Default.Register<IAudioInService, AudioInService>();
+            SimpleIoc.Default.Register<IAudioOutService, AudioOutService>();
+            //Todo: viewmodel locator
+            SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+            SimpleIoc.Default.GetInstance<IVoiceService>();
 
             Messenger.Default.Register<GuildNavigateMessage>(this, m =>
             {

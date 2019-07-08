@@ -11,6 +11,7 @@ using Windows.Media.Audio;
 using Windows.Media.Devices;
 using Windows.Media.MediaProperties;
 using Windows.Media.Render;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace Quarrel.Services.Voice.Audio.Out
 {
@@ -34,6 +35,11 @@ namespace Quarrel.Services.Voice.Audio.Out
 
         #region Constructors
 
+        [PreferredConstructor]
+        public AudioOutService()
+        {
+
+        }
         public AudioOutService(string deviceId = null)
         {
 

@@ -26,7 +26,5 @@ namespace Quarrel.Services
         /// </summary>
         [NotNull]
         public static ICacheService Cache { get; } = new CacheService();
-
-        public static IVoiceService VoiceService { get; } = new VoiceService();
     }
 }
