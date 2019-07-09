@@ -10,6 +10,7 @@ using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using JetBrains.Annotations;
 using Quarrel.Messages.Gateway;
+using Quarrel.Messages.Voice;
 using Quarrel.Models.Bindables.Abstract;
 using Quarrel.Services.Users;
 
@@ -28,6 +29,13 @@ namespace Quarrel.Models.Bindables
         public bool ShowMute => Model.SelfMute || Model.ServerMute;
         public bool ServerMute => ShowMute && Model.ServerMute;
         public bool LocalMute => ShowMute && !Model.ServerMute;
+
+        private bool speaking;
+        public bool Speaking
+        {
+            get => speaking;
+            set => Set(ref speaking, value);
+        }
 
         public BindableVoiceUser([NotNull] VoiceState model) : base(model)
         {
@@ -64,6 +72,13 @@ namespace Quarrel.Models.Bindables
                     });
                 }
             );
+            Messenger.Default.Register<SpeakMessage>(this, async e =>
+            {
+                if (e.EventData.UserId == Model.UserId)
+                {
+                    await DispatcherHelper.RunAsync(() => { Speaking = e.EventData.Speaking > 0; });
+                }
+            });
         }
 
         private void UpateProperties()

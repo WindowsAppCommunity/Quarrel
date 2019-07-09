@@ -139,6 +139,14 @@
                 <media:ControlStoryboardAction Storyboard="{StaticResource LocalMute}"     
                                                ControlStoryboardOption="Play"/>
             </core:DataTriggerBehavior>
+            <core:DataTriggerBehavior Binding="{x:Bind ViewModel.Speaking, Mode=OneWay}" Value="True">
+                <media:ControlStoryboardAction Storyboard="{StaticResource Speaking}"     
+                                               ControlStoryboardOption="Play"/>
+            </core:DataTriggerBehavior>
+            <core:DataTriggerBehavior Binding="{x:Bind ViewModel.Speaking, Mode=OneWay}" Value="False">
+                <media:ControlStoryboardAction Storyboard="{StaticResource StopSpeaking}"     
+                                               ControlStoryboardOption="Play"/>
+            </core:DataTriggerBehavior>
         </interactivity:Interaction.Behaviors>
     </Grid>
 </UserControl>

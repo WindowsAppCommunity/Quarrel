@@ -17,6 +17,7 @@ using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
 using System.Collections.Generic;
 using GalaSoft.MvvmLight.Ioc;
+using Quarrel.Messages.Voice;
 using Quarrel.Models.Bindables;
 
 namespace Quarrel.Services.Voice
@@ -91,6 +92,7 @@ namespace Quarrel.Services.Voice
             AudioOutService.CreateGraph();
             _VoiceConnection = new VoiceConnection(data, state);
             _VoiceConnection.VoiceDataRecieved += VoiceDataRecieved;
+            _VoiceConnection.Speak += Speak;
             await _VoiceConnection.ConnectAsync();
 
             AudioInService.InputRecieved += InputRecieved;
@@ -110,6 +112,10 @@ namespace Quarrel.Services.Voice
         private void VoiceDataRecieved(object sender, VoiceConnectionEventArgs<VoiceData> e)
         {
             AudioOutService.AddFrame(e.EventData.data, e.EventData.samples);
+        }
+        private void Speak(object sender, VoiceConnectionEventArgs<Speak> e)
+        {
+            Messenger.Default.Send(new SpeakMessage(e.EventData));
         }
 
         private void SpeakingChanged(object sender, int e)
