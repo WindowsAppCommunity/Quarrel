@@ -294,6 +294,7 @@
     <Compile Include="Converters\Discord\DiscriminatorToBrushConverter.cs" />
     <Compile Include="Converters\Discord\PresenseToColorConverter.cs" />
     <Compile Include="Converters\Discord\PresenseToBrushConverter.cs" />
+    <Compile Include="Converters\Base\EnumerableAnyToVisibilityConverter.cs" />
     <Compile Include="Converters\Guild\IsDMToFontFamilyConverter.cs" />
     <Compile Include="Converters\Guild\MutedToOpacityConverter.cs" />
     <Compile Include="Converters\Messages\ActionMessage\TypeToColorConverter.cs" />
