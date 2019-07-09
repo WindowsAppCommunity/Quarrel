@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Quarrel.Messages.Navigation;
@@ -32,7 +33,15 @@ namespace Quarrel.ViewModels
                     //    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id);
                     //else
                     //    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAround(m.Channel.Model.Id, Channel.ReadState.LastMessageId, 50);
-                    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id, 50);
+                    try
+                    {
+                        itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id, 50);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e);
+                        return;
+                    }
 
                     await DispatcherHelper.RunAsync(() =>
                     {
