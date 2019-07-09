@@ -19,7 +19,32 @@ namespace Quarrel.ViewModels
 {
     public class MemberViewModel : ViewModelBase
     {
-        public ICurrentUsersService UserService => SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+
+        public MemberViewModel()
+        {
+            Messenger.Default.Register<GatewayGuildSyncMessage>(this, async m =>
+            {
+                var tempSource = new GroupedObservableHashedCollection<string, Role, BindableUser>(x => x.TopHoistRole, new List<KeyValuePair<string, HashedGrouping<string, Role, BindableUser>>>());
+
+                // Show members
+                foreach (var member in m.Members)
+                {
+                    BindableUser bUser = new BindableUser(member);
+                    bUser.GuildId = m.GuildId;
+                    tempSource.AddElement(member.User.Id, bUser);
+                }
+
+                await DispatcherHelper.RunAsync(() => { Source = tempSource; RaisePropertyChanged(nameof(Source)); });
+            });
+
+            Source = new GroupedObservableHashedCollection<string, Role, BindableUser>(x => x.TopHoistRole, new List<KeyValuePair<string, HashedGrouping<string, Role, BindableUser>>>());
+        }
+
+        /// <summary>
+        /// Gets the collection of grouped feeds to display
+        /// </summary>
+        [NotNull]
+        public GroupedObservableHashedCollection<string, Role, BindableUser> Source { get; set; }
 
     }
 }

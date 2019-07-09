@@ -15,9 +15,7 @@ namespace Quarrel.Services.Users
 {
     public class CurrentUsersService : ICurrentUsersService
     {
-        public GroupedObservableHashedCollection<string, Role, BindableUser> Users { get; set; } =
-            new GroupedObservableHashedCollection<string, Role, BindableUser>(x => x.TopHoistRole,
-                new List<KeyValuePair<string, HashedGrouping<string, Role, BindableUser>>>());
+        public HashedCollection<string, BindableUser> Users { get; } = new HashedCollection<string, BindableUser>(new List<KeyValuePair<string, BindableUser>>());
 
         public CurrentUsersService()
         {
@@ -30,14 +28,14 @@ namespace Quarrel.Services.Users
                 {
                     BindableUser bUser = new BindableUser(member);
                     bUser.GuildId = m.GuildId;
-                    Users.AddElement(member.User.Id, bUser);
+                    Users.Add(member.User.Id, bUser);
                 }
 
             });
 
-            Messenger.Default.Register<BindableUserRequestMessage>(this, m => m.ReportResult(Users.ContainsKey(m.UserId) ? Users[m.UserId][m.UserId] : default));
+            Messenger.Default.Register<BindableUserRequestMessage>(this, m => m.ReportResult(Users.ContainsKey(m.UserId) ? Users[m.UserId] : default));
 
-            Messenger.Default.Register<CurrentMemberListRequestMessage>(this, m => m.ReportResult(Users.Elements.ToList()));
+            Messenger.Default.Register<CurrentMemberListRequestMessage>(this, m => m.ReportResult(Users.Values.ToList()));
 
         }
     }

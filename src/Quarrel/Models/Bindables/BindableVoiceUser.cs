@@ -19,7 +19,7 @@ namespace Quarrel.Models.Bindables
     {
         public ICurrentUsersService UserService => SimpleIoc.Default.GetInstance<ICurrentUsersService>();
 
-        public BindableUser User => UserService?.Users[Model.UserId]?[Model.UserId];
+        public BindableUser User => UserService?.Users[Model.UserId];
 
         public bool ShowDeaf => Model.SelfDeaf || Model.ServerDeaf;
         public bool ServerDeaf => ShowDeaf && Model.ServerDeaf;

@@ -11,6 +11,6 @@ namespace Quarrel.Services.Users
 {
     public interface ICurrentUsersService
     {
-        GroupedObservableHashedCollection<string, Role, BindableUser> Users { get; set; }
+        HashedCollection<string, BindableUser> Users { get; }
     }
 }
