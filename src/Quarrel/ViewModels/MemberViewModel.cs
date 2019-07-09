@@ -24,7 +24,7 @@ namespace Quarrel.ViewModels
         {
             Messenger.Default.Register<GatewayGuildSyncMessage>(this, async m =>
             {
-                var tempSource = new GroupedObservableHashedCollection<string, Role, BindableUser>(x => x.TopHoistRole, new List<KeyValuePair<string, HashedGrouping<string, Role, BindableUser>>>());
+                var tempSource = new SortedGroupedObservableHashedCollection<string, Role, BindableUser>(x => x.TopHoistRole, x => -x.Key.Position, new List<KeyValuePair<string, HashedGrouping<string, Role, BindableUser>>>());
 
                 // Show members
                 foreach (var member in m.Members)
@@ -37,14 +37,14 @@ namespace Quarrel.ViewModels
                 await DispatcherHelper.RunAsync(() => { Source = tempSource; RaisePropertyChanged(nameof(Source)); });
             });
 
-            Source = new GroupedObservableHashedCollection<string, Role, BindableUser>(x => x.TopHoistRole, new List<KeyValuePair<string, HashedGrouping<string, Role, BindableUser>>>());
+
+            Source = new SortedGroupedObservableHashedCollection<string, Role, BindableUser>(x => x.TopHoistRole, x => -x.Key.Position, new List<KeyValuePair<string, HashedGrouping<string, Role, BindableUser>>>());
         }
 
         /// <summary>
         /// Gets the collection of grouped feeds to display
         /// </summary>
         [NotNull]
-        public GroupedObservableHashedCollection<string, Role, BindableUser> Source { get; set; }
-
+        public SortedGroupedObservableHashedCollection<string, Role, BindableUser> Source { get; set; }
     }
 }

@@ -29,6 +29,13 @@ namespace DiscordAPI.Models
         [JsonIgnore]
         public int MemberCount { get; set; }
 
+
+        [JsonIgnore]
+        public static Role Offline => new Role() { Name = "Offline", Position = int.MinValue + 1, Id = "offline"};
+
+        [JsonIgnore]
+        public static Role Everyone => new Role() { Name = "Everyone", Position = int.MinValue + 2, Id = "everyone" };
+
         #region Interfaces
 
         /// <inheritdoc/>
@@ -52,7 +59,7 @@ namespace DiscordAPI.Models
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return Position;
+            return Id.GetHashCode();
         }
 
 
