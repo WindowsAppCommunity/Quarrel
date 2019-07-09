@@ -11,18 +11,16 @@ namespace Quarrel.Converters.Base
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value is Uri)
-                return new BitmapImage(value as Uri);
-            else
-                return null;
+            if (value is Uri uri)
+                return new BitmapImage(uri);
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            if (value is BitmapImage)
-                return (value as BitmapImage).UriSource;
-            else
-                return null;
+            if (value is BitmapImage image)
+                return image.UriSource;
+            return null;
         }
     }
 }

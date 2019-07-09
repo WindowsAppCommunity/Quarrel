@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.Voice.DownstreamEvents
+namespace DiscordAPI.Voice.DownstreamEvents
 {
     public class UnencryptedAudioHeader
     {

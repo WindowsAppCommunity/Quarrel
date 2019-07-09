@@ -22,6 +22,12 @@ namespace System.Collections.ObjectModel
             _hashedCollection = new HashedCollection<TKey, TValue>(collection);
         }
 
+        public ObservableHashedCollection()
+        {
+            _context = AsyncOperationManager.SynchronizationContext;
+            _hashedCollection = new HashedCollection<TKey, TValue>(new List<KeyValuePair<TKey, TValue>>());
+        }
+
         public event NotifyCollectionChangedEventHandler CollectionChanged;
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.Voice.DownstreamEvents
+namespace DiscordAPI.Voice.DownstreamEvents
 {
     public class Ready
     {
@@ -18,7 +18,5 @@ namespace Quarrel.Voice.DownstreamEvents
         public int Port { get; set; }
         [JsonProperty("modes")]
         public IEnumerable<string> Modes { get; set; }
-        [JsonProperty("heartbeat_interval")]
-        public int Heartbeatinterval { get; set; }
     }
 }

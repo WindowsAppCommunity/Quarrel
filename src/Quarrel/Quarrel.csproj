@@ -135,6 +135,9 @@
     <Compile Include="Controls\Channels\ChannelTemplate.xaml.cs">
       <DependentUpon>ChannelTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Channels\VoiceMemberControl.xaml.cs">
+      <DependentUpon>VoiceMemberControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Guilds\GuildTemplate.xaml.cs">
       <DependentUpon>GuildTemplate.xaml</DependentUpon>
     </Compile>
@@ -291,6 +294,7 @@
     <Compile Include="Converters\Discord\DiscriminatorToBrushConverter.cs" />
     <Compile Include="Converters\Discord\PresenseToColorConverter.cs" />
     <Compile Include="Converters\Discord\PresenseToBrushConverter.cs" />
+    <Compile Include="Converters\Base\EnumerableAnyToVisibilityConverter.cs" />
     <Compile Include="Converters\Guild\IsDMToFontFamilyConverter.cs" />
     <Compile Include="Converters\Guild\MutedToOpacityConverter.cs" />
     <Compile Include="Converters\Messages\ActionMessage\TypeToColorConverter.cs" />
@@ -335,6 +339,8 @@
     <Compile Include="Messages\Gateway\GatewayReadyMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayUserSettingUpdatedMessage.cs" />
     <Compile Include="Messages\Gateway\Messages\GatewayMessageUpdatedMessage.cs" />
+    <Compile Include="Messages\Gateway\Voice\GatewayVoiceServerUpdateMessage.cs" />
+    <Compile Include="Messages\Gateway\Voice\GatewayVoiceStateUpdateMessage.cs" />
     <Compile Include="Messages\Navigation\ChannelNavigateMessage.cs" />
     <Compile Include="Messages\Navigation\GuildNavigateMessage.cs" />
     <Compile Include="Messages\Navigation\SubFrame\SubFrameCloseRequestMessage.cs" />
@@ -346,12 +352,15 @@
     <Compile Include="Messages\Requests\CurrentMemberListRequestMessage.cs" />
     <Compile Include="Messages\Requests\CurrentUserRequestMessage.cs" />
     <Compile Include="Messages\Requests\BindableChannelRequestMessage.cs" />
+    <Compile Include="Messages\Requests\CurrentUserVoiceStateRequestMessage.cs" />
     <Compile Include="Messages\Services\Settings\SettingChangedMessage.cs" />
+    <Compile Include="Messages\Voice\SpeakMessage.cs" />
     <Compile Include="Models\Bindables\Abstract\BindableModelBase.cs" />
     <Compile Include="Models\Bindables\BindableChannel.cs" />
     <Compile Include="Models\Bindables\BindableGuild.cs" />
     <Compile Include="Models\Bindables\BindableUser.cs" />
     <Compile Include="Models\Bindables\BindableMessage.cs" />
+    <Compile Include="Models\Bindables\BindableVoiceUser.cs" />
     <Compile Include="Models\Interfaces\IGuild.cs" />
     <Compile Include="Navigation\FrameNavigationService.cs" />
     <Compile Include="Navigation\IFrameNavigationService.cs" />
@@ -372,6 +381,15 @@
     <Compile Include="Services\Settings\ISettingsService.cs" />
     <Compile Include="Services\Settings\SettingKeys.cs" />
     <Compile Include="Services\Settings\SettingsService.cs" />
+    <Compile Include="Services\Users\ICurrentUsersService.cs" />
+    <Compile Include="Services\Users\CurrentUsersService.cs" />
+    <Compile Include="Services\Voice\Audio\In\AudioInService.cs" />
+    <Compile Include="Services\Voice\Audio\In\IAudioInService.cs" />
+    <Compile Include="Services\Voice\Audio\Out\AudioOutService.cs" />
+    <Compile Include="Services\Voice\Audio\IAudioService.cs" />
+    <Compile Include="Services\Voice\Audio\Out\IAudioOutService.cs" />
+    <Compile Include="Services\Voice\IVoiceService.cs" />
+    <Compile Include="Services\Voice\VoiceService.cs" />
     <Compile Include="SubPages\Host\SubFrameHost.xaml.cs">
       <DependentUpon>SubFrameHost.xaml</DependentUpon>
     </Compile>
@@ -430,6 +448,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="SodiumC.dll" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Bindables\Base\" />
@@ -448,6 +467,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Channels\ChannelTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Channels\VoiceMemberControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -665,6 +688,9 @@
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>copy "$(ProjectDir)\SodiumC\$(PlatformName)\SodiumC.dll" "$(ProjectDir)"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

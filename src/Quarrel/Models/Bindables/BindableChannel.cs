@@ -3,14 +3,52 @@
 using DiscordAPI.Models;
 using JetBrains.Annotations;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Models.Bindables.Abstract;
 using GalaSoft.MvvmLight.Threading;
+using Quarrel.Messages.Gateway;
+using Quarrel.Services.Users;
+using Quarrel.Services.Voice;
 
 namespace Quarrel.Models.Bindables
 {
     public class BindableChannel : BindableModelBase<Channel>
     {
-        public BindableChannel([NotNull] Channel model) : base(model) { }
+        public IVoiceService VoiceService { get; } = SimpleIoc.Default.GetInstance<IVoiceService>();
+
+        public BindableChannel([NotNull] Channel model, [CanBeNull] IEnumerable<VoiceState> states = null) : base(model)
+        {
+            Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, async e =>
+            {
+                await DispatcherHelper.RunAsync(() =>
+                {
+                    if (e.VoiceState.ChannelId == Model.Id)
+                    {
+                        if (!ConnectedUsers.ContainsKey(e.VoiceState.UserId))
+                        {
+                            ConnectedUsers.Add(e.VoiceState.UserId, new BindableVoiceUser(e.VoiceState));
+                        }
+                    }
+                    else if (ConnectedUsers.ContainsKey(e.VoiceState.UserId))
+                    {
+                        ConnectedUsers.Remove(e.VoiceState.UserId);
+                    }
+                });
+            });
+            if (states != null)
+            {
+                foreach (var state in states)
+                {
+                    if (state.ChannelId == Model.Id)
+                    {
+                        ConnectedUsers.Add(state.UserId, new BindableVoiceUser(state));
+                    }
+                }
+            }
+        }
 
         #region ChannelType
 
@@ -180,6 +218,9 @@ namespace Quarrel.Models.Bindables
         {
             get => IsDirectChannel && !HasIcon;
         }
+
+        public ObservableHashedCollection<string, BindableVoiceUser> ConnectedUsers = new ObservableHashedCollection<string, BindableVoiceUser>();
+
         #endregion
 
         #region ReadState

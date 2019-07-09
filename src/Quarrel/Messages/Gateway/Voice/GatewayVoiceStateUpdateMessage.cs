@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using DiscordAPI.Gateway.DownstreamEvents;
+using DiscordAPI.Models;
 
 namespace Quarrel.Messages.Gateway
 {
-    public sealed class GatewayReadyMessage
+    public sealed class GatewayVoiceStateUpdateMessage
     {
-        public GatewayReadyMessage(Ready packet)
+        public GatewayVoiceStateUpdateMessage(VoiceState voiceState)
         {
-            EventData = packet;
+            VoiceState = voiceState;
         }
 
-        public Ready EventData { get; }
+        public VoiceState VoiceState { get; }
     }
 }

@@ -8,14 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.Models;
 using DiscordAPI.Sockets;
-using Quarrel.Voice.DownstreamEvents;
-using Quarrel.Voice.UpstreamEvents;
+using DiscordAPI.Voice.DownstreamEvents;
+using DiscordAPI.Voice.UpstreamEvents;
 using RuntimeComponent;
 
 //Discord DOCs https://discordapp.com/developers/docs/topics/voice-connections
 
 
-namespace Quarrel.Voice
+namespace DiscordAPI.Voice
 {
 
     public class VoiceConnectionEventArgs<T> : EventArgs
@@ -160,14 +160,14 @@ namespace Quarrel.Voice
             }
         }
 
-        public async void SendSpeaking(bool speaking)
+        public async void SendSpeaking(int speaking)
         {
             DownstreamEvents.Speak Event = new DownstreamEvents.Speak
             {
                 Speaking = speaking
             };
             Speak?.Invoke(this, new VoiceConnectionEventArgs<DownstreamEvents.Speak>(Event));
-            if (speaking == false)
+            if (speaking == 0)
             {
                 SendSilence();
             }
@@ -315,7 +315,7 @@ namespace Quarrel.Voice
                 { OperationCode.Ready.ToInt(), OnReady },
                 { OperationCode.Hello.ToInt(), OnHello },
                 { OperationCode.SessionDescription.ToInt(), OnSessionDesc },
-                {OperationCode.Speaking.ToInt(), OnSpeaking }
+                { OperationCode.Speaking.ToInt(), OnSpeaking }
             };
         }
 
@@ -363,7 +363,7 @@ namespace Quarrel.Voice
         private void OnHello(SocketFrame Event)
         {
             var hello = Event.GetData<Hello>();
-            BeginHeartbeatAsync(hello.Heartbeatinterval * .75); //The *.75 is due to a serverside bug
+            BeginHeartbeatAsync(hello.Heartbeatinterval);
         }
 
         private async void OnReady(SocketFrame Event)
@@ -384,17 +384,16 @@ namespace Quarrel.Voice
 
 
             //Needs to speak 100 silent frames to get first listen packet
-            SendSpeaking(true);
+            SendSpeaking(1);
             for (int i = 0; i < 100; i++)
             {
                 SendSilence();
             }
-            SendSpeaking(false);
+            SendSpeaking(0);
         }
 
         private void OnSpeaking(SocketFrame Event)
         {
-           var Speaking = Event.GetData<DownstreamEvents.Speak>();
             FireEventOnDelegate(Event, Speak);
         }
 

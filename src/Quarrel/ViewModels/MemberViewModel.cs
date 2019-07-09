@@ -5,17 +5,21 @@ using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using DiscordAPI.API.User;
 using Quarrel.Models.Bindables;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
 using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using GalaSoft.MvvmLight.Threading;
+using Quarrel.Services.Users;
 
 namespace Quarrel.ViewModels
 {
     public class MemberViewModel : ViewModelBase
     {
+
         public MemberViewModel()
         {
             Messenger.Default.Register<GatewayGuildSyncMessage>(this, async m =>
@@ -33,9 +37,6 @@ namespace Quarrel.ViewModels
                 await DispatcherHelper.RunAsync(() => { Source = tempSource; RaisePropertyChanged(nameof(Source)); });
             });
 
-            Messenger.Default.Register<BindableUserRequestMessage>(this, m => m.ReportResult(Source.ContainsKey(m.UserId) ? Source[m.UserId][m.UserId] : default));
-
-            Messenger.Default.Register<CurrentMemberListRequestMessage>(this, m => m.ReportResult(Source.Elements.ToList()));
 
             Source = new SortedGroupedObservableHashedCollection<string, Role, BindableUser>(x => x.TopHoistRole, x => -x.Key.Position, new List<KeyValuePair<string, HashedGrouping<string, Role, BindableUser>>>());
         }

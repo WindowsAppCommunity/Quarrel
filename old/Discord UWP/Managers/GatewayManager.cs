@@ -860,6 +860,7 @@ namespace Quarrel.Managers
         #endregion
 
         #region Voice
+
         private static async void Gateway_VoiceServerUpdated(object sender, GatewayEventArgs<VoiceServerUpdate> e)
         {
             await AudioManager.CreateAudioGraphs();

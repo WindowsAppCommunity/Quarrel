@@ -49,8 +49,11 @@ namespace Quarrel.Services.Gateway
             Gateway.PresenceUpdated += Gateway_PresenceUpdated;
             Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
             Gateway.UserSettingsUpdated += Gateway_UserSettingsUpdated;
-            
-            
+
+            Gateway.VoiceServerUpdated += Gateway_VoiceServerUpdated;
+            Gateway.VoiceStateUpdated += Gateway_VoiceStateUpdated;
+
+
             await Gateway.ConnectAsync();
 
             Messenger.Default.Register<GuildNavigateMessage>(this, async m =>
@@ -78,7 +81,6 @@ namespace Quarrel.Services.Gateway
             e.EventData.Cache();
             Messenger.Default.Send(new GatewayReadyMessage(e.EventData));
         }
-
 
         #region Messages
 
@@ -141,6 +143,20 @@ namespace Quarrel.Services.Gateway
                 ServicesManager.Cache.Runtime.TryGetValue<BindableUser>(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser).Model.User.Id);
             Messenger.Default.Send(new GatewayUserSettingsUpdatedMessage());
         }
+
+        #region Voice 
+
+        private void Gateway_VoiceServerUpdated(object sender, GatewayEventArgs<VoiceServerUpdate> e)
+        {
+            Messenger.Default.Send(new GatewayVoiceServerUpdateMessage(e.EventData));
+        }
+
+        private void Gateway_VoiceStateUpdated(object sender, GatewayEventArgs<VoiceState> e)
+        {
+            Messenger.Default.Send(new GatewayVoiceStateUpdateMessage(e.EventData));
+        }
+
+        #endregion
 
         #endregion
     }

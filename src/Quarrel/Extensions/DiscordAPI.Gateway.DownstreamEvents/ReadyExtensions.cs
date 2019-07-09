@@ -61,6 +61,7 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
             #region Current User
 
+            ServicesManager.Discord.CurrentUser = ready.User;
             ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = ready.Settings.Status }, ready.User.Id);
 
             #endregion

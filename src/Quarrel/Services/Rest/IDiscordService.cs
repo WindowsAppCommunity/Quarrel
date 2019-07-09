@@ -32,7 +32,7 @@ namespace Quarrel.Services.Rest
         /// Gets the current <see cref="User"/> instance, if present
         /// </summary>
         [NotNull]
-        User CurrentUser { get; }
+        User CurrentUser { get; set; }
 
         /// <summary>
         /// Gets the <see cref="IActivitesService"/> instance to retrieve Activities page data

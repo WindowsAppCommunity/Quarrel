@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Quarrel.Services.Gateway;
 using Quarrel.Services.Cache;
+using Quarrel.Services.Voice;
 
 namespace Quarrel.Services
 {
@@ -25,6 +26,5 @@ namespace Quarrel.Services
         /// </summary>
         [NotNull]
         public static ICacheService Cache { get; } = new CacheService();
-
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.Voice.UpstreamEvents
+namespace DiscordAPI.Voice.UpstreamEvents
 {
     public class SelectProtocol
     {
