@@ -4,13 +4,17 @@ using DiscordAPI.Models;
 using Quarrel.Models.Bindables.Abstract;
 using JetBrains.Annotations;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Posts.Requests;
+using Quarrel.Services.Users;
 
 namespace Quarrel.Models.Bindables
 {
     public class BindableMessage : BindableModelBase<Message>
     {
+        private ICurrentUsersService currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+
         private Message _previousMessage;
 
         public BindableMessage([NotNull] Message model, [CanBeNull] string guildId, [CanBeNull] Message previousMessage, bool isLastRead = false) : base(model)
@@ -22,11 +26,9 @@ namespace Quarrel.Models.Bindables
 
         private string GuildId;
 
-        public BindableUser Author
-        {
-            get => Messenger.Default.Request<BindableUserRequestMessage, BindableUser>(new BindableUserRequestMessage(Model.User.Id)) ??
+        public BindableUser Author =>
+            currentUsersService.Users.TryGetValue(Model.User.Id, out BindableUser value) ? value :
                 new BindableUser(new GuildMember() { User = Model.User });
-        }
 
         private bool _IsLastReadMessage;
 

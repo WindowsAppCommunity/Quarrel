@@ -16,12 +16,14 @@ using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services;
 using Quarrel.Services.Rest;
+using Quarrel.Services.Users;
 
 namespace Quarrel.ViewModels
 {
     public class MessageViewModel : ViewModelBase
     {
         private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ICurrentUsersService currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
 
         public MessageViewModel()
         {
@@ -165,9 +167,8 @@ namespace Quarrel.ViewModels
                     string username = mention.Substring(1, discIndex - 1);
                     string disc = mention.Substring(1 + discIndex);
                     User user;
-                    var userList = Messenger.Default.Request<CurrentMemberListRequestMessage, List<BindableUser>>(new CurrentMemberListRequestMessage());
 
-                    user = userList.FirstOrDefault(x => x.Model.User.Username == username && x.Model.User.Discriminator == disc).Model.User;
+                    user = currentUsersService.Users.Values.FirstOrDefault(x => x.Model.User.Username == username && x.Model.User.Discriminator == disc).Model.User;
 
                     if (user != null)
                     {
@@ -253,8 +254,7 @@ namespace Quarrel.ViewModels
                             }
                             else
                             {
-                                GuildMember member = Messenger.Default
-                                           .Request<CurrentMemberListRequestMessage, List<BindableUser>>(new CurrentMemberListRequestMessage())
+                                GuildMember member = currentUsersService.Users.Values
                                            .FirstOrDefault(x => x.Model.User.Username == cache && x.Model.User.Discriminator == descCache).Model;
                                 mention = member.User;
                             }

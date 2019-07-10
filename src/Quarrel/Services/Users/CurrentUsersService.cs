@@ -33,9 +33,6 @@ namespace Quarrel.Services.Users
 
             });
 
-            Messenger.Default.Register<BindableUserRequestMessage>(this, m => m.ReportResult(Users.ContainsKey(m.UserId) ? Users[m.UserId] : default));
-
-            Messenger.Default.Register<CurrentMemberListRequestMessage>(this, m => m.ReportResult(Users.Values.ToList()));
 
         }
     }
