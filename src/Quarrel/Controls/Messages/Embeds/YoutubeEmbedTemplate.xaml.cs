@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using DiscordAPI.Models;
 using myTube.Playback.Handlers;
+using Quarrel.Models.Bindables;
 using Ryken.UI;
 using RykenTube;
 
@@ -25,43 +26,16 @@ namespace Quarrel.Controls.Messages.Embeds
 {
     public sealed partial class YoutubeEmbedTemplate : UserControl
     {
-        /// <summary>
-        /// This Control cannot be made mvvm as Mytube embed is not platform agnostic
-        /// Maybe it would be possible to find a way to move this code out the codebehind
-        /// but there would not be much point doing so as myTubeHandlerContainer and MediaPlayerHandler
-        /// contain references to Windows.UI.Xaml
-        /// </summary>
-        
         public YoutubeEmbedTemplate()
         {
             this.InitializeComponent();
             this.DataContextChanged += (s, e) =>
             {
-                if (ViewModel?.Url != null)
-                {
-                    SetupMytube(ViewModel.Url);
-                }
+                this.Bindings.Update();
             };
         }
 
-        async void SetupMytube(string url)
-        {
-            var match = Regex.Match(url, Helpers.Constants.Regex.YouTubeRegex);
-            if (match.Success)
-            {
-                if (RykenPlayer.CurrentMediaHandler == null)
-                {
-                    myTubeHandlerContainer mediaHandler = new myTubeHandlerContainer();
-                    RykenPlayer.CurrentMediaHandler = mediaHandler;
-                    await mediaHandler.SetCurrentVideoHandler(new MediaPlayerHandler { UseMediaPlayerElement = false });
-                    mediaHandler.CurrentVideoHandler.HandlesTransportControls = true; // Disable the media transport controls
-                    mediaHandler.CurrentVideoHandler.StopOnMediaEnded = false; // Keep video loaded when ended
-                    await mediaHandler.CurrentVideoHandler.OpenVideo(new YouTubeEntry { ID = !string.IsNullOrEmpty(match.Groups[1].Value) ? match.Groups[1].Value : match.Groups[2].Value }, YouTubeQuality.HD);
-                    await mediaHandler.CurrentVideoHandler.Pause();
-                }
-            }
-        }
 
-        public Embed ViewModel => DataContext as Embed;
+        public BindableVideoEmbed ViewModel => new BindableVideoEmbed(DataContext as Embed);
     }
 }

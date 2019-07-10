@@ -8,20 +8,51 @@
     xmlns:templateSelectors="using:Quarrel.TemplateSelectors"
     xmlns:ui="using:Ryken.UI"
     xmlns:handlers="using:myTube.Playback.Handlers"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:base="using:Quarrel.Converters.Base"
+    xmlns:markdown="using:Quarrel.Controls.Markdown"
+    xmlns:controls1="using:Quarrel.Controls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
     <UserControl.Resources>
-        <Style TargetType="ui:RykenPlayerControls" x:Key="ControlsStyle">
-            <Setter Property="ControlsSize" Value="40" />
-            <Setter Property="PlayButtonSize" Value="60" />
-            <Setter Property="MiniButtonSize" Value="30" />
-        </Style>
+        <base:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
+        <base:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
     </UserControl.Resources>
-    <Grid>
-        <ui:RykenMediaContainer
-            x:Name="RykenPlayer" 
-            ShowFullscreenButton="False" 
-            PlayerControlsStyle="{StaticResource ControlsStyle}" />
-    </Grid>
+
+    <Border CornerRadius="4" Background="{ThemeResource MidBG}">
+        <Grid>
+            <Border x:Name="SideBorder" Width="4" HorizontalAlignment="Left" Background="{x:Bind ViewModel.Model.Color, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}" CornerRadius="4,0,0,4"/>
+            <StackPanel x:Name="stacker" Margin="16,8,4,8">
+                <Grid x:Name="HeaderGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition x:Name="MainColumn"/>
+                        <ColumnDefinition x:Name="ThumbnailColumn" Width="auto" MaxWidth="80"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="0,0,16,0">
+                        <StackPanel Orientation="Horizontal" x:Name="AuthorSP">
+                            <HyperlinkButton x:Name="AuthorText" Content="{x:Bind ViewModel.Model.Author.Name, Mode=OneWay}" NavigateUri="{x:Bind ViewModel.Model.Author.Url, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource Foreground}"/>
+                        </StackPanel>
+                        <HyperlinkButton x:Name="TitleTB" Content="{x:Bind ViewModel.Model.Title, Mode=OneWay}" NavigateUri="{x:Bind ViewModel.Model.Url, Mode=OneWay}" FontSize="13" FontWeight="Normal" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Foreground}"/>
+                    </StackPanel>
+                </Grid>
+                <Viewbox HorizontalAlignment="Left" x:Name="ImageVB" StretchDirection="DownOnly" MaxWidth="480" MaxHeight="300">
+                    <Grid>
+                        <controls:ImageEx Source="{x:Bind ViewModel.Model.Thumbnail.ProxyUrl, Mode=OneWay}" x:Name="VideoPreviewImage" x:Load="{x:Bind ViewModel.NotPlayingVideo, Mode=OneWay}"/>
+                        <Grid Background="{ThemeResource AcrylicButtonBackground}" x:Name="VideoPreviewImageControls"  x:Load="{x:Bind ViewModel.NotPlayingVideo, Mode=OneWay}" Width="200" Height="150" CornerRadius="75" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Button Width="100" Height="100" Style="{StaticResource DimButton}" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{x:Bind ViewModel.PlayVideoCommand}">
+                                <Viewbox MaxHeight="200" MaxWidth="200">
+                                    <SymbolIcon Symbol="Play"/>
+                                </Viewbox>
+                            </Button>
+                        </Grid>
+                        <controls1:MyTubeEmbedWrapper x:Name="mytubeEmbed" x:Load="{x:Bind ViewModel.PlayingVideo, Mode=OneWay}" Play="{x:Bind ViewModel.PlayingVideo, Mode=OneWay}" VideoUri="{x:Bind ViewModel.Model.Video.Url, Mode=OneWay}"/>
+                    </Grid>
+                </Viewbox>
+            </StackPanel>
+        </Grid>
+    </Border>
 </UserControl>

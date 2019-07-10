@@ -56,6 +56,13 @@
                                   Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FF303238"/>
 
+                    <AcrylicBrush x:Key="AcrylicButtonBackground"
+                                  BackgroundSource="Backdrop"
+                                  TintColor="#DD000000"
+                                  TintOpacity="0.4"
+                                  Windows10version1903:TintLuminosityOpacity="0.95"
+                                  FallbackColor="#DD000000"/>
+
                     <!--Sub frame background-->
                     <AcrylicBrush x:Key="SubFrameHostBackgroundBrush"
                                   BackgroundSource="Backdrop"
