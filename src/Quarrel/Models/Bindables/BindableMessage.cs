@@ -55,13 +55,6 @@ namespace Quarrel.Models.Bindables
             set => Set(ref showFlyout, value);
         }
 
-        private RelayCommand showFlyoutCommand;
-
-        public RelayCommand ShowFlyoutCommand => showFlyoutCommand ?? (showFlyoutCommand = new RelayCommand(() =>
-                                                     {
-                                                         ShowFlyout = true;
-                                                     }));
-
         #endregion
 
         public void Update(Message message)
