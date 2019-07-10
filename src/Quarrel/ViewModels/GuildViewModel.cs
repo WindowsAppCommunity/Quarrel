@@ -9,14 +9,18 @@ using Quarrel.Messages.Gateway;
 using Quarrel.Services;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Threading;
 using Quarrel.Messages.Navigation;
 using Quarrel.Messages.Posts.Requests;
+using Quarrel.Services.Cache;
+using Quarrel.Services.Rest;
 
 namespace Quarrel.ViewModels
 {
     public class GuildViewModel : ViewModelBase
     {
+        private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
         public GuildViewModel()
         {
             Messenger.Default.Register<GatewayReadyMessage>(this, async m =>
@@ -27,11 +31,11 @@ namespace Quarrel.ViewModels
 
                     foreach (var gSettings in m.EventData.GuildSettings)
                     {
-                        ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildSettings, gSettings, gSettings.GuildId);
+                        cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildSettings, gSettings, gSettings.GuildId);
 
                         foreach (var cSettings in gSettings.ChannelOverrides)
                         {
-                            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, cSettings, cSettings.ChannelId);
+                            cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, cSettings, cSettings.ChannelId);
                         }
                     }
                     #endregion
@@ -77,7 +81,7 @@ namespace Quarrel.ViewModels
                         BindableGuild bGuild = new BindableGuild(guild);
 
                         // Handle guild settings
-                        GuildSetting gSettings = ServicesManager.Cache.Runtime.TryGetValue<GuildSetting>(Quarrel.Helpers.Constants.Cache.Keys.GuildSettings, guild.Id);
+                        GuildSetting gSettings = cacheService.Runtime.TryGetValue<GuildSetting>(Quarrel.Helpers.Constants.Cache.Keys.GuildSettings, guild.Id);
                         if (gSettings != null)
                         {
                             bGuild.Muted = gSettings.Muted;
@@ -93,7 +97,7 @@ namespace Quarrel.ViewModels
                             BindableChannel bChannel = new BindableChannel(channel, state);
 
                             // Handle channel settings
-                            ChannelOverride cSettings = ServicesManager.Cache.Runtime.TryGetValue<ChannelOverride>(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, channel.Id);
+                            ChannelOverride cSettings = cacheService.Runtime.TryGetValue<ChannelOverride>(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, channel.Id);
                             if (cSettings != null)
                             {
                                 bChannel.Muted = cSettings.Muted;
@@ -124,13 +128,13 @@ namespace Quarrel.ViewModels
                         // Guild Roles
                         foreach (var role in guild.Roles)
                         {
-                            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildRole, role, guild.Id + role.Id);
+                            cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildRole, role, guild.Id + role.Id);
                         }
 
                         // Guild Presences
                         foreach (var presence in guild.Presences)
                         {
-                            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, presence, presence.User.Id);
+                            cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, presence, presence.User.Id);
                         }
 
                         guildList.Add(bGuild);

@@ -19,6 +19,8 @@ using Quarrel.Messages.Navigation;
 using Quarrel.SubPages;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Ioc;
+using Quarrel.Services.Cache;
+using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
 using Quarrel.Services.Voice;
 using Quarrel.Services.Voice.Audio.In;
@@ -30,19 +32,14 @@ namespace Quarrel.Controls.Shell
 {
     public sealed partial class Shell : UserControl
     {
+        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
         public Shell()
         {
             this.InitializeComponent();
 
             // Setup SideDrawer
             ContentContainer.SetupInteraction();
-            SimpleIoc.Default.Register<ICurrentUsersService, CurrentUsersService>();
-            SimpleIoc.Default.Register<IVoiceService, VoiceService>();
-            SimpleIoc.Default.Register<IAudioInService, AudioInService>();
-            SimpleIoc.Default.Register<IAudioOutService, AudioOutService>();
-            //Todo: viewmodel locator
-            SimpleIoc.Default.GetInstance<ICurrentUsersService>();
-            SimpleIoc.Default.GetInstance<IVoiceService>();
 
             Messenger.Default.Register<GuildNavigateMessage>(this, m =>
             {
@@ -64,7 +61,7 @@ namespace Quarrel.Controls.Shell
 
         public async void Login()
         {
-            var token = (string)(await ServicesManager.Cache.Persistent.Roaming.TryGetValueAsync<object>(Quarrel.Helpers.Constants.Cache.Keys.AccessToken));
+            var token = (string)(await cacheService.Persistent.Roaming.TryGetValueAsync<object>(Quarrel.Helpers.Constants.Cache.Keys.AccessToken));
             if (string.IsNullOrEmpty(token))
             {
                 await Task.Delay(100);
@@ -72,7 +69,7 @@ namespace Quarrel.Controls.Shell
             }
             else
             {
-                ServicesManager.Discord.Login(token);
+                discordService.Login(token);
             }
         }
 

@@ -12,9 +12,12 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Services;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Navigation.SubFrame;
+using Quarrel.Services.Cache;
+using Quarrel.Services.Rest;
 using Quarrel.SubPages.Interfaces;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
@@ -23,6 +26,7 @@ namespace Quarrel.SubPages
 {
     public sealed partial class LoginPage : UserControl, IFullscreenSubPage
     {
+        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         public LoginPage()
         {
             this.InitializeComponent();
@@ -31,7 +35,7 @@ namespace Quarrel.SubPages
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             // Setup Discord Service
-            ServicesManager.Discord.Login(Username.Text, Password.Password);
+            discordService.Login(Username.Text, Password.Password);
             Messenger.Default.Send(new SubFrameCloseRequestMessage());
         }
 

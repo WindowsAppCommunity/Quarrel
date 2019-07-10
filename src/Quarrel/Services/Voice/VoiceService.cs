@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Messages.Voice;
 using Quarrel.Models.Bindables;
+using Quarrel.Services.Rest;
 
 namespace Quarrel.Services.Voice
 {
@@ -29,6 +30,8 @@ namespace Quarrel.Services.Voice
         public IAudioInService AudioInService { get; } = SimpleIoc.Default.GetInstance<IAudioInService>();
 
         public IAudioOutService AudioOutService { get; } = SimpleIoc.Default.GetInstance<IAudioOutService>();
+
+        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
 
         #endregion
 
@@ -58,7 +61,7 @@ namespace Quarrel.Services.Voice
 
             Messenger.Default.Register<GatewayVoiceServerUpdateMessage>(this, m => 
             {
-                ConnectToVoiceChannel(m.VoiceServer, VoiceStates[ServicesManager.Discord.CurrentUser.Id]);
+                ConnectToVoiceChannel(m.VoiceServer, VoiceStates[discordService.CurrentUser.Id]);
             });
 
             Messenger.Default.Register<GatewayReadyMessage>(this, m => 

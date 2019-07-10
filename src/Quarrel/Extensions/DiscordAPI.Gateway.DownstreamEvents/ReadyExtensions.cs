@@ -10,11 +10,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Quarrel.Helpers;
 using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Ioc;
+using Quarrel.Services.Cache;
+using Quarrel.Services.Rest;
 
 namespace DiscordAPI.Gateway.DownstreamEvents
 {
     internal static class ReadyExtentions
     {
+        private static ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
+        private static IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         // TODO: Remove Cache usage
         public static void Cache(this Ready ready)
         {
@@ -22,11 +27,11 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
             foreach (var gSettings in ready.GuildSettings)
             {
-                ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildSettings, gSettings, gSettings.GuildId);
+                cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildSettings, gSettings, gSettings.GuildId);
 
                 foreach (var cSettings in gSettings.ChannelOverrides)
                 {
-                    ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, cSettings, cSettings.ChannelId);
+                    cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, cSettings, cSettings.ChannelId);
                 }
             }
 
@@ -36,7 +41,7 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
             foreach (var presence in ready.Presences)
             {
-                ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, presence, presence.User.Id);
+                cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, presence, presence.User.Id);
             }
 
             #endregion
@@ -45,7 +50,7 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
             foreach (var note in ready.Notes)
             {
-                ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Note, note.Value, note.Key);
+                cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Note, note.Value, note.Key);
             }
 
             #endregion
@@ -54,15 +59,15 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
             foreach (var friend in ready.Friends)
             {
-                ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Friend, friend, friend.Id);
+                cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Friend, friend, friend.Id);
             }
 
             #endregion
 
             #region Current User
 
-            ServicesManager.Discord.CurrentUser = ready.User;
-            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = ready.Settings.Status }, ready.User.Id);
+            discordService.CurrentUser = ready.User;
+            cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = ready.Settings.Status }, ready.User.Id);
 
             #endregion
         }

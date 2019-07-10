@@ -5,14 +5,19 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Models.Bindables.Abstract;
 using Quarrel.Services;
 using Quarrel.Converters.Discord;
+using Quarrel.Services.Cache;
+using Quarrel.Services.Rest;
 
 namespace Quarrel.Models.Bindables
 {
     public class BindableUser : BindableModelBase<GuildMember>, IEquatable<BindableUser>, IComparable<BindableUser>
     {
+        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
         public BindableUser([NotNull] GuildMember model) : base(model) { }
 
         public string GuildId { get; set; }
@@ -28,7 +33,7 @@ namespace Quarrel.Models.Bindables
                 List<Role> Roles = new List<Role>();
                 foreach (var role in Model.Roles)
                 {
-                    Roles.Add(ServicesManager.Cache.Runtime.TryGetValue<Role>(Quarrel.Helpers.Constants.Cache.Keys.GuildRole, GuildId + role));
+                    Roles.Add(cacheService.Runtime.TryGetValue<Role>(Quarrel.Helpers.Constants.Cache.Keys.GuildRole, GuildId + role));
                 }
                 return Roles;
             }
@@ -64,7 +69,7 @@ namespace Quarrel.Models.Bindables
             }
         }
 
-        public Presence Presence => ServicesManager.Cache.Runtime.TryGetValue<Presence>(Quarrel.Helpers.Constants.Cache.Keys.Presence, Model.User.Id) ?? new Presence() { Status = "offline", User = Model.User };
+        public Presence Presence => cacheService.Runtime.TryGetValue<Presence>(Quarrel.Helpers.Constants.Cache.Keys.Presence, Model.User.Id) ?? new Presence() { Status = "offline", User = Model.User };
 
         #region Display 
 
@@ -73,7 +78,7 @@ namespace Quarrel.Models.Bindables
 
         public bool HasNickname => !string.IsNullOrEmpty(Model.Nick);
 
-        public string Note => ServicesManager.Cache.Runtime.TryGetValue<string>(Quarrel.Helpers.Constants.Cache.Keys.Note, Model.User.Id);
+        public string Note => cacheService.Runtime.TryGetValue<string>(Quarrel.Helpers.Constants.Cache.Keys.Note, Model.User.Id);
 
         #endregion
 

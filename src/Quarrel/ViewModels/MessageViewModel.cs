@@ -10,15 +10,19 @@ using Quarrel.Messages.Navigation;
 using Quarrel.Models.Bindables;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Threading;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services;
+using Quarrel.Services.Rest;
 
 namespace Quarrel.ViewModels
 {
     public class MessageViewModel : ViewModelBase
     {
+        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+
         public MessageViewModel()
         {
             Messenger.Default.Register<ChannelNavigateMessage>(this, async m =>
@@ -35,7 +39,7 @@ namespace Quarrel.ViewModels
                     //    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAround(m.Channel.Model.Id, Channel.ReadState.LastMessageId, 50);
                     try
                     {
-                        itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id, 50);
+                        itemList = await discordService.ChannelService.GetChannelMessages(m.Channel.Model.Id, 50);
                     }
                     catch (Exception e)
                     {
@@ -181,7 +185,7 @@ namespace Quarrel.ViewModels
                 }
             }
 
-            ServicesManager.Discord.ChannelService.CreateMessage(Channel.Model.Id, new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
+            discordService.ChannelService.CreateMessage(Channel.Model.Id, new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
             MessageText = "";
         }));
 
@@ -324,7 +328,7 @@ namespace Quarrel.ViewModels
             using (await SourceMutex.LockAsync())
             {
                 OldItemsLoading = true;
-                IEnumerable<Message> itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesBefore(Channel.Model.Id, Source.FirstOrDefault().Model.Id);
+                IEnumerable<Message> itemList = await discordService.ChannelService.GetChannelMessagesBefore(Channel.Model.Id, Source.FirstOrDefault().Model.Id);
 
                 await DispatcherHelper.RunAsync(() =>
                 {
@@ -349,7 +353,7 @@ namespace Quarrel.ViewModels
                 if (Channel.Model.LastMessageId != Source.LastOrDefault().Model.Id)
                 {
                     IEnumerable<Message> itemList = null;
-                    await Task.Run( async () => itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, Source.LastOrDefault().Model.Id));
+                    await Task.Run( async () => itemList = await discordService.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, Source.LastOrDefault().Model.Id));
 
                     await DispatcherHelper.RunAsync(() =>
                     {
@@ -364,7 +368,7 @@ namespace Quarrel.ViewModels
                 }
                 else if (Channel.Model.LastMessageId != Channel.ReadState.LastMessageId)
                 {
-                    await ServicesManager.Discord.ChannelService.AckMessage(Channel.Model.Id, Source.LastOrDefault().Model.Id);
+                    await discordService.ChannelService.AckMessage(Channel.Model.Id, Source.LastOrDefault().Model.Id);
                 }
                 NewItemsLoading = false;
             }

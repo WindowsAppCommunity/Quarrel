@@ -17,6 +17,9 @@ using Quarrel.Models.Bindables;
 using Quarrel.Services;
 using Quarrel.SubPages.Interfaces;
 using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Ioc;
+using Quarrel.Services.Cache;
+using Quarrel.Services.Rest;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -24,6 +27,8 @@ namespace Quarrel.SubPages
 {
     public sealed partial class UserProfilePage : UserControl, IConstrainedSubPage
     {
+        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
         public UserProfilePage()
         {
             this.InitializeComponent();
@@ -37,8 +42,8 @@ namespace Quarrel.SubPages
 
         public async void LoadProfile()
         {
-            _Profile = await ServicesManager.Discord.UserService.GetUserProfile(ViewModel.Model.User.Id);
-            _Profile.Friend = ServicesManager.Cache.Runtime.TryGetValue<Friend>(Quarrel.Helpers.Constants.Cache.Keys.Friend, ViewModel.Model.User.Id);
+            _Profile = await discordService.UserService.GetUserProfile(ViewModel.Model.User.Id);
+            _Profile.Friend = cacheService.Runtime.TryGetValue<Friend>(Quarrel.Helpers.Constants.Cache.Keys.Friend, ViewModel.Model.User.Id);
             if (_Profile.Friend == null)
                 _Profile.Friend = new Friend() { Type = 0, Id = ViewModel.Model.User.Id, user = ViewModel.Model.User };
             this.Bindings.Update();
@@ -51,7 +56,7 @@ namespace Quarrel.SubPages
 
         private void NoteBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            ServicesManager.Discord.UserService.AddNote(ViewModel.Model.User.Id, new DiscordAPI.API.User.Models.Note() { Content = (sender as TextBox).Text });
+            discordService.UserService.AddNote(ViewModel.Model.User.Id, new DiscordAPI.API.User.Models.Note() { Content = (sender as TextBox).Text });
         }
 
         public double MaxExpandedHeight { get; } = 768;
