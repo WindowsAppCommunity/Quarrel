@@ -64,19 +64,14 @@
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    
+
                     <views:ChannelView/>
 
-                    <Rectangle IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" VerticalAlignment="Bottom">
-                        <Rectangle.Fill>
-                            <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
-                                <GradientStop Offset="1"/>
-                                <GradientStop Color="{ThemeResource ShadowColor}" Offset="0"/>
-                            </LinearGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                    <local:CurrentUserButton Grid.Row="1"/>
+                    <local:VoiceConnection Grid.Row="1"/>
+
+                    <local:CurrentUserButton Grid.Row="2"/>
                 </Grid>
             </local:SideDrawer.ContentLeftSecondary>
             <local:SideDrawer.ContentMain>

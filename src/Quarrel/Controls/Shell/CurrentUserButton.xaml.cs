@@ -61,25 +61,9 @@ namespace Quarrel.Controls.Shell
                 });
             });
 
-            Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, async m =>
-            {
-                await DispatcherHelper.RunAsync(() =>
-                {
-                    if (m.VoiceState.UserId == ViewModel.Model.User.Id)
-                    {
-                        VoiceState = m.VoiceState;
-                    }
-                });
-            });
-
             Messenger.Default.Register<CurrentUserRequestMessage>(this, async m =>
             {
                 await DispatcherHelper.RunAsync(() => m.ReportResult(ViewModel));
-            });
-
-            Messenger.Default.Register<CurrentUserVoiceStateRequestMessage>(this,  m =>
-            {
-                m.ReportResult(VoiceState);
             });
 
             this.DataContextChanged += (s, e) =>
@@ -89,8 +73,6 @@ namespace Quarrel.Controls.Shell
         }
 
         public BindableUser ViewModel => DataContext as BindableUser;
-
-        private VoiceState VoiceState { get; set; }
 
         private async void StatusSelected(object sender, RoutedEventArgs e)
         {
