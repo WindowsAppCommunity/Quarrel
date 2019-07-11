@@ -16,15 +16,23 @@
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
         <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
     </UserControl.Resources>
-    
-    <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+    <Grid>
+        <Rectangle IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" VerticalAlignment="Top" Margin="0,-12,0,0">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+                    <GradientStop Offset="1"/>
+                    <GradientStop Color="{ThemeResource ShadowColor}" Offset="0"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
             HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
             Style="{StaticResource DiscordOpaqueButton}" Background="{StaticResource AcrylicUserBackground}"
             BorderThickness="0" Padding="0" Height="64">
-        <Button.Flyout>
-            <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle2}">
-                <StackPanel Padding="12">
-                    <!--<ListView x:Name="AccountView" Visibility="Collapsed" ItemContainerStyle="{StaticResource ChannelListItemStyle}" Margin="-20,6,-40,8" SelectionMode="None" IsItemClickEnabled="True">
+            <Button.Flyout>
+                <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle2}">
+                    <StackPanel Padding="12">
+                        <!--<ListView x:Name="AccountView" Visibility="Collapsed" ItemContainerStyle="{StaticResource ChannelListItemStyle}" Margin="-20,6,-40,8" SelectionMode="None" IsItemClickEnabled="True">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -42,7 +50,7 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>-->
-                    <!--<Grid Visibility="Collapsed" Margin="0,0,0,8">
+                        <!--<Grid Visibility="Collapsed" Margin="0,0,0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -50,39 +58,41 @@
                         <Button Style="{StaticResource DiscordButton}" Content="Add account" Margin="0,0,4,0"  Padding="12,6" HorizontalAlignment="Stretch" Background="{ThemeResource SystemControlBackgroundAccentBrush}"/>
                         <Button Style="{StaticResource DiscordButton}" Grid.Column="1" Content="Log out" Margin="4,0,0,0" Padding="12,6" HorizontalAlignment="Stretch" Background="{ThemeResource dnd}"/>
                     </Grid>-->
-                    
-                    <RadioButton x:Uid="/Main/OnlineRadio" IsChecked="{x:Bind ViewModel.Presence.IsOnline}" Foreground="#43b581" GroupName="status" Tag="online" Content="Online" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
-                    <RadioButton x:Uid="/Main/IdleRadio" IsChecked="{x:Bind ViewModel.Presence.IsIdle}" Foreground="#faa61a" GroupName="status" Tag="idle" Content="Idle" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
-                    <RadioButton x:Uid="/Main/DNDRadio" IsChecked="{x:Bind ViewModel.Presence.IsDnd}" Foreground="#f04747" GroupName="status" Tag="dnd" Content="Do not disturb" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
-                    <RadioButton x:Uid="/Main/InvisibleRadio" IsChecked="{x:Bind ViewModel.Presence.IsOffline}" Foreground="#747f8d" GroupName="status" Tag="invisible" Content="Invisible" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
-                </StackPanel>
-            </Flyout>
-        </Button.Flyout>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            
-            <controls:DropShadowPanel Color="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
+
+                        <RadioButton x:Uid="/Main/OnlineRadio" IsChecked="{x:Bind ViewModel.Presence.IsOnline}" Foreground="#43b581" GroupName="status" Tag="online" Content="Online" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
+                        <RadioButton x:Uid="/Main/IdleRadio" IsChecked="{x:Bind ViewModel.Presence.IsIdle}" Foreground="#faa61a" GroupName="status" Tag="idle" Content="Idle" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
+                        <RadioButton x:Uid="/Main/DNDRadio" IsChecked="{x:Bind ViewModel.Presence.IsDnd}" Foreground="#f04747" GroupName="status" Tag="dnd" Content="Do not disturb" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
+                        <RadioButton x:Uid="/Main/InvisibleRadio" IsChecked="{x:Bind ViewModel.Presence.IsOffline}" Foreground="#747f8d" GroupName="status" Tag="invisible" Content="Invisible" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
+                    </StackPanel>
+                </Flyout>
+            </Button.Flyout>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <controls:DropShadowPanel Color="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
                                       HorizontalAlignment="Center" VerticalAlignment="Center" BlurRadius="24" Height="48" Width="48"
                                       Margin="12,6">
-                <Rectangle Height="40" Width="40"
+                    <Rectangle Height="40" Width="40"
                            RadiusX="20" RadiusY="20" HorizontalAlignment="Center">
-                    <Rectangle.Fill>
-                        <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
-                    </Rectangle.Fill>
-                </Rectangle>
-            </controls:DropShadowPanel>
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </controls:DropShadowPanel>
 
-            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                <TextBlock Text="{x:Bind ViewModel.Model.User.Username, Mode=OneWay}"
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Text="{x:Bind ViewModel.Model.User.Username, Mode=OneWay}"
                            FontWeight="SemiBold" FontSize="14"/>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="#" Opacity=".6" FontSize="12"/>
-                    <TextBlock Text="{x:Bind ViewModel.Model.User.Discriminator}" Opacity="0.6" FontSize="12"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="#" Opacity=".6" FontSize="12"/>
+                        <TextBlock Text="{x:Bind ViewModel.Model.User.Discriminator}" Opacity="0.6" FontSize="12"/>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
-        </Grid>
-    </Button>
+            </Grid>
+        </Button>
+    </Grid>
+    
 </UserControl>

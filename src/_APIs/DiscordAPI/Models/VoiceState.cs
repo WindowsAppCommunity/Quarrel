@@ -27,5 +27,11 @@ namespace DiscordAPI.Models
         public bool SelfMute { get; set; }
         [JsonProperty("suppress")]
         public bool Suppress { get; set; }
+
+        [JsonIgnore]
+        public bool IsMuted => SelfMute || ServerMute;
+
+        [JsonIgnore]
+        public bool IsDeafened => SelfDeaf || ServerDeaf;
     }
 }

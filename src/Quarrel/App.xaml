@@ -56,6 +56,12 @@
                                   Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FF303238"/>
 
+                    <AcrylicBrush x:Key="AcrylicUserBackgroundDarker"
+                                  BackgroundSource="Backdrop"
+                                  TintColor="#FF1E2124"
+                                  TintOpacity="0.3"
+                                  FallbackColor="#FF1E2124"/>
+                  
                     <AcrylicBrush x:Key="AcrylicButtonBackground"
                                   BackgroundSource="Backdrop"
                                   TintColor="#DD000000"
