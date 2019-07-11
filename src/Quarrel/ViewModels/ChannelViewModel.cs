@@ -9,11 +9,15 @@ using Quarrel.Models.Bindables;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services;
 using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Ioc;
+using Quarrel.Services.Cache;
+using Quarrel.Services.Rest;
 
 namespace Quarrel.ViewModels
 {
     public class ChannelViewModel : ViewModelBase
     {
+        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         public ChannelViewModel()
         {
             Messenger.Default.Register<GuildNavigateMessage>(this, async m =>
@@ -67,7 +71,7 @@ namespace Quarrel.ViewModels
             else if (channel.IsVoiceChannel)
             {
                 if (channel.Model is GuildChannel gChannel)
-                    await ServicesManager.Discord.Gateway.Gateway.VoiceStatusUpdate(Guild.Model.Id, gChannel.Id, false, false);
+                    await discordService.Gateway.Gateway.VoiceStatusUpdate(Guild.Model.Id, gChannel.Id, false, false);
             }
             else
             {

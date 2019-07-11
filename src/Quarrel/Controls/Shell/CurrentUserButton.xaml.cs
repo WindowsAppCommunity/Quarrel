@@ -19,7 +19,9 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using UICompositionAnimations.Helpers;
 using DiscordAPI.Gateway;
+using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Messages.Posts.Requests;
+using Quarrel.Services.Rest;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -27,6 +29,7 @@ namespace Quarrel.Controls.Shell
 {
     public sealed partial class CurrentUserButton : UserControl
     {
+        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         public CurrentUserButton()
         {
             this.InitializeComponent();
@@ -77,8 +80,8 @@ namespace Quarrel.Controls.Shell
         private async void StatusSelected(object sender, RoutedEventArgs e)
         {
             string status = (sender as RadioButton).Tag.ToString();
-            ServicesManager.Discord.Gateway.Gateway.UpdateStatus(status, 0, null);
-            await ServicesManager.Discord.UserService.UpdateSettings("{\"status\":\"" + status + "\"}");
+            discordService.Gateway.Gateway.UpdateStatus(status, 0, null);
+            await discordService.UserService.UpdateSettings("{\"status\":\"" + status + "\"}");
         }
     }
 }

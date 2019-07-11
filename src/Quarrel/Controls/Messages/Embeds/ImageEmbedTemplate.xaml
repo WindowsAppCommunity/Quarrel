@@ -11,7 +11,7 @@
     d:DesignWidth="400">
 
     <Grid>
-        <toolkit:ImageEx Source="{x:Bind ViewModel.Image.Url, Mode=OneWay}"
+        <toolkit:ImageEx Source="{x:Bind ViewModel.Url, Mode=OneWay}"
                          HorizontalAlignment="Left"/>
     </Grid>
 </UserControl>

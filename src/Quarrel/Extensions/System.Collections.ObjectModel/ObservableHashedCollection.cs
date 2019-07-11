@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Threading;
-using MoreLinq;
 
 namespace System.Collections.ObjectModel
 {
@@ -23,10 +22,18 @@ namespace System.Collections.ObjectModel
             _hashedCollection = new HashedCollection<TKey, TValue>(collection);
         }
 
+        public ObservableHashedCollection()
+        {
+            _context = AsyncOperationManager.SynchronizationContext;
+            _hashedCollection = new HashedCollection<TKey, TValue>(new List<KeyValuePair<TKey, TValue>>());
+        }
+
         public event NotifyCollectionChangedEventHandler CollectionChanged;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyObserversOfChange()
+        protected List<string> PropertiesToUpdate = new List<string>{"Count", "Keys", "Values"};
+
+        protected virtual void NotifyObserversOfChange()
         {
             var collectionHandler = CollectionChanged;
             var propertyHandler = PropertyChanged;
@@ -37,10 +44,10 @@ namespace System.Collections.ObjectModel
                     collectionHandler?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
                     if (propertyHandler != null)
                     {
-                        propertyHandler(this, new PropertyChangedEventArgs("Count"));
-                        propertyHandler(this, new PropertyChangedEventArgs("Keys"));
-                        propertyHandler(this, new PropertyChangedEventArgs("Values"));
-                        propertyHandler(this, new PropertyChangedEventArgs("DistinctSortedValues"));
+                        foreach (string property in PropertiesToUpdate)
+                        {
+                            propertyHandler(this, new PropertyChangedEventArgs(property));
+                        }
                     }
                 }, null);
             }
@@ -151,7 +158,6 @@ namespace System.Collections.ObjectModel
             return _hashedCollection.TryGetValue(key, out value);
         }
 
-        public ICollection<TValue> DistinctSortedValues => Values.Distinct().OrderByDescending(x => x.GetHashCode()).ToList();
 
         public ICollection<TValue> Values => _hashedCollection.Values;
 

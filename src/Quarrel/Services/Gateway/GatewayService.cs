@@ -15,15 +15,19 @@ using DiscordAPI.API;
 using DiscordAPI.API.Gateway;
 using DiscordAPI.Authentication;
 using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Quarrel.Models.Bindables;
 using Quarrel.Messages.Posts.Requests;
+using Quarrel.Services.Cache;
+using Quarrel.Services.Rest;
 using UICompositionAnimations.Helpers;
 
 namespace Quarrel.Services.Gateway
 {
     public class GatewayService : IGatewayService
     {
+        private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
         public DiscordAPI.Gateway.Gateway Gateway { get; private set; }
 
         public async void InitializeGateway([NotNull] string accessToken)
@@ -127,20 +131,20 @@ namespace Quarrel.Services.Gateway
 
         private void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
         {
-            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, e.EventData, e.EventData.User.Id);
+            cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, e.EventData, e.EventData.User.Id);
             Messenger.Default.Send(new GatewayPresenceUpdatedMessage(e.EventData.User.Id));
         }
 
         private void Gateway_UserNoteUpdated(object sender, GatewayEventArgs<UserNote> e)
         {
-            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Note, e.EventData.Note, e.EventData.UserId);
+            cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Note, e.EventData.Note, e.EventData.UserId);
             Messenger.Default.Send(new GatewayNoteUpdatedMessage(e.EventData.UserId));
         }
 
         private void Gateway_UserSettingsUpdated(object sender, GatewayEventArgs<UserSettings> e)
         {
-            ServicesManager.Cache.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = e.EventData.Status },
-                ServicesManager.Cache.Runtime.TryGetValue<BindableUser>(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser).Model.User.Id);
+            cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = e.EventData.Status },
+                cacheService.Runtime.TryGetValue<BindableUser>(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser).Model.User.Id);
             Messenger.Default.Send(new GatewayUserSettingsUpdatedMessage());
         }
 

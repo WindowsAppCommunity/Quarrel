@@ -3,21 +3,28 @@ using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Quarrel.Messages.Navigation;
 using Quarrel.Models.Bindables;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Threading;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services;
+using Quarrel.Services.Rest;
+using Quarrel.Services.Users;
 
 namespace Quarrel.ViewModels
 {
     public class MessageViewModel : ViewModelBase
     {
+        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ICurrentUsersService currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+
         public MessageViewModel()
         {
             Messenger.Default.Register<ChannelNavigateMessage>(this, async m =>
@@ -32,7 +39,15 @@ namespace Quarrel.ViewModels
                     //    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id);
                     //else
                     //    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAround(m.Channel.Model.Id, Channel.ReadState.LastMessageId, 50);
-                    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id, 50);
+                    try
+                    {
+                        itemList = await discordService.ChannelService.GetChannelMessages(m.Channel.Model.Id, 50);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e);
+                        return;
+                    }
 
                     await DispatcherHelper.RunAsync(() =>
                     {
@@ -152,9 +167,8 @@ namespace Quarrel.ViewModels
                     string username = mention.Substring(1, discIndex - 1);
                     string disc = mention.Substring(1 + discIndex);
                     User user;
-                    var userList = Messenger.Default.Request<CurrentMemberListRequestMessage, List<BindableUser>>(new CurrentMemberListRequestMessage());
 
-                    user = userList.FirstOrDefault(x => x.Model.User.Username == username && x.Model.User.Discriminator == disc).Model.User;
+                    user = currentUsersService.Users.Values.FirstOrDefault(x => x.Model.User.Username == username && x.Model.User.Discriminator == disc).Model.User;
 
                     if (user != null)
                     {
@@ -172,7 +186,7 @@ namespace Quarrel.ViewModels
                 }
             }
 
-            ServicesManager.Discord.ChannelService.CreateMessage(Channel.Model.Id, new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
+            discordService.ChannelService.CreateMessage(Channel.Model.Id, new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
             MessageText = "";
         }));
 
@@ -240,8 +254,7 @@ namespace Quarrel.ViewModels
                             }
                             else
                             {
-                                GuildMember member = Messenger.Default
-                                           .Request<CurrentMemberListRequestMessage, List<BindableUser>>(new CurrentMemberListRequestMessage())
+                                GuildMember member = currentUsersService.Users.Values
                                            .FirstOrDefault(x => x.Model.User.Username == cache && x.Model.User.Discriminator == descCache).Model;
                                 mention = member.User;
                             }
@@ -315,7 +328,7 @@ namespace Quarrel.ViewModels
             using (await SourceMutex.LockAsync())
             {
                 OldItemsLoading = true;
-                IEnumerable<Message> itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesBefore(Channel.Model.Id, Source.FirstOrDefault().Model.Id);
+                IEnumerable<Message> itemList = await discordService.ChannelService.GetChannelMessagesBefore(Channel.Model.Id, Source.FirstOrDefault().Model.Id);
 
                 await DispatcherHelper.RunAsync(() =>
                 {
@@ -340,7 +353,7 @@ namespace Quarrel.ViewModels
                 if (Channel.Model.LastMessageId != Source.LastOrDefault().Model.Id)
                 {
                     IEnumerable<Message> itemList = null;
-                    await Task.Run( async () => itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, Source.LastOrDefault().Model.Id));
+                    await Task.Run( async () => itemList = await discordService.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, Source.LastOrDefault().Model.Id));
 
                     await DispatcherHelper.RunAsync(() =>
                     {
@@ -355,7 +368,7 @@ namespace Quarrel.ViewModels
                 }
                 else if (Channel.Model.LastMessageId != Channel.ReadState.LastMessageId)
                 {
-                    await ServicesManager.Discord.ChannelService.AckMessage(Channel.Model.Id, Source.LastOrDefault().Model.Id);
+                    await discordService.ChannelService.AckMessage(Channel.Model.Id, Source.LastOrDefault().Model.Id);
                 }
                 NewItemsLoading = false;
             }

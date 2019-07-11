@@ -16,7 +16,10 @@ using DiscordAPI.Voice.DownstreamEvents;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
 using System.Collections.Generic;
+using GalaSoft.MvvmLight.Ioc;
+using Quarrel.Messages.Voice;
 using Quarrel.Models.Bindables;
+using Quarrel.Services.Rest;
 
 namespace Quarrel.Services.Voice
 {
@@ -24,9 +27,11 @@ namespace Quarrel.Services.Voice
     {
         #region Public Properties
 
-        public IAudioInService AudioInService { get; } = new AudioInService();
+        public IAudioInService AudioInService { get; } = SimpleIoc.Default.GetInstance<IAudioInService>();
 
-        public IAudioOutService AudioOutService { get; } = new AudioOutService();
+        public IAudioOutService AudioOutService { get; } = SimpleIoc.Default.GetInstance<IAudioOutService>();
+
+        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
 
         #endregion
 
@@ -34,8 +39,7 @@ namespace Quarrel.Services.Voice
 
         private VoiceConnection _VoiceConnection;
 
-        // TODO: Move to UI
-        private Dictionary<string, VoiceState> VoiceStates = new Dictionary<string, VoiceState>();
+        public Dictionary<string, VoiceState> VoiceStates { get; } = new Dictionary<string, VoiceState>();
 
         #endregion
 
@@ -57,7 +61,28 @@ namespace Quarrel.Services.Voice
 
             Messenger.Default.Register<GatewayVoiceServerUpdateMessage>(this, m => 
             {
-                ConnectToVoiceChannel(m.VoiceServer, VoiceStates[ServicesManager.Discord.CurrentUser.Id]);
+                ConnectToVoiceChannel(m.VoiceServer, VoiceStates[discordService.CurrentUser.Id]);
+            });
+
+            Messenger.Default.Register<GatewayReadyMessage>(this, m => 
+            {
+                foreach (var guild in m.EventData.Guilds)
+                {
+                    if(guild.VoiceStates != null)
+                    {
+                        foreach (var state in guild.VoiceStates)
+                        {
+                            if (VoiceStates.ContainsKey(state.UserId))
+                            {
+                                VoiceStates[state.UserId] = state;
+                            }
+                            else
+                            {
+                                VoiceStates.Add(state.UserId, state);
+                            }
+                        }
+                    }
+                }
             });
         }
 
@@ -70,6 +95,7 @@ namespace Quarrel.Services.Voice
             AudioOutService.CreateGraph();
             _VoiceConnection = new VoiceConnection(data, state);
             _VoiceConnection.VoiceDataRecieved += VoiceDataRecieved;
+            _VoiceConnection.Speak += Speak;
             await _VoiceConnection.ConnectAsync();
 
             AudioInService.InputRecieved += InputRecieved;
@@ -89,6 +115,10 @@ namespace Quarrel.Services.Voice
         private void VoiceDataRecieved(object sender, VoiceConnectionEventArgs<VoiceData> e)
         {
             AudioOutService.AddFrame(e.EventData.data, e.EventData.samples);
+        }
+        private void Speak(object sender, VoiceConnectionEventArgs<Speak> e)
+        {
+            Messenger.Default.Send(new SpeakMessage(e.EventData));
         }
 
         private void SpeakingChanged(object sender, int e)

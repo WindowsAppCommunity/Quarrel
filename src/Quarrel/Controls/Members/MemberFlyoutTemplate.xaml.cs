@@ -13,11 +13,13 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Models.Bindables;
 using Quarrel.Messages;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Navigation.SubFrame;
 using Quarrel.Services;
+using Quarrel.Services.Rest;
 using Quarrel.SubPages;
 using UICompositionAnimations.Helpers;
 
@@ -27,6 +29,7 @@ namespace Quarrel.Controls.Members
 {
     public sealed partial class MemberFlyoutTemplate : UserControl
     {
+        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         public MemberFlyoutTemplate()
         {
             this.InitializeComponent();
@@ -58,7 +61,7 @@ namespace Quarrel.Controls.Members
 
         private void NoteBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            ServicesManager.Discord.UserService.AddNote(ViewModel.Model.User.Id, new DiscordAPI.API.User.Models.Note() { Content = (sender as TextBox).Text });
+            discordService.UserService.AddNote(ViewModel.Model.User.Id, new DiscordAPI.API.User.Models.Note() { Content = (sender as TextBox).Text });
         }
 
         private void AvatarButton_Click(object sender, RoutedEventArgs e)

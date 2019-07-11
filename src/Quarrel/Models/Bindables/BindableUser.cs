@@ -5,20 +5,25 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Models.Bindables.Abstract;
 using Quarrel.Services;
 using Quarrel.Converters.Discord;
+using Quarrel.Services.Cache;
+using Quarrel.Services.Rest;
 
 namespace Quarrel.Models.Bindables
 {
     public class BindableUser : BindableModelBase<GuildMember>, IEquatable<BindableUser>, IComparable<BindableUser>
     {
+        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
         public BindableUser([NotNull] GuildMember model) : base(model) { }
 
         public string GuildId { get; set; }
 
         // TODO: Store, as variable, not property
-        public IEnumerable<Role> Roles
+        public List<Role> Roles
         {
             get
             {
@@ -28,9 +33,9 @@ namespace Quarrel.Models.Bindables
                 List<Role> Roles = new List<Role>();
                 foreach (var role in Model.Roles)
                 {
-                    Roles.Add(ServicesManager.Cache.Runtime.TryGetValue<Role>(Quarrel.Helpers.Constants.Cache.Keys.GuildRole, GuildId + role));
+                    Roles.Add(cacheService.Runtime.TryGetValue<Role>(Quarrel.Helpers.Constants.Cache.Keys.GuildRole, GuildId + role));
                 }
-                return Roles.OrderByDescending(x => x.Position).AsEnumerable();
+                return Roles;
             }
         }
 
@@ -40,9 +45,9 @@ namespace Quarrel.Models.Bindables
             {
                 if (Roles != null)
                 {
-                    return Roles.FirstOrDefault() ?? new Role() { Name = "Everyone", Position = int.MinValue };
+                    return Roles.OrderByDescending(x => x.Position).FirstOrDefault() ?? Role.Everyone;
                 }
-                return new Role() { Name = "Everyone", Position = int.MinValue };
+                return Role.Everyone;
             }
         }
 
@@ -50,39 +55,30 @@ namespace Quarrel.Models.Bindables
         {
             get
             {
+                if (Presence.Status == "offline")
+                {
+                    return Role.Offline;
+                }
+
                 if (Roles != null)
                 {
-                    return Roles.FirstOrDefault(x => x.Hoist) ?? new Role() { Name = "Everyone", Position = int.MinValue };
+                    return Roles.Where(x => x.Hoist).OrderByDescending(x => x.Position).FirstOrDefault() ?? Role.Everyone;
                 }
-                return new Role() { Name = "Everyone", Position = int.MinValue };
+
+                return Role.Everyone;
             }
         }
 
-        public Presence Presence
-        {
-            get => ServicesManager.Cache.Runtime.TryGetValue<Presence>(Quarrel.Helpers.Constants.Cache.Keys.Presence, Model.User.Id) ?? new Presence() { Status = "offline", User = Model.User };
-        }
+        public Presence Presence => cacheService.Runtime.TryGetValue<Presence>(Quarrel.Helpers.Constants.Cache.Keys.Presence, Model.User.Id) ?? new Presence() { Status = "offline", User = Model.User };
 
         #region Display 
 
-        public string DisplayName
-        {
-            get
-            {
-                return Model.Nick ?? Model.User.Username;
-            }
-        }
+        public string DisplayName => Model.Nick ?? Model.User.Username;
 
 
-        public bool HasNickname
-        {
-            get => !string.IsNullOrEmpty(Model.Nick);
-        }
+        public bool HasNickname => !string.IsNullOrEmpty(Model.Nick);
 
-        public string Note
-        {
-            get => ServicesManager.Cache.Runtime.TryGetValue<string>(Quarrel.Helpers.Constants.Cache.Keys.Note, Model.User.Id);
-        }
+        public string Note => cacheService.Runtime.TryGetValue<string>(Quarrel.Helpers.Constants.Cache.Keys.Note, Model.User.Id);
 
         #endregion
 

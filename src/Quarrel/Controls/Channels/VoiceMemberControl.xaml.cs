@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text.RegularExpressions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -15,18 +13,16 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using DiscordAPI.Models;
-using myTube.Playback.Handlers;
 using Quarrel.Models.Bindables;
-using Ryken.UI;
-using RykenTube;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Quarrel.Controls.Messages.Embeds
+namespace Quarrel.Controls.Channels
 {
-    public sealed partial class YoutubeEmbedTemplate : UserControl
+    public sealed partial class VoiceMemberControl : UserControl
     {
-        public YoutubeEmbedTemplate()
+        public BindableVoiceUser ViewModel => DataContext as BindableVoiceUser;
+        public VoiceMemberControl()
         {
             this.InitializeComponent();
             this.DataContextChanged += (s, e) =>
@@ -34,8 +30,5 @@ namespace Quarrel.Controls.Messages.Embeds
                 this.Bindings.Update();
             };
         }
-
-
-        public BindableVideoEmbed ViewModel => new BindableVideoEmbed(DataContext as Embed);
     }
 }

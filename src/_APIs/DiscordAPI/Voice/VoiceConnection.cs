@@ -315,7 +315,7 @@ namespace DiscordAPI.Voice
                 { OperationCode.Ready.ToInt(), OnReady },
                 { OperationCode.Hello.ToInt(), OnHello },
                 { OperationCode.SessionDescription.ToInt(), OnSessionDesc },
-                {OperationCode.Speaking.ToInt(), OnSpeaking }
+                { OperationCode.Speaking.ToInt(), OnSpeaking }
             };
         }
 
@@ -363,7 +363,7 @@ namespace DiscordAPI.Voice
         private void OnHello(SocketFrame Event)
         {
             var hello = Event.GetData<Hello>();
-            BeginHeartbeatAsync(hello.Heartbeatinterval * .75); //The *.75 is due to a serverside bug
+            BeginHeartbeatAsync(hello.Heartbeatinterval);
         }
 
         private async void OnReady(SocketFrame Event)
@@ -394,7 +394,6 @@ namespace DiscordAPI.Voice
 
         private void OnSpeaking(SocketFrame Event)
         {
-           var Speaking = Event.GetData<DownstreamEvents.Speak>();
             FireEventOnDelegate(Event, Speak);
         }
 

@@ -23,6 +23,8 @@ using DiscordAPI.API;
 using DiscordAPI.Authentication;
 using Windows.Networking.Connectivity;
 using System.Collections;
+using GalaSoft.MvvmLight.Ioc;
+using Quarrel.Services.Cache;
 
 namespace Quarrel.Services.Rest
 {
@@ -65,7 +67,7 @@ namespace Quarrel.Services.Rest
 
         /// <inheritdoc/>
         [NotNull]
-        public IGatewayService Gateway { get; private set; } = new GatewayService();
+        public IGatewayService Gateway { get; private set; } = SimpleIoc.Default.GetInstance<IGatewayService>();
 
         /// <inheritdoc/>
         public User CurrentUser { get; set; }
@@ -77,6 +79,7 @@ namespace Quarrel.Services.Rest
         #endregion
 
         #region Login
+        private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
 
         public async void Login([NotNull] string email, [NotNull] string password)
         {
@@ -87,7 +90,7 @@ namespace Quarrel.Services.Rest
 
             _AccessToken = result.Token;
 
-            await ServicesManager.Cache.Persistent.Roaming.SetValueAsync(Quarrel.Helpers.Constants.Cache.Keys.AccessToken, (object)_AccessToken);
+            await cacheService.Persistent.Roaming.SetValueAsync(Quarrel.Helpers.Constants.Cache.Keys.AccessToken, (object)_AccessToken);
 
             Login();
         }
