@@ -24,27 +24,27 @@ namespace Quarrel.ViewModels
         {
             Messenger.Default.Register<GatewayGuildSyncMessage>(this, async m =>
             {
-                var tempSource = new SortedGroupedObservableHashedCollection<string, Role, BindableUser>(x => x.TopHoistRole, x => -x.Key.Position, new List<KeyValuePair<string, HashedGrouping<string, Role, BindableUser>>>());
+                var tempSource = new SortedGroupedObservableHashedCollection<string, Role, BindableGuildMember>(x => x.TopHoistRole, x => -x.Key.Position, new List<KeyValuePair<string, HashedGrouping<string, Role, BindableGuildMember>>>());
 
                 // Show members
                 foreach (var member in m.Members)
                 {
-                    BindableUser bUser = new BindableUser(member);
-                    bUser.GuildId = m.GuildId;
-                    tempSource.AddElement(member.User.Id, bUser);
+                    BindableGuildMember bGuildMember = new BindableGuildMember(member);
+                    bGuildMember.GuildId = m.GuildId;
+                    tempSource.AddElement(member.User.Id, bGuildMember);
                 }
 
                 await DispatcherHelper.RunAsync(() => { Source = tempSource; RaisePropertyChanged(nameof(Source)); });
             });
 
 
-            Source = new SortedGroupedObservableHashedCollection<string, Role, BindableUser>(x => x.TopHoistRole, x => -x.Key.Position, new List<KeyValuePair<string, HashedGrouping<string, Role, BindableUser>>>());
+            Source = new SortedGroupedObservableHashedCollection<string, Role, BindableGuildMember>(x => x.TopHoistRole, x => -x.Key.Position, new List<KeyValuePair<string, HashedGrouping<string, Role, BindableGuildMember>>>());
         }
 
         /// <summary>
         /// Gets the collection of grouped feeds to display
         /// </summary>
         [NotNull]
-        public SortedGroupedObservableHashedCollection<string, Role, BindableUser> Source { get; set; }
+        public SortedGroupedObservableHashedCollection<string, Role, BindableGuildMember> Source { get; set; }
     }
 }

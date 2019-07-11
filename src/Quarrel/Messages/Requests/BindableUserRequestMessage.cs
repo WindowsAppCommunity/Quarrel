@@ -7,7 +7,7 @@ namespace Quarrel.Messages.Posts.Requests
     /// <summary>
     /// A request message to retrieve a user currently loaded in the memberlist being displayed
     /// </summary>
-    public sealed class BindableUserRequestMessage : RequestMessageBase<BindableUser>
+    public sealed class BindableUserRequestMessage : RequestMessageBase<BindableGuildMember>
     {
         public BindableUserRequestMessage(string userId)
         {

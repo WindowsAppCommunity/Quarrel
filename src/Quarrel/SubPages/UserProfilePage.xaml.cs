@@ -34,7 +34,7 @@ namespace Quarrel.SubPages
             this.InitializeComponent();
         }
 
-        public UserProfilePage([NotNull] BindableUser member) : this()
+        public UserProfilePage([NotNull] BindableGuildMember member) : this()
         {
             this.DataContext = member;
             LoadProfile();
@@ -49,7 +49,7 @@ namespace Quarrel.SubPages
             this.Bindings.Update();
         }
 
-        BindableUser ViewModel => DataContext as BindableUser;
+        BindableGuildMember ViewModel => DataContext as BindableGuildMember;
 
         private UserProfile _Profile;
 

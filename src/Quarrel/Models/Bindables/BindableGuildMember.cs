@@ -14,11 +14,11 @@ using Quarrel.Services.Rest;
 
 namespace Quarrel.Models.Bindables
 {
-    public class BindableUser : BindableModelBase<GuildMember>, IEquatable<BindableUser>, IComparable<BindableUser>
+    public class BindableGuildMember : BindableModelBase<GuildMember>, IEquatable<BindableGuildMember>, IComparable<BindableGuildMember>
     {
         private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
-        public BindableUser([NotNull] GuildMember model) : base(model) { }
+        public BindableGuildMember([NotNull] GuildMember model) : base(model) { }
 
         public string GuildId { get; set; }
 
@@ -91,14 +91,14 @@ namespace Quarrel.Models.Bindables
         #region Interfaces
 
         /// <inheritdoc/>
-        public bool Equals(BindableUser other) => Model.User.Id.Equals(other.Model.User.Id);
+        public bool Equals(BindableGuildMember other) => Model.User.Id.Equals(other.Model.User.Id);
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
             if (obj == this) return true;
-            return obj is BindableUser other && Equals(other);
+            return obj is BindableGuildMember other && Equals(other);
 
         }
 
@@ -108,7 +108,7 @@ namespace Quarrel.Models.Bindables
         }
 
         /// <inheritdoc/>
-        public int CompareTo(BindableUser other)
+        public int CompareTo(BindableGuildMember other)
         {
             return TopHoistRole.CompareTo(other.TopHoistRole);
         }

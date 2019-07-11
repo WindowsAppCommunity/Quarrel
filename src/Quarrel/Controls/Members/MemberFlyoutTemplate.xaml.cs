@@ -57,7 +57,7 @@ namespace Quarrel.Controls.Members
             });
         }
 
-        public BindableUser ViewModel => DataContext as BindableUser;
+        public BindableGuildMember ViewModel => DataContext as BindableGuildMember;
 
         private void NoteBox_LostFocus(object sender, RoutedEventArgs e)
         {

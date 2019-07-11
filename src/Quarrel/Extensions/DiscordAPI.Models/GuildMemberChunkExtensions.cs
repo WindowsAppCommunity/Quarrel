@@ -19,7 +19,7 @@ namespace DiscordAPI.Models
         {
             foreach (var user in chunk.Members)
             {
-                BindableUser bgMember = new BindableUser(user);
+                BindableGuildMember bgMember = new BindableGuildMember(user);
                 bgMember.GuildId = chunk.GuildId;
                 // TODO: add to list
             }

@@ -95,10 +95,10 @@
         <Rectangle x:Name="AvatarBG" Stroke="Green" StrokeThickness="0" RadiusX="48" RadiusY="48" Height="24" Width="24" VerticalAlignment="Center" Grid.RowSpan="2" Margin="0,0,0,0" Grid.Row="1"/>
         <Rectangle x:Name="Avatar" RadiusX="48" RadiusY="48" Height="24" Width="24" VerticalAlignment="Center" Grid.RowSpan="2" Margin="0,0,0,0" Grid.Row="1">
             <Rectangle.Fill>
-                <ImageBrush x:Name="AvatarBrush" ImageSource="{x:Bind ViewModel.User.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                <ImageBrush x:Name="AvatarBrush" ImageSource="{x:Bind ViewModel.GuildMember.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
             </Rectangle.Fill>
         </Rectangle>
-        <TextBlock x:Name="username" Text="{x:Bind ViewModel.User.DisplayName}" Margin="12,0,0,0" Grid.Column="1" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiLight" Opacity="0.5"/>
+        <TextBlock x:Name="username" Text="{x:Bind ViewModel.GuildMember.DisplayName}" Margin="12,0,0,0" Grid.Column="1" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiLight" Opacity="0.5"/>
         <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
             <FontIcon x:Name="Mute" Glyph="&#xEC54;" FontFamily="Segoe MDL2 Assets" FontSize="16" Margin="0,0,8,0" Opacity="0.5"/>
             <FontIcon x:Name="Deaf" Glyph="&#xE74F;" FontFamily="Segoe MDL2 Assets" FontSize="13.333" Opacity="0.5"/>

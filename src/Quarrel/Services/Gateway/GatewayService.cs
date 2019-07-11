@@ -90,7 +90,7 @@ namespace Quarrel.Services.Gateway
 
         private void Gateway_MessageCreated(object sender, GatewayEventArgs<Message> e)
         {
-            var currentUser = Messenger.Default.Request<CurrentUserRequestMessage, BindableUser>(new CurrentUserRequestMessage()).Model.User;
+            var currentUser = Messenger.Default.Request<CurrentUserRequestMessage, BindableGuildMember>(new CurrentUserRequestMessage()).Model.User;
             var channel = Messenger.Default.Request<BindableChannelRequestMessage, BindableChannel>(new BindableChannelRequestMessage(e.EventData.ChannelId));
             if (channel.IsDirectChannel || channel.IsGroupChannel || e.EventData.Mentions.Contains(currentUser) || e.EventData.MentionEveryone)
                 channel.ReadState.MentionCount++;
@@ -144,7 +144,7 @@ namespace Quarrel.Services.Gateway
         private void Gateway_UserSettingsUpdated(object sender, GatewayEventArgs<UserSettings> e)
         {
             cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = e.EventData.Status },
-                cacheService.Runtime.TryGetValue<BindableUser>(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser).Model.User.Id);
+                cacheService.Runtime.TryGetValue<BindableGuildMember>(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser).Model.User.Id);
             Messenger.Default.Send(new GatewayUserSettingsUpdatedMessage());
         }
 

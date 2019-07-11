@@ -15,7 +15,7 @@ namespace Quarrel.Services.Users
 {
     public class CurrentUsersService : ICurrentUsersService
     {
-        public HashedCollection<string, BindableUser> Users { get; } = new HashedCollection<string, BindableUser>(new List<KeyValuePair<string, BindableUser>>());
+        public HashedCollection<string, BindableGuildMember> Users { get; } = new HashedCollection<string, BindableGuildMember>(new List<KeyValuePair<string, BindableGuildMember>>());
 
         public CurrentUsersService()
         {
@@ -26,12 +26,13 @@ namespace Quarrel.Services.Users
                 Users.Clear();
                 foreach (var member in m.Members)
                 {
-                    BindableUser bUser = new BindableUser(member);
-                    bUser.GuildId = m.GuildId;
-                    Users.Add(member.User.Id, bUser);
+                    BindableGuildMember bGuildMember = new BindableGuildMember(member);
+                    bGuildMember.GuildId = m.GuildId;
+                    Users.Add(member.User.Id, bGuildMember);
                 }
 
             });
+
 
 
         }

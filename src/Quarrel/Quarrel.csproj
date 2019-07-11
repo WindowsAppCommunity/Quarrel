@@ -364,7 +364,7 @@
     <Compile Include="Models\Bindables\Abstract\BindableModelBase.cs" />
     <Compile Include="Models\Bindables\BindableChannel.cs" />
     <Compile Include="Models\Bindables\BindableGuild.cs" />
-    <Compile Include="Models\Bindables\BindableUser.cs" />
+    <Compile Include="Models\Bindables\BindableGuildMember.cs" />
     <Compile Include="Models\Bindables\BindableMessage.cs" />
     <Compile Include="Models\Bindables\BindableVideoEmbed.cs" />
     <Compile Include="Models\Bindables\BindableVoiceUser.cs" />

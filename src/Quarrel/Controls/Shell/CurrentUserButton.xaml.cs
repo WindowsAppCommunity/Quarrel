@@ -38,7 +38,7 @@ namespace Quarrel.Controls.Shell
             {
                 await DispatcherHelper.RunAsync(() => 
                 {
-                    DataContext = new BindableUser(new GuildMember() { User = m.EventData.User });
+                    DataContext = new BindableGuildMember(new GuildMember() { User = m.EventData.User });
                 });
             });
 
@@ -75,7 +75,7 @@ namespace Quarrel.Controls.Shell
             };
         }
 
-        public BindableUser ViewModel => DataContext as BindableUser;
+        public BindableGuildMember ViewModel => DataContext as BindableGuildMember;
 
         private async void StatusSelected(object sender, RoutedEventArgs e)
         {
