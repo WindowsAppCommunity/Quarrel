@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using DiscordAPI.Models;
 using Quarrel.Services;
 using System;
@@ -18,6 +19,7 @@ using Windows.UI.Xaml.Navigation;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
 using UICompositionAnimations.Helpers;
+using Quarrel.Services.Rest;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -31,7 +33,8 @@ namespace Quarrel.Controls.Shell
 
             Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, async m =>
             {
-                if (m.VoiceState.UserId == ServicesManager.Discord.CurrentUser.Id)
+
+                if (m.VoiceState.UserId == SimpleIoc.Default.GetInstance<IDiscordService>().CurrentUser.Id)
                 {
                     await DispatcherHelper.RunAsync(() => DataContext = m.VoiceState);
                 }
@@ -52,7 +55,7 @@ namespace Quarrel.Controls.Shell
 
         private async void Disconnect(object sender, RoutedEventArgs e)
         {
-            await ServicesManager.Discord.Gateway.Gateway.VoiceStatusUpdate(null, null, false, false);
+            await SimpleIoc.Default.GetInstance<IDiscordService>().Gateway.Gateway.VoiceStatusUpdate(null, null, false, false);
         }
     }
 }
