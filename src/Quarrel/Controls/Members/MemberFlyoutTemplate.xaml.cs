@@ -66,6 +66,12 @@ namespace Quarrel.Controls.Members
 
         private void AvatarButton_Click(object sender, RoutedEventArgs e)
         {
+            // Close popup
+            if ((Parent is FlyoutPresenter))
+            {
+                ((Parent as FlyoutPresenter).Parent as Popup).IsOpen = false;
+            }
+
             Messenger.Default.Send(SubFrameNavigationRequestMessage.To(new UserProfilePage(ViewModel)));
         }
     }

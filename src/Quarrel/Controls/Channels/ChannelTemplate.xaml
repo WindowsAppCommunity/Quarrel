@@ -12,6 +12,10 @@
     xmlns:models="using:DiscordAPI.Models"
     xmlns:bindables="using:Quarrel.Models.Bindables"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:membercontrols="using:Quarrel.Controls.Members"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
     mc:Ignorable="d"
     d:DesignHeight="48"
     d:DesignWidth="300">
@@ -511,10 +515,21 @@
             <local:TypingIndicator Visibility="Collapsed" x:Name="TypingIndic" HorizontalAlignment="Right" Grid.Column="1" Margin="6,0"/>
         </StackPanel>-->
 
-        <ListView x:Name="MemberList" ItemsSource="{x:Bind ViewModel.ConnectedUsers.Values, Mode=OneWay}" x:Load="{x:Bind ViewModel.ConnectedUsers.Values, Converter={StaticResource EnumerableAnyToVisibilityConverter}, Mode=OneWay}"  SelectionMode="None" IsItemClickEnabled="True" Grid.Row="1" Grid.ColumnSpan="2" Margin="-24,0,-24,12" ItemContainerStyle="{StaticResource ChannelItemStyle}">
+        <ListView x:Name="MemberList" ItemsSource="{x:Bind ViewModel.ConnectedUsers.Values, Mode=OneWay}" x:Load="{x:Bind ViewModel.ConnectedUsers.Values, Converter={StaticResource EnumerableAnyToVisibilityConverter}, Mode=OneWay}" SelectionMode="None" IsItemClickEnabled="True" Grid.Row="1" Grid.ColumnSpan="2" Margin="-24,0,-24,12" ItemContainerStyle="{StaticResource ChannelItemStyle}">
+            <interactivity:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="ItemClick">
+                    <behaviors:OpenListViewItemFlyoutAction/>
+                </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="bindables:BindableVoiceUser">
-                    <local:VoiceMemberControl DataContext="{x:Bind}"/>
+                    <local:VoiceMemberControl DataContext="{x:Bind}">
+                        <FlyoutBase.AttachedFlyout>
+                            <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
+                                <membercontrols:MemberFlyoutTemplate DataContext="{x:Bind GuildMember}"/>
+                            </Flyout>
+                        </FlyoutBase.AttachedFlyout>
+                    </local:VoiceMemberControl>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
