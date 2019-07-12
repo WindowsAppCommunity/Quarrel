@@ -78,17 +78,17 @@
                     <Rectangle Height="40" Width="40"
                            RadiusX="20" RadiusY="20" HorizontalAlignment="Center">
                         <Rectangle.Fill>
-                            <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                            <ImageBrush ImageSource="{x:Bind ViewModel.Model.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                 </controls:DropShadowPanel>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <TextBlock Text="{x:Bind ViewModel.Model.User.Username, Mode=OneWay}"
+                    <TextBlock Text="{x:Bind ViewModel.Model.Username, Mode=OneWay}"
                            FontWeight="SemiBold" FontSize="14"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="#" Opacity=".6" FontSize="12"/>
-                        <TextBlock Text="{x:Bind ViewModel.Model.User.Discriminator}" Opacity="0.6" FontSize="12"/>
+                        <TextBlock Text="{x:Bind ViewModel.Model.Discriminator, Mode=OneWay}" Opacity="0.6" FontSize="12"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>

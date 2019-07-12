@@ -29,8 +29,6 @@ namespace Quarrel.Views
         public MemberView()
         {
             this.InitializeComponent();
-            Messenger.Default.Register<GatewayGuildSyncMessage>(this,  m =>
-            { });
         }
     }
 }

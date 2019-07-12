@@ -89,7 +89,7 @@ namespace DiscordAPI.Gateway
         public event EventHandler<GatewayEventArgs<VoiceState>> VoiceStateUpdated;
         public event EventHandler<GatewayEventArgs<VoiceServerUpdate>> VoiceServerUpdated;
 
-        public event EventHandler<GatewayEventArgs<SessionReplace>> SessionReplaced;
+        public event EventHandler<GatewayEventArgs<SessionReplace[]>> SessionReplaced;
 
         MessageWebSocket _socket;
         private MemoryStream _compressed;
@@ -166,17 +166,19 @@ namespace DiscordAPI.Gateway
                             {
                                 #if DEBUG
                                 string content = await reader.ReadToEndAsync();
-                                Debug.WriteLine("<<< " + (content.Length > 80 ? content.Substring(0, 80) + "..." : content));
                                 SocketFrame frame = JsonConvert.DeserializeObject<SocketFrame>(content);
                                 if(frame.SequenceNumber.HasValue) lastGatewayEventSeq = frame.SequenceNumber.Value;
                                 if (operationHandlers.ContainsKey(frame.Operation.GetValueOrDefault()))
                                 {
                                     operationHandlers[frame.Operation.GetValueOrDefault()](frame);
                                 }
-
-                                if (frame.Type != null && eventHandlers.ContainsKey(frame.Type))
+                                else if (frame.Type != null && eventHandlers.ContainsKey(frame.Type))
                                 {
                                     eventHandlers[frame.Type](frame);
+                                }
+                                else
+                                {
+                                    Debug.WriteLine("<<< " + (content.Length > 80 ? content.Substring(0, 80) + "..." : content));
                                 }
                                 
                                 #else
@@ -189,8 +191,7 @@ namespace DiscordAPI.Gateway
                                     {
                                         operationHandlers[frame.Operation.GetValueOrDefault()](frame);
                                     }
-
-                                    if (frame.Type != null && eventHandlers.ContainsKey(frame.Type))
+                                    else if (frame.Type != null && eventHandlers.ContainsKey(frame.Type))
                                     {
                                         eventHandlers[frame.Type](frame);
                                     }

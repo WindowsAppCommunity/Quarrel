@@ -11,6 +11,8 @@ namespace Quarrel.Services.Users
 {
     public interface ICurrentUsersService
     {
-        HashedCollection<string, BindableGuildMember> Users { get; }
+        ObservableDictionary<string, BindableGuildMember> Users { get; }
+
+        BindableUser CurrentUser { get; }
     }
 }

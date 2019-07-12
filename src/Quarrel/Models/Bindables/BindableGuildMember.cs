@@ -69,7 +69,13 @@ namespace Quarrel.Models.Bindables
             }
         }
 
-        public Presence Presence => cacheService.Runtime.TryGetValue<Presence>(Quarrel.Helpers.Constants.Cache.Keys.Presence, Model.User.Id) ?? new Presence() { Status = "offline", User = Model.User };
+        private Presence presence;
+
+        public Presence Presence
+        {
+            get => presence;
+            set => Set(ref presence, value);
+        }
 
         #region Display 
 
