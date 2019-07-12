@@ -37,5 +37,10 @@ namespace Quarrel.Controls.Messages
         }
 
         public MessageViewModel ViewModel => DataContext as MessageViewModel;
+
+        private void MessageEditor_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

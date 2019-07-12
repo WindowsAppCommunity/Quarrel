@@ -22,7 +22,6 @@ namespace Quarrel.Xaml.Behaviors
             var e = parameter as KeyRoutedEventArgs;
             if (e.Key == (VirtualKey) Enum.Parse(typeof(VirtualKey), Key))
             {
-
                 KeyboardCapabilities keyboardCapabilities = new KeyboardCapabilities();
                 if (keyboardCapabilities.KeyboardPresent > 0)
                 {
@@ -43,9 +42,9 @@ namespace Quarrel.Xaml.Behaviors
                 {
                     Command.Execute(null);
                 }
+                //e.Handled = true;
             }
 
-            e.Handled = true;
             return null;
         }
 
