@@ -57,7 +57,7 @@
 
         <local:SideDrawer x:Name="ContentContainer" Grid.Row="2">
             <local:SideDrawer.ContentLeft>
-                <views:GuildView/>
+                <views:GuildListControl/>
             </local:SideDrawer.ContentLeft>
             <local:SideDrawer.ContentLeftSecondary>
                 <Grid>
@@ -67,7 +67,7 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <views:ChannelView/>
+                    <views:ChannelListControl/>
 
                     <local:VoiceConnection Grid.Row="1"/>
 
@@ -84,11 +84,11 @@
                     <local:QuarrelCommandBar x:Name="LargeViewCommandBar" x:Load="{x:Bind IsViewLarge, Mode=OneWay}" Canvas.ZIndex="1" Background="{StaticResource AcrylicMessageBackground}"
                                              HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked" ShowHamburger="True"/>
 
-                    <views:MessageView Grid.Row="1"/>
+                    <views:MessageListControl Grid.Row="1"/>
                 </Grid>
             </local:SideDrawer.ContentMain>
             <local:SideDrawer.ContentRight>
-                <views:MemberView/>
+                <views:MemberListControl/>
             </local:SideDrawer.ContentRight>
         </local:SideDrawer>
     </Grid>

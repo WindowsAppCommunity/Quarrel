@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Quarrel.Views.MessageView"
+    x:Class="Quarrel.Views.MessageListControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Quarrel.Views"
@@ -28,9 +28,6 @@
         </DataTemplate>
     </UserControl.Resources>
     
-    <UserControl.DataContext>
-        <viewModels:MessageViewModel x:Name="ViewModel"/>
-    </UserControl.DataContext>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -39,7 +36,7 @@
         </Grid.RowDefinitions>
 
         <ListView x:Name="MessageList"
-                  ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}" Padding="0,0,0,16"
+                  ItemsSource="{x:Bind ViewModel.BindableMessages, Mode=OneWay}" Padding="0,0,0,16"
                   ItemTemplateSelector="{StaticResource MessageTemplateSelector}"
                   SelectionMode="None" IsItemClickEnabled="False" ItemContainerStyle="{StaticResource MessageListItemStyle}">
             <ListView.ItemsPanel>

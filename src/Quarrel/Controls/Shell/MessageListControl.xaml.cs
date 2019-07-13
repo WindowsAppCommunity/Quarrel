@@ -24,9 +24,9 @@ using DiscordAPI.Models;
 
 namespace Quarrel.Views
 {
-    public sealed partial class MessageView : UserControl
+    public sealed partial class MessageListControl : UserControl
     {
-        public MessageView()
+        public MessageListControl()
         {
             this.InitializeComponent();
             ViewModel.ScrollTo += ViewModel_ScrollTo;
@@ -35,6 +35,7 @@ namespace Quarrel.Views
                 _ItemsStackPanel.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepLastItemInView;
             });
         }
+        public MainViewModel ViewModel => (Application.Current.Resources["ViewModelLocator"] as ViewModelLocator).Main;
 
         private ItemsStackPanel _ItemsStackPanel;
         private ScrollViewer _MessageScrollViewer;
