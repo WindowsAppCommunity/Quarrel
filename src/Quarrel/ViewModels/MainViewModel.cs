@@ -112,7 +112,7 @@ namespace Quarrel.ViewModels
                 if (Channel != null && Channel.Model.Id == m.Message.ChannelId)
                     await DispatcherHelper.RunAsync(() =>
                     {
-                        BindableMessages.Add(new BindableMessage(m.Message, guildId, BindableMessages.LastOrDefault().Model));
+                        BindableMessages.Add(new BindableMessage(m.Message, guildId, BindableMessages.LastOrDefault()?.Model));
                     });
             });
             MessengerInstance.Register<GatewayMessageDeletedMessage>(this, async m =>
