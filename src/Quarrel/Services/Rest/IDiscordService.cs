@@ -26,7 +26,7 @@ namespace Quarrel.Services.Rest
     /// <summary>
     /// The default <see langword="interface"/> for the a service that executes REST calls to Discord
     /// </summary>
-    internal interface IDiscordService
+    public interface IDiscordService
     {
         /// <summary>
         /// Gets the current <see cref="User"/> instance, if present

@@ -28,9 +28,15 @@ namespace Quarrel.Services.Gateway
 {
     public class GatewayService : IGatewayService
     {
-        private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
-        private ICurrentUsersService currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+        private ICacheService CacheService;
+        private ICurrentUsersService CurrentUsersService;
         public DiscordAPI.Gateway.Gateway Gateway { get; private set; }
+
+        public GatewayService(ICacheService cacheService, ICurrentUsersService currentUsersService)
+        {
+            CacheService = cacheService;
+            CurrentUsersService = currentUsersService;
+        }
 
         public async void InitializeGateway([NotNull] string accessToken)
         {
@@ -101,7 +107,7 @@ namespace Quarrel.Services.Gateway
 
         private void Gateway_MessageCreated(object sender, GatewayEventArgs<Message> e)
         {
-            var currentUser = currentUsersService.CurrentUser.Model;
+            var currentUser = CurrentUsersService.CurrentUser.Model;
             var channel = Messenger.Default.Request<BindableChannelRequestMessage, BindableChannel>(new BindableChannelRequestMessage(e.EventData.ChannelId));
             if (channel.IsDirectChannel || channel.IsGroupChannel || e.EventData.Mentions.Contains(currentUser) || e.EventData.MentionEveryone)
                 channel.ReadState.MentionCount++;
@@ -148,14 +154,14 @@ namespace Quarrel.Services.Gateway
 
         private void Gateway_UserNoteUpdated(object sender, GatewayEventArgs<UserNote> e)
         {
-            cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Note, e.EventData.Note, e.EventData.UserId);
+            CacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Note, e.EventData.Note, e.EventData.UserId);
             Messenger.Default.Send(new GatewayNoteUpdatedMessage(e.EventData.UserId));
         }
 
         private void Gateway_UserSettingsUpdated(object sender, GatewayEventArgs<UserSettings> e)
         {
             Messenger.Default.Send(new GatewayUserSettingsUpdatedMessage(e.EventData));
-            Messenger.Default.Send(new GatewayPresenceUpdatedMessage(currentUsersService.CurrentUser.Model.Id, new Presence() { Status = e.EventData.Status}));
+            Messenger.Default.Send(new GatewayPresenceUpdatedMessage(CurrentUsersService.CurrentUser.Model.Id, new Presence() { Status = e.EventData.Status}));
         }
 
         #region Voice 

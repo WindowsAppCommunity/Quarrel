@@ -32,8 +32,8 @@ namespace Quarrel.Controls.Shell
 {
     public sealed partial class Shell : UserControl
     {
-        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
-        private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
+        //private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+       // private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
         public Shell()
         {
             this.InitializeComponent();
@@ -51,14 +51,14 @@ namespace Quarrel.Controls.Shell
                 ContentContainer.CloseLeft();
             });
 
-            Login();
+          //  Login();
         }
 
         private bool IsViewLarge
         {
             get => UISize.CurrentState == Large || UISize.CurrentState == ExtraLarge;
         }
-
+/*
         public async void Login()
         {
             var token = (string)(await cacheService.Persistent.Roaming.TryGetValueAsync<object>(Quarrel.Helpers.Constants.Cache.Keys.AccessToken));
@@ -71,7 +71,7 @@ namespace Quarrel.Controls.Shell
             {
                 discordService.Login(token);
             }
-        }
+        }*/
 
         private void UISize_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {

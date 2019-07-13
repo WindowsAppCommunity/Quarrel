@@ -27,11 +27,11 @@ namespace Quarrel.Services.Voice
     {
         #region Public Properties
 
-        public IAudioInService AudioInService { get; } = SimpleIoc.Default.GetInstance<IAudioInService>();
+        public IAudioInService AudioInService { get; }
 
-        public IAudioOutService AudioOutService { get; } = SimpleIoc.Default.GetInstance<IAudioOutService>();
+        public IAudioOutService AudioOutService { get; }
 
-        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private IDiscordService DiscordService { get; }
 
         #endregion
 
@@ -45,8 +45,12 @@ namespace Quarrel.Services.Voice
 
         #region Constructor
 
-        public VoiceService()
+        public VoiceService(IAudioInService audioInService, IAudioOutService audioOutService, IDiscordService discordService)
         {
+            AudioInService = audioInService;
+            AudioOutService = audioOutService;
+            DiscordService = discordService;
+
             Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, m =>
             {
                 if (VoiceStates.ContainsKey(m.VoiceState.UserId))
@@ -61,7 +65,7 @@ namespace Quarrel.Services.Voice
 
             Messenger.Default.Register<GatewayVoiceServerUpdateMessage>(this, m => 
             {
-                ConnectToVoiceChannel(m.VoiceServer, VoiceStates[discordService.CurrentUser.Id]);
+                ConnectToVoiceChannel(m.VoiceServer, VoiceStates[DiscordService.CurrentUser.Id]);
             });
 
             Messenger.Default.Register<GatewayReadyMessage>(this, m => 
