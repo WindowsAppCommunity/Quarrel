@@ -1,11 +1,12 @@
 ﻿<UserControl
-    x:Class="Quarrel.Views.ChannelView"
+    x:Class="Quarrel.Views.GuildListControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Quarrel.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:channelcontrol="using:Quarrel.Controls.Channels"
+    xmlns:guildcontrol="using:Quarrel.Controls.Guilds"
+    xmlns:models="using:Quarrel.Models.Bindables"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:helpers="using:Quarrel.Helpers"
@@ -14,22 +15,16 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <UserControl.DataContext>
-        <viewModels:ChannelViewModel x:Name="ViewModel" />
-    </UserControl.DataContext>
 
     <Grid>
-        <ListView x:Name="ChannelList"
-                  ItemsSource="{x:Bind ViewModel.Source}"
-                  ItemContainerStyle="{StaticResource ChannelListItemStyle}"
+        <ListView ItemsSource="{x:Bind ViewModel.BindableGuilds.Values, Mode=OneWay}"
+                  ItemContainerStyle="{StaticResource GuildListItemStyle}"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
                   IsItemClickEnabled="True"
-                  helpers:ItemClickCommand.Command="{x:Bind ViewModel.NavigateChannelCommand}">
-            <ListView.Header>
-                <channelcontrol:ChannelListHeader DataContext="{x:Bind ViewModel.Guild, Mode=OneWay}"/>
-            </ListView.Header>
+                  helpers:ItemClickCommand.Command="{x:Bind ViewModel.NavigateGuildCommand}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <channelcontrol:ChannelTemplate/>
+                    <guildcontrol:GuildTemplate/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Quarrel"
     xmlns:Windows10version1903="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 8)"
-    xmlns:rykenUI="using:Ryken.UI">
+    xmlns:rykenUI="using:Ryken.UI"
+    xmlns:viewModels="using:Quarrel.ViewModels">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
@@ -91,6 +92,7 @@
                     <x:Double x:Key="AppBarButtonContentHeight">20</x:Double>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
+            <viewModels:ViewModelLocator x:Key="ViewModelLocator" />
             <Color x:Key="BlurpleColor">#7289DA</Color>
 
             <ResourceDictionary.MergedDictionaries>
