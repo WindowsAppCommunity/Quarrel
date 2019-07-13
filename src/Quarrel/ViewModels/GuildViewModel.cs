@@ -69,6 +69,8 @@ namespace Quarrel.ViewModels
 
                             if (readStates.ContainsKey(bChannel.Model.Id))
                                 bChannel.ReadState = readStates[bChannel.Model.Id];
+
+                            _ChannelDictionary.Add(bChannel.Model.Id, bChannel);
                         }
 
                         // Sort by last message timestamp
@@ -111,6 +113,7 @@ namespace Quarrel.ViewModels
                                 bChannel.ReadState = readStates[bChannel.Model.Id];
 
                             bGuild.Channels.Add(bChannel);
+                            _ChannelDictionary.Add(bChannel.Model.Id, bChannel);
                         }
 
                         bGuild.Channels = bGuild.Channels.OrderBy(x => x.AbsolutePostion).ToList();
@@ -153,18 +156,12 @@ namespace Quarrel.ViewModels
 
             Messenger.Default.Register<BindableGuildRequestMessage>(this, m => m.ReportResult(Source[m.GuildId]));
 
-            Messenger.Default.Register<BindableChannelRequestMessage>(this, m =>
-            {
-                foreach (var guild in Source.Values)
-                {
-                    var chn = guild.Channels.FirstOrDefault(x => x.Model.Id == m.ChannelId);
-                    if (chn != null)
-                        m.ReportResult(chn);
-                }
-            });
+            Messenger.Default.Register<BindableChannelRequestMessage>(this, m => m.ReportResult(_ChannelDictionary[m.ChannelId]));
         }
 
         public ObservableHashedCollection<string, BindableGuild> Source { get; private set; } = new ObservableHashedCollection<string, BindableGuild>(new List<KeyValuePair<string, BindableGuild>>());
+
+        Dictionary<string, BindableChannel> _ChannelDictionary = new Dictionary<string, BindableChannel>();
 
         private RelayCommand<BindableGuild> navigateGuildCommand;
 
