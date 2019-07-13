@@ -141,6 +141,9 @@
     <Compile Include="Controls\Guilds\GuildTemplate.xaml.cs">
       <DependentUpon>GuildTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Guilds\MutualGuildTemplate.xaml.cs">
+      <DependentUpon>MutualGuildTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\CodeColorizerBase.cs" />
     <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Common\ExtensionMethods.cs" />
     <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Common\Guard.cs" />
@@ -315,6 +318,7 @@
     <Compile Include="Extensions\DiscordAPI.Gateway.DownstreamEvents\ReadyExtensions.cs" />
     <Compile Include="Extensions\DiscordAPI.Models\GuildMemberChunkExtensions.cs" />
     <Compile Include="Extensions\DiscordAPI.Models\GuildSyncExtensions.cs" />
+    <Compile Include="Extensions\DiscordAPI.Models\MutualGuildExtensions.cs" />
     <Compile Include="Extensions\GalaSoft.MvvmLight.Messaging\MessengerExtensions.cs" />
     <Compile Include="Extensions\System.Collections.Generic\HashedCollection.cs" />
     <Compile Include="Extensions\System.Collections.Generic\IEnumerableExtensions.cs" />
@@ -352,13 +356,13 @@
     <Compile Include="Messages\Navigation\SubFrame\SubFrameCloseRequestMessage.cs" />
     <Compile Include="Messages\Navigation\SubFrame\SubFrameContentUnlockedMessage.cs" />
     <Compile Include="Messages\Navigation\SubFrame\SubFrameNavigationRequestMessage.cs" />
-    <Compile Include="Messages\Requests\BindableGuildRequestMessage.cs" />
-    <Compile Include="Messages\Requests\BindableUserRequestMessage.cs" />
-    <Compile Include="Messages\Requests\CurrentGuildRequestMessage.cs" />
-    <Compile Include="Messages\Requests\CurrentMemberListRequestMessage.cs" />
-    <Compile Include="Messages\Requests\CurrentUserRequestMessage.cs" />
-    <Compile Include="Messages\Requests\BindableChannelRequestMessage.cs" />
-    <Compile Include="Messages\Requests\CurrentUserVoiceStateRequestMessage.cs" />
+    <Compile Include="Messages\Posts.Requests\BindableGuildRequestMessage.cs" />
+    <Compile Include="Messages\Posts.Requests\BindableUserRequestMessage.cs" />
+    <Compile Include="Messages\Posts.Requests\CurrentGuildRequestMessage.cs" />
+    <Compile Include="Messages\Posts.Requests\CurrentMemberListRequestMessage.cs" />
+    <Compile Include="Messages\Posts.Requests\CurrentUserRequestMessage.cs" />
+    <Compile Include="Messages\Posts.Requests\BindableChannelRequestMessage.cs" />
+    <Compile Include="Messages\Posts.Requests\CurrentUserVoiceStateRequestMessage.cs" />
     <Compile Include="Messages\Services\Settings\SettingChangedMessage.cs" />
     <Compile Include="Messages\Voice\SpeakMessage.cs" />
     <Compile Include="Models\Bindables\Abstract\BindableModelBase.cs" />
@@ -481,6 +485,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Guilds\GuildTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Guilds\MutualGuildTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

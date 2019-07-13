@@ -13,10 +13,10 @@ namespace DiscordAPI.Models
     {
         [JsonProperty("nick")]
         public string Nick { get; set; }
+
         [JsonProperty("id")]
         public string Id { get; set; }
-        public string Name { get; set; }
-        public string ImagePath { get; set; }
-        public Visibility NickVisibility { get; set; }
+
+        public Visibility NickVisibility { get => !string.IsNullOrEmpty(Nick) ? Visibility.Visible : Visibility.Collapsed; }
     }
 }
