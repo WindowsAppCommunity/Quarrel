@@ -28,6 +28,7 @@ namespace Quarrel.Controls
             {
                 if ((e.NewValue is Game game) && game.TimeStamps != null)
                 {
+                    Timer.Interval = new TimeSpan(10000);
                     Timer.Tick += Timer_Tick;
                     Timer.Start();
                 }else
