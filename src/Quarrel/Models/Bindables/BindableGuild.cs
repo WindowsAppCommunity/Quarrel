@@ -9,11 +9,17 @@ using System.Linq;
 using Quarrel.Models.Bindables.Abstract;
 using Quarrel.Models.Interfaces;
 using Windows.UI.Notifications;
+using GalaSoft.MvvmLight.Messaging;
+using Quarrel.Messages.Posts.Requests;
+using Quarrel.Services.Rest;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace Quarrel.Models.Bindables
 {
     public class BindableGuild : BindableModelBase<Guild>, IGuild
     {
+        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+
         public BindableGuild([NotNull] Guild model) : base(model)
         {
             _Channels = new List<BindableChannel>();
@@ -25,6 +31,24 @@ namespace Quarrel.Models.Bindables
         {
             get  => _Channels;
             set => Set(ref _Channels, value);
+        }
+
+        // Order
+        // Add allows for @everyone role
+        // Add allows for each role
+        public Permissions Permissions
+        {
+            get
+            {
+                // TODO: Calculate once and store
+                Permissions perms = new Permissions(Model.Roles.FirstOrDefault().Permissions);
+                var user = Messenger.Default.Request<BindableGuildMemberRequestMessage, BindableGuildMember>(new BindableGuildMemberRequestMessage(discordService.CurrentUser.Id));
+                foreach (var role in user.Roles)
+                {
+                    perms.AddAllows((GuildPermission)role.Permissions);
+                }
+                return perms;
+            }
         }
 
         public bool IsDM
