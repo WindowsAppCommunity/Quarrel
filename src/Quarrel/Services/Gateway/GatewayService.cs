@@ -53,6 +53,7 @@ namespace Quarrel.Services.Gateway
             Gateway.MessageAck += Gateway_MessageAck;
 
             Gateway.GuildChannelCreated += Gateway_GuildChannelCreated;
+            Gateway.GuildChannelDeleted += Gateway_GuildChannelDeleted;
 
             Gateway.PresenceUpdated += Gateway_PresenceUpdated;
             Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
@@ -84,10 +85,6 @@ namespace Quarrel.Services.Gateway
             });
         }
 
-        private void Gateway_GuildChannelCreated(object sender, GatewayEventArgs<GuildChannel> e)
-        {
-            Messenger.Default.Send(new GatewayGuildChannelCreatedMessage(e.EventData));
-        }
 
         #region Events
 
@@ -126,6 +123,19 @@ namespace Quarrel.Services.Gateway
         {
             Messenger.Default.Request<BindableChannelRequestMessage, BindableChannel>(new BindableChannelRequestMessage(e.EventData.ChannelId)).UpdateLRMID(e.EventData.Id);
             Messenger.Default.Send(new GatewayMessageAckMessage(e.EventData.ChannelId, e.EventData.Id));
+        }
+
+        #endregion
+
+        #region Channels
+        private void Gateway_GuildChannelCreated(object sender, GatewayEventArgs<GuildChannel> e)
+        {
+            Messenger.Default.Send(new GatewayGuildChannelCreatedMessage(e.EventData));
+        }
+
+        private void Gateway_GuildChannelDeleted(object sender, GatewayEventArgs<GuildChannel> e)
+        {
+            Messenger.Default.Send(new GatewayGuildChannelDeletedMessage(e.EventData));
         }
 
         #endregion

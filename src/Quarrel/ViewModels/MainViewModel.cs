@@ -157,6 +157,14 @@ namespace Quarrel.ViewModels
                     }
                 });
             });
+            Messenger.Default.Register<GatewayGuildChannelDeletedMessage>(this, async m =>
+            {
+                await DispatcherHelper.RunAsync(() =>
+                {
+                    BindableGuilds[m.Channel.GuildId].Channels.Remove(_ChannelDictionary[m.Channel.Id]);
+                    _ChannelDictionary.Remove(m.Channel.Id);
+                });
+            });
 
             Messenger.Default.Register<GatewayReadyMessage>(this, async m =>
             {
