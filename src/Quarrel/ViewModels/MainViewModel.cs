@@ -211,7 +211,9 @@ namespace Quarrel.ViewModels
                         foreach (var channel in guild.Channels)
                         {
                             IEnumerable<VoiceState> state = guild.VoiceStates?.Where(x => x.ChannelId == channel.Id);
-                            BindableChannel bChannel = new BindableChannel(channel, state);
+                            BindableChannel bChannel = new BindableChannel(channel, state)
+
+                            bChannel.GuildId = guild.Id;
 
                             // Handle channel settings
                             ChannelOverride cSettings = cacheService.Runtime.TryGetValue<ChannelOverride>(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, channel.Id);
@@ -282,7 +284,7 @@ namespace Quarrel.ViewModels
 
         private string guildId
         {
-            get => Channel.Model is GuildChannel gChn ? gChn.GuildId : "DM";
+            get => Channel.GuildId;
         }
 
         private protected AsyncMutex SourceMutex { get; } = new AsyncMutex();
