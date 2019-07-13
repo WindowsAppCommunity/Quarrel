@@ -160,10 +160,10 @@ namespace Quarrel.Models.Bindables
             get
             {
                 if (IsCategory)
-                    return (ulong)Position << 32;
+                    return ((ulong)Position + 1) << 32;
                 else
                     return
-                        (ulong)ParentPostion << 32 |
+                        ((ulong)ParentPostion + 1) << 32 |
                         ((uint)(IsVoiceChannel ? 1 : 0) << 31) |
                         (uint)(Position + 1); ;
             }

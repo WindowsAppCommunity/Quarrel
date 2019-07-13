@@ -139,9 +139,12 @@ namespace Quarrel.ViewModels
                 await DispatcherHelper.RunAsync(() => 
                 {
                     var bChannel = new BindableChannel(m.Channel) { GuildId = m.Channel.GuildId };
-                    if (bChannel.Model.Type != 4)
+                    if (bChannel.Model.Type != 4 && bChannel.ParentId != null)
                     {
                         bChannel.ParentPostion = _ChannelDictionary[bChannel.ParentId].Position;
+                    } else if (bChannel.ParentId == null)
+                    {
+                        bChannel.ParentPostion = -1;
                     }
 
                     for (int i = 0; i < BindableGuilds[m.Channel.GuildId].Channels.Count; i++)
@@ -240,6 +243,8 @@ namespace Quarrel.ViewModels
                             // Find parent position
                             if (!string.IsNullOrEmpty(bChannel.ParentId))
                                 bChannel.ParentPostion = guild.Channels.First(x => x.Id == bChannel.ParentId).Position;
+                            else
+                                bChannel.ParentPostion = -1;
 
                             if (readStates.ContainsKey(bChannel.Model.Id))
                                 bChannel.ReadState = readStates[bChannel.Model.Id];
