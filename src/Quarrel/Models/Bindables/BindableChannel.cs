@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Models.Bindables.Abstract;
@@ -12,11 +13,14 @@ using GalaSoft.MvvmLight.Threading;
 using Quarrel.Messages.Gateway;
 using Quarrel.Services.Users;
 using Quarrel.Services.Voice;
+using Quarrel.Messages.Posts.Requests;
+using Quarrel.Services.Rest;
 
 namespace Quarrel.Models.Bindables
 {
     public class BindableChannel : BindableModelBase<Channel>
     {
+        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();  
         public IVoiceService VoiceService { get; } = SimpleIoc.Default.GetInstance<IVoiceService>();
 
         public BindableChannel([NotNull] Channel model, [CanBeNull] IEnumerable<VoiceState> states = null) : base(model)
@@ -47,6 +51,64 @@ namespace Quarrel.Models.Bindables
                         ConnectedUsers.Add(state.UserId, new BindableVoiceUser(state));
                     }
                 }
+            }
+        }
+
+        public BindableGuild Guild
+        {
+            get => Messenger.Default.Request<BindableGuildRequestMessage, BindableGuild>(new BindableGuildRequestMessage(GuildId));
+        }
+
+        // Order:
+        //  Guild Permsissions
+        //  Denies of @everyone
+        //  Allows of @everyone
+        //  All Role Denies
+        //  All Role Allows
+        //  Member denies
+        //  Member allows
+        public Permissions Permissions
+        {
+            get
+            {
+                // TODO: Calculate once and store
+                Permissions perms = Guild.Permissions.Clone();
+
+                var user = Guild.Model.Members.FirstOrDefault(x => x.User.Id == discordService.CurrentUser.Id); 
+
+                GuildPermission roleDenies = 0;
+                GuildPermission roleAllows = 0;
+                GuildPermission memberDenies = 0;
+                GuildPermission memberAllows = 0;
+                foreach (Overwrite overwrite in (Model as GuildChannel).PermissionOverwrites)
+                    if (overwrite.Id == GuildId)
+                    {
+                        perms.AddDenies((GuildPermission)overwrite.Deny);
+                        perms.AddAllows((GuildPermission)overwrite.Allow);
+                    }
+                    else if (overwrite.Type == "role" && user.Roles.Contains(overwrite.Id))
+                    {
+                        roleDenies |= (GuildPermission)overwrite.Deny;
+                        roleAllows |= (GuildPermission)overwrite.Allow;
+                    }
+                    else if (overwrite.Type == "member" && overwrite.Id == user.User.Id)
+                    {
+                        memberDenies |= (GuildPermission)overwrite.Deny;
+                        memberAllows |= (GuildPermission)overwrite.Allow;
+                    }
+
+                perms.AddDenies(roleDenies);
+                perms.AddAllows(roleAllows);
+                perms.AddDenies(memberDenies);
+                perms.AddAllows(memberAllows);
+
+                // If owner add admin
+                if (Guild.Model.OwnerId == user.User.Id)
+                {
+                    perms.AddAllows(GuildPermission.Administrator);
+                }
+
+                return perms;
             }
         }
 
@@ -105,6 +167,9 @@ namespace Quarrel.Models.Bindables
         #endregion
 
         #region Misc
+
+        public string GuildId;
+
         public string ParentId
         {
             get { return Model is GuildChannel gcModel ? (IsCategory ? gcModel.Id : gcModel.ParentId ) : null; }
@@ -138,7 +203,8 @@ namespace Quarrel.Models.Bindables
 
         public bool Hidden
         {
-            get => IsCategory ? false : _Collapsed;
+            get => (IsCategory ? false : _Collapsed) ||
+                !Permissions.ReadMessages;
         }
 
         public bool Collapsed
@@ -267,6 +333,9 @@ namespace Quarrel.Models.Bindables
 
         public async void UpdateLRMID(string id)
         {
+            if (ReadState == null)
+                ReadState = new ReadState();
+
             ReadState.LastMessageId = id;
             ReadState.MentionCount = 0;
             await DispatcherHelper.RunAsync(() =>
@@ -290,5 +359,6 @@ namespace Quarrel.Models.Bindables
             });
         }
         #endregion
+
     }
 }

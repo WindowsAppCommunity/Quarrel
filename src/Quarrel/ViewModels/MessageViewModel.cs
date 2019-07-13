@@ -124,7 +124,7 @@ namespace Quarrel.ViewModels
 
         private string guildId
         {
-            get => Channel.Model is GuildChannel gChn ? gChn.GuildId : "DM";
+            get => Channel.GuildId;
         }
 
         private BindableChannel _Channel;

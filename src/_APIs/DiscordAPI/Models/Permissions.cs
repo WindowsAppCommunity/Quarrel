@@ -247,6 +247,11 @@ namespace DiscordAPI.Models
             _perms &= ~set;
         }
 
+        public Permissions Clone()
+        {
+            return new Permissions(_perms);
+        }
+
         #endregion
 
         #region Helper Methods

@@ -98,6 +98,8 @@ namespace Quarrel.ViewModels
                             IEnumerable<VoiceState> state = guild.VoiceStates?.Where(x => x.ChannelId == channel.Id);
                             BindableChannel bChannel = new BindableChannel(channel, state);
 
+                            bChannel.GuildId = guild.Id;
+
                             // Handle channel settings
                             ChannelOverride cSettings = cacheService.Runtime.TryGetValue<ChannelOverride>(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, channel.Id);
                             if (cSettings != null)
