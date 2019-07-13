@@ -20,6 +20,7 @@ using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Quarrel.Models.Bindables;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services.Cache;
+using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
 using UICompositionAnimations.Helpers;
@@ -30,12 +31,14 @@ namespace Quarrel.Services.Gateway
     {
         private ICacheService CacheService;
         private ICurrentUsersService CurrentUsersService;
+        private IGuildsService GuildsService;
         public DiscordAPI.Gateway.Gateway Gateway { get; private set; }
 
-        public GatewayService(ICacheService cacheService, ICurrentUsersService currentUsersService)
+        public GatewayService(ICacheService cacheService, ICurrentUsersService currentUsersService, IGuildsService guildsService)
         {
             CacheService = cacheService;
             CurrentUsersService = currentUsersService;
+            GuildsService = guildsService;
         }
 
         public async void InitializeGateway([NotNull] string accessToken)
@@ -108,10 +111,14 @@ namespace Quarrel.Services.Gateway
         private void Gateway_MessageCreated(object sender, GatewayEventArgs<Message> e)
         {
             var currentUser = CurrentUsersService.CurrentUser.Model;
-            var channel = Messenger.Default.Request<BindableChannelRequestMessage, BindableChannel>(new BindableChannelRequestMessage(e.EventData.ChannelId));
-            if (channel.IsDirectChannel || channel.IsGroupChannel || e.EventData.Mentions.Contains(currentUser) || e.EventData.MentionEveryone)
-                channel.ReadState.MentionCount++;
-            channel.UpdateLMID(e.EventData.Id);
+            var channel = GuildsService.GetChannel(e.EventData.ChannelId);
+            if (channel != null)
+            {
+                if (channel.IsDirectChannel || channel.IsGroupChannel || e.EventData.Mentions.Contains(currentUser) ||
+                    e.EventData.MentionEveryone)
+                    channel.ReadState.MentionCount++;
+                channel.UpdateLMID(e.EventData.Id);
+            }
 
             if (e.EventData.User == null)
                 e.EventData.User = currentUser;
@@ -130,7 +137,7 @@ namespace Quarrel.Services.Gateway
 
         private void Gateway_MessageAck(object sender, GatewayEventArgs<MessageAck> e)
         {
-            Messenger.Default.Request<BindableChannelRequestMessage, BindableChannel>(new BindableChannelRequestMessage(e.EventData.ChannelId)).UpdateLRMID(e.EventData.Id);
+            GuildsService.GetChannel(e.EventData.ChannelId)?.UpdateLRMID(e.EventData.Id);
             Messenger.Default.Send(new GatewayMessageAckMessage(e.EventData.ChannelId, e.EventData.Id));
         }
 

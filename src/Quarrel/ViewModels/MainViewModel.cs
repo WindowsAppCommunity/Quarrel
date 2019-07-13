@@ -19,6 +19,7 @@ using Quarrel.Messages.Posts.Requests;
 using Quarrel.Models.Bindables;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Gateway;
+using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
 
@@ -30,13 +31,15 @@ namespace Quarrel.ViewModels
         private IDiscordService DiscordService;
         public ICurrentUsersService CurrentUsersService;
         private IGatewayService GatewayService;
+        private IGuildsService GuildsService;
 
-        public MainViewModel(ICacheService cacheService, IDiscordService discordService, ICurrentUsersService currentUsersService, IGatewayService gatewayService)
+        public MainViewModel(ICacheService cacheService, IDiscordService discordService, ICurrentUsersService currentUsersService, IGatewayService gatewayService, IGuildsService guildsService)
         {
             CacheService = cacheService;
             DiscordService = discordService;
             CurrentUsersService = currentUsersService;
             GatewayService = gatewayService;
+            GuildsService = guildsService;
 
             currentUsersService.Users.CollectionChanged += CollectionChangedMethod;
             RegisterMessage();
@@ -145,14 +148,14 @@ namespace Quarrel.ViewModels
                     });
                 }
             });
-            Messenger.Default.Register<GatewayGuildChannelCreatedMessage>(this, async m =>
+            MessengerInstance.Register<GatewayGuildChannelCreatedMessage>(this, async m =>
             {
                 await DispatcherHelper.RunAsync(() => 
                 {
                     var bChannel = new BindableChannel(m.Channel) { GuildId = m.Channel.GuildId };
                     if (bChannel.Model.Type != 4 && bChannel.ParentId != null)
                     {
-                        bChannel.ParentPostion = _ChannelDictionary[bChannel.ParentId].Position;
+                        bChannel.ParentPostion = GuildsService.CurrentChannels[bChannel.ParentId].Position;
                     } else if (bChannel.ParentId == null)
                     {
                         bChannel.ParentPostion = -1;
@@ -168,12 +171,10 @@ namespace Quarrel.ViewModels
                     }
                 });
             });
-
-            Messenger.Default.Register<GatewayReadyMessage>(this, async m =>
-
+            MessengerInstance.Register<GatewayReadyMessage>(this, async m =>
             {
                 await DispatcherHelper.RunAsync(() =>
-                {
+                {   
                     #region Settings
 
                     foreach (var gSettings in m.EventData.GuildSettings)
@@ -217,7 +218,7 @@ namespace Quarrel.ViewModels
                             if (readStates.ContainsKey(bChannel.Model.Id))
                                 bChannel.ReadState = readStates[bChannel.Model.Id];
 
-                            _ChannelDictionary.Add(bChannel.Model.Id, bChannel);
+                            GuildsService.RegisterChannel(bChannel, bChannel.Model.Id);
                         }
 
                         // Sort by last message timestamp
@@ -262,7 +263,7 @@ namespace Quarrel.ViewModels
                                 bChannel.ReadState = readStates[bChannel.Model.Id];
 
                             bGuild.Channels.Add(bChannel);
-                            _ChannelDictionary.Add(bChannel.Model.Id, bChannel);
+                            GuildsService.RegisterChannel(bChannel, bChannel.Model.Id);
                         }
 
                         bGuild.Channels = new ObservableCollection<BindableChannel>(bGuild.Channels.OrderBy(x => x.AbsolutePostion).ToList());
@@ -313,9 +314,6 @@ namespace Quarrel.ViewModels
                     _PresenceDictionary.Add(m.UserId, m.Presence);
                 }
             });
-            MessengerInstance.Register<BindableGuildRequestMessage>(this, m => m.ReportResult(BindableGuilds[m.GuildId]));
-            MessengerInstance.Register<BindableChannelRequestMessage>(this, m => m.ReportResult(_ChannelDictionary[m.ChannelId]));
-            MessengerInstance.Register<CurrentGuildRequestMessage>(this, m => m.ReportResult(Guild));
             MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, async m =>
             {
 
@@ -324,12 +322,14 @@ namespace Quarrel.ViewModels
                     await DispatcherHelper.RunAsync(() => VoiceState = m.VoiceState);
                 }
             });
-
             MessengerInstance.Register<CurrentUserVoiceStateRequestMessage>(this, async m =>
             {
                 await DispatcherHelper.RunAsync(() => m.ReportResult(VoiceState));
             });
+
             MessengerInstance.Register<PresenceRequestMessage>(this, m => m.ReportResult(_PresenceDictionary.ContainsKey(m.UserId) ? _PresenceDictionary[m.UserId] : new Presence() { Status = "offline" }));
+            MessengerInstance.Register<BindableGuildRequestMessage>(this, m => m.ReportResult(BindableGuilds[m.GuildId]));
+            MessengerInstance.Register<CurrentGuildRequestMessage>(this, m => m.ReportResult(Guild));
 
         }
 
@@ -339,7 +339,6 @@ namespace Quarrel.ViewModels
             DiscordService.Login(token);
         }
 
-        Dictionary<string, BindableChannel> _ChannelDictionary = new Dictionary<string, BindableChannel>();
 
         Dictionary<string, Presence> _PresenceDictionary = new Dictionary<string, Presence>();
 
