@@ -11,6 +11,7 @@
     xmlns:relationconvert="using:Quarrel.Converters.Profile.Relationships"
     xmlns:discord="using:Quarrel.Converters.Discord"
     xmlns:models="using:DiscordAPI.Models"
+    xmlns:controls="using:Quarrel.Controls"
     xmlns:guildcontrol="using:Quarrel.Controls.Guilds"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -71,7 +72,7 @@
                                 <Border.Background>
                                     <SolidColorBrush Opacity="0.5"/>
                                 </Border.Background>
-                                <!--<c:RichPresenceControl x:Name="richPresence" IsLarge="True"/>-->
+                                <controls:RichPresenceControl DataContext="{x:Bind ViewModel.Presence.Game}" Visibility="{x:Bind ViewModel.Presence.Game, Converter={StaticResource NotNullToVisibilityConverter}}"/>
                             </Border>
                             <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
                             <TextBox x:Uid="/Dialogs/NoteTBox" BorderThickness="0" x:Name="NoteBox" Style="{StaticResource TextBoxStyle1}" PlaceholderText="No Note" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>

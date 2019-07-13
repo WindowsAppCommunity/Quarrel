@@ -271,6 +271,9 @@
     <Compile Include="Controls\MyTubeEmbedWrapper.xaml.cs">
       <DependentUpon>MyTubeEmbedWrapper.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\RichPresenceControl.xaml.cs">
+      <DependentUpon>RichPresenceControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Shell\CurrentUserButton.xaml.cs">
       <DependentUpon>CurrentUserButton.xaml</DependentUpon>
     </Compile>
@@ -448,6 +451,21 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Connections\battlenet.png" />
+    <Content Include="Assets\Connections\facebook.png" />
+    <Content Include="Assets\Connections\leagueoflegends.png" />
+    <Content Include="Assets\Connections\patreon.png" />
+    <Content Include="Assets\Connections\reddit.png" />
+    <Content Include="Assets\Connections\skype.png" />
+    <Content Include="Assets\Connections\spotify.png" />
+    <Content Include="Assets\Connections\steam_dark.png" />
+    <Content Include="Assets\Connections\steam_light.png" />
+    <Content Include="Assets\Connections\twitch.png" />
+    <Content Include="Assets\Connections\twitter.png" />
+    <Content Include="Assets\Connections\xbox.png" />
+    <Content Include="Assets\Connections\xbox_dark.png" />
+    <Content Include="Assets\Connections\xbox_light.png" />
+    <Content Include="Assets\Connections\youtube.png" />
     <Content Include="Assets\DefaultAvatars\Group_dark.png" />
     <Content Include="Assets\DefaultAvatars\Group_light.png" />
     <Content Include="Assets\DefaultAvatars\QuarrelClassicIcon.png" />
@@ -544,6 +562,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MyTubeEmbedWrapper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RichPresenceControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
