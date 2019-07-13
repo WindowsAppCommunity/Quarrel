@@ -17,7 +17,7 @@
 
     <Grid>
         <ListView x:Name="ChannelList"
-                  ItemsSource="{x:Bind ViewModel.BindableChannels}"
+                  ItemsSource="{x:Bind ViewModel.BindableChannels, Mode=OneWay}"
                   ItemContainerStyle="{StaticResource ChannelListItemStyle}"
                   IsItemClickEnabled="True"
                   helpers:ItemClickCommand.Command="{x:Bind ViewModel.NavigateChannelCommand}">

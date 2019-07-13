@@ -40,13 +40,8 @@ namespace Quarrel.ViewModels
                     await DispatcherHelper.RunAsync(() =>
                     {
                         Guild = m.Guild;
-                        BindableChannels.Clear();
-
-                        var itemList = m.Guild.Channels;
-                        foreach (var item in itemList)
-                        {
-                            BindableChannels.Add(item);
-                        }
+                        BindableChannels = m.Guild.Channels;
+                        RaisePropertyChanged(nameof(BindableChannels));
                     });
                 }
             });
@@ -138,6 +133,28 @@ namespace Quarrel.ViewModels
                     });
                 }
             });
+
+            Messenger.Default.Register<GatewayGuildChannelCreatedMessage>(this, async m =>
+            {
+                await DispatcherHelper.RunAsync(() => 
+                {
+                    var bChannel = new BindableChannel(m.Channel) { GuildId = m.Channel.GuildId };
+                    if (bChannel.Model.Type != 4)
+                    {
+                        bChannel.ParentPostion = _ChannelDictionary[bChannel.ParentId].Position;
+                    }
+
+                    for (int i = 0; i < BindableGuilds[m.Channel.GuildId].Channels.Count; i++)
+                    {
+                        if (BindableGuilds[m.Channel.GuildId].Channels[i].AbsolutePostion > bChannel.AbsolutePostion)
+                        {
+                            BindableGuilds[m.Channel.GuildId].Channels.Insert(i, bChannel);
+                            break;
+                        }
+                    }
+                });
+            });
+
             Messenger.Default.Register<GatewayReadyMessage>(this, async m =>
             {
                 await DispatcherHelper.RunAsync(() =>
@@ -189,7 +206,7 @@ namespace Quarrel.ViewModels
                         }
 
                         // Sort by last message timestamp
-                        dmGuild.Channels = dmGuild.Channels.OrderByDescending(x => Convert.ToUInt64(x.Model.LastMessageId)).ToList();
+                        dmGuild.Channels = new ObservableCollection<BindableChannel>(dmGuild.Channels.OrderByDescending(x => Convert.ToUInt64(x.Model.LastMessageId)).ToList());
                     }
 
 
@@ -212,9 +229,7 @@ namespace Quarrel.ViewModels
                         {
                             IEnumerable<VoiceState> state = guild.VoiceStates?.Where(x => x.ChannelId == channel.Id);
                             BindableChannel bChannel = new BindableChannel(channel, state);
-
                             bChannel.GuildId = guild.Id;
-
                             // Handle channel settings
                             ChannelOverride cSettings = cacheService.Runtime.TryGetValue<ChannelOverride>(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, channel.Id);
                             if (cSettings != null)
@@ -233,7 +248,7 @@ namespace Quarrel.ViewModels
                             _ChannelDictionary.Add(bChannel.Model.Id, bChannel);
                         }
 
-                        bGuild.Channels = bGuild.Channels.OrderBy(x => x.AbsolutePostion).ToList();
+                        bGuild.Channels = new ObservableCollection<BindableChannel>(bGuild.Channels.OrderBy(x => x.AbsolutePostion).ToList());
 
                         bGuild.Model.Channels = null;
 
