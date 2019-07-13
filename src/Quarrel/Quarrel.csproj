@@ -347,8 +347,9 @@
     <Compile Include="Messages\Abstract\RequestMessageBase{T1,T2}.cs" />
     <Compile Include="Messages\Abstract\RequestMessageBase{T}.cs" />
     <Compile Include="Messages\Abstract\ValueChangedMessageBase.cs" />
+    <Compile Include="Messages\Gateway\Channels\GatewayChannelCreatedMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayGuildSyncMessage.cs" />
-    <Compile Include="Messages\Gateway\GatewaysSessionReplacedMessage.cs" />
+    <Compile Include="Messages\Gateway\GatewaySessionReplacedMessage.cs" />
     <Compile Include="Messages\Gateway\Messages\GatewayMessageAckMessage.cs" />
     <Compile Include="Messages\Gateway\Messages\GatewayMessageDeletedMessage.cs" />
     <Compile Include="Messages\Gateway\Messages\GatewayMessageRecievedMessage.cs" />

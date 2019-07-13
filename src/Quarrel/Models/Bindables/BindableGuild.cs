@@ -15,6 +15,7 @@ using Quarrel.Services.Rest;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Messages.Gateway;
 using UICompositionAnimations.Helpers;
+using System.Collections.ObjectModel;
 
 namespace Quarrel.Models.Bindables
 {
@@ -24,7 +25,7 @@ namespace Quarrel.Models.Bindables
 
         public BindableGuild([NotNull] Guild model) : base(model)
         {
-            _Channels = new List<BindableChannel>();
+            _Channels = new ObservableCollection<BindableChannel>();
 
             MessengerInstance.Register<GatewayMessageRecievedMessage>(this, async m =>
             {
@@ -45,9 +46,9 @@ namespace Quarrel.Models.Bindables
             });
         }
 
-        private List<BindableChannel> _Channels;
+        private ObservableCollection<BindableChannel> _Channels;
 
-        public List<BindableChannel> Channels
+        public ObservableCollection<BindableChannel> Channels
         {
             get  => _Channels;
             set => Set(ref _Channels, value);

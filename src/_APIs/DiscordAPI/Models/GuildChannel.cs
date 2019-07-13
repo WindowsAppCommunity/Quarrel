@@ -9,6 +9,8 @@ namespace DiscordAPI.Models
 {
     public class GuildChannel : Channel
     {
+        [JsonProperty("guild_id")]
+        public string GuildId { get; set; }
 
         [JsonProperty("parent_id")]
         public string ParentId { get; set; }

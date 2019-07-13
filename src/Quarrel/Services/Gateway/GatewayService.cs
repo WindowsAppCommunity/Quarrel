@@ -58,6 +58,8 @@ namespace Quarrel.Services.Gateway
             Gateway.MessageUpdated += Gateway_MessageUpdated;
             Gateway.MessageAck += Gateway_MessageAck;
 
+            Gateway.GuildChannelCreated += Gateway_GuildChannelCreated;
+
             Gateway.PresenceUpdated += Gateway_PresenceUpdated;
             Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
             Gateway.UserSettingsUpdated += Gateway_UserSettingsUpdated;
@@ -86,6 +88,11 @@ namespace Quarrel.Services.Gateway
 
                 await Gateway.SubscribeToGuild(idList.ToArray());
             });
+        }
+
+        private void Gateway_GuildChannelCreated(object sender, GatewayEventArgs<GuildChannel> e)
+        {
+            Messenger.Default.Send(new GatewayGuildChannelCreatedMessage(e.EventData));
         }
 
         #region Events
@@ -171,7 +178,7 @@ namespace Quarrel.Services.Gateway
 
         private void Gateway_SessionReplaced(object sender, GatewayEventArgs<SessionReplace[]> e)
         {
-            Messenger.Default.Send(new GatewaysSessionReplacedMessage(e.EventData));
+            Messenger.Default.Send(new GatewaySessionReplacedMessage(e.EventData));
         }
 
         #endregion
