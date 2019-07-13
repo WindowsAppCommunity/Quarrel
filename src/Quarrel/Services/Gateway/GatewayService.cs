@@ -165,7 +165,7 @@ namespace Quarrel.Services.Gateway
 
         private void Gateway_SessionReplaced(object sender, GatewayEventArgs<SessionReplace[]> e)
         {
-            Messenger.Default.Send(new GatewaysSessionReplacedMessage(e.EventData));
+            Messenger.Default.Send(new GatewaySessionReplacedMessage(e.EventData));
         }
 
         #endregion

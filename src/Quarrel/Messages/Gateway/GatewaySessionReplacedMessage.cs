@@ -7,11 +7,11 @@ using DiscordAPI.Gateway.DownstreamEvents;
 
 namespace Quarrel.Messages.Gateway
 {
-    public sealed class GatewaysSessionReplacedMessage
+    public sealed class GatewaySessionReplacedMessage
     {
         public SessionReplace[] Session { get; }
 
-        public GatewaysSessionReplacedMessage(SessionReplace[] session)
+        public GatewaySessionReplacedMessage(SessionReplace[] session)
         {
             Session = session;
         }

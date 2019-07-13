@@ -162,7 +162,7 @@ namespace Quarrel.Services.Users
                 });
             });
 
-            Messenger.Default.Register<GatewaysSessionReplacedMessage>(this, async m =>
+            Messenger.Default.Register<GatewaySessionReplacedMessage>(this, async m =>
             {
                 await DispatcherHelper.RunAsync(() =>
                 {
