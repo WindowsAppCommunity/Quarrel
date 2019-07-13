@@ -26,7 +26,7 @@ namespace Quarrel.Models.Bindables
         {
             _Channels = new List<BindableChannel>();
 
-            Messenger.Default.Register<GatewayMessageRecievedMessage>(this, async m =>
+            MessengerInstance.Register<GatewayMessageRecievedMessage>(this, async m =>
             {
                 await DispatcherHelper.RunAsync(() =>
                 {
@@ -35,7 +35,7 @@ namespace Quarrel.Models.Bindables
                 });
             });
 
-            Messenger.Default.Register<GatewayMessageAckMessage>(this, async m =>
+            MessengerInstance.Register<GatewayMessageAckMessage>(this, async m =>
             {
                 await DispatcherHelper.RunAsync(() =>
                 {

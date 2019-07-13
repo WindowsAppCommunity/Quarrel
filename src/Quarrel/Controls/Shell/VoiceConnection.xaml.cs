@@ -21,6 +21,7 @@ using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services.Gateway;
 using UICompositionAnimations.Helpers;
 using Quarrel.Services.Rest;
+using Quarrel.ViewModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -28,38 +29,11 @@ namespace Quarrel.Controls.Shell
 {
     public sealed partial class VoiceConnection : UserControl
     {
-        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
-        private IGatewayService gatewayService = SimpleIoc.Default.GetInstance<IGatewayService>();
+        public MainViewModel ViewModel => (Application.Current.Resources["ViewModelLocator"] as ViewModelLocator).Main;
 
         public VoiceConnection()
         {
             this.InitializeComponent();
-
-            Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, async m =>
-            {
-
-                if (m.VoiceState.UserId == discordService.CurrentUser.Id)
-                {
-                    await DispatcherHelper.RunAsync(() => DataContext = m.VoiceState);
-                }
-            });
-
-            Messenger.Default.Register<CurrentUserVoiceStateRequestMessage>(this, async m =>
-            {
-                await DispatcherHelper.RunAsync(() => m.ReportResult(ViewModel));
-            });
-
-            this.DataContextChanged += (s, e) =>
-            {
-                this.Bindings.Update();
-            };
-        }
-
-        VoiceState ViewModel => DataContext as VoiceState ?? new VoiceState() { };
-
-        private async void Disconnect(object sender, RoutedEventArgs e)
-        {
-            await gatewayService.Gateway.VoiceStatusUpdate(null, null, false, false);
         }
     }
 }

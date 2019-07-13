@@ -86,16 +86,16 @@ namespace Quarrel.Services.Users
 
     public class CurrentUsersService : ICurrentUsersService
     {
-        public ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
+        public ICacheService CacheService;
 
         public ObservableDictionary<string, BindableGuildMember> Users { get; } = new ObservableDictionary<string, BindableGuildMember>();
 
         public BindableUser CurrentUser { get; } = new BindableUser(new User());
         public string SessionId { get; set; }
 
-        public CurrentUsersService()
+        public CurrentUsersService(ICacheService cacheService)
         {
-
+            CacheService = cacheService;
             Messenger.Default.Register<GatewayGuildSyncMessage>(this, m =>
             {
 

@@ -59,10 +59,10 @@
                         <Button Style="{StaticResource DiscordButton}" Grid.Column="1" Content="Log out" Margin="4,0,0,0" Padding="12,6" HorizontalAlignment="Stretch" Background="{ThemeResource dnd}"/>
                     </Grid>-->
 
-                        <RadioButton x:Uid="/Main/OnlineRadio" IsChecked="{x:Bind ViewModel.Presence.IsOnline}" Foreground="#43b581" GroupName="status" Tag="online" Content="Online" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
-                        <RadioButton x:Uid="/Main/IdleRadio" IsChecked="{x:Bind ViewModel.Presence.IsIdle}" Foreground="#faa61a" GroupName="status" Tag="idle" Content="Idle" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
-                        <RadioButton x:Uid="/Main/DNDRadio" IsChecked="{x:Bind ViewModel.Presence.IsDnd}" Foreground="#f04747" GroupName="status" Tag="dnd" Content="Do not disturb" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
-                        <RadioButton x:Uid="/Main/InvisibleRadio" IsChecked="{x:Bind ViewModel.Presence.IsOffline}" Foreground="#747f8d" GroupName="status" Tag="invisible" Content="Invisible" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
+                        <RadioButton x:Uid="/Main/OnlineRadio" IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsOnline}" Foreground="#43b581" GroupName="status" Tag="online" Content="Online" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
+                        <RadioButton x:Uid="/Main/IdleRadio" IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsIdle}" Foreground="#faa61a" GroupName="status" Tag="idle" Content="Idle" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
+                        <RadioButton x:Uid="/Main/DNDRadio" IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsDnd}" Foreground="#f04747" GroupName="status" Tag="dnd" Content="Do not disturb" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
+                        <RadioButton x:Uid="/Main/InvisibleRadio" IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsOffline}" Foreground="#747f8d" GroupName="status" Tag="invisible" Content="Invisible" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
                     </StackPanel>
                 </Flyout>
             </Button.Flyout>
@@ -72,23 +72,23 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <controls:DropShadowPanel Color="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
+                <controls:DropShadowPanel Color="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
                                       HorizontalAlignment="Center" VerticalAlignment="Center" BlurRadius="24" Height="48" Width="48"
                                       Margin="12,6">
                     <Rectangle Height="40" Width="40"
                            RadiusX="20" RadiusY="20" HorizontalAlignment="Center">
                         <Rectangle.Fill>
-                            <ImageBrush ImageSource="{x:Bind ViewModel.Model.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                            <ImageBrush ImageSource="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Model.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                 </controls:DropShadowPanel>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <TextBlock Text="{x:Bind ViewModel.Model.Username, Mode=OneWay}"
+                    <TextBlock Text="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Model.Username, Mode=OneWay}"
                            FontWeight="SemiBold" FontSize="14"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="#" Opacity=".6" FontSize="12"/>
-                        <TextBlock Text="{x:Bind ViewModel.Model.Discriminator, Mode=OneWay}" Opacity="0.6" FontSize="12"/>
+                        <TextBlock Text="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Model.Discriminator, Mode=OneWay}" Opacity="0.6" FontSize="12"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
