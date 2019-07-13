@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,9 +26,26 @@ namespace Quarrel.Controls
             this.InitializeComponent();
             this.DataContextChanged += (s, e) =>
             {
+                if ((e.NewValue is Game game) && game.TimeStamps != null)
+                {
+                    Timer.Tick += Timer_Tick;
+                    Timer.Start();
+                }else
+                {
+                    Timer.Tick -= Timer_Tick;
+                    Timer.Stop();
+                }
+
                 this.Bindings.Update();
             };
         }
+
+        private void Timer_Tick(object sender, object e)
+        {
+            this.Bindings.Update();
+        }
+
+        DispatcherTimer Timer = new DispatcherTimer();
 
         public Game ViewModel => DataContext as Game;
     }

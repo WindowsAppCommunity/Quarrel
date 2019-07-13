@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,7 @@ namespace DiscordAPI.Models
         public string Url { get; set; }
 
         [JsonProperty("timestamps")]
-        public timestamps TimeStamps{get;set; }
+        public TimeStamps TimeStamps{get;set; }
 
         [JsonProperty("application_id")]
         public string ApplicationId { get; set; }
@@ -69,12 +70,25 @@ namespace DiscordAPI.Models
             return "https://cdn.discordapp.com/" + type + "-assets/" + gameid + "/" + id + ".png" + append;
         }
     }
-    public class timestamps
+    public class TimeStamps
     {
         [JsonProperty("start")]
         public long? Start;
+
         [JsonProperty("end")]
         public long? End;
+
+        [JsonIgnore]
+        public DateTimeOffset StartTime => Start.HasValue ? DateTimeOffset.FromUnixTimeMilliseconds(Start.Value) : new DateTime();
+
+        [JsonIgnore]
+        public DateTimeOffset EndTime => End.HasValue ? DateTimeOffset.FromUnixTimeMilliseconds(End.Value) : new DateTime();
+
+        [JsonIgnore]
+        public TimeSpan TimeElapsed => DateTime.Now - StartTime;
+
+        [JsonIgnore]
+        public TimeSpan TimeLeft => EndTime - DateTime.Now;
     }
     public class party
     {

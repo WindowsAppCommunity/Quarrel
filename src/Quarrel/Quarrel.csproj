@@ -299,6 +299,7 @@
     <Compile Include="Converters\Base\NotNullToBoolConverter.cs" />
     <Compile Include="Converters\Base\NotNullToVisibilityConverter.cs" />
     <Compile Include="Converters\Base\NullToVisibilityConverter.cs" />
+    <Compile Include="Converters\Base\TimeSpanToTextConverter.cs" />
     <Compile Include="Converters\Base\UriToImageSourceConverter.cs" />
     <Compile Include="Converters\Channel\MentionCountToVisiblityConverter.cs" />
     <Compile Include="Converters\Channel\TypeToBrushConverter.cs" />
@@ -338,6 +339,7 @@
     <Compile Include="Extensions\System\DateTimeExtensions.cs" />
     <Compile Include="Extensions\System\NumericExtensions.cs" />
     <Compile Include="Extensions\System\StringExtensions.cs" />
+    <Compile Include="Extensions\System\TimeSpanExtensions.cs" />
     <Compile Include="Extensions\Windows.UI.Xaml\UIExtensions.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\ItemClickCommand.cs" />
