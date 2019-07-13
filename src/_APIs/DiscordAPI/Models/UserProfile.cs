@@ -11,10 +11,19 @@ namespace DiscordAPI.Models
     {
         [JsonProperty("premium_since")]
         public DateTime? PremiumSince { get; set; }
+
         [JsonProperty("mutual_guilds")]
         public IEnumerable<MutualGuild> MutualGuilds { get; set; }
+
         public User user { get; set; }
-        public IEnumerable<ConnectedAccount> connected_accounts { get; set; }
+
+        [JsonProperty("connected_accounts")]
+        public IEnumerable<ConnectedAccount> ConnectedAccounts { get; set; }
+
+        [JsonIgnore]
+        public IEnumerable<SharedFriend> SharedFriends { get; set; }
+
+        [JsonIgnore]
         public Friend Friend { get; set; }
     }
 }

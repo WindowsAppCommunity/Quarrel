@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
@@ -15,6 +18,14 @@ namespace Quarrel.Converters.Base
             if (value is string sValue)
             {
                 v = !string.IsNullOrEmpty(sValue);
+            }
+            else if (value is ICollection cValue)
+            {
+                v = cValue.Count > 0;
+            }
+            else if (value is IEnumerable<object> eValue)
+            {
+                v = eValue.Count() > 0;
             }
             else
             {

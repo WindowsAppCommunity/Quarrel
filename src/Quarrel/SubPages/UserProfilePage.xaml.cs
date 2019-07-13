@@ -46,9 +46,15 @@ namespace Quarrel.SubPages
                 _Profile = await discordService.UserService.GetUserProfile(ViewModel.Model.User.Id);
             else
                 _Profile = new UserProfile() { user = ViewModel.Model.User };
+
             _Profile.Friend = cacheService.Runtime.TryGetValue<Friend>(Quarrel.Helpers.Constants.Cache.Keys.Friend, ViewModel.Model.User.Id);
+
             if (_Profile.Friend == null)
                 _Profile.Friend = new Friend() { Type = 0, Id = ViewModel.Model.User.Id, user = ViewModel.Model.User };
+
+            if (!ViewModel.Model.User.Bot)
+                _Profile.SharedFriends = await discordService.UserService.GetUserReleations(ViewModel.Model.User.Id);
+
             this.Bindings.Update();
         }
 
