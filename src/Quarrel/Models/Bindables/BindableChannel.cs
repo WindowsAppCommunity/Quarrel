@@ -71,44 +71,49 @@ namespace Quarrel.Models.Bindables
         {
             get
             {
-                // TODO: Calculate once and store
-                Permissions perms = Guild.Permissions.Clone();
-
-                var user = Guild.Model.Members.FirstOrDefault(x => x.User.Id == discordService.CurrentUser.Id); 
-
-                GuildPermission roleDenies = 0;
-                GuildPermission roleAllows = 0;
-                GuildPermission memberDenies = 0;
-                GuildPermission memberAllows = 0;
-                foreach (Overwrite overwrite in (Model as GuildChannel).PermissionOverwrites)
-                    if (overwrite.Id == GuildId)
-                    {
-                        perms.AddDenies((GuildPermission)overwrite.Deny);
-                        perms.AddAllows((GuildPermission)overwrite.Allow);
-                    }
-                    else if (overwrite.Type == "role" && user.Roles.Contains(overwrite.Id))
-                    {
-                        roleDenies |= (GuildPermission)overwrite.Deny;
-                        roleAllows |= (GuildPermission)overwrite.Allow;
-                    }
-                    else if (overwrite.Type == "member" && overwrite.Id == user.User.Id)
-                    {
-                        memberDenies |= (GuildPermission)overwrite.Deny;
-                        memberAllows |= (GuildPermission)overwrite.Allow;
-                    }
-
-                perms.AddDenies(roleDenies);
-                perms.AddAllows(roleAllows);
-                perms.AddDenies(memberDenies);
-                perms.AddAllows(memberAllows);
-
-                // If owner add admin
-                if (Guild.Model.OwnerId == user.User.Id)
+                if (Model is GuildChannel)
                 {
-                    perms.AddAllows(GuildPermission.Administrator);
-                }
 
-                return perms;
+                    // TODO: Calculate once and store
+                    Permissions perms = Guild.Permissions.Clone();
+
+                    var user = Guild.Model.Members.FirstOrDefault(x => x.User.Id == discordService.CurrentUser.Id);
+
+                    GuildPermission roleDenies = 0;
+                    GuildPermission roleAllows = 0;
+                    GuildPermission memberDenies = 0;
+                    GuildPermission memberAllows = 0;
+                    foreach (Overwrite overwrite in (Model as GuildChannel).PermissionOverwrites)
+                        if (overwrite.Id == GuildId)
+                        {
+                            perms.AddDenies((GuildPermission)overwrite.Deny);
+                            perms.AddAllows((GuildPermission)overwrite.Allow);
+                        }
+                        else if (overwrite.Type == "role" && user.Roles.Contains(overwrite.Id))
+                        {
+                            roleDenies |= (GuildPermission)overwrite.Deny;
+                            roleAllows |= (GuildPermission)overwrite.Allow;
+                        }
+                        else if (overwrite.Type == "member" && overwrite.Id == user.User.Id)
+                        {
+                            memberDenies |= (GuildPermission)overwrite.Deny;
+                            memberAllows |= (GuildPermission)overwrite.Allow;
+                        }
+
+                    perms.AddDenies(roleDenies);
+                    perms.AddAllows(roleAllows);
+                    perms.AddDenies(memberDenies);
+                    perms.AddAllows(memberAllows);
+
+                    // If owner add admin
+                    if (Guild.Model.OwnerId == user.User.Id)
+                    {
+                        perms.AddAllows(GuildPermission.Administrator);
+                    }
+
+                    return perms;
+                }
+                return new Permissions(int.MaxValue);
             }
         }
 
@@ -239,7 +244,7 @@ namespace Quarrel.Models.Bindables
 
         public bool ShowUnread
         {
-            get => IsUnread && !Muted;
+            get => IsUnread && !Muted && Permissions.ReadMessages;
         }
 
         public double TextOpacity

@@ -13,6 +13,8 @@ using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services.Rest;
 using GalaSoft.MvvmLight.Ioc;
+using Quarrel.Messages.Gateway;
+using UICompositionAnimations.Helpers;
 
 namespace Quarrel.Models.Bindables
 {
@@ -23,6 +25,16 @@ namespace Quarrel.Models.Bindables
         public BindableGuild([NotNull] Guild model) : base(model)
         {
             _Channels = new List<BindableChannel>();
+
+
+            Messenger.Default.Register<GatewayMessageAckMessage>(this, async m =>
+            {
+                await DispatcherHelper.RunAsync(() =>
+                {
+                    RaisePropertyChanged(nameof(NotificationCount));
+                    RaisePropertyChanged(nameof(IsUnread));
+                });
+            });
         }
 
         private List<BindableChannel> _Channels;

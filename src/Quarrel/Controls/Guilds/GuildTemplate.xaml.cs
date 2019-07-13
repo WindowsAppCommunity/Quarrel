@@ -27,11 +27,6 @@ namespace Quarrel.Controls.Guilds
         {
             this.InitializeComponent();
 
-            Messenger.Default.Register<GatewayMessageAckMessage>(this, async m =>
-            {
-                await DispatcherHelper.RunAsync(() => { this.Bindings.Update(); });
-            });
-
             this.DataContextChanged += (s, e) =>
             {
                 this.Bindings.Update();
