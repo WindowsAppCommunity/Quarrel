@@ -136,7 +136,6 @@ namespace Quarrel.Services.Gateway
 
         private void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
         {
-            cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, e.EventData, e.EventData.User.Id);
             Messenger.Default.Send(new GatewayPresenceUpdatedMessage(e.EventData.User.Id, e.EventData));
         }
 
@@ -148,9 +147,8 @@ namespace Quarrel.Services.Gateway
 
         private void Gateway_UserSettingsUpdated(object sender, GatewayEventArgs<UserSettings> e)
         {
-            cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = e.EventData.Status },
-                cacheService.Runtime.TryGetValue<BindableGuildMember>(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser).Model.User.Id);
             Messenger.Default.Send(new GatewayUserSettingsUpdatedMessage(e.EventData));
+            Messenger.Default.Send(new GatewayPresenceUpdatedMessage(currentUsersService.CurrentUser.Model.Id, new Presence() { Status = e.EventData.Status}));
         }
 
         #region Voice 

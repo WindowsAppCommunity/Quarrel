@@ -13,6 +13,8 @@ using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Rest;
+using GalaSoft.MvvmLight.Messaging;
+using Quarrel.Messages.Gateway;
 
 namespace DiscordAPI.Gateway.DownstreamEvents
 {
@@ -41,11 +43,10 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
             foreach (var presence in ready.Presences)
             {
-                cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, presence, presence.User.Id);
+                Messenger.Default.Send<GatewayPresenceUpdatedMessage>(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
             }
 
             #endregion
-
             #region Notes
 
             foreach (var note in ready.Notes)
@@ -67,7 +68,6 @@ namespace DiscordAPI.Gateway.DownstreamEvents
             #region Current User
 
             discordService.CurrentUser = ready.User;
-            cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = ready.Settings.Status }, ready.User.Id);
 
             #endregion
         }

@@ -371,6 +371,7 @@
     <Compile Include="Messages\Posts.Requests\CurrentUserRequestMessage.cs" />
     <Compile Include="Messages\Posts.Requests\BindableChannelRequestMessage.cs" />
     <Compile Include="Messages\Posts.Requests\CurrentUserVoiceStateRequestMessage.cs" />
+    <Compile Include="Messages\Posts.Requests\PresenceRequestMessage.cs" />
     <Compile Include="Messages\Services\Settings\SettingChangedMessage.cs" />
     <Compile Include="Messages\Voice\SpeakMessage.cs" />
     <Compile Include="Models\Bindables\Abstract\BindableModelBase.cs" />

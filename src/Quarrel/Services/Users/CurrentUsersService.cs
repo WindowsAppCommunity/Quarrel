@@ -106,7 +106,7 @@ namespace Quarrel.Services.Users
                     BindableGuildMember bGuildMember = new BindableGuildMember(member)
                     {
                         GuildId = m.GuildId,
-                        Presence = cacheService.Runtime.TryGetValue<Presence>(Helpers.Constants.Cache.Keys.Presence, member.User.Id) ?? new Presence() { Status = "offline", User = member.User }
+                        Presence = Messenger.Default.Request<PresenceRequestMessage, Presence>(new PresenceRequestMessage(member.User.Id))
                     };
                     Users.Add(member.User.Id, bGuildMember);
                 }
@@ -131,7 +131,7 @@ namespace Quarrel.Services.Users
                         CurrentUser.Presence = m.Presence;
                     }
 
-                    Users.TryGetValue(CurrentUser.Model.Id, out BindableGuildMember member);
+                    Users.TryGetValue(m.UserId, out BindableGuildMember member);
                     if(member != null)
                     {
                         member.Presence = m.Presence;

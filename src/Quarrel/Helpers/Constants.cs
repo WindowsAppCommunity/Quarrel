@@ -32,7 +32,7 @@ namespace Quarrel.Helpers
                 //public const string ChannelList = nameof(ChannelList);
 
                 //public const string ReadState = nameof(ReadState);
-                public const string Presence = nameof(Presence);
+                //public const string Presence = nameof(Presence);
 
                 public const string Friend = nameof(Friend);
 

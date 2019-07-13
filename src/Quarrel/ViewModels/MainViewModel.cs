@@ -254,7 +254,7 @@ namespace Quarrel.ViewModels
                         // Guild Presences
                         foreach (var presence in guild.Presences)
                         {
-                            cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, presence, presence.User.Id);
+                            Messenger.Default.Send<GatewayPresenceUpdatedMessage>(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
                         }
 
                         guildList.Add(bGuild);
@@ -270,15 +270,27 @@ namespace Quarrel.ViewModels
                     }
                 });
             });
+            Messenger.Default.Register<GatewayPresenceUpdatedMessage>(this, m =>
+            {
+                if (_PresenceDictionary.ContainsKey(m.UserId))
+                {
+                    _PresenceDictionary[m.UserId] = m.Presence;
+                }else
+                {
+                    _PresenceDictionary.Add(m.UserId, m.Presence);
+                }
+            });
+
 
             Messenger.Default.Register<BindableGuildRequestMessage>(this, m => m.ReportResult(BindableGuilds[m.GuildId]));
             Messenger.Default.Register<BindableChannelRequestMessage>(this, m => m.ReportResult(_ChannelDictionary[m.ChannelId]));
             Messenger.Default.Register<CurrentGuildRequestMessage>(this, m => m.ReportResult(Guild));
+            Messenger.Default.Register<PresenceRequestMessage>(this, m => m.ReportResult(_PresenceDictionary.ContainsKey(m.UserId) ? _PresenceDictionary[m.UserId] : new Presence() { Status = "offline"}));
         }
 
 
         Dictionary<string, BindableChannel> _ChannelDictionary = new Dictionary<string, BindableChannel>();
-
+        Dictionary<string, Presence> _PresenceDictionary = new Dictionary<string, Presence>();
 
         public event EventHandler<BindableMessage> ScrollTo;
 

@@ -13,6 +13,8 @@ using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Rest;
+using GalaSoft.MvvmLight.Messaging;
+using Quarrel.Messages.Gateway;
 
 namespace DiscordAPI.Models
 {
@@ -23,9 +25,9 @@ namespace DiscordAPI.Models
         {
             #region Presense
 
-            foreach(var presense in sync.Presences)
+            foreach(var presence in sync.Presences)
             {
-                cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, presense, presense.User.Id);
+                Messenger.Default.Send<GatewayPresenceUpdatedMessage>(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
             }
 
             #endregion
