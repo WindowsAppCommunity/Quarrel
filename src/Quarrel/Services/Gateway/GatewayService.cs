@@ -118,6 +118,7 @@ namespace Quarrel.Services.Gateway
         private void Gateway_MessageAck(object sender, GatewayEventArgs<MessageAck> e)
         {
             Messenger.Default.Request<BindableChannelRequestMessage, BindableChannel>(new BindableChannelRequestMessage(e.EventData.ChannelId)).UpdateLRMID(e.EventData.Id);
+            Messenger.Default.Send(new GatewayMessageAckMessage(e.EventData.ChannelId, e.EventData.Id));
         }
 
         #endregion

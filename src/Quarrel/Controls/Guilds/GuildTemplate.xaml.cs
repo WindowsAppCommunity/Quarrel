@@ -1,9 +1,12 @@
-﻿using Quarrel.Models.Bindables;
+﻿using GalaSoft.MvvmLight.Messaging;
+using Quarrel.Messages.Gateway;
+using Quarrel.Models.Bindables;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UICompositionAnimations.Helpers;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -23,6 +26,12 @@ namespace Quarrel.Controls.Guilds
         public GuildTemplate()
         {
             this.InitializeComponent();
+
+            Messenger.Default.Register<GatewayMessageAckMessage>(this, async m =>
+            {
+                await DispatcherHelper.RunAsync(() => { this.Bindings.Update(); });
+            });
+
             this.DataContextChanged += (s, e) =>
             {
                 this.Bindings.Update();

@@ -160,6 +160,7 @@
     <Compile Include="Gateway\UpstreamEvents\StatusUpdate.cs" />
     <Compile Include="Gateway\UpstreamEvents\VoiceStatusUpdate.cs" />
     <Compile Include="Models\Channel.cs" />
+    <Compile Include="Models\Permissions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\ActivityData.cs" />
     <Compile Include="Models\Attachment.cs" />
