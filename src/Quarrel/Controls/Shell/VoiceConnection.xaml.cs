@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
+using Quarrel.Services.Gateway;
 using UICompositionAnimations.Helpers;
 using Quarrel.Services.Rest;
 
@@ -27,6 +28,9 @@ namespace Quarrel.Controls.Shell
 {
     public sealed partial class VoiceConnection : UserControl
     {
+        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private IGatewayService gatewayService = SimpleIoc.Default.GetInstance<IGatewayService>();
+
         public VoiceConnection()
         {
             this.InitializeComponent();
@@ -34,7 +38,7 @@ namespace Quarrel.Controls.Shell
             Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, async m =>
             {
 
-                if (m.VoiceState.UserId == SimpleIoc.Default.GetInstance<IDiscordService>().CurrentUser.Id)
+                if (m.VoiceState.UserId == discordService.CurrentUser.Id)
                 {
                     await DispatcherHelper.RunAsync(() => DataContext = m.VoiceState);
                 }
@@ -55,7 +59,7 @@ namespace Quarrel.Controls.Shell
 
         private async void Disconnect(object sender, RoutedEventArgs e)
         {
-            await SimpleIoc.Default.GetInstance<IDiscordService>().Gateway.Gateway.VoiceStatusUpdate(null, null, false, false);
+            await gatewayService.Gateway.VoiceStatusUpdate(null, null, false, false);
         }
     }
 }
