@@ -52,12 +52,22 @@ namespace DiscordAPI.Models
         [JsonProperty("session_id")]
         public string SessionId { get; set; }
 
+        [JsonIgnore]
+        public bool IsRich => Details != null || State != null || Assets != null;
+
+        [JsonIgnore]
         public bool IsXboxGame { get => ApplicationId != null && ApplicationId == "438122941302046720"; }
 
+        [JsonIgnore]
         public string SmallImageUrl => Assets != null ? GetImageUrl(Assets.SmallImage, ApplicationId) : "";
+
+        [JsonIgnore]
         public Uri SmallImageUri => Assets != null ? new Uri(GetImageUrl(Assets.SmallImage, ApplicationId)) : null;
 
+        [JsonIgnore]
         public string LargeImageUrl => Assets != null ? GetImageUrl(Assets.LargeImage, ApplicationId) : "";
+
+        [JsonIgnore]
         public Uri LargeImageUri => Assets != null ? new Uri(GetImageUrl(Assets.LargeImage, ApplicationId)) : null;
 
         public string GetImageUrl(string id, string gameid, bool game = false, string append = "?size=512")

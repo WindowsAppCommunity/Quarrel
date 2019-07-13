@@ -14,6 +14,8 @@
 
     <UserControl.Resources>
         <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
+        <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
+        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
         <discordconvert:PresenseToBrushConverter x:Key="PresenseToBrushConverter"/>
         <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
@@ -52,11 +54,11 @@
                     <TextBlock x:Uid="/Controls/BotTB" Foreground="{ThemeResource Foreground}" Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
                 </Border>-->
             </StackPanel>
-            <!--<StackPanel Orientation="Horizontal">
-                <TextBlock Visibility="Collapsed" x:Name="playing" Text="Playing" VerticalAlignment="Center" FontSize="11" FontWeight="SemiLight" Opacity="0.6" Foreground="{ThemeResource Foreground}"/>
-                <TextBlock Visibility="Collapsed" x:Name="game" VerticalAlignment="Center" Opacity="0.8" FontSize="11" FontWeight="Normal" Margin="3,0,0,0" Foreground="{ThemeResource Foreground}"/>
-                <FontIcon Visibility="Collapsed" x:Name="rich" Glyph="" FontSize="11" Margin="4,0,0,-2" Foreground="{ThemeResource Foreground}"/>
-            </StackPanel>-->
+            <StackPanel Orientation="Horizontal" x:Name="richPresence" x:Load="{x:Bind ViewModel.Presence.Game, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+                <TextBlock x:Name="playing" Text="Playing" VerticalAlignment="Center" FontSize="11" FontWeight="SemiLight" Opacity="0.6" Foreground="{ThemeResource Foreground}"/>
+                <TextBlock x:Name="game" Text="{x:Bind ViewModel.Presence.Game.Name}" VerticalAlignment="Center" Opacity="0.8" FontSize="11" FontWeight="Normal" Margin="3,0,0,0" Foreground="{ThemeResource Foreground}"/>
+                <FontIcon Visibility="{x:Bind ViewModel.Presence.Game.IsRich}" x:Name="rich" Glyph="" FontSize="11" Margin="4,0,0,-2" Foreground="{ThemeResource Foreground}"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>
