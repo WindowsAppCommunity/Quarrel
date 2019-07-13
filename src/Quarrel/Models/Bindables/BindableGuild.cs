@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Linq;
 using Quarrel.Models.Bindables.Abstract;
 using Quarrel.Models.Interfaces;
+using Windows.UI.Notifications;
 
 namespace Quarrel.Models.Bindables
 {
@@ -74,6 +75,33 @@ namespace Quarrel.Models.Bindables
         public Uri IconUri { get { return new Uri(IconUrl); } }
             
         public bool HasIcon { get { return !String.IsNullOrEmpty(Model.Icon); } }
+
+        #endregion
+
+        #region ReadState
+
+        public bool IsUnread
+        {
+            get => Channels.Any(x => x.IsUnread);
+        }
+
+        public bool ShowUnread
+        {
+            get => Channels.Any(x => x.ShowUnread) && !Muted && NotificationCount == 0;
+        }
+
+        public int NotificationCount
+        {
+            get
+            {
+                int total = 0;
+                foreach(var channel in Channels)
+                {
+                    total += channel.ReadState != null ? channel.ReadState.MentionCount : 0;
+                }
+                return total;
+            }
+        }
 
         #endregion
     }

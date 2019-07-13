@@ -36,53 +36,10 @@
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
-        <Storyboard x:Name="ShowMute">
-            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MutedIcon" d:IsOptimized="True">
-                <DoubleAnimation.EasingFunction>
-                    <CircleEase EasingMode="EaseOut"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation Duration="0:0:0.3" To="0.12" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="GuildImageBackdrop" d:IsOptimized="True">
-                <DoubleAnimation.EasingFunction>
-                    <CircleEase EasingMode="EaseOut"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="GuildImage" d:IsOptimized="True">
-                <DoubleAnimation.EasingFunction>
-                    <CircleEase EasingMode="EaseOut"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation Duration="0:0:0.3" To="0.25" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="TextIcon" d:IsOptimized="True">
-                <DoubleAnimation.EasingFunction>
-                    <CircleEase EasingMode="EaseOut"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-        </Storyboard>
-        <Storyboard x:Name="HideMute">
-            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MutedIcon" d:IsOptimized="True">
-                <DoubleAnimation.EasingFunction>
-                    <CircleEase EasingMode="EaseIn"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation Duration="0:0:0.3" To="0.1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="GuildImageBackdrop" d:IsOptimized="True">
-                <DoubleAnimation.EasingFunction>
-                    <CircleEase EasingMode="EaseOut"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="GuildImage" d:IsOptimized="True">
-                <DoubleAnimation.EasingFunction>
-                    <CircleEase EasingMode="EaseOut"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="TextIcon" d:IsOptimized="True">
-                <DoubleAnimation.EasingFunction>
-                    <CircleEase EasingMode="EaseOut"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-        </Storyboard>
-
+        
         <convertbase:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
         <convertbase:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
+        <convertbase:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <convertguild:IsDMToFontFamilyConverter x:Key="IsDMToFontFamilyConverter"/>
         <convertguild:MutedToOpacityConverter x:Key="MutedToOpacityConverter"/>
     </UserControl.Resources>
@@ -94,7 +51,7 @@
                     <SolidColorBrush Opacity="0.2" Color="{ThemeResource SystemAccentColor}"/>
                 </Border.Background>
             </Border>
-            <Border x:Name="UnreadIndicator" Visibility="Collapsed" Height="12" Width="3" Opacity="0.75" Background="{ThemeResource Foreground}" Margin="-12,2,4,0" HorizontalAlignment="Left"/>
+            <Border x:Name="UnreadIndicator" Visibility="{x:Bind ViewModel.ShowUnread, Mode=OneWay}" Height="12" Width="2" Opacity="0.75" Background="{ThemeResource Foreground}" Margin="-12,2,4,0" HorizontalAlignment="Left"/>
             <Rectangle Visibility="{x:Bind ViewModel.IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" x:Name="GuildImageBackdrop" Width="50" Height="50" RadiusX="25" RadiusY="25" Fill="{ThemeResource Foreground}" Opacity="0.1"/>
             <Rectangle Width="50" Height="50" RadiusX="25" RadiusY="25" Visibility="{x:Bind ViewModel.HasIcon, Mode=OneWay}" Opacity="{x:Bind ViewModel.Muted, Converter={StaticResource MutedToOpacityConverter}, Mode=OneWay}">
                 <animations:Implicit.Animations>
@@ -113,17 +70,26 @@
 
             <TextBlock Visibility="Collapsed" x:Name="DMView" FontFamily="Segoe MDL2 Assets" Text="" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-            <Border x:Name="border" Visibility="Visible" Opacity="0" Margin="0,0,-12,0" VerticalAlignment="Bottom">
+            <Border x:Name="border" Visibility="{x:Bind ViewModel.NotificationCount, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Margin="0,0,-12,0" VerticalAlignment="Bottom">
+                <animations:Implicit.ShowAnimations>
+                    <animations:OpacityAnimation Duration="0:0:0.3" From="0" To="1"/>
+                </animations:Implicit.ShowAnimations>
+                <animations:Implicit.HideAnimations>
+                    <animations:OpacityAnimation Duration="0:0:0.3" From="1" To="0"/>
+                </animations:Implicit.HideAnimations>
                 <Border.Background>
                     <LinearGradientBrush EndPoint="0,0" StartPoint="1,0" ColorInterpolationMode="ScRgbLinearInterpolation">
-                        <GradientStop Offset="0.9" Color="Transparent"/>
+                        <GradientStop Offset="0.9" Color="#00000000"/>
                         <GradientStop Color="{ThemeResource SystemAccentColor}" Offset="0"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                <TextBlock x:Name="NotificationCounter" Foreground="White" Text="1" FontWeight="SemiBold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="4,0,4,2" FontSize="15" RenderTransformOrigin="0.5,0.5">
-                    <TextBlock.RenderTransform>
-                        <CompositeTransform TranslateX="24"/>
-                    </TextBlock.RenderTransform>
+                <TextBlock x:Name="NotificationCounter" Text="{x:Bind ViewModel.NotificationCount, Mode=OneWay}" Foreground="White" FontWeight="SemiBold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="4,0,4,2" FontSize="15" RenderTransformOrigin="0.5,0.5">
+                    <animations:Implicit.ShowAnimations>
+                        <animations:TranslationAnimation Duration="0:0:0.3" From="24" To="0"/>
+                    </animations:Implicit.ShowAnimations>
+                    <animations:Implicit.HideAnimations>
+                        <animations:TranslationAnimation Duration="0:0:0.3" From="0" To="24"/>
+                    </animations:Implicit.HideAnimations>
                 </TextBlock>
             </Border>
 

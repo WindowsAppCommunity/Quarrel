@@ -366,7 +366,7 @@ namespace Quarrel.ViewModels
                         }
                     });
                 }
-                else if (Channel.Model.LastMessageId != Channel.ReadState.LastMessageId)
+                else if (Channel.ReadState == null || Channel.Model.LastMessageId != Channel.ReadState.LastMessageId)
                 {
                     await discordService.ChannelService.AckMessage(Channel.Model.Id, Source.LastOrDefault().Model.Id);
                 }
