@@ -20,7 +20,7 @@ namespace Quarrel.Models.Bindables
     {
         public ICurrentUsersService UserService => SimpleIoc.Default.GetInstance<ICurrentUsersService>();
 
-        public BindableGuildMember GuildMember => UserService?.Users[Model.UserId];
+        public BindableGuildMember GuildMember => UserService != null && UserService.Users.ContainsKey(Model.UserId) ? UserService.Users[Model.UserId] : null;
 
         public bool ShowDeaf => Model.SelfDeaf || Model.ServerDeaf;
         public bool ServerDeaf => ShowDeaf && Model.ServerDeaf;
