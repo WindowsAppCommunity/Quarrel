@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DiscordAPI.Models;
 
 namespace Quarrel.Messages.Gateway
 {
     public sealed class GatewayUserSettingsUpdatedMessage
     {
-        public GatewayUserSettingsUpdatedMessage()
-        { }
+        public UserSettings Settings { get; }
+
+        public GatewayUserSettingsUpdatedMessage(UserSettings settings)
+        {
+            Settings = settings;
+        }
     }
 }

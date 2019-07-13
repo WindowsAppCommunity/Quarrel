@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DiscordAPI.Models;
 
 namespace DiscordAPI.Gateway.DownstreamEvents
 {
@@ -14,9 +15,11 @@ namespace DiscordAPI.Gateway.DownstreamEvents
         [JsonProperty("session_id")]
         public string SessionId { get; set; }
         [JsonProperty("game")]
-        public object Game { get; set; }
+        public Game Game { get; set; }
         [JsonProperty("client_info")]
         public ClientInfo clientInfo { get; set; }
+        [JsonProperty("activities")]
+        public IEnumerable<object> Activities;
 
         public class ClientInfo
         {

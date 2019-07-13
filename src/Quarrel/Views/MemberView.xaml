@@ -23,7 +23,7 @@
     <UserControl.Resources>
         <baseconverts:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
         <viewModels:MemberViewModel x:Name="ViewModel"/>
-        <CollectionViewSource x:Name="ViewSource" Source="{x:Bind ViewModel.Source.ValuesSorted, Mode=OneWay}" IsSourceGrouped="True" />
+        <CollectionViewSource x:Name="ViewSource" Source="{x:Bind ViewModel.Source, Mode=OneWay}" IsSourceGrouped="True" />
     </UserControl.Resources>
 
     <Grid>
@@ -57,7 +57,7 @@
                                 </Style>
                             </GroupStyle.HeaderContainerStyle>
                             <GroupStyle.HeaderTemplate>
-                                <DataTemplate x:DataType="objectModel:HashedGrouping">
+                                <DataTemplate x:DataType="objectModel:ObservableGrouping">
                                     <Grid VerticalAlignment="Top">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
@@ -95,8 +95,8 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{x:Bind Group.(objectModel:HashedGrouping.Group).(models:Role.Name)}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Group.Group.Color, Converter={StaticResource IntColorToBrushConverter}}" Opacity="0.75" Margin="0"/>
-                                <TextBlock Grid.Column="1" Text="{x:Bind Group.(objectModel:HashedGrouping.Count)}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.35"/>
+                                <TextBlock Text="{x:Bind Group.(objectModel:ObservableGrouping.Group).(models:Role.Name)}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Group.Group.Color, Converter={StaticResource IntColorToBrushConverter}}" Opacity="0.75" Margin="0"/>
+                                <TextBlock Grid.Column="1" Text="{x:Bind Group.(objectModel:ObservableGrouping.Count)}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.35"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

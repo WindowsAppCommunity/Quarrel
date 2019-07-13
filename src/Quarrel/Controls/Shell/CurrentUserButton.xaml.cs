@@ -22,6 +22,7 @@ using DiscordAPI.Gateway;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services.Rest;
+using Quarrel.Services.Users;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -30,52 +31,13 @@ namespace Quarrel.Controls.Shell
     public sealed partial class CurrentUserButton : UserControl
     {
         private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ICurrentUsersService currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
         public CurrentUserButton()
         {
             this.InitializeComponent();
-
-            Messenger.Default.Register<GatewayReadyMessage>(this, async m =>
-            {
-                await DispatcherHelper.RunAsync(() => 
-                {
-                    DataContext = new BindableGuildMember(new GuildMember() { User = m.EventData.User });
-                });
-            });
-
-            Messenger.Default.Register<GatewayGuildSyncMessage>(this, async _ =>
-            {
-                await DispatcherHelper.RunAsync(() => { this.Bindings.Update(); });
-            });
-
-            Messenger.Default.Register<GatewayPresenceUpdatedMessage>(this, async m => 
-            {
-                await DispatcherHelper.RunAsync(() => 
-                {
-                    if (ViewModel != null && ViewModel.Model.User.Id == m.UserId)
-                        this.Bindings.Update();
-                });
-            });
-
-            Messenger.Default.Register<GatewayUserSettingsUpdatedMessage>(this, async m => 
-            {
-                await DispatcherHelper.RunAsync(() => 
-                {
-                    this.Bindings.Update();
-                });
-            });
-
-            Messenger.Default.Register<CurrentUserRequestMessage>(this, async m =>
-            {
-                await DispatcherHelper.RunAsync(() => m.ReportResult(ViewModel));
-            });
-
-            this.DataContextChanged += (s, e) =>
-            {
-                this.Bindings.Update();
-            };
         }
 
-        public BindableGuildMember ViewModel => DataContext as BindableGuildMember;
+        public BindableUser ViewModel => currentUsersService.CurrentUser;
 
         private async void StatusSelected(object sender, RoutedEventArgs e)
         {

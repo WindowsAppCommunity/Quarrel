@@ -92,16 +92,6 @@ namespace System.Collections.ObjectModel
             TGroup group = KeyReader(item);
             HashedGrouping<TKey, TGroup, TElement> hashGroup = FindOrCreateGroup(key, group);
 
-            // Insert the item in the right position in the group
-            for (int i = 0; i < hashGroup.Count; i++)
-            {
-                if (hashGroup.Values.ElementAt(i).CompareTo(item) > 0)
-                {
-                    _Elements.Add(item);
-                    hashGroup.Values.Add(item);
-                    return;
-                }
-            }
 
             _Elements.Add(item);
             hashGroup.Add(key, item);

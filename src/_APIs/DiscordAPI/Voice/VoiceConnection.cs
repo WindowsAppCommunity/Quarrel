@@ -147,7 +147,7 @@ namespace DiscordAPI.Voice
 
         public async void SendSilence()
         {
-            if (lastReady != null)
+            if (lastReady != null && secretkey != null)
             {
                 byte[] opus = new byte[31];
                 byte[] nonce = makeHeader();

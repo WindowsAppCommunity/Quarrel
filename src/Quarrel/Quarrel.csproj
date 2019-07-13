@@ -328,6 +328,7 @@
     <Compile Include="Extensions\System.Collections.ObjectModel\Grouping.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\HashedGrouping.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\ObservableHashedCollection.cs" />
+    <Compile Include="Extensions\System.Collections.ObjectModel\ObservableSortedGroupedCollection.cs" />
     <Compile Include="Extensions\System.Collections.ObjectModel\SortedGroupedObservableHashedCollection.cs" />
     <Compile Include="Extensions\System.Threading.Tasks\AggregateExceptionHandler.cs" />
     <Compile Include="Extensions\System.Threading.Tasks\TaskExtensions.cs" />
@@ -342,6 +343,7 @@
     <Compile Include="Messages\Abstract\RequestMessageBase{T}.cs" />
     <Compile Include="Messages\Abstract\ValueChangedMessageBase.cs" />
     <Compile Include="Messages\Gateway\GatewayGuildSyncMessage.cs" />
+    <Compile Include="Messages\Gateway\GatewaysSessionReplacedMessage.cs" />
     <Compile Include="Messages\Gateway\Messages\GatewayMessageDeletedMessage.cs" />
     <Compile Include="Messages\Gateway\Messages\GatewayMessageRecievedMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayNoteUpdatedMessage.cs" />
@@ -370,6 +372,7 @@
     <Compile Include="Models\Bindables\BindableGuild.cs" />
     <Compile Include="Models\Bindables\BindableGuildMember.cs" />
     <Compile Include="Models\Bindables\BindableMessage.cs" />
+    <Compile Include="Models\Bindables\BindableUser.cs" />
     <Compile Include="Models\Bindables\BindableVideoEmbed.cs" />
     <Compile Include="Models\Bindables\BindableVoiceUser.cs" />
     <Compile Include="Models\Interfaces\IGuild.cs" />

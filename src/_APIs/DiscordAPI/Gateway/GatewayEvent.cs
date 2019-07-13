@@ -26,6 +26,11 @@ namespace DiscordAPI.Sockets
                 var dataAsJObject = Payload as JObject;
                 return dataAsJObject.ToObject<T>();
             }
+            if (Payload is JArray)
+            {
+                var dataAsJObject = Payload as JArray;
+                return dataAsJObject.ToObject<T>();
+            }
             return default(T);
         }
     }

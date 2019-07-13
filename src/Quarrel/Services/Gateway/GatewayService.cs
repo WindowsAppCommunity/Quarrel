@@ -21,6 +21,7 @@ using Quarrel.Models.Bindables;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Rest;
+using Quarrel.Services.Users;
 using UICompositionAnimations.Helpers;
 
 namespace Quarrel.Services.Gateway
@@ -28,6 +29,7 @@ namespace Quarrel.Services.Gateway
     public class GatewayService : IGatewayService
     {
         private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
+        private ICurrentUsersService currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
         public DiscordAPI.Gateway.Gateway Gateway { get; private set; }
 
         public async void InitializeGateway([NotNull] string accessToken)
@@ -56,6 +58,8 @@ namespace Quarrel.Services.Gateway
 
             Gateway.VoiceServerUpdated += Gateway_VoiceServerUpdated;
             Gateway.VoiceStateUpdated += Gateway_VoiceStateUpdated;
+
+            Gateway.SessionReplaced += Gateway_SessionReplaced;
 
 
             await Gateway.ConnectAsync();
@@ -90,7 +94,7 @@ namespace Quarrel.Services.Gateway
 
         private void Gateway_MessageCreated(object sender, GatewayEventArgs<Message> e)
         {
-            var currentUser = Messenger.Default.Request<CurrentUserRequestMessage, BindableGuildMember>(new CurrentUserRequestMessage()).Model.User;
+            var currentUser = currentUsersService.CurrentUser.Model;
             var channel = Messenger.Default.Request<BindableChannelRequestMessage, BindableChannel>(new BindableChannelRequestMessage(e.EventData.ChannelId));
             if (channel.IsDirectChannel || channel.IsGroupChannel || e.EventData.Mentions.Contains(currentUser) || e.EventData.MentionEveryone)
                 channel.ReadState.MentionCount++;
@@ -132,7 +136,7 @@ namespace Quarrel.Services.Gateway
         private void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
         {
             cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, e.EventData, e.EventData.User.Id);
-            Messenger.Default.Send(new GatewayPresenceUpdatedMessage(e.EventData.User.Id));
+            Messenger.Default.Send(new GatewayPresenceUpdatedMessage(e.EventData.User.Id, e.EventData));
         }
 
         private void Gateway_UserNoteUpdated(object sender, GatewayEventArgs<UserNote> e)
@@ -145,7 +149,7 @@ namespace Quarrel.Services.Gateway
         {
             cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Presence, new Presence() { Status = e.EventData.Status },
                 cacheService.Runtime.TryGetValue<BindableGuildMember>(Quarrel.Helpers.Constants.Cache.Keys.CurrentUser).Model.User.Id);
-            Messenger.Default.Send(new GatewayUserSettingsUpdatedMessage());
+            Messenger.Default.Send(new GatewayUserSettingsUpdatedMessage(e.EventData));
         }
 
         #region Voice 
@@ -158,6 +162,11 @@ namespace Quarrel.Services.Gateway
         private void Gateway_VoiceStateUpdated(object sender, GatewayEventArgs<VoiceState> e)
         {
             Messenger.Default.Send(new GatewayVoiceStateUpdateMessage(e.EventData));
+        }
+
+        private void Gateway_SessionReplaced(object sender, GatewayEventArgs<SessionReplace[]> e)
+        {
+            Messenger.Default.Send(new GatewaysSessionReplacedMessage(e.EventData));
         }
 
         #endregion
