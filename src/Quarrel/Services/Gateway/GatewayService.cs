@@ -61,6 +61,10 @@ namespace Quarrel.Services.Gateway
             Gateway.MessageUpdated += Gateway_MessageUpdated;
             Gateway.MessageAck += Gateway_MessageAck;
 
+            Gateway.MessageReactionAdded += Gateway_MessageReactionAdded;
+            Gateway.MessageReactionRemoved += Gateway_MessageReactionRemoved;
+            Gateway.MessageReactionRemovedAll += Gateway_MessageReactionRemovedAll;
+
             Gateway.GuildChannelCreated += Gateway_GuildChannelCreated;
             Gateway.GuildChannelDeleted += Gateway_GuildChannelDeleted;
             Gateway.GuildChannelUpdated += Gateway_GuildChannelUpdated;
@@ -138,6 +142,25 @@ namespace Quarrel.Services.Gateway
             GuildsService.GetChannel(e.EventData.ChannelId)?.UpdateLRMID(e.EventData.Id);
             Messenger.Default.Send(new GatewayMessageAckMessage(e.EventData.ChannelId, e.EventData.Id));
         }
+
+        #region Reactions
+
+        private void Gateway_MessageReactionAdded(object sender, GatewayEventArgs<MessageReactionUpdate> e)
+        {
+            Messenger.Default.Send(new GatewayReactionAddedMessage(e.EventData.MessageId, e.EventData.ChannelId, e.EventData.Emoji, false));
+        }
+
+        private void Gateway_MessageReactionRemoved(object sender, GatewayEventArgs<MessageReactionUpdate> e)
+        {
+            Messenger.Default.Send(new GatewayReactionRemovedMessage(e.EventData.MessageId, e.EventData.ChannelId, e.EventData.Emoji));
+        }
+
+        private void Gateway_MessageReactionRemovedAll(object sender, GatewayEventArgs<MessageReactionRemoveAll> e)
+        {
+            Messenger.Default.Send(new GatewayReactionClearedMessage(e.EventData.MessageId, e.EventData.ChannelId));
+        }
+
+        #endregion
 
         #endregion
 

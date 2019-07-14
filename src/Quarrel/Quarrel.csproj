@@ -360,6 +360,9 @@
     <Compile Include="Messages\Gateway\GatewayReadyMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayUserSettingUpdatedMessage.cs" />
     <Compile Include="Messages\Gateway\Messages\GatewayMessageUpdatedMessage.cs" />
+    <Compile Include="Messages\Gateway\Messages\Reactions\GatewayReactionAddedMessage.cs" />
+    <Compile Include="Messages\Gateway\Messages\Reactions\GatewayReactionRemovedMessage.cs" />
+    <Compile Include="Messages\Gateway\Messages\Reactions\GatewayReactionsClearedMessage.cs" />
     <Compile Include="Messages\Gateway\Voice\GatewayVoiceServerUpdateMessage.cs" />
     <Compile Include="Messages\Gateway\Voice\GatewayVoiceStateUpdateMessage.cs" />
     <Compile Include="Messages\Navigation\ChannelNavigateMessage.cs" />

@@ -13,6 +13,7 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using JetBrains.Annotations;
+using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Navigation;
 using Quarrel.Messages.Posts.Requests;
@@ -145,6 +146,59 @@ namespace Quarrel.ViewModels
                         {
                             msg.Update(m.Message);
                         }
+                    });
+                }
+            });
+            MessengerInstance.Register<GatewayReactionAddedMessage>(this, async m =>
+            {
+                var message = BindableMessages.FirstOrDefault(x => x.Model.Id == m.MessageId);
+                if (message != null)
+                {
+                    if (message.Model.Reactions == null)
+                    {
+                        message.Model.Reactions = new List<Reactions>().AsEnumerable();
+                    }
+                    var reaction = message.Model.Reactions.FirstOrDefault(x => x.Emoji.Name == m.Emoji.Name && x.Emoji.Id == m.Emoji.Id);
+                    if (reaction != null)
+                    {
+                        reaction.Count++;
+                        // TODO: Find better update method
+                        message.Model.Reactions = message.Model.Reactions.ToList().AsEnumerable();
+                    }
+                    else
+                    {
+                        var list = message.Model.Reactions.ToList();
+                        list.Add(new Reactions() { Emoji = m.Emoji, Count = 1, Me = m.Me});
+                        message.Model.Reactions = list.AsEnumerable();
+                    }
+
+                    await DispatcherHelper.RunAsync(() =>
+                    {
+                        message.RaisePropertyChanged(nameof(message.Model));
+                    });
+                }
+            });
+            MessengerInstance.Register<GatewayReactionRemovedMessage>(this, async m =>
+            {                
+                var message = BindableMessages.FirstOrDefault(x => x.Model.Id == m.MessageId);
+                if (message != null)
+                {
+                    var reaction = message.Model.Reactions.FirstOrDefault(x => x.Emoji.Name == m.Emoji.Name && x.Emoji.Id == m.Emoji.Id);
+                    if (reaction != null)
+                    {
+                        reaction.Count--;
+                        // TODO: find better update method
+                        var list = message.Model.Reactions.ToList();
+                        if (reaction.Count == 0)
+                        {
+                            list.Remove(reaction);
+                        }
+                        message.Model.Reactions = list.AsEnumerable();
+                    }
+
+                    await DispatcherHelper.RunAsync(() =>
+                    {
+                        message.RaisePropertyChanged(nameof(message.Model));
                     });
                 }
             });

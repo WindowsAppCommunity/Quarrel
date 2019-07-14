@@ -62,7 +62,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="Reaction" x:DataType="models:Reactions">
-            <ToggleButton IsChecked="{x:Bind Me}">
+            <ToggleButton IsChecked="{x:Bind Me, Mode=OneWay}">
                 <ToggleButton.Style>
                     <Style TargetType="ToggleButton">
                         <Setter Property="Background" Value="Transparent" />
@@ -284,8 +284,8 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="{x:Bind Emoji.Name}" Margin="0,0,2,0"/>
-                    <TextBlock Text="{x:Bind Count}" Margin="2,0,0,0" Grid.Column="1"/>
+                    <TextBlock Text="{x:Bind Emoji.Name, Mode=OneWay}" Margin="0,0,2,0"/>
+                    <TextBlock Text="{x:Bind Count, Mode=OneWay}" Margin="2,0,0,0" Grid.Column="1"/>
                 </Grid>
             </ToggleButton>
         </DataTemplate>
