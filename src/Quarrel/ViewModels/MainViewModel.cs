@@ -171,6 +171,22 @@ namespace Quarrel.ViewModels
                     }
                 });
             });
+            MessengerInstance.Register<GatewayGuildChannelDeletedMessage>(this, async m =>
+            {
+                await DispatcherHelper.RunAsync(() => 
+                {
+                    BindableGuilds[m.Channel.GuildId].Channels.Remove(GuildsService.CurrentChannels[m.Channel.Id]);
+                    GuildsService.RemoveChannel(m.Channel.Id);
+                });
+            });
+            MessengerInstance.Register<GatewayGuildChannelUpdatedMessage>(this, async m =>
+            {
+                // TODO: Complete Update
+                await DispatcherHelper.RunAsync(() => 
+                {
+                    GuildsService.GetChannel(m.Channel.Id).Model = m.Channel;
+                });
+            });
             MessengerInstance.Register<GatewayReadyMessage>(this, async m =>
             {
                 await DispatcherHelper.RunAsync(() =>
@@ -330,7 +346,6 @@ namespace Quarrel.ViewModels
             MessengerInstance.Register<PresenceRequestMessage>(this, m => m.ReportResult(_PresenceDictionary.ContainsKey(m.UserId) ? _PresenceDictionary[m.UserId] : new Presence() { Status = "offline" }));
             MessengerInstance.Register<BindableGuildRequestMessage>(this, m => m.ReportResult(BindableGuilds[m.GuildId]));
             MessengerInstance.Register<CurrentGuildRequestMessage>(this, m => m.ReportResult(Guild));
-
         }
 
         public async void Login()
@@ -338,7 +353,6 @@ namespace Quarrel.ViewModels
             var token = (string)(await CacheService.Persistent.Roaming.TryGetValueAsync<object>(Quarrel.Helpers.Constants.Cache.Keys.AccessToken));
             DiscordService.Login(token);
         }
-
 
         Dictionary<string, Presence> _PresenceDictionary = new Dictionary<string, Presence>();
 

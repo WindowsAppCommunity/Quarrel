@@ -15,19 +15,25 @@ namespace Quarrel.Services.Guild
 {
     public class GuildsService : IGuildsService
     {
-        private Dictionary<string, BindableChannel> currentChannels = new Dictionary<string, BindableChannel>();
-        public ReadOnlyDictionary<string, BindableChannel> CurrentChannels { get; }
+        public Dictionary<string, BindableChannel> CurrentChannels { get; private set; } = new Dictionary<string, BindableChannel>();
+
         private ICacheService CacheService;
 
         public void RegisterChannel(BindableChannel channel, string channelId)
         {
-            currentChannels.Add(channelId, channel);
+            CurrentChannels.Add(channelId, channel);
+        }
+
+        public BindableChannel RemoveChannel(string channelId)
+        {
+            BindableChannel removed;
+            CurrentChannels.Remove(channelId, out removed);
+            return removed;
         }
 
         public BindableChannel GetChannel(string channelId)
         {
-            return currentChannels.TryGetValue(channelId, out BindableChannel channel) ? channel : null;
-
+            return CurrentChannels.TryGetValue(channelId, out BindableChannel channel) ? channel : null;
         }
     }
 }

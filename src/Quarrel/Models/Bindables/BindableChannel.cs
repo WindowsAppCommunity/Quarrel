@@ -42,6 +42,17 @@ namespace Quarrel.Models.Bindables
                     }
                 });
             });
+            MessengerInstance.Register<GatewayGuildChannelUpdatedMessage>(this, async m =>
+            {
+                // TODO: Complete Update
+                await DispatcherHelper.RunAsync(() =>
+                {
+                    if (Model.Id == m.Channel.Id)
+                    {
+                        RaisePropertyChanged(nameof(FormattedName));
+                    }
+                });
+            });
             if (states != null)
             {
                 foreach (var state in states)

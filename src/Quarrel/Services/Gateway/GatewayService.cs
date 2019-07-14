@@ -63,6 +63,7 @@ namespace Quarrel.Services.Gateway
 
             Gateway.GuildChannelCreated += Gateway_GuildChannelCreated;
             Gateway.GuildChannelDeleted += Gateway_GuildChannelDeleted;
+            Gateway.GuildChannelUpdated += Gateway_GuildChannelUpdated;
 
             Gateway.PresenceUpdated += Gateway_PresenceUpdated;
             Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
@@ -149,6 +150,11 @@ namespace Quarrel.Services.Gateway
         private void Gateway_GuildChannelDeleted(object sender, GatewayEventArgs<GuildChannel> e)
         {
             Messenger.Default.Send(new GatewayGuildChannelDeletedMessage(e.EventData));
+        }
+
+        private void Gateway_GuildChannelUpdated(object sender, GatewayEventArgs<GuildChannel> e)
+        {
+            Messenger.Default.Send(new GatewayGuildChannelUpdatedMessage(e.EventData));
         }
 
         #endregion
