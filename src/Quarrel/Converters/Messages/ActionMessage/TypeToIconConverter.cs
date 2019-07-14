@@ -29,10 +29,10 @@ namespace Quarrel.Converters.Messages.ActionMessage
                     case 6:
                         return App.Current.Resources["PinIcon"];
                     default:
-                        return App.Current.Resources["?"];
+                        return "?";
                 }
             }
-            return App.Current.Resources["?"];
+            return "?";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

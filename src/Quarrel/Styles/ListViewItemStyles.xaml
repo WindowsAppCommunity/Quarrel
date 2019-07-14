@@ -623,6 +623,11 @@
 
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="bgSelectedIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseIn"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
                                             <DoubleAnimation.EasingFunction>
                                                 <ExponentialEase EasingMode="EaseInOut"/>
@@ -633,6 +638,11 @@
                                 </VisualState>
                                 <VisualState x:Name="PointerOverSelected">
                                     <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="bgSelectedIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseIn"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.1" To="0.1">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut"/>
@@ -644,10 +654,15 @@
                                 <VisualState x:Name="PressedSelected">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="MultiSelectCheck"
-                                 Storyboard.TargetProperty="Opacity"
-                                 Duration="0:0:0"
-                                 To="1"/>
-                                        <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.2">
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0"
+                                                         To="1"/>
+                                        <DoubleAnimation Storyboard.TargetName="bgSelectedIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseIn"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
@@ -816,6 +831,7 @@
                     IsHitTestVisible="False"
                     Opacity="0"
                     Control.IsTemplateFocusTarget="True"/>
+                        <Rectangle x:Name="bgSelectedIndic" Fill="{ThemeResource SystemAccentColor}" Opacity="0" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                         <Border x:Name="Indic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource Foreground}" Opacity="0" CornerRadius="0"/>
 
                         <Grid x:Name="ContentPresenterGrid"
