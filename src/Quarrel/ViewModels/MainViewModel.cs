@@ -18,6 +18,8 @@ using Quarrel.Messages.Navigation;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Models.Bindables;
 using Quarrel.Services.Cache;
+using Quarrel.Services.Gateway;
+using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
 
@@ -25,15 +27,28 @@ namespace Quarrel.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
-        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
-        ICurrentUsersService currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+        private ICacheService CacheService;
+        private IDiscordService DiscordService;
+        public ICurrentUsersService CurrentUsersService;
+        private IGatewayService GatewayService;
+        private IGuildsService GuildsService;
 
-        public MainViewModel()
+        public MainViewModel(ICacheService cacheService, IDiscordService discordService, ICurrentUsersService currentUsersService, IGatewayService gatewayService, IGuildsService guildsService)
         {
-            currentUsersService.Users.CollectionChanged += CollectionChangedMethod;
+            CacheService = cacheService;
+            DiscordService = discordService;
+            CurrentUsersService = currentUsersService;
+            GatewayService = gatewayService;
+            GuildsService = guildsService;
 
-            Messenger.Default.Register<GuildNavigateMessage>(this, async m =>
+            currentUsersService.Users.CollectionChanged += CollectionChangedMethod;
+            RegisterMessage();
+            Login();
+        }
+
+        private void RegisterMessage()
+        {
+            MessengerInstance.Register<GuildNavigateMessage>(this, async m =>
             {
                 if (Guild != m.Guild)
                 {
@@ -45,7 +60,7 @@ namespace Quarrel.ViewModels
                     });
                 }
             });
-            Messenger.Default.Register<ChannelNavigateMessage>(this, async m =>
+            MessengerInstance.Register<ChannelNavigateMessage>(this, async m =>
             {
                 Channel = m.Channel;
 
@@ -59,7 +74,7 @@ namespace Quarrel.ViewModels
                     //    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAround(m.Channel.Model.Id, Channel.ReadState.LastMessageId, 50);
                     try
                     {
-                        itemList = await discordService.ChannelService.GetChannelMessages(m.Channel.Model.Id, 50);
+                        itemList = await DiscordService.ChannelService.GetChannelMessages(m.Channel.Model.Id, 50);
                     }
                     catch (Exception e)
                     {
@@ -95,15 +110,15 @@ namespace Quarrel.ViewModels
                     NewItemsLoading = false;
                 }
             });
-            Messenger.Default.Register<GatewayMessageRecievedMessage>(this, async m =>
+            MessengerInstance.Register<GatewayMessageRecievedMessage>(this, async m =>
             {
                 if (Channel != null && Channel.Model.Id == m.Message.ChannelId)
                     await DispatcherHelper.RunAsync(() =>
                     {
-                        BindableMessages.Add(new BindableMessage(m.Message, guildId, BindableMessages.LastOrDefault().Model));
+                        BindableMessages.Add(new BindableMessage(m.Message, guildId, BindableMessages.LastOrDefault()?.Model));
                     });
             });
-            Messenger.Default.Register<GatewayMessageDeletedMessage>(this, async m =>
+            MessengerInstance.Register<GatewayMessageDeletedMessage>(this, async m =>
             {
                 if (Channel != null && Channel.Model.Id == m.ChannelId)
                 {
@@ -118,7 +133,7 @@ namespace Quarrel.ViewModels
                     });
                 }
             });
-            Messenger.Default.Register<GatewayMessageUpdatedMessage>(this, async m =>
+            MessengerInstance.Register<GatewayMessageUpdatedMessage>(this, async m =>
             {
                 if (Channel != null && Channel.Model.Id == m.Message.ChannelId)
                 {
@@ -133,15 +148,14 @@ namespace Quarrel.ViewModels
                     });
                 }
             });
-
-            Messenger.Default.Register<GatewayGuildChannelCreatedMessage>(this, async m =>
+            MessengerInstance.Register<GatewayGuildChannelCreatedMessage>(this, async m =>
             {
                 await DispatcherHelper.RunAsync(() => 
                 {
                     var bChannel = new BindableChannel(m.Channel) { GuildId = m.Channel.GuildId };
                     if (bChannel.Model.Type != 4 && bChannel.ParentId != null)
                     {
-                        bChannel.ParentPostion = _ChannelDictionary[bChannel.ParentId].Position;
+                        bChannel.ParentPostion = GuildsService.CurrentChannels[bChannel.ParentId].Position;
                     } else if (bChannel.ParentId == null)
                     {
                         bChannel.ParentPostion = -1;
@@ -157,28 +171,19 @@ namespace Quarrel.ViewModels
                     }
                 });
             });
-            Messenger.Default.Register<GatewayGuildChannelDeletedMessage>(this, async m =>
+            MessengerInstance.Register<GatewayReadyMessage>(this, async m =>
             {
                 await DispatcherHelper.RunAsync(() =>
-                {
-                    BindableGuilds[m.Channel.GuildId].Channels.Remove(_ChannelDictionary[m.Channel.Id]);
-                    _ChannelDictionary.Remove(m.Channel.Id);
-                });
-            });
-
-            Messenger.Default.Register<GatewayReadyMessage>(this, async m =>
-            {
-                await DispatcherHelper.RunAsync(() =>
-                {
+                {   
                     #region Settings
 
                     foreach (var gSettings in m.EventData.GuildSettings)
                     {
-                        cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildSettings, gSettings, gSettings.GuildId);
+                        CacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildSettings, gSettings, gSettings.GuildId);
 
                         foreach (var cSettings in gSettings.ChannelOverrides)
                         {
-                            cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, cSettings, cSettings.ChannelId);
+                            CacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, cSettings, cSettings.ChannelId);
                         }
                     }
                     #endregion
@@ -213,7 +218,7 @@ namespace Quarrel.ViewModels
                             if (readStates.ContainsKey(bChannel.Model.Id))
                                 bChannel.ReadState = readStates[bChannel.Model.Id];
 
-                            _ChannelDictionary.Add(bChannel.Model.Id, bChannel);
+                            GuildsService.RegisterChannel(bChannel, bChannel.Model.Id);
                         }
 
                         // Sort by last message timestamp
@@ -226,7 +231,7 @@ namespace Quarrel.ViewModels
                         BindableGuild bGuild = new BindableGuild(guild);
 
                         // Handle guild settings
-                        GuildSetting gSettings = cacheService.Runtime.TryGetValue<GuildSetting>(Quarrel.Helpers.Constants.Cache.Keys.GuildSettings, guild.Id);
+                        GuildSetting gSettings = CacheService.Runtime.TryGetValue<GuildSetting>(Quarrel.Helpers.Constants.Cache.Keys.GuildSettings, guild.Id);
                         if (gSettings != null)
                         {
                             bGuild.Muted = gSettings.Muted;
@@ -242,7 +247,7 @@ namespace Quarrel.ViewModels
                             BindableChannel bChannel = new BindableChannel(channel, state);
                             bChannel.GuildId = guild.Id;
                             // Handle channel settings
-                            ChannelOverride cSettings = cacheService.Runtime.TryGetValue<ChannelOverride>(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, channel.Id);
+                            ChannelOverride cSettings = CacheService.Runtime.TryGetValue<ChannelOverride>(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, channel.Id);
                             if (cSettings != null)
                             {
                                 bChannel.Muted = cSettings.Muted;
@@ -258,7 +263,7 @@ namespace Quarrel.ViewModels
                                 bChannel.ReadState = readStates[bChannel.Model.Id];
 
                             bGuild.Channels.Add(bChannel);
-                            _ChannelDictionary.Add(bChannel.Model.Id, bChannel);
+                            GuildsService.RegisterChannel(bChannel, bChannel.Model.Id);
                         }
 
                         bGuild.Channels = new ObservableCollection<BindableChannel>(bGuild.Channels.OrderBy(x => x.AbsolutePostion).ToList());
@@ -276,13 +281,13 @@ namespace Quarrel.ViewModels
                         // Guild Roles
                         foreach (var role in guild.Roles)
                         {
-                            cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildRole, role, guild.Id + role.Id);
+                            CacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildRole, role, guild.Id + role.Id);
                         }
 
                         // Guild Presences
                         foreach (var presence in guild.Presences)
                         {
-                            Messenger.Default.Send<GatewayPresenceUpdatedMessage>(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
+                            MessengerInstance.Send<GatewayPresenceUpdatedMessage>(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
                         }
 
                         guildList.Add(bGuild);
@@ -298,27 +303,45 @@ namespace Quarrel.ViewModels
                     }
                 });
             });
-            Messenger.Default.Register<GatewayPresenceUpdatedMessage>(this, m =>
+            MessengerInstance.Register<GatewayPresenceUpdatedMessage>(this, m =>
             {
                 if (_PresenceDictionary.ContainsKey(m.UserId))
                 {
                     _PresenceDictionary[m.UserId] = m.Presence;
-                }else
+                }
+                else
                 {
                     _PresenceDictionary.Add(m.UserId, m.Presence);
                 }
             });
+            MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, async m =>
+            {
 
+                if (m.VoiceState.UserId == DiscordService.CurrentUser.Id)
+                {
+                    await DispatcherHelper.RunAsync(() => VoiceState = m.VoiceState);
+                }
+            });
+            MessengerInstance.Register<CurrentUserVoiceStateRequestMessage>(this, async m =>
+            {
+                await DispatcherHelper.RunAsync(() => m.ReportResult(VoiceState));
+            });
 
-            Messenger.Default.Register<BindableGuildRequestMessage>(this, m => m.ReportResult(BindableGuilds[m.GuildId]));
-            Messenger.Default.Register<BindableChannelRequestMessage>(this, m => m.ReportResult(_ChannelDictionary[m.ChannelId]));
-            Messenger.Default.Register<CurrentGuildRequestMessage>(this, m => m.ReportResult(Guild));
-            Messenger.Default.Register<PresenceRequestMessage>(this, m => m.ReportResult(_PresenceDictionary.ContainsKey(m.UserId) ? _PresenceDictionary[m.UserId] : new Presence() { Status = "offline"}));
+            MessengerInstance.Register<PresenceRequestMessage>(this, m => m.ReportResult(_PresenceDictionary.ContainsKey(m.UserId) ? _PresenceDictionary[m.UserId] : new Presence() { Status = "offline" }));
+            MessengerInstance.Register<BindableGuildRequestMessage>(this, m => m.ReportResult(BindableGuilds[m.GuildId]));
+            MessengerInstance.Register<CurrentGuildRequestMessage>(this, m => m.ReportResult(Guild));
+
+        }
+
+        public async void Login()
+        {
+            var token = (string)(await CacheService.Persistent.Roaming.TryGetValueAsync<object>(Quarrel.Helpers.Constants.Cache.Keys.AccessToken));
+            DiscordService.Login(token);
         }
 
 
-        Dictionary<string, BindableChannel> _ChannelDictionary = new Dictionary<string, BindableChannel>();
         Dictionary<string, Presence> _PresenceDictionary = new Dictionary<string, Presence>();
+
 
         public event EventHandler<BindableMessage> ScrollTo;
 
@@ -350,7 +373,7 @@ namespace Quarrel.ViewModels
                     string disc = mention.Substring(1 + discIndex);
                     User user;
 
-                    user = currentUsersService.Users.Values.FirstOrDefault(x => x.Model.User.Username == username && x.Model.User.Discriminator == disc).Model.User;
+                    user = CurrentUsersService.Users.Values.FirstOrDefault(x => x.Model.User.Username == username && x.Model.User.Discriminator == disc).Model.User;
 
                     if (user != null)
                     {
@@ -359,7 +382,7 @@ namespace Quarrel.ViewModels
                 }
                 else if (mention[0] == '#')
                 {
-                    var guild = Messenger.Default.Request<CurrentGuildRequestMessage, BindableGuild>(new CurrentGuildRequestMessage());
+                    var guild = MessengerInstance.Request<CurrentGuildRequestMessage, BindableGuild>(new CurrentGuildRequestMessage());
                     if (!guild.IsDM)
                     {
                         var channel = guild.Channels.FirstOrDefault(x => x.Model.Type != 4 && x.Model.Name == mention.Substring(1)).Model;
@@ -368,7 +391,7 @@ namespace Quarrel.ViewModels
                 }
             }
 
-            discordService.ChannelService.CreateMessage(Channel.Model.Id, new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
+            DiscordService.ChannelService.CreateMessage(Channel.Model.Id, new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
             MessageText = "";
         }));
 
@@ -393,7 +416,7 @@ namespace Quarrel.ViewModels
         private RelayCommand<BindableGuild> navigateGuildCommand;
         public RelayCommand<BindableGuild> NavigateGuildCommand => navigateGuildCommand ?? (navigateGuildCommand = new RelayCommand<BindableGuild>((guild) =>
         {
-            Messenger.Default.Send(new GuildNavigateMessage(guild));
+            MessengerInstance.Send(new GuildNavigateMessage(guild));
         }));
 
         private RelayCommand<BindableChannel> navigateChannelCommand;
@@ -414,12 +437,18 @@ namespace Quarrel.ViewModels
             else if (channel.IsVoiceChannel)
             {
                 if (channel.Model is GuildChannel gChannel)
-                    await discordService.Gateway.Gateway.VoiceStatusUpdate(Guild.Model.Id, gChannel.Id, false, false);
+                    await DiscordService.Gateway.Gateway.VoiceStatusUpdate(Guild.Model.Id, gChannel.Id, false, false);
             }
             else
             {
-                Messenger.Default.Send(new ChannelNavigateMessage(channel, Guild));
+                MessengerInstance.Send(new ChannelNavigateMessage(channel, Guild));
             }
+        }));
+
+        private RelayCommand disconnectVoiceCommand;
+        public RelayCommand DisconnectVoiceCommand => disconnectVoiceCommand ?? (disconnectVoiceCommand = new RelayCommand(async () =>
+        {
+            await GatewayService.Gateway.VoiceStatusUpdate(null, null, false, false);
         }));
         #endregion
 
@@ -469,7 +498,7 @@ namespace Quarrel.ViewModels
                             }
                             else
                             {
-                                GuildMember member = currentUsersService.Users.Values
+                                GuildMember member = CurrentUsersService.Users.Values
                                            .FirstOrDefault(x => x.Model.User.Username == cache && x.Model.User.Discriminator == descCache).Model;
                                 mention = member.User;
                             }
@@ -500,7 +529,7 @@ namespace Quarrel.ViewModels
                         chnCache += c;
                         if (Channel.Model is GuildChannel)
                         {
-                            var guild = Messenger.Default.Request<CurrentGuildRequestMessage, BindableGuild>(new CurrentGuildRequestMessage());
+                            var guild = MessengerInstance.Request<CurrentGuildRequestMessage, BindableGuild>(new CurrentGuildRequestMessage());
                             if (!guild.IsDM)
                             {
                                 mentions.Add("#" + chnCache);
@@ -526,7 +555,7 @@ namespace Quarrel.ViewModels
             using (await SourceMutex.LockAsync())
             {
                 OldItemsLoading = true;
-                IEnumerable<Message> itemList = await discordService.ChannelService.GetChannelMessagesBefore(Channel.Model.Id, BindableMessages.FirstOrDefault().Model.Id);
+                IEnumerable<Message> itemList = await DiscordService.ChannelService.GetChannelMessagesBefore(Channel.Model.Id, BindableMessages.FirstOrDefault().Model.Id);
 
                 await DispatcherHelper.RunAsync(() =>
                 {
@@ -551,7 +580,7 @@ namespace Quarrel.ViewModels
                 if (Channel.Model.LastMessageId != BindableMessages.LastOrDefault().Model.Id)
                 {
                     IEnumerable<Message> itemList = null;
-                    await Task.Run(async () => itemList = await discordService.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, BindableMessages.LastOrDefault().Model.Id));
+                    await Task.Run(async () => itemList = await DiscordService.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, BindableMessages.LastOrDefault().Model.Id));
 
                     await DispatcherHelper.RunAsync(() =>
                     {
@@ -566,7 +595,7 @@ namespace Quarrel.ViewModels
                 }
                 else if (Channel.ReadState == null || Channel.Model.LastMessageId != Channel.ReadState.LastMessageId)
                 {
-                    await discordService.ChannelService.AckMessage(Channel.Model.Id, BindableMessages.LastOrDefault().Model.Id);
+                    await DiscordService.ChannelService.AckMessage(Channel.Model.Id, BindableMessages.LastOrDefault().Model.Id);
                 }
                 NewItemsLoading = false;
             }
@@ -688,6 +717,15 @@ namespace Quarrel.ViewModels
             get => _SelectionLength;
             set => Set(ref _SelectionLength, value);
         }
+
+        private VoiceState voiceState = new VoiceState();
+
+        public VoiceState VoiceState
+        {
+            get => voiceState;
+            set => Set(ref voiceState, value);
+        }
+
         [NotNull]
         public ObservableHashedCollection<string, BindableGuild> BindableGuilds { get; private set; } = new ObservableHashedCollection<string, BindableGuild>(new List<KeyValuePair<string, BindableGuild>>());
         /// <summary>

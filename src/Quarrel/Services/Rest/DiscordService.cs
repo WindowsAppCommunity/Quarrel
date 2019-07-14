@@ -79,7 +79,12 @@ namespace Quarrel.Services.Rest
         #endregion
 
         #region Login
-        private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
+        private ICacheService CacheService;
+
+        public DiscordService(ICacheService cacheService)
+        {
+            CacheService = cacheService;
+        }
 
         public async void Login([NotNull] string email, [NotNull] string password)
         {
@@ -90,7 +95,7 @@ namespace Quarrel.Services.Rest
 
             _AccessToken = result.Token;
 
-            await cacheService.Persistent.Roaming.SetValueAsync(Quarrel.Helpers.Constants.Cache.Keys.AccessToken, (object)_AccessToken);
+            await CacheService.Persistent.Roaming.SetValueAsync(Quarrel.Helpers.Constants.Cache.Keys.AccessToken, (object)_AccessToken);
 
             Login();
         }

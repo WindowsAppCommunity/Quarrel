@@ -39,7 +39,7 @@ namespace Quarrel.Models.Bindables
 
         public BindableVoiceUser([NotNull] VoiceState model) : base(model)
         {
-            Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, async e =>
+            MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, async e =>
                 {
                     await DispatcherHelper.RunAsync(() =>
                     {
@@ -72,7 +72,7 @@ namespace Quarrel.Models.Bindables
                     });
                 }
             );
-            Messenger.Default.Register<SpeakMessage>(this, async e =>
+            MessengerInstance.Register<SpeakMessage>(this, async e =>
             {
                 if (e.EventData.UserId == Model.UserId)
                 {

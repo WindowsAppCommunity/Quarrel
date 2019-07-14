@@ -397,6 +397,8 @@
     <Compile Include="Services\Cache\Runtime\RuntimeCacheService.cs" />
     <Compile Include="Services\Gateway\GatewayService.cs" />
     <Compile Include="Services\Gateway\IGatewayService.cs" />
+    <Compile Include="Services\Guild\GuildsService.cs" />
+    <Compile Include="Services\Guild\IGuildsService.cs" />
     <Compile Include="Services\Rest\DiscordService.cs" />
     <Compile Include="Services\Rest\IDiscordService.cs" />
     <Compile Include="Services\Settings\Enums\SettingLocation.cs" />

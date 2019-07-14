@@ -721,7 +721,7 @@
     <UserControl.RenderTransform>
         <TranslateTransform x:Name="ContentTranslate"/>
     </UserControl.RenderTransform>
-    <Grid Visibility="{x:Bind ViewModel.ChannelId, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}">
+    <Grid Visibility="{x:Bind ViewModel.VoiceState.ChannelId, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}">
         <animation:Implicit.ShowAnimations>
             <animation:TranslationAnimation Duration="0:0:0.5" To="0">
                 <animation:Vector3KeyFrame Key="0.1" Value="0, 300, 0"/>
@@ -797,10 +797,10 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <ToggleButton IsEnabled="False" Style="{StaticResource ToggleButtonStyle2}" x:Name="Minimode" Content="" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent"/>
-            <ToggleButton IsEnabled="False" IsChecked="{x:Bind ViewModel.SelfMute, Mode=OneWay}" Style="{StaticResource ToggleButtonStyle1}" Content="" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent"/>
-            <ToggleButton IsEnabled="False" IsChecked="{x:Bind ViewModel.SelfDeaf, Mode=OneWay}" Style="{StaticResource ToggleButtonStyle1}" Content="" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent"/>
+            <ToggleButton IsEnabled="False" IsChecked="{x:Bind ViewModel.VoiceState.SelfMute, Mode=OneWay}" Style="{StaticResource ToggleButtonStyle1}" Content="" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent"/>
+            <ToggleButton IsEnabled="False" IsChecked="{x:Bind ViewModel.VoiceState.SelfDeaf, Mode=OneWay}" Style="{StaticResource ToggleButtonStyle1}" Content="" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent"/>
 
-            <Button FontWeight="SemiBold" Content="" Grid.Row="0" Grid.Column="3" FontSize="18" Style="{StaticResource HangupButton}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" Click="Disconnect"/>
+            <Button FontWeight="SemiBold" Content="" Grid.Row="0" Grid.Column="3" FontSize="18" Style="{StaticResource HangupButton}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" Command="{x:Bind ViewModel.DisconnectVoiceCommand}"/>
             <AppBarButton IsEnabled="False" Style="{StaticResource AppBarButtonStyle1}" Content="" Background="Transparent" BorderThickness="0" Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="48"/>
         </Grid>
     </Grid>

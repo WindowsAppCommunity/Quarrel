@@ -25,7 +25,7 @@ namespace Quarrel.Models.Bindables
 
         public BindableChannel([NotNull] Channel model, [CanBeNull] IEnumerable<VoiceState> states = null) : base(model)
         {
-            Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, async e =>
+            MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, async e =>
             {
                 await DispatcherHelper.RunAsync(() =>
                 {
@@ -56,7 +56,7 @@ namespace Quarrel.Models.Bindables
 
         public BindableGuild Guild
         {
-            get => Messenger.Default.Request<BindableGuildRequestMessage, BindableGuild>(new BindableGuildRequestMessage(GuildId));
+            get => MessengerInstance.Request<BindableGuildRequestMessage, BindableGuild>(new BindableGuildRequestMessage(GuildId));
         }
 
         // Order:

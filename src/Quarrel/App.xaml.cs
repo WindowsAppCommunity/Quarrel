@@ -20,14 +20,18 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
+using Quarrel.Messages.Gateway;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Gateway;
+using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
 using Quarrel.Services.Voice;
 using Quarrel.Services.Voice.Audio.In;
 using Quarrel.Services.Voice.Audio.Out;
+using Quarrel.ViewModels;
 
 namespace Quarrel
 {
@@ -58,18 +62,6 @@ namespace Quarrel
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(400, 500));
 
             SetupTitleBar();
-            SimpleIoc.Default.Register<ICacheService, CacheService>();
-            SimpleIoc.Default.Register<IGatewayService, GatewayService>();
-            SimpleIoc.Default.Register<IDiscordService, DiscordService>();
-
-            SimpleIoc.Default.Register<ICurrentUsersService, CurrentUsersService>();
-            SimpleIoc.Default.Register<IVoiceService, VoiceService>();
-            SimpleIoc.Default.Register<IAudioInService, AudioInService>();
-            SimpleIoc.Default.Register<IAudioOutService, AudioOutService>();
-            //Todo: viewmodel locator
-            SimpleIoc.Default.GetInstance<ICurrentUsersService>();
-            SimpleIoc.Default.GetInstance<IVoiceService>();
-
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
@@ -100,7 +92,7 @@ namespace Quarrel
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
-            DispatcherHelper.Initialize();
+            DispatcherHelper.Initialize();;
         }
 
         /// <summary>

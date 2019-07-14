@@ -18,11 +18,12 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using UICompositionAnimations.Helpers;
-using DiscordAPI.Gateway;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Messages.Posts.Requests;
+using Quarrel.Services.Gateway;
 using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
+using Quarrel.ViewModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -30,20 +31,18 @@ namespace Quarrel.Controls.Shell
 {
     public sealed partial class CurrentUserButton : UserControl
     {
-        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
-        private ICurrentUsersService currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+        public MainViewModel ViewModel => (Application.Current.Resources["ViewModelLocator"] as ViewModelLocator).Main;
         public CurrentUserButton()
         {
             this.InitializeComponent();
         }
 
-        public BindableUser ViewModel => currentUsersService.CurrentUser;
 
         private async void StatusSelected(object sender, RoutedEventArgs e)
         {
             string status = (sender as RadioButton).Tag.ToString();
-            discordService.Gateway.Gateway.UpdateStatus(status, 0, null);
-            await discordService.UserService.UpdateSettings("{\"status\":\"" + status + "\"}");
+            SimpleIoc.Default.GetInstance<IGatewayService>().Gateway.UpdateStatus(status, 0, null);
+            await SimpleIoc.Default.GetInstance<IDiscordService>().UserService.UpdateSettings("{\"status\":\"" + status + "\"}");
         }
     }
 }
