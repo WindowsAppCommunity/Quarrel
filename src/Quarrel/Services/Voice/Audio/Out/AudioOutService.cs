@@ -128,22 +128,28 @@ namespace Quarrel.Services.Voice.Audio.Out
 
         private AudioGraphSettings GetDefaultGraphSettings()
         {
-            AudioGraphSettings graphsettings = new AudioGraphSettings(AudioRenderCategory.Communications);
-            graphsettings.EncodingProperties = new AudioEncodingProperties();
-            graphsettings.EncodingProperties.Subtype = "Float";
-            graphsettings.EncodingProperties.SampleRate = 48000;
-            graphsettings.EncodingProperties.ChannelCount = 2;
-            graphsettings.EncodingProperties.BitsPerSample = 32;
-            graphsettings.EncodingProperties.Bitrate = 64000;
+            AudioGraphSettings graphsettings = new AudioGraphSettings(AudioRenderCategory.Communications)
+            {
+                EncodingProperties = new AudioEncodingProperties
+                {
+                    Subtype = "Float",
+                    SampleRate = 48000,
+                    ChannelCount = 2,
+                    BitsPerSample = 32,
+                    Bitrate = 64000
+                }
+            };
             return graphsettings;
         }
 
         private AudioGraphSettings GetDefaultNodeSettings()
         {
-            AudioGraphSettings nodesettings = new AudioGraphSettings(AudioRenderCategory.GameChat);
-            nodesettings.EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 32);
-            nodesettings.DesiredSamplesPerQuantum = 960;
-            nodesettings.QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired;
+            AudioGraphSettings nodesettings = new AudioGraphSettings(AudioRenderCategory.GameChat)
+            {
+                EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 32),
+                DesiredSamplesPerQuantum = 960,
+                QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired
+            };
             return nodesettings;
         }
 

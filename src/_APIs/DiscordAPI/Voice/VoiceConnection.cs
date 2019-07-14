@@ -179,7 +179,7 @@ namespace DiscordAPI.Voice
                 {
                     Speaking = speaking,
                     Delay = 0,
-                    SSRC = lastReady != null ? lastReady.SSRC : 0
+                    SSRC = lastReady?.SSRC ?? 0
                 }
             };
             await _webMessageSocket.SendJsonObjectAsync(speakingPacket);
@@ -427,7 +427,11 @@ namespace DiscordAPI.Voice
                         processVP8Packet(packet, data);
                         break;
                     case 102:
-                        //TODO: RTX Video
+                        //TODO: RTX
+                        //ahhhh, so rtx is for retransmission
+                        //It seems like this will be useful for video
+                        //As previous frames are required? to decode future ones
+                        //https://webrtcglossary.com/rtx/
                         Debug.WriteLine($"RTX payload: {payloadType}");
                         break;
                     default:
