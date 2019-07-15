@@ -69,6 +69,8 @@ namespace Quarrel.Services.Gateway
             Gateway.GuildChannelDeleted += Gateway_GuildChannelDeleted;
             Gateway.GuildChannelUpdated += Gateway_GuildChannelUpdated;
 
+            Gateway.TypingStarted += Gateway_TypingStarted;
+
             Gateway.PresenceUpdated += Gateway_PresenceUpdated;
             Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
             Gateway.UserSettingsUpdated += Gateway_UserSettingsUpdated;
@@ -181,6 +183,11 @@ namespace Quarrel.Services.Gateway
         }
 
         #endregion
+
+        private void Gateway_TypingStarted(object sender, GatewayEventArgs<TypingStart> e)
+        {
+            Messenger.Default.Send(new GatewayTypingStartedMessage(e.EventData));
+        }
 
         private void Gateway_GuildMemberChunk(object sender, GatewayEventArgs<GuildMemberChunk> e)
         {

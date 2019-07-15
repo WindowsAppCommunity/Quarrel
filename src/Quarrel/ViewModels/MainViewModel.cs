@@ -23,6 +23,7 @@ using Quarrel.Services.Gateway;
 using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
+using Windows.UI.Xaml;
 
 namespace Quarrel.ViewModels
 {
@@ -239,6 +240,27 @@ namespace Quarrel.ViewModels
                 await DispatcherHelper.RunAsync(() => 
                 {
                     GuildsService.GetChannel(m.Channel.Id).Model = m.Channel;
+                });
+            });
+            MessengerInstance.Register<GatewayTypingStartedMessage>(this, async m =>
+            {
+                await DispatcherHelper.RunAsync(() => 
+                {
+                    var bChannel = GuildsService.CurrentChannels[m.TypingStart.ChannelId];
+                    if (!bChannel.Typers.ContainsKey(m.TypingStart.UserId))
+                    {
+                        DispatcherTimer timer = new DispatcherTimer();
+                        timer.Interval = TimeSpan.FromSeconds(8);
+                        timer.Tick += (s, e) =>
+                        {
+                            timer.Stop();
+                            bChannel.Typers.Remove(m.TypingStart.UserId);
+                            bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
+                        };
+                        bChannel.Typers.Add(m.TypingStart.UserId, timer);
+                    }
+                    bChannel.Typers[m.TypingStart.UserId].Start();
+                    bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
                 });
             });
             MessengerInstance.Register<GatewayReadyMessage>(this, async m =>

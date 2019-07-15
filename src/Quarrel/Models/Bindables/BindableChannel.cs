@@ -15,6 +15,7 @@ using Quarrel.Services.Users;
 using Quarrel.Services.Voice;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services.Rest;
+using Windows.UI.Xaml;
 
 namespace Quarrel.Models.Bindables
 {
@@ -374,6 +375,17 @@ namespace Quarrel.Models.Bindables
                 RaisePropertyChanged(nameof(MentionCount));
             });
         }
+        #endregion
+
+        #region Typing
+
+        public bool IsTyping
+        {
+            get => Typers.Count > 0;
+        }
+
+        public Dictionary<string, DispatcherTimer> Typers = new Dictionary<string, DispatcherTimer>();
+
         #endregion
 
     }

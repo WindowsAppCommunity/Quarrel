@@ -11,7 +11,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:DiscordAPI.Models"
     xmlns:bindables="using:Quarrel.Models.Bindables"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:tkcontrols="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:controls="using:Quarrel.Controls"
     xmlns:membercontrols="using:Quarrel.Controls.Members"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
@@ -366,9 +367,9 @@
                             Margin="{TemplateBinding Padding}" Control.IsTemplateFocusTarget="True"/>
                             </Grid>
 
-                            <controls:DropShadowPanel x:Name="focusGlow" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Visibility="Collapsed" Opacity="0" Margin="0,0,0,0"  OffsetX="0" OffsetY="0" BlurRadius="10" Color="{ThemeResource BlurpleColor}">
+                            <tkcontrols:DropShadowPanel x:Name="focusGlow" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Visibility="Collapsed" Opacity="0" Margin="0,0,0,0"  OffsetX="0" OffsetY="0" BlurRadius="10" Color="{ThemeResource BlurpleColor}">
                                 <Rectangle Width="2" Fill="{ThemeResource SystemControlBackgroundAccentBrush}"/>
-                            </controls:DropShadowPanel>
+                            </tkcontrols:DropShadowPanel>
                             <!-- The 'Xg' text simulates the amount of space one line of text will occupy.
                           In the DataPlaceholder state, the Content is not loaded yet so we
                           approximate the size of the item using placeholder text. -->
@@ -511,9 +512,9 @@
                 <FontIcon Visibility="Collapsed" x:Name="rich" Glyph="" FontSize="11" Margin="4,0,0,-2" Foreground="{ThemeResource Foreground}"/>
             </StackPanel>
         </StackPanel>
-        <!--<StackPanel Grid.Column="2" Orientation="Horizontal">
-            <local:TypingIndicator Visibility="Collapsed" x:Name="TypingIndic" HorizontalAlignment="Right" Grid.Column="1" Margin="6,0"/>
-        </StackPanel>-->
+        <StackPanel Grid.Column="2" Orientation="Horizontal">
+            <controls:TypingIndicator Visibility="{x:Bind ViewModel.IsTyping, Mode=OneWay}" HorizontalAlignment="Right" Margin="6,0"/>
+        </StackPanel>
 
         <ListView x:Name="MemberList" ItemsSource="{x:Bind ViewModel.ConnectedUsers.Values, Mode=OneWay}" x:Load="{x:Bind ViewModel.ConnectedUsers.Values, Converter={StaticResource EnumerableAnyToVisibilityConverter}, Mode=OneWay}" SelectionMode="None" IsItemClickEnabled="True" Grid.Row="1" Grid.ColumnSpan="2" Margin="-24,0,-24,12" ItemContainerStyle="{StaticResource ChannelItemStyle}">
             <interactivity:Interaction.Behaviors>

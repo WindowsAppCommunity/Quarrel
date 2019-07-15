@@ -292,6 +292,9 @@
     <Compile Include="Controls\Shell\VoiceConnection.xaml.cs">
       <DependentUpon>VoiceConnection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TypingIndicator.xaml.cs">
+      <DependentUpon>TypingIndicator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\Base\DateTimeToTextConverter.cs" />
     <Compile Include="Converters\Base\IntColorToBrushConverter.cs" />
     <Compile Include="Converters\Base\NotBoolToBoolConverter.cs" />
@@ -352,6 +355,7 @@
     <Compile Include="Messages\Gateway\Channels\GatewayGuildChannelUpdatedMessage.cs" />
     <Compile Include="Messages\Gateway\GatewayGuildSyncMessage.cs" />
     <Compile Include="Messages\Gateway\GatewaySessionReplacedMessage.cs" />
+    <Compile Include="Messages\Gateway\GatewayTypingStartedMessage.cs" />
     <Compile Include="Messages\Gateway\Messages\GatewayMessageAckMessage.cs" />
     <Compile Include="Messages\Gateway\Messages\GatewayMessageDeletedMessage.cs" />
     <Compile Include="Messages\Gateway\Messages\GatewayMessageRecievedMessage.cs" />
@@ -588,6 +592,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Shell\VoiceConnection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TypingIndicator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
