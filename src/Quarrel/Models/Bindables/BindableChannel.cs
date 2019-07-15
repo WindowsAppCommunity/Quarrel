@@ -410,6 +410,10 @@ namespace Quarrel.Models.Bindables
                     {
                         typeText += ", ";
                     }
+                    else if (i != 0 && i == Names.Count-1)
+                    {
+                        typeText += " and ";
+                    }
                     typeText += Names[i];
                 }
 
