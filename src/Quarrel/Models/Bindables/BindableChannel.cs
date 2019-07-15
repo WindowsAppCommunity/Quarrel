@@ -16,11 +16,13 @@ using Quarrel.Services.Voice;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services.Rest;
 using Windows.UI.Xaml;
+using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 
 namespace Quarrel.Models.Bindables
 {
     public class BindableChannel : BindableModelBase<Channel>
     {
+        private ICurrentUsersService currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
         private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();  
         public IVoiceService VoiceService { get; } = SimpleIoc.Default.GetInstance<IVoiceService>();
 
@@ -382,6 +384,45 @@ namespace Quarrel.Models.Bindables
         public bool IsTyping
         {
             get => Typers.Count > 0;
+        }
+
+        public List<string> Names
+        {
+            get
+            {
+                List<string> names = new List<string>();
+                foreach (var id in Typers.Keys)
+                {
+                    names.Add(currentUsersService.Users[id].DisplayName);
+                }
+                return names;
+            }
+        }
+
+        public string TypingText
+        {
+            get
+            {
+                string typeText = "";
+                for (int i = 0; i < Names.Count; i++)
+                {
+                    if (i != 0)
+                    {
+                        typeText += ", ";
+                    }
+                    typeText += Names[i];
+                }
+
+                if (Names.Count > 1)
+                {
+                    typeText += " are typing";
+                }
+                else
+                {
+                    typeText += " is typing";
+                }
+                return typeText;
+            }
         }
 
         public Dictionary<string, DispatcherTimer> Typers = new Dictionary<string, DispatcherTimer>();

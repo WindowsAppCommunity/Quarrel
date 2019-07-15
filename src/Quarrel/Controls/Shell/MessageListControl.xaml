@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:templates="using:Quarrel.TemplateSelectors"
     xmlns:msgcontrol="using:Quarrel.Controls.Messages"
+    xmlns:controls="using:Quarrel.Controls"
     xmlns:viewModels="using:Quarrel.ViewModels"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:bindables="using:Quarrel.Models.Bindables"
@@ -60,6 +61,13 @@
             </Rectangle.Fill>
         </Rectangle>
 
+        <Grid Visibility="{x:Bind ViewModel.Channel, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Margin="12,0,0,0">
+            <StackPanel Visibility="{x:Bind ViewModel.Channel.IsTyping, Mode=OneWay}" Orientation="Horizontal" VerticalAlignment="Bottom">
+                <controls:TypingIndicator/>
+                <TextBlock Text="{x:Bind ViewModel.Channel.TypingText, Mode=OneWay}" Margin="8,0,0,0"/>
+            </StackPanel>
+        </Grid>
+        
         <msgcontrol:MessageBox Grid.Row="1"
                                Visibility="{x:Bind ViewModel.Channel, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"/>
     </Grid>

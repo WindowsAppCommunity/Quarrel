@@ -256,11 +256,13 @@ namespace Quarrel.ViewModels
                             timer.Stop();
                             bChannel.Typers.Remove(m.TypingStart.UserId);
                             bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
+                            bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
                         };
                         bChannel.Typers.Add(m.TypingStart.UserId, timer);
                     }
                     bChannel.Typers[m.TypingStart.UserId].Start();
                     bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
+                    bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
                 });
             });
             MessengerInstance.Register<GatewayReadyMessage>(this, async m =>
