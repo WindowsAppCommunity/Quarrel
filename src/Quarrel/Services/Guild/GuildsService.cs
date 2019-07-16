@@ -8,6 +8,7 @@ using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using Quarrel.Messages.Gateway;
+using Quarrel.Messages.Navigation;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Models.Bindables;
 using Quarrel.Services.Cache;
@@ -18,6 +19,8 @@ namespace Quarrel.Services.Guild
     {
         public Dictionary<string, BindableChannel> CurrentChannels { get; } = new Dictionary<string, BindableChannel>();
         public Dictionary<string, BindableGuild> Guilds { get; } = new Dictionary<string, BindableGuild>();
+        public string CurrentGuildId { get; private set; }
+        public BindableGuild CurrentGuild => Guilds[CurrentGuildId];
 
         private ICacheService CacheService;
 
@@ -187,6 +190,7 @@ namespace Quarrel.Services.Guild
                     CurrentChannels.Remove(m.Channel.Id);
                 });
             });
+            Messenger.Default.Register<GuildNavigateMessage>(this, m => { CurrentGuildId = m.Guild.Model.Id; });
         }
 
         public BindableChannel GetChannel(string channelId)

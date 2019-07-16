@@ -12,20 +12,27 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using Windows.Foundation.Metadata;
+using Windows.UI;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Shapes;
 using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
+using Quarrel.Controls.Markdown.Helpers;
 using Quarrel.Controls.Markdown.Parse;
 using Quarrel.Controls.Markdown.Parse.Blocks;
 using Quarrel.Controls.Markdown.Parse.Inlines;
+using Quarrel.Services.Guild;
+using Quarrel.Services.Users;
 using Emoji = NeoSmart.Unicode.Emoji;
 
 namespace Quarrel.Controls.Markdown.Display
@@ -45,6 +52,8 @@ namespace Quarrel.Controls.Markdown.Display
         private string _messageid;
         private bool _halfopacity;
         private IEnumerable<User> _users;
+        private IGuildsService GuildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
+        private ICurrentUsersService CurrentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
         public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<User> users, string MessageId, ICodeBlockResolver codeBlockResolver, ref Border border, bool halfopacity)
         {
             _document = document;
@@ -1113,7 +1122,7 @@ namespace Quarrel.Controls.Markdown.Display
 
             if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordChannelMention || element.LinkType == HyperlinkType.DiscordRoleMention || element.LinkType == HyperlinkType.DiscordNickMention || element.LinkType == HyperlinkType.QuarrelColor)
             {
-                /*var content = element.Text;
+                var content = element.Text;
                 bool enabled = true;
                 SolidColorBrush foreground = (SolidColorBrush)App.Current.Resources["Blurple"];
                 //TODO: implement required app services or other alternative
@@ -1130,15 +1139,15 @@ namespace Quarrel.Controls.Markdown.Display
                             {
                                 if (_halfopacity) content = user.Username;
                                 else content = "@" + user.Username;
-                                if (!App.CurrentGuildIsDM)
+                                if (GuildsService.CurrentGuild.Model.Name != "DM")
                                 {
-                                    if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(mentionid))
+                                    if (CurrentUsersService.Users.ContainsKey(mentionid))
                                     {
-                                        var member = LocalState.Guilds[App.CurrentGuildId].members[mentionid];
-                                        if (!string.IsNullOrWhiteSpace(member.Nick))
+                                        var member = CurrentUsersService.Users[mentionid];
+                                        if (!string.IsNullOrWhiteSpace(member.DisplayName))
                                         {
-                                            if (_halfopacity) content = member.Nick;
-                                            else content = "@" + member.Nick;
+                                            if (_halfopacity) content = member.DisplayName;
+                                            else content = "@" + member.DisplayName;
                                         }
                                     }
                                 }
@@ -1151,11 +1160,9 @@ namespace Quarrel.Controls.Markdown.Display
 
                     else if (element.LinkType == HyperlinkType.DiscordChannelMention)
                     {
-                        if (LocalModels.LocalState.Guilds[App.CurrentGuildId].channels.ContainsKey(element.Text.Remove(0, 1)))
+                        if (GuildsService.CurrentChannels.ContainsKey(element.Text.Remove(0, 1)))
                         {
-                            content = "#" + LocalModels.LocalState.Guilds[App.CurrentGuildId]
-                                          .channels[element.Text.Remove(0, 1)]
-                                          .raw.Name;
+                            content = "#" + GuildsService.CurrentChannels[element.Text.Remove(0, 1)].Model.Name;
                         }
                         else
                         {
@@ -1167,12 +1174,12 @@ namespace Quarrel.Controls.Markdown.Display
 
                     else if (element.LinkType == HyperlinkType.DiscordRoleMention)
                     {
-                        if (LocalModels.LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(element.Text.Remove(0, 2)))
+                        var role = GuildsService.CurrentGuild.Model.Roles.First(x => x.Id == element.Text.Remove(0, 2));
+                        if (role != null)
                         {
-                            var role = LocalModels.LocalState.Guilds[App.CurrentGuildId].roles[element.Text.Remove(0, 2)];
                             if (_halfopacity) content = role.Name;
                             else content = "@" + role.Name;
-                            foreground = Common.IntToColor(role.Color);
+                            foreground = IntToColor(role.Color);
                         }
                         else
                         {
@@ -1185,7 +1192,7 @@ namespace Quarrel.Controls.Markdown.Display
                         string intcolor = element.Text.Replace("@$QUARREL-color", "");
                         try
                         {
-                            var color = Common.IntToColor(Int32.Parse(intcolor));
+                            var color = IntToColor(Int32.Parse(intcolor));
                             inlineCollection.Add(new InlineUIContainer
                             {
                                 Child = new Ellipse()
@@ -1221,7 +1228,7 @@ namespace Quarrel.Controls.Markdown.Display
                 link.IsEnabled = enabled;
                 _linkRegister.RegisterNewHyperLink(link, element.Url);
                 InlineUIContainer linkContainer = new InlineUIContainer {Child = link};
-                inlineCollection.Add(linkContainer);*/
+                inlineCollection.Add(linkContainer);
             }
             else
             {
@@ -1478,73 +1485,90 @@ namespace Quarrel.Controls.Markdown.Display
         /// Checks if all text elements inside the given container are superscript.
         /// </summary>
         /// <returns> <c>true</c> if all text is superscript (level 1); <c>false</c> otherwise. </returns>
-    /*    private bool AllTextIsSuperscript(IInlineContainer container, int superscriptLevel = 0)
-        {
-            foreach (var inline in container.Inlines)
+        /*    private bool AllTextIsSuperscript(IInlineContainer container, int superscriptLevel = 0)
             {
-                var textInline = inline as SuperscriptTextInline;
-                if (textInline != null)
+                foreach (var inline in container.Inlines)
                 {
-                    // Remove any nested superscripts.
-                    if (AllTextIsSuperscript(textInline, superscriptLevel + 1) == false)
+                    var textInline = inline as SuperscriptTextInline;
+                    if (textInline != null)
                     {
-                        return false;
+                        // Remove any nested superscripts.
+                        if (AllTextIsSuperscript(textInline, superscriptLevel + 1) == false)
+                        {
+                            return false;
+                        }
+                    }
+                    else if (inline is IInlineContainer)
+                    {
+                        // Remove any superscripts.
+                        if (AllTextIsSuperscript((IInlineContainer)inline, superscriptLevel) == false)
+                        {
+                            return false;
+                        }
+                    }
+                    else if (inline is IInlineLeaf && !Helpers.Common.IsBlankOrWhiteSpace(((IInlineLeaf)inline).Text))
+                    {
+                        if (superscriptLevel != 1)
+                        {
+                            return false;
+                        }
                     }
                 }
-                else if (inline is IInlineContainer)
-                {
-                    // Remove any superscripts.
-                    if (AllTextIsSuperscript((IInlineContainer)inline, superscriptLevel) == false)
-                    {
-                        return false;
-                    }
-                }
-                else if (inline is IInlineLeaf && !Helpers.Common.IsBlankOrWhiteSpace(((IInlineLeaf)inline).Text))
-                {
-                    if (superscriptLevel != 1)
-                    {
-                        return false;
-                    }
-                }
+
+                return true;
             }
 
-            return true;
+            /// <summary>
+            /// Removes all superscript elements from the given container.
+            /// </summary>
+            private void RemoveSuperscriptRuns(IInlineContainer container, bool insertCaret)
+            {
+                for (int i = 0; i < container.Inlines.Count; i++)
+                {
+                    var inline = container.Inlines[i];
+                    var textInline = inline as SuperscriptTextInline;
+                    if (textInline != null)
+                    {
+                        // Remove any nested superscripts.
+                        RemoveSuperscriptRuns(textInline, insertCaret);
+
+                        // Remove the superscript element, insert all the children.
+                        container.Inlines.RemoveAt(i);
+                        if (insertCaret)
+                        {
+                            container.Inlines.Insert(i++, new TextRunInline { Text = "^" });
+                        }
+
+                        foreach (var superscriptInline in textInline.Inlines)
+                        {
+                            container.Inlines.Insert(i++, superscriptInline);
+                        }
+
+                        i--;
+                    }
+                    else if (inline is IInlineContainer)
+                    {
+                        // Remove any superscripts.
+                        RemoveSuperscriptRuns((IInlineContainer)inline, insertCaret);
+                    }
+                }
+            }*/
+
+
+        public static SolidColorBrush IntToColor(int color)
+        {
+            if (color != 0)
+            {
+                byte a = (byte)(255);
+                byte r = (byte)(color >> 16);
+                byte g = (byte)(color >> 8);
+                byte b = (byte)(color >> 0);
+                return new SolidColorBrush(Color.FromArgb(a, r, g, b));
+            }
+            else
+            {
+                return (SolidColorBrush)App.Current.Resources["Foreground"];
+            }
         }
-
-        /// <summary>
-        /// Removes all superscript elements from the given container.
-        /// </summary>
-        private void RemoveSuperscriptRuns(IInlineContainer container, bool insertCaret)
-        {
-            for (int i = 0; i < container.Inlines.Count; i++)
-            {
-                var inline = container.Inlines[i];
-                var textInline = inline as SuperscriptTextInline;
-                if (textInline != null)
-                {
-                    // Remove any nested superscripts.
-                    RemoveSuperscriptRuns(textInline, insertCaret);
-
-                    // Remove the superscript element, insert all the children.
-                    container.Inlines.RemoveAt(i);
-                    if (insertCaret)
-                    {
-                        container.Inlines.Insert(i++, new TextRunInline { Text = "^" });
-                    }
-
-                    foreach (var superscriptInline in textInline.Inlines)
-                    {
-                        container.Inlines.Insert(i++, superscriptInline);
-                    }
-
-                    i--;
-                }
-                else if (inline is IInlineContainer)
-                {
-                    // Remove any superscripts.
-                    RemoveSuperscriptRuns((IInlineContainer)inline, insertCaret);
-                }
-            }
-        }*/
     }
 }

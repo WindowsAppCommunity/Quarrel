@@ -94,7 +94,261 @@
             </ResourceDictionary.ThemeDictionaries>
             <viewModels:ViewModelLocator x:Key="ViewModelLocator" />
             <Color x:Key="BlurpleColor">#7289DA</Color>
+            <SolidColorBrush x:Key="Blurple" Color="#7289DA"/>
+            <Style x:Key="DiscordMentionHyperlink" TargetType="HyperlinkButton">
+                <Setter Property="Foreground" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+                <Setter Property="BorderBrush" Value="{ThemeResource HyperlinkButtonBorderBrush}"/>
+                <Setter Property="BorderThickness" Value="{ThemeResource HyperlinkButtonBorderThemeThickness}"/>
+                <Setter Property="Margin" Value="2,0,2,-4"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="UseSystemFocusVisuals" Value="True"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="HyperlinkButton">
+                            <Grid x:Name="RootGrid">
+                                <Grid.Background>
+                                    <SolidColorBrush Color="{ThemeResource BlurpleColor}" Opacity="0.1"/>
+                                </Grid.Background>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="whiteContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0.1" Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="whitebackground" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="whiteContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="whitebackground" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="whiteContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="whitebackground" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="whiteContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0.1" Storyboard.TargetName="whitebackground" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Rectangle x:Name="background" Fill="{TemplateBinding Foreground}" Opacity="0.1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                <Rectangle x:Name="whitebackground" Fill="White" Opacity="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
+                                <TextBlock x:Name="ContentPresenter" Margin="2,0,2,0" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
+                                <TextBlock x:Name="whiteContentPresenter" Foreground="White"  Opacity="0" Margin="2,0,2,0" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="DiscordMentionHyperlinkBold" TargetType="HyperlinkButton">
+                <Setter Property="Foreground" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+                <Setter Property="BorderBrush" Value="{ThemeResource HyperlinkButtonBorderBrush}"/>
+                <Setter Property="BorderThickness" Value="{ThemeResource HyperlinkButtonBorderThemeThickness}"/>
+                <Setter Property="Margin" Value="2,0,2,-4"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="UseSystemFocusVisuals" Value="True"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="HyperlinkButton">
+                            <Grid x:Name="RootGrid">
+                                <Grid.Background>
+                                    <SolidColorBrush Color="{ThemeResource BlurpleColor}" Opacity="0.1"/>
+                                </Grid.Background>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="whiteContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0.2" Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="whitebackground" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="whiteContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="whitebackground" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="whiteContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="whitebackground" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="whiteContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0.1" Storyboard.TargetName="whitebackground" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Rectangle x:Name="background" Fill="{TemplateBinding Foreground}" Opacity="0.1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                <Rectangle x:Name="whitebackground" Fill="White" Opacity="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+                                <TextBlock x:Name="ContentPresenter" Margin="2,0,2,0" FontWeight="SemiBold" AutomationProperties.AccessibilityView="Raw" Foreground="White"  Text="{TemplateBinding Content}"/>
+                                <TextBlock x:Name="whiteContentPresenter" Foreground="{TemplateBinding Foreground}" FontWeight="SemiBold" Opacity="0" Margin="2,0,2,0" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
             <ResourceDictionary.MergedDictionaries>
                 <rykenUI:RykenLibraryStyles />
                 <ResourceDictionary Source="Resources/Brushes.xaml"/>

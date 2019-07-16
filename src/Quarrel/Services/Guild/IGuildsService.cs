@@ -12,6 +12,8 @@ namespace Quarrel.Services.Guild
     {
         Dictionary<string, BindableChannel> CurrentChannels { get; }
         Dictionary<string, BindableGuild> Guilds { get; }
+        string CurrentGuildId { get; }
+        BindableGuild CurrentGuild { get; }
 
         BindableChannel GetChannel(string channelId);
     }
