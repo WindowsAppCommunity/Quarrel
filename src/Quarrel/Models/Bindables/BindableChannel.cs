@@ -17,6 +17,7 @@ using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services.Rest;
 using Windows.UI.Xaml;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
+using Quarrel.Services.Guild;
 
 namespace Quarrel.Models.Bindables
 {
@@ -25,6 +26,7 @@ namespace Quarrel.Models.Bindables
         private ICurrentUsersService currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
         private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();  
         public IVoiceService VoiceService { get; } = SimpleIoc.Default.GetInstance<IVoiceService>();
+        public IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
 
         public BindableChannel([NotNull] Channel model, [CanBeNull] IEnumerable<VoiceState> states = null) : base(model)
         {
@@ -70,7 +72,7 @@ namespace Quarrel.Models.Bindables
 
         public BindableGuild Guild
         {
-            get => MessengerInstance.Request<BindableGuildRequestMessage, BindableGuild>(new BindableGuildRequestMessage(GuildId));
+            get => GuildsService.Guilds[GuildId];
         }
 
         // Order:

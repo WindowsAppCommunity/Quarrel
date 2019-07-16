@@ -11,10 +11,7 @@ namespace Quarrel.Services.Guild
     public interface IGuildsService
     {
         Dictionary<string, BindableChannel> CurrentChannels { get; }
-
-        void RegisterChannel(BindableChannel channel, string channelId);
-
-        BindableChannel RemoveChannel(string channelId);
+        Dictionary<string, BindableGuild> Guilds { get; }
 
         BindableChannel GetChannel(string channelId);
     }

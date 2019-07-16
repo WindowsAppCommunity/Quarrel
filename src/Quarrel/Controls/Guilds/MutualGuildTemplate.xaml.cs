@@ -16,6 +16,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GalaSoft.MvvmLight.Ioc;
+using Quarrel.Services.Guild;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -23,6 +25,7 @@ namespace Quarrel.Controls.Guilds
 {
     public class BindableMutualGuild
     {
+        public IGuildsService GuildsService = SimpleIoc.Default.GetInstance<GuildsService>();
         public BindableMutualGuild(MutualGuild mg)
         {
             MutualGuild = mg;
@@ -30,7 +33,7 @@ namespace Quarrel.Controls.Guilds
 
         public MutualGuild MutualGuild { get; set; }
 
-        public BindableGuild BindableGuild { get => Messenger.Default.Request<BindableGuildRequestMessage, BindableGuild>(new BindableGuildRequestMessage(MutualGuild.Id)); }
+        public BindableGuild BindableGuild => GuildsService.Guilds[MutualGuild.Id];
     }
 
     public sealed partial class MutualGuildTemplate : UserControl

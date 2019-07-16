@@ -15,12 +15,13 @@ using Quarrel.Services.Cache;
 using Quarrel.Services.Rest;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Posts.Requests;
+using Quarrel.Services.Guild;
 
 namespace DiscordAPI.Models
 {
     internal static class MutualGuildExtentions
     {
-        public static BindableGuild Guild(this MutualGuild mg) =>  Messenger.Default.Request<BindableGuildRequestMessage, BindableGuild>(new BindableGuildRequestMessage(mg.Id));
+        public static BindableGuild Guild(this MutualGuild mg) =>  SimpleIoc.Default.GetInstance<IGuildsService>().Guilds[mg.Id];
 
         public static string GetName(this MutualGuild mg) => Guild(mg).Model.Name;
 
