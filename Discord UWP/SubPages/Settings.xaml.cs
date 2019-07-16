@@ -339,6 +339,8 @@ namespace Quarrel.SubPages
             HideSIcons.IsChecked = standardNetwork.SmallIcons;
             TTLAttachmentsMD.IsChecked = mobileNetwork.TTL;
             HideSIconsMD.IsChecked = mobileNetwork.SmallIcons;
+
+            UseTypingIndicator.IsChecked = Storage.Settings.ShowTypingIndicator;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -535,6 +537,7 @@ namespace Quarrel.SubPages
             Storage.Settings.StandardData = standardNetwork.GetInt();
             Storage.Settings.MobileData = mobileNetwork.GetInt();
 
+            Storage.Settings.ShowTypingIndicator = (bool)UseTypingIndicator.IsChecked;
 
             Storage.SaveAppSettings();
             Storage.SettingsChanged();

@@ -157,6 +157,7 @@ namespace Quarrel
         public bool BackgroundVoice = !App.IsMobile;
         public int StandardData = 0;
         public int MobileData = 1;
+        public bool ShowTypingIndicator = true;
 
         #region NotificationSounds
         public bool MessageSound = true;
