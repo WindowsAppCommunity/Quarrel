@@ -451,6 +451,11 @@ namespace Quarrel.ViewModels
         private bool ItemsLoading => NewItemsLoading || OldItemsLoading;
 
         #region Commands
+        public void TriggerTyping()
+        {
+            DiscordService.ChannelService.TriggerTypingIndicator(Channel.Model.Id);
+        }
+
         private RelayCommand sendMessageCommand;
         public RelayCommand SendMessageCommand => sendMessageCommand ?? (sendMessageCommand = new RelayCommand(() =>
         {
@@ -486,7 +491,7 @@ namespace Quarrel.ViewModels
             DiscordService.ChannelService.CreateMessage(Channel.Model.Id, new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
             MessageText = "";
         }));
-
+        
         private RelayCommand newLineCommand;
         public RelayCommand NewLineCommand =>
             newLineCommand ?? (newLineCommand = new RelayCommand(() =>

@@ -1021,7 +1021,7 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <local:SelectionBindingTextBox x:Name="MessageEditor" x:Uid="/Controls/SendMessageTB"  Text="{x:Bind ViewModel.MessageText, Mode=TwoWay}" BindableSelectionStart="{x:Bind ViewModel.SelectionStart, Mode=TwoWay}" BindableSelectionLength="{x:Bind ViewModel.SelectionLength, Mode=TwoWay}" Padding="52,12,96,12" VerticalAlignment="Stretch" PlaceholderText="Send message" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MaxHeight="256">
+        <local:SelectionBindingTextBox x:Name="MessageEditor" x:Uid="/Controls/SendMessageTB"  Text="{x:Bind ViewModel.MessageText, Mode=TwoWay}" BindableSelectionStart="{x:Bind ViewModel.SelectionStart, Mode=TwoWay}" BindableSelectionLength="{x:Bind ViewModel.SelectionLength, Mode=TwoWay}" Padding="52,12,96,12" VerticalAlignment="Stretch" PlaceholderText="Send message" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MaxHeight="256" TextChanged="MessageEditor_TextChanged">
             <interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="KeyDown">
                     <behaviors:KeyDownCommandAction Key="Enter" Command="{x:Bind ViewModel.SendMessageCommand}" ShiftCommand="{x:Bind ViewModel.NewLineCommand}" ExecuteShiftCommandIfNoKeyboard="True"/>

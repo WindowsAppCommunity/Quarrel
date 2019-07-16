@@ -1,4 +1,5 @@
-﻿using DiscordAPI.Models;
+﻿using DiscordAPI.Gateway;
+using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Quarrel.Messages.Posts.Requests;
@@ -40,7 +41,7 @@ namespace Quarrel.Controls.Messages
 
         private void MessageEditor_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            ViewModel.TriggerTyping();
         }
     }
 }
