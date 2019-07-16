@@ -117,6 +117,7 @@ namespace Quarrel.ViewModels
                 if (Channel != null && Channel.Model.Id == m.Message.ChannelId)
                     await DispatcherHelper.RunAsync(() =>
                     {
+                        GuildsService.CurrentChannels[m.Message.ChannelId].Typers.Remove(m.Message.User.Id);
                         BindableMessages.Add(new BindableMessage(m.Message, guildId, BindableMessages.LastOrDefault()?.Model));
                     });
             });
