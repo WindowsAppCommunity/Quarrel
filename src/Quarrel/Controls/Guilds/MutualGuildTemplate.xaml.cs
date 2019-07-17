@@ -25,7 +25,7 @@ namespace Quarrel.Controls.Guilds
 {
     public class BindableMutualGuild
     {
-        public IGuildsService GuildsService = SimpleIoc.Default.GetInstance<GuildsService>();
+        public IGuildsService GuildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
         public BindableMutualGuild(MutualGuild mg)
         {
             MutualGuild = mg;
@@ -43,8 +43,8 @@ namespace Quarrel.Controls.Guilds
             this.InitializeComponent();
             this.DataContextChanged += (s, e) =>
             {
-                if (e.NewValue is MutualGuild)
-                    DataContext = new BindableMutualGuild((MutualGuild)e.NewValue);
+                if (e.NewValue is MutualGuild guild)
+                    DataContext = new BindableMutualGuild(guild);
                 else
                     this.Bindings.Update();
             };

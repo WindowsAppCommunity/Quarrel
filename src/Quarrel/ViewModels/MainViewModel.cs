@@ -42,8 +42,6 @@ namespace Quarrel.ViewModels
             CurrentUsersService = currentUsersService;
             GatewayService = gatewayService;
             GuildsService = guildsService;
-
-            currentUsersService.Users.CollectionChanged += CollectionChangedMethod;
             RegisterMessage();
             Login();
         }
@@ -65,6 +63,53 @@ namespace Quarrel.ViewModels
             MessengerInstance.Register<ChannelNavigateMessage>(this, async m =>
             {
                 Channel = m.Channel;
+
+                await DispatcherHelper.RunAsync(() =>
+                {
+                    BindableMembers.Clear();
+                    foreach (var user in CurrentUsersService.Users.Where(user =>
+                        {
+                            Permissions perms = GuildsService.Guilds[Channel.GuildId].Permissions.Clone();
+
+
+                            GuildPermission roleDenies = 0;
+                            GuildPermission roleAllows = 0;
+                            GuildPermission memberDenies = 0;
+                            GuildPermission memberAllows = 0;
+                            foreach (Overwrite overwrite in (Channel.Model as GuildChannel).PermissionOverwrites)
+                                if (overwrite.Id == Channel.GuildId)
+                                {
+                                    perms.AddDenies((GuildPermission)overwrite.Deny);
+                                    perms.AddAllows((GuildPermission)overwrite.Allow);
+                                }
+                                else if (overwrite.Type == "role" && user.Value.Model.Roles.Contains(overwrite.Id))
+                                {
+                                    roleDenies |= (GuildPermission)overwrite.Deny;
+                                    roleAllows |= (GuildPermission)overwrite.Allow;
+                                }
+                                else if (overwrite.Type == "member" && overwrite.Id == user.Value.Model.User.Id)
+                                {
+                                    memberDenies |= (GuildPermission)overwrite.Deny;
+                                    memberAllows |= (GuildPermission)overwrite.Allow;
+                                }
+
+                            perms.AddDenies(roleDenies);
+                            perms.AddAllows(roleAllows);
+                            perms.AddDenies(memberDenies);
+                            perms.AddAllows(memberAllows);
+
+                            // If owner add admin
+                            if (Guild.Model.OwnerId == user.Value.Model.User.Id)
+                            {
+                                perms.AddAllows(GuildPermission.Administrator);
+                            }
+
+                            return perms.ReadMessages;
+                        }))
+                    {
+                        BindableMembers.AddElement(user.Value);
+                    }
+                });
 
                 using (await SourceMutex.LockAsync())
                 {
@@ -104,10 +149,7 @@ namespace Quarrel.ViewModels
                             lastItem = item;
                         }
 
-                        if (scrollItem != null)
-                            ScrollTo?.Invoke(this, scrollItem);
-                        else
-                            ScrollTo?.Invoke(this, BindableMessages.LastOrDefault());
+                        ScrollTo?.Invoke(this, scrollItem ?? BindableMessages.LastOrDefault());
                     });
                     NewItemsLoading = false;
                 }
@@ -144,10 +186,7 @@ namespace Quarrel.ViewModels
                     {
                         // LastOrDefault to start from the bottom
                         var msg = BindableMessages.LastOrDefault(x => x.Model.Id == m.Message.Id);
-                        if (msg != null)
-                        {
-                            msg.Update(m.Message);
-                        }
+                        msg?.Update(m.Message);
                     });
                 }
             });
@@ -245,6 +284,18 @@ namespace Quarrel.ViewModels
                         foreach (var guild in GuildsService.Guilds)
                         {
                             BindableGuilds.Add(guild.Value);
+                        }
+                    });
+                }
+                else if (m == "UsersSynced")
+                {
+                    await DispatcherHelper.RunAsync(() =>
+                    {
+                        // Show guilds
+                        BindableMembers.Clear();
+                        foreach (var user in CurrentUsersService.Users)
+                        {
+                            BindableMembers.AddElement(user.Value);
                         }
                     });
                 }
@@ -549,83 +600,6 @@ namespace Quarrel.ViewModels
                 NewItemsLoading = false;
             }
         }
-        private void CollectionChangedMethod(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    {
-                        _ = DispatcherHelper.RunAsync(() =>
-                        {
-                            foreach (var item in e.NewItems)
-                            {
-                                if (item is KeyValuePair<string, BindableGuildMember> member)
-                                {
-                                    BindableMembers.AddElement(member.Value);
-                                }
-                            }
-
-                        });
-
-                        break;
-                    }
-
-                case NotifyCollectionChangedAction.Replace:
-                    {
-                        _ = DispatcherHelper.RunAsync(() =>
-                        {
-                            foreach (var item in e.OldItems)
-                            {
-                                if (item is KeyValuePair<string, BindableGuildMember> member)
-                                {
-                                    BindableMembers.RemoveElement(member.Value);
-                                }
-                            }
-
-                            foreach (var item in e.NewItems)
-                            {
-                                if (item is KeyValuePair<string, BindableGuildMember> member)
-                                {
-                                    BindableMembers.AddElement(member.Value);
-                                }
-                            }
-                        });
-
-                        break;
-                    }
-
-                case NotifyCollectionChangedAction.Remove:
-                    {
-                        _ = DispatcherHelper.RunAsync(() =>
-                        {
-                            foreach (var item in e.OldItems)
-                            {
-                                if (item is BindableGuildMember member)
-                                {
-                                    BindableMembers.RemoveElement(member);
-                                }
-                            }
-                        });
-
-                        break;
-                    }
-
-                case NotifyCollectionChangedAction.Move:
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    {
-                        _ = DispatcherHelper.RunAsync(() =>
-                        {
-                            //Note: reset must only be called from clear or this will not work
-
-                            BindableMembers.Clear();
-                        });
-
-                        break;
-                    }
-            }
-        }
-
         #endregion
 
         #region Properties
