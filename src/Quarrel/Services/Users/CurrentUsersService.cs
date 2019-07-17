@@ -141,7 +141,7 @@ namespace Quarrel.Services.Users
 
             Messenger.Default.Register<GatewayUserSettingsUpdatedMessage>(this, async m =>
             {
-                await DispatcherHelper.RunAsync(() =>
+                if (string.IsNullOrEmpty(m.Settings.Status))
                 {
                     var newPresence = new Presence()
                     {
@@ -151,15 +151,18 @@ namespace Quarrel.Services.Users
                         Roles = CurrentUser.Presence.Roles,
                         Status = m.Settings.Status
                     };
-
-                    CurrentUser.Presence = newPresence;
-
-                    Users.TryGetValue(CurrentUser.Model.Id, out BindableGuildMember member);
-                    if (member != null)
+                    await DispatcherHelper.RunAsync(() =>
                     {
-                        member.Presence = newPresence;
-                    }
-                });
+
+                        CurrentUser.Presence = newPresence;
+
+                        Users.TryGetValue(CurrentUser.Model.Id, out BindableGuildMember member);
+                        if (member != null)
+                        {
+                            member.Presence = newPresence;
+                        }
+                    });
+                }
             });
 
             Messenger.Default.Register<GatewaySessionReplacedMessage>(this, async m =>
