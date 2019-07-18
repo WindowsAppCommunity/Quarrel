@@ -62,7 +62,7 @@ namespace Quarrel.Models.Bindables
             get
             {
                 // TODO: Calculate once and store
-                Permissions perms = new Permissions(Model.Roles.FirstOrDefault().Permissions);
+                Permissions perms = new Permissions(Model.Roles.FirstOrDefault(x => x.Name == "@everyone").Permissions);
 
                 BindableGuildMember member = new BindableGuildMember(Model.Members.FirstOrDefault(x => x.User.Id == discordService.CurrentUser.Id));
                 member.GuildId = Model.Id;

@@ -69,44 +69,47 @@ namespace Quarrel.ViewModels
                 {
                     BindableMembers.Clear();
                     foreach (var user in CurrentUsersService.Users.Where(user =>
+                    {
+                        Permissions perms = new Permissions(Guild.Model.Roles.FirstOrDefault(x => x.Name == "@everyone").Permissions);
+                        foreach (var role in user.Value.Roles)
                         {
-                            Permissions perms = GuildsService.Guilds[Channel.GuildId].Permissions.Clone();
+                            perms.AddAllows((GuildPermission)role.Permissions);
+                        }
 
-
-                            GuildPermission roleDenies = 0;
-                            GuildPermission roleAllows = 0;
-                            GuildPermission memberDenies = 0;
-                            GuildPermission memberAllows = 0;
-                            foreach (Overwrite overwrite in (Channel.Model as GuildChannel).PermissionOverwrites)
-                                if (overwrite.Id == Channel.GuildId)
-                                {
-                                    perms.AddDenies((GuildPermission)overwrite.Deny);
-                                    perms.AddAllows((GuildPermission)overwrite.Allow);
-                                }
-                                else if (overwrite.Type == "role" && user.Value.Model.Roles.Contains(overwrite.Id))
-                                {
-                                    roleDenies |= (GuildPermission)overwrite.Deny;
-                                    roleAllows |= (GuildPermission)overwrite.Allow;
-                                }
-                                else if (overwrite.Type == "member" && overwrite.Id == user.Value.Model.User.Id)
-                                {
-                                    memberDenies |= (GuildPermission)overwrite.Deny;
-                                    memberAllows |= (GuildPermission)overwrite.Allow;
-                                }
-
-                            perms.AddDenies(roleDenies);
-                            perms.AddAllows(roleAllows);
-                            perms.AddDenies(memberDenies);
-                            perms.AddAllows(memberAllows);
-
-                            // If owner add admin
-                            if (Guild.Model.OwnerId == user.Value.Model.User.Id)
+                        GuildPermission roleDenies = 0;
+                        GuildPermission roleAllows = 0;
+                        GuildPermission memberDenies = 0;
+                        GuildPermission memberAllows = 0;
+                        foreach (Overwrite overwrite in (Channel.Model as GuildChannel).PermissionOverwrites)
+                            if (overwrite.Id == Channel.GuildId)
                             {
-                                perms.AddAllows(GuildPermission.Administrator);
+                                perms.AddDenies((GuildPermission)overwrite.Deny);
+                                perms.AddAllows((GuildPermission)overwrite.Allow);
+                            }
+                            else if (overwrite.Type == "role" && user.Value.Model.Roles.Contains(overwrite.Id))
+                            {
+                                roleDenies |= (GuildPermission)overwrite.Deny;
+                                roleAllows |= (GuildPermission)overwrite.Allow;
+                            }
+                            else if (overwrite.Type == "member" && overwrite.Id == user.Value.Model.User.Id)
+                            {
+                                memberDenies |= (GuildPermission)overwrite.Deny;
+                                memberAllows |= (GuildPermission)overwrite.Allow;
                             }
 
-                            return perms.ReadMessages;
-                        }))
+                        perms.AddDenies(roleDenies);
+                        perms.AddAllows(roleAllows);
+                        perms.AddDenies(memberDenies);
+                        perms.AddAllows(memberAllows);
+
+                        // If owner add admin
+                        if (Guild.Model.OwnerId == user.Value.Model.User.Id)
+                        {
+                            perms.AddAllows(GuildPermission.Administrator);
+                        }
+
+                        return perms.ReadMessages;
+                    }))
                     {
                         BindableMembers.AddElement(user.Value);
                     }
