@@ -54,6 +54,7 @@ namespace Quarrel.ViewModels
                 {
                     await DispatcherHelper.RunAsync(() =>
                     {
+                        BindableMembers.Clear();
                         Guild = m.Guild;
                         BindableChannels = m.Guild.Channels;
                         RaisePropertyChanged(nameof(BindableChannels));
