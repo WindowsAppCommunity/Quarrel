@@ -1,0 +1,32 @@
+﻿<UserControl
+    x:Class="Quarrel.SubPages.Settings.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Quarrel.SubPages.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="400"
+    d:DesignWidth="400">
+
+    <Grid>
+        <NavigationView IsSettingsVisible="False" IsBackButtonVisible="Collapsed"
+                        OpenPaneLength="180"
+                        SelectionChanged="NavigationView_SelectionChanged">
+            <NavigationView.MenuItems>
+                <NavigationViewItemHeader Content="User Settings"/>
+                <NavigationViewItem x:Name="MyAccountItem" Icon="ContactInfo" Content="My Account"/>
+                <NavigationViewItem x:Name="PrivacyItem" Icon="Permissions" Content="Privacy"/>
+                <NavigationViewItem x:Name="ConnectionsItem" Icon="Share" Content="Connections"/>
+
+                <NavigationViewItemHeader Content="App Settings"/>
+                <NavigationViewItem Icon="Setting" Content="General"/>
+                <NavigationViewItem Icon="Important" Content="Notifications"/>
+                <NavigationViewItem Icon="Microphone" Content="Voice"/>
+            </NavigationView.MenuItems>
+
+            <Frame x:Name="SettingsFrame"/>
+
+        </NavigationView>
+    </Grid>
+</UserControl>

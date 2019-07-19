@@ -1,7 +1,9 @@
 ﻿using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Navigation;
+using Quarrel.Messages.Navigation.SubFrame;
 using Quarrel.Models.Bindables;
+using Quarrel.SubPages.Settings;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -66,6 +68,11 @@ namespace Quarrel.Controls.Shell
         private void ToggleMemberPane(object sender, RoutedEventArgs e)
         {
             MemberListButtonClicked(this, null);
+        }
+
+        private void OpenSettings(object sender, RoutedEventArgs e)
+        {
+            Messenger.Default.Send(SubFrameNavigationRequestMessage.To(new SettingsPage()));
         }
     }
 

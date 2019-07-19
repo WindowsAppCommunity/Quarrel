@@ -767,7 +767,7 @@
                                                     <TranslateTransform x:Name="OverflowContentRootTransform" X="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.OverflowContentHorizontalOffset}"/>
                                                 </Grid.RenderTransform>
 
-                                                <CommandBarOverflowPresenter x:Name="SecondaryItemsControl" Style="{TemplateBinding CommandBarOverflowPresenterStyle}" IsEnabled="False" IsTabStop="False">
+                                                <CommandBarOverflowPresenter x:Name="SecondaryItemsControl" Style="{TemplateBinding CommandBarOverflowPresenterStyle}" Background="{TemplateBinding Background}" IsEnabled="False" IsTabStop="False">
                                                     <CommandBarOverflowPresenter.RenderTransform>
                                                         <TranslateTransform x:Name="OverflowContentTransform"/>
                                                     </CommandBarOverflowPresenter.RenderTransform>
@@ -829,4 +829,8 @@
         </AppBarButton>
     </CommandBar.PrimaryCommands>
 
+    <CommandBar.SecondaryCommands>
+        <AppBarButton Icon="Setting" Label="Settings" Background="Transparent" Click="OpenSettings"/>
+    </CommandBar.SecondaryCommands>
 </CommandBar>
+

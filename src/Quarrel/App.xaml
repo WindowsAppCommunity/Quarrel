@@ -42,6 +42,13 @@
                                   TintOpacity="0.7"
                                   Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FF1E2124"/>
+
+                    <AcrylicBrush x:Key="AcrylicSubFrameBackground"
+                                  BackgroundSource="Backdrop"
+                                  TintColor="#FF1E2124"
+                                  TintOpacity="0.7"
+                                  Windows10version1903:TintLuminosityOpacity="0.95"
+                                  FallbackColor="#FF1E2124"/>
                     
                     <AcrylicBrush x:Key="AcrylicFlyoutBackground"
                                   BackgroundSource="Backdrop"
