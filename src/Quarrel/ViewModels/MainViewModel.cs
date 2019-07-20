@@ -24,6 +24,8 @@ using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
 using Windows.UI.Xaml;
+using Quarrel.Messages.Navigation.SubFrame;
+using Quarrel.SubPages;
 
 namespace Quarrel.ViewModels
 {
@@ -335,7 +337,16 @@ namespace Quarrel.ViewModels
         public async void Login()
         {
             var token = (string)(await CacheService.Persistent.Roaming.TryGetValueAsync<object>(Quarrel.Helpers.Constants.Cache.Keys.AccessToken));
-            DiscordService.Login(token);
+            if (string.IsNullOrEmpty(token))
+            {
+                await Task.Delay(100);
+                Messenger.Default.Send(SubFrameNavigationRequestMessage.To(new LoginPage()));
+            }
+            else
+            {
+                DiscordService.Login(token);
+            }
+
         }
 
         Dictionary<string, Presence> _PresenceDictionary = new Dictionary<string, Presence>();
