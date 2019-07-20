@@ -432,11 +432,26 @@
     <Compile Include="SubPages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\Settings\Pages\BehaviorSettingsPage.xaml.cs">
+      <DependentUpon>BehaviorSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\Settings\Pages\ConnectionsSettingsPage.xaml.cs">
+      <DependentUpon>ConnectionsSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\Settings\Pages\DisplaySettingsPage.xaml.cs">
+      <DependentUpon>DisplaySettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\Settings\Pages\MyAccountSettingsPage.xaml.cs">
       <DependentUpon>MyAccountSettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\Settings\Pages\NotificationsSettingsPage.xaml.cs">
+      <DependentUpon>NotificationsSettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\Settings\Pages\PrivacySettingsPage.xaml.cs">
       <DependentUpon>PrivacySettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\Settings\Pages\VoiceSettingsPage.xaml.cs">
+      <DependentUpon>VoiceSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -448,7 +463,7 @@
     <Compile Include="TemplateSelectors\EmbedTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\MessageTemplateSelector.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\Pages\MyAccountSettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Controls\Shell\ChannelListControl.xaml.cs">
       <DependentUpon>ChannelListControl.xaml</DependentUpon>
@@ -655,11 +670,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SubPages\Settings\Pages\BehaviorSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\Settings\Pages\ConnectionsSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\Settings\Pages\DisplaySettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SubPages\Settings\Pages\MyAccountSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SubPages\Settings\Pages\NotificationsSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SubPages\Settings\Pages\PrivacySettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\Settings\Pages\VoiceSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

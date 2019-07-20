@@ -6,12 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="400"
-    d:DesignWidth="400">
+    d:DesignHeight="600"
+    d:DesignWidth="1008">
 
     <Grid>
-        <NavigationView IsSettingsVisible="False" IsBackButtonVisible="Collapsed"
-                        OpenPaneLength="180"
+        <NavigationView x:Name="NavigationControl" IsSettingsVisible="False" IsBackButtonVisible="Collapsed"
+                        OpenPaneLength="180" CompactModeThresholdWidth="0"
                         SelectionChanged="NavigationView_SelectionChanged">
             <NavigationView.MenuItems>
                 <NavigationViewItemHeader Content="User Settings"/>
@@ -20,12 +20,26 @@
                 <NavigationViewItem x:Name="ConnectionsItem" Icon="Share" Content="Connections"/>
 
                 <NavigationViewItemHeader Content="App Settings"/>
-                <NavigationViewItem Icon="Setting" Content="General"/>
-                <NavigationViewItem Icon="Important" Content="Notifications"/>
-                <NavigationViewItem Icon="Microphone" Content="Voice"/>
+                <NavigationViewItem x:Name="DisplayItem" Icon="View" Content="Display"/>
+                <NavigationViewItem x:Name="BehaviorItem" Icon="TouchPointer" Content="Behavior"/>
+                <NavigationViewItem x:Name="NotificationsItem" Icon="Important" Content="Notifications"/>
+                <NavigationViewItem x:Name="VoiceItem" Icon="Microphone" Content="Voice"/>
             </NavigationView.MenuItems>
 
-            <Frame x:Name="SettingsFrame"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="42"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Border>
+                    <TextBlock x:Name="HeaderTB" Text="My Account" Margin="16,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
+                </Border>
+
+                <Frame x:Name="SettingsFrame" Grid.Row="1"/>
+            </Grid>
+            
+            
 
         </NavigationView>
     </Grid>

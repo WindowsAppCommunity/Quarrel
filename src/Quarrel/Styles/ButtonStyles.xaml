@@ -217,18 +217,18 @@
         </Setter>
     </Style>
     <Style x:Key="DiscordButton" TargetType="Button">
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="{StaticResource SystemControlHighlightAccentRevealBackgroundBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="12"/>
+        <Setter Property="Padding" Value="18,12"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Grid x:Name="RootGrid" BorderBrush="{TemplateBinding Background}" BorderThickness="1">
+                    <Grid x:Name="RootGrid" BorderThickness="0">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.1" Duration="0:0:0.2">
+                                        <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase/>
                                             </DoubleAnimation.EasingFunction>
@@ -243,7 +243,7 @@
                                 </VisualState>
                                 <VisualState x:Name="PointerOver">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2">
+                                        <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.7" Duration="0:0:0.2">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase/>
                                             </DoubleAnimation.EasingFunction>
@@ -258,7 +258,7 @@
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:0.2">
+                                        <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.8" Duration="0:0:0.2">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
@@ -273,7 +273,7 @@
                                 </VisualState>
                                 <VisualState x:Name="Disabled">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2">
+                                        <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.6" Duration="0:0:0.2">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
@@ -288,8 +288,8 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
 
-                        <Border x:Name="bgColor" Background="{TemplateBinding Background}"/>
-                        <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Foreground="{TemplateBinding Background}"/>
+                        <Border x:Name="bgColor" CornerRadius="4,4,4,4" Background="{TemplateBinding Background}" Opacity="0.75"/>
+                        <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Foreground="{TemplateBinding Foreground}"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

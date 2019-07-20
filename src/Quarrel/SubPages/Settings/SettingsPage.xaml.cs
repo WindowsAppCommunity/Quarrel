@@ -24,11 +24,16 @@ namespace Quarrel.SubPages.Settings
         public SettingsPage()
         {
             this.InitializeComponent();
-
+            this.Loaded += (_, e) => NavigationControl.SelectedItem = MyAccountItem;
             PagesMapping = new Dictionary<NavigationViewItemBase, Type>
             {
                 [MyAccountItem] = typeof(MyAccountSettingsPage),
-                [PrivacyItem] = typeof(PrivacySettingsPage)
+                [PrivacyItem] = typeof(PrivacySettingsPage),
+                [ConnectionsItem] = typeof(ConnectionsSettingsPage),
+                [DisplayItem] = typeof(DisplaySettingsPage),
+                [BehaviorItem] = typeof(BehaviorSettingsPage),
+                [NotificationsItem] = typeof(NotificationsSettingsPage),
+                [VoiceItem] = typeof(VoiceSettingsPage)
             };
         }
 
@@ -43,6 +48,7 @@ namespace Quarrel.SubPages.Settings
             };
 
             SettingsFrame.NavigateToType(PagesMapping[args.SelectedItemContainer], IsFullHeight, options);
+            HeaderTB.Text = args.SelectedItemContainer.Content.ToString();
         }
 
 
