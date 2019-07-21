@@ -64,10 +64,11 @@ namespace Quarrel.ViewModels
                 {
                     await DispatcherHelper.RunAsync(() =>
                     {
-                        BindableMembers.Clear();
                         Guild = m.Guild;
-                        BindableChannels = m.Guild.Channels;
-                        RaisePropertyChanged(nameof(BindableChannels));
+                        BindableMessages.Clear();
+                        BindableMembers.Clear();
+                        BindableChannels.Clear();
+                        BindableChannels.AddRange(m.Guild.Channels);
                     });
                 }
             });
@@ -80,14 +81,15 @@ namespace Quarrel.ViewModels
                     await DispatcherHelper.RunAsync(() =>
                     {
                         BindableMembers.Clear();
-                        foreach (var user in CurrentUsersService.Users.Where(user =>
+                        BindableMembers.AddElementRange(CurrentUsersService.Users.Values.Where(user =>
                         {
                             if (Channel.IsTextChannel)
                             {
-                                Permissions perms = new Permissions(Guild.Model.Roles.FirstOrDefault(x => x.Name == "@everyone").Permissions);
-                                foreach (var role in user.Value.Roles)
+                                Permissions perms = new Permissions(Guild.Model.Roles
+                                    .FirstOrDefault(x => x.Name == "@everyone").Permissions);
+                                foreach (var role in user.Roles)
                                 {
-                                    perms.AddAllows((GuildPermission)role.Permissions);
+                                    perms.AddAllows((GuildPermission) role.Permissions);
                                 }
 
                                 GuildPermission roleDenies = 0;
@@ -97,18 +99,18 @@ namespace Quarrel.ViewModels
                                 foreach (Overwrite overwrite in (Channel.Model as GuildChannel).PermissionOverwrites)
                                     if (overwrite.Id == Channel.GuildId)
                                     {
-                                        perms.AddDenies((GuildPermission)overwrite.Deny);
-                                        perms.AddAllows((GuildPermission)overwrite.Allow);
+                                        perms.AddDenies((GuildPermission) overwrite.Deny);
+                                        perms.AddAllows((GuildPermission) overwrite.Allow);
                                     }
-                                    else if (overwrite.Type == "role" && user.Value.Model.Roles.Contains(overwrite.Id))
+                                    else if (overwrite.Type == "role" && user.Model.Roles.Contains(overwrite.Id))
                                     {
-                                        roleDenies |= (GuildPermission)overwrite.Deny;
-                                        roleAllows |= (GuildPermission)overwrite.Allow;
+                                        roleDenies |= (GuildPermission) overwrite.Deny;
+                                        roleAllows |= (GuildPermission) overwrite.Allow;
                                     }
-                                    else if (overwrite.Type == "member" && overwrite.Id == user.Value.Model.User.Id)
+                                    else if (overwrite.Type == "member" && overwrite.Id == user.Model.User.Id)
                                     {
-                                        memberDenies |= (GuildPermission)overwrite.Deny;
-                                        memberAllows |= (GuildPermission)overwrite.Allow;
+                                        memberDenies |= (GuildPermission) overwrite.Deny;
+                                        memberAllows |= (GuildPermission) overwrite.Allow;
                                     }
 
                                 perms.AddDenies(roleDenies);
@@ -117,21 +119,16 @@ namespace Quarrel.ViewModels
                                 perms.AddAllows(memberAllows);
 
                                 // If owner add admin
-                                if (Guild.Model.OwnerId == user.Value.Model.User.Id)
+                                if (Guild.Model.OwnerId == user.Model.User.Id)
                                 {
                                     perms.AddAllows(GuildPermission.Administrator);
                                 }
 
                                 return perms.ReadMessages;
                             }
-                            else
-                            {
-                                return true;
-                            }
-                        }))
-                        {
-                            BindableMembers.AddElement(user.Value);
-                        }
+
+                            return true;
+                        }));
                     });
                 }
 
@@ -153,26 +150,28 @@ namespace Quarrel.ViewModels
                         return;
                     }
 
+                    Message lastItem = null;
+
+                    BindableMessage scrollItem = null;
+
+                    List<BindableMessage> messages = new List<BindableMessage>();
+
+                    foreach (Message item in itemList.Reverse())
+                    {
+                        messages.Add(new BindableMessage(item, guildId, lastItem, lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId));
+
+                        if (lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId)
+                        {
+                            scrollItem = messages.LastOrDefault();
+                        }
+
+                        lastItem = item;
+                    }
+
                     await DispatcherHelper.RunAsync(() =>
                     {
                         BindableMessages.Clear();
-
-                        Message lastItem = null;
-
-                        BindableMessage scrollItem = null;
-
-                        foreach (Message item in itemList.Reverse())
-                        {
-                            BindableMessages.Add(new BindableMessage(item, guildId, lastItem, lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId));
-
-                            if (lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId)
-                            {
-                                scrollItem = BindableMessages.LastOrDefault();
-                            }
-
-                            lastItem = item;
-                        }
-
+                        BindableMessages.AddRange(messages);
                         ScrollTo?.Invoke(this, scrollItem ?? BindableMessages.LastOrDefault());
                     });
                     NewItemsLoading = false;
@@ -310,10 +309,7 @@ namespace Quarrel.ViewModels
                     await DispatcherHelper.RunAsync(() =>
                     {
                         // Show guilds
-                        foreach (var guild in GuildsService.Guilds)
-                        {
-                            BindableGuilds.Add(guild.Value);
-                        }
+                        BindableGuilds.AddRange(GuildsService.Guilds.Values);
                     });
                 }
                 else if (m == "UsersSynced")
@@ -590,15 +586,18 @@ namespace Quarrel.ViewModels
                 OldItemsLoading = true;
                 IEnumerable<Message> itemList = await DiscordService.ChannelService.GetChannelMessagesBefore(Channel.Model.Id, BindableMessages.FirstOrDefault().Model.Id);
 
+                List<BindableMessage> messages = new List<BindableMessage>();
+                Message lastItem = null;
+                foreach (var item in itemList)
+                {
+                    // Can't be last read item
+                    messages.Insert(0, new BindableMessage(item, guildId, lastItem));
+                    lastItem = item;
+                }
+
                 await DispatcherHelper.RunAsync(() =>
                 {
-                    Message lastItem = null;
-                    foreach (var item in itemList)
-                    {
-                        // Can't be last read item
-                        BindableMessages.Insert(0, new BindableMessage(item, guildId, lastItem));
-                        lastItem = item;
-                    }
+                    BindableMessages.InsertRange(0, messages);
                 });
                 OldItemsLoading = false;
             }
@@ -615,15 +614,17 @@ namespace Quarrel.ViewModels
                     IEnumerable<Message> itemList = null;
                     await Task.Run(async () => itemList = await DiscordService.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, BindableMessages.LastOrDefault().Model.Id));
 
+                    List<BindableMessage> messages = new List<BindableMessage>();
+                    Message lastItem = null;
+                    foreach (var item in itemList)
+                    {
+                        // Can't be last read item
+                        messages.Add(new BindableMessage(item, guildId, lastItem));
+                        lastItem = item;
+                    }
                     await DispatcherHelper.RunAsync(() =>
                     {
-                        Message lastItem = null;
-                        foreach (var item in itemList)
-                        {
-                            // Can't be last read item
-                            BindableMessages.Add(new BindableMessage(item, guildId, lastItem));
-                            lastItem = item;
-                        }
+                        BindableMessages.AddRange(messages);
                     });
                 }
                 else if (Channel.ReadState == null || Channel.Model.LastMessageId != Channel.ReadState.LastMessageId)
@@ -684,14 +685,14 @@ namespace Quarrel.ViewModels
         }
 
         [NotNull]
-        public ObservableCollection<BindableGuild> BindableGuilds { get; private set; } = new ObservableCollection<BindableGuild>();
+        public ObservableRangeCollection<BindableGuild> BindableGuilds { get; private set; } = new ObservableRangeCollection<BindableGuild>();
         /// <summary>
         /// Gets the collection of grouped feeds to display
         /// </summary>
         [NotNull]
-        public ObservableCollection<BindableMessage> BindableMessages { get; private set; } = new ObservableCollection<BindableMessage>();
+        public ObservableRangeCollection<BindableMessage> BindableMessages { get; private set; } = new ObservableRangeCollection<BindableMessage>();
         [NotNull]
-        public ObservableCollection<BindableChannel> BindableChannels { get; private set; } = new ObservableCollection<BindableChannel>();
+        public ObservableRangeCollection<BindableChannel> BindableChannels { get; private set; } = new ObservableRangeCollection<BindableChannel>();
         [NotNull]
         public ObservableSortedGroupedCollection<Role, BindableGuildMember> BindableMembers { get; set; } = new ObservableSortedGroupedCollection<Role, BindableGuildMember>(x => x.TopHoistRole, x => -x.Position);
         #endregion

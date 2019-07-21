@@ -18,6 +18,7 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
     xmlns:helpers="using:Quarrel.Helpers"
+    xmlns:media="using:Microsoft.Xaml.Interactions.Media"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -436,6 +437,76 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Storyboard x:Name="Speaking">
+            <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="username" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Name="StopSpeaking">
+            <DoubleAnimation Duration="0:0:0.2" To="0.5" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="username" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Name="ShowMute">
+            <DoubleAnimation Duration="0:0:0.2" To="0.5" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Mute" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Name="HideMute">
+            <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Mute" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Name="ServerMute">
+            <ColorAnimation Duration="0:0:0.2" To="Red" Storyboard.TargetProperty="(UIElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="Mute" d:IsOptimized="True">
+                <ColorAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseInOut"/>
+                </ColorAnimation.EasingFunction>
+            </ColorAnimation>
+        </Storyboard>
+        <Storyboard x:Name="LocalMute">
+            <ColorAnimation Duration="0:0:0.2" To="White" Storyboard.TargetProperty="(UIElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="Mute" d:IsOptimized="True">
+                <ColorAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseInOut"/>
+                </ColorAnimation.EasingFunction>
+            </ColorAnimation>
+        </Storyboard>
+        <Storyboard x:Name="ShowDeaf">
+            <DoubleAnimation Duration="0:0:0.2" To="0.5" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Deaf" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Name="HideDeaf">
+            <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Deaf" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Name="ServerDeaf">
+            <ColorAnimation Duration="0:0:0.2" To="Red" Storyboard.TargetProperty="(UIElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="Deaf" d:IsOptimized="True">
+                <ColorAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseInOut"/>
+                </ColorAnimation.EasingFunction>
+            </ColorAnimation>
+        </Storyboard>
+        <Storyboard x:Name="LocalDeaf">
+            <ColorAnimation Duration="0:0:0.2" To="White" Storyboard.TargetProperty="(UIElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="Deaf" d:IsOptimized="True">
+                <ColorAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseInOut"/>
+                </ColorAnimation.EasingFunction>
+            </ColorAnimation>
+        </Storyboard>
 
         <convertbase:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <convertbase:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
@@ -540,13 +611,74 @@
                             </interactivity:Interaction.Behaviors>
                             <ListView.ItemTemplate>
                                 <DataTemplate x:DataType="bindables:BindableVoiceUser">
-                                    <local:VoiceMemberControl DataContext="{x:Bind}">
+                                    <Grid VerticalAlignment="Top" Margin="0,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle x:Name="AvatarBG" Stroke="Green" StrokeThickness="0" RadiusX="48" RadiusY="48" Height="24" Width="24" VerticalAlignment="Center" Grid.RowSpan="2" Margin="0,0,0,0" Grid.Row="1"/>
+                                        <Rectangle x:Name="Avatar" RadiusX="48" RadiusY="48" Height="24" Width="24" VerticalAlignment="Center" Grid.RowSpan="2" Margin="0,0,0,0" Grid.Row="1">
+                                            <Rectangle.Fill>
+                                                <ImageBrush x:Name="AvatarBrush" ImageSource="{x:Bind GuildMember.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <TextBlock x:Name="username" Text="{x:Bind GuildMember.DisplayName}" Margin="12,0,0,0" Grid.Column="1" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiLight" Opacity="0.5"/>
+                                        <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
+                                            <FontIcon x:Name="Mute" Glyph="&#xEC54;" FontFamily="Segoe MDL2 Assets" FontSize="16" Margin="0,0,8,0" Opacity="0.5"/>
+                                            <FontIcon x:Name="Deaf" Glyph="&#xE74F;" FontFamily="Segoe MDL2 Assets" FontSize="13.333" Opacity="0.5"/>
+                                        </StackPanel>
+                                        <!--<Rectangle Grid.ColumnSpan="4" Fill="{ThemeResource InvertedBG}" Opacity="0.2" VerticalAlignment="Bottom" Height="1" Margin="0,0,0,-9"/>-->
+
+                                        <interactivity:Interaction.Behaviors>
+                                            <core:DataTriggerBehavior Binding="{x:Bind ShowDeaf, Mode=OneWay}" Value="True">
+                                                <media:ControlStoryboardAction Storyboard="{StaticResource ShowDeaf}"     
+                                            ControlStoryboardOption="Play"/>
+                                            </core:DataTriggerBehavior>
+                                            <core:DataTriggerBehavior Binding="{x:Bind ShowDeaf, Mode=OneWay}" Value="False">
+                                                <media:ControlStoryboardAction Storyboard="{StaticResource HideDeaf}"     
+                                            ControlStoryboardOption="Play"/>
+                                            </core:DataTriggerBehavior>
+                                            <core:DataTriggerBehavior Binding="{x:Bind ServerDeaf, Mode=OneWay}" Value="True">
+                                                <media:ControlStoryboardAction Storyboard="{StaticResource ServerDeaf}"     
+                                            ControlStoryboardOption="Play"/>
+                                            </core:DataTriggerBehavior>
+                                            <core:DataTriggerBehavior Binding="{x:Bind LocalDeaf, Mode=OneWay}" Value="True">
+                                                <media:ControlStoryboardAction Storyboard="{StaticResource LocalDeaf}"     
+                                            ControlStoryboardOption="Play"/>
+                                            </core:DataTriggerBehavior>
+
+                                            <core:DataTriggerBehavior Binding="{x:Bind ShowMute, Mode=OneWay}" Value="True">
+                                                <media:ControlStoryboardAction Storyboard="{StaticResource ShowMute}"     
+                                               ControlStoryboardOption="Play"/>
+                                            </core:DataTriggerBehavior>
+                                            <core:DataTriggerBehavior Binding="{x:Bind ShowMute, Mode=OneWay}" Value="False">
+                                                <media:ControlStoryboardAction Storyboard="{StaticResource HideMute}"     
+                                               ControlStoryboardOption="Play"/>
+                                            </core:DataTriggerBehavior>
+                                            <core:DataTriggerBehavior Binding="{x:Bind ServerMute, Mode=OneWay}" Value="True">
+                                                <media:ControlStoryboardAction Storyboard="{StaticResource ServerMute}"     
+                                               ControlStoryboardOption="Play"/>
+                                            </core:DataTriggerBehavior>
+                                            <core:DataTriggerBehavior Binding="{x:Bind LocalMute, Mode=OneWay}" Value="True">
+                                                <media:ControlStoryboardAction Storyboard="{StaticResource LocalMute}"     
+                                               ControlStoryboardOption="Play"/>
+                                            </core:DataTriggerBehavior>
+                                            <core:DataTriggerBehavior Binding="{x:Bind Speaking, Mode=OneWay}" Value="True">
+                                                <media:ControlStoryboardAction Storyboard="{StaticResource Speaking}"     
+                                               ControlStoryboardOption="Play"/>
+                                            </core:DataTriggerBehavior>
+                                            <core:DataTriggerBehavior Binding="{x:Bind Speaking, Mode=OneWay}" Value="False">
+                                                <media:ControlStoryboardAction Storyboard="{StaticResource StopSpeaking}"     
+                                               ControlStoryboardOption="Play"/>
+                                            </core:DataTriggerBehavior>
+                                        </interactivity:Interaction.Behaviors>
                                         <FlyoutBase.AttachedFlyout>
                                             <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
                                                 <membercontrols:MemberFlyoutTemplate DataContext="{x:Bind GuildMember}"/>
                                             </Flyout>
                                         </FlyoutBase.AttachedFlyout>
-                                    </local:VoiceMemberControl>
+                                    </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
