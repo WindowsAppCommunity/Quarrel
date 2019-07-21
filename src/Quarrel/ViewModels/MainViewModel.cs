@@ -468,7 +468,7 @@ namespace Quarrel.ViewModels
                 if (channel.Model is GuildChannel gChannel)
                     await DiscordService.Gateway.Gateway.VoiceStatusUpdate(Guild.Model.Id, gChannel.Id, false, false);
             }
-            else
+            else if (channel.Permissions.ReadMessages)
             {
                 MessengerInstance.Send(new ChannelNavigateMessage(channel, Guild));
             }

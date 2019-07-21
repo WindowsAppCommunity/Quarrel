@@ -43,6 +43,11 @@ namespace Quarrel.Helpers
             }
         }
 
+        public static class ConnectedAnimationKeys
+        {
+            public const string MemberFlyoutAnimation = nameof(MemberFlyoutAnimation);
+        }
+
         public static class Regex
         {
             public static string YouTubeRegex = @"(?:https:\/\/)?(?:(?:www\.)?youtube\.com\/(?:(?:watch\?.*?v=)|(?:embed\/))([\w\-]+)|youtu\.be\/(?:embed\/)?([\w\-]+))";

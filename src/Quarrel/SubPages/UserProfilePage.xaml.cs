@@ -21,6 +21,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Navigation;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Rest;
+using Windows.UI.Xaml.Media.Animation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -34,6 +35,7 @@ namespace Quarrel.SubPages
         public UserProfilePage()
         {
             this.InitializeComponent();
+            ConnectedAnimationService.GetForCurrentView().GetAnimation(Helpers.Constants.ConnectedAnimationKeys.MemberFlyoutAnimation).TryStart(FullAvatar);
             if (subFrameNavigationService.Parameter != null)
             {
                 this.DataContext = subFrameNavigationService.Parameter;
