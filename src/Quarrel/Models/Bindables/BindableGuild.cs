@@ -16,12 +16,14 @@ using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Messages.Gateway;
 using UICompositionAnimations.Helpers;
 using System.Collections.ObjectModel;
+using Quarrel.Services.Settings;
 
 namespace Quarrel.Models.Bindables
 {
     public class BindableGuild : BindableModelBase<Guild>, IGuild
     {
-        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private IDiscordService _DiscordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ISettingsService _SettingsService = SimpleIoc.Default.GetInstance<ISettingsService>();
 
         public BindableGuild([NotNull] Guild model) : base(model)
         {
@@ -64,7 +66,7 @@ namespace Quarrel.Models.Bindables
                 // TODO: Calculate once and store
                 Permissions perms = new Permissions(Model.Roles.FirstOrDefault(x => x.Name == "@everyone").Permissions);
 
-                BindableGuildMember member = new BindableGuildMember(Model.Members.FirstOrDefault(x => x.User.Id == discordService.CurrentUser.Id));
+                BindableGuildMember member = new BindableGuildMember(Model.Members.FirstOrDefault(x => x.User.Id == _DiscordService.CurrentUser.Id));
                 member.GuildId = Model.Id;
                 foreach (var role in member.Roles)
                 {
@@ -95,8 +97,14 @@ namespace Quarrel.Models.Bindables
         public bool Muted
         {
             get => _Muted;
-            set => Set(ref _Muted, value);
+            set
+            {
+                if (Set(ref _Muted, value))
+                    RaisePropertyChanged(nameof(ShowMute));
+            }
         }
+
+        public bool ShowMute => Muted && _SettingsService.Roaming.GetValue<bool>(SettingKeys.ServerMuteIcons);
 
         #endregion
 

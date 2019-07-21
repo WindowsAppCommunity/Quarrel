@@ -53,7 +53,7 @@
             </Border>
             <Border x:Name="UnreadIndicator" Visibility="{x:Bind ViewModel.ShowUnread, Mode=OneWay}" Height="12" Width="2" Opacity="0.75" Background="{ThemeResource Foreground}" Margin="-12,2,4,0" HorizontalAlignment="Left"/>
             <Rectangle Visibility="{x:Bind ViewModel.IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" x:Name="GuildImageBackdrop" Width="50" Height="50" RadiusX="25" RadiusY="25" Fill="{ThemeResource Foreground}" Opacity="0.1"/>
-            <Rectangle Width="50" Height="50" RadiusX="25" RadiusY="25" Visibility="{x:Bind ViewModel.HasIcon, Mode=OneWay}" Opacity="{x:Bind ViewModel.Muted, Converter={StaticResource MutedToOpacityConverter}, Mode=OneWay}">
+            <Rectangle Width="50" Height="50" RadiusX="25" RadiusY="25" Visibility="{x:Bind ViewModel.HasIcon, Mode=OneWay}" Opacity="{x:Bind ViewModel.ShowMute, Converter={StaticResource MutedToOpacityConverter}, Mode=OneWay}">
                 <animations:Implicit.Animations>
                     <animations:OpacityAnimation Duration="0:0:0.3"/>
                 </animations:Implicit.Animations>
@@ -93,7 +93,7 @@
                 </TextBlock>
             </Border>
 
-            <SymbolIcon Visibility="{x:Bind ViewModel.Muted}" Canvas.ZIndex="20" Symbol="Mute" Foreground="{ThemeResource Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,2,0,0">
+            <SymbolIcon Visibility="{x:Bind ViewModel.ShowMute, Mode=OneWay}" Canvas.ZIndex="20" Symbol="Mute" Foreground="{ThemeResource Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,2,0,0">
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation Duration="0:0:0.3" From="0" To="1"/>
                 </animations:Implicit.ShowAnimations>
