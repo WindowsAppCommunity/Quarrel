@@ -10,6 +10,7 @@ using Quarrel.Models.Bindables.Abstract;
 using Quarrel.Services;
 using Quarrel.Converters.Discord;
 using Quarrel.Services.Cache;
+using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
 
 namespace Quarrel.Models.Bindables
@@ -18,24 +19,26 @@ namespace Quarrel.Models.Bindables
     {
         private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
+        private IGuildsService GuildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
         public BindableGuildMember([NotNull] GuildMember model) : base(model) { }
 
         public string GuildId { get; set; }
 
-        // TODO: Store, as variable, not property
+        private List<Role> cachedRoles;
+
         public List<Role> Roles
         {
             get
             {
-                if (Model.Roles == null)
-                    return null;
-
-                List<Role> Roles = new List<Role>();
-                foreach (var role in Model.Roles)
+                if (cachedRoles == null)
                 {
-                    Roles.Add(cacheService.Runtime.TryGetValue<Role>(Quarrel.Helpers.Constants.Cache.Keys.GuildRole, GuildId + role));
+                    if (Model.Roles == null)
+                        return null;
+
+                    cachedRoles = GuildsService.Guilds[GuildId].Model.Roles.Where(a => Model.Roles.Contains(a.Id)).ToList();
                 }
-                return Roles;
+
+                return cachedRoles;
             }
         }
 

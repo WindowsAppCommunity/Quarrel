@@ -18,6 +18,7 @@ using UICompositionAnimations.Helpers;
 using System.Collections.ObjectModel;
 using Quarrel.Services.Settings;
 using Quarrel.Messages.Services.Settings;
+using Quarrel.Services.Users;
 
 namespace Quarrel.Models.Bindables
 {
@@ -25,6 +26,7 @@ namespace Quarrel.Models.Bindables
     {
         private IDiscordService _DiscordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         private ISettingsService _SettingsService = SimpleIoc.Default.GetInstance<ISettingsService>();
+        private ICurrentUsersService CurrentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
 
         public BindableGuild([NotNull] Guild model) : base(model)
         {
@@ -75,8 +77,8 @@ namespace Quarrel.Models.Bindables
                 // TODO: Calculate once and store
                 Permissions perms = new Permissions(Model.Roles.FirstOrDefault(x => x.Name == "@everyone").Permissions);
 
-                BindableGuildMember member = new BindableGuildMember(Model.Members.FirstOrDefault(x => x.User.Id == _DiscordService.CurrentUser.Id));
-                member.GuildId = Model.Id;
+                BindableGuildMember member = CurrentUsersService.CurrentGuildMember;
+                if (member == null) return perms;
                 foreach (var role in member.Roles)
                 {
                     perms.AddAllows((GuildPermission)role.Permissions);

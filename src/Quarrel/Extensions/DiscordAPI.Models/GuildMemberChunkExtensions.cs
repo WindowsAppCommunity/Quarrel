@@ -15,14 +15,5 @@ namespace DiscordAPI.Models
 {
     internal static class GuildMemberChunkExtentions
     {
-        public static void Cache(this GuildMemberChunk chunk)
-        {
-            foreach (var user in chunk.Members)
-            {
-                BindableGuildMember bgMember = new BindableGuildMember(user);
-                bgMember.GuildId = chunk.GuildId;
-                // TODO: add to list
-            }
-        }
     }
 }

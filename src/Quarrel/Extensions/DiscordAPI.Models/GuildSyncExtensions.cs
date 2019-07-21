@@ -20,14 +20,13 @@ namespace DiscordAPI.Models
 {
     internal static class GuildSyncExtentions
     {
-        private static ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
         public static void Cache(this GuildSync sync)
         {
             #region Presense
 
             foreach(var presence in sync.Presences)
             {
-                Messenger.Default.Send<GatewayPresenceUpdatedMessage>(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
+                Messenger.Default.Send(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
             }
 
             #endregion

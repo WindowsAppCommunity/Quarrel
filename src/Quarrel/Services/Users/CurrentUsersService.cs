@@ -28,6 +28,7 @@ namespace Quarrel.Services.Users
         public Dictionary<string, BindableGuildMember> DMUsers { get; } = new Dictionary<string, BindableGuildMember>();
 
         public BindableUser CurrentUser { get; } = new BindableUser(new User());
+        public BindableGuildMember CurrentGuildMember => Users.ContainsKey(CurrentUser.Model.Id) ? Users[CurrentUser.Model.Id] : null;
         public string SessionId { get; set; }
 
         public CurrentUsersService(ICacheService cacheService)

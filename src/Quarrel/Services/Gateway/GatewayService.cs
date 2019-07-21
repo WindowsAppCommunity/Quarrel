@@ -191,7 +191,7 @@ namespace Quarrel.Services.Gateway
 
         private void Gateway_GuildMemberChunk(object sender, GatewayEventArgs<GuildMemberChunk> e)
         {
-            e.EventData.Cache();
+
         }
 
         private void Gateway_GuildSynced(object sender, GatewayEventArgs<GuildSync> e)

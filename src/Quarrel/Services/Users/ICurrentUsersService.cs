@@ -15,5 +15,10 @@ namespace Quarrel.Services.Users
         Dictionary<string, BindableGuildMember> DMUsers { get; }
 
         BindableUser CurrentUser { get; }
+
+        /// <summary>
+        /// Imporant, do not bind to
+        /// </summary>
+        BindableGuildMember CurrentGuildMember { get; }
     }
 }
