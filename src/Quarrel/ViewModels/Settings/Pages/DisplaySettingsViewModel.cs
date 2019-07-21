@@ -95,19 +95,13 @@ namespace Quarrel.ViewModels.Settings.Pages
         public bool ServerMuteIcons
         {
             get => SettingsService.Roaming.GetValue<bool>(SettingKeys.ServerMuteIcons);
-            set
-            {
-                SettingsService.Roaming.SetValue(SettingKeys.ServerMuteIcons, value, notify: true);
-            }
+            set => SettingsService.Roaming.SetValue(SettingKeys.ServerMuteIcons, value, notify: true);
         }
 
         public bool ExpensiveRendering
         {
             get => SettingsService.Roaming.GetValue<bool>(SettingKeys.ExpensiveRendering);
-            set
-            {
-                SettingsService.Roaming.SetValue(SettingKeys.ExpensiveRendering, value, notify: true);
-            }
+            set => SettingsService.Roaming.SetValue(SettingKeys.ExpensiveRendering, value, notify: true);
         }
     }
 }

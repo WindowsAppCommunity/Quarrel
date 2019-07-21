@@ -24,7 +24,7 @@ namespace Quarrel.Navigation
             if (_historic.Count > 1)
             {
                 _historic.RemoveAt(_historic.Count - 1);
-                NavigateTo(_historic.Last(), null);
+                NavigateTo(_historic.Last(), null, false);
             }
             else
             {
@@ -40,11 +40,20 @@ namespace Quarrel.Navigation
 
         public void NavigateTo(string pageKey, object parameter)
         {
+            NavigateTo(pageKey, parameter, true);
+        }
+
+        public void NavigateTo(string pageKey, object parameter, bool addToHistory)
+        {
             lock (_pagesByKey)
             {
-                Parameter = parameter;
-                _historic.Add(pageKey);
-                CurrentPageKey = pageKey;
+                if (addToHistory)
+                {
+                    Parameter = parameter;
+                    _historic.Add(pageKey);
+                    CurrentPageKey = pageKey;
+                }
+
                 Messenger.Default.Send(
                     SubFrameNavigationRequestMessage.To(
                         (UserControl) Activator.CreateInstance(_pagesByKey[pageKey])));
