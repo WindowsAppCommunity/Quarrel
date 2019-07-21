@@ -18,6 +18,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GalaSoft.MvvmLight.Ioc;
+using Quarrel.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -72,7 +74,7 @@ namespace Quarrel.Controls.Shell
 
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
-            Messenger.Default.Send(SubFrameNavigationRequestMessage.To(new SettingsPage()));
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("SettingsPage");
         }
     }
 

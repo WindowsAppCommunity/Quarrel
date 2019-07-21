@@ -7,7 +7,7 @@ using GalaSoft.MvvmLight.Views;
 
 namespace Quarrel.Navigation
 {
-    interface ISubFrameNavigationService : INavigationService
+    public interface ISubFrameNavigationService : INavigationService
     {
         object Parameter { get; }
     }

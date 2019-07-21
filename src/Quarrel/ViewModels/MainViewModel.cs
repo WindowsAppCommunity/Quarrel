@@ -20,26 +20,27 @@ using Quarrel.Services.Gateway;
 using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
-using Quarrel.Messages.Navigation.SubFrame;
-using Quarrel.SubPages;
+using Quarrel.Navigation;
 
 namespace Quarrel.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private ICacheService CacheService;
-        private IDiscordService DiscordService;
-        public ICurrentUsersService CurrentUsersService;
-        private IGatewayService GatewayService;
-        private IGuildsService GuildsService;
+        private readonly ICacheService CacheService;
+        private readonly IDiscordService DiscordService;
+        public readonly ICurrentUsersService CurrentUsersService;
+        private readonly IGatewayService GatewayService;
+        private readonly IGuildsService GuildsService;
+        private readonly ISubFrameNavigationService SubFrameNavigationService;
 
-        public MainViewModel(ICacheService cacheService, IDiscordService discordService, ICurrentUsersService currentUsersService, IGatewayService gatewayService, IGuildsService guildsService)
+        public MainViewModel(ICacheService cacheService, IDiscordService discordService, ICurrentUsersService currentUsersService, IGatewayService gatewayService, IGuildsService guildsService, ISubFrameNavigationService subFrameNavigationService)
         {
             CacheService = cacheService;
             DiscordService = discordService;
             CurrentUsersService = currentUsersService;
             GatewayService = gatewayService;
             GuildsService = guildsService;
+            SubFrameNavigationService = subFrameNavigationService;
             RegisterMessage();
             Login();
         }
@@ -340,8 +341,7 @@ namespace Quarrel.ViewModels
             var token = (string)(await CacheService.Persistent.Roaming.TryGetValueAsync<object>(Quarrel.Helpers.Constants.Cache.Keys.AccessToken));
             if (string.IsNullOrEmpty(token))
             {
-                await Task.Delay(100);
-                Messenger.Default.Send(SubFrameNavigationRequestMessage.To(new LoginPage()));
+                SubFrameNavigationService.NavigateTo("LoginPage");
             }
             else
             {

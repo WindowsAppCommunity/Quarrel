@@ -16,6 +16,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Services;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Navigation.SubFrame;
+using Quarrel.Navigation;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Rest;
 using Quarrel.SubPages.Interfaces;
@@ -27,6 +28,7 @@ namespace Quarrel.SubPages
     public sealed partial class LoginPage : UserControl, IFullscreenSubPage
     {
         private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ISubFrameNavigationService subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
         public LoginPage()
         {
             this.InitializeComponent();
@@ -36,7 +38,7 @@ namespace Quarrel.SubPages
         {
             // Setup Discord Service
             discordService.Login(Username.Text, Password.Password);
-            Messenger.Default.Send(new SubFrameCloseRequestMessage());
+            subFrameNavigationService.GoBack();
         }
 
         private void LoginWithToken_Click(object sender, RoutedEventArgs e)

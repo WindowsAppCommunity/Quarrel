@@ -18,6 +18,7 @@ using Quarrel.Models.Bindables;
 using Quarrel.Messages;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Navigation.SubFrame;
+using Quarrel.Navigation;
 using Quarrel.Services;
 using Quarrel.Services.Rest;
 using Quarrel.SubPages;
@@ -30,6 +31,7 @@ namespace Quarrel.Controls.Members
     public sealed partial class MemberFlyoutTemplate : UserControl
     {
         private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ISubFrameNavigationService subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
         public MemberFlyoutTemplate()
         {
             this.InitializeComponent();
@@ -72,7 +74,7 @@ namespace Quarrel.Controls.Members
                 (presenter.Parent as Popup).IsOpen = false;
             }
 
-            Messenger.Default.Send(SubFrameNavigationRequestMessage.To(new UserProfilePage(ViewModel)));
+            subFrameNavigationService.NavigateTo("UserProfilePage", ViewModel);
         }
     }
 }

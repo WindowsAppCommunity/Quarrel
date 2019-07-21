@@ -5,10 +5,12 @@ using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 using Quarrel.Messages.Navigation.SubFrame;
 using Quarrel.Helpers;
+using Quarrel.Navigation;
 using Quarrel.Services;
 using Quarrel.SubPages.Interfaces;
 
@@ -200,7 +202,7 @@ namespace Quarrel.SubPages.Host
         }
 
         // Sends a request to close the current sub frame page
-        private void CloseButton_OnClick(object sender, RoutedEventArgs e) => Messenger.Default.Send(new SubFrameCloseRequestMessage());
+        private void CloseButton_OnClick(object sender, RoutedEventArgs e) => SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().GoBack();
 
         #endregion
     }

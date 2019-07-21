@@ -18,6 +18,7 @@ using Quarrel.Services;
 using Quarrel.SubPages.Interfaces;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
+using Quarrel.Navigation;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Rest;
 
@@ -29,16 +30,17 @@ namespace Quarrel.SubPages
     {
         private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
+        private ISubFrameNavigationService subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
         public UserProfilePage()
         {
             this.InitializeComponent();
+            if (subFrameNavigationService.Parameter != null)
+            {
+                this.DataContext = subFrameNavigationService.Parameter;
+                LoadProfile();
+            }
         }
 
-        public UserProfilePage([NotNull] BindableGuildMember member) : this()
-        {
-            this.DataContext = member;
-            LoadProfile();
-        }
 
         public async void LoadProfile()
         {

@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Navigation;
+using Quarrel.Navigation;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Gateway;
 using Quarrel.Services.Guild;
@@ -15,6 +16,8 @@ using Quarrel.Services.Users;
 using Quarrel.Services.Voice;
 using Quarrel.Services.Voice.Audio.In;
 using Quarrel.Services.Voice.Audio.Out;
+using Quarrel.SubPages;
+using Quarrel.SubPages.Settings;
 
 namespace Quarrel.ViewModels
 {
@@ -26,6 +29,14 @@ namespace Quarrel.ViewModels
     {
         public ViewModelLocator()
         {
+
+            var navigationService = new SubFrameNavigationService();
+            navigationService.Configure("LoginPage", typeof(LoginPage));
+            navigationService.Configure("SettingsPage", typeof(SettingsPage));
+            navigationService.Configure("UserProfilePage", typeof(UserProfilePage));
+
+            SimpleIoc.Default.Register<ISubFrameNavigationService>(() => navigationService);
+
             SimpleIoc.Default.Register<ICacheService, CacheService>();
             SimpleIoc.Default.Register<IGatewayService, GatewayService>();
             SimpleIoc.Default.Register<IDiscordService, DiscordService>();

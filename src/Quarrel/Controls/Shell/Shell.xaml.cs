@@ -54,24 +54,7 @@ namespace Quarrel.Controls.Shell
           //  Login();
         }
 
-        private bool IsViewLarge
-        {
-            get => UISize.CurrentState == Large || UISize.CurrentState == ExtraLarge;
-        }
-/*
-        public async void Login()
-        {
-            var token = (string)(await cacheService.Persistent.Roaming.TryGetValueAsync<object>(Quarrel.Helpers.Constants.Cache.Keys.AccessToken));
-            if (string.IsNullOrEmpty(token))
-            {
-                await Task.Delay(100);
-                Messenger.Default.Send(SubFrameNavigationRequestMessage.To(new LoginPage()));
-            }
-            else
-            {
-                discordService.Login(token);
-            }
-        }*/
+        private bool IsViewLarge => UISize.CurrentState == Large || UISize.CurrentState == ExtraLarge;
 
         private void UISize_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
