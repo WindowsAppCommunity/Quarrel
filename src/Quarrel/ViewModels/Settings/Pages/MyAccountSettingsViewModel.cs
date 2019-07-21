@@ -4,23 +4,52 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight.Command;
 
 namespace Quarrel.ViewModels.Settings.Pages
 {
     public class MyAccountSettingsViewModel : ViewModelBase
     {
-        private bool _EditingAccountInfo = false;
+        private bool editingAccountInfo;
         public bool EditingAccountInfo
         {
-            get => _EditingAccountInfo;
-            set => Set(ref _EditingAccountInfo, value);
+            get => editingAccountInfo;
+            set => Set(ref editingAccountInfo, value);
         }
 
-        private bool _EditingPassword = false;
+        private bool editingPassword;
         public bool EditingPassword
         {
-            get => _EditingPassword;
-            set => Set(ref _EditingPassword, value);
+            get => editingPassword;
+            set => Set(ref editingPassword, value);
         }
+
+
+        private RelayCommand enterAccountEditCommand;
+        public RelayCommand EnterAccountEditCommand => enterAccountEditCommand = new RelayCommand(() =>
+        {
+            EditingAccountInfo = true;
+        });
+
+        private RelayCommand finalizeAccountEditCommand;
+        public RelayCommand FinalizeAccountEditCommand => finalizeAccountEditCommand = new RelayCommand(() =>
+        {
+            // TODO:
+        });
+
+        private RelayCommand cancelAccountEditCommand;
+        public RelayCommand CancelAccountEditCommand => cancelAccountEditCommand = new RelayCommand(() =>
+        {
+            EditingAccountInfo = false;
+            EditingPassword = false;
+        });
+
+
+        private RelayCommand enterPasswordEditCommand;
+        public RelayCommand EnterPasswordEditCommand => enterPasswordEditCommand = new RelayCommand(() =>
+        {
+            EditingPassword = true;
+        });
+
     }
 }

@@ -27,30 +27,6 @@ namespace Quarrel.SubPages.Settings.Pages
         public MyAccountSettingsPage()
         {
             this.InitializeComponent();
-            DataContext = new MyAccountSettingsViewModel();
-        }
-
-        MyAccountSettingsViewModel ViewModel => DataContext as MyAccountSettingsViewModel;
-
-        private void EnterAccountEdit(object sender, RoutedEventArgs e)
-        {
-            ViewModel.EditingAccountInfo = true;
-        }
-
-        private void FinalizeAccountEdit(object sender, RoutedEventArgs e)
-        {
-            // TODO:
-        }
-
-        private void CancelAccountEdit(object sender, RoutedEventArgs e)
-        {
-            ViewModel.EditingAccountInfo = false;
-            ViewModel.EditingPassword = false;
-        }
-
-        private void EnterPasswordEdit(object sender, RoutedEventArgs e)
-        {
-            ViewModel.EditingPassword = true;
         }
     }
 }
