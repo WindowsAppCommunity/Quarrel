@@ -28,7 +28,7 @@ namespace Quarrel.Models.Bindables
 
         public BindableGuildMember Author =>
             currentUsersService.Users.TryGetValue(Model.User.Id, out BindableGuildMember value) ? value :
-                new BindableGuildMember(new GuildMember() { User = Model.User });
+            (currentUsersService.DMUsers.TryGetValue(Model.User.Id, out value) ? value : new BindableGuildMember(new GuildMember() { User = Model.User }));
 
         private bool _IsLastReadMessage;
 

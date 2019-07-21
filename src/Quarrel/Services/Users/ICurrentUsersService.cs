@@ -12,6 +12,7 @@ namespace Quarrel.Services.Users
     public interface ICurrentUsersService
     {
         Dictionary<string, BindableGuildMember> Users { get; }
+        Dictionary<string, BindableGuildMember> DMUsers { get; }
 
         BindableUser CurrentUser { get; }
     }
