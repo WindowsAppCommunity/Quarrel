@@ -26,6 +26,8 @@ namespace Quarrel.Services.Settings
 
             Roaming.SetValue(SettingKeys.Theme, Theme.Windows, false);
             Roaming.SetValue(SettingKeys.Bluple, false, false);
+            Roaming.SetValue(SettingKeys.ServerMuteIcons, true, false);
+            Roaming.SetValue(SettingKeys.ExpensiveRendering, true, false);
 
             Roaming.SetValue(SettingKeys.MentionGlow, false, false);
             Roaming.SetValue(SettingKeys.ShowNoPermssions, false, false);
