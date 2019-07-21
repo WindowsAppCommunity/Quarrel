@@ -56,12 +56,6 @@ namespace Quarrel.SubPages
             await Windows.System.Launcher.LaunchUriAsync(new Uri("https://discordapp.com/register"));
         }
 
-        private void Username_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            if ((e.Key == Windows.System.VirtualKey.Enter || e.Key == Windows.System.VirtualKey.Tab) && Password.Visibility == Visibility.Visible)
-                Password.Focus(FocusState.Keyboard);
-        }
-
         private void Password_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
