@@ -17,13 +17,13 @@
                 <NavigationViewItemHeader Content="User Settings"/>
                 <NavigationViewItem x:Name="MyAccountItem" Icon="ContactInfo" Content="My Account"/>
                 <NavigationViewItem x:Name="PrivacyItem" Icon="Permissions" Content="Privacy"/>
-                <NavigationViewItem x:Name="ConnectionsItem" Icon="Share" Content="Connections"/>
+                <NavigationViewItem IsEnabled="False" x:Name="ConnectionsItem" Icon="Share" Content="Connections"/>
 
                 <NavigationViewItemHeader Content="App Settings"/>
                 <NavigationViewItem x:Name="DisplayItem" Icon="View" Content="Display"/>
                 <NavigationViewItem x:Name="BehaviorItem" Icon="TouchPointer" Content="Behavior"/>
-                <NavigationViewItem x:Name="NotificationsItem" Icon="Important" Content="Notifications"/>
-                <NavigationViewItem x:Name="VoiceItem" Icon="Microphone" Content="Voice"/>
+                <NavigationViewItem IsEnabled="False" x:Name="NotificationsItem" Icon="Important" Content="Notifications"/>
+                <NavigationViewItem IsEnabled="False" x:Name="VoiceItem" Icon="Microphone" Content="Voice"/>
             </NavigationView.MenuItems>
 
             <Grid>
