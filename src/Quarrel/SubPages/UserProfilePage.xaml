@@ -9,7 +9,7 @@
     xmlns:tkmedia="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:relationconvert="using:Quarrel.Converters.Profile.Relationships"
-    xmlns:discord="using:Quarrel.Converters.Discord"
+    xmlns:discordconvert="using:Quarrel.Converters.Discord"
     xmlns:models="using:DiscordAPI.Models"
     xmlns:controls="using:Quarrel.Controls"
     xmlns:guildcontrol="using:Quarrel.Controls.Guilds"
@@ -25,7 +25,8 @@
         <relationconvert:RelationToBlockConverter x:Key="RelationToBlockConverter"/>
         <relationconvert:RelationToRemoveFriendConverter x:Key="RelationToRemoveFriendConverter"/>
         <relationconvert:RelationToUnblockConverter x:Key="RelationToUnblockConverter"/>
-        <discord:PresenseToBrushConverter x:Key="PresenseToBrushConverter" UseSystemAccentColor="True"/>
+        <discordconvert:PresenseToBrushConverter x:Key="PresenseToBrushConverter" UseSystemAccentColor="True"/>
+        <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
     </UserControl.Resources>
     
     <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="0" CornerRadius="0">
@@ -122,13 +123,16 @@
                         </StackPanel>
                     </StackPanel>
                     <Grid>
-                        <Grid x:Name="FullAvatar" VerticalAlignment="Top" HorizontalAlignment="Left">
-                            <Rectangle x:Name="AvatarBG" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                            <Rectangle x:Name="Avatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                <Rectangle.Fill>
-                                    <ImageBrush x:Name="AvatarFull" Stretch="Uniform" ImageSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
+                        <Grid x:Name="FullAvatar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,0,0,0">
+                            <Rectangle x:Name="AvatarBG" Height="128" Width="128" RadiusX="64" RadiusY="64"/>
+                            <tk:DropShadowPanel Color="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
+                                                        BlurRadius="15">
+                                <Rectangle x:Name="AvatarRectangle" Height="128" Width="128" RadiusX="64" RadiusY="64">
+                                    <Rectangle.Fill>
+                                        <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </tk:DropShadowPanel>
                         </Grid>
 
                         <StackPanel x:Name="usernamestacker" Orientation="Horizontal" Margin="188,6,0,0" VerticalAlignment="Top">

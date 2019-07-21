@@ -23,6 +23,7 @@ using Quarrel.Services;
 using Quarrel.Services.Rest;
 using Quarrel.SubPages;
 using UICompositionAnimations.Helpers;
+using Windows.UI.Xaml.Media.Animation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -58,13 +59,18 @@ namespace Quarrel.Controls.Members
 
         private void AvatarButton_Click(object sender, RoutedEventArgs e)
         {
+
+            // Connected Animation
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate(Helpers.Constants.ConnectedAnimationKeys.MemberFlyoutAnimation, FullAvatar);
+
+            // Navigate
+            subFrameNavigationService.NavigateTo("UserProfilePage", ViewModel);
+
             // Close popup
             if ((Parent is FlyoutPresenter presenter))
             {
                 (presenter.Parent as Popup).IsOpen = false;
             }
-
-            subFrameNavigationService.NavigateTo("UserProfilePage", ViewModel);
         }
     }
 }
