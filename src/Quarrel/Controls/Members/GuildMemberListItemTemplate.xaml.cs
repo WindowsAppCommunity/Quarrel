@@ -30,15 +30,6 @@ namespace Quarrel.Controls.Members
             {
                 this.Bindings.Update();
             };
-
-            Messenger.Default.Register<GatewayPresenceUpdatedMessage>(this, async m =>
-            {
-                await DispatcherHelper.RunAsync(() => 
-                {
-                    if (ViewModel != null && m.UserId == ViewModel.Model.User.Id)
-                        this.Bindings.Update();
-                });
-            });
         }
 
         public BindableGuildMember ViewModel => DataContext as BindableGuildMember;
