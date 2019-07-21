@@ -64,6 +64,7 @@ namespace Quarrel.ViewModels
                 {
                     await DispatcherHelper.RunAsync(() =>
                     {
+                        Channel = null;
                         Guild = m.Guild;
                         BindableMessages.Clear();
                         BindableMembers.Clear();
