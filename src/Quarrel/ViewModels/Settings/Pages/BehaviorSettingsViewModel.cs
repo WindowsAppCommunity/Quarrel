@@ -66,6 +66,15 @@ namespace Quarrel.ViewModels.Settings.Pages
 
         #endregion
 
+        public bool FilterMembers
+        {
+            get => SettingsService.Roaming.GetValue<bool>(SettingKeys.FilterMembers);
+            set
+            {
+                SettingsService.Roaming.SetValue(SettingKeys.FilterMembers, value, notify : true);
+            }
+        }
+
         public bool TTLAttachments
         {
             get => SettingsService.Roaming.GetValue<bool>(SettingKeys.TTLAttachments);

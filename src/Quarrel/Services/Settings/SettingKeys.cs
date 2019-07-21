@@ -20,6 +20,7 @@ namespace Quarrel.Services.Settings
         ShowNoPermssions,
         HideMuted,
         CollapseOverride,
+        FilterMembers,
         TTLAttachments,
         DataCompression
 
