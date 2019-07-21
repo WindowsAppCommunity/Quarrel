@@ -47,6 +47,13 @@ namespace Quarrel.ViewModels
 
         private void RegisterMessage()
         {
+            MessengerInstance.Register<GatewayReadyMessage>(this, async _ =>
+            {
+                await DispatcherHelper.RunAsync(() =>
+                {
+                    MessengerInstance.Send(new GuildNavigateMessage(GuildsService.Guilds["DM"]));
+                });
+            });
             MessengerInstance.Register<GuildNavigateMessage>(this, async m =>
             {
                 if (Guild != m.Guild)
@@ -347,7 +354,6 @@ namespace Quarrel.ViewModels
             {
                 DiscordService.Login(token);
             }
-
         }
 
         Dictionary<string, Presence> _PresenceDictionary = new Dictionary<string, Presence>();

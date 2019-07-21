@@ -18,6 +18,7 @@
 
     <Grid>
         <ListView ItemsSource="{x:Bind ViewModel.BindableGuilds, Mode=OneWay}"
+                  SelectedItem="{x:Bind ViewModel.Guild, Mode=OneWay}"
                   ItemContainerStyle="{StaticResource GuildListItemStyle}"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
                   IsItemClickEnabled="True"
