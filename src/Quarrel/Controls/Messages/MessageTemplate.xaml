@@ -388,10 +388,10 @@
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="2" x:Name="body" Margin="0,0,0,2">
-            <markdown:MarkdownTextBlock Text="{x:Bind ViewModel.Model.Content, Mode=OneWay}"
+            <markdown:MarkdownTextBlock Users="{x:Bind ViewModel.Model.Mentions, Mode=OneWay}" 
+                                        Text="{x:Bind ViewModel.Model.Content, Mode=OneWay}"
                                         TextWrapping="WrapWholeWords"
-                                        FontWeight="SemiLight" Opacity="0.9"
-                                        Users="{x:Bind ViewModel.Model.Mentions, Mode=OneWay}"/>
+                                        FontWeight="SemiLight" Opacity="0.9"/>
         </Grid>
 
         <!--
