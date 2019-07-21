@@ -79,6 +79,14 @@ namespace Quarrel.Models.Bindables
                     await DispatcherHelper.RunAsync(() => { Speaking = e.EventData.Speaking > 0; });
                 }
             });
+
+            Messenger.Default.Register<string>(this, m =>
+            {
+                if (m == "UsersSynced")
+                {
+                    _ = DispatcherHelper.RunAsync(() => { RaisePropertyChanged(nameof(GuildMember)); });
+                }
+            });
         }
 
         private void UpateProperties()
