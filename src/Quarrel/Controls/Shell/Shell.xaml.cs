@@ -25,6 +25,7 @@ using Quarrel.Services.Users;
 using Quarrel.Services.Voice;
 using Quarrel.Services.Voice.Audio.In;
 using Quarrel.Services.Voice.Audio.Out;
+using Quarrel.ViewModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -50,8 +51,6 @@ namespace Quarrel.Controls.Shell
             {
                 ContentContainer.CloseLeft();
             });
-
-          //  Login();
         }
 
         private bool IsViewLarge => UISize.CurrentState == Large || UISize.CurrentState == ExtraLarge;

@@ -30,7 +30,6 @@ namespace Quarrel.ViewModels
     {
         public ViewModelLocator()
         {
-
             var navigationService = new SubFrameNavigationService();
             navigationService.Configure("LoginPage", typeof(LoginPage));
             navigationService.Configure("SettingsPage", typeof(SettingsPage));

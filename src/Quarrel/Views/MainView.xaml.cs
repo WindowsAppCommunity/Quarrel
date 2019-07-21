@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quarrel.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,6 +28,9 @@ namespace Quarrel
         {
             this.InitializeComponent();
             ExtendedSplashScreen.InitializeAnimation(splash);
+            ViewModel.Login();
         }
+
+        public MainViewModel ViewModel => (Application.Current.Resources["ViewModelLocator"] as ViewModelLocator).Main;
     }
 }

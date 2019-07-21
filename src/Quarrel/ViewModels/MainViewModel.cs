@@ -45,11 +45,10 @@ namespace Quarrel.ViewModels
             GuildsService = guildsService;
             SubFrameNavigationService = subFrameNavigationService;
 
-            RegisterMessage();
-            Login();
+            RegisterMessages();
         }
 
-        private void RegisterMessage()
+        private void RegisterMessages()
         {
             MessengerInstance.Register<GatewayReadyMessage>(this, async _ =>
             {

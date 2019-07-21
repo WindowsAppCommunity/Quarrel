@@ -7,16 +7,16 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="f653ddc2-6c7b-4efc-acb7-08dfd36eed0a"
-    Publisher="CN=avid2"
-    Version="1.0.0.0" />
+    Name="38062AvishaiDernis.DiscordUWP"
+    Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B"
+    Version="11.0.1.0" />
 
-  <mp:PhoneIdentity PhoneProductId="f653ddc2-6c7b-4efc-acb7-08dfd36eed0a" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="14f80df4-3574-4bfd-9d83-93f63cdcd795" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Quarrel</DisplayName>
-    <PublisherDisplayName>avid2</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <DisplayName>Discord UWP</DisplayName>
+    <PublisherDisplayName>Avishai Dernis</PublisherDisplayName>
+    <Logo>Assets\IconAssets\StoreLogo.png</Logo>
   </Properties>
 
   <Dependencies>
@@ -32,13 +32,19 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="Quarrel.App">
       <uap:VisualElements
-        DisplayName="Quarrel"
-        Square150x150Logo="Assets\Square150x150Logo.png"
-        Square44x44Logo="Assets\Square44x44Logo.png"
+        DisplayName="Discord UWP"
+        Square150x150Logo="Assets\IconAssets\MediumTile.png"
+        Square44x44Logo="Assets\IconAssets\AppIcon.png"
         Description="Quarrel"
-        BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        BackgroundColor="#506098">
+        <uap:DefaultTile Wide310x150Logo="Assets\IconAssets\WideTile.png" Square71x71Logo="Assets\IconAssets\SmallTile.png" ShortName="Quarrel" Square310x310Logo="Assets\IconAssets\LargeTile.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo"/>
+            <uap:ShowOn Tile="wide310x150Logo"/>
+            <uap:ShowOn Tile="square310x310Logo"/>
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile >
+        <uap:SplashScreen Image="Assets\IconAssets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
   </Applications>
