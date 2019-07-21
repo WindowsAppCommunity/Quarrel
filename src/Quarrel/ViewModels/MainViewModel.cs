@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using JetBrains.Annotations;
-using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Navigation;
 using Quarrel.Messages.Posts.Requests;
@@ -23,7 +20,6 @@ using Quarrel.Services.Gateway;
 using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
-using Windows.UI.Xaml;
 using Quarrel.Messages.Navigation.SubFrame;
 using Quarrel.SubPages;
 
@@ -264,20 +260,25 @@ namespace Quarrel.ViewModels
                     var bChannel = GuildsService.CurrentChannels[m.TypingStart.ChannelId];
                     if (!bChannel.Typers.ContainsKey(m.TypingStart.UserId))
                     {
-                        DispatcherTimer timer = new DispatcherTimer();
-                        timer.Interval = TimeSpan.FromSeconds(8);
-                        timer.Tick += (s, e) =>
+                        Timer timer = new Timer {Interval = 8 * 1000};
+                        timer.Elapsed += (s, e) =>
                         {
                             timer.Stop();
                             bChannel.Typers.Remove(m.TypingStart.UserId);
-                            bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
-                            bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
+                            _ = DispatcherHelper.RunAsync(() =>
+                            {
+                                bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
+                                bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
+                            });
                         };
                         bChannel.Typers.Add(m.TypingStart.UserId, timer);
                     }
                     bChannel.Typers[m.TypingStart.UserId].Start();
-                    bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
-                    bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
+                    _ = DispatcherHelper.RunAsync(() =>
+                    {
+                        bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
+                        bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
+                    });
                 });
             });
             MessengerInstance.Register<string>(this, async m =>

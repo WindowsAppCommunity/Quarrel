@@ -6,17 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Timers;
 using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Models.Bindables.Abstract;
 using GalaSoft.MvvmLight.Threading;
 using Quarrel.Messages.Gateway;
 using Quarrel.Services.Users;
 using Quarrel.Services.Voice;
-using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services.Rest;
-using Windows.UI.Xaml;
-using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Quarrel.Services.Guild;
 
 namespace Quarrel.Models.Bindables
@@ -431,7 +428,7 @@ namespace Quarrel.Models.Bindables
             }
         }
 
-        public Dictionary<string, DispatcherTimer> Typers = new Dictionary<string, DispatcherTimer>();
+        public Dictionary<string, Timer> Typers = new Dictionary<string, Timer>();
 
         #endregion
 
