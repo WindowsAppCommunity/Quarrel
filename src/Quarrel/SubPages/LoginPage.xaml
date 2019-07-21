@@ -246,16 +246,16 @@
                 </StackPanel>
                 <StackPanel x:Name="NormalAuth" Visibility="Visible">
                     <TextBlock x:Name="EmailErrorText" Visibility="Collapsed"></TextBlock>
-                    <TextBox x:Uid="/About/EmailTBox" Padding="12" x:Name="Username" VerticalAlignment="Center" InputScope="EmailSmtpAddress" PlaceholderText="Email" Margin="0,6,0,0" Style="{StaticResource TextBoxStyle1}" KeyDown="Username_KeyDown"/>
+                    <TextBox x:Uid="/About/EmailTBox" TabIndex="0" Padding="12" x:Name="Username" VerticalAlignment="Center" InputScope="EmailSmtpAddress" PlaceholderText="Email" Margin="0,6,0,0" Style="{StaticResource TextBoxStyle1}" />
                     <TextBlock x:Name="PasswordErrorText" Visibility="Collapsed"></TextBlock>
-                    <PasswordBox x:Uid="/About/PasswordTBox"  Padding="12"  x:Name="Password" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Password" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="Password_KeyDown"/>
+                    <PasswordBox x:Uid="/About/PasswordTBox" TabIndex="1" Padding="12"  x:Name="Password" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Password" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="Password_KeyDown"/>
                 </StackPanel>
                 <StackPanel x:Name="MFAuth" Visibility="Collapsed">
                     <PasswordBox x:Uid="/About/MFAPasswordTBox" InputScope="Number" Header="Two-factor authentication:" x:Name="MFAPassword" VerticalAlignment="Center" PlaceholderText="Authentication code" Padding="12" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="MFAPassword_KeyDown"/>
                     <HyperlinkButton x:Name="MFAsms" Click="MFAsms_Click" Style="{StaticResource PlainTextHyperlinkStyle}" FontSize="13" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,4,0,4" >Send code by SMS</HyperlinkButton>
                 </StackPanel>
             </Grid>
-            <Button x:Name="loginButton" HorizontalAlignment="Stretch" Click="LoginButton_Click" Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+            <Button x:Name="loginButton" TabIndex="2" HorizontalAlignment="Stretch" Click="LoginButton_Click" Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                 <Button.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition FromVerticalOffset="250"/>
