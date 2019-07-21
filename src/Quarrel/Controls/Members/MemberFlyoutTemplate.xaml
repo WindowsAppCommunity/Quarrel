@@ -48,7 +48,7 @@
         <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
     </UserControl.Resources>
 
-    <Border x:Name="borderColor" Margin="0" CornerRadius="4" BorderThickness="1" Grid.RowSpan="2" Width="248" BorderBrush="{x:Bind ViewModel.Presence.Status, Mode=OneWay, Converter={StaticResource PresenseToBrushConverter}}">
+    <Border x:Name="borderColor" Margin="0" BorderThickness="0" Grid.RowSpan="2" Width="248" BorderBrush="{x:Bind ViewModel.Presence.Status, Mode=OneWay, Converter={StaticResource PresenseToBrushConverter}}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
