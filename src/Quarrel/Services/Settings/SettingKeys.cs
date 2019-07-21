@@ -9,6 +9,12 @@ namespace Quarrel.Services.Settings
     {
         Token,
 
+        // Display 
+        Theme,
+        Bluple,
+        ServerMuteIcons,
+        ExpensiveRendering,
+
         // Behavior
         MentionGlow,
         ShowNoPermssions,
