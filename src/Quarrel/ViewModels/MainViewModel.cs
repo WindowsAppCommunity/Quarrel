@@ -21,26 +21,30 @@ using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
 using Quarrel.Navigation;
+using Quarrel.Services.Settings;
 
 namespace Quarrel.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
         private readonly ICacheService CacheService;
+        private readonly ISettingsService SettingsService;
         private readonly IDiscordService DiscordService;
         public readonly ICurrentUsersService CurrentUsersService;
         private readonly IGatewayService GatewayService;
         private readonly IGuildsService GuildsService;
         private readonly ISubFrameNavigationService SubFrameNavigationService;
 
-        public MainViewModel(ICacheService cacheService, IDiscordService discordService, ICurrentUsersService currentUsersService, IGatewayService gatewayService, IGuildsService guildsService, ISubFrameNavigationService subFrameNavigationService)
+        public MainViewModel(ICacheService cacheService, ISettingsService settingsService, IDiscordService discordService, ICurrentUsersService currentUsersService, IGatewayService gatewayService, IGuildsService guildsService, ISubFrameNavigationService subFrameNavigationService)
         {
             CacheService = cacheService;
+            SettingsService = settingsService;
             DiscordService = discordService;
             CurrentUsersService = currentUsersService;
             GatewayService = gatewayService;
             GuildsService = guildsService;
             SubFrameNavigationService = subFrameNavigationService;
+
             RegisterMessage();
             Login();
         }
@@ -71,62 +75,65 @@ namespace Quarrel.ViewModels
             {
                 Channel = m.Channel;
 
-                await DispatcherHelper.RunAsync(() =>
+                if (SettingsService.Roaming.GetValue<bool>(SettingKeys.FilterMembers))
                 {
-                    BindableMembers.Clear();
-                    foreach (var user in CurrentUsersService.Users.Where(user =>
+                    await DispatcherHelper.RunAsync(() =>
                     {
-                        if (Channel.IsTextChannel)
+                        BindableMembers.Clear();
+                        foreach (var user in CurrentUsersService.Users.Where(user =>
                         {
-                            Permissions perms = new Permissions(Guild.Model.Roles.FirstOrDefault(x => x.Name == "@everyone").Permissions);
-                            foreach (var role in user.Value.Roles)
+                            if (Channel.IsTextChannel)
                             {
-                                perms.AddAllows((GuildPermission)role.Permissions);
+                                Permissions perms = new Permissions(Guild.Model.Roles.FirstOrDefault(x => x.Name == "@everyone").Permissions);
+                                foreach (var role in user.Value.Roles)
+                                {
+                                    perms.AddAllows((GuildPermission)role.Permissions);
+                                }
+
+                                GuildPermission roleDenies = 0;
+                                GuildPermission roleAllows = 0;
+                                GuildPermission memberDenies = 0;
+                                GuildPermission memberAllows = 0;
+                                foreach (Overwrite overwrite in (Channel.Model as GuildChannel).PermissionOverwrites)
+                                    if (overwrite.Id == Channel.GuildId)
+                                    {
+                                        perms.AddDenies((GuildPermission)overwrite.Deny);
+                                        perms.AddAllows((GuildPermission)overwrite.Allow);
+                                    }
+                                    else if (overwrite.Type == "role" && user.Value.Model.Roles.Contains(overwrite.Id))
+                                    {
+                                        roleDenies |= (GuildPermission)overwrite.Deny;
+                                        roleAllows |= (GuildPermission)overwrite.Allow;
+                                    }
+                                    else if (overwrite.Type == "member" && overwrite.Id == user.Value.Model.User.Id)
+                                    {
+                                        memberDenies |= (GuildPermission)overwrite.Deny;
+                                        memberAllows |= (GuildPermission)overwrite.Allow;
+                                    }
+
+                                perms.AddDenies(roleDenies);
+                                perms.AddAllows(roleAllows);
+                                perms.AddDenies(memberDenies);
+                                perms.AddAllows(memberAllows);
+
+                                // If owner add admin
+                                if (Guild.Model.OwnerId == user.Value.Model.User.Id)
+                                {
+                                    perms.AddAllows(GuildPermission.Administrator);
+                                }
+
+                                return perms.ReadMessages;
                             }
-
-                            GuildPermission roleDenies = 0;
-                            GuildPermission roleAllows = 0;
-                            GuildPermission memberDenies = 0;
-                            GuildPermission memberAllows = 0;
-                            foreach (Overwrite overwrite in (Channel.Model as GuildChannel).PermissionOverwrites)
-                                if (overwrite.Id == Channel.GuildId)
-                                {
-                                    perms.AddDenies((GuildPermission)overwrite.Deny);
-                                    perms.AddAllows((GuildPermission)overwrite.Allow);
-                                }
-                                else if (overwrite.Type == "role" && user.Value.Model.Roles.Contains(overwrite.Id))
-                                {
-                                    roleDenies |= (GuildPermission)overwrite.Deny;
-                                    roleAllows |= (GuildPermission)overwrite.Allow;
-                                }
-                                else if (overwrite.Type == "member" && overwrite.Id == user.Value.Model.User.Id)
-                                {
-                                    memberDenies |= (GuildPermission)overwrite.Deny;
-                                    memberAllows |= (GuildPermission)overwrite.Allow;
-                                }
-
-                            perms.AddDenies(roleDenies);
-                            perms.AddAllows(roleAllows);
-                            perms.AddDenies(memberDenies);
-                            perms.AddAllows(memberAllows);
-
-                            // If owner add admin
-                            if (Guild.Model.OwnerId == user.Value.Model.User.Id)
+                            else
                             {
-                                perms.AddAllows(GuildPermission.Administrator);
+                                return true;
                             }
-
-                            return perms.ReadMessages;
-                        }
-                        else
+                        }))
                         {
-                            return true;
+                            BindableMembers.AddElement(user.Value);
                         }
-                    }))
-                    {
-                        BindableMembers.AddElement(user.Value);
-                    }
-                });
+                    });
+                }
 
                 using (await SourceMutex.LockAsync())
                 {
@@ -632,6 +639,7 @@ namespace Quarrel.ViewModels
         #endregion
 
         #region Properties
+
         private BindableGuild _Guild;
         public BindableGuild Guild
         {
