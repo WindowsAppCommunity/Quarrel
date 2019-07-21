@@ -17,6 +17,7 @@ using Quarrel.Messages.Gateway;
 using UICompositionAnimations.Helpers;
 using System.Collections.ObjectModel;
 using Quarrel.Services.Settings;
+using Quarrel.Messages.Services.Settings;
 
 namespace Quarrel.Models.Bindables
 {
@@ -45,6 +46,14 @@ namespace Quarrel.Models.Bindables
                     RaisePropertyChanged(nameof(NotificationCount));
                     RaisePropertyChanged(nameof(IsUnread));
                 });
+            });
+
+            MessengerInstance.Register<SettingChangedMessage<bool>>(this, m => 
+            {
+                if (m.Key == SettingKeys.ServerMuteIcons)
+                {
+                    RaisePropertyChanged(nameof(ShowMute));
+                }
             });
         }
 
