@@ -322,10 +322,7 @@ namespace Quarrel.ViewModels
                     {
                         // Show guilds
                         BindableMembers.Clear();
-                        foreach (var user in CurrentUsersService.Users)
-                        {
-                            BindableMembers.AddElement(user.Value);
-                        }
+                        BindableMembers.AddElementRange(CurrentUsersService.Users.Values);
                     });
                 }
             });
