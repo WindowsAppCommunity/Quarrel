@@ -203,11 +203,9 @@ namespace Quarrel.Models.Bindables
 
         private bool _Collapsed;
 
-        public bool Hidden
-        {
-            get => (IsCategory ? false : _Collapsed) ||
-                !Permissions.ReadMessages;
-        }
+        public bool Hidden =>
+            (!IsCategory && _Collapsed) ||
+            !Permissions.ReadMessages;
 
         public bool Collapsed
         {
