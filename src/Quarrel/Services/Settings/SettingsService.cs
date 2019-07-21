@@ -23,6 +23,12 @@ namespace Quarrel.Services.Settings
         public void EnsureDefaults()
         {
             Roaming.SetValue<string>(SettingKeys.Token, null, false);
+            Roaming.SetValue(SettingKeys.MentionGlow, false, false);
+            Roaming.SetValue(SettingKeys.ShowNoPermssions, false, false);
+            Roaming.SetValue(SettingKeys.HideMuted, false, false);
+            Roaming.SetValue(SettingKeys.CollapseOverride, CollapseOverride.Unread, false);
+            Roaming.SetValue(SettingKeys.TTLAttachments, true, false);
+            Roaming.SetValue(SettingKeys.DataCompression, true, false);
         }
 
         /// <inheritdoc/>

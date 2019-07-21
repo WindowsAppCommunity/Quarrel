@@ -12,6 +12,7 @@ using Quarrel.Services.Cache;
 using Quarrel.Services.Gateway;
 using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
+using Quarrel.Services.Settings;
 using Quarrel.Services.Users;
 using Quarrel.Services.Voice;
 using Quarrel.Services.Voice.Audio.In;
@@ -38,6 +39,7 @@ namespace Quarrel.ViewModels
             SimpleIoc.Default.Register<ISubFrameNavigationService>(() => navigationService);
 
             SimpleIoc.Default.Register<ICacheService, CacheService>();
+            SimpleIoc.Default.Register<ISettingsService, SettingsService>();
             SimpleIoc.Default.Register<IGatewayService, GatewayService>();
             SimpleIoc.Default.Register<IDiscordService, DiscordService>();
             SimpleIoc.Default.Register<IGuildsService, GuildsService>();

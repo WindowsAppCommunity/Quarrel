@@ -8,6 +8,37 @@
     mc:Ignorable="d">
 
     <Grid>
+        <StackPanel>
+            <TextBlock Text="THEME" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0"/>
+            <TextBlock Text="(Restart required)" FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.75"/>
+            <RadioButton x:Name="radio_Dark" Style="{StaticResource DiscordRadioButton}" Content="Dark" GroupName="Theme" Margin="0,6,0,-4"/>
+            <RadioButton x:Name="radio_Light" Style="{StaticResource DiscordRadioButton}" Content="Light" GroupName="Theme" Margin="0,0,0,-4"/>
+            <RadioButton x:Name="radio_Windows" Style="{StaticResource DiscordRadioButton}" Content="Windows" GroupName="Theme" Margin="0,0,0,-4"/>
+            <RadioButton x:Name="radio_Discord" Style="{StaticResource DiscordRadioButton}" Content="Discord" GroupName="Theme"/>
+            <RadioButton x:Name="OLED" Style="{StaticResource DiscordRadioButton}" Margin="0,0,0,0" MaxWidth="450" GroupName="Theme" IsEnabled="False">
+                <StackPanel Margin="0,-2,0,0">
+                    <TextBlock Text="OLED Theme"/>
+                    <TextBlock Text="This changes the theme of the app for OLED devices in ways that will save battery (featuring a full black background)" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
+                </StackPanel>
+            </RadioButton>
 
+            <TextBlock Text="Accent color" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
+            <RadioButton x:Name="radioAccent_Discord" Style="{StaticResource DiscordRadioButton}" Foreground="#FF7289DA" Content="Discord Blurple" GroupName="Accent" Margin="0,6,0,-4" IsEnabled="False"/>
+            <RadioButton x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" Content="System accent color" GroupName="Accent"/>
+
+            <TextBlock Text="OTHER" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
+            <CheckBox x:Name="ShowServerMute" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0">
+                <StackPanel Margin="0,2,0,0">
+                    <TextBlock Text="Server Mute Icon"/>
+                    <TextBlock Text="A mute icon that shows over muted servers on the server list" FontSize="11" Opacity="0.5"/>
+                </StackPanel>
+            </CheckBox>
+            <CheckBox x:Name="ExpensiveUI" Style="{StaticResource CheckBoxStyle1}" MaxWidth="350">
+                <StackPanel Margin="0,2,0,0">
+                    <TextBlock Text="Expensive Rendering"/>
+                    <TextBlock Text="Enable various expensive graphics such as Blur Effects and Audio Visualizers" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
+                </StackPanel>
+            </CheckBox>
+        </StackPanel>
     </Grid>
 </Page>

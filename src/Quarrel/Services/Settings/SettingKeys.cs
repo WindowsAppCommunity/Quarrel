@@ -7,6 +7,15 @@ namespace Quarrel.Services.Settings
     /// </summary>
     public enum SettingKeys
     {
-        Token
+        Token,
+
+        // Behavior
+        MentionGlow,
+        ShowNoPermssions,
+        HideMuted,
+        CollapseOverride,
+        TTLAttachments,
+        DataCompression
+
     }
 }

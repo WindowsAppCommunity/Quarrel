@@ -36,11 +36,8 @@
                     <TextBlock x:Name="HeaderTB" Text="My Account" Margin="16,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
                 </Border>
 
-                <Frame x:Name="SettingsFrame" Grid.Row="1"/>
+                <Frame x:Name="SettingsFrame" Grid.Row="1" Margin="12,8"/>
             </Grid>
-            
-            
-
         </NavigationView>
     </Grid>
 </UserControl>

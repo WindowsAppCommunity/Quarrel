@@ -409,6 +409,7 @@
     <Compile Include="Services\Guild\IGuildsService.cs" />
     <Compile Include="Services\Rest\DiscordService.cs" />
     <Compile Include="Services\Rest\IDiscordService.cs" />
+    <Compile Include="Services\Settings\Enums\CollapseOverride.cs" />
     <Compile Include="Services\Settings\Enums\SettingLocation.cs" />
     <Compile Include="Services\Settings\ISettingsService.cs" />
     <Compile Include="Services\Settings\SettingKeys.cs" />
@@ -463,6 +464,7 @@
     <Compile Include="TemplateSelectors\EmbedTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\MessageTemplateSelector.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Settings\Pages\BehaviorSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\Pages\MyAccountSettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Controls\Shell\ChannelListControl.xaml.cs">
