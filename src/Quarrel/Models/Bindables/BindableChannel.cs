@@ -44,17 +44,7 @@ namespace Quarrel.Models.Bindables
                     }
                 });
             });
-            MessengerInstance.Register<GatewayGuildChannelUpdatedMessage>(this, async m =>
-            {
-                // TODO: Complete Update
-                await DispatcherHelper.RunAsync(() =>
-                {
-                    if (Model.Id == m.Channel.Id)
-                    {
-                        RaisePropertyChanged(nameof(FormattedName));
-                    }
-                });
-            });
+
             if (states != null)
             {
                 foreach (var state in states)
@@ -188,15 +178,9 @@ namespace Quarrel.Models.Bindables
 
         public string GuildId;
 
-        public string ParentId
-        {
-            get { return Model is GuildChannel gcModel ? (IsCategory ? gcModel.Id : gcModel.ParentId ) : null; }
-        }
+        public string ParentId => Model is GuildChannel gcModel ? (IsCategory ? gcModel.Id : gcModel.ParentId ) : null;
 
-        public int Position
-        {
-            get { return Model is GuildChannel gcModel ? gcModel.Position : 0; }
-        }
+        public int Position => Model is GuildChannel gcModel ? gcModel.Position : 0;
 
         public string FormattedName
         {
