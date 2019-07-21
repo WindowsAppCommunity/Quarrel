@@ -15,13 +15,16 @@ using Quarrel.Services.Users;
 using Quarrel.Services.Voice;
 using Quarrel.Services.Rest;
 using Quarrel.Services.Guild;
+using Quarrel.Services.Settings;
+using Quarrel.Services.Settings.Enums;
 
 namespace Quarrel.Models.Bindables
 {
     public class BindableChannel : BindableModelBase<Channel>
     {
-        private ICurrentUsersService currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
-        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();  
+        private ICurrentUsersService _CurrentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+        private IDiscordService _DiscordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ISettingsService _SettingsService = SimpleIoc.Default.GetInstance<ISettingsService>();
         public IVoiceService VoiceService { get; } = SimpleIoc.Default.GetInstance<IVoiceService>();
         public IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
 
@@ -80,7 +83,7 @@ namespace Quarrel.Models.Bindables
                     // TODO: Calculate once and store
                     Permissions perms = Guild.Permissions.Clone();
 
-                    var user = Guild.Model.Members.FirstOrDefault(x => x.User.Id == discordService.CurrentUser.Id);
+                    var user = Guild.Model.Members.FirstOrDefault(x => x.User.Id == _DiscordService.CurrentUser.Id);
 
                     GuildPermission roleDenies = 0;
                     GuildPermission roleAllows = 0;
@@ -178,7 +181,7 @@ namespace Quarrel.Models.Bindables
 
         public string GuildId;
 
-        public string ParentId => Model is GuildChannel gcModel ? (IsCategory ? gcModel.Id : gcModel.ParentId ) : null;
+        public string ParentId => Model is GuildChannel gcModel ? (IsCategory ? gcModel.Id : gcModel.ParentId) : null;
 
         public int Position => Model is GuildChannel gcModel ? gcModel.Position : 0;
 
@@ -203,9 +206,27 @@ namespace Quarrel.Models.Bindables
 
         private bool _Collapsed;
 
-        public bool Hidden =>
-            (!IsCategory && _Collapsed) ||
-            !Permissions.ReadMessages;
+        public bool Hidden
+        {
+            get
+            {
+                bool hidden = false;
+                if (_Collapsed && !IsCategory)
+                {
+                    // TODO: Collapse Override
+                    //switch (_SettingsService.Roaming.GetValue<CollapseOverride>(SettingKeys.CollapseOverride))
+                    //{
+
+                    //}
+                    hidden = true;
+                } else if (!Permissions.ReadMessages && !_SettingsService.Roaming.GetValue<bool>(SettingKeys.ShowNoPermssions))
+                {
+                    hidden = true;
+                }
+                return hidden;
+            }
+        }
+            
 
         public bool Collapsed
         {
@@ -246,7 +267,9 @@ namespace Quarrel.Models.Bindables
         {
             get
             {
-                if (Muted)
+                if (!Permissions.ReadMessages)
+                    return 0.25;
+                else if (Muted)
                     return 0.35;
                 else if (IsUnread)
                     return 1;
@@ -374,7 +397,7 @@ namespace Quarrel.Models.Bindables
                 List<string> names = new List<string>();
                 foreach (var id in Typers.Keys)
                 {
-                    names.Add(currentUsersService.Users[id].DisplayName);
+                    names.Add(_CurrentUsersService.Users[id].DisplayName);
                 }
                 return names;
             }
