@@ -56,6 +56,13 @@ namespace Quarrel.Models.Bindables
                     RaisePropertyChanged(nameof(Hidden));
                 }
             });
+            MessengerInstance.Register<SettingChangedMessage<CollapseOverride>>(this, m =>
+            {
+                if (m.Key == SettingKeys.CollapseOverride)
+                {
+                    RaisePropertyChanged(nameof(Hidden));
+                }
+            });
 
             if (states != null)
             {
@@ -222,12 +229,18 @@ namespace Quarrel.Models.Bindables
                 bool hidden = false;
                 if (_Collapsed && !IsCategory)
                 {
-                    // TODO: Collapse Override
-                    //switch (_SettingsService.Roaming.GetValue<CollapseOverride>(SettingKeys.CollapseOverride))
-                    //{
-
-                    //}
                     hidden = true;
+                    switch (_SettingsService.Roaming.GetValue<CollapseOverride>(SettingKeys.CollapseOverride))
+                    {
+                        case CollapseOverride.Mention:
+                            if (MentionCount > 0)
+                                hidden = false;
+                            break;
+                        case CollapseOverride.Unread:
+                            if (ShowUnread)
+                                hidden = false;
+                            break;
+                    }
                 } else if (!Permissions.ReadMessages && !_SettingsService.Roaming.GetValue<bool>(SettingKeys.ShowNoPermssions))
                 {
                     hidden = true;
@@ -374,6 +387,7 @@ namespace Quarrel.Models.Bindables
             {
                 RaisePropertyChanged(nameof(IsUnread));
                 RaisePropertyChanged(nameof(ShowUnread));
+                RaisePropertyChanged(nameof(Hidden));
                 RaisePropertyChanged(nameof(TextOpacity));
                 RaisePropertyChanged(nameof(MentionCount));
             });
@@ -386,6 +400,7 @@ namespace Quarrel.Models.Bindables
             {
                 RaisePropertyChanged(nameof(IsUnread));
                 RaisePropertyChanged(nameof(ShowUnread));
+                RaisePropertyChanged(nameof(Hidden));
                 RaisePropertyChanged(nameof(TextOpacity));
                 RaisePropertyChanged(nameof(MentionCount));
             });
