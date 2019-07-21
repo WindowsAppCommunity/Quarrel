@@ -17,6 +17,7 @@ using Quarrel.Services.Rest;
 using Quarrel.Services.Guild;
 using Quarrel.Services.Settings;
 using Quarrel.Services.Settings.Enums;
+using Quarrel.Messages.Services.Settings;
 
 namespace Quarrel.Models.Bindables
 {
@@ -46,6 +47,14 @@ namespace Quarrel.Models.Bindables
                         ConnectedUsers.Remove(e.VoiceState.UserId);
                     }
                 });
+            });
+
+            MessengerInstance.Register<SettingChangedMessage<bool>>(this, m =>
+            {
+                if (m.Key == SettingKeys.ShowNoPermssions)
+                {
+                    RaisePropertyChanged(nameof(Hidden));
+                }
             });
 
             if (states != null)
