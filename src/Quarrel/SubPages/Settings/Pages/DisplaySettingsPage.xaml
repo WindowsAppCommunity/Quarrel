@@ -12,7 +12,7 @@
         <pages:DisplaySettingsViewModel x:Name="ViewModel"/>
     </Page.DataContext>
     
-    <Grid>
+    <ScrollViewer CanContentRenderOutsideBounds="True">
         <StackPanel>
             <TextBlock Text="THEME" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0"/>
             <TextBlock Text="(Restart required)" FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.75"/>
@@ -54,5 +54,5 @@
                 </StackPanel>
             </CheckBox>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </Page>
