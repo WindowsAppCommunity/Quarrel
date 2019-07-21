@@ -459,7 +459,7 @@
             </ListView.Header>
             <ListView.ItemTemplate>
                 <!--
-                    Having this here instead of a user control substitutability increases performance
+                    Having this here instead of a user control substantially increases performance
                 -->
                 <DataTemplate x:DataType="bindables:BindableChannel">
                     <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" MinHeight="{x:Bind Model.Type, Converter={StaticResource TypeToMinHeightConverter}, Mode=OneWay}" Background="Transparent">
