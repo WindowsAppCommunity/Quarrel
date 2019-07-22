@@ -24,11 +24,19 @@ namespace Quarrel.Controls.Messages
             typeof(SelectionBindingTextBox),
             new PropertyMetadata(0, OnBindableSelectionLengthChanged));
 
+        public static readonly DependencyProperty BindableTextProperty =
+            DependencyProperty.Register(
+            "BindableText",
+            typeof(string),
+            typeof(SelectionBindingTextBox),
+            new PropertyMetadata(0, OnBindableTextChanged));
+
         private bool changeFromUI;
 
         public SelectionBindingTextBox() : base()
         {
             this.SelectionChanged += this.OnSelectionChanged;
+            this.TextChanged += OnTextChanged;
         }
 
         public int BindableSelectionStart
@@ -54,6 +62,19 @@ namespace Quarrel.Controls.Messages
             set
             {
                 this.SetValue(BindableSelectionLengthProperty, value);
+            }
+        }
+
+        public string BindableText
+        {
+            get
+            {
+                return (string)this.GetValue(BindableTextProperty);
+            }
+            set
+            {
+                this.SetValue(BindableTextProperty, value);
+                Text = value;
             }
         }
 
@@ -87,6 +108,12 @@ namespace Quarrel.Controls.Messages
             }
         }
 
+        private static void OnBindableTextChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            var textBox = dependencyObject as SelectionBindingTextBox;
+            textBox.BindableText = (string)args.NewValue;
+        }
+
         private void OnSelectionChanged(object sender, RoutedEventArgs e)
         {
             if (this.BindableSelectionStart != this.SelectionStart)
@@ -99,6 +126,14 @@ namespace Quarrel.Controls.Messages
             {
                 this.changeFromUI = true;
                 this.BindableSelectionLength = this.SelectionLength;
+            }
+        }
+
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (this.BindableText != this.Text)
+            {
+                this.BindableText = this.Text;
             }
         }
     }

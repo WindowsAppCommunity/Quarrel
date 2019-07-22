@@ -389,7 +389,7 @@ namespace Quarrel.ViewModels
         }));
 
         private RelayCommand sendMessageCommand;
-        public RelayCommand SendMessageCommand => sendMessageCommand ?? (sendMessageCommand = new RelayCommand(() =>
+        public RelayCommand SendMessageCommand => sendMessageCommand ?? (sendMessageCommand = new RelayCommand(async () =>
         {
             string text = MessageText;
             var mentions = FindMentions(text);
@@ -419,9 +419,11 @@ namespace Quarrel.ViewModels
                     }
                 }
             }
-
-            DiscordService.ChannelService.CreateMessage(Channel.Model.Id, new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
-            MessageText = "";
+            await DiscordService.ChannelService.CreateMessage(Channel.Model.Id, new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
+            await DispatcherHelper.RunAsync(() =>
+            {
+                MessageText = "";
+            });
         }));
         
         private RelayCommand newLineCommand;
