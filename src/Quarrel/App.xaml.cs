@@ -32,6 +32,8 @@ using Quarrel.Services.Voice;
 using Quarrel.Services.Voice.Audio.In;
 using Quarrel.Services.Voice.Audio.Out;
 using Quarrel.ViewModels;
+using Quarrel.Services.Settings;
+using Quarrel.Services.Settings.Enums;
 
 namespace Quarrel
 {
@@ -47,6 +49,7 @@ namespace Quarrel
         public App()
         {
             this.InitializeComponent();
+            SetupRequestedTheme();
             this.Suspending += OnSuspending;
         }
 
@@ -62,6 +65,7 @@ namespace Quarrel
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(400, 500));
 
             SetupTitleBar();
+
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
@@ -92,7 +96,7 @@ namespace Quarrel
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
-            DispatcherHelper.Initialize();;
+            DispatcherHelper.Initialize();
         }
 
         /// <summary>
@@ -147,6 +151,19 @@ namespace Quarrel
             view.TitleBar.ButtonPressedForegroundColor = ((SolidColorBrush)Current.Resources["Foreground"]).Color;
             view.TitleBar.ButtonInactiveForegroundColor = ((SolidColorBrush)Current.Resources["MidBG_hover"]).Color;
             view.TitleBar.InactiveForegroundColor = ((SolidColorBrush)Current.Resources["MidBG_hover"]).Color;
+        }
+
+        public void SetupRequestedTheme()
+        {
+            switch (new SettingsService().Roaming.GetValue<Theme>(SettingKeys.Theme))
+            {
+                case Theme.Dark:
+                    Application.Current.RequestedTheme = ApplicationTheme.Dark;
+                    break;
+                case Theme.Light:
+                    Application.Current.RequestedTheme = ApplicationTheme.Light;
+                    break;
+            }
         }
 
         #endregion

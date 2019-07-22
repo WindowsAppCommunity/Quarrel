@@ -19,9 +19,9 @@
             <RadioButton x:Name="radio_Dark" Style="{StaticResource DiscordRadioButton}" Content="Dark" GroupName="Theme" Margin="0,6,0,-4"
                          IsChecked="{x:Bind ViewModel.Dark, Mode=TwoWay}"/>
             <RadioButton x:Name="radio_Light" Style="{StaticResource DiscordRadioButton}" Content="Light" GroupName="Theme" Margin="0,0,0,-4"
-                         IsEnabled="False" IsChecked="{x:Bind ViewModel.Light, Mode=TwoWay}"/>
+                         IsChecked="{x:Bind ViewModel.Light, Mode=TwoWay}"/>
             <RadioButton x:Name="radio_Windows" Style="{StaticResource DiscordRadioButton}" Content="Windows" GroupName="Theme" Margin="0,0,0,-4"
-                         IsEnabled="False" IsChecked="{x:Bind ViewModel.Windows, Mode=OneWay}"/>
+                         IsChecked="{x:Bind ViewModel.Windows, Mode=TwoWay}"/>
             <RadioButton x:Name="radio_Discord" Style="{StaticResource DiscordRadioButton}" Content="Discord" GroupName="Theme"
                          IsEnabled="False" IsChecked="{x:Bind ViewModel.Discord, Mode=TwoWay}"/>
             <RadioButton x:Name="OLED" Style="{StaticResource DiscordRadioButton}" Margin="0,0,0,0" MaxWidth="450" GroupName="Theme"
