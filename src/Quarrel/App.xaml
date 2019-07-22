@@ -9,9 +9,87 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Light"/>
-                <ResourceDictionary x:Key="Dark">
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="Foreground" Color="Black"/>
+                    <SolidColorBrush x:Key="Background" Color="#FFE5E5E5"/>
 
+                    <AcrylicBrush x:Key="AcrylicMessageBackground"
+                                  BackgroundSource="HostBackdrop"
+                                  TintColor="#FFFFFFFF"
+                                  TintOpacity="0.8"
+                                  Windows10version1903:TintLuminosityOpacity="0.95"
+                                  FallbackColor="#FFFFFFFF"/>
+
+                    <AcrylicBrush x:Key="AcrylicChannelPaneBackground"
+                                  BackgroundSource="HostBackdrop"
+                                  TintColor="#FFE8E8ED"
+                                  TintOpacity="0.8"
+                                  Windows10version1903:TintLuminosityOpacity="0.95"
+                                  FallbackColor="#FFE8E8ED"/>
+
+                    <AcrylicBrush x:Key="AcrylicGuildPaneBackground"
+                                  BackgroundSource="HostBackdrop"
+                                  TintColor="#FFE0E0E5"
+                                  TintOpacity="0.6"
+                                  Windows10version1903:TintLuminosityOpacity="0.95"
+                                  FallbackColor="#FFE0E0E5"/>
+
+                    <AcrylicBrush x:Key="AcrylicCommandBarBackground"
+                                  BackgroundSource="HostBackdrop"
+                                  TintColor="#FFE0E0E5"
+                                  TintOpacity="0.7"
+                                  Windows10version1903:TintLuminosityOpacity="0.95"
+                                  FallbackColor="#FFE0E0E5"/>
+
+                    <AcrylicBrush x:Key="AcrylicSubFrameBackground"
+                                  BackgroundSource="Backdrop"
+                                  TintColor="#FFD0D0D0"
+                                  TintOpacity="0.7"
+                                  Windows10version1903:TintLuminosityOpacity="0.95"
+                                  FallbackColor="#FFD0D0D0"/>
+
+                    <AcrylicBrush x:Key="AcrylicFlyoutBackground"
+                                  BackgroundSource="Backdrop"
+                                  TintColor="#DDFFFFFF"
+                                  TintOpacity="0.8"
+                                  Windows10version1903:TintLuminosityOpacity="0.95"
+                                  FallbackColor="#DDFFFFFF"/>
+
+                    <AcrylicBrush x:Key="AcrylicUserBackground"
+                                  BackgroundSource="Backdrop"
+                                  TintColor="#FFF2F2F3"
+                                  TintOpacity="0.85"
+                                  Windows10version1903:TintLuminosityOpacity="0.95"
+                                  FallbackColor="#FFF2F2F3"/>
+
+                    <AcrylicBrush x:Key="AcrylicUserBackgroundDarker"
+                                  BackgroundSource="Backdrop"
+                                  TintColor="#FFE0E0E5"
+                                  TintOpacity="0.3"
+                                  FallbackColor="#FFE0E0E5"/>
+
+                    <AcrylicBrush x:Key="AcrylicButtonBackground"
+                                  BackgroundSource="Backdrop"
+                                  TintColor="#DDFFFFFF"
+                                  TintOpacity="0.4"
+                                  Windows10version1903:TintLuminosityOpacity="0.95"
+                                  FallbackColor="#DDFFFFFF"/>
+                    
+                    <AcrylicBrush x:Key="SubFrameHostBackgroundBrush"
+                                  BackgroundSource="Backdrop"
+                                  TintColor="#A0FFFFFF"
+                                  TintOpacity="0.7"
+                                  FallbackColor="#A0FFFFFF"/>
+
+                    <SolidColorBrush x:Key="LightBG" Color="#f6f7f9"/>
+                    <SolidColorBrush x:Key="MidBG" Color="#e3e8ed"/>
+                    <SolidColorBrush x:Key="MidBG_hover" Color="#2e3036"/>
+                    <SolidColorBrush x:Key="MidBG_focus" Color="#303238"/>
+                    <SolidColorBrush x:Key="DarkBG" Color="#e1e3e5"/>
+                    <SolidColorBrush x:Key="LinkColor" Color="#0096cf"/>
+                    <SolidColorBrush x:Key="InvertedBG" Color="#161b2b"/>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
                     <SolidColorBrush x:Key="Foreground" Color="White"/>
                     <SolidColorBrush x:Key="Background" Color="#1B1B1B"/>
                     
@@ -83,8 +161,6 @@
                                   TintColor="#A0000000"
                                   TintOpacity="0.7"
                                   FallbackColor="#A0000000"/>
-
-
 
                     <SolidColorBrush x:Key="LightBG" Color="#2e3136"/>
                     <SolidColorBrush x:Key="MidBG" Color="#2a2c31"/>

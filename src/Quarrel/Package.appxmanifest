@@ -7,14 +7,14 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="38062AvishaiDernis.DiscordUWP"
+    Name="38062AvishaiDernis.QuarrelInsider"
     Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B"
-    Version="11.0.1.0" />
+    Version="19.7.22.0" />
 
-  <mp:PhoneIdentity PhoneProductId="14f80df4-3574-4bfd-9d83-93f63cdcd795" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="9aa81de5-13dc-40ec-a8d4-9bbfea86b060" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Discord UWP</DisplayName>
+    <DisplayName>Quarrel Insider</DisplayName>
     <PublisherDisplayName>Avishai Dernis</PublisherDisplayName>
     <Logo>Assets\IconAssets\StoreLogo.png</Logo>
   </Properties>
@@ -32,7 +32,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="Quarrel.App">
       <uap:VisualElements
-        DisplayName="Discord UWP"
+        DisplayName="Quarrel Insider"
         Square150x150Logo="Assets\IconAssets\MediumTile.png"
         Square44x44Logo="Assets\IconAssets\AppIcon.png"
         Description="Quarrel"
@@ -51,6 +51,8 @@
 
   <Capabilities>
     <Capability Name="internetClient" />
+    <Capability Name="internetClientServer" />
+    <Capability Name="privateNetworkClientServer" />
     <DeviceCapability Name="microphone"/>
   </Capabilities>
 </Package>
