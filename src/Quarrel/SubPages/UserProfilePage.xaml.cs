@@ -37,7 +37,7 @@ namespace Quarrel.SubPages
             this.InitializeComponent();
             if (subFrameNavigationService.Parameter != null)
             {
-                ConnectedAnimationService.GetForCurrentView().GetAnimation(Helpers.Constants.ConnectedAnimationKeys.MemberFlyoutAnimation).TryStart(FullAvatar);
+                ConnectedAnimationService.GetForCurrentView()?.GetAnimation(Helpers.Constants.ConnectedAnimationKeys.MemberFlyoutAnimation)?.TryStart(FullAvatar);
                 this.DataContext = subFrameNavigationService.Parameter;
                 LoadProfile();
             }
