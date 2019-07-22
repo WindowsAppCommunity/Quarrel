@@ -17,49 +17,42 @@
                                   BackgroundSource="HostBackdrop"
                                   TintColor="#FFFFFFFF"
                                   TintOpacity="0.8"
-                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FFFFFFFF"/>
 
                     <AcrylicBrush x:Key="AcrylicChannelPaneBackground"
                                   BackgroundSource="HostBackdrop"
                                   TintColor="#FFE8E8ED"
                                   TintOpacity="0.8"
-                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FFE8E8ED"/>
 
                     <AcrylicBrush x:Key="AcrylicGuildPaneBackground"
                                   BackgroundSource="HostBackdrop"
                                   TintColor="#FFE0E0E5"
                                   TintOpacity="0.6"
-                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FFE0E0E5"/>
 
                     <AcrylicBrush x:Key="AcrylicCommandBarBackground"
                                   BackgroundSource="HostBackdrop"
                                   TintColor="#FFE0E0E5"
                                   TintOpacity="0.7"
-                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FFE0E0E5"/>
 
                     <AcrylicBrush x:Key="AcrylicSubFrameBackground"
                                   BackgroundSource="Backdrop"
                                   TintColor="#FFD0D0D0"
                                   TintOpacity="0.7"
-                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FFD0D0D0"/>
 
                     <AcrylicBrush x:Key="AcrylicFlyoutBackground"
                                   BackgroundSource="Backdrop"
                                   TintColor="#DDFFFFFF"
                                   TintOpacity="0.8"
-                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#DDFFFFFF"/>
 
                     <AcrylicBrush x:Key="AcrylicUserBackground"
                                   BackgroundSource="Backdrop"
                                   TintColor="#FFF2F2F3"
                                   TintOpacity="0.85"
-                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FFF2F2F3"/>
 
                     <AcrylicBrush x:Key="AcrylicUserBackgroundDarker"
@@ -72,7 +65,6 @@
                                   BackgroundSource="Backdrop"
                                   TintColor="#DDFFFFFF"
                                   TintOpacity="0.4"
-                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#DDFFFFFF"/>
                     
                     <AcrylicBrush x:Key="SubFrameHostBackgroundBrush"
