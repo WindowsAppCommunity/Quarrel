@@ -446,6 +446,7 @@
         <convertchannel:TypeToBrushConverter x:Key="TypeToBrushConverter"/>
         <convertchannel:TypeToMinHeightConverter x:Key="TypeToMinHeightConverter"/>
         <convertdiscord:DiscriminatorToBrushConverter x:Key="DiscriminatorToBrush"/>
+
     </UserControl.Resources>
 
 
@@ -542,13 +543,7 @@
                             </interactivity:Interaction.Behaviors>
                             <ListView.ItemTemplate>
                                 <DataTemplate x:DataType="bindables:BindableVoiceUser">
-                                    <local:VoiceMemberControl>
-                                        <FlyoutBase.AttachedFlyout>
-                                            <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
-                                                <membercontrols:MemberFlyoutTemplate DataContext="{x:Bind GuildMember}"/>
-                                            </Flyout>
-                                        </FlyoutBase.AttachedFlyout>
-                                    </local:VoiceMemberControl>
+                                    <local:VoiceMemberControl />
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
