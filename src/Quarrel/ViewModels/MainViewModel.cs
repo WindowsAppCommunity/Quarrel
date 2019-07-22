@@ -382,8 +382,8 @@ namespace Quarrel.ViewModels
         private bool ItemsLoading => NewItemsLoading || OldItemsLoading;
 
         #region Commands
-        private RelayCommand<BindableGuild> tiggerTyping;
-        public RelayCommand<BindableGuild> TriggerTyping => tiggerTyping ?? (tiggerTyping = new RelayCommand<BindableGuild>((guild) =>
+        private RelayCommand tiggerTyping;
+        public RelayCommand TriggerTyping => tiggerTyping ?? (tiggerTyping = new RelayCommand(() =>
         {
             DiscordService.ChannelService.TriggerTypingIndicator(Channel.Model.Id);
         }));
