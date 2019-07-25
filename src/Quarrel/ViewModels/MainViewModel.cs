@@ -74,7 +74,10 @@ namespace Quarrel.ViewModels
             });
             MessengerInstance.Register<ChannelNavigateMessage>(this, async m =>
             {
-                Channel = m.Channel;
+                await DispatcherHelper.RunAsync(() =>
+                {
+                    Channel = m.Channel;
+                });
 
                 if (SettingsService.Roaming.GetValue<bool>(SettingKeys.FilterMembers))
                 {
@@ -453,6 +456,7 @@ namespace Quarrel.ViewModels
         private RelayCommand<BindableChannel> navigateChannelCommand;
         public RelayCommand<BindableChannel> NavigateChannelCommand => navigateChannelCommand ?? (navigateChannelCommand = new RelayCommand<BindableChannel>(async (channel) =>
         {
+            Channel = channel;
             if (channel.IsCategory)
             {
                 bool newState = !channel.Collapsed;

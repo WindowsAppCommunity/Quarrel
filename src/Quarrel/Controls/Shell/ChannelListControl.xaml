@@ -443,6 +443,7 @@
         <convertbase:EnumerableAnyToVisibilityConverter x:Key="EnumerableAnyToVisibilityConverter"/>
         <convertbase:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
         <convertchannel:MentionCountToVisiblityConverter x:Key="MentionCountToVisiblityConverter"/>
+        <convertchannel:SelectedToOpacityConverter x:Key="SelectedToOpacityConverter"/>
         <convertchannel:TypeToBrushConverter x:Key="TypeToBrushConverter"/>
         <convertchannel:TypeToMinHeightConverter x:Key="TypeToMinHeightConverter"/>
         <convertdiscord:DiscriminatorToBrushConverter x:Key="DiscriminatorToBrush"/>
@@ -455,6 +456,7 @@
                   ItemsSource="{x:Bind ViewModel.BindableChannels, Mode=OneWay}"
                   ItemContainerStyle="{StaticResource ChannelListItemStyle}"
                   IsItemClickEnabled="True"
+                  SelectionMode="None"
                   helpers:ItemClickCommand.Command="{x:Bind ViewModel.NavigateChannelCommand}">
             <ListView.Header>
                 <local:ChannelListHeader DataContext="{x:Bind ViewModel.Guild, Mode=OneWay}"/>
@@ -464,7 +466,13 @@
                     Having this here instead of a user control substantially increases performance
                 -->
                 <DataTemplate x:DataType="bindables:BindableChannel">
-                    <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" MinHeight="{x:Bind Model.Type, Converter={StaticResource TypeToMinHeightConverter}, Mode=OneWay}" Background="Transparent">
+                    <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" MinHeight="{x:Bind Model.Type, Converter={StaticResource TypeToMinHeightConverter}, Mode=OneWay}"
+                          Padding="22,0,24,0">
+                        <Grid.Background>
+                            <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
+
+
+                        </Grid.Background>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition/>

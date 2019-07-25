@@ -18,6 +18,7 @@ using Quarrel.Services.Guild;
 using Quarrel.Services.Settings;
 using Quarrel.Services.Settings.Enums;
 using Quarrel.Messages.Services.Settings;
+using Quarrel.Messages.Navigation;
 
 namespace Quarrel.Models.Bindables
 {
@@ -46,6 +47,14 @@ namespace Quarrel.Models.Bindables
                     {
                         ConnectedUsers.Remove(e.VoiceState.UserId);
                     }
+                });
+            });
+
+            MessengerInstance.Register<ChannelNavigateMessage>(this, async m =>
+            {
+                await DispatcherHelper.RunAsync(() =>
+                {
+                    Selected = m.Channel == this;
                 });
             });
 
@@ -220,7 +229,29 @@ namespace Quarrel.Models.Bindables
 
         #region Display
 
+        private bool _Selected;
+
+        public bool Selected
+        {
+            get => _Selected;
+            set
+            {
+                if (Set(ref _Selected, value))
+                    RaisePropertyChanged(nameof(Hidden));
+            }
+        }
+
         private bool _Collapsed;
+
+        public bool Collapsed
+        {
+            get => _Collapsed;
+            set
+            {
+                if (Set(ref _Collapsed, value))
+                    RaisePropertyChanged(nameof(Hidden));
+            }
+        }
 
         public bool Hidden
         {
@@ -245,20 +276,10 @@ namespace Quarrel.Models.Bindables
                 {
                     hidden = true;
                 }
-                return hidden;
+                return hidden && !Selected;
             }
         }
             
-
-        public bool Collapsed
-        {
-            get => _Collapsed;
-            set
-            {
-                if (Set(ref _Collapsed, value))
-                    RaisePropertyChanged(nameof(Hidden));
-            }
-        }
 
         public bool HasIcon
         {
