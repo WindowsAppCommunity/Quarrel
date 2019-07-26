@@ -32,7 +32,7 @@
         <SemanticZoom>
             <SemanticZoom.ZoomedInView>
                 <ListView x:Name="MemberList"
-                          ItemContainerStyle="{StaticResource ChannelListItemStyle}"
+                          ItemContainerStyle="{StaticResource MemberListItemStyle}"
                           IsItemClickEnabled="True" SelectionMode="None"
                           ItemsSource="{x:Bind ViewSource.View, Mode=OneWay}">
                     <interactivity:Interaction.Behaviors>
