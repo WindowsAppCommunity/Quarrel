@@ -13,6 +13,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Quarrel.Models.Bindables;
+using GalaSoft.MvvmLight.Messaging;
+using Quarrel.Messages.Navigation.SubFrame;
+using Quarrel.SubPages;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -30,5 +33,10 @@ namespace Quarrel.Controls.Channels
         }
 
         public BindableGuild ViewModel => DataContext as BindableGuild;
+
+        private void AddChannelClick(object sender, RoutedEventArgs e)
+        {
+            Messenger.Default.Send(SubFrameNavigationRequestMessage.To(new AddChannelPage()));
+        }
     }
 }
