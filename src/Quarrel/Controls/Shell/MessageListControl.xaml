@@ -40,6 +40,10 @@
                   ItemsSource="{x:Bind ViewModel.BindableMessages, Mode=OneWay}" Padding="0,0,0,16"
                   ItemTemplateSelector="{StaticResource MessageTemplateSelector}"
                   SelectionMode="None" IsItemClickEnabled="False" ItemContainerStyle="{StaticResource MessageListItemStyle}">
+            <ListView.Header>
+                <ProgressBar Visibility="{x:Bind ViewModel.OldItemsLoading, Mode=OneWay}" IsIndeterminate="True"/>
+            </ListView.Header>
+            
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsStackPanel Loaded="ItemsStackPanel_Loaded" ItemsUpdatingScrollMode="KeepLastItemInView">
@@ -49,6 +53,10 @@
                     </ItemsStackPanel>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
+
+            <!--<ListView.Footer>
+                <ProgressBar Visibility="{x:Bind ViewModel.NewItemsLoading, Mode=OneWay}" IsIndeterminate="True"/>
+            </ListView.Footer>-->
         </ListView>
 
         <Rectangle Visibility="{x:Bind ViewModel.Channel, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"

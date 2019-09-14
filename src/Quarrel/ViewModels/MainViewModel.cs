@@ -378,12 +378,6 @@ namespace Quarrel.ViewModels
 
         private protected AsyncMutex SourceMutex { get; } = new AsyncMutex();
 
-        public bool NewItemsLoading;
-
-        public bool OldItemsLoading;
-
-        private bool ItemsLoading => NewItemsLoading || OldItemsLoading;
-
         #region Commands
         private RelayCommand tiggerTyping;
         public RelayCommand TriggerTyping => tiggerTyping ?? (tiggerTyping = new RelayCommand(() =>
@@ -650,6 +644,24 @@ namespace Quarrel.ViewModels
             get => _Guild;
             set => Set(ref _Guild, value);
         }
+
+        private bool _NewItemsLoading;
+        public bool NewItemsLoading
+        {
+            get => _NewItemsLoading;
+            set => Set(ref _NewItemsLoading, value);
+        }
+
+        private bool _OldItemsLoading;
+        public bool OldItemsLoading
+        {
+            get => _OldItemsLoading;
+            set => Set(ref _OldItemsLoading, value);
+        }
+
+
+        private bool ItemsLoading => _NewItemsLoading || _OldItemsLoading;
+
 
         private BindableChannel _Channel;
         public BindableChannel Channel
