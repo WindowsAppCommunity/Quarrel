@@ -50,6 +50,9 @@ namespace Quarrel.Views
 
         private void _messageScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
+            if (ViewModel.Channel == null)
+                return;
+
             if (MessageList.Items.Count > 0)
             {
                 // Distance from top
