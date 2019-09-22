@@ -19,7 +19,7 @@
                 <MenuFlyoutItem Icon="Setting" Text="Settings" Style="{ThemeResource GuildButtonFlyoutItemStyle}"/>
                 <MenuFlyoutItem Icon="List" Text="Audit Log" Style="{ThemeResource GuildButtonFlyoutItemStyle}"/>
                 <MenuFlyoutSeparator/>
-                <MenuFlyoutItem Icon="Add" Text="Add Channel" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Click="AddChannelClick"/>
+                <MenuFlyoutItem Icon="Add" Text="Add Channel" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Command="{x:Bind ViewModel.AddChannelCommand}"/>
                 <MenuFlyoutSeparator/>
                 <MenuFlyoutItem Icon="Clear" Text="Leave Server" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource LightRed}"/>
             </MenuFlyout>

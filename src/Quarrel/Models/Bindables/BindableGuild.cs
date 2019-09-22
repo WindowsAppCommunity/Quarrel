@@ -16,8 +16,11 @@ using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Messages.Gateway;
 using UICompositionAnimations.Helpers;
 using System.Collections.ObjectModel;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Views;
 using Quarrel.Services.Settings;
 using Quarrel.Messages.Services.Settings;
+using Quarrel.Navigation;
 using Quarrel.Services.Users;
 
 namespace Quarrel.Models.Bindables
@@ -27,6 +30,7 @@ namespace Quarrel.Models.Bindables
         private IDiscordService _DiscordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         private ISettingsService _SettingsService = SimpleIoc.Default.GetInstance<ISettingsService>();
         private ICurrentUsersService CurrentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+        private ISubFrameNavigationService SubFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
 
         public BindableGuild([NotNull] Guild model) : base(model)
         {
@@ -87,10 +91,7 @@ namespace Quarrel.Models.Bindables
             }
         }
 
-        public bool IsDM
-        {
-            get => Model.Id == "DM";
-        }
+        public bool IsDM => Model.Id == "DM";
 
         #region Settings
 
@@ -170,5 +171,15 @@ namespace Quarrel.Models.Bindables
         }
 
         #endregion
+        
+
+        private RelayCommand addChanneleCommand;
+        public RelayCommand AddChannelCommand =>
+            addChanneleCommand ?? (addChanneleCommand = new RelayCommand(() =>
+            {
+                SubFrameNavigationService.NavigateTo("AddChannelPage");
+
+            }));
+
     }
 }

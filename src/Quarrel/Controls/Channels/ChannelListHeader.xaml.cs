@@ -34,9 +34,5 @@ namespace Quarrel.Controls.Channels
 
         public BindableGuild ViewModel => DataContext as BindableGuild;
 
-        private void AddChannelClick(object sender, RoutedEventArgs e)
-        {
-            Messenger.Default.Send(SubFrameNavigationRequestMessage.To(new AddChannelPage()));
-        }
     }
 }
