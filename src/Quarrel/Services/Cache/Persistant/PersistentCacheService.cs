@@ -52,7 +52,7 @@ namespace Quarrel.Services.Cache.Persistent
         private readonly AsyncMutex CacheMutex = new AsyncMutex();
 
         /// <inheritdoc/>
-        public async Task<StorageFile> GetRemoteFileAsync(string url)
+        public async Task<object> GetRemoteFileAsync(string url)
         {
             string filename = $"{url.BernsteinHash()}";
             if (!(await ApplicationData.Current.TemporaryFolder.TryGetItemAsync(filename) is StorageFile file))

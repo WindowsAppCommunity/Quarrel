@@ -5,12 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Windows.Networking.Sockets;
 using System.IO;
 using System.IO.Compression;
-using Windows.Storage.Streams;
-using Windows.UI.Xaml;
-using Windows.Web;
+using System.Text;
 using DiscordAPI.Authentication;
 using DiscordAPI.Gateway.DownstreamEvents;
 using DiscordAPI.Gateway.UpstreamEvents;
@@ -45,7 +42,7 @@ namespace DiscordAPI.Gateway
 
         public event EventHandler<GatewayEventArgs<Ready>> Ready;
         public event EventHandler<GatewayEventArgs<Resumed>> Resumed;
-        public event EventHandler<WebSocketClosedEventArgs> GatewayClosed;
+        public event EventHandler<WebSocketClosedException> GatewayClosed;
 
         public event EventHandler<GatewayEventArgs<Guild>> GuildCreated;
         public event EventHandler<GatewayEventArgs<Guild>> GuildUpdated;
@@ -91,7 +88,7 @@ namespace DiscordAPI.Gateway
 
         public event EventHandler<GatewayEventArgs<SessionReplace[]>> SessionReplaced;
 
-        MessageWebSocket _socket;
+        WebSocketClient _socket;
         private MemoryStream _compressed;
         private DeflateStream _decompressor;
         public bool ConnectedSocket = false;
@@ -109,126 +106,85 @@ namespace DiscordAPI.Gateway
             operationHandlers = GetOperationHandlers();
         }
 
-        public BandwidthStatistics GetStats()
-        {
-            return _socket.Information.BandwidthStatistics;
-        }
+
         private void CreateSocket()
         {
             _socket?.Dispose();
-            _socket = new MessageWebSocket();
-            _socket.Control.MessageType = SocketMessageType.Utf8;
-            _socket.MessageReceived += HandleMessage;
+            _socket = new WebSocketClient();
+            _socket.TextMessage += HandleTextMessage;
+            _socket.BinaryMessage += BinaryMessage;
+
             _socket.Closed += HandleClosed;
-            _dataWriter?.Dispose();
-            _dataWriter = new DataWriter(_socket.OutputStream);
+
         }
-        private void HandleClosed(object sender, WebSocketClosedEventArgs args)
+        private void HandleClosed(Exception exception)
         {
             ConnectedSocket = false;
-            GatewayClosed?.Invoke(null, args);
-            Debug.WriteLine("Gateway closed with code " + args.Code + " and reason \"" + args.Reason + "\"");
-        }
-        private async void HandleMessage(object sender, MessageWebSocketMessageReceivedEventArgs e)
-        {
-            try
+            if (exception is WebSocketClosedException ex)
             {
-                if (UseCompression)
+                Debug.WriteLine("Gateway closed with code " + ex.CloseCode + " and reason \"" + ex.Reason + "\"");
+                GatewayClosed?.Invoke(null, ex);
+            }
+        }
+
+        private async Task HandleTextMessage(string message)
+        {
+            using (var reader = new StringReader(message))
+                HandleMessage(reader);
+        }
+        private async Task BinaryMessage(byte[] bytes, int index1, int count)
+        {
+
+            using (var ms = new MemoryStream(bytes))
+            {
+
+                ms.Position = 0;
+                byte[] data = new byte[count];
+                ms.Read(data, 0, count);
+                int index = 0;
+                using (var decompressed = new MemoryStream())
                 {
-                    using (var datastr = e.GetDataStream()?.AsStreamForRead())
-                    using (var ms = new MemoryStream())
+                    if (data[0] == 0x78)
                     {
-                        datastr.CopyTo(ms);
-                        ms.Position = 0;
-                        byte[] data = new byte[ms.Length];
-                        ms.Read(data, 0, (int) ms.Length);
-                        int index = 0;
-                        int count = data.Length;
-                        using (var decompressed = new MemoryStream())
-                        {
-                            if (data[0] == 0x78)
-                            {
-                                _compressed.Write(data, index + 2, count - 2);
-                                _compressed.SetLength(count - 2);
-                            }
-                            else
-                            {
-                                _compressed.Write(data, index, count);
-                                _compressed.SetLength(count);
-                            }
-
-                            _compressed.Position = 0;
-                            _decompressor.CopyTo(decompressed);
-                            _compressed.Position = 0;
-                            decompressed.Position = 0;
-
-                            using (var reader = new StreamReader(decompressed))
-                            {
-                                #if DEBUG
-                                string content = await reader.ReadToEndAsync();
-                                SocketFrame frame = JsonConvert.DeserializeObject<SocketFrame>(content);
-                                if(frame.SequenceNumber.HasValue) lastGatewayEventSeq = frame.SequenceNumber.Value;
-                                if (operationHandlers.ContainsKey(frame.Operation.GetValueOrDefault()))
-                                {
-                                    operationHandlers[frame.Operation.GetValueOrDefault()](frame);
-                                }
-                                else if (frame.Type != null && eventHandlers.ContainsKey(frame.Type))
-                                {
-                                    eventHandlers[frame.Type](frame);
-                                }
-                                else
-                                {
-                                    Debug.WriteLine("<<< " + (content.Length > 80 ? content.Substring(0, 80) + "..." : content));
-                                }
-                                
-                                #else
-                                using (JsonReader jsreader = new JsonTextReader(reader))
-                                {
-                                    JsonSerializer serializer = new JsonSerializer();
-                                    SocketFrame frame = serializer.Deserialize<SocketFrame>(jsreader);
-                                    if(frame.SequenceNumber.HasValue) lastGatewayEventSeq = frame.SequenceNumber.Value;
-                                    if (operationHandlers.ContainsKey(frame.Operation.GetValueOrDefault()))
-                                    {
-                                        operationHandlers[frame.Operation.GetValueOrDefault()](frame);
-                                    }
-                                    else if (frame.Type != null && eventHandlers.ContainsKey(frame.Type))
-                                    {
-                                        eventHandlers[frame.Type](frame);
-                                    }
-                                }
-                                #endif
-                            }
-
-                        }
+                        _compressed.Write(data, index + 2, count - 2);
+                        _compressed.SetLength(count - 2);
                     }
-                }
-                else
-                {
-                    using (var reader = new StreamReader(e.GetDataStream().AsStreamForRead()))
-                    using (JsonReader jsreader = new JsonTextReader(reader))
+                    else
                     {
-                        JsonSerializer serializer = new JsonSerializer();
-                        SocketFrame frame = serializer.Deserialize<SocketFrame>(jsreader);
-                        lastGatewayEventSeq = frame.SequenceNumber ?? 0;
-                        if (operationHandlers.ContainsKey(frame.Operation.GetValueOrDefault()))
-                        {
-                            operationHandlers[frame.Operation.GetValueOrDefault()](frame);
-                        }
-
-                        if (frame.Type != null && eventHandlers.ContainsKey(frame.Type))
-                        {
-                            eventHandlers[frame.Type](frame);
-                        }
+                        _compressed.Write(data, index, count);
+                        _compressed.SetLength(count);
                     }
+
+                    _compressed.Position = 0;
+                    _decompressor.CopyTo(decompressed);
+                    _compressed.Position = 0;
+                    decompressed.Position = 0;
+
+                    using (var reader = new StreamReader(decompressed))
+                    {
+                        HandleMessage(reader);
+                    }
+
                 }
             }
-            catch (Exception exception)
+        }
+
+
+
+        private void HandleMessage(TextReader reader)
+        {
+            using (JsonReader jsreader = new JsonTextReader(reader))
             {
-                ConnectedSocket = false;
-                var error = Windows.Networking.Sockets.WebSocketError.GetStatus(exception.HResult);
-                if (error == WebErrorStatus.ConnectionAborted)
+                JsonSerializer serializer = new JsonSerializer();
+                SocketFrame frame = serializer.Deserialize<SocketFrame>(jsreader);
+                if (frame.SequenceNumber.HasValue) lastGatewayEventSeq = frame.SequenceNumber.Value;
+                if (operationHandlers.ContainsKey(frame.Operation.GetValueOrDefault()))
                 {
-                    GatewayClosed?.Invoke(null,null);
+                    operationHandlers[frame.Operation.GetValueOrDefault()](frame);
+                }
+                else if (frame.Type != null && eventHandlers.ContainsKey(frame.Type))
+                {
+                    eventHandlers[frame.Type](frame);
                 }
             }
         }
@@ -236,7 +192,7 @@ namespace DiscordAPI.Gateway
         {
             try
             {
-                await _socket.ConnectAsync(new Uri(connectionUrl));
+                await _socket.ConnectAsync(connectionUrl);
                 ConnectedSocket = true;
             }
             catch
@@ -244,7 +200,7 @@ namespace DiscordAPI.Gateway
                 ConnectedSocket = false;
             }
         }
-        private DataWriter _dataWriter;
+
         public async Task SendMessageAsync(string message)
         {
 #if DEBUG
@@ -252,17 +208,16 @@ namespace DiscordAPI.Gateway
 #endif
             try
             {
-                _dataWriter.WriteString(message);
-                await _dataWriter.StoreAsync();
+                var bytes = Encoding.UTF8.GetBytes(message);
+                await _socket.SendAsync(bytes, 0, bytes.Length, true);
             }
             catch (Exception exception)
             {
                 ConnectedSocket = false;
-                var error = Windows.Networking.Sockets.WebSocketError.GetStatus(exception.HResult);
-                if (error == WebErrorStatus.ConnectionAborted)
+                if (exception is WebSocketClosedException ex)
                 {
-                    Debug.WriteLine(error);
-                    GatewayClosed?.Invoke(null, null);
+                    Debug.WriteLine("Gateway closed with code " + ex.CloseCode + " and reason \"" + ex.Reason + "\"");
+                    GatewayClosed?.Invoke(null, ex);
                 }
             }
         }

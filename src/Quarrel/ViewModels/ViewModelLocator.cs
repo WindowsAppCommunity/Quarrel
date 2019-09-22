@@ -9,6 +9,7 @@ using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Navigation;
 using Quarrel.Navigation;
 using Quarrel.Services.Cache;
+using Quarrel.Services.DispatcherHelperEx;
 using Quarrel.Services.Gateway;
 using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
@@ -19,6 +20,7 @@ using Quarrel.Services.Voice.Audio.In;
 using Quarrel.Services.Voice.Audio.Out;
 using Quarrel.SubPages;
 using Quarrel.SubPages.Settings;
+using Quarrel.ViewModels.Services.DispatcherHelper;
 
 namespace Quarrel.ViewModels
 {
@@ -47,6 +49,7 @@ namespace Quarrel.ViewModels
             SimpleIoc.Default.Register<IAudioOutService, AudioOutService>();
             SimpleIoc.Default.Register<ICurrentUsersService, CurrentUsersService>();
             SimpleIoc.Default.Register<IVoiceService, VoiceService>();
+            SimpleIoc.Default.Register<IDispatcherHelper, DispatcherHelperEx>();
 
             SimpleIoc.Default.Register<MainViewModel>();
         }

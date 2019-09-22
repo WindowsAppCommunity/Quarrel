@@ -1,11 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace DiscordAPI.Models
 {
@@ -17,6 +10,6 @@ namespace DiscordAPI.Models
         [JsonProperty("id")]
         public string Id { get; set; }
 
-        public Visibility NickVisibility { get => !string.IsNullOrEmpty(Nick) ? Visibility.Visible : Visibility.Collapsed; }
+        public bool NickVisibility => !string.IsNullOrEmpty(Nick);
     }
 }

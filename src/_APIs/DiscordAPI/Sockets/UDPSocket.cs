@@ -4,8 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Networking.Sockets;
-using Windows.Storage.Streams;
 
 namespace DiscordAPI.Sockets
 {
@@ -18,36 +16,29 @@ namespace DiscordAPI.Sockets
     {
         public event EventHandler<PacketReceivedEventArgs> MessageReceived;
 
-        DatagramSocket _socket;
-        DataWriter _dataWriter;
+        UdpSocketClient _socket;
 
         public UDPSocket()
         {
             _socket = GetDatagramSocket();
-            _dataWriter = GetDataWriter();
         }
 
-        private DatagramSocket GetDatagramSocket()
+        private UdpSocketClient GetDatagramSocket()
         {
-            var socket = new DatagramSocket();
-            socket.MessageReceived += HandleMessage;
+            var socket = new UdpSocketClient();
+            socket.ReceivedDatagram += HandleMessage;
             return socket;
-        }
-
-        private DataWriter GetDataWriter()
-        {
-            return new DataWriter(_socket.OutputStream);
         }
 
         public async Task ConnectAsync(string connectionUrl, string port)
         {
-            await _socket.ConnectAsync(new Windows.Networking.HostName(connectionUrl), port);
+            _socket.SetDestination(connectionUrl, int.Parse(port));
+            await _socket.StartAsync();
         }
 
         public async Task SendBytesAsync(byte[] bytes)
         {
-            _dataWriter.WriteBytes(bytes);
-            await _dataWriter.StoreAsync();
+            await _socket.SendAsync(bytes, 0, bytes.Length);
         }
 
         public async Task SendDiscovery(uint ssrc)
@@ -57,22 +48,14 @@ namespace DiscordAPI.Sockets
             packet[1] = (byte)(ssrc >> 16);
             packet[2] = (byte)(ssrc >> 8);
             packet[3] = (byte)(ssrc >> 0);
-            _dataWriter.WriteBytes(packet);
-            await _dataWriter.StoreAsync();
+            await SendBytesAsync(packet);
         }
 
-        private void HandleMessage(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs e)
+        private async Task HandleMessage(byte[] bytes, int index, int count)
         {
             try
             {
-
-                using (var dataReader = e.GetDataReader())
-                {
-                    //dataReader.ByteOrder = ByteOrder.BigEndian;
-                    byte[] packet = new byte[dataReader.UnconsumedBufferLength];
-                    dataReader.ReadBytes(packet);
-                    OnMessageReceived(packet);
-                }
+                OnMessageReceived(bytes);
             }
             catch (Exception exception)
             {

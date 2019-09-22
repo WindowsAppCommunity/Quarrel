@@ -4,13 +4,14 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.Models;
 using DiscordAPI.Sockets;
 using DiscordAPI.Voice.DownstreamEvents;
 using DiscordAPI.Voice.UpstreamEvents;
-using RuntimeComponent;
+//using RuntimeComponent;
 
 //Discord DOCs https://discordapp.com/developers/docs/topics/voice-connections
 
@@ -535,4 +536,52 @@ namespace DiscordAPI.Voice
             }
         }
     }
+    public static unsafe class Cypher
+    {
+
+#if !X86 && !X64 && !ARM //Should never happen
+        private static int Encrypt(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret)
+        {
+            return -1;
+        }
+        private static int Decrypt(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret)
+        {
+            return -1;
+        }
+#endif
+
+        [DllImport("SodiumC.dll", EntryPoint = "Encrypt", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int Encrypt(byte* output, byte* input, long inputLength, byte* nonce, byte* secret);
+        [DllImport("SodiumC.dll", EntryPoint = "Decrypt", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int Decrypt(byte* output, byte* input, long inputLength, byte* nonce, byte* secret);
+
+        public static int encrypt(byte[] input, int inputOffset, int inputLength, byte[] output, int outputOffset, byte[] nonce, byte[] secret)
+        {
+            fixed (byte* inPtr = input)
+            fixed (byte* outPtr = output)
+            fixed (byte* noncePtr = nonce)
+            fixed (byte* secretPtr = secret)
+            {
+                int error = Encrypt(outPtr + outputOffset, inPtr + inputOffset, inputLength, noncePtr, secretPtr);
+                if (error != 0)
+                    throw new Exception($"Sodium Error: {error}");
+                return inputLength + 16;
+            }
+        }
+
+        public static int decrypt(byte[] input, int inputOffset, int inputLength, byte[] output, int outputOffset, byte[] nonce, byte[] secret)
+        {
+            fixed (byte* inPtr = input)
+            fixed (byte* outPtr = output)
+            fixed (byte* noncePtr = nonce)
+            fixed (byte* secretPtr = secret)
+            {
+                int error = Decrypt(outPtr + outputOffset, inPtr + inputOffset, inputLength, noncePtr, secretPtr);
+                if (error != 0)
+                    throw new Exception($"Sodium Error: {error}");
+                return inputLength - 16;
+            }
+        }
+    }
 }
+

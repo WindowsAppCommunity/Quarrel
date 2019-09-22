@@ -28,7 +28,7 @@ namespace Quarrel.SubPages.Host
             this.SizeChanged += (s, e) => UpdateLayout(e.NewSize);
 
             // Navigation
-            Messenger.Default.Register<SubFrameNavigationRequestMessage>(this, m => DisplaySubFramePage(m.SubPage));
+            Messenger.Default.Register<SubFrameNavigationRequestMessage>(this, m => DisplaySubFramePage(m.SubPage as UserControl));
             Messenger.Default.Register<SubFrameCloseRequestMessage>(this, _ => CloseSubFramePage());
             SystemNavigationManager.GetForCurrentView().BackRequested += SubFrameControl_BackRequested;
         }

@@ -151,12 +151,12 @@ namespace Quarrel.Services.Guild
 
                     guildList = guildList.OrderBy(x => x.Position).ToList();
                     #endregion
-                    Messenger.Default.Send("GuildsReady");
 
                     foreach (var guild in guildList)
                     {
                         Guilds.Add(guild.Model.Id, guild);
                     }
+                    Messenger.Default.Send("GuildsReady");
                 });
             });
             Messenger.Default.Register<GatewayGuildChannelCreatedMessage>(this, async m =>

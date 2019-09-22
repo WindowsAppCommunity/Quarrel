@@ -6,8 +6,6 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Networking.Sockets;
-using Windows.Storage.Streams;
 
 
 namespace DiscordAPI.Sockets
@@ -16,36 +14,28 @@ namespace DiscordAPI.Sockets
     {
         public event EventHandler<MessageReceivedEventArgs> MessageReceived;
         public event EventHandler<ConnectionClosedEventArgs> ConnectionClosed;
-        private readonly MessageWebSocket _socket;
-        private readonly DataWriter _dataWriter;
+        private readonly WebSocketClient _socket;
 
         public WebMessageSocket()
         {
             _socket = GetMessageWebSocket();
-            _dataWriter = GetDataWriter();
         }
 
-        private MessageWebSocket GetMessageWebSocket()
+        private WebSocketClient GetMessageWebSocket()
         {
-            var socket = new MessageWebSocket();
-            socket.Control.MessageType = SocketMessageType.Utf8;
+            var socket = new WebSocketClient();
 
-            socket.MessageReceived += HandleMessage;
+            socket.TextMessage += HandleMessage;
             socket.Closed += HandleClosed;
            
             return socket;
-        }
-
-        private DataWriter GetDataWriter()
-        {
-            return new DataWriter(_socket.OutputStream);
         }
 
         public async Task ConnectAsync(string connectionUrl)
         {
             try
             {
-                await _socket.ConnectAsync(new Uri(connectionUrl));
+                await _socket.ConnectAsync(connectionUrl);
             }
             catch { }
         }
@@ -54,8 +44,8 @@ namespace DiscordAPI.Sockets
         {
             try
             {
-                _dataWriter.WriteString(message);
-                await _dataWriter.StoreAsync();
+                byte[] bytes = Encoding.UTF8.GetBytes(message);
+                await _socket.SendAsync(bytes, 0, bytes.Length, true);
             }
             catch /*(Exception exception)*/
             {
@@ -63,10 +53,9 @@ namespace DiscordAPI.Sockets
             }
         }
 
-        private void HandleMessage(object sender, MessageWebSocketMessageReceivedEventArgs e)
+        private async Task HandleMessage(string message)
         {
-            var dr = e.GetDataReader();
-            OnMessageReceived(dr.ReadString(dr.UnconsumedBufferLength));
+            OnMessageReceived(message);
         }
         public void ConvertToBase64(Stream stream)
         {
@@ -85,7 +74,7 @@ namespace DiscordAPI.Sockets
             MessageReceived?.Invoke(this, messageReceivedEvent);
         }
 
-        private void HandleClosed(object sender, WebSocketClosedEventArgs args)
+        private void HandleClosed(Exception exception)
         {
             OnClosed();
         }
@@ -100,7 +89,6 @@ namespace DiscordAPI.Sockets
         public void Dispose()
         {
             _socket.Dispose();
-            _dataWriter.Dispose();
         }
     }
 }

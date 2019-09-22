@@ -1,5 +1,4 @@
-﻿using CommonServiceLocator;
-using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Quarrel.Models.Bindables;
 using Quarrel.Services;
 using System;
