@@ -21,7 +21,6 @@ using System.Threading.Tasks;
 using Quarrel.Services.Gateway;
 using DiscordAPI.API;
 using DiscordAPI.Authentication;
-using Windows.Networking.Connectivity;
 using System.Collections;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Services.Cache;

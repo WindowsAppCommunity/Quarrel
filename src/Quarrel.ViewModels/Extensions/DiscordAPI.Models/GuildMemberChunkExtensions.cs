@@ -1,5 +1,4 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
-using Quarrel.Models.Bindables;
+﻿using Quarrel.Models.Bindables;
 using Quarrel.Services;
 using System;
 using System.Collections.Generic;

@@ -326,10 +326,6 @@
     <Compile Include="Converters\Profile\Relationships\RelationToBlockConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToRemoveFriendConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToUnblock.cs" />
-    <Compile Include="Extensions\DiscordAPI.Gateway.DownstreamEvents\ReadyExtensions.cs" />
-    <Compile Include="Extensions\DiscordAPI.Models\GuildMemberChunkExtensions.cs" />
-    <Compile Include="Extensions\DiscordAPI.Models\GuildSyncExtensions.cs" />
-    <Compile Include="Extensions\DiscordAPI.Models\MutualGuildExtensions.cs" />
     <Compile Include="Extensions\System\DateTimeExtensions.cs" />
     <Compile Include="Extensions\System\NumericExtensions.cs" />
     <Compile Include="Extensions\System\StringExtensions.cs" />
@@ -343,14 +339,10 @@
     <Compile Include="Services\Cache\Persistant\PersistentCacheService.cs" />
     <Compile Include="Services\Cache\Runtime\RuntimeCacheService.cs" />
     <Compile Include="Services\DispatcherHelper\DispatcherHelper.cs" />
-    <Compile Include="Services\Gateway\GatewayService.cs" />
-    <Compile Include="Services\Guild\GuildsService.cs" />
-    <Compile Include="Services\Rest\DiscordService.cs" />
     <Compile Include="Services\Settings\SettingsService.cs" />
     <Compile Include="Services\Users\CurrentUsersService.cs" />
     <Compile Include="Services\Voice\Audio\In\AudioInService.cs" />
     <Compile Include="Services\Voice\Audio\Out\AudioOutService.cs" />
-    <Compile Include="Services\Voice\VoiceService.cs" />
     <Compile Include="SubPages\AddChannelPage.xaml.cs">
       <DependentUpon>AddChannelPage.xaml</DependentUpon>
     </Compile>

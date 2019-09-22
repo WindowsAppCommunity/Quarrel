@@ -6,12 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Messaging;
-using GalaSoft.MvvmLight.Threading;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Navigation;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Models.Bindables;
 using Quarrel.Services.Cache;
+using Quarrel.ViewModels.Services.DispatcherHelper;
 
 namespace Quarrel.Services.Guild
 {
@@ -23,13 +23,15 @@ namespace Quarrel.Services.Guild
         public BindableGuild CurrentGuild => Guilds[CurrentGuildId];
 
         private ICacheService CacheService;
+        private IDispatcherHelper DispatcherHelper;
 
-        public GuildsService(ICacheService cacheService)
+        public GuildsService(ICacheService cacheService, IDispatcherHelper dispatcherHelper)
         {
             CacheService = cacheService;
+            DispatcherHelper = dispatcherHelper;
             Messenger.Default.Register<GatewayReadyMessage>(this, async m =>
             {
-                await DispatcherHelper.RunAsync(() =>
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
                     #region Settings
 
@@ -175,7 +177,7 @@ namespace Quarrel.Services.Guild
                 {
                     if (Guilds[m.Channel.GuildId].Channels[i].AbsolutePostion > bChannel.AbsolutePostion)
                     {
-                        _ = DispatcherHelper.RunAsync(()=>{
+                        DispatcherHelper.CheckBeginInvokeOnUi(()=>{
                             Guilds[m.Channel.GuildId].Channels.Insert(i, bChannel);
                         });
                         break;
@@ -184,7 +186,7 @@ namespace Quarrel.Services.Guild
             });
             Messenger.Default.Register<GatewayGuildChannelDeletedMessage>(this, async m =>
             {
-                await DispatcherHelper.RunAsync(() =>
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
                     Guilds[m.Channel.GuildId].Channels.Remove(CurrentChannels[m.Channel.Id]);
                     CurrentChannels.Remove(m.Channel.Id);

@@ -38,6 +38,7 @@ namespace Quarrel.ViewModels
             navigationService.Configure("UserProfilePage", typeof(UserProfilePage));
             navigationService.Configure("AddChannelPage", typeof(AddChannelPage));
 
+            SimpleIoc.Default.Register<IDispatcherHelper, DispatcherHelperEx>();
             SimpleIoc.Default.Register<ISubFrameNavigationService>(() => navigationService);
 
             SimpleIoc.Default.Register<ICacheService, CacheService>();
@@ -49,7 +50,6 @@ namespace Quarrel.ViewModels
             SimpleIoc.Default.Register<IAudioOutService, AudioOutService>();
             SimpleIoc.Default.Register<ICurrentUsersService, CurrentUsersService>();
             SimpleIoc.Default.Register<IVoiceService, VoiceService>();
-            SimpleIoc.Default.Register<IDispatcherHelper, DispatcherHelperEx>();
 
             SimpleIoc.Default.Register<MainViewModel>();
         }

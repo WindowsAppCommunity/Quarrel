@@ -16,14 +16,12 @@ using DiscordAPI.API.Gateway;
 using DiscordAPI.Authentication;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Quarrel.Models.Bindables;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
-using UICompositionAnimations.Helpers;
 
 namespace Quarrel.Services.Gateway
 {

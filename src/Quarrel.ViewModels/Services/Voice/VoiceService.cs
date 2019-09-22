@@ -1,9 +1,5 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
-using System;
-using System.Runtime.CompilerServices;
-using Windows.Foundation.Collections;
-using Windows.Storage;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 using Quarrel.Messages.Services.Settings;

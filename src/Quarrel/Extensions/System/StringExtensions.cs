@@ -11,10 +11,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using Windows.Security.Cryptography;
-using Windows.UI;
-using Windows.UI.Xaml.Media;
 using JetBrains.Annotations;
-using Microsoft.Toolkit.Uwp.Helpers;
 
 namespace System
 {
