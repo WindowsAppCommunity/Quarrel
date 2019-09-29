@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Threading;
 using Quarrel.Messages.Gateway;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,6 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using UICompositionAnimations.Helpers;
 using Quarrel.Messages.Navigation.SubFrame;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236

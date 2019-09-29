@@ -17,7 +17,6 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using UICompositionAnimations.Helpers;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services.Gateway;

@@ -15,7 +15,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Quarrel.Messages.Navigation;
-using UICompositionAnimations.Helpers;
 using Quarrel.Models.Bindables;
 using Quarrel.ViewModels;
 using DiscordAPI.Models;

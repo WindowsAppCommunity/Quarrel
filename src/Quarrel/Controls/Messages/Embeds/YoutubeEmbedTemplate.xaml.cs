@@ -17,7 +17,6 @@ using Windows.UI.Xaml.Navigation;
 using DiscordAPI.Models;
 using myTube.Playback.Handlers;
 using Quarrel.Models.Bindables;
-using Ryken.UI;
 using RykenTube;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236

@@ -103,8 +103,8 @@ namespace Quarrel.Services.Settings
                 }
 
                 // Cast and return the retrieved setting
-                if (typeof(T) == typeof(DateTime)) value = DateTime.FromBinary(value.To<long>());
-                return value.To<T>();
+                if (typeof(T) == typeof(DateTime)) value = DateTime.FromBinary((long)value);
+                return (T)value;
             }
 
             /// <inheritdoc/>

@@ -19,7 +19,6 @@ using Windows.UI.Xaml.Navigation;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services.Gateway;
-using UICompositionAnimations.Helpers;
 using Quarrel.Services.Rest;
 using Quarrel.ViewModels;
 

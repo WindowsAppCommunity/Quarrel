@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -46,10 +47,10 @@ namespace Quarrel.Services.Cache.Persistent
         }
 
         /// <summary>
-        /// The synchronization mutex for the remote cache APIs
+        /// The synchronization semaphore slim for the remote cache APIs
         /// </summary>
         [NotNull]
-        private readonly AsyncMutex CacheMutex = new AsyncMutex();
+        private readonly SemaphoreSlim CacheSemaphoreSlim = new SemaphoreSlim(1, 1);
 
         /// <inheritdoc/>
         public async Task<object> GetRemoteFileAsync(string url)
@@ -59,12 +60,20 @@ namespace Quarrel.Services.Cache.Persistent
             {
                 using (IInputStream input = await HttpClient.GetInputStreamAsync(new Uri(url)))
                 using (Stream stream = input.AsStreamForRead())
-                using (await CacheMutex.LockAsync())
                 {
-                    file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
-                    using (Stream output = await file.OpenStreamForWriteAsync())
+                    await CacheSemaphoreSlim.WaitAsync();
+                    try
                     {
-                        await stream.CopyToAsync(output);
+                        file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync(filename,
+                            CreationCollisionOption.ReplaceExisting);
+                        using (Stream output = await file.OpenStreamForWriteAsync())
+                        {
+                            await stream.CopyToAsync(output);
+                        }
+                    }
+                    finally
+                    {
+                        CacheSemaphoreSlim.Release();
                     }
                 }
             }
@@ -83,10 +92,10 @@ namespace Quarrel.Services.Cache.Persistent
         private sealed class CacheStorageProvider : ICacheStorageProvider
         {
             /// <summary>
-            /// The synchronization mutex for the cache storage provider
+            /// The semaphore slim for the cache storage provider
             /// </summary>
             [NotNull]
-            private readonly AsyncMutex CacheMutex = new AsyncMutex();
+            private readonly SemaphoreSlim CacheSemaphoreSlim = new SemaphoreSlim(1, 1);
 
             /// <summary>
             /// The dictionary with the cached items
@@ -119,7 +128,8 @@ namespace Quarrel.Services.Cache.Persistent
             /// <inheritdoc/>
             public async Task<T> TryGetValueAsync<T>(string key, string scope = null) where T : class, new()
             {
-                using (await CacheMutex.LockAsync())
+                await CacheSemaphoreSlim.WaitAsync();
+                try
                 {
                     // Try to get the value from the runtime cache
                     var (hex, filename) = GetCacheKeys(key, scope);
@@ -138,12 +148,17 @@ namespace Quarrel.Services.Cache.Persistent
 
                     return null;
                 }
+                finally
+                {
+                    CacheSemaphoreSlim.Release();
+                }
             }
 
             /// <inheritdoc/>
             public async Task<IReadOnlyList<T>> TryGetValuesAsync<T>(string scope) where T : class, new()
             {
-                using (await CacheMutex.LockAsync())
+                await CacheSemaphoreSlim.WaitAsync();
+                try
                 {
                     IReadOnlyList<StorageFile> files = await CacheFolder.GetFilesAsync();
                     return await Task.WhenAll(files.Where(file => file.DisplayName.StartsWith($"{scope}_")).Select(async file =>
@@ -156,24 +171,34 @@ namespace Quarrel.Services.Cache.Persistent
                         return result;
                     }));
                 }
+                finally
+                {
+                    CacheSemaphoreSlim.Release();
+                }
             }
 
             /// <inheritdoc/>
             public async Task SetValueAsync<T>(string key, T value, string scope = null) where T : class, new()
             {
-                using (await CacheMutex.LockAsync())
+                await CacheSemaphoreSlim.WaitAsync();
+                try
                 {
                     var (hex, filename) = GetCacheKeys(key, scope);
                     StorageFile file = await CacheFolder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
                     await FileIO.WriteTextAsync(file, JsonConvert.SerializeObject(value));
                     CacheMap.AddOrUpdate(hex, value);
                 }
+                finally
+                {
+                    CacheSemaphoreSlim.Release();
+                }
             }
 
             /// <inheritdoc/>
             public async Task DeleteValueAsync(string key, string scope = null)
             {
-                using (await CacheMutex.LockAsync())
+                await CacheSemaphoreSlim.WaitAsync();
+                try
                 {
                     var (hex, filename) = GetCacheKeys(key, scope);
                     if (await CacheFolder.TryGetItemAsync(filename) is StorageFile file)
@@ -182,12 +207,17 @@ namespace Quarrel.Services.Cache.Persistent
                         CacheMap.Remove(hex);
                     }
                 }
+                finally
+                {
+                    CacheSemaphoreSlim.Release();
+                }
             }
 
             /// <inheritdoc/>
             public async Task DeleteValuesAsync(string scope = null)
             {
-                using (await CacheMutex.LockAsync())
+                await CacheSemaphoreSlim.WaitAsync();
+                try
                 {
                     IReadOnlyList<StorageFile> files = await CacheFolder.GetFilesAsync();
                     await Task.WhenAll(files.Where(file => file.DisplayName.StartsWith($"{scope}_")).Select(file =>
@@ -196,6 +226,10 @@ namespace Quarrel.Services.Cache.Persistent
                         if (CacheMap.ContainsKey(hex)) CacheMap.Remove(hex);
                         return file.DeleteAsync().AsTask();
                     }));
+                }
+                finally
+                {
+                    CacheSemaphoreSlim.Release();
                 }
             }
         }
