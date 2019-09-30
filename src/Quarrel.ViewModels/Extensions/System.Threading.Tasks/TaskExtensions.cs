@@ -33,7 +33,7 @@ namespace System.Threading.Tasks
         {
             return task.ContinueWith(t => t.Status == TaskStatus.RanToCompletion ? t.Result : default, token);
         }
-
+/*
         /// <summary>
         /// Waits for two <see cref="Task{TResult}"/> instances in parallel and returns their results as a tuple
         /// </summary>
@@ -58,7 +58,7 @@ namespace System.Threading.Tasks
         {
             return Task.WhenAll(pair.T1, pair.T2, pair.T3).ContinueWith(_ => (pair.T1.Result, pair.T2.Result, pair.T3.Result));
         }
-
+        */
         /// <summary>
         /// Suppresses the warnings when calling an async method without awaiting it and handles its exception, if it occurs
         /// </summary>

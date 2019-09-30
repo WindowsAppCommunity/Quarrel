@@ -24,13 +24,13 @@ namespace System
                 format += "Yesterday";
             }else
             {
-                format += value.ToShortDateString();
+                format += value.ToString("d");
             }
 
             format += " at ";
 
             // Time
-            format += value.ToShortTimeString();
+            format += value.ToString("d");
 
             // Finish
             return format;

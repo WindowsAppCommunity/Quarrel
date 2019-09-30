@@ -78,7 +78,7 @@ namespace Quarrel.Services.Cache.Runtime
             try
             {
                 foreach (string key in CacheMap.Keys.Where(k => k.StartsWith($"{scope}/")).ToArray())
-                    CacheMap.Remove(key, out _);
+                    CacheMap.TryRemove(key, out _);
             }
             finally
             {

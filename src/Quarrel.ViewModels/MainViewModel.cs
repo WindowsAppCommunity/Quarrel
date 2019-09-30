@@ -22,7 +22,6 @@ using Quarrel.Services.Users;
 using Quarrel.Navigation;
 using Quarrel.Services.Settings;
 using Quarrel.ViewModels.Services.DispatcherHelper;
-using Timer = System.Timers.Timer;
 
 namespace Quarrel.ViewModels
 {
@@ -292,20 +291,20 @@ namespace Quarrel.ViewModels
                     var bChannel = GuildsService.CurrentChannels[m.TypingStart.ChannelId];
                     if (!bChannel.Typers.ContainsKey(m.TypingStart.UserId))
                     {
-                        Timer timer = new Timer {Interval = 8 * 1000};
-                        timer.Elapsed += (s, e) =>
+                        Timer timer = new Timer ((s) =>
                         {
-                            timer.Stop();
+                            bChannel.Typers[m.TypingStart.UserId]?.Dispose();
                             bChannel.Typers.Remove(m.TypingStart.UserId);
                             DispatcherHelper.CheckBeginInvokeOnUi(() =>
                             {
                                 bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
                                 bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
                             });
-                        };
+                        } , null, 0, 8 * 1000);
+
                         bChannel.Typers.Add(m.TypingStart.UserId, timer);
                     }
-                    bChannel.Typers[m.TypingStart.UserId].Start();
+                    bChannel.Typers[m.TypingStart.UserId].Change(0, 8 * 1000);
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));

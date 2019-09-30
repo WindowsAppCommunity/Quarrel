@@ -18,13 +18,13 @@ namespace System.Collections.ObjectModel
 
         public ObservableHashedCollection(ICollection<KeyValuePair<TKey, TValue>> collection)
         {
-            _context = AsyncOperationManager.SynchronizationContext;
+            _context = SynchronizationContext.Current;
             _hashedCollection = new HashedCollection<TKey, TValue>(collection);
         }
 
         public ObservableHashedCollection()
         {
-            _context = AsyncOperationManager.SynchronizationContext;
+            _context = SynchronizationContext.Current;
             _hashedCollection = new HashedCollection<TKey, TValue>(new List<KeyValuePair<TKey, TValue>>());
         }
 

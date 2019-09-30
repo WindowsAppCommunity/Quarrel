@@ -96,7 +96,7 @@ namespace Quarrel.Services.Voice
             _VoiceConnection = new VoiceConnection(data, state);
             _VoiceConnection.VoiceDataRecieved += VoiceDataRecieved;
             _VoiceConnection.Speak += Speak;
-            await _VoiceConnection.ConnectAsync();
+            _VoiceConnection.ConnectAsync();
 
             AudioInService.InputRecieved += InputRecieved;
             AudioInService.SpeakingChanged += SpeakingChanged;

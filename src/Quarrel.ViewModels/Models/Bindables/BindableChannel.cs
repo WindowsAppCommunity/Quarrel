@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Timers;
+using System.Threading;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Models.Bindables.Abstract;
 using Quarrel.Messages.Gateway;
@@ -479,6 +479,7 @@ namespace Quarrel.Models.Bindables
                 return typeText;
             }
         }
+
 
         public Dictionary<string, Timer> Typers = new Dictionary<string, Timer>();
 
