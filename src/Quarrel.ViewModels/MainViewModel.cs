@@ -363,7 +363,7 @@ namespace Quarrel.ViewModels
         public async void Login()
         {
             var token = (string)(await CacheService.Persistent.Roaming.TryGetValueAsync<object>(Quarrel.Helpers.Constants.Cache.Keys.AccessToken));
-            if (string.IsNullOrEmpty(token))
+            if (string.IsNullOrEmpty(token) || true)
             {
                 SubFrameNavigationService.NavigateTo("LoginPage");
             }
