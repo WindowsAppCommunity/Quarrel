@@ -4,6 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Quarrel.Services.Cache.Runtime
@@ -13,8 +14,8 @@ namespace Quarrel.Services.Cache.Runtime
     /// </summary>
     public sealed class RuntimeCacheService : IRuntimeCacheService
     {
-        // The synchronization mutex for the cache map
-        private readonly AsyncMutex CacheMutex = new AsyncMutex();
+        // The synchronization semaphore slim for the cache map
+        private readonly SemaphoreSlim CacheSemaphoreSlim = new SemaphoreSlim(1, 1);
 
         // The dictionary with the cached items
         private readonly ConcurrentDictionary<string, object> CacheMap = new ConcurrentDictionary<string, object>();
@@ -36,11 +37,16 @@ namespace Quarrel.Services.Cache.Runtime
         /// <inheritdoc/>
         public async Task<T> TryGetValueAsync<T>(string key, Func<Task<T>> producer, string scope = null) where T : class
         {
-            using (await CacheMutex.LockAsync())
+            await CacheSemaphoreSlim.WaitAsync();
+            try
             {
                 string _key = $"{scope}/{key}";
                 if (CacheMap.TryGetValue(_key, out object value)) return value as T;
                 return CacheMap.GetOrAdd(_key, await producer()) as T;
+            }
+            finally
+            {
+                CacheSemaphoreSlim.Release();
             }
         }
 
@@ -68,16 +74,30 @@ namespace Quarrel.Services.Cache.Runtime
         /// <inheritdoc/>
         public async Task ClearScopeAsync(string scope = null)
         {
-            using (await CacheMutex.LockAsync())
+            await CacheSemaphoreSlim.WaitAsync();
+            try
+            {
                 foreach (string key in CacheMap.Keys.Where(k => k.StartsWith($"{scope}/")).ToArray())
-                    CacheMap.Remove(key, out _);
+                    CacheMap.TryRemove(key, out _);
+            }
+            finally
+            {
+                CacheSemaphoreSlim.Release();
+            }
         }
 
         /// <inheritdoc/>
         public async Task ClearAsync()
         {
-            using (await CacheMutex.LockAsync())
-                CacheMap.Clear();
+            await CacheSemaphoreSlim.WaitAsync();
+            try
+            {
+                    CacheMap.Clear();
+            }
+            finally
+            {
+                CacheSemaphoreSlim.Release();
+            }
         }
     }
 }

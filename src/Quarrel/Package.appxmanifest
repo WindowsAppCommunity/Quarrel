@@ -46,6 +46,9 @@
         </uap:DefaultTile >
         <uap:SplashScreen Image="Assets\IconAssets\SplashScreen.png" />
       </uap:VisualElements>
+      <uap:ApplicationContentUriRules>
+        <uap:Rule Type="include" Match="https://discordapp.com" WindowsRuntimeAccess="all"/>
+      </uap:ApplicationContentUriRules>
     </Application>
   </Applications>
 

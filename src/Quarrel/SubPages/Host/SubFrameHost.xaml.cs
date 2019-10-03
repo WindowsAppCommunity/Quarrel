@@ -1,5 +1,6 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Core;
@@ -28,20 +29,21 @@ namespace Quarrel.SubPages.Host
             this.SizeChanged += (s, e) => UpdateLayout(e.NewSize);
 
             // Navigation
-            Messenger.Default.Register<SubFrameNavigationRequestMessage>(this, m => DisplaySubFramePage(m.SubPage));
+            Messenger.Default.Register<SubFrameNavigationRequestMessage>(this, m => DisplaySubFramePage(m.SubPage as UserControl));
             Messenger.Default.Register<SubFrameCloseRequestMessage>(this, _ => CloseSubFramePage());
             SystemNavigationManager.GetForCurrentView().BackRequested += SubFrameControl_BackRequested;
         }
 
         #region Sub page navigation
 
-        // Synchronization mutex to avoid race conditions for user requests
-        private readonly AsyncMutex SubFrameMutex = new AsyncMutex();
+        // Synchronization semaphore slim to avoid race conditions for user requests
+        private readonly SemaphoreSlim SubFrameSemaphoreSlim = new SemaphoreSlim(1, 1);
 
         // Displays a page in the popup frame
         private async void DisplaySubFramePage([NotNull] UserControl subPage)
         {
-            using (await SubFrameMutex.LockAsync())
+            await SubFrameSemaphoreSlim.WaitAsync();
+            try
             {
                 // Fade out the current content, if present
                 if (SubPage is UserControl page)
@@ -64,12 +66,17 @@ namespace Quarrel.SubPages.Host
                 HostControl.Focus(FocusState.Keyboard);
                 subPage.IsHitTestVisible = true;
             }
+            finally
+            {
+                SubFrameSemaphoreSlim.Release();
+            }
         }
 
         // Fades away the currently displayed sub page
         private async void CloseSubFramePage()
         {
-            using (await SubFrameMutex.LockAsync())
+            await SubFrameSemaphoreSlim.WaitAsync();
+            try
             {
                 if (!(SubPage is UserControl page)) return;
 
@@ -78,6 +85,10 @@ namespace Quarrel.SubPages.Host
                 await Task.Delay(600); // Time for the animations to complete
                 SubPage = null;
                 Messenger.Default.Send(new SubFrameContentUnlockedMessage(page));
+            }
+            finally
+            {
+                SubFrameSemaphoreSlim.Release();
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 using JetBrains.Annotations;
@@ -15,10 +16,10 @@ namespace Quarrel.Services.Abstract
     internal abstract class ServiceWithAccessTokensBase<T> : IInitializableService where T : class, new()
     {
         /// <summary>
-        /// Gets a mutex to avoid race conditions while performing operations in a given service
+        /// Gets a semaphore slim to avoid race conditions while performing operations in a given service
         /// </summary>
         [NotNull]
-        protected readonly AsyncMutex RestMutex = new AsyncMutex();
+        private readonly SemaphoreSlim RestSemaphoreSlim = new SemaphoreSlim(1, 1);
 
         /// <summary>
         /// Gets the loaded client tokens for the current service
@@ -35,7 +36,8 @@ namespace Quarrel.Services.Abstract
         /// <inheritdoc/>
         public async Task InitializeAsync()
         {
-            using (await RestMutex.LockAsync())
+            await RestSemaphoreSlim.WaitAsync();
+            try
             {
                 // Ensure the client tokens are loaded
                 if (ClientInfo != null) return;
@@ -45,6 +47,10 @@ namespace Quarrel.Services.Abstract
 
                 // Additional initialization
                 OnInitialize();
+            }
+            finally
+            {
+                RestSemaphoreSlim.Release();
             }
         }
 

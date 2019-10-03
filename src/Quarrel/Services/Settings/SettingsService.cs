@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 using Quarrel.Messages.Services.Settings;
 using Quarrel.Services.Settings.Enums;
+using System.Reflection;
 
 namespace Quarrel.Services.Settings
 {
@@ -69,12 +70,12 @@ namespace Quarrel.Services.Settings
             {
                 // Convert the value
                 object serializable;
-                if (typeof(T).IsEnum)
+                if (typeof(T).GetTypeInfo().IsEnum)
                 {
                     Type type = Enum.GetUnderlyingType(typeof(T));
                     serializable = Convert.ChangeType(value, type);
                 }
-                else if (typeof(T).IsPrimitive || typeof(T) == typeof(string))
+                else if (typeof(T).GetTypeInfo().IsPrimitive || typeof(T) == typeof(string))
                 {
                     serializable = value;
                 }
@@ -103,8 +104,8 @@ namespace Quarrel.Services.Settings
                 }
 
                 // Cast and return the retrieved setting
-                if (typeof(T) == typeof(DateTime)) value = DateTime.FromBinary(value.To<long>());
-                return value.To<T>();
+                if (typeof(T) == typeof(DateTime)) value = DateTime.FromBinary((long)value);
+                return (T)value;
             }
 
             /// <inheritdoc/>

@@ -1,5 +1,4 @@
-﻿// Special thanks to Sergio Pedri for the basis of this design
-
+﻿
 using Quarrel.Services.Cache.Persistent;
 using Quarrel.Services.Cache.Runtime;
 

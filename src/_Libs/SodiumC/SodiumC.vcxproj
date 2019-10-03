@@ -28,7 +28,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{e7ac7946-ca02-4dd6-a168-37ac806f9e18}</ProjectGuid>
-    <Keyword>WindowsRuntimeComponent</Keyword>
+    <Keyword>DynamicLibrary</Keyword>
     <RootNamespace>SodiumC</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>

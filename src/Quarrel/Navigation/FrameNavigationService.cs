@@ -1,13 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Navigation.SubFrame;
 
@@ -15,10 +8,11 @@ namespace Quarrel.Navigation
 {
     public class SubFrameNavigationService : ISubFrameNavigationService
     {
-        private readonly Dictionary<string, Type> _pagesByKey = new Dictionary<string, Type>();
         private readonly List<string> _historic = new List<string>();
+        private readonly Dictionary<string, Type> _pagesByKey = new Dictionary<string, Type>();
         public string CurrentPageKey { get; private set; }
         public object Parameter { get; private set; }
+
         public void GoBack()
         {
             if (_historic.Count > 1)
@@ -65,15 +59,10 @@ namespace Quarrel.Navigation
             lock (_pagesByKey)
             {
                 if (_pagesByKey.ContainsKey(key))
-                {
                     _pagesByKey[key] = pageType;
-                }
                 else
-                {
                     _pagesByKey.Add(key, pageType);
-                }
             }
         }
-
     }
 }

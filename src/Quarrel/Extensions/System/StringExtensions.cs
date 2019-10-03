@@ -11,10 +11,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using Windows.Security.Cryptography;
-using Windows.UI;
-using Windows.UI.Xaml.Media;
 using JetBrains.Annotations;
-using Microsoft.Toolkit.Uwp.Helpers;
 
 namespace System
 {
@@ -88,7 +85,7 @@ namespace System
         {
             Match match = Regex.Match(text, @"^(https?:\/\/)?(?:www\.)?([^:\/\s]+)(\/.+)?$");
             if (!match.Success) return false;
-            if (match.Groups[2].Value.Split('.', StringSplitOptions.RemoveEmptyEntries).Length < 2) return false;
+            if (match.Groups[2].Value.Split(new char['.'], StringSplitOptions.RemoveEmptyEntries).Length < 2) return false;
             string url = match.Groups[1].Success ? text : $"https://{text}";
             return Uri.TryCreate(url, UriKind.Absolute, out _);
         }
@@ -202,7 +199,7 @@ namespace System
             if (_FilenameRegex == null)
             {
                 char[] invalid = Path.GetInvalidFileNameChars();
-                string pattern = string.Join('|', invalid.Select(c => $@"\{c}"));
+                string pattern = string.Join("|", invalid.Select(c => $@"\{c}"));
                 _FilenameRegex = new Regex(pattern, RegexOptions.Compiled);
             }
 

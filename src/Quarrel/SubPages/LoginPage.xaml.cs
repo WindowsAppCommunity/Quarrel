@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Web.Http;
+using Windows.Web.Http.Filters;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Services;
 using GalaSoft.MvvmLight.Messaging;
@@ -29,6 +31,7 @@ namespace Quarrel.SubPages
     {
         private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         private ISubFrameNavigationService subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+
         public LoginPage()
         {
             this.InitializeComponent();
@@ -36,13 +39,15 @@ namespace Quarrel.SubPages
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            // Setup Discord Service
-            discordService.Login(Username.Text, Password.Password);
-            subFrameNavigationService.GoBack();
+            MainContent.Visibility = Visibility.Collapsed;
+            CaptchaView.Visibility = Visibility.Visible;
+            CaptchaView.Navigate(new Uri("https://discordapp.com/login"));
         }
 
         private void LoginWithToken_Click(object sender, RoutedEventArgs e)
         {
+            MainContent.Visibility = Visibility.Visible;
+            CaptchaView.Visibility = Visibility.Collapsed;
             // TODO: Login with token page
         }
 
@@ -51,24 +56,7 @@ namespace Quarrel.SubPages
             await Windows.System.Launcher.LaunchUriAsync(new Uri("https://discordapp.com/"));
         }
 
-        private async void Register_Click(object sender, RoutedEventArgs e)
-        {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://discordapp.com/register"));
-        }
-
-        private void Password_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            if (e.Key == Windows.System.VirtualKey.Enter)
-                LoginButton_Click(null, null);
-        }
-
         private void Token_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            if (e.Key == Windows.System.VirtualKey.Enter)
-                LoginButton_Click(null, null);
-        }
-
-        private void MFAPassword_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
                 LoginButton_Click(null, null);
@@ -79,11 +67,35 @@ namespace Quarrel.SubPages
             // TODO: MFA sms
         }
 
-        private void Navigating(WebView sender, WebViewNavigationStartingEventArgs args)
+        private async void ScriptNotify(object sender, NotifyEventArgs e)
         {
-            // TODO: Captcha
+            if (e.CallingUri.AbsolutePath == "/app")
+            {
+                //Discord doesn't allow access to localStorage so create an iframe to bypass this.
+                string token = await CaptchaView.InvokeScriptAsync("eval", new[] { @"
+                    var iframe = document.createElement('iframe');
+                    document.head.append(iframe);
+                    iframe.contentWindow.localStorage.getItem('token');"
+                });
+                if (!string.IsNullOrEmpty(token))
+                {
+                    discordService.Login(token.Trim('"'));
+                    subFrameNavigationService.GoBack();
+                }
+            }
+            // Respond to the script notification.
         }
-
         public bool Hideable { get; } = false;
+
+        private void CaptchaView_OnNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            _ = sender.InvokeScriptAsync("eval", new[] { @"
+                    var pushState = history.pushState;
+                    history.pushState = function () {
+                        pushState.apply(history, arguments);
+	                    window.external.notify('');
+                    };
+            " });
+        }
     }
 }

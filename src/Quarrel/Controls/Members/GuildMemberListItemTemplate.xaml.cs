@@ -15,7 +15,6 @@ using Windows.UI.Xaml.Navigation;
 using Quarrel.Models.Bindables;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Gateway;
-using UICompositionAnimations.Helpers;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
