@@ -293,8 +293,12 @@ namespace Quarrel.ViewModels
                     {
                         Timer timer = new Timer ((s) =>
                         {
-                            bChannel.Typers[m.TypingStart.UserId]?.Dispose();
-                            bChannel.Typers.Remove(m.TypingStart.UserId);
+                            if (bChannel.Typers.ContainsKey(m.TypingStart.UserId))
+                            {
+                                bChannel.Typers[m.TypingStart.UserId]?.Dispose();
+                                bChannel.Typers.Remove(m.TypingStart.UserId);
+                            }
+
                             DispatcherHelper.CheckBeginInvokeOnUi(() =>
                             {
                                 bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
