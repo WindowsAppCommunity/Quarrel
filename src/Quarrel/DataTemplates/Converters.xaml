@@ -1,0 +1,13 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Quarrel.DataTemplates"
+    xmlns:base="using:Quarrel.Converters.Base">
+
+    <base:DateTimeToTextConverter x:Key="DateTimeToTextConverter"/>
+    <base:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
+    <base:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
+    <base:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+    <base:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
+
+</ResourceDictionary>

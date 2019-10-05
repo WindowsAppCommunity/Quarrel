@@ -11,22 +11,30 @@
     xmlns:viewModels="using:Quarrel.ViewModels"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:bindables="using:Quarrel.Models.Bindables"
+    xmlns:messages="using:Quarrel.DataTemplates.Messages"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
     <UserControl.Resources>
-        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+        <ResourceDictionary>
 
-        <templates:MessageTemplateSelector x:Key="MessageTemplateSelector"
-                                           MessageTemplate="{StaticResource MessageTemplate}"
-                                           ActionMessageTemplate="{StaticResource ActionMessageTemplate}"/>
-        <DataTemplate x:Key="MessageTemplate" x:DataType="bindables:BindableMessage">
-            <msgcontrol:MessageTemplate DataContext="{x:Bind}"/>
-        </DataTemplate>
-        <DataTemplate x:Key="ActionMessageTemplate" x:DataType="bindables:BindableMessage">
-            <msgcontrol:ActionMessageTemplate DataContext="{x:Bind}"/>
-        </DataTemplate>
+            <ResourceDictionary.MergedDictionaries>
+                <messages:MessageTemplate/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <templates:MessageTemplateSelector x:Key="MessageTemplateSelector"
+                                               MessageTemplate="{StaticResource MessageTemplate}"
+                                               ActionMessageTemplate="{StaticResource ActionMessageTemplate}"/>
+
+            <DataTemplate x:Key="ActionMessageTemplate" x:DataType="bindables:BindableMessage">
+                <msgcontrol:ActionMessageTemplate DataContext="{x:Bind}"/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ActionMessageTemplate1" x:DataType="bindables:BindableMessage">
+                <TextBox Text="{x:Bind Model.Content}"></TextBox>
+            </DataTemplate>
+        </ResourceDictionary>
     </UserControl.Resources>
     
 
@@ -39,7 +47,7 @@
         <ListView x:Name="MessageList"
                   ItemsSource="{x:Bind ViewModel.BindableMessages, Mode=OneWay}" Padding="0,0,0,16"
                   ItemTemplateSelector="{StaticResource MessageTemplateSelector}"
-                  SelectionMode="None" IsItemClickEnabled="False" ItemContainerStyle="{StaticResource MessageListItemStyle}">
+                  SelectionMode="None" IsItemClickEnabled="False" ItemContainerStyle="{StaticResource MessageListItemStyle}" ShowsScrollingPlaceholders="False">
             <ListView.Header>
                 <ProgressBar Visibility="{x:Bind ViewModel.OldItemsLoading, Mode=OneWay}" IsIndeterminate="True"/>
             </ListView.Header>

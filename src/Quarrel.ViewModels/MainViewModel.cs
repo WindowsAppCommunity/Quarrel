@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -609,7 +610,7 @@ namespace Quarrel.ViewModels
                     lastItem = item;
                 }
 
-                DispatcherHelper.CheckBeginInvokeOnUi(() => { BindableMessages.InsertRange(0, messages); });
+                DispatcherHelper.CheckBeginInvokeOnUi(() => { BindableMessages.InsertRange(0, messages, NotifyCollectionChangedAction.Reset); });
                 OldItemsLoading = false;
             }
             finally

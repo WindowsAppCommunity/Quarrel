@@ -269,9 +269,6 @@
     <Compile Include="Controls\Messages\MessageBox.xaml.cs">
       <DependentUpon>MessageBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Messages\MessageTemplate.xaml.cs">
-      <DependentUpon>MessageTemplate.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Messages\SelectionBindingTextBox.cs" />
     <Compile Include="Controls\MyTubeEmbedWrapper.xaml.cs">
       <DependentUpon>MyTubeEmbedWrapper.xaml</DependentUpon>
@@ -328,6 +325,12 @@
     <Compile Include="Converters\Profile\Relationships\RelationToBlockConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToRemoveFriendConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToUnblock.cs" />
+    <Compile Include="DataTemplates\Messages\MessageTemplate.xaml.cs">
+      <DependentUpon>MessageTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataTemplates\Messages\ReactionTemplate.xaml.cs">
+      <DependentUpon>ReactionTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\System\DateTimeExtensions.cs" />
     <Compile Include="Extensions\System\NumericExtensions.cs" />
     <Compile Include="Extensions\System\StringExtensions.cs" />
@@ -553,10 +556,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Messages\MessageTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\MyTubeEmbedWrapper.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -578,6 +577,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\TypingIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataTemplates\Converters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataTemplates\Messages\MessageTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataTemplates\Messages\ReactionTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
