@@ -36,8 +36,7 @@
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
-        
-        <convertbase:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
+
         <convertbase:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <convertbase:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <convertguild:IsDMToFontFamilyConverter x:Key="IsDMToFontFamilyConverter"/>
@@ -58,7 +57,11 @@
                     <animations:OpacityAnimation Duration="0:0:0.3"/>
                 </animations:Implicit.Animations>
                 <Rectangle.Fill>
-                    <ImageBrush x:Name="GuildImageBrush" ImageSource="{x:Bind ViewModel.IconUri, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                    <ImageBrush x:Name="GuildImageBrush" >
+                        <ImageBrush.ImageSource>
+                            <BitmapImage DecodePixelHeight="50" DecodePixelWidth="50" UriSource="{x:Bind ViewModel.IconUri, Mode=OneWay}"/>
+                        </ImageBrush.ImageSource>
+                    </ImageBrush>
                 </Rectangle.Fill>
             </Rectangle>
             <TextBlock x:Name="InvalidOverlay" Visibility="Collapsed" Text="" FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>

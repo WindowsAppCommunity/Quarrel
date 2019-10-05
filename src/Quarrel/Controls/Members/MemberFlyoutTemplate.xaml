@@ -43,7 +43,6 @@
         <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
-        <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
         <discordconvert:PresenseToBrushConverter x:Key="PresenseToBrushConverter" UseSystemAccentColor="True"/>
         <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
     </UserControl.Resources>
@@ -58,8 +57,11 @@
             <Grid x:Name="BackgroundGrid" Height="{Binding ElementName=Stacker, Path=ActualHeight, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2" Opacity="1" VerticalAlignment="Top">
                 <Rectangle>
                     <Rectangle.Fill>
-                        <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"
-                                    Stretch="UniformToFill"/>
+                        <ImageBrush Stretch="UniformToFill">
+                            <ImageBrush.ImageSource>
+                                <BitmapImage UriSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Mode=OneWay}"/>
+                            </ImageBrush.ImageSource>
+                        </ImageBrush>
                     </Rectangle.Fill>
                 </Rectangle>
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -87,7 +89,11 @@
                                                         BlurRadius="15">
                                         <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48">
                                             <Rectangle.Fill>
-                                                <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                                                <ImageBrush>
+                                                    <ImageBrush.ImageSource>
+                                                        <BitmapImage DecodePixelHeight="96" DecodePixelWidth="96" UriSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Mode=OneWay}"/>
+                                                    </ImageBrush.ImageSource>
+                                                </ImageBrush>
                                             </Rectangle.Fill>
                                         </Rectangle>
                                     </tk:DropShadowPanel>
