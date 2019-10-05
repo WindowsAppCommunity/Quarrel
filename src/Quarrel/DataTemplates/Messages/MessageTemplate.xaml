@@ -157,7 +157,7 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid Grid.Column="1" Grid.Row="2" x:Name="body" Margin="0,0,0,2" MinWidth="20">
+                <Grid Grid.Column="1" Grid.Row="2" x:Name="body" Margin="0,0,0,2" MinHeight="20">
                     <markdown:MarkdownTextBlock x:Phase="1" Users="{x:Bind Model.Mentions, Mode=OneWay}" 
                                             Text="{x:Bind Model.Content, Mode=OneWay}"
                                             TextWrapping="WrapWholeWords"
