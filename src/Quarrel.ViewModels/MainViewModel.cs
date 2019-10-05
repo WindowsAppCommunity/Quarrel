@@ -70,8 +70,7 @@ namespace Quarrel.ViewModels
                         Guild = m.Guild;
                         BindableMessages.Clear();
                         BindableMembers.Clear();
-                        BindableChannels.Clear();
-                        BindableChannels.AddRange(m.Guild.Channels);
+                        BindableChannels.ReplaceRange(m.Guild.Channels);
                     });
                 }
             });
@@ -177,8 +176,7 @@ namespace Quarrel.ViewModels
 
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
-                        BindableMessages.Clear();
-                        BindableMessages.AddRange(messages);
+                        BindableMessages.ReplaceRange(messages);
                         ScrollTo?.Invoke(this, scrollItem ?? BindableMessages.LastOrDefault());
                     });
                     NewItemsLoading = false;
