@@ -14,7 +14,6 @@
     <UserControl.Resources>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <baseconvert:TimeSpanToTextConverter x:Key="TimeSpanToTextConverter"/>
-        <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
     </UserControl.Resources>
     
     <Grid Margin="0,4,0,4">
@@ -31,14 +30,22 @@
             <Image x:Name="xboxlogo" Visibility="{x:Bind ViewModel.IsXboxGame}" Opacity="1" Height="26" Width="26" Margin="4,2,14,0" VerticalAlignment="Center" Source="ms-appx:///Assets/Connections/xbox.png"/>
             <Rectangle x:Name="LargeImgRect" Visibility="{x:Bind ViewModel.Assets, Converter={StaticResource NotNullToVisibilityConverter}}" Width="58" Height="58" RadiusX="4" RadiusY="4" Margin="0,0,10,0">
                 <Rectangle.Fill>
-                    <ImageBrush x:Name="Largeimg" ImageSource="{x:Bind ViewModel.LargeImageUri, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}" Stretch="UniformToFill"/>
+                    <ImageBrush x:Name="Largeimg" Stretch="UniformToFill">
+                        <ImageBrush.ImageSource>
+                            <BitmapImage DecodePixelHeight="58" DecodePixelWidth="58" UriSource="{x:Bind ViewModel.LargeImageUri, Mode=OneWay}"/>
+                        </ImageBrush.ImageSource>
+                    </ImageBrush>
                 </Rectangle.Fill>
             </Rectangle>
 
             <controls:DropShadowPanel BlurRadius="8" ShadowOpacity="0.7" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
                 <Rectangle x:Name="SmallimgRect" Visibility="{x:Bind ViewModel.Assets, Converter={StaticResource NotNullToVisibilityConverter}}" Width="20" Height="20" RadiusX="10" RadiusY="10" Margin="0,0,5,-5">
                     <Rectangle.Fill>
-                        <ImageBrush x:Name="Smallimg" ImageSource="{x:Bind ViewModel.SmallImageUri, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                        <ImageBrush x:Name="Smallimg">
+                            <ImageBrush.ImageSource>
+                                <BitmapImage DecodePixelWidth="20" DecodePixelHeight="20" UriSource="{x:Bind ViewModel.SmallImageUri, Mode=OneWay}"/>
+                            </ImageBrush.ImageSource>
+                        </ImageBrush>
                     </Rectangle.Fill>
                 </Rectangle>
             </controls:DropShadowPanel>

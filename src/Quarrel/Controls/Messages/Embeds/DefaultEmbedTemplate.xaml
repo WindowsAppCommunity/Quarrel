@@ -15,7 +15,6 @@
     <UserControl.Resources>
         <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
         <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
-        <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
     </UserControl.Resources>
 
     <Border CornerRadius="4" Background="{ThemeResource MidBG}">

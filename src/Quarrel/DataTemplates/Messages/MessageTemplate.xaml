@@ -112,7 +112,11 @@
                                Width="40" Height="40" 
                                RadiusX="20" RadiusY="20">
                             <Rectangle.Fill>
-                                <ImageBrush ImageSource="{x:Bind Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                                <ImageBrush>
+                                    <ImageBrush.ImageSource>
+                                        <BitmapImage DecodePixelHeight="40" DecodePixelWidth="40" UriSource="{x:Bind Model.User.AvatarUriProperty, Mode=OneWay}"/>
+                                    </ImageBrush.ImageSource>
+                                </ImageBrush>
                             </Rectangle.Fill>
                         </Rectangle>
 

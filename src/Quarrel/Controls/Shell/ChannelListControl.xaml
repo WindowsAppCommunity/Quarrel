@@ -441,7 +441,6 @@
         <convertbase:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <convertbase:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         <convertbase:EnumerableAnyToVisibilityConverter x:Key="EnumerableAnyToVisibilityConverter"/>
-        <convertbase:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
         <convertchannel:MentionCountToVisiblityConverter x:Key="MentionCountToVisiblityConverter"/>
         <convertchannel:SelectedToOpacityConverter x:Key="SelectedToOpacityConverter"/>
         <convertchannel:TypeToBrushConverter x:Key="TypeToBrushConverter"/>
@@ -508,7 +507,11 @@
                         <Rectangle Visibility="{x:Bind ShowIconBackdrop, Mode=OneWay}" Fill="{x:Bind FirstUserDiscriminator, Converter={StaticResource DiscriminatorToBrush}, Mode=OneWay}" x:Name="ChannelImageBackdrop" Width="36" Height="36"  Margin="0,6,6,6" RadiusX="18" RadiusY="18" Opacity="1"/>
                         <Rectangle Visibility="{x:Bind IsPrivateChannel}" x:Name="ChannelImage" Width="36" Height="36" Margin="0,6,6,6" RadiusX="18" RadiusY="18">
                             <Rectangle.Fill>
-                                <ImageBrush x:Name="ChannelImageBrush" ImageSource="{x:Bind ImageUri, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                                <ImageBrush x:Name="ChannelImageBrush">
+                                    <ImageBrush.ImageSource>
+                                        <BitmapImage DecodePixelWidth="36" DecodePixelHeight="36" UriSource="{x:Bind ImageUri, Mode=OneWay}"/>
+                                    </ImageBrush.ImageSource>
+                                </ImageBrush>
                             </Rectangle.Fill>
                         </Rectangle>
                         <!--<Rectangle Visibility="{x:Bind ViewModel.ImageUri, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}" Width="36" Height="36" Margin="0,6,6,6" RadiusX="18" RadiusY="18">

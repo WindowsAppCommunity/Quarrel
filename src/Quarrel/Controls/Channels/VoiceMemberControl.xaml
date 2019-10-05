@@ -84,7 +84,6 @@
                 </ColorAnimation.EasingFunction>
             </ColorAnimation>
         </Storyboard>
-        <base:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
     </UserControl.Resources>
     <FlyoutBase.AttachedFlyout>
         <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
@@ -100,7 +99,11 @@
         <Rectangle x:Name="AvatarBG" Stroke="Green" StrokeThickness="0" RadiusX="48" RadiusY="48" Height="24" Width="24" VerticalAlignment="Center" Grid.RowSpan="2" Margin="0,0,0,0" Grid.Row="1"/>
         <Rectangle x:Name="Avatar" RadiusX="48" RadiusY="48" Height="24" Width="24" VerticalAlignment="Center" Grid.RowSpan="2" Margin="0,0,0,0" Grid.Row="1">
             <Rectangle.Fill>
-                <ImageBrush x:Name="AvatarBrush" ImageSource="{x:Bind ViewModel.GuildMember.Model.User.AvatarUriProperty, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                <ImageBrush x:Name="AvatarBrush">
+                    <ImageBrush.ImageSource>
+                        <BitmapImage DecodePixelHeight="24" DecodePixelWidth="24" UriSource="{x:Bind ViewModel.GuildMember.Model.User.AvatarUriProperty, Mode=OneWay}"/>
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
             </Rectangle.Fill>
         </Rectangle>
         <TextBlock x:Name="username" Text="{x:Bind ViewModel.GuildMember.DisplayName, Mode=OneWay}" Margin="12,0,0,0" Grid.Column="1" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiLight" Opacity="0.5"/>
