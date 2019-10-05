@@ -2,12 +2,15 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Quarrel.DataTemplates"
-    xmlns:base="using:Quarrel.Converters.Base">
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
+    xmlns:discordconvert="using:Quarrel.Converters.Discord">
 
-    <base:DateTimeToTextConverter x:Key="DateTimeToTextConverter"/>
-    <base:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
-    <base:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
-    <base:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
-    <base:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
+    <baseconvert:DateTimeToTextConverter x:Key="DateTimeToTextConverter"/>
+    <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
+    <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
+    <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+    <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
+    <discordconvert:PresenseToBrushConverter x:Key="PresenseToBrushConverter"/>
+    <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
 
 </ResourceDictionary>

@@ -1,0 +1,62 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Quarrel.DataTemplates.Members"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:bindables="using:Quarrel.Models.Bindables"
+    xmlns:membercontrols="using:Quarrel.Controls.Members"
+    x:Class="Quarrel.DataTemplates.Members.GuildMemberListItemTemplate">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../Converters.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    <Flyout x:Key="MemberFlyoutTemplate" FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
+        <membercontrols:MemberFlyoutTemplate/>
+    </Flyout>
+
+    <DataTemplate x:Key="GuildMemberListItemTemplate" x:DataType="bindables:BindableGuildMember" >
+        <Grid Margin="-12,0,-22,0" FlyoutBase.AttachedFlyout="{StaticResource MemberFlyoutTemplate}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Fill="{x:Bind Presence.Status, Converter={StaticResource PresenseToBrushConverter}, Mode=OneWay}" 
+                       Width="2" Height="24" HorizontalAlignment="Left" x:Phase="1"/>
+            <controls:DropShadowPanel x:Phase="1" Color="{x:Bind Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
+                                      BlurRadius="15" VerticalAlignment="Center" Margin="10,6,6,6">
+                <Rectangle  Width="36" Height="36" RadiusX="18" RadiusY="18">
+                    <Rectangle.Fill>
+                        <ImageBrush x:Name="Avatar">
+                            <ImageBrush.ImageSource>
+                                <BitmapImage DecodePixelHeight="36" DecodePixelWidth="36" UriSource="{x:Bind Model.User.AvatarUriProperty, Mode=OneWay}" />
+                            </ImageBrush.ImageSource>
+                        </ImageBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </controls:DropShadowPanel>
+
+            <!--<Rectangle x:Name="rectangle" Fill="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToBrushConverter}, Mode=OneWay}" Width="8" Height="8" RadiusX="4" RadiusY="4"  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,24,8,0" RenderTransformOrigin="0.5,0.5">
+                <Rectangle.RenderTransform>
+                    <CompositeTransform TranslateX="0"/>
+                </Rectangle.RenderTransform>
+            </Rectangle>-->
+            <!--<Ellipse x:Name="status" Width="12" Height="12" HorizontalAlignment="Right" Margin="0,24,6,0"/>-->
+            <!--<local:TypingIndicator IsWhite="True" x:Name="typingIndicator" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,24,9,0" Visibility="Collapsed" Opacity="0"/>-->
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{x:Bind DisplayName, Mode=OneWay}" Foreground="{x:Bind TopRole.Color, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}"
+                               VerticalAlignment="Center" FontSize="14" FontWeight="Normal"/>
+                    <!--<Image x:Name="OwnerIndicator" Height="12" Source="/Assets/DiscordAssets/Crown.png" Stretch="UniformToFill" Margin="5,0,0,0" Visibility="Collapsed"/>
+                    <Border x:Name="BotIndicator" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="4,0,0,0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">
+                        <TextBlock x:Uid="/Controls/BotTB" Foreground="{ThemeResource Foreground}" Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
+                    </Border>-->
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" x:Name="richPresence" x:Phase="2" x:Load="{x:Bind Presence.Game, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+                    <TextBlock x:Name="playing" Text="Playing" VerticalAlignment="Center" FontSize="11" FontWeight="SemiLight" Opacity="0.6" Foreground="{ThemeResource Foreground}"/>
+                    <TextBlock x:Name="game" Text="{x:Bind Presence.Game.Name}" VerticalAlignment="Center" Opacity="0.8" FontSize="11" FontWeight="Normal" Margin="3,0,0,0" Foreground="{ThemeResource Foreground}"/>
+                    <FontIcon Visibility="{x:Bind Presence.Game.IsRich}" x:Name="rich" Glyph="" FontSize="11" Margin="4,0,0,-2" Foreground="{ThemeResource Foreground}"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>
