@@ -236,9 +236,6 @@
     <Compile Include="Controls\Markdown\Parse\MarkdownDocument.cs" />
     <Compile Include="Controls\Markdown\Parse\MarkdownElement.cs" />
     <Compile Include="Controls\Markdown\Parse\MarkdownInline.cs" />
-    <Compile Include="Controls\Members\GuildMemberListItemTemplate.xaml.cs">
-      <DependentUpon>GuildMemberListItemTemplate.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Members\MemberFlyoutTemplate.xaml.cs">
       <DependentUpon>MemberFlyoutTemplate.xaml</DependentUpon>
     </Compile>
@@ -325,6 +322,9 @@
     <Compile Include="Converters\Profile\Relationships\RelationToBlockConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToRemoveFriendConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToUnblock.cs" />
+    <Compile Include="DataTemplates\Members\GuildMemberListItemTemplate.xaml.cs">
+      <DependentUpon>GuildMemberListItemTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataTemplates\Messages\MessageTemplate.xaml.cs">
       <DependentUpon>MessageTemplate.xaml</DependentUpon>
     </Compile>
@@ -512,10 +512,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Members\GuildMemberListItemTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\Members\MemberFlyoutTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -581,6 +577,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DataTemplates\Converters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataTemplates\Members\GuildMemberListItemTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

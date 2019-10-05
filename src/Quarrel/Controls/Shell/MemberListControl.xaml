@@ -16,16 +16,19 @@
     xmlns:messages="using:Quarrel.Controls.Messages"
     xmlns:objectModel="using:System.Collections.ObjectModel"
     xmlns:models="using:DiscordAPI.Models"
+    xmlns:members="using:Quarrel.DataTemplates.Members"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
     <UserControl.Resources>
-        <baseconverts:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
-        <CollectionViewSource x:Name="ViewSource" Source="{x:Bind ViewModel.BindableMembers, Mode=OneWay}" IsSourceGrouped="True" />
-        <Flyout x:Key="MemberFlyoutTemplate" FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
-            <membercontrols:MemberFlyoutTemplate/>
-        </Flyout>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <members:GuildMemberListItemTemplate/>
+            </ResourceDictionary.MergedDictionaries>
+            <baseconverts:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
+            <CollectionViewSource x:Name="ViewSource" Source="{x:Bind ViewModel.BindableMembers, Mode=OneWay}" IsSourceGrouped="True" />
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
@@ -34,17 +37,14 @@
                 <ListView x:Name="MemberList"
                           ItemContainerStyle="{StaticResource MemberListItemStyle}"
                           IsItemClickEnabled="True" SelectionMode="None"
-                          ItemsSource="{x:Bind ViewSource.View, Mode=OneWay}">
+                          ItemsSource="{x:Bind ViewSource.View, Mode=OneWay}"
+                          ShowsScrollingPlaceholders="False"
+                          ItemTemplate="{StaticResource GuildMemberListItemTemplate}">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="ItemClick">
                             <behaviors:OpenListViewItemFlyoutAction/>
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <membercontrols:GuildMemberListItemTemplate FlyoutBase.AttachedFlyout="{StaticResource MemberFlyoutTemplate}" />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
                     <ListView.GroupStyle>
                         <GroupStyle HidesIfEmpty="True">
                             <GroupStyle.HeaderContainerStyle>
