@@ -27,6 +27,6 @@ namespace Quarrel.Views
         {
             this.InitializeComponent();
         }
-        public MainViewModel ViewModel => (Application.Current.Resources["ViewModelLocator"] as ViewModelLocator).Main;
+        public MainViewModel ViewModel => App.ViewModelLocator.Main;
     }
 }

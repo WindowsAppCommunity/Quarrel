@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,10 +18,10 @@ namespace Quarrel.Services.Guild
 {
     public class GuildsService : IGuildsService
     {
-        public Dictionary<string, BindableChannel> CurrentChannels { get; } = new Dictionary<string, BindableChannel>();
-        public Dictionary<string, BindableGuild> Guilds { get; } = new Dictionary<string, BindableGuild>();
+        public IDictionary<string, BindableChannel> CurrentChannels { get; } = new ConcurrentDictionary<string, BindableChannel>();
+        public IDictionary<string, BindableGuild> Guilds { get; } = new ConcurrentDictionary<string, BindableGuild>();
         public string CurrentGuildId { get; private set; }
-        public BindableGuild CurrentGuild => Guilds[CurrentGuildId];
+        public BindableGuild CurrentGuild => Guilds.TryGetValue(CurrentGuildId, out var value) ? value : null;
 
         private ICacheService CacheService;
         private IDispatcherHelper DispatcherHelper;
@@ -48,7 +49,7 @@ namespace Quarrel.Services.Guild
 
                     #region SortReadStates
 
-                    Dictionary<string, ReadState> readStates = new Dictionary<string, ReadState>();
+                    IDictionary<string, ReadState> readStates = new ConcurrentDictionary<string, ReadState>();
                     foreach (var state in m.EventData.ReadStates)
                     {
                         readStates.Add(state.Id, state);
@@ -166,21 +167,25 @@ namespace Quarrel.Services.Guild
                 var bChannel = new BindableChannel(m.Channel) { GuildId = m.Channel.GuildId };
                 if (bChannel.Model.Type != 4 && bChannel.ParentId != null)
                 {
-                    bChannel.ParentPostion = CurrentChannels[bChannel.ParentId].Position;
+                    bChannel.ParentPostion = CurrentChannels.TryGetValue(bChannel.ParentId, out var value) ? value.Position : 0;
                 }
                 else if (bChannel.ParentId == null)
                 {
                     bChannel.ParentPostion = -1;
                 }
 
-                for (int i = 0; i < Guilds[m.Channel.GuildId].Channels.Count; i++)
+                if (Guilds.TryGetValue(m.Channel.GuildId, out var guild))
                 {
-                    if (Guilds[m.Channel.GuildId].Channels[i].AbsolutePostion > bChannel.AbsolutePostion)
+                    for (int i = 0; i < guild.Channels.Count; i++)
                     {
-                        DispatcherHelper.CheckBeginInvokeOnUi(()=>{
-                            Guilds[m.Channel.GuildId].Channels.Insert(i, bChannel);
-                        });
-                        break;
+                        if (guild.Channels[i].AbsolutePostion > bChannel.AbsolutePostion)
+                        {
+                            DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                            {
+                                guild.Channels.Insert(i, bChannel);
+                            });
+                            break;
+                        }
                     }
                 }
             });
@@ -188,8 +193,13 @@ namespace Quarrel.Services.Guild
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    Guilds[m.Channel.GuildId].Channels.Remove(CurrentChannels[m.Channel.Id]);
-                    CurrentChannels.Remove(m.Channel.Id);
+                    if (CurrentChannels.TryGetValue(m.Channel.Id, out var currentChannel))
+                    {
+                        (Guilds.TryGetValue(m.Channel.GuildId, out var value) ? value : null)?
+                            .Channels.Remove(currentChannel);
+
+                        CurrentChannels.Remove(m.Channel.Id);
+                    }
                 });
             });
             Messenger.Default.Register<GuildNavigateMessage>(this, m => { CurrentGuildId = m.Guild.Model.Id; });

@@ -33,8 +33,8 @@ namespace DiscordAPI.Voice
     {
         private delegate void VoiceConnectionEventHandler(SocketFrame gatewayEvent);
 
-        private IDictionary<int, VoiceConnectionEventHandler> operationHandlers;
-        private IDictionary<string, VoiceConnectionEventHandler> eventHandlers;
+        private IReadOnlyDictionary<int, VoiceConnectionEventHandler> operationHandlers;
+        private IReadOnlyDictionary<string, VoiceConnectionEventHandler> eventHandlers;
 
         private Ready lastReady;
         private SocketFrame lastEvent;
@@ -309,7 +309,7 @@ namespace DiscordAPI.Voice
             await _webMessageSocket.SendJsonObjectAsync(package);
         }
 
-        private IDictionary<int, VoiceConnectionEventHandler> GetOperationHandlers()
+        private IReadOnlyDictionary<int, VoiceConnectionEventHandler> GetOperationHandlers()
         {
             return new Dictionary<int, VoiceConnectionEventHandler>
             {
@@ -320,7 +320,7 @@ namespace DiscordAPI.Voice
             };
         }
 
-        private IDictionary<string, VoiceConnectionEventHandler> GetEventHandlers()
+        private IReadOnlyDictionary<string, VoiceConnectionEventHandler> GetEventHandlers()
         {
             return new Dictionary<string, VoiceConnectionEventHandler>
             {

@@ -19,6 +19,7 @@ using Quarrel.Services.Settings.Enums;
 using Quarrel.Messages.Services.Settings;
 using Quarrel.Messages.Navigation;
 using Quarrel.ViewModels.Services.DispatcherHelper;
+using System.Collections.Concurrent;
 
 namespace Quarrel.Models.Bindables
 {
@@ -437,38 +438,44 @@ namespace Quarrel.Models.Bindables
             get => Typers.Count > 0;
         }
 
-        public List<string> Names
+        public List<string> GetNames()
         {
-            get
+            List<string> names = new List<string>();
+            var keys = Typers.Keys.ToList();
+
+            foreach (var id in keys)
             {
-                List<string> names = new List<string>();
-                foreach (var id in Typers.Keys)
+                var typer = _CurrentUsersService.Users.TryGetValue(id, out var user) ? user.DisplayName : null;
+
+                if (typer != null)
                 {
-                    names.Add(_CurrentUsersService.Users[id].DisplayName);
+                    names.Add(typer);
                 }
-                return names;
             }
+
+            return names;
         }
 
         public string TypingText
         {
             get
             {
+                var names = GetNames();
                 string typeText = "";
-                for (int i = 0; i < Names.Count; i++)
+                for (int i = 0; i < names.Count; i++)
                 {
                     if (i != 0)
                     {
                         typeText += ", ";
                     }
-                    else if (i != 0 && i == Names.Count-1)
+                    else if (i != 0 && i == names.Count-1)
                     {
                         typeText += " and ";
                     }
-                    typeText += Names[i];
+                    typeText += names[i];
                 }
 
-                if (Names.Count > 1)
+                if (names.Count > 1)
                 {
                     typeText += " are typing";
                 }
@@ -481,7 +488,7 @@ namespace Quarrel.Models.Bindables
         }
 
 
-        public Dictionary<string, Timer> Typers = new Dictionary<string, Timer>();
+        public ConcurrentDictionary<string, Timer> Typers = new ConcurrentDictionary<string, Timer>();
 
         #endregion
 

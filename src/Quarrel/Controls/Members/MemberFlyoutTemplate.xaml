@@ -10,6 +10,7 @@
     xmlns:tkmedia="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Windows10FallCreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -128,7 +129,7 @@
                 <Grid>
                     <Rectangle Opacity="0.5">
                         <Rectangle.Fill>
-                            <AcrylicBrush TintOpacity="0.9" TintColor="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
+                            <Windows10FallCreatorsUpdate:AcrylicBrush TintOpacity="0.9" TintColor="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
                                           FallbackColor="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"/>
                         </Rectangle.Fill>
                     </Rectangle>
