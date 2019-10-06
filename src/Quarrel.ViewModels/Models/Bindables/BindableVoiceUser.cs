@@ -12,6 +12,7 @@ using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Voice;
 using Quarrel.Models.Bindables.Abstract;
 using Quarrel.Services.Users;
+using Quarrel.ViewModels.Services;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 
 namespace Quarrel.Models.Bindables
@@ -81,12 +82,9 @@ namespace Quarrel.Models.Bindables
                 }
             });
 
-            Messenger.Default.Register<string>(this, m =>
+            MessengerInstance.Register<GuildMembersSyncedMessage>(this, m =>
             {
-                if (m == "UsersSynced")
-                {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() => { RaisePropertyChanged(nameof(GuildMember)); });
-                }
+                DispatcherHelper.CheckBeginInvokeOnUi(() => { RaisePropertyChanged(nameof(GuildMember)); });
             });
         }
 

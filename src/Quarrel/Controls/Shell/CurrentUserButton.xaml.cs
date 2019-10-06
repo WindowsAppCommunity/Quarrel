@@ -30,7 +30,7 @@ namespace Quarrel.Controls.Shell
 {
     public sealed partial class CurrentUserButton : UserControl
     {
-        public MainViewModel ViewModel => (Application.Current.Resources["ViewModelLocator"] as ViewModelLocator).Main;
+        public MainViewModel ViewModel => App.ViewModelLocator.Main;
         public CurrentUserButton()
         {
             this.InitializeComponent();

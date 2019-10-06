@@ -34,6 +34,13 @@ using Quarrel.Services.Voice.Audio.Out;
 using Quarrel.ViewModels;
 using Quarrel.Services.Settings;
 using Quarrel.Services.Settings.Enums;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Logging.Debug;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
+using Windows.Storage;
 
 namespace Quarrel
 {
@@ -42,15 +49,64 @@ namespace Quarrel
     /// </summary>
     sealed partial class App : Application
     {
+        public static IServiceProvider ServiceProvider { get; }
+        public static IConfiguration Configuration { get; }
+
+        public static ViewModelLocator ViewModelLocator => ServiceProvider.GetService<ViewModelLocator>();
+
+        static App()
+        {
+            var services = new ServiceCollection();
+
+            services.AddSingleton<ViewModelLocator, ViewModelLocator>();
+            services.AddLogging();
+
+            services.AddTransient<IConfiguration>(sp =>
+            {
+                var input = new Dictionary<string, string>
+                {
+                    {"Logging:LogLevel:Default", "Trace"},
+                    {"Logging:LogLevel:System", "Information"},
+                    {"Logging:LogLevel:Microsoft", "Information"},
+                };
+
+                IConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
+                //configurationBuilder.AddJsonFile("appsettings.json");
+                configurationBuilder.AddInMemoryCollection(input);
+                return configurationBuilder.Build();
+            });
+
+            ServiceProvider = services.BuildServiceProvider();
+
+            Configuration = ServiceProvider.GetService<IConfiguration>();
+
+            var folder = ApplicationData.Current.LocalFolder;
+            string fullPath = $"{folder.Path}\\Logs\\App.log";
+
+            ServiceProvider.GetService<ILoggerFactory>().AddFile(fullPath, LogLevel.Debug);
+            ServiceProvider.GetService<ILoggerFactory>().AddDebug((s, l) => true);
+
+        }
+
+        private ILogger Logger { get; } = App.ServiceProvider.GetService<ILogger<App>>();
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
-        {
+        {            
             this.InitializeComponent();
             SetupRequestedTheme();
             this.Suspending += OnSuspending;
+            this.UnhandledException += App_UnhandledException;
+        }
+
+        private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            var logger = App.ServiceProvider.GetService<ILogger<App>>();
+
+            logger?.LogCritical(new EventId(), e.Exception, "Unhandled exception crashed the app.");
         }
 
         /// <summary>
@@ -60,10 +116,19 @@ namespace Quarrel
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(400, 500));
-
+            if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
+            {
+                (Current.Resources["AcrylicMessageBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
+                (Current.Resources["AcrylicChannelPaneBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
+                (Current.Resources["AcrylicGuildPaneBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
+                (Current.Resources["AcrylicCommandBarBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
+                (Current.Resources["AcrylicSubFrameBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
+                (Current.Resources["AcrylicUserBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
+            }
             SetupTitleBar();
 
             // Do not repeat app initialization when the Window already has content,
@@ -84,6 +149,8 @@ namespace Quarrel
                 Window.Current.Content = rootFrame;
             }
 
+            DispatcherHelper.Initialize();
+
             if (e.PrelaunchActivated == false)
             {
                 if (rootFrame.Content == null)
@@ -96,7 +163,7 @@ namespace Quarrel
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
-            DispatcherHelper.Initialize();
+
         }
 
         /// <summary>
@@ -138,23 +205,37 @@ namespace Quarrel
                 StatusBar statusBar = StatusBar.GetForCurrentView();
                 if (statusBar != null)
                 {
-                    statusBar.BackgroundOpacity = 1;
-                    statusBar.BackgroundColor = ((SolidColorBrush)Current.Resources["AcrylicCommandBarBackground"]).Color;
-                    statusBar.ForegroundColor = ((SolidColorBrush)Current.Resources["MessageForeground"]).Color;
+                    try
+                    {
+                        statusBar.BackgroundOpacity = 1;
+                        statusBar.BackgroundColor = ((SolidColorBrush)Current.Resources["AcrylicCommandBarBackground"]).Color;
+                        statusBar.ForegroundColor = ((SolidColorBrush)Current.Resources["MessageForeground"]).Color;
+                    }
+                    catch (Exception ex) {
+                        Logger.LogError(new EventId(), ex, "Error caught accessing resources. (Group 1)");
+                    }
                 }
             }
 
-            view.TitleBar.ButtonForegroundColor = ((SolidColorBrush)Current.Resources["Foreground"]).Color;
-            view.TitleBar.ButtonHoverBackgroundColor = ((SolidColorBrush)Current.Resources["MidBG"]).Color;
-            view.TitleBar.ButtonHoverForegroundColor = ((SolidColorBrush)Current.Resources["Foreground"]).Color;
-            view.TitleBar.ButtonPressedBackgroundColor = ((SolidColorBrush)Current.Resources["LightBG"]).Color;
-            view.TitleBar.ButtonPressedForegroundColor = ((SolidColorBrush)Current.Resources["Foreground"]).Color;
-            view.TitleBar.ButtonInactiveForegroundColor = ((SolidColorBrush)Current.Resources["MidBG_hover"]).Color;
-            view.TitleBar.InactiveForegroundColor = ((SolidColorBrush)Current.Resources["MidBG_hover"]).Color;
+            try
+            {
+                view.TitleBar.ButtonForegroundColor = ((SolidColorBrush)Current.Resources["Foreground"]).Color;
+                view.TitleBar.ButtonHoverBackgroundColor = ((SolidColorBrush)Current.Resources["MidBG"]).Color;
+                view.TitleBar.ButtonHoverForegroundColor = ((SolidColorBrush)Current.Resources["Foreground"]).Color;
+                view.TitleBar.ButtonPressedBackgroundColor = ((SolidColorBrush)Current.Resources["LightBG"]).Color;
+                view.TitleBar.ButtonPressedForegroundColor = ((SolidColorBrush)Current.Resources["Foreground"]).Color;
+                view.TitleBar.ButtonInactiveForegroundColor = ((SolidColorBrush)Current.Resources["MidBG_hover"]).Color;
+                view.TitleBar.InactiveForegroundColor = ((SolidColorBrush)Current.Resources["MidBG_hover"]).Color;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(new EventId(), ex, "Error caught accessing resources (Group 2).");
+            }
         }
 
         public void SetupRequestedTheme()
         {
+
             switch (new SettingsService().Roaming.GetValue<Theme>(SettingKeys.Theme))
             {
                 case Theme.Dark:
@@ -163,7 +244,13 @@ namespace Quarrel
                 case Theme.Light:
                     Application.Current.RequestedTheme = ApplicationTheme.Light;
                     break;
+
+                default:
+                    Application.Current.RequestedTheme = ApplicationTheme.Dark;
+                    break;
             }
+
+            Logger.LogDebug($"Theme is: {Application.Current.RequestedTheme}");
         }
 
         #endregion

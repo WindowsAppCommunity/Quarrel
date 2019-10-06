@@ -31,9 +31,12 @@ namespace Quarrel.Services.Gateway
         private ICurrentUsersService CurrentUsersService;
         private IGuildsService GuildsService;
         public DiscordAPI.Gateway.Gateway Gateway { get; private set; }
-
-        public GatewayService(ICacheService cacheService, ICurrentUsersService currentUsersService, IGuildsService guildsService)
+        public IServiceProvider ServiceProvider { get; }
+        public GatewayService(
+            IServiceProvider serviceProvider,
+            ICacheService cacheService, ICurrentUsersService currentUsersService, IGuildsService guildsService)
         {
+            ServiceProvider = serviceProvider;
             CacheService = cacheService;
             CurrentUsersService = currentUsersService;
             GuildsService = guildsService;
@@ -47,8 +50,11 @@ namespace Quarrel.Services.Gateway
             GatewayConfig gatewayConfig = await gatewayService.GetGatewayConfig();
             IAuthenticator authenticator = new DiscordAuthenticator(accessToken);
 
-            Gateway = new DiscordAPI.Gateway.Gateway(gatewayConfig, authenticator);
+            Gateway = new DiscordAPI.Gateway.Gateway(
+                ServiceProvider,
+                gatewayConfig, authenticator);
 
+            Gateway.InvalidSession += Gateway_InvalidSession;
 
             Gateway.Ready += Gateway_Ready;
             Gateway.GuildMemberChunk += Gateway_GuildMemberChunk;
@@ -78,25 +84,35 @@ namespace Quarrel.Services.Gateway
 
             Gateway.SessionReplaced += Gateway_SessionReplaced;
 
-
-            await Gateway.ConnectAsync();
-
-            Messenger.Default.Register<GuildNavigateMessage>(this, async m =>
+            if(await ConnectWithRetryAsync(3))
             {
-                // TODO: Channel typing check
-                //var channelList = ServicesManager.Cache.Runtime.TryGetValue<List<Channel>>(Quarrel.Helpers.Constants.Cache.Keys.ChannelList, m.GuildId);
-                //var idList = channelList.ConvertAll(x => x.Id);
-
-                List<string> idList = new List<string>();
-
-                // Guild Sync
-                if (m.Guild.Model.Id != "DM")
+                Messenger.Default.Register<GuildNavigateMessage>(this, async m =>
                 {
-                    idList.Add(m.Guild.Model.Id);
-                }
+                    // TODO: Channel typing check
+                    //var channelList = ServicesManager.Cache.Runtime.TryGetValue<List<Channel>>(Quarrel.Helpers.Constants.Cache.Keys.ChannelList, m.GuildId);
+                    //var idList = channelList.ConvertAll(x => x.Id);
 
-                await Gateway.SubscribeToGuild(idList.ToArray());
-            });
+                    List<string> idList = new List<string>();
+
+                    // Guild Sync
+                    if (m.Guild.Model.Id != "DM")
+                    {
+                        idList.Add(m.Guild.Model.Id);
+                    }
+
+                    await Gateway.SubscribeToGuild(idList.ToArray());
+                });
+            }
+        }
+
+        public async Task<bool> ConnectWithRetryAsync(int retries)
+        {
+            for (int i = 0; i < retries; i++)
+            {
+                if (await Gateway.ConnectAsync()) return true;
+            }
+
+            return false;
         }
 
 
@@ -106,6 +122,11 @@ namespace Quarrel.Services.Gateway
         {
             e.EventData.Cache();
             Messenger.Default.Send(new GatewayReadyMessage(e.EventData));
+        }
+
+        private void Gateway_InvalidSession(object sender, GatewayEventArgs<InvalidSession> e)
+        {
+            Messenger.Default.Send(new GatewayInvalidSessionMessage(e.EventData));
         }
 
         #region Messages

@@ -13,6 +13,9 @@ using DiscordAPI.Gateway.DownstreamEvents;
 using DiscordAPI.Gateway.UpstreamEvents;
 using DiscordAPI.Models;
 using DiscordAPI.API;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Concurrent;
 
 namespace DiscordAPI.Gateway
 {
@@ -30,8 +33,8 @@ namespace DiscordAPI.Gateway
     {
         private delegate void GatewayEventHandler(SocketFrame gatewayEvent);
 
-        private IDictionary<int, GatewayEventHandler> operationHandlers;
-        private IDictionary<string, GatewayEventHandler> eventHandlers;
+        private IReadOnlyDictionary<int, GatewayEventHandler> operationHandlers;
+        private IReadOnlyDictionary<string, GatewayEventHandler> eventHandlers;
 
         private Ready lastReady;
         private int lastGatewayEventSeq;
@@ -39,6 +42,8 @@ namespace DiscordAPI.Gateway
         //private readonly IWebMessageSocket _webMessageSocket;
         private readonly IAuthenticator _authenticator;
         private readonly GatewayConfig _gatewayConfig;
+
+        public event EventHandler<GatewayEventArgs<InvalidSession>> InvalidSession;
 
         public event EventHandler<GatewayEventArgs<Ready>> Ready;
         public event EventHandler<GatewayEventArgs<Resumed>> Resumed;
@@ -93,8 +98,14 @@ namespace DiscordAPI.Gateway
         private DeflateStream _decompressor;
         public bool ConnectedSocket = false;
 
-        public Gateway(GatewayConfig config, IAuthenticator authenticator)
+        private ILogger Logger { get; }
+        private IServiceProvider ServiceProvider { get; }
+
+        public Gateway(IServiceProvider serviceProvider, GatewayConfig config, IAuthenticator authenticator)
         {
+            ServiceProvider = serviceProvider;
+            Logger = serviceProvider.GetService<ILogger<Gateway>>();
+
             CreateSocket();
             _compressed = new MemoryStream();
             if (UseCompression)
@@ -119,6 +130,8 @@ namespace DiscordAPI.Gateway
         }
         private void HandleClosed(Exception exception)
         {
+            Logger?.LogError(new EventId(), exception, "HandleClosed");
+
             ConnectedSocket = false;
             if (exception is WebSocketClosedException ex)
             {
@@ -134,6 +147,10 @@ namespace DiscordAPI.Gateway
         }
         private async Task BinaryMessage(byte[] bytes, int index1, int count)
         {
+            if(Logger?.IsEnabled(LogLevel.Trace) ?? false)
+            {
+                Logger?.LogTrace("Binary message received.");
+            }
 
             using (var ms = new MemoryStream(bytes))
             {
@@ -173,10 +190,26 @@ namespace DiscordAPI.Gateway
 
         private void HandleMessage(TextReader reader)
         {
+            if (Logger?.IsEnabled(LogLevel.Trace) ?? false)
+            {
+                Logger?.LogTrace("Handle Message.");
+            }
+
             using (JsonReader jsreader = new JsonTextReader(reader))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 SocketFrame frame = serializer.Deserialize<SocketFrame>(jsreader);
+
+                if (Logger?.IsEnabled(LogLevel.Trace) ?? false)
+                {
+                    Logger?.LogTrace($"Frame:" +
+                        $"\n\tOperation: {frame.Operation}" +
+                        $"\n\tSequenceNumber: {frame.SequenceNumber}" +
+                        $"\n\tType: {frame.Type}" +
+                        $"\n\tPayload: {frame.Payload}"
+                        );
+                }
+
                 if (frame.SequenceNumber.HasValue) lastGatewayEventSeq = frame.SequenceNumber.Value;
                 if (operationHandlers.ContainsKey(frame.Operation.GetValueOrDefault()))
                 {
@@ -188,16 +221,27 @@ namespace DiscordAPI.Gateway
                 }
             }
         }
-        public async Task ConnectAsync(string connectionUrl)
+        public async Task<bool> ConnectAsync(string connectionUrl)
         {
             try
             {
                 await _socket.ConnectAsync(connectionUrl);
-                ConnectedSocket = true;
+
+                if (Logger?.IsEnabled(LogLevel.Information) ?? false)
+                {
+                    Logger?.LogInformation("Connected.");
+                }
+
+                return ConnectedSocket = true;
             }
             catch
             {
-                ConnectedSocket = false;
+                if (Logger?.IsEnabled(LogLevel.Information) ?? false)
+                {
+                    Logger?.LogInformation("Connection Failed.");
+                }
+
+                return ConnectedSocket = false;
             }
         }
 
@@ -238,15 +282,16 @@ namespace DiscordAPI.Gateway
            // var serialzedObject = ;
            // await _webMessageSocket.SendJsonObjectAsync(frame);
         }
-        private IDictionary<int, GatewayEventHandler> GetOperationHandlers()
+        private IReadOnlyDictionary<int, GatewayEventHandler> GetOperationHandlers()
         {
             return new Dictionary<int, GatewayEventHandler>
             {
                 { OperationCode.Hello.ToInt(), OnHelloReceived },
+                { OperationCode.InvalidSession.ToInt(), OnInvalidSession }
             };
         }
 
-        private IDictionary<string, GatewayEventHandler> GetEventHandlers()
+        private IReadOnlyDictionary<string, GatewayEventHandler> GetEventHandlers()
         {
             return new Dictionary<string, GatewayEventHandler>
             {
@@ -295,7 +340,7 @@ namespace DiscordAPI.Gateway
         }*/
         public static bool UseCompression = true;
 
-        public async Task ConnectAsync()
+        public async Task<bool> ConnectAsync()
         {
             string append = "";
             if (UseCompression)
@@ -303,19 +348,22 @@ namespace DiscordAPI.Gateway
                 append = "&compress=zlib-stream";
             }
             
-            await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "6", append));
+            return await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "6", append));
         }
 
         // TODO: good chance the socket will be disposed when attempting to resume so yah
-        public async Task ResumeAsync()
+        public async Task<bool> ResumeAsync()
         {
             //Re-generate the socket
             CreateSocket();
+
             //Reconnect the socket
             TryResume = true;
-            await ConnectAsync();
+
+            return await ConnectAsync();
             //The actual Resume payload is sent when a connection has been established
         }
+
         public async void SendResumeRequest()
         {
             //Reconnect the socket
@@ -718,6 +766,13 @@ namespace DiscordAPI.Gateway
             //await _webMessageSocket.SendJsonObjectAsync(statusevent);
         }
 
-#endregion
+        private void OnInvalidSession(SocketFrame gatewayEvent)
+        {
+            ConnectedSocket = false;
+
+            FireEventOnDelegate(gatewayEvent, InvalidSession);
+        }
+
+        #endregion
     }
 }

@@ -14,7 +14,7 @@ namespace System.Collections.ObjectModel
         #region Variables
 
         private ICollection<KeyValuePair<TKey, TValue>> _collect;
-        private Dictionary<TKey, TValue> _dict;
+        private ConcurrentDictionary<TKey, TValue> _dict;
 
         #endregion
 
@@ -23,10 +23,10 @@ namespace System.Collections.ObjectModel
         public HashedCollection(ICollection<KeyValuePair<TKey, TValue>> collection)
         {
             _collect = collection;
-            _dict = new Dictionary<TKey, TValue>();
+            _dict = new ConcurrentDictionary<TKey, TValue>();
             foreach (KeyValuePair<TKey, TValue> item in collection)
             {
-                _dict.Add(item.Key, item.Value);
+                _dict.TryAdd(item.Key, item.Value);
             }
         }
 
@@ -45,9 +45,9 @@ namespace System.Collections.ObjectModel
             set => _dict[key] = value;
         }
 
-        public Dictionary<TKey, TValue>.KeyCollection Keys => new Dictionary<TKey, TValue>.KeyCollection(_dict);
+        public ICollection<TKey> Keys => _dict.Keys;
 
-        public Dictionary<TKey, TValue>.ValueCollection Values => new Dictionary<TKey, TValue>.ValueCollection(_dict);
+        public ICollection<TValue> Values => _dict.Values;
 
         #endregion
 
@@ -56,14 +56,14 @@ namespace System.Collections.ObjectModel
         public void Add(TKey key, TValue value)
         {
             _collect.Add(new KeyValuePair<TKey, TValue>(key, value));
-            _dict.Add(key, value);
+            _dict.TryAdd(key, value);
         }
 
         public bool TryAdd(TKey key, TValue value)
         {
             try
             {
-                _dict.Add(key, value);
+                _dict.TryAdd(key, value);
             }
             catch
             {
@@ -100,7 +100,7 @@ namespace System.Collections.ObjectModel
         {
             if (_collect is IList<KeyValuePair<TKey, TValue>> list)
             {
-                _dict.Add(item.Key, item.Value);
+                _dict.TryAdd(item.Key, item.Value);
                 list.Insert(position, item);
                 return true;
             }
@@ -125,7 +125,7 @@ namespace System.Collections.ObjectModel
 
         public bool ContainsValue(TValue value)
         {
-            return _dict.ContainsValue(value);
+            return _dict.Values.Any(v => v.Equals(value));
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int index)
@@ -151,7 +151,7 @@ namespace System.Collections.ObjectModel
         public bool Remove(KeyValuePair<TKey, TValue> item)
         {
             _collect.Remove(item);
-            return _dict.Remove(item.Key);
+            return _dict.TryRemove(item.Key, out TValue _);
         }
 
         public bool TryGetValue(TKey key, out TValue value)

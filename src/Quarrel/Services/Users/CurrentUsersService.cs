@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -15,6 +16,7 @@ using Quarrel.Messages.Navigation;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Models.Bindables;
 using Quarrel.Services.Cache;
+using Quarrel.ViewModels.Services;
 
 namespace Quarrel.Services.Users
 {
@@ -23,12 +25,18 @@ namespace Quarrel.Services.Users
     {
         public ICacheService CacheService;
 
-        public Dictionary<string, BindableGuildMember> Users { get; } = new Dictionary<string, BindableGuildMember>();
+        public ConcurrentDictionary<string, BindableGuildMember> Users { get; } = 
+            new ConcurrentDictionary<string, BindableGuildMember>();
 
-        public Dictionary<string, BindableGuildMember> DMUsers { get; } = new Dictionary<string, BindableGuildMember>();
+        public ConcurrentDictionary<string, BindableGuildMember> DMUsers { get; } = 
+            new ConcurrentDictionary<string, BindableGuildMember>();
 
         public BindableUser CurrentUser { get; } = new BindableUser(new User());
-        public BindableGuildMember CurrentGuildMember => Users.ContainsKey(CurrentUser.Model.Id) ? Users[CurrentUser.Model.Id] : null;
+
+        public BindableGuildMember CurrentGuildMember => 
+            Users.TryGetValue(CurrentUser.Model.Id, out var member) ? member : null;
+        
+
         public string SessionId { get; set; }
 
         public CurrentUsersService(ICacheService cacheService)
@@ -38,6 +46,7 @@ namespace Quarrel.Services.Users
             {
                 // Show members
                 Users.Clear();
+                List<BindableGuildMember> UsersList = new List<BindableGuildMember>();
                 foreach (var member in m.Members)
                 {
                     BindableGuildMember bGuildMember = new BindableGuildMember(member)
@@ -45,9 +54,10 @@ namespace Quarrel.Services.Users
                         GuildId = m.GuildId,
                         Presence = Messenger.Default.Request<PresenceRequestMessage, Presence>(new PresenceRequestMessage(member.User.Id))
                     };
-                    Users.Add(member.User.Id, bGuildMember);
+                    Users.TryAdd(member.User.Id, bGuildMember);
+                    UsersList.Add(bGuildMember);
                 }
-                Messenger.Default.Send("UsersSynced");
+                Messenger.Default.Send(new GuildMembersSyncedMessage(UsersList));
             });
             Messenger.Default.Register<GatewayReadyMessage>(this, async m =>
             {
@@ -62,10 +72,10 @@ namespace Quarrel.Services.Users
                         Roles = null,
                         Status = m.EventData.Settings.Status
                     };
-                    DMUsers.Add(CurrentUser.Model.Id, new BindableGuildMember(new GuildMember() { User = CurrentUser.Model }) { Presence = CurrentUser.Presence, GuildId = "DM" });
+                    DMUsers.TryAdd(CurrentUser.Model.Id, new BindableGuildMember(new GuildMember() { User = CurrentUser.Model }) { Presence = CurrentUser.Presence, GuildId = "DM" });
                     foreach (var presence in m.EventData.Presences)
                     {
-                        DMUsers.Add(presence.User.Id, new BindableGuildMember(new GuildMember() { User = presence.User }) { Presence = presence, GuildId = "DM" });
+                        DMUsers.TryAdd(presence.User.Id, new BindableGuildMember(new GuildMember() { User = presence.User }) { Presence = presence, GuildId = "DM" });
                     }
                 });
             });
@@ -102,7 +112,7 @@ namespace Quarrel.Services.Users
 
                         CurrentUser.Presence = newPresence;
 
-                        Users.TryGetValue(CurrentUser.Model.Id, out BindableGuildMember member);
+                        Users.TryGetValue(CurrentUser.Model.Id, out var member);
                         if (member != null)
                         {
                             member.Presence = newPresence;

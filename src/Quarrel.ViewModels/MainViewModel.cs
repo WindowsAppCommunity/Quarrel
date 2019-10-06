@@ -23,6 +23,8 @@ using Quarrel.Services.Users;
 using Quarrel.Navigation;
 using Quarrel.Services.Settings;
 using Quarrel.ViewModels.Services.DispatcherHelper;
+using System.Collections.Concurrent;
+using Quarrel.ViewModels.Services;
 
 namespace Quarrel.ViewModels
 {
@@ -53,6 +55,11 @@ namespace Quarrel.ViewModels
 
         private void RegisterMessages()
         {
+            MessengerInstance.Register<GatewayInvalidSessionMessage>(this, async _ =>
+            {
+                await CacheService.Persistent.Roaming.DeleteValueAsync(Quarrel.Helpers.Constants.Cache.Keys.AccessToken);
+                Login();
+            });
             MessengerInstance.Register<GatewayReadyMessage>(this, async _ =>
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() =>
@@ -191,8 +198,11 @@ namespace Quarrel.ViewModels
                 if (Channel != null && Channel.Model.Id == m.Message.ChannelId)
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
-                        GuildsService.CurrentChannels[m.Message.ChannelId].Typers.Remove(m.Message.User.Id);
-                        BindableMessages.Add(new BindableMessage(m.Message, guildId, BindableMessages.LastOrDefault()?.Model));
+                        if (GuildsService.CurrentChannels.TryGetValue(m.Message.ChannelId, out var currentChannel))
+                        {
+                            currentChannel.Typers.TryRemove(m.Message.User.Id, out var _);
+                            BindableMessages.Add(new BindableMessage(m.Message, guildId, BindableMessages.LastOrDefault()?.Model));
+                        }
                     });
             });
             MessengerInstance.Register<GatewayMessageDeletedMessage>(this, async m =>
@@ -287,15 +297,18 @@ namespace Quarrel.ViewModels
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() => 
                 {
-                    var bChannel = GuildsService.CurrentChannels[m.TypingStart.ChannelId];
-                    if (!bChannel.Typers.ContainsKey(m.TypingStart.UserId))
+                    if (GuildsService.CurrentChannels.TryGetValue(m.TypingStart.ChannelId, out var bChannel))
                     {
-                        Timer timer = new Timer ((s) =>
+                        if (bChannel.Typers.TryRemove(m.TypingStart.UserId, out var oldTimer))
                         {
-                            if (bChannel.Typers.ContainsKey(m.TypingStart.UserId))
+                            oldTimer.Dispose();
+                        }
+                            
+                        Timer timer = new Timer((s) =>
+                        {
+                            if (bChannel.Typers.TryRemove(m.TypingStart.UserId, out var oldUser))
                             {
-                                bChannel.Typers[m.TypingStart.UserId]?.Dispose();
-                                bChannel.Typers.Remove(m.TypingStart.UserId);
+                                oldUser.Dispose();
                             }
 
                             DispatcherHelper.CheckBeginInvokeOnUi(() =>
@@ -303,16 +316,16 @@ namespace Quarrel.ViewModels
                                 bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
                                 bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
                             });
-                        } , null, 0, 8 * 1000);
+                        }, null, 0, 8 * 1000);
 
-                        bChannel.Typers.Add(m.TypingStart.UserId, timer);
+                        bChannel.Typers.TryAdd(m.TypingStart.UserId, timer);
+                        
+                        DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                        {
+                            bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
+                            bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
+                        });
                     }
-                    bChannel.Typers[m.TypingStart.UserId].Change(0, 8 * 1000);
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
-                        bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
-                    });
                 });
             });
             MessengerInstance.Register<string>(this, async m =>
@@ -322,18 +335,18 @@ namespace Quarrel.ViewModels
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         // Show guilds
-                        BindableGuilds.AddRange(GuildsService.Guilds.Values);
+                        BindableGuilds.AddRange(GuildsService.Guilds.Values.OrderBy(x => x.Position));
                     });
                 }
-                else if (m == "UsersSynced")
+            });
+            MessengerInstance.Register<GuildMembersSyncedMessage>(this, m =>
+            {
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        // Show guilds
-                        BindableMembers.Clear();
-                        BindableMembers.AddElementRange(CurrentUsersService.Users.Values);
-                    });
-                }
+                    // Show guilds
+                    BindableMembers.Clear();
+                    BindableMembers.AddElementRange(m.Members);
+                });
             });
             MessengerInstance.Register<GatewayPresenceUpdatedMessage>(this, m =>
             {
@@ -343,7 +356,7 @@ namespace Quarrel.ViewModels
                 }
                 else
                 {
-                    _PresenceDictionary.Add(m.UserId, m.Presence);
+                    _PresenceDictionary.TryAdd(m.UserId, m.Presence);
                 }
             });
             MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, async m =>
@@ -359,7 +372,7 @@ namespace Quarrel.ViewModels
                 DispatcherHelper.CheckBeginInvokeOnUi(() => m.ReportResult(VoiceState));
             });
 
-            MessengerInstance.Register<PresenceRequestMessage>(this, m => m.ReportResult(_PresenceDictionary.ContainsKey(m.UserId) ? _PresenceDictionary[m.UserId] : new Presence() { Status = "offline" }));
+            MessengerInstance.Register<PresenceRequestMessage>(this, m => m.ReportResult(_PresenceDictionary.TryGetValue(m.UserId, out var value) ? value : new Presence() { Status = "offline" }));
             MessengerInstance.Register<CurrentGuildRequestMessage>(this, m => m.ReportResult(Guild));
         }
 
@@ -376,7 +389,7 @@ namespace Quarrel.ViewModels
             }
         }
 
-        Dictionary<string, Presence> _PresenceDictionary = new Dictionary<string, Presence>();
+        ConcurrentDictionary<string, Presence> _PresenceDictionary = new ConcurrentDictionary<string, Presence>();
 
 
         public event EventHandler<BindableMessage> ScrollTo;

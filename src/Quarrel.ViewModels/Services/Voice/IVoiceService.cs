@@ -19,6 +19,6 @@ namespace Quarrel.Services.Voice
 
         IAudioOutService AudioOutService { get; }
 
-        Dictionary<string, VoiceState> VoiceStates { get; }
+        IDictionary<string, VoiceState> VoiceStates { get; }
     }
 }

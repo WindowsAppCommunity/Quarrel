@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace Quarrel.Services.Users
 {
     public interface ICurrentUsersService
     {
-        Dictionary<string, BindableGuildMember> Users { get; }
-        Dictionary<string, BindableGuildMember> DMUsers { get; }
+        ConcurrentDictionary<string, BindableGuildMember> Users { get; }
+        ConcurrentDictionary<string, BindableGuildMember> DMUsers { get; }
 
         BindableUser CurrentUser { get; }
 
