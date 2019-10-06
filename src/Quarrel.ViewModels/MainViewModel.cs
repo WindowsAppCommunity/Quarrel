@@ -24,6 +24,7 @@ using Quarrel.Navigation;
 using Quarrel.Services.Settings;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using System.Collections.Concurrent;
+using Quarrel.ViewModels.Services;
 
 namespace Quarrel.ViewModels
 {
@@ -334,18 +335,18 @@ namespace Quarrel.ViewModels
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         // Show guilds
-                        BindableGuilds.AddRange(GuildsService.Guilds.Values);
+                        BindableGuilds.AddRange(GuildsService.Guilds.Values.OrderBy(x => x.Position));
                     });
                 }
-                else if (m == "UsersSynced")
+            });
+            MessengerInstance.Register<GuildMembersSyncedMessage>(this, m =>
+            {
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        // Show guilds
-                        BindableMembers.Clear();
-                        BindableMembers.AddElementRange(CurrentUsersService.Users.Values);
-                    });
-                }
+                    // Show guilds
+                    BindableMembers.Clear();
+                    BindableMembers.AddElementRange(m.Members);
+                });
             });
             MessengerInstance.Register<GatewayPresenceUpdatedMessage>(this, m =>
             {

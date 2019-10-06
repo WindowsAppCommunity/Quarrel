@@ -16,6 +16,7 @@ using Quarrel.Messages.Navigation;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Models.Bindables;
 using Quarrel.Services.Cache;
+using Quarrel.ViewModels.Services;
 
 namespace Quarrel.Services.Users
 {
@@ -45,6 +46,7 @@ namespace Quarrel.Services.Users
             {
                 // Show members
                 Users.Clear();
+                List<BindableGuildMember> UsersList = new List<BindableGuildMember>();
                 foreach (var member in m.Members)
                 {
                     BindableGuildMember bGuildMember = new BindableGuildMember(member)
@@ -53,8 +55,9 @@ namespace Quarrel.Services.Users
                         Presence = Messenger.Default.Request<PresenceRequestMessage, Presence>(new PresenceRequestMessage(member.User.Id))
                     };
                     Users.TryAdd(member.User.Id, bGuildMember);
+                    UsersList.Add(bGuildMember);
                 }
-                Messenger.Default.Send("UsersSynced");
+                Messenger.Default.Send(new GuildMembersSyncedMessage(UsersList));
             });
             Messenger.Default.Register<GatewayReadyMessage>(this, async m =>
             {

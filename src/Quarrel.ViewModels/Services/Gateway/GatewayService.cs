@@ -105,11 +105,14 @@ namespace Quarrel.Services.Gateway
             }
         }
 
-        public async Task<bool> ConnectWithRetryAsync(int retriesLeft)
+        public async Task<bool> ConnectWithRetryAsync(int retries)
         {
-            if (await Gateway.ConnectAsync()) return true;
-            else if (retriesLeft > 0) { return await ConnectWithRetryAsync(--retriesLeft); }
-            else return false;
+            for (int i = 0; i < retries; i++)
+            {
+                if (await Gateway.ConnectAsync()) return true;
+            }
+
+            return false;
         }
 
 

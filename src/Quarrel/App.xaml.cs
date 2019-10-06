@@ -120,7 +120,15 @@ namespace Quarrel
             Frame rootFrame = Window.Current.Content as Frame;
 
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(400, 500));
-
+            if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
+            {
+                (Current.Resources["AcrylicMessageBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
+                (Current.Resources["AcrylicChannelPaneBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
+                (Current.Resources["AcrylicGuildPaneBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
+                (Current.Resources["AcrylicCommandBarBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
+                (Current.Resources["AcrylicSubFrameBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
+                (Current.Resources["AcrylicUserBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
+            }
             SetupTitleBar();
 
             // Do not repeat app initialization when the Window already has content,
@@ -183,7 +191,6 @@ namespace Quarrel
         }
 
         #region Window Setup
-        private bool _lightOnly = false;
 
         public void SetupTitleBar()
         {
@@ -206,7 +213,6 @@ namespace Quarrel
                     }
                     catch (Exception ex) {
                         Logger.LogError(new EventId(), ex, "Error caught accessing resources. (Group 1)");
-                        _lightOnly = true;
                     }
                 }
             }
@@ -224,39 +230,24 @@ namespace Quarrel
             catch (Exception ex)
             {
                 Logger.LogError(new EventId(), ex, "Error caught accessing resources (Group 2).");
-                _lightOnly = true;
             }
         }
 
         public void SetupRequestedTheme()
         {
-            try
-            {
-                Application.Current.RequestedTheme = ApplicationTheme.Dark;
-                var _ = Current.Resources["AcrylicCommandBarBackground"];
-            }
-            catch
-            {
-                Application.Current.RequestedTheme = ApplicationTheme.Light;
-                _lightOnly = true;
-            }
 
-
-            if (!_lightOnly)
+            switch (new SettingsService().Roaming.GetValue<Theme>(SettingKeys.Theme))
             {
-                switch (new SettingsService().Roaming.GetValue<Theme>(SettingKeys.Theme))
-                {
-                    case Theme.Dark:
-                        Application.Current.RequestedTheme = ApplicationTheme.Dark;
-                        break;
-                    case Theme.Light:
-                        Application.Current.RequestedTheme = ApplicationTheme.Light;
-                        break;
+                case Theme.Dark:
+                    Application.Current.RequestedTheme = ApplicationTheme.Dark;
+                    break;
+                case Theme.Light:
+                    Application.Current.RequestedTheme = ApplicationTheme.Light;
+                    break;
 
-                    default:
-                        Application.Current.RequestedTheme = ApplicationTheme.Dark;
-                        break;
-                }
+                default:
+                    Application.Current.RequestedTheme = ApplicationTheme.Dark;
+                    break;
             }
 
             Logger.LogDebug($"Theme is: {Application.Current.RequestedTheme}");
