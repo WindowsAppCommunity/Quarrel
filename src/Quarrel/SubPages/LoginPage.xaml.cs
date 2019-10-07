@@ -22,6 +22,10 @@ using Quarrel.Navigation;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Rest;
 using Quarrel.SubPages.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
+
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -31,6 +35,8 @@ namespace Quarrel.SubPages
     {
         private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         private ISubFrameNavigationService subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+        private ILogger Logger => App.ServiceProvider.GetService<ILogger<LoginPage>>();
+
 
         public LoginPage()
         {
@@ -69,33 +75,129 @@ namespace Quarrel.SubPages
 
         private async void ScriptNotify(object sender, NotifyEventArgs e)
         {
-            if (e.CallingUri.AbsolutePath == "/app")
+            Logger.LogInformation("ScriptNotify" +
+                $"\n\tsender: {sender}" +
+                $"\n\te.CallingUri: {e.CallingUri}" +
+                $"\n\te.Value: {e.Value}");
+
+            if(e.Value.StartsWith("token:"))
             {
-                //Discord doesn't allow access to localStorage so create an iframe to bypass this.
-                string token = await CaptchaView.InvokeScriptAsync("eval", new[] { @"
-                    var iframe = document.createElement('iframe');
-                    document.head.append(iframe);
-                    iframe.contentWindow.localStorage.getItem('token');"
-                });
+                var token = e.Value.Substring(e.Value.IndexOf(":") + 1).Trim('"');
+
+                Logger.LogInformation($"GetTokenAndLogin - token: [{token}]");
+
                 if (!string.IsNullOrEmpty(token))
                 {
-                    discordService.Login(token.Trim('"'));
+                    Logger.LogInformation($"GetTokenAndLogin - Logging in.");
+                    discordService.Login(token);
                     subFrameNavigationService.GoBack();
                 }
+
+                return;
             }
-            // Respond to the script notification.
+
+            if (e.CallingUri.AbsolutePath == "/app")
+                GetTokenAndLogin(true);
         }
+
         public bool Hideable { get; } = false;
 
-        private void CaptchaView_OnNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        private void GetTokenAndLogin(bool notify)
         {
-            _ = sender.InvokeScriptAsync("eval", new[] { @"
-                    var pushState = history.pushState;
-                    history.pushState = function () {
-                        pushState.apply(history, arguments);
-	                    window.external.notify('');
-                    };
-            " });
+            Task<string> task = null;
+
+            Logger.LogInformation($"GetTokenAndLogin - Injecting JavaScript to extract token.");
+
+            // Respond to the script notification.
+            try
+            {
+                var js = $"\nvar notify = {notify};\n{GetTokenFunction}";
+
+                task = CaptchaView.InvokeScriptAsync("eval", new[] { js })
+                    .AsTask<string>();
+
+                var awaiter = task.GetAwaiter();
+
+                awaiter.OnCompleted(() =>
+                {
+                    var token = awaiter.GetResult();
+                    ProcessLogin(token);
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(new EventId(), ex, $"GetTokenAndLogin - Error" +
+                    $"\n\ttask.Result: {task?.Result}" +
+                    $"\n\ttask.Status: {task?.Status}");
+            }
+        }
+
+        private string GetTokenFunction => @"    
+    var result = '';
+
+    try {
+        var iframe = document.createElement('iframe');
+        document.head.append(iframe);
+
+        result =iframe.contentWindow.localStorage.getItem('token');
+
+        if(notify) window.external.notify('token:' + result);
+    
+        result;
+    } catch (ex) {
+        window.external.notify(ex); 
+    }
+";
+
+        private async void CaptchaView_OnNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            Logger.LogInformation($"CaptchaView_OnNavigationCompleted" +
+                $"\n\targs.Uri: {args.Uri}" +
+                $"\n\targs.IsSuccess: {args.IsSuccess}" +
+                $"\n\targs.WebErrorStatus: { args.WebErrorStatus}");
+
+            if (args.Uri.AbsolutePath != "/app")
+            {
+                var script = new[] { $@"
+try {{
+    var pushState = history.pushState;  
+    if(!pushState) {{ window.external.notify('pushState is undefined'); }}
+
+    history.pushState = function () {{
+        pushState.apply(history, arguments);	
+        window.external.notify('pushState called.'); 
+    }}
+
+    'Injected to: {args.Uri}'
+}} catch(e) {{ 
+    window.external.notify(e); 
+
+    e.toString();
+}}
+                " };
+                            
+                Logger.LogInformation($"CaptchaView_OnNavigationCompleted result: {await sender.InvokeScriptAsync("eval", script)}");
+
+                return;
+            }
+            else
+            {
+                GetTokenAndLogin(false);
+            }
+        }
+
+        private void ProcessLogin(string token)
+        {
+            Logger.LogInformation($"GetTokenAndLogin - token: [{token}]");
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                Logger.LogInformation($"GetTokenAndLogin - Logging in.");
+                discordService.Login(token);
+                subFrameNavigationService.GoBack();
+            }
+
+            return;
         }
     }
 }
