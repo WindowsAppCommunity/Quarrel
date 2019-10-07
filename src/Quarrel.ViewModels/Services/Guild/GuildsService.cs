@@ -63,6 +63,7 @@ namespace Quarrel.Services.Guild
 
                     // Add DM
                     var dmGuild = new BindableGuild(new DiscordAPI.Models.Guild() { Name = "DM", Id = "DM" });
+                    dmGuild.Position = -1;
                     guildList.Add(dmGuild);
 
                     // Add DM channels
@@ -152,7 +153,6 @@ namespace Quarrel.Services.Guild
                         guildList.Add(bGuild);
                     }
 
-                    guildList = guildList.OrderBy(x => x.Position).ToList();
                     #endregion
 
                     foreach (var guild in guildList)

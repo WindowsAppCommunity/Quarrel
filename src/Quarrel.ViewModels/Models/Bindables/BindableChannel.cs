@@ -445,11 +445,9 @@ namespace Quarrel.Models.Bindables
 
             foreach (var id in keys)
             {
-                var typer = _CurrentUsersService.Users.TryGetValue(id, out var user) ? user.DisplayName : null;
-
-                if (typer != null)
+                if (_CurrentUsersService.Users.TryGetValue(id, out var user))
                 {
-                    names.Add(typer);
+                    names.Add(user.DisplayName);
                 }
             }
 

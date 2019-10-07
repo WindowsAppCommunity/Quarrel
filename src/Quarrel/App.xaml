@@ -7,69 +7,81 @@
     xmlns:rykenUI="using:Ryken.UI"
     xmlns:viewModels="using:Quarrel.ViewModels"
     xmlns:Windows10FallCreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
-    xmlns:Windows10CreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 4)">
+    xmlns:Windows10CreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 4)"
+    xmlns:media="using:Microsoft.UI.Xaml.Media">
     <Application.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <rykenUI:RykenLibraryStyles />
+                <ResourceDictionary Source="Resources/Brushes.xaml"/>
+                <ResourceDictionary Source="Resources/FontIcons.xaml"/>
+                <ResourceDictionary Source="Resources/MiscResources.xaml"/>
+                <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="Styles/ListViewItemStyles.xaml"/>
+                <ResourceDictionary Source="Styles/MiscStyles.xaml"/>
+                <ResourceDictionary Source="Styles/TextBoxStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
-                <!--<Windows10FallCreatorsUpdate:ResourceDictionary x:Key="Light">
+                <ResourceDictionary x:Key="Light">
                     <SolidColorBrush x:Key="Foreground" Color="Black"/>
                     <SolidColorBrush x:Key="Background" Color="#FFE5E5E5"/>
 
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicMessageBackground"
+                    <media:AcrylicBrush x:Key="AcrylicMessageBackground"
                                   BackgroundSource="HostBackdrop"
                                   TintColor="#FFFFFFFF"
                                   TintOpacity="0.8"
                                   FallbackColor="#FFFFFFFF"/>
 
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicChannelPaneBackground"
+                    <media:AcrylicBrush x:Key="AcrylicChannelPaneBackground"
                                   BackgroundSource="HostBackdrop"
                                   TintColor="#FFE8E8ED"
                                   TintOpacity="0.8"
                                   FallbackColor="#FFE8E8ED"/>
 
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicGuildPaneBackground"
+                    <media:AcrylicBrush x:Key="AcrylicGuildPaneBackground"
                                   BackgroundSource="HostBackdrop"
                                   TintColor="#FFE0E0E5"
                                   TintOpacity="0.6"
                                   FallbackColor="#FFE0E0E5"/>
 
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicCommandBarBackground"
+                    <media:AcrylicBrush x:Key="AcrylicCommandBarBackground"
                                   BackgroundSource="HostBackdrop"
                                   TintColor="#FFE0E0E5"
                                   TintOpacity="0.7"
                                   FallbackColor="#FFE0E0E5"/>
 
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicSubFrameBackground"
+                    <media:AcrylicBrush x:Key="AcrylicSubFrameBackground"
                                   BackgroundSource="Backdrop"
                                   TintColor="#FFD0D0D0"
                                   TintOpacity="0.7"
                                   FallbackColor="#FFD0D0D0"/>
 
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicFlyoutBackground"
+                    <media:AcrylicBrush x:Key="AcrylicFlyoutBackground"
                                   BackgroundSource="Backdrop"
                                   TintColor="#DDFFFFFF"
                                   TintOpacity="0.8"
                                   FallbackColor="#DDFFFFFF"/>
 
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicUserBackground"
+                    <media:AcrylicBrush x:Key="AcrylicUserBackground"
                                   BackgroundSource="Backdrop"
                                   TintColor="#FFF2F2F3"
                                   TintOpacity="0.85"
                                   FallbackColor="#FFF2F2F3"/>
 
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicUserBackgroundDarker"
+                    <media:AcrylicBrush x:Key="AcrylicUserBackgroundDarker"
                                   BackgroundSource="Backdrop"
                                   TintColor="#FFE0E0E5"
                                   TintOpacity="0.3"
                                   FallbackColor="#FFE0E0E5"/>
 
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicButtonBackground"
+                    <media:AcrylicBrush x:Key="AcrylicButtonBackground"
                                   BackgroundSource="Backdrop"
                                   TintColor="#DDFFFFFF"
                                   TintOpacity="0.4"
                                   FallbackColor="#DDFFFFFF"/>
 
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="SubFrameHostBackgroundBrush"
+                    <media:AcrylicBrush x:Key="SubFrameHostBackgroundBrush"
                                   BackgroundSource="Backdrop"
                                   TintColor="#A0FFFFFF"
                                   TintOpacity="0.7"
@@ -82,8 +94,8 @@
                     <SolidColorBrush x:Key="DarkBG" Color="#e1e3e5"/>
                     <SolidColorBrush x:Key="LinkColor" Color="#0096cf"/>
                     <SolidColorBrush x:Key="InvertedBG" Color="#161b2b"/>
-                </Windows10FallCreatorsUpdate:ResourceDictionary>-->
-                <ResourceDictionary x:Key="Light">
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="LightOpaque">
                     <SolidColorBrush x:Key="Foreground" Color="Black"/>
                     <SolidColorBrush x:Key="Background" Color="#FFE5E5E5"/>
 
@@ -128,71 +140,62 @@
                 <ResourceDictionary x:Key="Dark">
                     <SolidColorBrush x:Key="Foreground" Color="White"/>
                     <SolidColorBrush x:Key="Background" Color="#1B1B1B"/>
-                    
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicMessageBackground"
+                    <media:AcrylicBrush x:Key="AcrylicMessageBackground"
                                   BackgroundSource="HostBackdrop"
                                   TintColor="#FF33353b"
                                   TintOpacity="0.8"
-                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FF33353b"/>
-                    
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicChannelPaneBackground"
+
+                    <media:AcrylicBrush x:Key="AcrylicChannelPaneBackground"
                                   BackgroundSource="HostBackdrop"
                                   TintColor="#FF2a2c31"
                                   TintOpacity="0.8"
-                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FF2F3136"/>
-                    
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicGuildPaneBackground"
+
+                    <media:AcrylicBrush x:Key="AcrylicGuildPaneBackground"
                                   BackgroundSource="HostBackdrop"
                                   TintColor="#FF1E2124"
                                   TintOpacity="0.6"
-                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FF1E2124"/>
-                    
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicCommandBarBackground"
+
+                    <media:AcrylicBrush x:Key="AcrylicCommandBarBackground"
                                   BackgroundSource="HostBackdrop"
                                   TintColor="#FF1E2124"
                                   TintOpacity="0.7"
-                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FF1E2124"/>
 
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicSubFrameBackground"
+                    <media:AcrylicBrush x:Key="AcrylicSubFrameBackground"
                                   BackgroundSource="Backdrop"
                                   TintColor="#FF1E2124"
                                   TintOpacity="0.7"
-                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FF1E2124"/>
-                    
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicFlyoutBackground"
+
+                    <media:AcrylicBrush x:Key="AcrylicFlyoutBackground"
                                   BackgroundSource="Backdrop"
                                   TintColor="#DD000000"
                                   TintOpacity="0.8"
-                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#DD000000"/>
-                    
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicUserBackground"
+
+                    <media:AcrylicBrush x:Key="AcrylicUserBackground"
                                   BackgroundSource="Backdrop"
                                   TintColor="#FF303238"
                                   TintOpacity="0.85"
-                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#FF303238"/>
 
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicUserBackgroundDarker"
+                    <media:AcrylicBrush x:Key="AcrylicUserBackgroundDarker"
                                   BackgroundSource="Backdrop"
                                   TintColor="#FF1E2124"
                                   TintOpacity="0.3"
                                   FallbackColor="#FF1E2124"/>
-                  
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="AcrylicButtonBackground"
+
+                    <media:AcrylicBrush x:Key="AcrylicButtonBackground"
                                   BackgroundSource="Backdrop"
                                   TintColor="#DD000000"
                                   TintOpacity="0.4"
-                                  Windows10version1903:TintLuminosityOpacity="0.95"
                                   FallbackColor="#DD000000"/>
 
                     <!--Sub frame background-->
-                    <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="SubFrameHostBackgroundBrush"
+                    <media:AcrylicBrush x:Key="SubFrameHostBackgroundBrush"
                                   BackgroundSource="Backdrop"
                                   TintColor="#A0000000"
                                   TintOpacity="0.7"
@@ -468,16 +471,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <ResourceDictionary.MergedDictionaries>
-                <rykenUI:RykenLibraryStyles />
-                <ResourceDictionary Source="Resources/Brushes.xaml"/>
-                <ResourceDictionary Source="Resources/FontIcons.xaml"/>
-                <ResourceDictionary Source="Resources/MiscResources.xaml"/>
-                <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
-                <ResourceDictionary Source="Styles/ListViewItemStyles.xaml"/>
-                <ResourceDictionary Source="Styles/MiscStyles.xaml"/>
-                <ResourceDictionary Source="Styles/TextBoxStyles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
