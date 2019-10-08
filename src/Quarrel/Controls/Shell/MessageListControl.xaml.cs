@@ -34,7 +34,7 @@ namespace Quarrel.Views
                 _ItemsStackPanel.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepLastItemInView;
             });
         }
-        public MainViewModel ViewModel => (Application.Current.Resources["ViewModelLocator"] as ViewModelLocator).Main;
+        public MainViewModel ViewModel => App.ViewModelLocator.Main;
 
         private ItemsStackPanel _ItemsStackPanel;
         private ScrollViewer _MessageScrollViewer;

@@ -12,6 +12,7 @@ using Windows.Storage.Streams;
 using Windows.Web.Http;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using System.Collections.Concurrent;
 
 namespace Quarrel.Services.Cache.Persistent
 {
@@ -101,7 +102,7 @@ namespace Quarrel.Services.Cache.Persistent
             /// The dictionary with the cached items
             /// </summary>
             [NotNull]
-            private readonly Dictionary<string, object> CacheMap = new Dictionary<string, object>();
+            private readonly ConcurrentDictionary<string, object> CacheMap = new ConcurrentDictionary<string, object>();
 
             /// <summary>
             /// The target folder to use to store and retrieve the cached values
@@ -204,7 +205,7 @@ namespace Quarrel.Services.Cache.Persistent
                     if (await CacheFolder.TryGetItemAsync(filename) is StorageFile file)
                     {
                         await file.DeleteAsync();
-                        CacheMap.Remove(hex);
+                        CacheMap.TryRemove(hex, out var _);
                     }
                 }
                 finally
@@ -223,7 +224,7 @@ namespace Quarrel.Services.Cache.Persistent
                     await Task.WhenAll(files.Where(file => file.DisplayName.StartsWith($"{scope}_")).Select(file =>
                     {
                         string hex = Regex.Match(file.DisplayName, $"{scope}_([0-9A-F]+)$").Groups[1].Value;
-                        if (CacheMap.ContainsKey(hex)) CacheMap.Remove(hex);
+                        if (CacheMap.ContainsKey(hex)) CacheMap.TryRemove(hex, out var _);
                         return file.DeleteAsync().AsTask();
                     }));
                 }

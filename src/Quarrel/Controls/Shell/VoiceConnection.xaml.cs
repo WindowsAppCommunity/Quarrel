@@ -28,7 +28,7 @@ namespace Quarrel.Controls.Shell
 {
     public sealed partial class VoiceConnection : UserControl
     {
-        public MainViewModel ViewModel => (Application.Current.Resources["ViewModelLocator"] as ViewModelLocator).Main;
+        public MainViewModel ViewModel => App.ViewModelLocator.Main;
 
         public VoiceConnection()
         {

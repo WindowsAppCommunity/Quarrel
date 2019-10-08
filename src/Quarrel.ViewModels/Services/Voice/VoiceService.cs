@@ -16,6 +16,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Messages.Voice;
 using Quarrel.Models.Bindables;
 using Quarrel.Services.Rest;
+using System.Collections.Concurrent;
 
 namespace Quarrel.Services.Voice
 {
@@ -35,7 +36,7 @@ namespace Quarrel.Services.Voice
 
         private VoiceConnection _VoiceConnection;
 
-        public Dictionary<string, VoiceState> VoiceStates { get; } = new Dictionary<string, VoiceState>();
+        public IDictionary<string, VoiceState> VoiceStates { get; } = new ConcurrentDictionary<string, VoiceState>();
 
         #endregion
 

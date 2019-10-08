@@ -26,6 +26,9 @@ using Quarrel.Services.Voice;
 using Quarrel.Services.Voice.Audio.In;
 using Quarrel.Services.Voice.Audio.Out;
 using Quarrel.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -37,20 +40,35 @@ namespace Quarrel.Controls.Shell
        // private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
         public Shell()
         {
-            this.InitializeComponent();
-
-            // Setup SideDrawer
-            ContentContainer.SetupInteraction();
-
-            Messenger.Default.Register<GuildNavigateMessage>(this, m =>
+            try
             {
-                ContentContainer.OpenLeft();
-            });
+                this.InitializeComponent();
 
-            Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
+                // Setup SideDrawer
+                ContentContainer.SetupInteraction();
+
+                Messenger.Default.Register<GuildNavigateMessage>(this, m =>
+                {
+                    ContentContainer.OpenLeft();
+                });
+
+                Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
+                {
+                    ContentContainer.CloseLeft();
+                });
+            }
+            catch (Exception ex)
             {
-                ContentContainer.CloseLeft();
-            });
+                var logger = App.ServiceProvider.GetService<ILogger<Shell>>();
+
+                do
+                {
+                    logger.LogError(new EventId(), ex, "Error constructing Shell");
+                    ex = ex.InnerException;
+                } while (ex != null);
+
+                throw;
+            }
         }
 
         private bool IsViewLarge => UISize.CurrentState == Large || UISize.CurrentState == ExtraLarge;

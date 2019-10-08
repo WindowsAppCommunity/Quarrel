@@ -1,6 +1,7 @@
 ﻿using Quarrel.SubPages.Interfaces;
 using Quarrel.SubPages.Settings.Pages;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Quarrel.SubPages.Settings
         {
             this.InitializeComponent();
             this.Loaded += (_, e) => NavigationControl.SelectedItem = MyAccountItem;
-            PagesMapping = new Dictionary<NavigationViewItemBase, Type>
+            PagesMapping = new ConcurrentDictionary<NavigationViewItemBase, Type>
             {
                 [MyAccountItem] = typeof(MyAccountSettingsPage),
                 [PrivacyItem] = typeof(PrivacySettingsPage),

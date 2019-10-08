@@ -43,6 +43,7 @@ namespace Quarrel.ViewModels
 
             SimpleIoc.Default.Register<ICacheService, CacheService>();
             SimpleIoc.Default.Register<ISettingsService, SettingsService>();
+            SimpleIoc.Default.Register<IServiceProvider>(() => App.ServiceProvider);
             SimpleIoc.Default.Register<IGatewayService, GatewayService>();
             SimpleIoc.Default.Register<IDiscordService, DiscordService>();
             SimpleIoc.Default.Register<IGuildsService, GuildsService>();

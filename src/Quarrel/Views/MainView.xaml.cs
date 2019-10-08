@@ -31,6 +31,6 @@ namespace Quarrel
             ViewModel.Login();
         }
 
-        public MainViewModel ViewModel => (Application.Current.Resources["ViewModelLocator"] as ViewModelLocator).Main;
+        public MainViewModel ViewModel => App.ViewModelLocator.Main;
     }
 }

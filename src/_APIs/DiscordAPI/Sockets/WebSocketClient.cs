@@ -25,6 +25,7 @@
  */
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -47,7 +48,7 @@ namespace DiscordAPI.Sockets
         public event Action<Exception> Closed;
 
         private readonly SemaphoreSlim _lock;
-        private readonly Dictionary<string, string> _headers;
+        private readonly IDictionary<string, string> _headers;
         private readonly IWebProxy _proxy;
         private ClientWebSocket _client;
         private Task _task;
@@ -61,7 +62,7 @@ namespace DiscordAPI.Sockets
             _disconnectTokenSource = new CancellationTokenSource();
             _cancelToken = CancellationToken.None;
             _parentToken = CancellationToken.None;
-            _headers = new Dictionary<string, string>();
+            _headers = new ConcurrentDictionary<string, string>();
             _proxy = proxy;
         }
         private void Dispose(bool disposing)

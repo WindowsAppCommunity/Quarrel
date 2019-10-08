@@ -11,6 +11,7 @@ namespace DiscordAPI.Gateway
     public interface IGatewayService
     {
         event EventHandler<GatewayEventArgs<Ready>> Ready;
+        event EventHandler<GatewayEventArgs<InvalidSession>> InvalidSession;
         event EventHandler<GatewayEventArgs<Resumed>> Resumed;
 
         event EventHandler<GatewayEventArgs<Guild>> GuildCreated;
@@ -36,7 +37,7 @@ namespace DiscordAPI.Gateway
         event EventHandler<GatewayEventArgs<Presence>> PresenceUpdated;
         event EventHandler<GatewayEventArgs<TypingStart>> TypingStarted;
 
-        Task ConnectAsync();
-        Task ResumeAsync();
+        Task<bool> ConnectAsync();
+        Task<bool> ResumeAsync();
     }
 }

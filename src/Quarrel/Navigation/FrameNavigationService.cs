@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Navigation.SubFrame;
+using System.Collections.Concurrent;
+using GalaSoft.MvvmLight.Threading;
 
 namespace Quarrel.Navigation
 {
     public class SubFrameNavigationService : ISubFrameNavigationService
     {
         private readonly List<string> _historic = new List<string>();
-        private readonly Dictionary<string, Type> _pagesByKey = new Dictionary<string, Type>();
+        private readonly ConcurrentDictionary<string, Type> _pagesByKey = new ConcurrentDictionary<string, Type>();
         public string CurrentPageKey { get; private set; }
         public object Parameter { get; private set; }
 
@@ -48,9 +50,9 @@ namespace Quarrel.Navigation
                     CurrentPageKey = pageKey;
                 }
 
-                Messenger.Default.Send(
+                DispatcherHelper.CheckBeginInvokeOnUI(() => Messenger.Default.Send(
                     SubFrameNavigationRequestMessage.To(
-                        (UserControl) Activator.CreateInstance(_pagesByKey[pageKey])));
+                        (UserControl) Activator.CreateInstance(_pagesByKey.TryGetValue(pageKey, out var pbk) ? pbk : null))));
             }
         }
 
@@ -61,7 +63,7 @@ namespace Quarrel.Navigation
                 if (_pagesByKey.ContainsKey(key))
                     _pagesByKey[key] = pageType;
                 else
-                    _pagesByKey.Add(key, pageType);
+                    _pagesByKey.TryAdd(key, pageType);
             }
         }
     }

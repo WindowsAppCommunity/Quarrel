@@ -33,7 +33,7 @@ namespace Quarrel.Controls.Guilds
 
         public MutualGuild MutualGuild { get; set; }
 
-        public BindableGuild BindableGuild => GuildsService.Guilds[MutualGuild.Id];
+        public BindableGuild BindableGuild => GuildsService.Guilds.TryGetValue(MutualGuild.Id, out var value) ? value : null;
     }
 
     public sealed partial class MutualGuildTemplate : UserControl
