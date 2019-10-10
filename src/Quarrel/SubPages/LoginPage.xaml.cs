@@ -81,74 +81,25 @@ namespace Quarrel.SubPages
                 $"\n\te.CallingUri: {e.CallingUri}" +
                 $"\n\te.Value: {e.Value}");
 
-            if(e.Value.StartsWith("token:"))
-            {
-                string token = await GetTokenFromWebView();
-                if (!string.IsNullOrEmpty(token))
-                {
-                    Logger.LogInformation($"GetTokenAndLogin - Logging in.");
-                    discordService.Login(token);
-                    subFrameNavigationService.GoBack();
-                }
-
-                return;
-            }
-
             if (e.CallingUri.AbsolutePath == "/app")
-                GetTokenAndLogin(true);
+            {
+                if (await GetTokenAndLogin())
+                {
+                    Logger.LogDebug("ScriptNotify - Succesfully logged in.");
+                }
+            }
         }
 
         public bool Hideable { get; } = false;
 
-        private void GetTokenAndLogin(bool notify)
-        {
-            Task<string> task = null;
-
-            Logger.LogInformation($"GetTokenAndLogin - Injecting JavaScript to extract token.");
-
-            // Respond to the script notification.
-            try
-            {
-                var js = $"\nvar notify = {notify};\n{GetTokenFunction}";
-
-                task = CaptchaView.InvokeScriptAsync("eval", new[] { js })
-                    .AsTask<string>();
-
-                var awaiter = task.GetAwaiter();
-
-                awaiter.OnCompleted(() =>
-                {
-                    var token = awaiter.GetResult();
-                    ProcessLogin(token);
-                });
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError(new EventId(), ex, $"GetTokenAndLogin - Error" +
-                    $"\n\ttask.Result: {task?.Result}" +
-                    $"\n\ttask.Status: {task?.Status}");
-            }
-        }
-
-        private string GetTokenFunction => @"    
-    var result = '';
-
-    try {
-        var iframe = document.createElement('iframe');
-        document.head.append(iframe);
-
-        result =iframe.contentWindow.localStorage.getItem('token');
-
-        if(notify) window.external.notify('token:' + result);
-    
-        result;
-    } catch (ex) {
-        window.external.notify(ex); 
-    }
-";
-
         private async void CaptchaView_OnNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
+            Logger.LogInformation("CaptchaView_OnNavigationCompleted" +
+                $"\n\tsender: {sender}" +
+                $"\n\targs.Uri: {args.Uri}" +
+                $"\n\targs.IsSuccess: {args.IsSuccess}" +
+                $"\n\targs.WebErrorStatus: {args.WebErrorStatus}");
+
             _ = sender.InvokeScriptAsync("eval", new[]
             {
                 @"
@@ -161,23 +112,34 @@ namespace Quarrel.SubPages
             });
             if (args.Uri.AbsolutePath == "/app")
             {
-                string token = await GetTokenFromWebView();
-                if (!string.IsNullOrEmpty(token))
+                if(await GetTokenAndLogin())
                 {
-                    discordService.Login(token.Trim('"'));
-                    subFrameNavigationService.GoBack();
+                    Logger.LogDebug("CaptchaView_OnNavigationCompleted - Succesfully logged in.");
                 }
             }
         }
+        private async Task<bool> GetTokenAndLogin()
+        {
+            string token = await GetTokenFromWebView();
+            if (!string.IsNullOrEmpty(token))
+            {
+                discordService.Login(token.Trim('"'));
+                subFrameNavigationService.GoBack();
+                return true;
+            }
+
+            return false;
+        }
         private async Task<string> GetTokenFromWebView()
         {
-
             //Discord doesn't allow access to localStorage so create an iframe to bypass this.
             string token = await CaptchaView.InvokeScriptAsync("eval", new[] { @"
                     var iframe = document.createElement('iframe');
                     document.head.append(iframe);
                     iframe.contentWindow.localStorage.getItem('token');"
             });
+
+            Logger.LogInformation($"GetTokenFromWebView - result: {token}");
             return token;
         }
     }
