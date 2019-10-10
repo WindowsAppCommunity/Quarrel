@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -71,12 +72,7 @@ namespace Quarrel.SubPages
         {
             if (e.CallingUri.AbsolutePath == "/app")
             {
-                //Discord doesn't allow access to localStorage so create an iframe to bypass this.
-                string token = await CaptchaView.InvokeScriptAsync("eval", new[] { @"
-                    var iframe = document.createElement('iframe');
-                    document.head.append(iframe);
-                    iframe.contentWindow.localStorage.getItem('token');"
-                });
+                string token = await GetTokenFromWebView();
                 if (!string.IsNullOrEmpty(token))
                 {
                     discordService.Login(token.Trim('"'));
@@ -87,15 +83,39 @@ namespace Quarrel.SubPages
         }
         public bool Hideable { get; } = false;
 
-        private void CaptchaView_OnNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        private async void CaptchaView_OnNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-            _ = sender.InvokeScriptAsync("eval", new[] { @"
+            _ = sender.InvokeScriptAsync("eval", new[]
+            {
+                @"
                     var pushState = history.pushState;
                     history.pushState = function () {
                         pushState.apply(history, arguments);
 	                    window.external.notify('');
                     };
-            " });
+            "
+            });
+            if (args.Uri.AbsolutePath == "/app")
+            {
+                string token = await GetTokenFromWebView();
+                if (!string.IsNullOrEmpty(token))
+                {
+                    discordService.Login(token.Trim('"'));
+                    subFrameNavigationService.GoBack();
+                }
+            }
+        }
+        private async Task<string> GetTokenFromWebView()
+        {
+
+            //Discord doesn't allow access to localStorage so create an iframe to bypass this.
+            string token = await CaptchaView.InvokeScriptAsync("eval", new[] { @"
+                    var iframe = document.createElement('iframe');
+                    document.head.append(iframe);
+                    iframe.contentWindow.localStorage.getItem('token');"
+            });
+            return token;
         }
     }
+
 }
