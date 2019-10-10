@@ -27,7 +27,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Quarrel.SubPages
@@ -37,7 +36,6 @@ namespace Quarrel.SubPages
         private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         private ISubFrameNavigationService subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
         private ILogger Logger => App.ServiceProvider.GetService<ILogger<LoginPage>>();
-
 
         public LoginPage()
         {
@@ -76,30 +74,21 @@ namespace Quarrel.SubPages
 
         private async void ScriptNotify(object sender, NotifyEventArgs e)
         {
-            Logger.LogInformation("ScriptNotify" +
-                $"\n\tsender: {sender}" +
-                $"\n\te.CallingUri: {e.CallingUri}" +
-                $"\n\te.Value: {e.Value}");
-
             if (e.CallingUri.AbsolutePath == "/app")
             {
-                if (await GetTokenAndLogin())
+                string token = await GetTokenFromWebView();
+                if (!string.IsNullOrEmpty(token))
                 {
-                    Logger.LogDebug("ScriptNotify - Succesfully logged in.");
+                    discordService.Login(token.Trim('"'));
+                    subFrameNavigationService.GoBack();
                 }
             }
+            // Respond to the script notification.
         }
-
         public bool Hideable { get; } = false;
 
         private async void CaptchaView_OnNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-            Logger.LogInformation("CaptchaView_OnNavigationCompleted" +
-                $"\n\tsender: {sender}" +
-                $"\n\targs.Uri: {args.Uri}" +
-                $"\n\targs.IsSuccess: {args.IsSuccess}" +
-                $"\n\targs.WebErrorStatus: {args.WebErrorStatus}");
-
             _ = sender.InvokeScriptAsync("eval", new[]
             {
                 @"
@@ -112,34 +101,28 @@ namespace Quarrel.SubPages
             });
             if (args.Uri.AbsolutePath == "/app")
             {
-                if(await GetTokenAndLogin())
+                string token = await GetTokenFromWebView();
+                if (!string.IsNullOrEmpty(token))
                 {
-                    Logger.LogDebug("CaptchaView_OnNavigationCompleted - Succesfully logged in.");
+                    discordService.Login(token.Trim('"'));
+                    subFrameNavigationService.GoBack();
                 }
             }
         }
-        private async Task<bool> GetTokenAndLogin()
-        {
-            string token = await GetTokenFromWebView();
-            if (!string.IsNullOrEmpty(token))
-            {
-                discordService.Login(token.Trim('"'));
-                subFrameNavigationService.GoBack();
-                return true;
-            }
-
-            return false;
-        }
         private async Task<string> GetTokenFromWebView()
         {
+
             //Discord doesn't allow access to localStorage so create an iframe to bypass this.
             string token = await CaptchaView.InvokeScriptAsync("eval", new[] { @"
-                    var iframe = document.createElement('iframe');
-                    document.head.append(iframe);
-                    iframe.contentWindow.localStorage.getItem('token');"
+                    iframe = document.createElement('iframe');
+                    //document.head.append(iframe);
+                    //iframe.contentWindow.localStorage.getItem('token');
+                '<<token>>'
+"
             });
 
-            Logger.LogInformation($"GetTokenFromWebView - result: {token}");
+            Logger.LogInformation($"GetTokenFromWebView - {token}");
+
             return token;
         }
     }
