@@ -34,7 +34,7 @@ namespace Quarrel.Models.Bindables
             return Model.Id.GetHashCode();
         }
 
-        public Presence presence;
+        private Presence presence;
 
         public Presence Presence
         {
