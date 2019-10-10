@@ -97,7 +97,7 @@ namespace Quarrel.Services.Users
             });
             Messenger.Default.Register<GatewayUserSettingsUpdatedMessage>(this, async m =>
             {
-                if (string.IsNullOrEmpty(m.Settings.Status))
+                if (!string.IsNullOrEmpty(m.Settings.Status))
                 {
                     var newPresence = new Presence()
                     {
@@ -112,8 +112,7 @@ namespace Quarrel.Services.Users
 
                         CurrentUser.Presence = newPresence;
 
-                        Users.TryGetValue(CurrentUser.Model.Id, out var member);
-                        if (member != null)
+                        if (Users.TryGetValue(CurrentUser.Model.Id, out var member))
                         {
                             member.Presence = newPresence;
                         }
