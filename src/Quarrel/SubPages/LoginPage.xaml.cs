@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -115,9 +116,9 @@ namespace Quarrel.SubPages
             //Discord doesn't allow access to localStorage so create an iframe to bypass this.
             string token = await CaptchaView.InvokeScriptAsync("eval", new[] { @"
                     iframe = document.createElement('iframe');
-                    //document.head.append(iframe);
-                    //iframe.contentWindow.localStorage.getItem('token');
-                '<<token>>'
+                    document.body.appendChild(iframe);
+                    iframe.contentWindow.localStorage.getItem('token');
+                //'<<token>>'
 "
             });
 
