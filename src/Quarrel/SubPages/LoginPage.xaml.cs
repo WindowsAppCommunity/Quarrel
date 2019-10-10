@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -82,10 +83,7 @@ namespace Quarrel.SubPages
 
             if(e.Value.StartsWith("token:"))
             {
-                var token = e.Value.Substring(e.Value.IndexOf(":") + 1).Trim('"');
-
-                Logger.LogInformation($"GetTokenAndLogin - token: [{token}]");
-
+                string token = await GetTokenFromWebView();
                 if (!string.IsNullOrEmpty(token))
                 {
                     Logger.LogInformation($"GetTokenAndLogin - Logging in.");
@@ -151,53 +149,37 @@ namespace Quarrel.SubPages
 
         private async void CaptchaView_OnNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-            Logger.LogInformation($"CaptchaView_OnNavigationCompleted" +
-                $"\n\targs.Uri: {args.Uri}" +
-                $"\n\targs.IsSuccess: {args.IsSuccess}" +
-                $"\n\targs.WebErrorStatus: { args.WebErrorStatus}");
-
-            if (args.Uri.AbsolutePath != "/app")
+            _ = sender.InvokeScriptAsync("eval", new[]
             {
-                var script = new[] { $@"
-try {{
-    var pushState = history.pushState;  
-    if(!pushState) {{ window.external.notify('pushState is undefined'); }}
-
-    history.pushState = function () {{
-        pushState.apply(history, arguments);	
-        window.external.notify('pushState called.'); 
-    }}
-
-    'Injected to: {args.Uri}'
-}} catch(e) {{ 
-    window.external.notify(e); 
-
-    e.toString();
-}}
-                " };
-                            
-                Logger.LogInformation($"CaptchaView_OnNavigationCompleted result: {await sender.InvokeScriptAsync("eval", script)}");
-
-                return;
-            }
-            else
+                @"
+                    var pushState = history.pushState;
+                    history.pushState = function () {
+                        pushState.apply(history, arguments);
+	                    window.external.notify('');
+                    };
+            "
+            });
+            if (args.Uri.AbsolutePath == "/app")
             {
-                GetTokenAndLogin(false);
+                string token = await GetTokenFromWebView();
+                if (!string.IsNullOrEmpty(token))
+                {
+                    discordService.Login(token.Trim('"'));
+                    subFrameNavigationService.GoBack();
+                }
             }
         }
-
-        private void ProcessLogin(string token)
+        private async Task<string> GetTokenFromWebView()
         {
-            Logger.LogInformation($"GetTokenAndLogin - token: [{token}]");
 
-            if (!string.IsNullOrEmpty(token))
-            {
-                Logger.LogInformation($"GetTokenAndLogin - Logging in.");
-                discordService.Login(token);
-                subFrameNavigationService.GoBack();
-            }
-
-            return;
+            //Discord doesn't allow access to localStorage so create an iframe to bypass this.
+            string token = await CaptchaView.InvokeScriptAsync("eval", new[] { @"
+                    var iframe = document.createElement('iframe');
+                    document.head.append(iframe);
+                    iframe.contentWindow.localStorage.getItem('token');"
+            });
+            return token;
         }
     }
+
 }
