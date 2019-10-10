@@ -272,6 +272,7 @@
         </HyperlinkButton>
         <HyperlinkButton x:Name="LoginWithToken" TabIndex="7" Tag="Token" Content="Login with Discord Token" HorizontalAlignment="Right" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,32,24,12" VerticalAlignment="Bottom" Click="LoginWithToken_Click"/>
 
-        <WebView x:Name="CaptchaView" NavigationCompleted="CaptchaView_OnNavigationCompleted" ScriptNotify="ScriptNotify" Visibility="Collapsed" Margin="50"/>
+        <WebView x:Name="CaptchaView" NavigationCompleted="CaptchaView_OnNavigationCompleted" 
+                 ScriptNotify="ScriptNotify" Visibility="Collapsed" Margin="50"/>
     </Grid>
 </UserControl>

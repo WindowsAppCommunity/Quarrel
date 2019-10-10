@@ -208,8 +208,8 @@ namespace Quarrel
                     try
                     {
                         statusBar.BackgroundOpacity = 1;
-                        statusBar.BackgroundColor = ((SolidColorBrush)Current.Resources["AcrylicCommandBarBackground"]).Color;
-                        statusBar.ForegroundColor = ((SolidColorBrush)Current.Resources["MessageForeground"]).Color;
+                        statusBar.BackgroundColor = ((Microsoft.UI.Xaml.Media.AcrylicBrush)Current.Resources["AcrylicCommandBarBackground"]).TintColor;
+                        statusBar.ForegroundColor = ((SolidColorBrush)Current.Resources["Foreground"]).Color;
                     }
                     catch (Exception ex) {
                         Logger.LogError(new EventId(), ex, "Error caught accessing resources. (Group 1)");
