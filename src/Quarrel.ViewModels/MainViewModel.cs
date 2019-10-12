@@ -614,10 +614,10 @@ namespace Quarrel.ViewModels
 
                 List<BindableMessage> messages = new List<BindableMessage>();
                 Message lastItem = null;
-                foreach (var item in itemList)
+                foreach (var item in itemList.Reverse())
                 {
                     // Can't be last read item
-                    messages.Insert(0, new BindableMessage(item, guildId, lastItem));
+                    messages.Add(new BindableMessage(item, guildId, lastItem));
                     lastItem = item;
                 }
 

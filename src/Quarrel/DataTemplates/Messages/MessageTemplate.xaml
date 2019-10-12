@@ -114,7 +114,7 @@
                             <Rectangle.Fill>
                                 <ImageBrush>
                                     <ImageBrush.ImageSource>
-                                        <BitmapImage DecodePixelHeight="40" DecodePixelWidth="40" UriSource="{x:Bind Model.User.AvatarUriProperty, Mode=OneWay}"/>
+                                        <BitmapImage DecodePixelHeight="40" DecodePixelWidth="40" UriSource="{Binding Model.User.AvatarUriProperty, Mode=OneWay}"/>
                                     </ImageBrush.ImageSource>
                                 </ImageBrush>
                             </Rectangle.Fill>
