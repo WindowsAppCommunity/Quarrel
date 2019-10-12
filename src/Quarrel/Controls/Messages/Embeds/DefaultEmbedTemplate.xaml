@@ -30,7 +30,11 @@
                         <StackPanel Orientation="Horizontal" x:Name="AuthorSP" x:Load="{x:Bind ViewModel.Author, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
                             <Rectangle RadiusX="10" RadiusY="10" Width="20" Height="20" Margin="0,0,10,0" x:Name="AuthorRect" x:Load="{x:Bind ViewModel.Author.IconUrl, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
                                 <Rectangle.Fill>
-                                    <ImageBrush ImageSource="{x:Bind ViewModel.Author.ProxyIconUrl, Mode=OneWay}"/>
+                                    <ImageBrush >
+                                        <ImageBrush.ImageSource>
+                                            <BitmapImage DecodePixelHeight="20" DecodePixelWidth="20" UriSource="{Binding Author.ProxyIconUrl}"  />
+                                        </ImageBrush.ImageSource>
+                                    </ImageBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
                             <HyperlinkButton x:Name="AuthorText" Content="{x:Bind ViewModel.Author.Name, Mode=OneWay}" NavigateUri="{x:Bind ViewModel.Author.Url, Mode=OneWay}" x:Load="{x:Bind ViewModel.Author.Name, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource Foreground}"/>
