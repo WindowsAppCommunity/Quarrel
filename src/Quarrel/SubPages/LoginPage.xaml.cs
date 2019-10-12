@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -23,6 +24,9 @@ using Quarrel.Navigation;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Rest;
 using Quarrel.SubPages.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -32,6 +36,7 @@ namespace Quarrel.SubPages
     {
         private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         private ISubFrameNavigationService subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+        private ILogger Logger => App.ServiceProvider.GetService<ILogger<LoginPage>>();
 
         public LoginPage()
         {
@@ -75,7 +80,7 @@ namespace Quarrel.SubPages
                 string token = await GetTokenFromWebView();
                 if (!string.IsNullOrEmpty(token))
                 {
-                    discordService.Login(token.Trim('"'));
+                    discordService.Login(token, true);
                     subFrameNavigationService.GoBack();
                 }
             }
@@ -100,7 +105,7 @@ namespace Quarrel.SubPages
                 string token = await GetTokenFromWebView();
                 if (!string.IsNullOrEmpty(token))
                 {
-                    discordService.Login(token.Trim('"'));
+                    discordService.Login(token, true);
                     subFrameNavigationService.GoBack();
                 }
             }
@@ -110,11 +115,16 @@ namespace Quarrel.SubPages
 
             //Discord doesn't allow access to localStorage so create an iframe to bypass this.
             string token = await CaptchaView.InvokeScriptAsync("eval", new[] { @"
-                    var iframe = document.createElement('iframe');
-                    document.head.append(iframe);
-                    iframe.contentWindow.localStorage.getItem('token');"
+                    iframe = document.createElement('iframe');
+                    document.body.appendChild(iframe);
+                    iframe.contentWindow.localStorage.getItem('token');
+                //'<<token>>'
+"
             });
-            return token;
+
+            Logger.LogInformation($"GetTokenFromWebView - {token}");
+
+            return string.IsNullOrEmpty(token) ? "" : token.Trim('"');
         }
     }
 
