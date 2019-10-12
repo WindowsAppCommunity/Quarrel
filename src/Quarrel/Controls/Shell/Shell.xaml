@@ -8,6 +8,7 @@
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:md="using:Quarrel.Controls.Markdown"
     xmlns:views="using:Quarrel.Views"
+    xmlns:stateTriggers="using:Quarrel.StateTriggers"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -40,6 +41,16 @@
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger x:Name="ExtraLargeTrigger" MinWindowWidth="1000"/>
                     </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup>
+                <VisualState x:Name="Mobile">
+                    <VisualState.StateTriggers>
+                        <stateTriggers:DeviceFamilyStateTrigger TargetDeviceFamily="Mobile" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TitleBarHolder.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>

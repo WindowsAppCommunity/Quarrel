@@ -39,11 +39,17 @@ namespace DiscordAPI.Models
         [JsonProperty("inline_embed_media")]
         public bool InlineEmbedMedia { get; set; }
 
-        [JsonProperty("inline_attachement_media")]
+        [JsonProperty("inline_attachment_media")]
         public bool InlineAttachementMedia { get; set; }
 
         [JsonProperty("guild_positions")]
         public IEnumerable<string> GuildOrder { get; set; }
+
+        [JsonProperty("guild_folders")]
+        public IEnumerable<Folder> GuildFolders { get; set; }
+
+        [JsonProperty("gif_auto_play")]
+        public bool GifAutoPlay { get; set; }
 
         [JsonProperty("friend_source_flag")]
         public FriendSourceFlag FriendSourceFlag { get; set; }
@@ -127,5 +133,20 @@ namespace DiscordAPI.Models
 
         [JsonProperty("mutual_guilds")]
         public bool MutualGuilds { get; set; }
+    }
+
+    public class Folder
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("id")]
+        public long? Id { get; set; }
+
+        [JsonProperty("guild_ids")]
+        public IEnumerable<string> GuildIds { get; set; }
+
+        [JsonProperty("color")]
+        public long? Color { get; set; }
     }
 }

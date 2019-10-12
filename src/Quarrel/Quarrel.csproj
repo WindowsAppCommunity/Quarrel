@@ -20,15 +20,9 @@
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>arm</AppxBundlePlatforms>
-    <AppInstallerUpdateFrequency>0</AppInstallerUpdateFrequency>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
-    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-    <GenerateTestArtifacts>True</GenerateTestArtifacts>
-    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-    <PackageCertificateKeyFile>C:\GitHub\SharpNinja\Quarrel\src\Quarrel\Quarrel_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>CF8E45AD8BBD58119730C248483C066DE567A1A1</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -354,6 +348,7 @@
     <Compile Include="Services\Users\CurrentUsersService.cs" />
     <Compile Include="Services\Voice\Audio\In\AudioInService.cs" />
     <Compile Include="Services\Voice\Audio\Out\AudioOutService.cs" />
+    <Compile Include="StateTriggers\DeviceFamilyStateTrigger.cs" />
     <Compile Include="SubPages\AddChannelPage.xaml.cs">
       <DependentUpon>AddChannelPage.xaml</DependentUpon>
     </Compile>
@@ -491,7 +486,6 @@
     <AdditionalFiles Include="appsettings.json" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
-    <None Include="Quarrel_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Quarrel.ViewModels\Quarrel.ViewModels.csproj">
@@ -808,6 +802,7 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="..\_Tasks\Quarrel.Shared\Quarrel.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

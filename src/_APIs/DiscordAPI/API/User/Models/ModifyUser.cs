@@ -34,6 +34,8 @@ namespace DiscordAPI.API.User.Models
             InlineEmbedMedia = settings.InlineEmbedMedia;
             InlineAttachementMedia = settings.InlineAttachementMedia;
             GuildOrder = settings.GuildOrder;
+            GuildFolders = settings.GuildFolders;
+            GifAutoPlay = settings.GifAutoPlay;
             FriendSourceFlag = settings.FriendSourceFlag;
             ExplicitContentFilter = settings.ExplicitContentFilter;
             EnableTtsCommand = settings.EnableTtsCommand;
@@ -76,6 +78,12 @@ namespace DiscordAPI.API.User.Models
 
         [JsonProperty("guild_positions")]
         public IEnumerable<string> GuildOrder { get; set; }
+
+        [JsonProperty("guild_folders")]
+        public IEnumerable<Folder> GuildFolders { get; set; }
+
+        [JsonProperty("gif_auto_play")]
+        public bool GifAutoPlay { get; set; }
 
         [JsonProperty("friend_source_flag")] /* Dafuq is this? */
         public FriendSourceFlag FriendSourceFlag { get; set; }

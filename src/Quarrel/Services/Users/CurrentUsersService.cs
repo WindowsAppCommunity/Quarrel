@@ -88,8 +88,7 @@ namespace Quarrel.Services.Users
                         CurrentUser.Presence = m.Presence;
                     }
 
-                    Users.TryGetValue(m.UserId, out BindableGuildMember member);
-                    if(member != null)
+                    if(Users.TryGetValue(m.UserId, out BindableGuildMember member))
                     {
                         member.Presence = m.Presence;
                     }
@@ -97,7 +96,7 @@ namespace Quarrel.Services.Users
             });
             Messenger.Default.Register<GatewayUserSettingsUpdatedMessage>(this, async m =>
             {
-                if (string.IsNullOrEmpty(m.Settings.Status))
+                if (!string.IsNullOrEmpty(m.Settings.Status))
                 {
                     var newPresence = new Presence()
                     {
@@ -112,8 +111,7 @@ namespace Quarrel.Services.Users
 
                         CurrentUser.Presence = newPresence;
 
-                        Users.TryGetValue(CurrentUser.Model.Id, out var member);
-                        if (member != null)
+                        if (Users.TryGetValue(CurrentUser.Model.Id, out var member))
                         {
                             member.Presence = newPresence;
                         }
@@ -124,22 +122,6 @@ namespace Quarrel.Services.Users
             {
                 await DispatcherHelper.RunAsync(() =>
                 {
-                    var session = m.Session.FirstOrDefault(x => x.SessionId == SessionId);
-                    var newPresence = new Presence()
-                    {
-                        User = CurrentUser.Model,
-                        Game = session.Game,
-                        GuildId = CurrentUser.Presence.GuildId,
-                        Roles = CurrentUser.Presence.Roles,
-                        Status = session.Status
-                    };
-                    CurrentUser.Presence = newPresence;
-
-                    Users.TryGetValue(CurrentUser.Model.Id, out BindableGuildMember member);
-                    if (member != null)
-                    {
-                        member.Presence = newPresence;
-                    }
                 });
             });
             Messenger.Default.Register<GuildNavigateMessage>(this, async m => 
