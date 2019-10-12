@@ -233,7 +233,6 @@ namespace Quarrel.Services.Gateway
         private void Gateway_UserSettingsUpdated(object sender, GatewayEventArgs<UserSettings> e)
         {
             Messenger.Default.Send(new GatewayUserSettingsUpdatedMessage(e.EventData));
-            Messenger.Default.Send(new GatewayPresenceUpdatedMessage(CurrentUsersService.CurrentUser.Model.Id, new Presence() { Status = e.EventData.Status}));
         }
 
         #region Voice 

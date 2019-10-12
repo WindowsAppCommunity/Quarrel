@@ -99,8 +99,13 @@ namespace Quarrel.Services.Rest
             Login();
         }
 
-        public void Login([NotNull] string token)
+        public async void Login([NotNull] string token, bool storeToken = false)
         {
+            if (storeToken)
+            {
+                await CacheService.Persistent.Roaming.SetValueAsync(Quarrel.Helpers.Constants.Cache.Keys.AccessToken, (object)token);
+            }
+
             _AccessToken = token;
 
             Login();
