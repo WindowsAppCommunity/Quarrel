@@ -41,8 +41,8 @@
             </Grid>
 
             <StackPanel Grid.Column="1" Margin="12,0,0,0">
-                <TextBox x:Name="UsernameBox" IsReadOnly="{x:Bind ViewModel.EditingAccountInfo, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}" Style="{StaticResource TextBoxStyle1}" Header="Username" Margin="0,24,0,0"/>
-                <TextBox x:Name="EmailBox" IsReadOnly="{x:Bind ViewModel.EditingAccountInfo, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}" Style="{StaticResource TextBoxStyle1}" Header="Email" Margin="0,12,0,0"/>
+                <TextBox IsEnabled="False" x:Name="UsernameBox" IsReadOnly="{x:Bind ViewModel.EditingAccountInfo, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}" Style="{StaticResource TextBoxStyle1}" Header="Username" Margin="0,24,0,0"/>
+                <TextBox IsEnabled="False" x:Name="EmailBox" IsReadOnly="{x:Bind ViewModel.EditingAccountInfo, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}" Style="{StaticResource TextBoxStyle1}" Header="Email" Margin="0,12,0,0"/>
                 <TextBlock Visibility="Collapsed" Text="Must fill out Current Password" Foreground="Red" Margin="0,12,0,-12"/>
                 <StackPanel  Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}">
                     <PasswordBox x:Name="password" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,12,0,0"/>
@@ -52,8 +52,8 @@
                 </StackPanel>
                 <Button IsEnabled="False" Visibility="{x:Bind ViewModel.EditingAccountInfo, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Content="Edit" Margin="0,12,4,0" Style="{StaticResource DiscordButton}" Command="{x:Bind ViewModel.EnterAccountEditCommand}"/>
                 <StackPanel Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}" Orientation="Horizontal" Margin="0,12,0,0">
-                    <Button Content="Save" Margin="0,0,4,0" Style="{StaticResource DiscordButton}" Command="{x:Bind ViewModel.FinalizeAccountEditCommand}"/>
-                    <Button Content="Cancel" Margin="4,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource dnd}" Command="{x:Bind ViewModel.CancelAccountEditCommand}"/>
+                    <Button IsEnabled="False" Content="Save" Margin="0,0,4,0" Style="{StaticResource DiscordButton}" Command="{x:Bind ViewModel.FinalizeAccountEditCommand}"/>
+                    <Button IsEnabled="False" Content="Cancel" Margin="4,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource dnd}" Command="{x:Bind ViewModel.CancelAccountEditCommand}"/>
                 </StackPanel>
             </StackPanel>
 
