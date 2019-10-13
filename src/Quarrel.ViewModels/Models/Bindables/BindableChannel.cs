@@ -412,6 +412,7 @@ namespace Quarrel.Models.Bindables
 
             if (ReadState.LastMessageId == id) return;
 
+
             ReadState.LastMessageId = id;
             ReadState.MentionCount = 0;
 
