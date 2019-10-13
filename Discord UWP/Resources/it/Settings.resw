@@ -1,0 +1,658 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccentColorTB.Text" xml:space="preserve">
+    <value>Colore secondario</value>
+  </data>
+  <data name="AdvancedPI.Header" xml:space="preserve">
+    <value>Avanzati</value>
+    <comment>Iconic tile template, used for badge tile updates</comment>
+  </data>
+  <data name="AppBarAtBottomCB.Content" xml:space="preserve">
+    <value>Allinea la barra dei comandi in basso</value>
+  </data>
+  <data name="CompactModeCB.Content" xml:space="preserve">
+    <value>Modo compato</value>
+  </data>
+  <data name="CustomPresenceColorsTB.Text" xml:space="preserve">
+    <value>Colori di presenza personalizzati</value>
+  </data>
+  <data name="DarkRadio.Content" xml:space="preserve">
+    <value>Scuro</value>
+  </data>
+  <data name="DiscordRadio.Content" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="DMsCB.Content" xml:space="preserve">
+    <value>DMs</value>
+  </data>
+  <data name="DndColorTB.Text" xml:space="preserve">
+    <value>Non disturbare</value>
+  </data>
+  <data name="ExpensiveRenderCB.Content" xml:space="preserve">
+    <value>Rendering costoso (effetti di sfocatura ecc ...)</value>
+  </data>
+  <data name="FriendsNotifyTB.Text" xml:space="preserve">
+    <value>Cosa si aggiunge alle notifiche dell'elenco amici?</value>
+  </data>
+  <data name="HighlightEveryoneCB.Content" xml:space="preserve">
+    <value>Evidenzia @everyone</value>
+  </data>
+  <data name="IdleColorTB.Text" xml:space="preserve">
+    <value>Idle</value>
+  </data>
+  <data name="IncomingFriendsCB" xml:space="preserve">
+    <value>Richieste di amici in arrivo</value>
+  </data>
+  <data name="LightRadio.Content" xml:space="preserve">
+    <value>Chiaro</value>
+  </data>
+  <data name="LogoutBTN.Content" xml:space="preserve">
+    <value>Disconnettersi</value>
+  </data>
+  <data name="NotificationsPI.Header" xml:space="preserve">
+    <value>Notificazioni</value>
+  </data>
+  <data name="OnlineColorTB.Text" xml:space="preserve">
+    <value>In linea</value>
+  </data>
+  <data name="OutgoingFriendsCB" xml:space="preserve">
+    <value>Richieste di amici in uscita</value>
+  </data>
+  <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
+    <value>Ripristina i punti di interruzione sui valori predefiniti</value>
+  </data>
+  <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
+    <value>Queste sono le larghezze del trigger a cui l'interfaccia utente mostra più o meno informazioni sullo schermo, a seconda della larghezza dello schermo.</value>
+  </data>
+  <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">
+    <value>RESPONSIVE UI BREAKPOINTS</value>
+  </data>
+  <data name="ResponsiveUiTB.Text" xml:space="preserve">
+    <value>RESPONSIVE UI</value>
+  </data>
+  <data name="RestartRequiredTB.Text" xml:space="preserve">
+    <value>(Dovrai riavviare l'app)</value>
+  </data>
+  <data name="SettingsTB.Text" xml:space="preserve">
+    <value>PARAMETTRI</value>
+  </data>
+  <data name="ShowToastsCB.Content" xml:space="preserve">
+    <value>Mostra le notifiche di toast in-app</value>
+  </data>
+  <data name="SliderL.Header" xml:space="preserve">
+    <value>L (Server e canali sono visibili)</value>
+  </data>
+  <data name="SliderM.Header" xml:space="preserve">
+    <value>M (i server sono visibili)</value>
+  </data>
+  <data name="SliderXL.Header" xml:space="preserve">
+    <value>XL (Server, canali e membri sono visibili)</value>
+  </data>
+  <data name="SystemAccentColorTB.Text" xml:space="preserve">
+    <value>Colore secondario del sistema</value>
+  </data>
+  <data name="ThemeTB.Text" xml:space="preserve">
+    <value>TEMA</value>
+  </data>
+  <data name="UiPI.Header" xml:space="preserve">
+    <value>UI</value>
+  </data>
+  <data name="VerifyLogout" xml:space="preserve">
+    <value>Sei sicuro di voler uscire?</value>
+  </data>
+  <data name="VibrateCB.Content" xml:space="preserve">
+    <value>Vibrazione alla ricezione del messaggio</value>
+  </data>
+  <data name="WindowsRadio.Content" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="FriendRequestsCBContent" xml:space="preserve">
+    <value>Richieste di amicizia</value>
+  </data>
+  <data name="mutedChannelsAffectServerCB.Content" xml:space="preserve">
+    <value>I canali disattivati influiscono sullo stato non letto del server?</value>
+  </data>
+  <data name="AccentRadio.Content" xml:space="preserve">
+    <value>Colore secondario del sistema</value>
+  </data>
+  <data name="BlurpleRadio.Content" xml:space="preserve">
+    <value>Discord Blurple</value>
+  </data>
+  <data name="OTHERTB.Text" xml:space="preserve">
+    <value>ALTRO</value>
+  </data>
+  <data name="ShowWelcomeCB.Content" xml:space="preserve">
+    <value>Mostra messaggi di caricamento</value>
+  </data>
+  <data name="EnableAcrylic.Content" xml:space="preserve">
+    <value>Abilita effetti acrilici (sfondo sfocato)</value>
+  </data>
+  <data name="mutedChannelsEffectServerCB.Content" xml:space="preserve">
+    <value>I canali disattivati influiscono sullo stato non letto del server?</value>
+  </data>
+  <data name="UseCompression.Content" xml:space="preserve">
+    <value>Abilita compressione dati (più veloce)</value>
+  </data>
+  <data name="VideoAds.Content" xml:space="preserve">
+    <value>Utilizza gli annunci video anziché i banner</value>
+  </data>
+  <data name="MESSAGESTB.Text" xml:space="preserve">
+    <value>MESSAGI</value>
+  </data>
+  <data name="GifsOnHoverCB.Content" xml:space="preserve">
+    <value>Riproduci solo gif al passaggio del mouse o al clic</value>
+  </data>
+  <data name="Enable compression (Faster)" xml:space="preserve">
+    <value>Abilita la compressione dei dati</value>
+  </data>
+  <data name="Mentions" xml:space="preserve">
+    <value>Menzioni</value>
+  </data>
+  <data name="NoneRB.Content" xml:space="preserve">
+    <value>Niente</value>
+  </data>
+  <data name="UnreadRB.Content" xml:space="preserve">
+    <value>Non letto</value>
+  </data>
+  <data name="TranslatorPI" xml:space="preserve">
+    <value>Traduzioni</value>
+  </data>
+  <data name="CustomTimeF.Header" xml:space="preserve">
+    <value>Formato del ora personalizzato</value>
+  </data>
+  <data name="CustomDateF" xml:space="preserve">
+    <value>Formato della data custom</value>
+  </data>
+  <data name="DateFormat.Header" xml:space="preserve">
+    <value>Formato della data</value>
+  </data>
+  <data name="TimeFormat.Header" xml:space="preserve">
+    <value>Formato del ora</value>
+  </data>
+  <data name="ExpVoiceChannels.Content" xml:space="preserve">
+    <value>(SPERIMENTALE) Canali vocali (solo ricezione)</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Disconnettersi</value>
+  </data>
+  <data name="AudioPI.Header" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="BGEnableTS.OffContent" xml:space="preserve">
+    <value>Abilita notifiche in background</value>
+  </data>
+  <data name="BGEnableTS.OnContent" xml:space="preserve">
+    <value>Disabilita notifiche in background</value>
+  </data>
+  <data name="BGNotifInfoTB.Text" xml:space="preserve">
+    <value>Riceverai notifiche per qualsiasi cosa sia selezionata di seguito ogni volta che viene eseguito il processo in background</value>
+  </data>
+  <data name="BGNotifsTB.Text" xml:space="preserve">
+    <value>NOTIFICAZIONI BACKGROUND</value>
+  </data>
+  <data name="BGNotifyDMCB.Content" xml:space="preserve">
+    <value>DMs non letti</value>
+  </data>
+  <data name="BGNotifyFriendsCB.Content" xml:space="preserve">
+    <value>Richieste di amicizia</value>
+  </data>
+  <data name="BGNotifyMentionsCB.Content" xml:space="preserve">
+    <value>Nuove menzioni</value>
+  </data>
+  <data name="IAPNotifsTB.Text" xml:space="preserve">
+    <value>NOTIFICHE IN-APP</value>
+  </data>
+  <data name="MentionGlowCB.Content" xml:space="preserve">
+    <value>Fai luce sul lato sinistro dello schermo quando sei menzionato</value>
+  </data>
+  <data name="OutputDevicesCB.Header" xml:space="preserve">
+    <value>Dispositivi di output</value>
+  </data>
+  <data name="DeviceOverrideCB.Content" xml:space="preserve">
+    <value>Può essere sostituito dalla sessione facendo clic con il tasto destro o tenendo premuto il pulsante Deafen nel canale vocale</value>
+  </data>
+  <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
+    <value>Parametri del'account </value>
+  </data>
+  <data name="ShowServerMuteCB.Content" xml:space="preserve">
+    <value>Mostra l'icona Disattiva audio sui server</value>
+  </data>
+  <data name="FontSizeTB.Text" xml:space="preserve">
+    <value>Dimensione del carattere del messaggio</value>
+  </data>
+  <data name="AaTB.Text" xml:space="preserve">
+    <value>Aa</value>
+  </data>
+  <data name="BGNotifyMutedMentionsCB.Content" xml:space="preserve">
+    <value>Nuove menzioni in Server disattivati</value>
+  </data>
+  <data name="SoundsCB.Content" xml:space="preserve">
+    <value>Suoni</value>
+  </data>
+  <data name="SoundsPI.Header" xml:space="preserve">
+    <value>Suoni</value>
+  </data>
+  <data name="VoicePI.Header" xml:space="preserve">
+    <value>Voce</value>
+  </data>
+  <data name="SoundTypesTB.Text" xml:space="preserve">
+    <value>Tipi di suono</value>
+  </data>
+  <data name="DiscordRB.Content" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="WindowsRB.Content" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="SoundsTB.Text" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="AccountSettingTB.Text" xml:space="preserve">
+    <value>PARAMETRI DEL'ACCOUNT</value>
+  </data>
+  <data name="AccountPI.Header" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="AccountPrivacyPI.Header" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="UploadImageHLBTN.Content" xml:space="preserve">
+    <value>Caricare imagini</value>
+  </data>
+  <data name="DeleteImageHLBTN.Content" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="UsernameBox.Header" xml:space="preserve">
+    <value>Nome utente</value>
+  </data>
+  <data name="EmailBox.Header" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="CurrentPswrdPBox.Header" xml:space="preserve">
+    <value>Password attuale</value>
+  </data>
+  <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
+    <value>Cambia password</value>
+  </data>
+  <data name="NewPswrdPBox.Header" xml:space="preserve">
+    <value>Nuova password</value>
+  </data>
+  <data name="SaveTB.Text" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="DMFilterTB.Text" xml:space="preserve">
+    <value>FILTRAZIONE DEI MESSAGGI DIRETTI</value>
+  </data>
+  <data name="DMFilterExpoTB.Text" xml:space="preserve">
+    <value>Analizza ed elimina automaticamente i messaggi diretti contenenti contenuti espliciti</value>
+  </data>
+  <data name="ProtectMeTB.Text" xml:space="preserve">
+    <value>Proteggimi</value>
+  </data>
+  <data name="ProtectMeExpoTB.Text" xml:space="preserve">
+    <value>Analiti tutti i DMs</value>
+  </data>
+  <data name="NiceFriendsTB.Text" xml:space="preserve">
+    <value>I miei amici sono carini</value>
+  </data>
+  <data name="NiceFriendsExpoTB.Text" xml:space="preserve">
+    <value>Analizza tutti i DMs, tranne quelli dei miei amici</value>
+  </data>
+  <data name="DangerZoneTB.Text" xml:space="preserve">
+    <value>Vivo pericolosamente</value>
+  </data>
+  <data name="DangerZoneExpoTB.Text" xml:space="preserve">
+    <value>Non analizare alcun DMs</value>
+  </data>
+  <data name="FriendRequestOptionsTB.Text" xml:space="preserve">
+    <value>CHI PUO INVIARE RICHIESTE DI AMICI</value>
+  </data>
+  <data name="EveryoneCB.Content" xml:space="preserve">
+    <value>Tutti</value>
+  </data>
+  <data name="MutualFriendsCB.Content" xml:space="preserve">
+    <value>Gli amici dei miei amici</value>
+  </data>
+  <data name="MutualServerMembersCB.Content" xml:space="preserve">
+    <value>Membri del server reciproco</value>
+  </data>
+  <data name="FullPrivacySettingsTB.Text" xml:space="preserve">
+    <value>Per accedere al resto delle impostazioni sulla privacy, utilizzare il sito Web o il client Discord ufficiale</value>
+  </data>
+  <data name="DerivedRadio.Content" xml:space="preserve">
+    <value>Colore derivato</value>
+  </data>
+  <data name="LanguageComboB.Header" xml:space="preserve">
+    <value>Lingua (richiede il riavvio del applicazione)</value>
+  </data>
+  <data name="DefaultComboBI.Content" xml:space="preserve">
+    <value>Predefinito</value>
+  </data>
+  <data name="AppSettingsHLBTN.Content" xml:space="preserve">
+    <value>Parametri del'applicazione</value>
+  </data>
+  <data name="MentionsCB.Content" xml:space="preserve">
+    <value>Menzioni</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Niente</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>Non letto</value>
+  </data>
+  <data name="ConnectionsTB.Text" xml:space="preserve">
+    <value>CONNEZIONI</value>
+  </data>
+  <data name="BadgeCountDescTB.Text" xml:space="preserve">
+    <value>Mostra il conteggio delle menzioni come badge</value>
+  </data>
+  <data name="BadgeCountTB.Text" xml:space="preserve">
+    <value>Conto dei badge</value>
+  </data>
+  <data name="DerivedColorDescTB.Text" xml:space="preserve">
+    <value>Il colore secondario nelle pagine relative all'utente verrà derivato dall'icona del profilo dell'utente</value>
+  </data>
+  <data name="DerivedColorTB.Text" xml:space="preserve">
+    <value>Colore derivato</value>
+  </data>
+  <data name="EnableAcrylicDescTB.Text" xml:space="preserve">
+    <value>Sfondo sfocato</value>
+  </data>
+  <data name="EnableAcrylicTB.Text" xml:space="preserve">
+    <value>Pennelli acrilici</value>
+  </data>
+  <data name="ExpensiveRenderDescTB.Text" xml:space="preserve">
+    <value>Abilita vari elementi grafici costosi come effetti sfocatura e visualizzatori audio</value>
+  </data>
+  <data name="EnableBackgroundVoiceTB.Text" xml:space="preserve">
+    <value>Supporto vocale in background</value>
+  </data>
+  <data name="EnableBackgroundVoiceDescTB.Text" xml:space="preserve">
+    <value>Sperimentale, può causare arresti anomali</value>
+  </data>
+  <data name="ExpensiveRenderTB.Text" xml:space="preserve">
+    <value>Rendering costoso</value>
+  </data>
+  <data name="HighlightEveryoneDescTB.Text" xml:space="preserve">
+    <value>@everyone spam non è più un problema</value>
+  </data>
+  <data name="HighlightEveryoneTB.Text" xml:space="preserve">
+    <value>Evidenzia @everyone</value>
+  </data>
+  <data name="LiveTileDescTB.Text" xml:space="preserve">
+    <value>Mostra alcuni messaggi sul riquadro live, attua il menu di avvio</value>
+  </data>
+  <data name="LiveTileTB.Text" xml:space="preserve">
+    <value>Live Tile</value>
+  </data>
+  <data name="MentionGlowDescTB.Text" xml:space="preserve">
+    <value>Il lato sinistro dello schermo si illumina quando sei menzionato</value>
+  </data>
+  <data name="MentionGlowTB.Text" xml:space="preserve">
+    <value>Menzione Glow</value>
+  </data>
+  <data name="ServerMuteIconDescTB.Text" xml:space="preserve">
+    <value>Un'icona di disattivazione audio che viene visualizzata sui server disattivati nell'elenco dei server</value>
+  </data>
+  <data name="ServerMuteIconTB.Text" xml:space="preserve">
+    <value>Icona di silenziamento del server</value>
+  </data>
+  <data name="ShowWelcomeDescTB.Text" xml:space="preserve">
+    <value>Quei piccoli messaggi carini sulla schermata di caricamento, puoi disabilitarli se vuoi. Perchè no</value>
+  </data>
+  <data name="ShowWelcomeTB.Text" xml:space="preserve">
+    <value>Mostra messaggi di benvenuto</value>
+  </data>
+  <data name="UseCompressionDescTB.Text" xml:space="preserve">
+    <value>La compressione dei dati rende i messaggi gateway più piccoli e più veloci da ricevere. Questo è un po 'più costoso per la CPU ma significativamente più veloce con una velocità inferiore di Internet.</value>
+  </data>
+  <data name="UseCompressionTB.Text" xml:space="preserve">
+    <value>Compressione dei dati</value>
+  </data>
+  <data name="x" xml:space="preserve">
+    <value>Quando ricevi un messaggio nel tuo canale attivo, il tuo dispositivo vibrerà, se possibile</value>
+  </data>
+  <data name="VibrateTB.Text" xml:space="preserve">
+    <value>Vibrazione alla ricezione</value>
+  </data>
+  <data name="CompactMessagesCB.Content" xml:space="preserve">
+    <value>CompactMessages</value>
+  </data>
+  <data name="CustomCBI.Content" xml:space="preserve">
+    <value>Personalizzato</value>
+  </data>
+  <data name="InputDevicesCB.Header" xml:space="preserve">
+    <value>Dispositivi di input</value>
+  </data>
+  <data name="NoiseSensitivitySD.Header" xml:space="preserve">
+    <value>Tolleranza al rumore (dB)</value>
+  </data>
+  <data name="OLEDDescTB.Text" xml:space="preserve">
+    <value>Questo cambia il tema dell'app per i dispositivi OLED in modo da risparmiare la batteria (con uno sfondo completamente nero)</value>
+  </data>
+  <data name="OLEDTB.Text" xml:space="preserve">
+    <value>Tema OLED</value>
+  </data>
+  <data name="ResetQuarrelBTN.Content" xml:space="preserve">
+    <value>Resetta Quarrel</value>
+  </data>
+  <data name="NoInput.Text" xml:space="preserve">
+    <value>Purtroppo, Quarrel non è stato in grado di trovare o utilizzare un dispositivo di input. Ascoltare i canali vocali funzionerà, ma parlare no</value>
+  </data>
+  <data name="RichPresenceDescTB.Text" xml:space="preserve">
+    <value>Consenti ad altre app UWP di connettersi a Quarrel per impostare la presenza avanzata dell'utente</value>
+  </data>
+  <data name="RichPresenceTB.Text" xml:space="preserve">
+    <value>Presenza ricca</value>
+  </data>
+  <data name="ShowNoPermissionsChannelsDescTB.Text" xml:space="preserve">
+    <value>Osserva ciò a cui non puoi entrare</value>
+  </data>
+  <data name="ShowNoPermissionsChannelsTB.Text" xml:space="preserve">
+    <value>Mostra canali senza autorizzazioni</value>
+  </data>
+  <data name="ScalingDescTB.Text" xml:space="preserve">
+    <value>Su schermi più piccoli tutto può essere un po 'piccolo su Xbox in modo da poter abilitare il ridimensionamento per ingrandirlo</value>
+  </data>
+  <data name="ScalingTB.Text" xml:space="preserve">
+    <value>Scaling</value>
+  </data>
+  <data name="ADVANCEDTB.Text" xml:space="preserve">
+    <value>AVANZATI</value>
+  </data>
+  <data name="BehaviorPI.Header" xml:space="preserve">
+    <value>Comportamento</value>
+  </data>
+  <data name="CHANNELSTB.Text" xml:space="preserve">
+    <value>CANALI</value>
+  </data>
+  <data name="DataLimiting2TB.Text" xml:space="preserve">
+    <value>Limitazione dei dati sui dati mobili</value>
+  </data>
+  <data name="DataLimitingTB.Text" xml:space="preserve">
+    <value>Limitazione dei dati</value>
+  </data>
+  <data name="DisplayPI.Header" xml:space="preserve">
+    <value>Mostra</value>
+  </data>
+  <data name="IntegrationTB.Text" xml:space="preserve">
+    <value>INTEGRAZIONI</value>
+  </data>
+  <data name="NetworkPI.Header" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="OnMDTB.Text" xml:space="preserve">
+    <value>Sui dati mobili</value>
+  </data>
+  <data name="OtherPI.Header" xml:space="preserve">
+    <value>Altro</value>
+  </data>
+  <data name="ResetQuarrelSettingsBTN.Content" xml:space="preserve">
+    <value>Resetta i parametri di Quarrel</value>
+  </data>
+  <data name="StandardTB.Text" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Theme.Header" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="TTLDescTB.Text" xml:space="preserve">
+    <value>TPC (toccare per caricare). Le immagini, i file audio o i video nei messaggi non verranno visualizzati se non si tocca prima un'icona sostitutiva</value>
+  </data>
+  <data name="TTLTB.Text" xml:space="preserve">
+    <value>TPC Allegati</value>
+  </data>
+  <data name="BGTaskNoRun" xml:space="preserve">
+    <value>L'attività in background non è stata ancora eseguita</value>
+  </data>
+  <data name="BGTaskNoSuccessfulRun" xml:space="preserve">
+    <value>L'attività in background non è stata ancora eseguita correttamente</value>
+  </data>
+  <data name="DeviceOverrideTB.Text" xml:space="preserve">
+    <value>Può essere sostituito dalla sessione facendo clic con il tasto destro o tenendo premuto il pulsante Deafen nel canale vocale</value>
+  </data>
+  <data name="MyPeopleDescTB.Text" xml:space="preserve">
+    <value>Mostra i contatti Discord nell'app People e sulla barra delle applicazioni</value>
+  </data>
+  <data name="MyPeopleTB.Text" xml:space="preserve">
+    <value>MyPeople</value>
+  </data>
+  <data name="OverrideCategoryCollaspseTB.Text" xml:space="preserve">
+    <value>Sostituisci comprimere categoria</value>
+  </data>
+  <data name="RunEveryLabelTB.Text" xml:space="preserve">
+    <value>Esegui il processo in background ogni:</value>
+  </data>
+  <data name="VibrateDescTB.Text" xml:space="preserve">
+    <value>Quando ricevi un messaggio nel tuo canale attivo, il tuo dispositivo vibrerà, se possibile</value>
+  </data>
+  <data name="HideMutedChannelsDescTB.Text" xml:space="preserve">
+    <value>Nasconde i canali disattivati</value>
+  </data>
+  <data name="HideMutedChannelsTB.Text" xml:space="preserve">
+    <value>Nascondi canali disattivati</value>
+  </data>
+  <data name="UseTypingIndicatorTB.Text" xml:space="preserve">
+    <value>Usa l'indicatore di battitura</value>
+  </data>
+  <data name="UseTypingIndicatorTBDesc.Text" xml:space="preserve">
+    <value>Quei 3 punti che appaiono quando si digita ti danno fastidio? Disattivalo se vuoi!</value>
+  </data>
+</root>
