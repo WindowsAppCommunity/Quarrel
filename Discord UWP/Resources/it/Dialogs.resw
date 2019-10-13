@@ -1,0 +1,976 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptFriendReqBTN.Text" xml:space="preserve">
+    <value>Accetta richiesta d'amicizia</value>
+  </data>
+  <data name="AddReactionsToggle.Header" xml:space="preserve">
+    <value>Aggiungi reazioni</value>
+  </data>
+  <data name="AdministratorToggle.Header" xml:space="preserve">
+    <value>Amministratore</value>
+  </data>
+  <data name="AdvancedMessageEditorTB" xml:space="preserve">
+    <value>EDITORE DI MESSAGGI AVANZATO</value>
+  </data>
+  <data name="AttachementsTB.Text" xml:space="preserve">
+    <value>ALLEGATI</value>
+  </data>
+  <data name="AttachFilesToggle.Header" xml:space="preserve">
+    <value>Allega files</value>
+  </data>
+  <data name="BadChannelNameDesc1.Text" xml:space="preserve">
+    <value>I nomi dei canali possono contenere solo caratteri alfanumerici, ad eccezione di trattini e caratteri di sottolineatura.</value>
+  </data>
+  <data name="BadChannelNameDesc2.Text" xml:space="preserve">
+    <value>Riparare automaticamente?</value>
+  </data>
+  <data name="BanBTN.Content" xml:space="preserve">
+    <value>Bandire</value>
+  </data>
+  <data name="BanMembersToggle.Header" xml:space="preserve">
+    <value>Ban membri</value>
+  </data>
+  <data name="BansPI.Header" xml:space="preserve">
+    <value>Bandire</value>
+  </data>
+  <data name="BlockTB.Text" xml:space="preserve">
+    <value>Bloccare</value>
+  </data>
+  <data name="BodyTB.Text" xml:space="preserve">
+    <value>CORPO</value>
+  </data>
+  <data name="CancelBTN.Content" xml:space="preserve">
+    <value>Annulare</value>
+  </data>
+  <data name="ChangeNicknameToggle.Header" xml:space="preserve">
+    <value>Cambia soprannome</value>
+  </data>
+  <data name="CommonFriendsLI.Content" xml:space="preserve">
+    <value>AMICI IN COMUNE</value>
+  </data>
+  <data name="CommonServersLI.Content" xml:space="preserve">
+    <value>SERVERS IN COMUNE</value>
+  </data>
+  <data name="ConnectToggle.Header" xml:space="preserve">
+    <value>Collegare</value>
+  </data>
+  <data name="CopyLinkABB.Label" xml:space="preserve">
+    <value>Copia link</value>
+  </data>
+  <data name="CreateInstantInviteToggle.Header" xml:space="preserve">
+    <value>Crea inviti istantanei</value>
+  </data>
+  <data name="CreateServerTB.Text" xml:space="preserve">
+    <value>Crea server</value>
+  </data>
+  <data name="DeafenMembersToggle.Header" xml:space="preserve">
+    <value>Membri assordati</value>
+  </data>
+  <data name="DeleteBTN" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="DetailsLI.Content" xml:space="preserve">
+    <value>DETAGLI</value>
+  </data>
+  <data name="EditChannelNameTBox.Header" xml:space="preserve">
+    <value>NOME</value>
+  </data>
+  <data name="EditChannelTB.Text" xml:space="preserve">
+    <value>MODIFICA CANALE</value>
+  </data>
+  <data name="EditNicknameTB.Text" xml:space="preserve">
+    <value>SOPPRANOME</value>
+  </data>
+  <data name="EditServerNameTBox.Header" xml:space="preserve">
+    <value>NOME</value>
+  </data>
+  <data name="EditServerTB.Text" xml:space="preserve">
+    <value>MODIFICA CANALE</value>
+  </data>
+  <data name="EmbedLinksToggle.Header" xml:space="preserve">
+    <value>Incorpora collegamenti</value>
+  </data>
+  <data name="FileNameTB.Text" xml:space="preserve">
+    <value>Nome file:</value>
+  </data>
+  <data name="FileSizeTB.Text" xml:space="preserve">
+    <value>Dimensione del file:</value>
+  </data>
+  <data name="FriendReqSentBTN.Text" xml:space="preserve">
+    <value>Richiesta di amicizia inviata</value>
+  </data>
+  <data name="GeneralPermissionsTB.Text" xml:space="preserve">
+    <value>PERMESSI GENERALI</value>
+  </data>
+  <data name="HeightTB.Text" xml:space="preserve">
+    <value>Altezza:</value>
+  </data>
+  <data name="IAPsTB.Text" xml:space="preserve">
+    <value>ACQUISTI IN-APP</value>
+  </data>
+  <data name="InvitesPI.Header" xml:space="preserve">
+    <value>Inviti</value>
+  </data>
+  <data name="JoinAServerTB.Text" xml:space="preserve">
+    <value>UNISCITI A UN SERVER</value>
+  </data>
+  <data name="JoinBTN.Content" xml:space="preserve">
+    <value>Aderire</value>
+  </data>
+  <data name="JoinServerDescTB.Text" xml:space="preserve">
+    <value>Inserisci un link o un codice di invito Discord:</value>
+  </data>
+  <data name="JoinServerErrorTB.Text" xml:space="preserve">
+    <value>Siamo spiacenti, ma il codice di invito non è valido o è scaduto.</value>
+  </data>
+  <data name="JoinServerTB.Text" xml:space="preserve">
+    <value>Aderire al server</value>
+  </data>
+  <data name="KickMembersToggle.Header" xml:space="preserve">
+    <value>Buttare fuori membri</value>
+  </data>
+  <data name="LeaveServerBTN.Content" xml:space="preserve">
+    <value>Lasciare server</value>
+  </data>
+  <data name="ManageChannelsToggle.Header" xml:space="preserve">
+    <value>Gestisci canali</value>
+  </data>
+  <data name="ManageEmojisToggle.Header" xml:space="preserve">
+    <value>Gestisci emojis</value>
+  </data>
+  <data name="ManageMessagesToggle.Header" xml:space="preserve">
+    <value>Gestisci i messaggi</value>
+  </data>
+  <data name="ManageNicknamesToggle.Header" xml:space="preserve">
+    <value>Gestisci i soprannomi</value>
+  </data>
+  <data name="ManageRolesToggle.Header" xml:space="preserve">
+    <value>Gestire i ruoli</value>
+  </data>
+  <data name="ManageServerToggle.Header" xml:space="preserve">
+    <value>Gestisci server</value>
+  </data>
+  <data name="ManageWebhooksToggle.Header" xml:space="preserve">
+    <value>Gestisci i webhook</value>
+  </data>
+  <data name="MentionEveryoneToggle.Header" xml:space="preserve">
+    <value>Gestisci tutti</value>
+  </data>
+  <data name="MoveMembersToggle.Header" xml:space="preserve">
+    <value>Muovi membri.</value>
+  </data>
+  <data name="MuteMembersToggle.Header" xml:space="preserve">
+    <value>Disattiva membri.</value>
+  </data>
+  <data name="NameTB.Text" xml:space="preserve">
+    <value>NOME</value>
+  </data>
+  <data name="NoBansTB.Text" xml:space="preserve">
+    <value>NESSUN DIVIETTO (ANCORA)</value>
+  </data>
+  <data name="NoCommonFriendsTB.Text" xml:space="preserve">
+    <value>NESSUN AMICO IN COMMUNE</value>
+  </data>
+  <data name="NoCommonServersTB.Text" xml:space="preserve">
+    <value>NESSUN SERVER IN COMMUNE</value>
+  </data>
+  <data name="NoInvitesTB.Text" xml:space="preserve">
+    <value>NESSUN INVITO</value>
+  </data>
+  <data name="NoteTB.Text" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="NsfwDescTB.Text" xml:space="preserve">
+    <value>Gli utenti dovranno confermare che hanno superato l'età legale per visualizzare i contenuti di questo canale. Sarà inoltre esentato dal filtro esplicito del contenuto.</value>
+  </data>
+  <data name="NsfwSwitch.OffContent" xml:space="preserve">
+    <value>Canale NSFW</value>
+  </data>
+  <data name="NsfwSwitch.OnContent" xml:space="preserve">
+    <value>Canale NSFW</value>
+  </data>
+  <data name="OMGTHXDonationBTN.Content" xml:space="preserve">
+    <value>OMG Grazie! donazione $ 2,99</value>
+  </data>
+  <data name="OpenInBrowserABB.Label" xml:space="preserve">
+    <value>Apri nel browser</value>
+  </data>
+  <data name="OverviewPI.Header" xml:space="preserve">
+    <value>Panoramica</value>
+  </data>
+  <data name="PoliteDonationBTN.Content" xml:space="preserve">
+    <value>Donazione gentile $ 1,29</value>
+  </data>
+  <data name="ReadMessageHistoryToggle.Header" xml:space="preserve">
+    <value>Leggi la cronologia dei messaggi</value>
+  </data>
+  <data name="ReadMessagesToggle.Header" xml:space="preserve">
+    <value>Leggi messaggi</value>
+  </data>
+  <data name="RemoveAdsBTN.Content" xml:space="preserve">
+    <value>Rimuovi gli annunci $ 1,29</value>
+  </data>
+  <data name="RemoveFriendTB.Text" xml:space="preserve">
+    <value>Rimuovi amico</value>
+  </data>
+  <data name="RidiculousDonationBTN.Content" xml:space="preserve">
+    <value>Donazione ridicola $ 4,99</value>
+  </data>
+  <data name="RoleAllowMentionToggle.Header" xml:space="preserve">
+    <value>Consenti menzione</value>
+  </data>
+  <data name="RoleHoistToggle.Header" xml:space="preserve">
+    <value>Hoist</value>
+  </data>
+  <data name="RoleNameTB.Text" xml:space="preserve">
+    <value>NOME</value>
+  </data>
+  <data name="RoleSettingsTB.Text" xml:space="preserve">
+    <value>IMPOSTAZIONE</value>
+  </data>
+  <data name="RolesPI.Header" xml:space="preserve">
+    <value>Ruoli</value>
+  </data>
+  <data name="SaveABB.Label" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="SaveBTN.Content" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="SendFriendReqBTN.Text" xml:space="preserve">
+    <value>Invia richiesta di amicizia</value>
+  </data>
+  <data name="SendMessagesToggle.Header" xml:space="preserve">
+    <value>Invia messagi</value>
+  </data>
+  <data name="SendMessageTB.Text" xml:space="preserve">
+    <value>Invia messagio</value>
+  </data>
+  <data name="SendTTSMessagesToggle.Header" xml:space="preserve">
+    <value>Invia messaggio TTS</value>
+  </data>
+  <data name="ServerGuidelinesDesc1" xml:space="preserve">
+    <value>Creando un server, accetti</value>
+  </data>
+  <data name="ServerGuidelinesDesc2" xml:space="preserve">
+    <value>Discord's Community Guidelines</value>
+  </data>
+  <data name="ShareABB.Label" xml:space="preserve">
+    <value>Condividi</value>
+  </data>
+  <data name="SignificantDonationBTN.Content" xml:space="preserve">
+    <value>Donazione significativa $ 1,99</value>
+  </data>
+  <data name="SpeakToggle.Header" xml:space="preserve">
+    <value>Parlare</value>
+  </data>
+  <data name="TextPermissionsTB.Text" xml:space="preserve">
+    <value>PERMESSI DI TESTO</value>
+  </data>
+  <data name="UnblockBTN.Text" xml:space="preserve">
+    <value>Sbloccare</value>
+  </data>
+  <data name="UseExternalEmojisToggle.Header" xml:space="preserve">
+    <value>Usa emojis esterni</value>
+  </data>
+  <data name="UseVoiceActivityToggle.Header" xml:space="preserve">
+    <value>Usa l'attività vocale</value>
+  </data>
+  <data name="ViewAuditLogToggle.Header" xml:space="preserve">
+    <value>Visualizza registro di controllo</value>
+  </data>
+  <data name="VoicePermissionsTB.Text" xml:space="preserve">
+    <value>AUTORIZZAZIONI VOCALI</value>
+  </data>
+  <data name="WidthTB.Text" xml:space="preserve">
+    <value>Largezza:</value>
+  </data>
+  <data name="EditChannelTopicTBox.Header" xml:space="preserve">
+    <value>ARGOMENTO</value>
+  </data>
+  <data name="AddOnError" xml:space="preserve">
+    <value>Si è verificato un errore, riprovare più tardi.</value>
+  </data>
+  <data name="AddOnNotPurchased" xml:space="preserve">
+    <value>Il componente aggiuntivo non è stato acquistato.</value>
+  </data>
+  <data name="AddOnPurchased" xml:space="preserve">
+    <value>Grazie mille per la donazione!</value>
+  </data>
+  <data name="EDIT" xml:space="preserve">
+    <value>MODIFICARE</value>
+  </data>
+  <data name="FlagDiscordPartner" xml:space="preserve">
+    <value>DISCORD PARTNER</value>
+  </data>
+  <data name="FlagDiscordStaff" xml:space="preserve">
+    <value>PERSONALE DISCORD</value>
+  </data>
+  <data name="FlagHypesquad" xml:space="preserve">
+    <value>HYPESQUAD</value>
+  </data>
+  <data name="PremiumSince" xml:space="preserve">
+    <value>Membro premium dal</value>
+  </data>
+  <data name="VerifyBan" xml:space="preserve">
+    <value>Sicuro di voler bloccare @</value>
+  </data>
+  <data name="VerifyDelete" xml:space="preserve">
+    <value>Sei sicuro di voler eliminare </value>
+  </data>
+  <data name="VerifyLeave" xml:space="preserve">
+    <value>Sei sicuro di voler partire </value>
+  </data>
+  <data name="VerifyLogout" xml:space="preserve">
+    <value>Sei sicuro di voler uscire?</value>
+  </data>
+  <data name="CreateChannelTB.Text" xml:space="preserve">
+    <value>CREARE CANALE</value>
+  </data>
+  <data name="AdvancedOpenFileTB.Text" xml:space="preserve">
+    <value>Apri il file</value>
+  </data>
+  <data name="AdvancedRecordSoundTB.Text" xml:space="preserve">
+    <value>Registra suono</value>
+  </data>
+  <data name="AdvancedTakePhotoTB.Text" xml:space="preserve">
+    <value>Fare foto</value>
+  </data>
+  <data name="on" xml:space="preserve">
+    <value>su</value>
+  </data>
+  <data name="SavingAudio" xml:space="preserve">
+    <value>Crea file...</value>
+  </data>
+  <data name="RecordingAudio" xml:space="preserve">
+    <value>Registrazione...</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="GotIt.Content" xml:space="preserve">
+    <value>Fatto!</value>
+  </data>
+  <data name="DonationsTB" xml:space="preserve">
+    <value>DONAZIONI</value>
+  </data>
+  <data name="CommonFriendsTB.Text" xml:space="preserve">
+    <value>AMICI IN COMUNE</value>
+  </data>
+  <data name="CommonServersTB.Text" xml:space="preserve">
+    <value>SERVERS IN COMUNE</value>
+  </data>
+  <data name="TextChannel" xml:space="preserve">
+    <value>Canale di testo</value>
+  </data>
+  <data name="VoiceChannel" xml:space="preserve">
+    <value>Canale vocale</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Categoria</value>
+  </data>
+  <data name="LeaveServer" xml:space="preserve">
+    <value>Lasciare server</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="Ban" xml:space="preserve">
+    <value>Bandire</value>
+  </data>
+  <data name="CreateServer" xml:space="preserve">
+    <value>Crea server</value>
+  </data>
+  <data name="ServerName" xml:space="preserve">
+    <value>Nome del server</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Creare</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annulare</value>
+  </data>
+  <data name="CloseDMConfirm" xml:space="preserve">
+    <value>Sei sicuro di voler chiudere il tuo DM con</value>
+  </data>
+  <data name="DeleteMessageConfirm" xml:space="preserve">
+    <value>Sei sicuro di voler eliminare questo messaggio?</value>
+  </data>
+  <data name="EditNickname" xml:space="preserve">
+    <value>Edit Nickname</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="AddOnsTB.Text" xml:space="preserve">
+    <value>ADD-ONS</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>SEI SICURO?</value>
+  </data>
+  <data name="ResetQuarrel" xml:space="preserve">
+    <value>Resetta Quarrel</value>
+  </data>
+  <data name="ThisWillResetQuarrelEtc" xml:space="preserve">
+    <value>Ciò ripristinerà completamente il Litigio, il che significa che verrai disconnesso dal tuo account, tutte le impostazioni verranno ripristinate e l'applicazione verrà chiusa. Ciò NON influirà sul tuo account Discord.</value>
+  </data>
+  <data name="AccountSettingTB.Text" xml:space="preserve">
+    <value>IMPOSTAZIONI DELL'ACCOUNT</value>
+  </data>
+  <data name="AccountPI.Header" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="AppSettingsHLBTN.Content" xml:space="preserve">
+    <value>Impostazioni dell'applicazione</value>
+  </data>
+  <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
+    <value>Cambia password</value>
+  </data>
+  <data name="CurrentPswrdPBox.Header" xml:space="preserve">
+    <value>Password attuale</value>
+  </data>
+  <data name="DeleteImageHLBTN.Content" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="EmailBox.Header" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Sorry" xml:space="preserve">
+    <value>Scusate  : /</value>
+  </data>
+  <data name="ThereWasAnErrorClarify" xml:space="preserve">
+    <value>Si è verificato un errore sconosciuto durante il tentativo di modificare i dettagli del tuo account, sei sicuro che tutto sia corretto?</value>
+  </data>
+  <data name="UploadImageHLBTN.Content" xml:space="preserve">
+    <value>Carica imagine</value>
+  </data>
+  <data name="UsernameBox.Header" xml:space="preserve">
+    <value>Nome utente</value>
+  </data>
+  <data name="GuildNameBox.PlaceholderText" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="EditChannelTopicTBox.PlaceholderText" xml:space="preserve">
+    <value>No defined topic</value>
+  </data>
+  <data name="ImageRecommendationTB.Text" xml:space="preserve">
+    <value>Ti consigliamo di utilizzare un'immagine che sia almeno 512x512px</value>
+  </data>
+  <data name="CancelIconMod" xml:space="preserve">
+    <value>Annulare modifica del icona</value>
+  </data>
+  <data name="SaveBTNtext.Text" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="ChannelSelectTB.Text" xml:space="preserve">
+    <value>CANALE</value>
+  </data>
+  <data name="MustBeLoggedIn" xml:space="preserve">
+    <value>Devi aver effettuato l'accesso a Quarrel per utilizzarlo come target di condivisione</value>
+  </data>
+  <data name="ServerSelectTB.Text" xml:space="preserve">
+    <value>SERVER</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Condividi</value>
+  </data>
+  <data name="ListenTogetherTB.Text" xml:space="preserve">
+    <value>ASCOLTA INSIEME SU SPOTIFY</value>
+  </data>
+  <data name="NoteTBox.PlaceholderText" xml:space="preserve">
+    <value>Nessuna nota</value>
+  </data>
+  <data name="ConnectionsTB.Text" xml:space="preserve">
+    <value>Connessioni</value>
+  </data>
+  <data name="NewPswrdPBox.Header" xml:space="preserve">
+    <value>Nuova password</value>
+  </data>
+  <data name="AccountTB.Text" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="AuditLogChannelCreate" xml:space="preserve">
+    <value>&lt;user&gt; creato il canale &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateValid" xml:space="preserve">
+    <value>&lt;user&gt; aggiornato il canale &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateInvalid" xml:space="preserve">
+    <value>&lt;user&gt;aggiornato un canale ora cancellato (&lt;channelid&gt;)</value>
+  </data>
+  <data name="AuditLogChannelDelete" xml:space="preserve">
+    <value>&lt;user&gt; rimosso il canale &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogEmojiCreate" xml:space="preserve">
+    <value>&lt;user&gt; creato l'emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogEmojiUpdate" xml:space="preserve">
+    <value>&lt;user&gt; aggiornato l'emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogEmojiDelete" xml:space="preserve">
+    <value>&lt;user&gt; rimosso l'emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogGuildUpdate" xml:space="preserve">
+    <value>&lt;user&gt; aggiornato le informazioni del server</value>
+  </data>
+  <data name="AuditLogInviteCreate" xml:space="preserve">
+    <value>&lt;user&gt; creato l'invito &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogInviteUpdate" xml:space="preserve">
+    <value>&lt;user&gt; aggiornato l'invito &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogUnknown" xml:space="preserve">
+    <value>&lt;user&gt; ha compiuto un'azione sconosciuta</value>
+  </data>
+  <data name="AuditLogMemberBanAdd" xml:space="preserve">
+    <value>&lt;user&gt; vieta &lt;banneduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberBanRemove" xml:space="preserve">
+    <value>&lt;user&gt; revocato il divieto di &lt;banneduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberKick" xml:space="preserve">
+    <value>&lt;user&gt; a messo fuori &lt;kickeduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberPrune" xml:space="preserve">
+    <value>&lt;user&gt; ha eliminato il server</value>
+  </data>
+  <data name="AuditLogMemberRoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; ha aggiornato il ruolo di &lt;user2&gt;</value>
+  </data>
+  <data name="AuditLogDeletedChannel" xml:space="preserve">
+    <value>Canale cancellato</value>
+  </data>
+  <data name="AuditLogMessageDelete" xml:space="preserve">
+    <value>&lt;user&gt; ha cancello un messaggio di &lt;user2&gt; nel &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogRoleCreate" xml:space="preserve">
+    <value>&lt;user&gt; creato ruolo &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogDeletedRole" xml:space="preserve">
+    <value>Ruolo cancellato</value>
+  </data>
+  <data name="AuditLogRoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; aggiornato ruolo &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogRoleDelete" xml:space="preserve">
+    <value>&lt;user&gt; rimosso ruolo &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogWebhookCreate" xml:space="preserve">
+    <value>&lt;user&gt; creato il webhook &lt;webhook&gt;</value>
+  </data>
+  <data name="AuditLogWebhookUpdate" xml:space="preserve">
+    <value>&lt;user&gt; aggiornato il webhook &lt;webhook&gt;</value>
+  </data>
+  <data name="AuditLogWebhookDelete" xml:space="preserve">
+    <value>&lt;user&gt; rimosso il webhook &lt;webhook&gt;</value>
+  </data>
+  <data name="AuditLogChannelPermissionCreateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; ha creato le autorizzazioni per un canale ora eliminato</value>
+  </data>
+  <data name="AuditLogChannelPermissionCreateValid" xml:space="preserve">
+    <value>&lt;user&gt; ha creato le autorizzazioni per il canale &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelPermissionRemoveInvalid" xml:space="preserve">
+    <value>&lt;user&gt; autorizzazioni rimosse per un canale ora eliminato.</value>
+  </data>
+  <data name="AuditLogChannelPermissionRemoveValid" xml:space="preserve">
+    <value>&lt;user&gt; autorizzazioni rimosse per il canale &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelPermissionUpdateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; autorizzazioni aggiornate per un canale ora eliminato.</value>
+  </data>
+  <data name="AuditLogChannelPermissionUpdateValid" xml:space="preserve">
+    <value>&lt;user&gt; aggiornato le autorizzazioni per il canale &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdate" xml:space="preserve">
+    <value>&lt;user&gt; updated &lt;user2&gt;</value>
+  </data>
+  <data name="AuditLogInviteDelete" xml:space="preserve">
+    <value>&lt;user&gt; deleted the invite &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateBitrate" xml:space="preserve">
+    <value>Bitrate definito come &lt;bitrate&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateBitrateChange" xml:space="preserve">
+    <value>Bitrate cambiato da &lt;old&gt; a &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateName" xml:space="preserve">
+    <value>Nome impostato su &lt;name&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateNsfwFalse" xml:space="preserve">
+    <value>Creato canale **SFW**</value>
+  </data>
+  <data name="AuditLogChannelUpdateNsfwTrue" xml:space="preserve">
+    <value>Creato canale **NSFW**</value>
+  </data>
+  <data name="AuditLogChannelUpdateTopic" xml:space="preserve">
+    <value>Topic defined as &lt;subject&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateTopicChange" xml:space="preserve">
+    <value>Cambiato argomento da &lt;old&gt; a &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogPermissionGiven" xml:space="preserve">
+    <value>Ha dato il permesso &lt;permission&gt;</value>
+  </data>
+  <data name="AuditLogPermissionRevoked" xml:space="preserve">
+    <value>Autorizzazione **revocata** &lt;permission&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
+    <value>AFK canale impostato su &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateAfkTimeout" xml:space="preserve">
+    <value>Durata massima AFK impostata su &lt;time&gt; **minuti**</value>
+  </data>
+  <data name="AuditLogServerUpdateIcon" xml:space="preserve">
+    <value>Icona del server modificato</value>
+  </data>
+  <data name="AuditLogServerUpdateNotificationZero" xml:space="preserve">
+    <value>Opzione di notifica predefinita impostata su **tutti i messaggi**</value>
+  </data>
+  <data name="AuditLogServerUpdateNotificationOne" xml:space="preserve">
+    <value>Impostazioni di notifica predefinite impostate su **solo menzioni**</value>
+  </data>
+  <data name="AuditLogServerUpdateRegion" xml:space="preserve">
+    <value>Regione modificata &lt;region&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateRegionChange" xml:space="preserve">
+    <value>Regione cambiata da &lt;old&gt; a &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogChannelDeletePlural" xml:space="preserve">
+    <value>&lt;user&gt; rimuove &lt;x&gt; messaggio da &lt;user2&gt; ne canale &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateTopicRemove" xml:space="preserve">
+    <value>Argomento del canale rimosso</value>
+  </data>
+  <data name="AuditLogMemberUpdateNick" xml:space="preserve">
+    <value>Imposta soppranome su &lt;nick&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdateNickChange" xml:space="preserve">
+    <value>Cambiato soppranome da &lt;old&gt; a &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdateNickRemove" xml:space="preserve">
+    <value>Soppranome rimosso &lt;old&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdateRoleAdd" xml:space="preserve">
+    <value>Ruolo aggiunto &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdateRoleRemove" xml:space="preserve">
+    <value>Ruolo rimosso &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilter" xml:space="preserve">
+    <value>Filtro contenuto esplicito impostato su &lt;level&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterChange" xml:space="preserve">
+    <value>Filtro contenuto esplicito modificato da &lt;old&gt; a &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterOne" xml:space="preserve">
+    <value>Membri senza ruoli</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterTwo" xml:space="preserve">
+    <value>Tutti</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterZero" xml:space="preserve">
+    <value>Disattivato</value>
+  </data>
+  <data name="AuditLogServerUpdateMfaDisabled" xml:space="preserve">
+    <value>Autenticazione a due fattori **disabilitata**</value>
+  </data>
+  <data name="AuditLogServerUpdateMfaEnabled" xml:space="preserve">
+    <value>Autenticazione a due fattori **abilitata**</value>
+  </data>
+  <data name="AuditLogServerUpdateSplash" xml:space="preserve">
+    <value>Splash screen cambiata</value>
+  </data>
+  <data name="AuditLogServerUpdateVanityUrl" xml:space="preserve">
+    <value>Vanity URL cambiata &lt;url&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVanityUrlChange" xml:space="preserve">
+    <value>Vanity URL cambiata da &lt;old&gt; a &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVerification" xml:space="preserve">
+    <value>Livello di verifica impostato su &lt;level&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationChange" xml:space="preserve">
+    <value>Livello di verifica cambiato da &lt;old&gt; a &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationFour" xml:space="preserve">
+    <value>molto alto</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationOne" xml:space="preserve">
+    <value>basso</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationThree" xml:space="preserve">
+    <value>alto</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationTwo" xml:space="preserve">
+    <value>medio</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationZero" xml:space="preserve">
+    <value>illimitato</value>
+  </data>
+  <data name="AuditLogServerUpdateWidgetFalse" xml:space="preserve">
+    <value>Widget server **disabilittato**</value>
+  </data>
+  <data name="AuditLogServerUpdateWidgetTrue" xml:space="preserve">
+    <value>Widget server **abilittato**
+</value>
+  </data>
+  <data name="AuditLogUnknownSubaction" xml:space="preserve">
+    <value>Impostato &lt;change&gt; proprieta a &lt;value&gt;</value>
+  </data>
+  <data name="AuditLogUnknownSubactionChange" xml:space="preserve">
+    <value>Cambiato &lt;change&gt; da &lt;old&gt; a &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogInviteChannel" xml:space="preserve">
+    <value>Per il canale &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogInviteCode" xml:space="preserve">
+    <value>Con il codice &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogInviteMaxAge" xml:space="preserve">
+    <value>Scade dopo &lt;time&gt;</value>
+  </data>
+  <data name="AuditLogInviteMaxAgeForever" xml:space="preserve">
+    <value>**Non scade mai**</value>
+  </data>
+  <data name="AuditLogInviteTemporaryFalse" xml:space="preserve">
+    <value>Iscrizione temporanea **disabilitata**</value>
+  </data>
+  <data name="AuditLogInviteTemporaryTrue" xml:space="preserve">
+    <value>Iscrizione temporanea **abilitata**</value>
+  </data>
+  <data name="AuditLogMaxUseLimited" xml:space="preserve">
+    <value>Usi &lt;count&gt; massimi</value>
+  </data>
+  <data name="AuditLogMaxUseUnlimited" xml:space="preserve">
+    <value>**Usi illimitati**</value>
+  </data>
+  <data name="AuditLogServerUpdateOwnerChange" xml:space="preserve">
+    <value>Responsabile cambiato da &lt;old&gt; a &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVanityUrlRemove" xml:space="preserve">
+    <value>Rimossa il vanity URL &lt;old&gt;</value>
+  </data>
+  <data name="TimeDay" xml:space="preserve">
+    <value>un giorno</value>
+  </data>
+  <data name="TimeHour" xml:space="preserve">
+    <value>un ora</value>
+  </data>
+  <data name="TimeHours" xml:space="preserve">
+    <value>&lt;hourcount&gt; ore</value>
+  </data>
+  <data name="TimeMinutes" xml:space="preserve">
+    <value>&lt;minutecount&gt; minuti</value>
+  </data>
+  <data name="AuditLogMessageDeletePlural" xml:space="preserve">
+    <value>&lt;user&gt; deleted &lt;x&gt; messages by &lt;user2&gt; in &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogRoleUpdateColor" xml:space="preserve">
+    <value>Set color to &lt;color&gt;</value>
+  </data>
+  <data name="AuditLogRoleUpdateColorChange" xml:space="preserve">
+    <value>Changed color from &lt;old&gt; to &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogRoleUpdateColorRemove" xml:space="preserve">
+    <value>Removed role color &lt;old&gt;</value>
+  </data>
+  <data name="AuditLogRoleUpdateHoistFalse" xml:space="preserve">
+    <value>Role not shown seperately in the member list</value>
+  </data>
+  <data name="AuditLogRoleUpdateHoistTrue" xml:space="preserve">
+    <value>Role shown seperately in the member list</value>
+  </data>
+  <data name="Leave" xml:space="preserve">
+    <value>Lasciare</value>
+  </data>
+  <data name="LeaveGroup" xml:space="preserve">
+    <value>Sicuro di voler lasciare &lt;group&gt;?</value>
+  </data>
+  <data name="RemoveFromGroup" xml:space="preserve">
+    <value>Sicuro di voler rimuovere &lt;user&gt; dal &lt;group&gt;?</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Rimuovi</value>
+  </data>
+  <data name="AllowDMsCB.Content" xml:space="preserve">
+    <value>Consenti messaggi diretti dai membri del server</value>
+  </data>
+  <data name="AuditLogsTB.Content" xml:space="preserve">
+    <value>Audit Log</value>
+  </data>
+  <data name="ECF0DescTB.Text" xml:space="preserve">
+    <value>Non c'è festa come il tea party di mia nonna.</value>
+  </data>
+  <data name="ECF0TB.Text" xml:space="preserve">
+    <value>Non scansionare alcun messaggio.</value>
+  </data>
+  <data name="ECF1DescTB.Text" xml:space="preserve">
+    <value>Opzione consigliata per i server che utilizzano ruoli per l'appartenenza attendibile.</value>
+  </data>
+  <data name="ECF1TB.Text" xml:space="preserve">
+    <value>Scansiona i messaggi dai membri senza un ruolo.</value>
+  </data>
+  <data name="ECF2DescTB.Text" xml:space="preserve">
+    <value>Opzione consigliata per quando si desidera quel bagliore pulito e cigolante.</value>
+  </data>
+  <data name="ECF2TB.Text" xml:space="preserve">
+    <value>Scansiona i messaggi inviati da tutti i membri.</value>
+  </data>
+  <data name="ECFTB.Text" xml:space="preserve">
+    <value>Filtro contenuto esplicito</value>
+  </data>
+  <data name="HighDescVfTB.Text" xml:space="preserve">
+    <value>Deve inoltre essere membro di questo server per più di 10 minuti.</value>
+  </data>
+  <data name="LowDescVfTB.Text" xml:space="preserve">
+    <value>È necessario disporre di un'e-mail verificata allegata al proprio account.</value>
+  </data>
+  <data name="LowVfTB.Text" xml:space="preserve">
+    <value>Basso</value>
+  </data>
+  <data name="MediumDescVfTB.Text" xml:space="preserve">
+    <value>Deve inoltre essere registrato su Discord per più di 5 minuti.</value>
+  </data>
+  <data name="MediumVfTB.Text" xml:space="preserve">
+    <value>Medio</value>
+  </data>
+  <data name="ModerationSettingsTB.Text" xml:space="preserve">
+    <value>IMPOSTAZIONI DI MODERAZIONE</value>
+  </data>
+  <data name="NoneDescVfTB.Text" xml:space="preserve">
+    <value>Illimitato</value>
+  </data>
+  <data name="NoneVfTB.Text" xml:space="preserve">
+    <value>Niente</value>
+  </data>
+  <data name="PrivacySettingsTB.Text" xml:space="preserve">
+    <value>IMPOSTAZIONI DELLA PRIVACY</value>
+  </data>
+  <data name="VeryHighDescVFTB.Text" xml:space="preserve">
+    <value>Deve avere un telefono verificato sul proprio account Discord.</value>
+  </data>
+  <data name="VFLevelsTB.Text" xml:space="preserve">
+    <value>Livelli di verifica</value>
+  </data>
+  <data name="SendBTN.Content" xml:space="preserve">
+    <value>Manda</value>
+  </data>
+</root>
