@@ -26,6 +26,11 @@ namespace Quarrel.Views
         public ChannelListControl()
         {
             this.InitializeComponent();
+
+            ViewModel.ShowChannel += c =>
+            {
+                if (c != null) ChannelList.ScrollIntoView(c);
+            };
         }
         public MainViewModel ViewModel => App.ViewModelLocator.Main;
     }

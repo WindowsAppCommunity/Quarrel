@@ -51,5 +51,10 @@ namespace DiscordAPI.Models
         public int MemberCount { get; set; }
         [JsonProperty("presences")]
         public IEnumerable<Presence> Presences { get; set; }
+
+        public int Sequence { get; }
+
+        private static int _sequence = 0;
+        public Guild() { Sequence = _sequence++; }
     }
 }

@@ -59,12 +59,12 @@ namespace Quarrel.Services.Guild
 
                     #region Guilds and Channels
 
-                    List<BindableGuild> guildList = new List<BindableGuild>();
-
                     // Add DM
+                    Guilds.Clear();
+
                     var dmGuild = new BindableGuild(new DiscordAPI.Models.Guild() { Name = "DM", Id = "DM" });
                     dmGuild.Position = -1;
-                    guildList.Add(dmGuild);
+                    Guilds.Add(dmGuild.Model.Id, dmGuild);
 
                     // Add DM channels
                     if (m.EventData.PrivateChannels != null && m.EventData.PrivateChannels.Any())
@@ -78,7 +78,7 @@ namespace Quarrel.Services.Guild
                             if (readStates.ContainsKey(bChannel.Model.Id))
                                 bChannel.ReadState = readStates[bChannel.Model.Id];
 
-                            CurrentChannels.Add(bChannel.Model.Id, bChannel);
+                            CurrentChannels.AddOrUpdate(bChannel.Model.Id, bChannel);
                         }
 
                         // Sort by last message timestamp
@@ -90,6 +90,8 @@ namespace Quarrel.Services.Guild
                     {
                         BindableGuild bGuild = new BindableGuild(guild);
 
+                        Guilds.Add(bGuild.Model.Id, bGuild);
+
                         // Handle guild settings
                         GuildSetting gSettings = CacheService.Runtime.TryGetValue<GuildSetting>(Quarrel.Helpers.Constants.Cache.Keys.GuildSettings, guild.Id);
                         if (gSettings != null)
@@ -98,7 +100,8 @@ namespace Quarrel.Services.Guild
                         }
 
                         // Guild Order
-                        bGuild.Position = m.EventData.Settings.GuildOrder.IndexOf(x => x == bGuild.Model.Id);
+                        var order = m.EventData.Settings.GuildOrder.IndexOf(x => x == bGuild.Model.Id);
+                        if (order > -1) bGuild.Position = order;
 
                         // Guild Channels
                         foreach (var channel in guild.Channels)
@@ -123,7 +126,7 @@ namespace Quarrel.Services.Guild
                                 bChannel.ReadState = readStates[bChannel.Model.Id];
 
                             bGuild.Channels.Add(bChannel);
-                            CurrentChannels.Add(bChannel.Model.Id, bChannel);
+                            CurrentChannels.AddOrUpdate(bChannel.Model.Id, bChannel);
                         }
 
                         bGuild.Channels = new ObservableCollection<BindableChannel>(bGuild.Channels.OrderBy(x => x.AbsolutePostion).ToList());
@@ -149,16 +152,9 @@ namespace Quarrel.Services.Guild
                         {
                             Messenger.Default.Send(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
                         }
-
-                        guildList.Add(bGuild);
                     }
 
                     #endregion
-
-                    foreach (var guild in guildList)
-                    {
-                        Guilds.Add(guild.Model.Id, guild);
-                    }
                     Messenger.Default.Send("GuildsReady");
                 });
             });

@@ -63,6 +63,10 @@ namespace System.Collections.ObjectModel
             }
 
             var changedItems = collection is List<T> ? (List<T>)collection : new List<T>(collection);
+
+            // Don't send event if there's no data!
+            if (changedItems.Count == 0) return;
+
             ((List<T>)Items).InsertRange(index, changedItems);
 
             OnPropertyChanged(new PropertyChangedEventArgs("Count"));

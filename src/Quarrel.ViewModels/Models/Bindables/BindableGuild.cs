@@ -34,6 +34,8 @@ namespace Quarrel.Models.Bindables
 
         public BindableGuild([NotNull] Guild model) : base(model)
         {
+            Position = model.Sequence;
+
             _Channels = new ObservableCollection<BindableChannel>();
 
             MessengerInstance.Register<GatewayMessageRecievedMessage>(this, async m =>

@@ -27,20 +27,24 @@ namespace Quarrel.Xaml.Behaviors
                 {
                     if (ShiftCommand != null && CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down))
                     {
-                        ShiftCommand.Execute(null);
+                        ShiftCommand.Execute(parameter);
+                        e.Handled = true;
                     }
                     else
                     {
-                        Command.Execute(null);
+                        Command.Execute(parameter);
+                        e.Handled = true;
                     }
                 }
                 else if(ExecuteShiftCommandIfNoKeyboard)
                 {
-                    ShiftCommand.Execute(null);
+                    ShiftCommand.Execute(parameter);
+                    e.Handled = true;
                 }
                 else
                 {
-                    Command.Execute(null);
+                    Command.Execute(parameter);
+                    e.Handled = true;
                 }
                 //e.Handled = true;
             }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,8 @@ namespace DiscordAPI.Models
         public string Type { get; set; }
         [JsonProperty("description")]
         public string Description { get; set; }
-        [JsonProperty("url")]
+        [DefaultValue("")]
+        [JsonProperty("url", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public string Url { get; set; }
         [JsonProperty("timestamp")]
         public string Timestamp { get; set; }
@@ -39,9 +41,11 @@ namespace DiscordAPI.Models
 
     public class EmbedThumbnail
     {
-        [JsonProperty("url")]
+        [DefaultValue("")]
+        [JsonProperty("url", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public string Url { get; set; }
-        [JsonProperty("proxy_url")]
+        [DefaultValue("")]
+        [JsonProperty("proxy_url", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public string ProxyUrl { get; set; }
         [JsonProperty("height")]
         public int Height { get; set; }
@@ -51,9 +55,11 @@ namespace DiscordAPI.Models
 
     public class EmbedImage
     {
-        [JsonProperty("url")]
+        [DefaultValue("")]
+        [JsonProperty("url", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public string Url { get; set; }
-        [JsonProperty("proxy_url")]
+        [DefaultValue("")]
+        [JsonProperty("proxy_url", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public string ProxyUrl { get; set; }
         [JsonProperty("height")]
         public int Height { get; set; }
@@ -63,12 +69,11 @@ namespace DiscordAPI.Models
 
     public class EmbedVideo
     {
-        [JsonProperty("url")]
+        [DefaultValue("")]
+        [JsonProperty("url", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public string Url { get; set; }
-
         [JsonProperty("height")]
         public int Height { get; set; }
-
         [JsonProperty("width")]
         public int Width { get; set; }
 
@@ -83,7 +88,8 @@ namespace DiscordAPI.Models
     {
         [JsonProperty("name")]
         public string Name { get; set; }
-        [JsonProperty("url")]
+        [DefaultValue("")]
+        [JsonProperty("url", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public string Url { get; set; }
     }
 
@@ -91,9 +97,11 @@ namespace DiscordAPI.Models
     {
         [JsonProperty("text")]
         public string Text { get; set; }
-        [JsonProperty("icon_url")]
+        [DefaultValue("")]
+        [JsonProperty("icon_url", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public string IconUrl { get; set; }
-        [JsonProperty("proxy_icon_url")]
+        [DefaultValue("")]
+        [JsonProperty("proxy_icon_url", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public string ProxyIconUrl { get; set; }
     }
 
@@ -101,11 +109,14 @@ namespace DiscordAPI.Models
     {
         [JsonProperty("name")]
         public string Name { get; set; }
-        [JsonProperty("url")]
+        [DefaultValue("")]
+        [JsonProperty("url", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public string Url { get; set; }
-        [JsonProperty("icon_url")]
+        [DefaultValue("")]
+        [JsonProperty("icon_url", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public string IconUrl { get; set; }
-        [JsonProperty("proxy_icon_url")]
+        [DefaultValue("")]
+        [JsonProperty("proxy_icon_url", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public string ProxyIconUrl { get; set; }
     }
 

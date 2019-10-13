@@ -1,6 +1,8 @@
 ﻿using DiscordAPI.Models;
+using Quarrel.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,7 +27,14 @@ namespace Quarrel.Controls.Messages.Embeds
             this.InitializeComponent();
             this.DataContextChanged += (s, e) =>
             {
-                this.Bindings.Update();
+                try
+                {
+                    this.Bindings.Update();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }                
             };
         }
 

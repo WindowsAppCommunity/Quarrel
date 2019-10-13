@@ -287,6 +287,7 @@
     <Compile Include="Controls\Shell\ExtendedSplashScreen.xaml.cs">
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Shell\MessageListManager.cs" />
     <Compile Include="Controls\Shell\QuarrelCommandBar.xaml.cs">
       <DependentUpon>QuarrelCommandBar.xaml</DependentUpon>
     </Compile>

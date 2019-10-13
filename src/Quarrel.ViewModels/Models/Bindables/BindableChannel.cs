@@ -20,6 +20,7 @@ using Quarrel.Messages.Services.Settings;
 using Quarrel.Messages.Navigation;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace Quarrel.Models.Bindables
 {
@@ -89,7 +90,7 @@ namespace Quarrel.Models.Bindables
 
         public BindableGuild Guild
         {
-            get => GuildsService.Guilds[GuildId];
+            get => GuildId != null ? GuildsService.Guilds[GuildId] : null;
         }
 
         // Order:
@@ -395,18 +396,27 @@ namespace Quarrel.Models.Bindables
                         RaisePropertyChanged(nameof(IsUnread));
                         RaisePropertyChanged(nameof(ShowUnread));
                         RaisePropertyChanged(nameof(TextOpacity));
+
+                        Guild?.RaisePropertyChanged(nameof(IsUnread));
+                        Guild?.RaisePropertyChanged(nameof(ShowUnread));
+                        Guild?.RaisePropertyChanged(nameof(TextOpacity));
                     });
                 }
             }
         }
 
-        public void UpdateLRMID(string id)
+        public async Task UpdateLRMID(string id)
         {
             if (ReadState == null)
                 ReadState = new ReadState();
 
+            if (ReadState.LastMessageId == id) return;
+
             ReadState.LastMessageId = id;
             ReadState.MentionCount = 0;
+
+            await DiscordService.Current.ChannelService.AckMessage(Model.Id, id);
+
             DispatcherHelper.CheckBeginInvokeOnUi(() =>
             {
                 RaisePropertyChanged(nameof(IsUnread));
@@ -414,6 +424,12 @@ namespace Quarrel.Models.Bindables
                 RaisePropertyChanged(nameof(Hidden));
                 RaisePropertyChanged(nameof(TextOpacity));
                 RaisePropertyChanged(nameof(MentionCount));
+
+                Guild?.RaisePropertyChanged(nameof(IsUnread));
+                Guild?.RaisePropertyChanged(nameof(ShowUnread));
+                Guild?.RaisePropertyChanged(nameof(Hidden));
+                Guild?.RaisePropertyChanged(nameof(TextOpacity));
+                Guild?.RaisePropertyChanged(nameof(MentionCount));
             });
         }
 
@@ -427,6 +443,12 @@ namespace Quarrel.Models.Bindables
                 RaisePropertyChanged(nameof(Hidden));
                 RaisePropertyChanged(nameof(TextOpacity));
                 RaisePropertyChanged(nameof(MentionCount));
+
+                Guild?.RaisePropertyChanged(nameof(IsUnread));
+                Guild?.RaisePropertyChanged(nameof(ShowUnread));
+                Guild?.RaisePropertyChanged(nameof(Hidden));
+                Guild?.RaisePropertyChanged(nameof(TextOpacity));
+                Guild?.RaisePropertyChanged(nameof(MentionCount));
             });
         }
         #endregion

@@ -30,7 +30,15 @@ namespace Quarrel.Views
         public GuildListControl()
         {
             this.InitializeComponent();
+
+            guilds.Source = ViewModel.BindableGuilds.OrderBy(g => g.Position);
+
+            ViewModel.BindableGuilds.CollectionChanged += (s, e) =>
+            {
+                guilds.Source = ViewModel.BindableGuilds.OrderBy(g => g.Position);
+            };            
         }
+
         public MainViewModel ViewModel => App.ViewModelLocator.Main;
     }
 }

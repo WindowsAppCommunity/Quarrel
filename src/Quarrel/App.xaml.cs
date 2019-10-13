@@ -106,7 +106,17 @@ namespace Quarrel
         {
             var logger = App.ServiceProvider.GetService<ILogger<App>>();
 
-            logger?.LogCritical(new EventId(), e.Exception, "Unhandled exception crashed the app.");
+            switch(e.Exception.GetType().FullName)
+            {
+                case "Refit.ApiException":
+                    logger.LogDebug(new EventId(), e.Exception, "Unhandled Refit.ApiException");
+                    e.Handled = true;
+                    break;
+
+                default:
+                    logger?.LogCritical(new EventId(), e.Exception, "Unhandled exception crashed the app.");
+                    break;
+            }
         }
 
         /// <summary>

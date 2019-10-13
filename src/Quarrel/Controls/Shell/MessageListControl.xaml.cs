@@ -1,9 +1,12 @@
-﻿using GalaSoft.MvvmLight.Messaging;
-using System;
+﻿using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Messaging;
+using Quarrel.Messages.Navigation;
+using Quarrel.Models.Bindables;
+using Quarrel.ViewModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -14,10 +17,6 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Quarrel.Messages.Navigation;
-using Quarrel.Models.Bindables;
-using Quarrel.ViewModels;
-using DiscordAPI.Models;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -33,7 +32,13 @@ namespace Quarrel.Views
             {
                 _ItemsStackPanel.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepLastItemInView;
             });
+
+            MessageListManager.ScrollTo += m =>
+            {
+                if (m != null) MessageList.ScrollIntoView(m);
+            };
         }
+
         public MainViewModel ViewModel => App.ViewModelLocator.Main;
 
         private ItemsStackPanel _ItemsStackPanel;
@@ -44,27 +49,37 @@ namespace Quarrel.Views
             _MessageScrollViewer = MessageList.FindChild<ScrollViewer>();
             _ItemsStackPanel = (sender as ItemsStackPanel);
             _ItemsStackPanel.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepItemsInView;
-            if (_MessageScrollViewer != null) _MessageScrollViewer.ViewChanged += _messageScrollViewer_ViewChanged; ;
+            if (_MessageScrollViewer != null)
+            {
+                _MessageScrollViewer.ViewChanged += _messageScrollViewer_ViewChanged;
+            };
         }
 
         private void _messageScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             if (ViewModel.Channel == null)
+            {
                 return;
+            }
 
             if (MessageList.Items.Count > 0)
             {
                 // Distance from top
-                double fromTop = _MessageScrollViewer.VerticalOffset;
+                var fromTop = _MessageScrollViewer.VerticalOffset;
 
                 //Distance from bottom
-                double fromBottom = _MessageScrollViewer.ScrollableHeight - fromTop;
+                var fromBottom = _MessageScrollViewer.ScrollableHeight - fromTop;
 
                 // Load messages
                 if (fromTop < 100)
+                {
                     ViewModel.LoadOlderMessages();
+                }
+
                 if (fromBottom < 200)
+                {
                     ViewModel.LoadNewerMessages();
+                }
             }
         }
 

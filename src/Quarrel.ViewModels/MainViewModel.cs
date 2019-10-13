@@ -290,7 +290,12 @@ namespace Quarrel.ViewModels
                 // TODO: Complete Update
                 DispatcherHelper.CheckBeginInvokeOnUi(() => 
                 {
-                    GuildsService.GetChannel(m.Channel.Id).Model = m.Channel;
+                    var channel = GuildsService.GetChannel(m.Channel.Id);
+
+                    if(channel != null)
+                    {
+                        channel.Model = m.Channel;
+                    }
                 });
             });
             MessengerInstance.Register<GatewayTypingStartedMessage>(this, async m =>
@@ -445,7 +450,7 @@ namespace Quarrel.ViewModels
                 MessageText = "";
             });
         }));
-        
+
         private RelayCommand newLineCommand;
         public RelayCommand NewLineCommand =>
             newLineCommand ?? (newLineCommand = new RelayCommand(() =>
@@ -699,8 +704,14 @@ namespace Quarrel.ViewModels
         public BindableChannel Channel
         {
             get => _Channel;
-            set => Set(ref _Channel, value);
+            set
+            {
+                Set(ref _Channel, value);
+                ShowChannel?.Invoke(value);
+            }
         }
+
+        public event Action<BindableChannel> ShowChannel;
 
         private string _MessageText = "";
 

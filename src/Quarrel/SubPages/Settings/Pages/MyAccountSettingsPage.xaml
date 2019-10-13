@@ -5,6 +5,7 @@
     xmlns:local="using:Quarrel.SubPages.Settings.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fcu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:pages="using:Quarrel.ViewModels.Settings.Pages"
     mc:Ignorable="d">
@@ -17,7 +18,7 @@
         <pages:MyAccountSettingsViewModel x:Name="ViewModel" />
     </Page.DataContext>
 
-    <ScrollViewer CanContentRenderOutsideBounds="True">
+    <ScrollViewer fcu:CanContentRenderOutsideBounds="True">
         <Grid Margin="12,0,12,0" Padding="0,0,0,24">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>

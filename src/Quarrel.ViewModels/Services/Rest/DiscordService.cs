@@ -29,6 +29,10 @@ namespace Quarrel.Services.Rest
 {
     public class DiscordService : IDiscordService
     {
+        private static DiscordService _current = null;
+
+        public static DiscordService Current => _current;
+
         #region Exposed services
 
         /// <inheritdoc/>
@@ -82,6 +86,7 @@ namespace Quarrel.Services.Rest
 
         public DiscordService(ICacheService cacheService)
         {
+            _current = this;
             CacheService = cacheService;
         }
 

@@ -15,9 +15,11 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-
     <Grid>
-        <ListView ItemsSource="{x:Bind ViewModel.BindableGuilds, Mode=OneWay}"
+        <Grid.Resources>
+            <CollectionViewSource x:Name="guilds" IsSourceGrouped="false" />
+        </Grid.Resources>
+        <ListView ItemsSource="{Binding Source={StaticResource guilds}}"
                   SelectedItem="{x:Bind ViewModel.Guild, Mode=OneWay}"
                   ItemContainerStyle="{StaticResource GuildListItemStyle}"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"

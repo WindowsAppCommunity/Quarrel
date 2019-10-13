@@ -8,47 +8,61 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Quarrel.SubPages.Settings
 {
-    public sealed partial class SettingsPage : UserControl, IAdaptiveSubPage, IConstrainedSubPage
+    public sealed partial class SettingsPage : IAdaptiveSubPage, IConstrainedSubPage
     {
+        ILogger<SettingsPage> Logger { get; }
+
         public SettingsPage()
         {
-            this.InitializeComponent();
-            this.Loaded += (_, e) => NavigationControl.SelectedItem = MyAccountItem;
-            PagesMapping = new ConcurrentDictionary<NavigationViewItemBase, Type>
+            Logger = App.ServiceProvider.GetService<ILogger<SettingsPage>>();
+            try
             {
-                [MyAccountItem] = typeof(MyAccountSettingsPage),
-                [PrivacyItem] = typeof(PrivacySettingsPage),
-                [ConnectionsItem] = typeof(ConnectionsSettingsPage),
-                [DisplayItem] = typeof(DisplaySettingsPage),
-                [BehaviorItem] = typeof(BehaviorSettingsPage),
-                [NotificationsItem] = typeof(NotificationsSettingsPage),
-                [VoiceItem] = typeof(VoiceSettingsPage)
-            };
+                this.InitializeComponent();
+                this.Loaded += (_, e) => NavigationControl.SelectedItem = MyAccountItem;
+                PagesMapping = new ConcurrentDictionary<NavigationViewItemBase, Type>
+                {
+                    [MyAccountItem] = typeof(MyAccountSettingsPage),
+                    [PrivacyItem] = typeof(PrivacySettingsPage),
+                    [ConnectionsItem] = typeof(ConnectionsSettingsPage),
+                    [DisplayItem] = typeof(DisplaySettingsPage),
+                    [BehaviorItem] = typeof(BehaviorSettingsPage),
+                    [NotificationsItem] = typeof(NotificationsSettingsPage),
+                    [VoiceItem] = typeof(VoiceSettingsPage)
+                };
+            }
+            catch (Exception ex)
+            {
+                Logger.LogCritical(new EventId(), ex, "Error creating settings pages.");
+            }
         }
 
         private readonly IReadOnlyDictionary<NavigationViewItemBase, Type> PagesMapping;
 
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            var options = new FrameNavigationOptions
-            {
-                TransitionInfoOverride = args.RecommendedNavigationTransitionInfo,
-                IsNavigationStackEnabled = false
-            };
+            //var options = new FrameNavigationOptions
+            //{
+            //    TransitionInfoOverride = args.RecommendedNavigationTransitionInfo,
+            //    IsNavigationStackEnabled = false
+            //};
 
-            SettingsFrame.NavigateToType(PagesMapping[args.SelectedItemContainer], IsFullHeight, options);
+            //SettingsFrame.NavigateToType(PagesMapping[args.SelectedItemContainer], IsFullHeight, options);
+
+            SettingsFrame.Navigate(PagesMapping[args.SelectedItemContainer]);
             HeaderTB.Text = args.SelectedItemContainer.Content.ToString();
         }
 

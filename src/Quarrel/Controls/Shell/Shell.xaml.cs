@@ -28,6 +28,7 @@ using Quarrel.Services.Voice.Audio.Out;
 using Quarrel.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Quarrel.Views;
 
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
@@ -86,6 +87,16 @@ namespace Quarrel.Controls.Shell
         private void MemberListButtonClicked(object sender, EventArgs e)
         {
             ContentContainer.ToggleRight();
+        }
+
+        private async void UserControl_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            await MessageListManager.ManagerKeyDown(sender, e);
+        }
+
+        private void UserControl_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            MessageListManager.ManagerKeyUp(sender, e);
         }
     }
 }
