@@ -161,7 +161,7 @@ Global
 		{AB95046D-DFD9-451A-B329-E3D9C0FCF738}.Release|ARM.ActiveCfg = Release|ARM
 		{AB95046D-DFD9-451A-B329-E3D9C0FCF738}.Release|ARM.Build.0 = Release|ARM
 		{AB95046D-DFD9-451A-B329-E3D9C0FCF738}.Release|ARM64.ActiveCfg = Release|x86
-		{AB95046D-DFD9-451A-B329-E3D9C0FCF738}.Release|x64.ActiveCfg = Release|x86
+		{AB95046D-DFD9-451A-B329-E3D9C0FCF738}.Release|x64.ActiveCfg = Release|x64
 		{AB95046D-DFD9-451A-B329-E3D9C0FCF738}.Release|x86.ActiveCfg = Release|x86
 		{AB95046D-DFD9-451A-B329-E3D9C0FCF738}.Release|x86.Build.0 = Release|x86
 		{6396FEA9-CEB3-4D44-9292-5CE603D7B103}.Debug|Any CPU.ActiveCfg = Debug|x86
@@ -177,7 +177,7 @@ Global
 		{6396FEA9-CEB3-4D44-9292-5CE603D7B103}.Release|ARM.ActiveCfg = Release|ARM
 		{6396FEA9-CEB3-4D44-9292-5CE603D7B103}.Release|ARM.Build.0 = Release|ARM
 		{6396FEA9-CEB3-4D44-9292-5CE603D7B103}.Release|ARM64.ActiveCfg = Release|x86
-		{6396FEA9-CEB3-4D44-9292-5CE603D7B103}.Release|x64.ActiveCfg = Release|x86
+		{6396FEA9-CEB3-4D44-9292-5CE603D7B103}.Release|x64.ActiveCfg = Release|x64
 		{6396FEA9-CEB3-4D44-9292-5CE603D7B103}.Release|x86.ActiveCfg = Release|x86
 		{6396FEA9-CEB3-4D44-9292-5CE603D7B103}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
@@ -194,7 +194,7 @@ Global
 		{AB95046D-DFD9-451A-B329-E3D9C0FCF738} = {F9EED7D1-4597-4BC1-BEFE-5F4C6D5B1A7C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {793268B2-B709-4010-BEE5-D4C758C84E61}
 		RESX_CodeReferences = {"Items":[{"Expression":"\\W($File.$Key)\\W","Extensions":".cs,.xaml,.cshtml","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"ResourceManager.GetString\\(\"($Key)\"\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"typeof\\((\\w+\\.)*($File)\\).+\"($Key)\"|\"($Key)\".+typeof\\((\\w+\\.)*($File)\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($Key)\\W","Extensions":".vb","IsCaseSensitive":false,"SingleLineComment":"'"},{"Expression":"\\W($File::$Key)\\W","Extensions":".cpp,.c,.hxx,.h","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"<%\\$\\s+Resources:\\s*($File)\\s*,\\s*($Key)\\s*%>","Extensions":".aspx,.ascx","IsCaseSensitive":true,"SingleLineComment":null},{"Expression":"StringResourceKey\\.($Key)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"x:Uid=\"$Key\"","Extensions":".xaml","IsCaseSensitive":false,"SingleLineComment":null}]}
+		SolutionGuid = {793268B2-B709-4010-BEE5-D4C758C84E61}
 	EndGlobalSection
 EndGlobal
