@@ -13,6 +13,7 @@
     xmlns:embeds="using:Quarrel.Controls.Messages.Embeds"
     xmlns:members="using:Quarrel.Controls.Members"
     xmlns:messages="using:Quarrel.DataTemplates.Messages"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     x:Class="Quarrel.DataTemplates.Messages.MessageTemplate">
 
     <ResourceDictionary.MergedDictionaries>
@@ -29,7 +30,11 @@
         <attachments:DefaultAttachmentTemplate DataContext="{x:Bind}"/>
     </DataTemplate>
     <DataTemplate x:Key="ImageAttachmentTemplate" x:DataType="models:Attachment">
-        <attachments:ImageAttachmentTemplate DataContext="{x:Bind}"/>
+        <toolkit:ImageEx Source="{x:Bind Url, Mode=OneWay}"
+                         MaxWidth="400"
+                         Height="{x:Bind ActualHeight, Mode=OneWay}"
+                         Width="{x:Bind ActualWidth, Mode=OneWay}"
+                         HorizontalAlignment="Left"/>
     </DataTemplate>
     <DataTemplate x:Key="VideoAttachmentTemplate" x:DataType="models:Attachment">
         <attachments:VideoAttachmentTemplate DataContext="{x:Bind}"/>
@@ -48,7 +53,7 @@
         <embeds:YoutubeEmbedTemplate DataContext="{x:Bind}"/>
     </DataTemplate>
     <DataTemplate x:Key="ImageEmbedTemplate" x:DataType="models:Embed">
-        <embeds:ImageEmbedTemplate DataContext="{x:Bind}"/>
+        <toolkit:ImageEx Source="{x:Bind Thumbnail.ProxyUrl, Mode=OneWay}" MaxWidth="400" Width="{x:Bind Thumbnail.Width}" Height="{x:Bind Thumbnail.Height}" HorizontalAlignment="Left"/>
     </DataTemplate>
     <DataTemplate x:Key="DefaultEmbedTemplate" x:DataType="models:Embed">
         <embeds:DefaultEmbedTemplate DataContext="{x:Bind}"/>
