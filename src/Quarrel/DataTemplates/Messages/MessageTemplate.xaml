@@ -53,7 +53,7 @@
         <embeds:YoutubeEmbedTemplate DataContext="{x:Bind}"/>
     </DataTemplate>
     <DataTemplate x:Key="ImageEmbedTemplate" x:DataType="models:Embed">
-        <toolkit:ImageEx Source="{x:Bind Thumbnail.ProxyUrl, Mode=OneWay}" MaxWidth="400" Width="{x:Bind Thumbnail.Width}" Height="{x:Bind Thumbnail.Height}" HorizontalAlignment="Left"/>
+        <toolkit:ImageEx Source="{x:Bind Image.ProxyUrl, Mode=OneWay}" MaxWidth="400" Width="{x:Bind Image.Width}" Height="{x:Bind Image.Height}" HorizontalAlignment="Left"/>
     </DataTemplate>
     <DataTemplate x:Key="DefaultEmbedTemplate" x:DataType="models:Embed">
         <embeds:DefaultEmbedTemplate DataContext="{x:Bind}"/>
@@ -175,13 +175,27 @@
                 <Grid Grid.Column="1" Grid.Row="3" x:Name="AttachmentList">
                     <ListView x:Phase="3" ItemsSource="{x:Bind Model.Attachments, Mode=OneWay}"
                           ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"
-                          SelectionMode="None"/>
+                          SelectionMode="None">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Padding" Value="0,8,0,0"/>
+                                <Setter Property="MinHeight" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
                 </Grid>
 
                 <Grid Grid.Column="1" Grid.Row="4" x:Name="EmbedList">
                     <ListView x:Phase="3" ItemsSource="{x:Bind Model.Embeds, Mode=OneWay}"
                           ItemTemplateSelector="{StaticResource EmbedTemplateSelector}"
-                          SelectionMode="None"/>
+                          SelectionMode="None">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Padding" Value="0,8,0,0"/>
+                                <Setter Property="MinHeight" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
                 </Grid>
 
                 <Grid Grid.Column="1" Grid.Row="5" x:Name="ReactionList">

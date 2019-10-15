@@ -25,9 +25,9 @@ namespace DiscordAPI.Models
         public int? Width { get; set; }
 
         [JsonIgnore]
-        public double ActualHeight { get => Height.HasValue ? (double)Height : double.NaN; }
+        public double ActualHeight => Height.HasValue && Width.HasValue ? (double)Height.Value/Width.Value * Math.Min(Width.Value, 400) : double.NaN;
 
         [JsonIgnore]
-        public double ActualWidth { get => Width.HasValue ? (double)Width : double.NaN; }
+        public double ActualWidth => Width.HasValue ? Math.Min(Width.Value, 400) : double.NaN;
     }
 }
