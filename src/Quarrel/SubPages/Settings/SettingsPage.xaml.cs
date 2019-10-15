@@ -3,24 +3,15 @@ using Quarrel.SubPages.Settings.Pages;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+using Windows.Foundation.Metadata;
+using Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Quarrel.SubPages.Settings
 {
-    public sealed partial class SettingsPage : UserControl, IAdaptiveSubPage, IConstrainedSubPage
+    public sealed partial class SettingsPage : IAdaptiveSubPage, IConstrainedSubPage
     {
         public SettingsPage()
         {
@@ -42,14 +33,22 @@ namespace Quarrel.SubPages.Settings
 
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            var options = new FrameNavigationOptions
+            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 7, 0))
             {
-                TransitionInfoOverride = args.RecommendedNavigationTransitionInfo,
-                IsNavigationStackEnabled = false
-            };
+                var options = new FrameNavigationOptions
+                {
+                    TransitionInfoOverride = args.RecommendedNavigationTransitionInfo,
+                    IsNavigationStackEnabled = false
+                };
 
-            SettingsFrame.NavigateToType(PagesMapping[args.SelectedItemContainer], IsFullHeight, options);
-            HeaderTB.Text = args.SelectedItemContainer.Content.ToString();
+                SettingsFrame.NavigateToType(PagesMapping[args.SelectedItemContainer], IsFullHeight, options);
+                HeaderTB.Text = args.SelectedItemContainer.Content.ToString();
+            }
+            else
+            {
+                SettingsFrame.Navigate(PagesMapping[args.SelectedItemContainer]);
+                HeaderTB.Text = args.SelectedItemContainer.Content.ToString();
+            }
         }
 
 

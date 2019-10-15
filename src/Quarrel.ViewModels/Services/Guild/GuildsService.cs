@@ -59,12 +59,10 @@ namespace Quarrel.Services.Guild
 
                     #region Guilds and Channels
 
-                    List<BindableGuild> guildList = new List<BindableGuild>();
-
                     // Add DM
                     var dmGuild =
                         new BindableGuild(new DiscordAPI.Models.Guild() {Name = "DM", Id = "DM"}) {Position = -1};
-                    guildList.Add(dmGuild);
+                    Guilds.Add(dmGuild.Model.Id, dmGuild);
 
                     // Add DM channels
                     if (m.EventData.PrivateChannels != null && m.EventData.PrivateChannels.Any())
@@ -166,15 +164,11 @@ namespace Quarrel.Services.Guild
                             Messenger.Default.Send(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
                         }
 
-                        guildList.Add(bGuild);
+                        Guilds.Add(bGuild.Model.Id, bGuild);
                     }
 
                     #endregion
 
-                    foreach (var guild in guildList)
-                    {
-                        Guilds.Add(guild.Model.Id, guild);
-                    }
                     Messenger.Default.Send("GuildsReady");
                 });
             });
