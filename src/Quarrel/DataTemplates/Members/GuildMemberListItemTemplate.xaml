@@ -46,10 +46,10 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{x:Bind DisplayName, Mode=OneWay}" Foreground="{x:Bind TopRole.Color, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}"
                                VerticalAlignment="Center" FontSize="14" FontWeight="Normal"/>
-                    <!--<Image x:Name="OwnerIndicator" Height="12" Source="/Assets/DiscordAssets/Crown.png" Stretch="UniformToFill" Margin="5,0,0,0" Visibility="Collapsed"/>
-                    <Border x:Name="BotIndicator" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="4,0,0,0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">
+                    <Image x:Name="OwnerIndicator" Height="12" Source="/Assets/DiscordAssets/Crown.png" Stretch="UniformToFill" Margin="5,0,0,0" x:Load="{x:Bind IsOwner}" x:Phase="3"/>
+                    <Border x:Name="BotIndicator" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="4,0,0,0" Padding="6,0" CornerRadius="2" x:Load="{x:Bind IsBot}" x:Phase="3">
                         <TextBlock x:Uid="/Controls/BotTB" Foreground="{ThemeResource Foreground}" Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
-                    </Border>-->
+                    </Border>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" x:Name="richPresence" x:Phase="2" x:Load="{x:Bind Presence.Game, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
                     <TextBlock x:Name="playing" Text="Playing" VerticalAlignment="Center" FontSize="11" FontWeight="SemiLight" Opacity="0.6" Foreground="{ThemeResource Foreground}"/>

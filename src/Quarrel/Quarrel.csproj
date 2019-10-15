@@ -436,6 +436,7 @@
     <Content Include="Assets\DefaultAvatars\Group_dark.png" />
     <Content Include="Assets\DefaultAvatars\Group_light.png" />
     <Content Include="Assets\DefaultAvatars\QuarrelClassicIcon.png" />
+    <Content Include="Assets\DiscordAssets\Crown.png" />
     <Content Include="Assets\IconAssets\LargeTile.scale-100.png" />
     <Content Include="Assets\IconAssets\LargeTile.scale-125.png" />
     <Content Include="Assets\IconAssets\LargeTile.scale-150.png" />
@@ -799,6 +800,7 @@
       <HintPath>..\_Libs\RykenTube\XmlHelper.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="..\_Tasks\Quarrel.Shared\Quarrel.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
