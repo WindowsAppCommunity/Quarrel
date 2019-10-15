@@ -30,7 +30,7 @@ namespace Quarrel.Services.Guild
         {
             CacheService = cacheService;
             DispatcherHelper = dispatcherHelper;
-            Messenger.Default.Register<GatewayReadyMessage>(this, async m =>
+            Messenger.Default.Register<GatewayReadyMessage>(this, m =>
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
@@ -60,11 +60,17 @@ namespace Quarrel.Services.Guild
                     #region Guilds and Channels
 
                     // Add DM
+<<<<<<< HEAD
                     Guilds.Clear();
 
                     var dmGuild = new BindableGuild(new DiscordAPI.Models.Guild() { Name = "DM", Id = "DM" });
                     dmGuild.Position = -1;
                     Guilds.Add(dmGuild.Model.Id, dmGuild);
+=======
+                    var dmGuild =
+                        new BindableGuild(new DiscordAPI.Models.Guild() {Name = "DM", Id = "DM"}) {Position = -1};
+                    guildList.Add(dmGuild);
+>>>>>>> 37214cb27fd1e1ef9413834bf4ed60074297de92
 
                     // Add DM channels
                     if (m.EventData.PrivateChannels != null && m.EventData.PrivateChannels.Any())
@@ -103,12 +109,28 @@ namespace Quarrel.Services.Guild
                         var order = m.EventData.Settings.GuildOrder.IndexOf(x => x == bGuild.Model.Id);
                         if (order > -1) bGuild.Position = order;
 
+                        //This is needed to fix ordering when multiple categories have the same position
+                        var categories = guild.Channels.Where(x => x.Type == 4).ToList();
+
+                        foreach (var group in categories.GroupBy(x => x.Position).OrderBy(x => x.Key))
+                        {
+                            foreach (var channel in group.Skip(1))
+                            {
+                                bool shouldDo = false;
+                                foreach (var category in categories)
+                                {
+                                    if (category.Id == channel.Id) shouldDo = true;
+                                    if (shouldDo) category.Position += 1;
+                                }
+                            }
+                            
+                        }
+                        
                         // Guild Channels
                         foreach (var channel in guild.Channels)
                         {
                             IEnumerable<VoiceState> state = guild.VoiceStates?.Where(x => x.ChannelId == channel.Id);
-                            BindableChannel bChannel = new BindableChannel(channel, state);
-                            bChannel.GuildId = guild.Id;
+                            BindableChannel bChannel = new BindableChannel(channel, state) {GuildId = guild.Id};
                             // Handle channel settings
                             ChannelOverride cSettings = CacheService.Runtime.TryGetValue<ChannelOverride>(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, channel.Id);
                             if (cSettings != null)
@@ -117,7 +139,7 @@ namespace Quarrel.Services.Guild
                             }
 
                             // Find parent position
-                            if (!string.IsNullOrEmpty(bChannel.ParentId))
+                            if (!string.IsNullOrEmpty(bChannel.ParentId) && bChannel.ParentId != bChannel.Model.Id)
                                 bChannel.ParentPostion = guild.Channels.First(x => x.Id == bChannel.ParentId).Position;
                             else
                                 bChannel.ParentPostion = -1;
