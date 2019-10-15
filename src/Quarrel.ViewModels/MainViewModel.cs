@@ -378,7 +378,6 @@ namespace Quarrel.ViewModels
             });
 
             MessengerInstance.Register<PresenceRequestMessage>(this, m => m.ReportResult(_PresenceDictionary.TryGetValue(m.UserId, out var value) ? value : new Presence() { Status = "offline" }));
-            MessengerInstance.Register<CurrentGuildRequestMessage>(this, m => m.ReportResult(Guild));
         }
 
         public async void Login()
@@ -408,13 +407,13 @@ namespace Quarrel.ViewModels
 
         #region Commands
         private RelayCommand tiggerTyping;
-        public RelayCommand TriggerTyping => tiggerTyping ?? (tiggerTyping = new RelayCommand(() =>
+        public RelayCommand TriggerTyping => tiggerTyping ??= new RelayCommand(() =>
         {
             DiscordService.ChannelService.TriggerTypingIndicator(Channel.Model.Id);
-        }));
+        });
 
         private RelayCommand sendMessageCommand;
-        public RelayCommand SendMessageCommand => sendMessageCommand ?? (sendMessageCommand = new RelayCommand(async () =>
+        public RelayCommand SendMessageCommand => sendMessageCommand ??= new RelayCommand(async () =>
         {
             string text = MessageText;
             var mentions = FindMentions(text);
@@ -436,10 +435,9 @@ namespace Quarrel.ViewModels
                 }
                 else if (mention[0] == '#')
                 {
-                    var guild = MessengerInstance.Request<CurrentGuildRequestMessage, BindableGuild>(new CurrentGuildRequestMessage());
-                    if (!guild.IsDM)
+                    if (!Guild.IsDM)
                     {
-                        var channel = guild.Channels.FirstOrDefault(x => x.Model.Type != 4 && x.Model.Name == mention.Substring(1)).Model;
+                        var channel = Guild.Channels.FirstOrDefault(x => x.Model.Type != 4 && x.Model.Name == mention.Substring(1)).Model;
                         text = text.Replace("#" + channel.Name, "<#" + channel.Id + ">");
                     }
                 }
@@ -449,11 +447,16 @@ namespace Quarrel.ViewModels
             {
                 MessageText = "";
             });
+<<<<<<< HEAD
         }));
 
+=======
+        });
+        
+>>>>>>> 37214cb27fd1e1ef9413834bf4ed60074297de92
         private RelayCommand newLineCommand;
         public RelayCommand NewLineCommand =>
-            newLineCommand ?? (newLineCommand = new RelayCommand(() =>
+            newLineCommand ??= new RelayCommand(() =>
             {
                 string text = MessageText;
                 int selectionstart = SelectionStart;
@@ -467,16 +470,16 @@ namespace Quarrel.ViewModels
                 text = text.Insert(selectionstart, Environment.NewLine + Environment.NewLine); //Not sure why two lines breaks are needed but it doesn't work otherwise
                 MessageText = text;
                 SelectionStart = selectionstart + 1;
-            }));
+            });
 
         private RelayCommand<BindableGuild> navigateGuildCommand;
-        public RelayCommand<BindableGuild> NavigateGuildCommand => navigateGuildCommand ?? (navigateGuildCommand = new RelayCommand<BindableGuild>((guild) =>
+        public RelayCommand<BindableGuild> NavigateGuildCommand => navigateGuildCommand ??= new RelayCommand<BindableGuild>((guild) =>
         {
             MessengerInstance.Send(new GuildNavigateMessage(guild));
-        }));
+        });
 
         private RelayCommand<BindableChannel> navigateChannelCommand;
-        public RelayCommand<BindableChannel> NavigateChannelCommand => navigateChannelCommand ?? (navigateChannelCommand = new RelayCommand<BindableChannel>(async (channel) =>
+        public RelayCommand<BindableChannel> NavigateChannelCommand => navigateChannelCommand ??= new RelayCommand<BindableChannel>(async (channel) =>
         {
             Channel = channel;
             if (channel.IsCategory)
@@ -484,11 +487,11 @@ namespace Quarrel.ViewModels
                 bool newState = !channel.Collapsed;
                 for (int i = BindableChannels.IndexOf(channel);
                     i < BindableChannels.Count
-                    && (BindableChannels[i] is BindableChannel bChannel)
-                    && bChannel.ParentId == channel.Model.Id;
+                    && BindableChannels[i] != null
+                    && BindableChannels[i].ParentId == channel.Model.Id;
                     i++)
                 {
-                    bChannel.Collapsed = newState;
+                    BindableChannels[i].Collapsed = newState;
                 }
             }
             else if (channel.IsVoiceChannel)
@@ -500,13 +503,13 @@ namespace Quarrel.ViewModels
             {
                 MessengerInstance.Send(new ChannelNavigateMessage(channel, Guild));
             }
-        }));
+        });
 
         private RelayCommand disconnectVoiceCommand;
-        public RelayCommand DisconnectVoiceCommand => disconnectVoiceCommand ?? (disconnectVoiceCommand = new RelayCommand(async () =>
+        public RelayCommand DisconnectVoiceCommand => disconnectVoiceCommand ??= new RelayCommand(async () =>
         {
             await GatewayService.Gateway.VoiceStatusUpdate(null, null, false, false);
-        }));
+        });
         #endregion
 
         #region Methods
@@ -586,8 +589,7 @@ namespace Quarrel.ViewModels
                         chnCache += c;
                         if (Channel.Model is GuildChannel)
                         {
-                            var guild = MessengerInstance.Request<CurrentGuildRequestMessage, BindableGuild>(new CurrentGuildRequestMessage());
-                            if (!guild.IsDM)
+                            if (!Guild.IsDM)
                             {
                                 mentions.Add("#" + chnCache);
                             }

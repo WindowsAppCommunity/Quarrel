@@ -83,7 +83,7 @@ namespace Quarrel
             var folder = ApplicationData.Current.LocalFolder;
             string fullPath = $"{folder.Path}\\Logs\\App.log";
 
-            ServiceProvider.GetService<ILoggerFactory>().AddFile(fullPath, LogLevel.Debug);
+            //ServiceProvider.GetService<ILoggerFactory>().AddFile(fullPath, LogLevel.Debug);
             ServiceProvider.GetService<ILoggerFactory>().AddDebug((s, l) => true);
 
         }
