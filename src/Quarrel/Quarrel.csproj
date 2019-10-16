@@ -242,18 +242,6 @@
     <Compile Include="Controls\Messages\ActionMessageTemplate.xaml.cs">
       <DependentUpon>ActionMessageTemplate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Messages\Attachments\DefaultAttachmentTemplate.xaml.cs">
-      <DependentUpon>DefaultAttachmentTemplate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Messages\Attachments\VideoAttachmentTemplate.xaml.cs">
-      <DependentUpon>VideoAttachmentTemplate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Messages\Embeds\DefaultEmbedTemplate.xaml.cs">
-      <DependentUpon>DefaultEmbedTemplate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Messages\Embeds\GifvEmbedTemplate.xaml.cs">
-      <DependentUpon>GifvEmbedTemplate.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Messages\Embeds\YoutubeEmbedTemplate.xaml.cs">
       <DependentUpon>YoutubeEmbedTemplate.xaml</DependentUpon>
     </Compile>
@@ -522,22 +510,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Messages\ActionMessageTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Messages\Attachments\DefaultAttachmentTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Messages\Attachments\VideoAttachmentTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Messages\Embeds\DefaultEmbedTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Messages\Embeds\GifvEmbedTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
