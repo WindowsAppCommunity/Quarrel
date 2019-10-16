@@ -94,13 +94,14 @@
                                         </ImageBrush>
                                     </Rectangle.Fill>
                                 </Rectangle>
-                                <HyperlinkButton x:Name="AuthorText" Content="{x:Bind Author.Name, Mode=OneWay}" NavigateUri="{x:Bind Author.Url, Mode=OneWay}" x:Load="{x:Bind Author.Name, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource Foreground}"/>
+                                <HyperlinkButton x:Name="AuthorText" Content="{x:Bind Author.Name, Mode=OneWay}" NavigateUri="{Binding Author.Url, Mode=OneWay}" x:Load="{x:Bind Author.Name, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource Foreground}"/>
                             </StackPanel>
-                            <HyperlinkButton x:Name="TitleTB" NavigateUri="{x:Bind Url}" x:Load="{x:Bind Title, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Margin="0,4,0,0">
-                                <HyperlinkButton.Content>
-                                    <TextBlock TextWrapping="WrapWholeWords" Text="{x:Bind Title, Mode=OneWay}" TextDecorations="Underline"/>
-                                </HyperlinkButton.Content>
-                            </HyperlinkButton>
+                            <TextBlock TextWrapping="WrapWholeWords" TextDecorations="Underline" x:Name="TitleTB" x:Load="{x:Bind Title, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Margin="0,4,0,0">
+                                <Hyperlink NavigateUri="{Binding Url}" >
+                                    <Run Text="{x:Bind Title, Mode=OneWay}" />
+                                </Hyperlink>
+                            </TextBlock>
+
                             <markdown:MarkdownTextBlock Text="{x:Bind Description, Mode=OneWay}" x:Name="ContentMDBlock" x:Load="{x:Bind Description, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Opacity="0.75" FontSize="13" Margin="0,0,0,0" EnableHiddenLinks="True"/>
                             <StackPanel x:Name="FieldsStacker"/>
                         </StackPanel>
