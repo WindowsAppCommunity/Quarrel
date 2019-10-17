@@ -1,7 +1,7 @@
 ﻿<UserControl
     x:Class="Quarrel.SubPages.Settings.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"    
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Quarrel.SubPages.Settings"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -10,11 +10,8 @@
     mc:Ignorable="d"
     d:DesignHeight="600"
     d:DesignWidth="1008">
-    <UserControl.Resources>
-        
-    </UserControl.Resources>
+
     <Grid>
-        
         <ctl:NavigationView x:Name="NavigationControl" IsSettingsVisible="False" IsBackButtonVisible="Collapsed"
                         OpenPaneLength="180" CompactModeThresholdWidth="0"
                         SelectionChanged="NavigationView_SelectionChanged">
@@ -22,16 +19,12 @@
                 <ctl:NavigationViewItemHeader Content="User Settings"/>
                 <ctl:NavigationViewItem x:Name="MyAccountItem" Icon="ContactInfo" Content="My Account"/>
                 <ctl:NavigationViewItem x:Name="PrivacyItem" Icon="Permissions" Content="Privacy"/>
-                <ctl:NavigationViewItem IsEnabled="False" x:Name="ConnectionsItem" Content="Connections">
-                    <ctl:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;"/>
-                    </ctl:NavigationViewItem.Icon>
-                </ctl:NavigationViewItem>
+                <ctl:NavigationViewItem IsEnabled="False" x:Name="ConnectionsItem" Icon="Share" Content="Connections"/>
 
                 <ctl:NavigationViewItemHeader Content="App Settings"/>
                 <ctl:NavigationViewItem x:Name="DisplayItem" Icon="View" Content="Display"/>
-                    <ctl:NavigationViewItem x:Name="BehaviorItem" Icon="TouchPointer" Content="Behavior"/>
-                    <ctl:NavigationViewItem IsEnabled="False" x:Name="NotificationsItem" Icon="Important" Content="Notifications"/>
+                <ctl:NavigationViewItem x:Name="BehaviorItem" Icon="TouchPointer" Content="Behavior"/>
+                <ctl:NavigationViewItem IsEnabled="False" x:Name="NotificationsItem" Icon="Important" Content="Notifications"/>
                 <ctl:NavigationViewItem IsEnabled="False" x:Name="VoiceItem" Icon="Microphone" Content="Voice"/>
             </ctl:NavigationView.MenuItems>
 

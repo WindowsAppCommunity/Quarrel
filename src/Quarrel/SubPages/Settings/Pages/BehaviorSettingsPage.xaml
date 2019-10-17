@@ -3,17 +3,17 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Quarrel.SubPages.Settings.Pages"
-    xmlns:fcu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"    
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pages="using:Quarrel.ViewModels.Settings.Pages"
+    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     mc:Ignorable="d">
 
     <Page.DataContext>
         <pages:BehaviorSettingsViewModel x:Name="ViewModel"/>
     </Page.DataContext>
     
-    <ScrollViewer fcu:CanContentRenderOutsideBounds="True">
+    <ScrollViewer Windows10version1809:CanContentRenderOutsideBounds="True">
         <StackPanel>
             <CheckBox x:Name="MentionGlow" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,6"
                       IsChecked="{x:Bind ViewModel.MentionGlow, Mode=TwoWay}">

@@ -8,11 +8,12 @@
     xmlns:markdown="using:Quarrel.Controls.Markdown"
     xmlns:bindables="using:Quarrel.Models.Bindables"
     xmlns:templateSelectors="using:Quarrel.TemplateSelectors"
-    xmlns:attachments="using:Quarrel.Controls.Messages.Attachments"
     xmlns:models="using:DiscordAPI.Models"
     xmlns:embeds="using:Quarrel.Controls.Messages.Embeds"
     xmlns:members="using:Quarrel.Controls.Members"
     xmlns:messages="using:Quarrel.DataTemplates.Messages"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     x:Class="Quarrel.DataTemplates.Messages.MessageTemplate">
 
     <ResourceDictionary.MergedDictionaries>
@@ -26,13 +27,34 @@
                                               VideoAttachmentTemplate="{StaticResource VideoAttachmentTemplate}"
                                               />
     <DataTemplate x:Key="DefaultAttachmentTemplate" x:DataType="models:Attachment">
-        <attachments:DefaultAttachmentTemplate DataContext="{x:Bind}"/>
+        <Grid VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <FontIcon x:Name="FileIcon" FontSize="32" Glyph="" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Left" Margin="0,0,6,0"/>
+            <StackPanel Grid.Column="1">
+                <HyperlinkButton Content="{x:Bind Filename, Mode=OneWay}" NavigateUri="{x:Bind ProxyUrl, Mode=OneWay}" FontSize="18" Foreground="{ThemeResource LinkColor}" Padding="0" Style="{StaticResource PlainTextHyperlinkStyle}"/>
+                <TextBlock Text="{x:Bind Size, Converter={StaticResource SizeToHumanizedSizeConverter}, Mode=OneWay}" FontSize="11" Opacity="0.5" Margin="0,4,0,0"/>
+            </StackPanel>
+        </Grid>
     </DataTemplate>
     <DataTemplate x:Key="ImageAttachmentTemplate" x:DataType="models:Attachment">
-        <attachments:ImageAttachmentTemplate DataContext="{x:Bind}"/>
+        <toolkit:ImageEx Source="{x:Bind Url, Mode=OneWay}"
+                         MaxHeight="{x:Bind ActualHeight, Mode=OneWay}"
+                         MaxWidth="{x:Bind ActualWidth, Mode=OneWay}"
+                         HorizontalAlignment="Left"/>
     </DataTemplate>
     <DataTemplate x:Key="VideoAttachmentTemplate" x:DataType="models:Attachment">
-        <attachments:VideoAttachmentTemplate DataContext="{x:Bind}"/>
+        <MediaElement Source="{x:Bind ProxyUrl, Mode=OneWay}"
+                      MaxHeight="360" MaxWidth="640"
+                      MinHeight="48" MinWidth="100" 
+                      Width="{x:Bind ActualWidth}" Height="{x:Bind ActualHeight}" 
+                      AreTransportControlsEnabled="True" AutoPlay="False">
+            <MediaElement.TransportControls>
+                <MediaTransportControls IsCompact="True" IsZoomButtonVisible="False"/>
+            </MediaElement.TransportControls>
+        </MediaElement>
     </DataTemplate>
 
     <templateSelectors:EmbedTemplateSelector x:Key="EmbedTemplateSelector" 
@@ -42,16 +64,72 @@
                                          DefaultEmbedTemplate="{StaticResource DefaultEmbedTemplate}"
                                          />
     <DataTemplate x:Key="GifvEmbedTemplate" x:DataType="models:Embed">
-        <embeds:GifvEmbedTemplate DataContext="{x:Bind}"/>
+        <MediaElement Source="{x:Bind Video.Url, Mode=OneWay}" IsLooping="True"
+                      Height="{x:Bind Video.ActualHeight, Mode=OneWay}" Width="{x:Bind Video.ActualWidth, Mode=OneWay}"/>
     </DataTemplate>
     <DataTemplate x:Key="YoutubeEmbedTemplate" x:DataType="models:Embed">
         <embeds:YoutubeEmbedTemplate DataContext="{x:Bind}"/>
     </DataTemplate>
     <DataTemplate x:Key="ImageEmbedTemplate" x:DataType="models:Embed">
-        <embeds:ImageEmbedTemplate DataContext="{x:Bind}"/>
+        <toolkit:ImageEx Source="{x:Bind Thumbnail.BindUrl, Mode=OneWay}" MaxWidth="{x:Bind Thumbnail.Width}" MaxHeight="{x:Bind Thumbnail.BindHeight}" HorizontalAlignment="Left"/>
     </DataTemplate>
     <DataTemplate x:Key="DefaultEmbedTemplate" x:DataType="models:Embed">
-        <embeds:DefaultEmbedTemplate DataContext="{x:Bind}"/>
+        <Border CornerRadius="4" Background="{ThemeResource MidBG}">
+            <Grid>
+                <Border x:Name="SideBorder" Width="4" HorizontalAlignment="Left" Background="{x:Bind Color, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}" CornerRadius="4,0,0,4"/>
+                <StackPanel x:Name="stacker" Margin="16,8,16,8" MaxWidth="400">
+                    <Grid x:Name="HeaderGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Margin="0,0,16,0">
+                            <StackPanel Orientation="Horizontal" x:Name="AuthorSP" x:Load="{x:Bind Author, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+                                <Rectangle RadiusX="10" RadiusY="10" Width="20" Height="20" Margin="0,0,10,0" x:Name="AuthorRect" x:Load="{x:Bind Author.IconUrl, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+                                    <Rectangle.Fill>
+                                        <ImageBrush >
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage DecodePixelHeight="20" DecodePixelWidth="20" UriSource="{Binding Author.ProxyIconUrl}"  />
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <HyperlinkButton x:Name="AuthorText" Content="{x:Bind Author.Name, Mode=OneWay}" NavigateUri="{Binding Author.Url, Mode=OneWay}" x:Load="{x:Bind Author.Name, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource Foreground}"/>
+                            </StackPanel>
+                            <TextBlock TextWrapping="WrapWholeWords" TextDecorations="Underline" x:Name="TitleTB" x:Load="{x:Bind Title, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Margin="0,4,0,0">
+                                <Hyperlink NavigateUri="{Binding Url}" >
+                                    <Run Text="{x:Bind Title, Mode=OneWay}" />
+                                </Hyperlink>
+                            </TextBlock>
+
+                            <markdown:MarkdownTextBlock Text="{x:Bind Description, Mode=OneWay}" x:Name="ContentMDBlock" x:Load="{x:Bind Description, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Opacity="0.75" FontSize="13" Margin="0,0,0,0" EnableHiddenLinks="True"/>
+                            <StackPanel x:Name="FieldsStacker"/>
+                        </StackPanel>
+                        <Grid Grid.Row="1" MaxWidth="400" x:Name="ThumbnailImage" x:Load="{x:Bind Thumbnail, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+                            <Border CornerRadius="3">
+                                <toolkit:ImageEx Source="{x:Bind Thumbnail.BindUrl, Mode=OneWay}" MaxWidth="400" MaxHeight="{x:Bind Thumbnail.BindHeight}"  Stretch="Uniform"/>
+                            </Border>
+                         </Grid>
+                    </Grid>
+                    <Viewbox HorizontalAlignment="Left" x:Name="ImageVB" x:Load="{x:Bind Image, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" StretchDirection="DownOnly" MaxWidth="400" MaxHeight="250">
+                        <toolkit:ImageEx Source="{x:Bind Image.ProxyUrl, Mode=OneWay}"/>
+                    </Viewbox>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel x:Name="FooterSP" x:Load="{x:Bind Footer, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Orientation="Horizontal">
+                            <toolkit:ImageEx Source="{x:Bind Footer.ProxyIconUrl, Mode=OneWay}" x:Name="FooterImage" x:Load="{x:Bind Footer.ProxyIconUrl, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Width="18" Height="18" Margin="0,0,8,0"/>
+                            <TextBlock Text="{x:Bind Footer.Text, Mode=OneWay}" FontSize="12" FontWeight="SemiBold" Opacity="0.4" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <Button Visibility="Collapsed" Style="{StaticResource IntegratedButton}" Grid.Column="1" HorizontalAlignment="Right">
+                            <SymbolIcon Symbol="Share"/>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </Border>
     </DataTemplate>
 
     <DataTemplate x:Key="MessageTemplate" x:DataType="bindables:BindableMessage">
@@ -170,13 +248,27 @@
                 <Grid Grid.Column="1" Grid.Row="3" x:Name="AttachmentList">
                     <ListView x:Phase="3" ItemsSource="{x:Bind Model.Attachments, Mode=OneWay}"
                           ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"
-                          SelectionMode="None"/>
+                          SelectionMode="None">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Padding" Value="0,8,0,0"/>
+                                <Setter Property="MinHeight" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
                 </Grid>
 
                 <Grid Grid.Column="1" Grid.Row="4" x:Name="EmbedList">
                     <ListView x:Phase="3" ItemsSource="{x:Bind Model.Embeds, Mode=OneWay}"
                           ItemTemplateSelector="{StaticResource EmbedTemplateSelector}"
-                          SelectionMode="None"/>
+                          SelectionMode="None">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Padding" Value="0,8,0,0"/>
+                                <Setter Property="MinHeight" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
                 </Grid>
 
                 <Grid Grid.Column="1" Grid.Row="5" x:Name="ReactionList">

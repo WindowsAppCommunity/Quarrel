@@ -16,6 +16,8 @@ using Quarrel.Messages.Navigation;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Models.Bindables;
 using Quarrel.Services.Cache;
+using Quarrel.Services.Guild;
+using Quarrel.Services.Rest;
 using Quarrel.ViewModels.Services;
 
 namespace Quarrel.Services.Users
@@ -24,6 +26,7 @@ namespace Quarrel.Services.Users
     public class CurrentUsersService : ICurrentUsersService
     {
         public ICacheService CacheService;
+        public IGuildsService GuildsService;
 
         public ConcurrentDictionary<string, BindableGuildMember> Users { get; } = 
             new ConcurrentDictionary<string, BindableGuildMember>();
@@ -39,9 +42,11 @@ namespace Quarrel.Services.Users
 
         public string SessionId { get; set; }
 
-        public CurrentUsersService(ICacheService cacheService)
+        public CurrentUsersService(ICacheService cacheService, IGuildsService guildsService)
         {
             CacheService = cacheService;
+            GuildsService = guildsService;
+
             Messenger.Default.Register<GatewayGuildSyncMessage>(this, m =>
             {
                 // Show members
@@ -52,10 +57,12 @@ namespace Quarrel.Services.Users
                     BindableGuildMember bGuildMember = new BindableGuildMember(member)
                     {
                         GuildId = m.GuildId,
+                        IsOwner = member.User.Id == GuildsService.Guilds[m.GuildId].Model.OwnerId,
                         Presence = Messenger.Default.Request<PresenceRequestMessage, Presence>(new PresenceRequestMessage(member.User.Id))
                     };
                     Users.TryAdd(member.User.Id, bGuildMember);
                     UsersList.Add(bGuildMember);
+
                 }
                 Messenger.Default.Send(new GuildMembersSyncedMessage(UsersList));
             });
