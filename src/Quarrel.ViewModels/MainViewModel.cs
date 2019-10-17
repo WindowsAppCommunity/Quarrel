@@ -407,13 +407,13 @@ namespace Quarrel.ViewModels
 
         #region Commands
         private RelayCommand tiggerTyping;
-        public RelayCommand TriggerTyping => tiggerTyping ??= new RelayCommand(() =>
+        public RelayCommand TriggerTyping => tiggerTyping ?? new RelayCommand(() =>
         {
             DiscordService.ChannelService.TriggerTypingIndicator(Channel.Model.Id);
         });
 
         private RelayCommand sendMessageCommand;
-        public RelayCommand SendMessageCommand => sendMessageCommand ??= new RelayCommand(async () =>
+        public RelayCommand SendMessageCommand => sendMessageCommand ?? (sendMessageCommand = new RelayCommand(async () =>
         {
             string text = MessageText;
             var mentions = FindMentions(text);
@@ -447,16 +447,11 @@ namespace Quarrel.ViewModels
             {
                 MessageText = "";
             });
-<<<<<<< HEAD
         }));
-
-=======
-        });
         
->>>>>>> 37214cb27fd1e1ef9413834bf4ed60074297de92
         private RelayCommand newLineCommand;
         public RelayCommand NewLineCommand =>
-            newLineCommand ??= new RelayCommand(() =>
+            newLineCommand ?? (newLineCommand = new RelayCommand(() =>
             {
                 string text = MessageText;
                 int selectionstart = SelectionStart;
@@ -470,16 +465,16 @@ namespace Quarrel.ViewModels
                 text = text.Insert(selectionstart, Environment.NewLine + Environment.NewLine); //Not sure why two lines breaks are needed but it doesn't work otherwise
                 MessageText = text;
                 SelectionStart = selectionstart + 1;
-            });
+            }));
 
         private RelayCommand<BindableGuild> navigateGuildCommand;
-        public RelayCommand<BindableGuild> NavigateGuildCommand => navigateGuildCommand ??= new RelayCommand<BindableGuild>((guild) =>
+        public RelayCommand<BindableGuild> NavigateGuildCommand => navigateGuildCommand ?? (navigateGuildCommand = new RelayCommand<BindableGuild>((guild) =>
         {
             MessengerInstance.Send(new GuildNavigateMessage(guild));
-        });
+        }));
 
         private RelayCommand<BindableChannel> navigateChannelCommand;
-        public RelayCommand<BindableChannel> NavigateChannelCommand => navigateChannelCommand ??= new RelayCommand<BindableChannel>(async (channel) =>
+        public RelayCommand<BindableChannel> NavigateChannelCommand => navigateChannelCommand ?? (navigateChannelCommand = new RelayCommand<BindableChannel>(async (channel) =>
         {
             Channel = channel;
             if (channel.IsCategory)
@@ -503,13 +498,11 @@ namespace Quarrel.ViewModels
             {
                 MessengerInstance.Send(new ChannelNavigateMessage(channel, Guild));
             }
-        });
+        }));
 
         private RelayCommand disconnectVoiceCommand;
-        public RelayCommand DisconnectVoiceCommand => disconnectVoiceCommand ??= new RelayCommand(async () =>
-        {
-            await GatewayService.Gateway.VoiceStatusUpdate(null, null, false, false);
-        });
+        public RelayCommand DisconnectVoiceCommand => disconnectVoiceCommand ?? (disconnectVoiceCommand = 
+            new RelayCommand(async () => await GatewayService.Gateway.VoiceStatusUpdate(null, null, false, false)));
         #endregion
 
         #region Methods

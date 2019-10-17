@@ -60,17 +60,11 @@ namespace Quarrel.Services.Guild
                     #region Guilds and Channels
 
                     // Add DM
-<<<<<<< HEAD
                     Guilds.Clear();
 
                     var dmGuild = new BindableGuild(new DiscordAPI.Models.Guild() { Name = "DM", Id = "DM" });
                     dmGuild.Position = -1;
                     Guilds.Add(dmGuild.Model.Id, dmGuild);
-=======
-                    var dmGuild =
-                        new BindableGuild(new DiscordAPI.Models.Guild() {Name = "DM", Id = "DM"}) {Position = -1};
-                    guildList.Add(dmGuild);
->>>>>>> 37214cb27fd1e1ef9413834bf4ed60074297de92
 
                     // Add DM channels
                     if (m.EventData.PrivateChannels != null && m.EventData.PrivateChannels.Any())
