@@ -75,6 +75,11 @@ namespace Quarrel.SubPages
 
         private async void ScriptNotify(object sender, NotifyEventArgs e)
         {
+            Logger.LogInformation("ScriptNotify" +
+                $"\n\tsender: {sender}" +
+                $"\n\te.CallingUri: {e.CallingUri}" +
+                $"\n\te.Value: {e.Value}");
+
             if (e.CallingUri.AbsolutePath == "/app")
             {
                 string token = await GetTokenFromWebView();
@@ -90,6 +95,12 @@ namespace Quarrel.SubPages
 
         private async void CaptchaView_OnNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
+            Logger.LogInformation("CaptchaView_OnNavigationCompleted" +
+               $"\n\tsender: {sender}" +
+               $"\n\targs.Uri: {args.Uri}" +
+               $"\n\targs.IsSuccess: {args.IsSuccess}" +
+               $"\n\targs.WebErrorStatus: {args.WebErrorStatus}");
+
             _ = sender.InvokeScriptAsync("eval", new[]
             {
                 @"
@@ -112,6 +123,7 @@ namespace Quarrel.SubPages
         }
         private async Task<string> GetTokenFromWebView()
         {
+            Logger.LogInformation("GetTokenFromWebView() - Enter");
 
             //Discord doesn't allow access to localStorage so create an iframe to bypass this.
             string token = await CaptchaView.InvokeScriptAsync("eval", new[] { @"

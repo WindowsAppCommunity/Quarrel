@@ -90,7 +90,10 @@ namespace Quarrel.Models.Bindables
 
         public BindableGuild Guild
         {
-            get => GuildId != null ? GuildsService.Guilds[GuildId] : null;
+            // Make sure the Guild is in the collection before accessing it.
+            get => GuildId != null && GuildsService.Guilds.ContainsKey(GuildId) 
+                ? GuildsService.Guilds[GuildId] 
+                : null;
         }
 
         // Order:

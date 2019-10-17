@@ -88,6 +88,9 @@ namespace Quarrel.Services.Guild
                     {
                         BindableGuild bGuild = new BindableGuild(guild);
 
+                        // Needs to be adds to the collection before initialization
+                        Guilds.Add(bGuild.Model.Id, bGuild);
+
                         // Handle guild settings
                         GuildSetting gSettings = CacheService.Runtime.TryGetValue<GuildSetting>(Quarrel.Helpers.Constants.Cache.Keys.GuildSettings, guild.Id);
                         if (gSettings != null)
@@ -163,8 +166,6 @@ namespace Quarrel.Services.Guild
                         {
                             Messenger.Default.Send(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
                         }
-
-                        Guilds.Add(bGuild.Model.Id, bGuild);
                     }
 
                     #endregion
