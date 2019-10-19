@@ -37,8 +37,9 @@ namespace Quarrel.Controls.Shell
 {
     public sealed partial class Shell : UserControl
     {
+        private MainViewModel ViewModel => App.ViewModelLocator.Main;
         //private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
-       // private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
+                                                                                    // private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
         public Shell()
         {
             try
@@ -91,12 +92,26 @@ namespace Quarrel.Controls.Shell
 
         private async void UserControl_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            await MessageListManager.ManagerKeyDown(sender, e);
-        }
+                var ctrl = Window.Current.CoreWindow.GetKeyState(Windows.System.VirtualKey.Control);
+                var menu = (Window.Current.CoreWindow.GetKeyState(Windows.System.VirtualKey.Menu)
+                    & Windows.UI.Core.CoreVirtualKeyStates.Down)
+                        == Windows.UI.Core.CoreVirtualKeyStates.Down;
 
-        private void UserControl_KeyUp(object sender, KeyRoutedEventArgs e)
-        {
-            MessageListManager.ManagerKeyUp(sender, e);
+                if (e.Key == Windows.System.VirtualKey.Q
+                    && ctrl == Windows.UI.Core.CoreVirtualKeyStates.Down)
+                {
+                    await ViewModel.MarkRead(menu);
+
+                    e.Handled = true;
+                }
+
+                if (e.Key == Windows.System.VirtualKey.N
+                    && ctrl == Windows.UI.Core.CoreVirtualKeyStates.Down)
+                {
+                    await ViewModel.MoveNext(menu);
+
+                    e.Handled = true;
+                }
         }
     }
 }

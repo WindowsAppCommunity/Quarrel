@@ -25,6 +25,8 @@ using Quarrel.Services.Settings;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using System.Collections.Concurrent;
 using Quarrel.ViewModels.Services;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Quarrel.ViewModels
 {
@@ -39,8 +41,18 @@ namespace Quarrel.ViewModels
         private readonly ISubFrameNavigationService SubFrameNavigationService;
         private readonly IDispatcherHelper DispatcherHelper;
 
-        public MainViewModel(ICacheService cacheService, ISettingsService settingsService, IDiscordService discordService, ICurrentUsersService currentUsersService, IGatewayService gatewayService, IGuildsService guildsService, ISubFrameNavigationService subFrameNavigationService, IDispatcherHelper dispatcherHelper)
+        private static ILogger<MainViewModel> _logger;
+
+        private static ILogger<MainViewModel> Logger => _logger;
+
+        private static MainViewModel _current = null;
+        public static MainViewModel Current => _current;
+
+        public MainViewModel(IServiceProvider services, ICacheService cacheService, ISettingsService settingsService, IDiscordService discordService, ICurrentUsersService currentUsersService, IGatewayService gatewayService, IGuildsService guildsService, ISubFrameNavigationService subFrameNavigationService, IDispatcherHelper dispatcherHelper)
         {
+            _current = this;
+            _logger = services.GetService<ILogger<MainViewModel>>();
+
             CacheService = cacheService;
             SettingsService = settingsService;
             DiscordService = discordService;
@@ -503,6 +515,108 @@ namespace Quarrel.ViewModels
         private RelayCommand disconnectVoiceCommand;
         public RelayCommand DisconnectVoiceCommand => disconnectVoiceCommand ?? (disconnectVoiceCommand = 
             new RelayCommand(async () => await GatewayService.Gateway.VoiceStatusUpdate(null, null, false, false)));
+
+        public void MarkAllRead()
+        {
+            BindableChannels.ToList().ForEach(
+                async channel =>
+                {
+                    if (channel?._Model?.LastMessageId != null)
+                    {
+                        await channel.UpdateLRMID(channel._Model.LastMessageId);
+                    }
+                });
+        }
+
+        public async Task MarkRead(bool menu, bool scroll = true)
+        {
+            BindableMessages.Where(m => m.IsLastReadMessage).ToList().ForEach(m =>
+            {
+                m.IsLastReadMessage = false;
+                Logger.LogTrace($"Marking Read:\n{m.Model.Content}");
+            });
+
+            Logger.LogTrace($"CTRL-{(menu ? "ALT-" : "")}Q Pressed.");
+
+            var lastMessage = BindableMessages.OrderByDescending(m => Convert.ToInt64(m.Model.Id)).FirstOrDefault();
+
+            if (lastMessage != null)
+            {
+                await Channel.UpdateLRMID(lastMessage.Model.Id);
+
+                if (scroll) _scrollTo?.Invoke(lastMessage);
+            }
+
+            if (menu)
+            {
+                MarkAllRead();
+            }
+
+        }
+
+        public async Task MoveNext(bool menu)
+        {
+            Logger.LogTrace($"CTRL-{(menu ? "ALT-" : "")}N Pressed.");
+
+            var start = BindableChannels.IndexOf(Channel);
+            var index = start;
+
+            index++;
+
+            while (index < BindableChannels.Count
+                && !BindableChannels[index].ShowUnread)
+            {
+                index++;
+            }
+
+            if (index < BindableChannels.Count)
+            {
+                if (menu) await MarkRead(menu, false);
+                NavigateChannelCommand.Execute(BindableChannels[index]);
+            }
+            else
+            {
+                index = 0;
+
+                while (index < start
+                    && !BindableChannels[index].ShowUnread)
+                {
+                    index++;
+                }
+
+                if (index < start)
+                {
+                    if (menu) await MarkRead(menu, false);
+                    NavigateChannelCommand.Execute(BindableChannels[index]);
+                }
+            }
+        }
+
+        private  Action<BindableMessage> _scrollTo;
+        private  readonly object _lock = new object();
+
+        public  event Action<BindableMessage> ScrollToMessage
+        {
+
+            add
+            {
+                lock (_lock)
+                {
+                    _scrollTo?.GetInvocationList().ToList().ForEach(
+                        d => _scrollTo -= (Action<BindableMessage>)d);
+                    _scrollTo += value;
+                }
+            }
+
+            remove
+            {
+                lock (_lock)
+                {
+                    _scrollTo -= value;
+                }
+            }
+        }
+
         #endregion
 
         #region Methods
