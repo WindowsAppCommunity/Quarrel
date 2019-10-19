@@ -33,7 +33,8 @@ namespace Quarrel.Views
                 _ItemsStackPanel.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepLastItemInView;
             });
 
-            MessageListManager.ScrollTo += m =>
+            // This is a different use case than above.
+            ViewModel.ScrollToMessage += m =>
             {
                 if (m != null) MessageList.ScrollIntoView(m);
             };

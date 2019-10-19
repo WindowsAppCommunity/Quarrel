@@ -10,7 +10,6 @@
     xmlns:views="using:Quarrel.Views"
     xmlns:stateTriggers="using:Quarrel.StateTriggers"
     KeyDown="UserControl_KeyDown"
-    KeyUp="UserControl_KeyUp"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
