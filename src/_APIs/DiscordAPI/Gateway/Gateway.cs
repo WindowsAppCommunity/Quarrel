@@ -101,6 +101,9 @@ namespace DiscordAPI.Gateway
         private ILogger Logger { get; }
         private IServiceProvider ServiceProvider { get; }
 
+        private int invalidSessionRetryCount;
+        private string connectionUrl;
+
         public Gateway(IServiceProvider serviceProvider, GatewayConfig config, IAuthenticator authenticator)
         {
             ServiceProvider = serviceProvider;
@@ -225,6 +228,8 @@ namespace DiscordAPI.Gateway
         {
             try
             {
+                invalidSessionRetryCount = 3;
+                this.connectionUrl = connectionUrl;
                 await _socket.ConnectAsync(connectionUrl);
 
                 if (Logger?.IsEnabled(LogLevel.Information) ?? false)
@@ -385,9 +390,9 @@ namespace DiscordAPI.Gateway
                 {
                     game.Type = 0;
                 }
-                if (game is Game)
+                if (game is Game game1)
                 {
-                    (game as Game).SessionId = lastReady.SessionId;
+                    game1.SessionId = lastReady.SessionId;
                 }
             }
             await UpdateStatus(new StatusUpdate()
@@ -768,9 +773,17 @@ namespace DiscordAPI.Gateway
 
         private void OnInvalidSession(SocketFrame gatewayEvent)
         {
-            ConnectedSocket = false;
+            if (invalidSessionRetryCount > 0)
+            {
+                invalidSessionRetryCount--;
+                _ = ConnectAsync(connectionUrl);
+            }
+            else
+            {
+                ConnectedSocket = false;
 
-            FireEventOnDelegate(gatewayEvent, InvalidSession);
+                FireEventOnDelegate(gatewayEvent, InvalidSession);
+            }
         }
 
         #endregion
