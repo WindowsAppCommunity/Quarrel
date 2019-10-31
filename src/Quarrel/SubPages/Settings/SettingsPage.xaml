@@ -19,7 +19,11 @@
                 <ctl:NavigationViewItemHeader Content="User Settings"/>
                 <ctl:NavigationViewItem x:Name="MyAccountItem" Icon="ContactInfo" Content="My Account"/>
                 <ctl:NavigationViewItem x:Name="PrivacyItem" Icon="Permissions" Content="Privacy"/>
-                <ctl:NavigationViewItem IsEnabled="False" x:Name="ConnectionsItem" Icon="Share" Content="Connections"/>
+                <ctl:NavigationViewItem IsEnabled="False" x:Name="ConnectionsItem" Content="Connections">
+                    <ctl:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE72D;" FontFamily="Segoe MDL2 Assets" />
+                    </ctl:NavigationViewItem.Icon>
+                </ctl:NavigationViewItem>
 
                 <ctl:NavigationViewItemHeader Content="App Settings"/>
                 <ctl:NavigationViewItem x:Name="DisplayItem" Icon="View" Content="Display"/>
