@@ -24,13 +24,10 @@
                        Width="2" Height="24" HorizontalAlignment="Left" x:Phase="1"/>
             <controls:DropShadowPanel x:Phase="1" Color="{x:Bind Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
                                       BlurRadius="15" VerticalAlignment="Center" Margin="10,6,6,6">
+
                 <Rectangle  Width="36" Height="36" RadiusX="18" RadiusY="18">
                     <Rectangle.Fill>
-                        <ImageBrush x:Name="Avatar">
-                            <ImageBrush.ImageSource>
-                                <BitmapImage DecodePixelHeight="36" DecodePixelWidth="36" UriSource="{x:Bind Model.User.AvatarUriProperty, Mode=OneWay}" />
-                            </ImageBrush.ImageSource>
-                        </ImageBrush>
+                        <ImageBrush x:Name="Avatar" ImageSource="{x:Bind Model.User.AvatarUrlProperty, Mode=OneWay}"/>
                     </Rectangle.Fill>
                 </Rectangle>
             </controls:DropShadowPanel>

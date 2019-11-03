@@ -461,9 +461,7 @@
                 <local:ChannelListHeader DataContext="{x:Bind ViewModel.Guild, Mode=OneWay}"/>
             </ListView.Header>
             <ListView.ItemTemplate>
-                <!--
-                    Having this here instead of a user control substantially increases performance
-                -->
+
                 <DataTemplate x:DataType="bindables:BindableChannel">
                     <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" MinHeight="{x:Bind Model.Type, Converter={StaticResource TypeToMinHeightConverter}, Mode=OneWay}"
                           Padding="22,0,24,0">
@@ -505,15 +503,10 @@
                             </TextBlock>
                         </Grid>
                         <Rectangle Visibility="{x:Bind ShowIconBackdrop, Mode=OneWay}" Fill="{x:Bind FirstUserDiscriminator, Converter={StaticResource DiscriminatorToBrush}, Mode=OneWay}" x:Name="ChannelImageBackdrop" Width="36" Height="36"  Margin="0,6,6,6" RadiusX="18" RadiusY="18" Opacity="1"/>
-                        <Rectangle Visibility="{x:Bind IsPrivateChannel}" x:Name="ChannelImage" Width="36" Height="36" Margin="0,6,6,6" RadiusX="18" RadiusY="18">
-                            <Rectangle.Fill>
-                                <ImageBrush x:Name="ChannelImageBrush">
-                                    <ImageBrush.ImageSource>
-                                        <BitmapImage DecodePixelWidth="36" DecodePixelHeight="36" UriSource="{x:Bind ImageUri, Mode=OneWay}"/>
-                                    </ImageBrush.ImageSource>
-                                </ImageBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
+
+                        <Border Margin="0,6,6,6" Visibility="{x:Bind IsPrivateChannel}" CornerRadius="18">
+                            <tkcontrols:ImageEx Source="{x:Bind ImageUrl, Mode=OneWay}" Width="36" Height="36" DecodePixelWidth="36" DecodePixelHeight="36"/>
+                        </Border>
                         <!--<Rectangle Visibility="{x:Bind ViewModel.ImageUri, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}" Width="36" Height="36" Margin="0,6,6,6" RadiusX="18" RadiusY="18">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="ms-appx///Assets/QuarrelClassicIcon.png"/>

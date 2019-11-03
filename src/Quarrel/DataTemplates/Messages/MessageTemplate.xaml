@@ -85,15 +85,9 @@
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0" Margin="0,0,16,0">
                             <StackPanel Orientation="Horizontal" x:Name="AuthorSP" x:Load="{x:Bind Author, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
-                                <Rectangle RadiusX="10" RadiusY="10" Width="20" Height="20" Margin="0,0,10,0" x:Name="AuthorRect" x:Load="{x:Bind Author.IconUrl, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
-                                    <Rectangle.Fill>
-                                        <ImageBrush >
-                                            <ImageBrush.ImageSource>
-                                                <BitmapImage DecodePixelHeight="20" DecodePixelWidth="20" UriSource="{Binding Author.ProxyIconUrl}"  />
-                                            </ImageBrush.ImageSource>
-                                        </ImageBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
+                                <Border CornerRadius="10" Margin="0,0,10,0" x:Name="AuthorRect" x:Load="{x:Bind Author.IconUrl, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+                                    <toolkit:ImageEx Width="20" Height="20" DecodePixelWidth="20" DecodePixelHeight="20" Source="{Binding Author.ProxyIconUrl}"/>
+                                </Border>
                                 <HyperlinkButton x:Name="AuthorText" Content="{x:Bind Author.Name, Mode=OneWay}" NavigateUri="{Binding Author.Url, Mode=OneWay}" x:Load="{x:Bind Author.Name, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource Foreground}"/>
                             </StackPanel>
                             <TextBlock TextWrapping="WrapWholeWords" TextDecorations="Underline" x:Name="TitleTB" x:Load="{x:Bind Title, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" FontSize="13" FontWeight="SemiBold" Margin="0,4,0,0">
@@ -185,19 +179,10 @@
                 <Canvas Grid.Row="1" VerticalAlignment="Top" Margin="12,0">
                     <Button Height="40" Width="40"
                         Style="{StaticResource DimButton}">
-                        <Rectangle x:Name="userImg"
-                               extensions:Mouse.Cursor="Hand"
-                               Width="40" Height="40" 
-                               RadiusX="20" RadiusY="20">
-                            <Rectangle.Fill>
-                                <ImageBrush>
-                                    <ImageBrush.ImageSource>
-                                        <BitmapImage DecodePixelHeight="40" DecodePixelWidth="40" UriSource="{Binding Model.User.AvatarUriProperty, Mode=OneWay}"/>
-                                    </ImageBrush.ImageSource>
-                                </ImageBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
+                        <Border CornerRadius="20">
 
+                            <toolkit:ImageEx x:Phase="1" x:Name="userImg" extensions:Mouse.Cursor="Hand" Width="40" Height="40"  DecodePixelHeight="40" Source="{x:Bind Model.User.AvatarUrlProperty, Mode=OneWay}"/>
+                        </Border>
                         <interactivity:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="Click">
                                 <behaviors:OpenFlyoutAction TargetObject="{Binding ElementName=AuthorHyperlink}"/>
