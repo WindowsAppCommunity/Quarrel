@@ -118,7 +118,7 @@
                             <TextBlock Text="{x:Bind Footer.Text, Mode=OneWay}" FontSize="12" FontWeight="SemiBold" Opacity="0.4" VerticalAlignment="Center"/>
                         </StackPanel>
                         <Button Visibility="Collapsed" Style="{StaticResource IntegratedButton}" Grid.Column="1" HorizontalAlignment="Right">
-                            <SymbolIcon Symbol="Share"/>
+                            <FontIcon Glyph="&#xE72D;" FontFamily="Segoe MDL2 Assets" />
                         </Button>
                     </Grid>
                 </StackPanel>
