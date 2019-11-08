@@ -479,6 +479,10 @@
       <Project>{ab95046d-dfd9-451a-b329-e3d9c0fcf738}</Project>
       <Name>DiscordAPI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\_Libs\SodiumC\SodiumC.vcxproj">
+      <Project>{a3a15d18-2c4b-4a06-a5d6-5ad529cfbca6}</Project>
+      <Name>SodiumC</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -765,7 +769,8 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy "$(ProjectDir)\SodiumC\$(PlatformName)\SodiumC.dll" "$(ProjectDir)"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

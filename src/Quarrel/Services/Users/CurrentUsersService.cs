@@ -86,20 +86,20 @@ namespace Quarrel.Services.Users
                     }
                 });
             });
-            Messenger.Default.Register<GatewayPresenceUpdatedMessage>(this, async m =>
+            Messenger.Default.Register<GatewayPresenceUpdatedMessage>(this, m =>
             {
-                await DispatcherHelper.RunAsync(() =>
-                {
-                    if (CurrentUser.Model.Id == m.UserId)
-                    {
-                        CurrentUser.Presence = m.Presence;
-                    }
+                _ = DispatcherHelper.RunAsync(() =>
+                  {
+                      if (CurrentUser.Model.Id == m.UserId)
+                      {
+                          CurrentUser.Presence = m.Presence;
+                      }
 
-                    if(Users.TryGetValue(m.UserId, out BindableGuildMember member))
-                    {
-                        member.Presence = m.Presence;
-                    }
-                });
+                      if (Users.TryGetValue(m.UserId, out BindableGuildMember member))
+                      {
+                          member.Presence = m.Presence;
+                      }
+                  });
             });
             Messenger.Default.Register<GatewayUserSettingsUpdatedMessage>(this, async m =>
             {
