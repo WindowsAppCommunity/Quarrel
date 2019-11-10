@@ -27,6 +27,7 @@ namespace Quarrel
         public MainView(SplashScreen splash)
         {
             this.InitializeComponent();
+            Padding = new Thickness(0);
             ExtendedSplashScreen.InitializeAnimation(splash);
             ViewModel.Login();
         }

@@ -9,6 +9,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Graphics.Display;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -38,8 +40,23 @@ namespace Quarrel.Controls.Shell
 
         public void InitializeAnimation(SplashScreen ogSplash)
         {
-            // Setup icon
-            AdjustSize(ogSplash);
+            var platformFamily = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
+
+            if (platformFamily != "Windows.Xbox")
+            {
+                // Setup icon
+                AdjustSize(ogSplash.ImageLocation);
+            }
+            else
+            {
+                ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
+                var bounds = ApplicationView.GetForCurrentView().VisibleBounds;
+                var scaleFactor = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
+                ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(1920, 1080));
+                var size = new Size((int)Math.Max(bounds.Width * scaleFactor, 1920), (int)Math.Max(bounds.Height * scaleFactor, 1080));
+                AdjustSize(new Rect(0,0, size.Width, size.Height));
+            }
+
             Animation.Begin();
         }
 
@@ -47,11 +64,11 @@ namespace Quarrel.Controls.Shell
         /// <summary>
         /// Adjust ViewBox size
         /// </summary>
-        public void AdjustSize(SplashScreen ogSplash)
+        public void AdjustSize(Rect rect)
         {
             try
             {
-                var location = ogSplash.ImageLocation;
+                var location = rect;
                 viewbox.Width = location.Width;
                 viewbox.Height = location.Height;
 

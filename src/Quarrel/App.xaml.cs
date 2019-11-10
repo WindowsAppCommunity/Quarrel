@@ -129,7 +129,10 @@ namespace Quarrel
 
             Frame rootFrame = Window.Current.Content as Frame;
 
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(400, 500));
+            ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseVisible);
+
             if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
                 (Current.Resources["AcrylicMessageBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
@@ -147,7 +150,7 @@ namespace Quarrel
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
-
+                
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
@@ -159,6 +162,7 @@ namespace Quarrel
                 Window.Current.Content = rootFrame;
             }
 
+            rootFrame.Padding = new Thickness(0);
             DispatcherHelper.Initialize();
 
             if (e.PrelaunchActivated == false)
@@ -170,6 +174,7 @@ namespace Quarrel
                     // parameter
                     rootFrame.Content = new MainView(e.SplashScreen);
                 }
+                rootFrame.Padding = new Thickness(0);
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
