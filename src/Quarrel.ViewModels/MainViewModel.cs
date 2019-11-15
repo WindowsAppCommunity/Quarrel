@@ -79,6 +79,11 @@ namespace Quarrel.ViewModels
                         BindableMembers.Clear();
                         BindableChannels.ReplaceRange(m.Guild.Channels);
                     });
+
+                    //Todo: cache last selected channel and use instead of first channel
+                    BindableChannel channel = m.Guild.Channels.FirstOrDefault(x => x.IsTextChannel);
+                    if (channel  != null)
+                        MessengerInstance.Send(new ChannelNavigateMessage(channel, Guild));
                 }
             });
             MessengerInstance.Register<ChannelNavigateMessage>(this, async m =>
