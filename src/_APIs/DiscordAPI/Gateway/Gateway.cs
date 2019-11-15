@@ -461,6 +461,22 @@ namespace DiscordAPI.Gateway
             return true;
         }
 
+        public async void SubscribeToGuildLazy(string guildId, IReadOnlyDictionary<string, IEnumerable<int[]>> channels)
+        {
+            var updateGuildSubscriptions = new SocketFrame
+            {
+                Operation = (int)OperationCode.UpdateGuildSubscriptions,
+                Payload = new UpdateGuildSubscriptions()
+                {
+                    GuildId = guildId,
+                    Activities = true,
+                    Typing = true,
+                    Channels = channels
+                }
+            };
+            await SendMessageAsync(JsonConvert.SerializeObject(updateGuildSubscriptions));
+        }
+
         private bool TryResume = false;
         private void OnHelloReceived(SocketFrame gatewayEvent)
         {
