@@ -77,6 +77,7 @@ namespace DiscordAPI.Gateway
         public event EventHandler<GatewayEventArgs<GuildMemberAdd>> GuildMemberAdded;
         public event EventHandler<GatewayEventArgs<GuildMemberRemove>> GuildMemberRemoved;
         public event EventHandler<GatewayEventArgs<GuildMemberUpdate>> GuildMemberUpdated;
+        public event EventHandler<GatewayEventArgs<GuildMemberListUpdated>> GuildMemberListUpdated;
         public event EventHandler<GatewayEventArgs<GuildMemberChunk>> GuildMemberChunk;
 
         public event EventHandler<GatewayEventArgs<Friend>> RelationShipAdded;
@@ -222,6 +223,16 @@ namespace DiscordAPI.Gateway
                 {
                     eventHandlers[frame.Type](frame);
                 }
+                else
+                {
+
+                    Logger?.LogDebug($"Unknown message:" +
+                                     $"\n\tOperation: {frame.Operation}" +
+                                     $"\n\tSequenceNumber: {frame.SequenceNumber}" +
+                                     $"\n\tType: {frame.Type}" +
+                                     $"\n\tPayload: {frame.Payload}"
+                    );
+                }
             }
         }
         public async Task<bool> ConnectAsync(string connectionUrl)
@@ -321,6 +332,7 @@ namespace DiscordAPI.Gateway
                 { EventNames.GUILD_MEMBER_REMOVED, OnGuildMemberRemoved },
                 { EventNames.GUILD_MEMBER_UPDATED, OnGuildMemberUpdated },
                 { EventNames.GUILD_MEMBER_CHUNK, OnGuildMemberChunk },
+                { EventNames.GUILD_MEMBER_LIST_UPDATE, OnGuildMemberListUpdated },
                 { EventNames.PRESENCE_UPDATED, OnPresenceUpdated },
                 { EventNames.TYPING_START, OnTypingStarted},
                 { EventNames.FRIEND_ADDED, OnRelationShipAdded },
@@ -461,7 +473,7 @@ namespace DiscordAPI.Gateway
             return true;
         }
 
-        public async void SubscribeToGuildLazy(string guildId, IReadOnlyDictionary<string, IEnumerable<int[]>> channels)
+        public async Task SubscribeToGuildLazy(string guildId, IReadOnlyDictionary<string, IEnumerable<int[]>> channels)
         {
             var updateGuildSubscriptions = new SocketFrame
             {
@@ -474,7 +486,11 @@ namespace DiscordAPI.Gateway
                     Channels = channels
                 }
             };
-            await SendMessageAsync(JsonConvert.SerializeObject(updateGuildSubscriptions));
+            await SendMessageAsync(JsonConvert.SerializeObject(updateGuildSubscriptions, Formatting.None, new JsonSerializerSettings 
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                }
+            ));
         }
 
         private bool TryResume = false;
@@ -661,6 +677,11 @@ namespace DiscordAPI.Gateway
         private void OnGuildMemberUpdated(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, GuildMemberUpdated);
+        }
+
+        private void OnGuildMemberListUpdated(SocketFrame gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, GuildMemberListUpdated);
         }
 
         private void OnGuildMemberChunk(SocketFrame gatewayEvent)
