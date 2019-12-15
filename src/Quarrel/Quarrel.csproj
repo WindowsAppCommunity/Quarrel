@@ -248,24 +248,6 @@
     <Compile Include="Controls\Messages\ActionMessageTemplate.xaml.cs">
       <DependentUpon>ActionMessageTemplate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Messages\Attachments\DefaultAttachmentTemplate.xaml.cs">
-      <DependentUpon>DefaultAttachmentTemplate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Messages\Attachments\ImageAttachmentTemplate.xaml.cs">
-      <DependentUpon>ImageAttachmentTemplate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Messages\Attachments\VideoAttachmentTemplate.xaml.cs">
-      <DependentUpon>VideoAttachmentTemplate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Messages\Embeds\DefaultEmbedTemplate.xaml.cs">
-      <DependentUpon>DefaultEmbedTemplate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Messages\Embeds\GifvEmbedTemplate.xaml.cs">
-      <DependentUpon>GifvEmbedTemplate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Messages\Embeds\ImageEmbedTemplate.xaml.cs">
-      <DependentUpon>ImageEmbedTemplate.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Messages\Embeds\YoutubeEmbedTemplate.xaml.cs">
       <DependentUpon>YoutubeEmbedTemplate.xaml</DependentUpon>
     </Compile>
@@ -442,6 +424,7 @@
     <Content Include="Assets\DefaultAvatars\Group_dark.png" />
     <Content Include="Assets\DefaultAvatars\Group_light.png" />
     <Content Include="Assets\DefaultAvatars\QuarrelClassicIcon.png" />
+    <Content Include="Assets\DiscordAssets\Crown.png" />
     <Content Include="Assets\IconAssets\LargeTile.scale-100.png" />
     <Content Include="Assets\IconAssets\LargeTile.scale-125.png" />
     <Content Include="Assets\IconAssets\LargeTile.scale-150.png" />
@@ -503,6 +486,10 @@
       <Project>{ab95046d-dfd9-451a-b329-e3d9c0fcf738}</Project>
       <Name>DiscordAPI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\_Libs\SodiumC\SodiumC.vcxproj">
+      <Project>{a3a15d18-2c4b-4a06-a5d6-5ad529cfbca6}</Project>
+      <Name>SodiumC</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -534,30 +521,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Messages\ActionMessageTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Messages\Attachments\DefaultAttachmentTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Messages\Attachments\ImageAttachmentTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Messages\Attachments\VideoAttachmentTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Messages\Embeds\DefaultEmbedTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Messages\Embeds\GifvEmbedTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Messages\Embeds\ImageEmbedTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -806,13 +769,15 @@
       <HintPath>..\_Libs\RykenTube\XmlHelper.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="..\_Tasks\Quarrel.Shared\Quarrel.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy "$(ProjectDir)\SodiumC\$(PlatformName)\SodiumC.dll" "$(ProjectDir)"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

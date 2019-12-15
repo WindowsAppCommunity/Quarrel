@@ -291,7 +291,7 @@ namespace Quarrel.Models.Bindables
                 {
                     if (IsDirectChannel)
                     {
-                        return dmModel.Users[0].AvatarUri(false) != null;
+                        return !string.IsNullOrEmpty(dmModel.Users[0].Avatar);
                     }
                     else if (IsGroupChannel)
                     {
@@ -323,7 +323,7 @@ namespace Quarrel.Models.Bindables
             }
         }
 
-        public Uri ImageUri
+        public string ImageUrl
         {
             get
             {
@@ -331,12 +331,12 @@ namespace Quarrel.Models.Bindables
                 {
                     if (IsDirectChannel)
                     {
-                        return dmModel.Users[0].AvatarUri();
+                        return dmModel.Users[0].AvatarUrlProperty;
                     }
                     else if (IsGroupChannel)
                     {
                         //TODO: detect theme
-                        return dmModel.IconUri(true, true);
+                        return dmModel.IconUrl(true, true);
                     }
                 }
 

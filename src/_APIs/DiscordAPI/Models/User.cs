@@ -40,22 +40,17 @@ namespace DiscordAPI.Models
         public bool Premium { get; set; }
         
 
-        public string AvatarUrl(bool useDefault = true, string suffix = "")
-        {
-            if (String.IsNullOrEmpty(Avatar))
-                return useDefault ? "ms-appx:///Assets/DefaultAvatars/QuarrelClassicIcon.png" : null;
-            else if (Avatar.StartsWith("a_"))
-                return "https://cdn.discordapp.com/avatars/" + Id + "/" + Avatar + ".gif" + suffix;
-            else
-                return "https://cdn.discordapp.com/avatars/" + Id + "/" + Avatar + ".png" + suffix;
-        }
+        public Uri AvatarUriProperty => new Uri(AvatarUrlProperty);
 
-        public Uri AvatarUri(bool useDefault = true, string suffix = "")
-        {
-            string url = AvatarUrl(useDefault, suffix);
-            return url != null ? new Uri(url) : null;
+        public string AvatarUrlProperty {
+            get 
+            {
+                if (string.IsNullOrEmpty(Avatar))
+                    return "ms-appx:///Assets/DefaultAvatars/QuarrelClassicIcon.png";
+                if (Avatar.StartsWith("a_"))
+                    return "https://cdn.discordapp.com/avatars/" + Id + "/" + Avatar + ".gif?size=128";
+                return "https://cdn.discordapp.com/avatars/" + Id + "/" + Avatar + ".png?size=128";
+            }
         }
-
-        public Uri AvatarUriProperty => AvatarUri();
     }
 }

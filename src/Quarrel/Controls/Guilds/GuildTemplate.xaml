@@ -10,7 +10,8 @@
     xmlns:convertguild="using:Quarrel.Converters.Guild"
     mc:Ignorable="d"
     d:DesignHeight="60"
-    d:DesignWidth="72">
+    d:DesignWidth="72"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
     <UserControl.Resources>
         <Storyboard x:Name="ShowBadge">
             <DoubleAnimation Duration="0:0:0.6" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border" d:IsOptimized="True">
@@ -52,18 +53,13 @@
             </Border>
             <Border x:Name="UnreadIndicator" Visibility="{x:Bind ViewModel.ShowUnread, Mode=OneWay}" Height="12" Width="2" Opacity="0.75" Background="{ThemeResource Foreground}" Margin="-12,2,4,0" HorizontalAlignment="Left"/>
             <Rectangle Visibility="{x:Bind ViewModel.IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" x:Name="GuildImageBackdrop" Width="50" Height="50" RadiusX="25" RadiusY="25" Fill="{ThemeResource Foreground}" Opacity="0.1"/>
-            <Rectangle Width="50" Height="50" RadiusX="25" RadiusY="25" Visibility="{x:Bind ViewModel.HasIcon, Mode=OneWay}" Opacity="{x:Bind ViewModel.ShowMute, Converter={StaticResource MutedToOpacityConverter}, Mode=OneWay}">
+           
+            <Border x:Name="GuildImage" CornerRadius="25" Width="50" Height="50" x:Load="{x:Bind ViewModel.HasIcon, Mode=OneWay}" Opacity="{x:Bind ViewModel.ShowMute, Converter={StaticResource MutedToOpacityConverter}, Mode=OneWay}">
                 <animations:Implicit.Animations>
                     <animations:OpacityAnimation Duration="0:0:0.3"/>
                 </animations:Implicit.Animations>
-                <Rectangle.Fill>
-                    <ImageBrush x:Name="GuildImageBrush" >
-                        <ImageBrush.ImageSource>
-                            <BitmapImage DecodePixelHeight="50" DecodePixelWidth="50" UriSource="{x:Bind ViewModel.IconUri, Mode=OneWay}"/>
-                        </ImageBrush.ImageSource>
-                    </ImageBrush>
-                </Rectangle.Fill>
-            </Rectangle>
+                <controls:ImageEx Width="50" DecodePixelWidth="50" Source="{x:Bind ViewModel.IconUrl, Mode=OneWay}"/>
+            </Border>
             <TextBlock x:Name="InvalidOverlay" Visibility="Collapsed" Text="" FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             <TextBlock Visibility="{x:Bind ViewModel.HasIcon, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Foreground="{ThemeResource Foreground}" 

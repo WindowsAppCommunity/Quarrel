@@ -134,14 +134,9 @@ namespace Quarrel.Models.Bindables
             }
         }
 
-        public string IconUrl
-        {
-            get { return "https://cdn.discordapp.com/icons/" + Model.Id + "/" + Model.Icon + ".png"; }
-        }
+        public string IconUrl => $"https://cdn.discordapp.com/icons/{Model.Id}/{Model.Icon}.png?size=128";
 
-        public Uri IconUri { get { return new Uri(IconUrl); } }
-            
-        public bool HasIcon { get { return !String.IsNullOrEmpty(Model.Icon); } }
+        public bool HasIcon => !String.IsNullOrEmpty(Model.Icon);
 
         #endregion
 

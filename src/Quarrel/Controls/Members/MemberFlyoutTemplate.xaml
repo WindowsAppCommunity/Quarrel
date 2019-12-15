@@ -58,11 +58,7 @@
             <Grid x:Name="BackgroundGrid" Height="{Binding ElementName=Stacker, Path=ActualHeight, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2" Opacity="1" VerticalAlignment="Top">
                 <Rectangle>
                     <Rectangle.Fill>
-                        <ImageBrush Stretch="UniformToFill">
-                            <ImageBrush.ImageSource>
-                                <BitmapImage UriSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Mode=OneWay}"/>
-                            </ImageBrush.ImageSource>
-                        </ImageBrush>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind ViewModel.Model.User.AvatarUrlProperty, Mode=OneWay}"/>
                     </Rectangle.Fill>
                 </Rectangle>
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -90,11 +86,7 @@
                                                         BlurRadius="15">
                                         <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48">
                                             <Rectangle.Fill>
-                                                <ImageBrush>
-                                                    <ImageBrush.ImageSource>
-                                                        <BitmapImage DecodePixelHeight="96" DecodePixelWidth="96" UriSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Mode=OneWay}"/>
-                                                    </ImageBrush.ImageSource>
-                                                </ImageBrush>
+                                                <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUrlProperty, Mode=OneWay}"/>
                                             </Rectangle.Fill>
                                         </Rectangle>
                                     </tk:DropShadowPanel>

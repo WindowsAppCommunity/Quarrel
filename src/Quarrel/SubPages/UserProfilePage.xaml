@@ -34,11 +34,7 @@
                 <Grid>
                     <Rectangle>
                         <Rectangle.Fill>
-                            <ImageBrush Stretch="UniformToFill">
-                                <ImageBrush.ImageSource>
-                                    <BitmapImage UriSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Mode=OneWay}"/>
-                                </ImageBrush.ImageSource>
-                            </ImageBrush>
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind ViewModel.Model.User.AvatarUrlProperty, Mode=OneWay}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -131,11 +127,7 @@
                                                         BlurRadius="15">
                                 <Rectangle x:Name="AvatarRectangle" Height="128" Width="128" RadiusX="64" RadiusY="64">
                                     <Rectangle.Fill>
-                                        <ImageBrush>
-                                            <ImageBrush.ImageSource>
-                                                <BitmapImage DecodePixelHeight="128" DecodePixelWidth="128" UriSource="{x:Bind ViewModel.Model.User.AvatarUriProperty, Mode=OneWay}"/>
-                                            </ImageBrush.ImageSource>
-                                        </ImageBrush>
+                                        <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUrlProperty, Mode=OneWay}"/>
                                     </Rectangle.Fill>
                                 </Rectangle>
                             </tk:DropShadowPanel>

@@ -83,6 +83,9 @@ namespace Quarrel.Models.Bindables
 
         public string DisplayName => Model.Nick ?? Model.User.Username;
 
+        public bool IsBot => Model.User.Bot;
+
+        public bool IsOwner { get; set; } 
 
         public bool HasNickname => !string.IsNullOrEmpty(Model.Nick);
 

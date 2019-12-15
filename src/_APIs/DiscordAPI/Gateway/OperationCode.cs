@@ -20,7 +20,19 @@ namespace DiscordAPI.Gateway
         InvalidSession = 9,
         Hello = 10,
         HeartbeatAck = 11,
-        SubscribeToGuild = 12
+        SubscribeToGuild = 12,
+        CallConnect = 13,
+        UpdateGuildSubscriptions = 14,
+        LobbyConnect = 15,
+        LobbyDisconnect = 16,
+        LobbyVoiceStatesUpdate = 17,
+        GuildStreamCreate = 18,
+        StreamDelete = 19,
+        StreamWatch = 20,
+        StreamPing = 21,
+        StreamSetPaused = 22,
+        FlushLfgSubscriptions = 23
+
     }
 
     public static class OperationCodeExtensions

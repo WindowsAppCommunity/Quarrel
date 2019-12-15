@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
     <LangVersion>8</LangVersion>
-    <Platforms>ARM;x64;x86</Platforms>
+    <Platforms>ARM;ARM64;x64;x86</Platforms>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 

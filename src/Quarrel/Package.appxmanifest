@@ -9,7 +9,7 @@
   <Identity
     Name="38062AvishaiDernis.QuarrelInsider"
     Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B"
-    Version="19.10.17.0" />
+    Version="19.11.9.0" />
 
   <mp:PhoneIdentity PhoneProductId="9aa81de5-13dc-40ec-a8d4-9bbfea86b060" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -46,13 +46,19 @@
         </uap:DefaultTile >
         <uap:SplashScreen Image="Assets\IconAssets\SplashScreen.png" />
       </uap:VisualElements>
+      <uap:ApplicationContentUriRules>
+        <uap:Rule Type="include" Match="https://discordapp.com" WindowsRuntimeAccess="all"/>
+        <uap:Rule Type="include" Match="https://.discordapp.com" WindowsRuntimeAccess="all"/>
+        <uap:Rule Type="include" Match="https://discordapp.com/app" WindowsRuntimeAccess="all"/>
+        <uap:Rule Type="include" Match="https://.discordapp.com/app" WindowsRuntimeAccess="all"/>
+        <uap:Rule Type="include" Match="https://.discordapp.com/login" WindowsRuntimeAccess="all"/>
+        <uap:Rule Type="include" Match="https://discordapp.com/login" WindowsRuntimeAccess="all"/>
+      </uap:ApplicationContentUriRules>
     </Application>
   </Applications>
 
   <Capabilities>
     <Capability Name="internetClient" />
-    <Capability Name="internetClientServer" />
-    <Capability Name="privateNetworkClientServer" />
     <DeviceCapability Name="microphone"/>
   </Capabilities>
 </Package>
