@@ -324,6 +324,7 @@
     <Compile Include="Extensions\System\StringExtensions.cs" />
     <Compile Include="Extensions\System\TimeSpanExtensions.cs" />
     <Compile Include="Extensions\Windows.UI.Xaml\UIExtensions.cs" />
+    <Compile Include="Helpers\ImageParsing.cs" />
     <Compile Include="Helpers\ItemClickCommand.cs" />
     <Compile Include="Navigation\FrameNavigationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -473,7 +474,6 @@
     <Content Include="Controls\Markdown\About.txt" />
     <Content Include="Controls\Markdown\oltheme.txt" />
     <AdditionalFiles Include="appsettings.json" />
-    <Content Include="SodiumC.dll" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>

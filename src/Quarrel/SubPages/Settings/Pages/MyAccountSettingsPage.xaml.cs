@@ -1,4 +1,5 @@
-﻿using Quarrel.ViewModels.Settings;
+﻿using Quarrel.Helpers;
+using Quarrel.ViewModels.Settings;
 using Quarrel.ViewModels.Settings.Pages;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -27,6 +29,35 @@ namespace Quarrel.SubPages.Settings.Pages
         public MyAccountSettingsPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            ViewModel.ApplyChanges();
+        }
+
+        private async void UploadAvatar(object sender, RoutedEventArgs e)
+        {
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".jpeg");
+            picker.FileTypeFilter.Add(".png");
+
+            StorageFile file = await picker.PickSingleFileAsync();
+            if (file != null)
+            {
+                try
+                {
+                    ViewModel.Base64Avatar = "data:" + file.ContentType + ";base64," +
+                        Convert.ToBase64String(await ImageParsing.FileToBytes(file));
+                }
+                // Mainly for rate limit
+                catch { }
+            }
         }
     }
 }

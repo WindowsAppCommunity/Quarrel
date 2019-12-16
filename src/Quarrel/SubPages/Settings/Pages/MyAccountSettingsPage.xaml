@@ -30,14 +30,15 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Rectangle VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128" Fill="{ThemeResource InvertedBG}" Opacity="0.1"/>
-                <Rectangle x:Name="UserIconRect" Opacity="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128">
+                <Rectangle x:Name="UserIconRect" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128">
                     <Rectangle.Fill>
-                        <ImageBrush x:Name="UserIcon" Stretch="UniformToFill"/>
+                        <ImageBrush ImageSource="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Model.AvatarUrlProperty, Mode=OneWay}" Stretch="UniformToFill"/>
                     </Rectangle.Fill>
                 </Rectangle>
                 <StackPanel Margin="0,6,0,0"  Grid.Row="1">
-                    <HyperlinkButton IsEnabled="False" x:Name="uploadImage" Style="{StaticResource PlainTextHyperlinkStyle}" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="Upload image" Width="90"/>
-                    <HyperlinkButton IsEnabled="False" x:Name="deleteImage" Style="{StaticResource PlainTextHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"/>
+                    <HyperlinkButton x:Name="uploadImage" Style="{StaticResource PlainTextHyperlinkStyle}" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="Upload image" Width="90" Click="UploadAvatar"/>
+                    <HyperlinkButton x:Name="deleteImage" Style="{StaticResource PlainTextHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"
+                                     Command="{x:Bind ViewModel.DeleteAvatar}"/>
                 </StackPanel>
             </Grid>
 
@@ -45,7 +46,7 @@
                 <TextBox IsEnabled="False" x:Name="UsernameBox" IsReadOnly="{x:Bind ViewModel.EditingAccountInfo, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}" Style="{StaticResource TextBoxStyle1}" Header="Username" Margin="0,24,0,0"/>
                 <TextBox IsEnabled="False" x:Name="EmailBox" IsReadOnly="{x:Bind ViewModel.EditingAccountInfo, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}" Style="{StaticResource TextBoxStyle1}" Header="Email" Margin="0,12,0,0"/>
                 <TextBlock Visibility="Collapsed" Text="Must fill out Current Password" Foreground="Red" Margin="0,12,0,-12"/>
-                <StackPanel  Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}">
+                <StackPanel Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}">
                     <PasswordBox x:Name="password" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,12,0,0"/>
                     <HyperlinkButton x:Name="changepass" Visibility="{x:Bind ViewModel.EditingPassword, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" FontSize="13.33" Content="Change password" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0" HorizontalAlignment="Left" 
                                          Command="{x:Bind ViewModel.EnterPasswordEditCommand}"/>
