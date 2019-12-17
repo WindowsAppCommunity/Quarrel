@@ -31,13 +31,6 @@ namespace Quarrel.SubPages.Settings.Pages
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            base.OnNavigatedFrom(e);
-
-            ViewModel.ApplyChanges();
-        }
-
         private async void UploadAvatar(object sender, RoutedEventArgs e)
         {
             var picker = new Windows.Storage.Pickers.FileOpenPicker();
@@ -52,6 +45,7 @@ namespace Quarrel.SubPages.Settings.Pages
             {
                 try
                 {
+                    ViewModel.AvatarUrl = file.Path;
                     ViewModel.Base64Avatar = "data:" + file.ContentType + ";base64," +
                         Convert.ToBase64String(await ImageParsing.FileToBytes(file));
                 }
