@@ -81,7 +81,7 @@ namespace Quarrel.ViewModels
                     });
 
                     //Todo: cache last selected channel and use instead of first channel
-                    BindableChannel channel = m.Guild.Channels.FirstOrDefault(x => x.IsTextChannel);
+                    BindableChannel channel = m.Guild.Channels.FirstOrDefault(x => x.IsTextChannel && x.Permissions.ReadMessages);
                     if (channel  != null)
                         MessengerInstance.Send(new ChannelNavigateMessage(channel, Guild));
                 }
