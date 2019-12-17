@@ -21,5 +21,7 @@ namespace Quarrel.Services.Users
         /// Imporant, do not bind to
         /// </summary>
         BindableGuildMember CurrentGuildMember { get; }
+
+        UserSettings CurrentUserSettings { get; }
     }
 }
