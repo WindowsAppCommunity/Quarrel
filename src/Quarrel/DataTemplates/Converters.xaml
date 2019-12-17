@@ -8,6 +8,10 @@
 
     <baseconvert:DateTimeToTextConverter x:Key="DateTimeToTextConverter"/>
     <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
+    
+    <baseconvert:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
+    <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
+    
     <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
     <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
 

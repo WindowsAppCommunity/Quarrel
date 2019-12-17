@@ -4,6 +4,10 @@
     xmlns:models="using:DiscordAPI.Models"
     x:Class="Quarrel.DataTemplates.Messages.ReactionTemplate">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../Converters.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
     <DataTemplate x:Key="Reaction" x:DataType="models:Reactions">
         <ToggleButton IsChecked="{x:Bind Me, Mode=OneWay}">
             <ToggleButton.Style>
@@ -227,7 +231,8 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{x:Bind Emoji.Name, Mode=OneWay}" Margin="0,0,2,0"/>
+                <TextBlock Text="{x:Bind Emoji.Name, Mode=OneWay}" Visibility="{x:Bind Emoji.IsServer, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Margin="0,0,2,0"/>
+                <Image Source="{x:Bind Emoji.DisplayUrl, Mode=OneWay}" Visibility="{x:Bind Emoji.IsServer, Mode=OneWay}" Height="18" Width="18" VerticalAlignment="Center"/>
                 <TextBlock Text="{x:Bind Count, Mode=OneWay}" Margin="2,0,0,0" Grid.Column="1"/>
             </Grid>
         </ToggleButton>
