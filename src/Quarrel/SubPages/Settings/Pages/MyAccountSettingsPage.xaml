@@ -30,34 +30,34 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Rectangle VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128" Fill="{ThemeResource InvertedBG}" Opacity="0.1"/>
-                <Rectangle x:Name="UserIconRect" Opacity="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128">
+                <Rectangle x:Name="UserIconRect" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128">
                     <Rectangle.Fill>
-                        <ImageBrush x:Name="UserIcon" Stretch="UniformToFill"/>
+                        <ImageBrush ImageSource="{x:Bind ViewModel.AvatarUrl, Mode=OneWay}" Stretch="UniformToFill"/>
                     </Rectangle.Fill>
                 </Rectangle>
                 <StackPanel Margin="0,6,0,0"  Grid.Row="1">
-                    <HyperlinkButton IsEnabled="False" x:Name="uploadImage" Style="{StaticResource PlainTextHyperlinkStyle}" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="Upload image" Width="90"/>
-                    <HyperlinkButton IsEnabled="False" x:Name="deleteImage" Style="{StaticResource PlainTextHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"/>
+                    <HyperlinkButton Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}" Style="{StaticResource PlainTextHyperlinkStyle}" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="Upload image" Width="90" Click="UploadAvatar"/>
+                    <HyperlinkButton Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}" Style="{StaticResource PlainTextHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"
+                                     Command="{x:Bind ViewModel.DeleteAvatar}"/>
                 </StackPanel>
             </Grid>
 
             <StackPanel Grid.Column="1" Margin="12,0,0,0">
-                <TextBox IsEnabled="False" x:Name="UsernameBox" IsReadOnly="{x:Bind ViewModel.EditingAccountInfo, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}" Style="{StaticResource TextBoxStyle1}" Header="Username" Margin="0,24,0,0"/>
-                <TextBox IsEnabled="False" x:Name="EmailBox" IsReadOnly="{x:Bind ViewModel.EditingAccountInfo, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}" Style="{StaticResource TextBoxStyle1}" Header="Email" Margin="0,12,0,0"/>
-                <TextBlock Visibility="Collapsed" Text="Must fill out Current Password" Foreground="Red" Margin="0,12,0,-12"/>
-                <StackPanel  Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}">
-                    <PasswordBox x:Name="password" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,12,0,0"/>
-                    <HyperlinkButton x:Name="changepass" Visibility="{x:Bind ViewModel.EditingPassword, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" FontSize="13.33" Content="Change password" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0" HorizontalAlignment="Left" 
+                <TextBox Text="{x:Bind ViewModel.Email, Mode=OneWay}" IsReadOnly="True" Style="{StaticResource TextBoxStyle1}" Header="Email" Margin="0,0,0,0"/>
+                <TextBox Text="{x:Bind ViewModel.Username, Mode=TwoWay}" IsReadOnly="{x:Bind ViewModel.EditingAccountInfo, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}" Style="{StaticResource TextBoxStyle1}" Header="Username" Margin="0,0,0,0"/>
+                <TextBlock Visibility="Collapsed" Text="Must fill out Current Password" Foreground="Red" Margin="0,0,0,0"/>
+                <StackPanel Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}">
+                    <PasswordBox Password="{x:Bind ViewModel.Password, Mode=TwoWay}" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,0,0,0"/>
+                    <HyperlinkButton x:Name="changepass" Visibility="{x:Bind ViewModel.EditingPassword, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" FontSize="13.33" Content="Change password" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" HorizontalAlignment="Left" 
                                          Command="{x:Bind ViewModel.EnterPasswordEditCommand}"/>
-                    <PasswordBox x:Name="newpassword" Visibility="{x:Bind ViewModel.EditingPassword, Mode=OneWay}" Style="{StaticResource PasswordBoxStyle1}" Header="New password" Margin="0,6,0,0"/>
+                    <PasswordBox Password="{x:Bind ViewModel.NewPassword, Mode=TwoWay}" Visibility="{x:Bind ViewModel.EditingPassword, Mode=OneWay}" Style="{StaticResource PasswordBoxStyle1}" Header="New password" Margin="0,4,0,0"/>
                 </StackPanel>
-                <Button IsEnabled="False" Visibility="{x:Bind ViewModel.EditingAccountInfo, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Content="Edit" Margin="0,12,4,0" Style="{StaticResource DiscordButton}" Command="{x:Bind ViewModel.EnterAccountEditCommand}"/>
+                <Button Visibility="{x:Bind ViewModel.EditingAccountInfo, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Content="Edit" Margin="0,12,4,0" Style="{StaticResource DiscordButton}" Command="{x:Bind ViewModel.EnterAccountEditCommand}"/>
                 <StackPanel Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}" Orientation="Horizontal" Margin="0,12,0,0">
-                    <Button IsEnabled="False" Content="Save" Margin="0,0,4,0" Style="{StaticResource DiscordButton}" Command="{x:Bind ViewModel.FinalizeAccountEditCommand}"/>
-                    <Button IsEnabled="False" Content="Cancel" Margin="4,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource dnd}" Command="{x:Bind ViewModel.CancelAccountEditCommand}"/>
+                    <Button Content="Save" Margin="0,0,4,0" Style="{StaticResource DiscordButton}" Command="{x:Bind ViewModel.FinalizeAccountEditCommand}"/>
+                    <Button Content="Cancel" Margin="4,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource dnd}" Command="{x:Bind ViewModel.CancelAccountEditCommand}"/>
                 </StackPanel>
             </StackPanel>
-
         </Grid>
     </ScrollViewer>
 </Page>

@@ -58,10 +58,10 @@
                         <Button Style="{StaticResource DiscordButton}" Grid.Column="1" Content="Log out" Margin="4,0,0,0" Padding="12,6" HorizontalAlignment="Stretch" Background="{ThemeResource dnd}"/>
                     </Grid>-->
 
-                        <RadioButton x:Uid="/Main/OnlineRadio" IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsOnline}" Foreground="#43b581" GroupName="status" Tag="online" Content="Online" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
-                        <RadioButton x:Uid="/Main/IdleRadio" IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsIdle}" Foreground="#faa61a" GroupName="status" Tag="idle" Content="Idle" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
-                        <RadioButton x:Uid="/Main/DNDRadio" IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsDnd}" Foreground="#f04747" GroupName="status" Tag="dnd" Content="Do not disturb" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
-                        <RadioButton x:Uid="/Main/InvisibleRadio" IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsOffline}" Foreground="#747f8d" GroupName="status" Tag="invisible" Content="Invisible" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
+                        <RadioButton x:Uid="/Main/OnlineRadio" IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsOnline, Mode=OneWay}" Foreground="#43b581" GroupName="status" Tag="online" Content="Online" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
+                        <RadioButton x:Uid="/Main/IdleRadio" IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsIdle, Mode=OneWay}" Foreground="#faa61a" GroupName="status" Tag="idle" Content="Idle" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
+                        <RadioButton x:Uid="/Main/DNDRadio" IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsDnd, Mode=OneWay}" Foreground="#f04747" GroupName="status" Tag="dnd" Content="Do not disturb" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
+                        <RadioButton x:Uid="/Main/InvisibleRadio" IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsOffline, Mode=OneWay}" Foreground="#747f8d" GroupName="status" Tag="invisible" Content="Invisible" Style="{StaticResource DiscordRadioButton}" Click="StatusSelected"/>
                     </StackPanel>
                 </Flyout>
             </Button.Flyout>

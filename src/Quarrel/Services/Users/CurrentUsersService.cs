@@ -36,6 +36,8 @@ namespace Quarrel.Services.Users
 
         public BindableUser CurrentUser { get; } = new BindableUser(new User());
 
+        public UserSettings CurrentUserSettings { get; private set; } = new UserSettings();
+
         public BindableGuildMember CurrentGuildMember => 
             Users.TryGetValue(CurrentUser.Model.Id, out var member) ? member : null;
         
@@ -79,11 +81,14 @@ namespace Quarrel.Services.Users
                         Roles = null,
                         Status = m.EventData.Settings.Status
                     };
+
                     DMUsers.TryAdd(CurrentUser.Model.Id, new BindableGuildMember(new GuildMember() { User = CurrentUser.Model }) { Presence = CurrentUser.Presence, GuildId = "DM" });
                     foreach (var presence in m.EventData.Presences)
                     {
                         DMUsers.TryAdd(presence.User.Id, new BindableGuildMember(new GuildMember() { User = presence.User }) { Presence = presence, GuildId = "DM" });
                     }
+
+                    CurrentUserSettings = m.EventData.Settings;
                 });
             });
             Messenger.Default.Register<GatewayPresenceUpdatedMessage>(this, m =>
@@ -103,6 +108,8 @@ namespace Quarrel.Services.Users
             });
             Messenger.Default.Register<GatewayUserSettingsUpdatedMessage>(this, async m =>
             {
+                CurrentUserSettings = m.Settings;
+
                 if (!string.IsNullOrEmpty(m.Settings.Status))
                 {
                     var newPresence = new Presence()
