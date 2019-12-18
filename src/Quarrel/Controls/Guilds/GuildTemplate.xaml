@@ -47,7 +47,7 @@
 
     <UserControl.ContextFlyout>
         <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-            <MenuFlyoutItem Text="Mark as read" IsEnabled="{x:Bind ViewModel.IsUnread}" Command="{x:Bind ViewModel.MarkAsRead}"/>
+            <MenuFlyoutItem Text="Mark as read" IsEnabled="{x:Bind ViewModel.IsUnread, Mode=OneWay}" Command="{x:Bind ViewModel.MarkAsRead}"/>
         </MenuFlyout>
     </UserControl.ContextFlyout>
 
@@ -78,10 +78,10 @@
 
             <Border x:Name="border" Visibility="{x:Bind ViewModel.NotificationCount, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Margin="0,0,-12,0" VerticalAlignment="Bottom">
                 <animations:Implicit.ShowAnimations>
-                    <animations:OpacityAnimation Duration="0:0:0.3" From="0" To="1"/>
+                    <animations:OpacityAnimation Duration="0:0:0.3" To="1"/>
                 </animations:Implicit.ShowAnimations>
                 <animations:Implicit.HideAnimations>
-                    <animations:OpacityAnimation Duration="0:0:0.3" From="1" To="0"/>
+                    <animations:OpacityAnimation Duration="0:0:0.3" To="0"/>
                 </animations:Implicit.HideAnimations>
                 <Border.Background>
                     <LinearGradientBrush EndPoint="0,0" StartPoint="1,0" ColorInterpolationMode="ScRgbLinearInterpolation">

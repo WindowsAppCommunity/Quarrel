@@ -137,7 +137,7 @@ namespace Quarrel.Services.Gateway
             var channel = GuildsService.GetChannel(e.EventData.ChannelId);
             if (channel != null)
             {
-                if (channel.IsDirectChannel || channel.IsGroupChannel || e.EventData.Mentions.Contains(currentUser) ||
+                if (channel.IsDirectChannel || channel.IsGroupChannel || e.EventData.Mentions.Any(x => x.Id == currentUser.Id) ||
                     e.EventData.MentionEveryone)
                     channel.ReadState.MentionCount++;
                 channel.UpdateLMID(e.EventData.Id);

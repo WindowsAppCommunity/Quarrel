@@ -42,6 +42,7 @@ namespace Quarrel.Models.Bindables
                 {
                     RaisePropertyChanged(nameof(NotificationCount));
                     RaisePropertyChanged(nameof(IsUnread));
+                    RaisePropertyChanged(nameof(ShowUnread));
                 });
             });
 
@@ -51,6 +52,7 @@ namespace Quarrel.Models.Bindables
                 {
                     RaisePropertyChanged(nameof(NotificationCount));
                     RaisePropertyChanged(nameof(IsUnread));
+                    RaisePropertyChanged(nameof(ShowUnread));
                 });
             });
 
