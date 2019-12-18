@@ -11,6 +11,7 @@
     xmlns:models="using:DiscordAPI.Models"
     xmlns:embeds="using:Quarrel.Controls.Messages.Embeds"
     xmlns:members="using:Quarrel.Controls.Members"
+    xmlns:messagecontrols="using:Quarrel.Controls.Messages"
     xmlns:messages="using:Quarrel.DataTemplates.Messages"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
@@ -221,15 +222,28 @@
                 </Grid>
 
                 <Grid Grid.Column="1" Grid.Row="2" x:Name="body" Margin="0,0,0,2" MinHeight="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
                     <markdown:MarkdownTextBlock x:Phase="1" Users="{x:Bind Model.Mentions, Mode=OneWay}" 
                                             Text="{x:Bind Model.Content, Mode=OneWay}"
                                             TextWrapping="WrapWholeWords"
                                             FontWeight="SemiLight" Opacity="0.9"/>
+                    <Button Grid.Column="1" Padding="4,0" Style="{StaticResource DimButton}" Opacity="0.5">
+                        <Button.Flyout>
+                            <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
+                                <messagecontrols:MessageFlyout DataContext="{x:Bind}" Width="96"/>
+                            </Flyout>
+                        </Button.Flyout>
+                        
+                        <SymbolIcon Symbol="More"/>
+                    </Button>
                 </Grid>
 
                 <!--
                 x:Load causes slowdowns here
-            -->
+                -->
                 <Grid Grid.Column="1" Grid.Row="3" x:Name="AttachmentList">
                     <ListView x:Phase="3" ItemsSource="{x:Bind Model.Attachments, Mode=OneWay}"
                           ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"

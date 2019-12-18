@@ -50,12 +50,7 @@ namespace Quarrel.Models.Bindables
                                       _previousMessage.Type == 0 &&
                                       Model.Timestamp.Subtract(_previousMessage.Timestamp).Minutes < 2;
 
-        private bool showFlyout;
-        public bool ShowFlyout
-        {
-            get => showFlyout;
-            set => Set(ref showFlyout, value);
-        }
+        // TODO: Edit mode
 
         #endregion
 

@@ -254,6 +254,9 @@
     <Compile Include="Controls\Messages\MessageBox.xaml.cs">
       <DependentUpon>MessageBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Messages\MessageFlyout.xaml.cs">
+      <DependentUpon>MessageFlyout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Messages\SelectionBindingTextBox.cs" />
     <Compile Include="Controls\MyTubeEmbedWrapper.xaml.cs">
       <DependentUpon>MyTubeEmbedWrapper.xaml</DependentUpon>
@@ -531,6 +534,10 @@
     <Page Include="Controls\Messages\MessageBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Messages\MessageFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MyTubeEmbedWrapper.xaml">
       <SubType>Designer</SubType>
