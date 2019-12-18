@@ -500,6 +500,24 @@ namespace Quarrel.ViewModels
             }
         });
 
+        private RelayCommand<BindableMessage> deleteMessageCommand;
+        public RelayCommand<BindableMessage> DeleteMessageCommand => deleteMessageCommand ??= new RelayCommand<BindableMessage>(async (message) =>
+        {
+            await DiscordService.ChannelService.DeleteMessage(message.Model.ChannelId, message.Model.Id);
+        });
+
+        private RelayCommand<BindableMessage> pinMessageCommand;
+        public RelayCommand<BindableMessage> PinMessageCommand => pinMessageCommand ??= new RelayCommand<BindableMessage>(async (message) =>
+        {
+            await DiscordService.ChannelService.AddPinnedChannelMessage(message.Model.ChannelId, message.Model.Id);
+        });
+
+        private RelayCommand<BindableMessage> unPinMessageCommand;
+        public RelayCommand<BindableMessage> UnPinMessageCommand => unPinMessageCommand ??= new RelayCommand<BindableMessage>(async (message) =>
+        {
+            await DiscordService.ChannelService.DeletePinnedChannelMessage(message.Model.ChannelId, message.Model.Id);
+        });
+
         private RelayCommand disconnectVoiceCommand;
         public RelayCommand DisconnectVoiceCommand => disconnectVoiceCommand ??= new RelayCommand(async () =>
         {

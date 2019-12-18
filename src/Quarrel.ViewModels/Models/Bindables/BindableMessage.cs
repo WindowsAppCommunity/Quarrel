@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Posts.Requests;
+using Quarrel.Services.Guild;
 using Quarrel.Services.Users;
 
 namespace Quarrel.Models.Bindables
@@ -14,6 +15,7 @@ namespace Quarrel.Models.Bindables
     public class BindableMessage : BindableModelBase<Message>
     {
         private ICurrentUsersService currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+        private BindableChannel channel;
 
         private Message _previousMessage;
 
@@ -22,6 +24,7 @@ namespace Quarrel.Models.Bindables
             GuildId = guildId;
             _previousMessage = previousMessage;
             IsLastReadMessage = isLastRead;
+            channel = SimpleIoc.Default.GetInstance<IGuildsService>().CurrentChannels[Model.ChannelId];
         }
 
         private string GuildId;
@@ -58,5 +61,16 @@ namespace Quarrel.Models.Bindables
         {
             Model = message;
         }
+
+
+        public bool ShowPin => !Model.Pinned && (channel.Permissions.ManageMessages || channel.IsDirectChannel);
+
+        public bool ShowUnpin => Model.Pinned && (channel.Permissions.ManageMessages || channel.IsDirectChannel);
+
+        public bool ShowEdit => Model.User.Id == SimpleIoc.Default.GetInstance<ICurrentUsersService>().CurrentUser.Model.Id;
+
+        public bool ShowDelete =>
+            Model.User.Id == SimpleIoc.Default.GetInstance<ICurrentUsersService>().CurrentUser.Model.Id
+            || (channel.Permissions.ManageMessages && !channel.IsDirectChannel);
     }
 }

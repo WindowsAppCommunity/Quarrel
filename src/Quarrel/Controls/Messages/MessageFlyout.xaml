@@ -10,10 +10,10 @@
     d:DesignWidth="400">
 
     <StackPanel HorizontalAlignment="Stretch" Width="96">
-        <MenuFlyoutItem Text="Pin" Visibility="{x:Bind ShowPin}" Width="96" Click="Pin"/>
-        <MenuFlyoutItem Text="Unpin" Visibility="{x:Bind ShowUnpin}" Width="96" Click="Pin"/>
-        <MenuFlyoutItem Text="Edit" Visibility="{x:Bind ShowEdit}" Width="96" Click="Edit"/>
+        <MenuFlyoutItem Text="Pin" Visibility="{x:Bind Message.ShowPin}" Width="96" Command="{x:Bind ViewModel.PinMessageCommand}" CommandParameter="{x:Bind DataContext}"/>
+        <MenuFlyoutItem Text="Unpin" Visibility="{x:Bind Message.ShowUnpin}" Width="96" Command="{x:Bind ViewModel.UnPinMessageCommand}" CommandParameter="{x:Bind DataContext}"/>
+        <MenuFlyoutItem Text="Edit" Visibility="{x:Bind Message.ShowEdit}" Width="96"/>
         <MenuFlyoutItem Text="Copy Id" Width="96"/>
-        <MenuFlyoutItem Text="Delete" Visibility="{x:Bind ShowDelete}" Width="96" Click="Delete"/>
+        <MenuFlyoutItem Text="Delete" Visibility="{x:Bind Message.ShowDelete}" Width="96" Command="{x:Bind ViewModel.DeleteMessageCommand}" CommandParameter="{x:Bind DataContext}"/>
     </StackPanel>
 </UserControl>
