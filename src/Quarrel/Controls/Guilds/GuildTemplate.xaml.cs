@@ -1,6 +1,8 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Gateway;
 using Quarrel.Models.Bindables;
+using Quarrel.Services.Rest;
 using System;
 using System.Collections.Generic;
 using System.IO;

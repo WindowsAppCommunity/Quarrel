@@ -8,6 +8,7 @@
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:convertbase="using:Quarrel.Converters.Base"
     xmlns:convertguild="using:Quarrel.Converters.Guild"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     mc:Ignorable="d"
     d:DesignHeight="60"
     d:DesignWidth="72"
@@ -43,7 +44,13 @@
         <convertguild:IsDMToFontFamilyConverter x:Key="IsDMToFontFamilyConverter"/>
         <convertguild:MutedToOpacityConverter x:Key="MutedToOpacityConverter"/>
     </UserControl.Resources>
-    
+
+    <UserControl.ContextFlyout>
+        <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
+            <MenuFlyoutItem Text="Mark as read" IsEnabled="{x:Bind ViewModel.IsUnread}" Command="{x:Bind ViewModel.MarkAsRead}"/>
+        </MenuFlyout>
+    </UserControl.ContextFlyout>
+
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0,4" Margin="5,0,0,0">
         <Grid Width="50" Height="50">
             <Border x:Name="SelectIndicator" Opacity="0" BorderThickness="3,0,0,0" HorizontalAlignment="Stretch" Margin="-12,-6">

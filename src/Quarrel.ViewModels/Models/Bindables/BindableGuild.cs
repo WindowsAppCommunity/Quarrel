@@ -176,5 +176,10 @@ namespace Quarrel.Models.Bindables
 
             }));
 
+        private RelayCommand markAsRead;
+        public RelayCommand MarkAsRead => markAsRead = new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<IDiscordService>().GuildService.AckGuild(Model.Id);
+        });
     }
 }
