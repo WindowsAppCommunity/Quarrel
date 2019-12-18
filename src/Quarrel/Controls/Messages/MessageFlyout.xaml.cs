@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Quarrel.ViewModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -30,45 +31,8 @@ namespace Quarrel.Controls.Messages
             this.InitializeComponent();
         }
 
-        public BindableMessage ViewModel => DataContext as BindableMessage;
+        public BindableMessage Message => DataContext as BindableMessage;
+        public MainViewModel ViewModel => App.ViewModelLocator.Main;
 
-        public BindableChannel Channel => SimpleIoc.Default.GetInstance<IGuildsService>().CurrentChannels[ViewModel.Model.ChannelId];
-
-        public bool ShowPin
-        {
-            get => !ViewModel.Model.Pinned && (Channel.Permissions.ManageMessages || Channel.IsDirectChannel);
-        }
-
-        public bool ShowUnpin
-        {
-            get => ViewModel.Model.Pinned && (Channel.Permissions.ManageMessages || Channel.IsDirectChannel);
-        }
-
-        public bool ShowEdit
-        {
-            get => ViewModel.Model.User.Id == SimpleIoc.Default.GetInstance<ICurrentUsersService>().CurrentUser.Model.Id;
-        }
-
-        public bool ShowDelete
-        {
-            get => ViewModel.Model.User.Id == SimpleIoc.Default.GetInstance<ICurrentUsersService>().CurrentUser.Model.Id
-                || (Channel.Permissions.ManageMessages && !Channel.IsDirectChannel);
-        }
-
-
-        private void Pin(object sender, RoutedEventArgs e)
-        {
-            SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.AddPinnedChannelMessage(ViewModel.Model.ChannelId, ViewModel.Model.Id);
-        }
-
-        private void Edit(object sender, RoutedEventArgs e)
-        {
-            // TODO: Edit mode
-        }
-
-        private void Delete(object sender, RoutedEventArgs e)
-        {
-            SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.DeleteMessage(ViewModel.Model.ChannelId, ViewModel.Model.Id);
-        }
     }
 }

@@ -17,27 +17,5 @@ namespace Quarrel.DataTemplates.Messages
         {
             this.InitializeComponent();
         }
-
-        private void Pin(object sender, RoutedEventArgs e)
-        {
-            var message = ((e.OriginalSource as MenuFlyoutItem).DataContext as BindableMessage);
-            SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.AddPinnedChannelMessage(message.Model.ChannelId, message.Model.Id);
-        }
-
-        private void Unpin(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Edit(object sender, RoutedEventArgs e)
-        {
-            // TODO: Enter edit mode
-        }
-
-        private void Delete(object sender, RoutedEventArgs e)
-        {
-            var message = ((e.OriginalSource as MenuFlyoutItem).DataContext as BindableMessage);
-            SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.DeleteMessage(message.Model.ChannelId, message.Model.Id);
-        }
     }
 }
