@@ -47,7 +47,7 @@
 
     <UserControl.ContextFlyout>
         <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-            <MenuFlyoutItem Text="Mark as read" IsEnabled="{x:Bind ViewModel.ShowUnread}" Command="{x:Bind ViewModel.MarkAsRead}"/>
+            <MenuFlyoutItem Text="Mark as read" IsEnabled="{x:Bind ViewModel.IsUnread}" Command="{x:Bind ViewModel.MarkAsRead}"/>
         </MenuFlyout>
     </UserControl.ContextFlyout>
 
