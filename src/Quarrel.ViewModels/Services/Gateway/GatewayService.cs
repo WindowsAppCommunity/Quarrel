@@ -22,6 +22,7 @@ using Quarrel.Services.Cache;
 using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
+using Refit;
 
 namespace Quarrel.Services.Gateway
 {
@@ -42,17 +43,22 @@ namespace Quarrel.Services.Gateway
             GuildsService = guildsService;
         }
 
-        public async void InitializeGateway([NotNull] string accessToken)
+        public async Task<bool> InitializeGateway([NotNull] string accessToken)
         {
             BasicRestFactory restFactory = new BasicRestFactory();
             IGatewayConfigService gatewayService = restFactory.GetGatewayConfigService();
 
-            GatewayConfig gatewayConfig = await gatewayService.GetGatewayConfig();
+            try
+            {
+                GatewayConfig gatewayConfig = await gatewayService.GetGatewayConfig();
             IAuthenticator authenticator = new DiscordAuthenticator(accessToken);
 
-            Gateway = new DiscordAPI.Gateway.Gateway(
-                ServiceProvider,
-                gatewayConfig, authenticator);
+            Gateway = new DiscordAPI.Gateway.Gateway(ServiceProvider, gatewayConfig, authenticator);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
 
             Gateway.InvalidSession += Gateway_InvalidSession;
 
@@ -84,7 +90,7 @@ namespace Quarrel.Services.Gateway
 
             Gateway.SessionReplaced += Gateway_SessionReplaced;
 
-            if(await ConnectWithRetryAsync(3))
+            if (await ConnectWithRetryAsync(3))
             {
                 Messenger.Default.Register<GuildNavigateMessage>(this, async m =>
                 {
@@ -103,6 +109,8 @@ namespace Quarrel.Services.Gateway
                     await Gateway.SubscribeToGuild(idList.ToArray());
                 });
             }
+
+            return true;
         }
 
         public async Task<bool> ConnectWithRetryAsync(int retries)

@@ -24,6 +24,7 @@ using DiscordAPI.Authentication;
 using System.Collections;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Services.Cache;
+using DiscordAPI.API.Login.Models;
 
 namespace Quarrel.Services.Rest
 {
@@ -85,21 +86,29 @@ namespace Quarrel.Services.Rest
             CacheService = cacheService;
         }
 
-        public async void Login([NotNull] string email, [NotNull] string password)
+        public async Task<bool> Login([NotNull] string email, [NotNull] string password)
         {
             BasicRestFactory restFactory = new BasicRestFactory();
             LoginService = restFactory.GetLoginService();
 
-            var result = await LoginService.Login(new DiscordAPI.API.Login.Models.LoginRequest() { Email = email, Password = password });
+            LoginResult result;
+            try
+            {
+                result = await LoginService.Login(new DiscordAPI.API.Login.Models.LoginRequest() { Email = email, Password = password });
+            }
+            catch
+            {
+                return false;
+            }
 
             _AccessToken = result.Token;
 
             await CacheService.Persistent.Roaming.SetValueAsync(Quarrel.Helpers.Constants.Cache.Keys.AccessToken, (object)_AccessToken);
 
-            Login();
+            return await Login();
         }
 
-        public async void Login([NotNull] string token, bool storeToken = false)
+        public async Task<bool> Login([NotNull] string token, bool storeToken = false)
         {
             if (storeToken)
             {
@@ -108,10 +117,10 @@ namespace Quarrel.Services.Rest
 
             _AccessToken = token;
 
-            Login();
+            return await Login();
         }
 
-        private void Login()
+        private Task<bool> Login()
         {
             IAuthenticator authenticator = new DiscordAuthenticator(_AccessToken);
             AuthenticatedRestFactory authenticatedRestFactory = new AuthenticatedRestFactory(new DiscordApiConfiguration() { BaseUrl = "https://discordapp.com/api" }, authenticator);
@@ -126,7 +135,7 @@ namespace Quarrel.Services.Rest
             UserService = authenticatedRestFactory.GetUserService();
             VoiceService = authenticatedRestFactory.GetVoiceService();
 
-            Gateway.InitializeGateway(_AccessToken);
+            return Gateway.InitializeGateway(_AccessToken);
         }
 
         #endregion

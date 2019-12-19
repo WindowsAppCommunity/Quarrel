@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Networking.Connectivity;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -28,7 +29,18 @@ namespace Quarrel
         {
             this.InitializeComponent();
             ExtendedSplashScreen.InitializeAnimation(splash);
-            ViewModel.Login();
+            ConnectionProfile connections = NetworkInformation.GetInternetConnectionProfile();
+            if (connections != null)
+            {
+                try
+                {
+                    ViewModel.Login();
+                }
+                catch
+                {
+
+                }
+            }
         }
 
         public MainViewModel ViewModel => App.ViewModelLocator.Main;

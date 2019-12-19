@@ -13,6 +13,6 @@ namespace Quarrel.Services.Gateway
     {
         DiscordAPI.Gateway.Gateway Gateway { get; }
 
-        void InitializeGateway([NotNull] string accessToken);
+        Task<bool> InitializeGateway([NotNull] string accessToken);
     }
 }

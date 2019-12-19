@@ -382,14 +382,14 @@ namespace Quarrel.ViewModels
 
         public async void Login()
         {
-            var token = (string)(await CacheService.Persistent.Roaming.TryGetValueAsync<object>(Quarrel.Helpers.Constants.Cache.Keys.AccessToken));
+            var token = (string)(await CacheService.Persistent.Roaming.TryGetValueAsync<object>(Helpers.Constants.Cache.Keys.AccessToken));
             if (string.IsNullOrEmpty(token))
             {
                 SubFrameNavigationService.NavigateTo("LoginPage");
             }
             else
             {
-                DiscordService.Login(token);
+                await DiscordService.Login(token);
             }
         }
 
