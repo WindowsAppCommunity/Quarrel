@@ -32,8 +32,10 @@ namespace Quarrel.Models.Bindables
         public IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
         public IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
-        public BindableChannel([NotNull] Channel model, [CanBeNull] IEnumerable<VoiceState> states = null) : base(model)
+        public BindableChannel([NotNull] Channel model, [NotNull] string guildId, [CanBeNull] IEnumerable<VoiceState> states = null) : base(model)
         {
+            this.guildId = guildId;
+
             MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, async e =>
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() =>
@@ -89,8 +91,9 @@ namespace Quarrel.Models.Bindables
 
         public BindableGuild Guild
         {
-            get => GuildsService.Guilds[GuildId];
+            get => GuildsService.Guilds[guildId];
         }
+
 
         // Order:
         //  Guild Permsissions
@@ -106,7 +109,6 @@ namespace Quarrel.Models.Bindables
             {
                 if (Model is GuildChannel)
                 {
-
                     // TODO: Calculate once and store
                     Permissions perms = Guild.Permissions.Clone();
 
@@ -117,7 +119,7 @@ namespace Quarrel.Models.Bindables
                     GuildPermission memberDenies = 0;
                     GuildPermission memberAllows = 0;
                     foreach (Overwrite overwrite in (Model as GuildChannel).PermissionOverwrites)
-                        if (overwrite.Id == GuildId)
+                        if (overwrite.Type == "role" && overwrite.Id == guildId) // @everyone Id is equal to GuildId
                         {
                             perms.AddDenies((GuildPermission)overwrite.Deny);
                             perms.AddAllows((GuildPermission)overwrite.Allow);
@@ -206,7 +208,8 @@ namespace Quarrel.Models.Bindables
 
         #region Misc
 
-        public string GuildId;
+        private string guildId;
+        public string GuildId { get => guildId; }
 
         public string ParentId => Model is GuildChannel gcModel ? (IsCategory ? gcModel.Id : gcModel.ParentId) : null;
 

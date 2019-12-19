@@ -83,8 +83,10 @@ namespace Quarrel.Models.Bindables
                 // TODO: Calculate once and store
                 Permissions perms = new Permissions(Model.Roles.FirstOrDefault(x => x.Name == "@everyone").Permissions);
 
-                BindableGuildMember member = CurrentUsersService.CurrentGuildMember;
+                BindableGuildMember member = new BindableGuildMember(Model.Members.FirstOrDefault(x => x.User.Id == CurrentUsersService.CurrentUser.Model.Id));
                 if (member == null) return perms;
+
+                member.GuildId = Model.Id;
                 foreach (var role in member.Roles)
                 {
                     perms.AddAllows((GuildPermission)role.Permissions);

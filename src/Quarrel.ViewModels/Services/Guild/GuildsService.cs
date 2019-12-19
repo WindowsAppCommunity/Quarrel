@@ -69,7 +69,7 @@ namespace Quarrel.Services.Guild
                     {
                         foreach (var channel in m.EventData.PrivateChannels)
                         {
-                            BindableChannel bChannel = new BindableChannel(channel);
+                            BindableChannel bChannel = new BindableChannel(channel, "DM");
 
                             dmGuild.Channels.Add(bChannel);
 
@@ -119,7 +119,7 @@ namespace Quarrel.Services.Guild
                         foreach (var channel in guild.Channels)
                         {
                             IEnumerable<VoiceState> state = guild.VoiceStates?.Where(x => x.ChannelId == channel.Id);
-                            BindableChannel bChannel = new BindableChannel(channel, state) {GuildId = guild.Id};
+                            BindableChannel bChannel = new BindableChannel(channel, guild.Id, state);
                             // Handle channel settings
                             ChannelOverride cSettings = CacheService.Runtime.TryGetValue<ChannelOverride>(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, channel.Id);
                             if (cSettings != null)
@@ -174,7 +174,7 @@ namespace Quarrel.Services.Guild
             });
             Messenger.Default.Register<GatewayGuildChannelCreatedMessage>(this, async m =>
             {
-                var bChannel = new BindableChannel(m.Channel) { GuildId = m.Channel.GuildId };
+                var bChannel = new BindableChannel(m.Channel, m.Channel.GuildId);
                 if (bChannel.Model.Type != 4 && bChannel.ParentId != null)
                 {
                     bChannel.ParentPostion = CurrentChannels.TryGetValue(bChannel.ParentId, out var value) ? value.Position : 0;

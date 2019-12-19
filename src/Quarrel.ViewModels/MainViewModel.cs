@@ -83,7 +83,7 @@ namespace Quarrel.ViewModels
                     //Todo: cache last selected channel and use instead of first channel
                     BindableChannel channel = m.Guild.Channels.FirstOrDefault(x => x.IsTextChannel && x.Permissions.ReadMessages);
                     if (channel  != null)
-                        MessengerInstance.Send(new ChannelNavigateMessage(channel, Guild));
+                        MessengerInstance.Send(new ChannelNavigateMessage(channel, m.Guild));
                 }
             });
             MessengerInstance.Register<ChannelNavigateMessage>(this, async m =>
@@ -206,7 +206,7 @@ namespace Quarrel.ViewModels
                         if (GuildsService.CurrentChannels.TryGetValue(m.Message.ChannelId, out var currentChannel))
                         {
                             currentChannel.Typers.TryRemove(m.Message.User.Id, out var _);
-                            BindableMessages.Add(new BindableMessage(m.Message, guildId, BindableMessages.LastOrDefault()?.Model));
+                            BindableMessages.Add(new BindableMessage(m.Message, currentChannel.Guild.Model.Id != null ? currentChannel.Guild.Model.Id : "DM", BindableMessages.LastOrDefault()?.Model));
                         }
                     });
             });
