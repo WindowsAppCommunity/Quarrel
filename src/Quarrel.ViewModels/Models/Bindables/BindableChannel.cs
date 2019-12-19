@@ -103,13 +103,16 @@ namespace Quarrel.Models.Bindables
         //  All Role Allows
         //  Member denies
         //  Member allows
+        private Permissions permissions = null;
         public Permissions Permissions
         {
             get
             {
+                if (permissions != null)
+                    return permissions;
+
                 if (Model is GuildChannel)
                 {
-                    // TODO: Calculate once and store
                     Permissions perms = Guild.Permissions.Clone();
 
                     var user = Guild.Model.Members.FirstOrDefault(x => x.User.Id == _DiscordService.CurrentUser.Id);
@@ -146,6 +149,7 @@ namespace Quarrel.Models.Bindables
                         perms.AddAllows(GuildPermission.Administrator);
                     }
 
+                    permissions = perms;
                     return perms;
                 }
                 return new Permissions(int.MaxValue);

@@ -76,11 +76,14 @@ namespace Quarrel.Models.Bindables
         // Order
         // Add allows for @everyone role
         // Add allows for each role
+        private Permissions permissions = null;
         public Permissions Permissions
         {
             get
             {
-                // TODO: Calculate once and store
+                if (permissions != null)
+                    return permissions;
+
                 Permissions perms = new Permissions(Model.Roles.FirstOrDefault(x => x.Name == "@everyone").Permissions);
 
                 BindableGuildMember member = new BindableGuildMember(Model.Members.FirstOrDefault(x => x.User.Id == CurrentUsersService.CurrentUser.Model.Id));
@@ -91,6 +94,7 @@ namespace Quarrel.Models.Bindables
                 {
                     perms.AddAllows((GuildPermission)role.Permissions);
                 }
+                permissions = perms;
                 return perms;
             }
         }
