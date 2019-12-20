@@ -9,6 +9,9 @@ using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services.Guild;
 using Quarrel.Services.Users;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Quarrel.Models.Bindables
 {
@@ -52,6 +55,17 @@ namespace Quarrel.Models.Bindables
                                       _previousMessage.User.Id == Model.User.Id &&
                                       _previousMessage.Type == 0 &&
                                       Model.Timestamp.Subtract(_previousMessage.Timestamp).Minutes < 2;
+
+        public IEnumerable<Reaction> Reactions {
+            get =>
+                Model.Reactions == null ? null :
+                Model.Reactions.Select(x =>
+                {
+                    x.ChannelId = Model.ChannelId;
+                    x.MessageId = Model.Id;
+                    return x;
+                });
+        }
 
         // TODO: Edit mode
 

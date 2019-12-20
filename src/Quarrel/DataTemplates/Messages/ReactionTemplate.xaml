@@ -8,8 +8,8 @@
         <ResourceDictionary Source="../Converters.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
-    <DataTemplate x:Key="Reaction" x:DataType="models:Reactions">
-        <ToggleButton IsChecked="{x:Bind Me, Mode=OneWay}">
+    <DataTemplate x:Key="Reaction" x:DataType="models:Reaction">
+        <ToggleButton IsChecked="{x:Bind Me, Mode=OneWay}" Click="ToggleReaction">
             <ToggleButton.Style>
                 <Style TargetType="ToggleButton">
                     <Setter Property="Background" Value="Transparent" />

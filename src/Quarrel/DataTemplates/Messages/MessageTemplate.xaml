@@ -271,7 +271,7 @@
                 </Grid>
 
                 <Grid Grid.Column="1" Grid.Row="5" x:Name="ReactionList">
-                    <ListView x:Phase="4" ItemsSource="{x:Bind Model.Reactions, Mode=OneWay}"
+                    <ListView x:Phase="4" ItemsSource="{x:Bind Reactions, Mode=OneWay}"
                           ItemTemplate="{StaticResource Reaction}"
                           SelectionMode="None">
                         <ListView.ItemContainerStyle>

@@ -244,7 +244,7 @@ namespace Quarrel.ViewModels
                 {
                     if (message.Model.Reactions == null)
                     {
-                        message.Model.Reactions = new List<Reactions>().AsEnumerable();
+                        message.Model.Reactions = new List<Reaction>().AsEnumerable();
                     }
                     var reaction = message.Model.Reactions.FirstOrDefault(x => x.Emoji.Name == m.Emoji.Name && x.Emoji.Id == m.Emoji.Id);
                     if (reaction != null)
@@ -256,7 +256,7 @@ namespace Quarrel.ViewModels
                     else
                     {
                         var list = message.Model.Reactions.ToList();
-                        list.Add(new Reactions() { Emoji = m.Emoji, Count = 1, Me = m.Me});
+                        list.Add(new Reaction() { Emoji = m.Emoji, Count = 1, Me = m.Me});
                         message.Model.Reactions = list.AsEnumerable();
                     }
 

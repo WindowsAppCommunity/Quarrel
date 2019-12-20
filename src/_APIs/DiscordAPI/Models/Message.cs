@@ -66,7 +66,7 @@ namespace DiscordAPI.Models
         [JsonProperty("embeds")]
         public IEnumerable<Embed> Embeds { get; set; }
         [JsonProperty("reactions")]
-        public IEnumerable<Reactions> Reactions { get; set; }
+        public IEnumerable<Reaction> Reactions { get; set; }
         [JsonProperty("nonce")]
         public long? Nonce { get; set; }
         [JsonProperty("pinned")]
