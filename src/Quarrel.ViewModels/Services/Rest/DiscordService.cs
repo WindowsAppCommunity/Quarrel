@@ -25,6 +25,8 @@ using System.Collections;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Services.Cache;
 using DiscordAPI.API.Login.Models;
+using GalaSoft.MvvmLight.Messaging;
+using Quarrel.ViewModels.Messages;
 
 namespace Quarrel.Services.Rest
 {
@@ -122,6 +124,8 @@ namespace Quarrel.Services.Rest
 
         private Task<bool> Login()
         {
+            Messenger.Default.Send(new StartUpStatusMessage(Status.Connecting));
+
             IAuthenticator authenticator = new DiscordAuthenticator(_AccessToken);
             AuthenticatedRestFactory authenticatedRestFactory = new AuthenticatedRestFactory(new DiscordApiConfiguration() { BaseUrl = "https://discordapp.com/api" }, authenticator);
 

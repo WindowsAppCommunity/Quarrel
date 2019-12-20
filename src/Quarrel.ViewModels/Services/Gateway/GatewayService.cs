@@ -23,6 +23,7 @@ using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
 using Refit;
+using Quarrel.ViewModels.Messages;
 
 namespace Quarrel.Services.Gateway
 {
@@ -57,6 +58,7 @@ namespace Quarrel.Services.Gateway
             }
             catch (Exception e)
             {
+                Messenger.Default.Send(new StartUpStatusMessage(Status.Failed));
                 return false;
             }
 
@@ -92,6 +94,7 @@ namespace Quarrel.Services.Gateway
 
             if (await ConnectWithRetryAsync(3))
             {
+                Messenger.Default.Send(new StartUpStatusMessage(Status.Connected));
                 Messenger.Default.Register<GuildNavigateMessage>(this, async m =>
                 {
                     // TODO: Channel typing check

@@ -372,6 +372,9 @@
     <Compile Include="SubPages\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\StatusPage.xaml.cs">
+      <DependentUpon>StatusPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\UserProfilePage.xaml.cs">
       <DependentUpon>UserProfilePage.xaml</DependentUpon>
     </Compile>
@@ -652,6 +655,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\Settings\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\StatusPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

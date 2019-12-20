@@ -1,4 +1,6 @@
-﻿using Quarrel.ViewModels;
+﻿using GalaSoft.MvvmLight.Messaging;
+using Quarrel.ViewModels;
+using Quarrel.ViewModels.Messages;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,14 +34,11 @@ namespace Quarrel
             ConnectionProfile connections = NetworkInformation.GetInternetConnectionProfile();
             if (connections != null)
             {
-                try
-                {
-                    ViewModel.Login();
-                }
-                catch
-                {
-
-                }
+                ViewModel.Login();
+            }
+            else
+            {
+                Messenger.Default.Send(new StartUpStatusMessage(Status.Offline));
             }
         }
 

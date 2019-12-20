@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Quarrel.Messages.Navigation.SubFrame;
+using Quarrel.ViewModels.Messages;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -27,6 +28,11 @@ namespace Quarrel.Controls.Shell
         public ExtendedSplashScreen()
         {
             this.InitializeComponent();
+            Messenger.Default.Register<StartUpStatusMessage>(this, async m =>
+            {
+                StatusBlock.Text = m.Status.ToString().ToUpper();
+            });
+
             Messenger.Default.Register<GatewayReadyMessage>(this, async _ => 
             {
                 await DispatcherHelper.RunAsync(() => 
@@ -56,7 +62,7 @@ namespace Quarrel.Controls.Shell
                 viewbox.Height = location.Height;
 
                 //this.Focus(FocusState.Pointer);
-                //stack.Margin = new Thickness(0, location.Bottom, 0, 0);
+                stack.Margin = new Thickness(0, location.Bottom, 0, 0);
             }
             catch (Exception)
             {
