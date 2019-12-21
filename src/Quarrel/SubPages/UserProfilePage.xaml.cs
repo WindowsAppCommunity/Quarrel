@@ -32,6 +32,7 @@ namespace Quarrel.SubPages
         private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
         private ISubFrameNavigationService subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+        
         public UserProfilePage()
         {
             this.InitializeComponent();
