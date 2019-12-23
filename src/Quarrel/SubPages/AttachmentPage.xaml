@@ -783,16 +783,21 @@
     <Grid>
         <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="0" CornerRadius="4" Padding="0" Margin="0">
             <Grid>
-                <Rectangle Fill="Transparent" Tapped="Rectangle_Tapped"/>
                 <ProgressRing x:Name="LoadingRing" IsActive="True" IsHitTestVisible="False" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
-                <Viewbox>
+                <ScrollViewer ZoomMode="Enabled" MinZoomFactor="1"
+                              HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                     <Grid>
-                        <StackPanel x:Name="MultiPageStacker" MinWidth="240" MaxWidth="1000" Margin="68,76,68,48"/>
-                        <Image x:Name="ImageViewer" 
-                                   HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Opacity="0" ImageOpened="ImageViewer_ImageOpened" Margin="24"/>
+                        <Rectangle Fill="Transparent" Tapped="Rectangle_Tapped"/>
+                        <Viewbox>
+                            <Grid>
+                                <StackPanel x:Name="MultiPageStacker" MinWidth="240" MaxWidth="1000" Margin="68,76,68,48"/>
+                                <Image x:Name="ImageViewer" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Height="{x:Bind ViewModel.ImageHeight, Mode=OneWay}" Width="{x:Bind ViewModel.ImageWidth, Mode=OneWay}"
+                               Opacity="0" ImageOpened="ImageViewer_ImageOpened" Margin="24"/>
+                            </Grid>
+                        </Viewbox>
                     </Grid>
-                </Viewbox>
+                </ScrollViewer>
                 <Grid x:Name="cbContainer" VerticalAlignment="Bottom">
                     <Rectangle x:Name="rectangle" Height="96" VerticalAlignment="Top" IsHitTestVisible="False" Opacity="0.75">
                         <Rectangle.Fill>

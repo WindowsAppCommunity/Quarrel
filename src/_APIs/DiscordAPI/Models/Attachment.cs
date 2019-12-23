@@ -33,5 +33,11 @@ namespace DiscordAPI.Models
 
         [JsonIgnore]
         public string ImageUrl { get => ProxyUrl; }
+
+        [JsonIgnore]
+        public double ImageHeight { get => ActualHeight; }
+
+        [JsonIgnore]
+        public double ImageWidth { get => ActualWidth; }
     }
 }

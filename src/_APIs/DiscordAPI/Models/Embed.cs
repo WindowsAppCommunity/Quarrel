@@ -53,6 +53,40 @@ namespace DiscordAPI.Models
                 return null;
             }
         }
+
+        [JsonIgnore]
+        public double ImageHeight
+        {
+            get
+            {
+                if (Image != null)
+                {
+                    return Image.Height;
+                }
+                else if (Thumbnail != null)
+                {
+                    return Thumbnail.Height;
+                }
+                return 0;
+            }
+        }
+
+        [JsonIgnore]
+        public double ImageWidth
+        {
+            get
+            {
+                if (Image != null)
+                {
+                    return Image.Width;
+                }
+                else if (Thumbnail != null)
+                {
+                    return Thumbnail.Width;
+                }
+                return 0;
+            }
+        }
     }
 
     public class EmbedThumbnail
