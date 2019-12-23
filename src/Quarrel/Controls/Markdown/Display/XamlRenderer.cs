@@ -1146,9 +1146,10 @@ namespace Quarrel.Controls.Markdown.Display
                                         {
                                             if (_halfopacity) content = member.DisplayName;
                                             else content = "@" + member.DisplayName;
+
+                                            foreground = IntToColor(member.TopRole.Color);
                                         }
                                     }
-
                                     break;
                                 }
                             }
