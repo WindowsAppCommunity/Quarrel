@@ -21,7 +21,7 @@
         <Style TargetType="CommandBar">
             <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeMediumBrush}" />
             <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
-            <Setter Property="MinHeight" Value="48"/>
+            <Setter Property="MinHeight" Value="60"/>
             <Setter Property="IsTabStop" Value="False" />
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -131,8 +131,8 @@
                                                     <SplineDoubleKeyFrame KeyTime="0:0:0.467" KeySpline="0.1,0.9 0.2,1.0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.ContentHeight}"/>
                                                 </DoubleAnimationUsingKeyFrames>
                                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ShadowTransform" Storyboard.TargetProperty="Y">
-                                                    <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="12"/>
-                                                    <SplineDoubleKeyFrame KeyTime="0:0:0.467" KeySpline="0.1,0.9 0.2,1.0" Value="12"/>
+                                                    <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="20"/>
+                                                    <SplineDoubleKeyFrame KeyTime="0:0:0.467" KeySpline="0.1,0.9 0.2,1.0" Value="20"/>
                                                 </DoubleAnimationUsingKeyFrames>
                                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetName="OverflowContentTransform" Storyboard.TargetProperty="Y">
                                                     <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.NegativeOverflowContentHeight}"/>
@@ -530,7 +530,7 @@
                                                 <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.ContentHeight}"/>
                                             </DoubleAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ShadowTransform" Storyboard.TargetProperty="Y">
-                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="12"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="20"/>
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SecondaryItemsControl" Storyboard.TargetProperty="IsEnabled">
                                                 <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="True"/>
@@ -784,9 +784,9 @@
                                     </Grid>
                                 </Grid>
                                 
-                                <Rectangle Opacity="{StaticResource ShadowOpacity}" Height="12" VerticalAlignment="Bottom" IsHitTestVisible="False">
+                                <Rectangle Opacity="{StaticResource ShadowOpacity}" Height="12" VerticalAlignment="Bottom" IsHitTestVisible="False" Margin="0,0,0,8">
                                     <Rectangle.RenderTransform>
-                                        <TranslateTransform x:Name="ShadowTransform" Y="{TemplateBinding MinHeight}"/>
+                                        <TranslateTransform x:Name="ShadowTransform"/>
                                     </Rectangle.RenderTransform>
                                     <Rectangle.Fill>
                                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
