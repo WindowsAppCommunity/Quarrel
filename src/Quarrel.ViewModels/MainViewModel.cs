@@ -77,10 +77,9 @@ namespace Quarrel.ViewModels
                         Guild = m.Guild;
                         BindableMessages.Clear();
                         BindableMembers.Clear();
-                        BindableChannels.ReplaceRange(m.Guild.Channels);
+                        //BindableChannels = m.Guild.Channels;
                     });
 
-                    //Todo: cache last selected channel and use instead of first channel
                     BindableChannel channel = m.Guild.Channels.FirstOrDefault(x => x.IsTextChannel && x.Permissions.ReadMessages);
                     if (channel  != null)
                         MessengerInstance.Send(new ChannelNavigateMessage(channel, m.Guild));
@@ -290,14 +289,6 @@ namespace Quarrel.ViewModels
                     });
                 }
             });
-            MessengerInstance.Register<GatewayGuildChannelUpdatedMessage>(this, async m =>
-            {
-                // TODO: Complete Update
-                DispatcherHelper.CheckBeginInvokeOnUi(() => 
-                {
-                    GuildsService.GetChannel(m.Channel.Id).Model = m.Channel;
-                });
-            });
             MessengerInstance.Register<GatewayTypingStartedMessage>(this, async m =>
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() => 
@@ -480,13 +471,13 @@ namespace Quarrel.ViewModels
             if (channel.IsCategory)
             {
                 bool newState = !channel.Collapsed;
-                for (int i = BindableChannels.IndexOf(channel);
-                    i < BindableChannels.Count
-                    && BindableChannels[i] != null
-                    && BindableChannels[i].ParentId == channel.Model.Id;
+                for (int i = Guild.Channels.IndexOf(channel);
+                    i < Guild.Channels.Count
+                    && Guild.Channels[i] != null
+                    && Guild.Channels[i].ParentId == channel.Model.Id;
                     i++)
                 {
-                    BindableChannels[i].Collapsed = newState;
+                    Guild.Channels[i].Collapsed = newState;
                 }
             }
             else if (channel.IsVoiceChannel)
@@ -761,8 +752,6 @@ namespace Quarrel.ViewModels
         /// </summary>
         [NotNull]
         public ObservableRangeCollection<BindableMessage> BindableMessages { get; private set; } = new ObservableRangeCollection<BindableMessage>();
-        [NotNull]
-        public ObservableRangeCollection<BindableChannel> BindableChannels { get; private set; } = new ObservableRangeCollection<BindableChannel>();
         [NotNull]
         public ObservableSortedGroupedCollection<Role, BindableGuildMember> BindableMembers { get; set; } = new ObservableSortedGroupedCollection<Role, BindableGuildMember>(x => x.TopHoistRole, x => -x.Position);
         #endregion

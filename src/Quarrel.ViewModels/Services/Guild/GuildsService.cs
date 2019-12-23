@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Navigation;
@@ -18,6 +19,7 @@ namespace Quarrel.Services.Guild
 {
     public class GuildsService : IGuildsService
     {
+
         public IDictionary<string, BindableChannel> CurrentChannels { get; } = new ConcurrentDictionary<string, BindableChannel>();
         public IDictionary<string, BindableGuild> Guilds { get; } = new ConcurrentDictionary<string, BindableGuild>();
         public string CurrentGuildId { get; private set; }
@@ -209,6 +211,39 @@ namespace Quarrel.Services.Guild
                             .Channels.Remove(currentChannel);
 
                         CurrentChannels.Remove(m.Channel.Id);
+                    }
+                });
+            });
+            Messenger.Default.Register<GatewayGuildChannelUpdatedMessage>(this, async m =>
+            {
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                {
+                    var bChannel = GetChannel(m.Channel.Id);
+                    bChannel.Model = m.Channel;
+                    
+                    if (bChannel.Model.Type != 4 && bChannel.ParentId != null)
+                    {
+                        bChannel.ParentPostion = CurrentChannels.TryGetValue(bChannel.ParentId, out var value) ? value.Position : 0;
+                    }
+                    else if (bChannel.ParentId == null)
+                    {
+                        bChannel.ParentPostion = -1;
+                    }
+                    
+                    if (Guilds.TryGetValue(m.Channel.GuildId, out var guild))
+                    {
+                        guild.Channels.Remove(bChannel);
+                        for (int i = 0; i < guild.Channels.Count; i++)
+                        {
+                            if (guild.Channels[i].AbsolutePostion > bChannel.AbsolutePostion)
+                            {
+                                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                                {
+                                    guild.Channels.Insert(i, bChannel);
+                                });
+                                break;
+                            }
+                        }
                     }
                 });
             });

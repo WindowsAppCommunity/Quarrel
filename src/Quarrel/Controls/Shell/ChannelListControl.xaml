@@ -452,7 +452,7 @@
 
     <Grid>
         <ListView x:Name="ChannelList"
-                  ItemsSource="{x:Bind ViewModel.BindableChannels, Mode=OneWay}"
+                  ItemsSource="{x:Bind ViewModel.Guild.Channels, Mode=OneWay}"
                   ItemContainerStyle="{StaticResource ChannelListItemStyle}"
                   IsItemClickEnabled="True"
                   SelectionMode="None"
