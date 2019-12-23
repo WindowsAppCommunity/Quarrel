@@ -51,7 +51,7 @@
         </VisualStateManager.VisualStateGroups>
 
         <!--Background blur-->
-        <Border Background="{ThemeResource SubFrameHostBackgroundBrush}">
+        <Border x:Name="BackgroundBorder" Background="{ThemeResource SubFrameHostBackgroundBrush}">
             <animations:Implicit.ShowAnimations>
                 <animations:OpacityAnimation Duration="0:0:0.6" To="1"/>
             </animations:Implicit.ShowAnimations>

@@ -1,5 +1,7 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Models.Bindables;
+using Quarrel.Navigation;
 using Quarrel.Services.Rest;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,12 @@ namespace Quarrel.DataTemplates.Messages
         public MessageTemplate()
         {
             this.InitializeComponent();
+        }
+
+        private void Expand(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            var attachment = (e.OriginalSource as FrameworkElement).DataContext;
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("AttachmentPage", attachment);
         }
     }
 }

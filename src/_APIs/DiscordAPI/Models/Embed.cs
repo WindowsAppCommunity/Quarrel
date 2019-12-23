@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DiscordAPI.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DiscordAPI.Models
 {
-    public class Embed
+    public class Embed : IPreviewableAttachment
     {
         [JsonProperty("title")]
         public string Title { get; set; }
@@ -35,6 +36,23 @@ namespace DiscordAPI.Models
         public EmbedAuthor Author { get; set; }
         [JsonProperty("fields")]
         public EmbedField[] Fields { get; set; }
+
+        [JsonIgnore]
+        public string ImageUrl
+        {
+            get
+            {
+                if (Image != null)
+                {
+                    return Image.ProxyUrl;
+                }
+                else if (Thumbnail != null)
+                {
+                    return Thumbnail.ProxyUrl;
+                }
+                return null;
+            }
+        }
     }
 
     public class EmbedThumbnail

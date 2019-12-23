@@ -44,7 +44,7 @@
         <toolkit:ImageEx Source="{x:Bind Url, Mode=OneWay}"
                          MaxHeight="{x:Bind ActualHeight, Mode=OneWay}"
                          MaxWidth="{x:Bind ActualWidth, Mode=OneWay}"
-                         HorizontalAlignment="Left"/>
+                         HorizontalAlignment="Left" Tapped="Expand"/>
     </DataTemplate>
     <DataTemplate x:Key="VideoAttachmentTemplate" x:DataType="models:Attachment">
         <MediaElement Source="{x:Bind ProxyUrl, Mode=OneWay}"
@@ -102,12 +102,12 @@
                         </StackPanel>
                         <Grid Grid.Row="1" MaxWidth="400" x:Name="ThumbnailImage" x:Load="{x:Bind Thumbnail, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
                             <Border CornerRadius="3">
-                                <toolkit:ImageEx Source="{x:Bind Thumbnail.BindUrl, Mode=OneWay}" MaxWidth="400" MaxHeight="{x:Bind Thumbnail.BindHeight}"  Stretch="Uniform"/>
+                                <toolkit:ImageEx Source="{x:Bind Thumbnail.BindUrl, Mode=OneWay}" MaxWidth="400" MaxHeight="{x:Bind Thumbnail.BindHeight}"  Stretch="Uniform" Tapped="Expand"/>
                             </Border>
                          </Grid>
                     </Grid>
                     <Viewbox HorizontalAlignment="Left" x:Name="ImageVB" x:Load="{x:Bind Image, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" StretchDirection="DownOnly" MaxWidth="400" MaxHeight="250">
-                        <toolkit:ImageEx Source="{x:Bind Image.ProxyUrl, Mode=OneWay}"/>
+                        <toolkit:ImageEx Source="{x:Bind Image.ProxyUrl, Mode=OneWay}" Tapped="Expand"/>
                     </Viewbox>
                     <Grid>
                         <Grid.ColumnDefinitions>

@@ -321,6 +321,7 @@
     <Compile Include="Extensions\System\StringExtensions.cs" />
     <Compile Include="Extensions\System\TimeSpanExtensions.cs" />
     <Compile Include="Extensions\Windows.UI.Xaml\UIExtensions.cs" />
+    <Compile Include="Helpers\Humanize.cs" />
     <Compile Include="Helpers\ImageParsing.cs" />
     <Compile Include="Helpers\ItemClickCommand.cs" />
     <Compile Include="Navigation\FrameNavigationService.cs" />
@@ -338,12 +339,16 @@
     <Compile Include="SubPages\AddChannelPage.xaml.cs">
       <DependentUpon>AddChannelPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\AttachmentPage.xaml.cs">
+      <DependentUpon>AttachmentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\Host\SubFrameHost.xaml.cs">
       <DependentUpon>SubFrameHost.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\Interfaces\IAdaptiveSubPage.cs" />
     <Compile Include="SubPages\Interfaces\IConstrainedSubPage.cs" />
     <Compile Include="SubPages\Interfaces\IFullscreenSubPage.cs" />
+    <Compile Include="SubPages\Interfaces\ITransparentSubPage.cs" />
     <Compile Include="SubPages\Interfaces\IView.cs" />
     <Compile Include="SubPages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -619,6 +624,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\AddChannelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\AttachmentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
