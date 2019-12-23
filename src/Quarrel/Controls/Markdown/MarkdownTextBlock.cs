@@ -1334,6 +1334,8 @@ namespace Quarrel.Controls.Markdown
             _listeningHyperlinks.Add(newHyperlink);
         }
 
+        public event EventHandler<LinkClickedEventArgs> LinkClicked;
+
         private void NewHyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
             // Get the hyperlink URL.
@@ -1359,8 +1361,8 @@ namespace Quarrel.Controls.Markdown
                     break;
                 }
             }
-            //TODO: this
-          //  App.FireLinkClicked(sender, eventArgs);
+
+            LinkClicked?.Invoke(sender, eventArgs);
         }
 
         private bool multiClickDetectionTriggered;

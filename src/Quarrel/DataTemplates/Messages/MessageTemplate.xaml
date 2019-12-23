@@ -181,7 +181,6 @@
                     <Button Height="40" Width="40"
                         Style="{StaticResource DimButton}">
                         <Border CornerRadius="20">
-
                             <toolkit:ImageEx x:Phase="1" x:Name="userImg" extensions:Mouse.Cursor="Hand" Width="40" Height="40"  DecodePixelHeight="40" Source="{x:Bind Model.User.AvatarUrlProperty, Mode=OneWay}"/>
                         </Border>
                         <interactivity:Interaction.Behaviors>
@@ -229,7 +228,7 @@
                     <markdown:MarkdownTextBlock x:Phase="1" Users="{x:Bind Model.Mentions, Mode=OneWay}" 
                                             Text="{x:Bind Model.Content, Mode=OneWay}"
                                             TextWrapping="WrapWholeWords"
-                                            FontWeight="SemiLight" Opacity="0.9"/>
+                                            FontWeight="SemiLight" Opacity="0.9" LinkClicked="Markdown_LinkClicked"/>
                     <Button Grid.Column="1" Padding="4,0" Style="{StaticResource DimButton}" Opacity="0.5">
                         <Button.Flyout>
                             <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
