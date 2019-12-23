@@ -1,5 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Controls.Members;
+using Quarrel.Messages.Navigation;
 using Quarrel.Models.Bindables;
 using Quarrel.Navigation;
 using Quarrel.Services.Guild;
@@ -44,7 +46,12 @@ namespace Quarrel.DataTemplates.Messages
                     };
                     flyout.ShowAt(sender as FrameworkElement);
                 }
-            } else
+            }
+            else if (e.Channel != null)
+            {
+                Messenger.Default.Send(new ChannelNavigateMessage(e.Channel, e.Channel.Guild));
+            }
+            else
             {
                 Uri uri;
                 if (Uri.TryCreate(e.Link, UriKind.Absolute, out uri))

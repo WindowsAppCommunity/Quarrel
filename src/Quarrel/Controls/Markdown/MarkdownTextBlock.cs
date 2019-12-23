@@ -24,6 +24,7 @@ using Quarrel.Controls.Markdown.ColorCode.ColorCode.UWP;
 using Quarrel.Controls.Markdown.Display;
 using Quarrel.Controls.Markdown.Helpers;
 using Quarrel.Controls.Markdown.Parse;
+using Quarrel.Models.Bindables;
 
 namespace Quarrel.Controls.Markdown
 {
@@ -1348,19 +1349,18 @@ namespace Quarrel.Controls.Markdown
             // Fire off the event.
             var eventArgs = new LinkClickedEventArgs(url);
             string val = null;
-            if (url.StartsWith("@!")) val = url.Remove(0, 2);
-            else if (url.StartsWith("@")) val = url.Remove(0, 1);
 
-            if (Users == null) return;
+            var tag = (sender as HyperlinkButton).Tag;
 
-            foreach (var user in Users)
+            if (tag is User user)
             {
-                if (user.Id == val)
-                {
-                    eventArgs.User = user;
-                    break;
-                }
+                eventArgs.User = user;
             }
+            else if (tag is BindableChannel channel)
+            {
+                eventArgs.Channel = channel;
+            }
+            
 
             LinkClicked?.Invoke(sender, eventArgs);
         }

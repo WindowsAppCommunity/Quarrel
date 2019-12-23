@@ -13,6 +13,7 @@
 using System;
 using Windows.UI.Xaml.Documents;
 using DiscordAPI.Models;
+using Quarrel.Models.Bindables;
 
 namespace Quarrel.Controls.Markdown
 {
@@ -32,6 +33,8 @@ namespace Quarrel.Controls.Markdown
         public string Link { get; }
 
         public User User { get; set; }
+
+        public BindableChannel Channel { get; set; }
     }
     public class CodeBlockResolvingEventArgs : EventArgs
     {

@@ -1119,14 +1119,15 @@ namespace Quarrel.Controls.Markdown.Display
         /// <param name="context"> Persistent state. </param>
         private void RenderHyperlink(InlineCollection inlineCollection, HyperlinkInline element, RenderContext context)
         {
+            var link = new HyperlinkButton();
+
 
             if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordChannelMention || element.LinkType == HyperlinkType.DiscordRoleMention || element.LinkType == HyperlinkType.DiscordNickMention || element.LinkType == HyperlinkType.QuarrelColor)
             {
                 var content = element.Text;
                 bool enabled = true;
                 SolidColorBrush foreground = (SolidColorBrush)App.Current.Resources["Blurple"];
-                //TODO: implement required app services or other alternative
-                //TODO: make mvvm?
+
                 try
                 {
                     if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordNickMention)
@@ -1137,6 +1138,8 @@ namespace Quarrel.Controls.Markdown.Display
                             {
                                 if (user.Id == mentionid)
                                 {
+                                    link.Tag = user;
+
                                     if (_halfopacity) content = user.Username;
                                     else content = "@" + user.Username;
                                     if (GuildsService.CurrentGuild.Model.Name != "DM")
@@ -1162,6 +1165,8 @@ namespace Quarrel.Controls.Markdown.Display
                         GuildsService.CurrentChannels.TryGetValue(key, out var value);
                         content = "#" + value?.Model?.Name ?? "deleted-channel";
                         enabled = value != null;
+
+                        link.Tag = value;
                     }
 
 
@@ -1211,8 +1216,6 @@ namespace Quarrel.Controls.Markdown.Display
                 catch (Exception) { content = "<Invalid Mention>"; }
 
 
-                var link = new HyperlinkButton();
-
                 link.Content = CollapseWhitespace(context, content);
                 link.Foreground = foreground;
                 link.FontSize = FontSize;
@@ -1225,8 +1228,8 @@ namespace Quarrel.Controls.Markdown.Display
             }
             else
             {
-                var link = new Hyperlink();
-                _linkRegister.RegisterNewHyperLink(link, element.Url);
+                var hLink = new Hyperlink();
+                _linkRegister.RegisterNewHyperLink(hLink, element.Url);
 
                 Run linkText = new Run
                 {
@@ -1234,10 +1237,10 @@ namespace Quarrel.Controls.Markdown.Display
                     Foreground = LinkForeground ?? context.Foreground
                 };
 
-                link.Inlines.Add(linkText);
+                hLink.Inlines.Add(linkText);
 
                 // Add it to the current inlines
-                inlineCollection.Add(link);
+                inlineCollection.Add(hLink);
             }
             // Make a text block for the link
         }
