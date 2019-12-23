@@ -225,7 +225,11 @@ namespace Quarrel.SubPages.Host
                 }
                 
                 ContentBorder.Background = transparentBackground;
-            }   
+            } else
+            {
+                BackgroundBorder.Background = App.Current.Resources["SubFrameHostBackgroundBrush"] as Brush;
+                ContentBorder.Background = App.Current.Resources["DarkBG"] as Brush;
+            }
         }
 
         // Sends a request to close the current sub frame page
