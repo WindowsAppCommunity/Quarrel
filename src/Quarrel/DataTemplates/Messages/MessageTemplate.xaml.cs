@@ -46,7 +46,11 @@ namespace Quarrel.DataTemplates.Messages
                 }
             } else
             {
-                await Launcher.LaunchUriAsync(new Uri(e.Link));
+                Uri uri;
+                if (Uri.TryCreate(e.Link, UriKind.Absolute, out uri))
+                {
+                    await Launcher.LaunchUriAsync(uri);
+                }
             }
         }
     }
