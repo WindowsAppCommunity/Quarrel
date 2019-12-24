@@ -300,7 +300,7 @@ namespace Quarrel.ViewModels
                             oldTimer.Dispose();
                         }
                             
-                        Timer timer = new Timer((s) =>
+                        Timer timer = new Timer(_ =>
                         {
                             if (bChannel.Typers.TryRemove(m.TypingStart.UserId, out var oldUser))
                             {
@@ -312,7 +312,7 @@ namespace Quarrel.ViewModels
                                 bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
                                 bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
                             });
-                        }, null, 0, 8 * 1000);
+                        }, null, 8 * 1000, 0);
 
                         bChannel.Typers.TryAdd(m.TypingStart.UserId, timer);
                         
