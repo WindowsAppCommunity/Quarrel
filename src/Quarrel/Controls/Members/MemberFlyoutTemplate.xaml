@@ -55,7 +55,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Grid x:Name="BackgroundGrid" Height="{Binding ElementName=Stacker, Path=ActualHeight, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2" Opacity="1" VerticalAlignment="Top">
+            <Grid x:Name="BackgroundGrid" Height="{Binding ElementName=Stacker, Path=ActualHeight, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.RowSpan="2" Opacity="1" VerticalAlignment="Top">
                 <Rectangle>
                     <Rectangle.Fill>
                         <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind ViewModel.Model.User.AvatarUrlProperty, Mode=OneWay}"/>
