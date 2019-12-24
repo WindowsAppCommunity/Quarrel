@@ -6,6 +6,7 @@
     xmlns:controls="using:Quarrel.Controls"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:discordconvert="using:Quarrel.Converters.Discord"
+    xmlns:models="using:DiscordAPI.Models"
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:tkmedia="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -135,7 +136,27 @@
                             <EntranceThemeTransition FromVerticalOffset="-100" IsStaggeringEnabled="True"/>
                         </TransitionCollection>
                     </StackPanel.Transitions>
-                    <tk:WrapPanel x:Name="RoleWrapper" Margin="-2,0,-2,0"/>
+                    <ListView Margin="-8,0" ItemsSource="{x:Bind ViewModel.Roles, Mode=OneWay}"
+                              SelectionMode="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Role">
+                                <Border CornerRadius="10" BorderThickness="1"
+                                        BorderBrush="{x:Bind Color, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse Margin="4,0,0,0" Width="11" Height="11"
+                                             Fill="{x:Bind Color, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}"/>
+                                        <TextBlock Text="{x:Bind Name}" FontSize="11" Padding="3,2,6,3" Opacity="0.8"
+                                                   Foreground="{ThemeResource Foreground}"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <tk:WrapPanel HorizontalSpacing="-20" VerticalSpacing="-16"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
                     <TextBox Style="{StaticResource TextBoxStyle1}" Text="{x:Bind ViewModel.Note}"
                              PlaceholderText="Add Note" FontSize="12" Padding="18,6,6,6" Margin="-12,12,-12,0" 
                              Height="20" BorderThickness="0" MinHeight="28" VerticalContentAlignment="Center"
