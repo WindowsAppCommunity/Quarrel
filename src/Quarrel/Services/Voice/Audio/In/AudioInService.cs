@@ -106,6 +106,10 @@ namespace Quarrel.Services.Voice.Audio.In
             _Graph.Start();
         }
 
+        public void Dispose()
+        {
+            _Graph.Dispose();
+        }
         #endregion
 
         #region Helper Methods

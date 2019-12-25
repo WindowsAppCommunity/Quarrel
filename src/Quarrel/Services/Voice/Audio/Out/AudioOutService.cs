@@ -122,6 +122,11 @@ namespace Quarrel.Services.Voice.Audio.Out
             _FrameInputNode.AddFrame(frame);
         }
 
+        public void Dispose()
+        {
+            _Ready = false;
+            _Graph.Dispose();
+        }
         #endregion
 
         #region Helper Methods

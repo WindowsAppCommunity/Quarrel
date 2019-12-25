@@ -10,5 +10,6 @@ namespace Quarrel.Services.Voice.Audio
     {
         void CreateGraph(string deviceId = null);
         string DeviceId { get; }
+        void Dispose();
     }
 }

@@ -17,6 +17,7 @@ using Quarrel.Messages.Voice;
 using Quarrel.Models.Bindables;
 using Quarrel.Services.Rest;
 using System.Collections.Concurrent;
+using Quarrel.Services.Users;
 
 namespace Quarrel.Services.Voice
 {
@@ -52,6 +53,13 @@ namespace Quarrel.Services.Voice
             {
                 if (VoiceStates.ContainsKey(m.VoiceState.UserId))
                 {
+                    if (m.VoiceState.UserId == DiscordService.CurrentUser.Id &&
+                        m.VoiceState.ChannelId == null)
+                    {
+                        VoiceStates.Remove(m.VoiceState.UserId);
+                        DisconnectFromVoiceChannel();
+                    }
+
                     VoiceStates[m.VoiceState.UserId] = m.VoiceState;
                 }
                 else
@@ -97,11 +105,17 @@ namespace Quarrel.Services.Voice
             _VoiceConnection = new VoiceConnection(data, state);
             _VoiceConnection.VoiceDataRecieved += VoiceDataRecieved;
             _VoiceConnection.Speak += Speak;
-            _VoiceConnection.ConnectAsync();
+            await _VoiceConnection.ConnectAsync();
 
             AudioInService.InputRecieved += InputRecieved;
             AudioInService.SpeakingChanged += SpeakingChanged;
             AudioInService.CreateGraph();
+        }
+
+        public void DisconnectFromVoiceChannel()
+        {
+            AudioInService.Dispose();
+            AudioOutService.Dispose();
         }
 
         #endregion
