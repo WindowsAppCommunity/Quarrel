@@ -84,7 +84,7 @@
             </StackPanel>
         </Grid>
         
-        <msgcontrol:MessageBox Grid.Row="1"
+        <msgcontrol:MessageBox Grid.Row="1" IsEnabled="{x:Bind ViewModel.Channel.Permissions.SendMessages, Mode=OneWay}"
                                Visibility="{x:Bind ViewModel.Channel, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"/>
     </Grid>
 </UserControl>
