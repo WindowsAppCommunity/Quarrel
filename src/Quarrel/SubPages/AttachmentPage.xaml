@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:messageconvert="using:Quarrel.Converters.Messages"
+    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -784,20 +785,19 @@
         <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="0" CornerRadius="4" Padding="0" Margin="0">
             <Grid>
                 <ProgressRing x:Name="LoadingRing" IsActive="True" IsHitTestVisible="False" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
-                <ScrollViewer ZoomMode="Enabled" MinZoomFactor="1"
+                <Grid x:Name="Container" SizeChanged="ContainerSizeChanged">
+                    <ScrollViewer ZoomMode="Enabled" MinZoomFactor="1"
                               HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <Grid>
-                        <Rectangle Fill="Transparent" Tapped="Rectangle_Tapped"/>
-                        <Viewbox>
+                        <Grid>
+                            <Rectangle Fill="Transparent" Tapped="Rectangle_Tapped"/>
                             <Grid>
                                 <StackPanel x:Name="MultiPageStacker" MinWidth="240" MaxWidth="1000" Margin="68,76,68,48"/>
-                                <Image x:Name="ImageViewer" HorizontalAlignment="Center" VerticalAlignment="Center"
-                               Height="{x:Bind ViewModel.ImageHeight, Mode=OneWay}" Width="{x:Bind ViewModel.ImageWidth, Mode=OneWay}"
-                               Opacity="0" ImageOpened="ImageViewer_ImageOpened" Margin="24"/>
+                                <tk:ImageEx x:Name="ImageViewer" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                            Opacity="0" ImageExOpened="ImageOpened" Margin="24"/>
                             </Grid>
-                        </Viewbox>
-                    </Grid>
-                </ScrollViewer>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
                 <Grid x:Name="cbContainer" VerticalAlignment="Bottom">
                     <Rectangle x:Name="rectangle" Height="96" VerticalAlignment="Top" IsHitTestVisible="False" Opacity="0.75">
                         <Rectangle.Fill>
@@ -809,14 +809,14 @@
                     </Rectangle>
                     <CommandBar x:Name="commandBar" Background="Transparent" VerticalAlignment="Bottom" Style="{StaticResource CommandBarStyle2}">
                         <CommandBar.PrimaryCommands>
-                            <AppBarButton x:Uid="/Dialogs/SaveABB" Icon="Save" Label="Save" Click="Save_OnClick"/>
-                            <AppBarButton x:Uid="/Dialogs/ShareABB" Label="Share" Click="Share_OnClick">
+                            <AppBarButton x:Uid="/Dialogs/SaveABB" Icon="Save" Label="Save" Click="Save"/>
+                            <AppBarButton x:Uid="/Dialogs/ShareABB" Label="Share" Click="Share">
                                 <AppBarButton.Icon>
                                     <FontIcon Glyph="&#xE72D;"/>
                                 </AppBarButton.Icon>
                             </AppBarButton>
-                            <AppBarButton x:Uid="/Dialogs/OpenInBrowserABB" Icon="Globe" Label="Open in browser" Click="Open_OnClick"/>
-                            <AppBarButton x:Uid="/Dialogs/CopyLinkABB" Icon="Link" Label="Copy link" Click="CopyLink_OnClick"/>
+                            <AppBarButton x:Uid="/Dialogs/OpenInBrowserABB" Icon="Globe" Label="Open in browser" Click="Open"/>
+                            <AppBarButton x:Uid="/Dialogs/CopyLinkABB" Icon="Link" Label="Copy link" Click="CopyLink"/>
                         </CommandBar.PrimaryCommands>
                         <CommandBar.SecondaryCommands>
                             <AppBarButton Label="test"/>

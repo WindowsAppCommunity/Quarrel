@@ -90,25 +90,25 @@ namespace Quarrel.SubPages
             subFrameNavigationService.GoBack();
         }
 
-        private async void ImageViewer_ImageOpened(object sender, RoutedEventArgs e)
+        private async void ImageOpened(object sender, Microsoft.Toolkit.Uwp.UI.Controls.ImageExOpenedEventArgs e)
         {
             await ImageViewer.Fade(1, 200).StartAsync();
             LoadingRing.IsActive = false;
         }
 
-        private void CopyLink_OnClick(object sender, RoutedEventArgs e)
+        private void CopyLink(object sender, RoutedEventArgs e)
         {
             var dataPackage = new DataPackage();
             dataPackage.SetText(ViewModel.ImageUrl);
             Clipboard.SetContent(dataPackage);
         }
 
-        private async void Open_OnClick(object sender, RoutedEventArgs e)
+        private async void Open(object sender, RoutedEventArgs e)
         {
             await Launcher.LaunchUriAsync(new Uri(ViewModel.ImageUrl));
         }
 
-        private void Share_OnClick(object sender, RoutedEventArgs e)
+        private void Share(object sender, RoutedEventArgs e)
         {
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += (sender1, args) =>
@@ -122,7 +122,7 @@ namespace Quarrel.SubPages
             DataTransferManager.ShowShareUI();
         }
 
-        private async void Save_OnClick(object sender, RoutedEventArgs e)
+        private async void Save(object sender, RoutedEventArgs e)
         {
             var image = new BitmapImage(new Uri(ViewModel.ImageUrl));
             var fileSave = new FileSavePicker();
@@ -135,13 +135,33 @@ namespace Quarrel.SubPages
             await download.StartAsync();
         }
 
+        #region Display
+
         public bool IsFile { get => ViewModel is Attachment; }
 
         public Attachment AsFile { get => ViewModel as Attachment; }
 
+        #endregion
+
+        #region ITransparentSubPage
+
         public bool Dimmed { get => true; }
+
+        #endregion
 
         public bool Hideable { get => true; }
 
+        private void ContainerSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ScaleImage();
+        }
+
+        private void ScaleImage()
+        {
+            double imageRatio = ViewModel.ImageHeight / ViewModel.ImageWidth;
+            double viewRatio = Container.ActualHeight / Container.ActualWidth;
+            if (imageRatio > viewRatio) ImageViewer.Height = ActualHeight * .7;
+            else ImageViewer.Width = ActualWidth * .7;
+        }
     }
 }
