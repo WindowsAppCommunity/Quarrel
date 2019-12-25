@@ -433,7 +433,13 @@ namespace Quarrel.ViewModels
                     }
                 }
             }
-            await DiscordService.ChannelService.CreateMessage(Channel.Model.Id, new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
+
+            text.Trim();
+            if (!string.IsNullOrEmpty(text))
+            {
+                await DiscordService.ChannelService.CreateMessage(Channel.Model.Id, new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
+            }
+
             DispatcherHelper.CheckBeginInvokeOnUi(() =>
             {
                 MessageText = "";
@@ -453,9 +459,9 @@ namespace Quarrel.ViewModels
                     text = text.Remove(selectionstart, SelectionLength);
                 }
 
-                text = text.Insert(selectionstart, Environment.NewLine + Environment.NewLine); //Not sure why two lines breaks are needed but it doesn't work otherwise
+                text = text.Insert(selectionstart, " \n");
                 MessageText = text;
-                SelectionStart = selectionstart + 1;
+                SelectionStart = selectionstart + 2;
             });
 
         private RelayCommand<BindableGuild> navigateGuildCommand;
