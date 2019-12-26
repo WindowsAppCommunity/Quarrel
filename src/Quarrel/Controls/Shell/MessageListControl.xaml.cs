@@ -19,6 +19,7 @@ using Quarrel.Models.Bindables;
 using Quarrel.ViewModels;
 using DiscordAPI.Models;
 using Microsoft.Advertising.WinRT.UI;
+using Quarrel.Helpers;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -62,6 +63,7 @@ namespace Quarrel.Views
                 _PendingAd = value;
             }
         }
+        //private NativeAdsManagerV2 nativeAdsManager = new NativeAdsManagerV2(Constants.Store.AppId, Constants.Store.NativeAdId);
         private NativeAdsManagerV2 nativeAdsManager = new NativeAdsManagerV2("d25517cb-12d4-4699-8bdc-52040c712cab", "test");
 
         private void ItemsStackPanel_Loaded(object sender, RoutedEventArgs e)
@@ -70,15 +72,6 @@ namespace Quarrel.Views
             _ItemsStackPanel = (sender as ItemsStackPanel);
             _ItemsStackPanel.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepItemsInView;
             if (_MessageScrollViewer != null) _MessageScrollViewer.ViewChanged += _messageScrollViewer_ViewChanged;
-
-
-            for (int i = 0; i < ViewModel.BindableMessages.Count; i++)
-            {
-                if (ViewModel.BindableMessages[i] == null)
-                {
-                    ViewModel.BindableMessages[i] = PendingAd;
-                }
-            }
         }
 
         private void _messageScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
@@ -113,6 +106,14 @@ namespace Quarrel.Views
         private void ViewModel_ScrollTo(object sender, BindableMessage e)
         {
             MessageList.ScrollIntoView(e);
+
+            for (int i = 0; i < ViewModel.BindableMessages.Count; i++)
+            {
+                if (ViewModel.BindableMessages[i] == null)
+                {
+                    ViewModel.BindableMessages[i] = PendingAd;
+                }
+            }
         }
     }
 }

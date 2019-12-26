@@ -91,7 +91,7 @@ namespace Quarrel.ViewModels
                 {
                     Channel = m.Channel;
                 });
-
+                
                 if (SettingsService.Roaming.GetValue<bool>(SettingKeys.FilterMembers))
                 {
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
@@ -184,6 +184,11 @@ namespace Quarrel.ViewModels
                         }
 
                         lastItem = item;
+
+                        if (i % 10 == 0)
+                        {
+                            messages.Add(null);
+                        }
                     }
 
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
@@ -628,7 +633,7 @@ namespace Quarrel.ViewModels
                 OldItemsLoading = true;
                 IEnumerable<Message> itemList =
                     await DiscordService.ChannelService.GetChannelMessagesBefore(Channel.Model.Id,
-                        (BindableMessages.FirstOrDefault() as BindableMessage).Model.Id);
+                        (BindableMessages.FirstOrDefault(x => x is BindableMessage) as BindableMessage).Model.Id);
 
                 List<BindableMessage> messages = new List<BindableMessage>();
                 Message lastItem = null;
@@ -662,10 +667,10 @@ namespace Quarrel.ViewModels
             try
             {
                 NewItemsLoading = true;
-                if (Channel.Model.LastMessageId != (BindableMessages.LastOrDefault() as BindableMessage).Model.Id)
+                if (Channel.Model.LastMessageId != (BindableMessages.LastOrDefault(x => x is BindableMessage) as BindableMessage).Model.Id)
                 {
                     IEnumerable<Message> itemList = null;
-                    await Task.Run(async () => itemList = await DiscordService.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, (BindableMessages.LastOrDefault() as BindableMessage).Model.Id));
+                    await Task.Run(async () => itemList = await DiscordService.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, (BindableMessages.LastOrDefault(x => x is BindableMessage) as BindableMessage).Model.Id));
 
                     List<object> messages = new List<object>();
                     Message lastItem = null;
