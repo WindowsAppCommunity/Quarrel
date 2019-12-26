@@ -255,6 +255,9 @@
     <Compile Include="Controls\MyTubeEmbedWrapper.xaml.cs">
       <DependentUpon>MyTubeEmbedWrapper.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NativeAds\NativeAdContainer.xaml.cs">
+      <DependentUpon>NativeAdContainer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RichPresenceControl.xaml.cs">
       <DependentUpon>RichPresenceControl.xaml</DependentUpon>
     </Compile>
@@ -550,6 +553,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\NativeAds\NativeAdContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\RichPresenceControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -763,6 +770,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <SDKReference Include="Microsoft.Advertising.Xaml, Version=10.0">
+      <Name>Microsoft Advertising SDK for XAML</Name>
+    </SDKReference>
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>

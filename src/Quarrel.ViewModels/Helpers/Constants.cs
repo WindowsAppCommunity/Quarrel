@@ -50,7 +50,14 @@ namespace Quarrel.Helpers
 
         public static class Regex
         {
-            public static string YouTubeRegex = @"(?:https:\/\/)?(?:(?:www\.)?youtube\.com\/(?:(?:watch\?.*?v=)|(?:embed\/))([\w\-]+)|youtu\.be\/(?:embed\/)?([\w\-]+))";
+            public const string YouTubeRegex = @"(?:https:\/\/)?(?:(?:www\.)?youtube\.com\/(?:(?:watch\?.*?v=)|(?:embed\/))([\w\-]+)|youtu\.be\/(?:embed\/)?([\w\-]+))";
+        }
+
+        public static class Store
+        {
+            public const string AppId = "9nbrwj777c8r";
+
+            public const string NativeAdId = "1100064845";
         }
     }
 }
