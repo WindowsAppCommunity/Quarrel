@@ -20,5 +20,8 @@ namespace Quarrel.Services.Voice
         IAudioOutService AudioOutService { get; }
 
         IDictionary<string, VoiceState> VoiceStates { get; }
+
+        void ToggleDeafen();
+        void ToggleMute();
     }
 }

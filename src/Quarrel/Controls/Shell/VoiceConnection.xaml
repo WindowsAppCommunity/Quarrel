@@ -739,7 +739,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <!--<RowDefinition Height="Auto"/>-->
         </Grid.RowDefinitions>
 
         <Rectangle IsHitTestVisible="False" Height="16" Opacity="0.2" Grid.RowSpan="12" Grid.ColumnSpan="12" VerticalAlignment="Top" Margin="0,-12,0,0">
@@ -783,13 +783,13 @@
                 </StackPanel>
             </Button>
         </Grid>
-        <Grid Grid.Row="3" Background="{ThemeResource AcrylicUserBackgroundDarker}">
+        <Grid Height="64" Grid.Row="3" Background="{ThemeResource AcrylicUserBackgroundDarker}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="miniViewColumn" Width="*"/>
+                <ColumnDefinition x:Name="miniViewColumn" Width="0"/>
                 <!--TODO: Show connection status-->
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -797,11 +797,11 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <ToggleButton IsEnabled="False" Style="{StaticResource ToggleButtonStyle2}" x:Name="Minimode" Content="" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent"/>
-            <ToggleButton IsEnabled="False" IsChecked="{x:Bind ViewModel.VoiceState.SelfMute, Mode=OneWay}" Style="{StaticResource ToggleButtonStyle1}" Content="" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent"/>
-            <ToggleButton IsEnabled="False" IsChecked="{x:Bind ViewModel.VoiceState.SelfDeaf, Mode=OneWay}" Style="{StaticResource ToggleButtonStyle1}" Content="" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent"/>
+            <ToggleButton IsChecked="{x:Bind ViewModel.VoiceState.SelfMute, Mode=OneWay}" Style="{StaticResource ToggleButtonStyle1}" Content="" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="MuteToggle"/>
+            <ToggleButton IsChecked="{x:Bind ViewModel.VoiceState.SelfDeaf, Mode=OneWay}" Style="{StaticResource ToggleButtonStyle1}" Content="" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="DeafenToggle"/>
 
             <Button FontWeight="SemiBold" Content="" Grid.Row="0" Grid.Column="3" FontSize="18" Style="{StaticResource HangupButton}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" Command="{x:Bind ViewModel.DisconnectVoiceCommand}"/>
-            <AppBarButton IsEnabled="False" Style="{StaticResource AppBarButtonStyle1}" Content="" Background="Transparent" BorderThickness="0" Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="48"/>
+            <!--<AppBarButton IsEnabled="False" Style="{StaticResource AppBarButtonStyle1}" Content="" Background="Transparent" BorderThickness="0" Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="48"/>-->
         </Grid>
     </Grid>
 </UserControl>

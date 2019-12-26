@@ -20,6 +20,7 @@ using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services.Gateway;
 using Quarrel.Services.Rest;
+using Quarrel.Services.Voice;
 using Quarrel.ViewModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
@@ -33,6 +34,16 @@ namespace Quarrel.Controls.Shell
         public VoiceConnection()
         {
             this.InitializeComponent();
+        }
+
+        private void DeafenToggle(object sender, RoutedEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<IVoiceService>().ToggleDeafen();
+        }
+
+        private void MuteToggle(object sender, RoutedEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<IVoiceService>().ToggleMute();
         }
     }
 }

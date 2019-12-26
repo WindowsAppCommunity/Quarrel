@@ -18,6 +18,7 @@ using Quarrel.Models.Bindables;
 using Quarrel.Services.Rest;
 using System.Collections.Concurrent;
 using Quarrel.Services.Users;
+using System.Globalization;
 
 namespace Quarrel.Services.Voice
 {
@@ -116,6 +117,20 @@ namespace Quarrel.Services.Voice
         {
             AudioInService.Dispose();
             AudioOutService.Dispose();
+        }
+
+        public async void ToggleDeafen()
+        {
+            AudioOutService.ToggleDeafen();
+            var state = _VoiceConnection._state;
+            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, AudioInService.Muted, AudioOutService.Deafened);
+        }
+
+        public async void ToggleMute()
+        {
+            AudioInService.ToggleMute();
+            var state = _VoiceConnection._state;
+            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, AudioInService.Muted, AudioOutService.Deafened);
         }
 
         #endregion
