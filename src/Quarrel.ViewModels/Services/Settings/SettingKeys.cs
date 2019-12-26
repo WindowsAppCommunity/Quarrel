@@ -14,6 +14,7 @@ namespace Quarrel.Services.Settings
         Bluple,
         ServerMuteIcons,
         ExpensiveRendering,
+        FontSize,
 
         // Behavior
         MentionGlow,
