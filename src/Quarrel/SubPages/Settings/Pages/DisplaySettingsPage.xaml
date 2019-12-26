@@ -55,8 +55,8 @@
                 </StackPanel>
             </CheckBox>
 
-            <TextBlock Text="Chat Font Scaling" Margin="0,12,0,0"/>
-            <Slider Minimum="12" Maximum="24" Width="300" HorizontalAlignment="Left" Value="{x:Bind ViewModel.FontSize, Mode=TwoWay}"/>
+            <TextBlock Text="Chat Font Scaling" Margin="0,12,0,0" Opacity="0.5"/>
+            <Slider Minimum="12" Maximum="24" Width="300" HorizontalAlignment="Left" Value="{x:Bind ViewModel.FontSize, Mode=TwoWay}" IsEnabled="False"/>
         </StackPanel>
     </ScrollViewer>
 </Page>
