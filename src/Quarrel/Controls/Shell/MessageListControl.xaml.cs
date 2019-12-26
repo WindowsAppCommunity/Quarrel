@@ -18,6 +18,7 @@ using Quarrel.Messages.Navigation;
 using Quarrel.Models.Bindables;
 using Quarrel.ViewModels;
 using DiscordAPI.Models;
+using Microsoft.Advertising.WinRT.UI;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -28,23 +29,56 @@ namespace Quarrel.Views
         public MessageListControl()
         {
             this.InitializeComponent();
+
             ViewModel.ScrollTo += ViewModel_ScrollTo;
             Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
             {
                 _ItemsStackPanel.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepLastItemInView;
             });
+
+            nativeAdsManager.AdReady += NativeAdsManager_AdReady;
+            nativeAdsManager.RequestAd();
         }
+
+        private void NativeAdsManager_AdReady(object sender, NativeAdReadyEventArgs e)
+        {
+            PendingAd = e.NativeAd;
+        }
+
         public MainViewModel ViewModel => App.ViewModelLocator.Main;
 
         private ItemsStackPanel _ItemsStackPanel;
         private ScrollViewer _MessageScrollViewer;
+        private NativeAdV2 _PendingAd;
+        private NativeAdV2 PendingAd
+        {
+            get
+            {
+                nativeAdsManager.RequestAd();
+                return _PendingAd;
+            }
+            set 
+            {
+                _PendingAd = value;
+            }
+        }
+        private NativeAdsManagerV2 nativeAdsManager = new NativeAdsManagerV2("d25517cb-12d4-4699-8bdc-52040c712cab", "test");
 
         private void ItemsStackPanel_Loaded(object sender, RoutedEventArgs e)
         {
             _MessageScrollViewer = MessageList.FindChild<ScrollViewer>();
             _ItemsStackPanel = (sender as ItemsStackPanel);
             _ItemsStackPanel.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepItemsInView;
-            if (_MessageScrollViewer != null) _MessageScrollViewer.ViewChanged += _messageScrollViewer_ViewChanged; ;
+            if (_MessageScrollViewer != null) _MessageScrollViewer.ViewChanged += _messageScrollViewer_ViewChanged;
+
+
+            for (int i = 0; i < ViewModel.BindableMessages.Count; i++)
+            {
+                if (ViewModel.BindableMessages[i] == null)
+                {
+                    ViewModel.BindableMessages[i] = PendingAd;
+                }
+            }
         }
 
         private void _messageScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
@@ -65,6 +99,14 @@ namespace Quarrel.Views
                     ViewModel.LoadOlderMessages();
                 if (fromBottom < 200)
                     ViewModel.LoadNewerMessages();
+            }
+
+            for (int i = 0; i < ViewModel.BindableMessages.Count; i++)
+            {
+                if (ViewModel.BindableMessages[i] == null)
+                {
+                    ViewModel.BindableMessages[i] = PendingAd;
+                }
             }
         }
 

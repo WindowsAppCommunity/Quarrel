@@ -255,9 +255,6 @@
     <Compile Include="Controls\MyTubeEmbedWrapper.xaml.cs">
       <DependentUpon>MyTubeEmbedWrapper.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\NativeAds\NativeAdContainer.xaml.cs">
-      <DependentUpon>NativeAdContainer.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\RichPresenceControl.xaml.cs">
       <DependentUpon>RichPresenceControl.xaml</DependentUpon>
     </Compile>
@@ -312,6 +309,9 @@
     <Compile Include="Converters\Profile\Relationships\RelationToUnblock.cs" />
     <Compile Include="DataTemplates\Members\GuildMemberListItemTemplate.xaml.cs">
       <DependentUpon>GuildMemberListItemTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataTemplates\Messages\AdTemplate.xaml.cs">
+      <DependentUpon>AdTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataTemplates\Messages\MessageTemplate.xaml.cs">
       <DependentUpon>MessageTemplate.xaml</DependentUpon>
@@ -553,10 +553,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\NativeAds\NativeAdContainer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\RichPresenceControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -584,6 +580,10 @@
     <Page Include="DataTemplates\Members\GuildMemberListItemTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DataTemplates\Messages\AdTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DataTemplates\Messages\MessageTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>

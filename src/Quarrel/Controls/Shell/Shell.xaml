@@ -90,16 +90,13 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="64"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
                     <local:QuarrelCommandBar x:Name="LargeViewCommandBar" x:Load="{x:Bind IsViewLarge, Mode=OneWay}" Canvas.ZIndex="1" Background="{StaticResource AcrylicMessageBackground}"
                                              HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked" ShowHamburger="True"/>
 
-                    <ads:NativeAdContainer Grid.Row="1"/>
-                    
-                    <views:MessageListControl Grid.Row="2"/>
+                    <views:MessageListControl Grid.Row="1"/>
                 </Grid>
             </local:SideDrawer.ContentMain>
             <local:SideDrawer.ContentRight>
