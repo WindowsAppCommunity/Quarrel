@@ -36,35 +36,13 @@ namespace Quarrel.Views
             {
                 _ItemsStackPanel.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepLastItemInView;
             });
-
-            nativeAdsManager.AdReady += NativeAdsManager_AdReady;
-            nativeAdsManager.RequestAd();
-        }
-
-        private void NativeAdsManager_AdReady(object sender, NativeAdReadyEventArgs e)
-        {
-            PendingAd = e.NativeAd;
         }
 
         public MainViewModel ViewModel => App.ViewModelLocator.Main;
 
         private ItemsStackPanel _ItemsStackPanel;
         private ScrollViewer _MessageScrollViewer;
-        private NativeAdV2 _PendingAd;
-        private NativeAdV2 PendingAd
-        {
-            get
-            {
-                nativeAdsManager.RequestAd();
-                return _PendingAd;
-            }
-            set 
-            {
-                _PendingAd = value;
-            }
-        }
-        //private NativeAdsManagerV2 nativeAdsManager = new NativeAdsManagerV2(Constants.Store.AppId, Constants.Store.NativeAdId);
-        private NativeAdsManagerV2 nativeAdsManager = new NativeAdsManagerV2("d25517cb-12d4-4699-8bdc-52040c712cab", "test");
+        
 
         private void ItemsStackPanel_Loaded(object sender, RoutedEventArgs e)
         {
@@ -93,27 +71,11 @@ namespace Quarrel.Views
                 if (fromBottom < 200)
                     ViewModel.LoadNewerMessages();
             }
-
-            for (int i = 0; i < ViewModel.BindableMessages.Count; i++)
-            {
-                if (ViewModel.BindableMessages[i] == null)
-                {
-                    ViewModel.BindableMessages[i] = PendingAd;
-                }
-            }
         }
 
         private void ViewModel_ScrollTo(object sender, BindableMessage e)
         {
             MessageList.ScrollIntoView(e);
-
-            for (int i = 0; i < ViewModel.BindableMessages.Count; i++)
-            {
-                if (ViewModel.BindableMessages[i] == null)
-                {
-                    ViewModel.BindableMessages[i] = PendingAd;
-                }
-            }
         }
     }
 }

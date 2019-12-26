@@ -34,7 +34,7 @@
             </DataTemplate>
 
             <DataTemplate x:Key="ActionMessageTemplate1" x:DataType="bindables:BindableMessage">
-                <TextBox Text="{x:Bind Model.Content}"></TextBox>
+                <TextBox Text="{x:Bind Model.Content}"/>
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>

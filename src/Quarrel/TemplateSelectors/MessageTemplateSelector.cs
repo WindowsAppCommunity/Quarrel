@@ -16,7 +16,7 @@ namespace Quarrel.TemplateSelectors
 
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
-            if (item is NativeAdV2)
+            if (item == null)
             {
                 return AdTemplate;
             }

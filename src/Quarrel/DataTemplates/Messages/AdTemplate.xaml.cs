@@ -1,4 +1,5 @@
-﻿using Microsoft.Advertising.WinRT.UI;
+﻿using Microsoft.Advertising.Ads.Requests.AdBroker;
+using Microsoft.Advertising.WinRT.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,11 +22,6 @@ namespace Quarrel.DataTemplates.Messages
         public AdTemplate()
         {
             this.InitializeComponent();
-        }
-
-        private void rootGrid_Loaded(object sender, RoutedEventArgs e)
-        {
-            ((sender as Grid).DataContext as NativeAdV2).RegisterAdContainer(sender as Grid);
         }
     }
 }

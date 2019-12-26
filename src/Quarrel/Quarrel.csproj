@@ -255,6 +255,9 @@
     <Compile Include="Controls\MyTubeEmbedWrapper.xaml.cs">
       <DependentUpon>MyTubeEmbedWrapper.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NativeAds\InlineMessageAd.xaml.cs">
+      <DependentUpon>InlineMessageAd.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RichPresenceControl.xaml.cs">
       <DependentUpon>RichPresenceControl.xaml</DependentUpon>
     </Compile>
@@ -550,6 +553,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MyTubeEmbedWrapper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NativeAds\InlineMessageAd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
