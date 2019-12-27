@@ -42,9 +42,9 @@
     </DataTemplate>
     <DataTemplate x:Key="ImageAttachmentTemplate" x:DataType="models:Attachment">
         <toolkit:ImageEx Source="{x:Bind Url, Mode=OneWay}"
-                         MaxHeight="{x:Bind ActualHeight, Mode=OneWay}"
-                         MaxWidth="{x:Bind ActualWidth, Mode=OneWay}"
-                         HorizontalAlignment="Left" Tapped="Expand"/>
+                         Height="{x:Bind ActualHeight, Mode=OneWay}"
+                         Width="{x:Bind ActualWidth, Mode=OneWay}"
+                         HorizontalAlignment="Left" Tapped="Expand" MaxHeight="250"/>
     </DataTemplate>
     <DataTemplate x:Key="VideoAttachmentTemplate" x:DataType="models:Attachment">
         <MediaElement Source="{x:Bind ProxyUrl, Mode=OneWay}"
@@ -66,13 +66,15 @@
                                          />
     <DataTemplate x:Key="GifvEmbedTemplate" x:DataType="models:Embed">
         <MediaElement Source="{x:Bind Video.Url, Mode=OneWay}" IsLooping="True"
-                      Height="{x:Bind Video.ActualHeight, Mode=OneWay}" Width="{x:Bind Video.ActualWidth, Mode=OneWay}"/>
+                      Height="{x:Bind Video.ActualHeight, Mode=OneWay}" Width="{x:Bind Video.ActualWidth, Mode=OneWay}"
+                      MaxHeight="250"/>
     </DataTemplate>
     <DataTemplate x:Key="YoutubeEmbedTemplate" x:DataType="models:Embed">
-        <embeds:YoutubeEmbedTemplate DataContext="{x:Bind}"/>
+        <embeds:YoutubeEmbedTemplate DataContext="{x:Bind}" MaxHeight="250"/>
     </DataTemplate>
     <DataTemplate x:Key="ImageEmbedTemplate" x:DataType="models:Embed">
-        <toolkit:ImageEx Source="{x:Bind Thumbnail.BindUrl, Mode=OneWay}" MaxWidth="{x:Bind Thumbnail.Width}" MaxHeight="{x:Bind Thumbnail.BindHeight}" HorizontalAlignment="Left"/>
+        <toolkit:ImageEx Source="{x:Bind Thumbnail.BindUrl, Mode=OneWay}" Width="{x:Bind Thumbnail.Width}" Height="{x:Bind Thumbnail.BindHeight}" HorizontalAlignment="Left"
+                         MaxHeight="250"/>
     </DataTemplate>
     <DataTemplate x:Key="DefaultEmbedTemplate" x:DataType="models:Embed">
         <Border CornerRadius="4" Background="{ThemeResource MidBG}">
