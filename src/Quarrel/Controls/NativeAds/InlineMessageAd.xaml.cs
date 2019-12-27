@@ -26,6 +26,7 @@ namespace Quarrel.Controls.NativeAds
             this.InitializeComponent();
 
             nativeAdsManager.AdReady += NativeAdsManager_AdReady;
+            nativeAdsManager.ErrorOccurred += NativeAdsManager_ErrorOccurred;
             nativeAdsManager.RequestAd();
         }
 
@@ -44,6 +45,11 @@ namespace Quarrel.Controls.NativeAds
             });
 
             e.NativeAd.RegisterAdContainer(this);
+        }
+
+        private void NativeAdsManager_ErrorOccurred(object sender, NativeAdErrorEventArgs e)
+        {
+            this.Visibility = Visibility.Collapsed;
         }
     }
 }
