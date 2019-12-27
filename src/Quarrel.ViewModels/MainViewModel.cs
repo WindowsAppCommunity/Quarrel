@@ -223,7 +223,7 @@ namespace Quarrel.ViewModels
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         // LastOrDefault to start from the bottom
-                        var msg = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad");
+                        var msg = BindableMessages.LastOrDefault(x => x.Model.Id == m.MessageId);
                         if (msg != null)
                         {
                             BindableMessages.Remove(msg);
