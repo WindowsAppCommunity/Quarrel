@@ -80,7 +80,7 @@ namespace Quarrel.SubPages
                 string token = await GetTokenFromWebView();
                 if (!string.IsNullOrEmpty(token))
                 {
-                    discordService.Login(token, true);
+                    await discordService.Login(token, true);
                     subFrameNavigationService.GoBack();
                 }
             }
@@ -105,7 +105,7 @@ namespace Quarrel.SubPages
                 string token = await GetTokenFromWebView();
                 if (!string.IsNullOrEmpty(token))
                 {
-                    discordService.Login(token, true);
+                    await discordService.Login(token, true);
                     subFrameNavigationService.GoBack();
                 }
             }
