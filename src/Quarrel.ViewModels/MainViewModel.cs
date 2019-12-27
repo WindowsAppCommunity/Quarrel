@@ -180,14 +180,14 @@ namespace Quarrel.ViewModels
 
                         if (lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId)
                         {
-                            scrollItem = messages.LastOrDefault(x => x != null);
+                            scrollItem = messages.LastOrDefault(x => x.Model.Id != "Ad");
                         }
 
                         lastItem = item;
 
                         if (i % 10 == 0)
                         {
-                            messages.Add(null);
+                            messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null, null));
                             lastItem = null;
                         }
                     }
@@ -195,7 +195,7 @@ namespace Quarrel.ViewModels
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         BindableMessages.ReplaceRange(messages);
-                        ScrollTo?.Invoke(this, scrollItem ?? BindableMessages.LastOrDefault(x => x != null));
+                        ScrollTo?.Invoke(this, scrollItem ?? BindableMessages.LastOrDefault(x => x.Model.Id != "Ad"));
                     });
                     NewItemsLoading = false;
                 }
@@ -212,7 +212,7 @@ namespace Quarrel.ViewModels
                         if (GuildsService.CurrentChannels.TryGetValue(m.Message.ChannelId, out var currentChannel))
                         {
                             currentChannel.Typers.TryRemove(m.Message.User.Id, out var _);
-                            BindableMessages.Add(new BindableMessage(m.Message, currentChannel.Guild.Model.Id != null ? currentChannel.Guild.Model.Id : "DM", (BindableMessages.LastOrDefault(x => x != null)).Model));
+                            BindableMessages.Add(new BindableMessage(m.Message, currentChannel.Guild.Model.Id != null ? currentChannel.Guild.Model.Id : "DM", (BindableMessages.LastOrDefault(x => x.Model.Id != "Ad")).Model));
                         }
                     });
             });
@@ -223,7 +223,7 @@ namespace Quarrel.ViewModels
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         // LastOrDefault to start from the bottom
-                        var msg = BindableMessages.LastOrDefault(x => x != null);
+                        var msg = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad");
                         if (msg != null)
                         {
                             BindableMessages.Remove(msg);
@@ -238,14 +238,14 @@ namespace Quarrel.ViewModels
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         // LastOrDefault to start from the bottom
-                        BindableMessage msg = BindableMessages.LastOrDefault(x => x != null);
+                        BindableMessage msg = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad");
                         msg?.Update(m.Message);
                     });
                 }
             });
             MessengerInstance.Register<GatewayReactionAddedMessage>(this, async m =>
             {
-                BindableMessage message = BindableMessages.FirstOrDefault(x => x != null);
+                BindableMessage message = BindableMessages.FirstOrDefault(x => x.Model.Id != "Ad");
                 if (message != null)
                 {
                     if (message.Model.Reactions == null)
@@ -274,7 +274,7 @@ namespace Quarrel.ViewModels
             });
             MessengerInstance.Register<GatewayReactionRemovedMessage>(this, async m =>
             {                
-                BindableMessage message = BindableMessages.FirstOrDefault(x => x != null);
+                BindableMessage message = BindableMessages.FirstOrDefault(x => x.Model.Id != "Ad");
                 if (message != null)
                 {
                     var reaction = message.Model.Reactions.FirstOrDefault(x => x != null);
@@ -648,7 +648,7 @@ namespace Quarrel.ViewModels
 
                     if (i % 10 == 0)
                     {
-                        messages.Add(null);
+                        messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null, null));
                         lastItem = null;
                     }
                 }
@@ -669,10 +669,10 @@ namespace Quarrel.ViewModels
             try
             {
                 NewItemsLoading = true;
-                if (Channel.Model.LastMessageId != (BindableMessages.LastOrDefault(x => x != null)).Model.Id)
+                if (Channel.Model.LastMessageId != (BindableMessages.LastOrDefault(x => x.Model.Id != "Ad")).Model.Id)
                 {
                     IEnumerable<Message> itemList = null;
-                    await Task.Run(async () => itemList = await DiscordService.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, (BindableMessages.LastOrDefault(x => x != null)).Model.Id));
+                    await Task.Run(async () => itemList = await DiscordService.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, (BindableMessages.LastOrDefault(x => x.Model.Id != "Ad")).Model.Id));
 
                     List<BindableMessage> messages = new List<BindableMessage>();
                     Message lastItem = null;
@@ -688,7 +688,7 @@ namespace Quarrel.ViewModels
 
                         if (i % 10 == 0)
                         {
-                            messages.Add(null);
+                            messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null, null));
                             lastItem = null;
                         }
                     }
@@ -700,7 +700,7 @@ namespace Quarrel.ViewModels
                 }
                 else if (Channel.ReadState == null || Channel.Model.LastMessageId != Channel.ReadState.LastMessageId)
                 {
-                    await DiscordService.ChannelService.AckMessage(Channel.Model.Id, (BindableMessages.LastOrDefault(x => x != null)).Model.Id);
+                    await DiscordService.ChannelService.AckMessage(Channel.Model.Id, (BindableMessages.LastOrDefault(x => x.Model.Id != "Ad")).Model.Id);
                 }
                 NewItemsLoading = false;
             }

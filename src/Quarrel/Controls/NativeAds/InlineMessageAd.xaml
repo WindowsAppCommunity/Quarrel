@@ -43,8 +43,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <!--<TextBlock Text="{x:Bind ViewModel.Title, Mode=OneWay}"/>-->
-            <TextBlock Text="Test"/>
+            <TextBlock Text="{x:Bind ViewModel.Title, Mode=OneWay}"/>
             <TextBlock Grid.Row="1" Text="{x:Bind ViewModel.Description, Mode=OneWay}"
                        TextWrapping="WrapWholeWords"
                        FontWeight="SemiLight"/>

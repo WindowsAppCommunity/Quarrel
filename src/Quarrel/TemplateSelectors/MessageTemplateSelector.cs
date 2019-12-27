@@ -16,13 +16,12 @@ namespace Quarrel.TemplateSelectors
 
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
-            if (item == null)
-            {
-                return AdTemplate;
-            }
-
             if (container is FrameworkElement parent && item is BindableMessage msg)
             {
+                if (msg.Model.Id == "Ad")
+                {
+                    return AdTemplate;
+                }
                 return msg.Model.Type == 0 ? MessageTemplate : ActionMessageTemplate;
             }
             return null;

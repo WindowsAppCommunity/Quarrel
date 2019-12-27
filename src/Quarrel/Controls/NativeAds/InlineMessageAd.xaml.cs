@@ -1,4 +1,5 @@
 ﻿using Microsoft.Advertising.WinRT.UI;
+using Quarrel.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,8 +31,8 @@ namespace Quarrel.Controls.NativeAds
 
         public NativeAdV2 ViewModel => DataContext as NativeAdV2;
 
-        //private NativeAdsManagerV2 nativeAdsManager = new NativeAdsManagerV2(Constants.Store.AppId, Constants.Store.NativeAdId);
-        private NativeAdsManagerV2 nativeAdsManager = new NativeAdsManagerV2("d25517cb-12d4-4699-8bdc-52040c712cab", "test");
+        private NativeAdsManagerV2 nativeAdsManager = new NativeAdsManagerV2(Constants.Store.AppId, Constants.Store.NativeAdId);
+        //private NativeAdsManagerV2 nativeAdsManager = new NativeAdsManagerV2("d25517cb-12d4-4699-8bdc-52040c712cab", "test");
 
         private async void NativeAdsManager_AdReady(object sender, NativeAdReadyEventArgs e)
         {
