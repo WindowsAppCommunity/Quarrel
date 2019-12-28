@@ -20,14 +20,6 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Canvas Grid.Row="1" VerticalAlignment="Top" Margin="12,0">
-            <Button Height="40" Width="40"
-                        Style="{StaticResource DimButton}">
-                <Border CornerRadius="20">
-                    <toolkit:ImageEx x:Name="userImg" Width="40" Height="40" DecodePixelHeight="40" Source="{x:Bind ViewModel.AdIcon.Source, Mode=OneWay}"/>
-                </Border>
-            </Button>
-        </Canvas>
 
         <Grid Grid.Row="0" Grid.Column="1">
             <StackPanel Orientation="Horizontal">
@@ -37,7 +29,7 @@
                 </HyperlinkButton>
             </StackPanel>
         </Grid>
-
+        
         <Grid Grid.Column="1" Grid.Row="1" x:Name="body" Margin="0,0,0,2" MinHeight="20">
             <Grid.RowDefinitions>
                 <RowDefinition/>

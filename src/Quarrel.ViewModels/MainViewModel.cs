@@ -212,7 +212,7 @@ namespace Quarrel.ViewModels
                         if (GuildsService.CurrentChannels.TryGetValue(m.Message.ChannelId, out var currentChannel))
                         {
                             currentChannel.Typers.TryRemove(m.Message.User.Id, out var _);
-                            BindableMessages.Add(new BindableMessage(m.Message, currentChannel.Guild.Model.Id != null ? currentChannel.Guild.Model.Id : "DM", (BindableMessages.LastOrDefault(x => x.Model.Id != "Ad")).Model));
+                            BindableMessages.Add(new BindableMessage(m.Message, currentChannel.Guild.Model.Id ?? "DM", (BindableMessages.LastOrDefault(x => x.Model.Id != "Ad")).Model));
                         }
                     });
             });

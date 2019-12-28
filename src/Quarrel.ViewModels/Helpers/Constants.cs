@@ -56,9 +56,15 @@ namespace Quarrel.Helpers
 
         public static class Store
         {
+#if DEBUG
+            public const string AppId = "d25517cb-12d4-4699-8bdc-52040c712cab";
+
+            public const string NativeAdId = "test";
+#else
             public const string AppId = "9nbrwj777c8r";
 
             public const string NativeAdId = "1100064845";
+#endif
         }
     }
 }
