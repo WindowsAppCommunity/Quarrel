@@ -10,7 +10,7 @@ namespace Quarrel.Navigation
 {
     public class SubFrameNavigationService : ISubFrameNavigationService
     {
-        private readonly List<string> _historic = new List<string>();
+        private readonly List<(string Page, object Parameter)> _historic = new List<(string, object)>();
         private readonly ConcurrentDictionary<string, Type> _pagesByKey = new ConcurrentDictionary<string, Type>();
         public string CurrentPageKey { get; private set; }
         public object Parameter { get; private set; }
@@ -20,7 +20,8 @@ namespace Quarrel.Navigation
             if (_historic.Count > 1)
             {
                 _historic.RemoveAt(_historic.Count - 1);
-                NavigateTo(_historic.Last(), null, false);
+                var previous = _historic.Last();
+                NavigateTo(previous.Page, previous.Parameter, false);
             }
             else
             {
@@ -46,7 +47,7 @@ namespace Quarrel.Navigation
                 if (addToHistory)
                 {
                     Parameter = parameter;
-                    _historic.Add(pageKey);
+                    _historic.Add((pageKey, parameter));
                     CurrentPageKey = pageKey;
                 }
 

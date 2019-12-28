@@ -6,12 +6,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:viewModels="using:Quarrel.ViewModels.ViewModels"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
     <UserControl.Resources>
         <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
+        <viewModels:AddChannelDialogModel x:Name="DialogModel"/>
     </UserControl.Resources>
     
     <Grid Padding="16">
@@ -26,17 +29,25 @@
 
         <ScrollViewer Grid.Row="1" Padding="8">
             <StackPanel>
-                <TextBox x:Name="ChannelNameBox" Header="Channel Name" Style="{StaticResource TextBoxStyle1}"/>
+                <TextBox x:Name="ChannelNameBox" Text="{x:Bind DialogModel.ChannelName, Mode=TwoWay}"  Header="Channel Name" Style="{StaticResource TextBoxStyle1}"/>
 
-                <RadioButton x:Name="TextRadioButton" Content="Text Channel" GroupName="ChannelType" Margin="0,12,0,0" Style="{StaticResource DiscordRadioButton}" IsChecked="True"/>
-                <RadioButton x:Name="VoiceRadioButton" Content="Voice Channel" GroupName="ChannelType" Style="{StaticResource DiscordRadioButton}"/>
+                <controls:RadioButtons SelectedIndex="0" Margin="0,12,0,0" SelectedItem="{x:Bind DialogModel.SelectedChannelType, Mode=TwoWay}">
+                    <controls:RadioButtons.ItemTemplate>
+                        <DataTemplate>
+                            <RadioButton Content="{Binding}" Style="{StaticResource DiscordRadioButton}"/>
+                        </DataTemplate>
+                    </controls:RadioButtons.ItemTemplate>
+                    <x:String>Text Channel</x:String>
+                    <x:String>Voice Channel</x:String>
+                </controls:RadioButtons>
+
             </StackPanel>
         </ScrollViewer>
 
         <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal">
-            <Button Content="Save" Style="{StaticResource DiscordButton}" Width="80" Margin="4" Click="Save"
+            <Button Content="Save" Style="{StaticResource DiscordButton}" Width="80" Margin="4" Command="{x:Bind DialogModel.CreateChannelCommand}"
                     IsEnabled="{x:Bind ChannelNameBox.Text, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"/>
-            <Button Content="Cancel" Style="{StaticResource DiscordButton}" Background="{StaticResource dnd}" Width="80" Margin="4" Click="Cancel"/>
+            <Button Content="Cancel" Style="{StaticResource DiscordButton}" Background="{StaticResource dnd}" Width="80" Margin="4" Command="{x:Bind DialogModel.BackCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -180,7 +180,7 @@ namespace Quarrel.Models.Bindables
         public RelayCommand AddChannelCommand =>
             addChanneleCommand ?? (addChanneleCommand = new RelayCommand(() =>
             {
-                SubFrameNavigationService.NavigateTo("AddChannelPage", this);
+                SubFrameNavigationService.NavigateTo("AddChannelPage", Model);
 
             }));
 

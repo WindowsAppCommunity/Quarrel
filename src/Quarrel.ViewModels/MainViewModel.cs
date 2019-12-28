@@ -412,6 +412,64 @@ namespace Quarrel.ViewModels
             DiscordService.ChannelService.TriggerTypingIndicator(Channel.Model.Id);
         });
 
+        private RelayCommand newLineCommand;
+        public RelayCommand NewLineCommand =>
+            newLineCommand ??= new RelayCommand(() =>
+            {
+                string text = MessageText;
+                int selectionstart = SelectionStart;
+
+                if (SelectionLength > 0)
+                {
+                    // Remove selected text first
+                    text = text.Remove(selectionstart, SelectionLength);
+                }
+
+                text = text.Insert(selectionstart, Environment.NewLine + Environment.NewLine); //Not sure why two lines breaks are needed but it doesn't work otherwise
+                MessageText = text;
+                SelectionStart = selectionstart + 1;
+            });
+
+        #region Navigation
+
+        private RelayCommand<BindableGuild> navigateGuildCommand;
+        public RelayCommand<BindableGuild> NavigateGuildCommand => navigateGuildCommand ??= new RelayCommand<BindableGuild>((guild) =>
+        {
+            MessengerInstance.Send(new GuildNavigateMessage(guild));
+        });
+
+        private RelayCommand<BindableChannel> navigateChannelCommand;
+        public RelayCommand<BindableChannel> NavigateChannelCommand => navigateChannelCommand ??= new RelayCommand<BindableChannel>(async (channel) =>
+        {
+            Channel = channel;
+            if (channel.IsCategory)
+            {
+                bool newState = !channel.Collapsed;
+                for (int i = BindableChannels.IndexOf(channel);
+                    i < BindableChannels.Count
+                    && BindableChannels[i] != null
+                    && BindableChannels[i].ParentId == channel.Model.Id;
+                    i++)
+                {
+                    BindableChannels[i].Collapsed = newState;
+                }
+            }
+            else if (channel.IsVoiceChannel)
+            {
+                if (channel.Model is GuildChannel gChannel)
+                    await DiscordService.Gateway.Gateway.VoiceStatusUpdate(Guild.Model.Id, gChannel.Id, false, false);
+            }
+            else if (channel.Permissions.ReadMessages)
+            {
+                MessengerInstance.Send(new ChannelNavigateMessage(channel, Guild));
+            }
+        });
+
+        #endregion
+
+        #region Messages
+
+
         private RelayCommand sendMessageCommand;
         public RelayCommand SendMessageCommand => sendMessageCommand ??= new RelayCommand(async () =>
         {
@@ -448,57 +506,7 @@ namespace Quarrel.ViewModels
                 MessageText = "";
             });
         });
-        
-        private RelayCommand newLineCommand;
-        public RelayCommand NewLineCommand =>
-            newLineCommand ??= new RelayCommand(() =>
-            {
-                string text = MessageText;
-                int selectionstart = SelectionStart;
 
-                if (SelectionLength > 0)
-                {
-                    // Remove selected text first
-                    text = text.Remove(selectionstart, SelectionLength);
-                }
-
-                text = text.Insert(selectionstart, Environment.NewLine + Environment.NewLine); //Not sure why two lines breaks are needed but it doesn't work otherwise
-                MessageText = text;
-                SelectionStart = selectionstart + 1;
-            });
-
-        private RelayCommand<BindableGuild> navigateGuildCommand;
-        public RelayCommand<BindableGuild> NavigateGuildCommand => navigateGuildCommand ??= new RelayCommand<BindableGuild>((guild) =>
-        {
-            MessengerInstance.Send(new GuildNavigateMessage(guild));
-        });
-
-        private RelayCommand<BindableChannel> navigateChannelCommand;
-        public RelayCommand<BindableChannel> NavigateChannelCommand => navigateChannelCommand ??= new RelayCommand<BindableChannel>(async (channel) =>
-        {
-            Channel = channel;
-            if (channel.IsCategory)
-            {
-                bool newState = !channel.Collapsed;
-                for (int i = BindableChannels.IndexOf(channel);
-                    i < BindableChannels.Count
-                    && BindableChannels[i] != null
-                    && BindableChannels[i].ParentId == channel.Model.Id;
-                    i++)
-                {
-                    BindableChannels[i].Collapsed = newState;
-                }
-            }
-            else if (channel.IsVoiceChannel)
-            {
-                if (channel.Model is GuildChannel gChannel)
-                    await DiscordService.Gateway.Gateway.VoiceStatusUpdate(Guild.Model.Id, gChannel.Id, false, false);
-            }
-            else if (channel.Permissions.ReadMessages)
-            {
-                MessengerInstance.Send(new ChannelNavigateMessage(channel, Guild));
-            }
-        });
 
         private RelayCommand<BindableMessage> deleteMessageCommand;
         public RelayCommand<BindableMessage> DeleteMessageCommand => deleteMessageCommand ??= new RelayCommand<BindableMessage>(async (message) =>
@@ -518,11 +526,18 @@ namespace Quarrel.ViewModels
             await DiscordService.ChannelService.DeletePinnedChannelMessage(message.Model.ChannelId, message.Model.Id);
         });
 
+        #endregion
+
+        #region Voice
+
         private RelayCommand disconnectVoiceCommand;
         public RelayCommand DisconnectVoiceCommand => disconnectVoiceCommand ??= new RelayCommand(async () =>
         {
             await GatewayService.Gateway.VoiceStatusUpdate(null, null, false, false);
         });
+
+        #endregion
+
         #endregion
 
         #region Methods
