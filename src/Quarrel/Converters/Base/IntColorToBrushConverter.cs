@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quarrel.Helpers.Colors;
+using System;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
@@ -13,24 +14,7 @@ namespace Quarrel.Converters.Base
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            int color = (int)value;
-            if (color == -1)
-                return App.Current.Resources["Foreground"];
-            else
-            {
-                if (color != 0)
-                {
-                    byte a = (byte)(255);
-                    byte r = (byte)(color >> 16);
-                    byte g = (byte)(color >> 8);
-                    byte b = (byte)(color >> 0);
-                    return new SolidColorBrush(Color.FromArgb(a, r, g, b));
-                }
-                else
-                {
-                    return (SolidColorBrush)App.Current.Resources["Foreground"];
-                }
-            }
+            return new SolidColorBrush(ColorExtensions.IntToColor((int)value));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

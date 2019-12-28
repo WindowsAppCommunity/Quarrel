@@ -84,7 +84,11 @@ namespace Quarrel.Models.Bindables
                 if (permissions != null)
                     return permissions;
 
-                Permissions perms = new Permissions(Model.Roles.FirstOrDefault(x => x.Name == "@everyone").Permissions);
+                if (Model.Id == "DM" || Model.OwnerId == CurrentUsersService.CurrentUser.Model.Id)
+                    return new Permissions(int.MaxValue);
+
+                // Role Id == Model.Id for @everyone
+                Permissions perms = new Permissions(Model.Roles.FirstOrDefault(x => x.Id == Model.Id).Permissions);
 
                 BindableGuildMember member = new BindableGuildMember(Model.Members.FirstOrDefault(x => x.User.Id == CurrentUsersService.CurrentUser.Model.Id));
                 if (member == null) return perms;
@@ -175,6 +179,7 @@ namespace Quarrel.Models.Bindables
 
         #endregion
         
+        public bool IsOwner { get => CurrentUsersService.CurrentUser.Model.Id == Model.OwnerId; }
 
         private RelayCommand addChanneleCommand;
         public RelayCommand AddChannelCommand =>

@@ -20,19 +20,21 @@
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
+                <messages:AdTemplate/>
                 <messages:MessageTemplate/>
             </ResourceDictionary.MergedDictionaries>
 
             <templates:MessageTemplateSelector x:Key="MessageTemplateSelector"
                                                MessageTemplate="{StaticResource MessageTemplate}"
-                                               ActionMessageTemplate="{StaticResource ActionMessageTemplate}"/>
+                                               ActionMessageTemplate="{StaticResource ActionMessageTemplate}"
+                                               AdTemplate="{StaticResource AdTemplate}"/>
 
             <DataTemplate x:Key="ActionMessageTemplate" x:DataType="bindables:BindableMessage">
                 <msgcontrol:ActionMessageTemplate DataContext="{x:Bind}"/>
             </DataTemplate>
 
             <DataTemplate x:Key="ActionMessageTemplate1" x:DataType="bindables:BindableMessage">
-                <TextBox Text="{x:Bind Model.Content}"></TextBox>
+                <TextBox Text="{x:Bind Model.Content}"/>
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -41,7 +43,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="64"/>
+            <RowDefinition Height="auto" MaxHeight="256"/>
         </Grid.RowDefinitions>
 
         <ListView x:Name="MessageList"
@@ -84,7 +86,7 @@
             </StackPanel>
         </Grid>
         
-        <msgcontrol:MessageBox Grid.Row="1"
+        <msgcontrol:MessageBox Grid.Row="1" IsEnabled="{x:Bind ViewModel.Channel.Permissions.SendMessages, Mode=OneWay}"
                                Visibility="{x:Bind ViewModel.Channel, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"/>
     </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DiscordAPI.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DiscordAPI.Models
 {
-    public class Attachment
+    public class Attachment : IPreviewableAttachment
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -29,5 +30,14 @@ namespace DiscordAPI.Models
 
         [JsonIgnore]
         public double ActualWidth => Width.HasValue ? Math.Min(Width.Value, 400) : double.NaN;
+
+        [JsonIgnore]
+        public string ImageUrl { get => ProxyUrl; }
+
+        [JsonIgnore]
+        public double ImageHeight { get => ActualHeight; }
+
+        [JsonIgnore]
+        public double ImageWidth { get => ActualWidth; }
     }
 }

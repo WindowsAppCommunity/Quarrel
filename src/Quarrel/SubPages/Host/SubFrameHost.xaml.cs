@@ -14,6 +14,8 @@ using Quarrel.Helpers;
 using Quarrel.Navigation;
 using Quarrel.Services;
 using Quarrel.SubPages.Interfaces;
+using Windows.UI.Xaml.Media;
+using Windows.UI;
 
 namespace Quarrel.SubPages.Host
 {
@@ -210,6 +212,24 @@ namespace Quarrel.SubPages.Host
             // Additional UI tweaks
             if (SubPage is IAdaptiveSubPage adaptive)
                 adaptive.IsFullHeight = double.IsPositiveInfinity(ContentGrid.MaxHeight);
+
+            if (SubPage is ITransparentSubPage transparentSubPage)
+            {
+                var transparentBackground = new SolidColorBrush(Colors.Transparent);
+
+                BackgroundBorder.Background = transparentBackground;
+
+                if (transparentSubPage.Dimmed)
+                {
+                    transparentBackground = new SolidColorBrush(Color.FromArgb(175, 0, 0, 0));
+                }
+                
+                ContentBorder.Background = transparentBackground;
+            } else
+            {
+                BackgroundBorder.Background = App.Current.Resources["SubFrameHostBackgroundBrush"] as Brush;
+                ContentBorder.Background = App.Current.Resources["DarkBG"] as Brush;
+            }
         }
 
         // Sends a request to close the current sub frame page

@@ -77,10 +77,9 @@ namespace Quarrel.ViewModels
                         Guild = m.Guild;
                         BindableMessages.Clear();
                         BindableMembers.Clear();
-                        BindableChannels.ReplaceRange(m.Guild.Channels);
+                        //BindableChannels = m.Guild.Channels;
                     });
 
-                    //Todo: cache last selected channel and use instead of first channel
                     BindableChannel channel = m.Guild.Channels.FirstOrDefault(x => x.IsTextChannel && x.Permissions.ReadMessages);
                     if (channel  != null)
                         MessengerInstance.Send(new ChannelNavigateMessage(channel, m.Guild));
@@ -92,7 +91,7 @@ namespace Quarrel.ViewModels
                 {
                     Channel = m.Channel;
                 });
-
+                
                 if (SettingsService.Roaming.GetValue<bool>(SettingKeys.FilterMembers))
                 {
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
@@ -174,22 +173,29 @@ namespace Quarrel.ViewModels
 
                     List<BindableMessage> messages = new List<BindableMessage>();
 
-                    foreach (Message item in itemList.Reverse())
+                    for (int i = itemList.Count()-1; i >= 0; i--)
                     {
+                        var item = itemList.ElementAt(i);
                         messages.Add(new BindableMessage(item, guildId, lastItem, lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId));
 
                         if (lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId)
                         {
-                            scrollItem = messages.LastOrDefault();
+                            scrollItem = messages.LastOrDefault(x => x.Model.Id != "Ad");
                         }
 
                         lastItem = item;
+
+                        if (i % 10 == 0)
+                        {
+                            messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null, null));
+                            lastItem = null;
+                        }
                     }
 
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         BindableMessages.ReplaceRange(messages);
-                        ScrollTo?.Invoke(this, scrollItem ?? BindableMessages.LastOrDefault());
+                        ScrollTo?.Invoke(this, scrollItem ?? BindableMessages.LastOrDefault(x => x.Model.Id != "Ad"));
                     });
                     NewItemsLoading = false;
                 }
@@ -206,7 +212,7 @@ namespace Quarrel.ViewModels
                         if (GuildsService.CurrentChannels.TryGetValue(m.Message.ChannelId, out var currentChannel))
                         {
                             currentChannel.Typers.TryRemove(m.Message.User.Id, out var _);
-                            BindableMessages.Add(new BindableMessage(m.Message, currentChannel.Guild.Model.Id != null ? currentChannel.Guild.Model.Id : "DM", BindableMessages.LastOrDefault()?.Model));
+                            BindableMessages.Add(new BindableMessage(m.Message, currentChannel.Guild.Model.Id != null ? currentChannel.Guild.Model.Id : "DM", (BindableMessages.LastOrDefault(x => x.Model.Id != "Ad")).Model));
                         }
                     });
             });
@@ -232,14 +238,14 @@ namespace Quarrel.ViewModels
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         // LastOrDefault to start from the bottom
-                        var msg = BindableMessages.LastOrDefault(x => x.Model.Id == m.Message.Id);
+                        BindableMessage msg = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad");
                         msg?.Update(m.Message);
                     });
                 }
             });
             MessengerInstance.Register<GatewayReactionAddedMessage>(this, async m =>
             {
-                var message = BindableMessages.FirstOrDefault(x => x.Model.Id == m.MessageId);
+                BindableMessage message = BindableMessages.FirstOrDefault(x => x.Model.Id != "Ad");
                 if (message != null)
                 {
                     if (message.Model.Reactions == null)
@@ -268,10 +274,10 @@ namespace Quarrel.ViewModels
             });
             MessengerInstance.Register<GatewayReactionRemovedMessage>(this, async m =>
             {                
-                var message = BindableMessages.FirstOrDefault(x => x.Model.Id == m.MessageId);
+                BindableMessage message = BindableMessages.FirstOrDefault(x => x.Model.Id != "Ad");
                 if (message != null)
                 {
-                    var reaction = message.Model.Reactions.FirstOrDefault(x => x.Emoji.Name == m.Emoji.Name && x.Emoji.Id == m.Emoji.Id);
+                    var reaction = message.Model.Reactions.FirstOrDefault(x => x != null);
                     if (reaction != null)
                     {
                         reaction.Count--;
@@ -290,14 +296,6 @@ namespace Quarrel.ViewModels
                     });
                 }
             });
-            MessengerInstance.Register<GatewayGuildChannelUpdatedMessage>(this, async m =>
-            {
-                // TODO: Complete Update
-                DispatcherHelper.CheckBeginInvokeOnUi(() => 
-                {
-                    GuildsService.GetChannel(m.Channel.Id).Model = m.Channel;
-                });
-            });
             MessengerInstance.Register<GatewayTypingStartedMessage>(this, async m =>
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() => 
@@ -309,7 +307,7 @@ namespace Quarrel.ViewModels
                             oldTimer.Dispose();
                         }
                             
-                        Timer timer = new Timer((s) =>
+                        Timer timer = new Timer(_ =>
                         {
                             if (bChannel.Typers.TryRemove(m.TypingStart.UserId, out var oldUser))
                             {
@@ -321,7 +319,7 @@ namespace Quarrel.ViewModels
                                 bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
                                 bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
                             });
-                        }, null, 0, 8 * 1000);
+                        }, null, 8 * 1000, 0);
 
                         bChannel.Typers.TryAdd(m.TypingStart.UserId, timer);
                         
@@ -425,9 +423,9 @@ namespace Quarrel.ViewModels
                     text = text.Remove(selectionstart, SelectionLength);
                 }
 
-                text = text.Insert(selectionstart, Environment.NewLine + Environment.NewLine); //Not sure why two lines breaks are needed but it doesn't work otherwise
+                text = text.Insert(selectionstart, " \n");
                 MessageText = text;
-                SelectionStart = selectionstart + 1;
+                SelectionStart = selectionstart + 2;
             });
 
         #region Navigation
@@ -445,13 +443,13 @@ namespace Quarrel.ViewModels
             if (channel.IsCategory)
             {
                 bool newState = !channel.Collapsed;
-                for (int i = BindableChannels.IndexOf(channel);
-                    i < BindableChannels.Count
-                    && BindableChannels[i] != null
-                    && BindableChannels[i].ParentId == channel.Model.Id;
+                for (int i = Guild.Channels.IndexOf(channel);
+                    i < Guild.Channels.Count
+                    && Guild.Channels[i] != null
+                    && Guild.Channels[i].ParentId == channel.Model.Id;
                     i++)
                 {
-                    BindableChannels[i].Collapsed = newState;
+                    Guild.Channels[i].Collapsed = newState;
                 }
             }
             else if (channel.IsVoiceChannel)
@@ -649,11 +647,19 @@ namespace Quarrel.ViewModels
 
                 List<BindableMessage> messages = new List<BindableMessage>();
                 Message lastItem = null;
-                foreach (var item in itemList.Reverse())
+                for (int i = itemList.Count()-1; i >= 0; i--)
                 {
+                    var item = itemList.ElementAt(i);
+
                     // Can't be last read item
                     messages.Add(new BindableMessage(item, guildId, lastItem));
                     lastItem = item;
+
+                    if (i % 10 == 0)
+                    {
+                        messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null, null));
+                        lastItem = null;
+                    }
                 }
 
                 DispatcherHelper.CheckBeginInvokeOnUi(() => { BindableMessages.InsertRange(0, messages, NotifyCollectionChangedAction.Reset); });
@@ -672,19 +678,30 @@ namespace Quarrel.ViewModels
             try
             {
                 NewItemsLoading = true;
-                if (Channel.Model.LastMessageId != BindableMessages.LastOrDefault().Model.Id)
+                if (Channel.Model.LastMessageId != (BindableMessages.LastOrDefault(x => x.Model.Id != "Ad")).Model.Id)
                 {
                     IEnumerable<Message> itemList = null;
-                    await Task.Run(async () => itemList = await DiscordService.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, BindableMessages.LastOrDefault().Model.Id));
+                    await Task.Run(async () => itemList = await DiscordService.ChannelService.GetChannelMessagesAfter(Channel.Model.Id, (BindableMessages.LastOrDefault(x => x.Model.Id != "Ad")).Model.Id));
 
                     List<BindableMessage> messages = new List<BindableMessage>();
                     Message lastItem = null;
-                    foreach (var item in itemList)
+
+
+                    for (int i = 0; i < itemList.Count(); i++)
                     {
+                        var item = itemList.ElementAt(i);
+
                         // Can't be last read item
                         messages.Add(new BindableMessage(item, guildId, lastItem));
                         lastItem = item;
+
+                        if (i % 10 == 0)
+                        {
+                            messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null, null));
+                            lastItem = null;
+                        }
                     }
+
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         BindableMessages.AddRange(messages);
@@ -692,7 +709,7 @@ namespace Quarrel.ViewModels
                 }
                 else if (Channel.ReadState == null || Channel.Model.LastMessageId != Channel.ReadState.LastMessageId)
                 {
-                    await DiscordService.ChannelService.AckMessage(Channel.Model.Id, BindableMessages.LastOrDefault().Model.Id);
+                    await DiscordService.ChannelService.AckMessage(Channel.Model.Id, (BindableMessages.LastOrDefault(x => x.Model.Id != "Ad")).Model.Id);
                 }
                 NewItemsLoading = false;
             }
@@ -701,6 +718,7 @@ namespace Quarrel.ViewModels
                 SemaphoreSlim.Release();
             }
         }
+
         #endregion
 
         #region Properties
@@ -776,8 +794,6 @@ namespace Quarrel.ViewModels
         /// </summary>
         [NotNull]
         public ObservableRangeCollection<BindableMessage> BindableMessages { get; private set; } = new ObservableRangeCollection<BindableMessage>();
-        [NotNull]
-        public ObservableRangeCollection<BindableChannel> BindableChannels { get; private set; } = new ObservableRangeCollection<BindableChannel>();
         [NotNull]
         public ObservableSortedGroupedCollection<Role, BindableGuildMember> BindableMembers { get; set; } = new ObservableSortedGroupedCollection<Role, BindableGuildMember>(x => x.TopHoistRole, x => -x.Position);
         #endregion

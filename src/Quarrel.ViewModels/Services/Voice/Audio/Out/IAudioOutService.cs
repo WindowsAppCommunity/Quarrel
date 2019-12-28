@@ -9,5 +9,11 @@ namespace Quarrel.Services.Voice.Audio.Out
     public interface IAudioOutService : IAudioService
     {
         unsafe void AddFrame(float[] framedata, uint samples);
+
+        void Deafen();
+        void Undeafen();
+        void ToggleDeafen();
+
+        bool Deafened { get; }
     }
 }

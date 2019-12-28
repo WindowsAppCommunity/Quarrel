@@ -37,6 +37,7 @@ namespace Quarrel.ViewModels
             navigationService.Configure("SettingsPage", typeof(SettingsPage));
             navigationService.Configure("UserProfilePage", typeof(UserProfilePage));
             navigationService.Configure("AddChannelPage", typeof(AddChannelPage));
+            navigationService.Configure("AttachmentPage", typeof(AttachmentPage));
 
             SimpleIoc.Default.Register<IDispatcherHelper, DispatcherHelperEx>();
             SimpleIoc.Default.Register<ISubFrameNavigationService>(() => navigationService);

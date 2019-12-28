@@ -10,5 +10,11 @@ namespace Quarrel.Services.Voice.Audio.In
     {
         event EventHandler<float[]> InputRecieved;
         event EventHandler<int> SpeakingChanged;
+
+        void Mute();
+        void Unmute();
+        void ToggleMute();
+
+        bool Muted { get; }
     }
 }

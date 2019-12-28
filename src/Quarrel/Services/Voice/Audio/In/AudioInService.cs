@@ -14,6 +14,7 @@ using Windows.Media.Devices;
 using Windows.Media.MediaProperties;
 using Windows.Media.Render;
 using GalaSoft.MvvmLight.Ioc;
+using Windows.Media.Playback;
 
 namespace Quarrel.Services.Voice.Audio.In
 {
@@ -24,6 +25,7 @@ namespace Quarrel.Services.Voice.Audio.In
 
         // TODO: Public set
         public string DeviceId { get; private set; }
+        public bool Muted { get; private set; }
 
         #endregion
 
@@ -106,6 +108,25 @@ namespace Quarrel.Services.Voice.Audio.In
             _Graph.Start();
         }
 
+        public void Mute()
+        {
+            Muted = true;
+        }
+
+        public void Unmute()
+        {
+            Muted = false;
+        }
+
+        public void ToggleMute()
+        {
+            Muted = !Muted;
+        }
+
+        public void Dispose()
+        {
+            _Graph.Dispose();
+        }
         #endregion
 
         #region Helper Methods
@@ -130,6 +151,9 @@ namespace Quarrel.Services.Voice.Audio.In
 
         private unsafe void ProcessFrameOutput(AudioFrame frame)
         {
+            if (Muted)
+                return;
+
             #region GetPCM
             float[] dataInFloats;
             using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
@@ -148,7 +172,6 @@ namespace Quarrel.Services.Voice.Audio.In
             }
 
             #endregion
-
 
             #region Parse PCM
 

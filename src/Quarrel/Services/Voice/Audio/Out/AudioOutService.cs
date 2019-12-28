@@ -22,6 +22,7 @@ namespace Quarrel.Services.Voice.Audio.Out
 
         // TODO: Public set
         public string DeviceId { get; private set; }
+        public bool Deafened { get; private set; }
 
         #endregion
 
@@ -95,6 +96,9 @@ namespace Quarrel.Services.Voice.Audio.Out
 
         public unsafe void AddFrame(float[] framedata, uint samples)
         {
+            if (Deafened)
+                return;
+
             if (!_Ready)
                 return;
 
@@ -122,6 +126,25 @@ namespace Quarrel.Services.Voice.Audio.Out
             _FrameInputNode.AddFrame(frame);
         }
 
+        public void Deafen()
+        {
+            Deafened = true;
+        }
+
+        public void Undeafen()
+        {
+            Deafened = false;
+        }
+        public void ToggleDeafen()
+        {
+            Deafened = !Deafened;
+        }
+
+        public void Dispose()
+        {
+            _Ready = false;
+            _Graph.Dispose();
+        }
         #endregion
 
         #region Helper Methods

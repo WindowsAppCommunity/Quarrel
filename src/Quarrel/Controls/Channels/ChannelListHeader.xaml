@@ -5,23 +5,28 @@
     xmlns:local="using:Quarrel.Controls.Channels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
     mc:Ignorable="d"
     d:DesignHeight="48"
     d:DesignWidth="224">
+
+    <UserControl.Resources>
+        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
+    </UserControl.Resources>
 
     <Button Style="{ThemeResource DiscordOpaqueButton}" Background="Transparent"
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
             Height="48" HorizontalContentAlignment="Left">
         <Button.Flyout>
             <MenuFlyout Placement="Bottom" MenuFlyoutPresenterStyle="{StaticResource GuildButtonFlyoutStyle}">
-                <MenuFlyoutItem Icon="AddFriend" Text="Invite People" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource SystemAccentColor}"/>
-                <MenuFlyoutSeparator/>
+                <MenuFlyoutItem Icon="AddFriend" Text="Invite People" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource SystemAccentColor}" Visibility="{x:Bind ViewModel.Permissions.CreateInstantInvite, Mode=OneWay}"/>
+                <MenuFlyoutSeparator Visibility="{x:Bind ViewModel.Permissions.CreateInstantInvite, Mode=OneWay}"/>
                 <MenuFlyoutItem Icon="Setting" Text="Settings" Style="{ThemeResource GuildButtonFlyoutItemStyle}"/>
-                <MenuFlyoutItem Icon="List" Text="Audit Log" Style="{ThemeResource GuildButtonFlyoutItemStyle}"/>
-                <MenuFlyoutSeparator/>
-                <MenuFlyoutItem Icon="Add" Text="Add Channel" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Command="{x:Bind ViewModel.AddChannelCommand}"/>
-                <MenuFlyoutSeparator/>
-                <MenuFlyoutItem Icon="Clear" Text="Leave Server" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource LightRed}"/>
+                <MenuFlyoutItem Icon="List" Text="Audit Log" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Visibility="{x:Bind ViewModel.Permissions.ViewAuditLog, Mode=OneWay}"/>
+                <MenuFlyoutSeparator Visibility="{x:Bind ViewModel.Permissions.ManageChannels, Mode=OneWay}"/>
+                <MenuFlyoutItem Icon="Add" Text="Add Channel" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Command="{x:Bind ViewModel.AddChannelCommand}" Visibility="{x:Bind ViewModel.Permissions.ManageChannels, Mode=OneWay}"/>
+                <MenuFlyoutSeparator Visibility="{x:Bind ViewModel.IsOwner, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
+                <MenuFlyoutItem Icon="Clear" Text="Leave Server" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource LightRed}" Visibility="{x:Bind ViewModel.IsOwner, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
             </MenuFlyout>
         </Button.Flyout>
         <Viewbox>

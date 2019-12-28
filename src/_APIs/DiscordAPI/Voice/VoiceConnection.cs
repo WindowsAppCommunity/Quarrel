@@ -41,7 +41,7 @@ namespace DiscordAPI.Voice
 
         private readonly IWebMessageSocket _webMessageSocket;
         private readonly UDPSocket _udpSocket;
-        private readonly VoiceState _state;
+        public readonly VoiceState _state;
         private readonly VoiceServerUpdate _voiceServerConfig;
 
         //private float[] partialFrame = null;

@@ -23,6 +23,12 @@
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <AppInstallerUpdateFrequency>0</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <PackageCertificateThumbprint>4C46EF9E3DF4568F2C25E408963B5E9758980D60</PackageCertificateThumbprint>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <PackageCertificateKeyFile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -255,6 +261,9 @@
     <Compile Include="Controls\MyTubeEmbedWrapper.xaml.cs">
       <DependentUpon>MyTubeEmbedWrapper.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NativeAds\InlineMessageAd.xaml.cs">
+      <DependentUpon>InlineMessageAd.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RichPresenceControl.xaml.cs">
       <DependentUpon>RichPresenceControl.xaml</DependentUpon>
     </Compile>
@@ -310,6 +319,9 @@
     <Compile Include="DataTemplates\Members\GuildMemberListItemTemplate.xaml.cs">
       <DependentUpon>GuildMemberListItemTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataTemplates\Messages\AdTemplate.xaml.cs">
+      <DependentUpon>AdTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataTemplates\Messages\MessageTemplate.xaml.cs">
       <DependentUpon>MessageTemplate.xaml</DependentUpon>
     </Compile>
@@ -321,14 +333,20 @@
     <Compile Include="Extensions\System\StringExtensions.cs" />
     <Compile Include="Extensions\System\TimeSpanExtensions.cs" />
     <Compile Include="Extensions\Windows.UI.Xaml\UIExtensions.cs" />
+    <Compile Include="Extensions\Windows.UI\ColorExtensions.cs" />
+    <Compile Include="Helpers\Colors\SmartColor\ColorDetection.cs" />
+    <Compile Include="Helpers\Humanize.cs" />
     <Compile Include="Helpers\ImageParsing.cs" />
     <Compile Include="Helpers\ItemClickCommand.cs" />
+    <Compile Include="Helpers\Colors\SmartColor\ColorExtractor.cs" />
+    <Compile Include="Helpers\Colors\SmartColor\ColorUtility.cs" />
     <Compile Include="Navigation\FrameNavigationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Cache\CacheService.cs" />
     <Compile Include="Services\Cache\Persistant\CacheLocation.cs" />
     <Compile Include="Services\Cache\Persistant\PersistentCacheService.cs" />
     <Compile Include="Services\Cache\Runtime\RuntimeCacheService.cs" />
+    <Compile Include="Services\Derived Color\ColorService.cs" />
     <Compile Include="Services\DispatcherHelper\DispatcherHelper.cs" />
     <Compile Include="Services\Settings\SettingsService.cs" />
     <Compile Include="Services\Users\CurrentUsersService.cs" />
@@ -338,12 +356,16 @@
     <Compile Include="SubPages\AddChannelPage.xaml.cs">
       <DependentUpon>AddChannelPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\AttachmentPage.xaml.cs">
+      <DependentUpon>AttachmentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\Host\SubFrameHost.xaml.cs">
       <DependentUpon>SubFrameHost.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\Interfaces\IAdaptiveSubPage.cs" />
     <Compile Include="SubPages\Interfaces\IConstrainedSubPage.cs" />
     <Compile Include="SubPages\Interfaces\IFullscreenSubPage.cs" />
+    <Compile Include="SubPages\Interfaces\ITransparentSubPage.cs" />
     <Compile Include="SubPages\Interfaces\IView.cs" />
     <Compile Include="SubPages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -476,6 +498,7 @@
     <AdditionalFiles Include="appsettings.json" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
+    <None Include="Quarrel_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Quarrel.ViewModels\Quarrel.ViewModels.csproj">
@@ -540,6 +563,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\NativeAds\InlineMessageAd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\RichPresenceControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -567,6 +594,10 @@
     <Page Include="DataTemplates\Members\GuildMemberListItemTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DataTemplates\Messages\AdTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DataTemplates\Messages\MessageTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -619,6 +650,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\AddChannelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\AttachmentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -749,6 +784,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <SDKReference Include="Microsoft.Advertising.Xaml, Version=10.0">
+      <Name>Microsoft Advertising SDK for XAML</Name>
+    </SDKReference>
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>

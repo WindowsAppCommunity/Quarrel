@@ -42,9 +42,9 @@
     </DataTemplate>
     <DataTemplate x:Key="ImageAttachmentTemplate" x:DataType="models:Attachment">
         <toolkit:ImageEx Source="{x:Bind Url, Mode=OneWay}"
-                         MaxHeight="{x:Bind ActualHeight, Mode=OneWay}"
-                         MaxWidth="{x:Bind ActualWidth, Mode=OneWay}"
-                         HorizontalAlignment="Left"/>
+                         Height="{x:Bind ActualHeight, Mode=OneWay}"
+                         Width="{x:Bind ActualWidth, Mode=OneWay}"
+                         HorizontalAlignment="Left" Tapped="Expand" MaxHeight="250"/>
     </DataTemplate>
     <DataTemplate x:Key="VideoAttachmentTemplate" x:DataType="models:Attachment">
         <MediaElement Source="{x:Bind ProxyUrl, Mode=OneWay}"
@@ -66,13 +66,15 @@
                                          />
     <DataTemplate x:Key="GifvEmbedTemplate" x:DataType="models:Embed">
         <MediaElement Source="{x:Bind Video.Url, Mode=OneWay}" IsLooping="True"
-                      Height="{x:Bind Video.ActualHeight, Mode=OneWay}" Width="{x:Bind Video.ActualWidth, Mode=OneWay}"/>
+                      Height="{x:Bind Video.ActualHeight, Mode=OneWay}" Width="{x:Bind Video.ActualWidth, Mode=OneWay}"
+                      MaxHeight="250"/>
     </DataTemplate>
     <DataTemplate x:Key="YoutubeEmbedTemplate" x:DataType="models:Embed">
-        <embeds:YoutubeEmbedTemplate DataContext="{x:Bind}"/>
+        <embeds:YoutubeEmbedTemplate DataContext="{x:Bind}" MaxHeight="250"/>
     </DataTemplate>
     <DataTemplate x:Key="ImageEmbedTemplate" x:DataType="models:Embed">
-        <toolkit:ImageEx Source="{x:Bind Thumbnail.BindUrl, Mode=OneWay}" MaxWidth="{x:Bind Thumbnail.Width}" MaxHeight="{x:Bind Thumbnail.BindHeight}" HorizontalAlignment="Left"/>
+        <toolkit:ImageEx Source="{x:Bind Thumbnail.BindUrl, Mode=OneWay}" Width="{x:Bind Thumbnail.Width}" Height="{x:Bind Thumbnail.BindHeight}" HorizontalAlignment="Left"
+                         MaxHeight="250"/>
     </DataTemplate>
     <DataTemplate x:Key="DefaultEmbedTemplate" x:DataType="models:Embed">
         <Border CornerRadius="4" Background="{ThemeResource MidBG}">
@@ -102,12 +104,12 @@
                         </StackPanel>
                         <Grid Grid.Row="1" MaxWidth="400" x:Name="ThumbnailImage" x:Load="{x:Bind Thumbnail, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
                             <Border CornerRadius="3">
-                                <toolkit:ImageEx Source="{x:Bind Thumbnail.BindUrl, Mode=OneWay}" MaxWidth="400" MaxHeight="{x:Bind Thumbnail.BindHeight}"  Stretch="Uniform"/>
+                                <toolkit:ImageEx Source="{x:Bind Thumbnail.BindUrl, Mode=OneWay}" MaxWidth="400" MaxHeight="{x:Bind Thumbnail.BindHeight}"  Stretch="Uniform" Tapped="Expand"/>
                             </Border>
                          </Grid>
                     </Grid>
                     <Viewbox HorizontalAlignment="Left" x:Name="ImageVB" x:Load="{x:Bind Image, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" StretchDirection="DownOnly" MaxWidth="400" MaxHeight="250">
-                        <toolkit:ImageEx Source="{x:Bind Image.ProxyUrl, Mode=OneWay}"/>
+                        <toolkit:ImageEx Source="{x:Bind Image.ProxyUrl, Mode=OneWay}" Tapped="Expand"/>
                     </Viewbox>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -181,7 +183,6 @@
                     <Button Height="40" Width="40"
                         Style="{StaticResource DimButton}">
                         <Border CornerRadius="20">
-
                             <toolkit:ImageEx x:Phase="1" x:Name="userImg" extensions:Mouse.Cursor="Hand" Width="40" Height="40"  DecodePixelHeight="40" Source="{x:Bind Model.User.AvatarUrlProperty, Mode=OneWay}"/>
                         </Border>
                         <interactivity:Interaction.Behaviors>
@@ -229,7 +230,7 @@
                     <markdown:MarkdownTextBlock x:Phase="1" Users="{x:Bind Model.Mentions, Mode=OneWay}" 
                                             Text="{x:Bind Model.Content, Mode=OneWay}"
                                             TextWrapping="WrapWholeWords"
-                                            FontWeight="SemiLight" Opacity="0.9"/>
+                                            FontWeight="SemiLight" Opacity="0.9" LinkClicked="Markdown_LinkClicked"/>
                     <Button Grid.Column="1" Padding="4,0" Style="{StaticResource DimButton}" Opacity="0.5">
                         <Button.Flyout>
                             <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">

@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:md="using:Quarrel.Controls.Markdown"
+    xmlns:ads="using:Quarrel.Controls.NativeAds"
     xmlns:views="using:Quarrel.Views"
     xmlns:stateTriggers="using:Quarrel.StateTriggers"
     mc:Ignorable="d"
@@ -63,8 +64,8 @@
 
         <Rectangle x:Name="TitleBarHolder" Canvas.ZIndex="1" Fill="{ThemeResource AcrylicCommandBarBackground}" Height="32"/>
 
-        <local:QuarrelCommandBar x:Name="SmallViewCommandBar" x:Load="{x:Bind IsViewLarge, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}" Grid.Row="1" Canvas.ZIndex="1" Background="{ThemeResource AcrylicCommandBarBackground}"
-                                 HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked"/>
+        <local:QuarrelCommandBar x:Name="SmallViewCommandBar" x:Load="{x:Bind IsViewLarge, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}"
+                                 Grid.Row="1" Canvas.ZIndex="1" Background="{ThemeResource AcrylicCommandBarBackground}" HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked"/>
 
         <local:SideDrawer x:Name="ContentContainer" Grid.Row="2">
             <local:SideDrawer.ContentLeft>
@@ -99,7 +100,13 @@
                 </Grid>
             </local:SideDrawer.ContentMain>
             <local:SideDrawer.ContentRight>
-                <views:MemberListControl/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <views:MemberListControl/>
+                </Grid>
             </local:SideDrawer.ContentRight>
         </local:SideDrawer>
     </Grid>

@@ -1,0 +1,52 @@
+﻿<UserControl
+    x:Class="Quarrel.Controls.NativeAds.InlineMessageAd"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Quarrel.Controls.NativeAds"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid x:Name="rootGrid" Padding="0,8,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="64"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" x:Name="row2"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Canvas Grid.Row="1" VerticalAlignment="Top" Margin="12,0">
+            <Button Height="40" Width="40"
+                        Style="{StaticResource DimButton}">
+                <Border CornerRadius="20">
+                    <toolkit:ImageEx x:Name="userImg" Width="40" Height="40" DecodePixelHeight="40" Source="{x:Bind ViewModel.AdIcon.Source, Mode=OneWay}"/>
+                </Border>
+            </Button>
+        </Canvas>
+
+        <Grid Grid.Row="0" Grid.Column="1">
+            <StackPanel Orientation="Horizontal">
+                <HyperlinkButton x:Name="AuthorHyperlink" 
+                                 Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind ViewModel.SponsoredBy, Mode=OneWay}" 
+                                 Foreground="{ThemeResource SystemAccentColor}">
+                </HyperlinkButton>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1" x:Name="body" Margin="0,0,0,2" MinHeight="20">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{x:Bind ViewModel.Title, Mode=OneWay}"/>
+            <TextBlock Grid.Row="1" Text="{x:Bind ViewModel.Description, Mode=OneWay}"
+                       TextWrapping="WrapWholeWords"
+                       FontWeight="SemiLight"/>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -17,6 +17,8 @@ using Quarrel.Messages.Voice;
 using Quarrel.Models.Bindables;
 using Quarrel.Services.Rest;
 using System.Collections.Concurrent;
+using Quarrel.Services.Users;
+using System.Globalization;
 
 namespace Quarrel.Services.Voice
 {
@@ -52,6 +54,13 @@ namespace Quarrel.Services.Voice
             {
                 if (VoiceStates.ContainsKey(m.VoiceState.UserId))
                 {
+                    if (m.VoiceState.UserId == DiscordService.CurrentUser.Id &&
+                        m.VoiceState.ChannelId == null)
+                    {
+                        VoiceStates.Remove(m.VoiceState.UserId);
+                        DisconnectFromVoiceChannel();
+                    }
+
                     VoiceStates[m.VoiceState.UserId] = m.VoiceState;
                 }
                 else
@@ -97,11 +106,31 @@ namespace Quarrel.Services.Voice
             _VoiceConnection = new VoiceConnection(data, state);
             _VoiceConnection.VoiceDataRecieved += VoiceDataRecieved;
             _VoiceConnection.Speak += Speak;
-            _VoiceConnection.ConnectAsync();
+            await _VoiceConnection.ConnectAsync();
 
             AudioInService.InputRecieved += InputRecieved;
             AudioInService.SpeakingChanged += SpeakingChanged;
             AudioInService.CreateGraph();
+        }
+
+        public void DisconnectFromVoiceChannel()
+        {
+            AudioInService.Dispose();
+            AudioOutService.Dispose();
+        }
+
+        public async void ToggleDeafen()
+        {
+            AudioOutService.ToggleDeafen();
+            var state = _VoiceConnection._state;
+            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, AudioInService.Muted, AudioOutService.Deafened);
+        }
+
+        public async void ToggleMute()
+        {
+            AudioInService.ToggleMute();
+            var state = _VoiceConnection._state;
+            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, AudioInService.Muted, AudioOutService.Deafened);
         }
 
         #endregion

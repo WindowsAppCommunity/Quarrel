@@ -18,6 +18,8 @@ using Quarrel.Messages.Navigation;
 using Quarrel.Models.Bindables;
 using Quarrel.ViewModels;
 using DiscordAPI.Models;
+using Microsoft.Advertising.WinRT.UI;
+using Quarrel.Helpers;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -28,23 +30,26 @@ namespace Quarrel.Views
         public MessageListControl()
         {
             this.InitializeComponent();
+
             ViewModel.ScrollTo += ViewModel_ScrollTo;
             Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
             {
                 _ItemsStackPanel.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepLastItemInView;
             });
         }
+
         public MainViewModel ViewModel => App.ViewModelLocator.Main;
 
         private ItemsStackPanel _ItemsStackPanel;
         private ScrollViewer _MessageScrollViewer;
+        
 
         private void ItemsStackPanel_Loaded(object sender, RoutedEventArgs e)
         {
             _MessageScrollViewer = MessageList.FindChild<ScrollViewer>();
             _ItemsStackPanel = (sender as ItemsStackPanel);
             _ItemsStackPanel.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepItemsInView;
-            if (_MessageScrollViewer != null) _MessageScrollViewer.ViewChanged += _messageScrollViewer_ViewChanged; ;
+            if (_MessageScrollViewer != null) _MessageScrollViewer.ViewChanged += _messageScrollViewer_ViewChanged;
         }
 
         private void _messageScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
