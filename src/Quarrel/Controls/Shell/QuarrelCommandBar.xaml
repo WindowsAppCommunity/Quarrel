@@ -31,7 +31,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="CommandBar">
-                        <Grid x:Name="LayoutRoot" >
+                        <Grid x:Name="LayoutRoot">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="Normal" />
@@ -530,7 +530,7 @@
                                                 <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.ContentHeight}"/>
                                             </DoubleAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ShadowTransform" Storyboard.TargetProperty="Y">
-                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="20"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="24"/>
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SecondaryItemsControl" Storyboard.TargetProperty="IsEnabled">
                                                 <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="True"/>
@@ -710,92 +710,90 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <Grid>
-                                <Grid>
-                                    <Grid.Clip>
-                                        <RectangleGeometry Rect="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClipRect}">
-                                            <RectangleGeometry.Transform>
-                                                <TranslateTransform x:Name="ClipGeometryTransform" Y="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.CompactVerticalDelta}"/>
-                                            </RectangleGeometry.Transform>
-                                        </RectangleGeometry>
-                                    </Grid.Clip>
+                                <Grid.Clip>
+                                    <RectangleGeometry Rect="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClipRect}">
+                                        <RectangleGeometry.Transform>
+                                            <TranslateTransform x:Name="ClipGeometryTransform" Y="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.CompactVerticalDelta}"/>
+                                        </RectangleGeometry.Transform>
+                                    </RectangleGeometry>
+                                </Grid.Clip>
 
-                                    <Grid x:Name="ContentRoot" VerticalAlignment="Top" Margin="{TemplateBinding Padding}" Height="{TemplateBinding Height}" Background="{TemplateBinding Background}" Opacity="{TemplateBinding Opacity}">
+                                <Grid x:Name="ContentRoot" VerticalAlignment="Top" Margin="{TemplateBinding Padding}" Height="{TemplateBinding Height}" Background="{TemplateBinding Background}" Opacity="{TemplateBinding Opacity}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RenderTransform>
+                                        <TranslateTransform x:Name="ContentTransform"/>
+                                    </Grid.RenderTransform>
+
+                                    <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Grid.RenderTransform>
-                                            <TranslateTransform x:Name="ContentTransform"/>
-                                        </Grid.RenderTransform>
-
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-
-                                            <!-- Use a ContentControl rather than a ContentPresenter so that IsEnabled can be set to false
+                                        <!-- Use a ContentControl rather than a ContentPresenter so that IsEnabled can be set to false
                                     in the Minimal/HiddenClosed states to remove it from being a tab-stop candidate. -->
-                                            <ContentControl x:Name="ContentControl" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" IsTabStop="False"/>
+                                        <ContentControl x:Name="ContentControl" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" IsTabStop="False"/>
 
-                                            <ItemsControl
+                                        <ItemsControl
                                                 x:Name="PrimaryItemsControl" HorizontalAlignment="Right" MinHeight="{ThemeResource AppBarThemeMinHeight}" IsTabStop="False" Grid.Column="1">
-                                                <ItemsControl.ItemsPanel>
-                                                    <ItemsPanelTemplate>
-                                                        <StackPanel Orientation="Horizontal" />
-                                                    </ItemsPanelTemplate>
-                                                </ItemsControl.ItemsPanel>
-                                            </ItemsControl>
-                                        </Grid>
-
-                                        <Button x:Name="MoreButton" Foreground="{TemplateBinding Foreground}" Background="Transparent" Style="{StaticResource EllipsisButton}" Padding="16,23,16,0" MinHeight="{TemplateBinding MinHeight}" VerticalAlignment="Top" Grid.Column="1">
-                                            <FontIcon x:Name="EllipsisIcon" VerticalAlignment="Center" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xE10C;" Height="{ThemeResource AppBarExpandButtonCircleDiameter}"/>
-                                        </Button>
-
-                                        <Popup x:Name="OverflowPopup">
-                                            <Popup.RenderTransform>
-                                                <TranslateTransform x:Name="OverflowPopupOffsetTransform"/>
-                                            </Popup.RenderTransform>
-
-                                            <Grid x:Name="OverflowContentRoot" MinWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.OverflowContentMinWidth}" MaxWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.OverflowContentMaxWidth}" MaxHeight="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.OverflowContentMaxHeight}">
-                                                <Grid.Clip>
-                                                    <RectangleGeometry x:Name="OverflowContentRootClip"/>
-                                                </Grid.Clip>
-
-                                                <Grid.RenderTransform>
-                                                    <TranslateTransform x:Name="OverflowContentRootTransform" X="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.OverflowContentHorizontalOffset}"/>
-                                                </Grid.RenderTransform>
-
-                                                <CommandBarOverflowPresenter x:Name="SecondaryItemsControl" Style="{TemplateBinding CommandBarOverflowPresenterStyle}" Background="{TemplateBinding Background}" IsEnabled="False" IsTabStop="False">
-                                                    <CommandBarOverflowPresenter.RenderTransform>
-                                                        <TranslateTransform x:Name="OverflowContentTransform"/>
-                                                    </CommandBarOverflowPresenter.RenderTransform>
-                                                    <CommandBarOverflowPresenter.ItemContainerStyle>
-                                                        <Style TargetType="FrameworkElement">
-                                                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                                            <Setter Property="Width" Value="NaN"/>
-                                                        </Style>
-                                                    </CommandBarOverflowPresenter.ItemContainerStyle>
-                                                </CommandBarOverflowPresenter>
-                                            </Grid>
-                                        </Popup>
-                                        <Rectangle x:Name="HighContrastBorder" x:DeferLoadStrategy="Lazy" Grid.ColumnSpan="2"  Visibility="Collapsed" VerticalAlignment="Stretch" Stroke="{ThemeResource SystemControlForegroundTransparentBrush}" StrokeThickness="1"/>
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal" />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                        </ItemsControl>
                                     </Grid>
+
+                                    <Button x:Name="MoreButton" Foreground="{TemplateBinding Foreground}" Background="Transparent" Style="{StaticResource EllipsisButton}" Padding="16,23,16,0" MinHeight="{TemplateBinding MinHeight}" VerticalAlignment="Top" Grid.Column="1">
+                                        <FontIcon x:Name="EllipsisIcon" VerticalAlignment="Center" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xE10C;" Height="{ThemeResource AppBarExpandButtonCircleDiameter}"/>
+                                    </Button>
+
+                                    <Popup x:Name="OverflowPopup">
+                                        <Popup.RenderTransform>
+                                            <TranslateTransform x:Name="OverflowPopupOffsetTransform"/>
+                                        </Popup.RenderTransform>
+
+                                        <Grid x:Name="OverflowContentRoot" MinWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.OverflowContentMinWidth}" MaxWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.OverflowContentMaxWidth}" MaxHeight="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.OverflowContentMaxHeight}">
+                                            <Grid.Clip>
+                                                <RectangleGeometry x:Name="OverflowContentRootClip"/>
+                                            </Grid.Clip>
+
+                                            <Grid.RenderTransform>
+                                                <TranslateTransform x:Name="OverflowContentRootTransform" X="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.OverflowContentHorizontalOffset}"/>
+                                            </Grid.RenderTransform>
+
+                                            <CommandBarOverflowPresenter x:Name="SecondaryItemsControl" Style="{TemplateBinding CommandBarOverflowPresenterStyle}" Background="{TemplateBinding Background}" IsEnabled="False" IsTabStop="False">
+                                                <CommandBarOverflowPresenter.RenderTransform>
+                                                    <TranslateTransform x:Name="OverflowContentTransform"/>
+                                                </CommandBarOverflowPresenter.RenderTransform>
+                                                <CommandBarOverflowPresenter.ItemContainerStyle>
+                                                    <Style TargetType="FrameworkElement">
+                                                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                                        <Setter Property="Width" Value="NaN"/>
+                                                    </Style>
+                                                </CommandBarOverflowPresenter.ItemContainerStyle>
+                                            </CommandBarOverflowPresenter>
+                                        </Grid>
+                                    </Popup>
+                                    <Rectangle x:Name="HighContrastBorder" x:DeferLoadStrategy="Lazy" Grid.ColumnSpan="2"  Visibility="Collapsed" VerticalAlignment="Stretch" Stroke="{ThemeResource SystemControlForegroundTransparentBrush}" StrokeThickness="1"/>
                                 </Grid>
-                                
-                                <Rectangle Opacity="{StaticResource ShadowOpacity}" Height="12" VerticalAlignment="Bottom" IsHitTestVisible="False" Margin="0,0,0,8">
-                                    <Rectangle.RenderTransform>
-                                        <TranslateTransform x:Name="ShadowTransform"/>
-                                    </Rectangle.RenderTransform>
-                                    <Rectangle.Fill>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                            <GradientStop Offset="0" Color="{ThemeResource ShadowColor}"/>
-                                            <GradientStop Offset="1" Color="#00000000"/>
-                                        </LinearGradientBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
                             </Grid>
+
+                            <Rectangle Opacity="{StaticResource ShadowOpacity}" Height="12" VerticalAlignment="Bottom" IsHitTestVisible="False" Margin="0,0,0,12">
+                                <Rectangle.RenderTransform>
+                                    <TranslateTransform x:Name="ShadowTransform"/>
+                                </Rectangle.RenderTransform>
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0" Color="{ThemeResource ShadowColor}"/>
+                                        <GradientStop Offset="1" Color="#00000000"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -805,16 +803,15 @@
     
     <CommandBar.Content>
         <Grid>
-            <StackPanel Height="40" Orientation="Horizontal">
-                <AppBarButton Visibility="{x:Bind ShowHamburger, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Click="ToggleSplitView" Canvas.ZIndex="1" Background="Transparent" Width="72">
+            <StackPanel Orientation="Horizontal">
+                <AppBarButton Height="40" Visibility="{x:Bind ShowHamburger, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Click="ToggleSplitView" Canvas.ZIndex="1" Background="Transparent" Width="72">
                     <AppBarButton.Content>
                         <FontIcon Glyph="&#xE700;" FontSize="24" Margin="0,4,0,0"/>
                     </AppBarButton.Content>
                 </AppBarButton>
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="12,-6,0,0" HorizontalAlignment="Left">
-                    <TextBlock Text="{x:Bind Channel.FormattedName, Mode=OneWay}" Visibility="{x:Bind ChannelTopic, Converter={StaticResource NullToVisibilityConverter},Mode=OneWay}" FontWeight="SemiBold" FontSize="18"/>
-                    <TextBlock Text="{x:Bind Channel.FormattedName, Mode=OneWay}" Visibility="{x:Bind ChannelTopic, Converter={StaticResource NotNullToVisibilityConverter},Mode=OneWay}" FontWeight="SemiBold" FontSize="14"/>
-                    <md:MarkdownTextBlock LineHeight="24" Text="{x:Bind ChannelTopic, Mode=OneWay}" FontSize="10" Margin="0,5,0,0" IsTextSelectionEnabled="False"/>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="12,8,0,0" HorizontalAlignment="Left">
+                    <TextBlock Text="{x:Bind Channel.FormattedName, Mode=OneWay}" FontWeight="SemiBold" FontSize="18"/>
+                    <md:MarkdownTextBlock LineHeight="24" Text="{x:Bind ChannelTopic, Mode=OneWay}" FontSize="10" Margin="0,8,0,0" IsTextSelectionEnabled="False"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
