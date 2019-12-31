@@ -109,5 +109,7 @@ namespace Quarrel.Services.Rest
         Task<bool> Login([NotNull] string token, bool storeToken = false);
 
         Task<bool> Login([NotNull] string email, [NotNull] string password);
+
+        void Logout();
     }
 }
