@@ -15,6 +15,7 @@
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+        <baseconvert:RemoveNewLineConveter x:Key="RemoveNewLineConveter"/>
     </CommandBar.Resources>
     
     <CommandBar.Style>
@@ -31,7 +32,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="CommandBar">
-                        <Grid x:Name="LayoutRoot">
+                        <Grid x:Name="LayoutRoot" MinHeight="64">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="Normal" />
@@ -811,7 +812,7 @@
                 </AppBarButton>
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="12,8,0,0" HorizontalAlignment="Left">
                     <TextBlock Text="{x:Bind Channel.FormattedName, Mode=OneWay}" FontWeight="SemiBold" FontSize="18"/>
-                    <md:MarkdownTextBlock LineHeight="24" Text="{x:Bind ChannelTopic, Mode=OneWay}" FontSize="10" Margin="0,8,0,0" IsTextSelectionEnabled="False"/>
+                    <md:MarkdownTextBlock LineHeight="24" Text="{x:Bind ChannelTopic, Converter={StaticResource RemoveNewLineConveter}, Mode=OneWay}" FontSize="10" Margin="0,8,0,0" Height="24" IsTextSelectionEnabled="False"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
