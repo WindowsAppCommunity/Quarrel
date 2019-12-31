@@ -34,6 +34,19 @@ namespace Quarrel.UWP.Helpers
                 StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/Data/SplashText.txt"));
                 IList<string> rawSplashes = await FileIO.ReadLinesAsync(file);
 
+                
+                // Add date based items
+                try
+                {
+                    string filePath = $"ms-appx:///Assets/Data/" + string.Format("Splash-{0}-{1}.txt", DateTime.Now.Month, DateTime.Now.Day);
+                    file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(filePath));
+                    foreach (string item in await FileIO.ReadLinesAsync(file))
+                    {
+                        rawSplashes.Add(item);
+                    }
+                }
+                catch { /* Not a special day */ }
+
                 // Select item from list
                 int i = ThreadSafeRandom.Instance.Next(rawSplashes.Count);
                 return new SplashText(rawSplashes[i]);
