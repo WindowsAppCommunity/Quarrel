@@ -28,6 +28,7 @@ using DiscordAPI.API.Login.Models;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.ViewModels.Messages;
 using Quarrel.ViewModels.Helpers;
+using Quarrel.Navigation;
 
 namespace Quarrel.Services.Rest
 {
@@ -141,6 +142,12 @@ namespace Quarrel.Services.Rest
             VoiceService = authenticatedRestFactory.GetVoiceService();
 
             return Gateway.InitializeGateway(_AccessToken);
+        }
+
+        public void Logout()
+        {
+            CacheService.Persistent.Roaming.DeleteValueAsync(Constants.Cache.Keys.AccessToken);
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("LoginPage");
         }
 
         #endregion

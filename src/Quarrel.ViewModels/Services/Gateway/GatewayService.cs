@@ -64,6 +64,7 @@ namespace Quarrel.Services.Gateway
             }
 
             Gateway.InvalidSession += Gateway_InvalidSession;
+            Gateway.GatewayClosed += Gateway_GatewayClosed;
 
             Gateway.Ready += Gateway_Ready;
             Gateway.GuildMemberChunk += Gateway_GuildMemberChunk;
@@ -262,6 +263,11 @@ namespace Quarrel.Services.Gateway
         private void Gateway_SessionReplaced(object sender, GatewayEventArgs<SessionReplace[]> e)
         {
             Messenger.Default.Send(new GatewaySessionReplacedMessage(e.EventData));
+        }
+
+        private void Gateway_GatewayClosed(object sender, DiscordAPI.Sockets.WebSocketClosedException e)
+        {
+            SimpleIoc.Default.GetInstance<IDiscordService>().Logout();
         }
 
         #endregion
