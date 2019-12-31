@@ -40,9 +40,9 @@ namespace DiscordAPI.Models
         public bool Premium { get; set; }
         
 
-        public Uri AvatarUriProperty => new Uri(AvatarUrlProperty);
+        public Uri AvatarUri => new Uri(AvatarUrl);
 
-        public string AvatarUrlProperty {
+        public string AvatarUrl {
             get 
             {
                 if (string.IsNullOrEmpty(Avatar))

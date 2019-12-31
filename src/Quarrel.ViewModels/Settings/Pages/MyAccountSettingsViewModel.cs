@@ -124,7 +124,7 @@ namespace Quarrel.ViewModels.Settings.Pages
         {
             Email = CurrentUsersService.CurrentUser.Model.Email;
             Username = CurrentUsersService.CurrentUser.Model.Username;
-            AvatarUrl = CurrentUsersService.CurrentUser.Model.AvatarUrlProperty;
+            AvatarUrl = CurrentUsersService.CurrentUser.Model.AvatarUrl;
         }
 
         public async void ApplyChanges()

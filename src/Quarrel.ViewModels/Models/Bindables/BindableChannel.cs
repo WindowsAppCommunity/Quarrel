@@ -338,7 +338,7 @@ namespace Quarrel.Models.Bindables
                 {
                     if (IsDirectChannel)
                     {
-                        return dmModel.Users[0].AvatarUrlProperty;
+                        return dmModel.Users[0].AvatarUrl;
                     }
                     else if (IsGroupChannel)
                     {

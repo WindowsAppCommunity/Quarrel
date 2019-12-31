@@ -17,6 +17,8 @@ namespace DiscordAPI.Models
         public string Icon { get; set; }
         [JsonProperty("splash")]
         public string Splash { get; set; }
+        [JsonProperty("banner")]
+        public string Banner { get; set; }
         [JsonProperty("owner_id")]
         public string OwnerId { get; set; }
         [JsonProperty("region")]
@@ -51,5 +53,29 @@ namespace DiscordAPI.Models
         public int MemberCount { get; set; }
         [JsonProperty("presences")]
         public IEnumerable<Presence> Presences { get; set; }
+
+        public Uri SplashUri => new Uri(SplashUrl);
+        public string SplashUrl
+        {
+            get
+            {
+                if (Splash == null)
+                    return null;
+                else
+                    return string.Format("https://cdn.discordapp.com/splashes/{0}/{1}.png", Id, Splash);
+            }
+        }
+
+        public Uri BannerUri => new Uri(BannerUrl);
+        public string BannerUrl
+        {
+            get
+            {
+                if (Banner == null)
+                    return null;
+                else
+                    return string.Format("https://cdn.discordapp.com/banners/{0}/{1}.png", Id, Banner);
+            }
+        }
     }
 }
