@@ -185,7 +185,8 @@ namespace Quarrel.ViewModels
 
                         lastItem = item;
 
-                        if (i % 10 == 0)
+
+                        if (!SettingsService.Roaming.GetValue<bool>(SettingKeys.AdsRemoved) && i % 10 == 0)
                         {
                             messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null, null));
                             lastItem = null;
@@ -655,7 +656,7 @@ namespace Quarrel.ViewModels
                     messages.Add(new BindableMessage(item, guildId, lastItem));
                     lastItem = item;
 
-                    if (i % 10 == 0)
+                    if (!SettingsService.Roaming.GetValue<bool>(SettingKeys.AdsRemoved) && i % 10 == 0)
                     {
                         messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null, null));
                         lastItem = null;
@@ -695,7 +696,7 @@ namespace Quarrel.ViewModels
                         messages.Add(new BindableMessage(item, guildId, lastItem));
                         lastItem = item;
 
-                        if (i % 10 == 0)
+                        if (!SettingsService.Roaming.GetValue<bool>(SettingKeys.AdsRemoved) && i % 10 == 0)
                         {
                             messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null, null));
                             lastItem = null;

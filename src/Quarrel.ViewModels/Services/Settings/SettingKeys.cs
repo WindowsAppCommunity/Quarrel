@@ -7,7 +7,9 @@ namespace Quarrel.Services.Settings
     /// </summary>
     public enum SettingKeys
     {
+        // Other
         Token,
+        AdsRemoved,
 
         // Display 
         Theme,
