@@ -38,7 +38,7 @@ namespace Quarrel.SubPages
             this.InitializeComponent();
             if (subFrameNavigationService.Parameter != null)
             {
-                ConnectedAnimationService.GetForCurrentView()?.GetAnimation(Helpers.Constants.ConnectedAnimationKeys.MemberFlyoutAnimation)?.TryStart(FullAvatar);
+                ConnectedAnimationService.GetForCurrentView()?.GetAnimation(ViewModels.Helpers.Constants.ConnectedAnimationKeys.MemberFlyoutAnimation)?.TryStart(FullAvatar);
                 this.DataContext = subFrameNavigationService.Parameter;
                 LoadProfile();
             }
@@ -52,7 +52,7 @@ namespace Quarrel.SubPages
             else
                 _Profile = new UserProfile() { user = ViewModel.Model.User };
 
-            _Profile.Friend = cacheService.Runtime.TryGetValue<Friend>(Quarrel.Helpers.Constants.Cache.Keys.Friend, ViewModel.Model.User.Id) ??
+            _Profile.Friend = cacheService.Runtime.TryGetValue<Friend>(ViewModels.Helpers.Constants.Cache.Keys.Friend, ViewModel.Model.User.Id) ??
                               new Friend() { Type = 0, Id = ViewModel.Model.User.Id, user = ViewModel.Model.User };
 
             if (!ViewModel.Model.User.Bot)

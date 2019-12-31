@@ -328,6 +328,7 @@
     <Compile Include="Extensions\Windows.UI.Xaml\UIExtensions.cs" />
     <Compile Include="Extensions\Windows.UI\ColorExtensions.cs" />
     <Compile Include="Helpers\Colors\SmartColor\ColorDetection.cs" />
+    <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\Humanize.cs" />
     <Compile Include="Helpers\ImageParsing.cs" />
     <Compile Include="Helpers\ItemClickCommand.cs" />
@@ -437,6 +438,7 @@
     <Content Include="Assets\Connections\xbox_dark.png" />
     <Content Include="Assets\Connections\xbox_light.png" />
     <Content Include="Assets\Connections\youtube.png" />
+    <Content Include="Assets\Data\SplashText.txt" />
     <Content Include="Assets\DefaultAvatars\Group_dark.png" />
     <Content Include="Assets\DefaultAvatars\Group_light.png" />
     <Content Include="Assets\DefaultAvatars\QuarrelClassicIcon.png" />
@@ -768,6 +770,9 @@
     </PackageReference>
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
       <Version>4.5.2</Version>
+    </PackageReference>
+    <PackageReference Include="UICompositionAnimationsLegacy">
+      <Version>2.19.2</Version>
     </PackageReference>
     <PackageReference Include="Unicode.net">
       <Version>0.1.2</Version>

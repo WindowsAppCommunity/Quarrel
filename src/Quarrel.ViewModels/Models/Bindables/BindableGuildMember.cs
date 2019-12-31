@@ -11,6 +11,7 @@ using Quarrel.Services;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
+using Quarrel.ViewModels.Helpers;
 
 namespace Quarrel.Models.Bindables
 {
@@ -89,7 +90,7 @@ namespace Quarrel.Models.Bindables
 
         public bool HasNickname => !string.IsNullOrEmpty(Model.Nick);
 
-        public string Note => cacheService.Runtime.TryGetValue<string>(Quarrel.Helpers.Constants.Cache.Keys.Note, Model.User.Id);
+        public string Note => cacheService.Runtime.TryGetValue<string>(Constants.Cache.Keys.Note, Model.User.Id);
 
         #endregion
 

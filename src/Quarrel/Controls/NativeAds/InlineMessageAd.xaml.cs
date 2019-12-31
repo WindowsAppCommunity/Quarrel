@@ -1,5 +1,5 @@
 ﻿using Microsoft.Advertising.WinRT.UI;
-using Quarrel.Helpers;
+using Quarrel.ViewModels.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;

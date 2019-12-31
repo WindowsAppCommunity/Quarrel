@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.Helpers
+namespace Quarrel.ViewModels.Helpers
 {
     public static class Constants
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Quarrel.Helpers;
+using Quarrel.ViewModels.Helpers;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Services.Cache;
@@ -27,11 +27,11 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
             foreach (var gSettings in ready.GuildSettings)
             {
-                cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.GuildSettings, gSettings, gSettings.GuildId);
+                cacheService.Runtime.SetValue(Constants.Cache.Keys.GuildSettings, gSettings, gSettings.GuildId);
 
                 foreach (var cSettings in gSettings.ChannelOverrides)
                 {
-                    cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.ChannelSettings, cSettings, cSettings.ChannelId);
+                    cacheService.Runtime.SetValue(Constants.Cache.Keys.ChannelSettings, cSettings, cSettings.ChannelId);
                 }
             }
 
@@ -49,7 +49,7 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
             foreach (var note in ready.Notes)
             {
-                cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Note, note.Value, note.Key);
+                cacheService.Runtime.SetValue(Constants.Cache.Keys.Note, note.Value, note.Key);
             }
 
             #endregion
@@ -58,7 +58,7 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
             foreach (var friend in ready.Friends)
             {
-                cacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Friend, friend, friend.Id);
+                cacheService.Runtime.SetValue(Constants.Cache.Keys.Friend, friend, friend.Id);
             }
 
             #endregion

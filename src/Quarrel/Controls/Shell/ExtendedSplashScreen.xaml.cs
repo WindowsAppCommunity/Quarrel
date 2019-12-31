@@ -18,6 +18,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Quarrel.Messages.Navigation.SubFrame;
 using Quarrel.ViewModels.Messages;
+using JetBrains.Annotations;
+using Quarrel.Helpers;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -40,6 +42,15 @@ namespace Quarrel.Controls.Shell
                     LoadOut.Begin();
                 });
             });
+
+            LoadMessage();
+        }
+
+        public async void LoadMessage()
+        {
+            var splash = await UWP.Helpers.Constants.FromFile.GetRandomSplash();
+            MessageBlock.Text = splash.Text;
+            CreditBlock.Text = splash.Credit;
         }
 
         public void InitializeAnimation(SplashScreen ogSplash)

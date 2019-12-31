@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Quarrel.Helpers;
+using Quarrel.ViewModels.Helpers;
 using DiscordAPI.Models;
 
 namespace DiscordAPI.Models

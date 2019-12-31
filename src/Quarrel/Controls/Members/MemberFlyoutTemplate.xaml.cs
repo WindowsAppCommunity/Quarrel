@@ -61,7 +61,7 @@ namespace Quarrel.Controls.Members
         {
 
             // Connected Animation
-            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate(Helpers.Constants.ConnectedAnimationKeys.MemberFlyoutAnimation, FullAvatar);
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate(ViewModels.Helpers.Constants.ConnectedAnimationKeys.MemberFlyoutAnimation, FullAvatar);
 
             // Navigate
             subFrameNavigationService.NavigateTo("UserProfilePage", ViewModel);

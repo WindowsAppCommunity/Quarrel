@@ -24,6 +24,7 @@ using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
 using Refit;
 using Quarrel.ViewModels.Messages;
+using Quarrel.ViewModels.Helpers;
 
 namespace Quarrel.Services.Gateway
 {
@@ -237,7 +238,7 @@ namespace Quarrel.Services.Gateway
 
         private void Gateway_UserNoteUpdated(object sender, GatewayEventArgs<UserNote> e)
         {
-            CacheService.Runtime.SetValue(Quarrel.Helpers.Constants.Cache.Keys.Note, e.EventData.Note, e.EventData.UserId);
+            CacheService.Runtime.SetValue(Constants.Cache.Keys.Note, e.EventData.Note, e.EventData.UserId);
             Messenger.Default.Send(new GatewayNoteUpdatedMessage(e.EventData.UserId));
         }
 

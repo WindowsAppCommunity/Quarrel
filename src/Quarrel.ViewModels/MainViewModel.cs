@@ -25,6 +25,7 @@ using Quarrel.Services.Settings;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using System.Collections.Concurrent;
 using Quarrel.ViewModels.Services;
+using Quarrel.ViewModels.Helpers;
 
 namespace Quarrel.ViewModels
 {
@@ -57,7 +58,7 @@ namespace Quarrel.ViewModels
         {
             MessengerInstance.Register<GatewayInvalidSessionMessage>(this, async _ =>
             {
-                await CacheService.Persistent.Roaming.DeleteValueAsync(Quarrel.Helpers.Constants.Cache.Keys.AccessToken);
+                await CacheService.Persistent.Roaming.DeleteValueAsync(Constants.Cache.Keys.AccessToken);
                 Login();
             });
             MessengerInstance.Register<GatewayReadyMessage>(this, async _ =>

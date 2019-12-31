@@ -27,6 +27,7 @@ using Quarrel.Services.Cache;
 using DiscordAPI.API.Login.Models;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.ViewModels.Messages;
+using Quarrel.ViewModels.Helpers;
 
 namespace Quarrel.Services.Rest
 {
@@ -96,7 +97,7 @@ namespace Quarrel.Services.Rest
             LoginResult result;
             try
             {
-                result = await LoginService.Login(new DiscordAPI.API.Login.Models.LoginRequest() { Email = email, Password = password });
+                result = await LoginService.Login(new LoginRequest() { Email = email, Password = password });
             }
             catch
             {
@@ -105,7 +106,7 @@ namespace Quarrel.Services.Rest
 
             _AccessToken = result.Token;
 
-            await CacheService.Persistent.Roaming.SetValueAsync(Quarrel.Helpers.Constants.Cache.Keys.AccessToken, (object)_AccessToken);
+            await CacheService.Persistent.Roaming.SetValueAsync(Constants.Cache.Keys.AccessToken, (object)_AccessToken);
 
             return await Login();
         }
@@ -114,7 +115,7 @@ namespace Quarrel.Services.Rest
         {
             if (storeToken)
             {
-                await CacheService.Persistent.Roaming.SetValueAsync(Quarrel.Helpers.Constants.Cache.Keys.AccessToken, (object)token);
+                await CacheService.Persistent.Roaming.SetValueAsync(Constants.Cache.Keys.AccessToken, (object)token);
             }
 
             _AccessToken = token;
