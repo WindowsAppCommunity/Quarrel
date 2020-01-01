@@ -24,7 +24,7 @@ namespace Quarrel.Services.DerivedColor
             PictureAnalysis analysis = new PictureAnalysis();
             try
             {
-                await analysis.Analyse(new BitmapImage(user.AvatarUriProperty), 128, 128);
+                await analysis.Analyse(new BitmapImage(user.AvatarUri), 128, 128);
                 if (analysis.ColorList.Count > 0)
                 {
                     userColorsCache.Add(user.Id, analysis.ColorList[0].Color.ToInt());
