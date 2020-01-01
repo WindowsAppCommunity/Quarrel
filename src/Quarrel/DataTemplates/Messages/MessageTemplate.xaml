@@ -183,7 +183,7 @@
                     <Button Height="40" Width="40"
                         Style="{StaticResource DimButton}">
                         <Border CornerRadius="20">
-                            <toolkit:ImageEx x:Phase="1" x:Name="userImg" extensions:Mouse.Cursor="Hand" Width="40" Height="40"  DecodePixelHeight="40" Source="{x:Bind Model.User.AvatarUrlProperty, Mode=OneWay}"/>
+                            <toolkit:ImageEx x:Phase="1" x:Name="userImg" extensions:Mouse.Cursor="Hand" Width="40" Height="40"  DecodePixelHeight="40" Source="{x:Bind Model.User.AvatarUrl, Mode=OneWay}"/>
                         </Border>
                         <interactivity:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="Click">

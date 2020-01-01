@@ -21,7 +21,7 @@ namespace DiscordAPI.Models
         [JsonProperty("avatar")]
         public string Avatar { get; set; }
 
-        public string AvatarUrl(bool useDefault = true, string suffix = "")
+        public string avatarUrl(bool useDefault = true, string suffix = "")
         {
             if (String.IsNullOrEmpty(Avatar))
                 return useDefault ? "ms-appx:///Assets/DefaultAvatars/QuarrelClassicIcon.png" : null;
@@ -31,14 +31,14 @@ namespace DiscordAPI.Models
                 return "https://cdn.discordapp.com/avatars/" + Id + "/" + Avatar + ".png" + suffix;
         }
 
-        public Uri AvatarUri(bool useDefault = true, string suffix = "")
+        public Uri avatarUri(bool useDefault = true, string suffix = "")
         {
-            string url = AvatarUrl(useDefault, suffix);
+            string url = avatarUrl(useDefault, suffix);
             return url != null ? new Uri(url) : null;
         }
 
-        public string AvatarUrlProperty => AvatarUrl();
+        public string AvatarUrl => avatarUrl();
 
-        public Uri AvatarUriProperty => AvatarUri();
+        public Uri AvatarUri => avatarUri();
     }
 }

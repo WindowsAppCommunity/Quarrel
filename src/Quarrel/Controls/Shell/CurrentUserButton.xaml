@@ -77,7 +77,7 @@
                     <Rectangle Height="40" Width="40"
                            RadiusX="20" RadiusY="20" HorizontalAlignment="Center">
                         <Rectangle.Fill>
-                            <ImageBrush ImageSource="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Model.AvatarUrlProperty, Mode=OneWay}"/>
+                            <ImageBrush ImageSource="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Model.AvatarUrl, Mode=OneWay}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                 </controls:DropShadowPanel>

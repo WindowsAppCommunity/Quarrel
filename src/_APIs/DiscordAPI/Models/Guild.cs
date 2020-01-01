@@ -54,7 +54,7 @@ namespace DiscordAPI.Models
         [JsonProperty("presences")]
         public IEnumerable<Presence> Presences { get; set; }
 
-        public Uri SplashUri => new Uri(SplashUrl);
+        public Uri SplashUri => SplashUrl != null ? new Uri(SplashUrl) : null;
         public string SplashUrl
         {
             get
@@ -66,7 +66,7 @@ namespace DiscordAPI.Models
             }
         }
 
-        public Uri BannerUri => new Uri(BannerUrl);
+        public Uri BannerUri => BannerUrl != null ? new Uri(BannerUrl) : null;
         public string BannerUrl
         {
             get

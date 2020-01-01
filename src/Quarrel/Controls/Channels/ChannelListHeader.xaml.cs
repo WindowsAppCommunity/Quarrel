@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,10 +30,22 @@ namespace Quarrel.Controls.Channels
             this.DataContextChanged += (s, e) =>
             {
                 this.Bindings.Update();
+
+                if (ViewModel != null)
+                {
+                    if (ViewModel.Model.BannerUri == null)
+                        rootButton.Height = 48;
+                    else
+                        rootButton.Height = 64;
+                }
             };
         }
 
         public BindableGuild ViewModel => DataContext as BindableGuild;
 
+        private async void ImageEx_ImageExOpened(object sender, Microsoft.Toolkit.Uwp.UI.Controls.ImageExOpenedEventArgs e)
+        {
+            await Banner.Fade(1, 200).StartAsync();
+        }
     }
 }

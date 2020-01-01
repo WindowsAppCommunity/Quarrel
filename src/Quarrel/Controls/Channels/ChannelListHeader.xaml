@@ -6,15 +6,19 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
+    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     d:DesignHeight="48"
     d:DesignWidth="224">
 
     <UserControl.Resources>
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
+        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+        <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
     </UserControl.Resources>
 
-    <Button Style="{ThemeResource DiscordOpaqueButton}" Background="Transparent"
+    <Button x:Name="rootButton" Style="{ThemeResource DiscordOpaqueButton}" Background="Transparent"
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
             Height="48" HorizontalContentAlignment="Left">
         <Button.Flyout>
@@ -29,8 +33,11 @@
                 <MenuFlyoutItem Icon="Clear" Text="Leave Server" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource LightRed}" Visibility="{x:Bind ViewModel.IsOwner, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
             </MenuFlyout>
         </Button.Flyout>
-        <Viewbox>
-            <TextBlock Text="{x:Bind ViewModel.Model.Name, Mode=OneWay}" FontSize="18" Margin="12,0,0,0"/>
-        </Viewbox>
+        <Grid>
+            <tk:ImageEx x:Name="Banner" Source="{x:Bind ViewModel.Model.BannerUri, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}" ImageExOpened="ImageEx_ImageExOpened" Stretch="UniformToFill" Margin="-12"/>
+            <Viewbox>
+                <TextBlock Text="{x:Bind ViewModel.Model.Name, Mode=OneWay}" FontSize="18" Margin="12,0,0,0"/>
+            </Viewbox>
+        </Grid>
     </Button>
 </UserControl>
