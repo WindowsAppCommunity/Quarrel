@@ -182,7 +182,7 @@ namespace Quarrel.ViewModels
 
                         if (lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId)
                         {
-                            scrollItem = messages.LastOrDefault(x => x.Model.Id != "Ad");
+                            scrollItem = messages.LastOrDefault();
                         }
 
                         lastItem = item;
@@ -646,7 +646,7 @@ namespace Quarrel.ViewModels
                 OldItemsLoading = true;
                 IEnumerable<Message> itemList =
                     await DiscordService.ChannelService.GetChannelMessagesBefore(Channel.Model.Id,
-                        BindableMessages.FirstOrDefault().Model.Id);
+                        BindableMessages.FirstOrDefault(x => x.Model.Id != "Ad").Model.Id);
 
                 List<BindableMessage> messages = new List<BindableMessage>();
                 Message lastItem = null;
@@ -741,7 +741,7 @@ namespace Quarrel.ViewModels
             get => _Guild;
             set => Set(ref _Guild, value);
         }
-
+        
         private bool _NewItemsLoading;
         public bool NewItemsLoading
         {
@@ -757,7 +757,7 @@ namespace Quarrel.ViewModels
         }
 
 
-        private bool ItemsLoading => _NewItemsLoading || _OldItemsLoading;
+        public bool ItemsLoading => _NewItemsLoading || _OldItemsLoading;
 
 
         private BindableChannel _Channel;

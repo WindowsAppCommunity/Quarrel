@@ -57,7 +57,7 @@ namespace Quarrel.Views
             if (ViewModel.Channel == null)
                 return;
 
-            if (MessageList.Items.Count > 0)
+            if (MessageList.Items.Count > 0 && !ViewModel.ItemsLoading)
             {
                 // Distance from top
                 double fromTop = _MessageScrollViewer.VerticalOffset;
