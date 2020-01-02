@@ -197,7 +197,8 @@ namespace Quarrel.ViewModels
 
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
-                        BindableMessages.ReplaceRange(messages);
+                        BindableMessages.Clear();
+                        BindableMessages.AddRange(messages);
                         ScrollTo?.Invoke(this, scrollItem ?? BindableMessages.LastOrDefault(x => x.Model.Id != "Ad"));
                     });
                     NewItemsLoading = false;

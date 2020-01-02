@@ -48,7 +48,6 @@ namespace Quarrel.Views
         {
             _MessageScrollViewer = MessageList.FindChild<ScrollViewer>();
             _ItemsStackPanel = (sender as ItemsStackPanel);
-            _ItemsStackPanel.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepItemsInView;
             if (_MessageScrollViewer != null) _MessageScrollViewer.ViewChanged += _messageScrollViewer_ViewChanged;
         }
 
@@ -57,7 +56,10 @@ namespace Quarrel.Views
             if (ViewModel.Channel == null)
                 return;
 
-            if (MessageList.Items.Count > 0 && !ViewModel.ItemsLoading)
+            if (ViewModel.ItemsLoading)
+                return;
+
+            if (MessageList.Items.Count > 0)
             {
                 // Distance from top
                 double fromTop = _MessageScrollViewer.VerticalOffset;
