@@ -152,6 +152,7 @@ namespace Quarrel.ViewModels
                 await SemaphoreSlim.WaitAsync();
                 try
                 {
+                    _AtTop = false;
                     NewItemsLoading = true;
                     IEnumerable<Message> itemList = null;
                     //if (Channel.ReadState == null)
@@ -638,7 +639,7 @@ namespace Quarrel.ViewModels
 
         public async void LoadOlderMessages()
         {
-            if (ItemsLoading) return;
+            if (ItemsLoading || _AtTop) return;
             await SemaphoreSlim.WaitAsync();
             try
             {
@@ -649,6 +650,14 @@ namespace Quarrel.ViewModels
 
                 List<BindableMessage> messages = new List<BindableMessage>();
                 Message lastItem = null;
+
+                if (itemList.Count() == 0)
+                {
+                    _AtTop = true;
+                    OldItemsLoading = false;
+                    return;
+                }
+
                 for (int i = itemList.Count()-1; i >= 0; i--)
                 {
                     var item = itemList.ElementAt(i);
@@ -664,7 +673,7 @@ namespace Quarrel.ViewModels
                     }
                 }
 
-                DispatcherHelper.CheckBeginInvokeOnUi(() => { BindableMessages.InsertRange(0, messages, NotifyCollectionChangedAction.Reset); });
+                DispatcherHelper.CheckBeginInvokeOnUi(() => { BindableMessages.InsertRange(0, messages, NotifyCollectionChangedAction.Add); });
                 OldItemsLoading = false;
             }
             finally
@@ -687,7 +696,6 @@ namespace Quarrel.ViewModels
 
                     List<BindableMessage> messages = new List<BindableMessage>();
                     Message lastItem = null;
-
 
                     for (int i = 0; i < itemList.Count(); i++)
                     {
@@ -724,6 +732,8 @@ namespace Quarrel.ViewModels
         #endregion
 
         #region Properties
+
+        private bool _AtTop;
 
         private BindableGuild _Guild;
         public BindableGuild Guild
