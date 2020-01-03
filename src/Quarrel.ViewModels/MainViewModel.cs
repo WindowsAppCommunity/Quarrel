@@ -161,7 +161,7 @@ namespace Quarrel.ViewModels
                     //    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAround(m.Channel.Model.Id, Channel.ReadState.LastMessageId, 50);
                     try
                     {
-                        itemList = await DiscordService.ChannelService.GetChannelMessages(m.Channel.Model.Id, 50);
+                        itemList = await DiscordService.ChannelService.GetChannelMessages(m.Channel.Model.Id);
                     }
                     catch (Exception e)
                     {
@@ -199,7 +199,7 @@ namespace Quarrel.ViewModels
                     {
                         BindableMessages.Clear();
                         BindableMessages.AddRange(messages);
-                        ScrollTo?.Invoke(this, scrollItem ?? BindableMessages.LastOrDefault(x => x.Model.Id != "Ad"));
+                        ScrollTo?.Invoke(this, scrollItem ?? BindableMessages.LastOrDefault());
                     });
                     NewItemsLoading = false;
                 }
@@ -652,11 +652,14 @@ namespace Quarrel.ViewModels
                 List<BindableMessage> messages = new List<BindableMessage>();
                 Message lastItem = null;
 
-                if (itemList.Count() == 0)
+                if (itemList.Count() < 50)
                 {
                     _AtTop = true;
-                    OldItemsLoading = false;
-                    return;
+                    if (itemList.Count() == 0)
+                    {
+                        OldItemsLoading = false;
+                        return;
+                    }
                 }
 
                 for (int i = itemList.Count()-1; i >= 0; i--)
