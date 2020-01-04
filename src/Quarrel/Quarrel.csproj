@@ -144,6 +144,9 @@
     <Compile Include="Controls\Channels\ChannelListHeader.xaml.cs">
       <DependentUpon>ChannelListHeader.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Channels\ChannelTemplate.xaml.cs">
+      <DependentUpon>ChannelTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Channels\VoiceMemberControl.xaml.cs">
       <DependentUpon>VoiceMemberControl.xaml</DependentUpon>
     </Compile>
@@ -529,6 +532,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Channels\ChannelListHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Channels\ChannelTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
