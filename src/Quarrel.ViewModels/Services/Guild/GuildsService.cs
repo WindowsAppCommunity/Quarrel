@@ -63,6 +63,12 @@ namespace Quarrel.Services.Guild
                         {
                             BindableChannel bChannel = new BindableChannel(channel, "DM");
 
+                            ChannelOverride cSettings;
+                            if (SimpleIoc.Default.GetInstance<ICurrentUsersService>().ChannelSettings.TryGetValue(channel.Id, out cSettings))
+                            {
+                                bChannel.Muted = cSettings.Muted;
+                            }
+
                             dmGuild.Channels.Add(bChannel);
 
                             if (readStates.ContainsKey(bChannel.Model.Id))

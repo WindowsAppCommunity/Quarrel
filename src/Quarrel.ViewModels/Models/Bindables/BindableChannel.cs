@@ -60,7 +60,7 @@ namespace Quarrel.Models.Bindables
 
             MessengerInstance.Register<GatewayUserGuildSettingsUpdatedMessage>(this, async m =>
             {
-                if (m.Settings.GuildId == GuildId)
+                if ((m.Settings.GuildId ?? "DM") == GuildId)
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         ChannelOverride channelOverride;
