@@ -33,6 +33,10 @@ namespace Quarrel.Services.Users
 
         public ConcurrentDictionary<string, BindableGuildMember> DMUsers { get; } = 
             new ConcurrentDictionary<string, BindableGuildMember>();
+        public ConcurrentDictionary<string, GuildSetting> GuildSettings { get; } = 
+            new ConcurrentDictionary<string, GuildSetting>();
+        public ConcurrentDictionary<string, ChannelOverride> ChannelSettings { get; } = 
+            new ConcurrentDictionary<string, ChannelOverride>();
 
         public BindableUser CurrentUser { get; } = new BindableUser(new User());
 

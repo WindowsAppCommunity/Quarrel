@@ -14,6 +14,8 @@ namespace Quarrel.Services.Users
     {
         ConcurrentDictionary<string, BindableGuildMember> Users { get; }
         ConcurrentDictionary<string, BindableGuildMember> DMUsers { get; }
+        ConcurrentDictionary<string, GuildSetting> GuildSettings { get; }
+        ConcurrentDictionary<string, ChannelOverride> ChannelSettings { get; }
 
         BindableUser CurrentUser { get; }
 

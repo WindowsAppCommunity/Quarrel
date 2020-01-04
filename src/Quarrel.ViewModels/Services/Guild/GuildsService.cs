@@ -13,6 +13,7 @@ using Quarrel.Messages.Navigation;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Models.Bindables;
 using Quarrel.Services.Cache;
+using Quarrel.Services.Users;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 
@@ -20,7 +21,6 @@ namespace Quarrel.Services.Guild
 {
     public class GuildsService : IGuildsService
     {
-
         public IDictionary<string, BindableChannel> CurrentChannels { get; } = new ConcurrentDictionary<string, BindableChannel>();
         public IDictionary<string, BindableGuild> Guilds { get; } = new ConcurrentDictionary<string, BindableGuild>();
         public string CurrentGuildId { get; private set; }
@@ -33,23 +33,11 @@ namespace Quarrel.Services.Guild
         {
             CacheService = cacheService;
             DispatcherHelper = dispatcherHelper;
+
             Messenger.Default.Register<GatewayReadyMessage>(this, m =>
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    #region Settings
-
-                    foreach (var gSettings in m.EventData.GuildSettings)
-                    {
-                        CacheService.Runtime.SetValue(Constants.Cache.Keys.GuildSettings, gSettings, gSettings.GuildId);
-
-                        foreach (var cSettings in gSettings.ChannelOverrides)
-                        {
-                            CacheService.Runtime.SetValue(Constants.Cache.Keys.ChannelSettings, cSettings, cSettings.ChannelId);
-                        }
-                    }
-                    #endregion
-
                     #region SortReadStates
 
                     IDictionary<string, ReadState> readStates = new ConcurrentDictionary<string, ReadState>();
@@ -92,8 +80,8 @@ namespace Quarrel.Services.Guild
                         BindableGuild bGuild = new BindableGuild(guild);
 
                         // Handle guild settings
-                        GuildSetting gSettings = CacheService.Runtime.TryGetValue<GuildSetting>(Constants.Cache.Keys.GuildSettings, guild.Id);
-                        if (gSettings != null)
+                        GuildSetting gSettings;
+                        if (SimpleIoc.Default.GetInstance<ICurrentUsersService>().GuildSettings.TryGetValue(guild.Id, out gSettings))
                         {
                             bGuild.Muted = gSettings.Muted;
                         }
@@ -124,8 +112,8 @@ namespace Quarrel.Services.Guild
                             IEnumerable<VoiceState> state = guild.VoiceStates?.Where(x => x.ChannelId == channel.Id);
                             BindableChannel bChannel = new BindableChannel(channel, guild.Id, state);
                             // Handle channel settings
-                            ChannelOverride cSettings = CacheService.Runtime.TryGetValue<ChannelOverride>(Constants.Cache.Keys.ChannelSettings, channel.Id);
-                            if (cSettings != null)
+                            ChannelOverride cSettings;
+                            if (SimpleIoc.Default.GetInstance<ICurrentUsersService>().ChannelSettings.TryGetValue(channel.Id, out cSettings))
                             {
                                 bChannel.Muted = cSettings.Muted;
                             }

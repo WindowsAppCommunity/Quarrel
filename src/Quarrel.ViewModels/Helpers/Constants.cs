@@ -20,8 +20,8 @@ namespace Quarrel.ViewModels.Helpers
             public static class Keys
             {
                 //public const string Guild = nameof(Guild);
-                public const string GuildSettings = nameof(GuildSettings);
-                public const string GuildList = nameof(GuildList);
+                //public const string GuildSettings = nameof(GuildSettings);
+                //public const string GuildList = nameof(GuildList);
                 //public const string GuildMember = nameof(GuildMember);
                 //public const string GuildMemberList = nameof(GuildMemberList);
 
@@ -29,7 +29,7 @@ namespace Quarrel.ViewModels.Helpers
                 public const string GuildRoleList = nameof(GuildRoleList);
 
                 //public const string Channel = nameof(Channel);
-                public const string ChannelSettings = nameof(ChannelSettings);
+                //public const string ChannelSettings = nameof(ChannelSettings);
                 //public const string ChannelList = nameof(ChannelList);
 
                 //public const string ReadState = nameof(ReadState);
@@ -37,7 +37,7 @@ namespace Quarrel.ViewModels.Helpers
 
                 public const string Friend = nameof(Friend);
 
-                public const string CurrentUser = nameof(CurrentUser);
+                //public const string CurrentUser = nameof(CurrentUser);
                 public const string Note = nameof(Note);
 
                 public const string AccessToken = nameof(AccessToken);

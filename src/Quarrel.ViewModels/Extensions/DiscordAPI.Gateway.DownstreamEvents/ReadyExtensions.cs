@@ -13,11 +13,13 @@ using Quarrel.Services.Cache;
 using Quarrel.Services.Rest;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Gateway;
+using Quarrel.Services.Users;
 
 namespace DiscordAPI.Gateway.DownstreamEvents
 {
     internal static class ReadyExtentions
     {
+        private static ICurrentUsersService currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
         private static ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
         private static IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         // TODO: Remove Cache usage
@@ -27,11 +29,11 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
             foreach (var gSettings in ready.GuildSettings)
             {
-                cacheService.Runtime.SetValue(Constants.Cache.Keys.GuildSettings, gSettings, gSettings.GuildId);
-
+                currentUsersService.GuildSettings.AddOrUpdate(gSettings.GuildId ?? "DM", gSettings);
+                
                 foreach (var cSettings in gSettings.ChannelOverrides)
                 {
-                    cacheService.Runtime.SetValue(Constants.Cache.Keys.ChannelSettings, cSettings, cSettings.ChannelId);
+                    currentUsersService.ChannelSettings.AddOrUpdate(cSettings.ChannelId, cSettings);
                 }
             }
 
@@ -45,6 +47,7 @@ namespace DiscordAPI.Gateway.DownstreamEvents
             }
 
             #endregion
+
             #region Notes
 
             foreach (var note in ready.Notes)
