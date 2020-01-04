@@ -20,10 +20,9 @@ namespace DiscordAPI.Gateway
 
         event EventHandler<GatewayEventArgs<GuildChannel>> GuildChannelCreated;
         event EventHandler<GatewayEventArgs<GuildChannel>> GuildChannelUpdated;
-        event EventHandler<GatewayEventArgs<GuildChannel>> GuildChannelDeleted;
+        event EventHandler<GatewayEventArgs<Channel>> ChannelDeleted;
 
         event EventHandler<GatewayEventArgs<DirectMessageChannel>> DirectMessageChannelCreated;
-        event EventHandler<GatewayEventArgs<DirectMessageChannel>> DirectMessageChannelDeleted;
 
         event EventHandler<GatewayEventArgs<Message>> MessageCreated;
         event EventHandler<GatewayEventArgs<Message>> MessageUpdated;

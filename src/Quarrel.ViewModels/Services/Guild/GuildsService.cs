@@ -197,9 +197,20 @@ namespace Quarrel.Services.Guild
                     }
                 }
             });
-            Messenger.Default.Register<GatewayGuildChannelDeletedMessage>(this, async m =>
+            Messenger.Default.Register<GatewayChannelDeletedMessage>(this, async m =>
             {
-                RemoveChannel(m.Channel);
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                {
+                    if (CurrentChannels.TryGetValue(m.Channel.Id, out var currentChannel))
+                    {
+                        if (Guilds.TryGetValue(currentChannel.GuildId, out var value))
+                        {
+                            value.Channels.Remove(currentChannel);
+                        }
+
+                        CurrentChannels.Remove(m.Channel.Id);
+                    }
+                });
             });
             Messenger.Default.Register<GatewayGuildChannelUpdatedMessage>(this, async m =>
             {
@@ -248,10 +259,6 @@ namespace Quarrel.Services.Guild
 
                 CurrentChannels.Add(bChannel.Model.Id, bChannel);
             });
-            Messenger.Default.Register<GatewayDirectMessageChannelDeletedMessage>(this, async m =>
-            {
-                RemoveChannel(m.Channel);
-            });
             Messenger.Default.Register<GuildNavigateMessage>(this, m => { CurrentGuildId = m.Guild.Model.Id; });
         }
 
@@ -262,18 +269,6 @@ namespace Quarrel.Services.Guild
 
         private void RemoveChannel(Channel channel)
         {
-            DispatcherHelper.CheckBeginInvokeOnUi(() =>
-            {
-                if (CurrentChannels.TryGetValue(channel.Id, out var currentChannel))
-                {
-                    if (Guilds.TryGetValue(currentChannel.GuildId, out var value))
-                    {
-                        value.Channels.Remove(currentChannel);
-                    }
-
-                    CurrentChannels.Remove(channel.Id);
-                }
-            });
         }
     }
 }

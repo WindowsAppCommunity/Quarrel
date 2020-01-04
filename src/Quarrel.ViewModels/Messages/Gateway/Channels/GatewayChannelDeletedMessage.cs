@@ -8,13 +8,13 @@ using DiscordAPI.Models;
 
 namespace Quarrel.Messages.Gateway
 {
-    public sealed class GatewayGuildChannelDeletedMessage
+    public sealed class GatewayChannelDeletedMessage
     {
-        public GatewayGuildChannelDeletedMessage(GuildChannel channel)
+        public GatewayChannelDeletedMessage(Channel channel)
         {
             Channel = channel;
         }
 
-        public GuildChannel Channel { get; }
+        public Channel Channel { get; }
     }
 }

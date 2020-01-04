@@ -82,11 +82,10 @@ namespace Quarrel.Services.Gateway
             Gateway.MessageReactionRemovedAll += Gateway_MessageReactionRemovedAll;
 
             Gateway.GuildChannelCreated += Gateway_GuildChannelCreated;
-            Gateway.GuildChannelDeleted += Gateway_GuildChannelDeleted;
+            Gateway.ChannelDeleted += Gateway_ChannelDeleted;
             Gateway.GuildChannelUpdated += Gateway_GuildChannelUpdated;
 
             Gateway.DirectMessageChannelCreated += Gateway_DirectMessageChannelCreated;
-            Gateway.DirectMessageChannelDeleted += Gateway_DirectMessageChannelDeleted;
 
             Gateway.TypingStarted += Gateway_TypingStarted;
 
@@ -216,9 +215,9 @@ namespace Quarrel.Services.Gateway
             Messenger.Default.Send(new GatewayGuildChannelCreatedMessage(e.EventData));
         }
 
-        private void Gateway_GuildChannelDeleted(object sender, GatewayEventArgs<GuildChannel> e)
+        private void Gateway_ChannelDeleted(object sender, GatewayEventArgs<Channel> e)
         {
-            Messenger.Default.Send(new GatewayGuildChannelDeletedMessage(e.EventData));
+            Messenger.Default.Send(new GatewayChannelDeletedMessage(e.EventData));
         }
 
         private void Gateway_GuildChannelUpdated(object sender, GatewayEventArgs<GuildChannel> e)
@@ -229,11 +228,6 @@ namespace Quarrel.Services.Gateway
         private void Gateway_DirectMessageChannelCreated(object sender, GatewayEventArgs<DirectMessageChannel> e)
         {
             Messenger.Default.Send(new GatewayDirectMessageChannelCreatedMessage(e.EventData));
-        }
-
-        private void Gateway_DirectMessageChannelDeleted(object sender, GatewayEventArgs<DirectMessageChannel> e)
-        {
-            Messenger.Default.Send(new GatewayDirectMessageChannelDeletedMessage(e.EventData));
         }
 
         #endregion

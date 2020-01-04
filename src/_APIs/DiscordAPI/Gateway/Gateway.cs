@@ -59,12 +59,11 @@ namespace DiscordAPI.Gateway
 
         public event EventHandler<GatewayEventArgs<GuildChannel>> GuildChannelCreated;
         public event EventHandler<GatewayEventArgs<GuildChannel>> GuildChannelUpdated;
-        public event EventHandler<GatewayEventArgs<GuildChannel>> GuildChannelDeleted;
+        public event EventHandler<GatewayEventArgs<Channel>> ChannelDeleted;
         public event EventHandler<GatewayEventArgs<ChannelRecipientUpdate>> ChannelRecipientAdded;
         public event EventHandler<GatewayEventArgs<ChannelRecipientUpdate>> ChannelRecipientRemoved;
 
         public event EventHandler<GatewayEventArgs<DirectMessageChannel>> DirectMessageChannelCreated;
-        public event EventHandler<GatewayEventArgs<DirectMessageChannel>> DirectMessageChannelDeleted;
 
         public event EventHandler<GatewayEventArgs<Message>> MessageCreated;
         public event EventHandler<GatewayEventArgs<Message>> MessageUpdated;
@@ -620,14 +619,7 @@ namespace DiscordAPI.Gateway
 
         private void OnChannelDeleted(SocketFrame gatewayEvent)
         {
-            if (IsChannelAGuildChannel(gatewayEvent))
-            {
-                FireEventOnDelegate(gatewayEvent, GuildChannelDeleted);
-            }
-            else
-            {
-                FireEventOnDelegate(gatewayEvent, DirectMessageChannelDeleted);
-            }
+            FireEventOnDelegate(gatewayEvent, ChannelDeleted);
         }
 
         private bool IsChannelAGuildChannel(SocketFrame gatewayEvent)
