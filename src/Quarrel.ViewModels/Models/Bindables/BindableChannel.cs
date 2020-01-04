@@ -230,7 +230,7 @@ namespace Quarrel.Models.Bindables
                     return
                         ((ulong)ParentPostion + 1) << 32 |
                         ((uint)(IsVoiceChannel ? 1 : 0) << 31) |
-                        (uint)(Position + 1); ;
+                        (uint)(Position + 1);
             }
         }
 

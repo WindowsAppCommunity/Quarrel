@@ -15,6 +15,7 @@ using Quarrel.Models.Bindables;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Users;
 using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Messages.Gateway.Channels;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 
 namespace Quarrel.Services.Guild
@@ -192,16 +193,7 @@ namespace Quarrel.Services.Guild
             });
             Messenger.Default.Register<GatewayGuildChannelDeletedMessage>(this, async m =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                {
-                    if (CurrentChannels.TryGetValue(m.Channel.Id, out var currentChannel))
-                    {
-                        (Guilds.TryGetValue(m.Channel.GuildId, out var value) ? value : null)?
-                            .Channels.Remove(currentChannel);
-
-                        CurrentChannels.Remove(m.Channel.Id);
-                    }
-                });
+                RemoveChannel(m.Channel);
             });
             Messenger.Default.Register<GatewayGuildChannelUpdatedMessage>(this, async m =>
             {
@@ -236,12 +228,46 @@ namespace Quarrel.Services.Guild
                     }
                 });
             });
+            Messenger.Default.Register<GatewayDirectMessageChannelCreatedMessage>(this, async m =>
+            {
+                var bChannel = new BindableChannel(m.Channel, "DM");
+
+                if (Guilds.TryGetValue(bChannel.GuildId, out var guild))
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        guild.Channels.Insert(0, bChannel);
+                    });
+                }
+
+                CurrentChannels.Add(bChannel.Model.Id, bChannel);
+            });
+            Messenger.Default.Register<GatewayDirectMessageChannelDeletedMessage>(this, async m =>
+            {
+                RemoveChannel(m.Channel);
+            });
             Messenger.Default.Register<GuildNavigateMessage>(this, m => { CurrentGuildId = m.Guild.Model.Id; });
         }
 
         public BindableChannel GetChannel(string channelId)
         {
             return CurrentChannels.TryGetValue(channelId, out BindableChannel channel) ? channel : null;
+        }
+
+        private void RemoveChannel(Channel channel)
+        {
+            DispatcherHelper.CheckBeginInvokeOnUi(() =>
+            {
+                if (CurrentChannels.TryGetValue(channel.Id, out var currentChannel))
+                {
+                    if (Guilds.TryGetValue(currentChannel.GuildId, out var value))
+                    {
+                        value.Channels.Remove(currentChannel);
+                    }
+
+                    CurrentChannels.Remove(channel.Id);
+                }
+            });
         }
     }
 }
