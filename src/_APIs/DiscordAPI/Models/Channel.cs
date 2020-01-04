@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DiscordAPI.Models
 {
-    public class Channel
+    public abstract class Channel
     {
         [JsonProperty("id")]
         public string Id { get; set; }
