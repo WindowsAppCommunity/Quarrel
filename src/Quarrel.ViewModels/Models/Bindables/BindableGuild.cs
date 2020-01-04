@@ -207,7 +207,7 @@ namespace Quarrel.Models.Bindables
         {
             GuildSettingModify guildSettingModify = new GuildSettingModify();
             guildSettingModify.GuildId = Model.Id;
-            guildSettingModify.Muted = !guildSettingModify.Muted;
+            guildSettingModify.Muted = !Muted;
 
             SimpleIoc.Default.GetInstance<IDiscordService>().UserService.ModifyGuildSettings(guildSettingModify.GuildId, guildSettingModify);
         });
