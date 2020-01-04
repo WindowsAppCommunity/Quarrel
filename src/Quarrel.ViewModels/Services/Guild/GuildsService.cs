@@ -170,9 +170,13 @@ namespace Quarrel.Services.Guild
                     Messenger.Default.Send("GuildsReady");
                 });
             });
-            Messenger.Default.Register<GatewayGuildChannelCreatedMessage>(this, async m =>
+            Messenger.Default.Register<GatewayChannelCreatedMessage>(this, async m =>
             {
-                var bChannel = new BindableChannel(m.Channel, m.Channel.GuildId);
+                string guildId = "DM";
+                if (m.Channel is GuildChannel gChannel)
+                    guildId = gChannel.GuildId;
+
+                var bChannel = new BindableChannel(m.Channel, guildId);
                 if (bChannel.Model.Type != 4 && bChannel.ParentId != null)
                 {
                     bChannel.ParentPostion = CurrentChannels.TryGetValue(bChannel.ParentId, out var value) ? value.Position : 0;
@@ -182,7 +186,7 @@ namespace Quarrel.Services.Guild
                     bChannel.ParentPostion = -1;
                 }
 
-                if (Guilds.TryGetValue(m.Channel.GuildId, out var guild))
+                if (Guilds.TryGetValue(guildId, out var guild))
                 {
                     for (int i = 0; i < guild.Channels.Count; i++)
                     {
@@ -196,6 +200,8 @@ namespace Quarrel.Services.Guild
                         }
                     }
                 }
+
+                CurrentChannels.Add(bChannel.Model.Id, bChannel);
             });
             Messenger.Default.Register<GatewayChannelDeletedMessage>(this, async m =>
             {
@@ -244,20 +250,6 @@ namespace Quarrel.Services.Guild
                         }
                     }
                 });
-            });
-            Messenger.Default.Register<GatewayDirectMessageChannelCreatedMessage>(this, async m =>
-            {
-                var bChannel = new BindableChannel(m.Channel, "DM");
-
-                if (Guilds.TryGetValue(bChannel.GuildId, out var guild))
-                {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        guild.Channels.Insert(0, bChannel);
-                    });
-                }
-
-                CurrentChannels.Add(bChannel.Model.Id, bChannel);
             });
             Messenger.Default.Register<GuildNavigateMessage>(this, m => { CurrentGuildId = m.Guild.Model.Id; });
         }

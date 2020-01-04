@@ -57,13 +57,11 @@ namespace DiscordAPI.Gateway
         public event EventHandler<GatewayEventArgs<GuildBanUpdate>> GuildBanAdded;
         public event EventHandler<GatewayEventArgs<GuildBanUpdate>> GuildBanRemoved;
 
-        public event EventHandler<GatewayEventArgs<GuildChannel>> GuildChannelCreated;
+        public event EventHandler<GatewayEventArgs<Channel>> ChannelCreated;
         public event EventHandler<GatewayEventArgs<GuildChannel>> GuildChannelUpdated;
         public event EventHandler<GatewayEventArgs<Channel>> ChannelDeleted;
         public event EventHandler<GatewayEventArgs<ChannelRecipientUpdate>> ChannelRecipientAdded;
         public event EventHandler<GatewayEventArgs<ChannelRecipientUpdate>> ChannelRecipientRemoved;
-
-        public event EventHandler<GatewayEventArgs<DirectMessageChannel>> DirectMessageChannelCreated;
 
         public event EventHandler<GatewayEventArgs<Message>> MessageCreated;
         public event EventHandler<GatewayEventArgs<Message>> MessageUpdated;
@@ -602,14 +600,13 @@ namespace DiscordAPI.Gateway
 
         private void OnChannelCreated(SocketFrame gatewayEvent)
         {
+            GatewayEventArgs<Channel> eventArgs;
             if (IsChannelAGuildChannel(gatewayEvent))
-            {
-                FireEventOnDelegate(gatewayEvent, GuildChannelCreated);
-            }
+                eventArgs = new GatewayEventArgs<Channel>(gatewayEvent.GetData<GuildChannel>());
             else
-            {
-                FireEventOnDelegate(gatewayEvent, DirectMessageChannelCreated);
-            }
+                eventArgs = new GatewayEventArgs<Channel>(gatewayEvent.GetData<DirectMessageChannel>());
+
+            ChannelCreated?.Invoke(this, eventArgs);
         }
 
         private void OnChannelUpdated(SocketFrame gatewayEvent)
@@ -619,13 +616,13 @@ namespace DiscordAPI.Gateway
 
         private void OnChannelDeleted(SocketFrame gatewayEvent)
         {
-            FireEventOnDelegate(gatewayEvent, ChannelDeleted);
-        }
+            GatewayEventArgs<Channel> eventArgs;
+            if (IsChannelAGuildChannel(gatewayEvent))
+                eventArgs = new GatewayEventArgs<Channel>(gatewayEvent.GetData<GuildChannel>());
+            else
+                eventArgs = new GatewayEventArgs<Channel>(gatewayEvent.GetData<DirectMessageChannel>());
 
-        private bool IsChannelAGuildChannel(SocketFrame gatewayEvent)
-        {
-            var dataAsJObject = gatewayEvent.Payload as JObject;
-            return dataAsJObject["guild_id"] != null;
+            ChannelDeleted?.Invoke(this, eventArgs);
         }
 
         private void OnGuildCreated(SocketFrame gatewayEvent)
@@ -820,6 +817,12 @@ namespace DiscordAPI.Gateway
 
                 FireEventOnDelegate(gatewayEvent, InvalidSession);
             }
+        }
+
+        private bool IsChannelAGuildChannel(SocketFrame gatewayEvent)
+        {
+            var dataAsJObject = gatewayEvent.Payload as JObject;
+            return dataAsJObject["guild_id"] != null;
         }
 
         #endregion

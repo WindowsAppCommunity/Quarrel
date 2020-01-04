@@ -8,13 +8,13 @@ using DiscordAPI.Models;
 
 namespace Quarrel.Messages.Gateway
 {
-    public sealed class GatewayGuildChannelCreatedMessage
+    public sealed class GatewayChannelCreatedMessage
     {
-        public GatewayGuildChannelCreatedMessage(GuildChannel channel)
+        public GatewayChannelCreatedMessage(Channel channel)
         {
             Channel = channel;
         }
 
-        public GuildChannel Channel { get; }
+        public Channel Channel { get; }
     }
 }
