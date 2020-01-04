@@ -189,6 +189,16 @@ namespace Quarrel.Models.Bindables
 
             }));
 
+        private RelayCommand muteGuild;
+        public RelayCommand MuteGuild => muteGuild = new RelayCommand(() =>
+        {
+            GuildSettingModify guildSettingModify = new GuildSettingModify();
+            guildSettingModify.GuildId = Model.Id;
+            guildSettingModify.Muted = !guildSettingModify.Muted;
+
+            SimpleIoc.Default.GetInstance<IDiscordService>().UserService.ModifyGuildSettings(guildSettingModify.GuildId, guildSettingModify);
+        });
+
         private RelayCommand markAsRead;
         public RelayCommand MarkAsRead => markAsRead = new RelayCommand(() =>
         {

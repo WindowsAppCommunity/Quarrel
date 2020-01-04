@@ -48,6 +48,8 @@
     <UserControl.ContextFlyout>
         <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
             <MenuFlyoutItem Text="Mark as read" IsEnabled="{x:Bind ViewModel.IsUnread, Mode=OneWay}" Command="{x:Bind ViewModel.MarkAsRead}"/>
+            <MenuFlyoutSeparator/>
+            <ToggleMenuFlyoutItem Text="Mute" IsChecked="{x:Bind ViewModel.Muted, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Command="{x:Bind ViewModel.MuteGuild, Mode=OneWay}"/>
         </MenuFlyout>
     </UserControl.ContextFlyout>
 
