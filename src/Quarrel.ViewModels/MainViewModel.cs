@@ -677,7 +677,7 @@ namespace Quarrel.ViewModels
                     }
                 }
 
-                DispatcherHelper.CheckBeginInvokeOnUi(() => { BindableMessages.InsertRange(0, messages, NotifyCollectionChangedAction.Add); });
+                DispatcherHelper.CheckBeginInvokeOnUi(() => { BindableMessages.InsertRange(0, messages, NotifyCollectionChangedAction.Reset); });
                 OldItemsLoading = false;
             }
             finally
