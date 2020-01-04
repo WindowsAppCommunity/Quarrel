@@ -31,10 +31,5 @@ namespace Quarrel.Controls.Channels
         }
 
         public BindableChannel ViewModel => DataContext as BindableChannel;
-
-        private void MarkAsRead(object sender, RoutedEventArgs e)
-        {
-            ViewModel.MarkAsRead();
-        }
     }
 }

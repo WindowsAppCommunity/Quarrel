@@ -20,6 +20,7 @@ using Quarrel.Messages.Services.Settings;
 using Quarrel.Messages.Navigation;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using System.Collections.Concurrent;
+using GalaSoft.MvvmLight.Command;
 
 namespace Quarrel.Models.Bindables
 {
@@ -502,12 +503,13 @@ namespace Quarrel.Models.Bindables
 
         #endregion
 
-        #region Methods
+        #region Commands
 
-        public void MarkAsRead()
+        private RelayCommand markAsRead;
+        public RelayCommand MarkAsRead => markAsRead = new RelayCommand(() =>
         {
             _DiscordService.ChannelService.AckMessage(Model.Id, Model.LastMessageId);
-        }
+        });
 
         #endregion
     }

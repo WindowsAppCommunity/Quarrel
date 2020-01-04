@@ -73,7 +73,7 @@ namespace Quarrel.Views
 
                 // All messages seen
                 if (fromBottom < 10)
-                    ViewModel.Channel.MarkAsRead();
+                    ViewModel.Channel.MarkAsRead.Execute(null);
             }
         }
 
