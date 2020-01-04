@@ -23,6 +23,7 @@ using System.Collections.Concurrent;
 using GalaSoft.MvvmLight.Command;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Services.Clipboard;
+using Quarrel.Navigation;
 
 namespace Quarrel.Models.Bindables
 {
@@ -258,6 +259,22 @@ namespace Quarrel.Models.Bindables
                         return Model.Name.ToUpper();
                 }
                 return Model.Name;
+            }
+        }
+
+        public IEnumerable<BindableGuildMember> GuildMembers
+        {
+            get
+            {
+                if (!IsDirectChannel && !IsGroupChannel)
+                    return null;
+
+                if (Model is DirectMessageChannel dmChannel)
+                {
+                    return dmChannel.Users.Select(x => _CurrentUsersService.DMUsers[x.Id]);
+                }
+
+                return null;
             }
         }
 
@@ -524,6 +541,12 @@ namespace Quarrel.Models.Bindables
         #endregion
 
         #region Commands
+
+        private RelayCommand openProfile;
+        public RelayCommand OpenProfile => new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("UserProfilePage", GuildMembers.FirstOrDefault());
+        });
 
         private RelayCommand markAsRead;
         public RelayCommand MarkAsRead => markAsRead = new RelayCommand(async () =>

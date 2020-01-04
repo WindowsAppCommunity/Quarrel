@@ -31,6 +31,8 @@
 
     <UserControl.ContextFlyout>
         <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
+            <!--DM-->
+            <MenuFlyoutItem Text="Profile" Visibility="{x:Bind ViewModel.IsDirectChannel, Mode=OneWay}" Command="{x:Bind ViewModel.OpenProfile, Mode=OneWay}"/>
             <!--Shared-->
             <MenuFlyoutItem Text="Mark as read" Visibility="{x:Bind ViewModel.IsTypingChannel, Mode=OneWay}" IsEnabled="{x:Bind ViewModel.IsUnread, Mode=OneWay}" Command="{x:Bind ViewModel.MarkAsRead, Mode=OneWay}"/>
             <ToggleMenuFlyoutItem Text="Mute" IsChecked="{x:Bind ViewModel.Muted, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsTypingChannel, Mode=OneWay}" Command="{x:Bind ViewModel.Mute, Mode=OneWay}"/>
@@ -39,8 +41,11 @@
             <MenuFlyoutSubItem Text="Notifications" IsEnabled="False" Visibility="{x:Bind ViewModel.IsTextChannel, Mode=OneWay}"/>
             <!--Voice Channel-->
             <ToggleMenuFlyoutItem Text="Hide names" IsEnabled="False" Visibility="{x:Bind ViewModel.IsVoiceChannel, Mode=OneWay}"/>
+            <!--DM-->
+            <MenuFlyoutItem Text="Close DM" Visibility="{x:Bind ViewModel.IsDirectChannel, Mode=OneWay}" Foreground="{ThemeResource dnd}" Command="{x:Bind ViewModel.LeaveGroup, Mode=OneWay}"/>
             <!--Group Channel-->
             <MenuFlyoutItem Text="Leave Group" Visibility="{x:Bind ViewModel.IsGroupChannel, Mode=OneWay}" Foreground="{ThemeResource dnd}" Command="{x:Bind ViewModel.LeaveGroup, Mode=OneWay}"/>
+            <!--Shared-->
             <MenuFlyoutSeparator/>
             <MenuFlyoutItem Text="Copy Id" Command="{x:Bind ViewModel.CopyId, Mode=OneWay}"/>
         </MenuFlyout>
@@ -87,6 +92,7 @@
         <Border Margin="0,6,6,6" Visibility="{x:Bind ViewModel.IsPrivateChannel}" CornerRadius="18">
             <tkcontrols:ImageEx Source="{x:Bind ViewModel.ImageUrl, Mode=OneWay}" Width="36" Height="36" DecodePixelWidth="36" DecodePixelHeight="36"/>
         </Border>
+        
         <!--<Rectangle Visibility="{x:Bind ViewModel.ImageUri, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}" Width="36" Height="36" Margin="0,6,6,6" RadiusX="18" RadiusY="18">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="ms-appx///Assets/QuarrelClassicIcon.png"/>
