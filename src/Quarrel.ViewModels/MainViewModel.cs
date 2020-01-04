@@ -733,11 +733,6 @@ namespace Quarrel.ViewModels
             }
         }
 
-        public async void MarkChannelRead()
-        {
-            await DiscordService.ChannelService.AckMessage(Channel.Model.Id, Channel.Model.LastMessageId);
-        }
-
         #endregion
 
         #region Properties

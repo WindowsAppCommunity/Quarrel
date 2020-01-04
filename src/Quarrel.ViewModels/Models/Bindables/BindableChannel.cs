@@ -168,7 +168,13 @@ namespace Quarrel.Models.Bindables
 
         public bool IsCategory { get { return Model.Type == 4; } }
 
+        public bool IsGuildChannel { get { return !IsPrivateChannel; } }
+
         public bool IsPrivateChannel { get { return IsDirectChannel || IsGroupChannel; } }
+
+
+        public bool IsTypingChannel { get => IsCategory || IsTextChannel || IsDirectChannel || IsGroupChannel; }
+
 
         #endregion
 
@@ -287,8 +293,7 @@ namespace Quarrel.Models.Bindables
                 }
                 return hidden && !Selected;
             }
-        }
-            
+        }  
 
         public bool HasIcon
         {
@@ -497,5 +502,13 @@ namespace Quarrel.Models.Bindables
 
         #endregion
 
+        #region Methods
+
+        public void MarkAsRead()
+        {
+            _DiscordService.ChannelService.AckMessage(Model.Id, Model.LastMessageId);
+        }
+
+        #endregion
     }
 }

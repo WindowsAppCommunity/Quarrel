@@ -19,7 +19,6 @@
     d:DesignWidth="400">
 
     <UserControl.Resources>
-
         <convertbase:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <convertbase:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         <convertbase:EnumerableAnyToVisibilityConverter x:Key="EnumerableAnyToVisibilityConverter"/>
@@ -29,6 +28,23 @@
         <convertchannel:TypeToMinHeightConverter x:Key="TypeToMinHeightConverter"/>
         <convertdiscord:DiscriminatorToBrushConverter x:Key="DiscriminatorToBrush"/>
     </UserControl.Resources>
+
+    <UserControl.ContextFlyout>
+        <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
+            <!--Shared-->
+            <MenuFlyoutItem Text="Mark as read" Visibility="{x:Bind ViewModel.IsTypingChannel, Mode=OneWay}" IsEnabled="{x:Bind ViewModel.IsUnread, Mode=OneWay}" Click="MarkAsRead"/>
+            <ToggleMenuFlyoutItem Text="Mute" Visibility="{x:Bind ViewModel.IsTypingChannel, Mode=OneWay}"/>
+            <!--<MenuFlyoutItem Text="Channel Settings" Visibility="{x:Bind ViewModel.IsGuildChannel, Mode=OneWay}"/>-->
+            <!--Text Channel-->
+            <MenuFlyoutSubItem Text="Notifications" IsEnabled="False" Visibility="{x:Bind ViewModel.IsTextChannel, Mode=OneWay}"/>
+            <!--Voice Channel-->
+            <ToggleMenuFlyoutItem Text="Hide names" IsEnabled="False" Visibility="{x:Bind ViewModel.IsVoiceChannel, Mode=OneWay}"/>
+            <!--Group Channel-->
+            <MenuFlyoutItem Text="Leave Group" Visibility="{x:Bind ViewModel.IsGroupChannel, Mode=OneWay}" Foreground="{ThemeResource dnd}"/>
+            <MenuFlyoutSeparator/>
+            <MenuFlyoutItem Text="Copy Id"/>
+        </MenuFlyout>
+    </UserControl.ContextFlyout>
 
     <Grid Visibility="{x:Bind ViewModel.Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" MinHeight="{x:Bind ViewModel.Model.Type, Converter={StaticResource TypeToMinHeightConverter}, Mode=OneWay}" Padding="22,0,24,0">
         <Grid.Background>
