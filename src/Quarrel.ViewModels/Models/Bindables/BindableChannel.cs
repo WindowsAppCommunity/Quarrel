@@ -173,23 +173,22 @@ namespace Quarrel.Models.Bindables
 
         #region ChannelType
 
-        public bool IsTextChannel { get { return Model.Type == 0; } }
+        public bool IsTextChannel => Model.Type == 0;
 
-        public bool IsDirectChannel { get { return Model.Type == 1; } }
+        public bool IsDirectChannel => Model.Type == 1;
 
-        public bool IsVoiceChannel { get { return Model.Type == 2; } }
+        public bool IsVoiceChannel => Model.Type == 2;
 
-        public bool IsGroupChannel { get { return Model.Type == 3; } }
+        public bool IsGroupChannel => Model.Type == 3;
 
-        public bool IsCategory { get { return Model.Type == 4; } }
+        public bool IsCategory => Model.Type == 4;
 
-        public bool IsGuildChannel { get { return !IsPrivateChannel; } }
+        public bool IsGuildChannel => !IsPrivateChannel;
 
-        public bool IsPrivateChannel { get { return IsDirectChannel || IsGroupChannel; } }
+        public bool IsPrivateChannel => IsDirectChannel || IsGroupChannel;
 
 
-        public bool IsTypingChannel { get => IsCategory || IsTextChannel || IsDirectChannel || IsGroupChannel; }
-
+        public bool IsTypingChannel => IsCategory || IsTextChannel || IsDirectChannel || IsGroupChannel;
 
         #endregion
 
