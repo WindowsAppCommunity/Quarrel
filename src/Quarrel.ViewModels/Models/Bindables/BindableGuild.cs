@@ -21,6 +21,7 @@ using Quarrel.Messages.Services.Settings;
 using Quarrel.Navigation;
 using Quarrel.Services.Users;
 using Quarrel.ViewModels.Services.DispatcherHelper;
+using Quarrel.ViewModels.Messages.Gateway;
 
 namespace Quarrel.Models.Bindables
 {
@@ -54,6 +55,18 @@ namespace Quarrel.Models.Bindables
                     RaisePropertyChanged(nameof(IsUnread));
                     RaisePropertyChanged(nameof(ShowUnread));
                 });
+            });
+
+            MessengerInstance.Register<GatewayUserGuildSettingsUpdatedMessage>(this, async m =>
+            {
+                if ((m.Settings.GuildId ?? "DM") == Model.Id)
+                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        if(CurrentUsersService.GuildSettings.TryGetValue(Model.Id, out var guildSetting))
+                        {
+                            Muted = guildSetting.Muted;
+                        }
+                    });
             });
 
             MessengerInstance.Register<SettingChangedMessage<bool>>(this, m => 
