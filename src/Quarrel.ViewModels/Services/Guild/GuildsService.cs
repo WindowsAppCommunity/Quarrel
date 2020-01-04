@@ -199,7 +199,7 @@ namespace Quarrel.Services.Guild
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    var bChannel = GetChannel(m.Channel.Id);
+                    var bChannel = GetChannel(m.Channel.Id ?? "DM");
                     bChannel.Model = m.Channel;
                     
                     if (bChannel.Model.Type != 4 && bChannel.ParentId != null)

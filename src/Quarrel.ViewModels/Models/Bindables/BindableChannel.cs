@@ -536,7 +536,7 @@ namespace Quarrel.Models.Bindables
         {
             // Build basic Settings Modifier
             GuildSettingModify guildSettingModify = new GuildSettingModify();
-            guildSettingModify.GuildId = GuildId;
+            guildSettingModify.GuildId = GuildId == "DM" ? "@me" : GuildId;
             guildSettingModify.ChannelOverrides = new Dictionary<string, ChannelOverride>();
 
             ChannelOverride channelOverride;
@@ -552,7 +552,7 @@ namespace Quarrel.Models.Bindables
 
             // Finish Settings Modifer and send request
             guildSettingModify.ChannelOverrides.Add(Model.Id, channelOverride);
-            await _DiscordService.UserService.ModifyGuildSettings(GuildId, guildSettingModify);
+            await _DiscordService.UserService.ModifyGuildSettings(guildSettingModify.GuildId, guildSettingModify);
         });
 
         private RelayCommand leaveGroup;

@@ -267,7 +267,7 @@ namespace Quarrel.Services.Gateway
 
         private void Gateway_UserGuildSettingsUpdated(object sender, GatewayEventArgs<GuildSetting> e)
         {
-            CurrentUsersService.GuildSettings.AddOrUpdate(e.EventData.GuildId, e.EventData);
+            CurrentUsersService.GuildSettings.AddOrUpdate(e.EventData.GuildId ?? "DM", e.EventData);
 
             foreach (var channel in e.EventData.ChannelOverrides)
             {
