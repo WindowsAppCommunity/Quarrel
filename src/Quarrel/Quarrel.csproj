@@ -349,6 +349,7 @@
     <Compile Include="Services\Cache\Persistant\CacheLocation.cs" />
     <Compile Include="Services\Cache\Persistant\PersistentCacheService.cs" />
     <Compile Include="Services\Cache\Runtime\RuntimeCacheService.cs" />
+    <Compile Include="Services\Clipboard\ClipboardService.cs" />
     <Compile Include="Services\Derived Color\ColorService.cs" />
     <Compile Include="Services\DispatcherHelper\DispatcherHelper.cs" />
     <Compile Include="Services\Settings\SettingsService.cs" />

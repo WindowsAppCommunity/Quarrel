@@ -22,6 +22,7 @@ using Quarrel.ViewModels.Services.DispatcherHelper;
 using System.Collections.Concurrent;
 using GalaSoft.MvvmLight.Command;
 using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Services.Clipboard;
 
 namespace Quarrel.Models.Bindables
 {
@@ -563,7 +564,7 @@ namespace Quarrel.Models.Bindables
         private RelayCommand copyId;
         public RelayCommand CopyId => copyId = new RelayCommand(() =>
         {
-            // TODO: Clipboard Service
+            SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(Model.Id);
         });
 
         #endregion

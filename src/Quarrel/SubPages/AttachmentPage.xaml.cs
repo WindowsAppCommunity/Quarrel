@@ -5,6 +5,7 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using Quarrel.Helpers;
 using Quarrel.Navigation;
 using Quarrel.SubPages.Interfaces;
+using Quarrel.ViewModels.Services.Clipboard;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -98,9 +99,7 @@ namespace Quarrel.SubPages
 
         private void CopyLink(object sender, RoutedEventArgs e)
         {
-            var dataPackage = new DataPackage();
-            dataPackage.SetText(ViewModel.ImageUrl);
-            Clipboard.SetContent(dataPackage);
+            SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(ViewModel.ImageUrl);
         }
 
         private async void Open(object sender, RoutedEventArgs e)
