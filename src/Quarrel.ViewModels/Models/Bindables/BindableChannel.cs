@@ -554,6 +554,18 @@ namespace Quarrel.Models.Bindables
             await _DiscordService.UserService.ModifyGuildSettings(GuildId, guildSettingModify);
         });
 
+        private RelayCommand leaveGroup;
+        public RelayCommand LeaveGroup => leaveGroup = new RelayCommand(async () =>
+        {
+            await _DiscordService.ChannelService.DeleteChannel(Model.Id);
+        });
+
+        private RelayCommand copyId;
+        public RelayCommand CopyId => copyId = new RelayCommand(() =>
+        {
+            // TODO: Clipboard Service
+        });
+
         #endregion
     }
 }

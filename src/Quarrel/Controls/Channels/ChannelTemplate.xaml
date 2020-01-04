@@ -40,9 +40,9 @@
             <!--Voice Channel-->
             <ToggleMenuFlyoutItem Text="Hide names" IsEnabled="False" Visibility="{x:Bind ViewModel.IsVoiceChannel, Mode=OneWay}"/>
             <!--Group Channel-->
-            <MenuFlyoutItem Text="Leave Group" Visibility="{x:Bind ViewModel.IsGroupChannel, Mode=OneWay}" Foreground="{ThemeResource dnd}"/>
+            <MenuFlyoutItem Text="Leave Group" Visibility="{x:Bind ViewModel.IsGroupChannel, Mode=OneWay}" Foreground="{ThemeResource dnd}" Command="{x:Bind ViewModel.LeaveGroup, Mode=OneWay}"/>
             <MenuFlyoutSeparator/>
-            <MenuFlyoutItem Text="Copy Id"/>
+            <MenuFlyoutItem Text="Copy Id" Command="{x:Bind ViewModel.CopyId, Mode=OneWay}"/>
         </MenuFlyout>
     </UserControl.ContextFlyout>
 
