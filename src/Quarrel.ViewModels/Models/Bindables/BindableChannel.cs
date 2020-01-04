@@ -20,6 +20,10 @@ using Quarrel.Messages.Services.Settings;
 using Quarrel.Messages.Navigation;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using System.Collections.Concurrent;
+using GalaSoft.MvvmLight.Command;
+using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Services.Clipboard;
+using Quarrel.Navigation;
 
 namespace Quarrel.Models.Bindables
 {
@@ -52,6 +56,17 @@ namespace Quarrel.Models.Bindables
                         ConnectedUsers.Remove(e.VoiceState.UserId);
                     }
                 });
+            });
+
+            MessengerInstance.Register<GatewayUserGuildSettingsUpdatedMessage>(this, async m =>
+            {
+                if ((m.Settings.GuildId ?? "DM") == GuildId)
+                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        ChannelOverride channelOverride;
+                        if(_CurrentUsersService.ChannelSettings.TryGetValue(Model.Id, out channelOverride))
+                            Muted = channelOverride.Muted;
+                    });
             });
 
             MessengerInstance.Register<ChannelNavigateMessage>(this, async m =>
@@ -168,7 +183,13 @@ namespace Quarrel.Models.Bindables
 
         public bool IsCategory { get { return Model.Type == 4; } }
 
+        public bool IsGuildChannel { get { return !IsPrivateChannel; } }
+
         public bool IsPrivateChannel { get { return IsDirectChannel || IsGroupChannel; } }
+
+
+        public bool IsTypingChannel { get => IsCategory || IsTextChannel || IsDirectChannel || IsGroupChannel; }
+
 
         #endregion
 
@@ -179,7 +200,14 @@ namespace Quarrel.Models.Bindables
         public bool Muted
         {
             get => _Muted;
-            set => Set(ref _Muted, value);
+            set 
+            {
+                if (Set(ref _Muted, value))
+                {
+                    RaisePropertyChanged(nameof(TextOpacity));
+                    RaisePropertyChanged(nameof(ShowUnread));
+                }
+            }
         }
 
         #endregion
@@ -204,7 +232,7 @@ namespace Quarrel.Models.Bindables
                     return
                         ((ulong)ParentPostion + 1) << 32 |
                         ((uint)(IsVoiceChannel ? 1 : 0) << 31) |
-                        (uint)(Position + 1); ;
+                        (uint)(Position + 1);
             }
         }
 
@@ -231,6 +259,22 @@ namespace Quarrel.Models.Bindables
                         return Model.Name.ToUpper();
                 }
                 return Model.Name;
+            }
+        }
+
+        public IEnumerable<BindableGuildMember> GuildMembers
+        {
+            get
+            {
+                if (!IsDirectChannel && !IsGroupChannel)
+                    return null;
+
+                if (Model is DirectMessageChannel dmChannel)
+                {
+                    return dmChannel.Users.Select(x => _CurrentUsersService.DMUsers[x.Id]);
+                }
+
+                return null;
             }
         }
 
@@ -287,8 +331,7 @@ namespace Quarrel.Models.Bindables
                 }
                 return hidden && !Selected;
             }
-        }
-            
+        }  
 
         public bool HasIcon
         {
@@ -497,5 +540,56 @@ namespace Quarrel.Models.Bindables
 
         #endregion
 
+        #region Commands
+
+        private RelayCommand openProfile;
+        public RelayCommand OpenProfile => new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("UserProfilePage", GuildMembers.FirstOrDefault());
+        });
+
+        private RelayCommand markAsRead;
+        public RelayCommand MarkAsRead => markAsRead = new RelayCommand(async () =>
+        {
+            await _DiscordService.ChannelService.AckMessage(Model.Id, Model.LastMessageId);
+        });
+
+        private RelayCommand mute;
+        public RelayCommand Mute => mute = new RelayCommand(async () =>
+        {
+            // Build basic Settings Modifier
+            GuildSettingModify guildSettingModify = new GuildSettingModify();
+            guildSettingModify.GuildId = GuildId == "DM" ? "@me" : GuildId;
+            guildSettingModify.ChannelOverrides = new Dictionary<string, ChannelOverride>();
+
+            ChannelOverride channelOverride;
+            if(!_CurrentUsersService.ChannelSettings.TryGetValue(Model.Id, out channelOverride))
+            {
+                // No pre-exisitng channeloverride, create a default
+                channelOverride = new ChannelOverride();
+                channelOverride.ChannelId = Model.Id;
+                channelOverride.Muted = false; // Will be swapped later
+            }
+
+            channelOverride.Muted = !channelOverride.Muted;
+
+            // Finish Settings Modifer and send request
+            guildSettingModify.ChannelOverrides.Add(Model.Id, channelOverride);
+            await _DiscordService.UserService.ModifyGuildSettings(guildSettingModify.GuildId, guildSettingModify);
+        });
+
+        private RelayCommand leaveGroup;
+        public RelayCommand LeaveGroup => leaveGroup = new RelayCommand(async () =>
+        {
+            await _DiscordService.ChannelService.DeleteChannel(Model.Id);
+        });
+
+        private RelayCommand copyId;
+        public RelayCommand CopyId => copyId = new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(Model.Id);
+        });
+
+        #endregion
     }
 }

@@ -9,6 +9,7 @@ using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Navigation;
 using Quarrel.Navigation;
 using Quarrel.Services.Cache;
+using Quarrel.Services.Clipboard;
 using Quarrel.Services.DispatcherHelperEx;
 using Quarrel.Services.Gateway;
 using Quarrel.Services.Guild;
@@ -20,6 +21,7 @@ using Quarrel.Services.Voice.Audio.In;
 using Quarrel.Services.Voice.Audio.Out;
 using Quarrel.SubPages;
 using Quarrel.SubPages.Settings;
+using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using Windows.ApplicationModel.Store;
 
@@ -44,6 +46,7 @@ namespace Quarrel.ViewModels
             SimpleIoc.Default.Register<ISubFrameNavigationService>(() => navigationService);
 
             SimpleIoc.Default.Register<ICacheService, CacheService>();
+            SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
             SimpleIoc.Default.Register<ISettingsService, SettingsService>();
             SimpleIoc.Default.Register<IServiceProvider>(() => App.ServiceProvider);
             SimpleIoc.Default.Register<IGatewayService, GatewayService>();

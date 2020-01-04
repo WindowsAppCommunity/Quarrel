@@ -25,6 +25,8 @@ using Quarrel.Services.Users;
 using Refit;
 using Quarrel.ViewModels.Messages;
 using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Messages.Gateway.Channels;
 
 namespace Quarrel.Services.Gateway
 {
@@ -83,10 +85,14 @@ namespace Quarrel.Services.Gateway
             Gateway.GuildChannelDeleted += Gateway_GuildChannelDeleted;
             Gateway.GuildChannelUpdated += Gateway_GuildChannelUpdated;
 
+            Gateway.DirectMessageChannelCreated += Gateway_DirectMessageChannelCreated;
+            Gateway.DirectMessageChannelDeleted += Gateway_DirectMessageChannelDeleted;
+
             Gateway.TypingStarted += Gateway_TypingStarted;
 
             Gateway.PresenceUpdated += Gateway_PresenceUpdated;
             Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
+            Gateway.UserGuildSettingsUpdated += Gateway_UserGuildSettingsUpdated;
             Gateway.UserSettingsUpdated += Gateway_UserSettingsUpdated;
 
             Gateway.VoiceServerUpdated += Gateway_VoiceServerUpdated;
@@ -150,10 +156,16 @@ namespace Quarrel.Services.Gateway
             var channel = GuildsService.GetChannel(e.EventData.ChannelId);
             if (channel != null)
             {
+                channel.UpdateLMID(e.EventData.Id);
+
                 if (channel.IsDirectChannel || channel.IsGroupChannel || e.EventData.Mentions.Any(x => x.Id == currentUser.Id) ||
                     e.EventData.MentionEveryone)
+                {
                     channel.ReadState.MentionCount++;
-                channel.UpdateLMID(e.EventData.Id);
+                    int oldIndex = GuildsService.Guilds["DM"].Channels.IndexOf(channel);
+                    GuildsService.Guilds["DM"].Channels.Move(oldIndex, 0);
+                }
+
             }
 
             if (e.EventData.User == null)
@@ -214,6 +226,16 @@ namespace Quarrel.Services.Gateway
             Messenger.Default.Send(new GatewayGuildChannelUpdatedMessage(e.EventData));
         }
 
+        private void Gateway_DirectMessageChannelCreated(object sender, GatewayEventArgs<DirectMessageChannel> e)
+        {
+            Messenger.Default.Send(new GatewayDirectMessageChannelCreatedMessage(e.EventData));
+        }
+
+        private void Gateway_DirectMessageChannelDeleted(object sender, GatewayEventArgs<DirectMessageChannel> e)
+        {
+            Messenger.Default.Send(new GatewayDirectMessageChannelDeletedMessage(e.EventData));
+        }
+
         #endregion
 
         private void Gateway_TypingStarted(object sender, GatewayEventArgs<TypingStart> e)
@@ -241,6 +263,18 @@ namespace Quarrel.Services.Gateway
         {
             CacheService.Runtime.SetValue(Constants.Cache.Keys.Note, e.EventData.Note, e.EventData.UserId);
             Messenger.Default.Send(new GatewayNoteUpdatedMessage(e.EventData.UserId));
+        }
+
+        private void Gateway_UserGuildSettingsUpdated(object sender, GatewayEventArgs<GuildSetting> e)
+        {
+            CurrentUsersService.GuildSettings.AddOrUpdate(e.EventData.GuildId ?? "DM", e.EventData);
+
+            foreach (var channel in e.EventData.ChannelOverrides)
+            {
+                CurrentUsersService.ChannelSettings.AddOrUpdate(channel.ChannelId, channel);
+            }
+
+            Messenger.Default.Send(new GatewayUserGuildSettingsUpdatedMessage(e.EventData));
         }
 
         private void Gateway_UserSettingsUpdated(object sender, GatewayEventArgs<UserSettings> e)

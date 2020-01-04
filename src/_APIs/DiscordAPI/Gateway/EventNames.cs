@@ -49,6 +49,7 @@ namespace DiscordAPI.Gateway
 
         public const string PRESENCE_UPDATED = "PRESENCE_UPDATE";
         public const string TYPING_START = "TYPING_START";
+        public const string USER_GUILD_SETTINGS_UPDATED = "USER_GUILD_SETTINGS_UPDATE";
         public const string USER_SETTINGS_UPDATED = "USER_SETTINGS_UPDATE";
         public const string USER_UPDATED = "USER_UPDATE";
         public const string USER_NOTE_UPDATED = "USER_NOTE_UPDATE";
