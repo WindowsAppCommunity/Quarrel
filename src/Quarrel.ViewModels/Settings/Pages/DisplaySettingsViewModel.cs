@@ -103,5 +103,10 @@ namespace Quarrel.ViewModels.Settings.Pages
             get => SettingsService.Roaming.GetValue<bool>(SettingKeys.ExpensiveRendering);
             set => SettingsService.Roaming.SetValue(SettingKeys.ExpensiveRendering, value, notify: true);
         }
+        public int FontSize
+        {
+            get => SettingsService.Roaming.GetValue<int>(SettingKeys.FontSize);
+            set => SettingsService.Roaming.SetValue(SettingKeys.FontSize, value, notify: true);
+        }
     }
 }
