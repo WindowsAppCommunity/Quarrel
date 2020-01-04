@@ -506,9 +506,33 @@ namespace Quarrel.Models.Bindables
         #region Commands
 
         private RelayCommand markAsRead;
-        public RelayCommand MarkAsRead => markAsRead = new RelayCommand(() =>
+        public RelayCommand MarkAsRead => markAsRead = new RelayCommand(async () =>
         {
-            _DiscordService.ChannelService.AckMessage(Model.Id, Model.LastMessageId);
+            await _DiscordService.ChannelService.AckMessage(Model.Id, Model.LastMessageId);
+        });
+
+        private RelayCommand mute;
+        public RelayCommand Mute => mute = new RelayCommand(async () =>
+        {
+            // Build basic Settings Modifier
+            GuildSettingModify guildSettingModify = new GuildSettingModify();
+            guildSettingModify.GuildId = GuildId;
+            guildSettingModify.ChannelOverrides = new Dictionary<string, ChannelOverride>();
+
+            ChannelOverride channelOverride;
+            if(!_CurrentUsersService.ChannelSettings.TryGetValue(Model.Id, out channelOverride))
+            {
+                // No pre-exisitng channeloverride, create a default
+                channelOverride = new ChannelOverride();
+                channelOverride.ChannelId = Model.Id;
+                channelOverride.Muted = false; // Will be swapped later
+            }
+
+            channelOverride.Muted = !channelOverride.Muted;
+
+            // Finish Settings Modifer and send request
+            guildSettingModify.ChannelOverrides.Add(Model.Id, channelOverride);
+            await _DiscordService.UserService.ModifyGuildSettings(GuildId, guildSettingModify);
         });
 
         #endregion

@@ -33,7 +33,7 @@
         <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
             <!--Shared-->
             <MenuFlyoutItem Text="Mark as read" Visibility="{x:Bind ViewModel.IsTypingChannel, Mode=OneWay}" IsEnabled="{x:Bind ViewModel.IsUnread, Mode=OneWay}" Command="{x:Bind ViewModel.MarkAsRead, Mode=OneWay}"/>
-            <ToggleMenuFlyoutItem Text="Mute" Visibility="{x:Bind ViewModel.IsTypingChannel, Mode=OneWay}"/>
+            <ToggleMenuFlyoutItem Text="Mute" IsChecked="{x:Bind ViewModel.Muted, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsTypingChannel, Mode=OneWay}" Command="{x:Bind ViewModel.Mute, Mode=OneWay}"/>
             <!--<MenuFlyoutItem Text="Channel Settings" Visibility="{x:Bind ViewModel.IsGuildChannel, Mode=OneWay}"/>-->
             <!--Text Channel-->
             <MenuFlyoutSubItem Text="Notifications" IsEnabled="False" Visibility="{x:Bind ViewModel.IsTextChannel, Mode=OneWay}"/>
