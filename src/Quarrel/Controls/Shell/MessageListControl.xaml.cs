@@ -65,15 +65,15 @@ namespace Quarrel.Views
                 double fromTop = _MessageScrollViewer.VerticalOffset;
 
                 //Distance from bottom
-                //double fromBottom = _MessageScrollViewer.ScrollableHeight - fromTop;
+                double fromBottom = _MessageScrollViewer.ScrollableHeight - fromTop;
 
                 // Load messages
                 if (fromTop < 100)
                     ViewModel.LoadOlderMessages();
 
-                // Currently always loads bottom
-                //if (fromBottom < 200)
-                //    ViewModel.LoadNewerMessages();
+                // All messages seen
+                if (fromBottom < 10)
+                    ViewModel.MarkChannelRead();
             }
         }
 
