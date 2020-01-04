@@ -86,8 +86,10 @@ namespace DiscordAPI.Gateway
 
         public event EventHandler<GatewayEventArgs<Presence>> PresenceUpdated;
         public event EventHandler<GatewayEventArgs<TypingStart>> TypingStarted;
+
         public event EventHandler<GatewayEventArgs<UserNote>> UserNoteUpdated;
         public event EventHandler<GatewayEventArgs<UserSettings>> UserSettingsUpdated;
+        public event EventHandler<GatewayEventArgs<GuildSetting>> UserGuildSettingsUpdated;
 
         public event EventHandler<GatewayEventArgs<VoiceState>> VoiceStateUpdated;
         public event EventHandler<GatewayEventArgs<VoiceServerUpdate>> VoiceServerUpdated;
@@ -225,7 +227,6 @@ namespace DiscordAPI.Gateway
                 }
                 else
                 {
-
                     Logger?.LogDebug($"Unknown message:" +
                                      $"\n\tOperation: {frame.Operation}" +
                                      $"\n\tSequenceNumber: {frame.SequenceNumber}" +
@@ -339,6 +340,7 @@ namespace DiscordAPI.Gateway
                 { EventNames.FRIEND_REMOVED, OnRelationShipRemoved },
                 { EventNames.FRIEND_UPDATE, OnRelationShipUpdated },
                 { EventNames.USER_NOTE_UPDATED, OnUserNoteUpdated },
+                { EventNames.USER_GUILD_SETTINGS_UPDATED, OnUserGuildSettingsUpdated },
                 { EventNames.USER_SETTINGS_UPDATED, OnUserSettingsUpdated },
                 { EventNames.VOICE_STATE_UPDATED,  OnVoiceStatusUpdated },
                 { EventNames.VOICE_SERVER_UPDATED, OnVoiceServerUpdated },
@@ -737,6 +739,11 @@ namespace DiscordAPI.Gateway
         private void OnVoiceServerUpdated(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, VoiceServerUpdated);
+        }
+
+        private void OnUserGuildSettingsUpdated(SocketFrame gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, UserGuildSettingsUpdated);
         }
 
         private void OnUserSettingsUpdated(SocketFrame gatewayEvent)

@@ -25,6 +25,7 @@ using Quarrel.Services.Users;
 using Refit;
 using Quarrel.ViewModels.Messages;
 using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Messages.Gateway;
 
 namespace Quarrel.Services.Gateway
 {
@@ -87,6 +88,7 @@ namespace Quarrel.Services.Gateway
 
             Gateway.PresenceUpdated += Gateway_PresenceUpdated;
             Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
+            Gateway.UserGuildSettingsUpdated += Gateway_UserGuildSettingsUpdated;
             Gateway.UserSettingsUpdated += Gateway_UserSettingsUpdated;
 
             Gateway.VoiceServerUpdated += Gateway_VoiceServerUpdated;
@@ -241,6 +243,18 @@ namespace Quarrel.Services.Gateway
         {
             CacheService.Runtime.SetValue(Constants.Cache.Keys.Note, e.EventData.Note, e.EventData.UserId);
             Messenger.Default.Send(new GatewayNoteUpdatedMessage(e.EventData.UserId));
+        }
+
+        private void Gateway_UserGuildSettingsUpdated(object sender, GatewayEventArgs<GuildSetting> e)
+        {
+            CurrentUsersService.GuildSettings.AddOrUpdate(e.EventData.GuildId, e.EventData);
+
+            foreach (var channel in e.EventData.ChannelOverrides)
+            {
+                CurrentUsersService.ChannelSettings.AddOrUpdate(channel.ChannelId, channel);
+            }
+
+            Messenger.Default.Send(new GatewayUserGuildSettingsUpdatedMessage(e.EventData));
         }
 
         private void Gateway_UserSettingsUpdated(object sender, GatewayEventArgs<UserSettings> e)

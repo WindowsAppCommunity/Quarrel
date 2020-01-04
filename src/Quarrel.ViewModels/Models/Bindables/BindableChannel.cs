@@ -21,6 +21,7 @@ using Quarrel.Messages.Navigation;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using System.Collections.Concurrent;
 using GalaSoft.MvvmLight.Command;
+using Quarrel.ViewModels.Messages.Gateway;
 
 namespace Quarrel.Models.Bindables
 {
@@ -53,6 +54,17 @@ namespace Quarrel.Models.Bindables
                         ConnectedUsers.Remove(e.VoiceState.UserId);
                     }
                 });
+            });
+
+            MessengerInstance.Register<GatewayUserGuildSettingsUpdatedMessage>(this, async m =>
+            {
+                if (m.Settings.GuildId == GuildId)
+                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        ChannelOverride channelOverride;
+                        if(_CurrentUsersService.ChannelSettings.TryGetValue(Model.Id, out channelOverride))
+                            Muted = channelOverride.Muted;
+                    });
             });
 
             MessengerInstance.Register<ChannelNavigateMessage>(this, async m =>
@@ -186,7 +198,14 @@ namespace Quarrel.Models.Bindables
         public bool Muted
         {
             get => _Muted;
-            set => Set(ref _Muted, value);
+            set 
+            {
+                if (Set(ref _Muted, value))
+                {
+                    RaisePropertyChanged(nameof(TextOpacity));
+                    RaisePropertyChanged(nameof(ShowUnread));
+                }
+            }
         }
 
         #endregion
