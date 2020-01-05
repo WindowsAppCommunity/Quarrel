@@ -56,7 +56,7 @@ namespace Quarrel.SubPages
             if (SimpleIoc.Default.GetInstance<ICurrentUsersService>().Friends.TryGetValue(_Profile.user.Id, out var bindableFriend))
                 _Profile.Friend = bindableFriend.Model;
             else
-                _Profile.Friend = new Friend() { Type = 0, Id = ViewModel.Model.User.Id, user = ViewModel.Model.User };
+                _Profile.Friend = new Friend() { Type = 0, Id = ViewModel.Model.User.Id, User = ViewModel.Model.User };
 
 
             if (!ViewModel.Model.User.Bot)

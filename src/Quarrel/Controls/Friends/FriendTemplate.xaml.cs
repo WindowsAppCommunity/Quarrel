@@ -1,4 +1,5 @@
 ﻿using Quarrel.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,6 +26,6 @@ namespace Quarrel.Controls.Friends
             this.InitializeComponent();
         }
 
-        public BindableUser ViewModel => DataContext as BindableUser;
+        public BindableFriend ViewModel => DataContext as BindableFriend;
     }
 }

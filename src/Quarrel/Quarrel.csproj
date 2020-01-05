@@ -303,6 +303,7 @@
     <Compile Include="Converters\Channel\SelectedToOpacityConverter.cs" />
     <Compile Include="Converters\Channel\TypeToBrushConverter.cs" />
     <Compile Include="Converters\Channel\TypeToMinHeight.cs" />
+    <Compile Include="Converters\Discord\DiscrimatorPrefixConveter.cs" />
     <Compile Include="Converters\Discord\DiscriminatorToBrushConverter.cs" />
     <Compile Include="Converters\Discord\PresenseToColorConverter.cs" />
     <Compile Include="Converters\Discord\PresenseToBrushConverter.cs" />
