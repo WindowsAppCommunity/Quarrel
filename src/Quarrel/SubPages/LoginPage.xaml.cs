@@ -122,8 +122,6 @@ namespace Quarrel.SubPages
 "
             });
 
-            Logger.LogInformation($"GetTokenFromWebView - {token}");
-
             return string.IsNullOrEmpty(token) ? "" : token.Trim('"');
         }
     }
