@@ -35,7 +35,7 @@ namespace Quarrel.ViewModels.Helpers
                 //public const string ReadState = nameof(ReadState);
                 //public const string Presence = nameof(Presence);
 
-                public const string Friend = nameof(Friend);
+                //public const string Friend = nameof(Friend);
 
                 //public const string CurrentUser = nameof(CurrentUser);
                 public const string Note = nameof(Note);

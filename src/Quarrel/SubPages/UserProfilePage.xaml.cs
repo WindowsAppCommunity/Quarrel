@@ -22,6 +22,7 @@ using Quarrel.Navigation;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Rest;
 using Windows.UI.Xaml.Media.Animation;
+using Quarrel.Services.Users;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -52,8 +53,11 @@ namespace Quarrel.SubPages
             else
                 _Profile = new UserProfile() { user = ViewModel.Model.User };
 
-            _Profile.Friend = cacheService.Runtime.TryGetValue<Friend>(ViewModels.Helpers.Constants.Cache.Keys.Friend, ViewModel.Model.User.Id) ??
-                              new Friend() { Type = 0, Id = ViewModel.Model.User.Id, user = ViewModel.Model.User };
+            if (SimpleIoc.Default.GetInstance<ICurrentUsersService>().Friends.TryGetValue(_Profile.user.Id, out var bindableFriend))
+                _Profile.Friend = bindableFriend.Model;
+            else
+                _Profile.Friend = new Friend() { Type = 0, Id = ViewModel.Model.User.Id, user = ViewModel.Model.User };
+
 
             if (!ViewModel.Model.User.Bot)
                 _Profile.SharedFriends = await discordService.UserService.GetUserReleations(ViewModel.Model.User.Id);

@@ -14,6 +14,7 @@ using Quarrel.Services.Rest;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Gateway;
 using Quarrel.Services.Users;
+using Quarrel.ViewModels.Models.Bindables;
 
 namespace DiscordAPI.Gateway.DownstreamEvents
 {
@@ -61,7 +62,7 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
             foreach (var friend in ready.Friends)
             {
-                cacheService.Runtime.SetValue(Constants.Cache.Keys.Friend, friend, friend.Id);
+                currentUsersService.Friends.AddOrUpdate(friend.Id, new BindableFriend(friend));
             }
 
             #endregion
