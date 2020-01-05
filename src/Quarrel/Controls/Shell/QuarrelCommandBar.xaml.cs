@@ -76,6 +76,11 @@ namespace Quarrel.Controls.Shell
         {
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("SettingsPage");
         }
+
+        private void ChannelNameTapped(object sender, TappedRoutedEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("TopicPage", Channel);
+        }
     }
 
     public class OpenDownCommandBarVisualStateManager : VisualStateManager

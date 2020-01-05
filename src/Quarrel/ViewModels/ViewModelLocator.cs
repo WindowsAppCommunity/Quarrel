@@ -36,11 +36,12 @@ namespace Quarrel.ViewModels
         public ViewModelLocator()
         {
             var navigationService = new SubFrameNavigationService();
-            navigationService.Configure("LoginPage", typeof(LoginPage));
-            navigationService.Configure("SettingsPage", typeof(SettingsPage));
-            navigationService.Configure("UserProfilePage", typeof(UserProfilePage));
             navigationService.Configure("AddChannelPage", typeof(AddChannelPage));
             navigationService.Configure("AttachmentPage", typeof(AttachmentPage));
+            navigationService.Configure("LoginPage", typeof(LoginPage));
+            navigationService.Configure("SettingsPage", typeof(SettingsPage));
+            navigationService.Configure("TopicPage", typeof(TopicPage));
+            navigationService.Configure("UserProfilePage", typeof(UserProfilePage));
 
             SimpleIoc.Default.Register<IDispatcherHelper, DispatcherHelperEx>();
             SimpleIoc.Default.Register<ISubFrameNavigationService>(() => navigationService);

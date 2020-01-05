@@ -185,7 +185,11 @@ namespace Quarrel.Models.Bindables
 
         public bool IsGuildChannel => !IsPrivateChannel;
 
+        public GuildChannel AsGuildChannel => Model as GuildChannel;
+
         public bool IsPrivateChannel => IsDirectChannel || IsGroupChannel;
+
+        public DirectMessageChannel AsDMChannel => Model as DirectMessageChannel;
 
 
         public bool IsTypingChannel => IsCategory || IsTextChannel || IsDirectChannel || IsGroupChannel;
