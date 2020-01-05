@@ -144,6 +144,9 @@
     <Compile Include="Controls\Channels\VoiceMemberControl.xaml.cs">
       <DependentUpon>VoiceMemberControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Friends\FriendTemplate.xaml.cs">
+      <DependentUpon>FriendTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Guilds\GuildTemplate.xaml.cs">
       <DependentUpon>GuildTemplate.xaml</DependentUpon>
     </Compile>
@@ -267,6 +270,9 @@
     </Compile>
     <Compile Include="Controls\Shell\ExtendedSplashScreen.xaml.cs">
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Shell\FriendListControl.xaml.cs">
+      <DependentUpon>FriendListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Shell\QuarrelCommandBar.xaml.cs">
       <DependentUpon>QuarrelCommandBar.xaml</DependentUpon>
@@ -541,6 +547,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Friends\FriendTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Guilds\GuildTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -582,6 +592,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Shell\CurrentUserButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Shell\FriendListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

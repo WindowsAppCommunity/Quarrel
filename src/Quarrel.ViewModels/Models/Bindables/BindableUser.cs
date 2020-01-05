@@ -13,11 +13,7 @@ namespace Quarrel.Models.Bindables
 {
     public class BindableUser : BindableModelBase<User>, IEquatable<BindableUser>, IComparable<BindableUser>
     {
-
-        public BindableUser([NotNull] User model) : base(model)
-        {
-
-        }
+        public BindableUser([NotNull] User model) : base(model) { }
 
         public bool Equals(BindableUser other)
         {
@@ -35,7 +31,6 @@ namespace Quarrel.Models.Bindables
         }
 
         private Presence presence;
-
         public Presence Presence
         {
             get => presence;
