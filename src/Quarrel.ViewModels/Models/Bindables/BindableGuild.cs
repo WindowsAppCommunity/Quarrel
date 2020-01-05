@@ -22,6 +22,7 @@ using Quarrel.Navigation;
 using Quarrel.Services.Users;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Services.Clipboard;
 
 namespace Quarrel.Models.Bindables
 {
@@ -216,6 +217,12 @@ namespace Quarrel.Models.Bindables
         public RelayCommand MarkAsRead => markAsRead = new RelayCommand(() =>
         {
             SimpleIoc.Default.GetInstance<IDiscordService>().GuildService.AckGuild(Model.Id);
+        });
+
+        private RelayCommand copyId;
+        public RelayCommand CopyId => copyId = new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(Model.Id);
         });
     }
 }
