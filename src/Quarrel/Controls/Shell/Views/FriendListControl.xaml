@@ -34,7 +34,7 @@
             </ListViewItem>
             <ListViewItem Content="BLOCKED" FontSize="13.333" FontWeight="SemiBold" Padding="24,0" MinWidth="0"/>
         </ListView>
-        <Pivot x:Name="pivot" Grid.Row="1" Margin="24,0">
+        <Pivot x:Name="pivot" Grid.Row="1" Margin="0,0,12,0" Padding="12,0,12,0">
             <!--<PivotItem x:Name="ActivitiesPI" Margin="0,-48,0,0">
                 <GridView x:Name="Feed" Padding="0" SelectionMode="None" VerticalAlignment="Top">
                     <GridView.ItemTemplate>
@@ -109,8 +109,8 @@
                     </ListView.Header>-->
                 </ListView>
             </PivotItem>
-            <PivotItem Margin="0,-48,0,0">
-                <ListView Padding="12,12,12,0" Margin="0" SelectionMode="None" ItemContainerStyle="{StaticResource ChannelListItemStyle}"
+            <PivotItem>
+                <ListView Margin="0,-48,0,0" SelectionMode="None" ItemContainerStyle="{StaticResource ChannelListItemStyle}"
                           ItemsSource="{x:Bind ViewModel.BindablePendingFriends, Mode=OneWay}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -119,8 +119,8 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </PivotItem>
-            <PivotItem Margin="0,-48,0,0">
-                <ListView Padding="12,12,12,0" Margin="0" SelectionMode="None" ItemContainerStyle="{StaticResource ChannelListItemStyle}"
+            <PivotItem>
+                <ListView Margin="0,-48,0,0" SelectionMode="None" ItemContainerStyle="{StaticResource ChannelListItemStyle}"
                           ItemsSource="{x:Bind ViewModel.BindableBlockedUsers, Mode=OneWay}">
                     <ListView.ItemTemplate>
                         <DataTemplate>

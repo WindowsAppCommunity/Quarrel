@@ -20,7 +20,7 @@
         <discordconvert:DiscrimatorPrefixConveter x:Key="DiscrimatorPrefixConveter"/>
     </UserControl.Resources>
     
-    <Grid VerticalAlignment="Top" Margin="0,6">
+    <Grid Padding="24,12,24,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -37,7 +37,7 @@
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
         </Button>
-        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,12,0,0">
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="6,0">
             <HyperlinkButton Foreground="{ThemeResource Foreground}" Padding="0,0,0,0">
                 <!--<HyperlinkButton.ContextFlyout>
                     TODO: MemberFlyout
@@ -80,6 +80,5 @@
                 <SymbolIcon Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top"/>
             </Button>
         </StackPanel>
-        <Rectangle Grid.ColumnSpan="4" Fill="{ThemeResource InvertedBG}" Opacity="0.2" VerticalAlignment="Bottom" Height="1" Margin="0,0,0,-9"/>
     </Grid>
 </UserControl>

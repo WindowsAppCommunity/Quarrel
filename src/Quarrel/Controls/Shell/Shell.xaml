@@ -67,7 +67,7 @@
         <Rectangle x:Name="TitleBarHolder" Canvas.ZIndex="1" Fill="{ThemeResource AcrylicCommandBarBackground}" Height="32"/>
 
         <local:QuarrelCommandBar x:Name="SmallViewCommandBar" Visibility="{x:Bind IsViewLarge, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
-                                 Grid.Row="1" Canvas.ZIndex="1" Background="{ThemeResource AcrylicCommandBarBackground}" HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked"/>
+                                 Grid.Row="1" Background="{ThemeResource AcrylicCommandBarBackground}" HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked"/>
 
         <local:SideDrawer x:Name="ContentContainer" Grid.Row="2">
             <local:SideDrawer.ContentLeft>
@@ -95,12 +95,12 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <local:QuarrelCommandBar x:Name="LargeViewCommandBar" Visibility="{x:Bind IsViewLarge, Mode=OneWay}" Canvas.ZIndex="1" Background="{StaticResource AcrylicMessageBackground}"
+                    <local:QuarrelCommandBar x:Name="LargeViewCommandBar" Visibility="{x:Bind IsViewLarge, Mode=OneWay}" Background="{StaticResource AcrylicMessageBackground}"
                                              HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked" ShowHamburger="True"/>
 
                     <views:MessageListControl Grid.Row="1"/>
                     
-                    <views:FriendListControl Grid.Row="1" Visibility="{x:Bind ViewModel.Channel, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"/>
+                    <views:FriendListControl Grid.Row="1" Visibility="{x:Bind ViewModel.Channel, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}" Margin="0,-40,0,0"/>
                 </Grid>
             </local:SideDrawer.ContentMain>
             <local:SideDrawer.ContentRight>
