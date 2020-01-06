@@ -271,7 +271,7 @@
     <Compile Include="Controls\Shell\ExtendedSplashScreen.xaml.cs">
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\FriendListControl.xaml.cs">
+    <Compile Include="Controls\Shell\Views\FriendListControl.xaml.cs">
       <DependentUpon>FriendListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Shell\QuarrelCommandBar.xaml.cs">
@@ -412,16 +412,16 @@
     <Compile Include="TemplateSelectors\EmbedTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\MessageTemplateSelector.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Compile Include="Controls\Shell\ChannelListControl.xaml.cs">
+    <Compile Include="Controls\Shell\Views\ChannelListControl.xaml.cs">
       <DependentUpon>ChannelListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\GuildListControl.xaml.cs">
+    <Compile Include="Controls\Shell\Views\GuildListControl.xaml.cs">
       <DependentUpon>GuildListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\MemberListControl.xaml.cs">
+    <Compile Include="Controls\Shell\Views\MemberListControl.xaml.cs">
       <DependentUpon>MemberListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\MessageListControl.xaml.cs">
+    <Compile Include="Controls\Shell\Views\MessageListControl.xaml.cs">
       <DependentUpon>MessageListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
@@ -596,7 +596,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\FriendListControl.xaml">
+    <Page Include="Controls\Shell\Views\FriendListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -738,19 +738,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\ChannelListControl.xaml">
+    <Page Include="Controls\Shell\Views\ChannelListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\GuildListControl.xaml">
+    <Page Include="Controls\Shell\Views\GuildListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\MemberListControl.xaml">
+    <Page Include="Controls\Shell\Views\MemberListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\MessageListControl.xaml">
+    <Page Include="Controls\Shell\Views\MessageListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

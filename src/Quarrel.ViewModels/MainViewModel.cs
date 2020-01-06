@@ -26,6 +26,7 @@ using Quarrel.ViewModels.Services.DispatcherHelper;
 using System.Collections.Concurrent;
 using Quarrel.ViewModels.Services;
 using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Models.Bindables;
 
 namespace Quarrel.ViewModels
 {
@@ -343,6 +344,9 @@ namespace Quarrel.ViewModels
                     {
                         // Show guilds
                         BindableGuilds.AddRange(GuildsService.Guilds.Values.OrderBy(x => x.Position));
+                        BindableCurrentFriends.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsFriend));
+                        BindablePendingFriends.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsIncoming || x.IsOutgoing));
+                        BindableBlockedUsers.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsBlocked));
                     });
                 }
             });
@@ -812,6 +816,14 @@ namespace Quarrel.ViewModels
         public ObservableRangeCollection<BindableMessage> BindableMessages { get; private set; } = new ObservableRangeCollection<BindableMessage>();
         [NotNull]
         public ObservableSortedGroupedCollection<Role, BindableGuildMember> BindableMembers { get; set; } = new ObservableSortedGroupedCollection<Role, BindableGuildMember>(x => x.TopHoistRole, x => -x.Position);
+
+        [NotNull]
+        public ObservableRangeCollection<BindableFriend> BindableCurrentFriends { get; set; } = new ObservableRangeCollection<BindableFriend>();
+        [NotNull]
+        public ObservableRangeCollection<BindableFriend> BindablePendingFriends { get; set; } = new ObservableRangeCollection<BindableFriend>();
+        [NotNull]
+        public ObservableRangeCollection<BindableFriend> BindableBlockedUsers { get; set; } = new ObservableRangeCollection<BindableFriend>();
+
         #endregion
     }
 }

@@ -8,7 +8,7 @@
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:md="using:Quarrel.Controls.Markdown"
     xmlns:ads="using:Quarrel.Controls.NativeAds"
-    xmlns:views="using:Quarrel.Views"
+    xmlns:views="using:Quarrel.Controls.Shell.Views"
     xmlns:stateTriggers="using:Quarrel.StateTriggers"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -16,6 +16,8 @@
 
     <UserControl.Resources>
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
+        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+        <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -97,6 +99,8 @@
                                              HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked" ShowHamburger="True"/>
 
                     <views:MessageListControl Grid.Row="1"/>
+                    
+                    <views:FriendListControl Grid.Row="1" Visibility="{x:Bind ViewModel.Channel, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"/>
                 </Grid>
             </local:SideDrawer.ContentMain>
             <local:SideDrawer.ContentRight>

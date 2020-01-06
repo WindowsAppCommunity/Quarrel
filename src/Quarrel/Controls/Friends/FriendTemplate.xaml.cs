@@ -24,6 +24,11 @@ namespace Quarrel.Controls.Friends
         public FriendTemplate()
         {
             this.InitializeComponent();
+
+            this.DataContextChanged += (s, e) =>
+            {
+                this.Bindings.Update();
+            };
         }
 
         public BindableFriend ViewModel => DataContext as BindableFriend;

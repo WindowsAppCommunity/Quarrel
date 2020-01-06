@@ -36,7 +36,6 @@ namespace Quarrel.Controls.Shell
             this.InitializeComponent();
         }
 
-
         private async void StatusSelected(object sender, RoutedEventArgs e)
         {
             string status = (sender as RadioButton).Tag.ToString();

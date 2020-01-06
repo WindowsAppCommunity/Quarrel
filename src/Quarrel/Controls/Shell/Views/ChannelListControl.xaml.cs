@@ -1,4 +1,8 @@
-﻿using System;
+﻿using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Messaging;
+using Quarrel.Models.Bindables;
+using Quarrel.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,13 +19,14 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Quarrel.Controls.Shell
+namespace Quarrel.Controls.Shell.Views
 {
-    public sealed partial class FriendListControl : UserControl
+    public sealed partial class ChannelListControl : UserControl
     {
-        public FriendListControl()
+        public ChannelListControl()
         {
             this.InitializeComponent();
         }
+        public MainViewModel ViewModel => App.ViewModelLocator.Main;
     }
 }

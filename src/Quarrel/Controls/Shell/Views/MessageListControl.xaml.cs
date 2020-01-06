@@ -23,7 +23,7 @@ using Quarrel.Helpers;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Quarrel.Views
+namespace Quarrel.Controls.Shell.Views
 {
     public sealed partial class MessageListControl : UserControl
     {
