@@ -211,15 +211,28 @@ namespace Quarrel.ViewModels
             });
             MessengerInstance.Register<GatewayMessageRecievedMessage>(this, async m =>
             {
-                if (Channel != null && Channel.Model.Id == m.Message.ChannelId)
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                if (GuildsService.CurrentChannels.TryGetValue(m.Message.ChannelId, out var channel))
+                {
+                    channel.UpdateLMID(m.Message.Id);
+
+                    if (channel.IsDirectChannel || channel.IsGroupChannel || m.Message.Mentions.Any(x => x.Id == CurrentUsersService.CurrentUser.Model.Id) ||
+                        m.Message.MentionEveryone)
                     {
-                        if (GuildsService.CurrentChannels.TryGetValue(m.Message.ChannelId, out var currentChannel))
+                        DispatcherHelper.CheckBeginInvokeOnUi(() =>
                         {
-                            currentChannel.Typers.TryRemove(m.Message.User.Id, out var _);
-                            BindableMessages.Add(new BindableMessage(m.Message, currentChannel.Guild.Model.Id ?? "DM", (BindableMessages.LastOrDefault(x => x.Model.Id != "Ad")).Model));
-                        }
-                    });
+                            channel.ReadState.MentionCount++;
+                            int oldIndex = GuildsService.Guilds["DM"].Channels.IndexOf(channel);
+                            GuildsService.Guilds["DM"].Channels.Move(oldIndex, 0);
+                        });
+                    }
+
+                    if (Channel != null && Channel.Model.Id == channel.Model.Id)
+                        DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                        {
+                            channel.Typers.TryRemove(m.Message.User.Id, out var _);
+                            BindableMessages.Add(new BindableMessage(m.Message, channel.Guild.Model.Id ?? "DM", BindableMessages.LastOrDefault(x => x.Model.Id != "Ad").Model));
+                        });
+                }
             });
             MessengerInstance.Register<GatewayMessageDeletedMessage>(this, async m =>
             {

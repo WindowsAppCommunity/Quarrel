@@ -30,5 +30,10 @@ namespace Quarrel.Controls.Shell.Views
         }
 
         public MainViewModel ViewModel => App.ViewModelLocator.Main;
+
+        private void UISize_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        {
+
+        }
     }
 }
