@@ -10,59 +10,23 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid Margin="-12,0">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="UISize" CurrentStateChanged="UISize_CurrentStateChanged">
-                <VisualState x:Name="Small">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger x:Name="SmallTrigger" MinWindowWidth="0"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="PagesList.Margin" Value="0,0,0,0"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Medium">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger x:Name="MediumTrigger" MinWindowWidth="350"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="PagesList.Margin" Value="0,0,0,0"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Large">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger x:Name="LargeTrigger" MinWindowWidth="700"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="PagesList.Margin" Value="0,0,0,0"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="ExtraLarge">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger x:Name="ExtraLargeTrigger" MinWindowWidth="1000"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="PagesList.Margin" Value="0,0,0,0"/>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
+    <Grid Margin="-12,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="PagesList" Grid.ColumnSpan="2" SelectedIndex="{Binding SelectedIndex, ElementName=pivot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Margin="12,0,0,0" HorizontalAlignment="Left" ItemContainerStyle="{StaticResource ListViewItemExpanded}">
+        <ListView SelectedIndex="{Binding SelectedIndex, ElementName=pivot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Margin="12,0" HorizontalAlignment="Left" ItemContainerStyle="{StaticResource ListViewItemExpanded}">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsStackPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <!--<ListViewItem Content="ACTIVITES" FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="24,0"/>-->
-            <ListViewItem FontSize="13.333" FontWeight="SemiBold" Width="100">
+            <ListViewItem FontSize="13.333" FontWeight="SemiBold" Width="100" HorizontalContentAlignment="Center">
                 <TextBlock Text="FRIENDS" HorizontalAlignment="Center"/>
             </ListViewItem>
-            <ListViewItem FontSize="13.333" FontWeight="SemiBold" Width="100">
+            <ListViewItem FontSize="13.333" FontWeight="SemiBold" Width="100" HorizontalContentAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBlock Text="PENDING"/>
                     <Border Margin="6,0,0,-2" Background="{ThemeResource InvertedBG}" CornerRadius="2">
@@ -70,7 +34,7 @@
                     </Border>
                 </StackPanel>
             </ListViewItem>
-            <ListViewItem FontSize="13.333" FontWeight="SemiBold" Width="100">
+            <ListViewItem FontSize="13.333" FontWeight="SemiBold" Width="100" HorizontalContentAlignment="Center">
                 <TextBlock Text="BLOCKED" HorizontalAlignment="Center"/>
             </ListViewItem>
         </ListView>

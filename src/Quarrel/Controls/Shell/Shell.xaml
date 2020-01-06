@@ -98,7 +98,7 @@
 
                     <views:MessageListControl Grid.Row="1"/>
                     
-                    <views:FriendListControl Grid.Row="1" Visibility="{x:Bind ViewModel.Channel, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}" Margin="0,-40,0,0"/>
+                    <views:FriendListControl Grid.Row="1" Visibility="{x:Bind ViewModel.Channel, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"/>
                 </Grid>
             </local:SideDrawer.ContentMain>
             <local:SideDrawer.ContentRight>
