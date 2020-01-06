@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Navigation;
+using Quarrel.ViewModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -35,18 +36,13 @@ namespace Quarrel.Controls.Shell
             {
                 this.Bindings.Update();
             };
-
-            Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
-            {
-                DataContext = m.Channel;
-            });
         }
+
+        public MainViewModel ViewModel => App.ViewModelLocator.Main;
 
         public bool ShowHamburger { get; set; }
 
-        private BindableChannel Channel => DataContext as BindableChannel;
-
-        private GuildChannel GuildChannel { get => Channel != null ? Channel.Model as GuildChannel : null; }
+        private GuildChannel GuildChannel { get => ViewModel.Channel != null ? ViewModel.Channel.Model as GuildChannel : null; }
 
         private string ChannelTopic { get => GuildChannel != null ? GuildChannel.Topic : ""; }
 
@@ -79,7 +75,7 @@ namespace Quarrel.Controls.Shell
 
         private void ChannelNameTapped(object sender, TappedRoutedEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("TopicPage", Channel);
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("TopicPage", ViewModel.Channel);
         }
     }
 
