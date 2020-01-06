@@ -230,7 +230,8 @@ namespace Quarrel.ViewModels
                         DispatcherHelper.CheckBeginInvokeOnUi(() =>
                         {
                             channel.Typers.TryRemove(m.Message.User.Id, out var _);
-                            BindableMessages.Add(new BindableMessage(m.Message, channel.Guild.Model.Id ?? "DM", BindableMessages.LastOrDefault(x => x.Model.Id != "Ad").Model));
+                            var lastMessage = BindableMessages.LastOrDefault();
+                            BindableMessages.Add(new BindableMessage(m.Message, channel.Guild.Model.Id ?? "DM", lastMessage.Model.Id == "Ad" ? null : lastMessage.Model));
                         });
                 }
             });
