@@ -26,6 +26,7 @@ using Quarrel.ViewModels.Services.DispatcherHelper;
 using System.Collections.Concurrent;
 using Quarrel.ViewModels.Services;
 using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Models.Bindables;
 
 namespace Quarrel.ViewModels
 {
@@ -210,15 +211,29 @@ namespace Quarrel.ViewModels
             });
             MessengerInstance.Register<GatewayMessageRecievedMessage>(this, async m =>
             {
-                if (Channel != null && Channel.Model.Id == m.Message.ChannelId)
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                if (GuildsService.CurrentChannels.TryGetValue(m.Message.ChannelId, out var channel))
+                {
+                    channel.UpdateLMID(m.Message.Id);
+
+                    if (channel.IsDirectChannel || channel.IsGroupChannel || m.Message.Mentions.Any(x => x.Id == CurrentUsersService.CurrentUser.Model.Id) ||
+                        m.Message.MentionEveryone)
                     {
-                        if (GuildsService.CurrentChannels.TryGetValue(m.Message.ChannelId, out var currentChannel))
+                        DispatcherHelper.CheckBeginInvokeOnUi(() =>
                         {
-                            currentChannel.Typers.TryRemove(m.Message.User.Id, out var _);
-                            BindableMessages.Add(new BindableMessage(m.Message, currentChannel.Guild.Model.Id ?? "DM", (BindableMessages.LastOrDefault(x => x.Model.Id != "Ad")).Model));
-                        }
-                    });
+                            channel.ReadState.MentionCount++;
+                            int oldIndex = GuildsService.Guilds["DM"].Channels.IndexOf(channel);
+                            GuildsService.Guilds["DM"].Channels.Move(oldIndex, 0);
+                        });
+                    }
+
+                    if (Channel != null && Channel.Model.Id == channel.Model.Id)
+                        DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                        {
+                            channel.Typers.TryRemove(m.Message.User.Id, out var _);
+                            var lastMessage = BindableMessages.LastOrDefault();
+                            BindableMessages.Add(new BindableMessage(m.Message, channel.Guild.Model.Id ?? "DM", lastMessage.Model.Id == "Ad" ? null : lastMessage.Model));
+                        });
+                }
             });
             MessengerInstance.Register<GatewayMessageDeletedMessage>(this, async m =>
             {
@@ -343,6 +358,9 @@ namespace Quarrel.ViewModels
                     {
                         // Show guilds
                         BindableGuilds.AddRange(GuildsService.Guilds.Values.OrderBy(x => x.Position));
+                        BindableCurrentFriends.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsFriend));
+                        BindablePendingFriends.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsIncoming || x.IsOutgoing));
+                        BindableBlockedUsers.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsBlocked));
                     });
                 }
             });
@@ -812,6 +830,14 @@ namespace Quarrel.ViewModels
         public ObservableRangeCollection<BindableMessage> BindableMessages { get; private set; } = new ObservableRangeCollection<BindableMessage>();
         [NotNull]
         public ObservableSortedGroupedCollection<Role, BindableGuildMember> BindableMembers { get; set; } = new ObservableSortedGroupedCollection<Role, BindableGuildMember>(x => x.TopHoistRole, x => -x.Position);
+
+        [NotNull]
+        public ObservableRangeCollection<BindableFriend> BindableCurrentFriends { get; set; } = new ObservableRangeCollection<BindableFriend>();
+        [NotNull]
+        public ObservableRangeCollection<BindableFriend> BindablePendingFriends { get; set; } = new ObservableRangeCollection<BindableFriend>();
+        [NotNull]
+        public ObservableRangeCollection<BindableFriend> BindableBlockedUsers { get; set; } = new ObservableRangeCollection<BindableFriend>();
+
         #endregion
     }
 }

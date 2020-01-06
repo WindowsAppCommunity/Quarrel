@@ -18,6 +18,7 @@ using Quarrel.Models.Bindables;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
+using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services;
 
 namespace Quarrel.Services.Users
@@ -33,6 +34,8 @@ namespace Quarrel.Services.Users
 
         public ConcurrentDictionary<string, BindableGuildMember> DMUsers { get; } = 
             new ConcurrentDictionary<string, BindableGuildMember>();
+        public ConcurrentDictionary<string, BindableFriend> Friends { get; } =
+            new ConcurrentDictionary<string, BindableFriend>();
         public ConcurrentDictionary<string, GuildSetting> GuildSettings { get; } = 
             new ConcurrentDictionary<string, GuildSetting>();
         public ConcurrentDictionary<string, ChannelOverride> ChannelSettings { get; } = 

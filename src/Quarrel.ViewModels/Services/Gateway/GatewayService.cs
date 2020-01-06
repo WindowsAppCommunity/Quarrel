@@ -27,6 +27,7 @@ using Quarrel.ViewModels.Messages;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Gateway.Channels;
+using Quarrel.ViewModels.Services.DispatcherHelper;
 
 namespace Quarrel.Services.Gateway
 {
@@ -150,20 +151,6 @@ namespace Quarrel.Services.Gateway
         private void Gateway_MessageCreated(object sender, GatewayEventArgs<Message> e)
         {
             var currentUser = CurrentUsersService.CurrentUser.Model;
-            var channel = GuildsService.GetChannel(e.EventData.ChannelId);
-            if (channel != null)
-            {
-                channel.UpdateLMID(e.EventData.Id);
-
-                if (channel.IsDirectChannel || channel.IsGroupChannel || e.EventData.Mentions.Any(x => x.Id == currentUser.Id) ||
-                    e.EventData.MentionEveryone)
-                {
-                    channel.ReadState.MentionCount++;
-                    int oldIndex = GuildsService.Guilds["DM"].Channels.IndexOf(channel);
-                    GuildsService.Guilds["DM"].Channels.Move(oldIndex, 0);
-                }
-
-            }
 
             if (e.EventData.User == null)
                 e.EventData.User = currentUser;

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.Models;
 using Quarrel.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables;
 
 namespace Quarrel.Services.Users
 {
@@ -14,6 +15,7 @@ namespace Quarrel.Services.Users
     {
         ConcurrentDictionary<string, BindableGuildMember> Users { get; }
         ConcurrentDictionary<string, BindableGuildMember> DMUsers { get; }
+        ConcurrentDictionary<string, BindableFriend> Friends { get; }
         ConcurrentDictionary<string, GuildSetting> GuildSettings { get; }
         ConcurrentDictionary<string, ChannelOverride> ChannelSettings { get; }
 

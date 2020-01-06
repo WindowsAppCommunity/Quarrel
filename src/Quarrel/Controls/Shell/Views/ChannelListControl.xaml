@@ -1,8 +1,8 @@
 ﻿<UserControl
-    x:Class="Quarrel.Views.ChannelListControl"
+    x:Class="Quarrel.Controls.Shell.Views.ChannelListControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Quarrel.Controls.Channels"
+    xmlns:local="using:Quarrel.Controls.Shell.Views"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:convertbase="using:Quarrel.Converters.Base"
     xmlns:convertchannel="using:Quarrel.Converters.Channel"
@@ -455,7 +455,7 @@
                   SelectionMode="None"
                   helpers:ItemClickCommand.Command="{x:Bind ViewModel.NavigateChannelCommand}">
             <ListView.Header>
-                <local:ChannelListHeader DataContext="{x:Bind ViewModel.Guild, Mode=OneWay}"/>
+                <channelcontrols:ChannelListHeader DataContext="{x:Bind ViewModel.Guild, Mode=OneWay}"/>
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="bindables:BindableChannel">

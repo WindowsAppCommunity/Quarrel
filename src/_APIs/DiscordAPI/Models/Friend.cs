@@ -13,7 +13,7 @@ namespace DiscordAPI.Models
         [JsonProperty("id")]
         public string Id { get; set; }
         [JsonProperty("user")]
-        public User user { get; set; }
+        public User User { get; set; }
 
         /// <summary>
         /// Friend=1, Blocked=2, Incoming=3, Outgoing=4

@@ -70,6 +70,7 @@ namespace Quarrel.Controls.Shell
                 throw;
             }
         }
+        public MainViewModel ViewModel => App.ViewModelLocator.Main;
 
         private bool IsViewLarge => UISize.CurrentState == Large || UISize.CurrentState == ExtraLarge;
 

@@ -8,7 +8,7 @@
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:md="using:Quarrel.Controls.Markdown"
     xmlns:ads="using:Quarrel.Controls.NativeAds"
-    xmlns:views="using:Quarrel.Views"
+    xmlns:views="using:Quarrel.Controls.Shell.Views"
     xmlns:stateTriggers="using:Quarrel.StateTriggers"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -16,6 +16,8 @@
 
     <UserControl.Resources>
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
+        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+        <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -25,8 +27,6 @@
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger x:Name="SmallTrigger" MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                    </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Medium">
                     <VisualState.StateTriggers>
@@ -65,7 +65,7 @@
         <Rectangle x:Name="TitleBarHolder" Canvas.ZIndex="1" Fill="{ThemeResource AcrylicCommandBarBackground}" Height="32"/>
 
         <local:QuarrelCommandBar x:Name="SmallViewCommandBar" Visibility="{x:Bind IsViewLarge, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
-                                 Grid.Row="1" Canvas.ZIndex="1" Background="{ThemeResource AcrylicCommandBarBackground}" HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked"/>
+                                 Grid.Row="1" Background="{ThemeResource AcrylicCommandBarBackground}" HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked"/>
 
         <local:SideDrawer x:Name="ContentContainer" Grid.Row="2">
             <local:SideDrawer.ContentLeft>
@@ -93,10 +93,12 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <local:QuarrelCommandBar x:Name="LargeViewCommandBar" Visibility="{x:Bind IsViewLarge, Mode=OneWay}" Canvas.ZIndex="1" Background="{StaticResource AcrylicMessageBackground}"
+                    <local:QuarrelCommandBar x:Name="LargeViewCommandBar" Visibility="{x:Bind IsViewLarge, Mode=OneWay}" Background="{StaticResource AcrylicMessageBackground}"
                                              HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked" ShowHamburger="True"/>
 
                     <views:MessageListControl Grid.Row="1"/>
+                    
+                    <views:FriendListControl Grid.Row="1" Visibility="{x:Bind ViewModel.Channel, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"/>
                 </Grid>
             </local:SideDrawer.ContentMain>
             <local:SideDrawer.ContentRight>
