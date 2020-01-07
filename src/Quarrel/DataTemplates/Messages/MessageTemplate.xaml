@@ -130,14 +130,11 @@
     </DataTemplate>
 
     <DataTemplate x:Key="MessageTemplate" x:DataType="bindables:BindableMessage">
-        <UserControl>
+        <messages:MessageControl>
             <Grid x:Name="rootGrid" Padding="0,8,0,0">
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="VisualStateGroup">
                         <VisualState x:Name="Continuation">
-                            <VisualState.StateTriggers>
-                                <StateTrigger IsActive="{x:Bind IsContinuation, Mode=OneWay}"/>
-                            </VisualState.StateTriggers>
                             <VisualState.Setters>
                                 <Setter Target="row2.(Height)" Value="0"/>
                                 <Setter Target="rootGrid.(Padding)">
@@ -291,6 +288,6 @@
                     </ListView>
                 </Grid>
             </Grid>
-        </UserControl>
+        </messages:MessageControl>
     </DataTemplate>
 </ResourceDictionary>

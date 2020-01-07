@@ -179,7 +179,7 @@ namespace Quarrel.ViewModels
                     for (int i = itemList.Count()-1; i >= 0; i--)
                     {
                         var item = itemList.ElementAt(i);
-                        messages.Add(new BindableMessage(item, guildId, lastItem, lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId));
+                        messages.Add(new BindableMessage(item, guildId, lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId));
 
                         if (lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId)
                         {
@@ -191,7 +191,7 @@ namespace Quarrel.ViewModels
 
                         if (!SettingsService.Roaming.GetValue<bool>(SettingKeys.AdsRemoved) && i % 10 == 0)
                         {
-                            messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null, null));
+                            messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null));
                             lastItem = null;
                         }
                     }
@@ -231,7 +231,7 @@ namespace Quarrel.ViewModels
                         {
                             channel.Typers.TryRemove(m.Message.User.Id, out var _);
                             var lastMessage = BindableMessages.LastOrDefault();
-                            BindableMessages.Add(new BindableMessage(m.Message, channel.Guild.Model.Id ?? "DM", lastMessage.Model.Id == "Ad" ? null : lastMessage.Model));
+                            BindableMessages.Add(new BindableMessage(m.Message, channel.Guild.Model.Id ?? "DM"));
                         });
                 }
             });
@@ -685,12 +685,12 @@ namespace Quarrel.ViewModels
                     var item = itemList.ElementAt(i);
 
                     // Can't be last read item
-                    messages.Add(new BindableMessage(item, guildId, lastItem));
+                    messages.Add(new BindableMessage(item, guildId));
                     lastItem = item;
 
                     if (!SettingsService.Roaming.GetValue<bool>(SettingKeys.AdsRemoved) && i % 10 == 0)
                     {
-                        messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null, null));
+                        messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null));
                         lastItem = null;
                     }
                 }
@@ -724,12 +724,12 @@ namespace Quarrel.ViewModels
                         var item = itemList.ElementAt(i);
 
                         // Can't be last read item
-                        messages.Add(new BindableMessage(item, guildId, lastItem));
+                        messages.Add(new BindableMessage(item, guildId));
                         lastItem = item;
 
                         if (!SettingsService.Roaming.GetValue<bool>(SettingKeys.AdsRemoved) && i % 10 == 0)
                         {
-                            messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null, null));
+                            messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null));
                             lastItem = null;
                         }
                     }

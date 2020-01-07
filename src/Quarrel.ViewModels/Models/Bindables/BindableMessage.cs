@@ -22,10 +22,9 @@ namespace Quarrel.Models.Bindables
 
         private Message _previousMessage;
 
-        public BindableMessage([NotNull] Message model, [CanBeNull] string guildId, [CanBeNull] Message previousMessage, bool isLastRead = false) : base(model)
+        public BindableMessage([NotNull] Message model, [CanBeNull] string guildId, bool isLastRead = false) : base(model)
         {
             GuildId = guildId;
-            _previousMessage = previousMessage;
             IsLastReadMessage = isLastRead;
             channel = SimpleIoc.Default.GetInstance<IGuildsService>().CurrentChannels[Model.ChannelId];
         }
@@ -49,12 +48,6 @@ namespace Quarrel.Models.Bindables
         public string AuthorName => Author != null ? Author.Model.Nick ?? Author.Model.User.Username : Model.User.Username;
 
         public int AuthorColor => Author?.TopRole?.Color ?? -1;
-
-        public bool IsContinuation => !IsLastReadMessage &&
-                                      _previousMessage != null &&
-                                      _previousMessage.User.Id == Model.User.Id &&
-                                      _previousMessage.Type == 0 &&
-                                      Model.Timestamp.Subtract(_previousMessage.Timestamp).Minutes < 2;
 
         public IEnumerable<Reaction> Reactions {
             get =>
