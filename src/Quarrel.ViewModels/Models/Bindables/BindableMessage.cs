@@ -12,6 +12,7 @@ using Quarrel.Services.Users;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Collections.Generic;
+using Quarrel.Services.Rest;
 
 namespace Quarrel.Models.Bindables
 {
@@ -67,7 +68,33 @@ namespace Quarrel.Models.Bindables
                 });
         }
 
-        // TODO: Edit mode
+        private RelayCommand toggleEdit;
+        public RelayCommand ToggleEdit => toggleEdit = new RelayCommand(() =>
+        {
+            EditedText = Model.Content;
+            IsEditing = !IsEditing;
+        });
+
+        private RelayCommand saveEdit;
+        public RelayCommand SaveEdit => saveEdit = new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.EditMessage(Model.ChannelId, Model.Id, new DiscordAPI.API.Channel.Models.EditMessage() { Content = EditedText});
+            IsEditing = false;
+        });
+
+        private string editedText;
+        public string EditedText
+        {
+            get => editedText;
+            set => Set(ref editedText, value);
+        }
+
+        private bool isEditing;
+        public bool IsEditing
+        {
+            get => isEditing;
+            set => Set(ref isEditing, value);
+        }
 
         #endregion
 
