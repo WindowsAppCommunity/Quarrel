@@ -489,7 +489,6 @@ namespace Quarrel.ViewModels
 
         #region Messages
 
-
         private RelayCommand sendMessageCommand;
         public RelayCommand SendMessageCommand => sendMessageCommand ??= new RelayCommand(async () =>
         {
@@ -525,6 +524,20 @@ namespace Quarrel.ViewModels
             {
                 MessageText = "";
             });
+        });
+
+        private RelayCommand editLastMessageCommand;
+        public RelayCommand EditLastMessageCommand => editLastMessageCommand ??= new RelayCommand(async () =>
+        {
+            if (string.IsNullOrEmpty(MessageText))
+            {
+                var userLastMessage = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad" && x.Model.User.Id == CurrentUsersService.CurrentUser.Model.Id);
+                if (userLastMessage != null)
+                {
+                    userLastMessage.IsEditing = true;
+                    ScrollTo?.Invoke(this, userLastMessage);
+                }
+            }
         });
 
 
