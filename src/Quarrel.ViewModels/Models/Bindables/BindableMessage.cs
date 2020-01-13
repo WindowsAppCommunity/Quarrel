@@ -64,7 +64,6 @@ namespace Quarrel.Models.Bindables
         private RelayCommand toggleEdit;
         public RelayCommand ToggleEdit => toggleEdit = new RelayCommand(() =>
         {
-            EditedText = Model.Content;
             IsEditing = !IsEditing;
         });
 
@@ -86,7 +85,12 @@ namespace Quarrel.Models.Bindables
         public bool IsEditing
         {
             get => isEditing;
-            set => Set(ref isEditing, value);
+            set
+            {
+                EditedText = Model.Content;
+                Set(ref isEditing, value);
+            }
+                
         }
 
         #endregion
