@@ -17,15 +17,39 @@ namespace Quarrel.Models.Bindables
 {
     public class BindableGuildMember : BindableModelBase<GuildMember>, IEquatable<BindableGuildMember>, IComparable<BindableGuildMember>
     {
-        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
-        private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
-        private IGuildsService GuildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
+        #region Constructors
+
         public BindableGuildMember([NotNull] GuildMember model) : base(model) { }
 
-        public string GuildId { get; set; }
+        #endregion
+
+        #region Properties
+
+        #region Services
+
+        private IDiscordService discordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ICacheService cacheService { get; } = SimpleIoc.Default.GetInstance<ICacheService>();
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+
+        #endregion
+
+        #region Display 
+
+        public string DisplayName => Model.Nick ?? Model.User.Username;
+
+        public bool IsBot => Model.User.Bot;
+
+        public bool IsOwner { get; set; }
+
+        public bool HasNickname => !string.IsNullOrEmpty(Model.Nick);
+
+        public string Note => cacheService.Runtime.TryGetValue<string>(Constants.Cache.Keys.Note, Model.User.Id);
+
+        #endregion
+
+        #region Roles
 
         private List<Role> cachedRoles;
-
         public List<Role> Roles
         {
             get
@@ -72,31 +96,16 @@ namespace Quarrel.Models.Bindables
             }
         }
 
-        private Presence presence;
+        #endregion
 
+        public string GuildId { get; set; }
+
+        private Presence presence;
         public Presence Presence
         {
             get => presence;
             set => Set(ref presence, value);
         }
-
-        #region Display 
-
-        public string DisplayName => Model.Nick ?? Model.User.Username;
-
-        public bool IsBot => Model.User.Bot;
-
-        public bool IsOwner { get; set; } 
-
-        public bool HasNickname => !string.IsNullOrEmpty(Model.Nick);
-
-        public string Note => cacheService.Runtime.TryGetValue<string>(Constants.Cache.Keys.Note, Model.User.Id);
-
-        #endregion
-
-        #region Friend Actions
-
-
 
         #endregion
 
