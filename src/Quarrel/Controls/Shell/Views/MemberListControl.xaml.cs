@@ -10,6 +10,7 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Composition;
@@ -69,13 +70,41 @@ namespace Quarrel.Controls.Shell.Views
             return null;
         }
 
+        private long lastTime;
+
+        private Timer timer;
+
         private void MemberListControl_OnLoaded(object sender, RoutedEventArgs e)
         {
             // Todo: sticky headers
-            /* ScrollViewer sv = FindChildOfType<ScrollViewer>(MemberList);
-             ItemsStackPanel sp = FindChildOfType<ItemsStackPanel>(sv);
-             sv.ViewChanging += (sender1, args) =>
-             {
+            ScrollViewer sv = FindChildOfType<ScrollViewer>(MemberList);
+            ItemsStackPanel sp = FindChildOfType<ItemsStackPanel>(sv);
+            timer = new Timer((state) =>
+            {
+                double top = sv.VerticalOffset;
+                double bottom = sv.VerticalOffset + sv.ViewportHeight;
+                double total = sv.ScrollableHeight + sv.ViewportHeight;
+                ViewModel.UpdateGuildSubscriptionsCommand.Execute((top / total, bottom / total));
+            }, null, Timeout.Infinite, Timeout.Infinite);
+            sv.ViewChanging += (sender1, args) =>
+            {
+                long currentTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+                if (currentTime - lastTime > 100)
+                {
+                    timer.Change(Timeout.Infinite, Timeout.Infinite);
+                    double top = sv.VerticalOffset;
+                    double bottom = sv.VerticalOffset + sv.ViewportHeight;
+                    double total = sv.ScrollableHeight + sv.ViewportHeight;
+                    ViewModel.UpdateGuildSubscriptionsCommand.Execute((top / total, bottom / total));
+                }
+                else
+                {
+                    timer.Change(110, Timeout.Infinite);
+                }
+
+                lastTime = currentTime;
+                 /*
                  var child = (UIElement)VisualTreeHelper.GetChild(sp, 2);
                  UIElement item1 = FindChildOfType<TextBlock>(child);
                  TranslateTransform targetTransform1 = new TranslateTransform { X = 0, Y = 10 - sv.VerticalOffset };
@@ -98,8 +127,8 @@ namespace Quarrel.Controls.Shell.Views
                  rg.Transform = new CompositeTransform { TranslateY = sv.VerticalOffset + 49};
                  rg.Rect = new Rect(0, 0, 228, 4808);
                  sp.Clip = rg;
-                 Debug.WriteLine(sv.VerticalOffset);
-             };*/
+                 Debug.WriteLine(sv.VerticalOffset);*/
+             };
         }
     }
 }

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using DiscordAPI.Models;
+﻿using DiscordAPI.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -15,21 +7,28 @@ using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Navigation;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Models.Bindables;
+using Quarrel.Navigation;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Gateway;
 using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
-using Quarrel.Services.Users;
-using Quarrel.Navigation;
 using Quarrel.Services.Settings;
-using Quarrel.ViewModels.Services.DispatcherHelper;
-using System.Collections.Concurrent;
-using Quarrel.ViewModels.Extensions.System.Collections.Generic;
+using Quarrel.Services.Users;
+using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Services;
-using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Services.DispatcherHelper;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Quarrel.ViewModels
 {
@@ -416,8 +415,11 @@ namespace Quarrel.ViewModels
 
                                 case "INVALIDATE":
                                 {
-                                    for (int i = op.Range[0]; i <= op.Range[1] && BindableMembersNew.Count > 0; i++)
-                                        BindableMembersNew.RemoveAt(0);
+                                    for (int i = op.Range[0]; i <= op.Range[1] && BindableMembersNew.Count < i; i++)
+                                    {
+                                        if (BindableMembersNew[i] != null)
+                                            BindableMembersNew[i] = null;
+                                    }
                                 }
                                     break;
 
@@ -572,6 +574,93 @@ namespace Quarrel.ViewModels
                 text = text.Insert(selectionstart, " \n");
                 MessageText = text;
                 SelectionStart = selectionstart + 2;
+            });
+
+
+
+        private RelayCommand<(double, double)> updateGuildSubscriptionsCommand;
+
+        private Dictionary<string, IEnumerable<int[]>> lastGuildSubscription;
+
+        public RelayCommand<(double, double)> UpdateGuildSubscriptionsCommand =>
+            updateGuildSubscriptionsCommand ??= new RelayCommand<(double, double)>((values) =>
+            {
+                double top = BindableMembersNew.Count * values.Item1;
+                double bottom = BindableMembersNew.Count * values.Item2;
+
+                int min = (int)Math.Floor(top / 100) * 100;
+                var guildSubscription = new Dictionary<string, IEnumerable<int[]>>
+                {
+                    {
+                        Channel.Model.Id,
+                        new List<int[]>
+                        {
+                            new[] { 0, 99 }
+                        }
+                    }
+                };
+                if (top - min < 20)
+                {
+                    if(min > 199)
+                        ((List<int[]>)guildSubscription[Channel.Model.Id]).Add(new[] { min - 100, min - 1 });
+                    if (min > 99)
+                        ((List<int[]>)guildSubscription[Channel.Model.Id]).Add(new[] { min, min + 99 });
+                }
+                else if (bottom - min > 80)
+                {
+                    ((List<int[]>)guildSubscription[Channel.Model.Id]).Add(new[] { min, min + 99 });
+                    ((List<int[]>)guildSubscription[Channel.Model.Id]).Add(new[] { min + 100, min + 199 });
+                }
+                else
+                {
+                    if(min > 99)
+                        ((List<int[]>)guildSubscription[Channel.Model.Id]).Add(new[] { min, min + 99 });
+                }
+
+                bool hasChanged = false;
+
+                // Check if anything has changed
+                if (lastGuildSubscription != null && lastGuildSubscription.Count == guildSubscription.Count) { 
+                    foreach (var channel in lastGuildSubscription)
+                    {
+                        if (guildSubscription.ContainsKey(channel.Key))
+                        {
+                            if (channel.Value.Count() == guildSubscription[channel.Key].Count())
+                            {
+
+                                var enumerator = guildSubscription[channel.Key].GetEnumerator();
+                                foreach (var range in channel.Value)
+                                {
+                                    enumerator.MoveNext();
+                                    if (!(range[0] == enumerator.Current[0] && range[1] == enumerator.Current[1]))
+                                    {
+                                        hasChanged = true;
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                hasChanged = true;
+                            }
+                        }
+                        else
+                        {
+                            hasChanged = true;
+                        }
+                    }
+                }
+                else
+                {
+                    hasChanged = true;
+                }
+
+                if (hasChanged)
+                {
+                    Messenger.Default.Send(new GatewayUpdateGuildSubscriptionssMessage(guildId, guildSubscription));
+                    lastGuildSubscription = guildSubscription;
+                }
+
             });
 
         #region Navigation

@@ -105,7 +105,7 @@ namespace Quarrel.Models.Bindables
                 Permissions perms = new Permissions(Model.Roles.FirstOrDefault(x => x.Id == Model.Id).Permissions);
 
                 BindableGuildMember member = new BindableGuildMember(Model.Members.FirstOrDefault(x => x.User.Id == CurrentUsersService.CurrentUser.Model.Id));
-                if (member == null) return perms;
+                if (member.Model == null) return perms;
 
                 member.GuildId = Model.Id;
                 foreach (var role in member.Roles)

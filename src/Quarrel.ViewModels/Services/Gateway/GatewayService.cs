@@ -32,7 +32,6 @@ using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Gateway.Channels;
 using Quarrel.ViewModels.Services.DispatcherHelper;
-using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Gateway.Voice;
 
 namespace Quarrel.Services.Gateway
@@ -44,6 +43,9 @@ namespace Quarrel.Services.Gateway
         private IGuildsService GuildsService;
         public DiscordAPI.Gateway.Gateway Gateway { get; private set; }
         public IServiceProvider ServiceProvider { get; }
+
+        private string previousGuildId;
+
         public GatewayService(
             IServiceProvider serviceProvider,
             ICacheService cacheService, ICurrentUsersService currentUsersService, IGuildsService guildsService)
@@ -130,9 +132,28 @@ namespace Quarrel.Services.Gateway
                                 {{m.Channel.Model.Id, new List<int[]> {new[] {0, 99}}}});
                     }
                 });
+                Messenger.Default.Register<GuildNavigateMessage>(this, async m =>
+                {
+                    if (!m.Guild.IsDM)
+                    {
+                        if(previousGuildId != null)
+                            await Gateway.SubscribeToGuildLazy(previousGuildId,
+                                new Dictionary<string, IEnumerable<int[]>> { });
+                        previousGuildId = m.Guild.Model.Id;
+                    }
+                    else
+                    {
+                        previousGuildId = null;
+                    }
+                });
                 Messenger.Default.Register<GatewayRequestGuildMembersMessage>(this, async m =>
                 {
                     await Gateway.RequestGuildMembers(m.GuildIds, m.Query, m.Limit, m.Presences, m.UserIds);
+                });
+
+                Messenger.Default.Register<GatewayUpdateGuildSubscriptionssMessage>(this, async m =>
+                {
+                    await Gateway.SubscribeToGuildLazy(m.GuildId, m.Channels);
                 });
             }
 
