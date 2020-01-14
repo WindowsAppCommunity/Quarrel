@@ -9,7 +9,12 @@ namespace Quarrel.ViewModels.Models.Bindables
 {
     public class BindableFriend : BindableModelBase<Friend>
     {
+        #region Constructors
         public BindableFriend([NotNull] Friend friend) : base(friend) { }
+        
+        #endregion
+
+        #region Properties
 
         #region FriendType
 
@@ -22,6 +27,8 @@ namespace Quarrel.ViewModels.Models.Bindables
         public bool IsIncoming => Model.Type == 3;
 
         public bool IsOutgoing => Model.Type == 4;
+
+        #endregion
 
         #endregion
     }
