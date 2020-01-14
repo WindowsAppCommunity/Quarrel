@@ -485,6 +485,14 @@ namespace Quarrel.ViewModels
             }
         });
 
+        private RelayCommand navigateToFriends;
+        public RelayCommand NavigateToFriends => navigateToFriends = new RelayCommand(() =>
+        {
+            Channel.Selected = false;
+            Channel = null;
+            BindableMessages.Clear();
+        });
+
         #endregion
 
         #region Messages
