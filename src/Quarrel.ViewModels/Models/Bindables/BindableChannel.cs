@@ -29,23 +29,27 @@ namespace Quarrel.Models.Bindables
 {
     public class BindableChannel : BindableModelBase<Channel>
     {
-        private ICurrentUsersService _CurrentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
-        private IDiscordService _DiscordService = SimpleIoc.Default.GetInstance<IDiscordService>();
-        private ISettingsService _SettingsService = SimpleIoc.Default.GetInstance<ISettingsService>();
-        public IVoiceService VoiceService { get; } = SimpleIoc.Default.GetInstance<IVoiceService>();
-        public IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
-        public IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+        #region Constructors
 
+        /// <summary>
+        /// Creates a Channel object that can be bound to the UI
+        /// </summary>
+        /// <param name="model">API Channel Model</param>
+        /// <param name="guildId">Id of Channel's guild</param>
+        /// <param name="states">List of VoiceStates for users in a voice channel</param>
         public BindableChannel([NotNull] Channel model, [NotNull] string guildId, [CanBeNull] IEnumerable<VoiceState> states = null) : base(model)
         {
             this.guildId = guildId;
 
-            MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, async e =>
+            #region Messenger
+
+            MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, e =>
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
                     if (e.VoiceState.ChannelId == Model.Id)
                     {
+                        // User joined this Voice Channel
                         if (!ConnectedUsers.ContainsKey(e.VoiceState.UserId))
                         {
                             ConnectedUsers.Add(e.VoiceState.UserId, new BindableVoiceUser(e.VoiceState));
@@ -53,23 +57,25 @@ namespace Quarrel.Models.Bindables
                     }
                     else if (ConnectedUsers.ContainsKey(e.VoiceState.UserId))
                     {
+                        // User joined a different Voice Channel, so they must have left this one
                         ConnectedUsers.Remove(e.VoiceState.UserId);
                     }
                 });
             });
 
-            MessengerInstance.Register<GatewayUserGuildSettingsUpdatedMessage>(this, async m =>
+            MessengerInstance.Register<GatewayUserGuildSettingsUpdatedMessage>(this, m =>
             {
                 if ((m.Settings.GuildId ?? "DM") == GuildId)
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
+                        // Updated channel settings
                         ChannelOverride channelOverride;
                         if(_CurrentUsersService.ChannelSettings.TryGetValue(Model.Id, out channelOverride))
                             Muted = channelOverride.Muted;
                     });
             });
 
-            MessengerInstance.Register<ChannelNavigateMessage>(this, async m =>
+            MessengerInstance.Register<ChannelNavigateMessage>(this, m =>
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
@@ -92,6 +98,7 @@ namespace Quarrel.Models.Bindables
                 }
             });
 
+            #endregion
             if (states != null)
             {
                 foreach (var state in states)
@@ -104,11 +111,58 @@ namespace Quarrel.Models.Bindables
             }
         }
 
+        #endregion
+
+        #region Properties
+
+        #region Services
+
+        private ICurrentUsersService _CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+        private IDiscordService _DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ISettingsService _SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
+        public IVoiceService VoiceService { get; } = SimpleIoc.Default.GetInstance<IVoiceService>();
+        public IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+        public IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+
+        #endregion
+
         public BindableGuild Guild
         {
             get => GuildsService.Guilds[guildId];
         }
 
+        #region ChannelType
+
+        public bool IsTextChannel => Model.Type == 0;
+        public bool IsDirectChannel => Model.Type == 1;
+        public bool IsVoiceChannel => Model.Type == 2;
+        public bool IsGroupChannel => Model.Type == 3;
+        public bool IsCategory => Model.Type == 4;
+        public bool IsGuildChannel => !IsPrivateChannel;
+        public GuildChannel AsGuildChannel => Model as GuildChannel;
+        public bool IsPrivateChannel => IsDirectChannel || IsGroupChannel;
+        public DirectMessageChannel AsDMChannel => Model as DirectMessageChannel;
+        public bool IsTypingChannel => IsCategory || IsTextChannel || IsDirectChannel || IsGroupChannel;
+
+        #endregion
+
+        #region Settings
+
+        private bool _Muted;
+        public bool Muted
+        {
+            get => _Muted;
+            set
+            {
+                if (Set(ref _Muted, value))
+                {
+                    RaisePropertyChanged(nameof(TextOpacity));
+                    RaisePropertyChanged(nameof(ShowUnread));
+                }
+            }
+        }
+
+        #endregion
 
         // Order:
         //  Guild Permsissions
@@ -171,60 +225,15 @@ namespace Quarrel.Models.Bindables
             }
         }
 
-        #region ChannelType
-
-        public bool IsTextChannel => Model.Type == 0;
-
-        public bool IsDirectChannel => Model.Type == 1;
-
-        public bool IsVoiceChannel => Model.Type == 2;
-
-        public bool IsGroupChannel => Model.Type == 3;
-
-        public bool IsCategory => Model.Type == 4;
-
-        public bool IsGuildChannel => !IsPrivateChannel;
-
-        public GuildChannel AsGuildChannel => Model as GuildChannel;
-
-        public bool IsPrivateChannel => IsDirectChannel || IsGroupChannel;
-
-        public DirectMessageChannel AsDMChannel => Model as DirectMessageChannel;
-
-
-        public bool IsTypingChannel => IsCategory || IsTextChannel || IsDirectChannel || IsGroupChannel;
-
-        #endregion
-
-        #region Settings
-
-        private bool _Muted;
-
-        public bool Muted
-        {
-            get => _Muted;
-            set 
-            {
-                if (Set(ref _Muted, value))
-                {
-                    RaisePropertyChanged(nameof(TextOpacity));
-                    RaisePropertyChanged(nameof(ShowUnread));
-                }
-            }
-        }
-
-        #endregion
-
         #region Sorting
 
         private int _ParentPostion;
-
         public int ParentPostion
         {
             get => _ParentPostion;
             set => Set(ref _ParentPostion, value);
         }
-
+        
         public ulong AbsolutePostion
         {
             get
@@ -245,11 +254,8 @@ namespace Quarrel.Models.Bindables
 
         private string guildId;
         public string GuildId { get => guildId; }
-
         public string ParentId => Model is GuildChannel gcModel ? (IsCategory ? gcModel.Id : gcModel.ParentId) : null;
-
         public int Position => Model is GuildChannel gcModel ? gcModel.Position : 0;
-
         public string FormattedName
         {
             get
@@ -264,7 +270,6 @@ namespace Quarrel.Models.Bindables
                 return Model.Name;
             }
         }
-
         public IEnumerable<BindableGuildMember> GuildMembers
         {
             get
@@ -286,7 +291,6 @@ namespace Quarrel.Models.Bindables
         #region Display
 
         private bool _Selected;
-
         public bool Selected
         {
             get => _Selected;
@@ -298,7 +302,6 @@ namespace Quarrel.Models.Bindables
         }
 
         private bool _Collapsed;
-
         public bool Collapsed
         {
             get => _Collapsed;
@@ -328,13 +331,14 @@ namespace Quarrel.Models.Bindables
                                 hidden = false;
                             break;
                     }
-                } else if (!Permissions.ReadMessages && !_SettingsService.Roaming.GetValue<bool>(SettingKeys.ShowNoPermssions))
+                }
+                else if (!Permissions.ReadMessages && !_SettingsService.Roaming.GetValue<bool>(SettingKeys.ShowNoPermssions))
                 {
                     hidden = true;
                 }
                 return hidden && !Selected;
             }
-        }  
+        }
 
         public bool HasIcon
         {
@@ -435,7 +439,6 @@ namespace Quarrel.Models.Bindables
         }
 
         private ReadState _ReadState;
-
         public ReadState ReadState
         {
             get => _ReadState;
@@ -473,7 +476,7 @@ namespace Quarrel.Models.Bindables
         public void UpdateLMID(string id)
         {
             Model.UpdateLMID(id);
-            DispatcherHelper.CheckBeginInvokeOnUi(() => 
+            DispatcherHelper.CheckBeginInvokeOnUi(() =>
             {
                 RaisePropertyChanged(nameof(IsUnread));
                 RaisePropertyChanged(nameof(ShowUnread));
@@ -482,6 +485,7 @@ namespace Quarrel.Models.Bindables
                 RaisePropertyChanged(nameof(MentionCount));
             });
         }
+
         #endregion
 
         #region Typing
@@ -519,7 +523,7 @@ namespace Quarrel.Models.Bindables
                     {
                         typeText += ", ";
                     }
-                    else if (i != 0 && i == names.Count-1)
+                    else if (i != 0 && i == names.Count - 1)
                     {
                         typeText += " and ";
                     }
@@ -538,15 +542,17 @@ namespace Quarrel.Models.Bindables
             }
         }
 
-
         public ConcurrentDictionary<string, Timer> Typers = new ConcurrentDictionary<string, Timer>();
+
+        #endregion
+
 
         #endregion
 
         #region Commands
 
         private RelayCommand openProfile;
-        public RelayCommand OpenProfile => new RelayCommand(() =>
+        public RelayCommand OpenProfile => openProfile = new RelayCommand(() =>
         {
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("UserProfilePage", GuildMembers.FirstOrDefault());
         });
