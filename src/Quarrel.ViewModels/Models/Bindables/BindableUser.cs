@@ -13,8 +13,24 @@ namespace Quarrel.Models.Bindables
 {
     public class BindableUser : BindableModelBase<User>, IEquatable<BindableUser>, IComparable<BindableUser>
     {
+        #region Constructors
+
         public BindableUser([NotNull] User model) : base(model) { }
 
+        #endregion
+
+        #region Properties
+
+        private Presence presence;
+        public Presence Presence
+        {
+            get => presence;
+            set => Set(ref presence, value);
+        }
+
+        #endregion
+
+        #region Interfaces
         public bool Equals(BindableUser other)
         {
             return Model.Id == other.Model.Id;
@@ -30,11 +46,6 @@ namespace Quarrel.Models.Bindables
             return Model.Id.GetHashCode();
         }
 
-        private Presence presence;
-        public Presence Presence
-        {
-            get => presence;
-            set => Set(ref presence, value);
-        }
+        #endregion
     }
 }

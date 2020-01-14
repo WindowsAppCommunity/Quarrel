@@ -12,6 +12,14 @@ namespace Quarrel.Models.Bindables
 {
     public class BindableVideoEmbed : BindableModelBase<Embed>
     {
+        #region Constructors
+
+        public BindableVideoEmbed([NotNull] Embed model) : base(model) { }
+
+        #endregion
+
+        #region Properties
+
         private bool playingVideo;
         public bool PlayingVideo
         {
@@ -22,7 +30,6 @@ namespace Quarrel.Models.Bindables
                 RaisePropertyChanged(nameof(NotPlayingVideo));
             }
         }
-
         public bool NotPlayingVideo
         {
             get => !playingVideo;
@@ -33,17 +40,16 @@ namespace Quarrel.Models.Bindables
             }
         }
 
-        private RelayCommand playVideoCommand;
+        #endregion
 
+        #region Commands
+
+        private RelayCommand playVideoCommand;
         public RelayCommand PlayVideoCommand => playVideoCommand ?? (playVideoCommand = new RelayCommand(() =>
          {
              PlayingVideo = true;
          }));
-
-        public BindableVideoEmbed([NotNull] Embed model) : base(model)
-        {
-        }
-
-
+        
+        #endregion
     }
 }

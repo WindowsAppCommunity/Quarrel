@@ -18,10 +18,7 @@ namespace Quarrel.Models.Bindables
 {
     public class BindableMessage : BindableModelBase<Message>
     {
-        private ICurrentUsersService currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
-        private BindableChannel channel;
-
-        private Message _previousMessage;
+        #region Constructors
 
         public BindableMessage([NotNull] Message model, [CanBeNull] string guildId, bool isLastRead = false) : base(model)
         {
@@ -30,27 +27,49 @@ namespace Quarrel.Models.Bindables
             channel = SimpleIoc.Default.GetInstance<IGuildsService>().CurrentChannels[Model.ChannelId];
         }
 
+
+        #endregion
+
+        #region Properties
+
+        #region Services
+
+        private ICurrentUsersService CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+
+        #endregion
+
+        private BindableChannel channel;
+
         private string GuildId;
 
-        public BindableGuildMember Author =>
-            currentUsersService.Users.TryGetValue(Model.User.Id, out BindableGuildMember value) ? value :
-            (currentUsersService.DMUsers.TryGetValue(Model.User.Id, out value) ? value : new BindableGuildMember(new GuildMember() { User = Model.User }) { Presence = new Presence() { Status = "offline", User = Model.User } });
-
-        private bool _IsLastReadMessage;
-
-        public bool IsLastReadMessage
-        {
-            get => _IsLastReadMessage;
-            set => Set(ref _IsLastReadMessage, value);
-        }
-
         #region Display
+
+        #region Flyout
+        public bool ShowPin => !Model.Pinned && (channel.Permissions.ManageMessages || channel.IsDirectChannel);
+        public bool ShowUnpin => Model.Pinned && (channel.Permissions.ManageMessages || channel.IsDirectChannel);
+        public bool ShowEdit => Model.User.Id == SimpleIoc.Default.GetInstance<ICurrentUsersService>().CurrentUser.Model.Id;
+        public bool ShowDelete =>
+            Model.User.Id == SimpleIoc.Default.GetInstance<ICurrentUsersService>().CurrentUser.Model.Id
+            || (channel.Permissions.ManageMessages && !channel.IsDirectChannel);
+
+        #endregion
+
+        #region Author
+
+        public BindableGuildMember Author =>
+            CurrentUsersService.Users.TryGetValue(Model.User.Id, out BindableGuildMember value) ? value :
+            (CurrentUsersService.DMUsers.TryGetValue(Model.User.Id, out value) ? value : new BindableGuildMember(new GuildMember() { User = Model.User }) { Presence = new Presence() { Status = "offline", User = Model.User } });
 
         public string AuthorName => Author != null ? Author.Model.Nick ?? Author.Model.User.Username : Model.User.Username;
 
         public int AuthorColor => Author?.TopRole?.Color ?? -1;
 
-        public IEnumerable<Reaction> Reactions {
+        #endregion
+
+        private bool _IsLastReadMessage;
+
+        public IEnumerable<Reaction> Reactions
+        {
             get =>
                 Model.Reactions == null ? null :
                 Model.Reactions.Select(x =>
@@ -61,18 +80,13 @@ namespace Quarrel.Models.Bindables
                 });
         }
 
-        private RelayCommand toggleEdit;
-        public RelayCommand ToggleEdit => toggleEdit = new RelayCommand(() =>
+        public bool IsLastReadMessage
         {
-            IsEditing = !IsEditing;
-        });
+            get => _IsLastReadMessage;
+            set => Set(ref _IsLastReadMessage, value);
+        }
 
-        private RelayCommand saveEdit;
-        public RelayCommand SaveEdit => saveEdit = new RelayCommand(() =>
-        {
-            SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.EditMessage(Model.ChannelId, Model.Id, new DiscordAPI.API.Channel.Models.EditMessage() { Content = EditedText});
-            IsEditing = false;
-        });
+        #region Editing
 
         private string editedText;
         public string EditedText
@@ -90,25 +104,39 @@ namespace Quarrel.Models.Bindables
                 EditedText = Model.Content;
                 Set(ref isEditing, value);
             }
-                
+
         }
 
         #endregion
+
+        #endregion
+
+        #endregion
+
+        #region Commands
+
+        private RelayCommand toggleEdit;
+        public RelayCommand ToggleEdit => toggleEdit = new RelayCommand(() =>
+        {
+            IsEditing = !IsEditing;
+        });
+
+        private RelayCommand saveEdit;
+        public RelayCommand SaveEdit => saveEdit = new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.EditMessage(Model.ChannelId, Model.Id, new DiscordAPI.API.Channel.Models.EditMessage() { Content = EditedText });
+            IsEditing = false;
+        });
+
+        #endregion
+
+        #region Methods
 
         public void Update(Message message)
         {
             Model = message;
         }
 
-
-        public bool ShowPin => !Model.Pinned && (channel.Permissions.ManageMessages || channel.IsDirectChannel);
-
-        public bool ShowUnpin => Model.Pinned && (channel.Permissions.ManageMessages || channel.IsDirectChannel);
-
-        public bool ShowEdit => Model.User.Id == SimpleIoc.Default.GetInstance<ICurrentUsersService>().CurrentUser.Model.Id;
-
-        public bool ShowDelete =>
-            Model.User.Id == SimpleIoc.Default.GetInstance<ICurrentUsersService>().CurrentUser.Model.Id
-            || (channel.Permissions.ManageMessages && !channel.IsDirectChannel);
+        #endregion
     }
 }
