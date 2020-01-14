@@ -28,17 +28,14 @@ namespace Quarrel.Models.Bindables
 {
     public class BindableGuild : BindableModelBase<Guild>, IGuild
     {
-        private IDiscordService _DiscordService = SimpleIoc.Default.GetInstance<IDiscordService>();
-        private ISettingsService _SettingsService = SimpleIoc.Default.GetInstance<ISettingsService>();
-        private ICurrentUsersService CurrentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
-        private ISubFrameNavigationService SubFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
-        private IDispatcherHelper DispatcherHelper = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
-
+        #region Constructors
         public BindableGuild([NotNull] Guild model) : base(model)
         {
             _Channels = new ObservableCollection<BindableChannel>();
 
-            MessengerInstance.Register<GatewayMessageRecievedMessage>(this, async m =>
+            #region Messenger
+
+            MessengerInstance.Register<GatewayMessageRecievedMessage>(this, m =>
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
@@ -48,7 +45,7 @@ namespace Quarrel.Models.Bindables
                 });
             });
 
-            MessengerInstance.Register<GatewayMessageAckMessage>(this, async m =>
+            MessengerInstance.Register<GatewayMessageAckMessage>(this, m =>
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
@@ -58,71 +55,45 @@ namespace Quarrel.Models.Bindables
                 });
             });
 
-            MessengerInstance.Register<GatewayUserGuildSettingsUpdatedMessage>(this, async m =>
+            MessengerInstance.Register<GatewayUserGuildSettingsUpdatedMessage>(this, m =>
             {
                 if ((m.Settings.GuildId ?? "DM") == Model.Id)
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
-                        if(CurrentUsersService.GuildSettings.TryGetValue(Model.Id, out var guildSetting))
+                        if (CurrentUsersService.GuildSettings.TryGetValue(Model.Id, out var guildSetting))
                         {
                             Muted = guildSetting.Muted;
                         }
                     });
             });
 
-            MessengerInstance.Register<SettingChangedMessage<bool>>(this, m => 
+            MessengerInstance.Register<SettingChangedMessage<bool>>(this, m =>
             {
                 if (m.Key == SettingKeys.ServerMuteIcons)
                 {
                     RaisePropertyChanged(nameof(ShowMute));
                 }
             });
+
+            #endregion
         }
 
-        private ObservableCollection<BindableChannel> _Channels;
+        #endregion
 
-        public ObservableCollection<BindableChannel> Channels
-        {
-            get  => _Channels;
-            set => Set(ref _Channels, value);
-        }
+        #region Properties
 
-        // Order
-        // Add allows for @everyone role
-        // Add allows for each role
-        private Permissions permissions = null;
-        public Permissions Permissions
-        {
-            get
-            {
-                if (permissions != null)
-                    return permissions;
+        #region Services
 
-                if (Model.Id == "DM" || Model.OwnerId == CurrentUsersService.CurrentUser.Model.Id)
-                    return new Permissions(int.MaxValue);
-
-                // Role Id == Model.Id for @everyone
-                Permissions perms = new Permissions(Model.Roles.FirstOrDefault(x => x.Id == Model.Id).Permissions);
-
-                BindableGuildMember member = new BindableGuildMember(Model.Members.FirstOrDefault(x => x.User.Id == CurrentUsersService.CurrentUser.Model.Id));
-                if (member == null) return perms;
-
-                member.GuildId = Model.Id;
-                foreach (var role in member.Roles)
-                {
-                    perms.AddAllows((GuildPermission)role.Permissions);
-                }
-                permissions = perms;
-                return perms;
-            }
-        }
-
-        public bool IsDM => Model.Id == "DM";
+        private IDiscordService _DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ISettingsService _SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
+        private ICurrentUsersService CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+        private ISubFrameNavigationService SubFrameNavigationService { get; } = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+        #endregion
 
         #region Settings
 
         private int _Position;
-
         public int Position
         {
             get => _Position;
@@ -131,7 +102,6 @@ namespace Quarrel.Models.Bindables
 
 
         private bool _Muted;
-
         public bool Muted
         {
             get => _Muted;
@@ -183,7 +153,7 @@ namespace Quarrel.Models.Bindables
             get
             {
                 int total = 0;
-                foreach(var channel in Channels)
+                foreach (var channel in Channels)
                 {
                     total += channel.ReadState != null ? channel.ReadState.MentionCount : 0;
                 }
@@ -192,8 +162,51 @@ namespace Quarrel.Models.Bindables
         }
 
         #endregion
-        
+
+        public bool IsDM => Model.Id == "DM";
+
         public bool IsOwner { get => CurrentUsersService.CurrentUser.Model.Id == Model.OwnerId; }
+
+        // Order
+        // Add allows for @everyone role
+        // Add allows for each role
+        private Permissions permissions = null;
+        public Permissions Permissions
+        {
+            get
+            {
+                if (permissions != null)
+                    return permissions;
+
+                if (Model.Id == "DM" || Model.OwnerId == CurrentUsersService.CurrentUser.Model.Id)
+                    return new Permissions(int.MaxValue);
+
+                // Role Id == Model.Id for @everyone
+                Permissions perms = new Permissions(Model.Roles.FirstOrDefault(x => x.Id == Model.Id).Permissions);
+
+                BindableGuildMember member = new BindableGuildMember(Model.Members.FirstOrDefault(x => x.User.Id == CurrentUsersService.CurrentUser.Model.Id));
+                if (member == null) return perms;
+
+                member.GuildId = Model.Id;
+                foreach (var role in member.Roles)
+                {
+                    perms.AddAllows((GuildPermission)role.Permissions);
+                }
+                permissions = perms;
+                return perms;
+            }
+        }
+
+        private ObservableCollection<BindableChannel> _Channels;
+        public ObservableCollection<BindableChannel> Channels
+        {
+            get => _Channels;
+            set => Set(ref _Channels, value);
+        }
+
+        #endregion
+
+        #region Commands
 
         private RelayCommand addChanneleCommand;
         public RelayCommand AddChannelCommand =>
@@ -224,5 +237,7 @@ namespace Quarrel.Models.Bindables
         {
             SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(Model.Id);
         });
+
+        #endregion
     }
 }
