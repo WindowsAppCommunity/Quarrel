@@ -7,19 +7,23 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Microsoft.Xaml.Interactivity;
+using Quarrel.ViewModels.Models.Bindables;
 
 namespace Quarrel.Xaml.Behaviors
 {
-    class OpenListViewItemFlyoutAction : DependencyObject, IAction
+    class TriggerSemanticZoomAction : DependencyObject, IAction
     {
+
+        public SemanticZoom SemanticZoom { get; set; }
+        public Type Type { get; set; }
+
         public object Execute(object sender, object parameter)
         {
-            if(((sender as ListView)?.ContainerFromItem((parameter as ItemClickEventArgs)?.ClickedItem) as ListViewItem
-                )?.ContentTemplateRoot is FrameworkElement flyout && FlyoutBase.GetAttachedFlyout(flyout) != null)
-                FlyoutBase.ShowAttachedFlyout(flyout);
-
+            if ((parameter as ItemClickEventArgs)?.ClickedItem?.GetType() == Type)
+            {
+                SemanticZoom.IsZoomedInViewActive = false;
+            }
             return null;
         }
-
     }
 }

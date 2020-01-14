@@ -17,9 +17,14 @@
     xmlns:objectModel="using:System.Collections.ObjectModel"
     xmlns:models="using:DiscordAPI.Models"
     xmlns:members="using:Quarrel.DataTemplates.Members"
+    xmlns:templateSelectors="using:Quarrel.TemplateSelectors"
+    xmlns:bindables="using:Quarrel.ViewModels.Models.Bindables"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:quarrel="using:Quarrel"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+    Loaded="MemberListControl_OnLoaded">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -27,22 +32,31 @@
                 <members:GuildMemberListItemTemplate/>
             </ResourceDictionary.MergedDictionaries>
             <baseconverts:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
+
+
             <CollectionViewSource x:Name="ViewSource" Source="{x:Bind ViewModel.BindableMembers, Mode=OneWay}" IsSourceGrouped="True" />
+            <templateSelectors:GuildMemberListSelector 
+                MemberTemplate="{StaticResource GuildMemberListItemTemplate}"
+                MemberGroupTemplate="{StaticResource GuildMemberGroupListItemTemplate}"
+                PlaceholderTemplate="{StaticResource GuildMemberListPlaceholderTemplate}"
+                x:Key="GuildMemberListSelector"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
-        <SemanticZoom>
+        <SemanticZoom x:Name="zoom"  ViewChangeStarted="SemanticZoom_ViewChangeStarted">
             <SemanticZoom.ZoomedInView>
                 <ListView x:Name="MemberList"
                           ItemContainerStyle="{StaticResource MemberListItemStyle}"
                           IsItemClickEnabled="True" SelectionMode="None"
-                          ItemsSource="{x:Bind ViewSource.View, Mode=OneWay}"
+                          ItemsSource="{x:Bind ViewModel.BindableMembersNew, Mode=OneWay}"
                           ShowsScrollingPlaceholders="False"
-                          ItemTemplate="{StaticResource GuildMemberListItemTemplate}">
+                          ItemTemplateSelector="{StaticResource GuildMemberListSelector}">
+                    
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="ItemClick">
                             <behaviors:OpenListViewItemFlyoutAction/>
+                            <behaviors:TriggerSemanticZoomAction Type="bindables:BindableGuildMemberGroup" SemanticZoom="{x:Bind zoom}"/>
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
                     <ListView.GroupStyle>
@@ -50,6 +64,7 @@
                             <GroupStyle.HeaderContainerStyle>
                                 <Style TargetType="ListViewBaseHeaderItem">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Margin" Value="0, 0, 0, 5"/>
                                 </Style>
                             </GroupStyle.HeaderContainerStyle>
                             <GroupStyle.HeaderTemplate>
@@ -69,7 +84,7 @@
                 </ListView>
             </SemanticZoom.ZoomedInView>
             <SemanticZoom.ZoomedOutView>
-                <ListView ItemsSource="{x:Bind ViewSource.View.CollectionGroups, Mode=OneWay}" Margin="0" >
+                <ListView ItemsSource="{x:Bind ViewModel.BindableMemeberGroups, Mode=OneWay}" Margin="0" >
                     <ListView.Background>
                         <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.1"/>
                     </ListView.Background>
@@ -84,15 +99,15 @@
                         </Style>
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="ICollectionViewGroup">
+                        <DataTemplate x:DataType="bindables:BindableGuildMemberGroup">
                             <Grid VerticalAlignment="Top">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{x:Bind Group.(objectModel:ObservableGrouping.Group).(models:Role.Name)}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Group.Group.Color, Converter={StaticResource IntColorToBrushConverter}}" Opacity="0.75" Margin="0"/>
-                                <TextBlock Grid.Column="1" Text="{x:Bind Group.(objectModel:ObservableGrouping.Count)}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.35"/>
+                                <TextBlock Text="{x:Bind Role.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Role.Color, Converter={StaticResource IntColorToBrushConverter}}" Opacity="0.75" Margin="0"/>
+                                <TextBlock Grid.Column="1" Text="{x:Bind Count}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.35"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

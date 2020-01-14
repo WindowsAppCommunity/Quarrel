@@ -29,7 +29,7 @@ namespace DiscordAPI.Gateway
         event EventHandler<GatewayEventArgs<GuildMemberAdd>> GuildMemberAdded;
         event EventHandler<GatewayEventArgs<GuildMemberRemove>> GuildMemberRemoved;
         event EventHandler<GatewayEventArgs<GuildMemberUpdate>> GuildMemberUpdated;
-        event EventHandler<GatewayEventArgs<GuildMemberChunk>> GuildMemberChunk;
+        event EventHandler<GatewayEventArgs<GuildMembersChunk>> GuildMembersChunk;
 
         event EventHandler<GatewayEventArgs<Presence>> PresenceUpdated;
         event EventHandler<GatewayEventArgs<TypingStart>> TypingStarted;

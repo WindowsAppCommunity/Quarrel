@@ -16,7 +16,7 @@ namespace DiscordAPI.Gateway
         VoiceServerPing = 5,
         Resume = 6,
         Reconnect = 7,
-        RequestGuildMember = 8,
+        RequestGuildMembers = 8,
         InvalidSession = 9,
         Hello = 10,
         HeartbeatAck = 11,

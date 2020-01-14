@@ -14,8 +14,12 @@ using Quarrel.Messages.Navigation;
 using DiscordAPI.API;
 using DiscordAPI.API.Gateway;
 using DiscordAPI.Authentication;
+using DiscordAPI.Gateway.UpstreamEvents;
 using DiscordAPI.Models;
+using DiscordAPI.Sockets;
 using GalaSoft.MvvmLight.Ioc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Quarrel.Models.Bindables;
 using Quarrel.Messages.Posts.Requests;
 using Quarrel.Services.Cache;
@@ -28,6 +32,8 @@ using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Gateway.Channels;
 using Quarrel.ViewModels.Services.DispatcherHelper;
+using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Messages.Gateway.Voice;
 
 namespace Quarrel.Services.Gateway
 {
@@ -70,7 +76,7 @@ namespace Quarrel.Services.Gateway
             Gateway.GatewayClosed += Gateway_GatewayClosed;
 
             Gateway.Ready += Gateway_Ready;
-            Gateway.GuildMemberChunk += Gateway_GuildMemberChunk;
+            Gateway.GuildMembersChunk += GatewayGuildMembersChunk;
             Gateway.GuildSynced += Gateway_GuildSynced;
 
             Gateway.MessageCreated += Gateway_MessageCreated;
@@ -81,6 +87,8 @@ namespace Quarrel.Services.Gateway
             Gateway.MessageReactionAdded += Gateway_MessageReactionAdded;
             Gateway.MessageReactionRemoved += Gateway_MessageReactionRemoved;
             Gateway.MessageReactionRemovedAll += Gateway_MessageReactionRemovedAll;
+
+            Gateway.GuildMemberListUpdated += Gateway_GuildMemberListUpdated;
 
             Gateway.ChannelCreated += Gateway_ChannelCreated;
             Gateway.ChannelDeleted += Gateway_ChannelDeleted;
@@ -101,21 +109,30 @@ namespace Quarrel.Services.Gateway
             if (await ConnectWithRetryAsync(3))
             {
                 Messenger.Default.Send(new StartUpStatusMessage(Status.Connected));
-                Messenger.Default.Register<GuildNavigateMessage>(this, async m =>
+                Messenger.Default.Register<ChannelNavigateMessage>(this, async m =>
                 {
                     // TODO: Channel typing check
                     //var channelList = ServicesManager.Cache.Runtime.TryGetValue<List<Channel>>(Quarrel.Helpers.Constants.Cache.Keys.ChannelList, m.GuildId);
                     //var idList = channelList.ConvertAll(x => x.Id);
+                    /*
+                                        List<string> idList = new List<string>();
 
-                    List<string> idList = new List<string>();
+                                        // Guild Sync
+                                        if (m.Guild.Model.Id != "DM")
+                                        {
+                                            idList.Add(m.Guild.Model.Id);
+                                        }*/
 
-                    // Guild Sync
-                    if (m.Guild.Model.Id != "DM")
+                    if (!m.Guild.IsDM)
                     {
-                        idList.Add(m.Guild.Model.Id);
+                        await Gateway.SubscribeToGuildLazy(m.Channel.GuildId,
+                            new Dictionary<string, IEnumerable<int[]>>
+                                {{m.Channel.Model.Id, new List<int[]> {new[] {0, 99}}}});
                     }
-
-                    await Gateway.SubscribeToGuild(idList.ToArray());
+                });
+                Messenger.Default.Register<GatewayRequestGuildMembersMessage>(this, async m =>
+                {
+                    await Gateway.RequestGuildMembers(m.GuildIds, m.Query, m.Limit, m.Presences, m.UserIds);
                 });
             }
 
@@ -222,9 +239,15 @@ namespace Quarrel.Services.Gateway
             Messenger.Default.Send(new GatewayTypingStartedMessage(e.EventData));
         }
 
-        private void Gateway_GuildMemberChunk(object sender, GatewayEventArgs<GuildMemberChunk> e)
+        private void GatewayGuildMembersChunk(object sender, GatewayEventArgs<GuildMembersChunk> e)
         {
+            Messenger.Default.Send(new GatewayGuildMembersChunkMessage(e.EventData));
+        }
 
+
+        private void Gateway_GuildMemberListUpdated(object sender, GatewayEventArgs<GuildMemberListUpdated> e)
+        {
+            Messenger.Default.Send(new GatewayGuildMemberListUpdatedMessage(e.EventData));
         }
 
         private void Gateway_GuildSynced(object sender, GatewayEventArgs<GuildSync> e)

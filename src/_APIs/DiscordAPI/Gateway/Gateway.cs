@@ -75,7 +75,7 @@ namespace DiscordAPI.Gateway
         public event EventHandler<GatewayEventArgs<GuildMemberRemove>> GuildMemberRemoved;
         public event EventHandler<GatewayEventArgs<GuildMemberUpdate>> GuildMemberUpdated;
         public event EventHandler<GatewayEventArgs<GuildMemberListUpdated>> GuildMemberListUpdated;
-        public event EventHandler<GatewayEventArgs<GuildMemberChunk>> GuildMemberChunk;
+        public event EventHandler<GatewayEventArgs<GuildMembersChunk>> GuildMembersChunk;
 
         public event EventHandler<GatewayEventArgs<Friend>> RelationShipAdded;
         public event EventHandler<GatewayEventArgs<Friend>> RelationShipRemoved;
@@ -188,9 +188,7 @@ namespace DiscordAPI.Gateway
                 }
             }
         }
-
-
-
+        
         private void HandleMessage(TextReader reader)
         {
             if (Logger?.IsEnabled(LogLevel.Trace) ?? false)
@@ -329,7 +327,7 @@ namespace DiscordAPI.Gateway
                 { EventNames.GUILD_MEMBER_ADDED, OnGuildMemberAdded},
                 { EventNames.GUILD_MEMBER_REMOVED, OnGuildMemberRemoved },
                 { EventNames.GUILD_MEMBER_UPDATED, OnGuildMemberUpdated },
-                { EventNames.GUILD_MEMBER_CHUNK, OnGuildMemberChunk },
+                { EventNames.GUILD_MEMBERS_CHUNK, OnGuildMembersChunk },
                 { EventNames.GUILD_MEMBER_LIST_UPDATE, OnGuildMemberListUpdated },
                 { EventNames.PRESENCE_UPDATED, OnPresenceUpdated },
                 { EventNames.TYPING_START, OnTypingStarted},
@@ -483,6 +481,26 @@ namespace DiscordAPI.Gateway
                     Activities = true,
                     Typing = true,
                     Channels = channels
+                }
+            };
+            await SendMessageAsync(JsonConvert.SerializeObject(updateGuildSubscriptions, Formatting.None, new JsonSerializerSettings 
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                }
+            ));
+        }
+        public async Task RequestGuildMembers(IEnumerable<string> guildIds, string query, int? limit, bool? presences, IEnumerable<string> userIds)
+        {
+            var updateGuildSubscriptions = new SocketFrame
+            {
+                Operation = (int)OperationCode.RequestGuildMembers,
+                Payload = new GuildRequestMembers()
+                {
+                    GuildIds = guildIds,
+                    Query = query,
+                    Limit = limit,
+                    Presences = presences,
+                    UserIds = userIds
                 }
             };
             await SendMessageAsync(JsonConvert.SerializeObject(updateGuildSubscriptions, Formatting.None, new JsonSerializerSettings 
@@ -675,9 +693,9 @@ namespace DiscordAPI.Gateway
             FireEventOnDelegate(gatewayEvent, GuildMemberListUpdated);
         }
 
-        private void OnGuildMemberChunk(SocketFrame gatewayEvent)
+        private void OnGuildMembersChunk(SocketFrame gatewayEvent)
         {
-            FireEventOnDelegate(gatewayEvent, GuildMemberChunk);
+            FireEventOnDelegate(gatewayEvent, GuildMembersChunk);
         }
 
         private void OnChannelRecipientAdded(SocketFrame gatewayEvent)

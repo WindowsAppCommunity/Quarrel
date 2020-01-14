@@ -11,11 +11,12 @@ using Quarrel.Services;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
+using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Helpers;
 
 namespace Quarrel.Models.Bindables
 {
-    public class BindableGuildMember : BindableModelBase<GuildMember>, IEquatable<BindableGuildMember>, IComparable<BindableGuildMember>
+    public class BindableGuildMember : BindableModelBase<GuildMember>, IEquatable<BindableGuildMember>, IComparable<BindableGuildMember>, IGuildMemberListItem
     {
         private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();

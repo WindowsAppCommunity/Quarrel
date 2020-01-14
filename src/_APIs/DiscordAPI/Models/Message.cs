@@ -45,6 +45,8 @@ namespace DiscordAPI.Models
         public Activity Activity { get; set; }
         [JsonProperty("author")]
         public User User { get; set; }
+        [JsonProperty("member")]
+        public GuildMember Member { get; set; }
         [JsonProperty("content")]
         public string Content { get; set; }
         [JsonProperty("call")]
