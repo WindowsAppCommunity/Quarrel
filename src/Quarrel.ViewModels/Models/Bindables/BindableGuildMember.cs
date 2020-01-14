@@ -78,8 +78,14 @@ namespace Quarrel.Models.Bindables
         public Presence Presence
         {
             get => presence;
-            set => Set(ref presence, value);
+            set
+            {
+                Set(ref presence, value);
+                RaisePropertyChanged(nameof(Game));
+            }
         }
+
+        public Game Game => Presence?.Game;
 
         #region Display 
 

@@ -29,7 +29,7 @@ namespace Quarrel.Converters.Base
             }
             else if (value is IEnumerable<object> eValue)
             {
-                v = eValue.Count() > 0;
+                v = eValue.Any();
             }
             else
             {

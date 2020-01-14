@@ -16,7 +16,7 @@ namespace Quarrel.Converters.Discord
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            string status = (string) value;
+            string status = (string) value ?? "offline";
             if (UseSystemAccentColor && (status == "offline" || status == "invisible"))
                 return new SolidColorBrush((Color)App.Current.Resources["SystemAccentColor"]);
             return App.Current.Resources[status];
