@@ -27,19 +27,13 @@ using System.Collections.Concurrent;
 using Quarrel.ViewModels.Services;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Models.Bindables;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace Quarrel.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private readonly ICacheService CacheService;
-        private readonly ISettingsService SettingsService;
-        private readonly IDiscordService DiscordService;
-        public readonly ICurrentUsersService CurrentUsersService;
-        private readonly IGatewayService GatewayService;
-        private readonly IGuildsService GuildsService;
-        private readonly ISubFrameNavigationService SubFrameNavigationService;
-        private readonly IDispatcherHelper DispatcherHelper;
+        #region Constructors
 
         public MainViewModel(ICacheService cacheService, ISettingsService settingsService, IDiscordService discordService, ICurrentUsersService currentUsersService, IGatewayService gatewayService, IGuildsService guildsService, ISubFrameNavigationService subFrameNavigationService, IDispatcherHelper dispatcherHelper)
         {
@@ -55,400 +49,18 @@ namespace Quarrel.ViewModels
             RegisterMessages();
         }
 
-        private void RegisterMessages()
-        {
-            MessengerInstance.Register<GatewayInvalidSessionMessage>(this, async _ =>
-            {
-                await CacheService.Persistent.Roaming.DeleteValueAsync(Constants.Cache.Keys.AccessToken);
-                Login();
-            });
-            MessengerInstance.Register<GatewayReadyMessage>(this, async _ =>
-            {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                {
-                    MessengerInstance.Send(new GuildNavigateMessage(GuildsService.Guilds["DM"]));
-                });
-            });
-            MessengerInstance.Register<GuildNavigateMessage>(this, async m =>
-            {
-                if (Guild != m.Guild)
-                {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        Channel = null;
-                        Guild = m.Guild;
-                        BindableMessages.Clear();
-                        BindableMembers.Clear();
-                        //BindableChannels = m.Guild.Channels;
-                    });
+        #endregion
 
-                    BindableChannel channel = m.Guild.Channels.FirstOrDefault(x => x.IsTextChannel && x.Permissions.ReadMessages);
-                    if (channel  != null)
-                        MessengerInstance.Send(new ChannelNavigateMessage(channel, m.Guild));
-                }
-            });
-            MessengerInstance.Register<ChannelNavigateMessage>(this, async m =>
-            {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                {
-                    Channel = m.Channel;
-                });
-                
-                if (SettingsService.Roaming.GetValue<bool>(SettingKeys.FilterMembers))
-                {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        BindableMembers.Clear();
-                        BindableMembers.AddElementRange(CurrentUsersService.Users.Values.Where(user =>
-                        {
-                            if (Channel.IsTextChannel)
-                            {
-                                Permissions perms = new Permissions(Guild.Model.Roles
-                                    .FirstOrDefault(x => x.Name == "@everyone").Permissions);
-                                foreach (var role in user.Roles)
-                                {
-                                    perms.AddAllows((GuildPermission) role.Permissions);
-                                }
+        #region Events
 
-                                GuildPermission roleDenies = 0;
-                                GuildPermission roleAllows = 0;
-                                GuildPermission memberDenies = 0;
-                                GuildPermission memberAllows = 0;
-                                foreach (Overwrite overwrite in (Channel.Model as GuildChannel).PermissionOverwrites)
-                                    if (overwrite.Id == Channel.GuildId)
-                                    {
-                                        perms.AddDenies((GuildPermission) overwrite.Deny);
-                                        perms.AddAllows((GuildPermission) overwrite.Allow);
-                                    }
-                                    else if (overwrite.Type == "role" && user.Model.Roles.Contains(overwrite.Id))
-                                    {
-                                        roleDenies |= (GuildPermission) overwrite.Deny;
-                                        roleAllows |= (GuildPermission) overwrite.Allow;
-                                    }
-                                    else if (overwrite.Type == "member" && overwrite.Id == user.Model.User.Id)
-                                    {
-                                        memberDenies |= (GuildPermission) overwrite.Deny;
-                                        memberAllows |= (GuildPermission) overwrite.Allow;
-                                    }
-
-                                perms.AddDenies(roleDenies);
-                                perms.AddAllows(roleAllows);
-                                perms.AddDenies(memberDenies);
-                                perms.AddAllows(memberAllows);
-
-                                // If owner add admin
-                                if (Guild.Model.OwnerId == user.Model.User.Id)
-                                {
-                                    perms.AddAllows(GuildPermission.Administrator);
-                                }
-
-                                return perms.ReadMessages;
-                            }
-
-                            return true;
-                        }));
-                    });
-                }
-
-                await SemaphoreSlim.WaitAsync();
-                try
-                {
-                    _AtTop = false;
-                    NewItemsLoading = true;
-                    IEnumerable<Message> itemList = null;
-                    //if (Channel.ReadState == null)
-                    //    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id);
-                    //else
-                    //    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAround(m.Channel.Model.Id, Channel.ReadState.LastMessageId, 50);
-                    try
-                    {
-                        itemList = await DiscordService.ChannelService.GetChannelMessages(m.Channel.Model.Id);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e);
-                        return;
-                    }
-
-                    Message lastItem = null;
-
-                    BindableMessage scrollItem = null;
-
-                    List<BindableMessage> messages = new List<BindableMessage>();
-
-                    for (int i = itemList.Count()-1; i >= 0; i--)
-                    {
-                        var item = itemList.ElementAt(i);
-                        messages.Add(new BindableMessage(item, guildId, lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId));
-
-                        if (lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId)
-                        {
-                            scrollItem = messages.LastOrDefault();
-                        }
-
-                        lastItem = item;
-
-
-                        if (!SettingsService.Roaming.GetValue<bool>(SettingKeys.AdsRemoved) && i % 10 == 0)
-                        {
-                            messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null));
-                            lastItem = null;
-                        }
-                    }
-
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        BindableMessages.Clear();
-                        BindableMessages.AddRange(messages);
-                        ScrollTo?.Invoke(this, scrollItem ?? BindableMessages.LastOrDefault());
-                    });
-                    NewItemsLoading = false;
-                }
-                finally
-                {
-                    SemaphoreSlim.Release();
-                }
-            });
-            MessengerInstance.Register<GatewayMessageRecievedMessage>(this, async m =>
-            {
-                if (GuildsService.CurrentChannels.TryGetValue(m.Message.ChannelId, out var channel))
-                {
-                    channel.UpdateLMID(m.Message.Id);
-
-                    if (channel.IsDirectChannel || channel.IsGroupChannel || m.Message.Mentions.Any(x => x.Id == CurrentUsersService.CurrentUser.Model.Id) ||
-                        m.Message.MentionEveryone)
-                    {
-                        DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                        {
-                            channel.ReadState.MentionCount++;
-                            int oldIndex = GuildsService.Guilds["DM"].Channels.IndexOf(channel);
-                            GuildsService.Guilds["DM"].Channels.Move(oldIndex, 0);
-                        });
-                    }
-
-                    if (Channel != null && Channel.Model.Id == channel.Model.Id)
-                        DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                        {
-                            channel.Typers.TryRemove(m.Message.User.Id, out var _);
-                            var lastMessage = BindableMessages.LastOrDefault();
-                            BindableMessages.Add(new BindableMessage(m.Message, channel.Guild.Model.Id ?? "DM"));
-                        });
-                }
-            });
-            MessengerInstance.Register<GatewayMessageDeletedMessage>(this, async m =>
-            {
-                if (Channel != null && Channel.Model.Id == m.ChannelId)
-                {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        // LastOrDefault to start from the bottom
-                        var msg = BindableMessages.LastOrDefault(x => x.Model.Id == m.MessageId);
-                        if (msg != null)
-                        {
-                            BindableMessages.Remove(msg);
-                        }
-                    });
-                }
-            });
-            MessengerInstance.Register<GatewayMessageUpdatedMessage>(this, async m =>
-            {
-                if (Channel != null && Channel.Model.Id == m.Message.ChannelId)
-                {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        // LastOrDefault to start from the bottom
-                        BindableMessage msg = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad");
-                        msg?.Update(m.Message);
-                    });
-                }
-            });
-            MessengerInstance.Register<GatewayReactionAddedMessage>(this, async m =>
-            {
-                BindableMessage message = BindableMessages.FirstOrDefault(x => x.Model.Id != "Ad");
-                if (message != null)
-                {
-                    if (message.Model.Reactions == null)
-                    {
-                        message.Model.Reactions = new List<Reaction>().AsEnumerable();
-                    }
-                    var reaction = message.Model.Reactions.FirstOrDefault(x => x.Emoji.Name == m.Emoji.Name && x.Emoji.Id == m.Emoji.Id);
-                    if (reaction != null)
-                    {
-                        reaction.Count++;
-                        // TODO: Find better update method
-                        message.Model.Reactions = message.Model.Reactions.ToList().AsEnumerable();
-                    }
-                    else
-                    {
-                        var list = message.Model.Reactions.ToList();
-                        list.Add(new Reaction() { Emoji = m.Emoji, Count = 1, Me = m.Me});
-                        message.Model.Reactions = list.AsEnumerable();
-                    }
-
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        message.RaisePropertyChanged(nameof(message.Model));
-                    });
-                }
-            });
-            MessengerInstance.Register<GatewayReactionRemovedMessage>(this, async m =>
-            {                
-                BindableMessage message = BindableMessages.FirstOrDefault(x => x.Model.Id != "Ad");
-                if (message != null)
-                {
-                    var reaction = message.Model.Reactions.FirstOrDefault(x => x != null);
-                    if (reaction != null)
-                    {
-                        reaction.Count--;
-                        // TODO: find better update method
-                        var list = message.Model.Reactions.ToList();
-                        if (reaction.Count == 0)
-                        {
-                            list.Remove(reaction);
-                        }
-                        message.Model.Reactions = list.AsEnumerable();
-                    }
-
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        message.RaisePropertyChanged(nameof(message.Model));
-                    });
-                }
-            });
-            MessengerInstance.Register<GatewayTypingStartedMessage>(this, async m =>
-            {
-                DispatcherHelper.CheckBeginInvokeOnUi(() => 
-                {
-                    if (GuildsService.CurrentChannels.TryGetValue(m.TypingStart.ChannelId, out var bChannel))
-                    {
-                        if (bChannel.Typers.TryRemove(m.TypingStart.UserId, out var oldTimer))
-                        {
-                            oldTimer.Dispose();
-                        }
-                            
-                        Timer timer = new Timer(_ =>
-                        {
-                            if (bChannel.Typers.TryRemove(m.TypingStart.UserId, out var oldUser))
-                            {
-                                oldUser.Dispose();
-                            }
-
-                            DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                            {
-                                bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
-                                bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
-                            });
-                        }, null, 8 * 1000, 0);
-
-                        bChannel.Typers.TryAdd(m.TypingStart.UserId, timer);
-                        
-                        DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                        {
-                            bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
-                            bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
-                        });
-                    }
-                });
-            });
-            MessengerInstance.Register<string>(this, async m =>
-            {
-                if (m == "GuildsReady")
-                {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        // Show guilds
-                        BindableGuilds.AddRange(GuildsService.Guilds.Values.OrderBy(x => x.Position));
-                        BindableCurrentFriends.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsFriend));
-                        BindablePendingFriends.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsIncoming || x.IsOutgoing));
-                        BindableBlockedUsers.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsBlocked));
-                    });
-                }
-            });
-            MessengerInstance.Register<GuildMembersSyncedMessage>(this, m =>
-            {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                {
-                    // Show guilds
-                    BindableMembers.Clear();
-                    BindableMembers.AddElementRange(m.Members);
-                });
-            });
-            MessengerInstance.Register<GatewayPresenceUpdatedMessage>(this, m =>
-            {
-                if (_PresenceDictionary.ContainsKey(m.UserId))
-                {
-                    _PresenceDictionary[m.UserId] = m.Presence;
-                }
-                else
-                {
-                    _PresenceDictionary.TryAdd(m.UserId, m.Presence);
-                }
-            });
-            MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, async m =>
-            {
-
-                if (m.VoiceState.UserId == DiscordService.CurrentUser.Id)
-                {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() => VoiceState = m.VoiceState);
-                }
-            });
-            MessengerInstance.Register<CurrentUserVoiceStateRequestMessage>(this, async m =>
-            {
-                DispatcherHelper.CheckBeginInvokeOnUi(() => m.ReportResult(VoiceState));
-            });
-
-            MessengerInstance.Register<PresenceRequestMessage>(this, m => m.ReportResult(_PresenceDictionary.TryGetValue(m.UserId, out var value) ? value : new Presence() { Status = "offline" }));
-        }
-
-        public async void Login()
-        {
-            var token = (string)(await CacheService.Persistent.Roaming.TryGetValueAsync<object>(Helpers.Constants.Cache.Keys.AccessToken));
-            if (string.IsNullOrEmpty(token))
-            {
-                SubFrameNavigationService.NavigateTo("LoginPage");
-            }
-            else
-            {
-                await DiscordService.Login(token);
-            }
-        }
-
-        ConcurrentDictionary<string, Presence> _PresenceDictionary = new ConcurrentDictionary<string, Presence>();
-
-
+        /// <summary>
+        /// Scrolls message list to BindableMessage
+        /// </summary>
         public event EventHandler<BindableMessage> ScrollTo;
 
-        private string guildId
-        {
-            get => Channel.GuildId;
-        }
-
-        static SemaphoreSlim SemaphoreSlim { get; } = new SemaphoreSlim(1, 1);
+        #endregion
 
         #region Commands
-        private RelayCommand tiggerTyping;
-        public RelayCommand TriggerTyping => tiggerTyping ??= new RelayCommand(() =>
-        {
-            DiscordService.ChannelService.TriggerTypingIndicator(Channel.Model.Id);
-        });
-
-        private RelayCommand newLineCommand;
-        public RelayCommand NewLineCommand =>
-            newLineCommand ??= new RelayCommand(() =>
-            {
-                string text = MessageText;
-                int selectionstart = SelectionStart;
-
-                if (SelectionLength > 0)
-                {
-                    // Remove selected text first
-                    text = text.Remove(selectionstart, SelectionLength);
-                }
-
-                text = text.Insert(selectionstart, " \n");
-                MessageText = text;
-                SelectionStart = selectionstart + 2;
-            });
 
         #region Navigation
 
@@ -534,6 +146,30 @@ namespace Quarrel.ViewModels
             });
         });
 
+        private RelayCommand tiggerTyping;
+        public RelayCommand TriggerTyping => tiggerTyping ??= new RelayCommand(() =>
+        {
+            DiscordService.ChannelService.TriggerTypingIndicator(Channel.Model.Id);
+        });
+
+        private RelayCommand newLineCommand;
+        public RelayCommand NewLineCommand =>
+            newLineCommand ??= new RelayCommand(() =>
+            {
+                string text = MessageText;
+                int selectionstart = SelectionStart;
+
+                if (SelectionLength > 0)
+                {
+                    // Remove selected text first
+                    text = text.Remove(selectionstart, SelectionLength);
+                }
+
+                text = text.Insert(selectionstart, " \n");
+                MessageText = text;
+                SelectionStart = selectionstart + 2;
+            });
+
         private RelayCommand editLastMessageCommand;
         public RelayCommand EditLastMessageCommand => editLastMessageCommand ??= new RelayCommand(async () =>
         {
@@ -547,7 +183,6 @@ namespace Quarrel.ViewModels
                 }
             }
         });
-
 
         private RelayCommand<BindableMessage> deleteMessageCommand;
         public RelayCommand<BindableMessage> DeleteMessageCommand => deleteMessageCommand ??= new RelayCommand<BindableMessage>(async (message) =>
@@ -582,6 +217,408 @@ namespace Quarrel.ViewModels
         #endregion
 
         #region Methods
+
+
+        /// <summary>
+        /// Register for MVVM Messenger messages in MainViewModel
+        /// </summary>
+        private void RegisterMessages()
+        {
+            #region Gateway
+
+            #region Initialize
+
+            MessengerInstance.Register<GatewayReadyMessage>(this, _ =>
+            {
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                {
+                    MessengerInstance.Send(new GuildNavigateMessage(GuildsService.Guilds["DM"]));
+                });
+            });
+
+            MessengerInstance.Register<GatewayInvalidSessionMessage>(this, async _ =>
+            {
+                await CacheService.Persistent.Roaming.DeleteValueAsync(Constants.Cache.Keys.AccessToken);
+                Login();
+            });
+
+            #endregion
+
+            #region Messages
+
+            MessengerInstance.Register<GatewayMessageRecievedMessage>(this, m =>
+            {
+                if (GuildsService.CurrentChannels.TryGetValue(m.Message.ChannelId, out var channel))
+                {
+                    channel.UpdateLMID(m.Message.Id);
+
+                    if (channel.IsDirectChannel || channel.IsGroupChannel || m.Message.Mentions.Any(x => x.Id == CurrentUsersService.CurrentUser.Model.Id) ||
+                        m.Message.MentionEveryone)
+                    {
+                        DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                        {
+                            channel.ReadState.MentionCount++;
+                            int oldIndex = GuildsService.Guilds["DM"].Channels.IndexOf(channel);
+                            GuildsService.Guilds["DM"].Channels.Move(oldIndex, 0);
+                        });
+                    }
+
+                    if (Channel != null && Channel.Model.Id == channel.Model.Id)
+                        DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                        {
+                            channel.Typers.TryRemove(m.Message.User.Id, out var _);
+                            var lastMessage = BindableMessages.LastOrDefault();
+                            BindableMessages.Add(new BindableMessage(m.Message, channel.Guild.Model.Id ?? "DM"));
+                        });
+                }
+            });
+            MessengerInstance.Register<GatewayMessageDeletedMessage>(this, m =>
+            {
+                if (Channel != null && Channel.Model.Id == m.ChannelId)
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        // LastOrDefault to start from the bottom
+                        var msg = BindableMessages.LastOrDefault(x => x.Model.Id == m.MessageId);
+                        if (msg != null)
+                        {
+                            BindableMessages.Remove(msg);
+                        }
+                    });
+                }
+            });
+            MessengerInstance.Register<GatewayMessageUpdatedMessage>(this, m =>
+            {
+                if (Channel != null && Channel.Model.Id == m.Message.ChannelId)
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        // LastOrDefault to start from the bottom
+                        BindableMessage msg = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad");
+                        msg?.Update(m.Message);
+                    });
+                }
+            });
+
+            #region Reactions
+            MessengerInstance.Register<GatewayReactionAddedMessage>(this, m =>
+            {
+                BindableMessage message = BindableMessages.FirstOrDefault(x => x.Model.Id != "Ad");
+                if (message != null)
+                {
+                    if (message.Model.Reactions == null)
+                    {
+                        message.Model.Reactions = new List<Reaction>().AsEnumerable();
+                    }
+                    var reaction = message.Model.Reactions.FirstOrDefault(x => x.Emoji.Name == m.Emoji.Name && x.Emoji.Id == m.Emoji.Id);
+                    if (reaction != null)
+                    {
+                        reaction.Count++;
+                        // TODO: Find better update method
+                        message.Model.Reactions = message.Model.Reactions.ToList().AsEnumerable();
+                    }
+                    else
+                    {
+                        var list = message.Model.Reactions.ToList();
+                        list.Add(new Reaction() { Emoji = m.Emoji, Count = 1, Me = m.Me });
+                        message.Model.Reactions = list.AsEnumerable();
+                    }
+
+                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        message.RaisePropertyChanged(nameof(message.Model));
+                    });
+                }
+            });
+            MessengerInstance.Register<GatewayReactionRemovedMessage>(this, m =>
+            {
+                BindableMessage message = BindableMessages.FirstOrDefault(x => x.Model.Id != "Ad");
+                if (message != null)
+                {
+                    var reaction = message.Model.Reactions.FirstOrDefault(x => x != null);
+                    if (reaction != null)
+                    {
+                        reaction.Count--;
+                        // TODO: find better update method
+                        var list = message.Model.Reactions.ToList();
+                        if (reaction.Count == 0)
+                        {
+                            list.Remove(reaction);
+                        }
+                        message.Model.Reactions = list.AsEnumerable();
+                    }
+
+                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        message.RaisePropertyChanged(nameof(message.Model));
+                    });
+                }
+            });
+            #endregion
+
+            #endregion
+
+            MessengerInstance.Register<GatewayTypingStartedMessage>(this, m =>
+            {
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                {
+                    if (GuildsService.CurrentChannels.TryGetValue(m.TypingStart.ChannelId, out var bChannel))
+                    {
+                        if (bChannel.Typers.TryRemove(m.TypingStart.UserId, out var oldTimer))
+                        {
+                            oldTimer.Dispose();
+                        }
+
+                        Timer timer = new Timer(_ =>
+                        {
+                            if (bChannel.Typers.TryRemove(m.TypingStart.UserId, out var oldUser))
+                            {
+                                oldUser.Dispose();
+                            }
+
+                            DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                            {
+                                bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
+                                bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
+                            });
+                        }, null, 8 * 1000, 0);
+
+                        bChannel.Typers.TryAdd(m.TypingStart.UserId, timer);
+
+                        DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                        {
+                            bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
+                            bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
+                        });
+                    }
+                });
+            });
+
+            #region Members
+
+            MessengerInstance.Register<GuildMembersSyncedMessage>(this, m =>
+            {
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                {
+                    // Show guilds
+                    BindableMembers.Clear();
+                    BindableMembers.AddElementRange(m.Members);
+                });
+            });
+
+            MessengerInstance.Register<GatewayPresenceUpdatedMessage>(this, m =>
+            {
+                if (_PresenceDictionary.ContainsKey(m.UserId))
+                {
+                    _PresenceDictionary[m.UserId] = m.Presence;
+                }
+                else
+                {
+                    _PresenceDictionary.TryAdd(m.UserId, m.Presence);
+                }
+            });
+
+            MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, async m =>
+            {
+
+                if (m.VoiceState.UserId == DiscordService.CurrentUser.Id)
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUi(() => VoiceState = m.VoiceState);
+                }
+            });
+            #endregion
+
+            MessengerInstance.Register<CurrentUserVoiceStateRequestMessage>(this, m =>
+            {
+                DispatcherHelper.CheckBeginInvokeOnUi(() => m.ReportResult(VoiceState));
+            });
+
+            #endregion
+
+            #region Navigation
+
+            MessengerInstance.Register<GuildNavigateMessage>(this, m =>
+            {
+                if (Guild != m.Guild)
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        Channel = null;
+                        Guild = m.Guild;
+                        BindableMessages.Clear();
+                        BindableMembers.Clear();
+                        //BindableChannels = m.Guild.Channels;
+                    });
+
+                    BindableChannel channel = m.Guild.Channels.FirstOrDefault(x => x.IsTextChannel && x.Permissions.ReadMessages);
+                    if (channel != null)
+                        MessengerInstance.Send(new ChannelNavigateMessage(channel, m.Guild));
+                }
+            });
+            MessengerInstance.Register<ChannelNavigateMessage>(this, async m =>
+            {
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                {
+                    Channel = m.Channel;
+                });
+
+                if (SettingsService.Roaming.GetValue<bool>(SettingKeys.FilterMembers))
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        BindableMembers.Clear();
+                        BindableMembers.AddElementRange(CurrentUsersService.Users.Values.Where(user =>
+                        {
+                            if (Channel.IsTextChannel)
+                            {
+                                Permissions perms = new Permissions(Guild.Model.Roles
+                                    .FirstOrDefault(x => x.Name == "@everyone").Permissions);
+                                foreach (var role in user.Roles)
+                                {
+                                    perms.AddAllows((GuildPermission)role.Permissions);
+                                }
+
+                                GuildPermission roleDenies = 0;
+                                GuildPermission roleAllows = 0;
+                                GuildPermission memberDenies = 0;
+                                GuildPermission memberAllows = 0;
+                                foreach (Overwrite overwrite in (Channel.Model as GuildChannel).PermissionOverwrites)
+                                    if (overwrite.Id == Channel.GuildId)
+                                    {
+                                        perms.AddDenies((GuildPermission)overwrite.Deny);
+                                        perms.AddAllows((GuildPermission)overwrite.Allow);
+                                    }
+                                    else if (overwrite.Type == "role" && user.Model.Roles.Contains(overwrite.Id))
+                                    {
+                                        roleDenies |= (GuildPermission)overwrite.Deny;
+                                        roleAllows |= (GuildPermission)overwrite.Allow;
+                                    }
+                                    else if (overwrite.Type == "member" && overwrite.Id == user.Model.User.Id)
+                                    {
+                                        memberDenies |= (GuildPermission)overwrite.Deny;
+                                        memberAllows |= (GuildPermission)overwrite.Allow;
+                                    }
+
+                                perms.AddDenies(roleDenies);
+                                perms.AddAllows(roleAllows);
+                                perms.AddDenies(memberDenies);
+                                perms.AddAllows(memberAllows);
+
+                                // If owner add admin
+                                if (Guild.Model.OwnerId == user.Model.User.Id)
+                                {
+                                    perms.AddAllows(GuildPermission.Administrator);
+                                }
+
+                                return perms.ReadMessages;
+                            }
+
+                            return true;
+                        }));
+                    });
+                }
+
+                await SemaphoreSlim.WaitAsync();
+                try
+                {
+                    _AtTop = false;
+                    NewItemsLoading = true;
+                    IEnumerable<Message> itemList = null;
+                    //if (Channel.ReadState == null)
+                    //    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id);
+                    //else
+                    //    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAround(m.Channel.Model.Id, Channel.ReadState.LastMessageId, 50);
+                    try
+                    {
+                        itemList = await DiscordService.ChannelService.GetChannelMessages(m.Channel.Model.Id);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e);
+                        return;
+                    }
+
+                    Message lastItem = null;
+
+                    BindableMessage scrollItem = null;
+
+                    List<BindableMessage> messages = new List<BindableMessage>();
+
+                    for (int i = itemList.Count() - 1; i >= 0; i--)
+                    {
+                        var item = itemList.ElementAt(i);
+                        messages.Add(new BindableMessage(item, Guild.Model.Id, lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId));
+
+                        if (lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId)
+                        {
+                            scrollItem = messages.LastOrDefault();
+                        }
+
+                        lastItem = item;
+
+
+                        if (!SettingsService.Roaming.GetValue<bool>(SettingKeys.AdsRemoved) && i % 10 == 0)
+                        {
+                            messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = Channel.Model.Id }, null));
+                            lastItem = null;
+                        }
+                    }
+
+                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        BindableMessages.Clear();
+                        BindableMessages.AddRange(messages);
+                        ScrollTo?.Invoke(this, scrollItem ?? BindableMessages.LastOrDefault());
+                    });
+                    NewItemsLoading = false;
+                }
+                finally
+                {
+                    SemaphoreSlim.Release();
+                }
+            });
+
+            #endregion
+
+            MessengerInstance.Register<string>(this, m =>
+            {
+                if (m == "GuildsReady")
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        // Show guilds
+                        BindableGuilds.AddRange(GuildsService.Guilds.Values.OrderBy(x => x.Position));
+                        BindableCurrentFriends.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsFriend));
+                        BindablePendingFriends.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsIncoming || x.IsOutgoing));
+                        BindableBlockedUsers.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsBlocked));
+                    });
+                }
+            });
+
+            MessengerInstance.Register<PresenceRequestMessage>(this, m => m.ReportResult(_PresenceDictionary.TryGetValue(m.UserId, out var value) ? value : new Presence() { Status = "offline" }));
+        }
+
+        /// <summary>
+        /// Logins in with cached token or opens login page
+        /// </summary>
+        public async void Login()
+        {
+            var token = (string)(await CacheService.Persistent.Roaming.TryGetValueAsync<object>(Helpers.Constants.Cache.Keys.AccessToken));
+            if (string.IsNullOrEmpty(token))
+            {
+                SubFrameNavigationService.NavigateTo("LoginPage");
+            }
+            else
+            {
+                await DiscordService.Login(token);
+            }
+        }
+
+        /// <summary>
+        /// Parse a list of Mentions out of <paramref name="message"/>
+        /// </summary>
+        /// <param name="message">Message text</param>
+        /// <returns>A list of mentions in message</returns>
         private List<string> FindMentions(string message)
         {
             List<string> mentions = new List<string>();
@@ -677,6 +714,9 @@ namespace Quarrel.ViewModels
             return mentions;
         }
 
+        /// <summary>
+        /// Loads messages from before the first message in the message list
+        /// </summary>
         public async void LoadOlderMessages()
         {
             if (ItemsLoading || _AtTop) return;
@@ -706,7 +746,7 @@ namespace Quarrel.ViewModels
                     var item = itemList.ElementAt(i);
 
                     // Can't be last read item
-                    messages.Add(new BindableMessage(item, guildId));
+                    messages.Add(new BindableMessage(item, Guild.Model.Id));
                     lastItem = item;
 
                     if (!SettingsService.Roaming.GetValue<bool>(SettingKeys.AdsRemoved) && i % 10 == 0)
@@ -725,6 +765,9 @@ namespace Quarrel.ViewModels
             }
         }
 
+        /// <summary>
+        /// Loads messages from after the last message in the message list
+        /// </summary>
         public async void LoadNewerMessages()
         {
             if (ItemsLoading) return;
@@ -745,7 +788,7 @@ namespace Quarrel.ViewModels
                         var item = itemList.ElementAt(i);
 
                         // Can't be last read item
-                        messages.Add(new BindableMessage(item, guildId));
+                        messages.Add(new BindableMessage(item, Guild.Model.Id));
                         lastItem = item;
 
                         if (!SettingsService.Roaming.GetValue<bool>(SettingKeys.AdsRemoved) && i % 10 == 0)
@@ -776,6 +819,26 @@ namespace Quarrel.ViewModels
 
         #region Properties
 
+        #region Services
+
+        private readonly ICacheService CacheService;
+        private readonly ISettingsService SettingsService;
+        private readonly IDiscordService DiscordService;
+        public readonly ICurrentUsersService CurrentUsersService;
+        private readonly IGatewayService GatewayService;
+        private readonly IGuildsService GuildsService;
+        private readonly ISubFrameNavigationService SubFrameNavigationService;
+        private readonly IDispatcherHelper DispatcherHelper;
+
+        #endregion
+
+        /// <summary>
+        /// Keeps from updating BindableMessages from two places at once
+        /// </summary>
+        static SemaphoreSlim SemaphoreSlim { get; } = new SemaphoreSlim(1, 1);
+
+        ConcurrentDictionary<string, Presence> _PresenceDictionary = new ConcurrentDictionary<string, Presence>();
+
         private bool _AtTop;
 
         private BindableGuild _Guild;
@@ -799,9 +862,7 @@ namespace Quarrel.ViewModels
             set => Set(ref _OldItemsLoading, value);
         }
 
-
         public bool ItemsLoading => _NewItemsLoading || _OldItemsLoading;
-
 
         private BindableChannel _Channel;
         public BindableChannel Channel
@@ -811,7 +872,6 @@ namespace Quarrel.ViewModels
         }
 
         private string _MessageText = "";
-
         public string MessageText
         {
             get => _MessageText;
@@ -819,7 +879,6 @@ namespace Quarrel.ViewModels
         }
 
         private int _SelectionStart;
-
         public int SelectionStart
         {
             get => _SelectionStart;
@@ -827,7 +886,6 @@ namespace Quarrel.ViewModels
         }
 
         private int _SelectionLength;
-
         public int SelectionLength
         {
             get => _SelectionLength;
@@ -835,7 +893,6 @@ namespace Quarrel.ViewModels
         }
 
         private VoiceState voiceState = new VoiceState();
-
         public VoiceState VoiceState
         {
             get => voiceState;
