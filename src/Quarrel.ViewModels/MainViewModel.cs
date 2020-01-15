@@ -365,8 +365,12 @@ namespace Quarrel.ViewModels
                         DispatcherHelper.CheckBeginInvokeOnUi(() =>
                         {
                             channel.ReadState.MentionCount++;
-                            int oldIndex = GuildsService.Guilds["DM"].Channels.IndexOf(channel);
-                            GuildsService.Guilds["DM"].Channels.Move(oldIndex, 0);
+                            if (channel.IsDirectChannel || channel.IsGroupChannel)
+                            {
+                                int oldIndex = GuildsService.Guilds["DM"].Channels.IndexOf(channel);
+                                if(oldIndex >= 0)
+                                    GuildsService.Guilds["DM"].Channels.Move(oldIndex, 0);
+                            }
                         });
 
                     if (Channel != null && Channel.Model.Id == channel.Model.Id)
