@@ -39,8 +39,8 @@ namespace Quarrel.Controls.Shell.Views
         public MemberListControl()
         {
             this.InitializeComponent();
-            // Scrolls the MemberList to the top when the Guild changes
-            Messenger.Default.Register<GuildNavigateMessage>(this, m =>
+            // Scrolls the MemberList to the top when the Channel changes
+            Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
             {
                 MemberList.ScrollIntoView(ViewModel.BindableMembersNew.FirstOrDefault());
             });
