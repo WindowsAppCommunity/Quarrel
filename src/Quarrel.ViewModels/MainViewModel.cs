@@ -328,6 +328,7 @@ namespace Quarrel.ViewModels
         private void RegisterMessages()
         {
             #region Gateway 
+
             #region Initialize
             MessengerInstance.Register<GatewayInvalidSessionMessage>(this, async _ =>
             {
@@ -339,9 +340,17 @@ namespace Quarrel.ViewModels
                 DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
                     MessengerInstance.Send(new GuildNavigateMessage(GuildsService.Guilds["DM"]));
+
+                    // Show guilds
+                    BindableGuilds.AddRange(GuildsService.Guilds.Values.OrderBy(x => x.Position));
+                    BindableCurrentFriends.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsFriend));
+                    BindablePendingFriends.AddRange(
+                        CurrentUsersService.Friends.Values.Where(x => x.IsIncoming || x.IsOutgoing));
+                    BindableBlockedUsers.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsBlocked));
                 });
             });
             #endregion
+
             #region Messages
 
             MessengerInstance.Register<GatewayMessageRecievedMessage>(this, async m =>
@@ -391,6 +400,7 @@ namespace Quarrel.ViewModels
             });
 
             #endregion
+
             #region Members
 
             MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, async m =>
@@ -492,13 +502,6 @@ namespace Quarrel.ViewModels
                                     ;
                                     break;
                             }
-
-                        // Show guilds
-                        BindableGuilds.AddRange(GuildsService.Guilds.Values.OrderBy(x => x.Position));
-                        BindableCurrentFriends.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsFriend));
-                        BindablePendingFriends.AddRange(
-                            CurrentUsersService.Friends.Values.Where(x => x.IsIncoming || x.IsOutgoing));
-                        BindableBlockedUsers.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsBlocked));
                     });
             });
 

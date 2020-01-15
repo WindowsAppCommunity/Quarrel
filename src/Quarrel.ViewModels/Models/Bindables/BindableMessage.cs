@@ -30,7 +30,7 @@ namespace Quarrel.Models.Bindables
             channel = SimpleIoc.Default.GetInstance<IGuildsService>().CurrentChannels[Model.ChannelId];
             author = member;
 
-            Messenger.Default.Register<GatewayGuildMembersChunkMessage>(this, async m =>
+            Messenger.Default.Register<GatewayGuildMembersChunkMessage>(this, m =>
             {
                 if (m.GuildMembersChunk.GuildId == GuildId)
                 {
