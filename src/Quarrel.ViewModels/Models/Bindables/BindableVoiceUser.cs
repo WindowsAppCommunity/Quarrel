@@ -64,10 +64,6 @@ namespace Quarrel.Models.Bindables
                     DispatcherHelper.CheckBeginInvokeOnUi(() => { Speaking = e.EventData.Speaking > 0; });
                 }
             });
-            MessengerInstance.Register<GuildMembersSyncedMessage>(this, m =>
-            {
-                DispatcherHelper.CheckBeginInvokeOnUi(() => { RaisePropertyChanged(nameof(GuildMember)); });
-            });
 
             #endregion
         }
