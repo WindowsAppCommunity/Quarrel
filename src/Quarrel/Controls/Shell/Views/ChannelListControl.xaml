@@ -437,6 +437,7 @@
         </Style>
 
         <convertbase:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
+        <convertbase:NullToBoolConverter x:Key="NullToBoolConverter"/>
         <convertbase:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         <convertbase:EnumerableAnyToVisibilityConverter x:Key="EnumerableAnyToVisibilityConverter"/>
         <convertchannel:MentionCountToVisiblityConverter x:Key="MentionCountToVisiblityConverter"/>
@@ -455,7 +456,17 @@
                   SelectionMode="None"
                   helpers:ItemClickCommand.Command="{x:Bind ViewModel.NavigateChannelCommand}">
             <ListView.Header>
-                <channelcontrols:ChannelListHeader DataContext="{x:Bind ViewModel.Guild, Mode=OneWay}"/>
+                <Grid>
+                    <channelcontrols:ChannelListHeader Visibility="{x:Bind ViewModel.Guild.IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+                                                       DataContext="{x:Bind ViewModel.Guild, Mode=OneWay}"/>
+                    <ToggleButton Visibility="{x:Bind ViewModel.Guild.IsDM, Mode=OneWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                  IsChecked="{x:Bind ViewModel.Channel, Converter={StaticResource NullToBoolConverter}, Mode=OneWay}" Height="48" Background="Transparent"
+                                  Command="{x:Bind ViewModel.NavigateToFriends}">
+                        <Viewbox MaxHeight="24">
+                            <TextBlock Text="Friends" FontSize="18" Margin="12,0,0,0"/>
+                        </Viewbox>
+                    </ToggleButton>
+                </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="bindables:BindableChannel">

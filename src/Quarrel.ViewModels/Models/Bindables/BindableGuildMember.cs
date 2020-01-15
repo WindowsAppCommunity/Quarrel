@@ -21,6 +21,7 @@ namespace Quarrel.Models.Bindables
 {
     public class BindableGuildMember : BindableModelBase<GuildMember>, IEquatable<BindableGuildMember>, IComparable<BindableGuildMember>, IGuildMemberListItem
     {
+        #region Constructors
         private readonly IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
         private readonly ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
         private readonly IGuildsService GuildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
@@ -40,10 +41,37 @@ namespace Quarrel.Models.Bindables
             });
         }
 
-        public string GuildId { get; set; }
+        #endregion
+
+        #region Properties
+
+        #region Services
+
+        private IDiscordService discordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ICacheService cacheService { get; } = SimpleIoc.Default.GetInstance<ICacheService>();
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+
+        #endregion
+
+        #region Display 
+
+        public Game Game => Presence?.Game;
+        
+        public string DisplayName => Model.Nick ?? Model.User.Username;
+
+        public bool IsBot => Model.User.Bot;
+
+        public bool IsOwner { get; set; }
+
+        public bool HasNickname => !string.IsNullOrEmpty(Model.Nick);
+
+        public string Note => cacheService.Runtime.TryGetValue<string>(Constants.Cache.Keys.Note, Model.User.Id);
+
+        #endregion
+
+        #region Roles
 
         private List<Role> cachedRoles;
-
         public List<Role> Roles
         {
             get
@@ -90,8 +118,11 @@ namespace Quarrel.Models.Bindables
             }
         }
 
-        private Presence presence;
+        #endregion
 
+        public string GuildId { get; set; }
+
+        private Presence presence;
         public Presence Presence
         {
             get => presence;
@@ -101,26 +132,6 @@ namespace Quarrel.Models.Bindables
                 RaisePropertyChanged(nameof(Game));
             }
         }
-
-        public Game Game => Presence?.Game;
-
-        #region Display 
-
-        public string DisplayName => Model.Nick ?? Model.User.Username;
-
-        public bool IsBot => Model.User.Bot;
-
-        public bool IsOwner { get; set; } 
-
-        public bool HasNickname => !string.IsNullOrEmpty(Model.Nick);
-
-        public string Note => cacheService.Runtime.TryGetValue<string>(Constants.Cache.Keys.Note, Model.User.Id);
-
-        #endregion
-
-        #region Friend Actions
-
-
 
         #endregion
 

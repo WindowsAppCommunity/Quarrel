@@ -38,7 +38,7 @@
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -46,7 +46,7 @@
             <RowDefinition Height="auto" MaxHeight="256"/>
         </Grid.RowDefinitions>
 
-        <ListView x:Name="MessageList"
+        <ListView x:Name="MessageList" x:Load="True"
                   ItemsSource="{x:Bind ViewModel.BindableMessages, Mode=OneWay}" Padding="0,0,0,16"
                   ItemTemplateSelector="{StaticResource MessageTemplateSelector}"
                   SelectionMode="None" IsItemClickEnabled="False" ItemContainerStyle="{StaticResource MessageListItemStyle}" ShowsScrollingPlaceholders="False">

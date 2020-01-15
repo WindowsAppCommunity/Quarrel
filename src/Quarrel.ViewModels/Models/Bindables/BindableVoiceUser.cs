@@ -19,10 +19,71 @@ namespace Quarrel.Models.Bindables
 {
     public class BindableVoiceUser : BindableModelBase<VoiceState>, IEquatable<BindableVoiceUser>, IComparable<BindableVoiceUser>
     {
+        #region Constructors
+
+        public BindableVoiceUser([NotNull] VoiceState model) : base(model)
+        {
+            #region Messenger
+
+            MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, e =>
+            {
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                {
+                    if (e.VoiceState.UserId == Model.UserId)
+                    {
+                        if (e.VoiceState.SelfDeaf != Model.SelfDeaf)
+                        {
+                            Model.SelfDeaf = e.VoiceState.SelfDeaf;
+                            UpateProperties();
+                        }
+
+                        if (e.VoiceState.SelfMute != Model.SelfMute)
+                        {
+                            Model.SelfMute = e.VoiceState.SelfMute;
+                            UpateProperties();
+                        }
+
+                        if (e.VoiceState.ServerDeaf != Model.ServerDeaf)
+                        {
+                            Model.ServerDeaf = e.VoiceState.ServerDeaf;
+                            UpateProperties();
+                        }
+
+                        if (e.VoiceState.ServerMute != Model.ServerMute)
+                        {
+                            Model.ServerMute = e.VoiceState.ServerMute;
+                            UpateProperties();
+                        }
+                    }
+                });
+            });
+            MessengerInstance.Register<SpeakMessage>(this, e =>
+            {
+                if (e.EventData.UserId == Model.UserId)
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUi(() => { Speaking = e.EventData.Speaking > 0; });
+                }
+            });
+            MessengerInstance.Register<GuildMembersSyncedMessage>(this, m =>
+            {
+                DispatcherHelper.CheckBeginInvokeOnUi(() => { RaisePropertyChanged(nameof(GuildMember)); });
+            });
+
+            #endregion
+        }
+
+        #endregion
+
+        #region Properties
+
+        #region Services
+
         public ICurrentUsersService UserService => SimpleIoc.Default.GetInstance<ICurrentUsersService>();
         public IDispatcherHelper DispatcherHelper => SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
-        public BindableGuildMember GuildMember => UserService != null && UserService.Users.TryGetValue(Model.UserId, out BindableGuildMember member) ? member : null;
+        #endregion
+
+        #region Display
 
         public bool ShowDeaf => Model.SelfDeaf || Model.ServerDeaf;
         public bool ServerDeaf => ShowDeaf && Model.ServerDeaf;
@@ -39,54 +100,13 @@ namespace Quarrel.Models.Bindables
             set => Set(ref speaking, value);
         }
 
-        public BindableVoiceUser([NotNull] VoiceState model) : base(model)
-        {
-            MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, async e =>
-                {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        if (e.VoiceState.UserId == Model.UserId)
-                        {
-                            if (e.VoiceState.SelfDeaf != Model.SelfDeaf)
-                            {
-                                Model.SelfDeaf = e.VoiceState.SelfDeaf;
-                                UpateProperties();
-                            }
+        #endregion
 
-                            if (e.VoiceState.SelfMute != Model.SelfMute)
-                            {
-                                Model.SelfMute = e.VoiceState.SelfMute;
-                                UpateProperties();
-                            }
+        public BindableGuildMember GuildMember => UserService != null && UserService.Users.TryGetValue(Model.UserId, out BindableGuildMember member) ? member : null;
 
-                            if (e.VoiceState.ServerDeaf != Model.ServerDeaf)
-                            {
-                                Model.ServerDeaf = e.VoiceState.ServerDeaf;
-                                UpateProperties();
-                            }
+        #endregion
 
-                            if (e.VoiceState.ServerMute != Model.ServerMute)
-                            {
-                                Model.ServerMute = e.VoiceState.ServerMute;
-                                UpateProperties();
-                            }
-                        }
-                    });
-                }
-            );
-            MessengerInstance.Register<SpeakMessage>(this, async e =>
-            {
-                if (e.EventData.UserId == Model.UserId)
-                {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() => { Speaking = e.EventData.Speaking > 0; });
-                }
-            });
-
-            MessengerInstance.Register<GuildMembersSyncedMessage>(this, m =>
-            {
-                DispatcherHelper.CheckBeginInvokeOnUi(() => { RaisePropertyChanged(nameof(GuildMember)); });
-            });
-        }
+        #region Methods
 
         private void UpateProperties()
         {
@@ -98,6 +118,10 @@ namespace Quarrel.Models.Bindables
             RaisePropertyChanged(nameof(LocalMute));
         }
 
+        #endregion
+
+        #region Interfaces
+
         public bool Equals(BindableVoiceUser other)
         {
             throw new NotImplementedException();
@@ -107,5 +131,7 @@ namespace Quarrel.Models.Bindables
         {
             throw new NotImplementedException();
         }
+
+        #endregion
     }
 }

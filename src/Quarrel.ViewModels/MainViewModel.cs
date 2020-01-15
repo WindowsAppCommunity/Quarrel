@@ -1,4 +1,4 @@
-﻿using DiscordAPI.Models;
+using DiscordAPI.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -686,6 +686,14 @@ namespace Quarrel.ViewModels
                     MessengerInstance.Send(new ChannelNavigateMessage(channel, Guild));
                 }
             });
+
+        private RelayCommand navigateToFriends;
+        public RelayCommand NavigateToFriends => navigateToFriends = new RelayCommand(() =>
+        {
+            Channel.Selected = false;
+            Channel = null;
+            BindableMessages.Clear();
+        });
 
         #endregion
 

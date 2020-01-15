@@ -225,9 +225,21 @@
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <markdown:MarkdownTextBlock x:Phase="1" Users="{x:Bind Model.Mentions, Mode=OneWay}" 
-                                            Text="{x:Bind Model.Content, Mode=OneWay}"
-                                            TextWrapping="WrapWholeWords"
-                                            FontWeight="SemiLight" Opacity="0.9" LinkClicked="Markdown_LinkClicked"/>
+                                                Text="{x:Bind Model.Content, Mode=OneWay}"
+                                                Visibility="{x:Bind IsEditing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+                                                TextWrapping="WrapWholeWords"
+                                                FontWeight="SemiLight" Opacity="0.9" LinkClicked="Markdown_LinkClicked"/>
+                    <Grid Visibility="{x:Bind IsEditing, Mode=OneWay}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBox Style="{StaticResource TextBoxStyle1}" Text="{x:Bind EditedText, Mode=TwoWay}"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1">
+                            <HyperlinkButton Content="Cancel" Style="{StaticResource PlainTextHyperlinkStyle}" Margin="8,4" Command="{x:Bind ToggleEdit, Mode=OneWay}"/>
+                            <HyperlinkButton Content="Save" Style="{StaticResource PlainTextHyperlinkStyle}" Margin="8,4" Command="{x:Bind SaveEdit, Mode=OneWay}"/>
+                        </StackPanel>
+                    </Grid>
                     <Button Grid.Column="1" Padding="4,0" Style="{StaticResource DimButton}" Opacity="0.5">
                         <Button.Flyout>
                             <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
