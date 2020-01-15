@@ -359,13 +359,6 @@ namespace Quarrel.ViewModels
                     }
                 });
             });
-            MessengerInstance.Register<GatewayPresenceUpdatedMessage>(this, m =>
-            {
-                if (_PresenceDictionary.ContainsKey(m.UserId))
-                    _PresenceDictionary[m.UserId] = m.Presence;
-                else
-                    _PresenceDictionary.TryAdd(m.UserId, m.Presence);
-            });
             MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, async m =>
             {
                 if (m.VoiceState.UserId == DiscordService.CurrentUser.Id)
@@ -429,6 +422,7 @@ namespace Quarrel.ViewModels
                                         BindableMembersNew.Insert(op.Index,
                                             new BindableGuildMemberGroup(op.Item.Group));
                                     else
+                                    {
                                         BindableMembersNew.Insert(op.Index, new BindableGuildMember(op.Item.Member)
                                         {
                                             GuildId = guildId,
@@ -436,6 +430,8 @@ namespace Quarrel.ViewModels
                                                       GuildsService.Guilds[guildId].Model.OwnerId,
                                             Presence = op.Item.Member.Presence
                                         });
+                                        CurrentUsersService.UpdateUserPrecense(op.Item.Member.User.Id, op.Item.Member.Presence);
+                                    }
                                 }
                                     break;
 
@@ -504,10 +500,6 @@ namespace Quarrel.ViewModels
             });
             MessengerInstance.Register<CurrentUserVoiceStateRequestMessage>(this,
                 async m => { DispatcherHelper.CheckBeginInvokeOnUi(() => m.ReportResult(VoiceState)); });
-            MessengerInstance.Register<PresenceRequestMessage>(this,
-                m => m.ReportResult(_PresenceDictionary.TryGetValue(m.UserId, out Presence value)
-                    ? value
-                    : new Presence() {Status = "offline"}));
         }
 
         private void UpdateMemberListItem(int index, SyncItem item)
@@ -526,6 +518,7 @@ namespace Quarrel.ViewModels
                 };
                 BindableMembersNew[index] = bGuildMember;
                 BindableMembers.AddElement(bGuildMember);
+                CurrentUsersService.UpdateUserPrecense(item.Member.User.Id, item.Member.Presence);
             }
         }
 
@@ -539,10 +532,6 @@ namespace Quarrel.ViewModels
             else
                 await DiscordService.Login(token);
         }
-
-        private ConcurrentDictionary<string, Presence> _PresenceDictionary =
-            new ConcurrentDictionary<string, Presence>();
-
 
         public event EventHandler<BindableMessage> ScrollTo;
 
@@ -657,7 +646,7 @@ namespace Quarrel.ViewModels
 
                 if (hasChanged)
                 {
-                    Messenger.Default.Send(new GatewayUpdateGuildSubscriptionssMessage(guildId, guildSubscription));
+                    Messenger.Default.Send(new GatewayUpdateGuildSubscriptionsMessage(guildId, guildSubscription));
                     lastGuildSubscription = guildSubscription;
                 }
 
@@ -897,12 +886,22 @@ namespace Quarrel.ViewModels
                     }
                 }
 
+
+                IReadOnlyDictionary<string, GuildMember> guildMembers = guildId != "DM"
+                    ? CurrentUsersService.GetAndRequestGuildMembers(itemList.Select(x => x.User.Id).Distinct(),
+                        guildId)
+                    : null;
+
+
                 for (int i = itemList.Count() - 1; i >= 0; i--)
                 {
                     Message item = itemList.ElementAt(i);
 
                     // Can't be last read item
-                    messages.Add(new BindableMessage(item, guildId));
+                    messages.Add(new BindableMessage(item, guildId, false,
+                        guildMembers != null && guildMembers.TryGetValue(item.User.Id, out GuildMember member)
+                            ? member
+                            : null));
                     lastItem = item;
 
                     if (!SettingsService.Roaming.GetValue<bool>(SettingKeys.AdsRemoved) && i % 10 == 0)

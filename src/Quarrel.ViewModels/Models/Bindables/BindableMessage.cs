@@ -50,7 +50,7 @@ namespace Quarrel.Models.Bindables
 
         public BindableGuildMember Author =>
             author != null
-                ? new BindableGuildMember(author) {GuildId = GuildId}
+                ? new BindableGuildMember(author) {GuildId = GuildId, Presence = currentUsersService.GetUserPrecense(Model.User.Id) }
                 : new BindableGuildMember(new GuildMember {User = Model.User})
                     {Presence = new Presence {Status = "offline", User = Model.User}};
 

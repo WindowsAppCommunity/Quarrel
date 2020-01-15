@@ -424,7 +424,7 @@ namespace DiscordAPI.Gateway
 
             var request = new SocketFrame()
             {
-                Operation = 8,
+                Operation = (int)OperationCode.RequestGuildMembers,
                 Payload = payload
             };
             await SendMessageAsync(JsonConvert.SerializeObject(request));
@@ -443,7 +443,7 @@ namespace DiscordAPI.Gateway
 
             var request = new SocketFrame()
             {
-                Operation = 4,
+                Operation = (int)OperationCode.VoiceStateUpdate,
                 Payload = payload
             };
             await SendMessageAsync(JsonConvert.SerializeObject(request));
@@ -470,7 +470,7 @@ namespace DiscordAPI.Gateway
             return true;
         }
 
-        public async Task SubscribeToGuildLazy(string guildId, IReadOnlyDictionary<string, IEnumerable<int[]>> channels)
+        public async Task SubscribeToGuildLazy(string guildId, IReadOnlyDictionary<string, IEnumerable<int[]>> channels = null, IEnumerable<string> members = null)
         {
             var updateGuildSubscriptions = new SocketFrame
             {
@@ -478,9 +478,8 @@ namespace DiscordAPI.Gateway
                 Payload = new UpdateGuildSubscriptions()
                 {
                     GuildId = guildId,
-                    Activities = true,
-                    Typing = true,
-                    Channels = channels
+                    Channels = channels,
+                    Members = members
                 }
             };
             await SendMessageAsync(JsonConvert.SerializeObject(updateGuildSubscriptions, Formatting.None, new JsonSerializerSettings 

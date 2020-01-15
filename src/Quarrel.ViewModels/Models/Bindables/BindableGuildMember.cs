@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
+using Quarrel.Messages.Gateway;
 using Quarrel.Models.Bindables.Abstract;
 using Quarrel.Services;
 using Quarrel.Services.Cache;
@@ -13,15 +15,30 @@ using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
 using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Services.DispatcherHelper;
 
 namespace Quarrel.Models.Bindables
 {
     public class BindableGuildMember : BindableModelBase<GuildMember>, IEquatable<BindableGuildMember>, IComparable<BindableGuildMember>, IGuildMemberListItem
     {
-        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
-        private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
-        private IGuildsService GuildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
-        public BindableGuildMember([NotNull] GuildMember model) : base(model) { }
+        private readonly IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private readonly ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
+        private readonly IGuildsService GuildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
+        private readonly IDispatcherHelper DispatcherHelper = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+
+        public BindableGuildMember([NotNull] GuildMember model) : base(model)
+        {
+            Messenger.Default.Register<GatewayPresenceUpdatedMessage>(this, m =>
+            {
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                {
+                    if (m.UserId == Model.User.Id)
+                    {
+                        Presence = m.Presence;
+                    }
+                });
+            });
+        }
 
         public string GuildId { get; set; }
 

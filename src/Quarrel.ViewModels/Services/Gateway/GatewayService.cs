@@ -151,9 +151,9 @@ namespace Quarrel.Services.Gateway
                     await Gateway.RequestGuildMembers(m.GuildIds, m.Query, m.Limit, m.Presences, m.UserIds);
                 });
 
-                Messenger.Default.Register<GatewayUpdateGuildSubscriptionssMessage>(this, async m =>
+                Messenger.Default.Register<GatewayUpdateGuildSubscriptionsMessage>(this, async m =>
                 {
-                    await Gateway.SubscribeToGuildLazy(m.GuildId, m.Channels);
+                    await Gateway.SubscribeToGuildLazy(m.GuildId, m.Channels, m.Members);
                 });
             }
 

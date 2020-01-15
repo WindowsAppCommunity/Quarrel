@@ -50,6 +50,7 @@ namespace Quarrel.Services.Users
         public BindableUser CurrentUser { get; } = new BindableUser(new User());
 
         public UserSettings CurrentUserSettings { get; private set; } = new UserSettings();
+        private ConcurrentDictionary<string, Presence> presences = new ConcurrentDictionary<string, Presence>();
 
         public BindableGuildMember CurrentGuildMember => 
             Users.TryGetValue(CurrentUser.Model.Id, out var member) ? member : null;
@@ -75,26 +76,6 @@ namespace Quarrel.Services.Users
                         }
                     }
                 });
-            });
-
-            Messenger.Default.Register<GatewayGuildSyncMessage>(this, m =>
-            {
-                // Show members
-                Users.Clear();
-                List<BindableGuildMember> UsersList = new List<BindableGuildMember>();
-                foreach (var member in m.Members)
-                {
-                    BindableGuildMember bGuildMember = new BindableGuildMember(member)
-                    {
-                        GuildId = m.GuildId,
-                        IsOwner = member.User.Id == GuildsService.Guilds[m.GuildId].Model.OwnerId,
-                        Presence = Messenger.Default.Request<PresenceRequestMessage, Presence>(new PresenceRequestMessage(member.User.Id))
-                    };
-                    Users.TryAdd(member.User.Id, bGuildMember);
-                    UsersList.Add(bGuildMember);
-
-                }
-                Messenger.Default.Send(new GuildMembersSyncedMessage(UsersList));
             });
             Messenger.Default.Register<GatewayReadyMessage>(this, async m =>
             {
@@ -184,6 +165,13 @@ namespace Quarrel.Services.Users
                     guild.TryAdd(member.User.Id, member);
                 }
             });
+            Messenger.Default.Register<GatewayPresenceUpdatedMessage>(this, m =>
+            {
+                if (presences.ContainsKey(m.UserId))
+                    presences[m.UserId] = m.Presence;
+                else
+                    presences.TryAdd(m.UserId, m.Presence);
+            });
         }
 
         public async Task<GuildMember> GetGuildMember(string memberId, string guildId)
@@ -223,6 +211,19 @@ namespace Quarrel.Services.Users
                 return guildMembers;
             }
             return null;
+        }
+
+        public Presence GetUserPrecense(string userId)
+        {
+            return presences.TryGetValue(userId, out Presence presence) ? presence : null;
+        }
+
+        public void UpdateUserPrecense(string userId, Presence presence)
+        {
+            if (presences.ContainsKey(userId))
+                presences[userId] = presence;
+            else
+                presences.TryAdd(userId, presence);
         }
     }
 }

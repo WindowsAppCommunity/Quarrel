@@ -37,5 +37,7 @@ namespace Quarrel.Services.Users
         /// <param name="guildId"></param>
         /// <returns></returns>
         IReadOnlyDictionary<string, GuildMember> GetAndRequestGuildMembers(IEnumerable<string> memberIds, string guildId);
+        Presence GetUserPrecense(string userId);
+        void UpdateUserPrecense(string userId, Presence presence);
     }
 }
