@@ -80,6 +80,8 @@ namespace Quarrel.Models.Bindables
 
         #endregion
 
+        #region Properties
+
         #region Services
 
         private IDiscordService _DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
@@ -202,6 +204,7 @@ namespace Quarrel.Models.Bindables
             set => Set(ref _Channels, value);
         }
 
+        #endregion
 
         #region Commands
 
