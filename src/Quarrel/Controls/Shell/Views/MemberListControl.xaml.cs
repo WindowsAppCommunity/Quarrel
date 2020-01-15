@@ -28,6 +28,7 @@ using JetBrains.Annotations;
 using Quarrel.Models.Bindables;
 using Quarrel.Messages.Gateway;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.Messages.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -38,6 +39,11 @@ namespace Quarrel.Controls.Shell.Views
         public MemberListControl()
         {
             this.InitializeComponent();
+            // Scrolls the MemberList to the top when the Guild changes
+            Messenger.Default.Register<GuildNavigateMessage>(this, m =>
+            {
+                MemberList.ScrollIntoView(ViewModel.BindableMembersNew.FirstOrDefault());
+            });
         }
 
         public MainViewModel ViewModel => App.ViewModelLocator.Main;
@@ -104,30 +110,6 @@ namespace Quarrel.Controls.Shell.Views
                 }
 
                 lastTime = currentTime;
-                 /*
-                 var child = (UIElement)VisualTreeHelper.GetChild(sp, 2);
-                 UIElement item1 = FindChildOfType<TextBlock>(child);
-                 TranslateTransform targetTransform1 = new TranslateTransform { X = 0, Y = 10 - sv.VerticalOffset };
-                 item1.RenderTransform = targetTransform1;
-                 Canvas.SetZIndex(item1, 999999);
-                 var tmp = ElementCompositionPreview.GetElementVisual(child);
-                 tmp.Size = new Vector2(228, 48);
-                 ElementCompositionPreview.SetElementChildVisual(child, tmp);
- 
-                 UIElement item = (UIElement)MemberList.ContainerFromItem(ViewModel.BindableMembersNew[0]);
-                 Canvas.SetZIndex(item, 999999);
-                 TranslateTransform targetTransform = new TranslateTransform {X = 0, Y = sv.VerticalOffset};
-                 item.RenderTransform = targetTransform;
-                 Visual handout = ElementCompositionPreview.GetElementVisual(item);
-                 handout.Offset = new Vector3();
-                 handout.Size = new Vector2();
- 
- 
-                 RectangleGeometry rg = new RectangleGeometry();
-                 rg.Transform = new CompositeTransform { TranslateY = sv.VerticalOffset + 49};
-                 rg.Rect = new Rect(0, 0, 228, 4808);
-                 sp.Clip = rg;
-                 Debug.WriteLine(sv.VerticalOffset);*/
              };
         }
     }
