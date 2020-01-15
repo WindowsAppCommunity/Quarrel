@@ -12,6 +12,8 @@ using Quarrel.Services.Users;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.Services.Rest;
 
 namespace Quarrel.Models.Bindables
@@ -20,13 +22,33 @@ namespace Quarrel.Models.Bindables
     {
         #region Constructors
 
-        public BindableMessage([NotNull] Message model, [CanBeNull] string guildId, bool isLastRead = false) : base(model)
+        public BindableMessage([NotNull] Message model, [CanBeNull] string guildId, bool isLastRead = false,
+            GuildMember member = null) : base(model)
         {
             GuildId = guildId;
             IsLastReadMessage = isLastRead;
             channel = SimpleIoc.Default.GetInstance<IGuildsService>().CurrentChannels[Model.ChannelId];
+            author = member;
+
+            Messenger.Default.Register<GatewayGuildMembersChunkMessage>(this, async m =>
+            {
+                if (m.GuildMembersChunk.GuildId == GuildId)
+                {
+                    GuildMember guildMember =
+                        m.GuildMembersChunk.Members.FirstOrDefault(x => x.User.Id == Model.User.Id);
+                    if (guildMember != null)
+                        author = guildMember;
+                }
+            });
         }
 
+        private GuildMember author;
+
+        public BindableGuildMember Author =>
+            author != null
+                ? new BindableGuildMember(author) {GuildId = GuildId, Presence = currentUsersService.GetUserPrecense(Model.User.Id) }
+                : new BindableGuildMember(new GuildMember {User = Model.User})
+                    {Presence = new Presence {Status = "offline", User = Model.User}};
 
         #endregion
 
@@ -64,21 +86,17 @@ namespace Quarrel.Models.Bindables
 
         public int AuthorColor => Author?.TopRole?.Color ?? -1;
 
+        public IEnumerable<Reaction> Reactions =>
+            Model.Reactions?.Select(x =>
+            {
+                x.ChannelId = Model.ChannelId;
+                x.MessageId = Model.Id;
+                return x;
+            });
+            
         #endregion
 
         private bool _IsLastReadMessage;
-
-        public IEnumerable<Reaction> Reactions
-        {
-            get =>
-                Model.Reactions == null ? null :
-                Model.Reactions.Select(x =>
-                {
-                    x.ChannelId = Model.ChannelId;
-                    x.MessageId = Model.Id;
-                    return x;
-                });
-        }
 
         public bool IsLastReadMessage
         {

@@ -11,10 +11,10 @@ namespace DiscordAPI.Gateway.UpstreamEvents
         public string GuildId { get; set; }
 
         [JsonProperty("typing")]
-        public bool Typing { get; set; }
+        public bool? Typing { get; set; }
 
         [JsonProperty("activities")]
-        public bool Activities { get; set; }
+        public bool? Activities { get; set; }
 
         [JsonProperty("channels")]
         public IReadOnlyDictionary<string, IEnumerable<int[]>> Channels { get; set; }

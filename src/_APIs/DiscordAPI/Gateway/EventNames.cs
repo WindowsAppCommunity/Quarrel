@@ -31,7 +31,7 @@ namespace DiscordAPI.Gateway
         public const string GUILD_MEMBER_ADDED = "GUILD_MEMBER_ADD";
         public const string GUILD_MEMBER_REMOVED = "GUILD_MEMBER_REMOVE";
         public const string GUILD_MEMBER_UPDATED = "GUILD_MEMBER_UPDATE";
-        public const string GUILD_MEMBER_CHUNK = "GUILD_MEMBER_CHUNK";
+        public const string GUILD_MEMBERS_CHUNK = "GUILD_MEMBERS_CHUNK";
         public const string GUILD_MEMBER_LIST_UPDATE = "GUILD_MEMBER_LIST_UPDATE";
 
         public const string GUILD_ROLE_CREATED = "GUILD_ROLE_CREATE";

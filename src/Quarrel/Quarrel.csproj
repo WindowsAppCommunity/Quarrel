@@ -359,6 +359,7 @@
     <Compile Include="Services\Voice\Audio\In\AudioInService.cs" />
     <Compile Include="Services\Voice\Audio\Out\AudioOutService.cs" />
     <Compile Include="StateTriggers\DeviceFamilyStateTrigger.cs" />
+    <Compile Include="StickyScrollHeader.cs" />
     <Compile Include="SubPages\AddChannelPage.xaml.cs">
       <DependentUpon>AddChannelPage.xaml</DependentUpon>
     </Compile>
@@ -411,6 +412,7 @@
     </Compile>
     <Compile Include="TemplateSelectors\AttachmentTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\EmbedTemplateSelector.cs" />
+    <Compile Include="TemplateSelectors\GuildMemberListSelector.cs" />
     <Compile Include="TemplateSelectors\MessageTemplateSelector.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Controls\Shell\Views\ChannelListControl.xaml.cs">
@@ -431,6 +433,7 @@
     <Compile Include="Xaml.Behaviors\KeyDownCommandAction.cs" />
     <Compile Include="Xaml.Behaviors\OpenFlyoutAction.cs" />
     <Compile Include="Xaml.Behaviors\OpenListViewItemFlyoutAction.cs" />
+    <Compile Include="Xaml.Behaviors\TriggerSemanticZoomAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

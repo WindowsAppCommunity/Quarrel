@@ -27,5 +27,17 @@ namespace Quarrel.Services.Users
         BindableGuildMember CurrentGuildMember { get; }
 
         UserSettings CurrentUserSettings { get; }
+
+
+        /// <summary>
+        /// This will return the guild members stored localy
+        /// If any members are not stored localy they will be requested
+        /// </summary>
+        /// <param name="memberIds"></param>
+        /// <param name="guildId"></param>
+        /// <returns></returns>
+        IReadOnlyDictionary<string, GuildMember> GetAndRequestGuildMembers(IEnumerable<string> memberIds, string guildId);
+        Presence GetUserPrecense(string userId);
+        void UpdateUserPrecense(string userId, Presence presence);
     }
 }

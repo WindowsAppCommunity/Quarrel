@@ -13,7 +13,7 @@ namespace Quarrel.Converters.Discord
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return App.Current.Resources[(string)value + "Color"];
+            return App.Current.Resources[((string)value ?? "offline")+ "Color"];
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DiscordAPI.Gateway.UpstreamEvents;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
@@ -18,6 +19,8 @@ using Quarrel.Models.Bindables;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
+using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Messages.Gateway.Voice;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services;
 
@@ -41,9 +44,13 @@ namespace Quarrel.Services.Users
         public ConcurrentDictionary<string, ChannelOverride> ChannelSettings { get; } = 
             new ConcurrentDictionary<string, ChannelOverride>();
 
+        private readonly ConcurrentDictionary<string, ConcurrentDictionary<string, GuildMember>> guildUsers =  
+            new ConcurrentDictionary<string, ConcurrentDictionary<string, GuildMember>>();
+
         public BindableUser CurrentUser { get; } = new BindableUser(new User());
 
         public UserSettings CurrentUserSettings { get; private set; } = new UserSettings();
+        private ConcurrentDictionary<string, Presence> presences = new ConcurrentDictionary<string, Presence>();
 
         public BindableGuildMember CurrentGuildMember => 
             Users.TryGetValue(CurrentUser.Model.Id, out var member) ? member : null;
@@ -56,24 +63,19 @@ namespace Quarrel.Services.Users
             CacheService = cacheService;
             GuildsService = guildsService;
 
-            Messenger.Default.Register<GatewayGuildSyncMessage>(this, m =>
+            Messenger.Default.Register<GatewayReadyMessage>(this, m =>
             {
-                // Show members
-                Users.Clear();
-                List<BindableGuildMember> UsersList = new List<BindableGuildMember>();
-                foreach (var member in m.Members)
+                DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 {
-                    BindableGuildMember bGuildMember = new BindableGuildMember(member)
+                    foreach (var guild in m.EventData.Guilds)
                     {
-                        GuildId = m.GuildId,
-                        IsOwner = member.User.Id == GuildsService.Guilds[m.GuildId].Model.OwnerId,
-                        Presence = Messenger.Default.Request<PresenceRequestMessage, Presence>(new PresenceRequestMessage(member.User.Id))
-                    };
-                    Users.TryAdd(member.User.Id, bGuildMember);
-                    UsersList.Add(bGuildMember);
-
-                }
-                Messenger.Default.Send(new GuildMembersSyncedMessage(UsersList));
+                        guildUsers.TryAdd(guild.Id, new ConcurrentDictionary<string, GuildMember>());
+                        foreach (var member in guild.Members)
+                        {
+                            guildUsers[guild.Id].TryAdd(member.User.Id, member);
+                        }
+                    }
+                });
             });
             Messenger.Default.Register<GatewayReadyMessage>(this, async m =>
             {
@@ -155,6 +157,73 @@ namespace Quarrel.Services.Users
                     });
                 }
             });
+            Messenger.Default.Register<GatewayGuildMembersChunkMessage>(this, async m =>
+            {
+                guildUsers.TryGetValue(m.GuildMembersChunk.GuildId, out var guild);
+                foreach (var member in m.GuildMembersChunk.Members)
+                {
+                    guild.TryAdd(member.User.Id, member);
+                }
+            });
+            Messenger.Default.Register<GatewayPresenceUpdatedMessage>(this, m =>
+            {
+                if (presences.ContainsKey(m.UserId))
+                    presences[m.UserId] = m.Presence;
+                else
+                    presences.TryAdd(m.UserId, m.Presence);
+            });
+        }
+
+        public async Task<GuildMember> GetGuildMember(string memberId, string guildId)
+        {
+            if (guildUsers.TryGetValue(guildId, out var guild) && guild.TryGetValue(memberId, out GuildMember member))
+            {
+                return member;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public IReadOnlyDictionary<string, GuildMember> GetAndRequestGuildMembers(IEnumerable<string> memberIds, string guildId)
+        {
+            Dictionary<string, GuildMember> guildMembers = new Dictionary<string, GuildMember>();
+            List<string> guildMembersToBeRequested = new List<string>();
+            if (guildUsers.TryGetValue(guildId, out var guild))
+            {
+                foreach (string memberId in memberIds)
+                {
+                    if (guild.TryGetValue(memberId, out GuildMember member))
+                    {
+                        guildMembers.Add(memberId, member);
+                    }
+                    else
+                    {
+                        guildMembersToBeRequested.Add(memberId);
+                    }
+                }
+
+                if (guildMembersToBeRequested.Count > 0)
+                {
+                    Messenger.Default.Send(new GatewayRequestGuildMembersMessage(new List<string> {guildId}, guildMembersToBeRequested));
+                }
+
+                return guildMembers;
+            }
+            return null;
+        }
+
+        public Presence GetUserPrecense(string userId)
+        {
+            return presences.TryGetValue(userId, out Presence presence) ? presence : null;
+        }
+
+        public void UpdateUserPrecense(string userId, Presence presence)
+        {
+            if (presences.ContainsKey(userId))
+                presences[userId] = presence;
+            else
+                presences.TryAdd(userId, presence);
         }
     }
 }

@@ -8,11 +8,15 @@ using DiscordAPI.Models;
 
 namespace DiscordAPI.Models
 {
-    public class GuildMemberChunk
+    public class GuildMembersChunk
     {
         [JsonProperty("guild_id")]
         public string GuildId { get; set; }
         [JsonProperty("members")]
-        public IEnumerable<GuildMember> Members { get; set; }
+        public IList<GuildMember> Members { get; set; }
+        [JsonProperty("not_found")]
+        public IList<string> NotFound { get; set; }
+        [JsonProperty("presences")]
+        public IList<Presence> Presences { get; set; }
     }
 }

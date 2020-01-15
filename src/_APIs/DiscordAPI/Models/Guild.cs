@@ -36,23 +36,23 @@ namespace DiscordAPI.Models
         [JsonProperty("verification_level")]
         public int VerificationLevel { get; set; }
         [JsonProperty("voice_states")]
-        public IEnumerable<VoiceState> VoiceStates { get; set; }
+        public IList<VoiceState> VoiceStates { get; set; }
         [JsonProperty("channels")]
-        public IEnumerable<GuildChannel> Channels { get; set; }
+        public IList<GuildChannel> Channels { get; set; }
         [JsonProperty("members")]
-        public IEnumerable<GuildMember> Members { get; set; }
+        public IList<GuildMember> Members { get; set; }
         [JsonProperty("roles")]
-        public IEnumerable<Role> Roles { get; set; }
+        public IList<Role> Roles { get; set; }
         [JsonProperty("emojis")]
-        public IEnumerable<Emoji> Emojis { get; set; }
+        public IList<Emoji> Emojis { get; set; }
         [JsonProperty("features")]
-        public IEnumerable<string> Features { get; set; }
+        public IList<string> Features { get; set; }
         [JsonProperty("unavailable")]
         public bool Unavailable { get; set; }
         [JsonProperty("member_count")]
         public int MemberCount { get; set; }
         [JsonProperty("presences")]
-        public IEnumerable<Presence> Presences { get; set; }
+        public IList<Presence> Presences { get; set; }
 
         public Uri SplashUri => SplashUrl != null ? new Uri(SplashUrl) : null;
         public string SplashUrl
