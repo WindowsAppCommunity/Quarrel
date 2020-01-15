@@ -14,25 +14,40 @@ namespace Quarrel.ViewModels.ViewModels
 {
     public class AddChannelDialogModel : ViewModelBase
     {
-        public string ChannelName { get; set; }
-
-        private ISubFrameNavigationService SubFrameNavigationService { get; } =
-            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
-
-        public string SelectedChannelType { get; set; } = "Text Channel";
-
-        private Guild guild;
+        #region Constructors
 
         public AddChannelDialogModel()
         {
             if (SubFrameNavigationService.Parameter != null)
             {
-                guild = (Guild) SubFrameNavigationService.Parameter;
+                guild = (Guild)SubFrameNavigationService.Parameter;
             }
         }
 
-        private RelayCommand createChannelCommand;
 
+        #endregion
+
+        #region Properties
+
+        #region Services
+
+        private ISubFrameNavigationService SubFrameNavigationService { get; } =
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+
+
+        #endregion
+
+        public string ChannelName { get; set; }
+
+        public string SelectedChannelType { get; set; } = "Text Channel";
+
+        private Guild guild;
+
+        #endregion
+
+        #region Commands
+
+        private RelayCommand createChannelCommand;
         public RelayCommand CreateChannelCommand =>
             createChannelCommand ??= new RelayCommand(() =>
             {
@@ -67,11 +82,12 @@ namespace Quarrel.ViewModels.ViewModels
 
 
         private RelayCommand backCommand;
-
         public RelayCommand BackCommand =>
             backCommand ??= new RelayCommand(() =>
             {
                 SubFrameNavigationService.GoBack();
             });
+
+        #endregion
     }
 }
