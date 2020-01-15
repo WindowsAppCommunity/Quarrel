@@ -22,10 +22,6 @@ namespace Quarrel.Models.Bindables
     public class BindableGuildMember : BindableModelBase<GuildMember>, IEquatable<BindableGuildMember>, IComparable<BindableGuildMember>, IGuildMemberListItem
     {
         #region Constructors
-        private readonly IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
-        private readonly ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
-        private readonly IGuildsService GuildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
-        private readonly IDispatcherHelper DispatcherHelper = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
         public BindableGuildMember([NotNull] GuildMember model) : base(model)
         {
@@ -47,9 +43,10 @@ namespace Quarrel.Models.Bindables
 
         #region Services
 
-        private IDiscordService discordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
-        private ICacheService cacheService { get; } = SimpleIoc.Default.GetInstance<ICacheService>();
-        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+        private readonly IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private readonly ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
+        private readonly IGuildsService GuildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
+        private readonly IDispatcherHelper DispatcherHelper = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
         #endregion
 

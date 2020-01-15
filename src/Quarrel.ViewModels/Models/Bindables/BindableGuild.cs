@@ -202,7 +202,6 @@ namespace Quarrel.Models.Bindables
             set => Set(ref _Channels, value);
         }
 
-        #endregion
 
         #region Commands
 

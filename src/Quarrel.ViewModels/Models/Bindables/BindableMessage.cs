@@ -42,13 +42,6 @@ namespace Quarrel.Models.Bindables
             });
         }
 
-        private GuildMember author;
-
-        public BindableGuildMember Author =>
-            author != null
-                ? new BindableGuildMember(author) {GuildId = GuildId, Presence = currentUsersService.GetUserPrecense(Model.User.Id) }
-                : new BindableGuildMember(new GuildMember {User = Model.User})
-                    {Presence = new Presence {Status = "offline", User = Model.User}};
 
         #endregion
 
@@ -78,9 +71,13 @@ namespace Quarrel.Models.Bindables
 
         #region Author
 
+        private GuildMember author;
+
         public BindableGuildMember Author =>
-            CurrentUsersService.Users.TryGetValue(Model.User.Id, out BindableGuildMember value) ? value :
-            (CurrentUsersService.DMUsers.TryGetValue(Model.User.Id, out value) ? value : new BindableGuildMember(new GuildMember() { User = Model.User }) { Presence = new Presence() { Status = "offline", User = Model.User } });
+            author != null
+                ? new BindableGuildMember(author) { GuildId = GuildId, Presence = CurrentUsersService.GetUserPrecense(Model.User.Id) }
+                : new BindableGuildMember(new GuildMember { User = Model.User })
+                    { Presence = new Presence { Status = "offline", User = Model.User } };
 
         public string AuthorName => Author != null ? Author.Model.Nick ?? Author.Model.User.Username : Model.User.Username;
 
