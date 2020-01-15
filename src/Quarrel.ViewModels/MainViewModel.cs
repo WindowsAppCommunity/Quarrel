@@ -194,8 +194,12 @@ namespace Quarrel.ViewModels
         private RelayCommand navigateToFriends;
         public RelayCommand NavigateToFriends => navigateToFriends = new RelayCommand(() =>
         {
-            Channel.Selected = false;
-            Channel = null;
+            if (Channel != null)
+            {
+                Channel.Selected = false;
+                Channel = null;
+            }
+
             BindableMessages.Clear();
         });
 
