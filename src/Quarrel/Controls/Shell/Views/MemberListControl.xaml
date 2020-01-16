@@ -34,7 +34,6 @@
             <baseconverts:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
 
 
-            <CollectionViewSource x:Name="ViewSource" Source="{x:Bind ViewModel.BindableMembers, Mode=OneWay}" IsSourceGrouped="True" />
             <templateSelectors:GuildMemberListSelector 
                 MemberTemplate="{StaticResource GuildMemberListItemTemplate}"
                 MemberGroupTemplate="{StaticResource GuildMemberGroupListItemTemplate}"
@@ -106,7 +105,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{x:Bind Role.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Role.Color, Converter={StaticResource IntColorToBrushConverter}}" Opacity="0.75" Margin="0"/>
+                                <TextBlock Text="{x:Bind Name}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Role.Color, Converter={StaticResource IntColorToBrushConverter}}" Opacity="0.75" Margin="0"/>
                                 <TextBlock Grid.Column="1" Text="{x:Bind Count}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.35"/>
                             </Grid>
                         </DataTemplate>

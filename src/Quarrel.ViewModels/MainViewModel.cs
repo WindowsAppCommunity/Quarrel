@@ -194,8 +194,12 @@ namespace Quarrel.ViewModels
         private RelayCommand navigateToFriends;
         public RelayCommand NavigateToFriends => navigateToFriends = new RelayCommand(() =>
         {
-            Channel.Selected = false;
-            Channel = null;
+            if (Channel != null)
+            {
+                Channel.Selected = false;
+                Channel = null;
+            }
+
             BindableMessages.Clear();
         });
 
@@ -365,8 +369,12 @@ namespace Quarrel.ViewModels
                         DispatcherHelper.CheckBeginInvokeOnUi(() =>
                         {
                             channel.ReadState.MentionCount++;
-                            int oldIndex = GuildsService.Guilds["DM"].Channels.IndexOf(channel);
-                            GuildsService.Guilds["DM"].Channels.Move(oldIndex, 0);
+                            if (channel.IsDirectChannel || channel.IsGroupChannel)
+                            {
+                                int oldIndex = GuildsService.Guilds["DM"].Channels.IndexOf(channel);
+                                if(oldIndex >= 0)
+                                    GuildsService.Guilds["DM"].Channels.Move(oldIndex, 0);
+                            }
                         });
 
                     if (Channel != null && Channel.Model.Id == channel.Model.Id)
@@ -408,15 +416,6 @@ namespace Quarrel.ViewModels
             {
                 if (m.VoiceState.UserId == DiscordService.CurrentUser.Id)
                     DispatcherHelper.CheckBeginInvokeOnUi(() => VoiceState = m.VoiceState);
-            });
-            MessengerInstance.Register<GuildMembersSyncedMessage>(this, m =>
-            {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                {
-                    // Show guilds
-                    BindableMembers.Clear();
-                    BindableMembers.AddElementRange(m.Members);
-                });
             });
             MessengerInstance.Register<GatewayGuildMemberListUpdatedMessage>(this, m =>
             {
@@ -607,7 +606,6 @@ namespace Quarrel.ViewModels
                         Channel = channel;
                         Guild = m.Guild;
                         BindableMessages.Clear();
-                        BindableMembers.Clear();
                         //BindableChannels = m.Guild.Channels;
                     });
 
@@ -783,7 +781,6 @@ namespace Quarrel.ViewModels
                     Presence = item.Member.Presence
                 };
                 BindableMembersNew[index] = bGuildMember;
-                BindableMembers.AddElement(bGuildMember);
                 CurrentUsersService.UpdateUserPrecense(item.Member.User.Id, item.Member.Presence);
             }
         }
@@ -1130,10 +1127,6 @@ namespace Quarrel.ViewModels
         [NotNull]
         public ObservableRangeCollection<BindableMessage> BindableMessages { get; private set; } =
             new ObservableRangeCollection<BindableMessage>();
-
-        [NotNull]
-        public ObservableSortedGroupedCollection<Role, BindableGuildMember> BindableMembers { get; set; } =
-            new ObservableSortedGroupedCollection<Role, BindableGuildMember>(x => x.TopHoistRole, x => -x.Position);
 
         [NotNull]
         public ObservableRangeCollection<BindableFriend> BindableCurrentFriends { get; set; } =

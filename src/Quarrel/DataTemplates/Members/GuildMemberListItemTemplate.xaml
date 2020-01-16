@@ -69,7 +69,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{Binding Role.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.75" Margin="0"/>
+                <TextBlock Text="{Binding Name}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.75" Margin="0"/>
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Count}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.35"/>
             </Grid>
             <Rectangle Grid.Row="1" Margin="0,8,0,0" VerticalAlignment="Bottom" StrokeThickness="0.5" Height="1" Stroke="#33FFFFFF"/>

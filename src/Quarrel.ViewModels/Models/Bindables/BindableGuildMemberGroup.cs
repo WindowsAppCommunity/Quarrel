@@ -21,5 +21,21 @@ namespace Quarrel.ViewModels.Models.Bindables
         public int Count => Model.Count;
 
         public Role Role => GuildsService.CurrentGuild.Model.Roles.FirstOrDefault(x => x.Id == Model.Id);
+
+        public string Name
+        {
+            get
+            {
+                switch (Model.Id)
+                {
+                    case "online":
+                        return "Online";
+                    case "offline":
+                        return "Offline";
+                    default:
+                        return Role.Name;
+                }
+            }
+        }
     }
 }
