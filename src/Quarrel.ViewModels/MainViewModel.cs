@@ -374,7 +374,8 @@ namespace Quarrel.ViewModels
                         {
                             channel.Typers.TryRemove(m.Message.User.Id, out _);
                             BindableMessage lastMessage = BindableMessages.LastOrDefault();
-                            BindableMessages.Add(new BindableMessage(m.Message, channel.Guild.Model.Id ?? "DM"));
+                            BindableMessages.Add(new BindableMessage(m.Message, channel.Guild.Model.Id ?? "DM",
+                                BindableMessages.LastOrDefault().Model.User != null && BindableMessages.LastOrDefault().Model.User.Id == m.Message.User.Id));
                         });
                 }
             });
@@ -716,6 +717,7 @@ namespace Quarrel.ViewModels
                     foreach (Message item in itemList.Reverse())
                     {
                         messages.Add(new BindableMessage(item, guildId,
+                            lastItem != null && lastItem.User.Id == item.User.Id,
                             lastItem != null && m.Channel.ReadState != null &&
                             lastItem.Id == m.Channel.ReadState.LastMessageId,
                             guildMembers != null && guildMembers.TryGetValue(item.User.Id, out GuildMember member)
@@ -936,7 +938,9 @@ namespace Quarrel.ViewModels
                     Message item = itemList.ElementAt(i);
 
                     // Can't be last read item
-                    messages.Add(new BindableMessage(item, guildId, false,
+                    messages.Add(new BindableMessage(item, guildId,
+                        lastItem != null && lastItem.User.Id == item.User.Id,
+                        false,
                         guildMembers != null && guildMembers.TryGetValue(item.User.Id, out GuildMember member)
                             ? member
                             : null));

@@ -64,33 +64,4 @@ namespace Quarrel.DataTemplates.Messages
             }
         }
     }
-    public class MessageControl : UserControl
-    {
-        private readonly ObservableRangeCollection<BindableMessage> messeges = App.ViewModelLocator.Main.BindableMessages;
-        public MessageControl()
-        {
-            DataContextChanged += (sender, e) => { FixState(); };
-        }
-
-        private void FixState()
-        {
-
-            BindableMessage msg = DataContext as BindableMessage;
-            Message previousMessage;
-            int index = messeges.IndexOf(msg);
-            if (index > 0)
-            {
-                previousMessage = messeges[index - 1].Model;
-                if (!msg.IsLastReadMessage && previousMessage.Id != "Ad" && previousMessage.User.Id == msg.Model.User.Id &&
-                    previousMessage.Type == 0 && msg.Model.Timestamp.Subtract(previousMessage.Timestamp).Minutes < 2)
-                {
-                    VisualStateManager.GoToState(this, "Continuation", false);
-                }
-                else
-                {
-                    VisualStateManager.GoToState(this, "", false);
-                }
-            }
-        }
-    }
 }

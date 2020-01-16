@@ -130,9 +130,9 @@
     </DataTemplate>
 
     <DataTemplate x:Key="MessageTemplate" x:DataType="bindables:BindableMessage">
-        <messages:MessageControl>
-            <Grid x:Name="rootGrid" Padding="0,8,0,0">
-                <VisualStateManager.VisualStateGroups>
+        <UserControl>
+            <Grid x:Name="rootGrid">
+                <!--<VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="VisualStateGroup">
                         <VisualState x:Name="Continuation">
                             <VisualState.Setters>
@@ -150,7 +150,7 @@
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
+                </VisualStateManager.VisualStateGroups>-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="64"/>
                     <ColumnDefinition/>
@@ -176,7 +176,8 @@
                     <Rectangle Height="1" Stroke="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="6,0,0,0" Grid.Column="2"/>
                 </Grid>
 
-                <Canvas Grid.Row="1" VerticalAlignment="Top" Margin="12,0">
+                <Canvas Grid.Row="1" VerticalAlignment="Top" Margin="12,12,12,0"
+                        Visibility="{x:Bind IsContinuation, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}">
                     <Button Height="40" Width="40"
                         Style="{StaticResource DimButton}">
                         <Border CornerRadius="20">
@@ -190,7 +191,8 @@
                     </Button>
                 </Canvas>
 
-                <Grid Grid.Row="1" Grid.Column="1">
+                <Grid Grid.Row="1" Grid.Column="1" Visibility="{x:Bind IsContinuation, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+                      Margin="0,8,0,0">
                     <StackPanel Orientation="Horizontal">
                         <HyperlinkButton x:Name="AuthorHyperlink" 
                                  Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind AuthorName, Mode=OneWay}" 
@@ -240,7 +242,7 @@
                             <HyperlinkButton Content="Save" Style="{StaticResource PlainTextHyperlinkStyle}" Margin="8,4" Command="{x:Bind SaveEdit, Mode=OneWay}"/>
                         </StackPanel>
                     </Grid>
-                    <Button Grid.Column="1" Padding="4,0" Style="{StaticResource DimButton}" Opacity="0.5">
+                    <Button Grid.Column="1" VerticalAlignment="Top" Padding="4,0" Style="{StaticResource DimButton}" Opacity="0.5">
                         <Button.Flyout>
                             <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
                                 <messagecontrols:MessageFlyout DataContext="{x:Bind}" Width="96"/>
@@ -300,6 +302,6 @@
                     </ListView>
                 </Grid>
             </Grid>
-        </messages:MessageControl>
+        </UserControl>
     </DataTemplate>
 </ResourceDictionary>

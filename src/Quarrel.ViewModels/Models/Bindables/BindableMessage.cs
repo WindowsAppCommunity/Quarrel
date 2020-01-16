@@ -22,10 +22,11 @@ namespace Quarrel.Models.Bindables
     {
         #region Constructors
 
-        public BindableMessage([NotNull] Message model, [CanBeNull] string guildId, bool isLastRead = false,
+        public BindableMessage([NotNull] Message model, [CanBeNull] string guildId, bool isContinuation = false, bool isLastRead = false,
             GuildMember member = null) : base(model)
         {
             GuildId = guildId;
+            IsContinuation = isContinuation;
             IsLastReadMessage = isLastRead;
             channel = SimpleIoc.Default.GetInstance<IGuildsService>().CurrentChannels[Model.ChannelId];
             author = member;
@@ -99,6 +100,13 @@ namespace Quarrel.Models.Bindables
         {
             get => _IsLastReadMessage;
             set => Set(ref _IsLastReadMessage, value);
+        }
+
+        private bool _IsContinuation;
+        public bool IsContinuation
+        {
+            get => _IsContinuation && !IsLastReadMessage; 
+            set => Set(ref _IsContinuation, value);
         }
 
         #region Editing
