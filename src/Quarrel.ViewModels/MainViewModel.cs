@@ -36,6 +36,10 @@ namespace Quarrel.ViewModels
     {
         #region Constructors
 
+        /// <summary>
+        /// Creates default MainViewModel with all Messenger events registered
+        /// </summary>
+        /// <remarks>Takes all service parameters from ViewModel Locator</remarks>
         public MainViewModel(ICacheService cacheService, ISettingsService settingsService,
             IDiscordService discordService, ICurrentUsersService currentUsersService, IGatewayService gatewayService,
             IGuildsService guildsService, ISubFrameNavigationService subFrameNavigationService,
@@ -69,9 +73,6 @@ namespace Quarrel.ViewModels
         #region GuildSubscriptions
 
         private RelayCommand<(double, double)> updateGuildSubscriptionsCommand;
-
-        private Dictionary<string, IEnumerable<int[]>> lastGuildSubscription;
-
         public RelayCommand<(double, double)> UpdateGuildSubscriptionsCommand =>
             updateGuildSubscriptionsCommand ??= new RelayCommand<(double, double)>((values) =>
             {
@@ -158,13 +159,17 @@ namespace Quarrel.ViewModels
 
         #region Navigation
 
+        /// <summary>
+        /// Sends Messenger Request to change Guild
+        /// </summary>
         private RelayCommand<BindableGuild> navigateGuildCommand;
-
         public RelayCommand<BindableGuild> NavigateGuildCommand => navigateGuildCommand ??=
             new RelayCommand<BindableGuild>((guild) => { MessengerInstance.Send(new GuildNavigateMessage(guild)); });
 
+        /// <summary>
+        /// Sends Messenger Request to change Channel
+        /// </summary>
         private RelayCommand<BindableChannel> navigateChannelCommand;
-
         public RelayCommand<BindableChannel> NavigateChannelCommand => navigateChannelCommand ??=
             new RelayCommand<BindableChannel>(async (channel) =>
             {
@@ -191,6 +196,9 @@ namespace Quarrel.ViewModels
                 }
             });
 
+        /// <summary>
+        /// Sets null channel and clear messages to show Friends Panel
+        /// </summary>
         private RelayCommand navigateToFriends;
         public RelayCommand NavigateToFriends => navigateToFriends = new RelayCommand(() =>
         {
@@ -207,16 +215,19 @@ namespace Quarrel.ViewModels
 
         #region Messages
 
-
+        /// <summary>
+        /// Sends API message to indicate typing state
+        /// </summary>
         private RelayCommand tiggerTyping;
-
         public RelayCommand TriggerTyping => tiggerTyping ??= new RelayCommand(() =>
         {
             DiscordService.ChannelService.TriggerTypingIndicator(Channel.Model.Id);
         });
 
+        /// <summary>
+        /// Handles enter override on MessageBox to add new line
+        /// </summary>
         private RelayCommand newLineCommand;
-
         public RelayCommand NewLineCommand =>
             newLineCommand ??= new RelayCommand(() =>
             {
@@ -232,16 +243,20 @@ namespace Quarrel.ViewModels
                 SelectionStart = selectionstart + 2;
             });
 
-
+        /// <summary>
+        /// Handles enter override on MessageBox to send message
+        /// </summary>
         private RelayCommand sendMessageCommand;
-
         public RelayCommand SendMessageCommand => sendMessageCommand ??= new RelayCommand(async () =>
         {
             string text = MessageText;
+
+            // Parses out Mentions
             List<string> mentions = FindMentions(text);
             foreach (string mention in mentions)
                 if (mention[0] == '@')
                 {
+                    // Replaces username descriminator format with Id format
                     int discIndex = mention.IndexOf('#');
                     string username = mention.Substring(1, discIndex - 1);
                     string disc = mention.Substring(1 + discIndex);
@@ -255,6 +270,7 @@ namespace Quarrel.ViewModels
                 }
                 else if (mention[0] == '#')
                 {
+                    // Replaces channel name format with Id format
                     if (!Guild.IsDM)
                     {
                         Channel channel = Guild.Channels
@@ -268,9 +284,13 @@ namespace Quarrel.ViewModels
             DispatcherHelper.CheckBeginInvokeOnUi(() => { MessageText = ""; });
         });
 
+        /// <summary>
+        /// Override up arrow to edit last sent message in chat
+        /// </summary>
         private RelayCommand editLastMessageCommand;
-        public RelayCommand EditLastMessageCommand => editLastMessageCommand ??= new RelayCommand(async () =>
+        public RelayCommand EditLastMessageCommand => editLastMessageCommand ??= new RelayCommand(() =>
         {
+            // Only overrides if there's no draft
             if (string.IsNullOrEmpty(MessageText))
             {
                 var userLastMessage = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad" && x.Model.User.Id == CurrentUsersService.CurrentUser.Model.Id);
@@ -282,17 +302,20 @@ namespace Quarrel.ViewModels
             }
         });
 
-
+        /// <summary>
+        /// Sends API request to delete a message
+        /// </summary>
         private RelayCommand<BindableMessage> deleteMessageCommand;
-
         public RelayCommand<BindableMessage> DeleteMessageCommand => deleteMessageCommand ??=
             new RelayCommand<BindableMessage>(async (message) =>
             {
                 await DiscordService.ChannelService.DeleteMessage(message.Model.ChannelId, message.Model.Id);
             });
 
+        /// <summary>
+        /// Sends API request to pin a message
+        /// </summary>
         private RelayCommand<BindableMessage> pinMessageCommand;
-
         public RelayCommand<BindableMessage> PinMessageCommand => pinMessageCommand ??=
             new RelayCommand<BindableMessage>(async (message) =>
             {
@@ -300,8 +323,10 @@ namespace Quarrel.ViewModels
                     message.Model.Id);
             });
 
+        /// <summary>
+        /// Sends API request to unpin a message
+        /// </summary>
         private RelayCommand<BindableMessage> unPinMessageCommand;
-
         public RelayCommand<BindableMessage> UnPinMessageCommand => unPinMessageCommand ??=
             new RelayCommand<BindableMessage>(async (message) =>
             {
@@ -313,8 +338,10 @@ namespace Quarrel.ViewModels
 
         #region Voice
 
+        /// <summary>
+        /// Set VoiceStatus to null
+        /// </summary>
         private RelayCommand disconnectVoiceCommand;
-
         public RelayCommand DisconnectVoiceCommand => disconnectVoiceCommand ??= new RelayCommand(async () =>
         {
             await GatewayService.Gateway.VoiceStatusUpdate(null, null, false, false);
@@ -334,12 +361,17 @@ namespace Quarrel.ViewModels
             #region Gateway 
 
             #region Initialize
+
+            // Failed to login in due to invalid token
+            // Deletes token and asks user to sign in again
             MessengerInstance.Register<GatewayInvalidSessionMessage>(this, async _ =>
             {
                 await CacheService.Persistent.Roaming.DeleteValueAsync(Constants.Cache.Keys.AccessToken);
                 Login();
             });
-            MessengerInstance.Register<GatewayReadyMessage>(this, async _ =>
+
+            // Ready Message recieved. Setsup Friend Collections and navigates to DM guild
+            MessengerInstance.Register<GatewayReadyMessage>(this, _ =>
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
@@ -353,16 +385,20 @@ namespace Quarrel.ViewModels
                     BindableBlockedUsers.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsBlocked));
                 });
             });
+
             #endregion
 
             #region Messages
 
-            MessengerInstance.Register<GatewayMessageRecievedMessage>(this, async m =>
+            // Handles incoming messages
+            MessengerInstance.Register<GatewayMessageRecievedMessage>(this, m =>
             {
+                // Check if channel exists
                 if (GuildsService.CurrentChannels.TryGetValue(m.Message.ChannelId, out BindableChannel channel))
                 {
                     channel.UpdateLMID(m.Message.Id);
 
+                    // Updates Mention count
                     if (channel.IsDirectChannel || channel.IsGroupChannel ||
                         m.Message.Mentions.Any(x => x.Id == CurrentUsersService.CurrentUser.Model.Id) ||
                         m.Message.MentionEveryone)
@@ -377,6 +413,7 @@ namespace Quarrel.ViewModels
                             }
                         });
 
+                    // Removes typer from Channel if responsible for sending this message
                     if (Channel != null && Channel.Model.Id == channel.Model.Id)
                         DispatcherHelper.CheckBeginInvokeOnUi(() =>
                         {
@@ -387,22 +424,24 @@ namespace Quarrel.ViewModels
                         });
                 }
             });
-            MessengerInstance.Register<GatewayMessageDeletedMessage>(this, async m =>
+
+            // Handles message deletion
+            MessengerInstance.Register<GatewayMessageDeletedMessage>(this, m =>
             {
                 if (Channel != null && Channel.Model.Id == m.ChannelId)
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
-                        // LastOrDefault to start from the bottom
                         BindableMessage msg = BindableMessages.LastOrDefault(x => x.Model.Id == m.MessageId);
                         if (msg != null) BindableMessages.Remove(msg);
                     });
             });
-            MessengerInstance.Register<GatewayMessageUpdatedMessage>(this, async m =>
+
+            // Handles message updated
+            MessengerInstance.Register<GatewayMessageUpdatedMessage>(this, m =>
             {
                 if (Channel != null && Channel.Model.Id == m.Message.ChannelId)
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
-                        // LastOrDefault to start from the bottom
                         BindableMessage msg = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad");
                         msg?.Update(m.Message);
                     });
@@ -411,12 +450,14 @@ namespace Quarrel.ViewModels
             #endregion
 
             #region Members
-
-            MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, async m =>
+            
+            // Handles VoiceState change for current user
+            MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, m =>
             {
                 if (m.VoiceState.UserId == DiscordService.CurrentUser.Id)
                     DispatcherHelper.CheckBeginInvokeOnUi(() => VoiceState = m.VoiceState);
             });
+
             MessengerInstance.Register<GatewayGuildMemberListUpdatedMessage>(this, m =>
             {
                 if (m.GuildMemberListUpdated.GuildId == guildId)
@@ -617,77 +658,12 @@ namespace Quarrel.ViewModels
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() => { Channel = m.Channel; });
 
-                // Todo: add filter members support back
-                // since filtering is done server side this will need to be done by telling discord we are in a channel everyone has read permissions on
-                // not all servers will have such a channel and that will need to be handled as well
-                /*
-                if (SettingsService.Roaming.GetValue<bool>(SettingKeys.FilterMembers))
-                {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        BindableMembers.Clear();
-                        BindableMembers.AddElementRange(CurrentUsersService.Users.Values.Where(user =>
-                        {
-                            if (Channel.IsTextChannel)
-                            {
-                                Permissions perms = new Permissions(Guild.Model.Roles
-                                    .FirstOrDefault(x => x.Name == "@everyone").Permissions);
-                                foreach (var role in user.Roles)
-                                {
-                                    perms.AddAllows((GuildPermission) role.Permissions);
-                                }
-
-                                GuildPermission roleDenies = 0;
-                                GuildPermission roleAllows = 0;
-                                GuildPermission memberDenies = 0;
-                                GuildPermission memberAllows = 0;
-                                foreach (Overwrite overwrite in (Channel.Model as GuildChannel).PermissionOverwrites)
-                                    if (overwrite.Id == Channel.GuildId)
-                                    {
-                                        perms.AddDenies((GuildPermission) overwrite.Deny);
-                                        perms.AddAllows((GuildPermission) overwrite.Allow);
-                                    }
-                                    else if (overwrite.Type == "role" && user.Model.Roles.Contains(overwrite.Id))
-                                    {
-                                        roleDenies |= (GuildPermission) overwrite.Deny;
-                                        roleAllows |= (GuildPermission) overwrite.Allow;
-                                    }
-                                    else if (overwrite.Type == "member" && overwrite.Id == user.Model.User.Id)
-                                    {
-                                        memberDenies |= (GuildPermission) overwrite.Deny;
-                                        memberAllows |= (GuildPermission) overwrite.Allow;
-                                    }
-
-                                perms.AddDenies(roleDenies);
-                                perms.AddAllows(roleAllows);
-                                perms.AddDenies(memberDenies);
-                                perms.AddAllows(memberAllows);
-
-                                // If owner add admin
-                                if (Guild.Model.OwnerId == user.Model.User.Id)
-                                {
-                                    perms.AddAllows(GuildPermission.Administrator);
-                                }
-
-                                return perms.ReadMessages;
-                            }
-
-                            return true;
-                        }));
-                    });
-                }
-                */
-
                 await SemaphoreSlim.WaitAsync();
                 try
                 {
                     _AtTop = false;
                     NewItemsLoading = true;
                     IList<Message> itemList = null;
-                    //if (Channel.ReadState == null)
-                    //    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessages(m.Channel.Model.Id);
-                    //else
-                    //    itemList = await ServicesManager.Discord.ChannelService.GetChannelMessagesAround(m.Channel.Model.Id, Channel.ReadState.LastMessageId, 50);
                     try
                     {
                         itemList = await DiscordService.ChannelService.GetChannelMessages(m.Channel.Model.Id);
@@ -753,7 +729,8 @@ namespace Quarrel.ViewModels
             });
             #endregion
 
-            MessengerInstance.Register<string>(this, async m =>
+            // Handles string message used for App Events
+            MessengerInstance.Register<string>(this, m =>
             {
                 if (m == "GuildsReady")
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
@@ -762,8 +739,9 @@ namespace Quarrel.ViewModels
                         BindableGuilds.AddRange(GuildsService.Guilds.Values.OrderBy(x => x.Position));
                     });
             });
-            MessengerInstance.Register<CurrentUserVoiceStateRequestMessage>(this,
-                async m => { DispatcherHelper.CheckBeginInvokeOnUi(() => m.ReportResult(VoiceState)); });
+
+            // Allows request for result from VoiceState
+            MessengerInstance.Register<CurrentUserVoiceStateRequestMessage>(this, m => { DispatcherHelper.CheckBeginInvokeOnUi(() => m.ReportResult(VoiceState)); });
         }
 
         private void UpdateMemberListItem(int index, SyncItem item)
@@ -1024,7 +1002,6 @@ namespace Quarrel.ViewModels
 
         #region Properties
 
-
         #region Services
 
         private readonly ICacheService CacheService;
@@ -1037,6 +1014,8 @@ namespace Quarrel.ViewModels
         private readonly IDispatcherHelper DispatcherHelper;
 
         #endregion
+
+        private Dictionary<string, IEnumerable<int[]>> lastGuildSubscription;
 
         private string listId;
 
