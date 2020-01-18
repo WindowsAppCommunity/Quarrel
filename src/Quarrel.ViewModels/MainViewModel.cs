@@ -76,6 +76,10 @@ namespace Quarrel.ViewModels
         public RelayCommand<(double, double)> UpdateGuildSubscriptionsCommand =>
             updateGuildSubscriptionsCommand ??= new RelayCommand<(double, double)>((values) =>
             {
+                if (guildId == "DM")
+                    return;
+
+
                 double top = BindableMembersNew.Count * values.Item1;
                 double bottom = BindableMembersNew.Count * values.Item2;
 
@@ -636,7 +640,7 @@ namespace Quarrel.ViewModels
             #endregion
 
             #region Navigation
-            MessengerInstance.Register<GuildNavigateMessage>(this, async m =>
+            MessengerInstance.Register<GuildNavigateMessage>(this, m =>
             {
                 if (Guild != m.Guild)
                 {
@@ -649,6 +653,11 @@ namespace Quarrel.ViewModels
                         BindableMessages.Clear();
                         //BindableChannels = m.Guild.Channels;
                     });
+
+                    if (m.Guild.IsDM)
+                    {
+                        BindableMembersNew.Clear();
+                    }
 
                     if (channel != null)
                         MessengerInstance.Send(new ChannelNavigateMessage(channel, m.Guild));
@@ -1019,7 +1028,7 @@ namespace Quarrel.ViewModels
 
         private string listId;
 
-        private string guildId => Channel.GuildId;
+        private string guildId => Channel?.GuildId ?? "DM";
 
         /// <summary>
         /// Keeps from updating BindableMessages from two places at once
