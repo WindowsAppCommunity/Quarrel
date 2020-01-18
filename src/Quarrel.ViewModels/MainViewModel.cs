@@ -436,7 +436,13 @@ namespace Quarrel.ViewModels
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         BindableMessage msg = BindableMessages.LastOrDefault(x => x.Model.Id == m.MessageId);
-                        if (msg != null) BindableMessages.Remove(msg);
+                        if (msg != null)
+                        {
+                            int index = BindableMessages.IndexOf(msg);
+                            if (!msg.IsContinuation && index != BindableMessages.Count - 1)
+                                BindableMessages[index + 1].IsContinuation = false;
+                            BindableMessages.Remove(msg);
+                        }
                     });
             });
 
