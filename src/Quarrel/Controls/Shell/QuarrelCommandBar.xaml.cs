@@ -78,6 +78,11 @@ namespace Quarrel.Controls.Shell
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("AboutPage");
         }
 
+        private void OpenWhatsNew(object sender, RoutedEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("WhatsNewPage");
+        }
+
         private void ChannelNameTapped(object sender, TappedRoutedEventArgs e)
         {
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("TopicPage", ViewModel.Channel);

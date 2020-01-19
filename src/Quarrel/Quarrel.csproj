@@ -380,6 +380,9 @@
     <Compile Include="SubPages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\WhatsNewPage.xaml.cs">
+      <DependentUpon>WhatsNewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\Settings\Pages\BehaviorSettingsPage.xaml.cs">
       <DependentUpon>BehaviorSettingsPage.xaml</DependentUpon>
     </Compile>
@@ -514,6 +517,7 @@
     <Content Include="Assets\IconAssets\WideTile.scale-150.png" />
     <Content Include="Assets\IconAssets\WideTile.scale-200.png" />
     <Content Include="Assets\IconAssets\WideTile.scale-400.png" />
+    <Content Include="Assets\Legere256.png" />
     <Content Include="Controls\Markdown\About.txt" />
     <Content Include="Controls\Markdown\oltheme.txt" />
     <AdditionalFiles Include="appsettings.json" />
@@ -695,6 +699,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\WhatsNewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
