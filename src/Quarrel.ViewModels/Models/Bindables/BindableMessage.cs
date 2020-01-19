@@ -15,6 +15,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.Services.Rest;
+using Quarrel.ViewModels.Models.Bindables;
+using System.ComponentModel;
 
 namespace Quarrel.Models.Bindables
 {
@@ -30,6 +32,8 @@ namespace Quarrel.Models.Bindables
             IsLastReadMessage = isLastRead;
             channel = SimpleIoc.Default.GetInstance<IGuildsService>().CurrentChannels[Model.ChannelId];
             author = member;
+
+            ConvertReactions();
 
             Messenger.Default.Register<GatewayGuildMembersChunkMessage>(this, m =>
             {
@@ -83,14 +87,6 @@ namespace Quarrel.Models.Bindables
         public string AuthorName => Author != null ? Author.Model.Nick ?? Author.Model.User.Username : Model.User.Username;
 
         public int AuthorColor => Author?.TopRole?.Color ?? -1;
-
-        public IEnumerable<Reaction> Reactions =>
-            Model.Reactions?.Select(x =>
-            {
-                x.ChannelId = Model.ChannelId;
-                x.MessageId = Model.Id;
-                return x;
-            });
             
         #endregion
 
@@ -132,6 +128,8 @@ namespace Quarrel.Models.Bindables
 
         #endregion
 
+        public ObservableCollection<BindableReaction> BindableReactions { get; set; } = new ObservableCollection<BindableReaction>();
+
         #endregion
 
         #endregion
@@ -158,6 +156,19 @@ namespace Quarrel.Models.Bindables
         public void Update(Message message)
         {
             Model = message;
+        }
+
+        public void ConvertReactions()
+        {
+            if (Model.Reactions != null)
+            {
+                foreach (var reaction in Model.Reactions)
+                {
+                    reaction.ChannelId = Model.ChannelId;
+                    reaction.MessageId = Model.Id;
+                    BindableReactions.Add(new BindableReaction(reaction));
+                }
+            }
         }
 
         #endregion

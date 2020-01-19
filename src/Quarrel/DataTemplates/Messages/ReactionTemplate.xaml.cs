@@ -1,6 +1,7 @@
 ﻿using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Services.Rest;
+using Quarrel.ViewModels.Models.Bindables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,26 +18,23 @@ namespace Quarrel.DataTemplates.Messages
             this.InitializeComponent();
         }
 
-        private void ToggleReaction(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void ToggleReaction(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            Reaction reaction = (e.OriginalSource as ToggleButton).DataContext as Reaction;
+            BindableReaction reaction = (e.OriginalSource as ToggleButton).DataContext as BindableReaction;
 
-            string reactionFullId = reaction.Emoji.Name +
-                (reaction.Emoji.Id == null ?
+            string reactionFullId = reaction.Model.Emoji.Name +
+                (reaction.Model.Emoji.Id == null ?
                 "" :
-                ":" + reaction.Emoji.Id);
+                ":" + reaction.Model.Emoji.Id);
 
-            if (reaction.Me)
+            // Already updated
+            if (!reaction.Me)
             {
-                reaction.Count--;
-                SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.CreateReaction(reaction.ChannelId, reaction.MessageId, reactionFullId);
+                await SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.DeleteReaction(reaction.Model.ChannelId, reaction.Model.MessageId, reactionFullId);
             } else
             {
-                reaction.Count++;
-                SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.DeleteReaction(reaction.ChannelId, reaction.MessageId, reactionFullId);
+                await SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.CreateReaction(reaction.Model.ChannelId, reaction.Model.MessageId, reactionFullId);
             }
-
-            // TODO: BindableReactions for count increment
         }
     }
 }

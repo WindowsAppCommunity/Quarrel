@@ -558,53 +558,49 @@ namespace Quarrel.ViewModels
 
             #region Reactions
 
-            MessengerInstance.Register<GatewayReactionAddedMessage>(this, async m =>
+            MessengerInstance.Register<GatewayReactionAddedMessage>(this, m =>
             {
-                BindableMessage message = BindableMessages.FirstOrDefault(x => x.Model.Id != "Ad");
-                if (message != null)
-                {
-                    if (message.Model.Reactions == null) message.Model.Reactions = new List<Reaction>().AsEnumerable();
-                    Reaction reaction = message.Model.Reactions.FirstOrDefault(x =>
-                        x.Emoji.Name == m.Emoji.Name && x.Emoji.Id == m.Emoji.Id);
-                    if (reaction != null)
-                    {
-                        reaction.Count++;
-                        // TODO: Find better update method
-                        message.Model.Reactions = message.Model.Reactions.ToList().AsEnumerable();
-                    }
-                    else
-                    {
-                        List<Reaction> list = message.Model.Reactions.ToList();
-                        list.Add(new Reaction() { Emoji = m.Emoji, Count = 1, Me = m.Me });
-                        message.Model.Reactions = list.AsEnumerable();
-                    }
+                if (Channel != null && Channel.Model.Id != m.ChannelId)
+                    return;
 
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                {
+                    BindableMessage message = BindableMessages.LastOrDefault(x => m.MessageId == x.Model.Id);
+                    if (message != null)
                     {
-                        message.RaisePropertyChanged(nameof(message.Model));
-                    });
-                }
+                        BindableReaction reaction = message.BindableReactions.FirstOrDefault(x =>
+                            x.Model.Emoji.Name == m.Emoji.Name && x.Model.Emoji.Id == m.Emoji.Id);
+                        if (reaction != null)
+                        {
+                            reaction.Count++;
+                        }
+                        else
+                        {
+                            reaction = new BindableReaction(new Reaction() { Emoji = m.Emoji, Count = 1, Me = false });
+                            message.BindableReactions.Add(reaction);
+                        }
+                    }
+                });
             });
-            MessengerInstance.Register<GatewayReactionRemovedMessage>(this, async m =>
+            MessengerInstance.Register<GatewayReactionRemovedMessage>(this, m =>
             {
-                BindableMessage message = BindableMessages.FirstOrDefault(x => x.Model.Id != "Ad");
-                if (message != null)
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    Reaction reaction = message.Model.Reactions?.FirstOrDefault(x => x != null);
-                    if (reaction != null)
+                    BindableMessage message = BindableMessages.LastOrDefault(x => x.Model.Id == m.MessageId);
+                    if (message != null)
                     {
-                        reaction.Count--;
-                        // TODO: find better update method
-                        List<Reaction> list = message.Model.Reactions.ToList();
-                        if (reaction.Count == 0) list.Remove(reaction);
-                        message.Model.Reactions = list.AsEnumerable();
+                        BindableReaction reaction = message.BindableReactions?.FirstOrDefault(x =>
+                            x.Model.Emoji.Name == m.Emoji.Name && x.Model.Emoji.Id == m.Emoji.Id);
+                        if (reaction != null)
+                        {
+                            reaction.Count--;
+                            if (reaction.Count == 0)
+                            {
+                                message.BindableReactions.Remove(reaction);
+                            }
+                        }
                     }
-
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        message.RaisePropertyChanged(nameof(message.Model));
-                    });
-                }
+                });
             });
 
             #endregion

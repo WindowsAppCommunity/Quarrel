@@ -75,7 +75,7 @@ namespace Quarrel.Models.Bindables
             {
                 if (cachedRoles == null)
                 {
-                    if (Model.Roles == null)
+                    if (Model == null || Model.Roles == null)
                         return null;
 
                     cachedRoles = GuildsService.Guilds[GuildId].Model.Roles.Where(a => Model.Roles.Contains(a.Id)).OrderByDescending(x => x.Position).ToList();
