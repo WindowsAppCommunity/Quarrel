@@ -377,6 +377,9 @@
     <Compile Include="SubPages\Interfaces\IFullscreenSubPage.cs" />
     <Compile Include="SubPages\Interfaces\ITransparentSubPage.cs" />
     <Compile Include="SubPages\Interfaces\IView.cs" />
+    <Compile Include="SubPages\LicensesPage.xaml.cs">
+      <DependentUpon>LicensesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -695,6 +698,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\AttachmentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\LicensesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

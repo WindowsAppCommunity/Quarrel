@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
+using Quarrel.Navigation;
 using Quarrel.Services.Rest;
 using Quarrel.SubPages.Interfaces;
 using System;
@@ -43,6 +44,11 @@ namespace Quarrel.SubPages
         private async void OpenFeedbackHub(object sender, RoutedEventArgs e)
         {
             await Microsoft.Services.Store.Engagement.StoreServicesFeedbackLauncher.GetDefault().LaunchAsync();
+        }
+
+        private void OpenLicenses(object sender, RoutedEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("LicensesPage");
         }
 
         public string AppVersion => string.Format("{0}.{1}.{2}",

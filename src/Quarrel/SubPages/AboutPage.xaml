@@ -70,7 +70,7 @@
                         <TextBlock TextWrapping="Wrap" Text="Austin Andelin, for conecptualizing the app's icon" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
                         <TextBlock TextWrapping="Wrap" Text="Christopher Blackman (who wrote the awesome MyTube app) for the invaluable tips and help" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
                         <!--<TextBlock x:Uid="/About/TranslatorsCredit" TextWrapping="Wrap" Text="Translators: " FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>-->
-                        <HyperlinkButton Content="Licenses" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
+                        <HyperlinkButton Content="Licenses" Click="OpenLicenses" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
                         <HyperlinkButton Content="Discord Server status" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
                     </StackPanel>
 
