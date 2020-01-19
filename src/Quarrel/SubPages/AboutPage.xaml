@@ -71,7 +71,7 @@
                         <TextBlock TextWrapping="Wrap" Text="Christopher Blackman (who wrote the awesome MyTube app) for the invaluable tips and help" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
                         <!--<TextBlock x:Uid="/About/TranslatorsCredit" TextWrapping="Wrap" Text="Translators: " FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>-->
                         <HyperlinkButton Content="Licenses" Click="OpenLicenses" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
-                        <HyperlinkButton Content="Discord Server status" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
+                        <HyperlinkButton Content="Discord Server status" Click="OpenDiscordStatus" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,24,0,12">

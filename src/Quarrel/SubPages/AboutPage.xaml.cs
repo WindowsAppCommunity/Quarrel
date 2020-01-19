@@ -51,6 +51,11 @@ namespace Quarrel.SubPages
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("LicensesPage");
         }
 
+        private void OpenDiscordStatus(object sender, RoutedEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("DiscordStatusPage");
+        }
+
         public string AppVersion => string.Format("{0}.{1}.{2}",
             Package.Current.Id.Version.Major,
             Package.Current.Id.Version.Minor,

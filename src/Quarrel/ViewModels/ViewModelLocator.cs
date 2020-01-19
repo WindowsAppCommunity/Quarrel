@@ -39,6 +39,7 @@ namespace Quarrel.ViewModels
             navigationService.Configure("AboutPage", typeof(AboutPage));
             navigationService.Configure("AddChannelPage", typeof(AddChannelPage));
             navigationService.Configure("AttachmentPage", typeof(AttachmentPage));
+            navigationService.Configure("DiscordStatusPage", typeof(DiscordStatusPage));
             navigationService.Configure("LicensesPage", typeof(LicensesPage));
             navigationService.Configure("LoginPage", typeof(LoginPage));
             navigationService.Configure("SettingsPage", typeof(SettingsPage));
