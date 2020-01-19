@@ -837,6 +837,7 @@
     </CommandBar.PrimaryCommands>
 
     <CommandBar.SecondaryCommands>
+        <AppBarButton Icon="Help" Label="About" Background="Transparent" Click="OpenAbout"/>
         <AppBarButton Icon="Setting" Label="Settings" Background="Transparent" Click="OpenSettings"/>
     </CommandBar.SecondaryCommands>
 </CommandBar>
