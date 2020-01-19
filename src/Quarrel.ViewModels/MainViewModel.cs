@@ -382,7 +382,6 @@ namespace Quarrel.ViewModels
                     MessengerInstance.Send(new GuildNavigateMessage(GuildsService.Guilds["DM"]));
 
                     // Show guilds
-                    BindableGuilds.AddRange(GuildsService.Guilds.Values.OrderBy(x => x.Position));
                     BindableCurrentFriends.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsFriend));
                     BindablePendingFriends.AddRange(
                         CurrentUsersService.Friends.Values.Where(x => x.IsIncoming || x.IsOutgoing));
