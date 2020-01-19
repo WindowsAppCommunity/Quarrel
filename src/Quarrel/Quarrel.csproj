@@ -338,6 +338,7 @@
     <Compile Include="Extensions\System\TimeSpanExtensions.cs" />
     <Compile Include="Extensions\Windows.UI.Xaml\UIExtensions.cs" />
     <Compile Include="Extensions\Windows.UI\ColorExtensions.cs" />
+    <Compile Include="Helpers\ChartRenderer.cs" />
     <Compile Include="Helpers\Colors\SmartColor\ColorDetection.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\Humanize.cs" />
@@ -368,6 +369,9 @@
     </Compile>
     <Compile Include="SubPages\AttachmentPage.xaml.cs">
       <DependentUpon>AttachmentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\DiscordStatusPage.xaml.cs">
+      <DependentUpon>DiscordStatusPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\Host\SubFrameHost.xaml.cs">
       <DependentUpon>SubFrameHost.xaml</DependentUpon>
@@ -529,6 +533,10 @@
     <None Include="Quarrel_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DiscordStatusAPI\DiscordStatusAPI.csproj">
+      <Project>{d79ada20-4924-40f7-9977-25ee2cee41c5}</Project>
+      <Name>DiscordStatusAPI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Quarrel.ViewModels\Quarrel.ViewModels.csproj">
       <Project>{6396fea9-ceb3-4d44-9292-5ce603d7b103}</Project>
       <Name>Quarrel.ViewModels</Name>
@@ -698,6 +706,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\AttachmentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\DiscordStatusPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
