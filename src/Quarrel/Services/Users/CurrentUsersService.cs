@@ -174,11 +174,11 @@ namespace Quarrel.Services.Users
             });
         }
 
-        public async Task<GuildMember> GetGuildMember(string memberId, string guildId)
+        public BindableGuildMember GetGuildMember(string memberId, string guildId)
         {
             if (guildUsers.TryGetValue(guildId, out var guild) && guild.TryGetValue(memberId, out GuildMember member))
             {
-                return member;
+                return new BindableGuildMember(member) { GuildId = guildId };
             }
             else
             {

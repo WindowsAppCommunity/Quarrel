@@ -1144,7 +1144,7 @@ namespace Quarrel.Controls.Markdown.Display
                                     else content = "@" + user.Username;
                                     if (GuildsService.CurrentGuild.Model.Name != "DM")
                                     {
-                                        CurrentUsersService.Users.TryGetValue(mentionid, out var member);
+                                        var member = CurrentUsersService.GetGuildMember(mentionid, GuildsService.CurrentGuild.Model.Id);
                                         if (!string.IsNullOrWhiteSpace(member?.DisplayName))
                                         {
                                             if (_halfopacity) content = member.DisplayName;
