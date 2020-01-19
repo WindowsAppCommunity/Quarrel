@@ -55,7 +55,7 @@
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="ItemClick">
                             <behaviors:OpenListViewItemFlyoutAction/>
-                            <behaviors:TriggerSemanticZoomAction Type="bindables:BindableGuildMemberGroup" SemanticZoom="{x:Bind zoom}"/>
+                            <behaviors:TriggerSemanticZoomAction SemanticZoom="{x:Bind zoom}"/>
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
                     <ListView.GroupStyle>

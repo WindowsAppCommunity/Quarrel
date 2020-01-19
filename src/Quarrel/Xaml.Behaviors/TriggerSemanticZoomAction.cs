@@ -15,11 +15,12 @@ namespace Quarrel.Xaml.Behaviors
     {
 
         public SemanticZoom SemanticZoom { get; set; }
-        public Type Type { get; set; }
 
         public object Execute(object sender, object parameter)
         {
-            if ((parameter as ItemClickEventArgs)?.ClickedItem?.GetType() == Type)
+            // Should make Type dynamic
+            // However it caused errors in release mode
+            if ((parameter as ItemClickEventArgs)?.ClickedItem?.GetType() == typeof(BindableGuildMemberGroup))
             {
                 SemanticZoom.IsZoomedInViewActive = false;
             }
