@@ -188,10 +188,14 @@ namespace Quarrel.Models.Bindables
                 if (member == null) return perms;
 
                 member.GuildId = Model.Id;
-                foreach (var role in member.Roles)
+                if (member.Roles != null)
                 {
-                    perms.AddAllows((GuildPermission)role.Permissions);
+                    foreach (var role in member.Roles)
+                    {
+                        perms.AddAllows((GuildPermission)role.Permissions);
+                    }
                 }
+
                 permissions = perms;
                 return perms;
             }
