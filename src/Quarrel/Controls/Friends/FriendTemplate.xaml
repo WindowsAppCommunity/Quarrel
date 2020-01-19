@@ -31,11 +31,11 @@
             <Border CornerRadius="20">
                 <tk:ImageEx extensions:Mouse.Cursor="Hand" Width="40" Height="40"  DecodePixelHeight="40" Source="{x:Bind ViewModel.Model.User.AvatarUrl, Mode=OneWay}"/>
             </Border>
-            <interactivity:Interaction.Behaviors>
+            <!--<interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="Click">
                     <behaviors:OpenFlyoutAction TargetObject="{Binding ElementName=AuthorHyperlink}"/>
                 </core:EventTriggerBehavior>
-            </interactivity:Interaction.Behaviors>
+            </interactivity:Interaction.Behaviors>-->
         </Button>
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="6,0">
             <HyperlinkButton Foreground="{ThemeResource Foreground}" Padding="0,0,0,0">
