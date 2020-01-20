@@ -14,44 +14,20 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Insider Version 20.1.19" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+        <TextBlock Text="Insider Version 20.1.20" FontWeight="SemiBold" Margin="0" FontSize="20"/>
         <StackPanel Margin="16">
             <ScrollViewer>
                 <RichTextBlock x:Name="notDetailed" TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,12">
                     <Paragraph>
-                        <Run Text="• Topic SubPage "/>
+                        <Run Text="• Fixed double guild bug"/>
                     </Paragraph>
                     <Paragraph FontSize="8"/>
                     <Paragraph>
-                        <Run Text="• Mute and Unmute"/>
+                        <Run Text="• Fixed Foreground issue on Friends toggle in Light Theme"/>
                     </Paragraph>
                     <Paragraph FontSize="8"/>
                     <Paragraph>
-                        <Run Text="• Channel Right-Click"/>
-                    </Paragraph>
-                    <Paragraph FontSize="8"/>
-                    <Paragraph>
-                        <Run Text="• Significant improvements to infinity scrolling"/>
-                    </Paragraph>
-                    <Paragraph FontSize="8"/>
-                    <Paragraph>
-                        <Run Text="• Significant improvements to combined messages"/>
-                    </Paragraph>
-                    <Paragraph FontSize="8"/>
-                    <Paragraph>
-                        <Run Text="• Lazy Member loading"/>
-                    </Paragraph>
-                    <Paragraph FontSize="8"/>
-                    <Paragraph>
-                        <Run Text="• Improved Reactions"/>
-                    </Paragraph>
-                    <Paragraph FontSize="8"/>
-                    <Paragraph>
-                        <Run Text="• About and Whats New pages"/>
-                    </Paragraph>
-                    <Paragraph FontSize="8"/>
-                    <Paragraph>
-                        <Run Text="• Friends list"/>
+                        <Run Text="• Improved Custom Status handling"/>
                     </Paragraph>
                     <Paragraph FontSize="8"/>
                 </RichTextBlock>
