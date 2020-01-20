@@ -23,6 +23,7 @@ using Quarrel.Services.Gateway;
 using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
 using Quarrel.ViewModels;
+using Quarrel.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -41,6 +42,10 @@ namespace Quarrel.Controls.Shell
             string status = (sender as RadioButton).Tag.ToString();
             SimpleIoc.Default.GetInstance<IGatewayService>().Gateway.UpdateStatus(status, 0, null);
             await SimpleIoc.Default.GetInstance<IDiscordService>().UserService.UpdateSettings("{\"status\":\"" + status + "\"}");
+        }
+        private void OpenSettings(object sender, RoutedEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("SettingsPage");
         }
     }
 }
