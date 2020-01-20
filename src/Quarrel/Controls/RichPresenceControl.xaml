@@ -12,6 +12,7 @@
     d:DesignWidth="400">
 
     <UserControl.Resources>
+        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
         <baseconvert:TimeSpanToTextConverter x:Key="TimeSpanToTextConverter"/>
     </UserControl.Resources>
@@ -41,9 +42,9 @@
         </Grid>
         <Grid Grid.Column="1" >
             <StackPanel>
-                <HyperlinkButton x:Name="GameTB" Content="{x:Bind ViewModel.Name}" FontSize="13.333" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="White" IsEnabled="False" FontWeight="SemiBold"/>
+                <HyperlinkButton x:Name="GameTB" Content="{x:Bind ViewModel.Display}" FontSize="13.333" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="White" IsEnabled="False" FontWeight="SemiBold"/>
                 <TextBlock x:Name="DetailsTB" Text="{x:Bind ViewModel.Details}" FontSize="11" Opacity="1"/>
-                <TextBlock Text="{x:Bind ViewModel.State}" FontWeight="SemiLight" FontSize="11" Opacity="0.8"/>
+                <TextBlock Visibility="{x:Bind ViewModel.IsCustom, Converter={StaticResource NotBoolToVisibilityConverter}}" Text="{x:Bind ViewModel.State}" FontWeight="SemiLight" FontSize="11" Opacity="0.8"/>
                 <TextBlock x:Name="TimeElapsedTB" Text="{x:Bind ViewModel.TimeStamps.TimeElapsed, Converter={StaticResource TimeSpanToTextConverter}, Mode=OneWay}" FontSize="11" Opacity="0.6"/>
             </StackPanel>
         </Grid>

@@ -9,6 +9,8 @@ namespace DiscordAPI.Models
         public string Name { get; set; }
         [JsonProperty("type")]
         public int Type { get; set; }
+        [JsonIgnore]
+        public bool IsCustom => Type == 4;
     }
 
     public class Game : GameBase
@@ -46,8 +48,10 @@ namespace DiscordAPI.Models
         [JsonProperty("session_id")]
         public string SessionId { get; set; }
 
+        public string Display => IsCustom ? State : Name;
+
         [JsonIgnore]
-        public bool IsRich => Details != null || State != null || Assets != null;
+        public bool IsRich => (Details != null || State != null || Assets != null) && !IsCustom;
 
         [JsonIgnore]
         public bool IsXboxGame { get => ApplicationId != null && ApplicationId == "438122941302046720"; }
