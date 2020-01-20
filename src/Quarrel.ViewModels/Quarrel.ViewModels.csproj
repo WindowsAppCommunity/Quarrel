@@ -27,8 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DiscordStatusAPI\DiscordStatusAPI.csproj" />
     <ProjectReference Include="..\_APIs\DiscordAPI\DiscordAPI.csproj" />
+    <ProjectReference Include="..\_APIs\DiscordStatusAPI\DiscordStatusAPI.csproj" />
+    <ProjectReference Include="..\_APIs\GitHubAPI\GitHubAPI.csproj" />
   </ItemGroup>
 
 </Project>

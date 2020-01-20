@@ -533,10 +533,6 @@
     <None Include="Quarrel_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DiscordStatusAPI\DiscordStatusAPI.csproj">
-      <Project>{d79ada20-4924-40f7-9977-25ee2cee41c5}</Project>
-      <Name>DiscordStatusAPI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Quarrel.ViewModels\Quarrel.ViewModels.csproj">
       <Project>{6396fea9-ceb3-4d44-9292-5ce603d7b103}</Project>
       <Name>Quarrel.ViewModels</Name>
@@ -544,6 +540,14 @@
     <ProjectReference Include="..\_APIs\DiscordAPI\DiscordAPI.csproj">
       <Project>{ab95046d-dfd9-451a-b329-e3d9c0fcf738}</Project>
       <Name>DiscordAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\_APIs\DiscordStatusAPI\DiscordStatusAPI.csproj">
+      <Project>{02dc7969-f465-4e27-b49f-d7021f8bc424}</Project>
+      <Name>DiscordStatusAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\_APIs\GitHubAPI\GitHubAPI.csproj">
+      <Project>{cd9a344b-dc7c-4ab4-a961-3b27a23741ec}</Project>
+      <Name>GitHubAPI</Name>
     </ProjectReference>
     <ProjectReference Include="..\_Libs\SodiumC\SodiumC.vcxproj">
       <Project>{a3a15d18-2c4b-4a06-a5d6-5ad529cfbca6}</Project>
@@ -874,9 +878,6 @@
     </SDKReference>
     <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
       <Name>Microsoft Engagement Framework</Name>
-    </SDKReference>
-    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
-      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
     <SDKReference Include="WindowsDesktop, Version=10.0.18362.0">
       <Name>Windows Desktop Extensions for the UWP</Name>
