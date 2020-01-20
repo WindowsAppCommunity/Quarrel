@@ -61,6 +61,10 @@ namespace Quarrel.SubPages
             Package.Current.Id.Version.Minor,
             Package.Current.Id.Version.Revision);
 
+        public string CommitStatus => string.Format("Commit {0} from {1}",
+            ThisAssembly.Git.Commit,
+            ThisAssembly.Git.Branch);
+
         #region IConstrainedSubPage
 
         public double MaxExpandedHeight { get; } = 512;
