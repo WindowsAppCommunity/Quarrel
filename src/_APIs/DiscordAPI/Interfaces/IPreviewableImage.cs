@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DiscordAPI.Interfaces
 {
-    public interface IPreviewableAttachment
+    public interface IPreviewableImage
     {
         string ImageUrl { get; }
 

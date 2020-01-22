@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DiscordAPI.Models
 {
-    public class Embed : IPreviewableAttachment
+    public class Embed : IPreviewableImage
     {
         [JsonProperty("title")]
         public string Title { get; set; }

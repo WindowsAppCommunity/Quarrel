@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DiscordAPI.Models
 {
-    public class Attachment : IPreviewableAttachment
+    public class Attachment : IPreviewableImage
     {
         [JsonProperty("id")]
         public string Id { get; set; }
