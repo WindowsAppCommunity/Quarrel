@@ -7,14 +7,14 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Posts.Requests;
-using Quarrel.Services.Guild;
-using Quarrel.Services.Users;
+using Quarrel.ViewModels.Services.Guild;
+using Quarrel.ViewModels.Services.Users;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Quarrel.ViewModels.Messages.Gateway;
-using Quarrel.Services.Rest;
+using Quarrel.ViewModels.Services.Rest;
 using Quarrel.ViewModels.Models.Bindables;
 using System.ComponentModel;
 

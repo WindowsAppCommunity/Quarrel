@@ -1,6 +1,6 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
-namespace Quarrel.Services.Settings
+namespace Quarrel.ViewModels.Services.Settings
 {
     /// <summary>
     /// An <see langword="enum"/> that holds the various setting keys used in the app

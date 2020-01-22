@@ -7,7 +7,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Navigation;
-using Quarrel.Services.Rest;
+using Quarrel.ViewModels.Services.Rest;
 
 namespace Quarrel.ViewModels.SubPages
 {

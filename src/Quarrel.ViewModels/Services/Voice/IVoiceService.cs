@@ -7,18 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.Models;
-using Quarrel.Services.Settings.Enums;
-using Quarrel.Services.Voice.Audio.In;
-using Quarrel.Services.Voice.Audio.Out;
+using Quarrel.ViewModels.Services.Settings.Enums;
+using Quarrel.ViewModels.Services.Voice.Audio.In;
+using Quarrel.ViewModels.Services.Voice.Audio.Out;
 
-namespace Quarrel.Services.Voice
+namespace Quarrel.ViewModels.Services.Voice
 {
     public interface IVoiceService
     {
         IAudioInService AudioInService { get; }
-
         IAudioOutService AudioOutService { get; }
-
         IDictionary<string, VoiceState> VoiceStates { get; }
 
         void ToggleDeafen();

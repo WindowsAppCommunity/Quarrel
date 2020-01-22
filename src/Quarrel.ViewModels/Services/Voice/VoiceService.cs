@@ -6,13 +6,13 @@ using DiscordAPI.Voice.DownstreamEvents;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Voice;
-using Quarrel.Services.Rest;
-using Quarrel.Services.Voice.Audio.In;
-using Quarrel.Services.Voice.Audio.Out;
+using Quarrel.ViewModels.Services.Rest;
+using Quarrel.ViewModels.Services.Voice.Audio.In;
+using Quarrel.ViewModels.Services.Voice.Audio.Out;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace Quarrel.Services.Voice
+namespace Quarrel.ViewModels.Services.Voice
 {
     public sealed class VoiceService : IVoiceService
     {

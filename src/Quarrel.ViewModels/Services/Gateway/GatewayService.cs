@@ -11,10 +11,10 @@ using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Navigation;
-using Quarrel.Services.Cache;
-using Quarrel.Services.Guild;
-using Quarrel.Services.Rest;
-using Quarrel.Services.Users;
+using Quarrel.ViewModels.Services.Cache;
+using Quarrel.ViewModels.Services.Guild;
+using Quarrel.ViewModels.Services.Rest;
+using Quarrel.ViewModels.Services.Users;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages;
 using Quarrel.ViewModels.Messages.Gateway;
@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Quarrel.Services.Gateway
+namespace Quarrel.ViewModels.Services.Gateway
 {
     public class GatewayService : IGatewayService
     {

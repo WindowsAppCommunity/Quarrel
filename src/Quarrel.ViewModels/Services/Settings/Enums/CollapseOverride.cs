@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.Services.Settings.Enums
+namespace Quarrel.ViewModels.Services.Settings.Enums
 {
     public enum CollapseOverride
     {

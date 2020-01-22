@@ -1,6 +1,6 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
-using JetBrains.Annotations;
+using DiscordAPI.API;
 using DiscordAPI.API.Activities;
 using DiscordAPI.API.Channel;
 using DiscordAPI.API.Connections;
@@ -9,28 +9,23 @@ using DiscordAPI.API.Gateway;
 using DiscordAPI.API.Guild;
 using DiscordAPI.API.Invite;
 using DiscordAPI.API.Login;
+using DiscordAPI.API.Login.Models;
 using DiscordAPI.API.Misc;
 using DiscordAPI.API.User;
 using DiscordAPI.API.Voice;
-using DiscordAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Quarrel.Services.Gateway;
-using DiscordAPI.API;
 using DiscordAPI.Authentication;
-using System.Collections;
+using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Services.Cache;
-using DiscordAPI.API.Login.Models;
 using GalaSoft.MvvmLight.Messaging;
-using Quarrel.ViewModels.Messages;
-using Quarrel.ViewModels.Helpers;
+using JetBrains.Annotations;
 using Quarrel.Navigation;
+using Quarrel.ViewModels.Services.Cache;
+using Quarrel.ViewModels.Services.Gateway;
+using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Messages;
+using System.Threading.Tasks;
 
-namespace Quarrel.Services.Rest
+namespace Quarrel.ViewModels.Services.Rest
 {
     public class DiscordService : IDiscordService
     {

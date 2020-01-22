@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.Services.Voice.Audio.In
+namespace Quarrel.ViewModels.Services.Voice.Audio.In
 {
     public interface IAudioInService : IAudioService
     {

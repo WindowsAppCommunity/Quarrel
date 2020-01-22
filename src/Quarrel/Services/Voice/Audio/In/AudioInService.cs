@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using GalaSoft.MvvmLight.Ioc;
+using Quarrel.ViewModels.Services.Voice.Audio.In;
+using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Foundation;
 using Windows.Media;
@@ -13,8 +11,6 @@ using Windows.Media.Capture;
 using Windows.Media.Devices;
 using Windows.Media.MediaProperties;
 using Windows.Media.Render;
-using GalaSoft.MvvmLight.Ioc;
-using Windows.Media.Playback;
 
 namespace Quarrel.Services.Voice.Audio.In
 {

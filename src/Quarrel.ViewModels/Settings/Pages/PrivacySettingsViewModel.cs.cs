@@ -1,13 +1,8 @@
 ﻿using DiscordAPI.API.User.Models;
-using DiscordAPI.Models;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Services.Rest;
-using Quarrel.Services.Users;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Quarrel.ViewModels.Services.Rest;
+using Quarrel.ViewModels.Services.Users;
 
 namespace Quarrel.ViewModels.Settings.Pages
 {

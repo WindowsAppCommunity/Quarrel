@@ -1,12 +1,5 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
-using JetBrains.Annotations;
-using DiscordAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DiscordAPI.API.Activities;
 using DiscordAPI.API.Channel;
 using DiscordAPI.API.Connections;
@@ -18,9 +11,12 @@ using DiscordAPI.API.Login;
 using DiscordAPI.API.Misc;
 using DiscordAPI.API.User;
 using DiscordAPI.API.Voice;
-using Quarrel.Services.Gateway;
+using DiscordAPI.Models;
+using JetBrains.Annotations;
+using Quarrel.ViewModels.Services.Gateway;
+using System.Threading.Tasks;
 
-namespace Quarrel.Services.Rest
+namespace Quarrel.ViewModels.Services.Rest
 {
     /// <summary>
     /// The default <see langword="interface"/> for the a service that executes REST calls to Discord

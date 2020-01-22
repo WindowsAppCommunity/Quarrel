@@ -1,9 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Gateway;
-using Quarrel.Services.Cache;
-using Quarrel.Services.Rest;
-using Quarrel.Services.Users;
+using Quarrel.ViewModels.Services.Cache;
+using Quarrel.ViewModels.Services.Rest;
+using Quarrel.ViewModels.Services.Users;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Models.Bindables;
 using System.Collections.Generic;

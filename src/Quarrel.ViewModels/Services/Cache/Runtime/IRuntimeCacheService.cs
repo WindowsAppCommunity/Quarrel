@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 
-namespace Quarrel.Services.Cache.Runtime
+namespace Quarrel.ViewModels.Services.Cache.Runtime
 {
     /// <summary>
     /// The default <see langword="interface"/> for the runtime cache manager used in the app

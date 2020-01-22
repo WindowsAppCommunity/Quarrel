@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DiscordAPI.Models;
+﻿using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Navigation;
-using Quarrel.Messages.Posts.Requests;
-using Quarrel.Services.Cache;
-using Quarrel.Services.Users;
+using Quarrel.ViewModels.Services.Users;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.DispatcherHelper;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
-namespace Quarrel.Services.Guild
+namespace Quarrel.ViewModels.Services.Guild
 {
     public class GuildsService : IGuildsService
     {

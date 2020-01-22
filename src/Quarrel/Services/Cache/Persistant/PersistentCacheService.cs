@@ -1,6 +1,10 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
+using JetBrains.Annotations;
+using Newtonsoft.Json;
+using Quarrel.ViewModels.Services.Cache.Persistent;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,9 +14,6 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
-using JetBrains.Annotations;
-using Newtonsoft.Json;
-using System.Collections.Concurrent;
 
 namespace Quarrel.Services.Cache.Persistent
 {

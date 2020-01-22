@@ -1,12 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Services.Settings;
-using Quarrel.Services.Settings.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Quarrel.ViewModels.Services.Settings;
+using Quarrel.ViewModels.Services.Settings.Enums;
 
 namespace Quarrel.ViewModels.Settings.Pages
 {

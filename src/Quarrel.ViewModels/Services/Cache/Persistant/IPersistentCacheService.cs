@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 
-namespace Quarrel.Services.Cache.Persistent
+namespace Quarrel.ViewModels.Services.Cache.Persistent
 {
     /// <summary>
     /// The default <see langword="interface"/> for the persistent cache manager used in the app

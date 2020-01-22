@@ -1,4 +1,4 @@
-﻿using Quarrel.Services.Settings;
+﻿using Quarrel.ViewModels.Services.Settings;
 
 namespace Quarrel.Messages.Services.Settings
 {

@@ -3,7 +3,7 @@ using Quarrel.ViewModels.Models.Bindables;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace Quarrel.Services.Users
+namespace Quarrel.ViewModels.Services.Users
 {
     public interface ICurrentUsersService
     {

@@ -9,10 +9,10 @@ using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Posts.Requests;
-using Quarrel.Services;
-using Quarrel.Services.Cache;
-using Quarrel.Services.Guild;
-using Quarrel.Services.Rest;
+using Quarrel.ViewModels.Services;
+using Quarrel.ViewModels.Services.Cache;
+using Quarrel.ViewModels.Services.Guild;
+using Quarrel.ViewModels.Services.Rest;
 using Quarrel.ViewModels.Models.Bindables;
 
 

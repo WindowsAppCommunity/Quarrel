@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Quarrel.ViewModels.Models.Bindables;
 
-namespace Quarrel.Services.Guild
+namespace Quarrel.ViewModels.Services.Guild
 {
     public interface IGuildsService
     {

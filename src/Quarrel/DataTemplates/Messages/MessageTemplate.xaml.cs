@@ -2,22 +2,13 @@
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Controls.Members;
 using Quarrel.Messages.Navigation;
-using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.Navigation;
-using Quarrel.Services.Guild;
-using Quarrel.Services.Rest;
-using Quarrel.Services.Users;
+using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Services.Users;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using DiscordAPI.Models;
 
 namespace Quarrel.DataTemplates.Messages
 {
