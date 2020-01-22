@@ -11,11 +11,10 @@ using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Navigation;
 using Quarrel.Messages.Posts.Requests;
-using Quarrel.Models.Bindables;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Users;
 using Quarrel.ViewModels.Helpers;
-using Quarrel.ViewModels.Messages.Gateway.Channels;
+using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 
 namespace Quarrel.Services.Guild

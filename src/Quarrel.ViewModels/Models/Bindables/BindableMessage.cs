@@ -1,7 +1,7 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
 using DiscordAPI.Models;
-using Quarrel.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Bindables.Abstract;
 using JetBrains.Annotations;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -18,7 +18,7 @@ using Quarrel.Services.Rest;
 using Quarrel.ViewModels.Models.Bindables;
 using System.ComponentModel;
 
-namespace Quarrel.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables
 {
     public class BindableMessage : BindableModelBase<Message>
     {

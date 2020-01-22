@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using DiscordAPI.Models;
-using Quarrel.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables;
 using Microsoft.Advertising.WinRT.UI;
 
 namespace Quarrel.TemplateSelectors

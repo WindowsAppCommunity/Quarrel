@@ -1,9 +1,5 @@
 ﻿using DiscordAPI.API.Guild;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Models.Bindables;
-using Quarrel.Services.Guild;
-using Quarrel.Services.Rest;
-using Quarrel.Services.Users;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +14,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Quarrel.Services.Guild;
+using Quarrel.Services.Rest;
+using Quarrel.Services.Users;
 using Quarrel.ViewModels;
+using Quarrel.ViewModels.Models.Bindables;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 

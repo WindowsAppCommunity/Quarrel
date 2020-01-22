@@ -1,7 +1,7 @@
 ﻿using DiscordAPI.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.Navigation;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Rest;
@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Quarrel.ViewModels.ViewModels.SubPages
+namespace Quarrel.ViewModels.SubPages
 {
     public class UserProfilePageViewModel : ViewModelBase
     {

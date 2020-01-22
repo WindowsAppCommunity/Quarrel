@@ -1,6 +1,4 @@
-﻿using Quarrel.Models.Bindables;
-using Quarrel.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -9,11 +7,14 @@ using System.Threading.Tasks;
 using Quarrel.ViewModels.Helpers;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Services.Cache;
-using Quarrel.Services.Rest;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Posts.Requests;
+using Quarrel.Services;
+using Quarrel.Services.Cache;
 using Quarrel.Services.Guild;
+using Quarrel.Services.Rest;
+using Quarrel.ViewModels.Models.Bindables;
+
 
 namespace DiscordAPI.Models
 {

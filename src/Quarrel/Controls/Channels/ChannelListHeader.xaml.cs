@@ -13,9 +13,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Quarrel.Models.Bindables;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Navigation.SubFrame;
+using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.SubPages;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236

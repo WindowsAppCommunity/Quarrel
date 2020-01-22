@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Quarrel.Models.Bindables.Abstract;
 using Quarrel.Models.Interfaces;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Posts.Requests;
@@ -22,9 +21,10 @@ using Quarrel.Navigation;
 using Quarrel.Services.Users;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Services.Clipboard;
 
-namespace Quarrel.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables
 {
     public class BindableGuild : BindableModelBase<Guild>, IGuild
     {

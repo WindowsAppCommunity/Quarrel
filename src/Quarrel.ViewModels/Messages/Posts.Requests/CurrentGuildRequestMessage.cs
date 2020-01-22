@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Quarrel.Messages.Abstract;
-using Quarrel.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables;
 
 namespace Quarrel.Messages.Posts.Requests
 {

@@ -2,7 +2,7 @@
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Controls.Members;
 using Quarrel.Messages.Navigation;
-using Quarrel.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.Navigation;
 using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;

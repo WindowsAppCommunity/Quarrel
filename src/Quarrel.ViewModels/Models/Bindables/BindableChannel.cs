@@ -8,7 +8,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Models.Bindables.Abstract;
 using Quarrel.Messages.Gateway;
 using Quarrel.Services.Users;
 using Quarrel.Services.Voice;
@@ -24,8 +23,9 @@ using GalaSoft.MvvmLight.Command;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.Navigation;
+using Quarrel.ViewModels.Models.Bindables.Abstract;
 
-namespace Quarrel.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables
 {
     public class BindableChannel : BindableModelBase<Channel>
     {

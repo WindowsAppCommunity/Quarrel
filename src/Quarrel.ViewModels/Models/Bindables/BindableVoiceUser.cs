@@ -10,12 +10,12 @@ using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 using Quarrel.Messages.Gateway;
 using Quarrel.Messages.Voice;
-using Quarrel.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.Services.Users;
 using Quarrel.ViewModels.Services;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 
-namespace Quarrel.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables
 {
     public class BindableVoiceUser : BindableModelBase<VoiceState>, IEquatable<BindableVoiceUser>, IComparable<BindableVoiceUser>
     {

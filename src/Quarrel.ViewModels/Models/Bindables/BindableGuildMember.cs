@@ -8,7 +8,7 @@ using System.Linq;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Gateway;
-using Quarrel.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.Services;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Guild;
@@ -17,7 +17,7 @@ using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 
-namespace Quarrel.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables
 {
     public class BindableGuildMember : BindableModelBase<GuildMember>, IEquatable<BindableGuildMember>, IComparable<BindableGuildMember>, IGuildMemberListItem
     {

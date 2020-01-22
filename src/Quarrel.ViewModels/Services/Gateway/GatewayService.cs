@@ -1,38 +1,29 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
-using GalaSoft.MvvmLight.Messaging;
-using JetBrains.Annotations;
-using DiscordAPI.Gateway;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DiscordAPI.Gateway.DownstreamEvents;
-using Quarrel.Messages.Gateway;
-using Quarrel.Messages.Navigation;
 using DiscordAPI.API;
 using DiscordAPI.API.Gateway;
 using DiscordAPI.Authentication;
-using DiscordAPI.Gateway.UpstreamEvents;
+using DiscordAPI.Gateway;
+using DiscordAPI.Gateway.DownstreamEvents;
 using DiscordAPI.Models;
-using DiscordAPI.Sockets;
 using GalaSoft.MvvmLight.Ioc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Quarrel.Models.Bindables;
-using Quarrel.Messages.Posts.Requests;
+using GalaSoft.MvvmLight.Messaging;
+using JetBrains.Annotations;
+using Quarrel.Messages.Gateway;
+using Quarrel.Messages.Navigation;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Guild;
 using Quarrel.Services.Rest;
 using Quarrel.Services.Users;
-using Refit;
-using Quarrel.ViewModels.Messages;
 using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Messages;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Gateway.Channels;
-using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Messages.Gateway.Voice;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Quarrel.Services.Gateway
 {

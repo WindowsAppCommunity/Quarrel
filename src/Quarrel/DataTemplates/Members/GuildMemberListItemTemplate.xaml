@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Quarrel.DataTemplates.Members"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:bindables="using:Quarrel.Models.Bindables"
+    xmlns:bindables="using:Quarrel.ViewModels.Models.Bindables"
     xmlns:membercontrols="using:Quarrel.Controls.Members"
     xmlns:bindables1="using:Quarrel.ViewModels.Models.Bindables"
     x:Class="Quarrel.DataTemplates.Members.GuildMemberListItemTemplate">

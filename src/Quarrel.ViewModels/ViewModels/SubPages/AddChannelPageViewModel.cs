@@ -6,7 +6,6 @@ using DiscordAPI.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Models.Bindables;
 using Quarrel.Navigation;
 using Quarrel.Services.Rest;
 

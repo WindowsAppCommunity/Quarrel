@@ -13,7 +13,6 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Quarrel.Models.Bindables;
 using Quarrel.Services;
 using Quarrel.SubPages.Interfaces;
 using DiscordAPI.Models;
@@ -23,7 +22,8 @@ using Quarrel.Services.Cache;
 using Quarrel.Services.Rest;
 using Windows.UI.Xaml.Media.Animation;
 using Quarrel.Services.Users;
-using Quarrel.ViewModels.ViewModels.SubPages;
+using Quarrel.ViewModels.SubPages;
+using Quarrel.ViewModels.Models.Bindables;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 

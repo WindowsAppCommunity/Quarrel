@@ -1,13 +1,7 @@
-﻿using System;
+﻿using DiscordAPI.Models;
+using Quarrel.ViewModels.Models.Bindables;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DiscordAPI.Models;
-using Quarrel.Models.Bindables;
-using Quarrel.ViewModels.Models.Bindables;
 
 namespace Quarrel.Services.Users
 {

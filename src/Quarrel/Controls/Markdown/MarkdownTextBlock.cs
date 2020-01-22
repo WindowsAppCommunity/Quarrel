@@ -24,7 +24,7 @@ using Quarrel.Controls.Markdown.ColorCode.ColorCode.UWP;
 using Quarrel.Controls.Markdown.Display;
 using Quarrel.Controls.Markdown.Helpers;
 using Quarrel.Controls.Markdown.Parse;
-using Quarrel.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables;
 
 namespace Quarrel.Controls.Markdown
 {

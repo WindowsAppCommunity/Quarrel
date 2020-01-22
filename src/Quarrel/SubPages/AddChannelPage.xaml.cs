@@ -1,6 +1,5 @@
 ﻿using DiscordAPI.API.Guild.Models;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Models.Bindables;
 using Quarrel.Navigation;
 using Quarrel.Services.Rest;
 using Quarrel.SubPages.Interfaces;

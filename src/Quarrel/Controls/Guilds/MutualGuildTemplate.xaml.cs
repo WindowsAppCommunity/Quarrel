@@ -1,7 +1,6 @@
 ﻿using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Messages.Posts.Requests;
-using Quarrel.Models.Bindables;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Services.Guild;
+using Quarrel.ViewModels.Models.Bindables;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 

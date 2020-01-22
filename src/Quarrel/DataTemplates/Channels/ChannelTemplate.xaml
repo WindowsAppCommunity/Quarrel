@@ -2,7 +2,7 @@
     x:Class="Quarrel.DataTemplates.Channels.ChannelTemplate"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:bindables="using:Quarrel.Models.Bindables"
+    xmlns:bindables="using:Quarrel.ViewModels.Models.Bindables"
     xmlns:local="using:Quarrel.DataTemplates.Channels"
     xmlns:channelcontrols="using:Quarrel.Controls.Channels"
     xmlns:controls="using:Quarrel.Controls"

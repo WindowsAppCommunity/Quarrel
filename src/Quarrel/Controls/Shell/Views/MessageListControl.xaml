@@ -10,7 +10,7 @@
     xmlns:controls="using:Quarrel.Controls"
     xmlns:viewModels="using:Quarrel.ViewModels"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
-    xmlns:bindables="using:Quarrel.Models.Bindables"
+    xmlns:bindables="using:Quarrel.ViewModels.Models.Bindables"
     xmlns:messages="using:Quarrel.DataTemplates.Messages"
     mc:Ignorable="d"
     d:DesignHeight="300"

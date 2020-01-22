@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Models.Bindables;
 using Quarrel.Navigation;
 using Quarrel.SubPages.Interfaces;
+using Quarrel.ViewModels.Models.Bindables;
 using System;
 using System.Collections.Generic;
 using System.IO;

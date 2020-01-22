@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Quarrel.ViewModels.Models.Bindables;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using DiscordAPI.Models;
-using Quarrel.Models.Bindables;
-using Quarrel.ViewModels.Models.Bindables;
-using Quarrel.ViewModels.Models.Interfaces;
 
 namespace Quarrel.TemplateSelectors
 {

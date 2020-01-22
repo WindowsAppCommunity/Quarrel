@@ -13,7 +13,7 @@
 using System;
 using Windows.UI.Xaml.Documents;
 using DiscordAPI.Models;
-using Quarrel.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables;
 
 namespace Quarrel.Controls.Markdown
 {

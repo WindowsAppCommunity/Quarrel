@@ -25,7 +25,6 @@ using Windows.UI.Xaml.Navigation;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Threading;
 using JetBrains.Annotations;
-using Quarrel.Models.Bindables;
 using Quarrel.Messages.Gateway;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.Messages.Navigation;

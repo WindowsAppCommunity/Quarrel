@@ -7,9 +7,9 @@ using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 using Quarrel.Messages.Gateway;
-using Quarrel.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Bindables.Abstract;
 
-namespace Quarrel.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables
 {
     public class BindableUser : BindableModelBase<User>, IEquatable<BindableUser>, IComparable<BindableUser>
     {
