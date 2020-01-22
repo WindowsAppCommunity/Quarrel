@@ -9,5 +9,6 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
+    <!--Chevron-->
     <FontIcon x:Name="Chevron" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Glyph="" Opacity="0.55" FontSize="14"/>
 </UserControl>

@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using Microsoft.Toolkit.Uwp.UI.Animations;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Microsoft.Toolkit.Uwp.UI.Animations;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Quarrel.Controls.Channels
 {
+    /// <summary>
+    /// Chevron to indicate collapsed status of Category in ChannelTemplate
+    /// </summary>
     public sealed partial class CategoryChveron : UserControl
     {
         public CategoryChveron()
@@ -25,8 +13,10 @@ namespace Quarrel.Controls.Channels
             this.InitializeComponent();
         }
 
-        private bool _IsCollapsed;
-
+        /// <summary>
+        /// true when collapsed
+        /// </summary>
+        /// <remarks> Rotates FontIcon -90 when collapsed </remarks>
         public bool IsCollapsed
         {
             get => _IsCollapsed;
@@ -40,5 +30,6 @@ namespace Quarrel.Controls.Channels
                 _IsCollapsed = value;
             }
         }
+        private bool _IsCollapsed;
     }
 }
