@@ -3,9 +3,9 @@
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
-using Quarrel.Navigation;
 using Quarrel.SubPages.Interfaces;
 using Quarrel.ViewModels.Messages.Navigation.SubFrame;
+using Quarrel.ViewModels.Services.Navigation;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;

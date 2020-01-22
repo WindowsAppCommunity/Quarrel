@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using Quarrel.ViewModels.Messages.Navigation.SubFrame;
+using Quarrel.ViewModels.Services.Navigation;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

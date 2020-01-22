@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Views;
 
-namespace Quarrel.Navigation
+namespace Quarrel.ViewModels.Services.Navigation
 {
     public interface ISubFrameNavigationService : INavigationService
     {

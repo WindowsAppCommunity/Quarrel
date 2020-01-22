@@ -1,7 +1,7 @@
 ﻿using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Navigation;
 using Quarrel.ViewModels;
+using Quarrel.ViewModels.Services.Navigation;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

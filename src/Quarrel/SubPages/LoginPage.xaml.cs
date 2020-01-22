@@ -1,16 +1,14 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Quarrel.Navigation;
 using Quarrel.SubPages.Interfaces;
+using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.Services.Rest;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Quarrel.SubPages
 {

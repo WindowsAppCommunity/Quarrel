@@ -18,11 +18,11 @@ using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
-using Quarrel.Navigation;
-using Quarrel.ViewModels.Services.Cache;
-using Quarrel.ViewModels.Services.Gateway;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages;
+using Quarrel.ViewModels.Services.Cache;
+using Quarrel.ViewModels.Services.Gateway;
+using Quarrel.ViewModels.Services.Navigation;
 using System.Threading.Tasks;
 
 namespace Quarrel.ViewModels.Services.Rest

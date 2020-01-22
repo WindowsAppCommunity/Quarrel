@@ -1,36 +1,23 @@
 ﻿using DiscordAPI.Interfaces;
-using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using Quarrel.Helpers;
-using Quarrel.Navigation;
 using Quarrel.SubPages.Interfaces;
 using Quarrel.ViewModels.Services.Clipboard;
+using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.ViewModels.SubPages;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Data.Pdf;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Quarrel.SubPages
 {

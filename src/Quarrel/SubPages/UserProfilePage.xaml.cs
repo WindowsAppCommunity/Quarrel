@@ -1,14 +1,12 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Navigation;
 using Quarrel.SubPages.Interfaces;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.Services.Rest;
 using Quarrel.ViewModels.SubPages;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Quarrel.SubPages
 {

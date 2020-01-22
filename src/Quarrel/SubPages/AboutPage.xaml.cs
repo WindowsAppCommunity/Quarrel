@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Navigation;
 using Quarrel.SubPages.Interfaces;
+using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.Services.Rest;
 using System;
 using Windows.ApplicationModel;

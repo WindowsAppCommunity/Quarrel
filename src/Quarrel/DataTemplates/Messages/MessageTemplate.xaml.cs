@@ -2,8 +2,8 @@
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Controls.Members;
 using Quarrel.ViewModels.Messages.Navigation;
-using Quarrel.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.Services.Users;
 using System;
 using Windows.System;

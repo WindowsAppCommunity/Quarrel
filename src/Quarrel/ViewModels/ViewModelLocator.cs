@@ -14,6 +14,7 @@ using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Services.Gateway;
 using Quarrel.ViewModels.Services.Guild;
+using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.Services.Rest;
 using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.Services.Users;
