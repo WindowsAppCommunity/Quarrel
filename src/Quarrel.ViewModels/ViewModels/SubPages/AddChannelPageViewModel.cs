@@ -10,20 +10,19 @@ using Quarrel.Models.Bindables;
 using Quarrel.Navigation;
 using Quarrel.Services.Rest;
 
-namespace Quarrel.ViewModels.ViewModels
+namespace Quarrel.ViewModels.SubPages
 {
-    public class AddChannelDialogModel : ViewModelBase
+    public class AddChannelPageViewModel : ViewModelBase
     {
         #region Constructors
 
-        public AddChannelDialogModel()
+        public AddChannelPageViewModel()
         {
             if (SubFrameNavigationService.Parameter != null)
             {
                 guild = (Guild)SubFrameNavigationService.Parameter;
             }
         }
-
 
         #endregion
 
@@ -33,7 +32,6 @@ namespace Quarrel.ViewModels.ViewModels
 
         private ISubFrameNavigationService SubFrameNavigationService { get; } =
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
-
 
         #endregion
 

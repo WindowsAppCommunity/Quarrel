@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Quarrel.ViewModels;
+using Quarrel.ViewModels.SubPages;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -30,7 +31,10 @@ namespace Quarrel.SubPages
         public AddChannelPage()
         {
             this.InitializeComponent();
+            this.DataContext = new AddChannelPageViewModel();
         }
+
+        public AddChannelPageViewModel ViewModel => this.DataContext as AddChannelPageViewModel;
 
 
         public double MaxExpandedHeight { get; } = 300;

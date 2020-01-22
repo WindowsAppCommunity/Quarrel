@@ -7,14 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
-    xmlns:viewModels="using:Quarrel.ViewModels.ViewModels"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
     <UserControl.Resources>
         <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
-        <viewModels:AddChannelDialogModel x:Name="DialogModel"/>
     </UserControl.Resources>
     
     <Grid Padding="16">
@@ -29,9 +27,9 @@
 
         <ScrollViewer Grid.Row="1" Padding="8">
             <StackPanel>
-                <TextBox x:Name="ChannelNameBox" Text="{x:Bind DialogModel.ChannelName, Mode=TwoWay}"  Header="Channel Name" Style="{StaticResource TextBoxStyle1}"/>
+                <TextBox x:Name="ChannelNameBox" Text="{x:Bind ViewModel.ChannelName, Mode=TwoWay}"  Header="Channel Name" Style="{StaticResource TextBoxStyle1}"/>
 
-                <controls:RadioButtons SelectedIndex="0" Margin="0,12,0,0" SelectedItem="{x:Bind DialogModel.SelectedChannelType, Mode=TwoWay}">
+                <controls:RadioButtons SelectedIndex="0" Margin="0,12,0,0" SelectedItem="{x:Bind ViewModel.SelectedChannelType, Mode=TwoWay}">
                     <controls:RadioButtons.ItemTemplate>
                         <DataTemplate>
                             <RadioButton Content="{Binding}" Style="{StaticResource DiscordRadioButton}"/>
@@ -45,9 +43,9 @@
         </ScrollViewer>
 
         <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal">
-            <Button Content="Save" Style="{StaticResource DiscordButton}" Width="80" Margin="4" Command="{x:Bind DialogModel.CreateChannelCommand}"
+            <Button Content="Save" Style="{StaticResource DiscordButton}" Width="80" Margin="4" Command="{x:Bind ViewModel.CreateChannelCommand}"
                     IsEnabled="{x:Bind ChannelNameBox.Text, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"/>
-            <Button Content="Cancel" Style="{StaticResource DiscordButton}" Background="{StaticResource dnd}" Width="80" Margin="4" Command="{x:Bind DialogModel.BackCommand}"/>
+            <Button Content="Cancel" Style="{StaticResource DiscordButton}" Background="{StaticResource dnd}" Width="80" Margin="4" Command="{x:Bind ViewModel.BackCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>
