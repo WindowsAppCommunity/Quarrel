@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quarrel.ViewModels.SubPages.Settings.Pages;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,9 @@ namespace Quarrel.SubPages.Settings.Pages
         public BehaviorSettingsPage()
         {
             this.InitializeComponent();
+            this.DataContext = new BehaviorSettingsViewModel();
         }
+
+        public BehaviorSettingsViewModel ViewModel => this.DataContext as BehaviorSettingsViewModel;
     }
 }

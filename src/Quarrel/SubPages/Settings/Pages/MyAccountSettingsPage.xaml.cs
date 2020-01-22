@@ -1,6 +1,6 @@
 ﻿using Quarrel.Helpers;
-using Quarrel.ViewModels.Settings;
-using Quarrel.ViewModels.Settings.Pages;
+using Quarrel.ViewModels.SubPages.Settings;
+using Quarrel.ViewModels.SubPages.Settings.Pages;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,19 +17,17 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace Quarrel.SubPages.Settings.Pages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MyAccountSettingsPage : Page
     {
         public MyAccountSettingsPage()
         {
             this.InitializeComponent();
+            this.DataContext = new MyAccountSettingsViewModel();
         }
+
+        public MyAccountSettingsViewModel ViewModel => this.DataContext as MyAccountSettingsViewModel;
 
         private async void UploadAvatar(object sender, RoutedEventArgs e)
         {

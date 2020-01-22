@@ -5,14 +5,9 @@
     xmlns:local="using:Quarrel.SubPages.Settings.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:pages="using:Quarrel.ViewModels.Settings.Pages"
     xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     mc:Ignorable="d">
 
-    <Page.DataContext>
-        <pages:DisplaySettingsViewModel x:Name="ViewModel"/>
-    </Page.DataContext>
-    
     <ScrollViewer Windows10version1809:CanContentRenderOutsideBounds="True">
         <StackPanel>
             <TextBlock Text="THEME" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0"/>

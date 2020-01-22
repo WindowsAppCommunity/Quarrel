@@ -5,7 +5,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Services.Rest;
 using Quarrel.ViewModels.Services.Users;
 
-namespace Quarrel.ViewModels.Settings.Pages
+namespace Quarrel.ViewModels.SubPages.Settings.Pages
 {
     public class MyAccountSettingsViewModel : ViewModelBase
     {
