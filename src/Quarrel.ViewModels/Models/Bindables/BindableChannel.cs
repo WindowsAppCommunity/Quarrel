@@ -559,7 +559,8 @@ namespace Quarrel.ViewModels.Models.Bindables
         private RelayCommand markAsRead;
         public RelayCommand MarkAsRead => markAsRead = new RelayCommand(async () =>
         {
-            await _DiscordService.ChannelService.AckMessage(Model.Id, Model.LastMessageId ?? "");
+            if (Model.LastMessageId != null)
+                await _DiscordService.ChannelService.AckMessage(Model.Id, Model.LastMessageId);
         });
 
         private RelayCommand mute;

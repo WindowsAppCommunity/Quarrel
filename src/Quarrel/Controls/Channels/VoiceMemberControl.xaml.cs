@@ -19,9 +19,11 @@ using Quarrel.ViewModels.Models.Bindables;
 
 namespace Quarrel.Controls.Channels
 {
+    /// <summary>
+    /// Control to show a member of a Voice Channel
+    /// </summary>
     public sealed partial class VoiceMemberControl : UserControl
     {
-        public BindableVoiceUser ViewModel => DataContext as BindableVoiceUser;
         public VoiceMemberControl()
         {
             this.InitializeComponent();
@@ -30,5 +32,10 @@ namespace Quarrel.Controls.Channels
                 this.Bindings.Update();
             };
         }
+
+        /// <summary>
+        /// User showing
+        /// </summary>
+        public BindableVoiceUser ViewModel => DataContext as BindableVoiceUser;
     }
 }
