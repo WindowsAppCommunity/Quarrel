@@ -1,5 +1,4 @@
-﻿using Quarrel.ViewModels.SubPages.Settings.Pages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,19 +15,16 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Quarrel.SubPages.Settings.Pages
+namespace Quarrel.SubPages.UserSettings.Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class PrivacySettingsPage : Page
+    public sealed partial class VoiceSettingsPage : Page
     {
-        public PrivacySettingsPage()
+        public VoiceSettingsPage()
         {
             this.InitializeComponent();
-            this.DataContext = new PrivacySettingsViewModel();
         }
-
-        public PrivacySettingsViewModel ViewModel => this.DataContext as PrivacySettingsViewModel;
     }
 }

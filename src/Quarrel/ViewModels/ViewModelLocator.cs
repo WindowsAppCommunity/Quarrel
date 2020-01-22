@@ -8,7 +8,7 @@ using Quarrel.Services.Users;
 using Quarrel.Services.Voice.Audio.In;
 using Quarrel.Services.Voice.Audio.Out;
 using Quarrel.SubPages;
-using Quarrel.SubPages.Settings;
+using Quarrel.SubPages.UserSettings;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.DispatcherHelper;
@@ -40,7 +40,7 @@ namespace Quarrel.ViewModels
             navigationService.Configure("DiscordStatusPage", typeof(DiscordStatusPage));
             navigationService.Configure("LicensesPage", typeof(LicensesPage));
             navigationService.Configure("LoginPage", typeof(LoginPage));
-            navigationService.Configure("SettingsPage", typeof(SettingsPage));
+            navigationService.Configure("SettingsPage", typeof(UserSettingsPage));
             navigationService.Configure("TopicPage", typeof(TopicPage));
             navigationService.Configure("UserProfilePage", typeof(UserProfilePage));
             navigationService.Configure("WhatsNewPage", typeof(WhatsNewPage));

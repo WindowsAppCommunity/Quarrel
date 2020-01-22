@@ -3,7 +3,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.Services.Settings.Enums;
 
-namespace Quarrel.ViewModels.SubPages.Settings.Pages
+namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 {
     public class DisplaySettingsViewModel : ViewModelBase
     {

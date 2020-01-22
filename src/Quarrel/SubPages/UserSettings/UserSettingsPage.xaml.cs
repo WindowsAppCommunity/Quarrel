@@ -1,5 +1,5 @@
 ﻿using Quarrel.SubPages.Interfaces;
-using Quarrel.SubPages.Settings.Pages;
+using Quarrel.SubPages.UserSettings.Pages;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -9,11 +9,11 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Quarrel.SubPages.Settings
+namespace Quarrel.SubPages.UserSettings
 {
-    public sealed partial class SettingsPage : IAdaptiveSubPage, IConstrainedSubPage
+    public sealed partial class UserSettingsPage : IAdaptiveSubPage, IConstrainedSubPage
     {
-        public SettingsPage()
+        public UserSettingsPage()
         {
             this.InitializeComponent();
             this.Loaded += (_, e) => NavigationControl.SelectedItem = MyAccountItem;

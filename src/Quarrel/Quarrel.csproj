@@ -395,29 +395,29 @@
     <Compile Include="SubPages\WhatsNewPage.xaml.cs">
       <DependentUpon>WhatsNewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\Settings\Pages\BehaviorSettingsPage.xaml.cs">
+    <Compile Include="SubPages\UserSettings\Pages\BehaviorSettingsPage.xaml.cs">
       <DependentUpon>BehaviorSettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\Settings\Pages\ConnectionsSettingsPage.xaml.cs">
+    <Compile Include="SubPages\UserSettings\Pages\ConnectionsSettingsPage.xaml.cs">
       <DependentUpon>ConnectionsSettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\Settings\Pages\DisplaySettingsPage.xaml.cs">
+    <Compile Include="SubPages\UserSettings\Pages\DisplaySettingsPage.xaml.cs">
       <DependentUpon>DisplaySettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\Settings\Pages\MyAccountSettingsPage.xaml.cs">
+    <Compile Include="SubPages\UserSettings\Pages\MyAccountSettingsPage.xaml.cs">
       <DependentUpon>MyAccountSettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\Settings\Pages\NotificationsSettingsPage.xaml.cs">
+    <Compile Include="SubPages\UserSettings\Pages\NotificationsSettingsPage.xaml.cs">
       <DependentUpon>NotificationsSettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\Settings\Pages\PrivacySettingsPage.xaml.cs">
+    <Compile Include="SubPages\UserSettings\Pages\PrivacySettingsPage.xaml.cs">
       <DependentUpon>PrivacySettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\Settings\Pages\VoiceSettingsPage.xaml.cs">
+    <Compile Include="SubPages\UserSettings\Pages\VoiceSettingsPage.xaml.cs">
       <DependentUpon>VoiceSettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\Settings\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    <Compile Include="SubPages\UserSettings\UserSettingsPage.xaml.cs">
+      <DependentUpon>UserSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\StatusPage.xaml.cs">
       <DependentUpon>StatusPage.xaml</DependentUpon>
@@ -734,35 +734,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SubPages\Settings\Pages\BehaviorSettingsPage.xaml">
+    <Page Include="SubPages\UserSettings\Pages\BehaviorSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SubPages\Settings\Pages\ConnectionsSettingsPage.xaml">
+    <Page Include="SubPages\UserSettings\Pages\ConnectionsSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SubPages\Settings\Pages\DisplaySettingsPage.xaml">
+    <Page Include="SubPages\UserSettings\Pages\DisplaySettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SubPages\Settings\Pages\MyAccountSettingsPage.xaml">
+    <Page Include="SubPages\UserSettings\Pages\MyAccountSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SubPages\Settings\Pages\NotificationsSettingsPage.xaml">
+    <Page Include="SubPages\UserSettings\Pages\NotificationsSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SubPages\Settings\Pages\PrivacySettingsPage.xaml">
+    <Page Include="SubPages\UserSettings\Pages\PrivacySettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SubPages\Settings\Pages\VoiceSettingsPage.xaml">
+    <Page Include="SubPages\UserSettings\Pages\VoiceSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SubPages\Settings\SettingsPage.xaml">
+    <Page Include="SubPages\UserSettings\UserSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
