@@ -1,5 +1,4 @@
-﻿using Quarrel.Models.Bindables;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,20 +15,13 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Quarrel.Controls.Channels
+namespace Quarrel.DataTemplates.Channels
 {
-    public sealed partial class ChannelTemplate : UserControl
+    public sealed partial class ChannelTemplate
     {
         public ChannelTemplate()
         {
             this.InitializeComponent();
-
-            this.DataContextChanged += (s, e) =>
-            {
-                this.Bindings.Update();
-            };
         }
-
-        public BindableChannel ViewModel => DataContext as BindableChannel;
     }
 }

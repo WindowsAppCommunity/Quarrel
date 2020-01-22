@@ -143,9 +143,6 @@
     <Compile Include="Controls\Channels\ChannelListHeader.xaml.cs">
       <DependentUpon>ChannelListHeader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Channels\ChannelTemplate.xaml.cs">
-      <DependentUpon>ChannelTemplate.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Channels\VoiceMemberControl.xaml.cs">
       <DependentUpon>VoiceMemberControl.xaml</DependentUpon>
     </Compile>
@@ -325,6 +322,9 @@
     <Compile Include="Converters\Profile\Relationships\RelationToBlockConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToRemoveFriendConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToUnblock.cs" />
+    <Compile Include="DataTemplates\Channels\ChannelTemplate.xaml.cs">
+      <DependentUpon>ChannelTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataTemplates\Members\GuildMemberListItemTemplate.xaml.cs">
       <DependentUpon>GuildMemberListItemTemplate.xaml</DependentUpon>
     </Compile>
@@ -572,10 +572,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Channels\ChannelTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\Channels\VoiceMemberControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -641,6 +637,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\TypingIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataTemplates\Channels\ChannelTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

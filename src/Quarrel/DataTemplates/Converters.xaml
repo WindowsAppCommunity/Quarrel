@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Quarrel.DataTemplates"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
+    xmlns:convertchannel="using:Quarrel.Converters.Channel"
     xmlns:discordconvert="using:Quarrel.Converters.Discord"
     xmlns:msgconvert="using:Quarrel.Converters.Messages">
 
@@ -11,10 +12,17 @@
     
     <baseconvert:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
     <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
-    
+
+    <baseconvert:EnumerableAnyToVisibilityConverter x:Key="EnumerableAnyToVisibilityConverter"/>
     <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
     <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
 
+    <convertchannel:MentionCountToVisiblityConverter x:Key="MentionCountToVisiblityConverter"/>
+    <convertchannel:SelectedToOpacityConverter x:Key="SelectedToOpacityConverter"/>
+    <convertchannel:TypeToBrushConverter x:Key="TypeToBrushConverter"/>
+    <convertchannel:TypeToMinHeightConverter x:Key="TypeToMinHeightConverter"/>
+
+    <discordconvert:DiscriminatorToBrushConverter x:Key="DiscriminatorToBrushConverter"/>
     <discordconvert:PresenseToBrushConverter x:Key="PresenseToBrushConverter"/>
     <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
 
