@@ -90,7 +90,7 @@
                             </tk:AdaptiveGridView.ItemTemplate>
                         </tk:AdaptiveGridView>
                         <StackPanel x:Name="commonServerPanel">
-                            <TextBlock Visibility="{x:Bind _Profile.MutualGuilds, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Text="COMMON SERVERS" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                            <TextBlock Visibility="{x:Bind ViewModel.Profile.MutualGuilds, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Text="COMMON SERVERS" FontWeight="SemiBold" Margin="0,12,0,0"/>
                             <ListView x:Name="MutualGuilds" ItemsSource="{x:Bind _Profile.MutualGuilds, Mode=OneWay}" SelectionMode="None" Margin="0,0" Padding="0,12,0,0" IsItemClickEnabled="True">
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="models:MutualGuild">

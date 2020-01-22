@@ -23,6 +23,7 @@ using Quarrel.Services.Cache;
 using Quarrel.Services.Rest;
 using Windows.UI.Xaml.Media.Animation;
 using Quarrel.Services.Users;
+using Quarrel.ViewModels.ViewModels.SubPages;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -30,53 +31,51 @@ namespace Quarrel.SubPages
 {
     public sealed partial class UserProfilePage : UserControl, IConstrainedSubPage
     {
-        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
-        private ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
-        private ISubFrameNavigationService subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
-        
+        #region Constrcutors
+
         public UserProfilePage()
         {
             this.InitializeComponent();
             if (subFrameNavigationService.Parameter != null)
             {
                 ConnectedAnimationService.GetForCurrentView()?.GetAnimation(ViewModels.Helpers.Constants.ConnectedAnimationKeys.MemberFlyoutAnimation)?.TryStart(FullAvatar);
-                this.DataContext = subFrameNavigationService.Parameter;
-                LoadProfile();
+                this.DataContext = new UserProfilePageViewModel((BindableGuildMember)subFrameNavigationService.Parameter);
             }
         }
 
+        #endregion
 
-        public async void LoadProfile()
-        {
-            if (!ViewModel.Model.User.Bot)
-                _Profile = await discordService.UserService.GetUserProfile(ViewModel.Model.User.Id);
-            else
-                _Profile = new UserProfile() { user = ViewModel.Model.User };
+        #region Methods
 
-            if (SimpleIoc.Default.GetInstance<ICurrentUsersService>().Friends.TryGetValue(_Profile.user.Id, out var bindableFriend))
-                _Profile.Friend = bindableFriend.Model;
-            else
-                _Profile.Friend = new Friend() { Type = 0, Id = ViewModel.Model.User.Id, User = ViewModel.Model.User };
-
-
-            if (!ViewModel.Model.User.Bot)
-                _Profile.SharedFriends = await discordService.UserService.GetUserReleations(ViewModel.Model.User.Id);
-
-            this.Bindings.Update();
-        }
-
-        BindableGuildMember ViewModel => DataContext as BindableGuildMember;
-
-        private UserProfile _Profile;
-
-
+        /// <summary>
+        /// Change user note automatically when focus NoteBox is lost
+        /// </summary>
         private void NoteBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            discordService.UserService.AddNote(ViewModel.Model.User.Id, new DiscordAPI.API.User.Models.Note() { Content = (sender as TextBox).Text });
+            discordService.UserService.AddNote(ViewModel.User.Model.User.Id, new DiscordAPI.API.User.Models.Note() { Content = (sender as TextBox).Text });
         }
 
-        public double MaxExpandedHeight { get; } = 768;
 
+        #endregion
+
+        #region Properties
+
+        #region Services
+
+        private IDiscordService discordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ISubFrameNavigationService subFrameNavigationService { get; } = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+
+        #endregion
+
+        public UserProfilePageViewModel ViewModel => DataContext as UserProfilePageViewModel;
+
+        #endregion
+
+        #region IConstrainedSubPage
+
+        public double MaxExpandedHeight { get; } = 768;
         public double MaxExpandedWidth { get; } = 768;
+
+        #endregion
     }
 }
