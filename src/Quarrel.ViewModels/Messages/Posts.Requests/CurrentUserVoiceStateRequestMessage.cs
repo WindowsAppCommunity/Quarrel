@@ -1,7 +1,7 @@
 ﻿using DiscordAPI.Models;
-using Quarrel.Messages.Abstract;
+using Quarrel.ViewModels.Messages.Abstract;
 
-namespace Quarrel.Messages.Posts.Requests
+namespace Quarrel.ViewModels.Messages.Posts.Requests
 {
     public sealed class CurrentUserVoiceStateRequestMessage : RequestMessageBase<VoiceState> { }
 }

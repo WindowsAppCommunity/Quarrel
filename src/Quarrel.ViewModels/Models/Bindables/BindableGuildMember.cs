@@ -1,21 +1,20 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
 using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
+using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Interfaces;
+using Quarrel.ViewModels.Services.Cache;
+using Quarrel.ViewModels.Services.DispatcherHelper;
+using Quarrel.ViewModels.Services.Guild;
+using Quarrel.ViewModels.Services.Rest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Messaging;
-using Quarrel.Messages.Gateway;
-using Quarrel.ViewModels.Models.Bindables.Abstract;
-using Quarrel.ViewModels.Services;
-using Quarrel.ViewModels.Services.Cache;
-using Quarrel.ViewModels.Services.Guild;
-using Quarrel.ViewModels.Services.Rest;
-using Quarrel.ViewModels.Models.Interfaces;
-using Quarrel.ViewModels.Helpers;
-using Quarrel.ViewModels.Services.DispatcherHelper;
 
 namespace Quarrel.ViewModels.Models.Bindables
 {

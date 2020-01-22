@@ -1,7 +1,7 @@
 ﻿using DiscordAPI.Models;
 using System.Collections.Generic;
 
-namespace Quarrel.Messages.Gateway
+namespace Quarrel.ViewModels.Messages.Gateway
 {
     public sealed class GatewayGuildSyncMessage
     {

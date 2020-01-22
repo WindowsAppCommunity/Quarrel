@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.Models;
 
-namespace Quarrel.Messages.Gateway
+namespace Quarrel.ViewModels.Messages.Gateway
 {
     public sealed class GatewayUserSettingsUpdatedMessage
     {

@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
-using Quarrel.Messages.Gateway;
+using Quarrel.ViewModels.Messages.Gateway;
 
 namespace DiscordAPI.Models
 {

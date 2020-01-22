@@ -1,8 +1,8 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Quarrel.Messages.Navigation;
 using Quarrel.ViewModels;
+using Quarrel.ViewModels.Messages.Navigation;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

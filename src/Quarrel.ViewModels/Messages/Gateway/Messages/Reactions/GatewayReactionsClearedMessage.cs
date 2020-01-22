@@ -1,4 +1,4 @@
-﻿namespace Quarrel.Messages.Gateway
+﻿namespace Quarrel.ViewModels.Messages.Gateway
 {
     public sealed class GatewayReactionClearedMessage
     {

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Threading;
+using Quarrel.ViewModels.Messages.Navigation.SubFrame;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
-using GalaSoft.MvvmLight.Messaging;
-using Quarrel.Messages.Navigation.SubFrame;
-using System.Collections.Concurrent;
-using GalaSoft.MvvmLight.Threading;
 
 namespace Quarrel.Navigation
 {

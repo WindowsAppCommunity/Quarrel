@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace Quarrel.Messages.Abstract
+namespace Quarrel.ViewModels.Messages.Abstract
 {
     /// <summary>
     /// A base message that signals whenever a specific value has changed

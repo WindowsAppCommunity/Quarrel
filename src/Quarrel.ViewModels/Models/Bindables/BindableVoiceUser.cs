@@ -1,8 +1,8 @@
 ﻿using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
-using Quarrel.Messages.Gateway;
-using Quarrel.Messages.Voice;
+using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Messages.Voice;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Services.Users;

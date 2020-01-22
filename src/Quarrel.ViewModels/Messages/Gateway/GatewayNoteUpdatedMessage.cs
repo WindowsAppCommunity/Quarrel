@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.Messages.Gateway
+namespace Quarrel.ViewModels.Messages.Gateway
 {
     public sealed class GatewayNoteUpdatedMessage
     {

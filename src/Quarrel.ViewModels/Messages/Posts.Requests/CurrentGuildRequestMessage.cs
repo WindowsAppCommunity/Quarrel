@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using Quarrel.Messages.Abstract;
+﻿using Quarrel.ViewModels.Messages.Abstract;
 using Quarrel.ViewModels.Models.Bindables;
 
-namespace Quarrel.Messages.Posts.Requests
+namespace Quarrel.ViewModels.Messages.Posts.Requests
 {
     public sealed class CurrentGuildRequestMessage : RequestMessageBase<BindableGuild> { }
 }

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DiscordAPI.Models;
-using GalaSoft.MvvmLight.Messaging;
+﻿using DiscordAPI.Models;
 using JetBrains.Annotations;
-using Quarrel.Messages.Gateway;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
+using System;
 
 namespace Quarrel.ViewModels.Models.Bindables
 {

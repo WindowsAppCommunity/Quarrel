@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using JetBrains.Annotations;
 
-namespace Quarrel.Messages.Abstract
+namespace Quarrel.ViewModels.Messages.Abstract
 {
     /// <summary>
     /// A base <see langword="class"/> for an asynchronous request message

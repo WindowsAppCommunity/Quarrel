@@ -2,7 +2,7 @@
 
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
-using Quarrel.Messages.Services.Settings;
+using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.Services.Settings.Enums;
 using System;

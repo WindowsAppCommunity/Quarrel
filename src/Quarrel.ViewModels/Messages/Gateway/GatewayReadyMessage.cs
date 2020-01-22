@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using DiscordAPI.Gateway.DownstreamEvents;
 
-namespace Quarrel.Messages.Gateway
+namespace Quarrel.ViewModels.Messages.Gateway
 {
     public sealed class GatewayReadyMessage
     {

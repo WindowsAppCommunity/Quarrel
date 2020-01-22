@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Quarrel.ViewModels.Helpers;
-using DiscordAPI.Models;
-using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Messaging;
-using Quarrel.Messages.Posts.Requests;
-using Quarrel.ViewModels.Services;
-using Quarrel.ViewModels.Services.Cache;
-using Quarrel.ViewModels.Services.Guild;
-using Quarrel.ViewModels.Services.Rest;
+﻿using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Services.Guild;
 
 
 namespace DiscordAPI.Models

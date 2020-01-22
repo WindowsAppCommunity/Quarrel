@@ -1,14 +1,14 @@
 ﻿using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
-using Quarrel.Messages.Gateway;
-using Quarrel.Messages.Navigation;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Gateway.Voice;
+using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Guild;
 using Quarrel.ViewModels.Services.Users;
+using Quarrel.ViewModels.ViewModels.Messages.Gateway;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

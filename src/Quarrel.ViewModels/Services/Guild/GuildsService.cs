@@ -1,8 +1,8 @@
 ﻿using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
-using Quarrel.Messages.Gateway;
-using Quarrel.Messages.Navigation;
+using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Services.Users;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Models.Bindables;
