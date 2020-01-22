@@ -1,12 +1,13 @@
 ﻿using DiscordAPI.Interfaces;
 using DiscordAPI.Models;
+using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Quarrel.ViewModels.ViewModels.SubPages
 {
-    public class AttachmentPageViewModel
+    public class AttachmentPageViewModel : ViewModelBase
     {
         public AttachmentPageViewModel(IPreviewableImage image)
         {
