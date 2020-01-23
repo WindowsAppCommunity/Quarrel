@@ -155,7 +155,7 @@
                         </GridView.GroupStyle>
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="controlmodels:Emoji">
-                                <FontIcon Glyph="{x:Bind Surrogates, Mode=OneWay}" Width="32" Height="32" FontFamily="Segeo UI"/>
+                                <FontIcon Glyph="{x:Bind Surrogates, Mode=OneWay}" ToolTipService.ToolTip="{x:Bind Names[0], Mode=OneWay}" Width="32" Height="32" FontFamily="Segeo UI"/>
                             </DataTemplate>
                         </GridView.ItemTemplate>
                     </GridView>
