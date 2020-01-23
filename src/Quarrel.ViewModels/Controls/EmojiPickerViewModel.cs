@@ -43,6 +43,10 @@ namespace Quarrel.ViewModels.Controls
         /// <param name="query">Emoji filtering query</param>
         public void FilterEmojis(string query)
         {
+            // All emoji names are lower case
+            query = query.ToLower();
+
+            // Combines lists
             var emojis = _Emojis.People
                 .Concat<Emoji>(_Emojis.Nature)
                 .Concat(_Emojis.Food)
@@ -52,7 +56,11 @@ namespace Quarrel.ViewModels.Controls
                 .Concat(_Emojis.Symbols)
                 .Concat(_Emojis.Flags);
 
+            // Resets list
             Emojis.Clear();
+
+
+            // Adds emoji to list if it matches query
             foreach (var emoji in emojis)
             {
                 if (string.IsNullOrEmpty(query) || emoji.Names.Any(x => x.Contains(query)))
