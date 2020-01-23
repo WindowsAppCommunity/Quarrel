@@ -34,7 +34,7 @@ namespace Quarrel.Controls.Shell
 
         public async void LoadMessage()
         {
-            var splash = await UWP.Helpers.Constants.FromFile.GetRandomSplash();
+            var splash = await Helpers.Constants.FromFile.GetRandomSplash();
             MessageBlock.Text = splash.Text;
             CreditBlock.Text = splash.Credit;
         }
