@@ -5,6 +5,8 @@ using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Rest;
 using Quarrel.ViewModels.Services.Users;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Quarrel.ViewModels.SubPages
 {
@@ -65,6 +67,11 @@ namespace Quarrel.ViewModels.SubPages
         /// User as Profile
         /// </summary>
         public UserProfile Profile;
+
+        /// <summary>
+        /// Bindable form of Shared Guilds with User
+        /// </summary>
+        public IEnumerable<BindableMutualGuild> MutualGuilds => Profile.MutualGuilds.Select(x => new BindableMutualGuild(x));
 
         #endregion
     }

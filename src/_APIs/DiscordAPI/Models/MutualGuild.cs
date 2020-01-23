@@ -10,6 +10,6 @@ namespace DiscordAPI.Models
         [JsonProperty("id")]
         public string Id { get; set; }
 
-        public bool NickVisibility => !string.IsNullOrEmpty(Nick);
+        public bool HasNickname => !string.IsNullOrEmpty(Nick);
     }
 }

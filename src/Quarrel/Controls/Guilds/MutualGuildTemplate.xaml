@@ -11,14 +11,17 @@
 
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0, 10" VerticalAlignment="Top">
+            <!--Guild Icon-->
             <Rectangle Width="42" Height="42" VerticalAlignment="Stretch" HorizontalAlignment="Left" RadiusX="100" RadiusY="100">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="{x:Bind ViewModel.BindableGuild.IconUrl}"/>
                 </Rectangle.Fill>
             </Rectangle>
+            
+            <!--Guild Name and User's nickname-->
             <StackPanel VerticalAlignment="Center">
                 <TextBlock Text="{x:Bind ViewModel.BindableGuild.Model.Name}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="13.333" Opacity="0.75"/>
-                <TextBlock Text="{x:Bind ViewModel.MutualGuild.Nick}" Visibility="{x:Bind ViewModel.MutualGuild.NickVisibility}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="11" Opacity="0.5"/>
+                <TextBlock Text="{x:Bind ViewModel.Model.Nick}" Visibility="{x:Bind ViewModel.Model.HasNickname}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="11" Opacity="0.5"/>
             </StackPanel>
         </StackPanel>
     </Grid>
