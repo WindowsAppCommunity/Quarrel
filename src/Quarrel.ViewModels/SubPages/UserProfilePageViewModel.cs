@@ -45,6 +45,8 @@ namespace Quarrel.ViewModels.SubPages
             // Show shared friends (if not a bot)
             if (!User.Model.User.Bot)
                 Profile.SharedFriends = await discordService.UserService.GetUserReleations(User.Model.User.Id);
+
+            MutualGuilds = Profile.MutualGuilds.Select(x => new BindableMutualGuild(x));
         }
 
         #endregion
@@ -71,7 +73,12 @@ namespace Quarrel.ViewModels.SubPages
         /// <summary>
         /// Bindable form of Shared Guilds with User
         /// </summary>
-        public IEnumerable<BindableMutualGuild> MutualGuilds => Profile.MutualGuilds.Select(x => new BindableMutualGuild(x));
+        private IEnumerable<BindableMutualGuild> _MutualGuilds;
+        public IEnumerable<BindableMutualGuild> MutualGuilds
+        {
+            get => _MutualGuilds;
+            set => Set(ref _MutualGuilds, value);
+        }
 
         #endregion
     }
