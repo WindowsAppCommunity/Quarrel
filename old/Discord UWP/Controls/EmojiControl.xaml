@@ -518,7 +518,7 @@
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Text="{Binding Key}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.6" Margin="0"/>
+                                            <TextBlock Text="{Binding Key}" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.6" Margin="0"/>
                                         </Grid>
                                     </DataTemplate>
                                 </GroupStyle.HeaderTemplate>
@@ -543,7 +543,7 @@
                         </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Group.Key}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="1" Margin="0"/>
+                                <TextBlock Text="{Binding Group.Key}" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="1" Margin="0"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
