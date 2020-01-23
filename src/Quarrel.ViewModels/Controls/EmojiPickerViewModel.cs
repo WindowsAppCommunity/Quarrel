@@ -1,5 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using Newtonsoft.Json;
+using Quarrel.ViewModels.Messages.Navigation;
+using Quarrel.ViewModels.Services.Guild;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,7 +25,12 @@ namespace Quarrel.ViewModels.Controls
         public EmojiPickerViewModel(EmojiLists emojiList)
         {
             _Emojis = emojiList;
-            LoadEmojis();
+
+            // Reloads emojis when a guild is selected
+            Messenger.Default.Register<GuildNavigateMessage>(this, _ =>
+            {
+                LoadEmojis();
+            });
         }
 
         #endregion
@@ -54,7 +63,15 @@ namespace Quarrel.ViewModels.Controls
                 .Concat(_Emojis.Travel)
                 .Concat(_Emojis.Objects)
                 .Concat(_Emojis.Symbols)
-                .Concat(_Emojis.Flags);
+                .Concat(_Emojis.Flags).ToList();
+
+            // Guild Emojis
+            // TODO: External emojis
+            if (!GuildsService.CurrentGuild.IsDM)
+                foreach (var emoji in GuildsService.CurrentGuild.Model.Emojis)
+                {
+                    emojis.Add(new GuildEmoji(emoji));
+                }
 
             // Resets list
             Emojis.Clear();
@@ -73,6 +90,12 @@ namespace Quarrel.ViewModels.Controls
         #endregion
 
         #region Properties
+
+        #region Services
+
+        public IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+
+        #endregion
 
         private EmojiLists _Emojis;
 
@@ -177,12 +200,7 @@ namespace Quarrel.ViewModels.Controls
         /// True if the emoji is from Discord instead of Unicode
         /// </summary>
         [JsonIgnore]
-        public bool CustomEmoji
-        {
-            get => _CustomEmoji;
-            set => Set(ref _CustomEmoji, value);
-        }
-        private bool _CustomEmoji;
+        public virtual bool CustomEmoji => false;
 
         /// <summary>
         /// The category the emoji is from
@@ -233,7 +251,37 @@ namespace Quarrel.ViewModels.Controls
 
     #region Emoji Types
 
-    // TODO: Desperate need of refactor
+    // TODO: In desperate need of refactor
+
+    public class GuildEmoji : Emoji
+    {
+        #region Services
+
+        public IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+
+        #endregion
+
+        public GuildEmoji(DiscordAPI.Models.Emoji emoji)
+        {
+            _Id = emoji.Id;
+            _Catergory = GuildsService.CurrentGuild.Model.Name;
+            Names = new List<string>() { emoji.Name };
+            Surrogates = emoji.DisplayUrl;
+        }
+
+        private string _Id;
+        public override string Id { get => _Id; }
+
+        private string _Catergory;
+        public override string Category { get => _Catergory; }
+
+        public override bool CustomEmoji => true;
+
+        /// <summary>
+        /// False if the user does have permissions to use emoji or can't (nitro)
+        /// </summary>
+        public bool IsEnabled { get; private set; }
+    }
 
     public class PersonEmoji : Emoji
     { public override string Category => "Person"; }
