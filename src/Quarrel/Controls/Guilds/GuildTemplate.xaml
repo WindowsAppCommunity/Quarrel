@@ -45,6 +45,7 @@
         <convertguild:MutedToOpacityConverter x:Key="MutedToOpacityConverter"/>
     </UserControl.Resources>
 
+    <!--Flyout-->
     <UserControl.ContextFlyout>
         <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
             <MenuFlyoutItem Text="Mark as read" IsEnabled="{x:Bind ViewModel.IsUnread, Mode=OneWay}" Command="{x:Bind ViewModel.MarkAsRead}"/>
@@ -57,14 +58,19 @@
 
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0,4" Margin="5,0,0,0">
         <Grid Width="50" Height="50">
+            
+            <!--Selected Highlight-->
             <Border x:Name="SelectIndicator" Opacity="0" BorderThickness="3,0,0,0" HorizontalAlignment="Stretch" Margin="-12,-6">
                 <Border.Background>
                     <SolidColorBrush Opacity="0.2" Color="{ThemeResource SystemAccentColor}"/>
                 </Border.Background>
             </Border>
+            
+            <!--Unread-->
             <Border x:Name="UnreadIndicator" Visibility="{x:Bind ViewModel.ShowUnread, Mode=OneWay}" Height="12" Width="2" Opacity="0.75" Background="{ThemeResource Foreground}" Margin="-12,2,4,0" HorizontalAlignment="Left"/>
+
+            <!--Icon-->
             <Rectangle Visibility="{x:Bind ViewModel.IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" x:Name="GuildImageBackdrop" Width="50" Height="50" RadiusX="25" RadiusY="25" Fill="{ThemeResource Foreground}" Opacity="0.1"/>
-           
             <Border x:Name="GuildImage" CornerRadius="25" Width="50" Height="50" x:Load="{x:Bind ViewModel.HasIcon, Mode=OneWay}" Opacity="{x:Bind ViewModel.ShowMute, Converter={StaticResource MutedToOpacityConverter}, Mode=OneWay}">
                 <animations:Implicit.Animations>
                     <animations:OpacityAnimation Duration="0:0:0.3"/>
@@ -73,13 +79,13 @@
             </Border>
             <TextBlock x:Name="InvalidOverlay" Visibility="Collapsed" Text="" FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
+            <!--Text Icon placeholder-->
             <TextBlock Visibility="{x:Bind ViewModel.HasIcon, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Foreground="{ThemeResource Foreground}" 
                    Text="{x:Bind ViewModel.DisplayText}" FontFamily="{x:Bind ViewModel.IsDM, Converter={StaticResource IsDMToFontFamilyConverter}, Mode=OneWay}"
                    HorizontalAlignment="Center" VerticalAlignment="Center" 
                    FontSize="24" FontWeight="Light" Margin="0,-2,0,0"/>
 
-            <TextBlock Visibility="Collapsed" x:Name="DMView" FontFamily="Segoe MDL2 Assets" Text="" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
+            <!--Notificiation Count-->
             <Border x:Name="border" Visibility="{x:Bind ViewModel.NotificationCount, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Margin="0,0,-12,0" VerticalAlignment="Bottom">
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation Duration="0:0:0.3" To="1"/>
@@ -103,6 +109,7 @@
                 </TextBlock>
             </Border>
 
+            <!--Mute Icon-->
             <SymbolIcon Visibility="{x:Bind ViewModel.ShowMute, Mode=OneWay}" Canvas.ZIndex="20" Symbol="Mute" Foreground="{ThemeResource Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,2,0,0">
                 <animations:Implicit.ShowAnimations>
                     <animations:OpacityAnimation Duration="0:0:0.3" From="0" To="1"/>
