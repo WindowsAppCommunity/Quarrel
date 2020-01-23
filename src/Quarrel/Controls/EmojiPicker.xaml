@@ -5,6 +5,7 @@
     xmlns:local="using:Quarrel.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controlmodels="using:Quarrel.ViewModels.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -82,8 +83,8 @@
                             </GroupStyle>
                         </GridView.GroupStyle>
                         <GridView.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="😁"/>
+                            <DataTemplate x:DataType="controlmodels:Emoji">
+                                <TextBlock Text="{x:Bind Surrogates, Mode=OneWay}"/>
                             </DataTemplate>
                         </GridView.ItemTemplate>
                     </GridView>

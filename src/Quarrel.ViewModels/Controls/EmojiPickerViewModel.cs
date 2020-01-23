@@ -37,6 +37,10 @@ namespace Quarrel.ViewModels.Controls
             FilterEmojis("");
         }
 
+        /// <summary>
+        /// Filters down Emojis to only the ones that contain <paramref name="query"/>
+        /// </summary>
+        /// <param name="query">Emoji filtering query</param>
         public void FilterEmojis(string query)
         {
             var emojis = _Emojis.People
