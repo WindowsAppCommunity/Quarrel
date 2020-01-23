@@ -21,6 +21,11 @@ namespace Quarrel.Controls
 {
     public sealed partial class EmojiPicker : UserControl
     {
+        /// <summary>
+        /// Trigger event when Emoji is picked
+        /// </summary>
+        public event EventHandler<Emoji> EmojiPicked;
+
         public EmojiPicker()
         {
             this.InitializeComponent();
@@ -40,6 +45,14 @@ namespace Quarrel.Controls
         public async void Load()
         {
             this.DataContext = new EmojiPickerViewModel(await Constants.FromFile.GetEmojiLists());
+        }
+
+        /// <summary>
+        /// Invoke EmojiPicked with Emoji selected
+        /// </summary>
+        private void EmojiClicked(object sender, ItemClickEventArgs e)
+        {
+            EmojiPicked?.Invoke(this, e.ClickedItem as Emoji);
         }
     }
 }

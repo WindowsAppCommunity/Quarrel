@@ -34,7 +34,8 @@
             <SemanticZoom ManipulationMode="TranslateX">
                 <SemanticZoom.ZoomedInView>
                     <GridView Height="204" ItemsSource="{x:Bind EmojiViewSource.View, Mode=OneWay}" 
-                              IsItemClickEnabled="True" SelectionMode="None" VerticalAlignment="Top" Padding="12,0">
+                              IsItemClickEnabled="True" SelectionMode="None" VerticalAlignment="Top" Padding="12,0"
+                              ItemClick="EmojiClicked">
                         <GridView.GroupStyle>
                             <GroupStyle>
                                 <GroupStyle.HeaderContainerStyle>
