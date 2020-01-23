@@ -20,7 +20,7 @@ namespace Quarrel.Controls.Messages
         /// </summary>
         private void EmojiPicker_EmojiPicked(object sender, ViewModels.Controls.Emoji e)
         {
-            ViewModel.MessageText += e.Surrogates;
+            ViewModel.MessageText += e.Surrogate;
         }
     }
 }

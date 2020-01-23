@@ -211,12 +211,21 @@ namespace Quarrel.ViewModels.Controls
         /// <summary>
         /// How the emoji is displayed in drafts
         /// </summary>
-        public string Surrogates
+        [JsonProperty("surrogates")]
+        public string Preview
         {
-            get => _Surrogates;
-            set => Set(ref _Surrogates, value);
+            get => _Preview;
+            set => Set(ref _Preview, value);
         }
-        private string _Surrogates;
+        private string _Preview;
+
+        /// <summary>
+        /// Colon format to paste
+        /// </summary>
+        public virtual string Surrogate
+        {
+            get => Preview;
+        }
 
         #region Interfaces
 
@@ -266,7 +275,7 @@ namespace Quarrel.ViewModels.Controls
             _Id = emoji.Id;
             _Catergory = GuildsService.CurrentGuild.Model.Name;
             Names = new List<string>() { emoji.Name };
-            Surrogates = emoji.DisplayUrl;
+            Preview = emoji.DisplayUrl;
         }
 
         private string _Id;
@@ -276,6 +285,8 @@ namespace Quarrel.ViewModels.Controls
         public override string Category { get => _Catergory; }
 
         public override bool CustomEmoji => true;
+
+        public override string Surrogate => string.Format(":{0}:", Names[0]);
 
         /// <summary>
         /// False if the user does have permissions to use emoji or can't (nitro)
