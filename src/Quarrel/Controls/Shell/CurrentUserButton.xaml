@@ -154,12 +154,14 @@
 
                 <Button
                     Grid.Column="2"
-                    Margin="4"
-                    Content=""
+                    Margin="0,0,16,0"
+                    Padding="0"
                     FontFamily="Segoe MDL2 Assets"
                     Foreground="{ThemeResource Foreground}"
                     Style="{ThemeResource TextBlockButtonStyle}"
-                    Command="{x:Bind ViewModel.OpenSettings, Mode=OneWay}"/>
+                    Command="{x:Bind ViewModel.OpenSettings, Mode=OneWay}">
+                    <FontIcon Glyph="" FontSize="16"/>
+                </Button>
             </Grid>
         </Button>
     </Grid>
