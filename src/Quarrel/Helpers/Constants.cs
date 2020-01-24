@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Quarrel.ViewModels.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace Quarrel.UWP.Helpers
+namespace Quarrel.Helpers
 {
     public static class Constants
     {
@@ -50,6 +52,18 @@ namespace Quarrel.UWP.Helpers
                 // Select item from list
                 int i = ThreadSafeRandom.Instance.Next(rawSplashes.Count);
                 return new SplashText(rawSplashes[i]);
+            }
+
+            public static async Task<EmojiLists> GetEmojiLists()
+            {
+                try
+                {
+                    // Read Emoji list from json file
+                    var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/Data/Emojis.json"));
+                    string json = await FileIO.ReadTextAsync(file);
+                    return JsonConvert.DeserializeObject<EmojiLists>(json);
+                }
+                catch { return null; }
             }
         }
     }

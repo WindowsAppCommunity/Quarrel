@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace Quarrel.Messages.Navigation.SubFrame
+namespace Quarrel.ViewModels.Messages.Navigation.SubFrame
 {
     /// <summary>
     /// A message that signals a request to display a page in the subframe UI

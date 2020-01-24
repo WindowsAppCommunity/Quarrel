@@ -21,6 +21,7 @@
     <Button x:Name="rootButton" Style="{ThemeResource DiscordOpaqueButton}" Background="Transparent"
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
             Height="48" HorizontalContentAlignment="Left">
+        <!--Guild Flyout-->
         <Button.Flyout>
             <MenuFlyout Placement="Bottom" MenuFlyoutPresenterStyle="{StaticResource GuildButtonFlyoutStyle}">
                 <MenuFlyoutItem Icon="AddFriend" Text="Invite People" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource SystemAccentColor}" Visibility="{x:Bind ViewModel.Permissions.CreateInstantInvite, Mode=OneWay}"/>
@@ -33,9 +34,14 @@
                 <MenuFlyoutItem Icon="Clear" Text="Leave Server" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource LightRed}" Visibility="{x:Bind ViewModel.IsOwner, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
             </MenuFlyout>
         </Button.Flyout>
+        
+        
         <Grid>
+            <!--Banner-->
             <tk:ImageEx x:Name="Banner" Source="{x:Bind ViewModel.Model.BannerUri, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}" ImageExOpened="ImageEx_ImageExOpened" Stretch="UniformToFill" Margin="-12"/>
             <Rectangle Fill="{ThemeResource Background}" Opacity="0.2" Visibility="{x:Bind ViewModel.Model.BannerUri, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Margin="-12"/>
+            
+            <!--Guild Name-->
             <Viewbox>
                 <TextBlock Text="{x:Bind ViewModel.Model.Name, Mode=OneWay}" FontSize="18" Margin="12,0,0,0"/>
             </Viewbox>

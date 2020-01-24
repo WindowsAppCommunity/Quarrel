@@ -86,29 +86,39 @@
             </ColorAnimation>
         </Storyboard>
     </UserControl.Resources>
+    
+    <!--Member Flyout-->
     <FlyoutBase.AttachedFlyout>
         <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
             <members:MemberFlyoutTemplate DataContext="{Binding GuildMember}" />
         </Flyout>
     </FlyoutBase.AttachedFlyout>
+    
     <Grid VerticalAlignment="Top" Margin="0,6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
+        
+        <!--Avater-->
         <Rectangle x:Name="AvatarBG" Stroke="Green" StrokeThickness="0" RadiusX="48" RadiusY="48" Height="24" Width="24" VerticalAlignment="Center" Grid.RowSpan="2" Margin="0,0,0,0" Grid.Row="1"/>
         <Border CornerRadius="12" Grid.RowSpan="2" Margin="0,0,0,0" Grid.Row="1">
             <controls:ImageEx Height="24" Width="24"  DecodePixelHeight="24" DecodePixelWidth="24" Source="{x:Bind ViewModel.GuildMember.Model.User.AvatarUrl, Mode=OneWay}"/>
         </Border>
+        
+        <!--Username-->
         <TextBlock x:Name="username" Text="{x:Bind ViewModel.GuildMember.DisplayName, Mode=OneWay}" Margin="12,0,0,0" Grid.Column="1" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiLight" Opacity="0.5"/>
+        
+        <!--Status icons-->
         <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
             <FontIcon x:Name="Mute" Glyph="&#xEC54;" FontFamily="Segoe MDL2 Assets" FontSize="16" Margin="0,0,8,0" Opacity="0.5"/>
             <FontIcon x:Name="Deaf" Glyph="&#xE74F;" FontFamily="Segoe MDL2 Assets" FontSize="13.333" Opacity="0.5"/>
         </StackPanel>
-        <!--<Rectangle Grid.ColumnSpan="4" Fill="{ThemeResource InvertedBG}" Opacity="0.2" VerticalAlignment="Bottom" Height="1" Margin="0,0,0,-9"/>-->
-
+        
+        <!--Animations-->
         <interactivity:Interaction.Behaviors>
+            <!--Deaf changed-->
             <core:DataTriggerBehavior Binding="{x:Bind ViewModel.ShowDeaf, Mode=OneWay}" Value="True">
                 <media:ControlStoryboardAction Storyboard="{StaticResource ShowDeaf}"     
                                             ControlStoryboardOption="Play"/>
@@ -117,6 +127,7 @@
                 <media:ControlStoryboardAction Storyboard="{StaticResource HideDeaf}"     
                                             ControlStoryboardOption="Play"/>
             </core:DataTriggerBehavior>
+            <!--Server vs Local deaf-->
             <core:DataTriggerBehavior Binding="{x:Bind ViewModel.ServerDeaf, Mode=OneWay}" Value="True">
                 <media:ControlStoryboardAction Storyboard="{StaticResource ServerDeaf}"     
                                             ControlStoryboardOption="Play"/>
@@ -126,6 +137,7 @@
                                             ControlStoryboardOption="Play"/>
             </core:DataTriggerBehavior>
 
+            <!--Mute changed-->
             <core:DataTriggerBehavior Binding="{x:Bind ViewModel.ShowMute, Mode=OneWay}" Value="True">
                 <media:ControlStoryboardAction Storyboard="{StaticResource ShowMute}"     
                                                ControlStoryboardOption="Play"/>
@@ -134,6 +146,8 @@
                 <media:ControlStoryboardAction Storyboard="{StaticResource HideMute}"     
                                                ControlStoryboardOption="Play"/>
             </core:DataTriggerBehavior>
+            
+            <!--Server vs Local mute-->
             <core:DataTriggerBehavior Binding="{x:Bind ViewModel.ServerMute, Mode=OneWay}" Value="True">
                 <media:ControlStoryboardAction Storyboard="{StaticResource ServerMute}"     
                                                ControlStoryboardOption="Play"/>
@@ -142,6 +156,8 @@
                 <media:ControlStoryboardAction Storyboard="{StaticResource LocalMute}"     
                                                ControlStoryboardOption="Play"/>
             </core:DataTriggerBehavior>
+            
+            <!--Speaking changed-->
             <core:DataTriggerBehavior Binding="{x:Bind ViewModel.Speaking, Mode=OneWay}" Value="True">
                 <media:ControlStoryboardAction Storyboard="{StaticResource Speaking}"     
                                                ControlStoryboardOption="Play"/>

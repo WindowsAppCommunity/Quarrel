@@ -6,7 +6,7 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
     xmlns:markdown="using:Quarrel.Controls.Markdown"
-    xmlns:bindables="using:Quarrel.Models.Bindables"
+    xmlns:bindables="using:Quarrel.ViewModels.Models.Bindables"
     xmlns:templateSelectors="using:Quarrel.TemplateSelectors"
     xmlns:models="using:DiscordAPI.Models"
     xmlns:embeds="using:Quarrel.Controls.Messages.Embeds"

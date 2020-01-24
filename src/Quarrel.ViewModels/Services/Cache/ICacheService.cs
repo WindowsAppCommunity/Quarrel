@@ -1,10 +1,10 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
 using JetBrains.Annotations;
-using Quarrel.Services.Cache.Persistent;
-using Quarrel.Services.Cache.Runtime;
+using Quarrel.ViewModels.Services.Cache.Persistent;
+using Quarrel.ViewModels.Services.Cache.Runtime;
 
-namespace Quarrel.Services.Cache
+namespace Quarrel.ViewModels.Services.Cache
 {
     /// <summary>
     /// The default <see langword="interface"/> for a comprehensive cache service, both runtime and persistent

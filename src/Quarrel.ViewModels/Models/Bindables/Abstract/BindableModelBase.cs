@@ -3,7 +3,7 @@
 using GalaSoft.MvvmLight;
 using JetBrains.Annotations;
 
-namespace Quarrel.Models.Bindables.Abstract
+namespace Quarrel.ViewModels.Models.Bindables.Abstract
 {
     public class BindableModelBase<T> : ViewModelBase where T : class
     {

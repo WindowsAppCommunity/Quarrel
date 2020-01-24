@@ -11,6 +11,7 @@
     xmlns:relationconvert="using:Quarrel.Converters.Profile.Relationships"
     xmlns:discordconvert="using:Quarrel.Converters.Discord"
     xmlns:models="using:DiscordAPI.Models"
+    xmlns:bindables="using:Quarrel.ViewModels.Models.Bindables"
     xmlns:controls="using:Quarrel.Controls"
     xmlns:guildcontrol="using:Quarrel.Controls.Guilds"
     mc:Ignorable="d"
@@ -35,7 +36,7 @@
                 <Grid>
                     <Rectangle>
                         <Rectangle.Fill>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind ViewModel.Model.User.AvatarUrl, Mode=OneWay}"/>
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind ViewModel.User.Model.User.AvatarUrl, Mode=OneWay}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -43,7 +44,7 @@
                             <tkmedia:BackdropSaturationBrush Saturation="0"/>
                         </Grid.Background>
                     </Grid>
-                <Rectangle Fill="{x:Bind ViewModel.Presence.Status, Mode=OneWay, Converter={StaticResource PresenseToBrushConverter}}" Opacity="0.25"/>
+                <Rectangle Fill="{x:Bind ViewModel.User.Presence.Status, Mode=OneWay, Converter={StaticResource PresenseToBrushConverter}}" Opacity="0.25"/>
                     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <Grid.Background>
                             <tkmedia:BackdropBlurBrush Amount="10"/>
@@ -67,12 +68,12 @@
                             <StackPanel x:Name="BadgePanel" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         </Grid>
                         <StackPanel>
-                            <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{x:Bind ViewModel.Presence.Game, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,6"/>
+                            <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{x:Bind ViewModel.User.Presence.Game, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,6"/>
                             <Border Margin="-48,0" Padding="48,12">
                                 <Border.Background>
                                     <SolidColorBrush Opacity="0.5"/>
                                 </Border.Background>
-                                <controls:RichPresenceControl DataContext="{x:Bind ViewModel.Presence.Game}" Visibility="{x:Bind ViewModel.Presence.Game, Converter={StaticResource NotNullToVisibilityConverter}}"/>
+                                <controls:RichPresenceControl DataContext="{x:Bind ViewModel.User.Presence.Game}" Visibility="{x:Bind ViewModel.User.Presence.Game, Converter={StaticResource NotNullToVisibilityConverter}}"/>
                             </Border>
                             <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
                             <TextBox x:Uid="/Dialogs/NoteTBox" BorderThickness="0" x:Name="NoteBox" Style="{StaticResource TextBoxStyle1}" PlaceholderText="No Note" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>
@@ -90,18 +91,18 @@
                             </tk:AdaptiveGridView.ItemTemplate>
                         </tk:AdaptiveGridView>
                         <StackPanel x:Name="commonServerPanel">
-                            <TextBlock Visibility="{x:Bind _Profile.MutualGuilds, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Text="COMMON SERVERS" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                            <ListView x:Name="MutualGuilds" ItemsSource="{x:Bind _Profile.MutualGuilds, Mode=OneWay}" SelectionMode="None" Margin="0,0" Padding="0,12,0,0" IsItemClickEnabled="True">
+                            <TextBlock Visibility="{x:Bind ViewModel.Profile.MutualGuilds, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Text="COMMON SERVERS" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                            <ListView x:Name="MutualGuilds" ItemsSource="{x:Bind ViewModel.MutualGuilds, Mode=OneWay}" SelectionMode="None" Margin="0,0" Padding="0,12,0,0" IsItemClickEnabled="True">
                                 <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="models:MutualGuild">
+                                    <DataTemplate x:DataType="bindables:BindableMutualGuild">
                                         <guildcontrol:MutualGuildTemplate DataContext="{x:Bind}"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
                         <StackPanel x:Name="commonFriendPanel">
-                            <TextBlock Visibility="{x:Bind _Profile.SharedFriends, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Text="COMMON FRIENDS" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                            <ListView x:Name="MutualFriends" ItemsSource="{x:Bind _Profile.SharedFriends}" SelectionMode="None" Margin="0,0" Padding="0,12,0,0">
+                            <TextBlock Visibility="{x:Bind ViewModel.Profile.SharedFriends, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Text="COMMON FRIENDS" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                            <ListView x:Name="MutualFriends" ItemsSource="{x:Bind ViewModel.Profile.SharedFriends}" SelectionMode="None" Margin="0,0" Padding="0,12,0,0">
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="models:SharedFriend">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0, 10" VerticalAlignment="Top">
@@ -124,11 +125,11 @@
                     <Grid>
                         <Grid x:Name="FullAvatar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,0,0,0">
                             <Rectangle x:Name="AvatarBG" Height="128" Width="128" RadiusX="64" RadiusY="64"/>
-                            <tk:DropShadowPanel Color="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
+                            <tk:DropShadowPanel Color="{x:Bind ViewModel.User.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
                                                         BlurRadius="15">
                                 <Rectangle x:Name="AvatarRectangle" Height="128" Width="128" RadiusX="64" RadiusY="64">
                                     <Rectangle.Fill>
-                                        <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUrl, Mode=OneWay}"/>
+                                        <ImageBrush ImageSource="{x:Bind ViewModel.User.Model.User.AvatarUrl, Mode=OneWay}"/>
                                     </Rectangle.Fill>
                                 </Rectangle>
                             </tk:DropShadowPanel>
@@ -137,21 +138,21 @@
                         <StackPanel x:Name="usernamestacker" Orientation="Horizontal" Margin="188,6,0,0" VerticalAlignment="Top">
                             <TextBlock x:Name="Name" FontSize="26" FontWeight="SemiBold"/>
                             <Rectangle x:Name="Seperate" Fill="White" Width="5" Margin="10,0" Visibility="Collapsed"/>
-                            <TextBlock Text="{x:Bind ViewModel.Model.User.Username}" Foreground="White" FontSize="26" VerticalAlignment="Top" FontWeight="SemiLight"/>
+                            <TextBlock Text="{x:Bind ViewModel.User.Model.User.Username}" Foreground="White" FontSize="26" VerticalAlignment="Top" FontWeight="SemiLight"/>
                             <TextBlock Text="#" Foreground="White" FontSize="26" Opacity="0.4" Margin="4,0,0,0" VerticalAlignment="Top" FontWeight="Light"/>
-                            <TextBlock Text="{x:Bind ViewModel.Model.User.Discriminator}" Foreground="White" FontSize="26" Opacity="0.4" Margin="4,0,0,0" VerticalAlignment="Top" FontWeight="Light"/>
+                            <TextBlock Text="{x:Bind ViewModel.User.Model.User.Discriminator}" Foreground="White" FontSize="26" Opacity="0.4" Margin="4,0,0,0" VerticalAlignment="Top" FontWeight="Light"/>
                             <Border x:Name="BotIndicator" Background="{ThemeResource SystemControlBackgroundAccentBrush}" VerticalAlignment="Center" Margin="6,2,0,0" Padding="8,4" CornerRadius="2" Visibility="Collapsed">
                                 <TextBlock x:Uid="BotTB" Text="BOT" FontSize="14" VerticalAlignment="Center"/>
                             </Border>
                         </StackPanel>
                         <tk:WrapPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="188,58,24,0" HorizontalAlignment="Left">
-                            <HyperlinkButton x:Name="sendFriendRequest" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Visibility="{x:Bind _Profile.Friend.Type, Converter={StaticResource RelationToAddFriendConverter}, Mode=OneWay}">
+                            <HyperlinkButton x:Name="sendFriendRequest" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToAddFriendConverter}, Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE8FA;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/Dialogs/SendFriendReqBTN" Text="Send friend request" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="acceptFriend" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Visibility="{x:Bind _Profile.Friend.Type, Converter={StaticResource RelationToAcceptFriendConverter}, Mode=OneWay}">
+                            <HyperlinkButton x:Name="acceptFriend" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToAcceptFriendConverter}, Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE8FA;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/Dialogs/AcceptFriendReqBTN" Text="Accept friend request" Margin="28,0,0,0"/>
@@ -163,13 +164,13 @@
                                     <TextBlock x:Uid="/Dialogs/FriendReqSentBTN" Text="Friend request sent" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="Unblock" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Visibility="{x:Bind _Profile.Friend.Type, Converter={StaticResource RelationToUnblockConverter}, Mode=OneWay}">
+                            <HyperlinkButton x:Name="Unblock" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToUnblockConverter}, Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/Dialogs/UnblockBTN" Text="Unblock" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" Visibility="{x:Bind _Profile.Friend.Type, Converter={StaticResource RelationToRemoveFriendConverter}, Mode=OneWay}">
+                            <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToRemoveFriendConverter}, Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/Dialogs/RemoveFriendTB" Text="Remove Friend" Margin="28,0,0,0"/>
@@ -193,7 +194,7 @@
                                     <TextBlock x:Uid="/Dialogs/SendMessageTB" Text="Send Message" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="Block" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Visibility="{x:Bind _Profile.Friend.Type, Converter={StaticResource RelationToBlockConverter}, Mode=OneWay}">
+                            <HyperlinkButton x:Name="Block" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToBlockConverter}, Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/Dialogs/BlockTB" Text="Block" Margin="28,0,0,0"/>

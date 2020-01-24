@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Quarrel.Messages.Abstract
+namespace Quarrel.ViewModels.Messages.Abstract
 {
     /// <summary>
     /// A base <see langword="class"/> for request messages

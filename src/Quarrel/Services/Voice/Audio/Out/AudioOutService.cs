@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using GalaSoft.MvvmLight.Ioc;
+using Quarrel.ViewModels.Services.Voice.Audio.Out;
+using System;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Foundation;
 using Windows.Media;
@@ -11,11 +9,9 @@ using Windows.Media.Audio;
 using Windows.Media.Devices;
 using Windows.Media.MediaProperties;
 using Windows.Media.Render;
-using GalaSoft.MvvmLight.Ioc;
 
 namespace Quarrel.Services.Voice.Audio.Out
 {
-
     public class AudioOutService : IAudioOutService
     {
         #region Public Properties

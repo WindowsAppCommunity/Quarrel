@@ -13,15 +13,17 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using DiscordAPI.Models;
-using Quarrel.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Quarrel.Controls.Channels
 {
+    /// <summary>
+    /// Control to show a member of a Voice Channel
+    /// </summary>
     public sealed partial class VoiceMemberControl : UserControl
     {
-        public BindableVoiceUser ViewModel => DataContext as BindableVoiceUser;
         public VoiceMemberControl()
         {
             this.InitializeComponent();
@@ -30,5 +32,10 @@ namespace Quarrel.Controls.Channels
                 this.Bindings.Update();
             };
         }
+
+        /// <summary>
+        /// User showing
+        /// </summary>
+        public BindableVoiceUser ViewModel => DataContext as BindableVoiceUser;
     }
 }

@@ -1,12 +1,6 @@
-﻿using DiscordAPI.Models;
-using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Services.Rest;
+﻿using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Models.Bindables;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Quarrel.ViewModels.Services.Rest;
 using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Quarrel.DataTemplates.Messages

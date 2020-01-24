@@ -1,12 +1,7 @@
-﻿using Quarrel.Models.Bindables;
-using System;
+﻿using DiscordAPI.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DiscordAPI.Models;
 
-namespace Quarrel.Messages.Gateway
+namespace Quarrel.ViewModels.Messages.Gateway
 {
     public sealed class GatewayGuildSyncMessage
     {

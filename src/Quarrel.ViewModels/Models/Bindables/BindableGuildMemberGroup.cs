@@ -5,8 +5,8 @@ using System.Text;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
-using Quarrel.Models.Bindables.Abstract;
-using Quarrel.Services.Guild;
+using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Services.Guild;
 using Quarrel.ViewModels.Models.Interfaces;
 
 namespace Quarrel.ViewModels.Models.Bindables

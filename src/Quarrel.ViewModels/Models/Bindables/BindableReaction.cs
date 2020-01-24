@@ -1,5 +1,5 @@
 ﻿using DiscordAPI.Models;
-using Quarrel.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Bindables.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Text;

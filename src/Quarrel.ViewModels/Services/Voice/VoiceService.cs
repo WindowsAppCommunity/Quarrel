@@ -1,26 +1,18 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
-using GalaSoft.MvvmLight.Messaging;
-using JetBrains.Annotations;
-using Quarrel.Messages.Services.Settings;
-using Quarrel.Services.Settings.Enums;
-using Quarrel.Services.Voice.Audio.In;
-using Quarrel.Services.Voice.Audio.Out;
 using DiscordAPI.Models;
 using DiscordAPI.Voice;
 using DiscordAPI.Voice.DownstreamEvents;
-using Quarrel.Messages.Gateway;
-using Quarrel.Messages.Posts.Requests;
-using System.Collections.Generic;
-using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Messages.Voice;
-using Quarrel.Models.Bindables;
-using Quarrel.Services.Rest;
+using GalaSoft.MvvmLight.Messaging;
+using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Messages.Voice;
+using Quarrel.ViewModels.Services.Rest;
+using Quarrel.ViewModels.Services.Voice.Audio.In;
+using Quarrel.ViewModels.Services.Voice.Audio.Out;
 using System.Collections.Concurrent;
-using Quarrel.Services.Users;
-using System.Globalization;
+using System.Collections.Generic;
 
-namespace Quarrel.Services.Voice
+namespace Quarrel.ViewModels.Services.Voice
 {
     public sealed class VoiceService : IVoiceService
     {

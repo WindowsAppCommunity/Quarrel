@@ -1,6 +1,6 @@
-﻿using Quarrel.Services.Settings;
+﻿using Quarrel.ViewModels.Services.Settings;
 
-namespace Quarrel.Messages.Services.Settings
+namespace Quarrel.ViewModels.Messages.Services.Settings
 {
     /// <summary>
     /// A message that notifies whenever a given setting has changed

@@ -1,31 +1,9 @@
-﻿using DiscordAPI.Models;
-using GalaSoft.MvvmLight.Messaging;
-using Quarrel.Messages.Gateway;
-using Quarrel.Models.Bindables;
-using Quarrel.Services;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using GalaSoft.MvvmLight.Ioc;
+using Quarrel.ViewModels;
+using Quarrel.ViewModels.Services.Gateway;
+using Quarrel.ViewModels.Services.Rest;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Messages.Posts.Requests;
-using Quarrel.Services.Gateway;
-using Quarrel.Services.Rest;
-using Quarrel.Services.Users;
-using Quarrel.ViewModels;
-using Quarrel.Navigation;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Quarrel.Controls.Shell
 {

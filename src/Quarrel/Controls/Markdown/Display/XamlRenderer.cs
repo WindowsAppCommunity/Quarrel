@@ -10,6 +10,14 @@
 // THE CODE OR THE USE OR OTHER DEALINGS IN THE CODE.
 // ******************************************************************
 
+using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Ioc;
+using Microsoft.Toolkit.Uwp.UI.Extensions;
+using Quarrel.Controls.Markdown.Parse;
+using Quarrel.Controls.Markdown.Parse.Blocks;
+using Quarrel.Controls.Markdown.Parse.Inlines;
+using Quarrel.ViewModels.Services.Guild;
+using Quarrel.ViewModels.Services.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,15 +32,6 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
-using DiscordAPI.Models;
-using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Toolkit.Uwp.UI.Extensions;
-using Quarrel.Controls.Markdown.Helpers;
-using Quarrel.Controls.Markdown.Parse;
-using Quarrel.Controls.Markdown.Parse.Blocks;
-using Quarrel.Controls.Markdown.Parse.Inlines;
-using Quarrel.Services.Guild;
-using Quarrel.Services.Users;
 using Emoji = NeoSmart.Unicode.Emoji;
 
 namespace Quarrel.Controls.Markdown.Display

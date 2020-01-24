@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GalaSoft.MvvmLight.Threading;
+﻿using GalaSoft.MvvmLight.Threading;
 using Quarrel.ViewModels.Services.DispatcherHelper;
+using System;
 
 namespace Quarrel.Services.DispatcherHelperEx
 {

@@ -822,7 +822,7 @@
                             <AppBarButton Label="test"/>
                         </CommandBar.SecondaryCommands>
                         <CommandBar.Content>
-                            <Grid Visibility="{x:Bind IsFile, Mode=OneWay}">
+                            <Grid Visibility="{x:Bind ViewModel.IsFile, Mode=OneWay}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
@@ -834,10 +834,10 @@
                                     <TextBlock x:Uid="/Dialogs/HeightTB" FontSize="14" FontWeight="SemiBold" Text="Height:"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" HorizontalAlignment="Right" Margin="48,0,12,0">
-                                    <TextBlock FontSize="14" Text="{x:Bind AsFile.Filename, Mode=OneWay}"/>
-                                    <TextBlock FontSize="14" Text="{x:Bind AsFile.Size, Converter={StaticResource SizeToHumanizedSizeConverter}, Mode=OneWay}"/>
-                                    <TextBlock FontSize="14" Text="{x:Bind AsFile.ActualWidth, Mode=OneWay}"/>
-                                    <TextBlock FontSize="14" Text="{x:Bind AsFile.ActualHeight, Mode=OneWay}"/>
+                                    <TextBlock FontSize="14" Text="{x:Bind ViewModel.AsFile.Filename, Mode=OneWay}"/>
+                                    <TextBlock FontSize="14" Text="{x:Bind ViewModel.AsFile.Size, Converter={StaticResource SizeToHumanizedSizeConverter}, Mode=OneWay}"/>
+                                    <TextBlock FontSize="14" Text="{x:Bind ViewModel.AsFile.ActualWidth, Mode=OneWay}"/>
+                                    <TextBlock FontSize="14" Text="{x:Bind ViewModel.AsFile.ActualHeight, Mode=OneWay}"/>
                                 </StackPanel>
                             </Grid>
                         </CommandBar.Content>

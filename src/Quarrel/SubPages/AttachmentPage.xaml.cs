@@ -1,35 +1,23 @@
 ﻿using DiscordAPI.Interfaces;
-using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using Quarrel.Helpers;
-using Quarrel.Navigation;
 using Quarrel.SubPages.Interfaces;
 using Quarrel.ViewModels.Services.Clipboard;
+using Quarrel.ViewModels.Services.Navigation;
+using Quarrel.ViewModels.ViewModels.SubPages;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Data.Pdf;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Quarrel.SubPages
 {
@@ -37,42 +25,52 @@ namespace Quarrel.SubPages
     {
         private ISubFrameNavigationService subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
 
-
         public AttachmentPage()
         {
             this.InitializeComponent();
+            
+            // Use navigation parameter for Image in ViewModel
             if (subFrameNavigationService.Parameter != null)
             {
-                this.DataContext = subFrameNavigationService.Parameter;
+                this.DataContext = new AttachmentPageViewModel((IPreviewableImage)subFrameNavigationService.Parameter);
             }
 
-            if (ViewModel.ImageUrl.EndsWith(".svg"))
-                ImageViewer.Source = new SvgImageSource(new Uri(ViewModel.ImageUrl));
-            else if (ViewModel.ImageUrl.EndsWith(".pdf"))
+            // Show SVGs in SVGImageSource
+            if (ViewModel.Image.ImageUrl.EndsWith(".svg"))
+                ImageViewer.Source = new SvgImageSource(new Uri(ViewModel.Image.ImageUrl));
+            // Show PDFs as images
+            else if (ViewModel.Image.ImageUrl.EndsWith(".pdf"))
                 LoadPDF();
             else
-                ImageViewer.Source = new BitmapImage(new Uri(ViewModel.ImageUrl));
+                ImageViewer.Source = new BitmapImage(new Uri(ViewModel.Image.ImageUrl));
         }
 
-        private IPreviewableAttachment ViewModel => DataContext as IPreviewableAttachment;
+        private AttachmentPageViewModel ViewModel => DataContext as AttachmentPageViewModel;
 
+        /// <summary>
+        /// Converts a PDF to png and uses that as the image
+        /// </summary>
         private async void LoadPDF()
         {
             ImageViewer.Visibility = Visibility.Collapsed;
+
+            // Stream PDF
             HttpClient client = new HttpClient();
             var stream = await
-                client.GetStreamAsync(ViewModel.ImageUrl);
+                client.GetStreamAsync(ViewModel.Image.ImageUrl);
             var memStream = new MemoryStream();
             await stream.CopyToAsync(memStream);
             memStream.Position = 0;
             PdfDocument doc = await PdfDocument.LoadFromStreamAsync(memStream.AsRandomAccessStream());
 
+            // Convert each page to image
             for (uint i = 0; i < doc.PageCount; i++)
             {
                 BitmapImage image = new BitmapImage();
 
                 var page = doc.GetPage(i);
 
+                // Render page
                 using (InMemoryRandomAccessStream RAstream = new InMemoryRandomAccessStream())
                 {
                     await page.RenderToStreamAsync(RAstream);
@@ -82,31 +80,48 @@ namespace Quarrel.SubPages
                 Image UIImage = new Image();
                 UIImage.Source = image;
                 UIImage.Margin = new Thickness(0, 0, 0, 12);
+
+                // Add Page to View
                 MultiPageStacker.Children.Add(UIImage);
             }
         }
 
+        /// <summary>
+        /// Closes SubPage when the Background is tapped
+        /// </summary>
         private void Rectangle_Tapped(object sender, TappedRoutedEventArgs e)
         {
             subFrameNavigationService.GoBack();
         }
 
+        /// <summary>
+        /// Fades in image and hiding loading ring
+        /// </summary>
         private async void ImageOpened(object sender, Microsoft.Toolkit.Uwp.UI.Controls.ImageExOpenedEventArgs e)
         {
             await ImageViewer.Fade(1, 200).StartAsync();
             LoadingRing.IsActive = false;
         }
 
+        /// <summary>
+        /// Copies Image Url to clipboard
+        /// </summary>
         private void CopyLink(object sender, RoutedEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(ViewModel.ImageUrl);
+            SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(ViewModel.Image.ImageUrl);
         }
 
+        /// <summary>
+        /// Opens Image URL in browser
+        /// </summary>
         private async void Open(object sender, RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri(ViewModel.ImageUrl));
+            await Launcher.LaunchUriAsync(new Uri(ViewModel.Image.ImageUrl));
         }
 
+        /// <summary>
+        /// Opens Windows Share prompt for image
+        /// </summary>
         private void Share(object sender, RoutedEventArgs e)
         {
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
@@ -114,16 +129,19 @@ namespace Quarrel.SubPages
             {
                 DataRequest request = args.Request;
                 //request.Data.Properties.Title = ViewModel.Filename;
-                var rasr = RandomAccessStreamReference.CreateFromUri(new Uri(ViewModel.ImageUrl));
+                var rasr = RandomAccessStreamReference.CreateFromUri(new Uri(ViewModel.Image.ImageUrl));
                 request.Data.SetBitmap(rasr);
                 request.Data.Properties.Thumbnail = rasr;
             };
             DataTransferManager.ShowShareUI();
         }
 
+        /// <summary>
+        /// Saves image to selected location
+        /// </summary>
         private async void Save(object sender, RoutedEventArgs e)
         {
-            var image = new BitmapImage(new Uri(ViewModel.ImageUrl));
+            var image = new BitmapImage(new Uri(ViewModel.Image.ImageUrl));
             var fileSave = new FileSavePicker();
             fileSave.FileTypeChoices.Add("Image", new string[] { ".jpg" });
             var storageFile = await fileSave.PickSaveFileAsync();
@@ -134,13 +152,7 @@ namespace Quarrel.SubPages
             await download.StartAsync();
         }
 
-        #region Display
-
-        public bool IsFile { get => ViewModel is Attachment; }
-
-        public Attachment AsFile { get => ViewModel as Attachment; }
-
-        #endregion
+        #region Interfaces
 
         #region ITransparentSubPage
 
@@ -148,16 +160,28 @@ namespace Quarrel.SubPages
 
         #endregion
 
+        #region IFullScreenSubPagex
+
         public bool Hideable { get => true; }
 
+        #endregion
+
+        #endregion
+
+        /// <summary>
+        /// Handles the UI Size changing
+        /// </summary>
         private void ContainerSizeChanged(object sender, SizeChangedEventArgs e)
         {
             ScaleImage();
         }
 
+        /// <summary>
+        /// Scales the image to take up 70% of the screen
+        /// </summary>
         private void ScaleImage()
         {
-            double imageRatio = ViewModel.ImageHeight / ViewModel.ImageWidth;
+            double imageRatio = ViewModel.Image.ImageHeight / ViewModel.Image.ImageWidth;
             double viewRatio = Container.ActualHeight / Container.ActualWidth;
             if (imageRatio > viewRatio) ImageViewer.Height = ActualHeight * .7;
             else ImageViewer.Width = ActualWidth * .7;

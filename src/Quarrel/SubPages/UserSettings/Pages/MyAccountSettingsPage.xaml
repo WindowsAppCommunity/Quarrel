@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="Quarrel.SubPages.UserSettings.Pages.MyAccountSettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Quarrel.SubPages.UserSettings.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
+    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
+        <baseconvert:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
+    </Page.Resources>
+
+    <ScrollViewer Windows10version1809:CanContentRenderOutsideBounds="True">
+        <Grid Margin="12,0,12,0" Padding="0,0,0,24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid HorizontalAlignment="Left" Margin="0,12,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Rectangle VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128" Fill="{ThemeResource InvertedBG}" Opacity="0.1"/>
+                <Rectangle x:Name="UserIconRect" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="{x:Bind ViewModel.AvatarUrl, Mode=OneWay}" Stretch="UniformToFill"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <StackPanel Margin="0,6,0,0"  Grid.Row="1">
+                    <HyperlinkButton Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}" Style="{StaticResource PlainTextHyperlinkStyle}" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="Upload image" Width="90" Click="UploadAvatar"/>
+                    <HyperlinkButton Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}" Style="{StaticResource PlainTextHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"
+                                     Command="{x:Bind ViewModel.DeleteAvatar}"/>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Column="1" Margin="12,0,0,0">
+                <TextBox Text="{x:Bind ViewModel.Email, Mode=OneWay}" IsReadOnly="True" Style="{StaticResource TextBoxStyle1}" Header="Email" Margin="0,0,0,0"/>
+                <TextBox Text="{x:Bind ViewModel.Username, Mode=TwoWay}" IsReadOnly="{x:Bind ViewModel.EditingAccountInfo, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}" Style="{StaticResource TextBoxStyle1}" Header="Username" Margin="0,0,0,0"/>
+                <TextBlock Visibility="Collapsed" Text="Must fill out Current Password" Foreground="Red" Margin="0,0,0,0"/>
+                <StackPanel Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}">
+                    <PasswordBox Password="{x:Bind ViewModel.Password, Mode=TwoWay}" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,0,0,0"/>
+                    <HyperlinkButton x:Name="changepass" Visibility="{x:Bind ViewModel.EditingPassword, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" FontSize="13.33" Content="Change password" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" HorizontalAlignment="Left" 
+                                         Command="{x:Bind ViewModel.EnterPasswordEditCommand}"/>
+                    <PasswordBox Password="{x:Bind ViewModel.NewPassword, Mode=TwoWay}" Visibility="{x:Bind ViewModel.EditingPassword, Mode=OneWay}" Style="{StaticResource PasswordBoxStyle1}" Header="New password" Margin="0,4,0,0"/>
+                </StackPanel>
+                <Button Visibility="{x:Bind ViewModel.EditingAccountInfo, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Content="Edit" Margin="0,12,4,0" Style="{StaticResource DiscordButton}" Command="{x:Bind ViewModel.EnterAccountEditCommand}"/>
+                <StackPanel Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}" Orientation="Horizontal" Margin="0,12,0,0">
+                    <Button Content="Save" Margin="0,0,4,0" Style="{StaticResource DiscordButton}" Command="{x:Bind ViewModel.FinalizeAccountEditCommand}"/>
+                    <Button Content="Cancel" Margin="4,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource dnd}" Command="{x:Bind ViewModel.CancelAccountEditCommand}"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>

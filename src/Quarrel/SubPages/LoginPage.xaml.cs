@@ -1,34 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Windows.Web.Http;
-using Windows.Web.Http.Filters;
-using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Services;
-using GalaSoft.MvvmLight.Messaging;
-using Quarrel.Messages.Navigation.SubFrame;
-using Quarrel.Navigation;
-using Quarrel.Services.Cache;
-using Quarrel.Services.Rest;
-using Quarrel.SubPages.Interfaces;
+﻿using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Quarrel.SubPages.Interfaces;
+using Quarrel.ViewModels.Services.Navigation;
+using Quarrel.ViewModels.Services.Rest;
+using System;
 using System.Threading.Tasks;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace Quarrel.SubPages
 {

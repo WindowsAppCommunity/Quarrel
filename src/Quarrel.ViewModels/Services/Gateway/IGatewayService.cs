@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quarrel.Services.Gateway
+namespace Quarrel.ViewModels.Services.Gateway
 {
     public interface IGatewayService
     {

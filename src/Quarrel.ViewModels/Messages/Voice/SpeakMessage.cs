@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.Voice.DownstreamEvents;
 
-namespace Quarrel.Messages.Voice
+namespace Quarrel.ViewModels.Messages.Voice
 {
     public sealed class SpeakMessage
     {

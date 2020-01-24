@@ -14,5 +14,13 @@ namespace Quarrel.Controls.Messages
         }
 
         public MainViewModel ViewModel => App.ViewModelLocator.Main;
+
+        /// <summary>
+        /// Add Emoji to message
+        /// </summary>
+        private void EmojiPicker_EmojiPicked(object sender, ViewModels.Controls.Emoji e)
+        {
+            ViewModel.MessageText += e.Surrogate;
+        }
     }
 }

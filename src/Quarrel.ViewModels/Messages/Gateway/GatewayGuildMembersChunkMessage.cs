@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using DiscordAPI.Models;
 
-namespace Quarrel.ViewModels.Messages.Gateway
+namespace Quarrel.ViewModels.ViewModels.Messages.Gateway
 {
     public class GatewayGuildMembersChunkMessage
     {

@@ -1,14 +1,15 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
+using GalaSoft.MvvmLight.Messaging;
+using JetBrains.Annotations;
+using Quarrel.ViewModels.Messages.Services.Settings;
+using Quarrel.ViewModels.Services.Settings;
+using Quarrel.ViewModels.Services.Settings.Enums;
 using System;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using Windows.Foundation.Collections;
 using Windows.Storage;
-using GalaSoft.MvvmLight.Messaging;
-using JetBrains.Annotations;
-using Quarrel.Messages.Services.Settings;
-using Quarrel.Services.Settings.Enums;
-using System.Reflection;
 
 namespace Quarrel.Services.Settings
 {

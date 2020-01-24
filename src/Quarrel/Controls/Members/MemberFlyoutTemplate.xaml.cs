@@ -1,31 +1,15 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
+using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Services.Navigation;
+using Quarrel.ViewModels.Services.Rest;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Models.Bindables;
-using Quarrel.Messages;
-using Quarrel.Messages.Gateway;
-using Quarrel.Messages.Navigation.SubFrame;
-using Quarrel.Navigation;
-using Quarrel.Services;
-using Quarrel.Services.Rest;
-using Quarrel.SubPages;
 using Windows.UI.Xaml.Media.Animation;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Quarrel.Controls.Members
 {

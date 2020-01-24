@@ -1,34 +1,14 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using Quarrel.ViewModels;
+using Quarrel.ViewModels.Messages.Navigation;
+using Quarrel.ViewModels.Models.Bindables;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Numerics;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using DiscordAPI.Models;
-using GalaSoft.MvvmLight.Threading;
-using JetBrains.Annotations;
-using Quarrel.Models.Bindables;
-using Quarrel.Messages.Gateway;
-using Quarrel.ViewModels.Models.Bindables;
-using Quarrel.Messages.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 

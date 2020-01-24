@@ -1,31 +1,30 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
 using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
+using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Messages.Navigation;
+using Quarrel.ViewModels.Messages.Services.Settings;
+using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Services.Clipboard;
+using Quarrel.ViewModels.Services.DispatcherHelper;
+using Quarrel.ViewModels.Services.Guild;
+using Quarrel.ViewModels.Services.Navigation;
+using Quarrel.ViewModels.Services.Rest;
+using Quarrel.ViewModels.Services.Settings;
+using Quarrel.ViewModels.Services.Settings.Enums;
+using Quarrel.ViewModels.Services.Users;
+using Quarrel.ViewModels.Services.Voice;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
-using GalaSoft.MvvmLight.Ioc;
-using Quarrel.Models.Bindables.Abstract;
-using Quarrel.Messages.Gateway;
-using Quarrel.Services.Users;
-using Quarrel.Services.Voice;
-using Quarrel.Services.Rest;
-using Quarrel.Services.Guild;
-using Quarrel.Services.Settings;
-using Quarrel.Services.Settings.Enums;
-using Quarrel.Messages.Services.Settings;
-using Quarrel.Messages.Navigation;
-using Quarrel.ViewModels.Services.DispatcherHelper;
-using System.Collections.Concurrent;
-using GalaSoft.MvvmLight.Command;
-using Quarrel.ViewModels.Messages.Gateway;
-using Quarrel.ViewModels.Services.Clipboard;
-using Quarrel.Navigation;
 
-namespace Quarrel.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables
 {
     public class BindableChannel : BindableModelBase<Channel>
     {
@@ -560,7 +559,8 @@ namespace Quarrel.Models.Bindables
         private RelayCommand markAsRead;
         public RelayCommand MarkAsRead => markAsRead = new RelayCommand(async () =>
         {
-            await _DiscordService.ChannelService.AckMessage(Model.Id, Model.LastMessageId ?? "");
+            if (Model.LastMessageId != null)
+                await _DiscordService.ChannelService.AckMessage(Model.Id, Model.LastMessageId);
         });
 
         private RelayCommand mute;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Quarrel.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables;
 
 namespace Quarrel.ViewModels.Services
 {

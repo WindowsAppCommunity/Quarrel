@@ -51,7 +51,12 @@ namespace Quarrel.ViewModels.Helpers
 
         public static class Regex
         {
-            public const string YouTubeRegex = @"(?:https:\/\/)?(?:(?:www\.)?youtube\.com\/(?:(?:watch\?.*?v=)|(?:embed\/))([\w\-]+)|youtu\.be\/(?:embed\/)?([\w\-]+))";
+            public const string UserMentionSurrogateRegex = @"@(\w+)#([0-9]{4})";
+            public const string ChannelMentionSurrogateRegex = @"#((?:[A-Z]|[a-z]|\-)+)";
+
+            public const string EmojiSurrogateRegex = @"\:([^\s]+)\:";
+
+            public const string YouTubeURLRegex = @"(?:https:\/\/)?(?:(?:www\.)?youtube\.com\/(?:(?:watch\?.*?v=)|(?:embed\/))([\w\-]+)|youtu\.be\/(?:embed\/)?([\w\-]+))";
         }
 
         public static class Store

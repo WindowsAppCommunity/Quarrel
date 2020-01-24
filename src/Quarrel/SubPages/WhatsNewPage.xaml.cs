@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Navigation;
 using Quarrel.SubPages.Interfaces;
+using Quarrel.ViewModels.Services.Navigation;
 using System;
 using System.Collections.Generic;
 using System.IO;

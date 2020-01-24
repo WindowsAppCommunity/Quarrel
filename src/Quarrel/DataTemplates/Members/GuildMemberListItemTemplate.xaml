@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Quarrel.DataTemplates.Members"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:bindables="using:Quarrel.Models.Bindables"
+    xmlns:bindables="using:Quarrel.ViewModels.Models.Bindables"
     xmlns:membercontrols="using:Quarrel.Controls.Members"
     xmlns:bindables1="using:Quarrel.ViewModels.Models.Bindables"
     x:Class="Quarrel.DataTemplates.Members.GuildMemberListItemTemplate">
@@ -11,6 +11,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../Converters.xaml"/>
     </ResourceDictionary.MergedDictionaries>
+    
     <Flyout x:Key="MemberFlyoutTemplate" FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
         <membercontrols:MemberFlyoutTemplate/>
     </Flyout>
@@ -75,7 +76,6 @@
             <Rectangle Grid.Row="1" Margin="0,8,0,0" VerticalAlignment="Bottom" StrokeThickness="0.5" Height="1" Stroke="#33FFFFFF"/>
         </Grid>
     </DataTemplate>
-
 
     <DataTemplate x:Key="GuildMemberListPlaceholderTemplate">
         <Grid Margin="-12,6,-22,6">

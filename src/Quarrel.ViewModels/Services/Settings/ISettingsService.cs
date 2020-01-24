@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Quarrel.Services.Settings.Enums;
+using Quarrel.ViewModels.Services.Settings.Enums;
 
-namespace Quarrel.Services.Settings
+namespace Quarrel.ViewModels.Services.Settings
 {
     /// <summary>
     /// The default <see langword="interface"/> for the settings manager used in the app

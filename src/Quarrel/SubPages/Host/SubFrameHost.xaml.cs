@@ -1,21 +1,19 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
-using System.Threading;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.UI.Core;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
-using Quarrel.Messages.Navigation.SubFrame;
-using Quarrel.Helpers;
-using Quarrel.Navigation;
-using Quarrel.Services;
 using Quarrel.SubPages.Interfaces;
-using Windows.UI.Xaml.Media;
+using Quarrel.ViewModels.Messages.Navigation.SubFrame;
+using Quarrel.ViewModels.Services.Navigation;
+using System.Threading;
+using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.UI;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace Quarrel.SubPages.Host
 {
