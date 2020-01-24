@@ -11,8 +11,8 @@ namespace System.Collections.ObjectModel
     /// <typeparam name="TElement">The type of elements in each group</typeparam>
     public sealed class GroupedObservableCollection<TKey, TElement>
         : ObservableCollection<Grouping<TKey, TElement>>
-        where TKey : IEquatable<TKey>, IComparable<TKey>
-        where TElement : class, IEquatable<TElement>, IComparable<TElement>
+        where TKey : IEquatable<TKey>
+        where TElement : class, IEquatable<TElement>
     {
         #region Properties
 
@@ -86,17 +86,7 @@ namespace System.Collections.ObjectModel
             TKey key = KeyReader(item);
             Grouping<TKey, TElement> group = FindOrCreateGroup(key);
 
-            // Insert the item in the right position in the group
-            for (int i = 0; i < group.Count; i++)
-            {
-                if (group[i].CompareTo(item) > 0)
-                {
-                    _Elements.Add(item);
-                    group.Insert(i, item);
-                    return;
-                }
-            }
-
+            // Add to end of list
             _Elements.Add(item);
             group.Add(item);
         }
@@ -177,16 +167,8 @@ namespace System.Collections.ObjectModel
 
             // The group doesn't exist already, create a new one in the correct position
             Grouping<TKey, TElement> result = _LastAffectedGroup = new Grouping<TKey, TElement>(key);
-            for (var i = 0; i < Count; i++)
-            {
-                if (result.Key.CompareTo(this[i].Key) > 0)
-                {
-                    Insert(i, result);
-                    return result;
-                }
-            }
 
-            // Add in the last position if necessary
+            // Add in the last position
             Add(result);
             return result;
         }
