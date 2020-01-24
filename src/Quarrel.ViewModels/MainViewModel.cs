@@ -214,6 +214,12 @@ namespace Quarrel.ViewModels
             BindableMessages.Clear();
         });
 
+        private RelayCommand openSettings;
+        public RelayCommand OpenSettings => openSettings = new RelayCommand(() =>
+        {
+            SubFrameNavigationService.NavigateTo("SettingsPage");
+        });
+
         #endregion
 
         #region Messages

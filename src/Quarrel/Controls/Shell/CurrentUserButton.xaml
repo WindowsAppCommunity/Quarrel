@@ -159,7 +159,7 @@
                     FontFamily="Segoe MDL2 Assets"
                     Foreground="{ThemeResource Foreground}"
                     Style="{ThemeResource TextBlockButtonStyle}"
-                    Click="OpenSettings"/>
+                    Command="{x:Bind ViewModel.OpenSettings, Mode=OneWay}"/>
             </Grid>
         </Button>
     </Grid>

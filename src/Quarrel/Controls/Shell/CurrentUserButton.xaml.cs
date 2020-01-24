@@ -21,9 +21,5 @@ namespace Quarrel.Controls.Shell
             SimpleIoc.Default.GetInstance<IGatewayService>().Gateway.UpdateStatus(status, 0, null);
             await SimpleIoc.Default.GetInstance<IDiscordService>().UserService.UpdateSettings("{\"status\":\"" + status + "\"}");
         }
-        private void OpenSettings(object sender, RoutedEventArgs e)
-        {
-            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("SettingsPage");
-        }
     }
 }

@@ -53,11 +53,6 @@ namespace Quarrel.Controls.Shell
             MemberListButtonClicked(this, null);
         }
 
-        private void OpenSettings(object sender, RoutedEventArgs e)
-        {
-            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("SettingsPage");
-        }
-
         private void OpenAbout(object sender, RoutedEventArgs e)
         {
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("AboutPage");
