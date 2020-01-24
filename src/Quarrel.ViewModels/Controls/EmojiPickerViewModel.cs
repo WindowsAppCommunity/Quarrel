@@ -68,10 +68,9 @@ namespace Quarrel.ViewModels.Controls
             // Guild Emojis
             // TODO: External emojis
             if (!GuildsService.CurrentGuild.IsDM)
-                foreach (var emoji in GuildsService.CurrentGuild.Model.Emojis)
-                {
-                    emojis.Add(new GuildEmoji(emoji));
-                }
+                emojis = GuildsService.CurrentGuild.Model.Emojis
+                    .Select(x => new GuildEmoji(x))
+                    .Concat(emojis).ToList();
 
             // Resets list
             Emojis.Clear();
@@ -163,7 +162,7 @@ namespace Quarrel.ViewModels.Controls
     /// <summary>
     /// Bindable ViewModel for Emoji DataContext
     /// </summary>
-    public class Emoji : ViewModelBase, IEquatable<Emoji>, IComparable<Emoji>
+    public class Emoji : ViewModelBase, IEquatable<Emoji>
     {
         /// <summary>
         /// Unique ID for Id (overriden by Guild ID)
@@ -239,18 +238,6 @@ namespace Quarrel.ViewModels.Controls
         public bool Equals(Emoji other)
         {
             return Id == other.Id;
-        }
-
-        #endregion
-
-        #region IComparable
-
-        /// <remarks>
-        /// Arbitrary comparsion for consistent unimportant order
-        /// </remarks>
-        public int CompareTo(Emoji other)
-        {
-            return Id.CompareTo(other.Id);
         }
 
         #endregion
