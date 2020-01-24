@@ -758,12 +758,29 @@ namespace Quarrel.ViewModels
                 await DiscordService.Login(token);
         }
 
+        /// <summary>
+        /// Replaces surrogates with proper values for Emojis and Mentions
+        /// </summary>
+        /// <returns>Reformatted message string</returns>
         private string ReplaceMessageDraftSurrogates()
         {
             string formattedMessage = MessageText;
 
             // Emoji surrogates
-
+            var emojiMatches = Regex.Matches(formattedMessage, Constants.Regex.EmojiSurrogateRegex);
+            foreach (Match match in emojiMatches)
+            {
+                // Finds emoji by name
+                Emoji emoji = Guild.Model.Emojis.FirstOrDefault(x => x.Name == match.Groups[1].Value);
+                
+                // Replaces :emoji_name: format with <emoji_name:id> format
+                if (emoji != null)
+                {
+                    // Different format if animated
+                    string format = emoji.Animated ? "<a:{0}:{1}>" : "<:{0}:{1}>";
+                    formattedMessage = formattedMessage.Replace(match.Value, string.Format(format, emoji.Name, emoji.Id));
+                }
+            }
 
             // User mentions
             var userMentionMatches = Regex.Matches(formattedMessage, Constants.Regex.UserMentionSurrogateRegex);
