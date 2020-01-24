@@ -91,7 +91,7 @@ namespace Quarrel.Controls
                 mediaHandler.CurrentVideoHandler.StopOnMediaEnded = false; // Keep video loaded when ended
             
 
-            var match = Regex.Match(url, ViewModels.Helpers.Constants.Regex.YouTubeRegex);
+            var match = Regex.Match(url, ViewModels.Helpers.Constants.Regex.YouTubeURLRegex);
             if (match.Success)
             {
                 await mediaHandler.CurrentVideoHandler.OpenVideo(new YouTubeEntry { ID = !string.IsNullOrEmpty(match.Groups[1].Value) ? match.Groups[1].Value : match.Groups[2].Value }, YouTubeQuality.HD);
@@ -101,7 +101,7 @@ namespace Quarrel.Controls
 
         async void ChangeVideo(string url)
         {
-            var match = Regex.Match(url, ViewModels.Helpers.Constants.Regex.YouTubeRegex);
+            var match = Regex.Match(url, ViewModels.Helpers.Constants.Regex.YouTubeURLRegex);
             if (match.Success)
             {
                 await mediaHandler.CurrentVideoHandler.OpenVideo(

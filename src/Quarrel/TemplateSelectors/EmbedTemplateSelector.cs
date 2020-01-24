@@ -27,7 +27,7 @@ namespace Quarrel.TemplateSelectors
                     case "gifv": return GifvEmbedTemplate;
                     case "video":
                     {
-                        if (Regex.IsMatch(embed.Video?.Url, ViewModels.Helpers.Constants.Regex.YouTubeRegex))
+                        if (Regex.IsMatch(embed.Video?.Url, ViewModels.Helpers.Constants.Regex.YouTubeURLRegex))
                         {
                             return YoutubeEmbedTemplate;
                         }
