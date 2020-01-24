@@ -79,7 +79,7 @@ namespace Quarrel.ViewModels.Controls
             // Adds emoji to list if it matches query
             foreach (var emoji in emojis)
             {
-                if (string.IsNullOrEmpty(query) || emoji.Names.Any(x => x.Contains(query)))
+                if (string.IsNullOrEmpty(query) || emoji.Names.Any(x => x.ToLower().Contains(query)))
                     Emojis.AddElement(emoji);
             }
 
