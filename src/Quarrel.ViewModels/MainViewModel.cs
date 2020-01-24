@@ -23,8 +23,11 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Group = DiscordAPI.Models.Group;
 
 namespace Quarrel.ViewModels
 {
@@ -249,35 +252,7 @@ namespace Quarrel.ViewModels
         private RelayCommand sendMessageCommand;
         public RelayCommand SendMessageCommand => sendMessageCommand ??= new RelayCommand(async () =>
         {
-            string text = MessageText;
-
-            // Parses out Mentions
-            List<string> mentions = FindMentions(text);
-            foreach (string mention in mentions)
-                if (mention[0] == '@')
-                {
-                    // Replaces username descriminator format with Id format
-                    int discIndex = mention.IndexOf('#');
-                    string username = mention.Substring(1, discIndex - 1);
-                    string disc = mention.Substring(1 + discIndex);
-                    User user;
-
-                    user = CurrentUsersService.Users.Values.FirstOrDefault(x =>
-                        x.Model.User.Username == username && x.Model.User.Discriminator == disc).Model.User;
-
-                    if (user != null)
-                        text = text.Replace("@" + user.Username + "#" + user.Discriminator, "<@!" + user.Id + ">");
-                }
-                else if (mention[0] == '#')
-                {
-                    // Replaces channel name format with Id format
-                    if (!Guild.IsDM)
-                    {
-                        Channel channel = Guild.Channels
-                            .FirstOrDefault(x => x.Model.Type != 4 && x.Model.Name == mention.Substring(1)).Model;
-                        text = text.Replace("#" + channel.Name, "<#" + channel.Id + ">");
-                    }
-                }
+            string text = ReplaceMessageDraftSurrogates();
 
             await DiscordService.ChannelService.CreateMessage(Channel.Model.Id,
                 new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
@@ -783,101 +758,49 @@ namespace Quarrel.ViewModels
                 await DiscordService.Login(token);
         }
 
-        /// <summary>
-        /// Parse a list of Mentions out of <paramref name="message"/>
-        /// </summary>
-        /// <param name="message">Message text</param>
-        /// <returns>A list of mentions in message</returns>
-        private List<string> FindMentions(string message)
+        private string ReplaceMessageDraftSurrogates()
         {
-            List<string> mentions = new List<string>();
-            bool inMention = false;
-            bool inDesc = false;
-            bool inChannel = false;
-            string cache = "";
-            string descCache = "";
-            string chnCache = "";
-            foreach (char c in message)
-                if (inMention)
-                {
-                    if (c == '#' && !inDesc)
-                    {
-                        inDesc = true;
-                    }
-                    else if (c == '@')
-                    {
-                        inDesc = false;
-                        cache = "";
-                        descCache = "";
-                    }
-                    else if (inDesc)
-                    {
-                        if (char.IsDigit(c))
-                        {
-                            descCache += c;
-                        }
-                        else
-                        {
-                            inMention = false;
-                            inDesc = false;
-                            cache = "";
-                            descCache = "";
-                        }
+            string formattedMessage = MessageText;
 
-                        if (descCache.Length == 4)
-                        {
-                            User mention;
-                            if (Channel.Model is DirectMessageChannel dmChn)
-                            {
-                                mention = dmChn.Users.FirstOrDefault(x =>
-                                    x.Username == cache && x.Discriminator == descCache);
-                            }
-                            else
-                            {
-                                GuildMember member = CurrentUsersService.Users.Values
-                                    .FirstOrDefault(x =>
-                                        x.Model.User.Username == cache && x.Model.User.Discriminator == descCache)
-                                    .Model;
-                                mention = member.User;
-                            }
+            // Emoji surrogates
 
-                            if (mention != null) mentions.Add("@" + cache + "#" + descCache);
-                            inMention = false;
-                            inDesc = false;
-                            cache = "";
-                            descCache = "";
-                        }
-                    }
-                    else
-                    {
-                        cache += c;
-                    }
-                }
-                else if (inChannel)
-                {
-                    if (c == ' ')
-                    {
-                        inChannel = false;
-                        chnCache = "";
-                    }
-                    else
-                    {
-                        chnCache += c;
-                        if (Channel.Model is GuildChannel)
-                            if (!Guild.IsDM)
-                                mentions.Add("#" + chnCache);
-                    }
-                }
-                else if (c == '@')
-                {
-                    inMention = true;
-                }
-                else if (c == '#')
-                {
-                    inChannel = true;
-                }
 
-            return mentions;
+            // User mentions
+            var userMentionMatches = Regex.Matches(formattedMessage, Constants.Regex.UserMentionSurrogateRegex);
+            foreach (Match match in userMentionMatches)
+            {
+                // Finds user from Username and Discriminator
+                BindableGuildMember user = BindableMembersNew
+                    .FirstOrDefault(x => (x is BindableGuildMember bmx) &&
+                    bmx.Model.User.Username == match.Groups[1].Value &&
+                    bmx.Model.User.Discriminator == match.Groups[2].Value) as BindableGuildMember;
+
+                // Replaces @name#disc format with <@!ID> format
+                if (user != null)
+                {
+                    formattedMessage = formattedMessage.Replace(match.Value, string.Format("<@!{0}>", user.Model.User.Id));
+                }
+            }
+
+            // Channel Mentions
+            if (!Guild.IsDM)
+            {
+                var channelMentionMatches = Regex.Matches(formattedMessage, Constants.Regex.ChannelMentionSurrogateRegex);
+                foreach (Match match in channelMentionMatches)
+                {
+                    // Finds channel by name, in current guild
+                    BindableChannel channel = GuildsService.CurrentGuild.Channels.FirstOrDefault(x => x.Model.Name == match.Groups[1].Value);
+
+                    // Replaces #channel-name
+                    if (channel != null)
+                    {
+                        formattedMessage = formattedMessage.Replace(match.Value, string.Format("<#{0}>", channel.Model.Id));
+                    }
+                }
+            }
+
+
+            return formattedMessage;
         }
 
         /// <summary>
