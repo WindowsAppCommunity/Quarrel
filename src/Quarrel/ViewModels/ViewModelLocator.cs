@@ -37,6 +37,7 @@ namespace Quarrel.ViewModels
             var navigationService = new SubFrameNavigationService();
             navigationService.Configure("AboutPage", typeof(AboutPage));
             navigationService.Configure("AddChannelPage", typeof(AddChannelPage));
+            navigationService.Configure("CreditPage", typeof(CreditPage));
             navigationService.Configure("AttachmentPage", typeof(AttachmentPage));
             navigationService.Configure("DiscordStatusPage", typeof(DiscordStatusPage));
             navigationService.Configure("LicensesPage", typeof(LicensesPage));

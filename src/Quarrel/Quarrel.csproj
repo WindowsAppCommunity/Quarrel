@@ -378,6 +378,9 @@
     <Compile Include="SubPages\AttachmentPage.xaml.cs">
       <DependentUpon>AttachmentPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\CreditPage.xaml.cs">
+      <DependentUpon>CreditPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\DiscordStatusPage.xaml.cs">
       <DependentUpon>DiscordStatusPage.xaml</DependentUpon>
     </Compile>
@@ -724,6 +727,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\AttachmentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\CreditPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

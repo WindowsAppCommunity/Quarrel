@@ -70,6 +70,10 @@ namespace Quarrel.ViewModels.Helpers
 
             public const string NativeAdId = "1100064845";
 #endif
+
+            public const string GitHubRepoOwner = "UWPCommunity";
+
+            public const string GitHubRepoName = "Quarrel";
         }
     }
 }

@@ -837,9 +837,10 @@
     </CommandBar.PrimaryCommands>
 
     <CommandBar.SecondaryCommands>
-        <AppBarButton Icon="Help" Label="About" Background="Transparent" Click="OpenAbout"/>
-        <AppBarButton Icon="Help"  Label="What's New" Background="Transparent" Click="OpenWhatsNew"/>
-        <AppBarButton Icon="Setting" Label="Settings" Background="Transparent" Command="{x:Bind ViewModel.OpenSettings, Mode=OneWay}"/>
+        <AppBarButton Label="About" Background="Transparent" Click="OpenAbout"/>
+        <AppBarButton Label="What's New" Background="Transparent" Click="OpenWhatsNew"/>
+        <AppBarButton Label="Credit" Background="Transparent" Click="OpenCredit"/>
+        <AppBarButton Label="Settings" Background="Transparent" Command="{x:Bind ViewModel.OpenSettings, Mode=OneWay}"/>
     </CommandBar.SecondaryCommands>
 </CommandBar>
 
