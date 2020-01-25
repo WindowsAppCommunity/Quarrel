@@ -1,5 +1,6 @@
 ﻿using GitHubAPI.Models;
 using Quarrel.SubPages.Interfaces;
+using Quarrel.ViewModels.Models.Bindables.GitHub;
 using Quarrel.ViewModels.SubPages;
 using System;
 using Windows.System;
@@ -32,7 +33,7 @@ namespace Quarrel.SubPages
         /// </summary>
         private async void DeveloperClicked(object sender, ItemClickEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri((e.ClickedItem as Contributor).ProfilePageUrl));
+            await Launcher.LaunchUriAsync(new Uri((e.ClickedItem as BindableDeveloper).Model.ProfilePageUrl));
         }
 
         #endregion

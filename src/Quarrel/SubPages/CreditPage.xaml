@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:models="using:GitHubAPI.Models"
+    xmlns:githubBindables="using:Quarrel.ViewModels.Models.Bindables.GitHub"
     xmlns:github="using:Quarrel.Controls.GitHub"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -152,23 +153,8 @@
                 <ListView ItemsSource="{x:Bind ViewModel.Developers, Mode=OneWay}" ItemContainerStyle="{StaticResource LeadDeveloperContainerStyle}"
                           SelectionMode="None" IsItemClickEnabled="True" ItemClick="DeveloperClicked">
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:Contributor">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-
-                                <!--Image-->
-                                <Border CornerRadius="32">
-                                    <tk:ImageEx Source="{x:Bind ProfileImageUrl, Mode=OneWay}" Width="64" Height="64"/>
-                                </Border>
-
-                                <StackPanel Grid.Column="1" Margin="16,0,0,0">
-                                    <TextBlock Text="{x:Bind Name, Mode=OneWay}" FontWeight="SemiBold"/>
-                                    <TextBlock Text="{x:Bind CommitsCount, Mode=OneWay}" Opacity="0.7"/>
-                                </StackPanel>
-                            </Grid>
+                        <DataTemplate x:DataType="githubBindables:BindableDeveloper">
+                            <github:DeveloperTemplate DataContext="{x:Bind}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

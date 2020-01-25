@@ -14,6 +14,12 @@ namespace GitHubAPI.Models
         public string Name { get; internal set; }
 
         /// <summary>
+        /// Gets the name of the current contributor
+        /// </summary>
+        [JsonProperty("login")]
+        public string Username { get; internal set; }
+
+        /// <summary>
         /// Gets the URL of the contributor profile image
         /// </summary>
         [JsonProperty("avatar_url")]
@@ -30,5 +36,11 @@ namespace GitHubAPI.Models
         /// </summary>
         [JsonProperty("bio")]
         public string Bio { get; internal set; }
+
+        /// <summary>
+        /// Name or username if null
+        /// </summary>
+        [JsonIgnore]
+        public string DisplayName => Name ?? Username;
     }
 }

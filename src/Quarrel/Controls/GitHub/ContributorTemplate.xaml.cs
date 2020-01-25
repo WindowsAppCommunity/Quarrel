@@ -3,8 +3,6 @@ using Windows.UI.Xaml.Controls;
 using UICompositionAnimationsLegacy.Helpers.PointerEvents;
 using Windows.Devices.Input;
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace Quarrel.Controls.GitHub
 {
     public sealed partial class ContributorTemplate : UserControl

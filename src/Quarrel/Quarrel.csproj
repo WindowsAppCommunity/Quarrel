@@ -155,6 +155,9 @@
     <Compile Include="Controls\GitHub\ContributorTemplate.xaml.cs">
       <DependentUpon>ContributorTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\GitHub\DeveloperTemplate.xaml.cs">
+      <DependentUpon>DeveloperTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Guilds\GuildTemplate.xaml.cs">
       <DependentUpon>GuildTemplate.xaml</DependentUpon>
     </Compile>
@@ -596,6 +599,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\GitHub\ContributorTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\GitHub\DeveloperTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
