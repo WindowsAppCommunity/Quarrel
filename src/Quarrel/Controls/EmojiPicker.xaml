@@ -153,12 +153,12 @@
                                 </GroupStyle.HeaderContainerStyle>
                                 <GroupStyle.HeaderTemplate>
                                     <DataTemplate>
-                                        <Grid VerticalAlignment="Top" Padding="8,8,0,0">
+                                        <Grid VerticalAlignment="Top" Padding="4,8,0,0">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Text="{Binding Key}" FontSize="14" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.6" Margin="0"/>
+                                            <TextBlock Text="{Binding Key}" FontSize="14" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.8" Margin="0"/>
                                         </Grid>
                                     </DataTemplate>
                                 </GroupStyle.HeaderTemplate>
