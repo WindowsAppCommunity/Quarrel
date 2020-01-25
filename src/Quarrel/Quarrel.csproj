@@ -152,6 +152,9 @@
     <Compile Include="Controls\Friends\FriendTemplate.xaml.cs">
       <DependentUpon>FriendTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\GitHub\ContributorTemplate.xaml.cs">
+      <DependentUpon>ContributorTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Guilds\GuildTemplate.xaml.cs">
       <DependentUpon>GuildTemplate.xaml</DependentUpon>
     </Compile>
@@ -589,6 +592,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Friends\FriendTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\GitHub\ContributorTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
