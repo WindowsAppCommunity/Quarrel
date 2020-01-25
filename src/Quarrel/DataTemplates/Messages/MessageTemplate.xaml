@@ -226,7 +226,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <markdown:MarkdownTextBlock x:Phase="1" Users="{x:Bind Model.Mentions, Mode=OneWay}" 
+                    <markdown:MarkdownTextBlock Users="{x:Bind Model.Mentions, Mode=OneWay}" 
                                                 Text="{x:Bind Model.Content, Mode=OneWay}"
                                                 Visibility="{x:Bind IsEditing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
                                                 TextWrapping="WrapWholeWords"
@@ -257,7 +257,7 @@
                 x:Load causes slowdowns here
                 -->
                 <Grid Grid.Column="1" Grid.Row="3" x:Name="AttachmentList">
-                    <ListView x:Phase="3" ItemsSource="{x:Bind Model.Attachments, Mode=OneWay}"
+                    <ListView ItemsSource="{x:Bind Model.Attachments, Mode=OneWay}"
                           ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"
                           SelectionMode="None">
                         <ListView.ItemContainerStyle>
@@ -270,7 +270,7 @@
                 </Grid>
 
                 <Grid Grid.Column="1" Grid.Row="4" x:Name="EmbedList">
-                    <ListView x:Phase="3" ItemsSource="{x:Bind Model.Embeds, Mode=OneWay}"
+                    <ListView ItemsSource="{x:Bind Model.Embeds, Mode=OneWay}"
                           ItemTemplateSelector="{StaticResource EmbedTemplateSelector}"
                           SelectionMode="None">
                         <ListView.ItemContainerStyle>
@@ -283,7 +283,7 @@
                 </Grid>
 
                 <Grid Grid.Column="1" Grid.Row="5" x:Name="ReactionList">
-                    <ListView x:Phase="4" ItemsSource="{x:Bind BindableReactions, Mode=OneWay}"
+                    <ListView ItemsSource="{x:Bind BindableReactions, Mode=OneWay}"
                           ItemTemplate="{StaticResource Reaction}"
                           SelectionMode="None">
                         <ListView.ItemContainerStyle>
