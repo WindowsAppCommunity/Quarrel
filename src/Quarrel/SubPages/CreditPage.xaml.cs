@@ -17,14 +17,7 @@ namespace Quarrel.SubPages
 
         public CreditPageViewModel ViewModel => DataContext as CreditPageViewModel;
 
-
-        #region IConstrainedSubPage
-
-        public double MaxExpandedHeight { get; } = 512;
-
-        public double MaxExpandedWidth { get; } = 512;
-
-        #endregion
+        #region Methods
 
         /// <summary>
         /// Open Contributor's GitHub page
@@ -33,5 +26,23 @@ namespace Quarrel.SubPages
         {
             await Launcher.LaunchUriAsync(new Uri((e.ClickedItem as Contributor).ProfilePageUrl));
         }
+
+        /// <summary>
+        /// Open Developer's GitHub page
+        /// </summary>
+        private async void DeveloperClicked(object sender, ItemClickEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(new Uri((e.ClickedItem as Contributor).ProfilePageUrl));
+        }
+
+        #endregion
+
+        #region IConstrainedSubPage
+
+        public double MaxExpandedHeight { get; } = 512;
+
+        public double MaxExpandedWidth { get; } = 512;
+
+        #endregion
     }
 }

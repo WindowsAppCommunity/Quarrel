@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using GitHubAPI.Models;
 using Refit;
 
@@ -23,6 +24,6 @@ namespace GitHubAPI.API
         /// <param name="owner">The repository owner account name</param>
         /// <param name="repo">The repository name</param>
         [Get("/repos/{owner}/{repo}/contributors")]
-        Task<Contributor[]> GetContributorsAsync([AliasAs("owner")] string owner, [AliasAs("repo")] string repo);
+        Task<IEnumerable<Contributor>> GetContributorsAsync([AliasAs("owner")] string owner, [AliasAs("repo")] string repo);
     }
 }

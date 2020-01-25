@@ -29,12 +29,14 @@ namespace Quarrel.ViewModels.SubPages
         /// <summary>
         /// Loads Contributors and Lead Developer's data from GitHub
         /// </summary>
-        public async void LoadContributors()
+        private async void LoadContributors()
         {
             var contributors = await GitHubService.GetContributorsAsync(Constants.Store.GitHubRepoOwner, Constants.Store.GitHubRepoName);
-            
-            // TODO: Seperate Lead Developers from Contributors
-            Contributors = contributors;
+
+            contributors = contributors.OrderByDescending(x => x.CommitsCount);
+
+            Developers = new string[] { "Avid29", "karmaecrivain94", "matthew4850" }.Select(name => contributors.FirstOrDefault(x => x.Name == name));
+            Contributors = contributors.Where(x => !Developers.Contains(x));
         }
 
         #endregion
@@ -44,15 +46,15 @@ namespace Quarrel.ViewModels.SubPages
         /// <summary>
         /// Preset list as User of Lead Developers
         /// </summary>
-        public IEnumerable<User> LeadDevelopers
+        public IEnumerable<Contributor> Developers
         {
-            get => _LeadDevelopers;
-            set => Set(ref _LeadDevelopers, value);
+            get => _Developers;
+            set => Set(ref _Developers, value);
         }
-        private IEnumerable<User> _LeadDevelopers;
+        private IEnumerable<Contributor> _Developers;
 
         /// <summary>
-        /// Everyone (except lead developers) with a contribution to Quarrel
+        /// Everyone (except developers) with a contribution to Quarrel
         /// </summary>
         public IEnumerable<Contributor> Contributors
         {
