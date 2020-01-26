@@ -8,6 +8,7 @@ using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Discord.Channels;
+using Quarrel.ViewModels.Services.Discord.Presence;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.ViewModels.Messages.Gateway;
 using System;
@@ -31,12 +32,14 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
 
         private ICacheService CacheService;
         private IChannelsService ChannelsService;
+        private IPresenceService PresenceService;
         private IDispatcherHelper DispatcherHelper;
 
-        public GuildsService(ICacheService cacheService, IDispatcherHelper dispatcherHelper, IChannelsService channelService)
+        public GuildsService(ICacheService cacheService, IPresenceService presenceService, IDispatcherHelper dispatcherHelper, IChannelsService channelService)
         {
             CacheService = cacheService;
             ChannelsService = channelService;
+            PresenceService = presenceService;
             DispatcherHelper = dispatcherHelper;
 
             Messenger.Default.Register<GatewayReadyMessage>(this, m =>
@@ -263,6 +266,12 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                 {
                     guild.TryAdd(member.User.Id, new BindableGuildMember(member));
                 }
+
+                if (m.GuildMembersChunk.Presences != null)
+                    foreach (var presence in m.GuildMembersChunk.Presences)
+                    {
+                        PresenceService.UpdateUserPrecense(presence.User.Id, presence);
+                    }
             });
         }
 

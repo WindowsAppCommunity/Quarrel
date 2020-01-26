@@ -29,10 +29,7 @@ namespace Quarrel.ViewModels.Services.Discord.Presence
 
         public void UpdateUserPrecense(string userId, DiscordAPI.Models.Presence presence)
         {
-            if (_Presences.ContainsKey(userId))
-                _Presences[userId] = presence;
-            else
-                _Presences.TryAdd(userId, presence);
+            Messenger.Default.Send(new GatewayPresenceUpdatedMessage(userId, presence));
         }
     }
 }
