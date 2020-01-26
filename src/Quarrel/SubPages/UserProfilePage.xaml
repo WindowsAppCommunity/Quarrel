@@ -20,6 +20,7 @@
 
     <UserControl.Resources>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
         <relationconvert:RelationToAcceptFriendConverter x:Key="RelationToAcceptFriendConverter"/>
         <relationconvert:RelationToAddFriendConverter x:Key="RelationToAddFriendConverter"/>
@@ -32,26 +33,24 @@
     
     <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="0" CornerRadius="0">
         <Grid Background="Black">
-            <!--<ParallaxView Source="{Binding ElementName=ParallaxScroll}" VerticalShift="500">-->
-                <Grid>
-                    <Rectangle>
-                        <Rectangle.Fill>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind ViewModel.User.Model.User.AvatarUrl, Mode=OneWay}"/>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <Grid.Background>
-                            <tkmedia:BackdropSaturationBrush Saturation="0"/>
-                        </Grid.Background>
-                    </Grid>
-                <Rectangle Fill="{x:Bind ViewModel.User.Presence.Status, Mode=OneWay, Converter={StaticResource PresenseToBrushConverter}}" Opacity="0.25"/>
-                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <Grid.Background>
-                            <tkmedia:BackdropBlurBrush Amount="10"/>
-                        </Grid.Background>
-                    </Grid>
+            <Grid>
+                <Rectangle>
+                    <Rectangle.Fill>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind ViewModel.User.Model.User.AvatarUrl, Mode=OneWay}"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid.Background>
+                        <tkmedia:BackdropSaturationBrush Saturation="0"/>
+                    </Grid.Background>
                 </Grid>
-            <!--</ParallaxView>-->
+                <Rectangle Fill="{x:Bind ViewModel.User.Presence.Status, Mode=OneWay, Converter={StaticResource PresenseToBrushConverter}}" Opacity="0.25"/>
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid.Background>
+                        <tkmedia:BackdropBlurBrush Amount="10"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
 
             <ScrollViewer Style="{StaticResource DiscordScrollView}" x:Name="ParallaxScroll">
                 <Grid Padding="0,180,0,0">
@@ -125,8 +124,7 @@
                     <Grid>
                         <Grid x:Name="FullAvatar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,0,0,0">
                             <Rectangle x:Name="AvatarBG" Height="128" Width="128" RadiusX="64" RadiusY="64"/>
-                            <tk:DropShadowPanel Color="{x:Bind ViewModel.User.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
-                                                        BlurRadius="15">
+                            <tk:DropShadowPanel Color="{x:Bind ViewModel.User.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}" BlurRadius="15">
                                 <Rectangle x:Name="AvatarRectangle" Height="128" Width="128" RadiusX="64" RadiusY="64">
                                     <Rectangle.Fill>
                                         <ImageBrush ImageSource="{x:Bind ViewModel.User.Model.User.AvatarUrl, Mode=OneWay}"/>
@@ -145,7 +143,7 @@
                                 <TextBlock x:Uid="BotTB" Text="BOT" FontSize="14" VerticalAlignment="Center"/>
                             </Border>
                         </StackPanel>
-                        <tk:WrapPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="188,58,24,0" HorizontalAlignment="Left">
+                        <tk:WrapPanel Visibility="{x:Bind ViewModel.IsLoadingProfile, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Orientation="Horizontal" VerticalAlignment="Top" Margin="188,58,24,0" HorizontalAlignment="Left">
                             <HyperlinkButton x:Name="sendFriendRequest" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToAddFriendConverter}, Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE8FA;" HorizontalAlignment="Left"/>

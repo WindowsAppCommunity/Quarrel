@@ -30,6 +30,10 @@ namespace Quarrel.ViewModels.SubPages
         /// </summary>
         public async void LoadProfile()
         {
+            // Shows loading indicator
+            IsLoadingProfile = true;
+
+
             // Make sure user isn't a bot
             if (!User.Model.User.Bot)
                 Profile = await discordService.UserService.GetUserProfile(User.Model.User.Id);
@@ -42,11 +46,16 @@ namespace Quarrel.ViewModels.SubPages
             else
                 Profile.Friend = new Friend() { Type = 0, Id = User.Model.User.Id, User = User.Model.User };
 
+            RaisePropertyChanged(nameof(Profile));
+
             // Show shared friends (if not a bot)
             if (!User.Model.User.Bot)
                 Profile.SharedFriends = await discordService.UserService.GetUserReleations(User.Model.User.Id);
 
             MutualGuilds = Profile.MutualGuilds.Select(x => new BindableMutualGuild(x));
+
+            // Hides loading indicator
+            IsLoadingProfile = false;
         }
 
         #endregion
@@ -79,6 +88,16 @@ namespace Quarrel.ViewModels.SubPages
             get => _MutualGuilds;
             set => Set(ref _MutualGuilds, value);
         }
+
+        /// <summary>
+        /// True while loading the profile
+        /// </summary>
+        public bool IsLoadingProfile
+        {
+            get => _IsLoadingProfile;
+            set => Set(ref _IsLoadingProfile, value);
+        }
+        private bool _IsLoadingProfile;
 
         #endregion
     }
