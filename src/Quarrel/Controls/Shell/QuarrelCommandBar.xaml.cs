@@ -27,7 +27,7 @@ namespace Quarrel.Controls.Shell
 
         public bool ShowHamburger { get; set; }
 
-        private GuildChannel GuildChannel { get => ViewModel.Channel != null ? ViewModel.Channel.Model as GuildChannel : null; }
+        private GuildChannel GuildChannel { get => ViewModel.CurrentChannel != null ? ViewModel.CurrentChannel.Model as GuildChannel : null; }
 
         private string ChannelTopic { get => GuildChannel != null ? GuildChannel.Topic : ""; }
 
@@ -70,7 +70,7 @@ namespace Quarrel.Controls.Shell
 
         private void ChannelNameTapped(object sender, TappedRoutedEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("TopicPage", ViewModel.Channel);
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("TopicPage", ViewModel.CurrentChannel);
         }
     }
 

@@ -22,7 +22,7 @@ namespace Quarrel.Controls.Shell.Views
             // Scrolls the MemberList to the top when the Channel changes
             Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
             {
-                MemberList.ScrollIntoView(ViewModel.BindableMembersNew.FirstOrDefault());
+                MemberList.ScrollIntoView(ViewModel.CurrentBindableMembers.FirstOrDefault());
             });
         }
 
@@ -33,7 +33,7 @@ namespace Quarrel.Controls.Shell.Views
             if (e.IsSourceZoomedInView == false)
             {
                 var sourceItem = e.SourceItem.Item as BindableGuildMemberGroup;
-                e.DestinationItem.Item = ViewModel.BindableMembersNew.FirstOrDefault(x => x is BindableGuildMemberGroup group && group.Model.Id == sourceItem.Model.Id);
+                e.DestinationItem.Item = ViewModel.CurrentBindableMembers.FirstOrDefault(x => x is BindableGuildMemberGroup group && group.Model.Id == sourceItem.Model.Id);
             }
         }
         public static T FindChildOfType<T>(DependencyObject root) where T : class

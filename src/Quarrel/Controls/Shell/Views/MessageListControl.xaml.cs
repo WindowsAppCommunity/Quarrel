@@ -37,7 +37,7 @@ namespace Quarrel.Controls.Shell.Views
 
         private void _messageScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            if (ViewModel.Channel == null)
+            if (ViewModel.CurrentChannel == null)
                 return;
 
             if (ViewModel.ItemsLoading)
@@ -57,7 +57,7 @@ namespace Quarrel.Controls.Shell.Views
 
                 // All messages seen
                 if (fromBottom < 10)
-                    ViewModel.Channel.MarkAsRead.Execute(null);
+                    ViewModel.CurrentChannel.MarkAsRead.Execute(null);
             }
         }
 

@@ -48,7 +48,7 @@
                 <ListView x:Name="MemberList"
                           ItemContainerStyle="{StaticResource MemberListItemStyle}"
                           IsItemClickEnabled="True" SelectionMode="None"
-                          ItemsSource="{x:Bind ViewModel.BindableMembersNew, Mode=OneWay}"
+                          ItemsSource="{x:Bind ViewModel.CurrentBindableMembers, Mode=OneWay}"
                           ShowsScrollingPlaceholders="False"
                           ItemTemplateSelector="{StaticResource GuildMemberListSelector}">
                     
@@ -83,7 +83,7 @@
                 </ListView>
             </SemanticZoom.ZoomedInView>
             <SemanticZoom.ZoomedOutView>
-                <ListView ItemsSource="{x:Bind ViewModel.BindableMemeberGroups, Mode=OneWay}" Margin="0" >
+                <ListView ItemsSource="{x:Bind ViewModel.CurrentBindableMemeberGroups, Mode=OneWay}" Margin="0" >
                     <ListView.Background>
                         <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.1"/>
                     </ListView.Background>
