@@ -130,7 +130,6 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         public string GuildId { get; set; }
 
-        private Presence _Presence;
         public Presence Presence
         {
             get => _Presence;
@@ -140,6 +139,7 @@ namespace Quarrel.ViewModels.Models.Bindables
                 RaisePropertyChanged(nameof(Game));
             }
         }
+        private Presence _Presence;
 
         #endregion
 

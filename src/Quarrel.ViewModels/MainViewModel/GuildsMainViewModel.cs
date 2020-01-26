@@ -39,17 +39,24 @@ namespace Quarrel.ViewModels
                         m.Guild.Channels.FirstOrDefault(x => x.IsTextChannel && x.Permissions.ReadMessages);
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
-                        CurrentChannel = channel;
-                        CurrentGuild = m.Guild;
-                        BindableMessages.Clear();
-                        //BindableChannels = m.Guild.Channels;
+                    CurrentChannel = channel;
+                    CurrentGuild = m.Guild;
+                    BindableMessages.Clear();
+                    //BindableChannels = m.Guild.Channels;
 
-                        if (m.Guild.IsDM)
-                        {
-                            CurrentBindableMembers.Clear();
-                        }
+                    if (m.Guild.IsDM)
+                    {
+                        CurrentBindableMembers.Clear();
+                    }
 
+                    if (!m.Guild.IsDM)
                         CurrentGuildMember = GuildsService.GetGuildMember(CurrentUserService.CurrentUser.Model.Id, m.Guild.Model.Id);
+                    else
+                        CurrentGuildMember = new BindableGuildMember(
+                            new DiscordAPI.Models.GuildMember()
+                            {
+                                User = CurrentUserService.CurrentUser.Model
+                            }, "DM", CurrentUserService.CurrentUser.Presence);
                     });
 
                     if (channel != null)
