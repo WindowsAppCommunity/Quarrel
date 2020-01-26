@@ -64,7 +64,7 @@ namespace Quarrel.ViewModels
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         // Show guilds
-                        BindableGuilds.AddRange(GuildsService.Guilds.Values.OrderBy(x => x.Position));
+                        BindableGuilds.AddRange(GuildsService.AllGuilds.Values.OrderBy(x => x.Position));
                     });
             });
 

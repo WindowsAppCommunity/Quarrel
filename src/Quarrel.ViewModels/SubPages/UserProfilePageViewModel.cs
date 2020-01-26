@@ -3,8 +3,8 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Cache;
-using Quarrel.ViewModels.Services.Rest;
-using Quarrel.ViewModels.Services.Users;
+using Quarrel.ViewModels.Services.Discord.Friends;
+using Quarrel.ViewModels.Services.Discord.Rest;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -37,7 +37,7 @@ namespace Quarrel.ViewModels.SubPages
                 Profile = new UserProfile() { user = User.Model.User };
 
             // Check friend status
-            if (SimpleIoc.Default.GetInstance<ICurrentUsersService>().Friends.TryGetValue(Profile.user.Id, out var bindableFriend))
+            if (SimpleIoc.Default.GetInstance<IFriendsService>().Friends.TryGetValue(Profile.user.Id, out var bindableFriend))
                 Profile.Friend = bindableFriend.Model;
             else
                 Profile.Friend = new Friend() { Type = 0, Id = User.Model.User.Id, User = User.Model.User };

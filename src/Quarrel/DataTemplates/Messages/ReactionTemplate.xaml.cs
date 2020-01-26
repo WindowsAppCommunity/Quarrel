@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Models.Bindables;
-using Quarrel.ViewModels.Services.Rest;
+using Quarrel.ViewModels.Services.Discord.Rest;
 using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Quarrel.DataTemplates.Messages

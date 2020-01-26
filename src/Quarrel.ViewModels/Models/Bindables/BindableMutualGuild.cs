@@ -1,7 +1,7 @@
 ﻿using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
-using Quarrel.ViewModels.Services.Guild;
+using Quarrel.ViewModels.Services.Discord.Guilds;
 
 namespace Quarrel.ViewModels.Models.Bindables
 {
@@ -17,6 +17,6 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// <summary>
         /// Guild represented in full
         /// </summary>
-        public BindableGuild BindableGuild => GuildsService.Guilds.TryGetValue(Model.Id, out var value) ? value : null;
+        public BindableGuild BindableGuild => GuildsService.AllGuilds.TryGetValue(Model.Id, out var value) ? value : null;
     }
 }

@@ -1,16 +1,16 @@
 ﻿using DiscordAPI.API.User.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.ViewModels.Services.Rest;
-using Quarrel.ViewModels.Services.Users;
+using Quarrel.ViewModels.Services.Discord.CurrentUser;
+using Quarrel.ViewModels.Services.Discord.Rest;
 
 namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 {
     public class PrivacySettingsViewModel : ViewModelBase
     {
-        public ICurrentUsersService CurrentUsersService
+        public ICurrentUserService CurrentUsersService
         {
-            get => SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+            get => SimpleIoc.Default.GetInstance<ICurrentUserService>();
         }
 
         public bool FilterAll

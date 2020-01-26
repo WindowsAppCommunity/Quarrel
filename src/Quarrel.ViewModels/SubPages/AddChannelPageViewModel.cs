@@ -3,8 +3,8 @@ using DiscordAPI.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
+using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.Navigation;
-using Quarrel.ViewModels.Services.Rest;
 
 namespace Quarrel.ViewModels.SubPages
 {

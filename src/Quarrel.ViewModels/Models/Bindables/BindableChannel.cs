@@ -9,13 +9,15 @@ using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Services.Clipboard;
+using Quarrel.ViewModels.Services.Discord.Channels;
+using Quarrel.ViewModels.Services.Discord.CurrentUser;
+using Quarrel.ViewModels.Services.Discord.Friends;
+using Quarrel.ViewModels.Services.Discord.Guilds;
+using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
-using Quarrel.ViewModels.Services.Guild;
 using Quarrel.ViewModels.Services.Navigation;
-using Quarrel.ViewModels.Services.Rest;
 using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.Services.Settings.Enums;
-using Quarrel.ViewModels.Services.Users;
 using Quarrel.ViewModels.Services.Voice;
 using System;
 using System.Collections.Concurrent;
@@ -69,9 +71,23 @@ namespace Quarrel.ViewModels.Models.Bindables
                     {
                         // Updated channel settings
                         ChannelOverride channelOverride;
-                        if(_CurrentUsersService.ChannelSettings.TryGetValue(Model.Id, out channelOverride))
+                        if(_ChannelsService.ChannelSettings.TryGetValue(Model.Id, out channelOverride))
                             Muted = channelOverride.Muted;
                     });
+            });
+
+            MessengerInstance.Register<GatewayMessageAckMessage>(this, m =>
+            {
+                if (Model.Id == m.ChannelId)
+                {
+                    UpdateLRMID(m.MessageId);
+                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        RaisePropertyChanged(nameof(MentionCount));
+                        RaisePropertyChanged(nameof(IsUnread));
+                        RaisePropertyChanged(nameof(ShowUnread));
+                    });
+                }
             });
 
             MessengerInstance.Register<ChannelNavigateMessage>(this, m =>
@@ -89,6 +105,7 @@ namespace Quarrel.ViewModels.Models.Bindables
                     RaisePropertyChanged(nameof(Hidden));
                 }
             });
+
             MessengerInstance.Register<SettingChangedMessage<CollapseOverride>>(this, m =>
             {
                 if (m.Key == SettingKeys.CollapseOverride)
@@ -98,6 +115,7 @@ namespace Quarrel.ViewModels.Models.Bindables
             });
 
             #endregion
+
             if (states != null)
             {
                 foreach (var state in states)
@@ -116,9 +134,11 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         #region Services
 
-        private ICurrentUsersService _CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+        private ICurrentUserService _CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        private IChannelsService _ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
         private IDiscordService _DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
         private ISettingsService _SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
+        private IFriendsService _FriendsService { get; } = SimpleIoc.Default.GetInstance<IFriendsService>();
         public IVoiceService VoiceService { get; } = SimpleIoc.Default.GetInstance<IVoiceService>();
         public IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
         public IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
@@ -127,7 +147,7 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         public BindableGuild Guild
         {
-            get => GuildsService.Guilds[guildId];
+            get => GuildsService.AllGuilds[guildId];
         }
 
         #region ChannelType
@@ -278,7 +298,7 @@ namespace Quarrel.ViewModels.Models.Bindables
 
                 if (Model is DirectMessageChannel dmChannel)
                 {
-                    return dmChannel.Users.Select(x => _CurrentUsersService.DMUsers[x.Id]);
+                    return dmChannel.Users.Select(x => _FriendsService.DMUsers[x.Id]);
                 }
 
                 return null;
@@ -501,7 +521,7 @@ namespace Quarrel.ViewModels.Models.Bindables
 
             foreach (var id in keys)
             {
-                if (_CurrentUsersService.Users.TryGetValue(id, out var user))
+                if (GuildsService.AllMembers.TryGetValue(id, out var user))
                 {
                     names.Add(user.DisplayName);
                 }
@@ -572,7 +592,7 @@ namespace Quarrel.ViewModels.Models.Bindables
             guildSettingModify.ChannelOverrides = new Dictionary<string, ChannelOverride>();
 
             ChannelOverride channelOverride;
-            if(!_CurrentUsersService.ChannelSettings.TryGetValue(Model.Id, out channelOverride))
+            if(_ChannelsService.ChannelSettings.TryGetValue(Model.Id, out channelOverride))
             {
                 // No pre-exisitng channeloverride, create a default
                 channelOverride = new ChannelOverride();

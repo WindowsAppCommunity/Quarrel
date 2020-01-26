@@ -187,10 +187,10 @@ namespace Quarrel.ViewModels
                                             {
                                                 GuildId = guildId,
                                                 IsOwner = op.Item.Member.User.Id ==
-                                                          GuildsService.Guilds[guildId].Model.OwnerId,
+                                                          GuildsService.AllGuilds[guildId].Model.OwnerId,
                                                 Presence = op.Item.Member.Presence
                                             });
-                                            CurrentUsersService.UpdateUserPrecense(op.Item.Member.User.Id, op.Item.Member.Presence);
+                                            PresenceService.UpdateUserPrecense(op.Item.Member.User.Id, op.Item.Member.Presence);
                                         }
                                     }
                                     break;
@@ -228,11 +228,11 @@ namespace Quarrel.ViewModels
                 BindableGuildMember bGuildMember = new BindableGuildMember(item.Member)
                 {
                     GuildId = guildId,
-                    IsOwner = item.Member.User.Id == GuildsService.Guilds[guildId].Model.OwnerId,
+                    IsOwner = item.Member.User.Id == GuildsService.AllGuilds[guildId].Model.OwnerId,
                     Presence = item.Member.Presence
                 };
                 CurrentBindableMembers[index] = bGuildMember;
-                CurrentUsersService.UpdateUserPrecense(item.Member.User.Id, item.Member.Presence);
+                PresenceService.UpdateUserPrecense(item.Member.User.Id, item.Member.Presence);
             }
         }
 

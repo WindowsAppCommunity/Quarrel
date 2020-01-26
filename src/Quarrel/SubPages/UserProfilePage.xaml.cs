@@ -1,8 +1,8 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using Quarrel.SubPages.Interfaces;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.Navigation;
-using Quarrel.ViewModels.Services.Rest;
 using Quarrel.ViewModels.SubPages;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

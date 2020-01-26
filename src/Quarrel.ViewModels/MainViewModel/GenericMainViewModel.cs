@@ -1,32 +1,25 @@
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Messages.Posts.Requests;
 using Quarrel.ViewModels.Models.Bindables;
-using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Services.Cache;
+using Quarrel.ViewModels.Services.Discord.Channels;
+using Quarrel.ViewModels.Services.Discord.CurrentUser;
+using Quarrel.ViewModels.Services.Discord.Friends;
+using Quarrel.ViewModels.Services.Discord.Guilds;
+using Quarrel.ViewModels.Services.Discord.Presence;
+using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Services.Gateway;
-using Quarrel.ViewModels.Services.Guild;
 using Quarrel.ViewModels.Services.Navigation;
-using Quarrel.ViewModels.Services.Rest;
 using Quarrel.ViewModels.Services.Settings;
-using Quarrel.ViewModels.Services.Users;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Diagnostics;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using Group = DiscordAPI.Models.Group;
 
 namespace Quarrel.ViewModels
 {
@@ -38,15 +31,19 @@ namespace Quarrel.ViewModels
         /// Creates default MainViewModel with all Messenger events registered
         /// </summary>
         /// <remarks>Takes all service parameters from ViewModel Locator</remarks>
-        public MainViewModel(ICacheService cacheService, ISettingsService settingsService,
-            IDiscordService discordService, ICurrentUsersService currentUsersService, IGatewayService gatewayService,
-            IGuildsService guildsService, ISubFrameNavigationService subFrameNavigationService,
+        public MainViewModel(ICacheService cacheService, ISettingsService settingsService, IChannelsService channelsService,
+            IDiscordService discordService, ICurrentUserService currentUserService, IGatewayService gatewayService, IPresenceService presenceService,
+            IGuildsService guildsService, ISubFrameNavigationService subFrameNavigationService, IFriendsService friendsService,
             IDispatcherHelper dispatcherHelper)
         {
             CacheService = cacheService;
             SettingsService = settingsService;
             DiscordService = discordService;
-            CurrentUsersService = currentUsersService;
+            CurrentUserService = currentUserService;
+            ChannelsService = channelsService;
+            FriendsService = friendsService;
+            PresenceService = presenceService;
+
             GatewayService = gatewayService;
             GuildsService = guildsService;
             SubFrameNavigationService = subFrameNavigationService;
@@ -112,13 +109,13 @@ namespace Quarrel.ViewModels
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    MessengerInstance.Send(new GuildNavigateMessage(GuildsService.Guilds["DM"]));
+                    MessengerInstance.Send(new GuildNavigateMessage(GuildsService.AllGuilds["DM"]));
 
                     // Show guilds
-                    BindableCurrentFriends.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsFriend));
+                    BindableCurrentFriends.AddRange(FriendsService.Friends.Values.Where(x => x.IsFriend));
                     BindablePendingFriends.AddRange(
-                        CurrentUsersService.Friends.Values.Where(x => x.IsIncoming || x.IsOutgoing));
-                    BindableBlockedUsers.AddRange(CurrentUsersService.Friends.Values.Where(x => x.IsBlocked));
+                        FriendsService.Friends.Values.Where(x => x.IsIncoming || x.IsOutgoing));
+                    BindableBlockedUsers.AddRange(FriendsService.Friends.Values.Where(x => x.IsBlocked));
                 });
             });
 
@@ -150,13 +147,16 @@ namespace Quarrel.ViewModels
         #region Services
 
         private readonly ICacheService CacheService;
-        private readonly ISettingsService SettingsService;
+        private readonly IChannelsService ChannelsService;
+        public readonly ICurrentUserService CurrentUserService;
         private readonly IDiscordService DiscordService;
-        public readonly ICurrentUsersService CurrentUsersService;
+        private readonly IDispatcherHelper DispatcherHelper;
         private readonly IGatewayService GatewayService;
         private readonly IGuildsService GuildsService;
+        private readonly IFriendsService FriendsService;
+        private readonly IPresenceService PresenceService;
+        private readonly ISettingsService SettingsService;
         private readonly ISubFrameNavigationService SubFrameNavigationService;
-        private readonly IDispatcherHelper DispatcherHelper;
 
         #endregion
 

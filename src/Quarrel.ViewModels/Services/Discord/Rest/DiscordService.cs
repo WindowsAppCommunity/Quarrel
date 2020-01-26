@@ -25,7 +25,7 @@ using Quarrel.ViewModels.Services.Gateway;
 using Quarrel.ViewModels.Services.Navigation;
 using System.Threading.Tasks;
 
-namespace Quarrel.ViewModels.Services.Rest
+namespace Quarrel.ViewModels.Services.Discord.Rest
 {
     public class DiscordService : IDiscordService
     {

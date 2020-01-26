@@ -9,11 +9,12 @@ using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Services.Clipboard;
+using Quarrel.ViewModels.Services.Discord.CurrentUser;
+using Quarrel.ViewModels.Services.Discord.Guilds;
+using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Services.Navigation;
-using Quarrel.ViewModels.Services.Rest;
 using Quarrel.ViewModels.Services.Settings;
-using Quarrel.ViewModels.Services.Users;
 using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -55,7 +56,7 @@ namespace Quarrel.ViewModels.Models.Bindables
                 if ((m.Settings.GuildId ?? "DM") == Model.Id)
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
-                        if (CurrentUsersService.GuildSettings.TryGetValue(Model.Id, out var guildSetting))
+                        if (GuildsService.GuildSettings.TryGetValue(Model.Id, out var guildSetting))
                         {
                             Muted = guildSetting.Muted;
                         }
@@ -81,7 +82,8 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         private IDiscordService _DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
         private ISettingsService _SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
-        private ICurrentUsersService CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+        private ICurrentUserService CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
         private ISubFrameNavigationService SubFrameNavigationService { get; } = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
         private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
         #endregion

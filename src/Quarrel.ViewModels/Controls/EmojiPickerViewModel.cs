@@ -3,7 +3,7 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Newtonsoft.Json;
 using Quarrel.ViewModels.Messages.Navigation;
-using Quarrel.ViewModels.Services.Guild;
+using Quarrel.ViewModels.Services.Discord.Guilds;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

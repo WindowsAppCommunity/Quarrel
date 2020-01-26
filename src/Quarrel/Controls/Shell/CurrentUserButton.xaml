@@ -46,28 +46,28 @@
                             Click="StatusSelected"
                             Foreground="#43b581"
                             GroupName="status"
-                            IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsOnline, Mode=OneWay}"
+                            IsChecked="{x:Bind ViewModel.CurrentUserService.CurrentUser.Presence.IsOnline, Mode=OneWay}"
                             Style="{StaticResource DiscordRadioButton}"
                             Tag="online" />
                         <RadioButton
                             Click="StatusSelected"
                             Foreground="#faa61a"
                             GroupName="status"
-                            IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsIdle, Mode=OneWay}"
+                            IsChecked="{x:Bind ViewModel.CurrentUserService.CurrentUser.Presence.IsIdle, Mode=OneWay}"
                             Style="{StaticResource DiscordRadioButton}"
                             Tag="idle" />
                         <RadioButton
                             Click="StatusSelected"
                             Foreground="#f04747"
                             GroupName="status"
-                            IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsDnd, Mode=OneWay}"
+                            IsChecked="{x:Bind ViewModel.CurrentUserService.CurrentUser.Presence.IsDnd, Mode=OneWay}"
                             Style="{StaticResource DiscordRadioButton}"
                             Tag="dnd" />
                         <RadioButton
                             Click="StatusSelected"
                             Foreground="#747f8d"
                             GroupName="status"
-                            IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsOffline, Mode=OneWay}"
+                            IsChecked="{x:Bind ViewModel.CurrentUserService.CurrentUser.Presence.IsOffline, Mode=OneWay}"
                             Style="{StaticResource DiscordRadioButton}"
                             Tag="invisible" />
                     </StackPanel>
@@ -87,7 +87,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     BlurRadius="24"
-                    Color="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}">
+                    Color="{x:Bind ViewModel.CurrentUserService.CurrentUser.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}">
                     <Rectangle
                         Width="40"
                         Height="40"
@@ -95,7 +95,7 @@
                         RadiusX="20"
                         RadiusY="20">
                         <Rectangle.Fill>
-                            <ImageBrush ImageSource="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Model.AvatarUrl, Mode=OneWay}" />
+                            <ImageBrush ImageSource="{x:Bind ViewModel.CurrentUserService.CurrentUser.Model.AvatarUrl, Mode=OneWay}" />
                         </Rectangle.Fill>
                     </Rectangle>
                 </controls:DropShadowPanel>
@@ -104,7 +104,7 @@
                     <TextBlock
                         FontSize="14"
                         FontWeight="SemiBold"
-                        Text="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Model.Username, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.CurrentUserService.CurrentUser.Model.Username, Mode=OneWay}" />
                     <StackPanel Orientation="Horizontal">
                         <TextBlock
                             FontSize="12"
@@ -113,7 +113,7 @@
                         <TextBlock
                             FontSize="12"
                             Opacity="0.6"
-                            Text="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Model.Discriminator, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.CurrentUserService.CurrentUser.Model.Discriminator, Mode=OneWay}" />
                     </StackPanel>
                 </StackPanel>
 

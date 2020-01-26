@@ -6,9 +6,10 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
-using Quarrel.ViewModels.Services.Guild;
-using Quarrel.ViewModels.Services.Rest;
-using Quarrel.ViewModels.Services.Users;
+using Quarrel.ViewModels.Services.Discord.Channels;
+using Quarrel.ViewModels.Services.Discord.CurrentUser;
+using Quarrel.ViewModels.Services.Discord.Presence;
+using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.ViewModels.Messages.Gateway;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Quarrel.ViewModels.Models.Bindables
             GuildId = guildId;
             IsContinuation = isContinuation;
             IsLastReadMessage = isLastRead;
-            channel = SimpleIoc.Default.GetInstance<IGuildsService>().CurrentChannels[Model.ChannelId];
+            channel = SimpleIoc.Default.GetInstance<IChannelsService>().AllChannels[Model.ChannelId];
             author = member;
 
             ConvertReactions();
@@ -49,7 +50,8 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         #region Services
 
-        private ICurrentUsersService CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+        private ICurrentUserService CurrentUserService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        private IPresenceService PresenceService { get; } = SimpleIoc.Default.GetInstance<IPresenceService>();
 
         #endregion
 
@@ -62,9 +64,9 @@ namespace Quarrel.ViewModels.Models.Bindables
         #region Flyout
         public bool ShowPin => !Model.Pinned && (channel.Permissions.ManageMessages || channel.IsDirectChannel);
         public bool ShowUnpin => Model.Pinned && (channel.Permissions.ManageMessages || channel.IsDirectChannel);
-        public bool ShowEdit => Model.User.Id == SimpleIoc.Default.GetInstance<ICurrentUsersService>().CurrentUser.Model.Id;
+        public bool ShowEdit => Model.User.Id == SimpleIoc.Default.GetInstance<ICurrentUserService>().CurrentUser.Model.Id;
         public bool ShowDelete =>
-            Model.User.Id == SimpleIoc.Default.GetInstance<ICurrentUsersService>().CurrentUser.Model.Id
+            Model.User.Id == SimpleIoc.Default.GetInstance<ICurrentUserService>().CurrentUser.Model.Id
             || (channel.Permissions.ManageMessages && !channel.IsDirectChannel);
 
         #endregion
@@ -75,7 +77,7 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         public BindableGuildMember Author =>
             author != null
-                ? new BindableGuildMember(author) { GuildId = GuildId, Presence = CurrentUsersService.GetUserPrecense(Model.User.Id) }
+                ? new BindableGuildMember(author) { GuildId = GuildId, Presence = PresenceService.GetUserPrecense(Model.User.Id) }
                 : new BindableGuildMember(new GuildMember { User = Model.User })
                     { Presence = new Presence { Status = "offline", User = Model.User } };
 

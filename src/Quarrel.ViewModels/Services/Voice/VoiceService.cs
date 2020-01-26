@@ -6,7 +6,7 @@ using DiscordAPI.Voice.DownstreamEvents;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Voice;
-using Quarrel.ViewModels.Services.Rest;
+using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.Voice.Audio.In;
 using Quarrel.ViewModels.Services.Voice.Audio.Out;
 using System.Collections.Concurrent;

@@ -77,7 +77,7 @@ namespace Quarrel.ViewModels
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    if (GuildsService.CurrentChannels.TryGetValue(m.TypingStart.ChannelId, out BindableChannel bChannel))
+                    if (ChannelsService.AllChannels.TryGetValue(m.TypingStart.ChannelId, out BindableChannel bChannel))
                     {
                         if (bChannel.Typers.TryRemove(m.TypingStart.UserId, out Timer oldTimer)) oldTimer.Dispose();
 
@@ -136,7 +136,7 @@ namespace Quarrel.ViewModels
 
 
                     IReadOnlyDictionary<string, GuildMember> guildMembers = guildId != "DM"
-                        ? CurrentUsersService.GetAndRequestGuildMembers(itemList.Select(x => x.User.Id).Distinct(),
+                        ? GuildsService.GetAndRequestGuildMembers(itemList.Select(x => x.User.Id).Distinct(),
                             guildId)
                         : null;
 

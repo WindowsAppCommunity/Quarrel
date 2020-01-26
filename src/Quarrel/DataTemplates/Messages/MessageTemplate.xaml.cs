@@ -3,8 +3,8 @@ using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Controls.Members;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Navigation;
-using Quarrel.ViewModels.Services.Users;
 using System;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -30,7 +30,7 @@ namespace Quarrel.DataTemplates.Messages
             if (e.User != null)
             {
                 BindableGuildMember member;
-                SimpleIoc.Default.GetInstance<ICurrentUsersService>().Users.TryGetValue(e.User.Id, out member);
+                SimpleIoc.Default.GetInstance<IGuildsService>().AllMembers.TryGetValue(e.User.Id, out member);
                 if (member != null)
                 {
                     Flyout flyout = new Flyout()

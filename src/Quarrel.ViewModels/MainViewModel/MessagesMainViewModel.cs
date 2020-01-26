@@ -41,22 +41,22 @@ namespace Quarrel.ViewModels
             MessengerInstance.Register<GatewayMessageRecievedMessage>(this, m =>
             {
                 // Check if channel exists
-                if (GuildsService.CurrentChannels.TryGetValue(m.Message.ChannelId, out BindableChannel channel))
+                if (ChannelsService.AllChannels.TryGetValue(m.Message.ChannelId, out BindableChannel channel))
                 {
                     channel.UpdateLMID(m.Message.Id);
 
                     // Updates Mention count
                     if (channel.IsDirectChannel || channel.IsGroupChannel ||
-                        m.Message.Mentions.Any(x => x.Id == CurrentUsersService.CurrentUser.Model.Id) ||
+                        m.Message.Mentions.Any(x => x.Id == CurrentUserService.CurrentUser.Model.Id) ||
                         m.Message.MentionEveryone)
                         DispatcherHelper.CheckBeginInvokeOnUi(() =>
                         {
                             channel.ReadState.MentionCount++;
                             if (channel.IsDirectChannel || channel.IsGroupChannel)
                             {
-                                int oldIndex = GuildsService.Guilds["DM"].Channels.IndexOf(channel);
+                                int oldIndex = GuildsService.AllGuilds["DM"].Channels.IndexOf(channel);
                                 if (oldIndex >= 0)
-                                    GuildsService.Guilds["DM"].Channels.Move(oldIndex, 0);
+                                    GuildsService.AllGuilds["DM"].Channels.Move(oldIndex, 0);
                             }
                         });
 
@@ -253,7 +253,7 @@ namespace Quarrel.ViewModels
 
 
                 IReadOnlyDictionary<string, GuildMember> guildMembers = guildId != "DM"
-                    ? CurrentUsersService.GetAndRequestGuildMembers(itemList.Select(x => x.User.Id).Distinct(),
+                    ? GuildsService.GetAndRequestGuildMembers(itemList.Select(x => x.User.Id).Distinct(),
                         guildId)
                     : null;
 
@@ -409,7 +409,7 @@ namespace Quarrel.ViewModels
             // Only overrides if there's no draft
             if (string.IsNullOrEmpty(MessageText))
             {
-                var userLastMessage = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad" && x.Model.User.Id == CurrentUsersService.CurrentUser.Model.Id);
+                var userLastMessage = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad" && x.Model.User.Id == CurrentUserService.CurrentUser.Model.Id);
                 if (userLastMessage != null)
                 {
                     userLastMessage.IsEditing = true;

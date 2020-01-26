@@ -4,8 +4,9 @@ using JetBrains.Annotations;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Voice;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Services.Discord.CurrentUser;
+using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.DispatcherHelper;
-using Quarrel.ViewModels.Services.Users;
 using System;
 
 namespace Quarrel.ViewModels.Models.Bindables
@@ -67,7 +68,8 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         #region Services
 
-        public ICurrentUsersService UserService => SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+        public ICurrentUserService UserService => SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        public IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
         public IDispatcherHelper DispatcherHelper => SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
         #endregion
@@ -91,7 +93,7 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         #endregion
 
-        public BindableGuildMember GuildMember => UserService != null && UserService.Users.TryGetValue(Model.UserId, out BindableGuildMember member) ? member : null;
+        public BindableGuildMember GuildMember => UserService != null && GuildsService.AllMembers.TryGetValue(Model.UserId, out BindableGuildMember member) ? member : null;
 
         #endregion
 

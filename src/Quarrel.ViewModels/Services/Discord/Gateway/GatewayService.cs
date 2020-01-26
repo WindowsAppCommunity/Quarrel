@@ -16,9 +16,10 @@ using Quarrel.ViewModels.Messages.Gateway.Channels;
 using Quarrel.ViewModels.Messages.Gateway.Voice;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Services.Cache;
-using Quarrel.ViewModels.Services.Guild;
-using Quarrel.ViewModels.Services.Rest;
-using Quarrel.ViewModels.Services.Users;
+using Quarrel.ViewModels.Services.Discord.Channels;
+using Quarrel.ViewModels.Services.Discord.CurrentUser;
+using Quarrel.ViewModels.Services.Discord.Guilds;
+using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.ViewModels.Messages.Gateway;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,8 @@ namespace Quarrel.ViewModels.Services.Gateway
     public class GatewayService : IGatewayService
     {
         private ICacheService CacheService;
-        private ICurrentUsersService CurrentUsersService;
+        private ICurrentUserService CurrentUsersService;
+        private IChannelsService ChannelsService;
         private IGuildsService GuildsService;
         public DiscordAPI.Gateway.Gateway Gateway { get; private set; }
         public IServiceProvider ServiceProvider { get; }
@@ -38,11 +40,12 @@ namespace Quarrel.ViewModels.Services.Gateway
         private string previousGuildId;
 
         public GatewayService(
-            IServiceProvider serviceProvider,
-            ICacheService cacheService, ICurrentUsersService currentUsersService, IGuildsService guildsService)
+            IServiceProvider serviceProvider, IChannelsService channelsService,
+            ICacheService cacheService, ICurrentUserService currentUsersService, IGuildsService guildsService)
         {
             ServiceProvider = serviceProvider;
             CacheService = cacheService;
+            ChannelsService = channelsService;
             CurrentUsersService = currentUsersService;
             GuildsService = guildsService;
         }
@@ -141,7 +144,6 @@ namespace Quarrel.ViewModels.Services.Gateway
                 {
                     await Gateway.RequestGuildMembers(m.GuildIds, m.Query, m.Limit, m.Presences, m.UserIds);
                 });
-
                 Messenger.Default.Register<GatewayUpdateGuildSubscriptionsMessage>(this, async m =>
                 {
                     await Gateway.SubscribeToGuildLazy(m.GuildId, m.Channels, m.Members);
@@ -198,7 +200,6 @@ namespace Quarrel.ViewModels.Services.Gateway
 
         private void Gateway_MessageAck(object sender, GatewayEventArgs<MessageAck> e)
         {
-            GuildsService.GetChannel(e.EventData.ChannelId)?.UpdateLRMID(e.EventData.Id);
             Messenger.Default.Send(new GatewayMessageAckMessage(e.EventData.ChannelId, e.EventData.Id));
         }
 
@@ -281,11 +282,11 @@ namespace Quarrel.ViewModels.Services.Gateway
 
         private void Gateway_UserGuildSettingsUpdated(object sender, GatewayEventArgs<GuildSetting> e)
         {
-            CurrentUsersService.GuildSettings.AddOrUpdate(e.EventData.GuildId ?? "DM", e.EventData);
+            GuildsService.GuildSettings.AddOrUpdate(e.EventData.GuildId ?? "DM", e.EventData);
 
             foreach (var channel in e.EventData.ChannelOverrides)
             {
-                CurrentUsersService.ChannelSettings.AddOrUpdate(channel.ChannelId, channel);
+                ChannelsService.ChannelSettings.AddOrUpdate(channel.ChannelId, channel);
             }
 
             Messenger.Default.Send(new GatewayUserGuildSettingsUpdatedMessage(e.EventData));

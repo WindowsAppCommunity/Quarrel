@@ -2,8 +2,8 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.ViewModels.Services.Rest;
-using Quarrel.ViewModels.Services.Users;
+using Quarrel.ViewModels.Services.Discord.CurrentUser;
+using Quarrel.ViewModels.Services.Discord.Rest;
 
 namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 {
@@ -14,9 +14,9 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             SetDefaults();
         }
 
-        public ICurrentUsersService CurrentUsersService
+        public ICurrentUserService CurrentUsersService
         {
-            get => SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+            get => SimpleIoc.Default.GetInstance<ICurrentUserService>();
         }
 
         private string email;

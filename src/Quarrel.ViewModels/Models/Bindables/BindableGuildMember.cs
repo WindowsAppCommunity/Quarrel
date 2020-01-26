@@ -9,9 +9,9 @@ using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Services.Cache;
+using Quarrel.ViewModels.Services.Discord.Guilds;
+using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
-using Quarrel.ViewModels.Services.Guild;
-using Quarrel.ViewModels.Services.Rest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,7 +77,7 @@ namespace Quarrel.ViewModels.Models.Bindables
                     if (Model == null || Model.Roles == null)
                         return null;
 
-                    cachedRoles = GuildsService.Guilds[GuildId].Model.Roles.Where(a => Model.Roles.Contains(a.Id)).OrderByDescending(x => x.Position).ToList();
+                    cachedRoles = GuildsService.AllGuilds[GuildId].Model.Roles.Where(a => Model.Roles.Contains(a.Id)).OrderByDescending(x => x.Position).ToList();
                 }
 
                 return cachedRoles;

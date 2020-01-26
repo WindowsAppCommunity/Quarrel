@@ -16,7 +16,7 @@ using JetBrains.Annotations;
 using Quarrel.ViewModels.Services.Gateway;
 using System.Threading.Tasks;
 
-namespace Quarrel.ViewModels.Services.Rest
+namespace Quarrel.ViewModels.Services.Discord.Rest
 {
     /// <summary>
     /// The default <see langword="interface"/> for the a service that executes REST calls to Discord

@@ -16,8 +16,9 @@ using Microsoft.Toolkit.Uwp.UI.Extensions;
 using Quarrel.Controls.Markdown.Parse;
 using Quarrel.Controls.Markdown.Parse.Blocks;
 using Quarrel.Controls.Markdown.Parse.Inlines;
-using Quarrel.ViewModels.Services.Guild;
-using Quarrel.ViewModels.Services.Users;
+using Quarrel.ViewModels.Services.Discord.Channels;
+using Quarrel.ViewModels.Services.Discord.CurrentUser;
+using Quarrel.ViewModels.Services.Discord.Guilds;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,8 +52,9 @@ namespace Quarrel.Controls.Markdown.Display
         private string _messageid;
         private bool _halfopacity;
         private IEnumerable<User> _users;
+        private IChannelsService ChannelsService = SimpleIoc.Default.GetInstance<IChannelsService>();
         private IGuildsService GuildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
-        private ICurrentUsersService CurrentUsersService = SimpleIoc.Default.GetInstance<ICurrentUsersService>();
+        private ICurrentUserService CurrentUsersService = SimpleIoc.Default.GetInstance<ICurrentUserService>();
         public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<User> users, string MessageId, ICodeBlockResolver codeBlockResolver, ref Border border, bool halfopacity)
         {
             _document = document;
@@ -1143,7 +1145,7 @@ namespace Quarrel.Controls.Markdown.Display
                                     else content = "@" + user.Username;
                                     if (GuildsService.CurrentGuild.Model.Name != "DM")
                                     {
-                                        var member = CurrentUsersService.GetGuildMember(mentionid, GuildsService.CurrentGuild.Model.Id);
+                                        var member = GuildsService.GetGuildMember(mentionid, GuildsService.CurrentGuild.Model.Id);
                                         if (!string.IsNullOrWhiteSpace(member?.DisplayName))
                                         {
                                             if (_halfopacity) content = member.DisplayName;
@@ -1161,7 +1163,7 @@ namespace Quarrel.Controls.Markdown.Display
                     else if (element.LinkType == HyperlinkType.DiscordChannelMention)
                     {
                         var key = element.Text.Remove(0, 1);
-                        GuildsService.CurrentChannels.TryGetValue(key, out var value);
+                        ChannelsService.AllChannels.TryGetValue(key, out var value);
                         content = "#" + value?.Model?.Name ?? "deleted-channel";
                         enabled = value != null;
 

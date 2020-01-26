@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels;
+using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.Gateway;
-using Quarrel.ViewModels.Services.Rest;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
