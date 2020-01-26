@@ -20,7 +20,7 @@ namespace Quarrel.ViewModels.Services.Discord.Friends
                 DispatcherHelper.CheckBeginInvokeOnUi(() => {
                     foreach (var presence in m.EventData.Presences)
                     {
-                        DMUsers.TryAdd(presence.User.Id, new BindableGuildMember(new GuildMember() { User = presence.User }) { Presence = presence, GuildId = "DM" });
+                        DMUsers.TryAdd(presence.User.Id, new BindableGuildMember(new GuildMember() { User = presence.User }, "DM", presence));
                     }
                 });
             });

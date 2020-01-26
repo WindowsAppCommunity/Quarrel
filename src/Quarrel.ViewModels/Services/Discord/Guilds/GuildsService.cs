@@ -152,8 +152,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         _GuildUsers.TryAdd(guild.Id, new ConcurrentDictionary<string, BindableGuildMember>());
                         foreach (var user in guild.Members)
                         {
-                            BindableGuildMember bgMember = new BindableGuildMember(user);
-                            bgMember.GuildId = guild.Id;
+                            BindableGuildMember bgMember = new BindableGuildMember(user, guild.Id);
                             _GuildUsers[guild.Id].TryAdd(bgMember.Model.User.Id, bgMember);
                         }
 
@@ -264,7 +263,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                 _GuildUsers.TryGetValue(m.GuildMembersChunk.GuildId, out var guild);
                 foreach (var member in m.GuildMembersChunk.Members)
                 {
-                    guild.TryAdd(member.User.Id, new BindableGuildMember(member));
+                    guild.TryAdd(member.User.Id, new BindableGuildMember(member, m.GuildMembersChunk.GuildId));
                 }
 
                 if (m.GuildMembersChunk.Presences != null)

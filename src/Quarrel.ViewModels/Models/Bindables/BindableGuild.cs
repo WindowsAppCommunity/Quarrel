@@ -181,10 +181,10 @@ namespace Quarrel.ViewModels.Models.Bindables
                 // Role Id == Model.Id for @everyone
                 Permissions perms = new Permissions(Model.Roles.FirstOrDefault(x => x.Id == Model.Id).Permissions);
 
-                BindableGuildMember member = new BindableGuildMember(Model.Members.FirstOrDefault(x => x.User.Id == CurrentUsersService.CurrentUser.Model.Id));
+                // TODO: Easier access to CurrentGuildMember
+                BindableGuildMember member = new BindableGuildMember(Model.Members.FirstOrDefault(x => x.User.Id == CurrentUsersService.CurrentUser.Model.Id), Model.Id);
+                
                 if (member == null) return perms;
-
-                member.GuildId = Model.Id;
                 if (member.Roles != null)
                 {
                     foreach (var role in member.Roles)

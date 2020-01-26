@@ -22,8 +22,20 @@ namespace Quarrel.ViewModels.Models.Bindables
     {
         #region Constructors
 
-        public BindableGuildMember([NotNull] GuildMember model) : base(model)
+        public BindableGuildMember([NotNull] GuildMember model, string guildId, Presence presence = null) : base(model)
         {
+            GuildId = guildId;
+
+            if (presence != null)
+                Presence = presence;
+            else
+                Presence = new Presence()
+                {
+                    User = model.User,
+                    Status = "offline",
+                    GuildId = guildId
+                };
+
             Messenger.Default.Register<GatewayPresenceUpdatedMessage>(this, m =>
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() =>
@@ -118,13 +130,13 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         public string GuildId { get; set; }
 
-        private Presence presence;
+        private Presence _Presence;
         public Presence Presence
         {
-            get => presence;
+            get => _Presence;
             set
             {
-                Set(ref presence, value);
+                Set(ref _Presence, value);
                 RaisePropertyChanged(nameof(Game));
             }
         }
