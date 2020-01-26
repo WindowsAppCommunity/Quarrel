@@ -928,7 +928,7 @@ namespace Quarrel.Controls.Markdown.Display
             else if (large) imagemargin = new Thickness(0, 0, 0, 0);
             if (large)
             {
-                imageRun.Child = new Windows.UI.Xaml.Controls.Image()
+                imageRun.Child = new Image()
                 {
                     Margin = imagemargin,
                     Width = 32,
@@ -938,7 +938,7 @@ namespace Quarrel.Controls.Markdown.Display
             }
             else
             {
-                imageRun.Child = new Windows.UI.Xaml.Controls.Image()
+                imageRun.Child = new Image()
                 {
                     Margin = imagemargin,
                     Width = 20,

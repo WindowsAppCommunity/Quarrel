@@ -67,7 +67,7 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
                 // Emoji scheme found.
                 pos = innerStart + 1;
             }
-            else if (maxEnd - innerStart >= 1 && markdown.Length<2 && string.Equals(markdown.Substring(innerStart, 2), "a:", StringComparison.OrdinalIgnoreCase))
+            else if (maxEnd - innerStart >= 1 && markdown.Length > 2 && string.Equals(markdown.Substring(innerStart, 2), "a:", StringComparison.OrdinalIgnoreCase))
             {
                 // Animated emoji scheme found.
                 pos = innerStart + 1;
