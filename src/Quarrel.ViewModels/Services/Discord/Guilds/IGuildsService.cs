@@ -13,7 +13,6 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
     public interface IGuildsService
     {
         ConcurrentDictionary<string, GuildSetting> GuildSettings { get; }
-        ConcurrentDictionary<string, BindableGuildMember> AllMembers { get; }
         IDictionary<string, BindableGuild> AllGuilds { get; }
         string CurrentGuildId { get; }
         BindableGuild CurrentGuild { get; }

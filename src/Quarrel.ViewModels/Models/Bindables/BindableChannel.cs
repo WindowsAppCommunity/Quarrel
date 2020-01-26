@@ -521,7 +521,8 @@ namespace Quarrel.ViewModels.Models.Bindables
 
             foreach (var id in keys)
             {
-                if (GuildsService.AllMembers.TryGetValue(id, out var user))
+                var user = GuildsService.GetGuildMember(id, GuildId);
+                if (user != null)
                 {
                     names.Add(user.DisplayName);
                 }

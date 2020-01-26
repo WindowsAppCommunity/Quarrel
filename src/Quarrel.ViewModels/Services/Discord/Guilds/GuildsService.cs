@@ -23,9 +23,6 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
         public ConcurrentDictionary<string, GuildSetting> GuildSettings { get; } =
             new ConcurrentDictionary<string, GuildSetting>();
 
-        public ConcurrentDictionary<string, BindableGuildMember> AllMembers { get; } =
-            new ConcurrentDictionary<string, BindableGuildMember>();
-
         private readonly ConcurrentDictionary<string, ConcurrentDictionary<string, GuildMember>> _GuildUsers =
             new ConcurrentDictionary<string, ConcurrentDictionary<string, GuildMember>>();
 
@@ -155,7 +152,6 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         {
                             BindableGuildMember bgMember = new BindableGuildMember(user);
                             bgMember.GuildId = guild.Id;
-                            AllMembers.AddOrUpdate(bgMember.Model.User.Id, bgMember);
                             _GuildUsers[guild.Id].TryAdd(bgMember.Model.User.Id, bgMember.Model);
                         }
 

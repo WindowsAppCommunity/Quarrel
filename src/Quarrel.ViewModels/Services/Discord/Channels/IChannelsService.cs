@@ -9,7 +9,6 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
 {
     public interface IChannelsService
     {
-        IDictionary<string, BindableChannel> CurrentChannels { get; }
         IDictionary<string, BindableChannel> AllChannels { get; }
         ConcurrentDictionary<string, ChannelOverride> ChannelSettings { get; }
         BindableChannel GetChannel(string channelId);

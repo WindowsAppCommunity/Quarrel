@@ -14,7 +14,6 @@ using System.Collections.Generic;
 
 namespace Quarrel.ViewModels.Services.Discord.CurrentUser
 {
-
     public class CurrentUsersService : ICurrentUserService
     {
         public ICacheService CacheService;
@@ -25,9 +24,6 @@ namespace Quarrel.ViewModels.Services.Discord.CurrentUser
         public BindableUser CurrentUser { get; } = new BindableUser(new User());
 
         public UserSettings CurrentUserSettings { get; private set; } = new UserSettings();
-        
-
-        public string SessionId { get; set; }
 
         public CurrentUsersService(ICacheService cacheService, IDispatcherHelper dispatcherHelper, IGuildsService guildsService, IPresenceService presenceService)
         {

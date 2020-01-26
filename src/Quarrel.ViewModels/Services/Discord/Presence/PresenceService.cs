@@ -13,26 +13,26 @@ namespace Quarrel.ViewModels.Services.Discord.Presence
         {
             Messenger.Default.Register<GatewayPresenceUpdatedMessage>(this, m =>
             {
-                if (presences.ContainsKey(m.UserId))
-                    presences[m.UserId] = m.Presence;
+                if (_Presences.ContainsKey(m.UserId))
+                    _Presences[m.UserId] = m.Presence;
                 else
-                    presences.TryAdd(m.UserId, m.Presence);
+                    _Presences.TryAdd(m.UserId, m.Presence);
             });
         }
 
-        private ConcurrentDictionary<string, DiscordAPI.Models.Presence> presences = new ConcurrentDictionary<string, DiscordAPI.Models.Presence>();
+        private ConcurrentDictionary<string, DiscordAPI.Models.Presence> _Presences = new ConcurrentDictionary<string, DiscordAPI.Models.Presence>();
 
         public DiscordAPI.Models.Presence GetUserPrecense(string userId)
         {
-            return presences.TryGetValue(userId, out DiscordAPI.Models.Presence presence) ? presence : null;
+            return _Presences.TryGetValue(userId, out DiscordAPI.Models.Presence presence) ? presence : null;
         }
 
         public void UpdateUserPrecense(string userId, DiscordAPI.Models.Presence presence)
         {
-            if (presences.ContainsKey(userId))
-                presences[userId] = presence;
+            if (_Presences.ContainsKey(userId))
+                _Presences[userId] = presence;
             else
-                presences.TryAdd(userId, presence);
+                _Presences.TryAdd(userId, presence);
         }
     }
 }

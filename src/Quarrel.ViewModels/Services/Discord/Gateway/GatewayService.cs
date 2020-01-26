@@ -163,7 +163,6 @@ namespace Quarrel.ViewModels.Services.Gateway
             return false;
         }
 
-
         #region Events
 
         private void Gateway_Ready(object sender, GatewayEventArgs<Ready> e)

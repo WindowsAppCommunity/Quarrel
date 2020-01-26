@@ -126,6 +126,7 @@ namespace Quarrel.ViewModels
             // Allows request for result from VoiceState
             MessengerInstance.Register<CurrentUserVoiceStateRequestMessage>(this, m => { DispatcherHelper.CheckBeginInvokeOnUi(() => m.ReportResult(VoiceState)); });
         }
+
         /// <summary>
         /// Logins in with cached token or opens login page
         /// </summary>

@@ -29,8 +29,8 @@ namespace Quarrel.DataTemplates.Messages
         {
             if (e.User != null)
             {
-                BindableGuildMember member;
-                SimpleIoc.Default.GetInstance<IGuildsService>().AllMembers.TryGetValue(e.User.Id, out member);
+                var guildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
+                BindableGuildMember member = guildsService.GetGuildMember(e.User.Id, guildsService.CurrentGuildId);
                 if (member != null)
                 {
                     Flyout flyout = new Flyout()

@@ -93,7 +93,7 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         #endregion
 
-        public BindableGuildMember GuildMember => UserService != null && GuildsService.AllMembers.TryGetValue(Model.UserId, out BindableGuildMember member) ? member : null;
+        public BindableGuildMember GuildMember => GuildsService.GetGuildMember(Model.UserId, Model.GuildId);
 
         #endregion
 
