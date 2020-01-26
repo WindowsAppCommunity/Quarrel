@@ -3,11 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:discordconvert="using:Quarrel.Converters.Discord"
-    xmlns:local="using:Quarrel.Controls.Shell"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:Quarrel.Controls.Shell"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:membercontrols="using:Quarrel.Controls.Members"
+    xmlns:discordconvert="using:Quarrel.Converters.Discord"
     d:DesignHeight="64"
     d:DesignWidth="224"
     mc:Ignorable="d">
@@ -41,36 +42,43 @@
             Style="{StaticResource DiscordOpaqueButton}">
             <Button.Flyout>
                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle2}">
-                    <StackPanel Orientation="Horizontal" Padding="12">
-                        <RadioButton
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <membercontrols:MemberFlyoutTemplate DataContext="{x:Bind ViewModel.CurrentGuildMember, Mode=OneWay}"/>
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal" Padding="12">
+                            <RadioButton
                             Click="StatusSelected"
                             Foreground="#43b581"
                             GroupName="status"
                             IsChecked="{x:Bind ViewModel.CurrentGuildMember.Presence.IsOnline, Mode=OneWay}"
                             Style="{StaticResource DiscordRadioButton}"
                             Tag="online" />
-                        <RadioButton
+                            <RadioButton
                             Click="StatusSelected"
                             Foreground="#faa61a"
                             GroupName="status"
                             IsChecked="{x:Bind ViewModel.CurrentGuildMember.Presence.IsIdle, Mode=OneWay}"
                             Style="{StaticResource DiscordRadioButton}"
                             Tag="idle" />
-                        <RadioButton
+                            <RadioButton
                             Click="StatusSelected"
                             Foreground="#f04747"
                             GroupName="status"
                             IsChecked="{x:Bind ViewModel.CurrentGuildMember.Presence.IsDnd, Mode=OneWay}"
                             Style="{StaticResource DiscordRadioButton}"
                             Tag="dnd" />
-                        <RadioButton
+                            <RadioButton
                             Click="StatusSelected"
                             Foreground="#747f8d"
                             GroupName="status"
                             IsChecked="{x:Bind ViewModel.CurrentGuildMember.Presence.IsOffline, Mode=OneWay}"
                             Style="{StaticResource DiscordRadioButton}"
                             Tag="invisible" />
-                    </StackPanel>
+                        </StackPanel>
+                    </Grid>
                 </Flyout>
             </Button.Flyout>
             <Grid>

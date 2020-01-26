@@ -14,9 +14,7 @@ using Windows.UI.Xaml.Media.Animation;
 namespace Quarrel.Controls.Members
 {
     public sealed partial class MemberFlyoutTemplate : UserControl
-    {
-        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
-        private ISubFrameNavigationService subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+    {   
         public MemberFlyoutTemplate()
         {
             this.InitializeComponent();
@@ -38,20 +36,20 @@ namespace Quarrel.Controls.Members
 
         private void NoteBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            discordService.UserService.AddNote(ViewModel.Model.User.Id, new DiscordAPI.API.User.Models.Note() { Content = (sender as TextBox).Text });
+            SimpleIoc.Default.GetInstance<IDiscordService>().UserService.AddNote(ViewModel.Model.User.Id, new DiscordAPI.API.User.Models.Note() { Content = (sender as TextBox).Text });
         }
 
         private void AvatarButton_Click(object sender, RoutedEventArgs e)
         {
-
             // Connected Animation
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate(ViewModels.Helpers.Constants.ConnectedAnimationKeys.MemberFlyoutAnimation, FullAvatar);
 
             // Navigate
-            subFrameNavigationService.NavigateTo("UserProfilePage", ViewModel);
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("UserProfilePage", ViewModel);
 
             // Close popup
-            if ((Parent is FlyoutPresenter presenter))
+            var presenter = Parent.FindParent<FlyoutPresenter>();
+            if (presenter != null)
             {
                 (presenter.Parent as Popup).IsOpen = false;
             }
