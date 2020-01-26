@@ -306,7 +306,7 @@
         <Setter Property="VerticalContentAlignment" Value="Top"/>
         <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
         <Setter Property="FontSize" Value="13"/>
-        <Setter Property="MinWidth" Value="120"/>
+        <Setter Property="MinWidth" Value="24"/>
         <Setter Property="UseSystemFocusVisuals" Value="True"/>
 
         <Setter Property="Template">

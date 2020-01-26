@@ -41,65 +41,30 @@
             Style="{StaticResource DiscordOpaqueButton}">
             <Button.Flyout>
                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle2}">
-                    <StackPanel Padding="12">
-                        <!--<ListView x:Name="AccountView" Visibility="Collapsed" ItemContainerStyle="{StaticResource ChannelListItemStyle}" Margin="-20,6,-40,8" SelectionMode="None" IsItemClickEnabled="True">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition Width="48"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock FontSize="13.333" FontWeight="SemiLight" Text="{x:Bind UserName}" VerticalAlignment="Center"/>
-                                    <AppBarButton Height="36" Style="{StaticResource BetterAppBarButton}" Width="36" Grid.Column="1" Margin="0,0,0,0">
-                                        <AppBarButton.Icon>
-                                            <FontIcon Glyph="" FontSize="14" Margin="0,0,0,0"/>
-                                        </AppBarButton.Icon>
-                                    </AppBarButton>
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>-->
-                        <!--<Grid Visibility="Collapsed" Margin="0,0,0,8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Button Style="{StaticResource DiscordButton}" Content="Add account" Margin="0,0,4,0"  Padding="12,6" HorizontalAlignment="Stretch" Background="{ThemeResource SystemControlBackgroundAccentBrush}"/>
-                        <Button Style="{StaticResource DiscordButton}" Grid.Column="1" Content="Log out" Margin="4,0,0,0" Padding="12,6" HorizontalAlignment="Stretch" Background="{ThemeResource dnd}"/>
-                    </Grid>-->
-
+                    <StackPanel Orientation="Horizontal" Padding="12">
                         <RadioButton
-                            x:Uid="/Main/OnlineRadio"
                             Click="StatusSelected"
-                            Content="Online"
                             Foreground="#43b581"
                             GroupName="status"
                             IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsOnline, Mode=OneWay}"
                             Style="{StaticResource DiscordRadioButton}"
                             Tag="online" />
                         <RadioButton
-                            x:Uid="/Main/IdleRadio"
                             Click="StatusSelected"
-                            Content="Idle"
                             Foreground="#faa61a"
                             GroupName="status"
                             IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsIdle, Mode=OneWay}"
                             Style="{StaticResource DiscordRadioButton}"
                             Tag="idle" />
                         <RadioButton
-                            x:Uid="/Main/DNDRadio"
                             Click="StatusSelected"
-                            Content="Do not disturb"
                             Foreground="#f04747"
                             GroupName="status"
                             IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsDnd, Mode=OneWay}"
                             Style="{StaticResource DiscordRadioButton}"
                             Tag="dnd" />
                         <RadioButton
-                            x:Uid="/Main/InvisibleRadio"
                             Click="StatusSelected"
-                            Content="Invisible"
                             Foreground="#747f8d"
                             GroupName="status"
                             IsChecked="{x:Bind ViewModel.CurrentUsersService.CurrentUser.Presence.IsOffline, Mode=OneWay}"
