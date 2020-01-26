@@ -149,7 +149,7 @@ namespace Quarrel.ViewModels
 
         private readonly ICacheService CacheService;
         private readonly IChannelsService ChannelsService;
-        public readonly ICurrentUserService CurrentUserService;
+        private readonly ICurrentUserService CurrentUserService;
         private readonly IDiscordService DiscordService;
         private readonly IDispatcherHelper DispatcherHelper;
         private readonly IGatewayService GatewayService;

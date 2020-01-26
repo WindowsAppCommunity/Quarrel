@@ -9,11 +9,12 @@ namespace Quarrel.Controls.Shell
 {
     public sealed partial class CurrentUserButton : UserControl
     {
-        public MainViewModel ViewModel => App.ViewModelLocator.Main;
         public CurrentUserButton()
         {
             this.InitializeComponent();
         }
+
+        public MainViewModel ViewModel => App.ViewModelLocator.Main;
 
         private async void StatusSelected(object sender, RoutedEventArgs e)
         {

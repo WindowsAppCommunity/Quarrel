@@ -22,9 +22,8 @@ namespace Quarrel.ViewModels
         public RelayCommand<(double, double)> UpdateGuildSubscriptionsCommand =>
             updateGuildSubscriptionsCommand ??= new RelayCommand<(double, double)>((values) =>
             {
-                if (guildId == "DM")
+                if (GuildsService.CurrentGuild.IsDM)
                     return;
-
 
                 double top = CurrentBindableMembers.Count * values.Item1;
                 double bottom = CurrentBindableMembers.Count * values.Item2;

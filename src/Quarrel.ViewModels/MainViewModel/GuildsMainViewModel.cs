@@ -43,12 +43,14 @@ namespace Quarrel.ViewModels
                         CurrentGuild = m.Guild;
                         BindableMessages.Clear();
                         //BindableChannels = m.Guild.Channels;
-                    });
 
-                    if (m.Guild.IsDM)
-                    {
-                        CurrentBindableMembers.Clear();
-                    }
+                        if (m.Guild.IsDM)
+                        {
+                            CurrentBindableMembers.Clear();
+                        }
+
+                        CurrentGuildMember = GuildsService.GetGuildMember(CurrentUserService.CurrentUser.Model.Id, m.Guild.Model.Id);
+                    });
 
                     if (channel != null)
                         MessengerInstance.Send(new ChannelNavigateMessage(channel, m.Guild));
@@ -83,6 +85,16 @@ namespace Quarrel.ViewModels
             set => Set(ref _CurrentGuild, value);
         }
         private BindableGuild _CurrentGuild;
+
+        /// <summary>
+        /// Current user's BindableGuildMember in the current guild
+        /// </summary>
+        public BindableGuildMember CurrentGuildMember
+        {
+            get => _CurrentGuildMember;
+            set => Set(ref _CurrentGuildMember, value);
+        }
+        private BindableGuildMember _CurrentGuildMember;
 
         /// <summary>
         /// TODO: Remove

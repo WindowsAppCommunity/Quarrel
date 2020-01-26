@@ -8,6 +8,7 @@ using JetBrains.Annotations;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
+using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Presence;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.ViewModels.Messages.Gateway;
@@ -21,13 +22,13 @@ namespace Quarrel.ViewModels.Models.Bindables
         #region Constructors
 
         public BindableMessage([NotNull] Message model, [CanBeNull] string guildId, bool isContinuation = false, bool isLastRead = false,
-            GuildMember member = null) : base(model)
+            BindableGuildMember member = null) : base(model)
         {
             GuildId = guildId;
             IsContinuation = isContinuation;
             IsLastReadMessage = isLastRead;
             channel = SimpleIoc.Default.GetInstance<IChannelsService>().AllChannels[Model.ChannelId];
-            author = member;
+            _Author = member;
 
             ConvertReactions();
 
@@ -35,10 +36,7 @@ namespace Quarrel.ViewModels.Models.Bindables
             {
                 if (m.GuildMembersChunk.GuildId == GuildId)
                 {
-                    GuildMember guildMember =
-                        m.GuildMembersChunk.Members.FirstOrDefault(x => x.User.Id == Model.User.Id);
-                    if (guildMember != null)
-                        author = guildMember;
+                    _Author = GuildsService.GetGuildMember(Model.User.Id, GuildId);
                 }
             });
         }
@@ -51,6 +49,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         #region Services
 
         private ICurrentUserService CurrentUserService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
         private IPresenceService PresenceService { get; } = SimpleIoc.Default.GetInstance<IPresenceService>();
 
         #endregion
@@ -73,13 +72,13 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         #region Author
 
-        private GuildMember author;
 
-        public BindableGuildMember Author =>
-            author != null
-                ? new BindableGuildMember(author) { GuildId = GuildId, Presence = PresenceService.GetUserPrecense(Model.User.Id) }
-                : new BindableGuildMember(new GuildMember { User = Model.User })
-                    { Presence = new Presence { Status = "offline", User = Model.User } };
+        public BindableGuildMember Author
+        {
+            get => _Author;
+            set => Set(ref _Author, value);
+        }
+        private BindableGuildMember _Author;
 
         public string AuthorName => Author != null ? Author.Model.Nick ?? Author.Model.User.Username : Model.User.Username;
 

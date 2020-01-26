@@ -74,7 +74,7 @@ namespace Quarrel.ViewModels.Models.Bindables
             {
                 if (cachedRoles == null)
                 {
-                    if (Model == null || Model.Roles == null)
+                    if (GuildId == null || Model == null || Model.Roles == null)
                         return null;
 
                     cachedRoles = GuildsService.AllGuilds[GuildId].Model.Roles.Where(a => Model.Roles.Contains(a.Id)).OrderByDescending(x => x.Position).ToList();
@@ -134,7 +134,9 @@ namespace Quarrel.ViewModels.Models.Bindables
         #region Interfaces
 
         /// <inheritdoc/>
-        public bool Equals(BindableGuildMember other) => Model.User.Id.Equals(other.Model.User.Id);
+        public bool Equals(BindableGuildMember other) =>
+            Model.User.Id == other.Model.User.Id &&
+            GuildId == other.GuildId;
 
         /// <inheritdoc/>
         public override bool Equals(object obj)

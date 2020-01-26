@@ -252,10 +252,9 @@ namespace Quarrel.ViewModels
                 }
 
 
-                IReadOnlyDictionary<string, GuildMember> guildMembers = guildId != "DM"
+                IReadOnlyDictionary<string, BindableGuildMember> guildMembers = guildId != "DM"
                     ? GuildsService.GetAndRequestGuildMembers(itemList.Select(x => x.User.Id).Distinct(),
-                        guildId)
-                    : null;
+                    guildId) : null;
 
 
                 for (int i = itemList.Count() - 1; i >= 0; i--)
@@ -266,9 +265,8 @@ namespace Quarrel.ViewModels
                     messages.Add(new BindableMessage(item, guildId,
                         lastItem != null && lastItem.User.Id == item.User.Id,
                         false,
-                        guildMembers != null && guildMembers.TryGetValue(item.User.Id, out GuildMember member)
-                            ? member
-                            : null));
+                        guildMembers != null && guildMembers.TryGetValue(item.User.Id, out BindableGuildMember member)
+                            ? member : null));
                     lastItem = item;
 
                     if (!SettingsService.Roaming.GetValue<bool>(SettingKeys.AdsRemoved) && i % 10 == 0)

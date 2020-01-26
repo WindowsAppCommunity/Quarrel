@@ -14,9 +14,8 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
     {
         ConcurrentDictionary<string, GuildSetting> GuildSettings { get; }
         IDictionary<string, BindableGuild> AllGuilds { get; }
-        string CurrentGuildId { get; }
         BindableGuild CurrentGuild { get; }
         BindableGuildMember GetGuildMember(string memberId, string guildId);
-        IReadOnlyDictionary<string, GuildMember> GetAndRequestGuildMembers(IEnumerable<string> memberIds, string guildId);
+        IReadOnlyDictionary<string, BindableGuildMember> GetAndRequestGuildMembers(IEnumerable<string> memberIds, string guildId);
     }
 }

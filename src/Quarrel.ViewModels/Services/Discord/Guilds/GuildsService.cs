@@ -23,12 +23,11 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
         public ConcurrentDictionary<string, GuildSetting> GuildSettings { get; } =
             new ConcurrentDictionary<string, GuildSetting>();
 
-        private readonly ConcurrentDictionary<string, ConcurrentDictionary<string, GuildMember>> _GuildUsers =
-            new ConcurrentDictionary<string, ConcurrentDictionary<string, GuildMember>>();
+        private readonly ConcurrentDictionary<string, ConcurrentDictionary<string, BindableGuildMember>> _GuildUsers =
+            new ConcurrentDictionary<string, ConcurrentDictionary<string, BindableGuildMember>>();
 
         public IDictionary<string, BindableGuild> AllGuilds { get; } = new ConcurrentDictionary<string, BindableGuild>();
-        public string CurrentGuildId { get; private set; }
-        public BindableGuild CurrentGuild => AllGuilds.TryGetValue(CurrentGuildId, out var value) ? value : null;
+        public BindableGuild CurrentGuild { get; set; }
 
         private ICacheService CacheService;
         private IChannelsService ChannelsService;
@@ -147,12 +146,12 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
 
                         bGuild.Model.Channels = null;
 
-                        _GuildUsers.TryAdd(guild.Id, new ConcurrentDictionary<string, GuildMember>());
+                        _GuildUsers.TryAdd(guild.Id, new ConcurrentDictionary<string, BindableGuildMember>());
                         foreach (var user in guild.Members)
                         {
                             BindableGuildMember bgMember = new BindableGuildMember(user);
                             bgMember.GuildId = guild.Id;
-                            _GuildUsers[guild.Id].TryAdd(bgMember.Model.User.Id, bgMember.Model);
+                            _GuildUsers[guild.Id].TryAdd(bgMember.Model.User.Id, bgMember);
                         }
 
                         // Guild Roles
@@ -256,36 +255,37 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                     }
                 });
             });
-            Messenger.Default.Register<GuildNavigateMessage>(this, m => { CurrentGuildId = m.Guild.Model.Id; });
+            Messenger.Default.Register<GuildNavigateMessage>(this, m => { CurrentGuild = m.Guild; });
             Messenger.Default.Register<GatewayGuildMembersChunkMessage>(this, m =>
             {
                 _GuildUsers.TryGetValue(m.GuildMembersChunk.GuildId, out var guild);
                 foreach (var member in m.GuildMembersChunk.Members)
                 {
-                    guild.TryAdd(member.User.Id, member);
+                    guild.TryAdd(member.User.Id, new BindableGuildMember(member));
                 }
             });
         }
+
         public BindableGuildMember GetGuildMember(string memberId, string guildId)
         {
-            if (_GuildUsers.TryGetValue(guildId, out var guild) && guild.TryGetValue(memberId, out GuildMember member))
+            if (_GuildUsers.TryGetValue(guildId, out var guild) && guild.TryGetValue(memberId, out BindableGuildMember member))
             {
-                return new BindableGuildMember(member) { GuildId = guildId };
+                return member;
             }
             else
             {
                 return null;
             }
         }
-        public IReadOnlyDictionary<string, GuildMember> GetAndRequestGuildMembers(IEnumerable<string> memberIds, string guildId)
+        public IReadOnlyDictionary<string, BindableGuildMember> GetAndRequestGuildMembers(IEnumerable<string> memberIds, string guildId)
         {
-            Dictionary<string, GuildMember> guildMembers = new Dictionary<string, GuildMember>();
+            Dictionary<string, BindableGuildMember> guildMembers = new Dictionary<string, BindableGuildMember>();
             List<string> guildMembersToBeRequested = new List<string>();
             if (_GuildUsers.TryGetValue(guildId, out var guild))
             {
                 foreach (string memberId in memberIds)
                 {
-                    if (guild.TryGetValue(memberId, out GuildMember member))
+                    if (guild.TryGetValue(memberId, out BindableGuildMember member))
                     {
                         guildMembers.Add(memberId, member);
                     }
