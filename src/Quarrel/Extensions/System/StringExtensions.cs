@@ -12,6 +12,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Windows.Security.Cryptography;
 using JetBrains.Annotations;
+using Quarrel;
+using Windows.UI;
+using Windows.UI.Xaml.Media;
 
 namespace System
 {

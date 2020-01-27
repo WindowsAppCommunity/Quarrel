@@ -9,5 +9,7 @@ namespace Quarrel.ViewModels.Services.DerivedColor
     public interface IColorService
     {
         Task<int> GetUserColor(User user);
+
+        int GetStatusColor(string status);
     }
 }

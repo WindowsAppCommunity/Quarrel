@@ -2,6 +2,7 @@
 using Quarrel.Navigation;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Clipboard;
+using Quarrel.Services.DerivedColor;
 using Quarrel.Services.DispatcherHelperEx;
 using Quarrel.Services.Settings;
 using Quarrel.Services.Voice.Audio.In;
@@ -10,6 +11,7 @@ using Quarrel.SubPages;
 using Quarrel.SubPages.UserSettings;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Clipboard;
+using Quarrel.ViewModels.Services.DerivedColor;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
 using Quarrel.ViewModels.Services.Discord.Friends;
@@ -54,6 +56,7 @@ namespace Quarrel.ViewModels
 
             SimpleIoc.Default.Register<ICacheService, CacheService>();
             SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
+            SimpleIoc.Default.Register<IColorService, ColorService>();
             SimpleIoc.Default.Register<ISettingsService, SettingsService>();
             SimpleIoc.Default.Register<IServiceProvider>(() => App.ServiceProvider);
             SimpleIoc.Default.Register<IGatewayService, GatewayService>();

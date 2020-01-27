@@ -43,13 +43,14 @@
         </Style>
 
         <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
+        <baseconvert:IntColorColorConverter x:Key="IntColorColorConverter"/>
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <discordconvert:PresenseToBrushConverter x:Key="PresenseToBrushConverter" UseSystemAccentColor="True"/>
         <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
     </UserControl.Resources>
 
-    <Border x:Name="borderColor" Margin="0" BorderThickness="0" Grid.RowSpan="2" Width="248" BorderBrush="{x:Bind ViewModel.Presence.Status, Mode=OneWay, Converter={StaticResource PresenseToBrushConverter}}">
+    <Border x:Name="borderColor" Margin="0" BorderThickness="0" Grid.RowSpan="2" Width="248" BorderBrush="{x:Bind ViewModel.AccentColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -67,7 +68,7 @@
                         <tkmedia:BackdropSaturationBrush Saturation="0"/>
                     </Grid.Background>
                 </Grid>
-                <Rectangle Fill="{x:Bind ViewModel.Presence.Status, Mode=OneWay, Converter={StaticResource PresenseToBrushConverter}}" Opacity="0.25"/>
+                <Rectangle Fill="{x:Bind ViewModel.AccentColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}" Opacity="0.25"/>
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Grid.Background>
                         <tkmedia:BackdropBlurBrush Amount="10"/>
@@ -93,18 +94,8 @@
                                     </tk:DropShadowPanel>
                                 </Grid>
                             </Button>
-                            <!--<Rectangle x:Name="rectangle" Fill="#43b581" StrokeThickness="2" Stroke="{ThemeResource MidBG}" Width="24" Height="24" RadiusX="16" RadiusY="16"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,24,4,0" RenderTransformOrigin="0.5,0.5">
-                                <Rectangle.RenderTransform>
-                                    <CompositeTransform TranslateX="0"/>
-                                </Rectangle.RenderTransform>
-                            </Rectangle>-->
-                            <!--<Ellipse x:Name="status" Width="24" Height="24" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>-->
                         </Grid>
                     </Button>
-                    <!--<Rectangle x:Name="CacheRectangle"  IsHitTestVisible="False" Width="96" Height="96" RadiusX="48" RadiusY="48" Margin="0" Fill="Black" Opacity="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBlock x:Name="ShowProfile" IsHitTestVisible="False" TextAlignment="Center" FontWeight="Bold" FontSize="12" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    SHOW<LineBreak/>PROFILE
-                </TextBlock>-->
                 </Grid>
                 
                 <StackPanel Visibility="{x:Bind ViewModel.HasNickname, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" HorizontalAlignment="Center" Orientation="Horizontal" MaxWidth="200" Margin="0,2,0,20">
@@ -122,8 +113,8 @@
                 <Grid>
                     <Rectangle Opacity="0.5">
                         <Rectangle.Fill>
-                            <Windows10FallCreatorsUpdate:AcrylicBrush TintOpacity="0.9" TintColor="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
-                                          FallbackColor="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"/>
+                            <Windows10FallCreatorsUpdate:AcrylicBrush TintOpacity="0.9" TintColor="{x:Bind ViewModel.AccentColor, Converter={StaticResource IntColorColorConverter}, Mode=OneWay}"
+                                          FallbackColor="{x:Bind ViewModel.AccentColor, Converter={StaticResource IntColorColorConverter}, Mode=OneWay}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                     <controls:RichPresenceControl DataContext="{x:Bind ViewModel.Presence.Game, Mode=OneWay}" Foreground="White" Margin="12,8" Visibility="{x:Bind ViewModel.Presence.Game, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" x:Name="richPresence"/>

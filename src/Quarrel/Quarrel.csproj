@@ -297,6 +297,7 @@
     </Compile>
     <Compile Include="Converters\Base\DateTimeToTextConverter.cs" />
     <Compile Include="Converters\Base\IntColorToBrushConverter.cs" />
+    <Compile Include="Converters\Base\IntColorToColorConverter.cs" />
     <Compile Include="Converters\Base\NotBoolToBoolConverter.cs" />
     <Compile Include="Converters\Base\NotBoolToVisibiltyConverter.cs" />
     <Compile Include="Converters\Base\NotNullToBoolConverter.cs" />

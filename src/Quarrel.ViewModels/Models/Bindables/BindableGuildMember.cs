@@ -11,6 +11,7 @@ using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Clipboard;
+using Quarrel.ViewModels.Services.DerivedColor;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
@@ -18,6 +19,7 @@ using Quarrel.ViewModels.Services.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Quarrel.ViewModels.Models.Bindables
 {
@@ -27,6 +29,9 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         public BindableGuildMember([NotNull] GuildMember model, string guildId, Presence presence = null) : base(model)
         {
+            if (model == null)
+                return;
+
             GuildId = guildId;
 
             if (presence != null)
@@ -69,6 +74,20 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         #endregion
 
+        #region Methods
+
+        public async void UpdateDerivedColor()
+        {
+            AccentColor = await GetUserDerivedColor();
+        }
+
+        private async Task<int> GetUserDerivedColor()
+        {
+            return await colorService.GetUserColor(Model.User);
+        }
+
+        #endregion
+
         #region Properties
 
         #region Services
@@ -77,6 +96,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         private readonly ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
         private readonly IGuildsService GuildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
         private readonly IDispatcherHelper DispatcherHelper = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+        private readonly IColorService colorService = SimpleIoc.Default.GetInstance<IColorService>();
 
         #endregion
 
@@ -91,6 +111,19 @@ namespace Quarrel.ViewModels.Models.Bindables
         public bool HasNickname => !string.IsNullOrEmpty(Model.Nick);
 
         public string Note => cacheService.Runtime.TryGetValue<string>(Constants.Cache.Keys.Note, Model.User.Id);
+
+        public int AccentColor
+        {
+            get
+            {
+                if (_UserAccentColor.HasValue)
+                    return _UserAccentColor.Value;
+
+                return colorService.GetStatusColor(Presence.Status);
+            }
+            set => Set(ref _UserAccentColor, value);
+        }
+        private int? _UserAccentColor = null;
 
         #endregion
 

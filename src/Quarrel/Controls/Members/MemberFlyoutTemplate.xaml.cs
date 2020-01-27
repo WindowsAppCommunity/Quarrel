@@ -20,8 +20,13 @@ namespace Quarrel.Controls.Members
             this.InitializeComponent();
             this.DataContextChanged += (s, e) =>
             {
+                if (e.NewValue is BindableGuildMember bMem)
+                {
+                    bMem.UpdateDerivedColor();
+                }
                 this.Bindings.Update();
             };
+
             Messenger.Default.Register<GatewayNoteUpdatedMessage>(this, async m =>
             {
                 await DispatcherHelper.RunAsync(() =>
