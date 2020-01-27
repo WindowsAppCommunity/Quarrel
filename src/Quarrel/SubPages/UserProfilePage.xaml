@@ -19,6 +19,8 @@
     d:DesignWidth="400">
 
     <UserControl.Resources>
+        <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
+        <baseconvert:IntColorColorConverter x:Key="IntColorColorConverter"/>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
@@ -44,7 +46,7 @@
                         <tkmedia:BackdropSaturationBrush Saturation="0"/>
                     </Grid.Background>
                 </Grid>
-                <Rectangle Fill="{x:Bind ViewModel.User.Presence.Status, Mode=OneWay, Converter={StaticResource PresenseToBrushConverter}}" Opacity="0.25"/>
+                <Rectangle Fill="{x:Bind ViewModel.User.AccentColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}" Opacity="0.25"/>
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Grid.Background>
                         <tkmedia:BackdropBlurBrush Amount="10"/>
