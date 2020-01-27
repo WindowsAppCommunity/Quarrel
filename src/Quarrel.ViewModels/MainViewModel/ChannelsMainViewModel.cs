@@ -25,7 +25,6 @@ namespace Quarrel.ViewModels
         public RelayCommand<BindableChannel> NavigateChannelCommand => navigateChannelCommand ??=
             new RelayCommand<BindableChannel>(async (channel) =>
             {
-                CurrentChannel = channel;
                 if (channel.IsCategory)
                 {
                     bool newState = !channel.Collapsed;
@@ -44,6 +43,7 @@ namespace Quarrel.ViewModels
                 }
                 else if (channel.Permissions.ReadMessages)
                 {
+                    CurrentChannel = channel;
                     MessengerInstance.Send(new ChannelNavigateMessage(channel, CurrentGuild));
                 }
             });
