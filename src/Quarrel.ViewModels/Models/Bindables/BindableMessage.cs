@@ -6,11 +6,13 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Presence;
 using Quarrel.ViewModels.Services.Discord.Rest;
+using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.ViewModels.Messages.Gateway;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -41,6 +43,57 @@ namespace Quarrel.ViewModels.Models.Bindables
             });
         }
 
+
+        #endregion
+
+        #region Commands
+
+        public RelayCommand OpenProfile => openProfile = new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("UserProfilePage", Author);
+        });
+        private RelayCommand openProfile;
+
+        public RelayCommand CopyId => copyId = new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(Author.Model.User.Id);
+        });
+        private RelayCommand copyId;
+
+        public RelayCommand ToggleEdit => toggleEdit = new RelayCommand(() =>
+        {
+            IsEditing = !IsEditing;
+        });
+        private RelayCommand toggleEdit;
+
+        public RelayCommand SaveEdit => saveEdit = new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.EditMessage(Model.ChannelId, Model.Id, new DiscordAPI.API.Channel.Models.EditMessage() { Content = EditedText });
+            IsEditing = false;
+        });
+        private RelayCommand saveEdit;
+
+        #endregion
+
+        #region Methods
+
+        public void Update(Message message)
+        {
+            Model = message;
+        }
+
+        public void ConvertReactions()
+        {
+            if (Model.Reactions != null)
+            {
+                foreach (var reaction in Model.Reactions)
+                {
+                    reaction.ChannelId = Model.ChannelId;
+                    reaction.MessageId = Model.Id;
+                    BindableReactions.Add(new BindableReaction(reaction));
+                }
+            }
+        }
 
         #endregion
 
@@ -83,7 +136,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         public string AuthorName => Author != null ? Author.Model.Nick ?? Author.Model.User.Username : Model.User.Username;
 
         public int AuthorColor => Author?.TopRole?.Color ?? -1;
-            
+
         #endregion
 
         private bool _IsLastReadMessage;
@@ -97,7 +150,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         private bool _IsContinuation;
         public bool IsContinuation
         {
-            get => _IsContinuation && !IsLastReadMessage; 
+            get => _IsContinuation && !IsLastReadMessage;
             set => Set(ref _IsContinuation, value);
         }
 
@@ -127,45 +180,6 @@ namespace Quarrel.ViewModels.Models.Bindables
         public ObservableCollection<BindableReaction> BindableReactions { get; set; } = new ObservableCollection<BindableReaction>();
 
         #endregion
-
-        #endregion
-
-        #region Commands
-
-        private RelayCommand toggleEdit;
-        public RelayCommand ToggleEdit => toggleEdit = new RelayCommand(() =>
-        {
-            IsEditing = !IsEditing;
-        });
-
-        private RelayCommand saveEdit;
-        public RelayCommand SaveEdit => saveEdit = new RelayCommand(() =>
-        {
-            SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.EditMessage(Model.ChannelId, Model.Id, new DiscordAPI.API.Channel.Models.EditMessage() { Content = EditedText });
-            IsEditing = false;
-        });
-
-        #endregion
-
-        #region Methods
-
-        public void Update(Message message)
-        {
-            Model = message;
-        }
-
-        public void ConvertReactions()
-        {
-            if (Model.Reactions != null)
-            {
-                foreach (var reaction in Model.Reactions)
-                {
-                    reaction.ChannelId = Model.ChannelId;
-                    reaction.MessageId = Model.Id;
-                    BindableReactions.Add(new BindableReaction(reaction));
-                }
-            }
-        }
 
         #endregion
     }

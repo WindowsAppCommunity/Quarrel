@@ -12,7 +12,6 @@ namespace Quarrel.ViewModels.SubPages
 {
     public class UserProfilePageViewModel : ViewModelBase
     {
-
         #region Constructors
 
         public UserProfilePageViewModel(BindableGuildMember user)

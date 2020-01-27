@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
+using Quarrel.Controls.Markdown;
 using Quarrel.Controls.Members;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
@@ -9,6 +10,7 @@ using System;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace Quarrel.DataTemplates.Messages
 {
@@ -19,13 +21,13 @@ namespace Quarrel.DataTemplates.Messages
             this.InitializeComponent();
         }
 
-        private void Expand(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private void Expand(object sender, TappedRoutedEventArgs e)
         {
             var attachment = (e.OriginalSource as FrameworkElement).DataContext;
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("AttachmentPage", attachment);
         }
 
-        private async void Markdown_LinkClicked(object sender, Controls.Markdown.LinkClickedEventArgs e)
+        private async void Markdown_LinkClicked(object sender, LinkClickedEventArgs e)
         {
             if (e.User != null)
             {

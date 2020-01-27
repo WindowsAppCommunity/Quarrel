@@ -51,7 +51,7 @@
                     </Grid.Background>
                 </Grid>
             </Grid>
-
+ 
             <ScrollViewer Style="{StaticResource DiscordScrollView}" x:Name="ParallaxScroll">
                 <Grid Padding="0,180,0,0">
                     <Rectangle Height="64" VerticalAlignment="Top" Opacity="0.5">

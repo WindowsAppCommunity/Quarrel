@@ -132,25 +132,6 @@
     <DataTemplate x:Key="MessageTemplate" x:DataType="bindables:BindableMessage">
         <UserControl>
             <Grid x:Name="rootGrid">
-                <!--<VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup x:Name="VisualStateGroup">
-                        <VisualState x:Name="Continuation">
-                            <VisualState.Setters>
-                                <Setter Target="row2.(Height)" Value="0"/>
-                                <Setter Target="rootGrid.(Padding)">
-                                    <Setter.Value>
-                                        <Thickness>0,0,0,0</Thickness>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Target="userImg.(UIElement.Visibility)">
-                                    <Setter.Value>
-                                        <Visibility>Collapsed</Visibility>
-                                    </Setter.Value>
-                                </Setter>
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="64"/>
                     <ColumnDefinition/>
@@ -197,6 +178,19 @@
                         <HyperlinkButton x:Name="AuthorHyperlink" 
                                  Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind AuthorName, Mode=OneWay}" 
                                  Foreground="{x:Bind AuthorColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}">
+                            <HyperlinkButton.ContextFlyout>
+                                <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
+                                    <MenuFlyoutItem Text="Profile" Command="{x:Bind OpenProfile, Mode=OneWay}"/>
+                                    <MenuFlyoutItem Text="Message" IsEnabled="False"/>
+                                    <MenuFlyoutSeparator/>
+                                    <MenuFlyoutItem Text="Change Nickname" IsEnabled="False"/>
+                                    <MenuFlyoutSeparator/>
+                                    <MenuFlyoutItem Text="Kick Member" Foreground="{ThemeResource dnd}" IsEnabled="False"/>
+                                    <MenuFlyoutItem Text="Ban Member" Foreground="{ThemeResource dnd}" IsEnabled="False"/>
+                                    <MenuFlyoutSeparator/>
+                                    <MenuFlyoutItem Text="Copy ID" Command="{x:Bind CopyId, Mode=OneWay}"/>
+                                </MenuFlyout>
+                            </HyperlinkButton.ContextFlyout>
                             <FlyoutBase.AttachedFlyout>
                                 <Flyout x:Key="MemberFlyoutTemplate" FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
                                     <members:MemberFlyoutTemplate DataContext="{x:Bind Author, Mode=OneWay}"/>
