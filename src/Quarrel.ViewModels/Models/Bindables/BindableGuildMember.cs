@@ -1,6 +1,7 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
 using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
@@ -9,9 +10,11 @@ using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Services.Cache;
+using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
+using Quarrel.ViewModels.Services.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +50,22 @@ namespace Quarrel.ViewModels.Models.Bindables
                 });
             });
         }
+
+        #endregion
+
+        #region Commands
+
+        public RelayCommand OpenProfile => openProfile = new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("UserProfilePage", this);
+        });
+        private RelayCommand openProfile;
+
+        public RelayCommand CopyId => copyId = new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(Model.User.Id);
+        });
+        private RelayCommand copyId;
 
         #endregion
 

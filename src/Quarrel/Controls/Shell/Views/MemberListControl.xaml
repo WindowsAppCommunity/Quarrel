@@ -63,7 +63,7 @@
                             <GroupStyle.HeaderContainerStyle>
                                 <Style TargetType="ListViewBaseHeaderItem">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                    <Setter Property="Margin" Value="0, 0, 0, 5"/>
+                                    <Setter Property="Margin" Value="0,0,0,5"/>
                                 </Style>
                             </GroupStyle.HeaderContainerStyle>
                             <GroupStyle.HeaderTemplate>
@@ -94,7 +94,10 @@
                     </ListView.ItemsPanel>
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="VerticalAlignment" Value="Stretch"/>
+                            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                         </Style>
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
