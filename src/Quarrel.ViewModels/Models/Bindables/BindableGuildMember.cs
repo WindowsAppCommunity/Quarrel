@@ -80,9 +80,7 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         #endregion
 
-        #region Display 
-
-        public Game Game => Presence?.Game;
+        #region Display
         
         public string DisplayName => Model.Nick ?? Model.User.Username;
 

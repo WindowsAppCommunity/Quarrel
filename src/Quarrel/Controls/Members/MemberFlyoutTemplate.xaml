@@ -126,7 +126,7 @@
                                           FallbackColor="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"/>
                         </Rectangle.Fill>
                     </Rectangle>
-                    <controls:RichPresenceControl DataContext="{x:Bind ViewModel.Game}" Foreground="White" Margin="12,8" Visibility="{x:Bind ViewModel.Game, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" x:Name="richPresence"/>
+                    <controls:RichPresenceControl DataContext="{x:Bind ViewModel.Presence.Game, Mode=OneWay}" Foreground="White" Margin="12,8" Visibility="{x:Bind ViewModel.Presence.Game, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" x:Name="richPresence"/>
                 </Grid>
             </StackPanel>
             <Grid x:Name="Row1Grid"  Grid.Row="1" Background="{ThemeResource Background}">
