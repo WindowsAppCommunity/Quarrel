@@ -1,4 +1,5 @@
 ﻿using Quarrel.ViewModels;
+using Quarrel.ViewModels.Controls.Shell;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -11,9 +12,10 @@ namespace Quarrel.Controls.Messages
         public MessageBox()
         {
             this.InitializeComponent();
+            DataContext = new MessageBoxViewModel();
         }
 
-        public MainViewModel ViewModel => App.ViewModelLocator.Main;
+        public MessageBoxViewModel ViewModel => DataContext as MessageBoxViewModel;
 
         /// <summary>
         /// Add Emoji to message

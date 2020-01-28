@@ -1031,14 +1031,14 @@
             <interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="KeyDown">
                     <behaviors:KeyDownCommandAction Key="Enter" Command="{x:Bind ViewModel.SendMessageCommand}" ShiftCommand="{x:Bind ViewModel.NewLineCommand}" ExecuteShiftCommandIfNoKeyboard="True"/>
-                    <behaviors:KeyDownCommandAction Key="Up" Command="{x:Bind ViewModel.EditLastMessageCommand}"/>
+                    <!--<behaviors:KeyDownCommandAction Key="Up" Command="{x:Bind ViewModel.EditLastMessageCommand}"/>-->
                 </core:EventTriggerBehavior>
                 <core:EventTriggerBehavior EventName="TextChanged">
                     <core:InvokeCommandAction Command="{x:Bind ViewModel.TriggerTyping}"/>
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
         </local:SelectionBindingTextBox>
-        <Button x:Name="SendBox" IsEnabled="{x:Bind MessageEditor.Text, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Grid.Column="2"  Style="{StaticResource SendButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Stretch" Command="{x:Bind ViewModel.SendMessageCommand}" Grid.Row="0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Width="48"/>
+        <Button x:Name="SendBox" IsEnabled="{x:Bind MessageEditor.Text, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Grid.Column="2"  Style="{StaticResource SendButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Stretch" Command="{x:Bind ViewModel.SendMessageCommand}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Width="48"/>
 
         <Button HorizontalAlignment="Right" Margin="0,0,48,0" Foreground="{ThemeResource Foreground}" Style="{StaticResource ContentButton}" Opacity="1" Background="Transparent" Padding="8">
             <Button.Flyout>
@@ -1068,5 +1068,9 @@
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
         </Button>
+        
+        <GridView Grid.Row="1" Height="136" Visibility="Collapsed">
+            
+        </GridView>
     </Grid>
 </UserControl>

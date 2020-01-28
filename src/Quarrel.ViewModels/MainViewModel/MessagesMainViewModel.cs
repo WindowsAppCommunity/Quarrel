@@ -161,72 +161,6 @@ namespace Quarrel.ViewModels
 
         #endregion
 
-        #region Message Drafting
-
-        /// <summary>
-        /// Replaces surrogates with proper values for Emojis and Mentions
-        /// </summary>
-        /// <returns>Reformatted message string</returns>
-        private string ReplaceMessageDraftSurrogates()
-        {
-            string formattedMessage = MessageText;
-
-            // Emoji surrogates
-            var emojiMatches = Regex.Matches(formattedMessage, Constants.Regex.EmojiSurrogateRegex);
-            foreach (Match match in emojiMatches)
-            {
-                // Finds emoji by name
-                Emoji emoji = CurrentGuild.Model.Emojis.FirstOrDefault(x => x.Name == match.Groups[1].Value);
-
-                // Replaces :emoji_name: format with <emoji_name:id> format
-                if (emoji != null)
-                {
-                    // Different format if animated
-                    string format = emoji.Animated ? "<a:{0}:{1}>" : "<:{0}:{1}>";
-                    formattedMessage = formattedMessage.Replace(match.Value, string.Format(format, emoji.Name, emoji.Id));
-                }
-            }
-
-            // User mentions
-            var userMentionMatches = Regex.Matches(formattedMessage, Constants.Regex.UserMentionSurrogateRegex);
-            foreach (Match match in userMentionMatches)
-            {
-                // Finds user from Username and Discriminator
-                BindableGuildMember user = CurrentBindableMembers
-                    .FirstOrDefault(x => (x is BindableGuildMember bmx) &&
-                    bmx.Model.User.Username == match.Groups[1].Value &&
-                    bmx.Model.User.Discriminator == match.Groups[2].Value) as BindableGuildMember;
-
-                // Replaces @name#disc format with <@!ID> format
-                if (user != null)
-                {
-                    formattedMessage = formattedMessage.Replace(match.Value, string.Format("<@!{0}>", user.Model.User.Id));
-                }
-            }
-
-            // Channel Mentions
-            if (!CurrentGuild.IsDM)
-            {
-                var channelMentionMatches = Regex.Matches(formattedMessage, Constants.Regex.ChannelMentionSurrogateRegex);
-                foreach (Match match in channelMentionMatches)
-                {
-                    // Finds channel by name, in current guild
-                    BindableChannel channel = GuildsService.CurrentGuild.Channels.FirstOrDefault(x => x.Model.Name == match.Groups[1].Value);
-
-                    // Replaces #channel-name
-                    if (channel != null)
-                    {
-                        formattedMessage = formattedMessage.Replace(match.Value, string.Format("<#{0}>", channel.Model.Id));
-                    }
-                }
-            }
-
-
-            return formattedMessage;
-        }
-
-        #endregion
-
         #region Message Loading
 
         /// <summary>
@@ -357,70 +291,25 @@ namespace Quarrel.ViewModels
 
         #region Commands
 
-        #region Message Drafting
-
-        /// <summary>
-        /// Sends API message to indicate typing state
-        /// </summary>
-        public RelayCommand TriggerTyping => tiggerTyping ??= new RelayCommand(() =>
-        {
-            DiscordService.ChannelService.TriggerTypingIndicator(CurrentChannel.Model.Id);
-        });
-        private RelayCommand tiggerTyping;
-
-        /// <summary>
-        /// Handles enter override on MessageBox to add new line
-        /// </summary>
-        public RelayCommand NewLineCommand =>
-            newLineCommand ??= new RelayCommand(() =>
-            {
-                string text = MessageText;
-                int selectionstart = SelectionStart;
-
-                if (SelectionLength > 0)
-                    // Remove selected text first
-                    text = text.Remove(selectionstart, SelectionLength);
-
-                text = text.Insert(selectionstart, " \n");
-                MessageText = text;
-                SelectionStart = selectionstart + 2;
-            });
-        private RelayCommand newLineCommand;
-
-        /// <summary>
-        /// Handles enter override on MessageBox to send message
-        /// </summary>
-        public RelayCommand SendMessageCommand => sendMessageCommand ??= new RelayCommand(async () =>
-        {
-            string text = ReplaceMessageDraftSurrogates();
-
-            await DiscordService.ChannelService.CreateMessage(CurrentChannel.Model.Id,
-                new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
-            DispatcherHelper.CheckBeginInvokeOnUi(() => { MessageText = ""; });
-        });
-        private RelayCommand sendMessageCommand;
-
-        #endregion
-
         #region Message Editing
 
-        /// <summary>
-        /// Override up arrow to edit last sent message in chat
-        /// </summary>
-        public RelayCommand EditLastMessageCommand => editLastMessageCommand ??= new RelayCommand(() =>
-        {
-            // Only overrides if there's no draft
-            if (string.IsNullOrEmpty(MessageText))
-            {
-                var userLastMessage = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad" && x.Model.User.Id == CurrentUserService.CurrentUser.Model.Id);
-                if (userLastMessage != null)
-                {
-                    userLastMessage.IsEditing = true;
-                    ScrollTo?.Invoke(this, userLastMessage);
-                }
-            }
-        });
-        private RelayCommand editLastMessageCommand;
+        ///// <summary>
+        ///// Override up arrow to edit last sent message in chat
+        ///// </summary>
+        //public RelayCommand EditLastMessageCommand => editLastMessageCommand ??= new RelayCommand(() =>
+        //{
+        //    // Only overrides if there's no draft
+        //    if (string.IsNullOrEmpty(MessageText))
+        //    {
+        //        var userLastMessage = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad" && x.Model.User.Id == CurrentUserService.CurrentUser.Model.Id);
+        //        if (userLastMessage != null)
+        //        {
+        //            userLastMessage.IsEditing = true;
+        //            ScrollTo?.Invoke(this, userLastMessage);
+        //        }
+        //    }
+        //});
+        //private RelayCommand editLastMessageCommand;
 
         /// <summary>
         /// Sends API request to delete a message
@@ -482,30 +371,6 @@ namespace Quarrel.ViewModels
         private bool _OldItemsLoading;
 
         public bool ItemsLoading => _NewItemsLoading || _OldItemsLoading;
-
-        public string MessageText
-        {
-            get => _MessageText;
-            set => Set(ref _MessageText, value);
-        }
-        private string _MessageText = "";
-
-        private int _SelectionStart;
-
-        public int SelectionStart
-        {
-            get => _SelectionStart;
-            set => Set(ref _SelectionStart, value);
-        }
-
-        private int _SelectionLength;
-
-        public int SelectionLength
-        {
-            get => _SelectionLength;
-            set => Set(ref _SelectionLength, value);
-        }
-
         /// <summary>
         /// Gets the collection of grouped feeds to display
         /// </summary>

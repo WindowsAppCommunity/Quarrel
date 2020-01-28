@@ -28,7 +28,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
             new ConcurrentDictionary<string, ConcurrentDictionary<string, BindableGuildMember>>();
 
         public IDictionary<string, BindableGuild> AllGuilds { get; } = new ConcurrentDictionary<string, BindableGuild>();
-        public BindableGuild CurrentGuild { get; set; }
+        public BindableGuild CurrentGuild { get; private set; }
 
         private ICacheService CacheService;
         private IChannelsService ChannelsService;
@@ -284,6 +284,14 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
             {
                 return null;
             }
+        }
+        public BindableGuildMember GetGuildMember(string username, string discriminator, string guildId)
+        {
+            if (_GuildUsers.TryGetValue(guildId, out ConcurrentDictionary<string, BindableGuildMember> value))
+            {
+                return value.Values.FirstOrDefault(x => x.Model.User.Username == username && x.Model.User.Discriminator == discriminator);
+            }
+            return null;
         }
         public IReadOnlyDictionary<string, BindableGuildMember> GetAndRequestGuildMembers(IEnumerable<string> memberIds, string guildId)
         {
