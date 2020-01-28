@@ -1058,15 +1058,15 @@
                 <SymbolIcon x:Name="moreSymbol" Symbol="More" Visibility="Visible"/>
                 <SymbolIcon x:Name="attachSymbol" Symbol="Attach" Visibility="Collapsed"/>
             </Grid>
-            <FlyoutBase.AttachedFlyout>
-                <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource GuildButtonFlyoutStyle}">
-                    <MenuFlyoutItem x:Uid="/Controls/AddAttachMFI" Text="Add attachement">
+            <Button.Flyout>
+                <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
+                    <MenuFlyoutItem Text="Add attachement">
                         <MenuFlyoutItem.Icon>
                             <SymbolIcon Symbol="Attach"/>
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
                 </MenuFlyout>
-            </FlyoutBase.AttachedFlyout>
+            </Button.Flyout>
         </Button>
         
         <GridView Grid.Row="1" Height="136" Visibility="Collapsed">
