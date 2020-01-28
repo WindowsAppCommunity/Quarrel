@@ -112,6 +112,8 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         public string Note => cacheService.Runtime.TryGetValue<string>(Constants.Cache.Keys.Note, Model.User.Id);
 
+        public int RoleColor => Roles.FirstOrDefault(x => x.Color != 0)?.Color ?? -1;
+
         public int AccentColor
         {
             get
@@ -152,7 +154,7 @@ namespace Quarrel.ViewModels.Models.Bindables
             {
                 if (Roles != null)
                 {
-                    return Roles.OrderByDescending(x => x.Position).FirstOrDefault() ?? Role.Everyone;
+                    return Roles.FirstOrDefault() ?? Role.Everyone;
                 }
                 return Role.Everyone;
             }

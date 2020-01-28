@@ -135,7 +135,7 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         public string AuthorName => Author != null ? Author.Model.Nick ?? Author.Model.User.Username : Model.User.Username;
 
-        public int AuthorColor => Author?.TopRole?.Color ?? -1;
+        public int AuthorColor => Author?.RoleColor ?? -1;
 
         #endregion
 

@@ -841,6 +841,9 @@
     <PackageReference Include="JetBrains.Annotations">
       <Version>2019.1.3</Version>
     </PackageReference>
+    <PackageReference Include="ksemenenko.ColorThief">
+      <Version>1.1.1.4</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Advertising.XAML">
       <Version>10.1811.22001</Version>
     </PackageReference>
