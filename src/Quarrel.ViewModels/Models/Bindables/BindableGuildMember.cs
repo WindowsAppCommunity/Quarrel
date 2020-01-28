@@ -16,6 +16,7 @@ using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Services.Navigation;
+using Quarrel.ViewModels.Services.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,7 +79,10 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         public async void UpdateDerivedColor()
         {
-            AccentColor = await GetUserDerivedColor();
+            if (SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<bool>(SettingKeys.DerivedColor))
+            {
+                AccentColor = await GetUserDerivedColor();
+            }
         }
 
         private async Task<int> GetUserDerivedColor()

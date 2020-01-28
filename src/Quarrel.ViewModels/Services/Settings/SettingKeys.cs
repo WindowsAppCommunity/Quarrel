@@ -16,6 +16,7 @@ namespace Quarrel.ViewModels.Services.Settings
         Bluple,
         ServerMuteIcons,
         ExpensiveRendering,
+        DerivedColor,
         FontSize,
 
         // Behavior
