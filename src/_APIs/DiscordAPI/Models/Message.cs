@@ -79,6 +79,8 @@ namespace DiscordAPI.Models
         public bool Hit { get; set; }
         [JsonProperty("webhook_id")]
         public string WebHookid { get; set; }
+        [JsonProperty("guild_id")]
+        public string GuildId { get; set; }
     }
     public class Activity
     {

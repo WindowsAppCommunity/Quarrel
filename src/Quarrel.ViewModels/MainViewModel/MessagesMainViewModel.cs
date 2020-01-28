@@ -49,6 +49,7 @@ namespace Quarrel.ViewModels
                     if (channel.IsDirectChannel || channel.IsGroupChannel ||
                         m.Message.Mentions.Any(x => x.Id == CurrentUserService.CurrentUser.Model.Id) ||
                         m.Message.MentionEveryone)
+                    {
                         DispatcherHelper.CheckBeginInvokeOnUi(() =>
                         {
                             channel.ReadState.MentionCount++;
@@ -59,16 +60,20 @@ namespace Quarrel.ViewModels
                                     GuildsService.AllGuilds["DM"].Channels.Move(oldIndex, 0);
                             }
                         });
+                    }
 
-                    // Removes typer from Channel if responsible for sending this message
                     if (CurrentChannel != null && CurrentChannel.Model.Id == channel.Model.Id)
+                    {
                         DispatcherHelper.CheckBeginInvokeOnUi(() =>
                         {
+                            // Removes typer from Channel if responsible for sending this message
                             channel.Typers.TryRemove(m.Message.User.Id, out _);
-                            BindableMessage lastMessage = BindableMessages.LastOrDefault();
+                            m.Message.Member.User = m.Message.User;
                             BindableMessages.Add(new BindableMessage(m.Message, channel.Guild.Model.Id ?? "DM",
-                                BindableMessages.LastOrDefault().Model.User != null && BindableMessages.LastOrDefault().Model.User.Id == m.Message.User.Id));
+                                BindableMessages.LastOrDefault().Model.User != null &&
+                                BindableMessages.LastOrDefault().Model.User.Id == m.Message.User.Id, false, new BindableGuildMember(m.Message.Member, m.Message.GuildId)));
                         });
+                    }
                 }
             });
 
