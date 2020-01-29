@@ -7,11 +7,16 @@ using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
+using Refit;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Quarrel.ViewModels.Controls.Shell
 {
+
     public class MessageBoxViewModel : ViewModelBase
     {
         #region Commands
@@ -51,8 +56,17 @@ namespace Quarrel.ViewModels.Controls.Shell
         {
             string text = ReplaceMessageDraftSurrogates();
 
+            // Send message
             await DiscordService.ChannelService.CreateMessage(ChannelsService.CurrentChannel.Model.Id,
                 new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
+
+            // Upload and send a message for each attachment
+            for (int i = 0; i < Attachments.Count; i++)
+            {
+                await DiscordService.ChannelService.UploadFile(ChannelsService.CurrentChannel.Model.Id,
+                    Attachments[i]);
+            }
+
             DispatcherHelper.CheckBeginInvokeOnUi(() => { MessageText = ""; });
         });
         private RelayCommand sendMessageCommand;
@@ -120,8 +134,6 @@ namespace Quarrel.ViewModels.Controls.Shell
 
             return formattedMessage;
         }
-
-
         #endregion
 
         #region Properties
@@ -141,22 +153,21 @@ namespace Quarrel.ViewModels.Controls.Shell
         }
         private string _MessageText = "";
 
-        private int _SelectionStart;
-
         public int SelectionStart
         {
             get => _SelectionStart;
             set => Set(ref _SelectionStart, value);
         }
-
-        private int _SelectionLength;
+        private int _SelectionStart;
 
         public int SelectionLength
         {
             get => _SelectionLength;
             set => Set(ref _SelectionLength, value);
         }
+        private int _SelectionLength;
 
+        public ObservableCollection<StreamPart> Attachments { get; } = new ObservableCollection<StreamPart>();
 
         #endregion
     }

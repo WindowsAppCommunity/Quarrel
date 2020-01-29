@@ -1060,7 +1060,7 @@
             </Grid>
             <Button.Flyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-                    <MenuFlyoutItem Text="Add attachement">
+                    <MenuFlyoutItem Text="Add attachement" Click="AddAttachment">
                         <MenuFlyoutItem.Icon>
                             <SymbolIcon Symbol="Attach"/>
                         </MenuFlyoutItem.Icon>

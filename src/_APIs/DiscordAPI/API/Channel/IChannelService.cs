@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Refit;
 using DiscordAPI.API.Channel.Models;
 using DiscordAPI.Models;
+using System.IO;
 
 namespace DiscordAPI.API.Channel
 {
@@ -66,7 +67,8 @@ namespace DiscordAPI.API.Channel
         Task<Message> CreateMessage([AliasAs("channelId")] string channelId, [Body] MessageUpsert message);
 
         [Post("/channels/{channelId}/messages")]
-        Task<Message> UploadFile([AliasAs("channelId")] string channelId);
+        [Multipart]
+        Task<Message> UploadFile([AliasAs("channelId")] string channelId, StreamPart file);
 
         [Post("/channels/{channelId}/messages/bulk_delete")]
         Task BulkDeleteMessages([AliasAs("channelId")] string channelId, [Body] BulkDelete messages);
