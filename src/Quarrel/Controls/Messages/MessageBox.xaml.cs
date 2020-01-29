@@ -44,5 +44,10 @@ namespace Quarrel.Controls.Messages
             var stream = await file.OpenStreamForReadAsync();
             ViewModel.Attachments.Add(new StreamPart(stream, string.Format("{0}.{1}", file.DisplayName, file.FileType), file.ContentType)); 
         }
+
+        private void RemoveAttachment(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Attachments.Remove((sender as Button).DataContext as StreamPart);
+        }
     }
 }

@@ -305,6 +305,7 @@
     <Compile Include="Converters\Base\NullToBoolConverter.cs" />
     <Compile Include="Converters\Base\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\Base\RemoveNewLineConverter.cs" />
+    <Compile Include="Converters\Base\StreamToBitmapImageConverter.cs" />
     <Compile Include="Converters\Base\TimeSpanToTextConverter.cs" />
     <Compile Include="Converters\Base\UriToImageSourceConverter.cs" />
     <Compile Include="Converters\Channel\MentionCountToVisiblityConverter.cs" />

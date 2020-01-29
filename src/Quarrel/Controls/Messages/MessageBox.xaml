@@ -10,6 +10,7 @@
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:refit="using:Refit"
     xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
     mc:Ignorable="d"
     d:DesignHeight="64"
@@ -542,6 +543,57 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="GridViewItem" x:Key="BlankContainerStyle">
+            <Setter Property="Background" Value="{ThemeResource GridViewItemBackground}" />
+            <Setter Property="Foreground" Value="{ThemeResource GridViewItemForeground}" />
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="TabNavigation" Value="Local" />
+            <Setter Property="IsHoldingEnabled" Value="True" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,4,4" />
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="AllowDrop" Value="False" />
+            <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
+            <Setter Property="FocusVisualMargin" Value="-2" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridViewItem">
+                        <ListViewItemPresenter ContentTransitions="{TemplateBinding ContentTransitions}"
+                                               x:Name="Root"
+                                               Control.IsTemplateFocusTarget="True"
+                                               FocusVisualMargin="{TemplateBinding FocusVisualMargin}"
+                                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                               ContentMargin="{TemplateBinding Padding}"
+                                               RenderTransformOrigin="0.5, 0.5">
+                            <ListViewItemPresenter.RenderTransform>
+                                <ScaleTransform x:Name="ContentScale"/>
+                            </ListViewItemPresenter.RenderTransform>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="Selected"/>
+                                    <VisualState x:Name="PointerOver"/>
+                                    <VisualState x:Name="PointerOverSelected"/>
+                                    <VisualState x:Name="PointerOverPressed"/>
+                                    <VisualState x:Name="Pressed"/>
+                                    <VisualState x:Name="PressedSelected"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DisabledStates">
+                                    <VisualState x:Name="Enabled" />
+                                    <VisualState x:Name="Disabled"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </ListViewItemPresenter>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="SuggestionStyle" TargetType="ListViewItem" >
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="TabNavigation" Value="Local"/>
@@ -1014,8 +1066,10 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
 
-        <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
+        <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
+        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+        <baseconvert:StreamToBitmapImageConverter x:Key="StreamToBitmapImageConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -1069,8 +1123,24 @@
             </Button.Flyout>
         </Button>
         
-        <GridView Grid.Row="1" Height="136" Visibility="Collapsed">
-            
+        <GridView Grid.Row="1" ItemContainerStyle="{StaticResource BlankContainerStyle}" SelectionMode="None"
+                  ItemsSource="{x:Bind ViewModel.Attachments, Mode=OneWay}" Padding="0,0,0,-4">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="refit:StreamPart">
+                    <Grid MaxHeight="136">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <tk:ImageEx Margin="8,0" Source="{x:Bind Value, Converter={StaticResource StreamToBitmapImageConverter}, Mode=OneWay}"/>
+                        <Button Grid.Column="1" Style="{StaticResource TextBlockButtonStyle}" Foreground="{ThemeResource Foreground}" VerticalAlignment="Center"
+                                Click="RemoveAttachment" DataContext="{x:Bind}">
+                            <FontIcon Glyph="" FontSize="16"/>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
         </GridView>
     </Grid>
 </UserControl>

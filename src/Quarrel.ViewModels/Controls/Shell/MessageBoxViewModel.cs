@@ -60,14 +60,15 @@ namespace Quarrel.ViewModels.Controls.Shell
             await DiscordService.ChannelService.CreateMessage(ChannelsService.CurrentChannel.Model.Id,
                 new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
 
+            DispatcherHelper.CheckBeginInvokeOnUi(() => { MessageText = ""; });
+
             // Upload and send a message for each attachment
-            for (int i = 0; i < Attachments.Count; i++)
+            while (Attachments.Count > 0)
             {
                 await DiscordService.ChannelService.UploadFile(ChannelsService.CurrentChannel.Model.Id,
-                    Attachments[i]);
+                    Attachments[0]);
+                Attachments.RemoveAt(0);
             }
-
-            DispatcherHelper.CheckBeginInvokeOnUi(() => { MessageText = ""; });
         });
         private RelayCommand sendMessageCommand;
 
