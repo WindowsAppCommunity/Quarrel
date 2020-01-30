@@ -13,6 +13,9 @@ using Windows.UI.Xaml.Media.Animation;
 
 namespace Quarrel.Controls.Members
 {
+    /// <summary>
+    /// Flyout to represent a GuildMember
+    /// </summary>
     public sealed partial class MemberFlyoutTemplate : UserControl
     {   
         public MemberFlyoutTemplate()
@@ -27,23 +30,33 @@ namespace Quarrel.Controls.Members
                 this.Bindings.Update();
             };
 
+            // Updates Note when it changes
             Messenger.Default.Register<GatewayNoteUpdatedMessage>(this, async m =>
             {
                 await DispatcherHelper.RunAsync(() =>
                 {
                     if (ViewModel != null && m.UserId == ViewModel.Model.User.Id)
-                        this.Bindings.Update();
+                        ViewModel.RaisePropertyChanged(nameof(ViewModel.Note));
                 });
             });
         }
 
+        /// <summary>
+        /// GuildMember dispalyed
+        /// </summary>
         public BindableGuildMember ViewModel => DataContext as BindableGuildMember;
 
+        /// <summary>
+        /// Updates Note on server when Notebox is edited
+        /// </summary>
         private void NoteBox_LostFocus(object sender, RoutedEventArgs e)
         {
             SimpleIoc.Default.GetInstance<IDiscordService>().UserService.AddNote(ViewModel.Model.User.Id, new DiscordAPI.API.User.Models.Note() { Content = (sender as TextBox).Text });
         }
 
+        /// <summary>
+        /// Sets up connected animation and navigates to UserProfilePage
+        /// </summary>
         private void OpenProfilePage(object sender, RoutedEventArgs e)
         {
             // Connected Animation
