@@ -54,6 +54,9 @@ namespace Quarrel.ViewModels.Controls.Shell
         /// </summary>
         public RelayCommand SendMessageCommand => sendMessageCommand ??= new RelayCommand(async () =>
         {
+            // Enters sending state
+            IsSending = true;
+
             string text = ReplaceMessageDraftSurrogates();
 
             // Send message
@@ -69,6 +72,10 @@ namespace Quarrel.ViewModels.Controls.Shell
                     Attachments[0]);
                 Attachments.RemoveAt(0);
             }
+
+            // Leaves sending state
+            IsSending = false;
+            
         });
         private RelayCommand sendMessageCommand;
 
@@ -146,6 +153,13 @@ namespace Quarrel.ViewModels.Controls.Shell
         IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
 
         #endregion
+
+        public bool IsSending
+        {
+            get => _IsSending;
+            set => Set(ref _IsSending, value);
+        }
+        private bool _IsSending;
 
         public string MessageText
         {

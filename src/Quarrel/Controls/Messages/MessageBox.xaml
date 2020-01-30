@@ -1078,7 +1078,9 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!--Disabled States-->
         <Rectangle Visibility="{x:Bind IsEnabled, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Fill="{ThemeResource Foreground}" Grid.RowSpan="2" Opacity="0.1"/>
+        <Rectangle Visibility="{x:Bind ViewModel.IsSending, Mode=OneWay}" Fill="{ThemeResource Background}" Grid.RowSpan="2" Opacity="0.5"/>
         
         <local:SelectionBindingTextBox x:Name="MessageEditor" BindableText="{x:Bind ViewModel.MessageText, Mode=TwoWay}" BindableSelectionStart="{x:Bind ViewModel.SelectionStart, Mode=TwoWay}" BindableSelectionLength="{x:Bind ViewModel.SelectionLength, Mode=TwoWay}" Padding="52,12,96,12" VerticalAlignment="Stretch"
                                        PlaceholderText="Send message" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MinHeight="64" MaxHeight="256">
@@ -1123,6 +1125,7 @@
             </Button.Flyout>
         </Button>
         
+        <!--Attachment list-->
         <GridView Grid.Row="1" ItemContainerStyle="{StaticResource BlankContainerStyle}" SelectionMode="None"
                   ItemsSource="{x:Bind ViewModel.Attachments, Mode=OneWay}" Padding="0,0,0,-4">
             <GridView.ItemTemplate>
@@ -1142,5 +1145,8 @@
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
+        
+        <!--Loading bar-->
+        <ProgressBar Visibility="{x:Bind ViewModel.IsSending, Mode=Oneway}" VerticalAlignment="Center" IsIndeterminate="True"/>
     </Grid>
 </UserControl>
