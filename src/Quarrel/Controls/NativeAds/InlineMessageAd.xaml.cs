@@ -15,12 +15,16 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace Quarrel.Controls.NativeAds
 {
+    /// <summary>
+    /// Ad "disguised" as message inline with MessageList
+    /// </summary>
     public sealed partial class InlineMessageAd : UserControl
     {
+        /// <summary>
+        /// Create AdTemplate and begin loading ad
+        /// </summary>
         public InlineMessageAd()
         {
             this.InitializeComponent();
@@ -30,10 +34,19 @@ namespace Quarrel.Controls.NativeAds
             nativeAdsManager.RequestAd();
         }
 
+        /// <summary>
+        /// Ad Data
+        /// </summary>
         public NativeAdV2 ViewModel => DataContext as NativeAdV2;
 
+        /// <summary>
+        /// Ad Manager for loading ads
+        /// </summary>
         private NativeAdsManagerV2 nativeAdsManager = new NativeAdsManagerV2(Constants.Store.AppId, Constants.Store.NativeAdId);
 
+        /// <summary>
+        /// Dipslays Ad once loaded
+        /// </summary>
         private async void NativeAdsManager_AdReady(object sender, NativeAdReadyEventArgs e)
         {
             DataContext = e.NativeAd;
@@ -46,6 +59,9 @@ namespace Quarrel.Controls.NativeAds
             e.NativeAd.RegisterAdContainer(rootGrid);
         }
 
+        /// <summary>
+        /// Hides template if error occurs
+        /// </summary>
         private void NativeAdsManager_ErrorOccurred(object sender, NativeAdErrorEventArgs e)
         {
             this.Visibility = Visibility.Collapsed;

@@ -20,6 +20,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
+        <!--Ad Image-->
         <Canvas Grid.Row="1" VerticalAlignment="Top" Margin="12,0">
             <Button Height="40" Width="40"
                     Style="{StaticResource DimButton}">
@@ -30,21 +31,21 @@
             </Button>
         </Canvas>
 
-        <Grid Grid.Row="0" Grid.Column="1">
-            <StackPanel Orientation="Horizontal">
-                <HyperlinkButton x:Name="AuthorHyperlink"
-                                 Style="{StaticResource PlainTextHyperlinkStyle}"
+        <!--Sponsor-->
+        <HyperlinkButton Style="{StaticResource PlainTextHyperlinkStyle}" Grid.Column="1"
                                  Content="{x:Bind ViewModel.SponsoredBy, Mode=OneWay}"
                                  Foreground="{ThemeResource SystemAccentColor}" />
-            </StackPanel>
-        </Grid>
 
+        <!--Ad Content-->
         <Grid Grid.Column="1" Grid.Row="1" x:Name="body" Margin="0,0,0,2" MinHeight="20">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
+            <!--Title-->
             <TextBlock Text="{x:Bind ViewModel.Title, Mode=OneWay}" />
+            
+            <!--Description-->
             <TextBlock Grid.Row="1" Text="{x:Bind ViewModel.Description, Mode=OneWay}"
                        TextWrapping="WrapWholeWords"
                        FontWeight="SemiLight" />
