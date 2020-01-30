@@ -42,6 +42,8 @@
                 <!--<HyperlinkButton.ContextFlyout>
                     TODO: MemberFlyout
                 </HyperlinkButton.ContextFlyout>-->
+                
+                <!--Username and Discriminator-->
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{x:Bind ViewModel.Model.User.Username, Mode=OneWay}" VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold"/>
                     <TextBlock Text="{x:Bind ViewModel.Model.User.Discriminator, Converter={StaticResource DiscrimatorPrefixConveter}, Mode=OneWay}" FontSize="13" Margin="4,0,0,0" Opacity="0.25" VerticalAlignment="Bottom"/>
@@ -51,6 +53,8 @@
                 <TextBlock Visibility="Collapsed" x:Name="playing" Text="Playing" VerticalAlignment="Center" FontSize="11" FontWeight="SemiBold" Opacity="0.4" Foreground="{ThemeResource Foreground}"/>
                 <TextBlock Visibility="Collapsed" x:Name="game" VerticalAlignment="Center" FontSize="11" FontWeight="Bold" Margin="4,0,0,0" Foreground="{ThemeResource Foreground}"/>
             </StackPanel>
+            
+            <!--Friend status-->
             <TextBlock Text="Friend Request Sent" Visibility="{x:Bind ViewModel.IsOutgoing, Mode=OneWay}"
                        VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiLight" Opacity="0.6" Foreground="{ThemeResource Foreground}"/>
             <TextBlock Text="Accept Friend Request?" Visibility="{x:Bind ViewModel.IsIncoming, Mode=OneWay}"
@@ -60,6 +64,7 @@
             </StackPanel>-->
         </StackPanel>
 
+        <!--Action buttons-->
         <StackPanel Grid.Column="3" Orientation="Horizontal">
             <StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.IsIncoming, Mode=OneWay}">
                 <Button x:Name="AcceptButton" Background="{ThemeResource online}" Style="{StaticResource DiscordButton}" Padding="8" Margin="2,0">
