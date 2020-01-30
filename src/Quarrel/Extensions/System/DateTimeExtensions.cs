@@ -30,7 +30,7 @@ namespace System
             format += " at ";
 
             // Time
-            format += value.ToString("d");
+            format += value.ToString("t");
 
             // Finish
             return format;

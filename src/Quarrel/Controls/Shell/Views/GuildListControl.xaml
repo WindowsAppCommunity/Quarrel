@@ -22,7 +22,7 @@
                   ItemContainerStyle="{StaticResource GuildListItemStyle}"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
                   IsItemClickEnabled="True"
-                  helpers:ItemClickCommand.Command="{x:Bind ViewModel.NavigateGuildCommand}">
+                  helpers:ItemClickCommand.Command="{x:Bind ViewModel.NavigateGuild}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <guildcontrol:GuildTemplate/>

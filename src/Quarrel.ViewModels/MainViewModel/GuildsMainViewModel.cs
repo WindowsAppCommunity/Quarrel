@@ -16,8 +16,8 @@ namespace Quarrel.ViewModels
         /// <summary>
         /// Sends Messenger Request to change Guild
         /// </summary>
-        private RelayCommand<BindableGuild> navigateGuildCommand;
-        public RelayCommand<BindableGuild> NavigateGuildCommand => navigateGuildCommand ??=
+        private RelayCommand<BindableGuild> navigateGuild;
+        public RelayCommand<BindableGuild> NavigateGuild => navigateGuild ??=
             new RelayCommand<BindableGuild>((guild) => { MessengerInstance.Send(new GuildNavigateMessage(guild)); });
 
 
