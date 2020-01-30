@@ -6,6 +6,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Messages
 {
+    /// <summary>
+    /// Flyout for a BindableMessageTemplate
+    /// </summary>
     public sealed partial class MessageFlyout : UserControl
     {
         public MessageFlyout()
@@ -13,7 +16,14 @@ namespace Quarrel.Controls.Messages
             this.InitializeComponent();
         }
 
+        /// <summary>
+        /// Message on display
+        /// </summary>
         public BindableMessage Message => DataContext as BindableMessage;
+
+        /// <summary>
+        /// MainViewModel for app
+        /// </summary>
         public MainViewModel ViewModel => App.ViewModelLocator.Main;
 
     }
