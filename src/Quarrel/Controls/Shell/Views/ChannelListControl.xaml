@@ -638,6 +638,7 @@
     </UserControl.Resources>
 
     <Grid>
+        <!--List of channels-->
         <ListView x:Name="ChannelList"
                   ItemsSource="{x:Bind ViewModel.CurrentGuild.Channels, Mode=OneWay}"
                   ItemContainerStyle="{StaticResource ChannelListItemStyle}"
@@ -647,8 +648,11 @@
                   helpers:ItemClickCommand.Command="{x:Bind ViewModel.NavigateChannelCommand}">
             <ListView.Header>
                 <Grid>
+                    <!--Guild Button (Guild channel header)-->
                     <channelcontrols:ChannelListHeader Visibility="{x:Bind ViewModel.CurrentGuild.IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
                                                        DataContext="{x:Bind ViewModel.CurrentGuild, Mode=OneWay}"/>
+                    
+                    <!--Friend Button (DM channel header)-->
                     <ToggleButton Style="{StaticResource FriendsButtonStyle}" Visibility="{x:Bind ViewModel.CurrentGuild.IsDM, Mode=OneWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
                                   IsChecked="{x:Bind ViewModel.CurrentChannel, Converter={StaticResource NullToBoolConverter}, Mode=OneWay}" Height="48" Background="Transparent"
                                   Command="{x:Bind ViewModel.NavigateToFriends}">
