@@ -62,11 +62,41 @@ namespace Quarrel.ViewModels
 
         #region Navigation
 
-        private RelayCommand openSettings;
+        /// <summary>
+        /// Opens the About SubPage
+        /// </summary>
+        public RelayCommand OpenAbout => openAbout = new RelayCommand(() =>
+        {
+            SubFrameNavigationService.NavigateTo("AboutPage");
+        });
+        private RelayCommand openAbout;
+
+        /// <summary>
+        /// Opens the Credit SubPage
+        /// </summary>
+        public RelayCommand OpenCredit => openCredit = new RelayCommand(() =>
+        {
+            SubFrameNavigationService.NavigateTo("CreditPage");
+        });
+        private RelayCommand openCredit;
+
+        /// <summary>
+        /// Opens the Settings SubPage
+        /// </summary>
         public RelayCommand OpenSettings => openSettings = new RelayCommand(() =>
         {
             SubFrameNavigationService.NavigateTo("SettingsPage");
         });
+        private RelayCommand openSettings;
+
+        /// <summary>
+        /// Opens the What's New SubPage
+        /// </summary>
+        public RelayCommand OpenWhatsNew => openWhatsNew = new RelayCommand(() =>
+        {
+            SubFrameNavigationService.NavigateTo("WhatsNewPage");
+        });
+        private RelayCommand openWhatsNew;
 
         #endregion
 
