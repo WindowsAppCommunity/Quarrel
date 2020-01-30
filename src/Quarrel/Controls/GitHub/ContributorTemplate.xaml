@@ -12,12 +12,15 @@
 
     <UserControl.Resources>
         <Storyboard x:Name="ShowHover">
+            <!--Move Image down-->
             <DoubleAnimation Storyboard.TargetName="ImageTranslate" Storyboard.TargetProperty="Y"
                              Duration="0:0:0.3" To="16" From="0">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
+            
+            <!--Move Commits up-->
             <DoubleAnimation Storyboard.TargetName="CommitTranslate" Storyboard.TargetProperty="Y"
                              Duration="0:0:0.3" To="-24" From="0">
                 <DoubleAnimation.EasingFunction>
@@ -26,12 +29,15 @@
             </DoubleAnimation>
         </Storyboard>
         <Storyboard x:Name="HideHover">
+            <!--Move Image up-->
             <DoubleAnimation Storyboard.TargetName="ImageTranslate" Storyboard.TargetProperty="Y"
                              Duration="0:0:0.3" To="0" From="16">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
+            
+            <!--Move Commits down-->
             <DoubleAnimation Storyboard.TargetName="CommitTranslate" Storyboard.TargetProperty="Y"
                              Duration="0:0:0.3" To="0" From="-24">
                 <DoubleAnimation.EasingFunction>

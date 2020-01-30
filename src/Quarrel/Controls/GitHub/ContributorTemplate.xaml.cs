@@ -5,6 +5,9 @@ using Windows.Devices.Input;
 
 namespace Quarrel.Controls.GitHub
 {
+    /// <summary>
+    /// Template shown for Contributors in CreditPage
+    /// </summary>
     public sealed partial class ContributorTemplate : UserControl
     {
         public ContributorTemplate()
@@ -25,6 +28,9 @@ namespace Quarrel.Controls.GitHub
             if (pointer == PointerDeviceType.Mouse) (on ? ShowHover : HideHover).Begin();
         }
 
+        /// <summary>
+        /// Contributor being shown by control
+        /// </summary>
         public Contributor ViewModel => DataContext as Contributor;
     }
 }
