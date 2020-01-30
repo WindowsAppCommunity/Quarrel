@@ -15,19 +15,17 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-
-    <Grid>
-        <ListView ItemsSource="{x:Bind ViewModel.BindableGuilds, Mode=OneWay}"
+    <!--List of Guilds-->
+    <ListView ItemsSource="{x:Bind ViewModel.BindableGuilds, Mode=OneWay}"
                   SelectedItem="{x:Bind ViewModel.CurrentGuild, Mode=OneWay}"
                   ItemContainerStyle="{StaticResource GuildListItemStyle}"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
                   IsItemClickEnabled="True"
                   helpers:ItemClickCommand.Command="{x:Bind ViewModel.NavigateGuild}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <guildcontrol:GuildTemplate/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Grid>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <guildcontrol:GuildTemplate/>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </UserControl>
