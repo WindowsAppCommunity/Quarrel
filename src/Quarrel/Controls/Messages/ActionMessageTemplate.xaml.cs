@@ -14,10 +14,12 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Quarrel.Controls.Messages
 {
+    /// <summary>
+    /// Message Template for actions (like pinned message)
+    /// </summary>
     public sealed partial class ActionMessageTemplate : UserControl
     {
         public ActionMessageTemplate()
@@ -29,6 +31,9 @@ namespace Quarrel.Controls.Messages
             };
         }
 
+        /// <summary>
+        /// Message containing action data
+        /// </summary>
         public BindableMessage ViewModel => DataContext as BindableMessage;
     }
 }
