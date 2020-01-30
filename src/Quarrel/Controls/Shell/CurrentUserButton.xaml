@@ -17,6 +17,7 @@
         <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter" />
     </UserControl.Resources>
     <Grid>
+        <!--Shadow-->
         <Rectangle
             Height="12"
             Margin="0,-12,0,0"
@@ -30,6 +31,8 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
+        
+        <!--Button-->
         <Button
             Height="64"
             Padding="0"
@@ -40,6 +43,8 @@
             Background="{StaticResource AcrylicUserBackground}"
             BorderThickness="0"
             Style="{StaticResource DiscordOpaqueButton}">
+            
+            <!--CurrentUserGuildMember flyout and presence-->
             <Button.Flyout>
                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle2}">
                     <Grid>
@@ -81,6 +86,8 @@
                     </Grid>
                 </Flyout>
             </Button.Flyout>
+            
+            <!--CurrentUserGuildMember secondary flyout-->
             <Button.ContextFlyout>
                 <MenuFlyout>
                     <MenuFlyoutItem Text="Profile" Command="{x:Bind ViewModel.CurrentGuildMember.OpenProfile, Mode=OneWay}"/>
@@ -90,6 +97,7 @@
                     <MenuFlyoutItem Text="Copy ID" Command="{x:Bind ViewModel.CurrentGuildMember.CopyId, Mode=OneWay}"/>
                 </MenuFlyout>
             </Button.ContextFlyout>
+            
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
@@ -97,6 +105,7 @@
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
+                <!--Presence DropShadow-->
                 <controls:DropShadowPanel
                     Width="48"
                     Height="48"
@@ -105,6 +114,8 @@
                     VerticalAlignment="Center"
                     BlurRadius="24"
                     Color="{x:Bind ViewModel.CurrentGuildMember.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}">
+                    
+                    <!--User Icon-->
                     <Rectangle
                         Width="40"
                         Height="40"
@@ -118,11 +129,14 @@
                 </controls:DropShadowPanel>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <!--Display name-->
                     <TextBlock
                         FontSize="14"
                         FontWeight="SemiBold"
-                        Text="{x:Bind ViewModel.CurrentGuildMember.DisplayName, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.CurrentGuildMember.DisplayName, Mode=OneWay}"/>
+                    <!--Remaining user info-->
                     <StackPanel Orientation="Horizontal">
+                        <!--Username if User has nickname in current guild-->
                         <TextBlock
                             FontSize="12"
                             Opacity="0.6"
@@ -139,6 +153,7 @@
                     </StackPanel>
                 </StackPanel>
 
+                <!--Settings button-->
                 <Button
                     Grid.Column="2"
                     Margin="0,0,16,0"
