@@ -13,10 +13,11 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace Quarrel.Controls
 {
+    /// <summary>
+    /// Shows three dots vary in opacity as a typing animation
+    /// </summary>
     public sealed partial class TypingIndicator : UserControl
     {
         public TypingIndicator()

@@ -9,6 +9,8 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
     <UserControl.Resources>
+        
+        <!--Alter the opacity of the ellipses offset-->
         <Storyboard x:Name="Typing" RepeatBehavior="Forever">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ellipse">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0.1"/>
