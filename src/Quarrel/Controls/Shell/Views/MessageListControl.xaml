@@ -46,11 +46,14 @@
             <RowDefinition Height="auto" MaxHeight="256"/>
         </Grid.RowDefinitions>
 
+        <!--Message List-->
         <ListView x:Name="MessageList" x:Load="True"
                   ItemsSource="{x:Bind ViewModel.BindableMessages, Mode=OneWay}" Padding="0,0,0,16"
                   ItemTemplateSelector="{StaticResource MessageTemplateSelector}"
                   SelectionMode="None" IsItemClickEnabled="False" ItemContainerStyle="{StaticResource MessageListItemStyle}" ShowsScrollingPlaceholders="False">
+            
             <ListView.Header>
+                <!--Loading More messages from top-->
                 <ProgressBar Visibility="{x:Bind ViewModel.OldItemsLoading, Mode=OneWay}" IsIndeterminate="True"/>
             </ListView.Header>
             
@@ -79,6 +82,7 @@
             </Rectangle.Fill>
         </Rectangle>
 
+        <!--Typing indicator-->
         <Grid Visibility="{x:Bind ViewModel.CurrentChannel, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Margin="12,0,0,0">
             <StackPanel Visibility="{x:Bind ViewModel.CurrentChannel.IsTyping, Mode=OneWay}" Orientation="Horizontal" VerticalAlignment="Bottom">
                 <controls:TypingIndicator/>
@@ -86,6 +90,7 @@
             </StackPanel>
         </Grid>
 
+        <!--TextBox-->
         <msgcontrol:MessageBox Grid.Row="1" IsEnabled="{x:Bind ViewModel.CurrentChannel.Permissions.SendMessages, Mode=OneWay}"
                                Visibility="{x:Bind ViewModel.CurrentChannel, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"/>
     </Grid>

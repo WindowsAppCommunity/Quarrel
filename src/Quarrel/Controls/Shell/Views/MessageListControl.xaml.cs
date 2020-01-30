@@ -5,10 +5,11 @@ using Quarrel.ViewModels.Models.Bindables;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace Quarrel.Controls.Shell.Views
 {
+    /// <summary>
+    /// Control to handle MessageList and Message Drafting
+    /// </summary>
     public sealed partial class MessageListControl : UserControl
     {
         public MessageListControl()
@@ -22,12 +23,17 @@ namespace Quarrel.Controls.Shell.Views
             });
         }
 
+        /// <summary>
+        /// Access app's main data
+        /// </summary>
         public MainViewModel ViewModel => App.ViewModelLocator.Main;
 
         private ItemsStackPanel _ItemsStackPanel;
         private ScrollViewer _MessageScrollViewer;
         
-
+        /// <summary>
+        /// Finds ItemStackPanel and MessageScroller from MessageList once loaded
+        /// </summary>
         private void ItemsStackPanel_Loaded(object sender, RoutedEventArgs e)
         {
             _MessageScrollViewer = MessageList.FindChild<ScrollViewer>();
@@ -35,6 +41,9 @@ namespace Quarrel.Controls.Shell.Views
             if (_MessageScrollViewer != null) _MessageScrollViewer.ViewChanged += _messageScrollViewer_ViewChanged;
         }
 
+        /// <summary>
+        /// Checks margins from end of view when messages are scrolled
+        /// </summary>
         private void _messageScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             if (ViewModel.CurrentChannel == null)
@@ -55,12 +64,15 @@ namespace Quarrel.Controls.Shell.Views
                 if (fromTop < 100)
                     ViewModel.LoadOlderMessages();
 
-                // All messages seen
+                // All messages seen, mark as read
                 if (fromBottom < 10)
                     ViewModel.CurrentChannel.MarkAsRead.Execute(null);
             }
         }
 
+        /// <summary>
+        /// Scrolls <paramref name="e"/> into view
+        /// </summary>
         private void ViewModel_ScrollTo(object sender, BindableMessage e)
         {
             MessageList.ScrollIntoView(e);
