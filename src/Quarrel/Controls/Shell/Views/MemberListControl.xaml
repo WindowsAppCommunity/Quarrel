@@ -43,8 +43,10 @@
     </UserControl.Resources>
 
     <Grid>
+        <!--MemberList-->
         <SemanticZoom x:Name="zoom"  ViewChangeStarted="SemanticZoom_ViewChangeStarted">
             <SemanticZoom.ZoomedInView>
+                <!--Raw Member list with headers-->
                 <ListView x:Name="MemberList"
                           ItemContainerStyle="{StaticResource MemberListItemStyle}"
                           IsItemClickEnabled="True" SelectionMode="None"
@@ -83,6 +85,7 @@
                 </ListView>
             </SemanticZoom.ZoomedInView>
             <SemanticZoom.ZoomedOutView>
+                <!--List of Headers-->
                 <ListView ItemsSource="{x:Bind ViewModel.CurrentBindableMemeberGroups, Mode=OneWay}" Margin="0" >
                     <ListView.Background>
                         <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.1"/>
