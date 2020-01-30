@@ -16,76 +16,43 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <!--List of pages-->
         <ListView SelectedIndex="{Binding SelectedIndex, ElementName=pivot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Margin="12,0" HorizontalAlignment="Left" ItemContainerStyle="{StaticResource ListViewItemExpanded}">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsStackPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
-            <!--<ListViewItem Content="ACTIVITES" FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="24,0"/>-->
+            
+            <!--Friends Page Button-->
             <ListViewItem FontSize="13.333" FontWeight="SemiBold" Width="100" HorizontalContentAlignment="Center">
                 <TextBlock Text="FRIENDS" HorizontalAlignment="Center"/>
             </ListViewItem>
+
+            <!--Pending Page Button-->
             <ListViewItem FontSize="13.333" FontWeight="SemiBold" Width="100" HorizontalContentAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBlock Text="PENDING"/>
+                    
+                    <!--Pending Page button indicator-->
                     <Border Margin="6,0,0,-2" Background="{ThemeResource InvertedBG}" CornerRadius="2">
                         <TextBlock Text="{x:Bind ViewModel.BindablePendingFriends.Count, Mode=OneWay}" Margin="4,0,4,2" Foreground="{ThemeResource SystemControlBackgroundAltHighBrush}"/>
                     </Border>
                 </StackPanel>
             </ListViewItem>
+
+
+            <!--Blocked Page Button-->
             <ListViewItem FontSize="13.333" FontWeight="SemiBold" Width="100" HorizontalContentAlignment="Center">
                 <TextBlock Text="BLOCKED" HorizontalAlignment="Center"/>
             </ListViewItem>
         </ListView>
-        <Pivot x:Name="pivot" Grid.Row="1" Margin="0,0,12,0" Padding="12,0,12,0">
-            <!--<PivotItem x:Name="ActivitiesPI" Margin="0,-48,0,0">
-                <GridView x:Name="Feed" Padding="0" SelectionMode="None" VerticalAlignment="Top">
-                    <GridView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <local:ActivitesControl Activity="{Binding}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                    <GridView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <tk:StaggeredPanel HorizontalAlignment="Stretch"/>
-                        </ItemsPanelTemplate>
-                    </GridView.ItemsPanel>
-                    <GridView.Header>
-                        <FlipView x:Name="HeroFeed" MaxHeight="300" Width="{Binding ActualWidth, ElementName=pivot}" >
-                            <FlipView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid VerticalAlignment="Stretch">
-                                        <Image Source="{Binding Thumbnail.Url}"  Stretch="UniformToFill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                                        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                            <Rectangle.Fill>
-                                                <LinearGradientBrush StartPoint="0.5,0.4" EndPoint="0.5,1">
-                                                    <GradientStop Color="#00000000"/>
-                                                    <GradientStop Color="Black"  Offset="1"/>
-                                                </LinearGradientBrush>
-                                            </Rectangle.Fill>
-                                        </Rectangle>
-                                        <StackPanel Margin="24" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-                                            <TextBlock Text="{Binding GameTitle}" FontSize="12" FontWeight="SemiBold" Opacity="0.5" TextWrapping="Wrap"/>
-                                            <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Light" TextWrapping="Wrap"/>
-                                        </StackPanel>
 
-                                    </Grid>
-                                </DataTemplate>
-                            </FlipView.ItemTemplate>
-                        </FlipView>
-                    </GridView.Header>
-                </GridView>
-                <ListView >
-                    <ListView.ItemTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.Header>
-                        <CheckBox x:Uid="/Controls/OnlyOnlineFriendsCB" Style="{StaticResource CheckBoxStyle1}" Content="Only show online friends" Padding="0,5,0,0" Margin="0,0,0,12" Visibility="Collapsed"/>
-                    </ListView.Header>
-                </ListView>
-            </PivotItem>-->
+
+        <!--Pivot of Friends Pages-->
+        <Pivot x:Name="pivot" Grid.Row="1" Margin="0,0,12,0" Padding="12,0,12,0">
+
+            <!--Friends List-->
             <PivotItem Margin="0,-48,0,0">
                 <ListView Padding="0" Margin="0" SelectionMode="None" ItemContainerStyle="{StaticResource ChannelListItemStyle}"
                           ItemsSource="{x:Bind ViewModel.BindableCurrentFriends, Mode=OneWay}">
@@ -94,25 +61,10 @@
                             <friendcontrols:FriendTemplate/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                    <!--<ListView.Header>
-                        <StackPanel>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <TextBox PlaceholderText="Enter Discordtag#0000" Style="{StaticResource TextBoxStyle1}"/>
-                                <Button Content="Send Friend Request" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource DiscordButton}" Grid.Column="1" Click="SendFriendRequest"/>
-                            </Grid>
-                            <CheckBox Style="{StaticResource CheckBoxStyle1}" Content="Only show online friends" Padding="0,5,0,0" Margin="0,0,0,12" Visibility="Collapsed"/>
-                        </StackPanel>
-                    </ListView.Header>-->
                 </ListView>
             </PivotItem>
+            
+            <!--Pending Friends List-->
             <PivotItem>
                 <ListView Margin="0,-48,0,0" SelectionMode="None" ItemContainerStyle="{StaticResource ChannelListItemStyle}"
                           ItemsSource="{x:Bind ViewModel.BindablePendingFriends, Mode=OneWay}">
@@ -123,6 +75,8 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </PivotItem>
+            
+            <!--Blocked users list-->
             <PivotItem>
                 <ListView Margin="0,-48,0,0" SelectionMode="None" ItemContainerStyle="{StaticResource ChannelListItemStyle}"
                           ItemsSource="{x:Bind ViewModel.BindableBlockedUsers, Mode=OneWay}">
