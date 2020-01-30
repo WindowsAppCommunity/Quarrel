@@ -16,11 +16,16 @@ namespace Quarrel.Controls.Shell
         public ExtendedSplashScreen()
         {
             this.InitializeComponent();
-            Messenger.Default.Register<StartUpStatusMessage>(this, async m =>
+            
+            // Status changed
+            // Updates status text
+            Messenger.Default.Register<StartUpStatusMessage>(this, m =>
             {
                 StatusBlock.Text = m.Status.ToString().ToUpper();
             });
 
+            // Finished loading
+            // Begins hiding splash
             Messenger.Default.Register<GatewayReadyMessage>(this, async _ => 
             {
                 await DispatcherHelper.RunAsync(() => 
@@ -29,27 +34,34 @@ namespace Quarrel.Controls.Shell
                 });
             });
 
-            LoadMessage();
+            LoadQuote();
         }
 
-        public async void LoadMessage()
+        /// <summary>
+        /// Gets a random splash text quote
+        /// </summary>
+        public async void LoadQuote()
         {
             var splash = await Helpers.Constants.FromFile.GetRandomSplash();
             MessageBlock.Text = splash.Text;
             CreditBlock.Text = splash.Credit;
         }
 
+        /// <summary>
+        /// Alligns icon with old splash icon and begins animation
+        /// </summary>
+        /// <param name="ogSplash">Static splash screen data</param>
         public void InitializeAnimation(SplashScreen ogSplash)
         {
             // Setup icon
             AdjustSize(ogSplash);
-            Animation.Begin();
+            LoadIn.Begin();
         }
-
 
         /// <summary>
         /// Adjust ViewBox size
         /// </summary>
+        /// <param name="ogSplash">Static splash screen data</param>
         public void AdjustSize(SplashScreen ogSplash)
         {
             try
