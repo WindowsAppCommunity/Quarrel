@@ -57,6 +57,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
+            <!--Background blur, saturation and color-->
             <Grid x:Name="BackgroundGrid" Height="{Binding ElementName=Stacker, Path=ActualHeight, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.RowSpan="2" Opacity="1" VerticalAlignment="Top">
                 <Rectangle>
                     <Rectangle.Fill>
@@ -77,13 +78,15 @@
             </Grid>
 
             <StackPanel x:Name="Stacker">
-                <Grid x:Name="profileGrid" Margin="0,24,0,0">
+                <Grid Margin="0,24,0,0">
                     <Button Height="108" Width="108" Padding="0" Style="{StaticResource ButtonStyle2}" HorizontalAlignment="Center" BorderThickness="0">
                         <Grid>
+                            <!--Profile Icon-->
                             <Button x:Name="avatarButton" Width="108" Height="108" Style="{StaticResource DimButton}" Padding="0"
-                                    Click="AvatarButton_Click">
+                                    Click="OpenProfilePage">
                                 <Grid x:Name="FullAvatar">
                                     <Rectangle x:Name="AvatarBG" Height="96" Width="96" RadiusX="48" RadiusY="48"/>
+                                    <!--Status blur-->
                                     <tk:DropShadowPanel Color="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
                                                         BlurRadius="15">
                                         <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48">
@@ -98,18 +101,22 @@
                     </Button>
                 </Grid>
                 
+                <!--Username without Nickname-->
                 <StackPanel Visibility="{x:Bind ViewModel.HasNickname, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" HorizontalAlignment="Center" Orientation="Horizontal" MaxWidth="200" Margin="0,2,0,20">
                     <TextBlock Foreground="White" FontSize="16" Text="{x:Bind ViewModel.Model.User.Username, Mode=OneWay}"/>
                     <TextBlock Foreground="White" FontSize="15" Text="#" Opacity="0.75" VerticalAlignment="Bottom"/>
                     <TextBlock Foreground="White" FontSize="15" Text="{x:Bind ViewModel.Model.User.Discriminator, Mode=OneWay}" Opacity="0.75" VerticalAlignment="Bottom"/>
                 </StackPanel>
                 
+                <!--Username with Nickname-->
                 <TextBlock Visibility="{x:Bind ViewModel.HasNickname, Mode=OneWay}" Foreground="White" Text="{x:Bind ViewModel.Model.Nick, Mode=OneWay}" FontWeight="SemiBold" TextWrapping="Wrap" FontSize="16" HorizontalAlignment="Center" MaxWidth="200" Margin="0,20,0,0"/>
                 <StackPanel Visibility="{x:Bind ViewModel.HasNickname, Mode=OneWay}" Opacity="0.5" HorizontalAlignment="Center" Orientation="Horizontal" MaxWidth="200" Margin="0,2,0,20">
                     <TextBlock Foreground="White" FontSize="12" Text="{x:Bind ViewModel.Model.User.Username, Mode=OneWay}"/>
                     <TextBlock Foreground="White" FontSize="11" Text="#" Opacity="0.75" VerticalAlignment="Bottom"/>
                     <TextBlock Foreground="White" FontSize="11" Text="{x:Bind ViewModel.Model.User.Discriminator, Mode=OneWay}" Opacity="0.75" VerticalAlignment="Bottom"/>
                 </StackPanel>
+                
+                <!--Rich Presence info-->
                 <Grid>
                     <Rectangle Opacity="0.5">
                         <Rectangle.Fill>
@@ -120,6 +127,7 @@
                     <controls:RichPresenceControl DataContext="{x:Bind ViewModel.Presence.Game, Mode=OneWay}" Foreground="White" Margin="12,8" Visibility="{x:Bind ViewModel.Presence.Game, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" x:Name="richPresence"/>
                 </Grid>
             </StackPanel>
+            
             <Grid x:Name="Row1Grid"  Grid.Row="1" Background="{ThemeResource Background}">
                 <StackPanel Margin="12">
                     <StackPanel.Transitions>
@@ -127,6 +135,8 @@
                             <EntranceThemeTransition FromVerticalOffset="-100" IsStaggeringEnabled="True"/>
                         </TransitionCollection>
                     </StackPanel.Transitions>
+                    
+                    <!--Roles-->
                     <ListView Margin="-8,0" ItemsSource="{x:Bind ViewModel.Roles, Mode=OneWay}"
                               SelectionMode="None">
                         <ListView.ItemTemplate>
@@ -148,6 +158,8 @@
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                     </ListView>
+                    
+                    <!--Note-->
                     <TextBox Style="{StaticResource TextBoxStyle1}" Text="{x:Bind ViewModel.Note}"
                              PlaceholderText="Add Note" FontSize="12" Padding="18,6,6,6" Margin="-12,12,-12,0" 
                              Height="20" BorderThickness="0" MinHeight="28" VerticalContentAlignment="Center"

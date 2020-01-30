@@ -44,7 +44,7 @@ namespace Quarrel.Controls.Members
             SimpleIoc.Default.GetInstance<IDiscordService>().UserService.AddNote(ViewModel.Model.User.Id, new DiscordAPI.API.User.Models.Note() { Content = (sender as TextBox).Text });
         }
 
-        private void AvatarButton_Click(object sender, RoutedEventArgs e)
+        private void OpenProfilePage(object sender, RoutedEventArgs e)
         {
             // Connected Animation
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate(ViewModels.Helpers.Constants.ConnectedAnimationKeys.MemberFlyoutAnimation, FullAvatar);
