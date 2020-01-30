@@ -62,13 +62,16 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
+        <!--Gives a margin for the Title bar and gives it acrylic-->
         <Rectangle x:Name="TitleBarHolder" Canvas.ZIndex="1" Fill="{ThemeResource AcrylicCommandBarBackground}" Height="32"/>
 
-        <local:QuarrelCommandBar x:Name="SmallViewCommandBar" Visibility="{x:Bind IsViewLarge, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+        <!--Small View CommandBar-->
+        <local:QuarrelCommandBar x:Name="SmallViewCommandBar" Visibility="{x:Bind UseLargeCommandBar, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
                                  Grid.Row="1" Background="{ThemeResource AcrylicCommandBarBackground}" HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked"/>
 
         <local:SideDrawer x:Name="ContentContainer" Grid.Row="2">
             <local:SideDrawer.ContentLeft>
+                <!--Guild List-->
                 <views:GuildListControl/>
             </local:SideDrawer.ContentLeft>
             <local:SideDrawer.ContentLeftSecondary>
@@ -79,10 +82,13 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
+                    <!--Channel List-->
                     <views:ChannelListControl/>
 
+                    <!--Voice State-->
                     <local:VoiceConnection Grid.Row="1"/>
 
+                    <!--CurrentUserButton-->
                     <local:CurrentUserButton Grid.Row="2"/>
                 </Grid>
             </local:SideDrawer.ContentLeftSecondary>
@@ -93,20 +99,20 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <local:QuarrelCommandBar x:Name="LargeViewCommandBar" Visibility="{x:Bind IsViewLarge, Mode=OneWay}" Background="{StaticResource AcrylicMessageBackground}"
+                    <!--Large View CommandBar-->
+                    <local:QuarrelCommandBar x:Name="LargeViewCommandBar" Visibility="{x:Bind UseLargeCommandBar, Mode=OneWay}" Background="{StaticResource AcrylicMessageBackground}"
                                              HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked" ShowHamburger="True"/>
 
+                    <!--Message List-->
                     <views:MessageListControl Grid.Row="1"/>
 
+                    <!--Friends List-->
                     <views:FriendListControl Grid.Row="1" Visibility="{x:Bind ViewModel.CurrentChannel, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"/>
                 </Grid>
             </local:SideDrawer.ContentMain>
             <local:SideDrawer.ContentRight>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
+                    <!--Member List-->
                     <views:MemberListControl/>
                 </Grid>
             </local:SideDrawer.ContentRight>
