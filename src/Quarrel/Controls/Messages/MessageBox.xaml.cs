@@ -11,6 +11,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Messages
 {
+    /// <summary>
+    /// Control for drafting messages
+    /// </summary>
     public sealed partial class MessageBox : UserControl
     {
         public MessageBox()
@@ -29,6 +32,9 @@ namespace Quarrel.Controls.Messages
             ViewModel.MessageText += e.Surrogate;
         }
 
+        /// <summary>
+        /// Select file and add to attachment List
+        /// </summary>
         private async void AddAttachment(object sender, RoutedEventArgs e)
         {
             var picker = new FileOpenPicker();
@@ -42,9 +48,12 @@ namespace Quarrel.Controls.Messages
                 return;
             }
             var stream = await file.OpenStreamForReadAsync();
-            ViewModel.Attachments.Add(new StreamPart(stream, string.Format("{0}.{1}", file.DisplayName, file.FileType), file.ContentType)); 
+            ViewModel.Attachments.Add(new StreamPart(stream, string.Format("{0}{1}", file.DisplayName, file.FileType), file.ContentType)); 
         }
 
+        /// <summary>
+        /// Remove attachment from List
+        /// </summary>
         private void RemoveAttachment(object sender, RoutedEventArgs e)
         {
             ViewModel.Attachments.Remove((sender as Button).DataContext as StreamPart);
