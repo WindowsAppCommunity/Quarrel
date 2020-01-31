@@ -343,6 +343,16 @@ namespace Quarrel.ViewModels
             });
         private RelayCommand<BindableMessage> unPinMessageCommand;
 
+        /// <summary>
+        /// Copies message id to the clipboard
+        /// </summary>
+        public RelayCommand<BindableMessage> CopyMessageIdCommand => copyMessageIdCommand ??=
+            new RelayCommand<BindableMessage>((message) =>
+            {
+                ClipboardService.CopyToClipboard(message.Model.Id);
+            });
+        private RelayCommand<BindableMessage> copyMessageIdCommand;
+
         #endregion
 
         #endregion
