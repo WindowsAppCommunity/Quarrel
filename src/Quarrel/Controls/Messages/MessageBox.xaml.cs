@@ -25,14 +25,6 @@ namespace Quarrel.Controls.Messages
         public MessageBoxViewModel ViewModel => DataContext as MessageBoxViewModel;
 
         /// <summary>
-        /// Add Emoji to message
-        /// </summary>
-        private void EmojiPicker_EmojiPicked(object sender, ViewModels.Controls.Emoji e)
-        {
-            ViewModel.MessageText += e.Surrogate;
-        }
-
-        /// <summary>
         /// Select file and add to attachment List
         /// </summary>
         private async void AddAttachment(object sender, RoutedEventArgs e)

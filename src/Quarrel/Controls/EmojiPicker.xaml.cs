@@ -14,15 +14,17 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GalaSoft.MvvmLight.Command;
+using System.Windows.Input;
 
 namespace Quarrel.Controls
 {
     public sealed partial class EmojiPicker : UserControl
     {
         /// <summary>
-        /// Trigger event when Emoji is picked
+        /// Execute a command when Emoji is picked
         /// </summary>
-        public event EventHandler<Emoji> EmojiPicked;
+        public ICommand EmojiPickedCommand { get; set; }
 
         public EmojiPicker()
         {
@@ -50,7 +52,7 @@ namespace Quarrel.Controls
         /// </summary>
         private void EmojiClicked(object sender, ItemClickEventArgs e)
         {
-            EmojiPicked?.Invoke(this, e.ClickedItem as Emoji);
+            EmojiPickedCommand.Execute(new List<Emoji>{e.ClickedItem as Emoji});
         }
 
         /// <summary>

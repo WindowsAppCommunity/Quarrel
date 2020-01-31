@@ -1101,7 +1101,7 @@
         <Button HorizontalAlignment="Right" Margin="0,0,48,0" Foreground="{ThemeResource Foreground}" Style="{StaticResource ContentButton}" Opacity="1" Background="Transparent" Padding="8">
             <Button.Flyout>
                 <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
-                    <controls:EmojiPicker EmojiPicked="EmojiPicker_EmojiPicked"/>
+                    <controls:EmojiPicker EmojiPickedCommand="{x:Bind ViewModel.EmojiPickedCommand}"/>
                 </Flyout>
             </Button.Flyout>
             

@@ -79,6 +79,17 @@ namespace Quarrel.ViewModels.Controls.Shell
         });
         private RelayCommand sendMessageCommand;
 
+        /// <summary>
+        /// Handles enter override on MessageBox to add new line
+        /// </summary>
+        public RelayCommand<List<Emoji>> EmojiPickedCommand =>
+            emojiPickedCommand ??= new RelayCommand<List<Emoji>>((emojis) =>
+            {
+                foreach(Emoji emoji in emojis)
+                    MessageText += emoji.Surrogate;
+            });
+        private RelayCommand<List<Emoji>> emojiPickedCommand;
+
         // TODO: Scroll to and edit
         #endregion
 
