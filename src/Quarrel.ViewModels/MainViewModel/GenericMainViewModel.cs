@@ -20,6 +20,7 @@ using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.Services.Settings;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Quarrel.ViewModels.Services.Clipboard;
 
 namespace Quarrel.ViewModels
 {
@@ -34,7 +35,7 @@ namespace Quarrel.ViewModels
         public MainViewModel(ICacheService cacheService, ISettingsService settingsService, IChannelsService channelsService,
             IDiscordService discordService, ICurrentUserService currentUserService, IGatewayService gatewayService, IPresenceService presenceService,
             IGuildsService guildsService, ISubFrameNavigationService subFrameNavigationService, IFriendsService friendsService,
-            IDispatcherHelper dispatcherHelper)
+            IDispatcherHelper dispatcherHelper, IClipboardService clipboardService)
         {
             CacheService = cacheService;
             SettingsService = settingsService;
@@ -48,6 +49,7 @@ namespace Quarrel.ViewModels
             GuildsService = guildsService;
             SubFrameNavigationService = subFrameNavigationService;
             DispatcherHelper = dispatcherHelper;
+            ClipboardService = clipboardService;
 
             RegisterGenericMessages();
             RegisterChannelsMessages();
@@ -182,6 +184,7 @@ namespace Quarrel.ViewModels
         private readonly ICurrentUserService CurrentUserService;
         private readonly IDiscordService DiscordService;
         private readonly IDispatcherHelper DispatcherHelper;
+        private readonly IClipboardService ClipboardService;
         private readonly IGatewayService GatewayService;
         private readonly IGuildsService GuildsService;
         private readonly IFriendsService FriendsService;

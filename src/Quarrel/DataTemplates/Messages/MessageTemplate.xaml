@@ -15,6 +15,7 @@
     xmlns:messages="using:Quarrel.DataTemplates.Messages"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
+    xmlns:media="using:Microsoft.Xaml.Interactions.Media"
     x:Class="Quarrel.DataTemplates.Messages.MessageTemplate">
 
     <ResourceDictionary.MergedDictionaries>
@@ -131,7 +132,39 @@
 
     <DataTemplate x:Key="MessageTemplate" x:DataType="bindables:BindableMessage">
         <UserControl>
+            <UserControl.Resources>
+                <Storyboard x:Name="PointerEntered">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MoreButton" Storyboard.TargetProperty="Opacity">
+                        <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0.5">
+                            <EasingDoubleKeyFrame.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </EasingDoubleKeyFrame.EasingFunction>
+                        </EasingDoubleKeyFrame>
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+                <Storyboard x:Name="PointerExited">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MoreButton" Storyboard.TargetProperty="Opacity">
+                        <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0">
+                            <EasingDoubleKeyFrame.EasingFunction>
+                                <CircleEase EasingMode="EaseIn"/>
+                            </EasingDoubleKeyFrame.EasingFunction>
+                        </EasingDoubleKeyFrame>
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+            </UserControl.Resources>
             <Grid x:Name="rootGrid">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="PointerEntered">
+                        <core:EventTriggerBehavior.Actions>
+                            <media:ControlStoryboardAction Storyboard="{StaticResource PointerEntered}"/>
+                        </core:EventTriggerBehavior.Actions>
+                    </core:EventTriggerBehavior>
+                    <core:EventTriggerBehavior EventName="PointerExited">
+                        <core:EventTriggerBehavior.Actions>
+                            <media:ControlStoryboardAction Storyboard="{StaticResource PointerExited}"/>
+                        </core:EventTriggerBehavior.Actions>
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="64"/>
                     <ColumnDefinition/>
@@ -236,7 +269,7 @@
                             <HyperlinkButton Content="Save" Style="{StaticResource PlainTextHyperlinkStyle}" Margin="8,4" Command="{x:Bind SaveEdit, Mode=OneWay}"/>
                         </StackPanel>
                     </Grid>
-                    <Button Grid.Column="1" VerticalAlignment="Top" Padding="4,0" Style="{StaticResource DimButton}" Opacity="0.5">
+                    <Button x:Name="MoreButton" Grid.Column="1" VerticalAlignment="Top" Padding="4,0" Style="{StaticResource DimButton}" Opacity="0">
                         <Button.Flyout>
                             <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
                                 <messagecontrols:MessageFlyout DataContext="{x:Bind}" Width="96"/>
