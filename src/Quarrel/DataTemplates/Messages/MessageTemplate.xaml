@@ -130,8 +130,34 @@
     </DataTemplate>
 
     <DataTemplate x:Key="MessageTemplate" x:DataType="bindables:BindableMessage">
-        <UserControl>
+        <UserControl PointerEntered="UIElement_OnPointerEntered" PointerExited="UIElement_OnPointerExited">
             <Grid x:Name="rootGrid">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="PointerEntered">
+                            <Storyboard>
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MoreButton" Storyboard.TargetProperty="Opacity">
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0.5">
+                                        <EasingDoubleKeyFrame.EasingFunction>
+                                            <CircleEase EasingMode="EaseOut"/>
+                                        </EasingDoubleKeyFrame.EasingFunction>
+                                    </EasingDoubleKeyFrame>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="PointerExited">
+                            <Storyboard>
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MoreButton" Storyboard.TargetProperty="Opacity">
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0">
+                                        <EasingDoubleKeyFrame.EasingFunction>
+                                            <CircleEase EasingMode="EaseIn"/>
+                                        </EasingDoubleKeyFrame.EasingFunction>
+                                    </EasingDoubleKeyFrame>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="64"/>
                     <ColumnDefinition/>
@@ -236,7 +262,7 @@
                             <HyperlinkButton Content="Save" Style="{StaticResource PlainTextHyperlinkStyle}" Margin="8,4" Command="{x:Bind SaveEdit, Mode=OneWay}"/>
                         </StackPanel>
                     </Grid>
-                    <Button Grid.Column="1" VerticalAlignment="Top" Padding="4,0" Style="{StaticResource DimButton}" Opacity="0.5">
+                    <Button x:Name="MoreButton" Grid.Column="1" VerticalAlignment="Top" Padding="4,0" Style="{StaticResource DimButton}" Opacity="0">
                         <Button.Flyout>
                             <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
                                 <messagecontrols:MessageFlyout DataContext="{x:Bind}" Width="96"/>

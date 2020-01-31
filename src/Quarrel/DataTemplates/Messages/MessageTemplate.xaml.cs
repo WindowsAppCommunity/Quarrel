@@ -56,5 +56,15 @@ namespace Quarrel.DataTemplates.Messages
                 }
             }
         }
+
+        private void UIElement_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(sender as Control, "PointerEntered", true);
+        }
+
+        private void UIElement_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(sender as Control, "PointerExited", true);
+        }
     }
 }
