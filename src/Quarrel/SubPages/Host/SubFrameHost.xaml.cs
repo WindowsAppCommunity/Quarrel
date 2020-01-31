@@ -153,14 +153,12 @@ namespace Quarrel.SubPages.Host
                     if (targetWidth > size.Width - 48 * 2)
                     {
                         ContentGrid.MaxWidth = targetWidth;
-                        VisualStateManager.GoToState(this, "TopBackButton", false);
-                        CloseButton.Visibility = Visibility.Collapsed;
+                        VisualStateManager.GoToState(this, "RightBackButton", false);
                     }
                     else
                     {
                         ContentGrid.MaxWidth = targetWidth + 48;
-                        VisualStateManager.GoToState(this, "LeftBackButton", false);
-                        CloseButton.Visibility = Visibility.Visible;
+                        VisualStateManager.GoToState(this, "TopBackButton", false);
                     }
                 }
                 else
@@ -168,7 +166,6 @@ namespace Quarrel.SubPages.Host
                     ContentGrid.MaxHeight = height + 48;
                     ContentGrid.MaxWidth = targetWidth;
                     VisualStateManager.GoToState(this, "TopBackButton", false);
-                    CloseButton.Visibility = Visibility.Visible;
                 }
 
                 // Final setup

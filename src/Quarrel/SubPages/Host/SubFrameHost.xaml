@@ -19,14 +19,8 @@
                                 Value="1"/>
                         <Setter Target="ContentBorder.(Grid.RowSpan)"
                                 Value="1"/>
-                        <Setter Target="ContentBorder.(Grid.Column)"
-                                Value="0"/>
-                        <Setter Target="ContentBorder.(Grid.ColumnSpan)"
-                                Value="2"/>
-                        <Setter Target="CloseButton.Margin"
-                                Value="0"/>
-                        <Setter Target="ContentGrid.Margin"
-                                Value="0"/>
+                        <Setter Target="CloseButton.HorizontalAlignment"
+                                Value="Left"/>
                     </VisualState.Setters>
                 </VisualState>
 
@@ -37,14 +31,8 @@
                                 Value="0"/>
                         <Setter Target="ContentBorder.(Grid.RowSpan)"
                                 Value="2"/>
-                        <Setter Target="ContentBorder.(Grid.Column)"
-                                Value="1"/>
-                        <Setter Target="ContentBorder.(Grid.ColumnSpan)"
-                                Value="1"/>
-                        <Setter Target="CloseButton.Margin"
-                                Value="0,32,0,0"/>
-                        <Setter Target="ContentGrid.Margin"
-                                Value="-48,0,0,0"/>
+                        <Setter Target="CloseButton.HorizontalAlignment"
+                                Value="Right"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -90,15 +78,23 @@
             </animations:Implicit.HideAnimations>
 
             <!--Content grid-->
-            <Grid x:Name="ContentGrid">
+            <Grid x:Name="ContentGrid" Margin="0,32,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+
+                <!--Content-->
+                <Border 
+                    x:Name="ContentBorder"
+                    Grid.Row="1"
+                    BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
+                    Background="{ThemeResource DarkBG}" 
+                    BorderThickness="1" CornerRadius="1">
+                    <ContentControl 
+                        x:Name="HostControl" IsTabStop="False"
+                        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+                </Border>
 
                 <!--Close button-->
                 <Button 
@@ -110,18 +106,6 @@
                     Click="CloseButton_OnClick">
                     <SymbolIcon Symbol="Clear" Foreground="{StaticResource Foreground}"/>
                 </Button>
-
-                <!--Content-->
-                <Border 
-                    x:Name="ContentBorder"
-                    Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                    BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
-                    Background="{ThemeResource DarkBG}" 
-                    BorderThickness="1" CornerRadius="1">
-                    <ContentControl 
-                        x:Name="HostControl" IsTabStop="False"
-                        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-                </Border>
             </Grid>
         </Grid>
     </Grid>
