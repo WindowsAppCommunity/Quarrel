@@ -56,9 +56,9 @@
                         <TextBlock Text="{x:Bind DisplayName, Mode=OneWay}" Foreground="{x:Bind RoleColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}"
                                VerticalAlignment="Center" FontSize="14" FontWeight="Normal"/>
                         <!--Guild Owner indicator-->
-                        <Image Height="12" Source="/Assets/DiscordAssets/Crown.png" Stretch="UniformToFill" Margin="5,0,0,0" x:Load="{x:Bind IsOwner}" x:Phase="3"/>
+                        <Image x:Name="GuildOwnerindicator" Height="12" Source="/Assets/DiscordAssets/Crown.png" Stretch="UniformToFill" Margin="5,0,0,0" x:Load="{x:Bind IsOwner}" x:Phase="3"/>
                         <!--Bot Indicator-->
-                        <Border Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="4,0,0,0" Padding="6,0" CornerRadius="2" x:Load="{x:Bind IsBot}" x:Phase="3">
+                        <Border x:Name="BotIndicator" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="4,0,0,0" Padding="6,0" CornerRadius="2" x:Load="{x:Bind IsBot}" x:Phase="3">
                             <TextBlock x:Uid="/Controls/BotTB" Foreground="{ThemeResource Foreground}" Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
                         </Border>
                     </StackPanel>
