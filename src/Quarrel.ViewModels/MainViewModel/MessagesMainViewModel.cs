@@ -287,29 +287,21 @@ namespace Quarrel.ViewModels
 
         #endregion
 
+        public void ScrollToAndEditLast()
+        {
+            var userLastMessage = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad" && x.Model.User.Id == CurrentUserService.CurrentUser.Model.Id);
+            if (userLastMessage != null)
+            {
+                userLastMessage.IsEditing = true;
+                ScrollTo?.Invoke(this, userLastMessage);
+            }
+        }
+
         #endregion
 
         #region Commands
 
         #region Message Editing
-
-        ///// <summary>
-        ///// Override up arrow to edit last sent message in chat
-        ///// </summary>
-        //public RelayCommand EditLastMessageCommand => editLastMessageCommand ??= new RelayCommand(() =>
-        //{
-        //    // Only overrides if there's no draft
-        //    if (string.IsNullOrEmpty(MessageText))
-        //    {
-        //        var userLastMessage = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad" && x.Model.User.Id == CurrentUserService.CurrentUser.Model.Id);
-        //        if (userLastMessage != null)
-        //        {
-        //            userLastMessage.IsEditing = true;
-        //            ScrollTo?.Invoke(this, userLastMessage);
-        //        }
-        //    }
-        //});
-        //private RelayCommand editLastMessageCommand;
 
         /// <summary>
         /// Sends API request to delete a message
