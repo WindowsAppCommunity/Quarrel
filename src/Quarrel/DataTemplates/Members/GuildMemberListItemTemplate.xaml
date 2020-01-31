@@ -16,8 +16,10 @@
         <membercontrols:MemberFlyoutTemplate/>
     </Flyout>
 
+    <!--Loaded GuildMember Item Template-->
     <DataTemplate x:Key="GuildMemberListItemTemplate" x:DataType="bindables:BindableGuildMember">
         <UserControl FlyoutBase.AttachedFlyout="{StaticResource MemberFlyoutTemplate}">
+            <!--Secondary Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout>
                     <MenuFlyoutItem Text="Profile" Command="{x:Bind OpenProfile, Mode=OneWay}"/>
@@ -33,11 +35,14 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                <!--Presence indicator line-->
                 <Rectangle Fill="{x:Bind Presence.Status, Converter={StaticResource PresenseToBrushConverter}, Mode=OneWay}" 
                        Width="2" Height="24" HorizontalAlignment="Left" x:Phase="1"/>
+                
+                <!--Presence indicator shadow-->
                 <controls:DropShadowPanel x:Phase="1" Color="{x:Bind Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
                                       BlurRadius="15" VerticalAlignment="Center" Margin="10,6,6,6">
-
+                    <!--User Icon-->
                     <Rectangle Width="36" Height="36" RadiusX="18" RadiusY="18">
                         <Rectangle.Fill>
                             <ImageBrush x:Name="Avatar" ImageSource="{x:Bind Model.User.AvatarUrl, Mode=OneWay}"/>
@@ -47,13 +52,18 @@
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0">
                     <StackPanel Orientation="Horizontal">
+                        <!--Username or Nickname-->
                         <TextBlock Text="{x:Bind DisplayName, Mode=OneWay}" Foreground="{x:Bind RoleColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}"
                                VerticalAlignment="Center" FontSize="14" FontWeight="Normal"/>
-                        <Image x:Name="OwnerIndicator" Height="12" Source="/Assets/DiscordAssets/Crown.png" Stretch="UniformToFill" Margin="5,0,0,0" x:Load="{x:Bind IsOwner}" x:Phase="3"/>
-                        <Border x:Name="BotIndicator" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="4,0,0,0" Padding="6,0" CornerRadius="2" x:Load="{x:Bind IsBot}" x:Phase="3">
+                        <!--Guild Owner indicator-->
+                        <Image Height="12" Source="/Assets/DiscordAssets/Crown.png" Stretch="UniformToFill" Margin="5,0,0,0" x:Load="{x:Bind IsOwner}" x:Phase="3"/>
+                        <!--Bot Indicator-->
+                        <Border Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="4,0,0,0" Padding="6,0" CornerRadius="2" x:Load="{x:Bind IsBot}" x:Phase="3">
                             <TextBlock x:Uid="/Controls/BotTB" Foreground="{ThemeResource Foreground}" Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
                         </Border>
                     </StackPanel>
+                    
+                    <!--Basic Rich Presence info-->
                     <StackPanel Orientation="Horizontal" x:Name="richPresence" x:Phase="2" x:Load="{x:Bind Presence.Game, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
                         <TextBlock x:Name="playing" Visibility="{x:Bind Presence.Game.IsCustom, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Text="Playing" VerticalAlignment="Center" FontSize="11" FontWeight="SemiLight" Opacity="0.6" Foreground="{ThemeResource Foreground}"/>
                         <TextBlock x:Name="game" Text="{x:Bind Presence.Game.Display, Mode=OneWay}" VerticalAlignment="Center" Opacity="0.8" FontSize="11" FontWeight="Normal" Margin="3,0,0,0" Foreground="{ThemeResource Foreground}"/>
@@ -64,6 +74,7 @@
         </UserControl>
     </DataTemplate>
 
+    <!--GuildMember Group Header Item Template-->
     <DataTemplate x:Key="GuildMemberGroupListItemTemplate" x:DataType="bindables1:BindableGuildMemberGroup">
         <Grid VerticalAlignment="Top" Padding="12,9,12,8">
             <Grid.RowDefinitions>
@@ -75,13 +86,17 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
+                <!--Group name-->
                 <TextBlock Text="{Binding Name}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.75" Margin="0"/>
+                
+                <!--Group Member Count-->
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Count}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.35"/>
             </Grid>
             <Rectangle Grid.Row="1" Margin="0,8,0,0" VerticalAlignment="Bottom" StrokeThickness="0.5" Height="1" Stroke="#33FFFFFF"/>
         </Grid>
     </DataTemplate>
 
+    <!--Placeholder Guild Item Template-->
     <DataTemplate x:Key="GuildMemberListPlaceholderTemplate">
         <Grid Margin="12,6,22,6">
             <Grid.ColumnDefinitions>
