@@ -44,7 +44,7 @@ namespace Quarrel.Services.Settings
                 AcrylicSettings.MessageView |
                 AcrylicSettings.ChannelView |
                 AcrylicSettings.GuildView |
-                AcrylicSettings.CommandBar, true);
+                AcrylicSettings.CommandBar, false);
         }
 
         /// <inheritdoc/>
