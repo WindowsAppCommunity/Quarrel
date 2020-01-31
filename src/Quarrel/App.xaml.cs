@@ -1,9 +1,12 @@
-﻿using GalaSoft.MvvmLight.Threading;
+﻿using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Threading;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.UI.Xaml.Media;
 using Quarrel.Services.Settings;
 using Quarrel.ViewModels;
+using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.Services.Settings.Enums;
 using System;
@@ -20,6 +23,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using AcrylicBrush = Microsoft.UI.Xaml.Media.AcrylicBrush;
 
 namespace Quarrel
 {
@@ -95,19 +99,21 @@ namespace Quarrel
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-
             Frame rootFrame = Window.Current.Content as Frame;
 
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(400, 500));
             if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
-                (Current.Resources["AcrylicMessageBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
-                (Current.Resources["AcrylicChannelPaneBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
-                (Current.Resources["AcrylicGuildPaneBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
-                (Current.Resources["AcrylicCommandBarBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
-                (Current.Resources["AcrylicSubFrameBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
-                (Current.Resources["AcrylicUserBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush).TintLuminosityOpacity = 0.95;
+                (Current.Resources["AcrylicMessageBackground"] as AcrylicBrush).TintLuminosityOpacity = 0.95;
+                (Current.Resources["AcrylicChannelPaneBackground"] as AcrylicBrush).TintLuminosityOpacity = 0.95;
+                (Current.Resources["AcrylicGuildPaneBackground"] as AcrylicBrush).TintLuminosityOpacity = 0.95;
+                (Current.Resources["AcrylicCommandBarBackground"] as AcrylicBrush).TintLuminosityOpacity = 0.95;
+                (Current.Resources["AcrylicSubFrameBackground"] as AcrylicBrush).TintLuminosityOpacity = 0.95;
+                (Current.Resources["AcrylicUserBackground"] as AcrylicBrush).TintLuminosityOpacity = 0.95;
             }
+
+            SetupResources();
+            RegisterMessages();
             SetupTitleBar();
 
             // Do not repeat app initialization when the Window already has content,
@@ -169,6 +175,35 @@ namespace Quarrel
             deferral.Complete();
         }
 
+        /// <summary>
+        /// Sets Resource settings according to settings
+        /// </summary>
+        private void SetupResources()
+        {
+            var acrylicSettings = new SettingsService().Roaming.GetValue<AcrylicSettings>(SettingKeys.AcrylicSettings);
+            (App.Current.Resources["AcrylicMessageBackground"] as AcrylicBrush).AlwaysUseFallback = (acrylicSettings & AcrylicSettings.MessageView) != AcrylicSettings.MessageView;
+            (App.Current.Resources["AcrylicChannelPaneBackground"] as AcrylicBrush).AlwaysUseFallback = (acrylicSettings & AcrylicSettings.ChannelView) != AcrylicSettings.ChannelView;
+            (App.Current.Resources["AcrylicGuildPaneBackground"] as AcrylicBrush).AlwaysUseFallback = (acrylicSettings & AcrylicSettings.GuildView) != AcrylicSettings.GuildView;
+            (App.Current.Resources["AcrylicCommandBarBackground"] as AcrylicBrush).AlwaysUseFallback = (acrylicSettings & AcrylicSettings.CommandBar) != AcrylicSettings.CommandBar;
+        }
+
+        /// <summary>
+        /// Registers message that change App Resources
+        /// </summary>
+        private void RegisterMessages()
+        {
+            Messenger.Default.Register<SettingChangedMessage<AcrylicSettings>>(this, m =>
+            {
+                if (m.Key == SettingKeys.AcrylicSettings)
+                {
+                    (App.Current.Resources["AcrylicMessageBackground"] as AcrylicBrush).AlwaysUseFallback = (m.Value & AcrylicSettings.MessageView) != AcrylicSettings.MessageView;
+                    (App.Current.Resources["AcrylicChannelPaneBackground"] as AcrylicBrush).AlwaysUseFallback = (m.Value & AcrylicSettings.ChannelView) != AcrylicSettings.ChannelView;
+                    (App.Current.Resources["AcrylicGuildPaneBackground"] as AcrylicBrush).AlwaysUseFallback = (m.Value & AcrylicSettings.GuildView) != AcrylicSettings.GuildView;
+                    (App.Current.Resources["AcrylicCommandBarBackground"] as AcrylicBrush).AlwaysUseFallback = (m.Value & AcrylicSettings.CommandBar) != AcrylicSettings.CommandBar;
+                };
+            });
+        }
+
         #region Window Setup
 
         public void SetupTitleBar()
@@ -187,7 +222,7 @@ namespace Quarrel
                     try
                     {
                         statusBar.BackgroundOpacity = 1;
-                        statusBar.BackgroundColor = ((Microsoft.UI.Xaml.Media.AcrylicBrush)Current.Resources["AcrylicCommandBarBackground"]).TintColor;
+                        statusBar.BackgroundColor = ((AcrylicBrush)Current.Resources["AcrylicCommandBarBackground"]).TintColor;
                         statusBar.ForegroundColor = ((SolidColorBrush)Current.Resources["Foreground"]).Color;
                     }
                     catch (Exception ex) {

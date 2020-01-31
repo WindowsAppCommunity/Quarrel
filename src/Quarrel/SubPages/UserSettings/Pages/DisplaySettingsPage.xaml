@@ -34,6 +34,12 @@
             <RadioButton x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" Content="System accent color" GroupName="Accent"
                          IsChecked="{x:Bind ViewModel.SystemAccentColor, Mode=TwoWay}"/>
 
+            <Windows10version1809:TextBlock Text="Acrylic" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
+            <Windows10version1809:CheckBox Content="Message View" IsChecked="{x:Bind ViewModel.MessageViewAcrylic, Mode=TwoWay}" Style="{ThemeResource CheckBoxStyle1}"/>
+            <Windows10version1809:CheckBox Content="Channel and Member View" IsChecked="{x:Bind ViewModel.ChannelViewAcrylic, Mode=TwoWay}" Style="{ThemeResource CheckBoxStyle1}"/>
+            <Windows10version1809:CheckBox Content="Guild View" IsChecked="{x:Bind ViewModel.GuildViewAcrylic, Mode=TwoWay}" Style="{ThemeResource CheckBoxStyle1}"/>
+            <Windows10version1809:CheckBox Content="Command Bar" IsChecked="{x:Bind ViewModel.CommandBarAcrylic, Mode=TwoWay}" Style="{ThemeResource CheckBoxStyle1}"/>
+
             <TextBlock Text="OTHER" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
             <CheckBox x:Name="ShowServerMute" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0"
                       IsChecked="{x:Bind ViewModel.ServerMuteIcons, Mode=TwoWay}">

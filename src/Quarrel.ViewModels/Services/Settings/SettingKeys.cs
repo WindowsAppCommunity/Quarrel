@@ -17,6 +17,7 @@ namespace Quarrel.ViewModels.Services.Settings
         ServerMuteIcons,
         ExpensiveRendering,
         DerivedColor,
+        AcrylicSettings,
         FontSize,
 
         // Behavior

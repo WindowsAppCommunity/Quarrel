@@ -87,6 +87,36 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 
         #endregion
 
+        #region Acrylic
+
+        public bool MessageViewAcrylic
+        {
+            get => (_AcrylicSettings & AcrylicSettings.MessageView) == AcrylicSettings.MessageView;
+            set => SettingsService.Roaming.SetValue(SettingKeys.AcrylicSettings, _AcrylicSettings ^ AcrylicSettings.MessageView, true, true);
+        }
+
+        public bool ChannelViewAcrylic
+        {
+            get => (_AcrylicSettings & AcrylicSettings.ChannelView) == AcrylicSettings.ChannelView;
+            set => SettingsService.Roaming.SetValue(SettingKeys.AcrylicSettings, _AcrylicSettings ^ AcrylicSettings.ChannelView, true, true);
+        }
+
+        public bool GuildViewAcrylic
+        {
+            get => (_AcrylicSettings & AcrylicSettings.GuildView) == AcrylicSettings.GuildView;
+            set => SettingsService.Roaming.SetValue(SettingKeys.AcrylicSettings, _AcrylicSettings ^ AcrylicSettings.GuildView, true, true);
+        }
+
+        public bool CommandBarAcrylic
+        {
+            get => (_AcrylicSettings & AcrylicSettings.CommandBar) == AcrylicSettings.CommandBar;
+            set => SettingsService.Roaming.SetValue(SettingKeys.AcrylicSettings, _AcrylicSettings ^ AcrylicSettings.CommandBar, true, true);
+        }
+
+        private AcrylicSettings _AcrylicSettings => SettingsService.Roaming.GetValue<AcrylicSettings>(SettingKeys.AcrylicSettings);
+
+        #endregion
+
         public bool ServerMuteIcons
         {
             get => SettingsService.Roaming.GetValue<bool>(SettingKeys.ServerMuteIcons);
