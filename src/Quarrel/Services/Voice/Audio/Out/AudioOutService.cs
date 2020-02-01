@@ -18,6 +18,7 @@ namespace Quarrel.Services.Voice.Audio.Out
 
         // TODO: Public set
         public string DeviceId { get; private set; }
+        public int Samples => _Graph.SamplesPerQuantum;
         public bool Deafened { get; private set; }
 
         #endregion

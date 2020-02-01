@@ -1,7 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.Geometry;
+using Quarrel.Helpers.AudioProcessing;
 using Quarrel.ViewModels.Services.Settings;
+using Quarrel.ViewModels.Services.Voice.Audio;
 using Quarrel.ViewModels.Services.Voice.Audio.In;
 using Quarrel.ViewModels.Services.Voice.Audio.Out;
 using System;
@@ -20,8 +22,6 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Quarrel.Controls
 {
@@ -46,6 +46,8 @@ namespace Quarrel.Controls
             // If FFT is enabled, setup render smoothers for each data point
             if (SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<bool>(SettingKeys.ExpensiveRendering))
             {
+                BoundAudioService.DataRecieved += DataRecieved;
+
                 smoother1 = new Smoother(4, 6);
                 smoother2 = new Smoother(4, 12);
                 smoother3 = new Smoother(4, 14);
@@ -94,16 +96,31 @@ namespace Quarrel.Controls
             initailized = false;
 
             // Unsubscribe from events
+            BoundAudioService.DataRecieved -= DataRecieved;
             Loaded -= fftInitialize;
             Unloaded -= fftDipose;
         }
 
         #endregion
 
-
+        /// <summary>
+        /// Update Spec points 
+        /// </summary>
         private void DataRecieved(object sender, float[] e)
         {
-            
+            // Determine FFT data
+            float[] fftData = HelperMethods.GetFftChannelData(e, BoundAudioService.Samples);
+
+            SpecPoint0 = HelperMethods.Max(fftData, 0, 1);
+            SpecPoint1 = HelperMethods.Max(fftData, 2, 3);
+            SpecPoint2 = HelperMethods.Max(fftData, 3, 4);
+            SpecPoint3 = HelperMethods.Max(fftData, 4, 5);
+            SpecPoint4 = HelperMethods.Max(fftData, 5, 6);
+            SpecPoint5 = HelperMethods.Max(fftData, 7, 8);
+            SpecPoint6 = HelperMethods.Max(fftData, 9, 10);
+            SpecPoint7 = HelperMethods.Max(fftData, 10, 12);
+            SpecPoint8 = HelperMethods.Max(fftData, 14, 26);
+            SpecPointAverage = (SpecPoint0 + SpecPoint1 + SpecPoint2 + SpecPoint3 + SpecPoint4 + SpecPoint5 + SpecPoint6 + SpecPoint7 + SpecPoint8) / 9;
         }
 
         /// <summary>
@@ -244,6 +261,8 @@ namespace Quarrel.Controls
 
         #endregion
 
+        IAudioService BoundAudioService => Input ? (IAudioService)SimpleIoc.Default.GetInstance<IAudioInService>() : SimpleIoc.Default.GetInstance<IAudioOutService>();
+
         /// <summary>
         /// Indicates if incoming data should be rendered
         /// </summary>
@@ -311,26 +330,7 @@ namespace Quarrel.Controls
         /// <summary>
         /// Determines if the Visualizer is display input or output
         /// </summary>
-        public bool Input
-        {
-            get => _Input;
-            set
-            {
-                var inService = SimpleIoc.Default.GetInstance<IAudioInService>();
-                var outService = SimpleIoc.Default.GetInstance<IAudioOutService>();
-                //inService.DataRecieved -= DataRecieved;
-                //outService.DataRecieved -= DataRecieved;
-
-                if (value)
-                    inService.DataRecieved += DataRecieved;
-                else
-                    outService.DataRecieved += DataRecieved;
-
-                _Input = value;
-            }
-        }
-
-        private bool _Input;
+        public bool Input { get; set; }
         #endregion
 
         #region Classes

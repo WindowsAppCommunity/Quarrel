@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using Windows.Foundation;
 using Windows.Media;
-using Windows.Media.Audio;
 
 namespace Quarrel.Helpers.AudioProcessing
 {
@@ -61,25 +60,25 @@ namespace Quarrel.Helpers.AudioProcessing
             void GetBuffer(out byte* buffer, out uint capacity);
         }
 
-        public static List<float[]> ConvertTo512(List<float[]> channelData, AudioGraph audioGraph)
+        public static List<float[]> ConvertTo512(List<float[]> channelData, int samples)
         {
             List<float[]> newChannelData = new List<float[]>();
             float[] leftChannel = channelData[0];
             float[] rightChannel = channelData[1];
-            for (int i = 0; i < leftChannel.Length / audioGraph.SamplesPerQuantum; i++)
+            for (int i = 0; i < leftChannel.Length / samples; i++)
             {
                 float[] tmpLeftChannelData = new float[512];
                 float[] tmpRightChannelData = new float[512];
 
                 // copy the left and right channel data into a new array
-                for (int j = i * audioGraph.SamplesPerQuantum; j < (i + 1) * audioGraph.SamplesPerQuantum; j++)
+                for (int j = i * samples; j < (i + 1) * samples; j++)
                 {
-                    tmpLeftChannelData[j % audioGraph.SamplesPerQuantum] = leftChannel[j];
-                    tmpRightChannelData[j % audioGraph.SamplesPerQuantum] = rightChannel[j];
+                    tmpLeftChannelData[j % samples] = leftChannel[j];
+                    tmpRightChannelData[j % samples] = rightChannel[j];
                 }
 
                 // then pad the rest with 0s till we get to 512
-                for (int j = audioGraph.SamplesPerQuantum; j < 512; j++)
+                for (int j = samples; j < 512; j++)
                 {
                     tmpLeftChannelData[j] = 0;
                     tmpRightChannelData[j] = 0;
@@ -90,20 +89,20 @@ namespace Quarrel.Helpers.AudioProcessing
             return newChannelData;
         }
 
-        public static List<float[]> GetFftData(List<float[]> channelData, AudioGraph audioGraph)
+        public static List<float[]> GetFftData(List<float[]> channelData, int samples)
         {
             List<float[]> fftData = new List<float[]>();
             for (int i = 0; i < channelData.Count / 2; i++)
             {
-                float[] leftChannel = GetFftChannelData(channelData[i], audioGraph);
-                float[] rightChannel = GetFftChannelData(channelData[i + 1], audioGraph);
+                float[] leftChannel = GetFftChannelData(channelData[i], samples);
+                float[] rightChannel = GetFftChannelData(channelData[i + 1], samples);
                 fftData.Add(leftChannel);
                 fftData.Add(rightChannel);
             }
             return fftData;
         }
 
-        public static float[] GetFftChannelData(float[] channelData, AudioGraph audioGraph)
+        public static float[] GetFftChannelData(float[] channelData, int samples)
         {
             Complex[] fftData = new Complex[512];
             for (int j = 0; j < fftData.Length; j++)
@@ -113,7 +112,7 @@ namespace Quarrel.Helpers.AudioProcessing
                 fftData[j] = c;
             }
             FFT.RunFFT(fftData, FFT.Direction.Forward);
-            float[] fftResult = new float[audioGraph.SamplesPerQuantum / 2];
+            float[] fftResult = new float[samples / 2];
             for (int j = 0; j < fftResult.Length; j++)
             {
                 fftResult[j] = Math.Abs((float)Math.Sqrt(Math.Pow(fftData[j].Re, 2) + Math.Pow(fftData[j].Im, 2)));

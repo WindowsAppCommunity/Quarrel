@@ -21,6 +21,7 @@ namespace Quarrel.Services.Voice.Audio.In
 
         // TODO: Public set
         public string DeviceId { get; private set; }
+        public int Samples => _Graph.SamplesPerQuantum;
         public bool Muted { get; private set; }
 
         #endregion

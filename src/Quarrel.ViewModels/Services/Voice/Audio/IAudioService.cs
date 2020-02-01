@@ -11,6 +11,7 @@ namespace Quarrel.ViewModels.Services.Voice.Audio
         event EventHandler<float[]> DataRecieved;
         void CreateGraph(string deviceId = null);
         string DeviceId { get; }
+        int Samples { get; }
         void Dispose();
     }
 }

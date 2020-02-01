@@ -14,7 +14,7 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter" />
+        <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
     </UserControl.Resources>
     <Grid>
         <!--Shadow-->
