@@ -132,6 +132,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppService.cs" />
     <Compile Include="Controls\AudioVisualizer.xaml.cs">
       <DependentUpon>AudioVisualizer.xaml</DependentUpon>
     </Compile>

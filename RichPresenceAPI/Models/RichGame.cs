@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Quarrel.RichPresence.Models.Enums;
 
 namespace Quarrel.RichPresence.Models
 {
@@ -7,6 +8,11 @@ namespace Quarrel.RichPresence.Models
     /// </summary>
     public class RichGame : Game
     {
+        public RichGame(string name, ActivityType type) : base(name, type)
+        {
+
+        }
+
         [JsonProperty("url")]
         public string Url { get; set; }
 

@@ -54,6 +54,11 @@
         <uap:Rule Type="include" Match="https://.discordapp.com/login" WindowsRuntimeAccess="all"/>
         <uap:Rule Type="include" Match="https://discordapp.com/login" WindowsRuntimeAccess="all"/>
       </uap:ApplicationContentUriRules>
+      <Extensions>
+        <uap:Extension Category="windows.appService">
+          <uap:AppService Name="Quarrel.Presence"/>
+        </uap:Extension>
+      </Extensions>
     </Application>
   </Applications>
 

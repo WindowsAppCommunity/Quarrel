@@ -391,6 +391,12 @@ namespace DiscordAPI.Gateway
             await SendMessageAsync("{\"op\":6,\"d\":" + JsonConvert.SerializeObject(payload) + "}");
             // await _webMessageSocket.SendJsonObjectAsync(resume);
         }
+
+        public void UpdateStatus(GameBase game)
+        {
+            UpdateStatus(null, null, game);
+        }
+
         public async void UpdateStatus(string onlinestatus, int? idleSince, GameBase game)
         {
             if(game != null)
@@ -398,6 +404,9 @@ namespace DiscordAPI.Gateway
                 if (game.Type == 3)
                 {
                     game.Type = 0;
+                } else if (game.IsCustom)
+                {
+                    game = new Game() { Name = "Custom Status", Type = 4, State = game.Name };
                 }
                 if (game is Game game1)
                 {

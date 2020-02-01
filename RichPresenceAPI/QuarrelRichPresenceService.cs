@@ -1,4 +1,5 @@
-﻿using Quarrel.RichPresence.Helpers;
+﻿using Newtonsoft.Json;
+using Quarrel.RichPresence.Helpers;
 using Quarrel.RichPresence.Models;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,8 @@ namespace Quarrel.RichPresence
 
             _AppServiceConnection.ServiceClosed += FireConnectionClosed;
             _AppServiceConnection.AppServiceName = "Quarrel.Presence";
-            _AppServiceConnection.PackageFamilyName = "38062AvishaiDernis.DiscordUWP_q72k3wbnqqnj6";
+            //_AppServiceConnection.PackageFamilyName = "38062AvishaiDernis.DiscordUWP_q72k3wbnqqnj6";
+            _AppServiceConnection.PackageFamilyName = "38062AvishaiDernis.QuarrelInsider_q72k3wbnqqnj6";
 
             ConnectionStatus = await _AppServiceConnection.OpenAsync();
             return ConnectionStatus ?? AppServiceConnectionStatus.Unknown;
@@ -56,7 +58,7 @@ namespace Quarrel.RichPresence
         public async Task<AppServiceResponseStatus> SetRawActivity(Game game)
         {
             ValueSet request = new ValueSet();
-            request.Add(Constants.ConnectionServiceRequests.SetActivity, game);
+            request.Add(Constants.ConnectionServiceRequests.SetActivity, JsonConvert.SerializeObject(game));
 
             var response = await _AppServiceConnection.SendMessageAsync(request);
             return response.Status;
@@ -94,6 +96,6 @@ namespace Quarrel.RichPresence
         /// Manages connection to Quarrel main app
         /// </summary>
         AppServiceConnection _AppServiceConnection = new AppServiceConnection();
-        public AppServiceConnectionStatus? ConnectionStatus = null;
+        public AppServiceConnectionStatus? ConnectionStatus;
     }
 }
