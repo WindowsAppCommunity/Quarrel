@@ -6,7 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:Quarrel.Controls.Shell"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:controls="using:Quarrel.Controls"
+    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:membercontrols="using:Quarrel.Controls.Members"
     xmlns:discordconvert="using:Quarrel.Converters.Discord"
     d:DesignHeight="64"
@@ -16,7 +17,7 @@
     <UserControl.Resources>
         <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
     </UserControl.Resources>
-    <Grid>
+    <Grid Background="{StaticResource AcrylicUserBackground}">
         <!--Shadow-->
         <Rectangle
             Height="12"
@@ -32,6 +33,9 @@
             </Rectangle.Fill>
         </Rectangle>
         
+        <!--Audio In Visualizer-->
+        <controls:AudioVisualizer Input="True"/>
+
         <!--Button-->
         <Button
             Height="64"
@@ -40,8 +44,8 @@
             VerticalAlignment="Stretch"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
-            Background="{StaticResource AcrylicUserBackground}"
             BorderThickness="0"
+            Background="Transparent"
             Style="{StaticResource DiscordOpaqueButton}">
             
             <!--CurrentUserGuildMember flyout and presence-->
@@ -106,7 +110,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!--Presence DropShadow-->
-                <controls:DropShadowPanel
+                <tk:DropShadowPanel
                     Width="48"
                     Height="48"
                     Margin="12,6"
@@ -126,7 +130,7 @@
                             <ImageBrush ImageSource="{x:Bind ViewModel.CurrentGuildMember.Model.User.AvatarUrl, Mode=OneWay}" />
                         </Rectangle.Fill>
                     </Rectangle>
-                </controls:DropShadowPanel>
+                </tk:DropShadowPanel>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <!--Display name-->

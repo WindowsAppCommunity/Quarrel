@@ -743,8 +743,7 @@
             <!--<RowDefinition Height="Auto"/>-->
         </Grid.RowDefinitions>
 
-        <controls:AudioVisualizer Height="60" VerticalAlignment="Stretch" Input="False" Grid.Row="3" Opacity="1"/>
-
+        <!--Shadow-->
         <Rectangle IsHitTestVisible="False" Height="12" Opacity="0.2" Grid.RowSpan="12" Grid.ColumnSpan="12" VerticalAlignment="Top" Margin="0,-12,0,0">
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
@@ -753,6 +752,9 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
+
+        <!--Audio Out Visualizer-->
+        <controls:AudioVisualizer Input="False" Grid.Row="3"/>
 
         <Grid x:Name="Expanded" Grid.Row="1" Visibility="Collapsed" Grid.ColumnSpan="5" Padding="12" Opacity="0" Background="{ThemeResource AcrylicUserBackgroundDarker}">
             <Grid.RenderTransform>
