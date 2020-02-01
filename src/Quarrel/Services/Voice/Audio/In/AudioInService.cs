@@ -81,6 +81,8 @@ namespace Quarrel.Services.Voice.Audio.In
             if (string.IsNullOrEmpty(deviceId) || deviceId == "Default")
             {
                 deviceId = MediaDevice.GetDefaultAudioCaptureId(AudioDeviceRole.Default);
+                if (string.IsNullOrEmpty(deviceId))
+                    return;
             }
             DeviceInformation selectedDevice = await DeviceInformation.CreateFromIdAsync(deviceId);
 
