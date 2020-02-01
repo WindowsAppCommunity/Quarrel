@@ -30,6 +30,12 @@ namespace Quarrel.Services.Voice.Audio.Out
 
         #endregion
 
+        #region Events
+
+        public event EventHandler<float[]> DataRecieved;
+
+        #endregion
+
         #region Constructors
 
         [PreferredConstructor]
@@ -116,7 +122,7 @@ namespace Quarrel.Services.Voice.Audio.Out
                 }
             }
 
-            // TODO: FFT
+            DataRecieved?.Invoke(this, framedata);
             
             // Add frame to queue
             _FrameInputNode.AddFrame(frame);

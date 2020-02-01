@@ -132,6 +132,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\AudioVisualizer.xaml.cs">
+      <DependentUpon>AudioVisualizer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Channels\CategoryChveron.xaml.cs">
       <DependentUpon>CategoryChveron.xaml</DependentUpon>
     </Compile>
@@ -349,6 +352,9 @@
     <Compile Include="Extensions\System\TimeSpanExtensions.cs" />
     <Compile Include="Extensions\Windows.UI.Xaml\UIExtensions.cs" />
     <Compile Include="Extensions\Windows.UI\ColorExtensions.cs" />
+    <Compile Include="Helpers\AudioProcessing\Complex.cs" />
+    <Compile Include="Helpers\AudioProcessing\FFT.cs" />
+    <Compile Include="Helpers\AudioProcessing\HelperMethods.cs" />
     <Compile Include="Helpers\ChartRenderer.cs" />
     <Compile Include="Helpers\Colors\SmartColor\ColorDetection.cs" />
     <Compile Include="Helpers\Constants.cs" />
@@ -574,6 +580,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\AudioVisualizer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Channels\CategoryChveron.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

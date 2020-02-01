@@ -8,7 +8,6 @@ namespace Quarrel.ViewModels.Services.Voice.Audio.In
 {
     public interface IAudioInService : IAudioService
     {
-        event EventHandler<float[]> InputRecieved;
         event EventHandler<int> SpeakingChanged;
 
         void Mute();

@@ -36,7 +36,7 @@ namespace Quarrel.Services.Voice.Audio.In
 
         #region Events
 
-        public event EventHandler<float[]> InputRecieved;
+        public event EventHandler<float[]> DataRecieved;
 
         public event EventHandler<int> SpeakingChanged;
 
@@ -187,15 +187,13 @@ namespace Quarrel.Services.Voice.Audio.In
             }
             else
             {
-                // TODO: FFT
-
                 if (!_IsSpeaking)
                 {
                     SpeakingChanged(this, 1);
                     _IsSpeaking = true;
                 }
 
-                InputRecieved?.Invoke(null, dataInFloats);
+                DataRecieved?.Invoke(null, dataInFloats);
             }
 
             #endregion
