@@ -2,6 +2,7 @@
 using Quarrel.ViewModels.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -32,6 +33,7 @@ namespace Quarrel.Controls
 
             // Sets DataContext
             Load();
+            Debug.WriteLine("emojiflyout created");
         }
 
         /// <summary>
@@ -52,6 +54,7 @@ namespace Quarrel.Controls
         /// </summary>
         private void EmojiClicked(object sender, ItemClickEventArgs e)
         {
+            // Use list so in future we can support adding multiple emoij at once
             EmojiPickedCommand.Execute(new List<Emoji>{e.ClickedItem as Emoji});
         }
 

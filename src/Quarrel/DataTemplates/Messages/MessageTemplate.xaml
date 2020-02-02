@@ -16,6 +16,7 @@
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     xmlns:media="using:Microsoft.Xaml.Interactions.Media"
+    xmlns:controls="using:Quarrel.Controls"
     x:Class="Quarrel.DataTemplates.Messages.MessageTemplate">
 
     <ResourceDictionary.MergedDictionaries>
@@ -141,9 +142,23 @@
                             </EasingDoubleKeyFrame.EasingFunction>
                         </EasingDoubleKeyFrame>
                     </DoubleAnimationUsingKeyFrames>
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AddEmojiButton" Storyboard.TargetProperty="Opacity">
+                        <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0.5">
+                            <EasingDoubleKeyFrame.EasingFunction>
+                                <CircleEase EasingMode="EaseIn"/>
+                            </EasingDoubleKeyFrame.EasingFunction>
+                        </EasingDoubleKeyFrame>
+                    </DoubleAnimationUsingKeyFrames>
                 </Storyboard>
                 <Storyboard x:Name="PointerExited">
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MoreButton" Storyboard.TargetProperty="Opacity">
+                        <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0">
+                            <EasingDoubleKeyFrame.EasingFunction>
+                                <CircleEase EasingMode="EaseIn"/>
+                            </EasingDoubleKeyFrame.EasingFunction>
+                        </EasingDoubleKeyFrame>
+                    </DoubleAnimationUsingKeyFrames>
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AddEmojiButton" Storyboard.TargetProperty="Opacity">
                         <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0">
                             <EasingDoubleKeyFrame.EasingFunction>
                                 <CircleEase EasingMode="EaseIn"/>
@@ -252,6 +267,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <markdown:MarkdownTextBlock Users="{x:Bind Model.Mentions, Mode=OneWay}" 
                                                 Text="{x:Bind Model.Content, Mode=OneWay}"
@@ -269,9 +285,18 @@
                             <HyperlinkButton Content="Save" Style="{StaticResource PlainTextHyperlinkStyle}" Margin="8,4" Command="{x:Bind SaveEdit, Mode=OneWay}"/>
                         </StackPanel>
                     </Grid>
-                    <Button x:Name="MoreButton" Grid.Column="1" VerticalAlignment="Top" Padding="4,0" Style="{StaticResource DimButton}" Opacity="0">
+                    <Button x:Name="AddEmojiButton" Grid.Column="1" VerticalAlignment="Top" Padding="4,0" Style="{StaticResource DimButton}" Opacity="0">
                         <Button.Flyout>
                             <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
+                                <controls:EmojiPicker EmojiPickedCommand="{x:Bind AddReaction}"/>
+                            </Flyout>
+                        </Button.Flyout>
+
+                        <SymbolIcon Symbol="Emoji"/>
+                    </Button>
+                    <Button x:Name="MoreButton" Grid.Column="2" VerticalAlignment="Top" Padding="4,0" Style="{StaticResource DimButton}" Opacity="0">
+                        <Button.Flyout>
+                            <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}" Placement="Left">
                                 <messagecontrols:MessageFlyout DataContext="{x:Bind}" Width="96"/>
                             </Flyout>
                         </Button.Flyout>

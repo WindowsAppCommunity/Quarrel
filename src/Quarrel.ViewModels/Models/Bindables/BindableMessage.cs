@@ -1,5 +1,6 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
+using System.Collections.Generic;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -72,6 +73,13 @@ namespace Quarrel.ViewModels.Models.Bindables
             IsEditing = false;
         });
         private RelayCommand saveEdit;
+
+        public RelayCommand<List<Controls.Emoji>> AddReaction => addReaction = new RelayCommand<List<Controls.Emoji>>((emojis) =>
+            {
+                foreach(Controls.Emoji emoji in emojis)
+                    SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.CreateReaction(Model.ChannelId, Model.Id, emoji.CustomEmoji ? $"{emoji.Names[0]}:{emoji.Id}" : emoji.Surrogate);
+            });
+        private RelayCommand<List<Controls.Emoji>> addReaction;
 
         #endregion
 
