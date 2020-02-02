@@ -1,9 +1,8 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
-using GalaSoft.MvvmLight.Threading;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.UI.Xaml.Media;
+using Microsoft.Toolkit.Uwp.Helpers;
 using Quarrel.Services.Settings;
 using Quarrel.ViewModels;
 using Quarrel.ViewModels.Messages.Services.Settings;
@@ -24,6 +23,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using AcrylicBrush = Microsoft.UI.Xaml.Media.AcrylicBrush;
+using DispatcherHelper = GalaSoft.MvvmLight.Threading.DispatcherHelper;
 
 namespace Quarrel
 {
@@ -116,6 +116,12 @@ namespace Quarrel
             RegisterMessages();
             SetupTitleBar();
 
+
+            if (SystemInformation.DeviceFamily == "Windows.Xbox")
+            {
+                SetupCinematic();
+            }
+
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
@@ -149,6 +155,11 @@ namespace Quarrel
                 Window.Current.Activate();
             }
 
+
+            if (SystemInformation.DeviceFamily == "Windows.Xbox")
+            {
+                rootFrame.SizeChanged += ScaleDown;
+            }
         }
 
         /// <summary>
@@ -267,6 +278,31 @@ namespace Quarrel
             Logger.LogDebug($"Theme is: {Application.Current.RequestedTheme}");
         }
 
+        public void SetupCinematic()
+        {
+            ApplicationViewScaling.TrySetDisableLayoutScaling(false);
+            ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
+        }
+
+
+        private void ScaleDown(object sender, SizeChangedEventArgs e)
+        {
+            // Adjust DPI
+            var rootFrame = Window.Current.Content as Frame;
+
+            const double scale = 1.5;
+
+            double scaledHeight = e.NewSize.Height * scale;
+            double scaledWidth = e.NewSize.Width * scale;
+
+            double bottomMargin = e.NewSize.Height - scaledHeight;
+            double rightMargin = e.NewSize.Width - scaledWidth;
+            rootFrame.Margin = new Thickness(0, 0, rightMargin / scale, bottomMargin / scale);
+
+            double scaleXY = e.NewSize.Height / scaledHeight;
+            ScaleTransform transform = rootFrame.GetTransform<ScaleTransform>();
+            transform.ScaleX = transform.ScaleY = scaleXY;
+        }
         #endregion
     }
 }

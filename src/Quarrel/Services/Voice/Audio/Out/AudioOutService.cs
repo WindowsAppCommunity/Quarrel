@@ -18,6 +18,7 @@ namespace Quarrel.Services.Voice.Audio.Out
 
         // TODO: Public set
         public string DeviceId { get; private set; }
+        public int Samples => _Graph.SamplesPerQuantum;
         public bool Deafened { get; private set; }
 
         #endregion
@@ -27,6 +28,12 @@ namespace Quarrel.Services.Voice.Audio.Out
         private AudioGraph _Graph;
         private AudioFrameInputNode _FrameInputNode;
         private bool _Ready = false;
+
+        #endregion
+
+        #region Events
+
+        public event EventHandler<float[]> DataRecieved;
 
         #endregion
 
@@ -116,7 +123,7 @@ namespace Quarrel.Services.Voice.Audio.Out
                 }
             }
 
-            // TODO: FFT
+            DataRecieved?.Invoke(this, framedata);
             
             // Add frame to queue
             _FrameInputNode.AddFrame(frame);

@@ -73,6 +73,24 @@ namespace Windows.UI.Xaml
         }
 
         /// <summary>
+        /// Returns the desired <see cref="Transform"/> instance after assigning it to the <see cref="UIElement.RenderTransform"/> property of the target <see cref="UIElement"/>
+        /// </summary>
+        /// <typeparam name="T">The desired <see cref="Transform"/> type</typeparam>
+        /// <param name="element">The target <see cref="UIElement"/> to modify</param>
+        /// <param name="reset">If <see langword="true"/>, a new <see cref="Transform"/> instance will always be created and assigned to the <see cref="UIElement"/></param>
+        [MustUseReturnValue, NotNull]
+        public static T GetTransform<T>([NotNull] this UIElement element, bool reset = true) where T : Transform, new()
+        {
+            // Return the existing transform object, if it exists
+            if (element.RenderTransform is T && !reset) return element.RenderTransform as T;
+
+            // Create a new transform
+            T transform = new T();
+            element.RenderTransform = transform;
+            return transform;
+        }
+
+        /// <summary>
         /// Returns the rectangle that contains the input <see cref="FrameworkElement"/>
         /// </summary>
         /// <param name="element">The target <see cref="FrameworkElement"/></param>

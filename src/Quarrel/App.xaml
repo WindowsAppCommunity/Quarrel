@@ -214,9 +214,12 @@
                     <x:Double x:Key="AppBarButtonContentHeight">20</x:Double>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
-            <!--<viewModels:ViewModelLocator x:Key="ViewModelLocator" />-->
+            
             <Color x:Key="BlurpleColor">#7289DA</Color>
+            <Color x:Key="BlurpleColorTransparent">#007289DA</Color>
             <SolidColorBrush x:Key="Blurple" Color="#7289DA"/>
+            
+            
             <Style x:Key="DiscordMentionHyperlink" TargetType="HyperlinkButton">
                 <Setter Property="Foreground" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
                 <Setter Property="BorderBrush" Value="{ThemeResource HyperlinkButtonBorderBrush}"/>

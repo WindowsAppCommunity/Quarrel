@@ -14,9 +14,8 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Quarrel.ViewModels.Controls.Shell
+namespace Quarrel.ViewModels.Controls.Messages
 {
-
     public class MessageBoxViewModel : ViewModelBase
     {
         #region Commands
@@ -78,6 +77,20 @@ namespace Quarrel.ViewModels.Controls.Shell
             
         });
         private RelayCommand sendMessageCommand;
+
+
+        /// <summary>
+        /// Override up arrow to edit last sent message in chat
+        /// </summary>
+        public RelayCommand EditLastMessageCommand => editLastMessageCommand ??= new RelayCommand(() =>
+        {
+            // Only overrides if there's no draft
+            if (string.IsNullOrEmpty(MessageText))
+            {
+                SimpleIoc.Default.GetInstance<MainViewModel>().ScrollToAndEditLast();
+            }
+        });
+        private RelayCommand editLastMessageCommand;
 
         /// <summary>
         /// Handles enter override on MessageBox to add new line

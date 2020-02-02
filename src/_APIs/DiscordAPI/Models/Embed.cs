@@ -104,7 +104,7 @@ namespace DiscordAPI.Models
         public string BindUrl => $"{ProxyUrl}?width=400&height={BindHeight}";
 
         [JsonIgnore]
-        public int BindHeight=> (Height * 400) / Width;
+        public int BindHeight => Width == 0 ? 400 : (Height * 400) / Width;
     }
 
     public class EmbedImage

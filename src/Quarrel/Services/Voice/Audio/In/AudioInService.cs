@@ -21,6 +21,7 @@ namespace Quarrel.Services.Voice.Audio.In
 
         // TODO: Public set
         public string DeviceId { get; private set; }
+        public int Samples => _Graph.SamplesPerQuantum;
         public bool Muted { get; private set; }
 
         #endregion
@@ -36,7 +37,7 @@ namespace Quarrel.Services.Voice.Audio.In
 
         #region Events
 
-        public event EventHandler<float[]> InputRecieved;
+        public event EventHandler<float[]> DataRecieved;
 
         public event EventHandler<int> SpeakingChanged;
 
@@ -80,6 +81,8 @@ namespace Quarrel.Services.Voice.Audio.In
             if (string.IsNullOrEmpty(deviceId) || deviceId == "Default")
             {
                 deviceId = MediaDevice.GetDefaultAudioCaptureId(AudioDeviceRole.Default);
+                if (string.IsNullOrEmpty(deviceId))
+                    return;
             }
             DeviceInformation selectedDevice = await DeviceInformation.CreateFromIdAsync(deviceId);
 
@@ -187,15 +190,13 @@ namespace Quarrel.Services.Voice.Audio.In
             }
             else
             {
-                // TODO: FFT
-
                 if (!_IsSpeaking)
                 {
                     SpeakingChanged(this, 1);
                     _IsSpeaking = true;
                 }
 
-                InputRecieved?.Invoke(null, dataInFloats);
+                DataRecieved?.Invoke(null, dataInFloats);
             }
 
             #endregion

@@ -49,7 +49,7 @@
                 </StackPanel>
             </CheckBox>
             <CheckBox x:Name="ExpensiveUI" Style="{StaticResource CheckBoxStyle1}" MaxWidth="350"
-                      IsEnabled="False" IsChecked="{x:Bind ViewModel.ExpensiveRendering, Mode=TwoWay}">
+                      IsChecked="{x:Bind ViewModel.ExpensiveRendering, Mode=TwoWay}">
                 <StackPanel Margin="0,2,0,0">
                     <TextBlock Text="Expensive Rendering"/>
                     <TextBlock Text="Enable various expensive graphics such as Blur Effects and Audio Visualizers" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>

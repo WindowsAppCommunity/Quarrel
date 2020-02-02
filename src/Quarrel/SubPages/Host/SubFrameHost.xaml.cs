@@ -208,6 +208,12 @@ namespace Quarrel.SubPages.Host
             if (SubPage is IAdaptiveSubPage adaptive)
                 adaptive.IsFullHeight = double.IsPositiveInfinity(ContentGrid.MaxHeight);
 
+            if (SubPage is IFullscreenSubPage fullSub && !fullSub.Hideable)
+                CloseButton.Visibility = Visibility.Collapsed;
+            else
+                CloseButton.Visibility = Visibility.Visible;
+
+
             if (SubPage is ITransparentSubPage transparentSubPage)
             {
                 var transparentBackground = new SolidColorBrush(Colors.Transparent);
@@ -218,9 +224,10 @@ namespace Quarrel.SubPages.Host
                 {
                     transparentBackground = new SolidColorBrush(Color.FromArgb(175, 0, 0, 0));
                 }
-                
+
                 ContentBorder.Background = transparentBackground;
-            } else
+            }
+            else
             {
                 BackgroundBorder.Background = App.Current.Resources["SubFrameHostBackgroundBrush"] as Brush;
                 ContentBorder.Background = App.Current.Resources["DarkBG"] as Brush;

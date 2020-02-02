@@ -14,24 +14,40 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Insider Version 20.1.25" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+        <TextBlock Text="Insider Version 20.1.31" FontWeight="SemiBold" Margin="0" FontSize="20"/>
         <StackPanel Margin="16">
             <ScrollViewer>
                 <RichTextBlock x:Name="notDetailed" TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,12">
                     <Paragraph>
-                        <Run Text="• Improved loading speed of channels"/>
+                        <Run Text="• Attachments"/>
                     </Paragraph>
                     <Paragraph FontSize="8"/>
                     <Paragraph>
-                        <Run Text="• Emoji Selector"/>
+                        <Run Text="• GuildMember Flyouts"/>
                     </Paragraph>
                     <Paragraph FontSize="8"/>
                     <Paragraph>
-                        <Run Text="• Added Settings to UserButton (thanks to @Yair#3380)"/>
+                        <Run Text="• Improved UserButton Flyout"/>
                     </Paragraph>
                     <Paragraph FontSize="8"/>
                     <Paragraph>
-                        <Run Text="• Credits page (featuring anyone with a commit to the Quarrel repo)"/>
+                        <Run Text="• Added UserButton Secondary Flyout"/>
+                    </Paragraph>
+                    <Paragraph FontSize="8"/>
+                    <Paragraph>
+                        <Run Text="• Fixed TopRole based coloring for blank role colors"/>
+                    </Paragraph>
+                    <Paragraph FontSize="8"/>
+                    <Paragraph>
+                        <Run Text="• Fixed animated emojis"/>
+                    </Paragraph>
+                    <Paragraph FontSize="8"/>
+                    <Paragraph>
+                        <Run Text="• Fixed UserProfilePage quick actions"/>
+                    </Paragraph>
+                    <Paragraph FontSize="8"/>
+                    <Paragraph>
+                        <Run Text="• Added realtime acrylic toggle by panel"/>
                     </Paragraph>
                     <Paragraph FontSize="8"/>
                 </RichTextBlock>

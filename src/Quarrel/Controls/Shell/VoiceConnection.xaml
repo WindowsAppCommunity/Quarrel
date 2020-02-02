@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animation="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
+    xmlns:controls="using:Quarrel.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -715,13 +716,13 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
+        
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
     </UserControl.Resources>
     <UserControl.RenderTransform>
         <TranslateTransform x:Name="ContentTranslate"/>
     </UserControl.RenderTransform>
-    <Grid Visibility="{x:Bind ViewModel.VoiceState.ChannelId, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}">
+    <Grid Visibility="{x:Bind ViewModel.VoiceState.ChannelId, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"  Background="{ThemeResource AcrylicUserBackgroundDarker}">
         <animation:Implicit.ShowAnimations>
             <animation:TranslationAnimation Duration="0:0:0.5" To="0">
                 <animation:Vector3KeyFrame Key="0.1" Value="0, 300, 0"/>
@@ -738,11 +739,12 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="60"/>
             <!--<RowDefinition Height="Auto"/>-->
         </Grid.RowDefinitions>
 
-        <Rectangle IsHitTestVisible="False" Height="16" Opacity="0.2" Grid.RowSpan="12" Grid.ColumnSpan="12" VerticalAlignment="Top" Margin="0,-12,0,0">
+        <!--Shadow-->
+        <Rectangle IsHitTestVisible="False" Height="12" Opacity="0.2" Grid.RowSpan="12" Grid.ColumnSpan="12" VerticalAlignment="Top" Margin="0,-12,0,0">
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
                     <GradientStop Offset="1"/>
@@ -750,6 +752,9 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
+
+        <!--Audio Out Visualizer-->
+        <controls:AudioVisualizer Input="False" Grid.Row="3"/>
 
         <Grid x:Name="Expanded" Grid.Row="1" Visibility="Collapsed" Grid.ColumnSpan="5" Padding="12" Opacity="0" Background="{ThemeResource AcrylicUserBackgroundDarker}">
             <Grid.RenderTransform>
@@ -783,7 +788,7 @@
                 </StackPanel>
             </Button>
         </Grid>
-        <Grid Height="64" Grid.Row="3" Background="{ThemeResource AcrylicUserBackgroundDarker}">
+        <Grid Height="60" Grid.Row="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>

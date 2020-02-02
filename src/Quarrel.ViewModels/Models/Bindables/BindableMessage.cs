@@ -136,7 +136,7 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         public BindableGuildMember Author
         {
-            get => _Author;
+            get => _Author ?? new BindableGuildMember(new GuildMember() { User = Model.User }, "DM", PresenceService.GetUserPrecense(Model.User.Id));
             set => Set(ref _Author, value);
         }
         private BindableGuildMember _Author;

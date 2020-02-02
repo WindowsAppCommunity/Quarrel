@@ -100,7 +100,7 @@ namespace Quarrel.ViewModels.Services.Voice
             _VoiceConnection.Speak += Speak;
             await _VoiceConnection.ConnectAsync();
 
-            AudioInService.InputRecieved += InputRecieved;
+            AudioInService.DataRecieved += InputRecieved;
             AudioInService.SpeakingChanged += SpeakingChanged;
             AudioInService.CreateGraph();
         }

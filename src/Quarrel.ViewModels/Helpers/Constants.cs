@@ -49,6 +49,11 @@ namespace Quarrel.ViewModels.Helpers
             public const string MemberFlyoutAnimation = nameof(MemberFlyoutAnimation);
         }
 
+        public static class ConnectionServiceRequests
+        {
+            public const string SetActivity = "SET_ACTIVITY";
+        }
+
         public static class Regex
         {
             public const string UserMentionSurrogateRegex = @"@(\w+)#([0-9]{4})";
