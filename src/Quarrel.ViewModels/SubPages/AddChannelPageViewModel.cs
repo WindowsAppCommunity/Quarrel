@@ -43,7 +43,7 @@ namespace Quarrel.ViewModels.SubPages
 
         private RelayCommand createChannelCommand;
         public RelayCommand CreateChannelCommand =>
-            createChannelCommand ??= new RelayCommand(() =>
+            createChannelCommand = createChannelCommand ?? new RelayCommand(() =>
             {
                 CreateGuildChannel createChannel = null;
 
@@ -77,7 +77,7 @@ namespace Quarrel.ViewModels.SubPages
 
         private RelayCommand backCommand;
         public RelayCommand BackCommand =>
-            backCommand ??= new RelayCommand(() =>
+            backCommand = backCommand ?? new RelayCommand(() =>
             {
                 SubFrameNavigationService.GoBack();
             });

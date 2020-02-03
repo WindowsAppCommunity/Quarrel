@@ -108,7 +108,7 @@ namespace Quarrel.ViewModels
         /// Set VoiceStatus to null
         /// </summary>
         private RelayCommand disconnectVoiceCommand;
-        public RelayCommand DisconnectVoiceCommand => disconnectVoiceCommand ??= new RelayCommand(async () =>
+        public RelayCommand DisconnectVoiceCommand => disconnectVoiceCommand = disconnectVoiceCommand ?? new RelayCommand(async () =>
         {
             await GatewayService.Gateway.VoiceStatusUpdate(null, null, false, false);
         });

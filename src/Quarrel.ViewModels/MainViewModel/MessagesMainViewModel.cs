@@ -292,43 +292,39 @@ namespace Quarrel.ViewModels
         /// <summary>
         /// Sends API request to delete a message
         /// </summary>
-        public RelayCommand<BindableMessage> DeleteMessageCommand => deleteMessageCommand ??=
-            new RelayCommand<BindableMessage>(async (message) =>
-            {
-                await DiscordService.ChannelService.DeleteMessage(message.Model.ChannelId, message.Model.Id);
-            });
+        public RelayCommand<BindableMessage> DeleteMessageCommand => deleteMessageCommand = deleteMessageCommand ?? new RelayCommand<BindableMessage>(async (message) =>
+        {
+            await DiscordService.ChannelService.DeleteMessage(message.Model.ChannelId, message.Model.Id);
+        });
         private RelayCommand<BindableMessage> deleteMessageCommand;
 
         /// <summary>
         /// Sends API request to pin a message
         /// </summary>
-        public RelayCommand<BindableMessage> PinMessageCommand => pinMessageCommand ??=
-            new RelayCommand<BindableMessage>(async (message) =>
-            {
-                await DiscordService.ChannelService.AddPinnedChannelMessage(message.Model.ChannelId,
-                    message.Model.Id);
-            });
+        public RelayCommand<BindableMessage> PinMessageCommand => pinMessageCommand = pinMessageCommand ?? new RelayCommand<BindableMessage>(async (message) =>
+        {
+            await DiscordService.ChannelService.AddPinnedChannelMessage(message.Model.ChannelId,
+                message.Model.Id);
+        });
         private RelayCommand<BindableMessage> pinMessageCommand;
 
         /// <summary>
         /// Sends API request to unpin a message
         /// </summary>
-        public RelayCommand<BindableMessage> UnPinMessageCommand => unPinMessageCommand ??=
-            new RelayCommand<BindableMessage>(async (message) =>
-            {
-                await DiscordService.ChannelService.DeletePinnedChannelMessage(message.Model.ChannelId,
-                    message.Model.Id);
-            });
+        public RelayCommand<BindableMessage> UnPinMessageCommand => unPinMessageCommand = unPinMessageCommand ?? new RelayCommand<BindableMessage>(async (message) =>
+        {
+            await DiscordService.ChannelService.DeletePinnedChannelMessage(message.Model.ChannelId,
+                message.Model.Id);
+        });
         private RelayCommand<BindableMessage> unPinMessageCommand;
 
         /// <summary>
         /// Copies message id to the clipboard
         /// </summary>
-        public RelayCommand<BindableMessage> CopyMessageIdCommand => copyMessageIdCommand ??=
-            new RelayCommand<BindableMessage>((message) =>
-            {
-                ClipboardService.CopyToClipboard(message.Model.Id);
-            });
+        public RelayCommand<BindableMessage> CopyMessageIdCommand => copyMessageIdCommand = copyMessageIdCommand ?? new RelayCommand<BindableMessage>((message) =>
+        {
+            ClipboardService.CopyToClipboard(message.Model.Id);
+        });
         private RelayCommand<BindableMessage> copyMessageIdCommand;
 
         #endregion

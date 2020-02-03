@@ -23,7 +23,7 @@ namespace Quarrel.ViewModels.Controls.Messages
         /// <summary>
         /// Sends API message to indicate typing state
         /// </summary>
-        public RelayCommand TriggerTyping => tiggerTyping ??= new RelayCommand(() =>
+        public RelayCommand TriggerTyping => tiggerTyping = tiggerTyping ?? new RelayCommand(() =>
         {
             DiscordService.ChannelService.TriggerTypingIndicator(ChannelsService.CurrentChannel.Model.Id);
         });
@@ -33,7 +33,7 @@ namespace Quarrel.ViewModels.Controls.Messages
         /// Handles enter override on MessageBox to add new line
         /// </summary>
         public RelayCommand NewLineCommand =>
-            newLineCommand ??= new RelayCommand(() =>
+            newLineCommand = newLineCommand ?? new RelayCommand(() =>
             {
                 string text = MessageText;
                 int selectionstart = SelectionStart;
@@ -51,7 +51,7 @@ namespace Quarrel.ViewModels.Controls.Messages
         /// <summary>
         /// Handles enter override on MessageBox to send message
         /// </summary>
-        public RelayCommand SendMessageCommand => sendMessageCommand ??= new RelayCommand(async () =>
+        public RelayCommand SendMessageCommand => sendMessageCommand = sendMessageCommand ?? new RelayCommand(async () =>
         {
             // Enters sending state
             IsSending = true;
@@ -82,7 +82,7 @@ namespace Quarrel.ViewModels.Controls.Messages
         /// <summary>
         /// Override up arrow to edit last sent message in chat
         /// </summary>
-        public RelayCommand EditLastMessageCommand => editLastMessageCommand ??= new RelayCommand(() =>
+        public RelayCommand EditLastMessageCommand => editLastMessageCommand = editLastMessageCommand ?? new RelayCommand(() =>
         {
             // Only overrides if there's no draft
             if (string.IsNullOrEmpty(MessageText))
@@ -96,7 +96,7 @@ namespace Quarrel.ViewModels.Controls.Messages
         /// Handles enter override on MessageBox to add new line
         /// </summary>
         public RelayCommand<List<Emoji>> EmojiPickedCommand =>
-            emojiPickedCommand ??= new RelayCommand<List<Emoji>>((emojis) =>
+            emojiPickedCommand = emojiPickedCommand ?? new RelayCommand<List<Emoji>>((emojis) =>
             {
                 foreach(Emoji emoji in emojis)
                     MessageText += emoji.Surrogate;

@@ -6,6 +6,6 @@ namespace Quarrel.ViewModels.Services.Clipboard
 {
     public interface IClipboardService
     {
-        public void CopyToClipboard(string text);
+        void CopyToClipboard(string text);
     }
 }

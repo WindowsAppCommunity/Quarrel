@@ -22,31 +22,30 @@ namespace Quarrel.ViewModels
         /// Sends Messenger Request to change Channel
         /// </summary>
         private RelayCommand<BindableChannel> navigateChannelCommand;
-        public RelayCommand<BindableChannel> NavigateChannelCommand => navigateChannelCommand ??=
-            new RelayCommand<BindableChannel>(async (channel) =>
+        public RelayCommand<BindableChannel> NavigateChannelCommand => navigateChannelCommand = navigateChannelCommand ?? new RelayCommand<BindableChannel>(async (channel) =>
+        {
+            if (channel.IsCategory)
             {
-                if (channel.IsCategory)
-                {
-                    bool newState = !channel.Collapsed;
-                    for (int i = CurrentGuild.Channels.IndexOf(channel);
-                        i < CurrentGuild.Channels.Count
-                        && CurrentGuild.Channels[i] != null
-                        && CurrentGuild.Channels[i].ParentId == channel.Model.Id;
-                        i++)
-                        CurrentGuild.Channels[i].Collapsed = newState;
-                }
-                else if (channel.IsVoiceChannel)
-                {
-                    if (channel.Model is GuildChannel gChannel)
-                        await DiscordService.Gateway.Gateway.VoiceStatusUpdate(CurrentGuild.Model.Id, gChannel.Id, false,
-                            false);
-                }
-                else if (channel.Permissions.ReadMessages)
-                {
-                    CurrentChannel = channel;
-                    MessengerInstance.Send(new ChannelNavigateMessage(channel, CurrentGuild));
-                }
-            });
+                bool newState = !channel.Collapsed;
+                for (int i = CurrentGuild.Channels.IndexOf(channel);
+                    i < CurrentGuild.Channels.Count
+                    && CurrentGuild.Channels[i] != null
+                    && CurrentGuild.Channels[i].ParentId == channel.Model.Id;
+                    i++)
+                    CurrentGuild.Channels[i].Collapsed = newState;
+            }
+            else if (channel.IsVoiceChannel)
+            {
+                if (channel.Model is GuildChannel gChannel)
+                    await DiscordService.Gateway.Gateway.VoiceStatusUpdate(CurrentGuild.Model.Id, gChannel.Id, false,
+                        false);
+            }
+            else if (channel.Permissions.ReadMessages)
+            {
+                CurrentChannel = channel;
+                MessengerInstance.Send(new ChannelNavigateMessage(channel, CurrentGuild));
+            }
+        });
 
         /// <summary>
         /// Sets null channel and clear messages to show Friends Panel

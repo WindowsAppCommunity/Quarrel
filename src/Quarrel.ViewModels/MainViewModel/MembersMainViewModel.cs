@@ -20,7 +20,7 @@ namespace Quarrel.ViewModels
 
         private RelayCommand<(double, double)> updateGuildSubscriptionsCommand;
         public RelayCommand<(double, double)> UpdateGuildSubscriptionsCommand =>
-            updateGuildSubscriptionsCommand ??= new RelayCommand<(double, double)>((values) =>
+            updateGuildSubscriptionsCommand = updateGuildSubscriptionsCommand ?? new RelayCommand<(double, double)>((values) =>
             {
                 if (GuildsService.CurrentGuild.IsDM)
                     return;
