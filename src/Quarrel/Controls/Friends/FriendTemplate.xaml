@@ -6,12 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:discordconvert="using:Quarrel.Converters.Discord"
-    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:membercontrols="using:Quarrel.Controls.Members"
+    xmlns:helpers="using:Quarrel.Helpers"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -29,7 +29,7 @@
         </Grid.ColumnDefinitions>
         <Button Height="40" Width="40" Style="{StaticResource DimButton}">
             <Border CornerRadius="20">
-                <tk:ImageEx extensions:Mouse.Cursor="Hand" Width="40" Height="40"  DecodePixelHeight="40" Source="{x:Bind ViewModel.Model.User.AvatarUrl, Mode=OneWay}"/>
+                <tk:ImageEx helpers:Mouse.Cursor="Hand" Width="40" Height="40" DecodePixelHeight="40" Source="{x:Bind ViewModel.Model.User.AvatarUrl, Mode=OneWay}"/>
             </Border>
             <!--<interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="Click">

@@ -12,7 +12,6 @@
 
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Toolkit.Uwp.UI.Extensions;
 using Quarrel.Controls.Markdown.Parse;
 using Quarrel.Controls.Markdown.Parse.Blocks;
 using Quarrel.Controls.Markdown.Parse.Inlines;
@@ -33,6 +32,7 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
+using Microsoft.Toolkit.Uwp.UI.Extensions;
 using Emoji = NeoSmart.Unicode.Emoji;
 
 namespace Quarrel.Controls.Markdown.Display
