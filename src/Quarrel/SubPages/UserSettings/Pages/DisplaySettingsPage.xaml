@@ -29,9 +29,9 @@
             </RadioButton>
 
             <TextBlock Text="Accent color" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
-            <RadioButton x:Name="radioAccent_Discord" Style="{StaticResource DiscordRadioButton}" Foreground="#FF7289DA" Content="Discord Blurple" GroupName="Accent" Margin="0,6,0,-4" IsEnabled="False"
+            <RadioButton x:Name="radioAccent_Discord" Style="{StaticResource DiscordRadioButton}" Foreground="#FF7289DA" Content="Discord Blurple" GroupName="Accent" Margin="0,6,0,-4"
                          IsChecked="{x:Bind ViewModel.Blurple, Mode=TwoWay}"/>
-            <RadioButton x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" Content="System accent color" GroupName="Accent"
+            <RadioButton x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource OGSystemAccentColorBrush}" Content="System accent color" GroupName="Accent"
                          IsChecked="{x:Bind ViewModel.SystemAccentColor, Mode=TwoWay}"/>
 
             <Windows10version1809:TextBlock Text="Acrylic" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>

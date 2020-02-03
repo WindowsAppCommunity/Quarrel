@@ -191,7 +191,22 @@ namespace Quarrel
         /// </summary>
         private void SetupResources()
         {
-            var acrylicSettings = new SettingsService().Roaming.GetValue<AcrylicSettings>(SettingKeys.AcrylicSettings);
+            // Stores the original SystemAccentColor
+            Application.Current.Resources["OGSystemAccentColor"] = Application.Current.Resources["SystemAccentColor"];
+            Application.Current.Resources["OGSystemAccentColorBrush"] = new SolidColorBrush((Color)Application.Current.Resources["SystemAccentColor"]);
+
+            var settings = new SettingsService();
+
+            // Set Accent Color brushes to blurple
+            if (settings.Roaming.GetValue<bool>(SettingKeys.Blurple))
+            {
+                Application.Current.Resources["SystemAccentColor"] = Application.Current.Resources["BlurpleColor"];
+                Application.Current.Resources["SystemControlBackgroundAccentBrush"] = Application.Current.Resources["Blurple"];
+                Application.Current.Resources["SystemControlForegroundAccentBrush"] = Application.Current.Resources["Blurple"];
+            }
+
+            // Set Acrylic Fallback settings
+            var acrylicSettings = settings.Roaming.GetValue<AcrylicSettings>(SettingKeys.AcrylicSettings);
             (App.Current.Resources["AcrylicMessageBackground"] as AcrylicBrush).AlwaysUseFallback = (acrylicSettings & AcrylicSettings.MessageView) != AcrylicSettings.MessageView;
             (App.Current.Resources["AcrylicChannelPaneBackground"] as AcrylicBrush).AlwaysUseFallback = (acrylicSettings & AcrylicSettings.ChannelView) != AcrylicSettings.ChannelView;
             (App.Current.Resources["AcrylicGuildPaneBackground"] as AcrylicBrush).AlwaysUseFallback = (acrylicSettings & AcrylicSettings.GuildView) != AcrylicSettings.GuildView;
@@ -212,6 +227,28 @@ namespace Quarrel
                     (App.Current.Resources["AcrylicGuildPaneBackground"] as AcrylicBrush).AlwaysUseFallback = (m.Value & AcrylicSettings.GuildView) != AcrylicSettings.GuildView;
                     (App.Current.Resources["AcrylicCommandBarBackground"] as AcrylicBrush).AlwaysUseFallback = (m.Value & AcrylicSettings.CommandBar) != AcrylicSettings.CommandBar;
                 };
+            });
+
+
+            Messenger.Default.Register<SettingChangedMessage<bool>>(this, m =>
+            {
+                if (m.Key == SettingKeys.Blurple)
+                {
+                    Application.Current.Resources["SystemAccentColor"] =
+                    m.Value ? Application.Current.Resources["BlurpleColor"] : Application.Current.Resources["OGSystemAccentColor"];
+                    
+                    ((App.Current.Resources.ThemeDictionaries["Light"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color =
+                    m.Value ? (Color)Application.Current.Resources["BlurpleColor"] : (Color)Application.Current.Resources["OGSystemAccentColor"];
+                    
+                    ((App.Current.Resources.ThemeDictionaries["Dark"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color =
+                    m.Value ? (Color)Application.Current.Resources["BlurpleColor"] : (Color)Application.Current.Resources["OGSystemAccentColor"];
+                    
+                    ((App.Current.Resources.ThemeDictionaries["Light"] as ResourceDictionary)["SystemControlForegroundAccentBrush"] as SolidColorBrush).Color =
+                    m.Value ? (Color)Application.Current.Resources["BlurpleColor"] : (Color)Application.Current.Resources["OGSystemAccentColor"];
+                    
+                    ((App.Current.Resources.ThemeDictionaries["Dark"] as ResourceDictionary)["SystemControlForegroundAccentBrush"] as SolidColorBrush).Color =
+                    m.Value ? (Color)Application.Current.Resources["BlurpleColor"] : (Color)Application.Current.Resources["OGSystemAccentColor"];
+                }
             });
         }
 
@@ -260,7 +297,6 @@ namespace Quarrel
 
         public void SetupRequestedTheme()
         {
-
             switch (new SettingsService().Roaming.GetValue<Theme>(SettingKeys.Theme))
             {
                 case Theme.Dark:
@@ -278,12 +314,12 @@ namespace Quarrel
             Logger.LogDebug($"Theme is: {Application.Current.RequestedTheme}");
         }
 
+
         public void SetupCinematic()
         {
             ApplicationViewScaling.TrySetDisableLayoutScaling(false);
             ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
         }
-
 
         private void ScaleDown(object sender, SizeChangedEventArgs e)
         {

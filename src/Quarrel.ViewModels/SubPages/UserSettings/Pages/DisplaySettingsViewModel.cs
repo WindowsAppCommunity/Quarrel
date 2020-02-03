@@ -67,21 +67,21 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 
         public bool Blurple
         {
-            get => SettingsService.Roaming.GetValue<bool>(SettingKeys.Bluple);
+            get => SettingsService.Roaming.GetValue<bool>(SettingKeys.Blurple);
             set
             {
                 if (value)
-                    SettingsService.Roaming.SetValue(SettingKeys.Theme, true, notify : true);
+                    SettingsService.Roaming.SetValue(SettingKeys.Blurple, true, notify : true);
             }
         }
 
         public bool SystemAccentColor
         {
-            get => !SettingsService.Roaming.GetValue<bool>(SettingKeys.Bluple);
+            get => !SettingsService.Roaming.GetValue<bool>(SettingKeys.Blurple);
             set
             {
                 if (value)
-                    SettingsService.Roaming.SetValue(SettingKeys.Theme, false, notify : true);
+                    SettingsService.Roaming.SetValue(SettingKeys.Blurple, false, notify : true);
             }
         }
 

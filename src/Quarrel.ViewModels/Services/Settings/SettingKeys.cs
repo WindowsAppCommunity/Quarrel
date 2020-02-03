@@ -13,7 +13,7 @@ namespace Quarrel.ViewModels.Services.Settings
 
         // Display 
         Theme,
-        Bluple,
+        Blurple,
         ServerMuteIcons,
         ExpensiveRendering,
         DerivedColor,
