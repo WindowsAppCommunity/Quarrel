@@ -112,7 +112,7 @@ namespace Quarrel.Helpers.AudioProcessing
                 fftData[j] = c;
             }
             FFT.RunFFT(fftData, FFT.Direction.Forward);
-            float[] fftResult = new float[samples / 2];
+            float[] fftResult = new float[512];
             for (int j = 0; j < fftResult.Length; j++)
             {
                 fftResult[j] = Math.Abs((float)Math.Sqrt(Math.Pow(fftData[j].Re, 2) + Math.Pow(fftData[j].Im, 2)));
