@@ -100,7 +100,7 @@ namespace Quarrel.ViewModels
                 if (CurrentChannel != null && CurrentChannel.Model.Id == m.Message.ChannelId)
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
-                        BindableMessage msg = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad");
+                        BindableMessage msg = BindableMessages.LastOrDefault();
                         msg?.Update(m.Message);
                     });
             });
@@ -175,7 +175,7 @@ namespace Quarrel.ViewModels
                 OldItemsLoading = true;
                 IEnumerable<Message> itemList =
                     await DiscordService.ChannelService.GetChannelMessagesBefore(CurrentChannel.Model.Id,
-                        BindableMessages.FirstOrDefault(x => x.Model.Id != "Ad").Model.Id);
+                        BindableMessages.FirstOrDefault().Model.Id);
 
                 List<BindableMessage> messages = new List<BindableMessage>();
                 Message lastItem = null;
@@ -207,13 +207,6 @@ namespace Quarrel.ViewModels
                         guildMembers != null && guildMembers.TryGetValue(item.User.Id, out BindableGuildMember member)
                             ? member : null));
                     lastItem = item;
-
-                    if (!SettingsService.Roaming.GetValue<bool>(SettingKeys.AdsRemoved) && i % 10 == 0)
-                    {
-                        messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = CurrentChannel.Model.Id },
-                            null));
-                        lastItem = null;
-                    }
                 }
 
                 if (messages.Count > 0)
@@ -239,12 +232,12 @@ namespace Quarrel.ViewModels
             try
             {
                 NewItemsLoading = true;
-                if (CurrentChannel.Model.LastMessageId != BindableMessages.LastOrDefault(x => x.Model.Id != "Ad").Model.Id)
+                if (CurrentChannel.Model.LastMessageId != BindableMessages.LastOrDefault().Model.Id)
                 {
                     IEnumerable<Message> itemList = null;
                     await Task.Run(async () =>
                         itemList = await DiscordService.ChannelService.GetChannelMessagesAfter(CurrentChannel.Model.Id,
-                            BindableMessages.LastOrDefault(x => x.Model.Id != "Ad").Model.Id));
+                            BindableMessages.LastOrDefault().Model.Id));
 
                     List<BindableMessage> messages = new List<BindableMessage>();
                     Message lastItem = null;
@@ -256,13 +249,6 @@ namespace Quarrel.ViewModels
                         // Can't be last read item
                         messages.Add(new BindableMessage(item, guildId));
                         lastItem = item;
-
-                        if (!SettingsService.Roaming.GetValue<bool>(SettingKeys.AdsRemoved) && i % 10 == 0)
-                        {
-                            messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = CurrentChannel.Model.Id },
-                                null));
-                            lastItem = null;
-                        }
                     }
 
                     if (messages.Count > 0)
@@ -274,7 +260,7 @@ namespace Quarrel.ViewModels
                 else if (CurrentChannel.ReadState == null || CurrentChannel.Model.LastMessageId != CurrentChannel.ReadState.LastMessageId)
                 {
                     await DiscordService.ChannelService.AckMessage(CurrentChannel.Model.Id,
-                        BindableMessages.LastOrDefault(x => x.Model.Id != "Ad").Model.Id);
+                        BindableMessages.LastOrDefault().Model.Id);
                 }
 
                 NewItemsLoading = false;
@@ -289,7 +275,7 @@ namespace Quarrel.ViewModels
 
         public void ScrollToAndEditLast()
         {
-            var userLastMessage = BindableMessages.LastOrDefault(x => x.Model.Id != "Ad" && x.Model.User.Id == CurrentUserService.CurrentUser.Model.Id);
+            var userLastMessage = BindableMessages.LastOrDefault(x => x.Model.User.Id == CurrentUserService.CurrentUser.Model.Id);
             if (userLastMessage != null)
             {
                 userLastMessage.IsEditing = true;

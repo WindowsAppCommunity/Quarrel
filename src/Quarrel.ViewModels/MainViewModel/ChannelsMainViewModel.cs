@@ -157,14 +157,6 @@ namespace Quarrel.ViewModels
 
                         lastItem = item;
 
-
-                        if (!SettingsService.Roaming.GetValue<bool>(SettingKeys.AdsRemoved) && i % 10 == 0)
-                        {
-                            messages.Add(new BindableMessage(new Message() { Id = "Ad", ChannelId = CurrentChannel.Model.Id },
-                                null));
-                            lastItem = null;
-                        }
-
                         i--;
                     }
 

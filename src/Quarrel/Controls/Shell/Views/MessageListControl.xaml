@@ -20,14 +20,12 @@
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
-                <messages:AdTemplate/>
                 <messages:MessageTemplate/>
             </ResourceDictionary.MergedDictionaries>
 
             <templates:MessageTemplateSelector x:Key="MessageTemplateSelector"
                                                MessageTemplate="{StaticResource MessageTemplate}"
-                                               ActionMessageTemplate="{StaticResource ActionMessageTemplate}"
-                                               AdTemplate="{StaticResource AdTemplate}"/>
+                                               ActionMessageTemplate="{StaticResource ActionMessageTemplate}"/>
 
             <DataTemplate x:Key="ActionMessageTemplate" x:DataType="bindables:BindableMessage">
                 <msgcontrol:ActionMessageTemplate DataContext="{x:Bind}"/>
