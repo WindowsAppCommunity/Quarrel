@@ -11,7 +11,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
     <UserControl.Resources>
-        <media:AcrylicBrush x:Key="AcrylicBlur" TintColor="Transparent" Opacity="0.9" TintLuminosityOpacity="0" BackgroundSource="Backdrop"/>
+        <media:AcrylicBrush x:Key="AcrylicBlur" TintColor="Transparent" Opacity="0.9" BackgroundSource="Backdrop"/>
     </UserControl.Resources>
     
     <Grid>
