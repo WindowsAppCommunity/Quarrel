@@ -26,11 +26,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordStatusAPI", "src\_AP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHubAPI", "src\_APIs\GitHubAPI\GitHubAPI.csproj", "{CD9A344B-DC7C-4AB4-A961-3B27A23741EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichPresenceAPI", "RichPresenceAPI\RichPresenceAPI.csproj", "{0CE46ECB-6073-4468-95AF-CF0A1FF7A34D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5644CA67-DFE3-4E46-BDA4-6389D5403DC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichPresenceTester", "RichPresenceTester\RichPresenceTester.csproj", "{229B489F-88C0-4EAD-96C6-E371EB51268B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichPresenceAPI", "src\_Libs\RichPresenceAPI\RichPresenceAPI.csproj", "{0CE46ECB-6073-4468-95AF-CF0A1FF7A34D}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -222,32 +220,6 @@ Global
 		{0CE46ECB-6073-4468-95AF-CF0A1FF7A34D}.Release|x64.Build.0 = Release|x64
 		{0CE46ECB-6073-4468-95AF-CF0A1FF7A34D}.Release|x86.ActiveCfg = Release|x86
 		{0CE46ECB-6073-4468-95AF-CF0A1FF7A34D}.Release|x86.Build.0 = Release|x86
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Debug|ARM.ActiveCfg = Debug|ARM
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Debug|ARM.Build.0 = Debug|ARM
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Debug|ARM.Deploy.0 = Debug|ARM
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Debug|ARM64.ActiveCfg = Debug|ARM64
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Debug|ARM64.Build.0 = Debug|ARM64
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Debug|ARM64.Deploy.0 = Debug|ARM64
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Debug|x64.ActiveCfg = Debug|x64
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Debug|x64.Build.0 = Debug|x64
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Debug|x64.Deploy.0 = Debug|x64
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Debug|x86.ActiveCfg = Debug|x86
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Debug|x86.Build.0 = Debug|x86
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Debug|x86.Deploy.0 = Debug|x86
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Release|Any CPU.ActiveCfg = Release|x86
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Release|ARM.ActiveCfg = Release|ARM
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Release|ARM.Build.0 = Release|ARM
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Release|ARM.Deploy.0 = Release|ARM
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Release|ARM64.ActiveCfg = Release|ARM64
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Release|ARM64.Build.0 = Release|ARM64
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Release|ARM64.Deploy.0 = Release|ARM64
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Release|x64.ActiveCfg = Release|x64
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Release|x64.Build.0 = Release|x64
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Release|x64.Deploy.0 = Release|x64
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Release|x86.ActiveCfg = Release|x86
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Release|x86.Build.0 = Release|x86
-		{229B489F-88C0-4EAD-96C6-E371EB51268B}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -261,10 +233,9 @@ Global
 		{02DC7969-F465-4E27-B49F-D7021F8BC424} = {F9EED7D1-4597-4BC1-BEFE-5F4C6D5B1A7C}
 		{CD9A344B-DC7C-4AB4-A961-3B27A23741EC} = {F9EED7D1-4597-4BC1-BEFE-5F4C6D5B1A7C}
 		{0CE46ECB-6073-4468-95AF-CF0A1FF7A34D} = {1606927E-BD6E-447A-B8B4-92B8ED3B2D85}
-		{229B489F-88C0-4EAD-96C6-E371EB51268B} = {5644CA67-DFE3-4E46-BDA4-6389D5403DC1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_CodeReferences = {"Items":[{"Expression":"\\W($File.$Key)\\W","Extensions":".cs,.xaml,.cshtml","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"ResourceManager.GetString\\(\"($Key)\"\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"typeof\\((\\w+\\.)*($File)\\).+\"($Key)\"|\"($Key)\".+typeof\\((\\w+\\.)*($File)\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($Key)\\W","Extensions":".vb","IsCaseSensitive":false,"SingleLineComment":"'"},{"Expression":"\\W($File::$Key)\\W","Extensions":".cpp,.c,.hxx,.h","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"<%\\$\\s+Resources:\\s*($File)\\s*,\\s*($Key)\\s*%>","Extensions":".aspx,.ascx","IsCaseSensitive":true,"SingleLineComment":null},{"Expression":"StringResourceKey\\.($Key)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"x:Uid=\"$Key\"","Extensions":".xaml","IsCaseSensitive":false,"SingleLineComment":null}]}
 		SolutionGuid = {793268B2-B709-4010-BEE5-D4C758C84E61}
+		RESX_CodeReferences = {"Items":[{"Expression":"\\W($File.$Key)\\W","Extensions":".cs,.xaml,.cshtml","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"ResourceManager.GetString\\(\"($Key)\"\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"typeof\\((\\w+\\.)*($File)\\).+\"($Key)\"|\"($Key)\".+typeof\\((\\w+\\.)*($File)\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($Key)\\W","Extensions":".vb","IsCaseSensitive":false,"SingleLineComment":"'"},{"Expression":"\\W($File::$Key)\\W","Extensions":".cpp,.c,.hxx,.h","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"<%\\$\\s+Resources:\\s*($File)\\s*,\\s*($Key)\\s*%>","Extensions":".aspx,.ascx","IsCaseSensitive":true,"SingleLineComment":null},{"Expression":"StringResourceKey\\.($Key)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"x:Uid=\"$Key\"","Extensions":".xaml","IsCaseSensitive":false,"SingleLineComment":null}]}
 	EndGlobalSection
 EndGlobal
