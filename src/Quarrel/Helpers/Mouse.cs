@@ -29,6 +29,10 @@ namespace Quarrel.Helpers
         /// <param name="value">Target cursor type value.</param>
         public static void SetCursor(FrameworkElement element, CoreCursorType value)
         {
+            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+            {
+                return;
+            }
             element.SetValue(CursorProperty, value);
         }
 
@@ -44,11 +48,6 @@ namespace Quarrel.Helpers
 
         private static void CursorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
-            {
-                return;
-            }
-
             var element = d as FrameworkElement;
             if (element == null)
             {
