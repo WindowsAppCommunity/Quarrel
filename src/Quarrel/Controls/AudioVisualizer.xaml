@@ -7,15 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     xmlns:media="using:Microsoft.UI.Xaml.Media"
+    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
     <UserControl.Resources>
-        <media:AcrylicBrush x:Key="AcrylicBlur" TintColor="Transparent" Opacity="0.9" BackgroundSource="Backdrop"/>
+        <Windows10version1809:AcrylicBrush x:Key="AcrylicBlur" TintColor="Transparent" Windows10version1809:TintLuminosityOpacity="0" Opacity="0.9" BackgroundSource="Backdrop"/>
     </UserControl.Resources>
     
     <Grid>
         <canvas:CanvasAnimatedControl Draw="CanvasAnimatedControl_Draw" SizeChanged="CanvasAnimatedControl_SizeChanged"/>
-        <Grid Background="{ThemeResource AcrylicBlur}"/>
+        <Windows10version1809:Grid Background="{ThemeResource AcrylicBlur}"/>
     </Grid>
 </UserControl>
