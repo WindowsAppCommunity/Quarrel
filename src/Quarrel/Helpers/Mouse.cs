@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Windows.Foundation.Metadata;
 using Windows.System.Profile;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -29,11 +30,10 @@ namespace Quarrel.Helpers
         /// <param name="value">Target cursor type value.</param>
         public static void SetCursor(FrameworkElement element, CoreCursorType value)
         {
-            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
             {
-                return;
+                element.SetValue(CursorProperty, value);
             }
-            element.SetValue(CursorProperty, value);
         }
 
         /// <summary>
