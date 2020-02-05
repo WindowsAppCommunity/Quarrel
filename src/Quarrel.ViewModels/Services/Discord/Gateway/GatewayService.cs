@@ -15,11 +15,13 @@ using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Gateway.Channels;
 using Quarrel.ViewModels.Messages.Gateway.Voice;
 using Quarrel.ViewModels.Messages.Navigation;
+using Quarrel.ViewModels.Messages.Navigation.SubFrame;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Rest;
+using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.ViewModels.Messages.Gateway;
 using System;
 using System.Collections.Generic;
@@ -58,13 +60,14 @@ namespace Quarrel.ViewModels.Services.Gateway
             try
             {
                 GatewayConfig gatewayConfig = await gatewayService.GetGatewayConfig();
-            IAuthenticator authenticator = new DiscordAuthenticator(accessToken);
+                IAuthenticator authenticator = new DiscordAuthenticator(accessToken);
 
             Gateway = new DiscordAPI.Gateway.Gateway(ServiceProvider, gatewayConfig, authenticator);
             }
             catch (Exception e)
             {
                 Messenger.Default.Send(new StartUpStatusMessage(Status.Failed));
+                SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("DiscordStatusPage");
                 return false;
             }
 
