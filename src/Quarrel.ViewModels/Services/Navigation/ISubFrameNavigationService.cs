@@ -9,6 +9,14 @@ namespace Quarrel.ViewModels.Services.Navigation
 {
     public interface ISubFrameNavigationService : INavigationService
     {
+        /// <summary>
+        /// Extra parameter for navigation
+        /// </summary>
         object Parameter { get; }
+
+        /// <summary>
+        /// How many levels of subpages deep the user is
+        /// </summary>
+        int Depth { get; }
     }
 }

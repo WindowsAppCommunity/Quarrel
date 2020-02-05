@@ -39,7 +39,10 @@ namespace Quarrel.SubPages.Host
         // Synchronization semaphore slim to avoid race conditions for user requests
         private readonly SemaphoreSlim SubFrameSemaphoreSlim = new SemaphoreSlim(1, 1);
 
-        // Displays a page in the popup frame
+        /// <summary>
+        /// Displays a page in the popup frame
+        /// </summary>
+        /// <param name="subPage">Page to show</param>
         private async void DisplaySubFramePage([NotNull] UserControl subPage)
         {
             await SubFrameSemaphoreSlim.WaitAsync();
@@ -72,7 +75,9 @@ namespace Quarrel.SubPages.Host
             }
         }
 
-        // Fades away the currently displayed sub page
+        /// <summary>
+        /// Fades away the currently displayed sub page
+        /// </summary>
         private async void CloseSubFramePage()
         {
             await SubFrameSemaphoreSlim.WaitAsync();
@@ -92,7 +97,9 @@ namespace Quarrel.SubPages.Host
             }
         }
 
-        // Handles the software back button
+        /// <summary>
+        /// Handles the software back button
+        /// </summary>
         private void SubFrameControl_BackRequested(object sender, BackRequestedEventArgs e)
         {
             if (SubPage != null) e.Handled = true; // This needs to be synchronous
@@ -204,14 +211,27 @@ namespace Quarrel.SubPages.Host
                     }
             }
 
-            // Additional UI tweaks
+            // Adjust by Adaptive High
             if (SubPage is IAdaptiveSubPage adaptive)
                 adaptive.IsFullHeight = double.IsPositiveInfinity(ContentGrid.MaxHeight);
 
+            // Hide close button if not a Hidable subpage
             if (SubPage is IFullscreenSubPage fullSub && !fullSub.Hideable)
                 CloseButton.Visibility = Visibility.Collapsed;
             else
                 CloseButton.Visibility = Visibility.Visible;
+
+            // Clear symbol if last subpage, Back symbol if child subpage
+            if (SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().Depth > 1)
+            {
+                BackSymbol.Visibility = Visibility.Visible;
+                ClearSymbol.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                BackSymbol.Visibility = Visibility.Collapsed;
+                ClearSymbol.Visibility = Visibility.Visible;
+            }
 
 
             if (SubPage is ITransparentSubPage transparentSubPage)
@@ -234,7 +254,9 @@ namespace Quarrel.SubPages.Host
             }
         }
 
-        // Sends a request to close the current sub frame page
+        /// <summary>
+        /// Sends a request to close the current sub frame page
+        /// </summary>
         private void CloseButton_OnClick(object sender, RoutedEventArgs e) => SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().GoBack();
 
         #endregion

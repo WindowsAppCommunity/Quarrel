@@ -16,6 +16,11 @@ namespace Quarrel.Navigation
         public string CurrentPageKey { get; private set; }
         public object Parameter { get; private set; }
 
+        /// <summary>
+        /// How many levels of subpages deep the user is
+        /// </summary>
+        public int Depth => _historic.Count;
+
         public void GoBack()
         {
             if (_historic.Count > 1)

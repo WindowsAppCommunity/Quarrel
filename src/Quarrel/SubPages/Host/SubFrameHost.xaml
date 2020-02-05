@@ -97,14 +97,17 @@
                 </Border>
 
                 <!--Close button-->
-                <Button 
+                <Button
                     x:Name="CloseButton"
                     Background="Transparent"
                     BorderThickness="0"
                     VerticalAlignment="Top"
                     Height="48" Width="48"
                     Click="CloseButton_OnClick">
-                    <SymbolIcon Symbol="Clear" Foreground="{StaticResource Foreground}"/>
+                    <Grid>
+                        <SymbolIcon x:Name="BackSymbol" Symbol="Back" Foreground="{StaticResource Foreground}"/>
+                        <SymbolIcon x:Name="ClearSymbol" Symbol="Clear" Foreground="{StaticResource Foreground}"/>
+                    </Grid>
                 </Button>
             </Grid>
         </Grid>
