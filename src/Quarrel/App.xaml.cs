@@ -229,27 +229,27 @@ namespace Quarrel
                 };
             });
 
-
-            Messenger.Default.Register<SettingChangedMessage<bool>>(this, m =>
-            {
-                if (m.Key == SettingKeys.Blurple)
-                {
-                    Application.Current.Resources["SystemAccentColor"] =
-                    m.Value ? Application.Current.Resources["BlurpleColor"] : Application.Current.Resources["OGSystemAccentColor"];
+            // TODO: Full accent switch without restart or bust
+            //Messenger.Default.Register<SettingChangedMessage<bool>>(this, m =>
+            //{
+            //    if (m.Key == SettingKeys.Blurple)
+            //    {
+            //        Application.Current.Resources["SystemAccentColor"] =
+            //        m.Value ? Application.Current.Resources["BlurpleColor"] : Application.Current.Resources["OGSystemAccentColor"];
                     
-                    ((App.Current.Resources.ThemeDictionaries["Light"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color =
-                    m.Value ? (Color)Application.Current.Resources["BlurpleColor"] : (Color)Application.Current.Resources["OGSystemAccentColor"];
+            //        ((App.Current.Resources.ThemeDictionaries["Light"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color =
+            //        m.Value ? (Color)Application.Current.Resources["BlurpleColor"] : (Color)Application.Current.Resources["OGSystemAccentColor"];
                     
-                    ((App.Current.Resources.ThemeDictionaries["Dark"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color =
-                    m.Value ? (Color)Application.Current.Resources["BlurpleColor"] : (Color)Application.Current.Resources["OGSystemAccentColor"];
+            //        ((App.Current.Resources.ThemeDictionaries["Dark"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color =
+            //        m.Value ? (Color)Application.Current.Resources["BlurpleColor"] : (Color)Application.Current.Resources["OGSystemAccentColor"];
                     
-                    ((App.Current.Resources.ThemeDictionaries["Light"] as ResourceDictionary)["SystemControlForegroundAccentBrush"] as SolidColorBrush).Color =
-                    m.Value ? (Color)Application.Current.Resources["BlurpleColor"] : (Color)Application.Current.Resources["OGSystemAccentColor"];
+            //        ((App.Current.Resources.ThemeDictionaries["Light"] as ResourceDictionary)["SystemControlForegroundAccentBrush"] as SolidColorBrush).Color =
+            //        m.Value ? (Color)Application.Current.Resources["BlurpleColor"] : (Color)Application.Current.Resources["OGSystemAccentColor"];
                     
-                    ((App.Current.Resources.ThemeDictionaries["Dark"] as ResourceDictionary)["SystemControlForegroundAccentBrush"] as SolidColorBrush).Color =
-                    m.Value ? (Color)Application.Current.Resources["BlurpleColor"] : (Color)Application.Current.Resources["OGSystemAccentColor"];
-                }
-            });
+            //        ((App.Current.Resources.ThemeDictionaries["Dark"] as ResourceDictionary)["SystemControlForegroundAccentBrush"] as SolidColorBrush).Color =
+            //        m.Value ? (Color)Application.Current.Resources["BlurpleColor"] : (Color)Application.Current.Resources["OGSystemAccentColor"];
+            //    }
+            //});
         }
 
         #region Window Setup
