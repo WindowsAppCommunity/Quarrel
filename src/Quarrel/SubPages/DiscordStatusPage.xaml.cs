@@ -208,7 +208,9 @@ namespace Quarrel.SubPages
         /// <summary>
         /// Accent Color based on Status
         /// </summary>
-        private Color StatusColor => ColorFromStatus(ViewModel.Status.Status.Indicator);
+        private Color StatusColor => ViewModel.Status != null ?
+            ColorFromStatus(ViewModel.Status.Status.Indicator) :
+            (Color)App.Current.Resources["SystemAccentColor"];
 
         /// <summary>
         /// Rendering help for the graph

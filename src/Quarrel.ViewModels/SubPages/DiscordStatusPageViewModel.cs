@@ -63,64 +63,65 @@ namespace Quarrel.ViewModels.SubPages
             }
             catch { }
 
-            FailedToLoad = Status == null;
-
-            if (Status == null)
+            // Has Data
+            if (Status != null)
             {
-                return;
-            }
-
-            if (Status.Status != null)
-            {
-                StatusLoaded?.Invoke(this, null);
-            }
-
-            if (Status.Incidents != null)
-            {
-                foreach (var incident in Status.Incidents)
+                // Loads Status
+                if (Status.Status != null)
                 {
-                    if (incident.Status != "resolved")
-                    {
-                        List<SimpleComponent> updates = new List<SimpleComponent>();
-                        for (int i = 0; i < incident.IncidentUpdates.Length; i++)
-                        {
-                            updates.Add(new SimpleComponent()
-                            {
-                                Status = incident.IncidentUpdates[i].Status,
-                                Description = incident.IncidentUpdates[i].Body,
-                                Name = incident.IncidentUpdates[i].UpdatedAt.ToString("t")
-                            });
-                        }
-                        ComplexComponent component = new ComplexComponent()
-                        {
-                            Name = incident.Name,
-                            Status = incident.Status,
-                            Items = updates
-                        };
+                    StatusLoaded?.Invoke(this, null);
+                }
 
-                        if (!string.IsNullOrWhiteSpace(component.Name))
-                            Incidents.Add(component);
+                // Loads Incidents
+                if (Status.Incidents != null)
+                {
+                    foreach (var incident in Status.Incidents)
+                    {
+                        if (incident.Status != "resolved")
+                        {
+                            List<SimpleComponent> updates = new List<SimpleComponent>();
+                            for (int i = 0; i < incident.IncidentUpdates.Length; i++)
+                            {
+                                updates.Add(new SimpleComponent()
+                                {
+                                    Status = incident.IncidentUpdates[i].Status,
+                                    Description = incident.IncidentUpdates[i].Body,
+                                    Name = incident.IncidentUpdates[i].UpdatedAt.ToString("t")
+                                });
+                            }
+                            ComplexComponent component = new ComplexComponent()
+                            {
+                                Name = incident.Name,
+                                Status = incident.Status,
+                                Items = updates
+                            };
+
+                            if (!string.IsNullOrWhiteSpace(component.Name))
+                                Incidents.Add(component);
+                        }
                     }
                 }
-            }
 
-            if (Status.Components != null)
-            {
-                foreach (var component in Status.Components)
+                // Loads Components
+                if (Status.Components != null)
                 {
-                    SimpleComponent sc = new SimpleComponent()
+                    foreach (var component in Status.Components)
                     {
-                        Name = component.Name,
-                        Status = component.Status.Replace("_", " "),
-                        Description = component.Description
-                    };
-                    Components.Add(sc);
+                        SimpleComponent sc = new SimpleComponent()
+                        {
+                            Name = component.Name,
+                            Status = component.Status.Replace("_", " "),
+                            Description = component.Description
+                        };
+                        Components.Add(sc);
+                    }
                 }
+
+                ShowMetrics("day");
+                Loaded = true;
             }
 
-            ShowMetrics("day");
-
-            Loaded = true;
+            FailedToLoad = Status == null;
             Loading = false;
         }
 
@@ -163,7 +164,7 @@ namespace Quarrel.ViewModels.SubPages
             get => _FailedToLoad;
             set => Set(ref _FailedToLoad, value);
         }
-        private bool _FailedToLoad;
+        private bool _FailedToLoad = false;
 
         /// <summary>
         /// Indicates if the status has been loaded
