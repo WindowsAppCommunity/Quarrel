@@ -12,8 +12,6 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace Quarrel.Controls.Shell
 {
     public sealed partial class ExtendedSplashScreen : UserControl
@@ -28,16 +26,16 @@ namespace Quarrel.Controls.Shell
             {
                 StatusBlock.Text = m.Status.ToString().ToUpper();
 
-                // TODO: Stop Animation
-                // Stops animation on failed or offline
                 if (m.Status == Status.Failed || m.Status == Status.Offline)
                 {
+                    // Stops animation on failed or offline
+                    Animation.Stop();
+
                     // Opens status page
                     if (!_Retry)
                     {
                         SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("DiscordStatusPage");
                     }
-                    Animation.Stop();
                 }
 
 
@@ -119,14 +117,21 @@ namespace Quarrel.Controls.Shell
         }
 
         /// <summary>
-        /// Attempts (again) to try and open a connection to Discord
+        /// Attempts to open a connection to Discord (again)
         /// </summary>
         private async void RetryConnecting(object sender, RoutedEventArgs e)
         {
+            // Retrying
             _Retry = true;
+
+            // Reset View State
             RetryButton.Visibility = Visibility.Collapsed;
+            Animation.Begin();
+
+            // Login
             string token = (string)await SimpleIoc.Default.GetInstance<ICacheService>()
                 .Persistent.Roaming.TryGetValueAsync<object>(Constants.Cache.Keys.AccessToken);
+
             await SimpleIoc.Default.GetInstance<IDiscordService>().Login(token);
         }
 
