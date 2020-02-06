@@ -65,7 +65,7 @@
             </Grid>
 
             <Border x:Name="StatusContainer" Visibility="{x:Bind ViewModel.Status.Status, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Margin="0,12,0,0" Padding="24,12" Background="{ThemeResource online}">
-                <TextBlock Text="{x:Bind ViewModel.Status.Status.Description}" TextWrapping="Wrap" FontSize="16" FontWeight="SemiLight" Foreground="White"/>
+                <TextBlock Text="{x:Bind ViewModel.Status.Status.Description, Mode=OneWay}" TextWrapping="Wrap" FontSize="16" FontWeight="SemiLight" Foreground="White"/>
             </Border>
 
             <ScrollViewer x:Name="IncidentsScroller" Visibility="{x:Bind ViewModel.Incidents, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}">
