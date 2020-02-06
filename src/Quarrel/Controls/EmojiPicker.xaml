@@ -83,7 +83,7 @@
         </Style>
 
         <DataTemplate x:Key="UnicodeEmojiTemplate" x:DataType="controlmodels:Emoji">
-            <FontIcon Glyph="{x:Bind Preview, Mode=OneWay}" ToolTipService.ToolTip="{x:Bind Names[0], Mode=OneWay}" Width="32" Height="32" FontFamily="Segeo UI"/>
+            <FontIcon Glyph="{x:Bind Preview, Mode=OneWay}" ToolTipService.ToolTip="{x:Bind Names[0], Mode=OneWay}" Width="32" Height="32" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"/>
         </DataTemplate>
         <DataTemplate x:Name="GuildEmojiTemplate" x:DataType="controlmodels:Emoji">
             <Image Source="{x:Bind Preview}" ToolTipService.ToolTip="{x:Bind Names[0], Mode=OneWay}" Width="26" Height="26" VerticalAlignment="Center" HorizontalAlignment="Center"/>
