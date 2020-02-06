@@ -1,7 +1,12 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
+using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages;
 using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Services.Cache;
+using Quarrel.ViewModels.Services.Discord.Rest;
+using Quarrel.ViewModels.Services.Navigation;
 using System;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -18,12 +23,29 @@ namespace Quarrel.Controls.Shell
             this.InitializeComponent();
             
             // Status changed
-            // Updates status text
+            // Updates status text and ther appropiate actions
             Messenger.Default.Register<StartUpStatusMessage>(this, m =>
             {
                 StatusBlock.Text = m.Status.ToString().ToUpper();
-            });
 
+                // TODO: Stop Animation
+                // Stops animation on failed or offline
+                if (m.Status == Status.Failed || m.Status == Status.Offline)
+                {
+                    // Opens status page
+                    if (!_Retry)
+                    {
+                        SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("DiscordStatusPage");
+                    }
+                    Animation.Stop();
+                }
+
+
+                // Shows Retry button 
+                if (m.Status == Status.Failed)
+                    RetryButton.Visibility = Visibility.Visible;
+            });
+            
             // Finished loading
             // Begins hiding splash
             Messenger.Default.Register<GatewayReadyMessage>(this, async _ => 
@@ -94,6 +116,31 @@ namespace Quarrel.Controls.Shell
         {
             Visibility = Visibility.Collapsed;
             Animation.Stop();
+        }
+
+        /// <summary>
+        /// Attempts (again) to try and open a connection to Discord
+        /// </summary>
+        private async void RetryConnecting(object sender, RoutedEventArgs e)
+        {
+            _Retry = true;
+            RetryButton.Visibility = Visibility.Collapsed;
+            string token = (string)await SimpleIoc.Default.GetInstance<ICacheService>()
+                .Persistent.Roaming.TryGetValueAsync<object>(Constants.Cache.Keys.AccessToken);
+            await SimpleIoc.Default.GetInstance<IDiscordService>().Login(token);
+        }
+
+        /// <summary>
+        /// Indicates that a connection attempt is a retry
+        /// </summary>
+        private bool _Retry = false;
+
+        /// <summary>
+        /// Shows the Discord Status
+        /// </summary>
+        private void ShowDiscordStatus(object sender, RoutedEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("DiscordStatusPage");
         }
     }
 }

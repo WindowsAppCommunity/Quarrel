@@ -182,9 +182,17 @@
             
             <!--Connecting status-->
             <TextBlock Text="LOADING" x:Name="StatusBlock" Opacity="0.6" FontWeight="SemiBold" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,0,0,0" FontSize="13"/>
+
+            <!--Allow Retry-->
+            <HyperlinkButton x:Name="RetryButton" Content="Retry" Style="{StaticResource PlainTextHyperlinkStyle}"
+                             HorizontalAlignment="Center" Margin="0,8,0,0" Click="RetryConnecting"/>
         </StackPanel>
         
         <!--Credit-->
         <TextBlock Text="" x:Name="CreditBlock" Opacity="0.4" FontSize="12" HorizontalAlignment="Center" TextAlignment="Center" Margin="12,12,12,24" VerticalAlignment="Bottom"/>
+
+        <!--Discord Status-->
+        <HyperlinkButton Content="Discord Status" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowDiscordStatus"
+                         HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="32,16"/>
     </Grid>
 </UserControl>

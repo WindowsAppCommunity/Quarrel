@@ -67,7 +67,6 @@ namespace Quarrel.ViewModels.Services.Gateway
             catch (Exception e)
             {
                 Messenger.Default.Send(new StartUpStatusMessage(Status.Failed));
-                SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("DiscordStatusPage");
                 return false;
             }
 
