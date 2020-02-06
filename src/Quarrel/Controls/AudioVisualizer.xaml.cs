@@ -22,6 +22,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using AcrylicBrush = Microsoft.UI.Xaml.Media.AcrylicBrush;
 
 namespace Quarrel.Controls
 {
@@ -30,6 +31,8 @@ namespace Quarrel.Controls
         public AudioVisualizer()
         {
             this.InitializeComponent();
+
+            (Resources["AcrylicBlur"] as AcrylicBrush).TintLuminosityOpacity = 0;
             Loaded += fftInitialize;
             Unloaded += fftDipose;
         }
