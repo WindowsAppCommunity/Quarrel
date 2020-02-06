@@ -546,6 +546,7 @@
     <Content Include="Controls\Markdown\About.txt" />
     <Content Include="Controls\Markdown\oltheme.txt" />
     <AdditionalFiles Include="appsettings.json" />
+    <Content Include="Assets\emojifont.ttf" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <None Include="Quarrel_TemporaryKey.pfx" />

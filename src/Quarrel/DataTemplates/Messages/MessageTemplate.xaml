@@ -271,7 +271,7 @@
                     <markdown:MarkdownTextBlock Users="{x:Bind Model.Mentions, Mode=OneWay}" 
                                                 Text="{x:Bind Model.Content, Mode=OneWay}"
                                                 Visibility="{x:Bind IsEditing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
-                                                TextWrapping="WrapWholeWords"
+                                                TextWrapping="WrapWholeWords" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"
                                                 FontWeight="SemiLight" Opacity="0.9" LinkClicked="Markdown_LinkClicked"/>
                     <Grid Visibility="{x:Bind IsEditing, Mode=OneWay}">
                         <Grid.RowDefinitions>
