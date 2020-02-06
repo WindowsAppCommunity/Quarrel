@@ -64,6 +64,11 @@ namespace Quarrel.ViewModels.SubPages
                 return;
             }
 
+            if (Status.Status != null)
+            {
+                StatusLoaded?.Invoke(this, null);
+            }
+
             if (Status.Incidents != null)
             {
                 foreach (var incident in Status.Incidents)
@@ -108,6 +113,8 @@ namespace Quarrel.ViewModels.SubPages
             }
 
             ShowMetrics("day");
+
+            Loaded = true;
         }
 
         public async void ShowMetrics(string duration)
@@ -150,6 +157,16 @@ namespace Quarrel.ViewModels.SubPages
             set => Set(ref _FailedToLoad, value);
         }
         private bool _FailedToLoad;
+
+        /// <summary>
+        /// Indicates if the status has been loaded
+        /// </summary>
+        public bool Loaded
+        {
+            get => _Loaded;
+            set => Set(ref _Loaded, value);
+        }
+        private bool _Loaded = false;
 
         /// <summary>
         /// Outage index information

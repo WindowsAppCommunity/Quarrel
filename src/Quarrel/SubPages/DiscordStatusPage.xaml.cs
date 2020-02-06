@@ -24,6 +24,7 @@ namespace Quarrel.SubPages
         {
             this.InitializeComponent();
             DataContext = new DiscordStatusPageViewModel();
+
             ViewModel.ChartDataLoaded += (m, args) =>
             {
                 chartCanvas.Invalidate();
@@ -39,6 +40,7 @@ namespace Quarrel.SubPages
             {
                 var statusBrush = new SolidColorBrush(StatusColor);
                 StatusContainer.Background = statusBrush;
+                detailsButton.Foreground = statusBrush;
                 dayDuration.Foreground = statusBrush;
                 weekDuration.Foreground = statusBrush;
                 monthDuration.Foreground = statusBrush;
@@ -70,7 +72,8 @@ namespace Quarrel.SubPages
 
         private void CanvasControl_OnDraw(CanvasControl sender, CanvasDrawEventArgs args)
         {
-            _chartRenderer.RenderData(chartCanvas, args, StatusColor, DataStrokeThickness, ViewModel.Data, false, ViewModel.Max);
+            if (ViewModel.Loaded)
+                _chartRenderer.RenderData(chartCanvas, args, StatusColor, DataStrokeThickness, ViewModel.Data, false, ViewModel.Max);
         }
 
         private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
