@@ -55,7 +55,11 @@ namespace Quarrel.ViewModels.SubPages
             RestFactory factory = new RestFactory();
             StatusService = factory.GetStatusService();
 
-            Status = await StatusService.GetStatus();
+            try
+            {
+                Status = await StatusService.GetStatus();
+            }
+            catch { }
 
             FailedToLoad = Status == null;
 
