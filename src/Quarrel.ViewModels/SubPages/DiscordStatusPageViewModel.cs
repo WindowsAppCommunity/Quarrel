@@ -52,6 +52,8 @@ namespace Quarrel.ViewModels.SubPages
 
         private async void Setup()
         {
+            Loading = true;
+
             RestFactory factory = new RestFactory();
             StatusService = factory.GetStatusService();
 
@@ -119,6 +121,7 @@ namespace Quarrel.ViewModels.SubPages
             ShowMetrics("day");
 
             Loaded = true;
+            Loading = false;
         }
 
         public async void ShowMetrics(string duration)
@@ -171,6 +174,16 @@ namespace Quarrel.ViewModels.SubPages
             set => Set(ref _Loaded, value);
         }
         private bool _Loaded = false;
+
+        /// <summary>
+        /// Indicates if the status is being loaded
+        /// </summary>
+        public bool Loading
+        {
+            get => _Loading;
+            set => Set(ref _Loading, value);
+        }
+        private bool _Loading = false;
 
         /// <summary>
         /// Outage index information
