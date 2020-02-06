@@ -6,6 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    xmlns:viewmodel="using:Quarrel.ViewModels.SubPages"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -42,15 +44,17 @@
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
+
+        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
     </UserControl.Resources>
 
     <Grid x:Name="grid">
         <Grid.RenderTransform>
             <ScaleTransform x:Name="scale2"/>
         </Grid.RenderTransform>
-        
+
         <ProgressRing x:Name="LoadingRing" IsEnabled="True" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBlock x:Name="FailedToLoad" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0" Text="FAILED TO GET DISCORD STATUS :/" TextWrapping="Wrap" FontWeight="SemiBold" Margin="12"/>
+        <TextBlock Visibility="{x:Bind ViewModel.FailedToLoad, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0" Text="FAILED TO GET DISCORD STATUS :/" TextWrapping="Wrap" FontWeight="SemiBold" Margin="12"/>
 
         <StackPanel>
             <Grid>
@@ -58,30 +62,30 @@
                 <HyperlinkButton NavigateUri="https://status.discordapp.com" HorizontalAlignment="Right" Content="Details" Style="{StaticResource PlainTextHyperlinkStyle}" VerticalAlignment="Center" FontSize="12" Foreground="{ThemeResource Blurple}" Opacity="0.75" Margin="0,17,24,0"/>
             </Grid>
 
-            <Border x:Name="statusContainer" Visibility="Collapsed" Margin="0,12,0,0" Padding="24,12" Background="{ThemeResource online}">
-                <TextBlock x:Name="statusDescription" Text="ALL SYSTEMS OPERATIONAL" TextWrapping="Wrap" FontSize="16" FontWeight="SemiLight" Foreground="White"/>
+            <Border x:Name="StatusContainer" Visibility="{x:Bind ViewModel.Status.Status, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Margin="0,12,0,0" Padding="24,12" Background="{ThemeResource online}">
+                <TextBlock x:Name="statusDescription" Text="{x:Bind ViewModel.Status.Status.Description}" TextWrapping="Wrap" FontSize="16" FontWeight="SemiLight" Foreground="White"/>
             </Border>
 
-            <ScrollViewer x:Name="IncidentsScroller">
-                <ItemsControl x:Name="IncidentsPanel" Margin="24,6,18,12">
+            <ScrollViewer x:Name="IncidentsScroller" Visibility="{x:Bind ViewModel.Incidents, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}">
+                <ItemsControl ItemsSource="{x:Bind ViewModel.Incidents, Mode=OneWay}" Margin="24,6,18,12">
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="viewmodel:ComplexComponent">
                             <StackPanel Margin="0,6,0,6">
-                                <TextBlock FontSize="16" Text="{Binding Name}" TextWrapping="Wrap"/>
-                                <ItemsControl ItemsSource="{Binding Items}" Margin="0,4,0,0">
+                                <TextBlock FontSize="16" Text="{x:Bind Name}" TextWrapping="Wrap"/>
+                                <ItemsControl ItemsSource="{x:Bind Items}" Margin="0,4,0,0">
                                     <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
+                                        <DataTemplate x:DataType="viewmodel:SimpleComponent">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto"/>
                                                     <ColumnDefinition/>
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Text="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="12" Opacity="0.75"/>
+                                                <TextBlock Text="{x:Bind Name}" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="12" Opacity="0.75"/>
                                                 <RichTextBlock Grid.Column="1" TextWrapping="Wrap" FontSize="11" Opacity="0.5" Margin="12,0,0,0">
                                                     <Paragraph>
-                                                        <Run FontWeight="SemiBold" Text="{Binding Status}"></Run>
+                                                        <Run FontWeight="SemiBold" Text="{x:Bind Status}"></Run>
                                                         <Run Text=" - "></Run>
-                                                        <Run Text="{Binding Description}"></Run>
+                                                        <Run Text="{x:Bind Description}"></Run>
                                                     </Paragraph>
                                                 </RichTextBlock>
                                             </Grid>
@@ -93,9 +97,9 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-            <ItemsControl x:Name="ComponentsPanel" Margin="18,12,18,12">
+            <ItemsControl ItemsSource="{x:Bind ViewModel.Components, Mode=}" Margin="18,12,18,12">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="viewmodel:SimpleComponent">
                         <Grid Margin="6,4" MaxWidth="200">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -107,7 +111,7 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Column="1" Opacity="0.6" FontWeight="Light" FontSize="14" Text="{Binding Name}"/>
-                            <TextBlock Grid.Column="2" Text="{Binding Status}" VerticalAlignment="Bottom" Foreground="{Binding Color}" FontSize="11" Opacity="1" Margin="0,-2,0,0"/>
+                            <TextBlock Grid.Column="2" Text="{x:Bind Status}" VerticalAlignment="Bottom" Foreground="{Binding Color}" FontSize="11" Opacity="1" Margin="0,-2,0,0"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
