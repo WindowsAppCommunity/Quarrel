@@ -121,7 +121,7 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
 
         private Task<bool> Login()
         {
-            Messenger.Default.Send(new StartUpStatusMessage(Status.Connecting));
+            Messenger.Default.Send(new ConnectionStatusMessage(Status.Connecting));
 
             IAuthenticator authenticator = new DiscordAuthenticator(_AccessToken);
             AuthenticatedRestFactory authenticatedRestFactory = new AuthenticatedRestFactory(new DiscordApiConfiguration() { BaseUrl = "https://discordapp.com/api" }, authenticator);

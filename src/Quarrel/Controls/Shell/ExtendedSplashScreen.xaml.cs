@@ -22,14 +22,20 @@ namespace Quarrel.Controls.Shell
             
             // Status changed
             // Updates status text and ther appropiate actions
-            Messenger.Default.Register<StartUpStatusMessage>(this, m =>
+            Messenger.Default.Register<ConnectionStatusMessage>(this, async m =>
             {
-                StatusBlock.Text = m.Status.ToString().ToUpper();
+                await DispatcherHelper.RunAsync(() =>
+                {
+                    StatusBlock.Text = m.Status.ToString().ToUpper();
+                });
 
                 if (m.Status == Status.Failed || m.Status == Status.Offline)
                 {
                     // Stops animation on failed or offline
-                    Animation.Stop();
+                    await DispatcherHelper.RunAsync(() =>
+                    {
+                        Animation.Stop();
+                    });
 
                     // Opens status page
                     if (!_Retry)
@@ -38,10 +44,25 @@ namespace Quarrel.Controls.Shell
                     }
                 }
 
-
                 // Shows Retry button 
                 if (m.Status == Status.Failed)
-                    RetryButton.Visibility = Visibility.Visible;
+                {
+                    await DispatcherHelper.RunAsync(() =>
+                    {
+                        RetryButton.Visibility = Visibility.Visible;
+                    });
+                }
+
+                // Reshow Splash
+                if (m.Status == Status.Disconnected)
+                {
+                    await DispatcherHelper.RunAsync(() =>
+                    {
+                        Visibility = Visibility.Visible;
+                        LoadIn.Begin();
+                        RetryConnecting(null, null);
+                    });
+                }
             });
             
             // Finished loading

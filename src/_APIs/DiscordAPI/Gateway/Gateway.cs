@@ -47,7 +47,7 @@ namespace DiscordAPI.Gateway
 
         public event EventHandler<GatewayEventArgs<Ready>> Ready;
         public event EventHandler<GatewayEventArgs<Resumed>> Resumed;
-        public event EventHandler<WebSocketClosedException> GatewayClosed;
+        public event EventHandler<Exception> GatewayClosed;
 
         public event EventHandler<GatewayEventArgs<Guild>> GuildCreated;
         public event EventHandler<GatewayEventArgs<Guild>> GuildUpdated;
@@ -139,8 +139,8 @@ namespace DiscordAPI.Gateway
             if (exception is WebSocketClosedException ex)
             {
                 Debug.WriteLine("Gateway closed with code " + ex.CloseCode + " and reason \"" + ex.Reason + "\"");
-                GatewayClosed?.Invoke(null, ex);
             }
+            GatewayClosed?.Invoke(null, exception);
         }
 
         private async Task HandleTextMessage(string message)

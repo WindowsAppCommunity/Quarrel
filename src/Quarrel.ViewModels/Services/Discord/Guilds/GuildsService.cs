@@ -61,7 +61,8 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                     // Add DM
                     var dmGuild =
                         new BindableGuild(new Guild() {Name = "DM", Id = "DM"}) {Position = -1};
-                    AllGuilds.Add(dmGuild.Model.Id, dmGuild);
+
+                    AllGuilds.AddOrUpdate(dmGuild.Model.Id, dmGuild);
 
                     // Add DM channels
                     if (m.EventData.PrivateChannels != null && m.EventData.PrivateChannels.Any())
@@ -81,7 +82,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                             if (readStates.ContainsKey(bChannel.Model.Id))
                                 bChannel.ReadState = readStates[bChannel.Model.Id];
 
-                            ChannelsService.AllChannels.Add(bChannel.Model.Id, bChannel);
+                            ChannelsService.AllChannels.AddOrUpdate(bChannel.Model.Id, bChannel);
                         }
 
                         // Sort by last message timestamp
@@ -142,7 +143,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                                 bChannel.ReadState = readStates[bChannel.Model.Id];
 
                             bGuild.Channels.Add(bChannel);
-                            ChannelsService.AllChannels.Add(bChannel.Model.Id, bChannel);
+                            ChannelsService.AllChannels.AddOrUpdate(bChannel.Model.Id, bChannel);
                         }
 
                         bGuild.Channels = new ObservableCollection<BindableChannel>(bGuild.Channels.OrderBy(x => x.AbsolutePostion).ToList());
@@ -168,7 +169,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                             Messenger.Default.Send(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
                         }
 
-                        AllGuilds.Add(bGuild.Model.Id, bGuild);
+                        AllGuilds.AddOrUpdate(bGuild.Model.Id, bGuild);
                     }
 
                     #endregion
@@ -207,7 +208,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                     }
                 }
 
-                ChannelsService.AllChannels.Add(bChannel.Model.Id, bChannel);
+                ChannelsService.AllChannels.AddOrUpdate(bChannel.Model.Id, bChannel);
             });
             Messenger.Default.Register<GatewayChannelDeletedMessage>(this, m =>
             {

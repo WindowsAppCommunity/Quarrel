@@ -66,7 +66,7 @@ namespace Quarrel.ViewModels.Services.Gateway
             }
             catch (Exception e)
             {
-                Messenger.Default.Send(new StartUpStatusMessage(Status.Failed));
+                Messenger.Default.Send(new ConnectionStatusMessage(Status.Failed));
                 return false;
             }
 
@@ -106,7 +106,7 @@ namespace Quarrel.ViewModels.Services.Gateway
 
             if (await ConnectWithRetryAsync(3))
             {
-                Messenger.Default.Send(new StartUpStatusMessage(Status.Connected));
+                Messenger.Default.Send(new ConnectionStatusMessage(Status.Connected));
                 Messenger.Default.Register<ChannelNavigateMessage>(this, async m =>
                 {
                     // TODO: Channel typing check
@@ -315,9 +315,9 @@ namespace Quarrel.ViewModels.Services.Gateway
             Messenger.Default.Send(new GatewaySessionReplacedMessage(e.EventData));
         }
 
-        private void Gateway_GatewayClosed(object sender, DiscordAPI.Sockets.WebSocketClosedException e)
+        private void Gateway_GatewayClosed(object sender, Exception e)
         {
-            SimpleIoc.Default.GetInstance<IDiscordService>().Logout();
+            Messenger.Default.Send(new ConnectionStatusMessage(Status.Disconnected));
         }
 
         #endregion

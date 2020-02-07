@@ -9,13 +9,14 @@ namespace Quarrel.ViewModels.Messages
         Starting,
         Connecting,
         Connected,
+        Disconnected,
         Failed,
         Offline
     }
 
-    public class StartUpStatusMessage
+    public class ConnectionStatusMessage
     {
-        public StartUpStatusMessage(Status status)
+        public ConnectionStatusMessage(Status status)
         {
             Status = status;
         }
