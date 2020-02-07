@@ -220,7 +220,7 @@
                 </Canvas>
 
                 <Grid Grid.Row="1" Grid.Column="1" Visibility="{x:Bind IsContinuation, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
-                      Margin="0,8,0,0">
+                      Margin="0,8,0,4">
                     <StackPanel Orientation="Horizontal">
                         <HyperlinkButton x:Name="AuthorHyperlink" 
                                  Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind AuthorName, Mode=OneWay}" 
