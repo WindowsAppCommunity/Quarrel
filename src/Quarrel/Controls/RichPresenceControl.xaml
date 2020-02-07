@@ -29,15 +29,11 @@
         </Grid.RowDefinitions>
         <Grid VerticalAlignment="Top">
             <Image x:Name="xboxlogo" Visibility="{x:Bind ViewModel.IsXboxGame}" Opacity="1" Height="26" Width="26" Margin="4,2,14,0" VerticalAlignment="Center" Source="ms-appx:///Assets/Connections/xbox.png"/>
-            <Border CornerRadius="4" x:Name="LargeImgRect" x:Load="{x:Bind ViewModel.Assets, Converter={StaticResource NotNullToBoolConverter}}" Margin="0,0,10,0">
-                <controls:ImageEx Width="58" Height="58" DecodePixelWidth="58" DecodePixelHeight="58" Source="{Binding ViewModel.LargeImageUrl, Mode=OneWay}"/>
+            <Border CornerRadius="4" x:Name="LargeImgRect" x:Load="{x:Bind ViewModel.Assets, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Margin="0,0,10,0">
+                <controls:ImageEx Width="58" Height="58" Source="{x:Bind ViewModel.LargeImageUrl, Mode=OneWay}"/>
             </Border>
-            <controls:DropShadowPanel BlurRadius="8" ShadowOpacity="0.7" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
-                <Rectangle x:Name="SmallimgRect" x:Load="{x:Bind ViewModel.Assets, Converter={StaticResource NotNullToBoolConverter}}" Width="20" Height="20" RadiusX="10" RadiusY="10" Margin="0,0,5,-5">
-                    <Rectangle.Fill>
-                        <ImageBrush ImageSource="{Binding ViewModel.SmallImageUrl, Mode=OneWay}"/>
-                    </Rectangle.Fill>
-                </Rectangle>
+            <controls:DropShadowPanel x:Name="SmallImgRect" x:Load="{x:Bind ViewModel.Assets, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"  BlurRadius="8" ShadowOpacity="0.7" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
+                <controls:RoundImageEx Source="{x:Bind ViewModel.SmallImageUrl, Mode=OneWay}" Width="20" Height="20" Margin="0,0,5,-5"/>
             </controls:DropShadowPanel>
         </Grid>
         <Grid Grid.Column="1" >

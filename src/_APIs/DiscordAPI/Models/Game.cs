@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Text.RegularExpressions;
 
 namespace DiscordAPI.Models
 {
@@ -57,25 +58,39 @@ namespace DiscordAPI.Models
         public bool IsXboxGame { get => ApplicationId != null && ApplicationId == "438122941302046720"; }
 
         [JsonIgnore]
-        public string SmallImageUrl => Assets != null ? GetImageUrl(Assets.SmallImage, ApplicationId) : "";
+        public bool IsSpotify { get => Name == "Spotify"; }
 
         [JsonIgnore]
-        public Uri SmallImageUri => Assets != null ? new Uri(GetImageUrl(Assets.SmallImage, ApplicationId)) : null;
+        public string SmallImageUrl => Assets != null ? GetImageUrl(Assets.SmallImage) : "";
 
         [JsonIgnore]
-        public string LargeImageUrl => Assets != null ? GetImageUrl(Assets.LargeImage, ApplicationId) : "";
+        public Uri SmallImageUri => Assets != null && Assets.SmallImage != null ? new Uri(GetImageUrl(Assets.SmallImage)) : null;
 
         [JsonIgnore]
-        public Uri LargeImageUri => Assets != null ? new Uri(GetImageUrl(Assets.LargeImage, ApplicationId)) : null;
+        public string LargeImageUrl => Assets != null ? GetImageUrl(Assets.LargeImage) : "";
 
-        public string GetImageUrl(string id, string gameid, bool game = false, string append = "?size=512")
+        [JsonIgnore]
+        public Uri LargeImageUri => Assets != null && Assets.LargeImage != null ? new Uri(GetImageUrl(Assets.LargeImage)) : null;
+
+        public string GetImageUrl(string id, string append = "?size=512")
         {
+            // Handle Spotify images differently
+            if (IsSpotify)
+            {
+                if (string.IsNullOrEmpty(id))
+                    return "";
+
+                var match = Regex.Match(id, @"spotify:(\w+)");
+                return string.Format("https://i.scdn.co/image/{0}", match.Groups[1].Value); 
+            }
+
             // Set type in query 
             string type = "app";
-            if (game) type = "game";
+            // TODO: Detect games
+            //if (game) type = "game";
 
             // Query URL
-            return "https://cdn.discordapp.com/" + type + "-assets/" + gameid + "/" + id + ".png" + append;
+            return "https://cdn.discordapp.com/" + type + "-assets/" + ApplicationId + "/" + id + ".png" + append;
         }
     }
     public class TimeStamps
