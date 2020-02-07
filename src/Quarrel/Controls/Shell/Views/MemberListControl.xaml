@@ -105,7 +105,7 @@
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="bindables:BindableGuildMemberGroup">
-                            <Grid VerticalAlignment="Top">
+                            <Grid VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="Auto"/>
