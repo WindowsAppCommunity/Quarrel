@@ -36,13 +36,18 @@
                 <controls:RoundImageEx Source="{x:Bind ViewModel.SmallImageUrl, Mode=OneWay}" Width="20" Height="20" Margin="0,0,5,-5"/>
             </controls:DropShadowPanel>
         </Grid>
-        <Grid Grid.Column="1" >
-            <StackPanel>
-                <HyperlinkButton x:Name="GameTB" Content="{x:Bind ViewModel.Display}" FontSize="13.333" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="White" IsEnabled="False" FontWeight="SemiBold"/>
-                <TextBlock x:Name="DetailsTB" Text="{x:Bind ViewModel.Details}" FontSize="11" Opacity="1"/>
-                <TextBlock Visibility="{x:Bind ViewModel.IsCustom, Converter={StaticResource NotBoolToVisibilityConverter}}" Text="{x:Bind ViewModel.State}" FontWeight="SemiLight" FontSize="11" Opacity="0.8"/>
+        <Grid Grid.Column="1">
+            <!--Generic Details info-->
+            <StackPanel Visibility="{x:Bind ViewModel.IsCustom, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}">
+                <HyperlinkButton x:Name="GameTB" Content="{x:Bind ViewModel.Name, Mode=OneWay}" FontSize="13.333" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="White" IsEnabled="False" FontWeight="SemiBold"/>
+                <TextBlock x:Name="DetailsTB" Text="{x:Bind ViewModel.Details, Mode=OneWay}" FontSize="11" Opacity="1"/>
+                <TextBlock Visibility="{x:Bind ViewModel.IsCustom, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Text="{x:Bind ViewModel.State, Mode=OneWay}" FontWeight="SemiLight" FontSize="11" Opacity="0.8"/>
                 <TextBlock x:Name="TimeElapsedTB" Text="{x:Bind ViewModel.TimeStamps.TimeElapsed, Converter={StaticResource TimeSpanToTextConverter}, Mode=OneWay}" FontSize="11" Opacity="0.6"/>
             </StackPanel>
+
+            <!--Custom Game info-->
+            <TextBlock Text="{x:Bind ViewModel.Display, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsCustom, Mode=OneWay}"
+                       TextWrapping="WrapWholeWords"/>
         </Grid>
         <Grid x:Name="spotifyGrid" Visibility="Collapsed" Grid.ColumnSpan="2" Margin="0,8,0,-2" VerticalAlignment="Top" Grid.Row="2">
             <ProgressBar x:Name="progbar" Margin="0,0,0,0" Grid.Column="1" VerticalAlignment="Top" Foreground="White" Value="50" Height="2" MinHeight="0"/>

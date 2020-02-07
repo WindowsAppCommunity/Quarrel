@@ -49,7 +49,21 @@ namespace DiscordAPI.Models
         [JsonProperty("session_id")]
         public string SessionId { get; set; }
 
-        public string Display => IsCustom ? State : Name;
+        public string Display
+        {
+            get
+            {
+                // Return actual custom status instead of app name
+                if (IsCustom)
+                    return State;
+
+                // Return Artist instead of app name
+                if (IsSpotify)
+                    return State;
+
+                return Name;
+            }
+        }
 
         [JsonIgnore]
         public bool IsRich => (Details != null || State != null || Assets != null) && !IsCustom;
