@@ -1,29 +1,30 @@
-﻿using Quarrel.SubPages.Interfaces;
-using Quarrel.SubPages.UserSettings.Pages;
+﻿using Microsoft.UI.Xaml.Controls;
+using Quarrel.SubPages.GuildSettings.Pages;
+using Quarrel.SubPages.Interfaces;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Windows.Foundation.Metadata;
-using Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace Quarrel.SubPages.UserSettings
+namespace Quarrel.SubPages.GuildSettings
 {
-    public sealed partial class UserSettingsPage : IAdaptiveSubPage, IConstrainedSubPage
+    public sealed partial class GuildSettingsPage : IAdaptiveSubPage, IConstrainedSubPage
     {
-        public UserSettingsPage()
+        public GuildSettingsPage()
         {
             this.InitializeComponent();
-            this.Loaded += (_, e) => NavigationControl.SelectedItem = MyAccountItem;
+            this.Loaded += (_, e) => NavigationControl.SelectedItem = OverviewItem;
             PagesMapping = new ConcurrentDictionary<NavigationViewItemBase, Type>
             {
-                [MyAccountItem] = typeof(MyAccountSettingsPage),
-                [PrivacyItem] = typeof(PrivacySettingsPage),
-                [ConnectionsItem] = typeof(ConnectionsSettingsPage),
-                [DisplayItem] = typeof(DisplaySettingsPage),
-                [BehaviorItem] = typeof(BehaviorSettingsPage),
-                [NotificationsItem] = typeof(NotificationsSettingsPage),
-                [VoiceItem] = typeof(VoiceSettingsPage)
+                [OverviewItem] = typeof(OverviewSettingsPage),
+                [RolesItem] = typeof(RolesSettingsPage),
+                [EmojisItem] = typeof(EmojisSettingsPage),
+                [ModerationItem] = typeof(ModerationSettingsPage),
+                [AuditLogItem] = typeof(AuditLogSettingsPage),
+                [MembersItem] = typeof(MembersSettingsPage),
+                [InvitesItem] = typeof(InvitesSettingsPage),
+                [BansItem] = typeof(BanSettingsPage)
             };
         }
 
@@ -55,6 +56,7 @@ namespace Quarrel.SubPages.UserSettings
         /// <inheritdoc/>
         public double MaxExpandedHeight { get; } = 620;
 
+        /// <inheritdoc/>
         public bool IsFullHeight
         {
             get => _IsFullHeight;

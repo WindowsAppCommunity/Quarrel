@@ -390,6 +390,33 @@
     <Compile Include="SubPages\DiscordStatusPage.xaml.cs">
       <DependentUpon>DiscordStatusPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\GuildSettings\GuildSettingsPage.xaml.cs">
+      <DependentUpon>GuildSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\GuildSettings\Pages\AuditLogSettingsPage.xaml.cs">
+      <DependentUpon>AuditLogSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\GuildSettings\Pages\BanSettingsPage.xaml.cs">
+      <DependentUpon>BanSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\GuildSettings\Pages\EmojisSettingsPage.xaml.cs">
+      <DependentUpon>EmojisSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\GuildSettings\Pages\InvitesSettingsPage.xaml.cs">
+      <DependentUpon>InvitesSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\GuildSettings\Pages\MembersSettingsPage.xaml.cs">
+      <DependentUpon>MembersSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\GuildSettings\Pages\ModerationSettingsPage.xaml.cs">
+      <DependentUpon>ModerationSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\GuildSettings\Pages\OverviewSettingsPage.xaml.cs">
+      <DependentUpon>OverviewSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\GuildSettings\Pages\RolesSettingsPage.xaml.cs">
+      <DependentUpon>RolesSettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\Host\SubFrameHost.xaml.cs">
       <DependentUpon>SubFrameHost.xaml</DependentUpon>
     </Compile>
@@ -746,6 +773,42 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\DiscordStatusPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\GuildSettings\GuildSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\GuildSettings\Pages\AuditLogSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\GuildSettings\Pages\BanSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\GuildSettings\Pages\EmojisSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\GuildSettings\Pages\InvitesSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\GuildSettings\Pages\MembersSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\GuildSettings\Pages\ModerationSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\GuildSettings\Pages\OverviewSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\GuildSettings\Pages\RolesSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
