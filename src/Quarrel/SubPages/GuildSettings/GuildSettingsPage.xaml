@@ -15,11 +15,16 @@
                         OpenPaneLength="180" CompactModeThresholdWidth="0"
                         SelectionChanged="NavigationView_SelectionChanged">
             <ctl:NavigationView.MenuItems>
-                <ctl:NavigationViewItemHeader Content="Server Settings"/>
                 <ctl:NavigationViewItem x:Name="OverviewItem" Icon="PreviewLink" Content="Overview"/>
-                <ctl:NavigationViewItem x:Name="RolesItem" Icon="ContactPresence" Content="Roles"/>
-                <ctl:NavigationViewItem x:Name="EmojisItem" Icon="Emoji" Content="Emojis"/>
-                <ctl:NavigationViewItem x:Name="ModerationItem" Icon="ReportHacked" Content="Moderation"/>
+
+                <ctl:NavigationViewItemHeader Content="User's Server Settings"/>
+                <ctl:NavigationViewItem x:Name="PrivacyItem" Icon="Permissions" Content="Privacy" IsEnabled="False"/>
+                <ctl:NavigationViewItem x:Name="NotificationsItem" Icon="Flag" Content="Notifications" IsEnabled="False"/>
+
+                <ctl:NavigationViewItemHeader Content="Server Settings"/>
+                <ctl:NavigationViewItem x:Name="RolesItem" Icon="ContactPresence" Content="Roles" IsEnabled="False"/>
+                <ctl:NavigationViewItem x:Name="EmojisItem" Icon="Emoji" Content="Emojis" IsEnabled="False"/>
+                <ctl:NavigationViewItem x:Name="ModerationItem" Icon="Admin" Content="Moderation"/>
                 <ctl:NavigationViewItem x:Name="AuditLogItem" Icon="List" Content="Audit Log" IsEnabled="{x:Bind ViewModel.Permissions.ViewAuditLog, Mode=OneWay}"/>
 
 

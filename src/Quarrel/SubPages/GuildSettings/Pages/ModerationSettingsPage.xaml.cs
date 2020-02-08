@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Advertising.Ads.Requests.AdBroker;
+using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.SubPages.GuildSettings.Pages;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +28,19 @@ namespace Quarrel.SubPages.GuildSettings.Pages
         public ModerationSettingsPage()
         {
             this.InitializeComponent();
+            this.DataContextChanged += (s, e) =>
+            {
+                this.Bindings.Update();
+            };
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            DataContext = new ModerationSettingsPageViewModel(e.Parameter as BindableGuild);
+        }
+
+        public ModerationSettingsPageViewModel ViewModel => DataContext as ModerationSettingsPageViewModel;
     }
 }

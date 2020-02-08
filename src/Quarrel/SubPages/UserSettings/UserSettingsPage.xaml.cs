@@ -31,22 +31,8 @@ namespace Quarrel.SubPages.UserSettings
 
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 7, 0))
-            {
-                var options = new FrameNavigationOptions
-                {
-                    TransitionInfoOverride = args.RecommendedNavigationTransitionInfo,
-                    IsNavigationStackEnabled = false
-                };
-
-                SettingsFrame.NavigateToType(PagesMapping[args.SelectedItemContainer], IsFullHeight, options);
-                HeaderTB.Text = args.SelectedItemContainer.Content.ToString();
-            }
-            else
-            {
-                SettingsFrame.Navigate(PagesMapping[args.SelectedItemContainer]);
-                HeaderTB.Text = args.SelectedItemContainer.Content.ToString();
-            }
+            SettingsFrame.Navigate(PagesMapping[args.SelectedItemContainer]);
+            HeaderTB.Text = args.SelectedItemContainer.Content.ToString();
         }
 
         /// <inheritdoc/>
