@@ -233,6 +233,12 @@ namespace Quarrel.ViewModels.Models.Bindables
             SimpleIoc.Default.GetInstance<IDiscordService>().GuildService.AckGuild(Model.Id);
         });
 
+        private RelayCommand openGuildSettings;
+        public RelayCommand OpenGuildSettings => openGuildSettings = new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("GuildSettingsPage", this);
+        });
+
         private RelayCommand copyId;
         public RelayCommand CopyId => copyId = new RelayCommand(() =>
         {

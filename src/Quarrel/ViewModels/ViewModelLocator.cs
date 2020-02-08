@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Navigation;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Clipboard;
@@ -8,6 +9,7 @@ using Quarrel.Services.Settings;
 using Quarrel.Services.Voice.Audio.In;
 using Quarrel.Services.Voice.Audio.Out;
 using Quarrel.SubPages;
+using Quarrel.SubPages.GuildSettings;
 using Quarrel.SubPages.UserSettings;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Clipboard;
@@ -41,14 +43,15 @@ namespace Quarrel.ViewModels
             var navigationService = new SubFrameNavigationService();
             navigationService.Configure("AboutPage", typeof(AboutPage));
             navigationService.Configure("AddChannelPage", typeof(AddChannelPage));
-            navigationService.Configure("CreditPage", typeof(CreditPage));
             navigationService.Configure("AttachmentPage", typeof(AttachmentPage));
+            navigationService.Configure("CreditPage", typeof(CreditPage));
             navigationService.Configure("DiscordStatusPage", typeof(DiscordStatusPage));
+            navigationService.Configure("GuildSettingsPage", typeof(GuildSettingsPage));
             navigationService.Configure("LicensesPage", typeof(LicensesPage));
             navigationService.Configure("LoginPage", typeof(LoginPage));
-            navigationService.Configure("SettingsPage", typeof(UserSettingsPage));
             navigationService.Configure("TopicPage", typeof(TopicPage));
             navigationService.Configure("UserProfilePage", typeof(UserProfilePage));
+            navigationService.Configure("UserSettingsPage", typeof(UserSettingsPage));
             navigationService.Configure("WhatsNewPage", typeof(WhatsNewPage));
 
             SimpleIoc.Default.Register<IDispatcherHelper, DispatcherHelperEx>();

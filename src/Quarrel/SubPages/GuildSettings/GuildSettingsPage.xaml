@@ -20,13 +20,13 @@
                 <ctl:NavigationViewItem x:Name="RolesItem" Icon="ContactPresence" Content="Roles"/>
                 <ctl:NavigationViewItem x:Name="EmojisItem" Icon="Emoji" Content="Emojis"/>
                 <ctl:NavigationViewItem x:Name="ModerationItem" Icon="ReportHacked" Content="Moderation"/>
-                <ctl:NavigationViewItem x:Name="AuditLogItem" Icon="ShowResults" Content="Audit Log"/>
+                <ctl:NavigationViewItem x:Name="AuditLogItem" Icon="List" Content="Audit Log" IsEnabled="{x:Bind ViewModel.Permissions.ViewAuditLog, Mode=OneWay}"/>
 
 
                 <ctl:NavigationViewItemHeader Content="User managment"/>
                 <ctl:NavigationViewItem x:Name="MembersItem" Icon="People" Content="Members"/>
                 <ctl:NavigationViewItem x:Name="InvitesItem" Icon="AddFriend" Content="Invites"/>
-                <ctl:NavigationViewItem x:Name="BansItem" Icon="BlockContact" Content="Bans"/>
+                <ctl:NavigationViewItem x:Name="BansItem" Icon="BlockContact" Content="Bans" IsEnabled="{x:Bind ViewModel.Permissions.BanMembers, Mode=OneWay}"/>
             </ctl:NavigationView.MenuItems>
 
             <Grid>

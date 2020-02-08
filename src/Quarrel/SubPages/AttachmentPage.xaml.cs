@@ -23,16 +23,16 @@ namespace Quarrel.SubPages
 {
     public sealed partial class AttachmentPage : UserControl, IFullscreenSubPage, ITransparentSubPage
     {
-        private ISubFrameNavigationService subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+        private ISubFrameNavigationService _SubFrameNavigationService => SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
 
         public AttachmentPage()
         {
             this.InitializeComponent();
             
             // Use navigation parameter for Image in ViewModel
-            if (subFrameNavigationService.Parameter != null)
+            if (_SubFrameNavigationService.Parameter != null)
             {
-                this.DataContext = new AttachmentPageViewModel((IPreviewableImage)subFrameNavigationService.Parameter);
+                this.DataContext = new AttachmentPageViewModel((IPreviewableImage)_SubFrameNavigationService.Parameter);
             }
 
             // Show SVGs in SVGImageSource
@@ -91,7 +91,7 @@ namespace Quarrel.SubPages
         /// </summary>
         private void Rectangle_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            subFrameNavigationService.GoBack();
+            _SubFrameNavigationService.GoBack();
         }
 
         /// <summary>
