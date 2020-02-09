@@ -5,9 +5,28 @@
     xmlns:local="using:Quarrel.SubPages.GuildSettings.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
-    <Grid>
-
-    </Grid>
+    <StackPanel>
+        <Grid HorizontalAlignment="Left" Margin="0,12,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border CornerRadius="64" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128">
+                <tk:RoundImageEx Source="{x:Bind ViewModel.Guild.IconUrl, Mode=OneWay}"/>
+            </Border>
+            
+            <StackPanel Margin="0,6,0,0"  Grid.Row="1">
+                <TextBlock Text="We recommend you use an image which is at least 512x512px" TextWrapping="Wrap" FontWeight="SemiLight" FontSize="13.333" Opacity="0.75"/>
+                <HyperlinkButton Content="Upload image" Click="UploadAvatar"
+                                 Style="{StaticResource PlainTextHyperlinkStyle}" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+                <HyperlinkButton Content="Delete"
+                                 Style="{StaticResource PlainTextHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}"/>
+            </StackPanel>
+        </Grid>
+        <TextBox Text="{x:Bind ViewModel.Name, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" Header="Server Name" Style="{StaticResource TextBoxStyle1}" Margin="0,24,0,0"/>
+        <!--<TextBlock x:Name="NameCharCounter" Text="100" Foreground="{ThemeResource InvertedBG}" FontSize="11" Opacity="0.5" HorizontalAlignment="Right" Margin="0,4,0,0"/>-->
+    </StackPanel>
 </Page>
