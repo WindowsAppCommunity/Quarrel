@@ -16,13 +16,6 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
             Guild = guild;
         }
 
-        public BindableGuild Guild
-        {
-            get => _Guild;
-            set => Set(ref _Guild, value);
-        }
-        private BindableGuild _Guild;
-
         #region Methods
 
         public async void SetVerifcationLevel(int level)
@@ -32,11 +25,31 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
                 VerificationLevel = level
             };
             await SimpleIoc.Default.GetInstance<IDiscordService>().GuildService.ModifyGuild(Guild.Model.Id, modify);
+            Guild.Model.VerificationLevel = level;
+            // TODO: Handle Guild Updated
+        }
+
+        public async void SetFilterLevel(int level)
+        {
+            ModifyGuild modify = new ModifyGuild(Guild.Model)
+            {
+                ExplicitContentFilter = level
+            };
+            await SimpleIoc.Default.GetInstance<IDiscordService>().GuildService.ModifyGuild(Guild.Model.Id, modify);
+            Guild.Model.ExplicitContentFilter = level;
+            // TODO: Handle Guild Updated
         }
 
         #endregion
 
         #region Properties
+
+        public BindableGuild Guild
+        {
+            get => _Guild;
+            set => Set(ref _Guild, value);
+        }
+        private BindableGuild _Guild;
 
         #region Verfication Levels
 
@@ -46,7 +59,6 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
             set
             {
                 SetVerifcationLevel(0);
-                Guild.Model.VerificationLevel = 0;
             }
         }
         public bool VerficationLevel1
@@ -55,7 +67,6 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
             set
             {
                 SetVerifcationLevel(1);
-                Guild.Model.VerificationLevel = 1;
             }
         }
         public bool VerficationLevel2
@@ -64,7 +75,6 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
             set
             {
                 SetVerifcationLevel(2);
-                Guild.Model.VerificationLevel = 2;
             }
         }
         public bool VerficationLevel3
@@ -73,7 +83,6 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
             set
             {
                 SetVerifcationLevel(3);
-                Guild.Model.VerificationLevel = 3;
             }
         }
         public bool VerficationLevel4
@@ -82,10 +91,38 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
             set
             {
                 SetVerifcationLevel(4);
-                Guild.Model.VerificationLevel = 4;
             }
         }
 
+        #endregion
+
+        #region ExplicitContentFilter
+
+        public bool FilterLevel0
+        {
+            get => Guild?.Model?.ExplicitContentFilter == 0;
+            set
+            {
+                SetFilterLevel(0);
+            }
+        }
+        public bool FilterLevel1
+        {
+            get => Guild?.Model?.ExplicitContentFilter == 1;
+            set
+            {
+                SetFilterLevel(1);
+            }
+        }
+        public bool FilterLevel2
+        {
+            get => Guild?.Model?.ExplicitContentFilter == 2;
+            set
+            {
+                SetFilterLevel(2);
+            }
+        }
+        
         #endregion
 
         #endregion

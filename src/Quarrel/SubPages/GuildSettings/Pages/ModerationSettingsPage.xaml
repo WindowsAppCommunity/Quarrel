@@ -9,7 +9,6 @@
 
     <StackPanel>
         <TextBlock Text="Verification Levels" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="14" FontWeight="SemiBold" Margin="4,16,0,4"/>
-        
         <RadioButton IsChecked="{x:Bind ViewModel.VerficationLevel0, Mode=TwoWay}" GroupName="VfLvl" IsEnabled="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}"
                      Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0">
             <StackPanel>
@@ -17,7 +16,6 @@
                 <TextBlock FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Unrestricted"/>
             </StackPanel>
         </RadioButton>
-
         <RadioButton IsChecked="{x:Bind ViewModel.VerficationLevel1, Mode=TwoWay}" GroupName="VfLvl" IsEnabled="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}"
                      Foreground="{ThemeResource online}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0">
             <StackPanel>
@@ -25,7 +23,6 @@
                 <TextBlock FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Must have a verified email attached to their account." />
             </StackPanel>
         </RadioButton>
-        
         <RadioButton IsChecked="{x:Bind ViewModel.VerficationLevel2, Mode=TwoWay}" GroupName="VfLvl" IsEnabled="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}"
                      Foreground="{ThemeResource idle}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0">
             <StackPanel>
@@ -33,7 +30,6 @@
                 <TextBlock FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Must also be registered on Discord for longer than 5 minutes." />
             </StackPanel>
         </RadioButton>
-
         <RadioButton IsChecked="{x:Bind ViewModel.VerficationLevel3, Mode=TwoWay}"  GroupName="VfLvl" IsEnabled="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}"
                      Foreground="#F57731" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0">
             <StackPanel>
@@ -41,12 +37,36 @@
                 <TextBlock FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Must also be a member of this server longer than 10 minutes." />
             </StackPanel>
         </RadioButton>
-
         <RadioButton IsChecked="{x:Bind ViewModel.VerficationLevel4, Mode=TwoWay}" GroupName="VfLvl" IsEnabled="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}"
                      Foreground="{ThemeResource dnd}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0">
             <StackPanel>
                 <TextBlock Text="┻━┻彡 ヽ(ಠ益ಠ)ノ彡┻━┻"/>
                 <TextBlock FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Must have a verified phone on their discord account." />
+            </StackPanel>
+        </RadioButton>
+
+        <TextBlock Text="Explicit Content Filter" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="14" FontWeight="SemiBold" Margin="4,16,0,4"/>
+        <RadioButton IsChecked="{x:Bind ViewModel.FilterLevel0, Mode=TwoWay}" GroupName="EcfLvl" IsEnabled="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}"
+                     Foreground="{ThemeResource online}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0">
+            <StackPanel>
+                <TextBlock Text="Don't scan any messages."/>
+                <TextBlock FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Ain't no party like my grandma's tea party."/>
+            </StackPanel>
+        </RadioButton>
+
+        <RadioButton IsChecked="{x:Bind ViewModel.FilterLevel1, Mode=TwoWay}" GroupName="EcfLvl" IsEnabled="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}"
+                     Foreground="{ThemeResource idle}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0">
+            <StackPanel>
+                <TextBlock Text="Scan messages from members without a role."/>
+                <TextBlock FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Recommended option for servers that use roles for trusted membership." />
+            </StackPanel>
+        </RadioButton>
+
+        <RadioButton IsChecked="{x:Bind ViewModel.FilterLevel2, Mode=TwoWay}" GroupName="EcfLvl" IsEnabled="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}"
+                     Foreground="{ThemeResource dnd}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0">
+            <StackPanel>
+                <TextBlock Text="Scan messages send by all members."/>
+                <TextBlock FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Recommended option for when you want that squeaky clean shine."/>
             </StackPanel>
         </RadioButton>
     </StackPanel>

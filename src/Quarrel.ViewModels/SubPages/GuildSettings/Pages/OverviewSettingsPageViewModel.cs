@@ -50,6 +50,7 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
             Guild.Model.Icon = null;
             Guild.RaisePropertyChanged(nameof(Guild.HasIcon));
             Guild.RaisePropertyChanged(nameof(Guild.IconUrl));
+            // TODO: Handle Guild Updated
         });
 
         #endregion
@@ -73,6 +74,7 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
                 Guild.Model.Name = value;
                 Guild.RaisePropertyChanged(nameof(Guild.Model));
                 Guild.RaisePropertyChanged(nameof(Guild.DisplayText));
+                // TODO: Handle Guild Updated
             }
         }
 
