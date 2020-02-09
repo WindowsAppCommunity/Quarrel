@@ -27,11 +27,8 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
 
         public async void SetVerifcationLevel(int level)
         {
-            ModifyGuild modify = new ModifyGuild()
+            ModifyGuild modify = new ModifyGuild(Guild.Model)
             {
-                Name = Guild.Model.Name,
-                AfkTimeout = Guild.Model.AfkTimeout,
-                ExplicitContentFilter = Guild.Model.ExplicitContentFilter,
                 VerificationLevel = level
             };
             await SimpleIoc.Default.GetInstance<IDiscordService>().GuildService.ModifyGuild(Guild.Model.Id, modify);
