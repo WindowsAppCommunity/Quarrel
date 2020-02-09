@@ -72,6 +72,7 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
                     .GuildService.ModifyGuild(Guild.Model.Id, new ModifyGuild(Guild.Model) { Name = value });
                 Guild.Model.Name = value;
                 Guild.RaisePropertyChanged(nameof(Guild.Model));
+                Guild.RaisePropertyChanged(nameof(Guild.DisplayText));
             }
         }
 

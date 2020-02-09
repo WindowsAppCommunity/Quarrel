@@ -81,7 +81,7 @@
 
             <!--Text Icon placeholder-->
             <TextBlock Visibility="{x:Bind ViewModel.HasIcon, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Foreground="{ThemeResource Foreground}" 
-                   Text="{x:Bind ViewModel.DisplayText}" FontFamily="{x:Bind ViewModel.IsDM, Converter={StaticResource IsDMToFontFamilyConverter}, Mode=OneWay}"
+                   Text="{x:Bind ViewModel.DisplayText, Mode=OneWay}" FontFamily="{x:Bind ViewModel.IsDM, Converter={StaticResource IsDMToFontFamilyConverter}, Mode=OneWay}"
                    HorizontalAlignment="Center" VerticalAlignment="Center" 
                    FontSize="24" FontWeight="Light" Margin="0,-2,0,0"/>
 
