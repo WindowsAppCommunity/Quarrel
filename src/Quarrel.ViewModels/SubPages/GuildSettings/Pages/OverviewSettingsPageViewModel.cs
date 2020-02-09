@@ -1,5 +1,6 @@
 ﻿using DiscordAPI.API.Guild.Models;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Discord.Rest;
@@ -35,6 +36,21 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
             // Mainly for Rate Limit
             catch { }
         }
+
+        #endregion
+
+        #region Commands
+
+        private RelayCommand deleteIcon;
+        public RelayCommand DeleteIcon => deleteIcon = new RelayCommand(async () =>
+        {
+            ModifyGuildIcon modify = new ModifyGuildIcon(Guild.Model) { Icon = null };
+            await SimpleIoc.Default.GetInstance<IDiscordService>().GuildService.ModifyGuild(Guild.Model.Id, modify);
+
+            Guild.Model.Icon = null;
+            Guild.RaisePropertyChanged(nameof(Guild.HasIcon));
+            Guild.RaisePropertyChanged(nameof(Guild.IconUrl));
+        });
 
         #endregion
 
