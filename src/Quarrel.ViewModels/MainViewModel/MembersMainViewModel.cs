@@ -201,7 +201,9 @@ namespace Quarrel.ViewModels
 
                                 case "DELETE":
                                     {
-                                        CurrentBindableMembers.RemoveAt(op.Index);
+                                        // TODO: Figure out why this must be checked
+                                        if (op.Index < CurrentBindableMembers.Count)
+                                            CurrentBindableMembers.RemoveAt(op.Index);
                                     }
                                     ;
                                     break;
