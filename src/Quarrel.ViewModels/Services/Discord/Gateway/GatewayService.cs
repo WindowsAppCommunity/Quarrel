@@ -13,6 +13,7 @@ using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Gateway.Channels;
+using Quarrel.ViewModels.Messages.Gateway.Guild;
 using Quarrel.ViewModels.Messages.Gateway.Voice;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Messages.Navigation.SubFrame;
@@ -21,6 +22,7 @@ using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Rest;
+using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.ViewModels.Messages.Gateway;
 using System;
@@ -76,6 +78,8 @@ namespace Quarrel.ViewModels.Services.Gateway
             Gateway.Ready += Gateway_Ready;
             Gateway.GuildMembersChunk += GatewayGuildMembersChunk;
             Gateway.GuildSynced += Gateway_GuildSynced;
+
+            Gateway.GuildUpdated += Gateway_GuildUpdated;
 
             Gateway.MessageCreated += Gateway_MessageCreated;
             Gateway.MessageDeleted += Gateway_MessageDeleted;
@@ -244,6 +248,15 @@ namespace Quarrel.ViewModels.Services.Gateway
         private void Gateway_DirectMessageChannelCreated(object sender, GatewayEventArgs<DirectMessageChannel> e)
         {
             Messenger.Default.Send(new GatewayDirectMessageChannelCreatedMessage(e.EventData));
+        }
+
+        #endregion
+
+        #region Guild
+
+        private void Gateway_GuildUpdated(object sender, GatewayEventArgs<Guild> e)
+        {
+            Messenger.Default.Send(new GatewayGuildUpdatedMessage(e.EventData));
         }
 
         #endregion

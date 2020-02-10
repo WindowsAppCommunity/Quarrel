@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Messages.Gateway.Guild;
 using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Models.Interfaces;
@@ -30,6 +31,20 @@ namespace Quarrel.ViewModels.Models.Bindables
             _Channels = new ObservableCollection<BindableChannel>();
 
             #region Messenger
+
+            MessengerInstance.Register<GatewayGuildUpdatedMessage>(this, m =>
+            {
+                if (m.Guild.Id == Model.Id)
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        Model = m.Guild;
+                        RaisePropertyChanged(nameof(DisplayText));
+                        RaisePropertyChanged(nameof(HasIcon));
+                        RaisePropertyChanged(nameof(IconUrl));
+                    });
+                }
+            });
 
             MessengerInstance.Register<GatewayMessageRecievedMessage>(this, m =>
             {
