@@ -49,8 +49,9 @@
     <UserControl.ContextFlyout>
         <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
             <MenuFlyoutItem Text="Mark as read" IsEnabled="{x:Bind ViewModel.IsUnread, Mode=OneWay}" Command="{x:Bind ViewModel.MarkAsRead}"/>
-            <MenuFlyoutSeparator/>
             <ToggleMenuFlyoutItem Text="Mute" IsChecked="{x:Bind ViewModel.Muted, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Command="{x:Bind ViewModel.MuteGuild, Mode=OneWay}"/>
+            <MenuFlyoutSeparator/>
+            <MenuFlyoutItem Text="Server Settings" Command="{x:Bind ViewModel.OpenGuildSettings, Mode=OneWay}"/>
             <MenuFlyoutSeparator/>
             <MenuFlyoutItem Text="Copy Id" Command="{x:Bind ViewModel.CopyId, Mode=OneWay}"/>
         </MenuFlyout>
