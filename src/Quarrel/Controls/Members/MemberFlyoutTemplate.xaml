@@ -117,14 +117,21 @@
                 </StackPanel>
                 
                 <!--Rich Presence info-->
-                <Grid>
+                <Grid Visibility="{x:Bind ViewModel.Presence.Game, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}">
                     <Rectangle Opacity="0.5">
                         <Rectangle.Fill>
                             <Windows10FallCreatorsUpdate:AcrylicBrush TintOpacity="0.9" TintColor="{x:Bind ViewModel.AccentColor, Converter={StaticResource IntColorColorConverter}, Mode=OneWay}"
                                           FallbackColor="{x:Bind ViewModel.AccentColor, Converter={StaticResource IntColorColorConverter}, Mode=OneWay}"/>
                         </Rectangle.Fill>
                     </Rectangle>
-                    <controls:RichPresenceControl DataContext="{x:Bind ViewModel.Presence.Game, Mode=OneWay}" Foreground="White" Margin="12,8" Visibility="{x:Bind ViewModel.Presence.Game, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" x:Name="richPresence"/>
+                    <ListView ItemsSource="{x:Bind ViewModel.Presence.Activities, Mode=OneWay}"
+                              IsItemClickEnabled="False" SelectionMode="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <controls:RichPresenceControl Foreground="White" Margin="12,8"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
             </StackPanel>
             
