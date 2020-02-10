@@ -30,6 +30,8 @@ namespace Quarrel.SubPages.GuildSettings
             PagesMapping = new ConcurrentDictionary<NavigationViewItemBase, Type>
             {
                 [OverviewItem] = typeof(OverviewSettingsPage),
+                [NotificationsItem] = typeof(NotificationsSettingsPage),
+                [PrivacyItem] = typeof(PrivacySettingsPage),
                 [RolesItem] = typeof(RolesSettingsPage),
                 [EmojisItem] = typeof(EmojisSettingsPage),
                 [ModerationItem] = typeof(ModerationSettingsPage),

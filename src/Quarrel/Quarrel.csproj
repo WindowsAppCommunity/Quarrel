@@ -411,8 +411,14 @@
     <Compile Include="SubPages\GuildSettings\Pages\ModerationSettingsPage.xaml.cs">
       <DependentUpon>ModerationSettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\GuildSettings\Pages\NotificationsSettingsPage.xaml.cs">
+      <DependentUpon>NotificationsSettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\GuildSettings\Pages\OverviewSettingsPage.xaml.cs">
       <DependentUpon>OverviewSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\GuildSettings\Pages\PrivacySettingsPage.xaml.cs">
+      <DependentUpon>PrivacySettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\GuildSettings\Pages\RolesSettingsPage.xaml.cs">
       <DependentUpon>RolesSettingsPage.xaml</DependentUpon>
@@ -804,7 +810,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SubPages\GuildSettings\Pages\NotificationsSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SubPages\GuildSettings\Pages\OverviewSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\GuildSettings\Pages\PrivacySettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
