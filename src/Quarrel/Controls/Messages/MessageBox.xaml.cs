@@ -65,7 +65,7 @@ namespace Quarrel.Controls.Messages
             else if (dataPackageView.Contains(StandardDataFormats.Bitmap))
             {
                 var bmpStream = await dataPackageView.GetBitmapAsync();
-                ViewModel.Attachments.Add(new StreamPart((await bmpStream.OpenReadAsync()).AsStream(), "file.png"));
+                ViewModel.Attachments.Add(new StreamPart((await bmpStream.OpenReadAsync()).AsStream(), "file.png", "image/png"));
             }
         }
 
