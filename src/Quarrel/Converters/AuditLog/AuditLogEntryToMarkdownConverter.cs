@@ -49,6 +49,12 @@ namespace Quarrel.Converters.AuditLog
             return format.Replace("<recipient>", formattedUser);
         }
 
+        public string ReplaceRole(string format, string roleId)
+        {
+            string formattedRole = string.Format("<@&{0}>", roleId);
+            return format.Replace("<role>", formattedRole);
+        }
+
         #endregion
 
         public object Convert(object value, Type targetType, object parameter, string language)
@@ -77,6 +83,11 @@ namespace Quarrel.Converters.AuditLog
                     case AuditLogActionType.MessageDelete:
                         format = ReplaceRecipient(format, entry.TargetId);
                         return ReplaceChannel(format, entry.Options.ChannelId);
+
+                    case AuditLogActionType.RoleCreate:
+                    case AuditLogActionType.RoleUpdate:
+                    case AuditLogActionType.RoleDelete:
+                        return ReplaceRole(format, entry.TargetId);
                 }
                 return format;
             }
