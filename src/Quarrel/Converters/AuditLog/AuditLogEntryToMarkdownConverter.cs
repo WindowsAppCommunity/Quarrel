@@ -32,15 +32,15 @@ namespace Quarrel.Converters.AuditLog
                 formattedChannel = string.Format("<#{0}>", channelId);
             else
             {
+                formattedChannel = "**<deleted-channel>**";
                 foreach (Change change in changes)
                 {
                     if (change.Key == "name")
                     {
-                        formattedChannel = string.Format("**{0}**", change.OldValue);
+                        formattedChannel = string.Format("**#{0}**", change.NewValue ?? change.OldValue);
                         break;
                     }
                 }
-                formattedChannel = "**<deleted-channel>**";
             }
 
             return format.Replace("<channel>", formattedChannel);
