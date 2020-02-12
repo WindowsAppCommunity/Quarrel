@@ -94,6 +94,9 @@ namespace Quarrel.Converters.AuditLog
 
                     case AuditLogActionType.MemberBanAdd:
                     case AuditLogActionType.MemberBanRemove:
+                    case AuditLogActionType.MemberKick:
+                    case AuditLogActionType.MemberRoleUpdate:
+                    case AuditLogActionType.MemberUpdate:
                         return ReplaceRecipient(format, entry.TargetId);
 
                     case AuditLogActionType.RoleCreate:
