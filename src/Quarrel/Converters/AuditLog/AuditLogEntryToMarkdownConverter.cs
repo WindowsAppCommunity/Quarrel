@@ -61,6 +61,18 @@ namespace Quarrel.Converters.AuditLog
             return format.Replace("<emoji>", "emoji: " + emojiId);
         }
 
+        public string ReplaceWebhook(string format, Change[] changes, bool deleted)
+        {
+            foreach (var change in changes)
+            {
+                if (change.Key == "name")
+                {
+                    return format.Replace("<webhook>", string.Format("**{0}**", (deleted ? change.OldValue : change.NewValue).ToString()));
+                }
+            }
+            return null;
+        }
+
         #endregion
 
         public object Convert(object value, Type targetType, object parameter, string language)
@@ -86,11 +98,22 @@ namespace Quarrel.Converters.AuditLog
                     case AuditLogActionType.EmojiDelete:
                         return ReplaceEmoji(format, entry.TargetId);
 
+                    case AuditLogActionType.RoleCreate:
+                    case AuditLogActionType.RoleUpdate:
+                    case AuditLogActionType.RoleDelete:
+                        return ReplaceRole(format, entry.TargetId);
+
                     case AuditLogActionType.InviteCreate:
                     case AuditLogActionType.InviteUpdate:
                     case AuditLogActionType.InviteDelete:
-                        return ReplaceInvite(format, entry.Changes, (AuditLogActionType)entry.ActionType == AuditLogActionType.InviteDelete);
+                        return ReplaceInvite(format, entry.Changes,
+                            (AuditLogActionType)entry.ActionType == AuditLogActionType.InviteDelete);
 
+                    case AuditLogActionType.WebhookCreate:
+                    case AuditLogActionType.WebhookUpdate:
+                    case AuditLogActionType.WebhookDelete:
+                        return ReplaceWebhook(format, entry.Changes,
+                            (AuditLogActionType)entry.ActionType == AuditLogActionType.WebhookDelete);
 
                     case AuditLogActionType.MemberBanAdd:
                     case AuditLogActionType.MemberBanRemove:
@@ -98,11 +121,6 @@ namespace Quarrel.Converters.AuditLog
                     case AuditLogActionType.MemberRoleUpdate:
                     case AuditLogActionType.MemberUpdate:
                         return ReplaceRecipient(format, entry.TargetId);
-
-                    case AuditLogActionType.RoleCreate:
-                    case AuditLogActionType.RoleUpdate:
-                    case AuditLogActionType.RoleDelete:
-                        return ReplaceRole(format, entry.TargetId);
 
                     case AuditLogActionType.MessageDelete:
                         format = ReplaceRecipient(format, entry.TargetId);
