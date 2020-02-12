@@ -8,6 +8,7 @@
     xmlns:guildmodels="using:DiscordAPI.API.Guild.Models"
     xmlns:auditlogconvert="using:Quarrel.Converters.AuditLog"
     xmlns:discordconvert="using:Quarrel.Converters.Discord"
+    xmlns:markdown="using:Quarrel.Controls.Markdown"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -40,7 +41,7 @@
 
                 <StackPanel Grid.Column="2">
                     <!--Action-->
-                    <TextBlock Text="{x:Bind Converter={StaticResource AuditLogEntryToMarkdownConverter}, Mode=OneWay}"/>
+                    <markdown:MarkdownTextBlock Text="{x:Bind Converter={StaticResource AuditLogEntryToMarkdownConverter}, Mode=OneWay}" HalfOpacityMode="True"/>
                     
                     <!--Time-->
                     <TextBlock Text="{x:Bind Id, Converter={StaticResource SnowflakeToTimeFormatConveter}, Mode=OneWay}" FontSize="11" Opacity="0.4"/>
