@@ -81,20 +81,25 @@ namespace Quarrel.Converters.AuditLog
                     case AuditLogActionType.ChannelOverwriteDelete:
                         return ReplaceChannel(format, entry.TargetId);
 
+                    case AuditLogActionType.EmojiCreate:
+                    case AuditLogActionType.EmojiUpdate:
+                    case AuditLogActionType.EmojiDelete:
+                        return ReplaceEmoji(format, entry.TargetId);
+
                     case AuditLogActionType.InviteCreate:
                     case AuditLogActionType.InviteUpdate:
                     case AuditLogActionType.InviteDelete:
                         return ReplaceInvite(format, entry.Changes, (AuditLogActionType)entry.ActionType == AuditLogActionType.InviteDelete);
 
+
+                    case AuditLogActionType.MemberBanAdd:
+                    case AuditLogActionType.MemberBanRemove:
+                        return ReplaceRecipient(format, entry.TargetId);
+
                     case AuditLogActionType.RoleCreate:
                     case AuditLogActionType.RoleUpdate:
                     case AuditLogActionType.RoleDelete:
                         return ReplaceRole(format, entry.TargetId);
-
-                    case AuditLogActionType.EmojiCreate:
-                    case AuditLogActionType.EmojiUpdate:
-                    case AuditLogActionType.EmojiDelete:
-                        return ReplaceEmoji(format, entry.TargetId);
 
                     case AuditLogActionType.MessageDelete:
                         format = ReplaceRecipient(format, entry.TargetId);
