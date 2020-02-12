@@ -43,7 +43,9 @@ namespace DiscordAPI.API.Guild.Models
 
         [JsonProperty("reason", NullValueHandling = NullValueHandling.Ignore)]
         public string Reason { get; set; }
-       
+
+        [JsonIgnore]
+        public IEnumerable<DiscordAPI.Models.User> Users { get; set; }
     }
     
     public enum AuditLogActionType

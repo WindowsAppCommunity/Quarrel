@@ -32,7 +32,8 @@ namespace Quarrel.Converters.AuditLog
             if (value is AuditLogEntry entry)
             {
                 string format = ResourceLoader.GetForCurrentView("AuditLog").GetString(((AuditLogActionType)entry.ActionType).ToString());
-                
+
+                format = ReplaceUser(format, entry.UserId);
                 
                 switch ((AuditLogActionType)entry.ActionType)
                 {

@@ -15,7 +15,7 @@
         <Style x:Name="StretchContent" TargetType="ContentPresenter">
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         </Style>
-        
+
         <auditlogconvert:AuditLogActionTypeToBrushConverter x:Key="AuditLogActionTypeToBrushConverter"/>
         <auditlogconvert:AuditLogActionTypeToGlyphConverter x:Key="AuditLogActionTypeToGlyphConverter"/>
         <auditlogconvert:AuditLogEntryToMarkdownConverter x:Key="AuditLogEntryToMarkdownConverter"/>
@@ -41,7 +41,8 @@
 
                 <StackPanel Grid.Column="2">
                     <!--Action-->
-                    <markdown:MarkdownTextBlock Text="{x:Bind Converter={StaticResource AuditLogEntryToMarkdownConverter}, Mode=OneWay}" HalfOpacityMode="True"/>
+                    <markdown:MarkdownTextBlock Text="{x:Bind Converter={StaticResource AuditLogEntryToMarkdownConverter}, Mode=OneWay}" HalfOpacityMode="True"
+                                                Users="{x:Bind Users, Mode=OneWay}"/>
                     
                     <!--Time-->
                     <TextBlock Text="{x:Bind Id, Converter={StaticResource SnowflakeToTimeFormatConveter}, Mode=OneWay}" FontSize="11" Opacity="0.4"/>
