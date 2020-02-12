@@ -55,6 +55,12 @@ namespace Quarrel.Converters.AuditLog
             return format.Replace("<role>", formattedRole);
         }
 
+        public string ReplaceEmoji(string format, string emojiId)
+        {
+            // TODO: Display emoji with markdown
+            return format.Replace("<emoji>", "emoji: " + emojiId);
+        }
+
         #endregion
 
         public object Convert(object value, Type targetType, object parameter, string language)
@@ -80,14 +86,19 @@ namespace Quarrel.Converters.AuditLog
                     case AuditLogActionType.InviteDelete:
                         return ReplaceInvite(format, entry.Changes, (AuditLogActionType)entry.ActionType == AuditLogActionType.InviteDelete);
 
-                    case AuditLogActionType.MessageDelete:
-                        format = ReplaceRecipient(format, entry.TargetId);
-                        return ReplaceChannel(format, entry.Options.ChannelId);
-
                     case AuditLogActionType.RoleCreate:
                     case AuditLogActionType.RoleUpdate:
                     case AuditLogActionType.RoleDelete:
                         return ReplaceRole(format, entry.TargetId);
+
+                    case AuditLogActionType.EmojiCreate:
+                    case AuditLogActionType.EmojiUpdate:
+                    case AuditLogActionType.EmojiDelete:
+                        return ReplaceEmoji(format, entry.TargetId);
+
+                    case AuditLogActionType.MessageDelete:
+                        format = ReplaceRecipient(format, entry.TargetId);
+                        return ReplaceChannel(format, entry.Options.ChannelId);
                 }
                 return format;
             }
