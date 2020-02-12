@@ -186,6 +186,9 @@
   <data name="RoleUpdate" xml:space="preserve">
     <value>&lt;user&gt; updated &lt;role&gt;</value>
   </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>&lt;user&gt; performed an unknown action</value>
+  </data>
   <data name="WebhookCreate" xml:space="preserve">
     <value>&lt;user&gt; created &lt;webhook&gt;</value>
   </data>

@@ -79,7 +79,8 @@ namespace Quarrel.Converters.AuditLog
         {
             if (value is AuditLogEntry entry)
             {
-                string format = ResourceLoader.GetForCurrentView("AuditLog").GetString(((AuditLogActionType)entry.ActionType).ToString());
+                string action = ((AuditLogActionType)entry.ActionType).ToString() ?? "Unknown";
+                string format = ResourceLoader.GetForCurrentView("AuditLog").GetString(action);
 
                 format = ReplaceUser(format, entry.UserId);
                 
