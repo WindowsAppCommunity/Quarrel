@@ -297,6 +297,9 @@
       <DependentUpon>TypingIndicator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\APIStatus\StatusToBrushConverter.cs" />
+    <Compile Include="Converters\AuditLog\AuditLogActionTypeToBrushConverter.cs" />
+    <Compile Include="Converters\AuditLog\AuditLogEntryToMarkdownConverter.cs" />
+    <Compile Include="Converters\AuditLog\ChangeToMarkdownConverter.cs" />
     <Compile Include="Converters\Base\DateTimeToTextConverter.cs" />
     <Compile Include="Converters\Base\IntColorToBrushConverter.cs" />
     <Compile Include="Converters\Base\IntColorToColorConverter.cs" />
@@ -314,11 +317,13 @@
     <Compile Include="Converters\Channel\SelectedToOpacityConverter.cs" />
     <Compile Include="Converters\Channel\TypeToBrushConverter.cs" />
     <Compile Include="Converters\Channel\TypeToMinHeight.cs" />
+    <Compile Include="Converters\AuditLog\AuditLogActionTypeToGlyphConverter.cs" />
     <Compile Include="Converters\Discord\DiscrimatorPrefixConveter.cs" />
     <Compile Include="Converters\Discord\DiscriminatorToBrushConverter.cs" />
     <Compile Include="Converters\Discord\PresenseToColorConverter.cs" />
     <Compile Include="Converters\Discord\PresenseToBrushConverter.cs" />
     <Compile Include="Converters\Base\EnumerableAnyToVisibilityConverter.cs" />
+    <Compile Include="Converters\Discord\SnowflakeToTimeFormatConveter.cs" />
     <Compile Include="Converters\Guild\IsDMToFontFamilyConverter.cs" />
     <Compile Include="Converters\Guild\MutedToOpacityConverter.cs" />
     <Compile Include="Converters\Messages\ActionMessage\TypeToColorConverter.cs" />

@@ -126,8 +126,11 @@ namespace DiscordAPI.API.Guild
         //Task<AuditLog> GetAuditLog([AliasAs("guildId")] string guildId, [AliasAs("userId")] string userId);
 
 
-        [Get("/v6/guilds/{guildId}/audit-logs?{args}")]
-        Task<AuditLog> GetAuditLog([AliasAs("guildId")] string guildId, [AliasAs("args")] string allArgs);
+        [Get("/v6/guilds/{guildId}/audit-logs")]
+        Task<AuditLog> GetAuditLog([AliasAs("guildId")] string guildId);
+
+        //[Get("/v6/guilds/{guildId}/audit-logs?before={beforeId}")]
+        //Task<AuditLog> GetAuditLog([AliasAs("guildId")] string guildId, [AliasAs("beforeId")] string allArgs);
 
         [Get("/v6/guilds/{guildId}/webhooks")]
         Task<List<Webhook>> GetWebhooks([AliasAs("guildId")] string guildId);

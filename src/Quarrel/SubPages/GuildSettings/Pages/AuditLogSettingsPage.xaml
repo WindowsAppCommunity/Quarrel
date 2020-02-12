@@ -5,9 +5,66 @@
     xmlns:local="using:Quarrel.SubPages.GuildSettings.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:guildmodels="using:DiscordAPI.API.Guild.Models"
+    xmlns:auditlogconvert="using:Quarrel.Converters.AuditLog"
+    xmlns:discordconvert="using:Quarrel.Converters.Discord"
     mc:Ignorable="d">
 
-    <Grid>
+    <Page.Resources>
+        <Style x:Name="StretchContent" TargetType="ContentPresenter">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
+        
+        <auditlogconvert:AuditLogActionTypeToBrushConverter x:Key="AuditLogActionTypeToBrushConverter"/>
+        <auditlogconvert:AuditLogActionTypeToGlyphConverter x:Key="AuditLogActionTypeToGlyphConverter"/>
+        <auditlogconvert:AuditLogEntryToMarkdownConverter x:Key="AuditLogEntryToMarkdownConverter"/>
+        <auditlogconvert:ChangeToMarkdownConverter x:Key="ChangeToMarkdownConverter"/>
 
+        <discordconvert:SnowflakeToTimeFormatConveter x:Key="SnowflakeToTimeFormatConveter"/>
+
+        <DataTemplate x:Key="AuditLogChangeTemplate" x:DataType="guildmodels:Change">
+            <TextBlock Text="{x:Bind Converter={StaticResource ChangeToMarkdownConverter}, Mode=OneWay}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="AuditLogEntryTemplate" x:DataType="guildmodels:AuditLogEntry">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"/>
+                    <ColumnDefinition Width="0"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!--Icon for change-->
+                <FontIcon Glyph="{x:Bind ActionType, Converter={StaticResource AuditLogActionTypeToGlyphConverter}, Mode=OneWay}"
+                          Foreground="{x:Bind ActionType, Converter={StaticResource AuditLogActionTypeToBrushConverter}, Mode=OneWay}"/>
+
+                <StackPanel Grid.Column="2">
+                    <!--Action-->
+                    <TextBlock Text="{x:Bind Converter={StaticResource AuditLogEntryToMarkdownConverter}, Mode=OneWay}"/>
+                    
+                    <!--Time-->
+                    <TextBlock Text="{x:Bind Id, Converter={StaticResource SnowflakeToTimeFormatConveter}, Mode=OneWay}" FontSize="11" Opacity="0.4"/>
+
+                    <!--Details-->
+                    <!--<ItemsControl ItemsSource="{x:Bind Changes, Mode=OneWay}"
+                                  ItemContainerStyle="{StaticResource StretchContent}"
+                                  ItemTemplate="{StaticResource AuditLogChangeTemplate}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>-->
+                </StackPanel>
+                
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Padding="24">
+        <ScrollViewer>
+            <ListView ItemsSource="{x:Bind ViewModel.Entries, Mode=OneWay}" SelectionMode="None"
+                  ItemTemplate="{StaticResource AuditLogEntryTemplate}" IsItemClickEnabled="False"/>
+        </ScrollViewer>
     </Grid>
 </Page>
