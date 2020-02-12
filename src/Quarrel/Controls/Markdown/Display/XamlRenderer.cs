@@ -1164,7 +1164,7 @@ namespace Quarrel.Controls.Markdown.Display
                     {
                         var key = element.Text.Remove(0, 1);
                         ChannelsService.AllChannels.TryGetValue(key, out var value);
-                        content = "#" + value?.Model?.Name ?? "deleted-channel";
+                        content = "#" + (value?.Model?.Name ?? "deleted-channel");
                         enabled = value != null;
 
                         link.Tag = value;
