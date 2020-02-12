@@ -25,9 +25,24 @@ namespace Quarrel.Converters.AuditLog
             return format.Replace("<user>", formattedUser);
         }
 
-        public string ReplaceChannel(string format, string channelId)
+        public string ReplaceChannel(string format, string channelId, Change[] changes)
         {
-            string formattedChannel = string.Format("<#{0}>", channelId);
+            string formattedChannel = "";
+            if (ChannelsService.AllChannels.ContainsKey(channelId))
+                formattedChannel = string.Format("<#{0}>", channelId);
+            else
+            {
+                foreach (Change change in changes)
+                {
+                    if (change.Key == "name")
+                    {
+                        formattedChannel = string.Format("**{0}**", change.OldValue);
+                        break;
+                    }
+                }
+                formattedChannel = "**<deleted-channel>**";
+            }
+
             return format.Replace("<channel>", formattedChannel);
         }
 
@@ -92,7 +107,7 @@ namespace Quarrel.Converters.AuditLog
                     case AuditLogActionType.ChannelOverwriteCreate:
                     case AuditLogActionType.ChannelOverwriteUpdate:
                     case AuditLogActionType.ChannelOverwriteDelete:
-                        return ReplaceChannel(format, entry.TargetId);
+                        return ReplaceChannel(format, entry.TargetId, entry.Changes);
 
                     case AuditLogActionType.EmojiCreate:
                     case AuditLogActionType.EmojiUpdate:
@@ -125,7 +140,7 @@ namespace Quarrel.Converters.AuditLog
 
                     case AuditLogActionType.MessageDelete:
                         format = ReplaceRecipient(format, entry.TargetId);
-                        return ReplaceChannel(format, entry.Options.ChannelId);
+                        return ReplaceChannel(format, entry.Options.ChannelId, entry.Changes);
                 }
                 return format;
             }
