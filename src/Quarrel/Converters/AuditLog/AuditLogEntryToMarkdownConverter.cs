@@ -58,6 +58,9 @@ namespace Quarrel.Converters.AuditLog
                     case AuditLogActionType.ChannelCreate:
                     case AuditLogActionType.ChannelUpdate:
                     case AuditLogActionType.ChannelDelete:
+                    case AuditLogActionType.ChannelOverwriteCreate:
+                    case AuditLogActionType.ChannelOverwriteUpdate:
+                    case AuditLogActionType.ChannelOverwriteDelete:
                         return ReplaceChannel(format, entry.TargetId);
 
                     case AuditLogActionType.InviteCreate:
