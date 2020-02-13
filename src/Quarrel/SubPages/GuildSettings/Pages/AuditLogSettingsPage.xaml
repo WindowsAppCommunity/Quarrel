@@ -49,7 +49,8 @@
                                                 Users="{x:Bind Users, Mode=OneWay}"/>
 
                     <!--Time-->
-                    <TextBlock Text="{x:Bind Id, Converter={StaticResource SnowflakeToTimeFormatConveter}, Mode=OneWay}" FontSize="11" Opacity="0.4" Visibility="Collapsed"/>
+                    <TextBlock Text="{x:Bind Id, Converter={StaticResource SnowflakeToTimeFormatConveter}, Mode=OneWay}"
+                               Margin="4,0,0,0" FontSize="11" Opacity="0.4"/>
 
                     <!--Details-->
                     <ItemsControl ItemsSource="{x:Bind Changes, Mode=OneWay}"

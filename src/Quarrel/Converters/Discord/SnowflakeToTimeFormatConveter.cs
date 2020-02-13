@@ -13,7 +13,7 @@ namespace Quarrel.Converters.Discord
         {
             if (value is string sValue)
             {
-                sValue.AsSnowflakeToTime().DateTime.Humanize();
+                return sValue.AsSnowflakeToTime().DateTime.Humanize();
             }
             return "";
         }
