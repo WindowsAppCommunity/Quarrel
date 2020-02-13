@@ -11,21 +11,35 @@ namespace Quarrel.Converters.AuditLog
 {
     public class ChangeToMarkdownConverter : IValueConverter
     {
+        #region Method
+
+        public string GetFormat(Change change)
+        {
+            string append = (change.OldValue != null ? "Change" : "Set");
+            string format = ResourceLoader.GetForCurrentView("AuditLog").GetString(change.Key + append);
+
+            if (string.IsNullOrEmpty(format))
+                format = ResourceLoader.GetForCurrentView("AuditLog").GetString("Generic" + append);
+
+            return format;
+        }
+
+        #endregion
+
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value is Change change)
             {
-                string format = ResourceLoader.GetForCurrentView("AuditLog").GetString(change.Key);
-                
-                if (string.IsNullOrEmpty(format))    
-                    format = ResourceLoader.GetForCurrentView("AuditLog").GetString("UnknownChange");
+                string format = GetFormat(change);
 
-                switch (change.Key)
-                {
-                    default:
-                        return format.Replace("<change>", string.Format("**{0}**", change.Key))
-                            .Replace("<value>", string.Format("**{0}**", change.NewValue)); ;
-                }
+                format = format.Replace("<property>", change.Key);
+
+                if (change.NewValue != null)
+                    format = format.Replace("<new>", change.NewValue.ToString());
+                if (change.OldValue != null)
+                    format = format.Replace("<old>", change.OldValue.ToString());
+
+                return format;
             }
             return "Unknown change";
         }
