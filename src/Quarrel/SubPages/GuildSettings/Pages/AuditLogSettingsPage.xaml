@@ -20,12 +20,14 @@
         <auditlogconvert:AuditLogActionTypeToGlyphConverter x:Key="AuditLogActionTypeToGlyphConverter"/>
         <auditlogconvert:AuditLogEntryToMarkdownConverter x:Key="AuditLogEntryToMarkdownConverter"/>
         <auditlogconvert:ChangeToMarkdownConverter x:Key="ChangeToMarkdownConverter"/>
+        <auditlogconvert:ChangeToVisibilityConveter x:Key="ChangeToVisibilityConveter"/>
 
         <discordconvert:SnowflakeToTimeFormatConveter x:Key="SnowflakeToTimeFormatConveter"/>
 
         <DataTemplate x:Key="AuditLogChangeTemplate" x:DataType="guildmodels:Change">
             <markdown:MarkdownTextBlock Text="{x:Bind Converter={StaticResource ChangeToMarkdownConverter}, Mode=OneWay}"
-                                        FontSize="12" LineHeight="12" HalfOpacityMode="True"/>
+                                        FontSize="12" LineHeight="12" HalfOpacityMode="True"
+                                        Visibility="{x:Bind Converter={StaticResource ChangeToVisibilityConveter}, Mode=OneWay}"/>
         </DataTemplate>
 
         <DataTemplate x:Key="AuditLogEntryTemplate" x:DataType="guildmodels:AuditLogEntry">
