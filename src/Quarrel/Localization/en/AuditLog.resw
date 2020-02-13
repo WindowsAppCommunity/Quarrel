@@ -189,6 +189,9 @@
   <data name="Unknown" xml:space="preserve">
     <value>&lt;user&gt; performed an unknown action</value>
   </data>
+  <data name="UnknownChange" xml:space="preserve">
+    <value>Set &lt;change&gt; property to &lt;value&gt;</value>
+  </data>
   <data name="WebhookCreate" xml:space="preserve">
     <value>&lt;user&gt; created &lt;webhook&gt;</value>
   </data>
