@@ -183,6 +183,18 @@
   <data name="max_ageSet" xml:space="preserve">
     <value>Expires &lt;new&gt;</value>
   </data>
+  <data name="max_uses0" xml:space="preserve">
+    <value>**Unlimited** uses</value>
+  </data>
+  <data name="max_uses1" xml:space="preserve">
+    <value>1 use</value>
+  </data>
+  <data name="max_usesChange" xml:space="preserve">
+    <value>&lt;new&gt; uses</value>
+  </data>
+  <data name="max_usesSet" xml:space="preserve">
+    <value>&lt;new&gt; uses</value>
+  </data>
   <data name="MemberBanAdd" xml:space="preserve">
     <value>&lt;user&gt; banned &lt;recipient&gt;</value>
   </data>
@@ -227,6 +239,18 @@
   </data>
   <data name="Unknown" xml:space="preserve">
     <value>&lt;user&gt; performed an unknown action</value>
+  </data>
+  <data name="uses0" xml:space="preserve">
+    <value>Not used</value>
+  </data>
+  <data name="uses1" xml:space="preserve">
+    <value>Used **1** time</value>
+  </data>
+  <data name="usesChange" xml:space="preserve">
+    <value>Used &lt;new&gt; times</value>
+  </data>
+  <data name="usesSet" xml:space="preserve">
+    <value>Used &lt;new&gt; times</value>
   </data>
   <data name="WebhookCreate" xml:space="preserve">
     <value>&lt;user&gt; created &lt;webhook&gt;</value>

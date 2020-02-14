@@ -59,6 +59,28 @@ namespace Quarrel.Converters.AuditLog
                                 format = format.Replace("<new>", string.Format("**{0}**", change.NewValue));
                         }
                         return format;
+                    case "uses":
+                        if (change.NewValue != null)
+                        {
+                            if ((long)change.NewValue == 0)
+                                format = ResourceLoader.GetForCurrentView("AuditLog").GetString("uses0");
+                            else if ((long)change.NewValue == 1)
+                                format = ResourceLoader.GetForCurrentView("AuditLog").GetString("uses1");
+                            else
+                                format = format.Replace("<new>", string.Format("**{0}**", change.NewValue));
+                        }
+                        return format;
+                    case "max_uses":
+                        if (change.NewValue != null)
+                        {
+                            if ((long)change.NewValue == 0)
+                                format = ResourceLoader.GetForCurrentView("AuditLog").GetString("max_uses0");
+                            else if ((long)change.NewValue == 1)
+                                format = ResourceLoader.GetForCurrentView("AuditLog").GetString("max_uses1");
+                            else
+                                format = format.Replace("<new>", string.Format("**{0}**", change.NewValue));
+                        }
+                        return format;
                     default:
                         format = format.Replace("<property>", change.Key);
                         if (change.NewValue != null)
