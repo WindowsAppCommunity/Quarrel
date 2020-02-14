@@ -141,6 +141,12 @@
   <data name="channel_idSet" xml:space="preserve">
     <value>Invite to &lt;new&gt;</value>
   </data>
+  <data name="codeChange" xml:space="preserve">
+    <value>With the code &lt;new&gt;</value>
+  </data>
+  <data name="codeSet" xml:space="preserve">
+    <value>With the code &lt;new&gt;</value>
+  </data>
   <data name="colorChange" xml:space="preserve">
     <value>Changed color from &lt;old&gt; to &lt;new&gt;</value>
   </data>

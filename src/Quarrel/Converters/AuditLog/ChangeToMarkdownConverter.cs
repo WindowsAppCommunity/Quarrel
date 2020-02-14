@@ -31,25 +31,30 @@ namespace Quarrel.Converters.AuditLog
                 switch (change.Key)
                 {
                     case "name":
+                    case "code":
                         if (change.NewValue != null)
                             format = format.Replace("<new>", string.Format("**{0}**", change.NewValue));
                         if (change.OldValue != null)
                             format = format.Replace("<old>", change.OldValue.ToString());
                         return format;
+
                     case "nsfw":
                         if (change.NewValue != null)
                             format = format.Replace("<new>", (bool)change.NewValue ? "**NSFW**" : "**SFW**");
                         return format;
+
                     case "color":
                         if (change.NewValue != null)
                             format = format.Replace("<new>", string.Format("<@$QUARREL-color{0}>", change.NewValue));
                         if (change.OldValue != null)
                             format = format.Replace("<old>", string.Format("<@$QUARREL-color{0}>", change.OldValue));
                         return format;
+
                     case "channel_id":
                         if (change.NewValue != null)
                             format = format.Replace("<new>", string.Format("<#{0}>", change.NewValue));
                         return format;
+
                     case "max_age":
                         if (change.NewValue != null)
                         {
@@ -59,6 +64,7 @@ namespace Quarrel.Converters.AuditLog
                                 format = format.Replace("<new>", string.Format("**{0}**", change.NewValue));
                         }
                         return format;
+
                     case "uses":
                         if (change.NewValue != null)
                         {
@@ -70,6 +76,7 @@ namespace Quarrel.Converters.AuditLog
                                 format = format.Replace("<new>", string.Format("**{0}**", change.NewValue));
                         }
                         return format;
+
                     case "max_uses":
                         if (change.NewValue != null)
                         {
@@ -81,6 +88,7 @@ namespace Quarrel.Converters.AuditLog
                                 format = format.Replace("<new>", string.Format("**{0}**", change.NewValue));
                         }
                         return format;
+
                     default:
                         format = format.Replace("<property>", change.Key);
                         if (change.NewValue != null)
