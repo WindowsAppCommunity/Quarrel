@@ -13,11 +13,13 @@ namespace Quarrel.Converters.AuditLog
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
+            bool hide = true;
             if (value is Change change)
             {
-                return change.NewValue == null ? Visibility.Collapsed : Visibility.Visible;
+                hide = change.NewValue == null;
+                hide = hide || change.Key == "inviter_id";
             }
-            return Visibility.Collapsed;
+            return hide ? Visibility.Collapsed : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
