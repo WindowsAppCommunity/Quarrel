@@ -135,6 +135,12 @@
   <data name="ChannelUpdate" xml:space="preserve">
     <value>&lt;user&gt; updated &lt;channel&gt;</value>
   </data>
+  <data name="channel_idChange" xml:space="preserve">
+    <value>Invite to &lt;new&gt;</value>
+  </data>
+  <data name="channel_idSet" xml:space="preserve">
+    <value>Invite to &lt;new&gt;</value>
+  </data>
   <data name="colorChange" xml:space="preserve">
     <value>Changed color from &lt;old&gt; to &lt;new&gt;</value>
   </data>

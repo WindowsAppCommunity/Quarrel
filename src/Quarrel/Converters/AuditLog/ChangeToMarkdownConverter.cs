@@ -50,6 +50,10 @@ namespace Quarrel.Converters.AuditLog
                         if (change.OldValue != null)
                             format = format.Replace("<old>", string.Format("<@$QUARREL-color{0}>", change.OldValue));
                         return format;
+                    case "channel_id":
+                        if (change.NewValue != null)
+                            format = format.Replace("<new>", string.Format("<#{0}>", change.NewValue));
+                        return format;
                     default:
                         format = format.Replace("<property>", change.Key);
                         if (change.NewValue != null)
