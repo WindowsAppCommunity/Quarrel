@@ -1,9 +1,5 @@
 ﻿using DiscordAPI.API.Guild.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml.Data;
 
@@ -53,6 +49,15 @@ namespace Quarrel.Converters.AuditLog
                     case "channel_id":
                         if (change.NewValue != null)
                             format = format.Replace("<new>", string.Format("<#{0}>", change.NewValue));
+                        return format;
+                    case "max_age":
+                        if (change.NewValue != null)
+                        {
+                            if ((long)change.NewValue == 0)
+                                format = ResourceLoader.GetForCurrentView("AuditLog").GetString("max_age0");
+                            else
+                                format = format.Replace("<new>", string.Format("**{0}**", change.NewValue));
+                        }
                         return format;
                     default:
                         format = format.Replace("<property>", change.Key);
