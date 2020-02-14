@@ -36,7 +36,7 @@ namespace Quarrel.Converters.AuditLog
                 {
                     case "name":
                         if (change.NewValue != null)
-                            format = format.Replace("<new>", change.NewValue.ToString());
+                            format = format.Replace("<new>", string.Format("**{0}**", change.NewValue.ToString()));
                         if (change.OldValue != null)
                             format = format.Replace("<old>", change.OldValue.ToString());
                         return format;
@@ -47,7 +47,7 @@ namespace Quarrel.Converters.AuditLog
                     default:
                         format = format.Replace("<property>", change.Key);
                         if (change.NewValue != null)
-                            format = format.Replace("<new>", change.NewValue.ToString());
+                            format = format.Replace("<new>", string.Format("**{0}**", change.NewValue.ToString()));
                         if (change.OldValue != null)
                             format = format.Replace("<old>", change.OldValue.ToString());
                         return format;
