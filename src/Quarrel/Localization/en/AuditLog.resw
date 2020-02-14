@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="bitrateChange" xml:space="preserve">
+    <value>Changed bitrate from &lt;old&gt; to &lt;new&gt;</value>
+  </data>
+  <data name="bitrateSet" xml:space="preserve">
+    <value>Set bitrate to &lt;new&gt;</value>
+  </data>
   <data name="ChannelCreate" xml:space="preserve">
     <value>&lt;user&gt; created &lt;channel&gt;</value>
   </data>
@@ -233,6 +239,12 @@
   </data>
   <data name="nsfwSet" xml:space="preserve">
     <value>Made channel &lt;new&gt;</value>
+  </data>
+  <data name="regionChange" xml:space="preserve">
+    <value>Moved region from &lt;old&gt; to &lt;new&gt;</value>
+  </data>
+  <data name="regionSet" xml:space="preserve">
+    <value>Set region to &lt;new&gt;</value>
   </data>
   <data name="RoleCreate" xml:space="preserve">
     <value>&lt;user&gt; created &lt;role&gt;</value>

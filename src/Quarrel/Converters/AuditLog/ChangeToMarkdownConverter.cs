@@ -32,6 +32,8 @@ namespace Quarrel.Converters.AuditLog
                 {
                     case "name":
                     case "code":
+                    case "bitrate":
+                    case "region":
                         if (change.NewValue != null)
                             format = format.Replace("<new>", string.Format("**{0}**", change.NewValue));
                         if (change.OldValue != null)
