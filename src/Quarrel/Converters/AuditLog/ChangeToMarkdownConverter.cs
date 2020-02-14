@@ -32,14 +32,26 @@ namespace Quarrel.Converters.AuditLog
             {
                 string format = GetFormat(change);
 
-                format = format.Replace("<property>", change.Key);
-
-                if (change.NewValue != null)
-                    format = format.Replace("<new>", change.NewValue.ToString());
-                if (change.OldValue != null)
-                    format = format.Replace("<old>", change.OldValue.ToString());
-
-                return format;
+                switch (change.Key)
+                {
+                    case "name":
+                        if (change.NewValue != null)
+                            format = format.Replace("<new>", change.NewValue.ToString());
+                        if (change.OldValue != null)
+                            format = format.Replace("<old>", change.OldValue.ToString());
+                        return format;
+                    case "nsfw":
+                        if (change.NewValue != null)
+                            format = format.Replace("<new>", (bool)change.NewValue ? "**NSFW**" : "**SFW**");
+                        return format;
+                    default:
+                        format = format.Replace("<property>", change.Key);
+                        if (change.NewValue != null)
+                            format = format.Replace("<new>", change.NewValue.ToString());
+                        if (change.OldValue != null)
+                            format = format.Replace("<old>", change.OldValue.ToString());
+                        return format;
+                }
             }
             return "Unknown change";
         }

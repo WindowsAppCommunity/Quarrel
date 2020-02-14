@@ -189,6 +189,12 @@
   <data name="nameSet" xml:space="preserve">
     <value>Name set to &lt;new&gt;</value>
   </data>
+  <data name="nsfwChange" xml:space="preserve">
+    <value>Made channel &lt;new&gt;</value>
+  </data>
+  <data name="nsfwSet" xml:space="preserve">
+    <value>Made channel &lt;new&gt;</value>
+  </data>
   <data name="RoleCreate" xml:space="preserve">
     <value>&lt;user&gt; created &lt;role&gt;</value>
   </data>
