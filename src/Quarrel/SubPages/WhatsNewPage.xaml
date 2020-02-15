@@ -36,6 +36,7 @@
                     <Paragraph FontSize="8"/>
                     <Paragraph>
                         <Run Text="• New Emoji font"/>
+                    </Paragraph>
                     <Paragraph FontSize="8"/>
                     <Paragraph>
                         <Run Text="• Multiple Rich Presence displays"/>
