@@ -19,10 +19,6 @@
             <ScrollViewer>
                 <RichTextBlock x:Name="notDetailed" TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,12">
                     <Paragraph>
-                        <Run Text="• Audio Visualizer"/>
-                    </Paragraph>
-                    <Paragraph FontSize="8"/>
-                    <Paragraph>
                         <Run Text="• Blurple Accent option"/>
                     </Paragraph>
                     <Paragraph FontSize="8"/>
