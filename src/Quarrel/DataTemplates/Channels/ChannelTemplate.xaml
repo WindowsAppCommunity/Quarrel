@@ -112,7 +112,9 @@
                 </StackPanel>
 
                 <!--Voice Members-->
-                <ListView x:Name="MemberList" ItemsSource="{x:Bind ConnectedUsers.Values, Mode=OneWay}" x:Load="{x:Bind ConnectedUsers.Values, Converter={StaticResource EnumerableAnyToVisibilityConverter}, Mode=OneWay}" SelectionMode="None" IsItemClickEnabled="True" Grid.Row="1" Grid.ColumnSpan="2" Margin="-24,0,-24,12" ItemContainerStyle="{StaticResource ChannelItemStyle}">
+                <ListView x:Name="MemberList" ItemsSource="{x:Bind ConnectedUsers.Values, Mode=OneWay}"
+                          Visibility="{x:Bind ConnectedUsers.Values, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
+                          SelectionMode="None" IsItemClickEnabled="True" Grid.Row="1" Grid.ColumnSpan="2" Margin="-24,0,-24,12" ItemContainerStyle="{StaticResource ChannelListItemStyle}">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="ItemClick">
                             <behaviors:OpenListViewItemFlyoutAction/>

@@ -40,7 +40,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// <param name="states">List of VoiceStates for users in a voice channel</param>
         public BindableChannel([NotNull] Channel model, [NotNull] string guildId, [CanBeNull] IEnumerable<VoiceState> states = null) : base(model)
         {
-            this.guildId = guildId;
+            _GuildId = guildId;
 
             #region Messenger
 
@@ -50,6 +50,7 @@ namespace Quarrel.ViewModels.Models.Bindables
                 {
                     if (e.VoiceState.ChannelId == Model.Id)
                     {
+                        e.VoiceState.GuildId = guildId;
                         // User joined this Voice Channel
                         if (!ConnectedUsers.ContainsKey(e.VoiceState.UserId))
                         {
@@ -122,6 +123,7 @@ namespace Quarrel.ViewModels.Models.Bindables
                 {
                     if (state.ChannelId == Model.Id)
                     {
+                        state.GuildId = _GuildId;
                         ConnectedUsers.Add(state.UserId, new BindableVoiceUser(state));
                     }
                 }
@@ -147,7 +149,7 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         public BindableGuild Guild
         {
-            get => GuildsService.AllGuilds[guildId];
+            get => GuildsService.AllGuilds[_GuildId];
         }
 
         #region ChannelType
@@ -210,7 +212,7 @@ namespace Quarrel.ViewModels.Models.Bindables
                     GuildPermission memberDenies = 0;
                     GuildPermission memberAllows = 0;
                     foreach (Overwrite overwrite in (Model as GuildChannel).PermissionOverwrites)
-                        if (overwrite.Type == "role" && overwrite.Id == guildId) // @everyone Id is equal to GuildId
+                        if (overwrite.Type == "role" && overwrite.Id == _GuildId) // @everyone Id is equal to GuildId
                         {
                             perms.AddDenies((GuildPermission)overwrite.Deny);
                             perms.AddAllows((GuildPermission)overwrite.Allow);
@@ -271,8 +273,8 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         #region Misc
 
-        private string guildId;
-        public string GuildId { get => guildId; }
+        private string _GuildId;
+        public string GuildId { get => _GuildId; }
         public string ParentId => Model is GuildChannel gcModel ? (IsCategory ? gcModel.Id : gcModel.ParentId) : null;
         public int Position => Model is GuildChannel gcModel ? gcModel.Position : 0;
         public string FormattedName
@@ -430,7 +432,7 @@ namespace Quarrel.ViewModels.Models.Bindables
             get => IsDirectChannel && !HasIcon;
         }
 
-        public ObservableHashedCollection<string, BindableVoiceUser> ConnectedUsers = new ObservableHashedCollection<string, BindableVoiceUser>();
+        public ObservableHashedCollection<string, BindableVoiceUser> ConnectedUsers { get; set; } = new ObservableHashedCollection<string, BindableVoiceUser>();
 
         #endregion
 
