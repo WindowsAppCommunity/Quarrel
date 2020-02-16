@@ -1,7 +1,9 @@
 ﻿using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Services.DispatcherHelper;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -16,6 +18,10 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
             Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
             {
                 CurrentChannel = m.Channel;
+                SimpleIoc.Default.GetInstance<IDispatcherHelper>().CheckBeginInvokeOnUi(() =>
+                {
+                    m.Channel.Selected = true;
+                });
             });
         }
         public BindableChannel GetChannel(string channelId)

@@ -91,14 +91,6 @@ namespace Quarrel.ViewModels.Models.Bindables
                 }
             });
 
-            MessengerInstance.Register<ChannelNavigateMessage>(this, m =>
-            {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                {
-                    Selected = m.Channel == this;
-                });
-            });
-
             MessengerInstance.Register<SettingChangedMessage<bool>>(this, m =>
             {
                 if (m.Key == SettingKeys.ShowNoPermssions)
