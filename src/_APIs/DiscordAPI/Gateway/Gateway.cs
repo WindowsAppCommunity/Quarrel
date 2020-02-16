@@ -488,7 +488,8 @@ namespace DiscordAPI.Gateway
                 {
                     GuildId = guildId,
                     Channels = channels,
-                    Members = members
+                    Members = members,
+                    Typing = true
                 }
             };
             await SendMessageAsync(JsonConvert.SerializeObject(updateGuildSubscriptions, Formatting.None, new JsonSerializerSettings 
