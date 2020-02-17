@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using System;
+using System.Collections.Generic;
+using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -8,8 +10,6 @@ using Quarrel.ViewModels;
 using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.Services.Settings.Enums;
-using System;
-using System.Collections.Generic;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -54,7 +54,6 @@ namespace Quarrel
                 };
 
                 IConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
-                //configurationBuilder.AddJsonFile("appsettings.json");
                 configurationBuilder.AddInMemoryCollection(input);
                 return configurationBuilder.Build();
             });
@@ -66,7 +65,6 @@ namespace Quarrel
             var folder = ApplicationData.Current.LocalFolder;
             string fullPath = $"{folder.Path}\\Logs\\App.log";
 
-            //ServiceProvider.GetService<ILoggerFactory>().AddFile(fullPath, LogLevel.Debug);
             ServiceProvider.GetService<ILoggerFactory>().AddDebug((s, l) => true);
 
         }
