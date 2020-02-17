@@ -1,9 +1,9 @@
-﻿using DiscordAPI.Models;
+﻿using System;
+using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using Newtonsoft.Json;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Services.Discord.Rest;
-using System;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;

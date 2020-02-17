@@ -586,6 +586,7 @@
     <Content Include="Controls\Markdown\oltheme.txt" />
     <AdditionalFiles Include="appsettings.json" />
     <Content Include="Assets\emojifont.ttf" />
+    <AdditionalFiles Include="stylecop.json" />
     <PRIResource Include="Localization\en\AuditLog.resw" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
@@ -967,6 +968,11 @@
     </PackageReference>
     <PackageReference Include="Nito.Collections.Deque">
       <Version>1.0.4</Version>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers">
+      <Version>1.1.118</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="System.IO.FileSystem.Watcher">
       <Version>4.3.0</Version>
