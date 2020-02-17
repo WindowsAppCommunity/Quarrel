@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Extensions.Configuration;
@@ -30,13 +32,8 @@ namespace Quarrel
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    sealed partial class App : Application
+    public sealed partial class App : Application
     {
-        public static IServiceProvider ServiceProvider { get; }
-        public static IConfiguration Configuration { get; }
-
-        public static ViewModelLocator ViewModelLocator => ServiceProvider.GetService<ViewModelLocator>();
-
         static App()
         {
             var services = new ServiceCollection();
@@ -48,9 +45,9 @@ namespace Quarrel
             {
                 var input = new Dictionary<string, string>
                 {
-                    {"Logging:LogLevel:Default", "Trace"},
-                    {"Logging:LogLevel:System", "Information"},
-                    {"Logging:LogLevel:Microsoft", "Information"},
+                    { "Logging:LogLevel:Default", "Trace" },
+                    { "Logging:LogLevel:System", "Information" },
+                    { "Logging:LogLevel:Microsoft", "Information" },
                 };
 
                 IConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
@@ -66,29 +63,36 @@ namespace Quarrel
             string fullPath = $"{folder.Path}\\Logs\\App.log";
 
             ServiceProvider.GetService<ILoggerFactory>().AddDebug((s, l) => true);
-
         }
-
-        private ILogger Logger { get; } = App.ServiceProvider.GetService<ILogger<App>>();
 
         /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
+        /// Initializes a new instance of the <see cref="App"/> class.
+        /// This is the first line of authored code executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
-        {            
-            this.InitializeComponent();
-            SetupRequestedTheme();
-            this.Suspending += OnSuspending;
-            this.UnhandledException += App_UnhandledException;
-        }
-
-        private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var logger = App.ServiceProvider.GetService<ILogger<App>>();
-
-            logger?.LogCritical(new EventId(), e.Exception, "Unhandled exception crashed the app.");
+            this.InitializeComponent();
+            this.SetupRequestedTheme();
+            this.Suspending += this.OnSuspending;
+            this.UnhandledException += this.App_UnhandledException;
         }
+
+        /// <summary>
+        /// Gets the Services for the app.
+        /// </summary>
+        public static IServiceProvider ServiceProvider { get; }
+
+        /// <summary>
+        /// Gets the Configurations for the app.
+        /// </summary>
+        public static IConfiguration Configuration { get; }
+
+        /// <summary>
+        /// Gets public access to the MainViewModel.
+        /// </summary>
+        public static ViewModelLocator ViewModelLocator => ServiceProvider.GetService<ViewModelLocator>();
+
+        private ILogger Logger { get; } = App.ServiceProvider.GetService<ILogger<App>>();
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -110,14 +114,13 @@ namespace Quarrel
                 (Current.Resources["AcrylicUserBackground"] as AcrylicBrush).TintLuminosityOpacity = 0.95;
             }
 
-            SetupResources();
-            RegisterMessages();
-            SetupTitleBar();
-
+            this.SetupResources();
+            this.RegisterMessages();
+            this.SetupTitleBar();
 
             if (SystemInformation.DeviceFamily == "Windows.Xbox")
             {
-                SetupCinematic();
+                this.SetupCinematic();
             }
 
             // Do not repeat app initialization when the Window already has content,
@@ -127,11 +130,11 @@ namespace Quarrel
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
-                rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.NavigationFailed += this.OnNavigationFailed;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    //TODO: Load state from previously suspended application
+                    // TODO: Load state from previously suspended application
                 }
 
                 // Place the frame in the current Window
@@ -149,23 +152,30 @@ namespace Quarrel
                     // parameter
                     rootFrame.Content = new MainView(e.SplashScreen);
                 }
+
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
 
-
             if (SystemInformation.DeviceFamily == "Windows.Xbox")
             {
-                rootFrame.SizeChanged += ScaleDown;
+                rootFrame.SizeChanged += this.ScaleDown;
             }
         }
 
+        private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            var logger = App.ServiceProvider.GetService<ILogger<App>>();
+
+            logger?.LogCritical(default(EventId), e.Exception, "Unhandled exception crashed the app.");
+        }
+
         /// <summary>
-        /// Invoked when Navigation to a certain page fails
+        /// Invoked when Navigation to a certain page fails.
         /// </summary>
-        /// <param name="sender">The Frame which failed navigation</param>
-        /// <param name="e">Details about the navigation failure</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        /// <param name="sender">The Frame which failed navigation.</param>
+        /// <param name="e">Details about the navigation failure.</param>
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
@@ -180,12 +190,13 @@ namespace Quarrel
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
+
+            // TODO: Save application state and stop any background activity
             deferral.Complete();
         }
 
         /// <summary>
-        /// Sets Resource settings according to settings
+        /// Sets Resource settings according to settings.
         /// </summary>
         private void SetupResources()
         {
@@ -212,7 +223,7 @@ namespace Quarrel
         }
 
         /// <summary>
-        /// Registers message that change App Resources
+        /// Registers message that change App Resources.
         /// </summary>
         private void RegisterMessages()
         {
@@ -224,35 +235,13 @@ namespace Quarrel
                     (App.Current.Resources["AcrylicChannelPaneBackground"] as AcrylicBrush).AlwaysUseFallback = (m.Value & AcrylicSettings.ChannelView) != AcrylicSettings.ChannelView;
                     (App.Current.Resources["AcrylicGuildPaneBackground"] as AcrylicBrush).AlwaysUseFallback = (m.Value & AcrylicSettings.GuildView) != AcrylicSettings.GuildView;
                     (App.Current.Resources["AcrylicCommandBarBackground"] as AcrylicBrush).AlwaysUseFallback = (m.Value & AcrylicSettings.CommandBar) != AcrylicSettings.CommandBar;
-                };
+                }
             });
 
             // TODO: Full accent switch without restart or bust
-            //Messenger.Default.Register<SettingChangedMessage<bool>>(this, m =>
-            //{
-            //    if (m.Key == SettingKeys.Blurple)
-            //    {
-            //        Application.Current.Resources["SystemAccentColor"] =
-            //        m.Value ? Application.Current.Resources["BlurpleColor"] : Application.Current.Resources["OGSystemAccentColor"];
-                    
-            //        ((App.Current.Resources.ThemeDictionaries["Light"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color =
-            //        m.Value ? (Color)Application.Current.Resources["BlurpleColor"] : (Color)Application.Current.Resources["OGSystemAccentColor"];
-                    
-            //        ((App.Current.Resources.ThemeDictionaries["Dark"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color =
-            //        m.Value ? (Color)Application.Current.Resources["BlurpleColor"] : (Color)Application.Current.Resources["OGSystemAccentColor"];
-                    
-            //        ((App.Current.Resources.ThemeDictionaries["Light"] as ResourceDictionary)["SystemControlForegroundAccentBrush"] as SolidColorBrush).Color =
-            //        m.Value ? (Color)Application.Current.Resources["BlurpleColor"] : (Color)Application.Current.Resources["OGSystemAccentColor"];
-                    
-            //        ((App.Current.Resources.ThemeDictionaries["Dark"] as ResourceDictionary)["SystemControlForegroundAccentBrush"] as SolidColorBrush).Color =
-            //        m.Value ? (Color)Application.Current.Resources["BlurpleColor"] : (Color)Application.Current.Resources["OGSystemAccentColor"];
-            //    }
-            //});
         }
 
-        #region Window Setup
-
-        public void SetupTitleBar()
+        private void SetupTitleBar()
         {
             ApplicationView view = ApplicationView.GetForCurrentView();
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
@@ -271,8 +260,9 @@ namespace Quarrel
                         statusBar.BackgroundColor = ((AcrylicBrush)Current.Resources["AcrylicCommandBarBackground"]).TintColor;
                         statusBar.ForegroundColor = ((SolidColorBrush)Current.Resources["Foreground"]).Color;
                     }
-                    catch (Exception ex) {
-                        Logger.LogError(new EventId(), ex, "Error caught accessing resources. (Group 1)");
+                    catch (Exception ex)
+                    {
+                        this.Logger.LogError(default(EventId), ex, "Error caught accessing resources. (Group 1)");
                     }
                 }
             }
@@ -289,11 +279,11 @@ namespace Quarrel
             }
             catch (Exception ex)
             {
-                Logger.LogError(new EventId(), ex, "Error caught accessing resources (Group 2).");
+                this.Logger.LogError(default(EventId), ex, "Error caught accessing resources (Group 2).");
             }
         }
 
-        public void SetupRequestedTheme()
+        private void SetupRequestedTheme()
         {
             switch (new SettingsService().Roaming.GetValue<Theme>(SettingKeys.Theme))
             {
@@ -309,11 +299,10 @@ namespace Quarrel
                     break;
             }
 
-            Logger.LogDebug($"Theme is: {Application.Current.RequestedTheme}");
+            this.Logger.LogDebug($"Theme is: {Application.Current.RequestedTheme}");
         }
 
-
-        public void SetupCinematic()
+        private void SetupCinematic()
         {
             ApplicationViewScaling.TrySetDisableLayoutScaling(false);
             ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
@@ -337,6 +326,5 @@ namespace Quarrel
             ScaleTransform transform = rootFrame.GetTransform<ScaleTransform>();
             transform.ScaleX = transform.ScaleY = scaleXY;
         }
-        #endregion
     }
 }
