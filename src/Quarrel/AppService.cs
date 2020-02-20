@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using System;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using Newtonsoft.Json;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Services.Discord.Rest;
+using System;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
@@ -17,8 +17,8 @@ namespace Quarrel
     /// </summary>
     public partial class App
     {
-        private AppServiceConnection appServiceConnection;
-        private BackgroundTaskDeferral appServiceDeferral;
+        private AppServiceConnection _appServiceConnection;
+        private BackgroundTaskDeferral _appServiceDeferral;
 
         /// <summary>
         /// Occurs when an app service connection opens.
@@ -35,11 +35,11 @@ namespace Quarrel
 
             IBackgroundTaskInstance taskInstance = args.TaskInstance;
             AppServiceTriggerDetails appService = taskInstance.TriggerDetails as AppServiceTriggerDetails;
-            this.appServiceDeferral = taskInstance.GetDeferral();
-            taskInstance.Canceled += this.TaskInstance_Canceled;
-            this.appServiceConnection = appService.AppServiceConnection;
-            this.appServiceConnection.RequestReceived += this.HandleServiceRequest;
-            this.ConnectedToAppService?.Invoke(null, null);
+            _appServiceDeferral = taskInstance.GetDeferral();
+            taskInstance.Canceled += TaskInstance_Canceled;
+            _appServiceConnection = appService.AppServiceConnection;
+            _appServiceConnection.RequestReceived += HandleServiceRequest;
+            ConnectedToAppService?.Invoke(null, null);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Quarrel
         /// </summary>
         private void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
         {
-            this.appServiceDeferral.Complete();
+            _appServiceDeferral.Complete();
         }
     }
 }

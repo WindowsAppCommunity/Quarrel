@@ -354,6 +354,7 @@
     <Compile Include="Extensions\System\TimeSpanExtensions.cs" />
     <Compile Include="Extensions\Windows.UI.Xaml\UIExtensions.cs" />
     <Compile Include="Extensions\Windows.UI\ColorExtensions.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\AudioProcessing\Complex.cs" />
     <Compile Include="Helpers\AudioProcessing\FFT.cs" />
     <Compile Include="Helpers\AudioProcessing\HelperMethods.cs" />

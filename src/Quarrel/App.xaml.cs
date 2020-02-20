@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +10,8 @@ using Quarrel.ViewModels;
 using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.Services.Settings.Enums;
+using System;
+using System.Collections.Generic;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -71,10 +71,10 @@ namespace Quarrel
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            this.SetupRequestedTheme();
-            this.Suspending += this.OnSuspending;
-            this.UnhandledException += this.App_UnhandledException;
+            InitializeComponent();
+            SetupRequestedTheme();
+            Suspending += OnSuspending;
+            UnhandledException += App_UnhandledException;
         }
 
         /// <summary>
@@ -114,13 +114,13 @@ namespace Quarrel
                 (Current.Resources["AcrylicUserBackground"] as AcrylicBrush).TintLuminosityOpacity = 0.95;
             }
 
-            this.SetupResources();
-            this.RegisterMessages();
-            this.SetupTitleBar();
+            SetupResources();
+            RegisterMessages();
+            SetupTitleBar();
 
             if (SystemInformation.DeviceFamily == "Windows.Xbox")
             {
-                this.SetupCinematic();
+                SetupCinematic();
             }
 
             // Do not repeat app initialization when the Window already has content,
@@ -130,7 +130,7 @@ namespace Quarrel
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
-                rootFrame.NavigationFailed += this.OnNavigationFailed;
+                rootFrame.NavigationFailed += OnNavigationFailed;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -159,7 +159,7 @@ namespace Quarrel
 
             if (SystemInformation.DeviceFamily == "Windows.Xbox")
             {
-                rootFrame.SizeChanged += this.ScaleDown;
+                rootFrame.SizeChanged += ScaleDown;
             }
         }
 
@@ -262,7 +262,7 @@ namespace Quarrel
                     }
                     catch (Exception ex)
                     {
-                        this.Logger.LogError(default(EventId), ex, "Error caught accessing resources. (Group 1)");
+                        Logger.LogError(default(EventId), ex, "Error caught accessing resources. (Group 1)");
                     }
                 }
             }
@@ -279,7 +279,7 @@ namespace Quarrel
             }
             catch (Exception ex)
             {
-                this.Logger.LogError(default(EventId), ex, "Error caught accessing resources (Group 2).");
+                Logger.LogError(default(EventId), ex, "Error caught accessing resources (Group 2).");
             }
         }
 
@@ -299,7 +299,7 @@ namespace Quarrel
                     break;
             }
 
-            this.Logger.LogDebug($"Theme is: {Application.Current.RequestedTheme}");
+            Logger.LogDebug($"Theme is: {Application.Current.RequestedTheme}");
         }
 
         private void SetupCinematic()
