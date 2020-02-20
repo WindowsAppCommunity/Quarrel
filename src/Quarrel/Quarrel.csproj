@@ -336,7 +336,7 @@
     <Compile Include="Converters\Profile\Relationships\RelationToAddFriendConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToBlockConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToRemoveFriendConverter.cs" />
-    <Compile Include="Converters\Profile\Relationships\RelationToUnblock.cs" />
+    <Compile Include="Converters\Profile\Relationships\RelationToUnblockConverter.cs" />
     <Compile Include="DataTemplates\Channels\ChannelTemplate.xaml.cs">
       <DependentUpon>ChannelTemplate.xaml</DependentUpon>
     </Compile>
