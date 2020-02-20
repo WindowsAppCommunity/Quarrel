@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DiscordAPI.Sockets
 {
-    public class WebMessageSocket : IWebMessageSocket
+    public sealed class WebMessageSocket : IWebMessageSocket
     {
         public event EventHandler<MessageReceivedEventArgs> MessageReceived;
         public event EventHandler<ConnectionClosedEventArgs> ConnectionClosed;
@@ -53,7 +53,7 @@ namespace DiscordAPI.Sockets
             }
         }
 
-        private async Task HandleMessage(string message)
+        private void HandleMessage(string message)
         {
             OnMessageReceived(message);
         }

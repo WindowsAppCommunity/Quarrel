@@ -33,7 +33,7 @@ namespace DiscordAPI.Sockets
 {
     internal class UdpSocketClient : IDisposable
     {
-        public event Func<byte[], int, int, Task> ReceivedDatagram;
+        public event Action<byte[], int, int> ReceivedDatagram;
 
         private readonly SemaphoreSlim _lock;
         private UdpClient _udp;
@@ -168,7 +168,7 @@ namespace DiscordAPI.Sockets
                     break;
 
                 var result = receiveTask.Result;
-                await ReceivedDatagram(result.Buffer, 0, result.Buffer.Length).ConfigureAwait(false);
+                ReceivedDatagram(result.Buffer, 0, result.Buffer.Length);
             }
         }
     }
