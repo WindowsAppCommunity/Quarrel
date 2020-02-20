@@ -47,7 +47,7 @@ namespace Quarrel.Controls
         /// </summary>
         private float _halfPoint;
 
-        private float _point0 = 0;
+        private readonly float _point0 = 0;
         private float _point1 = 0;
         private float _point2 = 0;
         private float _point3 = 0;
@@ -314,27 +314,19 @@ namespace Quarrel.Controls
 
         private class Smoother
         {
-            // This is the value above or below which the algorithm ignores smoothing and jumps to the new value
-            // This is useful to give more liveliness to the visualization
-            private double _smoothingThresholdUp = 1;
-            private double _smoothingThresholdDown = 1;
-            private float _multiplier = 0;
-            private float _smoothTime = 0;
+            private readonly float _multiplier = 0;
+            private readonly float _smoothTime = 0;
             private float _previousVal = 0;
-            private float _smoothLimit = 0.82f;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="Smoother"/> class.
             /// </summary>
             /// <param name="SmoothTime">The smoothing window in *10ms.</param>
             /// /// <param name="multiplier">The opacity multiplier (5 by default).</param>
-            public Smoother(int smoothTime, float multiplier = 5, double smoothnessThresholdUp = 1, double smoothnessThresholdDown = 1, float smoothLimit = 1f)
+            public Smoother(int smoothTime, float multiplier = 5)
             {
                 _smoothTime = smoothTime;
                 _multiplier = multiplier;
-                _smoothLimit = smoothLimit / multiplier;
-                _smoothingThresholdDown = smoothnessThresholdDown;
-                _smoothingThresholdUp = smoothnessThresholdUp;
             }
 
             /// <summary>
