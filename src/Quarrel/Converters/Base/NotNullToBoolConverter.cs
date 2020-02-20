@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Data;
 namespace Quarrel.Converters.Base
 {
     /// <summary>
-    /// A converter that returns a <see cref="bool"/> indicating whether or not the value is **not** null.
+    /// A converter that returns a <see langword="true"/> <see cref="bool"/> value indicating if the input <see langword="object"/> is **not** <see langword="null"/>.
     /// </summary>
     public sealed class NotNullToBoolConverter : IValueConverter
     {
