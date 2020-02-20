@@ -1,44 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Messages
 {
     /// <summary>
-    /// TextBox with a twoway binding on the curser position
+    /// TextBox with a twoway binding on the curser position.
     /// </summary>
     public class SelectionBindingTextBox : TextBox
     {
-        #region DependencyProperties
-
-        public static readonly DependencyProperty BindableSelectionStartProperty =
+        private static readonly DependencyProperty BindableSelectionStartProperty =
             DependencyProperty.Register(
             "BindableSelectionStart",
             typeof(int),
             typeof(SelectionBindingTextBox),
             new PropertyMetadata(0, OnBindableSelectionStartChanged));
 
-        public static readonly DependencyProperty BindableSelectionLengthProperty =
+        private static readonly DependencyProperty BindableSelectionLengthProperty =
             DependencyProperty.Register(
             "BindableSelectionLength",
             typeof(int),
             typeof(SelectionBindingTextBox),
             new PropertyMetadata(0, OnBindableSelectionLengthChanged));
 
-        public static readonly DependencyProperty BindableTextProperty =
+        private static readonly DependencyProperty BindableTextProperty =
             DependencyProperty.Register(
             "BindableText",
             typeof(string),
             typeof(SelectionBindingTextBox),
             new PropertyMetadata(0, OnBindableTextChanged));
 
+        /// <summary>
+        /// Determines if a change is coming from the user or programmatically.
+        /// </summary>
+        private bool _programmaticChange;
 
-        #endregion
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SelectionBindingTextBox"/> class.
+        /// </summary>
         public SelectionBindingTextBox() : base()
         {
             this.SelectionChanged += this.OnSelectionChanged;
@@ -46,7 +46,7 @@ namespace Quarrel.Controls.Messages
         }
 
         /// <summary>
-        /// Text into the draft
+        /// Gets or sets the text into the draft.
         /// </summary>
         public string BindableText
         {
@@ -54,6 +54,7 @@ namespace Quarrel.Controls.Messages
             {
                 return (string)this.GetValue(BindableTextProperty);
             }
+
             set
             {
                 this.SetValue(BindableTextProperty, value);
@@ -62,7 +63,7 @@ namespace Quarrel.Controls.Messages
         }
 
         /// <summary>
-        /// Position of the curser
+        /// Gets or sets the position of the curser.
         /// </summary>
         public int BindableSelectionStart
         {
@@ -78,7 +79,7 @@ namespace Quarrel.Controls.Messages
         }
 
         /// <summary>
-        /// Selected values from curser
+        /// Gets or sets selected values from curser.
         /// </summary>
         public int BindableSelectionLength
         {
@@ -94,7 +95,7 @@ namespace Quarrel.Controls.Messages
         }
 
         /// <summary>
-        /// Updates BindableText
+        /// Updates BindableText.
         /// </summary>
         private static void OnBindableTextChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
@@ -103,43 +104,43 @@ namespace Quarrel.Controls.Messages
         }
 
         /// <summary>
-        /// Updates BindableSelectionStart
+        /// Updates BindableSelectionStart.
         /// </summary>
         private static void OnBindableSelectionStartChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
             var textBox = dependencyObject as SelectionBindingTextBox;
 
-            if (textBox._ProgrammaticChange)
+            if (textBox._programmaticChange)
             {
                 int newValue = (int)args.NewValue;
                 textBox.SelectionStart = newValue;
             }
             else
             {
-                textBox._ProgrammaticChange = true;
+                textBox._programmaticChange = true;
             }
         }
 
         /// <summary>
-        /// Updates BindableSelectionLength
+        /// Updates BindableSelectionLength.
         /// </summary>
         private static void OnBindableSelectionLengthChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
             var textBox = dependencyObject as SelectionBindingTextBox;
 
-            if (textBox._ProgrammaticChange)
+            if (textBox._programmaticChange)
             {
                 int newValue = (int)args.NewValue;
                 textBox.SelectionLength = newValue;
             }
             else
             {
-                textBox._ProgrammaticChange = true;
+                textBox._programmaticChange = true;
             }
         }
 
         /// <summary>
-        /// Updates bindable text when TextBox text changes
+        /// Updates bindable text when TextBox text changes.
         /// </summary>
         private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
@@ -150,27 +151,21 @@ namespace Quarrel.Controls.Messages
         }
 
         /// <summary>
-        /// Updates bindable selection positions when TextBox selection changes
+        /// Updates bindable selection positions when TextBox selection changes.
         /// </summary>
         private void OnSelectionChanged(object sender, RoutedEventArgs e)
         {
             if (this.BindableSelectionStart != this.SelectionStart)
             {
-                this._ProgrammaticChange = false;
+                this._programmaticChange = false;
                 this.BindableSelectionStart = this.SelectionStart;
             }
 
             if (this.BindableSelectionLength != this.SelectionLength)
             {
-                this._ProgrammaticChange = false;
+                this._programmaticChange = false;
                 this.BindableSelectionLength = this.SelectionLength;
             }
         }
-
-
-        /// <summary>
-        /// Determines if a change is coming from the user or programmatically
-        /// </summary>
-        private bool _ProgrammaticChange;
     }
 }
