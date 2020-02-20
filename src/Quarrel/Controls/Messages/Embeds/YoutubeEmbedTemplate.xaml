@@ -49,7 +49,7 @@
                                 </Viewbox>
                             </Button>
                         </Grid>
-                        <controls1:MyTubeEmbedWrapper x:Name="mytubeEmbed" x:Load="{x:Bind ViewModel.PlayingVideo, Mode=OneWay}" Play="{x:Bind ViewModel.PlayingVideo, Mode=OneWay}" VideoUri="{x:Bind ViewModel.Model.Video.Url, Mode=OneWay}"/>
+                        <controls1:MyTubeEmbedWrapper x:Name="mytubeEmbed" x:Load="{x:Bind ViewModel.PlayingVideo, Mode=OneWay}" Play="{x:Bind ViewModel.PlayingVideo, Mode=OneWay}" VideoUrl="{x:Bind ViewModel.Model.Video.Url, Mode=OneWay}"/>
                     </Grid>
                 </Viewbox>
             </StackPanel>
