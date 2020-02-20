@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Data;
 namespace Quarrel.Converters.Channel
 {
     /// <summary>
-    /// A converter than returns a foreground SolidColorBrush for the channel name based on type
+    /// A converter than returns a foreground SolidColorBrush for the channel name based on type.
     /// </summary>
     public sealed class TypeToForegroundBrushConverter : IValueConverter
     {

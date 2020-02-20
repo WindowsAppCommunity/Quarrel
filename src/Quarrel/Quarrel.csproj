@@ -318,7 +318,7 @@
     <Compile Include="Converters\Channel\MentionCountToVisiblityConverter.cs" />
     <Compile Include="Converters\Channel\SelectedToOpacityConverter.cs" />
     <Compile Include="Converters\Channel\TypeToForegroundBrushConverter.cs" />
-    <Compile Include="Converters\Channel\TypeToMinHeight.cs" />
+    <Compile Include="Converters\Channel\TypeToMinHeightConverter.cs" />
     <Compile Include="Converters\AuditLog\AuditLogActionTypeToGlyphConverter.cs" />
     <Compile Include="Converters\Discord\DiscrimatorPrefixConveter.cs" />
     <Compile Include="Converters\Discord\DiscriminatorToBrushConverter.cs" />
