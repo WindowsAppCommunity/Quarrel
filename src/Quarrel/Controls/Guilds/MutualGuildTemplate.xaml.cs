@@ -1,14 +1,18 @@
-﻿using Quarrel.ViewModels.Models.Bindables;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using Quarrel.ViewModels.Models.Bindables;
 using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Guilds
 {
-
     /// <summary>
-    /// Template to show a Guild mutual to a user
+    /// Template to show a Guild mutual to a user.
     /// </summary>
     public sealed partial class MutualGuildTemplate : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MutualGuildTemplate"/> class.
+        /// </summary>
         public MutualGuildTemplate()
         {
             this.InitializeComponent();
@@ -19,8 +23,8 @@ namespace Quarrel.Controls.Guilds
         }
 
         /// <summary>
-        /// Mutual Guild Data in template
+        /// Gets the guild Data in template.
         /// </summary>
-        BindableMutualGuild ViewModel => DataContext as BindableMutualGuild;
+        public BindableMutualGuild ViewModel => DataContext as BindableMutualGuild;
     }
 }
