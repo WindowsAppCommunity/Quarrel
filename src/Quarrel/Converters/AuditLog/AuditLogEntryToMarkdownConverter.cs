@@ -1,4 +1,6 @@
-﻿using DiscordAPI.API.Guild.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.API.Guild.Models;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.Guilds;
@@ -8,88 +10,23 @@ using Windows.UI.Xaml.Data;
 
 namespace Quarrel.Converters.AuditLog
 {
+    /// <summary>
+    /// Converter for AuditLogAction to a markdown explanation.
+    /// </summary>
     public class AuditLogEntryToMarkdownConverter : IValueConverter
     {
-        #region Services
+        private IChannelsService ChannelsService => SimpleIoc.Default.GetInstance<IChannelsService>();
 
-        IChannelsService ChannelsService => SimpleIoc.Default.GetInstance<IChannelsService>();
-        IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
 
-        #endregion
-
-        #region Methods
-
-        public string ReplaceUser(string format, string userId)
-        {
-            string formattedUser = string.Format("<@{0}>", userId);
-            return format.Replace("<user>", formattedUser);
-        }
-
-        public string ReplaceChannel(string format, string channelId, Change[] changes)
-        {
-            string formattedChannel = "";
-            if (ChannelsService.AllChannels.ContainsKey(channelId))
-                formattedChannel = string.Format("<#{0}>", channelId);
-            else
-            {
-                formattedChannel = "**<deleted-channel>**";
-                foreach (Change change in changes)
-                {
-                    if (change.Key == "name")
-                    {
-                        formattedChannel = string.Format("**#{0}**", change.NewValue ?? change.OldValue);
-                        break;
-                    }
-                }
-            }
-
-            return format.Replace("<channel>", formattedChannel);
-        }
-
-        public string ReplaceInvite(string format, Change[] changes, bool deleted)
-        {
-            foreach (var change in changes)
-            {
-                if (change.Key == "code")
-                {
-                    return format.Replace("<invite>", string.Format("**{0}**", (deleted ? change.OldValue : change.NewValue).ToString()));
-                }
-            }
-            return null;
-        }
-
-        public string ReplaceRecipient(string format, string userId)
-        {
-            string formattedUser = string.Format("<@{0}>", userId);
-            return format.Replace("<recipient>", formattedUser);
-        }
-
-        public string ReplaceRole(string format, string roleId)
-        {
-            string formattedRole = string.Format("<@&{0}>", roleId);
-            return format.Replace("<role>", formattedRole);
-        }
-
-        public string ReplaceEmoji(string format, string emojiId)
-        {
-            // TODO: Display emoji with markdown
-            return format.Replace("<emoji>", "emoji: " + emojiId);
-        }
-
-        public string ReplaceWebhook(string format, Change[] changes, bool deleted)
-        {
-            foreach (var change in changes)
-            {
-                if (change.Key == "name")
-                {
-                    return format.Replace("<webhook>", string.Format("**{0}**", (deleted ? change.OldValue : change.NewValue).ToString()));
-                }
-            }
-            return null;
-        }
-
-        #endregion
-
+        /// <summary>
+        /// Converts an AuditLogAction to markdown text.
+        /// </summary>
+        /// <param name="value">AuditLogAction.</param>
+        /// <param name="targetType">Requested out type.</param>
+        /// <param name="parameter">Extra info.</param>
+        /// <param name="language">What language the user is using.</param>
+        /// <returns>Natural text change info.</returns>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value is AuditLogEntry entry)
@@ -98,7 +35,7 @@ namespace Quarrel.Converters.AuditLog
                 string format = ResourceLoader.GetForCurrentView("AuditLog").GetString(action);
 
                 format = ReplaceUser(format, entry.UserId);
-                
+
                 switch ((AuditLogActionType)entry.ActionType)
                 {
                     case AuditLogActionType.ChannelCreate:
@@ -122,13 +59,17 @@ namespace Quarrel.Converters.AuditLog
                     case AuditLogActionType.InviteCreate:
                     case AuditLogActionType.InviteUpdate:
                     case AuditLogActionType.InviteDelete:
-                        return ReplaceInvite(format, entry.Changes,
+                        return ReplaceInvite(
+                            format,
+                            entry.Changes,
                             (AuditLogActionType)entry.ActionType == AuditLogActionType.InviteDelete);
 
                     case AuditLogActionType.WebhookCreate:
                     case AuditLogActionType.WebhookUpdate:
                     case AuditLogActionType.WebhookDelete:
-                        return ReplaceWebhook(format, entry.Changes,
+                        return ReplaceWebhook(
+                            format,
+                            entry.Changes,
                             (AuditLogActionType)entry.ActionType == AuditLogActionType.WebhookDelete);
 
                     case AuditLogActionType.MemberBanAdd:
@@ -142,14 +83,90 @@ namespace Quarrel.Converters.AuditLog
                         format = ReplaceRecipient(format, entry.TargetId);
                         return ReplaceChannel(format, entry.Options.ChannelId, entry.Changes);
                 }
+
                 return format;
             }
+
             return "Unknown action";
         }
 
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
+        }
+
+        private string ReplaceUser(string format, string userId)
+        {
+            string formattedUser = string.Format("<@{0}>", userId);
+            return format.Replace("<user>", formattedUser);
+        }
+
+        private string ReplaceChannel(string format, string channelId, Change[] changes)
+        {
+            string formattedChannel = string.Empty;
+            if (ChannelsService.AllChannels.ContainsKey(channelId))
+            {
+                formattedChannel = string.Format("<#{0}>", channelId);
+            }
+            else
+            {
+                formattedChannel = "**<deleted-channel>**";
+                foreach (Change change in changes)
+                {
+                    if (change.Key == "name")
+                    {
+                        formattedChannel = string.Format("**#{0}**", change.NewValue ?? change.OldValue);
+                        break;
+                    }
+                }
+            }
+
+            return format.Replace("<channel>", formattedChannel);
+        }
+
+        private string ReplaceInvite(string format, Change[] changes, bool deleted)
+        {
+            foreach (var change in changes)
+            {
+                if (change.Key == "code")
+                {
+                    return format.Replace("<invite>", string.Format("**{0}**", (deleted ? change.OldValue : change.NewValue).ToString()));
+                }
+            }
+
+            return null;
+        }
+
+        private string ReplaceRecipient(string format, string userId)
+        {
+            string formattedUser = string.Format("<@{0}>", userId);
+            return format.Replace("<recipient>", formattedUser);
+        }
+
+        private string ReplaceRole(string format, string roleId)
+        {
+            string formattedRole = string.Format("<@&{0}>", roleId);
+            return format.Replace("<role>", formattedRole);
+        }
+
+        private string ReplaceEmoji(string format, string emojiId)
+        {
+            // TODO: Display emoji with markdown
+            return format.Replace("<emoji>", "emoji: " + emojiId);
+        }
+
+        private string ReplaceWebhook(string format, Change[] changes, bool deleted)
+        {
+            foreach (var change in changes)
+            {
+                if (change.Key == "name")
+                {
+                    return format.Replace("<webhook>", string.Format("**{0}**", (deleted ? change.OldValue : change.NewValue).ToString()));
+                }
+            }
+
+            return null;
         }
     }
 }

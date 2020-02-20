@@ -15,7 +15,7 @@ namespace Quarrel.Converters.AuditLog
         /// <summary>
         /// Converts a change to markdown text.
         /// </summary>
-        /// <param name="value">AuditLogAction.</param>
+        /// <param name="value">Change.</param>
         /// <param name="targetType">Requested out type.</param>
         /// <param name="parameter">Extra info.</param>
         /// <param name="language">What language the user is using.</param>
