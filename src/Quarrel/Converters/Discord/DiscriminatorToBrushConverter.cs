@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using System;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
@@ -7,10 +9,11 @@ using Windows.UI.Xaml.Media;
 namespace Quarrel.Converters.Discord
 {
     /// <summary>
-    /// A converter that returns an inverted <see cref="Visibility"/> value for the input <see langword="bool"/> value
+    /// A converter that returns a the default user profile color based on a user's Discriminator.
     /// </summary>
     public sealed class DiscriminatorToBrushConverter : IValueConverter
     {
+        /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             switch ((int)value % 5)
@@ -26,9 +29,11 @@ namespace Quarrel.Converters.Discord
                 case 4: // Red
                     return new SolidColorBrush((Color)App.Current.Resources["DiscordRed"]);
             }
+
             return new SolidColorBrush((Color)App.Current.Resources["DiscordBlurple"]);
         }
 
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
