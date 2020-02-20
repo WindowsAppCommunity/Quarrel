@@ -306,7 +306,7 @@
     <Compile Include="Converters\Base\IntColorToBrushConverter.cs" />
     <Compile Include="Converters\Base\IntColorToColorConverter.cs" />
     <Compile Include="Converters\Base\NotBoolToBoolConverter.cs" />
-    <Compile Include="Converters\Base\NotBoolToVisibiltyConverter.cs" />
+    <Compile Include="Converters\Base\NotBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\Base\NotNullToBoolConverter.cs" />
     <Compile Include="Converters\Base\NotNullToVisibilityConverter.cs" />
     <Compile Include="Converters\Base\NullToBoolConverter.cs" />
