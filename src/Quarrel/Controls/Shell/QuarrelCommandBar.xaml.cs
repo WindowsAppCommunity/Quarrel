@@ -1,4 +1,6 @@
-﻿using DiscordAPI.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels;
 using Quarrel.ViewModels.Services.Navigation;
@@ -7,15 +9,16 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace Quarrel.Controls.Shell
 {
     /// <summary>
-    /// Custom CommandBar instance used in shell
+    /// Custom CommandBar instance used in shell.
     /// </summary>
     public sealed partial class QuarrelCommandBar : CommandBar
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QuarrelCommandBar"/> class.
+        /// </summary>
         public QuarrelCommandBar()
         {
             this.InitializeComponent();
@@ -27,13 +30,6 @@ namespace Quarrel.Controls.Shell
         }
 
         /// <summary>
-        /// Access app's main data
-        /// </summary>
-        public MainViewModel ViewModel => App.ViewModelLocator.Main;
-
-        #region Events
-        
-        /// <summary>
         /// Invoked when Hamburger button is clicked
         /// </summary>
         public event EventHandler HamburgerClicked;
@@ -43,12 +39,28 @@ namespace Quarrel.Controls.Shell
         /// </summary>
         public event EventHandler MemberListButtonClicked;
 
-        #endregion
-
-        #region Methods
+        /// <summary>
+        /// Gets the MainViewModel for the app.
+        /// </summary>
+        public MainViewModel ViewModel => App.ViewModelLocator.Main;
 
         /// <summary>
-        /// Changes the VisualStateManager to confirm open down
+        /// Gets or sets a value indicating whether or not the Hamburger button should be shown by this CommandBar.
+        /// </summary>
+        public bool ShowHamburger { get; set; }
+
+        /// <summary>
+        /// Gets Current channel as GuildChannel.
+        /// </summary>
+        private GuildChannel GuildChannel { get => ViewModel.CurrentChannel != null ? ViewModel.CurrentChannel.Model as GuildChannel : null; }
+
+        /// <summary>
+        /// Gets the topic of the current channel (if GuildChannel).
+        /// </summary>
+        private string ChannelTopic { get => GuildChannel != null ? GuildChannel.Topic : string.Empty; }
+
+        /// <summary>
+        /// Changes the VisualStateManager to confirm open down.
         /// </summary>
         protected override void OnApplyTemplate()
         {
@@ -61,7 +73,7 @@ namespace Quarrel.Controls.Shell
         }
 
         /// <summary>
-        /// Invokes the HumburgerClicked event
+        /// Invokes the HumburgerClicked event.
         /// </summary>
         private void InvokeHumburgerClick(object sender, RoutedEventArgs e)
         {
@@ -69,7 +81,7 @@ namespace Quarrel.Controls.Shell
         }
 
         /// <summary>
-        /// Invokes the MemberListButtonClicked event
+        /// Invokes the MemberListButtonClicked event.
         /// </summary>
         private void InvokeMemberListToggleClick(object sender, RoutedEventArgs e)
         {
@@ -77,49 +89,11 @@ namespace Quarrel.Controls.Shell
         }
 
         /// <summary>
-        /// Opens Channel TopicPage for current channel
+        /// Opens Channel TopicPage for current channel.
         /// </summary>
         private void ChannelNameTapped(object sender, TappedRoutedEventArgs e)
         {
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("TopicPage", ViewModel.CurrentChannel);
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Indicates if the Hamburger button should be shown by this CommandBar
-        /// </summary>
-        public bool ShowHamburger { get; set; }
-
-        /// <summary>
-        /// Gets Current channel as GuildChanne;
-        /// </summary>
-        private GuildChannel GuildChannel { get => ViewModel.CurrentChannel != null ? ViewModel.CurrentChannel.Model as GuildChannel : null; }
-
-        /// <summary>
-        /// Gets the topic of the current channel (if GuildChannel)
-        /// </summary>
-        private string ChannelTopic { get => GuildChannel != null ? GuildChannel.Topic : ""; }
-
-        #endregion
-    }
-
-    /// <summary>
-    /// VisualStateManager for CommandBar that guarentees opening down
-    /// </summary>
-    public class OpenDownCommandBarVisualStateManager : VisualStateManager
-    {
-        /// <inheritdoc/>
-        protected override bool GoToStateCore(Control control, FrameworkElement templateRoot, string stateName, VisualStateGroup group, VisualState state, bool useTransitions)
-        {
-            //replace OpenUp state change with OpenDown one and continue as normal
-            if (!string.IsNullOrWhiteSpace(stateName) && stateName.EndsWith("OpenUp"))
-            {
-                stateName = stateName.Substring(0, stateName.Length - 6) + "OpenDown";
-            }
-            return base.GoToStateCore(control, templateRoot, stateName, group, state, useTransitions);
         }
     }
 }

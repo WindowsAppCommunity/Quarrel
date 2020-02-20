@@ -278,6 +278,7 @@
     <Compile Include="Controls\Shell\ExtendedSplashScreen.xaml.cs">
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Shell\OpenDownCommandBarVisualStateManager.cs" />
     <Compile Include="Controls\Shell\Views\FriendListControl.xaml.cs">
       <DependentUpon>FriendListControl.xaml</DependentUpon>
     </Compile>
