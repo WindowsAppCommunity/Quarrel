@@ -10,21 +10,30 @@ namespace Quarrel.Controls.Messages
     /// </summary>
     public class SelectionBindingTextBox : TextBox
     {
-        private static readonly DependencyProperty BindableSelectionStartProperty =
+        /// <summary>
+        /// A property representing the position of the curser.
+        /// </summary>
+        public static readonly DependencyProperty BindableSelectionStartProperty =
             DependencyProperty.Register(
             "BindableSelectionStart",
             typeof(int),
             typeof(SelectionBindingTextBox),
             new PropertyMetadata(0, OnBindableSelectionStartChanged));
 
-        private static readonly DependencyProperty BindableSelectionLengthProperty =
+        /// <summary>
+        /// A property representing the selected values by the curser.
+        /// </summary>
+        public static readonly DependencyProperty BindableSelectionLengthProperty =
             DependencyProperty.Register(
             "BindableSelectionLength",
             typeof(int),
             typeof(SelectionBindingTextBox),
             new PropertyMetadata(0, OnBindableSelectionLengthChanged));
 
-        private static readonly DependencyProperty BindableTextProperty =
+        /// <summary>
+        /// A property representing the Text in the TextBox.
+        /// </summary>
+        public static readonly DependencyProperty BindableTextProperty =
             DependencyProperty.Register(
             "BindableText",
             typeof(string),
