@@ -1,4 +1,6 @@
-﻿using Quarrel.ViewModels.Controls.Messages;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using Quarrel.ViewModels.Controls.Messages;
 using Refit;
 using System;
 using System.IO;
@@ -9,29 +11,44 @@ using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace Quarrel.Controls.Messages
 {
     /// <summary>
-    /// Control for drafting messages
+    /// Control for drafting messages.
     /// </summary>
     public sealed partial class MessageBox : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageBox"/> class.
+        /// </summary>
         public MessageBox()
         {
             this.InitializeComponent();
             DataContext = new MessageBoxViewModel();
         }
 
+        /// <summary>
+        /// Gets message drafting data.
+        /// </summary>
         public MessageBoxViewModel ViewModel => DataContext as MessageBoxViewModel;
 
-        #region Methods
+        /// <summary>
+        /// Adds a file's data to the attachment list.
+        /// </summary>
+        /// <param name="file">The file being attached.</param>
+        public async void AddAttachment(StorageFile file)
+        {
+            if (file == null)
+            {
+                return;
+            }
 
-        #region UI Events
+            var stream = await file.OpenStreamForReadAsync();
+            ViewModel.Attachments.Add(new StreamPart(stream, string.Format("{0}{1}", file.DisplayName, file.FileType), file.ContentType));
+        }
 
         /// <summary>
-        /// Select file and add to attachment List
+        /// Select file and add to attachment List.
         /// </summary>
         private async void AddAttachment(object sender, RoutedEventArgs e)
         {
@@ -45,7 +62,7 @@ namespace Quarrel.Controls.Messages
         }
 
         /// <summary>
-        /// Remove attachment from List
+        /// Remove attachment from List.
         /// </summary>
         private void RemoveAttachment(object sender, RoutedEventArgs e)
         {
@@ -60,7 +77,9 @@ namespace Quarrel.Controls.Messages
             {
                 var param = await dataPackageView.GetStorageItemsAsync();
                 foreach (var file in param)
+                {
                     AddAttachment(file as StorageFile);
+                }
             }
             else if (dataPackageView.Contains(StandardDataFormats.Bitmap))
             {
@@ -68,23 +87,5 @@ namespace Quarrel.Controls.Messages
                 ViewModel.Attachments.Add(new StreamPart((await bmpStream.OpenReadAsync()).AsStream(), "file.png", "image/png"));
             }
         }
-
-        #endregion
-
-        #region Attachments
-
-        public async void AddAttachment(StorageFile file)
-        {
-            if (file == null)
-            {
-                return;
-            }
-            var stream = await file.OpenStreamForReadAsync();
-            ViewModel.Attachments.Add(new StreamPart(stream, string.Format("{0}{1}", file.DisplayName, file.FileType), file.ContentType));
-        }
-
-        #endregion
-
-        #endregion
     }
 }
