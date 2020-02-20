@@ -25,7 +25,7 @@ namespace Quarrel.Controls.Messages
         public BindableMessage Message => DataContext as BindableMessage;
 
         /// <summary>
-        /// Gets the MainViewModel for app.
+        /// Gets the MainViewModel for the app.
         /// </summary>
         public MainViewModel ViewModel => App.ViewModelLocator.Main;
     }
