@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Data;
 namespace Quarrel.Converters.Profile.Relationships
 {
     /// <summary>
-    /// A converter that returns a <see cref="Visibility"/> value if the user doesn't already have a blocked relation status.
+    /// A converter that returns a <see cref="Visibility.Visible"/> value if the user doesn't already have a blocked relation status.
     /// </summary>
     public sealed class RelationToBlockConverter : IValueConverter
     {

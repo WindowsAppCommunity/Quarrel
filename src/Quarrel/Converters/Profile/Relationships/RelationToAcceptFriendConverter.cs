@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Data;
 namespace Quarrel.Converters.Profile.Relationships
 {
     /// <summary>
-    /// A converter that returns an inverted <see cref="Visibility"/> if the FriendStatus is Incoming pending.
+    /// A converter that returns an inverted <see cref="Visibility.Visible"/> if the FriendStatus is Incoming pending.
     /// </summary>
     public sealed class RelationToAcceptFriendConverter : IValueConverter
     {
