@@ -136,9 +136,9 @@ namespace Quarrel.SubPages
 
         private void ChartIndicator_OnDraw(CanvasControl sender, CanvasDrawEventArgs args)
         {
-            if (_chartRenderer.stepsize != 0)
+            if (_chartRenderer.StepSize != 0)
             {
-                var location = Convert.ToInt32(Math.Round(CursorPosition / _chartRenderer.stepsize));
+                var location = Convert.ToInt32(Math.Round(CursorPosition / _chartRenderer.StepSize));
                 if (ViewModel.DataValues.ContainsKey(location))
                 {
                     var item = ViewModel.DataValues[location];

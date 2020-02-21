@@ -1,4 +1,6 @@
-﻿using Microsoft.Graphics.Canvas.Brushes;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.Geometry;
 using Microsoft.Graphics.Canvas.Text;
 using Microsoft.Graphics.Canvas.UI.Xaml;
@@ -6,26 +8,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI;
 
 namespace Quarrel.Helpers
 {
     /// <summary>
-    /// Class to assist with rendering the DiscordStatus graph
+    /// Class to assist with rendering the DiscordStatus graph.
     /// </summary>
     public class ChartRenderer
     {
         /// <summary>
-        /// Render the graph without data
+        /// Gets or sets the width of a point on the graph.
         /// </summary>
-        /// <param name="canvas">Canvas to draw on</param>
-        /// <param name="args">EventArgs</param>
+        public float StepSize { get; set; }
+
+        /// <summary>
+        /// Render the graph without data.
+        /// </summary>
+        /// <param name="canvas">Canvas to draw on.</param>
+        /// <param name="args">EventArgs.</param>
         public void RenderAxes(CanvasControl canvas, CanvasDrawEventArgs args)
         {
             var width = (float)canvas.ActualWidth;
-            var height = (float)(canvas.ActualHeight);
+            var height = (float)canvas.ActualHeight;
             var midWidth = (float)(width * .5);
             var midHeight = (float)(height * .5);
 
@@ -69,36 +74,34 @@ namespace Quarrel.Helpers
         }
 
         /// <summary>
-        /// The width of a point on the graph
+        /// Render the data.
         /// </summary>
-        public float stepsize;
-
-        /// <summary>
-        /// Render the data
-        /// </summary>
-        /// <param name="canvas">Canvas to draw on</param>
-        /// <param name="args">EventArgs</param>
-        /// <param name="color">Color to render the lines with</param>
-        /// <param name="thickness">Thickness of the lines</param>
-        /// <param name="data">Data Points</param>
-        /// <param name="renderArea">Render area under line</param>
-        /// <param name="max">Largest Y scale to render for</param>
+        /// <param name="canvas">Canvas to draw on.</param>
+        /// <param name="args">EventArgs.</param>
+        /// <param name="color">Color to render the lines with.</param>
+        /// <param name="thickness">Thickness of the lines.</param>
+        /// <param name="data">Data Points.</param>
+        /// <param name="renderArea">Render area under line.</param>
+        /// <param name="max">Largest Y scale to render for.</param>
         public void RenderData(CanvasControl canvas, CanvasDrawEventArgs args, Color color, float thickness, List<double> data, bool renderArea, double max)
         {
-            if (data.Count == 0) return;
+            if (data.Count == 0)
+            {
+                return;
+            }
 
             // Each data point gets equal area
-            stepsize = Convert.ToSingle(canvas.ActualWidth / data.Count);
+            StepSize = Convert.ToSingle(canvas.ActualWidth / data.Count);
 
             using (var cpb = new CanvasPathBuilder(args.DrawingSession))
             {
                 // Begin at bottom
-                cpb.BeginFigure(new Vector2(0, (float)(canvas.ActualHeight * (1 - data[0] / max))));
+                cpb.BeginFigure(new Vector2(0, (float)(canvas.ActualHeight * (1 - (data[0] / max)))));
 
                 // Add data
                 for (int i = 1; i < data.Count; i++)
                 {
-                    cpb.AddLine(new Vector2(stepsize * i, (float)(canvas.ActualHeight * (1 - data[i] / max))));
+                    cpb.AddLine(new Vector2(StepSize * i, (float)(canvas.ActualHeight * (1 - (data[i] / max)))));
                 }
 
                 if (renderArea)
@@ -120,15 +123,14 @@ namespace Quarrel.Helpers
             }
         }
 
-        // TODO: Finish commenting function
         /// <summary>
-        /// Render values as Columns
+        /// Render values as Columns.
         /// </summary>
-        /// <param name="canvas">Canvas to draw on</param>
-        /// <param name="args">Event Args</param>
-        /// <param name="columnAvgDataRange"></param>
-        /// <param name="columnWidth">Width to render columns</param>
-        /// <param name="data">Data (as doubles)</param>
+        /// <param name="canvas">Canvas to draw on.</param>
+        /// <param name="args">Event Args.</param>
+        /// <param name="columnAvgDataRange">Not sure.</param>
+        /// <param name="columnWidth">Width to render columns.</param>
+        /// <param name="data">Data (as doubles).</param>
         public void RenderAveragesAsColumns(CanvasControl canvas, CanvasDrawEventArgs args, int columnAvgDataRange, float columnWidth, List<double> data)
         {
             var padding = .5 * (columnAvgDataRange - columnWidth);
@@ -145,21 +147,20 @@ namespace Quarrel.Helpers
 
                 args.DrawingSession.FillRectangle(
                     start + (float)padding,
-                    (float)(canvas.ActualHeight * (1 - total / range)),
+                    (float)(canvas.ActualHeight * (1 - (total / range))),
                     columnWidth,
                     (float)(canvas.ActualHeight * (total / range)),
                     Windows.UI.Colors.WhiteSmoke);
             }
         }
 
-        // TODO: Finish commenting function
         /// <summary>
-        /// Render values in a PieChart
+        /// Render values in a PieChart.
         /// </summary>
-        /// <param name="canvas">Canvas to draw on</param>
-        /// <param name="args">Event Args</param>
-        /// <param name="pieValues">Data (as doubles)</param>
-        /// <param name="palette">Colors for data (in order of size)</param>
+        /// <param name="canvas">Canvas to draw on.</param>
+        /// <param name="args">Event Args.</param>
+        /// <param name="pieValues">Data (as doubles).</param>
+        /// <param name="palette">Colors for data (in order of size).</param>
         public void RenderAveragesAsPieChart(CanvasControl canvas, CanvasDrawEventArgs args, List<double> pieValues, List<Color> palette)
         {
             var total = pieValues.Sum();
@@ -170,7 +171,7 @@ namespace Quarrel.Helpers
             var midy = h / 2;
             var padding = 50;
             var lineOffset = 20;
-            var r = Math.Min(w, h) / 2 - padding;
+            var r = (Math.Min(w, h) / 2) - padding;
 
             float angle = 0f;
             var center = new Vector2(midx, midy);
@@ -178,7 +179,7 @@ namespace Quarrel.Helpers
             for (int i = 0; i < pieValues.Count; i++)
             {
                 float sweepAngle = (float)(2 * Math.PI * pieValues[i] / total);
-                var arcStartPoint = new Vector2((float)(midx + r * Math.Sin(angle)), (float)(midy - r * Math.Cos(angle)));
+                var arcStartPoint = new Vector2((float)(midx + (r * Math.Sin(angle))), (float)(midy - (r * Math.Cos(angle))));
 
                 using (var cpb = new CanvasPathBuilder(args.DrawingSession))
                 {
@@ -199,11 +200,11 @@ namespace Quarrel.Helpers
             for (int i = 0; i < pieValues.Count; i++)
             {
                 float sweepAngle = (float)(2 * Math.PI * pieValues[i] / total);
-                var midAngle = angle + sweepAngle / 2;
+                var midAngle = angle + (sweepAngle / 2);
                 var isRightHalf = midAngle < Math.PI;
                 var isTopHalf = midAngle <= Math.PI / 2 || midAngle >= Math.PI * 3 / 2;
-                var p0 = new Vector2((float)(midx + (r - lineOffset) * Math.Sin(midAngle)), (float)(midy - (r - lineOffset) * Math.Cos(midAngle)));
-                var p1 = new Vector2((float)(midx + (r + lineOffset) * Math.Sin(midAngle)), (float)(midy - (r + lineOffset) * Math.Cos(midAngle)));
+                var p0 = new Vector2((float)(midx + ((r - lineOffset) * Math.Sin(midAngle))), (float)(midy - ((r - lineOffset) * Math.Cos(midAngle))));
+                var p1 = new Vector2((float)(midx + ((r + lineOffset) * Math.Sin(midAngle))), (float)(midy - ((r + lineOffset) * Math.Cos(midAngle))));
                 var p2 = isRightHalf ? new Vector2(p1.X + 50, p1.Y) : new Vector2(p1.X - 50, p1.Y);
 
                 using (var cpb = new CanvasPathBuilder(args.DrawingSession))
@@ -227,23 +228,22 @@ namespace Quarrel.Helpers
                     {
                         HorizontalAlignment = isRightHalf ? CanvasHorizontalAlignment.Left : CanvasHorizontalAlignment.Right,
                         VerticalAlignment = isTopHalf ? CanvasVerticalAlignment.Bottom : CanvasVerticalAlignment.Top,
-                        FontSize = 18
+                        FontSize = 18,
                     });
 
                 angle += sweepAngle;
             }
         }
 
-        // TODO: Finish commenting function
         /// <summary>
-        /// Render data along with a moving average
+        /// Render data along with a moving average.
         /// </summary>
-        /// <param name="canvas">Canvas to draw on</param>
-        /// <param name="args">Event Args</param>
-        /// <param name="color">Color of lines</param>
-        /// <param name="thickness">Thickness of lines</param>
-        /// <param name="movingAverageRange">range of values</param>
-        /// <param name="data">Data (as doubles)</param>
+        /// <param name="canvas">Canvas to draw on.</param>
+        /// <param name="args">Event Args.</param>
+        /// <param name="color">Color of lines.</param>
+        /// <param name="thickness">Thickness of lines.</param>
+        /// <param name="movingAverageRange">range of values.</param>
+        /// <param name="data">Data (as doubles).</param>
         public void RenderMovingAverage(CanvasControl canvas, CanvasDrawEventArgs args, Color color, float thickness, int movingAverageRange, List<double> data)
         {
             using (var cpb = new CanvasPathBuilder(args.DrawingSession))
@@ -274,7 +274,7 @@ namespace Quarrel.Helpers
                     previousRangeLeft = rangeLeft;
                     previousRangeRight = rangeRight;
 
-                    cpb.AddLine(new Vector2(i, (float)(canvas.ActualHeight * (1 - total / (range * 2 + 1)))));
+                    cpb.AddLine(new Vector2(i, (float)(canvas.ActualHeight * (1 - (total / ((range * 2) + 1))))));
                 }
 
                 cpb.EndFigure(CanvasFigureLoop.Open);
