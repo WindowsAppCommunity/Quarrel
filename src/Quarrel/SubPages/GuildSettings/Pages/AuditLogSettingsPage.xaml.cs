@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Navigation;
 namespace Quarrel.SubPages.GuildSettings.Pages
 {
     /// <summary>
-    /// GuildSettings AuditLog page.
+    /// The guild settings AuditLog page.
     /// </summary>
     public sealed partial class AuditLogSettingsPage : Page
     {

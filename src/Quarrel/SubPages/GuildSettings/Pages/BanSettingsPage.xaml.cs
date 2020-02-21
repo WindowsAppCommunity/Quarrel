@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Controls;
 namespace Quarrel.SubPages.GuildSettings.Pages
 {
     /// <summary>
-    /// GuildSettings Ban page.
+    /// The guild settings Ban page.
     /// </summary>
     public sealed partial class BanSettingsPage : Page
     {
