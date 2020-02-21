@@ -375,7 +375,7 @@
     <Compile Include="Services\Cache\Runtime\RuntimeCacheService.cs" />
     <Compile Include="Services\Clipboard\ClipboardService.cs" />
     <Compile Include="Services\Derived Color\ColorService.cs" />
-    <Compile Include="Services\DispatcherHelper\DispatcherHelper.cs" />
+    <Compile Include="Services\DispatcherHelper\DispatcherHelperEx.cs" />
     <Compile Include="Services\Settings\SettingsService.cs" />
     <Compile Include="Services\Voice\Audio\In\AudioInService.cs" />
     <Compile Include="Services\Voice\Audio\Out\AudioOutService.cs" />

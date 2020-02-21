@@ -1,4 +1,6 @@
-﻿using DiscordAPI.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.Models;
 using Quarrel.Helpers.Colors.SmartColor;
 using Quarrel.ViewModels.Services.DerivedColor;
 using System;
