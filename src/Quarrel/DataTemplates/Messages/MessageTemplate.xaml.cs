@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Controls.Markdown;
 using Quarrel.Controls.Members;
@@ -14,8 +16,14 @@ using Windows.UI.Xaml.Input;
 
 namespace Quarrel.DataTemplates.Messages
 {
+    /// <summary>
+    /// A collection of Data Templates for Message displaying.
+    /// </summary>
     public partial class MessageTemplate
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageTemplate"/> class.
+        /// </summary>
         public MessageTemplate()
         {
             this.InitializeComponent();
@@ -38,7 +46,7 @@ namespace Quarrel.DataTemplates.Messages
                     Flyout flyout = new Flyout()
                     {
                         Content = new MemberFlyoutTemplate() { DataContext = member },
-                        FlyoutPresenterStyle = App.Current.Resources["GenericFlyoutStyle"] as Style
+                        FlyoutPresenterStyle = App.Current.Resources["GenericFlyoutStyle"] as Style,
                     };
                     flyout.ShowAt(sender as FrameworkElement);
                 }
