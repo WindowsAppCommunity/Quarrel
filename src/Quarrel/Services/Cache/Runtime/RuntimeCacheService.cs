@@ -1,103 +1,114 @@
-﻿// Special thanks to Sergio Pedri for the basis of this design
+﻿// Copyright (c) Quarrel. All rights reserved.
 
+using Quarrel.ViewModels.Services.Cache.Runtime;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Quarrel.ViewModels.Services.Cache.Runtime;
 
 namespace Quarrel.Services.Cache.Runtime
 {
     /// <summary>
-    /// A simple <see langword="class"/> that handles a typed, runtime cache
+    /// A simple <see langword="class"/> that handles a typed, runtime cache.
     /// </summary>
     public sealed class RuntimeCacheService : IRuntimeCacheService
     {
         // The synchronization semaphore slim for the cache map
-        private readonly SemaphoreSlim CacheSemaphoreSlim = new SemaphoreSlim(1, 1);
+        private readonly SemaphoreSlim _cacheSemaphoreSlim = new SemaphoreSlim(1, 1);
 
         // The dictionary with the cached items
-        private readonly ConcurrentDictionary<string, object> CacheMap = new ConcurrentDictionary<string, object>();
+        private readonly ConcurrentDictionary<string, object> _cacheMap = new ConcurrentDictionary<string, object>();
 
         /// <inheritdoc/>
-        public T TryGetValue<T>(string key, string scope = null) where T : class
+        public T TryGetValue<T>(string key, string scope = null)
+            where T : class
         {
-            return CacheMap.TryGetValue($"{scope}/{key}", out object value) && value is T result
+            return _cacheMap.TryGetValue($"{scope}/{key}", out object value) && value is T result
                 ? result
                 : default;
         }
 
         /// <inheritdoc/>
-        public T TryGetValue<T>(string key, Func<T> producer, string scope = null) where T : class
+        public T TryGetValue<T>(string key, Func<T> producer, string scope = null)
+            where T : class
         {
-            return CacheMap.GetOrAdd($"{scope}/{key}", _ => producer()) as T;
+            return _cacheMap.GetOrAdd($"{scope}/{key}", _ => producer()) as T;
         }
 
         /// <inheritdoc/>
-        public async Task<T> TryGetValueAsync<T>(string key, Func<Task<T>> producer, string scope = null) where T : class
+        public async Task<T> TryGetValueAsync<T>(string key, Func<Task<T>> producer, string scope = null)
+            where T : class
         {
-            await CacheSemaphoreSlim.WaitAsync();
+            await _cacheSemaphoreSlim.WaitAsync();
             try
             {
-                string _key = $"{scope}/{key}";
-                if (CacheMap.TryGetValue(_key, out object value)) return value as T;
-                return CacheMap.GetOrAdd(_key, await producer()) as T;
+                key = $"{scope}/{key}";
+                if (_cacheMap.TryGetValue(key, out object value))
+                {
+                    return value as T;
+                }
+
+                return _cacheMap.GetOrAdd(key, await producer()) as T;
             }
             finally
             {
-                CacheSemaphoreSlim.Release();
+                _cacheSemaphoreSlim.Release();
             }
         }
 
         /// <inheritdoc/>
-        public IReadOnlyList<T> TryGetValues<T>(string scope = null) where T : class
+        public IReadOnlyList<T> TryGetValues<T>(string scope = null)
+            where T : class
         {
             return (
-                from pair in CacheMap
+                from pair in _cacheMap
                 where pair.Key.StartsWith($"{scope}/") && pair.Value is T
                 select pair.Value as T).ToArray();
         }
 
         /// <inheritdoc/>
-        public void SetValue<T>(string key, T value, string scope = null) where T : class
+        public void SetValue<T>(string key, T value, string scope = null)
+            where T : class
         {
-            CacheMap.AddOrUpdate($"{scope}/{key}", value, (_, old) => value);
+            _cacheMap.AddOrUpdate($"{scope}/{key}", value, (_, old) => value);
         }
 
         /// <inheritdoc/>
         public void Remove(string key, string scope = null)
         {
-            CacheMap.TryRemove($"{scope}/{key}", out _);
+            _cacheMap.TryRemove($"{scope}/{key}", out _);
         }
 
         /// <inheritdoc/>
         public async Task ClearScopeAsync(string scope = null)
         {
-            await CacheSemaphoreSlim.WaitAsync();
+            await _cacheSemaphoreSlim.WaitAsync();
             try
             {
-                foreach (string key in CacheMap.Keys.Where(k => k.StartsWith($"{scope}/")).ToArray())
-                    CacheMap.TryRemove(key, out _);
+                foreach (string key in _cacheMap.Keys.Where(k => k.StartsWith($"{scope}/")).ToArray())
+                {
+                    _cacheMap.TryRemove(key, out _);
+                }
             }
             finally
             {
-                CacheSemaphoreSlim.Release();
+                _cacheSemaphoreSlim.Release();
             }
         }
 
         /// <inheritdoc/>
         public async Task ClearAsync()
         {
-            await CacheSemaphoreSlim.WaitAsync();
+            await _cacheSemaphoreSlim.WaitAsync();
             try
             {
-                    CacheMap.Clear();
+                    _cacheMap.Clear();
             }
             finally
             {
-                CacheSemaphoreSlim.Release();
+                _cacheSemaphoreSlim.Release();
             }
         }
     }
