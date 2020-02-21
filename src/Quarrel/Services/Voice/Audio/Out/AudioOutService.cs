@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Services.Voice.Audio.Out;
 using System;
 using System.Runtime.InteropServices;
@@ -12,47 +14,47 @@ using Windows.Media.Render;
 
 namespace Quarrel.Services.Voice.Audio.Out
 {
+    /// <summary>
+    /// A <see langword="class"/> that manages incoming audio.
+    /// </summary>
     public class AudioOutService : IAudioOutService
     {
-        #region Public Properties
+        private AudioGraph _graph;
+        private AudioFrameInputNode _frameInputNode;
+        private bool _ready = false;
 
-        // TODO: Public set
-        public string DeviceId { get; private set; }
-        public int Samples => _Graph.SamplesPerQuantum;
-        public bool Deafened { get; private set; }
-
-        #endregion
-
-        #region Variables
-
-        private AudioGraph _Graph;
-        private AudioFrameInputNode _FrameInputNode;
-        private bool _Ready = false;
-
-        #endregion
-
-        #region Events
-
-        public event EventHandler<float[]> DataRecieved;
-
-        #endregion
-
-        #region Constructors
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AudioOutService"/> class.
+        /// </summary>
         [PreferredConstructor]
         public AudioOutService()
         {
-
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AudioOutService"/> class with <paramref name="deviceId"/> as the output device.
+        /// </summary>
+        /// <param name="deviceId">The Id of the output device.</param>
         public AudioOutService(string deviceId = null)
         {
-
+            DeviceId = deviceId;
         }
 
-        #endregion
+        /// <summary>
+        /// Invoked when audio is queued for playing.
+        /// </summary>
+        public event EventHandler<float[]> AudioQueued;
 
-        #region Methods
+        /// <inheritdoc/>
+        public string DeviceId { get; private set; }// TODO: Public set
 
+        /// <inheritdoc/>
+        public int Samples => _graph.SamplesPerQuantum;
+
+        /// <inheritdoc/>
+        public bool Deafened { get; private set; }
+
+        /// <inheritdoc/>
         public async void CreateGraph(string deviceId = null)
         {
             // Get Default Settings
@@ -63,6 +65,7 @@ namespace Quarrel.Services.Voice.Audio.Out
             {
                 deviceId = MediaDevice.GetDefaultAudioRenderId(AudioDeviceRole.Default);
             }
+
             DeviceInformation selectedDevice = await DeviceInformation.CreateFromIdAsync(deviceId);
             graphSettings.PrimaryRenderDevice = selectedDevice;
 
@@ -73,37 +76,38 @@ namespace Quarrel.Services.Voice.Audio.Out
                 // Cannot create graph
                 return;
             }
-            _Graph = graphResult.Graph;
+
+            _graph = graphResult.Graph;
 
             // Create Nodes
-            CreateAudioDeviceOutputNodeResult deviceOutputNodeResult = await _Graph.CreateDeviceOutputNodeAsync();
+            CreateAudioDeviceOutputNodeResult deviceOutputNodeResult = await _graph.CreateDeviceOutputNodeAsync();
             if (deviceOutputNodeResult.Status != AudioDeviceNodeCreationStatus.Success)
             {
                 // Cannot create device output node
-                _Graph.Dispose();
+                _graph.Dispose();
                 return;
             }
 
             // Connect Nodes
-            _FrameInputNode = _Graph.CreateFrameInputNode(_Graph.EncodingProperties);
-            _FrameInputNode.AddOutgoingConnection(deviceOutputNodeResult.DeviceOutputNode);
+            _frameInputNode = _graph.CreateFrameInputNode(_graph.EncodingProperties);
+            _frameInputNode.AddOutgoingConnection(deviceOutputNodeResult.DeviceOutputNode);
 
             // Finalize
             DeviceId = deviceId;
 
             // Begin play
-            _FrameInputNode.Start();
-            _Ready = true;
-            _Graph.Start();
+            _frameInputNode.Start();
+            _ready = true;
+            _graph.Start();
         }
 
+        /// <inheritdoc/>
         public unsafe void AddFrame(float[] framedata, uint samples)
         {
-            if (Deafened)
+            if (!_ready || Deafened)
+            {
                 return;
-
-            if (!_Ready)
-                return;
+            }
 
             AudioFrame frame = new AudioFrame(samples * 2 * sizeof(float));
             using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
@@ -123,34 +127,36 @@ namespace Quarrel.Services.Voice.Audio.Out
                 }
             }
 
-            DataRecieved?.Invoke(this, framedata);
-            
+            AudioQueued?.Invoke(this, framedata);
+
             // Add frame to queue
-            _FrameInputNode.AddFrame(frame);
+            _frameInputNode.AddFrame(frame);
         }
 
+        /// <inheritdoc/>
         public void Deafen()
         {
             Deafened = true;
         }
 
+        /// <inheritdoc/>
         public void Undeafen()
         {
             Deafened = false;
         }
+
+        /// <inheritdoc/>
         public void ToggleDeafen()
         {
             Deafened = !Deafened;
         }
 
+        /// <inheritdoc/>
         public void Dispose()
         {
-            _Ready = false;
-            _Graph.Dispose();
+            _ready = false;
+            _graph.Dispose();
         }
-        #endregion
-
-        #region Helper Methods
 
         private AudioGraphSettings GetDefaultGraphSettings()
         {
@@ -162,8 +168,8 @@ namespace Quarrel.Services.Voice.Audio.Out
                     SampleRate = 48000,
                     ChannelCount = 2,
                     BitsPerSample = 32,
-                    Bitrate = 64000
-                }
+                    Bitrate = 64000,
+                },
             };
             return graphsettings;
         }
@@ -174,11 +180,9 @@ namespace Quarrel.Services.Voice.Audio.Out
             {
                 EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 32),
                 DesiredSamplesPerQuantum = 960,
-                QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired
+                QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired,
             };
             return nodesettings;
         }
-
-        #endregion
     }
 }

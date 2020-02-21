@@ -43,7 +43,7 @@ namespace Quarrel.Services.Voice.Audio.In
         }
 
         /// <inheritdoc/>
-        public event EventHandler<float[]> DataRecieved;
+        public event EventHandler<float[]> AudioQueued;
 
         /// <inheritdoc/>
         public event EventHandler<int> SpeakingChanged;
@@ -197,7 +197,7 @@ namespace Quarrel.Services.Voice.Audio.In
                     _isSpeaking = true;
                 }
 
-                DataRecieved?.Invoke(null, dataInFloats);
+                AudioQueued?.Invoke(null, dataInFloats);
             }
         }
 
