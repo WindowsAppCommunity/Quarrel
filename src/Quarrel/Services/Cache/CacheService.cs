@@ -1,4 +1,6 @@
-﻿using Quarrel.Services.Cache.Persistent;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using Quarrel.Services.Cache.Persistent;
 using Quarrel.Services.Cache.Runtime;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Cache.Persistent;
