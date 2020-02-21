@@ -1,36 +1,36 @@
-﻿using Quarrel.ViewModels.Models.Bindables;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.SubPages.GuildSettings.Pages;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Quarrel.SubPages.GuildSettings.Pages
 {
+    /// <summary>
+    /// GuildSettings AuditLog page.
+    /// </summary>
     public sealed partial class AuditLogSettingsPage : Page
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuditLogSettingsPage"/> class.
+        /// </summary>
         public AuditLogSettingsPage()
         {
             this.InitializeComponent();
         }
 
+        /// <summary>
+        /// Gets the AuditLog data.
+        /// </summary>
+        public AuditLogSettingsPageViewModel ViewModel => DataContext as AuditLogSettingsPageViewModel;
+
+        /// <inheritdoc/>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
             DataContext = new AuditLogSettingsPageViewModel(e.Parameter as BindableGuild);
         }
-
-        public AuditLogSettingsPageViewModel ViewModel => DataContext as AuditLogSettingsPageViewModel;
     }
 }
