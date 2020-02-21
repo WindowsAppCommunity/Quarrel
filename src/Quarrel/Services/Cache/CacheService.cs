@@ -9,7 +9,7 @@ using Quarrel.ViewModels.Services.Cache.Runtime;
 namespace Quarrel.Services.Cache
 {
     /// <summary>
-    /// A <see langword="class"/> that provides caching functionalities, both at runtime and in a persistent way
+    /// A <see langword="class"/> that provides caching functionalities, both at runtime and in a persistent way.
     /// </summary>
     public sealed class CacheService : ICacheService
     {
