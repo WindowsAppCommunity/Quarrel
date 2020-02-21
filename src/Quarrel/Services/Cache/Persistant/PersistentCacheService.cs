@@ -1,4 +1,4 @@
-﻿// Special thanks to Sergio Pedri for the basis of this design
+﻿// Copyright (c) Quarrel. All rights reserved.
 
 using JetBrains.Annotations;
 using Newtonsoft.Json;
@@ -18,41 +18,45 @@ using Windows.Web.Http;
 namespace Quarrel.Services.Cache.Persistent
 {
     /// <summary>
-    /// A simple <see langword="class"/> that handles a typed, persistent cache
+    /// A simple <see langword="class"/> that handles a typed, persistent cache.
     /// </summary>
     public sealed class PersistentCacheService : IPersistentCacheService
     {
+        /// <summary>
+        /// The default file extension for all cached files.
+        /// </summary>
+        private const string FileExtension = ".json";
+
+        /// <summary>
+        /// The synchronization semaphore slim for the remote cache APIs.
+        /// </summary>
+        [NotNull]
+        private readonly SemaphoreSlim _cacheSemaphoreSlim = new SemaphoreSlim(1, 1);
+        private HttpClient _httpClient;
+
         /// <inheritdoc/>
         public ICacheStorageProvider Roaming { get; } = new CacheStorageProvider(ApplicationData.Current.RoamingFolder);
 
         /// <inheritdoc/>
         public ICacheStorageProvider Local { get; } = new CacheStorageProvider(ApplicationData.Current.LocalCacheFolder);
 
-        private HttpClient _HttpClient;
-
         /// <summary>
-        /// Gets the <see cref="Windows.Web.Http.HttpClient"/> instance to use to download PDF documents
+        /// Gets the <see cref="Windows.Web.Http.HttpClient"/> instance to use to download PDF documents.
         /// </summary>
         [NotNull]
         private HttpClient HttpClient
         {
             get
             {
-                if (_HttpClient == null)
+                if (_httpClient == null)
                 {
-                    _HttpClient = new HttpClient();
-                    _HttpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3710.0 Safari/537.36");
+                    _httpClient = new HttpClient();
+                    _httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3710.0 Safari/537.36");
                 }
 
-                return _HttpClient;
+                return _httpClient;
             }
         }
-
-        /// <summary>
-        /// The synchronization semaphore slim for the remote cache APIs
-        /// </summary>
-        [NotNull]
-        private readonly SemaphoreSlim CacheSemaphoreSlim = new SemaphoreSlim(1, 1);
 
         /// <inheritdoc/>
         public async Task<object> GetRemoteFileAsync(string url)
@@ -63,10 +67,11 @@ namespace Quarrel.Services.Cache.Persistent
                 using (IInputStream input = await HttpClient.GetInputStreamAsync(new Uri(url)))
                 using (Stream stream = input.AsStreamForRead())
                 {
-                    await CacheSemaphoreSlim.WaitAsync();
+                    await _cacheSemaphoreSlim.WaitAsync();
                     try
                     {
-                        file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync(filename,
+                        file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync(
+                            filename,
                             CreationCollisionOption.ReplaceExisting);
                         using (Stream output = await file.OpenStreamForWriteAsync())
                         {
@@ -75,7 +80,7 @@ namespace Quarrel.Services.Cache.Persistent
                     }
                     finally
                     {
-                        CacheSemaphoreSlim.Release();
+                        _cacheSemaphoreSlim.Release();
                     }
                 }
             }
@@ -84,67 +89,57 @@ namespace Quarrel.Services.Cache.Persistent
         }
 
         /// <summary>
-        /// The default file extension for all cached files
-        /// </summary>
-        private const string FileExtension = ".json";
-
-        /// <summary>
-        /// A <see langword="class"/> that handles cached items on a specific storage location
+        /// A <see langword="class"/> that handles cached items on a specific storage location.
         /// </summary>
         private sealed class CacheStorageProvider : ICacheStorageProvider
         {
             /// <summary>
-            /// The semaphore slim for the cache storage provider
+            /// The semaphore slim for the cache storage provider.
             /// </summary>
             [NotNull]
-            private readonly SemaphoreSlim CacheSemaphoreSlim = new SemaphoreSlim(1, 1);
+            private readonly SemaphoreSlim _cacheSemaphoreSlim = new SemaphoreSlim(1, 1);
 
             /// <summary>
-            /// The dictionary with the cached items
+            /// The dictionary with the cached items.
             /// </summary>
             [NotNull]
-            private readonly ConcurrentDictionary<string, object> CacheMap = new ConcurrentDictionary<string, object>();
+            private readonly ConcurrentDictionary<string, object> _cacheMap = new ConcurrentDictionary<string, object>();
 
             /// <summary>
-            /// The target folder to use to store and retrieve the cached values
+            /// The target folder to use to store and retrieve the cached values.
             /// </summary>
             [NotNull]
-            private readonly StorageFolder CacheFolder;
+            private readonly StorageFolder _cacheFolder;
 
             /// <summary>
-            /// Creates a new <see cref="CacheStorageProvider"/> instance that works on a specific <see cref="StorageFolder"/>
+            /// Initializes a new instance of the <see cref="CacheStorageProvider"/> class that works on a specific <see cref="StorageFolder"/>.
             /// </summary>
-            /// <param name="folder">The target <see cref="StorageFolder"/> instance to use to store the cached values</param>
-            public CacheStorageProvider([NotNull] StorageFolder folder) => CacheFolder = folder;
-
-            // Gets the item key and filename
-            [Pure]
-            private static (string Key, string Filename) GetCacheKeys([NotNull] string key, [CanBeNull] string scope)
-            {
-                string name = scope == null
-                    ? key.ToHex()
-                    : $"{scope}_{key.ToHex()}";
-                return (name, $"{name}{FileExtension}");
-            }
+            /// <param name="folder">The target <see cref="StorageFolder"/> instance to use to store the cached values.</param>
+            public CacheStorageProvider([NotNull] StorageFolder folder) => _cacheFolder = folder;
 
             /// <inheritdoc/>
-            public async Task<T> TryGetValueAsync<T>(string key, string scope = null) where T : class, new()
+            public async Task<T> TryGetValueAsync<T>(string key, string scope = null)
+                where T : class, new()
             {
-                await CacheSemaphoreSlim.WaitAsync();
+                await _cacheSemaphoreSlim.WaitAsync();
                 try
                 {
                     // Try to get the value from the runtime cache
                     var (hex, filename) = GetCacheKeys(key, scope);
-                    if (CacheMap.TryGetValue(hex, out object value))
+                    if (_cacheMap.TryGetValue(hex, out object value))
+                    {
                         if (value is T result)
+                        {
                             return result;
+                        }
+                    }
 
                     // Fallback to disk
-                    if (await CacheFolder.TryGetItemAsync(filename) is IStorageFile file)
+                    if (await _cacheFolder.TryGetItemAsync(filename) is IStorageFile file)
                     {
                         string json = await FileIO.ReadTextAsync(file);
                         T result = string.IsNullOrEmpty(json) ? null : JsonConvert.DeserializeObject<T>(json);
-                        CacheMap.AddOrUpdate(hex, result); // Store in runtime cache for faster access in the future
+                        _cacheMap.AddOrUpdate(hex, result); // Store in runtime cache for faster access in the future
                         return result;
                     }
 
@@ -152,87 +147,105 @@ namespace Quarrel.Services.Cache.Persistent
                 }
                 finally
                 {
-                    CacheSemaphoreSlim.Release();
+                    _cacheSemaphoreSlim.Release();
                 }
             }
 
             /// <inheritdoc/>
-            public async Task<IReadOnlyList<T>> TryGetValuesAsync<T>(string scope) where T : class, new()
+            public async Task<IReadOnlyList<T>> TryGetValuesAsync<T>(string scope)
+                where T : class, new()
             {
-                await CacheSemaphoreSlim.WaitAsync();
+                await _cacheSemaphoreSlim.WaitAsync();
                 try
                 {
-                    IReadOnlyList<StorageFile> files = await CacheFolder.GetFilesAsync();
+                    IReadOnlyList<StorageFile> files = await _cacheFolder.GetFilesAsync();
                     return await Task.WhenAll(files.Where(file => file.DisplayName.StartsWith($"{scope}_")).Select(async file =>
                     {
                         string
                             hex = Regex.Match(file.DisplayName, $"{scope}_([0-9A-F]+)$").Groups[1].Value,
                             json = await FileIO.ReadTextAsync(file);
                         T result = string.IsNullOrEmpty(json) ? null : JsonConvert.DeserializeObject<T>(json);
-                        CacheMap.AddOrUpdate(hex, result); // Store in runtime cache for faster access in the future
+                        _cacheMap.AddOrUpdate(hex, result); // Store in runtime cache for faster access in the future
                         return result;
                     }));
                 }
                 finally
                 {
-                    CacheSemaphoreSlim.Release();
+                    _cacheSemaphoreSlim.Release();
                 }
             }
 
             /// <inheritdoc/>
-            public async Task SetValueAsync<T>(string key, T value, string scope = null) where T : class, new()
+            public async Task SetValueAsync<T>(string key, T value, string scope = null)
+                where T : class, new()
             {
-                await CacheSemaphoreSlim.WaitAsync();
+                await _cacheSemaphoreSlim.WaitAsync();
                 try
                 {
                     var (hex, filename) = GetCacheKeys(key, scope);
-                    StorageFile file = await CacheFolder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
+                    StorageFile file = await _cacheFolder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
                     await FileIO.WriteTextAsync(file, JsonConvert.SerializeObject(value));
-                    CacheMap.AddOrUpdate(hex, value);
+                    _cacheMap.AddOrUpdate(hex, value);
                 }
                 finally
                 {
-                    CacheSemaphoreSlim.Release();
+                    _cacheSemaphoreSlim.Release();
                 }
             }
 
             /// <inheritdoc/>
             public async Task DeleteValueAsync(string key, string scope = null)
             {
-                await CacheSemaphoreSlim.WaitAsync();
+                await _cacheSemaphoreSlim.WaitAsync();
                 try
                 {
                     var (hex, filename) = GetCacheKeys(key, scope);
-                    if (await CacheFolder.TryGetItemAsync(filename) is StorageFile file)
+                    if (await _cacheFolder.TryGetItemAsync(filename) is StorageFile file)
                     {
                         await file.DeleteAsync();
-                        CacheMap.TryRemove(hex, out var _);
+                        _cacheMap.TryRemove(hex, out var _);
                     }
                 }
                 finally
                 {
-                    CacheSemaphoreSlim.Release();
+                    _cacheSemaphoreSlim.Release();
                 }
             }
 
             /// <inheritdoc/>
             public async Task DeleteValuesAsync(string scope = null)
             {
-                await CacheSemaphoreSlim.WaitAsync();
+                await _cacheSemaphoreSlim.WaitAsync();
                 try
                 {
-                    IReadOnlyList<StorageFile> files = await CacheFolder.GetFilesAsync();
+                    IReadOnlyList<StorageFile> files = await _cacheFolder.GetFilesAsync();
                     await Task.WhenAll(files.Where(file => file.DisplayName.StartsWith($"{scope}_")).Select(file =>
                     {
                         string hex = Regex.Match(file.DisplayName, $"{scope}_([0-9A-F]+)$").Groups[1].Value;
-                        if (CacheMap.ContainsKey(hex)) CacheMap.TryRemove(hex, out var _);
+                        if (_cacheMap.ContainsKey(hex))
+                        {
+                            _cacheMap.TryRemove(hex, out var _);
+                        }
+
                         return file.DeleteAsync().AsTask();
                     }));
                 }
                 finally
                 {
-                    CacheSemaphoreSlim.Release();
+                    _cacheSemaphoreSlim.Release();
                 }
+            }
+
+            /// <summary>
+            /// Gets the item key and filename.
+            /// </summary>
+            [Pure]
+            private static (string Key, string Filename) GetCacheKeys([NotNull] string key, [CanBeNull] string scope)
+            {
+                string name = scope == null
+                    ? key.ToHex()
+                    : $"{scope}_{key.ToHex()}";
+                return (name, $"{name}{FileExtension}");
             }
         }
     }
