@@ -367,7 +367,6 @@
     <Compile Include="Helpers\ItemClickCommand.cs" />
     <Compile Include="Helpers\Colors\SmartColor\ColorExtractor.cs" />
     <Compile Include="Helpers\Colors\SmartColor\ColorUtility.cs" />
-    <Compile Include="Helpers\Mouse.cs" />
     <Compile Include="Services\Navigation\SubFrameNavigationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Cache\CacheService.cs" />
