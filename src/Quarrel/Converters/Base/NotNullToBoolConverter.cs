@@ -1,14 +1,16 @@
-﻿using System;
-using Windows.UI.Xaml;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using System;
 using Windows.UI.Xaml.Data;
 
 namespace Quarrel.Converters.Base
 {
     /// <summary>
-    /// A converter that returns an inverted <see cref="Visibility"/> value for the input <see langword="bool"/> value
+    /// A converter that returns a <see langword="true"/> <see cref="bool"/> value indicating if the input <see langword="object"/> is **not** <see langword="null"/>.
     /// </summary>
     public sealed class NotNullToBoolConverter : IValueConverter
     {
+        /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             bool v;
@@ -20,9 +22,11 @@ namespace Quarrel.Converters.Base
             {
                 v = value != null;
             }
+
             return v;
         }
 
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();

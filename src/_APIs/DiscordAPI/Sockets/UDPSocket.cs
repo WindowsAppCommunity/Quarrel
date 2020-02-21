@@ -51,7 +51,7 @@ namespace DiscordAPI.Sockets
             await SendBytesAsync(packet);
         }
 
-        private async Task HandleMessage(byte[] bytes, int index, int count)
+        private void HandleMessage(byte[] bytes, int index, int count)
         {
             try
             {

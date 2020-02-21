@@ -1,27 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using DiscordAPI.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
 using Quarrel.ViewModels.Models.Bindables;
+using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Channels
 {
     /// <summary>
-    /// Control to show a member of a Voice Channel
+    /// Control to show a member of a Voice Channel.
     /// </summary>
     public sealed partial class VoiceMemberControl : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VoiceMemberControl"/> class.
+        /// </summary>
         public VoiceMemberControl()
         {
             this.InitializeComponent();
@@ -32,7 +23,7 @@ namespace Quarrel.Controls.Channels
         }
 
         /// <summary>
-        /// User showing
+        /// Gets the user showing.
         /// </summary>
         public BindableVoiceUser ViewModel => DataContext as BindableVoiceUser;
     }

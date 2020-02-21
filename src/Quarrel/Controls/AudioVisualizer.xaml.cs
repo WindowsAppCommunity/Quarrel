@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.Geometry;
 using Quarrel.Helpers.AudioProcessing;
@@ -7,159 +9,225 @@ using Quarrel.ViewModels.Services.Voice.Audio;
 using Quarrel.ViewModels.Services.Voice.Audio.In;
 using Quarrel.ViewModels.Services.Voice.Audio.Out;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Numerics;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using AcrylicBrush = Microsoft.UI.Xaml.Media.AcrylicBrush;
 
 namespace Quarrel.Controls
 {
+    /// <summary>
+    /// Control that displays a frourier transform of a PCM audio stream.
+    /// </summary>
     public sealed partial class AudioVisualizer : UserControl
     {
+        /// <summary>
+        /// Indicates if incoming data should be rendered.
+        /// </summary>
+        private bool initailized = false;
+
+        /// <summary>
+        /// Color to render polygon.
+        /// </summary>
+        private Color _blurple;
+
+        /// <summary>
+        /// Near the top it gradients to transparent. This needs to have the same RGB as <see cref="_blurple"/> but with 00 A.
+        /// </summary>
+        private Color _transparentBlurple;
+
+        /// <summary>
+        /// Height of object - 1 (will change if not 47).
+        /// </summary>
+        private float _height = 47;
+
+        /// <summary>
+        /// The middle offset of a data point.
+        /// </summary>
+        private float _halfPoint;
+
+        private readonly float _point0 = 0;
+        private float _point1 = 0;
+        private float _point2 = 0;
+        private float _point3 = 0;
+        private float _point4 = 0;
+        private float _point5 = 0;
+        private float _point6 = 0;
+        private float _point7 = 0;
+        private float _point8 = 0;
+
+        /// <summary>
+        /// Average value of points.
+        /// </summary>
+        private float average = 0;
+
+        private float _specPoint0 = 0;
+        private float _specPoint1 = 0;
+        private float _specPoint2 = 0;
+        private float _specPoint3 = 0;
+        private float _specPoint4 = 0;
+        private float _specPoint5 = 0;
+        private float _specPoint6 = 0;
+        private float _specPoint7 = 0;
+        private float _specPoint8 = 0;
+
+        /// <summary>
+        /// Average value of Spec Points.
+        /// </summary>
+        private float _specPointAverage = 0;
+
+        private Smoother _smoother1;
+        private Smoother _smoother2;
+        private Smoother _smoother3;
+        private Smoother _smoother4;
+        private Smoother _smoother5;
+        private Smoother _smoother6;
+        private Smoother _smoother7;
+        private Smoother _smoother8;
+        private Smoother _smoother9;
+        private Smoother _averageSmoother;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AudioVisualizer"/> class.
+        /// </summary>
         public AudioVisualizer()
         {
             this.InitializeComponent();
 
             (Resources["AcrylicBlur"] as AcrylicBrush).TintLuminosityOpacity = 0;
-            Loaded += fftInitialize;
-            Unloaded += fftDipose;
+            Loaded += FftInitialize;
+            Unloaded += FftDipose;
         }
 
-        #region Methods 
+        /// <summary>
+        /// Gets or sets a value indicating whether the Visualizer is displaying input or output.
+        /// </summary>
+        public bool Input { get; set; }
 
-        #region Initialize and Deinstance
+        private IAudioService BoundAudioService => Input ? (IAudioService)SimpleIoc.Default.GetInstance<IAudioInService>() : SimpleIoc.Default.GetInstance<IAudioOutService>();
 
         /// <summary>
-        /// Setup FFT
+        /// Setup FFT.
         /// </summary>
-        private void fftInitialize(object sender, RoutedEventArgs e)
+        private void FftInitialize(object sender, RoutedEventArgs e)
         {
             // If FFT is enabled, setup render smoothers for each data point
             if (SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<bool>(SettingKeys.ExpensiveRendering))
             {
                 BoundAudioService.DataRecieved += DataRecieved;
 
-                smoother1 = new Smoother(4, 6);
-                smoother2 = new Smoother(4, 12);
-                smoother3 = new Smoother(4, 14);
-                smoother4 = new Smoother(4, 14);
-                smoother5 = new Smoother(4, 15);
-                smoother6 = new Smoother(4, 16);
-                smoother7 = new Smoother(4, 16);
-                smoother8 = new Smoother(4, 15);
-                smoother9 = new Smoother(4, 14);
-                averageSmoother = new Smoother(1000, 100);
+                _smoother1 = new Smoother(4, 6);
+                _smoother2 = new Smoother(4, 12);
+                _smoother3 = new Smoother(4, 14);
+                _smoother4 = new Smoother(4, 14);
+                _smoother5 = new Smoother(4, 15);
+                _smoother6 = new Smoother(4, 16);
+                _smoother7 = new Smoother(4, 16);
+                _smoother8 = new Smoother(4, 15);
+                _smoother9 = new Smoother(4, 14);
+                _averageSmoother = new Smoother(1000, 100);
 
-                Blurple = (Color)App.Current.Resources["BlurpleColor"];
-                TransparentBlurple = (Color)App.Current.Resources["BlurpleColorTransparent"];
+                _blurple = (Color)App.Current.Resources["BlurpleColor"];
+                _transparentBlurple = (Color)App.Current.Resources["BlurpleColorTransparent"];
                 initailized = true;
             }
         }
 
         /// <summary>
-        /// Setup FFT async
+        /// Setup FFT async.
         /// </summary>
-        private async void fftInitialize()
+        private async void FftInitialize()
         {
             // Run on UI thread
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                fftInitialize(null, null);
+                FftInitialize(null, null);
             });
         }
 
         /// <summary>
-        /// Cleanup objects while disposed
+        /// Cleanup objects while disposed.
         /// </summary>
-        private void fftDipose(object sender, RoutedEventArgs e)
+        private void FftDipose(object sender, RoutedEventArgs e)
         {
             // Clear FFT
-            smoother1 = null;
-            smoother2 = null;
-            smoother3 = null;
-            smoother4 = null;
-            smoother5 = null;
-            smoother6 = null;
-            smoother7 = null;
-            smoother8 = null;
-            smoother9 = null;
-            averageSmoother = null;
+            _smoother1 = null;
+            _smoother2 = null;
+            _smoother3 = null;
+            _smoother4 = null;
+            _smoother5 = null;
+            _smoother6 = null;
+            _smoother7 = null;
+            _smoother8 = null;
+            _smoother9 = null;
+            _averageSmoother = null;
             initailized = false;
 
             // Unsubscribe from events
             BoundAudioService.DataRecieved -= DataRecieved;
-            Loaded -= fftInitialize;
-            Unloaded -= fftDipose;
+            Loaded -= FftInitialize;
+            Unloaded -= FftDipose;
         }
 
-        #endregion
-
         /// <summary>
-        /// Update Spec points 
+        /// Update Spec points.
         /// </summary>
         private void DataRecieved(object sender, float[] e)
         {
             // Determine FFT data
             float[] fftData = HelperMethods.GetFftChannelData(e, BoundAudioService.Samples);
 
-            SpecPoint0 = HelperMethods.Max(fftData, 0, 1);
-            SpecPoint1 = HelperMethods.Max(fftData, 2, 3);
-            SpecPoint2 = HelperMethods.Max(fftData, 3, 4);
-            SpecPoint3 = HelperMethods.Max(fftData, 4, 5);
-            SpecPoint4 = HelperMethods.Max(fftData, 5, 6);
-            SpecPoint5 = HelperMethods.Max(fftData, 7, 8);
-            SpecPoint6 = HelperMethods.Max(fftData, 9, 10);
-            SpecPoint7 = HelperMethods.Max(fftData, 10, 12);
-            SpecPoint8 = HelperMethods.Max(fftData, 14, 26);
-            SpecPointAverage = (SpecPoint0 + SpecPoint1 + SpecPoint2 + SpecPoint3 + SpecPoint4 + SpecPoint5 + SpecPoint6 + SpecPoint7 + SpecPoint8) / 9;
+            _specPoint0 = HelperMethods.Max(fftData, 0, 1);
+            _specPoint1 = HelperMethods.Max(fftData, 2, 3);
+            _specPoint2 = HelperMethods.Max(fftData, 3, 4);
+            _specPoint3 = HelperMethods.Max(fftData, 4, 5);
+            _specPoint4 = HelperMethods.Max(fftData, 5, 6);
+            _specPoint5 = HelperMethods.Max(fftData, 7, 8);
+            _specPoint6 = HelperMethods.Max(fftData, 9, 10);
+            _specPoint7 = HelperMethods.Max(fftData, 10, 12);
+            _specPoint8 = HelperMethods.Max(fftData, 14, 26);
+            _specPointAverage = (_specPoint0 + _specPoint1 + _specPoint2 + _specPoint3 + _specPoint4 + _specPoint5 + _specPoint6 + _specPoint7 + _specPoint8) / 9;
         }
 
         /// <summary>
-        /// Get left Curve point
+        /// Get left Curve point.
         /// </summary>
-        /// <param name="input">Data point</param>
-        /// <returns>Point to render left bezier</returns>
-        Vector2 GetC1(Vector2 input)
+        /// <param name="input">Data point.</param>
+        /// <returns>Point to render left bezier.</returns>
+        private Vector2 GetC1(Vector2 input)
         {
-            return new Vector2(input.X + HalfPoint, input.Y);
+            return new Vector2(input.X + _halfPoint, input.Y);
         }
 
         /// <summary>
-        /// Get right Curve point
+        /// Get right Curve point.
         /// </summary>
-        /// <param name="input">Data point</param>
-        /// <returns>point to render right bezier</returns>
-        Vector2 GetC2(Vector2 input)
+        /// <param name="input">Data point.</param>
+        /// <returns>point to render right bezier.</returns>
+        private Vector2 GetC2(Vector2 input)
         {
-            return new Vector2(input.X - HalfPoint, input.Y);
+            return new Vector2(input.X - _halfPoint, input.Y);
         }
 
         /// <summary>
-        /// Adjust render value based on average
+        /// Adjust render value based on average.
         /// </summary>
-        /// <param name="input">Data point</param>
-        /// <returns>Y Scale data point</returns>
-        float Adjust(float input)
+        /// <param name="input">Data point.</param>
+        /// <returns>Y Scale data point.</returns>
+        private float Adjust(float input)
         {
             float multiplier = 1 + ((1 - average) * 4);
-            if (multiplier < 1) multiplier = 1;
+            if (multiplier < 1)
+            {
+                multiplier = 1;
+            }
+
             return input * multiplier;
         }
 
         /// <summary>
-        /// Draws each frame of the Canvas
+        /// Draws each frame of the Canvas.
         /// </summary>
         private void CanvasAnimatedControl_Draw(Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedDrawEventArgs args)
         {
@@ -168,14 +236,14 @@ namespace Quarrel.Controls
                 if (!initailized)
                 {
                     // If not initialized take one from to initialize
-                    fftInitialize();
+                    FftInitialize();
                 }
                 else
                 {
                     using (var cpb = new CanvasPathBuilder(args.DrawingSession))
                     {
                         // Start curve at 0
-                        cpb.BeginFigure(0, height);
+                        cpb.BeginFigure(0, _height);
 
                         // Initialize render points
                         Vector2 p0;
@@ -188,17 +256,17 @@ namespace Quarrel.Controls
                         Vector2 p7;
                         Vector2 p8;
 
-                        // Set render points 
-                        average = averageSmoother.Smooth(SpecPointAverage);
-                        p0 = new Vector2(Point0, height - Adjust(smoother1.Smooth(SpecPoint0)) * height);
-                        p1 = new Vector2(Point1, height - Adjust(smoother2.Smooth(SpecPoint1)) * height);
-                        p2 = new Vector2(Point2, height - Adjust(smoother3.Smooth(SpecPoint2)) * height);
-                        p3 = new Vector2(Point3, height - Adjust(smoother4.Smooth(SpecPoint3)) * height);
-                        p4 = new Vector2(Point4, height - Adjust(smoother5.Smooth(SpecPoint4)) * height);
-                        p5 = new Vector2(Point5, height - Adjust(smoother6.Smooth(SpecPoint5)) * height);
-                        p6 = new Vector2(Point6, height - Adjust(smoother7.Smooth(SpecPoint6)) * height);
-                        p7 = new Vector2(Point7, height - Adjust(smoother8.Smooth(SpecPoint7)) * height);
-                        p8 = new Vector2(Point8, height - Adjust(smoother9.Smooth(SpecPoint8)) * height);
+                        // Set render points
+                        average = _averageSmoother.Smooth(_specPointAverage);
+                        p0 = new Vector2(_point0, _height - (Adjust(_smoother1.Smooth(_specPoint0)) * _height));
+                        p1 = new Vector2(_point1, _height - (Adjust(_smoother2.Smooth(_specPoint1)) * _height));
+                        p2 = new Vector2(_point2, _height - (Adjust(_smoother3.Smooth(_specPoint2)) * _height));
+                        p3 = new Vector2(_point3, _height - (Adjust(_smoother4.Smooth(_specPoint3)) * _height));
+                        p4 = new Vector2(_point4, _height - (Adjust(_smoother5.Smooth(_specPoint4)) * _height));
+                        p5 = new Vector2(_point5, _height - (Adjust(_smoother6.Smooth(_specPoint5)) * _height));
+                        p6 = new Vector2(_point6, _height - (Adjust(_smoother7.Smooth(_specPoint6)) * _height));
+                        p7 = new Vector2(_point7, _height - (Adjust(_smoother8.Smooth(_specPoint7)) * _height));
+                        p8 = new Vector2(_point8, _height - (Adjust(_smoother9.Smooth(_specPoint8)) * _height));
 
                         // Render points
                         cpb.AddLine(p0);
@@ -210,17 +278,16 @@ namespace Quarrel.Controls
                         cpb.AddCubicBezier(GetC1(p5), GetC2(p6), p6);
                         cpb.AddCubicBezier(GetC1(p6), GetC2(p7), p7);
                         cpb.AddCubicBezier(GetC1(p7), GetC2(p8), p8);
-                        cpb.AddLine(new Vector2(p8.X, height));
+                        cpb.AddLine(new Vector2(p8.X, _height));
                         cpb.EndFigure(CanvasFigureLoop.Closed);
 
                         // Render
-                        CanvasLinearGradientBrush gradient = new CanvasLinearGradientBrush(sender, TransparentBlurple, Blurple)
+                        CanvasLinearGradientBrush gradient = new CanvasLinearGradientBrush(sender, _transparentBlurple, _blurple)
                         {
-                            EndPoint = new Vector2(0, height + 48),
-                            StartPoint = new Vector2(0, -12)
+                            EndPoint = new Vector2(0, _height + 48),
+                            StartPoint = new Vector2(0, -12),
                         };
                         var path = CanvasGeometry.CreatePath(cpb);
-                        //args.DrawingSession.DrawGeometry(path, Blurple, 1);
                         args.DrawingSession.FillGeometry(path, gradient);
                     }
                 }
@@ -228,153 +295,49 @@ namespace Quarrel.Controls
         }
 
         /// <summary>
-        /// Adjust size of Control
+        /// Adjust size of Control.
         /// </summary>
         private void CanvasAnimatedControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            height = (float)e.NewSize.Height - 1;
-            float Segment = (float)e.NewSize.Width / 8;
-            Point1 = Segment;
-            Point2 = Segment * 2;
-            Point3 = Segment * 3;
-            Point4 = Segment * 4;
-            Point5 = Segment * 5;
-            Point6 = Segment * 6;
-            Point7 = Segment * 7;
-            Point8 = Segment * 8;
-            HalfPoint = Segment / 2;
+            _height = (float)e.NewSize.Height - 1;
+            float segment = (float)e.NewSize.Width / 8;
+            _point1 = segment;
+            _point2 = segment * 2;
+            _point3 = segment * 3;
+            _point4 = segment * 4;
+            _point5 = segment * 5;
+            _point6 = segment * 6;
+            _point7 = segment * 7;
+            _point8 = segment * 8;
+            _halfPoint = segment / 2;
         }
 
-        #endregion
-
-        #region Properties
-
-        #region Smoothers
-
-        Smoother smoother1;
-        Smoother smoother2;
-        Smoother smoother3;
-        Smoother smoother4;
-        Smoother smoother5;
-        Smoother smoother6;
-        Smoother smoother7;
-        Smoother smoother8;
-        Smoother smoother9;
-        Smoother averageSmoother;
-
-        #endregion
-
-        IAudioService BoundAudioService => Input ? (IAudioService)SimpleIoc.Default.GetInstance<IAudioInService>() : SimpleIoc.Default.GetInstance<IAudioOutService>();
-
-        /// <summary>
-        /// Indicates if incoming data should be rendered
-        /// </summary>
-        private bool initailized = false;
-
-        /// <summary>
-        /// Color to render polygon
-        /// </summary>
-        Color Blurple;
-
-        /// <summary>
-        /// Near the top it gradients to transparent. This needs to have the same RGB as <see cref="Blurple"/> but with 00 A
-        /// </summary>
-        Color TransparentBlurple;
-
-
-        /// <summary>
-        /// Height of object - 1 (will change if not 47)
-        /// </summary>
-        float height = 47;
-
-        /// <summary>
-        /// The middle offset of a data point
-        /// </summary>
-        float HalfPoint;
-
-        #region Data Points
-
-        float Point0 = 0;
-        float Point1 = 0;
-        float Point2 = 0;
-        float Point3 = 0;
-        float Point4 = 0;
-        float Point5 = 0;
-        float Point6 = 0;
-        float Point7 = 0;
-        float Point8 = 0;
-
-        /// <summary>
-        /// Average value of points
-        /// </summary>
-        float average = 0;
-
-        #endregion
-
-        #region Spec Points
-
-        float SpecPoint0 = 0;
-        float SpecPoint1 = 0;
-        float SpecPoint2 = 0;
-        float SpecPoint3 = 0;
-        float SpecPoint4 = 0;
-        float SpecPoint5 = 0;
-        float SpecPoint6 = 0;
-        float SpecPoint7 = 0;
-        float SpecPoint8 = 0;
-
-        /// <summary>
-        /// Average value of Spec Points
-        /// </summary>
-        float SpecPointAverage = 0;
-
-        #endregion
-
-        /// <summary>
-        /// Determines if the Visualizer is display input or output
-        /// </summary>
-        public bool Input { get; set; }
-        #endregion
-
-        #region Classes
-
-        public class Smoother
+        private class Smoother
         {
-            /// <summary>
-            /// Initialize a new smart continuous average algorithm, or SCAA (I made that name up)
-            /// </summary>
-            /// <param name="SmoothTime">The smoothing window in *10ms</param>
-            /// /// <param name="multiplier">The opacity multiplier (5 by default)</param>
-            public Smoother(int smoothTime, float multiplier = 5, double smoothnessThresholdUp = 1, double smoothnessThresholdDown = 1, float smoothLimit = 1f)
-            {
-                SmoothTime = smoothTime;
-                Multiplier = multiplier;
-                SmoothLimit = smoothLimit / multiplier;
-                SmoothingThresholdDown = smoothnessThresholdDown;
-                SmoothingThresholdUp = smoothnessThresholdUp;
-            }
-            //This is the value above or below which the algorithm ignores smoothing and jumps to the new value
-            //This is useful to give more liveliness to the visualization
-            public double SmoothingThresholdUp = 1;
-            public double SmoothingThresholdDown = 1;
-            public float Multiplier = 0;
-            public float SmoothTime = 0;
-            public float PreviousVal = 0;
-            public float SmoothLimit = 0.82f;
+            private readonly float _multiplier = 0;
+            private readonly float _smoothTime = 0;
+            private float _previousVal = 0;
 
             /// <summary>
-            /// If the difference with the previous sample isn't too big, This function uses a simple moving average formula to smooth the value out
+            /// Initializes a new instance of the <see cref="Smoother"/> class.
+            /// </summary>
+            /// <param name="SmoothTime">The smoothing window in *10ms.</param>
+            /// /// <param name="multiplier">The opacity multiplier (5 by default).</param>
+            public Smoother(int smoothTime, float multiplier = 5)
+            {
+                _smoothTime = smoothTime;
+                _multiplier = multiplier;
+            }
+
+            /// <summary>
+            /// If the difference with the previous sample isn't too big, This function uses a simple moving average formula to smooth the value out.
             /// </summary>
             public float Smooth(float input)
             {
-                input = (((PreviousVal * SmoothTime) + input) / (SmoothTime + 1));
-
-                PreviousVal = input;
-                return input * Multiplier;
+                input = ((_previousVal * _smoothTime) + input) / (_smoothTime + 1);
+                _previousVal = input;
+                return input * _multiplier;
             }
         }
-
-
-        #endregion
     }
 }

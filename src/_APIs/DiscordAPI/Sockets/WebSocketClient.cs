@@ -17,8 +17,8 @@ namespace DiscordAPI.Sockets
         public const int SendChunkSize = 4 * 1024; //4KB
         private const int HR_TIMEOUT = -2147012894;
 
-        public event Func<byte[], int, int, Task> BinaryMessage;
-        public event Func<string, Task> TextMessage;
+        public event Action<byte[], int, int> BinaryMessage;
+        public event Action<string> TextMessage;
         public event Action<Exception> Closed;
 
         private readonly SemaphoreSlim _lock;
@@ -239,10 +239,12 @@ namespace DiscordAPI.Sockets
                     if (socketResult.MessageType == WebSocketMessageType.Text)
                     {
                         string text = Encoding.UTF8.GetString(result, 0, resultCount);
-                        await TextMessage(text).ConfigureAwait(false);
+                        TextMessage(text);
                     }
                     else
-                        await BinaryMessage(result, 0, resultCount).ConfigureAwait(false);
+                    {
+                        BinaryMessage(result, 0, resultCount);
+                    }
                 }
             }
             catch (Win32Exception ex) when (ex.HResult == HR_TIMEOUT)

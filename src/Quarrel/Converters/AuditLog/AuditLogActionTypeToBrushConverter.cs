@@ -1,4 +1,6 @@
-﻿using DiscordAPI.API.Guild.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.API.Guild.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +10,19 @@ using Windows.UI.Xaml.Data;
 
 namespace Quarrel.Converters.AuditLog
 {
+    /// <summary>
+    /// Converter for AuditLogAction to a brush color.
+    /// </summary>
     public class AuditLogActionTypeToBrushConverter : IValueConverter
     {
+        /// <summary>
+        /// Converts AuditLogAction to a brush color.
+        /// </summary>
+        /// <param name="value">AuditLogAction.</param>
+        /// <param name="targetType">Requested out type.</param>
+        /// <param name="parameter">Extra info.</param>
+        /// <param name="language">What language the user is using.</param>
+        /// <returns>A SolidColorBrush for the action.</returns>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value is int iValue)
@@ -49,9 +62,11 @@ namespace Quarrel.Converters.AuditLog
                         return App.Current.Resources["dnd"];
                 }
             }
+
             return App.Current.Resources["idle"];
         }
 
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();

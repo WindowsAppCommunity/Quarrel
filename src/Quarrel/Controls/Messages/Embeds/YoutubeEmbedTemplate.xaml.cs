@@ -1,30 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text.RegularExpressions;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using DiscordAPI.Models;
-using myTube.Playback.Handlers;
-using Quarrel.ViewModels.Models.Bindables;
-using RykenTube;
+﻿// Copyright (c) Quarrel. All rights reserved.
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
+using DiscordAPI.Models;
+using Quarrel.ViewModels.Models.Bindables;
+using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Messages.Embeds
 {
+    /// <summary>
+    /// Control to display YouTube embed.
+    /// </summary>
     public sealed partial class YoutubeEmbedTemplate : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YoutubeEmbedTemplate"/> class.
+        /// </summary>
         public YoutubeEmbedTemplate()
         {
             this.InitializeComponent();
@@ -34,7 +23,9 @@ namespace Quarrel.Controls.Messages.Embeds
             };
         }
 
-
+        /// <summary>
+        /// Gets the DataContext as a VideoEmbed.
+        /// </summary>
         public BindableVideoEmbed ViewModel => new BindableVideoEmbed(DataContext as Embed);
     }
 }

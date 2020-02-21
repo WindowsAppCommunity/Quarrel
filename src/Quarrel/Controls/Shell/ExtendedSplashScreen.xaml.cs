@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using Quarrel.ViewModels.Helpers;
@@ -14,12 +16,23 @@ using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Shell
 {
+    /// <summary>
+    /// Control that shows the Spinning Splash Screen.
+    /// </summary>
     public sealed partial class ExtendedSplashScreen : UserControl
     {
+        /// <summary>
+        /// Indicates that a connection attempt is a retry.
+        /// </summary>
+        private bool retry = false;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExtendedSplashScreen"/> class.
+        /// </summary>
         public ExtendedSplashScreen()
         {
             this.InitializeComponent();
-            
+
             // Status changed
             // Updates status text and ther appropiate actions
             Messenger.Default.Register<ConnectionStatusMessage>(this, async m =>
@@ -38,13 +51,13 @@ namespace Quarrel.Controls.Shell
                     });
 
                     // Opens status page
-                    if (!_Retry)
+                    if (!retry)
                     {
                         SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("DiscordStatusPage");
                     }
                 }
 
-                // Shows Retry button 
+                // Shows Retry button
                 if (m.Status == Status.Failed)
                 {
                     await DispatcherHelper.RunAsync(() =>
@@ -64,12 +77,12 @@ namespace Quarrel.Controls.Shell
                     });
                 }
             });
-            
+
             // Finished loading
             // Begins hiding splash
-            Messenger.Default.Register<GatewayReadyMessage>(this, async _ => 
+            Messenger.Default.Register<GatewayReadyMessage>(this, async _ =>
             {
-                await DispatcherHelper.RunAsync(() => 
+                await DispatcherHelper.RunAsync(() =>
                 {
                     LoadOut.Begin();
                 });
@@ -79,7 +92,7 @@ namespace Quarrel.Controls.Shell
         }
 
         /// <summary>
-        /// Gets a random splash text quote
+        /// Gets a random splash text quote.
         /// </summary>
         public async void LoadQuote()
         {
@@ -89,9 +102,9 @@ namespace Quarrel.Controls.Shell
         }
 
         /// <summary>
-        /// Alligns icon with old splash icon and begins animation
+        /// Alligns icon with old splash icon and begins animation.
         /// </summary>
-        /// <param name="ogSplash">Static splash screen data</param>
+        /// <param name="ogSplash">Static splash screen data.</param>
         public void InitializeAnimation(SplashScreen ogSplash)
         {
             // Setup icon
@@ -100,9 +113,9 @@ namespace Quarrel.Controls.Shell
         }
 
         /// <summary>
-        /// Adjust ViewBox size
+        /// Adjust ViewBox size.
         /// </summary>
-        /// <param name="ogSplash">Static splash screen data</param>
+        /// <param name="ogSplash">Static splash screen data.</param>
         public void AdjustSize(SplashScreen ogSplash)
         {
             try
@@ -110,8 +123,6 @@ namespace Quarrel.Controls.Shell
                 var location = ogSplash.ImageLocation;
                 viewbox.Width = location.Width;
                 viewbox.Height = location.Height;
-
-                //this.Focus(FocusState.Pointer);
                 stack.Margin = new Thickness(0, location.Bottom, 0, 0);
             }
             catch (Exception)
@@ -121,7 +132,7 @@ namespace Quarrel.Controls.Shell
         }
 
         /// <summary>
-        /// Finish Load in
+        /// Finish Load in.
         /// </summary>
         private void LoadIn_Completed(object sender, object e)
         {
@@ -129,7 +140,7 @@ namespace Quarrel.Controls.Shell
         }
 
         /// <summary>
-        /// Finish Load out
+        /// Finish Load out.
         /// </summary>
         private void LoadOut_Completed(object sender, object e)
         {
@@ -138,12 +149,12 @@ namespace Quarrel.Controls.Shell
         }
 
         /// <summary>
-        /// Attempts to open a connection to Discord (again)
+        /// Attempts to open a connection to Discord (again).
         /// </summary>
         private async void RetryConnecting(object sender, RoutedEventArgs e)
         {
             // Retrying
-            _Retry = true;
+            retry = true;
 
             // Reset View State
             RetryButton.Visibility = Visibility.Collapsed;
@@ -157,12 +168,7 @@ namespace Quarrel.Controls.Shell
         }
 
         /// <summary>
-        /// Indicates that a connection attempt is a retry
-        /// </summary>
-        private bool _Retry = false;
-
-        /// <summary>
-        /// Shows the Discord Status
+        /// Shows the Discord Status.
         /// </summary>
         private void ShowDiscordStatus(object sender, RoutedEventArgs e)
         {

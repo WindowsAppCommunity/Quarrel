@@ -278,6 +278,7 @@
     <Compile Include="Controls\Shell\ExtendedSplashScreen.xaml.cs">
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Shell\OpenDownCommandBarVisualStateManager.cs" />
     <Compile Include="Controls\Shell\Views\FriendListControl.xaml.cs">
       <DependentUpon>FriendListControl.xaml</DependentUpon>
     </Compile>
@@ -305,7 +306,7 @@
     <Compile Include="Converters\Base\IntColorToBrushConverter.cs" />
     <Compile Include="Converters\Base\IntColorToColorConverter.cs" />
     <Compile Include="Converters\Base\NotBoolToBoolConverter.cs" />
-    <Compile Include="Converters\Base\NotBoolToVisibiltyConverter.cs" />
+    <Compile Include="Converters\Base\NotBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\Base\NotNullToBoolConverter.cs" />
     <Compile Include="Converters\Base\NotNullToVisibilityConverter.cs" />
     <Compile Include="Converters\Base\NullToBoolConverter.cs" />
@@ -316,8 +317,8 @@
     <Compile Include="Converters\Base\UriToImageSourceConverter.cs" />
     <Compile Include="Converters\Channel\MentionCountToVisiblityConverter.cs" />
     <Compile Include="Converters\Channel\SelectedToOpacityConverter.cs" />
-    <Compile Include="Converters\Channel\TypeToBrushConverter.cs" />
-    <Compile Include="Converters\Channel\TypeToMinHeight.cs" />
+    <Compile Include="Converters\Channel\TypeToForegroundBrushConverter.cs" />
+    <Compile Include="Converters\Channel\TypeToMinHeightConverter.cs" />
     <Compile Include="Converters\AuditLog\AuditLogActionTypeToGlyphConverter.cs" />
     <Compile Include="Converters\Discord\DiscrimatorPrefixConveter.cs" />
     <Compile Include="Converters\Discord\DiscriminatorToBrushConverter.cs" />
@@ -335,7 +336,7 @@
     <Compile Include="Converters\Profile\Relationships\RelationToAddFriendConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToBlockConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToRemoveFriendConverter.cs" />
-    <Compile Include="Converters\Profile\Relationships\RelationToUnblock.cs" />
+    <Compile Include="Converters\Profile\Relationships\RelationToUnblockConverter.cs" />
     <Compile Include="DataTemplates\Channels\ChannelTemplate.xaml.cs">
       <DependentUpon>ChannelTemplate.xaml</DependentUpon>
     </Compile>

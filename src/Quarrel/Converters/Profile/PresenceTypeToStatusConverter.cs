@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using System;
 using Windows.UI.Xaml.Data;
 
 namespace Quarrel.Converters.Profile
 {
+    /// <summary>
+    /// A converter that takes gets an activity type string.
+    /// </summary>
     public class PresenceTypeToStatusConverter : IValueConverter
     {
+        /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
+            // TODO: Localization
             if (value is int iValue)
             {
                 switch (iValue)
@@ -24,12 +27,14 @@ namespace Quarrel.Converters.Profile
                     case 3:
                         return "Watching";
                     default:
-                        return "";
+                        return string.Empty;
                 }
             }
-            return "";
+
+            return string.Empty;
         }
 
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();

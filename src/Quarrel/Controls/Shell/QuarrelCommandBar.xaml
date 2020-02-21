@@ -16,7 +16,7 @@
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
-        <baseconvert:RemoveNewLineConveter x:Key="RemoveNewLineConveter"/>
+        <baseconvert:RemoveNewLineConverter x:Key="RemoveNewLineConveter"/>
     </CommandBar.Resources>
     
     <CommandBar.Style>

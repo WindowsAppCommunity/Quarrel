@@ -1,15 +1,19 @@
-﻿using System;
-using Windows.UI.Xaml;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using System;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
 
 namespace Quarrel.Converters.Messages.ActionMessage
 {
-
+    /// <summary>
+    /// A converter that returns text based on the ActionMessage type.
+    /// </summary>
     public sealed class TypeToTextConverter : IValueConverter
     {
+        /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
+            // TODO: Localization
             if (value is int iValue)
             {
                 switch (iValue)
@@ -32,9 +36,11 @@ namespace Quarrel.Converters.Messages.ActionMessage
                         return "Did something";
                 }
             }
+
             return "Did something";
         }
 
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
