@@ -362,6 +362,7 @@
     <Compile Include="Helpers\ChartRenderer.cs" />
     <Compile Include="Helpers\Colors\SmartColor\ColorDetection.cs" />
     <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Helpers\DeviceFamilyHelper.cs" />
     <Compile Include="Helpers\Humanize.cs" />
     <Compile Include="Helpers\ImageParsing.cs" />
     <Compile Include="Helpers\ItemClickCommand.cs" />
