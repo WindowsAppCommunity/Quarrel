@@ -1,46 +1,41 @@
-﻿using DiscordAPI.API.Guild.Models;
-using Microsoft.Advertising.Ads.Requests.AdBroker;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
 using Quarrel.Helpers;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.SubPages.GuildSettings.Pages;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Quarrel.SubPages.GuildSettings.Pages
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// The guild settings Overview page.
     /// </summary>
     public sealed partial class OverviewSettingsPage : Page
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OverviewSettingsPage"/> class.
+        /// </summary>
         public OverviewSettingsPage()
         {
             this.InitializeComponent();
         }
 
+        /// <summary>
+        /// Gets the guild's Overview settings.
+        /// </summary>
+        public OverviewSettingsPageViewModel ViewModel => DataContext as OverviewSettingsPageViewModel;
+
+        /// <inheritdoc/>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
             DataContext = new OverviewSettingsPageViewModel(e.Parameter as BindableGuild);
         }
-
-        public OverviewSettingsPageViewModel ViewModel => DataContext as OverviewSettingsPageViewModel;
 
         private async void UploadAvatar(object sender, RoutedEventArgs e)
         {
