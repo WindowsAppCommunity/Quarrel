@@ -1,4 +1,4 @@
-﻿// Special thanks to Sergio Pedri for the basis of this design
+﻿// Copyright (c) Quarrel. All rights reserved.
 
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
@@ -14,12 +14,23 @@ using Windows.Storage;
 namespace Quarrel.Services.Settings
 {
     /// <summary>
-    /// A simple <see langword="class"/> that handles the app settings, both locally and in the roaming directory
+    /// A simple <see langword="class"/> that handles the app settings, both locally and in the roaming directory.
     /// </summary>
     public sealed class SettingsService : ISettingsService
     {
-        // Default settings
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SettingsService"/> class with default settings.
+        /// </summary>
         public SettingsService() => EnsureDefaults();
+
+        /// <inheritdoc/>
+        public ISettingsProvider Roaming { get; } = new SettingsProvider(ApplicationData.Current.RoamingSettings.Values);
+
+        /// <inheritdoc/>
+        public ISettingsProvider Local { get; } = new SettingsProvider(ApplicationData.Current.LocalSettings.Values);
+
+        /// <inheritdoc/>
+        public ISettingsProvider this[SettingLocation location] => location == SettingLocation.Local ? Local : Roaming;
 
         /// <inheritdoc/>
         public void EnsureDefaults()
@@ -40,38 +51,28 @@ namespace Quarrel.Services.Settings
             Roaming.SetValue(SettingKeys.TTLAttachments, true, false);
             Roaming.SetValue(SettingKeys.DataCompression, true, false);
 
-            Roaming.SetValue(SettingKeys.AcrylicSettings,
-                AcrylicSettings.MessageView |
-                AcrylicSettings.ChannelView |
-                AcrylicSettings.GuildView |
-                AcrylicSettings.CommandBar, false);
+            Roaming.SetValue(
+                SettingKeys.AcrylicSettings,
+                AcrylicSettings.MessageView | AcrylicSettings.ChannelView | AcrylicSettings.GuildView | AcrylicSettings.CommandBar,
+                false);
         }
 
-        /// <inheritdoc/>
-        public ISettingsProvider this[SettingLocation location] => location == SettingLocation.Local ? Local : Roaming;
-
-        /// <inheritdoc/>
-        public ISettingsProvider Roaming { get; } = new SettingsProvider(ApplicationData.Current.RoamingSettings.Values);
-
-        /// <inheritdoc/>
-        public ISettingsProvider Local { get; } = new SettingsProvider(ApplicationData.Current.LocalSettings.Values);
-
         /// <summary>
-        /// A <see langword="class"/> that handles the app settings on a specific settings storage location
+        /// A <see langword="class"/> that handles the app settings on a specific settings storage location.
         /// </summary>
         private sealed class SettingsProvider : ISettingsProvider
         {
             /// <summary>
-            /// The <see cref="IPropertySet"/> with the settings targeted by the current instance
+            /// The <see cref="IPropertySet"/> with the settings targeted by the current instance.
             /// </summary>
             [NotNull]
-            private readonly IPropertySet SettingsStorage;
+            private readonly IPropertySet _settingsStorage;
 
             /// <summary>
-            /// Creates a new <see cref="SettingsProvider"/> instance that works on a specific settings <see cref="IPropertySet"/>
+            /// Initializes a new instance of the <see cref="SettingsProvider"/> class that works on a specific settings <see cref="IPropertySet"/>.
             /// </summary>
-            /// <param name="settings">The target <see cref="IPropertySet"/> instance to use to store the settings</param>
-            public SettingsProvider([NotNull] IPropertySet settings) => SettingsStorage = settings;
+            /// <param name="settings">The target <see cref="IPropertySet"/> instance to use to store the settings.</param>
+            public SettingsProvider([NotNull] IPropertySet settings) => _settingsStorage = settings;
 
             /// <inheritdoc/>
             public void SetValue<T>(SettingKeys key, T value, bool overwrite = true, bool notify = false)
@@ -91,33 +92,53 @@ namespace Quarrel.Services.Settings
                 {
                     serializable = Unsafe.As<T, DateTime>(ref value).ToBinary();
                 }
-                else throw new ArgumentException($"Invalid setting of type {typeof(T)}", nameof(value));
+                else
+                {
+                    throw new ArgumentException($"Invalid setting of type {typeof(T)}", nameof(value));
+                }
 
                 // Store the new value
-                if (!SettingsStorage.ContainsKey(key.ToString())) SettingsStorage.Add(key.ToString(), serializable);
-                else if (overwrite) SettingsStorage[key.ToString()] = serializable;
+                if (!_settingsStorage.ContainsKey(key.ToString()))
+                {
+                    _settingsStorage.Add(key.ToString(), serializable);
+                }
+                else if (overwrite)
+                {
+                    _settingsStorage[key.ToString()] = serializable;
+                }
 
                 // Notify if needed
-                if (notify) Messenger.Default.Send(new SettingChangedMessage<T>(key, value));
+                if (notify)
+                {
+                    Messenger.Default.Send(new SettingChangedMessage<T>(key, value));
+                }
             }
 
             /// <inheritdoc/>
             public T GetValue<T>(SettingKeys key, bool fallback = false)
             {
                 // Try to get the setting value
-                if (!SettingsStorage.TryGetValue(key.ToString(), out object value))
+                if (!_settingsStorage.TryGetValue(key.ToString(), out object value))
                 {
-                    if (fallback) return default;
+                    if (fallback)
+                    {
+                        return default;
+                    }
+
                     throw new InvalidOperationException($"The setting {key} doesn't exist");
                 }
 
                 // Cast and return the retrieved setting
-                if (typeof(T) == typeof(DateTime)) value = DateTime.FromBinary((long)value);
+                if (typeof(T) == typeof(DateTime))
+                {
+                    value = DateTime.FromBinary((long)value);
+                }
+
                 return (T)value;
             }
 
             /// <inheritdoc/>
-            public void Clear() => SettingsStorage.Clear();
+            public void Clear() => _settingsStorage.Clear();
         }
     }
 }

@@ -3,6 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace Quarrel.Helpers.AudioProcessing
 {
+    /// <summary>
+    /// Complex
+    /// </summary>
     public struct Complex
     {
         /// <summary>
@@ -62,12 +65,10 @@ namespace Quarrel.Helpers.AudioProcessing
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Complex"/> class.
+        /// Initializes a new instance of the <see cref="Complex"/> struct.
         /// </summary>
-        /// 
         /// <param name="re">Real part.</param>
         /// <param name="im">Imaginary part.</param>
-        /// 
         public Complex(double re, double im)
         {
             this.Re = re;
@@ -75,11 +76,9 @@ namespace Quarrel.Helpers.AudioProcessing
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Complex"/> class.
+        /// Initializes a new instance of the <see cref="Complex"/> struct.
         /// </summary>
-        /// 
         /// <param name="c">Source complex number.</param>
-        /// 
         public Complex(Complex c)
         {
             this.Re = c.Re;
@@ -89,13 +88,10 @@ namespace Quarrel.Helpers.AudioProcessing
         /// <summary>
         /// Adds two complex numbers.
         /// </summary>
-        /// 
         /// <param name="a">A <see cref="Complex"/> instance.</param>
-        /// <param name="b">A <see cref="Complex"/> instance.</param>
-        /// 
+        /// <param name="b">nother <see cref="Complex"/> instance.</param>
         /// <returns>Returns new <see cref="Complex"/> instance containing the sum of specified
         /// complex numbers.</returns>
-        /// 
         public static Complex Add(Complex a, Complex b)
         {
             return new Complex(a.Re + b.Re, a.Im + b.Im);

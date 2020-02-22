@@ -115,7 +115,7 @@ namespace Quarrel.Controls
             // If FFT is enabled, setup render smoothers for each data point
             if (SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<bool>(SettingKeys.ExpensiveRendering))
             {
-                BoundAudioService.DataRecieved += DataRecieved;
+                BoundAudioService.AudioQueued += DataRecieved;
 
                 _smoother1 = new Smoother(4, 6);
                 _smoother2 = new Smoother(4, 12);
@@ -165,7 +165,7 @@ namespace Quarrel.Controls
             initailized = false;
 
             // Unsubscribe from events
-            BoundAudioService.DataRecieved -= DataRecieved;
+            BoundAudioService.AudioQueued -= DataRecieved;
             Loaded -= FftInitialize;
             Unloaded -= FftDipose;
         }

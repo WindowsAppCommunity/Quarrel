@@ -1,4 +1,4 @@
-﻿// Special thanks to Sergio Pedri for the basis of this design
+﻿// Copyright (c) Quarrel. All rights reserved.
 
 namespace Quarrel.Services.Cache.Persistent
 {
@@ -8,6 +8,6 @@ namespace Quarrel.Services.Cache.Persistent
     public enum CacheLocation
     {
         Roaming,
-        Local
+        Local,
     }
 }
