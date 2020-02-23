@@ -1,41 +1,36 @@
-﻿using Quarrel.ViewModels.Models.Bindables;
-using Quarrel.ViewModels.SubPages.GuildSettings.Pages;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+﻿// Copyright (c) Quarrel. All rights reserved.
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.SubPages.GuildSettings.Pages;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Quarrel.SubPages.GuildSettings.Pages
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// The guild settings Privacy page.
     /// </summary>
     public sealed partial class PrivacySettingsPage : Page
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PrivacySettingsPage"/> class.
+        /// </summary>
         public PrivacySettingsPage()
         {
             this.InitializeComponent();
         }
 
+        /// <summary>
+        /// Gets the guild's Privacy settings.
+        /// </summary>
+        public PrivacySettingsPageViewModel ViewModel => DataContext as PrivacySettingsPageViewModel;
+
+        /// <inheritdoc/>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
             DataContext = new PrivacySettingsPageViewModel(e.Parameter as BindableGuild);
         }
-
-        public PrivacySettingsPageViewModel ViewModel => DataContext as PrivacySettingsPageViewModel;
     }
 }

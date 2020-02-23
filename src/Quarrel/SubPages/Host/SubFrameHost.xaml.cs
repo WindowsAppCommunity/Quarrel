@@ -1,4 +1,4 @@
-﻿// Special thanks to Sergio Pedri for the basis of this design
+﻿// Copyright (c) Quarrel. All rights reserved.
 
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
@@ -18,10 +18,25 @@ using Windows.UI.Xaml.Media;
 namespace Quarrel.SubPages.Host
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Hosts the SubPages overlaying the UI.
     /// </summary>
     public sealed partial class SubFrameHost : Page
     {
+        // The minimum window width for the expanded state
+        private const double ExpandedStateMinimumWidth = 880;
+
+        // The minimum window height for the expanded state
+        private const double ExpandedStateMinimumHeight = 720;
+
+        // The margin distance allowed for constrained content to be extended over its desired size
+        private const double MinimumConstrainedMarginThreshold = 48;
+
+        // Synchronization semaphore slim to avoid race conditions for user requests
+        private readonly SemaphoreSlim _subFrameSemaphoreSlim = new SemaphoreSlim(1, 1);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SubFrameHost"/> class.
+        /// </summary>
         public SubFrameHost()
         {
             this.InitializeComponent();
@@ -34,18 +49,26 @@ namespace Quarrel.SubPages.Host
             SystemNavigationManager.GetForCurrentView().BackRequested += SubFrameControl_BackRequested;
         }
 
-        #region Sub page navigation
-
-        // Synchronization semaphore slim to avoid race conditions for user requests
-        private readonly SemaphoreSlim SubFrameSemaphoreSlim = new SemaphoreSlim(1, 1);
+        /// <summary>
+        /// Gets or sets the content of this sub frame page host.
+        /// </summary>
+        public object SubPage
+        {
+            get => HostControl.Content;
+            set
+            {
+                HostControl.Content = value;
+                UpdateLayout(new Size(ActualWidth, ActualHeight));
+            }
+        }
 
         /// <summary>
-        /// Displays a page in the popup frame
+        /// Displays a page in the popup frame.
         /// </summary>
-        /// <param name="subPage">Page to show</param>
+        /// <param name="subPage">Page to show.</param>
         private async void DisplaySubFramePage([NotNull] UserControl subPage)
         {
-            await SubFrameSemaphoreSlim.WaitAsync();
+            await _subFrameSemaphoreSlim.WaitAsync();
             try
             {
                 // Fade out the current content, if present
@@ -71,19 +94,22 @@ namespace Quarrel.SubPages.Host
             }
             finally
             {
-                SubFrameSemaphoreSlim.Release();
+                _subFrameSemaphoreSlim.Release();
             }
         }
 
         /// <summary>
-        /// Fades away the currently displayed sub page
+        /// Fades away the currently displayed sub page.
         /// </summary>
         private async void CloseSubFramePage()
         {
-            await SubFrameSemaphoreSlim.WaitAsync();
+            await _subFrameSemaphoreSlim.WaitAsync();
             try
             {
-                if (!(SubPage is UserControl page)) return;
+                if (!(SubPage is UserControl page))
+                {
+                    return;
+                }
 
                 page.IsHitTestVisible = false;
                 RootGrid.Visibility = SubFrameContentHost.Visibility = Visibility.Collapsed;
@@ -93,44 +119,22 @@ namespace Quarrel.SubPages.Host
             }
             finally
             {
-                SubFrameSemaphoreSlim.Release();
+                _subFrameSemaphoreSlim.Release();
             }
         }
 
         /// <summary>
-        /// Handles the software back button
+        /// Handles the software back button.
         /// </summary>
         private void SubFrameControl_BackRequested(object sender, BackRequestedEventArgs e)
         {
-            if (SubPage != null) e.Handled = true; // This needs to be synchronous
+            if (SubPage != null)
+            {
+                e.Handled = true; // This needs to be synchronous
+            }
+
             CloseSubFramePage();
         }
-
-        #endregion
-
-        /// <summary>
-        /// Gets or sets the content of this sub frame page host
-        /// </summary>
-        public object SubPage
-        {
-            get => HostControl.Content;
-            set
-            {
-                HostControl.Content = value;
-                UpdateLayout(new Size(ActualWidth, ActualHeight));
-            }
-        }
-
-        #region Host UI management
-
-        // The minimum window width for the expanded state
-        private const double ExpandedStateMinimumWidth = 880;
-
-        // The minimum window height for the expanded state
-        private const double ExpandedStateMinimumHeight = 720;
-
-        // The margin distance allowed for constrained content to be extended over its desired size
-        private const double MinimumConstrainedMarginThreshold = 48;
 
         // Adjusts the UI when the window is resized
         private void UpdateLayout(Size size)
@@ -139,7 +143,7 @@ namespace Quarrel.SubPages.Host
             void UpdateLayout(double width, double height)
             {
                 // Setup
-                RootGrid.BorderThickness = new Thickness();
+                RootGrid.BorderThickness = default(Thickness);
                 Thickness contentBorderThickness = new Thickness(1);
 
                 // Adjust the content width
@@ -149,7 +153,10 @@ namespace Quarrel.SubPages.Host
                     targetWidth = double.PositiveInfinity;
                     contentBorderThickness = new Thickness(0);
                 }
-                else targetWidth = width;
+                else
+                {
+                    targetWidth = width;
+                }
 
                 // Adjust the content height
                 if (double.IsNaN(height))
@@ -157,7 +164,7 @@ namespace Quarrel.SubPages.Host
                     ContentGrid.MaxHeight = double.PositiveInfinity;
 
                     // Visual state update
-                    if (targetWidth > size.Width - 48 * 2)
+                    if (targetWidth > size.Width - (48 * 2))
                     {
                         ContentGrid.MaxWidth = targetWidth;
                         VisualStateManager.GoToState(this, "RightBackButton", false);
@@ -190,8 +197,8 @@ namespace Quarrel.SubPages.Host
                         double maxWidth = constrained.MaxExpandedWidth;
 
                         UpdateLayout(
-                            maxWidth + MinimumConstrainedMarginThreshold * 2 >= size.Width ? double.NaN : maxWidth,
-                            maxHeight + MinimumConstrainedMarginThreshold * 2 >= size.Height ? double.NaN : maxHeight);
+                            maxWidth + (MinimumConstrainedMarginThreshold * 2) >= size.Width ? double.NaN : maxWidth,
+                            maxHeight + (MinimumConstrainedMarginThreshold * 2) >= size.Height ? double.NaN : maxHeight);
                         break;
                     }
 
@@ -205,21 +212,27 @@ namespace Quarrel.SubPages.Host
                 case object _:
                     {
                         UpdateLayout(
-                            ExpandedStateMinimumWidth >= size.Width ? double.NaN : size.Width - 160,
-                            ExpandedStateMinimumHeight >= size.Height ? double.NaN : size.Height - 160);
+                            size.Width <= ExpandedStateMinimumWidth ? double.NaN : size.Width - 160,
+                            size.Height <= ExpandedStateMinimumHeight ? double.NaN : size.Height - 160);
                         break;
                     }
             }
 
             // Adjust by Adaptive High
             if (SubPage is IAdaptiveSubPage adaptive)
+            {
                 adaptive.IsFullHeight = double.IsPositiveInfinity(ContentGrid.MaxHeight);
+            }
 
             // Hide close button if not a Hidable subpage
             if (SubPage is IFullscreenSubPage fullSub && !fullSub.Hideable)
+            {
                 CloseButton.Visibility = Visibility.Collapsed;
+            }
             else
+            {
                 CloseButton.Visibility = Visibility.Visible;
+            }
 
             // Clear symbol if last subpage, Back symbol if child subpage
             if (SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().Depth > 1)
@@ -232,7 +245,6 @@ namespace Quarrel.SubPages.Host
                 BackSymbol.Visibility = Visibility.Collapsed;
                 ClearSymbol.Visibility = Visibility.Visible;
             }
-
 
             if (SubPage is ITransparentSubPage transparentSubPage)
             {
@@ -255,10 +267,8 @@ namespace Quarrel.SubPages.Host
         }
 
         /// <summary>
-        /// Sends a request to close the current sub frame page
+        /// Sends a request to close the current sub frame page.
         /// </summary>
         private void CloseButton_OnClick(object sender, RoutedEventArgs e) => SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().GoBack();
-
-        #endregion
     }
 }
