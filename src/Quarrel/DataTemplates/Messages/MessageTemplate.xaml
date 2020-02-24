@@ -239,7 +239,7 @@
                                 </MenuFlyout>
                             </HyperlinkButton.ContextFlyout>
                             <FlyoutBase.AttachedFlyout>
-                                <Flyout x:Key="MemberFlyoutTemplate" FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
+                                <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
                                     <members:MemberFlyoutTemplate DataContext="{x:Bind Author, Mode=OneWay}"/>
                                 </Flyout>
                             </FlyoutBase.AttachedFlyout>
