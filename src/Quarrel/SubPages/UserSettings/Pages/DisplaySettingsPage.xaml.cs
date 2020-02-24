@@ -1,21 +1,27 @@
-﻿using Quarrel.ViewModels.SubPages.UserSettings.Pages;
-using Windows.UI.Xaml.Controls;
+﻿// Copyright (c) Quarrel. All rights reserved.
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+using Quarrel.ViewModels.SubPages.UserSettings.Pages;
+using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.SubPages.UserSettings.Pages
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// The user settings Display page.
     /// </summary>
     public sealed partial class DisplaySettingsPage : Page
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DisplaySettingsPage"/> class.
+        /// </summary>
         public DisplaySettingsPage()
         {
             this.InitializeComponent();
             this.DataContext = new DisplaySettingsViewModel();
         }
 
+        /// <summary>
+        /// Gets the app's Display settings.
+        /// </summary>
         public DisplaySettingsViewModel ViewModel => this.DataContext as DisplaySettingsViewModel;
     }
 }

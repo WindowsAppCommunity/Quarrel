@@ -20,7 +20,7 @@ namespace Quarrel.SubPages.UserSettings.Pages
         }
 
         /// <summary>
-        /// Gets the App's Behavior settings.
+        /// Gets the app's Behavior settings.
         /// </summary>
         public BehaviorSettingsViewModel ViewModel => this.DataContext as BehaviorSettingsViewModel;
     }
