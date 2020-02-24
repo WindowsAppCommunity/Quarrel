@@ -128,7 +128,7 @@
                     <HyperlinkButton x:Name="monthDuration" Content="Month" Margin="2,0" FontSize="12" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowMonthMetrics"/>
                 </StackPanel>
             </Grid>
-            <Grid SizeChanged="FrameworkElement_OnSizeChanged"  Margin="0,12,0,6" PointerMoved="chartCanvas_PointerMoved" PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+            <Grid SizeChanged="FrameworkElement_OnSizeChanged"  Margin="0,12,0,6" PointerMoved="ChartCanvas_PointerMoved" PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
                 <xaml:CanvasControl x:Name="chartCanvas" Height="96" Draw="CanvasControl_OnDraw" >
                     <xaml:CanvasControl.Clip>
                         <RectangleGeometry x:Name="chartClip">
