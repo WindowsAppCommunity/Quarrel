@@ -1,6 +1,6 @@
-﻿using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight.Ioc;
 using Quarrel.SubPages.Interfaces;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.Navigation;
@@ -12,16 +12,25 @@ using Windows.UI.Xaml.Input;
 
 namespace Quarrel.SubPages
 {
+    /// <summary>
+    /// The sub page to show the login prompt.
+    /// </summary>
     public sealed partial class LoginPage : UserControl, IFullscreenSubPage
     {
-        private IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
-        private ISubFrameNavigationService subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
-        private ILogger Logger => App.ServiceProvider.GetService<ILogger<LoginPage>>();
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoginPage"/> class.
+        /// </summary>
         public LoginPage()
         {
             this.InitializeComponent();
         }
+
+        /// <inheritdoc/>
+        public bool Hideable { get; } = false;
+
+        private IDiscordService DiscordService => SimpleIoc.Default.GetInstance<IDiscordService>();
+
+        private ISubFrameNavigationService SubFrameNavigationService => SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
@@ -34,6 +43,7 @@ namespace Quarrel.SubPages
         {
             MainContent.Visibility = Visibility.Visible;
             CaptchaView.Visibility = Visibility.Collapsed;
+
             // TODO: Login with token page
         }
 
@@ -45,7 +55,9 @@ namespace Quarrel.SubPages
         private void Token_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
+            {
                 LoginButton_Click(null, null);
+            }
         }
 
         private void MFAsms_Click(object sender, RoutedEventArgs e)
@@ -55,55 +67,60 @@ namespace Quarrel.SubPages
 
         private async void ScriptNotify(object sender, NotifyEventArgs e)
         {
+            // Respond to the script notification.
             if (e.CallingUri.AbsolutePath == "/app")
             {
                 string token = await GetTokenFromWebView();
                 if (!string.IsNullOrEmpty(token))
                 {
-                    await discordService.Login(token, true);
-                    subFrameNavigationService.GoBack();
+                    await DiscordService.Login(token, true);
+                    SubFrameNavigationService.GoBack();
                 }
             }
-            // Respond to the script notification.
         }
-        public bool Hideable { get; } = false;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:Parameter should not span multiple lines", Justification = "Raw string")]
         private async void CaptchaView_OnNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-            _ = sender.InvokeScriptAsync("eval", new[]
-            {
+            _ = sender.InvokeScriptAsync(
+                "eval",
+                new[]
+                {
                 @"
                     var pushState = history.pushState;
                     history.pushState = function () {
                         pushState.apply(history, arguments);
 	                    window.external.notify('');
                     };
-            "
-            });
+                ",
+                });
             if (args.Uri.AbsolutePath == "/app")
             {
                 string token = await GetTokenFromWebView();
                 if (!string.IsNullOrEmpty(token))
                 {
-                    await discordService.Login(token, true);
-                    subFrameNavigationService.GoBack();
+                    await DiscordService.Login(token, true);
+                    SubFrameNavigationService.GoBack();
                 }
             }
         }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:Parameter should not span multiple lines", Justification = "Raw string")]
         private async Task<string> GetTokenFromWebView()
         {
-
-            //Discord doesn't allow access to localStorage so create an iframe to bypass this.
-            string token = await CaptchaView.InvokeScriptAsync("eval", new[] { @"
+            // Discord doesn't allow access to localStorage so create an iframe to bypass this.
+            string token = await CaptchaView.InvokeScriptAsync(
+                "eval",
+                new[]
+                {
+                    @"
                     iframe = document.createElement('iframe');
                     document.body.appendChild(iframe);
                     iframe.contentWindow.localStorage.getItem('token');
-                //'<<token>>'
-"
-            });
+                    //'<<token>>'",
+                });
 
-            return string.IsNullOrEmpty(token) ? "" : token.Trim('"');
+            return string.IsNullOrEmpty(token) ? string.Empty : token.Trim('"');
         }
     }
-
 }
