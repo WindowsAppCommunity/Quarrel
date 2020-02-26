@@ -472,9 +472,6 @@
     <Compile Include="SubPages\UserSettings\UserSettingsPage.xaml.cs">
       <DependentUpon>UserSettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\StatusPage.xaml.cs">
-      <DependentUpon>StatusPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SubPages\TopicPage.xaml.cs">
       <DependentUpon>TopicPage.xaml</DependentUpon>
     </Compile>
@@ -877,10 +874,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\UserSettings\UserSettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SubPages\StatusPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
