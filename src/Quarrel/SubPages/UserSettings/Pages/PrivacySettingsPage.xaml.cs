@@ -1,21 +1,27 @@
-﻿using Quarrel.ViewModels.SubPages.UserSettings.Pages;
-using Windows.UI.Xaml.Controls;
+﻿// Copyright (c) Quarrel. All rights reserved.
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+using Quarrel.ViewModels.SubPages.UserSettings.Pages;
+using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.SubPages.UserSettings.Pages
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// The user settings Privacy page.
     /// </summary>
     public sealed partial class PrivacySettingsPage : Page
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PrivacySettingsPage"/> class.
+        /// </summary>
         public PrivacySettingsPage()
         {
             this.InitializeComponent();
             this.DataContext = new PrivacySettingsViewModel();
         }
 
+        /// <summary>
+        /// Gets the user's Privacy settings.
+        /// </summary>
         public PrivacySettingsViewModel ViewModel => this.DataContext as PrivacySettingsViewModel;
     }
 }

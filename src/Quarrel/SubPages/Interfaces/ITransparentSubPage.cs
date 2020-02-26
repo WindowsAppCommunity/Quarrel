@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Copyright (c) Quarrel. All rights reserved.
 
 namespace Quarrel.SubPages.Interfaces
 {
+    /// <summary>
+    /// An <see langword="interface"/> for a sub page with a transparent background.
+    /// </summary>
     public interface ITransparentSubPage
     {
         /// <summary>
-        /// Is the background dimmed
+        /// Gets a value indicating whether is the background darkened.
         /// </summary>
         bool Dimmed { get; }
     }
