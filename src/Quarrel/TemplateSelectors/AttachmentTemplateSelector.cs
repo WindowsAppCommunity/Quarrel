@@ -1,26 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.Models;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using DiscordAPI.Models;
 
 namespace Quarrel.TemplateSelectors
 {
     /// <summary>
-    /// A template selector for the line to display in the console view
+    /// A template selector for the attachment type to show.
     /// </summary>
     public sealed class AttachmentTemplateSelector : DataTemplateSelector
     {
+        /// <summary>
+        /// Gets or sets the pure image attachment template.
+        /// </summary>
         public DataTemplate ImageAttachmentTemplate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the pure video attachment template.
+        /// </summary>
         public DataTemplate VideoAttachmentTemplate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the dynamic default attachment template.
+        /// </summary>
         public DataTemplate DefaultAttachmentTemplate { get; set; }
 
+        /// <summary>
+        /// Selects a <see cref="DataTemplate"/> based on details from the <paramref name="item"/>.
+        /// </summary>
+        /// <param name="item">An <see cref="Attachment"/>.</param>
+        /// <param name="container">The parent of the resulting <see cref="DataTemplate"/>.</param>
+        /// <returns>A <see cref="DataTemplate"/> for the <paramref name="item"/>'s type.</returns>
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
             if (container is FrameworkElement parent && item is Attachment attachment)
             {
                 int index = attachment.Filename.LastIndexOf('.');
-                string filetype = attachment.Filename.Substring(index+1);
+                string filetype = attachment.Filename.Substring(index + 1);
                 switch (filetype)
                 {
                     case "png":
