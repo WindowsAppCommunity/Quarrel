@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Input;
 namespace Quarrel.Xaml.Behaviors
 {
     /// <summary>
-    /// Command for handling a Keydown event.
+    /// Action for handling a Keydown event with a <see cref="Command"/>.
     /// </summary>
     public class KeyDownCommandAction : DependencyObject, IAction
     {
