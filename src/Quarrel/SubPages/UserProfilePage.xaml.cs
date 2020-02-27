@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight.Ioc;
 using Quarrel.SubPages.Interfaces;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Discord.Rest;
@@ -10,53 +12,45 @@ using Windows.UI.Xaml.Media.Animation;
 
 namespace Quarrel.SubPages
 {
+    /// <summary>
+    /// The sub page for displaying a user's profile.
+    /// </summary>
     public sealed partial class UserProfilePage : UserControl, IConstrainedSubPage
     {
-        #region Constrcutors
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserProfilePage"/> class.
+        /// </summary>
         public UserProfilePage()
         {
             this.InitializeComponent();
-            if (subFrameNavigationService.Parameter != null)
+            if (SubFrameNavigationService.Parameter != null)
             {
                 ConnectedAnimationService.GetForCurrentView()?.GetAnimation(ViewModels.Helpers.Constants.ConnectedAnimationKeys.MemberFlyoutAnimation)?.TryStart(FullAvatar);
-                this.DataContext = new UserProfilePageViewModel((BindableGuildMember)subFrameNavigationService.Parameter);
+                this.DataContext = new UserProfilePageViewModel((BindableGuildMember)SubFrameNavigationService.Parameter);
             }
         }
 
-        #endregion
+        /// <summary>
+        /// Gets the user's profile page data.
+        /// </summary>
+        public UserProfilePageViewModel ViewModel => DataContext as UserProfilePageViewModel;
 
-        #region Methods
+        /// <inheritdoc/>
+        public double MaxExpandedHeight { get; } = 768;
+
+        /// <inheritdoc/>
+        public double MaxExpandedWidth { get; } = 768;
+
+        private IDiscordService DiscordService => SimpleIoc.Default.GetInstance<IDiscordService>();
+
+        private ISubFrameNavigationService SubFrameNavigationService => SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
 
         /// <summary>
-        /// Change user note automatically when focus NoteBox is lost
+        /// Change user note automatically when focus NoteBox is lost.
         /// </summary>
         private void NoteBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            discordService.UserService.AddNote(ViewModel.User.Model.User.Id, new DiscordAPI.API.User.Models.Note() { Content = (sender as TextBox).Text });
+            DiscordService.UserService.AddNote(ViewModel.User.Model.User.Id, new DiscordAPI.API.User.Models.Note() { Content = (sender as TextBox).Text });
         }
-
-
-        #endregion
-
-        #region Properties
-
-        #region Services
-
-        private IDiscordService discordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
-        private ISubFrameNavigationService subFrameNavigationService { get; } = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
-
-        #endregion
-
-        public UserProfilePageViewModel ViewModel => DataContext as UserProfilePageViewModel;
-
-        #endregion
-
-        #region IConstrainedSubPage
-
-        public double MaxExpandedHeight { get; } = 768;
-        public double MaxExpandedWidth { get; } = 768;
-
-        #endregion
     }
 }

@@ -1,4 +1,5 @@
-﻿using DiscordAPI.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Navigation;
 using Quarrel.Services.Cache;
@@ -32,12 +33,15 @@ using Windows.ApplicationModel.Store;
 
 namespace Quarrel.ViewModels
 {
-
     /// <summary>
-    /// Locates viewmodel
+    /// Initializes the ViewModel and Services.
     /// </summary>
     public class ViewModelLocator
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ViewModelLocator"/> class and the <see cref="MainViewModel"/>.
+        /// Creates and registers all the services with <see cref="SimpleIoc.Default"/>.
+        /// </summary>
         public ViewModelLocator()
         {
             var navigationService = new SubFrameNavigationService();
@@ -91,6 +95,10 @@ namespace Quarrel.ViewModels
 
             SimpleIoc.Default.Register<MainViewModel>();
         }
+
+        /// <summary>
+        /// Gets the <see cref="MainViewModel"/>.
+        /// </summary>
         public MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
     }
 }
