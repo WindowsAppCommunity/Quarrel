@@ -176,6 +176,14 @@ namespace Quarrel.SubPages
         }
 
         /// <summary>
+        /// Closes SubPage when the Background is tapped.
+        /// </summary>
+        private void Rectangle_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            SubFrameNavigationService.GoBack();
+        }
+
+        /// <summary>
         /// Scales the image to take up 70% of the screen.
         /// </summary>
         private void ScaleImage()

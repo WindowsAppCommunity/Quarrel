@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
@@ -13,7 +15,10 @@ using System.Collections.Generic;
 
 namespace DiscordAPI.Gateway.DownstreamEvents
 {
-    internal static class ReadyExtentions
+    /// <summary>
+    /// Extensions for the <see cref="Ready"/> class.
+    /// </summary>
+    internal static class ReadyExtensions
     {
         private static ICurrentUserService currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUserService>();
         private static IChannelsService channelsService = SimpleIoc.Default.GetInstance<IChannelsService>();
@@ -21,55 +26,46 @@ namespace DiscordAPI.Gateway.DownstreamEvents
         private static IGuildsService guildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
         private static IFriendsService friendsService = SimpleIoc.Default.GetInstance<IFriendsService>();
         private static IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
-        // TODO: Remove Cache usage
+
+        /// <summary>
+        /// Stores all data from the <see cref="Ready"/> event.
+        /// </summary>
+        /// <param name="ready"><see cref="Ready"/> event to cache data from.</param>
         public static void Cache(this Ready ready)
         {
-            #region Settings
-
+            // Cache Guild Settings
             foreach (var gSettings in ready.GuildSettings)
             {
                 guildsService.GuildSettings.AddOrUpdate(gSettings.GuildId ?? "DM", gSettings);
-                
+
                 foreach (var cSettings in gSettings.ChannelOverrides)
                 {
                     channelsService.ChannelSettings.AddOrUpdate(cSettings.ChannelId, cSettings);
                 }
             }
 
-            #endregion
-
-            #region Presence
-
+            // Cache Presences
             foreach (var presence in ready.Presences)
             {
                 Messenger.Default.Send<GatewayPresenceUpdatedMessage>(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
             }
 
-            #endregion
-
-            #region Notes
-
+            // Cache user notes
             foreach (var note in ready.Notes)
             {
+                // TODO: Remove Cache usage
                 cacheService.Runtime.SetValue(Constants.Cache.Keys.Note, note.Value, note.Key);
             }
 
-            #endregion
-
-            #region Friends
-
+            // Cache friends
             foreach (var friend in ready.Friends)
             {
                 friendsService.Friends.AddOrUpdate(friend.Id, new BindableFriend(friend));
             }
 
-            #endregion
-
-            #region Current User
-
+            // Cache current user.
             discordService.CurrentUser = ready.User;
-
-            #endregion
+            currentUsersService.CurrentUser.Model = ready.User;
         }
     }
 }
