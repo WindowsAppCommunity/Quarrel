@@ -1,6 +1,7 @@
 ﻿using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
+using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.DispatcherHelper;
@@ -28,7 +29,14 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
                     m.Channel.Selected = true;
                 });
             });
+
+            Messenger.Default.Register<GatewayMessageAckMessage>(this, m =>
+            {
+                var channel = GetChannel(m.ChannelId);
+                channel?.UpdateLRMID(m.MessageId);
+            });
         }
+
         public BindableChannel GetChannel(string channelId)
         {
             return AllChannels.TryGetValue(channelId, out BindableChannel channel) ? channel : null;
