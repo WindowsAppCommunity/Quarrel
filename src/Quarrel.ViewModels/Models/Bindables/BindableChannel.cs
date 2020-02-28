@@ -77,20 +77,6 @@ namespace Quarrel.ViewModels.Models.Bindables
                     });
             });
 
-            MessengerInstance.Register<GatewayMessageAckMessage>(this, m =>
-            {
-                if (Model.Id == m.ChannelId)
-                {
-                    UpdateLRMID(m.MessageId);
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        RaisePropertyChanged(nameof(MentionCount));
-                        RaisePropertyChanged(nameof(IsUnread));
-                        RaisePropertyChanged(nameof(ShowUnread));
-                    });
-                }
-            });
-
             MessengerInstance.Register<SettingChangedMessage<bool>>(this, m =>
             {
                 if (m.Key == SettingKeys.ShowNoPermssions)
