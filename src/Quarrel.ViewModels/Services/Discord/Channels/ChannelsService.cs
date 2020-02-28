@@ -17,6 +17,11 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
         {
             Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
             {
+                if (CurrentChannel != null)
+                {
+                    CurrentChannel.Selected = false;
+                }
+
                 CurrentChannel = m.Channel;
                 SimpleIoc.Default.GetInstance<IDispatcherHelper>().CheckBeginInvokeOnUi(() =>
                 {
