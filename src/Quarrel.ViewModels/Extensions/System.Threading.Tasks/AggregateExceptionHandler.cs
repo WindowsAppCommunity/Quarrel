@@ -1,4 +1,4 @@
-﻿// Credit to Sergio Pedri for extensions
+﻿// Copyright (c) Quarrel. All rights reserved.
 
 using JetBrains.Annotations;
 
