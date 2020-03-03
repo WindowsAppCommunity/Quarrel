@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 
-namespace Quarrel.ViewModels.Extensions.System.Collections.Generic
+namespace System.Collections.ObjectModel
 {
     /// <summary>
     /// A Collection that notifies observers of change and allows scrolling past the loaded region.
