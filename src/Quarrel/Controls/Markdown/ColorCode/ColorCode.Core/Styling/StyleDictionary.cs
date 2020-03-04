@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
+﻿// Copyright (c) Quarrel. All rights reserved.
 
 using System.Collections.ObjectModel;
 
@@ -9,15 +9,6 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Styling
     /// </summary>
     public partial class StyleDictionary : KeyedCollection<string, Style>
     {
-        /// <summary>
-        /// When implemented in a derived class, extracts the key from the specified element.
-        /// </summary>
-        /// <param name="item">The element from which to extract the key.</param>
-        /// <returns>The key for the specified element.</returns>
-        protected override string GetKeyForItem(Style item)
-        {
-            return item.ScopeName;
-        }
         private const string Black = "#000000";
         private const string Mustard = "#b58900";
         private const string RealOrange = "#cb4b16";
@@ -30,7 +21,6 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Styling
         private const string Grey3 = "#b4b4b4";
         private const string Grey4 = "#9B9B9B";
         private const string Grey5 = "#808080";
-
         private const string Turquoise = "#4EC9B0";
         private const string DarkTurquoise = "#00A0A0";
         private const string TurquoiseBlue = "#2B91AF";
@@ -46,6 +36,14 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Styling
         private const string SolarizeRed = "#dc322f";
         private const string BrightRed = "#ff0000";
 
+        /// <summary>
+        /// When implemented in a derived class, extracts the key from the specified element.
+        /// </summary>
+        /// <param name="item">The element from which to extract the key.</param>
+        /// <returns>The key for the specified element.</returns>
+        protected override string GetKeyForItem(Style item)
+        {
+            return item.ScopeName;
+        }
     }
-
 }

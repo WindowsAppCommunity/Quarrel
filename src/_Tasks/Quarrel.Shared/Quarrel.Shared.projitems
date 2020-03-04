@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Extenisons\StringExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Abstract\ServiceWithAccessTokenBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Abstract\ServiceWithAccessTokensBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Abstract\IInitializableService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Rest\DiscordClientInfo.cs" />
   </ItemGroup>

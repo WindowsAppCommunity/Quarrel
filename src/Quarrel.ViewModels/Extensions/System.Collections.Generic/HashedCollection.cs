@@ -1,10 +1,8 @@
-﻿using System;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
 using System.Collections.Concurrent;
-using System.Linq;
-using System.ComponentModel;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Threading;
+using System.Linq;
 
 namespace System.Collections.ObjectModel
 {

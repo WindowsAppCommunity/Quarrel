@@ -1,34 +1,35 @@
-﻿// Special thanks to Sergio Pedri for the basis of this design
+﻿// Copyright (c) Quarrel. All rights reserved.
 
+using JetBrains.Annotations;
+using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
-using JetBrains.Annotations;
-using Newtonsoft.Json;
 
 namespace Quarrel.Services.Abstract
 {
     /// <summary>
-    /// A base <see langword="class"/> for services that require access tokens to be initialized
+    /// A base <see langword="class"/> for services that require access tokens to be initialized.
     /// </summary>
-    /// <typeparam name="T">The type of client info model used by the service</typeparam>
-    internal abstract class ServiceWithAccessTokensBase<T> : IInitializableService where T : class, new()
+    /// <typeparam name="T">The type of client info model used by the service.</typeparam>
+    internal abstract class ServiceWithAccessTokensBase<T> : IInitializableService
+        where T : class, new()
     {
         /// <summary>
-        /// Gets a semaphore slim to avoid race conditions while performing operations in a given service
+        /// Gets a semaphore slim to avoid race conditions while performing operations in a given service.
         /// </summary>
         [NotNull]
-        private readonly SemaphoreSlim RestSemaphoreSlim = new SemaphoreSlim(1, 1);
+        private readonly SemaphoreSlim _restSemaphoreSlim = new SemaphoreSlim(1, 1);
 
         /// <summary>
-        /// Gets the loaded client tokens for the current service
+        /// Gets the loaded client tokens for the current service.
         /// </summary>
         [CanBeNull]
         protected T ClientInfo { get; private set; }
 
         /// <summary>
-        /// Gets the path for the access tokens .json file, relative to "ms-appx:///Assets"
+        /// Gets the path for the access tokens .json file, relative to "ms-appx:///Assets".
         /// </summary>
         [NotNull]
         protected abstract string Path { get; }
@@ -36,11 +37,15 @@ namespace Quarrel.Services.Abstract
         /// <inheritdoc/>
         public async Task InitializeAsync()
         {
-            await RestSemaphoreSlim.WaitAsync();
+            await _restSemaphoreSlim.WaitAsync();
             try
             {
                 // Ensure the client tokens are loaded
-                if (ClientInfo != null) return;
+                if (ClientInfo != null)
+                {
+                    return;
+                }
+
                 StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/{Path}"));
                 string json = await FileIO.ReadTextAsync(file);
                 ClientInfo = JsonConvert.DeserializeObject<T>(json) ?? throw new InvalidOperationException("Error loading the APIs tokens");
@@ -50,12 +55,12 @@ namespace Quarrel.Services.Abstract
             }
             finally
             {
-                RestSemaphoreSlim.Release();
+                _restSemaphoreSlim.Release();
             }
         }
 
         /// <summary>
-        /// Performs additional, service specific initializaiton operations
+        /// Performs additional, service specific initializaiton operations.
         /// </summary>
         protected abstract void OnInitialize();
     }

@@ -1,20 +1,27 @@
-// Copyright (c) Microsoft Corporation.  All rights reserved.
+// Copyright (c) Quarrel. All rights reserved.
 
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
 {
+    /// <summary>
+    /// Compiles a language into a <see cref="CompiledLanguage"/> for language color coding.
+    /// </summary>
     public class LanguageCompiler : ILanguageCompiler
     {
-        private static readonly Regex numberOfCapturesRegex = new Regex(@"(?x)(?<!(\\|(?!\\)\(\?))\((?!\?)", RegexOptions.Compiled);
+        private static readonly Regex NumberOfCapturesRegex = new Regex(@"(?x)(?<!(\\|(?!\\)\(\?))\((?!\?)", RegexOptions.Compiled);
         private readonly Dictionary<string, CompiledLanguage> compiledLanguages;
         private readonly ReaderWriterLockSlim compileLock;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LanguageCompiler"/> class.
+        /// </summary>
+        /// <param name="compiledLanguages">Pre compiled languages.</param>
         public LanguageCompiler(Dictionary<string, CompiledLanguage> compiledLanguages)
         {
             this.compiledLanguages = compiledLanguages;
@@ -22,12 +29,19 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
             compileLock = new ReaderWriterLockSlim();
         }
 
+        /// <summary>
+        /// Creates a new <see cref="CompiledLanguage"/> from a simple <see cref="ILanguage"/>.
+        /// </summary>
+        /// <param name="language">A languages color style.</param>
+        /// <returns>A <see cref="CompiledLanguage"/> for the <see cref="ILanguage"/>.</returns>
         public CompiledLanguage Compile(ILanguage language)
         {
             Guard.ArgNotNull(language, "language");
 
             if (string.IsNullOrEmpty(language.Id))
+            {
                 throw new ArgumentException("The language identifier must not be null.", "language");
+            }
 
             CompiledLanguage compiledLanguage;
 
@@ -38,7 +52,9 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
                 // only a read lock since the majority of the time
                 // it'll be created already and upgradeable lock blocks
                 if (compiledLanguages.ContainsKey(language.Id))
+                {
                     return compiledLanguages[language.Id];
+                }
             }
             finally
             {
@@ -49,7 +65,9 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
             try
             {
                 if (compiledLanguages.ContainsKey(language.Id))
+                {
                     compiledLanguage = compiledLanguages[language.Id];
+                }
                 else
                 {
                     compileLock.EnterWriteLock();
@@ -57,10 +75,14 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
                     try
                     {
                         if (string.IsNullOrEmpty(language.Name))
+                        {
                             throw new ArgumentException("The language name must not be null or empty.", "language");
+                        }
 
                         if (language.Rules == null || language.Rules.Count == 0)
+                        {
                             throw new ArgumentException("The language rules collection must not be empty.", "language");
+                        }
 
                         compiledLanguage = CompileLanguage(language);
 
@@ -101,7 +123,9 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
             CompileRule(rules[0], regexBuilder, captures, true);
 
             for (int i = 1; i < rules.Count; i++)
+            {
                 CompileRule(rules[i], regexBuilder, captures, false);
+            }
 
             regex = new Regex(regexBuilder.ToString());
         }
@@ -139,7 +163,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
 
         private static int GetNumberOfCaptures(string regex)
         {
-            return numberOfCapturesRegex.Matches(regex).Count;
+            return NumberOfCapturesRegex.Matches(regex).Count;
         }
     }
 }
