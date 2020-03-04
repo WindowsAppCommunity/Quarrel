@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using System;
 using Windows.UI.Xaml.Media;
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.UWP.Common

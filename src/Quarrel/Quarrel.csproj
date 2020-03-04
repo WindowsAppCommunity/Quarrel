@@ -224,13 +224,8 @@
     <Compile Include="Controls\Markdown\MarkdownRenderedEventArgs.cs" />
     <Compile Include="Controls\Markdown\MarkdownTextBlock.cs" />
     <Compile Include="Controls\Markdown\Parse\Blocks\CodeBlock.cs" />
-    <Compile Include="Controls\Markdown\Parse\Blocks\HeaderBlock.cs" />
-    <Compile Include="Controls\Markdown\Parse\Blocks\HorizontalRuleBlock.cs" />
     <Compile Include="Controls\Markdown\Parse\Blocks\LinkReferenceBlock.cs" />
-    <Compile Include="Controls\Markdown\Parse\Blocks\ListBlock.cs" />
     <Compile Include="Controls\Markdown\Parse\Blocks\ParagraphBlock.cs" />
-    <Compile Include="Controls\Markdown\Parse\Blocks\QuoteBlock.cs" />
-    <Compile Include="Controls\Markdown\Parse\Blocks\TableBlock.cs" />
     <Compile Include="Controls\Markdown\Parse\Inlines\BoldItalicTextInline.cs" />
     <Compile Include="Controls\Markdown\Parse\Inlines\BoldTextInline.cs" />
     <Compile Include="Controls\Markdown\Parse\Inlines\CodeInline.cs" />
@@ -243,7 +238,6 @@
     <Compile Include="Controls\Markdown\Parse\Inlines\ItalicTextInline.cs" />
     <Compile Include="Controls\Markdown\Parse\Inlines\MarkdownLinkInline.cs" />
     <Compile Include="Controls\Markdown\Parse\Inlines\StrikethroughTextInline.cs" />
-    <Compile Include="Controls\Markdown\Parse\Inlines\SuperscriptTextInline.cs" />
     <Compile Include="Controls\Markdown\Parse\Inlines\TextRunInline.cs" />
     <Compile Include="Controls\Markdown\Parse\Inlines\UnderlineTextInline.cs" />
     <Compile Include="Controls\Markdown\Parse\MarkdownBlock.cs" />

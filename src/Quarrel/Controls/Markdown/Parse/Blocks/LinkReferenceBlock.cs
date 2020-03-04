@@ -9,6 +9,7 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
 // THE CODE OR THE USE OR OTHER DEALINGS IN THE CODE.
 // ******************************************************************
+// Copyright (c) Quarrel. All rights reserved.
 
 using Quarrel.Controls.Markdown.Parse.Inlines;
 
@@ -41,6 +42,15 @@ namespace Quarrel.Controls.Markdown.Parse.Blocks
         /// Gets or sets a tooltip to display on hover.
         /// </summary>
         public string Tooltip { get; set; }
+
+        /// <summary>
+        /// Converts the object into it's textual representation.
+        /// </summary>
+        /// <returns> The textual representation of this object. </returns>
+        public override string ToString()
+        {
+            return string.Format("[{0}]: {1} {2}", Id, Url, Tooltip);
+        }
 
         /// <summary>
         /// Attempts to parse a reference e.g. "[example]: http://www.reddit.com 'title'".
@@ -166,15 +176,6 @@ namespace Quarrel.Controls.Markdown.Parse.Blocks
             result.Url = url;
             result.Tooltip = tooltip;
             return result;
-        }
-
-        /// <summary>
-        /// Converts the object into it's textual representation.
-        /// </summary>
-        /// <returns> The textual representation of this object. </returns>
-        public override string ToString()
-        {
-            return string.Format("[{0}]: {1} {2}", Id, Url, Tooltip);
         }
     }
 }

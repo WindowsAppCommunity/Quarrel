@@ -1,4 +1,7 @@
-﻿using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
+﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
+// Copyright (c) Quarrel. All rights reserved.
+
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Styling
 {

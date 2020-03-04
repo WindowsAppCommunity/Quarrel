@@ -1,4 +1,5 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
+// Copyright (c) Quarrel. All rights reserved.
 
 using System.Collections.Generic;
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
