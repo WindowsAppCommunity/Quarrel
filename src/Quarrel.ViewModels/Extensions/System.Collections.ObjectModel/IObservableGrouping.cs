@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-namespace Quarrel.ViewModels.Extensions.System.Collections.ObjectModel
+namespace System.Collections.ObjectModel
 {
     /// <summary>
     /// A grouping in an <see cref="ObservableSortedGroupedCollection{TGroup, TType}"/>.

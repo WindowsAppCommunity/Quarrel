@@ -1,30 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Newtonsoft.Json;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Services.Discord.Guilds;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Quarrel.ViewModels.Controls
 {
     /// <summary>
-    /// Sorts bindable data for the Emoji Picker
+    /// Sorts bindable data for the Emoji Picker.
     /// </summary>
     public class EmojiPickerViewModel : ViewModelBase
     {
-        #region Constructors
+        private readonly EmojiLists _emojis;
 
         /// <summary>
-        /// Create emoji lists bindings based on <paramref name="emojiList"/>
+        /// Initializes a new instance of the <see cref="EmojiPickerViewModel"/> class based on <paramref name="emojiList"/>.
         /// </summary>
-        /// <param name="emojiList">List of Emojis</param>
+        /// <param name="emojiList">List of Emojis.</param>
         public EmojiPickerViewModel(EmojiLists emojiList)
         {
-            _Emojis = emojiList;
+            _emojis = emojiList;
 
             // Reloads emojis when a guild is selected
             Messenger.Default.Register<GuildNavigateMessage>(this, _ =>
@@ -33,81 +35,68 @@ namespace Quarrel.ViewModels.Controls
             });
         }
 
-        #endregion
+        /// <summary>
+        /// Gets grouping of Emojis by the current filter.
+        /// </summary>
+        public GroupedObservableCollection<string, Emoji> Emojis { get; private set; } = new GroupedObservableCollection<string, Emoji>(x => x.Category);
 
-        #region Methods
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
 
         /// <summary>
-        /// Loads full list of Emojis
+        /// Loads full list of Emojis.
         /// </summary>
         public void LoadEmojis()
         {
             // Just filter none
-            FilterEmojis("");
+            FilterEmojis(string.Empty);
         }
 
         /// <summary>
-        /// Filters down Emojis to only the ones that contain <paramref name="query"/>
+        /// Filters down Emojis to only the ones that contain <paramref name="query"/>.
         /// </summary>
-        /// <param name="query">Emoji filtering query</param>
+        /// <param name="query">Emoji filtering query.</param>
         public void FilterEmojis(string query)
         {
             // All emoji names are lower case
             query = query.ToLower();
 
             // Combines lists
-            var emojis = _Emojis.People
-                .Concat<Emoji>(_Emojis.Nature)
-                .Concat(_Emojis.Food)
-                .Concat(_Emojis.Activity)
-                .Concat(_Emojis.Travel)
-                .Concat(_Emojis.Objects)
-                .Concat(_Emojis.Symbols)
-                .Concat(_Emojis.Flags).ToList();
+            var emojis = _emojis.People
+                .Concat<Emoji>(_emojis.Nature)
+                .Concat(_emojis.Food)
+                .Concat(_emojis.Activity)
+                .Concat(_emojis.Travel)
+                .Concat(_emojis.Objects)
+                .Concat(_emojis.Symbols)
+                .Concat(_emojis.Flags).ToList();
 
             // Guild Emojis
             // TODO: External emojis
             if (!GuildsService.CurrentGuild.IsDM)
+            {
                 emojis = GuildsService.CurrentGuild.Model.Emojis
                     .Select(x => new GuildEmoji(x))
                     .Concat(emojis).ToList();
+            }
 
             // Resets list
             Emojis.Clear();
-
 
             // Adds emoji to list if it matches query
             foreach (var emoji in emojis)
             {
                 if (string.IsNullOrEmpty(query) || emoji.Names.Any(x => x.ToLower().Contains(query)))
+                {
                     Emojis.AddElement(emoji);
+                }
             }
 
             // TODO: Sort by accuracy
         }
-
-        #endregion
-
-        #region Properties
-
-        #region Services
-
-        public IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
-
-        #endregion
-
-        private EmojiLists _Emojis;
-
-        /// <summary>
-        /// Grouping of Emojis by 
-        /// </summary>
-        public GroupedObservableCollection<string, Emoji> Emojis { get; set; } = new GroupedObservableCollection<string, Emoji>(x => x.Category);
-
-        #endregion
     }
 
     /// <summary>
-    /// Categorized Emoji lists
+    /// Categorized Emoji lists.
     /// </summary>
     public class EmojiLists
     {
@@ -245,38 +234,32 @@ namespace Quarrel.ViewModels.Controls
         #endregion
     }
 
-    #region Emoji Types
-
     // TODO: In desperate need of refactor
-
     public class GuildEmoji : Emoji
     {
-        #region Services
-
-        public IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
-
-        #endregion
+        private string _catergory;
+        private readonly string _id;
 
         public GuildEmoji(DiscordAPI.Models.Emoji emoji)
         {
-            _Id = emoji.Id;
-            _Catergory = GuildsService.CurrentGuild.Model.Name;
+            _id = emoji.Id;
+            _catergory = GuildsService.CurrentGuild.Model.Name;
             Names = new List<string>() { emoji.Name };
             Preview = emoji.DisplayUrl;
         }
 
-        private string _Id;
-        public override string Id { get => _Id; }
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
 
-        private string _Catergory;
-        public override string Category { get => _Catergory; }
+        public override string Id { get => _id; }
+
+        public override string Category { get => _catergory; }
 
         public override bool CustomEmoji => true;
 
         public override string Surrogate => string.Format(":{0}:", Names[0]);
 
         /// <summary>
-        /// False if the user does have permissions to use emoji or can't (nitro)
+        /// Gets a value indicating whether or not the user has permissions to use emoji or can't (nitro).
         /// </summary>
         public bool IsEnabled { get; private set; }
     }
@@ -304,6 +287,4 @@ namespace Quarrel.ViewModels.Controls
 
     public class FlagEmoji : Emoji
     { public override string Category => "Flag"; }
-
-    #endregion
 }
