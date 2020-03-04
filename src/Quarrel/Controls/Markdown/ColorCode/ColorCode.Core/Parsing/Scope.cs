@@ -1,19 +1,20 @@
-// Copyright (c) Microsoft Corporation.  All rights reserved.
+// Copyright (c) Quarrel. All rights reserved.
 
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
 using System;
 using System.Collections.Generic;
-using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Parsing
 {
     public class Scope
     {
-        public Scope(string name,
-                     int index,
-                     int length)
+        public Scope(
+            string name,
+            int index,
+            int length)
         {
             Guard.ArgNotNullAndNotEmpty(name, "name");
-            
+
             Name = name;
             Index = index;
             Length = length;

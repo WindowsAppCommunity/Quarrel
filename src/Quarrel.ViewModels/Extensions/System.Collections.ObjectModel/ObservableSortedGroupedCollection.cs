@@ -6,43 +6,56 @@ using System.Linq;
 namespace System.Collections.ObjectModel
 {
     /// <summary>
-    /// A grouping 
+    /// A sorted collection of items, grouped by a key with notification of updates.
     /// </summary>
-    public interface IObservableGrouping
-    {
-        object Group { get; }
-
-        int Count { get; }
-    }
-
+    /// <typeparam name="TGroup">The type of the key for the groups.</typeparam>
+    /// <typeparam name="TType">The type of the values.</typeparam>
     public class ObservableSortedGroupedCollection<TGroup, TType> : ObservableCollection<ObservableGroupCollection<TGroup, TType>>
     {
-        private readonly Func<TType, TGroup> KeyReader;
-        private readonly Func<TGroup, int> Sorter;
+        private readonly Func<TType, TGroup> _keyReader;
+        private readonly Func<TGroup, int> _sorter;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObservableSortedGroupedCollection{TGroup, TType}"/> class.
+        /// </summary>
+        /// <param name="keyReader">How the key is read from a <typeparamref name="TType"/> value.</param>
+        /// <param name="sorter">How the items are ordered.</param>
         public ObservableSortedGroupedCollection(Func<TType, TGroup> keyReader, Func<TGroup, int> sorter)
         {
-            KeyReader = keyReader;
-            Sorter = sorter;
+            _keyReader = keyReader;
+            _sorter = sorter;
         }
 
+        /// <summary>
+        /// Adds <paramref name="item"/> and group if neccessary.
+        /// </summary>
+        /// <param name="item">The item to add.</param>
         public void AddElement(TType item)
         {
             CheckReentrancy();
-            var group = GetGroupOrCreate(KeyReader.Invoke(item));
+            var group = GetGroupOrCreate(_keyReader.Invoke(item));
             group.Add(item);
         }
 
-        public void AddElementRange(IEnumerable<TType> item)
+        /// <summary>
+        /// Adds <paramref name="items"/> and their groups if neccessary.
+        /// </summary>
+        /// <param name="items">The items to add.</param>
+        public void AddElementRange(IEnumerable<TType> items)
         {
             CheckReentrancy();
-            var groupedItems = item.GroupBy(KeyReader);
+            var groupedItems = items.GroupBy(_keyReader);
             foreach (var grouping in groupedItems)
             {
                 var group = GetGroupOrCreate(grouping.Key);
                 group.AddRange(grouping);
             }
         }
+
+        /// <summary>
+        /// Removes <paramref name="item"/> from the collection.
+        /// </summary>
+        /// <param name="item">The item to remove.</param>
         public void RemoveElement(TType item)
         {
             CheckReentrancy();
@@ -58,7 +71,7 @@ namespace System.Collections.ObjectModel
                 var tmp = new ObservableGroupCollection<TGroup, TType>() { Key = type };
                 for (int i = 0; i < Count; i++)
                 {
-                    if (Sorter.Invoke(tmp.Key) < Sorter.Invoke(this[i].Key))
+                    if (_sorter.Invoke(tmp.Key) < _sorter.Invoke(this[i].Key))
                     {
                         Insert(i, tmp);
                         return tmp;

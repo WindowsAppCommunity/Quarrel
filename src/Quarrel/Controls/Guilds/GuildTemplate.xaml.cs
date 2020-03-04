@@ -1,4 +1,6 @@
-﻿using Quarrel.ViewModels.Models.Bindables;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using Quarrel.ViewModels.Models.Bindables;
 using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Guilds
