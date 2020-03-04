@@ -5,37 +5,35 @@ using System.Linq;
 
 namespace System.Collections.ObjectModel
 {
-    public interface ObservableGrouping
+    /// <summary>
+    /// A grouping 
+    /// </summary>
+    public interface IObservableGrouping
     {
         object Group { get; }
+
         int Count { get; }
     }
 
-    public class ObservableGroupCollection<key, value> : ObservableRangeCollection<value>, IGrouping<key, value>, ObservableGrouping
+    public class ObservableSortedGroupedCollection<TGroup, TType> : ObservableCollection<ObservableGroupCollection<TGroup, TType>>
     {
-        public key Key { get; set; }
-        public object Group => Key;
-    }
+        private readonly Func<TType, TGroup> KeyReader;
+        private readonly Func<TGroup, int> Sorter;
 
-    public class ObservableSortedGroupedCollection<Group, Type> : ObservableCollection<ObservableGroupCollection<Group, Type>>
-    {
-        private readonly Func<Type, Group> KeyReader;
-        private readonly Func<Group, int> Sorter;
-
-        public ObservableSortedGroupedCollection(Func<Type, Group> keyReader, Func<Group, int> sorter)
+        public ObservableSortedGroupedCollection(Func<TType, TGroup> keyReader, Func<TGroup, int> sorter)
         {
             KeyReader = keyReader;
             Sorter = sorter;
         }
 
-        public void AddElement(Type item)
+        public void AddElement(TType item)
         {
             CheckReentrancy();
             var group = GetGroupOrCreate(KeyReader.Invoke(item));
             group.Add(item);
         }
 
-        public void AddElementRange(IEnumerable<Type> item)
+        public void AddElementRange(IEnumerable<TType> item)
         {
             CheckReentrancy();
             var groupedItems = item.GroupBy(KeyReader);
@@ -45,19 +43,19 @@ namespace System.Collections.ObjectModel
                 group.AddRange(grouping);
             }
         }
-        public void RemoveElement(Type item)
+        public void RemoveElement(TType item)
         {
             CheckReentrancy();
             var group = this.FirstOrDefault(x => x.Key.Equals(item));
             group.Remove(item);
         }
 
-        private ObservableGroupCollection<Group, Type> GetGroupOrCreate(Group type)
+        private ObservableGroupCollection<TGroup, TType> GetGroupOrCreate(TGroup type)
         {
             var group = this.FirstOrDefault(x => x.Key.Equals(type));
             if (group == null)
             {
-                var tmp = new ObservableGroupCollection<Group, Type>() { Key = type };
+                var tmp = new ObservableGroupCollection<TGroup, TType>() { Key = type };
                 for (int i = 0; i < Count; i++)
                 {
                     if (Sorter.Invoke(tmp.Key) < Sorter.Invoke(this[i].Key))
@@ -66,12 +64,12 @@ namespace System.Collections.ObjectModel
                         return tmp;
                     }
                 }
+
                 Add(tmp);
                 return tmp;
             }
 
             return group;
         }
-
     }
 }
