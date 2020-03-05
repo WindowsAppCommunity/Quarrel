@@ -1,8 +1,8 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // Copyright (c) Quarrel. All rights reserved.
 
-using System.Collections.Generic;
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
+using System.Collections.Generic;
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
 {
@@ -16,8 +16,9 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         /// </summary>
         /// <param name="regex">The regular expression that defines what the language rule matches and captures.</param>
         /// <param name="captures">The scope indices and names of the regular expression's captures.</param>
-        public LanguageRule(string regex,
-                            IDictionary<int, string> captures)
+        public LanguageRule(
+            string regex,
+            IDictionary<int, string> captures)
         {
             Guard.ArgNotNullAndNotEmpty(regex, "regex");
             Guard.EnsureParameterIsNotNullAndNotEmpty(captures, "captures");
@@ -31,6 +32,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         /// </summary>
         /// <value>The regular expression that defines what the language rule matches and captures.</value>
         public string Regex { get; private set; }
+
         /// <summary>
         /// Gets the scope indices and names of the regular expression's captures.
         /// </summary>

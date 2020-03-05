@@ -15,17 +15,21 @@ using System.Diagnostics;
 
 namespace Quarrel.Controls.Markdown.Helpers
 {
+    /// <summary>
+    /// Reports errors to the debugger.
+    /// </summary>
     internal class DebuggingReporter
     {
         /// <summary>
         /// Reports a critical error.
         /// </summary>
+        /// <param name="errorText">Error text.</param>
         public static void ReportCriticalError(string errorText)
         {
             Debug.WriteLine(errorText);
             if (Debugger.IsAttached)
             {
-                //Debugger.Break();
+                Debugger.Break();
             }
         }
     }

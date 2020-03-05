@@ -21,7 +21,18 @@ namespace Quarrel.Controls.Markdown.Display
     /// </summary>
     internal interface ILinkRegister
     {
+        /// <summary>
+        /// Registers a new hyperLink.
+        /// </summary>
+        /// <param name="newHyperlink">The HyperLink.</param>
+        /// <param name="linkUrl">The url the HyperLink navigates to.</param>
         void RegisterNewHyperLink(Hyperlink newHyperlink, string linkUrl);
+
+        /// <summary>
+        /// Registers a new <see cref="HyperlinkButton"/>.
+        /// </summary>
+        /// <param name="newHyperlink">The <see cref="HyperlinkButton"/>.</param>
+        /// <param name="linkUrl">The url the <see cref="HyperlinkButton"/> navigates to.</param>
         void RegisterNewHyperLink(HyperlinkButton newHyperlink, string linkUrl);
     }
 }

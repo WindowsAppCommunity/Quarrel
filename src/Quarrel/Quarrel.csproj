@@ -163,6 +163,7 @@
     <Compile Include="Controls\Guilds\MutualGuildTemplate.xaml.cs">
       <DependentUpon>MutualGuildTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Markdown\CodeBlockResolvingEventArgs.cs" />
     <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\CodeColorizerBase.cs" />
     <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Common\ExtensionMethods.cs" />
     <Compile Include="Controls\Markdown\ColorCode\ColorCode.Core\Common\Guard.cs" />
@@ -216,7 +217,6 @@
     <Compile Include="Controls\Markdown\ColorCode\ColorCode.UWP\RichTextBlockFormatter.cs" />
     <Compile Include="Controls\Markdown\Display\ICodeBlockResolver.cs" />
     <Compile Include="Controls\Markdown\Display\ILinkRegister.cs" />
-    <Compile Include="Controls\Markdown\Display\MarkdownTable.cs" />
     <Compile Include="Controls\Markdown\Display\XamlRenderer.cs" />
     <Compile Include="Controls\Markdown\Helpers\Common.cs" />
     <Compile Include="Controls\Markdown\Helpers\DebuggingReporter.cs" />

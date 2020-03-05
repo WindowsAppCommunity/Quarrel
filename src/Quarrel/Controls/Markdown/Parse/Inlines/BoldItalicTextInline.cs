@@ -34,8 +34,23 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
         public IList<MarkdownInline> Inlines { get; set; }
 
         /// <summary>
+        /// Converts the object into it's textual representation.
+        /// </summary>
+        /// <returns> The textual representation of this object. </returns>
+        public override string ToString()
+        {
+            if (Inlines == null)
+            {
+                return base.ToString();
+            }
+
+            return "***" + string.Join(string.Empty, Inlines) + "***";
+        }
+
+        /// <summary>
         /// Returns the chars that if found means we might have a match.
         /// </summary>
+        /// <param name="tripCharHelpers">tripping characters collection.</param>
         internal static void AddTripChars(List<Helpers.Common.InlineTripCharHelper> tripCharHelpers)
         {
             tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '*', Method = Helpers.Common.InlineParseMethod.BoldItalic });
@@ -102,25 +117,11 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
                 {
                     new ItalicTextInline
                     {
-                        Inlines = Helpers.Common.ParseInlineChildren(markdown, innerStart, innerEnd)
-                    }
-                }
+                        Inlines = Helpers.Common.ParseInlineChildren(markdown, innerStart, innerEnd),
+                    },
+                },
             };
             return new Helpers.Common.InlineParseResult(bold, start, innerEnd + 3);
-        }
-
-        /// <summary>
-        /// Converts the object into it's textual representation.
-        /// </summary>
-        /// <returns> The textual representation of this object. </returns>
-        public override string ToString()
-        {
-            if (Inlines == null)
-            {
-                return base.ToString();
-            }
-
-            return "***" + string.Join(string.Empty, Inlines) + "***";
         }
     }
 }

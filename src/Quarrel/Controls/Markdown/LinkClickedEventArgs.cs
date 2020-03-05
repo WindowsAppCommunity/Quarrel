@@ -11,10 +11,9 @@
 // ******************************************************************
 // Copyright (c) Quarrel. All rights reserved.
 
-using System;
-using Windows.UI.Xaml.Documents;
 using DiscordAPI.Models;
 using Quarrel.ViewModels.Models.Bindables;
+using System;
 
 namespace Quarrel.Controls.Markdown
 {
@@ -23,6 +22,10 @@ namespace Quarrel.Controls.Markdown
     /// </summary>
     public class LinkClickedEventArgs : EventArgs
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LinkClickedEventArgs"/> class.
+        /// </summary>
+        /// <param name="link">Raw link url or raw mention.</param>
         internal LinkClickedEventArgs(string link)
         {
             Link = link;
@@ -33,41 +36,14 @@ namespace Quarrel.Controls.Markdown
         /// </summary>
         public string Link { get; }
 
+        /// <summary>
+        /// Gets or sets the <see cref="User"/> mention clicked.
+        /// </summary>
         public User User { get; set; }
 
+        /// <summary>
+        /// Gets or sets the <see cref="BindableChannel"/> mention clicked.
+        /// </summary>
         public BindableChannel Channel { get; set; }
-    }
-    public class CodeBlockResolvingEventArgs : EventArgs
-    {
-        internal CodeBlockResolvingEventArgs(InlineCollection inlineCollection, string text, string codeLanguage)
-        {
-            InlineCollection = inlineCollection;
-            Text = text;
-            CodeLanguage = codeLanguage;
-        }
-
-        /// <summary>
-        /// Gets the language of the Code Block, as specified by ```{Language} on the first line of the block,
-        /// e.g. <para/>
-        /// ```C# <para/>
-        /// public void Method();<para/>
-        /// ```<para/>
-        /// </summary>
-        public string CodeLanguage { get; }
-
-        /// <summary>
-        /// Gets the raw code block text
-        /// </summary>
-        public string Text { get; }
-
-        /// <summary>
-        /// Gets Collection to add formatted Text to.
-        /// </summary>
-        public InlineCollection InlineCollection { get; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this event was handled successfully.
-        /// </summary>
-        public bool Handled { get; set; } = false;
     }
 }

@@ -11,15 +11,40 @@
 // ******************************************************************
 // Copyright (c) Quarrel. All rights reserved.
 
-using System.Collections.Generic;
-using System.Linq;
 using Quarrel.Controls.Markdown.Parse;
 using Quarrel.Controls.Markdown.Parse.Inlines;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Quarrel.Controls.Markdown.Helpers
 {
+    /// <summary>
+    /// Helper functions for Markdown.
+    /// </summary>
     internal class Common
     {
+        private static readonly List<InlineTripCharHelper> _triggerList = new List<InlineTripCharHelper>();
+        private static readonly char[] _tripCharacters;
+
+        static Common()
+        {
+            BoldItalicTextInline.AddTripChars(_triggerList);
+            BoldTextInline.AddTripChars(_triggerList);
+            ItalicTextInline.AddTripChars(_triggerList);
+            MarkdownLinkInline.AddTripChars(_triggerList);
+            HyperlinkInline.AddTripChars(_triggerList);
+            StrikethroughTextInline.AddTripChars(_triggerList);
+            CodeInline.AddTripChars(_triggerList);
+            ImageInline.AddTripChars(_triggerList);
+            UnderlineTextInline.AddTripChars(_triggerList);
+
+            // Create an array of characters to search against using IndexOfAny.
+            _tripCharacters = _triggerList.Select(trigger => trigger.FirstChar).Distinct().ToArray();
+        }
+
+        /// <summary>
+        /// Potential inlines.
+        /// </summary>
         internal enum InlineParseMethod
         {
             /// <summary>
@@ -94,44 +119,13 @@ namespace Quarrel.Controls.Markdown.Helpers
         }
 
         /// <summary>
-        /// A helper class for the trip chars. This is an optimization. If we ask each class to go
-        /// through the rage and look for itself we end up looping through the range n times, once
-        /// for each inline. This class represent a character that an inline needs to have a
-        /// possible match. We will go through the range once and look for everyone's trip chars,
-        /// and if they can make a match from the trip char then we will commit to them.
-        /// </summary>
-        internal class InlineTripCharHelper
-        {
-            // Note! Everything in first char and suffix should be lower case!
-            public char FirstChar { get; set; }
-
-            public InlineParseMethod Method { get; set; }
-        }
-
-        private static readonly List<InlineTripCharHelper> _triggerList = new List<InlineTripCharHelper>();
-        private static readonly char[] _tripCharacters;
-
-        static Common()
-        {
-            BoldItalicTextInline.AddTripChars(_triggerList);
-            BoldTextInline.AddTripChars(_triggerList);
-            ItalicTextInline.AddTripChars(_triggerList);
-            MarkdownLinkInline.AddTripChars(_triggerList);
-            HyperlinkInline.AddTripChars(_triggerList);
-            StrikethroughTextInline.AddTripChars(_triggerList);
-           /* SuperscriptTextInline.AddTripChars(_triggerList);*/
-            CodeInline.AddTripChars(_triggerList);
-            ImageInline.AddTripChars(_triggerList);
-            UnderlineTextInline.AddTripChars(_triggerList);
-
-            // Create an array of characters to search against using IndexOfAny.
-            _tripCharacters = _triggerList.Select(trigger => trigger.FirstChar).Distinct().ToArray();
-        }
-
-        /// <summary>
         /// This function can be called by any element parsing. Given a start and stopping point this will
         /// parse all found elements out of the range.
         /// </summary>
+        /// <param name="markdown">Markdown text to parse.</param>
+        /// <param name="startingPos">The first index to parse.</param>
+        /// <param name="maxEndingPos">The last index to parse.</param>
+        /// <param name="ignoreLinks">Sets if links should not be parsed.</param>
         /// <returns> A list of parsed inlines. </returns>
         public static List<MarkdownInline> ParseInlineChildren(string markdown, int startingPos, int maxEndingPos, bool ignoreLinks = false)
         {
@@ -163,158 +157,13 @@ namespace Quarrel.Controls.Markdown.Helpers
         }
 
         /// <summary>
-        /// Represents the result of parsing an inline element.
-        /// </summary>
-        internal class InlineParseResult
-        {
-            public InlineParseResult(MarkdownInline parsedElement, int start, int end)
-            {
-                ParsedElement = parsedElement;
-                Start = start;
-                End = end;
-            }
-
-            /// <summary>
-            /// Gets the element that was parsed (can be <c>null</c>).
-            /// </summary>
-            public MarkdownInline ParsedElement { get; }
-
-            /// <summary>
-            /// Gets the position of the first character in the parsed element.
-            /// </summary>
-            public int Start { get; }
-
-            /// <summary>
-            /// Gets the position of the character after the last character in the parsed element.
-            /// </summary>
-            public int End { get; }
-        }
-
-        /// <summary>
-        /// Finds the next inline element by matching trip chars and verifying the match.
-        /// </summary>
-        /// <param name="markdown"> The markdown text to parse. </param>
-        /// <param name="start"> The position to start parsing. </param>
-        /// <param name="end"> The position to stop parsing. </param>
-        /// <param name="ignoreLinks"> Indicates whether to parse links. </param>
-        /// <returns>Returns the next element</returns>
-        private static InlineParseResult FindNextInlineElement(string markdown, int start, int end, bool ignoreLinks)
-        {
-            // Search for the next inline sequence.
-            for (int pos = start; pos < end; pos++)
-            {
-                // IndexOfAny should be the fastest way to skip characters we don't care about.
-                pos = markdown.IndexOfAny(_tripCharacters, pos, end - pos);
-                if (pos < 0)
-                {
-                    break;
-                }
-
-                // Find the trigger(s) that matched.
-                char currentChar = markdown[pos];
-                foreach (InlineTripCharHelper currentTripChar in _triggerList)
-                {
-                    // Check if our current char matches the suffix char.
-                    if (currentChar == currentTripChar.FirstChar)
-                    {
-                        // Don't match if the previous character was a backslash.
-                        if (pos > start && markdown[pos - 1] == '\\')
-                        {
-                            
-                            continue;
-                        }
-
-                        // If we are here we have a possible match. Call into the inline class to verify.
-                        InlineParseResult parseResult = null;
-                        switch (currentTripChar.Method)
-                        {
-                            case InlineParseMethod.BoldItalic:
-                                parseResult = BoldItalicTextInline.Parse(markdown, pos, end);
-                                break;
-                            case InlineParseMethod.Bold:
-                                parseResult = BoldTextInline.Parse(markdown, pos, end);
-                                break;
-                            case InlineParseMethod.Italic:
-                                parseResult = ItalicTextInline.Parse(markdown, pos, end);
-                                break;
-                            case InlineParseMethod.MarkdownLink:
-                                if (!ignoreLinks)
-                                {
-                                    parseResult = MarkdownLinkInline.Parse(markdown, pos, end);
-                                }
-
-                                break;
-                            case InlineParseMethod.AngleBracketLink:
-                                if (!ignoreLinks)
-                                {
-                                    parseResult = HyperlinkInline.ParseAngleBracketLink(markdown, pos, end) ??
-                                                  EmojiInline.ParseAngleBracketLink(markdown, pos, end);
-                                }
-
-                                break;
-                            case InlineParseMethod.Url:
-                                if (!ignoreLinks)
-                                {
-                                    parseResult = HyperlinkInline.ParseUrl(markdown, pos, end);
-                                }
-
-                                break;
-                           // case InlineParseMethod.RedditLink:
-                           //     if (!ignoreLinks)
-                           //     {
-                           //         parseResult = HyperlinkInline.ParseRedditLink(markdown, pos, end);
-                           //     }
-                           //
-                           //     break;
-                            case InlineParseMethod.PartialLink:
-                                if (!ignoreLinks)
-                                {
-                                    parseResult = HyperlinkInline.ParsePartialLink(markdown, pos, end);
-                                }
-
-                                break;
-                            case InlineParseMethod.Email:
-                                if (!ignoreLinks)
-                                {
-                                    parseResult = HyperlinkInline.ParseEmailAddress(markdown, start, pos, end);
-                                }
-
-                                break;
-                            case InlineParseMethod.Strikethrough:
-                                parseResult = StrikethroughTextInline.Parse(markdown, pos, end);
-                                break;
-                       /*     case InlineParseMethod.Superscript:
-                                parseResult = SuperscriptTextInline.Parse(markdown, pos, end);
-                                break;*/
-                            case InlineParseMethod.Code:
-                                parseResult = CodeInline.Parse(markdown, pos, end);
-                                break;
-                            /*  case InlineParseMethod.Image:
-                                  parseResult = ImageInline.Parse(markdown, pos, end);
-                                  break;*/
-
-                            case InlineParseMethod.Underline:
-                                parseResult = UnderlineTextInline.Parse(markdown, pos, end);
-                                break;
-                        }
-
-                        if (parseResult != null)
-                        {
-                            return parseResult;
-                        }
-                    }
-                }
-            }
-
-            // If we didn't find any elements we have a normal text block.
-            // Let us consume the entire range.
-            return new InlineParseResult(TextRunInline.Parse(markdown, start, end), start, end);
-        }
-
-        /// <summary>
         /// Returns the next \n or \r\n in the markdown.
         /// </summary>
-        /// <returns>the next single line</returns>
+        /// <param name="markdown">The markdown to search.</param>
+        /// <param name="startingPos">The first index to search.</param>
+        /// <param name="endingPos">The last index to search.</param>
+        /// <param name="startOfNextLine">The first character of the next line.</param>
+        /// <returns>The next single line.</returns>
         public static int FindNextSingleNewLine(string markdown, int startingPos, int endingPos, out int startOfNextLine)
         {
             // A line can end with CRLF (\r\n) or just LF (\n).
@@ -344,7 +193,12 @@ namespace Quarrel.Controls.Markdown.Helpers
         /// <summary>
         /// Helper function for index of with a start and an ending.
         /// </summary>
-        /// <returns>Pos of the searched for item</returns>
+        /// <param name="markdown">The markdown text to search.</param>
+        /// <param name="search">The character to search for.</param>
+        /// <param name="startingPos">The first index to search.</param>
+        /// <param name="endingPos">The last index to search.</param>
+        /// <param name="reverseSearch">Sets if the search should start at the last item.</param>
+        /// <returns>Pos of the searched for item.</returns>
         public static int IndexOf(string markdown, string search, int startingPos, int endingPos, bool reverseSearch = false)
         {
             // Check the ending isn't out of bounds.
@@ -382,7 +236,12 @@ namespace Quarrel.Controls.Markdown.Helpers
         /// <summary>
         /// Helper function for index of with a start and an ending.
         /// </summary>
-        /// <returns>Pos of the searched for item</returns>
+        /// <param name="markdown">Markdown text to check.</param>
+        /// <param name="search">Character to find.</param>
+        /// <param name="startingPos">The first index to check.</param>
+        /// <param name="endingPos">The last index to check.</param>
+        /// <param name="reverseSearch">Sets if the search should start at the final index.</param>
+        /// <returns>Pos of the searched for item.</returns>
         public static int IndexOf(string markdown, char search, int startingPos, int endingPos, bool reverseSearch = false)
         {
             // Check the ending isn't out of bounds.
@@ -420,7 +279,11 @@ namespace Quarrel.Controls.Markdown.Helpers
         /// <summary>
         /// Finds the next whitespace in a range.
         /// </summary>
-        /// <returns>pos of the white space</returns>
+        /// <param name="markdown">Markdown to check.</param>
+        /// <param name="startingPos">First index to check.</param>
+        /// <param name="endingPos">Last index to check.</param>
+        /// <param name="ifNotFoundReturnLength">Sets the sentinel value.</param>
+        /// <returns>pos of the white space.</returns>
         public static int FindNextWhiteSpace(string markdown, int startingPos, int endingPos, bool ifNotFoundReturnLength)
         {
             int currentPos = startingPos;
@@ -437,29 +300,14 @@ namespace Quarrel.Controls.Markdown.Helpers
             return ifNotFoundReturnLength ? endingPos : -1;
         }
 
-        internal class LineInfo
-        {
-            public int StartOfLine { get; set; }
-
-            public int FirstNonWhitespaceChar { get; set; }
-
-            public int EndOfLine { get; set; }
-
-            public bool IsLineBlank
-            {
-                get
-                {
-                    return FirstNonWhitespaceChar == EndOfLine;
-                }
-            }
-
-            public int StartOfNextLine { get; set; }
-        }
-
         /// <summary>
         /// Parses lines.
         /// </summary>
-        /// <returns>LineInfo</returns>
+        /// <param name="markdown">markdown to parse.</param>
+        /// <param name="start">Starting index.</param>
+        /// <param name="end">Ending index to parse.</param>
+        /// <param name="quoteDepth">How many quote blocks deep to parse.</param>
+        /// <returns>LineInfo.</returns>
         public static IEnumerable<LineInfo> ParseLines(string markdown, int start, int end, int quoteDepth)
         {
             int pos = start;
@@ -557,7 +405,11 @@ namespace Quarrel.Controls.Markdown.Helpers
         /// <summary>
         /// Skips a certain number of quote characters (>).
         /// </summary>
-        /// <returns>Skip Quote Chars</returns>
+        /// <param name="markdown">The mardkwon to check.</param>
+        /// <param name="start">The starting index to check.</param>
+        /// <param name="end">The last index to check.</param>
+        /// <param name="quoteDepth">How many quotes deep to check.</param>
+        /// <returns>Skip Quote Chars.</returns>
         public static int SkipQuoteCharacters(string markdown, int start, int end, int quoteDepth)
         {
             if (quoteDepth == 0)
@@ -627,7 +479,8 @@ namespace Quarrel.Controls.Markdown.Helpers
         /// <summary>
         /// Determines if a character is a whitespace character.
         /// </summary>
-        /// <returns>true if is white space</returns>
+        /// <param name="c">char to check.</param>
+        /// <returns>true if is white space.</returns>
         public static bool IsWhiteSpace(char c)
         {
             return c == ' ' || c == '\t' || c == '\r' || c == '\n';
@@ -636,7 +489,8 @@ namespace Quarrel.Controls.Markdown.Helpers
         /// <summary>
         /// Determines if a string is blank or comprised entirely of whitespace characters.
         /// </summary>
-        /// <returns>true if blank or white space</returns>
+        /// <param name="str">string to check.</param>
+        /// <returns>true if blank or white space.</returns>
         public static bool IsBlankOrWhiteSpace(string str)
         {
             for (int i = 0; i < str.Length; i++)
@@ -648,6 +502,204 @@ namespace Quarrel.Controls.Markdown.Helpers
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Finds the next inline element by matching trip chars and verifying the match.
+        /// </summary>
+        /// <param name="markdown"> The markdown text to parse. </param>
+        /// <param name="start"> The position to start parsing. </param>
+        /// <param name="end"> The position to stop parsing. </param>
+        /// <param name="ignoreLinks"> Indicates whether to parse links. </param>
+        /// <returns>Returns the next element.</returns>
+        private static InlineParseResult FindNextInlineElement(string markdown, int start, int end, bool ignoreLinks)
+        {
+            // Search for the next inline sequence.
+            for (int pos = start; pos < end; pos++)
+            {
+                // IndexOfAny should be the fastest way to skip characters we don't care about.
+                pos = markdown.IndexOfAny(_tripCharacters, pos, end - pos);
+                if (pos < 0)
+                {
+                    break;
+                }
+
+                // Find the trigger(s) that matched.
+                char currentChar = markdown[pos];
+                foreach (InlineTripCharHelper currentTripChar in _triggerList)
+                {
+                    // Check if our current char matches the suffix char.
+                    if (currentChar == currentTripChar.FirstChar)
+                    {
+                        // Don't match if the previous character was a backslash.
+                        if (pos > start && markdown[pos - 1] == '\\')
+                        {
+                            continue;
+                        }
+
+                        // If we are here we have a possible match. Call into the inline class to verify.
+                        InlineParseResult parseResult = null;
+                        switch (currentTripChar.Method)
+                        {
+                            case InlineParseMethod.BoldItalic:
+                                parseResult = BoldItalicTextInline.Parse(markdown, pos, end);
+                                break;
+                            case InlineParseMethod.Bold:
+                                parseResult = BoldTextInline.Parse(markdown, pos, end);
+                                break;
+                            case InlineParseMethod.Italic:
+                                parseResult = ItalicTextInline.Parse(markdown, pos, end);
+                                break;
+                            case InlineParseMethod.MarkdownLink:
+                                if (!ignoreLinks)
+                                {
+                                    parseResult = MarkdownLinkInline.Parse(markdown, pos, end);
+                                }
+
+                                break;
+                            case InlineParseMethod.AngleBracketLink:
+                                if (!ignoreLinks)
+                                {
+                                    parseResult = HyperlinkInline.ParseAngleBracketLink(markdown, pos, end) ??
+                                                  EmojiInline.ParseAngleBracketLink(markdown, pos, end);
+                                }
+
+                                break;
+                            case InlineParseMethod.Url:
+                                if (!ignoreLinks)
+                                {
+                                    parseResult = HyperlinkInline.ParseUrl(markdown, pos, end);
+                                }
+
+                                break;
+                            case InlineParseMethod.PartialLink:
+                                if (!ignoreLinks)
+                                {
+                                    parseResult = HyperlinkInline.ParsePartialLink(markdown, pos, end);
+                                }
+
+                                break;
+                            case InlineParseMethod.Email:
+                                if (!ignoreLinks)
+                                {
+                                    parseResult = HyperlinkInline.ParseEmailAddress(markdown, start, pos, end);
+                                }
+
+                                break;
+                            case InlineParseMethod.Strikethrough:
+                                parseResult = StrikethroughTextInline.Parse(markdown, pos, end);
+                                break;
+                            case InlineParseMethod.Code:
+                                parseResult = CodeInline.Parse(markdown, pos, end);
+                                break;
+                            case InlineParseMethod.Underline:
+                                parseResult = UnderlineTextInline.Parse(markdown, pos, end);
+                                break;
+                        }
+
+                        if (parseResult != null)
+                        {
+                            return parseResult;
+                        }
+                    }
+                }
+            }
+
+            // If we didn't find any elements we have a normal text block.
+            // Let us consume the entire range.
+            return new InlineParseResult(TextRunInline.Parse(markdown, start, end), start, end);
+        }
+
+        /// <summary>
+        /// Info on a line.
+        /// </summary>
+        internal class LineInfo
+        {
+            /// <summary>
+            /// Gets or sets the starting index of the line.
+            /// </summary>
+            public int StartOfLine { get; set; }
+
+            /// <summary>
+            /// Gets or sets the index of the first non-whitespace character.
+            /// </summary>
+            public int FirstNonWhitespaceChar { get; set; }
+
+            /// <summary>
+            /// Gets or sets the index of the end of the line.
+            /// </summary>
+            public int EndOfLine { get; set; }
+
+            /// <summary>
+            /// Gets a value indicating whether or not there are any non-whitespace characters on a line.
+            /// </summary>
+            public bool IsLineBlank
+            {
+                get
+                {
+                    return FirstNonWhitespaceChar == EndOfLine;
+                }
+            }
+
+            /// <summary>
+            /// Gets or sets the starting index of the next line.
+            /// </summary>
+            public int StartOfNextLine { get; set; }
+        }
+
+        /// <summary>
+        /// Represents the result of parsing an inline element.
+        /// </summary>
+        internal class InlineParseResult
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="InlineParseResult"/> class.
+            /// </summary>
+            /// <param name="parsedElement">The <see cref="MarkdownInline"/>.</param>
+            /// <param name="start">The index the inline begins at.</param>
+            /// <param name="end">The index the inline ends at.</param>
+            public InlineParseResult(MarkdownInline parsedElement, int start, int end)
+            {
+                ParsedElement = parsedElement;
+                Start = start;
+                End = end;
+            }
+
+            /// <summary>
+            /// Gets the element that was parsed (can be <c>null</c>).
+            /// </summary>
+            public MarkdownInline ParsedElement { get; }
+
+            /// <summary>
+            /// Gets the position of the first character in the parsed element.
+            /// </summary>
+            public int Start { get; }
+
+            /// <summary>
+            /// Gets the position of the character after the last character in the parsed element.
+            /// </summary>
+            public int End { get; }
+        }
+
+        /// <summary>
+        /// A helper class for the trip chars. This is an optimization. If we ask each class to go
+        /// through the rage and look for itself we end up looping through the range n times, once
+        /// for each inline. This class represent a character that an inline needs to have a
+        /// possible match. We will go through the range once and look for everyone's trip chars,
+        /// and if they can make a match from the trip char then we will commit to them.
+        /// </summary>
+        internal class InlineTripCharHelper
+        {
+            /// <summary>
+            /// Gets or sets the first char in the inline.
+            /// </summary>
+            /// <remarks>Everything in first char and suffix should be lower case.</remarks>
+            public char FirstChar { get; set; }
+
+            /// <summary>
+            /// Gets or sets the type of inline.
+            /// </summary>
+            public InlineParseMethod Method { get; set; }
         }
     }
 }

@@ -8,8 +8,12 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Parsing
 {
     public interface ILanguageParser
     {
-        void Parse(string sourceCode,
-                   ILanguage language,
-                   Action<string, IList<Scope>> parseHandler);
+        /// <summary>
+        /// Parses a language block.
+        /// </summary>
+        /// <param name="sourceCode">The raw code.</param>
+        /// <param name="language">The language to parse as.</param>
+        /// <param name="parseHandler">Scope types by source code.</param>
+        void Parse(string sourceCode, ILanguage language, Action<string, IList<Scope>> parseHandler);
     }
 }

@@ -42,6 +42,15 @@ namespace Quarrel.Controls.Markdown.Parse.Blocks
         public string CodeLanguage { get; set; }
 
         /// <summary>
+        /// Converts the object into it's textual representation.
+        /// </summary>
+        /// <returns> The textual representation of this object. </returns>
+        public override string ToString()
+        {
+            return Text;
+        }
+
+        /// <summary>
         /// Parses a code block.
         /// </summary>
         /// <param name="markdown"> The markdown text. </param>
@@ -52,7 +61,7 @@ namespace Quarrel.Controls.Markdown.Parse.Blocks
         /// <returns> A parsed code block, or <c>null</c> if this is not a code block. </returns>
         internal static CodeBlock Parse(string markdown, int start, int maxEnd, int quoteDepth, out int actualEnd)
         {
-             StringBuilder code = null;
+            StringBuilder code = null;
             actualEnd = start;
             bool insideCodeBlock = false;
             string codeLanguage = string.Empty;
@@ -62,7 +71,6 @@ namespace Quarrel.Controls.Markdown.Parse.Blocks
                 Either every line starts with a tab character or at least 4 spaces
                 Or the code block starts and ends with ```
             */
-
             foreach (var lineInfo in Helpers.Common.ParseLines(markdown, start, maxEnd, quoteDepth))
             {
                 int pos = lineInfo.StartOfLine;
@@ -188,18 +196,8 @@ namespace Quarrel.Controls.Markdown.Parse.Blocks
             return new CodeBlock()
             {
                 Text = code.ToString().Trim('\r', '\n'),
-                CodeLanguage = !string.IsNullOrWhiteSpace(codeLanguage) ? codeLanguage.Trim() : null
+                CodeLanguage = !string.IsNullOrWhiteSpace(codeLanguage) ? codeLanguage.Trim() : null,
             };
-
-        }
-
-        /// <summary>
-        /// Converts the object into it's textual representation.
-        /// </summary>
-        /// <returns> The textual representation of this object. </returns>
-        public override string ToString()
-        {
-            return Text;
         }
     }
 }

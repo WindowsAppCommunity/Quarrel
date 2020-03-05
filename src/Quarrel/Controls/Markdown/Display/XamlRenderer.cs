@@ -68,20 +68,20 @@ namespace Quarrel.Controls.Markdown.Display
         /// <summary>
         /// Initializes a new instance of the <see cref="XamlRenderer"/> class.
         /// </summary>
-        /// <param name="document"></param>
-        /// <param name="linkRegister"></param>
-        /// <param name="users"></param>
-        /// <param name="MessageId"></param>
-        /// <param name="codeBlockResolver"></param>
-        /// <param name="border"></param>
-        /// <param name="halfopacity"></param>
-        public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<User> users, string MessageId, ICodeBlockResolver codeBlockResolver, ref Border border, bool halfopacity)
+        /// <param name="document">The <see cref="MarkdownDocument"/>.</param>
+        /// <param name="linkRegister">The <see cref="ILinkRegister"/>.</param>
+        /// <param name="users">The list of users mentioned in the markdown.</param>
+        /// <param name="messageId">The id of the message.</param>
+        /// <param name="codeBlockResolver">The <see cref="ICodeBlockResolver"/>.</param>
+        /// <param name="border">The root markdown.</param>
+        /// <param name="halfopacity">Whether or not the markdown is in half opacity mode.</param>
+        public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<User> users, string messageId, ICodeBlockResolver codeBlockResolver, ref Border border, bool halfopacity)
         {
             _document = document;
             _halfopacity = halfopacity;
 
             _linkRegister = linkRegister;
-            _messageid = MessageId;
+            _messageid = messageId;
             CodeBlockResolver = codeBlockResolver;
             Root = border;
             _users = users;
