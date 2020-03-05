@@ -9,9 +9,13 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
 // THE CODE OR THE USE OR OTHER DEALINGS IN THE CODE.
 // ******************************************************************
+// Copyright (c) Quarrel. All rights reserved.
 
 namespace Quarrel.Controls.Markdown.Parse
 {
+    /// <summary>
+    /// Types of MardownBlocks.
+    /// </summary>
     internal enum MarkdownBlockType
     {
         /// <summary>
@@ -35,56 +39,35 @@ namespace Quarrel.Controls.Markdown.Parse
         Code,
 
         /// <summary>
-        /// A header block
-        /// </summary>
-  /*      Header,
-
-        /// <summary>
-        /// A list block
-        /// </summary>
-        List,
-
-        /// <summary>
-        /// A list item block
-        /// </summary>
-        ListItemBuilder,
-
-        /// <summary>
-        /// a horizontal rule block
-        /// </summary>
-        HorizontalRule,
-
-        /// <summary>
-        /// A table block
-        /// </summary>
-        Table, */
-
-        /// <summary>
         /// A link block
         /// </summary>
-        LinkReference
+        LinkReference,
     }
 
+    /// <summary>
+    /// Represents a block of text in markdown.
+    /// </summary>
     internal abstract class MarkdownBlock : MarkdownElement
     {
         /// <summary>
-        /// Gets or sets tells us what type this element is.
-        /// </summary>
-        internal MarkdownBlockType Type { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="MarkdownBlock"/> class.
         /// </summary>
+        /// <param name="type">Type of markdown block.</param>
         internal MarkdownBlock(MarkdownBlockType type)
         {
             Type = type;
         }
 
         /// <summary>
+        /// Gets or sets tells us what type this element is.
+        /// </summary>
+        internal MarkdownBlockType Type { get; set; }
+
+        /// <summary>
         /// Determines whether the specified object is equal to the current object.
         /// </summary>
         /// <param name="obj"> The object to compare with the current object. </param>
-        /// <returns> <c>true</c> if the specified object is equal to the current object; otherwise, <c>false.</c> </returns>
+        /// <returns> <c>true</c> if the specified object is equal to the current object; otherwise, <c>false.</c>. </returns>
         public override bool Equals(object obj)
         {
             if (!base.Equals(obj) || !(obj is MarkdownBlock))

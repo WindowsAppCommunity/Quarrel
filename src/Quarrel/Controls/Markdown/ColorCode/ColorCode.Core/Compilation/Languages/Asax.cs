@@ -1,29 +1,38 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
+// Copyright (c) Quarrel. All rights reserved.
 
-using System.Collections.Generic;
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
+using System.Collections.Generic;
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languages
 {
+    /// <summary>
+    /// Asax language rules.
+    /// </summary>
     public class Asax : ILanguage
     {
+        /// <inheritdoc/>
+        string[] ILanguage.Aliases => new string[] { "asax" };
+
+        /// <inheritdoc/>
         public string Id
         {
             get { return LanguageId.Asax; }
         }
 
+        /// <inheritdoc/>
         public string Name
         {
             get { return "ASAX"; }
         }
 
-        string[] ILanguage.Aliases => new string[] { "asax" };
-
+        /// <inheritdoc/>
         public string CssClassName
         {
             get { return "asax"; }
         }
 
+        /// <inheritdoc/>
         public string FirstLinePattern
         {
             get
@@ -32,6 +41,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
             }
         }
 
+        /// <inheritdoc/>
         public IList<LanguageRule> Rules
         {
             get
@@ -44,19 +54,19 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 1, ScopeName.HtmlServerSideScript },
                                            { 2, ScopeName.HtmlComment },
-                                           { 3, ScopeName.HtmlServerSideScript }
+                                           { 3, ScopeName.HtmlServerSideScript },
                                        }),
                                new LanguageRule(
                                    @"(?is)(?<=<%@.+?language=""c\#"".*?%>.*?<script.*?runat=""server"">)(.*)(?=</script>)",
                                    new Dictionary<int, string>
                                        {
-                                           { 1, string.Format("{0}{1}", ScopeName.LanguagePrefix, LanguageId.CSharp) }
+                                           { 1, string.Format("{0}{1}", ScopeName.LanguagePrefix, LanguageId.CSharp) },
                                        }),
                                new LanguageRule(
                                    @"(?is)(?<=<%@.+?language=""vb"".*?%>.*?<script.*?runat=""server"">)(.*)(?=</script>)",
                                    new Dictionary<int, string>
                                        {
-                                           { 1, string.Format("{0}{1}", ScopeName.LanguagePrefix, LanguageId.VbDotNet) }
+                                           { 1, string.Format("{0}{1}", ScopeName.LanguagePrefix, LanguageId.VbDotNet) },
                                        }),
                                new LanguageRule(
                                    @"(?xi)(</?)
@@ -85,7 +95,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                            { 12, ScopeName.HtmlOperator },
                                            { 13, ScopeName.HtmlAttributeValue },
                                            { 14, ScopeName.HtmlAttributeName },
-                                           { 15, ScopeName.HtmlTagDelimiter }
+                                           { 15, ScopeName.HtmlTagDelimiter },
                                        }),
                                new LanguageRule(
                                    @"(<%)(@)(?:\s+([a-zA-Z0-9]+))*(?:\s+([a-zA-Z0-9]+)(=)(""[^\n]*?""))*\s*?(%>)",
@@ -97,18 +107,19 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                            { 4, ScopeName.HtmlAttributeName },
                                            { 5, ScopeName.HtmlOperator },
                                            { 6, ScopeName.HtmlAttributeValue },
-                                           { 7, ScopeName.HtmlServerSideScript }
-                                       })
+                                           { 7, ScopeName.HtmlServerSideScript },
+                                       }),
                            };
             }
         }
 
-
+        /// <inheritdoc/>
         public bool HasAlias(string lang)
         {
             return false;
         }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
             return Name;

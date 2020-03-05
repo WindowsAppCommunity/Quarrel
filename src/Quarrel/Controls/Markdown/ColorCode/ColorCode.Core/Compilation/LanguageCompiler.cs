@@ -1,3 +1,4 @@
+// Copyright (c) Microsoft Corporation.  All rights reserved.
 // Copyright (c) Quarrel. All rights reserved.
 
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
@@ -14,7 +15,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
     /// </summary>
     public class LanguageCompiler : ILanguageCompiler
     {
-        private static readonly Regex NumberOfCapturesRegex = new Regex(@"(?x)(?<!(\\|(?!\\)\(\?))\((?!\?)", RegexOptions.Compiled);
+        private static readonly System.Text.RegularExpressions.Regex NumberOfCapturesRegex = new System.Text.RegularExpressions.Regex(@"(?x)(?<!(\\|(?!\\)\(\?))\((?!\?)", RegexOptions.Compiled);
         private readonly Dictionary<string, CompiledLanguage> compiledLanguages;
         private readonly ReaderWriterLockSlim compileLock;
 
@@ -107,12 +108,12 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
             string id = language.Id;
             string name = language.Name;
 
-            CompileRules(language.Rules, out Regex regex, out IList<string> captures);
+            CompileRules(language.Rules, out System.Text.RegularExpressions.Regex regex, out IList<string> captures);
 
             return new CompiledLanguage(id, name, regex, captures);
         }
 
-        private static void CompileRules(IList<LanguageRule> rules, out Regex regex, out IList<string> captures)
+        private static void CompileRules(IList<LanguageRule> rules, out System.Text.RegularExpressions.Regex regex, out IList<string> captures)
         {
             StringBuilder regexBuilder = new StringBuilder();
             captures = new List<string>();
@@ -127,7 +128,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
                 CompileRule(rules[i], regexBuilder, captures, false);
             }
 
-            regex = new Regex(regexBuilder.ToString());
+            regex = new System.Text.RegularExpressions.Regex(regexBuilder.ToString());
         }
 
         private static void CompileRule(LanguageRule languageRule, StringBuilder regex, ICollection<string> captures, bool isFirstRule)

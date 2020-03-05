@@ -1,4 +1,5 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
+// Copyright (c) Quarrel. All rights reserved.
 
 using System.Collections.Generic;
 
@@ -24,20 +25,26 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         /// </summary>
         string Name { get; }
 
+        /// <summary>
+        /// Gets the possible names for the language as after the ```.
+        /// </summary>
         string[] Aliases { get; }
+
         /// <summary>
         /// Gets the collection of language rules in the language.
         /// </summary>
         IList<LanguageRule> Rules { get; }
 
         /// <summary>
-        /// Get the CSS class name to use for a language
+        /// Gets the CSS class name to use for a language.
         /// </summary>
         string CssClassName { get; }
 
         /// <summary>
-        /// Returns true if the specified string is an alias for the language
+        /// Returns true if the specified string is an alias for the language.
         /// </summary>
+        /// <param name="lang">The alias to check.</param>
+        /// <returns>Whether or not the language goes by that alias.</returns>
         bool HasAlias(string lang);
     }
 }

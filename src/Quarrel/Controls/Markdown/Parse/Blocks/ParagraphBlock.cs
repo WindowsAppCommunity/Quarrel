@@ -9,6 +9,7 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
 // THE CODE OR THE USE OR OTHER DEALINGS IN THE CODE.
 // ******************************************************************
+// Copyright (c) Quarrel. All rights reserved.
 
 using System.Collections.Generic;
 
@@ -33,18 +34,6 @@ namespace Quarrel.Controls.Markdown.Parse.Blocks
         public IList<MarkdownInline> Inlines { get; set; }
 
         /// <summary>
-        /// Parses paragraph text.
-        /// </summary>
-        /// <param name="markdown"> The markdown text. </param>
-        /// <returns> A parsed paragraph. </returns>
-        internal static ParagraphBlock Parse(string markdown)
-        {
-            var result = new ParagraphBlock();
-            result.Inlines = Helpers.Common.ParseInlineChildren(markdown, 0, markdown.Length);
-            return result;
-        }
-
-        /// <summary>
         /// Converts the object into it's textual representation.
         /// </summary>
         /// <returns> The textual representation of this object. </returns>
@@ -56,6 +45,18 @@ namespace Quarrel.Controls.Markdown.Parse.Blocks
             }
 
             return string.Join(string.Empty, Inlines);
+        }
+
+        /// <summary>
+        /// Parses paragraph text.
+        /// </summary>
+        /// <param name="markdown"> The markdown text. </param>
+        /// <returns> A parsed paragraph. </returns>
+        internal static ParagraphBlock Parse(string markdown)
+        {
+            var result = new ParagraphBlock();
+            result.Inlines = Helpers.Common.ParseInlineChildren(markdown, 0, markdown.Length);
+            return result;
         }
     }
 }

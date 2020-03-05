@@ -9,19 +9,25 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
 // THE CODE OR THE USE OR OTHER DEALINGS IN THE CODE.
 // ******************************************************************
+// Copyright (c) Quarrel. All rights reserved.
 
 using System;
 
 namespace Quarrel.Controls.Markdown.Parse.Inlines
 {
-
-
     /// <summary>
     /// Represents a type of hyperlink where the text and the target URL cannot be controlled
     /// independently.
     /// </summary>
     internal class EmojiInline : MarkdownInline, IInlineLeaf
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmojiInline"/> class.
+        /// </summary>
+        public EmojiInline()
+            : base(MarkdownInlineType.Emoji)
+        {
+        }
 
         /// <summary>
         /// Gets or sets the name of the emoji (:emoji:).
@@ -33,20 +39,16 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
         /// </summary>
         public string Id { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the emoji is animated.
+        /// </summary>
         public bool IsAnimated { get; set; }
 
+        /// <inheritdoc/>
         string IInlineLeaf.Text
         {
             get => GetText();
             set { }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EmojiInline"/> class.
-        /// </summary>
-        public EmojiInline()
-            : base(MarkdownInlineType.Emoji)
-        {
         }
 
         /// <summary>
@@ -73,6 +75,7 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
                 pos = innerStart + 1;
                 animated = true;
             }
+
             if (pos == -1)
             {
                 return null;
@@ -92,19 +95,30 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
             }
 
             var substr = markdown.Substring(innerStart, innerEnd - innerStart);
-            //Emoji markdown must have at least two colons, as it is <:name:id>
-            int dotcnt = 0;
-            foreach (char c in substr) { if (c == ':') dotcnt++; }
-            if (dotcnt < 2)
-                return null;
 
-            string name = "";
+            // Emoji markdown must have at least two colons, as it is <:name:id>
+            int dotcnt = 0;
+            foreach (char c in substr)
+            {
+                if (c == ':')
+                {
+                    dotcnt++;
+                }
+            }
+
+            if (dotcnt < 2)
+            {
+                return null;
+            }
+
+            string name = string.Empty;
             if (animated)
+            {
                 substr = substr.Remove(0, 1);
+            }
 
             name = substr.Substring(0, substr.IndexOf(":", 1) + 1);
             var id = substr.Substring(name.Length, substr.Length - name.Length);
-
 
             return new Helpers.Common.InlineParseResult(new EmojiInline { Name = name, Id = id, IsAnimated = animated }, start, innerEnd + 1);
         }
@@ -115,9 +129,12 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
         /// <returns> The textual representation of this object. </returns>
         private string GetText()
         {
-            if (Id != null) return Name;
-            return "";
-        }
+            if (Id != null)
+            {
+                return Name;
+            }
 
+            return string.Empty;
+        }
     }
 }

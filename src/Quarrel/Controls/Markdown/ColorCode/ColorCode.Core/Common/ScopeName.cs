@@ -1,9 +1,14 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
+// Copyright (c) Quarrel. All rights reserved.
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common
 {
+    /// <summary>
+    /// Types of scopes.
+    /// </summary>
     public class ScopeName
     {
+#pragma warning disable SA1600 // Elements should be documented
         public const string ClassName = "Class Name";
         public const string Comment = "Comment";
         public const string CssPropertyName = "CSS Property Name";
@@ -64,5 +69,6 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common
         public const string DiffAddition = "DiffAddition";
         public const string DiffDeletion = "DiffDeletion";
         public const string DiffMeta = "DiffMeta";
+#pragma warning restore SA1600 // Elements should be documented
     }
 }

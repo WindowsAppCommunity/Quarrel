@@ -1,4 +1,5 @@
-﻿// Copyright (c) Quarrel. All rights reserved.
+﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
+// Copyright (c) Quarrel. All rights reserved.
 
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
         public CompiledLanguage(
             string id,
             string name,
-            Regex regex,
+            System.Text.RegularExpressions.Regex regex,
             IList<string> captures)
         {
             Guard.ArgNotNullAndNotEmpty(id, "id");
@@ -53,7 +54,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
         /// <summary>
         /// Gets or sets the Regex.
         /// </summary>
-        public Regex Regex { get; set; }
+        public System.Text.RegularExpressions.Regex Regex { get; set; }
 
         /// <summary>
         /// Gets the language name when called as a string.

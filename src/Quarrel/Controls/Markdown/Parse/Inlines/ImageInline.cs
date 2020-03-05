@@ -9,6 +9,7 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
 // THE CODE OR THE USE OR OTHER DEALINGS IN THE CODE.
 // ******************************************************************
+// Copyright (c) Quarrel. All rights reserved.
 
 using System.Collections.Generic;
 
@@ -37,8 +38,22 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
         /// </summary>
         public string Tooltip { get; set; }
 
+        /// <inheritdoc/>
         public string Text { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Converts the object into it's textual representation.
+        /// </summary>
+        /// <returns> The textual representation of this object. </returns>
+        public override string ToString()
+        {
+            return string.Format("[{0}]: {1}", Tooltip, Url);
+        }
+
+        /// <summary>
+        /// Adds characters that would trip image to trip checker.
+        /// </summary>
+        /// <param name="tripCharHelpers">Trip checker.</param>
         internal static void AddTripChars(List<Helpers.Common.InlineTripCharHelper> tripCharHelpers)
         {
             tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '!', Method = Helpers.Common.InlineParseMethod.Image });
@@ -121,18 +136,9 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
             {
                 Tooltip = tooltip,
                 Url = url,
-                Text = markdown.Substring(start, pos + 1 - start)
+                Text = markdown.Substring(start, pos + 1 - start),
             };
             return new Helpers.Common.InlineParseResult(result, start, end);
-        }
-
-        /// <summary>
-        /// Converts the object into it's textual representation.
-        /// </summary>
-        /// <returns> The textual representation of this object. </returns>
-        public override string ToString()
-        {
-            return string.Format("[{0}]: {1}", Tooltip, Url);
         }
     }
 }

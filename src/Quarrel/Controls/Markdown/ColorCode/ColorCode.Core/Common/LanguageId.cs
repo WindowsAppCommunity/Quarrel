@@ -1,9 +1,14 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
+// Copyright (c) Quarrel. All rights reserved.
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common
 {
+    /// <summary>
+    /// List of language's ids.
+    /// </summary>
     public static class LanguageId
     {
+#pragma warning disable SA1600 // Elements should be documented
         public const string Asax = "asax";
         public const string Ashx = "ashx";
         public const string Aspx = "aspx";
@@ -29,5 +34,6 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common
         public const string Diff = "diff";
         public const string Python = "python";
         public const string Arduino = "arduino";
+#pragma warning restore SA1600 // Elements should be documented
     }
 }

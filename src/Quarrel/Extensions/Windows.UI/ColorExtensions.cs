@@ -2,11 +2,6 @@
 
 using Quarrel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI;
 using Windows.UI.Xaml.Media;
 
 namespace Windows.UI
@@ -44,7 +39,7 @@ namespace Windows.UI
         /// Gets a <see cref="UI.Color"/> from the <paramref name="color"/>.
         /// </summary>
         /// <param name="color">An int color.</param>
-        /// <returns>The <see cref="UI.Color"/>for <paramref name="color"/>.</returns>
+        /// <returns>The <see cref="UI.Color"/> for <paramref name="color"/>.</returns>
         public static Color IntToColor(int color)
         {
             if (color == -1)
@@ -66,6 +61,16 @@ namespace Windows.UI
                     return (App.Current.Resources["Foreground"] as SolidColorBrush).Color;
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets a <see cref="SolidColorBrush"/> from the <paramref name="color"/>.
+        /// </summary>
+        /// <param name="color">An int color.</param>
+        /// <returns>The <see cref="SolidColorBrush"/> for the <paramref name="color"/>.</returns>
+        public static SolidColorBrush IntToBrush(int color)
+        {
+            return new SolidColorBrush(IntToColor(color));
         }
 
         /// <summary>

@@ -1,29 +1,39 @@
 ﻿// Copyright (c) 2015 Christopher Pardi.
-
 // Copyright (c) Microsoft Corporation.  All rights reserved.
+// Copyright (c) Quarrel. All rights reserved.
 
-using System.Collections.Generic;
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
+using System.Collections.Generic;
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languages
 {
+    /// <summary>
+    /// Fortran language rules.
+    /// </summary>
     public class Fortran : ILanguage
     {
+        /// <inheritdoc/>
+        string[] ILanguage.Aliases => new string[] { "fortran" };
+
+        /// <inheritdoc/>
         public string Id
         {
             get { return LanguageId.Fortran; }
         }
 
+        /// <inheritdoc/>
         public string Name
         {
             get { return "Fortran"; }
         }
 
+        /// <inheritdoc/>
         public string CssClassName
         {
             get { return "fortran"; }
         }
 
+        /// <inheritdoc/>
         public string FirstLinePattern
         {
             get
@@ -32,6 +42,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
             }
         }
 
+        /// <inheritdoc/>
         public IList<LanguageRule> Rules
         {
             get
@@ -45,6 +56,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 0, ScopeName.Comment },
                                        }),
+
                                 // String type 1
                                 new LanguageRule(
                                    @""".*?""|'.*?'",
@@ -52,6 +64,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 0, ScopeName.String },
                                        }),
+
                                 // Program keywords
                                 new LanguageRule(
                                    @"(?i)\b(?:program|endprogram)\b",
@@ -59,6 +72,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 0, ScopeName.Keyword },
                                        }),
+
                                 // Module keywords
                                 new LanguageRule(
                                    @"(?i)\b(?:module|endmodule|contains)\b",
@@ -66,6 +80,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 0, ScopeName.Keyword },
                                        }),
+
                                 // Type keywords
                                 new LanguageRule(
                                    @"(?i)\b(?:type|endtype|abstract)\b",
@@ -73,6 +88,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 0, ScopeName.Keyword },
                                        }),
+
                                 // Interface definition keywords
                                 new LanguageRule(
                                    @"(?i)\b(?:interface|endinterface|operator|assignment)\b",
@@ -80,6 +96,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 0, ScopeName.Keyword },
                                        }),
+
                                 // Procedure definition keywords
                                 new LanguageRule(
                                    @"(?i)\b(?:function|endfunction|subroutine|endsubroutine|elemental|recursive|pure)\b",
@@ -87,6 +104,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 0, ScopeName.Keyword },
                                        }),
+
                                // Variable keywords
                                 new LanguageRule(
                                    @"(?i)INTEGER|REAL|DOUBLE\s*PRECISION|COMPLEX|CHARACTER|LOGICAL|TYPE",
@@ -94,6 +112,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 0, ScopeName.Keyword },
                                        }),
+
                                 // Attribute keywords
                                 new LanguageRule(
                                    @"(?i)\b(?:parameter|allocatable|optional|pointer|save|dimension|target)\b",
@@ -101,6 +120,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 0, ScopeName.Keyword },
                                        }),
+
                                 // Intent keywords
                                 new LanguageRule(
                                    @"(?i)\b(intent)\s*(\()\s*(in|out|inout)\s*(\))",
@@ -111,6 +131,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                            { 3, ScopeName.Keyword },
                                            { 4, ScopeName.Brackets },
                                        }),
+
                                 // Namelist
                                 new LanguageRule(
                                    @"(?i)\b(namelist)(/)\w+(/)",
@@ -120,6 +141,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                            { 2, ScopeName.Brackets },
                                            { 3, ScopeName.Brackets },
                                        }),
+
                                 // Intrinsic functions
                                 new LanguageRule(
                                    @"(?i)\b(PRESENT" +
@@ -141,26 +163,26 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                     "|RESHAPE" +
                                     "|TRANSPOSE|EOSHIFT|CSHIFT" +
                                     "|MAXLOC|MINLOC" +
-                                   @"|ASSOCIATED)\b(\()"
-                                    ,
+                                   @"|ASSOCIATED)\b(\()",
                                    new Dictionary<int, string>
                                        {
-                                           {1, ScopeName.Intrinsic },
-                                           {2, ScopeName.Brackets },
+                                           { 1, ScopeName.Intrinsic },
+                                           { 2, ScopeName.Brackets },
                                        }),
+
                                 // Intrinsic functions
                                 new LanguageRule(
                                    @"(?i)(call)\s+(" +
                                    "DATE_AND_TIME|SYSTEM_CLOCK" +
                                    "|RANDOM_NUMBER|RANDOM_SEED" +
                                    "|MVBITS" +
-                                   ")\b"
-                                    ,
+                                   ")\b",
                                    new Dictionary<int, string>
                                        {
-                                           {1, ScopeName.Keyword },
-                                           {2, ScopeName.Intrinsic },
+                                           { 1, ScopeName.Keyword },
+                                           { 2, ScopeName.Intrinsic },
                                        }),
+
                                 // Special Character
                                 new LanguageRule(
                                    @"\=|\*|\+|\\|\-|\.\w+\.|>|<|::|%|,|;|\?|\$",
@@ -168,6 +190,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 0, ScopeName.SpecialCharacter },
                                        }),
+
                                 // Line Continuation
                                 new LanguageRule(
                                    @"&",
@@ -175,6 +198,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 0, ScopeName.Continuation },
                                        }),
+
                                 // Number
                                 new LanguageRule(
                                    @"\b[0-9.]+(_\w+)?\b",
@@ -182,6 +206,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 0, ScopeName.Number },
                                        }),
+
                                 // Brackets
                                 new LanguageRule(
                                    @"[\(\)\[\]]",
@@ -189,6 +214,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 0, ScopeName.Brackets },
                                        }),
+
                                 // Preprocessor keywords
                                 new LanguageRule(
                                    @"(?i)(?:#define|#elif|#elifdef|#elifndef|#else|#endif|#error|#if|#ifdef|#ifndef|#include|#line|#pragma|#undef)\b",
@@ -196,6 +222,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 0, ScopeName.PreprocessorKeyword },
                                        }),
+
                                 // General keywords
                                 new LanguageRule(
                                    @"(?i)\b(?:end|use|do|enddo|select|endselect|case|endcase|if|then|else|endif|implicit|none"
@@ -204,11 +231,12 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                    new Dictionary<int, string>
                                        {
                                            { 0, ScopeName.Keyword },
-                                       })
+                                       }),
                            };
             }
         }
 
+        /// <inheritdoc/>
         public bool HasAlias(string lang)
         {
             switch (lang.ToLower())
@@ -220,7 +248,8 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                     return false;
             }
         }
-        string[] ILanguage.Aliases => new string[] { "fortran" };
+
+        /// <inheritdoc/>
         public override string ToString()
         {
             return Name;

@@ -1,4 +1,5 @@
-﻿// Copyright (c) Quarrel. All rights reserved.
+﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
+// Copyright (c) Quarrel. All rights reserved.
 
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation;
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Parsing;
@@ -20,7 +21,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         public CodeColorizerBase(StyleDictionary styles, ILanguageParser languageParser)
         {
             LanguageParser = languageParser
-                ?? new LanguageParser(new LanguageCompiler(Languages.CompiledLanguages), Languages.LanguageRepository);
+                ?? new LanguageParser(new LanguageCompiler(Languages._compiledLanguages), Languages.LanguageRepository);
 
             Styles = styles ?? StyleDictionary.DefaultLight;
         }

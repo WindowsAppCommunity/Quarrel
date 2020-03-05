@@ -1,27 +1,38 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
+// Copyright (c) Quarrel. All rights reserved.
 
-using System.Collections.Generic;
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
+using System.Collections.Generic;
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languages
 {
+    /// <summary>
+    /// Aspx language rules.
+    /// </summary>
     public class Aspx : ILanguage
     {
+        /// <inheritdoc/>
+        string[] ILanguage.Aliases => new string[] { "aspx" };
+
+        /// <inheritdoc/>
         public string Id
         {
             get { return LanguageId.Aspx; }
         }
 
+        /// <inheritdoc/>
         public string Name
         {
             get { return "ASPX"; }
         }
-        
+
+        /// <inheritdoc/>
         public string CssClassName
         {
             get { return "aspx"; }
         }
-        string[] ILanguage.Aliases => new string[] { "aspx" };
+
+        /// <inheritdoc/>
         public string FirstLinePattern
         {
             get
@@ -30,6 +41,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
             }
         }
 
+        /// <inheritdoc/>
         public IList<LanguageRule> Rules
         {
             get
@@ -42,13 +54,13 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 1, ScopeName.HtmlServerSideScript },
                                            { 2, ScopeName.HtmlComment },
-                                           { 3, ScopeName.HtmlServerSideScript }
+                                           { 3, ScopeName.HtmlServerSideScript },
                                        }),
                                new LanguageRule(
                                    @"(?s)<!--.*?-->",
                                    new Dictionary<int, string>
                                        {
-                                           { 0, ScopeName.HtmlComment }
+                                           { 0, ScopeName.HtmlComment },
                                        }),
                                new LanguageRule(
                                    @"(?i)(<%)(@)(?:\s+([a-z0-9]+))*(?:\s+([a-z0-9]+)(=)(""[^\n]*?""))*\s*?(%>)",
@@ -60,14 +72,14 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                            { 4, ScopeName.HtmlAttributeName },
                                            { 5, ScopeName.HtmlOperator },
                                            { 6, ScopeName.HtmlAttributeValue },
-                                           { 7, ScopeName.HtmlServerSideScript }
+                                           { 7, ScopeName.HtmlServerSideScript },
                                        }),
                                new LanguageRule(
                                    @"(?s)(?:(<%=|<%)(?!=|@|--))(?:.*?)(%>)",
                                    new Dictionary<int, string>
                                        {
                                            { 1, ScopeName.HtmlServerSideScript },
-                                           { 2, ScopeName.HtmlServerSideScript }
+                                           { 2, ScopeName.HtmlServerSideScript },
                                        }),
                                new LanguageRule(
                                    @"(?is)(<!)(DOCTYPE)(?:\s+([a-z0-9]+))*(?:\s+(""[^""]*?""))*(>)",
@@ -77,7 +89,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                            { 2, ScopeName.HtmlElementName },
                                            { 3, ScopeName.HtmlAttributeName },
                                            { 4, ScopeName.HtmlAttributeValue },
-                                           { 5, ScopeName.HtmlTagDelimiter }
+                                           { 5, ScopeName.HtmlTagDelimiter },
                                        }),
                                new LanguageRule(RuleFormats.JavaScript, RuleCaptures.JavaScript),
                                new LanguageRule(
@@ -107,23 +119,25 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                            { 12, ScopeName.HtmlOperator },
                                            { 13, ScopeName.HtmlAttributeValue },
                                            { 14, ScopeName.HtmlAttributeName },
-                                           { 15, ScopeName.HtmlTagDelimiter }
+                                           { 15, ScopeName.HtmlTagDelimiter },
                                        }),
                                new LanguageRule(
                                    @"(?i)&[a-z0-9]+?;",
                                    new Dictionary<int, string>
                                        {
-                                           { 0, ScopeName.HtmlEntity }
-                                       })
+                                           { 0, ScopeName.HtmlEntity },
+                                       }),
                            };
             }
         }
 
+        /// <inheritdoc/>
         public bool HasAlias(string lang)
         {
             return false;
         }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
             return Name;
