@@ -176,7 +176,7 @@ namespace Quarrel.Controls
         private void DataRecieved(object sender, float[] e)
         {
             // Determine FFT data
-            float[] fftData = HelperMethods.GetFftChannelData(e, BoundAudioService.Samples);
+            float[] fftData = HelperMethods.GetFftChannelData(e);
 
             _specPoint0 = HelperMethods.Max(fftData, 0, 1);
             _specPoint1 = HelperMethods.Max(fftData, 2, 3);
