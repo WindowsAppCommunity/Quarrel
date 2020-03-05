@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using System;
 using Windows.UI;
 
 namespace Quarrel.Helpers.Colors.SmartColor
@@ -64,7 +66,7 @@ namespace Quarrel.Helpers.Colors.SmartColor
     }
 
     /// <summary>
-    ///     Defines a color in Hue/Saturation/Lightness (HSL) space.
+    /// Defines a color in Hue/Saturation/Lightness (HSL) space.
     /// </summary>
     public struct HslColor
     {
@@ -88,5 +90,4 @@ namespace Quarrel.Helpers.Colors.SmartColor
         /// </summary>
         public double S;
     }
-
 }
