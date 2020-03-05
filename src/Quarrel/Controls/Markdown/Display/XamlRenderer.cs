@@ -13,6 +13,7 @@
 
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
+using Microsoft.Toolkit.Uwp.UI.Extensions;
 using Quarrel.Controls.Markdown.Parse;
 using Quarrel.Controls.Markdown.Parse.Blocks;
 using Quarrel.Controls.Markdown.Parse.Inlines;
@@ -33,13 +34,18 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
-using Microsoft.Toolkit.Uwp.UI.Extensions;
 using Emoji = NeoSmart.Unicode.Emoji;
 
 namespace Quarrel.Controls.Markdown.Display
 {
     internal class XamlRenderer
     {
+        private static bool? _textDecorationsSupported = null;
+
+        // This is super hacky, but it's a way of keeping intertia and passing scroll data to the parent;
+        private static MethodInfo pointerWheelChanged = typeof(ScrollViewer).GetMethod("OnPointerWheelChanged", BindingFlags.NonPublic | BindingFlags.Instance);
+
+
         /// <summary>
         /// The markdown document that will be rendered.
         /// </summary>
@@ -53,9 +59,10 @@ namespace Quarrel.Controls.Markdown.Display
         private string _messageid;
         private bool _halfopacity;
         private IEnumerable<User> _users;
-        private IChannelsService ChannelsService = SimpleIoc.Default.GetInstance<IChannelsService>();
-        private IGuildsService GuildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
-        private ICurrentUserService CurrentUsersService = SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        private IChannelsService _channelsService = SimpleIoc.Default.GetInstance<IChannelsService>();
+        private IGuildsService _guildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
+        private ICurrentUserService _currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUserService>();
+
         public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<User> users, string MessageId, ICodeBlockResolver codeBlockResolver, ref Border border, bool halfopacity)
         {
             _document = document;
@@ -64,13 +71,9 @@ namespace Quarrel.Controls.Markdown.Display
             _linkRegister = linkRegister;
             _messageid = MessageId;
             CodeBlockResolver = codeBlockResolver;
-            _root = border;
+            Root = border;
             _users = users;
         }
-
-
-        private static bool? _textDecorationsSupported = null;
-        private static bool TextDecorationsSupported => (bool)(_textDecorationsSupported ?? (_textDecorationsSupported = ApiInformation.IsTypePresent("Windows.UI.Text.TextDecorations")));
 
         /// <summary>
         /// Gets or sets the stretch used for images.
@@ -138,7 +141,7 @@ namespace Quarrel.Controls.Markdown.Display
         public bool IsTextSelectionEnabled { get; set; }
 
         /// <summary>
-        /// Gets or sets a flag indicating that the RightTapped event is handled
+        /// Gets or sets a value indicating whether the RightTapped event is handled.
         /// </summary>
         public bool IsRightTapHandled { get; set; }
 
@@ -399,9 +402,9 @@ namespace Quarrel.Controls.Markdown.Display
         public TextWrapping TextWrapping { get; set; }
 
         /// <summary>
-        /// Gets or sets the line height
+        /// Gets or sets the line height.
         /// </summary>
-        public Double LineHeight { get; set; }
+        public double LineHeight { get; set; }
 
         /// <summary>
         /// Gets or sets the brush used to render links.  If this is <c>null</c>, then
@@ -409,7 +412,18 @@ namespace Quarrel.Controls.Markdown.Display
         /// </summary>
         public Brush LinkForeground { get; set; }
 
-        public Border _root;
+        /// <summary>
+        /// Gets or sets the root for the renderer.
+        /// </summary>
+        public Border Root { get; set; }
+
+        /// <summary>
+        /// Gets a resolver for the style to use in rendering a code block.
+        /// </summary>
+        protected ICodeBlockResolver CodeBlockResolver { get; }
+
+        private static bool TextDecorationsSupported => (bool)(_textDecorationsSupported ?? (_textDecorationsSupported = ApiInformation.IsTypePresent("Windows.UI.Text.TextDecorations")));
+
         /// <summary>
         /// Called externally to render markdown to a text block.
         /// </summary>
@@ -426,21 +440,6 @@ namespace Quarrel.Controls.Markdown.Display
             stackPanel.Padding = Padding;
 
             return stackPanel;
-        }
-
-        // Helper class for holding persistent state.
-        private class RenderContext
-        {
-            public Brush Foreground { get; set; }
-
-            public bool TrimLeadingWhitespace { get; set; }
-
-            public bool WithinHyperlink { get; set; }
-
-            public RenderContext Clone()
-            {
-                return (RenderContext)MemberwiseClone();
-            }
         }
 
         /// <summary>
@@ -527,180 +526,23 @@ namespace Quarrel.Controls.Markdown.Display
         {
             var paragraph = new Paragraph
             {
-                Margin = ParagraphMargin
+                Margin = ParagraphMargin,
             };
             context.TrimLeadingWhitespace = true;
             if (RenderInlineChildren(paragraph.Inlines, element.Inlines, paragraph, context))
             {
                 paragraph.Margin = new Thickness(ParagraphMargin.Left, 0, ParagraphMargin.Right, ParagraphMargin.Bottom);
-            };
+            }
 
             var textBlock = CreateOrReuseRichTextBlock(blockUIElementCollection, context);
             textBlock.Blocks.Add(paragraph);
         }
 
         /// <summary>
-        /// Renders a header element.
-        /// </summary>
-        /*     private void RenderHeader(HeaderBlock element, UIElementCollection blockUIElementCollection, RenderContext context)
-             {
-                 var textBlock = CreateOrReuseRichTextBlock(blockUIElementCollection, context);
-
-                 var paragraph = new Paragraph();
-                 var childInlines = paragraph.Inlines;
-                 switch (element.HeaderLevel)
-                 {
-                     case 1:
-                         paragraph.Margin = Header1Margin;
-                         paragraph.FontSize = Header1FontSize;
-                         paragraph.FontWeight = Header1FontWeight;
-                         paragraph.Foreground = Header1Foreground;
-                         break;
-                     case 2:
-                         paragraph.Margin = Header2Margin;
-                         paragraph.FontSize = Header2FontSize;
-                         paragraph.FontWeight = Header2FontWeight;
-                         paragraph.Foreground = Header2Foreground;
-                         break;
-                     case 3:
-                         paragraph.Margin = Header3Margin;
-                         paragraph.FontSize = Header3FontSize;
-                         paragraph.FontWeight = Header3FontWeight;
-                         paragraph.Foreground = Header3Foreground;
-                         break;
-                     case 4:
-                         paragraph.Margin = Header4Margin;
-                         paragraph.FontSize = Header4FontSize;
-                         paragraph.FontWeight = Header4FontWeight;
-                         paragraph.Foreground = Header4Foreground;
-                         break;
-                     case 5:
-                         paragraph.Margin = Header5Margin;
-                         paragraph.FontSize = Header5FontSize;
-                         paragraph.FontWeight = Header5FontWeight;
-                         paragraph.Foreground = Header5Foreground;
-                         break;
-                     case 6:
-                         paragraph.Margin = Header6Margin;
-                         paragraph.FontSize = Header6FontSize;
-                         paragraph.FontWeight = Header6FontWeight;
-                         paragraph.Foreground = Header6Foreground;
-
-                         var underline = new Underline();
-                         childInlines = underline.Inlines;
-                         paragraph.Inlines.Add(underline);
-                         break;
-                 }
-
-                 // Render the children into the para inline.
-                 context.TrimLeadingWhitespace = true;
-                 RenderInlineChildren(childInlines, element.Inlines, paragraph, context);
-
-                 // Add it to the blocks
-                 textBlock.Blocks.Add(paragraph);
-             }*/
-
-        /// <summary>
-        /// Renders a list element.
-        /// </summary>
-        /*private void RenderListElement(ListBlock element, UIElementCollection blockUIElementCollection, RenderContext context)
-        {
-            // Create a grid with two columns.
-            Grid grid = new Grid
-            {
-                Margin = ListMargin
-            };
-
-            // The first column for the bullet (or number) and the second for the text.
-            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(ListGutterWidth) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-
-            for (int rowIndex = 0; rowIndex < element.Items.Count; rowIndex++)
-            {
-                var listItem = element.Items[rowIndex];
-
-                // Add a row definition.
-                grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-
-                // Add the bullet or number.
-                var bullet = CreateTextBlock(context);
-                bullet.Margin = ParagraphMargin;
-                switch (element.Style)
-                {
-                    case ListStyle.Bulleted:
-                        bullet.Text = "•";
-                        break;
-                    case ListStyle.Numbered:
-                        bullet.Text = $"{rowIndex + 1}.";
-                        break;
-                }
-
-                bullet.HorizontalAlignment = HorizontalAlignment.Right;
-                bullet.Margin = new Thickness(0, 0, ListBulletSpacing, 0);
-                Grid.SetRow(bullet, rowIndex);
-                grid.Children.Add(bullet);
-
-                // Add the list item content.
-                var content = new StackPanel();
-                RenderBlocks(listItem.Blocks, content.Children, context);
-                Grid.SetColumn(content, 1);
-                Grid.SetRow(content, rowIndex);
-                grid.Children.Add(content);
-            }
-
-            blockUIElementCollection.Add(grid);
-        }*/
-
-        /// <summary>
-        /// Renders a horizontal rule element.
-        /// </summary>
-        /*private void RenderHorizontalRule(UIElementCollection blockUIElementCollection, RenderContext context)
-        {
-            var rectangle = new Rectangle
-            {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                Height = HorizontalRuleThickness,
-                Fill = HorizontalRuleBrush ?? context.Foreground,
-                Margin = HorizontalRuleMargin
-            };
-
-            blockUIElementCollection.Add(rectangle);
-        }*/
-
-        /// <summary>
-        /// Renders a quote element.
-        /// </summary>
-        /*private void RenderQuote(QuoteBlock element, UIElementCollection blockUIElementCollection, RenderContext context)
-        {
-            if (QuoteForeground != null)
-            {
-                context = context.Clone();
-                context.Foreground = QuoteForeground;
-            }
-
-            var stackPanel = new StackPanel();
-            RenderBlocks(element.Blocks, stackPanel.Children, context);
-
-            var border = new Border
-            {
-                Margin = QuoteMargin,
-                Background = QuoteBackground,
-                BorderBrush = QuoteBorderBrush ?? context.Foreground,
-                BorderThickness = QuoteBorderThickness,
-                Padding = QuotePadding,
-                Child = stackPanel
-            };
-
-            blockUIElementCollection.Add(border);
-        }*/
-
-        /// <summary>
         /// Renders a code element.
         /// </summary>
-        protected ICodeBlockResolver CodeBlockResolver { get; }
         private void RenderCode(CodeBlock element, UIElementCollection blockUIElementCollection, RenderContext context)
         {
-
             var brush = context.Foreground;
             if (CodeForeground != null)
             {
@@ -711,7 +553,7 @@ namespace Quarrel.Controls.Markdown.Display
             {
                 FontFamily = CodeFontFamily ?? FontFamily,
                 Foreground = brush,
-                LineHeight = FontSize * 1
+                LineHeight = FontSize * 1,
             };
 
             textBlock.PointerWheelChanged += Preventative_PointerWheelChanged;
@@ -727,7 +569,6 @@ namespace Quarrel.Controls.Markdown.Display
             }
 
             // Ensures that Code has Horizontal Scroll and doesn't wrap.
-
             var viewer = new ScrollViewer
             {
                 Background = CodeBackground,
@@ -735,19 +576,18 @@ namespace Quarrel.Controls.Markdown.Display
                 BorderThickness = CodeBorderThickness,
                 Padding = CodePadding,
                 Margin = CodeMargin,
-                Content = textBlock
+                Content = textBlock,
             };
 
             viewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
             viewer.HorizontalScrollMode = ScrollMode.Auto;
             viewer.VerticalScrollMode = ScrollMode.Disabled;
             viewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+
             // Add it to the blocks
             blockUIElementCollection.Add(viewer);
         }
 
-        //This is super hacky, but it's a way of keeping intertia and passing scroll data to the parent;
-        private static MethodInfo pointerWheelChanged = typeof(ScrollViewer).GetMethod("OnPointerWheelChanged", BindingFlags.NonPublic | BindingFlags.Instance);
         private void Preventative_PointerWheelChanged(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             var pointerPoint = e.GetCurrentPoint((UIElement)sender);
@@ -757,64 +597,13 @@ namespace Quarrel.Controls.Markdown.Display
                 return;
             }
 
-            var rootViewer = VisualTree.FindAscendant<ScrollViewer>(_root);
+            var rootViewer = VisualTree.FindAscendant<ScrollViewer>(Root);
             if (rootViewer != null)
             {
                 pointerWheelChanged?.Invoke(rootViewer, new object[] { e });
                 e.Handled = true;
             }
         }
-        /// <summary>
-        /// Renders a table element.
-        /// </summary>
-        /*private void RenderTable(TableBlock element, UIElementCollection blockUIElementCollection, RenderContext context)
-        {
-            var table = new MarkdownTable(element.ColumnDefinitions.Count, element.Rows.Count, TableBorderThickness, TableBorderBrush)
-            {
-                HorizontalAlignment = HorizontalAlignment.Left,
-                Margin = TableMargin
-            };
-
-            // Add each row.
-            for (int rowIndex = 0; rowIndex < element.Rows.Count; rowIndex++)
-            {
-                var row = element.Rows[rowIndex];
-
-                // Add each cell.
-                for (int cellIndex = 0; cellIndex < Math.Min(element.ColumnDefinitions.Count, row.Cells.Count); cellIndex++)
-                {
-                    var cell = row.Cells[cellIndex];
-
-                    // Cell content.
-                    var cellContent = CreateOrReuseRichTextBlock(null, context);
-                    cellContent.Margin = TableCellPadding;
-                    Grid.SetRow(cellContent, rowIndex);
-                    Grid.SetColumn(cellContent, cellIndex);
-                    switch (element.ColumnDefinitions[cellIndex].Alignment)
-                    {
-                        case ColumnAlignment.Center:
-                            cellContent.TextAlignment = TextAlignment.Center;
-                            break;
-                        case ColumnAlignment.Right:
-                            cellContent.TextAlignment = TextAlignment.Right;
-                            break;
-                    }
-
-                    if (rowIndex == 0)
-                    {
-                        cellContent.FontWeight = FontWeights.Bold;
-                    }
-
-                    var paragraph = new Paragraph();
-                    context.TrimLeadingWhitespace = true;
-                    RenderInlineChildren(paragraph.Inlines, cell.Inlines, paragraph, context);
-                    cellContent.Blocks.Add(paragraph);
-                    table.Children.Add(cellContent);
-                }
-            }
-
-            blockUIElementCollection.Add(table);
-        }*/
 
         /// <summary>
         /// Renders all of the children for the given element.
@@ -825,18 +614,18 @@ namespace Quarrel.Controls.Markdown.Display
         /// <param name="context"> Persistent state. </param>
         private bool RenderInlineChildren(InlineCollection inlineCollection, IList<MarkdownInline> inlineElements, TextElement parent, RenderContext context)
         {
-            bool LargeEmojis = true;
+            bool largeEmojis = true;
             bool mixedlarge = false;
             int maxemojicount = 28;
             foreach (MarkdownInline inline in inlineElements)
             {
                 if (inline.Type == MarkdownInlineType.TextRun)
                 {
-                    string inlinecontent = ((TextRunInline)inline).Text.Replace(" ", "");
+                    string inlinecontent = ((TextRunInline)inline).Text.Replace(" ", string.Empty);
                     if (!string.IsNullOrEmpty(inlinecontent) &&
-                        !Emoji.IsEmoji(((TextRunInline)inline).Text.Replace(" ", ""), maxemojicount))
+                        !Emoji.IsEmoji(((TextRunInline)inline).Text.Replace(" ", string.Empty), maxemojicount))
                     {
-                        LargeEmojis = false;
+                        largeEmojis = false;
                         maxemojicount -= inlinecontent.Length;
                         break;
                     }
@@ -851,25 +640,26 @@ namespace Quarrel.Controls.Markdown.Display
                 }
                 else
                 {
-                    LargeEmojis = false;
+                    largeEmojis = false;
                     break;
                 }
             }
+
             foreach (MarkdownInline element in inlineElements)
             {
-                RenderInline(inlineCollection, element, parent, context, LargeEmojis, mixedlarge);
+                RenderInline(inlineCollection, element, parent, context, largeEmojis, mixedlarge);
             }
 
-            return LargeEmojis;
+            return largeEmojis;
         }
 
         /// <summary>
         /// Called to render an inline element.
         /// </summary>
-        /// <param name="inlineCollection"> The list to add to. </param>
-        /// <param name="element"> The parsed inline element to render. </param>
-        /// <param name="parent"> The container element. </param>
-        /// <param name="context"> Persistent state. </param>
+        /// <param name="inlineCollection"> The list to add to.</param>
+        /// <param name="element"> The parsed inline element to render.</param>
+        /// <param name="parent"> The container element.</param>
+        /// <param name="context"> Persistent state.</param>
         private void RenderInline(InlineCollection inlineCollection, MarkdownInline element, TextElement parent, RenderContext context, bool largeemojis, bool mixedlarge = false)
         {
             switch (element.Type)
@@ -895,9 +685,6 @@ namespace Quarrel.Controls.Markdown.Display
                 case MarkdownInlineType.Strikethrough:
                     RenderStrikethroughRun(inlineCollection, (StrikethroughTextInline)element, parent, context);
                     break;
-                /*  case MarkdownInlineType.Superscript:
-                      RenderSuperscriptRun(inlineCollection, (SuperscriptTextInline)element, parent, context);
-                      break;*/
                 case MarkdownInlineType.Code:
                     RenderCodeRun(inlineCollection, (CodeInline)element, context);
                     break;
@@ -907,12 +694,11 @@ namespace Quarrel.Controls.Markdown.Display
                 case MarkdownInlineType.Underline:
                     RenderUnderlineRun(inlineCollection, (UnderlineTextInline)element, context);
                     break;
-
             }
         }
 
         /// <summary>
-        /// Renders a custom emoji
+        /// Renders a custom emoji.
         /// </summary>
         /// <param name="inlineCollection"> The list to add to. </param>
         /// <param name="element"> The parsed inline element to render. </param>
@@ -920,13 +706,24 @@ namespace Quarrel.Controls.Markdown.Display
         /// <param name="context"> Persistent state. </param>
         private void RenderEmoji(InlineCollection inlineCollection, EmojiInline element, TextElement parent, RenderContext context, bool large, bool mixedlarge = false)
         {
-            //If the emoji is the only content of the message
+            // If the emoji is the only content of the message
             InlineUIContainer imageRun = new InlineUIContainer();
             string extension = ".png";
-            if (element.IsAnimated) extension = ".gif";
+            if (element.IsAnimated)
+            {
+                extension = ".gif";
+            }
+
             Thickness imagemargin = new Thickness(0, 0, 0, 0);
-            if (mixedlarge) imagemargin = new Thickness(0, 0, 0, -8);
-            else if (large) imagemargin = new Thickness(0, 0, 0, 0);
+            if (mixedlarge)
+            {
+                imagemargin = new Thickness(0, 0, 0, -8);
+            }
+            else if (large)
+            {
+                imagemargin = new Thickness(0, 0, 0, 0);
+            }
+
             if (large)
             {
                 imageRun.Child = new Image()
@@ -934,7 +731,7 @@ namespace Quarrel.Controls.Markdown.Display
                     Margin = imagemargin,
                     Width = 32,
                     Height = 32,
-                    Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + element.Id + extension))
+                    Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + element.Id + extension)),
                 };
             }
             else
@@ -944,11 +741,13 @@ namespace Quarrel.Controls.Markdown.Display
                     Margin = imagemargin,
                     Width = 20,
                     Height = 20,
-                    Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + element.Id + extension))
+                    Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + element.Id + extension)),
                 };
             }
-            //Add the tooltip of the emoji's name
+
+            // Add the tooltip of the emoji's name
             ToolTipService.SetToolTip(imageRun, element.Name);
+
             // Add it
             inlineCollection.Add(imageRun);
         }
@@ -964,7 +763,7 @@ namespace Quarrel.Controls.Markdown.Display
             // Create the text run
             Run textRun = new Run
             {
-                Text = element.Text
+                Text = element.Text,
             };
 
             if (large)
@@ -986,11 +785,15 @@ namespace Quarrel.Controls.Markdown.Display
         {
             // Create the text run
             FontWeight weight = FontWeights.Bold;
-            if (_halfopacity) weight = FontWeights.SemiBold;
+            if (_halfopacity)
+            {
+                weight = FontWeights.SemiBold;
+            }
+
             Span boldSpan = new Span
             {
                 FontWeight = weight,
-                Foreground = BoldForeground
+                Foreground = BoldForeground,
             };
 
             // Render the children into the bold inline.
@@ -1003,7 +806,7 @@ namespace Quarrel.Controls.Markdown.Display
         }
 
         /// <summary>
-        /// Renders a link element
+        /// Renders a link element.
         /// </summary>
         /// <param name="inlineCollection"> The list to add to. </param>
         /// <param name="element"> The parsed inline element to render. </param>
@@ -1026,11 +829,6 @@ namespace Quarrel.Controls.Markdown.Display
                 return;
             }
 
-            // HACK: Superscript is not allowed within a hyperlink.  But if we switch it around, so
-            // that the superscript is outside the hyperlink, then it will render correctly.
-            // This assumes that the entire hyperlink is to be rendered as superscript.
-            /*  if (AllTextIsSuperscript(element) == false)
-              {*/
             // Regular ol' hyperlink.
             var link = new Hyperlink();
 
@@ -1123,7 +921,6 @@ namespace Quarrel.Controls.Markdown.Display
         {
             var link = new HyperlinkButton();
 
-
             if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordChannelMention || element.LinkType == HyperlinkType.DiscordRoleMention || element.LinkType == HyperlinkType.DiscordNickMention || element.LinkType == HyperlinkType.QuarrelColor)
             {
                 var content = element.Text;
@@ -1134,52 +931,71 @@ namespace Quarrel.Controls.Markdown.Display
                 {
                     if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordNickMention)
                     {
-                        string mentionid = element.Text.Remove(0, (element.LinkType == HyperlinkType.DiscordNickMention ? 2 : 1));
+                        string mentionid = element.Text.Remove(0, element.LinkType == HyperlinkType.DiscordNickMention ? 2 : 1);
                         if (_users != null)
+                        {
                             foreach (var user in _users)
                             {
                                 if (user.Id == mentionid)
                                 {
                                     link.Tag = user;
 
-                                    if (_halfopacity) content = user.Username;
-                                    else content = "@" + user.Username;
-                                    if (GuildsService.CurrentGuild.Model.Name != "DM")
+                                    if (_halfopacity)
                                     {
-                                        var member = GuildsService.GetGuildMember(mentionid, GuildsService.CurrentGuild.Model.Id);
+                                        content = user.Username;
+                                    }
+                                    else
+                                    {
+                                        content = "@" + user.Username;
+                                    }
+
+                                    if (_guildsService.CurrentGuild.Model.Name != "DM")
+                                    {
+                                        var member = _guildsService.GetGuildMember(mentionid, _guildsService.CurrentGuild.Model.Id);
                                         if (!string.IsNullOrWhiteSpace(member?.DisplayName))
                                         {
-                                            if (_halfopacity) content = member.DisplayName;
-                                            else content = "@" + member.DisplayName;
+                                            if (_halfopacity)
+                                            {
+                                                content = member.DisplayName;
+                                            }
+                                            else
+                                            {
+                                                content = "@" + member.DisplayName;
+                                            }
 
-                                            foreground = IntToColor(member.TopRole.Color);
+                                            foreground = ColorExtensions.IntToBrush(member.TopRole.Color);
                                         }
                                     }
+
                                     break;
                                 }
                             }
+                        }
                     }
-
-
                     else if (element.LinkType == HyperlinkType.DiscordChannelMention)
                     {
                         var key = element.Text.Remove(0, 1);
-                        ChannelsService.AllChannels.TryGetValue(key, out var value);
+                        _channelsService.AllChannels.TryGetValue(key, out var value);
                         content = "#" + (value?.Model?.Name ?? "deleted-channel");
                         enabled = value != null;
 
                         link.Tag = value;
                     }
-
-
                     else if (element.LinkType == HyperlinkType.DiscordRoleMention)
                     {
-                        var role = GuildsService.CurrentGuild.Model.Roles.FirstOrDefault(x => x.Id == element.Text.Remove(0, 2));
+                        var role = _guildsService.CurrentGuild.Model.Roles.FirstOrDefault(x => x.Id == element.Text.Remove(0, 2));
                         if (role != null)
                         {
-                            if (_halfopacity) content = role.Name;
-                            else content = "@" + role.Name;
-                            foreground = IntToColor(role.Color);
+                            if (_halfopacity)
+                            {
+                                content = role.Name;
+                            }
+                            else
+                            {
+                                content = "@" + role.Name;
+                            }
+
+                            foreground = ColorExtensions.IntToBrush(role.Color);
                         }
                         else
                         {
@@ -1189,10 +1005,10 @@ namespace Quarrel.Controls.Markdown.Display
                     }
                     else if (element.LinkType == HyperlinkType.QuarrelColor)
                     {
-                        string intcolor = element.Text.Replace("@$QUARREL-color", "");
+                        string intcolor = element.Text.Replace("@$QUARREL-color", string.Empty);
                         try
                         {
-                            var color = IntToColor(Int32.Parse(intcolor));
+                            var color = ColorExtensions.IntToBrush(int.Parse(intcolor));
                             inlineCollection.Add(new InlineUIContainer
                             {
                                 Child = new Ellipse()
@@ -1200,29 +1016,39 @@ namespace Quarrel.Controls.Markdown.Display
                                     Height = FontSize,
                                     Width = FontSize,
                                     Fill = color,
-                                    Margin = new Thickness(0, 0, 2, -2)
-                                }
+                                    Margin = new Thickness(0, 0, 2, -2),
+                                },
                             });
                             inlineCollection.Add(new Run
                             {
                                 FontWeight = FontWeights.SemiBold,
                                 Foreground = BoldForeground,
-                                Text = color.Color.ToString()
+                                Text = color.Color.ToString(),
                             });
                             return;
                         }
                         catch
-                        { }
+                        {
+                        }
                     }
                 }
-                catch (Exception) { content = "<Invalid Mention>"; }
-
+                catch (Exception)
+                {
+                    content = "<Invalid Mention>";
+                }
 
                 link.Content = CollapseWhitespace(context, content);
                 link.Foreground = foreground;
                 link.FontSize = FontSize;
-                if (_halfopacity) link.Style = (Style)Application.Current.Resources["DiscordMentionHyperlinkBold"];
-                else link.Style = (Style)Application.Current.Resources["DiscordMentionHyperlink"];
+                if (_halfopacity)
+                {
+                    link.Style = (Style)Application.Current.Resources["DiscordMentionHyperlinkBold"];
+                }
+                else
+                {
+                    link.Style = (Style)Application.Current.Resources["DiscordMentionHyperlink"];
+                }
+
                 link.IsEnabled = enabled;
                 _linkRegister.RegisterNewHyperLink(link, element.Url);
                 InlineUIContainer linkContainer = new InlineUIContainer { Child = link };
@@ -1236,7 +1062,7 @@ namespace Quarrel.Controls.Markdown.Display
                 Run linkText = new Run
                 {
                     Text = CollapseWhitespace(context, element.Text),
-                    Foreground = LinkForeground ?? context.Foreground
+                    Foreground = LinkForeground ?? context.Foreground,
                 };
 
                 hLink.Inlines.Add(linkText);
@@ -1244,7 +1070,6 @@ namespace Quarrel.Controls.Markdown.Display
                 // Add it to the current inlines
                 inlineCollection.Add(hLink);
             }
-            // Make a text block for the link
         }
 
         /// <summary>
@@ -1258,7 +1083,7 @@ namespace Quarrel.Controls.Markdown.Display
             // Create the text run
             Span italicSpan = new Span
             {
-                FontStyle = FontStyle.Italic
+                FontStyle = FontStyle.Italic,
             };
 
             // Render the children into the italic inline.
@@ -1278,7 +1103,7 @@ namespace Quarrel.Controls.Markdown.Display
         {
             Span strikeSpan = new Span
             {
-                TextDecorations = TextDecorations.Strikethrough
+                TextDecorations = TextDecorations.Strikethrough,
             };
 
             // Render the children into the bold inline.
@@ -1286,12 +1111,11 @@ namespace Quarrel.Controls.Markdown.Display
             inlineCollection.Add(strikeSpan);
         }
 
-
         private void RenderUnderlineRun(InlineCollection inlineCollection, UnderlineTextInline element, RenderContext context)
         {
             Span underlineSpan = new Span
             {
-                TextDecorations = TextDecorations.Underline
+                TextDecorations = TextDecorations.Underline,
             };
 
             // Render the children into the bold inline.
@@ -1300,50 +1124,7 @@ namespace Quarrel.Controls.Markdown.Display
         }
 
         /// <summary>
-        /// Renders a superscript element.
-        /// </summary>
-        /// <param name="inlineCollection"> The list to add to. </param>
-        /// <param name="element"> The parsed inline element to render. </param>
-        /// <param name="parent"> The container element. </param>
-        /// <param name="context"> Persistent state. </param>
-/*        private void RenderSuperscriptRun(InlineCollection inlineCollection, SuperscriptTextInline element, TextElement parent, RenderContext context)
-        {
-            // Le <sigh>, InlineUIContainers are not allowed within hyperlinks.
-            if (context.WithinHyperlink)
-            {
-                RenderInlineChildren(inlineCollection, element.Inlines, parent, context);
-                return;
-            }
-
-            var paragraph = new Paragraph
-            {
-                FontSize = parent.FontSize * 0.8,
-                FontFamily = parent.FontFamily,
-                FontStyle = parent.FontStyle,
-                FontWeight = parent.FontWeight
-            };
-            RenderInlineChildren(paragraph.Inlines, element.Inlines, paragraph, context);
-
-            var richTextBlock = CreateOrReuseRichTextBlock(null, context);
-            richTextBlock.Blocks.Add(paragraph);
-
-            var border = new Border
-            {
-                Padding = new Thickness(0, 0, 0, paragraph.FontSize * 0.2),
-                Child = richTextBlock
-            };
-
-            var inlineUIContainer = new InlineUIContainer
-            {
-                Child = border
-            };
-
-            // Add it to the current inlines
-            inlineCollection.Add(inlineUIContainer);
-        }
-        */
-        /// <summary>
-        /// Renders a code element
+        /// Renders a code element.
         /// </summary>
         /// <param name="inlineCollection"> The list to add to. </param>
         /// <param name="element"> The parsed inline element to render. </param>
@@ -1356,8 +1137,7 @@ namespace Quarrel.Controls.Markdown.Display
             {
                 FontFamily = CodeFontFamily ?? FontFamily,
                 Text = CollapseWhitespace(context, element.Text),
-                Foreground = new SolidColorBrush(color)
-
+                Foreground = new SolidColorBrush(color),
             };
 
             // Add it to the current inlines
@@ -1386,7 +1166,7 @@ namespace Quarrel.Controls.Markdown.Display
         /// <summary>
         /// Removes leading whitespace, but only if this is the first run in the block.
         /// </summary>
-        /// <returns>The corrected string</returns>
+        /// <returns>The corrected string.</returns>
         private string CollapseWhitespace(RenderContext context, string text)
         {
             bool dontOutputWhitespace = context.TrimLeadingWhitespace;
@@ -1425,7 +1205,7 @@ namespace Quarrel.Controls.Markdown.Display
         /// <summary>
         /// Creates a new RichTextBlock, if the last element of the provided collection isn't already a RichTextBlock.
         /// </summary>
-        /// <returns>The rich text block</returns>
+        /// <returns>The rich text block.</returns>
         private RichTextBlock CreateOrReuseRichTextBlock(UIElementCollection blockUIElementCollection, RenderContext context)
         {
             // Reuse the last RichTextBlock, if possible.
@@ -1448,124 +1228,31 @@ namespace Quarrel.Controls.Markdown.Display
                 TextWrapping = TextWrapping,
             };
 
-            if (IsRightTapHandled) result.ContextMenuOpening += delegate (object sender, ContextMenuEventArgs e)
-             {
-                 e.Handled = true;
-             };
+            if (IsRightTapHandled)
+            {
+                result.ContextMenuOpening += (sender, e) =>
+                {
+                    e.Handled = true;
+                };
+            }
 
             blockUIElementCollection?.Add(result);
 
             return result;
         }
 
-        /// <summary>
-        /// Creates a new TextBlock, with default settings.
-        /// </summary>
-        /// <returns>The created TextBlock</returns>
-        private TextBlock CreateTextBlock(RenderContext context)
+        // Helper class for holding persistent state.
+        private class RenderContext
         {
-            var result = new TextBlock
+            public Brush Foreground { get; set; }
+
+            public bool TrimLeadingWhitespace { get; set; }
+
+            public bool WithinHyperlink { get; set; }
+
+            public RenderContext Clone()
             {
-                CharacterSpacing = CharacterSpacing,
-                FontFamily = FontFamily,
-                FontSize = FontSize,
-                FontStretch = FontStretch,
-                FontStyle = FontStyle,
-                FontWeight = FontWeight,
-                Foreground = context.Foreground,
-                IsTextSelectionEnabled = IsTextSelectionEnabled,
-                TextWrapping = TextWrapping
-            };
-            return result;
-        }
-
-        /// <summary>
-        /// Checks if all text elements inside the given container are superscript.
-        /// </summary>
-        /// <returns> <c>true</c> if all text is superscript (level 1); <c>false</c> otherwise. </returns>
-        /*    private bool AllTextIsSuperscript(IInlineContainer container, int superscriptLevel = 0)
-            {
-                foreach (var inline in container.Inlines)
-                {
-                    var textInline = inline as SuperscriptTextInline;
-                    if (textInline != null)
-                    {
-                        // Remove any nested superscripts.
-                        if (AllTextIsSuperscript(textInline, superscriptLevel + 1) == false)
-                        {
-                            return false;
-                        }
-                    }
-                    else if (inline is IInlineContainer)
-                    {
-                        // Remove any superscripts.
-                        if (AllTextIsSuperscript((IInlineContainer)inline, superscriptLevel) == false)
-                        {
-                            return false;
-                        }
-                    }
-                    else if (inline is IInlineLeaf && !Helpers.Common.IsBlankOrWhiteSpace(((IInlineLeaf)inline).Text))
-                    {
-                        if (superscriptLevel != 1)
-                        {
-                            return false;
-                        }
-                    }
-                }
-
-                return true;
-            }
-
-            /// <summary>
-            /// Removes all superscript elements from the given container.
-            /// </summary>
-            private void RemoveSuperscriptRuns(IInlineContainer container, bool insertCaret)
-            {
-                for (int i = 0; i < container.Inlines.Count; i++)
-                {
-                    var inline = container.Inlines[i];
-                    var textInline = inline as SuperscriptTextInline;
-                    if (textInline != null)
-                    {
-                        // Remove any nested superscripts.
-                        RemoveSuperscriptRuns(textInline, insertCaret);
-
-                        // Remove the superscript element, insert all the children.
-                        container.Inlines.RemoveAt(i);
-                        if (insertCaret)
-                        {
-                            container.Inlines.Insert(i++, new TextRunInline { Text = "^" });
-                        }
-
-                        foreach (var superscriptInline in textInline.Inlines)
-                        {
-                            container.Inlines.Insert(i++, superscriptInline);
-                        }
-
-                        i--;
-                    }
-                    else if (inline is IInlineContainer)
-                    {
-                        // Remove any superscripts.
-                        RemoveSuperscriptRuns((IInlineContainer)inline, insertCaret);
-                    }
-                }
-            }*/
-
-
-        public static SolidColorBrush IntToColor(int color)
-        {
-            if (color != 0)
-            {
-                byte a = (byte)(255);
-                byte r = (byte)(color >> 16);
-                byte g = (byte)(color >> 8);
-                byte b = (byte)(color >> 0);
-                return new SolidColorBrush(Color.FromArgb(a, r, g, b));
-            }
-            else
-            {
-                return (SolidColorBrush)App.Current.Resources["Foreground"];
+                return (RenderContext)MemberwiseClone();
             }
         }
     }

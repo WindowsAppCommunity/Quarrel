@@ -1,28 +1,38 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 // Copyright (c) Quarrel. All rights reserved.
 
-using System.Collections.Generic;
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
+using System.Collections.Generic;
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languages
 {
+    /// <summary>
+    /// JavaScript language rules.
+    /// </summary>
     public class JavaScript : ILanguage
     {
+        /// <inheritdoc/>
+        string[] ILanguage.Aliases => new string[] { "javascript", "json", "js" };
+
+        /// <inheritdoc/>
         public string Id
         {
             get { return LanguageId.JavaScript; }
         }
 
+        /// <inheritdoc/>
         public string Name
         {
             get { return "JavaScript"; }
         }
 
+        /// <inheritdoc/>
         public string CssClassName
         {
             get { return "javascript"; }
         }
 
+        /// <inheritdoc/>
         public string FirstLinePattern
         {
             get
@@ -31,6 +41,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
             }
         }
 
+        /// <inheritdoc/>
         public IList<LanguageRule> Rules
         {
             get
@@ -62,7 +73,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                            { 0, ScopeName.String },
                                        }),
                                new LanguageRule(
-                                   Regexes.CNumber,
+                                   Regex.CNumber,
                                    new Dictionary<int, string>
                                    {
                                        { 0, ScopeName.Number },
@@ -84,18 +95,18 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                    new Dictionary<int, string>
                                    {
                                        { 1, ScopeName.BuiltinFunction },
-                                   })
+                                   }),
                            };
             }
         }
 
+        /// <inheritdoc/>
         public bool HasAlias(string lang)
         {
             switch (lang.ToLower())
             {
                 case "js":
                     return true;
-                
                 case "json":
                     return true;
 
@@ -106,7 +117,8 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                     return false;
             }
         }
-        string[] ILanguage.Aliases => new string[] { "javascript", "json","js" };
+
+        /// <inheritdoc/>
         public override string ToString()
         {
             return Name;

@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 // Copyright (c) Quarrel. All rights reserved.
 
-using System.Collections.Generic;
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation;
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languages;
+using System.Collections.Generic;
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
 {
@@ -13,14 +13,25 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
     /// </summary>
     public static class Languages
     {
+        /// <summary>
+        /// The <see cref="LanguageRepository"/>.
+        /// </summary>
         internal static readonly LanguageRepository LanguageRepository;
+
+        /// <summary>
+        /// Set of <see cref="ILanguage"/>s by Id.
+        /// </summary>
         internal static readonly Dictionary<string, ILanguage> LoadedLanguages;
-        internal static Dictionary<string, CompiledLanguage> CompiledLanguages;
+
+        /// <summary>
+        /// Set of <see cref="CompiledLanguage"/>s by Id.
+        /// </summary>
+        private static Dictionary<string, CompiledLanguage> _compiledLanguages;
 
         static Languages()
         {
             LoadedLanguages = new Dictionary<string, ILanguage>();
-            CompiledLanguages = new Dictionary<string, CompiledLanguage>();
+            _compiledLanguages = new Dictionary<string, CompiledLanguage>();
             LanguageRepository = new LanguageRepository(LoadedLanguages);
 
             Load<JavaScript>();
@@ -59,7 +70,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for ASP.NET HTTP Handlers (.ashx files).
+        /// Gets language support for ASP.NET HTTP Handlers (.ashx files).
         /// </summary>
         /// <value>Language support for ASP.NET HTTP Handlers (.ashx files).</value>
         public static ILanguage Ashx
@@ -68,7 +79,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for ASP.NET application files (.asax files).
+        /// Gets language support for ASP.NET application files (.asax files).
         /// </summary>
         /// <value>Language support for ASP.NET application files (.asax files).</value>
         public static ILanguage Asax
@@ -77,7 +88,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for ASP.NET pages (.aspx files).
+        /// Gets language support for ASP.NET pages (.aspx files).
         /// </summary>
         /// <value>Language support for ASP.NET pages (.aspx files).</value>
         public static ILanguage Aspx
@@ -86,7 +97,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for ASP.NET C# code-behind files (.aspx.cs files).
+        /// Gets language support for ASP.NET C# code-behind files (.aspx.cs files).
         /// </summary>
         /// <value>Language support for ASP.NET C# code-behind files (.aspx.cs files).</value>
         public static ILanguage AspxCs
@@ -95,7 +106,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for ASP.NET Visual Basic.NET code-behind files (.aspx.vb files).
+        /// Gets language support for ASP.NET Visual Basic.NET code-behind files (.aspx.vb files).
         /// </summary>
         /// <value>Language support for ASP.NET Visual Basic.NET code-behind files (.aspx.vb files).</value>
         public static ILanguage AspxVb
@@ -104,7 +115,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for C#.
+        /// Gets language support for C#.
         /// </summary>
         /// <value>Language support for C#.</value>
         public static ILanguage CSharp
@@ -113,7 +124,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for HTML.
+        /// Gets language support for HTML.
         /// </summary>
         /// <value>Language support for HTML.</value>
         public static ILanguage Html
@@ -122,7 +133,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for Java.
+        /// Gets language support for Java.
         /// </summary>
         /// <value>Language support for Java.</value>
         public static ILanguage Java
@@ -131,7 +142,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for JavaScript.
+        /// Gets language support for JavaScript.
         /// </summary>
         /// <value>Language support for JavaScript.</value>
         public static ILanguage JavaScript
@@ -140,7 +151,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for PowerShell
+        /// Gets language support for PowerShell.
         /// </summary>
         /// <value>Language support for PowerShell.</value>
         public static ILanguage PowerShell
@@ -149,7 +160,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for SQL.
+        /// Gets language support for SQL.
         /// </summary>
         /// <value>Language support for SQL.</value>
         public static ILanguage Sql
@@ -158,7 +169,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for Visual Basic.NET.
+        /// Gets language support for Visual Basic.NET.
         /// </summary>
         /// <value>Language support for Visual Basic.NET.</value>
         public static ILanguage VbDotNet
@@ -167,7 +178,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for XML.
+        /// Gets language support for XML.
         /// </summary>
         /// <value>Language support for XML.</value>
         public static ILanguage Xml
@@ -176,7 +187,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for PHP.
+        /// Gets language support for PHP.
         /// </summary>
         /// <value>Language support for PHP.</value>
         public static ILanguage Php
@@ -185,7 +196,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for CSS.
+        /// Gets language support for CSS.
         /// </summary>
         /// <value>Language support for CSS.</value>
         public static ILanguage Css
@@ -194,7 +205,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for C++.
+        /// Gets language support for C++.
         /// </summary>
         /// <value>Language support for C++.</value>
         public static ILanguage Cpp
@@ -203,16 +214,16 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for Diff.
+        /// Gets language support for Diff.
         /// </summary>
-        /// <value>Language support for Diff<value>
+        /// <value>Language support for Diff.<value>
         public static ILanguage Diff
         {
             get { return LanguageRepository.FindById(LanguageId.Diff); }
         }
 
         /// <summary>
-        /// Language support for Typescript.
+        /// Gets language support for Typescript.
         /// </summary>
         /// <value>Language support for typescript.</value>
         public static ILanguage Typescript
@@ -221,7 +232,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for F#.
+        /// Gets language support for F#.
         /// </summary>
         /// <value>Language support for F#.</value>
         public static ILanguage FSharp
@@ -230,7 +241,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for Koka.
+        /// Gets language support for Koka.
         /// </summary>
         /// <value>Language support for Koka.</value>
         public static ILanguage Koka
@@ -239,7 +250,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for Haskell.
+        /// Gets language support for Haskell.
         /// </summary>
         /// <value>Language support for Haskell.</value>
         public static ILanguage Haskell
@@ -248,7 +259,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for Markdown.
+        /// Gets language support for Markdown.
         /// </summary>
         /// <value>Language support for Markdown.</value>
         public static ILanguage Markdown
@@ -257,7 +268,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for Fortran.
+        /// Gets language support for Fortran.
         /// </summary>
         /// <value>Language support for Fortran.</value>
         public static ILanguage Fortran
@@ -266,16 +277,16 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         }
 
         /// <summary>
-        /// Language support for Python.
+        /// Gets language support for Python.
         /// </summary>
-        /// <value>Language support for Python</value>
+        /// <value>Language support for Python.</value>
         public static ILanguage Python
         {
             get { return LanguageRepository.FindById(LanguageId.Python); }
         }
 
         /// <summary>
-        /// Language support for Arduino.
+        /// Gets language support for Arduino.
         /// </summary>
         /// <value>Language support for Arduino.</value>
         public static ILanguage Arduino
@@ -293,12 +304,6 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
             return LanguageRepository.FindById(id);
         }
 
-        private static void Load<T>()
-            where T : ILanguage, new()
-        {
-            Load(new T());
-        }
-
         /// <summary>
         /// Loads the specified language.
         /// </summary>
@@ -309,6 +314,12 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         public static void Load(ILanguage language)
         {
             LanguageRepository.Load(language);
+        }
+
+        private static void Load<T>()
+            where T : ILanguage, new()
+        {
+            Load(new T());
         }
     }
 }

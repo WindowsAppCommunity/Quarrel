@@ -35,8 +35,23 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
         public string Text { get; set; }
 
         /// <summary>
-        /// Returns the chars that if found means we might have a match.
+        /// Converts the object into it's textual representation.
         /// </summary>
+        /// <returns> The textual representation of this object. </returns>
+        public override string ToString()
+        {
+            if (Text == null)
+            {
+                return base.ToString();
+            }
+
+            return "`" + Text + "`";
+        }
+
+        /// <summary>
+        /// Adds the chars that if found means we might have a match to the trip checker.
+        /// </summary>
+        /// <param name="tripCharHelpers">List of trips.</param>
         internal static void AddTripChars(List<Helpers.Common.InlineTripCharHelper> tripCharHelpers)
         {
             tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '`', Method = Helpers.Common.InlineParseMethod.Code });
@@ -96,23 +111,11 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
             }
 
             // We found something!
-            var result = new CodeInline();
-            result.Text = markdown.Substring(innerStart, innerEnd - innerStart).Trim(' ', '\t', '\r', '\n');
-            return new Helpers.Common.InlineParseResult(result, start, end);
-        }
-
-        /// <summary>
-        /// Converts the object into it's textual representation.
-        /// </summary>
-        /// <returns> The textual representation of this object. </returns>
-        public override string ToString()
-        {
-            if (Text == null)
+            var result = new CodeInline
             {
-                return base.ToString();
-            }
-
-            return "`" + Text + "`";
+                Text = markdown.Substring(innerStart, innerEnd - innerStart).Trim(' ', '\t', '\r', '\n'),
+            };
+            return new Helpers.Common.InlineParseResult(result, start, end);
         }
     }
 }

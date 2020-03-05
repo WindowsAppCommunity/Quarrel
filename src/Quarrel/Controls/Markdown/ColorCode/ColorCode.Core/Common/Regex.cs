@@ -3,8 +3,14 @@
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common
 {
-    public static class Regexes
+    /// <summary>
+    /// Constant regexes.
+    /// </summary>
+    public static class Regex
     {
-        public static string CNumber = "\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?";
+        /// <summary>
+        /// A regex for finding numbers.
+        /// </summary>
+        public const string CNumber = "\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?";
     }
 }

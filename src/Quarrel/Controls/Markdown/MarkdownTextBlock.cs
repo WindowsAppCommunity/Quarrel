@@ -11,6 +11,13 @@
 // ******************************************************************
 // Copyright (c) Quarrel. All rights reserved.
 
+using DiscordAPI.Models;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core;
+using Quarrel.Controls.Markdown.ColorCode.ColorCode.UWP;
+using Quarrel.Controls.Markdown.Display;
+using Quarrel.Controls.Markdown.Helpers;
+using Quarrel.Controls.Markdown.Parse;
+using Quarrel.ViewModels.Models.Bindables;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Core;
@@ -19,13 +26,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
-using DiscordAPI.Models;
-using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core;
-using Quarrel.Controls.Markdown.ColorCode.ColorCode.UWP;
-using Quarrel.Controls.Markdown.Display;
-using Quarrel.Controls.Markdown.Helpers;
-using Quarrel.Controls.Markdown.Parse;
-using Quarrel.ViewModels.Models.Bindables;
 
 namespace Quarrel.Controls.Markdown
 {
@@ -34,7 +34,89 @@ namespace Quarrel.Controls.Markdown
     /// </summary>
     public sealed class MarkdownTextBlock : Control, ILinkRegister, ICodeBlockResolver
     {
-        
+        /// <summary>
+        /// Gets the dependency property for <see cref="Text"/>.
+        /// </summary>
+        public static readonly DependencyProperty MessageIdProperty = DependencyProperty.Register(
+            nameof(MessageId),
+            typeof(string),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(string.Empty, OnPropertyChangedStatic));
+
+        /// <summary>
+        /// Gets the dependency property for <see cref="Text"/>.
+        /// </summary>
+        public static readonly DependencyProperty EnableHiddenLinksProperty = DependencyProperty.Register(
+            nameof(EnableHiddenLinks),
+            typeof(bool),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
+        /// <summary>
+        /// Gets the dependency property for <see cref="Text"/>.
+        /// </summary>
+        public static readonly DependencyProperty UsersProperty = DependencyProperty.Register(
+            nameof(Users),
+            typeof(IEnumerable<User>),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
+        /// <summary>
+        /// Gets the dependency property for <see cref="ImageStretch"/>.
+        /// </summary>
+        public static readonly DependencyProperty ImageStretchProperty = DependencyProperty.Register(
+            nameof(ImageStretch),
+            typeof(Stretch),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(Stretch.None, OnPropertyChangedStatic));
+
+        /// <summary>
+        /// Gets the dependency property for <see cref="Header2FontWeight"/>.
+        /// </summary>
+        public static readonly DependencyProperty Header2FontWeightProperty = DependencyProperty.Register(
+            nameof(Header2FontWeight),
+            typeof(FontWeight),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
+        /// <summary>
+        /// Gets the dependency property for <see cref="Header3Margin"/>.
+        /// </summary>
+        public static readonly DependencyProperty Header3MarginProperty = DependencyProperty.Register(
+            nameof(Header3Margin),
+            typeof(Thickness),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
+        /// <summary>
+        /// Gets the dependency property for <see cref="Header3Foreground"/>.
+        /// </summary>
+        public static readonly DependencyProperty Header3ForegroundProperty = DependencyProperty.Register(
+            nameof(Header3Foreground),
+            typeof(Brush),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
+        /// <summary>
+        /// Gets the dependency property for <see cref="Header4FontWeight"/>.
+        /// </summary>
+        public static readonly DependencyProperty Header4FontWeightProperty = DependencyProperty.Register(
+            nameof(Header4FontWeight),
+            typeof(FontWeight),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
+        /// <summary>
+        /// Gets the dependency property for <see cref="Header4FontSize"/>.
+        /// </summary>
+        public static readonly DependencyProperty Header4FontSizeProperty = DependencyProperty.Register(
+            nameof(Header4FontSize),
+            typeof(double),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
+        private bool multiClickDetectionTriggered;
+
         /// <summary>
         /// Holds a list of hyperlinks we are listening to.
         /// </summary>
@@ -51,13 +133,11 @@ namespace Quarrel.Controls.Markdown
         public event EventHandler<MarkdownRenderedEventArgs> MarkdownRendered;
 
         /// <summary>
-        /// Gets the dependency property for <see cref="ImageStretch"/>.
+        /// Fired when a link is clicked.
         /// </summary>
-        public static readonly DependencyProperty ImageStretchProperty = DependencyProperty.Register(
-            nameof(ImageStretch),
-            typeof(Stretch),
-            typeof(MarkdownTextBlock),
-            new PropertyMetadata(Stretch.None, OnPropertyChangedStatic));
+        public event EventHandler<LinkClickedEventArgs> LinkClicked;
+
+        public event EventHandler<CodeBlockResolvingEventArgs> CodeBlockResolving;
 
         /// <summary>
         /// Gets or sets the stretch used for images.
@@ -77,33 +157,23 @@ namespace Quarrel.Controls.Markdown
             set { SetValue(TextProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the message id for the displayed markdown.
+        /// </summary>
         public string MessageId
         {
             get { return (string)GetValue(MessageIdProperty); }
             set { SetValue(MessageIdProperty, value); }
         }
-        /// <summary>
-        /// Gets the dependency property for <see cref="Text"/>.
-        /// </summary>
-        public static readonly DependencyProperty MessageIdProperty = DependencyProperty.Register(
-            nameof(MessageId),
-            typeof(string),
-            typeof(MarkdownTextBlock),
-            new PropertyMetadata(string.Empty, OnPropertyChangedStatic));
 
+        /// <summary>
+        /// Gets or sets a value indicating whether or not hidden links are enabled.
+        /// </summary>
         public bool EnableHiddenLinks
         {
             get { return (bool)GetValue(EnableHiddenLinksProperty); }
             set { SetValue(EnableHiddenLinksProperty, value); }
         }
-        /// <summary>
-        /// Gets the dependency property for <see cref="Text"/>.
-        /// </summary>
-        public static readonly DependencyProperty EnableHiddenLinksProperty = DependencyProperty.Register(
-            nameof(EnableHiddenLinks),
-            typeof(bool),
-            typeof(MarkdownTextBlock),
-            new PropertyMetadata(false, OnPropertyChangedStatic));
 
         /// <summary>
         /// Gets or sets the markdown text to display.
@@ -113,14 +183,6 @@ namespace Quarrel.Controls.Markdown
             get { return (IEnumerable<User>)GetValue(UsersProperty); }
             set { SetValue(UsersProperty, value); }
         }
-        /// <summary>
-        /// Gets the dependency property for <see cref="Text"/>.
-        /// </summary>
-        public static readonly DependencyProperty UsersProperty = DependencyProperty.Register(
-            nameof(Users),
-            typeof(IEnumerable<User>),
-            typeof(MarkdownTextBlock),
-            new PropertyMetadata(null, OnPropertyChangedStatic));
 
         /// <summary>
         /// Gets the dependency property for <see cref="Text"/>.
@@ -378,15 +440,6 @@ namespace Quarrel.Controls.Markdown
         }
 
         /// <summary>
-        /// Gets the dependency property for <see cref="Header2FontWeight"/>.
-        /// </summary>
-        public static readonly DependencyProperty Header2FontWeightProperty = DependencyProperty.Register(
-            nameof(Header2FontWeight),
-            typeof(FontWeight),
-            typeof(MarkdownTextBlock),
-            new PropertyMetadata(null, OnPropertyChangedStatic));
-
-        /// <summary>
         /// Gets or sets the font size for level 2 headers.
         /// </summary>
         public double Header2FontSize
@@ -486,15 +539,6 @@ namespace Quarrel.Controls.Markdown
         }
 
         /// <summary>
-        /// Gets the dependency property for <see cref="Header3Margin"/>.
-        /// </summary>
-        public static readonly DependencyProperty Header3MarginProperty = DependencyProperty.Register(
-            nameof(Header3Margin),
-            typeof(Thickness),
-            typeof(MarkdownTextBlock),
-            new PropertyMetadata(null, OnPropertyChangedStatic));
-
-        /// <summary>
         /// Gets or sets the foreground brush for level 3 headers.
         /// </summary>
         public Brush Header3Foreground
@@ -502,15 +546,6 @@ namespace Quarrel.Controls.Markdown
             get { return (Brush)GetValue(Header3ForegroundProperty); }
             set { SetValue(Header3ForegroundProperty, value); }
         }
-
-        /// <summary>
-        /// Gets the dependency property for <see cref="Header3Foreground"/>.
-        /// </summary>
-        public static readonly DependencyProperty Header3ForegroundProperty = DependencyProperty.Register(
-            nameof(Header3Foreground),
-            typeof(Brush),
-            typeof(MarkdownTextBlock),
-            new PropertyMetadata(null, OnPropertyChangedStatic));
 
         /// <summary>
         /// Gets or sets the font weight to use for level 4 headers.
@@ -522,15 +557,6 @@ namespace Quarrel.Controls.Markdown
         }
 
         /// <summary>
-        /// Gets the dependency property for <see cref="Header4FontWeight"/>.
-        /// </summary>
-        public static readonly DependencyProperty Header4FontWeightProperty = DependencyProperty.Register(
-            nameof(Header4FontWeight),
-            typeof(FontWeight),
-            typeof(MarkdownTextBlock),
-            new PropertyMetadata(null, OnPropertyChangedStatic));
-
-        /// <summary>
         /// Gets or sets the font size for level 4 headers.
         /// </summary>
         public double Header4FontSize
@@ -538,15 +564,6 @@ namespace Quarrel.Controls.Markdown
             get { return (double)GetValue(Header4FontSizeProperty); }
             set { SetValue(Header4FontSizeProperty, value); }
         }
-
-        /// <summary>
-        /// Gets the dependency property for <see cref="Header4FontSize"/>.
-        /// </summary>
-        public static readonly DependencyProperty Header4FontSizeProperty = DependencyProperty.Register(
-            nameof(Header4FontSize),
-            typeof(double),
-            typeof(MarkdownTextBlock),
-            new PropertyMetadata(null, OnPropertyChangedStatic));
 
         /// <summary>
         /// Gets or sets the margin for level 4 headers.
@@ -1270,10 +1287,9 @@ namespace Quarrel.Controls.Markdown
                     LineHeight=LineHeight,
                     LinkForeground = LinkForeground,
                     ImageStretch = ImageStretch,
-                    IsRightTapHandled = IsRightTapHandled
+                    IsRightTapHandled = IsRightTapHandled,
                 };
                 _rootElement.Child = renderer.Render();
-                _rootElement.Child.PointerPressed += Child_PointerPressed;
             }
             catch (Exception ex)
             {
@@ -1283,12 +1299,6 @@ namespace Quarrel.Controls.Markdown
 
             // Indicate that the parse is done.
             MarkdownRendered?.Invoke(this, markdownRenderedArgs);
-        }
-
-        private void Child_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            //TODO: this
-            //App.UniversalPointerDown(e);
         }
 
         private void UnhookListeners()
@@ -1324,6 +1334,7 @@ namespace Quarrel.Controls.Markdown
             // Add it to our list
             _listeningHyperlinks.Add(newHyperlink);
         }
+
         public void RegisterNewHyperLink(HyperlinkButton newHyperlink, string linkUrl)
         {
             // Setup a listener for clicks.
@@ -1336,8 +1347,6 @@ namespace Quarrel.Controls.Markdown
             _listeningHyperlinks.Add(newHyperlink);
         }
 
-        public event EventHandler<LinkClickedEventArgs> LinkClicked;
-
         private void NewHyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
             // Get the hyperlink URL.
@@ -1349,7 +1358,6 @@ namespace Quarrel.Controls.Markdown
 
             // Fire off the event.
             var eventArgs = new LinkClickedEventArgs(url);
-            string val = null;
 
             var tag = (sender as HyperlinkButton).Tag;
 
@@ -1361,15 +1369,12 @@ namespace Quarrel.Controls.Markdown
             {
                 eventArgs.Channel = channel;
             }
-            
 
             LinkClicked?.Invoke(sender, eventArgs);
         }
 
-        private bool multiClickDetectionTriggered;
-
         /// <summary>
-        /// Fired when a user taps one of the link elements
+        /// Fired when a user taps one of the link elements.
         /// </summary>
         private async void Hyperlink_Click(Hyperlink sender, HyperlinkClickEventArgs args)
         {
@@ -1394,10 +1399,9 @@ namespace Quarrel.Controls.Markdown
             // Handle url
             await Windows.System.Launcher.LaunchUriAsync(new Uri(url));
         }
-        public event EventHandler<CodeBlockResolvingEventArgs> CodeBlockResolving;
 
         public bool ParseSyntax(InlineCollection inlineCollection, string text, string codeLanguage)
-        {  
+        {
             var eventArgs = new CodeBlockResolvingEventArgs(inlineCollection, text, codeLanguage);
             CodeBlockResolving?.Invoke(this, eventArgs);
             try
@@ -1410,19 +1414,16 @@ namespace Quarrel.Controls.Markdown
                     {
                         ElementTheme theme = ElementTheme.Dark;
                         if (Application.Current.RequestedTheme == ApplicationTheme.Light)
+                        {
                             theme = ElementTheme.Light;
+                        }
 
                         RichTextBlockFormatter formatter = new RichTextBlockFormatter(theme);
-                        /*var theme = themeListener.CurrentTheme == ApplicationTheme.Dark ? ElementTheme.Dark : ElementTheme.Light;
-                        if (RequestedTheme != ElementTheme.Default)
-                        {
-                            theme = RequestedTheme;
-                        }
-                        formatter = new RichTextBlockFormatter(theme);*/
                         formatter.FormatInlines(text, language, inlineCollection);
                         return true;
                     }
                 }
+
                 return result;
             }
             catch
