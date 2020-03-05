@@ -2,28 +2,38 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // Copyright (c) Quarrel. All rights reserved.
 
-using System.Collections.Generic;
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
+using System.Collections.Generic;
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languages
 {
+    /// <summary>
+    /// Diff language rules.
+    /// </summary>
     public class Diff : ILanguage
     {
+        /// <inheritdoc/>
+        string[] ILanguage.Aliases => new string[] { "diff", "patch" };
+
+        /// <inheritdoc/>
         public string Id
         {
             get { return LanguageId.Diff; }
         }
 
+        /// <inheritdoc/>
         public string Name
         {
             get { return "Diff"; }
         }
 
+        /// <inheritdoc/>
         public string CssClassName
         {
             get { return "diff"; }
         }
 
+        /// <inheritdoc/>
         public string FirstLinePattern
         {
             get
@@ -32,37 +42,38 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
             }
         }
 
+        /// <inheritdoc/>
         public IList<LanguageRule> Rules
         {
             get
             {
                 return new List<LanguageRule>
                            {
-                               new LanguageRule(
+                    new LanguageRule(
                                    @"^(((---)|(\*\*\*)) +\d+,\d+ +((----)|(\*\*\*\*))|@@ +\-\d+,\d+ \+\d+,\d+ +@@)(\r?\n?)",
                                    new Dictionary<int, string>
                                        {
                                            { 0, ScopeName.DiffMeta },
                                        }),
-                               new LanguageRule(
+                    new LanguageRule(
                                    @"^(\*{5}).*(\*{5})(\r?\n?)",
                                    new Dictionary<int, string>
                                        {
                                            { 0, ScopeName.Brackets },
                                        }),
-                               new LanguageRule(
+                    new LanguageRule(
                                    @"^((-{3,})|(\*{3,})|(\+{3,})|(Index:)|(={3,})).*(\r?\n?)",
                                    new Dictionary<int, string>
                                        {
                                            { 0, ScopeName.Brackets },
                                        }),
-                                new LanguageRule(
+                    new LanguageRule(
                                    @"(^(\+|!).*(\r?\n?))",
                                    new Dictionary<int, string>
                                        {
                                            { 0, ScopeName.DiffAddition },
                                        }),
-                                new LanguageRule(
+                    new LanguageRule(
                                    @"^\-.*(\r?\n?)",
                                    new Dictionary<int, string>
                                        {
@@ -72,6 +83,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
             }
         }
 
+        /// <inheritdoc/>
         public bool HasAlias(string lang)
         {
             switch (lang.ToLower())
@@ -83,7 +95,8 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                     return false;
             }
         }
-        string[] ILanguage.Aliases => new string[] { "diff", "patch" };
+
+        /// <inheritdoc/>
         public override string ToString()
         {
             return Name;

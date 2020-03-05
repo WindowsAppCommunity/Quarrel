@@ -27,6 +27,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         string Name { get; }
 
         string[] Aliases { get; }
+
         /// <summary>
         /// Gets the collection of language rules in the language.
         /// </summary>

@@ -11,6 +11,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
     /// </summary>
     public class Asax : ILanguage
     {
+        /// <inheritdoc/>
         string[] ILanguage.Aliases => new string[] { "asax" };
 
         /// <inheritdoc/>

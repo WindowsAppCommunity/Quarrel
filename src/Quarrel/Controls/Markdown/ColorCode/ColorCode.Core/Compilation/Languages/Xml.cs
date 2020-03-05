@@ -1,28 +1,38 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 // Copyright (c) Quarrel. All rights reserved.
 
-using System.Collections.Generic;
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
+using System.Collections.Generic;
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languages
 {
+    /// <summary>
+    /// XML language rules.
+    /// </summary>
     public class Xml : ILanguage
     {
+        /// <inheritdoc/>
+        string[] ILanguage.Aliases => new string[] { "xml", "xaml", "xhtml", "rss", "atom", "xjb", "xsd", "xsl", "plist" };
+
+        /// <inheritdoc/>
         public string Id
         {
             get { return LanguageId.Xml; }
         }
 
+        /// <inheritdoc/>
         public string Name
         {
             get { return "XML"; }
         }
 
+        /// <inheritdoc/>
         public string CssClassName
         {
             get { return "xml"; }
         }
 
+        /// <inheritdoc/>
         public string FirstLinePattern
         {
             get
@@ -31,6 +41,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
             }
         }
 
+        /// <inheritdoc/>
         public IList<LanguageRule> Rules
         {
             get
@@ -40,31 +51,30 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                new LanguageRule(
                                    @"\<![ \r\n\t]*(--([^\-]|[\r\n]|-[^\-])*--[ \r\n\t]*)\>",
                                    new Dictionary<int, string>
-                                       {
-                                           { 0, ScopeName.HtmlComment },
-                                       }),
+                                   {
+                                       { 0, ScopeName.HtmlComment },
+                                   }),
                                new LanguageRule(
                                    @"(?i)(<!)(doctype)(?:\s+([a-z0-9]+))*(?:\s+("")([^\n]*?)(""))*(>)",
                                    new Dictionary<int, string>
-                                       {
-                                           { 1, ScopeName.XmlDelimiter },
-                                           { 2, ScopeName.XmlName },
-                                           { 3, ScopeName.XmlAttribute },
-                                           { 4, ScopeName.XmlAttributeQuotes },
-                                           { 5, ScopeName.XmlAttributeValue },
-                                           { 6, ScopeName.XmlAttributeQuotes },
-                                           { 7, ScopeName.XmlDelimiter }
-                                       }),
+                                   {
+                                       { 1, ScopeName.XmlDelimiter },
+                                       { 2, ScopeName.XmlName },
+                                       { 3, ScopeName.XmlAttribute },
+                                       { 4, ScopeName.XmlAttributeQuotes },
+                                       { 5, ScopeName.XmlAttributeValue },
+                                       { 6, ScopeName.XmlAttributeQuotes },
+                                       { 7, ScopeName.XmlDelimiter },
+                                   }),
                                new LanguageRule(
                                    @"(?i)(<\?)(xml-stylesheet)((?:\s+[a-z0-9]+=""[^\n""]*"")*(?:\s+[a-z0-9]+=\'[^\n\']*\')*\s*?)(\?>)",
                                    new Dictionary<int, string>
-                                       {
-                                           { 1, ScopeName.XmlDelimiter },
-                                           { 2, ScopeName.XmlName },
-                                           { 3, ScopeName.XmlDocTag },
-                                           { 4, ScopeName.XmlDelimiter }
-                                       }
-                                   ),
+                                   {
+                                       { 1, ScopeName.XmlDelimiter },
+                                       { 2, ScopeName.XmlName },
+                                       { 3, ScopeName.XmlDocTag },
+                                       { 4, ScopeName.XmlDelimiter },
+                                   }),
                                new LanguageRule(
                                    @"(?i)(<\?)([a-z][a-z0-9-]*)(?:\s+([a-z0-9]+)(=)("")([^\n]*?)(""))*(?:\s+([a-z0-9]+)(=)(\')([^\n]*?)(\'))*\s*?(\?>)",
                                    new Dictionary<int, string>
@@ -81,7 +91,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                            { 10, ScopeName.XmlAttributeQuotes },
                                            { 11, ScopeName.XmlAttributeValue },
                                            { 12, ScopeName.XmlAttributeQuotes },
-                                           { 13, ScopeName.XmlDelimiter }
+                                           { 13, ScopeName.XmlDelimiter },
                                        }),
                                new LanguageRule(
                                    @"(?xi)(</?)
@@ -110,26 +120,27 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                            { 13, ScopeName.XmlAttributeValue },
                                            { 14, ScopeName.XmlAttributeQuotes },
                                            { 15, ScopeName.XmlAttribute },
-                                           { 16, ScopeName.XmlDelimiter }
+                                           { 16, ScopeName.XmlDelimiter },
                                        }),
                                new LanguageRule(
                                    @"(?i)&[a-z0-9]+?;",
                                    new Dictionary<int, string>
-                                       {
-                                           { 0, ScopeName.XmlAttribute },
-                                       }),
+                                   {
+                                       { 0, ScopeName.XmlAttribute },
+                                   }),
                                new LanguageRule(
                                    @"(?s)(<!\[CDATA\[)(.*?)(\]\]>)",
                                    new Dictionary<int, string>
-                                       {
-                                           { 1, ScopeName.XmlDelimiter },
-                                           { 2, ScopeName.XmlCDataSection },
-                                           { 3, ScopeName.XmlDelimiter }
-                                       }),
+                                   {
+                                       { 1, ScopeName.XmlDelimiter },
+                                       { 2, ScopeName.XmlCDataSection },
+                                       { 3, ScopeName.XmlDelimiter },
+                                   }),
                            };
             }
         }
 
+        /// <inheritdoc/>
         public bool HasAlias(string lang)
         {
             switch (lang.ToLower())
@@ -143,12 +154,13 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                 case "xsl":
                 case "plist":
                     return true;
-                
+
                 default:
                     return false;
             }
         }
-        string[] ILanguage.Aliases => new string[] { "xml", "xaml", "xhtml", "rss","atom","xjb","xsd","xsl","plist" };
+
+        /// <inheritdoc/>
         public override string ToString()
         {
             return Name;

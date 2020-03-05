@@ -11,10 +11,10 @@
 // ******************************************************************
 // Copyright (c) Quarrel. All rights reserved.
 
+using Quarrel.Controls.Markdown.Parse.Blocks;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Quarrel.Controls.Markdown.Parse.Blocks;
 
 namespace Quarrel.Controls.Markdown.Parse
 {
@@ -34,21 +34,24 @@ namespace Quarrel.Controls.Markdown.Parse
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether or not hidden links are enabled.
+        /// </summary>
+        public bool EnableHiddenLinks { get; set; }
+
+        /// <summary>
         /// Gets or sets the list of block elements.
         /// </summary>
         public IList<MarkdownBlock> Blocks { get; set; }
 
-        public int length = 0;
-        public bool enableHiddenLinks;
         /// <summary>
         /// Parses markdown document text.
         /// </summary>
         /// <param name="markdownText"> The markdown text. </param>
-        public void Parse(string markdownText, bool enableHiddenLinksProp)
+        /// <param name="enabledHiddenLinks">Sets if the markdown should include hidden links.</param>
+        public void Parse(string markdownText, bool enabledHiddenLinks)
         {
-            enableHiddenLinks = enableHiddenLinksProp;
-            length = markdownText.Trim().Length;
             int actualEnd;
+            EnableHiddenLinks = enabledHiddenLinks;
             Blocks = Parse(markdownText, 0, markdownText.Length, quoteDepth: 0, actualEnd: out actualEnd);
 
             // Remove any references from the list of blocks, and add them to a dictionary.
@@ -70,6 +73,48 @@ namespace Quarrel.Controls.Markdown.Parse
                     Blocks.RemoveAt(i);
                 }
             }
+        }
+
+        /// <summary>
+        /// Looks up a reference using the ID.
+        /// A reference is a line that looks like this:
+        /// [foo]: http://example.com/.
+        /// </summary>
+        /// <param name="id"> The ID of the reference (case insensitive). </param>
+        /// <returns> The reference details, or <c>null</c> if the reference wasn't found. </returns>
+        public LinkReferenceBlock LookUpReference(string id)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException("id");
+            }
+
+            if (_references == null)
+            {
+                return null;
+            }
+
+            LinkReferenceBlock result;
+            if (_references.TryGetValue(id, out result))
+            {
+                return result;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Converts the object into it's textual representation.
+        /// </summary>
+        /// <returns> The textual representation of this object. </returns>
+        public override string ToString()
+        {
+            if (Blocks == null)
+            {
+                return base.ToString();
+            }
+
+            return string.Join("\r\n", Blocks);
         }
 
         /// <summary>
@@ -193,70 +238,20 @@ namespace Quarrel.Controls.Markdown.Parse
                     // Or a quote if the line starts with a greater than character (optionally preceded by whitespace).
                     // Or a horizontal rule if the line contains nothing but 3 '*', '-' or '_' characters (with optional whitespace).
                     MarkdownBlock newBlockElement = null;
-                  /*  if (nonSpaceChar == '#' && nonSpacePos == startOfLine)
-                    {
-                        // Hash-prefixed header.
-                        newBlockElement = HeaderBlock.ParseHashPrefixedHeader(markdown, startOfLine, endOfLine);
-                    }*/
-                   /* else if ((nonSpaceChar == '-' || nonSpaceChar == '=') && nonSpacePos == startOfLine && paragraphText.Length > 0)
-                    {
-                        // Underline style header. These are weird because you don't know you've
-                        // got one until you've gone past it.
-                        // Note: we intentionally deviate from reddit here in that we only
-                        // recognize this type of header if the previous line is part of a
-                        // paragraph.  For example if you have this, the header at the bottom is
-                        // ignored:
-                        //   a|b
-                        //   -|-
-                        //   1|2
-                        //   ===
-                        newBlockElement = HeaderBlock.ParseUnderlineStyleHeader(markdown, previousStartOfLine, previousEndOfLine, startOfLine, endOfLine);
-
-                        if (newBlockElement != null)
-                        {
-                            // We're going to have to remove the header text from the pending
-                            // paragraph by prematurely ending the current paragraph.
-                            // We already made sure that there is a paragraph in progress.
-                            paragraphText.Length = paragraphText.Length - (previousEndOfLine - previousStartOfLine);
-                        }
-                    }*/
-
-                    // These characters overlap with the underline-style header - this check should go after that one.
-                    /*if (newBlockElement == null && (nonSpaceChar == '*' || nonSpaceChar == '-' || nonSpaceChar == '_'))
-                    {
-                        newBlockElement = HorizontalRuleBlock.Parse(markdown, startOfLine, endOfLine);
-                    }
-                    */
                     if (lineStartsNewParagraph)
                     {
                         // Some block elements must start on a new paragraph (tables, lists and code).
                         int endOfBlock = startOfNextLine;
-                   /*     if (nonSpaceChar == '*' || nonSpaceChar == '+' || nonSpaceChar == '-' || (nonSpaceChar >= '0' && nonSpaceChar <= '9'))
-                        {
-                            newBlockElement = ListBlock.Parse(markdown, realStartOfLine, end, quoteDepth, out endOfBlock);
-                        }
-*/
-                        if ( (nonSpacePos > startOfLine || nonSpaceChar == '`'))
+                        if (nonSpacePos > startOfLine || nonSpaceChar == '`')
                         {
                             newBlockElement = CodeBlock.Parse(markdown, realStartOfLine, end, quoteDepth, out endOfBlock);
                         }
-
-                      /*  if (newBlockElement == null)
-                        {
-                            newBlockElement = TableBlock.Parse(markdown, realStartOfLine, endOfLine, end, quoteDepth, out endOfBlock);
-                        }*/
 
                         if (newBlockElement != null)
                         {
                             startOfNextLine = endOfBlock;
                         }
                     }
-
-                    // This check needs to go after the code block check.
-                 /*   if (newBlockElement == null && nonSpaceChar == '>')
-                    {
-                        newBlockElement = QuoteBlock.Parse(markdown, realStartOfLine, end, quoteDepth, out startOfNextLine);
-                    }*/
 
                     // This check needs to go after the code block check.
                     if (newBlockElement == null && nonSpaceChar == '[')
@@ -273,17 +268,6 @@ namespace Quarrel.Controls.Markdown.Parse
                         if (paragraphText.Length > 0)
                         {
                             paragraphText.Append("\n");
-                          //// If the previous two characters were both spaces, then append a line break.
-                          //if (paragraphText.Length > 2 && paragraphText[paragraphText.Length - 1] == ' ' && paragraphText[paragraphText.Length - 2] == ' ')
-                          //{
-                          //    // Replace the two spaces with a line break.
-                          //     paragraphText[paragraphText.Length - 2] = '\r';
-                          //     paragraphText[paragraphText.Length - 1] = '\n';
-                          //  }
-                          //  else
-                          //  {
-                          //     paragraphText.Append(" ");
-                          //  }
                         }
 
                         // Add the last paragraph if we are at the end of the input text.
@@ -328,48 +312,5 @@ namespace Quarrel.Controls.Markdown.Parse
             actualEnd = startOfLine;
             return blocks;
         }
-
-        /// <summary>
-        /// Looks up a reference using the ID.
-        /// A reference is a line that looks like this:
-        /// [foo]: http://example.com/
-        /// </summary>
-        /// <param name="id"> The ID of the reference (case insensitive). </param>
-        /// <returns> The reference details, or <c>null</c> if the reference wasn't found. </returns>
-        public LinkReferenceBlock LookUpReference(string id)
-        {
-            if (id == null)
-            {
-                throw new ArgumentNullException("id");
-            }
-
-            if (_references == null)
-            {
-                return null;
-            }
-
-            LinkReferenceBlock result;
-            if (_references.TryGetValue(id, out result))
-            {
-                return result;
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Converts the object into it's textual representation.
-        /// </summary>
-        /// <returns> The textual representation of this object. </returns>
-        public override string ToString()
-        {
-            if (Blocks == null)
-            {
-                return base.ToString();
-            }
-           
-            return string.Join("\r\n", Blocks);
-        }
-
     }
 }

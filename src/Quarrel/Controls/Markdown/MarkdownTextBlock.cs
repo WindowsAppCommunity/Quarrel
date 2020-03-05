@@ -37,6 +37,15 @@ namespace Quarrel.Controls.Markdown
         /// <summary>
         /// Gets the dependency property for <see cref="Text"/>.
         /// </summary>
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
+            nameof(Text),
+            typeof(string),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(string.Empty, OnPropertyChangedStatic));
+
+        /// <summary>
+        /// Gets the dependency property for <see cref="Text"/>.
+        /// </summary>
         public static readonly DependencyProperty MessageIdProperty = DependencyProperty.Register(
             nameof(MessageId),
             typeof(string),
@@ -60,6 +69,15 @@ namespace Quarrel.Controls.Markdown
             typeof(IEnumerable<User>),
             typeof(MarkdownTextBlock),
             new PropertyMetadata(null, OnPropertyChangedStatic));
+
+        /// <summary>
+        /// Gets the dependency property for <see cref="IsTextSelectionEnabled"/>.
+        /// </summary>
+        public static readonly DependencyProperty IsTextSelectionEnabledProperty = DependencyProperty.Register(
+            nameof(IsTextSelectionEnabled),
+            typeof(bool),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(true, OnPropertyChangedStatic));
 
         /// <summary>
         /// Gets the dependency property for <see cref="ImageStretch"/>.
@@ -115,12 +133,12 @@ namespace Quarrel.Controls.Markdown
             typeof(MarkdownTextBlock),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
-        private bool multiClickDetectionTriggered;
-
         /// <summary>
         /// Holds a list of hyperlinks we are listening to.
         /// </summary>
         private readonly List<object> _listeningHyperlinks = new List<object>();
+
+        private bool multiClickDetectionTriggered;
 
         /// <summary>
         /// The root element for our rendering.
@@ -137,6 +155,9 @@ namespace Quarrel.Controls.Markdown
         /// </summary>
         public event EventHandler<LinkClickedEventArgs> LinkClicked;
 
+        /// <summary>
+        /// Fired when the a code block begins resolving.
+        /// </summary>
         public event EventHandler<CodeBlockResolvingEventArgs> CodeBlockResolving;
 
         /// <summary>
@@ -185,15 +206,6 @@ namespace Quarrel.Controls.Markdown
         }
 
         /// <summary>
-        /// Gets the dependency property for <see cref="Text"/>.
-        /// </summary>
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
-            nameof(Text),
-            typeof(string),
-            typeof(MarkdownTextBlock),
-            new PropertyMetadata(string.Empty, OnPropertyChangedStatic));
-
-        /// <summary>
         /// Gets or sets a value indicating whether text selection is enabled.
         /// </summary>
         public bool IsTextSelectionEnabled
@@ -201,15 +213,6 @@ namespace Quarrel.Controls.Markdown
             get { return (bool)GetValue(IsTextSelectionEnabledProperty); }
             set { SetValue(IsTextSelectionEnabledProperty, value); }
         }
-
-        /// <summary>
-        /// Gets the dependency property for <see cref="IsTextSelectionEnabled"/>.
-        /// </summary>
-        public static readonly DependencyProperty IsTextSelectionEnabledProperty = DependencyProperty.Register(
-            nameof(IsTextSelectionEnabled),
-            typeof(bool),
-            typeof(MarkdownTextBlock),
-            new PropertyMetadata(true, OnPropertyChangedStatic));
 
         /// <summary>
         /// Gets or sets the brush used to render links.  If this is

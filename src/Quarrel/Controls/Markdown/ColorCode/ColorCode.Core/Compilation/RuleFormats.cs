@@ -3,11 +3,14 @@
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
 {
+    /// <summary>
+    /// Some generic rule regexes.
+    /// </summary>
     public static class RuleFormats
     {
-        public static string JavaScript;
-        public static string ServerScript;
-
+        /// <summary>
+        /// Initializes static members of the <see cref="RuleFormats"/> class.
+        /// </summary>
         static RuleFormats()
         {
             const string script = @"(?xs)(<)(script)
@@ -23,5 +26,15 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
             JavaScript = string.Format(script, attributes, "type|language", "[^\n]*javascript");
             ServerScript = string.Format(script, attributes, "runat", "server");
         }
+
+        /// <summary>
+        /// Gets JavaScript regex.
+        /// </summary>
+        public static string JavaScript { get; private set; }
+
+        /// <summary>
+        /// Gets ServerScript regex.
+        /// </summary>
+        public static string ServerScript { get; private set; }
     }
 }

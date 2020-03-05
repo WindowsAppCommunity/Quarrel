@@ -1,28 +1,38 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 // Copyright (c) Quarrel. All rights reserved.
 
-using System.Collections.Generic;
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
+using System.Collections.Generic;
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languages
 {
+    /// <summary>
+    /// AspxVb language rules.
+    /// </summary>
     public class AspxVb : ILanguage
     {
+        /// <inheritdoc/>
+        string[] ILanguage.Aliases => new string[] { "aspx-vb", "aspx (vb.net)", "aspx(vb.net)", "aspxvb" };
+
+        /// <inheritdoc/>
         public string Id
         {
             get { return LanguageId.AspxVb; }
         }
 
+        /// <inheritdoc/>
         public string Name
         {
             get { return "ASPX (VB.NET)"; }
         }
 
+        /// <inheritdoc/>
         public string CssClassName
         {
             get { return "aspx-vb"; }
         }
 
+        /// <inheritdoc/>
         public string FirstLinePattern
         {
             get
@@ -31,6 +41,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
             }
         }
 
+        /// <inheritdoc/>
         public IList<LanguageRule> Rules
         {
             get
@@ -43,7 +54,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 1, ScopeName.HtmlServerSideScript },
                                            { 2, ScopeName.HtmlComment },
-                                           { 3, ScopeName.HtmlServerSideScript }
+                                           { 3, ScopeName.HtmlServerSideScript },
                                        }),
                                new LanguageRule(
                                    @"(?s)<!--.*-->",
@@ -61,7 +72,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                            { 4, ScopeName.HtmlAttributeName },
                                            { 5, ScopeName.HtmlOperator },
                                            { 6, ScopeName.HtmlAttributeValue },
-                                           { 7, ScopeName.HtmlServerSideScript }
+                                           { 7, ScopeName.HtmlServerSideScript },
                                        }),
                                new LanguageRule(
                                    @"(?s)(?:(<%=|<%)(?!=|@|--))(.*?)(%>)",
@@ -69,7 +80,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                        {
                                            { 1, ScopeName.HtmlServerSideScript },
                                            { 2, string.Format("{0}{1}", ScopeName.LanguagePrefix, LanguageId.VbDotNet) },
-                                           { 3, ScopeName.HtmlServerSideScript }
+                                           { 3, ScopeName.HtmlServerSideScript },
                                        }),
                                new LanguageRule(RuleFormats.ServerScript, RuleCaptures.VbDotNetScript),
                                new LanguageRule(
@@ -80,7 +91,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                            { 2, ScopeName.HtmlElementName },
                                            { 3, ScopeName.HtmlAttributeName },
                                            { 4, ScopeName.HtmlAttributeValue },
-                                           { 5, ScopeName.HtmlTagDelimiter }
+                                           { 5, ScopeName.HtmlTagDelimiter },
                                        }),
                                new LanguageRule(RuleFormats.JavaScript, RuleCaptures.JavaScript),
                                new LanguageRule(
@@ -122,18 +133,19 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                            { 22, ScopeName.HtmlOperator },
                                            { 23, ScopeName.HtmlAttributeValue },
                                            { 24, ScopeName.HtmlAttributeName },
-                                           { 25, ScopeName.HtmlTagDelimiter }
+                                           { 25, ScopeName.HtmlTagDelimiter },
                                        }),
                                new LanguageRule(
                                    @"(?i)&\#?[a-z0-9]+?;",
                                    new Dictionary<int, string>
                                        {
-                                           { 0, ScopeName.HtmlEntity }
+                                           { 0, ScopeName.HtmlEntity },
                                        }),
                            };
             }
         }
 
+        /// <inheritdoc/>
         public bool HasAlias(string lang)
         {
             switch (lang.ToLower())
@@ -147,7 +159,8 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                     return false;
             }
         }
-        string[] ILanguage.Aliases => new string[] { "aspx-vb", "aspx (vb.net)", "aspx(vb.net)", "aspxvb" };
+
+        /// <inheritdoc/>
         public override string ToString()
         {
             return Name;

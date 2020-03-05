@@ -1,28 +1,38 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 // Copyright (c) Quarrel. All rights reserved.
 
-using System.Collections.Generic;
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
+using System.Collections.Generic;
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languages
 {
+    /// <summary>
+    /// Html language rules.
+    /// </summary>
     public class Html : ILanguage
     {
+        /// <inheritdoc/>
+        string[] ILanguage.Aliases => new string[] { "html", "htm" };
+
+        /// <inheritdoc/>
         public string Id
         {
             get { return LanguageId.Html; }
         }
 
+        /// <inheritdoc/>
         public string Name
         {
             get { return "HTML"; }
         }
 
+        /// <inheritdoc/>
         public string CssClassName
         {
             get { return "html"; }
         }
 
+        /// <inheritdoc/>
         public string FirstLinePattern
         {
             get
@@ -31,6 +41,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
             }
         }
 
+        /// <inheritdoc/>
         public IList<LanguageRule> Rules
         {
             get
@@ -51,7 +62,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                            { 2, ScopeName.HtmlElementName },
                                            { 3, ScopeName.HtmlAttributeName },
                                            { 4, ScopeName.HtmlAttributeValue },
-                                           { 5, ScopeName.HtmlTagDelimiter }
+                                           { 5, ScopeName.HtmlTagDelimiter },
                                        }),
                                new LanguageRule(
                                    @"(?xis)(<)
@@ -112,18 +123,19 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                                            { 12, ScopeName.HtmlOperator },
                                            { 13, ScopeName.HtmlAttributeValue },
                                            { 14, ScopeName.HtmlAttributeName },
-                                           { 15, ScopeName.HtmlTagDelimiter }
+                                           { 15, ScopeName.HtmlTagDelimiter },
                                        }),
                                new LanguageRule(
                                    @"(?i)&\#?[a-z0-9]+?;",
                                    new Dictionary<int, string>
                                        {
-                                           { 0, ScopeName.HtmlEntity }
+                                           { 0, ScopeName.HtmlEntity },
                                        }),
                            };
             }
         }
 
+        /// <inheritdoc/>
         public bool HasAlias(string lang)
         {
             switch (lang.ToLower())
@@ -135,7 +147,8 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation.Languag
                     return false;
             }
         }
-        string[] ILanguage.Aliases => new string[] { "html", "htm" };
+
+        /// <inheritdoc/>
         public override string ToString()
         {
             return Name;

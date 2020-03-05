@@ -38,13 +38,15 @@ using Emoji = NeoSmart.Unicode.Emoji;
 
 namespace Quarrel.Controls.Markdown.Display
 {
+    /// <summary>
+    /// Handles rendering markdown in a <see cref="RichTextBlock"/>.
+    /// </summary>
     internal class XamlRenderer
     {
         private static bool? _textDecorationsSupported = null;
 
         // This is super hacky, but it's a way of keeping intertia and passing scroll data to the parent;
         private static MethodInfo pointerWheelChanged = typeof(ScrollViewer).GetMethod("OnPointerWheelChanged", BindingFlags.NonPublic | BindingFlags.Instance);
-
 
         /// <summary>
         /// The markdown document that will be rendered.
@@ -63,6 +65,16 @@ namespace Quarrel.Controls.Markdown.Display
         private IGuildsService _guildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
         private ICurrentUserService _currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUserService>();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="XamlRenderer"/> class.
+        /// </summary>
+        /// <param name="document"></param>
+        /// <param name="linkRegister"></param>
+        /// <param name="users"></param>
+        /// <param name="MessageId"></param>
+        /// <param name="codeBlockResolver"></param>
+        /// <param name="border"></param>
+        /// <param name="halfopacity"></param>
         public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<User> users, string MessageId, ICodeBlockResolver codeBlockResolver, ref Border border, bool halfopacity)
         {
             _document = document;
@@ -822,7 +834,7 @@ namespace Quarrel.Controls.Markdown.Display
 
             // Attempt to resolve references.
             element.ResolveReference(_document);
-            if (element.Url == null || _document.enableHiddenLinks == false)
+            if (element.Url == null || _document.EnableHiddenLinks == false)
             {
                 // The element couldn't be resolved, just render it as text.
                 RenderInlineChildren(inlineCollection, element.Inlines, parent, context);
