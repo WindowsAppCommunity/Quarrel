@@ -21,7 +21,7 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         public CodeColorizerBase(StyleDictionary styles, ILanguageParser languageParser)
         {
             LanguageParser = languageParser
-                ?? new LanguageParser(new LanguageCompiler(Languages._compiledLanguages), Languages.LanguageRepository);
+                ?? new LanguageParser(new LanguageCompiler(Languages.CompiledLanguages), Languages.LanguageRepository);
 
             Styles = styles ?? StyleDictionary.DefaultLight;
         }

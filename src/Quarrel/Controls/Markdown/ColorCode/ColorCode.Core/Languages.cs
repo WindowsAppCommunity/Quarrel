@@ -26,12 +26,12 @@ namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core
         /// <summary>
         /// Set of <see cref="CompiledLanguage"/>s by Id.
         /// </summary>
-        private static Dictionary<string, CompiledLanguage> _compiledLanguages;
+        internal static readonly Dictionary<string, CompiledLanguage> CompiledLanguages;
 
         static Languages()
         {
             LoadedLanguages = new Dictionary<string, ILanguage>();
-            _compiledLanguages = new Dictionary<string, CompiledLanguage>();
+            CompiledLanguages = new Dictionary<string, CompiledLanguage>();
             LanguageRepository = new LanguageRepository(LoadedLanguages);
 
             Load<JavaScript>();
