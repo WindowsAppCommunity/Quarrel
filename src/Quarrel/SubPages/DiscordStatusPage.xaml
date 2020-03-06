@@ -113,7 +113,7 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Column="1" Opacity="0.6" FontWeight="Light" FontSize="14" Text="{x:Bind Name}"/>
-                            <TextBlock Grid.Column="2" Text="{x:Bind Status}" VerticalAlignment="Bottom" Foreground="{x:Bind Status, Converter={StaticResource StatusToBrushConverter}, Mode=OneWay}" FontSize="11" Opacity="1" Margin="0,-2,0,0"/>
+                            <TextBlock Grid.Column="2" Text="{x:Bind Status}" VerticalAlignment="Bottom" Foreground="{x:Bind Status, Converter={StaticResource StatusToBrushConverter}}" FontSize="11" Opacity="1" Margin="0,-2,0,0"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

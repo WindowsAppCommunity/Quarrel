@@ -10,7 +10,7 @@ namespace Quarrel.Helpers
         /// <summary>
         /// Converters a byte count to the most appropiate units.
         /// </summary>
-        /// <param name="i">Byte count</param>
+        /// <param name="i">Byte count.</param>
         /// <returns><paramref name="i"/> bytes in the most appropiate unit.</returns>
         public static string HumanizeFileSize(long i)
         {

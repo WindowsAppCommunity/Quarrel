@@ -30,6 +30,5 @@ namespace Quarrel.SubPages
 
         /// <inheritdoc/>
         public double MaxExpandedWidth { get; } = 400;
-
     }
 }

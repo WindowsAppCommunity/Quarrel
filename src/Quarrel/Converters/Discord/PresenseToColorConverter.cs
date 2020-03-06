@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Data;
 namespace Quarrel.Converters.Discord
 {
     /// <summary>
-    /// A converter that returns a <see cref="Windows.UI.Color"/> based on a user's presence.
+    /// A converter that returns a Color based on a user's presence.
     /// </summary>
     public sealed class PresenseToColorConverter : IValueConverter
     {

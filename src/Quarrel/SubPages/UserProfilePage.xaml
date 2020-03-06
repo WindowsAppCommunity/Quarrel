@@ -168,7 +168,7 @@
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0, 10" VerticalAlignment="Top">
                                             <Rectangle Width="42" Height="42" VerticalAlignment="Stretch" HorizontalAlignment="Left" RadiusX="100" RadiusY="100">
                                                 <Rectangle.Fill>
-                                                    <ImageBrush ImageSource="{x:Bind AvatarUrl, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                                                    <ImageBrush ImageSource="{x:Bind AvatarUrl, Converter={StaticResource UriToImageSourceConverter}}"/>
                                                 </Rectangle.Fill>
                                             </Rectangle>
                                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -195,8 +195,6 @@
                         </Grid>
 
                         <StackPanel x:Name="usernamestacker" Orientation="Horizontal" Margin="188,6,0,0" VerticalAlignment="Top">
-                            <TextBlock x:Name="Name" FontSize="26" FontWeight="SemiBold"/>
-                            <Rectangle x:Name="Seperate" Fill="White" Width="5" Margin="10,0" Visibility="Collapsed"/>
                             <TextBlock Text="{x:Bind ViewModel.User.Model.User.Username}" Foreground="White" FontSize="26" VerticalAlignment="Top" FontWeight="SemiLight"/>
                             <TextBlock Text="#" Foreground="White" FontSize="26" Opacity="0.4" Margin="4,0,0,0" VerticalAlignment="Top" FontWeight="Light"/>
                             <TextBlock Text="{x:Bind ViewModel.User.Model.User.Discriminator}" Foreground="White" FontSize="26" Opacity="0.4" Margin="4,0,0,0" VerticalAlignment="Top" FontWeight="Light"/>

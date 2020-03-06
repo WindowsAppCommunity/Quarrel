@@ -554,10 +554,10 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:Role">
                                 <Border CornerRadius="10" BorderThickness="1"
-                                        BorderBrush="{x:Bind Color, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}">
+                                        BorderBrush="{x:Bind Color, Converter={StaticResource IntColorToBrushConverter}}">
                                     <StackPanel Orientation="Horizontal">
                                         <Ellipse Margin="4,0,0,0" Width="11" Height="11"
-                                             Fill="{x:Bind Color, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}"/>
+                                             Fill="{x:Bind Color, Converter={StaticResource IntColorToBrushConverter}}"/>
                                         <TextBlock Text="{x:Bind Name}" FontSize="11" Padding="3,2,6,3" Opacity="0.8"
                                                    Foreground="{ThemeResource Foreground}"/>
                                     </StackPanel>

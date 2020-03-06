@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Data;
 namespace Quarrel.Converters.Base
 {
     /// <summary>
-    /// A converter that returns a <see cref="Windows.UI.Color"/> from an interger.
+    /// A converter that returns a Color from an interger.
     /// </summary>
     public sealed class IntColorToColorConverter : IValueConverter
     {

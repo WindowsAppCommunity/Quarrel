@@ -111,6 +111,9 @@
     <Prefer32Bit>true</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>7.3</LangVersion>
+    <DocumentationFile>bin\x64\Debug\Quarrel.XML</DocumentationFile>
+    <SuppressXamlWarnings>
+    </SuppressXamlWarnings>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>

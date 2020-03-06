@@ -54,7 +54,7 @@
         </Grid.RowDefinitions>
 
         <!--Name-->
-        <TextBlock Text="{x:Bind ViewModel.Name, Mode=OneWay}" FontWeight="SemiBold" FontSize="12" HorizontalAlignment="Center"/>
+        <TextBlock Text="{x:Bind ViewModel.Name}" FontWeight="SemiBold" FontSize="12" HorizontalAlignment="Center"/>
         <Grid Grid.Row="1" Width="64">
             <!--Commit Count-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -62,7 +62,7 @@
                 <StackPanel.RenderTransform>
                     <TranslateTransform x:Name="CommitTranslate"/>
                 </StackPanel.RenderTransform>
-                <TextBlock Text="{x:Bind ViewModel.CommitsCount, Mode=OneWay}" FontSize="12" Opacity="0.9" VerticalAlignment="Center"/>
+                <TextBlock Text="{x:Bind ViewModel.CommitsCount}" FontSize="12" Opacity="0.9" VerticalAlignment="Center"/>
                 <TextBlock Text="Commits" Margin="2,0,0,0" FontSize="10" Opacity="0.7" VerticalAlignment="Center"/>
             </StackPanel>
             
@@ -71,7 +71,7 @@
                 <Border.RenderTransform>
                     <TranslateTransform x:Name="ImageTranslate"/>
                 </Border.RenderTransform>
-                <tk:ImageEx Source="{x:Bind ViewModel.ProfileImageUrl, Mode=OneWay}" Width="64" Height="64"/>
+                <tk:ImageEx Source="{x:Bind ViewModel.ProfileImageUrl}" Width="64" Height="64"/>
             </Border>
         </Grid>
     </Grid>
