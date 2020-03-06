@@ -321,7 +321,7 @@ namespace Quarrel.Controls
             /// <summary>
             /// Initializes a new instance of the <see cref="Smoother"/> class.
             /// </summary>
-            /// <param name="SmoothTime">The smoothing window in *10ms.</param>
+            /// <param name="smoothTime">The smoothing window in *10ms.</param>
             /// /// <param name="multiplier">The opacity multiplier (5 by default).</param>
             public Smoother(int smoothTime, float multiplier = 5)
             {

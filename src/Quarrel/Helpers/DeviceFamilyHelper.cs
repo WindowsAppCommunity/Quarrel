@@ -7,12 +7,39 @@ namespace Quarrel.Helpers
     /// </summary>
     public enum DeviceFamily
     {
+        /// <summary>
+        /// Uncertain device family.
+        /// </summary>
         Unidentified,
+
+        /// <summary>
+        /// Any desktop or laptop.
+        /// </summary>
         Desktop,
+
+        /// <summary>
+        /// Mobile
+        /// </summary>
         Mobile,
+
+        /// <summary>
+        /// Xbox
+        /// </summary>
         Xbox,
+
+        /// <summary>
+        /// HoloLens
+        /// </summary>
         Holographic,
+
+        /// <summary>
+        /// Internet of Things device.
+        /// </summary>
         IoT,
+
+        /// <summary>
+        /// Windows Teams device.
+        /// </summary>
         Team,
     }
 

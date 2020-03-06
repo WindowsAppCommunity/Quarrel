@@ -50,16 +50,6 @@ namespace Quarrel.Controls.Shell
         public bool ShowHamburger { get; set; }
 
         /// <summary>
-        /// Gets Current channel as GuildChannel.
-        /// </summary>
-        private GuildChannel GuildChannel { get => ViewModel.CurrentChannel != null ? ViewModel.CurrentChannel.Model as GuildChannel : null; }
-
-        /// <summary>
-        /// Gets the topic of the current channel (if GuildChannel).
-        /// </summary>
-        private string ChannelTopic { get => GuildChannel != null ? GuildChannel.Topic : string.Empty; }
-
-        /// <summary>
         /// Changes the VisualStateManager to confirm open down.
         /// </summary>
         protected override void OnApplyTemplate()

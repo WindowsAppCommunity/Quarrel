@@ -16,7 +16,7 @@ namespace Quarrel.Services.Voice
         /// <summary>
         /// Gets <paramref name="buffer"/> from the stream.
         /// </summary>
-        /// <param name="buffer">A byte array pointer </param>
+        /// <param name="buffer">A byte array pointer.</param>
         /// <param name="capacity">The size of <paramref name="buffer"/>.</param>
         void GetBuffer(out byte* buffer, out uint capacity);
     }

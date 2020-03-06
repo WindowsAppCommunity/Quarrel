@@ -49,7 +49,7 @@ namespace Quarrel.Services.DerivedColor
                 PictureAnalysis analysis = new PictureAnalysis();
                 try
                 {
-                    await analysis.Analyse(new BitmapImage(user.AvatarUri), 128, 128);
+                    analysis.Analyse(new BitmapImage(user.AvatarUri), 128, 128);
                 }
                 catch
                 {
