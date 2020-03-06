@@ -1,12 +1,17 @@
-﻿using System;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Windows.UI.Xaml.Media.Imaging;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Quarrel.Helpers.Colors.SmartColor
 {
+    /// <summary>
+    /// Defines classes used for color detection.
+    /// </summary>
     public class ColorDetection
     {
         public class ColorThief
@@ -26,11 +31,8 @@ namespace Quarrel.Helpers.Colors.SmartColor
             ///     likelihood that it will not be the visually most dominant color.
             /// </param>
             /// <param name="ignoreWhite">if set to <c>true</c> [ignore white].</param>
-            /// <returns></returns>
-            public static MMCQ.QuantizedColor GetColor(
-                WriteableBitmap sourceImage,
-                int quality = DefaultQuality,
-                bool ignoreWhite = DefaultIgnoreWhite)
+            /// <returns>The most prominent color.</returns>
+            public static MMCQ.QuantizedColor GetColor(WriteableBitmap sourceImage, int quality = DefaultQuality, bool ignoreWhite = DefaultIgnoreWhite)
             {
                 var palette = GetPalette(sourceImage, DefaultColorCount, quality, ignoreWhite);
                 var dominantColor = palette?[0];
@@ -155,6 +157,7 @@ namespace Quarrel.Helpers.Colors.SmartColor
                 return copy;
             }
         }
+
         public class MMCQ
         {
             private const int Sigbits = 5;
@@ -169,7 +172,6 @@ namespace Quarrel.Helpers.Colors.SmartColor
             private const double WeightPopulation = 1f;
             private static readonly VBoxComparer ComparatorProduct = new VBoxComparer();
             private static readonly VBoxCountComparer ComparatorCount = new VBoxCountComparer();
-
 
             private static int GetColorIndex(int r, int g, int b)
             {
@@ -281,14 +283,15 @@ namespace Quarrel.Helpers.Colors.SmartColor
                         var right = vboxDim2 - i;
 
                         var d2 = left <= right
-                            ? Math.Min(vboxDim2 - 1, ~~(i + right / 2))
-                            : Math.Max(vboxDim1, ~~((int)(i - 1 - left / 2.0)));
+                            ? Math.Min(vboxDim2 - 1, ~~(i + (right / 2)))
+                            : Math.Max(vboxDim1, ~~((int)(i - 1 - (left / 2.0))));
 
                         // avoid 0-count boxes
                         while (d2 < 0 || partialsum[d2] <= 0)
                         {
                             d2++;
                         }
+
                         var count2 = lookaheadsum[d2];
                         while (count2 == 0 && d2 > 0 && partialsum[d2 - 1] > 0)
                         {
@@ -325,13 +328,13 @@ namespace Quarrel.Helpers.Colors.SmartColor
                 {
                     return null;
                 }
+
                 if (vbox.Count(false) == 1)
                 {
                     return new[] { vbox.Clone(), null };
                 }
 
                 // only one pixel, no split
-
                 var rw = vbox.R2 - vbox.R1 + 1;
                 var gw = vbox.G2 - vbox.G1 + 1;
                 var bw = vbox.B2 - vbox.B1 + 1;
@@ -340,6 +343,7 @@ namespace Quarrel.Helpers.Colors.SmartColor
                 // Find the partial sum arrays along the selected axis.
                 var total = 0;
                 var partialsum = new int[VboxLength];
+
                 // -1 = not set / 0 = 0
                 for (var l = 0; l < partialsum.Length; l++)
                 {
@@ -368,6 +372,7 @@ namespace Quarrel.Helpers.Colors.SmartColor
                                 sum += histo[index];
                             }
                         }
+
                         total += sum;
                         partialsum[i] = total;
                     }
@@ -385,12 +390,12 @@ namespace Quarrel.Helpers.Colors.SmartColor
                                 sum += histo[index];
                             }
                         }
+
                         total += sum;
                         partialsum[i] = total;
                     }
                 }
                 else
-                /* maxw == bw */
                 {
                     for (i = vbox.B1; i <= vbox.B2; i++)
                     {
@@ -403,6 +408,7 @@ namespace Quarrel.Helpers.Colors.SmartColor
                                 sum += histo[index];
                             }
                         }
+
                         total += sum;
                         partialsum[i] = total;
                     }
@@ -431,7 +437,7 @@ namespace Quarrel.Helpers.Colors.SmartColor
             /// <param name="comparator">The comparator.</param>
             /// <param name="target">The target.</param>
             /// <param name="histo">The histo.</param>
-            /// <exception cref="System.Exception">vbox1 not defined; shouldn't happen!</exception>
+            /// <exception cref="System.Exception">vbox1 not defined; shouldn't happen.</exception>
             private static void Iter(
                 List<VBox> lh,
                 IComparer<VBox> comparator,
@@ -450,6 +456,7 @@ namespace Quarrel.Helpers.Colors.SmartColor
                         niters++;
                         continue;
                     }
+
                     lh.RemoveAt(lh.Count - 1);
 
                     // do the cut
@@ -469,12 +476,14 @@ namespace Quarrel.Helpers.Colors.SmartColor
                         lh.Add(vbox2);
                         ncolors++;
                     }
+
                     lh.Sort(comparator);
 
                     if (ncolors >= target)
                     {
                         return;
                     }
+
                     if (niters++ > MaxIterations)
                     {
                         return;
@@ -522,15 +531,21 @@ namespace Quarrel.Helpers.Colors.SmartColor
                 return cmap;
             }
 
-            private static double CreateComparisonValue(double saturation, double targetSaturation,
-                double luma, double targetLuma,
-                int population, int highestPopulation)
+            private static double CreateComparisonValue(
+                double saturation,
+                double targetSaturation,
+                double luma,
+                double targetLuma,
+                int population,
+                int highestPopulation)
             {
                 return WeightedMean(
-                    InvertDiff(saturation, targetSaturation), WeightSaturation,
-                    InvertDiff(luma, targetLuma), WeightLuma,
-                    population / (double)highestPopulation, WeightPopulation
-                    );
+                    InvertDiff(saturation, targetSaturation),
+                    WeightSaturation,
+                    InvertDiff(luma, targetLuma),
+                    WeightLuma,
+                    population / (double)highestPopulation,
+                    WeightPopulation);
             }
 
             private static double WeightedMean(params double[] values)
@@ -543,7 +558,7 @@ namespace Quarrel.Helpers.Colors.SmartColor
                     var value = values[i];
                     var weight = values[i + 1];
 
-                    sum += (value * weight);
+                    sum += value * weight;
                     sumWeight += weight;
                 }
 
@@ -556,7 +571,7 @@ namespace Quarrel.Helpers.Colors.SmartColor
             }
 
             /// <summary>
-            ///     3D color space box.
+            /// 3D color space box.
             /// </summary>
             public class VBox
             {
@@ -564,12 +579,13 @@ namespace Quarrel.Helpers.Colors.SmartColor
                 private int[] _avg;
                 private int? _count;
                 private int? _volume;
-                public int B1;
-                public int B2;
-                public int G1;
-                public int G2;
-                public int R1;
-                public int R2;
+
+                public int B1 { get; set; }
+                public int B2 { get; set; }
+                public int G1 { get; set; }
+                public int G2 { get; set; }
+                public int R1 { get; set; }
+                public int R2 { get; set; }
 
                 public VBox(int r1, int r2, int g1, int g2, int b1, int b2, int[] histo)
                 {
@@ -717,7 +733,7 @@ namespace Quarrel.Helpers.Colors.SmartColor
                 public float L { get; set; }
             }
             /// <summary>
-            ///     Color map
+            /// Color map
             /// </summary>
             public class CMap
             {
@@ -795,8 +811,7 @@ namespace Quarrel.Helpers.Colors.SmartColor
                         if (sat >= minSaturation && sat <= maxSaturation &&
                             luma >= minLuma && luma <= maxLuma)
                         {
-                            var thisValue = CreateComparisonValue(sat, targetSaturation, luma, targetLuma,
-                                swatch.Count(false), highestPopulation);
+                            var thisValue = CreateComparisonValue(sat, targetSaturation, luma, targetLuma, swatch.Count(false), highestPopulation);
                             if (max == null || thisValue > maxValue)
                             {
                                 max = swatch;

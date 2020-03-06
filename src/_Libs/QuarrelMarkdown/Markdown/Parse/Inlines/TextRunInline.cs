@@ -23,19 +23,8 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
     internal class TextRunInline : MarkdownInline, IInlineLeaf
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextRunInline"/> class.
+        /// A list of supported HTML entity names, along with their corresponding code points.
         /// </summary>
-        public TextRunInline()
-            : base(MarkdownInlineType.TextRun)
-        {
-        }
-
-        /// <summary>
-        /// Gets or sets the text for this run.
-        /// </summary>
-        public string Text { get; set; }
-
-        // A list of supported HTML entity names, along with their corresponding code points.
         private static readonly Dictionary<string, int> _entities = new Dictionary<string, int>
         {
             { "quot", 0x0022 }, // "
@@ -294,8 +283,37 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
             { "diams", 0x2666 }, // ♦
         };
 
-        // A list of characters that can be escaped.
+        /// <summary>
+        /// A list of characters that can be escaped.
+        /// </summary>
         private static readonly char[] _escapeCharacters = new char[] { '\\', '`', '*', '_', '{', '}', '[', ']', '(', ')', '#', '+', '-', '.', '!', '|', '~', '^', '&', ':', '<', '>', '/' };
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextRunInline"/> class.
+        /// </summary>
+        public TextRunInline()
+            : base(MarkdownInlineType.TextRun)
+        {
+        }
+
+        /// <summary>
+        /// Gets or sets the text for this run.
+        /// </summary>
+        public string Text { get; set; }
+
+        /// <summary>
+        /// Converts the object into it's textual representation.
+        /// </summary>
+        /// <returns> The textual representation of this object. </returns>
+        public override string ToString()
+        {
+            if (Text == null)
+            {
+                return base.ToString();
+            }
+
+            return Text;
+        }
 
         /// <summary>
         /// Parses unformatted text.
@@ -342,7 +360,7 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
 
                     if (decodedChar == '_' && (markdown.Length - sequenceStartIndex) >= 7 && markdown[sequenceStartIndex + 2] == '(' && markdown[sequenceStartIndex + 3] == 'ツ' && markdown[sequenceStartIndex + 4] == ')' && markdown[sequenceStartIndex + 5] == '_' && markdown[sequenceStartIndex + 6] == '/' && markdown[sequenceStartIndex + 7] == '¯')
                     {
-                        //Do nothing, because the underscore was part of ¯\_(ツ)_/¯
+                        // Do nothing, because the underscore was part of ¯\_(ツ)_/¯
                         continue;
                     }
 
@@ -422,7 +440,7 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
                 {
                     break;
                 }
-                
+
                 searchPos = sequenceStartIndex + 1;
 
                 // This is an escape sequence, with one more character expected.
@@ -438,9 +456,10 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
                     // This character cannot be escaped.
                     continue;
                 }
+
                 if (decodedChar == '_' && (markdown.Length - sequenceStartIndex) >= 7 && markdown[sequenceStartIndex + 2] == '(' && markdown[sequenceStartIndex + 3] == 'ツ' && markdown[sequenceStartIndex + 4] == ')' && markdown[sequenceStartIndex + 5] == '_' && markdown[sequenceStartIndex + 6] == '/' && markdown[sequenceStartIndex + 7] == '¯')
                 {
-                    //Do nothing, because the underscore was part of ¯\_(ツ)_/¯
+                    // Do nothing, because the underscore was part of ¯\_(ツ)_/¯
                     continue;
                 }
 
@@ -462,20 +481,6 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
             }
 
             return markdown.Substring(start, end - start);
-        }
-
-        /// <summary>
-        /// Converts the object into it's textual representation.
-        /// </summary>
-        /// <returns> The textual representation of this object. </returns>
-        public override string ToString()
-        {
-            if (Text == null)
-            {
-                return base.ToString();
-            }
-
-            return Text;
         }
     }
 }

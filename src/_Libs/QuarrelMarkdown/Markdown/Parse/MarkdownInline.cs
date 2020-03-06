@@ -13,6 +13,9 @@
 
 namespace Quarrel.Controls.Markdown.Parse
 {
+    /// <summary>
+    /// Type of inline markdown.
+    /// </summary>
     internal enum MarkdownInlineType
     {
         /// <summary>
@@ -73,7 +76,7 @@ namespace Quarrel.Controls.Markdown.Parse
         /// <summary>
         /// A underline run
         /// </summary>
-        Underline
+        Underline,
     }
 
     /// <summary>
@@ -82,16 +85,17 @@ namespace Quarrel.Controls.Markdown.Parse
     internal abstract class MarkdownInline : MarkdownElement
     {
         /// <summary>
-        /// Gets or sets this element is.
-        /// </summary>
-        internal MarkdownInlineType Type { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="MarkdownInline"/> class.
         /// </summary>
+        /// <param name="type">Type of inline.</param>
         internal MarkdownInline(MarkdownInlineType type)
         {
             Type = type;
         }
+
+        /// <summary>
+        /// Gets or sets this element is.
+        /// </summary>
+        internal MarkdownInlineType Type { get; set; }
     }
 }

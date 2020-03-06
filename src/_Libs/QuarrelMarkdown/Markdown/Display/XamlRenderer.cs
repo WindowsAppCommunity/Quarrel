@@ -20,6 +20,7 @@ using Quarrel.Controls.Markdown.Parse.Inlines;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
 using Quarrel.ViewModels.Services.Discord.Guilds;
+using Quarrel.ViewModels.Services.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -847,9 +848,6 @@ namespace Quarrel.Controls.Markdown.Display
             // Register the link
             _linkRegister.RegisterNewHyperLink(link, element.Url);
 
-            // Remove superscripts.
-            /* RemoveSuperscriptRuns(element, insertCaret: true);*/
-
             // Render the children into the link inline.
             var childContext = context.Clone();
             childContext.WithinHyperlink = true;
@@ -864,26 +862,6 @@ namespace Quarrel.Controls.Markdown.Display
 
             // Add it to the current inlines
             inlineCollection.Add(link);
-            /*}
-            else
-            {
-                // THE HACK IS ON!
-
-                // Create a fake superscript element.
-                var fakeSuperscript = new SuperscriptTextInline
-                {
-                    Inlines = new List<MarkdownInline>
-                    {
-                        element
-                    }
-                };
-
-                // Remove superscripts.
-                RemoveSuperscriptRuns(element, insertCaret: false);
-
-                // Now render it.
-                RenderSuperscriptRun(inlineCollection, fakeSuperscript, parent, context);
-            }*/
         }
 
         /// <summary>
@@ -937,7 +915,7 @@ namespace Quarrel.Controls.Markdown.Display
             {
                 var content = element.Text;
                 bool enabled = true;
-                SolidColorBrush foreground = (SolidColorBrush)App.Current.Resources["Blurple"];
+                SolidColorBrush foreground = (SolidColorBrush)SimpleIoc.Default.GetInstance<IResourceService>().GetResource("Blurple");
 
                 try
                 {

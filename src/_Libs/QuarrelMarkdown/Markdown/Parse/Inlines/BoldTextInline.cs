@@ -34,8 +34,23 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
         public IList<MarkdownInline> Inlines { get; set; }
 
         /// <summary>
+        /// Converts the object into it's textual representation.
+        /// </summary>
+        /// <returns> The textual representation of this object. </returns>
+        public override string ToString()
+        {
+            if (Inlines == null)
+            {
+                return base.ToString();
+            }
+
+            return "*" + string.Join(string.Empty, Inlines) + "*";
+        }
+
+        /// <summary>
         /// Returns the chars that if found means we might have a match.
         /// </summary>
+        /// <param name="tripCharHelpers">Tripping character lists.</param>
         internal static void AddTripChars(List<Helpers.Common.InlineTripCharHelper> tripCharHelpers)
         {
             tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '*', Method = Helpers.Common.InlineParseMethod.Bold });
@@ -93,20 +108,6 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
             var result = new BoldTextInline();
             result.Inlines = Helpers.Common.ParseInlineChildren(markdown, innerStart, innerEnd);
             return new Helpers.Common.InlineParseResult(result, start, innerEnd + 2);
-        }
-
-        /// <summary>
-        /// Converts the object into it's textual representation.
-        /// </summary>
-        /// <returns> The textual representation of this object. </returns>
-        public override string ToString()
-        {
-            if (Inlines == null)
-            {
-                return base.ToString();
-            }
-
-            return "*" + string.Join(string.Empty, Inlines) + "*";
         }
     }
 }

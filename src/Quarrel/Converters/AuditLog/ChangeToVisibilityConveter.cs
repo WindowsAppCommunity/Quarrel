@@ -1,9 +1,7 @@
-﻿using DiscordAPI.API.Guild.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.API.Guild.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 

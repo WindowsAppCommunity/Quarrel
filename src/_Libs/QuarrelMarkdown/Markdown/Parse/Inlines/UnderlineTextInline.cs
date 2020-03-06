@@ -16,49 +16,71 @@ using System.Collections.Generic;
 namespace Quarrel.Controls.Markdown.Parse.Inlines
 {
     /// <summary>
-    /// Represents a span containing strikethrough text.
+    /// Represents a span that contains bold text.
     /// </summary>
-    internal class StrikethroughTextInline : MarkdownInline, IInlineContainer
+    internal class UnderlineTextInline : MarkdownInline, IInlineContainer
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StrikethroughTextInline"/> class.
+        /// Initializes a new instance of the <see cref="UnderlineTextInline"/> class.
         /// </summary>
-        public StrikethroughTextInline()
-            : base(MarkdownInlineType.Strikethrough)
+        public UnderlineTextInline()
+            : base(MarkdownInlineType.Underline)
         {
         }
 
         /// <summary>
-        /// Gets or sets The contents of the inline.
+        /// Gets or sets the contents of the inline.
         /// </summary>
         public IList<MarkdownInline> Inlines { get; set; }
 
         /// <summary>
-        /// Returns the chars that if found means we might have a match.
+        /// Converts the object into it's textual representation.
         /// </summary>
-        internal static void AddTripChars(List<Helpers.Common.InlineTripCharHelper> tripCharHelpers)
+        /// <returns> The textual representation of this object. </returns>
+        public override string ToString()
         {
-            tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '~', Method = Helpers.Common.InlineParseMethod.Strikethrough });
+            if (Inlines == null)
+            {
+                return base.ToString();
+            }
+
+            return "__" + string.Join(string.Empty, Inlines) + "__";
         }
 
         /// <summary>
-        /// Attempts to parse a strikethrough text span.
+        /// Returns the chars that if found means we might have a match.
+        /// </summary>
+        /// <param name="tripCharHelpers">List of characters that begin a markdown.</param>
+        internal static void AddTripChars(List<Helpers.Common.InlineTripCharHelper> tripCharHelpers)
+        {
+            tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '_', Method = Helpers.Common.InlineParseMethod.Underline });
+        }
+
+        /// <summary>
+        /// Attempts to parse a bold text span.
         /// </summary>
         /// <param name="markdown"> The markdown text. </param>
         /// <param name="start"> The location to start parsing. </param>
         /// <param name="maxEnd"> The location to stop parsing. </param>
-        /// <returns> A parsed strikethrough text span, or <c>null</c> if this is not a strikethrough text span. </returns>
+        /// <returns> A parsed bold text span, or <c>null</c> if this is not a bold text span. </returns>
         internal static Helpers.Common.InlineParseResult Parse(string markdown, int start, int maxEnd)
         {
-            // Check the start sequence.
-            if (start >= maxEnd - 1 || markdown.Substring(start, 2) != "~~")
+            if (start >= maxEnd - 1)
             {
                 return null;
             }
 
-            // Find the end of the span.
+            // Check the start sequence.
+            string startSequence = markdown.Substring(start, 2);
+            if (startSequence != "__")
+            {
+                return null;
+            }
+
+            // Find the end of the span.  The end sequence (either '**' or '__') must be the same
+            // as the start sequence.
             var innerStart = start + 2;
-            int innerEnd = Helpers.Common.IndexOf(markdown, "~~", innerStart, maxEnd);
+            int innerEnd = Helpers.Common.IndexOf(markdown, startSequence, innerStart, maxEnd);
             if (innerEnd == -1)
             {
                 return null;
@@ -83,23 +105,9 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
             }
 
             // We found something!
-            var result = new StrikethroughTextInline();
+            var result = new UnderlineTextInline();
             result.Inlines = Helpers.Common.ParseInlineChildren(markdown, innerStart, innerEnd);
             return new Helpers.Common.InlineParseResult(result, start, innerEnd + 2);
-        }
-
-        /// <summary>
-        /// Converts the object into it's textual representation.
-        /// </summary>
-        /// <returns> The textual representation of this object. </returns>
-        public override string ToString()
-        {
-            if (Inlines == null)
-            {
-                return base.ToString();
-            }
-
-            return "~~" + string.Join(string.Empty, Inlines) + "~~";
         }
     }
 }

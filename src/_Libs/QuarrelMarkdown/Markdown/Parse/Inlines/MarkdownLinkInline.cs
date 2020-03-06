@@ -50,8 +50,63 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
         public string ReferenceId { get; set; }
 
         /// <summary>
+        /// If this is a reference-style link, attempts to converts it to a regular link.
+        /// </summary>
+        /// <param name="document"> The document containing the list of references. </param>
+        public void ResolveReference(MarkdownDocument document)
+        {
+            if (document == null)
+            {
+                throw new ArgumentNullException("document");
+            }
+
+            if (ReferenceId == null)
+            {
+                return;
+            }
+
+            // Look up the reference ID.
+            var reference = document.LookUpReference(ReferenceId);
+            if (reference == null)
+            {
+                return;
+            }
+
+            // The reference was found. Check the URL is valid.
+            if (!IsUrlValid(reference.Url))
+            {
+                return;
+            }
+
+            // Everything is cool when you're part of a team.
+            Url = reference.Url;
+            Tooltip = reference.Tooltip;
+            ReferenceId = null;
+        }
+
+        /// <summary>
+        /// Converts the object into it's textual representation.
+        /// </summary>
+        /// <returns> The textual representation of this object. </returns>
+        public override string ToString()
+        {
+            if (Inlines == null || Url == null)
+            {
+                return base.ToString();
+            }
+
+            if (ReferenceId != null)
+            {
+                return string.Format("[{0}][{1}]", string.Join(string.Empty, Inlines), ReferenceId);
+            }
+
+            return string.Format("[{0}]({1})", string.Join(string.Empty, Inlines), Url);
+        }
+
+        /// <summary>
         /// Returns the chars that if found means we might have a match.
         /// </summary>
+        /// <param name="tripCharHelpers">List of characters that begin markdown.</param>
         internal static void AddTripChars(List<Helpers.Common.InlineTripCharHelper> tripCharHelpers)
         {
             tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '[', Method = Helpers.Common.InlineParseMethod.MarkdownLink });
@@ -147,6 +202,7 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
                     {
                         openParenthesis++;
                     }
+
                     pos++;
                 }
 
@@ -229,41 +285,6 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
         }
 
         /// <summary>
-        /// If this is a reference-style link, attempts to converts it to a regular link.
-        /// </summary>
-        /// <param name="document"> The document containing the list of references. </param>
-        public void ResolveReference(MarkdownDocument document)
-        {
-            if (document == null)
-            {
-                throw new ArgumentNullException("document");
-            }
-
-            if (ReferenceId == null)
-            {
-                return;
-            }
-
-            // Look up the reference ID.
-            var reference = document.LookUpReference(ReferenceId);
-            if (reference == null)
-            {
-                return;
-            }
-
-            // The reference was found. Check the URL is valid.
-            if (!IsUrlValid(reference.Url))
-            {
-                return;
-            }
-
-            // Everything is cool when you're part of a team.
-            Url = reference.Url;
-            Tooltip = reference.Tooltip;
-            ReferenceId = null;
-        }
-
-        /// <summary>
         /// Checks if the given URL is allowed in a markdown link.
         /// </summary>
         /// <param name="url"> The URL to check. </param>
@@ -288,25 +309,6 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
             }
 
             return schemeIsAllowed;
-        }
-
-        /// <summary>
-        /// Converts the object into it's textual representation.
-        /// </summary>
-        /// <returns> The textual representation of this object. </returns>
-        public override string ToString()
-        {
-            if (Inlines == null || Url == null)
-            {
-                return base.ToString();
-            }
-
-            if (ReferenceId != null)
-            {
-                return string.Format("[{0}][{1}]", string.Join(string.Empty, Inlines), ReferenceId);
-            }
-
-            return string.Format("[{0}]({1})", string.Join(string.Empty, Inlines), Url);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using Quarrel;
+using GalaSoft.MvvmLight.Ioc;
+using Quarrel.ViewModels.Services.Resources;
 using System;
 using Windows.UI.Xaml.Media;
 
@@ -44,13 +45,13 @@ namespace Windows.UI
         {
             if (color == -1)
             {
-                return (App.Current.Resources["Foreground"] as SolidColorBrush).Color;
+                return (SimpleIoc.Default.GetInstance<IResourceService>().GetResource("Foreground") as SolidColorBrush).Color;
             }
             else
             {
                 if (color != 0)
                 {
-                    byte a = (byte)255;
+                    byte a = 255;
                     byte r = (byte)(color >> 16);
                     byte g = (byte)(color >> 8);
                     byte b = (byte)(color >> 0);
@@ -58,7 +59,7 @@ namespace Windows.UI
                 }
                 else
                 {
-                    return (App.Current.Resources["Foreground"] as SolidColorBrush).Color;
+                    return (SimpleIoc.Default.GetInstance<IResourceService>().GetResource("Foreground") as SolidColorBrush).Color;
                 }
             }
         }

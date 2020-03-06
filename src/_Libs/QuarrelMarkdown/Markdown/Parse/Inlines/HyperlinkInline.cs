@@ -16,6 +16,9 @@ using System.Linq;
 
 namespace Quarrel.Controls.Markdown.Parse.Inlines
 {
+    /// <summary>
+    /// Types of HyperLinks.
+    /// </summary>
     internal enum HyperlinkType
     {
         /// <summary>
@@ -62,7 +65,6 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
         /// A color tag for the audit log (e.g. "@$Quarrel-color")
         /// </summary>
         QuarrelColor,
-
     }
 
     /// <summary>
@@ -71,46 +73,6 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
     /// </summary>
     internal class HyperlinkInline : MarkdownInline, IInlineLeaf, ILinkElement
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HyperlinkInline"/> class.
-        /// </summary>
-        public HyperlinkInline()
-            : base(MarkdownInlineType.RawHyperlink)
-        {
-        }
-
-        /// <summary>
-        /// Gets or sets the text to display.
-        /// </summary>
-        public string Text { get; set; }
-
-        /// <summary>
-        /// Gets or sets the URL to link to.
-        /// </summary>
-        public string Url { get; set; }
-
-        /// <summary>
-        /// Gets this type of hyperlink does not have a tooltip.
-        /// </summary>
-        string ILinkElement.Tooltip => null;
-
-        /// <summary>
-        /// Gets or sets the type of hyperlink.
-        /// </summary>
-        public HyperlinkType LinkType { get; set; }
-
-        /// <summary>
-        /// Returns the chars that if found means we might have a match.
-        /// </summary>
-        internal static void AddTripChars(List<Helpers.Common.InlineTripCharHelper> tripCharHelpers)
-        {
-            tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '<', Method = Helpers.Common.InlineParseMethod.AngleBracketLink });
-            tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = ':', Method = Helpers.Common.InlineParseMethod.Url });
-            tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '/', Method = Helpers.Common.InlineParseMethod.RedditLink });
-            tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '.', Method = Helpers.Common.InlineParseMethod.PartialLink });
-            tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '@', Method = Helpers.Common.InlineParseMethod.Email });
-        }
-
         /// <summary>
         /// A list of URL schemes.
         /// </summary>
@@ -143,8 +105,63 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
             "ms-windows-store://",
             "#",
             "@",
-            "discorduwp://"
+            "discorduwp://",
         };
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HyperlinkInline"/> class.
+        /// </summary>
+        public HyperlinkInline()
+            : base(MarkdownInlineType.RawHyperlink)
+        {
+        }
+
+        /// <summary>
+        /// Gets or sets the text to display.
+        /// </summary>
+        public string Text { get; set; }
+
+        /// <summary>
+        /// Gets or sets the URL to link to.
+        /// </summary>
+        public string Url { get; set; }
+
+        /// <summary>
+        /// Gets this type of hyperlink does not have a tooltip.
+        /// </summary>
+        string ILinkElement.Tooltip => null;
+
+        /// <summary>
+        /// Gets or sets the type of hyperlink.
+        /// </summary>
+        public HyperlinkType LinkType { get; set; }
+
+        /// <summary>
+        /// Converts the object into it's textual representation.
+        /// </summary>
+        /// <returns> The textual representation of this object. </returns>
+        public override string ToString()
+        {
+            if (Text == null)
+            {
+                return base.ToString();
+            }
+
+            return Text;
+        }
+
+        /// <summary>
+        /// Returns the chars that if found means we might have a match.
+        /// </summary>
+        /// <param name="tripCharHelpers">Collection of characters that trip markdown.</param>
+        internal static void AddTripChars(List<Helpers.Common.InlineTripCharHelper> tripCharHelpers)
+        {
+            tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '<', Method = Helpers.Common.InlineParseMethod.AngleBracketLink });
+            tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = ':', Method = Helpers.Common.InlineParseMethod.Url });
+            tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '/', Method = Helpers.Common.InlineParseMethod.RedditLink });
+            tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '.', Method = Helpers.Common.InlineParseMethod.PartialLink });
+            tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '@', Method = Helpers.Common.InlineParseMethod.Email });
+        }
 
         /// <summary>
         /// Attempts to parse a URL within angle brackets e.g. "http://www.reddit.com".
@@ -158,7 +175,6 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
             HyperlinkType type = HyperlinkType.BracketedUrl;
             int innerStart = start + 1;
 
-            
             // Check for a known scheme e.g. "https://" o
             int pos = -1;
             foreach (var scheme in BracketSchemes)
@@ -168,19 +184,39 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
                     // URL scheme found.
                     pos = innerStart + scheme.Length;
                     string bigsubtr = markdown.Substring(innerStart + 1, 14);
-                    //Channel mention
-                    if (scheme == "#") type=HyperlinkType.DiscordChannelMention;
-                    //Role mention
-                    else if(scheme == "@" && markdown.ElementAt(innerStart + 1) == '&') type= HyperlinkType.DiscordRoleMention;
-                    //Nick mention
-                    else if (scheme == "@" && markdown.ElementAt(innerStart + 1) == '!') type = HyperlinkType.DiscordNickMention;
-                    //User mention
-                    else if (scheme == "@" && markdown.ElementAt(innerStart + 1) == '$' &&  markdown.Substring(innerStart+1, 14) == "$QUARREL-color")
+
+                    // Channel mention
+                    if (scheme == "#")
+                    {
+                        type = HyperlinkType.DiscordChannelMention;
+                    }
+
+                    // Role mention
+                    else if (scheme == "@" && markdown.ElementAt(innerStart + 1) == '&')
+                    {
+                        type = HyperlinkType.DiscordRoleMention;
+                    }
+
+                    // Nick mention
+                    else if (scheme == "@" && markdown.ElementAt(innerStart + 1) == '!')
+                    {
+                        type = HyperlinkType.DiscordNickMention;
+                    }
+
+                    // User mention
+                    else if (scheme == "@" && markdown.ElementAt(innerStart + 1) == '$' && markdown.Substring(innerStart + 1, 14) == "$QUARREL-color")
+                    {
                         type = HyperlinkType.QuarrelColor;
-                    else if (scheme == "@") type = HyperlinkType.DiscordUserMention;
+                    }
+                    else if (scheme == "@")
+                    {
+                        type = HyperlinkType.DiscordUserMention;
+                    }
+
                     break;
                 }
             }
+
             if (pos == -1)
             {
                 return null;
@@ -252,126 +288,6 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
             return new Helpers.Common.InlineParseResult(new HyperlinkInline { Url = url, Text = url, LinkType = HyperlinkType.FullUrl }, start, end);
         }
 
-        /// <summary>
-        /// Attempts to parse a subreddit link e.g. "/r/news" or "r/news".
-        /// </summary>
-        /// <param name="markdown"> The markdown text. </param>
-        /// <param name="start"> The location to start parsing. </param>
-        /// <param name="maxEnd"> The location to stop parsing. </param>
-        /// <returns> A parsed subreddit or user link, or <c>null</c> if this is not a subreddit link. </returns>
-       // internal static Helpers.Common.InlineParseResult ParseRedditLink(string markdown, int start, int maxEnd)
-       // {
-       //     var result = ParseDoubleSlashLink(markdown, start, maxEnd);
-       //     if (result != null)
-       //     {
-       //         return result;
-       //     }
-       //
-       //     return ParseSingleSlashLink(markdown, start, maxEnd);
-       // }
-
-        /// <summary>
-        /// Parse a link of the form "/r/news" or "/u/quinbd".
-        /// </summary>
-        /// <param name="markdown"> The markdown text. </param>
-        /// <param name="start"> The location to start parsing. </param>
-        /// <param name="maxEnd"> The location to stop parsing. </param>
-        /// <returns> A parsed subreddit or user link, or <c>null</c> if this is not a subreddit link. </returns>
-     //   private static Helpers.Common.InlineParseResult ParseDoubleSlashLink(string markdown, int start, int maxEnd)
-     //   {
-     //       // The minimum length is 4 characters ("/u/u").
-     //       if (start > maxEnd - 4)
-     //       {
-     //           return null;
-     //       }
-     //
-     //       // Determine the type of link (subreddit or user).
-     //       HyperlinkType linkType;
-     //       if (markdown[start + 1] == 'r')
-     //       {
-     //           linkType = HyperlinkType.Subreddit;
-     //       }
-     //       else if (markdown[start + 1] == 'u')
-     //       {
-     //           linkType = HyperlinkType.User;
-     //       }
-     //       else
-     //       {
-     //           return null;
-     //       }
-     //
-     //       // Check that there is another slash.
-     //       if (markdown[start + 2] != '/')
-     //       {
-     //           return null;
-     //       }
-     //
-     //       // Find the end of the link.
-     //       int end = FindEndOfRedditLink(markdown, start + 3, maxEnd);
-     //
-     //       // Subreddit names must be at least two characters long, users at least one.
-     //       if (end - start < (linkType == HyperlinkType.User ? 4 : 5))
-     //       {
-     //           return null;
-     //       }
-     //
-     //       // We found something!
-     //       var text = markdown.Substring(start, end - start);
-     //       return new Helpers.Common.InlineParseResult(new HyperlinkInline { Text = text, Url = text, LinkType = linkType }, start, end);
-     //   }
-     //
-        /// <summary>
-        /// Parse a link of the form "r/news" or "u/quinbd".
-        /// </summary>
-        /// <param name="markdown"> The markdown text. </param>
-        /// <param name="start"> The location to start parsing. </param>
-        /// <param name="maxEnd"> The location to stop parsing. </param>
-        /// <returns> A parsed subreddit or user link, or <c>null</c> if this is not a subreddit link. </returns>
-      //  private static Helpers.Common.InlineParseResult ParseSingleSlashLink(string markdown, int start, int maxEnd)
-      //  {
-      //      // The minimum length is 3 characters ("u/u").
-      //      start--;
-      //      if (start < 0 || start > maxEnd - 3)
-      //      {
-      //          return null;
-      //      }
-      //
-      //      // Determine the type of link (subreddit or user).
-      //      HyperlinkType linkType;
-      //      if (markdown[start] == 'r')
-      //      {
-      //          linkType = HyperlinkType.Subreddit;
-      //      }
-      //      else if (markdown[start] == 'u')
-      //      {
-      //          linkType = HyperlinkType.User;
-      //      }
-      //      else
-      //      {
-      //          return null;
-      //      }
-      //
-      //      // If the link doesn't start with '/', then the previous character must be
-      //      // non-alphanumeric i.e. "bear/trap" is not a valid subreddit link.
-      //      if (start >= 1 && (char.IsLetterOrDigit(markdown[start - 1]) || markdown[start - 1] == '/'))
-      //      {
-      //          return null;
-      //      }
-      //
-      //      // Find the end of the link.
-      //      int end = FindEndOfRedditLink(markdown, start + 2, maxEnd);
-      //
-      //      // Subreddit names must be at least two characters long, users at least one.
-      //      if (end - start < (linkType == HyperlinkType.User ? 3 : 4))
-      //      {
-      //          return null;
-      //      }
-      //
-      //      // We found something!
-      //      var text = markdown.Substring(start, end - start);
-      //      return new Helpers.Common.InlineParseResult(new HyperlinkInline { Text = text, Url = "/" + text, LinkType = linkType }, start, end);
-      //  }
-      //
         /// <summary>
         /// Attempts to parse a URL without a scheme e.g. "www.reddit.com".
         /// </summary>
@@ -495,20 +411,6 @@ namespace Quarrel.Controls.Markdown.Parse.Inlines
             // We found an email address!
             var emailAddress = markdown.Substring(start, end - start);
             return new Helpers.Common.InlineParseResult(new HyperlinkInline { Url = "mailto:" + emailAddress, Text = emailAddress, LinkType = HyperlinkType.Email }, start, end);
-        }
-
-        /// <summary>
-        /// Converts the object into it's textual representation.
-        /// </summary>
-        /// <returns> The textual representation of this object. </returns>
-        public override string ToString()
-        {
-            if (Text == null)
-            {
-                return base.ToString();
-            }
-
-            return Text;
         }
 
         /// <summary>
