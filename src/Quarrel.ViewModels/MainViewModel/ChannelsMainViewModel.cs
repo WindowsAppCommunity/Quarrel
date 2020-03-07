@@ -125,7 +125,7 @@ namespace Quarrel.ViewModels
                 await SemaphoreSlim.WaitAsync();
                 try
                 {
-                    _AtTop = false;
+                    _atTop = false;
                     NewItemsLoading = true;
                     IList<Message> itemList = null;
                     try
@@ -144,10 +144,10 @@ namespace Quarrel.ViewModels
 
                     List<BindableMessage> messages = new List<BindableMessage>();
 
-                    IReadOnlyDictionary<string, BindableGuildMember> guildMembers = guildId != "DM"
+                    IReadOnlyDictionary<string, BindableGuildMember> guildMembers = _currentGuild.Model.Id != "DM"
                         ? GuildsService.GetAndRequestGuildMembers(
                             itemList.Select(x => x.User.Id).Distinct(),
-                            guildId)
+                            _currentGuild.Model.Id)
                         : null;
 
                     int i = itemList.Count;
@@ -156,7 +156,7 @@ namespace Quarrel.ViewModels
                     {
                         messages.Add(new BindableMessage(
                             item,
-                            guildId,
+                            _currentGuild.Model.Id,
                             lastItem != null && lastItem.User.Id == item.User.Id,
                             lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId,
                             guildMembers != null && guildMembers.TryGetValue(item.User.Id, out BindableGuildMember member) ? member : null));
