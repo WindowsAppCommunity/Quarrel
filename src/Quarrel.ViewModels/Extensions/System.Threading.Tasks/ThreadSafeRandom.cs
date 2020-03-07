@@ -1,23 +1,25 @@
-﻿namespace System.Threading.Tasks
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+namespace System.Threading.Tasks
 {
     /// <summary>
-    /// A <see langword="static"/> <see langword="class"/> that provides thread safe access to shared <see cref="Random"/> instances
+    /// A <see langword="static"/> <see langword="class"/> that provides thread safe access to shared <see cref="Random"/> instances.
     /// </summary>
     public static class ThreadSafeRandom
     {
         /// <summary>
-        /// Incremental seed for the <see cref="Random"/> instances
+        /// Thread local provider of <see cref="Random"/> instances.
         /// </summary>
-        private static int _Ticks = Environment.TickCount;
+        private static readonly ThreadLocal<Random> _random = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref _ticks)));
 
         /// <summary>
-        /// Thread local provider of <see cref="Random"/> instances
+        /// Incremental seed for the <see cref="Random"/> instances.
         /// </summary>
-        private static readonly ThreadLocal<Random> _Random = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref _Ticks)));
+        private static int _ticks = Environment.TickCount;
 
         /// <summary>
-        /// Gets a singleton, thread local <see cref="Random"/> instance
+        /// Gets a singleton, thread local <see cref="Random"/> instance.
         /// </summary>
-        public static Random Instance => _Random.Value;
+        public static Random Instance => _random.Value;
     }
 }
