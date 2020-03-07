@@ -8,6 +8,7 @@ using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Messages.Posts.Requests;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Cache;
+using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
 using Quarrel.ViewModels.Services.Discord.Friends;
@@ -20,10 +21,12 @@ using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.Services.Settings;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Quarrel.ViewModels.Services.Clipboard;
 
 namespace Quarrel.ViewModels
 {
+    /// <summary>
+    /// The ViewModel for all data throughout the app.
+    /// </summary>
     public partial class MainViewModel : ViewModelBase
     {
         #region Constructors
