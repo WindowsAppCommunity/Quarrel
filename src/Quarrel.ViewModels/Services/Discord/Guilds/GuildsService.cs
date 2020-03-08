@@ -286,6 +286,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                 return null;
             }
         }
+
         public BindableGuildMember GetGuildMember(string username, string discriminator, string guildId)
         {
             if (_GuildUsers.TryGetValue(guildId, out ConcurrentDictionary<string, BindableGuildMember> value))

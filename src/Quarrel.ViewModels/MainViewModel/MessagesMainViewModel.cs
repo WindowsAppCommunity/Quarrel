@@ -273,13 +273,19 @@ namespace Quarrel.ViewModels
                         {
                             // Removes typer from Channel if responsible for sending this message
                             channel.Typers.TryRemove(m.Message.User.Id, out _);
-                            m.Message.Member.User = m.Message.User;
+
+                            BindableGuildMember member = _guildsService.GetGuildMember(m.Message.User.Id, CurrentGuild.Model.Id);
+                            if (member == null)
+                            {
+                                member = new BindableGuildMember(new GuildMember() { User = m.Message.User }, m.Message.GuildId);
+                            }
+
                             BindableMessages.Add(new BindableMessage(
                                 m.Message,
                                 channel.Guild.Model.Id ?? "DM",
                                 BindableMessages.LastOrDefault().Model.User != null && BindableMessages.LastOrDefault().Model.User.Id == m.Message.User.Id,
                                 false,
-                                new BindableGuildMember(m.Message.Member, m.Message.GuildId)));
+                                member));
                         });
                     }
                 }
