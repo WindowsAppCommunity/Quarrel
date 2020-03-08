@@ -60,7 +60,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
 
                     // Add DM
                     var dmGuild =
-                        new BindableGuild(new Guild() {Name = "DM", Id = "DM"}) {Position = -1};
+                        new BindableGuild(new Guild() { Name = "DM", Id = "DM" }) { Position = -1 };
 
                     AllGuilds.AddOrUpdate(dmGuild.Model.Id, dmGuild);
 
@@ -80,7 +80,13 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                             dmGuild.Channels.Add(bChannel);
 
                             if (readStates.ContainsKey(bChannel.Model.Id))
+                            {
                                 bChannel.ReadState = readStates[bChannel.Model.Id];
+                                if (bChannel.ReadState.LastMessageId != bChannel.Model.LastMessageId)
+                                {
+                                    bChannel.ReadState.MentionCount++;
+                                }
+                            }
 
                             ChannelsService.AllChannels.AddOrUpdate(bChannel.Model.Id, bChannel);
                         }
@@ -104,7 +110,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         // Guild Order
                         bGuild.Position = m.EventData.Settings.GuildOrder.IndexOf(x => x == bGuild.Model.Id);
 
-                        //This is needed to fix ordering when multiple categories have the same position
+                        // This is needed to fix ordering when multiple categories have the same position
                         var categories = guild.Channels.Where(x => x.Type == 4).ToList();
 
                         foreach (var group in categories.GroupBy(x => x.Position).OrderBy(x => x.Key))
@@ -114,11 +120,17 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                                 bool shouldDo = false;
                                 foreach (var category in categories)
                                 {
-                                    if (category.Id == channel.Id) shouldDo = true;
-                                    if (shouldDo) category.Position += 1;
+                                    if (category.Id == channel.Id)
+                                    {
+                                        shouldDo = true;
+                                    }
+
+                                    if (shouldDo)
+                                    {
+                                        category.Position += 1;
+                                    }
                                 }
                             }
-                            
                         }
                         
                         // Guild Channels
