@@ -38,7 +38,7 @@ namespace Quarrel.ViewModels
         /// </summary>
         public RelayCommand<BindableMessage> DeleteMessageCommand => deleteMessageCommand = deleteMessageCommand ?? new RelayCommand<BindableMessage>(async (message) =>
         {
-            await DiscordService.ChannelService.DeleteMessage(message.Model.ChannelId, message.Model.Id);
+            await _discordService.ChannelService.DeleteMessage(message.Model.ChannelId, message.Model.Id);
         });
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Quarrel.ViewModels
         /// </summary>
         public RelayCommand<BindableMessage> PinMessageCommand => pinMessageCommand = pinMessageCommand ?? new RelayCommand<BindableMessage>(async (message) =>
         {
-            await DiscordService.ChannelService.AddPinnedChannelMessage(
+            await _discordService.ChannelService.AddPinnedChannelMessage(
                 message.Model.ChannelId,
                 message.Model.Id);
         });
@@ -56,7 +56,7 @@ namespace Quarrel.ViewModels
         /// </summary>
         public RelayCommand<BindableMessage> UnPinMessageCommand => unPinMessageCommand = unPinMessageCommand ?? new RelayCommand<BindableMessage>(async (message) =>
         {
-            await DiscordService.ChannelService.DeletePinnedChannelMessage(
+            await _discordService.ChannelService.DeletePinnedChannelMessage(
                 message.Model.ChannelId,
                 message.Model.Id);
         });
@@ -66,7 +66,7 @@ namespace Quarrel.ViewModels
         /// </summary>
         public RelayCommand<BindableMessage> CopyMessageIdCommand => copyMessageIdCommand = copyMessageIdCommand ?? new RelayCommand<BindableMessage>((message) =>
         {
-            ClipboardService.CopyToClipboard(message.Model.Id);
+            _clipboardService.CopyToClipboard(message.Model.Id);
         });
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace Quarrel.ViewModels
             {
                 OldItemsLoading = true;
                 IEnumerable<Message> itemList =
-                    await DiscordService.ChannelService.GetChannelMessagesBefore(
+                    await _discordService.ChannelService.GetChannelMessagesBefore(
                         CurrentChannel.Model.Id,
                         BindableMessages.FirstOrDefault().Model.Id);
 
@@ -137,7 +137,7 @@ namespace Quarrel.ViewModels
                 }
 
                 IReadOnlyDictionary<string, BindableGuildMember> guildMembers = _currentGuild.Model.Id != "DM"
-                    ? GuildsService.GetAndRequestGuildMembers(itemList.Select(x => x.User.Id).Distinct(), _currentGuild.Model.Id) : null;
+                    ? _guildsService.GetAndRequestGuildMembers(itemList.Select(x => x.User.Id).Distinct(), _currentGuild.Model.Id) : null;
 
                 for (int i = itemList.Count() - 1; i >= 0; i--)
                 {
@@ -155,7 +155,7 @@ namespace Quarrel.ViewModels
 
                 if (messages.Count > 0)
                 {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         BindableMessages.InsertRange(0, messages, NotifyCollectionChangedAction.Reset);
                         OldItemsLoading = false;
@@ -186,7 +186,7 @@ namespace Quarrel.ViewModels
                 {
                     IEnumerable<Message> itemList = null;
                     await Task.Run(async () =>
-                        itemList = await DiscordService.ChannelService.GetChannelMessagesAfter(
+                        itemList = await _discordService.ChannelService.GetChannelMessagesAfter(
                             CurrentChannel.Model.Id,
                             BindableMessages.LastOrDefault().Model.Id));
 
@@ -204,7 +204,7 @@ namespace Quarrel.ViewModels
 
                     if (messages.Count > 0)
                     {
-                        DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                        _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                         {
                             BindableMessages.AddRange(messages, NotifyCollectionChangedAction.Reset);
                         });
@@ -212,7 +212,7 @@ namespace Quarrel.ViewModels
                 }
                 else if (CurrentChannel.ReadState == null || CurrentChannel.Model.LastMessageId != CurrentChannel.ReadState.LastMessageId)
                 {
-                    await DiscordService.ChannelService.AckMessage(
+                    await _discordService.ChannelService.AckMessage(
                         CurrentChannel.Model.Id,
                         BindableMessages.LastOrDefault().Model.Id);
                 }
@@ -230,7 +230,7 @@ namespace Quarrel.ViewModels
         /// </summary>
         public void ScrollToAndEditLast()
         {
-            var userLastMessage = BindableMessages.LastOrDefault(x => x.Model.User.Id == CurrentUserService.CurrentUser.Model.Id);
+            var userLastMessage = BindableMessages.LastOrDefault(x => x.Model.User.Id == _currentUserService.CurrentUser.Model.Id);
             if (userLastMessage != null)
             {
                 userLastMessage.IsEditing = true;
@@ -244,24 +244,24 @@ namespace Quarrel.ViewModels
             MessengerInstance.Register<GatewayMessageRecievedMessage>(this, m =>
             {
                 // Check if channel exists
-                if (ChannelsService.AllChannels.TryGetValue(m.Message.ChannelId, out BindableChannel channel))
+                if (_channelsService.AllChannels.TryGetValue(m.Message.ChannelId, out BindableChannel channel))
                 {
                     channel.UpdateLMID(m.Message.Id);
 
                     // Updates Mention count
                     if (channel.IsDirectChannel || channel.IsGroupChannel ||
-                        m.Message.Mentions.Any(x => x.Id == CurrentUserService.CurrentUser.Model.Id) ||
+                        m.Message.Mentions.Any(x => x.Id == _currentUserService.CurrentUser.Model.Id) ||
                         m.Message.MentionEveryone)
                     {
-                        DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                        _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                         {
                             channel.ReadState.MentionCount++;
                             if (channel.IsDirectChannel || channel.IsGroupChannel)
                             {
-                                int oldIndex = GuildsService.AllGuilds["DM"].Channels.IndexOf(channel);
+                                int oldIndex = _guildsService.AllGuilds["DM"].Channels.IndexOf(channel);
                                 if (oldIndex >= 0)
                                 {
-                                    GuildsService.AllGuilds["DM"].Channels.Move(oldIndex, 0);
+                                    _guildsService.AllGuilds["DM"].Channels.Move(oldIndex, 0);
                                 }
                             }
                         });
@@ -269,7 +269,7 @@ namespace Quarrel.ViewModels
 
                     if (CurrentChannel != null && CurrentChannel.Model.Id == channel.Model.Id)
                     {
-                        DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                        _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                         {
                             // Removes typer from Channel if responsible for sending this message
                             channel.Typers.TryRemove(m.Message.User.Id, out _);
@@ -290,7 +290,7 @@ namespace Quarrel.ViewModels
             {
                 if (CurrentChannel != null && CurrentChannel.Model.Id == m.ChannelId)
                 {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         BindableMessage msg = BindableMessages.LastOrDefault(x => x.Model.Id == m.MessageId);
                         if (msg != null)
@@ -312,7 +312,7 @@ namespace Quarrel.ViewModels
             {
                 if (CurrentChannel != null && CurrentChannel.Model.Id == m.Message.ChannelId)
                 {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         BindableMessage msg = BindableMessages.LastOrDefault();
                         msg?.Update(m.Message);
@@ -327,7 +327,7 @@ namespace Quarrel.ViewModels
                     return;
                 }
 
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
                     BindableMessage message = BindableMessages.LastOrDefault(x => m.MessageId == x.Model.Id);
                     if (message != null)
@@ -348,7 +348,7 @@ namespace Quarrel.ViewModels
             });
             MessengerInstance.Register<GatewayReactionRemovedMessage>(this, m =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
                     BindableMessage message = BindableMessages.LastOrDefault(x => x.Model.Id == m.MessageId);
                     if (message != null)

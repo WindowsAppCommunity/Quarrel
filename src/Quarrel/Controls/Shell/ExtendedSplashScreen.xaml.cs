@@ -42,7 +42,7 @@ namespace Quarrel.Controls.Shell
                     StatusBlock.Text = m.Status.ToString().ToUpper();
                 });
 
-                if (m.Status == Status.Failed || m.Status == Status.Offline)
+                if (m.Status == ConnectionStatus.Failed || m.Status == ConnectionStatus.Offline)
                 {
                     // Stops animation on failed or offline
                     await DispatcherHelper.RunAsync(() =>
@@ -58,7 +58,7 @@ namespace Quarrel.Controls.Shell
                 }
 
                 // Shows Retry button
-                if (m.Status == Status.Failed)
+                if (m.Status == ConnectionStatus.Failed)
                 {
                     await DispatcherHelper.RunAsync(() =>
                     {
@@ -67,7 +67,7 @@ namespace Quarrel.Controls.Shell
                 }
 
                 // Reshow Splash
-                if (m.Status == Status.Disconnected)
+                if (m.Status == ConnectionStatus.Disconnected)
                 {
                     await DispatcherHelper.RunAsync(() =>
                     {

@@ -43,7 +43,7 @@ namespace Quarrel.ViewModels
             {
                 if (channel.Model is GuildChannel gChannel)
                 {
-                    await DiscordService.Gateway.Gateway.VoiceStatusUpdate(CurrentGuild.Model.Id, gChannel.Id, false, false);
+                    await _discordService.Gateway.Gateway.VoiceStatusUpdate(CurrentGuild.Model.Id, gChannel.Id, false, false);
                 }
             }
             else if (channel.Permissions.ReadMessages)
@@ -80,9 +80,9 @@ namespace Quarrel.ViewModels
         {
             MessengerInstance.Register<GatewayTypingStartedMessage>(this, m =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    if (ChannelsService.AllChannels.TryGetValue(m.TypingStart.ChannelId, out BindableChannel bChannel))
+                    if (_channelsService.AllChannels.TryGetValue(m.TypingStart.ChannelId, out BindableChannel bChannel))
                     {
                         if (bChannel.Typers.TryRemove(m.TypingStart.UserId, out Timer oldTimer))
                         {
@@ -97,7 +97,7 @@ namespace Quarrel.ViewModels
                                     oldUser.Dispose();
                                 }
 
-                                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                                 {
                                     bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
                                     bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
@@ -109,7 +109,7 @@ namespace Quarrel.ViewModels
 
                         bChannel.Typers.TryAdd(m.TypingStart.UserId, timer);
 
-                        DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                        _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                         {
                             bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
                             bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
@@ -120,7 +120,7 @@ namespace Quarrel.ViewModels
 
             MessengerInstance.Register<ChannelNavigateMessage>(this, async m =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUi(() => { CurrentChannel = m.Channel; });
+                _dispatcherHelper.CheckBeginInvokeOnUi(() => { CurrentChannel = m.Channel; });
 
                 await SemaphoreSlim.WaitAsync();
                 try
@@ -130,7 +130,7 @@ namespace Quarrel.ViewModels
                     IList<Message> itemList = null;
                     try
                     {
-                        itemList = await DiscordService.ChannelService.GetChannelMessages(m.Channel.Model.Id);
+                        itemList = await _discordService.ChannelService.GetChannelMessages(m.Channel.Model.Id);
                     }
                     catch (Exception e)
                     {
@@ -145,7 +145,7 @@ namespace Quarrel.ViewModels
                     List<BindableMessage> messages = new List<BindableMessage>();
 
                     IReadOnlyDictionary<string, BindableGuildMember> guildMembers = _currentGuild.Model.Id != "DM"
-                        ? GuildsService.GetAndRequestGuildMembers(
+                        ? _guildsService.GetAndRequestGuildMembers(
                             itemList.Select(x => x.User.Id).Distinct(),
                             _currentGuild.Model.Id)
                         : null;
@@ -172,7 +172,7 @@ namespace Quarrel.ViewModels
                         i--;
                     }
 
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         BindableMessages.Clear();
                         BindableMessages.AddRange(messages);
