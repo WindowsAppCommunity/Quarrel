@@ -29,7 +29,7 @@ namespace Quarrel
             }
             else
             {
-                Messenger.Default.Send(new ConnectionStatusMessage(Status.Offline));
+                Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Offline));
             }
         }
 

@@ -54,7 +54,7 @@ namespace Quarrel.ViewModels
                 {
                     BindableChannel channel =
                         m.Guild.Channels.FirstOrDefault(x => x.IsTextChannel && x.Permissions.ReadMessages);
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         CurrentChannel = channel;
                         CurrentGuild = m.Guild;
@@ -67,17 +67,17 @@ namespace Quarrel.ViewModels
 
                         if (!m.Guild.IsDM)
                         {
-                            CurrentGuildMember = GuildsService.GetGuildMember(CurrentUserService.CurrentUser.Model.Id, m.Guild.Model.Id);
+                            CurrentGuildMember = _guildsService.GetGuildMember(_currentUserService.CurrentUser.Model.Id, m.Guild.Model.Id);
                         }
                         else
                         {
                             CurrentGuildMember = new BindableGuildMember(
                             new DiscordAPI.Models.GuildMember()
                             {
-                                User = CurrentUserService.CurrentUser.Model,
+                                User = _currentUserService.CurrentUser.Model,
                             },
                             "DM",
-                            CurrentUserService.CurrentUser.Presence);
+                            _currentUserService.CurrentUser.Presence);
                         }
                     });
 
@@ -93,11 +93,11 @@ namespace Quarrel.ViewModels
             {
                 if (m == "GuildsReady")
                 {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         // Show guilds
                         BindableGuilds.Clear();
-                        BindableGuilds.AddRange(GuildsService.AllGuilds.Values.OrderBy(x => x.Position));
+                        BindableGuilds.AddRange(_guildsService.AllGuilds.Values.OrderBy(x => x.Position));
                     });
                 }
             });

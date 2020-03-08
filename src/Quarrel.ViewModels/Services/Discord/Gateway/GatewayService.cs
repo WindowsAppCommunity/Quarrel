@@ -68,7 +68,7 @@ namespace Quarrel.ViewModels.Services.Gateway
             }
             catch (Exception e)
             {
-                Messenger.Default.Send(new ConnectionStatusMessage(Status.Failed));
+                Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Failed));
                 return false;
             }
 
@@ -110,7 +110,7 @@ namespace Quarrel.ViewModels.Services.Gateway
 
             if (await ConnectWithRetryAsync(3))
             {
-                Messenger.Default.Send(new ConnectionStatusMessage(Status.Connected));
+                Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Connected));
                 Messenger.Default.Register<ChannelNavigateMessage>(this, async m =>
                 {
                     // TODO: Channel typing check
@@ -330,7 +330,7 @@ namespace Quarrel.ViewModels.Services.Gateway
 
         private void Gateway_GatewayClosed(object sender, Exception e)
         {
-            Messenger.Default.Send(new ConnectionStatusMessage(Status.Disconnected));
+            Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Disconnected));
         }
 
         #endregion

@@ -29,7 +29,7 @@ namespace Quarrel.ViewModels
         public RelayCommand<(double, double)> UpdateGuildSubscriptionsCommand =>
             _updateGuildSubscriptionsCommand = _updateGuildSubscriptionsCommand ?? new RelayCommand<(double, double)>((values) =>
             {
-                if (GuildsService.CurrentGuild.IsDM)
+                if (_guildsService.CurrentGuild.IsDM)
                 {
                     return;
                 }
@@ -136,9 +136,9 @@ namespace Quarrel.ViewModels
             // Handles VoiceState change for current user
             MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, m =>
             {
-                if (m.VoiceState.UserId == DiscordService.CurrentUser.Id)
+                if (m.VoiceState.UserId == _discordService.CurrentUser.Id)
                 {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() => VoiceState = m.VoiceState);
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() => VoiceState = m.VoiceState);
                 }
             });
 
@@ -146,7 +146,7 @@ namespace Quarrel.ViewModels
             {
                 if (m.GuildMemberListUpdated.GuildId == _currentGuild.Model.Id)
                 {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         if (m.GuildMemberListUpdated.Id != listId && m.GuildMemberListUpdated.Operators.All(x => x.Op != "SYNC"))
                         {
@@ -218,9 +218,9 @@ namespace Quarrel.ViewModels
                                         {
                                             CurrentBindableMembers.Insert(op.Index, new BindableGuildMember(op.Item.Member, _currentGuild.Model.Id)
                                             {
-                                                IsOwner = op.Item.Member.User.Id == GuildsService.AllGuilds[_currentGuild.Model.Id].Model.OwnerId,
+                                                IsOwner = op.Item.Member.User.Id == _guildsService.AllGuilds[_currentGuild.Model.Id].Model.OwnerId,
                                             });
-                                            PresenceService.UpdateUserPrecense(op.Item.Member.User.Id, op.Item.Member.Presence);
+                                            _presenceService.UpdateUserPrecense(op.Item.Member.User.Id, op.Item.Member.Presence);
                                         }
                                     }
 
@@ -260,10 +260,10 @@ namespace Quarrel.ViewModels
             {
                 BindableGuildMember bGuildMember = new BindableGuildMember(item.Member, _currentGuild.Model.Id)
                 {
-                    IsOwner = item.Member.User.Id == GuildsService.AllGuilds[_currentGuild.Model.Id].Model.OwnerId,
+                    IsOwner = item.Member.User.Id == _guildsService.AllGuilds[_currentGuild.Model.Id].Model.OwnerId,
                 };
                 CurrentBindableMembers[index] = bGuildMember;
-                PresenceService.UpdateUserPrecense(item.Member.User.Id, item.Member.Presence);
+                _presenceService.UpdateUserPrecense(item.Member.User.Id, item.Member.Presence);
             }
         }
     }
