@@ -847,10 +847,10 @@
     </CommandBar.PrimaryCommands>
 
     <CommandBar.SecondaryCommands>
-        <AppBarButton Label="About" Background="Transparent" Command="{x:Bind ViewModel.OpenAbout}"/>
-        <AppBarButton Label="What's New" Background="Transparent" Command="{x:Bind ViewModel.OpenWhatsNew}"/>
-        <AppBarButton Label="Credit" Background="Transparent" Command="{x:Bind ViewModel.OpenCredit}"/>
         <AppBarButton Label="Settings" Background="Transparent" Command="{x:Bind ViewModel.OpenSettings}"/>
+        <AppBarButton Label="Credit" Background="Transparent" Command="{x:Bind ViewModel.OpenCredit}"/>
+        <AppBarButton Label="What's New" Background="Transparent" Command="{x:Bind ViewModel.OpenWhatsNew}"/>
+        <AppBarButton Label="About" Background="Transparent" Command="{x:Bind ViewModel.OpenAbout}"/>
     </CommandBar.SecondaryCommands>
 </CommandBar>
 
