@@ -121,6 +121,12 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         #region Display
 
+        /// <summary>
+        /// Gets a value indicating whether or not the current user is mentioned in the message.
+        /// </summary>
+        public bool MentionsMe => Model.MentionEveryone ||
+            Model.Mentions.Any(x => x.Id == CurrentUserService.CurrentUser.Model.Id);
+
         #region Flyout
         public bool ShowPin => !Model.Pinned && (channel.Permissions.ManageMessages || channel.IsDirectChannel);
         public bool ShowUnpin => Model.Pinned && (channel.Permissions.ManageMessages || channel.IsDirectChannel);

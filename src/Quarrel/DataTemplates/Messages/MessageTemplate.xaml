@@ -192,6 +192,21 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
+                <!-- Mention indicator -->
+                <Grid Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="2" Visibility="{x:Bind MentionsMe}">
+                    <Rectangle Width="2" HorizontalAlignment="Left">
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="#FFFFB400" Opacity="0.5"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <Rectangle>
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="#FFFFB400" Opacity="0.15"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+
                 <Grid x:Phase="4" Grid.ColumnSpan="2" x:Name="HeaderGrid" x:Load="{x:Bind IsLastReadMessage, Mode=OneWay}" Margin="8,8,0,8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -304,9 +319,7 @@
                     </Button>
                 </Grid>
 
-                <!--
-                x:Load causes slowdowns here
-                -->
+                <!-- x:Load causes slowdowns here -->
                 <Grid Grid.Column="1" Grid.Row="3" x:Name="AttachmentList">
                     <ListView ItemsSource="{x:Bind Model.Attachments, Mode=OneWay}"
                           ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"
