@@ -16,6 +16,7 @@
     xmlns:media="using:Microsoft.Xaml.Interactions.Media"
     xmlns:controls="using:Quarrel.Controls"
     xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
+    xmlns:extensions2="using:Microsoft.Toolkit.Uwp.UI.Extensions?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     x:Class="Quarrel.DataTemplates.Messages.MessageTemplate">
 
     <ResourceDictionary.MergedDictionaries>
@@ -224,7 +225,7 @@
                     <Button Height="40" Width="40"
                         Style="{StaticResource DimButton}">
                         <Border CornerRadius="20">
-                            <Image x:Name="userImg" extensions:Mouse.Cursor="Hand" Width="40" Height="40" Source="{x:Bind Model.User.AvatarUrl, Mode=OneWay}"/>
+                            <Image x:Name="userImg" extensions2:Mouse.Cursor="Hand" Width="40" Height="40" Source="{x:Bind Model.User.AvatarUrl, Mode=OneWay}"/>
                         </Border>
                         <interactivity:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="Click">
