@@ -115,5 +115,31 @@
                 </Grid>
             </local:SideDrawer.ContentRight>
         </local:SideDrawer>
+
+        <Rectangle x:Name="MentionFlasher" Opacity="0" Grid.RowSpan="4" IsHitTestVisible="False"
+                   VerticalAlignment="Stretch" Width="256" HorizontalAlignment="Left">
+            <Rectangle.Resources>
+                <Storyboard x:Name="FlashMention">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MentionFlasher" Storyboard.TargetProperty="Opacity">
+                        <EasingDoubleKeyFrame Value="1" KeyTime="0:0:0.1">
+                            <EasingDoubleKeyFrame.EasingFunction>
+                                <CubicEase EasingMode="EaseOut"/>
+                            </EasingDoubleKeyFrame.EasingFunction>
+                        </EasingDoubleKeyFrame>
+                        <EasingDoubleKeyFrame Value="0" KeyTime="0:0:0.75">
+                            <EasingDoubleKeyFrame.EasingFunction>
+                                <CubicEase EasingMode="EaseInOut"/>
+                            </EasingDoubleKeyFrame.EasingFunction>
+                        </EasingDoubleKeyFrame>
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+            </Rectangle.Resources>
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                    <GradientStop Color="{ThemeResource SystemAccentColor}" Offset="0"/>
+                    <GradientStop Color="{ThemeResource SystemAccentColorTransparent}" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
     </Grid>
 </UserControl>

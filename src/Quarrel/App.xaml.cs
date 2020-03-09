@@ -214,6 +214,10 @@ namespace Quarrel
                 Application.Current.Resources["SystemControlForegroundAccentBrush"] = Application.Current.Resources["Blurple"];
             }
 
+            Color accentColor = (Color)Application.Current.Resources["SystemAccentColor"];
+            accentColor.A = 0;
+            Application.Current.Resources["SystemAccentColorTransparent"] = accentColor;
+
             // Set Acrylic Fallback settings
             var acrylicSettings = settings.Roaming.GetValue<AcrylicSettings>(SettingKeys.AcrylicSettings);
             (App.Current.Resources["AcrylicMessageBackground"] as AcrylicBrush).AlwaysUseFallback = (acrylicSettings & AcrylicSettings.MessageView) != AcrylicSettings.MessageView;
