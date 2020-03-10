@@ -12,6 +12,7 @@
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:membercontrols="using:Quarrel.Controls.Members"
     xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
+    xmlns:extensions2="using:Microsoft.Toolkit.Uwp.UI.Extensions?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -29,7 +30,7 @@
         </Grid.ColumnDefinitions>
         <Button Height="40" Width="40" Style="{StaticResource DimButton}">
             <Border CornerRadius="20">
-                <tk:ImageEx extensions:Mouse.Cursor="Hand" Width="40" Height="40" DecodePixelHeight="40" Source="{x:Bind ViewModel.Model.User.AvatarUrl, Mode=OneWay}"/>
+                <tk:ImageEx extensions2:Mouse.Cursor="Hand" Width="40" Height="40" DecodePixelHeight="40" Source="{x:Bind ViewModel.Model.User.AvatarUrl, Mode=OneWay}"/>
             </Border>
             <!--<interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="Click">
