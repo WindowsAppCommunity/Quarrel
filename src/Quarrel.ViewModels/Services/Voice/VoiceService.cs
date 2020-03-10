@@ -1,11 +1,15 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 
+using DiscordAPI.API.Channel;
 using DiscordAPI.Models;
 using DiscordAPI.Voice;
 using DiscordAPI.Voice.DownstreamEvents;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Voice;
+using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.Voice.Audio.In;
 using Quarrel.ViewModels.Services.Voice.Audio.Out;
@@ -30,7 +34,7 @@ namespace Quarrel.ViewModels.Services.Voice
 
         private VoiceConnection _VoiceConnection;
 
-        public IDictionary<string, VoiceState> VoiceStates { get; } = new ConcurrentDictionary<string, VoiceState>();
+        public IDictionary<string, BindableVoiceUser> VoiceStates { get; } = new ConcurrentDictionary<string, BindableVoiceUser>();
 
         #endregion
 
@@ -46,41 +50,56 @@ namespace Quarrel.ViewModels.Services.Voice
             {
                 if (VoiceStates.ContainsKey(m.VoiceState.UserId))
                 {
-                    if (m.VoiceState.UserId == DiscordService.CurrentUser.Id &&
-                        m.VoiceState.ChannelId == null)
+                    var channel = SimpleIoc.Default.GetInstance<IChannelsService>().GetChannel(VoiceStates[m.VoiceState.UserId].Model.ChannelId);
+                    channel.ConnectedUsers.Remove(m.VoiceState.UserId);
+
+                    if (m.VoiceState.ChannelId == null)
                     {
                         VoiceStates.Remove(m.VoiceState.UserId);
-                        DisconnectFromVoiceChannel();
-                    }
 
-                    VoiceStates[m.VoiceState.UserId] = m.VoiceState;
+                        if (m.VoiceState.UserId == DiscordService.CurrentUser.Id)
+                        {
+                            DisconnectFromVoiceChannel();
+                        }
+                    } else
+                    {
+                        VoiceStates[m.VoiceState.UserId].Model = m.VoiceState;
+                        VoiceStates[m.VoiceState.UserId].UpateProperties();
+                    }
                 }
                 else
                 {
-                    VoiceStates.Add(m.VoiceState.UserId, m.VoiceState);
+                    BindableVoiceUser voiceUser = new BindableVoiceUser(m.VoiceState);
+                    VoiceStates.Add(m.VoiceState.UserId, voiceUser);
+                }
+
+                if (m.VoiceState.ChannelId != null)
+                {
+                    var channel = SimpleIoc.Default.GetInstance<IChannelsService>().GetChannel(m.VoiceState.ChannelId);
+                    channel.ConnectedUsers.Add(m.VoiceState.UserId, VoiceStates[m.VoiceState.UserId]);
                 }
             });
 
-            Messenger.Default.Register<GatewayVoiceServerUpdateMessage>(this, m => 
+            Messenger.Default.Register<GatewayVoiceServerUpdateMessage>(this, m =>
             {
-                ConnectToVoiceChannel(m.VoiceServer, VoiceStates[DiscordService.CurrentUser.Id]);
+                ConnectToVoiceChannel(m.VoiceServer, VoiceStates[DiscordService.CurrentUser.Id].Model);
             });
 
             Messenger.Default.Register<GatewayReadyMessage>(this, m => 
             {
                 foreach (var guild in m.EventData.Guilds)
                 {
-                    if(guild.VoiceStates != null)
+                    if (guild.VoiceStates != null)
                     {
                         foreach (var state in guild.VoiceStates)
                         {
                             if (VoiceStates.ContainsKey(state.UserId))
                             {
-                                VoiceStates[state.UserId] = state;
+                                VoiceStates[state.UserId].Model = state;
                             }
                             else
                             {
-                                VoiceStates.Add(state.UserId, state);
+                                VoiceStates.Add(state.UserId, new BindableVoiceUser(state));
                             }
                         }
                     }

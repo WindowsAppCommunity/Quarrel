@@ -10,6 +10,7 @@ using DiscordAPI.Models;
 using Quarrel.ViewModels.Services.Settings.Enums;
 using Quarrel.ViewModels.Services.Voice.Audio.In;
 using Quarrel.ViewModels.Services.Voice.Audio.Out;
+using Quarrel.ViewModels.Models.Bindables;
 
 namespace Quarrel.ViewModels.Services.Voice
 {
@@ -17,7 +18,7 @@ namespace Quarrel.ViewModels.Services.Voice
     {
         IAudioInService AudioInService { get; }
         IAudioOutService AudioOutService { get; }
-        IDictionary<string, VoiceState> VoiceStates { get; }
+        IDictionary<string, BindableVoiceUser> VoiceStates { get; }
 
         void ToggleDeafen();
         void ToggleMute();

@@ -99,7 +99,7 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         #region Methods
 
-        private void UpateProperties()
+        public void UpateProperties()
         {
             RaisePropertyChanged(nameof(ShowDeaf));
             RaisePropertyChanged(nameof(ServerDeaf));

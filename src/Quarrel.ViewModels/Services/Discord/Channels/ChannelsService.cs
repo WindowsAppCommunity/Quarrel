@@ -5,10 +5,9 @@ using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.DispatcherHelper;
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
+using System.Runtime.InteropServices;
 
 namespace Quarrel.ViewModels.Services.Discord.Channels
 {
@@ -16,6 +15,7 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
     {
         public ChannelsService()
         {
+
             Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
             {
                 if (CurrentChannel != null)
@@ -41,9 +41,12 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
         {
             return AllChannels.TryGetValue(channelId, out BindableChannel channel) ? channel : null;
         }
+
         public BindableChannel CurrentChannel { get; private set; }
+
         public IDictionary<string, BindableChannel> AllChannels { get; } = new ConcurrentDictionary<string, BindableChannel>();
+        
         public ConcurrentDictionary<string, ChannelOverride> ChannelSettings { get; } =
-            new ConcurrentDictionary<string, ChannelOverride>();
+            new ConcurrentDictionary<string, ChannelOverride>(); 
     }
 }

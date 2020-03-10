@@ -44,27 +44,6 @@ namespace Quarrel.ViewModels.Models.Bindables
 
             #region Messenger
 
-            MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, e =>
-            {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                {
-                    if (e.VoiceState.ChannelId == Model.Id)
-                    {
-                        e.VoiceState.GuildId = guildId;
-                        // User joined this Voice Channel
-                        if (!ConnectedUsers.ContainsKey(e.VoiceState.UserId))
-                        {
-                            ConnectedUsers.Add(e.VoiceState.UserId, new BindableVoiceUser(e.VoiceState));
-                        }
-                    }
-                    else if (ConnectedUsers.ContainsKey(e.VoiceState.UserId))
-                    {
-                        // User joined a different Voice Channel, so they must have left this one
-                        ConnectedUsers.Remove(e.VoiceState.UserId);
-                    }
-                });
-            });
-
             MessengerInstance.Register<GatewayUserGuildSettingsUpdatedMessage>(this, m =>
             {
                 if ((m.Settings.GuildId ?? "DM") == GuildId)
