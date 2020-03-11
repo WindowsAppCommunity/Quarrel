@@ -11,11 +11,11 @@ using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Clipboard;
-using Quarrel.ViewModels.Services.DerivedColor;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Services.Navigation;
+using Quarrel.ViewModels.Services.Resources;
 using Quarrel.ViewModels.Services.Settings;
 using System;
 using System.Collections.Generic;
@@ -134,7 +134,7 @@ namespace Quarrel.ViewModels.Models.Bindables
                     return _userAccentColor.Value;
                 }
 
-                return ColorService.GetStatusColor(Presence.Status);
+                return ResourceService.GetStatusColor(Presence.Status);
             }
             set => Set(ref _userAccentColor, value);
         }
@@ -223,7 +223,7 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         private IDispatcherHelper DispatcherHelper => SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
-        private IColorService ColorService => SimpleIoc.Default.GetInstance<IColorService>();
+        private IResourceService ResourceService => SimpleIoc.Default.GetInstance<IResourceService>();
 
         /// <summary>
         /// Updates the accent color for the bindable guild member.
@@ -271,7 +271,7 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         private async Task<int> GetUserDerivedColor()
         {
-            return await ColorService.GetUserColor(Model.User);
+            return await ResourceService.GetUserAccentColor(Model.User);
         }
     }
 }
