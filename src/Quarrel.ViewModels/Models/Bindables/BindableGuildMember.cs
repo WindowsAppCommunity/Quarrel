@@ -1,4 +1,4 @@
-﻿// Special thanks to Sergio Pedri for the basis of this design
+﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
@@ -24,26 +24,45 @@ using System.Threading.Tasks;
 
 namespace Quarrel.ViewModels.Models.Bindables
 {
+    /// <summary>
+    /// A Bindable wrapper for the <see cref="GuildMember"/> model.
+    /// </summary>
     public class BindableGuildMember : BindableModelBase<GuildMember>, IEquatable<BindableGuildMember>, IComparable<BindableGuildMember>, IGuildMemberListItem
     {
-        #region Constructors
+        private Presence _presence;
+        private int? _userAccentColor = null;
+        private List<Role> _cachedRoles;
+        private RelayCommand _openProfile;
+        private RelayCommand _copyId;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BindableGuildMember"/> class.
+        /// </summary>
+        /// <param name="model">The base <see cref="GuildMember"/> object.</param>
+        /// <param name="guildId">The Guild for the member.</param>
+        /// <param name="presence">The presence of the user.</param>
         public BindableGuildMember([NotNull] GuildMember model, string guildId, Presence presence = null) : base(model)
         {
             if (model == null)
+            {
                 return;
+            }
 
             GuildId = guildId;
 
             if (presence != null)
+            {
                 Presence = presence;
+            }
             else
+            {
                 Presence = new Presence()
                 {
                     User = model.User,
                     Status = "offline",
-                    GuildId = guildId
+                    GuildId = guildId,
                 };
+            }
 
             Messenger.Default.Register<GatewayPresenceUpdatedMessage>(this, m =>
             {
@@ -57,101 +76,93 @@ namespace Quarrel.ViewModels.Models.Bindables
             });
         }
 
-        #endregion
-
-        #region Commands
-
-        public RelayCommand OpenProfile => openProfile = new RelayCommand(() =>
+        /// <summary>
+        /// Gets a command that opens the guild member's user profile.
+        /// </summary>
+        public RelayCommand OpenProfile => _openProfile = new RelayCommand(() =>
         {
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("UserProfilePage", this);
         });
-        private RelayCommand openProfile;
 
-        public RelayCommand CopyId => copyId = new RelayCommand(() =>
+        /// <summary>
+        /// Gets a command that copies the guild member's user id to the clipboard.
+        /// </summary>
+        public RelayCommand CopyId => _copyId = new RelayCommand(() =>
         {
             SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(Model.User.Id);
         });
-        private RelayCommand copyId;
 
-        #endregion
-
-        #region Methods
-
-        public async void UpdateDerivedColor()
-        {
-            if (SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<bool>(SettingKeys.DerivedColor))
-            {
-                AccentColor = await GetUserDerivedColor();
-            }
-        }
-
-        private async Task<int> GetUserDerivedColor()
-        {
-            return await colorService.GetUserColor(Model.User);
-        }
-
-        #endregion
-
-        #region Properties
-
-        #region Services
-
-        private readonly IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
-        private readonly ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
-        private readonly IGuildsService GuildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
-        private readonly IDispatcherHelper DispatcherHelper = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
-        private readonly IColorService colorService = SimpleIoc.Default.GetInstance<IColorService>();
-
-        #endregion
-
-        #region Display
-        
+        /// <summary>
+        /// Gets the name to display the guild member under.
+        /// </summary>
         public string DisplayName => Model.Nick ?? Model.User.Username;
 
+        /// <summary>
+        /// Gets a value indicating whether or not the guild member is a bot.
+        /// </summary>
         public bool IsBot => Model.User.Bot;
 
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the guild member owns the guild.
+        /// </summary>
         public bool IsOwner { get; set; }
 
+        /// <summary>
+        /// Gets a value indicating whether or not the member has a nickname in this guild.
+        /// </summary>
         public bool HasNickname => !string.IsNullOrEmpty(Model.Nick);
 
-        public string Note => cacheService.Runtime.TryGetValue<string>(Constants.Cache.Keys.Note, Model.User.Id);
+        /// <summary>
+        /// Gets the current user's note for the member.
+        /// </summary>
+        public string Note => CacheService.Runtime.TryGetValue<string>(Constants.Cache.Keys.Note, Model.User.Id);
 
+        /// <summary>
+        /// Gets display color for the guild member.
+        /// </summary>
         public int RoleColor => Roles?.FirstOrDefault(x => x.Color != 0)?.Color ?? -1;
 
+        /// <summary>
+        /// Gets or sets the accent color of the guild member.
+        /// </summary>
         public int AccentColor
         {
             get
             {
-                if (_UserAccentColor.HasValue)
-                    return _UserAccentColor.Value;
+                if (_userAccentColor.HasValue)
+                {
+                    return _userAccentColor.Value;
+                }
 
-                return colorService.GetStatusColor(Presence.Status);
+                return ColorService.GetStatusColor(Presence.Status);
             }
-            set => Set(ref _UserAccentColor, value);
+            set => Set(ref _userAccentColor, value);
         }
-        private int? _UserAccentColor = null;
 
-        #endregion
-
-        #region Roles
-
-        private List<Role> cachedRoles;
+        /// <summary>
+        /// Gets all roles the guild member belongs to.
+        /// </summary>
         public List<Role> Roles
         {
             get
             {
-                if (cachedRoles == null)
+                if (_cachedRoles == null)
                 {
                     if (GuildId == null || Model == null || Model.Roles == null)
+                    {
                         return null;
+                    }
 
-                    cachedRoles = GuildsService.AllGuilds[GuildId].Model.Roles.Where(a => Model.Roles.Contains(a.Id)).OrderByDescending(x => x.Position).ToList();
+                    _cachedRoles = GuildsService.AllGuilds[GuildId].Model.Roles.Where(a => Model.Roles.Contains(a.Id)).OrderByDescending(x => x.Position).ToList();
                 }
 
-                return cachedRoles;
+                return _cachedRoles;
             }
         }
 
+        /// <summary>
+        /// Gets the highest role the guild member belongs to.
+        /// </summary>
         public Role TopRole
         {
             get
@@ -160,10 +171,14 @@ namespace Quarrel.ViewModels.Models.Bindables
                 {
                     return Roles.FirstOrDefault() ?? Role.Everyone;
                 }
+
                 return Role.Everyone;
             }
         }
 
+        /// <summary>
+        /// Gets the highest role with hoist status that the guild member belongs to.
+        /// </summary>
         public Role TopHoistRole
         {
             get
@@ -182,24 +197,44 @@ namespace Quarrel.ViewModels.Models.Bindables
             }
         }
 
-        #endregion
-
+        /// <summary>
+        /// Gets or sets the Guild the guild member applies to.
+        /// </summary>
         public string GuildId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the discord presence of the guild member.
+        /// </summary>
         public Presence Presence
         {
-            get => _Presence;
+            get => _presence;
             set
             {
-                Set(ref _Presence, value);
+                Set(ref _presence, value);
                 RaisePropertyChanged(nameof(Game));
             }
         }
-        private Presence _Presence;
 
-        #endregion
+        private IDiscordService DiscordService => SimpleIoc.Default.GetInstance<IDiscordService>();
 
-        #region Interfaces
+        private ICacheService CacheService => SimpleIoc.Default.GetInstance<ICacheService>();
+
+        private IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
+
+        private IDispatcherHelper DispatcherHelper => SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+
+        private IColorService ColorService => SimpleIoc.Default.GetInstance<IColorService>();
+
+        /// <summary>
+        /// Updates the accent color for the bindable guild member.
+        /// </summary>
+        public async void UpdateAccentColor()
+        {
+            if (SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<bool>(SettingKeys.DerivedColor))
+            {
+                AccentColor = await GetUserDerivedColor();
+            }
+        }
 
         /// <inheritdoc/>
         public bool Equals(BindableGuildMember other) =>
@@ -209,12 +244,20 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (obj == this) return true;
-            return obj is BindableGuildMember other && Equals(other);
+            if (obj == null)
+            {
+                return false;
+            }
 
+            if (obj == this)
+            {
+                return true;
+            }
+
+            return obj is BindableGuildMember other && Equals(other);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return Model.User?.Id?.GetHashCode() ?? 0;
@@ -226,6 +269,9 @@ namespace Quarrel.ViewModels.Models.Bindables
             return TopHoistRole.CompareTo(other.TopHoistRole);
         }
 
-        #endregion
+        private async Task<int> GetUserDerivedColor()
+        {
+            return await ColorService.GetUserColor(Model.User);
+        }
     }
 }

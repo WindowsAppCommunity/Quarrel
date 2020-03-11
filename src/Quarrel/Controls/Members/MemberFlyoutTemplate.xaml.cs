@@ -30,7 +30,7 @@ namespace Quarrel.Controls.Members
             {
                 if (e.NewValue is BindableGuildMember bMem)
                 {
-                    bMem.UpdateDerivedColor();
+                    bMem.UpdateAccentColor();
                 }
 
                 this.Bindings.Update();
