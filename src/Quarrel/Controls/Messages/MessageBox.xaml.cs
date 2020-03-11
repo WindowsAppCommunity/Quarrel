@@ -24,7 +24,7 @@ namespace Quarrel.Controls.Messages
         public MessageBox()
         {
             this.InitializeComponent();
-            DataContext = new MessageBoxViewModel();
+            DataContext = MessageBoxViewModel.Instance;
         }
 
         /// <summary>
