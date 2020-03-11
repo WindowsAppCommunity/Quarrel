@@ -42,8 +42,10 @@ namespace Quarrel.TemplateSelectors
                 {
                     case "png":
                     case "jpg":
+                    case "gif":
                     case "jpeg": return ImageAttachmentTemplate;
                     case "mov":
+                    case "wmv":
                     case "mp4": return VideoAttachmentTemplate;
                     default: return DefaultAttachmentTemplate;
                 }
