@@ -1,4 +1,6 @@
-﻿using DiscordAPI.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.ViewModels.Messages.Gateway;
@@ -7,15 +9,19 @@ using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace Quarrel.ViewModels.Services.Discord.Channels
 {
+    /// <summary>
+    /// Manages the all channels the client has access to.
+    /// </summary>
     public class ChannelsService : IChannelsService
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChannelsService"/> class.
+        /// </summary>
         public ChannelsService()
         {
-
             Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
             {
                 if (CurrentChannel != null)
@@ -37,16 +43,20 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
             });
         }
 
+        /// <inheritdoc/>
+        public BindableChannel CurrentChannel { get; private set; }
+
+        /// <inheritdoc/>
+        public IDictionary<string, BindableChannel> AllChannels { get; } = new ConcurrentDictionary<string, BindableChannel>();
+
+        /// <inheritdoc/>
+        public IDictionary<string, ChannelOverride> ChannelSettings { get; } =
+            new ConcurrentDictionary<string, ChannelOverride>();
+
+        /// <inheritdoc/>
         public BindableChannel GetChannel(string channelId)
         {
             return AllChannels.TryGetValue(channelId, out BindableChannel channel) ? channel : null;
         }
-
-        public BindableChannel CurrentChannel { get; private set; }
-
-        public IDictionary<string, BindableChannel> AllChannels { get; } = new ConcurrentDictionary<string, BindableChannel>();
-        
-        public ConcurrentDictionary<string, ChannelOverride> ChannelSettings { get; } =
-            new ConcurrentDictionary<string, ChannelOverride>(); 
     }
 }
