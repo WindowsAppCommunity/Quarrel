@@ -51,7 +51,7 @@ namespace Quarrel.ViewModels.SubPages
             if (!User.Model.User.Bot)
                 Profile.SharedFriends = await discordService.UserService.GetUserReleations(User.Model.User.Id);
 
-            MutualGuilds = Profile.MutualGuilds.Select(x => new BindableMutualGuild(x));
+            MutualGuilds = Profile.MutualGuilds?.Select(x => new BindableMutualGuild(x));
 
             // Hides loading indicator
             IsLoadingProfile = false;

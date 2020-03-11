@@ -71,20 +71,26 @@ namespace Quarrel.ViewModels.Controls.Messages
 
             string text = ReplaceMessageDraftSurrogates();
 
-            // Send message
-            await DiscordService.ChannelService.CreateMessage(
-                ChannelsService.CurrentChannel.Model.Id,
-                new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
-
-            DispatcherHelper.CheckBeginInvokeOnUi(() => { MessageText = string.Empty; });
-
-            // Upload and send a message for each attachment
-            while (Attachments.Count > 0)
+            if ((!string.IsNullOrEmpty(text) && (!string.IsNullOrWhiteSpace(text))) || Attachments.Count > 0)
             {
-                await DiscordService.ChannelService.UploadFile(
-                    ChannelsService.CurrentChannel.Model.Id,
-                    Attachments[0]);
-                Attachments.RemoveAt(0);
+                if (!string.IsNullOrEmpty(text) && !string.IsNullOrWhiteSpace(text))
+                {
+                    // Send message
+                    await DiscordService.ChannelService.CreateMessage(
+                        ChannelsService.CurrentChannel.Model.Id,
+                        new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
+                }
+
+                DispatcherHelper.CheckBeginInvokeOnUi(() => { MessageText = string.Empty; });
+
+                // Upload and send a message for each attachment
+                while (Attachments.Count > 0)
+                {
+                    await DiscordService.ChannelService.UploadFile(
+                        ChannelsService.CurrentChannel.Model.Id,
+                        Attachments[0]);
+                    Attachments.RemoveAt(0);
+                }
             }
 
             // Leaves sending state
