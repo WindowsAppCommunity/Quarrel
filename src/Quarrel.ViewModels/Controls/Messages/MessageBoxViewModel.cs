@@ -27,6 +27,9 @@ namespace Quarrel.ViewModels.Controls.Messages
         private RelayCommand _sendMessageCommand;
         private RelayCommand _editLastMessageCommand;
         private RelayCommand<List<Emoji>> _emojiPickedCommand;
+        
+        private static MessageBoxViewModel _instance = new MessageBoxViewModel();
+        public static MessageBoxViewModel Instance { get { return _instance; } }
 
         private bool _isSending;
         private string _messageText = string.Empty;
