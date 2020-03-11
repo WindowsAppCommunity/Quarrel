@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
 using JetBrains.Annotations;
@@ -10,46 +7,40 @@ using Quarrel.ViewModels.Models.Bindables.Abstract;
 
 namespace Quarrel.ViewModels.Models.Bindables
 {
+    /// <summary>
+    /// A Bindable wrapper on the <see cref="Embed"/> object for videos.
+    /// </summary>
     public class BindableVideoEmbed : BindableModelBase<Embed>
     {
-        #region Constructors
+        private bool _playing;
+        private RelayCommand _playCommand;
 
-        public BindableVideoEmbed([NotNull] Embed model) : base(model) { }
-
-        #endregion
-
-        #region Properties
-
-        private bool playingVideo;
-        public bool PlayingVideo
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BindableVideoEmbed"/> class.
+        /// </summary>
+        /// <param name="model">The base <see cref="Embed"/> object for the video.</param>
+        public BindableVideoEmbed([NotNull] Embed model) : base(model)
         {
-            get => playingVideo;
-            set
-            {
-                Set(ref playingVideo, value);
-                RaisePropertyChanged(nameof(NotPlayingVideo));
-            }
         }
-        public bool NotPlayingVideo
+
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the video is playing.
+        /// </summary>
+        public bool Playing
         {
-            get => !playingVideo;
+            get => _playing;
             set
             {
-                Set(ref playingVideo, !value);
-                RaisePropertyChanged(nameof(PlayingVideo));
+                Set(ref _playing, value);
             }
         }
 
-        #endregion
-
-        #region Commands
-
-        private RelayCommand playVideoCommand;
-        public RelayCommand PlayVideoCommand => playVideoCommand ?? (playVideoCommand = new RelayCommand(() =>
-         {
-             PlayingVideo = true;
-         }));
-        
-        #endregion
+        /// <summary>
+        /// Gets a command that sets the video's playing status to true.
+        /// </summary>
+        public RelayCommand PlayCommand => _playCommand ?? (_playCommand = new RelayCommand(() =>
+        {
+            Playing = true;
+        }));
     }
 }
