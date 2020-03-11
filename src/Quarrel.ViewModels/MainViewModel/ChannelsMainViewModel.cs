@@ -156,7 +156,6 @@ namespace Quarrel.ViewModels
                     {
                         messages.Add(new BindableMessage(
                             item,
-                            _currentGuild.Model.Id,
                             lastItem != null && lastItem.User.Id == item.User.Id,
                             lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId,
                             guildMembers != null && guildMembers.TryGetValue(item.User.Id, out BindableGuildMember member) ? member : null));

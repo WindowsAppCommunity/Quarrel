@@ -27,7 +27,7 @@
         
         <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center">
             <!--Author-->
-            <TextBlock Text="{x:Bind ViewModel.AuthorName, Mode=OneWay}" FontWeight="Bold"/>
+            <TextBlock Text="{x:Bind ViewModel.AuthorDisplayName, Mode=OneWay}" FontWeight="Bold"/>
             
             <!--Action-->
             <TextBlock Text="{x:Bind ViewModel.Model.Type, Converter={StaticResource TypeToTextConverter}, Mode=OneWay}" FontWeight="SemiLight" Opacity="0.9" Margin="8,0,0,0"/>

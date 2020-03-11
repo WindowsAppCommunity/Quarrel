@@ -146,7 +146,6 @@ namespace Quarrel.ViewModels
                     // Can't be last read item
                     messages.Add(new BindableMessage(
                         item,
-                        _currentGuild.Model.Id,
                         lastItem != null && lastItem.User.Id == item.User.Id,
                         false,
                         guildMembers == null || !guildMembers.TryGetValue(item.User.Id, out BindableGuildMember member) ? null : member));
@@ -198,7 +197,7 @@ namespace Quarrel.ViewModels
                         Message item = itemList.ElementAt(i);
 
                         // Can't be last read item
-                        messages.Add(new BindableMessage(item, _currentGuild.Model.Id));
+                        messages.Add(new BindableMessage(item));
                         lastItem = item;
                     }
 
@@ -282,7 +281,6 @@ namespace Quarrel.ViewModels
 
                             BindableMessages.Add(new BindableMessage(
                                 m.Message,
-                                channel.Guild.Model.Id ?? "DM",
                                 BindableMessages.LastOrDefault().Model.User != null && BindableMessages.LastOrDefault().Model.User.Id == m.Message.User.Id,
                                 false,
                                 member));

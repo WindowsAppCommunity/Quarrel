@@ -208,7 +208,7 @@
                     </Rectangle>
                 </Grid>
 
-                <Grid x:Phase="4" Grid.ColumnSpan="2" x:Name="HeaderGrid" x:Load="{x:Bind IsLastReadMessage, Mode=OneWay}" Margin="8,8,0,8">
+                <Grid x:Phase="4" Grid.ColumnSpan="2" x:Name="HeaderGrid" x:Load="{x:Bind IsOldestUnreadMessage, Mode=OneWay}" Margin="8,8,0,8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="auto"/>
@@ -239,7 +239,7 @@
                       Margin="0,8,0,4">
                     <StackPanel Orientation="Horizontal">
                         <HyperlinkButton x:Name="AuthorHyperlink" 
-                                 Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind AuthorName, Mode=OneWay}" 
+                                 Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind AuthorDisplayName, Mode=OneWay}" 
                                  Foreground="{x:Bind AuthorColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}">
                             <HyperlinkButton.ContextFlyout>
                                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
