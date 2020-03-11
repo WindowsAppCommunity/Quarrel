@@ -3,6 +3,7 @@
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
 using JetBrains.Annotations;
+using Quarrel.ViewModels.Controls.Messages;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Models.Bindables;
 using System;
@@ -24,6 +25,7 @@ namespace Quarrel.ViewModels
         private RelayCommand<BindableMessage> pinMessageCommand;
         private RelayCommand<BindableMessage> unPinMessageCommand;
         private RelayCommand<BindableMessage> copyMessageIdCommand;
+        private RelayCommand<BindableMessage> quoteMessageCommand;
         private bool _atTop;
         private bool _newItemsLoading;
         private bool _oldItemsLoading;
@@ -67,6 +69,33 @@ namespace Quarrel.ViewModels
         public RelayCommand<BindableMessage> CopyMessageIdCommand => copyMessageIdCommand = copyMessageIdCommand ?? new RelayCommand<BindableMessage>((message) =>
         {
             _clipboardService.CopyToClipboard(message.Model.Id);
+        });
+        
+        /// <summary>
+        /// Gets a command that quote message.
+        /// </summary>
+        public RelayCommand<BindableMessage> QuoteMessageCommand => quoteMessageCommand = quoteMessageCommand ?? new RelayCommand<BindableMessage>((message) =>
+        {
+            if (string.IsNullOrWhiteSpace(MessageBoxViewModel.Instance.MessageText) && string.IsNullOrEmpty(MessageBoxViewModel.Instance.MessageText))
+            {
+                string content = string.Empty;
+                foreach (var line in message.Model.Content.Split("\n"[0]))
+                {
+                    content += "> " + line + Environment.NewLine;
+                }
+                content += "@" + message.Author.Model.User.Username + "#" + message.Author.Model.User.Discriminator + " ";
+                MessageBoxViewModel.Instance.MessageText = content;
+            }
+            else
+            {
+                string content = Environment.NewLine;
+                foreach (var line in message.Model.Content.Split("\n"[0]))
+                {
+                    content += "> " + line + Environment.NewLine;
+                }
+                content += "@" + message.Author.Model.User.Username + "#" + message.Author.Model.User.Discriminator + " ";
+                MessageBoxViewModel.Instance.MessageText += content;
+            } 
         });
 
         /// <summary>
