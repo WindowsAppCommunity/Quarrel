@@ -1,6 +1,5 @@
-﻿// Special thanks to Sergio Pedri for the basis of this design
+﻿// Copyright (c) Quarrel. All rights reserved.
 
-using DiscordAPI.API.Channel;
 using DiscordAPI.Models;
 using DiscordAPI.Voice;
 using DiscordAPI.Voice.DownstreamEvents;
@@ -18,34 +17,18 @@ using System.Collections.Generic;
 
 namespace Quarrel.ViewModels.Services.Voice
 {
+    /// <summary>
+    /// Manages all voice state data.
+    /// </summary>
     public sealed class VoiceService : IVoiceService
     {
-        #region Public Properties
+        private VoiceConnection _voiceConnection;
 
-        public IAudioInService AudioInService { get; }
-
-        public IAudioOutService AudioOutService { get; }
-
-        private IDiscordService DiscordService { get; }
-
-        #endregion
-
-        #region Variables
-
-        private VoiceConnection _VoiceConnection;
-
-        public IDictionary<string, BindableVoiceUser> VoiceStates { get; } = new ConcurrentDictionary<string, BindableVoiceUser>();
-
-        #endregion
-
-        #region Constructor
-
-        public VoiceService(IAudioInService audioInService, IAudioOutService audioOutService, IDiscordService discordService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VoiceService"/> class.
+        /// </summary>
+        public VoiceService()
         {
-            AudioInService = audioInService;
-            AudioOutService = audioOutService;
-            DiscordService = discordService;
-
             Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, m =>
             {
                 if (VoiceStates.ContainsKey(m.VoiceState.UserId))
@@ -61,7 +44,8 @@ namespace Quarrel.ViewModels.Services.Voice
                         {
                             DisconnectFromVoiceChannel();
                         }
-                    } else
+                    }
+                    else
                     {
                         VoiceStates[m.VoiceState.UserId].Model = m.VoiceState;
                         VoiceStates[m.VoiceState.UserId].UpateProperties();
@@ -85,7 +69,7 @@ namespace Quarrel.ViewModels.Services.Voice
                 ConnectToVoiceChannel(m.VoiceServer, VoiceStates[DiscordService.CurrentUser.Id].Model);
             });
 
-            Messenger.Default.Register<GatewayReadyMessage>(this, m => 
+            Messenger.Default.Register<GatewayReadyMessage>(this, m =>
             {
                 foreach (var guild in m.EventData.Guilds)
                 {
@@ -107,56 +91,62 @@ namespace Quarrel.ViewModels.Services.Voice
             });
         }
 
-        #endregion
+        /// <inheritdoc/>
+        public IDictionary<string, BindableVoiceUser> VoiceStates { get; } = new ConcurrentDictionary<string, BindableVoiceUser>();
 
-        #region Methods
+        /// <inheritdoc/>
+        public IAudioInService AudioInService => SimpleIoc.Default.GetInstance<IAudioInService>();
 
-        public async void ConnectToVoiceChannel(VoiceServerUpdate data, VoiceState state)
+        /// <inheritdoc/>
+        public IAudioOutService AudioOutService => SimpleIoc.Default.GetInstance<IAudioOutService>();
+
+        private IDiscordService DiscordService => SimpleIoc.Default.GetInstance<IDiscordService>();
+
+        /// <inheritdoc/>
+        public async void ToggleDeafen()
+        {
+            AudioOutService.ToggleDeafen();
+            var state = _voiceConnection._state;
+            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, AudioInService.Muted, AudioOutService.Deafened);
+        }
+
+        /// <inheritdoc/>
+        public async void ToggleMute()
+        {
+            AudioInService.ToggleMute();
+            var state = _voiceConnection._state;
+            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, AudioInService.Muted, AudioOutService.Deafened);
+        }
+
+        private async void ConnectToVoiceChannel(VoiceServerUpdate data, VoiceState state)
         {
             AudioOutService.CreateGraph();
-            _VoiceConnection = new VoiceConnection(data, state);
-            _VoiceConnection.VoiceDataRecieved += VoiceDataRecieved;
-            _VoiceConnection.Speak += Speak;
-            await _VoiceConnection.ConnectAsync();
+            _voiceConnection = new VoiceConnection(data, state);
+            _voiceConnection.VoiceDataRecieved += VoiceDataRecieved;
+            _voiceConnection.Speak += Speak;
+            await _voiceConnection.ConnectAsync();
 
             AudioInService.AudioQueued += InputRecieved;
             AudioInService.SpeakingChanged += SpeakingChanged;
             AudioInService.CreateGraph();
         }
 
-        public void DisconnectFromVoiceChannel()
+        private void DisconnectFromVoiceChannel()
         {
             AudioInService.Dispose();
             AudioOutService.Dispose();
         }
 
-        public async void ToggleDeafen()
-        {
-            AudioOutService.ToggleDeafen();
-            var state = _VoiceConnection._state;
-            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, AudioInService.Muted, AudioOutService.Deafened);
-        }
-
-        public async void ToggleMute()
-        {
-            AudioInService.ToggleMute();
-            var state = _VoiceConnection._state;
-            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, AudioInService.Muted, AudioOutService.Deafened);
-        }
-
-        #endregion
-
-        #region Helper Methods
-
         private void InputRecieved(object sender, float[] e)
         {
-            _VoiceConnection.SendVoiceData(e);
+            _voiceConnection.SendVoiceData(e);
         }
 
         private void VoiceDataRecieved(object sender, VoiceConnectionEventArgs<VoiceData> e)
         {
             AudioOutService.AddFrame(e.EventData.data, e.EventData.samples);
         }
+
         private void Speak(object sender, VoiceConnectionEventArgs<Speak> e)
         {
             Messenger.Default.Send(new SpeakMessage(e.EventData));
@@ -164,9 +154,7 @@ namespace Quarrel.ViewModels.Services.Voice
 
         private void SpeakingChanged(object sender, int e)
         {
-            _VoiceConnection.SendSpeaking(e);
+            _voiceConnection.SendSpeaking(e);
         }
-
-        #endregion
     }
 }
