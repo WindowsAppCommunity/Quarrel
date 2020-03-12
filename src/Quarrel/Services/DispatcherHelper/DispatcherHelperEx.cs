@@ -11,10 +11,7 @@ namespace Quarrel.Services.DispatcherHelperEx
     /// </summary>
     public class DispatcherHelperEx : IDispatcherHelper
     {
-        /// <summary>
-        /// Runs <paramref name="action"/> on the UI thread.
-        /// </summary>
-        /// <param name="action">Action to run.</param>
+        /// <inheritdoc/>
         public void CheckBeginInvokeOnUi(Action action)
         {
             DispatcherHelper.CheckBeginInvokeOnUI(action);
