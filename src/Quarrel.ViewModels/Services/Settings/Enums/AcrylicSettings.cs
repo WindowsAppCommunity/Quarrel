@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using System;
 
 namespace Quarrel.ViewModels.Services.Settings.Enums
 {
     /// <summary>
-    /// Values are powers of 2 to avoid collison for flags
+    /// Values are powers of 2 to avoid collison for flags.
     /// </summary>
     [Flags]
     public enum AcrylicSettings

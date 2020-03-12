@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Copyright (c) Quarrel. All rights reserved.
 
 namespace Quarrel.ViewModels.Services.Settings.Enums
 {
+    /// <summary>
+    /// An <see langword="enum"/> that represents the conditions to override a collapsed channel.
+    /// </summary>
     public enum CollapseOverride
     {
         None,
         Mention,
-        Unread
+        Unread,
     }
 }
