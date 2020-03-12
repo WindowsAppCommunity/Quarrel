@@ -1,91 +1,122 @@
-﻿using GalaSoft.MvvmLight;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.Services.Settings.Enums;
 
 namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 {
+    /// <summary>
+    /// Behavior settings page data.
+    /// </summary>
     public class BehaviorSettingsViewModel : ViewModelBase
     {
-        private ISettingsService SettingsService = SimpleIoc.Default.GetInstance<ISettingsService>();
-
+        /// <summary>
+        /// Gets or sets a value indicating whether the mention glow settings is true.
+        /// </summary>
         public bool MentionGlow
         {
             get => SettingsService.Roaming.GetValue<bool>(SettingKeys.MentionGlow);
             set
             {
-                SettingsService.Roaming.SetValue(SettingKeys.MentionGlow, value, notify : true);
+                SettingsService.Roaming.SetValue(SettingKeys.MentionGlow, value, true, true);
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the show no permissions channels settings is true.
+        /// </summary>
         public bool ShowNoPermissions
         {
             get => SettingsService.Roaming.GetValue<bool>(SettingKeys.ShowNoPermssions);
             set
             {
-                SettingsService.Roaming.SetValue(SettingKeys.ShowNoPermssions, value, notify : true);
+                SettingsService.Roaming.SetValue(SettingKeys.ShowNoPermssions, value, true, true);
             }
         }
 
-        #region Collapse Override
-
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the collapse override is set to none.
+        /// </summary>
         public bool NoCollapseOverride
         {
             get => SettingsService.Roaming.GetValue<CollapseOverride>(SettingKeys.CollapseOverride) == CollapseOverride.None;
             set
             {
                 if (value)
-                    SettingsService.Roaming.SetValue(SettingKeys.CollapseOverride, CollapseOverride.None, notify : true);
+                {
+                    SettingsService.Roaming.SetValue(SettingKeys.CollapseOverride, CollapseOverride.None, true, true);
+                }
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the collapse override is set to on mentions.
+        /// </summary>
         public bool MentionCollapseOverride
         {
             get => SettingsService.Roaming.GetValue<CollapseOverride>(SettingKeys.CollapseOverride) == CollapseOverride.Mention;
             set
             {
                 if (value)
-                    SettingsService.Roaming.SetValue(SettingKeys.CollapseOverride, CollapseOverride.Mention, notify : true);
+                {
+                    SettingsService.Roaming.SetValue(SettingKeys.CollapseOverride, CollapseOverride.Mention, true, true);
+                }
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the collapse override is set to unread.
+        /// </summary>
         public bool UnreadCollapseOverride
         {
             get => SettingsService.Roaming.GetValue<CollapseOverride>(SettingKeys.CollapseOverride) == CollapseOverride.Unread;
             set
             {
                 if (value)
-                    SettingsService.Roaming.SetValue(SettingKeys.CollapseOverride, CollapseOverride.Unread, notify : true);
+                {
+                    SettingsService.Roaming.SetValue(SettingKeys.CollapseOverride, CollapseOverride.Unread, true, true);
+                }
             }
         }
 
-        #endregion
-
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the filter members settings is set to true.
+        /// </summary>
         public bool FilterMembers
         {
             get => SettingsService.Roaming.GetValue<bool>(SettingKeys.FilterMembers);
             set
             {
-                SettingsService.Roaming.SetValue(SettingKeys.FilterMembers, value, notify : true);
+                SettingsService.Roaming.SetValue(SettingKeys.FilterMembers, value, true, true);
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the tap to load settings is set to true.
+        /// </summary>
         public bool TTLAttachments
         {
             get => SettingsService.Roaming.GetValue<bool>(SettingKeys.TTLAttachments);
             set
             {
-                SettingsService.Roaming.SetValue(SettingKeys.TTLAttachments, value, notify : true);
+                SettingsService.Roaming.SetValue(SettingKeys.TTLAttachments, value, true, true);
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the data compression settings is set to true.
+        /// </summary>
         public bool DataCompression
         {
             get => SettingsService.Roaming.GetValue<bool>(SettingKeys.DataCompression);
             set
             {
-                SettingsService.Roaming.SetValue(SettingKeys.DataCompression, value, notify : true);
+                SettingsService.Roaming.SetValue(SettingKeys.DataCompression, value, true, true);
             }
         }
+
+        private ISettingsService SettingsService => SimpleIoc.Default.GetInstance<ISettingsService>();
     }
 }
