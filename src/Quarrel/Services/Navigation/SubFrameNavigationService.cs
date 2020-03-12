@@ -25,9 +25,7 @@ namespace Quarrel.Navigation
         /// <inheritdoc/>
         public object Parameter { get; private set; }
 
-        /// <summary>
-        /// Gets how many levels of subpages deep the user is.
-        /// </summary>
+        /// <inheritdoc/>
         public int Depth => _historic.Count;
 
         /// <summary>
