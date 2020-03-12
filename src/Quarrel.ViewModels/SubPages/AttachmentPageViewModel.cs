@@ -1,36 +1,38 @@
-﻿using DiscordAPI.Interfaces;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.Interfaces;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Quarrel.ViewModels.ViewModels.SubPages
 {
+    /// <summary>
+    /// Attachment page data.
+    /// </summary>
     public class AttachmentPageViewModel : ViewModelBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AttachmentPageViewModel"/> class.
+        /// </summary>
+        /// <param name="image">The image to preview.</param>
         public AttachmentPageViewModel(IPreviewableImage image)
         {
             Image = image;
         }
 
         /// <summary>
-        /// Image on Page
+        /// Gets the image on Page.
         /// </summary>
         public IPreviewableImage Image { get; }
 
-        #region Display
-
         /// <summary>
-        /// True if file information can be read from the Attachment
+        /// Gets a value indicating whether or not the file information can be read from the Attachment.
         /// </summary>
         public bool IsFile { get => Image is Attachment; }
 
         /// <summary>
-        /// Bindable property for getting file metadata
+        /// Gets the image as an Attachment (if available).
         /// </summary>
         public Attachment AsFile { get => Image as Attachment; }
-
-        #endregion
     }
 }
