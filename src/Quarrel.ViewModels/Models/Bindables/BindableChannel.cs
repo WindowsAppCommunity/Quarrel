@@ -52,10 +52,8 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// <param name="model">API Channel Model.</param>
         /// <param name="guildId">Id of Channel's guild.</param>
         /// <param name="states">List of VoiceStates for users in a voice channel.</param>
-        public BindableChannel([NotNull] Channel model, [NotNull] string guildId, [CanBeNull] IEnumerable<VoiceState> states = null) : base(model)
+        public BindableChannel([NotNull] Channel model, [CanBeNull] IEnumerable<VoiceState> states = null) : base(model)
         {
-            _guildId = guildId;
-
             MessengerInstance.Register<GatewayUserGuildSettingsUpdatedMessage>(this, m =>
             {
                 if ((m.Settings.GuildId ?? "DM") == GuildId)
