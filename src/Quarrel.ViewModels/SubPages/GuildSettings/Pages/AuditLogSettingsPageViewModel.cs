@@ -12,7 +12,7 @@ using System.Collections.ObjectModel;
 namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
 {
     /// <summary>
-    /// Loads and stores AuditLog page data.
+    /// AuditLog settings page data.
     /// </summary>
     public class AuditLogSettingsPageViewModel : ViewModelBase
     {
@@ -30,7 +30,7 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
         }
 
         /// <summary>
-        /// Gets or sets the guild whos audit log is being viewed.
+        /// Gets or sets the guild being viewed.
         /// </summary>
         public BindableGuild Guild
         {
