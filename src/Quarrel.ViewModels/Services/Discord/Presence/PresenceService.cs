@@ -1,9 +1,9 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight.Messaging;
 using Quarrel.ViewModels.Messages.Gateway;
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Quarrel.ViewModels.Services.Discord.Presence
 {

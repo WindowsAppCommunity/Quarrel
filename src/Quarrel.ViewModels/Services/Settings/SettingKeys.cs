@@ -29,6 +29,5 @@ namespace Quarrel.ViewModels.Services.Settings
         FilterMembers,
         TTLAttachments,
         DataCompression,
-
     }
 }
