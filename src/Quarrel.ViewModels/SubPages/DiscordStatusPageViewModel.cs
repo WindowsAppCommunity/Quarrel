@@ -1,4 +1,6 @@
-﻿using DiscordStatusAPI.API;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordStatusAPI.API;
 using DiscordStatusAPI.API.Status;
 using DiscordStatusAPI.Models;
 using GalaSoft.MvvmLight;
@@ -8,60 +10,148 @@ using System.Collections.ObjectModel;
 
 namespace Quarrel.ViewModels.SubPages
 {
-
-    #region Classes
-
-    public class ComplexComponent
-    {
-        public string Description { get; set; }
-        public string Name { get; set; }
-        public string Status { get; set; }
-        public string Time { get; set; }
-        public List<SimpleComponent> Items { get; set; }
-    }
-
-    public class SimpleComponent
-    {
-        public string Description { get; set; }
-        public string Name { get; set; }
-        public string Status { get; set; }
-    }
-
-    #endregion
-
+    /// <summary>
+    /// Discord Status page data.
+    /// </summary>
     public class DiscordStatusPageViewModel : ViewModelBase
     {
-        #region Constructors
+        private bool _failedToLoad = false;
+        private bool _loaded = false;
+        private bool _loading = false;
+        private Index _status;
+        private IStatusService _statusService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiscordStatusPageViewModel"/> class.
+        /// </summary>
         public DiscordStatusPageViewModel()
         {
-            Setup();
+            SetupAndLoad();
         }
 
-        #endregion
-
-        #region Events
-
+        /// <summary>
+        /// Fired when the status is loaded.
+        /// </summary>
         public event EventHandler StatusLoaded;
 
+        /// <summary>
+        /// Fired when the chart data is loaded.
+        /// </summary>
         public event EventHandler ChartDataLoaded;
 
-        #endregion
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the status was able to load.
+        /// </summary>
+        public bool FailedToLoad
+        {
+            get => _failedToLoad;
+            set => Set(ref _failedToLoad, value);
+        }
 
-        #region Methods
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the status has been loaded.
+        /// </summary>
+        public bool Loaded
+        {
+            get => _loaded;
+            set => Set(ref _loaded, value);
+        }
 
-        private async void Setup()
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the status is being loaded.
+        /// </summary>
+        public bool Loading
+        {
+            get => _loading;
+            set => Set(ref _loading, value);
+        }
+
+        /// <summary>
+        /// Gets or sets outage index information.
+        /// </summary>
+        public Index Status
+        {
+            get => _status;
+            set => Set(ref _status, value);
+        }
+
+        /// <summary>
+        /// Gets the lowest value on chart.
+        /// </summary>
+        public double Min { get; private set; } = 0;
+
+        /// <summary>
+        /// Gets the highest value on chart.
+        /// </summary>
+        public double Max { get; private set; } = 0;
+
+        /// <summary>
+        /// Gets ping times to graph.
+        /// </summary>
+        public List<double> Data { get; private set; } = new List<double>();
+
+        /// <summary>
+        /// Gets precise ping times.
+        /// </summary>
+        public Dictionary<int, Datum> DataValues { get; private set; } = new Dictionary<int, Datum>();
+
+        /// <summary>
+        /// Gets or sets list of Incidents.
+        /// </summary>
+        public ObservableCollection<ComplexComponent> Incidents { get; set; } = new ObservableCollection<ComplexComponent>();
+
+        /// <summary>
+        /// Gets or sets status notifications.
+        /// </summary>
+        public ObservableCollection<SimpleComponent> Components { get; set; } = new ObservableCollection<SimpleComponent>();
+
+        /// <summary>
+        /// Show metrics for a date range.
+        /// </summary>
+        /// <param name="duration">day, week or month.</param>
+        public async void ShowMetrics(string duration)
+        {
+            var metrics = await _statusService.GetMetrics(duration);
+            if (metrics != null && metrics.Metrics != null && metrics.Metrics.Length > 0)
+            {
+                var metric = metrics.Metrics[0];
+                Data.Clear();
+                DataValues.Clear();
+                Max = 0;
+                Min = 0;
+                for (var i = 0; i < metric.Data.Length; i++)
+                {
+                    DataValues.Add(i, metric.Data[i]);
+                    Data.Add(metric.Data[i].Value);
+                    if (metric.Data[i].Value > Max)
+                    {
+                        Max = metric.Data[i].Value;
+                    }
+
+                    if (metric.Data[i].Value < Min || Min == 0)
+                    {
+                        Min = metric.Data[i].Value;
+                    }
+                }
+
+                ChartDataLoaded?.Invoke(this, null);
+            }
+        }
+
+        private async void SetupAndLoad()
         {
             Loading = true;
 
             RestFactory factory = new RestFactory();
-            StatusService = factory.GetStatusService();
+            _statusService = factory.GetStatusService();
 
             try
             {
-                Status = await StatusService.GetStatus();
+                Status = await _statusService.GetStatus();
             }
-            catch { }
+            catch
+            {
+            }
 
             // Has Data
             if (Status != null)
@@ -86,18 +176,21 @@ namespace Quarrel.ViewModels.SubPages
                                 {
                                     Status = incident.IncidentUpdates[i].Status,
                                     Description = incident.IncidentUpdates[i].Body,
-                                    Name = incident.IncidentUpdates[i].UpdatedAt.ToString("t")
+                                    Name = incident.IncidentUpdates[i].UpdatedAt.ToString("t"),
                                 });
                             }
+
                             ComplexComponent component = new ComplexComponent()
                             {
                                 Name = incident.Name,
                                 Status = incident.Status,
-                                Items = updates
+                                Items = updates,
                             };
 
                             if (!string.IsNullOrWhiteSpace(component.Name))
+                            {
                                 Incidents.Add(component);
+                            }
                         }
                     }
                 }
@@ -111,7 +204,7 @@ namespace Quarrel.ViewModels.SubPages
                         {
                             Name = component.Name,
                             Status = component.Status.Replace("_", " "),
-                            Description = component.Description
+                            Description = component.Description,
                         };
                         Components.Add(sc);
                     }
@@ -124,112 +217,21 @@ namespace Quarrel.ViewModels.SubPages
             FailedToLoad = Status == null;
             Loading = false;
         }
+    }
 
-        public async void ShowMetrics(string duration)
-        {
-            var metrics = await StatusService.GetMetrics(duration);
-            if (metrics != null && metrics.Metrics != null && metrics.Metrics.Length > 0)
-            {
+    public class ComplexComponent
+    {
+        public string Description { get; set; }
+        public string Name { get; set; }
+        public string Status { get; set; }
+        public string Time { get; set; }
+        public List<SimpleComponent> Items { get; set; }
+    }
 
-                var metric = metrics.Metrics[0];
-                Data.Clear();
-                DataValues.Clear();
-                Max = 0;
-                Min = 0;
-                for (var i = 0; i < metric.Data.Length; i++)
-                {
-                    DataValues.Add(i, metric.Data[i]);
-                    Data.Add(metric.Data[i].Value);
-                    if (metric.Data[i].Value > Max)
-                    {
-                        Max = metric.Data[i].Value;
-                    }
-                    if (metric.Data[i].Value < Min || Min == 0)
-                    {
-                        Min = metric.Data[i].Value;
-                    }
-                }
-                ChartDataLoaded?.Invoke(this, null);
-            }
-        }
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Indicates if the status was able to load
-        /// </summary>
-        public bool FailedToLoad
-        {
-            get => _FailedToLoad;
-            set => Set(ref _FailedToLoad, value);
-        }
-        private bool _FailedToLoad = false;
-
-        /// <summary>
-        /// Indicates if the status has been loaded
-        /// </summary>
-        public bool Loaded
-        {
-            get => _Loaded;
-            set => Set(ref _Loaded, value);
-        }
-        private bool _Loaded = false;
-
-        /// <summary>
-        /// Indicates if the status is being loaded
-        /// </summary>
-        public bool Loading
-        {
-            get => _Loading;
-            set => Set(ref _Loading, value);
-        }
-        private bool _Loading = false;
-
-        /// <summary>
-        /// Outage index information
-        /// </summary>
-        public Index Status
-        {
-            get => _Status;
-            set => Set(ref _Status, value);
-        }
-        private Index _Status;
-
-        /// <summary>
-        /// Access to Discord Status API
-        /// </summary>
-        private IStatusService StatusService;
-
-        /// <summary>
-        /// Lowest value on chart
-        /// </summary>
-        public double Min = 0;
-
-        /// <summary>
-        /// Highest value on chart
-        /// </summary>
-        public double Max = 0;
-
-        /// <summary>
-        /// Ping times to graph
-        /// </summary>
-        public readonly List<double> Data = new List<double>();
-
-        /// <summary>
-        /// Precise ping times
-        /// </summary>
-        public Dictionary<int, Datum> DataValues = new Dictionary<int, Datum>();
-
-        /// <summary>
-        /// List of Incidents 
-        /// </summary>
-        public ObservableCollection<ComplexComponent> Incidents { get; set; } = new ObservableCollection<ComplexComponent>();
-
-        /// <summary>
-        /// Status notifications
-        /// </summary>
-        public ObservableCollection<SimpleComponent> Components { get; set; } = new ObservableCollection<SimpleComponent>();
-        #endregion
+    public class SimpleComponent
+    {
+        public string Description { get; set; }
+        public string Name { get; set; }
+        public string Status { get; set; }
     }
 }
