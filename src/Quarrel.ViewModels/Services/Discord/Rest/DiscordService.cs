@@ -1,4 +1,4 @@
-﻿// Special thanks to Sergio Pedri for the basis of this design
+﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.API;
 using DiscordAPI.API.Activities;
@@ -27,9 +27,16 @@ using System.Threading.Tasks;
 
 namespace Quarrel.ViewModels.Services.Discord.Rest
 {
+    /// <summary>
+    /// The default <see langword="interface"/> for the a service that executes REST calls to Discord.
+    /// </summary>
     public class DiscordService : IDiscordService
     {
-        #region Exposed services
+        /// <summary>
+        /// The access token for the current user.
+        /// </summary>
+        [NotNull]
+        private string _accessToken;
 
         /// <inheritdoc/>
         public IActivitesService ActivitesService { get; private set; }
@@ -66,25 +73,14 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
 
         /// <inheritdoc/>
         [NotNull]
-        public IGatewayService Gateway { get; private set; } = SimpleIoc.Default.GetInstance<IGatewayService>();
+        public IGatewayService Gateway => SimpleIoc.Default.GetInstance<IGatewayService>();
 
         /// <inheritdoc/>
         public User CurrentUser { get; set; }
 
-        // The access token for the current user
-        [NotNull]
-        private string _AccessToken;
+        private ICacheService CacheService => SimpleIoc.Default.GetInstance<ICacheService>();
 
-        #endregion
-
-        #region Login
-        private ICacheService CacheService;
-
-        public DiscordService(ICacheService cacheService)
-        {
-            CacheService = cacheService;
-        }
-
+        /// <inheritdoc/>
         public async Task<bool> Login([NotNull] string email, [NotNull] string password)
         {
             BasicRestFactory restFactory = new BasicRestFactory();
@@ -100,13 +96,14 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
                 return false;
             }
 
-            _AccessToken = result.Token;
+            _accessToken = result.Token;
 
-            await CacheService.Persistent.Roaming.SetValueAsync(Constants.Cache.Keys.AccessToken, (object)_AccessToken);
+            await CacheService.Persistent.Roaming.SetValueAsync(Constants.Cache.Keys.AccessToken, (object)_accessToken);
 
             return await Login();
         }
 
+        /// <inheritdoc/>
         public async Task<bool> Login([NotNull] string token, bool storeToken = false)
         {
             if (storeToken)
@@ -114,16 +111,23 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
                 await CacheService.Persistent.Roaming.SetValueAsync(Constants.Cache.Keys.AccessToken, (object)token);
             }
 
-            _AccessToken = token;
+            _accessToken = token;
 
             return await Login();
+        }
+
+        /// <inheritdoc/>
+        public void Logout()
+        {
+            CacheService.Persistent.Roaming.DeleteValueAsync(Constants.Cache.Keys.AccessToken);
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("LoginPage");
         }
 
         private Task<bool> Login()
         {
             Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Connecting));
 
-            IAuthenticator authenticator = new DiscordAuthenticator(_AccessToken);
+            IAuthenticator authenticator = new DiscordAuthenticator(_accessToken);
             AuthenticatedRestFactory authenticatedRestFactory = new AuthenticatedRestFactory(new DiscordApiConfiguration() { BaseUrl = "https://discordapp.com/api" }, authenticator);
 
             ActivitesService = authenticatedRestFactory.GetActivitesService();
@@ -136,21 +140,7 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
             UserService = authenticatedRestFactory.GetUserService();
             VoiceService = authenticatedRestFactory.GetVoiceService();
 
-            return Gateway.InitializeGateway(_AccessToken);
+            return Gateway.InitializeGateway(_accessToken);
         }
-
-        public void Logout()
-        {
-            CacheService.Persistent.Roaming.DeleteValueAsync(Constants.Cache.Keys.AccessToken);
-            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("LoginPage");
-        }
-
-        #endregion
-
-        #region Channel
-
-
-
-        #endregion
     }
 }
