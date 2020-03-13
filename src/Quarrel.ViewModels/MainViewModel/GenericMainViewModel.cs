@@ -168,9 +168,6 @@ namespace Quarrel.ViewModels
                     BindableBlockedUsers.AddRange(friendsService.Friends.Values.Where(x => x.IsBlocked));
                 });
             });
-
-            // Allows request for result from VoiceState
-            MessengerInstance.Register<CurrentUserVoiceStateRequestMessage>(this, m => { _dispatcherHelper.CheckBeginInvokeOnUi(() => m.ReportResult(VoiceState)); });
         }
 
         /// <summary>
