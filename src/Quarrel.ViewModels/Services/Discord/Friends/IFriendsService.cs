@@ -1,8 +1,7 @@
-﻿using Quarrel.ViewModels.Models.Bindables;
-using System;
-using System.Collections.Concurrent;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using Quarrel.ViewModels.Models.Bindables;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Quarrel.ViewModels.Services.Discord.Friends
 {
