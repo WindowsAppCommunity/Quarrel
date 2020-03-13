@@ -83,7 +83,7 @@ namespace Quarrel.ViewModels
 
                     if (channel != null)
                     {
-                        MessengerInstance.Send(new ChannelNavigateMessage(channel, m.Guild));
+                        MessengerInstance.Send(new ChannelNavigateMessage(channel));
                     }
                 }
             });

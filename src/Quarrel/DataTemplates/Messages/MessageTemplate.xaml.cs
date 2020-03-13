@@ -53,7 +53,7 @@ namespace Quarrel.DataTemplates.Messages
             }
             else if (e.Channel != null)
             {
-                Messenger.Default.Send(new ChannelNavigateMessage(e.Channel, e.Channel.Guild));
+                Messenger.Default.Send(new ChannelNavigateMessage(e.Channel));
             }
             else
             {

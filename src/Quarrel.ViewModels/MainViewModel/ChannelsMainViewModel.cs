@@ -49,7 +49,7 @@ namespace Quarrel.ViewModels
             else if (channel.Permissions.ReadMessages)
             {
                 CurrentChannel = channel;
-                MessengerInstance.Send(new ChannelNavigateMessage(channel, CurrentGuild));
+                MessengerInstance.Send(new ChannelNavigateMessage(channel));
             }
         });
 
