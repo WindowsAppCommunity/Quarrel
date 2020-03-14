@@ -11,9 +11,11 @@ namespace Quarrel.ViewModels.Messages.Gateway
         /// Initializes a new instance of the <see cref="GatewayNoteUpdatedMessage"/> class.
         /// </summary>
         /// <param name="userId">The id of the user who's note updated.</param>
-        public GatewayNoteUpdatedMessage(string userId)
+        /// <param name="note">The new note value for the user.</param>
+        public GatewayNoteUpdatedMessage(string userId, string note)
         {
             UserId = userId;
+            Note = note;
         }
 
         /// <summary>

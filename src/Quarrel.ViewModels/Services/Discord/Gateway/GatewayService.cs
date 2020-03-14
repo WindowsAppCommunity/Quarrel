@@ -274,7 +274,7 @@ namespace Quarrel.ViewModels.Services.Gateway
         private void Gateway_UserNoteUpdated(object sender, GatewayEventArgs<UserNote> e)
         {
             CacheService.Runtime.SetValue(Constants.Cache.Keys.Note, e.EventData.Note, e.EventData.UserId);
-            Messenger.Default.Send(new GatewayNoteUpdatedMessage(e.EventData.UserId));
+            Messenger.Default.Send(new GatewayNoteUpdatedMessage(e.EventData.UserId, e.EventData.Note));
         }
 
         private void Gateway_UserGuildSettingsUpdated(object sender, GatewayEventArgs<GuildSetting> e)
