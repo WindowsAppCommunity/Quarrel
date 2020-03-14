@@ -199,11 +199,11 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         private BindableChannel Channel => SimpleIoc.Default.GetInstance<IChannelsService>().AllChannels[Model.ChannelId];
 
-        private ICurrentUserService CurrentUserService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        private ICurrentUserService CurrentUserService => SimpleIoc.Default.GetInstance<ICurrentUserService>();
 
-        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
 
-        private IPresenceService PresenceService { get; } = SimpleIoc.Default.GetInstance<IPresenceService>();
+        private IPresenceService PresenceService => SimpleIoc.Default.GetInstance<IPresenceService>();
 
         /// <summary>
         /// Update the message contents to <paramref name="message"/>.
