@@ -46,7 +46,7 @@ namespace Quarrel.ViewModels.Services.Gateway
 
         private IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
 
-        private IServiceProvider ServiceProvider { get; }
+        private IServiceProvider ServiceProvider => SimpleIoc.Default.GetInstance<IServiceProvider>();
 
         /// <inheritdoc/>
         public async Task<bool> InitializeGateway([NotNull] string accessToken)
