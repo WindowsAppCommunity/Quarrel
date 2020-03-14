@@ -5,7 +5,6 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Messages.Gateway;
-using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Services.Clipboard;
@@ -37,7 +36,6 @@ namespace Quarrel.ViewModels.Models.Bindables
         private Permissions _permissions = null;
         private ReadState _readState;
         private int _parentPostion;
-        private string _guildId;
         private bool _selected;
         private bool _collapsed;
         private RelayCommand _openProfile;
@@ -92,7 +90,7 @@ namespace Quarrel.ViewModels.Models.Bindables
                 {
                     if (state.ChannelId == Model.Id)
                     {
-                        state.GuildId = _guildId;
+                        state.GuildId = GuildId;
                         ConnectedUsers.Add(state.UserId, new BindableVoiceUser(state));
                     }
                 }
@@ -104,7 +102,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// </summary>
         public BindableGuild Guild
         {
-            get => GuildsService.AllGuilds[_guildId];
+            get => GuildsService.AllGuilds[GuildId];
         }
 
         /// <summary>
@@ -207,7 +205,7 @@ namespace Quarrel.ViewModels.Models.Bindables
                     foreach (Overwrite overwrite in (Model as GuildChannel).PermissionOverwrites)
                     {
                         // @everyone Id is equal to GuildId
-                        if (overwrite.Type == "role" && overwrite.Id == _guildId)
+                        if (overwrite.Type == "role" && overwrite.Id == GuildId)
                         {
                             perms.AddDenies((GuildPermission)overwrite.Deny);
                             perms.AddAllows((GuildPermission)overwrite.Allow);
@@ -276,7 +274,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// <summary>
         /// Gets the id of the guild parenting the channel.
         /// </summary>
-        public string GuildId { get => _guildId; }
+        public string GuildId => AsGuildChannel.GuildId ?? "DM";
 
         /// <summary>
         /// Gets the id of the parent category.

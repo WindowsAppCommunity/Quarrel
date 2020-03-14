@@ -121,6 +121,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         // Guild Channels
                         foreach (var channel in guild.Channels)
                         {
+                            channel.GuildId = guild.Id;
                             IEnumerable<VoiceState> state = guild.VoiceStates?.Where(x => x.ChannelId == channel.Id);
                             BindableChannel bChannel = new BindableChannel(channel, state);
 
