@@ -1,6 +1,9 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Ioc;
+using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Services.Settings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -26,6 +29,8 @@ namespace Quarrel.TemplateSelectors
         /// </summary>
         public DataTemplate DefaultAttachmentTemplate { get; set; }
 
+        private ISettingsService SettingsService => SimpleIoc.Default.GetInstance<ISettingsService>();
+
         /// <summary>
         /// Selects a <see cref="DataTemplate"/> based on details from the <paramref name="item"/>.
         /// </summary>
@@ -34,10 +39,10 @@ namespace Quarrel.TemplateSelectors
         /// <returns>A <see cref="DataTemplate"/> for the <paramref name="item"/>'s type.</returns>
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
-            if (container is FrameworkElement parent && item is Attachment attachment)
+            if (container is FrameworkElement parent && item is BindableAttachment attachment)
             {
-                int index = attachment.Filename.LastIndexOf('.');
-                string filetype = attachment.Filename.Substring(index + 1);
+                int index = attachment.Model.Filename.LastIndexOf('.');
+                string filetype = attachment.Model.Filename.Substring(index + 1);
                 switch (filetype)
                 {
                     case "png":

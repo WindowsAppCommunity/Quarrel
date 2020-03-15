@@ -7,7 +7,8 @@
     xmlns:markdown="using:Quarrel.Controls.Markdown"
     xmlns:bindables="using:Quarrel.ViewModels.Models.Bindables"
     xmlns:templateSelectors="using:Quarrel.TemplateSelectors"
-    xmlns:models="using:DiscordAPI.Models"
+    xmlns:models="using:Quarrel.ViewModels.Models.Bindables"
+    xmlns:apimodels="using:DiscordAPI.Models"
     xmlns:embeds="using:Quarrel.Controls.Messages.Embeds"
     xmlns:members="using:Quarrel.Controls.Members"
     xmlns:messagecontrols="using:Quarrel.Controls.Messages"
@@ -27,9 +28,8 @@
     <templateSelectors:AttachmentTemplateSelector x:Key="AttachmentTemplateSelector" 
                                               DefaultAttachmentTemplate="{StaticResource DefaultAttachmentTemplate}"
                                               ImageAttachmentTemplate="{StaticResource ImageAttachmentTemplate}"
-                                              VideoAttachmentTemplate="{StaticResource VideoAttachmentTemplate}"
-                                              />
-    <DataTemplate x:Key="DefaultAttachmentTemplate" x:DataType="models:Attachment">
+                                              VideoAttachmentTemplate="{StaticResource VideoAttachmentTemplate}"/>
+    <DataTemplate x:Key="DefaultAttachmentTemplate" x:DataType="models:BindableAttachment">
         <Grid VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -37,27 +37,33 @@
             </Grid.ColumnDefinitions>
             <FontIcon x:Name="FileIcon" FontSize="32" Glyph="" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Left" Margin="0,0,6,0"/>
             <StackPanel Grid.Column="1">
-                <HyperlinkButton Content="{x:Bind Filename}" NavigateUri="{x:Bind ProxyUrl}" FontSize="18" Foreground="{ThemeResource LinkColor}" Padding="0" Style="{StaticResource PlainTextHyperlinkStyle}"/>
-                <TextBlock Text="{x:Bind Size, Converter={StaticResource SizeToHumanizedSizeConverter}}" FontSize="11" Opacity="0.5" Margin="0,4,0,0"/>
+                <HyperlinkButton Content="{x:Bind Model.Filename}" NavigateUri="{x:Bind Model.ProxyUrl}" FontSize="18" Foreground="{ThemeResource LinkColor}" Padding="0" Style="{StaticResource PlainTextHyperlinkStyle}"/>
+                <TextBlock Text="{x:Bind Model.Size, Converter={StaticResource SizeToHumanizedSizeConverter}}" FontSize="11" Opacity="0.5" Margin="0,4,0,0"/>
             </StackPanel>
         </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="ImageAttachmentTemplate" x:DataType="models:Attachment">
-        <toolkit:ImageEx Source="{x:Bind Url}"
-                         Height="{x:Bind ActualHeight}"
-                         Width="{x:Bind ActualWidth}"
+    <DataTemplate x:Key="ImageAttachmentTemplate" x:DataType="models:BindableAttachment">
+        <Grid>
+            <messagecontrols:HiddenAttachment DataContext="{x:Bind}" Visibility="{x:Bind IsShowing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
+            <toolkit:ImageEx x:Name="media" Source="{x:Bind Model.Url}" x:Load="{x:Bind IsShowing, Mode=OneWay}"
+                         Height="{x:Bind Model.ActualHeight}"
+                         Width="{x:Bind Model.ActualWidth}"
                          HorizontalAlignment="Left" Tapped="Expand" MaxHeight="250"/>
+        </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="VideoAttachmentTemplate" x:DataType="models:Attachment">
-        <MediaElement Source="{x:Bind ProxyUrl}"
+    <DataTemplate x:Key="VideoAttachmentTemplate" x:DataType="models:BindableAttachment">
+        <Grid>
+            <messagecontrols:HiddenAttachment DataContext="{x:Bind}" Visibility="{x:Bind IsShowing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
+            <MediaElement x:Name="media" Source="{x:Bind Model.ProxyUrl}" x:Load="{x:Bind IsShowing, Mode=OneWay}"
                       MaxHeight="360" MaxWidth="640"
                       MinHeight="48" MinWidth="100" 
-                      Width="{x:Bind ActualWidth}" Height="{x:Bind ActualHeight}" 
+                      Width="{x:Bind Model.ActualWidth}" Height="{x:Bind Model.ActualHeight}" 
                       AreTransportControlsEnabled="True" AutoPlay="False">
-            <MediaElement.TransportControls>
-                <MediaTransportControls IsCompact="True" IsZoomButtonVisible="False"/>
-            </MediaElement.TransportControls>
-        </MediaElement>
+                <MediaElement.TransportControls>
+                    <MediaTransportControls IsCompact="True" IsZoomButtonVisible="False"/>
+                </MediaElement.TransportControls>
+            </MediaElement>
+        </Grid>
     </DataTemplate>
 
     <templateSelectors:EmbedTemplateSelector x:Key="EmbedTemplateSelector" 
@@ -66,19 +72,19 @@
                                          ImageEmbedTemplate="{StaticResource ImageEmbedTemplate}"
                                          DefaultEmbedTemplate="{StaticResource DefaultEmbedTemplate}"
                                          />
-    <DataTemplate x:Key="GifvEmbedTemplate" x:DataType="models:Embed">
+    <DataTemplate x:Key="GifvEmbedTemplate" x:DataType="apimodels:Embed">
         <MediaElement Source="{x:Bind Video.Url}" IsLooping="True"
                       Height="{x:Bind Video.ActualHeight}" Width="{x:Bind Video.ActualWidth}"
                       MaxHeight="250"/>
     </DataTemplate>
-    <DataTemplate x:Key="YoutubeEmbedTemplate" x:DataType="models:Embed">
+    <DataTemplate x:Key="YoutubeEmbedTemplate" x:DataType="apimodels:Embed">
         <embeds:YoutubeEmbedTemplate DataContext="{x:Bind}" MaxHeight="250"/>
     </DataTemplate>
-    <DataTemplate x:Key="ImageEmbedTemplate" x:DataType="models:Embed">
+    <DataTemplate x:Key="ImageEmbedTemplate" x:DataType="apimodels:Embed">
         <toolkit:ImageEx Source="{x:Bind Thumbnail.BindUrl}" Width="{x:Bind Thumbnail.Width}" Height="{x:Bind Thumbnail.BindHeight}" HorizontalAlignment="Left"
                          MaxHeight="250"/>
     </DataTemplate>
-    <DataTemplate x:Key="DefaultEmbedTemplate" x:DataType="models:Embed">
+    <DataTemplate x:Key="DefaultEmbedTemplate" x:DataType="apimodels:Embed">
         <Border CornerRadius="4" Background="{ThemeResource MidBG}">
             <Grid>
                 <Border x:Name="SideBorder" Width="4" HorizontalAlignment="Left" Background="{x:Bind Color, Converter={StaticResource IntColorToBrushConverter}}" CornerRadius="4,0,0,4"/>
@@ -322,7 +328,7 @@
 
                 <!-- x:Load causes slowdowns here -->
                 <Grid Grid.Column="1" Grid.Row="3" x:Name="AttachmentList">
-                    <ListView ItemsSource="{x:Bind Model.Attachments, Mode=OneWay}"
+                    <ListView ItemsSource="{x:Bind BindableAttachments, Mode=OneWay}"
                           ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"
                           SelectionMode="None">
                         <ListView.ItemContainerStyle>

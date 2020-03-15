@@ -10,7 +10,7 @@ namespace Quarrel.ViewModels.Models.Bindables
     /// <summary>
     /// A Bindable wrapper on the <see cref="Embed"/> object for videos.
     /// </summary>
-    public class BindableVideoEmbed : BindableModelBase<Embed>
+    public class BindableVideoEmbed : BindableEmbed
     {
         private bool _playing;
         private RelayCommand _playCommand;

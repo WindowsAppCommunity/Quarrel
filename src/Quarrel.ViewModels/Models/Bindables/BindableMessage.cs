@@ -50,6 +50,7 @@ namespace Quarrel.ViewModels.Models.Bindables
             IsOldestUnreadMessage = isLastRead;
             _author = member;
 
+            ConvertAttachments();
             ConvertReactions();
 
             Messenger.Default.Register<GatewayGuildMembersChunkMessage>(this, m =>
@@ -193,6 +194,11 @@ namespace Quarrel.ViewModels.Models.Bindables
         }
 
         /// <summary>
+        /// Gets or sets the UI Bindable attachments on the message.
+        /// </summary>
+        public ObservableCollection<BindableAttachment> BindableAttachments { get; set; } = new ObservableCollection<BindableAttachment>();
+
+        /// <summary>
         /// Gets or sets the UI Bindable reactions on the message.
         /// </summary>
         public ObservableCollection<BindableReaction> BindableReactions { get; set; } = new ObservableCollection<BindableReaction>();
@@ -212,6 +218,20 @@ namespace Quarrel.ViewModels.Models.Bindables
         public void Update(Message message)
         {
             Model = message;
+        }
+
+        /// <summary>
+        /// Converts the attachments to bindable attachments.
+        /// </summary>
+        public void ConvertAttachments()
+        {
+            if (Model.Attachments != null)
+            {
+                foreach (var attachment in Model.Attachments)
+                {
+                    BindableAttachments.Add(new BindableAttachment(attachment));
+                }
+            }
         }
 
         /// <summary>

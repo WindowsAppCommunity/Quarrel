@@ -175,6 +175,9 @@
     <Compile Include="Controls\Messages\Embeds\YoutubeEmbedTemplate.xaml.cs">
       <DependentUpon>YoutubeEmbedTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Messages\HiddenAttachment.xaml.cs">
+      <DependentUpon>HiddenAttachment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Messages\MessageBox.xaml.cs">
       <DependentUpon>MessageBox.xaml</DependentUpon>
     </Compile>
@@ -588,6 +591,10 @@
     <Page Include="Controls\Messages\Embeds\YoutubeEmbedTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Messages\HiddenAttachment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Messages\MessageBox.xaml">
       <Generator>MSBuild:Compile</Generator>
