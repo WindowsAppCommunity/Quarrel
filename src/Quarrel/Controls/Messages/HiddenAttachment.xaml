@@ -12,6 +12,7 @@
 
     <UserControl.Resources>
         <messageconvert:SizeToHumanizedSizeConverter x:Key="SizeToHumanizedSizeConverter"/>
+        <messageconvert:TypeToGlyphConverter x:Key="TypeToGlyphConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -21,9 +22,9 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <HyperlinkButton Margin="4,0" Style="{StaticResource PlainHyerlinkStyle}" Command="{x:Bind ViewModel.ShowAttachmentCommand}">
-                <StackPanel>
-                    <FontIcon x:Name="FileIcon" FontSize="32" Glyph="" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Center" Margin="0,0,6,0"/>
-                    <TextBlock Text="Show"/>
+                <StackPanel Margin="0,0,6,0">
+                    <FontIcon x:Name="FileIcon" FontSize="32" Glyph="{x:Bind ViewModel.Model.Filename, Converter={StaticResource TypeToGlyphConverter}, Mode=OneWay}" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Show" HorizontalAlignment="Center"/>
                 </StackPanel>
             </HyperlinkButton>
             <StackPanel Grid.Column="1">

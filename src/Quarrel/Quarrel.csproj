@@ -250,6 +250,7 @@
     <Compile Include="Converters\Messages\ActionMessage\TypeToIconConverter.cs" />
     <Compile Include="Converters\Messages\ActionMessage\TypeToTextConverter.cs" />
     <Compile Include="Converters\Messages\SizeToHumanizedSizeConverter.cs" />
+    <Compile Include="Converters\Messages\TypeToGlyphConverter.cs" />
     <Compile Include="Converters\Profile\PresenceTypeToStatusConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToAcceptFriendConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToAddFriendConverter.cs" />
