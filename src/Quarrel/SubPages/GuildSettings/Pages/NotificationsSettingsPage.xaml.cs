@@ -1,6 +1,9 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.SubPages.GuildSettings.Pages;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Quarrel.SubPages.GuildSettings.Pages
 {
@@ -15,6 +18,19 @@ namespace Quarrel.SubPages.GuildSettings.Pages
         public NotificationsSettingsPage()
         {
             this.InitializeComponent();
+        }
+
+        /// <summary>
+        /// Gets the guild's notification settings.
+        /// </summary>
+        public NotificationsSettingsPageViewModel ViewModel => DataContext as NotificationsSettingsPageViewModel;
+
+        /// <inheritdoc/>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            DataContext = new NotificationsSettingsPageViewModel(e.Parameter as BindableGuild);
         }
     }
 }

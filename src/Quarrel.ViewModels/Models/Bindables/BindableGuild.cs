@@ -122,7 +122,9 @@ namespace Quarrel.ViewModels.Models.Bindables
             {
                 if (Set(ref _muted, value))
                 {
+                    MuteGuild(value);
                     RaisePropertyChanged(nameof(ShowMute));
+                    RaisePropertyChanged(nameof(ShowUnread));
                 }
             }
         }
@@ -262,21 +264,17 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// Gets a command that navigates to the page for adding channels to this guild.
         /// </summary>
         public RelayCommand AddChannelCommand =>
-            _addChanneleCommand ?? (_addChanneleCommand = new RelayCommand(() =>
-            {
-                SubFrameNavigationService.NavigateTo("AddChannelPage", Model);
-            }));
+        _addChanneleCommand ?? (_addChanneleCommand = new RelayCommand(() =>
+        {
+            SubFrameNavigationService.NavigateTo("AddChannelPage", Model);
+        }));
 
         /// <summary>
         /// Gets a command that mutes this guild.
         /// </summary>
-        public RelayCommand MuteGuild => _muteGuild = new RelayCommand(() =>
+        public RelayCommand MuteGuildCommand => _muteGuild = new RelayCommand(() =>
         {
-            GuildSettingModify guildSettingModify = new GuildSettingModify();
-            guildSettingModify.GuildId = Model.Id;
-            guildSettingModify.Muted = !Muted;
-
-            SimpleIoc.Default.GetInstance<IDiscordService>().UserService.ModifyGuildSettings(guildSettingModify.GuildId, guildSettingModify);
+            MuteGuild(!Muted);
         });
 
         /// <summary>
@@ -314,5 +312,14 @@ namespace Quarrel.ViewModels.Models.Bindables
         private ISubFrameNavigationService SubFrameNavigationService { get; } = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
 
         private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+
+        private async void MuteGuild(bool mute)
+        {
+            GuildSettingModify guildSettingModify = new GuildSettingModify();
+            guildSettingModify.GuildId = Model.Id;
+            guildSettingModify.Muted = mute;
+
+            await SimpleIoc.Default.GetInstance<IDiscordService>().UserService.ModifyGuildSettings(guildSettingModify.GuildId, guildSettingModify);
+        }
     }
 }

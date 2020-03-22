@@ -274,7 +274,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// <summary>
         /// Gets the id of the guild parenting the channel.
         /// </summary>
-        public string GuildId => AsGuildChannel.GuildId ?? "DM";
+        public string GuildId => AsGuildChannel?.GuildId ?? "DM";
 
         /// <summary>
         /// Gets the id of the parent category.

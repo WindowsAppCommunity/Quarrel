@@ -51,7 +51,7 @@
             <MenuFlyoutItem Icon="View" Text="Mark as read" Margin="-24,0,0,0"
                             IsEnabled="{x:Bind ViewModel.IsUnread, Mode=OneWay}" Command="{x:Bind ViewModel.MarkAsRead}"/>
             <ToggleMenuFlyoutItem Text="Mute" Style="{StaticResource GuildToggleButtonFlyoutItemStyle}"
-                                  IsChecked="{x:Bind ViewModel.Muted, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Command="{x:Bind ViewModel.MuteGuild, Mode=OneWay}"/>
+                                  IsChecked="{x:Bind ViewModel.Muted, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Command="{x:Bind ViewModel.MuteGuildCommand, Mode=OneWay}"/>
             <MenuFlyoutSeparator/>
             <MenuFlyoutItem Icon="Setting" Text="Server Settings" Margin="-24,0,0,0"
                             Command="{x:Bind ViewModel.OpenGuildSettings, Mode=OneWay}"/>

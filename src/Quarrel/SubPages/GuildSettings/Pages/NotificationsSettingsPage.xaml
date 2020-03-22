@@ -7,7 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        
-    </Grid>
+    <StackPanel>
+        <ToggleSwitch OnContent="Muted" OffContent="Mute" IsOn="{x:Bind ViewModel.Guild.Muted, Mode=TwoWay}"/>
+        <TextBlock Text="Muting a server prevents unread indicators and notification from showing unless you are mentioned."
+                   Margin="4,0,0,0" HorizontalAlignment="Left" TextWrapping="WrapWholeWords" FontSize="12" MaxWidth="300" Opacity="0.7"/>
+
+        <RadioButton IsEnabled="False" Content="All Messages" Style="{StaticResource DiscordRadioButton}" GroupName="Notifications" Margin="0,16,0,0"/>
+        <RadioButton IsEnabled="False" Content="Mentions" Style="{StaticResource DiscordRadioButton}" GroupName="Notifications"/>
+        <RadioButton IsEnabled="False" Content="None" Style="{StaticResource DiscordRadioButton}" GroupName="Notifications"/>
+
+        <CheckBox IsEnabled="False" Content="Supress @here and @everyone" Style="{StaticResource CheckBoxStyle1}" Margin="0,16,0,0"/>
+        <CheckBox IsEnabled="False" Content="Supress role mentions" Style="{StaticResource CheckBoxStyle1}"/>
+    </StackPanel>
 </Page>
