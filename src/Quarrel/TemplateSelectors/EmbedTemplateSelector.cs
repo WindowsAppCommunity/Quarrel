@@ -16,6 +16,7 @@ namespace Quarrel.TemplateSelectors
         public DataTemplate ImageEmbedTemplate { get; set; }
         public DataTemplate GifvEmbedTemplate { get; set; }
         public DataTemplate YoutubeEmbedTemplate { get; set; }
+        public DataTemplate RichEmbedTemplate { get; set; }
         public DataTemplate DefaultEmbedTemplate { get; set; }
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
@@ -33,6 +34,7 @@ namespace Quarrel.TemplateSelectors
                         }
                         break;
                     }
+                    case "rich": return RichEmbedTemplate;
                     default: return DefaultEmbedTemplate;
                 }
             }
