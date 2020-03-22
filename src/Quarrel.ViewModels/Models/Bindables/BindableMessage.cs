@@ -110,7 +110,8 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// Gets a value indicating whether or not the current user is mentioned in the message.
         /// </summary>
         public bool MentionsMe => Model.MentionEveryone ||
-            Model.Mentions.Any(x => x.Id == CurrentUserService.CurrentUser.Model.Id);
+            (Model.Mentions != null &&
+            Model.Mentions.Any(x => x.Id == CurrentUserService.CurrentUser.Model.Id));
 
         /// <summary>
         /// Gets a value indicating whether or not the pin button should be shown in the flyout.
