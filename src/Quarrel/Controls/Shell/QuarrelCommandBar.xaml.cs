@@ -83,7 +83,10 @@ namespace Quarrel.Controls.Shell
         /// </summary>
         private void ChannelNameTapped(object sender, TappedRoutedEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("TopicPage", ViewModel.CurrentChannel);
+            if (ViewModel.CurrentChannel.AsGuildChannel?.Topic != null)
+            {
+                SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("TopicPage", ViewModel.CurrentChannel);
+            }
         }
     }
 }
