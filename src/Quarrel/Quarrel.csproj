@@ -224,6 +224,7 @@
     <Compile Include="Converters\Base\DateTimeToTextConverter.cs" />
     <Compile Include="Converters\Base\IntColorToBrushConverter.cs" />
     <Compile Include="Converters\Base\IntColorToColorConverter.cs" />
+    <Compile Include="Converters\Base\MultipleWhiteSpaceCollapseConverter.cs" />
     <Compile Include="Converters\Base\NotBoolToBoolConverter.cs" />
     <Compile Include="Converters\Base\NotBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\Base\NotNullToBoolConverter.cs" />
@@ -249,6 +250,7 @@
     <Compile Include="Converters\Messages\ActionMessage\TypeToColorConverter.cs" />
     <Compile Include="Converters\Messages\ActionMessage\TypeToIconConverter.cs" />
     <Compile Include="Converters\Messages\ActionMessage\TypeToTextConverter.cs" />
+    <Compile Include="Converters\Messages\EmbedFieldsConverter.cs" />
     <Compile Include="Converters\Messages\SizeToHumanizedSizeConverter.cs" />
     <Compile Include="Converters\Messages\TypeToGlyphConverter.cs" />
     <Compile Include="Converters\Profile\PresenceTypeToStatusConverter.cs" />

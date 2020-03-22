@@ -27,10 +27,17 @@ namespace Quarrel.TemplateSelectors
         /// </summary>
         public DataTemplate YoutubeEmbedTemplate { get; set; }
 
+
+        /// <summary>
+        /// Gets or sets the rich Embed template.
+        /// </summary>
+        public DataTemplate RichEmbedTemplate { get; set; }
+
         /// <summary>
         /// Gets or sets the dynamic Embed template.
         /// </summary>
         public DataTemplate DefaultEmbedTemplate { get; set; }
+
 
         /// <summary>
         /// Selects a <see cref="DataTemplate"/> based on the details from <paramref name="item"/>.
@@ -55,7 +62,7 @@ namespace Quarrel.TemplateSelectors
 
                         break;
                     }
-
+                    case "rich": return RichEmbedTemplate;
                     default: return DefaultEmbedTemplate;
                 }
             }

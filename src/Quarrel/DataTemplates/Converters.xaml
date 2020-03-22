@@ -17,6 +17,8 @@
     <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
     <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
 
+    <baseconvert:MultipleWhiteSpaceCollapseConverter x:Key="MultipleWhiteSpaceCollapseConverter"/>
+
     <convertchannel:MentionCountToVisiblityConverter x:Key="MentionCountToVisiblityConverter"/>
     <convertchannel:SelectedToOpacityConverter x:Key="SelectedToOpacityConverter"/>
     <convertchannel:TypeToForegroundBrushConverter x:Key="TypeToBrushConverter"/>
@@ -27,7 +29,9 @@
     <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
 
     <msgconvert:SizeToHumanizedSizeConverter x:Key="SizeToHumanizedSizeConverter"/>
+    <msgconvert:EmbedFieldsConverter x:Key="EmbedFieldsConverter"/>
 
     <profileconvert:PresenceTypeToStatusConverter x:Key="PresenceTypeToStatusConverter"/>
+
 
 </ResourceDictionary>
