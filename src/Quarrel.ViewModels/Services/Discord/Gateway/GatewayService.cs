@@ -1,4 +1,4 @@
-﻿// Special thanks to Sergio Pedri for the basis of this design
+﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.API;
 using DiscordAPI.API.Gateway;
@@ -13,15 +13,13 @@ using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Gateway.Channels;
+using Quarrel.ViewModels.Messages.Gateway.Guild;
 using Quarrel.ViewModels.Messages.Gateway.Voice;
 using Quarrel.ViewModels.Messages.Navigation;
-using Quarrel.ViewModels.Messages.Navigation.SubFrame;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
 using Quarrel.ViewModels.Services.Discord.Guilds;
-using Quarrel.ViewModels.Services.Discord.Rest;
-using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.ViewModels.Messages.Gateway;
 using System;
 using System.Collections.Generic;
@@ -30,28 +28,27 @@ using System.Threading.Tasks;
 
 namespace Quarrel.ViewModels.Services.Gateway
 {
+    /// <summary>
+    /// Manages all events from the Discord Gateway.
+    /// </summary>
     public class GatewayService : IGatewayService
     {
-        private ICacheService CacheService;
-        private ICurrentUserService CurrentUsersService;
-        private IChannelsService ChannelsService;
-        private IGuildsService GuildsService;
-        public DiscordAPI.Gateway.Gateway Gateway { get; private set; }
-        public IServiceProvider ServiceProvider { get; }
-
         private string previousGuildId;
 
-        public GatewayService(
-            IServiceProvider serviceProvider, IChannelsService channelsService,
-            ICacheService cacheService, ICurrentUserService currentUsersService, IGuildsService guildsService)
-        {
-            ServiceProvider = serviceProvider;
-            CacheService = cacheService;
-            ChannelsService = channelsService;
-            CurrentUsersService = currentUsersService;
-            GuildsService = guildsService;
-        }
+        /// <inheritdoc/>
+        public DiscordAPI.Gateway.Gateway Gateway { get; private set; }
 
+        private ICacheService CacheService => SimpleIoc.Default.GetInstance<ICacheService>();
+
+        private ICurrentUserService CurrentUsersService => SimpleIoc.Default.GetInstance<ICurrentUserService>();
+
+        private IChannelsService ChannelsService => SimpleIoc.Default.GetInstance<IChannelsService>();
+
+        private IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
+
+        private IServiceProvider ServiceProvider => SimpleIoc.Default.GetInstance<IServiceProvider>();
+
+        /// <inheritdoc/>
         public async Task<bool> InitializeGateway([NotNull] string accessToken)
         {
             BasicRestFactory restFactory = new BasicRestFactory();
@@ -61,12 +58,11 @@ namespace Quarrel.ViewModels.Services.Gateway
             {
                 GatewayConfig gatewayConfig = await gatewayService.GetGatewayConfig();
                 IAuthenticator authenticator = new DiscordAuthenticator(accessToken);
-
-            Gateway = new DiscordAPI.Gateway.Gateway(ServiceProvider, gatewayConfig, authenticator);
+                Gateway = new DiscordAPI.Gateway.Gateway(ServiceProvider, gatewayConfig, authenticator);
             }
-            catch (Exception e)
+            catch
             {
-                Messenger.Default.Send(new ConnectionStatusMessage(Status.Failed));
+                Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Failed));
                 return false;
             }
 
@@ -76,6 +72,8 @@ namespace Quarrel.ViewModels.Services.Gateway
             Gateway.Ready += Gateway_Ready;
             Gateway.GuildMembersChunk += GatewayGuildMembersChunk;
             Gateway.GuildSynced += Gateway_GuildSynced;
+
+            Gateway.GuildUpdated += Gateway_GuildUpdated;
 
             Gateway.MessageCreated += Gateway_MessageCreated;
             Gateway.MessageDeleted += Gateway_MessageDeleted;
@@ -106,35 +104,36 @@ namespace Quarrel.ViewModels.Services.Gateway
 
             if (await ConnectWithRetryAsync(3))
             {
-                Messenger.Default.Send(new ConnectionStatusMessage(Status.Connected));
+                Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Connected));
                 Messenger.Default.Register<ChannelNavigateMessage>(this, async m =>
                 {
-                    // TODO: Channel typing check
-                    //var channelList = ServicesManager.Cache.Runtime.TryGetValue<List<Channel>>(Quarrel.Helpers.Constants.Cache.Keys.ChannelList, m.GuildId);
-                    //var idList = channelList.ConvertAll(x => x.Id);
-                    /*
-                                        List<string> idList = new List<string>();
-
-                                        // Guild Sync
-                                        if (m.Guild.Model.Id != "DM")
-                                        {
-                                            idList.Add(m.Guild.Model.Id);
-                                        }*/
-
                     if (!m.Guild.IsDM)
                     {
-                        await Gateway.SubscribeToGuildLazy(m.Channel.GuildId,
+                        await Gateway.SubscribeToGuildLazy(
+                            m.Channel.GuildId,
                             new Dictionary<string, IEnumerable<int[]>>
-                                {{m.Channel.Model.Id, new List<int[]> {new[] {0, 99}}}});
+                            {
+                                {
+                                    m.Channel.Model.Id,
+                                    new List<int[]>
+                                    {
+                                        new[] { 0, 99 },
+                                    }
+                                },
+                            });
                     }
                 });
                 Messenger.Default.Register<GuildNavigateMessage>(this, async m =>
                 {
                     if (!m.Guild.IsDM)
                     {
-                        if(previousGuildId != null)
-                            await Gateway.SubscribeToGuildLazy(previousGuildId,
+                        if (previousGuildId != null)
+                        {
+                            await Gateway.SubscribeToGuildLazy(
+                                previousGuildId,
                                 new Dictionary<string, IEnumerable<int[]>> { });
+                        }
+
                         previousGuildId = m.Guild.Model.Id;
                     }
                     else
@@ -155,17 +154,18 @@ namespace Quarrel.ViewModels.Services.Gateway
             return true;
         }
 
-        public async Task<bool> ConnectWithRetryAsync(int retries)
+        private async Task<bool> ConnectWithRetryAsync(int retries)
         {
             for (int i = 0; i < retries; i++)
             {
-                if (await Gateway.ConnectAsync()) return true;
+                if (await Gateway.ConnectAsync())
+                {
+                    return true;
+                }
             }
 
             return false;
         }
-
-        #region Events
 
         private void Gateway_Ready(object sender, GatewayEventArgs<Ready> e)
         {
@@ -178,14 +178,15 @@ namespace Quarrel.ViewModels.Services.Gateway
             Messenger.Default.Send(new GatewayInvalidSessionMessage(e.EventData));
         }
 
-        #region Messages
-
         private void Gateway_MessageCreated(object sender, GatewayEventArgs<Message> e)
         {
             var currentUser = CurrentUsersService.CurrentUser.Model;
 
             if (e.EventData.User == null)
+            {
                 e.EventData.User = currentUser;
+            }
+
             Messenger.Default.Send(new GatewayMessageRecievedMessage(e.EventData));
         }
 
@@ -204,8 +205,6 @@ namespace Quarrel.ViewModels.Services.Gateway
             Messenger.Default.Send(new GatewayMessageAckMessage(e.EventData.ChannelId, e.EventData.Id));
         }
 
-        #region Reactions
-
         private void Gateway_MessageReactionAdded(object sender, GatewayEventArgs<MessageReactionUpdate> e)
         {
             Messenger.Default.Send(new GatewayReactionAddedMessage(e.EventData.MessageId, e.EventData.ChannelId, e.EventData.Emoji));
@@ -221,11 +220,6 @@ namespace Quarrel.ViewModels.Services.Gateway
             Messenger.Default.Send(new GatewayReactionClearedMessage(e.EventData.MessageId, e.EventData.ChannelId));
         }
 
-        #endregion
-
-        #endregion
-
-        #region Channels
         private void Gateway_ChannelCreated(object sender, GatewayEventArgs<Channel> e)
         {
             Messenger.Default.Send(new GatewayChannelCreatedMessage(e.EventData));
@@ -246,7 +240,10 @@ namespace Quarrel.ViewModels.Services.Gateway
             Messenger.Default.Send(new GatewayDirectMessageChannelCreatedMessage(e.EventData));
         }
 
-        #endregion
+        private void Gateway_GuildUpdated(object sender, GatewayEventArgs<Guild> e)
+        {
+            Messenger.Default.Send(new GatewayGuildUpdatedMessage(e.EventData));
+        }
 
         private void Gateway_TypingStarted(object sender, GatewayEventArgs<TypingStart> e)
         {
@@ -257,7 +254,6 @@ namespace Quarrel.ViewModels.Services.Gateway
         {
             Messenger.Default.Send(new GatewayGuildMembersChunkMessage(e.EventData));
         }
-
 
         private void Gateway_GuildMemberListUpdated(object sender, GatewayEventArgs<GuildMemberListUpdated> e)
         {
@@ -278,7 +274,7 @@ namespace Quarrel.ViewModels.Services.Gateway
         private void Gateway_UserNoteUpdated(object sender, GatewayEventArgs<UserNote> e)
         {
             CacheService.Runtime.SetValue(Constants.Cache.Keys.Note, e.EventData.Note, e.EventData.UserId);
-            Messenger.Default.Send(new GatewayNoteUpdatedMessage(e.EventData.UserId));
+            Messenger.Default.Send(new GatewayNoteUpdatedMessage(e.EventData.UserId, e.EventData.Note));
         }
 
         private void Gateway_UserGuildSettingsUpdated(object sender, GatewayEventArgs<GuildSetting> e)
@@ -298,8 +294,6 @@ namespace Quarrel.ViewModels.Services.Gateway
             Messenger.Default.Send(new GatewayUserSettingsUpdatedMessage(e.EventData));
         }
 
-        #region Voice 
-
         private void Gateway_VoiceServerUpdated(object sender, GatewayEventArgs<VoiceServerUpdate> e)
         {
             Messenger.Default.Send(new GatewayVoiceServerUpdateMessage(e.EventData));
@@ -317,11 +311,7 @@ namespace Quarrel.ViewModels.Services.Gateway
 
         private void Gateway_GatewayClosed(object sender, Exception e)
         {
-            Messenger.Default.Send(new ConnectionStatusMessage(Status.Disconnected));
+            Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Disconnected));
         }
-
-        #endregion
-
-        #endregion
     }
 }

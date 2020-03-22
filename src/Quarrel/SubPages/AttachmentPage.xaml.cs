@@ -1,4 +1,6 @@
-﻿using DiscordAPI.Interfaces;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.Interfaces;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Quarrel.SubPages.Interfaces;
@@ -21,34 +23,56 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace Quarrel.SubPages
 {
+    /// <summary>
+    /// The sub page for displaying an attachment or embedded image full screen.
+    /// </summary>
     public sealed partial class AttachmentPage : UserControl, IFullscreenSubPage, ITransparentSubPage
     {
-        private ISubFrameNavigationService _SubFrameNavigationService => SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AttachmentPage"/> class.
+        /// </summary>
         public AttachmentPage()
         {
             this.InitializeComponent();
-            
+
             // Use navigation parameter for Image in ViewModel
-            if (_SubFrameNavigationService.Parameter != null)
+            if (SubFrameNavigationService.Parameter != null)
             {
-                this.DataContext = new AttachmentPageViewModel((IPreviewableImage)_SubFrameNavigationService.Parameter);
+                this.DataContext = new AttachmentPageViewModel((IPreviewableImage)SubFrameNavigationService.Parameter);
             }
 
             // Show SVGs in SVGImageSource
             if (ViewModel.Image.ImageUrl.EndsWith(".svg"))
+            {
                 ImageViewer.Source = new SvgImageSource(new Uri(ViewModel.Image.ImageUrl));
+            }
+
             // Show PDFs as images
             else if (ViewModel.Image.ImageUrl.EndsWith(".pdf"))
+            {
                 LoadPDF();
+            }
             else
+            {
                 ImageViewer.Source = new BitmapImage(new Uri(ViewModel.Image.ImageUrl));
+            }
         }
 
-        private AttachmentPageViewModel ViewModel => DataContext as AttachmentPageViewModel;
+        /// <summary>
+        /// Gets the Attachment's information.
+        /// </summary>
+        public AttachmentPageViewModel ViewModel => DataContext as AttachmentPageViewModel;
+
+        /// <inheritdoc/>
+        public bool Dimmed => true;
+
+        /// <inheritdoc/>
+        public bool Hideable { get => true; }
+
+        private ISubFrameNavigationService SubFrameNavigationService => SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
 
         /// <summary>
-        /// Converts a PDF to png and uses that as the image
+        /// Converts a PDF to png and uses that as the image.
         /// </summary>
         private async void LoadPDF()
         {
@@ -71,31 +95,23 @@ namespace Quarrel.SubPages
                 var page = doc.GetPage(i);
 
                 // Render page
-                using (InMemoryRandomAccessStream RAstream = new InMemoryRandomAccessStream())
+                using (InMemoryRandomAccessStream rastream = new InMemoryRandomAccessStream())
                 {
-                    await page.RenderToStreamAsync(RAstream);
-                    await image.SetSourceAsync(RAstream);
+                    await page.RenderToStreamAsync(rastream);
+                    await image.SetSourceAsync(rastream);
                 }
 
-                Image UIImage = new Image();
-                UIImage.Source = image;
-                UIImage.Margin = new Thickness(0, 0, 0, 12);
+                Image uiImage = new Image();
+                uiImage.Source = image;
+                uiImage.Margin = new Thickness(0, 0, 0, 12);
 
                 // Add Page to View
-                MultiPageStacker.Children.Add(UIImage);
+                MultiPageStacker.Children.Add(uiImage);
             }
         }
 
         /// <summary>
-        /// Closes SubPage when the Background is tapped
-        /// </summary>
-        private void Rectangle_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            _SubFrameNavigationService.GoBack();
-        }
-
-        /// <summary>
-        /// Fades in image and hiding loading ring
+        /// Fades in image and hiding loading ring.
         /// </summary>
         private async void ImageOpened(object sender, Microsoft.Toolkit.Uwp.UI.Controls.ImageExOpenedEventArgs e)
         {
@@ -104,7 +120,7 @@ namespace Quarrel.SubPages
         }
 
         /// <summary>
-        /// Copies Image Url to clipboard
+        /// Copies Image Url to clipboard.
         /// </summary>
         private void CopyLink(object sender, RoutedEventArgs e)
         {
@@ -112,7 +128,7 @@ namespace Quarrel.SubPages
         }
 
         /// <summary>
-        /// Opens Image URL in browser
+        /// Opens Image URL in browser.
         /// </summary>
         private async void Open(object sender, RoutedEventArgs e)
         {
@@ -120,7 +136,7 @@ namespace Quarrel.SubPages
         }
 
         /// <summary>
-        /// Opens Windows Share prompt for image
+        /// Opens Windows Share prompt for image.
         /// </summary>
         private void Share(object sender, RoutedEventArgs e)
         {
@@ -128,7 +144,6 @@ namespace Quarrel.SubPages
             dataTransferManager.DataRequested += (sender1, args) =>
             {
                 DataRequest request = args.Request;
-                //request.Data.Properties.Title = ViewModel.Filename;
                 var rasr = RandomAccessStreamReference.CreateFromUri(new Uri(ViewModel.Image.ImageUrl));
                 request.Data.SetBitmap(rasr);
                 request.Data.Properties.Thumbnail = rasr;
@@ -137,7 +152,7 @@ namespace Quarrel.SubPages
         }
 
         /// <summary>
-        /// Saves image to selected location
+        /// Saves image to selected location.
         /// </summary>
         private async void Save(object sender, RoutedEventArgs e)
         {
@@ -152,24 +167,8 @@ namespace Quarrel.SubPages
             await download.StartAsync();
         }
 
-        #region Interfaces
-
-        #region ITransparentSubPage
-
-        public bool Dimmed { get => true; }
-
-        #endregion
-
-        #region IFullScreenSubPagex
-
-        public bool Hideable { get => true; }
-
-        #endregion
-
-        #endregion
-
         /// <summary>
-        /// Handles the UI Size changing
+        /// Handles the UI Size changing.
         /// </summary>
         private void ContainerSizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -177,14 +176,28 @@ namespace Quarrel.SubPages
         }
 
         /// <summary>
-        /// Scales the image to take up 70% of the screen
+        /// Closes SubPage when the Background is tapped.
+        /// </summary>
+        private void Rectangle_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            SubFrameNavigationService.GoBack();
+        }
+
+        /// <summary>
+        /// Scales the image to take up 70% of the screen.
         /// </summary>
         private void ScaleImage()
         {
             double imageRatio = ViewModel.Image.ImageHeight / ViewModel.Image.ImageWidth;
             double viewRatio = Container.ActualHeight / Container.ActualWidth;
-            if (imageRatio > viewRatio) ImageViewer.Height = ActualHeight * .7;
-            else ImageViewer.Width = ActualWidth * .7;
+            if (imageRatio > viewRatio)
+            {
+                ImageViewer.Height = ActualHeight * .7;
+            }
+            else
+            {
+                ImageViewer.Width = ActualWidth * .7;
+            }
         }
     }
 }

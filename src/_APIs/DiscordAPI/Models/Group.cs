@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 
 namespace DiscordAPI.Models
 {
-
     public class Group
     {
         [JsonProperty("id")]

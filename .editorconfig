@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# CS0618: Type or member is obsolete
+dotnet_diagnostic.CS0618.severity = silent
+
+# SA1602: Enumeration items should be documented
+dotnet_diagnostic.SA1602.severity = none

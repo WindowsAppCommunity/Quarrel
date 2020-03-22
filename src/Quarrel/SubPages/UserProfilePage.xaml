@@ -19,8 +19,60 @@
     d:DesignWidth="400">
 
     <UserControl.Resources>
+        <Style TargetType="GridViewItem" x:Key="GameGridViewItem">
+            <Setter Property="Background" Value="{ThemeResource GridViewItemBackground}" />
+            <Setter Property="Foreground" Value="{ThemeResource GridViewItemForeground}" />
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="TabNavigation" Value="Local" />
+            <Setter Property="IsHoldingEnabled" Value="True" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,4,4" />
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="AllowDrop" Value="False" />
+            <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
+            <Setter Property="FocusVisualMargin" Value="-2" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridViewItem">
+                        <ListViewItemPresenter ContentTransitions="{TemplateBinding ContentTransitions}"
+                                               x:Name="Root"
+                                               Control.IsTemplateFocusTarget="True"
+                                               FocusVisualMargin="{TemplateBinding FocusVisualMargin}"
+                                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                               ContentMargin="{TemplateBinding Padding}"
+                                               RenderTransformOrigin="0.5, 0.5">
+                            <ListViewItemPresenter.RenderTransform>
+                                <ScaleTransform x:Name="ContentScale"/>
+                            </ListViewItemPresenter.RenderTransform>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="Selected"/>
+                                    <VisualState x:Name="PointerOver"/>
+                                    <VisualState x:Name="PointerOverSelected"/>
+                                    <VisualState x:Name="PointerOverPressed"/>
+                                    <VisualState x:Name="Pressed"/>
+                                    <VisualState x:Name="PressedSelected"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DisabledStates">
+                                    <VisualState x:Name="Enabled" />
+                                    <VisualState x:Name="Disabled"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </ListViewItemPresenter>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
-        <baseconvert:IntColorColorConverter x:Key="IntColorColorConverter"/>
+        <baseconvert:IntColorToColorConverter x:Key="IntColorColorConverter"/>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
@@ -69,12 +121,19 @@
                             <StackPanel x:Name="BadgePanel" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         </Grid>
                         <StackPanel>
-                            <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{x:Bind ViewModel.User.Presence.Game, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,6"/>
+                            <TextBlock Visibility="{x:Bind ViewModel.User.Presence.Game, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,6"/>
                             <Border Margin="-48,0" Padding="48,12">
                                 <Border.Background>
                                     <SolidColorBrush Opacity="0.5"/>
                                 </Border.Background>
-                                <controls:RichPresenceControl DataContext="{x:Bind ViewModel.User.Presence.Game}" Visibility="{x:Bind ViewModel.User.Presence.Game, Converter={StaticResource NotNullToVisibilityConverter}}"/>
+                                <GridView ItemsSource="{x:Bind ViewModel.User.Presence.Activities, Mode=OneWay}"
+                                          SelectionMode="None" IsItemClickEnabled="False" ItemContainerStyle="{StaticResource GameGridViewItem}">
+                                    <GridView.ItemTemplate>
+                                        <DataTemplate>
+                                            <controls:RichPresenceControl/>
+                                        </DataTemplate>
+                                    </GridView.ItemTemplate>
+                                </GridView>
                             </Border>
                             <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
                             <TextBox x:Uid="/Dialogs/NoteTBox" BorderThickness="0" x:Name="NoteBox" Style="{StaticResource TextBoxStyle1}" PlaceholderText="No Note" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>
@@ -109,7 +168,7 @@
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0, 10" VerticalAlignment="Top">
                                             <Rectangle Width="42" Height="42" VerticalAlignment="Stretch" HorizontalAlignment="Left" RadiusX="100" RadiusY="100">
                                                 <Rectangle.Fill>
-                                                    <ImageBrush ImageSource="{x:Bind AvatarUrl, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                                                    <ImageBrush ImageSource="{x:Bind AvatarUrl, Converter={StaticResource UriToImageSourceConverter}}"/>
                                                 </Rectangle.Fill>
                                             </Rectangle>
                                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -136,8 +195,6 @@
                         </Grid>
 
                         <StackPanel x:Name="usernamestacker" Orientation="Horizontal" Margin="188,6,0,0" VerticalAlignment="Top">
-                            <TextBlock x:Name="Name" FontSize="26" FontWeight="SemiBold"/>
-                            <Rectangle x:Name="Seperate" Fill="White" Width="5" Margin="10,0" Visibility="Collapsed"/>
                             <TextBlock Text="{x:Bind ViewModel.User.Model.User.Username}" Foreground="White" FontSize="26" VerticalAlignment="Top" FontWeight="SemiLight"/>
                             <TextBlock Text="#" Foreground="White" FontSize="26" Opacity="0.4" Margin="4,0,0,0" VerticalAlignment="Top" FontWeight="Light"/>
                             <TextBlock Text="{x:Bind ViewModel.User.Model.User.Discriminator}" Foreground="White" FontSize="26" Opacity="0.4" Margin="4,0,0,0" VerticalAlignment="Top" FontWeight="Light"/>

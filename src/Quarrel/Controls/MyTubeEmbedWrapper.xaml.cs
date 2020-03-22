@@ -1,115 +1,123 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text.RegularExpressions;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using myTube;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
 using myTube.Playback.Handlers;
 using RykenTube;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
+using System.Text.RegularExpressions;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls
 {
+    /// <summary>
+    /// Control to display YouTube videos with the myTube player.
+    /// </summary>
     public sealed partial class MyTubeEmbedWrapper : UserControl
     {
-        public static readonly DependencyProperty
-            VidoeUriProperty = DependencyProperty.Register("VideoUri", typeof(string),
-                typeof(MyTubeEmbedWrapper), new PropertyMetadata("", OnVidoeUriChanged));
-        public string VideoUri
+        private static readonly DependencyProperty
+            VidoeUriProperty = DependencyProperty.Register(
+                nameof(VideoUrl),
+                typeof(string),
+                typeof(MyTubeEmbedWrapper),
+                new PropertyMetadata(string.Empty, OnVidoeUriChanged));
+
+        private static readonly DependencyProperty
+            PlayProperty = DependencyProperty.Register(
+                nameof(Play),
+                typeof(bool),
+                typeof(MyTubeEmbedWrapper),
+                new PropertyMetadata(string.Empty, OnPlayChanged));
+
+        private bool _atBeginning;
+
+        private myTubeHandlerContainer _mediaHandler = new myTubeHandlerContainer();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MyTubeEmbedWrapper"/> class.
+        /// </summary>
+        public MyTubeEmbedWrapper()
+        {
+            this.InitializeComponent();
+            RykenPlayer.CurrentMediaHandler = _mediaHandler;
+            SetupMytube(VideoUrl);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the video is playing.
+        /// </summary>
+        public bool Play
+        {
+            get => (bool)GetValue(PlayProperty);
+            set => SetValue(PlayProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the Video by url.
+        /// </summary>
+        public string VideoUrl
         {
             get => (string)GetValue(VidoeUriProperty);
             set => SetValue(VidoeUriProperty, value);
         }
 
-        public bool startedPlaying;
-
         private static void OnVidoeUriChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if(d is MyTubeEmbedWrapper wrapper && e.NewValue is string value && wrapper.Play)
+            if (d is MyTubeEmbedWrapper wrapper && e.NewValue is string value && wrapper.Play)
             {
-                wrapper.startedPlaying = true;
+                wrapper._atBeginning = true;
                 wrapper.ChangeVideo(value);
             }
         }
 
-        public static readonly DependencyProperty
-            PlayeProperty = DependencyProperty.Register("Play", typeof(bool),
-                typeof(MyTubeEmbedWrapper), new PropertyMetadata("", OnPlayChanged));
-        public bool Play
-        {
-            get => (bool)GetValue(PlayeProperty);
-            set => SetValue(PlayeProperty, value);
-        }
         private static void OnPlayChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if(d is MyTubeEmbedWrapper wrapper && e.NewValue is bool value)
+            if (d is MyTubeEmbedWrapper wrapper && e.NewValue is bool value)
             {
                 if (value)
                 {
-                    if (wrapper.startedPlaying)
+                    if (wrapper._atBeginning)
                     {
-                        _ = wrapper.mediaHandler.CurrentVideoHandler.Play();
+                        _ = wrapper._mediaHandler.CurrentVideoHandler.Play();
                     }
                     else
                     {
-                        wrapper.ChangeVideo(wrapper.VideoUri);
+                        wrapper.ChangeVideo(wrapper.VideoUrl);
                     }
                 }
                 else
                 {
-                    wrapper.startedPlaying = false;
-                    _ = wrapper.mediaHandler.CurrentVideoHandler.Pause();
+                    wrapper._atBeginning = false;
+                    _ = wrapper._mediaHandler.CurrentVideoHandler.Pause();
                 }
             }
         }
 
-        private myTubeHandlerContainer mediaHandler = new myTubeHandlerContainer();
-        public MyTubeEmbedWrapper()
+        private async void SetupMytube(string url)
         {
-            this.InitializeComponent();
-            RykenPlayer.CurrentMediaHandler = mediaHandler;
-            SetupMytube(VideoUri);
-        }
+            await _mediaHandler.SetCurrentVideoHandler(new MediaPlayerHandler { UseMediaPlayerElement = false });
 
-        async void SetupMytube(string url)
-        {
+            // Disable the media transport controls
+            _mediaHandler.CurrentVideoHandler.HandlesTransportControls = true;
 
-                await mediaHandler.SetCurrentVideoHandler(new MediaPlayerHandler {UseMediaPlayerElement = false});
-                mediaHandler.CurrentVideoHandler.HandlesTransportControls =
-                    true; // Disable the media transport controls
-                mediaHandler.CurrentVideoHandler.StopOnMediaEnded = false; // Keep video loaded when ended
-            
-
+            // Keep video loaded when ended
+            _mediaHandler.CurrentVideoHandler.StopOnMediaEnded = false;
             var match = Regex.Match(url, ViewModels.Helpers.Constants.Regex.YouTubeURLRegex);
             if (match.Success)
             {
-                await mediaHandler.CurrentVideoHandler.OpenVideo(new YouTubeEntry { ID = !string.IsNullOrEmpty(match.Groups[1].Value) ? match.Groups[1].Value : match.Groups[2].Value }, YouTubeQuality.HD);
+                await _mediaHandler.CurrentVideoHandler.OpenVideo(new YouTubeEntry { ID = !string.IsNullOrEmpty(match.Groups[1].Value) ? match.Groups[1].Value : match.Groups[2].Value }, YouTubeQuality.HD);
             }
         }
 
-
-        async void ChangeVideo(string url)
+        private async void ChangeVideo(string url)
         {
             var match = Regex.Match(url, ViewModels.Helpers.Constants.Regex.YouTubeURLRegex);
             if (match.Success)
             {
-                await mediaHandler.CurrentVideoHandler.OpenVideo(
+                await _mediaHandler.CurrentVideoHandler.OpenVideo(
                     new YouTubeEntry
                     {
                         ID = !string.IsNullOrEmpty(match.Groups[1].Value)
                             ? match.Groups[1].Value
-                            : match.Groups[2].Value
+                            : match.Groups[2].Value,
                     }, YouTubeQuality.HD);
             }
         }

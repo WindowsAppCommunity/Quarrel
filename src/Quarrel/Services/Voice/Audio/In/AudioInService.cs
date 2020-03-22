@@ -1,8 +1,9 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Services.Voice.Audio.In;
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using Windows.Devices.Enumeration;
 using Windows.Foundation;
 using Windows.Media;
@@ -14,52 +15,49 @@ using Windows.Media.Render;
 
 namespace Quarrel.Services.Voice.Audio.In
 {
-
+    /// <summary>
+    /// A <see langword="class"/> that manages incoming audio.
+    /// </summary>
     public class AudioInService : IAudioInService
     {
-        #region Public Properties
+        private AudioGraph _graph;
+        private AudioFrameOutputNode _frameOutputNode;
+        private int _quantum;
+        private bool _isSpeaking = false;
 
-        // TODO: Public set
-        public string DeviceId { get; private set; }
-        public int Samples => _Graph.SamplesPerQuantum;
-        public bool Muted { get; private set; }
-
-        #endregion
-
-        #region Variables
-
-        private AudioGraph _Graph;
-        private AudioFrameOutputNode _FrameOutputNode;
-        private int _Quantum;
-        private bool _IsSpeaking = false;
-
-        #endregion
-
-        #region Events
-
-        public event EventHandler<float[]> DataRecieved;
-
-        public event EventHandler<int> SpeakingChanged;
-
-        #endregion
-
-        #region Constructors
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AudioInService"/> class.
+        /// </summary>
         [PreferredConstructor]
         public AudioInService()
         {
-
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AudioInService"/> class with <paramref name="deviceId"/> for the input device.
+        /// </summary>
+        /// <param name="deviceId">The input device to use.</param>
         public AudioInService(string deviceId)
         {
-
+            DeviceId = deviceId;
         }
 
-        #endregion
+        /// <inheritdoc/>
+        public event EventHandler<float[]> AudioQueued;
 
-        #region Methods
+        /// <inheritdoc/>
+        public event EventHandler<int> SpeakingChanged;
 
+        /// <inheritdoc/>
+        public string DeviceId { get; private set; } // TODO: Public set
+
+        /// <inheritdoc/>
+        public int Samples => _graph.SamplesPerQuantum;
+
+        /// <inheritdoc/>
+        public bool Muted { get; private set; }
+
+        /// <inheritdoc/>
         public async void CreateGraph(string deviceId = null)
         {
             // Get Default Settings
@@ -69,76 +67,81 @@ namespace Quarrel.Services.Voice.Audio.In
                 // Cannot create graph
                 return;
             }
-            _Graph = graphResult.Graph;
+
+            _graph = graphResult.Graph;
 
             // Create frameOutputNode
-            _FrameOutputNode = _Graph.CreateFrameOutputNode(_Graph.EncodingProperties);
+            _frameOutputNode = _graph.CreateFrameOutputNode(_graph.EncodingProperties);
 
-            _Quantum = 0;
-            _Graph.QuantumStarted += _Graph_QuantumStarted;
+            _quantum = 0;
+            _graph.QuantumStarted += Graph_QuantumStarted;
 
             // Get Device
             if (string.IsNullOrEmpty(deviceId) || deviceId == "Default")
             {
                 deviceId = MediaDevice.GetDefaultAudioCaptureId(AudioDeviceRole.Default);
                 if (string.IsNullOrEmpty(deviceId))
+                {
                     return;
+                }
             }
+
             DeviceInformation selectedDevice = await DeviceInformation.CreateFromIdAsync(deviceId);
 
-            CreateAudioDeviceInputNodeResult nodeResult = await _Graph.CreateDeviceInputNodeAsync(MediaCategory.Communications, GetDefaultNodeSettings().EncodingProperties, selectedDevice);
+            CreateAudioDeviceInputNodeResult nodeResult = await _graph.CreateDeviceInputNodeAsync(MediaCategory.Communications, GetDefaultNodeSettings().EncodingProperties, selectedDevice);
             if (nodeResult.Status != AudioDeviceNodeCreationStatus.Success)
             {
                 // TODO: Handle no mic permission
 
                 // Cannot create device input node
-                _Graph.Dispose();
+                _graph.Dispose();
                 return;
             }
 
             // Connect Nodes
-            nodeResult.DeviceInputNode.AddOutgoingConnection(_FrameOutputNode);
+            nodeResult.DeviceInputNode.AddOutgoingConnection(_frameOutputNode);
 
             // Finalize
             DeviceId = deviceId;
 
             // Begin play
-            _FrameOutputNode.Start();
-            _Graph.Start();
+            _frameOutputNode.Start();
+            _graph.Start();
         }
 
+        /// <inheritdoc/>
         public void Mute()
         {
             Muted = true;
         }
 
+        /// <inheritdoc/>
         public void Unmute()
         {
             Muted = false;
         }
 
+        /// <inheritdoc/>
         public void ToggleMute()
         {
             Muted = !Muted;
         }
 
+        /// <inheritdoc/>
         public void Dispose()
         {
-            _Graph.Dispose();
+            _graph.Dispose();
         }
-        #endregion
 
-        #region Helper Methods
-
-        private void _Graph_QuantumStarted(AudioGraph sender, object args)
+        private void Graph_QuantumStarted(AudioGraph sender, object args)
         {
             // If odd quantum
-            if (++_Quantum % 2 == 0)
+            if (++_quantum % 2 == 0)
             {
                 try
                 {
                     // Record frame
-                    AudioFrame frame = _FrameOutputNode.GetFrame();
+                    AudioFrame frame = _frameOutputNode.GetFrame();
                     ProcessFrameOutput(frame);
                 }
                 catch (Exception e)
@@ -151,9 +154,10 @@ namespace Quarrel.Services.Voice.Audio.In
         private unsafe void ProcessFrameOutput(AudioFrame frame)
         {
             if (Muted)
+            {
                 return;
+            }
 
-            #region GetPCM
             float[] dataInFloats;
             using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
             using (IMemoryBufferReference reference = buffer.CreateReference())
@@ -170,36 +174,31 @@ namespace Quarrel.Services.Voice.Audio.In
                 }
             }
 
-            #endregion
-
-            #region Parse PCM
-
             double decibels = 0f;
             foreach (var sample in dataInFloats)
             {
                 decibels += Math.Abs(sample);
             }
+
             decibels = 20 * Math.Log10(decibels / dataInFloats.Length);
             if (decibels < -40)
             {
-                if (_IsSpeaking)
+                if (_isSpeaking)
                 {
                     SpeakingChanged(this, 0);
-                    _IsSpeaking = false;
+                    _isSpeaking = false;
                 }
             }
             else
             {
-                if (!_IsSpeaking)
+                if (!_isSpeaking)
                 {
                     SpeakingChanged(this, 1);
-                    _IsSpeaking = true;
+                    _isSpeaking = true;
                 }
 
-                DataRecieved?.Invoke(null, dataInFloats);
+                AudioQueued?.Invoke(null, dataInFloats);
             }
-
-            #endregion
         }
 
         private AudioGraphSettings GetDefaultGraphSettings()
@@ -222,20 +221,5 @@ namespace Quarrel.Services.Voice.Audio.In
             nodesettings.QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired;
             return nodesettings;
         }
-
-        #endregion
     }
-
-    #region Dependencies
-
-    [ComImport]
-    [Guid("5B0D3235-4DBA-4D44-865E-8F1D0E4FD04D")]
-    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-
-    unsafe interface IMemoryBufferByteAccess
-    {
-        void GetBuffer(out byte* buffer, out uint capacity);
-    }
-
-    #endregion
 }

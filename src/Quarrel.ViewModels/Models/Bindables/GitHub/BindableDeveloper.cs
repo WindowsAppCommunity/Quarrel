@@ -1,27 +1,28 @@
-﻿using GitHubAPI.API;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
 using GitHubAPI.Models;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Quarrel.ViewModels.Models.Bindables.GitHub
 {
+    /// <summary>
+    /// A Bindable wrapper for the <see cref="User"/> model.
+    /// </summary>
     public class BindableDeveloper : BindableModelBase<User>
     {
-        #region Constructor
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BindableDeveloper"/> class.
+        /// </summary>
+        /// <param name="user">The developer's user object.</param>
+        /// <param name="contributor">The developers contributor object.</param>
         public BindableDeveloper(User user, Contributor contributor) : base(user)
         {
             Contributor = contributor;
         }
 
-        #endregion
-
-        #region Properties
-
+        /// <summary>
+        /// Gets or sets the developer's information as a contributor to Quarrel.
+        /// </summary>
         public Contributor Contributor { get; set; }
-
-        #endregion
     }
 }

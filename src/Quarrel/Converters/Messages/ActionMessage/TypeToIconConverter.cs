@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
@@ -6,10 +8,11 @@ using Windows.UI.Xaml.Media;
 namespace Quarrel.Converters.Messages.ActionMessage
 {
     /// <summary>
-    /// A converter that returns an inverted <see cref="Visibility"/> value for the input <see langword="bool"/> value
+    /// A converter that returns an MDL2 character Glyph based on ActionMessage type.
     /// </summary>
     public sealed class TypeToIconConverter : IValueConverter
     {
+        /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value is int iValue)
@@ -32,9 +35,11 @@ namespace Quarrel.Converters.Messages.ActionMessage
                         return "?";
                 }
             }
+
             return "?";
         }
 
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();

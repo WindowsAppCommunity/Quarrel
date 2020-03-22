@@ -1,11 +1,10 @@
-﻿// Special thanks to Sergio Pedri for the basis of this design
+﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Messages.Gateway;
-using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Services.Clipboard;
@@ -28,74 +27,45 @@ using System.Threading;
 
 namespace Quarrel.ViewModels.Models.Bindables
 {
+    /// <summary>
+    /// A Bindable wrapper for the <see cref="Channel"/> model.
+    /// </summary>
     public class BindableChannel : BindableModelBase<Channel>
     {
-        #region Constructors
+        private bool _muted;
+        private Permissions _permissions = null;
+        private ReadState _readState;
+        private int _parentPostion;
+        private bool _selected;
+        private bool _collapsed;
+        private RelayCommand _openProfile;
+        private RelayCommand _markAsRead;
+        private RelayCommand _mute;
+        private RelayCommand _leaveGroup;
+        private RelayCommand _copyId;
 
         /// <summary>
-        /// Creates a Channel object that can be bound to the UI
+        /// Initializes a new instance of the <see cref="BindableChannel"/> class.
         /// </summary>
-        /// <param name="model">API Channel Model</param>
-        /// <param name="guildId">Id of Channel's guild</param>
-        /// <param name="states">List of VoiceStates for users in a voice channel</param>
-        public BindableChannel([NotNull] Channel model, [NotNull] string guildId, [CanBeNull] IEnumerable<VoiceState> states = null) : base(model)
+        /// <param name="model">API Channel Model.</param>
+        /// <param name="guildId">Id of Channel's guild.</param>
+        /// <param name="states">List of VoiceStates for users in a voice channel.</param>
+        public BindableChannel([NotNull] Channel model, [CanBeNull] IEnumerable<VoiceState> states = null) : base(model)
         {
-            this.guildId = guildId;
-
-            #region Messenger
-
-            MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, e =>
-            {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                {
-                    if (e.VoiceState.ChannelId == Model.Id)
-                    {
-                        // User joined this Voice Channel
-                        if (!ConnectedUsers.ContainsKey(e.VoiceState.UserId))
-                        {
-                            ConnectedUsers.Add(e.VoiceState.UserId, new BindableVoiceUser(e.VoiceState));
-                        }
-                    }
-                    else if (ConnectedUsers.ContainsKey(e.VoiceState.UserId))
-                    {
-                        // User joined a different Voice Channel, so they must have left this one
-                        ConnectedUsers.Remove(e.VoiceState.UserId);
-                    }
-                });
-            });
-
             MessengerInstance.Register<GatewayUserGuildSettingsUpdatedMessage>(this, m =>
             {
                 if ((m.Settings.GuildId ?? "DM") == GuildId)
+                {
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         // Updated channel settings
                         ChannelOverride channelOverride;
-                        if(_ChannelsService.ChannelSettings.TryGetValue(Model.Id, out channelOverride))
+                        if (ChannelsService.ChannelSettings.TryGetValue(Model.Id, out channelOverride))
+                        {
                             Muted = channelOverride.Muted;
-                    });
-            });
-
-            MessengerInstance.Register<GatewayMessageAckMessage>(this, m =>
-            {
-                if (Model.Id == m.ChannelId)
-                {
-                    UpdateLRMID(m.MessageId);
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        RaisePropertyChanged(nameof(MentionCount));
-                        RaisePropertyChanged(nameof(IsUnread));
-                        RaisePropertyChanged(nameof(ShowUnread));
+                        }
                     });
                 }
-            });
-
-            MessengerInstance.Register<ChannelNavigateMessage>(this, m =>
-            {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                {
-                    Selected = m.Channel == this;
-                });
             });
 
             MessengerInstance.Register<SettingChangedMessage<bool>>(this, m =>
@@ -114,66 +84,86 @@ namespace Quarrel.ViewModels.Models.Bindables
                 }
             });
 
-            #endregion
-
             if (states != null)
             {
                 foreach (var state in states)
                 {
                     if (state.ChannelId == Model.Id)
                     {
+                        state.GuildId = GuildId;
                         ConnectedUsers.Add(state.UserId, new BindableVoiceUser(state));
                     }
                 }
             }
         }
 
-        #endregion
-
-        #region Properties
-
-        #region Services
-
-        private ICurrentUserService _CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
-        private IChannelsService _ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
-        private IDiscordService _DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
-        private ISettingsService _SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
-        private IFriendsService _FriendsService { get; } = SimpleIoc.Default.GetInstance<IFriendsService>();
-        public IVoiceService VoiceService { get; } = SimpleIoc.Default.GetInstance<IVoiceService>();
-        public IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
-        public IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
-
-        #endregion
-
+        /// <summary>
+        /// Gets the <see cref="BindableGuild"/> the channel belongs to.
+        /// </summary>
         public BindableGuild Guild
         {
-            get => GuildsService.AllGuilds[guildId];
+            get => GuildsService.AllGuilds[GuildId];
         }
 
-        #region ChannelType
-
+        /// <summary>
+        /// Gets a value indicating whether or not the channel is a standard text channel.
+        /// </summary>
         public bool IsTextChannel => Model.Type == 0;
+
+        /// <summary>
+        /// Gets a value indicating whether or not the channel is a dm channel.
+        /// </summary>
         public bool IsDirectChannel => Model.Type == 1;
+
+        /// <summary>
+        /// Gets a value indicating whether or not the channel is a voice channel.
+        /// </summary>
         public bool IsVoiceChannel => Model.Type == 2;
+
+        /// <summary>
+        /// Gets a value indicating whether or not the channel is a group dm channel.
+        /// </summary>
         public bool IsGroupChannel => Model.Type == 3;
+
+        /// <summary>
+        /// Gets a value indicating whether or not the channel is a category.
+        /// </summary>
         public bool IsCategory => Model.Type == 4;
+
+        /// <summary>
+        /// Gets a value indicating whether or not the channel is a guild channel.
+        /// </summary>
         public bool IsGuildChannel => !IsPrivateChannel;
+
+        /// <summary>
+        /// Gets the model as a <see cref="GuildChannel"/>.
+        /// </summary>
         public GuildChannel AsGuildChannel => Model as GuildChannel;
+
+        /// <summary>
+        /// Gets a value indicating whether or not the channel is in a DM.
+        /// </summary>
         public bool IsPrivateChannel => IsDirectChannel || IsGroupChannel;
+
+        /// <summary>
+        /// Gets the Model as a <see cref="DirectMessageChannel"/>.
+        /// </summary>
         public DirectMessageChannel AsDMChannel => Model as DirectMessageChannel;
+
+        /// <summary>
+        /// Gets a value indicating whether or not the channel has typing contents.
+        /// </summary>
         public bool IsTypingChannel => IsCategory || IsTextChannel || IsDirectChannel || IsGroupChannel;
 
-        #endregion
-
-        #region Settings
-
-        private bool _Muted;
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the channel is muted.
+        /// </summary>
         public bool Muted
         {
-            get => _Muted;
+            get => _muted;
             set
             {
-                if (Set(ref _Muted, value))
+                if (Set(ref _muted, value))
                 {
                     RaisePropertyChanged(nameof(TextOpacity));
                     RaisePropertyChanged(nameof(ShowUnread));
@@ -181,36 +171,41 @@ namespace Quarrel.ViewModels.Models.Bindables
             }
         }
 
-        #endregion
-
-        // Order:
-        //  Guild Permsissions
-        //  Denies of @everyone
-        //  Allows of @everyone
-        //  All Role Denies
-        //  All Role Allows
-        //  Member denies
-        //  Member allows
-        private Permissions permissions = null;
+        /// <summary>
+        /// Gets the current user's permissions in this channel.
+        /// </summary>
+        /// <remarks>
+        /// Guild Permsissions
+        ///  Denies of @everyone.
+        ///  Allows of @everyone.
+        ///  All Role Denies.
+        ///  All Role Allows.
+        ///  Member denies.
+        ///  Member allows.
+        /// </remarks>
         public Permissions Permissions
         {
             get
             {
-                if (permissions != null)
-                    return permissions;
+                if (_permissions != null)
+                {
+                    return _permissions;
+                }
 
                 if (Model is GuildChannel)
                 {
                     Permissions perms = Guild.Permissions.Clone();
 
-                    var user = Guild.Model.Members.FirstOrDefault(x => x.User.Id == _DiscordService.CurrentUser.Id);
+                    var user = Guild.Model.Members.FirstOrDefault(x => x.User.Id == DiscordService.CurrentUser.Id);
 
                     GuildPermission roleDenies = 0;
                     GuildPermission roleAllows = 0;
                     GuildPermission memberDenies = 0;
                     GuildPermission memberAllows = 0;
                     foreach (Overwrite overwrite in (Model as GuildChannel).PermissionOverwrites)
-                        if (overwrite.Type == "role" && overwrite.Id == guildId) // @everyone Id is equal to GuildId
+                    {
+                        // @everyone Id is equal to GuildId
+                        if (overwrite.Type == "role" && overwrite.Id == GuildId)
                         {
                             perms.AddDenies((GuildPermission)overwrite.Deny);
                             perms.AddAllows((GuildPermission)overwrite.Allow);
@@ -225,6 +220,7 @@ namespace Quarrel.ViewModels.Models.Bindables
                             memberDenies |= (GuildPermission)overwrite.Deny;
                             memberAllows |= (GuildPermission)overwrite.Allow;
                         }
+                    }
 
                     perms.AddDenies(roleDenies);
                     perms.AddAllows(roleAllows);
@@ -237,44 +233,62 @@ namespace Quarrel.ViewModels.Models.Bindables
                         perms.AddAllows(GuildPermission.Administrator);
                     }
 
-                    permissions = perms;
+                    _permissions = perms;
                     return perms;
                 }
+
                 return new Permissions(int.MaxValue);
             }
         }
 
-        #region Sorting
-
-        private int _ParentPostion;
+        /// <summary>
+        /// Gets or sets the position of the parent.
+        /// </summary>
         public int ParentPostion
         {
-            get => _ParentPostion;
-            set => Set(ref _ParentPostion, value);
+            get => _parentPostion;
+            set => Set(ref _parentPostion, value);
         }
-        
+
+        /// <summary>
+        /// Gets the position to order the channel in.
+        /// </summary>
         public ulong AbsolutePostion
         {
             get
             {
                 if (IsCategory)
+                {
                     return ((ulong)Position + 1) << 32;
+                }
                 else
+                {
                     return
                         ((ulong)ParentPostion + 1) << 32 |
                         ((uint)(IsVoiceChannel ? 1 : 0) << 31) |
                         (uint)(Position + 1);
+                }
             }
         }
 
-        #endregion
+        /// <summary>
+        /// Gets the id of the guild parenting the channel.
+        /// </summary>
+        public string GuildId => AsGuildChannel?.GuildId ?? "DM";
 
-        #region Misc
-
-        private string guildId;
-        public string GuildId { get => guildId; }
+        /// <summary>
+        /// Gets the id of the parent category.
+        /// </summary>
         public string ParentId => Model is GuildChannel gcModel ? (IsCategory ? gcModel.Id : gcModel.ParentId) : null;
+
+        /// <summary>
+        /// Gets the position within the category of the channel.
+        /// </summary>
         public int Position => Model is GuildChannel gcModel ? gcModel.Position : 0;
+
+        /// <summary>
+        /// Gets the channel name formatted (case wise).
+        /// </summary>
         public string FormattedName
         {
             get
@@ -286,79 +300,103 @@ namespace Quarrel.ViewModels.Models.Bindables
                     case 4:
                         return Model.Name.ToUpper();
                 }
+
                 return Model.Name;
             }
         }
-        public IEnumerable<BindableGuildMember> GuildMembers
+
+        /// <summary>
+        /// Gets the members of a private channel.
+        /// </summary>
+        public IEnumerable<BindableGuildMember> ChannelMembers
         {
             get
             {
                 if (!IsDirectChannel && !IsGroupChannel)
+                {
                     return null;
+                }
 
                 if (Model is DirectMessageChannel dmChannel)
                 {
-                    return dmChannel.Users.Select(x => _FriendsService.DMUsers[x.Id]);
+                    return dmChannel.Users.Select(x => FriendsService.DMUsers[x.Id]);
                 }
 
                 return null;
             }
         }
 
-        #endregion
-
-        #region Display
-
-        private bool _Selected;
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the current is selected.
+        /// </summary>
         public bool Selected
         {
-            get => _Selected;
+            get => _selected;
             set
             {
-                if (Set(ref _Selected, value))
+                if (Set(ref _selected, value))
+                {
                     RaisePropertyChanged(nameof(Hidden));
+                }
             }
         }
 
-        private bool _Collapsed;
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the channel is collapsed.
+        /// </summary>
         public bool Collapsed
         {
-            get => _Collapsed;
+            get => _collapsed;
             set
             {
-                if (Set(ref _Collapsed, value))
+                if (Set(ref _collapsed, value))
+                {
                     RaisePropertyChanged(nameof(Hidden));
+                }
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether or not the channel is hidden.
+        /// </summary>
         public bool Hidden
         {
             get
             {
                 bool hidden = false;
-                if (_Collapsed && !IsCategory)
+                if (_collapsed && !IsCategory)
                 {
                     hidden = true;
-                    switch (_SettingsService.Roaming.GetValue<CollapseOverride>(SettingKeys.CollapseOverride))
+                    switch (SettingsService.Roaming.GetValue<CollapseOverride>(SettingKeys.CollapseOverride))
                     {
                         case CollapseOverride.Mention:
                             if (MentionCount > 0)
+                            {
                                 hidden = false;
+                            }
+
                             break;
                         case CollapseOverride.Unread:
                             if (ShowUnread)
+                            {
                                 hidden = false;
+                            }
+
                             break;
                     }
                 }
-                else if (!Permissions.ReadMessages && !_SettingsService.Roaming.GetValue<bool>(SettingKeys.ShowNoPermssions))
+                else if (!Permissions.ReadMessages && !SettingsService.Roaming.GetValue<bool>(SettingKeys.ShowNoPermssions))
                 {
                     hidden = true;
                 }
+
                 return hidden && !Selected;
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether or not the channel has an icon.
+        /// </summary>
         public bool HasIcon
         {
             get
@@ -379,26 +417,43 @@ namespace Quarrel.ViewModels.Models.Bindables
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether or not the channel should be shown as unread.
+        /// </summary>
         public bool ShowUnread
         {
             get => IsUnread && !Muted && Permissions.ReadMessages;
         }
 
+        /// <summary>
+        /// Gets the text opacity to show the channel at.
+        /// </summary>
         public double TextOpacity
         {
             get
             {
                 if (!Permissions.ReadMessages)
+                {
                     return 0.25;
+                }
                 else if (Muted)
+                {
                     return 0.35;
+                }
                 else if (IsUnread)
+                {
                     return 1;
+                }
                 else
+                {
                     return 0.55;
+                }
             }
         }
 
+        /// <summary>
+        /// Gets the icon url for the channel.
+        /// </summary>
         public string ImageUrl
         {
             get
@@ -411,7 +466,7 @@ namespace Quarrel.ViewModels.Models.Bindables
                     }
                     else if (IsGroupChannel)
                     {
-                        //TODO: detect theme
+                        // TODO: detect theme
                         return dmModel.IconUrl(true, true);
                     }
                 }
@@ -420,22 +475,30 @@ namespace Quarrel.ViewModels.Models.Bindables
             }
         }
 
+        /// <summary>
+        /// Gets the discriminator of the first user in a DM.
+        /// </summary>
         public int FirstUserDiscriminator
         {
             get => Model is DirectMessageChannel dmModel ? (dmModel.Users.Count > 0 ? Convert.ToInt32(dmModel.Users[0].Discriminator) : 0) : 0;
         }
 
+        /// <summary>
+        /// Gets a value indicating whether or not the backdrop icon should show.
+        /// </summary>
         public bool ShowIconBackdrop
         {
             get => IsDirectChannel && !HasIcon;
         }
 
-        public ObservableHashedCollection<string, BindableVoiceUser> ConnectedUsers = new ObservableHashedCollection<string, BindableVoiceUser>();
+        /// <summary>
+        /// Gets a collection of users connected to a voice channel.
+        /// </summary>
+        public ObservableHashedCollection<string, BindableVoiceUser> ConnectedUsers { get; private set; } = new ObservableHashedCollection<string, BindableVoiceUser>();
 
-        #endregion
-
-        #region ReadState
-
+        /// <summary>
+        /// Gets a value indicating whether or not the channel is unread.
+        /// </summary>
         public bool IsUnread
         {
             get
@@ -446,24 +509,31 @@ namespace Quarrel.ViewModels.Models.Bindables
                     {
                         return ReadState.LastMessageId != Model.LastMessageId;
                     }
+
                     return true;
                 }
+
                 return false;
             }
         }
 
+        /// <summary>
+        /// Gets the amount of mentions in the channel.
+        /// </summary>
         public int MentionCount
         {
             get => ReadState == null ? 0 : ReadState.MentionCount;
         }
 
-        private ReadState _ReadState;
+        /// <summary>
+        /// Gets or sets the channel read state and updates related values.
+        /// </summary>
         public ReadState ReadState
         {
-            get => _ReadState;
+            get => _readState;
             set
             {
-                if (Set(ref _ReadState, value))
+                if (Set(ref _readState, value))
                 {
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
@@ -475,10 +545,146 @@ namespace Quarrel.ViewModels.Models.Bindables
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether or not someone is typing in the channel.
+        /// </summary>
+        public bool IsTyping
+        {
+            get => Typers.Count > 0;
+        }
+
+        /// <summary>
+        /// Gets a formatted string for the list of typing members.
+        /// </summary>
+        public string TypingText
+        {
+            get
+            {
+                var names = GetTypersNames();
+                string typeText = string.Empty;
+                for (int i = 0; i < names.Count; i++)
+                {
+                    if (i != 0)
+                    {
+                        typeText += ", ";
+                    }
+                    else if (i != 0 && i == names.Count - 1)
+                    {
+                        typeText += " and ";
+                    }
+
+                    typeText += names[i];
+                }
+
+                if (names.Count > 5)
+                {
+                    return "Several people are typing.";
+                }
+                else if (names.Count > 1)
+                {
+                    typeText += " are typing";
+                }
+                else
+                {
+                    typeText += " is typing";
+                }
+
+                return typeText;
+            }
+        }
+
+        /// <summary>
+        /// Gets a command that opens the user profile for a DM.
+        /// </summary>
+        public RelayCommand OpenProfile => _openProfile = new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("UserProfilePage", ChannelMembers.FirstOrDefault());
+        });
+
+        /// <summary>
+        /// Gets a command that marks all messages in the channel as read.
+        /// </summary>
+        public RelayCommand MarkAsRead => _markAsRead = new RelayCommand(async () =>
+        {
+            if (Model.LastMessageId != null)
+            {
+                await DiscordService.ChannelService.AckMessage(Model.Id, Model.LastMessageId);
+            }
+        });
+
+        /// <summary>
+        /// Gets a command that mutes the channel.
+        /// </summary>
+        public RelayCommand Mute => _mute = new RelayCommand(async () =>
+        {
+            // Build basic Settings Modifier
+            GuildSettingModify guildSettingModify = new GuildSettingModify();
+            guildSettingModify.GuildId = GuildId == "DM" ? "@me" : GuildId;
+            guildSettingModify.ChannelOverrides = new Dictionary<string, ChannelOverride>();
+
+            ChannelOverride channelOverride;
+            if (ChannelsService.ChannelSettings.TryGetValue(Model.Id, out channelOverride))
+            {
+                // No pre-exisitng channeloverride, create a default
+                channelOverride = new ChannelOverride();
+                channelOverride.ChannelId = Model.Id;
+                channelOverride.Muted = false; // Will be swapped later
+            }
+
+            channelOverride.Muted = !channelOverride.Muted;
+
+            // Finish Settings Modifer and send request
+            guildSettingModify.ChannelOverrides.Add(Model.Id, channelOverride);
+            await DiscordService.UserService.ModifyGuildSettings(guildSettingModify.GuildId, guildSettingModify);
+        });
+
+        /// <summary>
+        /// Gets a command that removes the current user from a group DM.
+        /// </summary>
+        public RelayCommand LeaveGroup => _leaveGroup = new RelayCommand(async () =>
+        {
+            await DiscordService.ChannelService.DeleteChannel(Model.Id);
+        });
+
+        /// <summary>
+        /// Gets a command that copies the channel id to clipboard.
+        /// </summary>
+        public RelayCommand CopyId => _copyId = new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(Model.Id);
+        });
+
+        /// <summary>
+        /// Gets a <see cref="ConcurrentDictionary{TKey, TValue}"/> of people typing in the channel, hashed by user id.
+        /// </summary>
+        public ConcurrentDictionary<string, Timer> Typers { get; private set; } = new ConcurrentDictionary<string, Timer>();
+
+        private ICurrentUserService CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
+
+        private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
+
+        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
+
+        private ISettingsService SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
+
+        private IFriendsService FriendsService { get; } = SimpleIoc.Default.GetInstance<IFriendsService>();
+
+        private IVoiceService VoiceService { get; } = SimpleIoc.Default.GetInstance<IVoiceService>();
+
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+
+        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+
+        /// <summary>
+        /// Updates the Last Read Message ID in the channel's readstate.
+        /// </summary>
+        /// <param name="id">The new last read message id.</param>
         public void UpdateLRMID(string id)
         {
             if (ReadState == null)
+            {
                 ReadState = new ReadState();
+            }
 
             ReadState.LastMessageId = id;
             ReadState.MentionCount = 0;
@@ -492,6 +698,10 @@ namespace Quarrel.ViewModels.Models.Bindables
             });
         }
 
+        /// <summary>
+        /// Updates the Last Message Id for in the channel.
+        /// </summary>
+        /// <param name="id">The new last message id.</param>
         public void UpdateLMID(string id)
         {
             Model.UpdateLMID(id);
@@ -505,16 +715,11 @@ namespace Quarrel.ViewModels.Models.Bindables
             });
         }
 
-        #endregion
-
-        #region Typing
-
-        public bool IsTyping
-        {
-            get => Typers.Count > 0;
-        }
-
-        public List<string> GetNames()
+        /// <summary>
+        /// Gets the names of the people typing in a channel.
+        /// </summary>
+        /// <returns>A <see cref="List{T}"/> of members typing in the channel.</returns>
+        public List<string> GetTypersNames()
         {
             List<string> names = new List<string>();
             var keys = Typers.Keys.ToList();
@@ -530,96 +735,5 @@ namespace Quarrel.ViewModels.Models.Bindables
 
             return names;
         }
-
-        public string TypingText
-        {
-            get
-            {
-                var names = GetNames();
-                string typeText = "";
-                for (int i = 0; i < names.Count; i++)
-                {
-                    if (i != 0)
-                    {
-                        typeText += ", ";
-                    }
-                    else if (i != 0 && i == names.Count - 1)
-                    {
-                        typeText += " and ";
-                    }
-                    typeText += names[i];
-                }
-
-                if (names.Count > 1)
-                {
-                    typeText += " are typing";
-                }
-                else
-                {
-                    typeText += " is typing";
-                }
-                return typeText;
-            }
-        }
-
-        public ConcurrentDictionary<string, Timer> Typers = new ConcurrentDictionary<string, Timer>();
-
-        #endregion
-
-
-        #endregion
-
-        #region Commands
-
-        private RelayCommand openProfile;
-        public RelayCommand OpenProfile => openProfile = new RelayCommand(() =>
-        {
-            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("UserProfilePage", GuildMembers.FirstOrDefault());
-        });
-
-        private RelayCommand markAsRead;
-        public RelayCommand MarkAsRead => markAsRead = new RelayCommand(async () =>
-        {
-            if (Model.LastMessageId != null)
-                await _DiscordService.ChannelService.AckMessage(Model.Id, Model.LastMessageId);
-        });
-
-        private RelayCommand mute;
-        public RelayCommand Mute => mute = new RelayCommand(async () =>
-        {
-            // Build basic Settings Modifier
-            GuildSettingModify guildSettingModify = new GuildSettingModify();
-            guildSettingModify.GuildId = GuildId == "DM" ? "@me" : GuildId;
-            guildSettingModify.ChannelOverrides = new Dictionary<string, ChannelOverride>();
-
-            ChannelOverride channelOverride;
-            if(_ChannelsService.ChannelSettings.TryGetValue(Model.Id, out channelOverride))
-            {
-                // No pre-exisitng channeloverride, create a default
-                channelOverride = new ChannelOverride();
-                channelOverride.ChannelId = Model.Id;
-                channelOverride.Muted = false; // Will be swapped later
-            }
-
-            channelOverride.Muted = !channelOverride.Muted;
-
-            // Finish Settings Modifer and send request
-            guildSettingModify.ChannelOverrides.Add(Model.Id, channelOverride);
-            await _DiscordService.UserService.ModifyGuildSettings(guildSettingModify.GuildId, guildSettingModify);
-        });
-
-        private RelayCommand leaveGroup;
-        public RelayCommand LeaveGroup => leaveGroup = new RelayCommand(async () =>
-        {
-            await _DiscordService.ChannelService.DeleteChannel(Model.Id);
-        });
-
-        private RelayCommand copyId;
-        public RelayCommand CopyId => copyId = new RelayCommand(() =>
-        {
-            SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(Model.Id);
-        });
-
-        #endregion
     }
 }

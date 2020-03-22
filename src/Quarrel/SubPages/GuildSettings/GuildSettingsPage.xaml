@@ -18,8 +18,8 @@
                 <ctl:NavigationViewItem x:Name="OverviewItem" Icon="PreviewLink" Content="Overview"/>
 
                 <ctl:NavigationViewItemHeader Content="User's Server Settings"/>
-                <ctl:NavigationViewItem x:Name="PrivacyItem" Icon="Permissions" Content="Privacy" IsEnabled="False"/>
-                <ctl:NavigationViewItem x:Name="NotificationsItem" Icon="Flag" Content="Notifications" IsEnabled="False"/>
+                <ctl:NavigationViewItem x:Name="PrivacyItem" Icon="Permissions" Content="Privacy"/>
+                <ctl:NavigationViewItem x:Name="NotificationsItem" Icon="Flag" Content="Notifications"/>
 
                 <ctl:NavigationViewItemHeader Content="Server Settings"/>
                 <ctl:NavigationViewItem x:Name="RolesItem" Icon="ContactPresence" Content="Roles" IsEnabled="False"/>

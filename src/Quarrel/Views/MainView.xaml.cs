@@ -1,19 +1,23 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight.Messaging;
 using Quarrel.ViewModels;
 using Quarrel.ViewModels.Messages;
 using Windows.ApplicationModel.Activation;
 using Windows.Networking.Connectivity;
 using Windows.UI.Xaml.Controls;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
 namespace Quarrel
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// The Main View, root for the app's visual tree.
     /// </summary>
     public sealed partial class MainView : Page
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainView"/> class.
+        /// </summary>
+        /// <param name="splash">The Splash Screen data for the loading screen.</param>
         public MainView(SplashScreen splash)
         {
             this.InitializeComponent();
@@ -25,10 +29,13 @@ namespace Quarrel
             }
             else
             {
-                Messenger.Default.Send(new ConnectionStatusMessage(Status.Offline));
+                Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Offline));
             }
         }
 
+        /// <summary>
+        /// Gets the <see cref="MainViewModel"/> for the app.
+        /// </summary>
         public MainViewModel ViewModel => App.ViewModelLocator.Main;
     }
 }

@@ -143,12 +143,12 @@ namespace DiscordAPI.Gateway
             GatewayClosed?.Invoke(null, exception);
         }
 
-        private async Task HandleTextMessage(string message)
+        private void HandleTextMessage(string message)
         {
             using (var reader = new StringReader(message))
                 HandleMessage(reader);
         }
-        private async Task BinaryMessage(byte[] bytes, int index1, int count)
+        private void BinaryMessage(byte[] bytes, int index1, int count)
         {
             if(Logger?.IsEnabled(LogLevel.Trace) ?? false)
             {
@@ -488,7 +488,8 @@ namespace DiscordAPI.Gateway
                 {
                     GuildId = guildId,
                     Channels = channels,
-                    Members = members
+                    Members = members,
+                    Typing = true
                 }
             };
             await SendMessageAsync(JsonConvert.SerializeObject(updateGuildSubscriptions, Formatting.None, new JsonSerializerSettings 

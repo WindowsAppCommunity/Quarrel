@@ -1,17 +1,21 @@
-﻿using DiscordAPI.API.User.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.API.User.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
 using Quarrel.ViewModels.Services.Discord.Rest;
-using Quarrel.ViewModels.Services.DispatcherHelper;
 
 namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 {
+    /// <summary>
+    /// Privacy settings page data.
+    /// </summary>
     public class PrivacySettingsViewModel : ViewModelBase
     {
-        private ICurrentUserService CurrentUsersService => SimpleIoc.Default.GetInstance<ICurrentUserService>();
-        
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the filter setting is set to all.
+        /// </summary>
         public bool FilterAll
         {
             get => CurrentUsersService.CurrentUserSettings.ExplicitContentFilter == 2;
@@ -19,7 +23,9 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             {
                 // Being set to false, don't update
                 if (!value)
+                {
                     return;
+                }
 
                 ModifyUserSettings modify = new ModifyUserSettings(CurrentUsersService.CurrentUserSettings);
                 modify.ExplicitContentFilter = 2;
@@ -27,6 +33,9 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the filter setting is set to public.
+        /// </summary>
         public bool PublicFilter
         {
             get => CurrentUsersService.CurrentUserSettings.ExplicitContentFilter == 1;
@@ -34,7 +43,9 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             {
                 // Being set to false, don't update
                 if (!value)
+                {
                     return;
+                }
 
                 ModifyUserSettings modify = new ModifyUserSettings(CurrentUsersService.CurrentUserSettings);
                 modify.ExplicitContentFilter = 1;
@@ -42,6 +53,9 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the filter setting is set to none.
+        /// </summary>
         public bool NoFilter
         {
             get => CurrentUsersService.CurrentUserSettings.ExplicitContentFilter == 0;
@@ -49,7 +63,9 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             {
                 // Being set to false, don't update
                 if (!value)
+                {
                     return;
+                }
 
                 ModifyUserSettings modify = new ModifyUserSettings(CurrentUsersService.CurrentUserSettings);
                 modify.ExplicitContentFilter = 0;
@@ -57,6 +73,12 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             }
         }
 
+        private ICurrentUserService CurrentUsersService => SimpleIoc.Default.GetInstance<ICurrentUserService>();
+
+        /// <summary>
+        /// Saves pending changes to the user.
+        /// </summary>
+        /// <param name="modify">User modify settings.</param>
         public async void ApplyChanges(ModifyUserSettings modify)
         {
             await SimpleIoc.Default.GetInstance<IDiscordService>().UserService.UpdateSettings(modify);

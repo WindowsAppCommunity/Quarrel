@@ -1,10 +1,11 @@
-﻿// Special thanks to Sergio Pedri for the basis of this design
+﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Messages.Gateway.Guild;
 using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Models.Interfaces;
@@ -22,14 +23,42 @@ using System.Linq;
 
 namespace Quarrel.ViewModels.Models.Bindables
 {
+    /// <summary>
+    /// A Bindable wrapper for the <see cref="Guild"/> model.
+    /// </summary>
     public class BindableGuild : BindableModelBase<Guild>, IGuild
     {
-        #region Constructors
+        private ObservableCollection<BindableChannel> _channels;
+        private Permissions _permissions = null;
+        private int _position;
+        private bool _muted;
+        private RelayCommand _copyId;
+        private RelayCommand _openGuildSettings;
+        private RelayCommand _markAsRead;
+        private RelayCommand _muteGuild;
+        private RelayCommand _addChanneleCommand;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BindableGuild"/> class.
+        /// </summary>
+        /// <param name="model">The base <see cref="Guild"/> object.</param>
         public BindableGuild([NotNull] Guild model) : base(model)
         {
-            _Channels = new ObservableCollection<BindableChannel>();
+            _channels = new ObservableCollection<BindableChannel>();
 
-            #region Messenger
+            MessengerInstance.Register<GatewayGuildUpdatedMessage>(this, m =>
+            {
+                if (m.Guild.Id == Model.Id)
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        Model = m.Guild;
+                        RaisePropertyChanged(nameof(DisplayText));
+                        RaisePropertyChanged(nameof(HasIcon));
+                        RaisePropertyChanged(nameof(IconUrl));
+                    });
+                }
+            });
 
             MessengerInstance.Register<GatewayMessageRecievedMessage>(this, m =>
             {
@@ -54,6 +83,7 @@ namespace Quarrel.ViewModels.Models.Bindables
             MessengerInstance.Register<GatewayUserGuildSettingsUpdatedMessage>(this, m =>
             {
                 if ((m.Settings.GuildId ?? "DM") == Model.Id)
+                {
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         if (GuildsService.GuildSettings.TryGetValue(Model.Id, out var guildSetting))
@@ -61,6 +91,7 @@ namespace Quarrel.ViewModels.Models.Bindables
                             Muted = guildSetting.Muted;
                         }
                     });
+                }
             });
 
             MessengerInstance.Register<SettingChangedMessage<bool>>(this, m =>
@@ -70,81 +101,86 @@ namespace Quarrel.ViewModels.Models.Bindables
                     RaisePropertyChanged(nameof(ShowMute));
                 }
             });
-
-            #endregion
         }
 
-        #endregion
-
-        #region Properties
-
-        #region Services
-
-        private IDiscordService _DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
-        private ISettingsService _SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
-        private ICurrentUserService CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
-        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
-        private ISubFrameNavigationService SubFrameNavigationService { get; } = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
-        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
-        #endregion
-
-        #region Settings
-
-        private int _Position;
+        /// <summary>
+        /// Gets or sets the Guild's position in the guild list.
+        /// </summary>
         public int Position
         {
-            get => _Position;
-            set => Set(ref _Position, value);
+            get => _position;
+            set => Set(ref _position, value);
         }
 
-
-        private bool _Muted;
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the guild is muted.
+        /// </summary>
         public bool Muted
         {
-            get => _Muted;
+            get => _muted;
             set
             {
-                if (Set(ref _Muted, value))
-                    RaisePropertyChanged(nameof(ShowMute));
-            }
-        }
-
-        public bool ShowMute => Muted && _SettingsService.Roaming.GetValue<bool>(SettingKeys.ServerMuteIcons);
-
-        #endregion
-
-        #region Icon
-
-        public string DisplayText
-        {
-            get
-            {
-                if (IsDM) { return ""; }
-                else
+                if (Set(ref _muted, value))
                 {
-                    return String.Concat(Model.Name.Split(' ').Select(s => StringInfo.GetNextTextElement(s, 0)).ToArray());
+                    MuteGuild(value);
+                    RaisePropertyChanged(nameof(ShowMute));
+                    RaisePropertyChanged(nameof(ShowUnread));
                 }
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether not the mute icon should be shown in on top of the Guild icon.
+        /// </summary>
+        public bool ShowMute => Muted && SettingsService.Roaming.GetValue<bool>(SettingKeys.ServerMuteIcons);
+
+        /// <summary>
+        /// Gets the text to show in the text block if any.
+        /// </summary>
+        public string DisplayText
+        {
+            get
+            {
+                if (IsDM)
+                {
+                    return "";
+                }
+                else
+                {
+                    return string.Concat(Model.Name.Split(' ').Select(s => StringInfo.GetNextTextElement(s, 0)).ToArray());
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the url for the guild icon.
+        /// </summary>
         public string IconUrl => $"https://cdn.discordapp.com/icons/{Model.Id}/{Model.Icon}.png?size=128";
 
-        public bool HasIcon => !String.IsNullOrEmpty(Model.Icon);
+        /// <summary>
+        /// Gets a value indicating whether or not the guild has an icon.
+        /// </summary>
+        public bool HasIcon => !string.IsNullOrEmpty(Model.Icon);
 
-        #endregion
-
-        #region ReadState
-
+        /// <summary>
+        /// Gets a value indicating whether or not the guild constains any unread channels.
+        /// </summary>
         public bool IsUnread
         {
             get => Channels.Any(x => x.IsUnread);
         }
 
+        /// <summary>
+        /// Gets a value indicating whether or not the guild should be displayed as unread.
+        /// </summary>
         public bool ShowUnread
         {
             get => Channels.Any(x => x.ShowUnread) && !Muted && NotificationCount == 0;
         }
 
+        /// <summary>
+        /// Gets the number of notications in the guild.
+        /// </summary>
         public int NotificationCount
         {
             get
@@ -154,37 +190,54 @@ namespace Quarrel.ViewModels.Models.Bindables
                 {
                     total += channel.ReadState != null ? channel.ReadState.MentionCount : 0;
                 }
+
                 return total;
             }
         }
 
-        #endregion
-
+        /// <summary>
+        /// Gets a value indicating whether or not the guild is the DM guild.
+        /// </summary>
         public bool IsDM => Model.Id == "DM";
 
+        /// <summary>
+        /// Gets a value indicating whether or not the current user owns the guild.
+        /// </summary>
         public bool IsOwner { get => CurrentUsersService.CurrentUser.Model.Id == Model.OwnerId; }
 
-        // Order
-        // Add allows for @everyone role
-        // Add allows for each role
-        private Permissions permissions = null;
+        /// <summary>
+        /// Gets the current user's permissions in the guild.
+        /// </summary>
+        /// <remarks>
+        /// Order
+        /// Add allows for @everyone role.
+        /// Add allows for each role.
+        /// </remarks>
         public Permissions Permissions
         {
             get
             {
-                if (permissions != null)
-                    return permissions;
+                if (_permissions != null)
+                {
+                    return _permissions;
+                }
 
                 if (Model.Id == "DM" || Model.OwnerId == CurrentUsersService.CurrentUser.Model.Id)
+                {
                     return new Permissions(int.MaxValue);
+                }
 
                 // Role Id == Model.Id for @everyone
                 Permissions perms = new Permissions(Model.Roles.FirstOrDefault(x => x.Id == Model.Id).Permissions);
 
                 // TODO: Easier access to CurrentGuildMember
                 BindableGuildMember member = new BindableGuildMember(Model.Members.FirstOrDefault(x => x.User.Id == CurrentUsersService.CurrentUser.Model.Id), Model.Id);
-                
-                if (member == null) return perms;
+
+                if (member == null)
+                {
+                    return perms;
+                }
+
                 if (member.Roles != null)
                 {
                     foreach (var role in member.Roles)
@@ -193,58 +246,80 @@ namespace Quarrel.ViewModels.Models.Bindables
                     }
                 }
 
-                permissions = perms;
+                _permissions = perms;
                 return perms;
             }
         }
 
-        private ObservableCollection<BindableChannel> _Channels;
+        /// <summary>
+        /// Gets or sets an observable collection of channels in the guild.
+        /// </summary>
         public ObservableCollection<BindableChannel> Channels
         {
-            get => _Channels;
-            set => Set(ref _Channels, value);
+            get => _channels;
+            set => Set(ref _channels, value);
         }
 
-        #endregion
-
-        #region Commands
-
-        private RelayCommand addChanneleCommand;
+        /// <summary>
+        /// Gets a command that navigates to the page for adding channels to this guild.
+        /// </summary>
         public RelayCommand AddChannelCommand =>
-            addChanneleCommand ?? (addChanneleCommand = new RelayCommand(() =>
-            {
-                SubFrameNavigationService.NavigateTo("AddChannelPage", Model);
-
-            }));
-
-        private RelayCommand muteGuild;
-        public RelayCommand MuteGuild => muteGuild = new RelayCommand(() =>
+        _addChanneleCommand ?? (_addChanneleCommand = new RelayCommand(() =>
         {
-            GuildSettingModify guildSettingModify = new GuildSettingModify();
-            guildSettingModify.GuildId = Model.Id;
-            guildSettingModify.Muted = !Muted;
+            SubFrameNavigationService.NavigateTo("AddChannelPage", Model);
+        }));
 
-            SimpleIoc.Default.GetInstance<IDiscordService>().UserService.ModifyGuildSettings(guildSettingModify.GuildId, guildSettingModify);
+        /// <summary>
+        /// Gets a command that mutes this guild.
+        /// </summary>
+        public RelayCommand MuteGuildCommand => _muteGuild = new RelayCommand(() =>
+        {
+            MuteGuild(!Muted);
         });
 
-        private RelayCommand markAsRead;
-        public RelayCommand MarkAsRead => markAsRead = new RelayCommand(() =>
+        /// <summary>
+        /// Gets a command that marks all channels in this guild as read.
+        /// </summary>
+        public RelayCommand MarkAsRead => _markAsRead = new RelayCommand(() =>
         {
             SimpleIoc.Default.GetInstance<IDiscordService>().GuildService.AckGuild(Model.Id);
         });
 
-        private RelayCommand openGuildSettings;
-        public RelayCommand OpenGuildSettings => openGuildSettings = new RelayCommand(() =>
+        /// <summary>
+        /// Gets a command that opens this guild's settings.
+        /// </summary>
+        public RelayCommand OpenGuildSettings => _openGuildSettings = new RelayCommand(() =>
         {
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("GuildSettingsPage", this);
         });
 
-        private RelayCommand copyId;
-        public RelayCommand CopyId => copyId = new RelayCommand(() =>
+        /// <summary>
+        /// Gets a command that copies the guild id to the clipboard.
+        /// </summary>
+        public RelayCommand CopyId => _copyId = new RelayCommand(() =>
         {
             SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(Model.Id);
         });
 
-        #endregion
+        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
+
+        private ISettingsService SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
+
+        private ICurrentUserService CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
+
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+
+        private ISubFrameNavigationService SubFrameNavigationService { get; } = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+
+        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+
+        private async void MuteGuild(bool mute)
+        {
+            GuildSettingModify guildSettingModify = new GuildSettingModify();
+            guildSettingModify.GuildId = Model.Id;
+            guildSettingModify.Muted = mute;
+
+            await SimpleIoc.Default.GetInstance<IDiscordService>().UserService.ModifyGuildSettings(guildSettingModify.GuildId, guildSettingModify);
+        }
     }
 }

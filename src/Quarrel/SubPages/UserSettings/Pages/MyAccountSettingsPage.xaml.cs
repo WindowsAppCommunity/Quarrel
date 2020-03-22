@@ -1,4 +1,6 @@
-﻿using Quarrel.Helpers;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using Quarrel.Helpers;
 using Quarrel.ViewModels.SubPages.UserSettings.Pages;
 using System;
 using Windows.Storage;
@@ -7,14 +9,23 @@ using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.SubPages.UserSettings.Pages
 {
+    /// <summary>
+    /// The user settings My Account page.
+    /// </summary>
     public sealed partial class MyAccountSettingsPage : Page
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MyAccountSettingsPage"/> class.
+        /// </summary>
         public MyAccountSettingsPage()
         {
             this.InitializeComponent();
             this.DataContext = new MyAccountSettingsViewModel();
         }
 
+        /// <summary>
+        /// Gets the user's basic account data.
+        /// </summary>
         public MyAccountSettingsViewModel ViewModel => this.DataContext as MyAccountSettingsViewModel;
 
         private async void UploadAvatar(object sender, RoutedEventArgs e)
@@ -35,8 +46,11 @@ namespace Quarrel.SubPages.UserSettings.Pages
                     ViewModel.Base64Avatar = "data:" + file.ContentType + ";base64," +
                         Convert.ToBase64String(await ImageParsing.FileToBytes(file));
                 }
+
                 // Mainly for rate limit
-                catch { }
+                catch
+                {
+                }
             }
         }
     }

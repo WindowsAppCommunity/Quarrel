@@ -1,9 +1,10 @@
-﻿using DiscordAPI.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
-using Quarrel.ViewModels.Services.Settings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,17 +13,19 @@ using System.Threading;
 
 namespace Quarrel.ViewModels
 {
+    /// <summary>
+    /// The ViewModel for all data throughout the app.
+    /// </summary>
     public partial class MainViewModel
     {
-        #region Commands
-
-        #region Navigation
+        private RelayCommand<BindableChannel> _navigateChannelCommand;
+        private RelayCommand _navigateToFriends;
+        private BindableChannel _currentChannel;
 
         /// <summary>
-        /// Sends Messenger Request to change Channel
+        /// Gets a command that sends Messenger Request to change Channel.
         /// </summary>
-        private RelayCommand<BindableChannel> navigateChannelCommand;
-        public RelayCommand<BindableChannel> NavigateChannelCommand => navigateChannelCommand = navigateChannelCommand ?? new RelayCommand<BindableChannel>(async (channel) =>
+        public RelayCommand<BindableChannel> NavigateChannelCommand => _navigateChannelCommand = _navigateChannelCommand ?? new RelayCommand<BindableChannel>(async (channel) =>
         {
             if (channel.IsCategory)
             {
@@ -32,26 +35,28 @@ namespace Quarrel.ViewModels
                     && CurrentGuild.Channels[i] != null
                     && CurrentGuild.Channels[i].ParentId == channel.Model.Id;
                     i++)
+                {
                     CurrentGuild.Channels[i].Collapsed = newState;
+                }
             }
             else if (channel.IsVoiceChannel)
             {
                 if (channel.Model is GuildChannel gChannel)
-                    await DiscordService.Gateway.Gateway.VoiceStatusUpdate(CurrentGuild.Model.Id, gChannel.Id, false,
-                        false);
+                {
+                    await _discordService.Gateway.Gateway.VoiceStatusUpdate(CurrentGuild.Model.Id, gChannel.Id, false, false);
+                }
             }
             else if (channel.Permissions.ReadMessages)
             {
                 CurrentChannel = channel;
-                MessengerInstance.Send(new ChannelNavigateMessage(channel, CurrentGuild));
+                MessengerInstance.Send(new ChannelNavigateMessage(channel));
             }
         });
 
         /// <summary>
-        /// Sets null channel and clear messages to show Friends Panel
+        /// Gets a command that sets null channel and clear messages to show Friends Panel.
         /// </summary>
-        private RelayCommand navigateToFriends;
-        public RelayCommand NavigateToFriends => navigateToFriends = new RelayCommand(() =>
+        public RelayCommand NavigateToFriends => _navigateToFriends = new RelayCommand(() =>
         {
             if (CurrentChannel != null)
             {
@@ -62,39 +67,49 @@ namespace Quarrel.ViewModels
             BindableMessages.Clear();
         });
 
-        #endregion
-
-        #endregion
-
-        #region Methods
+        /// <summary>
+        /// Gets or sets the currently open channel.
+        /// </summary>
+        public BindableChannel CurrentChannel
+        {
+            get => _currentChannel;
+            set => Set(ref _currentChannel, value);
+        }
 
         private void RegisterChannelsMessages()
         {
-            #region Gateway
-
             MessengerInstance.Register<GatewayTypingStartedMessage>(this, m =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    if (ChannelsService.AllChannels.TryGetValue(m.TypingStart.ChannelId, out BindableChannel bChannel))
+                    if (_channelsService.AllChannels.TryGetValue(m.TypingStart.ChannelId, out BindableChannel bChannel))
                     {
-                        if (bChannel.Typers.TryRemove(m.TypingStart.UserId, out Timer oldTimer)) oldTimer.Dispose();
-
-                        Timer timer = new Timer(_ =>
+                        if (bChannel.Typers.TryRemove(m.TypingStart.UserId, out Timer oldTimer))
                         {
-                            if (bChannel.Typers.TryRemove(m.TypingStart.UserId, out Timer oldUser))
-                                oldUser.Dispose();
+                            oldTimer.Dispose();
+                        }
 
-                            DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                        Timer timer = new Timer(
+                            _ =>
                             {
-                                bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
-                                bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
-                            });
-                        }, null, 8 * 1000, 0);
+                                if (bChannel.Typers.TryRemove(m.TypingStart.UserId, out Timer oldUser))
+                                {
+                                    oldUser.Dispose();
+                                }
+
+                                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
+                                {
+                                    bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
+                                    bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
+                                });
+                            },
+                            null,
+                            8 * 1000,
+                            0);
 
                         bChannel.Typers.TryAdd(m.TypingStart.UserId, timer);
 
-                        DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                        _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                         {
                             bChannel.RaisePropertyChanged(nameof(bChannel.IsTyping));
                             bChannel.RaisePropertyChanged(nameof(bChannel.TypingText));
@@ -103,23 +118,19 @@ namespace Quarrel.ViewModels
                 });
             });
 
-            #endregion
-
-            #region Navigation
-
             MessengerInstance.Register<ChannelNavigateMessage>(this, async m =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUi(() => { CurrentChannel = m.Channel; });
+                _dispatcherHelper.CheckBeginInvokeOnUi(() => { CurrentChannel = m.Channel; });
 
                 await SemaphoreSlim.WaitAsync();
                 try
                 {
-                    _AtTop = false;
+                    _atTop = false;
                     NewItemsLoading = true;
                     IList<Message> itemList = null;
                     try
                     {
-                        itemList = await DiscordService.ChannelService.GetChannelMessages(m.Channel.Model.Id);
+                        itemList = await _discordService.ChannelService.GetChannelMessages(m.Channel.Model.Id);
                     }
                     catch (Exception e)
                     {
@@ -133,33 +144,34 @@ namespace Quarrel.ViewModels
 
                     List<BindableMessage> messages = new List<BindableMessage>();
 
-
-                    IReadOnlyDictionary<string, BindableGuildMember> guildMembers = guildId != "DM"
-                        ? GuildsService.GetAndRequestGuildMembers(itemList.Select(x => x.User.Id).Distinct(),
-                            guildId)
+                    IReadOnlyDictionary<string, BindableGuildMember> guildMembers = _currentGuild.Model.Id != "DM"
+                        ? _guildsService.GetAndRequestGuildMembers(
+                            itemList.Select(x => x.User.Id).Distinct(),
+                            _currentGuild.Model.Id)
                         : null;
 
                     int i = itemList.Count;
 
                     foreach (Message item in itemList.Reverse())
                     {
-                        messages.Add(new BindableMessage(item, guildId,
+                        messages.Add(new BindableMessage(
+                            item,
                             lastItem != null && lastItem.User.Id == item.User.Id,
-                            lastItem != null && m.Channel.ReadState != null &&
-                            lastItem.Id == m.Channel.ReadState.LastMessageId,
-                            guildMembers != null && guildMembers.TryGetValue(item.User.Id, out BindableGuildMember member)
-                                ? member
-                                : null));
+                            lastItem != null && m.Channel.ReadState != null && lastItem.Id == m.Channel.ReadState.LastMessageId,
+                            guildMembers != null && guildMembers.TryGetValue(item.User.Id, out BindableGuildMember member) ? member : null));
 
                         if (lastItem != null && m.Channel.ReadState != null &&
-                            lastItem.Id == m.Channel.ReadState.LastMessageId) scrollItem = messages.LastOrDefault();
+                            lastItem.Id == m.Channel.ReadState.LastMessageId)
+                        {
+                            scrollItem = messages.LastOrDefault();
+                        }
 
                         lastItem = item;
 
                         i--;
                     }
 
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         BindableMessages.Clear();
                         BindableMessages.AddRange(messages);
@@ -172,21 +184,6 @@ namespace Quarrel.ViewModels
                     SemaphoreSlim.Release();
                 }
             });
-
-            #endregion
         }
-
-        #endregion
-
-        #region Properties
-
-        public BindableChannel CurrentChannel
-        {
-            get => _CurrentChannel;
-            set => Set(ref _CurrentChannel, value);
-        }
-        private BindableChannel _CurrentChannel;
-
-        #endregion
     }
 }

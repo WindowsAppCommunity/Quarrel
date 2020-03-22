@@ -1,26 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// Copyright (c) Quarrel. All rights reserved.
 
 namespace Quarrel.ViewModels.Messages
 {
-    public enum Status
+    /// <summary>
+    /// The connection status of the app.
+    /// </summary>
+    public enum ConnectionStatus
     {
         Starting,
         Connecting,
         Connected,
         Disconnected,
         Failed,
-        Offline
+        Offline,
     }
 
+    /// <summary>
+    /// A message that indicates the connection status changed.
+    /// </summary>
     public class ConnectionStatusMessage
     {
-        public ConnectionStatusMessage(Status status)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConnectionStatusMessage"/> class.
+        /// </summary>
+        /// <param name="status">The new status.</param>
+        public ConnectionStatusMessage(ConnectionStatus status)
         {
             Status = status;
         }
 
-        public Status Status;
+        /// <summary>
+        /// Gets the apps connection status.
+        /// </summary>
+        public ConnectionStatus Status { get; }
     }
 }

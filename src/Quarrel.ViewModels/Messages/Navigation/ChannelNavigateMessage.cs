@@ -1,23 +1,32 @@
-﻿using DiscordAPI.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
 using Quarrel.ViewModels.Models.Bindables;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quarrel.ViewModels.Messages.Navigation
 {
+    /// <summary>
+    /// A message to request changing channels.
+    /// </summary>
     public sealed class ChannelNavigateMessage
     {
-        public ChannelNavigateMessage(BindableChannel channel, BindableGuild guild)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChannelNavigateMessage"/> class.
+        /// </summary>
+        /// <param name="channel">The channel to navigate to.</param>
+        /// <param name="guild">The guild to navigate to.</param>
+        public ChannelNavigateMessage(BindableChannel channel)
         {
             Channel = channel;
-            Guild = guild;
         }
 
+        /// <summary>
+        /// Gets the channel to navigate to.
+        /// </summary>
         public BindableChannel Channel { get; }
 
-        public BindableGuild Guild { get; }
+        /// <summary>
+        /// Gets the guild to navigate to.
+        /// </summary>
+        public BindableGuild Guild => Channel.Guild;
     }
 }

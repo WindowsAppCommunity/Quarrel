@@ -7,112 +7,101 @@ using System.Linq;
 
 namespace Quarrel.ViewModels
 {
+    /// <summary>
+    /// The ViewModel for all data throughout the app.
+    /// </summary>
     public partial class MainViewModel
     {
-        #region Commands
-
-        #region Navigation
+        private RelayCommand<BindableGuild> navigateGuild;
+        private BindableGuild _currentGuild;
+        private BindableGuildMember _currentGuildMember;
 
         /// <summary>
-        /// Sends Messenger Request to change Guild
+        /// Gets a command that sends Messenger Request to change Guild.
         /// </summary>
-        private RelayCommand<BindableGuild> navigateGuild;
         public RelayCommand<BindableGuild> NavigateGuild => navigateGuild = navigateGuild ?? new RelayCommand<BindableGuild>((guild) => { MessengerInstance.Send(new GuildNavigateMessage(guild)); });
 
+        /// <summary>
+        /// Gets or sets the currently selected guild.
+        /// </summary>
+        public BindableGuild CurrentGuild
+        {
+            get => _currentGuild;
+            set => Set(ref _currentGuild, value);
+        }
 
-        #endregion
+        /// <summary>
+        /// Gets the current user's BindableGuildMember in the current guild.
+        /// </summary>
+        public BindableGuildMember CurrentGuildMember
+        {
+            get => _currentGuildMember;
+            private set => Set(ref _currentGuildMember, value);
+        }
 
-        #endregion
-
-        #region Methods
+        /// <summary>
+        /// Gets all Guilds the current member is in.
+        /// </summary>
+        [NotNull]
+        public ObservableRangeCollection<BindableGuild> BindableGuilds { get; private set; } =
+            new ObservableRangeCollection<BindableGuild>();
 
         private void RegisterGuildsMessages()
         {
-            #region Navigation
-
             MessengerInstance.Register<GuildNavigateMessage>(this, m =>
             {
                 if (CurrentGuild != m.Guild)
                 {
                     BindableChannel channel =
                         m.Guild.Channels.FirstOrDefault(x => x.IsTextChannel && x.Permissions.ReadMessages);
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
-                    CurrentChannel = channel;
-                    CurrentGuild = m.Guild;
-                    BindableMessages.Clear();
-                    //BindableChannels = m.Guild.Channels;
+                        CurrentChannel = channel;
+                        CurrentGuild = m.Guild;
+                        BindableMessages.Clear();
 
-                    if (m.Guild.IsDM)
-                    {
-                        CurrentBindableMembers.Clear();
-                    }
+                        if (m.Guild.IsDM)
+                        {
+                            CurrentBindableMembers.Clear();
+                        }
 
-                    if (!m.Guild.IsDM)
-                        CurrentGuildMember = GuildsService.GetGuildMember(CurrentUserService.CurrentUser.Model.Id, m.Guild.Model.Id);
-                    else
-                        CurrentGuildMember = new BindableGuildMember(
+                        if (!m.Guild.IsDM)
+                        {
+                            CurrentGuildMember = _guildsService.GetGuildMember(_currentUserService.CurrentUser.Model.Id, m.Guild.Model.Id);
+                        }
+                        else
+                        {
+                            CurrentGuildMember = new BindableGuildMember(
                             new DiscordAPI.Models.GuildMember()
                             {
-                                User = CurrentUserService.CurrentUser.Model
-                            }, "DM", CurrentUserService.CurrentUser.Presence);
+                                User = _currentUserService.CurrentUser.Model,
+                            },
+                            "DM",
+                            _currentUserService.CurrentUser.Presence);
+                        }
                     });
 
                     if (channel != null)
-                        MessengerInstance.Send(new ChannelNavigateMessage(channel, m.Guild));
+                    {
+                        MessengerInstance.Send(new ChannelNavigateMessage(channel));
+                    }
                 }
             });
-
-            #endregion
 
             // Handles string message used for App Events
             MessengerInstance.Register<string>(this, m =>
             {
                 if (m == "GuildsReady")
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                {
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         // Show guilds
                         BindableGuilds.Clear();
-                        BindableGuilds.AddRange(GuildsService.AllGuilds.Values.OrderBy(x => x.Position));
+                        BindableGuilds.AddRange(_guildsService.AllGuilds.Values.OrderBy(x => x.Position));
                     });
+                }
             });
 
         }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Bindable object representing the currently opened guild
-        /// </summary>
-        public BindableGuild CurrentGuild
-        {
-            get => _CurrentGuild;
-            set => Set(ref _CurrentGuild, value);
-        }
-        private BindableGuild _CurrentGuild;
-
-        /// <summary>
-        /// Current user's BindableGuildMember in the current guild
-        /// </summary>
-        public BindableGuildMember CurrentGuildMember
-        {
-            get => _CurrentGuildMember;
-            set => Set(ref _CurrentGuildMember, value);
-        }
-        private BindableGuildMember _CurrentGuildMember;
-
-        /// <summary>
-        /// TODO: Remove
-        /// </summary>
-        private string guildId => CurrentChannel?.GuildId ?? "DM";
-
-
-        [NotNull]
-        public ObservableRangeCollection<BindableGuild> BindableGuilds { get; private set; } =
-            new ObservableRangeCollection<BindableGuild>();
-
-        #endregion
     }
 }

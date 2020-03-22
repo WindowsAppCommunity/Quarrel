@@ -308,7 +308,6 @@
         <Setter Property="FontSize" Value="13"/>
         <Setter Property="MinWidth" Value="24"/>
         <Setter Property="UseSystemFocusVisuals" Value="True"/>
-
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RadioButton">
@@ -464,6 +463,12 @@
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="CheckGlyph">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource RadioButtonCheckGlyphStrokeDisabled}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="CheckGlyph2">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource RadioButtonOuterEllipseCheckedStrokeDisabled}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="CheckGlyph2">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource RadioButtonOuterEllipseCheckedStrokeDisabled}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>

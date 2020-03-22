@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight;
 using GitHubAPI.API;
 using GitHubAPI.Models;
 using Quarrel.ViewModels.Helpers;
@@ -10,29 +12,48 @@ using System.Linq;
 namespace Quarrel.ViewModels.SubPages
 {
     /// <summary>
-    /// Loads and Stores GitHub context for CreditPage
+    /// Credit page data.
     /// </summary>
     public class CreditPageViewModel : ViewModelBase
     {
-        #region Constructors
+        private IEnumerable<Contributor> _contributors;
+        private ObservableCollection<BindableDeveloper> _developers = new ObservableCollection<BindableDeveloper>();
+        private IGitHubService _gitHubService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreditPageViewModel"/> class.
+        /// </summary>
         public CreditPageViewModel()
         {
-            GitHubService = RestFactory.GetGitHubService("Quarrel|UWP");
+            _gitHubService = RestFactory.GetGitHubService("Quarrel|UWP");
             LoadContributors();
         }
 
-        #endregion
-
-        #region Methods 
+        /// <summary>
+        /// Gets or sets the preset list as User of Lead Developers.
+        /// </summary>
+        public ObservableCollection<BindableDeveloper> Developers
+        {
+            get => _developers;
+            set => Set(ref _developers, value);
+        }
 
         /// <summary>
-        /// Loads Contributors and Lead Developer's data from GitHub
+        /// Gets or sets everyone (except developers) with a contribution to Quarrel.
+        /// </summary>
+        public IEnumerable<Contributor> Contributors
+        {
+            get => _contributors;
+            set => Set(ref _contributors, value);
+        }
+
+        /// <summary>
+        /// Loads Contributors and Lead Developer's data from GitHub.
         /// </summary>
         private async void LoadContributors()
         {
             // Get Contributor list
-            var contributors = await GitHubService.GetContributorsAsync(Constants.Store.GitHubRepoOwner, Constants.Store.GitHubRepoName);
+            var contributors = await _gitHubService.GetContributorsAsync(Constants.Store.GitHubRepoOwner, Constants.Store.GitHubRepoName);
 
             // Order Contributors by commit count
             contributors = contributors.OrderByDescending(x => x.CommitsCount);
@@ -41,43 +62,12 @@ namespace Quarrel.ViewModels.SubPages
             var developers = new string[] { "Avid29", "karmaecrivain94", "matthew4850" };
             foreach (string dev in developers)
             {
-                var user = await GitHubService.GetUserAsync(dev);
+                var user = await _gitHubService.GetUserAsync(dev);
                 Developers.Add(new BindableDeveloper(user, contributors.FirstOrDefault(x => x.Name == dev)));
             }
 
             // Remove developers from Contributors list
             Contributors = contributors.Where(x => !developers.Contains(x.Name));
         }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Preset list as User of Lead Developers
-        /// </summary>
-        public ObservableCollection<BindableDeveloper> Developers
-        {
-            get => _Developers;
-            set => Set(ref _Developers, value);
-        }
-        private ObservableCollection<BindableDeveloper> _Developers = new ObservableCollection<BindableDeveloper>();
-
-        /// <summary>
-        /// Everyone (except developers) with a contribution to Quarrel
-        /// </summary>
-        public IEnumerable<Contributor> Contributors
-        {
-            get => _Contributors;
-            set => Set(ref _Contributors, value);
-        }
-        private IEnumerable<Contributor> _Contributors;
-
-        /// <summary>
-        /// API Service for GitHub
-        /// </summary>
-        private IGitHubService GitHubService;
-
-        #endregion
     }
 }

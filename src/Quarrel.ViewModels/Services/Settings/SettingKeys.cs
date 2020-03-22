@@ -1,9 +1,10 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
+// Copyright (c) Quarrel. All rights reserved.
 
 namespace Quarrel.ViewModels.Services.Settings
 {
     /// <summary>
-    /// An <see langword="enum"/> that holds the various setting keys used in the app
+    /// An <see langword="enum"/> that holds the various setting keys used in the app.
     /// </summary>
     public enum SettingKeys
     {
@@ -11,7 +12,7 @@ namespace Quarrel.ViewModels.Services.Settings
         Token,
         AdsRemoved,
 
-        // Display 
+        // Display
         Theme,
         Blurple,
         ServerMuteIcons,
@@ -27,7 +28,6 @@ namespace Quarrel.ViewModels.Services.Settings
         CollapseOverride,
         FilterMembers,
         TTLAttachments,
-        DataCompression
-
+        DataCompression,
     }
 }

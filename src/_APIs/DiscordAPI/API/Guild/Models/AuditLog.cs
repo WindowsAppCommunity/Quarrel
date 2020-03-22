@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DiscordAPI.Models;
-using DiscordAPI.Models;
+﻿using DiscordAPI.Models;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace DiscordAPI.API.Guild.Models
 {
@@ -43,7 +38,9 @@ namespace DiscordAPI.API.Guild.Models
 
         [JsonProperty("reason", NullValueHandling = NullValueHandling.Ignore)]
         public string Reason { get; set; }
-       
+
+        [JsonIgnore]
+        public IEnumerable<DiscordAPI.Models.User> Users { get; set; }
     }
     
     public enum AuditLogActionType

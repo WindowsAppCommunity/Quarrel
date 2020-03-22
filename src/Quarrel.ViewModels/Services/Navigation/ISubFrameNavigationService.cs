@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
 using GalaSoft.MvvmLight.Views;
 
 namespace Quarrel.ViewModels.Services.Navigation
 {
+    /// <summary>
+    /// An <see langword="interface"/> that provides the ability to control the subframe.
+    /// </summary>
     public interface ISubFrameNavigationService : INavigationService
     {
         /// <summary>
-        /// Extra parameter for navigation
+        /// Gets an extra parameter for navigation.
         /// </summary>
         object Parameter { get; }
 
         /// <summary>
-        /// How many levels of subpages deep the user is
+        /// Gets how many levels of subpages deep the user is.
         /// </summary>
         int Depth { get; }
     }

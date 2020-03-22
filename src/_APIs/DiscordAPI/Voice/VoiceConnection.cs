@@ -86,7 +86,7 @@ namespace DiscordAPI.Voice
 
         public event EventHandler<VoiceConnectionEventArgs<Ready>> Ready;
         public event EventHandler<VoiceConnectionEventArgs<VoiceData>> VoiceDataRecieved;
-        public event EventHandler<VoiceConnectionEventArgs<VoiceData>> VideoDataRecieved;
+        // TODO: public event EventHandler<VoiceConnectionEventArgs<VoiceData>> VideoDataRecieved;
         public event EventHandler<VoiceConnectionEventArgs<DownstreamEvents.Speak>> Speak;
 
         public VoiceConnection()

@@ -1,14 +1,23 @@
-﻿using Quarrel.ViewModels.Models.Bindables;
-using System;
-using System.Collections.Concurrent;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using Quarrel.ViewModels.Models.Bindables;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Quarrel.ViewModels.Services.Discord.Friends
 {
+    /// <summary>
+    /// Manages all relationship status with the current user.
+    /// </summary>
     public interface IFriendsService
     {
-        ConcurrentDictionary<string, BindableFriend> Friends { get; }
-        ConcurrentDictionary<string, BindableGuildMember> DMUsers { get; }
+        /// <summary>
+        /// Gets a hashed collection of friends, by user id.
+        /// </summary>
+        IDictionary<string, BindableFriend> Friends { get; }
+
+        /// <summary>
+        /// Gets a hashed collection of DM Members, by user id.
+        /// </summary>
+        IDictionary<string, BindableGuildMember> DMUsers { get; }
     }
 }

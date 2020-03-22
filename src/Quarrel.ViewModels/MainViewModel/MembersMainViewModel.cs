@@ -1,4 +1,6 @@
-﻿using DiscordAPI.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
@@ -12,18 +14,25 @@ using System.Linq;
 
 namespace Quarrel.ViewModels
 {
+    /// <summary>
+    /// The ViewModel for all data throughout the app.
+    /// </summary>
     public partial class MainViewModel
     {
-        #region Commands
+        private RelayCommand<(double, double)> _updateGuildSubscriptionsCommand;
+        private Dictionary<string, IEnumerable<int[]>> lastGuildSubscription;
+        private string listId;
 
-        #region GuildSubscriptions
-
-        private RelayCommand<(double, double)> updateGuildSubscriptionsCommand;
+        /// <summary>
+        /// Gets a command that updates the guild subscriptions.
+        /// </summary>
         public RelayCommand<(double, double)> UpdateGuildSubscriptionsCommand =>
-            updateGuildSubscriptionsCommand = updateGuildSubscriptionsCommand ?? new RelayCommand<(double, double)>((values) =>
+            _updateGuildSubscriptionsCommand = _updateGuildSubscriptionsCommand ?? new RelayCommand<(double, double)>((values) =>
             {
-                if (GuildsService.CurrentGuild.IsDM)
+                if (_guildsService.CurrentGuild.IsDM)
+                {
                     return;
+                }
 
                 double top = CurrentBindableMembers.Count * values.Item1;
                 double bottom = CurrentBindableMembers.Count * values.Item2;
@@ -35,16 +44,21 @@ namespace Quarrel.ViewModels
                         CurrentChannel.Model.Id,
                         new List<int[]>
                         {
-                            new[] { 0, 99 }
+                            new[] { 0, 99 },
                         }
-                    }
+                    },
                 };
                 if (top - min < 20)
                 {
                     if (min > 199)
+                    {
                         ((List<int[]>)guildSubscription[CurrentChannel.Model.Id]).Add(new[] { min - 100, min - 1 });
+                    }
+
                     if (min > 99)
+                    {
                         ((List<int[]>)guildSubscription[CurrentChannel.Model.Id]).Add(new[] { min, min + 99 });
+                    }
                 }
                 else if (bottom - min > 80)
                 {
@@ -54,7 +68,9 @@ namespace Quarrel.ViewModels
                 else
                 {
                     if (min > 99)
+                    {
                         ((List<int[]>)guildSubscription[CurrentChannel.Model.Id]).Add(new[] { min, min + 99 });
+                    }
                 }
 
                 bool hasChanged = false;
@@ -68,7 +84,6 @@ namespace Quarrel.ViewModels
                         {
                             if (channel.Value.Count() == guildSubscription[channel.Key].Count())
                             {
-
                                 var enumerator = guildSubscription[channel.Key].GetEnumerator();
                                 foreach (var range in channel.Value)
                                 {
@@ -77,7 +92,6 @@ namespace Quarrel.ViewModels
                                     {
                                         hasChanged = true;
                                     }
-
                                 }
                             }
                             else
@@ -98,38 +112,47 @@ namespace Quarrel.ViewModels
 
                 if (hasChanged)
                 {
-                    Messenger.Default.Send(new GatewayUpdateGuildSubscriptionsMessage(guildId, guildSubscription));
+                    Messenger.Default.Send(new GatewayUpdateGuildSubscriptionsMessage(_currentGuild.Model.Id, guildSubscription));
                     lastGuildSubscription = guildSubscription;
                 }
-
             });
 
-        #endregion
+        /// <summary>
+        /// Gets list of members in the current guild.
+        /// </summary>
+        [NotNull]
+        public ObservableRangeCollection<IGuildMemberListItem> CurrentBindableMembers { get; private set; } =
+            new ObservableRangeCollection<IGuildMemberListItem>();
 
-        #endregion
-
-        #region Methods
+        /// <summary>
+        /// Gets list of roles (Member Group).
+        /// </summary>
+        [NotNull]
+        public ObservableCollection<BindableGuildMemberGroup> CurrentBindableMemeberGroups { get; } =
+            new ObservableCollection<BindableGuildMemberGroup>();
 
         private void RegisterMembersMessages()
         {
-            #region Gateway
-
-            #region Members
-
             // Handles VoiceState change for current user
             MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, m =>
             {
-                if (m.VoiceState.UserId == DiscordService.CurrentUser.Id)
-                    DispatcherHelper.CheckBeginInvokeOnUi(() => VoiceState = m.VoiceState);
+                if (m.VoiceState.UserId == _discordService.CurrentUser.Id)
+                {
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() => VoiceState = m.VoiceState);
+                }
             });
 
             MessengerInstance.Register<GatewayGuildMemberListUpdatedMessage>(this, m =>
             {
-                if (m.GuildMemberListUpdated.GuildId == guildId)
-                    DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                if (m.GuildMemberListUpdated.GuildId == _currentGuild.Model.Id)
+                {
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
-                        if (m.GuildMemberListUpdated.Id != listId &&
-                            m.GuildMemberListUpdated.Operators.All(x => x.Op != "SYNC")) return;
+                        if (m.GuildMemberListUpdated.Id != listId && m.GuildMemberListUpdated.Operators.All(x => x.Op != "SYNC"))
+                        {
+                            return;
+                        }
+
                         if (m.GuildMemberListUpdated.Groups != null)
                         {
                             CurrentBindableMemeberGroups.Clear();
@@ -143,14 +166,20 @@ namespace Quarrel.ViewModels
 
                             int listCount = CurrentBindableMembers.Count;
                             if (listCount < totalMemberCount)
-                                CurrentBindableMembers.AddRange(
-                                    Enumerable.Repeat<BindableGuildMember>(null, totalMemberCount - listCount));
+                            {
+                                CurrentBindableMembers.AddRange(Enumerable.Repeat<BindableGuildMember>(null, totalMemberCount - listCount));
+                            }
                             else if (listCount > totalMemberCount)
+                            {
                                 for (int i = 0; i < listCount - totalMemberCount; i++)
+                                {
                                     CurrentBindableMembers.RemoveAt(CurrentBindableMembers.Count - 1);
+                                }
+                            }
                         }
 
                         foreach (Operator op in m.GuildMemberListUpdated.Operators)
+                        {
                             switch (op.Op)
                             {
                                 case "SYNC":
@@ -163,6 +192,7 @@ namespace Quarrel.ViewModels
                                             index++;
                                         }
                                     }
+
                                     break;
 
                                 case "INVALIDATE":
@@ -170,48 +200,54 @@ namespace Quarrel.ViewModels
                                         for (int i = op.Range[0]; i <= op.Range[1] && CurrentBindableMembers.Count < i; i++)
                                         {
                                             if (CurrentBindableMembers[i] != null)
+                                            {
                                                 CurrentBindableMembers[i] = null;
+                                            }
                                         }
                                     }
+
                                     break;
 
                                 case "INSERT":
                                     {
                                         if (op.Item?.Group != null)
-                                            CurrentBindableMembers.Insert(op.Index,
-                                                new BindableGuildMemberGroup(op.Item.Group));
+                                        {
+                                            CurrentBindableMembers.Insert(op.Index, new BindableGuildMemberGroup(op.Item.Group));
+                                        }
                                         else
                                         {
-                                            CurrentBindableMembers.Insert(op.Index, new BindableGuildMember(op.Item.Member, guildId)
+                                            CurrentBindableMembers.Insert(op.Index, new BindableGuildMember(op.Item.Member, _currentGuild.Model.Id)
                                             {
-                                                IsOwner = op.Item.Member.User.Id ==
-                                                          GuildsService.AllGuilds[guildId].Model.OwnerId
+                                                IsOwner = op.Item.Member.User.Id == _guildsService.AllGuilds[_currentGuild.Model.Id].Model.OwnerId,
                                             });
-                                            PresenceService.UpdateUserPrecense(op.Item.Member.User.Id, op.Item.Member.Presence);
+                                            _presenceService.UpdateUserPrecense(op.Item.Member.User.Id, op.Item.Member.Presence);
                                         }
                                     }
+
                                     break;
 
                                 case "UPDATE":
                                     {
                                         UpdateMemberListItem(op.Index, op.Item);
                                     }
-                                    ;
+
                                     break;
 
                                 case "DELETE":
                                     {
-                                        CurrentBindableMembers.RemoveAt(op.Index);
+                                        // TODO: Figure out why this must be checked
+                                        if (op.Index < CurrentBindableMembers.Count)
+                                        {
+                                            CurrentBindableMembers.RemoveAt(op.Index);
+                                        }
                                     }
-                                    ;
+
                                     break;
                             }
+                        }
                     });
+                }
             });
-
-            #endregion
-
-            #endregion
         }
 
         private void UpdateMemberListItem(int index, SyncItem item)
@@ -222,30 +258,13 @@ namespace Quarrel.ViewModels
             }
             else if (item.Member != null)
             {
-                BindableGuildMember bGuildMember = new BindableGuildMember(item.Member, guildId)
+                BindableGuildMember bGuildMember = new BindableGuildMember(item.Member, _currentGuild.Model.Id)
                 {
-                    IsOwner = item.Member.User.Id == GuildsService.AllGuilds[guildId].Model.OwnerId
+                    IsOwner = item.Member.User.Id == _guildsService.AllGuilds[_currentGuild.Model.Id].Model.OwnerId,
                 };
                 CurrentBindableMembers[index] = bGuildMember;
-                PresenceService.UpdateUserPrecense(item.Member.User.Id, item.Member.Presence);
+                _presenceService.UpdateUserPrecense(item.Member.User.Id, item.Member.Presence);
             }
         }
-
-        #endregion
-
-        #region Properties
-
-        private Dictionary<string, IEnumerable<int[]>> lastGuildSubscription;
-
-        private string listId;
-
-        [NotNull]
-        public ObservableRangeCollection<IGuildMemberListItem> CurrentBindableMembers { get; set; } =
-            new ObservableRangeCollection<IGuildMemberListItem>();
-
-        [NotNull]
-        public ObservableCollection<BindableGuildMemberGroup> CurrentBindableMemeberGroups { get; } =
-            new ObservableCollection<BindableGuildMemberGroup>();
-        #endregion
     }
 }

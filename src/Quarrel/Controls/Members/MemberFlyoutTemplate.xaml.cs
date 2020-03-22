@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using Quarrel.ViewModels.Messages.Gateway;
@@ -14,10 +16,13 @@ using Windows.UI.Xaml.Media.Animation;
 namespace Quarrel.Controls.Members
 {
     /// <summary>
-    /// Flyout to represent a GuildMember
+    /// Flyout to represent a GuildMember.
     /// </summary>
     public sealed partial class MemberFlyoutTemplate : UserControl
-    {   
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MemberFlyoutTemplate"/> class.
+        /// </summary>
         public MemberFlyoutTemplate()
         {
             this.InitializeComponent();
@@ -25,8 +30,9 @@ namespace Quarrel.Controls.Members
             {
                 if (e.NewValue is BindableGuildMember bMem)
                 {
-                    bMem.UpdateDerivedColor();
+                    bMem.UpdateAccentColor();
                 }
+
                 this.Bindings.Update();
             };
 
@@ -36,18 +42,20 @@ namespace Quarrel.Controls.Members
                 await DispatcherHelper.RunAsync(() =>
                 {
                     if (ViewModel != null && m.UserId == ViewModel.Model.User.Id)
+                    {
                         ViewModel.RaisePropertyChanged(nameof(ViewModel.Note));
+                    }
                 });
             });
         }
 
         /// <summary>
-        /// GuildMember dispalyed
+        /// Gets the GuildMember shown.
         /// </summary>
         public BindableGuildMember ViewModel => DataContext as BindableGuildMember;
 
         /// <summary>
-        /// Updates Note on server when Notebox is edited
+        /// Updates Note on server when Notebox is edited.
         /// </summary>
         private void NoteBox_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -55,7 +63,7 @@ namespace Quarrel.Controls.Members
         }
 
         /// <summary>
-        /// Sets up connected animation and navigates to UserProfilePage
+        /// Sets up connected animation and navigates to UserProfilePage.
         /// </summary>
         private void OpenProfilePage(object sender, RoutedEventArgs e)
         {

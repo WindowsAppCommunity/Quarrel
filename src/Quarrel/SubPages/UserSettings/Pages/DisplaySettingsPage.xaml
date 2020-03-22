@@ -18,7 +18,7 @@
                          IsChecked="{x:Bind ViewModel.Light, Mode=TwoWay}"/>
             <RadioButton x:Name="radio_Windows" Style="{StaticResource DiscordRadioButton}" Content="Windows" GroupName="Theme" Margin="0,0,0,-4"
                          IsChecked="{x:Bind ViewModel.Windows, Mode=TwoWay}"/>
-            <RadioButton x:Name="radio_Discord" Style="{StaticResource DiscordRadioButton}" Content="Discord" GroupName="Theme"
+            <!--<RadioButton x:Name="radio_Discord" Style="{StaticResource DiscordRadioButton}" Content="Discord" GroupName="Theme"
                          IsEnabled="False" IsChecked="{x:Bind ViewModel.Discord, Mode=TwoWay}"/>
             <RadioButton x:Name="OLED" Style="{StaticResource DiscordRadioButton}" Margin="0,0,0,0" MaxWidth="450" GroupName="Theme"
                          IsEnabled="False" IsChecked="{x:Bind ViewModel.OLED, Mode=TwoWay}">
@@ -26,7 +26,7 @@
                     <TextBlock Text="OLED Theme"/>
                     <TextBlock Text="This changes the theme of the app for OLED devices in ways that will save battery (featuring a full black background)" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
                 </StackPanel>
-            </RadioButton>
+            </RadioButton>-->
 
             <TextBlock Text="Accent color" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
             <RadioButton x:Name="radioAccent_Discord" Style="{StaticResource DiscordRadioButton}" Foreground="#FF7289DA" Content="Discord Blurple" GroupName="Accent" Margin="0,6,0,-4"

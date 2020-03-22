@@ -628,10 +628,9 @@
             <convertbase:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
             <convertbase:NullToBoolConverter x:Key="NullToBoolConverter"/>
             <convertbase:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-            <convertbase:EnumerableAnyToVisibilityConverter x:Key="EnumerableAnyToVisibilityConverter"/>
             <convertchannel:MentionCountToVisiblityConverter x:Key="MentionCountToVisiblityConverter"/>
             <convertchannel:SelectedToOpacityConverter x:Key="SelectedToOpacityConverter"/>
-            <convertchannel:TypeToBrushConverter x:Key="TypeToBrushConverter"/>
+            <convertchannel:TypeToForegroundBrushConverter x:Key="TypeToBrushConverter"/>
             <convertchannel:TypeToMinHeightConverter x:Key="TypeToMinHeightConverter"/>
             <convertdiscord:DiscriminatorToBrushConverter x:Key="DiscriminatorToBrushConverter"/>
         </ResourceDictionary>

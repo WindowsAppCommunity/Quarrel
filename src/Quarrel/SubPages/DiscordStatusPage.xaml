@@ -113,7 +113,7 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Column="1" Opacity="0.6" FontWeight="Light" FontSize="14" Text="{x:Bind Name}"/>
-                            <TextBlock Grid.Column="2" Text="{x:Bind Status}" VerticalAlignment="Bottom" Foreground="{x:Bind Status, Converter={StaticResource StatusToBrushConverter}, Mode=OneWay}" FontSize="11" Opacity="1" Margin="0,-2,0,0"/>
+                            <TextBlock Grid.Column="2" Text="{x:Bind Status}" VerticalAlignment="Bottom" Foreground="{x:Bind Status, Converter={StaticResource StatusToBrushConverter}}" FontSize="11" Opacity="1" Margin="0,-2,0,0"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -128,7 +128,7 @@
                     <HyperlinkButton x:Name="monthDuration" Content="Month" Margin="2,0" FontSize="12" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowMonthMetrics"/>
                 </StackPanel>
             </Grid>
-            <Grid SizeChanged="FrameworkElement_OnSizeChanged"  Margin="0,12,0,6" PointerMoved="chartCanvas_PointerMoved" PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+            <Grid SizeChanged="FrameworkElement_OnSizeChanged"  Margin="0,12,0,6" PointerMoved="ChartCanvas_PointerMoved" PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
                 <xaml:CanvasControl x:Name="chartCanvas" Height="96" Draw="CanvasControl_OnDraw" >
                     <xaml:CanvasControl.Clip>
                         <RectangleGeometry x:Name="chartClip">

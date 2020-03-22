@@ -45,8 +45,6 @@ namespace DiscordAPI.Models
         public Activity Activity { get; set; }
         [JsonProperty("author")]
         public User User { get; set; }
-        [JsonProperty("member")]
-        public GuildMember Member { get; set; }
         [JsonProperty("content")]
         public string Content { get; set; }
         [JsonProperty("call")]
@@ -75,8 +73,6 @@ namespace DiscordAPI.Models
         public bool Pinned { get; set; }
         [JsonProperty("type")]
         public int Type { get; set; }
-        [JsonProperty("hits")]
-        public bool Hit { get; set; }
         [JsonProperty("webhook_id")]
         public string WebHookid { get; set; }
         [JsonProperty("guild_id")]

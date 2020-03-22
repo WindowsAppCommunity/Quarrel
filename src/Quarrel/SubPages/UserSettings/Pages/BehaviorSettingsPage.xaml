@@ -27,12 +27,12 @@
                     <TextBlock Text="Gaze upon that which yee cannot enter" FontSize="11" Opacity="0.5"/>
                 </StackPanel>
             </CheckBox>
-            <CheckBox x:Name="HideMutedChannels" Style="{StaticResource CheckBoxStyle1}" IsEnabled="False">
+            <!--<CheckBox x:Name="HideMutedChannels" Style="{StaticResource CheckBoxStyle1}" IsEnabled="False">
                 <StackPanel Margin="0,2,0,0">
                     <TextBlock Text="Hide muted channels"/>
                     <TextBlock Text="Hides channels that you have muted" FontSize="11" Opacity="0.5"/>
                 </StackPanel>
-            </CheckBox>
+            </CheckBox>-->
 
             <TextBlock Text="Override Category Collapse" FontSize="14" FontWeight="SemiBold" Margin="0,8,0,0"/>
             <RadioButton Content="No Override" x:Name="NoOverride" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,0,0,-4"
@@ -43,10 +43,10 @@
                          IsChecked="{x:Bind ViewModel.UnreadCollapseOverride, Mode=TwoWay}"/>
 
             <TextBlock Text="METERED CONNECTIONS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
-            <CheckBox x:Name="TTLAttachments" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450" IsEnabled="False"
+            <CheckBox x:Name="TTLAttachments" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450"
                       IsChecked="{x:Bind ViewModel.TTLAttachments, Mode=TwoWay}">
                 <StackPanel Margin="0,2,0,0">
-                    <TextBlock Text="TTL Attachments"/>
+                    <TextBlock Text="Tap To Load Attachments"/>
                     <TextBlock Text="TTL (Tap To Load). Images, Audio or Videos in messages will not show unless you tap a replacement icon first" TextWrapping="WrapWholeWords" FontSize="11" Opacity="0.5"/>
                 </StackPanel>
             </CheckBox>

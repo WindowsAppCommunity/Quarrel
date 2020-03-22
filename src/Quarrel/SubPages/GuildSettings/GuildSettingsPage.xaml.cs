@@ -1,5 +1,6 @@
-﻿using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Advertising.Ads.Requests.AdBroker;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight.Ioc;
 using Microsoft.UI.Xaml.Controls;
 using Quarrel.SubPages.GuildSettings.Pages;
 using Quarrel.SubPages.Interfaces;
@@ -8,46 +9,63 @@ using Quarrel.ViewModels.Services.Navigation;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Windows.Foundation.Metadata;
-using Windows.UI.Xaml.Navigation;
 
 namespace Quarrel.SubPages.GuildSettings
 {
+    /// <summary>
+    /// The subpage for modifying guild settings.
+    /// </summary>
     public sealed partial class GuildSettingsPage : IAdaptiveSubPage, IConstrainedSubPage
     {
-        private ISubFrameNavigationService _SubFrameNavigationService => SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+        private readonly IReadOnlyDictionary<NavigationViewItemBase, Type> _pagesMapping;
+        private bool _isFullHeight;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GuildSettingsPage"/> class.
+        /// </summary>
         public GuildSettingsPage()
         {
             this.InitializeComponent();
             this.Loaded += (_, e) => NavigationControl.SelectedItem = OverviewItem;
 
-            if (_SubFrameNavigationService.Parameter is BindableGuild)
+            if (SubFrameNavigationService.Parameter is BindableGuild)
             {
-                DataContext = _SubFrameNavigationService.Parameter;
+                DataContext = SubFrameNavigationService.Parameter;
             }
 
-            PagesMapping = new ConcurrentDictionary<NavigationViewItemBase, Type>
+            _pagesMapping = new ConcurrentDictionary<NavigationViewItemBase, Type>
             {
                 [OverviewItem] = typeof(OverviewSettingsPage),
+                [NotificationsItem] = typeof(NotificationsSettingsPage),
+                [PrivacyItem] = typeof(PrivacySettingsPage),
                 [RolesItem] = typeof(RolesSettingsPage),
                 [EmojisItem] = typeof(EmojisSettingsPage),
                 [ModerationItem] = typeof(ModerationSettingsPage),
                 [AuditLogItem] = typeof(AuditLogSettingsPage),
                 [MembersItem] = typeof(MembersSettingsPage),
                 [InvitesItem] = typeof(InvitesSettingsPage),
-                [BansItem] = typeof(BanSettingsPage)
+                [BansItem] = typeof(BanSettingsPage),
             };
         }
 
+        /// <summary>
+        /// Gets the Guild that settings is modifying.
+        /// </summary>
         public BindableGuild ViewModel => DataContext as BindableGuild;
 
-        private readonly IReadOnlyDictionary<NavigationViewItemBase, Type> PagesMapping;
-
-        private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        /// <inheritdoc/>
+        public bool IsFullHeight
         {
-            SettingsFrame.Navigate(PagesMapping[args.SelectedItemContainer], ViewModel);
-            HeaderTB.Text = args.SelectedItemContainer.Content.ToString();
+            get => _isFullHeight;
+            set
+            {
+                if (SettingsFrame.Content is IAdaptiveSubPage page)
+                {
+                    page.IsFullHeight = value;
+                }
+
+                _isFullHeight = value;
+            }
         }
 
         /// <inheritdoc/>
@@ -56,17 +74,15 @@ namespace Quarrel.SubPages.GuildSettings
         /// <inheritdoc/>
         public double MaxExpandedHeight { get; } = 620;
 
-        /// <inheritdoc/>
-        public bool IsFullHeight
+        /// <summary>
+        /// Gets the App's subframe navigation service.
+        /// </summary>
+        private ISubFrameNavigationService SubFrameNavigationService => SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+
+        private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            get => _IsFullHeight;
-            set
-            {
-                if (SettingsFrame.Content is IAdaptiveSubPage page)
-                    page.IsFullHeight = value;
-                _IsFullHeight = value;
-            }
+            SettingsFrame.Navigate(_pagesMapping[args.SelectedItemContainer], ViewModel);
+            HeaderTB.Text = args.SelectedItemContainer.Content.ToString();
         }
-        private bool _IsFullHeight;
     }
 }

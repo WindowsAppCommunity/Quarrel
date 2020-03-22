@@ -1,37 +1,27 @@
-﻿using DiscordAPI.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.ViewModels.Messages.Gateway;
-using Quarrel.ViewModels.Messages.Gateway.Voice;
-using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Presence;
 using Quarrel.ViewModels.Services.DispatcherHelper;
-using Quarrel.ViewModels.ViewModels.Messages.Gateway;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 
 namespace Quarrel.ViewModels.Services.Discord.CurrentUser
 {
+    /// <summary>
+    /// Manages the all information directly pertaining to the current user.
+    /// </summary>
     public class CurrentUsersService : ICurrentUserService
     {
-        public ICacheService CacheService;
-        public IGuildsService GuildsService;
-        private IPresenceService PresenceService;
-        private IDispatcherHelper DispatcherHelper;
-
-        public BindableUser CurrentUser { get; } = new BindableUser(new User());
-
-        public UserSettings CurrentUserSettings { get; private set; } = new UserSettings();
-
-        public CurrentUsersService(ICacheService cacheService, IDispatcherHelper dispatcherHelper, IGuildsService guildsService, IPresenceService presenceService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CurrentUsersService"/> class.
+        /// </summary>
+        public CurrentUsersService()
         {
-            CacheService = cacheService;
-            DispatcherHelper = dispatcherHelper;
-            GuildsService = guildsService;
-            PresenceService = presenceService;
-
             Messenger.Default.Register<GatewayReadyMessage>(this, m =>
             {
                 DispatcherHelper.CheckBeginInvokeOnUi(() =>
@@ -43,7 +33,7 @@ namespace Quarrel.ViewModels.Services.Discord.CurrentUser
                         Game = null,
                         GuildId = null,
                         Roles = null,
-                        Status = m.EventData.Settings.Status
+                        Status = m.EventData.Settings.Status,
                     };
 
                     CurrentUserSettings = m.EventData.Settings;
@@ -64,7 +54,7 @@ namespace Quarrel.ViewModels.Services.Discord.CurrentUser
                             Game = CurrentUser.Presence.Game,
                             GuildId = CurrentUser.Presence.GuildId,
                             Roles = CurrentUser.Presence.Roles,
-                            Status = m.Settings.Status
+                            Status = m.Settings.Status,
                         };
                         CurrentUser.Presence = newPresence;
                         PresenceService.UpdateUserPrecense(CurrentUser.Model.Id, CurrentUser.Presence);
@@ -72,5 +62,19 @@ namespace Quarrel.ViewModels.Services.Discord.CurrentUser
                 });
             });
         }
+
+        /// <inheritdoc/>
+        public BindableUser CurrentUser { get; } = new BindableUser(new User());
+
+        /// <inheritdoc/>
+        public UserSettings CurrentUserSettings { get; private set; } = new UserSettings();
+
+        private ICacheService CacheService => SimpleIoc.Default.GetInstance<ICacheService>();
+
+        private IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
+
+        private IPresenceService PresenceService => SimpleIoc.Default.GetInstance<IPresenceService>();
+
+        private IDispatcherHelper DispatcherHelper => SimpleIoc.Default.GetInstance<IDispatcherHelper>();
     }
 }

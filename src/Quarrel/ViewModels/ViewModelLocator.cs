@@ -1,10 +1,11 @@
-﻿using DiscordAPI.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Navigation;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Clipboard;
-using Quarrel.Services.DerivedColor;
 using Quarrel.Services.DispatcherHelperEx;
+using Quarrel.Services.Resources;
 using Quarrel.Services.Settings;
 using Quarrel.Services.Voice.Audio.In;
 using Quarrel.Services.Voice.Audio.Out;
@@ -13,7 +14,6 @@ using Quarrel.SubPages.GuildSettings;
 using Quarrel.SubPages.UserSettings;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Clipboard;
-using Quarrel.ViewModels.Services.DerivedColor;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
 using Quarrel.ViewModels.Services.Discord.Friends;
@@ -23,6 +23,7 @@ using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Services.Gateway;
 using Quarrel.ViewModels.Services.Navigation;
+using Quarrel.ViewModels.Services.Resources;
 using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.Services.Voice;
 using Quarrel.ViewModels.Services.Voice.Audio.In;
@@ -32,12 +33,15 @@ using Windows.ApplicationModel.Store;
 
 namespace Quarrel.ViewModels
 {
-
     /// <summary>
-    /// Locates viewmodel
+    /// Initializes the ViewModel and Services.
     /// </summary>
     public class ViewModelLocator
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ViewModelLocator"/> class and the <see cref="MainViewModel"/>.
+        /// Creates and registers all the services with <see cref="SimpleIoc.Default"/>.
+        /// </summary>
         public ViewModelLocator()
         {
             var navigationService = new SubFrameNavigationService();
@@ -59,7 +63,7 @@ namespace Quarrel.ViewModels
 
             SimpleIoc.Default.Register<ICacheService, CacheService>();
             SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
-            SimpleIoc.Default.Register<IColorService, ColorService>();
+            SimpleIoc.Default.Register<IResourceService, ResourceService>();
             SimpleIoc.Default.Register<ISettingsService, SettingsService>();
             SimpleIoc.Default.Register<IServiceProvider>(() => App.ServiceProvider);
             SimpleIoc.Default.Register<IGatewayService, GatewayService>();
@@ -91,6 +95,10 @@ namespace Quarrel.ViewModels
 
             SimpleIoc.Default.Register<MainViewModel>();
         }
+
+        /// <summary>
+        /// Gets the <see cref="MainViewModel"/>.
+        /// </summary>
         public MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
     }
 }

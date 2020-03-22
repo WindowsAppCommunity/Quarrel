@@ -1,26 +1,91 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using Microsoft.Xaml.Interactivity;
+using System;
 using System.Windows.Input;
 using Windows.Devices.Input;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
-using Microsoft.Xaml.Interactivity;
 
 namespace Quarrel.Xaml.Behaviors
 {
+    /// <summary>
+    /// Action for handling a Keydown event with a <see cref="Command"/>.
+    /// </summary>
     public class KeyDownCommandAction : DependencyObject, IAction
     {
+        /// <summary>
+        /// A property representing the Key to handle an event on.
+        /// </summary>
+        public static readonly DependencyProperty KeyProperty =
+               DependencyProperty.Register(nameof(Key), typeof(string), typeof(KeyDownCommandAction), new PropertyMetadata(null));
+
+        /// <summary>
+        /// A property representing the Command to run when invoked.
+        /// </summary>
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(KeyDownCommandAction), new PropertyMetadata(null));
+
+        /// <summary>
+        /// A property representing the Command to run when invoked with shift key modifier.
+        /// </summary>
+        public static readonly DependencyProperty ShiftCommandProperty =
+            DependencyProperty.Register(nameof(ShiftCommand), typeof(ICommand), typeof(KeyDownCommandAction), new PropertyMetadata(null));
+
+        /// <summary>
+        /// A property representing whether or not to use the <see cref="ShiftCommand"/> by default when the device has no Keyboard.
+        /// </summary>
+        public static readonly DependencyProperty ExecuteShiftCommandIfNoKeyboardProperty =
+            DependencyProperty.Register(nameof(ExecuteShiftCommandIfNoKeyboard), typeof(ICommand), typeof(KeyDownCommandAction), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Gets or sets a value indicating which key was pressed.
+        /// </summary>
+        public string Key
+        {
+            get => (string)GetValue(KeyProperty);
+            set => SetValue(KeyProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the command to run when this command action is hit.
+        /// </summary>
+        public ICommand Command
+        {
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the command to run when this command action is hit with the Shift as key as a modifer.
+        /// </summary>
+        public ICommand ShiftCommand
+        {
+            get => (ICommand)GetValue(ShiftCommandProperty);
+            set => SetValue(ShiftCommandProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the <see cref="ShiftCommand"/> should run by default when there's no keyboard on the device.
+        /// </summary>
+        public bool ExecuteShiftCommandIfNoKeyboard
+        {
+            get => (bool)GetValue(ExecuteShiftCommandIfNoKeyboardProperty);
+            set => SetValue(ExecuteShiftCommandIfNoKeyboardProperty, value);
+        }
+
+        /// <summary>
+        /// Executes key down Command.
+        /// </summary>
+        /// <param name="sender">The control invoking the Command.</param>
+        /// <param name="parameter"><see cref="KeyRoutedEventArgs"/> parameters to KeyDown event.</param>
+        /// <returns><see langword="null"/>.</returns>
         public object Execute(object sender, object parameter)
         {
             var e = parameter as KeyRoutedEventArgs;
-            if (e.Key == (VirtualKey) Enum.Parse(typeof(VirtualKey), Key))
+            if (e.Key == (VirtualKey)Enum.Parse(typeof(VirtualKey), Key))
             {
                 KeyboardCapabilities keyboardCapabilities = new KeyboardCapabilities();
                 if (keyboardCapabilities.KeyboardPresent > 0)
@@ -34,7 +99,7 @@ namespace Quarrel.Xaml.Behaviors
                         Command.Execute(null);
                     }
                 }
-                else if(ExecuteShiftCommandIfNoKeyboard)
+                else if (ExecuteShiftCommandIfNoKeyboard)
                 {
                     ShiftCommand.Execute(null);
                 }
@@ -42,42 +107,9 @@ namespace Quarrel.Xaml.Behaviors
                 {
                     Command.Execute(null);
                 }
-                //e.Handled = true;
             }
 
             return null;
         }
-
-        public string Key
-        {
-            get => (string)GetValue(KeyProperty);
-            set => SetValue(KeyProperty, value);
-        }
-        public static readonly DependencyProperty KeyProperty =
-            DependencyProperty.Register(nameof(Key), typeof(string), typeof(KeyDownCommandAction), new PropertyMetadata(null));
-
-        public ICommand Command
-        {
-            get => (ICommand)GetValue(CommandProperty);
-            set => SetValue(CommandProperty, value);
-        }
-        public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(KeyDownCommandAction), new PropertyMetadata(null));
-
-        public ICommand ShiftCommand
-        {
-            get => (ICommand)GetValue(ShiftCommandProperty);
-            set => SetValue(ShiftCommandProperty, value);
-        }
-        public static readonly DependencyProperty ShiftCommandProperty =
-            DependencyProperty.Register(nameof(ShiftCommand), typeof(ICommand), typeof(KeyDownCommandAction), new PropertyMetadata(null));
-
-        public bool ExecuteShiftCommandIfNoKeyboard
-        {
-            get => (bool)GetValue(ExecuteShiftCommandIfNoKeyboardProperty);
-            set => SetValue(ExecuteShiftCommandIfNoKeyboardProperty, value);
-        }
-        public static readonly DependencyProperty ExecuteShiftCommandIfNoKeyboardProperty =
-            DependencyProperty.Register(nameof(ExecuteShiftCommandIfNoKeyboard), typeof(ICommand), typeof(KeyDownCommandAction), new PropertyMetadata(null));
     }
 }

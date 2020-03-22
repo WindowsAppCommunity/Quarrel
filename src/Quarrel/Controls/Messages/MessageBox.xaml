@@ -1084,7 +1084,8 @@
         
         <!--TextBox-->
         <local:SelectionBindingTextBox x:Name="MessageEditor" BindableText="{x:Bind ViewModel.MessageText, Mode=TwoWay}" BindableSelectionStart="{x:Bind ViewModel.SelectionStart, Mode=TwoWay}" BindableSelectionLength="{x:Bind ViewModel.SelectionLength, Mode=TwoWay}" Padding="52,12,96,12" VerticalAlignment="Stretch"
-                                       PlaceholderText="Send message" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MinHeight="64" MaxHeight="256">
+                                       PlaceholderText="Send message" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MinHeight="64" MaxHeight="256"
+                                       Paste="PasteFromClipboard" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji">
             <interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="KeyDown">
                     <behaviors:KeyDownCommandAction Key="Enter" Command="{x:Bind ViewModel.SendMessageCommand}" ShiftCommand="{x:Bind ViewModel.NewLineCommand}" ExecuteShiftCommandIfNoKeyboard="True"/>
@@ -1139,7 +1140,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <tk:ImageEx Margin="8,0" Source="{x:Bind Value, Converter={StaticResource StreamToBitmapImageConverter}, Mode=OneWay}"/>
+                        <tk:ImageEx Margin="8,0" Source="{x:Bind Value, Converter={StaticResource StreamToBitmapImageConverter}}"/>
                         <Button Grid.Column="1" Style="{StaticResource TextBlockButtonStyle}" Foreground="{ThemeResource Foreground}" VerticalAlignment="Center"
                                 Click="RemoveAttachment" DataContext="{x:Bind}">
                             <FontIcon Glyph="" FontSize="16"/>
