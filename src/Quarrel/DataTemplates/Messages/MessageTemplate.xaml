@@ -259,11 +259,7 @@
                         Visibility="{x:Bind IsContinuation, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}">
                     <Button Height="40" Width="40"
                         Style="{StaticResource DimButton}" extensions2:Mouse.Cursor="Hand">
-                        <Rectangle x:Name="userImg" Width="40" Height="40" RadiusX="20" RadiusY="20">
-                            <Rectangle.Fill>
-                                <ImageBrush ImageSource="{x:Bind Model.User.AvatarUrl, Mode=OneWay}"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
+                        <controls:UserIconControl DataContext="{x:Bind Author, Mode=OneWay}"/>
                         <interactivity:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="Click">
                                 <behaviors:OpenFlyoutAction TargetObject="{Binding ElementName=AuthorHyperlink}"/>

@@ -3,13 +3,14 @@
 using DiscordAPI.Models;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Interfaces;
 
 namespace Quarrel.ViewModels.Models.Bindables
 {
     /// <summary>
     /// A Bindable wrapper for the <see cref="Friend"/> model.
     /// </summary>
-    public class BindableFriend : BindableModelBase<Friend>
+    public class BindableFriend : BindableModelBase<Friend>, IUser
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableFriend"/> class.
@@ -18,6 +19,9 @@ namespace Quarrel.ViewModels.Models.Bindables
         public BindableFriend([NotNull] Friend friend) : base(friend)
         {
         }
+
+        /// <inheritdoc/>
+        public User RawModel => Model.User;
 
         /// <summary>
         /// Gets a value indicating whether or not the user has no friend status.

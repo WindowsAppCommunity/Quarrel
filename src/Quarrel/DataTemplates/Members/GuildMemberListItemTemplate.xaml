@@ -2,7 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Quarrel.DataTemplates.Members"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:controls="using:Quarrel.Controls"
     xmlns:bindables="using:Quarrel.ViewModels.Models.Bindables"
     xmlns:membercontrols="using:Quarrel.Controls.Members"
     xmlns:bindables1="using:Quarrel.ViewModels.Models.Bindables"
@@ -40,15 +41,11 @@
                        Width="2" Height="24" HorizontalAlignment="Left" x:Phase="1"/>
                 
                 <!--Presence indicator shadow-->
-                <controls:DropShadowPanel x:Phase="1" Color="{x:Bind Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
+                <toolkit:DropShadowPanel x:Phase="1" Color="{x:Bind Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
                                       BlurRadius="15" VerticalAlignment="Center" Margin="10,6,6,6">
                     <!--User Icon-->
-                    <Rectangle Width="36" Height="36" RadiusX="18" RadiusY="18">
-                        <Rectangle.Fill>
-                            <ImageBrush x:Name="Avatar" ImageSource="{x:Bind Model.User.AvatarUrl, Mode=OneWay}"/>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                </controls:DropShadowPanel>
+                    <controls:UserIconControl DataContext="{x:Bind}"/>
+                </toolkit:DropShadowPanel>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0">
                     <StackPanel Orientation="Horizontal">

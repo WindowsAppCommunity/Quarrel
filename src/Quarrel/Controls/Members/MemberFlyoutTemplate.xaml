@@ -496,11 +496,7 @@
                                     <!--Status blur-->
                                     <tk:DropShadowPanel Color="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
                                                         BlurRadius="15">
-                                        <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48">
-                                            <Rectangle.Fill>
-                                                <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUrl, Mode=OneWay}"/>
-                                            </Rectangle.Fill>
-                                        </Rectangle>
+                                        <controls:UserIconControl DataContext="{x:Bind ViewModel, Mode=OneWay}" Size="96"/>
                                     </tk:DropShadowPanel>
                                 </Grid>
                             </Button>

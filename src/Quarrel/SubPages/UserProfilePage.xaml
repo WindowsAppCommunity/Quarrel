@@ -186,11 +186,7 @@
                         <Grid x:Name="FullAvatar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,0,0,0">
                             <Rectangle x:Name="AvatarBG" Height="128" Width="128" RadiusX="64" RadiusY="64"/>
                             <tk:DropShadowPanel Color="{x:Bind ViewModel.User.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}" BlurRadius="15">
-                                <Rectangle x:Name="AvatarRectangle" Height="128" Width="128" RadiusX="64" RadiusY="64">
-                                    <Rectangle.Fill>
-                                        <ImageBrush ImageSource="{x:Bind ViewModel.User.Model.User.AvatarUrl, Mode=OneWay}"/>
-                                    </Rectangle.Fill>
-                                </Rectangle>
+                                <controls:UserIconControl DataContext="{x:Bind ViewModel.User, Mode=OneWay}" Size="128"/>
                             </tk:DropShadowPanel>
                         </Grid>
 

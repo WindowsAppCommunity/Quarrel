@@ -27,7 +27,11 @@ namespace Quarrel.ViewModels.Models.Bindables
     /// <summary>
     /// A Bindable wrapper for the <see cref="GuildMember"/> model.
     /// </summary>
-    public class BindableGuildMember : BindableModelBase<GuildMember>, IEquatable<BindableGuildMember>, IComparable<BindableGuildMember>, IGuildMemberListItem
+    public class BindableGuildMember : BindableModelBase<GuildMember>,
+        IEquatable<BindableGuildMember>,
+        IComparable<BindableGuildMember>,
+        IGuildMemberListItem,
+        IUser
     {
         private Presence _presence;
         private int? _userAccentColor = null;
@@ -214,6 +218,9 @@ namespace Quarrel.ViewModels.Models.Bindables
                 RaisePropertyChanged(nameof(Game));
             }
         }
+
+        /// <inheritdoc/>
+        public User RawModel => Model.User;
 
         private IDiscordService DiscordService => SimpleIoc.Default.GetInstance<IDiscordService>();
 
