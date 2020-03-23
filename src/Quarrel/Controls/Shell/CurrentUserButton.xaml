@@ -108,20 +108,10 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
-
-                <!--Presence DropShadow-->
-                <tk:DropShadowPanel
-                    Width="48"
-                    Height="48"
-                    Margin="12,6"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    BlurRadius="24"
-                    Color="{x:Bind ViewModel.CurrentGuildMember.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}">
-                    
-                    <!--User Icon-->
-                    <controls:UserIconControl DataContext="{x:Bind ViewModel.CurrentGuildMember, Mode=OneWay}"/>
-                </tk:DropShadowPanel>
+                
+                <!--User Icon-->
+                <controls:UserIconControl DataContext="{x:Bind ViewModel.CurrentGuildMember, Mode=OneWay}"
+                                          Margin="12,6" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <!--Display name-->

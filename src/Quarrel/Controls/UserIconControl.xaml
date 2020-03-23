@@ -5,11 +5,24 @@
     xmlns:local="using:Quarrel.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:discordconvert="using:Quarrel.Converters.Discord"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
+    <UserControl.Resources>
+        <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
+    </UserControl.Resources>
+    
     <Grid>
+        <toolkit:DropShadowPanel x:Name="presenceShadow" x:Load="{x:Bind ShowPresence, Mode=OneWay}"
+                                 BlurRadius="24"
+                                 Color="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}">
+            <Rectangle Width="{x:Bind Size, Mode=OneWay}" Height="{x:Bind Size, Mode=OneWay}"
+                       RadiusX="{x:Bind Size, Mode=OneWay}" RadiusY="{x:Bind Size, Mode=OneWay}"
+                       Fill="Black"/>
+        </toolkit:DropShadowPanel>
         <Rectangle Width="{x:Bind Size, Mode=OneWay}" Height="{x:Bind Size, Mode=OneWay}"
                    RadiusX="{x:Bind Size, Mode=OneWay}" RadiusY="{x:Bind Size, Mode=OneWay}">
             <Rectangle.Fill>

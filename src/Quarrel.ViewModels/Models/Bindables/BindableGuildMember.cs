@@ -31,7 +31,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         IEquatable<BindableGuildMember>,
         IComparable<BindableGuildMember>,
         IGuildMemberListItem,
-        IUser
+        IBindableUser
     {
         private Presence _presence;
         private int? _userAccentColor = null;

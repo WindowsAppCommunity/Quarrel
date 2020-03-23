@@ -14,7 +14,7 @@ namespace Quarrel.ViewModels.Models.Bindables
     public class BindableUser : BindableModelBase<User>,
         IEquatable<BindableUser>,
         IComparable<BindableUser>,
-        IUser
+        IBindableUser
     {
         private Presence _presence;
 

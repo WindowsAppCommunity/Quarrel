@@ -39,13 +39,9 @@
                 <!--Presence indicator line-->
                 <Rectangle Fill="{x:Bind Presence.Status, Converter={StaticResource PresenseToBrushConverter}, Mode=OneWay}" 
                        Width="2" Height="24" HorizontalAlignment="Left" x:Phase="1"/>
-                
-                <!--Presence indicator shadow-->
-                <toolkit:DropShadowPanel x:Phase="1" Color="{x:Bind Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
-                                      BlurRadius="15" VerticalAlignment="Center" Margin="10,6,6,6">
-                    <!--User Icon-->
-                    <controls:UserIconControl DataContext="{x:Bind}"/>
-                </toolkit:DropShadowPanel>
+
+                <!--User Icon-->
+                <controls:UserIconControl DataContext="{x:Bind}" Margin="10,6,6,6"/>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0">
                     <StackPanel Orientation="Horizontal">

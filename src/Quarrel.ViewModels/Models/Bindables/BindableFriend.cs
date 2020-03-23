@@ -10,7 +10,7 @@ namespace Quarrel.ViewModels.Models.Bindables
     /// <summary>
     /// A Bindable wrapper for the <see cref="Friend"/> model.
     /// </summary>
-    public class BindableFriend : BindableModelBase<Friend>, IUser
+    public class BindableFriend : BindableModelBase<Friend>, IBindableUser
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableFriend"/> class.
@@ -22,6 +22,9 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         /// <inheritdoc/>
         public User RawModel => Model.User;
+
+        /// <inheritdoc/>
+        public Presence Presence => null;
 
         /// <summary>
         /// Gets a value indicating whether or not the user has no friend status.

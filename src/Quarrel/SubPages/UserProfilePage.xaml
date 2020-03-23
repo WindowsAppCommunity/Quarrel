@@ -184,10 +184,7 @@
                     </StackPanel>
                     <Grid>
                         <Grid x:Name="FullAvatar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,0,0,0">
-                            <Rectangle x:Name="AvatarBG" Height="128" Width="128" RadiusX="64" RadiusY="64"/>
-                            <tk:DropShadowPanel Color="{x:Bind ViewModel.User.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}" BlurRadius="15">
-                                <controls:UserIconControl DataContext="{x:Bind ViewModel.User, Mode=OneWay}" Size="128"/>
-                            </tk:DropShadowPanel>
+                            <controls:UserIconControl DataContext="{x:Bind ViewModel.User, Mode=OneWay}" Size="128"/>
                         </Grid>
 
                         <StackPanel x:Name="usernamestacker" Orientation="Horizontal" Margin="188,6,0,0" VerticalAlignment="Top">

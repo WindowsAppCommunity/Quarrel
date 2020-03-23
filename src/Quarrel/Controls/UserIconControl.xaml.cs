@@ -25,7 +25,7 @@ namespace Quarrel.Controls
         /// <summary>
         /// Gets or sets a value indicating whether or not the presence of the user should be shown.
         /// </summary>
-        public bool ShowPresence { get; set; }
+        public bool ShowPresence { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the size of the icon.
@@ -35,6 +35,6 @@ namespace Quarrel.Controls
         /// <summary>
         /// Gets the user on display.
         /// </summary>
-        public IUser ViewModel => DataContext as IUser;
+        public IBindableUser ViewModel => DataContext as IBindableUser;
     }
 }
