@@ -33,8 +33,11 @@ namespace Quarrel.ViewModels.Services.Voice
             {
                 if (VoiceStates.ContainsKey(m.VoiceState.UserId))
                 {
-                    var channel = SimpleIoc.Default.GetInstance<IChannelsService>().GetChannel(VoiceStates[m.VoiceState.UserId].Model.ChannelId);
-                    channel.ConnectedUsers.Remove(m.VoiceState.UserId);
+                    var oldChannel = SimpleIoc.Default.GetInstance<IChannelsService>().GetChannel(VoiceStates[m.VoiceState.UserId].Model.ChannelId);
+                    if (oldChannel != null)
+                    {
+                        oldChannel.ConnectedUsers.Remove(m.VoiceState.UserId);
+                    }
 
                     if (m.VoiceState.ChannelId == null)
                     {

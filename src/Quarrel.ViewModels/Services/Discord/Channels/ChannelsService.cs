@@ -56,6 +56,11 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
         /// <inheritdoc/>
         public BindableChannel GetChannel(string channelId)
         {
+            if (channelId == null)
+            {
+                return null;
+            }
+
             return AllChannels.TryGetValue(channelId, out BindableChannel channel) ? channel : null;
         }
     }
