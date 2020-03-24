@@ -13,6 +13,7 @@ using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Presence;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.Navigation;
+using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.ViewModels.Messages.Gateway;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -193,6 +194,8 @@ namespace Quarrel.ViewModels.Models.Bindables
             get => _editedText;
             set => Set(ref _editedText, value);
         }
+
+        public bool ShowAuthorPresence => SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<bool>(SettingKeys.AuthorPresence);
 
         /// <summary>
         /// Gets or sets the UI Bindable attachments on the message.

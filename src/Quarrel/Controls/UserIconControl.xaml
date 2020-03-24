@@ -17,11 +17,14 @@
     
     <Grid>
         <toolkit:DropShadowPanel x:Name="presenceShadow" x:Load="{x:Bind ShowPresence, Mode=OneWay}"
-                                 BlurRadius="24"
+                                 BlurRadius="10"
                                  Color="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}">
             <Rectangle Width="{x:Bind Size, Mode=OneWay}" Height="{x:Bind Size, Mode=OneWay}"
-                       RadiusX="{x:Bind Size, Mode=OneWay}" RadiusY="{x:Bind Size, Mode=OneWay}"
-                       Fill="Black"/>
+                   RadiusX="{x:Bind Size, Mode=OneWay}" RadiusY="{x:Bind Size, Mode=OneWay}">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{x:Bind ViewModel.RawModel.AvatarUrl, Mode=OneWay}"/>
+                </Rectangle.Fill>
+            </Rectangle>
         </toolkit:DropShadowPanel>
         <Rectangle Width="{x:Bind Size, Mode=OneWay}" Height="{x:Bind Size, Mode=OneWay}"
                    RadiusX="{x:Bind Size, Mode=OneWay}" RadiusY="{x:Bind Size, Mode=OneWay}">
