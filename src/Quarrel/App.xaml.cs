@@ -24,6 +24,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Quarrel.SubPages;
 using AcrylicBrush = Microsoft.UI.Xaml.Media.AcrylicBrush;
 using DispatcherHelper = GalaSoft.MvvmLight.Threading.DispatcherHelper;
 
@@ -165,9 +166,13 @@ namespace Quarrel
 
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
+            e.Handled = true;
             var logger = App.ServiceProvider.GetService<ILogger<App>>();
 
             logger?.LogCritical(default(EventId), e.Exception, "Unhandled exception crashed the app.");
+            Frame rootFrame = new Frame();
+            Window.Current.Content = rootFrame;
+            rootFrame.Navigate(typeof(BSOD), e);
         }
 
         /// <summary>
