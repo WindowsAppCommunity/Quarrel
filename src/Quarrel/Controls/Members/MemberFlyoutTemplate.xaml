@@ -492,16 +492,7 @@
                             <Button x:Name="avatarButton" Width="108" Height="108" Style="{StaticResource DimButton}" Padding="0"
                                     Click="OpenProfilePage">
                                 <Grid x:Name="FullAvatar">
-                                    <Rectangle x:Name="AvatarBG" Height="96" Width="96" RadiusX="48" RadiusY="48"/>
-                                    <!--Status blur-->
-                                    <tk:DropShadowPanel Color="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}"
-                                                        BlurRadius="15">
-                                        <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48">
-                                            <Rectangle.Fill>
-                                                <ImageBrush ImageSource="{x:Bind ViewModel.Model.User.AvatarUrl, Mode=OneWay}"/>
-                                            </Rectangle.Fill>
-                                        </Rectangle>
-                                    </tk:DropShadowPanel>
+                                    <controls:UserIconControl DataContext="{x:Bind ViewModel, Mode=OneWay}" Size="96"/>
                                 </Grid>
                             </Button>
                         </Grid>

@@ -257,11 +257,8 @@
 
                 <Canvas Grid.Row="1" VerticalAlignment="Top" Margin="12,12,12,0"
                         Visibility="{x:Bind IsContinuation, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}">
-                    <Button Height="40" Width="40"
-                        Style="{StaticResource DimButton}">
-                        <Border CornerRadius="20">
-                            <Image x:Name="userImg" extensions2:Mouse.Cursor="Hand" Width="40" Height="40" Source="{x:Bind Model.User.AvatarUrl, Mode=OneWay}"/>
-                        </Border>
+                    <Button Style="{StaticResource DimButton}" extensions2:Mouse.Cursor="Hand" Padding="4" Margin="-4">
+                        <controls:UserIconControl DataContext="{x:Bind Author, Mode=OneWay}" ShowPresence="{x:Bind ShowAuthorPresence, Mode=OneWay}"/>
                         <interactivity:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="Click">
                                 <behaviors:OpenFlyoutAction TargetObject="{Binding ElementName=AuthorHyperlink}"/>

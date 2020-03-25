@@ -33,6 +33,11 @@ namespace Quarrel.DataTemplates.Messages
         private void Expand(object sender, TappedRoutedEventArgs e)
         {
             var attachment = (e.OriginalSource as FrameworkElement).DataContext;
+            if (attachment is BindableAttachment bAttachment)
+            {
+                attachment = bAttachment.Model;
+            }
+
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("AttachmentPage", attachment);
         }
 

@@ -29,8 +29,8 @@
 
 
                 <ctl:NavigationViewItemHeader Content="User managment"/>
-                <ctl:NavigationViewItem x:Name="MembersItem" Icon="People" Content="Members"/>
-                <ctl:NavigationViewItem x:Name="InvitesItem" Icon="AddFriend" Content="Invites"/>
+                <ctl:NavigationViewItem IsEnabled="False" x:Name="MembersItem" Icon="People" Content="Members"/>
+                <ctl:NavigationViewItem IsEnabled="False" x:Name="InvitesItem" Icon="AddFriend" Content="Invites"/>
                 <ctl:NavigationViewItem x:Name="BansItem" Icon="BlockContact" Content="Bans" IsEnabled="{x:Bind ViewModel.Permissions.BanMembers, Mode=OneWay}"/>
             </ctl:NavigationView.MenuItems>
 

@@ -23,6 +23,7 @@ namespace Quarrel.ViewModels.Services.Settings
 
         // Behavior
         MentionGlow,
+        AuthorPresence,
         ShowNoPermssions,
         HideMuted,
         CollapseOverride,

@@ -25,7 +25,19 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the show no permissions channels settings is true.
+        /// Gets or sets a value indicating whether or not to show the presence glow around a message's author icon.
+        /// </summary>
+        public bool ShowAuthorPresence
+        {
+            get => SettingsService.Roaming.GetValue<bool>(SettingKeys.AuthorPresence);
+            set
+            {
+                SettingsService.Roaming.SetValue(SettingKeys.AuthorPresence, value, true, true);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether or not to show no permissions channels settings is true.
         /// </summary>
         public bool ShowNoPermissions
         {

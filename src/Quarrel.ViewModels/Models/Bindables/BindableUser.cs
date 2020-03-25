@@ -3,6 +3,7 @@
 using DiscordAPI.Models;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Interfaces;
 using System;
 
 namespace Quarrel.ViewModels.Models.Bindables
@@ -10,7 +11,10 @@ namespace Quarrel.ViewModels.Models.Bindables
     /// <summary>
     /// A Bindable wrapper for the <see cref="User"/> model.
     /// </summary>
-    public class BindableUser : BindableModelBase<User>, IEquatable<BindableUser>, IComparable<BindableUser>
+    public class BindableUser : BindableModelBase<User>,
+        IEquatable<BindableUser>,
+        IComparable<BindableUser>,
+        IBindableUser
     {
         private Presence _presence;
 
@@ -21,6 +25,9 @@ namespace Quarrel.ViewModels.Models.Bindables
         public BindableUser([NotNull] User model) : base(model)
         {
         }
+
+        /// <inheritdoc/>
+        public User RawModel => Model;
 
         /// <summary>
         /// Gets or sets the user's presence.

@@ -44,6 +44,7 @@ namespace Quarrel.Services.Settings
             Roaming.SetValue(SettingKeys.ExpensiveRendering, true, false);
 
             Roaming.SetValue(SettingKeys.MentionGlow, false, false);
+            Roaming.SetValue(SettingKeys.AuthorPresence, false, false);
             Roaming.SetValue(SettingKeys.ShowNoPermssions, false, false);
             Roaming.SetValue(SettingKeys.HideMuted, false, false);
             Roaming.SetValue(SettingKeys.CollapseOverride, CollapseOverride.Unread, false);
