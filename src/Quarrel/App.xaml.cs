@@ -1,11 +1,15 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using GalaSoft.MvvmLight.Messaging;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Uwp.Helpers;
 using Quarrel.Services.Settings;
+using Quarrel.SubPages;
 using Quarrel.ViewModels;
 using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Services.Settings;
@@ -24,7 +28,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Quarrel.SubPages;
 using AcrylicBrush = Microsoft.UI.Xaml.Media.AcrylicBrush;
 using DispatcherHelper = GalaSoft.MvvmLight.Threading.DispatcherHelper;
 
@@ -76,6 +79,7 @@ namespace Quarrel
             SetupRequestedTheme();
             Suspending += OnSuspending;
             UnhandledException += App_UnhandledException;
+            AppCenter.Start("92affe87-ed35-49ed-bece-7952777dc3eb", typeof(Analytics), typeof(Crashes));
         }
 
         /// <summary>
