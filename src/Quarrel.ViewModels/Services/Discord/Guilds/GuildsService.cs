@@ -95,6 +95,13 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         // Guild Order
                         bGuild.Position = m.EventData.Settings.GuildOrder.IndexOf(x => x == bGuild.Model.Id);
 
+                        if (guild.Unavailable)
+
+                            // This should be updated to display information about unavailable guild
+                            // We also need a mechanism to readd the guild once it becomes available
+                            continue;
+                        }
+
                         // This is needed to fix ordering when multiple categories have the same position
                         var categories = guild.Channels.Where(x => x.Type == 4).ToList();
 
