@@ -4,11 +4,13 @@ using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
+using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Gateway.Guild;
 using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Models.Interfaces;
+using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
 using Quarrel.ViewModels.Services.Discord.Guilds;
@@ -291,6 +293,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         public RelayCommand OpenGuildSettings => _openGuildSettings = new RelayCommand(() =>
         {
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("GuildSettingsPage", this);
+            AnalyticsService.Log(Constants.Analytics.Events.OpenGuildSettings);
         });
 
         /// <summary>
@@ -300,6 +303,8 @@ namespace Quarrel.ViewModels.Models.Bindables
         {
             SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(Model.Id);
         });
+
+        private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
 
         private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
 
