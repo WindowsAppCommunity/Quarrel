@@ -175,7 +175,6 @@ namespace Quarrel.ViewModels.Services.Gateway
         {
             e.EventData.Cache();
             Messenger.Default.Send(new GatewayReadyMessage(e.EventData));
-            AnalyticsService.Log(Constants.Analytics.Events.ReadyPacketRecieved);
         }
 
         private void Gateway_InvalidSession(object sender, GatewayEventArgs<InvalidSession> e)
