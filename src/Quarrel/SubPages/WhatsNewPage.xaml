@@ -14,7 +14,7 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Insider Version 20.3.22" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+        <TextBlock Text="Insider Version 20.3.27" FontWeight="SemiBold" Margin="0" FontSize="20"/>
         <StackPanel Margin="16">
             <ScrollViewer>
                 <RichTextBlock x:Name="notDetailed" TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,12">
@@ -23,27 +23,15 @@
                     </Paragraph>
                     <Paragraph FontSize="8"/>
                     <Paragraph>
-                        <Run Text="• Improved Voice Channel Behavior"/>
+                        <Run Text="• Added logging events"/>
                     </Paragraph>
                     <Paragraph FontSize="8"/>
                     <Paragraph>
-                        <Run Text="• Improved Guild Flyout Style"/>
+                        <Run Text="• Fixed Square profile icons on mobile"/>
                     </Paragraph>
                     <Paragraph FontSize="8"/>
                     <Paragraph>
-                        <Run Text="• Fixed Unread DM bugs"/>
-                    </Paragraph>
-                    <Paragraph FontSize="8"/>
-                    <Paragraph>
-                        <Run Text="• Added a mention highlight on messages"/>
-                    </Paragraph>
-                    <Paragraph FontSize="8"/>
-                    <Paragraph>
-                        <Run Text="• Tap To Load attacthments"/>
-                    </Paragraph>
-                    <Paragraph FontSize="8"/>
-                    <Paragraph>
-                        <Run Text="• Improved Embed rendering"/>
+                        <Run Text="• Option to show the author's online status in messages"/>
                     </Paragraph>
                     <Paragraph FontSize="8"/>
                 </RichTextBlock>
