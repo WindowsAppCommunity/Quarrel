@@ -127,6 +127,7 @@ namespace Quarrel.ViewModels
         public RelayCommand OpenSettings => openSettings = new RelayCommand(() =>
         {
             _subFrameNavigationService.NavigateTo("UserSettingsPage");
+            _analyticsService.Log(Constants.Analytics.Events.OpenUserSettings);
         });
 
         /// <summary>
