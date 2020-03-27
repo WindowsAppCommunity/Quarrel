@@ -16,6 +16,7 @@ using Quarrel.ViewModels.Messages.Gateway.Channels;
 using Quarrel.ViewModels.Messages.Gateway.Guild;
 using Quarrel.ViewModels.Messages.Gateway.Voice;
 using Quarrel.ViewModels.Messages.Navigation;
+using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
@@ -37,6 +38,8 @@ namespace Quarrel.ViewModels.Services.Gateway
 
         /// <inheritdoc/>
         public DiscordAPI.Gateway.Gateway Gateway { get; private set; }
+
+        private IAnalyticsService AnalyticsService => SimpleIoc.Default.GetInstance<IAnalyticsService>();
 
         private ICacheService CacheService => SimpleIoc.Default.GetInstance<ICacheService>();
 
@@ -171,6 +174,7 @@ namespace Quarrel.ViewModels.Services.Gateway
         {
             e.EventData.Cache();
             Messenger.Default.Send(new GatewayReadyMessage(e.EventData));
+            AnalyticsService.Log(Constants.Analytics.Events.ReadyPacketRecieved);
         }
 
         private void Gateway_InvalidSession(object sender, GatewayEventArgs<InvalidSession> e)

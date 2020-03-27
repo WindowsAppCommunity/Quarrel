@@ -263,3 +263,4 @@ __pycache__/
 
 SodiumC.dll
 /src/Quarrel/SodiumC/ARM
+/src/Quarrel/Assets/Tokens/AppCenter.json

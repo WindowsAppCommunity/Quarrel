@@ -12,6 +12,7 @@ using Quarrel.Services.Voice.Audio.Out;
 using Quarrel.SubPages;
 using Quarrel.SubPages.GuildSettings;
 using Quarrel.SubPages.UserSettings;
+using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.Discord.Channels;
@@ -44,6 +45,8 @@ namespace Quarrel.ViewModels
         /// </summary>
         public ViewModelLocator()
         {
+            SimpleIoc.Default.Register<IDispatcherHelper, DispatcherHelperEx>();
+
             var navigationService = new SubFrameNavigationService();
             navigationService.Configure("AboutPage", typeof(AboutPage));
             navigationService.Configure("AddChannelPage", typeof(AddChannelPage));
@@ -57,9 +60,11 @@ namespace Quarrel.ViewModels
             navigationService.Configure("UserProfilePage", typeof(UserProfilePage));
             navigationService.Configure("UserSettingsPage", typeof(UserSettingsPage));
             navigationService.Configure("WhatsNewPage", typeof(WhatsNewPage));
-
-            SimpleIoc.Default.Register<IDispatcherHelper, DispatcherHelperEx>();
             SimpleIoc.Default.Register<ISubFrameNavigationService>(() => navigationService);
+
+            AppCenterService appCenterService = new AppCenterService();
+            appCenterService.Initialize();
+            SimpleIoc.Default.Register<IAnalyticsService>(() => appCenterService);
 
             SimpleIoc.Default.Register<ICacheService, CacheService>();
             SimpleIoc.Default.Register<IClipboardService, ClipboardService>();

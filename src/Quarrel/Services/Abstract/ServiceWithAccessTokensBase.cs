@@ -1,4 +1,5 @@
-﻿// Copyright (c) Quarrel. All rights reserved.
+﻿// Special thanks to Sergio Pedri for the basis of this design
+// Copyright (c) Quarrel. All rights reserved.
 
 using JetBrains.Annotations;
 using Newtonsoft.Json;
@@ -13,7 +14,7 @@ namespace Quarrel.Services.Abstract
     /// A base <see langword="class"/> for services that require access tokens to be initialized.
     /// </summary>
     /// <typeparam name="T">The type of client info model used by the service.</typeparam>
-    internal abstract class ServiceWithAccessTokensBase<T> : IInitializableService
+    public abstract class ServiceWithAccessTokensBase<T> : IInitializableService
         where T : class, new()
     {
         /// <summary>
@@ -33,6 +34,14 @@ namespace Quarrel.Services.Abstract
         /// </summary>
         [NotNull]
         protected abstract string Path { get; }
+
+        /// <summary>
+        /// Initializes the services and performs all the necessary preliminary operations.
+        /// </summary>
+        public async void Initialize()
+        {
+            await InitializeAsync();
+        }
 
         /// <inheritdoc/>
         public async Task InitializeAsync()

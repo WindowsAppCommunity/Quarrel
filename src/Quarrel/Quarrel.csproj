@@ -289,6 +289,9 @@
     <Compile Include="Helpers\Humanize.cs" />
     <Compile Include="Helpers\ImageParsing.cs" />
     <Compile Include="Helpers\ItemClickCommand.cs" />
+    <Compile Include="Services\Abstract\ServiceWithAccessTokensBase.cs" />
+    <Compile Include="Services\Analytics\AppCenterClientInfo.cs" />
+    <Compile Include="Services\Analytics\AppCenterService.cs" />
     <Compile Include="Services\Navigation\SubFrameNavigationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Cache\CacheService.cs" />
@@ -509,6 +512,7 @@
     <Content Include="Assets\emojifont.ttf" />
     <AdditionalFiles Include="stylecop.json" />
     <PRIResource Include="Localization\en\AuditLog.resw" />
+    <Content Include="Assets\Tokens\AppCenter.json" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\PayPal.png" />
     <Content Include="Properties\Default.rd.xml" />

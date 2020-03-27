@@ -1,4 +1,5 @@
-﻿// Copyright (c) Quarrel. All rights reserved.
+﻿// Special thanks to Sergio Pedri for the basis of this design
+// Copyright (c) Quarrel. All rights reserved.
 
 using System.Threading.Tasks;
 

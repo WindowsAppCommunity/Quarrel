@@ -103,5 +103,21 @@ namespace Quarrel.ViewModels.Helpers
             /// </summary>
             public const string GitHubRepoName = "Quarrel";
         }
+
+        /// <summary>
+        /// A <see langword="class"/> with some commonly used values for the analytics service.
+        /// </summary>
+        public static class Analytics
+        {
+            /// <summary>
+            /// A <see langword="class"/> with the collection of tracked events.
+            /// </summary>
+            public static class Events
+            {
+#pragma warning disable SA1600 // Elements should be documented
+                public const string ReadyPacketRecieved = "Ready packet recieved";
+#pragma warning restore SA1600 // Elements should be documented
+            }
+        }
     }
 }
