@@ -275,7 +275,6 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
             Messenger.Default.Register<GuildNavigateMessage>(this, m =>
             {
                 CurrentGuild = m.Guild;
-                AnalyticsService.Log(m.Guild.IsDM ? Constants.Analytics.Events.OpenDMs : Constants.Analytics.Events.OpenGuild);
             });
             Messenger.Default.Register<GatewayGuildMembersChunkMessage>(this, m =>
             {

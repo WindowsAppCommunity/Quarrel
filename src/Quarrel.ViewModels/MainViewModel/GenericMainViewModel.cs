@@ -8,6 +8,7 @@ using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.Discord.Channels;
@@ -30,6 +31,7 @@ namespace Quarrel.ViewModels
     /// </summary>
     public partial class MainViewModel : ViewModelBase
     {
+        private readonly IAnalyticsService _analyticsService;
         private readonly ICacheService _cacheService;
         private readonly IChannelsService _channelsService;
         private readonly ICurrentUserService _currentUserService;
@@ -38,7 +40,7 @@ namespace Quarrel.ViewModels
         private readonly IClipboardService _clipboardService;
         private readonly IGatewayService _gatewayService;
         private readonly IGuildsService _guildsService;
-        private readonly IFriendsService friendsService;
+        private readonly IFriendsService _friendsService;
         private readonly IPresenceService _presenceService;
         private readonly ISettingsService _settingsService;
         private readonly ISubFrameNavigationService _subFrameNavigationService;
@@ -52,6 +54,7 @@ namespace Quarrel.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel"/> class.
         /// </summary>
+        /// <param name="analyticsService">The app's analytics service.</param>
         /// <param name="cacheService">The app's cache service.</param>
         /// <param name="settingsService">The app's settings service.</param>
         /// <param name="channelsService">The app's channel service.</param>
@@ -66,6 +69,7 @@ namespace Quarrel.ViewModels
         /// <param name="clipboardService">The app's clipboard service.</param>
         /// <remarks>Takes all service parameters from ViewModel Locator.</remarks>
         public MainViewModel(
+            IAnalyticsService analyticsService,
             ICacheService cacheService,
             ISettingsService settingsService,
             IChannelsService channelsService,
@@ -79,12 +83,13 @@ namespace Quarrel.ViewModels
             IDispatcherHelper dispatcherHelper,
             IClipboardService clipboardService)
         {
+            _analyticsService = analyticsService;
             _cacheService = cacheService;
             _settingsService = settingsService;
-            this._discordService = discordService;
+            _discordService = discordService;
             _currentUserService = currentUserService;
             _channelsService = channelsService;
-            this.friendsService = friendsService;
+            _friendsService = friendsService;
             _presenceService = presenceService;
 
             _gatewayService = gatewayService;
@@ -161,10 +166,10 @@ namespace Quarrel.ViewModels
                     MessengerInstance.Send(new GuildNavigateMessage(_guildsService.AllGuilds["DM"]));
 
                     // Show guilds
-                    BindableCurrentFriends.AddRange(friendsService.Friends.Values.Where(x => x.IsFriend));
+                    BindableCurrentFriends.AddRange(_friendsService.Friends.Values.Where(x => x.IsFriend));
                     BindablePendingFriends.AddRange(
-                        friendsService.Friends.Values.Where(x => x.IsIncoming || x.IsOutgoing));
-                    BindableBlockedUsers.AddRange(friendsService.Friends.Values.Where(x => x.IsBlocked));
+                        _friendsService.Friends.Values.Where(x => x.IsIncoming || x.IsOutgoing));
+                    BindableBlockedUsers.AddRange(_friendsService.Friends.Values.Where(x => x.IsBlocked));
                 });
             });
         }

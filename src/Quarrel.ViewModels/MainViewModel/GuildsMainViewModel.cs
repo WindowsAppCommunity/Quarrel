@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using JetBrains.Annotations;
+using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
 using System.Collections.ObjectModel;
@@ -85,6 +86,8 @@ namespace Quarrel.ViewModels
                     {
                         MessengerInstance.Send(new ChannelNavigateMessage(channel));
                     }
+
+                    _analyticsService.Log(m.Guild.IsDM ? Constants.Analytics.Events.OpenDMs : Constants.Analytics.Events.OpenGuild);
                 }
             });
 

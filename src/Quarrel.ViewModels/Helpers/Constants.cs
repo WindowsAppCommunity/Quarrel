@@ -124,7 +124,9 @@ namespace Quarrel.ViewModels.Helpers
                 public const string OpenGuild = "Opened a Guild";
 
                 public const string OpenDMChannel = "Opened DM Channel";
-                public const string OpenGuildChannel = "Opened a GuildChannel";
+                public const string OpenGuildChannel = "Opened a Guild Channel";
+
+                public const string JoinVoiceChannel = "Joined a Voice Channel";
 
 #pragma warning restore SA1600 // Elements should be documented
             }

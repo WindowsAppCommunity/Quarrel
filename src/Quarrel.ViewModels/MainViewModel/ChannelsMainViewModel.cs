@@ -2,6 +2,7 @@
 
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
+using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
@@ -45,11 +46,19 @@ namespace Quarrel.ViewModels
                 {
                     await _discordService.Gateway.Gateway.VoiceStatusUpdate(CurrentGuild.Model.Id, gChannel.Id, false, false);
                 }
+
+                _analyticsService.Log(Constants.Analytics.Events.JoinVoiceChannel);
             }
             else if (channel.Permissions.ReadMessages)
             {
                 CurrentChannel = channel;
                 MessengerInstance.Send(new ChannelNavigateMessage(channel));
+
+                _analyticsService.Log(
+                    channel.IsPrivateChannel ?
+                    Constants.Analytics.Events.OpenDMChannel :
+                    Constants.Analytics.Events.OpenGuildChannel,
+                    ("type", channel.Model.Type.ToString()));
             }
         });
 

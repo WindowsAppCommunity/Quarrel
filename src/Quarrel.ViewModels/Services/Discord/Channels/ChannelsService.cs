@@ -36,12 +36,6 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
                 {
                     m.Channel.Selected = true;
                 });
-
-                AnalyticsService.Log(
-                    m.Channel.IsPrivateChannel ?
-                    Constants.Analytics.Events.OpenDMChannel :
-                    Constants.Analytics.Events.OpenGuildChannel,
-                    ("type", m.Channel.Model.Type.ToString()));
             });
 
             Messenger.Default.Register<GatewayMessageAckMessage>(this, m =>
