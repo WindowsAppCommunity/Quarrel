@@ -1,9 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using GalaSoft.MvvmLight.Messaging;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -79,7 +76,6 @@ namespace Quarrel
             SetupRequestedTheme();
             Suspending += OnSuspending;
             UnhandledException += App_UnhandledException;
-            AppCenter.Start("92affe87-ed35-49ed-bece-7952777dc3eb", typeof(Analytics), typeof(Crashes));
         }
 
         /// <summary>
