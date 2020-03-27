@@ -3,9 +3,11 @@
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
+using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -34,6 +36,12 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
                 {
                     m.Channel.Selected = true;
                 });
+
+                AnalyticsService.Log(
+                    m.Channel.IsPrivateChannel ?
+                    Constants.Analytics.Events.OpenDMChannel :
+                    Constants.Analytics.Events.OpenGuildChannel,
+                    ("type", m.Channel.Model.Type.ToString()));
             });
 
             Messenger.Default.Register<GatewayMessageAckMessage>(this, m =>
@@ -52,6 +60,8 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
         /// <inheritdoc/>
         public IDictionary<string, ChannelOverride> ChannelSettings { get; } =
             new ConcurrentDictionary<string, ChannelOverride>();
+
+        private IAnalyticsService AnalyticsService => SimpleIoc.Default.GetInstance<IAnalyticsService>();
 
         /// <inheritdoc/>
         public BindableChannel GetChannel(string channelId)
