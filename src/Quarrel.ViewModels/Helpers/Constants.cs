@@ -129,7 +129,10 @@ namespace Quarrel.ViewModels.Helpers
 
                 public const string SentMessage = "Sent a message";
 
+                public const string OpenUserSettings = "Opened user settings";
+
                 public const string OpenAttachment = "Opened an attachment";
+                public const string OpenUserProfile = "Opened a user profile";
 #pragma warning restore SA1600 // Elements should be documented
             }
         }

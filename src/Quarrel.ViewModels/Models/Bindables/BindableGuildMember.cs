@@ -9,6 +9,7 @@ using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Models.Interfaces;
+using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.Discord.Guilds;
@@ -86,6 +87,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         public RelayCommand OpenProfile => _openProfile = new RelayCommand(() =>
         {
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("UserProfilePage", this);
+            AnalyticsService.Log(Constants.Analytics.Events.OpenUserProfile);
         });
 
         /// <summary>
@@ -221,6 +223,8 @@ namespace Quarrel.ViewModels.Models.Bindables
 
         /// <inheritdoc/>
         public User RawModel => Model.User;
+
+        private IAnalyticsService AnalyticsService => SimpleIoc.Default.GetInstance<IAnalyticsService>();
 
         private IDiscordService DiscordService => SimpleIoc.Default.GetInstance<IDiscordService>();
 
