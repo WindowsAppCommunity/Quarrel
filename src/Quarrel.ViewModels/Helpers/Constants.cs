@@ -116,6 +116,10 @@ namespace Quarrel.ViewModels.Helpers
             {
 #pragma warning disable SA1600 // Elements should be documented
                 public const string ReadyPacketRecieved = "Ready packet recieved";
+                public const string ConnectionAttempt = "Connection attempted";
+                public const string Connected = "Connected";
+                public const string Disconnected = "Disconnected";
+                public const string InvalidSession = "Invalid session";
 #pragma warning restore SA1600 // Elements should be documented
             }
         }

@@ -161,6 +161,7 @@ namespace Quarrel.ViewModels.Services.Gateway
         {
             for (int i = 0; i < retries; i++)
             {
+                AnalyticsService.Log(Constants.Analytics.Events.ConnectionAttempt, ("attempt", (i + 1).ToString()));
                 if (await Gateway.ConnectAsync())
                 {
                     return true;
@@ -180,6 +181,7 @@ namespace Quarrel.ViewModels.Services.Gateway
         private void Gateway_InvalidSession(object sender, GatewayEventArgs<InvalidSession> e)
         {
             Messenger.Default.Send(new GatewayInvalidSessionMessage(e.EventData));
+            AnalyticsService.Log(Constants.Analytics.Events.InvalidSession);
         }
 
         private void Gateway_MessageCreated(object sender, GatewayEventArgs<Message> e)
@@ -315,6 +317,7 @@ namespace Quarrel.ViewModels.Services.Gateway
 
         private void Gateway_GatewayClosed(object sender, Exception e)
         {
+            AnalyticsService.Log(Constants.Analytics.Events.Disconnected, (nameof(Exception), e.Message));
             Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Disconnected));
         }
     }
