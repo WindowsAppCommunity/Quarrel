@@ -8,6 +8,7 @@ using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Gateway.Voice;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.Presence;
@@ -271,7 +272,11 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                     }
                 });
             });
-            Messenger.Default.Register<GuildNavigateMessage>(this, m => { CurrentGuild = m.Guild; });
+            Messenger.Default.Register<GuildNavigateMessage>(this, m =>
+            {
+                CurrentGuild = m.Guild;
+                AnalyticsService.Log(m.Guild.IsDM ? Constants.Analytics.Events.OpenDMs : Constants.Analytics.Events.OpenGuild);
+            });
             Messenger.Default.Register<GatewayGuildMembersChunkMessage>(this, m =>
             {
                 _guildUsers.TryGetValue(m.GuildMembersChunk.GuildId, out var guild);
@@ -299,6 +304,8 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
 
         /// <inheritdoc/>
         public BindableGuild CurrentGuild { get; private set; }
+
+        private IAnalyticsService AnalyticsService => SimpleIoc.Default.GetInstance<IAnalyticsService>();
 
         private ICacheService CacheService => SimpleIoc.Default.GetInstance<ICacheService>();
 

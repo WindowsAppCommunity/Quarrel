@@ -119,6 +119,9 @@ namespace Quarrel.ViewModels.Helpers
                 public const string Disconnected = "Disconnected";
                 public const string ConnectionAttempt = "Connection attempted";
                 public const string InvalidSession = "Invalid session";
+
+                public const string OpenDMs = "Opened DMs";
+                public const string OpenGuild = "Opened a Guild";
 #pragma warning restore SA1600 // Elements should be documented
             }
         }
