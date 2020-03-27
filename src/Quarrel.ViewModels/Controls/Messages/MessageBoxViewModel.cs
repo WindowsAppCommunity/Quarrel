@@ -94,7 +94,9 @@ namespace Quarrel.ViewModels.Controls.Messages
                 }
             }
 
-            AnalyticsService.Log(Constants.Analytics.Events.SentMessage);
+            AnalyticsService.Log(
+                Constants.Analytics.Events.SentMessage,
+                ("channel type", ChannelsService.CurrentChannel.Model.Type.ToString()));
 
             // Leaves sending state
             IsSending = false;
