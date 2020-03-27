@@ -23,13 +23,16 @@ namespace Quarrel.ViewModels.Services.Discord.Friends
         {
             Messenger.Default.Register<GatewayReadyMessage>(this, m =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                foreach (var channel in m.EventData.PrivateChannels)
                 {
-                    foreach (var presence in m.EventData.Presences)
+                    foreach (var user in channel.Users)
                     {
-                        DMUsers.Add(presence.User.Id, new BindableGuildMember(new GuildMember() { User = presence.User }, "DM", presence));
+                        if (!DMUsers.ContainsKey(user.Id))
+                        {
+                            DMUsers.Add(user.Id, new BindableGuildMember(new GuildMember() { User = user }, "DM"));
+                        }
                     }
-                });
+                }
             });
         }
 
