@@ -96,7 +96,8 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         bGuild.Position = m.EventData.Settings.GuildOrder.IndexOf(x => x == bGuild.Model.Id);
 
                         if (guild.Unavailable)
-
+                        {
+                            // TODO:
                             // This should be updated to display information about unavailable guild
                             // We also need a mechanism to readd the guild once it becomes available
                             continue;
