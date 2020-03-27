@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Rest;
@@ -93,6 +94,8 @@ namespace Quarrel.ViewModels.Controls.Messages
                 }
             }
 
+            AnalyticsService.Log(Constants.Analytics.Events.SentMessage);
+
             // Leaves sending state
             IsSending = false;
         });
@@ -163,6 +166,8 @@ namespace Quarrel.ViewModels.Controls.Messages
         /// Gets the current Attachments lists.
         /// </summary>
         public ObservableCollection<StreamPart> Attachments { get; } = new ObservableCollection<StreamPart>();
+
+        private IAnalyticsService AnalyticsService => SimpleIoc.Default.GetInstance<IAnalyticsService>();
 
         private IChannelsService ChannelsService => SimpleIoc.Default.GetInstance<IChannelsService>();
 

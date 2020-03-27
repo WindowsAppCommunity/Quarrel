@@ -1,12 +1,15 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using DiscordAPI.Interfaces;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Controls.Markdown;
 using Quarrel.Controls.Members;
+using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Navigation;
 using System;
@@ -30,6 +33,10 @@ namespace Quarrel.DataTemplates.Messages
             this.InitializeComponent();
         }
 
+        private ISubFrameNavigationService SubFrameNavigationService => SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+
+        private IAnalyticsService AnalyticsService => SimpleIoc.Default.GetInstance<IAnalyticsService>();
+
         private void Expand(object sender, TappedRoutedEventArgs e)
         {
             var attachment = (e.OriginalSource as FrameworkElement).DataContext;
@@ -38,7 +45,9 @@ namespace Quarrel.DataTemplates.Messages
                 attachment = bAttachment.Model;
             }
 
-            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("AttachmentPage", attachment);
+            SubFrameNavigationService.NavigateTo("AttachmentPage", attachment);
+
+            AnalyticsService.Log(Constants.Analytics.Events.OpenAttachment);
         }
 
         private async void Markdown_LinkClicked(object sender, LinkClickedEventArgs e)
