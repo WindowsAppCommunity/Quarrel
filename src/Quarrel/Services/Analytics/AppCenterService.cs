@@ -31,7 +31,9 @@ namespace Quarrel.ViewModels.Services.Analytics
                 pair => pair.Value.Length <= PropertyStringMaxLength
                     ? pair.Value
                     : $"|{pair.Value.Substring(pair.Value.Length - PropertyStringMaxLength)}");
+#if !DEBUG
             Microsoft.AppCenter.Analytics.Analytics.TrackEvent(title, properties);
+#endif
         }
 
         /// <inheritdoc/>

@@ -63,7 +63,9 @@ namespace Quarrel.ViewModels
             SimpleIoc.Default.Register<ISubFrameNavigationService>(() => navigationService);
 
             AppCenterService appCenterService = new AppCenterService();
+#if !DEBUG
             appCenterService.Initialize();
+#endif
             SimpleIoc.Default.Register<IAnalyticsService>(() => appCenterService);
 
             SimpleIoc.Default.Register<ICacheService, CacheService>();
