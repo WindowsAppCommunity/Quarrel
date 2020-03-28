@@ -10,6 +10,7 @@ using Quarrel.ViewModels.Messages.Voice;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.Rest;
+using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Services.Voice.Audio.In;
 using Quarrel.ViewModels.Services.Voice.Audio.Out;
 using System.Collections.Concurrent;
@@ -31,40 +32,41 @@ namespace Quarrel.ViewModels.Services.Voice
         {
             Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, m =>
             {
-                if (VoiceStates.ContainsKey(m.VoiceState.UserId))
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    var oldChannel = SimpleIoc.Default.GetInstance<IChannelsService>().GetChannel(VoiceStates[m.VoiceState.UserId].Model.ChannelId);
-                    if (oldChannel != null)
+                    if (VoiceStates.ContainsKey(m.VoiceState.UserId))
                     {
-                        oldChannel.ConnectedUsers.Remove(m.VoiceState.UserId);
-                    }
+                        var oldChannel = ChannelsService.GetChannel(VoiceStates[m.VoiceState.UserId].Model.ChannelId);
+                        oldChannel?.ConnectedUsers.Remove(m.VoiceState.UserId);
 
-                    if (m.VoiceState.ChannelId == null)
-                    {
-                        VoiceStates.Remove(m.VoiceState.UserId);
-
-                        if (m.VoiceState.UserId == DiscordService.CurrentUser.Id)
+                        if (m.VoiceState.ChannelId == null)
                         {
-                            DisconnectFromVoiceChannel();
+                            VoiceStates.Remove(m.VoiceState.UserId);
+
+                            if (m.VoiceState.UserId == DiscordService.CurrentUser.Id)
+                            {
+                                DisconnectFromVoiceChannel();
+                            }
+                        }
+                        else
+                        {
+                            VoiceStates[m.VoiceState.UserId].Model = m.VoiceState;
+                            VoiceStates[m.VoiceState.UserId].UpateProperties();
                         }
                     }
                     else
                     {
-                        VoiceStates[m.VoiceState.UserId].Model = m.VoiceState;
-                        VoiceStates[m.VoiceState.UserId].UpateProperties();
+                        BindableVoiceUser voiceUser = new BindableVoiceUser(m.VoiceState);
+                        VoiceStates.Add(m.VoiceState.UserId, voiceUser);
                     }
-                }
-                else
-                {
-                    BindableVoiceUser voiceUser = new BindableVoiceUser(m.VoiceState);
-                    VoiceStates.Add(m.VoiceState.UserId, voiceUser);
-                }
 
-                if (m.VoiceState.ChannelId != null)
-                {
-                    var channel = SimpleIoc.Default.GetInstance<IChannelsService>().GetChannel(m.VoiceState.ChannelId);
-                    channel.ConnectedUsers.Add(m.VoiceState.UserId, VoiceStates[m.VoiceState.UserId]);
-                }
+                    if (m.VoiceState.ChannelId != null)
+                    {
+                        var channel = SimpleIoc.Default.GetInstance<IChannelsService>().GetChannel(m.VoiceState.ChannelId);
+                        channel.ConnectedUsers.Add(m.VoiceState.UserId, VoiceStates[m.VoiceState.UserId]);
+                    }
+
+                });
             });
 
             Messenger.Default.Register<GatewayVoiceServerUpdateMessage>(this, m =>
@@ -98,12 +100,16 @@ namespace Quarrel.ViewModels.Services.Voice
         public IDictionary<string, BindableVoiceUser> VoiceStates { get; } = new ConcurrentDictionary<string, BindableVoiceUser>();
 
         /// <inheritdoc/>
-        public IAudioInService AudioInService => SimpleIoc.Default.GetInstance<IAudioInService>();
+        public IAudioInService AudioInService { get; } = SimpleIoc.Default.GetInstance<IAudioInService>();
 
         /// <inheritdoc/>
-        public IAudioOutService AudioOutService => SimpleIoc.Default.GetInstance<IAudioOutService>();
+        public IAudioOutService AudioOutService { get; } = SimpleIoc.Default.GetInstance<IAudioOutService>();
 
-        private IDiscordService DiscordService => SimpleIoc.Default.GetInstance<IDiscordService>();
+        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
+
+        private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
+
+        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
         /// <inheritdoc/>
         public async void ToggleDeafen()
