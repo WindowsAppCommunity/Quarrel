@@ -76,6 +76,6 @@ namespace Quarrel.ViewModels.SubPages
             SubFrameNavigationService.GoBack();
         });
 
-        private ISubFrameNavigationService SubFrameNavigationService => SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+        private ISubFrameNavigationService SubFrameNavigationService { get; } = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
     }
 }

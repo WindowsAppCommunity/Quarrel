@@ -111,11 +111,11 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// </summary>
         public BindableGuildMember GuildMember => GuildsService.GetGuildMember(Model.UserId, Model.GuildId);
 
-        private ICurrentUserService UserService => SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        private ICurrentUserService UserService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
 
-        private IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
 
-        private IDispatcherHelper DispatcherHelper => SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
         /// <summary>
         /// Raises property changed on all properties.

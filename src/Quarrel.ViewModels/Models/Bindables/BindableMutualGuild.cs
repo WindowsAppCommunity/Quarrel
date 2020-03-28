@@ -25,6 +25,6 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// </summary>
         public BindableGuild BindableGuild => GuildsService.AllGuilds.TryGetValue(Model.Id, out var value) ? value : null;
 
-        private IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
     }
 }

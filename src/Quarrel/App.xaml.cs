@@ -64,6 +64,7 @@ namespace Quarrel
             string fullPath = $"{folder.Path}\\Logs\\App.log";
 
             ServiceProvider.GetService<ILoggerFactory>().AddDebug((s, l) => true);
+            ViewModelLocator = ServiceProvider.GetService<ViewModelLocator>();
         }
 
         /// <summary>
@@ -91,7 +92,7 @@ namespace Quarrel
         /// <summary>
         /// Gets public access to the MainViewModel.
         /// </summary>
-        public static ViewModelLocator ViewModelLocator => ServiceProvider.GetService<ViewModelLocator>();
+        public static ViewModelLocator ViewModelLocator { get; } 
 
         private ILogger Logger { get; } = App.ServiceProvider.GetService<ILogger<App>>();
 

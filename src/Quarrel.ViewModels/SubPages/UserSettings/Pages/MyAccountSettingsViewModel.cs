@@ -158,7 +158,7 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             Base64Avatar = null;
         });
 
-        private ICurrentUserService CurrentUsersService => SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        private ICurrentUserService CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
 
         /// <summary>
         /// Restores unedited values.

@@ -224,17 +224,17 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// <inheritdoc/>
         public User RawModel => Model.User;
 
-        private IAnalyticsService AnalyticsService => SimpleIoc.Default.GetInstance<IAnalyticsService>();
+        private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
 
-        private IDiscordService DiscordService => SimpleIoc.Default.GetInstance<IDiscordService>();
+        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
 
-        private ICacheService CacheService => SimpleIoc.Default.GetInstance<ICacheService>();
+        private ICacheService CacheService { get; } = SimpleIoc.Default.GetInstance<ICacheService>();
 
-        private IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
 
-        private IDispatcherHelper DispatcherHelper => SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
-        private IResourceService ResourceService => SimpleIoc.Default.GetInstance<IResourceService>();
+        private IResourceService ResourceService { get; } = SimpleIoc.Default.GetInstance<IResourceService>();
 
         /// <summary>
         /// Updates the accent color for the bindable guild member.

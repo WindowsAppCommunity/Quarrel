@@ -73,12 +73,12 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
 
         /// <inheritdoc/>
         [NotNull]
-        public IGatewayService Gateway => SimpleIoc.Default.GetInstance<IGatewayService>();
+        public IGatewayService Gateway { get; } = SimpleIoc.Default.GetInstance<IGatewayService>();
 
         /// <inheritdoc/>
         public User CurrentUser { get; set; }
 
-        private ICacheService CacheService => SimpleIoc.Default.GetInstance<ICacheService>();
+        private ICacheService CacheService { get; } = SimpleIoc.Default.GetInstance<ICacheService>();
 
         /// <inheritdoc/>
         public async Task<bool> Login([NotNull] string email, [NotNull] string password)

@@ -58,9 +58,9 @@ namespace Quarrel.ViewModels.SubPages
             set => Set(ref _isLoadingProfile, value);
         }
 
-        private IDiscordService DiscordService => SimpleIoc.Default.GetInstance<IDiscordService>();
+        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
 
-        private ICacheService CacheService => SimpleIoc.Default.GetInstance<ICacheService>();
+        private ICacheService CacheService { get; } = SimpleIoc.Default.GetInstance<ICacheService>();
 
         /// <summary>
         /// Load UserProfile from User information.

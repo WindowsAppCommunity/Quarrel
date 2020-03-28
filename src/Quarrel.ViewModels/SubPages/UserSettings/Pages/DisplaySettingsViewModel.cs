@@ -180,7 +180,7 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             set => SettingsService.Roaming.SetValue(SettingKeys.FontSize, value, notify: true);
         }
 
-        private ISettingsService SettingsService => SimpleIoc.Default.GetInstance<ISettingsService>();
+        private ISettingsService SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
 
         private AcrylicSettings AcrylicSettings => SettingsService.Roaming.GetValue<AcrylicSettings>(SettingKeys.AcrylicSettings);
     }

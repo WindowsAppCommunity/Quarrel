@@ -85,7 +85,7 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
             }
         }
 
-        private IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
 
         private GuildSetting GuildSetting => GuildsService.GuildSettings[Guild.Model.Id];
     }

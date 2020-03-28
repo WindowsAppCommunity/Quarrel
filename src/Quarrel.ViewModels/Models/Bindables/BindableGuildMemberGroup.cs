@@ -52,6 +52,6 @@ namespace Quarrel.ViewModels.Models.Bindables
             }
         }
 
-        private IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
     }
 }

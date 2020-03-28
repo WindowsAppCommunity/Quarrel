@@ -41,6 +41,6 @@ namespace Quarrel.ViewModels.Models.Bindables
             set => Set(ref _isShowing, value);
         }
 
-        private ISettingsService SettingsService => SimpleIoc.Default.GetInstance<ISettingsService>();
+        private ISettingsService SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
     }
 }

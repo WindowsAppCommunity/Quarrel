@@ -55,7 +55,7 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
         public IDictionary<string, ChannelOverride> ChannelSettings { get; } =
             new ConcurrentDictionary<string, ChannelOverride>();
 
-        private IAnalyticsService AnalyticsService => SimpleIoc.Default.GetInstance<IAnalyticsService>();
+        private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
 
         /// <inheritdoc/>
         public BindableChannel GetChannel(string channelId)
