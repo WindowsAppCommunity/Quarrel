@@ -107,6 +107,7 @@ namespace Quarrel.ViewModels.Services.Gateway
 
             if (await ConnectWithRetryAsync(3))
             {
+                AnalyticsService.Log(Constants.Analytics.Events.Connected);
                 Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Connected));
                 Messenger.Default.Register<ChannelNavigateMessage>(this, async m =>
                 {
