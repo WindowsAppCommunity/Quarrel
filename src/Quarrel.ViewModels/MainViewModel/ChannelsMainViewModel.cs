@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Quarrel.ViewModels
 {
@@ -52,13 +53,17 @@ namespace Quarrel.ViewModels
             else if (channel.Permissions.ReadMessages)
             {
                 CurrentChannel = channel;
-                MessengerInstance.Send(new ChannelNavigateMessage(channel));
 
-                _analyticsService.Log(
-                    channel.IsPrivateChannel ?
-                    Constants.Analytics.Events.OpenDMChannel :
-                    Constants.Analytics.Events.OpenGuildChannel,
-                    ("type", channel.Model.Type.ToString()));
+                await Task.Run(() =>
+                {
+                    MessengerInstance.Send(new ChannelNavigateMessage(channel));
+
+                    _analyticsService.Log(
+                        channel.IsPrivateChannel
+                            ? Constants.Analytics.Events.OpenDMChannel
+                            : Constants.Analytics.Events.OpenGuildChannel,
+                        ("type", channel.Model.Type.ToString()));
+                });
             }
         });
 

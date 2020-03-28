@@ -82,9 +82,7 @@ namespace Quarrel.Navigation
                     CurrentPageKey = pageKey;
                 }
 
-                DispatcherHelper.CheckBeginInvokeOnUI(() => Messenger.Default.Send(
-                    SubFrameNavigationRequestMessage.To(
-                        (UserControl)Activator.CreateInstance(_pagesByKey.TryGetValue(pageKey, out var pbk) ? pbk : null))));
+                Messenger.Default.Send(SubFrameNavigationRequestMessage.To((UserControl) Activator.CreateInstance(_pagesByKey.TryGetValue(pageKey, out var pbk) ? pbk : null)));
             }
         }
 

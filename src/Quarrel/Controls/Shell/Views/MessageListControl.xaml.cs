@@ -6,6 +6,7 @@ using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using GalaSoft.MvvmLight.Threading;
 
 namespace Quarrel.Controls.Shell.Views
 {
@@ -27,7 +28,10 @@ namespace Quarrel.Controls.Shell.Views
             ViewModel.ScrollTo += ViewModel_ScrollTo;
             Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
             {
-                _itemsStackPanel.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepLastItemInView;
+                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                {
+                    _itemsStackPanel.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepLastItemInView;
+                });
             });
         }
 

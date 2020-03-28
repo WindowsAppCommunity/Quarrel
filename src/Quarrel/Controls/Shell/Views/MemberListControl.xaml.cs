@@ -11,6 +11,7 @@ using System.Threading;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using GalaSoft.MvvmLight.Threading;
 
 namespace Quarrel.Controls.Shell.Views
 {
@@ -35,9 +36,12 @@ namespace Quarrel.Controls.Shell.Views
 
             // Scrolls the MemberList to the top when the Channel changes
             Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
-            {
-                MemberList.ScrollIntoView(ViewModel.CurrentBindableMembers.FirstOrDefault());
-            });
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            MemberList.ScrollIntoView(ViewModel.CurrentBindableMembers.FirstOrDefault());
+                        });
+                });
         }
 
         /// <summary>
