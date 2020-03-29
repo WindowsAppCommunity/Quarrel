@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DiscordAPI.Sockets;
 
 namespace Quarrel.ViewModels.Services.Gateway
 {
@@ -39,17 +40,17 @@ namespace Quarrel.ViewModels.Services.Gateway
         /// <inheritdoc/>
         public DiscordAPI.Gateway.Gateway Gateway { get; private set; }
 
-        private IAnalyticsService AnalyticsService => SimpleIoc.Default.GetInstance<IAnalyticsService>();
+        private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
 
-        private ICacheService CacheService => SimpleIoc.Default.GetInstance<ICacheService>();
+        private ICacheService CacheService { get; } = SimpleIoc.Default.GetInstance<ICacheService>();
 
-        private ICurrentUserService CurrentUsersService => SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        private ICurrentUserService CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
 
-        private IChannelsService ChannelsService => SimpleIoc.Default.GetInstance<IChannelsService>();
+        private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
 
-        private IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
 
-        private IServiceProvider ServiceProvider => SimpleIoc.Default.GetInstance<IServiceProvider>();
+        private IServiceProvider ServiceProvider { get; } = SimpleIoc.Default.GetInstance<IServiceProvider>();
 
         /// <inheritdoc/>
         public async Task<bool> InitializeGateway([NotNull] string accessToken)
@@ -213,7 +214,7 @@ namespace Quarrel.ViewModels.Services.Gateway
 
         private void Gateway_MessageReactionAdded(object sender, GatewayEventArgs<MessageReactionUpdate> e)
         {
-            Messenger.Default.Send(new GatewayReactionAddedMessage(e.EventData.MessageId, e.EventData.ChannelId, e.EventData.Emoji));
+            Messenger.Default.Send(new GatewayReactionAddedMessage(e.EventData.MessageId, e.EventData.ChannelId, e.EventData.Emoji, e.EventData.UserId));
         }
 
         private void Gateway_MessageReactionRemoved(object sender, GatewayEventArgs<MessageReactionUpdate> e)
@@ -318,7 +319,15 @@ namespace Quarrel.ViewModels.Services.Gateway
         private void Gateway_GatewayClosed(object sender, Exception e)
         {
             AnalyticsService.Log(Constants.Analytics.Events.Disconnected, (nameof(Exception), e.Message));
-            Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Disconnected));
+            if (e is WebSocketClosedException ex && ex.Reason == "Authentication failed.")
+            {
+                Messenger.Default.Send(new GatewayInvalidSessionMessage(new InvalidSession{ConnectedState = false}));
+            }
+            else
+            {
+
+                Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Disconnected));
+            }
         }
     }
 }

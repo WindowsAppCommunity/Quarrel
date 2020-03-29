@@ -20,6 +20,8 @@ namespace Quarrel.DataTemplates.Messages
             this.InitializeComponent();
         }
 
+        //Todo: move to main view model
+
         private async void ToggleReaction(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             BindableReaction reaction = (e.OriginalSource as ToggleButton).DataContext as BindableReaction;

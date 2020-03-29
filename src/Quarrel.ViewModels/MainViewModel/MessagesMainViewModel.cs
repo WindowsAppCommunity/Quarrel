@@ -36,17 +36,17 @@ namespace Quarrel.ViewModels
         /// <summary>
         /// Gets a command that sends API request to delete a message.
         /// </summary>
-        public RelayCommand<BindableMessage> DeleteMessageCommand => deleteMessageCommand = deleteMessageCommand ?? new RelayCommand<BindableMessage>(async (message) =>
+        public RelayCommand<BindableMessage> DeleteMessageCommand => deleteMessageCommand = deleteMessageCommand ?? new RelayCommand<BindableMessage>((message) =>
         {
-            await _discordService.ChannelService.DeleteMessage(message.Model.ChannelId, message.Model.Id);
+            _discordService.ChannelService.DeleteMessage(message.Model.ChannelId, message.Model.Id);
         });
 
         /// <summary>
         /// Gets a command that sends API request to pin a message.
         /// </summary>
-        public RelayCommand<BindableMessage> PinMessageCommand => pinMessageCommand = pinMessageCommand ?? new RelayCommand<BindableMessage>(async (message) =>
+        public RelayCommand<BindableMessage> PinMessageCommand => pinMessageCommand = pinMessageCommand ?? new RelayCommand<BindableMessage>((message) =>
         {
-            await _discordService.ChannelService.AddPinnedChannelMessage(
+            _discordService.ChannelService.AddPinnedChannelMessage(
                 message.Model.ChannelId,
                 message.Model.Id);
         });
@@ -54,9 +54,9 @@ namespace Quarrel.ViewModels
         /// <summary>
         /// Gets a command that sends API request to unpin a message.
         /// </summary>
-        public RelayCommand<BindableMessage> UnPinMessageCommand => unPinMessageCommand = unPinMessageCommand ?? new RelayCommand<BindableMessage>(async (message) =>
+        public RelayCommand<BindableMessage> UnPinMessageCommand => unPinMessageCommand = unPinMessageCommand ?? new RelayCommand<BindableMessage>((message) =>
         {
-            await _discordService.ChannelService.DeletePinnedChannelMessage(
+            _discordService.ChannelService.DeletePinnedChannelMessage(
                 message.Model.ChannelId,
                 message.Model.Id);
         });
@@ -66,7 +66,7 @@ namespace Quarrel.ViewModels
         /// </summary>
         public RelayCommand<BindableMessage> CopyMessageIdCommand => copyMessageIdCommand = copyMessageIdCommand ?? new RelayCommand<BindableMessage>((message) =>
         {
-            _clipboardService.CopyToClipboard(message.Model.Id);
+            Task.Run(() => _clipboardService.CopyToClipboard(message.Model.Id));
         });
 
         /// <summary>
@@ -331,41 +331,38 @@ namespace Quarrel.ViewModels
                     return;
                 }
 
-                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
+                BindableMessage message = BindableMessages.LastOrDefault(x => m.MessageId == x.Model.Id);
+                if (message != null)
                 {
-                    BindableMessage message = BindableMessages.LastOrDefault(x => m.MessageId == x.Model.Id);
-                    if (message != null)
+                    BindableReaction reaction = message.BindableReactions.FirstOrDefault(x =>
+                        x.Model.Emoji.Name == m.Emoji.Name && x.Model.Emoji.Id == m.Emoji.Id);
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
-                        BindableReaction reaction = message.BindableReactions.FirstOrDefault(x =>
-                            x.Model.Emoji.Name == m.Emoji.Name && x.Model.Emoji.Id == m.Emoji.Id);
                         if (reaction != null)
                         {
                             reaction.Count++;
                         }
                         else
                         {
-                            reaction = new BindableReaction(new Reaction() { Emoji = m.Emoji, Count = 1, Me = false });
+                            reaction = new BindableReaction(new Reaction() {Emoji = m.Emoji, Count = 1, Me = m.UserId == _discordService.CurrentUser.Id, MessageId = m.MessageId, ChannelId = m.ChannelId});
                             message.BindableReactions.Add(reaction);
                         }
-                    }
-                });
+                    });
+                }
             });
             MessengerInstance.Register<GatewayReactionRemovedMessage>(this, m =>
             {
                 _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
                     BindableMessage message = BindableMessages.LastOrDefault(x => x.Model.Id == m.MessageId);
-                    if (message != null)
+                    BindableReaction reaction = message?.BindableReactions?.FirstOrDefault(x =>
+                        x.Model.Emoji.Name == m.Emoji.Name && x.Model.Emoji.Id == m.Emoji.Id);
+                    if (reaction != null)
                     {
-                        BindableReaction reaction = message.BindableReactions?.FirstOrDefault(x =>
-                            x.Model.Emoji.Name == m.Emoji.Name && x.Model.Emoji.Id == m.Emoji.Id);
-                        if (reaction != null)
+                        reaction.Count--;
+                        if (reaction.Count == 0)
                         {
-                            reaction.Count--;
-                            if (reaction.Count == 0)
-                            {
-                                message.BindableReactions.Remove(reaction);
-                            }
+                            message.BindableReactions.Remove(reaction);
                         }
                     }
                 });

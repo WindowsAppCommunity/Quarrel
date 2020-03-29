@@ -15,7 +15,7 @@
     </UserControl.Resources>
     
     <Grid>
-        <canvas:CanvasAnimatedControl Draw="CanvasAnimatedControl_Draw" SizeChanged="CanvasAnimatedControl_SizeChanged"/>
+        <canvas:CanvasAnimatedControl Draw="CanvasAnimatedControl_Draw" SizeChanged="CanvasAnimatedControl_SizeChanged" CreateResources="CanvasAnimatedControl_OnCreateResources"/>
         <Grid Background="{ThemeResource AcrylicBlur}"/>
     </Grid>
 </UserControl>

@@ -23,6 +23,7 @@ using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.Services.Settings;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Quarrel.ViewModels
 {
@@ -110,7 +111,7 @@ namespace Quarrel.ViewModels
         /// </summary>
         public RelayCommand OpenAbout => openAbout = new RelayCommand(() =>
         {
-            _subFrameNavigationService.NavigateTo("AboutPage");
+            Task.Run(() => _subFrameNavigationService.NavigateTo("AboutPage"));
         });
 
         /// <summary>
@@ -118,7 +119,7 @@ namespace Quarrel.ViewModels
         /// </summary>
         public RelayCommand OpenCredit => openCredit = new RelayCommand(() =>
         {
-            _subFrameNavigationService.NavigateTo("CreditPage");
+            Task.Run(() => _subFrameNavigationService.NavigateTo("CreditPage"));
         });
 
         /// <summary>
@@ -126,8 +127,11 @@ namespace Quarrel.ViewModels
         /// </summary>
         public RelayCommand OpenSettings => openSettings = new RelayCommand(() =>
         {
-            _subFrameNavigationService.NavigateTo("UserSettingsPage");
-            _analyticsService.Log(Constants.Analytics.Events.OpenUserSettings);
+            Task.Run(() =>
+            {
+                _subFrameNavigationService.NavigateTo("UserSettingsPage");
+                _analyticsService.Log(Constants.Analytics.Events.OpenUserSettings);
+            });
         });
 
         /// <summary>
@@ -135,15 +139,15 @@ namespace Quarrel.ViewModels
         /// </summary>
         public RelayCommand OpenWhatsNew => openWhatsNew = new RelayCommand(() =>
         {
-            _subFrameNavigationService.NavigateTo("WhatsNewPage");
+            Task.Run(() => _subFrameNavigationService.NavigateTo("WhatsNewPage"));
         });
 
         /// <summary>
         /// Gets a command that sets VoiceStatus to null.
         /// </summary>
-        public RelayCommand DisconnectVoiceCommand => disconnectVoiceCommand = disconnectVoiceCommand ?? new RelayCommand(async () =>
+        public RelayCommand DisconnectVoiceCommand => disconnectVoiceCommand = disconnectVoiceCommand ?? new RelayCommand(() =>
         {
-            await _gatewayService.Gateway.VoiceStatusUpdate(null, null, false, false);
+            Task.Run(() => _gatewayService.Gateway.VoiceStatusUpdate(null, null, false, false));
         });
 
         /// <summary>

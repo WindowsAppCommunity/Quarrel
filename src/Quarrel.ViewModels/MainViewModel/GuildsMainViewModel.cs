@@ -5,6 +5,7 @@ using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Quarrel.ViewModels
 {
@@ -20,7 +21,15 @@ namespace Quarrel.ViewModels
         /// <summary>
         /// Gets a command that sends Messenger Request to change Guild.
         /// </summary>
-        public RelayCommand<BindableGuild> NavigateGuild => navigateGuild = navigateGuild ?? new RelayCommand<BindableGuild>((guild) => { MessengerInstance.Send(new GuildNavigateMessage(guild)); });
+        public RelayCommand<BindableGuild> NavigateGuild => navigateGuild = navigateGuild ?? new RelayCommand<BindableGuild>(
+            (guild) =>
+            {
+                Task.Run(() =>
+                {
+                    MessengerInstance.Send(new GuildNavigateMessage(guild));
+                });
+            }
+        );
 
         /// <summary>
         /// Gets or sets the currently selected guild.

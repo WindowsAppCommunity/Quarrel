@@ -26,14 +26,14 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
         {
             Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
             {
-                if (CurrentChannel != null)
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    CurrentChannel.Selected = false;
-                }
+                    if (CurrentChannel != null)
+                    {
+                        CurrentChannel.Selected = false;
+                    }
 
-                CurrentChannel = m.Channel;
-                SimpleIoc.Default.GetInstance<IDispatcherHelper>().CheckBeginInvokeOnUi(() =>
-                {
+                    CurrentChannel = m.Channel;
                     m.Channel.Selected = true;
                 });
             });
@@ -55,7 +55,9 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
         public IDictionary<string, ChannelOverride> ChannelSettings { get; } =
             new ConcurrentDictionary<string, ChannelOverride>();
 
-        private IAnalyticsService AnalyticsService => SimpleIoc.Default.GetInstance<IAnalyticsService>();
+        private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
+
+        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
         /// <inheritdoc/>
         public BindableChannel GetChannel(string channelId)

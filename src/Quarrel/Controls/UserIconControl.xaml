@@ -16,7 +16,7 @@
     </UserControl.Resources>
     
     <Grid>
-        <toolkit:DropShadowPanel x:Name="presenceShadow" x:Load="{x:Bind ShowPresence, Mode=OneWay}"
+        <toolkit:DropShadowPanel Width="{x:Bind Size, Mode=OneWay}" Height="{x:Bind Size, Mode=OneWay}"  x:Name="presenceShadow" x:Load="{x:Bind ShowPresence, Mode=OneWay}"
                                  BlurRadius="10"
                                  Color="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}">
             <Rectangle Width="{x:Bind Size, Mode=OneWay}" Height="{x:Bind Size, Mode=OneWay}"

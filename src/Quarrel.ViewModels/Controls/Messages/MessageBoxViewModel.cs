@@ -169,15 +169,15 @@ namespace Quarrel.ViewModels.Controls.Messages
         /// </summary>
         public ObservableCollection<StreamPart> Attachments { get; } = new ObservableCollection<StreamPart>();
 
-        private IAnalyticsService AnalyticsService => SimpleIoc.Default.GetInstance<IAnalyticsService>();
+        private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
 
-        private IChannelsService ChannelsService => SimpleIoc.Default.GetInstance<IChannelsService>();
+        private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
 
-        private IDiscordService DiscordService => SimpleIoc.Default.GetInstance<IDiscordService>();
+        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
 
-        private IDispatcherHelper DispatcherHelper => SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
-        private IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
 
         /// <summary>
         /// Replaces surrogates with proper values for Emojis and Mentions.

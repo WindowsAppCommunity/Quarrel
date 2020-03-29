@@ -73,7 +73,7 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             }
         }
 
-        private ICurrentUserService CurrentUsersService => SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        private ICurrentUserService CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
 
         /// <summary>
         /// Saves pending changes to the user.

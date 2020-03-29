@@ -64,7 +64,7 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
             }
         }
 
-        private ICurrentUserService CurrentUserService => SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        private ICurrentUserService CurrentUserService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
 
         /// <summary>
         /// Finalizes modifications.

@@ -304,15 +304,15 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
         /// <inheritdoc/>
         public BindableGuild CurrentGuild { get; private set; }
 
-        private IAnalyticsService AnalyticsService => SimpleIoc.Default.GetInstance<IAnalyticsService>();
+        private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
 
-        private ICacheService CacheService => SimpleIoc.Default.GetInstance<ICacheService>();
+        private ICacheService CacheService { get; } = SimpleIoc.Default.GetInstance<ICacheService>();
 
-        private IChannelsService ChannelsService => SimpleIoc.Default.GetInstance<IChannelsService>();
+        private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
 
-        private IPresenceService PresenceService => SimpleIoc.Default.GetInstance<IPresenceService>();
+        private IPresenceService PresenceService { get; } = SimpleIoc.Default.GetInstance<IPresenceService>();
 
-        private IDispatcherHelper DispatcherHelper => SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
         /// <inheritdoc/>
         public BindableGuildMember GetGuildMember(string memberId, string guildId)

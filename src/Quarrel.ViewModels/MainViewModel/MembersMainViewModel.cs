@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Quarrel.ViewModels
 {
@@ -29,69 +30,76 @@ namespace Quarrel.ViewModels
         public RelayCommand<(double, double)> UpdateGuildSubscriptionsCommand =>
             _updateGuildSubscriptionsCommand = _updateGuildSubscriptionsCommand ?? new RelayCommand<(double, double)>((values) =>
             {
-                if (_guildsService.CurrentGuild.IsDM)
+                Task.Run(() =>
                 {
-                    return;
-                }
-
-                double top = CurrentBindableMembers.Count * values.Item1;
-                double bottom = CurrentBindableMembers.Count * values.Item2;
-
-                int min = (int)Math.Floor(top / 100) * 100;
-                var guildSubscription = new Dictionary<string, IEnumerable<int[]>>
-                {
+                    if (_guildsService.CurrentGuild.IsDM)
                     {
-                        CurrentChannel.Model.Id,
-                        new List<int[]>
+                        return;
+                    }
+
+                    double top = CurrentBindableMembers.Count * values.Item1;
+                    double bottom = CurrentBindableMembers.Count * values.Item2;
+
+                    int min = (int) Math.Floor(top / 100) * 100;
+                    var guildSubscription = new Dictionary<string, IEnumerable<int[]>>
+                    {
                         {
-                            new[] { 0, 99 },
-                        }
-                    },
-                };
-                if (top - min < 20)
-                {
-                    if (min > 199)
-                    {
-                        ((List<int[]>)guildSubscription[CurrentChannel.Model.Id]).Add(new[] { min - 100, min - 1 });
-                    }
-
-                    if (min > 99)
-                    {
-                        ((List<int[]>)guildSubscription[CurrentChannel.Model.Id]).Add(new[] { min, min + 99 });
-                    }
-                }
-                else if (bottom - min > 80)
-                {
-                    ((List<int[]>)guildSubscription[CurrentChannel.Model.Id]).Add(new[] { min, min + 99 });
-                    ((List<int[]>)guildSubscription[CurrentChannel.Model.Id]).Add(new[] { min + 100, min + 199 });
-                }
-                else
-                {
-                    if (min > 99)
-                    {
-                        ((List<int[]>)guildSubscription[CurrentChannel.Model.Id]).Add(new[] { min, min + 99 });
-                    }
-                }
-
-                bool hasChanged = false;
-
-                // Check if anything has changed
-                if (lastGuildSubscription != null && lastGuildSubscription.Count == guildSubscription.Count)
-                {
-                    foreach (var channel in lastGuildSubscription)
-                    {
-                        if (guildSubscription.ContainsKey(channel.Key))
-                        {
-                            if (channel.Value.Count() == guildSubscription[channel.Key].Count())
+                            CurrentChannel.Model.Id,
+                            new List<int[]>
                             {
-                                var enumerator = guildSubscription[channel.Key].GetEnumerator();
-                                foreach (var range in channel.Value)
+                                new[] {0, 99},
+                            }
+                        },
+                    };
+                    if (top - min < 20)
+                    {
+                        if (min > 199)
+                        {
+                            ((List<int[]>) guildSubscription[CurrentChannel.Model.Id]).Add(new[] {min - 100, min - 1});
+                        }
+
+                        if (min > 99)
+                        {
+                            ((List<int[]>) guildSubscription[CurrentChannel.Model.Id]).Add(new[] {min, min + 99});
+                        }
+                    }
+                    else if (bottom - min > 80)
+                    {
+                        ((List<int[]>) guildSubscription[CurrentChannel.Model.Id]).Add(new[] {min, min + 99});
+                        ((List<int[]>) guildSubscription[CurrentChannel.Model.Id]).Add(new[] {min + 100, min + 199});
+                    }
+                    else
+                    {
+                        if (min > 99)
+                        {
+                            ((List<int[]>) guildSubscription[CurrentChannel.Model.Id]).Add(new[] {min, min + 99});
+                        }
+                    }
+
+                    bool hasChanged = false;
+
+                    // Check if anything has changed
+                    if (lastGuildSubscription != null && lastGuildSubscription.Count == guildSubscription.Count)
+                    {
+                        foreach (var channel in lastGuildSubscription)
+                        {
+                            if (guildSubscription.ContainsKey(channel.Key))
+                            {
+                                if (channel.Value.Count() == guildSubscription[channel.Key].Count())
                                 {
-                                    enumerator.MoveNext();
-                                    if (!(range[0] == enumerator.Current[0] && range[1] == enumerator.Current[1]))
+                                    var enumerator = guildSubscription[channel.Key].GetEnumerator();
+                                    foreach (var range in channel.Value)
                                     {
-                                        hasChanged = true;
+                                        enumerator.MoveNext();
+                                        if (!(range[0] == enumerator.Current[0] && range[1] == enumerator.Current[1]))
+                                        {
+                                            hasChanged = true;
+                                        }
                                     }
+                                }
+                                else
+                                {
+                                    hasChanged = true;
                                 }
                             }
                             else
@@ -99,22 +107,19 @@ namespace Quarrel.ViewModels
                                 hasChanged = true;
                             }
                         }
-                        else
-                        {
-                            hasChanged = true;
-                        }
                     }
-                }
-                else
-                {
-                    hasChanged = true;
-                }
+                    else
+                    {
+                        hasChanged = true;
+                    }
 
-                if (hasChanged)
-                {
-                    Messenger.Default.Send(new GatewayUpdateGuildSubscriptionsMessage(_currentGuild.Model.Id, guildSubscription));
-                    lastGuildSubscription = guildSubscription;
-                }
+                    if (hasChanged)
+                    {
+                        Messenger.Default.Send(
+                            new GatewayUpdateGuildSubscriptionsMessage(_currentGuild.Model.Id, guildSubscription));
+                        lastGuildSubscription = guildSubscription;
+                    }
+                });
             });
 
         /// <summary>

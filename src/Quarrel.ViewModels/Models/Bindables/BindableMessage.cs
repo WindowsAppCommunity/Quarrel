@@ -195,7 +195,7 @@ namespace Quarrel.ViewModels.Models.Bindables
             set => Set(ref _editedText, value);
         }
 
-        public bool ShowAuthorPresence => SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<bool>(SettingKeys.AuthorPresence);
+        public bool ShowAuthorPresence => SettingsService.Roaming.GetValue<bool>(SettingKeys.AuthorPresence);
 
         /// <summary>
         /// Gets or sets the UI Bindable attachments on the message.
@@ -207,13 +207,17 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// </summary>
         public ObservableCollection<BindableReaction> BindableReactions { get; set; } = new ObservableCollection<BindableReaction>();
 
-        private BindableChannel Channel => SimpleIoc.Default.GetInstance<IChannelsService>().AllChannels[Model.ChannelId];
+        private BindableChannel Channel => ChannelsService.AllChannels[Model.ChannelId];
 
-        private ICurrentUserService CurrentUserService => SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
 
-        private IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
+        private ICurrentUserService CurrentUserService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
 
-        private IPresenceService PresenceService => SimpleIoc.Default.GetInstance<IPresenceService>();
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+
+        private IPresenceService PresenceService { get; } = SimpleIoc.Default.GetInstance<IPresenceService>();
+
+        private ISettingsService SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
 
         /// <summary>
         /// Update the message contents to <paramref name="message"/>.

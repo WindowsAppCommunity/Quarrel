@@ -69,12 +69,12 @@ namespace Quarrel.ViewModels.Services.Discord.CurrentUser
         /// <inheritdoc/>
         public UserSettings CurrentUserSettings { get; private set; } = new UserSettings();
 
-        private ICacheService CacheService => SimpleIoc.Default.GetInstance<ICacheService>();
+        private ICacheService CacheService { get; } = SimpleIoc.Default.GetInstance<ICacheService>();
 
-        private IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
 
-        private IPresenceService PresenceService => SimpleIoc.Default.GetInstance<IPresenceService>();
+        private IPresenceService PresenceService { get; } = SimpleIoc.Default.GetInstance<IPresenceService>();
 
-        private IDispatcherHelper DispatcherHelper => SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
     }
 }

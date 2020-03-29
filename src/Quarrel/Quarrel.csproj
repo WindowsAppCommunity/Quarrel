@@ -405,6 +405,7 @@
       <DependentUpon>UserProfilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="TemplateSelectors\AttachmentTemplateSelector.cs" />
+    <Compile Include="TemplateSelectors\ChannelTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\EmbedTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\EmojiPickerTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\GuildMemberListSelector.cs" />

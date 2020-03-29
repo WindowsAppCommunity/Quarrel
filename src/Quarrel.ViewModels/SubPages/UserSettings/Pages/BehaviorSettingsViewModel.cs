@@ -129,6 +129,6 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             }
         }
 
-        private ISettingsService SettingsService => SimpleIoc.Default.GetInstance<ISettingsService>();
+        private ISettingsService SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
     }
 }

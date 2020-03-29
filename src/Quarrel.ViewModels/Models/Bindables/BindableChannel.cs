@@ -522,7 +522,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// </summary>
         public int MentionCount
         {
-            get => ReadState == null ? 0 : ReadState.MentionCount;
+            get => ReadState?.MentionCount ?? 0;
         }
 
         /// <summary>
@@ -548,10 +548,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// <summary>
         /// Gets a value indicating whether or not someone is typing in the channel.
         /// </summary>
-        public bool IsTyping
-        {
-            get => Typers.Count > 0;
-        }
+        public bool IsTyping => Typers.Count > 0;
 
         /// <summary>
         /// Gets a formatted string for the list of typing members.

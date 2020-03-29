@@ -19,7 +19,7 @@
 
     <!--Loaded GuildMember Item Template-->
     <DataTemplate x:Key="GuildMemberListItemTemplate" x:DataType="bindables:BindableGuildMember">
-        <UserControl FlyoutBase.AttachedFlyout="{StaticResource MemberFlyoutTemplate}">
+        <UserControl FlyoutBase.AttachedFlyout="{StaticResource MemberFlyoutTemplate}" Height="52">
             <!--Secondary Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout>
@@ -41,7 +41,7 @@
                        Width="2" Height="24" HorizontalAlignment="Left" x:Phase="1"/>
 
                 <!--User Icon-->
-                <controls:UserIconControl DataContext="{x:Bind}" Margin="10,6,6,6"/>
+                <controls:UserIconControl DataContext="{x:Bind}" Margin="10,6,6,6" Width="40" Height="40"/>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0">
                     <StackPanel Orientation="Horizontal">
@@ -74,18 +74,16 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid Height="18">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <!--Group name-->
-                <TextBlock Text="{Binding Name}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.75" Margin="0"/>
-                
-                <!--Group Member Count-->
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Count}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.35"/>
-            </Grid>
-            <Rectangle Grid.Row="1" Margin="0,8,0,0" VerticalAlignment="Bottom" StrokeThickness="0.5" Height="1" Stroke="#33FFFFFF"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <!--Group name-->
+            <TextBlock Text="{x:Bind Name}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.75" Margin="0"/>
+
+            <!--Group Member Count-->
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Bind Count}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.35"/>
+            <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Margin="0,8,0,0" VerticalAlignment="Bottom" StrokeThickness="0.5" Height="1" Stroke="#33FFFFFF"/>
         </Grid>
     </DataTemplate>
 
