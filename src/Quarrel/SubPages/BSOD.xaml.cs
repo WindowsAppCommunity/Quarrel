@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Quarrel.SubPages
 {
     /// <summary>
-    /// Displays information about unhandled exception
+    /// Displays information about unhandled exception.
     /// </summary>
     public sealed partial class BSOD : Page
     {
-        /// <inheritdoc />
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BSOD"/> class.
+        /// </summary>
         public BSOD()
         {
             this.InitializeComponent();

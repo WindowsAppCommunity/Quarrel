@@ -26,6 +26,11 @@ namespace Quarrel.Controls
     public sealed partial class AudioVisualizer : UserControl
     {
         /// <summary>
+        /// The number of approximate frequencies to render in the visualizer.
+        /// </summary>
+        private const int _count = 9;
+
+        /// <summary>
         /// Indicates if incoming data should be rendered.
         /// </summary>
         private bool initailized = false;
@@ -50,23 +55,21 @@ namespace Quarrel.Controls
         /// </summary>
         private float _halfPoint;
 
-        private const int Count = 9;
-
-        private float[] _points = new float[Count];
+        private float[] _points = new float[_count];
 
         /// <summary>
         /// Average value of points.
         /// </summary>
         private float average = 0;
 
-        private float[] _specPoints = new float[Count];
+        private float[] _specPoints = new float[_count];
 
         /// <summary>
         /// Average value of Spec Points.
         /// </summary>
         private float _specPointAverage = 0;
 
-        private Smoother[] _smoothers = new Smoother[Count];
+        private Smoother[] _smoothers = new Smoother[_count];
         private Smoother _averageSmoother;
 
         private CanvasLinearGradientBrush _gradient;
@@ -135,10 +138,11 @@ namespace Quarrel.Controls
         private void FftDipose(object sender, RoutedEventArgs e)
         {
             // Clear FFT
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < _count; i++)
             {
                 _smoothers[i] = null;
             }
+
             _averageSmoother = null;
             initailized = false;
 
@@ -224,23 +228,23 @@ namespace Quarrel.Controls
                         cpb.BeginFigure(0, _height);
 
                         // Initialize render points
-                        Vector2[] p = new Vector2[Count];
+                        Vector2[] p = new Vector2[_count];
 
                         // Set render points
                         average = _averageSmoother.Smooth(_specPointAverage);
-                        for (int i = 0; i < Count; i++)
+                        for (int i = 0; i < _count; i++)
                         {
                             p[i] = new Vector2(_points[i], _height - (Adjust(_smoothers[i].Smooth(_specPoints[i])) * _height));
                         }
 
                         // Render points
                         cpb.AddLine(p[0]);
-                        for (int i = 0; i < Count-1; i++)
+                        for (int i = 0; i < _count - 1; i++)
                         {
-                            cpb.AddCubicBezier(GetC1(p[i]), GetC2(p[i+1]), p[i + 1]);
+                            cpb.AddCubicBezier(GetC1(p[i]), GetC2(p[i + 1]), p[i + 1]);
                         }
 
-                        cpb.AddLine(new Vector2(p[Count-1].X, _height));
+                        cpb.AddLine(new Vector2(p[_count - 1].X, _height));
                         cpb.EndFigure(CanvasFigureLoop.Closed);
 
                         var path = CanvasGeometry.CreatePath(cpb);
@@ -266,10 +270,11 @@ namespace Quarrel.Controls
         {
             _height = (float)e.NewSize.Height - 1;
             float segment = (float)e.NewSize.Width / 8;
-            for (int i = 1; i < Count; i++)
+            for (int i = 1; i < _count; i++)
             {
                 _points[i] = segment * i;
             }
+
             _halfPoint = segment / 2;
         }
 

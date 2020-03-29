@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace Quarrel.Services.Analytics
 {
     /// <summary>
-    /// A simple model that maps the JSON file that stores the secret token for an AppCenter app
+    /// A simple model that maps the JSON file that stores the secret token for an AppCenter app.
     /// </summary>
     public sealed class AppCenterClientInfo
     {

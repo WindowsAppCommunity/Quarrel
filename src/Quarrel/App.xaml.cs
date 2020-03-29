@@ -92,7 +92,7 @@ namespace Quarrel
         /// <summary>
         /// Gets public access to the MainViewModel.
         /// </summary>
-        public static ViewModelLocator ViewModelLocator { get; } 
+        public static ViewModelLocator ViewModelLocator { get; }
 
         private ILogger Logger { get; } = App.ServiceProvider.GetService<ILogger<App>>();
 

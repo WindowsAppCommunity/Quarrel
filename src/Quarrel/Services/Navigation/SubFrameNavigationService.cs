@@ -81,6 +81,7 @@ namespace Quarrel.Navigation
                     _historic.Add((pageKey, parameter));
                     CurrentPageKey = pageKey;
                 }
+
                 DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 {
                     Messenger.Default.Send(SubFrameNavigationRequestMessage.To((UserControl)Activator.CreateInstance(_pagesByKey.TryGetValue(pageKey, out var pbk) ? pbk : null)));
