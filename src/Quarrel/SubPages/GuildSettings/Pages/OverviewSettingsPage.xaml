@@ -19,9 +19,14 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Border CornerRadius="64" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128">
-                <tk:RoundImageEx Source="{x:Bind ViewModel.Guild.IconUrl, Mode=OneWay}" Visibility="{x:Bind ViewModel.Guild.HasIcon, Mode=OneWay}"/>
-            </Border>
+            <Rectangle VerticalAlignment="Top" HorizontalAlignment="Left"
+                       Width="128" Height="128"
+                       RadiusX="64" RadiusY="64"
+                       Visibility="{x:Bind ViewModel.Guild.HasIcon, Mode=OneWay}">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{x:Bind ViewModel.Guild.IconUrl, Mode=OneWay}"/>
+                </Rectangle.Fill>
+            </Rectangle>
 
             <StackPanel Visibility="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}" Margin="0,6,0,0" Grid.Row="1">
                 <TextBlock Text="We recommend you use an image which is at least 512x512px" TextWrapping="Wrap" FontWeight="SemiLight" FontSize="13.333" Opacity="0.75"/>

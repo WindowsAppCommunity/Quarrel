@@ -10,7 +10,8 @@
     xmlns:media="using:Microsoft.Xaml.Interactions.Media"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:members="using:Quarrel.Controls.Members"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:controls="using:Quarrel.Controls"
     mc:Ignorable="d"
     d:DesignHeight="30"
     d:DesignWidth="400">
@@ -102,11 +103,8 @@
         </Grid.ColumnDefinitions>
         
         <!--Avater-->
-        <Rectangle x:Name="AvatarBG" Stroke="Green" StrokeThickness="0" RadiusX="48" RadiusY="48" Height="24" Width="24" VerticalAlignment="Center" Grid.RowSpan="2" Margin="0,0,0,0" Grid.Row="1"/>
-        <Border CornerRadius="12" Grid.RowSpan="2" Margin="0,0,0,0" Grid.Row="1">
-            <controls:ImageEx Height="24" Width="24"  DecodePixelHeight="24" DecodePixelWidth="24" Source="{x:Bind ViewModel.GuildMember.Model.User.AvatarUrl, Mode=OneWay}"/>
-        </Border>
-        
+        <controls:UserIconControl DataContext="{x:Bind ViewModel.GuildMember}"/>
+
         <!--Username-->
         <TextBlock x:Name="username" Text="{x:Bind ViewModel.GuildMember.DisplayName, Mode=OneWay}" Margin="12,0,0,0" Grid.Column="1" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiLight" Opacity="0.5"/>
         
