@@ -331,24 +331,24 @@ namespace Quarrel.ViewModels
                     return;
                 }
 
-                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
+                BindableMessage message = BindableMessages.LastOrDefault(x => m.MessageId == x.Model.Id);
+                if (message != null)
                 {
-                    BindableMessage message = BindableMessages.LastOrDefault(x => m.MessageId == x.Model.Id);
-                    if (message != null)
+                    BindableReaction reaction = message.BindableReactions.FirstOrDefault(x =>
+                        x.Model.Emoji.Name == m.Emoji.Name && x.Model.Emoji.Id == m.Emoji.Id);
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
-                        BindableReaction reaction = message.BindableReactions.FirstOrDefault(x =>
-                            x.Model.Emoji.Name == m.Emoji.Name && x.Model.Emoji.Id == m.Emoji.Id);
                         if (reaction != null)
                         {
                             reaction.Count++;
                         }
                         else
                         {
-                            reaction = new BindableReaction(new Reaction() { Emoji = m.Emoji, Count = 1, Me = false });
+                            reaction = new BindableReaction(new Reaction() {Emoji = m.Emoji, Count = 1, Me = false, MessageId = m.MessageId, ChannelId = m.ChannelId});
                             message.BindableReactions.Add(reaction);
                         }
-                    }
-                });
+                    });
+                }
             });
             MessengerInstance.Register<GatewayReactionRemovedMessage>(this, m =>
             {
