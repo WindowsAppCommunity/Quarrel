@@ -66,7 +66,7 @@ namespace Quarrel.ViewModels
         /// </summary>
         public RelayCommand<BindableMessage> CopyMessageIdCommand => copyMessageIdCommand = copyMessageIdCommand ?? new RelayCommand<BindableMessage>((message) =>
         {
-            Task.Run(()=>_clipboardService.CopyToClipboard(message.Model.Id));
+            Task.Run(() => _clipboardService.CopyToClipboard(message.Model.Id));
         });
 
         /// <summary>
@@ -344,7 +344,7 @@ namespace Quarrel.ViewModels
                         }
                         else
                         {
-                            reaction = new BindableReaction(new Reaction() {Emoji = m.Emoji, Count = 1, Me = false, MessageId = m.MessageId, ChannelId = m.ChannelId});
+                            reaction = new BindableReaction(new Reaction() {Emoji = m.Emoji, Count = 1, Me = m.UserId == _discordService.CurrentUser.Id, MessageId = m.MessageId, ChannelId = m.ChannelId});
                             message.BindableReactions.Add(reaction);
                         }
                     });
