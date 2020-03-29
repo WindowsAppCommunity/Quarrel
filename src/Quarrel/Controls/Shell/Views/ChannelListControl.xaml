@@ -17,6 +17,7 @@
     xmlns:helpers="using:Quarrel.Helpers"
     xmlns:media="using:Microsoft.Xaml.Interactions.Media"
     xmlns:channels="using:Quarrel.DataTemplates.Channels"
+    xmlns:templateSelectors="using:Quarrel.TemplateSelectors"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -633,6 +634,18 @@
             <convertchannel:TypeToForegroundBrushConverter x:Key="TypeToBrushConverter"/>
             <convertchannel:TypeToMinHeightConverter x:Key="TypeToMinHeightConverter"/>
             <convertdiscord:DiscriminatorToBrushConverter x:Key="DiscriminatorToBrushConverter"/>
+            <!--
+                NewsChannelTemplate and StoreChannelTemplate should be implemented properly
+            -->
+            <templateSelectors:ChannelTemplateSelector x:Key="ChannelTemplateSelector" 
+               TextChannelTemplate="{StaticResource TextChannelTemplate}"
+               DMChannelTemplate="{StaticResource DMChannelTemplate}"
+               VoiceChannelTemplate="{StaticResource VoiceChannelTemplate}"
+               GroupDMChannelTemplate="{StaticResource GroupDMChannelTemplate}"
+               CategoryChannelTemplate="{StaticResource CategoryTemplate}"
+               NewsChannelTemplate="{StaticResource TextChannelTemplate}"
+               StoreChannelTemplate="{StaticResource TextChannelTemplate}"
+            />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -642,7 +655,7 @@
                   ItemsSource="{x:Bind ViewModel.CurrentGuild.Channels, Mode=OneWay}"
                   ItemContainerStyle="{StaticResource ChannelListItemStyle}"
                   IsItemClickEnabled="True"
-                  ItemTemplate="{StaticResource ChannelTemplate}"
+                  ItemTemplateSelector="{StaticResource ChannelTemplateSelector}"
                   SelectionMode="None"
                   helpers:ItemClickCommand.Command="{x:Bind ViewModel.NavigateChannelCommand}">
             <ListView.Header>

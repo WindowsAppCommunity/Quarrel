@@ -18,6 +18,10 @@ namespace Quarrel.Converters.Base
             {
                 v = !string.IsNullOrEmpty(sValue);
             }
+            else if (value is int iValue)
+            {
+                v = iValue > 0;
+            }
             else
             {
                 v = value != null;

@@ -8,6 +8,7 @@
     xmlns:md="using:Quarrel.Controls.Markdown"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -805,7 +806,7 @@
     
     <CommandBar.Content>
         <Grid>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Height="40">
                 <!--Hamburger button-->
                 <AppBarButton Height="40" Visibility="{x:Bind ShowHamburger, Converter={StaticResource NotBoolToVisibilityConverter}}" Click="InvokeHumburgerClick" Canvas.ZIndex="1" Background="Transparent" Width="72">
                     <AppBarButton.Content>
@@ -814,21 +815,21 @@
                 </AppBarButton>
                 
                 <!--Current Channel info-->
-                <StackPanel Visibility="{x:Bind ViewModel.CurrentChannel, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
-                            Orientation="Vertical" VerticalAlignment="Top" Margin="12,8,0,0" HorizontalAlignment="Left" Tapped="ChannelNameTapped">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <!--Guild Channel-->
-                        <TextBlock Text="#" Visibility="{x:Bind ViewModel.CurrentChannel.IsTextChannel, Mode=OneWay}" Opacity="{x:Bind ViewModel.CurrentChannel.TextOpacity, Mode=OneWay}" Foreground="{StaticResource Foreground}" FontSize="20" FontWeight="Light" Margin="0,-2,4,0"/>
-                        <!--DM Channel-->
-                        <TextBlock Text="@" Visibility="{x:Bind ViewModel.CurrentChannel.IsDirectChannel, Mode=OneWay}" Opacity="{x:Bind ViewModel.CurrentChannel.TextOpacity, Mode=OneWay}" Foreground="{StaticResource Foreground}" FontSize="20" FontWeight="Light" Margin="0,-2,4,0"/>
-                        <!--Group Channel-->
-                        <TextBlock Text="&#xE716;" FontFamily="Segoe MDL2 Assets" Visibility="{x:Bind ViewModel.CurrentChannel.IsGroupChannel, Mode=OneWay}" Opacity="{x:Bind ViewModel.CurrentChannel.TextOpacity, Mode=OneWay}" Foreground="{StaticResource Foreground}" FontSize="20" FontWeight="Light" Margin="0,3,4,0"/>
-                        <!--Channel Name-->
-                        <TextBlock Text="{x:Bind ViewModel.CurrentChannel.FormattedName, Mode=OneWay}" FontWeight="SemiBold" FontSize="18"/>
-                    </StackPanel>
-                    
+                <StackPanel Height="40" Visibility="{x:Bind ViewModel.CurrentChannel, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
+                            Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0" HorizontalAlignment="Left" Tapped="ChannelNameTapped">
+                    <!--Guild Channel-->
+                    <TextBlock VerticalAlignment="Center" Text="#" Visibility="{x:Bind ViewModel.CurrentChannel.IsTextChannel, Mode=OneWay}" Opacity="{x:Bind ViewModel.CurrentChannel.TextOpacity, Mode=OneWay}" Foreground="{StaticResource Foreground}" FontSize="20" FontWeight="Light" Margin="0,0,4,0"/>
+                    <!--DM Channel-->
+                    <TextBlock VerticalAlignment="Center" Text="@" Visibility="{x:Bind ViewModel.CurrentChannel.IsDirectChannel, Mode=OneWay}" Opacity="{x:Bind ViewModel.CurrentChannel.TextOpacity, Mode=OneWay}" Foreground="{StaticResource Foreground}" FontSize="20" FontWeight="Light" Margin="0,0,4,0"/>
+                    <!--Group Channel-->
+                    <TextBlock VerticalAlignment="Center" Text="&#xE716;" FontFamily="Segoe MDL2 Assets" Visibility="{x:Bind ViewModel.CurrentChannel.IsGroupChannel, Mode=OneWay}" Opacity="{x:Bind ViewModel.CurrentChannel.TextOpacity, Mode=OneWay}" Foreground="{StaticResource Foreground}" FontSize="20" FontWeight="Light" Margin="0,0,4,0"/>
+                    <!--Channel Name-->
+                    <TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.CurrentChannel.FormattedName, Mode=OneWay}" FontWeight="SemiBold" FontSize="18"/>
+                    <!--Seperator-->
+                    <AppBarSeparator/>
                     <!--Channel Description-->
-                    <md:MarkdownTextBlock LineHeight="24" Text="{x:Bind ViewModel.CurrentChannel.AsGuildChannel.Topic, Converter={StaticResource RemoveNewLineConveter}, Mode=OneWay}" FontSize="10" Margin="0,8,0,0" Height="24" IsTextSelectionEnabled="False"/>
+                    <controls:MarkdownTextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.CurrentChannel.AsGuildChannel.Topic, Converter={StaticResource RemoveNewLineConveter}, Mode=OneWay}" FontSize="18" FontWeight="Light" Margin="0,0,4,0" IsTextSelectionEnabled="False"/>
+                    
                 </StackPanel>
             </StackPanel>
         </Grid>

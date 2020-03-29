@@ -130,7 +130,7 @@ namespace Quarrel.Services.Voice.Audio.In
         /// <inheritdoc/>
         public void Dispose()
         {
-            _graph.Dispose();
+            _graph?.Dispose();
         }
 
         private void Graph_QuantumStarted(AudioGraph sender, object args)

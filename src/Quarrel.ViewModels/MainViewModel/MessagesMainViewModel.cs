@@ -355,17 +355,14 @@ namespace Quarrel.ViewModels
                 _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
                     BindableMessage message = BindableMessages.LastOrDefault(x => x.Model.Id == m.MessageId);
-                    if (message != null)
+                    BindableReaction reaction = message?.BindableReactions?.FirstOrDefault(x =>
+                        x.Model.Emoji.Name == m.Emoji.Name && x.Model.Emoji.Id == m.Emoji.Id);
+                    if (reaction != null)
                     {
-                        BindableReaction reaction = message.BindableReactions?.FirstOrDefault(x =>
-                            x.Model.Emoji.Name == m.Emoji.Name && x.Model.Emoji.Id == m.Emoji.Id);
-                        if (reaction != null)
+                        reaction.Count--;
+                        if (reaction.Count == 0)
                         {
-                            reaction.Count--;
-                            if (reaction.Count == 0)
-                            {
-                                message.BindableReactions.Remove(reaction);
-                            }
+                            message.BindableReactions.Remove(reaction);
                         }
                     }
                 });
