@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DiscordAPI.Sockets;
 
 namespace Quarrel.ViewModels.Services.Gateway
 {
@@ -318,7 +319,15 @@ namespace Quarrel.ViewModels.Services.Gateway
         private void Gateway_GatewayClosed(object sender, Exception e)
         {
             AnalyticsService.Log(Constants.Analytics.Events.Disconnected, (nameof(Exception), e.Message));
-            Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Disconnected));
+            if (e is WebSocketClosedException ex && ex.Reason == "Authentication failed.")
+            {
+                Messenger.Default.Send(new GatewayInvalidSessionMessage(new InvalidSession{ConnectedState = false}));
+            }
+            else
+            {
+
+                Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Disconnected));
+            }
         }
     }
 }
