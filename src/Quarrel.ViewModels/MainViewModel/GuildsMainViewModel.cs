@@ -18,20 +18,32 @@ namespace Quarrel.ViewModels
     /// </summary>
     public partial class MainViewModel
     {
-        private RelayCommand<BindableGuild> _navigateGuild;
+        private RelayCommand<IGuildListItem> _navigateGuild;
         private BindableGuild _currentGuild;
         private BindableGuildMember _currentGuildMember;
 
         /// <summary>
         /// Gets a command that sends Messenger Request to change Guild.
         /// </summary>
-        public RelayCommand<BindableGuild> NavigateGuild => _navigateGuild = _navigateGuild ?? new RelayCommand<BindableGuild>(
-            (guild) =>
+        public RelayCommand<IGuildListItem> GuildListItemClicked => _navigateGuild = _navigateGuild ?? new RelayCommand<IGuildListItem>(
+            (guildListItem) =>
             {
-                Task.Run(() =>
+                if (guildListItem is BindableGuild bGuild)
                 {
-                    MessengerInstance.Send(new GuildNavigateMessage(guild));
-                });
+                    Task.Run(() =>
+                    {
+                        MessengerInstance.Send(new GuildNavigateMessage(bGuild));
+                    });
+                }
+                else if (guildListItem is BindableGuildFolder bindableGuildFolder)
+                {
+                    bool collapsed = !bindableGuildFolder.IsCollapsed;
+                    bindableGuildFolder.IsCollapsed = collapsed;
+                    foreach (var guildId in bindableGuildFolder.Model.GuildIds)
+                    {
+                        _guildsService.AllGuilds[guildId].IsCollapsed = collapsed;
+                    }
+                }
             });
 
         /// <summary>
@@ -112,6 +124,7 @@ namespace Quarrel.ViewModels
                     {
                         // Show guilds
                         BindableGuilds.Clear();
+                        BindableGuilds.Add(_guildsService.AllGuilds["DM"]);
                         foreach (var folder in _guildsService.AllGuildFolders)
                         {
                             if (folder.Model.Id != null)

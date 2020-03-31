@@ -30,6 +30,6 @@
               ItemContainerStyle="{StaticResource GuildListItemStyle}"
               ScrollViewer.VerticalScrollBarVisibility="Hidden"
               IsItemClickEnabled="True"
-              helpers:ItemClickCommand.Command="{x:Bind ViewModel.NavigateGuild}">
+              helpers:ItemClickCommand.Command="{x:Bind ViewModel.GuildListItemClicked}">
     </ListView>
 </UserControl>

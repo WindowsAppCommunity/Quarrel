@@ -11,6 +11,8 @@ namespace Quarrel.ViewModels.Models.Bindables
     /// </summary>
     public class BindableGuildFolder : BindableModelBase<Folder>, IGuildListItem
     {
+        private bool _isCollapsed;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableGuildFolder"/> class.
         /// </summary>
@@ -20,7 +22,11 @@ namespace Quarrel.ViewModels.Models.Bindables
         }
 
         /// <inheritdoc/>
-        public bool IsCollapsed { get; set; }
+        public bool IsCollapsed
+        {
+            get => _isCollapsed;
+            set => Set(ref _isCollapsed, value);
+        }
 
         /// <inheritdoc/>
         public bool ShowUnread => false; // TODO: this
