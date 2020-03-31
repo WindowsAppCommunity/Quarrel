@@ -332,7 +332,8 @@
                             <HyperlinkButton Content="Save" Style="{StaticResource PlainTextHyperlinkStyle}" Margin="8,4" Command="{x:Bind SaveEdit, Mode=OneWay}"/>
                         </StackPanel>
                     </Grid>
-                    <Button x:Name="AddEmojiButton" Grid.Column="1" VerticalAlignment="Top" Padding="4,0" Style="{StaticResource DimButton}" Opacity="0">
+                    <Button x:Name="AddEmojiButton" Grid.Column="1" VerticalAlignment="Top" Padding="4,0" Style="{StaticResource DimButton}" Opacity="0"
+                            Click="LoadEmojis">
                         <Button.Flyout>
                             <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
                                 <controls:EmojiPicker EmojiPickedCommand="{x:Bind AddReaction}"/>

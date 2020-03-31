@@ -20,15 +20,17 @@ namespace Quarrel.Controls
         public EmojiPicker()
         {
             this.InitializeComponent();
-
-            // Sets DataContext
-            Load();
         }
 
         /// <summary>
         /// Gets Data Context for Emoji Picker.
         /// </summary>
         public EmojiPickerViewModel ViewModel => this.DataContext as EmojiPickerViewModel;
+
+        /// <summary>
+        /// Gets a value indicating whether or not the DataContext is loaded.
+        /// </summary>
+        public bool IsDataLoaded => DataContext != null;
 
         /// <summary>
         /// Gets or sets command for when Emoji is picked.
@@ -41,6 +43,7 @@ namespace Quarrel.Controls
         public async void Load()
         {
             this.DataContext = new EmojiPickerViewModel(await Constants.FromFile.GetEmojiLists());
+            ViewModel.LoadEmojis();
         }
 
         /// <summary>

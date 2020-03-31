@@ -69,6 +69,15 @@ namespace Quarrel.Controls.Messages
             ViewModel.Attachments.Remove((sender as Button).DataContext as StreamPart);
         }
 
+        private void LoadEmojis(object sender, RoutedEventArgs e)
+        {
+            var picker = ((sender as Button).Flyout as Flyout).Content.FindChild<EmojiPicker>();
+            if (!picker.IsDataLoaded)
+            {
+                picker.Load();
+            }
+        }
+
         private async void PasteFromClipboard(object sender, TextControlPasteEventArgs e)
         {
             DataPackageView dataPackageView = Clipboard.GetContent();

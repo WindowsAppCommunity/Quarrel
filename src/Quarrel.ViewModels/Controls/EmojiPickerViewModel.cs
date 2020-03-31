@@ -91,34 +91,4 @@ namespace Quarrel.ViewModels.Controls
             // TODO: Sort by accuracy
         }
     }
-
-    // TODO: In desperate need of refactor
-    public class GuildEmoji : Emoji
-    {
-        private string _catergory;
-        private readonly string _id;
-
-        public GuildEmoji(DiscordAPI.Models.Emoji emoji)
-        {
-            _id = emoji.Id;
-            _catergory = GuildsService.CurrentGuild.Model.Name;
-            Names = new List<string>() { emoji.Name };
-            Preview = emoji.DisplayUrl;
-        }
-
-        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
-
-        public override string Id { get => _id; }
-
-        public override string Category { get => _catergory; }
-
-        public override bool CustomEmoji => true;
-
-        public override string Surrogate => string.Format(":{0}:", Names[0]);
-
-        /// <summary>
-        /// Gets a value indicating whether or not the user has permissions to use emoji or can't (nitro).
-        /// </summary>
-        public bool IsEnabled { get; private set; }
-    }
 }

@@ -1099,7 +1099,8 @@
         <Button x:Name="SendBox" IsEnabled="{x:Bind MessageEditor.Text, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Grid.Column="2"  Style="{StaticResource SendButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Stretch" Command="{x:Bind ViewModel.SendMessageCommand}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Width="48"/>
 
         <!--Emoji Picker-->
-        <Button HorizontalAlignment="Right" Margin="0,0,48,0" Foreground="{ThemeResource Foreground}" Style="{StaticResource ContentButton}" Opacity="1" Background="Transparent" Padding="8">
+        <Button HorizontalAlignment="Right" Margin="0,0,48,0" Foreground="{ThemeResource Foreground}" Style="{StaticResource ContentButton}" Opacity="1" Background="Transparent" Padding="8"
+                Click="LoadEmojis">
             <Button.Flyout>
                 <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
                     <controls:EmojiPicker EmojiPickedCommand="{x:Bind ViewModel.EmojiPickedCommand}"/>

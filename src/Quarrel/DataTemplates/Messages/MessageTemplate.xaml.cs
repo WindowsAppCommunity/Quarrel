@@ -4,6 +4,7 @@ using DiscordAPI.Interfaces;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
+using Quarrel.Controls;
 using Quarrel.Controls.Markdown;
 using Quarrel.Controls.Members;
 using Quarrel.ViewModels.Helpers;
@@ -77,6 +78,15 @@ namespace Quarrel.DataTemplates.Messages
                 {
                     await Launcher.LaunchUriAsync(uri);
                 }
+            }
+        }
+
+        private void LoadEmojis(object sender, RoutedEventArgs e)
+        {
+            var picker = ((sender as Button).Flyout as Flyout).Content.FindChild<EmojiPicker>();
+            if (!picker.IsDataLoaded)
+            {
+                picker.Load();
             }
         }
     }
