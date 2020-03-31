@@ -409,6 +409,7 @@
     <Compile Include="TemplateSelectors\EmbedTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\EmojiPickerTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\GuildMemberListSelector.cs" />
+    <Compile Include="TemplateSelectors\GuildTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\MessageTemplateSelector.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Controls\Shell\Views\ChannelListControl.xaml.cs">
