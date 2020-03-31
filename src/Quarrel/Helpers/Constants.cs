@@ -59,7 +59,7 @@ namespace Quarrel.Helpers
                 try
                 {
                     // Read Emoji list from json file
-                    var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/Data/Emojis.json"));
+                    var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/Data/Emojis - Backup.json"));
                     string json = await FileIO.ReadTextAsync(file);
                     return JsonConvert.DeserializeObject<EmojiLists>(json);
                 }
