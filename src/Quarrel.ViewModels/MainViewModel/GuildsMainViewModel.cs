@@ -112,6 +112,7 @@ namespace Quarrel.ViewModels
                         // Show guilds
                         BindableGuilds.Clear();
                         BindableGuilds.AddRange(_guildsService.AllGuilds.Values.OrderBy(x => x.Position));
+                        BindableGuilds.AddRange(_guildsService.AllGuildFolders.Values);
                     });
                 }
             });

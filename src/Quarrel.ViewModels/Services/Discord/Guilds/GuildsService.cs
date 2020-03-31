@@ -186,6 +186,14 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         AllGuilds.AddOrUpdate(bGuild.Model.Id, bGuild);
                     }
 
+                    foreach (var folder in m.EventData.Settings.GuildFolders)
+                    {
+                        if (folder.Id != null)
+                        {
+                            AllGuildFolders.Add(folder.Id, new BindableGuildFolder(folder));
+                        }
+                    }
+
                     Messenger.Default.Send("GuildsReady");
                 });
             });
@@ -297,6 +305,9 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
         /// <inheritdoc/>
         public IDictionary<string, GuildSetting> GuildSettings { get; } =
             new ConcurrentDictionary<string, GuildSetting>();
+
+        /// <inheritdoc/>
+        public IDictionary<string, BindableGuildFolder> AllGuildFolders { get; } = new ConcurrentDictionary<string, BindableGuildFolder>();
 
         /// <inheritdoc/>
         public IDictionary<string, BindableGuild> AllGuilds { get; } = new ConcurrentDictionary<string, BindableGuild>();
