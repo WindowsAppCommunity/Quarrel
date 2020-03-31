@@ -138,6 +138,7 @@
                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Viewbox>
                 <controls:CollapseChveron IsCollapsed="{x:Bind IsCollapsed, Mode=OneWay}"
+                                          CollapsedRotation="0" UncollapsedRotation="180"
                                           Grid.Row="1" HorizontalAlignment="Center"/>
             </Grid>
         </UserControl>

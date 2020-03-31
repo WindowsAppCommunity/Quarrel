@@ -21,6 +21,16 @@ namespace Quarrel.Controls
         }
 
         /// <summary>
+        /// Gets or sets the degrees rotation of the chevren when collasped.
+        /// </summary>
+        public int CollapsedRotation { get; set; } = -90;
+
+        /// <summary>
+        /// Gets or sets the degrees rotation of the chevren when uncollasped.
+        /// </summary>
+        public int UncollapsedRotation { get; set; } = 0;
+
+        /// <summary>
         /// Gets or sets a value indicating whether or not the category is collapsed.
         /// </summary>
         /// <remarks> Rotates FontIcon -90 when collapsed.</remarks>
@@ -31,11 +41,11 @@ namespace Quarrel.Controls
             {
                 if (value)
                 {
-                    Chevron.Rotate(-90, 7, 7, 400, 0, EasingType.Circle).Start();
+                    Chevron.Rotate(CollapsedRotation, 7, 7, 400, 0, EasingType.Circle).Start();
                 }
                 else
                 {
-                    Chevron.Rotate(0, 7, 7, 400, 0, EasingType.Circle).Start();
+                    Chevron.Rotate(UncollapsedRotation, 7, 7, 400, 0, EasingType.Circle).Start();
                 }
 
                 _isCollapsed = value;
