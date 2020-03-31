@@ -6,6 +6,7 @@ using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Models.Interfaces;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -111,8 +112,18 @@ namespace Quarrel.ViewModels
                     {
                         // Show guilds
                         BindableGuilds.Clear();
-                        BindableGuilds.AddRange(_guildsService.AllGuilds.Values.OrderBy(x => x.Position));
-                        BindableGuilds.AddRange(_guildsService.AllGuildFolders.Values);
+                        foreach (var folder in _guildsService.AllGuildFolders)
+                        {
+                            if (folder.Model.Id != null)
+                            {
+                                BindableGuilds.Add(folder);
+                            }
+
+                            foreach (var guildId in folder.Model.GuildIds)
+                            {
+                                BindableGuilds.Add(_guildsService.AllGuilds[guildId]);
+                            }
+                        }
                     });
                 }
             });

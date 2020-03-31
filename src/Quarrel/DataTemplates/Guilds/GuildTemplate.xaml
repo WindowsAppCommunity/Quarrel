@@ -142,4 +142,9 @@
             </Grid>
         </UserControl>
     </DataTemplate>
+
+    <DataTemplate x:Key="EmptyGuildFolderTemplate" x:DataType="models:BindableGuildFolder">
+        <Grid/>
+    </DataTemplate>
+
 </ResourceDictionary>

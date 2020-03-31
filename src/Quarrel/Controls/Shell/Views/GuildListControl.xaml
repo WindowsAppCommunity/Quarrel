@@ -18,7 +18,8 @@
 
             <templateselectors:GuildTemplateSelector x:Key="GuildTemplateSelector"
                                                      GuildTemplate="{StaticResource GuildTemplate}"
-                                                     GuildFolderTemplate="{StaticResource GuildFolderTemplate}"/>
+                                                     GuildFolderTemplate="{StaticResource GuildFolderTemplate}"
+                                                     EmptyGuildFolderTemplate="{StaticResource EmptyGuildFolderTemplate}"/>
         </ResourceDictionary>
     </UserControl.Resources>
 

@@ -105,6 +105,11 @@ namespace Quarrel.ViewModels.Models.Bindables
         }
 
         /// <summary>
+        /// Gets or sets the Folder id the guild is in.
+        /// </summary>
+        public string FolderId { get; set; }
+
+        /// <summary>
         /// Gets or sets the Guild's position in the guild list.
         /// </summary>
         public int Position

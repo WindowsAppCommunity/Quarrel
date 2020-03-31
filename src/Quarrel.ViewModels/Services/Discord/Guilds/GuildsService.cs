@@ -188,9 +188,10 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
 
                     foreach (var folder in m.EventData.Settings.GuildFolders)
                     {
-                        if (folder.Id != null)
+                        AllGuildFolders.Add(new BindableGuildFolder(folder));
+                        foreach (string id in folder.GuildIds)
                         {
-                            AllGuildFolders.Add(folder.Id, new BindableGuildFolder(folder));
+                            AllGuilds[id].FolderId = folder.Id;
                         }
                     }
 
@@ -307,7 +308,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
             new ConcurrentDictionary<string, GuildSetting>();
 
         /// <inheritdoc/>
-        public IDictionary<string, BindableGuildFolder> AllGuildFolders { get; } = new ConcurrentDictionary<string, BindableGuildFolder>();
+        public IList<BindableGuildFolder> AllGuildFolders { get; } = new List<BindableGuildFolder>();
 
         /// <inheritdoc/>
         public IDictionary<string, BindableGuild> AllGuilds { get; } = new ConcurrentDictionary<string, BindableGuild>();

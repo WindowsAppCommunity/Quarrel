@@ -23,6 +23,11 @@ namespace Quarrel.TemplateSelectors
         public DataTemplate GuildFolderTemplate { get; set; }
 
         /// <summary>
+        /// Gets or sets the empty guild folder template.
+        /// </summary>
+        public DataTemplate EmptyGuildFolderTemplate { get; set; }
+
+        /// <summary>
         /// Selects a <see cref="DataTemplate"/> based on the details from <paramref name="item"/>.
         /// </summary>
         /// <param name="item">A <see cref="BindableChannel"/>.</param>
@@ -36,10 +41,15 @@ namespace Quarrel.TemplateSelectors
                 {
                     case BindableGuild _:
                         return GuildTemplate;
-                    case BindableGuildFolder _:
-                        return GuildFolderTemplate;
-                    default:
-                        return null;
+                    case BindableGuildFolder folder:
+                        {
+                            if (folder.Model.Id != null)
+                            {
+                                return GuildFolderTemplate;
+                            }
+
+                            return EmptyGuildFolderTemplate;
+                        }
                 }
             }
 
