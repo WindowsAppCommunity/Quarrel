@@ -18,7 +18,6 @@ using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.Services.Settings;
-using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
@@ -28,7 +27,7 @@ namespace Quarrel.ViewModels.Models.Bindables
     /// <summary>
     /// A Bindable wrapper for the <see cref="Guild"/> model.
     /// </summary>
-    public class BindableGuild : BindableModelBase<Guild>, IGuild
+    public class BindableGuild : BindableModelBase<Guild>, IGuildListItem
     {
         private ObservableCollection<BindableChannel> _channels;
         private Permissions _permissions = null;
@@ -90,7 +89,7 @@ namespace Quarrel.ViewModels.Models.Bindables
                     {
                         if (GuildsService.GuildSettings.TryGetValue(Model.Id, out var guildSetting))
                         {
-                            Muted = guildSetting.Muted;
+                            IsMuted = guildSetting.Muted;
                         }
                     });
                 }
@@ -114,10 +113,13 @@ namespace Quarrel.ViewModels.Models.Bindables
             set => Set(ref _position, value);
         }
 
+        /// <inheritdoc/>
+        public bool IsCollapsed { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether or not the guild is muted.
         /// </summary>
-        public bool Muted
+        public bool IsMuted
         {
             get => _muted;
             set
@@ -134,7 +136,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// <summary>
         /// Gets a value indicating whether not the mute icon should be shown in on top of the Guild icon.
         /// </summary>
-        public bool ShowMute => Muted && SettingsService.Roaming.GetValue<bool>(SettingKeys.ServerMuteIcons);
+        public bool ShowMute => IsMuted && SettingsService.Roaming.GetValue<bool>(SettingKeys.ServerMuteIcons);
 
         /// <summary>
         /// Gets the text to show in the text block if any.
@@ -172,12 +174,10 @@ namespace Quarrel.ViewModels.Models.Bindables
             get => Channels.Any(x => x.IsUnread);
         }
 
-        /// <summary>
-        /// Gets a value indicating whether or not the guild should be displayed as unread.
-        /// </summary>
+        /// <inheritdoc/>
         public bool ShowUnread
         {
-            get => Channels.Any(x => x.ShowUnread) && !Muted && NotificationCount == 0;
+            get => Channels.Any(x => x.ShowUnread) && !IsMuted && NotificationCount == 0;
         }
 
         /// <summary>
@@ -276,7 +276,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// </summary>
         public RelayCommand MuteGuildCommand => _muteGuild = new RelayCommand(() =>
         {
-            MuteGuild(!Muted);
+            MuteGuild(!IsMuted);
         });
 
         /// <summary>

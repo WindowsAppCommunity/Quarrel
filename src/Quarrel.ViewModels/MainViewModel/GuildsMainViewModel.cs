@@ -1,8 +1,11 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight.Command;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Interfaces;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,22 +17,21 @@ namespace Quarrel.ViewModels
     /// </summary>
     public partial class MainViewModel
     {
-        private RelayCommand<BindableGuild> navigateGuild;
+        private RelayCommand<BindableGuild> _navigateGuild;
         private BindableGuild _currentGuild;
         private BindableGuildMember _currentGuildMember;
 
         /// <summary>
         /// Gets a command that sends Messenger Request to change Guild.
         /// </summary>
-        public RelayCommand<BindableGuild> NavigateGuild => navigateGuild = navigateGuild ?? new RelayCommand<BindableGuild>(
+        public RelayCommand<BindableGuild> NavigateGuild => _navigateGuild = _navigateGuild ?? new RelayCommand<BindableGuild>(
             (guild) =>
             {
                 Task.Run(() =>
                 {
                     MessengerInstance.Send(new GuildNavigateMessage(guild));
                 });
-            }
-        );
+            });
 
         /// <summary>
         /// Gets or sets the currently selected guild.
@@ -53,8 +55,8 @@ namespace Quarrel.ViewModels
         /// Gets all Guilds the current member is in.
         /// </summary>
         [NotNull]
-        public ObservableRangeCollection<BindableGuild> BindableGuilds { get; private set; } =
-            new ObservableRangeCollection<BindableGuild>();
+        public ObservableRangeCollection<IGuildListItem> BindableGuilds { get; private set; } =
+            new ObservableRangeCollection<IGuildListItem>();
 
         private void RegisterGuildsMessages()
         {
@@ -113,7 +115,6 @@ namespace Quarrel.ViewModels
                     });
                 }
             });
-
         }
     }
 }

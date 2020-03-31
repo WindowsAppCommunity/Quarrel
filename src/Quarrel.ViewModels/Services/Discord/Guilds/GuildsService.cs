@@ -90,7 +90,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         GuildSetting gSettings;
                         if (GuildSettings.TryGetValue(guild.Id, out gSettings))
                         {
-                            bGuild.Muted = gSettings.Muted;
+                            bGuild.IsMuted = gSettings.Muted;
                         }
 
                         // Guild Order

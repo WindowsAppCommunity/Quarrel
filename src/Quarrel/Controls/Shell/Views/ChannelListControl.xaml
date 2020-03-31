@@ -644,8 +644,7 @@
                GroupDMChannelTemplate="{StaticResource GroupDMChannelTemplate}"
                CategoryChannelTemplate="{StaticResource CategoryTemplate}"
                NewsChannelTemplate="{StaticResource TextChannelTemplate}"
-               StoreChannelTemplate="{StaticResource TextChannelTemplate}"
-            />
+               StoreChannelTemplate="{StaticResource TextChannelTemplate}"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
