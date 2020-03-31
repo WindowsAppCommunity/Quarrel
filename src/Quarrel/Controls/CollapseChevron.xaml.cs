@@ -8,14 +8,14 @@ namespace Quarrel.Controls
     /// <summary>
     /// Control for a chevron to indicate collapsed status of Category in ChannelTemplate.
     /// </summary>
-    public sealed partial class CategoryChveron : UserControl
+    public sealed partial class CollapseChveron : UserControl
     {
         private bool _isCollapsed;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CategoryChveron"/> class.
+        /// Initializes a new instance of the <see cref="CollapseChveron"/> class.
         /// </summary>
-        public CategoryChveron()
+        public CollapseChveron()
         {
             this.InitializeComponent();
         }

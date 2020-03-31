@@ -5,6 +5,7 @@
     xmlns:local="using:Quarrel.DataTemplates.Guilds"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Quarrel.Controls"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:models="using:Quarrel.ViewModels.Models.Bindables"
@@ -127,7 +128,18 @@
 
     <DataTemplate x:Key="GuildFolderTemplate" x:DataType="models:BindableGuildFolder">
         <UserControl>
-            <TextBlock Text="Test"/>
+            <Grid Height="50" Width="50" HorizontalAlignment="Center" Padding="0,4" Margin="5,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Viewbox Margin="0,2">
+                    <TextBlock Text="{x:Bind Model.Name, Mode=OneWay}" FontSize="36"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Viewbox>
+                <controls:CollapseChveron IsCollapsed="{x:Bind IsCollapsed, Mode=OneWay}"
+                                          Grid.Row="1" HorizontalAlignment="Center"/>
+            </Grid>
         </UserControl>
     </DataTemplate>
 </ResourceDictionary>
