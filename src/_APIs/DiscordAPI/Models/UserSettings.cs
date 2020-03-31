@@ -141,7 +141,7 @@ namespace DiscordAPI.Models
         public string Name { get; set; }
 
         [JsonProperty("id")]
-        public long? Id { get; set; }
+        public string Id { get; set; }
 
         [JsonProperty("guild_ids")]
         public IEnumerable<string> GuildIds { get; set; }
