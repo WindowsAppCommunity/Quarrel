@@ -32,6 +32,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         private ObservableCollection<BindableChannel> _channels;
         private Permissions _permissions = null;
         private int _position;
+        private bool _isCollapsed;
         private bool _muted;
         private RelayCommand _copyId;
         private RelayCommand _openGuildSettings;
@@ -119,7 +120,11 @@ namespace Quarrel.ViewModels.Models.Bindables
         }
 
         /// <inheritdoc/>
-        public bool IsCollapsed { get; set; }
+        public bool IsCollapsed
+        {
+            get => _isCollapsed;
+            set => Set(ref _isCollapsed, value);
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether or not the guild is muted.

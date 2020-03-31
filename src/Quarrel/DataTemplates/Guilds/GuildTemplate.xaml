@@ -15,7 +15,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <DataTemplate x:Key="GuildTemplate" x:DataType="models:BindableGuild">
-        <UserControl>
+        <UserControl Visibility="{x:Bind IsCollapsed, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}">
             <UserControl.Resources>
                 <Storyboard x:Name="ShowBadge">
                     <DoubleAnimation Duration="0:0:0.6" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border" d:IsOptimized="True">
@@ -138,7 +138,7 @@
                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Viewbox>
                 <controls:CollapseChveron IsCollapsed="{x:Bind IsCollapsed, Mode=OneWay}"
-                                          CollapsedRotation="0" UncollapsedRotation="180"
+                                          CollapsedRotation="0" UncollapsedRotation="-180"
                                           Grid.Row="1" HorizontalAlignment="Center"/>
             </Grid>
         </UserControl>
