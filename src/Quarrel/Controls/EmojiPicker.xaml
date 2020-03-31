@@ -5,7 +5,7 @@
     xmlns:local="using:Quarrel.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controlmodels="using:Quarrel.ViewModels.Controls"
+    xmlns:models="using:Quarrel.ViewModels.Models"
     xmlns:template="using:Quarrel.TemplateSelectors"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -82,10 +82,10 @@
             </Setter>
         </Style>
 
-        <DataTemplate x:Key="UnicodeEmojiTemplate" x:DataType="controlmodels:Emoji">
+        <DataTemplate x:Key="UnicodeEmojiTemplate" x:DataType="models:Emoji">
             <FontIcon Glyph="{x:Bind Preview, Mode=OneWay}" ToolTipService.ToolTip="{x:Bind Names[0], Mode=OneWay}" Width="32" Height="32" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"/>
         </DataTemplate>
-        <DataTemplate x:Name="GuildEmojiTemplate" x:DataType="controlmodels:Emoji">
+        <DataTemplate x:Name="GuildEmojiTemplate" x:DataType="models:Emoji">
             <Image Source="{x:Bind Preview}" ToolTipService.ToolTip="{x:Bind Names[0], Mode=OneWay}" Width="26" Height="26" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </DataTemplate>
         <template:EmojiPickerTemplateSelector x:Key="EmojiTemplateSelector"

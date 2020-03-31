@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Models;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Discord.Channels;

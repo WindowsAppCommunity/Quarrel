@@ -35,7 +35,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         private RelayCommand _copyId;
         private RelayCommand _toggleEdit;
         private RelayCommand _saveEdit;
-        private RelayCommand<List<Controls.Emoji>> _addReaction;
+        private RelayCommand<List<Emoji>> _addReaction;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableMessage"/> class.
@@ -99,9 +99,9 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// <summary>
         /// Gets a command that adds reactions to the message.
         /// </summary>
-        public RelayCommand<List<Controls.Emoji>> AddReaction => _addReaction = new RelayCommand<List<Controls.Emoji>>((emojis) =>
+        public RelayCommand<List<Emoji>> AddReaction => _addReaction = new RelayCommand<List<Emoji>>((emojis) =>
         {
-            foreach (Controls.Emoji emoji in emojis)
+            foreach (Emoji emoji in emojis)
             {
                 SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.CreateReaction(Model.ChannelId, Model.Id, emoji.CustomEmoji ? $"{emoji.Names[0]}:{emoji.Id}" : emoji.Surrogate);
             }

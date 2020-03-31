@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using Quarrel.ViewModels.Controls;
+using Quarrel.ViewModels.Models;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

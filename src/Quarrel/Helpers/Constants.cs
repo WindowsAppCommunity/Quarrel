@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using Newtonsoft.Json;
-using Quarrel.ViewModels.Controls;
+using Quarrel.ViewModels.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,14 +54,14 @@ namespace Quarrel.Helpers
             /// Gets the full unicode a Emoji list.
             /// </summary>
             /// <returns>The full unicode emoji list.</returns>
-            public static async Task<EmojiLists> GetEmojiLists()
+            public static async Task<IEnumerable<Emoji>> GetEmojiLists()
             {
                 try
                 {
                     // Read Emoji list from json file
-                    var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/Data/Emojis - Backup.json"));
+                    var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/Data/Emojis.json"));
                     string json = await FileIO.ReadTextAsync(file);
-                    return JsonConvert.DeserializeObject<EmojiLists>(json);
+                    return JsonConvert.DeserializeObject<IEnumerable<Emoji>>(json);
                 }
                 catch
                 {
