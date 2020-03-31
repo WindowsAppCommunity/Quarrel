@@ -139,8 +139,8 @@
     <Compile Include="Controls\AudioVisualizer.xaml.cs">
       <DependentUpon>AudioVisualizer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Channels\CategoryChveron.xaml.cs">
-      <DependentUpon>CategoryChveron.xaml</DependentUpon>
+    <Compile Include="Controls\CollapseChevron.xaml.cs">
+      <DependentUpon>CollapseChevron.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Channels\ChannelListHeader.xaml.cs">
       <DependentUpon>ChannelListHeader.xaml</DependentUpon>
@@ -559,7 +559,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Channels\CategoryChveron.xaml">
+    <Page Include="Controls\CollapseChevron.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

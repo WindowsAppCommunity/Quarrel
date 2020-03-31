@@ -3,7 +3,7 @@
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Controls.Channels
+namespace Quarrel.Controls
 {
     /// <summary>
     /// Control for a chevron to indicate collapsed status of Category in ChannelTemplate.
