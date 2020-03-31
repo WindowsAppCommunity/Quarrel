@@ -160,9 +160,6 @@
     <Compile Include="Controls\GitHub\DeveloperTemplate.xaml.cs">
       <DependentUpon>DeveloperTemplate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Guilds\GuildTemplate.xaml.cs">
-      <DependentUpon>GuildTemplate.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Guilds\MutualGuildTemplate.xaml.cs">
       <DependentUpon>MutualGuildTemplate.xaml</DependentUpon>
     </Compile>
@@ -264,6 +261,9 @@
     <Compile Include="Converters\Profile\Relationships\RelationToUnblockConverter.cs" />
     <Compile Include="DataTemplates\Channels\ChannelTemplate.xaml.cs">
       <DependentUpon>ChannelTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataTemplates\Guilds\GuildTemplate.xaml.cs">
+      <DependentUpon>GuildTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataTemplates\Members\GuildMemberListItemTemplate.xaml.cs">
       <DependentUpon>GuildMemberListItemTemplate.xaml</DependentUpon>
@@ -587,10 +587,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Guilds\GuildTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\Guilds\MutualGuildTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -658,6 +654,10 @@
     <Page Include="DataTemplates\Converters.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DataTemplates\Guilds\GuildTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DataTemplates\Members\GuildMemberListItemTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
