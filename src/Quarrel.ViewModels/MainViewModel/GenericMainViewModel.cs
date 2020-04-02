@@ -168,7 +168,9 @@ namespace Quarrel.ViewModels
             {
                 _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    MessengerInstance.Send(new GuildNavigateMessage(_guildsService.AllGuilds["DM"]));
+                    var dmGuild = _guildsService.AllGuilds["DM"];
+                    dmGuild.Selected = true;
+                    MessengerInstance.Send(new GuildNavigateMessage(dmGuild));
 
                     // Show guilds
                     BindableCurrentFriends.AddRange(_friendsService.Friends.Values.Where(x => x.IsFriend));
