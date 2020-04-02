@@ -17,6 +17,11 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
         IDictionary<string, GuildSetting> GuildSettings { get; }
 
         /// <summary>
+        /// Gets a list of guild folders, by guild id.
+        /// </summary>
+        IList<BindableGuildFolder> AllGuildFolders { get; }
+
+        /// <summary>
         /// Gets a hashed collection of guilds, by guild id.
         /// </summary>
         IDictionary<string, BindableGuild> AllGuilds { get; }

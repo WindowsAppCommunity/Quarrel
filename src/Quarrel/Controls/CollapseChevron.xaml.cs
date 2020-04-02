@@ -3,22 +3,32 @@
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Controls.Channels
+namespace Quarrel.Controls
 {
     /// <summary>
     /// Control for a chevron to indicate collapsed status of Category in ChannelTemplate.
     /// </summary>
-    public sealed partial class CategoryChveron : UserControl
+    public sealed partial class CollapseChveron : UserControl
     {
         private bool _isCollapsed;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CategoryChveron"/> class.
+        /// Initializes a new instance of the <see cref="CollapseChveron"/> class.
         /// </summary>
-        public CategoryChveron()
+        public CollapseChveron()
         {
             this.InitializeComponent();
         }
+
+        /// <summary>
+        /// Gets or sets the degrees rotation of the chevren when collasped.
+        /// </summary>
+        public int CollapsedRotation { get; set; } = -90;
+
+        /// <summary>
+        /// Gets or sets the degrees rotation of the chevren when uncollasped.
+        /// </summary>
+        public int UncollapsedRotation { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets a value indicating whether or not the category is collapsed.
@@ -31,11 +41,11 @@ namespace Quarrel.Controls.Channels
             {
                 if (value)
                 {
-                    Chevron.Rotate(-90, 7, 7, 400, 0, EasingType.Circle).Start();
+                    Chevron.Rotate(CollapsedRotation, 7, 7, 400, 0, EasingType.Circle).Start();
                 }
                 else
                 {
-                    Chevron.Rotate(0, 7, 7, 400, 0, EasingType.Circle).Start();
+                    Chevron.Rotate(UncollapsedRotation, 7, 7, 400, 0, EasingType.Circle).Start();
                 }
 
                 _isCollapsed = value;

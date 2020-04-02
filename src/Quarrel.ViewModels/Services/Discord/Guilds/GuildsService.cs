@@ -90,7 +90,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         GuildSetting gSettings;
                         if (GuildSettings.TryGetValue(guild.Id, out gSettings))
                         {
-                            bGuild.Muted = gSettings.Muted;
+                            bGuild.IsMuted = gSettings.Muted;
                         }
 
                         // Guild Order
@@ -184,6 +184,15 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         }
 
                         AllGuilds.AddOrUpdate(bGuild.Model.Id, bGuild);
+                    }
+
+                    foreach (var folder in m.EventData.Settings.GuildFolders)
+                    {
+                        AllGuildFolders.Add(new BindableGuildFolder(folder));
+                        foreach (string id in folder.GuildIds)
+                        {
+                            AllGuilds[id].FolderId = folder.Id;
+                        }
                     }
 
                     Messenger.Default.Send("GuildsReady");
@@ -297,6 +306,9 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
         /// <inheritdoc/>
         public IDictionary<string, GuildSetting> GuildSettings { get; } =
             new ConcurrentDictionary<string, GuildSetting>();
+
+        /// <inheritdoc/>
+        public IList<BindableGuildFolder> AllGuildFolders { get; } = new List<BindableGuildFolder>();
 
         /// <inheritdoc/>
         public IDictionary<string, BindableGuild> AllGuilds { get; } = new ConcurrentDictionary<string, BindableGuild>();

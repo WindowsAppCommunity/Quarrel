@@ -1,0 +1,150 @@
+﻿<ResourceDictionary
+    x:Class="Quarrel.DataTemplates.Guilds.GuildTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Quarrel.DataTemplates.Guilds"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Quarrel.Controls"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:models="using:Quarrel.ViewModels.Models.Bindables"
+    mc:Ignorable="d">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../Converters.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <DataTemplate x:Key="GuildTemplate" x:DataType="models:BindableGuild">
+        <UserControl Visibility="{x:Bind IsCollapsed, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}">
+            <UserControl.Resources>
+                <Storyboard x:Name="ShowBadge">
+                    <DoubleAnimation Duration="0:0:0.6" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border" d:IsOptimized="True">
+                        <DoubleAnimation.EasingFunction>
+                            <CircleEase EasingMode="EaseOut"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                    <DoubleAnimation Duration="0:0:0.6" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="NotificationCounter" d:IsOptimized="True">
+                        <DoubleAnimation.EasingFunction>
+                            <CircleEase EasingMode="EaseOut"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+                <Storyboard x:Name="HideBadge">
+                    <DoubleAnimation Duration="0:0:0.6" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border" d:IsOptimized="True">
+                        <DoubleAnimation.EasingFunction>
+                            <CircleEase EasingMode="EaseIn"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                    <DoubleAnimation Duration="0:0:0.6" To="24" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="NotificationCounter" d:IsOptimized="True">
+                        <DoubleAnimation.EasingFunction>
+                            <CircleEase EasingMode="EaseIn"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </UserControl.Resources>
+
+            <!--Flyout-->
+            <UserControl.ContextFlyout>
+                <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
+                    <MenuFlyoutItem Icon="View" Text="Mark as read" Margin="-24,0,0,0"
+                            IsEnabled="{x:Bind IsUnread, Mode=OneWay}" Command="{x:Bind MarkAsRead}"/>
+                    <ToggleMenuFlyoutItem Text="Mute" Style="{StaticResource GuildToggleButtonFlyoutItemStyle}"
+                                  IsChecked="{x:Bind IsMuted, Mode=OneWay}" Visibility="{x:Bind IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Command="{x:Bind MuteGuildCommand, Mode=OneWay}"/>
+                    <MenuFlyoutSeparator/>
+                    <MenuFlyoutItem Icon="Setting" Text="Server Settings" Margin="-24,0,0,0"
+                            Command="{x:Bind OpenGuildSettings, Mode=OneWay}"/>
+                    <MenuFlyoutSeparator/>
+                    <MenuFlyoutItem Icon="Copy" Text="Copy Id" Margin="-24,0,0,0"
+                            Command="{x:Bind CopyId, Mode=OneWay}"/>
+                </MenuFlyout>
+            </UserControl.ContextFlyout>
+
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0,4" Margin="5,0,0,0">
+                <Grid Width="50" Height="50">
+
+                    <!--Selected Highlight-->
+                    <Border x:Name="SelectIndicator" Opacity="0" BorderThickness="3,0,0,0" HorizontalAlignment="Stretch" Margin="-12,-6">
+                        <Border.Background>
+                            <SolidColorBrush Opacity="0.2" Color="{ThemeResource SystemAccentColor}"/>
+                        </Border.Background>
+                    </Border>
+
+                    <!--Unread-->
+                    <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="12" Width="2" Opacity="0.75" Background="{ThemeResource Foreground}" Margin="-12,2,4,0" HorizontalAlignment="Left"/>
+
+                    <!--Icon-->
+                    <Rectangle Visibility="{x:Bind IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" x:Name="GuildImageBackdrop" Width="50" Height="50" RadiusX="25" RadiusY="25" Fill="{ThemeResource Foreground}" Opacity="0.1"/>
+                    <Border x:Name="GuildImage" CornerRadius="25" Width="50" Height="50" Visibility="{x:Bind HasIcon, Mode=OneWay}" Opacity="{x:Bind ShowMute, Converter={StaticResource MutedToOpacityConverter}, Mode=OneWay}">
+                        <animations:Implicit.Animations>
+                            <animations:OpacityAnimation Duration="0:0:0.3"/>
+                        </animations:Implicit.Animations>
+                        <toolkit:ImageEx Width="50" DecodePixelWidth="50" Source="{x:Bind IconUrl, Mode=OneWay}"/>
+                    </Border>
+                    <TextBlock x:Name="InvalidOverlay" Visibility="Collapsed" Text="" FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <!--Text Icon placeholder-->
+                    <TextBlock Visibility="{x:Bind HasIcon, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Foreground="{ThemeResource Foreground}" 
+                   Text="{x:Bind DisplayText, Mode=OneWay}" FontFamily="{x:Bind IsDM, Converter={StaticResource IsDMToFontFamilyConverter}, Mode=OneWay}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" 
+                   FontSize="24" FontWeight="Light" Margin="0,-2,0,0"/>
+
+                    <!--Notificiation Count-->
+                    <Border x:Name="border" Visibility="{x:Bind NotificationCount, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Margin="0,0,-12,0" VerticalAlignment="Bottom">
+                        <animations:Implicit.ShowAnimations>
+                            <animations:OpacityAnimation Duration="0:0:0.3" To="1"/>
+                        </animations:Implicit.ShowAnimations>
+                        <animations:Implicit.HideAnimations>
+                            <animations:OpacityAnimation Duration="0:0:0.3" To="0"/>
+                        </animations:Implicit.HideAnimations>
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0,0" StartPoint="1,0" ColorInterpolationMode="ScRgbLinearInterpolation">
+                                <GradientStop Offset="0.9" Color="#00000000"/>
+                                <GradientStop Color="{ThemeResource SystemAccentColor}" Offset="0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock x:Name="NotificationCounter" Text="{x:Bind NotificationCount, Mode=OneWay}" Foreground="White" FontWeight="SemiBold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="4,0,4,2" FontSize="15" RenderTransformOrigin="0.5,0.5">
+                    <animations:Implicit.ShowAnimations>
+                        <animations:TranslationAnimation Duration="0:0:0.3" From="24" To="0"/>
+                    </animations:Implicit.ShowAnimations>
+                    <animations:Implicit.HideAnimations>
+                        <animations:TranslationAnimation Duration="0:0:0.3" From="0" To="24"/>
+                    </animations:Implicit.HideAnimations>
+                        </TextBlock>
+                    </Border>
+
+                    <!--Mute Icon-->
+                    <SymbolIcon Visibility="{x:Bind ShowMute, Mode=OneWay}" Canvas.ZIndex="20" Symbol="Mute" Foreground="{ThemeResource Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,2,0,0">
+                        <animations:Implicit.ShowAnimations>
+                            <animations:OpacityAnimation Duration="0:0:0.3" From="0" To="1"/>
+                        </animations:Implicit.ShowAnimations>
+                        <animations:Implicit.HideAnimations>
+                            <animations:OpacityAnimation Duration="0:0:0.3" From="1" To="0"/>
+                        </animations:Implicit.HideAnimations>
+                    </SymbolIcon>
+                </Grid>
+            </Grid>
+        </UserControl>
+    </DataTemplate>
+
+    <DataTemplate x:Key="GuildFolderTemplate" x:DataType="models:BindableGuildFolder">
+        <UserControl>
+            <Grid Height="50" Width="50" HorizontalAlignment="Center" Padding="0,4" Margin="5,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Viewbox Margin="0,2">
+                    <TextBlock Text="{x:Bind Model.Name, Mode=OneWay}" FontSize="36"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Viewbox>
+                <controls:CollapseChveron IsCollapsed="{x:Bind IsCollapsed, Mode=OneWay}"
+                                          CollapsedRotation="0" UncollapsedRotation="-180"
+                                          Grid.Row="1" HorizontalAlignment="Center"/>
+            </Grid>
+        </UserControl>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EmptyGuildFolderTemplate" x:DataType="models:BindableGuildFolder">
+        <Grid/>
+    </DataTemplate>
+</ResourceDictionary>

@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <StackPanel>
-        <ToggleSwitch OnContent="Muted" OffContent="Mute" IsOn="{x:Bind ViewModel.Guild.Muted, Mode=TwoWay}"/>
+        <ToggleSwitch OnContent="Muted" OffContent="Mute" IsOn="{x:Bind ViewModel.Guild.IsMuted, Mode=TwoWay}"/>
         <TextBlock Text="Muting a server prevents unread indicators and notification from showing unless you are mentioned."
                    Margin="4,0,0,0" HorizontalAlignment="Left" TextWrapping="WrapWholeWords" FontSize="12" MaxWidth="300" Opacity="0.7"/>
 

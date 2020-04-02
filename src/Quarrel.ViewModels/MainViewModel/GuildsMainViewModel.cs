@@ -1,8 +1,12 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight.Command;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Interfaces;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,22 +18,33 @@ namespace Quarrel.ViewModels
     /// </summary>
     public partial class MainViewModel
     {
-        private RelayCommand<BindableGuild> navigateGuild;
+        private RelayCommand<IGuildListItem> _navigateGuild;
         private BindableGuild _currentGuild;
         private BindableGuildMember _currentGuildMember;
 
         /// <summary>
         /// Gets a command that sends Messenger Request to change Guild.
         /// </summary>
-        public RelayCommand<BindableGuild> NavigateGuild => navigateGuild = navigateGuild ?? new RelayCommand<BindableGuild>(
-            (guild) =>
+        public RelayCommand<IGuildListItem> GuildListItemClicked => _navigateGuild = _navigateGuild ?? new RelayCommand<IGuildListItem>(
+            (guildListItem) =>
             {
-                Task.Run(() =>
+                if (guildListItem is BindableGuild bGuild)
                 {
-                    MessengerInstance.Send(new GuildNavigateMessage(guild));
-                });
-            }
-        );
+                    Task.Run(() =>
+                    {
+                        MessengerInstance.Send(new GuildNavigateMessage(bGuild));
+                    });
+                }
+                else if (guildListItem is BindableGuildFolder bindableGuildFolder)
+                {
+                    bool collapsed = !bindableGuildFolder.IsCollapsed;
+                    bindableGuildFolder.IsCollapsed = collapsed;
+                    foreach (var guildId in bindableGuildFolder.Model.GuildIds)
+                    {
+                        _guildsService.AllGuilds[guildId].IsCollapsed = collapsed;
+                    }
+                }
+            });
 
         /// <summary>
         /// Gets or sets the currently selected guild.
@@ -53,8 +68,8 @@ namespace Quarrel.ViewModels
         /// Gets all Guilds the current member is in.
         /// </summary>
         [NotNull]
-        public ObservableRangeCollection<BindableGuild> BindableGuilds { get; private set; } =
-            new ObservableRangeCollection<BindableGuild>();
+        public ObservableRangeCollection<IGuildListItem> BindableGuilds { get; private set; } =
+            new ObservableRangeCollection<IGuildListItem>();
 
         private void RegisterGuildsMessages()
         {
@@ -109,11 +124,22 @@ namespace Quarrel.ViewModels
                     {
                         // Show guilds
                         BindableGuilds.Clear();
-                        BindableGuilds.AddRange(_guildsService.AllGuilds.Values.OrderBy(x => x.Position));
+                        BindableGuilds.Add(_guildsService.AllGuilds["DM"]);
+                        foreach (var folder in _guildsService.AllGuildFolders)
+                        {
+                            if (folder.Model.Id != null)
+                            {
+                                BindableGuilds.Add(folder);
+                            }
+
+                            foreach (var guildId in folder.Model.GuildIds)
+                            {
+                                BindableGuilds.Add(_guildsService.AllGuilds[guildId]);
+                            }
+                        }
                     });
                 }
             });
-
         }
     }
 }

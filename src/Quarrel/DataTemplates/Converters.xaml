@@ -5,6 +5,7 @@
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:convertchannel="using:Quarrel.Converters.Channel"
     xmlns:discordconvert="using:Quarrel.Converters.Discord"
+    xmlns:convertguild="using:Quarrel.Converters.Guild"
     xmlns:msgconvert="using:Quarrel.Converters.Messages"
     xmlns:profileconvert="using:Quarrel.Converters.Profile">
 
@@ -27,11 +28,12 @@
     <discordconvert:DiscriminatorToBrushConverter x:Key="DiscriminatorToBrushConverter"/>
     <discordconvert:PresenseToBrushConverter x:Key="PresenseToBrushConverter"/>
     <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
+    
+    <convertguild:IsDMToFontFamilyConverter x:Key="IsDMToFontFamilyConverter"/>
+    <convertguild:MutedToOpacityConverter x:Key="MutedToOpacityConverter"/>
 
     <msgconvert:SizeToHumanizedSizeConverter x:Key="SizeToHumanizedSizeConverter"/>
     <msgconvert:EmbedFieldsConverter x:Key="EmbedFieldsConverter"/>
 
     <profileconvert:PresenceTypeToStatusConverter x:Key="PresenceTypeToStatusConverter"/>
-
-
 </ResourceDictionary>

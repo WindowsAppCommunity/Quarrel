@@ -139,8 +139,8 @@
     <Compile Include="Controls\AudioVisualizer.xaml.cs">
       <DependentUpon>AudioVisualizer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Channels\CategoryChveron.xaml.cs">
-      <DependentUpon>CategoryChveron.xaml</DependentUpon>
+    <Compile Include="Controls\CollapseChevron.xaml.cs">
+      <DependentUpon>CollapseChevron.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Channels\ChannelListHeader.xaml.cs">
       <DependentUpon>ChannelListHeader.xaml</DependentUpon>
@@ -159,9 +159,6 @@
     </Compile>
     <Compile Include="Controls\GitHub\DeveloperTemplate.xaml.cs">
       <DependentUpon>DeveloperTemplate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Guilds\GuildTemplate.xaml.cs">
-      <DependentUpon>GuildTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Guilds\MutualGuildTemplate.xaml.cs">
       <DependentUpon>MutualGuildTemplate.xaml</DependentUpon>
@@ -264,6 +261,9 @@
     <Compile Include="Converters\Profile\Relationships\RelationToUnblockConverter.cs" />
     <Compile Include="DataTemplates\Channels\ChannelTemplate.xaml.cs">
       <DependentUpon>ChannelTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataTemplates\Guilds\GuildTemplate.xaml.cs">
+      <DependentUpon>GuildTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataTemplates\Members\GuildMemberListItemTemplate.xaml.cs">
       <DependentUpon>GuildMemberListItemTemplate.xaml</DependentUpon>
@@ -409,6 +409,7 @@
     <Compile Include="TemplateSelectors\EmbedTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\EmojiPickerTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\GuildMemberListSelector.cs" />
+    <Compile Include="TemplateSelectors\GuildTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\MessageTemplateSelector.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Controls\Shell\Views\ChannelListControl.xaml.cs">
@@ -559,7 +560,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Channels\CategoryChveron.xaml">
+    <Page Include="Controls\CollapseChevron.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -584,10 +585,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\GitHub\DeveloperTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Guilds\GuildTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -658,6 +655,10 @@
     <Page Include="DataTemplates\Converters.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DataTemplates\Guilds\GuildTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DataTemplates\Members\GuildMemberListItemTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>

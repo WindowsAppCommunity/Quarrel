@@ -8,45 +8,48 @@ using Windows.UI.Xaml.Controls;
 namespace Quarrel.TemplateSelectors
 {
     /// <summary>
-    /// A template selector for the GuildMember item type.
+    /// A template selector for the guild type.
     /// </summary>
-    public sealed class GuildMemberListSelector : DataTemplateSelector
+    public class GuildTemplateSelector : DataTemplateSelector
     {
         /// <summary>
-        /// Gets or sets the Member template.
+        /// Gets or sets the guild template.
         /// </summary>
-        public DataTemplate MemberTemplate { get; set; }
+        public DataTemplate GuildTemplate { get; set; }
 
         /// <summary>
-        /// Gets or sets the Group Header template.
+        /// Gets or sets the guild folder template.
         /// </summary>
-        public DataTemplate MemberGroupTemplate { get; set; }
+        public DataTemplate GuildFolderTemplate { get; set; }
 
         /// <summary>
-        /// Gets or sets the member placeholder template.
+        /// Gets or sets the empty guild folder template.
         /// </summary>
-        public DataTemplate PlaceholderTemplate { get; set; }
+        public DataTemplate EmptyGuildFolderTemplate { get; set; }
 
         /// <summary>
         /// Selects a <see cref="DataTemplate"/> based on the details from <paramref name="item"/>.
         /// </summary>
-        /// <param name="item">An <see cref="IGuildMemberListItem"/> from the guild member list.</param>
+        /// <param name="item">A <see cref="BindableChannel"/>.</param>
         /// <param name="container">The parent of the resulting <see cref="DataTemplate"/>.</param>
         /// <returns>A <see cref="DataTemplate"/> for the <paramref name="item"/>'s type.</returns>
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
-            if (container is FrameworkElement)
+            if (item is IGuildListItem channel)
             {
                 switch (item)
                 {
-                    case BindableGuildMember _:
-                        return MemberTemplate;
+                    case BindableGuild _:
+                        return GuildTemplate;
+                    case BindableGuildFolder folder:
+                        {
+                            if (folder.Model.Id != null)
+                            {
+                                return GuildFolderTemplate;
+                            }
 
-                    case BindableGuildMemberGroup _:
-                        return MemberGroupTemplate;
-
-                    default:
-                        return PlaceholderTemplate;
+                            return EmptyGuildFolderTemplate;
+                        }
                 }
             }
 
