@@ -32,6 +32,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         private ObservableCollection<BindableChannel> _channels;
         private Permissions _permissions = null;
         private int _position;
+        private bool _selected;
         private bool _isCollapsed;
         private bool _muted;
         private RelayCommand _copyId;
@@ -117,6 +118,15 @@ namespace Quarrel.ViewModels.Models.Bindables
         {
             get => _position;
             set => Set(ref _position, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether or no the Guild is selected.
+        /// </summary>
+        public bool Selected
+        {
+            get => _selected;
+            set => Set(ref _selected, value);
         }
 
         /// <inheritdoc/>

@@ -63,7 +63,7 @@
                 <Grid Width="50" Height="50">
 
                     <!--Selected Highlight-->
-                    <Border x:Name="SelectIndicator" Opacity="0" BorderThickness="3,0,0,0" HorizontalAlignment="Stretch" Margin="-12,-6">
+                    <Border Visibility="{x:Bind Selected, Mode=OneWay}" BorderThickness="3,0,0,0" HorizontalAlignment="Stretch" Margin="-12,-6">
                         <Border.Background>
                             <SolidColorBrush Opacity="0.2" Color="{ThemeResource SystemAccentColor}"/>
                         </Border.Background>

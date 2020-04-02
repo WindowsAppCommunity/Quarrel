@@ -30,10 +30,9 @@ namespace Quarrel.ViewModels
             {
                 if (guildListItem is BindableGuild bGuild)
                 {
-                    Task.Run(() =>
-                    {
-                        MessengerInstance.Send(new GuildNavigateMessage(bGuild));
-                    });
+                    CurrentGuild.Selected = false;
+                    bGuild.Selected = true;
+                    MessengerInstance.Send(new GuildNavigateMessage(bGuild));
                 }
                 else if (guildListItem is BindableGuildFolder bindableGuildFolder)
                 {

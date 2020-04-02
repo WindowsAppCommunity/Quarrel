@@ -25,7 +25,6 @@
 
     <!--List of Guilds-->
     <ListView ItemsSource="{x:Bind ViewModel.BindableGuilds, Mode=OneWay}"
-              SelectedItem="{x:Bind ViewModel.CurrentGuild, Mode=OneWay}"
               ItemTemplateSelector="{StaticResource GuildTemplateSelector}"
               ItemContainerStyle="{StaticResource GuildListItemStyle}"
               ScrollViewer.VerticalScrollBarVisibility="Hidden"
