@@ -121,6 +121,8 @@
                             <animations:OpacityAnimation Duration="0:0:0.3" From="1" To="0"/>
                         </animations:Implicit.HideAnimations>
                     </SymbolIcon>
+
+                    <Border Visibility="{x:Bind Selected, Mode=OneWay}" Background="{ThemeResource Foreground}" Width="2" HorizontalAlignment="Left" Margin="-12,-6"/>
                 </Grid>
             </Grid>
         </UserControl>

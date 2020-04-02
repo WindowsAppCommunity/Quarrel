@@ -32,16 +32,6 @@
                                                 <CircleEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.5">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.2" To="0.4">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderBackground" Storyboard.TargetProperty="Fill">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListLowBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
@@ -58,16 +48,6 @@
                                                 <CircleEase EasingMode="EaseIn"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseIn"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.2" To="0">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseIn"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -80,32 +60,12 @@
                                                 <CircleEase EasingMode="EaseIn"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseIn"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.2" To="0">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseIn"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
                                     </Storyboard>
 
                                 </VisualState>
                                 <VisualState x:Name="PointerOver">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="bgHoverIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.1">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.5">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.2" To="0.4">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
@@ -126,16 +86,6 @@
                                                 <CircleEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.75">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.2" To="0.6">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderBackground" Storyboard.TargetProperty="Fill">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListMediumBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
@@ -152,32 +102,12 @@
                                                 <CircleEase EasingMode="EaseIn"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="1">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseIn"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.2" To="1">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseIn"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
                                         <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="PointerOverSelected">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="bgHoverIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.1">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="1">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.2" To="1">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
@@ -194,16 +124,6 @@
                                 <VisualState x:Name="PressedSelected">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="bgHoverIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.075">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.4" To="1">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:1" To="0.8">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
@@ -328,11 +248,6 @@
                                               Margin="{TemplateBinding Padding}" Control.IsTemplateFocusTarget="True"/>
                         </Grid>
                         <Rectangle x:Name="bgHoverIndic" Fill="{ThemeResource Foreground}" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                        <Border x:Name="Indic" Background="{ThemeResource Foreground}" Width="2" Opacity="0" HorizontalAlignment="Left" >
-                            <Border.RenderTransform>
-                                <ScaleTransform x:Name="IndicScale" ScaleY="0" CenterY="32"/>
-                            </Border.RenderTransform>
-                        </Border>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
