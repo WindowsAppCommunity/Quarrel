@@ -423,7 +423,7 @@
     </Style>
 
     <DataTemplate x:Key="TextChannelTemplate" x:DataType="bindables:BindableChannel">
-        <UserControl Height="40">
+        <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Height="40">
             <!--Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
@@ -436,7 +436,7 @@
                 </MenuFlyout>
             </UserControl.ContextFlyout>
 
-            <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Height="40" Padding="22,0,24,0">
+            <Grid Height="40" Padding="22,0,24,0">
                 <Grid.Background>
                     <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
                 </Grid.Background>
@@ -497,7 +497,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="VoiceChannelTemplate" x:DataType="bindables:BindableChannel">
-        <UserControl>
+        <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Height="40">
             <!--Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
@@ -508,7 +508,7 @@
                 </MenuFlyout>
             </UserControl.ContextFlyout>
 
-            <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" MinHeight="40" Padding="22,0,24,0">
+            <Grid MinHeight="40" Padding="22,0,24,0">
                 <Grid.Background>
                     <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
                 </Grid.Background>
@@ -552,7 +552,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="DMChannelTemplate" x:DataType="bindables:BindableChannel">
-        <UserControl>
+        <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}">
             <!--Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
@@ -565,7 +565,7 @@
                 </MenuFlyout>
             </UserControl.ContextFlyout>
 
-            <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Height="48" Padding="22,0,24,0">
+            <Grid Height="48" Padding="22,0,24,0">
                 <Grid.Background>
                     <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
                 </Grid.Background>
@@ -635,7 +635,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="GroupDMChannelTemplate" x:DataType="bindables:BindableChannel">
-        <UserControl>
+        <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" >
             <!--Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
@@ -647,7 +647,7 @@
                 </MenuFlyout>
             </UserControl.ContextFlyout>
 
-            <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Height="48" Padding="22,0,24,0">
+            <Grid Height="48" Padding="22,0,24,0">
                 <Grid.Background>
                     <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
                 </Grid.Background>
