@@ -305,6 +305,7 @@
     <Compile Include="Services\Voice\Audio\In\AudioInService.cs" />
     <Compile Include="Services\Voice\Audio\Out\AudioOutService.cs" />
     <Compile Include="Services\Voice\IMemoryBufferByteAccess.cs" />
+    <Compile Include="StateTriggers\BooleanStateTrigger.cs" />
     <Compile Include="StateTriggers\DeviceFamilyStateTrigger.cs" />
     <Compile Include="SubPages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>

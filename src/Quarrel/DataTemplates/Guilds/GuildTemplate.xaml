@@ -9,6 +9,7 @@
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:models="using:Quarrel.ViewModels.Models.Bindables"
+    xmlns:triggers="using:Quarrel.StateTriggers"
     mc:Ignorable="d">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../Converters.xaml"/>
@@ -60,6 +61,51 @@
             </UserControl.ContextFlyout>
 
             <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0,4" Margin="5,0,0,0">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="Selection">
+                        <VisualState x:Name="Normal">
+                            <VisualState.StateTriggers>
+                                <triggers:BooleanStateTrigger triggers:BooleanStateTrigger.DataValue="{x:Bind Selected, Mode=OneWay}"
+                                                              triggers:BooleanStateTrigger.TriggerValue="False"/>
+                            </VisualState.StateTriggers>
+                            <VisualState.Storyboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseIn"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                    <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.2" To="0">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseIn"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </VisualState.Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.StateTriggers>
+                                <triggers:BooleanStateTrigger triggers:BooleanStateTrigger.DataValue="{x:Bind Selected, Mode=OneWay}"
+                                                              triggers:BooleanStateTrigger.TriggerValue="True"/>
+                            </VisualState.StateTriggers>
+                            <VisualState.Storyboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="1">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseIn"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                    <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.2" To="1">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseIn"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </VisualState.Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                
                 <Grid Width="50" Height="50">
 
                     <!--Selected Highlight-->
@@ -122,7 +168,11 @@
                         </animations:Implicit.HideAnimations>
                     </SymbolIcon>
 
-                    <Border Visibility="{x:Bind Selected, Mode=OneWay}" Background="{ThemeResource Foreground}" Width="2" HorizontalAlignment="Left" Margin="-12,-6"/>
+                    <Border x:Name="Indic" Opacity="0" Background="{ThemeResource Foreground}" Width="2" HorizontalAlignment="Left" Margin="-12,-6">
+                        <Border.RenderTransform>
+                            <ScaleTransform x:Name="IndicScale" CenterY="32" ScaleY="0"/>
+                        </Border.RenderTransform>
+                    </Border>
                 </Grid>
             </Grid>
         </UserControl>
