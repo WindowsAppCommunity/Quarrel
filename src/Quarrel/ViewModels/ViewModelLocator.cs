@@ -84,22 +84,6 @@ namespace Quarrel.ViewModels
             SimpleIoc.Default.Register<ICurrentUserService, CurrentUsersService>();
             SimpleIoc.Default.Register<IVoiceService, VoiceService>();
 
-            LicenseInformation licenseInformation = CurrentApp.LicenseInformation;
-            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive ||
-                licenseInformation.ProductLicenses["Remove Ads"].IsActive ||
-                licenseInformation.ProductLicenses["Polite Dontation"].IsActive ||
-                licenseInformation.ProductLicenses["SignificantDontation"].IsActive ||
-                licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive ||
-                licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
-            {
-                SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.SetValue(SettingKeys.AdsRemoved, true);
-            }
-            else
-            {
-                // If none are active, set to false if not already set
-                SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.SetValue(SettingKeys.AdsRemoved, false, false);
-            }
-
             SimpleIoc.Default.Register<MainViewModel>();
         }
 
