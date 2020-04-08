@@ -229,19 +229,8 @@
                 </Grid.RowDefinitions>
 
                 <!-- Mention indicator -->
-                <Grid Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="2" Visibility="{x:Bind MentionsMe}">
-                    <Rectangle Width="2" HorizontalAlignment="Left">
-                        <Rectangle.Fill>
-                            <SolidColorBrush Color="#FFFFB400" Opacity="0.5"/>
-                        </Rectangle.Fill>
-                    </Rectangle>
-
-                    <Rectangle>
-                        <Rectangle.Fill>
-                            <SolidColorBrush Color="#FFFFB400" Opacity="0.15"/>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                </Grid>
+                <Border x:Name="MentionIndic" Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="2" x:Load="{x:Bind MentionsMe}"
+                        Background="#26FFB400" BorderBrush="#7FFFB400" BorderThickness="2,0,0,0" Margin="0,4,0,-4"/>
 
                 <Grid x:Phase="4" Grid.ColumnSpan="2" x:Name="HeaderGrid" x:Load="{x:Bind IsOldestUnreadMessage, Mode=OneWay}" Margin="8,8,0,8">
                     <Grid.ColumnDefinitions>
@@ -267,7 +256,7 @@
                     </Button>
                 </Canvas>
 
-                <Grid Grid.Row="1" Grid.Column="1" Visibility="{x:Bind IsContinuation, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+                <Grid x:Name="header" Grid.Row="1" Grid.Column="1" x:Load="{x:Bind IsContinuation, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}"
                       Margin="0,8,0,4">
                     <StackPanel Orientation="Horizontal">
                         <HyperlinkButton x:Name="AuthorHyperlink" 
