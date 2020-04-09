@@ -337,7 +337,6 @@
                     </Button>
                 </Grid>
 
-                <!-- x:Load causes slowdowns here -->
                 <ListView x:Name="AttachmentList" Margin="52,-4,0,0"
                           RelativePanel.Below="body"
                           RelativePanel.AlignLeftWith="body"

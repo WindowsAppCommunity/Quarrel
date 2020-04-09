@@ -580,13 +580,6 @@
                     <RowDefinition Height="Auto" MaxHeight="10"/>
                 </Grid.RowDefinitions>
 
-                <!--Selectlion Indicator-->
-                <Border x:Name="SelectIndicator" Opacity="0" BorderBrush="{Binding Background, ElementName=UnreadIndicator}" BorderThickness="0,0,0,0" HorizontalAlignment="Stretch" Margin="-24,0" Grid.ColumnSpan="3" Grid.RowSpan="12">
-                    <Border.Background>
-                        <SolidColorBrush Opacity="0.2" Color="{ThemeResource SystemAccentColor}"/>
-                    </Border.Background>
-                </Border>
-
                 <!--Unread Indicator-->
                 <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="24" Width="2" Background="{ThemeResource Foreground}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="0.75"/>
 
@@ -661,13 +654,6 @@
                     <RowDefinition Height="Auto" MaxHeight="300"/>
                     <RowDefinition Height="Auto" MaxHeight="10"/>
                 </Grid.RowDefinitions>
-
-                <!--Selectlion Indicator-->
-                <Border x:Name="SelectIndicator" Opacity="0" BorderBrush="{Binding Background, ElementName=UnreadIndicator}" BorderThickness="0,0,0,0" HorizontalAlignment="Stretch" Margin="-24,0" Grid.ColumnSpan="3" Grid.RowSpan="12">
-                    <Border.Background>
-                        <SolidColorBrush Opacity="0.2" Color="{ThemeResource SystemAccentColor}"/>
-                    </Border.Background>
-                </Border>
 
                 <!--Unread Indicator-->
                 <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="24" Width="2" Background="{ThemeResource Foreground}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="0.75"/>
@@ -745,13 +731,6 @@
                     <RowDefinition Height="Auto" MaxHeight="10"/>
                 </Grid.RowDefinitions>
                 <Rectangle x:Name="HoverCache" Fill="{ThemeResource AcrylicChannelPaneBackground}" Opacity="0.4" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="-22,0,-24,0"/>
-
-                <!--Selectlion Indicator-->
-                <Border x:Name="SelectIndicator" Opacity="0" BorderBrush="{Binding Background, ElementName=UnreadIndicator}" BorderThickness="0,0,0,0" HorizontalAlignment="Stretch" Margin="-24,0" Grid.ColumnSpan="3" Grid.RowSpan="12">
-                    <Border.Background>
-                        <SolidColorBrush Opacity="0.2" Color="{ThemeResource SystemAccentColor}"/>
-                    </Border.Background>
-                </Border>
 
                 <!--Unread Indicator-->
                 <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="24" Width="2" Background="{ThemeResource Foreground}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="0.75"/>
