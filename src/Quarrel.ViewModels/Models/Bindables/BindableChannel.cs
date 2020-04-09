@@ -385,7 +385,7 @@ namespace Quarrel.ViewModels.Models.Bindables
                             break;
                     }
                 }
-                else if (!Permissions.ReadMessages && !SettingsService.Roaming.GetValue<bool>(SettingKeys.ShowNoPermssions))
+                else if (!Permissions.ReadMessages && !Permissions.Connect && !SettingsService.Roaming.GetValue<bool>(SettingKeys.ShowNoPermssions))
                 {
                     hidden = true;
                 }
