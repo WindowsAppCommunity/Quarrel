@@ -1,0 +1,3 @@
+[submodule "src/_APIs/Webrtc/webrtc-uwp-sdk"]
+	path = src/_Libs/Webrtc/webrtc-uwp-sdk
+	url = https://github.com/webrtc-uwp/webrtc-uwp-sdk.git
