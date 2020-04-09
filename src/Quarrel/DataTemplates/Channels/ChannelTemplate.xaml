@@ -534,7 +534,7 @@
 
                 <!--Voice Members-->
                 <ListView x:Name="MemberList" ItemsSource="{x:Bind ConnectedUsers.Values, Mode=OneWay}" Margin="-24,0,-24,0"
-                          x:Load="{x:Bind ConnectedUsers.Values, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
+                          x:Phase="1" x:Load="{x:Bind ConnectedUsers.Values, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
                           SelectionMode="None" IsItemClickEnabled="True" Grid.Row="1" Grid.ColumnSpan="2" ItemContainerStyle="{StaticResource VoiceUserListItem}">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="ItemClick">
