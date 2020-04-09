@@ -342,6 +342,7 @@
                           RelativePanel.Below="body"
                           RelativePanel.AlignLeftWith="body"
                           RelativePanel.AlignRightWithPanel="True"
+                          x:Load="{x:Bind BindableAttachments, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
                           ItemsSource="{x:Bind BindableAttachments, Mode=OneWay}"
                           ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"
                           SelectionMode="None">
@@ -356,6 +357,7 @@
                 <ListView x:Name="EmbedList" Margin="52,0,0,0"
                           RelativePanel.Below="AttachmentList"
                           RelativePanel.AlignLeftWith="body"
+                          x:Load="{x:Bind Model.Embeds, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
                           ItemsSource="{x:Bind Model.Embeds, Mode=OneWay}"
                           ItemTemplateSelector="{StaticResource EmbedTemplateSelector}"
                           SelectionMode="None">
@@ -368,11 +370,12 @@
                 </ListView>
 
                 <ListView x:Name="ReactionList" Margin="52,0,0,0"
-                              RelativePanel.Below="EmbedList"
-                              RelativePanel.AlignLeftWith="body"
-                              ItemsSource="{x:Bind BindableReactions, Mode=OneWay}"
-                              ItemTemplate="{StaticResource Reaction}"
-                              SelectionMode="None">
+                          RelativePanel.Below="EmbedList"
+                          RelativePanel.AlignLeftWith="body"
+                          x:Load="{x:Bind BindableReactions, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
+                          ItemsSource="{x:Bind BindableReactions, Mode=OneWay}"
+                          ItemTemplate="{StaticResource Reaction}"
+                          SelectionMode="None">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="Margin" Value="4,0"/>
