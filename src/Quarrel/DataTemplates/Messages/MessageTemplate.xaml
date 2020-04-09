@@ -338,58 +338,55 @@
                 </Grid>
 
                 <!-- x:Load causes slowdowns here -->
-                <Grid x:Name="AttachmentList" Margin="52,-4,0,0"
-                      RelativePanel.Below="body"
-                      RelativePanel.AlignLeftWith="body"
-                      RelativePanel.AlignRightWithPanel="True">
-                    <ListView ItemsSource="{x:Bind BindableAttachments, Mode=OneWay}"
+                <ListView x:Name="AttachmentList" Margin="52,-4,0,0"
+                          RelativePanel.Below="body"
+                          RelativePanel.AlignLeftWith="body"
+                          RelativePanel.AlignRightWithPanel="True"
+                          ItemsSource="{x:Bind BindableAttachments, Mode=OneWay}"
                           ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"
                           SelectionMode="None">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="Padding" Value="0,8,0,0"/>
-                                <Setter Property="MinHeight" Value="0"/>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                    </ListView>
-                </Grid>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Padding" Value="0,8,0,0"/>
+                            <Setter Property="MinHeight" Value="0"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
 
-                <Grid x:Name="EmbedList" Margin="52,0,0,0"
-                      RelativePanel.Below="AttachmentList"
-                      RelativePanel.AlignLeftWith="body">
-                    <ListView ItemsSource="{x:Bind Model.Embeds, Mode=OneWay}"
+                <ListView x:Name="EmbedList" Margin="52,0,0,0"
+                          RelativePanel.Below="AttachmentList"
+                          RelativePanel.AlignLeftWith="body"
+                          ItemsSource="{x:Bind Model.Embeds, Mode=OneWay}"
                           ItemTemplateSelector="{StaticResource EmbedTemplateSelector}"
                           SelectionMode="None">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="Padding" Value="0,8,0,0"/>
-                                <Setter Property="MinHeight" Value="0"/>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                    </ListView>
-                </Grid>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Padding" Value="0,8,0,0"/>
+                            <Setter Property="MinHeight" Value="0"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
 
-                <Grid x:Name="ReactionList" Margin="52,0,0,0"
-                      RelativePanel.Below="EmbedList"
-                      RelativePanel.AlignLeftWith="body">
-                    <ListView ItemsSource="{x:Bind BindableReactions, Mode=OneWay}"
-                          ItemTemplate="{StaticResource Reaction}"
-                          SelectionMode="None">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="Margin" Value="4,0"/>
-                                <Setter Property="Padding" Value="0"/>
-                                <Setter Property="MinWidth" Value="48"/>
-                                <Setter Property="MaxWidth" Value="60"/>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
-                    </ListView>
-                </Grid>
+                <ListView x:Name="ReactionList" Margin="52,0,0,0"
+                              RelativePanel.Below="EmbedList"
+                              RelativePanel.AlignLeftWith="body"
+                              ItemsSource="{x:Bind BindableReactions, Mode=OneWay}"
+                              ItemTemplate="{StaticResource Reaction}"
+                              SelectionMode="None">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Margin" Value="4,0"/>
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="MinWidth" Value="48"/>
+                            <Setter Property="MaxWidth" Value="60"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
             </RelativePanel>
         </UserControl>
     </DataTemplate>
