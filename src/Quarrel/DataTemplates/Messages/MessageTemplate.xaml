@@ -202,7 +202,7 @@
                     </DoubleAnimationUsingKeyFrames>
                 </Storyboard>
             </UserControl.Resources>
-            <Grid x:Name="rootGrid">
+            <RelativePanel x:Name="rootGrid">
                 <interactivity:Interaction.Behaviors>
                     <core:EventTriggerBehavior EventName="PointerEntered">
                         <core:EventTriggerBehavior.Actions>
@@ -215,24 +215,14 @@
                         </core:EventTriggerBehavior.Actions>
                     </core:EventTriggerBehavior>
                 </interactivity:Interaction.Behaviors>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="64"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto" x:Name="row2"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
 
                 <!-- Mention indicator -->
-                <Border x:Name="MentionIndic" Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="2" x:Load="{x:Bind MentionsMe}"
+                <Border x:Name="MentionIndic" x:Load="{x:Bind MentionsMe}"
                         Background="#26FFB400" BorderBrush="#7FFFB400" BorderThickness="2,0,0,0" Margin="0,4,0,-4"/>
 
-                <Grid x:Phase="4" Grid.ColumnSpan="2" x:Name="HeaderGrid" x:Load="{x:Bind IsOldestUnreadMessage, Mode=OneWay}" Margin="8,8,0,8">
+                <Grid x:Phase="4" x:Name="HeaderGrid" Margin="8,8,0,8"
+                      RelativePanel.AlignTopWithPanel="True"
+                      x:Load="{x:Bind IsOldestUnreadMessage, Mode=OneWay}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="auto"/>
@@ -244,20 +234,22 @@
                     <Rectangle Height="1" Stroke="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="6,0,0,0" Grid.Column="2"/>
                 </Grid>
 
-                <Canvas Grid.Row="1" VerticalAlignment="Top" Margin="12,12,12,0"
+                <Button x:Name="AuthorIcon"
+                        RelativePanel.Below="HeaderGrid"
+                        RelativePanel.AlignTopWith="header"
+                        Style="{StaticResource DimButton}" Padding="4" Margin="-4,10,-4,-4"
+                        extensions2:Mouse.Cursor="Hand"
                         Visibility="{x:Bind IsContinuation, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}">
-                    <Button Style="{StaticResource DimButton}" extensions2:Mouse.Cursor="Hand" Padding="4" Margin="-4">
-                        <controls:UserIconControl Size="40" Width="40" Height="40" DataContext="{x:Bind Author, Mode=OneWay}" ShowPresence="{x:Bind ShowAuthorPresence, Mode=OneWay}"/>
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="Click">
-                                <behaviors:OpenFlyoutAction TargetObject="{Binding ElementName=AuthorHyperlink}"/>
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-                    </Button>
-                </Canvas>
+                    <controls:UserIconControl Size="40" Width="40" Height="40" DataContext="{x:Bind Author, Mode=OneWay}" ShowPresence="{x:Bind ShowAuthorPresence, Mode=OneWay}"/>
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="Click">
+                            <behaviors:OpenFlyoutAction TargetObject="{Binding ElementName=AuthorHyperlink}"/>
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                </Button>
 
-                <Grid x:Name="header" Grid.Row="1" Grid.Column="1" x:Load="{x:Bind IsContinuation, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}"
-                      Margin="0,8,0,4">
+                <Grid x:Name="header" Margin="52,8,0,2"
+                      x:Load="{x:Bind IsContinuation, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}">
                     <StackPanel Orientation="Horizontal">
                         <HyperlinkButton x:Name="AuthorHyperlink" 
                                  Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind AuthorDisplayName, Mode=OneWay}" 
@@ -299,7 +291,10 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid Grid.Column="1" Grid.Row="2" x:Name="body" Margin="0,0,0,2" MinHeight="20">
+                <Grid x:Name="body" Margin="52,0,0,0" MinHeight="20"
+                      RelativePanel.Below="header"
+                      RelativePanel.AlignLeftWithPanel="True"
+                      RelativePanel.AlignRightWithPanel="True">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="auto"/>
@@ -343,7 +338,10 @@
                 </Grid>
 
                 <!-- x:Load causes slowdowns here -->
-                <Grid Grid.Column="1" Grid.Row="3" x:Name="AttachmentList">
+                <Grid x:Name="AttachmentList" Margin="52,-4,0,0"
+                      RelativePanel.Below="body"
+                      RelativePanel.AlignLeftWith="body"
+                      RelativePanel.AlignRightWithPanel="True">
                     <ListView ItemsSource="{x:Bind BindableAttachments, Mode=OneWay}"
                           ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"
                           SelectionMode="None">
@@ -356,7 +354,9 @@
                     </ListView>
                 </Grid>
 
-                <Grid Grid.Column="1" Grid.Row="4" x:Name="EmbedList">
+                <Grid x:Name="EmbedList" Margin="52,0,0,0"
+                      RelativePanel.Below="AttachmentList"
+                      RelativePanel.AlignLeftWith="body">
                     <ListView ItemsSource="{x:Bind Model.Embeds, Mode=OneWay}"
                           ItemTemplateSelector="{StaticResource EmbedTemplateSelector}"
                           SelectionMode="None">
@@ -369,7 +369,9 @@
                     </ListView>
                 </Grid>
 
-                <Grid Grid.Column="1" Grid.Row="5" x:Name="ReactionList">
+                <Grid x:Name="ReactionList" Margin="52,0,0,0"
+                      RelativePanel.Below="EmbedList"
+                      RelativePanel.AlignLeftWith="body">
                     <ListView ItemsSource="{x:Bind BindableReactions, Mode=OneWay}"
                           ItemTemplate="{StaticResource Reaction}"
                           SelectionMode="None">
@@ -388,7 +390,7 @@
                         </ListView.ItemsPanel>
                     </ListView>
                 </Grid>
-            </Grid>
+            </RelativePanel>
         </UserControl>
     </DataTemplate>
 </ResourceDictionary>
