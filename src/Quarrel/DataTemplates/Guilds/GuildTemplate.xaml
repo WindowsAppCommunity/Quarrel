@@ -60,7 +60,7 @@
                 </MenuFlyout>
             </UserControl.ContextFlyout>
 
-            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0,4" Margin="5,0,0,0" Width="50" Height="58">
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Padding="12,4" Margin="-12,0" Height="58" Width="80">
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="Selection">
                         <VisualState x:Name="Normal">
@@ -105,13 +105,12 @@
                         </VisualState>
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
+                
                 <!--Selected Highlight-->
-                <Border Visibility="{x:Bind Selected, Mode=OneWay}" BorderThickness="3,0,0,0" HorizontalAlignment="Stretch" Margin="-12,-6">
-                    <Border.Background>
-                        <SolidColorBrush Opacity="0.2" Color="{ThemeResource SystemAccentColor}"/>
-                    </Border.Background>
-                </Border>
-
+                <Grid.Background>
+                    <SolidColorBrush Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
+                </Grid.Background>
+                
                 <!--Unread-->
                 <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="12" Width="2" Opacity="0.75" Background="{ThemeResource Foreground}" Margin="-12,2,4,0" HorizontalAlignment="Left"/>
 
