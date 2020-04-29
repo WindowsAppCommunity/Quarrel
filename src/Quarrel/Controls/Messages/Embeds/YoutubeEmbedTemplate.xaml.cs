@@ -27,5 +27,13 @@ namespace Quarrel.Controls.Messages.Embeds
         /// Gets the DataContext as a VideoEmbed.
         /// </summary>
         public BindableVideoEmbed ViewModel => new BindableVideoEmbed(DataContext as Embed);
+
+        private void UserControl_Unloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            if (mytubeEmbed != null)
+            {
+                mytubeEmbed.Dispose();
+            }
+        }
     }
 }
