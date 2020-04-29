@@ -222,6 +222,8 @@
 
                 <Grid x:Phase="4" x:Name="HeaderGrid" Margin="8,8,0,8"
                       RelativePanel.AlignTopWithPanel="True"
+                      RelativePanel.AlignLeftWithPanel="True"
+                      RelativePanel.AlignRightWithPanel="True"
                       x:Load="{x:Bind IsOldestUnreadMessage, Mode=OneWay}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -235,7 +237,6 @@
                 </Grid>
 
                 <Button x:Name="AuthorIcon"
-                        RelativePanel.Below="HeaderGrid"
                         RelativePanel.AlignTopWith="header"
                         Style="{StaticResource DimButton}" Padding="4" Margin="-4,10,-4,-4"
                         extensions2:Mouse.Cursor="Hand"
@@ -248,7 +249,7 @@
                     </interactivity:Interaction.Behaviors>
                 </Button>
 
-                <Grid x:Name="header" Margin="52,8,0,2"
+                <Grid x:Name="header" Margin="52,8,0,2" RelativePanel.Below="HeaderGrid"
                       x:Load="{x:Bind IsContinuation, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}">
                     <StackPanel Orientation="Horizontal">
                         <HyperlinkButton x:Name="AuthorHyperlink" 
