@@ -503,7 +503,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         {
             get
             {
-                if ((IsTextChannel || IsPrivateChannel || IsGroupChannel) && !string.IsNullOrEmpty(Model.LastMessageId))
+                if (Permissions.ReadMessages && (IsTextChannel || IsPrivateChannel || IsGroupChannel) && !string.IsNullOrEmpty(Model.LastMessageId))
                 {
                     if (ReadState != null)
                     {
