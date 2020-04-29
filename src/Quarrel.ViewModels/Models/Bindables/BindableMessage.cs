@@ -195,8 +195,6 @@ namespace Quarrel.ViewModels.Models.Bindables
             set => Set(ref _editedText, value);
         }
 
-        public bool ShowAuthorPresence => SettingsService.Roaming.GetValue<bool>(SettingKeys.AuthorPresence);
-
         /// <summary>
         /// Gets or sets the UI Bindable attachments on the message.
         /// </summary>

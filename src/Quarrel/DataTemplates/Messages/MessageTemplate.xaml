@@ -241,7 +241,7 @@
                         Style="{StaticResource DimButton}" Padding="4" Margin="-4,10,-4,-4"
                         extensions2:Mouse.Cursor="Hand"
                         Visibility="{x:Bind IsContinuation, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}">
-                    <controls:UserIconControl Size="40" Width="40" Height="40" DataContext="{x:Bind Author, Mode=OneWay}" ShowPresence="{x:Bind ShowAuthorPresence, Mode=OneWay}"/>
+                    <controls:UserIconControl Size="40" Width="40" Height="40" DataContext="{x:Bind Author, Mode=OneWay}" ShowPresence="False"/>
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="Click">
                             <behaviors:OpenFlyoutAction TargetObject="{Binding ElementName=AuthorHyperlink}"/>
