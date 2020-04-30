@@ -490,7 +490,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="VoiceChannelTemplate" x:DataType="bindables:BindableChannel">
-        <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Height="40">
+        <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" MinHeight="40">
             <!--Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
@@ -508,21 +508,18 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition Height="Auto" MaxHeight="300"/>
-                    <RowDefinition Height="Auto" MaxHeight="10"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <!--Main Details-->
-                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,6" Padding="0,0,-18,0">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock Visibility="{x:Bind Permissions.ReadMessages, Converter={StaticResource NotBoolToVisibilityConverter}}" Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
-                        <TextBlock Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
-                        <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}" Opacity="{x:Bind TextOpacity, Mode=OneWay}" Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}" Margin="0,1,0,0"/>
-                    </StackPanel>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal"
+                            Margin="0,6" Padding="0,0,-18,0">
+                    <TextBlock Visibility="{x:Bind Permissions.ReadMessages, Converter={StaticResource NotBoolToVisibilityConverter}}" Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
+                    <TextBlock Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
+                    <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}" Opacity="{x:Bind TextOpacity, Mode=OneWay}" Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}" Margin="0,1,0,0"/>
                 </StackPanel>
 
                 <!--Voice Members-->
