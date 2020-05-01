@@ -69,6 +69,14 @@ namespace Quarrel.ViewModels.Services.Voice
                 });
             });
 
+            Messenger.Default.Register<SpeakMessage>(this, e =>
+            {
+                if (e.EventData.UserId != null && VoiceStates.ContainsKey(e.EventData.UserId))
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUi(() => { VoiceStates[e.EventData.UserId].Speaking = e.EventData.Speaking > 0; });
+                }
+            });
+
             Messenger.Default.Register<GatewayVoiceServerUpdateMessage>(this, m =>
             {
                 ConnectToVoiceChannel(m.VoiceServer, VoiceStates[DiscordService.CurrentUser.Id].Model);
