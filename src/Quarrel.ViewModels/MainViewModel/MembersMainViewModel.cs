@@ -40,7 +40,7 @@ namespace Quarrel.ViewModels
                     double top = CurrentBindableMembers.Count * values.Item1;
                     double bottom = CurrentBindableMembers.Count * values.Item2;
 
-                    int min = (int) Math.Floor(top / 100) * 100;
+                    int min = (int)Math.Floor(top / 100) * 100;
                     var guildSubscription = new Dictionary<string, IEnumerable<int[]>>
                     {
                         {
@@ -55,24 +55,24 @@ namespace Quarrel.ViewModels
                     {
                         if (min > 199)
                         {
-                            ((List<int[]>) guildSubscription[CurrentChannel.Model.Id]).Add(new[] {min - 100, min - 1});
+                            ((List<int[]>)guildSubscription[CurrentChannel.Model.Id]).Add(new[] { min - 100, min - 1 });
                         }
 
                         if (min > 99)
                         {
-                            ((List<int[]>) guildSubscription[CurrentChannel.Model.Id]).Add(new[] {min, min + 99});
+                            ((List<int[]>)guildSubscription[CurrentChannel.Model.Id]).Add(new[] { min, min + 99 });
                         }
                     }
                     else if (bottom - min > 80)
                     {
-                        ((List<int[]>) guildSubscription[CurrentChannel.Model.Id]).Add(new[] {min, min + 99});
-                        ((List<int[]>) guildSubscription[CurrentChannel.Model.Id]).Add(new[] {min + 100, min + 199});
+                        ((List<int[]>)guildSubscription[CurrentChannel.Model.Id]).Add(new[] { min, min + 99 });
+                        ((List<int[]>)guildSubscription[CurrentChannel.Model.Id]).Add(new[] { min + 100, min + 199 });
                     }
                     else
                     {
                         if (min > 99)
                         {
-                            ((List<int[]>) guildSubscription[CurrentChannel.Model.Id]).Add(new[] {min, min + 99});
+                            ((List<int[]>)guildSubscription[CurrentChannel.Model.Id]).Add(new[] { min, min + 99 });
                         }
                     }
 

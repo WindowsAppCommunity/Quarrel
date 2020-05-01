@@ -1,10 +1,7 @@
-﻿using Refit;
-using System;
+﻿using DiscordAPI.API.Misc.Models;
+using Refit;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using DiscordAPI.API.Misc.Models;
 
 
 namespace DiscordAPI.API.Misc

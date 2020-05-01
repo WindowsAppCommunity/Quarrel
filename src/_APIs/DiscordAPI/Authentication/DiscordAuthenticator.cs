@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DiscordAPI.Authentication
+﻿namespace DiscordAPI.Authentication
 {
     public class DiscordAuthenticator : IAuthenticator
     {
@@ -17,7 +11,7 @@ namespace DiscordAPI.Authentication
 
         public string GetToken()
         {
-            return Token; 
+            return Token;
         }
     }
 }

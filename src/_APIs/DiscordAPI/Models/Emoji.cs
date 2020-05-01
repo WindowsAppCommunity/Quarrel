@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiscordAPI.Models
 {
@@ -31,7 +27,10 @@ namespace DiscordAPI.Models
         public bool IsServer { get => Id != null; }
 
         [JsonIgnore]
-        public string DisplayUrl { get => "https://cdn.discordapp.com/emojis/" + Id 
-                + (Animated ? ".gif" : ".png"); }
+        public string DisplayUrl
+        {
+            get => "https://cdn.discordapp.com/emojis/" + Id
++ (Animated ? ".gif" : ".png");
+        }
     }
 }

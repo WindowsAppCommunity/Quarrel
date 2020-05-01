@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace DiscordAPI.API.Channel.Models
 {
@@ -23,8 +18,8 @@ namespace DiscordAPI.API.Channel.Models
         public bool TTS { get; set; }
         [JsonProperty("file")]
         public string file { get; set; }
-      //  [JsonProperty("activity")]
-      //  public MessageActivity Activity { get; set; }
+        //  [JsonProperty("activity")]
+        //  public MessageActivity Activity { get; set; }
     }
 
 }

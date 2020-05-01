@@ -2,7 +2,6 @@
 
 using DiscordAPI.Models;
 using Quarrel.ViewModels.Models.Bindables;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace Quarrel.ViewModels.Services.Discord.Channels

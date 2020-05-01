@@ -6,10 +6,8 @@ using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Models.Interfaces;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Quarrel.ViewModels
 {

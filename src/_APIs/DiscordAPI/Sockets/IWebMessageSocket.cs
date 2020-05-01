@@ -10,7 +10,7 @@ namespace DiscordAPI.Sockets
 
     public class ConnectionClosedEventArgs : EventArgs
     {
-       
+
     }
 
     public interface IWebMessageSocket : IDisposable

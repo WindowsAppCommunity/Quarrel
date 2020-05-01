@@ -3,7 +3,6 @@
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Services.Voice.Audio.Out;
 using System;
-using System.Runtime.InteropServices;
 using Windows.Devices.Enumeration;
 using Windows.Foundation;
 using Windows.Media;

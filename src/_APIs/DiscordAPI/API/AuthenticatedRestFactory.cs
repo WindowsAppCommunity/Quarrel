@@ -1,8 +1,4 @@
-﻿using Refit;
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using DiscordAPI.API.Activities;
+﻿using DiscordAPI.API.Activities;
 using DiscordAPI.API.Channel;
 using DiscordAPI.API.Connections;
 using DiscordAPI.API.Game;
@@ -12,6 +8,9 @@ using DiscordAPI.API.Misc;
 using DiscordAPI.API.User;
 using DiscordAPI.API.Voice;
 using DiscordAPI.Authentication;
+using Refit;
+using System;
+using System.Net.Http;
 
 namespace DiscordAPI.API
 {
@@ -19,7 +18,7 @@ namespace DiscordAPI.API
     {
         private readonly IAuthenticator _authenticator;
         private readonly DiscordApiConfiguration _apiConfig;
-        
+
         public AuthenticatedRestFactory(DiscordApiConfiguration config, IAuthenticator authenticator)
         {
             _apiConfig = config;

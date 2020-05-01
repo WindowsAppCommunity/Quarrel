@@ -30,7 +30,6 @@ using Quarrel.ViewModels.Services.Voice;
 using Quarrel.ViewModels.Services.Voice.Audio.In;
 using Quarrel.ViewModels.Services.Voice.Audio.Out;
 using System;
-using Windows.ApplicationModel.Store;
 
 namespace Quarrel.ViewModels
 {

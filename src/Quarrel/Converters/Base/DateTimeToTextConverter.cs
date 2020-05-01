@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using System;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
 namespace Quarrel.Converters.Base

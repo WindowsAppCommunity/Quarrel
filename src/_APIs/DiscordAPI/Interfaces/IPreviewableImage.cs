@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DiscordAPI.Interfaces
+﻿namespace DiscordAPI.Interfaces
 {
     public interface IPreviewableImage
     {

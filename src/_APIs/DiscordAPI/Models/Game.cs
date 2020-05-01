@@ -20,7 +20,7 @@ namespace DiscordAPI.Models
         public string Url { get; set; }
 
         [JsonProperty("timestamps")]
-        public TimeStamps TimeStamps{get;set; }
+        public TimeStamps TimeStamps { get; set; }
 
         [JsonProperty("application_id")]
         public string ApplicationId { get; set; }
@@ -95,7 +95,7 @@ namespace DiscordAPI.Models
                     return "";
 
                 var match = Regex.Match(id, @"spotify:(\w+)");
-                return string.Format("https://i.scdn.co/image/{0}", match.Groups[1].Value); 
+                return string.Format("https://i.scdn.co/image/{0}", match.Groups[1].Value);
             }
 
             // Set type in query 

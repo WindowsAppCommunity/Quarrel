@@ -1,11 +1,8 @@
-﻿using Refit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DiscordAPI.API.Guild.Models;
+﻿using DiscordAPI.API.Guild.Models;
 using DiscordAPI.Models;
+using Refit;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DiscordAPI.API.Guild
 {
@@ -137,7 +134,7 @@ namespace DiscordAPI.API.Guild
 
 
         [Patch("/v6/webhooks/{webhookId}")]
-        Task<Webhook> ModifyWebhook ([AliasAs("webhookId")] string webhookId, [Body] ModifyWebhook webhook);
+        Task<Webhook> ModifyWebhook([AliasAs("webhookId")] string webhookId, [Body] ModifyWebhook webhook);
         [Delete("/v6/webhooks/{webhookId}")]
         Task DeleteWebhook([AliasAs("webhookId")] string webhookId);
     }

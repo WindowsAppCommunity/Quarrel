@@ -344,7 +344,7 @@ namespace Quarrel.ViewModels
                         }
                         else
                         {
-                            reaction = new BindableReaction(new Reaction() {Emoji = m.Emoji, Count = 1, Me = m.UserId == _discordService.CurrentUser.Id, MessageId = m.MessageId, ChannelId = m.ChannelId});
+                            reaction = new BindableReaction(new Reaction() { Emoji = m.Emoji, Count = 1, Me = m.UserId == _discordService.CurrentUser.Id, MessageId = m.MessageId, ChannelId = m.ChannelId });
                             message.BindableReactions.Add(reaction);
                         }
                     });

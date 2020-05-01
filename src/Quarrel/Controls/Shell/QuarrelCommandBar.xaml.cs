@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels;
 using Quarrel.ViewModels.Services.Navigation;

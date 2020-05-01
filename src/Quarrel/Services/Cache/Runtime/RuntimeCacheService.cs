@@ -104,7 +104,7 @@ namespace Quarrel.Services.Cache.Runtime
             await _cacheSemaphoreSlim.WaitAsync();
             try
             {
-                    _cacheMap.Clear();
+                _cacheMap.Clear();
             }
             finally
             {

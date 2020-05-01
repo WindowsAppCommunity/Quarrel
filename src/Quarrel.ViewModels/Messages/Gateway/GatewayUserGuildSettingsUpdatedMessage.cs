@@ -1,7 +1,4 @@
 ﻿using DiscordAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Quarrel.ViewModels.Messages.Gateway
 {

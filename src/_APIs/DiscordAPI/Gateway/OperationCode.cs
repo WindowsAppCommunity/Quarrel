@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DiscordAPI.Gateway
+﻿namespace DiscordAPI.Gateway
 {
     public enum OperationCode : int
     {

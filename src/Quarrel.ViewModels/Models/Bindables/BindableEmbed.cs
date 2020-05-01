@@ -2,9 +2,6 @@
 
 using DiscordAPI.Models;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Quarrel.ViewModels.Models.Bindables
 {

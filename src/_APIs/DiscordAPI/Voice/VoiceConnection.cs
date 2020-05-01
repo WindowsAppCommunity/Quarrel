@@ -1,4 +1,8 @@
 ﻿using Concentus.Structs;
+using DiscordAPI.Models;
+using DiscordAPI.Sockets;
+using DiscordAPI.Voice.DownstreamEvents;
+using DiscordAPI.Voice.UpstreamEvents;
 using Newtonsoft.Json;
 //using Sodium;
 using System;
@@ -7,10 +11,6 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using DiscordAPI.Models;
-using DiscordAPI.Sockets;
-using DiscordAPI.Voice.DownstreamEvents;
-using DiscordAPI.Voice.UpstreamEvents;
 //using RuntimeComponent;
 
 //Discord DOCs https://discordapp.com/developers/docs/topics/voice-connections
@@ -78,7 +78,7 @@ namespace DiscordAPI.Voice
         public const int FrameSamples = FrameSamplesPerChannel * Channels;
         public const int FrameBytes = FrameSamplesPerChannel * SampleBytes;
 
-        private float[] output = new float[framesize*2];
+        private float[] output = new float[framesize * 2];
 
         private byte[] secretkey;
 
@@ -191,7 +191,7 @@ namespace DiscordAPI.Voice
             byte[] header = new byte[24];
             if (lastReady != null)
             {
-                sequence = unchecked ((ushort) (sequence + 1));
+                sequence = unchecked((ushort)(sequence + 1));
                 header[0] = 0x80; //No extension
                 header[1] = 0x78;
 
@@ -200,7 +200,8 @@ namespace DiscordAPI.Voice
                 {
                     header[2] = (byte)(sequence >> 8);
                     header[3] = (byte)(sequence >> 0);
-                } else
+                }
+                else
                 {
                     header[2] = (byte)(sequence >> 0);
                     header[3] = (byte)(sequence >> 8);
@@ -461,10 +462,10 @@ namespace DiscordAPI.Voice
         {
             try
             {
-             //   int headerSize = GetHeaderSize(packet, data);
-              //  int samples = decoder.Decode(data, headerSize, data.Length - headerSize, output, 0, framesize);
+                //   int headerSize = GetHeaderSize(packet, data);
+                //  int samples = decoder.Decode(data, headerSize, data.Length - headerSize, output, 0, framesize);
 
-             //   VideoDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
+                //   VideoDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
             }
             catch (Exception exception)
             {

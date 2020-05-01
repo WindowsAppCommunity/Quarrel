@@ -42,10 +42,10 @@ namespace DiscordAPI.API.Guild.Models
         [JsonIgnore]
         public IEnumerable<DiscordAPI.Models.User> Users { get; set; }
     }
-    
+
     public enum AuditLogActionType
     {
-        GuildUpdate =1,
+        GuildUpdate = 1,
         ChannelCreate = 10,
         ChannelUpdate = 11,
         ChannelDelete = 12,
@@ -66,7 +66,7 @@ namespace DiscordAPI.API.Guild.Models
         InviteDelete = 42,
         WebhookCreate = 50,
         WebhookUpdate = 51,
-        WebhookDelete  = 52,
+        WebhookDelete = 52,
         EmojiCreate = 60,
         EmojiUpdate = 61,
         EmojiDelete = 62,

@@ -2,11 +2,7 @@
 using Quarrel.RichPresence.Helpers;
 using Quarrel.RichPresence.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation.Collections;
 

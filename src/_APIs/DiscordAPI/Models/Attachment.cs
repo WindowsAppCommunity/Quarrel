@@ -1,10 +1,6 @@
 ﻿using DiscordAPI.Interfaces;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiscordAPI.Models
 {
@@ -26,7 +22,7 @@ namespace DiscordAPI.Models
         public int? Width { get; set; }
 
         [JsonIgnore]
-        public double ActualHeight => Height.HasValue && Width.HasValue ? (double)Height.Value/Width.Value * Math.Min(Width.Value, 400) : double.NaN;
+        public double ActualHeight => Height.HasValue && Width.HasValue ? (double)Height.Value / Width.Value * Math.Min(Width.Value, 400) : double.NaN;
 
         [JsonIgnore]
         public double ActualWidth => Width.HasValue ? Math.Min(Width.Value, 400) : double.NaN;
