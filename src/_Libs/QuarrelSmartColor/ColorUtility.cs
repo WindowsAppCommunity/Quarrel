@@ -3,7 +3,7 @@
 using System;
 using Windows.UI;
 
-namespace Quarrel.Helpers.Colors.SmartColor
+namespace QuarrelSmartColor
 {
     public static class ColorUtility
     {

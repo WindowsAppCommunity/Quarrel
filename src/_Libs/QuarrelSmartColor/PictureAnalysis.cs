@@ -8,9 +8,9 @@ using System.Linq;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Xaml.Media.Imaging;
-using static Quarrel.Helpers.Colors.SmartColor.ColorDetection;
+using static QuarrelSmartColor.ColorDetection;
 
-namespace Quarrel.Helpers.Colors.SmartColor
+namespace QuarrelSmartColor
 {
     /// <summary>
     /// An analysis of an image.
@@ -79,7 +79,7 @@ namespace Quarrel.Helpers.Colors.SmartColor
         /// <param name="height">Hight of the image.</param>
         public async void Analyse(BitmapImage image, int width = 96, int height = 66)
         {
-            RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(image.UriSour‌​ce);
+            RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(image.UriSource);
             IRandomAccessStream str = await random.OpenReadAsync();
             Analyse(str.AsStreamForRead(), width, height);
             str.Dispose();

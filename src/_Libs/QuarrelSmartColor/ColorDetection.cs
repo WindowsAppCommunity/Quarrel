@@ -7,7 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace Quarrel.Helpers.Colors.SmartColor
+namespace QuarrelSmartColor
 {
     /// <summary>
     /// Defines classes used for color detection.

@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.Models;
-using Quarrel.Helpers.Colors.SmartColor;
 using Quarrel.ViewModels.Services.Resources;
 using System.Collections.Generic;
 using System.Threading;
@@ -9,6 +8,8 @@ using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using QuarrelSmartColor;
+using QuarrelSmartColor.Extensions.Windows.UI;
 
 namespace Quarrel.Services.Resources
 {

@@ -3,6 +3,7 @@
 using System;
 using Windows.UI;
 using Windows.UI.Xaml.Data;
+using QuarrelSmartColor.Extensions.Windows.UI;
 
 namespace Quarrel.Converters.Base
 {

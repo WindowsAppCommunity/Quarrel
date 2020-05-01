@@ -35,6 +35,7 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
+using QuarrelSmartColor.Extensions.Windows.UI;
 using Emoji = NeoSmart.Unicode.Emoji;
 
 namespace Quarrel.Controls.Markdown.Display

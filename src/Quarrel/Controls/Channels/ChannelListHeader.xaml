@@ -30,7 +30,7 @@
                 <MenuFlyoutSeparator Visibility="{x:Bind ViewModel.Permissions.ManageChannels, Mode=OneWay}"/>
                 <MenuFlyoutItem Icon="Add" Text="Add Channel" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Command="{x:Bind ViewModel.AddChannelCommand}" Visibility="{x:Bind ViewModel.Permissions.ManageChannels, Mode=OneWay}"/>
                 <MenuFlyoutSeparator Visibility="{x:Bind ViewModel.IsOwner, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
-                <MenuFlyoutItem Icon="Clear" Text="Leave Server" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource LightRed}" Visibility="{x:Bind ViewModel.IsOwner, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
+                <MenuFlyoutItem Icon="Clear" Text="Leave Server" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource dnd}" Visibility="{x:Bind ViewModel.IsOwner, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
             </MenuFlyout>
         </Button.Flyout>
 
