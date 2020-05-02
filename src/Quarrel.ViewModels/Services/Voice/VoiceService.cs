@@ -141,7 +141,6 @@ namespace Quarrel.ViewModels.Services.Voice
 
         private void InputRecieved(object sender, float[] e)
         {
-            _voiceConnection.SendVoiceData(e);
         }
 
         private void VoiceDataRecieved(object sender, VoiceConnectionEventArgs<VoiceData> e)
