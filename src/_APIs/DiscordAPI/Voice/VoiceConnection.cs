@@ -40,7 +40,7 @@ namespace DiscordAPI.Voice
         private SocketFrame lastEvent;
 
         private readonly IWebMessageSocket _webMessageSocket;
-        private readonly UDPSocket _udpSocket;
+ //       private readonly UDPSocket _udpSocket;
         public readonly VoiceState _state;
         private readonly VoiceServerUpdate _voiceServerConfig;
 
@@ -89,18 +89,21 @@ namespace DiscordAPI.Voice
         // TODO: public event EventHandler<VoiceConnectionEventArgs<VoiceData>> VideoDataRecieved;
         public event EventHandler<VoiceConnectionEventArgs<DownstreamEvents.Speak>> Speak;
 
+
+        private IWebrtcManager _webrtcManager;
+
         public VoiceConnection()
         {
-
         }
 
-        public VoiceConnection(VoiceServerUpdate config, VoiceState state)
+        public VoiceConnection(VoiceServerUpdate config, VoiceState state, IWebrtcManager webrtcManager)
         {
             //var qualifiers = ResourceContext.GetForCurrentView().QualifierValues;
             //mobile = (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Mobile");
 
             _webMessageSocket = new WebMessageSocket();
-            _udpSocket = new UDPSocket();
+            _webrtcManager = webrtcManager;
+            //_udpSocket = new UDPSocket();
             _state = state;
             _voiceServerConfig = config;
 
@@ -109,6 +112,53 @@ namespace DiscordAPI.Voice
             operationHandlers = GetOperationHandlers();
 
             PrepareSocket();
+
+            _webrtcManager.IpAndPortObtained += WebrtcManagerOnIpAndPortObtained;
+
+        }
+
+        private async void WebrtcManagerOnIpAndPortObtained(object sender, Tuple<string, ushort> e)
+        {
+            var info = new UdpProtocolInfo()
+            {
+                Address = e.Item1,
+                Port = e.Item2,
+                Codecs = new List<Codec>()
+                {
+                    new Codec()
+                    {
+                        Name = "opus",
+                        payloadType = 120,
+                        Priority = 1000,
+                        Type = "audio",
+                        rtxPayloadType = 120
+                    },
+                    new Codec()
+                    {
+                        Name = "VP8",
+                        payloadType = 101,
+                        Priority = 1000,
+                        Type = "video",
+                        rtxPayloadType = 102
+                    }
+                }.ToArray(),
+                Mode = "xsalsa20_poly1305" //"_suffix"
+            };
+
+            var payload = new SelectProtocol()
+            {
+                Protocol = "udp",
+                Data = info
+            };
+
+            SocketFrame package = new SocketFrame()
+            {
+                Operation = (int)OperationCode.SelectProtocol,
+                Payload = payload,
+                Type = EventNames.SELECT_PROTOCOL
+            };
+
+            await _webMessageSocket.SendJsonObjectAsync(package);
         }
 
 
@@ -123,11 +173,6 @@ namespace DiscordAPI.Voice
             IdentifySelfToVoiceConnection();
         }
 
-        private async Task ConnectUDPAsync(string Ip, string Port)
-        {
-            await _udpSocket.ConnectAsync(Ip, Port);
-        }
-
         private async void IdentifySelfToVoiceConnection()
         {
             var identifyEvent = new SocketFrame
@@ -140,11 +185,6 @@ namespace DiscordAPI.Voice
             await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
         }
 
-        private async void SendSelectProtocol()
-        {
-            _udpSocket.MessageReceived += IpDiscover;
-            await _udpSocket.SendDiscovery(lastReady.SSRC);
-        }
 
         public async void SendSilence()
         {
@@ -157,7 +197,7 @@ namespace DiscordAPI.Voice
                 opus[13] = 0xFF;
                 opus[14] = 0xFE;
                 Cypher.encrypt(opus, 12, 3, opus, 12, nonce, secretkey);
-                await _udpSocket.SendBytesAsync(opus);
+            //    await _udpSocket.SendBytesAsync(opus);
             }
         }
 
@@ -245,69 +285,10 @@ namespace DiscordAPI.Voice
                 Buffer.BlockCopy(buffer, 0, opus, 12, encodedSize);
                 timestamp = unchecked(timestamp + 960);
                 Cypher.encrypt(opus, 12, encodedSize, opus, 12, nonce, secretkey);
-                await _udpSocket.SendBytesAsync(opus);
+             //   await _udpSocket.SendBytesAsync(opus);
             }
         }
 
-        async void IpDiscover(object sender, PacketReceivedEventArgs args)
-        {
-            var packet = (byte[])args.Message;
-            string ip = "";
-            int port = 0;
-            try
-            {
-                ip = Encoding.UTF8.GetString(packet, 4, 70 - 6).TrimEnd('\0');
-                port = (packet[68] << 8) | packet[69];
-            }
-            catch /*(Exception exception)*/
-            {
-                //App.NavigateToBugReport(exception);
-            }
-
-            var info = new UdpProtocolInfo()
-            {
-                Address = ip,
-                Port = port,
-                Codecs = new List<Codec>()
-                {
-                    new Codec()
-                    {
-                        Name = "opus",
-                        payloadType = 120,
-                        Priority = 1000,
-                        Type = "audio",
-                        rtxPayloadType = 120
-                    },
-                    new Codec()
-                    {
-                        Name = "VP8",
-                        payloadType = 101,
-                        Priority = 1000,
-                        Type = "video",
-                        rtxPayloadType = 102
-                    }
-                }.ToArray(),
-                Mode = "xsalsa20_poly1305" //"_suffix"
-            };
-
-            var payload = new SelectProtocol()
-            {
-                Protocol = "udp",
-                Data = info
-            };
-
-            SocketFrame package = new SocketFrame()
-            {
-                Operation = (int)OperationCode.SelectProtocol,
-                Payload = payload,
-                Type = EventNames.SELECT_PROTOCOL
-            };
-
-            _udpSocket.MessageReceived -= IpDiscover;
-            _udpSocket.MessageReceived += processUdpPacket;
-
-            await _webMessageSocket.SendJsonObjectAsync(package);
-        }
 
         private IReadOnlyDictionary<int, VoiceConnectionEventHandler> GetOperationHandlers()
         {
@@ -374,14 +355,14 @@ namespace DiscordAPI.Voice
 
             FireEventOnDelegate(Event, Ready);
 
-            await ConnectUDPAsync(ready.Ip, ready.Port.ToString());
-            SendSelectProtocol();
+            _webrtcManager.ConnectAsync(ready.Ip, ready.Port.ToString(), lastReady.SSRC);
         }
 
         private void OnSessionDesc(SocketFrame Event)
         {
             var Desc = Event.GetData<SessionDescription>();
             secretkey = Desc.SecretKey;
+            _webrtcManager.SetKey(secretkey);
 
 
             //Needs to speak 100 silent frames to get first listen packet
@@ -395,6 +376,8 @@ namespace DiscordAPI.Voice
 
         private void OnSpeaking(SocketFrame Event)
         {
+            var speak = Event.GetData<DownstreamEvents.Speak>();
+            _webrtcManager.SetSpeaking((uint)speak.SSRC, speak.Speaking);
             FireEventOnDelegate(Event, Speak);
         }
 

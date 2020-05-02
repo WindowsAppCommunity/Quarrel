@@ -111,6 +111,8 @@ namespace Quarrel.ViewModels.Services.Voice
 
         private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
+        private IWebrtcManager WebrtcManager { get; } = SimpleIoc.Default.GetInstance<IWebrtcManager>();
+
         /// <inheritdoc/>
         public async void ToggleDeafen()
         {
@@ -130,7 +132,7 @@ namespace Quarrel.ViewModels.Services.Voice
         private async void ConnectToVoiceChannel(VoiceServerUpdate data, VoiceState state)
         {
             AudioOutService.CreateGraph();
-            _voiceConnection = new VoiceConnection(data, state);
+            _voiceConnection = new VoiceConnection(data, state, WebrtcManager);
             _voiceConnection.VoiceDataRecieved += VoiceDataRecieved;
             _voiceConnection.Speak += Speak;
             await _voiceConnection.ConnectAsync();
