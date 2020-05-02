@@ -169,8 +169,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>webrtc0.lib;webrtc1.lib;webrtc2.lib;webrtc3.lib;webrtc4.lib;webrtc5.lib;webrtc6.lib;webrtc7.lib;webrtc8.lib;webrtc9.lib;webrtc10.lib;webrtc11.lib;webrtc12.lib;webrtc13.lib;webrtc14.lib;webrtc15.lib;webrtc16.lib;webrtc17.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>libs\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -188,8 +188,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>webrtc0.lib;webrtc1.lib;webrtc2.lib;webrtc3.lib;webrtc4.lib;webrtc5.lib;webrtc6.lib;webrtc7.lib;webrtc8.lib;webrtc9.lib;webrtc10.lib;webrtc11.lib;webrtc12.lib;webrtc13.lib;webrtc14.lib;webrtc15.lib;webrtc16.lib;webrtc17.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>libs\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
@@ -207,8 +207,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>webrtc0.lib;webrtc1.lib;webrtc2.lib;webrtc3.lib;webrtc4.lib;webrtc5.lib;webrtc6.lib;webrtc7.lib;webrtc8.lib;webrtc9.lib;webrtc10.lib;webrtc11.lib;webrtc12.lib;webrtc13.lib;webrtc14.lib;webrtc15.lib;webrtc16.lib;webrtc17.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>libs\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -226,8 +226,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>webrtc0.lib;webrtc1.lib;webrtc2.lib;webrtc3.lib;webrtc4.lib;webrtc5.lib;webrtc6.lib;webrtc7.lib;webrtc8.lib;webrtc9.lib;webrtc10.lib;webrtc11.lib;webrtc12.lib;webrtc13.lib;webrtc14.lib;webrtc15.lib;webrtc16.lib;webrtc17.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>libs\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
@@ -245,8 +245,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>webrtc0.lib;webrtc1.lib;webrtc2.lib;webrtc3.lib;webrtc4.lib;webrtc5.lib;webrtc6.lib;webrtc7.lib;webrtc8.lib;webrtc9.lib;webrtc10.lib;webrtc11.lib;webrtc12.lib;webrtc13.lib;webrtc14.lib;webrtc15.lib;webrtc16.lib;webrtc17.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>libs\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
@@ -264,8 +264,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>webrtc0.lib;webrtc1.lib;webrtc2.lib;webrtc3.lib;webrtc4.lib;webrtc5.lib;webrtc6.lib;webrtc7.lib;webrtc8.lib;webrtc9.lib;webrtc10.lib;webrtc11.lib;webrtc12.lib;webrtc13.lib;webrtc14.lib;webrtc15.lib;webrtc16.lib;webrtc17.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>libs\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -284,8 +284,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>webrtc0.lib;webrtc1.lib;webrtc2.lib;webrtc3.lib;webrtc4.lib;webrtc5.lib;webrtc6.lib;webrtc7.lib;webrtc8.lib;webrtc9.lib;webrtc10.lib;webrtc11.lib;webrtc12.lib;webrtc13.lib;webrtc14.lib;webrtc15.lib;webrtc16.lib;webrtc17.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>libs\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -303,8 +303,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>webrtc0.lib;webrtc1.lib;webrtc2.lib;webrtc3.lib;webrtc4.lib;webrtc5.lib;webrtc6.lib;webrtc7.lib;webrtc8.lib;webrtc9.lib;webrtc10.lib;webrtc11.lib;webrtc12.lib;webrtc13.lib;webrtc14.lib;webrtc15.lib;webrtc16.lib;webrtc17.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>libs\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
