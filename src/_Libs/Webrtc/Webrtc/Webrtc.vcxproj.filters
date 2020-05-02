@@ -8,8 +8,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="WebrtcManager.cpp" />
+    <ClCompile Include="AudioDeviceWasapi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="WebrtcManager.h" />
+    <ClInclude Include="AudioDeviceWasapi.h" />
+    <ClInclude Include="IAudioDeviceWasapi.h" />
   </ItemGroup>
 </Project>

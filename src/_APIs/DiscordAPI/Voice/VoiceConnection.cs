@@ -363,15 +363,6 @@ namespace DiscordAPI.Voice
             var Desc = Event.GetData<SessionDescription>();
             secretkey = Desc.SecretKey;
             _webrtcManager.SetKey(secretkey);
-
-
-            //Needs to speak 100 silent frames to get first listen packet
-            SendSpeaking(1);
-            for (int i = 0; i < 100; i++)
-            {
-                SendSilence();
-            }
-            SendSpeaking(0);
         }
 
         private void OnSpeaking(SocketFrame Event)
