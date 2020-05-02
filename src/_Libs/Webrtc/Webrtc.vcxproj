@@ -169,7 +169,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>webrtc.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>webrtc0.lib;webrtc1.lib;webrtc2.lib;webrtc3.lib;webrtc4.lib;webrtc5.lib;webrtc6.lib;webrtc7.lib;webrtc8.lib;webrtc9.lib;webrtc10.lib;webrtc11.lib;webrtc12.lib;webrtc13.lib;webrtc14.lib;webrtc15.lib;webrtc16.lib;webrtc17.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>libs\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -188,7 +188,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>webrtc.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>webrtc0.lib;webrtc1.lib;webrtc2.lib;webrtc3.lib;webrtc4.lib;webrtc5.lib;webrtc6.lib;webrtc7.lib;webrtc8.lib;webrtc9.lib;webrtc10.lib;webrtc11.lib;webrtc12.lib;webrtc13.lib;webrtc14.lib;webrtc15.lib;webrtc16.lib;webrtc17.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>libs\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -207,7 +207,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>webrtc.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>webrtc0.lib;webrtc1.lib;webrtc2.lib;webrtc3.lib;webrtc4.lib;webrtc5.lib;webrtc6.lib;webrtc7.lib;webrtc8.lib;webrtc9.lib;webrtc10.lib;webrtc11.lib;webrtc12.lib;webrtc13.lib;webrtc14.lib;webrtc15.lib;webrtc16.lib;webrtc17.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>libs\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -226,7 +226,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>webrtc.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>webrtc0.lib;webrtc1.lib;webrtc2.lib;webrtc3.lib;webrtc4.lib;webrtc5.lib;webrtc6.lib;webrtc7.lib;webrtc8.lib;webrtc9.lib;webrtc10.lib;webrtc11.lib;webrtc12.lib;webrtc13.lib;webrtc14.lib;webrtc15.lib;webrtc16.lib;webrtc17.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>libs\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -245,7 +245,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>webrtc.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>webrtc0.lib;webrtc1.lib;webrtc2.lib;webrtc3.lib;webrtc4.lib;webrtc5.lib;webrtc6.lib;webrtc7.lib;webrtc8.lib;webrtc9.lib;webrtc10.lib;webrtc11.lib;webrtc12.lib;webrtc13.lib;webrtc14.lib;webrtc15.lib;webrtc16.lib;webrtc17.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>libs\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -264,7 +264,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>webrtc.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>webrtc0.lib;webrtc1.lib;webrtc2.lib;webrtc3.lib;webrtc4.lib;webrtc5.lib;webrtc6.lib;webrtc7.lib;webrtc8.lib;webrtc9.lib;webrtc10.lib;webrtc11.lib;webrtc12.lib;webrtc13.lib;webrtc14.lib;webrtc15.lib;webrtc16.lib;webrtc17.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>libs\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -284,7 +284,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>webrtc.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>webrtc0.lib;webrtc1.lib;webrtc2.lib;webrtc3.lib;webrtc4.lib;webrtc5.lib;webrtc6.lib;webrtc7.lib;webrtc8.lib;webrtc9.lib;webrtc10.lib;webrtc11.lib;webrtc12.lib;webrtc13.lib;webrtc14.lib;webrtc15.lib;webrtc16.lib;webrtc17.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>libs\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -303,7 +303,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>webrtc.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>webrtc0.lib;webrtc1.lib;webrtc2.lib;webrtc3.lib;webrtc4.lib;webrtc5.lib;webrtc6.lib;webrtc7.lib;webrtc8.lib;webrtc9.lib;webrtc10.lib;webrtc11.lib;webrtc12.lib;webrtc13.lib;webrtc14.lib;webrtc15.lib;webrtc16.lib;webrtc17.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>libs\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
