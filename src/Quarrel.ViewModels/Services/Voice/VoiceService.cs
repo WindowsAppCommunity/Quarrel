@@ -43,7 +43,7 @@ namespace Quarrel.ViewModels.Services.Voice
 
                             if (m.VoiceState.UserId == DiscordService.CurrentUser.Id)
                             {
-                                DisconnectFromVoiceChannel();
+                                // Tell webrtc manager.
                             }
                         }
                         else
@@ -130,7 +130,7 @@ namespace Quarrel.ViewModels.Services.Voice
         private async void ConnectToVoiceChannel(VoiceServerUpdate data, VoiceState state)
         {
             _voiceConnection = new VoiceConnection(data, state, WebrtcManager);
-            _voiceConnection.VoiceDataRecieved += VoiceDataRecieved;
+
             _voiceConnection.Speak += Speak;
             await _voiceConnection.ConnectAsync();
         }

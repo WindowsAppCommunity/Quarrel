@@ -274,22 +274,6 @@ namespace DiscordAPI.Voice
             return header;
         }
 
-        public async void SendVoiceData(float[] frame)
-        {
-            if (lastReady != null && frame.Length == 1920 && secretkey != null)
-            {
-                int encodedSize = encoder.Encode(frame, 0, FrameSamplesPerChannel, buffer, 0, FrameBytes);
-
-                byte[] opus = new byte[encodedSize + 12 + 16];
-                byte[] nonce = makeHeader();
-                Buffer.BlockCopy(nonce, 0, opus, 0, 12);
-                Buffer.BlockCopy(buffer, 0, opus, 12, encodedSize);
-                timestamp = unchecked(timestamp + 960);
-                Cypher.encrypt(opus, 12, encodedSize, opus, 12, nonce, secretkey);
-             //   await _udpSocket.SendBytesAsync(opus);
-            }
-        }
-
 
         private IReadOnlyDictionary<int, VoiceConnectionEventHandler> GetOperationHandlers()
         {

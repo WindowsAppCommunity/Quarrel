@@ -11,6 +11,16 @@ namespace Quarrel.ViewModels.Services.Voice
     public interface IVoiceService
     {
         /// <summary>
+        /// Gets the audio input service.
+        /// </summary>
+        IAudioInService AudioInService { get; }
+
+        /// <summary>
+        /// Gets the audio output service.
+        /// </summary>
+        IAudioOutService AudioOutService { get; }
+
+        /// <summary>
         /// Gets a hashed collection of guild member's voice states by user id.
         /// </summary>
         IDictionary<string, BindableVoiceUser> VoiceStates { get; }
