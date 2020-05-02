@@ -45,7 +45,7 @@ namespace Quarrel.ViewModels.Services.Voice
 
                             if (m.VoiceState.UserId == DiscordService.CurrentUser.Id)
                             {
-                                DisconnectFromVoiceChannel();
+                                // Tell webrtc manager.
                             }
                         }
                         else
@@ -107,12 +107,6 @@ namespace Quarrel.ViewModels.Services.Voice
         /// <inheritdoc/>
         public IDictionary<string, BindableVoiceUser> VoiceStates { get; } = new ConcurrentDictionary<string, BindableVoiceUser>();
 
-        /// <inheritdoc/>
-        public IAudioInService AudioInService { get; } = SimpleIoc.Default.GetInstance<IAudioInService>();
-
-        /// <inheritdoc/>
-        public IAudioOutService AudioOutService { get; } = SimpleIoc.Default.GetInstance<IAudioOutService>();
-
         private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
 
         private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
@@ -124,46 +118,25 @@ namespace Quarrel.ViewModels.Services.Voice
         /// <inheritdoc/>
         public async void ToggleDeafen()
         {
-            AudioOutService.ToggleDeafen();
+            // Todo: tell webrtc manager
             var state = _voiceConnection._state;
-            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, AudioInService.Muted, AudioOutService.Deafened);
+            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, false, false); // Todo: get correct values
         }
 
         /// <inheritdoc/>
         public async void ToggleMute()
         {
-            AudioInService.ToggleMute();
+            // Todo: tell webrtc manager
             var state = _voiceConnection._state;
-            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, AudioInService.Muted, AudioOutService.Deafened);
+            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, false , false); // Todo: work properly
         }
 
         private async void ConnectToVoiceChannel(VoiceServerUpdate data, VoiceState state)
-        {
-            AudioOutService.CreateGraph();
+        {;
             _voiceConnection = new VoiceConnection(data, state, WebrtcManager);
-            _voiceConnection.VoiceDataRecieved += VoiceDataRecieved;
+
             _voiceConnection.Speak += Speak;
             await _voiceConnection.ConnectAsync();
-
-            AudioInService.AudioQueued += InputRecieved;
-            AudioInService.SpeakingChanged += SpeakingChanged;
-            AudioInService.CreateGraph();
-        }
-
-        private void DisconnectFromVoiceChannel()
-        {
-            AudioInService.Dispose();
-            AudioOutService.Dispose();
-        }
-
-        private void InputRecieved(object sender, float[] e)
-        {
-            _voiceConnection.SendVoiceData(e);
-        }
-
-        private void VoiceDataRecieved(object sender, VoiceConnectionEventArgs<VoiceData> e)
-        {
-            AudioOutService.AddFrame(e.EventData.data, e.EventData.samples);
         }
 
         private void Speak(object sender, VoiceConnectionEventArgs<Speak> e)
