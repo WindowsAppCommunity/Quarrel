@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DiscordAPI.Models;
 using Newtonsoft.Json;
-using DiscordAPI.Models;
 
 namespace DiscordAPI.Gateway.DownstreamEvents
 {

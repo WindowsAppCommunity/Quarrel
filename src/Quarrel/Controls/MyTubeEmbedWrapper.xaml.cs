@@ -59,6 +59,14 @@ namespace Quarrel.Controls
             set => SetValue(VidoeUriProperty, value);
         }
 
+        /// <summary>
+        /// Diposes of the MyTube instance.
+        /// </summary>
+        public void Dispose()
+        {
+            _mediaHandler.Deregister();
+        }
+
         private static void OnVidoeUriChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is MyTubeEmbedWrapper wrapper && e.NewValue is string value && wrapper.Play)

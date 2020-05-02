@@ -1,8 +1,5 @@
 ﻿using DiscordStatusAPI.Models;
 using Refit;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DiscordStatusAPI.API.Status

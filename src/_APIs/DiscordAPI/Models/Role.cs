@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiscordAPI.Models
 {
@@ -31,7 +27,7 @@ namespace DiscordAPI.Models
 
 
         [JsonIgnore]
-        public static Role Offline => new Role() { Name = "Offline", Position = int.MinValue + 1, Id = "offline"};
+        public static Role Offline => new Role() { Name = "Offline", Position = int.MinValue + 1, Id = "offline" };
 
         [JsonIgnore]
         public static Role Everyone => new Role() { Name = "Everyone", Position = int.MinValue + 2, Id = "everyone" };

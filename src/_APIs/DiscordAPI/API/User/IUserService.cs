@@ -1,11 +1,8 @@
-﻿using Refit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DiscordAPI.API.User.Models;
+﻿using DiscordAPI.API.User.Models;
 using DiscordAPI.Models;
+using Refit;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DiscordAPI.API.User
 {
@@ -16,7 +13,7 @@ namespace DiscordAPI.API.User
 
         [Get("/v6/users/@me")]
         Task<DiscordAPI.Models.User> GetCurrentUser();
-        
+
         [Patch("/v6/users/@me/guilds/{guildId}/settings")]
         [Headers("Content-Type: application/json;")]
         Task<GuildSetting> ModifyGuildSettings([AliasAs("guildId")] string guildId, [Body] GuildSettingModify guildSetting);

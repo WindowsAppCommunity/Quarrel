@@ -2,7 +2,6 @@
 
 using System;
 using System.IO;
-using Windows.Storage.Streams;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media.Imaging;
 

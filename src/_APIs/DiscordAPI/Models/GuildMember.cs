@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiscordAPI.Models
 {
@@ -15,7 +12,7 @@ namespace DiscordAPI.Models
         public string Nick { get; set; }
         [JsonProperty("roles")]
         public IEnumerable<string> Roles { get; set; }
-        [JsonProperty("joined_at")] 
+        [JsonProperty("joined_at")]
         public DateTime JoinedAt { get; set; }
         [JsonProperty("deaf")]
         public bool Deaf { get; set; }

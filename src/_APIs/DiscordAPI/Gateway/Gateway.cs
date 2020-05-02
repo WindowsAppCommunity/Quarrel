@@ -1,21 +1,19 @@
-﻿using DiscordAPI.Sockets;
+﻿using DiscordAPI.Authentication;
+using DiscordAPI.Gateway.DownstreamEvents;
+using DiscordAPI.Gateway.UpstreamEvents;
+using DiscordAPI.Models;
+using DiscordAPI.Sockets;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
-using DiscordAPI.Authentication;
-using DiscordAPI.Gateway.DownstreamEvents;
-using DiscordAPI.Gateway.UpstreamEvents;
-using DiscordAPI.Models;
-using DiscordAPI.API;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace DiscordAPI.Gateway
 {
@@ -113,7 +111,7 @@ namespace DiscordAPI.Gateway
             _compressed = new MemoryStream();
             if (UseCompression)
                 _decompressor = new DeflateStream(_compressed, CompressionMode.Decompress);
-            
+
             _authenticator = authenticator;
             _gatewayConfig = config;
             eventHandlers = GetEventHandlers();
@@ -150,7 +148,7 @@ namespace DiscordAPI.Gateway
         }
         private void BinaryMessage(byte[] bytes, int index1, int count)
         {
-            if(Logger?.IsEnabled(LogLevel.Trace) ?? false)
+            if (Logger?.IsEnabled(LogLevel.Trace) ?? false)
             {
                 Logger?.LogTrace("Binary message received.");
             }
@@ -188,7 +186,7 @@ namespace DiscordAPI.Gateway
                 }
             }
         }
-        
+
         private void HandleMessage(TextReader reader)
         {
             if (Logger?.IsEnabled(LogLevel.Trace) ?? false)
@@ -291,8 +289,8 @@ namespace DiscordAPI.Gateway
                 }
             };
             await SendMessageAsync(JsonConvert.SerializeObject(frame));
-           // var serialzedObject = ;
-           // await _webMessageSocket.SendJsonObjectAsync(frame);
+            // var serialzedObject = ;
+            // await _webMessageSocket.SendJsonObjectAsync(frame);
         }
         private IReadOnlyDictionary<int, GatewayEventHandler> GetOperationHandlers()
         {
@@ -348,10 +346,10 @@ namespace DiscordAPI.Gateway
 
 
 
-       /* private void PrepareSocket()
-        {
-            _webMessageSocket.MessageReceived += OnSocketMessageReceived;
-        }*/
+        /* private void PrepareSocket()
+         {
+             _webMessageSocket.MessageReceived += OnSocketMessageReceived;
+         }*/
         public static bool UseCompression = true;
 
         public async Task<bool> ConnectAsync()
@@ -361,7 +359,7 @@ namespace DiscordAPI.Gateway
             {
                 append = "&compress=zlib-stream";
             }
-            
+
             return await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "6", append));
         }
 
@@ -399,12 +397,13 @@ namespace DiscordAPI.Gateway
 
         public async void UpdateStatus(string onlinestatus, int? idleSince, GameBase game)
         {
-            if(game != null)
+            if (game != null)
             {
                 if (game.Type == 3)
                 {
                     game.Type = 0;
-                } else if (game.IsCustom)
+                }
+                else if (game.IsCustom)
                 {
                     game = new Game() { Name = "Custom Status", Type = 4, State = game.Name };
                 }
@@ -414,14 +413,14 @@ namespace DiscordAPI.Gateway
                 }
             }
             await UpdateStatus(new StatusUpdate()
-                {
-                    Status = onlinestatus,
-                    IdleSince = idleSince,
-                    IsAFK = false,
-                    Game = game
-                });
+            {
+                Status = onlinestatus,
+                IdleSince = idleSince,
+                IsAFK = false,
+                Game = game
+            });
         }
-        
+
         public async Task RequestAllGuildMembers(string guildid)
         {
             var payload = new GuildMembersRequest()
@@ -466,7 +465,7 @@ namespace DiscordAPI.Gateway
         /// <returns>True if the payload was valid, false if it wasn't</returns>
         public async Task<bool> SubscribeToGuild(string[] channelIds)
         {
-            if(channelIds.Length > 193) //This is really, really random, but it's apparently the maximum array size for the op12 event.
+            if (channelIds.Length > 193) //This is really, really random, but it's apparently the maximum array size for the op12 event.
             {
                 return false;
             }
@@ -492,10 +491,10 @@ namespace DiscordAPI.Gateway
                     Typing = true
                 }
             };
-            await SendMessageAsync(JsonConvert.SerializeObject(updateGuildSubscriptions, Formatting.None, new JsonSerializerSettings 
-                {
-                    NullValueHandling = NullValueHandling.Ignore
-                }
+            await SendMessageAsync(JsonConvert.SerializeObject(updateGuildSubscriptions, Formatting.None, new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            }
             ));
         }
         public async Task RequestGuildMembers(IEnumerable<string> guildIds, string query, int? limit, bool? presences, IEnumerable<string> userIds)
@@ -512,10 +511,10 @@ namespace DiscordAPI.Gateway
                     UserIds = userIds
                 }
             };
-            await SendMessageAsync(JsonConvert.SerializeObject(updateGuildSubscriptions, Formatting.None, new JsonSerializerSettings 
-                {
-                    NullValueHandling = NullValueHandling.Ignore
-                }
+            await SendMessageAsync(JsonConvert.SerializeObject(updateGuildSubscriptions, Formatting.None, new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            }
             ));
         }
 
@@ -543,7 +542,7 @@ namespace DiscordAPI.Gateway
                 Payload = GetIdentityAsync()
             };
             await SendMessageAsync(JsonConvert.SerializeObject(identifyEvent));
-           // await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
+            // await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
         }
 
         private Identify GetIdentityAsync()
@@ -570,7 +569,7 @@ namespace DiscordAPI.Gateway
         }
 
 
-#region OnEvents
+        #region OnEvents
 
         private void OnResumeReceived(SocketFrame gatewayEvent)
         {
@@ -581,7 +580,7 @@ namespace DiscordAPI.Gateway
         {
             var ready = gatewayEvent.GetData<Ready>();
             lastReady = ready;
-           
+
 
             FireEventOnDelegate(gatewayEvent, Ready);
         }

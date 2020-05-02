@@ -52,14 +52,14 @@ namespace Quarrel.TemplateSelectors
                     case "image": return ImageEmbedTemplate;
                     case "gifv": return GifvEmbedTemplate;
                     case "video":
-                    {
-                        if (Regex.IsMatch(embed.Video?.Url, ViewModels.Helpers.Constants.Regex.YouTubeURLRegex))
                         {
-                            return YoutubeEmbedTemplate;
-                        }
+                            if (Regex.IsMatch(embed.Video?.Url, ViewModels.Helpers.Constants.Regex.YouTubeURLRegex))
+                            {
+                                return YoutubeEmbedTemplate;
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
 
                     case "rich": return RichEmbedTemplate;
                     default: return DefaultEmbedTemplate;

@@ -3,7 +3,6 @@
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
 using JetBrains.Annotations;
-using Quarrel.ViewModels.Models.Bindables.Abstract;
 
 namespace Quarrel.ViewModels.Models.Bindables
 {

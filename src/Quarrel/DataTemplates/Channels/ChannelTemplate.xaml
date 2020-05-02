@@ -451,26 +451,19 @@
                     <RowDefinition Height="Auto" MaxHeight="10"/>
                 </Grid.RowDefinitions>
 
-                <!--Selectlion Indicator-->
-                <Border x:Name="SelectIndicator" Opacity="0" BorderBrush="{Binding Background, ElementName=UnreadIndicator}" BorderThickness="0,0,0,0" HorizontalAlignment="Stretch" Margin="-24,0" Grid.ColumnSpan="3" Grid.RowSpan="12">
-                    <Border.Background>
-                        <SolidColorBrush Opacity="0.2" Color="{ThemeResource SystemAccentColor}"/>
-                    </Border.Background>
-                </Border>
-
                 <!--Unread Indicator-->
                 <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="24" Width="2" Background="{ThemeResource Foreground}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="0.75"/>
 
                 <!--Mention Notifications and Glow-->
-                <Grid x:Name="grid" Visibility="{x:Bind MentionCount, Converter={StaticResource MentionCountToVisiblityConverter}, Mode=OneWay}" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="0,0,-24,0">
+                <Grid x:Name="grid" Visibility="{x:Bind MentionCount, Converter={StaticResource MentionCountToVisiblityConverter}, Mode=OneWay}" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="-22,0,-24,0"
+                      BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="2,0,0,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0,0" StartPoint="1.3,0" ColorInterpolationMode="ScRgbLinearInterpolation" SpreadMethod="Pad">
                             <GradientStop Offset="0.95" Color="#00000000"/>
                             <GradientStop Color="{ThemeResource SystemAccentColor}" Offset="0"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Border Visibility="Visible" Height="24" Width="2" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="1"/>
-
+                    
                     <TextBlock x:Name="NotificationCounter" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Text="{x:Bind MentionCount, Mode=OneWay}" FontWeight="SemiBold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="24,0,24,2" FontSize="15" RenderTransformOrigin="0.5,0.5">
                                 <!--<TextBlock.RenderTransform>
                                     <CompositeTransform TranslateX="24"/>
@@ -497,7 +490,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="VoiceChannelTemplate" x:DataType="bindables:BindableChannel">
-        <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Height="40">
+        <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" MinHeight="40">
             <!--Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
@@ -515,26 +508,23 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition Height="Auto" MaxHeight="300"/>
-                    <RowDefinition Height="Auto" MaxHeight="10"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <!--Main Details-->
-                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,6" Padding="0,0,-18,0">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock Visibility="{x:Bind Permissions.ReadMessages, Converter={StaticResource NotBoolToVisibilityConverter}}" Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
-                        <TextBlock Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
-                        <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}" Opacity="{x:Bind TextOpacity, Mode=OneWay}" Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}" Margin="0,1,0,0"/>
-                    </StackPanel>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal"
+                            Margin="0,6" Padding="0,0,-18,0">
+                    <TextBlock Visibility="{x:Bind Permissions.ReadMessages, Converter={StaticResource NotBoolToVisibilityConverter}}" Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
+                    <TextBlock Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
+                    <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}" Opacity="{x:Bind TextOpacity, Mode=OneWay}" Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}" Margin="0,1,0,0"/>
                 </StackPanel>
 
                 <!--Voice Members-->
                 <ListView x:Name="MemberList" ItemsSource="{x:Bind ConnectedUsers.Values, Mode=OneWay}" Margin="-24,0,-24,0"
-                          x:Load="{x:Bind ConnectedUsers.Values, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
+                          x:Phase="1" x:Load="{x:Bind ConnectedUsers.Values, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
                           SelectionMode="None" IsItemClickEnabled="True" Grid.Row="1" Grid.ColumnSpan="2" ItemContainerStyle="{StaticResource VoiceUserListItem}">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="ItemClick">
@@ -579,13 +569,6 @@
                     <RowDefinition Height="Auto" MaxHeight="300"/>
                     <RowDefinition Height="Auto" MaxHeight="10"/>
                 </Grid.RowDefinitions>
-
-                <!--Selectlion Indicator-->
-                <Border x:Name="SelectIndicator" Opacity="0" BorderBrush="{Binding Background, ElementName=UnreadIndicator}" BorderThickness="0,0,0,0" HorizontalAlignment="Stretch" Margin="-24,0" Grid.ColumnSpan="3" Grid.RowSpan="12">
-                    <Border.Background>
-                        <SolidColorBrush Opacity="0.2" Color="{ThemeResource SystemAccentColor}"/>
-                    </Border.Background>
-                </Border>
 
                 <!--Unread Indicator-->
                 <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="24" Width="2" Background="{ThemeResource Foreground}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="0.75"/>
@@ -662,13 +645,6 @@
                     <RowDefinition Height="Auto" MaxHeight="10"/>
                 </Grid.RowDefinitions>
 
-                <!--Selectlion Indicator-->
-                <Border x:Name="SelectIndicator" Opacity="0" BorderBrush="{Binding Background, ElementName=UnreadIndicator}" BorderThickness="0,0,0,0" HorizontalAlignment="Stretch" Margin="-24,0" Grid.ColumnSpan="3" Grid.RowSpan="12">
-                    <Border.Background>
-                        <SolidColorBrush Opacity="0.2" Color="{ThemeResource SystemAccentColor}"/>
-                    </Border.Background>
-                </Border>
-
                 <!--Unread Indicator-->
                 <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="24" Width="2" Background="{ThemeResource Foreground}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="0.75"/>
 
@@ -730,47 +706,16 @@
                 </MenuFlyout>
             </UserControl.ContextFlyout>
 
-            <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Height="48" Padding="22,0,24,0">
-                <Grid.Background>
+            <StackPanel Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Height="48" Padding="22,0,24,0"
+                        Orientation="Horizontal">
+                <StackPanel.Background>
                     <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
-                </Grid.Background>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="Auto" MaxHeight="300"/>
-                    <RowDefinition Height="Auto" MaxHeight="10"/>
-                </Grid.RowDefinitions>
-                <Rectangle x:Name="HoverCache" Fill="{ThemeResource AcrylicChannelPaneBackground}" Opacity="0.4" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="-22,0,-24,0"/>
+                </StackPanel.Background>
 
-                <!--Selectlion Indicator-->
-                <Border x:Name="SelectIndicator" Opacity="0" BorderBrush="{Binding Background, ElementName=UnreadIndicator}" BorderThickness="0,0,0,0" HorizontalAlignment="Stretch" Margin="-24,0" Grid.ColumnSpan="3" Grid.RowSpan="12">
-                    <Border.Background>
-                        <SolidColorBrush Opacity="0.2" Color="{ThemeResource SystemAccentColor}"/>
-                    </Border.Background>
-                </Border>
-
-                <!--Unread Indicator-->
-                <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="24" Width="2" Background="{ThemeResource Foreground}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="0.75"/>
-
-                <!--Main Details-->
-                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,6" Padding="0,0,-18,0">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock Visibility="{x:Bind Permissions.ReadMessages, Converter={StaticResource NotBoolToVisibilityConverter}}" Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
-                        <SymbolIcon x:Name="MuteIcon" Visibility="{x:Bind Muted, Mode=OneWay}" Symbol="Mute" Margin="0,0,4,0" Opacity="0.35"/>
-                        <controls:CollapseChveron IsCollapsed="{x:Bind Collapsed, Mode=OneWay}" Grid.Column="2" HorizontalAlignment="Left" Grid.ColumnSpan="4" Margin="0,0,12,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}" Opacity="{x:Bind TextOpacity, Mode=OneWay}" Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}" Margin="0,1,0,0"/>
-                    </StackPanel>
-                </StackPanel>
-
-                <!--Typing-->
-                <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <controls:TypingIndicator Visibility="{x:Bind IsTyping, Mode=OneWay}" HorizontalAlignment="Right" Margin="6,0"/>
-                </StackPanel>
-            </Grid>
+                <TextBlock Visibility="{x:Bind Permissions.ReadMessages, Converter={StaticResource NotBoolToVisibilityConverter}}" Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
+                <controls:CollapseChveron IsCollapsed="{x:Bind Collapsed, Mode=OneWay}" Grid.Column="2" HorizontalAlignment="Left" Grid.ColumnSpan="4" Margin="0,0,12,0" VerticalAlignment="Center"/>
+                <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}" Opacity="{x:Bind TextOpacity, Mode=OneWay}" Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}" VerticalAlignment="Center" Margin="0,1,0,0"/>
+            </StackPanel>
         </UserControl>
     </DataTemplate>
 </ResourceDictionary>

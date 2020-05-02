@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using System;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
 
 namespace Quarrel.Converters.Messages.ActionMessage
 {

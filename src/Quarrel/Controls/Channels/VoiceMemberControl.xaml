@@ -103,7 +103,7 @@
         </Grid.ColumnDefinitions>
         
         <!--Avater-->
-        <controls:UserIconControl DataContext="{x:Bind ViewModel.GuildMember}"/>
+        <controls:UserIconControl DataContext="{x:Bind ViewModel.GuildMember}" Size="24" ShowPresence="False"/>
 
         <!--Username-->
         <TextBlock x:Name="username" Text="{x:Bind ViewModel.GuildMember.DisplayName, Mode=OneWay}" Margin="12,0,0,0" Grid.Column="1" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiLight" Opacity="0.5"/>

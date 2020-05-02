@@ -1,10 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using DiscordAPI.Models;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DiscordAPI.Models;
 
 namespace DiscordAPI.API.Guild.Models
 {
@@ -58,7 +55,8 @@ namespace DiscordAPI.API.Guild.Models
             if (Roles.Contains(roleId))
             {
                 roles.Remove(roleId);
-            } else
+            }
+            else
             {
                 roles.Add(roleId);
             }

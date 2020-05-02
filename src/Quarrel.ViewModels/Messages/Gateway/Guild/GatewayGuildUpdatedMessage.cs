@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Quarrel.ViewModels.Messages.Gateway.Guild
+﻿namespace Quarrel.ViewModels.Messages.Gateway.Guild
 {
     public class GatewayGuildUpdatedMessage
     {

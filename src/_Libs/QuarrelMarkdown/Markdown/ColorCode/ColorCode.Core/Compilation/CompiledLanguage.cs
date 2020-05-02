@@ -3,7 +3,6 @@
 
 using Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Common;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace Quarrel.Controls.Markdown.ColorCode.ColorCode.Core.Compilation
 {

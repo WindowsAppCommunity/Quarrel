@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using Quarrel.ViewModels;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Shell.Views

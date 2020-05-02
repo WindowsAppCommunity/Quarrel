@@ -6,6 +6,7 @@ using DiscordAPI.Authentication;
 using DiscordAPI.Gateway;
 using DiscordAPI.Gateway.DownstreamEvents;
 using DiscordAPI.Models;
+using DiscordAPI.Sockets;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
@@ -26,7 +27,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DiscordAPI.Sockets;
 
 namespace Quarrel.ViewModels.Services.Gateway
 {
@@ -321,7 +321,7 @@ namespace Quarrel.ViewModels.Services.Gateway
             AnalyticsService.Log(Constants.Analytics.Events.Disconnected, (nameof(Exception), e.Message));
             if (e is WebSocketClosedException ex && ex.Reason == "Authentication failed.")
             {
-                Messenger.Default.Send(new GatewayInvalidSessionMessage(new InvalidSession{ConnectedState = false}));
+                Messenger.Default.Send(new GatewayInvalidSessionMessage(new InvalidSession { ConnectedState = false }));
             }
             else
             {

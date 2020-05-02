@@ -5,7 +5,6 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Discord.Guilds;
-using Quarrel.ViewModels.Services.Discord.Rest;
 
 namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
 {

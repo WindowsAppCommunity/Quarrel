@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DiscordStatusAPI.API
+﻿namespace DiscordStatusAPI.API
 {
     public class StatusAPIConfiguration
     {

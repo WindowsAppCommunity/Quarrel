@@ -1,11 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DiscordAPI.API.Guild.Models
+﻿namespace DiscordAPI.API.Guild.Models
 {
     public class SearchArgs
     {
@@ -29,10 +22,10 @@ namespace DiscordAPI.API.Guild.Models
         public HasType Has { get; set; }
 
         //TODO: Timestamp to ID for
-        
-            //Before
 
-            //After
+        //Before
+
+        //After
 
         public string ChannelId { get; set; }
 
@@ -85,7 +78,7 @@ namespace DiscordAPI.API.Guild.Models
                 args += "&";
             }
 
-            args.Remove(args.Length-2);
+            args.Remove(args.Length - 2);
             return args;
         }
     }

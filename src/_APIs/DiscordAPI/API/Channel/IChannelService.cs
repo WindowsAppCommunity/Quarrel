@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Refit;
-using DiscordAPI.API.Channel.Models;
+﻿using DiscordAPI.API.Channel.Models;
 using DiscordAPI.Models;
-using System.IO;
+using Refit;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DiscordAPI.API.Channel
 {
@@ -37,7 +33,7 @@ namespace DiscordAPI.API.Channel
 
         [Get("/v6/channels/{channelId}/messages?limit={limit}&after={messageId}")]
         Task<IEnumerable<Message>> GetChannelMessagesAfter([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [AliasAs("limit")] int limit = 50);
-        
+
         [Get("/v6/channels/{channelId}/messages?limit={limit}&around={messageId}")]
         Task<IEnumerable<Message>> GetChannelMessagesAround([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [AliasAs("limit")] int limit = 50);
 

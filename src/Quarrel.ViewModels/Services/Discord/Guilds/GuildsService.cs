@@ -188,12 +188,16 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
 
                     foreach (var folder in m.EventData.Settings.GuildFolders)
                     {
-                        AllGuildFolders.Add(new BindableGuildFolder(folder));
-                        foreach (string id in folder.GuildIds)
+                        AllGuildFolders.Add(new BindableGuildFolder(folder) { IsCollapsed = true });
+                        if (folder.GuildIds.Count() > 1)
                         {
-                            if(AllGuilds.ContainsKey(id))
+                            foreach (string id in folder.GuildIds)
                             {
-                                AllGuilds[id].FolderId = folder.Id;
+                              if(AllGuilds.ContainsKey(id))
+                              {
+                                  AllGuilds[id].FolderId = folder.Id;
+                                  AllGuilds[id].IsCollapsed = true;
+                              }
                             }
                         }
                     }

@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiscordAPI.Models
 {
@@ -38,12 +34,13 @@ namespace DiscordAPI.Models
 
         [JsonProperty("premium")]
         public bool Premium { get; set; }
-        
+
 
         public Uri AvatarUri => new Uri(AvatarUrl);
 
-        public string AvatarUrl {
-            get 
+        public string AvatarUrl
+        {
+            get
             {
                 if (string.IsNullOrEmpty(Avatar))
                     return "ms-appx:///Assets/DefaultAvatars/QuarrelClassicIcon.png";

@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using DiscordAPI.Interfaces;
-using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Controls;

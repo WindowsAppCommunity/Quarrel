@@ -4,6 +4,7 @@ using System;
 using Windows.UI;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
+using QuarrelSmartColor.Extensions.Windows.UI;
 
 namespace Quarrel.Converters.Base
 {

@@ -60,7 +60,7 @@
                 </MenuFlyout>
             </UserControl.ContextFlyout>
 
-            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0,4" Margin="5,0,0,0" Width="50" Height="58">
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Padding="12,4" Margin="-12,0" Height="58" Width="80">
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="Selection">
                         <VisualState x:Name="Normal">
@@ -105,15 +105,17 @@
                         </VisualState>
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
+                
                 <!--Selected Highlight-->
-                <Border Visibility="{x:Bind Selected, Mode=OneWay}" BorderThickness="3,0,0,0" HorizontalAlignment="Stretch" Margin="-12,-6">
-                    <Border.Background>
-                        <SolidColorBrush Opacity="0.2" Color="{ThemeResource SystemAccentColor}"/>
-                    </Border.Background>
-                </Border>
+                <Grid.Background>
+                    <SolidColorBrush Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
+                </Grid.Background>
+
+                <!--Folder-->
+                <Border x:Name="FolderIndicator" Visibility="{x:Bind FolderId, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" VerticalAlignment="Stretch" Width="2" Opacity="0.25" Background="{ThemeResource SystemAccentColor}" Margin="-6,-4,0,-4" HorizontalAlignment="Left"/>
 
                 <!--Unread-->
-                <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="12" Width="2" Opacity="0.75" Background="{ThemeResource Foreground}" Margin="-12,2,4,0" HorizontalAlignment="Left"/>
+                <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="12" Width="2" Opacity="0.75" Background="{ThemeResource Foreground}" Margin="-6,2,4,0" HorizontalAlignment="Left"/>
 
                 <!--Icon-->
                 <Rectangle Visibility="{x:Bind IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" x:Name="GuildImageBackdrop" Width="50" Height="50" RadiusX="25" RadiusY="25" Fill="{ThemeResource Foreground}" Opacity="0.1"/>
@@ -181,6 +183,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
+                <Border x:Name="FolderIndicator" VerticalAlignment="Stretch" Width="2" Opacity="0.25" Background="{ThemeResource SystemAccentColor}" Margin="-11.5,-4,0,-18" HorizontalAlignment="Left"/>
                 <Viewbox Margin="0,2">
                     <TextBlock Text="{x:Bind Model.Name, Mode=OneWay}" FontSize="36"
                            HorizontalAlignment="Center" VerticalAlignment="Center"/>

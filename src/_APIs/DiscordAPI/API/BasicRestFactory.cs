@@ -1,8 +1,8 @@
-﻿using Refit;
+﻿using DiscordAPI.API.Gateway;
+using DiscordAPI.API.Login;
+using Refit;
 using System;
 using System.Net.Http;
-using DiscordAPI.API.Gateway;
-using DiscordAPI.API.Login;
 
 namespace DiscordAPI.API
 {

@@ -45,9 +45,9 @@ namespace Quarrel.Controls.Shell
 
                 Messenger.Default.Register<GatewayMessageRecievedMessage>(this, async m =>
                 {
-                if (SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<bool>(SettingKeys.MentionGlow) &&
-                    (m.Message.MentionEveryone ||
-                    m.Message.Mentions.Any(x => x.Id == SimpleIoc.Default.GetInstance<ICurrentUserService>().CurrentUser.Model.Id)))
+                    if (SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<bool>(SettingKeys.MentionGlow) &&
+                        (m.Message.MentionEveryone ||
+                        m.Message.Mentions.Any(x => x.Id == SimpleIoc.Default.GetInstance<ICurrentUserService>().CurrentUser.Model.Id)))
                     {
                         await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                         {

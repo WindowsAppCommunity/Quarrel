@@ -32,7 +32,8 @@ namespace DiscordAPI.Models
                 {
                     cache += user.Username;
                     first = false;
-                } else
+                }
+                else
                 {
                     cache += ", " + user.Username;
                 }

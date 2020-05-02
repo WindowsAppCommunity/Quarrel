@@ -4,7 +4,6 @@ using Quarrel.ViewModels.Controls.Messages;
 using Refit;
 using System;
 using System.IO;
-using System.Runtime.CompilerServices;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.Storage.Pickers;

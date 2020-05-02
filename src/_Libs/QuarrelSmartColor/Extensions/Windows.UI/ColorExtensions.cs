@@ -1,11 +1,12 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using System;
+using Windows.UI;
+using Windows.UI.Xaml.Media;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Services.Resources;
-using System;
-using Windows.UI.Xaml.Media;
 
-namespace Windows.UI
+namespace QuarrelSmartColor.Extensions.Windows.UI
 {
     /// <summary>
     /// A <see langword="class"/> with some extension methods for the DateTime type.
@@ -13,7 +14,7 @@ namespace Windows.UI
     public static class ColorExtensions
     {
         /// <summary>
-        /// Gets a <see cref="UI.Color"/> <paramref name="discriminator"/>.
+        /// Gets a <see cref="Color"/> <paramref name="discriminator"/>.
         /// </summary>
         /// <param name="discriminator">A user's discriminator.</param>
         /// <returns>The user's default color by <paramref name="discriminator"/>.</returns>
@@ -37,10 +38,10 @@ namespace Windows.UI
         }
 
         /// <summary>
-        /// Gets a <see cref="UI.Color"/> from the <paramref name="color"/>.
+        /// Gets a <see cref="Color"/> from the <paramref name="color"/>.
         /// </summary>
         /// <param name="color">An int color.</param>
-        /// <returns>The <see cref="UI.Color"/> for <paramref name="color"/>.</returns>
+        /// <returns>The <see cref="Color"/> for <paramref name="color"/>.</returns>
         public static Color IntToColor(int color)
         {
             if (color == -1)
