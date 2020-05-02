@@ -11,8 +11,6 @@ using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
-using Quarrel.ViewModels.Services.Voice.Audio.In;
-using Quarrel.ViewModels.Services.Voice.Audio.Out;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
@@ -107,12 +105,6 @@ namespace Quarrel.ViewModels.Services.Voice
         /// <inheritdoc/>
         public IDictionary<string, BindableVoiceUser> VoiceStates { get; } = new ConcurrentDictionary<string, BindableVoiceUser>();
 
-        /// <inheritdoc/>
-        public IAudioInService AudioInService { get; } = SimpleIoc.Default.GetInstance<IAudioInService>();
-
-        /// <inheritdoc/>
-        public IAudioOutService AudioOutService { get; } = SimpleIoc.Default.GetInstance<IAudioOutService>();
-
         private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
 
         private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
@@ -124,36 +116,27 @@ namespace Quarrel.ViewModels.Services.Voice
         /// <inheritdoc/>
         public async void ToggleDeafen()
         {
-            AudioOutService.ToggleDeafen();
             var state = _voiceConnection._state;
-            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, AudioInService.Muted, AudioOutService.Deafened);
+            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.IsMuted, !state.IsDeafened);
         }
 
         /// <inheritdoc/>
         public async void ToggleMute()
         {
-            AudioInService.ToggleMute();
             var state = _voiceConnection._state;
-            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, AudioInService.Muted, AudioOutService.Deafened);
+            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, !state.IsMuted, state.IsDeafened);
         }
 
         private async void ConnectToVoiceChannel(VoiceServerUpdate data, VoiceState state)
         {
-            AudioOutService.CreateGraph();
             _voiceConnection = new VoiceConnection(data, state, WebrtcManager);
             _voiceConnection.VoiceDataRecieved += VoiceDataRecieved;
             _voiceConnection.Speak += Speak;
             await _voiceConnection.ConnectAsync();
-
-            AudioInService.AudioQueued += InputRecieved;
-            AudioInService.SpeakingChanged += SpeakingChanged;
-            AudioInService.CreateGraph();
         }
 
         private void DisconnectFromVoiceChannel()
         {
-            AudioInService.Dispose();
-            AudioOutService.Dispose();
         }
 
         private void InputRecieved(object sender, float[] e)
@@ -163,7 +146,6 @@ namespace Quarrel.ViewModels.Services.Voice
 
         private void VoiceDataRecieved(object sender, VoiceConnectionEventArgs<VoiceData> e)
         {
-            AudioOutService.AddFrame(e.EventData.data, e.EventData.samples);
         }
 
         private void Speak(object sender, VoiceConnectionEventArgs<Speak> e)
