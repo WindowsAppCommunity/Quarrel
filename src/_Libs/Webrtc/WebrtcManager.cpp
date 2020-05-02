@@ -1,16 +1,15 @@
 ﻿#include "pch.h"
 #include "WebrtcManager.h"
 
-class AudioCaptureProcessor : public webrtc::CustomProcessing {
+class AudioAnalyzer : public webrtc::CustomAudioAnalyzer {
 private:
 	webrtc::AudioSendStream* stream;
 public:
 	void Initialize(int sample_rate_hz, int num_channels) override {}
-	void Process(webrtc::AudioBuffer* audio) override {
+	void Analyze(const webrtc::AudioBuffer* audio) override {
 
 	};
-	std::string ToString() const override { return "AudioCaptureProcessor"; }
-	void SetRuntimeSetting(webrtc::AudioProcessing::RuntimeSetting setting) override {}
+	std::string ToString() const override { return "AudioAnalyzer"; }
 };
 
 
@@ -75,7 +74,7 @@ namespace Webrtc
 		props.recordingEnabled_ = true;
 		auto adm = rtc::scoped_refptr<webrtc::AudioDeviceModule>(IAudioDeviceWasapi::create(props));
 
-		rtc::scoped_refptr<webrtc::AudioProcessing> apm = webrtc::AudioProcessingBuilder().SetCapturePostProcessing(std::unique_ptr<AudioCaptureProcessor>(new AudioCaptureProcessor())).Create();
+		rtc::scoped_refptr<webrtc::AudioProcessing> apm = webrtc::AudioProcessingBuilder().SetCaptureAnalyzer(std::unique_ptr<AudioAnalyzer>(new AudioAnalyzer())).Create();
 
 		this->g_engine = new cricket::WebRtcVoiceEngine(adm,
 			g_audioEncoderFactory,
