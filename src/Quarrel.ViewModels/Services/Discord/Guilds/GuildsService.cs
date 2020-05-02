@@ -193,8 +193,11 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         {
                             foreach (string id in folder.GuildIds)
                             {
-                                AllGuilds[id].FolderId = folder.Id;
-                                AllGuilds[id].IsCollapsed = true;
+                              if(AllGuilds.ContainsKey(id))
+                              {
+                                  AllGuilds[id].FolderId = folder.Id;
+                                  AllGuilds[id].IsCollapsed = true;
+                              }
                             }
                         }
                     }

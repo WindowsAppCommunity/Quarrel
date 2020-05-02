@@ -305,6 +305,7 @@
     <Compile Include="Services\Voice\Audio\In\AudioInService.cs" />
     <Compile Include="Services\Voice\Audio\Out\AudioOutService.cs" />
     <Compile Include="Services\Voice\IMemoryBufferByteAccess.cs" />
+    <Compile Include="Services\Voice\WebrtcManager.cs" />
     <Compile Include="StateTriggers\BooleanStateTrigger.cs" />
     <Compile Include="StateTriggers\DeviceFamilyStateTrigger.cs" />
     <Compile Include="SubPages\AboutPage.xaml.cs">
@@ -547,9 +548,9 @@
       <Project>{cf4b8f3f-695f-4bf3-b015-b0b15f2b2883}</Project>
       <Name>QuarrelSmartColor</Name>
     </ProjectReference>
-    <ProjectReference Include="..\_Libs\SodiumC\SodiumC.vcxproj">
-      <Project>{a3a15d18-2c4b-4a06-a5d6-5ad529cfbca6}</Project>
-      <Name>SodiumC</Name>
+    <ProjectReference Include="..\_Libs\Webrtc\Webrtc.vcxproj">
+      <Project>{09252cd6-2bbc-4e47-95aa-186e32707e6f}</Project>
+      <Name>Webrtc</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -977,7 +978,9 @@
       <HintPath>..\_Libs\RykenTube\XmlHelper.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="..\_Tasks\Quarrel.Shared\Quarrel.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -131,7 +131,11 @@ namespace Quarrel.ViewModels
 
                             foreach (var guildId in folder.Model.GuildIds)
                             {
-                                BindableGuilds.Add(_guildsService.AllGuilds[guildId]);
+                                _guildsService.AllGuilds.TryGetValue(guildId, out BindableGuild bindableGuild);
+                                if (bindableGuild != null)
+                                {
+                                    BindableGuilds.Add(bindableGuild);
+                                }
                             }
                         }
                     });

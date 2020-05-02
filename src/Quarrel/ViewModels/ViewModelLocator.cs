@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using DiscordAPI.Voice;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.Navigation;
 using Quarrel.Services.Cache;
@@ -7,6 +8,7 @@ using Quarrel.Services.Clipboard;
 using Quarrel.Services.DispatcherHelperEx;
 using Quarrel.Services.Resources;
 using Quarrel.Services.Settings;
+using Quarrel.Services.Voice;
 using Quarrel.Services.Voice.Audio.In;
 using Quarrel.Services.Voice.Audio.Out;
 using Quarrel.SubPages;
@@ -82,6 +84,7 @@ namespace Quarrel.ViewModels
             SimpleIoc.Default.Register<IAudioOutService, AudioOutService>();
             SimpleIoc.Default.Register<ICurrentUserService, CurrentUsersService>();
             SimpleIoc.Default.Register<IVoiceService, VoiceService>();
+            SimpleIoc.Default.Register<IWebrtcManager, WebrtcManager>();
 
             SimpleIoc.Default.Register<MainViewModel>();
         }
