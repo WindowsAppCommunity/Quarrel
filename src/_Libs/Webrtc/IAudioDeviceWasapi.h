@@ -30,56 +30,56 @@
 #include <wrl.h>
 #include <mfidl.h>
 
-namespace webrtc
+namespace Webrtc
 {
-  ZS_DECLARE_INTERACTION_PTR(IAudioDeviceWasapi);
-  ZS_DECLARE_INTERACTION_PROXY(IAudioDeviceWasapiDelegate);
-  ZS_DECLARE_CLASS_PTR(AudioDeviceWasapi);
-  ZS_DECLARE_INTERACTION_PROXY_SUBSCRIPTION(IAudioDeviceWasapiSubscription, IAudioDeviceWasapiDelegate);
+	ZS_DECLARE_INTERACTION_PTR(IAudioDeviceWasapi);
+	ZS_DECLARE_INTERACTION_PROXY(IAudioDeviceWasapiDelegate);
+	ZS_DECLARE_CLASS_PTR(AudioDeviceWasapi);
+	ZS_DECLARE_INTERACTION_PROXY_SUBSCRIPTION(IAudioDeviceWasapiSubscription, IAudioDeviceWasapiDelegate);
 
 
-  interaction IAudioDeviceWasapi
-  {
-    struct CreationProperties
-    {
-      IAudioDeviceWasapiDelegatePtr delegate_;
+	interaction IAudioDeviceWasapi
+	{
+	  struct CreationProperties
+	  {
+		IAudioDeviceWasapiDelegatePtr delegate_;
 
-      const char *id_{};
+		const char* id_{};
 
-      bool recordingEnabled_;
-      bool playoutEnabled_;
-    };
+		bool recordingEnabled_;
+		bool playoutEnabled_;
+	  };
 
-    static rtc::scoped_refptr<AudioDeviceModule> create(const CreationProperties &info) noexcept;
+	  static rtc::scoped_refptr<webrtc::AudioDeviceModule> create(const CreationProperties& info) noexcept;
 
-    virtual IAudioDeviceWasapiSubscriptionPtr subscribe(IAudioDeviceWasapiDelegatePtr delegate) = 0;
+	  virtual IAudioDeviceWasapiSubscriptionPtr subscribe(IAudioDeviceWasapiDelegatePtr delegate) = 0;
 
-    virtual std::string id() const noexcept = 0;
-  };
-  
-  interaction IAudioDeviceWasapiDelegate
-  {
-    virtual void onDefaultAudioCaptureDeviceChanged() = 0;
-    virtual void onDefaultAudioRendereDeviceChanged() = 0;
-  };
+	  virtual std::string id() const noexcept = 0;
+	};
 
-  interaction IAudioDeviceWasapiSubscription
-  {
-    virtual zsLib::PUID getID() const noexcept = 0;
-    virtual void cancel() noexcept = 0;
-    virtual void background() noexcept = 0;
-  };
+	interaction IAudioDeviceWasapiDelegate
+	{
+	  virtual void onDefaultAudioCaptureDeviceChanged() = 0;
+	  virtual void onDefaultAudioRendereDeviceChanged() = 0;
+	};
+
+	interaction IAudioDeviceWasapiSubscription
+	{
+	  virtual zsLib::PUID getID() const noexcept = 0;
+	  virtual void cancel() noexcept = 0;
+	  virtual void background() noexcept = 0;
+	};
 } // namespace webrtc
 
 
-ZS_DECLARE_PROXY_BEGIN(webrtc::IAudioDeviceWasapiDelegate)
-ZS_DECLARE_PROXY_TYPEDEF(webrtc::IAudioDeviceWasapiPtr, IAudioDeviceWasapiPtr)
+ZS_DECLARE_PROXY_BEGIN(Webrtc::IAudioDeviceWasapiDelegate)
+ZS_DECLARE_PROXY_TYPEDEF(Webrtc::IAudioDeviceWasapiPtr, IAudioDeviceWasapiPtr)
 ZS_DECLARE_PROXY_METHOD(onDefaultAudioCaptureDeviceChanged)
 ZS_DECLARE_PROXY_METHOD(onDefaultAudioRendereDeviceChanged)
 ZS_DECLARE_PROXY_END()
 
-ZS_DECLARE_PROXY_SUBSCRIPTIONS_BEGIN(webrtc::IAudioDeviceWasapiDelegate, webrtc::IAudioDeviceWasapiSubscription)
-ZS_DECLARE_PROXY_SUBSCRIPTIONS_TYPEDEF(webrtc::IAudioDeviceWasapiPtr, IAudioDeviceWasapiPtr)
+ZS_DECLARE_PROXY_SUBSCRIPTIONS_BEGIN(Webrtc::IAudioDeviceWasapiDelegate, Webrtc::IAudioDeviceWasapiSubscription)
+ZS_DECLARE_PROXY_SUBSCRIPTIONS_TYPEDEF(Webrtc::IAudioDeviceWasapiPtr, IAudioDeviceWasapiPtr)
 ZS_DECLARE_PROXY_SUBSCRIPTIONS_METHOD(onDefaultAudioCaptureDeviceChanged)
 ZS_DECLARE_PROXY_SUBSCRIPTIONS_METHOD(onDefaultAudioRendereDeviceChanged)
 ZS_DECLARE_PROXY_SUBSCRIPTIONS_END()
