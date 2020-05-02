@@ -191,7 +191,10 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         AllGuildFolders.Add(new BindableGuildFolder(folder));
                         foreach (string id in folder.GuildIds)
                         {
-                            AllGuilds[id].FolderId = folder.Id;
+                            if(AllGuilds.ContainsKey(id))
+                            {
+                                AllGuilds[id].FolderId = folder.Id;
+                            }
                         }
                     }
 
