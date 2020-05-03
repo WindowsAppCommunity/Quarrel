@@ -74,19 +74,21 @@
         <!--Action buttons-->
         <StackPanel Grid.Column="3" Orientation="Horizontal">
             <StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.IsIncoming, Mode=OneWay}">
-                <Button x:Name="AcceptButton" Background="{ThemeResource online}" Style="{StaticResource DiscordButton}" Padding="8" Margin="2,0">
+                <Button x:Name="AcceptButton" Background="{ThemeResource online}" Style="{StaticResource DiscordButton}" Padding="8" Margin="2,0"
+                        Command="{x:Bind ViewModel.AcceptFriendRequestCommand, Mode=OneWay}">
                     <FontIcon Glyph=""/>
                 </Button>
-                <Button x:Name="RemoveButton" Background="{ThemeResource dnd}" Style="{StaticResource DiscordButton}" Padding="8" Margin="2,0">
+                <Button x:Name="RemoveButton" Background="{ThemeResource dnd}" Style="{StaticResource DiscordButton}" Padding="8" Margin="2,0"
+                        Command="{x:Bind ViewModel.DeclineFriendRequestCommand, Mode=OneWay}">
                     <FontIcon Glyph=""/>
                 </Button>
             </StackPanel>
-            <Button Style="{StaticResource IntegratedButton}" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <Button Style="{StaticResource IntegratedButton}" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" Margin="8,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right">
                 <Button.Flyout>
                     <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-                        <MenuFlyoutItem Padding="12,4" Text="Remove from friends"/>
-                        <MenuFlyoutItem Padding="12,4" Text="Send message"/>
-                        <!--<MenuFlyoutItem x:Uid="/Controls/Call" Text="Call" Padding="12,4"/>-->
+                        <MenuFlyoutItem Padding="12,4" Text="Remove from friends" Command="{x:Bind ViewModel.DeclineFriendRequestCommand, Mode=OneWay}"/>
+                        <!--<MenuFlyoutItem Padding="12,4" Text="Send message"/>-->
+                        <MenuFlyoutItem x:Uid="/Controls/Call" Text="Call" Padding="12,4"/>
                     </MenuFlyout>
                 </Button.Flyout>
                 <SymbolIcon Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top"/>

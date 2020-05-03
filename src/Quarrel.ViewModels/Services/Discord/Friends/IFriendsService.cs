@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using Quarrel.ViewModels.Models.Bindables;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace Quarrel.ViewModels.Services.Discord.Friends
@@ -13,7 +14,7 @@ namespace Quarrel.ViewModels.Services.Discord.Friends
         /// <summary>
         /// Gets a hashed collection of friends, by user id.
         /// </summary>
-        IDictionary<string, BindableFriend> Friends { get; }
+        ConcurrentDictionary<string, BindableFriend> Friends { get; }
 
         /// <summary>
         /// Gets a hashed collection of DM Members, by user id.

@@ -37,7 +37,7 @@ namespace Quarrel.ViewModels.Services.Discord.Friends
         }
 
         /// <inheritdoc/>
-        public IDictionary<string, BindableFriend> Friends { get; } =
+        public ConcurrentDictionary<string, BindableFriend> Friends { get; } =
             new ConcurrentDictionary<string, BindableFriend>();
 
         /// <inheritdoc/>
