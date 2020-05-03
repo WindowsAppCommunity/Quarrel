@@ -117,14 +117,16 @@ namespace Quarrel.ViewModels.Services.Voice
         public async void ToggleDeafen()
         {
             var state = _voiceConnection._state;
-            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.IsMuted, !state.IsDeafened);
+            state.SelfDeaf = !state.SelfDeaf;
+            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute, state.SelfDeaf);
         }
 
         /// <inheritdoc/>
         public async void ToggleMute()
         {
             var state = _voiceConnection._state;
-            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, !state.IsMuted, state.IsDeafened);
+            state.SelfMute = !state.SelfMute;
+            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute, state.SelfDeaf);
         }
 
         private async void ConnectToVoiceChannel(VoiceServerUpdate data, VoiceState state)
