@@ -622,7 +622,8 @@ namespace Quarrel.ViewModels.Models.Bindables
             guildSettingModify.ChannelOverrides = new Dictionary<string, ChannelOverride>();
 
             ChannelOverride channelOverride;
-            if (ChannelsService.ChannelSettings.TryGetValue(Model.Id, out channelOverride))
+            ChannelsService.ChannelSettings.TryGetValue(Model.Id, out channelOverride);
+            if (channelOverride == null)
             {
                 // No pre-exisitng channeloverride, create a default
                 channelOverride = new ChannelOverride();
