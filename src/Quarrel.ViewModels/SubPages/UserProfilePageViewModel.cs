@@ -80,14 +80,31 @@ namespace Quarrel.ViewModels.SubPages
                 Profile = new UserProfile() { user = User.Model.User };
             }
 
-            // Check friend status
-            if (SimpleIoc.Default.GetInstance<IFriendsService>().Friends.TryGetValue(Profile.user.Id, out var bindableFriend))
+            if (User.Model.User.Id == DiscordService.CurrentUser.Id)
             {
-                Profile.Friend = bindableFriend.Model;
+                Profile.Friend = new Friend()
+                {
+                    Type = -1,
+                    User = DiscordService.CurrentUser,
+                    Id = DiscordService.CurrentUser.Id,
+                };
             }
             else
             {
-                Profile.Friend = new Friend() { Type = 0, Id = User.Model.User.Id, User = User.Model.User };
+                // Check friend status
+                if (SimpleIoc.Default.GetInstance<IFriendsService>().Friends.TryGetValue(Profile.user.Id, out var bindableFriend))
+                {
+                    Profile.Friend = bindableFriend.Model;
+                }
+                else
+                {
+                    Profile.Friend = new Friend()
+                    {
+                        Type = 0,
+                        Id = User.Model.User.Id,
+                        User = User.Model.User,
+                    };
+                }
             }
 
             RaisePropertyChanged(nameof(Profile));

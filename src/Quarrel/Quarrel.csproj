@@ -256,6 +256,7 @@
     <Compile Include="Converters\Profile\PresenceTypeToStatusConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToAcceptFriendConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToAddFriendConverter.cs" />
+    <Compile Include="Converters\Profile\Relationships\RelationToSendMessageConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToBlockConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToRemoveFriendConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToUnblockConverter.cs" />

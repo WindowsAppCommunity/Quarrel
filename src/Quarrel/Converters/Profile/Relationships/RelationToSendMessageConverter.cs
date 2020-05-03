@@ -7,14 +7,14 @@ using Windows.UI.Xaml.Data;
 namespace Quarrel.Converters.Profile.Relationships
 {
     /// <summary>
-    /// A converter that returns a <see cref="Visibility.Visible"/> value if the user doesn't already have a blocked relation status.
+    /// A converter that returns a <see cref="Visibility.Visible"/> value if the user is not or current user.
     /// </summary>
-    public sealed class RelationToBlockConverter : IValueConverter
+    public sealed class RelationToSendMessageConverter : IValueConverter
     {
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return ((int)value != 2 && (int)value != -1) ? Visibility.Visible : Visibility.Collapsed;
+            return ((int)value != -1) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <inheritdoc/>
