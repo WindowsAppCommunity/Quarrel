@@ -53,6 +53,9 @@
                     <Button Content="Save" Margin="0,0,4,0" Style="{StaticResource DiscordButton}" Command="{x:Bind ViewModel.FinalizeAccountEditCommand}"/>
                     <Button Content="Cancel" Margin="4,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource dnd}" Command="{x:Bind ViewModel.CancelAccountEditCommand}"/>
                 </StackPanel>
+                <Button Content="Log out" Background="{ThemeResource dnd}"
+                        Margin="0,32,0,0" Style="{StaticResource DiscordButton}"
+                        Command="{x:Bind ViewModel.LogoutCommand, Mode=OneWay}"/>
             </StackPanel>
         </Grid>
     </ScrollViewer>
