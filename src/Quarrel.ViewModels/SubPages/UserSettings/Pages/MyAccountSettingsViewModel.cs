@@ -159,6 +159,9 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             Base64Avatar = null;
         });
 
+        /// <summary>
+        /// Gets a command that logs the user out of the app.
+        /// </summary>
         public RelayCommand LogoutCommand => logoutCommand = new RelayCommand(() =>
         {
             DiscordService.Logout();
