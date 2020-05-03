@@ -698,10 +698,10 @@
             <!--Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-                    <MenuFlyoutItem Text="Mark as read" IsEnabled="{x:Bind IsUnread, Mode=OneWay}" Command="{x:Bind MarkAsRead, Mode=OneWay}"/>
-                    <ToggleMenuFlyoutItem Text="Mute" IsChecked="{x:Bind Muted, Mode=OneWay}" Command="{x:Bind Mute, Mode=OneWay}"/>
+                    <!--<MenuFlyoutItem Text="Mark as read" IsEnabled="{x:Bind IsUnread, Mode=OneWay}" Command="{x:Bind MarkAsRead, Mode=OneWay}"/>-->
+                    <!--<ToggleMenuFlyoutItem Text="Mute" IsChecked="{x:Bind Muted, Mode=OneWay}" Command="{x:Bind Mute, Mode=OneWay}"/>-->
                     <!--<MenuFlyoutItem Text="Category Settings"/>-->
-                    <MenuFlyoutSeparator/>
+                    <!--<MenuFlyoutSeparator/>-->
                     <MenuFlyoutItem Text="Copy Id" Command="{x:Bind CopyId, Mode=OneWay}"/>
                 </MenuFlyout>
             </UserControl.ContextFlyout>
