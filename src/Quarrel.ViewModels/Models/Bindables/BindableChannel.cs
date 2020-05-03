@@ -91,7 +91,9 @@ namespace Quarrel.ViewModels.Models.Bindables
                     if (state.ChannelId == Model.Id)
                     {
                         state.GuildId = GuildId;
-                        ConnectedUsers.Add(state.UserId, new BindableVoiceUser(state));
+                        var voiceUser = new BindableVoiceUser(state);
+                        ConnectedUsers.Add(state.UserId, voiceUser);
+                        VoiceService.VoiceStates.Add(state.UserId, voiceUser);
                     }
                 }
             }
