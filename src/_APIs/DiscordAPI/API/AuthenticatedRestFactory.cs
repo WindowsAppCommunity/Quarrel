@@ -29,9 +29,9 @@ namespace DiscordAPI.API
             return RestService.For<IConnectionsService>(GetAuthenticatingHttpClient());
         }
 
-        public IActivitesService GetActivitesService()
+        public IActivitiesService GetActivitesService()
         {
-            return RestService.For<IActivitesService>(GetAuthenticatingHttpClient());
+            return RestService.For<IActivitiesService>(GetAuthenticatingHttpClient());
         }
 
         public IGameService GetGameService()

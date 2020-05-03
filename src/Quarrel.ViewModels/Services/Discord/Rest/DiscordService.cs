@@ -39,7 +39,7 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
         private string _accessToken;
 
         /// <inheritdoc/>
-        public IActivitesService ActivitesService { get; private set; }
+        public IActivitiesService ActivitesService { get; private set; }
 
         /// <inheritdoc/>
         public IChannelService ChannelService { get; private set; }
