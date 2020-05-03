@@ -42,18 +42,18 @@
                 <HyperlinkButton x:Name="GameTB" Content="{x:Bind ViewModel.Name}" FontSize="13.333" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="White" IsEnabled="False" FontWeight="SemiBold"/>
                 <TextBlock x:Name="DetailsTB" Text="{x:Bind ViewModel.Details}" FontSize="11" Opacity="1"/>
                 <TextBlock Visibility="{x:Bind ViewModel.IsCustom, Converter={StaticResource NotBoolToVisibilityConverter}}" Text="{x:Bind ViewModel.State}" FontWeight="SemiLight" FontSize="11" Opacity="0.8"/>
-                <TextBlock x:Name="TimeElapsedTB" Text="{x:Bind ViewModel.TimeStamps.TimeElapsed, Converter={StaticResource TimeSpanToTextConverter}}" FontSize="11" Opacity="0.6"/>
+                <!--<TextBlock x:Name="TimeElapsedTB" Text="{x:Bind ViewModel.TimeStamps.TimeElapsed, Converter={StaticResource TimeSpanToTextConverter}}" FontSize="11" Opacity="0.6"/>-->
             </StackPanel>
 
             <!--Custom Game info-->
             <TextBlock Text="{x:Bind ViewModel.Display}" Visibility="{x:Bind ViewModel.IsCustom}"
                        TextWrapping="WrapWholeWords"/>
         </Grid>
-        <Grid x:Name="spotifyGrid" Visibility="Collapsed" Grid.ColumnSpan="2" Margin="0,8,0,-2" VerticalAlignment="Top" Grid.Row="2">
+        <!--<Grid x:Name="spotifyGrid" Visibility="Collapsed" Grid.ColumnSpan="2" Margin="0,8,0,-2" VerticalAlignment="Top" Grid.Row="2">
             <ProgressBar x:Name="progbar" Margin="0,0,0,0" Grid.Column="1" VerticalAlignment="Top" Foreground="White" Value="50" Height="2" MinHeight="0"/>
             <TextBlock x:Name="StartTime" Margin="0,6,0,0" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="10" Opacity="0.8" HorizontalAlignment="Left"/>
             <TextBlock x:Name="EndTime"  Grid.Column="2" VerticalAlignment="Top" Margin="0,6,0,0" FontWeight="SemiLight" FontSize="10" Opacity="0.8" HorizontalAlignment="Right"/>
-        </Grid>
+        </Grid>-->
 
         <!--<StackPanel Grid.ColumnSpan="2" Grid.Row="1">
             <Button x:Name="Spectate" Content="Spectate" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Click="Spectate_Click"/>
