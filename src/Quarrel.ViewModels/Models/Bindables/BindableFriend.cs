@@ -18,10 +18,16 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// <param name="friend">The base friend object.</param>
         public BindableFriend([NotNull] Friend friend) : base(friend)
         {
+            Member = new BindableGuildMember(new GuildMember() { User = RawModel }, "DM");
         }
 
         /// <inheritdoc/>
         public User RawModel => Model.User;
+
+        /// <summary>
+        /// Gets the user as a <see cref="BindableGuildMember"/>.
+        /// </summary>
+        public BindableGuildMember Member { get; }
 
         /// <inheritdoc/>
         public Presence Presence => null;

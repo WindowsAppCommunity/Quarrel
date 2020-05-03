@@ -31,18 +31,25 @@
         </Grid.ColumnDefinitions>
         <Button Height="40" Width="40" Style="{StaticResource DimButton}">
             <contorls:UserIconControl DataContext="{x:Bind ViewModel, Mode=OneWay}"/>
-            <!--<interactivity:Interaction.Behaviors>
+            <interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="Click">
-                    <behaviors:OpenFlyoutAction TargetObject="{Binding ElementName=AuthorHyperlink}"/>
+                    <behaviors:OpenFlyoutAction TargetObject="{Binding ElementName=UserHyperlink}"/>
                 </core:EventTriggerBehavior>
-            </interactivity:Interaction.Behaviors>-->
+            </interactivity:Interaction.Behaviors>
         </Button>
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="6,0">
-            <HyperlinkButton Foreground="{ThemeResource Foreground}" Padding="0,0,0,0">
-                <!--<HyperlinkButton.ContextFlyout>
-                    TODO: MemberFlyout
-                </HyperlinkButton.ContextFlyout>-->
-                
+            <HyperlinkButton x:Name="UserHyperlink" Foreground="{ThemeResource Foreground}" Padding="0,0,0,0">
+                <FlyoutBase.AttachedFlyout>
+                    <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
+                        <membercontrols:MemberFlyoutTemplate DataContext="{x:Bind ViewModel.Member, Mode=OneWay}"/>
+                    </Flyout>
+                </FlyoutBase.AttachedFlyout>
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="Tapped">
+                        <behaviors:OpenFlyoutAction />
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+
                 <!--Username and Discriminator-->
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{x:Bind ViewModel.Model.User.Username, Mode=OneWay}" VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold"/>
