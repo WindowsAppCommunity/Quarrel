@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using DiscordAPI.Voice;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.Geometry;
@@ -8,6 +9,8 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 using Quarrel.Helpers.AudioProcessing;
 using Quarrel.ViewModels.Services.Settings;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using Windows.UI;
@@ -71,6 +74,8 @@ namespace Quarrel.Controls
 
         private CanvasLinearGradientBrush _gradient;
 
+        private bool _input;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AudioVisualizer"/> class.
         /// </summary>
@@ -86,7 +91,24 @@ namespace Quarrel.Controls
         /// <summary>
         /// Gets or sets a value indicating whether the Visualizer is displaying input or output.
         /// </summary>
-        public bool Input { get; set; }
+        public bool Input
+        {
+            get => _input;
+            set
+            {
+                if (value)
+                {
+                    WebrtcManager.AudioInData += DataRecieved;
+                    WebrtcManager.AudioOutData -= DataRecieved;
+                } else
+                {
+                    WebrtcManager.AudioInData -= DataRecieved;
+                    WebrtcManager.AudioOutData += DataRecieved;
+                }
+            }
+        }
+
+        private IWebrtcManager WebrtcManager { get; } = SimpleIoc.Default.GetInstance<IWebrtcManager>();
 
         /// <summary>
         /// Setup FFT.
@@ -140,6 +162,8 @@ namespace Quarrel.Controls
             initailized = false;
 
             // Unsubscribe from events
+            WebrtcManager.AudioInData -= DataRecieved;
+            WebrtcManager.AudioOutData -= DataRecieved;
             Loaded -= FftInitialize;
             Unloaded -= FftDipose;
         }
@@ -147,10 +171,16 @@ namespace Quarrel.Controls
         /// <summary>
         /// Update Spec points.
         /// </summary>
-        private void DataRecieved(object sender, float[] e)
+        private void DataRecieved(object sender, IList<float> e)
         {
+            float[] data = new float[512];
+            for (int i = 0; i < e.Count; i++)
+            {
+                data[i] = e[i] / 3000;
+            }
+
             // Determine FFT data
-            float[] fftData = HelperMethods.GetFftChannelData(e);
+            float[] fftData = HelperMethods.GetFftChannelData(data);
 
             _specPoints[0] = HelperMethods.Max(fftData, 0, 1);
             _specPoints[1] = HelperMethods.Max(fftData, 2, 3);
