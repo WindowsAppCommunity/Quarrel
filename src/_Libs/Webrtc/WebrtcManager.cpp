@@ -300,11 +300,8 @@ namespace winrt::Webrtc::implementation
 		else {
 			hasGotIp = true;
 			dr.ReadInt32();
-			std::array<BYTE, 64> bytes;
+			std::array<BYTE, 64> bytes{};
 			dr.ReadBytes(bytes);
-
-			wchar_t wcstring[65] = { 0 };
-			size_t length = 0;
 
 			std::wstring ip(std::begin(bytes), std::end(bytes));
 			USHORT port = dr.ReadUInt16();
