@@ -1081,7 +1081,7 @@
         <!--Disabled States-->
         <Rectangle Visibility="{x:Bind IsEnabled, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Fill="{ThemeResource Foreground}" Grid.RowSpan="2" Opacity="0.1"/>
         <Rectangle Visibility="{x:Bind ViewModel.IsSending, Mode=OneWay}" Fill="{ThemeResource Background}" Grid.RowSpan="2" Opacity="0.5"/>
-        
+
         <!--TextBox-->
         <local:SelectionBindingTextBox x:Name="MessageEditor" BindableText="{x:Bind ViewModel.MessageText, Mode=TwoWay}" BindableSelectionStart="{x:Bind ViewModel.SelectionStart, Mode=TwoWay}" BindableSelectionLength="{x:Bind ViewModel.SelectionLength, Mode=TwoWay}" Padding="52,12,96,12" VerticalAlignment="Stretch"
                                        PlaceholderText="Send message" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MinHeight="64" MaxHeight="256"

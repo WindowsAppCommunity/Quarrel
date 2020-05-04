@@ -245,6 +245,7 @@
     <Compile Include="Converters\Discord\PresenseToColorConverter.cs" />
     <Compile Include="Converters\Discord\PresenseToBrushConverter.cs" />
     <Compile Include="Converters\Discord\SnowflakeToTimeFormatConveter.cs" />
+    <Compile Include="Converters\Discord\UserToStringConverter.cs" />
     <Compile Include="Converters\Guild\IsDMToFontFamilyConverter.cs" />
     <Compile Include="Converters\Guild\MutedToOpacityConverter.cs" />
     <Compile Include="Converters\Messages\ActionMessage\TypeToColorConverter.cs" />
@@ -268,6 +269,9 @@
     </Compile>
     <Compile Include="DataTemplates\Members\GuildMemberListItemTemplate.xaml.cs">
       <DependentUpon>GuildMemberListItemTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataTemplates\MessageBox\SuggestionsTemplate.xaml.cs">
+      <DependentUpon>SuggestionsTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataTemplates\Messages\MessageTemplate.xaml.cs">
       <DependentUpon>MessageTemplate.xaml</DependentUpon>
@@ -420,6 +424,7 @@
     <Compile Include="TemplateSelectors\GuildMemberListSelector.cs" />
     <Compile Include="TemplateSelectors\GuildTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\MessageTemplateSelector.cs" />
+    <Compile Include="TemplateSelectors\SuggestionTemplateSelector.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Controls\Shell\Views\ChannelListControl.xaml.cs">
       <DependentUpon>ChannelListControl.xaml</DependentUpon>
@@ -672,6 +677,10 @@
     <Page Include="DataTemplates\Members\GuildMemberListItemTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DataTemplates\MessageBox\SuggestionsTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DataTemplates\Messages\MessageTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
