@@ -312,6 +312,12 @@
     <Compile Include="SubPages\AddChannelPage.xaml.cs">
       <DependentUpon>AddChannelPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\AddServer\AddServerPage.xaml.cs">
+      <DependentUpon>AddServerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\AddServer\Pages\CreateServerPage.xaml.cs">
+      <DependentUpon>CreateServerPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\AttachmentPage.xaml.cs">
       <DependentUpon>AttachmentPage.xaml</DependentUpon>
     </Compile>
@@ -722,6 +728,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SubPages\AddServer\AddServerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\AddServer\Pages\CreateServerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SubPages\AttachmentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -979,6 +993,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="..\_Tasks\Quarrel.Shared\Quarrel.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

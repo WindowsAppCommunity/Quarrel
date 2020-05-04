@@ -10,6 +10,7 @@ using Quarrel.Services.Resources;
 using Quarrel.Services.Settings;
 using Quarrel.Services.Voice;
 using Quarrel.SubPages;
+using Quarrel.SubPages.AddServer;
 using Quarrel.SubPages.GuildSettings;
 using Quarrel.SubPages.UserSettings;
 using Quarrel.ViewModels.Services.Analytics;
@@ -47,6 +48,7 @@ namespace Quarrel.ViewModels
             var navigationService = new SubFrameNavigationService();
             navigationService.Configure("AboutPage", typeof(AboutPage));
             navigationService.Configure("AddChannelPage", typeof(AddChannelPage));
+            navigationService.Configure("AddServerPage", typeof(AddServerPage));
             navigationService.Configure("AttachmentPage", typeof(AttachmentPage));
             navigationService.Configure("CreditPage", typeof(CreditPage));
             navigationService.Configure("DiscordStatusPage", typeof(DiscordStatusPage));

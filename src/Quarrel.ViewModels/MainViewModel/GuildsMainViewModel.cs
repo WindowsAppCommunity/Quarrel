@@ -1,11 +1,13 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Models.Interfaces;
+using Quarrel.ViewModels.Services.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -17,6 +19,7 @@ namespace Quarrel.ViewModels
     public partial class MainViewModel
     {
         private RelayCommand<IGuildListItem> _navigateGuild;
+        private RelayCommand _navigateAddServerPage;
         private BindableGuild _currentGuild;
         private BindableGuildMember _currentGuildMember;
 
@@ -44,6 +47,14 @@ namespace Quarrel.ViewModels
             });
 
         /// <summary>
+        /// Gets a command that opens the add server page.
+        /// </summary>
+        public RelayCommand NavigateAddServerPage => _navigateAddServerPage = new RelayCommand(() =>
+        {
+            SubFrameNavigationService.NavigateTo("AddServerPage");
+        });
+
+        /// <summary>
         /// Gets or sets the currently selected guild.
         /// </summary>
         public BindableGuild CurrentGuild
@@ -67,6 +78,8 @@ namespace Quarrel.ViewModels
         [NotNull]
         public ObservableRangeCollection<IGuildListItem> BindableGuilds { get; private set; } =
             new ObservableRangeCollection<IGuildListItem>();
+
+        private ISubFrameNavigationService SubFrameNavigationService { get; } = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
 
         private void RegisterGuildsMessages()
         {
