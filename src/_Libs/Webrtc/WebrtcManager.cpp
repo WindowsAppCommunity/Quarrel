@@ -51,8 +51,6 @@ namespace Webrtc
 		std::string ToString() const override { return "AudioAnalyzer"; }
 	};
 
-
-
 	StreamTransport::StreamTransport(webrtc::Call* call, winrt::Windows::Storage::Streams::DataWriter const& sendStream) : call(call), sendStream(sendStream)
 	{
 		this->call->SignalChannelNetworkState(webrtc::MediaType::AUDIO, webrtc::NetworkState::kNetworkUp);
@@ -75,12 +73,12 @@ namespace Webrtc
 namespace winrt::Webrtc::implementation
 {
 
-	void WebrtcManager::UpdateInBytes(winrt::Windows::Foundation::Collections::IVector<float> const& data)
+	void WebrtcManager::UpdateInBytes(Windows::Foundation::Collections::IVector<float> const& data)
 	{
 		this->m_audioInData(*this, data);
 	}
 
-	void WebrtcManager::UpdateOutBytes(winrt::Windows::Foundation::Collections::IVector<float> const& data)
+	void WebrtcManager::UpdateOutBytes(Windows::Foundation::Collections::IVector<float> const& data)
 	{
 		this->m_audioOutData(*this, data);
 	}
@@ -184,7 +182,7 @@ namespace winrt::Webrtc::implementation
 		}
 	}
 
-	void WebrtcManager::IpAndPortObtained(winrt::event_token const& token) noexcept
+	void WebrtcManager::IpAndPortObtained(event_token const& token) noexcept
 	{
 		this->m_ipAndPortObtained.remove(token);
 	}
@@ -195,7 +193,7 @@ namespace winrt::Webrtc::implementation
 	}
 
 
-	void WebrtcManager::AudioOutData(winrt::event_token const& token) noexcept
+	void WebrtcManager::AudioOutData(event_token const& token) noexcept
 	{
 		this->m_audioOutData.remove(token);
 	}
@@ -206,7 +204,7 @@ namespace winrt::Webrtc::implementation
 	}
 
 
-	void WebrtcManager::AudioInData(winrt::event_token const& token) noexcept
+	void WebrtcManager::AudioInData(event_token const& token) noexcept
 	{
 		this->m_audioOutData.remove(token);
 	}
@@ -226,7 +224,7 @@ namespace winrt::Webrtc::implementation
 
 	WebrtcManager::WebrtcManager()
 	{
-		udpSocket = winrt::Windows::Networking::Sockets::DatagramSocket();
+		udpSocket = Windows::Networking::Sockets::DatagramSocket();
 		udpSocket.MessageReceived({ this, &WebrtcManager::OnMessageReceived });
 	}
 
@@ -241,12 +239,12 @@ namespace winrt::Webrtc::implementation
 
 	}
 
-	winrt::Windows::Foundation::IAsyncAction WebrtcManager::ConnectAsync(winrt::hstring ip, winrt::hstring port, UINT32 ssrc)
+	Windows::Foundation::IAsyncAction WebrtcManager::ConnectAsync(hstring ip, hstring port, UINT32 ssrc)
 	{
 		this->ssrc = ssrc;
-		co_await this->udpSocket.ConnectAsync(winrt::Windows::Networking::HostName(ip), port);
+		co_await this->udpSocket.ConnectAsync(Windows::Networking::HostName(ip), port);
 
-		this->outputStream = winrt::Windows::Storage::Streams::DataWriter(this->udpSocket.OutputStream());
+		this->outputStream = Windows::Storage::Streams::DataWriter(this->udpSocket.OutputStream());
 		this->Create();
 		this->SendSelectProtocol(ssrc);
 	}
@@ -264,9 +262,9 @@ namespace winrt::Webrtc::implementation
 
 	bool hasGotIp = false;
 
-	void WebrtcManager::OnMessageReceived(winrt::Windows::Networking::Sockets::DatagramSocket const& sender, winrt::Windows::Networking::Sockets::DatagramSocketMessageReceivedEventArgs const& args)
+	void WebrtcManager::OnMessageReceived(Windows::Networking::Sockets::DatagramSocket const& sender, Windows::Networking::Sockets::DatagramSocketMessageReceivedEventArgs const& args)
 	{
-		winrt::Windows::Storage::Streams::DataReader dr = args.GetDataReader();
+		Windows::Storage::Streams::DataReader dr = args.GetDataReader();
 		unsigned int dataLength = dr.UnconsumedBufferLength();
 		if (hasGotIp)
 		{
@@ -310,11 +308,11 @@ namespace winrt::Webrtc::implementation
 
 			std::wstring ip(std::begin(bytes), std::end(bytes));
 			USHORT port = dr.ReadUInt16();
-			this->m_ipAndPortObtained(winrt::hstring(ip), port);
+			this->m_ipAndPortObtained(hstring(ip), port);
 		}
 	}
 
-	void WebrtcManager::SetKey(winrt::array_view<const BYTE> key)
+	void WebrtcManager::SetKey(array_view<const BYTE> key)
 	{
 		memcpy(this->key, key.begin(), 32);
 	}
