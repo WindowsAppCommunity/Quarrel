@@ -25,10 +25,10 @@ namespace winrt::Webrtc::implementation
 		WebrtcManager::WebrtcManager();
 		void Create();
 		
-		Windows::Foundation::IAsyncAction ConnectAsync(winrt::hstring ip, winrt::hstring port, UINT32 ssrc);
+		Windows::Foundation::IAsyncAction ConnectAsync(hstring ip, hstring port, UINT32 ssrc);
 		void SendSelectProtocol(UINT32 ssrc);
 
-		void SetKey(winrt::array_view<const BYTE> key);
+		void SetKey(array_view<const BYTE> key);
 		void SetSpeaking(UINT32 ssrc, int speaking);
 
 		void IpAndPortObtained(event_token const& token) noexcept;
@@ -41,8 +41,8 @@ namespace winrt::Webrtc::implementation
 		event_token AudioInData(Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>> const& handler);
 
 
-		void UpdateInBytes(winrt::Windows::Foundation::Collections::IVector<float> const& data);
-		void UpdateOutBytes(winrt::Windows::Foundation::Collections::IVector<float> const& data);
+		void UpdateInBytes(Windows::Foundation::Collections::IVector<float> const& data);
+		void UpdateOutBytes(Windows::Foundation::Collections::IVector<float> const& data);
 
 	private:
 		event<Windows::Foundation::TypedEventHandler<hstring, USHORT>> m_ipAndPortObtained;
@@ -54,9 +54,9 @@ namespace winrt::Webrtc::implementation
 		void WebrtcManager::SetupCall();
 		webrtc::AudioSendStream* WebrtcManager::createAudioSendStream(uint32_t ssrc, uint8_t payloadType);
 		webrtc::AudioReceiveStream* WebrtcManager::createAudioReceiveStream(uint32_t local_ssrc, uint32_t remote_ssrc, uint8_t payloadType);
-		void OnMessageReceived(winrt::Windows::Networking::Sockets::DatagramSocket const& sender, winrt::Windows::Networking::Sockets::DatagramSocketMessageReceivedEventArgs const& args);
-		winrt::Windows::Networking::Sockets::DatagramSocket udpSocket{ nullptr };
-		winrt::Windows::Storage::Streams::DataWriter outputStream{ nullptr };
+		void OnMessageReceived(Windows::Networking::Sockets::DatagramSocket const& sender, Windows::Networking::Sockets::DatagramSocketMessageReceivedEventArgs const& args);
+		Windows::Networking::Sockets::DatagramSocket udpSocket{ nullptr };
+		Windows::Storage::Streams::DataWriter outputStream{ nullptr };
 		unsigned char key[32];
 		uint32_t ssrc;
 
