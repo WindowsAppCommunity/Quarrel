@@ -73,7 +73,14 @@ namespace Quarrel.ViewModels.SubPages
             // Make sure user isn't a bot
             if (!User.Model.User.Bot)
             {
-                Profile = await DiscordService.UserService.GetUserProfile(User.Model.User.Id);
+                try
+                {
+                    Profile = await DiscordService.UserService.GetUserProfile(User.Model.User.Id);
+                }
+                catch
+                {
+                    Profile = new UserProfile() { user = User.Model.User };
+                }
             }
             else
             {
