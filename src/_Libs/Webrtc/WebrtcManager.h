@@ -3,6 +3,7 @@
 
 #include <winrt/Windows.Networking.Sockets.h>
 #include <winrt/Windows.Storage.Streams.h>
+#include <winrt/Windows.Foundation.Collections.h>
 #include <call/call.h>
 #include <media/engine/webrtcvoiceengine.h>
 #include <modules/rtp_rtcp/include/rtp_header_parser.h>
@@ -34,21 +35,19 @@ namespace winrt::Webrtc::implementation
 		event_token IpAndPortObtained(Windows::Foundation::TypedEventHandler<hstring, USHORT> const& handler);
 
 		void AudioOutData(event_token const& token) noexcept;
-		event_token AudioOutData(Windows::Foundation::EventHandler<Windows::Foundation::IInspectable> const& handler);
+		event_token AudioOutData(Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>> const& handler);
 
 		void AudioInData(event_token const& token) noexcept;
-		event_token AudioInData(Windows::Foundation::EventHandler<Windows::Foundation::IInspectable> const& handler);
+		event_token AudioInData(Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>> const& handler);
+
+
+		void UpdateInBytes(winrt::Windows::Foundation::Collections::IVector<float> const& data);
+		void UpdateOutBytes(winrt::Windows::Foundation::Collections::IVector<float> const& data);
 
 	private:
-
-
-		
 		event<Windows::Foundation::TypedEventHandler<hstring, USHORT>> m_ipAndPortObtained;
-		event<Windows::Foundation::EventHandler<Windows::Foundation::IInspectable>> m_audioOutData;
-		event<Windows::Foundation::EventHandler<Windows::Foundation::IInspectable>> m_audioInData;
-		
-		void UpdateInBytes(winrt::array_view<float> const& data);
-		void UpdateOutBytes(winrt::array_view<float> const& data);
+		event<Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>>> m_audioOutData;
+		event<Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>>> m_audioInData;
 		
 		void WebrtcManager::CreateVoe();
 		void WebrtcManager::CreateCall();

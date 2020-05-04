@@ -42,11 +42,11 @@ namespace Webrtc
 		}
 		void Initialize(int sample_rate_hz, int num_channels) override {}
 		void Analyze(const webrtc::AudioBuffer* audio) override {
-			/*	const webrtc::ChannelBuffer<float>* channel = audio->data_f();
-				Platform::Array<float>^ data = ref new Platform::Array<float>(channel->num_frames());
+			const webrtc::ChannelBuffer<float>* channel = audio->data_f();
+			std::vector<float> data(channel->num_frames());
 
-				webrtc::DownmixToMono<float, float>(channel->channels(), channel->num_frames(), channel->num_channels(), data->Data);
-				manager->UpdateInBytes(data);*/
+			webrtc::DownmixToMono<float, float>(channel->channels(), channel->num_frames(), channel->num_channels(), data.data());
+			manager->UpdateInBytes(winrt::single_threaded_vector<float>(std::move(data)));
 		};
 		std::string ToString() const override { return "AudioAnalyzer"; }
 	};
@@ -75,14 +75,14 @@ namespace Webrtc
 namespace winrt::Webrtc::implementation
 {
 
-	void WebrtcManager::UpdateInBytes(winrt::array_view<float> const& data)
+	void WebrtcManager::UpdateInBytes(winrt::Windows::Foundation::Collections::IVector<float> const& data)
 	{
-//		this->AudioInData(data);
+		this->m_audioInData(*this, data);
 	}
 
-	void WebrtcManager::UpdateOutBytes(winrt::array_view<float> const& data)
+	void WebrtcManager::UpdateOutBytes(winrt::Windows::Foundation::Collections::IVector<float> const& data)
 	{
-//		this->AudioOutData(data);
+		this->m_audioOutData(*this, data);
 	}
 	
 	void WebrtcManager::CreateVoe()
@@ -200,7 +200,7 @@ namespace winrt::Webrtc::implementation
 		this->m_audioOutData.remove(token);
 	}
 
-	event_token WebrtcManager::AudioOutData(Windows::Foundation::EventHandler<Windows::Foundation::IInspectable> const& handler)
+	event_token WebrtcManager::AudioOutData(Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>> const& handler)
 	{
 		return this->m_audioOutData.add(handler);
 	}
@@ -211,7 +211,7 @@ namespace winrt::Webrtc::implementation
 		this->m_audioOutData.remove(token);
 	}
 
-	event_token WebrtcManager::AudioInData(Windows::Foundation::EventHandler<Windows::Foundation::IInspectable> const& handler)
+	event_token WebrtcManager::AudioInData(Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>> const& handler)
 	{
 		return this->m_audioInData.add(handler);
 	}
@@ -221,6 +221,7 @@ namespace winrt::Webrtc::implementation
 		this->CreateVoe();
 		this->CreateCall();
 		this->g_audioSendTransport = new ::Webrtc::StreamTransport(this->g_call, this->outputStream);
+		this->createAudioSendStream(this->ssrc, 120);
 	}
 
 	WebrtcManager::WebrtcManager()
@@ -293,7 +294,7 @@ namespace winrt::Webrtc::implementation
 				workerThread->Invoke<void>(RTC_FROM_HERE, [this, decrypted, dataLength]() {
 					rtc::PacketTime pTime = rtc::CreatePacketTime(0);
 					webrtc::PacketReceiver::DeliveryStatus status = this->g_call->Receiver()->DeliverPacket(webrtc::MediaType::AUDIO, rtc::CopyOnWriteBuffer(decrypted, dataLength - 16), pTime.timestamp);
-				//	delete decrypted;
+					delete decrypted;
 				});
 			}
 

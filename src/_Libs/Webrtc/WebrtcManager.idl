@@ -12,5 +12,7 @@ namespace Webrtc{
 		void SetSpeaking(UInt32 ssrc, Int32 speaking);
 
 		event Windows.Foundation.TypedEventHandler<String, UInt16> IpAndPortObtained;
+		event Windows.Foundation.EventHandler< Windows.Foundation.Collections.IVector<Single> > AudioInData;
+		event Windows.Foundation.EventHandler< Windows.Foundation.Collections.IVector<Single> > AudioOutData;
 	}
 }
