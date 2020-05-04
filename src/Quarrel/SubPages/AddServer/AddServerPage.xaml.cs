@@ -17,6 +17,9 @@ namespace Quarrel.SubPages.AddServer
         private readonly IReadOnlyDictionary<NavigationViewItemBase, Type> _pagesMapping;
         private bool _isFullHeight;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AddServerPage"/> class.
+        /// </summary>
         public AddServerPage()
         {
             this.InitializeComponent();
@@ -25,8 +28,7 @@ namespace Quarrel.SubPages.AddServer
             _pagesMapping = new ConcurrentDictionary<NavigationViewItemBase, Type>
             {
                 [CreateItem] = typeof(CreateServerPage),
-                //[JoinItem] = typeof(NotificationsSettingsPage),
-                //[FindItem] = typeof(PrivacySettingsPage),
+                [JoinItem] = typeof(JoinServerPage),
             };
         }
 
@@ -46,15 +48,10 @@ namespace Quarrel.SubPages.AddServer
         }
 
         /// <inheritdoc/>
-        public double MaxExpandedWidth { get; } = 800;
+        public double MaxExpandedWidth { get; } = 500;
 
         /// <inheritdoc/>
-        public double MaxExpandedHeight { get; } = 620;
-
-        /// <summary>
-        /// Gets the App's subframe navigation service.
-        /// </summary>
-        private ISubFrameNavigationService SubFrameNavigationService => SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+        public double MaxExpandedHeight { get; } = 340;
 
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {

@@ -318,6 +318,9 @@
     <Compile Include="SubPages\AddServer\Pages\CreateServerPage.xaml.cs">
       <DependentUpon>CreateServerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\AddServer\Pages\JoinServerPage.xaml.cs">
+      <DependentUpon>JoinServerPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\AttachmentPage.xaml.cs">
       <DependentUpon>AttachmentPage.xaml</DependentUpon>
     </Compile>
@@ -733,6 +736,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\AddServer\Pages\CreateServerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\AddServer\Pages\JoinServerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

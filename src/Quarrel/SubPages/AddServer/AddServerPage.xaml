@@ -16,7 +16,7 @@
                         SelectionChanged="NavigationView_SelectionChanged">
             <ctl:NavigationView.MenuItems>
                 <ctl:NavigationViewItem x:Name="CreateItem" Icon="Document" Content="Create Server"/>
-                <ctl:NavigationViewItem x:Name="JoinItem" Icon="Add" Content="Join Server" IsEnabled="False"/>
+                <ctl:NavigationViewItem x:Name="JoinItem" Icon="Add" Content="Join Server"/>
                 <ctl:NavigationViewItem x:Name="FindItem" Icon="Zoom" Content="Find Server" IsEnabled="False"/>
             </ctl:NavigationView.MenuItems>
 
