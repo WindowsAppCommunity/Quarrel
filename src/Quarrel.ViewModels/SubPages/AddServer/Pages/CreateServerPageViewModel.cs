@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Services.Discord.Rest;
+using Quarrel.ViewModels.Services.Navigation;
 
 namespace Quarrel.ViewModels.SubPages.AddServer.Pages
 {
@@ -30,6 +31,7 @@ namespace Quarrel.ViewModels.SubPages.AddServer.Pages
         public RelayCommand CreateServer => _createServer = new RelayCommand(async () =>
         {
             await DiscordService.GuildService.CreateGuild(_guild);
+            SubFrameNavigationService.GoBack();
         });
 
         /// <summary>
@@ -41,6 +43,10 @@ namespace Quarrel.ViewModels.SubPages.AddServer.Pages
             set => _guild.Name = value;
         }
 
+        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
+
+        private ISubFrameNavigationService SubFrameNavigationService { get; } = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+
         /// <summary>
         /// Updates the icon for the guild.
         /// </summary>
@@ -49,7 +55,5 @@ namespace Quarrel.ViewModels.SubPages.AddServer.Pages
         {
             _guild.Base64Icon = base64Icon;
         }
-
-        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
     }
 }
