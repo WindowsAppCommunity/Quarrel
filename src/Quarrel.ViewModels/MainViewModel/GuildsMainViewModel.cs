@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Gateway.Guild;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
@@ -52,7 +53,7 @@ namespace Quarrel.ViewModels
         /// </summary>
         public RelayCommand NavigateAddServerPage => _navigateAddServerPage = new RelayCommand(() =>
         {
-            SubFrameNavigationService.NavigateTo("AddServerPage");
+            _subFrameNavigationService.NavigateTo("AddServerPage");
         });
 
         /// <summary>
@@ -79,8 +80,6 @@ namespace Quarrel.ViewModels
         [NotNull]
         public ObservableRangeCollection<IGuildListItem> BindableGuilds { get; private set; } =
             new ObservableRangeCollection<IGuildListItem>();
-
-        private ISubFrameNavigationService SubFrameNavigationService { get; } = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
 
         private void RegisterGuildsMessages()
         {
@@ -169,6 +168,17 @@ namespace Quarrel.ViewModels
                 guild = _guildsService.AllGuilds[m.Guild.GuildId];
                 _guildsService.AllGuilds.Remove(m.Guild.GuildId);
                 _dispatcherHelper.CheckBeginInvokeOnUi(() => { BindableGuilds.Remove(guild); });
+            });
+
+            MessengerInstance.Register<GatewayUserSettingsUpdatedMessage>(this, m =>
+            {
+                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
+                {
+                    if (m.Settings.GuildFolders != null && m.Settings.GuildOrder != null)
+                    {
+                        // TODO: Handle guild reorder.
+                    }
+                });
             });
         }
     }
