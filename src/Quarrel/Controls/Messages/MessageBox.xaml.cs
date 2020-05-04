@@ -95,5 +95,25 @@ namespace Quarrel.Controls.Messages
                 ViewModel.Attachments.Add(new StreamPart((await bmpStream.OpenReadAsync()).AsStream(), "file.png", "image/png"));
             }
         }
+
+        private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            popup.VerticalOffset = -e.NewSize.Height;
+        }
+
+        private void MessageEditor_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            SuggestionList.Width = e.NewSize.Width;
+        }
+
+        private void MessageEditor_LostFocus(object sender, RoutedEventArgs e)
+        {
+            popup.IsOpen = false;
+        }
+
+        private void MessageEditor_GotFocus(object sender, RoutedEventArgs e)
+        {
+            popup.IsOpen = true;
+        }
     }
 }

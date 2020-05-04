@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Models;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Suggesitons;
 using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.Guilds;
@@ -169,6 +170,11 @@ namespace Quarrel.ViewModels.Controls.Messages
         /// Gets the current Attachments lists.
         /// </summary>
         public ObservableCollection<StreamPart> Attachments { get; } = new ObservableCollection<StreamPart>();
+
+        /// <summary>
+        /// Gets the suggested mentions based on draft.
+        /// </summary>
+        public ObservableCollection<ISuggestion> Suggestions { get; } = new ObservableCollection<ISuggestion>();
 
         private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
 
