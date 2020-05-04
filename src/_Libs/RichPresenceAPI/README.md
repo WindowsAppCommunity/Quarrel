@@ -6,10 +6,9 @@ QuarrelRichPresenceService quarrelRichPresenceService = new QuarrelRichPresenceS
 await quarrelRichPresenceService.TryConnectAsync();
 ```
 
-#### Setting a game precense
+#### Creating a game
 ``` cs
 Game game = new Game("Test", Quarrel.RichPresence.Models.Enums.ActivityType.Playing);
-await quarrelRichPresenceService.SetRawActivity(game);
 ```
 
 #### Complex games
@@ -17,7 +16,12 @@ await quarrelRichPresenceService.SetRawActivity(game);
 RichGame game = new RichGame("Test", Quarrel.RichPresence.Models.Enums.ActivityType.Playing);
 game.Details = "details";
 game.State = "state";
-
 ```
+#### Setting prescence
+``` cs
+await quarrelRichPresenceService.SetRawActivity(game);
+```
+
+
 ![alt text](https://github.com/UWPCommunity/Quarrel/blob/rewrite/src/_Libs/RichPresenceAPI/Presence.png)
 ![alt text](https://github.com/UWPCommunity/Quarrel/blob/rewrite/src/_Libs/RichPresenceAPI/Presence2.png)
