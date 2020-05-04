@@ -8,6 +8,15 @@
     mc:Ignorable="d">
 
     <Grid>
-
+        <StackPanel Margin="12,0">
+            <TextBlock Text="These settings are not prepared yet."
+                       FontStyle="Italic" FontWeight="SemiLight" Opacity=".6"/>
+            <ComboBox PlaceholderText="Output Device"
+                      Margin="0,8,0,0"
+                      IsEnabled="False"/>
+            <ComboBox PlaceholderText="Input Device"
+                      Margin="0,8,0,0"
+                      IsEnabled="False"/>
+        </StackPanel>
     </Grid>
 </Page>

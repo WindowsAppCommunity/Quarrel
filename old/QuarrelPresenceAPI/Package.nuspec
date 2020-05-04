@@ -2,17 +2,14 @@
 <package >
   <metadata>
     <id>Package</id>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
     <authors>Avishai Dernis</authors>
     <owners>avid2</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
-    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <projectUrl>https://github.com/UWPCommunity/Quarrel</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Package description</description>
     <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
-    <copyright>Copyright 2018</copyright>
-    <tags>Tag1 Tag2</tags>
+    <copyright>Copyright 2020</copyright>
     <dependencies>
       <dependency id="SampleDependency" version="1.0" />
     </dependencies>

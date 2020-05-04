@@ -14,7 +14,7 @@ namespace Quarrel.Converters.Profile.Relationships
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return (int)value != 2 ? Visibility.Visible : Visibility.Collapsed;
+            return ((int)value != 2 && (int)value != -1) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <inheritdoc/>

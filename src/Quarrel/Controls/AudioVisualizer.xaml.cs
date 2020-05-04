@@ -7,9 +7,6 @@ using Microsoft.Graphics.Canvas.UI;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Quarrel.Helpers.AudioProcessing;
 using Quarrel.ViewModels.Services.Settings;
-using Quarrel.ViewModels.Services.Voice.Audio;
-using Quarrel.ViewModels.Services.Voice.Audio.In;
-using Quarrel.ViewModels.Services.Voice.Audio.Out;
 using System;
 using System.Linq;
 using System.Numerics;
@@ -91,8 +88,6 @@ namespace Quarrel.Controls
         /// </summary>
         public bool Input { get; set; }
 
-        private IAudioService BoundAudioService => Input ? (IAudioService)SimpleIoc.Default.GetInstance<IAudioInService>() : SimpleIoc.Default.GetInstance<IAudioOutService>();
-
         /// <summary>
         /// Setup FFT.
         /// </summary>
@@ -101,8 +96,6 @@ namespace Quarrel.Controls
             // If FFT is enabled, setup render smoothers for each data point
             if (SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<bool>(SettingKeys.ExpensiveRendering))
             {
-                BoundAudioService.AudioQueued += DataRecieved;
-
                 _smoothers[0] = new Smoother(4, 6);
                 _smoothers[1] = new Smoother(4, 12);
                 _smoothers[2] = new Smoother(4, 14);
@@ -147,7 +140,6 @@ namespace Quarrel.Controls
             initailized = false;
 
             // Unsubscribe from events
-            BoundAudioService.AudioQueued -= DataRecieved;
             Loaded -= FftInitialize;
             Unloaded -= FftDipose;
         }

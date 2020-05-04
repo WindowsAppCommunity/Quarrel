@@ -91,7 +91,9 @@ namespace Quarrel.ViewModels.Models.Bindables
                     if (state.ChannelId == Model.Id)
                     {
                         state.GuildId = GuildId;
-                        ConnectedUsers.Add(state.UserId, new BindableVoiceUser(state));
+                        var voiceUser = new BindableVoiceUser(state);
+                        ConnectedUsers.Add(state.UserId, voiceUser);
+                        VoiceService.VoiceStates.Add(state.UserId, voiceUser);
                     }
                 }
             }
@@ -620,7 +622,8 @@ namespace Quarrel.ViewModels.Models.Bindables
             guildSettingModify.ChannelOverrides = new Dictionary<string, ChannelOverride>();
 
             ChannelOverride channelOverride;
-            if (ChannelsService.ChannelSettings.TryGetValue(Model.Id, out channelOverride))
+            ChannelsService.ChannelSettings.TryGetValue(Model.Id, out channelOverride);
+            if (channelOverride == null)
             {
                 // No pre-exisitng channeloverride, create a default
                 channelOverride = new ChannelOverride();

@@ -81,6 +81,7 @@
         <relationconvert:RelationToBlockConverter x:Key="RelationToBlockConverter"/>
         <relationconvert:RelationToRemoveFriendConverter x:Key="RelationToRemoveFriendConverter"/>
         <relationconvert:RelationToUnblockConverter x:Key="RelationToUnblockConverter"/>
+        <relationconvert:RelationToSendMessageConverter x:Key="RelationToSendMessageConverter"/>
         <discordconvert:PresenseToBrushConverter x:Key="PresenseToBrushConverter" UseSystemAccentColor="True"/>
         <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
     </UserControl.Resources>
@@ -238,7 +239,7 @@
                                     <TextBlock Text="Server stats" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0">
+                            <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToSendMessageConverter}, Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE122;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/Dialogs/SendMessageTB" Text="Send Message" Margin="28,0,0,0"/>

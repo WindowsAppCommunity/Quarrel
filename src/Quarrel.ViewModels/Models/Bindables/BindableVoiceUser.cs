@@ -26,45 +26,6 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// <param name="model">The base <see cref="VoiceState"/> object.</param>
         public BindableVoiceUser([NotNull] VoiceState model) : base(model)
         {
-            MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, e =>
-            {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
-                {
-                    if (e.VoiceState.UserId == Model.UserId)
-                    {
-                        if (e.VoiceState.SelfDeaf != Model.SelfDeaf)
-                        {
-                            Model.SelfDeaf = e.VoiceState.SelfDeaf;
-                            UpateProperties();
-                        }
-
-                        if (e.VoiceState.SelfMute != Model.SelfMute)
-                        {
-                            Model.SelfMute = e.VoiceState.SelfMute;
-                            UpateProperties();
-                        }
-
-                        if (e.VoiceState.ServerDeaf != Model.ServerDeaf)
-                        {
-                            Model.ServerDeaf = e.VoiceState.ServerDeaf;
-                            UpateProperties();
-                        }
-
-                        if (e.VoiceState.ServerMute != Model.ServerMute)
-                        {
-                            Model.ServerMute = e.VoiceState.ServerMute;
-                            UpateProperties();
-                        }
-                    }
-                });
-            });
-            MessengerInstance.Register<SpeakMessage>(this, e =>
-            {
-                if (e.EventData.UserId == Model.UserId)
-                {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() => { Speaking = e.EventData.Speaking > 0; });
-                }
-            });
         }
 
         /// <summary>

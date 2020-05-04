@@ -30,5 +30,16 @@
               ScrollViewer.VerticalScrollBarVisibility="Hidden"
               IsItemClickEnabled="True"
               helpers:ItemClickCommand.Command="{x:Bind ViewModel.GuildListItemClicked}">
+        <ListView.Footer>
+            <Button Height="58" Width="80" Padding="0" Background="Transparent"
+                    HorizontalAlignment="Center" Command="{x:Bind ViewModel.NavigateAddServerPage, Mode=OneWay}">
+                <Grid>
+                    <Rectangle Height="50" Width="50" RadiusX="40" RadiusY="40" Opacity=".5"
+                               Stroke="{ThemeResource SystemAccentColor}" Fill="{ThemeResource Background}"
+                               HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <SymbolIcon Symbol="Add"/>
+                </Grid>
+            </Button>
+        </ListView.Footer>
     </ListView>
 </UserControl>

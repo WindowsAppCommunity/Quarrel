@@ -9,9 +9,8 @@ using Quarrel.Services.DispatcherHelperEx;
 using Quarrel.Services.Resources;
 using Quarrel.Services.Settings;
 using Quarrel.Services.Voice;
-using Quarrel.Services.Voice.Audio.In;
-using Quarrel.Services.Voice.Audio.Out;
 using Quarrel.SubPages;
+using Quarrel.SubPages.AddServer;
 using Quarrel.SubPages.GuildSettings;
 using Quarrel.SubPages.UserSettings;
 using Quarrel.ViewModels.Services.Analytics;
@@ -29,8 +28,6 @@ using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.Services.Resources;
 using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.Services.Voice;
-using Quarrel.ViewModels.Services.Voice.Audio.In;
-using Quarrel.ViewModels.Services.Voice.Audio.Out;
 using System;
 
 namespace Quarrel.ViewModels
@@ -51,6 +48,7 @@ namespace Quarrel.ViewModels
             var navigationService = new SubFrameNavigationService();
             navigationService.Configure("AboutPage", typeof(AboutPage));
             navigationService.Configure("AddChannelPage", typeof(AddChannelPage));
+            navigationService.Configure("AddServerPage", typeof(AddServerPage));
             navigationService.Configure("AttachmentPage", typeof(AttachmentPage));
             navigationService.Configure("CreditPage", typeof(CreditPage));
             navigationService.Configure("DiscordStatusPage", typeof(DiscordStatusPage));
@@ -80,8 +78,6 @@ namespace Quarrel.ViewModels
             SimpleIoc.Default.Register<IFriendsService, FriendsService>();
             SimpleIoc.Default.Register<IChannelsService, ChannelsService>();
             SimpleIoc.Default.Register<IGuildsService, GuildsService>();
-            SimpleIoc.Default.Register<IAudioInService, AudioInService>();
-            SimpleIoc.Default.Register<IAudioOutService, AudioOutService>();
             SimpleIoc.Default.Register<ICurrentUserService, CurrentUsersService>();
             SimpleIoc.Default.Register<IVoiceService, VoiceService>();
             SimpleIoc.Default.Register<IWebrtcManager, WebrtcManager>();

@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Command;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Messages.Gateway.Relationships;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Analytics;
@@ -21,6 +22,7 @@ using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Services.Gateway;
 using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.Services.Settings;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -172,12 +174,101 @@ namespace Quarrel.ViewModels
                     dmGuild.Selected = true;
                     MessengerInstance.Send(new GuildNavigateMessage(dmGuild));
 
-                    // Show guilds
                     BindableCurrentFriends.AddRange(_friendsService.Friends.Values.Where(x => x.IsFriend));
                     BindablePendingFriends.AddRange(
                         _friendsService.Friends.Values.Where(x => x.IsIncoming || x.IsOutgoing));
                     BindableBlockedUsers.AddRange(_friendsService.Friends.Values.Where(x => x.IsBlocked));
                 });
+            });
+
+            MessengerInstance.Register<GatewayRelationshipAddedMessage>(this, x =>
+            {
+                var friend = new BindableFriend(x.Friend);
+                _friendsService.Friends.TryAdd(friend.RawModel.Id, friend);
+
+                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
+                {
+                    switch (x.Friend.Type)
+                    {
+                        case 1:
+                            BindableCurrentFriends.Add(friend);
+                            break;
+                        case 2:
+                            BindableBlockedUsers.Add(friend);
+                            break;
+                        case 3:
+                        case 4:
+                            BindablePendingFriends.Add(friend);
+                            break;
+                    }
+                });
+            });
+
+            MessengerInstance.Register<GatewayRelationshipRemovedMessage>(this, x =>
+            {
+                BindableFriend friend;
+                _friendsService.Friends.TryRemove(x.Friend.Id, out friend);
+
+                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
+                {
+                    if (friend != null)
+                    {
+                        switch (friend.Model.Type)
+                        {
+                            case 1:
+                                BindableCurrentFriends.Remove(friend);
+                                break;
+                            case 2:
+                                BindableBlockedUsers.Remove(friend);
+                                break;
+                            case 3:
+                            case 4:
+                                BindablePendingFriends.Remove(friend);
+                                break;
+                        }
+                    }
+                });
+            });
+
+            MessengerInstance.Register<GatewayRelationshipUpdatedMessage>(this, x =>
+            {
+                BindableFriend friend;
+                _friendsService.Friends.TryGetValue(x.Friend.Id, out friend);
+
+                if (friend != null)
+                {
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        switch (friend.Model.Type)
+                        {
+                            case 1:
+                                BindableCurrentFriends.Remove(friend);
+                                break;
+                            case 2:
+                                BindableBlockedUsers.Remove(friend);
+                                break;
+                            case 3:
+                            case 4:
+                                BindablePendingFriends.Remove(friend);
+                                break;
+                        }
+
+                        friend.Model = x.Friend;
+                        switch (x.Friend.Type)
+                        {
+                            case 1:
+                                BindableCurrentFriends.Add(friend);
+                                break;
+                            case 2:
+                                BindableBlockedUsers.Add(friend);
+                                break;
+                            case 3:
+                            case 4:
+                                BindablePendingFriends.Add(friend);
+                                break;
+                        }
+                    });
+                }
             });
         }
 

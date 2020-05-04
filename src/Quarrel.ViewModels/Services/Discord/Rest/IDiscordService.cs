@@ -30,10 +30,10 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
         User CurrentUser { get; set; }
 
         /// <summary>
-        /// Gets the <see cref="IActivitesService"/> instance to retrieve Activities page data.
+        /// Gets the <see cref="IActivitiesService"/> instance to retrieve Activities page data.
         /// </summary>
         [NotNull]
-        IActivitesService ActivitesService { get; }
+        IActivitiesService ActivitesService { get; }
 
         /// <summary>
         /// Gets the <see cref="IChannelService"/> instance to retrieve Channel data.

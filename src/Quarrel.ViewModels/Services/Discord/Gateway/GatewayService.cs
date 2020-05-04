@@ -15,6 +15,7 @@ using Quarrel.ViewModels.Messages;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Gateway.Channels;
 using Quarrel.ViewModels.Messages.Gateway.Guild;
+using Quarrel.ViewModels.Messages.Gateway.Relationships;
 using Quarrel.ViewModels.Messages.Gateway.Voice;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Services.Analytics;
@@ -70,13 +71,12 @@ namespace Quarrel.ViewModels.Services.Gateway
                 return false;
             }
 
-            Gateway.InvalidSession += Gateway_InvalidSession;
-            Gateway.GatewayClosed += Gateway_GatewayClosed;
-
             Gateway.Ready += Gateway_Ready;
             Gateway.GuildMembersChunk += GatewayGuildMembersChunk;
             Gateway.GuildSynced += Gateway_GuildSynced;
 
+            Gateway.GuildCreated += Gateway_GuildCreated;
+            Gateway.GuildDeleted += Gateway_GuildDeleted;
             Gateway.GuildUpdated += Gateway_GuildUpdated;
 
             Gateway.MessageCreated += Gateway_MessageCreated;
@@ -104,7 +104,13 @@ namespace Quarrel.ViewModels.Services.Gateway
             Gateway.VoiceServerUpdated += Gateway_VoiceServerUpdated;
             Gateway.VoiceStateUpdated += Gateway_VoiceStateUpdated;
 
+            Gateway.RelationShipAdded += Gateway_RelationShipAdded;
+            Gateway.RelationShipRemoved += Gateway_RelationShipRemoved;
+            Gateway.RelationShipUpdated += Gateway_RelationShipUpdated;
+
             Gateway.SessionReplaced += Gateway_SessionReplaced;
+            Gateway.InvalidSession += Gateway_InvalidSession;
+            Gateway.GatewayClosed += Gateway_GatewayClosed;
 
             if (await ConnectWithRetryAsync(3))
             {
@@ -247,6 +253,16 @@ namespace Quarrel.ViewModels.Services.Gateway
             Messenger.Default.Send(new GatewayDirectMessageChannelCreatedMessage(e.EventData));
         }
 
+        private void Gateway_GuildCreated(object sender, GatewayEventArgs<Guild> e)
+        {
+            Messenger.Default.Send(new GatewayGuildCreatedMessage(e.EventData));
+        }
+
+        private void Gateway_GuildDeleted(object sender, GatewayEventArgs<GuildDelete> e)
+        {
+            Messenger.Default.Send(new GatewayGuildDeletedMessage(e.EventData));
+        }
+
         private void Gateway_GuildUpdated(object sender, GatewayEventArgs<Guild> e)
         {
             Messenger.Default.Send(new GatewayGuildUpdatedMessage(e.EventData));
@@ -311,6 +327,21 @@ namespace Quarrel.ViewModels.Services.Gateway
             Messenger.Default.Send(new GatewayVoiceStateUpdateMessage(e.EventData));
         }
 
+        private void Gateway_RelationShipAdded(object sender, GatewayEventArgs<Friend> e)
+        {
+            Messenger.Default.Send(new GatewayRelationshipAddedMessage(e.EventData));
+        }
+
+        private void Gateway_RelationShipRemoved(object sender, GatewayEventArgs<Friend> e)
+        {
+            Messenger.Default.Send(new GatewayRelationshipRemovedMessage(e.EventData));
+        }
+
+        private void Gateway_RelationShipUpdated(object sender, GatewayEventArgs<Friend> e)
+        {
+            Messenger.Default.Send(new GatewayRelationshipUpdatedMessage(e.EventData));
+        }
+
         private void Gateway_SessionReplaced(object sender, GatewayEventArgs<SessionReplace[]> e)
         {
             Messenger.Default.Send(new GatewaySessionReplacedMessage(e.EventData));
@@ -325,7 +356,6 @@ namespace Quarrel.ViewModels.Services.Gateway
             }
             else
             {
-
                 Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Disconnected));
             }
         }

@@ -1,9 +1,14 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using DiscordAPI.API.User.Models;
 using DiscordAPI.Models;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Models.Interfaces;
+using Quarrel.ViewModels.Services.Discord.Rest;
+using System;
 
 namespace Quarrel.ViewModels.Models.Bindables
 {
@@ -12,16 +17,25 @@ namespace Quarrel.ViewModels.Models.Bindables
     /// </summary>
     public class BindableFriend : BindableModelBase<Friend>, IBindableUser
     {
+        private RelayCommand _acceptFriendRequestCommand;
+        private RelayCommand _declineFriendRequestCommand;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableFriend"/> class.
         /// </summary>
         /// <param name="friend">The base friend object.</param>
         public BindableFriend([NotNull] Friend friend) : base(friend)
         {
+            Member = new BindableGuildMember(new GuildMember() { User = RawModel }, "DM");
         }
 
         /// <inheritdoc/>
         public User RawModel => Model.User;
+
+        /// <summary>
+        /// Gets the user as a <see cref="BindableGuildMember"/>.
+        /// </summary>
+        public BindableGuildMember Member { get; }
 
         /// <inheritdoc/>
         public Presence Presence => null;
@@ -50,5 +64,28 @@ namespace Quarrel.ViewModels.Models.Bindables
         /// Gets a value indicating whether or not the user has an outgoing friend request.
         /// </summary>
         public bool IsOutgoing => Model.Type == 4;
+
+        /// <summary>
+        /// Gets a command to accept a friend request from the friend.
+        /// </summary>
+        public RelayCommand AcceptFriendRequestCommand => _acceptFriendRequestCommand = new RelayCommand(async () =>
+        {
+            SendFriendRequest friendRequest = new SendFriendRequest()
+            {
+                Username = Model.User.Username,
+                Discriminator = Convert.ToInt32(Model.User.Discriminator),
+            };
+            await DiscordService.UserService.SendFriendRequest(friendRequest);
+        });
+
+        /// <summary>
+        /// Gets a command to accept a friend request from the friend.
+        /// </summary>
+        public RelayCommand DeclineFriendRequestCommand => _declineFriendRequestCommand = new RelayCommand(async () =>
+        {
+            await DiscordService.UserService.RemoveFriend(Model.User.Id);
+        });
+
+        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
     }
 }

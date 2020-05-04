@@ -11,8 +11,6 @@ using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
-using Quarrel.ViewModels.Services.Voice.Audio.In;
-using Quarrel.ViewModels.Services.Voice.Audio.Out;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
@@ -118,25 +116,37 @@ namespace Quarrel.ViewModels.Services.Voice
         /// <inheritdoc/>
         public async void ToggleDeafen()
         {
-            // Todo: tell webrtc manager
             var state = _voiceConnection._state;
-            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, false, false); // Todo: get correct values
+            state.SelfDeaf = !state.SelfDeaf;
+            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute, state.SelfDeaf);
         }
 
         /// <inheritdoc/>
         public async void ToggleMute()
         {
-            // Todo: tell webrtc manager
             var state = _voiceConnection._state;
-            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, false , false); // Todo: work properly
+            state.SelfMute = !state.SelfMute;
+            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute, state.SelfDeaf);
         }
 
         private async void ConnectToVoiceChannel(VoiceServerUpdate data, VoiceState state)
-        {;
+        {
             _voiceConnection = new VoiceConnection(data, state, WebrtcManager);
 
             _voiceConnection.Speak += Speak;
             await _voiceConnection.ConnectAsync();
+        }
+
+        private void DisconnectFromVoiceChannel()
+        {
+        }
+
+        private void InputRecieved(object sender, float[] e)
+        {
+        }
+
+        private void VoiceDataRecieved(object sender, VoiceConnectionEventArgs<VoiceData> e)
+        {
         }
 
         private void Speak(object sender, VoiceConnectionEventArgs<Speak> e)

@@ -1,11 +1,15 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Messages.Gateway.Guild;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Models.Interfaces;
+using Quarrel.ViewModels.Services.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -17,6 +21,7 @@ namespace Quarrel.ViewModels
     public partial class MainViewModel
     {
         private RelayCommand<IGuildListItem> _navigateGuild;
+        private RelayCommand _navigateAddServerPage;
         private BindableGuild _currentGuild;
         private BindableGuildMember _currentGuildMember;
 
@@ -42,6 +47,14 @@ namespace Quarrel.ViewModels
                     }
                 }
             });
+
+        /// <summary>
+        /// Gets a command that opens the add server page.
+        /// </summary>
+        public RelayCommand NavigateAddServerPage => _navigateAddServerPage = new RelayCommand(() =>
+        {
+            _subFrameNavigationService.NavigateTo("AddServerPage");
+        });
 
         /// <summary>
         /// Gets or sets the currently selected guild.
@@ -140,6 +153,32 @@ namespace Quarrel.ViewModels
                         }
                     });
                 }
+            });
+
+            MessengerInstance.Register<GatewayGuildCreatedMessage>(this, m =>
+            {
+                BindableGuild guild = new BindableGuild(m.Guild);
+                _guildsService.AllGuilds.Add(m.Guild.Id, guild);
+                _dispatcherHelper.CheckBeginInvokeOnUi(() => { BindableGuilds.Insert(1, guild); });
+            });
+
+            MessengerInstance.Register<GatewayGuildDeletedMessage>(this, m =>
+            {
+                BindableGuild guild;
+                guild = _guildsService.AllGuilds[m.Guild.GuildId];
+                _guildsService.AllGuilds.Remove(m.Guild.GuildId);
+                _dispatcherHelper.CheckBeginInvokeOnUi(() => { BindableGuilds.Remove(guild); });
+            });
+
+            MessengerInstance.Register<GatewayUserSettingsUpdatedMessage>(this, m =>
+            {
+                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
+                {
+                    if (m.Settings.GuildFolders != null && m.Settings.GuildOrder != null)
+                    {
+                        // TODO: Handle guild reorder.
+                    }
+                });
             });
         }
     }

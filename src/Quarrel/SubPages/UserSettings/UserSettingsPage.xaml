@@ -29,7 +29,7 @@
                 <ctl:NavigationViewItem x:Name="DisplayItem" Icon="View" Content="Display"/>
                 <ctl:NavigationViewItem x:Name="BehaviorItem" Icon="TouchPointer" Content="Behavior"/>
                 <ctl:NavigationViewItem IsEnabled="False" x:Name="NotificationsItem" Icon="Important" Content="Notifications"/>
-                <ctl:NavigationViewItem IsEnabled="False" x:Name="VoiceItem" Icon="Microphone" Content="Voice"/>
+                <ctl:NavigationViewItem x:Name="VoiceItem" Icon="Microphone" Content="Voice"/>
             </ctl:NavigationView.MenuItems>
 
             <Grid>

@@ -27,6 +27,7 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
         private RelayCommand cancelAccountEditCommand;
         private RelayCommand enterPasswordEditCommand;
         private RelayCommand deleteAvatar;
+        private RelayCommand logoutCommand;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MyAccountSettingsViewModel"/> class.
@@ -158,7 +159,17 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             Base64Avatar = null;
         });
 
+        /// <summary>
+        /// Gets a command that logs the user out of the app.
+        /// </summary>
+        public RelayCommand LogoutCommand => logoutCommand = new RelayCommand(() =>
+        {
+            DiscordService.Logout();
+        });
+
         private ICurrentUserService CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
+
+        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
 
         /// <summary>
         /// Restores unedited values.

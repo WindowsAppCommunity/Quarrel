@@ -21,6 +21,8 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <PackageCertificateThumbprint>DB7D7DA057F5D537AEB900AB6B194319A912858B</PackageCertificateThumbprint>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -256,6 +258,7 @@
     <Compile Include="Converters\Profile\PresenceTypeToStatusConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToAcceptFriendConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToAddFriendConverter.cs" />
+    <Compile Include="Converters\Profile\Relationships\RelationToSendMessageConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToBlockConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToRemoveFriendConverter.cs" />
     <Compile Include="Converters\Profile\Relationships\RelationToUnblockConverter.cs" />
@@ -302,9 +305,6 @@
     <Compile Include="Services\DispatcherHelper\DispatcherHelperEx.cs" />
     <Compile Include="Services\Resources\ResourceService.cs" />
     <Compile Include="Services\Settings\SettingsService.cs" />
-    <Compile Include="Services\Voice\Audio\In\AudioInService.cs" />
-    <Compile Include="Services\Voice\Audio\Out\AudioOutService.cs" />
-    <Compile Include="Services\Voice\IMemoryBufferByteAccess.cs" />
     <Compile Include="Services\Voice\WebrtcManager.cs" />
     <Compile Include="StateTriggers\BooleanStateTrigger.cs" />
     <Compile Include="StateTriggers\DeviceFamilyStateTrigger.cs" />
@@ -313,6 +313,15 @@
     </Compile>
     <Compile Include="SubPages\AddChannelPage.xaml.cs">
       <DependentUpon>AddChannelPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\AddServer\AddServerPage.xaml.cs">
+      <DependentUpon>AddServerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\AddServer\Pages\CreateServerPage.xaml.cs">
+      <DependentUpon>CreateServerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\AddServer\Pages\JoinServerPage.xaml.cs">
+      <DependentUpon>JoinServerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\AttachmentPage.xaml.cs">
       <DependentUpon>AttachmentPage.xaml</DependentUpon>
@@ -724,6 +733,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SubPages\AddServer\AddServerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\AddServer\Pages\CreateServerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\AddServer\Pages\JoinServerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SubPages\AttachmentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -899,7 +920,7 @@
       <Version>1.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.9</Version>
+      <Version>6.2.10</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Services.Store.Engagement">
       <Version>10.1901.28001</Version>
@@ -981,6 +1002,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="..\_Tasks\Quarrel.Shared\Quarrel.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
