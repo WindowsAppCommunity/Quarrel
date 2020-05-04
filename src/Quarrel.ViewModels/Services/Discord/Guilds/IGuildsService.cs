@@ -55,5 +55,14 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
         /// <param name="guildId">The guild id.</param>
         /// <returns>A hashed collection of guild members by user id.</returns>
         IReadOnlyDictionary<string, BindableGuildMember> GetAndRequestGuildMembers(IEnumerable<string> memberIds, string guildId);
+
+        /// <summary>
+        /// Quries a guild's members by <paramref name="query"/>.
+        /// </summary>
+        /// <param name="query">The query to filter by.</param>
+        /// <param name="guildId">The guild to query.</param>
+        /// <param name="take">The max number of members to return.</param>
+        /// <returns>The top matches for members by the <paramref name="query"/> in <paramref name="guildId"/>.</returns>
+        IEnumerable<BindableGuildMember> QueryGuildMembers(string query, string guildId, int take= 10);
     }
 }

@@ -386,5 +386,11 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
 
             return null;
         }
+
+        /// <inheritdoc/>
+        public IEnumerable<BindableGuildMember> QueryGuildMembers(string query, string guildId, int take = 10)
+        {
+            return _guildUsers[guildId].Values.Where(x => x.DisplayName.ToLower().StartsWith(query.ToLower()) || x.Model.User.Username.ToLower().StartsWith(query.ToLower())).Take(take);
+        }
     }
 }

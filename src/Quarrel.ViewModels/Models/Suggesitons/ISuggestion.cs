@@ -7,5 +7,9 @@ namespace Quarrel.ViewModels.Models
     /// </summary>
     public interface ISuggestion
     {
+        /// <summary>
+        /// Gets what to add to the message when selected.
+        /// </summary>
+        string Surrogate { get; }
     }
 }

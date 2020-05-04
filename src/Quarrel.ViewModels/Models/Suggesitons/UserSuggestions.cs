@@ -19,8 +19,11 @@ namespace Quarrel.ViewModels.Models.Suggesitons
         }
 
         /// <summary>
-        /// Gets the user recommended for mentioning. 
+        /// Gets the user recommended for mentioning.
         /// </summary>
         public BindableGuildMember User { get; }
+
+        /// <inheritdoc/>
+        public string Surrogate => string.Format("{0}#{1}", User.Model.User.Username, User.Model.User.Discriminator);
     }
 }

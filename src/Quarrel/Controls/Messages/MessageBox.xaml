@@ -1097,8 +1097,8 @@
                HorizontalAlignment="Stretch">
             <Grid Background="{ThemeResource AcrylicUserBackground}">
                 <ListView x:Name="SuggestionList" ItemTemplateSelector="{StaticResource SuggestionTemplateSelector}"
-                          ItemsSource="{x:Bind ViewModel.Suggestions, Mode=OneWay}"
-                          SizeChanged="ListView_SizeChanged"/>
+                          ItemsSource="{x:Bind ViewModel.Suggestions, Mode=OneWay}" SelectionMode="None" IsItemClickEnabled="True"
+                          ItemClick="SuggestionList_ItemClick" SizeChanged="ListView_SizeChanged"/>
             </Grid>
         </Popup>
         

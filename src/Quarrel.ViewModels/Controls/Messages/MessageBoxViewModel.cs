@@ -35,6 +35,7 @@ namespace Quarrel.ViewModels.Controls.Messages
         private string _messageText = string.Empty;
         private int _selectionStart;
         private int _selectionLength;
+        private int _queryLength;
 
         /// <summary>
         /// Gets the command to send an API message to indicate typing state.
@@ -145,7 +146,14 @@ namespace Quarrel.ViewModels.Controls.Messages
         public string MessageText
         {
             get => _messageText;
-            set => Set(ref _messageText, value);
+            set
+            {
+                Set(ref _messageText, value);
+                if (!GuildsService.CurrentGuild.IsDM)
+                {
+                    GetMentionQueryAndShow();
+                }
+            }
         }
 
         /// <summary>
@@ -185,6 +193,108 @@ namespace Quarrel.ViewModels.Controls.Messages
         private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
         private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+
+        /// <summary>
+        /// Applies a suggestion.
+        /// </summary>
+        /// <param name="suggestion">Suggestion to apply.</param>
+        public void SelectSuggestion(ISuggestion suggestion)
+        {
+            string newText = MessageText.Remove(SelectionStart - _queryLength, _queryLength);
+            newText = newText.Insert(SelectionStart - _queryLength, suggestion.Surrogate + " ");
+            MessageText = newText;
+            SelectionStart += _queryLength;
+            Suggestions.Clear();
+        }
+
+        private void GetMentionQueryAndShow()
+        {
+            string text = MessageText;
+            if (text.Length > SelectionStart)
+            {
+                text = text.Remove(SelectionStart);
+            }
+
+            int loopsize = text.Length;
+            int counter = 0;
+            bool ranintospace = false;
+            for (var i = loopsize; i > 0; i--)
+            {
+                counter++;
+                if (counter == 32)
+                {
+                    // maximum username length is 32 characters, so after 32, just ignore.
+                }
+
+                var character = text[i - 1];
+
+                if (character == '\n')
+                {
+                    break; // Systematically want to breaks on new lines
+                }
+                else if (character == ' ')
+                {
+                    ranintospace = true;
+                }
+
+                /*
+                else if (!ranintospace && character == '#' && i != loopsize && !App.CurrentGuildIsDM)
+                {
+                    // This is possibly a channel
+                    string query = text.Remove(0, i);
+                    ReplacePrefix = false;
+                    querylength = query.Length;
+                    SearchAndDisplayChannels(query);
+
+                    // match the channel against the last query
+                    return;
+                }
+                else if (!ranintospace && character == ':' && i != loopsize)
+                {
+                    // This is possibly an emoji
+                    string query = text.Remove(0, i);
+                    ReplacePrefix = true;
+                    if (App.EmojiTrie != null)
+                        DisplayList(App.EmojiTrie.Retrieve(query.ToLower()));
+                    return;
+                }
+                */
+                else if (character == '@' && i != loopsize)
+                {
+                    // This is possibly a user mention
+                    string query = text.Remove(0, i);
+                    _queryLength = query.Length;
+                    ShowSuggestions(query, 0);
+                    return;
+                }
+
+                /*if (!ranintospace && loopsize > 3 && i > 3 && text[i - 1] == '`' && text[i - 2] == '`' && text[i - 3] == '`')
+                {
+                    string query = text.Remove(0, i);
+                    querylength = query.Length;
+                    ReplacePrefix = false;
+                    DisplayList(App.CodingLangsTrie.Retrieve(query.ToLower()));
+                    Debug.WriteLine("Codeblock query is " + query);
+                    return;
+                }*/
+            }
+        }
+
+        private void ShowSuggestions(string query, int type)
+        {
+            switch (type)
+            {
+                case 0: // User/Role
+                    var members = GuildsService.QueryGuildMembers(query, GuildsService.CurrentGuild.Model.Id);
+                    Suggestions.Clear();
+                    foreach (var member in members)
+                    {
+                        Suggestions.Add(new UserSuggestion(member));
+                    }
+
+                    break;
+            }
+        }
 
         /// <summary>
         /// Replaces surrogates with proper values for Emojis and Mentions.

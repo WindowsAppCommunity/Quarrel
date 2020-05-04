@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using Quarrel.ViewModels.Controls.Messages;
+using Quarrel.ViewModels.Models;
 using Refit;
 using System;
 using System.IO;
@@ -114,6 +115,11 @@ namespace Quarrel.Controls.Messages
         private void MessageEditor_GotFocus(object sender, RoutedEventArgs e)
         {
             popup.IsOpen = true;
+        }
+
+        private void SuggestionList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ViewModel.SelectSuggestion(e.ClickedItem as ISuggestion);
         }
     }
 }

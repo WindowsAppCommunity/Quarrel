@@ -20,7 +20,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <controls:UserIconControl DataContext="{x:Bind User, Mode=OneWay}"/>
+            <controls:UserIconControl DataContext="{x:Bind User, Mode=OneWay}" Size="16"/>
             
             <TextBlock TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontSize="13.333"
                        Text="{Binding User.DisplayName, Mode=OneWay}" Grid.Column="1" Margin="12,0,6,0"/>
