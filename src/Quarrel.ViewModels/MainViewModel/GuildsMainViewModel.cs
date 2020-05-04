@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Messages.Gateway.Guild;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Models.Interfaces;
@@ -153,6 +154,21 @@ namespace Quarrel.ViewModels
                         }
                     });
                 }
+            });
+
+            MessengerInstance.Register<GatewayGuildCreatedMessage>(this, m =>
+            {
+                BindableGuild guild = new BindableGuild(m.Guild);
+                _guildsService.AllGuilds.Add(m.Guild.Id, guild);
+                _dispatcherHelper.CheckBeginInvokeOnUi(() => { BindableGuilds.Insert(1, guild); });
+            });
+
+            MessengerInstance.Register<GatewayGuildDeletedMessage>(this, m =>
+            {
+                BindableGuild guild;
+                guild = _guildsService.AllGuilds[m.Guild.GuildId];
+                _guildsService.AllGuilds.Remove(m.Guild.GuildId);
+                _dispatcherHelper.CheckBeginInvokeOnUi(() => { BindableGuilds.Remove(guild); });
             });
         }
     }

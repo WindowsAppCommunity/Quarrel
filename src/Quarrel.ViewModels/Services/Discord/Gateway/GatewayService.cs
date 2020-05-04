@@ -75,6 +75,8 @@ namespace Quarrel.ViewModels.Services.Gateway
             Gateway.GuildMembersChunk += GatewayGuildMembersChunk;
             Gateway.GuildSynced += Gateway_GuildSynced;
 
+            Gateway.GuildCreated += Gateway_GuildCreated;
+            Gateway.GuildDeleted += Gateway_GuildDeleted;
             Gateway.GuildUpdated += Gateway_GuildUpdated;
 
             Gateway.MessageCreated += Gateway_MessageCreated;
@@ -249,6 +251,16 @@ namespace Quarrel.ViewModels.Services.Gateway
         private void Gateway_DirectMessageChannelCreated(object sender, GatewayEventArgs<DirectMessageChannel> e)
         {
             Messenger.Default.Send(new GatewayDirectMessageChannelCreatedMessage(e.EventData));
+        }
+
+        private void Gateway_GuildCreated(object sender, GatewayEventArgs<Guild> e)
+        {
+            Messenger.Default.Send(new GatewayGuildCreatedMessage(e.EventData));
+        }
+
+        private void Gateway_GuildDeleted(object sender, GatewayEventArgs<GuildDelete> e)
+        {
+            Messenger.Default.Send(new GatewayGuildDeletedMessage(e.EventData));
         }
 
         private void Gateway_GuildUpdated(object sender, GatewayEventArgs<Guild> e)
