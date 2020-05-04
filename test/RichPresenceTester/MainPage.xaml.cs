@@ -47,7 +47,9 @@ namespace RichPresenceTester
 
         public async Task SetPresence()
         {
-            Game game = new Game("Test", Quarrel.RichPresence.Models.Enums.ActivityType.Custom);
+            RichGame game = new RichGame("Test", Quarrel.RichPresence.Models.Enums.ActivityType.Playing);
+            game.Details = "details";
+            game.State = "state";
             await quarrelRichPresenceService.SetRawActivity(game);
         }
     }

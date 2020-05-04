@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>QuarrelRichPresence</id>
+    <version>2.0.0</version>
+    <title>Quarrel Rich Presence API</title>
+    <authors>Avishai Dernis</authors>
+    <owners>Avishai Dernis</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/UWPCommunity/Quarrel/</projectUrl>
+    <description>A package to easily set rich precense through a Quarrel app service connection.</description>
+    <copyright>Copyright 2020</copyright>
+    <tags>Discord Quarrel</tags>
+  </metadata>
+</package>
