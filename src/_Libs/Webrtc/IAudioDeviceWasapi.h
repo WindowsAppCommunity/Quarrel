@@ -16,6 +16,9 @@
 #if __has_include(<winrt/windows.media.effects.h>)
 #include <winrt/windows.media.effects.h>
 #endif //__has_include(<winrt/windows.media.effects.h>)
+#if __has_include(<winrt/Windows.Foundation.Collections.h>)
+#include <winrt/Windows.Foundation.Collections.h>
+#endif //__has_include(<winrt/windows.media.effects.h>)
 #endif //__has_include
 
 #ifdef CPPWINRT_VERSION

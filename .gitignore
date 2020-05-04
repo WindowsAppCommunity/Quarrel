@@ -261,6 +261,9 @@ paket-files/
 __pycache__/
 *.pyc
 
+# Winrt
+**/Generated Files/**
+
 SodiumC.dll
 /src/Quarrel/SodiumC/ARM
 /src/Quarrel/Assets/Tokens/AppCenter.json

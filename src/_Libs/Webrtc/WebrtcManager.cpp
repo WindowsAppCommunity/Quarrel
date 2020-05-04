@@ -1,18 +1,6 @@
 ﻿#include "pch.h"
 #include "WebrtcManager.h"
 
-class AudioAnalyzer : public webrtc::CustomAudioAnalyzer {
-private:
-	webrtc::AudioSendStream* stream;
-public:
-	void Initialize(int sample_rate_hz, int num_channels) override {}
-	void Analyze(const webrtc::AudioBuffer* audio) override {
-
-	};
-	std::string ToString() const override { return "AudioAnalyzer"; }
-};
-
-
 class MyRtcEventLogOutput : public webrtc::RtcEventLogOutput
 {
 public:
@@ -25,7 +13,6 @@ public:
 		std::cout << output;
 		return true;
 	}
-
 
 	void Flush() {}
 };
@@ -44,7 +31,29 @@ const webrtc::SdpAudioFormat kOpusFormat = { "opus", 48000, 2, { {"stereo", "1"}
 namespace Webrtc
 {
 
-	StreamTransport::StreamTransport(webrtc::Call* call, Windows::Storage::Streams::DataWriter^ sendStream) : call(call), sendStream(sendStream)
+	class AudioAnalyzer : public webrtc::CustomAudioAnalyzer {
+	private:
+		winrt::Webrtc::implementation::WebrtcManager* manager;
+	public:
+		AudioAnalyzer() {}
+		AudioAnalyzer(winrt::Webrtc::implementation::WebrtcManager* manager)
+		{
+			this->manager = manager;
+		}
+		void Initialize(int sample_rate_hz, int num_channels) override {}
+		void Analyze(const webrtc::AudioBuffer* audio) override {
+			/*	const webrtc::ChannelBuffer<float>* channel = audio->data_f();
+				Platform::Array<float>^ data = ref new Platform::Array<float>(channel->num_frames());
+
+				webrtc::DownmixToMono<float, float>(channel->channels(), channel->num_frames(), channel->num_channels(), data->Data);
+				manager->UpdateInBytes(data);*/
+		};
+		std::string ToString() const override { return "AudioAnalyzer"; }
+	};
+
+
+
+	StreamTransport::StreamTransport(webrtc::Call* call, winrt::Windows::Storage::Streams::DataWriter const& sendStream) : call(call), sendStream(sendStream)
 	{
 		this->call->SignalChannelNetworkState(webrtc::MediaType::AUDIO, webrtc::NetworkState::kNetworkUp);
 		//this->call->SignalChannelNetworkState(webrtc::MediaType::VIDEO, webrtc::NetworkState::kNetworkUp);
@@ -57,24 +66,38 @@ namespace Webrtc
 
 	bool StreamTransport::SendRtcp(const uint8_t* packet, size_t length)
 	{
-		sendStream->WriteBytes(Platform::ArrayReference<uint8_t>((uint8_t*)packet, length));
-		sendStream->StoreAsync();
+		sendStream.WriteBytes(winrt::array_view(packet, packet + length));
+		sendStream.StoreAsync();
 		return true;
 	}
+}
 
+namespace winrt::Webrtc::implementation
+{
+
+	void WebrtcManager::UpdateInBytes(winrt::array_view<float> const& data)
+	{
+//		this->AudioInData(data);
+	}
+
+	void WebrtcManager::UpdateOutBytes(winrt::array_view<float> const& data)
+	{
+//		this->AudioOutData(data);
+	}
+	
 	void WebrtcManager::CreateVoe()
 	{
 		this->g_audioDecoderFactory = webrtc::CreateBuiltinAudioDecoderFactory();
 		this->g_audioEncoderFactory = webrtc::CreateBuiltinAudioEncoderFactory();
 
 		rtc::scoped_refptr<webrtc::AudioDeviceModule> audioDeviceModule;
-		IAudioDeviceWasapi::CreationProperties props;
+		::Webrtc::IAudioDeviceWasapi::CreationProperties props;
 		props.id_ = "";
 		props.playoutEnabled_ = true;
 		props.recordingEnabled_ = true;
-		auto adm = rtc::scoped_refptr<webrtc::AudioDeviceModule>(IAudioDeviceWasapi::create(props));
-
-		rtc::scoped_refptr<webrtc::AudioProcessing> apm = webrtc::AudioProcessingBuilder().SetCaptureAnalyzer(std::unique_ptr<AudioAnalyzer>(new AudioAnalyzer())).Create();
+		auto adm = rtc::scoped_refptr<webrtc::AudioDeviceModule>(::Webrtc::IAudioDeviceWasapi::create(props));
+		::Webrtc::AudioAnalyzer* tmp = new ::Webrtc::AudioAnalyzer(this);
+		rtc::scoped_refptr<webrtc::AudioProcessing> apm = webrtc::AudioProcessingBuilder().SetCaptureAnalyzer(std::unique_ptr<::Webrtc::AudioAnalyzer>(tmp)).Create();
 
 		this->g_engine = new cricket::WebRtcVoiceEngine(adm,
 			g_audioEncoderFactory,
@@ -161,18 +184,49 @@ namespace Webrtc
 		}
 	}
 
+	void WebrtcManager::IpAndPortObtained(winrt::event_token const& token) noexcept
+	{
+		this->m_ipAndPortObtained.remove(token);
+	}
+
+	event_token WebrtcManager::IpAndPortObtained(Windows::Foundation::TypedEventHandler<hstring, USHORT> const& handler)
+	{
+		return this->m_ipAndPortObtained.add(handler);
+	}
+
+
+	void WebrtcManager::AudioOutData(winrt::event_token const& token) noexcept
+	{
+		this->m_audioOutData.remove(token);
+	}
+
+	event_token WebrtcManager::AudioOutData(Windows::Foundation::EventHandler<Windows::Foundation::IInspectable> const& handler)
+	{
+		return this->m_audioOutData.add(handler);
+	}
+
+
+	void WebrtcManager::AudioInData(winrt::event_token const& token) noexcept
+	{
+		this->m_audioOutData.remove(token);
+	}
+
+	event_token WebrtcManager::AudioInData(Windows::Foundation::EventHandler<Windows::Foundation::IInspectable> const& handler)
+	{
+		return this->m_audioInData.add(handler);
+	}
 
 	void WebrtcManager::SetupCall()
 	{
 		this->CreateVoe();
 		this->CreateCall();
-		this->g_audioSendTransport = new StreamTransport(this->g_call, this->outputStream);
+		this->g_audioSendTransport = new ::Webrtc::StreamTransport(this->g_call, this->outputStream);
 	}
 
 	WebrtcManager::WebrtcManager()
 	{
-		udpSocket = ref new Windows::Networking::Sockets::DatagramSocket();
-		udpSocket->MessageReceived += ref new Windows::Foundation::TypedEventHandler<Windows::Networking::Sockets::DatagramSocket^, Windows::Networking::Sockets::DatagramSocketMessageReceivedEventArgs^>(this, &WebrtcManager::OnMessageReceived);
+		udpSocket = winrt::Windows::Networking::Sockets::DatagramSocket();
+		udpSocket.MessageReceived({ this, &WebrtcManager::OnMessageReceived });
 	}
 
 	void WebrtcManager::Create()
@@ -186,46 +240,45 @@ namespace Webrtc
 
 	}
 
-	void WebrtcManager::ConnectAsync(Platform::String^ ip, Platform::String^ port, UINT32 ssrc)
+	winrt::Windows::Foundation::IAsyncAction WebrtcManager::ConnectAsync(winrt::hstring ip, winrt::hstring port, UINT32 ssrc)
 	{
 		this->ssrc = ssrc;
-		concurrency::create_task(udpSocket->ConnectAsync(ref new Windows::Networking::HostName(ip), port)).then([this, ssrc]()
-		{
-			outputStream = ref new Windows::Storage::Streams::DataWriter(udpSocket->OutputStream);
-			WebrtcManager::Create();
-			SendSelectProtocol(ssrc);
-		});
+		co_await this->udpSocket.ConnectAsync(winrt::Windows::Networking::HostName(ip), port);
 
+		this->outputStream = winrt::Windows::Storage::Streams::DataWriter(this->udpSocket.OutputStream());
+		this->Create();
+		this->SendSelectProtocol(ssrc);
 	}
 
 	void WebrtcManager::SendSelectProtocol(UINT32 ssrc)
 	{
-		Platform::Array<unsigned char>^ packet = ref new Platform::Array<unsigned char>(70);
+		std::array<unsigned char, 70> packet;
 		packet[0] = (BYTE)(ssrc >> 24);
 		packet[1] = (BYTE)(ssrc >> 16);
 		packet[2] = (BYTE)(ssrc >> 8);
 		packet[3] = (BYTE)(ssrc >> 0);
-		outputStream->WriteBytes(packet);
-		outputStream->StoreAsync();
+		this->outputStream.WriteBytes(packet);
+		this->outputStream.StoreAsync();
 	}
 
 	bool hasGotIp = false;
 
-	void WebrtcManager::OnMessageReceived(Windows::Networking::Sockets::DatagramSocket^ sender, Windows::Networking::Sockets::DatagramSocketMessageReceivedEventArgs^ args)
+	void WebrtcManager::OnMessageReceived(winrt::Windows::Networking::Sockets::DatagramSocket const& sender, winrt::Windows::Networking::Sockets::DatagramSocketMessageReceivedEventArgs const& args)
 	{
-		Windows::Storage::Streams::DataReader^ dr = args->GetDataReader();
-		unsigned int dataLength = dr->UnconsumedBufferLength;
+		winrt::Windows::Storage::Streams::DataReader dr = args.GetDataReader();
+		unsigned int dataLength = dr.UnconsumedBufferLength();
 		if (hasGotIp)
 		{
-			Platform::Array<BYTE>^ bytes = ref new Platform::Array<BYTE>(dataLength);
-			dr->ReadBytes(bytes);
-			BYTE* packet = bytes->begin();
+			std::vector<BYTE> bytes = std::vector<BYTE>(dataLength);
+			dr.ReadBytes(bytes);
 
-			if (webrtc::RtpHeaderParser::IsRtcp(packet, dataLength))
+			rtc::CopyOnWriteBuffer buffer = rtc::CopyOnWriteBuffer(bytes.data(), dataLength);
+			
+			if (webrtc::RtpHeaderParser::IsRtcp(bytes.data(), dataLength))
 			{
-				workerThread->Invoke<void>(RTC_FROM_HERE, [this, packet, dataLength]() {
+				workerThread->Invoke<void>(RTC_FROM_HERE, [this, buffer, dataLength]() {
 					rtc::PacketTime pTime = rtc::CreatePacketTime(0);
-					webrtc::PacketReceiver::DeliveryStatus status = this->g_call->Receiver()->DeliverPacket(webrtc::MediaType::ANY, rtc::CopyOnWriteBuffer(packet, dataLength), pTime.timestamp);
+					webrtc::PacketReceiver::DeliveryStatus status = this->g_call->Receiver()->DeliverPacket(webrtc::MediaType::ANY, buffer, pTime.timestamp);
 				});
 			}
 			else
@@ -233,35 +286,35 @@ namespace Webrtc
 				BYTE nonce[24] = { 0 };
 				BYTE* decrypted = new BYTE[dataLength - 16];
 
-				memcpy(nonce, packet, 12);
-				memcpy(decrypted, packet, 12);
+				memcpy(nonce, bytes.data(), 12);
+				memcpy(decrypted, bytes.data(), 12);
 
-				crypto_secretbox_open_easy(decrypted + 12, packet + 12, dataLength - 12, nonce, key);
+				crypto_secretbox_open_easy(decrypted + 12, bytes.data() + 12, dataLength - 12, nonce, key);
 				workerThread->Invoke<void>(RTC_FROM_HERE, [this, decrypted, dataLength]() {
 					rtc::PacketTime pTime = rtc::CreatePacketTime(0);
 					webrtc::PacketReceiver::DeliveryStatus status = this->g_call->Receiver()->DeliverPacket(webrtc::MediaType::AUDIO, rtc::CopyOnWriteBuffer(decrypted, dataLength - 16), pTime.timestamp);
+				//	delete decrypted;
 				});
 			}
 
 		}
 		else {
 			hasGotIp = true;
-			dr->ReadInt32();
-			Platform::Array<BYTE>^ bytes = ref new Platform::Array<BYTE>(64);
-			dr->ReadBytes(bytes);
+			dr.ReadInt32();
+			std::array<BYTE, 64> bytes;
+			dr.ReadBytes(bytes);
 
 			wchar_t wcstring[65] = { 0 };
 			size_t length = 0;
-			mbstowcs_s(&length, wcstring, 65, (char*)bytes->begin(), _TRUNCATE);
 
-			Platform::String^ ip = ref new Platform::String(wcstring, length - 1);
-			USHORT port = dr->ReadUInt16();
-			IpAndPortObtained(ip, port);
+			std::wstring ip(std::begin(bytes), std::end(bytes));
+			USHORT port = dr.ReadUInt16();
+			this->m_ipAndPortObtained(winrt::hstring(ip), port);
 		}
 	}
 
-	void WebrtcManager::SetKey(const Platform::Array<BYTE>^ key)
+	void WebrtcManager::SetKey(winrt::array_view<const BYTE> key)
 	{
-		memcpy(this->key, key->begin(), 32);
+		memcpy(this->key, key.begin(), 32);
 	}
 }

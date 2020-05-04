@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resources">
-      <UniqueIdentifier>1407dc6b-8be6-4178-850d-a82ac52091d2</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{81272126-0f77-4f91-84e7-30ed1f8e060d}</UniqueIdentifier>
     </Filter>
@@ -13,6 +9,7 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="WebrtcManager.cpp" />
     <ClCompile Include="AudioDeviceWasapi.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -9577,5 +9574,13 @@
     <ClInclude Include="include\absl\utility\utility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Webrtc.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="WebrtcManager.idl" />
   </ItemGroup>
 </Project>

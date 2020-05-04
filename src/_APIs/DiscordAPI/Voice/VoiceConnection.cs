@@ -340,7 +340,7 @@ namespace DiscordAPI.Voice
 
             FireEventOnDelegate(Event, Ready);
 
-            _webrtcManager.ConnectAsync(ready.Ip, ready.Port.ToString(), lastReady.SSRC);
+            await _webrtcManager.ConnectAsync(ready.Ip, ready.Port.ToString(), lastReady.SSRC);
         }
 
         private void OnSessionDesc(SocketFrame Event)
