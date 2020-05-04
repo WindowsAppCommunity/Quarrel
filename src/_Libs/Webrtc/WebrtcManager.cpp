@@ -271,10 +271,10 @@ namespace winrt::Webrtc::implementation
 			std::vector<BYTE> bytes = std::vector<BYTE>(dataLength);
 			dr.ReadBytes(bytes);
 
-			rtc::CopyOnWriteBuffer buffer = rtc::CopyOnWriteBuffer(bytes.data(), dataLength);
-			
 			if (webrtc::RtpHeaderParser::IsRtcp(bytes.data(), dataLength))
 			{
+				rtc::CopyOnWriteBuffer buffer = rtc::CopyOnWriteBuffer(bytes.data(), dataLength);
+
 				workerThread->Invoke<void>(RTC_FROM_HERE, [this, buffer, dataLength]() {
 					rtc::PacketTime pTime = rtc::CreatePacketTime(0);
 					webrtc::PacketReceiver::DeliveryStatus status = this->g_call->Receiver()->DeliverPacket(webrtc::MediaType::ANY, buffer, pTime.timestamp);
