@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using DiscordAPI.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -14,6 +15,7 @@ namespace Quarrel.ViewModels.SubPages.AddServer.Pages
     public class JoinServerPageViewModel : ViewModelBase
     {
         private string _joinCode;
+        private Invite _invite;
         private RelayCommand _joinServerCommand;
 
         /// <summary>
@@ -29,7 +31,20 @@ namespace Quarrel.ViewModels.SubPages.AddServer.Pages
         public string JoinCode
         {
             get => _joinCode;
-            set => Set(ref _joinCode, value);
+            set
+            {
+                Set(ref _joinCode, value);
+                CheckInvite(value);
+            }
+        }
+
+        /// <summary>
+        /// The invite found for the pending inviteCode.
+        /// </summary>
+        public Invite FoundInvite
+        {
+            get => _invite;
+            set => Set(ref _invite, value);
         }
 
         /// <summary>
@@ -49,6 +64,18 @@ namespace Quarrel.ViewModels.SubPages.AddServer.Pages
 
             SubFrameNavigationService.GoBack();
         });
+
+        private async void CheckInvite(string code)
+        {
+            try
+            {
+                FoundInvite = await DiscordService.InviteService.GetInvite(code);
+            }
+            catch
+            {
+                FoundInvite = null;
+            }
+        }
 
         private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
 

@@ -5,14 +5,22 @@
     xmlns:local="using:Quarrel.SubPages.AddServer.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" Margin="0,24,0,0"
+    <Page.Resources>
+        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+    </Page.Resources>
+
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,24,0,0"
                 VerticalAlignment="Top" HorizontalAlignment="Center">
-        <TextBox PlaceholderText="Join Code" Width="200" Style="{StaticResource TextBoxStyle1}"
-                 Text="{x:Bind ViewModel.JoinCode, Mode=TwoWay}"/>
-        <Button Content="Join" Style="{StaticResource DiscordButton}"
+            <TextBox PlaceholderText="Join Code" Width="200" Style="{StaticResource TextBoxStyle1}"
+                 Text="{x:Bind ViewModel.JoinCode, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <Button Content="Join" Style="{StaticResource DiscordButton}"
                 Command="{x:Bind ViewModel.JoinServerCommand, Mode=OneWay}"/>
+        </StackPanel>
+
+        <TextBlock Text="{x:Bind ViewModel.FoundInvite.Guild.Name, Mode=OneWay}" Visibility="{x:Bind ViewModel.FoundInvite, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"/>
     </StackPanel>
-    
 </Page>
