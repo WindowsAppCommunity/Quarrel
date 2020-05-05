@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
+    xmlns:message="using:Quarrel.Controls.Messages"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -21,6 +22,7 @@
                 Command="{x:Bind ViewModel.JoinServerCommand, Mode=OneWay}"/>
         </StackPanel>
 
-        <TextBlock Text="{x:Bind ViewModel.FoundInvite.Guild.Name, Mode=OneWay}" Visibility="{x:Bind ViewModel.FoundInvite, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"/>
+        <message:InviteControl Visibility="{x:Bind ViewModel.IsValid, Mode=OneWay}" HorizontalAlignment="Center"
+                               DataContext="{x:Bind ViewModel.FoundInvite, Mode=OneWay}"/>
     </StackPanel>
 </Page>

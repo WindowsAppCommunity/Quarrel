@@ -2,6 +2,7 @@
 
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
+using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Clipboard;
 using Windows.UI.Xaml.Controls;
 
@@ -23,11 +24,11 @@ namespace Quarrel.Controls.Messages
         /// <summary>
         /// Gets the invite displayed.
         /// </summary>
-        public Invite ViewModel => DataContext as Invite;
+        public BindableInvite ViewModel => DataContext as BindableInvite;
 
         private void CopyInvite(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(string.Format("https://discord.gg/invite/{0}", ViewModel.Code));
+            SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(string.Format("https://discord.gg/invite/{0}", ViewModel.Model.Code));
         }
 
         private void ShareInvite(object sender, Windows.UI.Xaml.RoutedEventArgs e)

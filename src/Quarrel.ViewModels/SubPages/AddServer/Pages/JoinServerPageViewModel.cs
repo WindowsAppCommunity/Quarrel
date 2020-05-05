@@ -4,6 +4,7 @@ using DiscordAPI.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
+using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.Navigation;
 
@@ -15,7 +16,8 @@ namespace Quarrel.ViewModels.SubPages.AddServer.Pages
     public class JoinServerPageViewModel : ViewModelBase
     {
         private string _joinCode;
-        private Invite _invite;
+        private bool _isValid;
+        private BindableInvite _invite = new BindableInvite(null);
         private RelayCommand _joinServerCommand;
 
         /// <summary>
@@ -23,6 +25,15 @@ namespace Quarrel.ViewModels.SubPages.AddServer.Pages
         /// </summary>
         public JoinServerPageViewModel()
         {
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the current invite code is valid.
+        /// </summary>
+        public bool IsValid
+        {
+            get => _isValid;
+            set => Set(ref _isValid, value);
         }
 
         /// <summary>
@@ -39,9 +50,9 @@ namespace Quarrel.ViewModels.SubPages.AddServer.Pages
         }
 
         /// <summary>
-        /// The invite found for the pending inviteCode.
+        /// Gets or sets the invite found for the pending inviteCode.
         /// </summary>
-        public Invite FoundInvite
+        public BindableInvite FoundInvite
         {
             get => _invite;
             set => Set(ref _invite, value);
@@ -54,7 +65,7 @@ namespace Quarrel.ViewModels.SubPages.AddServer.Pages
         {
             try
             {
-                var invite = await DiscordService.InviteService.AcceptInvite(JoinCode);
+                await DiscordService.InviteService.AcceptInvite(JoinCode);
             }
             catch
             {
@@ -65,20 +76,22 @@ namespace Quarrel.ViewModels.SubPages.AddServer.Pages
             SubFrameNavigationService.GoBack();
         });
 
+        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
+
+        private ISubFrameNavigationService SubFrameNavigationService { get; } = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+
         private async void CheckInvite(string code)
         {
             try
             {
-                FoundInvite = await DiscordService.InviteService.GetInvite(code);
+                FoundInvite.Model = await DiscordService.InviteService.GetInvite(code);
+                FoundInvite.UpdateBindings();
+                IsValid = true;
             }
             catch
             {
-                FoundInvite = null;
+                IsValid = false;
             }
         }
-
-        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
-
-        private ISubFrameNavigationService SubFrameNavigationService { get; } = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
     }
 }

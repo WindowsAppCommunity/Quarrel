@@ -5,9 +5,14 @@
     xmlns:local="using:Quarrel.Controls.Messages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
+    </UserControl.Resources>
 
     <Grid VerticalAlignment="Top" Margin="0" Padding="0,12">
         <Grid.RowDefinitions>
@@ -18,20 +23,15 @@
         <StackPanel Orientation="Horizontal">
             <Rectangle Height="28" Width="28" RadiusX="16" RadiusY="16">
                 <Rectangle.Fill>
-                    <ImageBrush x:Name="Avatar"/>
+                    <ImageBrush ImageSource="{x:Bind ViewModel.IconUrl, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <TextBlock Text="{x:Bind ViewModel.Inviter.Username, Mode=OneWay}" FontSize="13.333" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,0,0,0"/>
+            <TextBlock Text="{x:Bind ViewModel.Model.Inviter.Username, Mode=OneWay}" FontSize="13.333" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,0,0,0"/>
         </StackPanel>
         <!--<HyperlinkButton Style="{ThemeResource PlainTextHyperlinkStyle}" Foreground="#fff04747" Opacity="0.75" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" Margin="0,0,6,0" Click="RemoveInvite">&#xE894;</HyperlinkButton>-->
         <StackPanel Grid.Row="1" Margin="0,2,0,0" Orientation="Horizontal">
-            <RichTextBlock FontSize="20" FontFamily="Consolas" >
-                <Paragraph>
-                    <!--MAKE SURE THESE RUNS ARE ON THE SAME LINE, OTHERWISE THERE WILL BE A REALLY UGLY SPACE BETWEEN THEM!!-->
-                    <Run Foreground="{ThemeResource AccentButtonBorderBrushPointerOver}">http://discord.gg/</Run>
-                    <Run Text="{x:Bind ViewModel.Code, Mode=OneWay}"/>
-                </Paragraph>
-            </RichTextBlock>
+            <TextBlock Text="http://discord.gg/" FontSize="20" Opacity=".5" FontFamily="Consolas"/>
+            <TextBlock Text="{x:Bind ViewModel.Model.Code, Mode=OneWay}" FontSize="20" FontFamily="Consolas"/>
             <HyperlinkButton Style="{ThemeResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.75" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" Margin="6,0,0,3" VerticalAlignment="Bottom" Click="CopyInvite">&#xE8C8;</HyperlinkButton>
             <!--<HyperlinkButton Style="{ThemeResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.75" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" Margin="8,0,0,3" VerticalAlignment="Bottom" Click="ShareInvite">&#xE72D;</HyperlinkButton>-->
         </StackPanel>
