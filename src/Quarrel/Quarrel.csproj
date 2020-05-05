@@ -175,6 +175,9 @@
     <Compile Include="Controls\Messages\HiddenAttachment.xaml.cs">
       <DependentUpon>HiddenAttachment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Messages\InviteControl.xaml.cs">
+      <DependentUpon>InviteControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Messages\MessageBox.xaml.cs">
       <DependentUpon>MessageBox.xaml</DependentUpon>
     </Compile>
@@ -619,6 +622,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\Messages\HiddenAttachment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Messages\InviteControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

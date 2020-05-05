@@ -57,7 +57,7 @@ namespace DiscordAPI.Models
         /// The invite code
         /// </summary>
         [JsonProperty("code")]
-        public string String { get; set; }
+        public string Code { get; set; }
         [JsonProperty("guild")]
         public InviteGuild Guild { get; set; }
         [JsonProperty("channel")]
