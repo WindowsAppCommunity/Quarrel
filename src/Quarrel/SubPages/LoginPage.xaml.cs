@@ -36,7 +36,7 @@ namespace Quarrel.SubPages
         {
             MainContent.Visibility = Visibility.Collapsed;
             CaptchaView.Visibility = Visibility.Visible;
-            CaptchaView.Navigate(new Uri("https://discordapp.com/login"));
+            CaptchaView.Navigate(new Uri("https://discord.com/app"));
         }
 
         private void LoginWithToken_Click(object sender, RoutedEventArgs e)
