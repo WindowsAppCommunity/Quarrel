@@ -76,9 +76,9 @@
                                          DefaultEmbedTemplate="{StaticResource DefaultEmbedTemplate}"
                                          InviteTemplate="{StaticResource InviteTemplate}"
                                              />
-    <DataTemplate x:Key="GifvEmbedTemplate" x:DataType="apimodels:Embed">
-        <MediaElement Source="{x:Bind Video.Url}" IsLooping="True"
-                      Height="{x:Bind Video.ActualHeight}" Width="{x:Bind Video.ActualWidth}"
+    <DataTemplate x:Key="GifvEmbedTemplate" x:DataType="models:BindableEmbed">
+        <MediaElement Source="{x:Bind Model.Video.Url}" IsLooping="True"
+                      Height="{x:Bind Model.Video.ActualHeight}" Width="{x:Bind Model.Video.ActualWidth}"
                       MaxHeight="250"/>
     </DataTemplate>
     <DataTemplate x:Key="YoutubeEmbedTemplate" x:DataType="models:BindableEmbed">
