@@ -165,9 +165,12 @@ namespace Quarrel.ViewModels
             MessengerInstance.Register<GatewayGuildDeletedMessage>(this, m =>
             {
                 BindableGuild guild;
-                guild = _guildsService.AllGuilds[m.Guild.GuildId];
-                _guildsService.AllGuilds.Remove(m.Guild.GuildId);
-                _dispatcherHelper.CheckBeginInvokeOnUi(() => { BindableGuilds.Remove(guild); });
+                if (_guildsService.AllGuilds.ContainsKey(m.Guild.GuildId))
+                {
+                    guild = _guildsService.AllGuilds[m.Guild.GuildId];
+                    _guildsService.AllGuilds.Remove(m.Guild.GuildId);
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() => { BindableGuilds.Remove(guild); });
+                }
             });
 
             MessengerInstance.Register<GatewayUserSettingsUpdatedMessage>(this, m =>

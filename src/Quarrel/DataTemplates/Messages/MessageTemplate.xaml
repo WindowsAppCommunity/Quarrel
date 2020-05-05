@@ -74,7 +74,8 @@
                                          ImageEmbedTemplate="{StaticResource ImageEmbedTemplate}"
                                          RichEmbedTemplate="{StaticResource DefaultEmbedTemplate}"
                                          DefaultEmbedTemplate="{StaticResource DefaultEmbedTemplate}"
-                                         />
+                                         InviteTemplate="{StaticResource InviteTemplate}"
+                                             />
     <DataTemplate x:Key="GifvEmbedTemplate" x:DataType="apimodels:Embed">
         <MediaElement Source="{x:Bind Video.Url}" IsLooping="True"
                       Height="{x:Bind Video.ActualHeight}" Width="{x:Bind Video.ActualWidth}"
@@ -136,15 +137,15 @@
                                 </winui:ItemsRepeater>
                             </StackPanel>
                         </StackPanel>
-                        <!--<Grid Grid.Row="0" Grid.Column="1" VerticalAlignment="Top"  x:Name="ThumbnailImage" x:Load="{x:Bind Model.Thumbnail, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+                        <Grid Grid.Row="0" Grid.Column="1" VerticalAlignment="Top"  x:Name="ThumbnailImage" x:Load="{x:Bind Model.Thumbnail, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
                             <Border CornerRadius="3">
                                 <toolkit:ImageEx Source="{x:Bind Model.Thumbnail.ProxyUrl, Mode=OneWay}" MaxWidth="80" MaxHeight="80" Stretch="Uniform" Tapped="Expand"/>
                             </Border>
-                        </Grid>-->
+                        </Grid>
                     </Grid>
-                    <!--<Viewbox HorizontalAlignment="Left" x:Name="ImageVB" x:Load="{x:Bind Model.Image, Converter={StaticResource NotNullToBoolConverter}}" StretchDirection="DownOnly" MaxWidth="400" MaxHeight="250">
+                    <Viewbox HorizontalAlignment="Left" x:Name="ImageVB" x:Load="{x:Bind Model.Image, Converter={StaticResource NotNullToBoolConverter}}" StretchDirection="DownOnly" MaxWidth="400" MaxHeight="250">
                         <toolkit:ImageEx Source="{x:Bind Model.Image.ProxyUrl}" Tapped="Expand"/>
-                    </Viewbox>-->
+                    </Viewbox>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -163,6 +164,12 @@
         </Border>
     </DataTemplate>
 
+    <DataTemplate x:Key="InviteTemplate" x:DataType="models:BindableInvite">
+        <Border Background="#55000000" Padding="8,0" CornerRadius="8">
+            <messagecontrols:InviteControl DataContext="{x:Bind}"/>
+        </Border>
+    </DataTemplate>
+    
     <DataTemplate x:Key="MessageTemplate" x:DataType="bindables:BindableMessage">
         <UserControl>
             <UserControl.Resources>

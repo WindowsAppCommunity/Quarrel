@@ -16,6 +16,7 @@ using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.ViewModels.Messages.Gateway;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -291,7 +292,7 @@ namespace Quarrel.ViewModels.Models.Bindables
                     Invite invite = await DiscordService.InviteService.GetInvite(match.Groups[1].Value);
                     BindableEmbeds.Add(new BindableInvite(invite));
                 }
-                catch
+                catch (Exception e)
                 {
                 }
             }

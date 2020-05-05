@@ -4,6 +4,7 @@ using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Services.Clipboard;
+using Quarrel.ViewModels.Services.Discord.Guilds;
 using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Messages
@@ -19,6 +20,10 @@ namespace Quarrel.Controls.Messages
         public InviteControl()
         {
             this.InitializeComponent();
+            this.DataContextChanged += (s, e) =>
+            {
+                this.Bindings.Update();
+            };
         }
 
         /// <summary>

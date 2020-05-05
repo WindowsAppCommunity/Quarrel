@@ -5,7 +5,7 @@ namespace DiscordAPI.API.Invite
 {
     public interface IInviteService
     {
-        [Get("/invites/{inviteCode}?with_counts=true")]
+        [Get("/v6/invites/{inviteCode}?with_counts=true")]
         Task<DiscordAPI.Models.Invite> GetInvite([AliasAs("inviteCode")] string inviteCode);
 
         [Delete("/invites/{inviteCode}")]
