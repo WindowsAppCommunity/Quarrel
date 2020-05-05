@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Threading;
 using Quarrel.ViewModels;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

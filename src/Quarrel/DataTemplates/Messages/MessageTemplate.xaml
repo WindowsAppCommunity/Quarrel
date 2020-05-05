@@ -80,17 +80,17 @@
                       Height="{x:Bind Video.ActualHeight}" Width="{x:Bind Video.ActualWidth}"
                       MaxHeight="250"/>
     </DataTemplate>
-    <DataTemplate x:Key="YoutubeEmbedTemplate" x:DataType="apimodels:Embed">
-        <embeds:YoutubeEmbedTemplate DataContext="{x:Bind}" MaxHeight="250"/>
+    <DataTemplate x:Key="YoutubeEmbedTemplate" x:DataType="models:BindableEmbed">
+        <embeds:YoutubeEmbedTemplate DataContext="{x:Bind Model}" MaxHeight="250"/>
     </DataTemplate>
-    <DataTemplate x:Key="ImageEmbedTemplate" x:DataType="apimodels:Embed">
-        <toolkit:ImageEx Source="{x:Bind Thumbnail.BindUrl}" Width="{x:Bind Thumbnail.Width}" Height="{x:Bind Thumbnail.BindHeight}" HorizontalAlignment="Left"
+    <DataTemplate x:Key="ImageEmbedTemplate" x:DataType="models:BindableEmbed">
+        <toolkit:ImageEx Source="{x:Bind Model.Thumbnail.BindUrl}" Width="{x:Bind Model.Thumbnail.Width}" Height="{x:Bind Model.Thumbnail.BindHeight}" HorizontalAlignment="Left"
                          MaxHeight="250"/>
     </DataTemplate>
-    <DataTemplate x:Key="DefaultEmbedTemplate" x:DataType="apimodels:Embed">
+    <DataTemplate x:Key="DefaultEmbedTemplate" x:DataType="models:BindableEmbed">
         <Border CornerRadius="4" Background="{ThemeResource MidBG}">
             <Grid>
-                <Border x:Name="SideBorder" Width="4" HorizontalAlignment="Left" Background="{x:Bind Color, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}" CornerRadius="4,0,0,4"/>
+                <Border x:Name="SideBorder" Width="4" HorizontalAlignment="Left" Background="{x:Bind Model.Color, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}" CornerRadius="4,0,0,4"/>
                 <StackPanel x:Name="stacker" Margin="16,8,16,8">
                     <Grid x:Name="HeaderGrid">
                         <Grid.RowDefinitions>
@@ -102,21 +102,18 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,16,0" MaxWidth="400">
-                            <StackPanel Orientation="Horizontal" x:Name="AuthorSP" x:Load="{x:Bind Author, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
-                                <Border CornerRadius="10" Margin="0,0,10,0" x:Name="AuthorRect" x:Load="{x:Bind Author.IconUrl, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
-                                    <toolkit:ImageEx Width="20" Height="20" DecodePixelWidth="20" DecodePixelHeight="20" Source="{Binding Author.ProxyIconUrl}"/>
+                            <StackPanel Orientation="Horizontal" x:Name="AuthorSP" x:Load="{x:Bind Model.Author, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+                                <Border CornerRadius="10" Margin="0,0,10,0" x:Name="AuthorRect" x:Load="{x:Bind Model.Author.IconUrl, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+                                    <toolkit:ImageEx Width="20" Height="20" DecodePixelWidth="20" DecodePixelHeight="20" Source="{x:Bind Model.Author.ProxyIconUrl}"/>
                                 </Border>
-                                <HyperlinkButton x:Name="AuthorText" Content="{x:Bind Author.Name}" NavigateUri="{Binding Author.Url}" x:Load="{x:Bind Author.Name, Converter={StaticResource NotNullToBoolConverter}}" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource Foreground}"/>
+                                <HyperlinkButton x:Name="AuthorText" Content="{x:Bind Model.Author.Name}" NavigateUri="{x:Bind Model.Author.Url}" x:Load="{x:Bind Model.Author.Name, Converter={StaticResource NotNullToBoolConverter}}" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource Foreground}"/>
                             </StackPanel>
-                            <TextBlock TextWrapping="WrapWholeWords" TextDecorations="Underline" x:Name="TitleTB" x:Load="{x:Bind Title, Converter={StaticResource NotNullToBoolConverter}}" FontSize="13" FontWeight="SemiBold" Margin="0,4,0,0">
-                                <Hyperlink NavigateUri="{Binding Url}" >
-                                    <Run Text="{x:Bind Title}" />
-                                </Hyperlink>
-                            </TextBlock>
 
-                            <markdown:MarkdownTextBlock Text="{x:Bind Description, Mode=OneWay}" x:Name="ContentMDBlock" x:Load="{x:Bind Description, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Opacity="0.75" FontSize="13" Margin="0,0,0,0" EnableHiddenLinks="True"/>
+                            <TextBlock Text="{x:Bind Model.Title}" TextWrapping="WrapWholeWords" x:Name="TitleTB" FontSize="14" FontWeight="SemiBold" Margin="0,4"/>
+
+                            <markdown:MarkdownTextBlock Text="{x:Bind Model.Description, Mode=OneWay}" x:Name="ContentMDBlock" x:Load="{x:Bind Model.Description, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Opacity="0.75" FontSize="13" Margin="0,0,0,0" EnableHiddenLinks="True"/>
                             <StackPanel x:Name="FieldsStacker">
-                                <winui:ItemsRepeater ItemsSource="{x:Bind Fields, Converter={StaticResource EmbedFieldsConverter}}">
+                                <winui:ItemsRepeater ItemsSource="{x:Bind Model.Fields, Converter={StaticResource EmbedFieldsConverter}}">
                                     <winui:ItemsRepeater.ItemTemplate>
                                         <DataTemplate x:DataType="system:Object">
                                             <ItemsControl ItemsSource="{x:Bind}">
@@ -139,23 +136,23 @@
                                 </winui:ItemsRepeater>
                             </StackPanel>
                         </StackPanel>
-                        <Grid Grid.Row="0" Grid.Column="1" VerticalAlignment="Top"  x:Name="ThumbnailImage" x:Load="{x:Bind Thumbnail, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+                        <!--<Grid Grid.Row="0" Grid.Column="1" VerticalAlignment="Top"  x:Name="ThumbnailImage" x:Load="{x:Bind Model.Thumbnail, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
                             <Border CornerRadius="3">
-                                <toolkit:ImageEx Source="{x:Bind Thumbnail.ProxyUrl, Mode=OneWay}" MaxWidth="80" MaxHeight="80" Stretch="Uniform" Tapped="Expand"/>
+                                <toolkit:ImageEx Source="{x:Bind Model.Thumbnail.ProxyUrl, Mode=OneWay}" MaxWidth="80" MaxHeight="80" Stretch="Uniform" Tapped="Expand"/>
                             </Border>
-                        </Grid>
+                        </Grid>-->
                     </Grid>
-                    <Viewbox HorizontalAlignment="Left" x:Name="ImageVB" x:Load="{x:Bind Image, Converter={StaticResource NotNullToBoolConverter}}" StretchDirection="DownOnly" MaxWidth="400" MaxHeight="250">
-                        <toolkit:ImageEx Source="{x:Bind Image.ProxyUrl}" Tapped="Expand"/>
-                    </Viewbox>
+                    <!--<Viewbox HorizontalAlignment="Left" x:Name="ImageVB" x:Load="{x:Bind Model.Image, Converter={StaticResource NotNullToBoolConverter}}" StretchDirection="DownOnly" MaxWidth="400" MaxHeight="250">
+                        <toolkit:ImageEx Source="{x:Bind Model.Image.ProxyUrl}" Tapped="Expand"/>
+                    </Viewbox>-->
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel x:Name="FooterSP" x:Load="{x:Bind Footer, Converter={StaticResource NotNullToBoolConverter}}" Orientation="Horizontal">
-                            <toolkit:ImageEx Source="{x:Bind Footer.ProxyIconUrl}" x:Name="FooterImage" x:Load="{x:Bind Footer.ProxyIconUrl, Converter={StaticResource NotNullToBoolConverter}}" Width="18" Height="18" Margin="0,0,8,0"/>
-                            <TextBlock Text="{x:Bind Footer.Text}" FontSize="12" FontWeight="SemiBold" Opacity="0.4" VerticalAlignment="Center"/>
+                        <StackPanel x:Name="FooterSP" x:Load="{x:Bind Model.Footer, Converter={StaticResource NotNullToBoolConverter}}" Orientation="Horizontal">
+                            <toolkit:ImageEx Source="{x:Bind Model.Footer.ProxyIconUrl}" x:Name="FooterImage" x:Load="{x:Bind Model.Footer.ProxyIconUrl, Converter={StaticResource NotNullToBoolConverter}}" Width="18" Height="18" Margin="0,0,8,0"/>
+                            <TextBlock Text="{x:Bind Model.Footer.Text}" FontSize="12" FontWeight="SemiBold" Opacity="0.4" VerticalAlignment="Center"/>
                         </StackPanel>
                         <Button Visibility="Collapsed" Style="{StaticResource IntegratedButton}" Grid.Column="1" HorizontalAlignment="Right">
                             <FontIcon Glyph="&#xE72D;" FontFamily="Segoe MDL2 Assets" />
@@ -358,7 +355,7 @@
                           RelativePanel.Below="AttachmentList"
                           RelativePanel.AlignLeftWith="body"
                           x:Load="{x:Bind Model.Embeds, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
-                          ItemsSource="{x:Bind Model.Embeds, Mode=OneWay}"
+                          ItemsSource="{x:Bind BindableEmbeds, Mode=OneWay}"
                           ItemTemplateSelector="{StaticResource EmbedTemplateSelector}"
                           SelectionMode="None">
                     <ListView.ItemContainerStyle>

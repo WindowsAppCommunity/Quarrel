@@ -2,13 +2,14 @@
 
 using DiscordAPI.Models;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Interfaces;
 
 namespace Quarrel.ViewModels.Models.Bindables
 {
     /// <summary>
     /// A Bindable wrapper for the <see cref="Invite"/> model.
     /// </summary>
-    public class BindableInvite : BindableModelBase<Invite>
+    public class BindableInvite : BindableModelBase<Invite>, IEmbed
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableInvite"/> class.

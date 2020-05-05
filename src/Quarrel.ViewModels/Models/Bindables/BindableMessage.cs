@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
@@ -18,6 +19,7 @@ using Quarrel.ViewModels.ViewModels.Messages.Gateway;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Quarrel.ViewModels.Models.Bindables
 {
@@ -52,7 +54,9 @@ namespace Quarrel.ViewModels.Models.Bindables
             _author = member;
 
             ConvertAttachments();
+            ConvertEmbeds();
             ConvertReactions();
+            FindInvites();
 
             Messenger.Default.Register<GatewayGuildMembersChunkMessage>(this, m =>
             {
@@ -196,20 +200,27 @@ namespace Quarrel.ViewModels.Models.Bindables
         }
 
         /// <summary>
+        /// Gets or sets the UI Bindable reactions on the message.
+        /// </summary>
+        public ObservableCollection<BindableReaction> BindableReactions { get; set; } = new ObservableCollection<BindableReaction>();
+
+        /// <summary>
         /// Gets or sets the UI Bindable attachments on the message.
         /// </summary>
         public ObservableCollection<BindableAttachment> BindableAttachments { get; set; } = new ObservableCollection<BindableAttachment>();
 
         /// <summary>
-        /// Gets or sets the UI Bindable reactions on the message.
+        /// Gets or sets the UI Bindable embeds on the message.
         /// </summary>
-        public ObservableCollection<BindableReaction> BindableReactions { get; set; } = new ObservableCollection<BindableReaction>();
+        public ObservableCollection<IEmbed> BindableEmbeds { get; set; } = new ObservableCollection<IEmbed>();
 
         private BindableChannel Channel => ChannelsService.AllChannels[Model.ChannelId];
 
         private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
 
         private ICurrentUserService CurrentUserService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
+
+        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
 
         private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
 
@@ -227,9 +238,9 @@ namespace Quarrel.ViewModels.Models.Bindables
         }
 
         /// <summary>
-        /// Converts the attachments to bindable attachments.
+        /// Converts the <see cref="Attachment"/> to <see cref="BindableAttachment"/>.
         /// </summary>
-        public void ConvertAttachments()
+        private void ConvertAttachments()
         {
             if (Model.Attachments != null)
             {
@@ -241,9 +252,23 @@ namespace Quarrel.ViewModels.Models.Bindables
         }
 
         /// <summary>
-        /// Converts the reactions to bindable reactions.
+        /// Converts the <see cref="Embed"/> to <see cref="BindableEmbed"/>.
         /// </summary>
-        public void ConvertReactions()
+        private void ConvertEmbeds()
+        {
+            if (Model.Embeds != null)
+            {
+                foreach (var embed in Model.Embeds)
+                {
+                    BindableEmbeds.Add(new BindableEmbed(embed));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Converts the <see cref="Reaction"/> to <see cref="BindableReaction"/>.
+        /// </summary>
+        private void ConvertReactions()
         {
             if (Model.Reactions != null)
             {
@@ -252,6 +277,22 @@ namespace Quarrel.ViewModels.Models.Bindables
                     reaction.ChannelId = Model.ChannelId;
                     reaction.MessageId = Model.Id;
                     BindableReactions.Add(new BindableReaction(reaction));
+                }
+            }
+        }
+
+        private async void FindInvites()
+        {
+            MatchCollection matches = Regex.Matches(Model.Content, Helpers.Constants.Regex.InviteRegex);
+            foreach (Match match in matches)
+            {
+                try
+                {
+                    Invite invite = await DiscordService.InviteService.GetInvite(match.Groups[1].Value);
+                    BindableEmbeds.Add(new BindableInvite(invite));
+                }
+                catch
+                {
                 }
             }
         }
