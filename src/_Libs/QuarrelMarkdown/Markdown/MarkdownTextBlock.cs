@@ -17,7 +17,7 @@ using Quarrel.Controls.Markdown.ColorCode.ColorCode.UWP;
 using Quarrel.Controls.Markdown.Display;
 using Quarrel.Controls.Markdown.Helpers;
 using Quarrel.Controls.Markdown.Parse;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Channels;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Core;

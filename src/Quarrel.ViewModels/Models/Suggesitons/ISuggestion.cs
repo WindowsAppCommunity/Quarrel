@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-namespace Quarrel.ViewModels.Models
+namespace Quarrel.ViewModels.Models.Suggesitons
 {
     /// <summary>
     /// Represents a suggestion for the MessageBox.

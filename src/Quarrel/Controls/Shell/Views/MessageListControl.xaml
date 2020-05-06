@@ -10,7 +10,7 @@
     xmlns:controls="using:Quarrel.Controls"
     xmlns:viewModels="using:Quarrel.ViewModels"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
-    xmlns:bindables="using:Quarrel.ViewModels.Models.Bindables"
+    xmlns:messagebindables="using:Quarrel.ViewModels.Models.Bindables.Messages"
     xmlns:messages="using:Quarrel.DataTemplates.Messages"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -27,11 +27,11 @@
                                                MessageTemplate="{StaticResource MessageTemplate}"
                                                ActionMessageTemplate="{StaticResource ActionMessageTemplate}"/>
 
-            <DataTemplate x:Key="ActionMessageTemplate" x:DataType="bindables:BindableMessage">
+            <DataTemplate x:Key="ActionMessageTemplate" x:DataType="messagebindables:BindableMessage">
                 <msgcontrol:ActionMessageTemplate DataContext="{x:Bind}"/>
             </DataTemplate>
 
-            <DataTemplate x:Key="ActionMessageTemplate1" x:DataType="bindables:BindableMessage">
+            <DataTemplate x:Key="ActionMessageTemplate1" x:DataType="messagebindables:BindableMessage">
                 <TextBox Text="{x:Bind Model.Content}"/>
             </DataTemplate>
         </ResourceDictionary>

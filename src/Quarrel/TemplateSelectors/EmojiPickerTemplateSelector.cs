@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using Quarrel.ViewModels.Models;
+using Quarrel.ViewModels.Models.Emojis;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

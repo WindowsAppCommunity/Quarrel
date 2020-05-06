@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Guilds;
 using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Channels

@@ -12,7 +12,7 @@
 // Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.Models;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Channels;
 using System;
 
 namespace Quarrel.Controls.Markdown

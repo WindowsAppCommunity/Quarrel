@@ -7,6 +7,8 @@ using JetBrains.Annotations;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Bindables.Guilds;
+using Quarrel.ViewModels.Models.Bindables.Users;
 using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
@@ -25,7 +27,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 
-namespace Quarrel.ViewModels.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables.Channels
 {
     /// <summary>
     /// A Bindable wrapper for the <see cref="Channel"/> model.

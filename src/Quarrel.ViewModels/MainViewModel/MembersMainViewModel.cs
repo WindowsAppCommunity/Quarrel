@@ -5,7 +5,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Messages.Gateway;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Users;
 using Quarrel.ViewModels.Models.Interfaces;
 using System;
 using System.Collections.Generic;

@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Quarrel.ViewModels.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables.Users
 {
     /// <summary>
     /// A Bindable wrapper for the <see cref="GuildMember"/> model.

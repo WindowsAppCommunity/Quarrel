@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using Quarrel.ViewModels.Controls.Messages;
-using Quarrel.ViewModels.Models;
+using Quarrel.ViewModels.Models.Suggesitons;
 using Refit;
 using System;
 using System.IO;

@@ -1,13 +1,11 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using DiscordAPI.API.Channel.Models;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Messages.Embeds;
 using Quarrel.ViewModels.Services.Discord.Rest;
-using Quarrel.ViewModels.Services.Navigation;
 
 namespace Quarrel.ViewModels.SubPages
 {

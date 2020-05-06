@@ -9,6 +9,8 @@ using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Gateway.Guild;
 using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Bindables.Channels;
+using Quarrel.ViewModels.Models.Bindables.Users;
 using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Clipboard;
@@ -22,7 +24,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 
-namespace Quarrel.ViewModels.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables.Guilds
 {
     /// <summary>
     /// A Bindable wrapper for the <see cref="Guild"/> model.

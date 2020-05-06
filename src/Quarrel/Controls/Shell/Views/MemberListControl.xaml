@@ -18,7 +18,8 @@
     xmlns:models="using:DiscordAPI.Models"
     xmlns:members="using:Quarrel.DataTemplates.Members"
     xmlns:templateSelectors="using:Quarrel.TemplateSelectors"
-    xmlns:bindables="using:Quarrel.ViewModels.Models.Bindables"
+    xmlns:guildbindables="using:Quarrel.ViewModels.Models.Bindables.Guilds"
+    xmlns:userbindables="using:Quarrel.ViewModels.Models.Bindables.Users"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     xmlns:quarrel="using:Quarrel"
     mc:Ignorable="d"
@@ -104,7 +105,7 @@
                         </Style>
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="bindables:BindableGuildMemberGroup">
+                        <DataTemplate x:DataType="userbindables:BindableGuildMemberGroup">
                             <Grid VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>

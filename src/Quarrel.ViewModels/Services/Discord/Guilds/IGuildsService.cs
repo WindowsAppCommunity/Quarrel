@@ -2,6 +2,8 @@
 
 using DiscordAPI.Models;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Guilds;
+using Quarrel.ViewModels.Models.Bindables.Users;
 using System.Collections.Generic;
 
 namespace Quarrel.ViewModels.Services.Discord.Guilds

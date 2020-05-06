@@ -8,7 +8,7 @@ using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Rest;
 
-namespace Quarrel.ViewModels.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables.Messages.Embeds
 {
     /// <summary>
     /// A Bindable wrapper for the <see cref="Invite"/> model.

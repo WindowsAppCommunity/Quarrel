@@ -7,7 +7,8 @@
     xmlns:markdown="using:Quarrel.Controls.Markdown"
     xmlns:bindables="using:Quarrel.ViewModels.Models.Bindables"
     xmlns:templateSelectors="using:Quarrel.TemplateSelectors"
-    xmlns:models="using:Quarrel.ViewModels.Models.Bindables"
+    xmlns:messagebindables="using:Quarrel.ViewModels.Models.Bindables.Messages"
+    xmlns:embedbindables="using:Quarrel.ViewModels.Models.Bindables.Messages.Embeds"
     xmlns:apimodels="using:DiscordAPI.Models"
     xmlns:embeds="using:Quarrel.Controls.Messages.Embeds"
     xmlns:members="using:Quarrel.Controls.Members"
@@ -31,7 +32,7 @@
                                               DefaultAttachmentTemplate="{StaticResource DefaultAttachmentTemplate}"
                                               ImageAttachmentTemplate="{StaticResource ImageAttachmentTemplate}"
                                               VideoAttachmentTemplate="{StaticResource VideoAttachmentTemplate}"/>
-    <DataTemplate x:Key="DefaultAttachmentTemplate" x:DataType="models:BindableAttachment">
+    <DataTemplate x:Key="DefaultAttachmentTemplate" x:DataType="embedbindables:BindableAttachment">
         <Grid VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -44,7 +45,7 @@
             </StackPanel>
         </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="ImageAttachmentTemplate" x:DataType="models:BindableAttachment">
+    <DataTemplate x:Key="ImageAttachmentTemplate" x:DataType="embedbindables:BindableAttachment">
         <Grid>
             <messagecontrols:HiddenAttachment DataContext="{x:Bind}" Visibility="{x:Bind IsShowing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
             <toolkit:ImageEx x:Name="media" Source="{x:Bind Model.Url}" x:Load="{x:Bind IsShowing, Mode=OneWay}"
@@ -53,7 +54,7 @@
                          HorizontalAlignment="Left" Tapped="Expand" MaxHeight="250"/>
         </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="VideoAttachmentTemplate" x:DataType="models:BindableAttachment">
+    <DataTemplate x:Key="VideoAttachmentTemplate" x:DataType="embedbindables:BindableAttachment">
         <Grid>
             <messagecontrols:HiddenAttachment DataContext="{x:Bind}" Visibility="{x:Bind IsShowing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
             <MediaElement x:Name="media" Source="{x:Bind Model.ProxyUrl}" x:Load="{x:Bind IsShowing, Mode=OneWay}"
@@ -76,19 +77,19 @@
                                          DefaultEmbedTemplate="{StaticResource DefaultEmbedTemplate}"
                                          InviteTemplate="{StaticResource InviteTemplate}"
                                              />
-    <DataTemplate x:Key="GifvEmbedTemplate" x:DataType="models:BindableEmbed">
+    <DataTemplate x:Key="GifvEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
         <MediaElement Source="{x:Bind Model.Video.Url}" IsLooping="True"
                       Height="{x:Bind Model.Video.ActualHeight}" Width="{x:Bind Model.Video.ActualWidth}"
                       MaxHeight="250"/>
     </DataTemplate>
-    <DataTemplate x:Key="YoutubeEmbedTemplate" x:DataType="models:BindableEmbed">
+    <DataTemplate x:Key="YoutubeEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
         <embeds:YoutubeEmbedTemplate DataContext="{x:Bind Model}" MaxHeight="250"/>
     </DataTemplate>
-    <DataTemplate x:Key="ImageEmbedTemplate" x:DataType="models:BindableEmbed">
+    <DataTemplate x:Key="ImageEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
         <toolkit:ImageEx Source="{x:Bind Model.Thumbnail.BindUrl}" Width="{x:Bind Model.Thumbnail.Width}" Height="{x:Bind Model.Thumbnail.BindHeight}" HorizontalAlignment="Left"
                          MaxHeight="250"/>
     </DataTemplate>
-    <DataTemplate x:Key="DefaultEmbedTemplate" x:DataType="models:BindableEmbed">
+    <DataTemplate x:Key="DefaultEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
         <Border CornerRadius="4" Background="{ThemeResource MidBG}">
             <Grid>
                 <Border x:Name="SideBorder" Width="4" HorizontalAlignment="Left" Background="{x:Bind Model.Color, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}" CornerRadius="4,0,0,4"/>
@@ -164,13 +165,13 @@
         </Border>
     </DataTemplate>
 
-    <DataTemplate x:Key="InviteTemplate" x:DataType="models:BindableInvite">
+    <DataTemplate x:Key="InviteTemplate" x:DataType="embedbindables:BindableInvite">
         <Border Background="#55000000" Padding="8,0" CornerRadius="8">
             <messagecontrols:InviteControl DataContext="{x:Bind}"/>
         </Border>
     </DataTemplate>
-    
-    <DataTemplate x:Key="MessageTemplate" x:DataType="bindables:BindableMessage">
+
+    <DataTemplate x:Key="MessageTemplate" x:DataType="messagebindables:BindableMessage">
         <UserControl>
             <UserControl.Resources>
                 <Storyboard x:Name="PointerEntered">

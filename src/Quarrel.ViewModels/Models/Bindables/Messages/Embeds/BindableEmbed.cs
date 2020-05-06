@@ -4,7 +4,7 @@ using DiscordAPI.Models;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Models.Interfaces;
 
-namespace Quarrel.ViewModels.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables.Messages.Embeds
 {
     /// <summary>
     /// A Bindable wrapper on the <see cref="Embed"/> class.

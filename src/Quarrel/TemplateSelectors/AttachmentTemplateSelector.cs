@@ -2,7 +2,7 @@
 
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Messages.Embeds;
 using Quarrel.ViewModels.Services.Settings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

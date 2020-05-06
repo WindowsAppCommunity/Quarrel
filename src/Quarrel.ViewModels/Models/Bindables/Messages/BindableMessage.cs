@@ -6,6 +6,10 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Bindables.Channels;
+using Quarrel.ViewModels.Models.Bindables.Messages.Embeds;
+using Quarrel.ViewModels.Models.Bindables.Users;
+using Quarrel.ViewModels.Models.Emojis;
 using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.Discord.Channels;
@@ -21,8 +25,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Emoji = Quarrel.ViewModels.Models.Emojis.Emoji;
 
-namespace Quarrel.ViewModels.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables.Messages
 {
     /// <summary>
     /// A Bindable wrapper of the <see cref="Message"/> model.

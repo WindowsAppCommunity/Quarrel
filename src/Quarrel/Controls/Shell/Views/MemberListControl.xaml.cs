@@ -4,7 +4,7 @@ using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using Quarrel.ViewModels;
 using Quarrel.ViewModels.Messages.Navigation;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;

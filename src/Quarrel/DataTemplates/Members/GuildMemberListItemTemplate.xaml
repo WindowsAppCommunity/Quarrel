@@ -4,9 +4,8 @@
     xmlns:local="using:Quarrel.DataTemplates.Members"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls="using:Quarrel.Controls"
-    xmlns:bindables="using:Quarrel.ViewModels.Models.Bindables"
+    xmlns:userbindables="using:Quarrel.ViewModels.Models.Bindables.Users"
     xmlns:membercontrols="using:Quarrel.Controls.Members"
-    xmlns:bindables1="using:Quarrel.ViewModels.Models.Bindables"
     x:Class="Quarrel.DataTemplates.Members.GuildMemberListItemTemplate">
 
     <ResourceDictionary.MergedDictionaries>
@@ -18,7 +17,7 @@
     </Flyout>
 
     <!--Loaded GuildMember Item Template-->
-    <DataTemplate x:Key="GuildMemberListItemTemplate" x:DataType="bindables:BindableGuildMember">
+    <DataTemplate x:Key="GuildMemberListItemTemplate" x:DataType="userbindables:BindableGuildMember">
         <UserControl FlyoutBase.AttachedFlyout="{StaticResource MemberFlyoutTemplate}" Height="52">
             <!--Secondary Flyout-->
             <UserControl.ContextFlyout>
@@ -68,7 +67,7 @@
     </DataTemplate>
 
     <!--GuildMember Group Header Item Template-->
-    <DataTemplate x:Key="GuildMemberGroupListItemTemplate" x:DataType="bindables1:BindableGuildMemberGroup">
+    <DataTemplate x:Key="GuildMemberGroupListItemTemplate" x:DataType="userbindables:BindableGuildMemberGroup">
         <Grid VerticalAlignment="Top" Padding="12,9,12,8">
             <Grid.RowDefinitions>
                 <RowDefinition/>

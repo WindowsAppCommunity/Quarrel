@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using Quarrel.ViewModels;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Messages;
 using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Messages

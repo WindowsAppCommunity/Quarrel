@@ -4,7 +4,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using System.Collections.Generic;
 
-namespace Quarrel.ViewModels.Models
+namespace Quarrel.ViewModels.Models.Emojis
 {
     /// <summary>
     /// Bindable ViewModel for Guild Emojis.

@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Users;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;

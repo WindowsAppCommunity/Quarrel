@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using Newtonsoft.Json;
-using Quarrel.ViewModels.Models;
+using Quarrel.ViewModels.Models.Emojis;
 using System;
 using System.Collections.Generic;
 using System.Linq;

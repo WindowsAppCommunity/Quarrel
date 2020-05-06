@@ -2,7 +2,7 @@
 
 using Quarrel.Helpers;
 using Quarrel.ViewModels.Controls;
-using Quarrel.ViewModels.Models;
+using Quarrel.ViewModels.Models.Emojis;
 using System.Collections.Generic;
 using System.Windows.Input;
 using Windows.UI.Xaml.Controls;

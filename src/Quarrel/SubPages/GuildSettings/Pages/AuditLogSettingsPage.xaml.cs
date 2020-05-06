@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Guilds;
 using Quarrel.ViewModels.SubPages.GuildSettings.Pages;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;

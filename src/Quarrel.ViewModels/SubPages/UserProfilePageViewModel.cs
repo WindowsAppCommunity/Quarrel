@@ -3,7 +3,8 @@
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Guilds;
+using Quarrel.ViewModels.Models.Bindables.Users;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Discord.Friends;
 using Quarrel.ViewModels.Services.Discord.Rest;

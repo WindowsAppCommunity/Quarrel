@@ -5,7 +5,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 
-namespace Quarrel.ViewModels.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables.Guilds
 {
     /// <summary>
     /// A Bindable wrapper for the <see cref="MutualGuild"/> model.

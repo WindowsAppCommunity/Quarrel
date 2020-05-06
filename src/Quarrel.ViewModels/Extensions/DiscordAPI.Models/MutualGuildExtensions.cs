@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Guilds;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 
 namespace DiscordAPI.Models
