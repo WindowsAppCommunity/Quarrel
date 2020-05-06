@@ -334,6 +334,9 @@
     <Compile Include="SubPages\BSOD.xaml.cs">
       <DependentUpon>BSOD.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\CreateInvitePage.xaml.cs">
+      <DependentUpon>CreateInvitePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\CreditPage.xaml.cs">
       <DependentUpon>CreditPage.xaml</DependentUpon>
     </Compile>
@@ -764,6 +767,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\BSOD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\CreateInvitePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

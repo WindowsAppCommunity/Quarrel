@@ -24,7 +24,8 @@
         <!--Guild Flyout-->
         <Button.Flyout>
             <MenuFlyout Placement="Bottom" MenuFlyoutPresenterStyle="{StaticResource GuildButtonFlyoutStyle}">
-                <MenuFlyoutItem Icon="AddFriend" Text="Invite People" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource SystemAccentColor}" Visibility="{x:Bind ViewModel.Permissions.CreateInstantInvite, Mode=OneWay}"/>
+                <MenuFlyoutItem Icon="AddFriend" Text="Invite People" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource SystemAccentColor}" Visibility="{x:Bind ViewModel.Permissions.CreateInstantInvite, Mode=OneWay}"
+                                Command="{x:Bind ViewModel.CreateInvite, Mode=OneWay}"/>
                 <MenuFlyoutSeparator Visibility="{x:Bind ViewModel.Permissions.CreateInstantInvite, Mode=OneWay}" Width="224"/>
                 <MenuFlyoutItem Icon="Setting" Text="Settings" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Command="{x:Bind ViewModel.OpenGuildSettings}"/>
                 <MenuFlyoutSeparator Visibility="{x:Bind ViewModel.Permissions.ManageChannels, Mode=OneWay}"/>

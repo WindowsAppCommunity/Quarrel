@@ -40,6 +40,7 @@ namespace Quarrel.ViewModels.Models.Bindables
         private RelayCommand _markAsRead;
         private RelayCommand _muteGuild;
         private RelayCommand _addChanneleCommand;
+        private RelayCommand _createInvite;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableGuild"/> class.
@@ -322,6 +323,14 @@ namespace Quarrel.ViewModels.Models.Bindables
         public RelayCommand CopyId => _copyId = new RelayCommand(() =>
         {
             SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(Model.Id);
+        });
+
+        /// <summary>
+        /// Gets a command that prompts creating an invite to the guild.
+        /// </summary>
+        public RelayCommand CreateInvite => _createInvite = new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("CreateInvitePage", Model.Id);
         });
 
         private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
