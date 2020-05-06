@@ -200,6 +200,11 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
                 {
                     Permissions perms = Guild.Permissions.Clone();
 
+                    if (ParentId != null && ParentId != Model.Id)
+                    {
+                        perms = ChannelsService.AllChannels[ParentId].Permissions.Clone();
+                    }
+
                     var user = Guild.Model.Members.FirstOrDefault(x => x.User.Id == DiscordService.CurrentUser.Id);
 
                     GuildPermission roleDenies = 0;

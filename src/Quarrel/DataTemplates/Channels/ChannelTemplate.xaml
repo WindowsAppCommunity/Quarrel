@@ -695,7 +695,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="CategoryTemplate" x:DataType="channelbindables:BindableChannel">
-        <UserControl Height="48">
+        <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Height="48">
             <!--Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
@@ -707,7 +707,7 @@
                 </MenuFlyout>
             </UserControl.ContextFlyout>
 
-            <StackPanel Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Height="48" Padding="22,0,24,0"
+            <StackPanel  Height="48" Padding="22,0,24,0"
                         Orientation="Horizontal">
                 <StackPanel.Background>
                     <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
