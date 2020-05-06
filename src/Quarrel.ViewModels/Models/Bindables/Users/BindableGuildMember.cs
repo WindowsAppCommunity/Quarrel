@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using DiscordAPI.API.User.Models;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -7,11 +8,14 @@ using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
+using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Bindables.Channels;
 using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Clipboard;
+using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
@@ -39,6 +43,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
         private List<Role> _cachedRoles;
         private RelayCommand _openProfile;
         private RelayCommand _copyId;
+        private RelayCommand _messageCommand;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableGuildMember"/> class.
@@ -96,6 +101,29 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
         public RelayCommand CopyId => _copyId = new RelayCommand(() =>
         {
             SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(Model.User.Id);
+        });
+
+        /// <summary>
+        /// Gets a command that creates and navigates to a DM channel with the member.
+        /// </summary>
+        public RelayCommand MessageCommand => _messageCommand = new RelayCommand(async () =>
+        {
+            CreateDM createDM = new CreateDM()
+            {
+                Recipients = new string[] { Model.User.Id },
+            };
+
+            var channel = await DiscordService.UserService.CreateDirectMessageChannelForCurrentUser(createDM);
+
+            BindableChannel bChannel;
+            bChannel = ChannelsService.GetChannel(channel.Id);
+            if (bChannel == null)
+            {
+                bChannel = new BindableChannel(channel);
+                ChannelsService.AllChannels.Add(channel.Id, bChannel);
+            }
+
+            MessengerInstance.Send(new ChannelNavigateMessage(bChannel));
         });
 
         /// <summary>
@@ -229,6 +257,8 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
         private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
 
         private ICacheService CacheService { get; } = SimpleIoc.Default.GetInstance<ICacheService>();
+
+        private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
 
         private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
 

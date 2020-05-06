@@ -265,7 +265,7 @@
                             <HyperlinkButton.ContextFlyout>
                                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
                                     <MenuFlyoutItem Text="Profile" Command="{x:Bind OpenProfile, Mode=OneWay}"/>
-                                    <MenuFlyoutItem Text="Message" IsEnabled="False"/>
+                                    <MenuFlyoutItem Text="Message" Command="{x:Bind Author.MessageCommand, Mode=OneWay}"/>
                                     <MenuFlyoutSeparator/>
                                     <MenuFlyoutItem Text="Change Nickname" IsEnabled="False"/>
                                     <MenuFlyoutSeparator/>

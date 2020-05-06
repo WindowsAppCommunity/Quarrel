@@ -23,7 +23,7 @@
             <UserControl.ContextFlyout>
                 <MenuFlyout>
                     <MenuFlyoutItem Text="Profile" Command="{x:Bind OpenProfile, Mode=OneWay}"/>
-                    <MenuFlyoutItem Text="Message" IsEnabled="False"/>
+                    <MenuFlyoutItem Text="Message" Command="{x:Bind MessageCommand, Mode=OneWay}"/>
                     <MenuFlyoutSeparator/>
                     <MenuFlyoutItem Text="Change Nickname" IsEnabled="False"/>
                     <MenuFlyoutSeparator/>

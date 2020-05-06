@@ -292,7 +292,13 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
             });
             Messenger.Default.Register<GuildNavigateMessage>(this, m =>
             {
+                if (CurrentGuild != null)
+                {
+                    CurrentGuild.Selected = false;
+                }
+
                 CurrentGuild = m.Guild;
+                CurrentGuild.Selected = true;
             });
             Messenger.Default.Register<GatewayGuildMembersChunkMessage>(this, m =>
             {

@@ -36,12 +36,12 @@ namespace Quarrel.Controls.Shell.Views
 
             // Scrolls the MemberList to the top when the Channel changes
             Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
+            {
+                DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 {
-                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                        {
-                            MemberList.ScrollIntoView(ViewModel.CurrentBindableMembers.FirstOrDefault());
-                        });
+                    MemberList.ScrollIntoView(ViewModel.CurrentBindableMembers.FirstOrDefault());
                 });
+            });
         }
 
         /// <summary>
