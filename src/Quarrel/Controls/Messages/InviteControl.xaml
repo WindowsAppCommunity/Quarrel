@@ -12,6 +12,7 @@
 
     <UserControl.Resources>
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
+        <baseconvert:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
     </UserControl.Resources>
@@ -42,7 +43,11 @@
             <TextBlock Text="{x:Bind ViewModel.Model.Inviter.Username}" Opacity=".8" FontSize="14"/>
         </StackPanel>
 
-        <!--<HyperlinkButton Style="{ThemeResource PlainTextHyperlinkStyle}" Foreground="#fff04747" Opacity="0.75" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" Margin="0,0,6,0" Click="RemoveInvite">&#xE894;</HyperlinkButton>-->
+        <HyperlinkButton x:Name="RemoveButton" x:Load="{x:Bind InviteList, Mode=OneWay}" Style="{ThemeResource PlainTextHyperlinkStyle}"
+                         Foreground="#fff04747"
+                         Command="{x:Bind ViewModel.RemoveCommand, Mode=OneWay}"
+                         Opacity="0.75" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right"
+                         VerticalAlignment="Center" Grid.Column="1" Click="Remove_Clicked">&#xE894;</HyperlinkButton>
         <StackPanel Grid.Row="2" Margin="0,2,0,0" Orientation="Horizontal">
             <TextBlock Text="http://discord.gg/" FontSize="14" Opacity=".5" FontFamily="Consolas"/>
             <TextBlock Text="{x:Bind ViewModel.Model.Code, Mode=OneWay}" FontSize="14" FontFamily="Consolas"/>
@@ -55,8 +60,9 @@
             <TextBlock x:Uid="/Controls/TemporaryInviteTB" x:Name="TempInvite" Visibility="Collapsed" Text="TEMPORARY INVITE" FontSize="12" FontWeight="Bold" Opacity="0.4" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,48,0"/>
             <TextBlock x:Name="Description" Text="0 uses, expires in 00:00:00" FontSize="13.333" />
         </StackPanel>-->
-        
-        <Button Content="Join" Style="{StaticResource DiscordButton}" Background="{ThemeResource online}" VerticalAlignment="Stretch"
+
+        <Button x:Name="JoinButton" x:Load="{x:Bind InviteList, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}"
+                Content="Join" Style="{StaticResource DiscordButton}" Background="{ThemeResource online}" VerticalAlignment="Stretch"
                 Visibility="{x:Bind ViewModel.Joined, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
                 Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Margin="16,8,16,8" Padding="16" Width="60" Height="60"
                 Command="{x:Bind ViewModel.AcceptInviteCommand, Mode=OneWay}"/>

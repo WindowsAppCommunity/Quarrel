@@ -1,8 +1,11 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Models.Bindables.Messages.Embeds;
 using Quarrel.ViewModels.Services.Clipboard;
+using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Messages
@@ -25,9 +28,19 @@ namespace Quarrel.Controls.Messages
         }
 
         /// <summary>
+        /// Invoked when the remove button is clicked.
+        /// </summary>
+        public event EventHandler<BindableInvite> RemoveClicked;
+
+        /// <summary>
         /// Gets the invite displayed.
         /// </summary>
         public BindableInvite ViewModel => DataContext as BindableInvite;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the control is being used in the invite list.
+        /// </summary>
+        public bool InviteList { get; set; }
 
         private void CopyInvite(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
@@ -39,9 +52,9 @@ namespace Quarrel.Controls.Messages
             // TODO: Allow sharing invites.
         }
 
-        private void RemoveInvite(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void Remove_Clicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            // TODO: Invite management list
+            RemoveClicked?.Invoke(this, ViewModel);
         }
     }
 }

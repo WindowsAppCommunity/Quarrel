@@ -5,9 +5,18 @@
     xmlns:local="using:Quarrel.SubPages.GuildSettings.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:messagecontrol="using:Quarrel.Controls.Messages"
+    xmlns:embedbindables="using:Quarrel.ViewModels.Models.Bindables.Messages.Embeds"
     mc:Ignorable="d">
 
-    <Grid>
-
+    <Grid Padding="8">
+        <ListView ItemsSource="{x:Bind ViewModel.Invites, Mode=OneWay}" SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="embedbindables:BindableInvite">
+                    <messagecontrol:InviteControl DataContext="{x:Bind}" InviteList="True"
+                                                  RemoveClicked="InviteControl_RemoveClicked"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

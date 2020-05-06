@@ -17,6 +17,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages.Embeds
     {
         private bool _joined;
         private RelayCommand _acceptInviteCommand;
+        private RelayCommand _removeCommand;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableInvite"/> class.
@@ -45,12 +46,25 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages.Embeds
         }
 
         /// <summary>
+        /// Gets a value indicating whether or not the invite can be removed by the user.
+        /// </summary>
+        public bool CanRemove => SimpleIoc.Default.GetInstance<IGuildsService>().AllGuilds[Model.Guild.Id].Permissions.ManangeGuild;
+
+        /// <summary>
         /// Gets a command that accepts the bound invite.
         /// </summary>
         public RelayCommand AcceptInviteCommand => _acceptInviteCommand = new RelayCommand(async () =>
         {
             await DiscordService.InviteService.AcceptInvite(Model.Code);
             Joined = true;
+        });
+
+        /// <summary>
+        /// Gets the command run when clicking the remove button.
+        /// </summary>
+        public RelayCommand RemoveCommand => _removeCommand = new RelayCommand(async () =>
+        {
+            await DiscordService.InviteService.DeleteInvite(Model.Code);
         });
 
         private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
