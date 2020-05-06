@@ -373,7 +373,16 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
             get
             {
                 bool hidden = false;
-                if (_collapsed && !IsCategory)
+
+                if (IsCategory)
+                {
+                    return !SettingsService.Roaming.GetValue<bool>(SettingKeys.ShowNoPermssions) &&
+                        !Guild.Channels
+                        .Where(x => x.Model.Id != Model.Id && x.ParentId == Model.Id)
+                        .Any(x => x.Permissions.ReadMessages);
+                }
+
+                if (_collapsed)
                 {
                     hidden = true;
                     switch (SettingsService.Roaming.GetValue<CollapseOverride>(SettingKeys.CollapseOverride))
