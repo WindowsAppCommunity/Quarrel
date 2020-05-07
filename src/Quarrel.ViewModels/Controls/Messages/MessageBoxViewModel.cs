@@ -210,6 +210,7 @@ namespace Quarrel.ViewModels.Controls.Messages
 
         private void GetMentionQueryAndShow()
         {
+            Suggestions.Clear();
             string text = MessageText;
             if (text.Length > SelectionStart)
             {
@@ -241,12 +242,13 @@ namespace Quarrel.ViewModels.Controls.Messages
                 {
                     // This is possibly a channel
                     string query = text.Remove(0, i);
-                    _queryLength = query.Length;
+                    _queryLength = query.Length + 1;
                     ShowSuggestions(query, 1);
 
                     // match the channel against the last query
                     return;
                 }
+
                 /*else if (!ranintospace && character == ':' && i != loopsize)
                 {
                     // This is possibly an emoji
@@ -284,7 +286,6 @@ namespace Quarrel.ViewModels.Controls.Messages
             {
                 case 0: // User/Role
                     var members = GuildsService.QueryGuildMembers(query, GuildsService.CurrentGuild.Model.Id);
-                    Suggestions.Clear();
                     foreach (var member in members)
                     {
                         Suggestions.Add(new UserSuggestion(member));
@@ -293,7 +294,6 @@ namespace Quarrel.ViewModels.Controls.Messages
                     break;
                 case 1: // Channels
                     var channels = GuildsService.CurrentGuild.Channels.Where(x => x.Model.Name.ToLower().StartsWith(query.ToLower()) && x.IsTextChannel);
-                    Suggestions.Clear();
                     foreach (var channel in channels)
                     {
                         Suggestions.Add(new ChannelSuggestion(channel));
