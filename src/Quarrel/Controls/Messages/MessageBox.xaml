@@ -25,6 +25,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <templateselectors:SuggestionTemplateSelector x:Key="SuggestionTemplateSelector"
+                                                          ChannelSuggestionTemplate="{StaticResource ChannelSuggestionTemplate}"
                                                           UserSuggestionTemplate="{StaticResource UserSuggestionTemplate}"/>
 
             <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>

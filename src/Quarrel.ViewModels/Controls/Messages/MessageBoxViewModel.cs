@@ -237,20 +237,17 @@ namespace Quarrel.ViewModels.Controls.Messages
                 {
                     ranintospace = true;
                 }
-
-                /*
-                else if (!ranintospace && character == '#' && i != loopsize && !App.CurrentGuildIsDM)
+                else if (!ranintospace && character == '#' && i != loopsize && !GuildsService.CurrentGuild.IsDM)
                 {
                     // This is possibly a channel
                     string query = text.Remove(0, i);
-                    ReplacePrefix = false;
-                    querylength = query.Length;
-                    SearchAndDisplayChannels(query);
+                    _queryLength = query.Length;
+                    ShowSuggestions(query, 1);
 
                     // match the channel against the last query
                     return;
                 }
-                else if (!ranintospace && character == ':' && i != loopsize)
+                /*else if (!ranintospace && character == ':' && i != loopsize)
                 {
                     // This is possibly an emoji
                     string query = text.Remove(0, i);
@@ -291,6 +288,15 @@ namespace Quarrel.ViewModels.Controls.Messages
                     foreach (var member in members)
                     {
                         Suggestions.Add(new UserSuggestion(member));
+                    }
+
+                    break;
+                case 1: // Channels
+                    var channels = GuildsService.CurrentGuild.Channels.Where(x => x.Model.Name.ToLower().StartsWith(query.ToLower()) && x.IsTextChannel);
+                    Suggestions.Clear();
+                    foreach (var channel in channels)
+                    {
+                        Suggestions.Add(new ChannelSuggestion(channel));
                     }
 
                     break;

@@ -18,6 +18,11 @@ namespace Quarrel.TemplateSelectors
         /// <summary>
         /// Gets or sets the pure image attachment template.
         /// </summary>
+        public DataTemplate ChannelSuggestionTemplate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the pure image attachment template.
+        /// </summary>
         public DataTemplate UserSuggestionTemplate { get; set; }
 
         /// <summary>
@@ -32,6 +37,7 @@ namespace Quarrel.TemplateSelectors
             {
                 switch (item)
                 {
+                    case ChannelSuggestion _: return ChannelSuggestionTemplate;
                     case UserSuggestion _: return UserSuggestionTemplate;
                 }
             }

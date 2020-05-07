@@ -13,6 +13,18 @@
         <ResourceDictionary Source="../Converters.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <DataTemplate x:Key="ChannelSuggestionTemplate" x:DataType="suggestions:ChannelSuggestion">
+        <Grid VerticalAlignment="Top" Padding="0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="#" FontSize="14" Opacity=".75"/>
+
+            <TextBlock Text="{x:Bind Channel.FormattedName, Mode=OneWay}" Grid.Column="1"/>
+        </Grid>
+    </DataTemplate>
+
     <DataTemplate x:Key="UserSuggestionTemplate" x:DataType="suggestions:UserSuggestion">
         <Grid VerticalAlignment="Top" Padding="0,10">
             <Grid.ColumnDefinitions>
