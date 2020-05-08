@@ -64,6 +64,29 @@ namespace Webrtc
 		std::string ToString() const override { return "AudioAnalyzer"; }
 	};
 
+	class OutputAnalyzer : public webrtc::CustomProcessing
+	{
+	private:
+		winrt::Webrtc::implementation::WebrtcManager* manager;
+	public:
+		OutputAnalyzer() {}
+		OutputAnalyzer(winrt::Webrtc::implementation::WebrtcManager* manager)
+		{
+			this->manager = manager;
+		}
+		void Initialize(int sample_rate_hz, int num_channels) override {}
+		void Process(webrtc::AudioBuffer* audio) override {
+			const webrtc::ChannelBuffer<float>* channel = audio->data_f();
+			std::vector<float> data(channel->num_frames());
+
+			webrtc::DownmixToMono<float, float>(channel->channels(), channel->num_frames(), channel->num_channels(), data.data());
+
+			manager->UpdateOutBytes(winrt::single_threaded_vector<float>(std::move(data)));
+		};
+		void SetRuntimeSetting(webrtc::AudioProcessing::RuntimeSetting setting) override {}
+		std::string ToString() const override { return "OutputAnalyzer"; }
+	};
+
 	StreamTransport::StreamTransport(winrt::Webrtc::implementation::WebrtcManager* manager) : manager(manager)
 	{
 		this->manager->g_call->SignalChannelNetworkState(webrtc::MediaType::AUDIO, webrtc::NetworkState::kNetworkUp);
@@ -159,7 +182,10 @@ namespace winrt::Webrtc::implementation
 		
 		webrtc::AudioState::Config stateconfig;
 
-		stateconfig.audio_processing = webrtc::AudioProcessingBuilder().SetCaptureAnalyzer(std::make_unique<::Webrtc::AudioAnalyzer>(this)).Create();
+		stateconfig.audio_processing = webrtc::AudioProcessingBuilder()
+			.SetCaptureAnalyzer(std::make_unique<::Webrtc::AudioAnalyzer>(this))
+			.SetRenderPreProcessing(std::make_unique<::Webrtc::OutputAnalyzer>(this))
+			.Create();
 		stateconfig.audio_device_module = ::Webrtc::IAudioDeviceWasapi::create(props);
 		stateconfig.audio_mixer = webrtc::AudioMixerImpl::Create();
 
@@ -284,13 +310,11 @@ namespace winrt::Webrtc::implementation
 		this->outputStream.StoreAsync();
 	}
 
-	bool hasGotIp = false;
-
 	void WebrtcManager::OnMessageReceived(Windows::Networking::Sockets::DatagramSocket const& sender, Windows::Networking::Sockets::DatagramSocketMessageReceivedEventArgs const& args)
 	{
 		Windows::Storage::Streams::DataReader dr = args.GetDataReader();
 		unsigned int dataLength = dr.UnconsumedBufferLength();
-		if (hasGotIp)
+		if (this->hasGotIp)
 		{
 			std::vector<BYTE> bytes = std::vector<BYTE>(dataLength);
 			dr.ReadBytes(bytes);
@@ -323,7 +347,7 @@ namespace winrt::Webrtc::implementation
 
 		}
 		else {
-			hasGotIp = true;
+			this->hasGotIp = true;
 			dr.ReadInt32();
 			std::array<BYTE, 64> bytes{};
 			dr.ReadBytes(bytes);

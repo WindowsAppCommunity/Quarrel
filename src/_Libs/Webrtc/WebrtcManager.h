@@ -99,6 +99,7 @@ namespace winrt::Webrtc::implementation
 		bool isSpeaking = false;
 		int frameCount = 0;;
 
+		bool hasGotIp = false;
 	};
 }
 
