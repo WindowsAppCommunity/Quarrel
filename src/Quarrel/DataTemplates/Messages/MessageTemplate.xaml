@@ -80,14 +80,14 @@
     <DataTemplate x:Key="GifvEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
         <MediaElement Source="{x:Bind Model.Video.Url}" IsLooping="True"
                       Height="{x:Bind Model.Video.ActualHeight}" Width="{x:Bind Model.Video.ActualWidth}"
-                      MaxHeight="250"/>
+                      MaxHeight="250" Tapped="Expand"/>
     </DataTemplate>
     <DataTemplate x:Key="YoutubeEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
         <embeds:YoutubeEmbedTemplate DataContext="{x:Bind Model}" MaxHeight="250"/>
     </DataTemplate>
     <DataTemplate x:Key="ImageEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
         <toolkit:ImageEx Source="{x:Bind Model.Thumbnail.BindUrl}" Width="{x:Bind Model.Thumbnail.Width}" Height="{x:Bind Model.Thumbnail.BindHeight}" HorizontalAlignment="Left"
-                         MaxHeight="250"/>
+                         MaxHeight="250" Tapped="Expand"/>
     </DataTemplate>
     <DataTemplate x:Key="DefaultEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
         <Border CornerRadius="4" Background="{ThemeResource MidBG}">
