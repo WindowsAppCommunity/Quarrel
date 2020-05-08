@@ -47,12 +47,12 @@
         <uap:SplashScreen Image="Assets\IconAssets\SplashScreen.png" />
       </uap:VisualElements>
       <uap:ApplicationContentUriRules>
-        <uap:Rule Type="include" Match="https://discordapp.com" WindowsRuntimeAccess="all"/>
-        <uap:Rule Type="include" Match="https://.discordapp.com" WindowsRuntimeAccess="all"/>
-        <uap:Rule Type="include" Match="https://discordapp.com/app" WindowsRuntimeAccess="all"/>
-        <uap:Rule Type="include" Match="https://.discordapp.com/app" WindowsRuntimeAccess="all"/>
-        <uap:Rule Type="include" Match="https://.discordapp.com/login" WindowsRuntimeAccess="all"/>
-        <uap:Rule Type="include" Match="https://discordapp.com/login" WindowsRuntimeAccess="all"/>
+        <uap:Rule Type="include" Match="https://discord.com" WindowsRuntimeAccess="all"/>
+        <uap:Rule Type="include" Match="https://.discord.com" WindowsRuntimeAccess="all"/>
+        <uap:Rule Type="include" Match="https://discord.com/app" WindowsRuntimeAccess="all"/>
+        <uap:Rule Type="include" Match="https://.discord.com/app" WindowsRuntimeAccess="all"/>
+        <uap:Rule Type="include" Match="https://.discord.com/login" WindowsRuntimeAccess="all"/>
+        <uap:Rule Type="include" Match="https://discord.com/login" WindowsRuntimeAccess="all"/>
       </uap:ApplicationContentUriRules>
       <Extensions>
         <uap:Extension Category="windows.appService">

@@ -49,7 +49,7 @@ namespace Quarrel.SubPages
 
         private async void ForgotPassword_Click(object sender, RoutedEventArgs e)
         {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://discordapp.com/"));
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://discord.com/"));
         }
 
         private void Token_KeyDown(object sender, KeyRoutedEventArgs e)
