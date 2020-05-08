@@ -3,15 +3,14 @@
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
-using Quarrel.ViewModels.Messages.Gateway;
-using Quarrel.ViewModels.Messages.Voice;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Bindables.Users;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using System;
 
-namespace Quarrel.ViewModels.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables.Channels
 {
     /// <summary>
     /// A Bindable wrapper for the <see cref="VoiceState"/> model.

@@ -83,6 +83,11 @@ namespace Quarrel.ViewModels.Helpers
             public const string SpotifyLargeAssetsIdRegex = @"spotify:(\w+)";
 
             /// <summary>
+            /// A Regular Expression for finding invite codes.
+            /// </summary>
+            public const string InviteRegex = @"https:\/\/discord.(?:(?:gg)|(?:com\/invite))\/(\w+)";
+
+            /// <summary>
             /// A Regular Expression for finding a YouTube link.
             /// </summary>
             public const string YouTubeURLRegex = @"(?:https:\/\/)?(?:(?:www\.)?youtube\.com\/(?:(?:watch\?.*?v=)|(?:embed\/))([\w\-]+)|youtu\.be\/(?:embed\/)?([\w\-]+))";

@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using Microsoft.Xaml.Interactivity;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Users;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

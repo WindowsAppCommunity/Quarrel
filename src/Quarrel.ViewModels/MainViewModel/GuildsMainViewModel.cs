@@ -1,15 +1,15 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Gateway.Guild;
 using Quarrel.ViewModels.Messages.Navigation;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Channels;
+using Quarrel.ViewModels.Models.Bindables.Guilds;
+using Quarrel.ViewModels.Models.Bindables.Users;
 using Quarrel.ViewModels.Models.Interfaces;
-using Quarrel.ViewModels.Services.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -165,9 +165,12 @@ namespace Quarrel.ViewModels
             MessengerInstance.Register<GatewayGuildDeletedMessage>(this, m =>
             {
                 BindableGuild guild;
-                guild = _guildsService.AllGuilds[m.Guild.GuildId];
-                _guildsService.AllGuilds.Remove(m.Guild.GuildId);
-                _dispatcherHelper.CheckBeginInvokeOnUi(() => { BindableGuilds.Remove(guild); });
+                if (_guildsService.AllGuilds.ContainsKey(m.Guild.GuildId))
+                {
+                    guild = _guildsService.AllGuilds[m.Guild.GuildId];
+                    _guildsService.AllGuilds.Remove(m.Guild.GuildId);
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() => { BindableGuilds.Remove(guild); });
+                }
             });
 
             MessengerInstance.Register<GatewayUserSettingsUpdatedMessage>(this, m =>

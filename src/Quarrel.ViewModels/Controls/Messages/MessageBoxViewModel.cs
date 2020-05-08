@@ -4,8 +4,10 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Helpers;
-using Quarrel.ViewModels.Models;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Channels;
+using Quarrel.ViewModels.Models.Bindables.Users;
+using Quarrel.ViewModels.Models.Emojis;
+using Quarrel.ViewModels.Models.Suggesitons;
 using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.Guilds;
@@ -34,6 +36,7 @@ namespace Quarrel.ViewModels.Controls.Messages
         private string _messageText = string.Empty;
         private int _selectionStart;
         private int _selectionLength;
+        private int _queryLength;
 
         /// <summary>
         /// Gets the command to send an API message to indicate typing state.
@@ -144,7 +147,14 @@ namespace Quarrel.ViewModels.Controls.Messages
         public string MessageText
         {
             get => _messageText;
-            set => Set(ref _messageText, value);
+            set
+            {
+                Set(ref _messageText, value);
+                if (!GuildsService.CurrentGuild.IsDM)
+                {
+                    GetMentionQueryAndShow();
+                }
+            }
         }
 
         /// <summary>
@@ -170,6 +180,11 @@ namespace Quarrel.ViewModels.Controls.Messages
         /// </summary>
         public ObservableCollection<StreamPart> Attachments { get; } = new ObservableCollection<StreamPart>();
 
+        /// <summary>
+        /// Gets the suggested mentions based on draft.
+        /// </summary>
+        public ObservableCollection<ISuggestion> Suggestions { get; } = new ObservableCollection<ISuggestion>();
+
         private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
 
         private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
@@ -179,6 +194,114 @@ namespace Quarrel.ViewModels.Controls.Messages
         private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
         private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+
+        /// <summary>
+        /// Applies a suggestion.
+        /// </summary>
+        /// <param name="suggestion">Suggestion to apply.</param>
+        public void SelectSuggestion(ISuggestion suggestion)
+        {
+            string newText = MessageText.Remove(SelectionStart - _queryLength, _queryLength);
+            newText = newText.Insert(SelectionStart - _queryLength, suggestion.Surrogate + " ");
+            MessageText = newText;
+            SelectionStart += _queryLength;
+            Suggestions.Clear();
+        }
+
+        private void GetMentionQueryAndShow()
+        {
+            Suggestions.Clear();
+            string text = MessageText;
+            if (text.Length > SelectionStart)
+            {
+                text = text.Remove(SelectionStart);
+            }
+
+            int loopsize = text.Length;
+            int counter = 0;
+            bool ranintospace = false;
+            for (var i = loopsize; i > 0; i--)
+            {
+                counter++;
+                if (counter == 32)
+                {
+                    // maximum username length is 32 characters, so after 32, just ignore.
+                }
+
+                var character = text[i - 1];
+
+                if (character == '\n')
+                {
+                    break; // Systematically want to breaks on new lines
+                }
+                else if (character == ' ')
+                {
+                    ranintospace = true;
+                }
+                else if (!ranintospace && character == '#' && i != loopsize && !GuildsService.CurrentGuild.IsDM)
+                {
+                    // This is possibly a channel
+                    string query = text.Remove(0, i);
+                    _queryLength = query.Length + 1;
+                    ShowSuggestions(query, 1);
+
+                    // match the channel against the last query
+                    return;
+                }
+
+                /*else if (!ranintospace && character == ':' && i != loopsize)
+                {
+                    // This is possibly an emoji
+                    string query = text.Remove(0, i);
+                    ReplacePrefix = true;
+                    if (App.EmojiTrie != null)
+                        DisplayList(App.EmojiTrie.Retrieve(query.ToLower()));
+                    return;
+                }
+                */
+                else if (character == '@' && i != loopsize)
+                {
+                    // This is possibly a user mention
+                    string query = text.Remove(0, i);
+                    _queryLength = query.Length;
+                    ShowSuggestions(query, 0);
+                    return;
+                }
+
+                /*if (!ranintospace && loopsize > 3 && i > 3 && text[i - 1] == '`' && text[i - 2] == '`' && text[i - 3] == '`')
+                {
+                    string query = text.Remove(0, i);
+                    querylength = query.Length;
+                    ReplacePrefix = false;
+                    DisplayList(App.CodingLangsTrie.Retrieve(query.ToLower()));
+                    Debug.WriteLine("Codeblock query is " + query);
+                    return;
+                }*/
+            }
+        }
+
+        private void ShowSuggestions(string query, int type)
+        {
+            switch (type)
+            {
+                case 0: // User/Role
+                    var members = GuildsService.QueryGuildMembers(query, GuildsService.CurrentGuild.Model.Id);
+                    foreach (var member in members)
+                    {
+                        Suggestions.Add(new UserSuggestion(member));
+                    }
+
+                    break;
+                case 1: // Channels
+                    var channels = GuildsService.CurrentGuild.Channels.Where(x => x.Model.Name.ToLower().StartsWith(query.ToLower()) && x.IsTextChannel);
+                    foreach (var channel in channels)
+                    {
+                        Suggestions.Add(new ChannelSuggestion(channel));
+                    }
+
+                    break;
+            }
+        }
 
         /// <summary>
         /// Replaces surrogates with proper values for Emojis and Mentions.

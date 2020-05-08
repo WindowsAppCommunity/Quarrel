@@ -6,7 +6,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Services.Settings;
 
-namespace Quarrel.ViewModels.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables.Messages.Embeds
 {
     /// <summary>
     /// A Bindable wrapper for the <see cref="Attachment"/> model.

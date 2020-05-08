@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Channels;
+using Quarrel.ViewModels.Models.Bindables.Guilds;
 
 namespace Quarrel.ViewModels.Messages.Navigation
 {

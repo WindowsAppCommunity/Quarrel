@@ -1,6 +1,10 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using Quarrel.ViewModels.Models.Bindables.Guilds;
+using Quarrel.ViewModels.Models.Bindables.Messages.Embeds;
+using Quarrel.ViewModels.SubPages.GuildSettings.Pages;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Quarrel.SubPages.GuildSettings.Pages
 {
@@ -15,6 +19,24 @@ namespace Quarrel.SubPages.GuildSettings.Pages
         public InvitesSettingsPage()
         {
             this.InitializeComponent();
+        }
+
+        /// <summary>
+        /// Gets the AuditLog data.
+        /// </summary>
+        public InviteSettingsPageViewModel ViewModel => DataContext as InviteSettingsPageViewModel;
+
+        /// <inheritdoc/>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            DataContext = new InviteSettingsPageViewModel(e.Parameter as BindableGuild);
+        }
+
+        private void InviteControl_RemoveClicked(object sender, BindableInvite e)
+        {
+            ViewModel.Invites.Remove(e);
         }
     }
 }

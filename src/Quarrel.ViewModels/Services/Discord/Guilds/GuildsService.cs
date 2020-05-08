@@ -7,7 +7,9 @@ using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Gateway.Voice;
 using Quarrel.ViewModels.Messages.Navigation;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Channels;
+using Quarrel.ViewModels.Models.Bindables.Guilds;
+using Quarrel.ViewModels.Models.Bindables.Users;
 using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Discord.Channels;
@@ -290,7 +292,13 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
             });
             Messenger.Default.Register<GuildNavigateMessage>(this, m =>
             {
+                if (CurrentGuild != null)
+                {
+                    CurrentGuild.Selected = false;
+                }
+
                 CurrentGuild = m.Guild;
+                CurrentGuild.Selected = true;
             });
             Messenger.Default.Register<GatewayGuildMembersChunkMessage>(this, m =>
             {
@@ -385,6 +393,12 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
             }
 
             return null;
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<BindableGuildMember> QueryGuildMembers(string query, string guildId, int take = 10)
+        {
+            return _guildUsers[guildId].Values.Where(x => x.DisplayName.ToLower().StartsWith(query.ToLower()) || x.Model.User.Username.ToLower().StartsWith(query.ToLower())).Take(take);
         }
     }
 }

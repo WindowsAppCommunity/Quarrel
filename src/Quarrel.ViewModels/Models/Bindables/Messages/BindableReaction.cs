@@ -3,7 +3,7 @@
 using DiscordAPI.Models;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 
-namespace Quarrel.ViewModels.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables.Messages
 {
     /// <summary>
     /// A Bindable wrapper of the <see cref="Reaction"/> model.

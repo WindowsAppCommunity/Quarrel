@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:bindables="using:Quarrel.ViewModels.Models.Bindables"
+    xmlns:channelbindables="using:Quarrel.ViewModels.Models.Bindables.Channels"
     xmlns:local="using:Quarrel.DataTemplates.Channels"
     xmlns:channelcontrols="using:Quarrel.Controls.Channels"
     xmlns:controls="using:Quarrel.Controls"
@@ -422,7 +423,7 @@
         </Setter>
     </Style>
 
-    <DataTemplate x:Key="TextChannelTemplate" x:DataType="bindables:BindableChannel">
+    <DataTemplate x:Key="TextChannelTemplate" x:DataType="channelbindables:BindableChannel">
         <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Height="40">
             <!--Flyout-->
             <UserControl.ContextFlyout>
@@ -489,7 +490,7 @@
         </UserControl>
     </DataTemplate>
 
-    <DataTemplate x:Key="VoiceChannelTemplate" x:DataType="bindables:BindableChannel">
+    <DataTemplate x:Key="VoiceChannelTemplate" x:DataType="channelbindables:BindableChannel">
         <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" MinHeight="40">
             <!--Flyout-->
             <UserControl.ContextFlyout>
@@ -532,7 +533,7 @@
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="bindables:BindableVoiceUser">
+                        <DataTemplate x:DataType="channelbindables:BindableVoiceUser">
                             <channelcontrols:VoiceMemberControl/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -541,7 +542,7 @@
         </UserControl>
     </DataTemplate>
 
-    <DataTemplate x:Key="DMChannelTemplate" x:DataType="bindables:BindableChannel">
+    <DataTemplate x:Key="DMChannelTemplate" x:DataType="channelbindables:BindableChannel">
         <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}">
             <!--Flyout-->
             <UserControl.ContextFlyout>
@@ -617,7 +618,7 @@
         </UserControl>
     </DataTemplate>
 
-    <DataTemplate x:Key="GroupDMChannelTemplate" x:DataType="bindables:BindableChannel">
+    <DataTemplate x:Key="GroupDMChannelTemplate" x:DataType="channelbindables:BindableChannel">
         <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" >
             <!--Flyout-->
             <UserControl.ContextFlyout>
@@ -693,8 +694,8 @@
         </UserControl>
     </DataTemplate>
 
-    <DataTemplate x:Key="CategoryTemplate" x:DataType="bindables:BindableChannel">
-        <UserControl Height="48">
+    <DataTemplate x:Key="CategoryTemplate" x:DataType="channelbindables:BindableChannel">
+        <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Height="48">
             <!--Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
@@ -706,7 +707,7 @@
                 </MenuFlyout>
             </UserControl.ContextFlyout>
 
-            <StackPanel Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Height="48" Padding="22,0,24,0"
+            <StackPanel  Height="48" Padding="22,0,24,0"
                         Orientation="Horizontal">
                 <StackPanel.Background>
                     <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>

@@ -7,7 +7,8 @@ using Quarrel.Controls.Markdown;
 using Quarrel.Controls.Members;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Navigation;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Messages.Embeds;
+using Quarrel.ViewModels.Models.Bindables.Users;
 using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Navigation;
@@ -38,13 +39,17 @@ namespace Quarrel.DataTemplates.Messages
 
         private void Expand(object sender, TappedRoutedEventArgs e)
         {
-            var attachment = (e.OriginalSource as FrameworkElement).DataContext;
-            if (attachment is BindableAttachment bAttachment)
+            var image = (e.OriginalSource as FrameworkElement).DataContext;
+            if (image is BindableAttachment bAttachment)
             {
-                attachment = bAttachment.Model;
+                image = bAttachment.Model;
+            }
+            else if (image is BindableEmbed bEmbed)
+            {
+                image = bEmbed.Model;
             }
 
-            SubFrameNavigationService.NavigateTo("AttachmentPage", attachment);
+            SubFrameNavigationService.NavigateTo("AttachmentPage", image);
 
             AnalyticsService.Log(Constants.Analytics.Events.OpenAttachment);
         }

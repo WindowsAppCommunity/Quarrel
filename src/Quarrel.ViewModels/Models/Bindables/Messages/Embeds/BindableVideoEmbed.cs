@@ -4,7 +4,7 @@ using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
 using JetBrains.Annotations;
 
-namespace Quarrel.ViewModels.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables.Messages.Embeds
 {
     /// <summary>
     /// A Bindable wrapper on the <see cref="Embed"/> object for videos.

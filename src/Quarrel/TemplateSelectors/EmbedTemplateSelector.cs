@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.Models;
+using Quarrel.ViewModels.Models.Bindables.Messages.Embeds;
 using System.Text.RegularExpressions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -38,6 +39,11 @@ namespace Quarrel.TemplateSelectors
         public DataTemplate DefaultEmbedTemplate { get; set; }
 
         /// <summary>
+        /// Gets or sets the invite template.
+        /// </summary>
+        public DataTemplate InviteTemplate { get; set; }
+
+        /// <summary>
         /// Selects a <see cref="DataTemplate"/> based on the details from <paramref name="item"/>.
         /// </summary>
         /// <param name="item">An <see cref="Embed"/>.</param>
@@ -45,24 +51,32 @@ namespace Quarrel.TemplateSelectors
         /// <returns>A <see cref="DataTemplate"/> for the <paramref name="item"/>'s type.</returns>
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
-            if (container is FrameworkElement parent && item is Embed embed)
+            if (container is FrameworkElement parent)
             {
-                switch (embed.Type)
+                if (item is BindableInvite invite)
                 {
-                    case "image": return ImageEmbedTemplate;
-                    case "gifv": return GifvEmbedTemplate;
-                    case "video":
-                        {
-                            if (Regex.IsMatch(embed.Video?.Url, ViewModels.Helpers.Constants.Regex.YouTubeURLRegex))
+                    return InviteTemplate;
+                }
+
+                if (item is BindableEmbed embed)
+                {
+                    switch (embed.Model.Type)
+                    {
+                        case "image": return ImageEmbedTemplate;
+                        case "gifv": return GifvEmbedTemplate;
+                        case "video":
                             {
-                                return YoutubeEmbedTemplate;
+                                if (Regex.IsMatch(embed.Model.Video?.Url, ViewModels.Helpers.Constants.Regex.YouTubeURLRegex))
+                                {
+                                    return YoutubeEmbedTemplate;
+                                }
+
+                                break;
                             }
 
-                            break;
-                        }
-
-                    case "rich": return RichEmbedTemplate;
-                    default: return DefaultEmbedTemplate;
+                        case "rich": return RichEmbedTemplate;
+                        default: return DefaultEmbedTemplate;
+                    }
                 }
             }
 

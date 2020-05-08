@@ -2,7 +2,7 @@
 
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.SubPages.Interfaces;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Users;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.SubPages;

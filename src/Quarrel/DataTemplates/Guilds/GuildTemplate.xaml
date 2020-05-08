@@ -8,14 +8,14 @@
     xmlns:controls="using:Quarrel.Controls"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:models="using:Quarrel.ViewModels.Models.Bindables"
+    xmlns:guildbindables="using:Quarrel.ViewModels.Models.Bindables.Guilds"
     xmlns:triggers="using:Quarrel.StateTriggers"
     mc:Ignorable="d">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../Converters.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-    <DataTemplate x:Key="GuildTemplate" x:DataType="models:BindableGuild">
+    <DataTemplate x:Key="GuildTemplate" x:DataType="guildbindables:BindableGuild">
         <UserControl Visibility="{x:Bind IsCollapsed, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}">
             <UserControl.Resources>
                 <Storyboard x:Name="ShowBadge">
@@ -176,7 +176,7 @@
         </UserControl>
     </DataTemplate>
 
-    <DataTemplate x:Key="GuildFolderTemplate" x:DataType="models:BindableGuildFolder">
+    <DataTemplate x:Key="GuildFolderTemplate" x:DataType="guildbindables:BindableGuildFolder">
         <UserControl>
             <Grid Height="50" Width="50" HorizontalAlignment="Center" Padding="0,4" Margin="5,0,0,0">
                 <Grid.RowDefinitions>
@@ -195,7 +195,7 @@
         </UserControl>
     </DataTemplate>
 
-    <DataTemplate x:Key="EmptyGuildFolderTemplate" x:DataType="models:BindableGuildFolder">
+    <DataTemplate x:Key="EmptyGuildFolderTemplate" x:DataType="guildbindables:BindableGuildFolder">
         <Grid/>
     </DataTemplate>
 </ResourceDictionary>

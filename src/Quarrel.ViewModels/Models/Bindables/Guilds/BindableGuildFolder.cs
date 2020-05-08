@@ -4,7 +4,7 @@ using DiscordAPI.Models;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Models.Interfaces;
 
-namespace Quarrel.ViewModels.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables.Guilds
 {
     /// <summary>
     /// A Bindable wrapper for the <see cref="Folder"/> model.

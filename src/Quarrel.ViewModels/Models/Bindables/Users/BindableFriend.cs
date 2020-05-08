@@ -10,7 +10,7 @@ using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using System;
 
-namespace Quarrel.ViewModels.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables.Users
 {
     /// <summary>
     /// A Bindable wrapper for the <see cref="Friend"/> model.

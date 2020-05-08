@@ -4,7 +4,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.ViewModels.Messages.Navigation;
-using Quarrel.ViewModels.Models;
+using Quarrel.ViewModels.Models.Emojis;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

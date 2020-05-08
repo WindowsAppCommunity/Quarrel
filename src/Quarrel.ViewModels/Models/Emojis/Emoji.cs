@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
-namespace Quarrel.ViewModels.Models
+namespace Quarrel.ViewModels.Models.Emojis
 {
     /// <summary>
     /// Bindable ViewModel for Emoji DataContext.

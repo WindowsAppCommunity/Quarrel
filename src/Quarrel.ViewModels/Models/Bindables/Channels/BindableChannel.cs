@@ -7,6 +7,8 @@ using JetBrains.Annotations;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Bindables.Guilds;
+using Quarrel.ViewModels.Models.Bindables.Users;
 using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
@@ -25,7 +27,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 
-namespace Quarrel.ViewModels.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables.Channels
 {
     /// <summary>
     /// A Bindable wrapper for the <see cref="Channel"/> model.
@@ -198,6 +200,11 @@ namespace Quarrel.ViewModels.Models.Bindables
                 {
                     Permissions perms = Guild.Permissions.Clone();
 
+                    if (ParentId != null && ParentId != Model.Id)
+                    {
+                        perms = ChannelsService.AllChannels[ParentId].Permissions.Clone();
+                    }
+
                     var user = Guild.Model.Members.FirstOrDefault(x => x.User.Id == DiscordService.CurrentUser.Id);
 
                     GuildPermission roleDenies = 0;
@@ -366,7 +373,16 @@ namespace Quarrel.ViewModels.Models.Bindables
             get
             {
                 bool hidden = false;
-                if (_collapsed && !IsCategory)
+
+                if (IsCategory)
+                {
+                    return !SettingsService.Roaming.GetValue<bool>(SettingKeys.ShowNoPermssions) &&
+                        !Guild.Channels
+                        .Where(x => x.Model.Id != Model.Id && x.ParentId == Model.Id)
+                        .Any(x => x.Permissions.ReadMessages);
+                }
+
+                if (_collapsed)
                 {
                     hidden = true;
                     switch (SettingsService.Roaming.GetValue<CollapseOverride>(SettingKeys.CollapseOverride))

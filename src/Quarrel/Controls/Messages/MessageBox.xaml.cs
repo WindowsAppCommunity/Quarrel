@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using Quarrel.ViewModels.Controls.Messages;
+using Quarrel.ViewModels.Models.Suggesitons;
 using Refit;
 using System;
 using System.IO;
@@ -94,6 +95,31 @@ namespace Quarrel.Controls.Messages
                 var bmpStream = await dataPackageView.GetBitmapAsync();
                 ViewModel.Attachments.Add(new StreamPart((await bmpStream.OpenReadAsync()).AsStream(), "file.png", "image/png"));
             }
+        }
+
+        private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            popup.VerticalOffset = -e.NewSize.Height;
+        }
+
+        private void MessageEditor_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            SuggestionList.Width = e.NewSize.Width;
+        }
+
+        private void MessageEditor_LostFocus(object sender, RoutedEventArgs e)
+        {
+            popup.IsOpen = false;
+        }
+
+        private void MessageEditor_GotFocus(object sender, RoutedEventArgs e)
+        {
+            popup.IsOpen = true;
+        }
+
+        private void SuggestionList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ViewModel.SelectSuggestion(e.ClickedItem as ISuggestion);
         }
     }
 }

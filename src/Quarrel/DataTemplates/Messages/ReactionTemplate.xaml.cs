@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Messages;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Windows.UI.Xaml.Controls.Primitives;
 

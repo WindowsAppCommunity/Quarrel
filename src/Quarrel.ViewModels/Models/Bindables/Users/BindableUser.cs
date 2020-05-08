@@ -6,7 +6,7 @@ using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Models.Interfaces;
 using System;
 
-namespace Quarrel.ViewModels.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables.Users
 {
     /// <summary>
     /// A Bindable wrapper for the <see cref="User"/> model.

@@ -3,7 +3,7 @@
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Guilds;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 
 namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages

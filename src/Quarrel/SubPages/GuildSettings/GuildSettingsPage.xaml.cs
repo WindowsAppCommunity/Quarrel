@@ -4,7 +4,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Microsoft.UI.Xaml.Controls;
 using Quarrel.SubPages.GuildSettings.Pages;
 using Quarrel.SubPages.Interfaces;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Guilds;
 using Quarrel.ViewModels.Services.Navigation;
 using System;
 using System.Collections.Concurrent;

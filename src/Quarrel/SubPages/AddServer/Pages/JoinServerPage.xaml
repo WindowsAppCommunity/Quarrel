@@ -5,14 +5,24 @@
     xmlns:local="using:Quarrel.SubPages.AddServer.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
+    xmlns:message="using:Quarrel.Controls.Messages"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" Margin="0,24,0,0"
+    <Page.Resources>
+        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+    </Page.Resources>
+
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,24,0,0"
                 VerticalAlignment="Top" HorizontalAlignment="Center">
-        <TextBox PlaceholderText="Join Code" Width="200" Style="{StaticResource TextBoxStyle1}"
-                 Text="{x:Bind ViewModel.JoinCode, Mode=TwoWay}"/>
-        <Button Content="Join" Style="{StaticResource DiscordButton}"
+            <TextBox PlaceholderText="Join Code" Width="200" Style="{StaticResource TextBoxStyle1}"
+                 Text="{x:Bind ViewModel.JoinCode, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <Button Content="Join" Style="{StaticResource DiscordButton}"
                 Command="{x:Bind ViewModel.JoinServerCommand, Mode=OneWay}"/>
+        </StackPanel>
+
+        <message:InviteControl Visibility="{x:Bind ViewModel.IsValid, Mode=OneWay}" HorizontalAlignment="Center"
+                               DataContext="{x:Bind ViewModel.FoundInvite, Mode=OneWay}"/>
     </StackPanel>
-    
 </Page>

@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.Models;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Messages.Embeds;
 using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Messages.Embeds

@@ -5,8 +5,9 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Navigation;
-using Quarrel.ViewModels.Models.Bindables;
+using Quarrel.ViewModels.Models.Bindables.Channels;
 using Quarrel.ViewModels.Services.Analytics;
+using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.DispatcherHelper;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -29,6 +30,11 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
                 {
                     if (CurrentChannel != null)
                     {
+                        if (CurrentChannel.Guild.Model.Id != m.Guild.Model.Id)
+                        {
+                            Messenger.Default.Send(new GuildNavigateMessage(m.Guild));
+                        }
+
                         CurrentChannel.Selected = false;
                     }
 

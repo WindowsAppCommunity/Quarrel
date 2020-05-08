@@ -14,9 +14,17 @@ namespace Quarrel.Converters.Base
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value is Uri uri)
+            Uri uri;
+            if (value is Uri)
             {
+                uri = value as Uri;
                 return new BitmapImage(uri);
+            } else if (value is string sValue)
+            {
+                if (Uri.TryCreate(sValue, UriKind.Absolute, out uri))
+                {
+                    return new BitmapImage(uri);
+                }
             }
 
             return null;

@@ -8,7 +8,7 @@ using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using System.Linq;
 
-namespace Quarrel.ViewModels.Models.Bindables
+namespace Quarrel.ViewModels.Models.Bindables.Users
 {
     /// <summary>
     /// A Bindable wrapper for the <see cref="Group"/> model.
