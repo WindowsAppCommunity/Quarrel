@@ -123,7 +123,17 @@ namespace Webrtc
 
 	bool StreamTransport::SendRtcp(const uint8_t* packet, size_t length)
 	{
-		this->manager->outputStream.WriteBytes(winrt::array_view(packet, packet + length));
+		uint8_t nonce[24]{ 0 };
+		memcpy(nonce, packet, 8);
+
+		std::vector<uint8_t> encrypted(length + 16);
+
+		memcpy(encrypted.data(), packet, 8);
+
+
+		crypto_secretbox_easy(encrypted.data() + 8, packet + 8, length - 8, nonce, this->manager->key);
+
+		this->manager->outputStream.WriteBytes(encrypted);
 		this->manager->outputStream.StoreAsync();
 		return true;
 	}
@@ -319,19 +329,23 @@ namespace winrt::Webrtc::implementation
 			std::vector<BYTE> bytes = std::vector<BYTE>(dataLength);
 			dr.ReadBytes(bytes);
 
+			BYTE nonce[24] = { 0 };
+			BYTE* decrypted = new BYTE[dataLength - 16];
 			if (webrtc::RtpHeaderParser::IsRtcp(bytes.data(), dataLength))
 			{
-				rtc::CopyOnWriteBuffer buffer = rtc::CopyOnWriteBuffer(bytes.data(), dataLength);
+				memcpy(nonce, bytes.data(), 8);
+				memcpy(decrypted, bytes.data(), 8);
+				//memcpy(decrypted + 8, bytes.data() + 8, dataLength - 8 - 16);
+				crypto_secretbox_open_easy(decrypted + 8, bytes.data() + 8, dataLength - 8, nonce, key);
 
-				workerThread->Invoke<void>(RTC_FROM_HERE, [this, buffer, dataLength]() {
+				workerThread->Invoke<void>(RTC_FROM_HERE, [this, decrypted, dataLength]() {
 					rtc::PacketTime pTime = rtc::CreatePacketTime(0);
-					webrtc::PacketReceiver::DeliveryStatus status = this->g_call->Receiver()->DeliverPacket(webrtc::MediaType::ANY, buffer, pTime.timestamp);
+					webrtc::PacketReceiver::DeliveryStatus status = this->g_call->Receiver()->DeliverPacket(webrtc::MediaType::ANY, rtc::CopyOnWriteBuffer(decrypted, dataLength - 16), pTime.timestamp);
+					delete decrypted;
 				});
 			}
 			else
 			{
-				BYTE nonce[24] = { 0 };
-				BYTE* decrypted = new BYTE[dataLength - 16];
 
 				memcpy(nonce, bytes.data(), 12);
 				memcpy(decrypted, bytes.data(), 12);
