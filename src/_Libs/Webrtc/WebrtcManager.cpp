@@ -141,43 +141,68 @@ namespace Webrtc
 
 namespace winrt::Webrtc::implementation
 {
-
-	void WebrtcManager::SetCurrentVolume(double volume)
+	WebrtcManager::WebrtcManager()
 	{
-		if(volume < -40)
-		{
-			// Not speaking
-			if(this->isSpeaking)
-			{
-				this->frameCount++;
-				if (this->frameCount >= 50) {
-					this->isSpeaking = false;
-					this->g_audioSendTransport->StopSend();
-					this->m_speaking(*this, false);
-					this->frameCount = 0;
-				}
-			}
-		}
-		else
-		{
-			// Are Speaking
-			if (!this->isSpeaking)
-			{
-				this->isSpeaking = true;
-				this->g_audioSendTransport->StartSend();
-				this->m_speaking(*this, true);
-			}
-		}
+	}
+
+	void WebrtcManager::Create()
+	{
+		udpSocket = Windows::Networking::Sockets::DatagramSocket();
+		udpSocket.MessageReceived({ this, &WebrtcManager::OnMessageReceived });
+		
+		workerThread = rtc::Thread::Create();
+		workerThread->Start();
+
+		workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
+			this->SetupCall();
+		});
+
 	}
 	
-	void WebrtcManager::UpdateInBytes(Windows::Foundation::Collections::IVector<float> const& data)
+	void WebrtcManager::SetupCall()
 	{
-		this->m_audioInData(*this, data);
+		this->CreateCall();
+		this->g_audioSendTransport = new ::Webrtc::StreamTransport(this);
+		this->audioSendStream = this->createAudioSendStream(this->ssrc, 120);
 	}
 
-	void WebrtcManager::UpdateOutBytes(Windows::Foundation::Collections::IVector<float> const& data)
+	void WebrtcManager::Destroy()
 	{
-		this->m_audioOutData(*this, data);
+		if (this->audioReceiveStreams.size() > 0) {
+			for (auto it = this->audioReceiveStreams.cbegin(); it != this->audioReceiveStreams.cend();)
+			{
+				this->workerThread->Invoke<void>(RTC_FROM_HERE, [this, it]() {
+					this->g_call->DestroyAudioReceiveStream(it->second);
+				});
+				this->audioReceiveStreams.erase(it++);
+			}
+		}
+		if (this->audioSendStream) {
+			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
+				this->g_call->DestroyAudioSendStream(this->audioSendStream);
+			});
+		}
+		
+		if (this->outputStream) this->outputStream.Close();
+		this->outputStream = nullptr;
+		if (this->udpSocket) this->udpSocket.Close();
+		this->udpSocket = nullptr;
+		
+		delete this->g_audioSendTransport;
+		this->g_audioSendTransport = nullptr;
+		
+		this->audioSendStream = nullptr;
+
+		this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
+			delete this->g_call;
+		});
+		this->g_call = nullptr;
+		if(this->workerThread) this->workerThread.reset();
+
+		this->g_audioDecoderFactory = nullptr;
+		
+		this->g_audioEncoderFactory = nullptr;
+		
 	}
 	
 	void WebrtcManager::CreateCall()
@@ -215,6 +240,11 @@ namespace winrt::Webrtc::implementation
 		config.audio_processing = stateconfig.audio_processing;
 		
 		this->g_call = webrtc::Call::Create(config);
+	}
+
+	WebrtcManager::~WebrtcManager()
+	{
+		this->Destroy();
 	}
 
 	webrtc::AudioSendStream* WebrtcManager::createAudioSendStream(uint32_t ssrc, uint8_t payloadType)
@@ -274,38 +304,57 @@ namespace winrt::Webrtc::implementation
 			}
 		}
 	}
+
+	void WebrtcManager::SetCurrentVolume(double volume)
+	{
+		if (volume < -40)
+		{
+			// Not speaking
+			if (this->isSpeaking)
+			{
+				this->frameCount++;
+				if (this->frameCount >= 50) {
+					this->isSpeaking = false;
+					this->g_audioSendTransport->StopSend();
+					this->m_speaking(*this, false);
+					this->frameCount = 0;
+				}
+			}
+		}
+		else
+		{
+			// Are Speaking
+			if (!this->isSpeaking)
+			{
+				this->isSpeaking = true;
+				this->g_audioSendTransport->StartSend();
+				this->m_speaking(*this, true);
+			}
+		}
+	}
 	
-	void WebrtcManager::SetupCall()
+	void WebrtcManager::SetKey(array_view<const BYTE> key)
 	{
-		this->CreateCall();
-		this->g_audioSendTransport = new ::Webrtc::StreamTransport(this);
-		this->createAudioSendStream(this->ssrc, 120);
+		memcpy(this->key, key.begin(), 32);
 	}
 
-	WebrtcManager::WebrtcManager()
+	void WebrtcManager::UpdateInBytes(Windows::Foundation::Collections::IVector<float> const& data)
 	{
-		udpSocket = Windows::Networking::Sockets::DatagramSocket();
-		udpSocket.MessageReceived({ this, &WebrtcManager::OnMessageReceived });
+		this->m_audioInData(*this, data);
 	}
 
-	void WebrtcManager::Create()
+	void WebrtcManager::UpdateOutBytes(Windows::Foundation::Collections::IVector<float> const& data)
 	{
-		workerThread = rtc::Thread::Create();
-		workerThread->Start();
-
-		workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
-			this->SetupCall();
-		});
-
+		this->m_audioOutData(*this, data);
 	}
 
 	Windows::Foundation::IAsyncAction WebrtcManager::ConnectAsync(hstring ip, hstring port, UINT32 ssrc)
 	{
+		this->hasGotIp = false;
 		this->ssrc = ssrc;
 		co_await this->udpSocket.ConnectAsync(Windows::Networking::HostName(ip), port);
 
 		this->outputStream = Windows::Storage::Streams::DataWriter(this->udpSocket.OutputStream());
-		this->Create();
 		this->SendSelectProtocol(ssrc);
 	}
 
@@ -335,7 +384,6 @@ namespace winrt::Webrtc::implementation
 			{
 				memcpy(nonce, bytes.data(), 8);
 				memcpy(decrypted, bytes.data(), 8);
-				//memcpy(decrypted + 8, bytes.data() + 8, dataLength - 8 - 16);
 				crypto_secretbox_open_easy(decrypted + 8, bytes.data() + 8, dataLength - 8, nonce, key);
 
 				workerThread->Invoke<void>(RTC_FROM_HERE, [this, decrypted, dataLength]() {
@@ -372,10 +420,6 @@ namespace winrt::Webrtc::implementation
 		}
 	}
 
-	void WebrtcManager::SetKey(array_view<const BYTE> key)
-	{
-		memcpy(this->key, key.begin(), 32);
-	}
 	
 #pragma region Events
 	void WebrtcManager::IpAndPortObtained(event_token const& token) noexcept

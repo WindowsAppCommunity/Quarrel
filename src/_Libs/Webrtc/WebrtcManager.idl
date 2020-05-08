@@ -4,6 +4,7 @@ namespace Webrtc{
 	{
 		WebrtcManager();
 		void Create();
+		void Destroy();
 
 		Windows.Foundation.IAsyncAction ConnectAsync(String ip, String port, UInt32 ssrc);
 		void SendSelectProtocol(UInt32 ssrc);

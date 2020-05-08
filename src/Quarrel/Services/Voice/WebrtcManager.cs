@@ -35,6 +35,16 @@ namespace Quarrel.Services.Voice
         }
 
 
+        public void Create()
+        {
+            manager.Create();
+        }
+
+        public void Destroy()
+        {
+            manager.Destroy();
+        }
+
         public async Task ConnectAsync(string ip, string port, uint ssrc)
         {
             await manager.ConnectAsync(ip, port, ssrc);
