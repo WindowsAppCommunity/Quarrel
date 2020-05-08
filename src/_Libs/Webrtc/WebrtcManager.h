@@ -11,10 +11,18 @@
 #include <api/audio_codecs/builtin_audio_decoder_factory.h>
 #include <modules/audio_processing/audio_buffer.h>
 #include <common_audio/include/audio_util.h>
+#include <media/engine/adm_helpers.h>
+#include <modules/audio_mixer/audio_mixer_impl.h>
 
 #include <iostream>
 #include <IAudioDeviceWasapi.h>
 #include <sodium/crypto_secretbox.h>
+
+
+namespace Webrtc
+{
+	class StreamTransport;
+}
 
 namespace winrt::Webrtc::implementation
 {
@@ -40,14 +48,21 @@ namespace winrt::Webrtc::implementation
 		void AudioInData(event_token const& token) noexcept;
 		event_token AudioInData(Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>> const& handler);
 
+		void Speaking(event_token const& token) noexcept;
+		event_token Speaking(Windows::Foundation::EventHandler<bool> const& handler);
+
 
 		void UpdateInBytes(Windows::Foundation::Collections::IVector<float> const& data);
 		void UpdateOutBytes(Windows::Foundation::Collections::IVector<float> const& data);
 
+		void SetCurrentVolume(double volume);
+
 	private:
+		friend class ::Webrtc::StreamTransport;
 		event<Windows::Foundation::TypedEventHandler<hstring, USHORT>> m_ipAndPortObtained;
 		event<Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>>> m_audioOutData;
 		event<Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>>> m_audioInData;
+		event<Windows::Foundation::EventHandler<bool>> m_speaking;
 		
 		void WebrtcManager::CreateVoe();
 		void WebrtcManager::CreateCall();
@@ -77,9 +92,12 @@ namespace winrt::Webrtc::implementation
 
 		class AudioLoopbackTransport;
 		class VideoLoopbackTransport;
-		webrtc::Transport* g_audioSendTransport = nullptr;
+		::Webrtc::StreamTransport* g_audioSendTransport = nullptr;
 
 		std::unique_ptr<rtc::Thread> workerThread;
+
+		bool isSpeaking = false;
+		int frameCount = 0;;
 
 	};
 }
@@ -96,11 +114,13 @@ namespace Webrtc
 	class StreamTransport : public webrtc::Transport
 	{
 	public:
-		StreamTransport(webrtc::Call* call, winrt::Windows::Storage::Streams::DataWriter const& sendStream);
+		StreamTransport(winrt::Webrtc::implementation::WebrtcManager* manager);
 		virtual bool SendRtp(const uint8_t* packet, size_t length, const webrtc::PacketOptions const& options);
 		virtual bool SendRtcp(const uint8_t* packet, size_t length);
+		void StopSend();
+		void StartSend();
 	private:
-		webrtc::Call* call;
-		winrt::Windows::Storage::Streams::DataWriter sendStream;
+		winrt::Webrtc::implementation::WebrtcManager* manager;
+		bool isSending;
 	};
 }

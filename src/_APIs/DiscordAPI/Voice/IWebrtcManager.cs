@@ -10,6 +10,7 @@ namespace DiscordAPI.Voice
         event EventHandler<Tuple<string, ushort>> IpAndPortObtained;
         event EventHandler<IList<float>> AudioInData;
         event EventHandler<IList<float>> AudioOutData;
+        event EventHandler<bool> Speaking;
 
         Task ConnectAsync(string readyIp, string toString, uint lastReadySsrc);
 

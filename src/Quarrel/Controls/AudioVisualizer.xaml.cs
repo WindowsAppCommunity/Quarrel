@@ -176,7 +176,7 @@ namespace Quarrel.Controls
             float[] data = new float[512];
             for (int i = 0; i < e.Count; i++)
             {
-                data[i] = e[i] / 3000;
+                data[i] = e[i] / 32768;
             }
 
             // Determine FFT data

@@ -40,49 +40,9 @@ namespace DiscordAPI.Voice
         private SocketFrame lastEvent;
 
         private readonly IWebMessageSocket _webMessageSocket;
- //       private readonly UDPSocket _udpSocket;
         public readonly VoiceState _state;
         private readonly VoiceServerUpdate _voiceServerConfig;
 
-        //private float[] partialFrame = null;
-        byte[] buffer = new byte[FrameBytes];
-
-        private OpusEncoder encoder = new OpusEncoder(48000, 2, Concentus.Enums.OpusApplication.OPUS_APPLICATION_VOIP);
-        private OpusDecoder decoder = new OpusDecoder(48000, 2);
-
-        private ushort sequence = 0;
-
-        private const int framesize = 20 * 48 * 2; //20 ms * 48 samples per ms * 2 bytes per sample
-
-        public const int SamplingRate = 48000;
-        public const int Channels = 2;
-        public const int FrameMillis = 20;
-
-        public const int VideoDeviceBitrate = 600000;
-        public const int VideoDeviceMinBitrate = 150000;
-        public const int VideoDeviceMaxBitrate = 2500000;
-        public const int VideoDeviceWidth = 1280;
-        public const int VideoDeviceHeight = 720;
-        public const int VideoFrameRate = 30;
-
-        public const int DesktopBitrate = 600000;
-        public const int DesktopMinBitrate = 150000;
-        public const int DesktopMaxBitrate = 2500000;
-        public const int DesktopWidth = 1280;
-        public const int DesktopHeight = 720;
-        public const int DesktopFrameRate = 30;
-
-        public const int SampleBytes = sizeof(float) * Channels;
-
-        public const int FrameSamplesPerChannel = SamplingRate / 1000 * FrameMillis;
-        public const int FrameSamples = FrameSamplesPerChannel * Channels;
-        public const int FrameBytes = FrameSamplesPerChannel * SampleBytes;
-
-        private float[] output = new float[framesize * 2];
-
-        private byte[] secretkey;
-
-        private uint timestamp;
 
         public event EventHandler<VoiceConnectionEventArgs<Ready>> Ready;
         public event EventHandler<VoiceConnectionEventArgs<VoiceData>> VoiceDataRecieved;
@@ -114,6 +74,7 @@ namespace DiscordAPI.Voice
             PrepareSocket();
 
             _webrtcManager.IpAndPortObtained += WebrtcManagerOnIpAndPortObtained;
+            _webrtcManager.Speaking += WebrtcManagerOnSpeaking;
 
         }
 
@@ -131,7 +92,7 @@ namespace DiscordAPI.Voice
                         payloadType = 120,
                         Priority = 1000,
                         Type = "audio",
-                        rtxPayloadType = 120
+                        rtxPayloadType = 120,
                     },
                     new Codec()
                     {
@@ -139,28 +100,32 @@ namespace DiscordAPI.Voice
                         payloadType = 101,
                         Priority = 1000,
                         Type = "video",
-                        rtxPayloadType = 102
-                    }
+                        rtxPayloadType = 102,
+                    },
                 }.ToArray(),
-                Mode = "xsalsa20_poly1305" //"_suffix"
+                Mode = "xsalsa20_poly1305", //"_suffix"
             };
 
             var payload = new SelectProtocol()
             {
                 Protocol = "udp",
-                Data = info
+                Data = info,
             };
 
             SocketFrame package = new SocketFrame()
             {
                 Operation = (int)OperationCode.SelectProtocol,
                 Payload = payload,
-                Type = EventNames.SELECT_PROTOCOL
+                Type = EventNames.SELECT_PROTOCOL,
             };
 
             await _webMessageSocket.SendJsonObjectAsync(package);
         }
 
+        private void WebrtcManagerOnSpeaking(object sender, bool speaking)
+        {
+            SendSpeaking(speaking ? 1 : 0);
+        }
 
         private void PrepareSocket()
         {
@@ -185,22 +150,6 @@ namespace DiscordAPI.Voice
             await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
         }
 
-
-        public async void SendSilence()
-        {
-            if (lastReady != null && secretkey != null)
-            {
-                byte[] opus = new byte[31];
-                byte[] nonce = makeHeader();
-                Buffer.BlockCopy(nonce, 0, opus, 0, 12);
-                opus[12] = 0xF8;
-                opus[13] = 0xFF;
-                opus[14] = 0xFE;
-                Cypher.encrypt(opus, 12, 3, opus, 12, nonce, secretkey);
-            //    await _udpSocket.SendBytesAsync(opus);
-            }
-        }
-
         public async void SendSpeaking(int speaking)
         {
             DownstreamEvents.Speak Event = new DownstreamEvents.Speak
@@ -208,10 +157,6 @@ namespace DiscordAPI.Voice
                 Speaking = speaking
             };
             Speak?.Invoke(this, new VoiceConnectionEventArgs<DownstreamEvents.Speak>(Event));
-            if (speaking == 0)
-            {
-                SendSilence();
-            }
 
             var speakingPacket = new SocketFrame
             {
@@ -220,60 +165,11 @@ namespace DiscordAPI.Voice
                 {
                     Speaking = speaking,
                     Delay = 0,
-                    SSRC = lastReady?.SSRC ?? 0
-                }
+                    SSRC = lastReady?.SSRC ?? 0,
+                },
             };
             await _webMessageSocket.SendJsonObjectAsync(speakingPacket);
         }
-
-        byte[] makeHeader()
-        {
-            byte[] header = new byte[24];
-            if (lastReady != null)
-            {
-                sequence = unchecked((ushort)(sequence + 1));
-                header[0] = 0x80; //No extension
-                header[1] = 0x78;
-
-                //byte[] seq = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(sequence));
-                if (BitConverter.IsLittleEndian)
-                {
-                    header[2] = (byte)(sequence >> 8);
-                    header[3] = (byte)(sequence >> 0);
-                }
-                else
-                {
-                    header[2] = (byte)(sequence >> 0);
-                    header[3] = (byte)(sequence >> 8);
-                }
-
-
-
-                byte[] time = BitConverter.GetBytes(timestamp);
-
-                if (BitConverter.IsLittleEndian)
-                {
-                    Array.Reverse(time);
-                }
-                header[4] = time[0];
-                header[5] = time[1];
-                header[6] = time[2];
-                header[7] = time[3];
-
-                byte[] SSRCBytes = BitConverter.GetBytes(lastReady.SSRC);
-
-                if (BitConverter.IsLittleEndian)
-                {
-                    Array.Reverse(SSRCBytes);
-                }
-                header[8] = SSRCBytes[0];
-                header[9] = SSRCBytes[1];
-                header[10] = SSRCBytes[2];
-                header[11] = SSRCBytes[3];
-            }
-            return header;
-        }
-
 
         private IReadOnlyDictionary<int, VoiceConnectionEventHandler> GetOperationHandlers()
         {
@@ -282,7 +178,7 @@ namespace DiscordAPI.Voice
                 { OperationCode.Ready.ToInt(), OnReady },
                 { OperationCode.Hello.ToInt(), OnHello },
                 { OperationCode.SessionDescription.ToInt(), OnSessionDesc },
-                { OperationCode.Speaking.ToInt(), OnSpeaking }
+                { OperationCode.Speaking.ToInt(), OnSpeaking },
             };
         }
 
@@ -293,7 +189,7 @@ namespace DiscordAPI.Voice
                 { EventNames.READY, OnReady },
                 { EventNames.HEARTBEAT, OnHello},
                 { EventNames.SELECT_PROTOCOL, OnSessionDesc },
-                { EventNames.SPEAKING, OnSpeaking }
+                { EventNames.SPEAKING, OnSpeaking },
             };
         }
 
@@ -346,8 +242,8 @@ namespace DiscordAPI.Voice
         private void OnSessionDesc(SocketFrame Event)
         {
             var Desc = Event.GetData<SessionDescription>();
-            secretkey = Desc.SecretKey;
-            _webrtcManager.SetKey(secretkey);
+
+            _webrtcManager.SetKey(Desc.SecretKey);
         }
 
         private void OnSpeaking(SocketFrame Event)
@@ -357,79 +253,6 @@ namespace DiscordAPI.Voice
             FireEventOnDelegate(Event, Speak);
         }
 
-        private void processUdpPacket(object sender, PacketReceivedEventArgs e)
-        {
-            if (secretkey != null)
-            {
-                byte[] packet = (byte[])e.Message;
-                byte[] nonce = new byte[24];
-                byte[] data;
-                Buffer.BlockCopy(packet, 0, nonce, 0, 12);
-                data = new byte[packet.Length - 12 - 16];
-
-                int payloadType = packet[1];
-                switch (payloadType)
-                {
-                    case 120:
-                        //Opus Audio
-                        if (data.Length != Cypher.decrypt(packet, 12, packet.Length - 12, data, 0, nonce, secretkey))
-                        {
-                            throw new Exception("Conflicting sizes"); //Conflicting sizes
-                        }
-                        processVoicePacket(packet, data);
-                        break;
-                    case 101:
-                        //VP8 Video
-                        if (data.Length != Cypher.decrypt(packet, 12, packet.Length - 12, data, 0, nonce, secretkey))
-                        {
-                            throw new Exception("Conflicting sizes"); //Conflicting sizes
-                        }
-                        processVP8Packet(packet, data);
-                        break;
-                    case 102:
-                        //TODO: RTX
-                        //ahhhh, so rtx is for retransmission
-                        //It seems like this will be useful for video
-                        //As previous frames are required? to decode future ones
-                        //https://webrtcglossary.com/rtx/
-                        Debug.WriteLine($"RTX payload: {payloadType}");
-                        break;
-                    default:
-                        Debug.WriteLine($"Unknown payload Type: {payloadType}");
-                        break;
-                }
-            }
-        }
-
-        private void processVoicePacket(byte[] packet, byte[] data)
-        {
-            try
-            {
-                int headerSize = GetHeaderSize(packet, data);
-                int samples = decoder.Decode(data, headerSize, data.Length - headerSize, output, 0, framesize);
-
-                VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
-            }
-            catch (Exception exception)
-            {
-                Debug.WriteLine(exception.Message);
-            }
-        }
-
-        private void processVP8Packet(byte[] packet, byte[] data)
-        {
-            try
-            {
-                //   int headerSize = GetHeaderSize(packet, data);
-                //  int samples = decoder.Decode(data, headerSize, data.Length - headerSize, output, 0, framesize);
-
-                //   VideoDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
-            }
-            catch (Exception exception)
-            {
-                Debug.WriteLine(exception.Message);
-            }
-        }
         #endregion
 
         private void FireEventOnDelegate<TEventData>(SocketFrame gatewayEvent, EventHandler<VoiceConnectionEventArgs<TEventData>> eventHandler)
@@ -460,23 +283,6 @@ namespace DiscordAPI.Voice
                 }
             }
         }
-
-        public static int GetHeaderSize(byte[] header, byte[] buffer)
-        {
-            byte headerByte = header[0];
-            bool extension = (headerByte & 0b0001_0000) != 0;
-            int csics = (headerByte & 0b0000_1111) >> 4;
-
-            if (!extension)
-                return csics * 4;
-
-            int extensionOffset = csics * 4;
-            int extensionLength =
-                (buffer[extensionOffset + 2] << 8) |
-                (buffer[extensionOffset + 3]);
-            return extensionOffset + 4 + (extensionLength * 4);
-        }
-
         private async Task SendHeartbeatAsync()
         {
             try
@@ -492,53 +298,6 @@ namespace DiscordAPI.Voice
             catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
-            }
-        }
-    }
-    public static unsafe class Cypher
-    {
-
-#if !X86 && !X64 && !ARM //Should never happen
-        private static int Encrypt(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret)
-        {
-            return -1;
-        }
-        private static int Decrypt(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret)
-        {
-            return -1;
-        }
-#endif
-
-        [DllImport("SodiumC.dll", EntryPoint = "Encrypt", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int Encrypt(byte* output, byte* input, long inputLength, byte* nonce, byte* secret);
-        [DllImport("SodiumC.dll", EntryPoint = "Decrypt", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int Decrypt(byte* output, byte* input, long inputLength, byte* nonce, byte* secret);
-
-        public static int encrypt(byte[] input, int inputOffset, int inputLength, byte[] output, int outputOffset, byte[] nonce, byte[] secret)
-        {
-            fixed (byte* inPtr = input)
-            fixed (byte* outPtr = output)
-            fixed (byte* noncePtr = nonce)
-            fixed (byte* secretPtr = secret)
-            {
-                int error = Encrypt(outPtr + outputOffset, inPtr + inputOffset, inputLength, noncePtr, secretPtr);
-                if (error != 0)
-                    throw new Exception($"Sodium Error: {error}");
-                return inputLength + 16;
-            }
-        }
-
-        public static int decrypt(byte[] input, int inputOffset, int inputLength, byte[] output, int outputOffset, byte[] nonce, byte[] secret)
-        {
-            fixed (byte* inPtr = input)
-            fixed (byte* outPtr = output)
-            fixed (byte* noncePtr = nonce)
-            fixed (byte* secretPtr = secret)
-            {
-                int error = Decrypt(outPtr + outputOffset, inPtr + inputOffset, inputLength, noncePtr, secretPtr);
-                if (error != 0)
-                    throw new Exception($"Sodium Error: {error}");
-                return inputLength - 16;
             }
         }
     }

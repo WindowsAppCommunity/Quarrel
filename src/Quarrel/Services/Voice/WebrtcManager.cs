@@ -17,6 +17,7 @@ namespace Quarrel.Services.Voice
         public event EventHandler<Tuple<string, ushort>> IpAndPortObtained;
         public event EventHandler<IList<float>> AudioInData;
         public event EventHandler<IList<float>> AudioOutData;
+        public event EventHandler<bool> Speaking;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WebrtcManager"/> class.
@@ -29,6 +30,8 @@ namespace Quarrel.Services.Voice
                 AudioInData?.Invoke(sender, data);
             manager.AudioOutData += (sender, data) =>
                 AudioOutData?.Invoke(sender, data);
+            manager.Speaking += (sender, data) =>
+                Speaking?.Invoke(sender, data);
         }
 
 
