@@ -142,7 +142,7 @@ namespace Quarrel.ViewModels
                 try
                 {
                     _atTop = false;
-                    NewItemsLoading = true;
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() => { NewItemsLoading = true; });
                     IList<Message> itemList = null;
                     try
                     {
@@ -192,8 +192,8 @@ namespace Quarrel.ViewModels
                         BindableMessages.Clear();
                         BindableMessages.AddRange(messages);
                         ScrollTo?.Invoke(this, scrollItem ?? BindableMessages.LastOrDefault());
+                        NewItemsLoading = false;
                     });
-                    NewItemsLoading = false;
                 }
                 finally
                 {
