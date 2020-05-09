@@ -12,6 +12,7 @@ namespace Quarrel.ViewModels.Models.Emojis
     public class GuildEmoji : Emoji
     {
         private readonly string _id;
+        private IGuildsService _guildsService = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuildEmoji"/> class.
@@ -44,6 +45,6 @@ namespace Quarrel.ViewModels.Models.Emojis
         /// </summary>
         public bool IsEnabled { get; private set; }
 
-        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService => _guildsService ?? (_guildsService = SimpleIoc.Default.GetInstance<IGuildsService>());
     }
 }
