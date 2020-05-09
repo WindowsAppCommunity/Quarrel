@@ -31,9 +31,12 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
             IAnalyticsService analyticsService,
             IDispatcherHelper dispatcherHelper)
         {
+            _analyticsService = analyticsService;
+            _dispatcherHelper = dispatcherHelper;
+
             Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
             {
-                dispatcherHelper.CheckBeginInvokeOnUi(() =>
+                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
                     if (CurrentChannel != null)
                     {
