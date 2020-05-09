@@ -11,7 +11,6 @@ pool:
 
 variables:
   solution: '**/*.sln'
-  buildConfiguration: 'Debug'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
 
 steps:
@@ -26,7 +25,6 @@ steps:
     solution: '**\*.sln'
     msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
     platform: 'x86'
-    configuration: '$(buildConfiguration)'
     msbuildArchitecture: 'x64'
 
 - task: VSBuild@1
@@ -34,7 +32,6 @@ steps:
     solution: '**\*.sln'
     msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
     platform: 'x64'
-    configuration: '$(buildConfiguration)'
     msbuildArchitecture: 'x64'
 
 - task: VSBuild@1
@@ -42,5 +39,4 @@ steps:
     solution: '**\*.sln'
     msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
     platform: 'ARM'
-    configuration: '$(buildConfiguration)'
     msbuildArchitecture: 'x64'
