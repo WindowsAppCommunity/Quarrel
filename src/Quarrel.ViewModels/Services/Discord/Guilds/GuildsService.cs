@@ -41,6 +41,11 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
         /// <summary>
         /// Initializes a new instance of the <see cref="GuildsService"/> class.
         /// </summary>
+        /// <param name="analyticsService">The app's analytics service.</param>
+        /// <param name="cacheService">The app's cache service.</param>
+        /// <param name="channelsService">The app's channel service.</param>
+        /// <param name="presenceService">The app's presence service.</param>
+        /// <param name="dispatcherHelper">The app's dispatcher helper.</param>
         public GuildsService(IAnalyticsService analyticsService, ICacheService cacheService, IChannelsService channelsService, IDispatcherHelper dispatcherHelper, IPresenceService presenceService)
         {
             _analyticsService = analyticsService;
