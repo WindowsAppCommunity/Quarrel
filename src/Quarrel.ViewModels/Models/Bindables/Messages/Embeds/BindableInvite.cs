@@ -18,6 +18,8 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages.Embeds
         private bool _joined;
         private RelayCommand _acceptInviteCommand;
         private RelayCommand _removeCommand;
+        private IDiscordService _discordService = null;
+        private IGuildsService _guildsService = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableInvite"/> class.
@@ -27,7 +29,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages.Embeds
         {
             if (Model != null)
             {
-                _joined = SimpleIoc.Default.GetInstance<IGuildsService>().AllGuilds.ContainsKey(Model.Guild.Id);
+                _joined = GuildsService.AllGuilds.ContainsKey(Model.Guild.Id);
             }
         }
 
@@ -48,7 +50,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages.Embeds
         /// <summary>
         /// Gets a value indicating whether or not the invite can be removed by the user.
         /// </summary>
-        public bool CanRemove => SimpleIoc.Default.GetInstance<IGuildsService>().AllGuilds[Model.Guild.Id].Permissions.ManangeGuild;
+        public bool CanRemove => GuildsService.AllGuilds[Model.Guild.Id].Permissions.ManangeGuild;
 
         /// <summary>
         /// Gets a command that accepts the bound invite.
@@ -67,7 +69,9 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages.Embeds
             await DiscordService.InviteService.DeleteInvite(Model.Code);
         });
 
-        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private IDiscordService DiscordService => _discordService ?? (_discordService = SimpleIoc.Default.GetInstance<IDiscordService>());
+
+        private IGuildsService GuildsService => _guildsService ?? (_guildsService = SimpleIoc.Default.GetInstance<IGuildsService>());
 
         /// <summary>
         /// Updates bindings for unbound properties.
