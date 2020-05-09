@@ -8,8 +8,7 @@ namespace DiscordAPI.API.Channel
 {
     public interface IChannelService
     {
-        //GET
-
+        // GET
         [Get("/channels/{channelId}")]
         Task<GuildChannel> GetGuildChannel([AliasAs("channelId")] string channelId);
 
@@ -46,8 +45,10 @@ namespace DiscordAPI.API.Channel
         [Get("/v6/channels/{channelId}/webhooks")]
         Task<IEnumerable<Webhook>> GetWebhooks([AliasAs("channelId")] string channelId);
 
-        //PUT
+        [Get("/v6/channels/{channelId}/call")]
+        Task StartCall([AliasAs("channelId")] string channelId);
 
+        // PUT
         [Put("/channels/{channelId}/messages/{messageId}/reactions/{emoji}/@me")]
         Task CreateReaction([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [AliasAs("emoji")] string emoji);
 
@@ -57,8 +58,7 @@ namespace DiscordAPI.API.Channel
         [Put("/channels/{channelId}/pins/{messageId}")]
         Task AddPinnedChannelMessage([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId);
 
-        //POST
-
+        // POST
         [Post("/channels/{channelId}/messages")]
         Task<Message> CreateMessage([AliasAs("channelId")] string channelId, [Body] MessageUpsert message);
 
@@ -73,12 +73,6 @@ namespace DiscordAPI.API.Channel
         [Headers("Content-Type: application/json;")]
         Task AckMessage([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [Body] string body = "{}");
 
-        [Post("/v6/channels/{channelId}/call/ring")]
-        Task<DiscordAPI.Models.Invite> StartCall([AliasAs("channelId")] string channelId, [Body] CallDetails callDetails);
-
-        [Post("/v6/channels/{channelId}/call/stop-ringing")]
-        Task DeclineCall([AliasAs("channelId")] string channelId);
-
         [Post("/channels/{channelId}/invites")]
         Task<DiscordAPI.Models.Invite> CreateChannelInvite([AliasAs("channelId")] string channelid, [Body] CreateInvite invite);
 
@@ -88,13 +82,11 @@ namespace DiscordAPI.API.Channel
         [Post("/v6/channels/{channelId}/webhooks")]
         Task<Webhook> CreateWebhook([AliasAs("channelId")] string channelId, [Body] Webhook webhook);
 
-        //PATCH
-
+        // PATCH
         [Patch("/channels/{channelId}/messages/{messageId}")]
         Task<Message> EditMessage([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [Body] EditMessage editMessage);
 
-        //DELETE
-
+        // DELETE
         [Delete("/channels/{channelId}/messages/{messageId}")]
         Task DeleteMessage([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId);
 

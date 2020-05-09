@@ -44,6 +44,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         private RelayCommand _toggleEdit;
         private RelayCommand _saveEdit;
         private RelayCommand<List<Emoji>> _addReaction;
+        private RelayCommand _joinCallCommand;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableMessage"/> class.
@@ -109,11 +110,22 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         /// <summary>
         /// Gets a command that adds reactions to the message.
         /// </summary>
-        public RelayCommand<List<Emoji>> AddReaction => _addReaction = new RelayCommand<List<Emoji>>((emojis) =>
+        public RelayCommand<List<Emoji>> AddReaction => _addReaction = new RelayCommand<List<Emoji>>(async (emojis) =>
         {
             foreach (Emoji emoji in emojis)
             {
-                SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.CreateReaction(Model.ChannelId, Model.Id, emoji.CustomEmoji ? $"{emoji.Names[0]}:{emoji.Id}" : emoji.Surrogate);
+                await SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.CreateReaction(Model.ChannelId, Model.Id, emoji.CustomEmoji ? $"{emoji.Names[0]}:{emoji.Id}" : emoji.Surrogate);
+            }
+        });
+
+        /// <summary>
+        /// Gets a command that adds reactions to the message.
+        /// </summary>
+        public RelayCommand JoinCallCommand => _joinCallCommand = new RelayCommand(async () =>
+        {
+            if (Model.Call != null && Model.Call.EndedTimestamp == null)
+            {
+                await SimpleIoc.Default.GetInstance<IDiscordService>().Gateway.Gateway.VoiceStatusUpdate(null, Model.ChannelId, false, false);
             }
         });
 
