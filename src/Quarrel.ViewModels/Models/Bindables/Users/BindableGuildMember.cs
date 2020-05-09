@@ -44,6 +44,13 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
         private RelayCommand _openProfile;
         private RelayCommand _copyId;
         private RelayCommand _messageCommand;
+        private IAnalyticsService _analyticsService = null;
+        private ICacheService _cacheService = null;
+        private IChannelsService _channelsService = null;
+        private IDiscordService _discordService = null;
+        private IDispatcherHelper _dispatcherHelper = null;
+        private IResourceService _resourceService = null;
+        private IGuildsService _guildsService = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableGuildMember"/> class.
@@ -252,19 +259,19 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
         /// <inheritdoc/>
         public User RawModel => Model.User;
 
-        private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
+        private IAnalyticsService AnalyticsService => _analyticsService ?? (_analyticsService = SimpleIoc.Default.GetInstance<IAnalyticsService>());
 
-        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private ICacheService CacheService => _cacheService ?? (_cacheService = SimpleIoc.Default.GetInstance<ICacheService>());
 
-        private ICacheService CacheService { get; } = SimpleIoc.Default.GetInstance<ICacheService>();
+        private IChannelsService ChannelsService => _channelsService ?? (_channelsService = SimpleIoc.Default.GetInstance<IChannelsService>());
 
-        private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
+        private IDiscordService DiscordService => _discordService ?? (_discordService = SimpleIoc.Default.GetInstance<IDiscordService>());
 
-        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService => _guildsService ?? (_guildsService = SimpleIoc.Default.GetInstance<IGuildsService>());
 
-        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+        private IDispatcherHelper DispatcherHelper => _dispatcherHelper ?? (_dispatcherHelper = SimpleIoc.Default.GetInstance<IDispatcherHelper>());
 
-        private IResourceService ResourceService { get; } = SimpleIoc.Default.GetInstance<IResourceService>();
+        private IResourceService ResourceService => _resourceService ?? (_resourceService = SimpleIoc.Default.GetInstance<IResourceService>());
 
         /// <summary>
         /// Updates the accent color for the bindable guild member.
