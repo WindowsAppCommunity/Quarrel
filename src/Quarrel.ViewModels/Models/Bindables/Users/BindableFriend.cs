@@ -19,6 +19,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
     {
         private RelayCommand _acceptFriendRequestCommand;
         private RelayCommand _declineFriendRequestCommand;
+        private IDiscordService _discordService = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableFriend"/> class.
@@ -86,6 +87,6 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
             await DiscordService.UserService.RemoveFriend(Model.User.Id);
         });
 
-        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private IDiscordService DiscordService => _discordService ?? (_discordService = SimpleIoc.Default.GetInstance<IDiscordService>());
     }
 }
