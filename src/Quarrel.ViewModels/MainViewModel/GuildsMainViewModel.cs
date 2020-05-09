@@ -12,6 +12,7 @@ using Quarrel.ViewModels.Models.Bindables.Users;
 using Quarrel.ViewModels.Models.Interfaces;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Quarrel.ViewModels
 {
@@ -35,7 +36,10 @@ namespace Quarrel.ViewModels
                 {
                     CurrentGuild.Selected = false;
                     bGuild.Selected = true;
-                    MessengerInstance.Send(new GuildNavigateMessage(bGuild));
+                    Task.Run(() =>
+                    {
+                        MessengerInstance.Send(new GuildNavigateMessage(bGuild));
+                    });
                 }
                 else if (guildListItem is BindableGuildFolder bindableGuildFolder)
                 {
@@ -89,6 +93,24 @@ namespace Quarrel.ViewModels
                 {
                     BindableChannel channel =
                         m.Guild.Channels.FirstOrDefault(x => x.IsTextChannel && x.Permissions.ReadMessages);
+                    BindableGuildMember currentGuildMember;
+
+
+                    if (!m.Guild.IsDM)
+                    {
+                        currentGuildMember = _guildsService.GetGuildMember(_currentUserService.CurrentUser.Model.Id, m.Guild.Model.Id);
+                    }
+                    else
+                    {
+                        currentGuildMember = new BindableGuildMember(
+                            new DiscordAPI.Models.GuildMember()
+                            {
+                                User = _currentUserService.CurrentUser.Model,
+                            },
+                            "DM",
+                            _currentUserService.CurrentUser.Presence);
+                    }
+
                     _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         CurrentChannel = channel;
@@ -100,20 +122,7 @@ namespace Quarrel.ViewModels
                             CurrentBindableMembers.Clear();
                         }
 
-                        if (!m.Guild.IsDM)
-                        {
-                            CurrentGuildMember = _guildsService.GetGuildMember(_currentUserService.CurrentUser.Model.Id, m.Guild.Model.Id);
-                        }
-                        else
-                        {
-                            CurrentGuildMember = new BindableGuildMember(
-                            new DiscordAPI.Models.GuildMember()
-                            {
-                                User = _currentUserService.CurrentUser.Model,
-                            },
-                            "DM",
-                            _currentUserService.CurrentUser.Presence);
-                        }
+                        CurrentGuildMember = currentGuildMember;
                     });
 
                     if (channel != null)
