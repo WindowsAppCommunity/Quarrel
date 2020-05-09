@@ -17,6 +17,7 @@ using Quarrel.ViewModels.Services.Discord.CurrentUser;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Presence;
 using Quarrel.ViewModels.Services.Discord.Rest;
+using Quarrel.ViewModels.Services.Gateway;
 using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.ViewModels.Messages.Gateway;
@@ -49,6 +50,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         private IChannelsService _channelsService = null;
         private IDiscordService _discordService = null;
         private ISettingsService _settingsService = null;
+        private IGatewayService _gatewayService = null;
         private IGuildsService _guildsService = null;
         private IPresenceService _presenceService = null;
 
@@ -120,7 +122,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         {
             foreach (Emoji emoji in emojis)
             {
-                await SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.CreateReaction(Model.ChannelId, Model.Id, emoji.CustomEmoji ? $"{emoji.Names[0]}:{emoji.Id}" : emoji.Surrogate);
+                await DiscordService.ChannelService.CreateReaction(Model.ChannelId, Model.Id, emoji.CustomEmoji ? $"{emoji.Names[0]}:{emoji.Id}" : emoji.Surrogate);
             }
         });
 
@@ -131,7 +133,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         {
             if (Model.Call != null && Model.Call.EndedTimestamp == null)
             {
-                await SimpleIoc.Default.GetInstance<IDiscordService>().Gateway.Gateway.VoiceStatusUpdate(null, Model.ChannelId, false, false);
+                await GatewayService.Gateway.VoiceStatusUpdate(null, Model.ChannelId, false, false);
             }
         });
 
@@ -245,6 +247,8 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         private ICurrentUserService CurrentUsersService => _currentUsersService ?? (_currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUserService>());
 
         private IDiscordService DiscordService => _discordService ?? (_discordService = SimpleIoc.Default.GetInstance<IDiscordService>());
+
+        private IGatewayService GatewayService => _gatewayService ?? (_gatewayService = SimpleIoc.Default.GetInstance<IGatewayService>());
 
         private IGuildsService GuildsService => _guildsService ?? (_guildsService = SimpleIoc.Default.GetInstance<IGuildsService>());
 

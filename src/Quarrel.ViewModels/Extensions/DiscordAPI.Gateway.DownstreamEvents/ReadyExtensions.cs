@@ -21,12 +21,17 @@ namespace DiscordAPI.Gateway.DownstreamEvents
     /// </summary>
     internal static class ReadyExtensions
     {
-        private static ICurrentUserService currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUserService>();
-        private static IChannelsService channelsService = SimpleIoc.Default.GetInstance<IChannelsService>();
-        private static ICacheService cacheService = SimpleIoc.Default.GetInstance<ICacheService>();
-        private static IGuildsService guildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
-        private static IFriendsService friendsService = SimpleIoc.Default.GetInstance<IFriendsService>();
-        private static IDiscordService discordService = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private static ICurrentUserService CurrentUsersService => SimpleIoc.Default.GetInstance<ICurrentUserService>();
+
+        private static IChannelsService ChannelsService => SimpleIoc.Default.GetInstance<IChannelsService>();
+
+        private static ICacheService CacheService => SimpleIoc.Default.GetInstance<ICacheService>();
+
+        private static IGuildsService GuildsService => SimpleIoc.Default.GetInstance<IGuildsService>();
+
+        private static IFriendsService FriendsService => SimpleIoc.Default.GetInstance<IFriendsService>();
+
+        private static IDiscordService DiscordService => SimpleIoc.Default.GetInstance<IDiscordService>();
 
         /// <summary>
         /// Stores all data from the <see cref="Ready"/> event.
@@ -37,11 +42,11 @@ namespace DiscordAPI.Gateway.DownstreamEvents
             // Cache Guild Settings
             foreach (var gSettings in ready.GuildSettings)
             {
-                guildsService.GuildSettings.AddOrUpdate(gSettings.GuildId ?? "DM", gSettings);
+                GuildsService.GuildSettings.AddOrUpdate(gSettings.GuildId ?? "DM", gSettings);
 
                 foreach (var cSettings in gSettings.ChannelOverrides)
                 {
-                    channelsService.ChannelSettings.AddOrUpdate(cSettings.ChannelId, cSettings);
+                    ChannelsService.ChannelSettings.AddOrUpdate(cSettings.ChannelId, cSettings);
                 }
             }
 
@@ -55,18 +60,18 @@ namespace DiscordAPI.Gateway.DownstreamEvents
             foreach (var note in ready.Notes)
             {
                 // TODO: Remove Cache usage
-                cacheService.Runtime.SetValue(Constants.Cache.Keys.Note, note.Value, note.Key);
+                CacheService.Runtime.SetValue(Constants.Cache.Keys.Note, note.Value, note.Key);
             }
 
             // Cache friends
             foreach (var friend in ready.Friends)
             {
-                friendsService.Friends.AddOrUpdate(friend.Id, new BindableFriend(friend));
+                FriendsService.Friends.AddOrUpdate(friend.Id, new BindableFriend(friend));
             }
 
             // Cache current user.
-            discordService.CurrentUser = ready.User;
-            currentUsersService.CurrentUser.Model = ready.User;
+            DiscordService.CurrentUser = ready.User;
+            CurrentUsersService.CurrentUser.Model = ready.User;
         }
     }
 }

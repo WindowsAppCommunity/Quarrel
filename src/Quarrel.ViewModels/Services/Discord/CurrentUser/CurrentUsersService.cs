@@ -18,14 +18,28 @@ namespace Quarrel.ViewModels.Services.Discord.CurrentUser
     /// </summary>
     public class CurrentUsersService : ICurrentUserService
     {
+        private readonly ICacheService _cacheService;
+        private readonly IGuildsService _guildsService;
+        private readonly IPresenceService _presenceService;
+        private readonly IDispatcherHelper _dispatcherHelper;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CurrentUsersService"/> class.
         /// </summary>
-        public CurrentUsersService()
+        /// <param name="cacheService">The app's cache service.</param>
+        /// <param name="guildsService">The app's guild service.</param>
+        /// <param name="presenceService">The app's presence service.</param>
+        /// <param name="dispatcherHelper">The app's dispatcher helper.</param>
+        public CurrentUsersService(ICacheService cacheService, IGuildsService guildsService, IPresenceService presenceService, IDispatcherHelper dispatcherHelper)
         {
+            _cacheService = cacheService;
+            _guildsService = guildsService;
+            _presenceService = presenceService;
+            _dispatcherHelper = dispatcherHelper;
+
             Messenger.Default.Register<GatewayReadyMessage>(this, m =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
                     CurrentUser.Model = m.EventData.User;
                     CurrentUser.Presence = new DiscordAPI.Models.Presence()
@@ -38,12 +52,12 @@ namespace Quarrel.ViewModels.Services.Discord.CurrentUser
                     };
 
                     CurrentUserSettings = m.EventData.Settings;
-                    PresenceService.UpdateUserPrecense(CurrentUser.Model.Id, CurrentUser.Presence);
+                    _presenceService.UpdateUserPrecense(CurrentUser.Model.Id, CurrentUser.Presence);
                 });
             });
             Messenger.Default.Register<GatewayUserSettingsUpdatedMessage>(this, m =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
                     CurrentUserSettings = m.Settings;
 
@@ -58,7 +72,7 @@ namespace Quarrel.ViewModels.Services.Discord.CurrentUser
                             Status = m.Settings.Status,
                         };
                         CurrentUser.Presence = newPresence;
-                        PresenceService.UpdateUserPrecense(CurrentUser.Model.Id, CurrentUser.Presence);
+                        _presenceService.UpdateUserPrecense(CurrentUser.Model.Id, CurrentUser.Presence);
                     }
                 });
             });
@@ -69,13 +83,5 @@ namespace Quarrel.ViewModels.Services.Discord.CurrentUser
 
         /// <inheritdoc/>
         public UserSettings CurrentUserSettings { get; private set; } = new UserSettings();
-
-        private ICacheService CacheService { get; } = SimpleIoc.Default.GetInstance<ICacheService>();
-
-        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
-
-        private IPresenceService PresenceService { get; } = SimpleIoc.Default.GetInstance<IPresenceService>();
-
-        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
     }
 }

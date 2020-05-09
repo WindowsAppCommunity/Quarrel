@@ -43,7 +43,5 @@ namespace Quarrel.ViewModels.Services.Discord.Friends
         /// <inheritdoc/>
         public IDictionary<string, BindableGuildMember> DMUsers { get; } =
             new ConcurrentDictionary<string, BindableGuildMember>();
-
-        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
     }
 }

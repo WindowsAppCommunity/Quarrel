@@ -47,7 +47,7 @@ namespace Quarrel.ViewModels
             {
                 if (channel.Model is GuildChannel gChannel)
                 {
-                    await _discordService.Gateway.Gateway.VoiceStatusUpdate(CurrentGuild.Model.Id, gChannel.Id, false, false);
+                    await _gatewayService.Gateway.VoiceStatusUpdate(CurrentGuild.Model.Id, gChannel.Id, false, false);
                 }
 
                 _analyticsService.Log(Constants.Analytics.Events.JoinVoiceChannel);

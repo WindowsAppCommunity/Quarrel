@@ -32,11 +32,31 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
     /// </summary>
     public class DiscordService : IDiscordService
     {
+        private readonly ICacheService _cacheService;
+        private readonly IGatewayService _gatewayService;
+        private readonly ISubFrameNavigationService _subFrameNavigationService;
+
         /// <summary>
         /// The access token for the current user.
         /// </summary>
         [NotNull]
         private string _accessToken;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiscordService"/> class.
+        /// </summary>
+        /// <param name="cacheService">The app's cache service.</param>
+        /// <param name="gatewayService">The app's gateway service.</param>
+        /// <param name="subFrameNavigationService">The app's subframe navigation service.</param>
+        public DiscordService(
+            ICacheService cacheService,
+            IGatewayService gatewayService,
+            ISubFrameNavigationService subFrameNavigationService)
+        {
+            _cacheService = cacheService;
+            _gatewayService = gatewayService;
+            _subFrameNavigationService = subFrameNavigationService;
+        }
 
         /// <inheritdoc/>
         public IActivitiesService ActivitesService { get; private set; }
@@ -51,7 +71,7 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
         public IGameService GameService { get; private set; }
 
         /// <inheritdoc/>
-        public IGatewayConfigService GatewayService { get; private set; }
+        public IGatewayConfigService GatewayConfigService { get; private set; }
 
         /// <inheritdoc/>
         public IGuildService GuildService { get; private set; }
@@ -72,13 +92,7 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
         public IVoiceService VoiceService { get; private set; }
 
         /// <inheritdoc/>
-        [NotNull]
-        public IGatewayService Gateway { get; } = SimpleIoc.Default.GetInstance<IGatewayService>();
-
-        /// <inheritdoc/>
         public User CurrentUser { get; set; }
-
-        private ICacheService CacheService { get; } = SimpleIoc.Default.GetInstance<ICacheService>();
 
         /// <inheritdoc/>
         public async Task<bool> Login([NotNull] string email, [NotNull] string password)
@@ -98,7 +112,7 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
 
             _accessToken = result.Token;
 
-            await CacheService.Persistent.Roaming.SetValueAsync(Constants.Cache.Keys.AccessToken, (object)_accessToken);
+            await _cacheService.Persistent.Roaming.SetValueAsync(Constants.Cache.Keys.AccessToken, (object)_accessToken);
 
             return await Login();
         }
@@ -108,7 +122,7 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
         {
             if (storeToken)
             {
-                await CacheService.Persistent.Roaming.SetValueAsync(Constants.Cache.Keys.AccessToken, (object)token);
+                await _cacheService.Persistent.Roaming.SetValueAsync(Constants.Cache.Keys.AccessToken, (object)token);
             }
 
             _accessToken = token;
@@ -119,8 +133,8 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
         /// <inheritdoc/>
         public void Logout()
         {
-            CacheService.Persistent.Roaming.DeleteValueAsync(Constants.Cache.Keys.AccessToken);
-            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("LoginPage");
+            _cacheService.Persistent.Roaming.DeleteValueAsync(Constants.Cache.Keys.AccessToken);
+            _subFrameNavigationService.NavigateTo("LoginPage");
         }
 
         private Task<bool> Login()
@@ -140,7 +154,7 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
             UserService = authenticatedRestFactory.GetUserService();
             VoiceService = authenticatedRestFactory.GetVoiceService();
 
-            return Gateway.InitializeGateway(_accessToken);
+            return _gatewayService.InitializeGateway(_accessToken);
         }
     }
 }
