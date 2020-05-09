@@ -18,6 +18,9 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
     public class BindableVoiceUser : BindableModelBase<VoiceState>, IEquatable<BindableVoiceUser>, IComparable<BindableVoiceUser>
     {
         private bool _speaking;
+        private ICurrentUserService _currentUsersService = null;
+        private IGuildsService _guildsService = null;
+        private IDispatcherHelper _dispatcherHelper = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableVoiceUser"/> class.
@@ -71,11 +74,11 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
         /// </summary>
         public BindableGuildMember GuildMember => GuildsService.GetGuildMember(Model.UserId, Model.GuildId);
 
-        private ICurrentUserService UserService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        private ICurrentUserService CurrentUsersService => _currentUsersService ?? (_currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUserService>());
 
-        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService => _guildsService ?? (_guildsService = SimpleIoc.Default.GetInstance<IGuildsService>());
 
-        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+        private IDispatcherHelper DispatcherHelper => _dispatcherHelper ?? (_dispatcherHelper = SimpleIoc.Default.GetInstance<IDispatcherHelper>());
 
         /// <summary>
         /// Raises property changed on all properties.
