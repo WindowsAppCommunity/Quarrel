@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'vs2017-win2016'
 
 variables:
   solution: '**/*.sln'
@@ -24,7 +24,27 @@ steps:
 
 - task: VSBuild@1
   inputs:
-    platform: 'x86'
-    solution: '$(solution)'
-    configuration: '$(buildConfiguration)'
+    solution: '**\*.sln'
+    vsVersion: '15.0'
     msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+    platform: 'x86'
+    configuration: 'release'
+    msbuildArchitecture: 'x64'
+
+- task: VSBuild@1
+  inputs:
+    solution: '**\*.sln'
+    vsVersion: '15.0'
+    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+    platform: 'x64'
+    configuration: 'release'
+    msbuildArchitecture: 'x64'
+
+- task: VSBuild@1
+  inputs:
+    solution: '**\*.sln'
+    vsVersion: '15.0'
+    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+    platform: 'ARM'
+    configuration: 'release'
+    msbuildArchitecture: 'x64'
