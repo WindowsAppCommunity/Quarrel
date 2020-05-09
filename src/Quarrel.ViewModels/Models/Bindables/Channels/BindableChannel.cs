@@ -45,6 +45,14 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
         private RelayCommand _mute;
         private RelayCommand _leaveGroup;
         private RelayCommand _copyId;
+        private ICurrentUserService _currentUsersService = null;
+        private IChannelsService _channelsService = null;
+        private IDiscordService _discordService = null;
+        private ISettingsService _settingsService = null;
+        private IFriendsService _friendsService = null;
+        private IVoiceService _voiceService = null;
+        private IGuildsService _guildsService = null;
+        private IDispatcherHelper _dispatcherHelper = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableChannel"/> class.
@@ -675,21 +683,21 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
         /// </summary>
         public ConcurrentDictionary<string, Timer> Typers { get; private set; } = new ConcurrentDictionary<string, Timer>();
 
-        private ICurrentUserService CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        private ICurrentUserService CurrentUsersService => _currentUsersService ?? (_currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUserService>());
 
-        private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
+        private IChannelsService ChannelsService => _channelsService ?? (_channelsService = SimpleIoc.Default.GetInstance<IChannelsService>());
 
-        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private IDiscordService DiscordService => _discordService ?? (_discordService = SimpleIoc.Default.GetInstance<IDiscordService>());
 
-        private ISettingsService SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
+        private ISettingsService SettingsService => _settingsService ?? (_settingsService = SimpleIoc.Default.GetInstance<ISettingsService>());
 
-        private IFriendsService FriendsService { get; } = SimpleIoc.Default.GetInstance<IFriendsService>();
+        private IFriendsService FriendsService => _friendsService ?? (_friendsService = SimpleIoc.Default.GetInstance<IFriendsService>());
 
-        private IVoiceService VoiceService { get; } = SimpleIoc.Default.GetInstance<IVoiceService>();
+        private IVoiceService VoiceService => _voiceService ?? (_voiceService = SimpleIoc.Default.GetInstance<IVoiceService>());
 
-        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService => _guildsService ?? (_guildsService = SimpleIoc.Default.GetInstance<IGuildsService>());
 
-        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+        private IDispatcherHelper DispatcherHelper => _dispatcherHelper ?? (_dispatcherHelper = SimpleIoc.Default.GetInstance<IDispatcherHelper>());
 
         /// <summary>
         /// Updates the Last Read Message ID in the channel's readstate.
