@@ -51,32 +51,29 @@ namespace Quarrel.TemplateSelectors
         /// <returns>A <see cref="DataTemplate"/> for the <paramref name="item"/>'s type.</returns>
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
-            if (container is FrameworkElement parent)
+            if (item is BindableInvite invite)
             {
-                if (item is BindableInvite invite)
-                {
-                    return InviteTemplate;
-                }
+                return InviteTemplate;
+            }
 
-                if (item is BindableEmbed embed)
+            if (item is BindableEmbed embed)
+            {
+                switch (embed.Model.Type)
                 {
-                    switch (embed.Model.Type)
-                    {
-                        case "image": return ImageEmbedTemplate;
-                        case "gifv": return GifvEmbedTemplate;
-                        case "video":
+                    case "image": return ImageEmbedTemplate;
+                    case "gifv": return GifvEmbedTemplate;
+                    case "video":
+                        {
+                            if (Regex.IsMatch(embed.Model.Video?.Url, ViewModels.Helpers.Constants.Regex.YouTubeURLRegex))
                             {
-                                if (Regex.IsMatch(embed.Model.Video?.Url, ViewModels.Helpers.Constants.Regex.YouTubeURLRegex))
-                                {
-                                    return YoutubeEmbedTemplate;
-                                }
-
-                                break;
+                                return YoutubeEmbedTemplate;
                             }
 
-                        case "rich": return RichEmbedTemplate;
-                        default: return DefaultEmbedTemplate;
-                    }
+                            break;
+                        }
+
+                    case "rich": return RichEmbedTemplate;
+                    default: return DefaultEmbedTemplate;
                 }
             }
 
