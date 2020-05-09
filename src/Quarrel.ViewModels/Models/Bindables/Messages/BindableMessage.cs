@@ -45,6 +45,12 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         private RelayCommand _saveEdit;
         private RelayCommand<List<Emoji>> _addReaction;
         private RelayCommand _joinCallCommand;
+        private ICurrentUserService _currentUsersService = null;
+        private IChannelsService _channelsService = null;
+        private IDiscordService _discordService = null;
+        private ISettingsService _settingsService = null;
+        private IGuildsService _guildsService = null;
+        private IPresenceService _presenceService = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableMessage"/> class.
@@ -134,7 +140,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         /// </summary>
         public bool MentionsMe => Model.MentionEveryone ||
             (Model.Mentions != null &&
-            Model.Mentions.Any(x => x.Id == CurrentUserService.CurrentUser.Model.Id));
+            Model.Mentions.Any(x => x.Id == CurrentUsersService.CurrentUser.Model.Id));
 
         /// <summary>
         /// Gets a value indicating whether or not the pin button should be shown in the flyout.
@@ -234,17 +240,17 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
 
         private BindableChannel Channel => ChannelsService.AllChannels[Model.ChannelId];
 
-        private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
+        private IChannelsService ChannelsService => _channelsService ?? (_channelsService = SimpleIoc.Default.GetInstance<IChannelsService>());
 
-        private ICurrentUserService CurrentUserService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        private ICurrentUserService CurrentUsersService => _currentUsersService ?? (_currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUserService>());
 
-        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private IDiscordService DiscordService => _discordService ?? (_discordService = SimpleIoc.Default.GetInstance<IDiscordService>());
 
-        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService => _guildsService ?? (_guildsService = SimpleIoc.Default.GetInstance<IGuildsService>());
 
-        private IPresenceService PresenceService { get; } = SimpleIoc.Default.GetInstance<IPresenceService>();
+        private IPresenceService PresenceService => _presenceService ?? (_presenceService = SimpleIoc.Default.GetInstance<IPresenceService>());
 
-        private ISettingsService SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
+        private ISettingsService SettingsService => _settingsService ?? (_settingsService = SimpleIoc.Default.GetInstance<ISettingsService>());
 
         /// <summary>
         /// Update the message contents to <paramref name="message"/>.
