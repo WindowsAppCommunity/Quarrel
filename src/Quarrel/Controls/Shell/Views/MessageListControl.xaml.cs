@@ -90,7 +90,10 @@ namespace Quarrel.Controls.Shell.Views
         /// </summary>
         private void ViewModel_ScrollTo(object sender, BindableMessage e)
         {
-            MessageList.ScrollIntoView(e);
+            if (e != null)
+            {
+                MessageList.ScrollIntoView(e);
+            }
         }
     }
 }
