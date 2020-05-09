@@ -5,7 +5,7 @@ namespace DiscordAPI.Voice.UpstreamEvents
     public class Identify
     {
         [JsonProperty("server_id")]
-        public string GuildId { get; set; }
+        public string ServerId { get; set; }
         [JsonProperty("user_id")]
         public string UserId { get; set; }
         [JsonProperty("session_id")]

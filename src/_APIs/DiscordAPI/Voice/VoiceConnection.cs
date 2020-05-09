@@ -197,7 +197,7 @@ namespace DiscordAPI.Voice
         {
             return new Identify
             {
-                GuildId = _voiceServerConfig.GuildId,
+                ServerId = _voiceServerConfig.GuildId ?? _voiceServerConfig.ChannelId,
                 SessionId = _state.SessionId,
                 Token = _voiceServerConfig.Token,
                 UserId = _state.UserId,

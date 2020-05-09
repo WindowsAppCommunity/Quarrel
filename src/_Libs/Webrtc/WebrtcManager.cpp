@@ -146,9 +146,6 @@ namespace winrt::Webrtc::implementation
 
 	void WebrtcManager::Create()
 	{
-		udpSocket = Windows::Networking::Sockets::DatagramSocket();
-		udpSocket.MessageReceived({ this, &WebrtcManager::OnMessageReceived });
-		
 		workerThread = rtc::Thread::Create();
 		workerThread->Start();
 
@@ -163,6 +160,7 @@ namespace winrt::Webrtc::implementation
 		this->CreateCall();
 		this->g_audioSendTransport = new ::Webrtc::StreamTransport(this);
 		this->audioSendStream = this->createAudioSendStream(this->ssrc, 120);
+		this->g_call->SignalChannelNetworkState(webrtc::MediaType::AUDIO, webrtc::NetworkState::kNetworkUp);
 	}
 
 	void WebrtcManager::Destroy()
@@ -351,11 +349,14 @@ namespace winrt::Webrtc::implementation
 	{
 		this->hasGotIp = false;
 		this->ssrc = ssrc;
+		
+		udpSocket = Windows::Networking::Sockets::DatagramSocket();
+		udpSocket.MessageReceived({ this, &WebrtcManager::OnMessageReceived });
+
 		co_await this->udpSocket.ConnectAsync(Windows::Networking::HostName(ip), port);
 
 		this->outputStream = Windows::Storage::Streams::DataWriter(this->udpSocket.OutputStream());
 		this->SendSelectProtocol(ssrc);
-		this->g_call->SignalChannelNetworkState(webrtc::MediaType::AUDIO, webrtc::NetworkState::kNetworkUp);
 		this->Create();
 	}
 
