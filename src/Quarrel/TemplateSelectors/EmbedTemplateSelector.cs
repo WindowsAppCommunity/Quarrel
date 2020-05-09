@@ -68,8 +68,8 @@ namespace Quarrel.TemplateSelectors
                             {
                                 return YoutubeEmbedTemplate;
                             }
-
-                            break;
+                            // Todo: handle other video embeds e.g twitch.
+                            return DefaultEmbedTemplate;
                         }
 
                     case "rich": return RichEmbedTemplate;
