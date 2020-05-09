@@ -15,6 +15,8 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
     /// </summary>
     public class BindableGuildMemberGroup : BindableModelBase<Group>, IGuildMemberListItem
     {
+        private IGuildsService _guildsService = null;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableGuildMemberGroup"/> class.
         /// </summary>
@@ -52,6 +54,6 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
             }
         }
 
-        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService => _guildsService ?? (_guildsService = SimpleIoc.Default.GetInstance<IGuildsService>());
     }
 }
