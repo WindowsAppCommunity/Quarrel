@@ -11,6 +11,7 @@ using Quarrel.ViewModels.Models.Bindables.Channels;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
+using Quarrel.ViewModels.Services.Gateway;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
@@ -21,27 +22,48 @@ namespace Quarrel.ViewModels.Services.Voice
     /// </summary>
     public sealed class VoiceService : IVoiceService
     {
+        private readonly IChannelsService _channelsService;
+        private readonly IDiscordService _discordService;
+        private readonly IDispatcherHelper _dispatcherHelper;
+        private readonly IGatewayService _gatewayService;
+        private readonly IWebrtcManager _webrtcManager;
         private VoiceConnection _voiceConnection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VoiceService"/> class.
         /// </summary>
-        public VoiceService()
+        /// <param name="channelsService">The app's channel service.</param>
+        /// <param name="discordService">The app's discord service.</param>
+        /// <param name="dispatcherHelper">The app's dispatcher helper.</param>
+        /// <param name="gatewayService">The app's gateway service.</param>
+        /// <param name="webrtcManager">The app's webrtc manager.</param>
+        public VoiceService(
+            IChannelsService channelsService,
+            IDiscordService discordService,
+            IDispatcherHelper dispatcherHelper,
+            IGatewayService gatewayService,
+            IWebrtcManager webrtcManager)
         {
+            _channelsService = channelsService;
+            _discordService = discordService;
+            _dispatcherHelper = dispatcherHelper;
+            _gatewayService = gatewayService;
+            _webrtcManager = webrtcManager;
+
             Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, m =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
                     if (VoiceStates.ContainsKey(m.VoiceState.UserId))
                     {
-                        var oldChannel = ChannelsService.GetChannel(VoiceStates[m.VoiceState.UserId].Model.ChannelId);
+                        var oldChannel = _channelsService.GetChannel(VoiceStates[m.VoiceState.UserId].Model.ChannelId);
                         oldChannel?.ConnectedUsers.Remove(m.VoiceState.UserId);
 
                         if (m.VoiceState.ChannelId == null)
                         {
                             VoiceStates.Remove(m.VoiceState.UserId);
 
-                            if (m.VoiceState.UserId == DiscordService.CurrentUser.Id)
+                            if (m.VoiceState.UserId == _discordService.CurrentUser.Id)
                             {
                                 DisconnectFromVoiceChannel();
                             }
@@ -63,7 +85,6 @@ namespace Quarrel.ViewModels.Services.Voice
                         var channel = SimpleIoc.Default.GetInstance<IChannelsService>().GetChannel(m.VoiceState.ChannelId);
                         channel.ConnectedUsers.Add(m.VoiceState.UserId, VoiceStates[m.VoiceState.UserId]);
                     }
-
                 });
             });
 
@@ -71,54 +92,25 @@ namespace Quarrel.ViewModels.Services.Voice
             {
                 if (e.EventData.UserId != null && VoiceStates.ContainsKey(e.EventData.UserId))
                 {
-                    DispatcherHelper.CheckBeginInvokeOnUi(() => { VoiceStates[e.EventData.UserId].Speaking = e.EventData.Speaking > 0; });
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() => { VoiceStates[e.EventData.UserId].Speaking = e.EventData.Speaking > 0; });
                 }
             });
 
             Messenger.Default.Register<GatewayVoiceServerUpdateMessage>(this, m =>
             {
-                ConnectToVoiceChannel(m.VoiceServer, VoiceStates[DiscordService.CurrentUser.Id].Model);
-            });
-
-            Messenger.Default.Register<GatewayReadyMessage>(this, m =>
-            {
-                foreach (var guild in m.EventData.Guilds)
-                {
-                    if (guild.VoiceStates != null)
-                    {
-                        foreach (var state in guild.VoiceStates)
-                        {
-                            if (VoiceStates.ContainsKey(state.UserId))
-                            {
-                                VoiceStates[state.UserId].Model = state;
-                            }
-                            else
-                            {
-                                VoiceStates.Add(state.UserId, new BindableVoiceUser(state));
-                            }
-                        }
-                    }
-                }
+                ConnectToVoiceChannel(m.VoiceServer, VoiceStates[_discordService.CurrentUser.Id].Model);
             });
         }
 
         /// <inheritdoc/>
         public IDictionary<string, BindableVoiceUser> VoiceStates { get; } = new ConcurrentDictionary<string, BindableVoiceUser>();
 
-        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
-
-        private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
-
-        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
-
-        private IWebrtcManager WebrtcManager { get; } = SimpleIoc.Default.GetInstance<IWebrtcManager>();
-
         /// <inheritdoc/>
         public async void ToggleDeafen()
         {
             var state = _voiceConnection._state;
             state.SelfDeaf = !state.SelfDeaf;
-            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute, state.SelfDeaf);
+            await _gatewayService.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute, state.SelfDeaf);
         }
 
         /// <inheritdoc/>
@@ -126,19 +118,19 @@ namespace Quarrel.ViewModels.Services.Voice
         {
             var state = _voiceConnection._state;
             state.SelfMute = !state.SelfMute;
-            await DiscordService.Gateway.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute, state.SelfDeaf);
+            await _gatewayService.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute, state.SelfDeaf);
         }
 
         private async void ConnectToVoiceChannel(VoiceServerUpdate data, VoiceState state)
         {
-            _voiceConnection = new VoiceConnection(data, state, WebrtcManager);
+            _voiceConnection = new VoiceConnection(data, state, _webrtcManager);
             _voiceConnection.Speak += Speak;
             await _voiceConnection.ConnectAsync();
         }
 
         private void DisconnectFromVoiceChannel()
         {
-            WebrtcManager.Destroy();
+            _webrtcManager.Destroy();
         }
 
         private void InputRecieved(object sender, float[] e)

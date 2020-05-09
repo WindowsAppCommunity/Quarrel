@@ -57,7 +57,7 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
         /// Gets the <see cref="IGatewayService"/> instance to retrieve Gateway data.
         /// </summary>
         [NotNull]
-        IGatewayConfigService GatewayService { get; }
+        IGatewayConfigService GatewayConfigService { get; }
 
         /// <summary>
         /// Gets the <see cref="IGuildService"/> instance to retrieve Guild data.
@@ -94,12 +94,6 @@ namespace Quarrel.ViewModels.Services.Discord.Rest
         /// </summary>
         [NotNull]
         IVoiceService VoiceService { get; }
-
-        /// <summary>
-        /// Gets the default <see cref="IGatewayService"/> implementation (see <see cref="GatewayService"/>).
-        /// </summary>
-        [NotNull]
-        IGatewayService Gateway { get; }
 
         /// <summary>
         /// Logs into Discord.

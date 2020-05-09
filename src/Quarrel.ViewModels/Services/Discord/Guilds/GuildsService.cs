@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using DiscordAPI.API.Voice;
 using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
@@ -15,12 +16,14 @@ using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.Presence;
 using Quarrel.ViewModels.Services.DispatcherHelper;
+using Quarrel.ViewModels.Services.Voice;
 using Quarrel.ViewModels.ViewModels.Messages.Gateway;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using IVoiceService = Quarrel.ViewModels.Services.Voice.IVoiceService;
 
 namespace Quarrel.ViewModels.Services.Discord.Guilds
 {
@@ -37,6 +40,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
         private readonly IChannelsService _channelsService;
         private readonly IDispatcherHelper _dispatcherHelper;
         private readonly IPresenceService _presenceService;
+        private readonly IVoiceService _voiceService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuildsService"/> class.
@@ -46,13 +50,21 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
         /// <param name="channelsService">The app's channel service.</param>
         /// <param name="presenceService">The app's presence service.</param>
         /// <param name="dispatcherHelper">The app's dispatcher helper.</param>
-        public GuildsService(IAnalyticsService analyticsService, ICacheService cacheService, IChannelsService channelsService, IDispatcherHelper dispatcherHelper, IPresenceService presenceService)
+        /// <param name="voiceService">The app's voice service.</param>
+        public GuildsService(
+            IAnalyticsService analyticsService,
+            ICacheService cacheService,
+            IChannelsService channelsService,
+            IDispatcherHelper dispatcherHelper,
+            IPresenceService presenceService)
         {
             _analyticsService = analyticsService;
             _cacheService = cacheService;
             _channelsService = channelsService;
             _dispatcherHelper = dispatcherHelper;
             _presenceService = presenceService;
+
+            // _voiceService = voiceService;
             Messenger.Default.Register<GatewayReadyMessage>(this, m =>
             {
                 _dispatcherHelper.CheckBeginInvokeOnUi(() =>
@@ -200,6 +212,21 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         {
                             Messenger.Default.Send(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
                         }
+
+                        //if (guild.VoiceStates != null)
+                        //{
+                        //    foreach (var state in guild.VoiceStates)
+                        //    {
+                        //        if (_voiceService.VoiceStates.ContainsKey(state.UserId))
+                        //        {
+                        //            _voiceService.VoiceStates[state.UserId].Model = state;
+                        //        }
+                        //        else
+                        //        {
+                        //            _voiceService.VoiceStates.Add(state.UserId, new BindableVoiceUser(state));
+                        //        }
+                        //    }
+                        //}
 
                         AllGuilds.AddOrUpdate(bGuild.Model.Id, bGuild);
                     }

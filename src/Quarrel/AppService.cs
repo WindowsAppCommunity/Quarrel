@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Newtonsoft.Json;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Services.Discord.Rest;
+using Quarrel.ViewModels.Services.Gateway;
 using System;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.AppService;
@@ -50,7 +51,7 @@ namespace Quarrel
             if (SimpleIoc.Default.ContainsCreated<IDiscordService>())
             {
                 var game = JsonConvert.DeserializeObject<Game>(args.Request.Message[Constants.ConnectionServiceRequests.SetActivity].ToString());
-                SimpleIoc.Default.GetInstance<IDiscordService>().Gateway.Gateway.UpdateStatus(game);
+                SimpleIoc.Default.GetInstance<IGatewayService>().Gateway.UpdateStatus(game);
             }
         }
 

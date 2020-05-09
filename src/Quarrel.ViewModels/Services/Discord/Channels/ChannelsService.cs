@@ -19,14 +19,24 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
     /// </summary>
     public class ChannelsService : IChannelsService
     {
+        private readonly IAnalyticsService _analyticsService;
+        private readonly IDispatcherHelper _dispatcherHelper;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ChannelsService"/> class.
         /// </summary>
-        public ChannelsService()
+        /// <param name="analyticsService">The app's analytics service.</param>
+        /// <param name="dispatcherHelper">The aoo's dispatcher helper.</param>
+        public ChannelsService(
+            IAnalyticsService analyticsService,
+            IDispatcherHelper dispatcherHelper)
         {
+            _analyticsService = analyticsService;
+            _dispatcherHelper = dispatcherHelper;
+
             Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
                     if (CurrentChannel != null)
                     {
@@ -59,10 +69,6 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
         /// <inheritdoc/>
         public IDictionary<string, ChannelOverride> ChannelSettings { get; } =
             new ConcurrentDictionary<string, ChannelOverride>();
-
-        private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
-
-        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
         /// <inheritdoc/>
         public BindableChannel GetChannel(string channelId)

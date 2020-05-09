@@ -7,7 +7,6 @@ using DiscordAPI.Gateway;
 using DiscordAPI.Gateway.DownstreamEvents;
 using DiscordAPI.Models;
 using DiscordAPI.Sockets;
-using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Helpers;
@@ -36,22 +35,42 @@ namespace Quarrel.ViewModels.Services.Gateway
     /// </summary>
     public class GatewayService : IGatewayService
     {
+        private readonly IAnalyticsService _analyticsService;
+        private readonly ICacheService _cacheService;
+        private readonly ICurrentUserService _currentUserService;
+        private readonly IChannelsService _channelsService;
+        private readonly IGuildsService _guildsService;
+        private readonly IServiceProvider _serviceProvider;
+
         private string previousGuildId;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GatewayService"/> class.
+        /// </summary>
+        /// <param name="analyticsService">The app's analytics service.</param>
+        /// <param name="cacheService">The app's cache service.</param>
+        /// <param name="channelsService">The app's current user service.</param>
+        /// <param name="currentUserService">The app's channels service.</param>
+        /// <param name="guildsService">The app's guilds service.</param>
+        /// <param name="serviceProvider">The app's service provider.</param>
+        public GatewayService(
+            IAnalyticsService analyticsService,
+            ICacheService cacheService,
+            IChannelsService channelsService,
+            ICurrentUserService currentUserService,
+            IGuildsService guildsService,
+            IServiceProvider serviceProvider)
+        {
+            _analyticsService = analyticsService;
+            _cacheService = cacheService;
+            _channelsService = channelsService;
+            _currentUserService = currentUserService;
+            _guildsService = guildsService;
+            _serviceProvider = serviceProvider;
+        }
 
         /// <inheritdoc/>
         public DiscordAPI.Gateway.Gateway Gateway { get; private set; }
-
-        private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
-
-        private ICacheService CacheService { get; } = SimpleIoc.Default.GetInstance<ICacheService>();
-
-        private ICurrentUserService CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
-
-        private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
-
-        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
-
-        private IServiceProvider ServiceProvider { get; } = SimpleIoc.Default.GetInstance<IServiceProvider>();
 
         /// <inheritdoc/>
         public async Task<bool> InitializeGateway([NotNull] string accessToken)
@@ -63,7 +82,7 @@ namespace Quarrel.ViewModels.Services.Gateway
             {
                 GatewayConfig gatewayConfig = await gatewayService.GetGatewayConfig();
                 IAuthenticator authenticator = new DiscordAuthenticator(accessToken);
-                Gateway = new DiscordAPI.Gateway.Gateway(ServiceProvider, gatewayConfig, authenticator);
+                Gateway = new DiscordAPI.Gateway.Gateway(_serviceProvider, gatewayConfig, authenticator);
             }
             catch
             {
@@ -114,7 +133,7 @@ namespace Quarrel.ViewModels.Services.Gateway
 
             if (await ConnectWithRetryAsync(3))
             {
-                AnalyticsService.Log(Constants.Analytics.Events.Connected);
+                _analyticsService.Log(Constants.Analytics.Events.Connected);
                 Messenger.Default.Send(new ConnectionStatusMessage(ConnectionStatus.Connected));
                 Messenger.Default.Register<ChannelNavigateMessage>(this, async m =>
                 {
@@ -169,7 +188,7 @@ namespace Quarrel.ViewModels.Services.Gateway
         {
             for (int i = 0; i < retries; i++)
             {
-                AnalyticsService.Log(Constants.Analytics.Events.ConnectionAttempt, ("attempt", (i + 1).ToString()));
+                _analyticsService.Log(Constants.Analytics.Events.ConnectionAttempt, ("attempt", (i + 1).ToString()));
                 if (await Gateway.ConnectAsync())
                 {
                     return true;
@@ -188,12 +207,12 @@ namespace Quarrel.ViewModels.Services.Gateway
         private void Gateway_InvalidSession(object sender, GatewayEventArgs<InvalidSession> e)
         {
             Messenger.Default.Send(new GatewayInvalidSessionMessage(e.EventData));
-            AnalyticsService.Log(Constants.Analytics.Events.InvalidSession);
+            _analyticsService.Log(Constants.Analytics.Events.InvalidSession);
         }
 
         private void Gateway_MessageCreated(object sender, GatewayEventArgs<Message> e)
         {
-            var currentUser = CurrentUsersService.CurrentUser.Model;
+            var currentUser = _currentUserService.CurrentUser.Model;
 
             if (e.EventData.User == null)
             {
@@ -296,17 +315,17 @@ namespace Quarrel.ViewModels.Services.Gateway
 
         private void Gateway_UserNoteUpdated(object sender, GatewayEventArgs<UserNote> e)
         {
-            CacheService.Runtime.SetValue(Constants.Cache.Keys.Note, e.EventData.Note, e.EventData.UserId);
+            _cacheService.Runtime.SetValue(Constants.Cache.Keys.Note, e.EventData.Note, e.EventData.UserId);
             Messenger.Default.Send(new GatewayNoteUpdatedMessage(e.EventData.UserId, e.EventData.Note));
         }
 
         private void Gateway_UserGuildSettingsUpdated(object sender, GatewayEventArgs<GuildSetting> e)
         {
-            GuildsService.GuildSettings.AddOrUpdate(e.EventData.GuildId ?? "DM", e.EventData);
+            _guildsService.GuildSettings.AddOrUpdate(e.EventData.GuildId ?? "DM", e.EventData);
 
             foreach (var channel in e.EventData.ChannelOverrides)
             {
-                ChannelsService.ChannelSettings.AddOrUpdate(channel.ChannelId, channel);
+                _channelsService.ChannelSettings.AddOrUpdate(channel.ChannelId, channel);
             }
 
             Messenger.Default.Send(new GatewayUserGuildSettingsUpdatedMessage(e.EventData));
@@ -349,7 +368,7 @@ namespace Quarrel.ViewModels.Services.Gateway
 
         private void Gateway_GatewayClosed(object sender, Exception e)
         {
-            AnalyticsService.Log(Constants.Analytics.Events.Disconnected, (nameof(Exception), e.Message));
+            _analyticsService.Log(Constants.Analytics.Events.Disconnected, (nameof(Exception), e.Message));
             if (e is WebSocketClosedException ex && ex.Reason == "Authentication failed.")
             {
                 Messenger.Default.Send(new GatewayInvalidSessionMessage(new InvalidSession { ConnectedState = false }));
