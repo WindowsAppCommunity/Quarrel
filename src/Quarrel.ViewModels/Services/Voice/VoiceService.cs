@@ -131,7 +131,6 @@ namespace Quarrel.ViewModels.Services.Voice
 
         private async void ConnectToVoiceChannel(VoiceServerUpdate data, VoiceState state)
         {
-            WebrtcManager.Create();
             _voiceConnection = new VoiceConnection(data, state, WebrtcManager);
             _voiceConnection.Speak += Speak;
             await _voiceConnection.ConnectAsync();

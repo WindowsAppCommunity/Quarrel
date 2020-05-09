@@ -114,7 +114,6 @@ namespace Webrtc
 		StreamTransport(winrt::Webrtc::implementation::WebrtcManager* manager);
 		virtual bool SendRtp(const uint8_t* packet, size_t length, const webrtc::PacketOptions const& options);
 		virtual bool SendRtcp(const uint8_t* packet, size_t length);
-		void StartNetwork();
 		void StopSend();
 		void StartSend();
 	private:

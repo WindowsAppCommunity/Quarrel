@@ -92,11 +92,6 @@ namespace Webrtc
 		//this->call->SignalChannelNetworkState(webrtc::MediaType::VIDEO, webrtc::NetworkState::kNetworkUp);
 	}
 
-	void StreamTransport::StartNetwork()
-	{
-		this->manager->g_call->SignalChannelNetworkState(webrtc::MediaType::AUDIO, webrtc::NetworkState::kNetworkUp);
-	}
-
 	void StreamTransport::StopSend()
 	{
 		isSending = false;
@@ -340,7 +335,6 @@ namespace winrt::Webrtc::implementation
 	void WebrtcManager::SetKey(array_view<const BYTE> key)
 	{
 		memcpy(this->key, key.begin(), 32);
-		this->g_audioSendTransport->StartNetwork();
 	}
 
 	void WebrtcManager::UpdateInBytes(Windows::Foundation::Collections::IVector<float> const& data)
@@ -361,6 +355,8 @@ namespace winrt::Webrtc::implementation
 
 		this->outputStream = Windows::Storage::Streams::DataWriter(this->udpSocket.OutputStream());
 		this->SendSelectProtocol(ssrc);
+		this->g_call->SignalChannelNetworkState(webrtc::MediaType::AUDIO, webrtc::NetworkState::kNetworkUp);
+		this->Create();
 	}
 
 	void WebrtcManager::SendSelectProtocol(UINT32 ssrc)
