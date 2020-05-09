@@ -15,6 +15,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages.Embeds
     {
         private bool _isShowing;
         private RelayCommand _showAttachmentCommand;
+        private ISettingsService _settingsService = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableAttachment"/> class.
@@ -41,6 +42,6 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages.Embeds
             set => Set(ref _isShowing, value);
         }
 
-        private ISettingsService SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
+        private ISettingsService SettingsService => _settingsService ?? (_settingsService = SimpleIoc.Default.GetInstance<ISettingsService>());
     }
 }
