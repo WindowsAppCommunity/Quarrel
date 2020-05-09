@@ -89,8 +89,12 @@ namespace Webrtc
 
 	StreamTransport::StreamTransport(winrt::Webrtc::implementation::WebrtcManager* manager) : manager(manager)
 	{
-		this->manager->g_call->SignalChannelNetworkState(webrtc::MediaType::AUDIO, webrtc::NetworkState::kNetworkUp);
 		//this->call->SignalChannelNetworkState(webrtc::MediaType::VIDEO, webrtc::NetworkState::kNetworkUp);
+	}
+
+	void StreamTransport::StartNetwork()
+	{
+		this->manager->g_call->SignalChannelNetworkState(webrtc::MediaType::AUDIO, webrtc::NetworkState::kNetworkUp);
 	}
 
 	void StreamTransport::StopSend()
@@ -336,6 +340,7 @@ namespace winrt::Webrtc::implementation
 	void WebrtcManager::SetKey(array_view<const BYTE> key)
 	{
 		memcpy(this->key, key.begin(), 32);
+		this->g_audioSendTransport->StartNetwork();
 	}
 
 	void WebrtcManager::UpdateInBytes(Windows::Foundation::Collections::IVector<float> const& data)
