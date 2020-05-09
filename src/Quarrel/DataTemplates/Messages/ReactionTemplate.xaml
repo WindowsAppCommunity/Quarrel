@@ -2,14 +2,18 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:messagebindables="using:Quarrel.ViewModels.Models.Bindables.Messages"
+    xmlns:viewModels="using:Quarrel.ViewModels"
     x:Class="Quarrel.DataTemplates.Messages.ReactionTemplate">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../Converters.xaml"/>
+        <ResourceDictionary Source="../Converters.xaml" />
+        <ResourceDictionary>
+            <viewModels:ViewModelLocator x:Key="ViewModelLocator" />
+        </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
     <DataTemplate x:Key="Reaction" x:DataType="messagebindables:BindableReaction">
-        <ToggleButton IsChecked="{x:Bind Me, Mode=TwoWay}" Click="ToggleReaction">
+        <ToggleButton IsChecked="{x:Bind Me, Mode=TwoWay}" Command="{Binding Main.ToggleReactionCommand, Source={StaticResource ViewModelLocator}}" CommandParameter="{x:Bind}">
             <ToggleButton.Style>
                 <Style TargetType="ToggleButton">
                     <Setter Property="Padding" Value="0,0" />

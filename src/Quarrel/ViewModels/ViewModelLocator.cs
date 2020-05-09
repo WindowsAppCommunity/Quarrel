@@ -43,6 +43,9 @@ namespace Quarrel.ViewModels
         /// </summary>
         public ViewModelLocator()
         {
+            if (_hasRun) return;
+            _hasRun = true;
+
             SimpleIoc.Default.Register<IDispatcherHelper, DispatcherHelperEx>();
 
             var navigationService = new SubFrameNavigationService();
@@ -85,6 +88,8 @@ namespace Quarrel.ViewModels
 
             SimpleIoc.Default.Register<MainViewModel>();
         }
+
+        private static bool _hasRun = false;
 
         /// <summary>
         /// Gets the <see cref="MainViewModel"/>.

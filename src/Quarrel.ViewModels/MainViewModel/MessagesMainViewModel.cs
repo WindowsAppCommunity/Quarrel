@@ -26,6 +26,8 @@ namespace Quarrel.ViewModels
         private RelayCommand<BindableMessage> pinMessageCommand;
         private RelayCommand<BindableMessage> unPinMessageCommand;
         private RelayCommand<BindableMessage> copyMessageIdCommand;
+        private RelayCommand<BindableReaction> toggleReactionCommand;
+
         private bool _atTop;
         private bool _newItemsLoading;
         private bool _oldItemsLoading;
@@ -69,6 +71,27 @@ namespace Quarrel.ViewModels
         public RelayCommand<BindableMessage> CopyMessageIdCommand => copyMessageIdCommand = copyMessageIdCommand ?? new RelayCommand<BindableMessage>((message) =>
         {
             Task.Run(() => _clipboardService.CopyToClipboard(message.Model.Id));
+        });
+
+        /// <summary>
+        /// Gets a command that toggles a reaction to a message
+        /// </summary>
+        public RelayCommand<BindableReaction> ToggleReactionCommand => toggleReactionCommand = toggleReactionCommand ?? new RelayCommand<BindableReaction>((reaction) =>
+        {
+            string reactionFullId = reaction.Model.Emoji.Name +
+                                    (reaction.Model.Emoji.Id == null ?
+                                        string.Empty :
+                                        ":" + reaction.Model.Emoji.Id);
+
+            // Already updated
+            if (!reaction.Me)
+            {
+                _discordService.ChannelService.DeleteReaction(reaction.Model.ChannelId, reaction.Model.MessageId, reactionFullId);
+            }
+            else
+            {
+                _discordService.ChannelService.CreateReaction(reaction.Model.ChannelId, reaction.Model.MessageId, reactionFullId);
+            }
         });
 
         /// <summary>
