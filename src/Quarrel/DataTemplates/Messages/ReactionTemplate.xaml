@@ -12,6 +12,7 @@
         <ToggleButton IsChecked="{x:Bind Me, Mode=TwoWay}" Click="ToggleReaction">
             <ToggleButton.Style>
                 <Style TargetType="ToggleButton">
+                    <Setter Property="Padding" Value="0,0" />
                     <Setter Property="Background" Value="Transparent" />
                     <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
                     <Setter Property="BorderThickness" Value="0" />
@@ -226,14 +227,17 @@
                     </Setter>
                 </Style>
             </ToggleButton.Style>
-            <Grid>
+            <Grid Margin="5,1,5,1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{x:Bind Model.Emoji.Name, Mode=OneWay}" Visibility="{x:Bind Model.Emoji.IsServer, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Margin="0,0,2,0"/>
-                <Image Source="{x:Bind Model.Emoji.DisplayUrl, Mode=OneWay}" Visibility="{x:Bind Model.Emoji.IsServer, Mode=OneWay}" Height="18" Width="18" VerticalAlignment="Center" Margin="0,0,2,0"/>
-                <TextBlock Text="{x:Bind Count, Mode=OneWay}" Margin="2,0,0,0" Grid.Column="1"/>
+                <TextBlock Text="{x:Bind Model.Emoji.Name, Mode=OneWay}"
+                           Visibility="{x:Bind Model.Emoji.IsServer, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+                           FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"
+                           Margin="0,0,2,0" FontSize="16" VerticalAlignment="Center"/>
+                <Image Source="{x:Bind Model.Emoji.DisplayUrl, Mode=OneWay}" Visibility="{x:Bind Model.Emoji.IsServer, Mode=OneWay}" Height="16" Width="16" VerticalAlignment="Center" Margin="0,0,2,0"/>
+                <TextBlock Text="{x:Bind Count, Mode=OneWay}" Margin="2,0,0,0" Grid.Column="1" FontSize="14"  VerticalAlignment="Center"/>
             </Grid>
         </ToggleButton>
     </DataTemplate>
