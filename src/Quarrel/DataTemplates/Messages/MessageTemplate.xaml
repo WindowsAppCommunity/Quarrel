@@ -90,7 +90,9 @@
                          MaxHeight="250" Tapped="Expand"/>
     </DataTemplate>
     <DataTemplate x:Key="DefaultEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
-        <Border CornerRadius="4" Background="{ThemeResource MidBG}">
+        <Border CornerRadius="4"
+                Background="{ThemeResource MidBG}"
+                HorizontalAlignment="Left">
             <Grid>
                 <Border x:Name="SideBorder" Width="4" HorizontalAlignment="Left" Background="{x:Bind Model.Color, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}" CornerRadius="4,0,0,4"/>
                 <StackPanel x:Name="stacker" Margin="16,8,16,8">
@@ -361,18 +363,18 @@
                     </ListView.ItemContainerStyle>
                 </ListView>
 
-
-                <winui:ItemsRepeater x:Name="EmbedList"
-                                     Margin="52,0,0,0"
-                                     RelativePanel.Below="AttachmentList"
-                                     RelativePanel.AlignLeftWith="body"
-                                     x:Load="{x:Bind Model.Embeds, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
-                                     ItemsSource="{x:Bind BindableEmbeds, Mode=OneWay}"
-                                     ItemTemplate="{StaticResource EmbedTemplateSelector}">
-                    <winui:ItemsRepeater.Layout>
-                        <winui:StackLayout Spacing="8" />
-                    </winui:ItemsRepeater.Layout>
-                </winui:ItemsRepeater>
+                <Grid x:Name="EmbedList"
+                      Margin="52,0,0,0"
+                      RelativePanel.Below="AttachmentList"
+                      RelativePanel.AlignLeftWith="body"
+                      x:Load="{x:Bind Model.Embeds, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+                    <winui:ItemsRepeater ItemsSource="{x:Bind BindableEmbeds, Mode=OneWay}"
+                                         ItemTemplate="{StaticResource EmbedTemplateSelector}">
+                        <winui:ItemsRepeater.Layout>
+                            <winui:StackLayout Spacing="4" />
+                        </winui:ItemsRepeater.Layout>
+                    </winui:ItemsRepeater>
+                </Grid>
 
                 <winui:ItemsRepeater x:Name="ReactionList"
                                      Margin="52,0,0,0"
