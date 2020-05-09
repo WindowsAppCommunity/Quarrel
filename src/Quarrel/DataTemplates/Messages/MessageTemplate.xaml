@@ -376,27 +376,18 @@
                     </ListView.ItemContainerStyle>
                 </ListView>
 
-                <ListView x:Name="ReactionList" Margin="52,0,0,0"
-                          RelativePanel.Below="EmbedList"
-                          RelativePanel.AlignLeftWith="body"
-                          x:Load="{x:Bind BindableReactions, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
-                          ItemsSource="{x:Bind BindableReactions, Mode=OneWay}"
-                          ItemTemplate="{StaticResource Reaction}"
-                          SelectionMode="None">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="Margin" Value="4,0"/>
-                            <Setter Property="Padding" Value="0"/>
-                            <Setter Property="MinWidth" Value="48"/>
-                            <Setter Property="MaxWidth" Value="60"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                </ListView>
+                <winui:ItemsRepeater x:Name="ReactionList"
+                                     Margin="52,0,0,0"
+                                     RelativePanel.Below="EmbedList"
+                                     RelativePanel.AlignLeftWith="body"
+                                     x:Load="{x:Bind BindableReactions, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
+                                     ItemsSource="{x:Bind BindableReactions, Mode=OneWay}"
+                                     ItemTemplate="{StaticResource Reaction}">
+                    <winui:ItemsRepeater.Layout>
+                        <winui:StackLayout Orientation="Horizontal" Spacing="4" />
+                    </winui:ItemsRepeater.Layout>
+                </winui:ItemsRepeater>
+
             </RelativePanel>
         </UserControl>
     </DataTemplate>
