@@ -12,6 +12,8 @@ namespace Quarrel.ViewModels.Models.Bindables.Guilds
     /// </summary>
     public class BindableMutualGuild : BindableModelBase<MutualGuild>
     {
+        private IGuildsService _guildsService = null;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableMutualGuild"/> class.
         /// </summary>
@@ -25,6 +27,6 @@ namespace Quarrel.ViewModels.Models.Bindables.Guilds
         /// </summary>
         public BindableGuild BindableGuild => GuildsService.AllGuilds.TryGetValue(Model.Id, out var value) ? value : null;
 
-        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService => _guildsService ?? (_guildsService = SimpleIoc.Default.GetInstance<IGuildsService>());
     }
 }
