@@ -32,14 +32,25 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
         private readonly IDictionary<string, ConcurrentDictionary<string, BindableGuildMember>> _guildUsers =
             new ConcurrentDictionary<string, ConcurrentDictionary<string, BindableGuildMember>>();
 
+        private readonly IAnalyticsService _analyticsService;
+        private readonly ICacheService _cacheService;
+        private readonly IChannelsService _channelsService;
+        private readonly IDispatcherHelper _dispatcherHelper;
+        private readonly IPresenceService _presenceService;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GuildsService"/> class.
         /// </summary>
-        public GuildsService()
+        public GuildsService(IAnalyticsService analyticsService, ICacheService cacheService, IChannelsService channelsService, IDispatcherHelper dispatcherHelper, IPresenceService presenceService)
         {
+            _analyticsService = analyticsService;
+            _cacheService = cacheService;
+            _channelsService = channelsService;
+            _dispatcherHelper = dispatcherHelper;
+            _presenceService = presenceService;
             Messenger.Default.Register<GatewayReadyMessage>(this, m =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
                     IDictionary<string, ReadState> readStates = new ConcurrentDictionary<string, ReadState>();
                     foreach (var state in m.EventData.ReadStates)
@@ -61,7 +72,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                             BindableChannel bChannel = new BindableChannel(channel);
 
                             ChannelOverride cSettings;
-                            if (SimpleIoc.Default.GetInstance<IChannelsService>().ChannelSettings.TryGetValue(channel.Id, out cSettings))
+                            if (_channelsService.ChannelSettings.TryGetValue(channel.Id, out cSettings))
                             {
                                 bChannel.Muted = cSettings.Muted;
                             }
@@ -77,7 +88,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                                 }
                             }
 
-                            ChannelsService.AllChannels.AddOrUpdate(bChannel.Model.Id, bChannel);
+                            _channelsService.AllChannels.AddOrUpdate(bChannel.Model.Id, bChannel);
                         }
 
                         // Sort by last message timestamp
@@ -138,7 +149,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
 
                             // Handle channel settings
                             ChannelOverride cSettings;
-                            if (SimpleIoc.Default.GetInstance<IChannelsService>().ChannelSettings.TryGetValue(channel.Id, out cSettings))
+                            if (_channelsService.ChannelSettings.TryGetValue(channel.Id, out cSettings))
                             {
                                 bChannel.Muted = cSettings.Muted;
                             }
@@ -159,7 +170,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                             }
 
                             bGuild.Channels.Add(bChannel);
-                            ChannelsService.AllChannels.AddOrUpdate(bChannel.Model.Id, bChannel);
+                            _channelsService.AllChannels.AddOrUpdate(bChannel.Model.Id, bChannel);
                         }
 
                         bGuild.Channels = new ObservableCollection<BindableChannel>(bGuild.Channels.OrderBy(x => x.AbsolutePostion).ToList());
@@ -176,7 +187,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         // Guild Roles
                         foreach (var role in guild.Roles)
                         {
-                            CacheService.Runtime.SetValue(Constants.Cache.Keys.GuildRole, role, guild.Id + role.Id);
+                            _cacheService.Runtime.SetValue(Constants.Cache.Keys.GuildRole, role, guild.Id + role.Id);
                         }
 
                         // Guild Presences
@@ -218,7 +229,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                 var bChannel = new BindableChannel(m.Channel);
                 if (bChannel.Model.Type != 4 && bChannel.ParentId != null)
                 {
-                    bChannel.ParentPostion = ChannelsService.AllChannels.TryGetValue(bChannel.ParentId, out var value) ? value.Position : 0;
+                    bChannel.ParentPostion = _channelsService.AllChannels.TryGetValue(bChannel.ParentId, out var value) ? value.Position : 0;
                 }
                 else if (bChannel.ParentId == null)
                 {
@@ -231,7 +242,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                     {
                         if (guild.Channels[i].AbsolutePostion > bChannel.AbsolutePostion)
                         {
-                            DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                            _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                             {
                                 guild.Channels.Insert(i, bChannel);
                             });
@@ -240,33 +251,33 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                     }
                 }
 
-                ChannelsService.AllChannels.AddOrUpdate(bChannel.Model.Id, bChannel);
+                _channelsService.AllChannels.AddOrUpdate(bChannel.Model.Id, bChannel);
             });
             Messenger.Default.Register<GatewayChannelDeletedMessage>(this, m =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    if (ChannelsService.AllChannels.TryGetValue(m.Channel.Id, out var currentChannel))
+                    if (_channelsService.AllChannels.TryGetValue(m.Channel.Id, out var currentChannel))
                     {
                         if (AllGuilds.TryGetValue(currentChannel.GuildId, out var value))
                         {
                             value.Channels.Remove(currentChannel);
                         }
 
-                        ChannelsService.AllChannels.Remove(m.Channel.Id);
+                        _channelsService.AllChannels.Remove(m.Channel.Id);
                     }
                 });
             });
             Messenger.Default.Register<GatewayGuildChannelUpdatedMessage>(this, m =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    var bChannel = ChannelsService.GetChannel(m.Channel.Id ?? "DM");
+                    var bChannel = _channelsService.GetChannel(m.Channel.Id ?? "DM");
                     bChannel.Model = m.Channel;
 
                     if (bChannel.Model.Type != 4 && bChannel.ParentId != null)
                     {
-                        bChannel.ParentPostion = ChannelsService.AllChannels.TryGetValue(bChannel.ParentId, out var value) ? value.Position : 0;
+                        bChannel.ParentPostion = _channelsService.AllChannels.TryGetValue(bChannel.ParentId, out var value) ? value.Position : 0;
                     }
                     else if (bChannel.ParentId == null)
                     {
@@ -280,7 +291,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         {
                             if (guild.Channels[i].AbsolutePostion > bChannel.AbsolutePostion)
                             {
-                                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                                 {
                                     guild.Channels.Insert(i, bChannel);
                                 });
@@ -312,7 +323,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                 {
                     foreach (var presence in m.GuildMembersChunk.Presences)
                     {
-                        PresenceService.UpdateUserPrecense(presence.User.Id, presence);
+                        _presenceService.UpdateUserPrecense(presence.User.Id, presence);
                     }
                 }
             });
@@ -330,16 +341,6 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
 
         /// <inheritdoc/>
         public BindableGuild CurrentGuild { get; private set; }
-
-        private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
-
-        private ICacheService CacheService { get; } = SimpleIoc.Default.GetInstance<ICacheService>();
-
-        private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
-
-        private IPresenceService PresenceService { get; } = SimpleIoc.Default.GetInstance<IPresenceService>();
-
-        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
         /// <inheritdoc/>
         public BindableGuildMember GetGuildMember(string memberId, string guildId)

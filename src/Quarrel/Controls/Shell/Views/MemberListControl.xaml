@@ -45,7 +45,7 @@
 
     <Grid>
         <!--MemberList-->
-        <SemanticZoom x:Name="zoom"  ViewChangeStarted="SemanticZoom_ViewChangeStarted">
+        <SemanticZoom x:Name="zoom" ViewChangeStarted="SemanticZoom_ViewChangeStarted">
             <SemanticZoom.ZoomedInView>
                 <!--Raw Member list with headers-->
                 <ListView x:Name="MemberList"

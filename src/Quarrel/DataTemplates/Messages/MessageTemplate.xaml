@@ -361,20 +361,18 @@
                     </ListView.ItemContainerStyle>
                 </ListView>
 
-                <ListView x:Name="EmbedList" Margin="52,0,0,0"
-                          RelativePanel.Below="AttachmentList"
-                          RelativePanel.AlignLeftWith="body"
-                          x:Load="{x:Bind Model.Embeds, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
-                          ItemsSource="{x:Bind BindableEmbeds, Mode=OneWay}"
-                          ItemTemplateSelector="{StaticResource EmbedTemplateSelector}"
-                          SelectionMode="None">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="Padding" Value="0,8,0,0"/>
-                            <Setter Property="MinHeight" Value="0"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+
+                <winui:ItemsRepeater x:Name="EmbedList"
+                                     Margin="52,0,0,0"
+                                     RelativePanel.Below="AttachmentList"
+                                     RelativePanel.AlignLeftWith="body"
+                                     x:Load="{x:Bind Model.Embeds, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
+                                     ItemsSource="{x:Bind BindableEmbeds, Mode=OneWay}"
+                                     ItemTemplate="{StaticResource EmbedTemplateSelector}">
+                    <winui:ItemsRepeater.Layout>
+                        <winui:StackLayout Spacing="8" />
+                    </winui:ItemsRepeater.Layout>
+                </winui:ItemsRepeater>
 
                 <winui:ItemsRepeater x:Name="ReactionList"
                                      Margin="52,0,0,0"
