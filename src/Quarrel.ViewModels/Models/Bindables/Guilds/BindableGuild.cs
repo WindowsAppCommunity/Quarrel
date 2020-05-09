@@ -43,6 +43,12 @@ namespace Quarrel.ViewModels.Models.Bindables.Guilds
         private RelayCommand _muteGuild;
         private RelayCommand _addChanneleCommand;
         private RelayCommand _createInvite;
+        private ICurrentUserService _currentUsersService = null;
+        private IDiscordService _discordService = null;
+        private ISettingsService _settingsService = null;
+        private IGuildsService _guildsService = null;
+        private ISubFrameNavigationService _subFrameNavigationService = null;
+        private IDispatcherHelper _dispatcherHelper = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableGuild"/> class.
@@ -337,17 +343,17 @@ namespace Quarrel.ViewModels.Models.Bindables.Guilds
 
         private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
 
-        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
+        private IDiscordService DiscordService => _discordService ?? (_discordService = SimpleIoc.Default.GetInstance<IDiscordService>());
 
-        private ISettingsService SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
+        private ISettingsService SettingsService => _settingsService ?? (_settingsService = SimpleIoc.Default.GetInstance<ISettingsService>());
 
-        private ICurrentUserService CurrentUsersService { get; } = SimpleIoc.Default.GetInstance<ICurrentUserService>();
+        private ICurrentUserService CurrentUsersService => _currentUsersService ?? (_currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUserService>());
 
-        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+        private IGuildsService GuildsService => _guildsService ?? (_guildsService = SimpleIoc.Default.GetInstance<IGuildsService>());
 
-        private ISubFrameNavigationService SubFrameNavigationService { get; } = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
+        private ISubFrameNavigationService SubFrameNavigationService => _subFrameNavigationService ?? (_subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>());
 
-        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
+        private IDispatcherHelper DispatcherHelper => _dispatcherHelper ?? (_dispatcherHelper = SimpleIoc.Default.GetInstance<IDispatcherHelper>());
 
         private async void MuteGuild(bool mute)
         {
