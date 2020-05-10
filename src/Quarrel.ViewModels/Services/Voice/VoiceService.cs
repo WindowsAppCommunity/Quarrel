@@ -100,6 +100,19 @@ namespace Quarrel.ViewModels.Services.Voice
 
             Messenger.Default.Register<GatewayVoiceServerUpdateMessage>(this, m =>
             {
+                if (!VoiceStates.ContainsKey(_discordService.CurrentUser.Id))
+                {
+                    VoiceStates.Add(
+                        _discordService.CurrentUser.Id,
+                        new BindableVoiceUser(
+                            new VoiceState()
+                            {
+                                ChannelId = m.VoiceServer.ChannelId,
+                                GuildId = m.VoiceServer.GuildId,
+                                UserId = _discordService.CurrentUser.Id,
+                            }));
+                }
+
                 ConnectToVoiceChannel(m.VoiceServer, VoiceStates[_discordService.CurrentUser.Id].Model);
             });
         }

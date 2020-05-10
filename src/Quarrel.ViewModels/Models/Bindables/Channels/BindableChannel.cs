@@ -16,6 +16,7 @@ using Quarrel.ViewModels.Services.Discord.Friends;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
+using Quarrel.ViewModels.Services.Gateway;
 using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.Services.Settings.Enums;
@@ -45,12 +46,14 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
         private RelayCommand _mute;
         private RelayCommand _leaveGroup;
         private RelayCommand _copyId;
+        private RelayCommand _startCallCommand;
         private ICurrentUserService _currentUsersService = null;
         private IChannelsService _channelsService = null;
         private IDiscordService _discordService = null;
         private ISettingsService _settingsService = null;
         private IFriendsService _friendsService = null;
         private IVoiceService _voiceService = null;
+        private IGatewayService _gatewayService = null;
         private IGuildsService _guildsService = null;
         private IDispatcherHelper _dispatcherHelper = null;
 
@@ -679,6 +682,15 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
         });
 
         /// <summary>
+        /// Gets a command that starts a call in the current channel.
+        /// </summary>
+        public RelayCommand StartCallCommand => _startCallCommand = new RelayCommand(async () =>
+        {
+            await DiscordService.ChannelService.StartCall(Model.Id);
+            await GatewayService.Gateway.VoiceStatusUpdate(null, Model.Id, false, false);
+        });
+
+        /// <summary>
         /// Gets a <see cref="ConcurrentDictionary{TKey, TValue}"/> of people typing in the channel, hashed by user id.
         /// </summary>
         public ConcurrentDictionary<string, Timer> Typers { get; private set; } = new ConcurrentDictionary<string, Timer>();
@@ -694,6 +706,8 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
         private IFriendsService FriendsService => _friendsService ?? (_friendsService = SimpleIoc.Default.GetInstance<IFriendsService>());
 
         private IVoiceService VoiceService => _voiceService ?? (_voiceService = SimpleIoc.Default.GetInstance<IVoiceService>());
+
+        private IGatewayService GatewayService => _gatewayService ?? (_gatewayService = SimpleIoc.Default.GetInstance<IGatewayService>());
 
         private IGuildsService GuildsService => _guildsService ?? (_guildsService = SimpleIoc.Default.GetInstance<IGuildsService>());
 
