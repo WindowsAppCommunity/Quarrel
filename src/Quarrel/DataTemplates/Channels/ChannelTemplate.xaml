@@ -489,55 +489,64 @@
     </DataTemplate>
 
     <DataTemplate x:Key="VoiceChannelTemplate" x:DataType="channelbindables:BindableChannel">
-        <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" MinHeight="40">
+        <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" MinHeight="40" Padding="22,0,24,0">
             <!--Flyout-->
-            <UserControl.ContextFlyout>
+            <Grid.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
                     <!--<MenuFlyoutItem Text="Channel Settings"/>-->
-                    <ToggleMenuFlyoutItem Text="Hide names" IsEnabled="False"/>
-                    <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem Text="Copy Id" Command="{x:Bind CopyId, Mode=OneWay}"/>
+                    <ToggleMenuFlyoutItem Text="Hide names"
+                                          IsEnabled="False" />
+                    <MenuFlyoutSeparator />
+                    <MenuFlyoutItem Text="Copy Id"
+                                    Command="{x:Bind CopyId, Mode=OneWay}" />
                 </MenuFlyout>
-            </UserControl.ContextFlyout>
+            </Grid.ContextFlyout>
+            <Grid.Background>
+                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-            <Grid MinHeight="40" Padding="22,0,24,0">
-                <Grid.Background>
-                    <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
-                </Grid.Background>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+            <!--Main Details-->
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,6" Padding="0,0,-18,0" Height="24">
+                <TextBlock Visibility="{x:Bind Permissions.ReadMessages, Converter={StaticResource NotBoolToVisibilityConverter}}" Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
+                <TextBlock Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
+                <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}" Opacity="{x:Bind TextOpacity, Mode=OneWay}" Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}" Margin="0,1,0,0"/>
+            </StackPanel>
 
-                <!--Main Details-->
-                <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal"
-                            Margin="0,6" Padding="0,0,-18,0">
-                    <TextBlock Visibility="{x:Bind Permissions.ReadMessages, Converter={StaticResource NotBoolToVisibilityConverter}}" Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
-                    <TextBlock Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
-                    <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}" Opacity="{x:Bind TextOpacity, Mode=OneWay}" Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}" Margin="0,1,0,0"/>
-                </StackPanel>
-
-                <!--Voice Members-->
-                <ListView x:Name="MemberList" ItemsSource="{x:Bind ConnectedUsers.Values, Mode=OneWay}" Margin="-24,0,-24,0"
-                          x:Phase="1" x:Load="{x:Bind ConnectedUsers.Values, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
-                          SelectionMode="None" IsItemClickEnabled="True" Grid.Row="1" Grid.ColumnSpan="2" ItemContainerStyle="{StaticResource VoiceUserListItem}">
-                    <interactivity:Interaction.Behaviors>
-                        <core:EventTriggerBehavior EventName="ItemClick">
-                            <behaviors:OpenListViewItemFlyoutAction/>
-                        </core:EventTriggerBehavior>
-                    </interactivity:Interaction.Behaviors>
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="channelbindables:BindableVoiceUser">
-                            <channelcontrols:VoiceMemberControl/>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Grid>
-        </UserControl>
+            <!--Voice Members-->
+            <ListView x:Name="MemberList"
+                      ItemsSource="{x:Bind ConnectedUsers.Values, Mode=OneWay}"
+                      Margin="-24,0,-24,0"
+                      x:Load="{x:Bind ConnectedUsers.Values, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
+                      SelectionMode="None"
+                      IsItemClickEnabled="True"
+                      Grid.Row="1"
+                      Grid.ColumnSpan="2"
+                      ItemContainerStyle="{StaticResource VoiceUserListItem}">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="ItemClick">
+                        <behaviors:OpenListViewItemFlyoutAction />
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+                <ListView.Template>
+                    <ControlTemplate>
+                        <ItemsPresenter/>
+                    </ControlTemplate>
+                </ListView.Template>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="channelbindables:BindableVoiceUser">
+                        <channelcontrols:VoiceMemberControl />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="DMChannelTemplate" x:DataType="channelbindables:BindableChannel">
