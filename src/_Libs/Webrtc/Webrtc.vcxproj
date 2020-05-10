@@ -164,7 +164,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>Webrtc.def</ModuleDefinitionFile>
     </Link>
@@ -185,7 +185,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>Webrtc.def</ModuleDefinitionFile>
     </Link>
@@ -206,7 +206,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>Webrtc.def</ModuleDefinitionFile>
     </Link>
@@ -227,7 +227,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>Webrtc.def</ModuleDefinitionFile>
     </Link>
@@ -248,7 +248,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>Webrtc.def</ModuleDefinitionFile>
     </Link>
@@ -269,7 +269,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>Webrtc.def</ModuleDefinitionFile>
     </Link>
@@ -291,7 +291,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>Webrtc.def</ModuleDefinitionFile>
     </Link>
@@ -312,7 +312,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;../SodiumC/bin/$(Platform)/$(Configuration)/SodiumC.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libs\$(Platform)\$(Configuration)\*.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>Webrtc.def</ModuleDefinitionFile>
     </Link>
@@ -3530,16 +3530,16 @@
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SodiumC\SodiumC.vcxproj">
-      <Project>{a3a15d18-2c4b-4a06-a5d6-5ad529cfbca6}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
     <None Include="Webrtc.def" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="WebrtcManager.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SodiumC\SodiumC.vcxproj">
+      <Project>{a3a15d18-2c4b-4a06-a5d6-5ad529cfbca6}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
