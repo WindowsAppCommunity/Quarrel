@@ -15,7 +15,6 @@
         <ResourceDictionary Source="../Converters.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-
     <Style x:Key="VoiceUserListItem" TargetType="ListViewItem" >
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="TabNavigation" Value="Local"/>
