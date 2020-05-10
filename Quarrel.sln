@@ -14,7 +14,10 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Quarrel.Shared", "src\_Task
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuntimeComponent", "src\_Libs\RuntimeComponent\RuntimeComponent.csproj", "{7A537745-CE73-4C4A-9FC5-0B6D28CA891C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quarrel", "src\Quarrel\Quarrel.csproj", "{63365B53-1CE1-4F12-BDD8-D93FC3DC8AF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quarrel", "src\Quarrel\Quarrel.csproj", "{63365B53-1CE1-4F12-BDD8-D93FC3DC8AF3}"DEA26}"
+	ProjectSection(ProjectDependencies) = postProject
+		{09252CD6-2BBC-4E47-95AA-186E32707E6F} = {09252CD6-2BBC-4E47-95AA-186E32707E6F}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordAPI", "src\_APIs\DiscordAPI\DiscordAPI.csproj", "{AB95046D-DFD9-451A-B329-E3D9C0FCF738}"
 EndProject
