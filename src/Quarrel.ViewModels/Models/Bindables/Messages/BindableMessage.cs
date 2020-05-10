@@ -5,12 +5,14 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
+using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Models.Bindables.Channels;
 using Quarrel.ViewModels.Models.Bindables.Messages.Embeds;
 using Quarrel.ViewModels.Models.Bindables.Users;
 using Quarrel.ViewModels.Models.Emojis;
 using Quarrel.ViewModels.Models.Interfaces;
+using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
@@ -46,6 +48,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         private RelayCommand _saveEdit;
         private RelayCommand<List<Emoji>> _addReaction;
         private RelayCommand _joinCallCommand;
+        private IAnalyticsService _analyticsService = null;
         private ICurrentUserService _currentUsersService = null;
         private IChannelsService _channelsService = null;
         private IDiscordService _discordService = null;
@@ -134,6 +137,8 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
             if (Model.Call != null && Model.Call.EndedTimestamp == null)
             {
                 await GatewayService.Gateway.VoiceStatusUpdate(null, Model.ChannelId, false, false);
+
+                AnalyticsService.Log(Constants.Analytics.Events.JoinCall);
             }
         });
 
@@ -241,6 +246,8 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         public ObservableCollection<IEmbed> BindableEmbeds { get; set; } = new ObservableCollection<IEmbed>();
 
         private BindableChannel Channel => ChannelsService.AllChannels[Model.ChannelId];
+
+        private IAnalyticsService AnalyticsService => _analyticsService ?? (_analyticsService = SimpleIoc.Default.GetInstance<IAnalyticsService>());
 
         private IChannelsService ChannelsService => _channelsService ?? (_channelsService = SimpleIoc.Default.GetInstance<IChannelsService>());
 

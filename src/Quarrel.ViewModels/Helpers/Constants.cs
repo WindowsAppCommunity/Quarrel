@@ -132,6 +132,8 @@ namespace Quarrel.ViewModels.Helpers
                 public const string OpenGuildChannel = "Opened a Guild Channel";
                 public const string JoinVoiceChannel = "Joined a Voice Channel";
 
+                public const string JoinCall = "Joined a Call";
+
                 public const string SentMessage = "Sent a message";
 
                 public const string OpenUserSettings = "Opened user settings";
