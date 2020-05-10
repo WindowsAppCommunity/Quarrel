@@ -27,6 +27,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Insider|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Insider\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;INSIDER</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
@@ -43,6 +52,16 @@
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Insider|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Insider\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;INSIDER</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
@@ -66,6 +85,16 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Insider|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <OutputPath>bin\ARM\Insider\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;INSIDER</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <PlatformTarget>ARM</PlatformTarget>
     <OutputPath>bin\ARM\Release\</OutputPath>
@@ -86,6 +115,16 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Insider|ARM64'">
+    <PlatformTarget>ARM64</PlatformTarget>
+    <OutputPath>bin\ARM64\Insider\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;INSIDER</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
     <PlatformTarget>ARM64</PlatformTarget>
     <OutputPath>bin\ARM64\Release\</OutputPath>
@@ -103,6 +142,16 @@
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Insider|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Insider\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;INSIDER</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
@@ -236,39 +285,17 @@
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Insider|AnyCPU'">
-    <OutputPath>bin\Insider\</OutputPath>
-    <NoWarn>;2008</NoWarn>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Insider2.0|AnyCPU'">
+    <OutputPath>bin\Insider2.0\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;RELEASE</DefineConstants>
     <Optimize>true</Optimize>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;INSIDER</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Insider|x86'">
-    <OutputPath>bin\x86\Insider\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;INSIDER</DefineConstants>
-    <PlatformTarget>x86</PlatformTarget>
-    <Optimize>true</Optimize>
-    <NoWarn>;2008</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Insider|ARM'">
-    <OutputPath>bin\ARM\Insider\</OutputPath>
-    <NoWarn>;2008</NoWarn>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;INSIDER</DefineConstants>
-    <PlatformTarget>ARM</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Insider|ARM64'">
-    <OutputPath>bin\ARM64\Insider\</OutputPath>
-    <NoWarn>;2008</NoWarn>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;INSIDER</DefineConstants>
-    <PlatformTarget>ARM64</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Insider|x64'">
-    <OutputPath>bin\x64\Insider\</OutputPath>
-    <NoWarn>;2008</NoWarn>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;INSIDER</DefineConstants>
-    <PlatformTarget>x64</PlatformTarget>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
