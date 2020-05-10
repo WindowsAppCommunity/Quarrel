@@ -271,3 +271,6 @@ SodiumC.dll
 /src/_Libs/SodiumC/Insider
 /src/_Libs/Webrtc/Insider/Webrtc.tlog
 /Insider/SodiumC
+/src/_Libs/Webrtc/ARM/Insider
+/src/_Libs/Webrtc/Insider
+/src/_Libs/SodiumC/ARM/Insider
