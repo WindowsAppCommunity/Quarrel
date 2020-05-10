@@ -24,18 +24,6 @@ steps:
 
 - task: VSBuild@1
   inputs:
-    platform: 'x86'
-    solution: '$(solution)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSBuild@1
-  inputs:
     platform: 'x64'
-    solution: '$(solution)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSBuild@1
-  inputs:
-    platform: 'ARM'
     solution: '$(solution)'
     configuration: '$(buildConfiguration)'
