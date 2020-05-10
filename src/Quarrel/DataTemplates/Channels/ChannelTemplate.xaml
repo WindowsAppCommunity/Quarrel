@@ -550,155 +550,332 @@
     </DataTemplate>
 
     <DataTemplate x:Key="DMChannelTemplate" x:DataType="channelbindables:BindableChannel">
-        <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}">
+        <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+              Padding="22,0,24,0"
+              Height="48">
             <!--Flyout-->
-            <UserControl.ContextFlyout>
+            <Grid.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-                    <MenuFlyoutItem Text="Profile" Command="{x:Bind OpenProfile, Mode=OneWay}"/>
-                    <MenuFlyoutItem Text="Mark as read" IsEnabled="{x:Bind IsUnread, Mode=OneWay}" Command="{x:Bind MarkAsRead, Mode=OneWay}"/>
-                    <ToggleMenuFlyoutItem Text="Mute" IsChecked="{x:Bind Muted, Mode=OneWay}" Command="{x:Bind Mute, Mode=OneWay}"/>
-                    <MenuFlyoutItem Text="Close DM" Foreground="{ThemeResource dnd}" Command="{x:Bind LeaveGroup, Mode=OneWay}"/>
-                    <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem Text="Copy Id" Command="{x:Bind CopyId, Mode=OneWay}"/>
+                    <MenuFlyoutItem Text="Profile"
+                                    Command="{x:Bind OpenProfile, Mode=OneWay}" />
+                    <MenuFlyoutItem Text="Mark as read"
+                                    IsEnabled="{x:Bind IsUnread, Mode=OneWay}"
+                                    Command="{x:Bind MarkAsRead, Mode=OneWay}" />
+                    <ToggleMenuFlyoutItem Text="Mute"
+                                          IsChecked="{x:Bind Muted, Mode=OneWay}"
+                                          Command="{x:Bind Mute, Mode=OneWay}" />
+                    <MenuFlyoutItem Text="Close DM"
+                                    Foreground="{ThemeResource dnd}"
+                                    Command="{x:Bind LeaveGroup, Mode=OneWay}" />
+                    <MenuFlyoutSeparator />
+                    <MenuFlyoutItem Text="Copy Id"
+                                    Command="{x:Bind CopyId, Mode=OneWay}" />
                 </MenuFlyout>
-            </UserControl.ContextFlyout>
+            </Grid.ContextFlyout>
 
-            <Grid Height="48" Padding="22,0,24,0">
+            <Grid.Background>
+                <SolidColorBrush Color="{ThemeResource SystemAccentColor}"
+                                 Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}" />
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto"
+                               MaxHeight="300" />
+                <RowDefinition Height="Auto"
+                               MaxHeight="10" />
+            </Grid.RowDefinitions>
+
+            <!--Unread Indicator-->
+            <Border x:Name="UnreadIndicator"
+                    Visibility="{x:Bind ShowUnread, Mode=OneWay}"
+                    Height="24"
+                    Width="2"
+                    Background="{ThemeResource Foreground}"
+                    Margin="-22,0,4,0"
+                    HorizontalAlignment="Left"
+                    Opacity="0.75" />
+
+            <!--Mention Notifications and Glow-->
+            <Grid x:Name="grid"
+                  Visibility="{x:Bind MentionCount, Converter={StaticResource MentionCountToVisiblityConverter}, Mode=OneWay}"
+                  Grid.RowSpan="4"
+                  Grid.ColumnSpan="4"
+                  Margin="0,0,-24,0">
                 <Grid.Background>
-                    <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
+                    <LinearGradientBrush EndPoint="0,0"
+                                         StartPoint="1.3,0"
+                                         ColorInterpolationMode="ScRgbLinearInterpolation"
+                                         SpreadMethod="Pad">
+                        <GradientStop Offset="0.95"
+                                      Color="#00000000" />
+                        <GradientStop Color="{ThemeResource SystemAccentColor}"
+                                      Offset="0" />
+                    </LinearGradientBrush>
                 </Grid.Background>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="Auto" MaxHeight="300"/>
-                    <RowDefinition Height="Auto" MaxHeight="10"/>
-                </Grid.RowDefinitions>
+                <Border Visibility="Visible"
+                        Height="24"
+                        Width="2"
+                        Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                        Margin="-22,0,4,0"
+                        HorizontalAlignment="Left"
+                        Opacity="1" />
 
-                <!--Unread Indicator-->
-                <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="24" Width="2" Background="{ThemeResource Foreground}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="0.75"/>
-
-                <!--Mention Notifications and Glow-->
-                <Grid x:Name="grid" Visibility="{x:Bind MentionCount, Converter={StaticResource MentionCountToVisiblityConverter}, Mode=OneWay}" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="0,0,-24,0">
-                    <Grid.Background>
-                        <LinearGradientBrush EndPoint="0,0" StartPoint="1.3,0" ColorInterpolationMode="ScRgbLinearInterpolation" SpreadMethod="Pad">
-                            <GradientStop Offset="0.95" Color="#00000000"/>
-                            <GradientStop Color="{ThemeResource SystemAccentColor}" Offset="0"/>
-                        </LinearGradientBrush>
-                    </Grid.Background>
-                    <Border Visibility="Visible" Height="24" Width="2" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="1"/>
-
-                    <TextBlock x:Name="NotificationCounter" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Text="{x:Bind MentionCount, Mode=OneWay}" FontWeight="SemiBold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="24,0,24,2" FontSize="15" RenderTransformOrigin="0.5,0.5">
+                <TextBlock x:Name="NotificationCounter"
+                           Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
+                           Text="{x:Bind MentionCount, Mode=OneWay}"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           Margin="24,0,24,2"
+                           FontSize="15"
+                           RenderTransformOrigin="0.5,0.5">
                                 <!--<TextBlock.RenderTransform>
                                     <CompositeTransform TranslateX="24"/>
                                 </TextBlock.RenderTransform>-->
-                    </TextBlock>
-                </Grid>
-
-                <Rectangle Visibility="{x:Bind ShowIconBackdrop, Mode=OneWay}" Fill="{x:Bind FirstUserDiscriminator, Converter={StaticResource DiscriminatorToBrushConverter}, Mode=OneWay}" x:Name="ChannelImageBackdrop" Width="36" Height="36"  Margin="0,6,6,6" RadiusX="18" RadiusY="18" Opacity="1"/>
-                <Border Margin="0,6,6,6" CornerRadius="18">
-                    <Image Source="{x:Bind ImageUrl, Mode=OneWay}" Width="36" Height="36"/>
-                </Border>
-
-                <!--Main Details-->
-                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,6" Padding="0,0,-18,0">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <SymbolIcon x:Name="MuteIcon" Visibility="{x:Bind Muted, Mode=OneWay}" Symbol="Mute" Margin="0,0,4,0" Opacity="0.35"/>
-                        <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}" Opacity="{x:Bind TextOpacity, Mode=OneWay}" Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}" Margin="0,1,0,0"/>
-                    </StackPanel>
-                    <TextBlock x:Name="SubTitle" Visibility="Collapsed" Text="" FontSize="11" FontWeight="SemiBold" Opacity="0.4"/>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Visibility="Collapsed" x:Name="playing" Text="Playing" VerticalAlignment="Center" FontSize="11" FontWeight="SemiLight" Opacity="0.4" Foreground="{ThemeResource Foreground}" Margin="0,0,3,0"/>
-                        <TextBlock Visibility="Collapsed" x:Name="game" VerticalAlignment="Center" Opacity="0.8" FontSize="11" FontWeight="Normal" Foreground="{ThemeResource Foreground}" Margin="0,0,0,0"/>
-                        <FontIcon Visibility="Collapsed" x:Name="rich" Glyph="" FontSize="11" Margin="4,0,0,-2" Foreground="{ThemeResource Foreground}"/>
-                    </StackPanel>
-                </StackPanel>
-
-                <!--Typing-->
-                <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <controls:TypingIndicator Visibility="{x:Bind IsTyping, Mode=OneWay}" HorizontalAlignment="Right" Margin="6,0"/>
-                </StackPanel>
+                </TextBlock>
             </Grid>
-        </UserControl>
+
+            <Rectangle Visibility="{x:Bind ShowIconBackdrop, Mode=OneWay}"
+                       Fill="{x:Bind FirstUserDiscriminator, Converter={StaticResource DiscriminatorToBrushConverter}, Mode=OneWay}"
+                       x:Name="ChannelImageBackdrop"
+                       Width="36"
+                       Height="36"
+                       Margin="0,6,6,6"
+                       RadiusX="18"
+                       RadiusY="18"
+                       Opacity="1" />
+            <Border Margin="0,6,6,6"
+                    CornerRadius="18">
+                <Image Source="{x:Bind ImageUrl, Mode=OneWay}"
+                       Width="36"
+                       Height="36" />
+            </Border>
+
+            <!--Main Details-->
+            <StackPanel Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Margin="0,6"
+                        Padding="0,0,-18,0">
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center">
+                    <SymbolIcon x:Name="MuteIcon"
+                                Visibility="{x:Bind Muted, Mode=OneWay}"
+                                Symbol="Mute"
+                                Margin="0,0,4,0"
+                                Opacity="0.35" />
+                    <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}"
+                               Opacity="{x:Bind TextOpacity, Mode=OneWay}"
+                               Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}"
+                               Margin="0,1,0,0" />
+                </StackPanel>
+                <TextBlock x:Name="SubTitle"
+                           Visibility="Collapsed"
+                           Text=""
+                           FontSize="11"
+                           FontWeight="SemiBold"
+                           Opacity="0.4" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Visibility="Collapsed"
+                               x:Name="playing"
+                               Text="Playing"
+                               VerticalAlignment="Center"
+                               FontSize="11"
+                               FontWeight="SemiLight"
+                               Opacity="0.4"
+                               Foreground="{ThemeResource Foreground}"
+                               Margin="0,0,3,0" />
+                    <TextBlock Visibility="Collapsed"
+                               x:Name="game"
+                               VerticalAlignment="Center"
+                               Opacity="0.8"
+                               FontSize="11"
+                               FontWeight="Normal"
+                               Foreground="{ThemeResource Foreground}"
+                               Margin="0,0,0,0" />
+                    <FontIcon Visibility="Collapsed"
+                              x:Name="rich"
+                              Glyph=""
+                              FontSize="11"
+                              Margin="4,0,0,-2"
+                              Foreground="{ThemeResource Foreground}" />
+                </StackPanel>
+            </StackPanel>
+
+            <!--Typing-->
+            <controls:TypingIndicator Grid.Column="2"
+                                      Visibility="{x:Bind IsTyping, Mode=OneWay}"
+                                      HorizontalAlignment="Right"
+                                      Margin="6,0" />
+        </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="GroupDMChannelTemplate" x:DataType="channelbindables:BindableChannel">
-        <UserControl Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" >
+        <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+              Height="48"
+              Padding="22,0,24,0">
             <!--Flyout-->
-            <UserControl.ContextFlyout>
+            <Grid.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-                    <MenuFlyoutItem Text="Mark as read" IsEnabled="{x:Bind IsUnread, Mode=OneWay}" Command="{x:Bind MarkAsRead, Mode=OneWay}"/>
-                    <ToggleMenuFlyoutItem Text="Mute" IsChecked="{x:Bind Muted, Mode=OneWay}" Command="{x:Bind Mute, Mode=OneWay}"/>
-                    <MenuFlyoutItem Text="Leave Group" Foreground="{ThemeResource dnd}" Command="{x:Bind LeaveGroup, Mode=OneWay}"/>
-                    <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem Text="Copy Id" Command="{x:Bind CopyId, Mode=OneWay}"/>
+                    <MenuFlyoutItem Text="Mark as read"
+                                    IsEnabled="{x:Bind IsUnread, Mode=OneWay}"
+                                    Command="{x:Bind MarkAsRead, Mode=OneWay}" />
+                    <ToggleMenuFlyoutItem Text="Mute"
+                                          IsChecked="{x:Bind Muted, Mode=OneWay}"
+                                          Command="{x:Bind Mute, Mode=OneWay}" />
+                    <MenuFlyoutItem Text="Leave Group"
+                                    Foreground="{ThemeResource dnd}"
+                                    Command="{x:Bind LeaveGroup, Mode=OneWay}" />
+                    <MenuFlyoutSeparator />
+                    <MenuFlyoutItem Text="Copy Id"
+                                    Command="{x:Bind CopyId, Mode=OneWay}" />
                 </MenuFlyout>
-            </UserControl.ContextFlyout>
+            </Grid.ContextFlyout>
 
-            <Grid Height="48" Padding="22,0,24,0">
+            <Grid.Background>
+                <SolidColorBrush Color="{ThemeResource SystemAccentColor}"
+                                 Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}" />
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto"
+                               MaxHeight="300" />
+                <RowDefinition Height="Auto"
+                               MaxHeight="10" />
+            </Grid.RowDefinitions>
+
+            <!--Unread Indicator-->
+            <Border x:Name="UnreadIndicator"
+                    Visibility="{x:Bind ShowUnread, Mode=OneWay}"
+                    Height="24"
+                    Width="2"
+                    Background="{ThemeResource Foreground}"
+                    Margin="-22,0,4,0"
+                    HorizontalAlignment="Left"
+                    Opacity="0.75" />
+
+            <!--Mention Notifications and Glow-->
+            <Grid x:Name="grid"
+                  Visibility="{x:Bind MentionCount, Converter={StaticResource MentionCountToVisiblityConverter}, Mode=OneWay}"
+                  Grid.RowSpan="4"
+                  Grid.ColumnSpan="4"
+                  Margin="0,0,-24,0">
                 <Grid.Background>
-                    <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
+                    <LinearGradientBrush EndPoint="0,0"
+                                         StartPoint="1.3,0"
+                                         ColorInterpolationMode="ScRgbLinearInterpolation"
+                                         SpreadMethod="Pad">
+                        <GradientStop Offset="0.95"
+                                      Color="#00000000" />
+                        <GradientStop Color="{ThemeResource SystemAccentColor}"
+                                      Offset="0" />
+                    </LinearGradientBrush>
                 </Grid.Background>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="Auto" MaxHeight="300"/>
-                    <RowDefinition Height="Auto" MaxHeight="10"/>
-                </Grid.RowDefinitions>
+                <Border Visibility="Visible"
+                        Height="24"
+                        Width="2"
+                        Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                        Margin="-22,0,4,0"
+                        HorizontalAlignment="Left"
+                        Opacity="1" />
 
-                <!--Unread Indicator-->
-                <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="24" Width="2" Background="{ThemeResource Foreground}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="0.75"/>
-
-                <!--Mention Notifications and Glow-->
-                <Grid x:Name="grid" Visibility="{x:Bind MentionCount, Converter={StaticResource MentionCountToVisiblityConverter}, Mode=OneWay}" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="0,0,-24,0">
-                    <Grid.Background>
-                        <LinearGradientBrush EndPoint="0,0" StartPoint="1.3,0" ColorInterpolationMode="ScRgbLinearInterpolation" SpreadMethod="Pad">
-                            <GradientStop Offset="0.95" Color="#00000000"/>
-                            <GradientStop Color="{ThemeResource SystemAccentColor}" Offset="0"/>
-                        </LinearGradientBrush>
-                    </Grid.Background>
-                    <Border Visibility="Visible" Height="24" Width="2" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="1"/>
-
-                    <TextBlock x:Name="NotificationCounter" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Text="{x:Bind MentionCount, Mode=OneWay}" FontWeight="SemiBold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="24,0,24,2" FontSize="15" RenderTransformOrigin="0.5,0.5">
+                <TextBlock x:Name="NotificationCounter"
+                           Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
+                           Text="{x:Bind MentionCount, Mode=OneWay}"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           Margin="24,0,24,2"
+                           FontSize="15"
+                           RenderTransformOrigin="0.5,0.5">
                                 <!--<TextBlock.RenderTransform>
                                     <CompositeTransform TranslateX="24"/>
                                 </TextBlock.RenderTransform>-->
-                    </TextBlock>
-                </Grid>
-
-                <!--Icon-->
-                <Rectangle Visibility="{x:Bind ShowIconBackdrop, Mode=OneWay}" Fill="{x:Bind FirstUserDiscriminator, Converter={StaticResource DiscriminatorToBrushConverter}, Mode=OneWay}" x:Name="ChannelImageBackdrop" Width="36" Height="36"  Margin="0,6,6,6" RadiusX="18" RadiusY="18" Opacity="1"/>
-                <Border Margin="0,6,6,6" CornerRadius="18">
-                    <Image Source="{x:Bind ImageUrl, Mode=OneWay}" Width="36" Height="36"/>
-                </Border>
-
-                <!--Main Details-->
-                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,6" Padding="0,0,-18,0">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <SymbolIcon x:Name="MuteIcon" Visibility="{x:Bind Muted, Mode=OneWay}" Symbol="Mute" Margin="0,0,4,0" Opacity="0.35"/>
-                        <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}" Opacity="{x:Bind TextOpacity, Mode=OneWay}" Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}" Margin="0,1,0,0"/>
-                    </StackPanel>
-                    <TextBlock x:Name="SubTitle" Visibility="Collapsed" Text="" FontSize="11" FontWeight="SemiBold" Opacity="0.4"/>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Visibility="Collapsed" x:Name="playing" Text="Playing" VerticalAlignment="Center" FontSize="11" FontWeight="SemiLight" Opacity="0.4" Foreground="{ThemeResource Foreground}" Margin="0,0,3,0"/>
-                        <TextBlock Visibility="Collapsed" x:Name="game" VerticalAlignment="Center" Opacity="0.8" FontSize="11" FontWeight="Normal" Foreground="{ThemeResource Foreground}" Margin="0,0,0,0"/>
-                        <FontIcon Visibility="Collapsed" x:Name="rich" Glyph="" FontSize="11" Margin="4,0,0,-2" Foreground="{ThemeResource Foreground}"/>
-                    </StackPanel>
-                </StackPanel>
-
-                <!--Typing-->
-                <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <controls:TypingIndicator Visibility="{x:Bind IsTyping, Mode=OneWay}" HorizontalAlignment="Right" Margin="6,0"/>
-                </StackPanel>
+                </TextBlock>
             </Grid>
-        </UserControl>
+
+            <!--Icon-->
+            <Rectangle Visibility="{x:Bind ShowIconBackdrop, Mode=OneWay}"
+                       Fill="{x:Bind FirstUserDiscriminator, Converter={StaticResource DiscriminatorToBrushConverter}, Mode=OneWay}"
+                       x:Name="ChannelImageBackdrop"
+                       Width="36"
+                       Height="36"
+                       Margin="0,6,6,6"
+                       RadiusX="18"
+                       RadiusY="18"
+                       Opacity="1" />
+            <Border Margin="0,6,6,6"
+                    CornerRadius="18">
+                <Image Source="{x:Bind ImageUrl, Mode=OneWay}"
+                       Width="36"
+                       Height="36" />
+            </Border>
+
+            <!--Main Details-->
+            <StackPanel Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Margin="0,6"
+                        Padding="0,0,-18,0">
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center">
+                    <SymbolIcon x:Name="MuteIcon"
+                                Visibility="{x:Bind Muted, Mode=OneWay}"
+                                Symbol="Mute"
+                                Margin="0,0,4,0"
+                                Opacity="0.35" />
+                    <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}"
+                               Opacity="{x:Bind TextOpacity, Mode=OneWay}"
+                               Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}"
+                               Margin="0,1,0,0" />
+                </StackPanel>
+                <TextBlock x:Name="SubTitle"
+                           Visibility="Collapsed"
+                           Text=""
+                           FontSize="11"
+                           FontWeight="SemiBold"
+                           Opacity="0.4" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Visibility="Collapsed"
+                               x:Name="playing"
+                               Text="Playing"
+                               VerticalAlignment="Center"
+                               FontSize="11"
+                               FontWeight="SemiLight"
+                               Opacity="0.4"
+                               Foreground="{ThemeResource Foreground}"
+                               Margin="0,0,3,0" />
+                    <TextBlock Visibility="Collapsed"
+                               x:Name="game"
+                               VerticalAlignment="Center"
+                               Opacity="0.8"
+                               FontSize="11"
+                               FontWeight="Normal"
+                               Foreground="{ThemeResource Foreground}"
+                               Margin="0,0,0,0" />
+                    <FontIcon Visibility="Collapsed"
+                              x:Name="rich"
+                              Glyph=""
+                              FontSize="11"
+                              Margin="4,0,0,-2"
+                              Foreground="{ThemeResource Foreground}" />
+                </StackPanel>
+            </StackPanel>
+
+            <!--Typing-->
+            <controls:TypingIndicator Grid.Column="2"
+                                      Visibility="{x:Bind IsTyping, Mode=OneWay}"
+                                      HorizontalAlignment="Right"
+                                      Margin="6,0" />
+        </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="CategoryTemplate"
