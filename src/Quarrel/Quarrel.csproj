@@ -535,8 +535,8 @@
     <Content Include="Assets\emojifont.ttf" />
     <AdditionalFiles Include="stylecop.json" />
     <PRIResource Include="Localization\en\AuditLog.resw" />
-    <Content Include="Assets\Tokens\AppCenter.json" />
     <Content Include="Assets\Data\Emojis - Backup.json" />
+    <None Include="Assets\Tokens\Fake.json" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\PayPal.png" />
     <Content Include="Properties\Default.rd.xml" />
