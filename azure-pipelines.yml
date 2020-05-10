@@ -11,7 +11,7 @@ pool:
 
 variables:
   solution: '**/*.sln'
-  config: 'Debug'
+  config: 'Release'
 
 steps:
 - task: NuGetToolInstaller@1
