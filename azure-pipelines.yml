@@ -11,9 +11,7 @@ pool:
 
 variables:
   solution: '**/*.sln'
-  config: 'Debug'
-  buildPlatform: 'x86|x64|ARM'
-  appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
+  config: 'Release'
 
 steps:
 - task: NuGetToolInstaller@1
@@ -26,5 +24,16 @@ steps:
   inputs:
     solution: '**\*.sln'
     configuration: '$(config)'
+    platform: 'x86'
+
+- task: VSBuild@1
+  inputs:
+    solution: '**\*.sln'
+    configuration: '$(config)'
     platform: 'x64'
-    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+
+- task: VSBuild@1
+  inputs:
+    solution: '**\*.sln'
+    configuration: '$(config)'
+    platform: 'ARM'
