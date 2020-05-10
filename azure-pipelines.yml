@@ -25,13 +25,6 @@ steps:
   inputs:
     solution: '**\*.sln'
     configuration: '$(config)'
-    platform: 'x86'
-    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
-
-- task: VSBuild@1
-  inputs:
-    solution: '**\*.sln'
-    configuration: '$(config)'
     platform: 'x64'
     msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
 
