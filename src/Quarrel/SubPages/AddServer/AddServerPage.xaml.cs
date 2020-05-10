@@ -2,6 +2,8 @@
 using Microsoft.UI.Xaml.Controls;
 using Quarrel.SubPages.AddServer.Pages;
 using Quarrel.SubPages.Interfaces;
+using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Navigation;
 using System;
 using System.Collections.Concurrent;
@@ -15,6 +17,7 @@ namespace Quarrel.SubPages.AddServer
     public sealed partial class AddServerPage : IAdaptiveSubPage, IConstrainedSubPage
     {
         private readonly IReadOnlyDictionary<NavigationViewItemBase, Type> _pagesMapping;
+        private IAnalyticsService _analyticsService = null;
         private bool _isFullHeight;
 
         /// <summary>
@@ -30,6 +33,8 @@ namespace Quarrel.SubPages.AddServer
                 [CreateItem] = typeof(CreateServerPage),
                 [JoinItem] = typeof(JoinServerPage),
             };
+
+            AnalyticsService.Log(Constants.Analytics.Events.OpenAddServer);
         }
 
         /// <inheritdoc/>
@@ -52,6 +57,8 @@ namespace Quarrel.SubPages.AddServer
 
         /// <inheritdoc/>
         public double MaxExpandedHeight { get; } = 340;
+
+        private IAnalyticsService AnalyticsService => _analyticsService ?? (_analyticsService = SimpleIoc.Default.GetInstance<IAnalyticsService>());
 
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {

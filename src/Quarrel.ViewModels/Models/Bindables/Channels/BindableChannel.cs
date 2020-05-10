@@ -4,11 +4,13 @@ using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
+using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
 using Quarrel.ViewModels.Models.Bindables.Guilds;
 using Quarrel.ViewModels.Models.Bindables.Users;
+using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.CurrentUser;
@@ -47,6 +49,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
         private RelayCommand _leaveGroup;
         private RelayCommand _copyId;
         private RelayCommand _startCallCommand;
+        private IAnalyticsService _analyticsService = null;
         private ICurrentUserService _currentUsersService = null;
         private IChannelsService _channelsService = null;
         private IDiscordService _discordService = null;
@@ -688,12 +691,15 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
         {
             await DiscordService.ChannelService.StartCall(Model.Id);
             await GatewayService.Gateway.VoiceStatusUpdate(null, Model.Id, false, false);
+            AnalyticsService.Log(Constants.Analytics.Events.StartCall);
         });
 
         /// <summary>
         /// Gets a <see cref="ConcurrentDictionary{TKey, TValue}"/> of people typing in the channel, hashed by user id.
         /// </summary>
         public ConcurrentDictionary<string, Timer> Typers { get; private set; } = new ConcurrentDictionary<string, Timer>();
+
+        private IAnalyticsService AnalyticsService => _analyticsService ?? (_analyticsService = SimpleIoc.Default.GetInstance<IAnalyticsService>());
 
         private ICurrentUserService CurrentUsersService => _currentUsersService ?? (_currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUserService>());
 

@@ -130,7 +130,11 @@ namespace Quarrel.ViewModels
                         MessengerInstance.Send(new ChannelNavigateMessage(channel));
                     }
 
-                    _analyticsService.Log(m.Guild.IsDM ? Constants.Analytics.Events.OpenDMs : Constants.Analytics.Events.OpenGuild);
+                    _analyticsService.Log(
+                        m.Guild.IsDM ?
+                        Constants.Analytics.Events.OpenDMs :
+                        Constants.Analytics.Events.OpenGuild,
+                        ("guild-id", m.Guild.Model.Id));
                 }
             });
 

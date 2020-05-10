@@ -99,7 +99,6 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
         public RelayCommand OpenProfile => _openProfile = new RelayCommand(() =>
         {
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("UserProfilePage", this);
-            AnalyticsService.Log(Constants.Analytics.Events.OpenUserProfile);
         });
 
         /// <summary>
