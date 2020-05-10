@@ -61,11 +61,13 @@ namespace Quarrel.ViewModels.Services.Voice
 
                         if (m.VoiceState.ChannelId == null)
                         {
-                            VoiceStates.Remove(m.VoiceState.UserId);
-
                             if (m.VoiceState.UserId == _discordService.CurrentUser.Id)
                             {
                                 DisconnectFromVoiceChannel();
+                            }
+                            else
+                            {
+                                VoiceStates.Remove(m.VoiceState.UserId);
                             }
                         }
                         else
