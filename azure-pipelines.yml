@@ -7,11 +7,12 @@ trigger:
 - dev
 
 pool:
-  vmImage: 'windows-2019'
+  vmImage: 'windows-latest'
 
 variables:
   solution: '**/*.sln'
   config: 'Debug'
+  buildPlatform: 'x86|x64|ARM'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
 
 steps:
@@ -26,11 +27,4 @@ steps:
     solution: '**\*.sln'
     configuration: '$(config)'
     platform: 'x64'
-    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
-
-- task: VSBuild@1
-  inputs:
-    solution: '**\*.sln'
-    configuration: '$(config)'
-    platform: 'ARM'
     msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
