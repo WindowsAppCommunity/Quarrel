@@ -13,6 +13,8 @@ namespace Quarrel.SubPages
     /// </summary>
     public sealed partial class WhatsNewPage : UserControl, IConstrainedSubPage
     {
+        private ISubFrameNavigationService _subFrameNavigationService = null;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsNewPage"/> class.
         /// </summary>
@@ -27,9 +29,11 @@ namespace Quarrel.SubPages
         /// <inheritdoc/>
         public double MaxExpandedWidth { get; } = 512;
 
+        private ISubFrameNavigationService SubFrameNavigationService => _subFrameNavigationService ?? (_subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>());
+
         private void Close(object sender, RoutedEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().GoBack();
+            SubFrameNavigationService.GoBack();
         }
     }
 }

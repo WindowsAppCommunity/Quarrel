@@ -1,8 +1,11 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using GalaSoft.MvvmLight.Ioc;
 using GitHubAPI.Models;
 using Quarrel.SubPages.Interfaces;
+using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Models.Bindables.GitHub;
+using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.SubPages;
 using System;
 using Windows.System;
@@ -15,6 +18,8 @@ namespace Quarrel.SubPages
     /// </summary>
     public sealed partial class CreditPage : UserControl, IConstrainedSubPage
     {
+        private IAnalyticsService _analyticsService = null;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CreditPage"/> class.
         /// </summary>
@@ -22,6 +27,7 @@ namespace Quarrel.SubPages
         {
             this.InitializeComponent();
             DataContext = new CreditPageViewModel();
+            AnalyticsService.Log(Constants.Analytics.Events.OpenCredit);
         }
 
         /// <summary>
@@ -34,6 +40,8 @@ namespace Quarrel.SubPages
 
         /// <inheritdoc/>
         public double MaxExpandedWidth { get; } = 512;
+
+        private IAnalyticsService AnalyticsService => _analyticsService ?? (_analyticsService = SimpleIoc.Default.GetInstance<IAnalyticsService>());
 
         /// <summary>
         /// Open Contributor's GitHub page.

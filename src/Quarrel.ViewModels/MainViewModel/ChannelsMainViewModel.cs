@@ -64,6 +64,8 @@ namespace Quarrel.ViewModels
                         channel.IsPrivateChannel
                             ? Constants.Analytics.Events.OpenDMChannel
                             : Constants.Analytics.Events.OpenGuildChannel,
+                        ("channel-id", channel.Model.Id),
+                        ("guild-id", channel.GuildId),
                         ("type", channel.Model.Type.ToString()));
                 });
             }
