@@ -49,7 +49,7 @@
         <Grid HorizontalAlignment="Left">
             <messagecontrols:HiddenAttachment DataContext="{x:Bind}" Visibility="{x:Bind IsShowing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
             <toolkit:ImageEx x:Name="media" Source="{x:Bind Model.Url}" x:Load="{x:Bind IsShowing, Mode=OneWay}"
-                         Height="{x:Bind Model.ActualHeight}"
+                         Height="{x:Bind Model.ActualHeight}" DataContext="{x:Bind}"
                          Width="{x:Bind Model.ActualWidth}"
                          HorizontalAlignment="Left" Tapped="Expand" MaxHeight="250"/>
         </Grid>
@@ -90,8 +90,8 @@
                                      HorizontalAlignment="Left" />
     </DataTemplate>
     <DataTemplate x:Key="ImageEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
-        <toolkit:ImageEx Source="{x:Bind Model.Thumbnail.BindUrl}" Width="{x:Bind Model.Thumbnail.Width}" Height="{x:Bind Model.Thumbnail.BindHeight}" HorizontalAlignment="Left"
-                         MaxHeight="250" Tapped="Expand" />
+        <toolkit:ImageEx Source="{x:Bind Model.Thumbnail.BindUrl}" Width="{x:Bind Model.Thumbnail.Width}" Height="{x:Bind Model.Thumbnail.BindHeight}"
+                         DataContext="{x:Bind}" HorizontalAlignment="Left" MaxHeight="250" Tapped="Expand" />
     </DataTemplate>
     <DataTemplate x:Key="DefaultEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
         <Border CornerRadius="4"
@@ -148,12 +148,12 @@
                         </StackPanel>
                         <Grid Grid.Row="0" Grid.Column="1" VerticalAlignment="Top"  x:Name="ThumbnailImage" x:Load="{x:Bind Model.Thumbnail, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
                             <Border CornerRadius="3">
-                                <toolkit:ImageEx Source="{x:Bind Model.Thumbnail.ProxyUrl, Mode=OneWay}" MaxWidth="80" MaxHeight="80" Stretch="Uniform" Tapped="Expand"/>
+                                <toolkit:ImageEx Source="{x:Bind Model.Thumbnail.ProxyUrl, Mode=OneWay}" DataContext="{x:Bind}" MaxWidth="80" MaxHeight="80" Stretch="Uniform" Tapped="Expand"/>
                             </Border>
                         </Grid>
                     </Grid>
                     <Viewbox HorizontalAlignment="Left" x:Name="ImageVB" x:Load="{x:Bind Model.Image, Converter={StaticResource NotNullToBoolConverter}}" StretchDirection="DownOnly" MaxWidth="400" MaxHeight="250">
-                        <toolkit:ImageEx Source="{x:Bind Model.Image.ProxyUrl}" Tapped="Expand"/>
+                        <toolkit:ImageEx Source="{x:Bind Model.Image.ProxyUrl}" DataContext="{x:Bind}" Tapped="Expand"/>
                     </Viewbox>
                     <Grid>
                         <Grid.ColumnDefinitions>
