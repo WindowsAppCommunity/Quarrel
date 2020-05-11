@@ -588,9 +588,9 @@
     <AdditionalFiles Include="stylecop.json" />
     <PRIResource Include="Localization\en\AuditLog.resw" />
     <Content Include="Assets\Data\Emojis - Backup.json" />
-    <None Include="Assets\Tokens\AppCenter.json" />
-    <None Include="Assets\Tokens\AppCenterInsider.json" />
-    <None Include="Assets\Tokens\Fake.json" />
+    <Content Include="Assets\Tokens\AppCenter.json" />
+    <Content Include="Assets\Tokens\AppCenterInsider.json" />
+    <Content Include="Assets\Tokens\Fake.json" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\PayPal.png" />
     <Content Include="Properties\Default.rd.xml" />
