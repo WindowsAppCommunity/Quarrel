@@ -53,7 +53,7 @@ namespace DiscordAPI.API.Channel
         Task CreateReaction([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [AliasAs("emoji")] string emoji);
 
         [Put("/channels/{channelId}/permissions/{overwriteId}")]
-        Task EditChannelPermissions([AliasAs("channelId")] string channelId, [AliasAs("overwriteId")] string overwriteId, [Body] EditChannel editChannel);
+        Task EditChannelPermissions([AliasAs("channelId")] string channelId, [AliasAs("overwriteId")] string overwriteId, [Body] EditChannelPermissions editChannel);
 
         [Put("/channels/{channelId}/pins/{messageId}")]
         Task AddPinnedChannelMessage([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId);
