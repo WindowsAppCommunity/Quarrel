@@ -9,7 +9,7 @@
   <Identity
     Name="38062AvishaiDernis.QuarrelInsider"
     Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B"
-    Version="20.5.8.0" />
+    Version="20.5.10.0" />
 
   <mp:PhoneIdentity PhoneProductId="8d92773a-6cf0-46e7-8a91-788f1c04991a" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

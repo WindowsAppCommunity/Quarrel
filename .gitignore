@@ -267,3 +267,10 @@ __pycache__/
 SodiumC.dll
 /src/Quarrel/SodiumC/ARM
 /src/Quarrel/Assets/Tokens/AppCenter.json
+/src/Quarrel/Assets/Tokens/AppCenterInsider.json
+/src/_Libs/SodiumC/Insider
+/src/_Libs/Webrtc/Insider/Webrtc.tlog
+/Insider/SodiumC
+/src/_Libs/Webrtc/ARM/Insider
+/src/_Libs/Webrtc/Insider
+/src/_Libs/SodiumC/ARM/Insider
