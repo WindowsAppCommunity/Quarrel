@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using System;
 using System.Threading.Tasks;
 
 namespace DiscordAPI.Sockets
