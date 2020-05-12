@@ -95,7 +95,6 @@ namespace Quarrel.ViewModels
                         m.Guild.Channels.FirstOrDefault(x => x.IsTextChannel && x.Permissions.ReadMessages);
                     BindableGuildMember currentGuildMember;
 
-
                     if (!m.Guild.IsDM)
                     {
                         currentGuildMember = _guildsService.GetGuildMember(_currentUserService.CurrentUser.Model.Id, m.Guild.Model.Id);
@@ -148,19 +147,33 @@ namespace Quarrel.ViewModels
                         // Show guilds
                         BindableGuilds.Clear();
                         BindableGuilds.Add(_guildsService.AllGuilds["DM"]);
-                        foreach (var folder in _guildsService.AllGuildFolders)
-                        {
-                            if (folder.Model.Id != null)
-                            {
-                                BindableGuilds.Add(folder);
-                            }
 
-                            foreach (var guildId in folder.Model.GuildIds)
+                        if (_guildsService.AllGuildFolders.Count > 0)
+                        {
+                            foreach (var folder in _guildsService.AllGuildFolders)
                             {
-                                _guildsService.AllGuilds.TryGetValue(guildId, out BindableGuild bindableGuild);
-                                if (bindableGuild != null)
+                                if (folder.Model.Id != null)
                                 {
-                                    BindableGuilds.Add(bindableGuild);
+                                    BindableGuilds.Add(folder);
+                                }
+
+                                foreach (var guildId in folder.Model.GuildIds)
+                                {
+                                    _guildsService.AllGuilds.TryGetValue(guildId, out BindableGuild bindableGuild);
+                                    if (bindableGuild != null)
+                                    {
+                                        BindableGuilds.Add(bindableGuild);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (var guild in _guildsService.AllGuilds.Values)
+                            {
+                                if (guild.Model.Id != "DM")
+                                {
+                                    BindableGuilds.Add(guild);
                                 }
                             }
                         }
