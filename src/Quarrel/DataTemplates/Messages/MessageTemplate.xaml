@@ -114,7 +114,7 @@
                                 <Border CornerRadius="10" Margin="0,0,10,0" x:Name="AuthorRect" x:Load="{x:Bind Model.Author.IconUrl, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
                                     <toolkit:ImageEx Width="20" Height="20" DecodePixelWidth="20" DecodePixelHeight="20" Source="{x:Bind Model.Author.ProxyIconUrl}"/>
                                 </Border>
-                                <TextBlock x:Name="AuthorText" Text="{x:Bind Model.Author.Name}" x:Load="{x:Bind Model.Author.Name, Converter={StaticResource NotNullToBoolConverter}}" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource Foreground}"
+                                <TextBlock x:Name="AuthorText" Text="{x:Bind Model.Author.Name}" x:Load="{x:Bind Model.Author.Name, Converter={StaticResource NotNullToBoolConverter}}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}"
                                            VerticalAlignment="Center"/>
                             </StackPanel>
 
