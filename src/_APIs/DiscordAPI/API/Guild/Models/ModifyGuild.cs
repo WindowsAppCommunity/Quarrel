@@ -4,7 +4,7 @@ namespace DiscordAPI.API.Guild.Models
 {
     public class ModifyGuild
     {
-        public ModifyGuild(DiscordAPI.Models.Guild guild)
+        public ModifyGuild(DiscordAPI.Models.Guilds.Guild guild)
         {
             Name = guild.Name;
             Region = guild.Region;
@@ -34,7 +34,7 @@ namespace DiscordAPI.API.Guild.Models
 
     public class ModifyGuildIcon : ModifyGuild
     {
-        public ModifyGuildIcon(DiscordAPI.Models.Guild guild) : base(guild)
+        public ModifyGuildIcon(DiscordAPI.Models.Guilds.Guild guild) : base(guild)
         {
 
         }

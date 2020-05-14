@@ -1,4 +1,6 @@
-﻿using DiscordAPI.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.Models.Channels;
 
 namespace Quarrel.ViewModels.Messages.Gateway
 {

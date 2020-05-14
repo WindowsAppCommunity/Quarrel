@@ -1,5 +1,7 @@
 ﻿using DiscordAPI.Gateway.DownstreamEvents;
 using DiscordAPI.Models;
+using DiscordAPI.Models.Channels;
+using DiscordAPI.Models.Guilds;
 using System;
 using System.Threading.Tasks;
 

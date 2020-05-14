@@ -1,8 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.Models.Channels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
-namespace DiscordAPI.Models
+namespace DiscordAPI.Models.Guilds
 {
     public class Guild
     {

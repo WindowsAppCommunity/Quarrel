@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿// Copyright (c) Quarrel. All rights reserved.
 
-namespace DiscordAPI.Models
+using Newtonsoft.Json;
+
+namespace DiscordAPI.Models.Guilds
 {
     public class MutualGuild
     {
