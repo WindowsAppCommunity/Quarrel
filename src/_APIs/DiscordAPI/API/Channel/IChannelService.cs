@@ -1,4 +1,6 @@
-﻿using DiscordAPI.API.Channel.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.API.Channel.Models;
 using DiscordAPI.Models;
 using Refit;
 using System.Collections.Generic;
@@ -17,7 +19,7 @@ namespace DiscordAPI.API.Channel
         /// <param name="channelId">The channel's id.</param>
         /// <returns>The channel by <paramref name="channelId"/>.</returns>
         [Get("/channels/{channelId}")]
-        Task<DiscordAPI.Models.Channel> GetGuildChannel([AliasAs("channelId")] string channelId);
+        Task<DiscordAPI.Models.Channels.Channel> GetGuildChannel([AliasAs("channelId")] string channelId);
 
         /// <summary>
         /// Modifies a channel by id via REST.
@@ -33,7 +35,7 @@ namespace DiscordAPI.API.Channel
         /// </summary>
         /// <param name="channelId">The channel's id.</param>
         /// <param name="messageId">The message's id.</param>
-        /// <returns>A task,</returns>
+        /// <returns>The message.</returns>
         [Get("/v6/channels/{channelId}/messages/{messageId)")]
         Task<Message> GetChannelMessage([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId);
 
