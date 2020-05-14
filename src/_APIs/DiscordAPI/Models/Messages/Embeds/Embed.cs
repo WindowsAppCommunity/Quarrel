@@ -1,7 +1,9 @@
-﻿using DiscordAPI.Interfaces;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.Interfaces;
 using Newtonsoft.Json;
 
-namespace DiscordAPI.Models
+namespace DiscordAPI.Models.Messages.Embeds
 {
     public class Embed : IPreviewableImage
     {

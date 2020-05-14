@@ -4,7 +4,7 @@ using DiscordAPI.Interfaces;
 using Newtonsoft.Json;
 using System;
 
-namespace DiscordAPI.Models
+namespace DiscordAPI.Models.Messages.Embeds
 {
     /// <summary>
     /// A model for a message attachment.

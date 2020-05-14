@@ -1,39 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.Models.Messages.Embeds;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
-namespace DiscordAPI.Models
+namespace DiscordAPI.Models.Messages
 {
     public class Message
     {
-        public Message MergePending(Message gatewayData)
-        {
-            Id = gatewayData.Id;
-            Attachments = gatewayData.Attachments;
-            Embeds = gatewayData.Embeds;
-            Mentions = gatewayData.Mentions;
-            MentionEveryone = gatewayData.MentionEveryone;
-            MentionRoles = gatewayData.MentionRoles;
-            if (gatewayData.User.Id != null)
-            {
-                User = gatewayData.User;
-            }
-            if (gatewayData.Timestamp.Ticks > 100000)
-            {
-                Timestamp = gatewayData.Timestamp;
-            }
-            else
-            {
-                Timestamp.AddTicks(gatewayData.Timestamp.Ticks);
-            }
-            return this;
-        }
-
-        public void SetUser(User user)
-        {
-            User = user;
-        }
-
         [JsonProperty("id")]
         public string Id { get; set; }
         [JsonProperty("channel_id")]
@@ -74,27 +49,5 @@ namespace DiscordAPI.Models
         public string WebHookid { get; set; }
         [JsonProperty("guild_id")]
         public string GuildId { get; set; }
-    }
-    public class Activity
-    {
-        [JsonProperty("party_id")]
-        public string PartyId { get; set; }
-        [JsonProperty("type")]
-        public int Type { get; set; }
-    }
-    public class MessageAck
-    {
-        [JsonProperty("message_id")]
-        public string Id { get; set; }
-        [JsonProperty("channel_id")]
-        public string ChannelId { get; set; }
-    }
-
-    public class Call
-    {
-        [JsonProperty("participants")]
-        public IEnumerable<string> Participants { get; set; }
-        [JsonProperty("ended_timestamp")]
-        public string EndedTimestamp { get; set; }
     }
 }

@@ -5,7 +5,6 @@ using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Controls;
 using Quarrel.Controls.Markdown;
 using Quarrel.Controls.Members;
-using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables.Messages.Embeds;
 using Quarrel.ViewModels.Models.Bindables.Users;

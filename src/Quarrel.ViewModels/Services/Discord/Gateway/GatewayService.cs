@@ -8,6 +8,7 @@ using DiscordAPI.Gateway.DownstreamEvents;
 using DiscordAPI.Models;
 using DiscordAPI.Models.Channels;
 using DiscordAPI.Models.Guilds;
+using DiscordAPI.Models.Messages;
 using DiscordAPI.Sockets;
 using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
