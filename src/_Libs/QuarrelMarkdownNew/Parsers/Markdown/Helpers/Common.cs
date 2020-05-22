@@ -127,7 +127,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Helpers
                             case InlineParseMethod.Italic:
                                 parseResult = ItalicTextInline.Parse(markdown, pos, end);
                                 break;
-
+                            /*
                             case InlineParseMethod.MarkdownLink:
                                 if (!ignoreLinks)
                                 {
@@ -143,7 +143,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Helpers
                                 }
 
                                 break;
-
+                            */
                             case InlineParseMethod.Url:
                                 if (!ignoreLinks)
                                 {
@@ -159,7 +159,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Helpers
                                 }
 
                                 break;
-                                */
+
                             case InlineParseMethod.PartialLink:
                                 if (!ignoreLinks)
                                 {
@@ -175,7 +175,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Helpers
                                 }
 
                                 break;
-
+                                */
                             case InlineParseMethod.Strikethrough:
                                 parseResult = StrikethroughTextInline.Parse(markdown, pos, end);
                                 break;

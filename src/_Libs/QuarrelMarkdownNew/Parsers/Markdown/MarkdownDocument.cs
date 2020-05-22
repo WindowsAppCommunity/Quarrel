@@ -259,6 +259,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown
                     // Or a quote if the line starts with a greater than character (optionally preceded by whitespace).
                     // Or a horizontal rule if the line contains nothing but 3 '*', '-' or '_' characters (with optional whitespace).
                     MarkdownBlock newBlockElement = null;
+                    /*
                     if (nonSpaceChar == '-' && nonSpacePos == startOfLine)
                     {
                         // Yaml Header
@@ -272,7 +273,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown
                             paragraphText.Clear();
                         }
                     }
-                    /*
+                    
                     if (newBlockElement == null && nonSpaceChar == '#' && nonSpacePos == startOfLine)
                     {
                         // Hash-prefixed header.
@@ -342,7 +343,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown
                     // This check needs to go after the code block check.
                     if (newBlockElement == null && nonSpaceChar == '[')
                     {
-                        newBlockElement = LinkReferenceBlock.Parse(markdown, startOfLine, endOfLine);
+                        //newBlockElement = LinkReferenceBlock.Parse(markdown, startOfLine, endOfLine);
                     }
 
                     // Block elements start new paragraphs.
