@@ -331,5 +331,47 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
                 }
             }
         }
+
+
+        public IDictionary<string, (string, int)> RoleMentionsConverter(IEnumerable<string> roles)
+        {
+            if (roles != null)
+            {
+                IDictionary<string, (string, int)> dict = new Dictionary<string, (string, int)>();
+                foreach (string roleId in roles)
+                {
+                    var role = GuildsService.CurrentGuild.Model.Roles.FirstOrDefault(x => x.Id == roleId);
+                    if (role != null)
+                    {
+                        dict.Add(roleId, (role.Name, role.Color));
+                    }
+                }
+
+                return dict;
+            }
+
+            return null;
+        }
+
+
+        public IDictionary<string, string> ChannelMentionsConverter(IEnumerable<ChannelMention> channels)
+        {
+            IDictionary<string, string> dict = new Dictionary<string, string>();
+
+            foreach (var channel in ChannelsService.AllChannels)
+            {
+                dict[channel.Key] = channel.Value.Model.Name;
+            }
+
+            if (channels != null)
+            {
+                foreach (var channel in channels)
+                {
+                    dict[channel.Id] = channel.Name;
+                }
+            }
+
+            return dict;
+        }
     }
 }

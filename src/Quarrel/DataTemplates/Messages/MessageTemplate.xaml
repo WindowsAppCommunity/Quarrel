@@ -4,7 +4,7 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
-    xmlns:markdown="using:Quarrel.Controls.Markdown"
+    xmlns:markdown="using:Microsoft.Toolkit.Uwp.UI.Controls.Quarrel"
     xmlns:bindables="using:Quarrel.ViewModels.Models.Bindables"
     xmlns:templateSelectors="using:Quarrel.TemplateSelectors"
     xmlns:messagebindables="using:Quarrel.ViewModels.Models.Bindables.Messages"
@@ -21,6 +21,7 @@
     xmlns:extensions2="using:Microsoft.Toolkit.Uwp.UI.Extensions?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     xmlns:system="using:System"
+    xmlns:messageConverters="using:Quarrel.Converters.Messages"
     x:Class="Quarrel.DataTemplates.Messages.MessageTemplate">
 
     <ResourceDictionary.MergedDictionaries>
@@ -121,7 +122,6 @@
                             <TextBlock Text="{x:Bind Model.Title}" x:Load="{x:Bind Model.Title, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
                                        TextWrapping="WrapWholeWords" x:Name="TitleTB" FontSize="14" FontWeight="SemiBold"/>
 
-                            <markdown:MarkdownTextBlock Text="{x:Bind Model.Description, Mode=OneWay}" x:Name="ContentMDBlock" x:Load="{x:Bind Model.Description, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Opacity="0.75" FontSize="13" Margin="0,0,0,0" EnableHiddenLinks="True"/>
                             <StackPanel x:Name="FieldsStacker">
                                 <winui:ItemsRepeater ItemsSource="{x:Bind Model.Fields, Converter={StaticResource EmbedFieldsConverter}}">
                                     <winui:ItemsRepeater.ItemTemplate>
@@ -136,7 +136,6 @@
                                                     <DataTemplate x:DataType="apimodels:EmbedField">
                                                         <StackPanel>
                                                             <TextBlock x:Name="FieldName" TextWrapping="NoWrap" Text="{x:Bind Name}" FontSize="13" FontWeight="SemiBold" x:Load="{x:Bind Name, Converter={StaticResource NotNullToBoolConverter}}"/>
-                                                            <toolkit:MarkdownTextBlock x:Name="Value" TextWrapping="Wrap" Text="{x:Bind Value, Converter={StaticResource MultipleWhiteSpaceCollapseConverter}}" FontSize="13" Opacity="0.75"  x:Load="{x:Bind Value, Converter={StaticResource NotNullToBoolConverter}}"/>
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
@@ -316,7 +315,9 @@
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
-                    <markdown:MarkdownTextBlock Users="{x:Bind Model.Mentions, Mode=OneWay}"
+                    <markdown:MarkdownTextBlock Users="{x:Bind messageConverters:MentionsConverter.UserMentionsConverter(Model.Mentions)}"
+                                                Roles="{x:Bind RoleMentionsConverter(Model.MentionRoles)}"
+                                                Channels="{x:Bind ChannelMentionsConverter(Model.MentionChannels)}"
                                                 Text="{x:Bind Model.Content, Mode=OneWay}"
                                                 Visibility="{x:Bind IsEditing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
                                                 TextWrapping="WrapWholeWords"

@@ -3,7 +3,6 @@
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Controls;
-using Quarrel.Controls.Markdown;
 using Quarrel.Controls.Members;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Messages.Navigation;
@@ -55,9 +54,10 @@ namespace Quarrel.DataTemplates.Messages
             SubFrameNavigationService.NavigateTo("AttachmentPage", image);
         }
 
-        private async void Markdown_LinkClicked(object sender, LinkClickedEventArgs e)
+        private async void Markdown_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.Quarrel.LinkClickedEventArgs e)
         {
-            if (e.User != null)
+            
+           /* if (e.User != null)
             {
                 var guildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
                 BindableGuildMember member = guildsService.GetGuildMember(e.User.Id, guildsService.CurrentGuild.Model.Id);
@@ -82,7 +82,7 @@ namespace Quarrel.DataTemplates.Messages
                 {
                     await Launcher.LaunchUriAsync(uri);
                 }
-            }
+            }*/
         }
 
         private void LoadEmojis(object sender, RoutedEventArgs e)
