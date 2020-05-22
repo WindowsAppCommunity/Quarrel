@@ -200,7 +200,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown
                         // Determines how many Quote levels were in the last line.
                         if (realStartOfLine > 0)
                         {
-                            lastline = markdown.Substring(previousRealtStartOfLine, previousEndOfLine - previousRealtStartOfLine);
+                            lastline = markdown.Substring(previousStartOfLine, previousEndOfLine - previousStartOfLine);
                             lastIndentation = lastline.Count(c => c == '>');
                         }
 
@@ -334,7 +334,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown
                     }
 
                     // This check needs to go after the code block check.
-                    if (newBlockElement == null && nonSpaceChar == '>')
+                    if (nonSpaceChar == '>')
                     {
                         newBlockElement = QuoteBlock.Parse(markdown, realStartOfLine, end, quoteDepth, out startOfNextLine);
                     }
