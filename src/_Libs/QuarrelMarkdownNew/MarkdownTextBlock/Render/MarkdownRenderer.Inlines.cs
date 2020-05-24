@@ -14,6 +14,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
 
 namespace Microsoft.Toolkit.Uwp.UI.Controls.Quarrel.Markdown.Render
@@ -38,13 +39,34 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Quarrel.Markdown.Render
 
             var inlineCollection = localContext.InlineCollection;
 
-            var emoji = new Run
+            if (element.Id == null)
             {
-                FontFamily = EmojiFontFamily ?? DefaultEmojiFont,
-                Text = element.Text
-            };
+                var emoji = new Run
+                {
+                    FontFamily = EmojiFontFamily ?? DefaultEmojiFont,
+                    Text = element.Text
+                };
 
-            inlineCollection.Add(emoji);
+                inlineCollection.Add(emoji);
+            }
+            else
+            {
+                InlineUIContainer imageRun = new InlineUIContainer();
+                string extension = ".png";
+                if (element.IsAnimated) extension = ".gif";
+                Thickness imagemargin = new Thickness(0, 0, 0, 0);
+                imageRun.Child = new Image()
+                {
+                    Margin = imagemargin,
+                    Width = FontSize,
+                    Height = FontSize,
+                    Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + element.Id + extension)) { AutoPlay = true }
+                };
+                //Add the tooltip of the emoji's name
+                ToolTipService.SetToolTip(imageRun, element.Name);
+                // Add it
+                inlineCollection.Add(imageRun);
+            }
         }
 
         /// <summary>

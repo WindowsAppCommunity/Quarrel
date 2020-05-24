@@ -135,7 +135,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Helpers
                                 }
 
                                 break;
-
+                            */
                             case InlineParseMethod.AngleBracketLink:
                                 if (!ignoreLinks)
                                 {
@@ -143,7 +143,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Helpers
                                 }
 
                                 break;
-                            */
+
                             case InlineParseMethod.Url:
                                 if (!ignoreLinks)
                                 {

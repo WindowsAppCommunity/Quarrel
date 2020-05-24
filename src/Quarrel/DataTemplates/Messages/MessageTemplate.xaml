@@ -322,6 +322,7 @@
                                                 Visibility="{x:Bind IsEditing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
                                                 TextWrapping="WrapWholeWords"
                                                 FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"
+                                                EmojiFontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"
                                                 FontWeight="SemiLight"
                                                 Opacity="0.9"
                                                 LinkClicked="Markdown_LinkClicked" />
