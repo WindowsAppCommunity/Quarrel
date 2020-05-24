@@ -122,6 +122,13 @@
                             <TextBlock Text="{x:Bind Model.Title}" x:Load="{x:Bind Model.Title, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
                                        TextWrapping="WrapWholeWords" x:Name="TitleTB" FontSize="14" FontWeight="SemiBold"/>
 
+                            <markdown:MarkdownTextBlock Text="{x:Bind Model.Description, Mode=OneWay}"
+                                                        x:Name="ContentMDBlock"
+                                                        x:Load="{x:Bind Model.Description, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
+                                                        Opacity="0.75"
+                                                        FontSize="13"
+                                                        Margin="0,0,0,0" />
+                                                    <!--EnableHiddenLinks="True"/>-->
                             <StackPanel x:Name="FieldsStacker">
                                 <winui:ItemsRepeater ItemsSource="{x:Bind Model.Fields, Converter={StaticResource EmbedFieldsConverter}}">
                                     <winui:ItemsRepeater.ItemTemplate>
@@ -136,6 +143,12 @@
                                                     <DataTemplate x:DataType="apimodels:EmbedField">
                                                         <StackPanel>
                                                             <TextBlock x:Name="FieldName" TextWrapping="NoWrap" Text="{x:Bind Name}" FontSize="13" FontWeight="SemiBold" x:Load="{x:Bind Name, Converter={StaticResource NotNullToBoolConverter}}"/>
+                                                            <toolkit:MarkdownTextBlock x:Name="Value"
+                                                                                       TextWrapping="Wrap"
+                                                                                       Text="{x:Bind Value, Converter={StaticResource MultipleWhiteSpaceCollapseConverter}}"
+                                                                                       FontSize="13"
+                                                                                       Opacity="0.75"
+                                                                                       x:Load="{x:Bind Value, Converter={StaticResource NotNullToBoolConverter}}" />
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
