@@ -22,6 +22,7 @@
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     xmlns:system="using:System"
     xmlns:messageConverters="using:Quarrel.Converters.Messages"
+    xmlns:uniformGrid="using:Quarrel.Controls.UniformGrid"
     x:Class="Quarrel.DataTemplates.Messages.MessageTemplate">
 
     <ResourceDictionary.MergedDictionaries>
@@ -136,7 +137,7 @@
                                             <ItemsControl ItemsSource="{x:Bind}">
                                                 <ItemsControl.ItemsPanel>
                                                     <ItemsPanelTemplate>
-                                                        <toolkit:UniformGrid VerticalAlignment="Top"/>
+                                                        <uniformGrid:UniformGrid VerticalAlignment="Top"/>
                                                     </ItemsPanelTemplate>
                                                 </ItemsControl.ItemsPanel>
                                                 <ItemsControl.ItemTemplate>                                                  
@@ -149,6 +150,7 @@
                                                                                        FontSize="13"
                                                                                        Opacity="0.75"
                                                                                        x:Load="{x:Bind Value, Converter={StaticResource NotNullToBoolConverter}}" />
+
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>

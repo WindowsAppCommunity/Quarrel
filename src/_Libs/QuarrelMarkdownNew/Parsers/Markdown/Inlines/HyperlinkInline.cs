@@ -71,7 +71,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Inlines
             int pos = -1;
             foreach (var scheme in MarkdownDocument.BracketSchemes)
             {
-                if (maxEnd - innerStart >= scheme.Length && string.Equals(markdown.Substring(innerStart, scheme.Length), scheme, StringComparison.OrdinalIgnoreCase))
+                if (maxEnd - innerStart >= 14 && string.Equals(markdown.Substring(innerStart, scheme.Length), scheme, StringComparison.OrdinalIgnoreCase))
                 {
                     // URL scheme found.
                     pos = innerStart + scheme.Length;

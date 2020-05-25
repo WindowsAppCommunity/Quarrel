@@ -79,7 +79,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Inlines
                 }
 
             }
-            else if (startSequence == "<")
+            else if (startSequence == "<" && maxEnd - start >= 3)
             {
                 int innerStart = start + 1;
 

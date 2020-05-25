@@ -9,6 +9,7 @@
     xmlns:auditlogconvert="using:Quarrel.Converters.AuditLog"
     xmlns:discordconvert="using:Quarrel.Converters.Discord"
     xmlns:markdown="using:Quarrel.Controls.Markdown"
+    xmlns:quarrel="using:Microsoft.Toolkit.Uwp.UI.Controls.Quarrel"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -25,9 +26,10 @@
         <discordconvert:SnowflakeToTimeFormatConveter x:Key="SnowflakeToTimeFormatConveter"/>
 
         <DataTemplate x:Key="AuditLogChangeTemplate" x:DataType="guildmodels:Change">
-            <markdown:MarkdownTextBlock Text="{x:Bind Converter={StaticResource ChangeToMarkdownConverter}}"
-                                        FontSize="12" LineHeight="12" HalfOpacityMode="True"
+            <quarrel:MarkdownTextBlock Text="{x:Bind Converter={StaticResource ChangeToMarkdownConverter}}"
+                                        FontSize="12"
                                         Visibility="{x:Bind Converter={StaticResource ChangeToVisibilityConveter}}"/>
+            <!--                        HalfOpacityMode="True" -->
         </DataTemplate>
 
         <DataTemplate x:Key="AuditLogEntryTemplate" x:DataType="guildmodels:AuditLogEntry">
@@ -45,8 +47,9 @@
 
                 <StackPanel Grid.Column="2">
                     <!--Action-->
-                    <markdown:MarkdownTextBlock Text="{x:Bind Converter={StaticResource AuditLogEntryToMarkdownConverter}}" HalfOpacityMode="True"
-                                                Users="{x:Bind Users}"/>
+                    <quarrel:MarkdownTextBlock Text="{x:Bind Converter={StaticResource AuditLogEntryToMarkdownConverter}}"
+                                               Users="{x:Bind Users}" />
+                    <!--                       HalfOpacityMode="True" -->
 
                     <!--Time-->
                     <TextBlock Text="{x:Bind Id, Converter={StaticResource SnowflakeToTimeFormatConveter}}"
