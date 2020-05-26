@@ -61,13 +61,11 @@ namespace Quarrel.ViewModels.Services.Voice
 
                         if (m.VoiceState.ChannelId == null)
                         {
+                            VoiceStates.Remove(m.VoiceState.UserId);
+
                             if (m.VoiceState.UserId == _discordService.CurrentUser.Id)
                             {
                                 DisconnectFromVoiceChannel();
-                            }
-                            else
-                            {
-                                VoiceStates.Remove(m.VoiceState.UserId);
                             }
                         }
                         else
@@ -100,19 +98,6 @@ namespace Quarrel.ViewModels.Services.Voice
 
             Messenger.Default.Register<GatewayVoiceServerUpdateMessage>(this, m =>
             {
-                if (!VoiceStates.ContainsKey(_discordService.CurrentUser.Id))
-                {
-                    VoiceStates.Add(
-                        _discordService.CurrentUser.Id,
-                        new BindableVoiceUser(
-                            new VoiceState()
-                            {
-                                ChannelId = m.VoiceServer.ChannelId,
-                                GuildId = m.VoiceServer.GuildId,
-                                UserId = _discordService.CurrentUser.Id,
-                            }));
-                }
-
                 ConnectToVoiceChannel(m.VoiceServer, VoiceStates[_discordService.CurrentUser.Id].Model);
             });
         }

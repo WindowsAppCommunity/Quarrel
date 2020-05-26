@@ -20,16 +20,8 @@ namespace Quarrel.ViewModels.Services.Analytics
         /// </summary>
         private const int PropertyStringMaxLength = 124; // It's 125, but one character is reserved for the leading '|' to indicate trimming
 
-#if RELEASE
         /// <inheritdoc/>
         protected override string Path => "Tokens/AppCenter.json";
-#elif INSIDER
-        /// <inheritdoc/>
-        protected override string Path => "Tokens/AppCenterInsider.json";
-#else
-        /// <inheritdoc/>
-        protected override string Path => "Tokens/Fake.json";
-#endif
 
         /// <inheritdoc/>
         public void Log(string title, params (string Property, string Value)[] data)

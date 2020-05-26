@@ -37,19 +37,13 @@ namespace Quarrel.ViewModels
     /// </summary>
     public class ViewModelLocator
     {
-        private static bool _hasRun = false;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelLocator"/> class and the <see cref="MainViewModel"/>.
         /// Creates and registers all the services with <see cref="SimpleIoc.Default"/>.
         /// </summary>
         public ViewModelLocator()
         {
-            if (_hasRun)
-            {
-                return;
-            }
-
+            if (_hasRun) return;
             _hasRun = true;
 
             SimpleIoc.Default.Register<IDispatcherHelper, DispatcherHelperEx>();
@@ -94,6 +88,8 @@ namespace Quarrel.ViewModels
 
             SimpleIoc.Default.Register<MainViewModel>();
         }
+
+        private static bool _hasRun = false;
 
         /// <summary>
         /// Gets the <see cref="MainViewModel"/>.

@@ -13,7 +13,7 @@ namespace Quarrel.SubPages
     /// </summary>
     public sealed partial class TopicPage : UserControl, IConstrainedSubPage
     {
-        private ISubFrameNavigationService _subFrameNavigationService = null;
+        private ISubFrameNavigationService subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TopicPage"/> class.
@@ -22,9 +22,9 @@ namespace Quarrel.SubPages
         {
             this.InitializeComponent();
 
-            if (SubFrameNavigationService.Parameter != null)
+            if (subFrameNavigationService.Parameter != null)
             {
-                this.DataContext = SubFrameNavigationService.Parameter;
+                this.DataContext = subFrameNavigationService.Parameter;
             }
         }
 
@@ -38,7 +38,5 @@ namespace Quarrel.SubPages
 
         /// <inheritdoc/>
         public double MaxExpandedWidth => 800;
-
-        private ISubFrameNavigationService SubFrameNavigationService => _subFrameNavigationService ?? (_subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>());
     }
 }

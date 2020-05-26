@@ -2,8 +2,6 @@
 
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.SubPages.Interfaces;
-using Quarrel.ViewModels.Services.Discord.Guilds;
-using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.Navigation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -15,22 +13,12 @@ namespace Quarrel.SubPages
     /// </summary>
     public sealed partial class WhatsNewPage : UserControl, IConstrainedSubPage
     {
-        private IDiscordService _discordService = null;
-        private IGuildsService _guildsService = null;
-        private ISubFrameNavigationService _subFrameNavigationService = null;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsNewPage"/> class.
         /// </summary>
         public WhatsNewPage()
         {
             this.InitializeComponent();
-
-            // If already a member of the Quarrel server
-            if (GuildsService.AllGuilds.ContainsKey("301759785714450436"))
-            {
-                JoinServer.Visibility = Visibility.Collapsed;
-            }
         }
 
         /// <inheritdoc/>
@@ -39,27 +27,9 @@ namespace Quarrel.SubPages
         /// <inheritdoc/>
         public double MaxExpandedWidth { get; } = 512;
 
-        private IDiscordService DiscordService => _discordService ?? (_discordService = SimpleIoc.Default.GetInstance<IDiscordService>());
-
-        private IGuildsService GuildsService => _guildsService ?? (_guildsService = SimpleIoc.Default.GetInstance<IGuildsService>());
-
-        private ISubFrameNavigationService SubFrameNavigationService => _subFrameNavigationService ?? (_subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>());
-
         private void Close(object sender, RoutedEventArgs e)
         {
-            SubFrameNavigationService.GoBack();
-        }
-
-        private void JoinServer_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                DiscordService.InviteService.AcceptInvite("wQmQgtq");
-                JoinServer.Visibility = Visibility.Collapsed;
-            }
-            catch
-            {
-            }
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().GoBack();
         }
     }
 }
