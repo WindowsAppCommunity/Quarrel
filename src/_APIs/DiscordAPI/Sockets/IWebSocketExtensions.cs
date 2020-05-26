@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace DiscordAPI.Sockets

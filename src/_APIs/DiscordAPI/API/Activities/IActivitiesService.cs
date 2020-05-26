@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.Models;
+using DiscordAPI.Models.Activites;
 using Refit;
 using System.Collections.Generic;
 using System.Threading.Tasks;

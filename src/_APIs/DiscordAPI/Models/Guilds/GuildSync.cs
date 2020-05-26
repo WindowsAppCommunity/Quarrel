@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace DiscordAPI.Models
+namespace DiscordAPI.Models.Guilds
 {
     public class GuildSync
     {

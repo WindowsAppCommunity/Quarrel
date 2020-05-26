@@ -1,5 +1,7 @@
 ﻿using DiscordAPI.API.User.Models;
 using DiscordAPI.Models;
+using DiscordAPI.Models.Channels;
+using DiscordAPI.Models.Messages;
 using Refit;
 using System.Collections.Generic;
 using System.Threading.Tasks;

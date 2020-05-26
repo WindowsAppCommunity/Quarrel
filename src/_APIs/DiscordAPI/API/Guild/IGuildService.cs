@@ -1,24 +1,30 @@
-﻿using DiscordAPI.API.Guild.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.API.Guild.Models;
 using DiscordAPI.Models;
+using DiscordAPI.Models.Channels;
 using Refit;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DiscordAPI.API.Guild
 {
+    /// <summary>
+    /// A service for guild REST calls.
+    /// </summary>
     public interface IGuildService
     {
         [Post("/v6/guilds")]
-        Task<DiscordAPI.Models.Guild> CreateGuild([Body] CreateGuild createGuild);
+        Task<DiscordAPI.Models.Guilds.Guild> CreateGuild([Body] CreateGuild createGuild);
 
         [Get("/guilds/{guildId}")]
-        Task<DiscordAPI.Models.Guild> GetGuild([AliasAs("guildId")] string guildId);
+        Task<DiscordAPI.Models.Guilds.Guild> GetGuild([AliasAs("guildId")] string guildId);
 
         [Patch("/v6/guilds/{guildId}")]
-        Task<DiscordAPI.Models.Guild> ModifyGuild([AliasAs("guildId")] string guildId, [Body] ModifyGuild modifyGuild);
+        Task<DiscordAPI.Models.Guilds.Guild> ModifyGuild([AliasAs("guildId")] string guildId, [Body] ModifyGuild modifyGuild);
 
         [Delete("/guilds/{guildId}")]
-        Task<DiscordAPI.Models.Guild> DeleteGuild([AliasAs("guildId")] string guildId);
+        Task<DiscordAPI.Models.Guilds.Guild> DeleteGuild([AliasAs("guildId")] string guildId);
 
         [Get("/guilds/{guildId}/channels")]
         Task<IEnumerable<GuildChannel>> GetGuildChannels([AliasAs("guildId")] string guildId);

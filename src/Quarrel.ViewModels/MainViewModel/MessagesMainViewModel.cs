@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.Models;
+using DiscordAPI.Models.Messages;
 using GalaSoft.MvvmLight.Command;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Messages.Gateway;
@@ -74,7 +75,7 @@ namespace Quarrel.ViewModels
         });
 
         /// <summary>
-        /// Gets a command that toggles a reaction to a message
+        /// Gets a command that toggles a reaction to a message.
         /// </summary>
         public RelayCommand<BindableReaction> ToggleReactionCommand => toggleReactionCommand = toggleReactionCommand ?? new RelayCommand<BindableReaction>((reaction) =>
         {
