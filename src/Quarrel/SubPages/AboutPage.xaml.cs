@@ -2,8 +2,6 @@
 
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.SubPages.Interfaces;
-using Quarrel.ViewModels.Helpers;
-using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.Navigation;
 using System;
@@ -18,17 +16,12 @@ namespace Quarrel.SubPages
     /// </summary>
     public sealed partial class AboutPage : UserControl, IConstrainedSubPage
     {
-        private IAnalyticsService _analyticsService = null;
-        private ISubFrameNavigationService _subFrameNavigationService = null;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AboutPage"/> class.
         /// </summary>
         public AboutPage()
         {
             this.InitializeComponent();
-
-            AnalyticsService.Log(Constants.Analytics.Events.OpenAbout);
         }
 
         /// <summary>
@@ -54,16 +47,11 @@ namespace Quarrel.SubPages
         /// <inheritdoc/>
         public double MaxExpandedWidth { get; } = 512;
 
-        private IAnalyticsService AnalyticsService => _analyticsService ?? (_analyticsService = SimpleIoc.Default.GetInstance<IAnalyticsService>());
-
-        private ISubFrameNavigationService SubFrameNavigationService => _subFrameNavigationService ?? (_subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>());
-
         private async void JoinServer(object sender, RoutedEventArgs e)
         {
             try
             {
                 await SimpleIoc.Default.GetInstance<IDiscordService>().InviteService.AcceptInvite("wQmQgtq");
-                AnalyticsService.Log(Constants.Analytics.Events.JoinedQuarrelServer);
             }
             catch
             {
@@ -78,12 +66,12 @@ namespace Quarrel.SubPages
 
         private void OpenLicenses(object sender, RoutedEventArgs e)
         {
-            SubFrameNavigationService.NavigateTo("LicensesPage");
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("LicensesPage");
         }
 
         private void OpenDiscordStatus(object sender, RoutedEventArgs e)
         {
-            SubFrameNavigationService.NavigateTo("DiscordStatusPage");
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("DiscordStatusPage");
         }
     }
 }

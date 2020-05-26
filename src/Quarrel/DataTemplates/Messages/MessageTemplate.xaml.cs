@@ -25,9 +25,6 @@ namespace Quarrel.DataTemplates.Messages
     /// </summary>
     public partial class MessageTemplate
     {
-        private IAnalyticsService _analyticsService = null;
-        private ISubFrameNavigationService _subFrameNavigationService = null;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageTemplate"/> class.
         /// </summary>
@@ -36,9 +33,9 @@ namespace Quarrel.DataTemplates.Messages
             this.InitializeComponent();
         }
 
-        private IAnalyticsService AnalyticsService => _analyticsService ?? (_analyticsService = SimpleIoc.Default.GetInstance<IAnalyticsService>());
+        private ISubFrameNavigationService SubFrameNavigationService => SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
 
-        private ISubFrameNavigationService SubFrameNavigationService => _subFrameNavigationService ?? (_subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>());
+        private IAnalyticsService AnalyticsService => SimpleIoc.Default.GetInstance<IAnalyticsService>();
 
         private void Expand(object sender, TappedRoutedEventArgs e)
         {
@@ -53,6 +50,8 @@ namespace Quarrel.DataTemplates.Messages
             }
 
             SubFrameNavigationService.NavigateTo("AttachmentPage", image);
+
+            AnalyticsService.Log(Constants.Analytics.Events.OpenAttachment);
         }
 
         private async void Markdown_LinkClicked(object sender, LinkClickedEventArgs e)

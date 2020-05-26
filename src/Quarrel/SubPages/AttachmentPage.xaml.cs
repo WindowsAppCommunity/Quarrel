@@ -4,8 +4,6 @@ using DiscordAPI.Interfaces;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Quarrel.SubPages.Interfaces;
-using Quarrel.ViewModels.Helpers;
-using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.ViewModels.SubPages;
@@ -30,9 +28,6 @@ namespace Quarrel.SubPages
     /// </summary>
     public sealed partial class AttachmentPage : UserControl, IFullscreenSubPage, ITransparentSubPage
     {
-        private IAnalyticsService _analyticsService = null;
-        private ISubFrameNavigationService _subFrameNavigationService = null;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AttachmentPage"/> class.
         /// </summary>
@@ -43,12 +38,7 @@ namespace Quarrel.SubPages
             // Use navigation parameter for Image in ViewModel
             if (SubFrameNavigationService.Parameter != null)
             {
-                var image = (IPreviewableImage)SubFrameNavigationService.Parameter;
-                this.DataContext = new AttachmentPageViewModel(image);
-
-                AnalyticsService.Log(
-                    Constants.Analytics.Events.OpenAttachment,
-                    ("image-url", image.ImageUrl));
+                this.DataContext = new AttachmentPageViewModel((IPreviewableImage)SubFrameNavigationService.Parameter);
             }
 
             // Show SVGs in SVGImageSource
@@ -79,9 +69,7 @@ namespace Quarrel.SubPages
         /// <inheritdoc/>
         public bool Hideable { get => true; }
 
-        private IAnalyticsService AnalyticsService => _analyticsService ?? (_analyticsService = SimpleIoc.Default.GetInstance<IAnalyticsService>());
-
-        private ISubFrameNavigationService SubFrameNavigationService => _subFrameNavigationService ?? (_subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>());
+        private ISubFrameNavigationService SubFrameNavigationService => SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
 
         /// <summary>
         /// Converts a PDF to png and uses that as the image.

@@ -1,9 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using GalaSoft.MvvmLight.Ioc;
 using Quarrel.SubPages.Interfaces;
-using Quarrel.ViewModels.Helpers;
-using Quarrel.ViewModels.Services.Analytics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -14,15 +11,12 @@ namespace Quarrel.SubPages
     /// </summary>
     public sealed partial class LicensesPage : UserControl, IConstrainedSubPage
     {
-        private IAnalyticsService _analyticsService = null;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LicensesPage"/> class.
         /// </summary>
         public LicensesPage()
         {
             this.InitializeComponent();
-            AnalyticsService.Log(Constants.Analytics.Events.OpenLicenses);
         }
 
         /// <inheritdoc/>
@@ -30,8 +24,6 @@ namespace Quarrel.SubPages
 
         /// <inheritdoc/>
         public double MaxExpandedWidth { get; } = 512;
-
-        private IAnalyticsService AnalyticsService => _analyticsService ?? (_analyticsService = SimpleIoc.Default.GetInstance<IAnalyticsService>());
 
         private void ToggleMIT(object sender, RoutedEventArgs e)
         {

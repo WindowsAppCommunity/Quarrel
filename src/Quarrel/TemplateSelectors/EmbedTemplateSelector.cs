@@ -51,29 +51,32 @@ namespace Quarrel.TemplateSelectors
         /// <returns>A <see cref="DataTemplate"/> for the <paramref name="item"/>'s type.</returns>
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
-            if (item is BindableInvite invite)
+            if (container is FrameworkElement parent)
             {
-                return InviteTemplate;
-            }
-
-            if (item is BindableEmbed embed)
-            {
-                switch (embed.Model.Type)
+                if (item is BindableInvite invite)
                 {
-                    case "image": return ImageEmbedTemplate;
-                    case "gifv": return GifvEmbedTemplate;
-                    case "video":
-                        {
-                            if (Regex.IsMatch(embed.Model.Video?.Url, ViewModels.Helpers.Constants.Regex.YouTubeURLRegex))
-                            {
-                                return YoutubeEmbedTemplate;
-                            }
-                            // Todo: handle other video embeds e.g twitch.
-                            return DefaultEmbedTemplate;
-                        }
+                    return InviteTemplate;
+                }
 
-                    case "rich": return RichEmbedTemplate;
-                    default: return DefaultEmbedTemplate;
+                if (item is BindableEmbed embed)
+                {
+                    switch (embed.Model.Type)
+                    {
+                        case "image": return ImageEmbedTemplate;
+                        case "gifv": return GifvEmbedTemplate;
+                        case "video":
+                            {
+                                if (Regex.IsMatch(embed.Model.Video?.Url, ViewModels.Helpers.Constants.Regex.YouTubeURLRegex))
+                                {
+                                    return YoutubeEmbedTemplate;
+                                }
+
+                                break;
+                            }
+
+                        case "rich": return RichEmbedTemplate;
+                        default: return DefaultEmbedTemplate;
+                    }
                 }
             }
 

@@ -1,13 +1,10 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Graphics.Canvas.Text;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Quarrel.Helpers;
 using Quarrel.SubPages.Interfaces;
-using Quarrel.ViewModels.Helpers;
-using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.SubPages;
 using System;
 using System.Numerics;
@@ -18,7 +15,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
-using Constants = Quarrel.ViewModels.Helpers.Constants;
 
 namespace Quarrel.SubPages
 {
@@ -31,8 +27,6 @@ namespace Quarrel.SubPages
         /// Width of line on graph.
         /// </summary>
         private const float DataStrokeThickness = 1;
-
-        private IAnalyticsService _analyticsService = null;
 
         /// <summary>
         /// Rendering help for the graph.
@@ -74,8 +68,6 @@ namespace Quarrel.SubPages
                 monthDuration.Foreground = statusBrush;
                 IncidentsScroller.Background = new SolidColorBrush(statusBrush.Color) { Opacity = 0.25 };
             };
-
-            AnalyticsService.Log(Constants.Analytics.Events.OpenDiscordStatus);
         }
 
         /// <summary>
@@ -88,8 +80,6 @@ namespace Quarrel.SubPages
 
         /// <inheritdoc/>
         public double MaxExpandedWidth { get; } = 512;
-
-        private IAnalyticsService AnalyticsService => _analyticsService ?? (_analyticsService = SimpleIoc.Default.GetInstance<IAnalyticsService>());
 
         /// <summary>
         /// Gets Accent Color based on Status.

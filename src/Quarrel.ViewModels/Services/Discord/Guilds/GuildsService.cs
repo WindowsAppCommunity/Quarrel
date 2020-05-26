@@ -40,7 +40,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
         private readonly IChannelsService _channelsService;
         private readonly IDispatcherHelper _dispatcherHelper;
         private readonly IPresenceService _presenceService;
-        private IVoiceService _voiceService;
+        private readonly IVoiceService _voiceService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuildsService"/> class.
@@ -213,20 +213,20 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                             Messenger.Default.Send(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
                         }
 
-                        if (guild.VoiceStates != null)
-                        {
-                            foreach (var state in guild.VoiceStates)
-                            {
-                                if (VoiceService.VoiceStates.ContainsKey(state.UserId))
-                                {
-                                    VoiceService.VoiceStates[state.UserId].Model = state;
-                                }
-                                else
-                                {
-                                    VoiceService.VoiceStates.Add(state.UserId, new BindableVoiceUser(state));
-                                }
-                            }
-                        }
+                        //if (guild.VoiceStates != null)
+                        //{
+                        //    foreach (var state in guild.VoiceStates)
+                        //    {
+                        //        if (_voiceService.VoiceStates.ContainsKey(state.UserId))
+                        //        {
+                        //            _voiceService.VoiceStates[state.UserId].Model = state;
+                        //        }
+                        //        else
+                        //        {
+                        //            _voiceService.VoiceStates.Add(state.UserId, new BindableVoiceUser(state));
+                        //        }
+                        //    }
+                        //}
 
                         AllGuilds.AddOrUpdate(bGuild.Model.Id, bGuild);
                     }
@@ -238,7 +238,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         {
                             foreach (string id in folder.GuildIds)
                             {
-                              if (AllGuilds.ContainsKey(id))
+                              if(AllGuilds.ContainsKey(id))
                               {
                                   AllGuilds[id].FolderId = folder.Id;
                                   AllGuilds[id].IsCollapsed = true;
@@ -373,8 +373,6 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
 
         /// <inheritdoc/>
         public BindableGuild CurrentGuild { get; private set; }
-
-        private IVoiceService VoiceService => _voiceService ?? (_voiceService = SimpleIoc.Default.GetInstance<IVoiceService>());
 
         /// <inheritdoc/>
         public BindableGuildMember GetGuildMember(string memberId, string guildId)

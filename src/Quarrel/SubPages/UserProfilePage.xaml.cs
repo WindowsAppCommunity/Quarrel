@@ -2,9 +2,7 @@
 
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.SubPages.Interfaces;
-using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Models.Bindables.Users;
-using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.SubPages;
@@ -19,10 +17,6 @@ namespace Quarrel.SubPages
     /// </summary>
     public sealed partial class UserProfilePage : UserControl, IConstrainedSubPage
     {
-        private IAnalyticsService _analyticsService = null;
-        private IDiscordService _discordService = null;
-        private ISubFrameNavigationService _subFrameNavigationService = null;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="UserProfilePage"/> class.
         /// </summary>
@@ -31,13 +25,8 @@ namespace Quarrel.SubPages
             this.InitializeComponent();
             if (SubFrameNavigationService.Parameter != null)
             {
-                var member = (BindableGuildMember)SubFrameNavigationService.Parameter;
                 ConnectedAnimationService.GetForCurrentView()?.GetAnimation(ViewModels.Helpers.Constants.ConnectedAnimationKeys.MemberFlyoutAnimation)?.TryStart(FullAvatar);
-                this.DataContext = new UserProfilePageViewModel(member);
-
-                AnalyticsService.Log(
-                    Constants.Analytics.Events.OpenUserProfile,
-                    ("user-id", member.RawModel.Id));
+                this.DataContext = new UserProfilePageViewModel((BindableGuildMember)SubFrameNavigationService.Parameter);
             }
         }
 
@@ -52,11 +41,9 @@ namespace Quarrel.SubPages
         /// <inheritdoc/>
         public double MaxExpandedWidth { get; } = 768;
 
-        private IAnalyticsService AnalyticsService => _analyticsService ?? (_analyticsService = SimpleIoc.Default.GetInstance<IAnalyticsService>());
+        private IDiscordService DiscordService => SimpleIoc.Default.GetInstance<IDiscordService>();
 
-        private IDiscordService DiscordService => _discordService ?? (_discordService = SimpleIoc.Default.GetInstance<IDiscordService>());
-
-        private ISubFrameNavigationService SubFrameNavigationService => _subFrameNavigationService ?? (_subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>());
+        private ISubFrameNavigationService SubFrameNavigationService => SimpleIoc.Default.GetInstance<ISubFrameNavigationService>();
 
         /// <summary>
         /// Change user note automatically when focus NoteBox is lost.

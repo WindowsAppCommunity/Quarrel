@@ -14,12 +14,24 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Insider Version 20.5.11" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+        <TextBlock Text="Insider Version 20.3.27" FontWeight="SemiBold" Margin="0" FontSize="20"/>
         <StackPanel Margin="16">
             <ScrollViewer>
                 <RichTextBlock x:Name="notDetailed" TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,12">
                     <Paragraph>
-                        <Run Text="• Fixed AppCenter integration."/>
+                        <Run Text="• Massive upgrade to Voice Channel encoding/decoding"/>
+                    </Paragraph>
+                    <Paragraph FontSize="8"/>
+                    <Paragraph>
+                        <Run Text="• Added Guild Folders"/>
+                    </Paragraph>
+                    <Paragraph FontSize="8"/>
+                    <Paragraph>
+                        <Run Text="• Added ability to create and join servers"/>
+                    </Paragraph>
+                    <Paragraph FontSize="8"/>
+                    <Paragraph>
+                        <Run Text="• Various bug fixes"/>
                     </Paragraph>
                     <Paragraph FontSize="8"/>
                 </RichTextBlock>
@@ -27,11 +39,17 @@
         </StackPanel>
         <Grid Grid.Row="1" Margin="-16,0,-16,-16" Background="{ThemeResource MidBG}" Padding="24,12">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal">
+                    <!--<HyperlinkButton x:Name="JoinServer" Foreground="#FF738BD7" Background="Transparent" Click="joinDiscordUWPServer" Style="{StaticResource HyperlinkButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,6,0">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,0"/>
+                            <TextBlock x:Uid="/About/JoinDiscordUWPServerTB" x:Name="JoinServerText" Text="Join Quarrel server" Margin="6,0,0,0"/>
+                        </StackPanel>
+                    </HyperlinkButton>-->
                     <HyperlinkButton NavigateUri="https://www.microsoft.com/store/apps/9PHJRVCSKVJZ" Foreground="#FFFF4500" Background="Transparent" Style="{StaticResource HyperlinkButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,6,0">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="ms-appx:///Assets/Legere256.png" Width="20" Height="20" Margin="0,0,0,0"/>
@@ -57,15 +75,6 @@
                         </StackPanel>
                     </HyperlinkButton>
                 </StackPanel>
-
-                <HyperlinkButton x:Name="JoinServer" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,6,0"
-                                 Foreground="#FF738BD7" Background="Transparent" Click="JoinServer_Click"
-                                 Style="{StaticResource HyperlinkButtonStyle1}" Grid.Row="1">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,0"/>
-                        <TextBlock x:Uid="/About/JoinDiscordUWPServerTB" Text="Join Quarrel server" Margin="6,0,0,0"/>
-                    </StackPanel>
-                </HyperlinkButton>
             </Grid>
         </Grid>
     </Grid>

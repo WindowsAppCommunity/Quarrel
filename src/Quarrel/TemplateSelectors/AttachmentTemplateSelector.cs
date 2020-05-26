@@ -39,7 +39,7 @@ namespace Quarrel.TemplateSelectors
         /// <returns>A <see cref="DataTemplate"/> for the <paramref name="item"/>'s type.</returns>
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
-            if (item is BindableAttachment attachment)
+            if (container is FrameworkElement parent && item is BindableAttachment attachment)
             {
                 int index = attachment.Model.Filename.LastIndexOf('.');
                 string filetype = attachment.Model.Filename.Substring(index + 1);
