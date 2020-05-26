@@ -322,7 +322,6 @@ namespace Quarrel.ViewModels.Models.Bindables.Guilds
         public RelayCommand OpenGuildSettings => _openGuildSettings = new RelayCommand(() =>
         {
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("GuildSettingsPage", this);
-            AnalyticsService.Log(Constants.Analytics.Events.OpenGuildSettings);
         });
 
         /// <summary>
@@ -340,8 +339,6 @@ namespace Quarrel.ViewModels.Models.Bindables.Guilds
         {
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("CreateInvitePage", Model.Id);
         });
-
-        private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
 
         private IDiscordService DiscordService => _discordService ?? (_discordService = SimpleIoc.Default.GetInstance<IDiscordService>());
 

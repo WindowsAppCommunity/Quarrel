@@ -837,6 +837,14 @@
     </CommandBar.Content>
     
     <CommandBar.PrimaryCommands>
+        <!--Call button-->
+        <AppBarButton Background="Transparent" Label="Call" Command="{x:Bind ViewModel.CurrentChannel.StartCallCommand, Mode=OneWay}"
+                      Visibility="{x:Bind ViewModel.CurrentChannel.Guild.IsDM, FallbackValue=Collapsed, Mode=OneWay}">
+            <AppBarButton.Content>
+                <FontIcon Glyph="&#xE13A;" FontSize="24" Margin="0,4,0,0"/>
+            </AppBarButton.Content>
+        </AppBarButton>
+        
         <!--Toggle MemberList button-->
         <AppBarButton Background="Transparent" Label="Toggle Member List" Click="InvokeMemberListToggleClick">
             <AppBarButton.RenderTransform>
@@ -855,4 +863,3 @@
         <AppBarButton Label="About" Background="Transparent" Command="{x:Bind ViewModel.OpenAbout}"/>
     </CommandBar.SecondaryCommands>
 </CommandBar>
-

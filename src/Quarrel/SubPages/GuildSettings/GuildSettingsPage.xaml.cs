@@ -4,7 +4,9 @@ using GalaSoft.MvvmLight.Ioc;
 using Microsoft.UI.Xaml.Controls;
 using Quarrel.SubPages.GuildSettings.Pages;
 using Quarrel.SubPages.Interfaces;
+using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Models.Bindables.Guilds;
+using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Navigation;
 using System;
 using System.Collections.Concurrent;
@@ -18,6 +20,7 @@ namespace Quarrel.SubPages.GuildSettings
     public sealed partial class GuildSettingsPage : IAdaptiveSubPage, IConstrainedSubPage
     {
         private readonly IReadOnlyDictionary<NavigationViewItemBase, Type> _pagesMapping;
+        private IAnalyticsService _analyticsService = null;
         private bool _isFullHeight;
 
         /// <summary>
@@ -28,9 +31,12 @@ namespace Quarrel.SubPages.GuildSettings
             this.InitializeComponent();
             this.Loaded += (_, e) => NavigationControl.SelectedItem = OverviewItem;
 
-            if (SubFrameNavigationService.Parameter is BindableGuild)
+            if (SubFrameNavigationService.Parameter is BindableGuild guild)
             {
-                DataContext = SubFrameNavigationService.Parameter;
+                DataContext = guild;
+                AnalyticsService.Log(
+                    Constants.Analytics.Events.OpenGuildSettings,
+                    ("guild-id", guild.Model.Id));
             }
 
             _pagesMapping = new ConcurrentDictionary<NavigationViewItemBase, Type>
@@ -73,6 +79,8 @@ namespace Quarrel.SubPages.GuildSettings
 
         /// <inheritdoc/>
         public double MaxExpandedHeight { get; } = 620;
+
+        private IAnalyticsService AnalyticsService => _analyticsService ?? (_analyticsService = SimpleIoc.Default.GetInstance<IAnalyticsService>());
 
         /// <summary>
         /// Gets the App's subframe navigation service.

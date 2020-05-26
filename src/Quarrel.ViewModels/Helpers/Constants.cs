@@ -125,6 +125,9 @@ namespace Quarrel.ViewModels.Helpers
                 public const string ConnectionAttempt = "Connection attempted";
                 public const string InvalidSession = "Invalid session";
 
+                public const string LoginOpened = "Login opened";
+                public const string TokenIntercepted = "Token intercepted";
+
                 public const string OpenDMs = "Opened DMs";
                 public const string OpenGuild = "Opened a Guild";
 
@@ -132,13 +135,24 @@ namespace Quarrel.ViewModels.Helpers
                 public const string OpenGuildChannel = "Opened a Guild Channel";
                 public const string JoinVoiceChannel = "Joined a Voice Channel";
 
+                public const string StartCall = "Start a Call";
+                public const string JoinCall = "Joined a Call";
+
                 public const string SentMessage = "Sent a message";
+
+                public const string JoinedQuarrelServer = "Joined Quarrel server";
 
                 public const string OpenUserSettings = "Opened user settings";
                 public const string OpenGuildSettings = "Opened guild settings";
+                public const string OpenAddServer = "Opened add server";
 
+                public const string OpenAbout = "Opened About page";
                 public const string OpenAttachment = "Opened an attachment";
+                public const string OpenDiscordStatus = "Opened the Discord Status page";
+                public const string OpenCredit = "Opened credit page";
+                public const string OpenLicenses = "Opened licesnses page";
                 public const string OpenUserProfile = "Opened a user profile";
+                public const string OpenWhatsNew = "Opened what's new page";
 #pragma warning restore SA1600 // Elements should be documented
             }
         }
