@@ -27,17 +27,11 @@
         </StackPanel>
         <Grid Grid.Row="1" Margin="-16,0,-16,-16" Background="{ThemeResource MidBG}" Padding="24,12">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal">
-                    <!--<HyperlinkButton x:Name="JoinServer" Foreground="#FF738BD7" Background="Transparent" Click="joinDiscordUWPServer" Style="{StaticResource HyperlinkButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,6,0">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,0"/>
-                            <TextBlock x:Uid="/About/JoinDiscordUWPServerTB" x:Name="JoinServerText" Text="Join Quarrel server" Margin="6,0,0,0"/>
-                        </StackPanel>
-                    </HyperlinkButton>-->
                     <HyperlinkButton NavigateUri="https://www.microsoft.com/store/apps/9PHJRVCSKVJZ" Foreground="#FFFF4500" Background="Transparent" Style="{StaticResource HyperlinkButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,6,0">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="ms-appx:///Assets/Legere256.png" Width="20" Height="20" Margin="0,0,0,0"/>
@@ -63,6 +57,15 @@
                         </StackPanel>
                     </HyperlinkButton>
                 </StackPanel>
+
+                <HyperlinkButton x:Name="JoinServer" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,6,0"
+                                 Foreground="#FF738BD7" Background="Transparent" Click="JoinServer_Click"
+                                 Style="{StaticResource HyperlinkButtonStyle1}" Grid.Row="1">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,0"/>
+                        <TextBlock x:Uid="/About/JoinDiscordUWPServerTB" Text="Join Quarrel server" Margin="6,0,0,0"/>
+                    </StackPanel>
+                </HyperlinkButton>
             </Grid>
         </Grid>
     </Grid>
