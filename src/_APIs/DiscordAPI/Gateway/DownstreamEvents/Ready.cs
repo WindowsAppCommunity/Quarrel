@@ -1,4 +1,6 @@
 ﻿using DiscordAPI.Models;
+using DiscordAPI.Models.Channels;
+using DiscordAPI.Models.Guilds;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 

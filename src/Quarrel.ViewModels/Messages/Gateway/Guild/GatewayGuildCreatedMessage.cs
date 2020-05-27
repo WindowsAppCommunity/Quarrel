@@ -2,11 +2,11 @@
 {
     public class GatewayGuildCreatedMessage
     {
-        public GatewayGuildCreatedMessage(DiscordAPI.Models.Guild guild)
+        public GatewayGuildCreatedMessage(DiscordAPI.Models.Guilds.Guild guild)
         {
             Guild = guild;
         }
 
-        public DiscordAPI.Models.Guild Guild { get; }
+        public DiscordAPI.Models.Guilds.Guild Guild { get; }
     }
 }

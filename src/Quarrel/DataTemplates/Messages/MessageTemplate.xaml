@@ -10,6 +10,7 @@
     xmlns:messagebindables="using:Quarrel.ViewModels.Models.Bindables.Messages"
     xmlns:embedbindables="using:Quarrel.ViewModels.Models.Bindables.Messages.Embeds"
     xmlns:apimodels="using:DiscordAPI.Models"
+    xmlns:embedmodels="using:DiscordAPI.Models.Messages.Embeds"
     xmlns:embeds="using:Quarrel.Controls.Messages.Embeds"
     xmlns:members="using:Quarrel.Controls.Members"
     xmlns:messagecontrols="using:Quarrel.Controls.Messages"
@@ -141,7 +142,7 @@
                                                     </ItemsPanelTemplate>
                                                 </ItemsControl.ItemsPanel>
                                                 <ItemsControl.ItemTemplate>                                                  
-                                                    <DataTemplate x:DataType="apimodels:EmbedField">
+                                                    <DataTemplate x:DataType="embedmodels:EmbedField">
                                                         <StackPanel>
                                                             <TextBlock x:Name="FieldName" TextWrapping="NoWrap" Text="{x:Bind Name}" FontSize="13" FontWeight="SemiBold" x:Load="{x:Bind Name, Converter={StaticResource NotNullToBoolConverter}}"/>
                                                             <toolkit:MarkdownTextBlock x:Name="Value"

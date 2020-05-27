@@ -2,6 +2,7 @@
 
 using DiscordAPI.API.Guild.Models;
 using DiscordAPI.Models;
+using DiscordAPI.Models.Guilds;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
