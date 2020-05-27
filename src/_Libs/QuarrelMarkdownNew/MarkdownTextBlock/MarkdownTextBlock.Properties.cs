@@ -72,7 +72,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Quarrel
         /// </summary>
         public static readonly DependencyProperty UsersProperty = DependencyProperty.Register(
             nameof(Users),
-            typeof(IDictionary<string, string>),
+            typeof(IDictionary<string, (string, int)>),
             typeof(MarkdownTextBlock),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
@@ -388,9 +388,9 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Quarrel
         /// <summary>
         /// Gets or sets the mentioned users.
         /// </summary>
-        public IDictionary<string, string> Users
+        public IDictionary<string, (string, int)> Users
         {
-            get { return (IDictionary<string, string>)GetValue(UsersProperty); }
+            get { return (IDictionary<string, (string, int)>)GetValue(UsersProperty); }
             set { SetValue(UsersProperty, value); }
         }
 

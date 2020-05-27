@@ -232,11 +232,13 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Quarrel.Markdown.Render
                         string mentionid = element.Text.Remove(0, (element.LinkType == HyperlinkType.DiscordNickMention ? 2 : 1));
                         if (Document.Users != null)
                         {
-                            Document.Users.TryGetValue(mentionid, out string userName);
-                            if (!string.IsNullOrEmpty(userName))
+                            Document.Users.TryGetValue(mentionid, out var user);
+                            if (!string.IsNullOrEmpty(user.Name))
                             {
                                 link.Tag = mentionid;
-                                content = _halfopacity ? userName : "@" + userName;
+                                content = _halfopacity ? user.Name : "@" + user.Name;
+                                foreground = IntToColor(user.Colour);
+
                                 /*if (GuildsService.CurrentGuild.Model.Name != "DM")
                                 {
                                     CurrentUsersService.Users.TryGetValue(mentionid, out var member);

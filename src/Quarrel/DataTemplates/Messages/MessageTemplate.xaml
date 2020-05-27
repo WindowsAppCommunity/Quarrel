@@ -331,8 +331,8 @@
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <markdown:MarkdownTextBlock Users="{x:Bind messageConverters:MentionsConverter.UserMentionsConverter(Model.Mentions)}"
-                                                Roles="{x:Bind RoleMentionsConverter(Model.MentionRoles)}"
-                                                Channels="{x:Bind ChannelMentionsConverter(Model.MentionChannels)}"
+                                                Roles="{x:Bind messageConverters:MentionsConverter.RoleMentionsConverter(Model.MentionRoles)}"
+                                                Channels="{x:Bind messageConverters:MentionsConverter.ChannelMentionsConverter(Model.MentionChannels)}"
                                                 Text="{x:Bind Model.Content, Mode=OneWay}"
                                                 Visibility="{x:Bind IsEditing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
                                                 TextWrapping="WrapWholeWords"
@@ -341,7 +341,7 @@
                                                 FontWeight="SemiLight"
                                                 Opacity="0.9"
                                                 LinkClicked="Markdown_LinkClicked" />
-                    <Grid Visibility="{x:Bind IsEditing, Mode=OneWay}">
+                    <Grid x:Name="EditGrid" x:Load="{x:Bind IsEditing, Mode=OneWay}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />

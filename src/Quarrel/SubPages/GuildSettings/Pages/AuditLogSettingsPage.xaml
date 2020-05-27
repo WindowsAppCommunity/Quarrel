@@ -10,6 +10,7 @@
     xmlns:discordconvert="using:Quarrel.Converters.Discord"
     xmlns:markdown="using:Quarrel.Controls.Markdown"
     xmlns:quarrel="using:Microsoft.Toolkit.Uwp.UI.Controls.Quarrel"
+    xmlns:messageConverters="using:Quarrel.Converters.Messages"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -48,7 +49,9 @@
                 <StackPanel Grid.Column="2">
                     <!--Action-->
                     <quarrel:MarkdownTextBlock Text="{x:Bind Converter={StaticResource AuditLogEntryToMarkdownConverter}}"
-                                               Users="{x:Bind Users}" />
+                                               Users="{x:Bind Users}"
+                                               Channels="{x:Bind Channels}"
+                                               Roles="{x:Bind Roles}" />
                     <!--                       HalfOpacityMode="True" -->
 
                     <!--Time-->

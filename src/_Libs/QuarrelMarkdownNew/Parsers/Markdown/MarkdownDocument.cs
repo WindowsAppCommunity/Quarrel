@@ -71,7 +71,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown
         /// <summary>
         /// Gets or sets the dictionary of user ids to usernames.
         /// </summary>
-        public IDictionary<string, string> Users { get; set; }
+        public IDictionary<string, (string Name, int Colour)> Users { get; set; }
 
         /// <summary>
         /// Gets or sets the dictionary of channel ids to channels.
