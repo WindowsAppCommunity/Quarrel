@@ -32,7 +32,6 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Inlines
         internal static void AddTripChars(List<InlineTripCharHelper> tripCharHelpers)
         {
             tripCharHelpers.Add(new InlineTripCharHelper() { FirstChar = '*', Method = InlineParseMethod.BoldItalic });
-            tripCharHelpers.Add(new InlineTripCharHelper() { FirstChar = '_', Method = InlineParseMethod.BoldItalic });
         }
 
         /// <summary>
@@ -56,7 +55,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Inlines
 
             // Check the start sequence.
             string startSequence = markdown.Substring(start, 3);
-            if (startSequence != "***" && startSequence != "___")
+            if (startSequence != "***")
             {
                 return null;
             }

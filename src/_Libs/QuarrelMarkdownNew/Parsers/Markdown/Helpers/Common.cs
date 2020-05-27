@@ -19,6 +19,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Helpers
 
         static Common()
         {
+            UnderlineTextInline.AddTripChars(_triggerList);
             BoldItalicTextInline.AddTripChars(_triggerList);
             BoldTextInline.AddTripChars(_triggerList);
             ItalicTextInline.AddTripChars(_triggerList);
@@ -198,6 +199,10 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Helpers
                             */
                             case InlineParseMethod.Emoji:
                                 parseResult = EmojiInline.Parse(markdown, pos, end);
+                                break;
+
+                            case InlineParseMethod.Underline:
+                                parseResult = UnderlineTextInline.Parse(markdown, pos, end);
                                 break;
                         }
 

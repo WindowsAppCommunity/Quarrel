@@ -77,6 +77,11 @@ namespace Microsoft.Toolkit.Parsers.Markdown
         /// <summary>
         /// Link Reference
         /// </summary>
-        LinkReference
+        LinkReference,
+
+        /// <summary>
+        /// An underline block.
+        /// </summary>
+        Underline
     }
 }

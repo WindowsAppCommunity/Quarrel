@@ -190,6 +190,7 @@
     <Compile Include="Parsers\Markdown\Inlines\SubscriptTextInline.cs" />
     <Compile Include="Parsers\Markdown\Inlines\SuperscriptTextInline.cs" />
     <Compile Include="Parsers\Markdown\Inlines\TextRunInline.cs" />
+    <Compile Include="Parsers\Markdown\Inlines\UnderlineTextInline.cs" />
     <Compile Include="Parsers\Markdown\MarkdownBlock.cs" />
     <Compile Include="Parsers\Markdown\MarkdownDocument.cs" />
     <Compile Include="Parsers\Markdown\MarkdownElement.cs" />

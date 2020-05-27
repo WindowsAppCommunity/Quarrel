@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -11,13 +11,13 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Inlines
     /// <summary>
     /// Represents a span that contains bold text.
     /// </summary>
-    public class BoldTextInline : MarkdownInline, IInlineContainer
+    public class UnderlineTextInline : MarkdownInline, IInlineContainer
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BoldTextInline"/> class.
         /// </summary>
-        public BoldTextInline()
-            : base(MarkdownInlineType.Bold)
+        public UnderlineTextInline()
+            : base(MarkdownInlineType.Underline)
         {
         }
 
@@ -31,7 +31,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Inlines
         /// </summary>
         internal static void AddTripChars(List<InlineTripCharHelper> tripCharHelpers)
         {
-            tripCharHelpers.Add(new InlineTripCharHelper() { FirstChar = '*', Method = InlineParseMethod.Bold });
+            tripCharHelpers.Add(new InlineTripCharHelper() { FirstChar = '_', Method = InlineParseMethod.Underline });
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Inlines
 
             // Check the start sequence.
             string startSequence = markdown.Substring(start, 2);
-            if (startSequence != "**")
+            if (startSequence != "__")
             {
                 return null;
             }
@@ -71,7 +71,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Inlines
             }
 
             // We found something!
-            var result = new BoldTextInline();
+            var result = new UnderlineTextInline();
             result.Inlines = Common.ParseInlineChildren(markdown, innerStart, innerEnd);
             return new InlineParseResult(result, start, innerEnd + 2);
         }
@@ -87,7 +87,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Inlines
                 return base.ToString();
             }
 
-            return "**" + string.Join(string.Empty, Inlines) + "**";
+            return "__" + string.Join(string.Empty, Inlines) + "__";
         }
     }
 }

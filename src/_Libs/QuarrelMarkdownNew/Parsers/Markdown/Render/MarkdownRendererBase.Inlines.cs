@@ -60,6 +60,14 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Render
         /// <param name="context"> Persistent state. </param>
         protected abstract void RenderItalicRun(ItalicTextInline element, IRenderContext context);
 
+
+        /// <summary>
+        /// Renders a text run element.
+        /// </summary>
+        /// <param name="element"> The parsed inline element to render. </param>
+        /// <param name="context"> Persistent state. </param>
+        protected abstract void RenderUnderlineRun(UnderlineTextInline element, IRenderContext context);
+
         /// <summary>
         /// Renders a strikethrough element.
         /// </summary>

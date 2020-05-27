@@ -89,6 +89,11 @@ namespace Microsoft.Toolkit.Parsers.Markdown
         /// <summary>
         /// Emoji element.
         /// </summary>
-        Emoji
+        Emoji,
+
+        /// <summary>
+        /// A underline run
+        /// </summary>
+        Underline
     }
 }

@@ -160,6 +160,10 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Render
                 case MarkdownInlineType.Emoji:
                     RenderEmoji((EmojiInline)element, context);
                     break;
+
+                case MarkdownInlineType.Underline:
+                    RenderUnderlineRun((UnderlineTextInline)element, context);
+                    break;
             }
         }
 

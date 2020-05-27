@@ -512,6 +512,33 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Quarrel.Markdown.Render
             localContext.InlineCollection.Add(italicSpan);
         }
 
+        protected override void RenderUnderlineRun(UnderlineTextInline element, IRenderContext context)
+        {
+            var localContext = context as InlineRenderContext;
+            if (localContext == null)
+            {
+                throw new RenderContextIncorrectException();
+            }
+
+            Span underlineSpan = new Span
+            {
+                TextDecorations = TextDecorations.Underline
+            };
+
+            var childContext = new InlineRenderContext(underlineSpan.Inlines, context)
+            {
+                Parent = underlineSpan,
+                WithinItalics = true
+            };
+
+            // Render the children into the italic inline.
+            RenderInlineChildren(element.Inlines, childContext);
+
+            // Add it to the current inlines
+            localContext.InlineCollection.Add(underlineSpan);
+        }
+
+
         /// <summary>
         /// Renders a strikethrough element.
         /// </summary>
