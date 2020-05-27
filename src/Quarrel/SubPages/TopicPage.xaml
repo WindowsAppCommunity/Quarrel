@@ -5,7 +5,7 @@
     xmlns:local="using:Quarrel.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:md="using:Quarrel.Controls.Markdown"
+    xmlns:quarrel="using:Microsoft.Toolkit.Uwp.UI.Controls.Quarrel"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -14,7 +14,7 @@
         <StackPanel Margin="16">
             <TextBlock Text="{x:Bind ViewModel.FormattedName, Mode=OneWay}"
                        FontWeight="Bold" FontSize="20" Margin="0,0,0,12" TextWrapping="WrapWholeWords"/>
-            <md:MarkdownTextBlock Text="{x:Bind ViewModel.AsGuildChannel.Topic, Mode=OneWay}"/>
+            <quarrel:MarkdownTextBlock Text="{x:Bind ViewModel.AsGuildChannel.Topic, Mode=OneWay}"/>
         </StackPanel>
     </Grid>
 </UserControl>
