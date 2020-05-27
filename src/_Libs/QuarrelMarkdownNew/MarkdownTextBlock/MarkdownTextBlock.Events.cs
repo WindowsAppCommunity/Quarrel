@@ -47,7 +47,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Quarrel
 
         private void NewHyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
-            LinkHandled((string)(sender as HyperlinkButton).GetValue(HyperlinkUrlProperty), true);
+            LinkHandled((string)(sender as HyperlinkButton).GetValue(HyperlinkUrlProperty), true, sender);
         }
 
         /// <summary>

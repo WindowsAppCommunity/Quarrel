@@ -340,7 +340,8 @@
                                                 EmojiFontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"
                                                 FontWeight="SemiLight"
                                                 Opacity="0.9"
-                                                LinkClicked="Markdown_LinkClicked" />
+                                                LinkClicked="Markdown_LinkClicked"
+                                                />
                     <Grid x:Name="EditGrid" x:Load="{x:Bind IsEditing, Mode=OneWay}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />

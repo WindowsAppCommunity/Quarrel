@@ -71,11 +71,11 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Inlines
             int pos = -1;
             foreach (var scheme in MarkdownDocument.BracketSchemes)
             {
-                if (maxEnd - innerStart >= 14 && string.Equals(markdown.Substring(innerStart, scheme.Length), scheme, StringComparison.OrdinalIgnoreCase))
+                if (maxEnd - innerStart >= scheme.Length && string.Equals(markdown.Substring(innerStart, scheme.Length), scheme, StringComparison.OrdinalIgnoreCase))
                 {
                     // URL scheme found.
                     pos = innerStart + scheme.Length;
-                    string bigsubtr = markdown.Substring(innerStart + 1, 14);
+                    string bigsubtr = markdown.Substring(innerStart + 1, 2);
                     //Channel mention
                     if (scheme == "#") type = HyperlinkType.DiscordChannelMention;
                     //Role mention
@@ -83,7 +83,7 @@ namespace Microsoft.Toolkit.Parsers.Markdown.Inlines
                     //Nick mention
                     else if (scheme == "@" && markdown.ElementAt(innerStart + 1) == '!') type = HyperlinkType.DiscordNickMention;
                     //User mention
-                    else if (scheme == "@" && markdown.ElementAt(innerStart + 1) == '$' && markdown.Substring(innerStart + 1, 14) == "$QUARREL-color")
+                    else if (scheme == "@" && markdown.ElementAt(innerStart + 1) == '$' && maxEnd - innerStart > 14 && markdown.Substring(innerStart + 1, 14) == "$QUARREL-color")
                         type = HyperlinkType.QuarrelColor;
                     else if (scheme == "@") type = HyperlinkType.DiscordUserMention;
 

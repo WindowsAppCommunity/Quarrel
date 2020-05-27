@@ -353,7 +353,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Quarrel
         /// <summary>
         /// Called when a link needs to be handled
         /// </summary>
-        internal async void LinkHandled(string url, bool isHyperlink)
+        internal async void LinkHandled(string url, bool isHyperlink, object sender = null)
         {
             // Links that are nested within superscript elements cause the Click event to fire multiple times.
             // e.g. this markdown "[^bot](http://www.reddit.com/r/youtubefactsbot/wiki/index)"
@@ -376,7 +376,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Quarrel
             var eventArgs = new LinkClickedEventArgs(url);
             if (isHyperlink)
             {
-                LinkClicked?.Invoke(this, eventArgs);
+                LinkClicked?.Invoke(sender ?? this, eventArgs);
             }
             else
             {
