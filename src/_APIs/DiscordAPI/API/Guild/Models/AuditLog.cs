@@ -39,15 +39,8 @@ namespace DiscordAPI.API.Guild.Models
         [JsonProperty("reason", NullValueHandling = NullValueHandling.Ignore)]
         public string Reason { get; set; }
 
-        // Todo: Move to a bindable
         [JsonIgnore]
-        public IDictionary<string, (string, int)> Users { get; set; }
-
-        [JsonIgnore]
-        public IDictionary<string, (string, int)> Roles { get; set; }
-
-        [JsonIgnore]
-        public IDictionary<string, string> Channels { get; set; }
+        public IEnumerable<DiscordAPI.Models.User> Users { get; set; }
     }
 
     public enum AuditLogActionType

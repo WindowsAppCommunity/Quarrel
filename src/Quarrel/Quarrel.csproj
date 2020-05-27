@@ -268,10 +268,6 @@
     <Compile Include="Controls\TypingIndicator.xaml.cs">
       <DependentUpon>TypingIndicator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\UniformGrid\TakenSpotsReferenceHolder.cs" />
-    <Compile Include="Controls\UniformGrid\UniformGrid.cs" />
-    <Compile Include="Controls\UniformGrid\UniformGrid.Helpers.cs" />
-    <Compile Include="Controls\UniformGrid\UniformGrid.Properties.cs" />
     <Compile Include="Controls\UserIconControl.xaml.cs">
       <DependentUpon>UserIconControl.xaml</DependentUpon>
     </Compile>
@@ -312,7 +308,6 @@
     <Compile Include="Converters\Messages\ActionMessage\TypeToTextConverter.cs" />
     <Compile Include="Converters\Messages\ActionMessage\VoiceTypeToBoolConverter.cs" />
     <Compile Include="Converters\Messages\EmbedFieldsConverter.cs" />
-    <Compile Include="Converters\Messages\MentionsConverter.cs" />
     <Compile Include="Converters\Messages\SizeToHumanizedSizeConverter.cs" />
     <Compile Include="Converters\Messages\TypeToGlyphConverter.cs" />
     <Compile Include="Converters\Profile\PresenceTypeToStatusConverter.cs" />
@@ -617,14 +612,6 @@
     <ProjectReference Include="..\_APIs\GitHubAPI\GitHubAPI.csproj">
       <Project>{cd9a344b-dc7c-4ab4-a961-3b27a23741ec}</Project>
       <Name>GitHubAPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\_Libs\Microsoft.Toolkit\Microsoft.Toolkit.csproj">
-      <Project>{8ea088f6-81bb-4e5d-aab2-ba3fb7eeb04f}</Project>
-      <Name>Microsoft.Toolkit</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\_Libs\QuarrelMarkdownNew\QuarrelMarkdownNew.csproj">
-      <Project>{ba3cf28b-1b70-4a74-bfe0-d7fa70876dbf}</Project>
-      <Name>QuarrelMarkdownNew</Name>
     </ProjectReference>
     <ProjectReference Include="..\_Libs\QuarrelMarkdown\QuarrelMarkdown.csproj">
       <Project>{67dd2a9d-bf00-4864-9446-47e0d5439ffe}</Project>
