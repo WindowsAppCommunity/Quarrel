@@ -18,26 +18,6 @@ namespace Microsoft.Toolkit.Diagnostics
     internal static partial class ThrowHelper
     {
         /// <summary>
-        /// Throws an <see cref="ArgumentException"/> when <see cref="Guard.IsNotEmpty{T}(Span{T},string)"/> fails.
-        /// </summary>
-        /// <remarks>This method is needed because <see cref="Span{T}"/> can't be used as a generic type parameter.</remarks>
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void ThrowArgumentExceptionForIsNotEmptyWithSpan<T>(string name)
-        {
-            ThrowArgumentException(name, $"Parameter {name.ToAssertString()} ({typeof(Span<T>).ToTypeString()}) must not be empty");
-        }
-
-        /// <summary>
-        /// Throws an <see cref="ArgumentException"/> when <see cref="Guard.IsNotEmpty{T}(ReadOnlySpan{T},string)"/> fails.
-        /// </summary>
-        /// <remarks>This method is needed because <see cref="Span{T}"/> can't be used as a generic type parameter.</remarks>
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void ThrowArgumentExceptionForIsNotEmptyWithReadOnlySpan<T>(string name)
-        {
-            ThrowArgumentException(name, $"Parameter {name.ToAssertString()} ({typeof(ReadOnlySpan<T>).ToTypeString()}) must not be empty");
-        }
-
-        /// <summary>
         /// Throws an <see cref="ArgumentException"/> when <see cref="Guard.IsNotEmpty{T}(T[],string)"/> (or an overload) fails.
         /// </summary>
         [MethodImpl(MethodImplOptions.NoInlining)]

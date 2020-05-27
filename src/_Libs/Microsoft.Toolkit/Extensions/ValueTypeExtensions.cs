@@ -17,7 +17,7 @@ namespace Microsoft.Toolkit.Extensions
         /// <summary>
         /// Gets the table of hex characters (doesn't allocate, maps to .text section, see <see href="https://github.com/dotnet/roslyn/pull/24621"/>)
         /// </summary>
-        private static ReadOnlySpan<byte> HexCharactersTable => new[]
+        private static byte[] HexCharactersTable => new[]
         {
             (byte)'0', (byte)'1', (byte)'2', (byte)'3',
             (byte)'4', (byte)'5', (byte)'6', (byte)'7',
@@ -56,7 +56,7 @@ namespace Microsoft.Toolkit.Extensions
             p[1] = 'x';
 
             ref byte r0 = ref Unsafe.As<T, byte>(ref value);
-            ref byte rh = ref MemoryMarshal.GetReference(HexCharactersTable);
+            ref byte rh = ref HexCharactersTable[0];
 
             for (int i = 0, j = bufferSize - 2; i < sizeOfT; i++, j -= 2)
             {
