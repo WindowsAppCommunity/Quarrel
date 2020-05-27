@@ -85,6 +85,12 @@ namespace DiscordAPI.Models.Messages
         public IEnumerable<string> MentionRoles { get; set; }
 
         /// <summary>
+        /// Gets or sets a list of ChannelMentions.
+        /// </summary>
+        [JsonProperty("mention_channels")]
+        public IEnumerable<ChannelMention> MentionChannels { get; set; }
+
+        /// <summary>
         /// Gets or sets a list of the attachments in the message.
         /// </summary>
         [JsonProperty("attachments")]

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.Models;
+using DiscordAPI.Models.Messages;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.Guilds;
