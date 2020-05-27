@@ -236,11 +236,11 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock x:Name="EmojiText" Text="{x:Bind Model.Emoji.Name, Mode=OneWay}"
-                           x:Load="{x:Bind Model.Emoji.IsServer, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}"
+                <TextBlock Text="{x:Bind Model.Emoji.Name, Mode=OneWay}"
+                           Visibility="{x:Bind Model.Emoji.IsServer, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
                            FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"
                            Margin="0,0,2,0" FontSize="16" VerticalAlignment="Center"/>
-                <Image x:Name="EmojiImage" Source="{x:Bind Model.Emoji.DisplayUrl, Mode=OneWay}" x:Load="{x:Bind Model.Emoji.IsServer, Mode=OneWay}" Height="16" Width="16" VerticalAlignment="Center" Margin="0,0,2,0"/>
+                <Image Source="{x:Bind Model.Emoji.DisplayUrl, Mode=OneWay}" Visibility="{x:Bind Model.Emoji.IsServer, Mode=OneWay}" Height="16" Width="16" VerticalAlignment="Center" Margin="0,0,2,0"/>
                 <TextBlock Text="{x:Bind Count, Mode=OneWay}" Margin="2,0,0,0" Grid.Column="1" FontSize="14"  VerticalAlignment="Center"/>
             </Grid>
         </ToggleButton>

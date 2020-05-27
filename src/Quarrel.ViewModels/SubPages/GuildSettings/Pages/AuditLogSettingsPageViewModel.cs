@@ -8,8 +8,6 @@ using Quarrel.ViewModels.Models.Bindables.Guilds;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using System.Collections.ObjectModel;
-using System.Linq;
-using Quarrel.ViewModels.Services.Discord.Channels;
 
 namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
 {
@@ -50,17 +48,13 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
         /// </summary>
         public ObservableCollection<User> Users { get; private set; } = new ObservableCollection<User>();
 
-        public IGuildsService GuildsService { get; set; } = SimpleIoc.Default.GetInstance<IGuildsService>();
-        public IChannelsService ChannelsService { get; set; } = SimpleIoc.Default.GetInstance<IChannelsService>();
-
         private async void LoadAuditLog()
         {
             AuditLog log = await SimpleIoc.Default.GetInstance<IDiscordService>().GuildService.GetAuditLog(Guild.Model.Id);
 
             foreach (var user in log.Users)
             {
-                var member = GuildsService.GetGuildMember(user.Id, Guild.Model.Id);
-                if (Users.Any(x => x.Id == user.Id)) continue;
+                var member = SimpleIoc.Default.GetInstance<IGuildsService>().GetGuildMember(user.Id, Guild.Model.Id);
                 if (member != null)
                 {
                     Users.Add(member.Model.User);
@@ -78,18 +72,9 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
                 }
             }
 
-            var users = Users.ToDictionary(x => x.Id, x =>
-                (x.Username, GuildsService.GetGuildMember(x.Id, GuildsService.AllGuilds[Guild.Model.Id].Model.Id)?.TopRole?.Color ?? 0x18363));
-
-            var roles = GuildsService.AllGuilds[Guild.Model.Id].Model.Roles.ToDictionary(x => x.Id, x => (x.Name, x.Color));
-
-            var channels = GuildsService.AllGuilds[Guild.Model.Id].Channels.ToDictionary(x => x.Model.Id, x => x.Model.Name);
-
             foreach (AuditLogEntry entry in log.AuditLogEntries)
             {
-                entry.Users = users;
-                entry.Channels = channels;
-                entry.Roles = roles;
+                entry.Users = Users;
                 Entries.Add(entry);
             }
         }

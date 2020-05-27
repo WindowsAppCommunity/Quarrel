@@ -58,8 +58,6 @@ namespace DiscordAPI.Models
         public IEnumerable<User> Mentions { get; set; }
         [JsonProperty("mention_roles")]
         public IEnumerable<string> MentionRoles { get; set; }
-        [JsonProperty("mention_channels")]
-        public IEnumerable<ChannelMention> MentionChannels { get; set; }
         [JsonProperty("attachments")]
         public IEnumerable<Attachment> Attachments { get; set; }
         [JsonProperty("embeds")]
@@ -98,17 +96,5 @@ namespace DiscordAPI.Models
         public IEnumerable<string> Participants { get; set; }
         [JsonProperty("ended_timestamp")]
         public string EndedTimestamp { get; set; }
-    }
-
-    public class ChannelMention
-    {
-        [JsonProperty("id")]
-        public string Id { get; set; }
-        [JsonProperty("guild_id")]
-        public string GuildId { get; set; }
-        [JsonProperty("type")]
-        public int Type { get; set; }
-        [JsonProperty("name")]
-        public string Name { get; set; }
     }
 }
