@@ -196,7 +196,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
 
                         bGuild.Model.Channels = null;
 
-                        _guildUsers.Add(guild.Id, new ConcurrentDictionary<string, BindableGuildMember>());
+                        _guildUsers.AddOrUpdate(guild.Id, new ConcurrentDictionary<string, BindableGuildMember>());
                         foreach (var user in guild.Members)
                         {
                             BindableGuildMember bgMember = new BindableGuildMember(user, guild.Id);
