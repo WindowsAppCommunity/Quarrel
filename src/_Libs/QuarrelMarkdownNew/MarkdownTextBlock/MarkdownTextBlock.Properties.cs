@@ -74,7 +74,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Quarrel
             nameof(Users),
             typeof(IDictionary<string, (string, int)>),
             typeof(MarkdownTextBlock),
-            new PropertyMetadata(null, OnPropertyChangedStatic));
+            new PropertyMetadata(null));
 
         /// <summary>
         /// Gets the dependency property for <see cref="Channels"/>.
@@ -83,7 +83,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Quarrel
             nameof(Channels),
             typeof(IDictionary<string, (string, int)>),
             typeof(MarkdownTextBlock),
-            new PropertyMetadata(null, OnPropertyChangedStatic));
+            new PropertyMetadata(null));
 
         /// <summary>
         /// Gets the dependency property for <see cref="Roles"/>.
@@ -92,7 +92,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls.Quarrel
             nameof(Roles),
             typeof(IDictionary<string, string>),
             typeof(MarkdownTextBlock),
-            new PropertyMetadata(null, OnPropertyChangedStatic));
+            new PropertyMetadata(null));
 
         /// <summary>
         /// Gets the dependency property for <see cref="InlineCodeBackground"/>.
