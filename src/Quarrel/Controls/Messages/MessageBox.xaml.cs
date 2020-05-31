@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using Quarrel.ViewModels.Controls.Messages;
 using Quarrel.ViewModels.Models.Suggesitons;
 using Refit;
 using System;
@@ -10,6 +9,7 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Quarrel.ViewModels;
 
 namespace Quarrel.Controls.Messages
 {
@@ -24,13 +24,12 @@ namespace Quarrel.Controls.Messages
         public MessageBox()
         {
             this.InitializeComponent();
-            DataContext = new MessageBoxViewModel();
         }
 
         /// <summary>
         /// Gets message drafting data.
         /// </summary>
-        public MessageBoxViewModel ViewModel => DataContext as MessageBoxViewModel;
+        public MainViewModel ViewModel => App.ViewModelLocator.Main;
 
         /// <summary>
         /// Adds a file's data to the attachment list.
