@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using Quarrel.ViewModels.SubPages.UserSettings.Pages;
 using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.SubPages.UserSettings.Pages
@@ -15,6 +16,12 @@ namespace Quarrel.SubPages.UserSettings.Pages
         public VoiceSettingsPage()
         {
             this.InitializeComponent();
+            this.DataContext = new VoiceSettingsViewModel();
         }
+
+        /// <summary>
+        /// Gets the app's voice settings.
+        /// </summary>
+        public VoiceSettingsViewModel ViewModel => this.DataContext as VoiceSettingsViewModel;
     }
 }

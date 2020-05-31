@@ -9,14 +9,13 @@
 
     <Grid>
         <StackPanel Margin="12,0">
-            <TextBlock Text="These settings are not prepared yet."
-                       FontStyle="Italic" FontWeight="SemiLight" Opacity=".6"/>
-            <ComboBox PlaceholderText="Output Device"
-                      Margin="0,8,0,0"
-                      IsEnabled="False"/>
-            <ComboBox PlaceholderText="Input Device"
-                      Margin="0,8,0,0"
-                      IsEnabled="False"/>
+            <TextBlock Text="Audio Devices" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
+            <TextBlock Text="Output Device" FontSize="14" FontWeight="SemiBold" Margin="0,8,0,0"/>
+            <RadioButton Content="Default Device" Style="{StaticResource DiscordRadioButton}" IsChecked="{x:Bind ViewModel.DefaultOutput, Mode=TwoWay}" GroupName="OutputDevice"/>
+            <RadioButton Content="Communication Device" Style="{StaticResource DiscordRadioButton}" IsChecked="{x:Bind ViewModel.CommunicationsOutput, Mode=TwoWay}" GroupName="OutputDevice"/>
+            <TextBlock Text="Input Device" FontSize="14" FontWeight="SemiBold" Margin="0,8,0,0"/>
+            <RadioButton Content="Default Device" Style="{StaticResource DiscordRadioButton}" IsChecked="{x:Bind ViewModel.DefaultInput, Mode=TwoWay}" GroupName="InputDevice"/>
+            <RadioButton Content="Communication Device" Style="{StaticResource DiscordRadioButton}" IsChecked="{x:Bind ViewModel.CommunicationsInput, Mode=TwoWay}" GroupName="InputDevice"/>
         </StackPanel>
     </Grid>
 </Page>

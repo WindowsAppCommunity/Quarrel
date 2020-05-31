@@ -30,5 +30,9 @@ namespace Quarrel.ViewModels.Services.Settings
         FilterMembers,
         TTLAttachments,
         DataCompression,
+
+        // Voice
+        OutputDevice,
+        InputDevice,
     }
 }
