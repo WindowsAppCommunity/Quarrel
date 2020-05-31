@@ -325,6 +325,9 @@
     <Compile Include="DataTemplates\Channels\ChannelTemplate.xaml.cs">
       <DependentUpon>ChannelTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataTemplates\FlyoutDictionary.xaml.cs">
+      <DependentUpon>FlyoutDictionary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataTemplates\Guilds\GuildTemplate.xaml.cs">
       <DependentUpon>GuildTemplate.xaml</DependentUpon>
     </Compile>
@@ -747,6 +750,10 @@
     <Page Include="DataTemplates\Converters.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DataTemplates\FlyoutDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DataTemplates\Guilds\GuildTemplate.xaml">
       <SubType>Designer</SubType>

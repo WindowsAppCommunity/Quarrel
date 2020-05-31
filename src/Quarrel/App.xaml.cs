@@ -39,7 +39,6 @@ namespace Quarrel
         {
             var services = new ServiceCollection();
 
-            services.AddSingleton<ViewModelLocator, ViewModelLocator>();
             services.AddLogging();
 
             services.AddTransient<IConfiguration>(sp =>
@@ -64,7 +63,7 @@ namespace Quarrel
             string fullPath = $"{folder.Path}\\Logs\\App.log";
 
             ServiceProvider.GetService<ILoggerFactory>().AddDebug((s, l) => l >= LogLevel.Information);
-            ViewModelLocator = ServiceProvider.GetService<ViewModelLocator>();
+            ViewModelLocator = new ViewModelLocator();
         }
 
         /// <summary>
