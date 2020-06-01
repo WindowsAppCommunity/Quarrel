@@ -15,7 +15,6 @@
                           IsSourceGrouped="True"
                           Source="{Binding Source={StaticResource ViewModelLocator}, Path=EmojiPicker.Emojis}" />
 
-
     <Style x:Key="EmojiGridViewStyle" TargetType="GridView">
         <Setter Property="Padding" Value="0,0,0,0"/>
         <Setter Property="IsTabStop" Value="False"/>
@@ -94,8 +93,7 @@
                                           UnicodeEmoji="{StaticResource UnicodeEmojiTemplate}"
                                           GuildEmoji="{StaticResource GuildEmojiTemplate}"/>
 
-    <Flyout x:Key="EmojiPickerFlyout"
-            FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
+    <Flyout x:Key="EmojiPickerFlyout" FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
         <Grid MaxWidth="400"
               MaxHeight="328">
             <Grid.RowDefinitions>
@@ -144,8 +142,8 @@
                                   ItemContainerStyle="{StaticResource EmojiItemStyle}"
                                   Style="{StaticResource EmojiGridViewStyle}"
                                   ItemTemplateSelector="{StaticResource EmojiTemplateSelector}"
-                                  helpers:ItemClickCommand.Command="{Binding Source={StaticResource ViewModelLocator}, Path=Main.PickEmoji}"
-                                  helpers:ItemClickCommand.CommandParameter="{Binding Model}">
+                                  helpers:ItemClickCommandParameter.Command="{Binding Source={StaticResource ViewModelLocator}, Path=Main.PickEmoji}"
+                                  helpers:ItemClickCommandParameter.CommandParameter="{Binding}">
                             <GridView.GroupStyle>
                                 <GroupStyle>
                                     <GroupStyle.HeaderContainerStyle>

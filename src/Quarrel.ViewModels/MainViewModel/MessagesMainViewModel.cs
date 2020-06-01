@@ -104,13 +104,13 @@ namespace Quarrel.ViewModels
                                                                                                            new RelayCommand<(Models.Emojis.Emoji, object)>((val) =>
         {
             (Models.Emojis.Emoji emoji, object parameter) = val;
-            if (parameter is Message message)
+            if (parameter is BindableMessage message)
             {
-                _discordService.ChannelService.CreateReaction(message.ChannelId, message.Id, emoji.CustomEmoji ? $"{emoji.Names[0]}:{emoji.Id}" : emoji.Surrogate);
+                _discordService.ChannelService.CreateReaction(message.Model.ChannelId, message.Model.Id, emoji.CustomEmoji ? $"{emoji.Names[0]}:{emoji.Id}" : emoji.Surrogate);
             }
             else
             {
-
+                MessageText += emoji.Surrogate;
             }
         });
 

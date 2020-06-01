@@ -121,18 +121,6 @@ namespace Quarrel.ViewModels
         });
 
         /// <summary>
-        /// Gets the command to pick emojis and them to the message.
-        /// </summary>
-        public RelayCommand<List<Emoji>> EmojiPickedCommand =>
-            _emojiPickedCommand = _emojiPickedCommand ?? new RelayCommand<List<Emoji>>((emojis) =>
-            {
-                foreach (Emoji emoji in emojis)
-                {
-                    MessageText += emoji.Surrogate;
-                }
-            });
-
-        /// <summary>
         /// Gets or sets a value indicating whether or not a message is currently being sent.
         /// </summary>
         public bool IsSending
