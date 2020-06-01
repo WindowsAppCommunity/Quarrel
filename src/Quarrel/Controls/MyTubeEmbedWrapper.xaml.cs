@@ -5,6 +5,7 @@ using RykenTube;
 using System.Text.RegularExpressions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Ryken.UI;
 
 namespace Quarrel.Controls
 {
