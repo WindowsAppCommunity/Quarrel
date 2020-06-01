@@ -104,14 +104,5 @@ namespace Quarrel.DataTemplates.Messages
                 }
             }
         }
-
-        private void LoadEmojis(object sender, RoutedEventArgs e)
-        {
-            var picker = ((sender as Button).Flyout as Flyout).Content.FindChild<EmojiPicker>();
-            if (!picker.IsDataLoaded)
-            {
-                picker.Load();
-            }
-        }
     }
 }

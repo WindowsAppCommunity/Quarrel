@@ -369,13 +369,7 @@
                             Padding="4,0"
                             Style="{StaticResource DimButton}"
                             Opacity="0"
-                            Click="LoadEmojis">
-                        <Button.Flyout>
-                            <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
-                                <controls:EmojiPicker EmojiPickedCommand="{x:Bind AddReaction}" />
-                            </Flyout>
-                        </Button.Flyout>
-
+                            Flyout="{StaticResource EmojiPickerFlyout}">
                         <SymbolIcon Symbol="Emoji" />
                     </Button>
                     <Button x:Name="MoreButton"
