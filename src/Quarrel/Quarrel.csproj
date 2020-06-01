@@ -312,7 +312,6 @@
     <Compile Include="Converters\Messages\ActionMessage\TypeToTextConverter.cs" />
     <Compile Include="Converters\Messages\ActionMessage\VoiceTypeToBoolConverter.cs" />
     <Compile Include="Converters\Messages\EmbedFieldsConverter.cs" />
-    <Compile Include="Converters\Messages\MentionsConverter.cs" />
     <Compile Include="Converters\Messages\SizeToHumanizedSizeConverter.cs" />
     <Compile Include="Converters\Messages\TypeToGlyphConverter.cs" />
     <Compile Include="Converters\Profile\PresenceTypeToStatusConverter.cs" />
