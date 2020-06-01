@@ -89,7 +89,6 @@
     </DataTemplate>
     <DataTemplate x:Key="YoutubeEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
         <embeds:YoutubeEmbedTemplate DataContext="{x:Bind Model}"
-                                     MaxHeight="250"
                                      HorizontalAlignment="Left" />
     </DataTemplate>
     <DataTemplate x:Key="ImageEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
