@@ -267,13 +267,9 @@
                         RelativePanel.AlignTopWith="header"
                         Style="{StaticResource DimButton}" Padding="4" Margin="-4,10,-4,-4"
                         extensions2:Mouse.Cursor="Hand"
-                        Visibility="{x:Bind IsContinuation, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}">
+                        Visibility="{x:Bind IsContinuation, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+                        Flyout="{StaticResource MemberFlyout}">
                     <controls:UserIconControl Size="40" Width="40" Height="40" DataContext="{x:Bind Author, Mode=OneWay}" ShowPresence="False"/>
-                    <interactivity:Interaction.Behaviors>
-                        <core:EventTriggerBehavior EventName="Click">
-                            <behaviors:OpenFlyoutAction TargetObject="{Binding ElementName=AuthorHyperlink}"/>
-                        </core:EventTriggerBehavior>
-                    </interactivity:Interaction.Behaviors>
                 </Button>
 
                 <Grid x:Name="header" Margin="52,8,0,2" RelativePanel.Below="HeaderGrid"
@@ -281,7 +277,8 @@
                     <StackPanel Orientation="Horizontal">
                         <HyperlinkButton x:Name="AuthorHyperlink" 
                                  Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind AuthorDisplayName, Mode=OneWay}" 
-                                 Foreground="{x:Bind AuthorColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}">
+                                 Foreground="{x:Bind AuthorColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}"
+                                 FlyoutBase.AttachedFlyout="{StaticResource MemberFlyout}">
                             <HyperlinkButton.ContextFlyout>
                                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
                                     <MenuFlyoutItem Text="Profile" Command="{x:Bind OpenProfile, Mode=OneWay}"/>
@@ -295,11 +292,6 @@
                                     <MenuFlyoutItem Text="Copy ID" Command="{x:Bind CopyId, Mode=OneWay}"/>
                                 </MenuFlyout>
                             </HyperlinkButton.ContextFlyout>
-                            <FlyoutBase.AttachedFlyout>
-                                <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
-                                    <members:MemberFlyoutTemplate DataContext="{x:Bind Author, Mode=OneWay}"/>
-                                </Flyout>
-                            </FlyoutBase.AttachedFlyout>
                             <interactivity:Interaction.Behaviors>
                                 <core:EventTriggerBehavior EventName="Tapped">
                                     <behaviors:OpenFlyoutAction />

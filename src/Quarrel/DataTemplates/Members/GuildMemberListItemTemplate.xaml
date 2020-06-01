@@ -11,10 +11,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../Converters.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-    
-    <Flyout x:Key="MemberFlyoutTemplate" FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
-        <membercontrols:MemberFlyoutTemplate/>
-    </Flyout>
 
     <!--Loaded GuildMember Item Template-->
     <DataTemplate x:Key="GuildMemberListItemTemplate" x:DataType="userbindables:BindableGuildMember">

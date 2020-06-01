@@ -8,6 +8,7 @@
     xmlns:viewModels="using:Quarrel.ViewModels"
     xmlns:messages="using:Quarrel.ViewModels.Models.Bindables.Messages"
     xmlns:helpers="using:Quarrel.Helpers"
+    xmlns:members="using:Quarrel.Controls.Members"
     x:Class="Quarrel.DataTemplates.FlyoutDictionary">
 
     <viewModels:ViewModelLocator x:Key="ViewModelLocator" />
@@ -243,4 +244,20 @@
         </Grid>
     </Flyout>
 
+
+    <Flyout x:Key="MemberFlyout" FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
+        <members:MemberFlyoutTemplate DataContext="{Binding Author}" />
+    </Flyout>
+
+    <Flyout x:Key="VoiceMemberFlyout" FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
+        <members:MemberFlyoutTemplate DataContext="{Binding GuildMember}" />
+    </Flyout>
+
+    <Flyout x:Key="FriendFlyout" FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
+        <members:MemberFlyoutTemplate DataContext="{Binding Member, Mode=OneWay}" />
+    </Flyout>
+
+    <Flyout x:Key="MemberFlyoutTemplate" FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
+        <members:MemberFlyoutTemplate />
+    </Flyout>
 </ResourceDictionary>
