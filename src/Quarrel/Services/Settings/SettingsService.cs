@@ -52,8 +52,8 @@ namespace Quarrel.Services.Settings
             Roaming.SetValue(SettingKeys.TTLAttachments, true, false);
             Roaming.SetValue(SettingKeys.DataCompression, true, false);
 
-            Roaming.SetValue(SettingKeys.OutputDevice, AudioDevice.Default, false);
-            Roaming.SetValue(SettingKeys.InputDevice, AudioDevice.Default, false);
+            Roaming.SetValue(SettingKeys.OutputDevice, "Default", false);
+            Roaming.SetValue(SettingKeys.InputDevice, "Default", false);
 
             Roaming.SetValue(
                 SettingKeys.AcrylicSettings,

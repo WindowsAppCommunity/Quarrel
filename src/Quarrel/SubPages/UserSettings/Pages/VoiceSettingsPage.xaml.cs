@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using Quarrel.ViewModels.SubPages.UserSettings.Pages;
+using System;
+using Windows.Devices.Enumeration;
 using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.SubPages.UserSettings.Pages
@@ -17,11 +19,35 @@ namespace Quarrel.SubPages.UserSettings.Pages
         {
             this.InitializeComponent();
             this.DataContext = new VoiceSettingsViewModel();
+            LoadDevices();
         }
 
         /// <summary>
         /// Gets the app's voice settings.
         /// </summary>
         public VoiceSettingsViewModel ViewModel => this.DataContext as VoiceSettingsViewModel;
+
+        private async void LoadDevices()
+        {
+            DeviceInformationCollection outputs = await DeviceInformation.FindAllAsync(DeviceClass.AudioRender).AsTask();
+            foreach (var device in outputs)
+            {
+                OutputDevices.Items.Add(device);
+                if (ViewModel.OutputDeviceId == device.Id)
+                {
+                    OutputDevices.SelectedItem = device;
+                }
+            }
+
+            DeviceInformationCollection inputs = await DeviceInformation.FindAllAsync(DeviceClass.AudioCapture).AsTask();
+            foreach (var device in inputs)
+            {
+                InputDevices.Items.Add(device);
+                if (ViewModel.InputDeviceId == device.Id)
+                {
+                    InputDevices.SelectedItem = device;
+                }
+            }
+        }
     }
 }

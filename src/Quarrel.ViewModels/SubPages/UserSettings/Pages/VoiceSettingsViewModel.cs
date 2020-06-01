@@ -3,7 +3,6 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Services.Settings;
-using Quarrel.ViewModels.Services.Settings.Enums;
 
 namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 {
@@ -13,74 +12,26 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
     public class VoiceSettingsViewModel : ViewModelBase
     {
         /// <summary>
-        /// Gets or sets a value indicating whether or not the default output device is the selected output device.
+        /// Gets or sets the Id of the output device to use for audio.
         /// </summary>
-        public bool DefaultOutput
+        public string OutputDeviceId
         {
-            get => SettingsService.Roaming.GetValue<AudioDevice>(SettingKeys.OutputDevice) == AudioDevice.Default;
+            get => SettingsService.Roaming.GetValue<string>(SettingKeys.OutputDevice);
             set
             {
-                // Being set to false, don't update
-                if (!value)
-                {
-                    return;
-                }
-
-                SettingsService.Roaming.SetValue(SettingKeys.OutputDevice, AudioDevice.Default);
+                SettingsService.Roaming.SetValue<string>(SettingKeys.OutputDevice, value);
             }
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether or not the communications device output device is the selected output device.
+        /// Gets or sets the Id of the output device to use for audio.
         /// </summary>
-        public bool CommunicationsOutput
+        public string InputDeviceId
         {
-            get => SettingsService.Roaming.GetValue<AudioDevice>(SettingKeys.OutputDevice) == AudioDevice.Communiciations;
+            get => SettingsService.Roaming.GetValue<string>(SettingKeys.InputDevice);
             set
             {
-                // Being set to false, don't update
-                if (!value)
-                {
-                    return;
-                }
-
-                SettingsService.Roaming.SetValue(SettingKeys.OutputDevice, AudioDevice.Communiciations);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether or not the default output device is the selected output device.
-        /// </summary>
-        public bool DefaultInput
-        {
-            get => SettingsService.Roaming.GetValue<AudioDevice>(SettingKeys.InputDevice) == AudioDevice.Default;
-            set
-            {
-                // Being set to false, don't update
-                if (!value)
-                {
-                    return;
-                }
-
-                SettingsService.Roaming.SetValue(SettingKeys.InputDevice, AudioDevice.Default);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether or not the communications device output device is the selected output device.
-        /// </summary>
-        public bool CommunicationsInput
-        {
-            get => SettingsService.Roaming.GetValue<AudioDevice>(SettingKeys.InputDevice) == AudioDevice.Communiciations;
-            set
-            {
-                // Being set to false, don't update
-                if (!value)
-                {
-                    return;
-                }
-
-                SettingsService.Roaming.SetValue(SettingKeys.InputDevice, AudioDevice.Communiciations);
+                SettingsService.Roaming.SetValue<string>(SettingKeys.InputDevice, value);
             }
         }
 

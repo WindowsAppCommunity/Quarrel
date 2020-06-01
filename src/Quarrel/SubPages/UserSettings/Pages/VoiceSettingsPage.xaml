@@ -5,17 +5,28 @@
     xmlns:local="using:Quarrel.SubPages.UserSettings.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:devices="using:Windows.Devices.Enumeration"
     mc:Ignorable="d">
 
     <Grid>
         <StackPanel Margin="12,0">
             <TextBlock Text="Audio Devices" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
             <TextBlock Text="Output Device" FontSize="14" FontWeight="SemiBold" Margin="0,8,0,0"/>
-            <RadioButton Content="Default Device" Style="{StaticResource DiscordRadioButton}" IsChecked="{x:Bind ViewModel.DefaultOutput, Mode=TwoWay}" GroupName="OutputDevice"/>
-            <RadioButton Content="Communication Device" Style="{StaticResource DiscordRadioButton}" IsChecked="{x:Bind ViewModel.CommunicationsOutput, Mode=TwoWay}" GroupName="OutputDevice"/>
+            <ComboBox x:Name="OutputDevices">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="devices:DeviceInformation">
+                        <TextBlock Text="{x:Bind Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <TextBlock Text="Input Device" FontSize="14" FontWeight="SemiBold" Margin="0,8,0,0"/>
-            <RadioButton Content="Default Device" Style="{StaticResource DiscordRadioButton}" IsChecked="{x:Bind ViewModel.DefaultInput, Mode=TwoWay}" GroupName="InputDevice"/>
-            <RadioButton Content="Communication Device" Style="{StaticResource DiscordRadioButton}" IsChecked="{x:Bind ViewModel.CommunicationsInput, Mode=TwoWay}" GroupName="InputDevice"/>
+            <ComboBox x:Name="InputDevices">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="devices:DeviceInformation">
+                        <TextBlock Text="{x:Bind Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
     </Grid>
 </Page>
