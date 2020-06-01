@@ -19,7 +19,6 @@
                 <ResourceDictionary Source="Resources/FontIcons.xaml"/>
                 <ResourceDictionary Source="Resources/MiscResources.xaml"/>
                 <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
-                <ResourceDictionary Source="Styles/ListViewItemStyles.xaml"/>
                 <ResourceDictionary Source="Styles/MiscStyles.xaml"/>
                 <ResourceDictionary Source="Styles/TextBoxStyles.xaml"/>
                 <dataTemplates:FlyoutDictionary/>
