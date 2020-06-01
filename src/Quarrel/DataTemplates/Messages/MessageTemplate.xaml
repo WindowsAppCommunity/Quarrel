@@ -132,6 +132,9 @@
                                                     <!--EnableHiddenLinks="True"/>-->
                             <StackPanel x:Name="FieldsStacker">
                                 <winui:ItemsRepeater ItemsSource="{x:Bind Model.Fields, Converter={StaticResource EmbedFieldsConverter}}">
+                                    <winui:ItemsRepeater.Layout>
+                                        <winui:StackLayout DisableVirtualization="True"/>
+                                    </winui:ItemsRepeater.Layout>
                                     <winui:ItemsRepeater.ItemTemplate>
                                         <DataTemplate x:DataType="system:Object">
                                             <ItemsControl ItemsSource="{x:Bind}">
@@ -391,7 +394,7 @@
                                          ItemsSource="{x:Bind BindableAttachments, Mode=OneWay}"
                                          ItemTemplate="{StaticResource AttachmentTemplateSelector}">
                         <winui:ItemsRepeater.Layout>
-                            <winui:StackLayout Spacing="4" />
+                            <winui:StackLayout Spacing="4" DisableVirtualization="True" />
                         </winui:ItemsRepeater.Layout>
                     </winui:ItemsRepeater>
                     <winui:ItemsRepeater x:Name="EmbedList"
@@ -399,7 +402,7 @@
                                          ItemsSource="{x:Bind BindableEmbeds, Mode=OneWay}"
                                          ItemTemplate="{StaticResource EmbedTemplateSelector}">
                         <winui:ItemsRepeater.Layout>
-                            <winui:StackLayout Spacing="4" />
+                            <winui:StackLayout Spacing="4" DisableVirtualization="True" />
                         </winui:ItemsRepeater.Layout>
                     </winui:ItemsRepeater>
                 </Grid>
@@ -412,7 +415,7 @@
                                      ItemsSource="{x:Bind BindableReactions, Mode=OneWay}"
                                      ItemTemplate="{StaticResource Reaction}">
                     <winui:ItemsRepeater.Layout>
-                        <winui:StackLayout Orientation="Horizontal" Spacing="4" />
+                        <winui:StackLayout Orientation="Horizontal" Spacing="4" DisableVirtualization="True" />
                     </winui:ItemsRepeater.Layout>
                 </winui:ItemsRepeater>
             </RelativePanel>

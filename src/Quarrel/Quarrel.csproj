@@ -1056,7 +1056,7 @@
       <Version>0.9.24-beta</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.4.0</Version>
+      <Version>2.4.0-prerelease.200506001</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
