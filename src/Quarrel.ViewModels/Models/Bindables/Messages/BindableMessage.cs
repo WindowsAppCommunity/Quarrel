@@ -367,17 +367,20 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
 
         private void CalculateMentions()
         {
-            UsersMentioned = Model.Mentions.ToDictionary(
+            UsersMentioned = Model.Mentions?.ToDictionary(
                 x => x.Id, 
                 x => (x.Username, GuildsService.GetGuildMember(x.Id, GuildsService.CurrentGuild.Model.Id)?.TopRole?.Color ?? 0x18363));
 
             IDictionary<string, (string, int)> rolesMentionedDict = new Dictionary<string, (string, int)>();
-            foreach (string roleId in Model.MentionRoles)
+            if (Model.MentionRoles != null)
             {
-                var role = GuildsService.CurrentGuild.Model.Roles.FirstOrDefault(x => x.Id == roleId);
-                if (role != null)
+                foreach (string roleId in Model.MentionRoles)
                 {
-                    rolesMentionedDict.Add(roleId, (role.Name, role.Color));
+                    var role = GuildsService.CurrentGuild.Model.Roles.FirstOrDefault(x => x.Id == roleId);
+                    if (role != null)
+                    {
+                        rolesMentionedDict.Add(roleId, (role.Name, role.Color));
+                    }
                 }
             }
 

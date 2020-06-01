@@ -159,6 +159,14 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                             }
                         }
 
+                        if (guild.VoiceStates != null)
+                        {
+                            foreach (var state in guild.VoiceStates)
+                            {
+                                VoiceService.VoiceStates[state.UserId] = state;
+                            }
+                        }
+
                         // Guild Channels
                         foreach (var channel in guild.Channels)
                         {
@@ -213,21 +221,6 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         foreach (var presence in guild.Presences)
                         {
                             Messenger.Default.Send(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
-                        }
-
-                        if (guild.VoiceStates != null)
-                        {
-                            foreach (var state in guild.VoiceStates)
-                            {
-                                if (VoiceService.VoiceStates.ContainsKey(state.UserId))
-                                {
-                                    VoiceService.VoiceStates[state.UserId].Model = state;
-                                }
-                                else
-                                {
-                                    VoiceService.VoiceStates.Add(state.UserId, new BindableVoiceUser(state));
-                                }
-                            }
                         }
 
                         AllGuilds.AddOrUpdate(bGuild.Model.Id, bGuild);

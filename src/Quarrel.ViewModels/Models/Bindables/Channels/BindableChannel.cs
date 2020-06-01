@@ -30,6 +30,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
+using Quarrel.ViewModels.Messages.Voice;
 
 namespace Quarrel.ViewModels.Models.Bindables.Channels
 {
@@ -101,6 +102,37 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
                 }
             });
 
+            MessengerInstance.Register<SpeakMessage>(this, e =>
+            {
+                if (e.EventData.UserId != null && ConnectedUsers.ContainsKey(e.EventData.UserId))
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUi(() => { ConnectedUsers[e.EventData.UserId].Speaking = e.EventData.Speaking > 0; });
+                }
+            });
+
+            MessengerInstance.Register<GatewayVoiceStateUpdateMessage>(this, m =>
+            {
+                DispatcherHelper.CheckBeginInvokeOnUi(() =>
+                {
+                    if (m.VoiceState.ChannelId == Model.Id)
+                    {
+                        if (ConnectedUsers.ContainsKey(m.VoiceState.UserId))
+                        {
+                            ConnectedUsers[m.VoiceState.UserId].Model = m.VoiceState;
+                            ConnectedUsers[m.VoiceState.UserId].UpateProperties();
+                        }
+                        else
+                        {
+                            ConnectedUsers.Add(m.VoiceState.UserId, new BindableVoiceUser(m.VoiceState));
+                        }
+                    }
+                    else if (ConnectedUsers.ContainsKey(m.VoiceState.UserId))
+                    {
+                        ConnectedUsers.Remove(m.VoiceState.UserId);
+                    }
+                });
+            });
+
             if (states != null)
             {
                 foreach (var state in states)
@@ -108,9 +140,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
                     if (state.ChannelId == Model.Id)
                     {
                         state.GuildId = GuildId;
-                        var voiceUser = new BindableVoiceUser(state);
-                        ConnectedUsers.Add(state.UserId, voiceUser);
-                        VoiceService.VoiceStates.Add(state.UserId, voiceUser);
+                        ConnectedUsers.Add(state.UserId, new BindableVoiceUser(state));
                     }
                 }
             }
