@@ -50,7 +50,6 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         private RelayCommand _copyId;
         private RelayCommand _toggleEdit;
         private RelayCommand _saveEdit;
-        private RelayCommand<List<Emoji>> _addReaction;
         private RelayCommand _joinCallCommand;
         private IAnalyticsService _analyticsService = null;
         private ICurrentUserService _currentUsersService = null;
@@ -121,17 +120,6 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         {
             SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.EditMessage(Model.ChannelId, Model.Id, new DiscordAPI.API.Channel.Models.EditMessage() { Content = EditedText });
             IsEditing = false;
-        });
-
-        /// <summary>
-        /// Gets a command that adds reactions to the message.
-        /// </summary>
-        public RelayCommand<List<Emoji>> AddReaction => _addReaction = new RelayCommand<List<Emoji>>(async (emojis) =>
-        {
-            foreach (Emoji emoji in emojis)
-            {
-                await DiscordService.ChannelService.CreateReaction(Model.ChannelId, Model.Id, emoji.CustomEmoji ? $"{emoji.Names[0]}:{emoji.Id}" : emoji.Surrogate);
-            }
         });
 
         /// <summary>
