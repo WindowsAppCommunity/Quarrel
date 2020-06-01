@@ -2,6 +2,7 @@
 
 using Quarrel.ViewModels.Models.Bindables.Channels;
 using System.Collections.Generic;
+using DiscordAPI.Models;
 
 namespace Quarrel.ViewModels.Services.Voice
 {
@@ -13,7 +14,7 @@ namespace Quarrel.ViewModels.Services.Voice
         /// <summary>
         /// Gets a hashed collection of guild member's voice states by user id.
         /// </summary>
-        IDictionary<string, BindableVoiceUser> VoiceStates { get; }
+        IDictionary<string, VoiceState> VoiceStates { get; }
 
         /// <summary>
         /// Toggles if the user is deafend.

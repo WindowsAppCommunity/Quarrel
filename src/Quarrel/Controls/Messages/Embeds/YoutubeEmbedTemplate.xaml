@@ -33,7 +33,7 @@
                         <HyperlinkButton x:Name="TitleTB" Content="{x:Bind ViewModel.Model.Title, Mode=OneWay}" NavigateUri="{x:Bind ViewModel.Model.Url, Mode=OneWay}" FontSize="13" FontWeight="Normal" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Foreground}"/>
                     </StackPanel>
                 </Grid>
-                <Viewbox HorizontalAlignment="Left" x:Name="ImageVB" StretchDirection="DownOnly" MaxWidth="480" MaxHeight="300">
+                <Viewbox HorizontalAlignment="Left" x:Name="ImageVB" StretchDirection="DownOnly" MaxWidth="400" MaxHeight="225">
                     <Grid>
                         <controls:ImageEx Source="{x:Bind ViewModel.Model.Thumbnail.ProxyUrl, Mode=OneWay}" x:Name="VideoPreviewImage" x:Load="{x:Bind ViewModel.Playing, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"/>
                         <Grid Background="{ThemeResource AcrylicButtonBackground}" x:Name="VideoPreviewImageControls"  x:Load="{x:Bind ViewModel.Playing, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}" Width="200" Height="150" CornerRadius="75" VerticalAlignment="Center" HorizontalAlignment="Center">

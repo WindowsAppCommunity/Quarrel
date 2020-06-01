@@ -11,14 +11,15 @@
     d:DesignWidth="400">
     <UserControl.Resources>
         <Style TargetType="ui:RykenPlayerControls" x:Key="ControlsStyle">
-            <Setter Property="ControlsSize" Value="40" />
-            <Setter Property="PlayButtonSize" Value="60" />
-            <Setter Property="MiniButtonSize" Value="30" />
+            <Setter Property="ControlsSize" Value="80" />
+            <Setter Property="PlayButtonSize" Value="120" />
+            <Setter Property="MiniButtonSize" Value="60" />
         </Style>
     </UserControl.Resources>
     <Grid>
         <ui:RykenMediaContainer x:Name="RykenPlayer" 
                                 ShowFullscreenButton="False" 
-                                PlayerControlsStyle="{StaticResource ControlsStyle}"/>
+                                PlayerControlsStyle="{StaticResource ControlsStyle}"
+                                />
     </Grid>
 </UserControl>

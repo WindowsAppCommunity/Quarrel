@@ -49,7 +49,7 @@ namespace Quarrel.Services.Voice
         public void Destroy()
         {
             manager.Destroy();
-            voipCall.NotifyCallEnded();
+            voipCall?.NotifyCallEnded();
         }
 
         public async Task ConnectAsync(string ip, string port, uint ssrc)
