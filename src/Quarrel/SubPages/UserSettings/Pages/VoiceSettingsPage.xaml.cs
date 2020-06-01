@@ -39,6 +39,11 @@ namespace Quarrel.SubPages.UserSettings.Pages
                 }
             }
 
+            if (OutputDevices.SelectedItem == null)
+            {
+                OutputDevices.SelectedIndex = 0;
+            }
+
             DeviceInformationCollection inputs = await DeviceInformation.FindAllAsync(DeviceClass.AudioCapture).AsTask();
             foreach (var device in inputs)
             {
@@ -47,6 +52,11 @@ namespace Quarrel.SubPages.UserSettings.Pages
                 {
                     InputDevices.SelectedItem = device;
                 }
+            }
+
+            if (InputDevices.SelectedItem == null)
+            {
+                InputDevices.SelectedIndex = 0;
             }
         }
 
