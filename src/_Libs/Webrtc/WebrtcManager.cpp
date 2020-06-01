@@ -140,8 +140,14 @@ namespace Webrtc
 
 namespace winrt::Webrtc::implementation
 {
-	WebrtcManager::WebrtcManager()
+	WebrtcManager::WebrtcManager() : WebrtcManager(-1, -1)
 	{
+	}
+
+	WebrtcManager::WebrtcManager(uint16_t outputDeviceIndex, uint16_t inputDeviceIndex)
+	{
+		output_device_index = outputDeviceIndex;
+		input_device_index = inputDeviceIndex;
 	}
 
 	void WebrtcManager::Create()
@@ -219,6 +225,8 @@ namespace winrt::Webrtc::implementation
 			.SetRenderPreProcessing(std::make_unique<::Webrtc::OutputAnalyzer>(this))
 			.Create();
 		stateconfig.audio_device_module = ::Webrtc::IAudioDeviceWasapi::create(props);
+		stateconfig.audio_device_module->SetPlayoutDevice(output_device_index);
+		stateconfig.audio_device_module->SetRecordingDevice(input_device_index);
 		stateconfig.audio_mixer = webrtc::AudioMixerImpl::Create();
 
 		rtc::scoped_refptr<webrtc::AudioState> audio_state = webrtc::AudioState::Create(stateconfig);
@@ -328,6 +336,14 @@ namespace winrt::Webrtc::implementation
 				this->m_speaking(*this, true);
 			}
 		}
+	}
+
+	void WebrtcManager::SetPlaybackDevice(uint16_t device_index) {
+		// TODO: Change playback on the fly
+	}
+
+	void WebrtcManager::SetRecordingDevice(uint16_t device_index) {
+		// TODO: Change recording on the fly
 	}
 	
 	void WebrtcManager::SetKey(array_view<const BYTE> key)
