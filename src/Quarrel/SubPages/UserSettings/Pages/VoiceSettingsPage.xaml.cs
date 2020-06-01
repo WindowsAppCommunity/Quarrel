@@ -49,5 +49,15 @@ namespace Quarrel.SubPages.UserSettings.Pages
                 }
             }
         }
+
+        private void OutputDeviceSelected(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModel.OutputDeviceId = (OutputDevices.SelectedItem as DeviceInformation).Id;
+        }
+
+        private void InputDeviceSelected(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModel.InputDeviceId = (InputDevices.SelectedItem as DeviceInformation).Id;
+        }
     }
 }

@@ -12,7 +12,7 @@
         <StackPanel Margin="12,0">
             <TextBlock Text="Audio Devices" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
             <TextBlock Text="Output Device" FontSize="14" FontWeight="SemiBold" Margin="0,8,0,0"/>
-            <ComboBox x:Name="OutputDevices">
+            <ComboBox x:Name="OutputDevices" SelectionChanged="OutputDeviceSelected">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="devices:DeviceInformation">
                         <TextBlock Text="{x:Bind Name}"/>
@@ -20,7 +20,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <TextBlock Text="Input Device" FontSize="14" FontWeight="SemiBold" Margin="0,8,0,0"/>
-            <ComboBox x:Name="InputDevices">
+            <ComboBox x:Name="InputDevices" SelectionChanged="InputDeviceSelected">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="devices:DeviceInformation">
                         <TextBlock Text="{x:Bind Name}"/>
