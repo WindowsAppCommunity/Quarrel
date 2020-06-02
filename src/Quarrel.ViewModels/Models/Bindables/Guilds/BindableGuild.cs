@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.Models;
+using DiscordAPI.Models.Guilds;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;

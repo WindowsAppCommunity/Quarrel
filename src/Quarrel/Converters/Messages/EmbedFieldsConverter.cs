@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.Models;
+using DiscordAPI.Models.Messages;
+using DiscordAPI.Models.Messages.Embeds;
 using System;
 using System.Collections.Generic;
 using System.Linq;

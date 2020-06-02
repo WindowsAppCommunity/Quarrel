@@ -2,6 +2,9 @@
 using DiscordAPI.Gateway.DownstreamEvents;
 using DiscordAPI.Gateway.UpstreamEvents;
 using DiscordAPI.Models;
+using DiscordAPI.Models.Channels;
+using DiscordAPI.Models.Guilds;
+using DiscordAPI.Models.Messages;
 using DiscordAPI.Sockets;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

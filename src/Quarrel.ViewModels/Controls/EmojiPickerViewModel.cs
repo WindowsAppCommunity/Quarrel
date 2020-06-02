@@ -9,6 +9,7 @@ using Quarrel.ViewModels.Services.Discord.Guilds;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Quarrel.ViewModels.Services.DispatcherHelper;
 
 namespace Quarrel.ViewModels.Controls
 {
@@ -39,7 +40,27 @@ namespace Quarrel.ViewModels.Controls
         /// </summary>
         public GroupedObservableCollection<string, Emoji> Emojis { get; private set; } = new GroupedObservableCollection<string, Emoji>(x => x.Category);
 
+        private string _searchQuery;
+
+        /// <summary>
+        /// Gets or sets the search query text.
+        /// </summary>
+        public string SearchQuery
+        {
+            get => _searchQuery;
+            set
+            {
+                if (_searchQuery != value)
+                {
+                    Set(ref _searchQuery, value);
+                    FilterEmojis(_searchQuery);
+                }
+            }
+        }
+
         private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
+
+        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
 
         /// <summary>
         /// Loads full list of Emojis.
@@ -56,36 +77,38 @@ namespace Quarrel.ViewModels.Controls
         /// <param name="query">Emoji filtering query.</param>
         public void FilterEmojis(string query)
         {
-            // Resets list
-            Emojis.Clear();
-
-            // All emoji names are lower case
-            query = query.ToLower();
-
-            // Guild Emojis
-            // TODO: External emojis
-            if (!GuildsService.CurrentGuild.IsDM)
+            DispatcherHelper.CheckBeginInvokeOnUi(() =>
             {
-                var emojis = GuildsService.CurrentGuild.Model.Emojis
-                    .Select(x => new GuildEmoji(x));
-                foreach (var emoji in emojis)
+                // Resets list
+                Emojis.Clear();
+
+                // All emoji names are lower case
+                query = query.ToLower();
+
+                // Guild Emojis
+                // TODO: External emojis
+                if (!GuildsService.CurrentGuild.IsDM)
+                {
+                    var emojis = GuildsService.CurrentGuild.Model.Emojis
+                        .Select(x => new GuildEmoji(x));
+                    foreach (var emoji in emojis)
+                    {
+                        if (string.IsNullOrEmpty(query) || emoji.Names.Any(x => x.ToLower().Contains(query)))
+                        {
+                            Emojis.AddElement(emoji);
+                        }
+                    }
+                }
+
+                // Adds emoji to list if it matches query
+                foreach (var emoji in _emojis)
                 {
                     if (string.IsNullOrEmpty(query) || emoji.Names.Any(x => x.ToLower().Contains(query)))
                     {
                         Emojis.AddElement(emoji);
                     }
                 }
-            }
-
-            // Adds emoji to list if it matches query
-            foreach (var emoji in _emojis)
-            {
-                if (string.IsNullOrEmpty(query) || emoji.Names.Any(x => x.ToLower().Contains(query)))
-                {
-                    Emojis.AddElement(emoji);
-                }
-            }
-
+            });
             // TODO: Sort by accuracy
         }
     }

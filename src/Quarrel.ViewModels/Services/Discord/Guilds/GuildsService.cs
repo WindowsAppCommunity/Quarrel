@@ -2,6 +2,8 @@
 
 using DiscordAPI.API.Voice;
 using DiscordAPI.Models;
+using DiscordAPI.Models.Channels;
+using DiscordAPI.Models.Guilds;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.ViewModels.Helpers;
@@ -157,6 +159,14 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                             }
                         }
 
+                        if (guild.VoiceStates != null)
+                        {
+                            foreach (var state in guild.VoiceStates)
+                            {
+                                VoiceService.VoiceStates[state.UserId] = state;
+                            }
+                        }
+
                         // Guild Channels
                         foreach (var channel in guild.Channels)
                         {
@@ -194,7 +204,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
 
                         bGuild.Model.Channels = null;
 
-                        _guildUsers.Add(guild.Id, new ConcurrentDictionary<string, BindableGuildMember>());
+                        _guildUsers.AddOrUpdate(guild.Id, new ConcurrentDictionary<string, BindableGuildMember>());
                         foreach (var user in guild.Members)
                         {
                             BindableGuildMember bgMember = new BindableGuildMember(user, guild.Id);
@@ -211,21 +221,6 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         foreach (var presence in guild.Presences)
                         {
                             Messenger.Default.Send(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
-                        }
-
-                        if (guild.VoiceStates != null)
-                        {
-                            foreach (var state in guild.VoiceStates)
-                            {
-                                if (VoiceService.VoiceStates.ContainsKey(state.UserId))
-                                {
-                                    VoiceService.VoiceStates[state.UserId].Model = state;
-                                }
-                                else
-                                {
-                                    VoiceService.VoiceStates.Add(state.UserId, new BindableVoiceUser(state));
-                                }
-                            }
                         }
 
                         AllGuilds.AddOrUpdate(bGuild.Model.Id, bGuild);

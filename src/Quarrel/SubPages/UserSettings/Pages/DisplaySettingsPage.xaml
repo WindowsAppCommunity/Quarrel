@@ -55,6 +55,13 @@
                     <TextBlock Text="Enable various expensive graphics such as Blur Effects and Audio Visualizers" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
                 </StackPanel>
             </CheckBox>
+            <CheckBox Style="{StaticResource CheckBoxStyle1}" MaxWidth="350"
+                      IsChecked="{x:Bind ViewModel.FluentTheme, Mode=TwoWay}">
+                <StackPanel Margin="0,2,0,0">
+                    <TextBlock Text="Fluent Theme"/>
+                    <TextBlock Text="Enable an alternative fluent theme for Quarrel" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
+                </StackPanel>
+            </CheckBox>
 
             <!--<TextBlock Text="Chat Font Scaling" Margin="0,12,0,0" Opacity="0.5"/>
             <Slider Minimum="12" Maximum="24" Width="300" HorizontalAlignment="Left" Value="{x:Bind ViewModel.FontSize, Mode=TwoWay}" IsEnabled="False"/>-->

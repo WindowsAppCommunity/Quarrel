@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.Interfaces;
-using DiscordAPI.Models;
+using DiscordAPI.Models.Messages.Embeds;
 using GalaSoft.MvvmLight;
 
 namespace Quarrel.ViewModels.ViewModels.SubPages

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.Models;
+using DiscordAPI.Models.Messages;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
@@ -41,12 +42,14 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         private bool _isOldestUnreadMessage;
         private bool _isEditing;
         private string _editedText;
+        private IDictionary<string, (string, int)> _usersMentioned;
+        private IDictionary<string, (string, int)> _rolesMentioned;
+        private IDictionary<string, string> _channelsMentioned;
         private BindableGuildMember _author;
         private RelayCommand _openProfile;
         private RelayCommand _copyId;
         private RelayCommand _toggleEdit;
         private RelayCommand _saveEdit;
-        private RelayCommand<List<Emoji>> _addReaction;
         private RelayCommand _joinCallCommand;
         private IAnalyticsService _analyticsService = null;
         private ICurrentUserService _currentUsersService = null;
@@ -75,6 +78,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
             ConvertEmbeds();
             ConvertReactions();
             FindInvites();
+            CalculateMentions();
 
             Messenger.Default.Register<GatewayGuildMembersChunkMessage>(this, m =>
             {
@@ -116,17 +120,6 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         {
             SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService.EditMessage(Model.ChannelId, Model.Id, new DiscordAPI.API.Channel.Models.EditMessage() { Content = EditedText });
             IsEditing = false;
-        });
-
-        /// <summary>
-        /// Gets a command that adds reactions to the message.
-        /// </summary>
-        public RelayCommand<List<Emoji>> AddReaction => _addReaction = new RelayCommand<List<Emoji>>(async (emojis) =>
-        {
-            foreach (Emoji emoji in emojis)
-            {
-                await DiscordService.ChannelService.CreateReaction(Model.ChannelId, Model.Id, emoji.CustomEmoji ? $"{emoji.Names[0]}:{emoji.Id}" : emoji.Surrogate);
-            }
         });
 
         /// <summary>
@@ -231,6 +224,33 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         }
 
         /// <summary>
+        /// Gets or sets the users mentioned dictionary.
+        /// </summary>
+        public IDictionary<string, (string, int)> UsersMentioned
+        {
+            get => _usersMentioned;
+            set => Set(ref _usersMentioned, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the roles mentioned dictionary.
+        /// </summary>
+        public IDictionary<string, (string, int)> RolesMentioned
+        {
+            get => _rolesMentioned;
+            set => Set(ref _rolesMentioned, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the channels mentioned dictionary.
+        /// </summary>
+        public IDictionary<string, string> ChannelsMentioned
+        {
+            get => _channelsMentioned;
+            set => Set(ref _channelsMentioned, value);
+        }
+
+        /// <summary>
         /// Gets or sets the UI Bindable reactions on the message.
         /// </summary>
         public ObservableCollection<BindableReaction> BindableReactions { get; set; } = new ObservableCollection<BindableReaction>();
@@ -270,6 +290,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         public void Update(Message message)
         {
             Model = message;
+            CalculateMentions();
         }
 
         /// <summary>
@@ -330,6 +351,46 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
                 {
                 }
             }
+        }
+
+        private void CalculateMentions()
+        {
+            UsersMentioned = Model.Mentions?.ToDictionary(
+                x => x.Id, 
+                x => (x.Username, GuildsService.GetGuildMember(x.Id, GuildsService.CurrentGuild.Model.Id)?.TopRole?.Color ?? 0x18363));
+
+            IDictionary<string, (string, int)> rolesMentionedDict = new Dictionary<string, (string, int)>();
+            if (Model.MentionRoles != null)
+            {
+                foreach (string roleId in Model.MentionRoles)
+                {
+                    var role = GuildsService.CurrentGuild.Model.Roles.FirstOrDefault(x => x.Id == roleId);
+                    if (role != null)
+                    {
+                        rolesMentionedDict.Add(roleId, (role.Name, role.Color));
+                    }
+                }
+            }
+
+            RolesMentioned = rolesMentionedDict;
+
+
+            IDictionary<string, string> channelsMentionedDict = new Dictionary<string, string>();
+
+            foreach (var channel in ChannelsService.AllChannels)
+            {
+                channelsMentionedDict[channel.Key] = channel.Value.Model.Name;
+            }
+
+            if (Model.MentionChannels != null)
+            {
+                foreach (var channel in Model.MentionChannels)
+                {
+                    channelsMentionedDict[channel.Id] = channel.Name;
+                }
+            }
+
+            ChannelsMentioned = channelsMentionedDict;
         }
     }
 }

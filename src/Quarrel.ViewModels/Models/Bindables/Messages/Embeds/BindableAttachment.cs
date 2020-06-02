@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using DiscordAPI.Models;
+using DiscordAPI.Models.Messages.Embeds;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Models.Bindables.Abstract;

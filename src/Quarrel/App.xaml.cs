@@ -35,11 +35,12 @@ namespace Quarrel
     /// </summary>
     public sealed partial class App : Application
     {
+        private static bool _resourcesLoaded;
+
         static App()
         {
             var services = new ServiceCollection();
 
-            services.AddSingleton<ViewModelLocator, ViewModelLocator>();
             services.AddLogging();
 
             services.AddTransient<IConfiguration>(sp =>
@@ -64,7 +65,7 @@ namespace Quarrel
             string fullPath = $"{folder.Path}\\Logs\\App.log";
 
             ServiceProvider.GetService<ILoggerFactory>().AddDebug((s, l) => l >= LogLevel.Information);
-            ViewModelLocator = ServiceProvider.GetService<ViewModelLocator>();
+            ViewModelLocator = new ViewModelLocator();
         }
 
         /// <summary>
@@ -230,6 +231,20 @@ namespace Quarrel
             (App.Current.Resources["AcrylicChannelPaneBackground"] as AcrylicBrush).AlwaysUseFallback = (acrylicSettings & AcrylicSettings.ChannelView) != AcrylicSettings.ChannelView;
             (App.Current.Resources["AcrylicGuildPaneBackground"] as AcrylicBrush).AlwaysUseFallback = (acrylicSettings & AcrylicSettings.GuildView) != AcrylicSettings.GuildView;
             (App.Current.Resources["AcrylicCommandBarBackground"] as AcrylicBrush).AlwaysUseFallback = (acrylicSettings & AcrylicSettings.CommandBar) != AcrylicSettings.CommandBar;
+
+            if (!_resourcesLoaded)
+            {
+                _resourcesLoaded = true;
+
+                string style = "Default";
+                if (settings.Roaming.GetValue<bool>(SettingKeys.FluentTheme))
+                {
+                    style = "Fluent";
+                }
+
+                var resourceDictionary = new ResourceDictionary { Source = new Uri($"ms-appx:///CustomStyles/{style}.xaml") };
+                App.Current.Resources.MergedDictionaries.Add(resourceDictionary);
+            }
         }
 
         /// <summary>

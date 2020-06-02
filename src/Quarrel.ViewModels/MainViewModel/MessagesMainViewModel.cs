@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.Models;
+using DiscordAPI.Models.Messages;
 using GalaSoft.MvvmLight.Command;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Messages.Gateway;
@@ -27,6 +28,7 @@ namespace Quarrel.ViewModels
         private RelayCommand<BindableMessage> unPinMessageCommand;
         private RelayCommand<BindableMessage> copyMessageIdCommand;
         private RelayCommand<BindableReaction> toggleReactionCommand;
+        private RelayCommand<(Models.Emojis.Emoji, object)> pickEmojiCommand;
 
         private bool _atTop;
         private bool _newItemsLoading;
@@ -74,7 +76,7 @@ namespace Quarrel.ViewModels
         });
 
         /// <summary>
-        /// Gets a command that toggles a reaction to a message
+        /// Gets a command that toggles a reaction to a message.
         /// </summary>
         public RelayCommand<BindableReaction> ToggleReactionCommand => toggleReactionCommand = toggleReactionCommand ?? new RelayCommand<BindableReaction>((reaction) =>
         {
@@ -91,6 +93,24 @@ namespace Quarrel.ViewModels
             else
             {
                 _discordService.ChannelService.CreateReaction(reaction.Model.ChannelId, reaction.Model.MessageId, reactionFullId);
+            }
+        });
+
+
+        /// <summary>
+        /// Gets a command that adds a reaction to a message.
+        /// </summary>
+        public RelayCommand<(Models.Emojis.Emoji emoji, object parameter)> PickEmoji => pickEmojiCommand = pickEmojiCommand ??
+                                                                                                           new RelayCommand<(Models.Emojis.Emoji, object)>((val) =>
+        {
+            (Models.Emojis.Emoji emoji, object parameter) = val;
+            if (parameter is BindableMessage message)
+            {
+                _discordService.ChannelService.CreateReaction(message.Model.ChannelId, message.Model.Id, emoji.CustomEmoji ? $"{emoji.Names[0]}:{emoji.Id}" : emoji.Surrogate);
+            }
+            else
+            {
+                MessageText += emoji.Surrogate;
             }
         });
 

@@ -159,6 +159,7 @@ namespace Quarrel.SubPages
                 var rasr = RandomAccessStreamReference.CreateFromUri(new Uri(ViewModel.Image.ImageUrl));
                 request.Data.SetBitmap(rasr);
                 request.Data.Properties.Thumbnail = rasr;
+                request.Data.Properties.Title = "Image.png";
             };
             DataTransferManager.ShowShareUI();
         }
@@ -170,7 +171,7 @@ namespace Quarrel.SubPages
         {
             var image = new BitmapImage(new Uri(ViewModel.Image.ImageUrl));
             var fileSave = new FileSavePicker();
-            fileSave.FileTypeChoices.Add("Image", new string[] { ".jpg" });
+            fileSave.FileTypeChoices.Add("Image", new string[] { ".jpg", ".png" });
             var storageFile = await fileSave.PickSaveFileAsync();
             var uri = image.UriSource;
 

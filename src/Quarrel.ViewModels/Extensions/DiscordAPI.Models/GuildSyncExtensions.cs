@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using DiscordAPI.Models.Guilds;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.ViewModels.Messages.Gateway;
 

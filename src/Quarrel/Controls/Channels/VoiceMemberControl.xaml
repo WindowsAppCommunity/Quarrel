@@ -14,7 +14,8 @@
     xmlns:controls="using:Quarrel.Controls"
     mc:Ignorable="d"
     d:DesignHeight="30"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+    FlyoutBase.AttachedFlyout="{StaticResource VoiceMemberFlyout}">
     <UserControl.Resources>
         <Storyboard x:Name="Speaking">
             <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="username" d:IsOptimized="True">
@@ -87,13 +88,6 @@
             </ColorAnimation>
         </Storyboard>
     </UserControl.Resources>
-    
-    <!--Member Flyout-->
-    <FlyoutBase.AttachedFlyout>
-        <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
-            <members:MemberFlyoutTemplate DataContext="{Binding GuildMember}" />
-        </Flyout>
-    </FlyoutBase.AttachedFlyout>
     
     <Grid VerticalAlignment="Top" Margin="0,6">
         <Grid.ColumnDefinitions>

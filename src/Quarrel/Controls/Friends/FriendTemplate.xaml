@@ -38,12 +38,7 @@
             </interactivity:Interaction.Behaviors>
         </Button>
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="6,0">
-            <HyperlinkButton x:Name="UserHyperlink" Foreground="{ThemeResource Foreground}" Padding="0,0,0,0">
-                <FlyoutBase.AttachedFlyout>
-                    <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
-                        <membercontrols:MemberFlyoutTemplate DataContext="{x:Bind ViewModel.Member, Mode=OneWay}"/>
-                    </Flyout>
-                </FlyoutBase.AttachedFlyout>
+            <HyperlinkButton x:Name="UserHyperlink" Foreground="{ThemeResource Foreground}" Padding="0,0,0,0" FlyoutBase.AttachedFlyout="{StaticResource FriendFlyout}">
                 <interactivity:Interaction.Behaviors>
                     <core:EventTriggerBehavior EventName="Tapped">
                         <behaviors:OpenFlyoutAction />

@@ -190,9 +190,12 @@ namespace winrt::Webrtc::implementation
 		
 		this->audioSendStream = nullptr;
 
-		this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
-			delete this->g_call;
-		});
+		if (this->workerThread)
+		{
+			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
+				delete this->g_call;
+			});
+		}
 		this->g_call = nullptr;
 		if(this->workerThread) this->workerThread.reset();
 

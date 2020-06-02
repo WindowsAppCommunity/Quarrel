@@ -8,7 +8,8 @@
     xmlns:viewModels="using:Quarrel.ViewModels"
     xmlns:Windows10FallCreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
     xmlns:Windows10CreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 4)"
-    xmlns:media="using:Microsoft.UI.Xaml.Media">
+    xmlns:media="using:Microsoft.UI.Xaml.Media"
+    xmlns:dataTemplates="using:Quarrel.DataTemplates">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -18,9 +19,9 @@
                 <ResourceDictionary Source="Resources/FontIcons.xaml"/>
                 <ResourceDictionary Source="Resources/MiscResources.xaml"/>
                 <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
-                <ResourceDictionary Source="Styles/ListViewItemStyles.xaml"/>
                 <ResourceDictionary Source="Styles/MiscStyles.xaml"/>
                 <ResourceDictionary Source="Styles/TextBoxStyles.xaml"/>
+                <dataTemplates:FlyoutDictionary/>
             </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">

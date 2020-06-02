@@ -118,6 +118,15 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether or not the fluent theme setting is set to <see langword="true"/>.
+        /// </summary>
+        public bool FluentTheme
+        {
+            get => SettingsService.Roaming.GetValue<bool>(SettingKeys.FluentTheme);
+            set => SettingsService.Roaming.SetValue(SettingKeys.FluentTheme, value, true, true);
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether or not the message view acrylic is enabled.
         /// </summary>
         public bool MessageViewAcrylic

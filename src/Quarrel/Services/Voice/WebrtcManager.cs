@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Calls;
 
 namespace Quarrel.Services.Voice
 {
@@ -13,6 +14,7 @@ namespace Quarrel.Services.Voice
     public class WebrtcManager : IWebrtcManager
     {
         private Webrtc.WebrtcManager manager;
+        private VoipPhoneCall voipCall;
 
         public event EventHandler<Tuple<string, ushort>> IpAndPortObtained;
         public event EventHandler<IList<float>> AudioInData;
@@ -34,15 +36,20 @@ namespace Quarrel.Services.Voice
                 Speaking?.Invoke(sender, data);
         }
 
-
         public void Create()
         {
             manager.Create();
+
+            // TODO: More info for Mobile
+            VoipCallCoordinator vcc = VoipCallCoordinator.GetDefault();
+            voipCall = vcc.RequestNewOutgoingCall(string.Empty, string.Empty, "Quarrel", VoipPhoneCallMedia.Audio);
+            voipCall.NotifyCallActive();
         }
 
         public void Destroy()
         {
             manager.Destroy();
+            voipCall?.NotifyCallEnded();
         }
 
         public async Task ConnectAsync(string ip, string port, uint ssrc)

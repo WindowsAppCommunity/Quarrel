@@ -1,25 +1,24 @@
-﻿using Newtonsoft.Json;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using Newtonsoft.Json;
 
 namespace DiscordAPI.API.Channel.Models
 {
-    public class MessageActivity
-    {
-        public string session_id { get; set; }
-        public int type { get; set; }
-        public string party_id { get; set; }
-    }
+    /// <summary>
+    /// A pending message model.
+    /// </summary>
     public class MessageUpsert
     {
+        /// <summary>
+        /// Gets or sets the content of the message.
+        /// </summary>
         [JsonProperty("content")]
         public string Content { get; set; }
-        [JsonProperty("nonce")]
-        public string Nonce { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the message is to be read TTS.
+        /// </summary>
         [JsonProperty("tts")]
         public bool TTS { get; set; }
-        [JsonProperty("file")]
-        public string file { get; set; }
-        //  [JsonProperty("activity")]
-        //  public MessageActivity Activity { get; set; }
     }
-
 }
