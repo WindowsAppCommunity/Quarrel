@@ -16,13 +16,15 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
     public class BindableGuildMemberGroup : BindableModelBase<Group>, IGuildMemberListItem
     {
         private IGuildsService _guildsService = null;
+        private string _guildId;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableGuildMemberGroup"/> class.
         /// </summary>
         /// <param name="model">The base <see cref="Group"/> object.</param>
-        public BindableGuildMemberGroup([NotNull] Group model) : base(model)
+        public BindableGuildMemberGroup([NotNull] Group model, string guildId) : base(model)
         {
+            _guildId = guildId;
         }
 
         /// <summary>
@@ -33,7 +35,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
         /// <summary>
         /// Gets the role of the group.
         /// </summary>
-        public Role Role => GuildsService.CurrentGuild.Model.Roles.FirstOrDefault(x => x.Id == Model.Id);
+        public Role Role => GuildsService.AllGuilds.TryGetValue(_guildId, out var guild) ? guild.Model.Roles?.FirstOrDefault(x => x.Id == Model.Id) : null;
 
         /// <summary>
         /// Gets the name of the group.
@@ -49,7 +51,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
                     case "offline":
                         return "Offline";
                     default:
-                        return Role.Name;
+                        return Role?.Name;
                 }
             }
         }
