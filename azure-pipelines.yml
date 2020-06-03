@@ -30,8 +30,11 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      Copy-Item $(appCenterToken.secureFilePath) -Destination $(Build.SourcesDirectory)/src/Quarrel/Assets/Tokens/
-      Copy-Item $(appCenterInsiderToken.secureFilePath) -Destination $(Build.SourcesDirectory)/src/Quarrel/Assets/Tokens/
+      Copy-Item $Env:APP_CENTER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/"
+      Copy-Item $Env:APP_CENTER_INSIDER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/"
+  env:
+    APP_CENTER_TOKEN_PATH: $(appCenterToken.secureFilePath)
+    APP_CENTER_INSIDER_TOKEN_PATH: $(appCenterInsiderToken.secureFilePath)
 
 - task: NuGetToolInstaller@1
 
@@ -41,7 +44,7 @@ steps:
 
 - task: VSBuild@1
   inputs:
-    platform: 'x64'
     solution: '$(solution)'
+    platform: 'x64'
     configuration: '$(buildConfiguration)'
-    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+    msbuildArchitecture: 'x64'
