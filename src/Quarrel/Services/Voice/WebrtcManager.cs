@@ -1,4 +1,6 @@
 ﻿using DiscordAPI.Voice;
+using GalaSoft.MvvmLight.Ioc;
+using Quarrel.ViewModels.Services.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,7 @@ namespace Quarrel.Services.Voice
     {
         private Webrtc.WebrtcManager manager;
         private VoipPhoneCall voipCall;
+        private ISettingsService _settingsService;
 
         public event EventHandler<Tuple<string, ushort>> IpAndPortObtained;
         public event EventHandler<IList<float>> AudioInData;
@@ -26,7 +29,7 @@ namespace Quarrel.Services.Voice
         /// </summary>
         public WebrtcManager()
         {
-            manager = new Webrtc.WebrtcManager();
+            manager = new Webrtc.WebrtcManager(SettingsService.Roaming.GetValue<string>(SettingKeys.OutputDevice), SettingsService.Roaming.GetValue<string>(SettingKeys.InputDevice));
             manager.IpAndPortObtained += (ip, port) => IpAndPortObtained.Invoke(this, new Tuple<string, ushort>(ip, port));
             manager.AudioInData += (sender, data) => 
                 AudioInData?.Invoke(sender, data);
@@ -35,6 +38,8 @@ namespace Quarrel.Services.Voice
             manager.Speaking += (sender, data) =>
                 Speaking?.Invoke(sender, data);
         }
+
+        private ISettingsService SettingsService => _settingsService ?? (_settingsService = SimpleIoc.Default.GetInstance<ISettingsService>());
 
         public void Create()
         {

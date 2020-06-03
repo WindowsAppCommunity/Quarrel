@@ -1068,7 +1068,7 @@ namespace Webrtc
 		int32_t ret(0);
 		renderDevice_ = nullptr;
 
-		if (usingOutputDeviceIndex_) {
+		if (usingOutputDeviceIndex_ || usingOutputDeviceId_) {
 			// Refresh the selected rendering endpoint device using selected device id
 			renderDevice_ = GetListDevice(DeviceClass::AudioRender,
 				deviceIdStringOut_);
@@ -1201,7 +1201,7 @@ namespace Webrtc
 		int32_t ret(0);
 
 		captureDevice_ = nullptr;
-		if (usingInputDeviceIndex_) {
+		if (usingInputDeviceIndex_ || usingOutputDeviceId_) {
 			// Refresh the selected capture endpoint device using selected device Id
 			captureDevice_ = GetListDevice(DeviceClass::AudioCapture,
 				deviceIdStringIn_);
@@ -2006,13 +2006,13 @@ namespace Webrtc
 		for (size_t i = 0; i < ptrRenderCollection_.Size(); i++)
 		{
 			DeviceInformation& device = ptrRenderCollection_.GetAt(i);
-			if (device.Id == id) {
+			if (device.Id() == id) {
 				renderDevice_ = device;
 				inputDeviceIndex_ = i;
 				break;
 			}
 		}
-
+		 
 		deviceIdStringOut_ = renderDevice_.Id();
 
 		// Get the endpoint device's friendly-name
@@ -2303,7 +2303,7 @@ namespace Webrtc
 		for (size_t i = 0; i < ptrCaptureCollection_.Size(); i++)
 		{
 			DeviceInformation& device = ptrCaptureCollection_.GetAt(i);
-			if (device.Id == id) {
+			if (device.Id() == id) {
 				captureDevice_ = device;
 				inputDeviceIndex_ = i;
 				break;
