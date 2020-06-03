@@ -200,30 +200,16 @@
         <UserControl>
             <UserControl.Resources>
                 <Storyboard x:Name="PointerEntered">
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MoreButton" Storyboard.TargetProperty="Opacity">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MessageButtons" Storyboard.TargetProperty="Opacity">
                         <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0.5">
                             <EasingDoubleKeyFrame.EasingFunction>
                                 <CircleEase EasingMode="EaseOut"/>
                             </EasingDoubleKeyFrame.EasingFunction>
                         </EasingDoubleKeyFrame>
                     </DoubleAnimationUsingKeyFrames>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AddEmojiButton" Storyboard.TargetProperty="Opacity">
-                        <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0.5">
-                            <EasingDoubleKeyFrame.EasingFunction>
-                                <CircleEase EasingMode="EaseIn"/>
-                            </EasingDoubleKeyFrame.EasingFunction>
-                        </EasingDoubleKeyFrame>
-                    </DoubleAnimationUsingKeyFrames>
                 </Storyboard>
                 <Storyboard x:Name="PointerExited">
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MoreButton" Storyboard.TargetProperty="Opacity">
-                        <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0">
-                            <EasingDoubleKeyFrame.EasingFunction>
-                                <CircleEase EasingMode="EaseIn"/>
-                            </EasingDoubleKeyFrame.EasingFunction>
-                        </EasingDoubleKeyFrame>
-                    </DoubleAnimationUsingKeyFrames>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AddEmojiButton" Storyboard.TargetProperty="Opacity">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MessageButtons" Storyboard.TargetProperty="Opacity">
                         <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0">
                             <EasingDoubleKeyFrame.EasingFunction>
                                 <CircleEase EasingMode="EaseIn"/>
@@ -351,7 +337,6 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <markdown:MarkdownTextBlock Users="{x:Bind UsersMentioned}"
                                                 Roles="{x:Bind RolesMentioned}"
@@ -385,31 +370,32 @@
                                              Command="{x:Bind SaveEdit, Mode=OneWay}" />
                         </StackPanel>
                     </Grid>
-                    <Button x:Name="AddEmojiButton"
-                            Grid.Column="1"
-                            VerticalAlignment="Top"
-                            Padding="4,0"
-                            Style="{StaticResource DimButton}"
-                            Opacity="0"
-                            Flyout="{StaticResource EmojiPickerFlyout}">
-                        <SymbolIcon Symbol="Emoji" />
-                    </Button>
-                    <Button x:Name="MoreButton"
-                            Grid.Column="2"
-                            VerticalAlignment="Top"
-                            Padding="4,0"
-                            Style="{StaticResource DimButton}"
-                            Opacity="0">
-                        <Button.Flyout>
-                            <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}"
-                                    Placement="Left">
-                                <messagecontrols:MessageFlyout DataContext="{x:Bind}"
-                                                               Width="96" />
-                            </Flyout>
-                        </Button.Flyout>
+                    <StackPanel x:Name="MessageButtons"
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Opacity="0">
+                        <Button x:Name="AddEmojiButton"
+                                VerticalAlignment="Top"
+                                Padding="4,0"
+                                Style="{StaticResource DimButton}"
+                                Flyout="{StaticResource EmojiPickerFlyout}">
+                            <SymbolIcon Symbol="Emoji" />
+                        </Button>
+                        <Button x:Name="MoreButton"
+                                VerticalAlignment="Top"
+                                Padding="4,0"
+                                Style="{StaticResource DimButton}">
+                            <Button.Flyout>
+                                <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}"
+                                        Placement="Left">
+                                    <messagecontrols:MessageFlyout DataContext="{x:Bind}"
+                                                                   Width="96" />
+                                </Flyout>
+                            </Button.Flyout>
 
-                        <SymbolIcon Symbol="More" />
-                    </Button>
+                            <SymbolIcon Symbol="More" />
+                        </Button>
+                    </StackPanel>
                 </Grid>
 
                 <Grid x:Name="AttachmentEmbedList"
