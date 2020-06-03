@@ -47,4 +47,4 @@ steps:
     solution: '$(solution)'
     platform: 'x64'
     configuration: '$(buildConfiguration)'
-    msbuildArchitecture: 'x64'
+    msbuildArgs: '/p:Configuration=${buildConfiguration} /p:Platform="x64" /t:Quarrel'
