@@ -16,6 +16,23 @@ variables:
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
 
 steps:
+- task: DownloadSecureFile@1
+  name: appCenterToken
+  inputs:
+    secureFile: 'AppCenter.json'
+
+- task: DownloadSecureFile@1
+  name: appCenterInsiderToken
+  inputs:
+    secureFile: 'AppCenterInsider.json'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      Copy-Item $(appCenterToken.secureFilePath) -Destination $(Build.SourcesDirectory)/src/Quarrel/Assets/Tokens/
+      Copy-Item $(appCenterInsiderToken.secureFilePath) -Destination $(Build.SourcesDirectory)/src/Quarrel/Assets/Tokens/
+
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
