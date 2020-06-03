@@ -32,7 +32,7 @@ namespace winrt::Webrtc::implementation
 	public:
 
 		WebrtcManager();
-		WebrtcManager(uint16_t outputDeviceIndex, uint16_t inputDeviceIndex);
+		WebrtcManager(hstring outputDeviceId, hstring inputDeviceId);
 		~WebrtcManager();
 		
 		void Create();
@@ -61,8 +61,8 @@ namespace winrt::Webrtc::implementation
 
 		void SetCurrentVolume(double volume);
 
-		void SetPlaybackDevice(uint16_t device_index);
-		void SetRecordingDevice(uint16_t device_index);
+		void SetPlaybackDevice(hstring deviceId);
+		void SetRecordingDevice(hstring deviceId);
 	private:
 		friend class ::Webrtc::StreamTransport;
 		event<Windows::Foundation::TypedEventHandler<hstring, USHORT>> m_ipAndPortObtained;
@@ -97,7 +97,8 @@ namespace winrt::Webrtc::implementation
 
 		bool isSpeaking = false;
 		int frameCount = 0;;
-		uint16_t output_device_index, input_device_index;
+		int16_t output_device_index, input_device_index;
+		winrt::hstring output_device_id, input_device_id;
 
 		bool hasGotIp = false;
 	};

@@ -3,7 +3,7 @@ namespace Webrtc{
 	runtimeclass WebrtcManager
 	{
 		WebrtcManager();
-		WebrtcManager(UInt16 outputDeviceIndex, UInt16 inputDeviceIndex);
+		WebrtcManager(hstring outputDeviceId, hstring inputDeviceId);
 		void Create();
 		void Destroy();
 
