@@ -466,11 +466,7 @@
 
             <!--Background blur, saturation and color-->
             <Grid Grid.RowSpan="2" Opacity="1" VerticalAlignment="Stretch">
-                <Rectangle>
-                    <Rectangle.Fill>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind ViewModel.Model.User.AvatarUrl, Mode=OneWay}"/>
-                    </Rectangle.Fill>
-                </Rectangle>
+                <Image Stretch="UniformToFill" Source="{x:Bind ViewModel.Model.User.AvatarUrl, Mode=OneWay}"/>
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Grid.Background>
                         <tkmedia:BackdropSaturationBrush Saturation="0"/>
