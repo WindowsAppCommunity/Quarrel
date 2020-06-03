@@ -1,3 +1,4 @@
+[![Build Status](https://quarrel.visualstudio.com/Quarrel/_apis/build/status/UWPCommunity.Quarrel?branchName=dev)](https://quarrel.visualstudio.com/Quarrel/_build/latest?definitionId=6&branchName=dev)
 # Quarrel
 A discord client for the Universal Windows Platform.  
 Store link: https://www.microsoft.com/en-gb/p/quarrel-unofficial-discord-client/9nbrwj777c8r
