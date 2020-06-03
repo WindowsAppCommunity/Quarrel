@@ -25,7 +25,7 @@ namespace Quarrel
             ConnectionProfile connections = NetworkInformation.GetInternetConnectionProfile();
             if (connections != null)
             {
-                ViewModel.Login();
+                ViewModel.Login()
             }
             else
             {
