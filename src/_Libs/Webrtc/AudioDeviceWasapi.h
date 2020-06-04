@@ -216,11 +216,9 @@ namespace Webrtc {
 
 		// Device selection
 		virtual int32_t SetPlayoutDevice(uint16_t index) override;
-		virtual int32_t SetPlayoutDevice(winrt::hstring id) override;
 		virtual int32_t SetPlayoutDevice(
 			AudioDeviceModule::WindowsDeviceType device) override;
 		virtual int32_t SetRecordingDevice(uint16_t index) override;
-		virtual int32_t SetRecordingDevice(winrt::hstring id) override;
 		virtual int32_t SetRecordingDevice(
 			AudioDeviceModule::WindowsDeviceType device) override;
 
@@ -491,9 +489,7 @@ namespace Webrtc {
 		bool                                    microphoneIsInitialized_;
 
 		bool                                    usingInputDeviceIndex_;
-		bool                                    usingInputDeviceId_;
 		bool                                    usingOutputDeviceIndex_;
-		bool                                    usingOutputDeviceId_;
 		AudioDeviceRole                         outputDeviceRole_;
 		AudioDeviceRole                         inputDeviceRole_;
 		uint16_t                                inputDeviceIndex_;

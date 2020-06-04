@@ -1068,7 +1068,7 @@ namespace Webrtc
 		int32_t ret(0);
 		renderDevice_ = nullptr;
 
-		if (usingOutputDeviceIndex_ || usingOutputDeviceId_) {
+		if (usingOutputDeviceIndex_) {
 			// Refresh the selected rendering endpoint device using selected device id
 			renderDevice_ = GetListDevice(DeviceClass::AudioRender,
 				deviceIdStringOut_);
@@ -1201,7 +1201,7 @@ namespace Webrtc
 		int32_t ret(0);
 
 		captureDevice_ = nullptr;
-		if (usingInputDeviceIndex_ || usingOutputDeviceId_) {
+		if (usingInputDeviceIndex_) {
 			// Refresh the selected capture endpoint device using selected device Id
 			captureDevice_ = GetListDevice(DeviceClass::AudioCapture,
 				deviceIdStringIn_);
@@ -1984,49 +1984,6 @@ namespace Webrtc
 	}
 
 	// ----------------------------------------------------------------------------
-	//  SetPlayoutDevice III (II)
-	// ----------------------------------------------------------------------------
-	int32_t AudioDeviceWasapi::SetPlayoutDevice(winrt::hstring id) {
-		if (!playoutEnabled_) {
-			return 0;
-		}
-
-		// Get current number of available rendering endpoint devices and refresh the
-		// rendering collection.
-		UINT nDevices = PlayoutDevices();
-
-		rtc::CritScope lock(&critSect_);
-
-		assert(ptrRenderCollection_ != nullptr);
-
-		// Select an endpoint rendering device given the specified index
-		renderDevice_ = nullptr;
-		deviceIdStringOut_.clear();
-
-		for (size_t i = 0; i < ptrRenderCollection_.Size(); i++)
-		{
-			DeviceInformation& device = ptrRenderCollection_.GetAt(i);
-			if (device.Id() == id) {
-				renderDevice_ = device;
-				inputDeviceIndex_ = i;
-				break;
-			}
-		}
-		 
-		deviceIdStringOut_ = renderDevice_.Id();
-
-		// Get the endpoint device's friendly-name
-		if (!GetDeviceName(renderDevice_).empty()) {
-			WEBRTC_TRACE(kTraceInfo, kTraceAudioDevice, id_, "friendly name: \"%S\"",
-				GetDeviceName(renderDevice_));
-		}
-
-		usingOutputDeviceId_ = true;
-
-		return 0;
-	}
-
-	// ----------------------------------------------------------------------------
 	//  PlayoutDeviceName
 	// ----------------------------------------------------------------------------
 	int32_t AudioDeviceWasapi::PlayoutDeviceName(
@@ -2276,49 +2233,6 @@ namespace Webrtc
 			WEBRTC_TRACE(kTraceInfo, kTraceAudioDevice, id_, "friendly name: \"%S\"",
 				GetDeviceName(captureDevice_));
 		}
-
-		return 0;
-	}
-
-	// ----------------------------------------------------------------------------
-	//  SetRecordingDevice III (II)
-	// ----------------------------------------------------------------------------
-	int32_t AudioDeviceWasapi::SetRecordingDevice(winrt::hstring id) {
-		if (!recordingEnabled_) {
-			return 0;
-		}
-
-		// Get current number of available capture endpoint devices and refresh the
-		// capture collection.
-		UINT nDevices = RecordingDevices();
-
-		rtc::CritScope lock(&critSect_);
-
-		assert(ptrCaptureCollection_ != nullptr);
-
-		// Select an endpoint capture device given the specified index
-		captureDevice_ = nullptr;
-		deviceIdStringIn_.clear();
-
-		for (size_t i = 0; i < ptrCaptureCollection_.Size(); i++)
-		{
-			DeviceInformation& device = ptrCaptureCollection_.GetAt(i);
-			if (device.Id() == id) {
-				captureDevice_ = device;
-				inputDeviceIndex_ = i;
-				break;
-			}
-		}
-
-		deviceIdStringIn_ = captureDevice_.Id();
-
-		// Get the endpoint device's friendly-name
-		if (!GetDeviceName(captureDevice_).empty()) {
-			WEBRTC_TRACE(kTraceInfo, kTraceAudioDevice, id_, "friendly name: \"%S\"",
-				GetDeviceName(captureDevice_));
-		}
-
-		usingInputDeviceId_ = true;
 
 		return 0;
 	}

@@ -84,10 +84,8 @@ class AudioDeviceModule : public rtc::RefCountInterface {
   // Device selection
   virtual int32_t SetPlayoutDevice(uint16_t index) = 0;
   virtual int32_t SetPlayoutDevice(WindowsDeviceType device) = 0;
-  virtual int32_t SetPlayoutDevice(winrt::hstring deviceId) = 0;
   virtual int32_t SetRecordingDevice(uint16_t index) = 0;
   virtual int32_t SetRecordingDevice(WindowsDeviceType device) = 0;
-  virtual int32_t SetRecordingDevice(winrt::hstring deviceId) = 0;
 
   // Audio transport initialization
   virtual int32_t PlayoutIsAvailable(bool* available) = 0;

@@ -12,7 +12,6 @@
 #define MODULES_AUDIO_DEVICE_INCLUDE_MOCK_AUDIO_DEVICE_H_
 
 #include <string>
-#include <winrt/base.h>
 
 #include "modules/audio_device/include/audio_device.h"
 #include "test/gmock.h"
@@ -44,10 +43,8 @@ class MockAudioDeviceModule : public AudioDeviceModule {
                        char guid[kAdmMaxGuidSize]));
   MOCK_METHOD1(SetPlayoutDevice, int32_t(uint16_t index));
   MOCK_METHOD1(SetPlayoutDevice, int32_t(WindowsDeviceType device));
-  MOCK_METHOD1(SetPlayoutDevice, int32_t(winrt::hstring id));
   MOCK_METHOD1(SetRecordingDevice, int32_t(uint16_t index));
   MOCK_METHOD1(SetRecordingDevice, int32_t(WindowsDeviceType device));
-  MOCK_METHOD1(SetRecordingDevice, int32_t(winrt::hstring id));
   MOCK_METHOD1(PlayoutIsAvailable, int32_t(bool* available));
   MOCK_METHOD0(InitPlayout, int32_t());
   MOCK_CONST_METHOD0(PlayoutIsInitialized, bool());

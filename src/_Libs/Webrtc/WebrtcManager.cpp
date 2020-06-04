@@ -198,6 +198,7 @@ namespace winrt::Webrtc::implementation
 
 		this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
 			delete this->g_call;
+			this->audioDevice = nullptr;
 		});
 		this->g_call = nullptr;
 		if(this->workerThread) this->workerThread.reset();
@@ -224,9 +225,12 @@ namespace winrt::Webrtc::implementation
 			.SetCaptureAnalyzer(std::make_unique<::Webrtc::AudioAnalyzer>(this))
 			.SetRenderPreProcessing(std::make_unique<::Webrtc::OutputAnalyzer>(this))
 			.Create();
-		stateconfig.audio_device_module = ::Webrtc::IAudioDeviceWasapi::create(props);
-		stateconfig.audio_device_module->SetPlayoutDevice(output_device_id);
-		stateconfig.audio_device_module->SetRecordingDevice(input_device_id);
+
+		this->audioDevice = ::Webrtc::IAudioDeviceWasapi::create(props);
+		
+		stateconfig.audio_device_module = this->audioDevice;
+		this->SetPlaybackDevice(output_device_id);
+		this->SetRecordingDevice(input_device_id);
 		stateconfig.audio_mixer = webrtc::AudioMixerImpl::Create();
 
 		rtc::scoped_refptr<webrtc::AudioState> audio_state = webrtc::AudioState::Create(stateconfig);
@@ -339,11 +343,57 @@ namespace winrt::Webrtc::implementation
 	}
 
 	void WebrtcManager::SetPlaybackDevice(winrt::hstring deviceId) {
-		// TODO: Change playback on the fly
+		output_device_id = deviceId;
+		
+		char target_id[webrtc::kAdmMaxGuidSize];
+
+		WideCharToMultiByte(CP_UTF8, 0, output_device_id.c_str(), -1, target_id, webrtc::kAdmMaxGuidSize, NULL, NULL);
+		
+		int target_device_index = -1;
+		
+		for (unsigned int i = 0; i < this->audioDevice->PlayoutDevices(); ++i) {
+
+			char name[webrtc::kAdmMaxDeviceNameSize];
+			char guid[webrtc::kAdmMaxGuidSize];
+			this->audioDevice->PlayoutDeviceName(i, name, guid);
+			if(strcmp(target_id, guid) == 0)
+			{
+				target_device_index = i;
+				break;
+			}
+		}
+
+		if(target_device_index > -1)
+		{
+			this->audioDevice->SetPlayoutDevice(target_device_index);
+		}
 	}
 
 	void WebrtcManager::SetRecordingDevice(winrt::hstring deviceId) {
-		// TODO: Change recording on the fly
+		input_device_id = deviceId;
+
+		char target_id[webrtc::kAdmMaxGuidSize];
+
+		WideCharToMultiByte(CP_UTF8, 0, input_device_id.c_str(), -1, target_id, webrtc::kAdmMaxGuidSize, NULL, NULL);
+
+		int target_device_index = -1;
+
+		for (unsigned int i = 0; i < this->audioDevice->RecordingDevices(); ++i) {
+
+			char name[webrtc::kAdmMaxDeviceNameSize];
+			char guid[webrtc::kAdmMaxGuidSize];
+			this->audioDevice->RecordingDeviceName(i, name, guid);
+			if (strcmp(target_id, guid) == 0)
+			{
+				target_device_index = i;
+				break;
+			}
+		}
+
+		if (target_device_index > -1)
+		{
+			this->audioDevice->SetRecordingDevice(target_device_index);
+		}
 	}
 	
 	void WebrtcManager::SetKey(array_view<const BYTE> key)
