@@ -9,6 +9,7 @@
 #include <modules/rtp_rtcp/include/rtp_header_parser.h>
 #include <api/audio_codecs/builtin_audio_encoder_factory.h>
 #include <api/audio_codecs/builtin_audio_decoder_factory.h>
+#include <modules/audio_device/include/audio_device.h>
 #include <modules/audio_processing/audio_buffer.h>
 #include <common_audio/include/audio_util.h>
 #include <media/engine/adm_helpers.h>
@@ -31,6 +32,7 @@ namespace winrt::Webrtc::implementation
 	public:
 
 		WebrtcManager();
+		WebrtcManager(hstring outputDeviceId, hstring inputDeviceId);
 		~WebrtcManager();
 		
 		void Create();
@@ -59,14 +61,15 @@ namespace winrt::Webrtc::implementation
 
 		void SetCurrentVolume(double volume);
 
+		void SetPlaybackDevice(hstring deviceId);
+		void SetRecordingDevice(hstring deviceId);
 	private:
 		friend class ::Webrtc::StreamTransport;
 		event<Windows::Foundation::TypedEventHandler<hstring, USHORT>> m_ipAndPortObtained;
 		event<Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>>> m_audioOutData;
 		event<Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>>> m_audioInData;
 		event<Windows::Foundation::EventHandler<bool>> m_speaking;
-		
-		void CreateVoe();
+
 		void CreateCall();
 		void SetupCall();
 		
@@ -94,8 +97,12 @@ namespace winrt::Webrtc::implementation
 
 		bool isSpeaking = false;
 		int frameCount = 0;;
+		int16_t output_device_index, input_device_index;
+		winrt::hstring output_device_id, input_device_id;
 
 		bool hasGotIp = false;
+
+		rtc::scoped_refptr<webrtc::AudioDeviceModule> audioDevice;
 	};
 }
 
