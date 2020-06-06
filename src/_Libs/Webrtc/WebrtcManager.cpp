@@ -196,7 +196,7 @@ namespace winrt::Webrtc::implementation
 		
 		this->audioSendStream = nullptr;
 
-		this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
+		if (this->workerThread) this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
 			delete this->g_call;
 			this->audioDevice = nullptr;
 		});
@@ -293,7 +293,7 @@ namespace winrt::Webrtc::implementation
 		{
 			if (it == audioReceiveStreams.end())
 			{
-				this->audioReceiveStreams[ssrc] = workerThread->Invoke<webrtc::AudioReceiveStream*>(RTC_FROM_HERE, [this, ssrc]() {
+				this->audioReceiveStreams[ssrc] = this->workerThread->Invoke<webrtc::AudioReceiveStream*>(RTC_FROM_HERE, [this, ssrc]() {
 					return this->createAudioReceiveStream(this->ssrc, ssrc, 120);
 				});
 			}
@@ -306,7 +306,7 @@ namespace winrt::Webrtc::implementation
 		{
 			if (it != audioReceiveStreams.end())
 			{
-				workerThread->Invoke<void>(RTC_FROM_HERE, [this, it]() {
+				this->workerThread->Invoke<void>(RTC_FROM_HERE, [this, it]() {
 					this->g_call->DestroyAudioReceiveStream(it->second);
 				});
 				audioReceiveStreams.erase(it);
@@ -344,6 +344,8 @@ namespace winrt::Webrtc::implementation
 
 	void WebrtcManager::SetPlaybackDevice(winrt::hstring deviceId) {
 		output_device_id = deviceId;
+
+		if (!this->audioDevice) return;
 		
 		char target_id[webrtc::kAdmMaxGuidSize];
 
@@ -371,6 +373,8 @@ namespace winrt::Webrtc::implementation
 
 	void WebrtcManager::SetRecordingDevice(winrt::hstring deviceId) {
 		input_device_id = deviceId;
+		
+		if (!this->audioDevice) return;
 
 		char target_id[webrtc::kAdmMaxGuidSize];
 

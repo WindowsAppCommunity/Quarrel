@@ -90,7 +90,11 @@ namespace Quarrel.ViewModels
             SimpleIoc.Default.Register<IGuildsService, GuildsService>();
             SimpleIoc.Default.Register<ICurrentUserService, CurrentUsersService>();
             SimpleIoc.Default.Register<IVoiceService, VoiceService>();
-            SimpleIoc.Default.Register<IWebrtcManager, WebrtcManager>();
+
+            SimpleIoc.Default.Register<IWebrtcManager>(() =>
+                new WebrtcManager(
+                    SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<string>(SettingKeys.OutputDevice),
+                    SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<string>(SettingKeys.InputDevice)));
 
             SimpleIoc.Default.Register<MainViewModel>();
         }

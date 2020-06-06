@@ -17,10 +17,7 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
         public string OutputDeviceId
         {
             get => SettingsService.Roaming.GetValue<string>(SettingKeys.OutputDevice);
-            set
-            {
-                SettingsService.Roaming.SetValue<string>(SettingKeys.OutputDevice, value);
-            }
+            set => SettingsService.Roaming.SetValue<string>(SettingKeys.OutputDevice, value, true, true);
         }
 
         /// <summary>
@@ -29,10 +26,7 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
         public string InputDeviceId
         {
             get => SettingsService.Roaming.GetValue<string>(SettingKeys.InputDevice);
-            set
-            {
-                SettingsService.Roaming.SetValue<string>(SettingKeys.InputDevice, value);
-            }
+            set => SettingsService.Roaming.SetValue<string>(SettingKeys.InputDevice, value, true, true);
         }
 
         private ISettingsService SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();

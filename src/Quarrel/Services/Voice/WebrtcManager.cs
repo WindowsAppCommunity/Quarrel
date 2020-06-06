@@ -19,6 +19,7 @@ namespace Quarrel.Services.Voice
         private VoipPhoneCall voipCall;
         private ISettingsService _settingsService;
 
+
         public event EventHandler<Tuple<string, ushort>> IpAndPortObtained;
         public event EventHandler<IList<float>> AudioInData;
         public event EventHandler<IList<float>> AudioOutData;
@@ -27,9 +28,9 @@ namespace Quarrel.Services.Voice
         /// <summary>
         /// Initializes a new instance of the <see cref="WebrtcManager"/> class.
         /// </summary>
-        public WebrtcManager()
+        public WebrtcManager(string inputDeviceId, string outputDeviceId)
         {
-            manager = new Webrtc.WebrtcManager(SettingsService.Roaming.GetValue<string>(SettingKeys.OutputDevice), SettingsService.Roaming.GetValue<string>(SettingKeys.InputDevice));
+            manager = new Webrtc.WebrtcManager(inputDeviceId, outputDeviceId);
             manager.IpAndPortObtained += (ip, port) => IpAndPortObtained.Invoke(this, new Tuple<string, ushort>(ip, port));
             manager.AudioInData += (sender, data) => 
                 AudioInData?.Invoke(sender, data);
@@ -54,7 +55,7 @@ namespace Quarrel.Services.Voice
         public void Destroy()
         {
             manager.Destroy();
-            voipCall.NotifyCallEnded();
+            //voipCall.NotifyCallEnded();
         }
 
         public async Task ConnectAsync(string ip, string port, uint ssrc)
@@ -70,6 +71,15 @@ namespace Quarrel.Services.Voice
         public void SetSpeaking(uint ssrc, int speaking)
         {
             manager.SetSpeaking(ssrc, speaking);
+        }
+
+        public void SetPlaybackDevice(string deviceId)
+        {
+            manager.SetPlaybackDevice(deviceId);
+        }
+        public void SetRecordingDevice(string deviceId)
+        {
+            manager.SetRecordingDevice(deviceId);
         }
     }
 }

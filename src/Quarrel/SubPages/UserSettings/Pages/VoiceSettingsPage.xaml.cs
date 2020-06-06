@@ -33,7 +33,7 @@ namespace Quarrel.SubPages.UserSettings.Pages
             foreach (var device in outputs)
             {
                 OutputDevices.Items.Add(device);
-                if (ViewModel.OutputDeviceId == device.Id)
+                if (device.IsEnabled && ViewModel.OutputDeviceId == device.Id)
                 {
                     OutputDevices.SelectedItem = device;
                 }
@@ -48,7 +48,7 @@ namespace Quarrel.SubPages.UserSettings.Pages
             foreach (var device in inputs)
             {
                 InputDevices.Items.Add(device);
-                if (ViewModel.InputDeviceId == device.Id)
+                if (device.IsEnabled && ViewModel.InputDeviceId == device.Id)
                 {
                     InputDevices.SelectedItem = device;
                 }

@@ -14,6 +14,8 @@ using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Services.Gateway;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Quarrel.ViewModels.Messages.Services.Settings;
+using Quarrel.ViewModels.Services.Settings;
 
 namespace Quarrel.ViewModels.Services.Voice
 {
@@ -84,7 +86,8 @@ namespace Quarrel.ViewModels.Services.Voice
 
                     if (m.VoiceState.ChannelId != null)
                     {
-                        var channel = SimpleIoc.Default.GetInstance<IChannelsService>().GetChannel(m.VoiceState.ChannelId);
+                        var channel = SimpleIoc.Default.GetInstance<IChannelsService>()
+                            .GetChannel(m.VoiceState.ChannelId);
                         channel.ConnectedUsers.Add(m.VoiceState.UserId, VoiceStates[m.VoiceState.UserId]);
                     }
                 });
@@ -94,7 +97,10 @@ namespace Quarrel.ViewModels.Services.Voice
             {
                 if (e.EventData.UserId != null && VoiceStates.ContainsKey(e.EventData.UserId))
                 {
-                    _dispatcherHelper.CheckBeginInvokeOnUi(() => { VoiceStates[e.EventData.UserId].Speaking = e.EventData.Speaking > 0; });
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        VoiceStates[e.EventData.UserId].Speaking = e.EventData.Speaking > 0;
+                    });
                 }
             });
 
@@ -114,6 +120,19 @@ namespace Quarrel.ViewModels.Services.Voice
                 }
 
                 ConnectToVoiceChannel(m.VoiceServer, VoiceStates[_discordService.CurrentUser.Id].Model);
+            });
+
+            Messenger.Default.Register<SettingChangedMessage<string>>(this, m =>
+            {
+                switch (m.Key)
+                {
+                    case SettingKeys.InputDevice:
+                        _webrtcManager.SetRecordingDevice(m.Value);
+                        break;
+                    case SettingKeys.OutputDevice:
+                        _webrtcManager.SetPlaybackDevice(m.Value);
+                        break;
+                }
             });
         }
 
