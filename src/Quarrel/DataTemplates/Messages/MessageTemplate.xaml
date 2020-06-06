@@ -89,7 +89,6 @@
     </DataTemplate>
     <DataTemplate x:Key="YoutubeEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
         <embeds:YoutubeEmbedTemplate DataContext="{x:Bind Model}"
-                                     MaxHeight="250"
                                      HorizontalAlignment="Left" />
     </DataTemplate>
     <DataTemplate x:Key="ImageEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
@@ -133,6 +132,9 @@
                                                     <!--EnableHiddenLinks="True"/>-->
                             <StackPanel x:Name="FieldsStacker">
                                 <winui:ItemsRepeater ItemsSource="{x:Bind Model.Fields, Converter={StaticResource EmbedFieldsConverter}}">
+                                    <winui:ItemsRepeater.Layout>
+                                        <winui:StackLayout DisableVirtualization="True"/>
+                                    </winui:ItemsRepeater.Layout>
                                     <winui:ItemsRepeater.ItemTemplate>
                                         <DataTemplate x:DataType="system:Object">
                                             <ItemsControl ItemsSource="{x:Bind}">
@@ -198,30 +200,16 @@
         <UserControl>
             <UserControl.Resources>
                 <Storyboard x:Name="PointerEntered">
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MoreButton" Storyboard.TargetProperty="Opacity">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MessageButtons" Storyboard.TargetProperty="Opacity">
                         <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0.5">
                             <EasingDoubleKeyFrame.EasingFunction>
                                 <CircleEase EasingMode="EaseOut"/>
                             </EasingDoubleKeyFrame.EasingFunction>
                         </EasingDoubleKeyFrame>
                     </DoubleAnimationUsingKeyFrames>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AddEmojiButton" Storyboard.TargetProperty="Opacity">
-                        <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0.5">
-                            <EasingDoubleKeyFrame.EasingFunction>
-                                <CircleEase EasingMode="EaseIn"/>
-                            </EasingDoubleKeyFrame.EasingFunction>
-                        </EasingDoubleKeyFrame>
-                    </DoubleAnimationUsingKeyFrames>
                 </Storyboard>
                 <Storyboard x:Name="PointerExited">
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MoreButton" Storyboard.TargetProperty="Opacity">
-                        <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0">
-                            <EasingDoubleKeyFrame.EasingFunction>
-                                <CircleEase EasingMode="EaseIn"/>
-                            </EasingDoubleKeyFrame.EasingFunction>
-                        </EasingDoubleKeyFrame>
-                    </DoubleAnimationUsingKeyFrames>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AddEmojiButton" Storyboard.TargetProperty="Opacity">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MessageButtons" Storyboard.TargetProperty="Opacity">
                         <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0">
                             <EasingDoubleKeyFrame.EasingFunction>
                                 <CircleEase EasingMode="EaseIn"/>
@@ -267,58 +255,78 @@
                 <Button x:Name="AuthorIcon"
                         RelativePanel.AlignTopWith="header"
                         Style="{StaticResource DimButton}" Padding="4" Margin="-4,10,-4,-4"
-                        extensions2:Mouse.Cursor="Hand"
-                        Visibility="{x:Bind IsContinuation, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}">
+                        extensions:Mouse.Cursor="Hand"
+                        Visibility="{x:Bind IsContinuation, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+                        Flyout="{StaticResource MemberFlyout}">
                     <controls:UserIconControl Size="40" Width="40" Height="40" DataContext="{x:Bind Author, Mode=OneWay}" ShowPresence="False"/>
-                    <interactivity:Interaction.Behaviors>
-                        <core:EventTriggerBehavior EventName="Click">
-                            <behaviors:OpenFlyoutAction TargetObject="{Binding ElementName=AuthorHyperlink}"/>
-                        </core:EventTriggerBehavior>
-                    </interactivity:Interaction.Behaviors>
                 </Button>
 
-                <Grid x:Name="header" Margin="52,8,0,2" RelativePanel.Below="HeaderGrid"
-                      x:Load="{x:Bind IsContinuation, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}">
-                    <StackPanel Orientation="Horizontal">
-                        <HyperlinkButton x:Name="AuthorHyperlink" 
-                                 Style="{StaticResource PlainTextHyperlinkStyle}" Content="{x:Bind AuthorDisplayName, Mode=OneWay}" 
-                                 Foreground="{x:Bind AuthorColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}">
-                            <HyperlinkButton.ContextFlyout>
-                                <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-                                    <MenuFlyoutItem Text="Profile" Command="{x:Bind OpenProfile, Mode=OneWay}"/>
-                                    <MenuFlyoutItem Text="Message" Command="{x:Bind Author.MessageCommand, Mode=OneWay}"/>
-                                    <MenuFlyoutSeparator/>
-                                    <MenuFlyoutItem Text="Change Nickname" IsEnabled="False"/>
-                                    <MenuFlyoutSeparator/>
-                                    <MenuFlyoutItem Text="Kick Member" Foreground="{ThemeResource dnd}" IsEnabled="False"/>
-                                    <MenuFlyoutItem Text="Ban Member" Foreground="{ThemeResource dnd}" IsEnabled="False"/>
-                                    <MenuFlyoutSeparator/>
-                                    <MenuFlyoutItem Text="Copy ID" Command="{x:Bind CopyId, Mode=OneWay}"/>
-                                </MenuFlyout>
-                            </HyperlinkButton.ContextFlyout>
-                            <FlyoutBase.AttachedFlyout>
-                                <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
-                                    <members:MemberFlyoutTemplate DataContext="{x:Bind Author, Mode=OneWay}"/>
-                                </Flyout>
-                            </FlyoutBase.AttachedFlyout>
-                            <interactivity:Interaction.Behaviors>
-                                <core:EventTriggerBehavior EventName="Tapped">
-                                    <behaviors:OpenFlyoutAction />
-                                </core:EventTriggerBehavior>
-                            </interactivity:Interaction.Behaviors>
-                        </HyperlinkButton>
-                        <TextBlock x:Phase="1" Text="{x:Bind Model.Timestamp, Converter={StaticResource DateTimeToTextConverter}}"
-                               Margin="4,0,0,2" VerticalAlignment="Bottom" FontSize="11" Opacity="0.3"/>
+                <StackPanel x:Name="header"
+                            Margin="52,8,0,2"
+                            RelativePanel.Below="HeaderGrid"
+                            x:Load="{x:Bind IsContinuation, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}"
+                            Orientation="Horizontal">
+                    <HyperlinkButton x:Name="AuthorHyperlink"
+                                     Style="{StaticResource PlainTextHyperlinkStyle}"
+                                     Content="{x:Bind AuthorDisplayName, Mode=OneWay}"
+                                     Foreground="{x:Bind AuthorColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}"
+                                     FlyoutBase.AttachedFlyout="{StaticResource MemberFlyout}">
+                        <HyperlinkButton.ContextFlyout>
+                            <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
+                                <MenuFlyoutItem Text="Profile"
+                                                Command="{x:Bind OpenProfile, Mode=OneWay}" />
+                                <MenuFlyoutItem Text="Message"
+                                                Command="{x:Bind Author.MessageCommand, Mode=OneWay}" />
+                                <MenuFlyoutSeparator />
+                                <MenuFlyoutItem Text="Change Nickname"
+                                                IsEnabled="False" />
+                                <MenuFlyoutSeparator />
+                                <MenuFlyoutItem Text="Kick Member"
+                                                Foreground="{ThemeResource dnd}"
+                                                IsEnabled="False" />
+                                <MenuFlyoutItem Text="Ban Member"
+                                                Foreground="{ThemeResource dnd}"
+                                                IsEnabled="False" />
+                                <MenuFlyoutSeparator />
+                                <MenuFlyoutItem Text="Copy ID"
+                                                Command="{x:Bind CopyId, Mode=OneWay}" />
+                            </MenuFlyout>
+                        </HyperlinkButton.ContextFlyout>
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="Tapped">
+                                <behaviors:OpenFlyoutAction />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </HyperlinkButton>
+                    <TextBlock x:Phase="1"
+                               Text="{x:Bind Model.Timestamp, Converter={StaticResource DateTimeToTextConverter}}"
+                               Margin="4,0,0,2"
+                               VerticalAlignment="Bottom"
+                               FontSize="11"
+                               Opacity="0.3" />
 
-                        <TextBlock x:Phase="1" Text="(Edited" Visibility="{x:Bind Model.EditedTimestamp, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
-                               Margin="4,0,0,2" VerticalAlignment="Bottom" FontSize="9" Opacity="0.25"/>
-                        <TextBlock x:Phase="1" Text="{x:Bind Model.EditedTimestamp, Converter={StaticResource DateTimeToTextConverter}, Mode=OneWay}"
+                    <TextBlock x:Phase="1"
+                               Text="(Edited"
                                Visibility="{x:Bind Model.EditedTimestamp, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
-                               Margin="2,0,0,2" VerticalAlignment="Bottom" FontSize="9" Opacity="0.25"/>
-                        <TextBlock x:Phase="1" Text=") " Visibility="{x:Bind Model.EditedTimestamp, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
-                               Margin="0,0,0,2" VerticalAlignment="Bottom" FontSize="9" Opacity="0.25"/>
-                    </StackPanel>
-                </Grid>
+                               Margin="4,0,0,2"
+                               VerticalAlignment="Bottom"
+                               FontSize="9"
+                               Opacity="0.25" />
+                    <TextBlock x:Phase="1"
+                               Text="{x:Bind Model.EditedTimestamp, Converter={StaticResource DateTimeToTextConverter}, Mode=OneWay}"
+                               Visibility="{x:Bind Model.EditedTimestamp, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
+                               Margin="2,0,0,2"
+                               VerticalAlignment="Bottom"
+                               FontSize="9"
+                               Opacity="0.25" />
+                    <TextBlock x:Phase="1"
+                               Text=") "
+                               Visibility="{x:Bind Model.EditedTimestamp, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
+                               Margin="0,0,0,2"
+                               VerticalAlignment="Bottom"
+                               FontSize="9"
+                               Opacity="0.25" />
+                </StackPanel>
 
                 <Grid x:Name="body"
                       Margin="52,0,0,0"
@@ -329,11 +337,10 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
-                    <markdown:MarkdownTextBlock Users="{x:Bind messageConverters:MentionsConverter.UserMentionsConverter(Model.Mentions)}"
-                                                Roles="{x:Bind messageConverters:MentionsConverter.RoleMentionsConverter(Model.MentionRoles)}"
-                                                Channels="{x:Bind messageConverters:MentionsConverter.ChannelMentionsConverter(Model.MentionChannels)}"
+                    <markdown:MarkdownTextBlock Users="{x:Bind UsersMentioned}"
+                                                Roles="{x:Bind RolesMentioned}"
+                                                Channels="{x:Bind ChannelsMentioned}"
                                                 Text="{x:Bind Model.Content, Mode=OneWay}"
                                                 Visibility="{x:Bind IsEditing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
                                                 TextWrapping="WrapWholeWords"
@@ -363,37 +370,32 @@
                                              Command="{x:Bind SaveEdit, Mode=OneWay}" />
                         </StackPanel>
                     </Grid>
-                    <Button x:Name="AddEmojiButton"
-                            Grid.Column="1"
-                            VerticalAlignment="Top"
-                            Padding="4,0"
-                            Style="{StaticResource DimButton}"
-                            Opacity="0"
-                            Click="LoadEmojis">
-                        <Button.Flyout>
-                            <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
-                                <controls:EmojiPicker EmojiPickedCommand="{x:Bind AddReaction}" />
-                            </Flyout>
-                        </Button.Flyout>
+                    <StackPanel x:Name="MessageButtons"
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Opacity="0">
+                        <Button x:Name="AddEmojiButton"
+                                VerticalAlignment="Top"
+                                Padding="4,0"
+                                Style="{StaticResource DimButton}"
+                                Flyout="{StaticResource EmojiPickerFlyout}">
+                            <SymbolIcon Symbol="Emoji" />
+                        </Button>
+                        <Button x:Name="MoreButton"
+                                VerticalAlignment="Top"
+                                Padding="4,0"
+                                Style="{StaticResource DimButton}">
+                            <Button.Flyout>
+                                <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}"
+                                        Placement="Left">
+                                    <messagecontrols:MessageFlyout DataContext="{x:Bind}"
+                                                                   Width="96" />
+                                </Flyout>
+                            </Button.Flyout>
 
-                        <SymbolIcon Symbol="Emoji" />
-                    </Button>
-                    <Button x:Name="MoreButton"
-                            Grid.Column="2"
-                            VerticalAlignment="Top"
-                            Padding="4,0"
-                            Style="{StaticResource DimButton}"
-                            Opacity="0">
-                        <Button.Flyout>
-                            <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}"
-                                    Placement="Left">
-                                <messagecontrols:MessageFlyout DataContext="{x:Bind}"
-                                                               Width="96" />
-                            </Flyout>
-                        </Button.Flyout>
-
-                        <SymbolIcon Symbol="More" />
-                    </Button>
+                            <SymbolIcon Symbol="More" />
+                        </Button>
+                    </StackPanel>
                 </Grid>
 
                 <Grid x:Name="AttachmentEmbedList"
@@ -406,7 +408,7 @@
                                          ItemsSource="{x:Bind BindableAttachments, Mode=OneWay}"
                                          ItemTemplate="{StaticResource AttachmentTemplateSelector}">
                         <winui:ItemsRepeater.Layout>
-                            <winui:StackLayout Spacing="4" />
+                            <winui:StackLayout Spacing="4" DisableVirtualization="True" />
                         </winui:ItemsRepeater.Layout>
                     </winui:ItemsRepeater>
                     <winui:ItemsRepeater x:Name="EmbedList"
@@ -414,7 +416,7 @@
                                          ItemsSource="{x:Bind BindableEmbeds, Mode=OneWay}"
                                          ItemTemplate="{StaticResource EmbedTemplateSelector}">
                         <winui:ItemsRepeater.Layout>
-                            <winui:StackLayout Spacing="4" />
+                            <winui:StackLayout Spacing="4" DisableVirtualization="True" />
                         </winui:ItemsRepeater.Layout>
                     </winui:ItemsRepeater>
                 </Grid>
@@ -427,7 +429,7 @@
                                      ItemsSource="{x:Bind BindableReactions, Mode=OneWay}"
                                      ItemTemplate="{StaticResource Reaction}">
                     <winui:ItemsRepeater.Layout>
-                        <winui:StackLayout Orientation="Horizontal" Spacing="4" />
+                        <winui:StackLayout Orientation="Horizontal" Spacing="4" DisableVirtualization="True" />
                     </winui:ItemsRepeater.Layout>
                 </winui:ItemsRepeater>
             </RelativePanel>

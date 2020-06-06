@@ -7,30 +7,41 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:discordconvert="using:Quarrel.Converters.Discord"
+    xmlns:base="using:Quarrel.Converters.Base"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
     <UserControl.Resources>
-        <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
+        <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter" />
+        <base:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter" />
     </UserControl.Resources>
-    
+
     <Grid>
-        <toolkit:DropShadowPanel Width="{x:Bind Size, Mode=OneWay}" Height="{x:Bind Size, Mode=OneWay}"  x:Name="presenceShadow" x:Load="{x:Bind ShowPresence, Mode=OneWay}"
+        <toolkit:DropShadowPanel Width="{x:Bind Size, Mode=OneWay}"
+                                 Height="{x:Bind Size, Mode=OneWay}"
+                                 x:Name="presenceShadow"
+                                 x:Load="{x:Bind ShowPresence, Mode=OneWay}"
                                  BlurRadius="10"
                                  Color="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}">
-            <Rectangle Width="{x:Bind Size, Mode=OneWay}" Height="{x:Bind Size, Mode=OneWay}"
-                   RadiusX="{x:Bind Size, Mode=OneWay}" RadiusY="{x:Bind Size, Mode=OneWay}">
+            <Rectangle Width="{x:Bind Size, Mode=OneWay}"
+                       Height="{x:Bind Size, Mode=OneWay}"
+                       RadiusX="{x:Bind Size, Mode=OneWay}"
+                       RadiusY="{x:Bind Size, Mode=OneWay}">
                 <Rectangle.Fill>
-                    <ImageBrush ImageSource="{x:Bind ViewModel.RawModel.AvatarUrl, Mode=OneWay}"/>
+                    <ImageBrush>
+                        <ImageBrush.ImageSource>
+                            <BitmapImage UriSource="{x:Bind ViewModel.RawModel.AvatarUrl, Mode=OneWay}"
+                                         DecodePixelHeight="{x:Bind Size, Mode=OneWay}"
+                                         DecodePixelWidth="{x:Bind Size, Mode=OneWay}"
+                                         DecodePixelType="Logical" />
+                        </ImageBrush.ImageSource>
+                    </ImageBrush>
                 </Rectangle.Fill>
             </Rectangle>
         </toolkit:DropShadowPanel>
-        <Rectangle Width="{x:Bind Size, Mode=OneWay}" Height="{x:Bind Size, Mode=OneWay}"
-                   RadiusX="{x:Bind Size, Mode=OneWay}" RadiusY="{x:Bind Size, Mode=OneWay}">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="{x:Bind ViewModel.RawModel.AvatarUrl, Mode=OneWay}"/>
-            </Rectangle.Fill>
-        </Rectangle>
+        <Border x:Name="ProfileImageWithoutPresence" CornerRadius="999999" x:Load="{x:Bind ShowPresence, Mode=OneWay, Converter={StaticResource NotBoolToBoolConverter}}">
+            <Image Width="{x:Bind Size, Mode=OneWay}" Height="{x:Bind Size, Mode=OneWay}" Source="{x:Bind ViewModel.RawModel.AvatarUrl, Mode=OneWay}" />
+        </Border>
     </Grid>
 </UserControl>

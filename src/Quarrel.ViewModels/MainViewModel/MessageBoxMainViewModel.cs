@@ -19,12 +19,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Quarrel.ViewModels.Controls.Messages
+namespace Quarrel.ViewModels
 {
     /// <summary>
     /// Handles MessageBox control data.
     /// </summary>
-    public class MessageBoxViewModel : ViewModelBase
+    public partial class MainViewModel
     {
         private RelayCommand _tiggerTyping;
         private RelayCommand _newLineCommand;
@@ -43,7 +43,7 @@ namespace Quarrel.ViewModels.Controls.Messages
         /// </summary>
         public RelayCommand TriggerTyping => _tiggerTyping = _tiggerTyping ?? new RelayCommand(() =>
         {
-            DiscordService.ChannelService.TriggerTypingIndicator(ChannelsService.CurrentChannel.Model.Id);
+            _discordService.ChannelService.TriggerTypingIndicator(_channelsService.CurrentChannel.Model.Id);
         });
 
         /// <summary>
@@ -81,26 +81,26 @@ namespace Quarrel.ViewModels.Controls.Messages
                 if (!string.IsNullOrEmpty(text) && !string.IsNullOrWhiteSpace(text))
                 {
                     // Send message
-                    await DiscordService.ChannelService.CreateMessage(
-                        ChannelsService.CurrentChannel.Model.Id,
+                    await _discordService.ChannelService.CreateMessage(
+                        _channelsService.CurrentChannel.Model.Id,
                         new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
                 }
 
-                DispatcherHelper.CheckBeginInvokeOnUi(() => { MessageText = string.Empty; });
+                _dispatcherHelper.CheckBeginInvokeOnUi(() => { MessageText = string.Empty; });
 
                 // Upload and send a message for each attachment
                 while (Attachments.Count > 0)
                 {
-                    await DiscordService.ChannelService.UploadFile(
-                        ChannelsService.CurrentChannel.Model.Id,
+                    await _discordService.ChannelService.UploadFile(
+                        _channelsService.CurrentChannel.Model.Id,
                         Attachments[0]);
                     Attachments.RemoveAt(0);
                 }
             }
 
-            AnalyticsService.Log(
+            _analyticsService.Log(
                 Constants.Analytics.Events.SentMessage,
-                ("channel type", ChannelsService.CurrentChannel.Model.Type.ToString()));
+                ("channel type", _channelsService.CurrentChannel.Model.Type.ToString()));
 
             // Leaves sending state
             IsSending = false;
@@ -114,23 +114,11 @@ namespace Quarrel.ViewModels.Controls.Messages
             // Only overrides if there's no draft
             if (string.IsNullOrEmpty(MessageText))
             {
-                SimpleIoc.Default.GetInstance<MainViewModel>().ScrollToAndEditLast();
+                this.ScrollToAndEditLast();
             }
 
             // TODO: Scroll to and edit
         });
-
-        /// <summary>
-        /// Gets the command to pick emojis and them to the message.
-        /// </summary>
-        public RelayCommand<List<Emoji>> EmojiPickedCommand =>
-            _emojiPickedCommand = _emojiPickedCommand ?? new RelayCommand<List<Emoji>>((emojis) =>
-            {
-                foreach (Emoji emoji in emojis)
-                {
-                    MessageText += emoji.Surrogate;
-                }
-            });
 
         /// <summary>
         /// Gets or sets a value indicating whether or not a message is currently being sent.
@@ -150,7 +138,7 @@ namespace Quarrel.ViewModels.Controls.Messages
             set
             {
                 Set(ref _messageText, value);
-                if (!GuildsService.CurrentGuild.IsDM)
+                if (!_guildsService.CurrentGuild.IsDM)
                 {
                     GetMentionQueryAndShow();
                 }
@@ -184,16 +172,6 @@ namespace Quarrel.ViewModels.Controls.Messages
         /// Gets the suggested mentions based on draft.
         /// </summary>
         public ObservableCollection<ISuggestion> Suggestions { get; } = new ObservableCollection<ISuggestion>();
-
-        private IAnalyticsService AnalyticsService { get; } = SimpleIoc.Default.GetInstance<IAnalyticsService>();
-
-        private IChannelsService ChannelsService { get; } = SimpleIoc.Default.GetInstance<IChannelsService>();
-
-        private IDiscordService DiscordService { get; } = SimpleIoc.Default.GetInstance<IDiscordService>();
-
-        private IDispatcherHelper DispatcherHelper { get; } = SimpleIoc.Default.GetInstance<IDispatcherHelper>();
-
-        private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
 
         /// <summary>
         /// Applies a suggestion.
@@ -238,7 +216,7 @@ namespace Quarrel.ViewModels.Controls.Messages
                 {
                     ranintospace = true;
                 }
-                else if (!ranintospace && character == '#' && i != loopsize && !GuildsService.CurrentGuild.IsDM)
+                else if (!ranintospace && character == '#' && i != loopsize && !_guildsService.CurrentGuild.IsDM)
                 {
                     // This is possibly a channel
                     string query = text.Remove(0, i);
@@ -285,7 +263,7 @@ namespace Quarrel.ViewModels.Controls.Messages
             switch (type)
             {
                 case 0: // User/Role
-                    var members = GuildsService.QueryGuildMembers(query, GuildsService.CurrentGuild.Model.Id);
+                    var members = _guildsService.QueryGuildMembers(query, _guildsService.CurrentGuild.Model.Id);
                     foreach (var member in members)
                     {
                         Suggestions.Add(new UserSuggestion(member));
@@ -293,7 +271,7 @@ namespace Quarrel.ViewModels.Controls.Messages
 
                     break;
                 case 1: // Channels
-                    var channels = GuildsService.CurrentGuild.Channels.Where(x => x.Model.Name.ToLower().StartsWith(query.ToLower()) && x.IsTextChannel);
+                    var channels = _guildsService.CurrentGuild.Channels.Where(x => x.Model.Name.ToLower().StartsWith(query.ToLower()) && x.IsTextChannel);
                     foreach (var channel in channels)
                     {
                         Suggestions.Add(new ChannelSuggestion(channel));
@@ -316,7 +294,7 @@ namespace Quarrel.ViewModels.Controls.Messages
             foreach (Match match in emojiMatches)
             {
                 // Finds emoji by name
-                DiscordAPI.Models.Emoji emoji = GuildsService.CurrentGuild.Model.Emojis.FirstOrDefault(x => x.Name == match.Groups[1].Value);
+                DiscordAPI.Models.Emoji emoji = _guildsService.CurrentGuild.Model.Emojis.FirstOrDefault(x => x.Name == match.Groups[1].Value);
 
                 // Replaces :emoji_name: format with <emoji_name:id> format
                 if (emoji != null)
@@ -332,7 +310,7 @@ namespace Quarrel.ViewModels.Controls.Messages
             foreach (Match match in userMentionMatches)
             {
                 // Finds user from Username and Discriminator
-                BindableGuildMember user = GuildsService.GetGuildMember(match.Groups[1].Value, match.Groups[2].Value, GuildsService.CurrentGuild.Model.Id);
+                BindableGuildMember user = _guildsService.GetGuildMember(match.Groups[1].Value, match.Groups[2].Value, _guildsService.CurrentGuild.Model.Id);
 
                 // Replaces @name#disc format with <@!ID> format
                 if (user != null)
@@ -342,13 +320,13 @@ namespace Quarrel.ViewModels.Controls.Messages
             }
 
             // Channel Mentions
-            if (!GuildsService.CurrentGuild.IsDM)
+            if (!_guildsService.CurrentGuild.IsDM)
             {
                 var channelMentionMatches = Regex.Matches(formattedMessage, Constants.Regex.ChannelMentionSurrogateRegex);
                 foreach (Match match in channelMentionMatches)
                 {
                     // Finds channel by name, in current guild
-                    BindableChannel channel = GuildsService.CurrentGuild.Channels.FirstOrDefault(x => x.Model.Name == match.Groups[1].Value);
+                    BindableChannel channel = _guildsService.CurrentGuild.Channels.FirstOrDefault(x => x.Model.Name == match.Groups[1].Value);
 
                     // Replaces #channel-name
                     if (channel != null)

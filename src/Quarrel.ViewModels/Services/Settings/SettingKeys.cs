@@ -20,6 +20,7 @@ namespace Quarrel.ViewModels.Services.Settings
         DerivedColor,
         AcrylicSettings,
         FontSize,
+        FluentTheme,
 
         // Behavior
         MentionGlow,

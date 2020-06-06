@@ -25,12 +25,17 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Rectangle VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128" Fill="{ThemeResource InvertedBG}" Opacity="0.1"/>
-                <Rectangle x:Name="UserIconRect" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128">
-                    <Rectangle.Fill>
-                        <ImageBrush ImageSource="{x:Bind ViewModel.AvatarUrl, Mode=OneWay}" Stretch="UniformToFill"/>
-                    </Rectangle.Fill>
-                </Rectangle>
+                <Rectangle VerticalAlignment="Top"
+                           HorizontalAlignment="Left"
+                           Width="128"
+                           Height="128"
+                           RadiusX="128"
+                           RadiusY="128"
+                           Fill="{ThemeResource InvertedBG}"
+                           Opacity="0.1" />
+                <Border x:Name="UserIconRect" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="128">
+                    <Image Width="128" Height="128"  Source="{x:Bind ViewModel.AvatarUrl, Mode=OneWay}" Stretch="UniformToFill" />
+                </Border>
                 <StackPanel Margin="0,6,0,0"  Grid.Row="1">
                     <HyperlinkButton Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}" Style="{StaticResource PlainTextHyperlinkStyle}" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="Upload image" Width="90" Click="UploadAvatar"/>
                     <HyperlinkButton Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}" Style="{StaticResource PlainTextHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"

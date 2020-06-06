@@ -16,9 +16,7 @@
             <Setter Property="MiniButtonSize" Value="30" />
         </Style>
     </UserControl.Resources>
-    <Grid>
-        <ui:RykenMediaContainer x:Name="RykenPlayer" 
-                                ShowFullscreenButton="False" 
-                                PlayerControlsStyle="{StaticResource ControlsStyle}"/>
-    </Grid>
+    <ui:RykenMediaContainer x:Name="RykenPlayer"
+                            ShowFullscreenButton="False"
+                            PlayerControlsStyle="{StaticResource ControlsStyle}" />
 </UserControl>

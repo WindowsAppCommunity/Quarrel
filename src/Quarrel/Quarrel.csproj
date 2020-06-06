@@ -17,10 +17,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -200,9 +197,6 @@
     <Compile Include="Controls\Channels\VoiceMemberControl.xaml.cs">
       <DependentUpon>VoiceMemberControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\EmojiPicker.xaml.cs">
-      <DependentUpon>EmojiPicker.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Friends\FriendTemplate.xaml.cs">
       <DependentUpon>FriendTemplate.xaml</DependentUpon>
     </Compile>
@@ -312,7 +306,6 @@
     <Compile Include="Converters\Messages\ActionMessage\TypeToTextConverter.cs" />
     <Compile Include="Converters\Messages\ActionMessage\VoiceTypeToBoolConverter.cs" />
     <Compile Include="Converters\Messages\EmbedFieldsConverter.cs" />
-    <Compile Include="Converters\Messages\MentionsConverter.cs" />
     <Compile Include="Converters\Messages\SizeToHumanizedSizeConverter.cs" />
     <Compile Include="Converters\Messages\TypeToGlyphConverter.cs" />
     <Compile Include="Converters\Profile\PresenceTypeToStatusConverter.cs" />
@@ -324,6 +317,9 @@
     <Compile Include="Converters\Profile\Relationships\RelationToUnblockConverter.cs" />
     <Compile Include="DataTemplates\Channels\ChannelTemplate.xaml.cs">
       <DependentUpon>ChannelTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataTemplates\FlyoutDictionary.xaml.cs">
+      <DependentUpon>FlyoutDictionary.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataTemplates\Guilds\GuildTemplate.xaml.cs">
       <DependentUpon>GuildTemplate.xaml</DependentUpon>
@@ -355,6 +351,7 @@
     <Compile Include="Helpers\Humanize.cs" />
     <Compile Include="Helpers\ImageParsing.cs" />
     <Compile Include="Helpers\ItemClickCommand.cs" />
+    <Compile Include="Helpers\ItemClickCommandParameter.cs" />
     <Compile Include="Services\Abstract\ServiceWithAccessTokensBase.cs" />
     <Compile Include="Services\Analytics\AppCenterClientInfo.cs" />
     <Compile Include="Services\Analytics\AppCenterService.cs" />
@@ -658,10 +655,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\EmojiPicker.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\Friends\FriendTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -738,6 +731,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CustomStyles\Default.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomStyles\Fluent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomStyles\Fluent\ListViewItemStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DataTemplates\Channels\ChannelTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -745,6 +750,10 @@
     <Page Include="DataTemplates\Converters.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DataTemplates\FlyoutDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DataTemplates\Guilds\GuildTemplate.xaml">
       <SubType>Designer</SubType>
@@ -796,7 +805,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\ListViewItemStyles.xaml">
+    <Page Include="CustomStyles\Default\ListViewItemStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1038,6 +1047,9 @@
     <PackageReference Include="System.IO.FileSystem.Watcher">
       <Version>4.3.0</Version>
     </PackageReference>
+    <PackageReference Include="System.Numerics.Vectors">
+      <Version>4.3.0</Version>
+    </PackageReference>
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
       <Version>4.7.1</Version>
     </PackageReference>
@@ -1048,10 +1060,10 @@
       <Version>0.1.2</Version>
     </PackageReference>
     <PackageReference Include="RykenLibrary">
-      <Version>0.9.22-beta</Version>
+      <Version>0.9.24-beta</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.4.0</Version>
+      <Version>2.4.0-prerelease.200506001</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

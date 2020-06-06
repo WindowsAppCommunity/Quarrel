@@ -29,6 +29,9 @@ using Quarrel.ViewModels.Services.Resources;
 using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.Services.Voice;
 using System;
+using System.Threading.Tasks;
+using Quarrel.Helpers;
+using Quarrel.ViewModels.Controls;
 
 namespace Quarrel.ViewModels
 {
@@ -97,11 +100,22 @@ namespace Quarrel.ViewModels
                     SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<string>(SettingKeys.InputDevice)));
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<EmojiPickerViewModel>(() =>
+            {
+                var tmp = Task.Run(async () => await Constants.FromFile.GetEmojiLists());
+                return new EmojiPickerViewModel(tmp.GetAwaiter().GetResult());
+            });
+
         }
 
         /// <summary>
         /// Gets the <see cref="MainViewModel"/>.
         /// </summary>
         public MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
+
+        /// <summary>
+        /// Gets the <see cref="EmojiPickerViewModel"/>.
+        /// </summary>
+        public EmojiPickerViewModel EmojiPicker => SimpleIoc.Default.GetInstance<EmojiPickerViewModel>();
     }
 }
