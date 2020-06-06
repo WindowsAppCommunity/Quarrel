@@ -235,9 +235,9 @@ namespace winrt::Webrtc::implementation
 
 		rtc::scoped_refptr<webrtc::AudioState> audio_state = webrtc::AudioState::Create(stateconfig);
 		
-		webrtc::adm_helpers::Init(stateconfig.audio_device_module);
+		webrtc::adm_helpers::Init(this->audioDevice);
 		webrtc::apm_helpers::Init(stateconfig.audio_processing);
-		stateconfig.audio_device_module->RegisterAudioCallback(audio_state->audio_transport());
+		this->audioDevice->RegisterAudioCallback(audio_state->audio_transport());
 		
 		std::unique_ptr<webrtc::RtcEventLog> log = webrtc::RtcEventLog::Create(webrtc::RtcEventLog::EncodingType::Legacy);
 		std::unique_ptr<webrtc::RtcEventLogOutput> output = std::make_unique<MyRtcEventLogOutput>();
@@ -346,6 +346,16 @@ namespace winrt::Webrtc::implementation
 		output_device_id = deviceId;
 
 		if (!this->audioDevice) return;
+
+		bool wasRecording = false;
+		
+		if(this->audioDevice->SpeakerIsInitialized())
+		{
+			wasRecording = true;
+			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
+				this->audioDevice->StopPlayout();
+			});
+		}
 		
 		char target_id[webrtc::kAdmMaxGuidSize];
 
@@ -369,6 +379,14 @@ namespace winrt::Webrtc::implementation
 		{
 			this->audioDevice->SetPlayoutDevice(target_device_index);
 		}
+
+		if(wasRecording)
+		{
+			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
+				this->audioDevice->InitPlayout();
+				this->audioDevice->StartPlayout();
+			});
+		}
 	}
 
 	void WebrtcManager::SetRecordingDevice(winrt::hstring deviceId) {
@@ -376,6 +394,16 @@ namespace winrt::Webrtc::implementation
 		
 		if (!this->audioDevice) return;
 
+		bool wasRecording = false;
+
+		if (this->audioDevice->MicrophoneIsInitialized())
+		{
+			wasRecording = true;
+			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
+				this->audioDevice->StopRecording();
+			});
+		}
+		
 		char target_id[webrtc::kAdmMaxGuidSize];
 
 		WideCharToMultiByte(CP_UTF8, 0, input_device_id.c_str(), -1, target_id, webrtc::kAdmMaxGuidSize, NULL, NULL);
@@ -397,6 +425,14 @@ namespace winrt::Webrtc::implementation
 		if (target_device_index > -1)
 		{
 			this->audioDevice->SetRecordingDevice(target_device_index);
+		}
+
+		if (wasRecording)
+		{
+			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
+				this->audioDevice->InitRecording();
+				this->audioDevice->StartRecording();
+			});
 		}
 	}
 	
