@@ -121,17 +121,25 @@ namespace Quarrel.ViewModels.Services.Voice
         /// <inheritdoc/>
         public async void ToggleDeafen()
         {
-            var state = _voiceConnection._state;
-            state.SelfDeaf = !state.SelfDeaf;
-            await _gatewayService.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute, state.SelfDeaf);
+            if (_voiceConnection != null)
+            {
+                var state = _voiceConnection._state;
+                state.SelfDeaf = !state.SelfDeaf;
+                await _gatewayService.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute,
+                    state.SelfDeaf);
+            }
         }
 
         /// <inheritdoc/>
         public async void ToggleMute()
         {
-            var state = _voiceConnection._state;
-            state.SelfMute = !state.SelfMute;
-            await _gatewayService.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute, state.SelfDeaf);
+            if (_voiceConnection != null)
+            {
+                var state = _voiceConnection._state;
+                state.SelfMute = !state.SelfMute;
+                await _gatewayService.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute,
+                    state.SelfDeaf);
+            }
         }
 
         private async void ConnectToVoiceChannel(VoiceServerUpdate data, VoiceState state)
