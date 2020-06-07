@@ -28,7 +28,7 @@
         <Setter Property="QuoteBorderThickness" Value="4, 0, 0, 0" />
         <Setter Property="QuoteMargin" Value="0, 5, 0, 5" />
         <Setter Property="QuotePadding" Value="7, 2, 0, 4" />
-        <Setter Property="InlineCodePadding" Value="3, 3, 3, 3" />
+        <Setter Property="InlineCodePadding" Value="3, 0, 3, 0" />
         <Setter Property="InlineCodeBackground" Value="{ThemeResource CodeBG}" />
         <Setter Property="CodeBackground" Value="{ThemeResource MarkdownBackgroundBrush}" />
         <Setter Property="CodeBorderBrush" Value="{ThemeResource MarkdownBorderBrush}" />

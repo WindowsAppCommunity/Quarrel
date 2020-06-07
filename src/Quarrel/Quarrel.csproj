@@ -274,6 +274,7 @@
     <Compile Include="Converters\AuditLog\AuditLogEntryToMarkdownConverter.cs" />
     <Compile Include="Converters\AuditLog\ChangeToMarkdownConverter.cs" />
     <Compile Include="Converters\AuditLog\ChangeToVisibilityConveter.cs" />
+    <Compile Include="Converters\Base\ContainsItemsToBoolConverter.cs" />
     <Compile Include="Converters\Base\DateTimeToTextConverter.cs" />
     <Compile Include="Converters\Base\IntColorToBrushConverter.cs" />
     <Compile Include="Converters\Base\IntColorToColorConverter.cs" />

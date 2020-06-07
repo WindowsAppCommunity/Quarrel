@@ -24,6 +24,7 @@
     xmlns:system="using:System"
     xmlns:messageConverters="using:Quarrel.Converters.Messages"
     xmlns:uniformGrid="using:Quarrel.Controls.UniformGrid"
+    xmlns:baseConverter="using:Quarrel.Converters.Base"
     x:Class="Quarrel.DataTemplates.Messages.MessageTemplate">
 
     <ResourceDictionary.MergedDictionaries>
@@ -218,7 +219,7 @@
                     </DoubleAnimationUsingKeyFrames>
                 </Storyboard>
             </UserControl.Resources>
-            <RelativePanel x:Name="rootGrid">
+            <RelativePanel x:Name="rootGrid" Margin="0,0,0,2">
                 <interactivity:Interaction.Behaviors>
                     <core:EventTriggerBehavior EventName="PointerEntered">
                         <core:EventTriggerBehavior.Actions>
@@ -399,12 +400,12 @@
                 </Grid>
 
                 <Grid x:Name="AttachmentEmbedList"
-                      Margin="52,0,0,4"
+                      Margin="52,0,0,0"
                       RelativePanel.Below="body"
                       RelativePanel.AlignLeftWith="body"
                       RelativePanel.AlignRightWithPanel="True">
-                    <winui:ItemsRepeater x:Name="AttachmentList" 
-                                         x:Load="{x:Bind BindableAttachments, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
+                    <winui:ItemsRepeater x:Name="AttachmentList"
+                                         x:Load="{x:Bind baseConverter:ContainsItemsToBoolConverter.Convert(BindableAttachments), Mode=OneWay}"
                                          ItemsSource="{x:Bind BindableAttachments, Mode=OneWay}"
                                          ItemTemplate="{StaticResource AttachmentTemplateSelector}">
                         <winui:ItemsRepeater.Layout>
@@ -412,7 +413,7 @@
                         </winui:ItemsRepeater.Layout>
                     </winui:ItemsRepeater>
                     <winui:ItemsRepeater x:Name="EmbedList"
-                                         x:Load="{x:Bind Model.Embeds, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
+                                         x:Load="{x:Bind baseConverter:ContainsItemsToBoolConverter.Convert(Model.Embeds), Mode=OneWay}"
                                          ItemsSource="{x:Bind BindableEmbeds, Mode=OneWay}"
                                          ItemTemplate="{StaticResource EmbedTemplateSelector}">
                         <winui:ItemsRepeater.Layout>
@@ -421,17 +422,66 @@
                     </winui:ItemsRepeater>
                 </Grid>
 
-                <winui:ItemsRepeater x:Name="ReactionList"
-                                     Margin="52,0,0,0"
-                                     RelativePanel.Below="AttachmentEmbedList"
-                                     RelativePanel.AlignLeftWith="body"
-                                     x:Load="{x:Bind BindableReactions, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
-                                     ItemsSource="{x:Bind BindableReactions, Mode=OneWay}"
-                                     ItemTemplate="{StaticResource Reaction}">
-                    <winui:ItemsRepeater.Layout>
-                        <winui:StackLayout Orientation="Horizontal" Spacing="4" DisableVirtualization="True" />
-                    </winui:ItemsRepeater.Layout>
-                </winui:ItemsRepeater>
+                <StackPanel Margin="52,0,0,0"
+                            Orientation="Horizontal"
+                            RelativePanel.Below="AttachmentEmbedList"
+                            RelativePanel.AlignLeftWith="body"
+                            Name="ReactionsStackPanel"
+                            x:Load="{x:Bind baseConverter:ContainsItemsToBoolConverter.Convert(BindableReactions), Mode=OneWay}">
+                    <StackPanel.Resources>
+                        <Storyboard x:Name="ReactionsPointerEntered">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AddReactionButton"
+                                                           Storyboard.TargetProperty="Opacity">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.15"
+                                                      Value="0.5">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <CircleEase EasingMode="EaseOut" />
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                        <Storyboard x:Name="ReactionsPointerExited">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AddReactionButton"
+                                                           Storyboard.TargetProperty="Opacity">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.15"
+                                                      Value="0">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <CircleEase EasingMode="EaseIn" />
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </StackPanel.Resources>
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="PointerEntered">
+                            <core:EventTriggerBehavior.Actions>
+                                <media:ControlStoryboardAction Storyboard="{StaticResource ReactionsPointerEntered}" />
+                            </core:EventTriggerBehavior.Actions>
+                        </core:EventTriggerBehavior>
+                        <core:EventTriggerBehavior EventName="PointerExited">
+                            <core:EventTriggerBehavior.Actions>
+                                <media:ControlStoryboardAction Storyboard="{StaticResource ReactionsPointerExited}" />
+                            </core:EventTriggerBehavior.Actions>
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                    <winui:ItemsRepeater x:Name="ReactionList"
+                                         ItemsSource="{x:Bind BindableReactions, Mode=OneWay}"
+                                         ItemTemplate="{StaticResource Reaction}"
+                                         Margin="0,4,0,4">
+                        <winui:ItemsRepeater.Layout>
+                            <winui:StackLayout Orientation="Horizontal"
+                                               Spacing="4"
+                                               DisableVirtualization="True" />
+                        </winui:ItemsRepeater.Layout>
+                    </winui:ItemsRepeater>
+                    <Button x:Name="AddReactionButton"
+                            VerticalAlignment="Center"
+                            Padding="4,0"
+                            Style="{StaticResource DimButton}"
+                            Flyout="{StaticResource EmojiPickerFlyout}" Opacity="0">
+                        <SymbolIcon Symbol="Emoji" />
+                    </Button>
+                </StackPanel>
             </RelativePanel>
         </UserControl>
     </DataTemplate>
