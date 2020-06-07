@@ -275,6 +275,22 @@ namespace Quarrel.Controls.Shell
         }
 
         /// <summary>
+        /// Returnes whether the left drawer is open or not.
+        /// </summary>
+        public bool IsLeftOpen()
+        {
+            return _tracker.Position.X < 0;
+        }
+
+        /// <summary>
+        /// Returnes whether the right drawer is open or not.
+        /// </summary>
+        public bool IsRightOpen()
+        {
+            return _tracker.Position.X > 0;
+        }
+
+        /// <summary>
         /// Toggles the right drawer's open status.
         /// </summary>
         public void ToggleRight()
