@@ -101,8 +101,11 @@ namespace winrt::Webrtc::implementation
 		winrt::hstring output_device_id, input_device_id;
 
 		bool hasGotIp = false;
+		bool m_connected = false;
 
 		rtc::scoped_refptr<webrtc::AudioDeviceModule> audioDevice;
+
+		std::map<uint32_t, uint32_t> ssrc_to_create;
 	};
 }
 
