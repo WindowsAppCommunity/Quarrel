@@ -11,6 +11,7 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using System.Security.Cryptography;
 
 namespace Quarrel.Controls.Messages
 {
@@ -19,6 +20,8 @@ namespace Quarrel.Controls.Messages
     /// </summary>
     public sealed partial class MessageBox : UserControl
     {
+        private Random random = new Random();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageBox"/> class.
         /// </summary>
@@ -83,8 +86,17 @@ namespace Quarrel.Controls.Messages
             }
             else if (dataPackageView.Contains(StandardDataFormats.Bitmap))
             {
+                string hexValue = string.Empty;
+
+                for (int i = 0; i < 8; i++)
+                {
+                    int num = random.Next(0, int.MaxValue);
+                    hexValue += num.ToString("X8");
+                }
+
                 var bmpDPV = await dataPackageView.GetBitmapAsync();
-                var bmpSTR = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("file.png", CreationCollisionOption.OpenIfExists);
+                string fileName = $"{hexValue}.png";
+                var bmpSTR = await ApplicationData.Current.TemporaryFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
                 using (var writeStream = (await bmpSTR.OpenStreamForWriteAsync()).AsRandomAccessStream())
                 using (var readStream = await bmpDPV.OpenReadAsync())
                 {
@@ -92,7 +104,7 @@ namespace Quarrel.Controls.Messages
                     BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, writeStream);
                     encoder.SetSoftwareBitmap(await decoder.GetSoftwareBitmapAsync());
                     await encoder.FlushAsync();
-                    ViewModel.Attachments.Add(new StreamPart(await bmpSTR.OpenStreamForReadAsync(), "file.png", bmpSTR.ContentType));
+                    ViewModel.Attachments.Add(new StreamPart(await bmpSTR.OpenStreamForReadAsync(), fileName, bmpSTR.ContentType));
                 }
             }
         }
