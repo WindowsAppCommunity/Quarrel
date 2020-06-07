@@ -299,6 +299,11 @@ namespace Quarrel.ViewModels
                     {
                         _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                         {
+                            if (channel.ReadState == null)
+                            {
+                                channel.ReadState = new ReadState();
+                            }
+
                             channel.ReadState.MentionCount++;
                             if (channel.IsDirectChannel || channel.IsGroupChannel)
                             {
