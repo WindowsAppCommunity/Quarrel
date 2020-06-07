@@ -1,15 +1,16 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using Quarrel.ViewModels;
 using Quarrel.ViewModels.Models.Suggesitons;
 using Refit;
 using System;
 using System.IO;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Quarrel.ViewModels;
 
 namespace Quarrel.Controls.Messages
 {
@@ -82,8 +83,17 @@ namespace Quarrel.Controls.Messages
             }
             else if (dataPackageView.Contains(StandardDataFormats.Bitmap))
             {
-                var bmpStream = await dataPackageView.GetBitmapAsync();
-                ViewModel.Attachments.Add(new StreamPart((await bmpStream.OpenReadAsync()).AsStream(), "file.png", "image/png"));
+                var bmpDPV = await dataPackageView.GetBitmapAsync();
+                var bmpSTR = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("file.png", CreationCollisionOption.OpenIfExists);
+                using (var writeStream = (await bmpSTR.OpenStreamForWriteAsync()).AsRandomAccessStream())
+                using (var readStream = await bmpDPV.OpenReadAsync())
+                {
+                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(readStream.CloneStream());
+                    BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, writeStream);
+                    encoder.SetSoftwareBitmap(await decoder.GetSoftwareBitmapAsync());
+                    await encoder.FlushAsync();
+                    ViewModel.Attachments.Add(new StreamPart(await bmpSTR.OpenStreamForReadAsync(), "file.png", bmpSTR.ContentType));
+                }
             }
         }
 
