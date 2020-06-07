@@ -14,6 +14,8 @@ using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Services.Gateway;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Quarrel.ViewModels.Messages.Services.Settings;
+using Quarrel.ViewModels.Services.Settings;
 
 namespace Quarrel.ViewModels.Services.Voice
 {
@@ -97,6 +99,19 @@ namespace Quarrel.ViewModels.Services.Voice
                 }
 
                 ConnectToVoiceChannel(m.VoiceServer, VoiceStates[_discordService.CurrentUser.Id]);
+            });
+
+            Messenger.Default.Register<SettingChangedMessage<string>>(this, m =>
+            {
+                switch (m.Key)
+                {
+                    case SettingKeys.InputDevice:
+                        _webrtcManager.SetRecordingDevice(m.Value);
+                        break;
+                    case SettingKeys.OutputDevice:
+                        _webrtcManager.SetPlaybackDevice(m.Value);
+                        break;
+                }
             });
         }
 

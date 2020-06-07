@@ -29,11 +29,9 @@
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
-            <Rectangle Height="48" Width="48" RadiusX="24" RadiusY="24">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="{x:Bind ViewModel.IconUrl, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
-                </Rectangle.Fill>
-            </Rectangle>
+            <Border CornerRadius="24">
+                <Image Height="48" Width="48" Source="{x:Bind ViewModel.IconUrl, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+            </Border>
             <TextBlock Text="{x:Bind ViewModel.Model.Guild.Name, Mode=OneWay}" FontSize="16" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"
                        VerticalAlignment="Center" Margin="12,0,16,0"/>
         </StackPanel>

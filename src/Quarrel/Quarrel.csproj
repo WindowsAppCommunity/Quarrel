@@ -17,10 +17,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -277,6 +274,7 @@
     <Compile Include="Converters\AuditLog\AuditLogEntryToMarkdownConverter.cs" />
     <Compile Include="Converters\AuditLog\ChangeToMarkdownConverter.cs" />
     <Compile Include="Converters\AuditLog\ChangeToVisibilityConveter.cs" />
+    <Compile Include="Converters\Base\ContainsItemsToBoolConverter.cs" />
     <Compile Include="Converters\Base\DateTimeToTextConverter.cs" />
     <Compile Include="Converters\Base\IntColorToBrushConverter.cs" />
     <Compile Include="Converters\Base\IntColorToColorConverter.cs" />
@@ -593,8 +591,6 @@
     <AdditionalFiles Include="stylecop.json" />
     <PRIResource Include="Localization\en\AuditLog.resw" />
     <Content Include="Assets\Data\Emojis - Backup.json" />
-    <Content Include="Assets\Tokens\AppCenter.json" />
-    <Content Include="Assets\Tokens\AppCenterInsider.json" />
     <Content Include="Assets\Tokens\Fake.json" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\PayPal.png" />

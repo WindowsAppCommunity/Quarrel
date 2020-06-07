@@ -16,8 +16,8 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Rectangle VerticalAlignment="Top" HorizontalAlignment="Left"
-                       Width="128" Height="128"
-                       RadiusX="64" RadiusY="64">
+                   Width="128" Height="128"
+                   RadiusX="64" RadiusY="64">
             <Rectangle.Fill>
                 <ImageBrush x:Name="GuildIconImage"/>
             </Rectangle.Fill>

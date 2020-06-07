@@ -112,6 +112,16 @@ namespace DiscordAPI.API.Channel
         Task StartCall([AliasAs("channelId")] string channelId);
 
         /// <summary>
+        /// Gets list of users who have reacted to a certain message with a certain emoji.
+        /// </summary>
+        /// <param name="channelId">The channel's id.</param>
+        /// <param name="messageId">The message's id.</param>
+        /// <param name="emoji">The emoji.</param>
+        /// <returns>A task.</returns>
+        [Get("/channels/{channelId}/messages/{messageId}/reactions/{emoji}")]
+        Task<IEnumerable<DiscordAPI.Models.User>> GetReactions([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [AliasAs("emoji")] string emoji);
+
+        /// <summary>
         /// Creates a reaction via REST.
         /// </summary>
         /// <param name="channelId">The channel id.</param>

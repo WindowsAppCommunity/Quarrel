@@ -144,6 +144,12 @@ namespace winrt::Webrtc::implementation
 	{
 	}
 
+	WebrtcManager::WebrtcManager(hstring outputDeviceId, hstring inputDeviceId)
+	{
+		output_device_id = outputDeviceId;
+		input_device_id = inputDeviceId;
+	}
+
 	void WebrtcManager::Create()
 	{
 		workerThread = rtc::Thread::Create();
@@ -194,6 +200,7 @@ namespace winrt::Webrtc::implementation
 		{
 			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
 				delete this->g_call;
+			  this->audioDevice = nullptr;
 			});
 		}
 		this->g_call = nullptr;
@@ -221,14 +228,19 @@ namespace winrt::Webrtc::implementation
 			.SetCaptureAnalyzer(std::make_unique<::Webrtc::AudioAnalyzer>(this))
 			.SetRenderPreProcessing(std::make_unique<::Webrtc::OutputAnalyzer>(this))
 			.Create();
-		stateconfig.audio_device_module = ::Webrtc::IAudioDeviceWasapi::create(props);
+
+		this->audioDevice = ::Webrtc::IAudioDeviceWasapi::create(props);
+		
+		stateconfig.audio_device_module = this->audioDevice;
+		this->SetPlaybackDevice(output_device_id);
+		this->SetRecordingDevice(input_device_id);
 		stateconfig.audio_mixer = webrtc::AudioMixerImpl::Create();
 
 		rtc::scoped_refptr<webrtc::AudioState> audio_state = webrtc::AudioState::Create(stateconfig);
 		
-		webrtc::adm_helpers::Init(stateconfig.audio_device_module);
+		webrtc::adm_helpers::Init(this->audioDevice);
 		webrtc::apm_helpers::Init(stateconfig.audio_processing);
-		stateconfig.audio_device_module->RegisterAudioCallback(audio_state->audio_transport());
+		this->audioDevice->RegisterAudioCallback(audio_state->audio_transport());
 		
 		std::unique_ptr<webrtc::RtcEventLog> log = webrtc::RtcEventLog::Create(webrtc::RtcEventLog::EncodingType::Legacy);
 		std::unique_ptr<webrtc::RtcEventLogOutput> output = std::make_unique<MyRtcEventLogOutput>();
@@ -284,7 +296,7 @@ namespace winrt::Webrtc::implementation
 		{
 			if (it == audioReceiveStreams.end())
 			{
-				this->audioReceiveStreams[ssrc] = workerThread->Invoke<webrtc::AudioReceiveStream*>(RTC_FROM_HERE, [this, ssrc]() {
+				this->audioReceiveStreams[ssrc] = this->workerThread->Invoke<webrtc::AudioReceiveStream*>(RTC_FROM_HERE, [this, ssrc]() {
 					return this->createAudioReceiveStream(this->ssrc, ssrc, 120);
 				});
 			}
@@ -297,7 +309,7 @@ namespace winrt::Webrtc::implementation
 		{
 			if (it != audioReceiveStreams.end())
 			{
-				workerThread->Invoke<void>(RTC_FROM_HERE, [this, it]() {
+				this->workerThread->Invoke<void>(RTC_FROM_HERE, [this, it]() {
 					this->g_call->DestroyAudioReceiveStream(it->second);
 				});
 				audioReceiveStreams.erase(it);
@@ -330,6 +342,100 @@ namespace winrt::Webrtc::implementation
 				this->g_audioSendTransport->StartSend();
 				this->m_speaking(*this, true);
 			}
+		}
+	}
+
+	void WebrtcManager::SetPlaybackDevice(winrt::hstring deviceId) {
+		output_device_id = deviceId;
+
+		if (!this->audioDevice) return;
+
+		bool wasRecording = false;
+		
+		if(this->audioDevice->SpeakerIsInitialized())
+		{
+			wasRecording = true;
+			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
+				this->audioDevice->StopPlayout();
+			});
+		}
+		
+		char target_id[webrtc::kAdmMaxGuidSize];
+
+		WideCharToMultiByte(CP_UTF8, 0, output_device_id.c_str(), -1, target_id, webrtc::kAdmMaxGuidSize, NULL, NULL);
+		
+		int target_device_index = -1;
+		
+		for (unsigned int i = 0; i < this->audioDevice->PlayoutDevices(); ++i) {
+
+			char name[webrtc::kAdmMaxDeviceNameSize];
+			char guid[webrtc::kAdmMaxGuidSize];
+			this->audioDevice->PlayoutDeviceName(i, name, guid);
+			if(strcmp(target_id, guid) == 0)
+			{
+				target_device_index = i;
+				break;
+			}
+		}
+
+		if(target_device_index > -1)
+		{
+			this->audioDevice->SetPlayoutDevice(target_device_index);
+		}
+
+		if(wasRecording)
+		{
+			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
+				this->audioDevice->InitPlayout();
+				this->audioDevice->StartPlayout();
+			});
+		}
+	}
+
+	void WebrtcManager::SetRecordingDevice(winrt::hstring deviceId) {
+		input_device_id = deviceId;
+		
+		if (!this->audioDevice) return;
+
+		bool wasRecording = false;
+
+		if (this->audioDevice->MicrophoneIsInitialized())
+		{
+			wasRecording = true;
+			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
+				this->audioDevice->StopRecording();
+			});
+		}
+		
+		char target_id[webrtc::kAdmMaxGuidSize];
+
+		WideCharToMultiByte(CP_UTF8, 0, input_device_id.c_str(), -1, target_id, webrtc::kAdmMaxGuidSize, NULL, NULL);
+
+		int target_device_index = -1;
+
+		for (unsigned int i = 0; i < this->audioDevice->RecordingDevices(); ++i) {
+
+			char name[webrtc::kAdmMaxDeviceNameSize];
+			char guid[webrtc::kAdmMaxGuidSize];
+			this->audioDevice->RecordingDeviceName(i, name, guid);
+			if (strcmp(target_id, guid) == 0)
+			{
+				target_device_index = i;
+				break;
+			}
+		}
+
+		if (target_device_index > -1)
+		{
+			this->audioDevice->SetRecordingDevice(target_device_index);
+		}
+
+		if (wasRecording)
+		{
+			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
+				this->audioDevice->InitRecording();
+				this->audioDevice->StartRecording();
+			});
 		}
 	}
 	

@@ -151,6 +151,7 @@ namespace Quarrel.ViewModels
             {
                 if (m.GuildMemberListUpdated.GuildId == _currentGuild.Model.Id)
                 {
+                    string guildId = m.GuildMemberListUpdated.GuildId;
                     _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         if (m.GuildMemberListUpdated.Id != listId && m.GuildMemberListUpdated.Operators.All(x => x.Op != "SYNC"))
@@ -166,7 +167,7 @@ namespace Quarrel.ViewModels
                             foreach (Group group in m.GuildMemberListUpdated.Groups)
                             {
                                 totalMemberCount += @group.Count + 1;
-                                CurrentBindableMemeberGroups.Add(new BindableGuildMemberGroup(@group));
+                                CurrentBindableMemeberGroups.Add(new BindableGuildMemberGroup(group, guildId));
                             }
 
                             int listCount = CurrentBindableMembers.Count;
@@ -193,7 +194,7 @@ namespace Quarrel.ViewModels
                                         int index = op.Range[0];
                                         foreach (SyncItem item in op.Items)
                                         {
-                                            UpdateMemberListItem(index, item);
+                                            UpdateMemberListItem(index, item, guildId);
                                             index++;
                                         }
                                     }
@@ -204,10 +205,7 @@ namespace Quarrel.ViewModels
                                     {
                                         for (int i = op.Range[0]; i <= op.Range[1] && CurrentBindableMembers.Count < i; i++)
                                         {
-                                            if (CurrentBindableMembers[i] != null)
-                                            {
-                                                CurrentBindableMembers[i] = null;
-                                            }
+                                            CurrentBindableMembers[i] = null;
                                         }
                                     }
 
@@ -217,11 +215,11 @@ namespace Quarrel.ViewModels
                                     {
                                         if (op.Item?.Group != null)
                                         {
-                                            CurrentBindableMembers.Insert(op.Index, new BindableGuildMemberGroup(op.Item.Group));
+                                            CurrentBindableMembers.Insert(op.Index, new BindableGuildMemberGroup(op.Item.Group, m.GuildMemberListUpdated.GuildId));
                                         }
                                         else
                                         {
-                                            CurrentBindableMembers.Insert(op.Index, new BindableGuildMember(op.Item.Member, _currentGuild.Model.Id)
+                                            CurrentBindableMembers.Insert(op.Index, new BindableGuildMember(op.Item.Member, guildId)
                                             {
                                                 IsOwner = op.Item.Member.User.Id == _guildsService.AllGuilds[_currentGuild.Model.Id].Model.OwnerId,
                                             });
@@ -233,7 +231,7 @@ namespace Quarrel.ViewModels
 
                                 case "UPDATE":
                                     {
-                                        UpdateMemberListItem(op.Index, op.Item);
+                                        UpdateMemberListItem(op.Index, op.Item, guildId);
                                     }
 
                                     break;
@@ -255,11 +253,11 @@ namespace Quarrel.ViewModels
             });
         }
 
-        private void UpdateMemberListItem(int index, SyncItem item)
+        private void UpdateMemberListItem(int index, SyncItem item, string guildId)
         {
             if (item.Group != null)
             {
-                CurrentBindableMembers[index] = new BindableGuildMemberGroup(item.Group);
+                CurrentBindableMembers[index] = new BindableGuildMemberGroup(item.Group, guildId);
             }
             else if (item.Member != null)
             {

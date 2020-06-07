@@ -1,8 +1,13 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using System.Collections.Generic;
+using System.Text;
 using DiscordAPI.Models;
 using DiscordAPI.Models.Messages;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Services.Discord.Rest;
 
 namespace Quarrel.ViewModels.Models.Bindables.Messages
 {
@@ -29,6 +34,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
             {
                 Model.Me = value;
                 RaisePropertyChanged(nameof(Me));
+                usersReacted = null;
             }
         }
 
@@ -42,7 +48,64 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
             {
                 Model.Count = value;
                 RaisePropertyChanged(nameof(Count));
+                usersReacted = null;
             }
         }
+
+        private string _toolTip;
+
+        /// <summary>
+        /// Gets or sets the tooltip.
+        /// </summary>
+        public string ToolTip
+        {
+            get => _toolTip;
+            set => Set(ref _toolTip, value);
+        }
+
+        private IEnumerable<User> usersReacted;
+
+        private RelayCommand _updateToolTipCommand;
+
+        public RelayCommand UpdateToolTipCommand => _updateToolTipCommand = _updateToolTipCommand ?? new RelayCommand(async () =>
+        {
+            if (usersReacted == null)
+            {
+                string reactionFullId = Model.Emoji.Name +  (Model.Emoji.Id == null ? string.Empty : ":" + Model.Emoji.Id);
+                var channelService = SimpleIoc.Default.GetInstance<IDiscordService>().ChannelService;
+                usersReacted = await channelService.GetReactions(Model.ChannelId, Model.MessageId, reactionFullId);
+            }
+
+            StringBuilder sb = new StringBuilder();
+
+            int total = 0;
+            int count = 0;
+
+            foreach (var user in usersReacted)
+            {
+                total++;
+                if (count < 10)
+                {
+                    count++;
+                    if (total == 1)
+                    {
+                        sb.Append(user.Username);
+                    }
+                    else
+                    {
+                        sb.Append(", ").Append(user.Username);
+                    }
+                }
+            }
+
+            if (total != count)
+            {
+                sb.Append(" and ").Append(total - count).Append(" others");
+            }
+
+            sb.Append(" reacted");
+            // Todo: figure out how to find typeable emoji
+            ToolTip = sb.ToString();
+        });
     }
 }

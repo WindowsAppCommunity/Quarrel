@@ -14,7 +14,6 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
     public class NotificationsSettingsPageViewModel : ViewModelBase
     {
         private BindableGuild _guild;
-        private bool _muted;
         private int _notifications;
 
         /// <summary>
@@ -24,7 +23,6 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
         public NotificationsSettingsPageViewModel(BindableGuild guild)
         {
             Guild = guild;
-            _muted = GuildSetting.Muted;
         }
 
         /// <summary>
@@ -85,7 +83,5 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
         }
 
         private IGuildsService GuildsService { get; } = SimpleIoc.Default.GetInstance<IGuildsService>();
-
-        private GuildSetting GuildSetting => GuildsService.GuildSettings[Guild.Model.Id];
     }
 }

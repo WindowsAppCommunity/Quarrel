@@ -363,7 +363,7 @@ namespace Quarrel.ViewModels
                 {
                     _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
-                        BindableMessage msg = BindableMessages.LastOrDefault();
+                        BindableMessage msg = BindableMessages.FirstOrDefault(x => x.Model.Id == m.Message.Id);
                         msg?.Update(m.Message);
                     });
                 }

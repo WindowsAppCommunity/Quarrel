@@ -3,6 +3,7 @@ namespace Webrtc{
 	runtimeclass WebrtcManager
 	{
 		WebrtcManager();
+		WebrtcManager(String outputDeviceId, String inputDeviceId);
 		void Create();
 		void Destroy();
 
@@ -11,6 +12,9 @@ namespace Webrtc{
 
 		void SetKey(UInt8[] key);
 		void SetSpeaking(UInt32 ssrc, Int32 speaking);
+
+		void SetPlaybackDevice(String deviceId);
+		void SetRecordingDevice(String deviceId);
 
 		event Windows.Foundation.TypedEventHandler<String, UInt16> IpAndPortObtained;
 		event Windows.Foundation.EventHandler<Windows.Foundation.Collections.IVector<Single> > AudioInData;

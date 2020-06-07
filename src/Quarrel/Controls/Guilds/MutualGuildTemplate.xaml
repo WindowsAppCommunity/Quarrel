@@ -12,11 +12,9 @@
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0, 10" VerticalAlignment="Top">
             <!--Guild Icon-->
-            <Rectangle Width="42" Height="42" VerticalAlignment="Stretch" HorizontalAlignment="Left" RadiusX="100" RadiusY="100">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="{x:Bind ViewModel.BindableGuild.IconUrl}"/>
-                </Rectangle.Fill>
-            </Rectangle>
+            <Border CornerRadius="100" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+                <Image Width="42" Height="42" Source="{x:Bind ViewModel.BindableGuild.IconUrl}"/>
+            </Border>
             
             <!--Guild Name and User's nickname-->
             <StackPanel VerticalAlignment="Center">
