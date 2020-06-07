@@ -318,20 +318,17 @@ namespace Quarrel.ViewModels
 
                     if (CurrentChannel != null && CurrentChannel.Model.Id == channel.Model.Id)
                     {
+
+                        BindableGuildMember member = _guildsService.GetGuildMember(m.Message.User.Id, CurrentGuild.Model.Id) ??
+                                                     new BindableGuildMember(new GuildMember() { User = m.Message.User }, m.Message.GuildId);
                         _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                         {
                             // Removes typer from Channel if responsible for sending this message
                             channel.Typers.TryRemove(m.Message.User.Id, out _);
 
-                            BindableGuildMember member = _guildsService.GetGuildMember(m.Message.User.Id, CurrentGuild.Model.Id);
-                            if (member == null)
-                            {
-                                member = new BindableGuildMember(new GuildMember() { User = m.Message.User }, m.Message.GuildId);
-                            }
-
                             BindableMessages.Add(new BindableMessage(
                                 m.Message,
-                                BindableMessages.LastOrDefault().Model.User != null && BindableMessages.LastOrDefault().Model.User.Id == m.Message.User.Id,
+                                BindableMessages.LastOrDefault()?.Model.User != null && BindableMessages.LastOrDefault().Model.User.Id == m.Message.User.Id,
                                 false,
                                 member));
                         });
