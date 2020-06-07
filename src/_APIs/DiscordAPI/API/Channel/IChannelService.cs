@@ -167,7 +167,9 @@ namespace DiscordAPI.API.Channel
         /// <returns>The message.</returns>
         [Post("/channels/{channelId}/messages")]
         [Multipart]
-        Task<Message> UploadFile([AliasAs("channelId")] string channelId, StreamPart file);
+        Task<Message> UploadFile([AliasAs("channelId")] string channelId, [AliasAs("content")]string content,
+            StreamPart file1 = null, StreamPart file2 = null, StreamPart file3 = null, StreamPart file4 = null, StreamPart file5 = null,
+            StreamPart file6 = null, StreamPart file7 = null, StreamPart file8 = null, StreamPart file9 = null, StreamPart file10 = null);
 
         /// <summary>
         /// Marks a message as read via REST.
