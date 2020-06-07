@@ -72,9 +72,11 @@ namespace DiscordAPI.Models.Guilds
             get
             {
                 if (Banner == null)
+                {
                     return null;
-                else
-                    return string.Format("https://cdn.discordapp.com/banners/{0}/{1}.png", Id, Banner);
+                }
+
+                return $"https://cdn.discordapp.com/banners/{Id}/{Banner}.png?size=512";
             }
         }
     }

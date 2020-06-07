@@ -12,15 +12,15 @@
     d:DesignWidth="224">
 
     <UserControl.Resources>
-        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
-        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter" />
+        <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
         <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
     </UserControl.Resources>
 
     <Button x:Name="rootButton" Style="{ThemeResource DiscordOpaqueButton}" Background="Transparent"
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-            Height="48" HorizontalContentAlignment="Left">
+            MinHeight="48" HorizontalContentAlignment="Left">
         <!--Guild Flyout-->
         <Button.Flyout>
             <MenuFlyout Placement="Bottom" MenuFlyoutPresenterStyle="{StaticResource GuildButtonFlyoutStyle}">
@@ -37,13 +37,18 @@
 
         <Grid>
             <!--Banner-->
-            <tk:ImageEx x:Name="Banner" Source="{x:Bind ViewModel.Model.BannerUri, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}" ImageExOpened="ImageEx_ImageExOpened" Stretch="UniformToFill" Margin="-12"/>
-            <Rectangle Fill="{ThemeResource Background}" Opacity="0.2" Visibility="{x:Bind ViewModel.Model.BannerUri, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Margin="-12"/>
-            
+            <Image x:Name="Banner"
+                        x:Load="{x:Bind ViewModel.Model.BannerUri, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
+                        Source="{x:Bind ViewModel.Model.BannerUri, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"
+                        Stretch="UniformToFill"
+                        Height="128"
+                        Margin="-12" />
+
             <!--Guild Name-->
-            <Viewbox>
-                <TextBlock Text="{x:Bind ViewModel.Model.Name, Mode=OneWay}" FontSize="18" Margin="12,0,0,0"/>
-            </Viewbox>
+            <TextBlock Text="{x:Bind ViewModel.Model.Name, Mode=OneWay}"
+                       FontSize="18"
+                       Margin="12,0,0,0" 
+                       VerticalAlignment="Top"/>
         </Grid>
     </Button>
 </UserControl>
