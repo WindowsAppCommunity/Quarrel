@@ -21,6 +21,8 @@ namespace Quarrel.Controls.Shell
     /// </summary>
     public sealed partial class Shell : UserControl
     {
+        private bool _isMsgListSwiped;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Shell"/> class.
         /// </summary>
@@ -69,6 +71,12 @@ namespace Quarrel.Controls.Shell
 
                 throw;
             }
+
+            if (Microsoft.Toolkit.Uwp.Helpers.SystemInformation.DeviceFamily == "Windows.Mobile")
+            {
+                MessageList.ManipulationDelta += MessageListControl_ManipulationDelta;
+                MessageList.ManipulationCompleted += MessageListControl_ManipulationCompleted;
+            }
         }
 
         /// <summary>
@@ -103,6 +111,49 @@ namespace Quarrel.Controls.Shell
         private void MemberListButtonClicked(object sender, EventArgs e)
         {
             ContentContainer.ToggleRight();
+        }
+
+        private void MessageListControl_ManipulationDelta(object sender, Windows.UI.Xaml.Input.ManipulationDeltaRoutedEventArgs e)
+        {
+            if (e.IsInertial && !_isMsgListSwiped)
+            {
+                var swipedDistance = e.Cumulative.Translation.X;
+
+                if (Math.Abs(swipedDistance) <= 25)
+                {
+                    return;
+                }
+
+                if (swipedDistance > 0)
+                {
+                    if (!ContentContainer.IsLeftOpen() && !ContentContainer.IsRightOpen())
+                    {
+                        ContentContainer.OpenLeft();
+                    }
+                    else if (ContentContainer.IsRightOpen())
+                    {
+                        ContentContainer.CloseRight();
+                    }
+                }
+                else
+                {
+                    if (!ContentContainer.IsRightOpen() && !ContentContainer.IsLeftOpen())
+                    {
+                        ContentContainer.OpenRight();
+                    }
+                    else if (ContentContainer.IsLeftOpen())
+                    {
+                        ContentContainer.CloseLeft();
+                    }
+                }
+
+                _isMsgListSwiped = true;
+            }
+        }
+
+        private void MessageListControl_ManipulationCompleted(object sender, Windows.UI.Xaml.Input.ManipulationCompletedRoutedEventArgs e)
+        {
+            _isMsgListSwiped = false;
         }
     }
 }
