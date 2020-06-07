@@ -3,6 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:messagebindables="using:Quarrel.ViewModels.Models.Bindables.Messages"
     xmlns:viewModels="using:Quarrel.ViewModels"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     x:Class="Quarrel.DataTemplates.Messages.ReactionTemplate">
 
     <ResourceDictionary.MergedDictionaries>
@@ -13,7 +15,19 @@
     </ResourceDictionary.MergedDictionaries>
 
     <DataTemplate x:Key="Reaction" x:DataType="messagebindables:BindableReaction">
-        <ToggleButton IsChecked="{x:Bind Me, Mode=TwoWay}" Command="{Binding Main.ToggleReactionCommand, Source={StaticResource ViewModelLocator}}" CommandParameter="{x:Bind}">
+        <ToggleButton IsChecked="{x:Bind Me, Mode=TwoWay}"
+                      Command="{Binding Main.ToggleReactionCommand, Source={StaticResource ViewModelLocator}}"
+                      CommandParameter="{x:Bind}">
+            <ToolTipService.ToolTip>
+                <ToolTip Content="{x:Bind ToolTip, Mode=OneWay}"
+                         Visibility="{x:Bind ToolTip, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}">
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="Opened">
+                            <core:InvokeCommandAction Command="{x:Bind UpdateToolTipCommand}" />
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                </ToolTip>
+            </ToolTipService.ToolTip>
             <ToggleButton.Style>
                 <Style TargetType="ToggleButton">
                     <Setter Property="Padding" Value="0,0" />
