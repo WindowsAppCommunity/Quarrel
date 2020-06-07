@@ -1,5 +1,6 @@
-﻿// Special thanks to Sergio Pedri for the basis of this design
-// Copyright (c) Quarrel. All rights reserved.
+﻿// Special thanks to Sergio Pedri for this design from Legere
+// GitHub profile: https://github.com/Sergio0694
+// Legere: https://www.microsoft.com/store/apps/9PHJRVCSKVJZ
 
 using System.Threading.Tasks;
 
