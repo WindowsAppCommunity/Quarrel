@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using System;
-using Windows.UI;
-using Windows.UI.Xaml.Data;
 using QuarrelSmartColor.Extensions.Windows.UI;
+using System;
+using Windows.UI.Xaml.Data;
 
 namespace Quarrel.Converters.Base
 {
