@@ -38,7 +38,7 @@ namespace Quarrel.SubPages
             "{0}.{1}.{2}",
             Package.Current.Id.Version.Major,
             Package.Current.Id.Version.Minor,
-            Package.Current.Id.Version.Revision);
+            Package.Current.Id.Version.Build);
 
         /// <summary>
         /// Gets the last commit and branch used for build.

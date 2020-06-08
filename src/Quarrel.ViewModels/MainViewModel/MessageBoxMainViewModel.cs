@@ -78,24 +78,129 @@ namespace Quarrel.ViewModels
 
             if ((!string.IsNullOrEmpty(text) && (!string.IsNullOrWhiteSpace(text))) || Attachments.Count > 0)
             {
-                if (!string.IsNullOrEmpty(text) && !string.IsNullOrWhiteSpace(text))
+                if (Attachments.Count == 0)
                 {
                     // Send message
                     await _discordService.ChannelService.CreateMessage(
                         _channelsService.CurrentChannel.Model.Id,
                         new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
                 }
+                else
+                {
+                    switch (Attachments.Count)
+                    {
+                        case 1:
+                            await _discordService.ChannelService.UploadFile(
+                                _channelsService.CurrentChannel.Model.Id,
+                                text,
+                                Attachments[0]);
+                            break;
+                        case 2:
+                            await _discordService.ChannelService.UploadFile(
+                                _channelsService.CurrentChannel.Model.Id,
+                                text,
+                                Attachments[0],
+                                Attachments[1]);
+                            break;
+                        case 3:
+                            await _discordService.ChannelService.UploadFile(
+                                _channelsService.CurrentChannel.Model.Id,
+                                text,
+                                Attachments[0],
+                                Attachments[1],
+                                Attachments[2]);
+                            break;
+                        case 4:
+                            await _discordService.ChannelService.UploadFile(
+                                _channelsService.CurrentChannel.Model.Id,
+                                text,
+                                Attachments[0],
+                                Attachments[1],
+                                Attachments[2],
+                                Attachments[3]);
+                            break;
+                        case 5:
+                            await _discordService.ChannelService.UploadFile(
+                                _channelsService.CurrentChannel.Model.Id,
+                                text,
+                                Attachments[0],
+                                Attachments[1],
+                                Attachments[2],
+                                Attachments[3],
+                                Attachments[4]);
+                            break;
+                        case 6:
+                            await _discordService.ChannelService.UploadFile(
+                                _channelsService.CurrentChannel.Model.Id,
+                                text,
+                                Attachments[0],
+                                Attachments[1],
+                                Attachments[2],
+                                Attachments[3],
+                                Attachments[4],
+                                Attachments[5]);
+                            break;
+                        case 7:
+                            await _discordService.ChannelService.UploadFile(
+                                _channelsService.CurrentChannel.Model.Id,
+                                text,
+                                Attachments[0],
+                                Attachments[1],
+                                Attachments[2],
+                                Attachments[3],
+                                Attachments[4],
+                                Attachments[5],
+                                Attachments[6]);
+                            break;
+                        case 8:
+                            await _discordService.ChannelService.UploadFile(
+                                _channelsService.CurrentChannel.Model.Id,
+                                text,
+                                Attachments[0],
+                                Attachments[1],
+                                Attachments[2],
+                                Attachments[3],
+                                Attachments[4],
+                                Attachments[5],
+                                Attachments[6],
+                                Attachments[7]);
+                            break;
+                        case 9:
+                            await _discordService.ChannelService.UploadFile(
+                                _channelsService.CurrentChannel.Model.Id,
+                                text,
+                                Attachments[0],
+                                Attachments[1],
+                                Attachments[2],
+                                Attachments[3],
+                                Attachments[4],
+                                Attachments[5],
+                                Attachments[6],
+                                Attachments[7],
+                                Attachments[8]);
+                            break;
+                        case 10:
+                        default:
+                            await _discordService.ChannelService.UploadFile(
+                                _channelsService.CurrentChannel.Model.Id,
+                                text,
+                                Attachments[0],
+                                Attachments[1],
+                                Attachments[2],
+                                Attachments[3],
+                                Attachments[4],
+                                Attachments[5],
+                                Attachments[6],
+                                Attachments[7],
+                                Attachments[8],
+                                Attachments[9]);
+                            break;
+
+                    }
+                    Attachments.Clear();
+                }
 
                 _dispatcherHelper.CheckBeginInvokeOnUi(() => { MessageText = string.Empty; });
-
-                // Upload and send a message for each attachment
-                while (Attachments.Count > 0)
-                {
-                    await _discordService.ChannelService.UploadFile(
-                        _channelsService.CurrentChannel.Model.Id,
-                        Attachments[0]);
-                    Attachments.RemoveAt(0);
-                }
             }
 
             _analyticsService.Log(

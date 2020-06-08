@@ -47,7 +47,11 @@ namespace Quarrel.ViewModels
                     bindableGuildFolder.IsCollapsed = collapsed;
                     foreach (var guildId in bindableGuildFolder.Model.GuildIds)
                     {
-                        _guildsService.AllGuilds[guildId].IsCollapsed = collapsed;
+                        _guildsService.AllGuilds.TryGetValue(guildId, out var guild);
+                        if (guild != null)
+                        {
+                            guild.IsCollapsed = collapsed;
+                        }
                     }
                 }
             });

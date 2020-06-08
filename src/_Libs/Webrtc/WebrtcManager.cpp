@@ -171,6 +171,8 @@ namespace winrt::Webrtc::implementation
 
 	void WebrtcManager::Destroy()
 	{
+		this->m_connected = false;
+		this->ssrc_to_create.clear();
 		if (this->audioReceiveStreams.size() > 0) {
 			for (auto it = this->audioReceiveStreams.cbegin(); it != this->audioReceiveStreams.cend();)
 			{
@@ -252,6 +254,14 @@ namespace winrt::Webrtc::implementation
 		config.audio_processing = stateconfig.audio_processing;
 		
 		this->g_call = webrtc::Call::Create(config);
+		this->m_connected = true;
+		for (auto const& [ssrc, speaking] : this->ssrc_to_create)
+		{
+			if(speaking != 0)
+			{
+				this->audioReceiveStreams[ssrc] = this->createAudioReceiveStream(this->ssrc, ssrc, 120);
+			}
+		}
 	}
 
 	WebrtcManager::~WebrtcManager()
@@ -291,28 +301,35 @@ namespace winrt::Webrtc::implementation
 	void WebrtcManager::SetSpeaking(UINT32 ssrc, int speaking)
 	{
 		// Todo: handle priority speaker
-		auto it = audioReceiveStreams.find(ssrc);
-		if (speaking != 0)
+		if (!this->m_connected)
 		{
-			if (it == audioReceiveStreams.end())
-			{
-				this->audioReceiveStreams[ssrc] = this->workerThread->Invoke<webrtc::AudioReceiveStream*>(RTC_FROM_HERE, [this, ssrc]() {
-					return this->createAudioReceiveStream(this->ssrc, ssrc, 120);
-				});
-			}
-			else
-			{
-				// How?
-			}
+			this->ssrc_to_create[ssrc] = speaking;
 		}
 		else
 		{
-			if (it != audioReceiveStreams.end())
+			auto it = this->audioReceiveStreams.find(ssrc);
+			if (speaking != 0)
 			{
-				this->workerThread->Invoke<void>(RTC_FROM_HERE, [this, it]() {
-					this->g_call->DestroyAudioReceiveStream(it->second);
-				});
-				audioReceiveStreams.erase(it);
+				if (it == this->audioReceiveStreams.end())
+				{
+					this->audioReceiveStreams[ssrc] = this->workerThread->Invoke<webrtc::AudioReceiveStream*>(RTC_FROM_HERE, [this, ssrc]() {
+						return this->createAudioReceiveStream(this->ssrc, ssrc, 120);
+					});
+				}
+				else
+				{
+					// How?
+				}
+			}
+			else
+			{
+				if (it != audioReceiveStreams.end())
+				{
+					this->workerThread->Invoke<void>(RTC_FROM_HERE, [this, it]() {
+						this->g_call->DestroyAudioReceiveStream(it->second);
+					});
+					audioReceiveStreams.erase(it);
+				}
 			}
 		}
 	}

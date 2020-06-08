@@ -102,7 +102,7 @@
                                              HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked" ShowHamburger="True"/>
 
                     <!--Message List-->
-                    <views:MessageListControl Grid.Row="1"/>
+                    <views:MessageListControl x:Name="MessageList" ManipulationMode="TranslateX,TranslateInertia,System" Grid.Row="1"/>
 
                     <!--Friends List-->
                     <views:FriendListControl Grid.Row="1" Visibility="{x:Bind ViewModel.CurrentChannel, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"/>
