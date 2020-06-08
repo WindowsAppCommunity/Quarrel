@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Models.Bindables.Channels;
+using Quarrel.ViewModels.Models.Bindables.Messages;
 using Quarrel.ViewModels.Models.Bindables.Users;
 using Quarrel.ViewModels.Models.Emojis;
 using Quarrel.ViewModels.Models.Suggesitons;
@@ -26,6 +27,7 @@ namespace Quarrel.ViewModels
     /// </summary>
     public partial class MainViewModel
     {
+        private RelayCommand<BindableMessage> _quote;
         private RelayCommand _tiggerTyping;
         private RelayCommand _newLineCommand;
         private RelayCommand _sendMessageCommand;
@@ -223,6 +225,19 @@ namespace Quarrel.ViewModels
             }
 
             // TODO: Scroll to and edit
+        });
+
+        /// <summary>
+        /// Gets a command that opens the profile of the message author.
+        /// </summary>
+        public RelayCommand<BindableMessage> Quote => _quote = new RelayCommand<BindableMessage>((message) =>
+        {
+            if (!string.IsNullOrEmpty(MessageText))
+            {
+                MessageText += "\n";
+            }
+
+            MessageText += ">" + message.Model.Content + "\n" + string.Format("@{0}#{1}", message.Model.User.Username, message.Model.User.Discriminator);
         });
 
         /// <summary>
