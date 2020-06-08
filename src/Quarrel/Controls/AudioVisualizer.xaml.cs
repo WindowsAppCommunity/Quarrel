@@ -96,11 +96,13 @@ namespace Quarrel.Controls
             get => _input;
             set
             {
+                _input = value;
                 if (value)
                 {
                     WebrtcManager.AudioInData += DataRecieved;
                     WebrtcManager.AudioOutData -= DataRecieved;
-                } else
+                }
+                else
                 {
                     WebrtcManager.AudioInData -= DataRecieved;
                     WebrtcManager.AudioOutData += DataRecieved;
