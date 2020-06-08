@@ -39,6 +39,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Guilds
         private bool _isCollapsed;
         private bool _muted;
         private RelayCommand _copyId;
+        private RelayCommand _leaveGuild;
         private RelayCommand _openGuildSettings;
         private RelayCommand _markAsRead;
         private RelayCommand _muteGuild;
@@ -331,6 +332,14 @@ namespace Quarrel.ViewModels.Models.Bindables.Guilds
         public RelayCommand CopyId => _copyId = new RelayCommand(() =>
         {
             SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(Model.Id);
+        });
+
+        /// <summary>
+        /// Gets a command that copies the guild id to the clipboard.
+        /// </summary>
+        public RelayCommand LeaveGuild => _leaveGuild = new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<IDiscordService>().UserService.LeaveGuild(Model.Id);
         });
 
         /// <summary>
