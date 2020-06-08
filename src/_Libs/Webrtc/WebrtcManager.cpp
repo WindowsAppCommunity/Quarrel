@@ -239,8 +239,49 @@ namespace winrt::Webrtc::implementation
 		stateconfig.audio_mixer = webrtc::AudioMixerImpl::Create();
 
 		rtc::scoped_refptr<webrtc::AudioState> audio_state = webrtc::AudioState::Create(stateconfig);
+
+		RTC_CHECK_EQ(0, this->audioDevice->Init()) << "Failed to initialize the ADM.";
+
+		if(this->audioDevice->PlayoutDevices() > 0)
+		{
+			if (this->audioDevice->SetPlayoutDevice(0) != 0) {
+				RTC_LOG(LS_ERROR) << "Unable to set playout device.";
+				return;
+			}
+			if (this->audioDevice->InitSpeaker() != 0) {
+				RTC_LOG(LS_ERROR) << "Unable to access speaker.";
+			}
+
+			// Set number of channels
+			bool available = false;
+			if (this->audioDevice->StereoPlayoutIsAvailable(&available) != 0) {
+				RTC_LOG(LS_ERROR) << "Failed to query stereo playout.";
+			}
+			if (this->audioDevice->SetStereoPlayout(available) != 0) {
+				RTC_LOG(LS_ERROR) << "Failed to set stereo playout mode.";
+			}
+		}
+
+		if (this->audioDevice->RecordingDevices() > 0)
+		{
+			if (this->audioDevice->SetRecordingDevice(0) != 0) {
+				RTC_LOG(LS_ERROR) << "Unable to set recording device.";
+				return;
+			}
+			if (this->audioDevice->InitMicrophone() != 0) {
+				RTC_LOG(LS_ERROR) << "Unable to access microphone.";
+			}
+
+			// Set number of channels
+			bool available = false;
+			if (this->audioDevice->StereoRecordingIsAvailable(&available) != 0) {
+				RTC_LOG(LS_ERROR) << "Failed to query stereo recording.";
+			}
+			if (this->audioDevice->SetStereoRecording(available) != 0) {
+				RTC_LOG(LS_ERROR) << "Failed to set stereo recording mode.";
+			}
+		}
 		
-		webrtc::adm_helpers::Init(this->audioDevice);
 		webrtc::apm_helpers::Init(stateconfig.audio_processing);
 		this->audioDevice->RegisterAudioCallback(audio_state->audio_transport());
 		
