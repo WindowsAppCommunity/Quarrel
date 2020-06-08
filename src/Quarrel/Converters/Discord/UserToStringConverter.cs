@@ -1,4 +1,6 @@
-﻿using DiscordAPI.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using DiscordAPI.Models;
 using System;
 using Windows.UI.Xaml.Data;
 

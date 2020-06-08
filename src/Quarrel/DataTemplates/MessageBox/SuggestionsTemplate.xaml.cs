@@ -1,4 +1,4 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿// Copyright (c) Quarrel. All rights reserved.
 
 namespace Quarrel.DataTemplates.MessageBox
 {

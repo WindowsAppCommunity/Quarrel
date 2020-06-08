@@ -1,10 +1,6 @@
-﻿using Quarrel.ViewModels.Models;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
 using Quarrel.ViewModels.Models.Suggesitons;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

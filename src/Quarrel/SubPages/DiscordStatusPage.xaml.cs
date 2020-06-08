@@ -6,7 +6,6 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Quarrel.Helpers;
 using Quarrel.SubPages.Interfaces;
-using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.SubPages;
 using System;
@@ -32,12 +31,9 @@ namespace Quarrel.SubPages
         /// </summary>
         private const float DataStrokeThickness = 1;
 
-        private IAnalyticsService _analyticsService = null;
-
-        /// <summary>
-        /// Rendering help for the graph.
-        /// </summary>
         private readonly ChartRenderer _chartRenderer = new ChartRenderer();
+
+        private IAnalyticsService _analyticsService = null;
 
         /// <summary>
         /// The position of the mouse on the chart, in Pixels.
