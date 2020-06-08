@@ -48,15 +48,19 @@
             <UserControl.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
                     <MenuFlyoutItem Icon="View" Text="Mark as read" Margin="-24,0,0,0"
-                            IsEnabled="{x:Bind IsUnread, Mode=OneWay}" Command="{x:Bind MarkAsRead}"/>
+                                    IsEnabled="{x:Bind IsUnread, Mode=OneWay}" Command="{x:Bind MarkAsRead}"/>
                     <ToggleMenuFlyoutItem Text="Mute" Style="{StaticResource GuildToggleButtonFlyoutItemStyle}"
-                                  IsChecked="{x:Bind IsMuted, Mode=OneWay}" Visibility="{x:Bind IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Command="{x:Bind MuteGuildCommand, Mode=OneWay}"/>
+                                          IsChecked="{x:Bind IsMuted, Mode=OneWay}" Visibility="{x:Bind IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Command="{x:Bind MuteGuildCommand, Mode=OneWay}"/>
                     <MenuFlyoutSeparator/>
                     <MenuFlyoutItem Icon="Setting" Text="Server Settings" Margin="-24,0,0,0"
-                            Command="{x:Bind OpenGuildSettings, Mode=OneWay}"/>
+                                    Command="{x:Bind OpenGuildSettings, Mode=OneWay}"/>
+                    <MenuFlyoutSeparator Visibility="{x:Bind IsOwner, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
+                    <MenuFlyoutItem Icon="Cancel" Text="Leave Server" Margin="-24,0,0,0" Foreground="{ThemeResource dnd}"
+                                    Visibility="{x:Bind IsOwner, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+                                    Command="{x:Bind LeaveGuild, Mode=OneWay}"/>
                     <MenuFlyoutSeparator/>
                     <MenuFlyoutItem Icon="Copy" Text="Copy Id" Margin="-24,0,0,0"
-                            Command="{x:Bind CopyId, Mode=OneWay}"/>
+                                    Command="{x:Bind CopyId, Mode=OneWay}"/>
                 </MenuFlyout>
             </UserControl.ContextFlyout>
 
