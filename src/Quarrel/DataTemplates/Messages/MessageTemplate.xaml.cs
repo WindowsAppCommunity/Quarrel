@@ -2,12 +2,12 @@
 
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
-using Quarrel.Controls;
 using Quarrel.Controls.Members;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables.Messages.Embeds;
 using Quarrel.ViewModels.Models.Bindables.Users;
 using Quarrel.ViewModels.Services.Analytics;
+using Quarrel.ViewModels.Services.Discord.Channels;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Navigation;
 using System;
@@ -15,7 +15,6 @@ using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Quarrel.ViewModels.Services.Discord.Channels;
 
 namespace Quarrel.DataTemplates.Messages
 {
@@ -73,6 +72,7 @@ namespace Quarrel.DataTemplates.Messages
                     {
                         userId = e.Link.Remove(0, 1);
                     }
+
                     var guildsService = SimpleIoc.Default.GetInstance<IGuildsService>();
                     BindableGuildMember member = guildsService.GetGuildMember(userId, guildsService.CurrentGuild.Model.Id);
                     if (member != null)
