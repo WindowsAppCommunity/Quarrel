@@ -592,6 +592,8 @@
     <PRIResource Include="Localization\en\AuditLog.resw" />
     <Content Include="Assets\Data\Emojis - Backup.json" />
     <Content Include="Assets\Tokens\Fake.json" />
+    <Content Include="Assets\Tokens\AppCenter.json" />
+    <Content Include="Assets\Tokens\AppCenterInsider.json" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\PayPal.png" />
     <Content Include="Properties\Default.rd.xml" />
@@ -1109,8 +1111,8 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>IF NOT EXIST "$(ProjectDir)\Assets\Tokens\AppCenter.json" echo ""&gt;$(ProjectDir)\Assets\Tokens\AppCenter.json
+IF NOT EXIST "$(ProjectDir)\Assets\Tokens\AppCenterInsider.json" echo ""&gt;$(ProjectDir)\Assets\Tokens\AppCenterInsider.json</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
