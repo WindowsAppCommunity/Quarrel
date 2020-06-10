@@ -2,14 +2,14 @@
 
 using DiscordAPI.Models;
 using Quarrel.ViewModels.Services.Resources;
+using QuarrelSmartColor;
+using QuarrelSmartColor.Extensions.Windows.UI;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using QuarrelSmartColor;
-using QuarrelSmartColor.Extensions.Windows.UI;
 
 namespace Quarrel.Services.Resources
 {

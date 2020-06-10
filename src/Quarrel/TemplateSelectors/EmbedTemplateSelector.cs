@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using DiscordAPI.Models;
 using Quarrel.ViewModels.Models.Bindables.Messages.Embeds;
+using Quarrel.ViewModels.Models.Interfaces;
 using System.Text.RegularExpressions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -46,7 +46,7 @@ namespace Quarrel.TemplateSelectors
         /// <summary>
         /// Selects a <see cref="DataTemplate"/> based on the details from <paramref name="item"/>.
         /// </summary>
-        /// <param name="item">An <see cref="Embed"/>.</param>
+        /// <param name="item">An <see cref="IEmbed"/>.</param>
         /// <param name="container">The parent of the resulting <see cref="DataTemplate"/>.</param>
         /// <returns>A <see cref="DataTemplate"/> for the <paramref name="item"/>'s type.</returns>
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
@@ -68,7 +68,7 @@ namespace Quarrel.TemplateSelectors
                             {
                                 return YoutubeEmbedTemplate;
                             }
-                            // Todo: handle other video embeds e.g twitch.
+
                             return DefaultEmbedTemplate;
                         }
 

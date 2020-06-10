@@ -43,6 +43,7 @@ namespace Quarrel.Helpers
         {
             d.SetValue(CommandProperty, value);
         }
+
         /// <summary>
         /// Gets the <see cref="ICommand"/> on a <see cref="DependencyObject"/>.
         /// </summary>

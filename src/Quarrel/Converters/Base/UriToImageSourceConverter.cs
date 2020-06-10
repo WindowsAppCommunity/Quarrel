@@ -19,7 +19,8 @@ namespace Quarrel.Converters.Base
             {
                 uri = value as Uri;
                 return new BitmapImage(uri);
-            } else if (value is string sValue)
+            }
+            else if (value is string sValue)
             {
                 if (Uri.TryCreate(sValue, UriKind.Absolute, out uri))
                 {

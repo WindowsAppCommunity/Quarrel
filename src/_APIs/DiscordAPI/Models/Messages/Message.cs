@@ -115,7 +115,7 @@ namespace DiscordAPI.Models.Messages
         public long? Nonce { get; set; }
 
         /// <summary>
-        /// Gets or sets if the message is pinned in the channel.
+        /// Gets or sets a value indicating whether or not the message is pinned in the channel.
         /// </summary>
         [JsonProperty("pinned")]
         public bool Pinned { get; set; }

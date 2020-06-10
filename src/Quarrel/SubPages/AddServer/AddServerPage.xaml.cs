@@ -1,10 +1,11 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿// Copyright (c) Quarrel. All rights reserved.
+
+using GalaSoft.MvvmLight.Ioc;
 using Microsoft.UI.Xaml.Controls;
 using Quarrel.SubPages.AddServer.Pages;
 using Quarrel.SubPages.Interfaces;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Services.Analytics;
-using Quarrel.ViewModels.Services.Navigation;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

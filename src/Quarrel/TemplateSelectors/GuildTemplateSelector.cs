@@ -30,7 +30,7 @@ namespace Quarrel.TemplateSelectors
         /// <summary>
         /// Selects a <see cref="DataTemplate"/> based on the details from <paramref name="item"/>.
         /// </summary>
-        /// <param name="item">A <see cref="BindableChannel"/>.</param>
+        /// <param name="item">A <see cref="IGuildListItem"/>.</param>
         /// <param name="container">The parent of the resulting <see cref="DataTemplate"/>.</param>
         /// <returns>A <see cref="DataTemplate"/> for the <paramref name="item"/>'s type.</returns>
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)

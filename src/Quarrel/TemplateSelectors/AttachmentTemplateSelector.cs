@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Models.Bindables.Messages.Embeds;
 using Quarrel.ViewModels.Services.Settings;
@@ -34,7 +33,7 @@ namespace Quarrel.TemplateSelectors
         /// <summary>
         /// Selects a <see cref="DataTemplate"/> based on details from the <paramref name="item"/>.
         /// </summary>
-        /// <param name="item">An <see cref="Attachment"/>.</param>
+        /// <param name="item">An <see cref="BindableAttachment"/>.</param>
         /// <param name="container">The parent of the resulting <see cref="DataTemplate"/>.</param>
         /// <returns>A <see cref="DataTemplate"/> for the <paramref name="item"/>'s type.</returns>
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)

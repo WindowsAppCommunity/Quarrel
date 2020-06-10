@@ -275,16 +275,18 @@ namespace Quarrel.Controls.Shell
         }
 
         /// <summary>
-        /// Returnes whether the left drawer is open or not.
+        /// Gets whether the left drawer is open or not.
         /// </summary>
+        /// <returns>A value indicating whether or not the left drawer is open.</returns>
         public bool IsLeftOpen()
         {
             return _tracker.Position.X < 0;
         }
 
         /// <summary>
-        /// Returnes whether the right drawer is open or not.
+        /// Gets whether the right drawer is open or not.
         /// </summary>
+        /// <returns>A value indicating whether or not the right drawer is open.</returns>
         public bool IsRightOpen()
         {
             return _tracker.Position.X > 0;
