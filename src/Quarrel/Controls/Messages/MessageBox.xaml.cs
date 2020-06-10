@@ -11,7 +11,6 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using System.Security.Cryptography;
 
 namespace Quarrel.Controls.Messages
 {

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Quarrel.ViewModels;
-using Quarrel.ViewModels.Controls;
+﻿// Copyright (c) Quarrel. All rights reserved.
 
 namespace Quarrel.DataTemplates
 {
+    /// <summary>
+    /// A collection of flyout instances.
+    /// </summary>
     public partial class FlyoutDictionary
     {
         /// <summary>

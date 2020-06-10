@@ -1,9 +1,5 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using GalaSoft.MvvmLight.Ioc;
-using Quarrel.ViewModels.Models.Bindables.Messages;
-using Quarrel.ViewModels.Services.Discord.Rest;
-using Windows.UI.Xaml.Controls.Primitives;
 using Quarrel.ViewModels;
 
 namespace Quarrel.DataTemplates.Messages
@@ -21,6 +17,9 @@ namespace Quarrel.DataTemplates.Messages
             this.InitializeComponent();
         }
 
+        /// <summary>
+        /// Gets the app's MainViewModel.
+        /// </summary>
         public MainViewModel ViewModel => App.ViewModelLocator.Main;
     }
 }

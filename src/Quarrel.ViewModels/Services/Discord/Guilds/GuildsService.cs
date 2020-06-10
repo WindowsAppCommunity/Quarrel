@@ -114,8 +114,12 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         dmGuild.Channels = new ObservableCollection<BindableChannel>(dmGuild.Channels.OrderByDescending(x => Convert.ToUInt64(x.Model.LastMessageId)).ToList());
                     }
 
+                    List<string> guildIdsNotInFolder = new List<string>();
+
                     foreach (var guild in m.EventData.Guilds)
                     {
+                        guildIdsNotInFolder.Add(guild.Id);
+
                         BindableGuild bGuild = new BindableGuild(guild);
 
                         // Handle guild settings
@@ -233,13 +237,31 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         {
                             foreach (string id in folder.GuildIds)
                             {
-                              if (AllGuilds.ContainsKey(id))
-                              {
-                                  AllGuilds[id].FolderId = folder.Id;
-                                  AllGuilds[id].IsCollapsed = true;
-                              }
+                                int pos = guildIdsNotInFolder.IndexOf(id);
+                                if (pos >= 0)
+                                {
+                                    guildIdsNotInFolder.RemoveAt(pos);
+                                }
+                                if (AllGuilds.ContainsKey(id))
+                                {
+                                    AllGuilds[id].FolderId = folder.Id;
+                                    AllGuilds[id].IsCollapsed = true;
+                                }
                             }
                         }
+                        else
+                        {
+                            int pos = guildIdsNotInFolder.IndexOf(folder.GuildIds.FirstOrDefault());
+                            if (pos >= 0)
+                            {
+                                guildIdsNotInFolder.RemoveAt(pos);
+                            }
+                        }
+                    }
+
+                    foreach (string id in guildIdsNotInFolder)
+                    {
+                        AllGuildFolders.Add(new BindableGuildFolder(new Folder{ GuildIds = new List<string> { id } }) { IsCollapsed = true });
                     }
 
                     Messenger.Default.Send("GuildsReady");

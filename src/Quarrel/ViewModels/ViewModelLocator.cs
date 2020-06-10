@@ -2,6 +2,7 @@
 
 using DiscordAPI.Voice;
 using GalaSoft.MvvmLight.Ioc;
+using Quarrel.Helpers;
 using Quarrel.Navigation;
 using Quarrel.Services.Cache;
 using Quarrel.Services.Clipboard;
@@ -13,6 +14,7 @@ using Quarrel.SubPages;
 using Quarrel.SubPages.AddServer;
 using Quarrel.SubPages.GuildSettings;
 using Quarrel.SubPages.UserSettings;
+using Quarrel.ViewModels.Controls;
 using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Clipboard;
@@ -30,8 +32,6 @@ using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.Services.Voice;
 using System;
 using System.Threading.Tasks;
-using Quarrel.Helpers;
-using Quarrel.ViewModels.Controls;
 
 namespace Quarrel.ViewModels
 {
@@ -105,7 +105,6 @@ namespace Quarrel.ViewModels
                 var tmp = Task.Run(async () => await Constants.FromFile.GetEmojiLists());
                 return new EmojiPickerViewModel(tmp.GetAwaiter().GetResult());
             });
-
         }
 
         /// <summary>
