@@ -27,8 +27,12 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      Copy-Item $Env:APP_CENTER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/"
-      Copy-Item $Env:APP_CENTER_INSIDER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/"
+      if(Test-Path Env:APP_CENTER_TOKEN_PATH){
+        Copy-Item $Env:APP_CENTER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/"
+      }
+      if(Test-Path Env:APP_CENTER_INSIDER_TOKEN_PATH){
+        Copy-Item $Env:APP_CENTER_INSIDER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/"
+      }
   env:
     APP_CENTER_TOKEN_PATH: $(appCenterToken.secureFilePath)
     APP_CENTER_INSIDER_TOKEN_PATH: $(appCenterInsiderToken.secureFilePath)
