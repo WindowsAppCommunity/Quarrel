@@ -256,7 +256,7 @@
                 <Button x:Name="AuthorIcon"
                         RelativePanel.AlignTopWith="header"
                         Style="{StaticResource DimButton}" Padding="4" Margin="-4,10,-4,-4"
-                        extensions:Mouse.Cursor="Hand"
+                        extensions2:Mouse.Cursor="Hand"
                         Visibility="{x:Bind IsContinuation, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
                         Flyout="{StaticResource MemberFlyout}">
                     <controls:UserIconControl Size="40" Width="40" Height="40" DataContext="{x:Bind Author, Mode=OneWay}" ShowPresence="False"/>
