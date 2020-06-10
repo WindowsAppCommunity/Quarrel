@@ -9,8 +9,9 @@ pool:
 variables:
   solution: '**/*.sln'
   buildPlatform: 'x86|x64|ARM'
-  buildConfiguration: 'Debug'
+  buildConfiguration: 'Relase'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
+  buildDir: '$(build.artifactStagingDirectory)\build\\'
 
 steps:
 - task: DownloadSecureFile@1
@@ -46,6 +47,10 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    platform: 'x64'
+    platform: 'x86'
     configuration: '$(buildConfiguration)'
-    msbuildArgs: '/p:Configuration=${buildConfiguration} /p:Platform="x64" /t:Quarrel'
+    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)"
+                  /p:AppxPackageDir="$(appxPackageDir)"
+                  /p:OutputPath="$(buildDir)"
+                  /p:AppxBundle=Always
+                  /p:UapAppxPackageBuildMode=StoreUpload'
