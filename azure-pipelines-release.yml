@@ -78,4 +78,4 @@ steps:
     appId: '9NBRWJ777C8R'
     packagePath: '$(appxPackageDir)\*.appxupload'
     force: false
-    skipPolling: false
+    skipPolling: true
