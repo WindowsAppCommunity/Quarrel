@@ -60,7 +60,7 @@ namespace Quarrel.Services.Settings
 
             Roaming.SetValue(
                 SettingKeys.AcrylicSettings,
-                AcrylicSettings.MessageView | AcrylicSettings.ChannelView | AcrylicSettings.GuildView | AcrylicSettings.CommandBar,
+                AcrylicSettings.GuildView | AcrylicSettings.CommandBar,
                 false);
         }
 
