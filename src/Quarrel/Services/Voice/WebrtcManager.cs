@@ -51,11 +51,6 @@ namespace Quarrel.Services.Voice
         public void Create()
         {
             manager.Create();
-
-            // TODO: More info for Mobile
-            VoipCallCoordinator vcc = VoipCallCoordinator.GetDefault();
-            voipCall = vcc.RequestNewOutgoingCall(string.Empty, string.Empty, "Quarrel", VoipPhoneCallMedia.Audio);
-            voipCall.NotifyCallActive();
         }
 
         /// <inheritdoc/>
@@ -63,11 +58,16 @@ namespace Quarrel.Services.Voice
         {
             manager.Destroy();
             voipCall?.NotifyCallEnded();
+            voipCall = null;
         }
 
         /// <inheritdoc/>
         public async Task ConnectAsync(string ip, string port, uint ssrc)
         {
+            // TODO: More info for Mobile
+            VoipCallCoordinator vcc = VoipCallCoordinator.GetDefault();
+            voipCall = vcc.RequestNewOutgoingCall(string.Empty, string.Empty, "Quarrel", VoipPhoneCallMedia.Audio);
+            voipCall.NotifyCallActive();
             await manager.ConnectAsync(ip, port, ssrc);
         }
 

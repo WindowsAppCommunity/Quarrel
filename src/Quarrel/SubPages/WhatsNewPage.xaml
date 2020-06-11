@@ -14,16 +14,16 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Version 20.6.12" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+        <TextBlock Text="Version 20.6.13" FontWeight="SemiBold" Margin="0" FontSize="20"/>
         <StackPanel Margin="16">
             <ScrollViewer>
                 <RichTextBlock x:Name="notDetailed" TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,12">
                     <Paragraph>
-                        <Run Text="• Xbox voice chat fix"/>
+                        <Run Text="• Fixed background voice"/>
                     </Paragraph>
                     <Paragraph FontSize="8"/>
                     <Paragraph>
-                        <Run Text="• More bug fixes"/>
+                        <Run Text="• Fixed mobile"/>
                     </Paragraph>
                     <Paragraph FontSize="8"/>
                 </RichTextBlock>
