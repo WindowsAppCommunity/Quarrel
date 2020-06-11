@@ -72,7 +72,7 @@ steps:
 
 - task: store-publish@0
   inputs:
-    serviceEndpoint: 'Quarrel-Insider'
+    serviceEndpoint: 'Store releases'
     appId: '9NN1ZFD5G6DL'
     packagePath: '$(appxPackageDir)\*.appxupload'
     force: false
