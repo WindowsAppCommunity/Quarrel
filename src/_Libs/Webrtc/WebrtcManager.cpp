@@ -146,8 +146,8 @@ namespace winrt::Webrtc::implementation
 
 	WebrtcManager::WebrtcManager(hstring outputDeviceId, hstring inputDeviceId)
 	{
-		output_device_id = outputDeviceId;
-		input_device_id = inputDeviceId;
+		output_device_id = to_string(outputDeviceId);
+		input_device_id = to_string(inputDeviceId);
 	}
 
 	void WebrtcManager::Create()
@@ -234,8 +234,7 @@ namespace winrt::Webrtc::implementation
 		this->audioDevice = ::Webrtc::IAudioDeviceWasapi::create(props);
 		
 		stateconfig.audio_device_module = this->audioDevice;
-		this->SetPlaybackDevice(output_device_id);
-		this->SetRecordingDevice(input_device_id);
+
 		stateconfig.audio_mixer = webrtc::AudioMixerImpl::Create();
 
 		rtc::scoped_refptr<webrtc::AudioState> audio_state = webrtc::AudioState::Create(stateconfig);
@@ -244,7 +243,11 @@ namespace winrt::Webrtc::implementation
 
 		if(this->audioDevice->PlayoutDevices() > 0)
 		{
-			if (this->audioDevice->SetPlayoutDevice(0) != 0) {
+			int deviceIndex = GetPlaybackDeviceIndexFromId(output_device_id);
+
+			if (deviceIndex == -1) deviceIndex = 0;
+			
+			if (this->audioDevice->SetPlayoutDevice(deviceIndex) != 0) {
 				RTC_LOG(LS_ERROR) << "Unable to set playout device.";
 				return;
 			}
@@ -264,7 +267,11 @@ namespace winrt::Webrtc::implementation
 
 		if (this->audioDevice->RecordingDevices() > 0)
 		{
-			if (this->audioDevice->SetRecordingDevice(0) != 0) {
+			int deviceIndex = GetRecordingDeviceIndexFromId(input_device_id);
+
+			if (deviceIndex == -1) deviceIndex = 0;
+
+			if (this->audioDevice->SetRecordingDevice(deviceIndex) != 0) {
 				RTC_LOG(LS_ERROR) << "Unable to set recording device.";
 				return;
 			}
@@ -403,8 +410,46 @@ namespace winrt::Webrtc::implementation
 		}
 	}
 
-	void WebrtcManager::SetPlaybackDevice(winrt::hstring deviceId) {
-		output_device_id = deviceId;
+	int WebrtcManager::GetPlaybackDeviceIndexFromId(std::string deviceId) const
+	{
+		char target_id[webrtc::kAdmMaxGuidSize];
+
+		int target_device_index = -1;
+
+		for (unsigned int i = 0; i < this->audioDevice->PlayoutDevices(); ++i) {
+
+			char name[webrtc::kAdmMaxDeviceNameSize];
+			char guid[webrtc::kAdmMaxGuidSize];
+			this->audioDevice->PlayoutDeviceName(i, name, guid);
+			if (deviceId == guid)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	int WebrtcManager::GetRecordingDeviceIndexFromId(std::string deviceId) const
+	{
+		char target_id[webrtc::kAdmMaxGuidSize];
+
+		int target_device_index = -1;
+
+		for (unsigned int i = 0; i < this->audioDevice->RecordingDevices(); ++i) {
+
+			char name[webrtc::kAdmMaxDeviceNameSize];
+			char guid[webrtc::kAdmMaxGuidSize];
+			this->audioDevice->RecordingDeviceName(i, name, guid);
+			if (deviceId == guid)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	void WebrtcManager::SetPlaybackDevice(hstring deviceId) {
+		output_device_id = to_string(deviceId);
 
 		if (!this->audioDevice) return;
 
@@ -417,25 +462,9 @@ namespace winrt::Webrtc::implementation
 				this->audioDevice->StopPlayout();
 			});
 		}
-		
-		char target_id[webrtc::kAdmMaxGuidSize];
 
-		WideCharToMultiByte(CP_UTF8, 0, output_device_id.c_str(), -1, target_id, webrtc::kAdmMaxGuidSize, NULL, NULL);
+		const int target_device_index = GetPlaybackDeviceIndexFromId(output_device_id);
 		
-		int target_device_index = -1;
-		
-		for (unsigned int i = 0; i < this->audioDevice->PlayoutDevices(); ++i) {
-
-			char name[webrtc::kAdmMaxDeviceNameSize];
-			char guid[webrtc::kAdmMaxGuidSize];
-			this->audioDevice->PlayoutDeviceName(i, name, guid);
-			if(strcmp(target_id, guid) == 0)
-			{
-				target_device_index = i;
-				break;
-			}
-		}
-
 		if(target_device_index > -1)
 		{
 			this->audioDevice->SetPlayoutDevice(target_device_index);
@@ -450,8 +479,8 @@ namespace winrt::Webrtc::implementation
 		}
 	}
 
-	void WebrtcManager::SetRecordingDevice(winrt::hstring deviceId) {
-		input_device_id = deviceId;
+	void WebrtcManager::SetRecordingDevice(hstring deviceId) {
+		input_device_id = to_string(deviceId);
 		
 		if (!this->audioDevice) return;
 
@@ -464,25 +493,9 @@ namespace winrt::Webrtc::implementation
 				this->audioDevice->StopRecording();
 			});
 		}
+
+		const int target_device_index = GetRecordingDeviceIndexFromId(input_device_id);
 		
-		char target_id[webrtc::kAdmMaxGuidSize];
-
-		WideCharToMultiByte(CP_UTF8, 0, input_device_id.c_str(), -1, target_id, webrtc::kAdmMaxGuidSize, NULL, NULL);
-
-		int target_device_index = -1;
-
-		for (unsigned int i = 0; i < this->audioDevice->RecordingDevices(); ++i) {
-
-			char name[webrtc::kAdmMaxDeviceNameSize];
-			char guid[webrtc::kAdmMaxGuidSize];
-			this->audioDevice->RecordingDeviceName(i, name, guid);
-			if (strcmp(target_id, guid) == 0)
-			{
-				target_device_index = i;
-				break;
-			}
-		}
-
 		if (target_device_index > -1)
 		{
 			this->audioDevice->SetRecordingDevice(target_device_index);

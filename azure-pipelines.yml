@@ -9,8 +9,9 @@ pool:
 variables:
   solution: '**/*.sln'
   buildPlatform: 'x86|x64|ARM'
-  buildConfiguration: 'Debug'
+  buildConfiguration: 'Release'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
+  buildDir: '$(build.artifactStagingDirectory)\build\\'
 
 steps:
 - task: DownloadSecureFile@1
@@ -23,16 +24,6 @@ steps:
   inputs:
     secureFile: 'AppCenterInsider.json'
 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      Copy-Item $Env:APP_CENTER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/"
-      Copy-Item $Env:APP_CENTER_INSIDER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/"
-  env:
-    APP_CENTER_TOKEN_PATH: $(appCenterToken.secureFilePath)
-    APP_CENTER_INSIDER_TOKEN_PATH: $(appCenterInsiderToken.secureFilePath)
-
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
@@ -42,6 +33,23 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    platform: 'x64'
+    platform: 'x86'
     configuration: '$(buildConfiguration)'
-    msbuildArgs: '/p:Configuration=${buildConfiguration} /p:Platform="x64" /t:Quarrel'
+    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)"
+                  /p:AppxPackageDir="$(appxPackageDir)"
+                  /p:OutputPath="$(buildDir)"
+                  /p:AppxBundle=Always
+                  /p:UapAppxPackageBuildMode=StoreUpload
+                  /t:Quarrel'
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactStagingDirectory)'
+  inputs:
+    SourceFolder: '$(appxPackageDir)'
+    Contents: '**'
+    TargetFolder: '$(build.artifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+  inputs:
+    PathtoPublish: '$(build.artifactStagingDirectory)'

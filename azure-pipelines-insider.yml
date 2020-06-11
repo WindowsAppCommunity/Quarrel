@@ -1,0 +1,81 @@
+# Universal Windows Platform
+# Build a Universal Windows Platform project using Visual Studio.
+# Add steps that test and distribute an app, save build artifacts, and more:
+# https://aka.ms/yaml
+
+trigger:
+- insider
+
+pr: none
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'x86|x64|ARM'
+  buildConfiguration: 'Insider'
+  appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
+  buildDir: '$(build.artifactStagingDirectory)\build\\'
+
+steps:
+- task: DownloadSecureFile@1
+  name: appCenterToken
+  inputs:
+    secureFile: 'AppCenter.json'
+
+- task: DownloadSecureFile@1
+  name: appCenterInsiderToken
+  inputs:
+    secureFile: 'AppCenterInsider.json'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      if(Test-Path Env:APP_CENTER_TOKEN_PATH){
+        Copy-Item $Env:APP_CENTER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/"
+      }
+      if(Test-Path Env:APP_CENTER_INSIDER_TOKEN_PATH){
+        Copy-Item $Env:APP_CENTER_INSIDER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/"
+      }
+  env:
+    APP_CENTER_TOKEN_PATH: $(appCenterToken.secureFilePath)
+    APP_CENTER_INSIDER_TOKEN_PATH: $(appCenterInsiderToken.secureFilePath)
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\Quarrel\Package.appxmanifest
+      $xmlDoc.Package.Identity.Name="38062AvishaiDernis.QuarrelInsider"
+      $xmlDoc.Package.Properties.DisplayName="Quarrel Insider"
+      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="Quarrel Insider"
+      $xmlDoc.Save('$(Build.SourcesDirectory)\src\Quarrel\Package.appxmanifest')
+    failOnStderr: true
+
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    platform: 'x86'
+    configuration: '$(buildConfiguration)'
+    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)"
+                  /p:AppxPackageDir="$(appxPackageDir)"
+                  /p:OutputPath="$(buildDir)"
+                  /p:AppxBundle=Always
+                  /p:UapAppxPackageBuildMode=StoreUpload
+                  /t:Quarrel'
+
+- task: store-publish@0
+  inputs:
+    serviceEndpoint: 'Store releases'
+    appId: '9NN1ZFD5G6DL'
+    packagePath: '$(appxPackageDir)\*.appxupload'
+    force: false
+    skipPolling: false

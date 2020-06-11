@@ -72,6 +72,9 @@ namespace winrt::Webrtc::implementation
 
 		void CreateCall();
 		void SetupCall();
+
+		int WebrtcManager::GetPlaybackDeviceIndexFromId(std::string deviceId) const;
+		int WebrtcManager::GetRecordingDeviceIndexFromId(std::string deviceId) const;
 		
 		webrtc::AudioSendStream* createAudioSendStream(uint32_t ssrc, uint8_t payloadType);
 		webrtc::AudioReceiveStream* createAudioReceiveStream(uint32_t local_ssrc, uint32_t remote_ssrc, uint8_t payloadType);
@@ -98,7 +101,7 @@ namespace winrt::Webrtc::implementation
 		bool isSpeaking = false;
 		int frameCount = 0;;
 		int16_t output_device_index, input_device_index;
-		winrt::hstring output_device_id, input_device_id;
+		std::string output_device_id, input_device_id;
 
 		bool hasGotIp = false;
 		bool m_connected = false;
