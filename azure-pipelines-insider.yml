@@ -6,6 +6,8 @@
 trigger:
 - insider
 
+pr: none
+
 pool:
   vmImage: 'windows-latest'
 
