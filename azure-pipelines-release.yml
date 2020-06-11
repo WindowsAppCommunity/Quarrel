@@ -74,6 +74,6 @@ steps:
   inputs:
     serviceEndpoint: 'Quarrel'
     appId: '9NBRWJ777C8R'
-    packagePath: '$(appxPackageDir)\**.msixupload'
+    packagePath: '$(appxPackageDir)\**.appxupload'
     force: false
     skipPolling: false
