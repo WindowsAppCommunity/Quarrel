@@ -138,7 +138,7 @@
                    FontSize="24" FontWeight="Light" Margin="0,-2,0,0"/>
 
                 <!--Notificiation Count-->
-                <Border x:Name="border" Visibility="{x:Bind NotificationCount, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Margin="0,0,-12,0" VerticalAlignment="Bottom">
+                <Border x:Name="border" x:Load="{x:Bind NotificationCount, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Margin="0,0,-12,0" VerticalAlignment="Bottom">
                     <animations:Implicit.ShowAnimations>
                         <animations:OpacityAnimation Duration="0:0:0.3" To="1"/>
                     </animations:Implicit.ShowAnimations>
