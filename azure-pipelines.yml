@@ -24,20 +24,6 @@ steps:
   inputs:
     secureFile: 'AppCenterInsider.json'
 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      if(Test-Path Env:APP_CENTER_TOKEN_PATH){
-        Copy-Item $Env:APP_CENTER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/"
-      }
-      if(Test-Path Env:APP_CENTER_INSIDER_TOKEN_PATH){
-        Copy-Item $Env:APP_CENTER_INSIDER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/"
-      }
-  env:
-    APP_CENTER_TOKEN_PATH: $(appCenterToken.secureFilePath)
-    APP_CENTER_INSIDER_TOKEN_PATH: $(appCenterInsiderToken.secureFilePath)
-
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
