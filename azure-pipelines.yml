@@ -53,4 +53,17 @@ steps:
                   /p:AppxPackageDir="$(appxPackageDir)"
                   /p:OutputPath="$(buildDir)"
                   /p:AppxBundle=Always
-                  /p:UapAppxPackageBuildMode=StoreUpload'
+                  /p:UapAppxPackageBuildMode=StoreUpload
+                  /t:Quarrel'
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactStagingDirectory)'
+  inputs:
+    SourceFolder: '$(appxPackageDir)'
+    Contents: '**'
+    TargetFolder: '$(build.artifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+  inputs:
+    PathtoPublish: '$(build.artifactStagingDirectory)'
