@@ -95,6 +95,16 @@ namespace Quarrel
         /// </summary>
         public static ViewModelLocator ViewModelLocator { get; }
 
+        /// <summary>
+        /// Gets a value indicating whether or not the build is insider or release in runtime.
+        /// </summary>
+
+#if INSIDER
+        public static bool IsInsiderBuild => true;
+#else
+        public static bool IsInsiderBuild => false;
+#endif
+
         private ILogger Logger { get; } = App.ServiceProvider.GetService<ILogger<App>>();
 
         /// <summary>
