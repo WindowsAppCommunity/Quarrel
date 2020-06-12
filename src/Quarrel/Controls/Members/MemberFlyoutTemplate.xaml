@@ -449,7 +449,6 @@
             </Setter>
         </Style>
 
-        <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
         <baseconvert:IntColorToColorConverter x:Key="IntColorColorConverter"/>
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
@@ -457,7 +456,7 @@
         <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
     </UserControl.Resources>
 
-    <Border x:Name="borderColor" Margin="0" BorderThickness="0" Grid.RowSpan="2" Width="248" BorderBrush="{x:Bind ViewModel.AccentColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}">
+    <Border x:Name="borderColor" Margin="0" BorderThickness="0" Grid.RowSpan="2" Width="248" BorderBrush="{x:Bind baseconvert:IntColorToBrushConverter.Convert(ViewModel.AccentColor), Mode=OneWay}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -472,7 +471,7 @@
                         <tkmedia:BackdropSaturationBrush Saturation="0"/>
                     </Grid.Background>
                 </Grid>
-                <Rectangle Fill="{x:Bind ViewModel.AccentColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}" Opacity="0.25"/>
+                <Rectangle Fill="{x:Bind baseconvert:IntColorToBrushConverter.Convert(ViewModel.AccentColor), Mode=OneWay}" Opacity="0.25"/>
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Grid.Background>
                         <tkmedia:BackdropBlurBrush Amount="10"/>
@@ -541,10 +540,10 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:Role">
                                 <Border CornerRadius="10" BorderThickness="1"
-                                        BorderBrush="{x:Bind Color, Converter={StaticResource IntColorToBrushConverter}}">
+                                        BorderBrush="{x:Bind baseconvert:IntColorToBrushConverter.Convert(Color)}">
                                     <StackPanel Orientation="Horizontal">
                                         <Ellipse Margin="4,0,0,0" Width="11" Height="11"
-                                             Fill="{x:Bind Color, Converter={StaticResource IntColorToBrushConverter}}"/>
+                                             Fill="{x:Bind baseconvert:IntColorToBrushConverter.Convert(Color)}"/>
                                         <TextBlock Text="{x:Bind Name}" FontSize="11" Padding="3,2,6,3" Opacity="0.8"
                                                    Foreground="{ThemeResource Foreground}"/>
                                     </StackPanel>

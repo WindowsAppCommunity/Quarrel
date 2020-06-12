@@ -5,6 +5,7 @@
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls="using:Quarrel.Controls"
     xmlns:userbindables="using:Quarrel.ViewModels.Models.Bindables.Users"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:membercontrols="using:Quarrel.Controls.Members"
     x:Class="Quarrel.DataTemplates.Members.GuildMemberListItemTemplate">
 
@@ -41,7 +42,7 @@
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0">
                     <StackPanel Orientation="Horizontal">
                         <!--Username or Nickname-->
-                        <TextBlock Text="{x:Bind DisplayName, Mode=OneWay}" Foreground="{x:Bind RoleColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}"
+                        <TextBlock Text="{x:Bind DisplayName, Mode=OneWay}" Foreground="{x:Bind baseconvert:IntColorToBrushConverter.Convert(RoleColor), Mode=OneWay}"
                                VerticalAlignment="Center" FontSize="14" FontWeight="Normal"/>
                         <!--Guild Owner indicator-->
                         <Image x:Name="GuildOwnerindicator" Height="12" Source="/Assets/DiscordAssets/Crown.png" Stretch="UniformToFill" Margin="5,0,0,0" x:Load="{x:Bind IsOwner}" x:Phase="3"/>

@@ -9,8 +9,6 @@
     xmlns:msgconvert="using:Quarrel.Converters.Messages"
     xmlns:profileconvert="using:Quarrel.Converters.Profile">
 
-    <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
-    
     <baseconvert:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
     <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
 

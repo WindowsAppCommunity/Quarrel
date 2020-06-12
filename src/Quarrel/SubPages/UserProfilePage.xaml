@@ -71,7 +71,6 @@
             </Setter>
         </Style>
 
-        <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
         <baseconvert:IntColorToColorConverter x:Key="IntColorColorConverter"/>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
@@ -95,7 +94,7 @@
                         <tkmedia:BackdropSaturationBrush Saturation="0"/>
                     </Grid.Background>
                 </Grid>
-                <Rectangle Fill="{x:Bind ViewModel.User.AccentColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}" Opacity="0.25"/>
+                <Rectangle Fill="{x:Bind baseconvert:IntColorToBrushConverter.Convert(ViewModel.User.AccentColor), Mode=OneWay}" Opacity="0.25"/>
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Grid.Background>
                         <tkmedia:BackdropBlurBrush Amount="10"/>
