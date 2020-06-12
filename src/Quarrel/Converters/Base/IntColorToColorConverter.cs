@@ -17,7 +17,7 @@ namespace Quarrel.Converters.Base
         /// <returns>The <see cref="Color"/> result.</returns>
         public Color Convert(int value)
         {
-            return ColorExtensions.IntToColor((int)value);
+            return ColorExtensions.IntToColor(value);
         }
     }
 }

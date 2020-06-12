@@ -24,7 +24,7 @@
     xmlns:system="using:System"
     xmlns:messageConverters="using:Quarrel.Converters.Messages"
     xmlns:uniformGrid="using:Quarrel.Controls.UniformGrid"
-    xmlns:baseConvert="using:Quarrel.Converters.Base"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
     x:Class="Quarrel.DataTemplates.Messages.MessageTemplate">
 
     <ResourceDictionary.MergedDictionaries>
@@ -101,7 +101,7 @@
                 Background="{ThemeResource MidBG}"
                 HorizontalAlignment="Left">
             <Grid>
-                <Border x:Name="SideBorder" Width="4" HorizontalAlignment="Left" Background="{x:Bind baseConvert:IntColorToBrushConverter.Convert(Model.Color), Mode=OneWay}" CornerRadius="4,0,0,4"/>
+                <Border x:Name="SideBorder" Width="4" HorizontalAlignment="Left" Background="{x:Bind baseconvert:IntColorToBrushConverter.Convert(Model.Color), Mode=OneWay}" CornerRadius="4,0,0,4"/>
                 <StackPanel x:Name="stacker" Margin="16,8,16,8">
                     <Grid x:Name="HeaderGrid">
                         <Grid.RowDefinitions>
@@ -150,11 +150,10 @@
                                                             <TextBlock x:Name="FieldName" TextWrapping="NoWrap" Text="{x:Bind Name}" FontSize="13" FontWeight="SemiBold" x:Load="{x:Bind Name, Converter={StaticResource NotNullToBoolConverter}}"/>
                                                             <toolkit:MarkdownTextBlock x:Name="Value"
                                                                                        TextWrapping="Wrap"
-                                                                                       Text="{x:Bind Value, Converter={StaticResource MultipleWhiteSpaceCollapseConverter}}"
+                                                                                       Text="{x:Bind baseconvert:MultipleWhiteSpaceCollapseConverter.Convert(Value)}"
                                                                                        FontSize="13"
                                                                                        Opacity="0.75"
                                                                                        x:Load="{x:Bind Value, Converter={StaticResource NotNullToBoolConverter}}" />
-
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
@@ -270,7 +269,7 @@
                     <HyperlinkButton x:Name="AuthorHyperlink"
                                      Style="{StaticResource PlainTextHyperlinkStyle}"
                                      Content="{x:Bind AuthorDisplayName, Mode=OneWay}"
-                                     Foreground="{x:Bind baseConvert:IntColorToBrushConverter.Convert(AuthorColor), Mode=OneWay}"
+                                     Foreground="{x:Bind baseconvert:IntColorToBrushConverter.Convert(AuthorColor), Mode=OneWay}"
                                      FlyoutBase.AttachedFlyout="{StaticResource MemberFlyout}">
                         <HyperlinkButton.ContextFlyout>
                             <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
@@ -300,7 +299,7 @@
                         </interactivity:Interaction.Behaviors>
                     </HyperlinkButton>
                     <TextBlock x:Phase="1"
-                               Text="{x:Bind baseConvert:DateTimeToTextConverter.Convert(Model.Timestamp), Mode=OneWay}"
+                               Text="{x:Bind baseconvert:DateTimeToTextConverter.Convert(Model.Timestamp), Mode=OneWay}"
                                Margin="4,0,0,2"
                                VerticalAlignment="Bottom"
                                FontSize="11"
@@ -314,7 +313,7 @@
                                FontSize="9"
                                Opacity="0.25" />
                     <TextBlock x:Phase="1"
-                               Text="{x:Bind baseConvert:DateTimeToTextConverter.Convert(Model.EditedTimestamp), Mode=OneWay}"
+                               Text="{x:Bind baseconvert:DateTimeToTextConverter.Convert(Model.EditedTimestamp), Mode=OneWay}"
                                Visibility="{x:Bind Model.EditedTimestamp, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
                                Margin="2,0,0,2"
                                VerticalAlignment="Bottom"
@@ -405,7 +404,7 @@
                       RelativePanel.AlignLeftWith="body"
                       RelativePanel.AlignRightWithPanel="True">
                     <winui:ItemsRepeater x:Name="AttachmentList"
-                                         x:Load="{x:Bind baseConvert:ContainsItemsToBoolConverter.Convert(BindableAttachments), Mode=OneWay}"
+                                         x:Load="{x:Bind baseconvert:ContainsItemsToBoolConverter.Convert(BindableAttachments), Mode=OneWay}"
                                          ItemsSource="{x:Bind BindableAttachments, Mode=OneWay}"
                                          ItemTemplate="{StaticResource AttachmentTemplateSelector}">
                         <winui:ItemsRepeater.Layout>
@@ -413,7 +412,7 @@
                         </winui:ItemsRepeater.Layout>
                     </winui:ItemsRepeater>
                     <winui:ItemsRepeater x:Name="EmbedList"
-                                         x:Load="{x:Bind baseConvert:ContainsItemsToBoolConverter.Convert(Model.Embeds), Mode=OneWay}"
+                                         x:Load="{x:Bind baseconvert:ContainsItemsToBoolConverter.Convert(Model.Embeds), Mode=OneWay}"
                                          ItemsSource="{x:Bind BindableEmbeds, Mode=OneWay}"
                                          ItemTemplate="{StaticResource EmbedTemplateSelector}">
                         <winui:ItemsRepeater.Layout>
@@ -427,7 +426,7 @@
                             RelativePanel.Below="AttachmentEmbedList"
                             RelativePanel.AlignLeftWith="body"
                             Name="ReactionsStackPanel"
-                            x:Load="{x:Bind baseConvert:ContainsItemsToBoolConverter.Convert(BindableReactions), Mode=OneWay}">
+                            x:Load="{x:Bind baseconvert:ContainsItemsToBoolConverter.Convert(BindableReactions), Mode=OneWay}">
                     <StackPanel.Resources>
                         <Storyboard x:Name="ReactionsPointerEntered">
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AddReactionButton"

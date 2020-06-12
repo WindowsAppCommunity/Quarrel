@@ -17,7 +17,7 @@ namespace Quarrel.Converters.Base
         /// <returns>The <see cref="SolidColorBrush"/> equivelent of the int.</returns>
         public static SolidColorBrush Convert(int value)
         {
-            return new SolidColorBrush(ColorExtensions.IntToColor((int)value));
+            return new SolidColorBrush(ColorExtensions.IntToColor(value));
         }
     }
 }
