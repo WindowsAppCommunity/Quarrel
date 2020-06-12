@@ -75,9 +75,7 @@
     </Page.Resources>
 
     <Grid>
-        <ScrollViewer>
-            <ListView ItemsSource="{x:Bind ViewModel.Entries, Mode=OneWay}" SelectionMode="None"
+        <ListView ItemsSource="{x:Bind ViewModel.Entries, Mode=OneWay}" SelectionMode="None"
                   ItemTemplate="{StaticResource AuditLogEntryTemplate}" IsItemClickEnabled="False"/>
-        </ScrollViewer>
     </Grid>
 </Page>

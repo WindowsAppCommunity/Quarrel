@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
+    <ScrollViewer>
         <StackPanel Grid.Row="0" Margin="12,0,12,0" Padding="0,0,0,24">
             <TextBlock x:Uid="/Settings/DMFilterTB" Text="DIRECT MESSAGE FILTERING" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0" TextWrapping="Wrap"/>
             <TextBlock x:Uid="/Settings/DMFilterExpoTB" Text="Analyze and automatically delete direct messages containing explicit content" TextWrapping="Wrap"  FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.75"/>
@@ -36,5 +36,5 @@
                                         <CheckBox x:Uid="/Settings/MutualServerMembersCB" x:Name="FriendRequest2" Style="{StaticResource CheckBoxStyle1}" Margin="0,-4,0,0" Content="Mutual server members" Checked="FriendRequest_OnChecked" Unchecked="FriendRequest_OnChecked"/>
                                         <TextBlock x:Uid="/Settings/FullPrivacySettingsTB" Text="To access the rest of your privacy settings, please use the official Discord website or client" Margin="0,12,0,0" TextWrapping="Wrap" FontSize="12" Opacity="0.5"/>-->
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </Page>
