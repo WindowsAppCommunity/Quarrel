@@ -9,7 +9,6 @@
     xmlns:msgconvert="using:Quarrel.Converters.Messages"
     xmlns:profileconvert="using:Quarrel.Converters.Profile">
 
-    <baseconvert:DateTimeToTextConverter x:Key="DateTimeToTextConverter"/>
     <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
     
     <baseconvert:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
