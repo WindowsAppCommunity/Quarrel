@@ -113,20 +113,20 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,16,0" MaxWidth="400">
-                            <StackPanel Margin="0,4,0,10" Orientation="Horizontal" x:Name="AuthorSP" x:Load="{x:Bind Model.Author, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
-                                <Border CornerRadius="10" Margin="0,0,10,0" x:Name="AuthorRect" x:Load="{x:Bind Model.Author.IconUrl, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+                            <StackPanel Margin="0,4,0,10" Orientation="Horizontal" x:Name="AuthorSP" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Model.Author), Mode=OneWay}">
+                                <Border CornerRadius="10" Margin="0,0,10,0" x:Name="AuthorRect" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Model.Author.IconUrl), Mode=OneWay}">
                                     <toolkit:ImageEx Width="20" Height="20" DecodePixelWidth="20" DecodePixelHeight="20" Source="{x:Bind Model.Author.ProxyIconUrl}"/>
                                 </Border>
-                                <TextBlock x:Name="AuthorText" Text="{x:Bind Model.Author.Name}" x:Load="{x:Bind Model.Author.Name, Converter={StaticResource NotNullToBoolConverter}}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}"
+                                <TextBlock x:Name="AuthorText" Text="{x:Bind Model.Author.Name}" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Model.Author.Name)}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}"
                                            VerticalAlignment="Center"/>
                             </StackPanel>
 
-                            <TextBlock Text="{x:Bind Model.Title}" x:Load="{x:Bind Model.Title, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
+                            <TextBlock Text="{x:Bind Model.Title}" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Model.Title), Mode=OneWay}"
                                        TextWrapping="WrapWholeWords" x:Name="TitleTB" FontSize="14" FontWeight="SemiBold"/>
 
                             <markdown:MarkdownTextBlock Text="{x:Bind Model.Description, Mode=OneWay}"
                                                         x:Name="ContentMDBlock"
-                                                        x:Load="{x:Bind Model.Description, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
+                                                        x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Model.Description), Mode=OneWay}"
                                                         Opacity="0.75"
                                                         FontSize="13"
                                                         Margin="0,0,0,0" />
@@ -147,13 +147,13 @@
                                                 <ItemsControl.ItemTemplate>                                                  
                                                     <DataTemplate x:DataType="embedmodels:EmbedField">
                                                         <StackPanel>
-                                                            <TextBlock x:Name="FieldName" TextWrapping="NoWrap" Text="{x:Bind Name}" FontSize="13" FontWeight="SemiBold" x:Load="{x:Bind Name, Converter={StaticResource NotNullToBoolConverter}}"/>
+                                                            <TextBlock x:Name="FieldName" TextWrapping="NoWrap" Text="{x:Bind Name}" FontSize="13" FontWeight="SemiBold" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Name)}"/>
                                                             <toolkit:MarkdownTextBlock x:Name="Value"
                                                                                        TextWrapping="Wrap"
                                                                                        Text="{x:Bind baseconvert:MultipleWhiteSpaceCollapseConverter.Convert(Value)}"
                                                                                        FontSize="13"
                                                                                        Opacity="0.75"
-                                                                                       x:Load="{x:Bind Value, Converter={StaticResource NotNullToBoolConverter}}" />
+                                                                                       x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Value)}" />
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
@@ -163,13 +163,13 @@
                                 </winui:ItemsRepeater>
                             </StackPanel>
                         </StackPanel>
-                        <Grid Grid.Row="0" Grid.Column="1" VerticalAlignment="Top"  x:Name="ThumbnailImage" x:Load="{x:Bind Model.Thumbnail, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+                        <Grid Grid.Row="0" Grid.Column="1" VerticalAlignment="Top"  x:Name="ThumbnailImage" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Model.Thumbnail), Mode=OneWay}">
                             <Border CornerRadius="3">
                                 <toolkit:ImageEx Source="{x:Bind Model.Thumbnail.ProxyUrl, Mode=OneWay}" DataContext="{x:Bind}" MaxWidth="80" MaxHeight="80" Stretch="Uniform" Tapped="Expand"/>
                             </Border>
                         </Grid>
                     </Grid>
-                    <Viewbox HorizontalAlignment="Left" x:Name="ImageVB" x:Load="{x:Bind Model.Image, Converter={StaticResource NotNullToBoolConverter}}" StretchDirection="DownOnly" MaxWidth="400" MaxHeight="250">
+                    <Viewbox HorizontalAlignment="Left" x:Name="ImageVB" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Model.Image)}" StretchDirection="DownOnly" MaxWidth="400" MaxHeight="250">
                         <toolkit:ImageEx Source="{x:Bind Model.Image.ProxyUrl}" DataContext="{x:Bind}" Tapped="Expand"/>
                     </Viewbox>
                     <Grid>
@@ -177,10 +177,6 @@
                             <ColumnDefinition/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <!--<StackPanel x:Name="FooterSP" x:Load="{x:Bind Model.Footer, Converter={StaticResource NotNullToBoolConverter}}" Orientation="Horizontal">
-                            <toolkit:ImageEx Source="{x:Bind Model.Footer.ProxyIconUrl}" x:Name="FooterImage" x:Load="{x:Bind Model.Footer.ProxyIconUrl, Converter={StaticResource NotNullToBoolConverter}}" Width="18" Height="18" Margin="0,0,8,0"/>
-                            <TextBlock Text="{x:Bind Model.Footer.Text}" FontSize="12" FontWeight="SemiBold" Opacity="0.4" VerticalAlignment="Center"/>
-                        </StackPanel>-->
                         <Button Visibility="Collapsed" Style="{StaticResource IntegratedButton}" Grid.Column="1" HorizontalAlignment="Right">
                             <FontIcon Glyph="&#xE72D;" FontFamily="Segoe MDL2 Assets" />
                         </Button>

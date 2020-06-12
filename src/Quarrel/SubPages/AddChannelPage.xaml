@@ -11,10 +11,6 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <UserControl.Resources>
-        <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
-    </UserControl.Resources>
-    
     <Grid Padding="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -44,7 +40,7 @@
 
         <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal">
             <Button Content="Save" Style="{StaticResource DiscordButton}" Width="80" Margin="4" Command="{x:Bind ViewModel.CreateChannelCommand}"
-                    IsEnabled="{x:Bind ChannelNameBox.Text, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"/>
+                    IsEnabled="{x:Bind baseconvert:NotNullToBoolConverter.Convert(ChannelNameBox.Text), Mode=OneWay}"/>
             <Button Content="Cancel" Style="{StaticResource DiscordButton}" Background="{StaticResource dnd}" Width="80" Margin="4" Command="{x:Bind ViewModel.BackCommand}"/>
         </StackPanel>
     </Grid>

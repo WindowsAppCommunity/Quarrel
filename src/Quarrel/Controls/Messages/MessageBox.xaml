@@ -28,7 +28,6 @@
                                                           ChannelSuggestionTemplate="{StaticResource ChannelSuggestionTemplate}"
                                                           UserSuggestionTemplate="{StaticResource UserSuggestionTemplate}"/>
 
-            <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
             <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
             <baseconvert:StreamToBitmapImageConverter x:Key="StreamToBitmapImageConverter"/>
 

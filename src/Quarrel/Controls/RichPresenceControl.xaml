@@ -12,7 +12,6 @@
     d:DesignWidth="400">
 
     <UserControl.Resources>
-        <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
         <baseconvert:TimeSpanToTextConverter x:Key="TimeSpanToTextConverter"/>
     </UserControl.Resources>
     
@@ -28,10 +27,10 @@
         </Grid.RowDefinitions>
         <Grid VerticalAlignment="Top">
             <Image x:Name="xboxlogo" Visibility="{x:Bind ViewModel.IsXboxGame}" Opacity="1" Height="26" Width="26" Margin="4,2,14,0" VerticalAlignment="Center" Source="ms-appx:///Assets/Connections/xbox.png"/>
-            <Border CornerRadius="4" x:Name="LargeImgRect" x:Load="{x:Bind ViewModel.Assets, Converter={StaticResource NotNullToBoolConverter}}" Margin="0,0,10,0">
+            <Border CornerRadius="4" x:Name="LargeImgRect" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(ViewModel.Assets)}" Margin="0,0,10,0">
                 <controls:ImageEx Width="58" Height="58" Source="{x:Bind ViewModel.LargeImageUrl}"/>
             </Border>
-            <controls:DropShadowPanel x:Name="SmallImgRect" x:Load="{x:Bind ViewModel.Assets, Converter={StaticResource NotNullToBoolConverter}}"  BlurRadius="8" ShadowOpacity="0.7" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
+            <controls:DropShadowPanel x:Name="SmallImgRect" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(ViewModel.Assets)}"  BlurRadius="8" ShadowOpacity="0.7" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
                 <controls:RoundImageEx Source="{x:Bind ViewModel.SmallImageUrl}" Width="20" Height="20" Margin="0,0,5,-5"/>
             </controls:DropShadowPanel>
         </Grid>

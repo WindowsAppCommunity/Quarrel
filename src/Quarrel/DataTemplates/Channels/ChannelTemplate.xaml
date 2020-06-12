@@ -524,7 +524,7 @@
             <ListView x:Name="MemberList"
                       ItemsSource="{x:Bind ConnectedUsers.Values, Mode=OneWay}"
                       Margin="-24,0,-24,0"
-                      x:Load="{x:Bind ConnectedUsers.Values, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
+                      x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(ConnectedUsers.Values), Mode=OneWay}"
                       SelectionMode="None"
                       IsItemClickEnabled="True"
                       Grid.Row="1"
