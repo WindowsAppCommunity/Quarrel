@@ -1,6 +1,7 @@
 ﻿// Special thanks to Sergio Pedri for the basis of this design
 // Copyright (c) Quarrel. All rights reserved.
 
+using System;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Crashes;
 using Quarrel.Services.Abstract;
@@ -34,13 +35,21 @@ namespace Quarrel.ViewModels.Services.Analytics
         /// <inheritdoc/>
         public void Log(string title, params (string Property, string Value)[] data)
         {
+#if !DEBUG
             IDictionary<string, string> properties = data?.ToDictionary(
                 pair => pair.Property,
                 pair => pair.Value.Length <= PropertyStringMaxLength
                     ? pair.Value
                     : $"|{pair.Value.Substring(pair.Value.Length - PropertyStringMaxLength)}");
-#if !DEBUG
             Microsoft.AppCenter.Analytics.Analytics.TrackEvent(title, properties);
+#endif
+        }
+
+        /// <inheritdoc/>
+        public void LogError(Exception e)
+        {
+#if !DEBUG
+            Microsoft.AppCenter.Crashes.Crashes.TrackError(e);
 #endif
         }
 
