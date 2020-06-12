@@ -12,7 +12,6 @@
     d:DesignWidth="400"
     Unloaded="UserControl_Unloaded">
     <UserControl.Resources>
-        <baseconvert:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
         <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
     </UserControl.Resources>
 
@@ -37,7 +36,7 @@
                     <Grid Width="100" Height="75" CornerRadius="37.5"
                           Background="{ThemeResource AcrylicButtonBackground}" 
                           x:Name="VideoPreviewImageControls"
-                          x:Load="{x:Bind ViewModel.Playing, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}" 
+                          x:Load="{x:Bind baseconvert:NotBoolToBoolConverter.Convert(ViewModel.Playing), Mode=OneWay}" 
                           VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Button Style="{StaticResource DimButton}" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{x:Bind ViewModel.PlayCommand}">
                             <Viewbox MaxHeight="50"

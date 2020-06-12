@@ -264,7 +264,7 @@
                 <StackPanel x:Name="header"
                             Margin="52,8,0,2"
                             RelativePanel.Below="HeaderGrid"
-                            x:Load="{x:Bind IsContinuation, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}"
+                            x:Load="{x:Bind baseconvert:NotBoolToBoolConverter.Convert(IsContinuation), Mode=OneWay}"
                             Orientation="Horizontal">
                     <HyperlinkButton x:Name="AuthorHyperlink"
                                      Style="{StaticResource PlainTextHyperlinkStyle}"

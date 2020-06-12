@@ -11,7 +11,6 @@
 
     <Page.Resources>
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
-        <baseconvert:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
     </Page.Resources>
 
     <ScrollViewer>
@@ -45,7 +44,7 @@
 
             <StackPanel Grid.Column="1" Margin="12,0,0,0">
                 <TextBox Text="{x:Bind ViewModel.Email, Mode=OneWay}" IsReadOnly="True" Style="{StaticResource TextBoxStyle1}" Header="Email" Margin="0,0,0,0"/>
-                <TextBox Text="{x:Bind ViewModel.Username, Mode=TwoWay}" IsReadOnly="{x:Bind ViewModel.EditingAccountInfo, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}" Style="{StaticResource TextBoxStyle1}" Header="Username" Margin="0,0,0,0"/>
+                <TextBox Text="{x:Bind ViewModel.Username, Mode=TwoWay}" IsReadOnly="{x:Bind baseconvert:NotBoolToBoolConverter.Convert(ViewModel.EditingAccountInfo), Mode=OneWay}" Style="{StaticResource TextBoxStyle1}" Header="Username" Margin="0,0,0,0"/>
                 <TextBlock Visibility="Collapsed" Text="Must fill out Current Password" Foreground="Red" Margin="0,0,0,0"/>
                 <StackPanel Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}">
                     <PasswordBox Password="{x:Bind ViewModel.Password, Mode=TwoWay}" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,0,0,0"/>

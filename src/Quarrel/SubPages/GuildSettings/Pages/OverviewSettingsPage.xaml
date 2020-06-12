@@ -9,10 +9,6 @@
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <baseconvert:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
-    </Page.Resources>
-
     <ScrollViewer>
         <StackPanel>
             <Grid HorizontalAlignment="Left" Margin="0,12,0,0">
@@ -33,7 +29,7 @@
                 </StackPanel>
             </Grid>
             <TextBox Text="{x:Bind ViewModel.Name, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" Header="Server Name" Style="{StaticResource TextBoxStyle1}" Margin="0,24,0,0"
-                 IsReadOnly="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}"/>
+                 IsReadOnly="{x:Bind baseconvert:NotBoolToBoolConverter.Convert(ViewModel.Guild.Permissions.ManangeGuild), Mode=OneWay}"/>
             <!--<TextBlock x:Name="NameCharCounter" Text="100" Foreground="{ThemeResource InvertedBG}" FontSize="11" Opacity="0.5" HorizontalAlignment="Right" Margin="0,4,0,0"/>-->
         </StackPanel>
     </ScrollViewer>

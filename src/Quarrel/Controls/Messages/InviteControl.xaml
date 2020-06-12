@@ -12,7 +12,6 @@
 
     <UserControl.Resources>
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
-        <baseconvert:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
     </UserControl.Resources>
@@ -59,7 +58,7 @@
             <TextBlock x:Name="Description" Text="0 uses, expires in 00:00:00" FontSize="13.333" />
         </StackPanel>-->
 
-        <Button x:Name="JoinButton" x:Load="{x:Bind InviteList, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}"
+        <Button x:Name="JoinButton" x:Load="{x:Bind baseconvert:NotBoolToBoolConverter.Convert(InviteList), Mode=OneWay}"
                 Content="Join" Style="{StaticResource DiscordButton}" Background="{ThemeResource online}" VerticalAlignment="Stretch"
                 Visibility="{x:Bind ViewModel.Joined, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
                 Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Margin="16,8,16,8" Padding="16" Width="60" Height="60"
