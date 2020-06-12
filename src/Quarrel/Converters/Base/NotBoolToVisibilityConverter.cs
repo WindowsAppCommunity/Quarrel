@@ -1,26 +1,22 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using System;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Data;
 
 namespace Quarrel.Converters.Base
 {
     /// <summary>
     /// A converter that returns an inverted <see cref="Visibility"/> value for the input <see langword="bool"/> value.
     /// </summary>
-    public sealed class NotBoolToVisibilityConverter : IValueConverter
+    public sealed class NotBoolToVisibilityConverter
     {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, string language)
+        /// <summary>
+        /// Inverts a boolean and converts to a <see cref="Visibility"/>.
+        /// </summary>
+        /// <param name="value">The original boolean.</param>
+        /// <returns>The inverted boolean as a visibility.</returns>
+        public static Visibility Convert(bool value)
         {
-            return (bool)value ? Visibility.Collapsed : Visibility.Visible;
-        }
-
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
+            return value ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }

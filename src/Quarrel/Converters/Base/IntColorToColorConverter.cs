@@ -15,7 +15,7 @@ namespace Quarrel.Converters.Base
         /// </summary>
         /// <param name="value">The int color.</param>
         /// <returns>The <see cref="Color"/> result.</returns>
-        public Color Convert(int value)
+        public static Color Convert(int value)
         {
             return ColorExtensions.IntToColor(value);
         }

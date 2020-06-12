@@ -13,7 +13,6 @@
     d:DesignWidth="400">
 
     <UserControl.Resources>
-        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
     </UserControl.Resources>
@@ -64,7 +63,7 @@
         <Rectangle x:Name="TitleBarHolder" Canvas.ZIndex="1" Fill="{ThemeResource AcrylicCommandBarBackground}" Height="32"/>
 
         <!--Small View CommandBar-->
-        <local:QuarrelCommandBar x:Name="SmallViewCommandBar" Visibility="{x:Bind UseLargeCommandBar, Converter={StaticResource NotBoolToVisibilityConverter}}"
+        <local:QuarrelCommandBar x:Name="SmallViewCommandBar" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(UseLargeCommandBar)}"
                                  Grid.Row="1" Background="{ThemeResource AcrylicCommandBarBackground}" HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked"/>
 
         <local:SideDrawer x:Name="ContentContainer" Grid.Row="2">

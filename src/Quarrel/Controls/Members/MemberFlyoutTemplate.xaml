@@ -449,7 +449,6 @@
             </Setter>
         </Style>
 
-        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <discordconvert:PresenseToBrushConverter x:Key="PresenseToBrushConverter" UseSystemAccentColor="True"/>
         <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
@@ -494,7 +493,7 @@
                 </Grid>
                 
                 <!--Username without Nickname-->
-                <StackPanel Visibility="{x:Bind ViewModel.HasNickname, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" HorizontalAlignment="Center" Orientation="Horizontal" MaxWidth="200" Margin="0,2,0,20">
+                <StackPanel Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.HasNickname), Mode=OneWay}" HorizontalAlignment="Center" Orientation="Horizontal" MaxWidth="200" Margin="0,2,0,20">
                     <TextBlock Foreground="White" FontSize="16" Text="{x:Bind ViewModel.Model.User.Username, Mode=OneWay}"/>
                     <TextBlock Foreground="White" FontSize="15" Text="#" Opacity="0.75" VerticalAlignment="Bottom"/>
                     <TextBlock Foreground="White" FontSize="15" Text="{x:Bind ViewModel.Model.User.Discriminator, Mode=OneWay}" Opacity="0.75" VerticalAlignment="Bottom"/>
@@ -512,8 +511,8 @@
                 <Grid Visibility="{x:Bind ViewModel.Presence.Game, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}">
                     <Rectangle Opacity="0.5">
                         <Rectangle.Fill>
-                            <Windows10FallCreatorsUpdate:AcrylicBrush TintOpacity="0.9" TintColor="{x:Bind ViewModel.AccentColor, Converter={StaticResource IntColorColorConverter}, Mode=OneWay}"
-                                          FallbackColor="{x:Bind ViewModel.AccentColor, Converter={StaticResource IntColorColorConverter}, Mode=OneWay}"/>
+                            <Windows10FallCreatorsUpdate:AcrylicBrush TintOpacity="0.9" TintColor="{x:Bind baseconvert:IntColorToColorConverter.Convert(ViewModel.AccentColor), Mode=OneWay}"
+                                          FallbackColor="{x:Bind baseconvert:IntColorToColorConverter.Convert(ViewModel.AccentColor), Mode=OneWay}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                     <ListView ItemsSource="{x:Bind ViewModel.Presence.Activities, Mode=OneWay}"
@@ -532,8 +531,8 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                    
-                    <!--Roles-->
+
+                <!--Roles-->
                 <ListView Margin="-8,0" ItemContainerStyle="{StaticResource RoleListItem}"
                               ItemsSource="{x:Bind ViewModel.Roles, Mode=OneWay}" SelectionMode="None">
                         <ListView.ItemTemplate>
@@ -555,13 +554,13 @@
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                     </ListView>
-                    
-                    <!--Note-->
-                    <TextBox Style="{StaticResource TextBoxStyle1}" Text="{x:Bind ViewModel.Note}" Grid.Row="1"
+
+                <!--Note-->
+                <TextBox Style="{StaticResource TextBoxStyle1}" Text="{x:Bind ViewModel.Note}" Grid.Row="1"
                              PlaceholderText="Add Note" FontSize="12" Padding="18,6,6,6" Margin="-12,12,-12,0" 
                              Height="20" BorderThickness="0" MinHeight="28" VerticalContentAlignment="Center"
                              LostFocus="NoteBox_LostFocus"/>
-                    <!--<local:MessageBox x:Name="SendDM" FontSize="13.333" Margin="-6,6,-6,-6" IsCompact="True"/>-->
+                <!--<local:MessageBox x:Name="SendDM" FontSize="13.333" Margin="-6,6,-6,-6" IsCompact="True"/>-->
             </Grid>
         </Grid>
     </Border>

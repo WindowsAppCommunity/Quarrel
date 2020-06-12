@@ -12,7 +12,6 @@
     d:DesignWidth="224">
 
     <UserControl.Resources>
-        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter" />
         <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
         <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
@@ -30,8 +29,8 @@
                 <MenuFlyoutItem Icon="Setting" Text="Settings" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Command="{x:Bind ViewModel.OpenGuildSettings}"/>
                 <MenuFlyoutSeparator Visibility="{x:Bind ViewModel.Permissions.ManageChannels, Mode=OneWay}"/>
                 <MenuFlyoutItem Icon="Add" Text="Add Channel" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Command="{x:Bind ViewModel.AddChannelCommand}" Visibility="{x:Bind ViewModel.Permissions.ManageChannels, Mode=OneWay}"/>
-                <MenuFlyoutSeparator Visibility="{x:Bind ViewModel.IsOwner, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
-                <MenuFlyoutItem Icon="Clear" Text="Leave Server" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource dnd}" Visibility="{x:Bind ViewModel.IsOwner, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
+                <MenuFlyoutSeparator Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsOwner), Mode=OneWay}"/>
+                <MenuFlyoutItem Icon="Clear" Text="Leave Server" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource dnd}" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsOwner), Mode=OneWay}"/>
             </MenuFlyout>
         </Button.Flyout>
 

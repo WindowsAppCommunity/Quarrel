@@ -14,7 +14,6 @@
     d:DesignWidth="400">
 
     <CommandBar.Resources>
-        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <baseconvert:RemoveNewLineConverter x:Key="RemoveNewLineConveter"/>
@@ -808,7 +807,7 @@
         <Grid>
             <StackPanel Orientation="Horizontal" Height="40">
                 <!--Hamburger button-->
-                <AppBarButton Height="40" Visibility="{x:Bind ShowHamburger, Converter={StaticResource NotBoolToVisibilityConverter}}" Click="InvokeHumburgerClick" Canvas.ZIndex="1" Background="Transparent" Width="72">
+                <AppBarButton Height="40" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ShowHamburger)}" Click="InvokeHumburgerClick" Canvas.ZIndex="1" Background="Transparent" Width="72">
                     <AppBarButton.Content>
                         <FontIcon Glyph="&#xE700;" FontSize="24" Margin="0,4,0,0"/>
                     </AppBarButton.Content>
@@ -829,7 +828,7 @@
                     <AppBarSeparator/>
                     <!--Channel Description-->
                     <controls:MarkdownTextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.CurrentChannel.AsGuildChannel.Topic, Converter={StaticResource RemoveNewLineConveter}, Mode=OneWay}" FontSize="18" FontWeight="Light" Margin="0,0,4,0" IsTextSelectionEnabled="False"
-                                                Visibility="{x:Bind ViewModel.CurrentGuild.IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
+                                                Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.CurrentGuild.IsDM), Mode=OneWay}"/>
 
                 </StackPanel>
             </StackPanel>

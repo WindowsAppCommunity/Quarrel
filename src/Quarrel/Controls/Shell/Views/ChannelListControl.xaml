@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Quarrel.Controls.Shell.Views"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:convertbase="using:Quarrel.Converters.Base"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:convertchannel="using:Quarrel.Converters.Channel"
     xmlns:convertdiscord="using:Quarrel.Converters.Discord"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -626,9 +626,8 @@
                 </Setter>
             </Style>
 
-            <convertbase:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
-            <convertbase:NullToBoolConverter x:Key="NullToBoolConverter"/>
-            <convertbase:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+            <baseconvert:NullToBoolConverter x:Key="NullToBoolConverter"/>
+            <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
             <convertchannel:MentionCountToVisiblityConverter x:Key="MentionCountToVisiblityConverter"/>
             <convertchannel:SelectedToOpacityConverter x:Key="SelectedToOpacityConverter"/>
             <convertchannel:TypeToForegroundBrushConverter x:Key="TypeToBrushConverter"/>
@@ -660,7 +659,7 @@
             <ListView.Header>
                 <Grid>
                     <!--Guild Button (Guild channel header)-->
-                    <channelcontrols:ChannelListHeader Visibility="{x:Bind ViewModel.CurrentGuild.IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+                    <channelcontrols:ChannelListHeader Visibility="{x:Bind Mode=OneWay, Path=baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.CurrentGuild.IsDM)}"
                                                        DataContext="{x:Bind ViewModel.CurrentGuild, Mode=OneWay}"/>
                     
                     <!--Friend Button (DM channel header)-->

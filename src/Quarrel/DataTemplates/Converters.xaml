@@ -10,7 +10,6 @@
     xmlns:profileconvert="using:Quarrel.Converters.Profile">
 
     <baseconvert:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
-    <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
 
     <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
     <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>

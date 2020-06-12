@@ -51,7 +51,7 @@
     </DataTemplate>
     <DataTemplate x:Key="ImageAttachmentTemplate" x:DataType="embedbindables:BindableAttachment">
         <Grid HorizontalAlignment="Left">
-            <messagecontrols:HiddenAttachment DataContext="{x:Bind}" Visibility="{x:Bind IsShowing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
+            <messagecontrols:HiddenAttachment DataContext="{x:Bind}" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsShowing), Mode=OneWay}"/>
             <toolkit:ImageEx x:Name="media" Source="{x:Bind Model.Url}" x:Load="{x:Bind IsShowing, Mode=OneWay}"
                          Height="{x:Bind Model.ActualHeight}" DataContext="{x:Bind}"
                          Width="{x:Bind Model.ActualWidth}"
@@ -60,7 +60,7 @@
     </DataTemplate>
     <DataTemplate x:Key="VideoAttachmentTemplate" x:DataType="embedbindables:BindableAttachment">
         <Grid HorizontalAlignment="Left">
-            <messagecontrols:HiddenAttachment DataContext="{x:Bind}" Visibility="{x:Bind IsShowing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
+            <messagecontrols:HiddenAttachment DataContext="{x:Bind}" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsShowing), Mode=OneWay}"/>
             <MediaElement x:Name="media" Source="{x:Bind Model.ProxyUrl}" x:Load="{x:Bind IsShowing, Mode=OneWay}"
                       MaxHeight="360" MaxWidth="640"
                       MinHeight="48" MinWidth="100" 
@@ -256,7 +256,7 @@
                         RelativePanel.AlignTopWith="header"
                         Style="{StaticResource DimButton}" Padding="4" Margin="-4,10,-4,-4"
                         extensions2:Mouse.Cursor="Hand"
-                        Visibility="{x:Bind IsContinuation, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+                        Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsContinuation), Mode=OneWay}"
                         Flyout="{StaticResource MemberFlyout}">
                     <controls:UserIconControl Size="40" Width="40" Height="40" DataContext="{x:Bind Author, Mode=OneWay}" ShowPresence="False"/>
                 </Button>
@@ -342,7 +342,7 @@
                                                 Roles="{x:Bind RolesMentioned}"
                                                 Channels="{x:Bind ChannelsMentioned}"
                                                 Text="{x:Bind Model.Content, Mode=OneWay}"
-                                                Visibility="{x:Bind IsEditing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+                                                Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsEditing), Mode=OneWay}"
                                                 TextWrapping="WrapWholeWords"
                                                 FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"
                                                 EmojiFontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"

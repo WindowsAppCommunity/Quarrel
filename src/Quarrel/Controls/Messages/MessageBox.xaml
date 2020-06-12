@@ -28,7 +28,6 @@
                                                           ChannelSuggestionTemplate="{StaticResource ChannelSuggestionTemplate}"
                                                           UserSuggestionTemplate="{StaticResource UserSuggestionTemplate}"/>
 
-            <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
             <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
             <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
             <baseconvert:StreamToBitmapImageConverter x:Key="StreamToBitmapImageConverter"/>
@@ -1091,7 +1090,7 @@
         </Grid.RowDefinitions>
 
         <!--Disabled States-->
-        <Rectangle Visibility="{x:Bind IsEnabled, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Fill="{ThemeResource Foreground}" Grid.RowSpan="2" Opacity="0.1"/>
+        <Rectangle Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsEnabled), Mode=OneWay}" Fill="{ThemeResource Foreground}" Grid.RowSpan="2" Opacity="0.1"/>
         <Rectangle Visibility="{x:Bind ViewModel.IsSending, Mode=OneWay}" Fill="{ThemeResource Background}" Grid.RowSpan="2" Opacity="0.5"/>
 
         <Popup x:Name="popup" IsOpen="True" VerticalOffset="-60"

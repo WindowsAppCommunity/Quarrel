@@ -72,7 +72,6 @@
         </Style>
 
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
-        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
         <relationconvert:RelationToAcceptFriendConverter x:Key="RelationToAcceptFriendConverter"/>
         <relationconvert:RelationToAddFriendConverter x:Key="RelationToAddFriendConverter"/>
@@ -188,7 +187,7 @@
                                 <TextBlock x:Uid="BotTB" Text="BOT" FontSize="14" VerticalAlignment="Center"/>
                             </Border>
                         </StackPanel>
-                        <tk:WrapPanel Visibility="{x:Bind ViewModel.IsLoadingProfile, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Orientation="Horizontal" VerticalAlignment="Top" Margin="188,58,24,0" HorizontalAlignment="Left">
+                        <tk:WrapPanel Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsLoadingProfile), Mode=OneWay}" Orientation="Horizontal" VerticalAlignment="Top" Margin="188,58,24,0" HorizontalAlignment="Left">
                             <HyperlinkButton x:Name="sendFriendRequest" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToAddFriendConverter}, Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE8FA;" HorizontalAlignment="Left"/>

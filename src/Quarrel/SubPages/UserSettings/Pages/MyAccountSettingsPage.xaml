@@ -9,10 +9,6 @@
     xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
-    </Page.Resources>
-
     <ScrollViewer>
         <Grid Margin="12,0,12,0" Padding="0,0,0,24">
             <Grid.ColumnDefinitions>
@@ -48,11 +44,11 @@
                 <TextBlock Visibility="Collapsed" Text="Must fill out Current Password" Foreground="Red" Margin="0,0,0,0"/>
                 <StackPanel Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}">
                     <PasswordBox Password="{x:Bind ViewModel.Password, Mode=TwoWay}" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,0,0,0"/>
-                    <HyperlinkButton x:Name="changepass" Visibility="{x:Bind ViewModel.EditingPassword, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" FontSize="13.33" Content="Change password" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" HorizontalAlignment="Left" 
+                    <HyperlinkButton x:Name="changepass" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.EditingPassword), Mode=OneWay}" FontSize="13.33" Content="Change password" Style="{StaticResource PlainTextHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" HorizontalAlignment="Left" 
                                          Command="{x:Bind ViewModel.EnterPasswordEditCommand}"/>
                     <PasswordBox Password="{x:Bind ViewModel.NewPassword, Mode=TwoWay}" Visibility="{x:Bind ViewModel.EditingPassword, Mode=OneWay}" Style="{StaticResource PasswordBoxStyle1}" Header="New password" Margin="0,4,0,0"/>
                 </StackPanel>
-                <Button Visibility="{x:Bind ViewModel.EditingAccountInfo, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Content="Edit" Margin="0,12,4,0" Style="{StaticResource DiscordButton}" Command="{x:Bind ViewModel.EnterAccountEditCommand}"/>
+                <Button Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.EditingAccountInfo), Mode=OneWay}" Content="Edit" Margin="0,12,4,0" Style="{StaticResource DiscordButton}" Command="{x:Bind ViewModel.EnterAccountEditCommand}"/>
                 <StackPanel Visibility="{x:Bind ViewModel.EditingAccountInfo, Mode=OneWay}" Orientation="Horizontal" Margin="0,12,0,0">
                     <Button Content="Save" Margin="0,0,4,0" Style="{StaticResource DiscordButton}" Command="{x:Bind ViewModel.FinalizeAccountEditCommand}"/>
                     <Button Content="Cancel" Margin="4,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource dnd}" Command="{x:Bind ViewModel.CancelAccountEditCommand}"/>
