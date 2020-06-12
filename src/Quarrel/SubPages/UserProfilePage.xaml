@@ -71,7 +71,6 @@
             </Setter>
         </Style>
 
-        <baseconvert:IntColorToColorConverter x:Key="IntColorColorConverter"/>
         <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
