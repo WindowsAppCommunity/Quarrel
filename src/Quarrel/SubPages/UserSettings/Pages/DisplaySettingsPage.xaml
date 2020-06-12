@@ -8,7 +8,7 @@
     xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     mc:Ignorable="d">
 
-    <ScrollViewer Windows10version1809:CanContentRenderOutsideBounds="True">
+    <ScrollViewer>
         <StackPanel>
             <TextBlock Text="THEME" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0"/>
             <TextBlock Text="(Restart required)" FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.75"/>

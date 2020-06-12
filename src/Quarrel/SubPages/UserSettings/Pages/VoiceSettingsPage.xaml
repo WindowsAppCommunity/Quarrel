@@ -8,7 +8,7 @@
     xmlns:devices="using:Windows.Devices.Enumeration"
     mc:Ignorable="d">
 
-    <Grid>
+    <ScrollViewer>
         <StackPanel Margin="12,0">
             <TextBlock Text="Audio Devices" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
             <TextBlock Text="Output Device" FontSize="14" FontWeight="SemiBold" Margin="0,8,0,0"/>
@@ -28,5 +28,5 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </Page>

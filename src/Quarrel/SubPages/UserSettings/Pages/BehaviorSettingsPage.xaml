@@ -5,10 +5,9 @@
     xmlns:local="using:Quarrel.SubPages.UserSettings.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     mc:Ignorable="d">
 
-    <ScrollViewer Windows10version1809:CanContentRenderOutsideBounds="True">
+    <ScrollViewer>
         <StackPanel>
             <CheckBox x:Name="MentionGlow" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,6"
                       IsChecked="{x:Bind ViewModel.MentionGlow, Mode=TwoWay}">
