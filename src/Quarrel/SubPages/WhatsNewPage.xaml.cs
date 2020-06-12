@@ -29,6 +29,11 @@ namespace Quarrel.SubPages
         /// <inheritdoc/>
         public double MaxExpandedWidth { get; } = 512;
 
+        /// <summary>
+        /// Gets a value indicating whether or not to show the insider label.
+        /// </summary>
+        public bool IsInsider => App.IsInsiderBuild;
+
         private ISubFrameNavigationService SubFrameNavigationService => _subFrameNavigationService ?? (_subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>());
 
         private void Close(object sender, RoutedEventArgs e)
