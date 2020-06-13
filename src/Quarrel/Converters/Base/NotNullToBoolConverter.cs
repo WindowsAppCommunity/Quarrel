@@ -22,7 +22,7 @@ namespace Quarrel.Converters.Base
         /// </summary>
         /// <param name="value">String to check.</param>
         /// <returns>Whether or not item is null.</returns>
-        public static bool Convert(string value)
+        public static bool ConvertString(string value)
         {
             return !string.IsNullOrEmpty(value);
         }

@@ -24,7 +24,7 @@ namespace Quarrel.Converters.Base
         /// </summary>
         /// <param name="value">String to check.</param>
         /// <returns>An inverse visibility for if the string is null or empty.</returns>
-        public static Visibility Convert(string value)
+        public static Visibility ConvertString(string value)
         {
             return string.IsNullOrEmpty(value) ? Visibility.Collapsed : Visibility.Visible;
         }

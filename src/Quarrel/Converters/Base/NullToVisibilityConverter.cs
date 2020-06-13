@@ -16,17 +16,17 @@ namespace Quarrel.Converters.Base
         /// <returns>Alligned visibility to null check.</returns>
         public static Visibility Convert(object value)
         {
-            bool v;
-            if (value is string sValue)
-            {
-                v = string.IsNullOrEmpty(sValue);
-            }
-            else
-            {
-                v = value == null;
-            }
+            return value == null ? Visibility.Visible : Visibility.Collapsed;
+        }
 
-            return v ? Visibility.Visible : Visibility.Collapsed;
+        /// <summary>
+        /// Checks if a string is null or empty.
+        /// </summary>
+        /// <param name="value">String to check.</param>
+        /// <returns>Alligned <see cref="Visibility"/> to null or empty check.</returns>
+        public static Visibility ConvertString(string value)
+        {
+            return string.IsNullOrEmpty(value) ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

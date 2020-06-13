@@ -114,19 +114,19 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,16,0" MaxWidth="400">
                             <StackPanel Margin="0,4,0,10" Orientation="Horizontal" x:Name="AuthorSP" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Model.Author), Mode=OneWay}">
-                                <Border CornerRadius="10" Margin="0,0,10,0" x:Name="AuthorRect" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Model.Author.IconUrl), Mode=OneWay}">
+                                <Border CornerRadius="10" Margin="0,0,10,0" x:Name="AuthorRect" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.ConvertString(Model.Author.IconUrl), Mode=OneWay}">
                                     <toolkit:ImageEx Width="20" Height="20" DecodePixelWidth="20" DecodePixelHeight="20" Source="{x:Bind Model.Author.ProxyIconUrl}"/>
                                 </Border>
-                                <TextBlock x:Name="AuthorText" Text="{x:Bind Model.Author.Name}" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Model.Author.Name)}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}"
+                                <TextBlock x:Name="AuthorText" Text="{x:Bind Model.Author.Name}" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.ConvertString(Model.Author.Name)}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}"
                                            VerticalAlignment="Center"/>
                             </StackPanel>
 
-                            <TextBlock Text="{x:Bind Model.Title}" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Model.Title), Mode=OneWay}"
+                            <TextBlock Text="{x:Bind Model.Title}" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.ConvertString(Model.Title), Mode=OneWay}"
                                        TextWrapping="WrapWholeWords" x:Name="TitleTB" FontSize="14" FontWeight="SemiBold"/>
 
                             <markdown:MarkdownTextBlock Text="{x:Bind Model.Description, Mode=OneWay}"
                                                         x:Name="ContentMDBlock"
-                                                        x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Model.Description), Mode=OneWay}"
+                                                        x:Load="{x:Bind baseconvert:NotNullToBoolConverter.ConvertString(Model.Description), Mode=OneWay}"
                                                         Opacity="0.75"
                                                         FontSize="13"
                                                         Margin="0,0,0,0" />
@@ -147,13 +147,13 @@
                                                 <ItemsControl.ItemTemplate>                                                  
                                                     <DataTemplate x:DataType="embedmodels:EmbedField">
                                                         <StackPanel>
-                                                            <TextBlock x:Name="FieldName" TextWrapping="NoWrap" Text="{x:Bind Name}" FontSize="13" FontWeight="SemiBold" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Name)}"/>
+                                                            <TextBlock x:Name="FieldName" TextWrapping="NoWrap" Text="{x:Bind Name}" FontSize="13" FontWeight="SemiBold" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.ConvertString(Name)}"/>
                                                             <toolkit:MarkdownTextBlock x:Name="Value"
                                                                                        TextWrapping="Wrap"
                                                                                        Text="{x:Bind baseconvert:MultipleWhiteSpaceCollapseConverter.Convert(Value)}"
                                                                                        FontSize="13"
                                                                                        Opacity="0.75"
-                                                                                       x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Value)}" />
+                                                                                       x:Load="{x:Bind baseconvert:NotNullToBoolConverter.ConvertString(Value)}" />
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
