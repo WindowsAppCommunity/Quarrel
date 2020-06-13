@@ -28,8 +28,6 @@
                                                           ChannelSuggestionTemplate="{StaticResource ChannelSuggestionTemplate}"
                                                           UserSuggestionTemplate="{StaticResource UserSuggestionTemplate}"/>
 
-            <baseconvert:StreamToBitmapImageConverter x:Key="StreamToBitmapImageConverter"/>
-
             <Style x:Key="ContentButton" TargetType="Button">
                 <Setter Property="Foreground" Value="White"/>
                 <Setter Property="BorderThickness" Value="0"/>
@@ -1153,7 +1151,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <tk:ImageEx Margin="8,0" Source="{x:Bind Value, Converter={StaticResource StreamToBitmapImageConverter}}"/>
+                        <tk:ImageEx Margin="8,0" Source="{x:Bind baseconvert:StreamToBitmapImageConverter.Convert(Value)}"/>
                         <Button Grid.Column="1" Style="{StaticResource TextBlockButtonStyle}" Foreground="{ThemeResource Foreground}" VerticalAlignment="Center"
                                 Click="RemoveAttachment" DataContext="{x:Bind}">
                             <FontIcon Glyph="" FontSize="16"/>
