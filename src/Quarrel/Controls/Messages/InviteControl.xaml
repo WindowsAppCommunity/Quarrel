@@ -10,10 +10,6 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <UserControl.Resources>
-        <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
-    </UserControl.Resources>
-
     <Grid VerticalAlignment="Top" MaxWidth="360" Padding="12,0,0,12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -27,7 +23,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
             <Border CornerRadius="24">
-                <Image Height="48" Width="48" Source="{x:Bind ViewModel.IconUrl, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                <Image Height="48" Width="48" Source="{x:Bind baseconvert:UriToImageSourceConverter.Convert(ViewModel.IconUrl), Mode=OneWay}"/>
             </Border>
             <TextBlock Text="{x:Bind ViewModel.Model.Guild.Name, Mode=OneWay}" FontSize="16" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"
                        VerticalAlignment="Center" Margin="12,0,16,0"/>

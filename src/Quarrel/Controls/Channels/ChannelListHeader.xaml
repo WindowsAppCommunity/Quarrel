@@ -11,10 +11,6 @@
     d:DesignHeight="48"
     d:DesignWidth="224">
 
-    <UserControl.Resources>
-        <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
-    </UserControl.Resources>
-
     <Button x:Name="rootButton" Style="{ThemeResource DiscordOpaqueButton}" Background="Transparent"
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
             MinHeight="48" HorizontalContentAlignment="Left">
@@ -36,7 +32,7 @@
             <!--Banner-->
             <Image x:Name="Banner"
                         x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(ViewModel.Model.BannerUri), Mode=OneWay}"
-                        Source="{x:Bind ViewModel.Model.BannerUri, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"
+                        Source="{x:Bind baseconvert:UriToImageSourceConverter.Convert(ViewModel.Model.BannerUri), Mode=OneWay}"
                         Stretch="UniformToFill"
                         Height="128"
                         Margin="-12" />

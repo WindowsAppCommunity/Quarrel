@@ -71,7 +71,6 @@
             </Setter>
         </Style>
 
-        <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
         <relationconvert:RelationToAcceptFriendConverter x:Key="RelationToAcceptFriendConverter"/>
         <relationconvert:RelationToAddFriendConverter x:Key="RelationToAddFriendConverter"/>
         <relationconvert:RelationToBlockConverter x:Key="RelationToBlockConverter"/>
