@@ -9,7 +9,8 @@
     xmlns:msgconvert="using:Quarrel.Converters.Messages"
     xmlns:profileconvert="using:Quarrel.Converters.Profile">
 
-    <baseconvert:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
+    <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
+    <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
 
     <convertchannel:MentionCountToVisiblityConverter x:Key="MentionCountToVisiblityConverter"/>
     <convertchannel:SelectedToOpacityConverter x:Key="SelectedToOpacityConverter"/>
