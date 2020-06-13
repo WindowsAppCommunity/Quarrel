@@ -13,10 +13,6 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <CommandBar.Resources>
-        <baseconvert:RemoveNewLineConverter x:Key="RemoveNewLineConveter"/>
-    </CommandBar.Resources>
-    
     <CommandBar.Style>
         <Style TargetType="CommandBar">
             <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeMediumBrush}" />
@@ -825,7 +821,7 @@
                     <!--Seperator-->
                     <AppBarSeparator/>
                     <!--Channel Description-->
-                    <controls:MarkdownTextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.CurrentChannel.AsGuildChannel.Topic, Converter={StaticResource RemoveNewLineConveter}, Mode=OneWay}" FontSize="18" FontWeight="Light" Margin="0,0,4,0" IsTextSelectionEnabled="False"
+                    <controls:MarkdownTextBlock VerticalAlignment="Center" Text="{x:Bind baseconvert:MultipleWhiteSpaceCollapseConverter.Convert(ViewModel.CurrentChannel.AsGuildChannel.Topic), Mode=OneWay}" FontSize="18" FontWeight="Light" Margin="0,0,4,0" IsTextSelectionEnabled="False"
                                                 Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.CurrentGuild.IsDM), Mode=OneWay}"/>
 
                 </StackPanel>
