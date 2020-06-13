@@ -14,7 +14,6 @@
     d:DesignWidth="400">
 
     <CommandBar.Resources>
-        <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         <baseconvert:RemoveNewLineConverter x:Key="RemoveNewLineConveter"/>
     </CommandBar.Resources>
     

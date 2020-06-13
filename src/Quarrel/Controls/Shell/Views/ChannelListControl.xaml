@@ -626,7 +626,6 @@
                 </Setter>
             </Style>
 
-            <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
             <convertchannel:MentionCountToVisiblityConverter x:Key="MentionCountToVisiblityConverter"/>
             <convertchannel:SelectedToOpacityConverter x:Key="SelectedToOpacityConverter"/>
             <convertchannel:TypeToForegroundBrushConverter x:Key="TypeToBrushConverter"/>

@@ -12,10 +12,6 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <UserControl.Resources>
-        <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-    </UserControl.Resources>
-
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="UISize" CurrentStateChanged="UISize_CurrentStateChanged">
@@ -103,7 +99,7 @@
                     <views:MessageListControl x:Name="MessageList" ManipulationMode="TranslateX,TranslateInertia,System" Grid.Row="1"/>
 
                     <!--Friends List-->
-                    <views:FriendListControl Grid.Row="1" Visibility="{x:Bind ViewModel.CurrentChannel, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"/>
+                    <views:FriendListControl Grid.Row="1" x:Name="FriendsList" x:Load="{x:Bind baseconvert:NullToBoolConverter.Convert(ViewModel.CurrentChannel), Mode=OneWay}"/>
                 </Grid>
             </local:SideDrawer.ContentMain>
             <local:SideDrawer.ContentRight>
