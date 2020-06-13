@@ -18,7 +18,6 @@
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         </Style>
 
-        <auditlogconvert:AuditLogActionTypeToGlyphConverter x:Key="AuditLogActionTypeToGlyphConverter"/>
         <auditlogconvert:AuditLogEntryToMarkdownConverter x:Key="AuditLogEntryToMarkdownConverter"/>
         <auditlogconvert:ChangeToMarkdownConverter x:Key="ChangeToMarkdownConverter"/>
         <auditlogconvert:ChangeToVisibilityConveter x:Key="ChangeToVisibilityConveter"/>
@@ -41,7 +40,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!--Icon for change-->
-                <FontIcon Glyph="{x:Bind ActionType, Converter={StaticResource AuditLogActionTypeToGlyphConverter}}"
+                <FontIcon Glyph="{x:Bind auditlogconvert:AuditLogActionTypeToGlyphConverter.Convert(ActionType)}"
                           Foreground="{x:Bind auditlogconvert:AuditLogActionTypeToBrushConverter.Convert(ActionType)}"
                           VerticalAlignment="Top"/>
 
