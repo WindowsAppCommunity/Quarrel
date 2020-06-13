@@ -10,8 +10,8 @@ namespace Quarrel.Converters.Base
         /// <summary>
         /// Check if a value is null.
         /// </summary>
-        /// <param name="value">null.</param>
-        /// <returns>Whether or not item is null</returns>
+        /// <param name="value">Item to check.</param>
+        /// <returns>Whether or not item is null.</returns>
         public static bool Convert(object value)
         {
             return value != null;
@@ -20,21 +20,11 @@ namespace Quarrel.Converters.Base
         /// <summary>
         /// Check if a string is null.
         /// </summary>
-        /// <param name="value">null.</param>
+        /// <param name="value">String to check.</param>
         /// <returns>Whether or not item is null.</returns>
         public static bool Convert(string value)
         {
             return !string.IsNullOrEmpty(value);
-        }
-
-        /// <summary>
-        /// Check if a string is null.
-        /// </summary>
-        /// <param name="value">null.</param>
-        /// <returns>Whether or not item is null.</returns>
-        public static bool Convert(int value)
-        {
-            return value > 0;
         }
     }
 }

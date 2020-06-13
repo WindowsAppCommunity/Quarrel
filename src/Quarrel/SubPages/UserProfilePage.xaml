@@ -71,7 +71,6 @@
             </Setter>
         </Style>
 
-        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
         <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
         <relationconvert:RelationToAcceptFriendConverter x:Key="RelationToAcceptFriendConverter"/>
         <relationconvert:RelationToAddFriendConverter x:Key="RelationToAddFriendConverter"/>
@@ -115,7 +114,7 @@
                             <StackPanel x:Name="BadgePanel" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         </Grid>
                         <StackPanel>
-                            <TextBlock Visibility="{x:Bind ViewModel.User.Presence.Game, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,6"/>
+                            <TextBlock Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.Convert(ViewModel.User.Presence.Game), Mode=OneWay}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,6"/>
                             <Border Margin="-48,0" Padding="48,12">
                                 <Border.Background>
                                     <SolidColorBrush Opacity="0.5"/>
@@ -145,7 +144,7 @@
                             </tk:AdaptiveGridView.ItemTemplate>
                         </tk:AdaptiveGridView>
                         <StackPanel x:Name="commonServerPanel">
-                            <TextBlock Visibility="{x:Bind ViewModel.Profile.MutualGuilds, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Text="COMMON SERVERS" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                            <TextBlock x:Name="MutualGuildsHeader" x:Load="{x:Bind baseconvert:ContainsItemsToBoolConverter.Convert(ViewModel.Profile.MutualGuilds), Mode=OneWay}" Text="COMMON SERVERS" FontWeight="SemiBold" Margin="0,12,0,0"/>
                             <ListView x:Name="MutualGuilds" ItemsSource="{x:Bind ViewModel.MutualGuilds, Mode=OneWay}" SelectionMode="None" Margin="0,0" Padding="0,12,0,0" IsItemClickEnabled="True">
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="guildbindables:BindableMutualGuild">
@@ -155,7 +154,7 @@
                             </ListView>
                         </StackPanel>
                         <StackPanel x:Name="commonFriendPanel">
-                            <TextBlock Visibility="{x:Bind ViewModel.Profile.SharedFriends, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Text="COMMON FRIENDS" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                            <TextBlock x:Name="MutualFriendsHeader" x:Load="{x:Bind baseconvert:ContainsItemsToBoolConverter.Convert(ViewModel.Profile.SharedFriends), Mode=OneWay}" Text="COMMON FRIENDS" FontWeight="SemiBold" Margin="0,12,0,0"/>
                             <ListView x:Name="MutualFriends" ItemsSource="{x:Bind ViewModel.Profile.SharedFriends}" SelectionMode="None" Margin="0,0" Padding="0,12,0,0">
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="models:SharedFriend">

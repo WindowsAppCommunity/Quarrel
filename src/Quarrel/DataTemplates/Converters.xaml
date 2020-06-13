@@ -11,8 +11,6 @@
 
     <baseconvert:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
 
-    <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
-
     <convertchannel:MentionCountToVisiblityConverter x:Key="MentionCountToVisiblityConverter"/>
     <convertchannel:SelectedToOpacityConverter x:Key="SelectedToOpacityConverter"/>
     <convertchannel:TypeToForegroundBrushConverter x:Key="TypeToBrushConverter"/>

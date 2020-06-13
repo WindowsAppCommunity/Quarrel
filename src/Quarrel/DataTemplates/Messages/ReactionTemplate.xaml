@@ -21,7 +21,7 @@
                       CommandParameter="{x:Bind}">
             <ToolTipService.ToolTip>
                 <ToolTip Content="{x:Bind ToolTip, Mode=OneWay}"
-                         Visibility="{x:Bind ToolTip, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}">
+                         Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.Convert(ToolTip), Mode=OneWay}">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="Opened">
                             <core:InvokeCommandAction Command="{x:Bind UpdateToolTipCommand}" />

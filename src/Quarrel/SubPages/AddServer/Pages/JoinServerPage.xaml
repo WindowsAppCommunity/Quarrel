@@ -9,10 +9,6 @@
     xmlns:message="using:Quarrel.Controls.Messages"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
-    </Page.Resources>
-
     <StackPanel>
         <StackPanel Orientation="Horizontal" Margin="0,24,0,0"
                 VerticalAlignment="Top" HorizontalAlignment="Center">

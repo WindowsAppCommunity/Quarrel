@@ -28,7 +28,6 @@
                                                           ChannelSuggestionTemplate="{StaticResource ChannelSuggestionTemplate}"
                                                           UserSuggestionTemplate="{StaticResource UserSuggestionTemplate}"/>
 
-            <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
             <baseconvert:StreamToBitmapImageConverter x:Key="StreamToBitmapImageConverter"/>
 
             <Style x:Key="ContentButton" TargetType="Button">
@@ -1115,7 +1114,7 @@
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
         </local:SelectionBindingTextBox>
-        <Button x:Name="SendBox" IsEnabled="{x:Bind MessageEditor.Text, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Grid.Column="2"  Style="{StaticResource SendButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Stretch" Command="{x:Bind ViewModel.SendMessageCommand}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Width="48"/>
+        <Button x:Name="SendBox" IsEnabled="{x:Bind baseconvert:NotNullToBoolConverter.Convert(MessageEditor.Text), Mode=OneWay}" Grid.Column="2"  Style="{StaticResource SendButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Stretch" Command="{x:Bind ViewModel.SendMessageCommand}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Width="48"/>
 
         <!--Emoji Picker-->
         <Button HorizontalAlignment="Right" Margin="0,0,48,0" Foreground="{ThemeResource Foreground}" Style="{StaticResource ContentButton}" 
