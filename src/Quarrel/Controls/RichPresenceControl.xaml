@@ -11,10 +11,6 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <UserControl.Resources>
-        <baseconvert:TimeSpanToTextConverter x:Key="TimeSpanToTextConverter"/>
-    </UserControl.Resources>
-    
     <Grid Margin="0,4,0,4">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
