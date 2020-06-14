@@ -716,13 +716,13 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
-        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+
+        <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
     </UserControl.Resources>
     <UserControl.RenderTransform>
         <TranslateTransform x:Name="ContentTranslate"/>
     </UserControl.RenderTransform>
-    <Grid Visibility="{x:Bind ViewModel.VoiceState.ChannelId, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"  Background="{ThemeResource AcrylicUserBackgroundDarker}">
+    <Grid x:Name="VoiceConnectionGrid" x:Load="{x:Bind ViewModel.VoiceState.ChannelId, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Background="{ThemeResource AcrylicUserBackgroundDarker}">
         <animation:Implicit.ShowAnimations>
             <animation:TranslationAnimation Duration="0:0:0.5" To="0">
                 <animation:Vector3KeyFrame Key="0.1" Value="0, 300, 0"/>
