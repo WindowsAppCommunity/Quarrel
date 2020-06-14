@@ -43,6 +43,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
         private readonly IDispatcherHelper _dispatcherHelper;
         private readonly IPresenceService _presenceService;
         private IVoiceService _voiceService;
+        private MainViewModel _mainViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuildsService"/> class.
@@ -52,7 +53,6 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
         /// <param name="channelsService">The app's channel service.</param>
         /// <param name="presenceService">The app's presence service.</param>
         /// <param name="dispatcherHelper">The app's dispatcher helper.</param>
-        /// <param name="voiceService">The app's voice service.</param>
         public GuildsService(
             IAnalyticsService analyticsService,
             ICacheService cacheService,
@@ -81,7 +81,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                     var dmGuild =
                         new BindableGuild(new Guild() { Name = "DM", Id = "DM" }) { Position = -1 };
 
-                    AllGuilds.AddOrUpdate(dmGuild.Model.Id, dmGuild);
+                    AddOrUpdateGuild(dmGuild.Model.Id, dmGuild);
 
                     // Add DM channels
                     if (m.EventData.PrivateChannels != null && m.EventData.PrivateChannels.Any())
@@ -114,17 +114,13 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         dmGuild.Channels = new ObservableCollection<BindableChannel>(dmGuild.Channels.OrderByDescending(x => Convert.ToUInt64(x.Model.LastMessageId)).ToList());
                     }
 
-                    List<string> guildIdsNotInFolder = new List<string>();
-
                     foreach (var guild in m.EventData.Guilds)
                     {
-                        guildIdsNotInFolder.Add(guild.Id);
-
                         BindableGuild bGuild = new BindableGuild(guild);
 
                         // Handle guild settings
-                        GuildSetting gSettings;
-                        if (GuildSettings.TryGetValue(guild.Id, out gSettings))
+                        GuildSetting gSettings = GetGuildSetting(guild.Id);
+                        if (gSettings != null)
                         {
                             bGuild.IsMuted = gSettings.Muted;
                         }
@@ -227,49 +223,25 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                             Messenger.Default.Send(new GatewayPresenceUpdatedMessage(presence.User.Id, presence));
                         }
 
-                        AllGuilds.AddOrUpdate(bGuild.Model.Id, bGuild);
+                        AddOrUpdateGuild(bGuild.Model.Id, bGuild);
                     }
 
-                    AllGuildFolders.Clear();
-
+                    MainViewModel.BindableGuilds.Add(GetGuild("DM"));
                     foreach (var folder in m.EventData.Settings.GuildFolders)
                     {
-                        AllGuildFolders.Add(new BindableGuildFolder(folder) { IsCollapsed = true });
-                        if (folder.GuildIds.Count() > 1)
+                        BindableGuildFolder bindableFolder = new BindableGuildFolder(folder) { IsCollapsed = folder.GuildIds.Count() > 1 };
+                        MainViewModel.BindableGuilds.Add(bindableFolder);
+                        foreach (var guildId in folder.GuildIds)
                         {
-                            foreach (string id in folder.GuildIds)
-                            {
-                                int pos = guildIdsNotInFolder.IndexOf(id);
-                                if (pos >= 0)
-                                {
-                                    guildIdsNotInFolder.RemoveAt(pos);
-                                }
-
-                                if (AllGuilds.ContainsKey(id))
-                                {
-                                    AllGuilds[id].FolderId = folder.Id;
-                                    AllGuilds[id].IsCollapsed = true;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            int pos = guildIdsNotInFolder.IndexOf(folder.GuildIds.FirstOrDefault());
-                            if (pos >= 0)
-                            {
-                                guildIdsNotInFolder.RemoveAt(pos);
-                            }
+                            BindableGuild guild = GetGuild(guildId);
+                            guild.FolderId = folder.Id;
+                            guild.IsCollapsed = bindableFolder.IsCollapsed;
+                            MainViewModel.BindableGuilds.Add(guild);
                         }
                     }
-
-                    foreach (string id in guildIdsNotInFolder)
-                    {
-                        AllGuildFolders.Add(new BindableGuildFolder(new Folder { GuildIds = new List<string> { id } }) { IsCollapsed = true });
-                    }
-
-                    Messenger.Default.Send("GuildsReady");
                 });
             });
+
             Messenger.Default.Register<GatewayChannelCreatedMessage>(this, m =>
             {
                 string guildId = "DM";
@@ -289,7 +261,8 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                     bChannel.ParentPostion = -1;
                 }
 
-                if (AllGuilds.TryGetValue(guildId, out var guild))
+                BindableGuild guild = GetGuild(guildId);
+                if (guild != null)
                 {
                     for (int i = 0; i < guild.Channels.Count; i++)
                     {
@@ -314,9 +287,10 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                     BindableChannel currentChannel = _channelsService.GetChannel(m.Channel.Id);
                     if (currentChannel != null)
                     {
-                        if (AllGuilds.TryGetValue(currentChannel.GuildId, out var value))
+                        BindableGuild guild = GetGuild(currentChannel.GuildId);
+                        if (guild != null)
                         {
-                            value.Channels.Remove(currentChannel);
+                            guild.Channels.Remove(currentChannel);
                         }
 
                         _channelsService.RemoveChannel(m.Channel.Id);
@@ -340,7 +314,8 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         bChannel.ParentPostion = -1;
                     }
 
-                    if (AllGuilds.TryGetValue(m.Channel.GuildId, out var guild))
+                    BindableGuild guild = GetGuild(m.Channel.GuildId);
+                    if (guild != null)
                     {
                         guild.Channels.Remove(bChannel);
                         for (int i = 0; i < guild.Channels.Count; i++)
@@ -386,19 +361,51 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
         }
 
         /// <inheritdoc/>
-        public IDictionary<string, GuildSetting> GuildSettings { get; } =
-            new ConcurrentDictionary<string, GuildSetting>();
-
-        /// <inheritdoc/>
-        public IList<BindableGuildFolder> AllGuildFolders { get; } = new List<BindableGuildFolder>();
-
-        /// <inheritdoc/>
-        public IDictionary<string, BindableGuild> AllGuilds { get; } = new ConcurrentDictionary<string, BindableGuild>();
-
-        /// <inheritdoc/>
         public BindableGuild CurrentGuild { get; private set; }
 
+        private MainViewModel MainViewModel => _mainViewModel ?? (_mainViewModel = SimpleIoc.Default.GetInstance<MainViewModel>());
+
         private IVoiceService VoiceService => _voiceService ?? (_voiceService = SimpleIoc.Default.GetInstance<IVoiceService>());
+
+        /// <inheritdoc/>
+        public BindableGuild GetGuild(string guildId)
+        {
+            if (guildId == null)
+            {
+                return null;
+            }
+
+            return MainViewModel.AllGuilds.TryGetValue(guildId, out BindableGuild guild) ? guild : null;
+        }
+
+        /// <inheritdoc/>
+        public void AddOrUpdateGuild(string guildId, BindableGuild guild)
+        {
+            MainViewModel.AllGuilds.AddOrUpdate(guildId, guild);
+        }
+
+        /// <inheritdoc/>
+        public void RemoveGuild(string guildId)
+        {
+            MainViewModel.AllGuilds.Remove(guildId);
+        }
+
+        /// <inheritdoc/>
+        public GuildSetting GetGuildSetting(string guildId)
+        {
+            if (guildId == null)
+            {
+                return null;
+            }
+
+            return MainViewModel.GuildSettings.TryGetValue(guildId, out GuildSetting guildSetting) ? guildSetting : null;
+        }
+
+        /// <inheritdoc/>
+        public void AddOrUpdateGuildSettings(string guildId, GuildSetting guildSetting)
+        {
+            MainViewModel.GuildSettings.AddOrUpdate(guildId, guildSetting);
+        }
 
         /// <inheritdoc/>
         public BindableGuildMember GetGuildMember(string memberId, string guildId)

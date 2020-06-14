@@ -42,7 +42,7 @@ namespace DiscordAPI.Gateway.DownstreamEvents
             // Cache Guild Settings
             foreach (var gSettings in ready.GuildSettings)
             {
-                GuildsService.GuildSettings.AddOrUpdate(gSettings.GuildId ?? "DM", gSettings);
+                GuildsService.AddOrUpdateGuildSettings(gSettings.GuildId ?? "DM", gSettings);
 
                 foreach (var cSettings in gSettings.ChannelOverrides)
                 {

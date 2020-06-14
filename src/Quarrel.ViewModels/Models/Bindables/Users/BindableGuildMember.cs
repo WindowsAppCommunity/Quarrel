@@ -193,7 +193,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
                         return null;
                     }
 
-                    _cachedRoles = GuildsService.AllGuilds[GuildId].Model.Roles.Where(a => Model.Roles.Contains(a.Id)).OrderByDescending(x => x.Position).ToList();
+                    _cachedRoles = GuildsService.GetGuild(GuildId).Model.Roles.Where(a => Model.Roles.Contains(a.Id)).OrderByDescending(x => x.Position).ToList();
                 }
 
                 return _cachedRoles;

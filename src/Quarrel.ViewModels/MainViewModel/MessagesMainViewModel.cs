@@ -307,10 +307,10 @@ namespace Quarrel.ViewModels
                             channel.ReadState.MentionCount++;
                             if (channel.IsDirectChannel || channel.IsGroupChannel)
                             {
-                                int oldIndex = _guildsService.AllGuilds["DM"].Channels.IndexOf(channel);
+                                int oldIndex = _guildsService.GetGuild("DM").Channels.IndexOf(channel);
                                 if (oldIndex >= 0)
                                 {
-                                    _guildsService.AllGuilds["DM"].Channels.Move(oldIndex, 0);
+                                    _guildsService.GetGuild("DM").Channels.Move(oldIndex, 0);
                                 }
                             }
                         });

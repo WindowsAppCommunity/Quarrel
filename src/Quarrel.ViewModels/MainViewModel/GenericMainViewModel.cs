@@ -169,7 +169,7 @@ namespace Quarrel.ViewModels
             {
                 _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    var dmGuild = _guildsService.AllGuilds["DM"];
+                    var dmGuild = _guildsService.GetGuild("DM");
                     dmGuild.Selected = true;
                     MessengerInstance.Send(new GuildNavigateMessage(dmGuild));
 

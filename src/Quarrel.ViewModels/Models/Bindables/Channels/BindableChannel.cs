@@ -151,7 +151,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
         /// </summary>
         public BindableGuild Guild
         {
-            get => GuildsService.AllGuilds[GuildId];
+            get => GuildsService.GetGuild(GuildId);
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Command;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Helpers;
@@ -10,6 +11,8 @@ using Quarrel.ViewModels.Models.Bindables.Channels;
 using Quarrel.ViewModels.Models.Bindables.Guilds;
 using Quarrel.ViewModels.Models.Bindables.Users;
 using Quarrel.ViewModels.Models.Interfaces;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,7 +50,7 @@ namespace Quarrel.ViewModels
                     bindableGuildFolder.IsCollapsed = collapsed;
                     foreach (var guildId in bindableGuildFolder.Model.GuildIds)
                     {
-                        _guildsService.AllGuilds.TryGetValue(guildId, out var guild);
+                        BindableGuild guild = _guildsService.GetGuild(guildId);
                         if (guild != null)
                         {
                             guild.IsCollapsed = collapsed;
@@ -88,6 +91,17 @@ namespace Quarrel.ViewModels
         [NotNull]
         public ObservableRangeCollection<IGuildListItem> BindableGuilds { get; private set; } =
             new ObservableRangeCollection<IGuildListItem>();
+
+        /// <summary>
+        /// Gets a hashed collection of guilds, by guild id.
+        /// </summary>
+        public IDictionary<string, BindableGuild> AllGuilds { get; } = new ConcurrentDictionary<string, BindableGuild>();
+
+        /// <summary>
+        /// Gets a hashed collection of guild settings, by guild id.
+        /// </summary>
+        public IDictionary<string, GuildSetting> GuildSettings { get; } =
+            new ConcurrentDictionary<string, GuildSetting>();
 
         private void RegisterGuildsMessages()
         {
@@ -141,64 +155,20 @@ namespace Quarrel.ViewModels
                 }
             });
 
-            // Handles string message used for App Events
-            MessengerInstance.Register<string>(this, m =>
-            {
-                if (m == "GuildsReady")
-                {
-                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
-                    {
-                        // Show guilds
-                        BindableGuilds.Clear();
-                        BindableGuilds.Add(_guildsService.AllGuilds["DM"]);
-
-                        if (_guildsService.AllGuildFolders.Count > 0)
-                        {
-                            foreach (var folder in _guildsService.AllGuildFolders)
-                            {
-                                if (folder.Model.Id != null)
-                                {
-                                    BindableGuilds.Add(folder);
-                                }
-
-                                foreach (var guildId in folder.Model.GuildIds)
-                                {
-                                    _guildsService.AllGuilds.TryGetValue(guildId, out BindableGuild bindableGuild);
-                                    if (bindableGuild != null)
-                                    {
-                                        BindableGuilds.Add(bindableGuild);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            foreach (var guild in _guildsService.AllGuilds.Values)
-                            {
-                                if (guild.Model.Id != "DM")
-                                {
-                                    BindableGuilds.Add(guild);
-                                }
-                            }
-                        }
-                    });
-                }
-            });
-
             MessengerInstance.Register<GatewayGuildCreatedMessage>(this, m =>
             {
                 BindableGuild guild = new BindableGuild(m.Guild);
-                _guildsService.AllGuilds.Add(m.Guild.Id, guild);
+                _guildsService.AddOrUpdateGuild(m.Guild.Id, guild);
                 _dispatcherHelper.CheckBeginInvokeOnUi(() => { BindableGuilds.Insert(1, guild); });
             });
 
             MessengerInstance.Register<GatewayGuildDeletedMessage>(this, m =>
             {
                 BindableGuild guild;
-                if (_guildsService.AllGuilds.ContainsKey(m.Guild.GuildId))
+                if (_guildsService.GetGuild(m.Guild.GuildId) != null)
                 {
-                    guild = _guildsService.AllGuilds[m.Guild.GuildId];
-                    _guildsService.AllGuilds.Remove(m.Guild.GuildId);
+                    guild = _guildsService.GetGuild(m.Guild.GuildId);
+                    _guildsService.RemoveGuild(m.Guild.GuildId);
                     _dispatcherHelper.CheckBeginInvokeOnUi(() => { BindableGuilds.Remove(guild); });
                 }
             });

@@ -29,7 +29,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages.Embeds
         {
             if (Model != null)
             {
-                _joined = GuildsService.AllGuilds.ContainsKey(Model.Guild.Id);
+                _joined = GuildsService.GetGuild(Model.Guild.Id) != null;
             }
         }
 
@@ -50,7 +50,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages.Embeds
         /// <summary>
         /// Gets a value indicating whether or not the invite can be removed by the user.
         /// </summary>
-        public bool CanRemove => GuildsService.AllGuilds[Model.Guild.Id].Permissions.ManangeGuild;
+        public bool CanRemove => GuildsService.GetGuild(Model.Guild.Id).Permissions.ManangeGuild;
 
         /// <summary>
         /// Gets a command that accepts the bound invite.

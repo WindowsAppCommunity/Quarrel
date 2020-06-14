@@ -14,24 +14,43 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
     public interface IGuildsService
     {
         /// <summary>
-        /// Gets a hashed collection of guild settings, by guild id.
-        /// </summary>
-        IDictionary<string, GuildSetting> GuildSettings { get; }
-
-        /// <summary>
-        /// Gets a list of guild folders, by guild id.
-        /// </summary>
-        IList<BindableGuildFolder> AllGuildFolders { get; }
-
-        /// <summary>
-        /// Gets a hashed collection of guilds, by guild id.
-        /// </summary>
-        IDictionary<string, BindableGuild> AllGuilds { get; }
-
-        /// <summary>
         /// Gets the current guild.
         /// </summary>
         BindableGuild CurrentGuild { get; }
+
+        /// <summary>
+        /// Gets a guild by Id.
+        /// </summary>
+        /// <param name="guildId">The guild's id.</param>
+        /// <returns>The requested <see cref="BindableGuild"/>.</returns>
+        BindableGuild GetGuild(string guildId);
+
+        /// <summary>
+        /// Adds or updates a guild in the guild list.
+        /// </summary>
+        /// <param name="guildId">The id of the guild.</param>
+        /// <param name="guild">The new guild value.</param>
+        void AddOrUpdateGuild(string guildId, BindableGuild guild);
+
+        /// <summary>
+        /// Removes a guild from the guild list.
+        /// </summary>
+        /// <param name="guildId">The guild's id.</param>
+        void RemoveGuild(string guildId);
+
+        /// <summary>
+        /// Gets the settings for a guild.
+        /// </summary>
+        /// <param name="guildId">The guild's id.</param>
+        /// <returns>The requested <see cref="GuildSetting"/>s.</returns>
+        GuildSetting GetGuildSetting(string guildId);
+
+        /// <summary>
+        /// Adds or updates an item in the guilds settings list.
+        /// </summary>
+        /// <param name="guildId">The guild's id.</param>
+        /// <param name="guildSetting">The guild's settings.</param>
+        void AddOrUpdateGuildSettings(string guildId, GuildSetting guildSetting);
 
         /// <summary>
         /// Gets a guild member by user id and guild id.
