@@ -230,6 +230,8 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         AllGuilds.AddOrUpdate(bGuild.Model.Id, bGuild);
                     }
 
+                    AllGuildFolders.Clear();
+
                     foreach (var folder in m.EventData.Settings.GuildFolders)
                     {
                         AllGuildFolders.Add(new BindableGuildFolder(folder) { IsCollapsed = true });
@@ -242,6 +244,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                                 {
                                     guildIdsNotInFolder.RemoveAt(pos);
                                 }
+
                                 if (AllGuilds.ContainsKey(id))
                                 {
                                     AllGuilds[id].FolderId = folder.Id;
@@ -261,7 +264,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
 
                     foreach (string id in guildIdsNotInFolder)
                     {
-                        AllGuildFolders.Add(new BindableGuildFolder(new Folder{ GuildIds = new List<string> { id } }) { IsCollapsed = true });
+                        AllGuildFolders.Add(new BindableGuildFolder(new Folder { GuildIds = new List<string> { id } }) { IsCollapsed = true });
                     }
 
                     Messenger.Default.Send("GuildsReady");
