@@ -77,8 +77,8 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
                         // Updated channel settings
-                        ChannelOverride channelOverride;
-                        if (ChannelsService.ChannelSettings.TryGetValue(Model.Id, out channelOverride))
+                        ChannelOverride channelOverride = ChannelsService.GetChannelSettings(Model.Id);
+                        if (channelOverride != null)
                         {
                             Muted = channelOverride.Muted;
                         }
@@ -247,7 +247,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
 
                     if (ParentId != null && ParentId != Model.Id)
                     {
-                        perms = ChannelsService.AllChannels[ParentId].Permissions.Clone();
+                        perms = ChannelsService.GetChannel(ParentId).Permissions.Clone();
                     }
 
                     var user = Guild.Model.Members.FirstOrDefault(x => x.User.Id == DiscordService.CurrentUser.Id);
@@ -682,8 +682,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
             guildSettingModify.GuildId = GuildId == "DM" ? "@me" : GuildId;
             guildSettingModify.ChannelOverrides = new Dictionary<string, ChannelOverride>();
 
-            ChannelOverride channelOverride;
-            ChannelsService.ChannelSettings.TryGetValue(Model.Id, out channelOverride);
+            ChannelOverride channelOverride = ChannelsService.GetChannelSettings(Model.Id);
             if (channelOverride == null)
             {
                 // No pre-exisitng channeloverride, create a default

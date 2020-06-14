@@ -7,9 +7,7 @@ using Quarrel.ViewModels.Messages.Gateway;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables.Channels;
 using Quarrel.ViewModels.Services.Analytics;
-using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.DispatcherHelper;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace Quarrel.ViewModels.Services.Discord.Channels
@@ -21,37 +19,19 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
     {
         private readonly IAnalyticsService _analyticsService;
         private readonly IDispatcherHelper _dispatcherHelper;
+        private MainViewModel _mainViewModel = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ChannelsService"/> class.
         /// </summary>
-        /// <param name="analyticsService">The app's analytics service.</param>
-        /// <param name="dispatcherHelper">The aoo's dispatcher helper.</param>
+        /// <param name="analyticsService">The app's <see cref="IAnalyticsService"/>.</param>
+        /// <param name="dispatcherHelper">The app's <see cref="IDispatcherHelper"/>.</param>
         public ChannelsService(
             IAnalyticsService analyticsService,
             IDispatcherHelper dispatcherHelper)
         {
             _analyticsService = analyticsService;
             _dispatcherHelper = dispatcherHelper;
-
-            Messenger.Default.Register<ChannelNavigateMessage>(this, m =>
-            {
-                _dispatcherHelper.CheckBeginInvokeOnUi(() =>
-                {
-                    if (CurrentChannel != null)
-                    {
-                        if (CurrentChannel.Guild.Model.Id != m.Guild.Model.Id)
-                        {
-                            Messenger.Default.Send(new GuildNavigateMessage(m.Guild));
-                        }
-
-                        CurrentChannel.Selected = false;
-                    }
-
-                    CurrentChannel = m.Channel;
-                    m.Channel.Selected = true;
-                });
-            });
 
             Messenger.Default.Register<GatewayMessageAckMessage>(this, m =>
             {
@@ -61,14 +41,13 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
         }
 
         /// <inheritdoc/>
-        public BindableChannel CurrentChannel { get; private set; }
+        public BindableChannel CurrentChannel
+        {
+            get => MainViewModel.CurrentChannel;
+            set => MainViewModel.CurrentChannel = value;
+        }
 
-        /// <inheritdoc/>
-        public IDictionary<string, BindableChannel> AllChannels { get; } = new ConcurrentDictionary<string, BindableChannel>();
-
-        /// <inheritdoc/>
-        public IDictionary<string, ChannelOverride> ChannelSettings { get; } =
-            new ConcurrentDictionary<string, ChannelOverride>();
+        private MainViewModel MainViewModel => _mainViewModel ?? (_mainViewModel = SimpleIoc.Default.GetInstance<MainViewModel>());
 
         /// <inheritdoc/>
         public BindableChannel GetChannel(string channelId)
@@ -78,7 +57,46 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
                 return null;
             }
 
-            return AllChannels.TryGetValue(channelId, out BindableChannel channel) ? channel : null;
+            return MainViewModel.AllChannels.TryGetValue(channelId, out BindableChannel channel) ? channel : null;
+        }
+
+        /// <inheritdoc/>
+        public void AddOrUpdateChannel(string channelId, BindableChannel channel)
+        {
+            if (channelId == null)
+            {
+                return;
+            }
+
+            MainViewModel.AllChannels.AddOrUpdate(channelId, channel);
+        }
+
+        /// <inheritdoc/>
+        public void RemoveChannel(string channelId)
+        {
+            MainViewModel.AllChannels.Remove(channelId);
+        }
+
+        /// <inheritdoc/>
+        public ChannelOverride GetChannelSettings(string channelId)
+        {
+            if (channelId == null)
+            {
+                return null;
+            }
+
+            return MainViewModel.ChannelSettings.TryGetValue(channelId, out ChannelOverride channelOverride) ? channelOverride : null;
+        }
+
+        /// <inheritdoc/>
+        public void AddOrUpdateChannelSettings(string channelId, ChannelOverride channelOverride)
+        {
+            if (channelId == null)
+            {
+                return;
+            }
+
+            MainViewModel.ChannelSettings.AddOrUpdate(channelId, channelOverride);
         }
     }
 }

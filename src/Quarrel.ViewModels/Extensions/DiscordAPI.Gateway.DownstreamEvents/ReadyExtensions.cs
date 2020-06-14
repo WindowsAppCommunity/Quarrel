@@ -46,7 +46,7 @@ namespace DiscordAPI.Gateway.DownstreamEvents
 
                 foreach (var cSettings in gSettings.ChannelOverrides)
                 {
-                    ChannelsService.ChannelSettings.AddOrUpdate(cSettings.ChannelId, cSettings);
+                    ChannelsService.AddOrUpdateChannelSettings(cSettings.ChannelId, cSettings);
                 }
             }
 

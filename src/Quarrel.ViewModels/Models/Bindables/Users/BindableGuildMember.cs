@@ -126,7 +126,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
             if (bChannel == null)
             {
                 bChannel = new BindableChannel(channel);
-                ChannelsService.AllChannels.Add(channel.Id, bChannel);
+                ChannelsService.AddOrUpdateChannel(channel.Id, bChannel);
             }
 
             MessengerInstance.Send(new ChannelNavigateMessage(bChannel));

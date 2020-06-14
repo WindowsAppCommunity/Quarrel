@@ -328,7 +328,7 @@ namespace Quarrel.ViewModels.Services.Gateway
 
             foreach (var channel in e.EventData.ChannelOverrides)
             {
-                _channelsService.ChannelSettings.AddOrUpdate(channel.ChannelId, channel);
+                _channelsService.AddOrUpdateChannelSettings(channel.ChannelId, channel);
             }
 
             Messenger.Default.Send(new GatewayUserGuildSettingsUpdatedMessage(e.EventData));

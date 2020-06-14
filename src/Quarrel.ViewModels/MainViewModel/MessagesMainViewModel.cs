@@ -96,7 +96,6 @@ namespace Quarrel.ViewModels
             }
         });
 
-
         /// <summary>
         /// Gets a command that adds a reaction to a message.
         /// </summary>
@@ -288,7 +287,8 @@ namespace Quarrel.ViewModels
             MessengerInstance.Register<GatewayMessageRecievedMessage>(this, m =>
             {
                 // Check if channel exists
-                if (_channelsService.AllChannels.TryGetValue(m.Message.ChannelId, out BindableChannel channel))
+                BindableChannel channel = _channelsService.GetChannel(m.Message.ChannelId);
+                if (channel != null)
                 {
                     channel.UpdateLMID(m.Message.Id);
 
@@ -318,7 +318,6 @@ namespace Quarrel.ViewModels
 
                     if (CurrentChannel != null && CurrentChannel.Model.Id == channel.Model.Id)
                     {
-
                         BindableGuildMember member = _guildsService.GetGuildMember(m.Message.User.Id, CurrentGuild.Model.Id) ??
                                                      new BindableGuildMember(new GuildMember() { User = m.Message.User }, m.Message.GuildId);
                         _dispatcherHelper.CheckBeginInvokeOnUi(() =>

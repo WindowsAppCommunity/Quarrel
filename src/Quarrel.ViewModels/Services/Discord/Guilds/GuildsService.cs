@@ -90,8 +90,8 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         {
                             BindableChannel bChannel = new BindableChannel(channel);
 
-                            ChannelOverride cSettings;
-                            if (_channelsService.ChannelSettings.TryGetValue(channel.Id, out cSettings))
+                            ChannelOverride cSettings = _channelsService.GetChannelSettings(channel.Id);
+                            if (cSettings != null)
                             {
                                 bChannel.Muted = cSettings.Muted;
                             }
@@ -107,7 +107,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                                 }
                             }
 
-                            _channelsService.AllChannels.AddOrUpdate(bChannel.Model.Id, bChannel);
+                            _channelsService.AddOrUpdateChannel(bChannel.Model.Id, bChannel);
                         }
 
                         // Sort by last message timestamp
@@ -179,8 +179,8 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                             BindableChannel bChannel = new BindableChannel(channel, state);
 
                             // Handle channel settings
-                            ChannelOverride cSettings;
-                            if (_channelsService.ChannelSettings.TryGetValue(channel.Id, out cSettings))
+                            ChannelOverride cSettings = _channelsService.GetChannelSettings(channel.Id);
+                            if (cSettings != null)
                             {
                                 bChannel.Muted = cSettings.Muted;
                             }
@@ -201,7 +201,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                             }
 
                             bGuild.Channels.Add(bChannel);
-                            _channelsService.AllChannels.AddOrUpdate(bChannel.Model.Id, bChannel);
+                            _channelsService.AddOrUpdateChannel(bChannel.Model.Id, bChannel);
                         }
 
                         bGuild.Channels = new ObservableCollection<BindableChannel>(bGuild.Channels.OrderBy(x => x.AbsolutePostion).ToList());
@@ -281,7 +281,8 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                 var bChannel = new BindableChannel(m.Channel);
                 if (bChannel.Model.Type != 4 && bChannel.ParentId != null)
                 {
-                    bChannel.ParentPostion = _channelsService.AllChannels.TryGetValue(bChannel.ParentId, out var value) ? value.Position : 0;
+                    BindableChannel parentChannel = _channelsService.GetChannel(bChannel.ParentId);
+                    bChannel.ParentPostion = parentChannel != null ? parentChannel.Position : 0;
                 }
                 else if (bChannel.ParentId == null)
                 {
@@ -303,20 +304,22 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                     }
                 }
 
-                _channelsService.AllChannels.AddOrUpdate(bChannel.Model.Id, bChannel);
+                _channelsService.AddOrUpdateChannel(bChannel.Model.Id, bChannel);
             });
+
             Messenger.Default.Register<GatewayChannelDeletedMessage>(this, m =>
             {
                 _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    if (_channelsService.AllChannels.TryGetValue(m.Channel.Id, out var currentChannel))
+                    BindableChannel currentChannel = _channelsService.GetChannel(m.Channel.Id);
+                    if (currentChannel != null)
                     {
                         if (AllGuilds.TryGetValue(currentChannel.GuildId, out var value))
                         {
                             value.Channels.Remove(currentChannel);
                         }
 
-                        _channelsService.AllChannels.Remove(m.Channel.Id);
+                        _channelsService.RemoveChannel(m.Channel.Id);
                     }
                 });
             });
@@ -329,7 +332,8 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
 
                     if (bChannel.Model.Type != 4 && bChannel.ParentId != null)
                     {
-                        bChannel.ParentPostion = _channelsService.AllChannels.TryGetValue(bChannel.ParentId, out var value) ? value.Position : 0;
+                        BindableChannel parentChannel = _channelsService.GetChannel(bChannel.ParentId);
+                        bChannel.ParentPostion = parentChannel != null ? parentChannel.Position : 0;
                     }
                     else if (bChannel.ParentId == null)
                     {

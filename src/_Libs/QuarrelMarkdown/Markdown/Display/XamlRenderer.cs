@@ -37,6 +37,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
 using QuarrelSmartColor.Extensions.Windows.UI;
 using Emoji = NeoSmart.Unicode.Emoji;
+using Quarrel.ViewModels.Models.Bindables.Channels;
 
 namespace Quarrel.Controls.Markdown.Display
 {
@@ -966,7 +967,7 @@ namespace Quarrel.Controls.Markdown.Display
                     else if (element.LinkType == HyperlinkType.DiscordChannelMention)
                     {
                         var key = element.Text.Remove(0, 1);
-                        _channelsService.AllChannels.TryGetValue(key, out var value);
+                        BindableChannel value = _channelsService.GetChannel(key);
                         content = "#" + (value?.Model?.Name ?? "deleted-channel");
                         enabled = value != null;
 
