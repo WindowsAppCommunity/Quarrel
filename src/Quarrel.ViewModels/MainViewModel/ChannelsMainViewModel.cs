@@ -229,6 +229,12 @@ namespace Quarrel.ViewModels
                     SemaphoreSlim.Release();
                 }
             });
+
+            MessengerInstance.Register<GatewayMessageAckMessage>(this, m =>
+            {
+                var channel = _channelsService.GetChannel(m.ChannelId);
+                channel?.UpdateLRMID(m.MessageId);
+            });
         }
     }
 }

@@ -17,27 +17,13 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
     /// </summary>
     public class ChannelsService : IChannelsService
     {
-        private readonly IAnalyticsService _analyticsService;
-        private readonly IDispatcherHelper _dispatcherHelper;
         private MainViewModel _mainViewModel = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ChannelsService"/> class.
         /// </summary>
-        /// <param name="analyticsService">The app's <see cref="IAnalyticsService"/>.</param>
-        /// <param name="dispatcherHelper">The app's <see cref="IDispatcherHelper"/>.</param>
-        public ChannelsService(
-            IAnalyticsService analyticsService,
-            IDispatcherHelper dispatcherHelper)
+        public ChannelsService()
         {
-            _analyticsService = analyticsService;
-            _dispatcherHelper = dispatcherHelper;
-
-            Messenger.Default.Register<GatewayMessageAckMessage>(this, m =>
-            {
-                var channel = GetChannel(m.ChannelId);
-                channel?.UpdateLRMID(m.MessageId);
-            });
         }
 
         /// <inheritdoc/>
