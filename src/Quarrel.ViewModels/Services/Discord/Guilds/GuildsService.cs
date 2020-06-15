@@ -226,6 +226,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                         AddOrUpdateGuild(bGuild.Model.Id, bGuild);
                     }
 
+                    MainViewModel.BindableGuilds.Clear();
                     MainViewModel.BindableGuilds.Add(GetGuild("DM"));
                     foreach (var folder in m.EventData.Settings.GuildFolders)
                     {
@@ -279,7 +280,6 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
 
                 _channelsService.AddOrUpdateChannel(bChannel.Model.Id, bChannel);
             });
-
             Messenger.Default.Register<GatewayChannelDeletedMessage>(this, m =>
             {
                 _dispatcherHelper.CheckBeginInvokeOnUi(() =>
@@ -332,16 +332,6 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                     }
                 });
             });
-            Messenger.Default.Register<GuildNavigateMessage>(this, m =>
-            {
-                if (CurrentGuild != null)
-                {
-                    CurrentGuild.Selected = false;
-                }
-
-                CurrentGuild = m.Guild;
-                CurrentGuild.Selected = true;
-            });
             Messenger.Default.Register<GatewayGuildMembersChunkMessage>(this, m =>
             {
                 _guildUsers.TryGetValue(m.GuildMembersChunk.GuildId, out var guild);
@@ -361,7 +351,11 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
         }
 
         /// <inheritdoc/>
-        public BindableGuild CurrentGuild { get; private set; }
+        public BindableGuild CurrentGuild
+        {
+            get => MainViewModel.CurrentGuild;
+            set => MainViewModel.CurrentGuild = value;
+        }
 
         private MainViewModel MainViewModel => _mainViewModel ?? (_mainViewModel = SimpleIoc.Default.GetInstance<MainViewModel>());
 

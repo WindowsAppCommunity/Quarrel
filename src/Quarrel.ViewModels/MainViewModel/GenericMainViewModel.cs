@@ -171,7 +171,7 @@ namespace Quarrel.ViewModels
                 {
                     var dmGuild = _guildsService.GetGuild("DM");
                     dmGuild.Selected = true;
-                    MessengerInstance.Send(new GuildNavigateMessage(dmGuild));
+                    CurrentGuild = dmGuild;
 
                     BindableCurrentFriends.AddRange(_friendsService.Friends.Values.Where(x => x.IsFriend));
                     BindablePendingFriends.AddRange(

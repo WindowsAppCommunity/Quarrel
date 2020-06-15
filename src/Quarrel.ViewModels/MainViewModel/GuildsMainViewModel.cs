@@ -37,8 +37,6 @@ namespace Quarrel.ViewModels
             {
                 if (guildListItem is BindableGuild bGuild)
                 {
-                    CurrentGuild.Selected = false;
-                    bGuild.Selected = true;
                     Task.Run(() =>
                     {
                         MessengerInstance.Send(new GuildNavigateMessage(bGuild));
@@ -73,7 +71,20 @@ namespace Quarrel.ViewModels
         public BindableGuild CurrentGuild
         {
             get => _currentGuild;
-            set => Set(ref _currentGuild, value);
+            set
+            {
+                if (_currentGuild != null)
+                {
+                    _currentGuild.Selected = false;
+                }
+
+                Set(ref _currentGuild, value);
+
+                if (_currentGuild != null)
+                {
+                    _currentGuild.Selected = true;
+                }
+            }
         }
 
         /// <summary>
