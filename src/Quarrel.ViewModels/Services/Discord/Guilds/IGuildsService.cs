@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.Models;
-using Quarrel.ViewModels.Models.Bindables;
 using Quarrel.ViewModels.Models.Bindables.Guilds;
 using Quarrel.ViewModels.Models.Bindables.Users;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace Quarrel.ViewModels.Services.Discord.Guilds
@@ -13,6 +13,8 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
     /// </summary>
     public interface IGuildsService
     {
+        IDictionary<string, ConcurrentDictionary<string, BindableGuildMember>> GuildUsers { get; }
+
         /// <summary>
         /// Gets the current guild.
         /// </summary>

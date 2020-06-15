@@ -22,6 +22,7 @@ using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Services.Gateway;
 using Quarrel.ViewModels.Services.Navigation;
 using Quarrel.ViewModels.Services.Settings;
+using Quarrel.ViewModels.Services.Voice;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,6 +46,7 @@ namespace Quarrel.ViewModels
         private readonly IFriendsService _friendsService;
         private readonly IPresenceService _presenceService;
         private readonly ISettingsService _settingsService;
+        private readonly IVoiceService _voiceService;
         private readonly ISubFrameNavigationService _subFrameNavigationService;
         private RelayCommand openAbout;
         private RelayCommand openCredit;
@@ -68,6 +70,7 @@ namespace Quarrel.ViewModels
         /// <param name="subFrameNavigationService">The app's subframe navigation service.</param>
         /// <param name="friendsService">The app's friends service.</param>
         /// <param name="dispatcherHelper">The app's dispatcher helper.</param>
+        /// <param name="voiceService">The app's voice service.</param>
         /// <param name="clipboardService">The app's clipboard service.</param>
         /// <remarks>Takes all service parameters from ViewModel Locator.</remarks>
         public MainViewModel(
@@ -83,6 +86,7 @@ namespace Quarrel.ViewModels
             ISubFrameNavigationService subFrameNavigationService,
             IFriendsService friendsService,
             IDispatcherHelper dispatcherHelper,
+            IVoiceService voiceService,
             IClipboardService clipboardService)
         {
             _analyticsService = analyticsService;
@@ -98,6 +102,7 @@ namespace Quarrel.ViewModels
             _guildsService = guildsService;
             _subFrameNavigationService = subFrameNavigationService;
             _dispatcherHelper = dispatcherHelper;
+            _voiceService = voiceService;
             _clipboardService = clipboardService;
 
             RegisterGenericMessages();
@@ -169,10 +174,6 @@ namespace Quarrel.ViewModels
             {
                 _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    var dmGuild = _guildsService.GetGuild("DM");
-                    dmGuild.Selected = true;
-                    CurrentGuild = dmGuild;
-
                     BindableCurrentFriends.AddRange(_friendsService.Friends.Values.Where(x => x.IsFriend));
                     BindablePendingFriends.AddRange(
                         _friendsService.Friends.Values.Where(x => x.IsIncoming || x.IsOutgoing));
