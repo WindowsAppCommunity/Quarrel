@@ -117,125 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutABB.Label" xml:space="preserve">
-    <value>About</value>
-    <comment>This is shown if you expand the command bar (at the top)</comment>
+  <data name="ChangeNicknameMFI.Text" xml:space="preserve">
+    <value>Change Nickname</value>
+    <comment>This is shown in a guild member flyout on the member list</comment>
   </data>
-  <data name="AcceptFriendRequestTB.Text" xml:space="preserve">
-    <value>Accept Friend Request?</value>
-    <comment>This is shown on a friend request in the friend's list</comment>
-  </data>
-  <data name="AddAttachmentMFI.Text" xml:space="preserve">
-    <value>Add attachement</value>
-    <comment>This is shown in the extras menu for the message box</comment>
-  </data>
-  <data name="AddChannelMFI.Text" xml:space="preserve">
-    <value>Add Channel</value>
-    <comment>This is shown from the drop down from above the channel list</comment>
-  </data>
-  <data name="AddNoteTBox.PlaceholderText" xml:space="preserve">
-    <value>Add Note</value>
-    <comment>This is shown in the user flyout</comment>
-  </data>
-  <data name="BlockedTB.Text" xml:space="preserve">
-    <value>BLOCKED
-</value>
-    <comment>This is shown on the header of the friend panel pivot</comment>
-  </data>
-  <data name="ByTB.Text" xml:space="preserve">
-    <value>By:</value>
-    <comment>This shown on an invite control to say who made the invite</comment>
-  </data>
-  <data name="CommitsTB.Text" xml:space="preserve">
-    <value>Commits</value>
-    <comment>This is shown in the contributor page </comment>
+  <data name="CloseDMMFI.Text" xml:space="preserve">
+    <value>Close DM</value>
+    <comment>This is shown in a DM channel's flyout</comment>
   </data>
   <data name="CopyIdMFI.Text" xml:space="preserve">
     <value>Copy Id</value>
-    <comment>This is shown in the flyout for a sent message</comment>
-  </data>
-  <data name="CreditABB.Label" xml:space="preserve">
-    <value>Credit</value>
-    <comment>This is shown if you expand the command bar (at the top)</comment>
-  </data>
-  <data name="DeleteMFI.Text" xml:space="preserve">
-    <value>Delete</value>
-    <comment>This is shown in the flyout for a sent message</comment>
-  </data>
-  <data name="DiscordStatusHBTN.Content" xml:space="preserve">
-    <value>Discord Status</value>
-    <comment>This is shown in the bottom right while connecting</comment>
-  </data>
-  <data name="EditMFI.Text" xml:space="preserve">
-    <value>Edit</value>
-    <comment>This is shown in the flyout for a sent message</comment>
-  </data>
-  <data name="FriendRequestSentTB.Text" xml:space="preserve">
-    <value>Friend Request Sent</value>
-    <comment>This is shown on a friend request in the friend's list</comment>
-  </data>
-  <data name="FriendsTB.Text" xml:space="preserve">
-    <value>Friends</value>
-    <comment>This is shown in place of the guild name in DMs</comment>
-  </data>
-  <data name="FriendsTB2.Text" xml:space="preserve">
-    <value>FRIENDS</value>
-    <comment>This is shown on the header of the friend panel pivot</comment>
+    <comment>This is shown in most flyouts</comment>
   </data>
   <data name="GuildSettingsMFI.Text" xml:space="preserve">
     <value>Server Settings</value>
-    <comment>This is shown from the drop down from above the channel list</comment>
+    <comment>This is shown in a server's flyout</comment>
   </data>
-  <data name="InvitePeopleMFI.Text" xml:space="preserve">
-    <value>Invite People</value>
-    <comment>This is shown from the drop down from above the channel list</comment>
+  <data name="HideNamesMFI.Text" xml:space="preserve">
+    <value>Hide names</value>
+    <comment>This is shown in a voice channel's flyout</comment>
   </data>
-  <data name="JoinBTN.Content" xml:space="preserve">
-    <value>Join</value>
-    <comment>This is shown on a unused invite embed</comment>
-  </data>
-  <data name="JoinCallBTN.Content" xml:space="preserve">
-    <value>Join Call</value>
-    <comment>This is shown on an action message for a call when the call is still open</comment>
+  <data name="LeaveGroupMFI.Text" xml:space="preserve">
+    <value>Leave Group</value>
+    <comment>This is shown in a Group DM channel's flyout</comment>
   </data>
   <data name="LeaveServerMFI.Text" xml:space="preserve">
     <value>Leave Server</value>
-    <comment>This is shown from the drop down from above the channel list</comment>
+    <comment>This is shown in a server's flyout</comment>
   </data>
-  <data name="PendingTB.Text" xml:space="preserve">
-    <value>PENDING</value>
-    <comment>This is shown on the header of the friend panel pivot</comment>
+  <data name="MarkAsReadMFI.Text" xml:space="preserve">
+    <value>Mark as read</value>
+    <comment>This is shown in a text channel's flyout</comment>
   </data>
-  <data name="PinMFI.Text" xml:space="preserve">
-    <value>Pin</value>
-    <comment>This is shown in the flyout for a sent message</comment>
+  <data name="MessageMFI.Text" xml:space="preserve">
+    <value>Message</value>
+    <comment>This is shown in a guild member flyout on the member list. Message in this context means to DM the person</comment>
   </data>
-  <data name="QuoteMFI.Text" xml:space="preserve">
-    <value>Quote</value>
-    <comment>This is shown in the flyout for a sent message</comment>
+  <data name="MuteMFI.Text" xml:space="preserve">
+    <value>Mute</value>
+    <comment>This is shown in a text channel's flyout</comment>
   </data>
-  <data name="RetryHBTN.Content" xml:space="preserve">
-    <value>Retry</value>
-    <comment>This is shown on the loading screen when connection fails</comment>
+  <data name="NotificationsMFI.Text" xml:space="preserve">
+    <value>Notifications</value>
+    <comment>This is shown in a text channel's flyout</comment>
   </data>
-  <data name="SendMessageTBox.PlaceholderText" xml:space="preserve">
-    <value>Send message</value>
-    <comment>This is shown in the message box when empty</comment>
-  </data>
-  <data name="SettingsABB.Label" xml:space="preserve">
-    <value>Settings</value>
-    <comment>This is shown if you expand the command bar (at the top)</comment>
-  </data>
-  <data name="ShowTB.Text" xml:space="preserve">
-    <value>Show</value>
-    <comment>This is shown on unloaded attachments</comment>
-  </data>
-  <data name="UnpinMFI.Text" xml:space="preserve">
-    <value>Unpin</value>
-    <comment>This is shown in the flyout for a sent message</comment>
-  </data>
-  <data name="WhatsNewABB.Label" xml:space="preserve">
-    <value>What's New</value>
-    <comment>This is shown if you expand the command bar (at the top)</comment>
+  <data name="ProfileMFI.Text" xml:space="preserve">
+    <value>Profile</value>
+    <comment>This is shown in a DM channel's flyout</comment>
   </data>
 </root>

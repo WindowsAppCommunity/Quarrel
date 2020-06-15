@@ -48,19 +48,19 @@
             <!--Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-                    <MenuFlyoutItem Icon="View" Text="Mark as read" Margin="-24,0,0,0"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/MarkAsReadMFI" Icon="View" Text="Mark as read" Margin="-24,0,0,0"
                                     IsEnabled="{x:Bind IsUnread, Mode=OneWay}" Command="{x:Bind MarkAsRead}"/>
-                    <ToggleMenuFlyoutItem Text="Mute" Style="{StaticResource GuildToggleButtonFlyoutItemStyle}"
+                    <ToggleMenuFlyoutItem x:Uid="/DataTemplates/MuteMFI" Text="Mute" Style="{StaticResource GuildToggleButtonFlyoutItemStyle}"
                                           IsChecked="{x:Bind IsMuted, Mode=OneWay}" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsDM), Mode=OneWay}" Command="{x:Bind MuteGuildCommand, Mode=OneWay}"/>
                     <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem Icon="Setting" Text="Server Settings" Margin="-24,0,0,0"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/GuildSettingsMFI" Icon="Setting" Text="Server Settings" Margin="-24,0,0,0"
                                     Command="{x:Bind OpenGuildSettings, Mode=OneWay}"/>
                     <MenuFlyoutSeparator Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsOwner), Mode=OneWay}"/>
-                    <MenuFlyoutItem Icon="Cancel" Text="Leave Server" Margin="-24,0,0,0" Foreground="{ThemeResource dnd}"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/LeaveServerMFI" Icon="Cancel" Text="Leave Server" Margin="-24,0,0,0" Foreground="{ThemeResource dnd}"
                                     Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsOwner), Mode=OneWay}"
                                     Command="{x:Bind LeaveGuild, Mode=OneWay}"/>
                     <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem Icon="Copy" Text="Copy Id" Margin="-24,0,0,0"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/CopyIdMFI" Icon="Copy" Text="Copy Id" Margin="-24,0,0,0"
                                     Command="{x:Bind CopyId, Mode=OneWay}"/>
                 </MenuFlyout>
             </UserControl.ContextFlyout>

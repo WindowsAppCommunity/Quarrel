@@ -595,6 +595,7 @@
     <Content Include="Assets\Tokens\AppCenter.json" />
     <Content Include="Assets\Tokens\AppCenterInsider.json" />
     <PRIResource Include="Localization\en\Controls.resw" />
+    <PRIResource Include="Localization\en\DataTemplates.resw" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\PayPal.png" />
     <Content Include="Properties\Default.rd.xml" />
