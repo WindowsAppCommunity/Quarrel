@@ -555,10 +555,10 @@
                     </ListView>
 
                 <!--Note-->
-                <TextBox Style="{StaticResource TextBoxStyle1}" Text="{x:Bind ViewModel.Note}" Grid.Row="1"
-                             PlaceholderText="Add Note" FontSize="12" Padding="18,6,6,6" Margin="-12,12,-12,0" 
-                             Height="20" BorderThickness="0" MinHeight="28" VerticalContentAlignment="Center"
-                             LostFocus="NoteBox_LostFocus"/>
+                <TextBox x:Uid="/Controls/AddNoteTBox" Text="{x:Bind ViewModel.Note}" Style="{StaticResource TextBoxStyle1}"  Grid.Row="1"
+                         PlaceholderText="Add Note" FontSize="12" Padding="18,6,6,6" Margin="-12,12,-12,0" 
+                         Height="20" BorderThickness="0" MinHeight="28" VerticalContentAlignment="Center"
+                         LostFocus="NoteBox_LostFocus"/>
                 <!--<local:MessageBox x:Name="SendDM" FontSize="13.333" Margin="-6,6,-6,-6" IsCompact="True"/>-->
             </Grid>
         </Grid>

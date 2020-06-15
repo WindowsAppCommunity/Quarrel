@@ -57,9 +57,9 @@
             </StackPanel>
             
             <!--Friend status-->
-            <TextBlock Text="Friend Request Sent" Visibility="{x:Bind ViewModel.IsOutgoing, Mode=OneWay}"
+            <TextBlock x:Uid="/Controls/FriendRequestSentTB" Text="Friend Request Sent" Visibility="{x:Bind ViewModel.IsOutgoing, Mode=OneWay}"
                        VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiLight" Opacity="0.6" Foreground="{ThemeResource Foreground}"/>
-            <TextBlock Text="Accept Friend Request?" Visibility="{x:Bind ViewModel.IsIncoming, Mode=OneWay}"
+            <TextBlock x:Uid="/Controls/AcceptFriendRequestTB" Text="Accept Friend Request?" Visibility="{x:Bind ViewModel.IsIncoming, Mode=OneWay}"
                        VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiLight" Opacity="0.6" Foreground="{ThemeResource Foreground}"/>
             <!--<StackPanel x:Name="SharedGuildContainer" Orientation="Horizontal" VerticalAlignment="center" Grid.Column="2" Padding="0,6" Margin="-2,0,0,0">
 

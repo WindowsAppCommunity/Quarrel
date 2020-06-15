@@ -665,7 +665,7 @@
                                   IsChecked="{x:Bind baseconvert:NullToBoolConverter.Convert(ViewModel.CurrentChannel), Mode=OneWay}" Height="48" Background="Transparent"
                                   Command="{x:Bind ViewModel.NavigateToFriends}">
                         <Viewbox MaxHeight="24">
-                            <TextBlock Text="Friends" Foreground="{ThemeResource Foreground}" FontSize="18" Margin="12,0,0,0"/>
+                            <TextBlock x:Uid="/Controls/FriendsTB" Text="Friends" Foreground="{ThemeResource Foreground}" FontSize="18" Margin="12,0,0,0"/>
                         </Viewbox>
                     </ToggleButton>
                 </Grid>
