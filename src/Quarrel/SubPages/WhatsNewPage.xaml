@@ -14,6 +14,9 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        
+        <!--TODO: Provide English only notice-->
+        
         <TextBlock Text="Insider" Margin="4,-2,0,0" FontSize="12" FontWeight="Black" CharacterSpacing="300" FontFamily="Bahnschrift" Opacity="0.5" Visibility="{x:Bind IsInsider}"/>
         <TextBlock Text="Version 20.6.13" FontWeight="SemiBold" Margin="0,6" FontSize="20"/>
         <StackPanel Margin="0,20">

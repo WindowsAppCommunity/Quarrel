@@ -43,6 +43,7 @@ namespace Quarrel.SubPages
         /// <summary>
         /// Gets the last commit and branch used for build.
         /// </summary>
+        // TODO: Localization
         public string CommitStatus => string.Format(
             "Commit {0} from {1}",
             ThisAssembly.Git.Commit,

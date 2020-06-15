@@ -194,7 +194,7 @@
         <TextBlock Text="" x:Name="CreditBlock" Opacity="0.4" FontSize="12" HorizontalAlignment="Center" TextAlignment="Center" Margin="12,12,12,24" VerticalAlignment="Bottom"/>
 
         <!--Discord Status-->
-        <HyperlinkButton x:Name="/Controls/DiscordStatusHBTN" Content="Discord Status" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowDiscordStatus"
+        <HyperlinkButton x:Uid="/Controls/DiscordStatusHBTN" Content="Discord Status" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowDiscordStatus"
                          HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="32,16"/>
     </Grid>
 </UserControl>

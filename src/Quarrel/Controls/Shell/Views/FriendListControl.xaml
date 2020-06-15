@@ -32,7 +32,7 @@
             <!--Pending Page Button-->
             <ListViewItem FontSize="13.333" FontWeight="SemiBold" Width="100" HorizontalContentAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock x:Name="/Controls/PendingTB" Text="PENDING"/>
+                    <TextBlock x:Uid="/Controls/PendingTB" Text="PENDING"/>
                     
                     <!--Pending Page button indicator-->
                     <Border Margin="6,0,0,-2" Background="{ThemeResource InvertedBG}" CornerRadius="2">
