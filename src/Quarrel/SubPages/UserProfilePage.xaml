@@ -15,7 +15,7 @@
     xmlns:controls="using:Quarrel.Controls"
     xmlns:guildcontrol="using:Quarrel.Controls.Guilds"
     mc:Ignorable="d"
-    d:DesignHeight="300"
+    d:DesignHeight="1000"
     d:DesignWidth="400">
 
     <UserControl.Resources>
@@ -113,7 +113,7 @@
                             <StackPanel x:Name="BadgePanel" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         </Grid>
                         <StackPanel>
-                            <TextBlock Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.Convert(ViewModel.User.Presence.Game), Mode=OneWay}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,6"/>
+                            <TextBlock x:Uid="/MiscSubs/PlayingTB" Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.Convert(ViewModel.User.Presence.Game), Mode=OneWay}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,6"/>
                             <Border Margin="-48,0" Padding="48,12">
                                 <Border.Background>
                                     <SolidColorBrush Opacity="0.5"/>
@@ -127,8 +127,8 @@
                                     </GridView.ItemTemplate>
                                 </GridView>
                             </Border>
-                            <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                            <TextBox x:Uid="/Dialogs/NoteTBox" BorderThickness="0" x:Name="NoteBox" Style="{StaticResource TextBoxStyle1}" PlaceholderText="No Note" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>
+                            <TextBlock x:Uid="/MiscSubs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                            <TextBox x:Uid="/MiscSubs/NoteTBox" BorderThickness="0" x:Name="NoteBox" Style="{StaticResource TextBoxStyle1}" PlaceholderText="No Note" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>
                         </StackPanel>
 
                         <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="200" Margin="-2,12,-7,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None">
@@ -143,7 +143,7 @@
                             </tk:AdaptiveGridView.ItemTemplate>
                         </tk:AdaptiveGridView>
                         <StackPanel x:Name="commonServerPanel">
-                            <TextBlock x:Name="MutualGuildsHeader" x:Load="{x:Bind baseconvert:ContainsItemsToBoolConverter.Convert(ViewModel.Profile.MutualGuilds), Mode=OneWay}" Text="COMMON SERVERS" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                            <TextBlock x:Uid="/MiscSubs/CommonServersTB" x:Name="MutualGuildsHeader" x:Load="{x:Bind baseconvert:ContainsItemsToBoolConverter.Convert(ViewModel.Profile.MutualGuilds), Mode=OneWay}" Text="COMMON SERVERS" FontWeight="SemiBold" Margin="0,12,0,0"/>
                             <ListView x:Name="MutualGuilds" ItemsSource="{x:Bind ViewModel.MutualGuilds, Mode=OneWay}" SelectionMode="None" Margin="0,0" Padding="0,12,0,0" IsItemClickEnabled="True">
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="guildbindables:BindableMutualGuild">
@@ -153,7 +153,7 @@
                             </ListView>
                         </StackPanel>
                         <StackPanel x:Name="commonFriendPanel">
-                            <TextBlock x:Name="MutualFriendsHeader" x:Load="{x:Bind baseconvert:ContainsItemsToBoolConverter.Convert(ViewModel.Profile.SharedFriends), Mode=OneWay}" Text="COMMON FRIENDS" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                            <TextBlock x:Uid="/MiscSubs/CommonFriendsTB" x:Name="MutualFriendsHeader" x:Load="{x:Bind baseconvert:ContainsItemsToBoolConverter.Convert(ViewModel.Profile.SharedFriends), Mode=OneWay}" Text="COMMON FRIENDS" FontWeight="SemiBold" Margin="0,12,0,0"/>
                             <ListView x:Name="MutualFriends" ItemsSource="{x:Bind ViewModel.Profile.SharedFriends}" SelectionMode="None" Margin="0,0" Padding="0,12,0,0">
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="models:SharedFriend">
@@ -189,55 +189,55 @@
                             <HyperlinkButton x:Name="sendFriendRequest" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToAddFriendConverter}, Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE8FA;" HorizontalAlignment="Left"/>
-                                    <TextBlock x:Uid="/Dialogs/SendFriendReqBTN" Text="Send friend request" Margin="28,0,0,0"/>
+                                    <TextBlock x:Uid="/MiscSubs/SendFriendRequestTB" Text="Send Friend Request" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
                             <HyperlinkButton x:Name="acceptFriend" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToAcceptFriendConverter}, Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE8FA;" HorizontalAlignment="Left"/>
-                                    <TextBlock x:Uid="/Dialogs/AcceptFriendReqBTN" Text="Accept friend request" Margin="28,0,0,0"/>
+                                    <TextBlock x:Uid="/MiscSubs/AcceptFriendRequestTB" Text="Accept Friend Request" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
                             <HyperlinkButton  x:Name="pendingFriend" Margin="0,0,24,0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource HyperlinkButtonStyle1}" Visibility="Collapsed">
                                 <Grid>
                                     <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
-                                    <TextBlock x:Uid="/Dialogs/FriendReqSentBTN" Text="Friend request sent" Margin="28,0,0,0"/>
+                                    <TextBlock x:Uid="/MiscSubs/FriendRequestSentTB" Text="Friend Request Sent" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
                             <HyperlinkButton x:Name="Unblock" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToUnblockConverter}, Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
-                                    <TextBlock x:Uid="/Dialogs/UnblockBTN" Text="Unblock" Margin="28,0,0,0"/>
+                                    <TextBlock x:Uid="/MiscSubs/UnblockTB" Text="Unblock" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
                             <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToRemoveFriendConverter}, Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
-                                    <TextBlock x:Uid="/Dialogs/RemoveFriendTB" Text="Remove Friend" Margin="28,0,0,0"/>
+                                    <TextBlock x:Uid="/MiscSubs/RemoveFriendTB" Text="Remove Friend" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
                             <HyperlinkButton x:Name="AccountSettings" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" Visibility="Collapsed">
                                 <Grid>
                                     <FontIcon Glyph="&#xE779;" HorizontalAlignment="Left"/>
-                                    <TextBlock Text="Account Settings" Margin="28,0,0,0"/>
+                                    <TextBlock x:Uid="/MiscSubs/AccountSettingsTB" Text="Account Settings" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
                             <HyperlinkButton x:Name="ViewStats" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" Visibility="Collapsed">
                                 <Grid>
                                     <FontIcon Glyph="&#xE9D2;" HorizontalAlignment="Left"/>
-                                    <TextBlock Text="Server stats" Margin="28,0,0,0"/>
+                                    <TextBlock x:Uid="/MiscSubs/ServerStatsTB" Text="Server Stats" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
                             <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToSendMessageConverter}, Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE122;" HorizontalAlignment="Left"/>
-                                    <TextBlock x:Uid="/Dialogs/SendMessageTB" Text="Send Message" Margin="28,0,0,0"/>
+                                    <TextBlock x:Uid="/MiscSubs/SendMessageTB" Text="Send Message" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
                             <HyperlinkButton x:Name="Block" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToBlockConverter}, Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
-                                    <TextBlock x:Uid="/Dialogs/BlockTB" Text="Block" Margin="28,0,0,0"/>
+                                    <TextBlock x:Uid="/MiscSubs/BlockTB" Text="Block" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
                         </tk:WrapPanel>

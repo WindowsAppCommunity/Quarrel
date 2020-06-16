@@ -597,7 +597,7 @@
     <PRIResource Include="Localization\en\Controls.resw" />
     <PRIResource Include="Localization\en\DataTemplates.resw" />
     <PRIResource Include="Localization\en\Meta.resw" />
-    <PRIResource Include="Localization\en\MiscSub.resw" />
+    <PRIResource Include="Localization\en\MiscSubs.resw" />
     <PRIResource Include="Localization\en\AddServer.resw" />
     <PRIResource Include="Localization\en\GuildSettings.resw" />
     <PRIResource Include="Localization\en\UserSettings.resw" />
