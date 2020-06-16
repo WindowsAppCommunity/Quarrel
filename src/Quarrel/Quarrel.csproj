@@ -601,6 +601,7 @@
     <PRIResource Include="Localization\en\AddServer.resw" />
     <PRIResource Include="Localization\en\GuildSettings.resw" />
     <PRIResource Include="Localization\en\UserSettings.resw" />
+    <PRIResource Include="Localization\en\MiscStrings.resw" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\PayPal.png" />
     <Content Include="Properties\Default.rd.xml" />
