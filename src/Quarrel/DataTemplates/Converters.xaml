@@ -13,7 +13,6 @@
 
     <discordconvert:PresenseToBrushConverter x:Key="PresenseToBrushConverter"/>
 
-    <convertguild:IsDMToFontFamilyConverter x:Key="IsDMToFontFamilyConverter"/>
     <convertguild:MutedToOpacityConverter x:Key="MutedToOpacityConverter"/>
 
     <msgconvert:SizeToHumanizedSizeConverter x:Key="SizeToHumanizedSizeConverter"/>
