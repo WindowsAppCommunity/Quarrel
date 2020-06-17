@@ -477,10 +477,12 @@
             </StackPanel>
 
             <!--Typing-->
-            <controls:TypingIndicator Grid.Column="2"
-                                      Visibility="{x:Bind IsTyping, Mode=OneWay}"
-                                      HorizontalAlignment="Right"
-                                      Margin="6,0" />
+            <controls:TypingIndicator
+                x:Name="TypingIndicator" 
+                Grid.Column="2"
+                x:Load="{x:Bind IsTyping, Mode=OneWay}"
+                HorizontalAlignment="Right"
+                Margin="6,0" />
         </Grid>
     </DataTemplate>
 
@@ -703,8 +705,9 @@
             </StackPanel>
 
             <!--Typing-->
-            <controls:TypingIndicator Grid.Column="2"
-                                      Visibility="{x:Bind IsTyping, Mode=OneWay}"
+            <controls:TypingIndicator x:Name="TypingIndicator"
+                                      Grid.Column="2"
+                                      x:Load="{x:Bind IsTyping, Mode=OneWay}"
                                       HorizontalAlignment="Right"
                                       Margin="6,0" />
         </Grid>
@@ -824,7 +827,7 @@
                 <StackPanel Orientation="Horizontal"
                             VerticalAlignment="Center">
                     <SymbolIcon x:Name="MuteIcon"
-                                Visibility="{x:Bind Muted, Mode=OneWay}"
+                                x:Load="{x:Bind Muted, Mode=OneWay}"
                                 Symbol="Mute"
                                 Margin="0,0,4,0"
                                 Opacity="0.35" />
@@ -867,8 +870,9 @@
             </StackPanel>
 
             <!--Typing-->
-            <controls:TypingIndicator Grid.Column="2"
-                                      Visibility="{x:Bind IsTyping, Mode=OneWay}"
+            <controls:TypingIndicator x:Name="TypingIndicator"
+                                      Grid.Column="2"
+                                      x:Load="{x:Bind IsTyping, Mode=OneWay}"
                                       HorizontalAlignment="Right"
                                       Margin="6,0" />
         </Grid>
