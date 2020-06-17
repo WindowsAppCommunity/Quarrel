@@ -145,12 +145,28 @@
     <value>Joined the server</value>
     <comment>This is shown when a user joins a channel</comment>
   </data>
+  <data name="ListeningTo" xml:space="preserve">
+    <value>Listening to</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
   <data name="PinnedMessage" xml:space="preserve">
     <value>Pinned a message</value>
     <comment>This is shown when a user pins a message</comment>
   </data>
+  <data name="Playing" xml:space="preserve">
+    <value>Playing</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
   <data name="RemovedUser" xml:space="preserve">
     <value>Removed a user</value>
     <comment>This is shown when a user is remove from a channel</comment>
+  </data>
+  <data name="Streaming" xml:space="preserve">
+    <value>Streaming</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
+  <data name="Watching" xml:space="preserve">
+    <value>Watching</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
   </data>
 </root>

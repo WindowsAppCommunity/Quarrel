@@ -14,17 +14,16 @@ namespace Quarrel.Converters.Profile
         /// <returns>The activity prefix.</returns>
         public object Convert(int value)
         {
-            // TODO: Localization
             switch (value)
             {
                 case 0:
-                    return "Playing";
+                    return Helpers.Constants.Localization.GetLocalizedString("Playing");
                 case 1:
-                    return "Streaming";
+                    return Helpers.Constants.Localization.GetLocalizedString("Streaming");
                 case 2:
-                    return "Listening to";
+                    return Helpers.Constants.Localization.GetLocalizedString("ListeningTo");
                 case 3:
-                    return "Watching";
+                    return Helpers.Constants.Localization.GetLocalizedString("Watching");
                 default:
                     return string.Empty;
             }
