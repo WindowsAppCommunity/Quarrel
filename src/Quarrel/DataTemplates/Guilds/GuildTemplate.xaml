@@ -11,6 +11,7 @@
     xmlns:guildbindables="using:Quarrel.ViewModels.Models.Bindables.Guilds"
     xmlns:triggers="using:Quarrel.StateTriggers"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
+    xmlns:channelconvert="using:Quarrel.Converters.Channel"
     mc:Ignorable="d">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../Converters.xaml"/>
@@ -113,7 +114,7 @@
                 
                 <!--Selected Highlight-->
                 <Grid.Background>
-                    <SolidColorBrush Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
+                    <SolidColorBrush Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
                 </Grid.Background>
 
                 <!--Folder-->

@@ -290,8 +290,6 @@
     <Compile Include="Converters\Base\TimeSpanToTextConverter.cs" />
     <Compile Include="Converters\Base\UriToImageSourceConverter.cs" />
     <Compile Include="Converters\Channel\SelectedToOpacityConverter.cs" />
-    <Compile Include="Converters\Channel\TypeToForegroundBrushConverter.cs" />
-    <Compile Include="Converters\Channel\TypeToMinHeightConverter.cs" />
     <Compile Include="Converters\AuditLog\AuditLogActionTypeToGlyphConverter.cs" />
     <Compile Include="Converters\Discord\DiscrimatorPrefixConveter.cs" />
     <Compile Include="Converters\Discord\DiscriminatorToBrushConverter.cs" />

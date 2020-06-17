@@ -2,16 +2,15 @@
     x:Class="Quarrel.DataTemplates.Channels.ChannelTemplate"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:bindables="using:Quarrel.ViewModels.Models.Bindable"
-    xmlns:channelbindables="using:Quarrel.ViewModels.Models.Bindables.Channels"
-    xmlns:local="using:Quarrel.DataTemplates.Channels"
-    xmlns:baseconvert="using:Quarrel.Converters.Base"
-    xmlns:channelcontrols="using:Quarrel.Controls.Channels"
-    xmlns:controls="using:Quarrel.Controls"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:tkcontrols="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
-    xmlns:tkcontrols="using:Microsoft.Toolkit.Uwp.UI.Controls">
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:controls="using:Quarrel.Controls"
+    xmlns:channelcontrols="using:Quarrel.Controls.Channels"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
+    xmlns:channelconvert="using:Quarrel.Converters.Channel"
+    xmlns:channelbindables="using:Quarrel.ViewModels.Models.Bindables.Channels"
+    xmlns:behaviors="using:Quarrel.Xaml.Behaviors">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../Converters.xaml"/>
     </ResourceDictionary.MergedDictionaries>
@@ -439,7 +438,7 @@
                 </MenuFlyout>
             </Grid.ContextFlyout>
             <Grid.Background>
-                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
+                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -500,7 +499,7 @@
                 </MenuFlyout>
             </Grid.ContextFlyout>
             <Grid.Background>
-                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
+                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -573,7 +572,7 @@
 
             <Grid.Background>
                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}"
-                                 Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}" />
+                                 Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}" />
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -737,7 +736,7 @@
 
             <Grid.Background>
                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}"
-                                 Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}" />
+                                 Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}" />
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -901,7 +900,7 @@
                 <!--Flyout-->
                 <StackPanel.Background>
                     <SolidColorBrush Color="{ThemeResource SystemAccentColor}"
-                                     Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}" />
+                                     Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}" />
                 </StackPanel.Background>
 
                 <TextBlock Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(Permissions.ReadMessages)}"
