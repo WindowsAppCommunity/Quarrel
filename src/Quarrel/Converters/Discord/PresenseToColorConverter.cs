@@ -14,7 +14,7 @@ namespace Quarrel.Converters.Discord
         /// </summary>
         /// <param name="value">The presence status.</param>
         /// <returns>The appropiate color.</returns>
-        public Color Convert(string value)
+        public static Color Convert(string value)
         {
             return (Color)App.Current.Resources[(value ?? "offline") + "Color"];
         }

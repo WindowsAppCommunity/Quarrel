@@ -14,7 +14,7 @@ namespace Quarrel.Converters.Discord
         /// </summary>
         /// <param name="value">The snowflake.</param>
         /// <returns>The date time.</returns>
-        public string Convert(string value)
+        public static string Convert(string value)
         {
             return value.AsSnowflakeToTime().LocalDateTime.Humanize();
         }
