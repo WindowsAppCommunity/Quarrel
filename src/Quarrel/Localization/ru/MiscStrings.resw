@@ -1190,4 +1190,44 @@ This is in the moderation page in guild settings</comment>
     <value>Окна</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
+  <data name="Connected" xml:space="preserve">
+    <value>ПОДКЛЮЧЕНО</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Connecting" xml:space="preserve">
+    <value>ПОДКЛЮЧЕНИЕ</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Disconnected" xml:space="preserve">
+    <value>ОТКЛЮЧЕНО</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>НЕУДАЧНО</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="ListeningTo" xml:space="preserve">
+    <value>Слушает</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>НЕ В СЕТИ</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Playing" xml:space="preserve">
+    <value>Играет в</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
+  <data name="Starting" xml:space="preserve">
+    <value>ЗАПУСК</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Streaming" xml:space="preserve">
+    <value>Стримит</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
+  <data name="Watching" xml:space="preserve">
+    <value>Смотрит</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
 </root>

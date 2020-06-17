@@ -137,20 +137,60 @@
     <value>Commit {0} from {1}</value>
     <comment>This is shown in the about page. {0} is the commit id and {1} is the branch name</comment>
   </data>
+  <data name="Connected" xml:space="preserve">
+    <value>CONNECTED</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Connecting" xml:space="preserve">
+    <value>CONNECTING</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
   <data name="DidSomething" xml:space="preserve">
     <value>Did something</value>
     <comment>This is the default for when a user does something (and we don't know what)</comment>
+  </data>
+  <data name="Disconnected" xml:space="preserve">
+    <value>DISCONNECTED</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>FAILED</value>
+    <comment>This is a connecting status on the loading screen</comment>
   </data>
   <data name="JoinedServer" xml:space="preserve">
     <value>Joined the server</value>
     <comment>This is shown when a user joins a channel</comment>
   </data>
+  <data name="ListeningTo" xml:space="preserve">
+    <value>Listening to</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>OFFLINE</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
   <data name="PinnedMessage" xml:space="preserve">
     <value>Pinned a message</value>
     <comment>This is shown when a user pins a message</comment>
   </data>
+  <data name="Playing" xml:space="preserve">
+    <value>Playing</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
   <data name="RemovedUser" xml:space="preserve">
     <value>Removed a user</value>
     <comment>This is shown when a user is remove from a channel</comment>
+  </data>
+  <data name="Starting" xml:space="preserve">
+    <value>STARTING</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Streaming" xml:space="preserve">
+    <value>Streaming</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
+  <data name="Watching" xml:space="preserve">
+    <value>Watching</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
   </data>
 </root>
