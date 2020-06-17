@@ -15,9 +15,9 @@
                         OpenPaneLength="180" CompactModeThresholdWidth="0"
                         SelectionChanged="NavigationView_SelectionChanged">
             <ctl:NavigationView.MenuItems>
-                <ctl:NavigationViewItem x:Name="CreateItem" Icon="Document" Content="Create Server"/>
-                <ctl:NavigationViewItem x:Name="JoinItem" Icon="Add" Content="Join Server"/>
-                <ctl:NavigationViewItem x:Name="FindItem" Icon="Zoom" Content="Find Server" IsEnabled="False"/>
+                <ctl:NavigationViewItem x:Uid="/AddServer/CreateServerNVI" x:Name="CreateItem" Icon="Document" Content="Create Server"/>
+                <ctl:NavigationViewItem x:Uid="/AddServer/JoinServerNVI" x:Name="JoinItem" Icon="Add" Content="Join Server"/>
+                <ctl:NavigationViewItem x:Uid="/AddServer/FindServerNVI" x:Name="FindItem" Icon="Zoom" Content="Find Server" IsEnabled="False"/>
             </ctl:NavigationView.MenuItems>
 
             <Grid>
@@ -27,7 +27,7 @@
                 </Grid.RowDefinitions>
 
                 <Border>
-                    <TextBlock x:Name="HeaderTB" Text="Overview" Margin="16,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
+                    <TextBlock x:Name="HeaderTB" Margin="16,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
                 </Border>
 
                 <Frame x:Name="Frame" Grid.Row="1" Margin="12,8"/>

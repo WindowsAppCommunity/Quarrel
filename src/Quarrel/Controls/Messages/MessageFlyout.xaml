@@ -10,11 +10,11 @@
     d:DesignWidth="400">
 
     <StackPanel HorizontalAlignment="Stretch" Width="96">
-        <MenuFlyoutItem Text="Quote" Width="96" Command="{x:Bind ViewModel.Quote}" CommandParameter="{x:Bind DataContext}"/>
-        <MenuFlyoutItem Text="Pin" Visibility="{x:Bind Message.ShowPin}" Width="96" Command="{x:Bind ViewModel.PinMessageCommand}" CommandParameter="{x:Bind DataContext}"/>
-        <MenuFlyoutItem Text="Unpin" Visibility="{x:Bind Message.ShowUnpin}" Width="96" Command="{x:Bind ViewModel.UnPinMessageCommand}" CommandParameter="{x:Bind DataContext}"/>
-        <MenuFlyoutItem Text="Edit" Visibility="{x:Bind Message.ShowEdit}" Width="96" Command="{x:Bind Message.ToggleEdit, Mode=OneWay}"/>
-        <MenuFlyoutItem Text="Copy Id" Width="96" Command="{x:Bind ViewModel.CopyMessageIdCommand}" CommandParameter="{x:Bind DataContext}"/>
-        <MenuFlyoutItem Text="Delete" Visibility="{x:Bind Message.ShowDelete}" Width="96" Command="{x:Bind ViewModel.DeleteMessageCommand}" CommandParameter="{x:Bind DataContext}"/>
+        <MenuFlyoutItem x:Uid="/Controls/QuoteMFI" Text="Quote" Width="96" Command="{x:Bind ViewModel.Quote}" CommandParameter="{x:Bind DataContext}"/>
+        <MenuFlyoutItem x:Uid="/Controls/PinMFI" Text="Pin" Visibility="{x:Bind Message.ShowPin}" Width="96" Command="{x:Bind ViewModel.PinMessageCommand}" CommandParameter="{x:Bind DataContext}"/>
+        <MenuFlyoutItem x:Uid="/Controls/UnpinMFI" Text="Unpin" Visibility="{x:Bind Message.ShowUnpin}" Width="96" Command="{x:Bind ViewModel.UnPinMessageCommand}" CommandParameter="{x:Bind DataContext}"/>
+        <MenuFlyoutItem x:Uid="/Controls/EditMFI" Text="Edit" Visibility="{x:Bind Message.ShowEdit}" Width="96" Command="{x:Bind Message.ToggleEdit, Mode=OneWay}"/>
+        <MenuFlyoutItem x:Uid="/Controls/CopyIdMFI" Text="Copy Id" Width="96" Command="{x:Bind ViewModel.CopyMessageIdCommand}" CommandParameter="{x:Bind DataContext}"/>
+        <MenuFlyoutItem x:Uid="/Controls/DeleteMFI" Text="Delete" Visibility="{x:Bind Message.ShowDelete}" Width="96" Command="{x:Bind ViewModel.DeleteMessageCommand}" CommandParameter="{x:Bind DataContext}"/>
     </StackPanel>
 </UserControl>

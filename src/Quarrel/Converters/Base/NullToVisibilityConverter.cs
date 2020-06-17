@@ -1,36 +1,32 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using System;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Data;
 
 namespace Quarrel.Converters.Base
 {
     /// <summary>
     /// A converter that returns an <see cref="Visibility.Visible"/> value if the input <see langword="object"/> is <see langword="null"/>.
     /// </summary>
-    public sealed class NullToVisibilityConverter : IValueConverter
+    public sealed class NullToVisibilityConverter
     {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, string language)
+        /// <summary>
+        /// Checks if an object is null and returns the alligned visibility.
+        /// </summary>
+        /// <param name="value">Item to check.</param>
+        /// <returns>Alligned visibility to null check.</returns>
+        public static Visibility Convert(object value)
         {
-            bool v;
-            if (value is string sValue)
-            {
-                v = string.IsNullOrEmpty(sValue);
-            }
-            else
-            {
-                v = value == null;
-            }
-
-            return v ? Visibility.Visible : Visibility.Collapsed;
+            return value == null ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        /// <summary>
+        /// Checks if a string is null or empty.
+        /// </summary>
+        /// <param name="value">String to check.</param>
+        /// <returns>Alligned <see cref="Visibility"/> to null or empty check.</returns>
+        public static Visibility ConvertString(string value)
         {
-            throw new NotImplementedException();
+            return string.IsNullOrEmpty(value) ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

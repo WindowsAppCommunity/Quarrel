@@ -1,26 +1,20 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using System;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Data;
-
 namespace Quarrel.Converters.Profile.Relationships
 {
     /// <summary>
-    /// A converter that returns <see cref="Visibility.Visible"/> if the user has a friend relation status.
+    /// A converter that returns true if the user has a friend relation status.
     /// </summary>
-    public sealed class RelationToRemoveFriendConverter : IValueConverter
+    public sealed class RelationToRemoveFriendConverter
     {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, string language)
+        /// <summary>
+        /// Gets whether or not the user is a friend.
+        /// </summary>
+        /// <param name="value">The user's relation status.</param>
+        /// <returns>Whether or not the user is a friend.</returns>
+        public static bool Convert(int value)
         {
-            return (int)value == 1 ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
+            return value == 1;
         }
     }
 }

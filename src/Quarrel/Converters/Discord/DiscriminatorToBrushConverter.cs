@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using System;
 using Windows.UI;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
 namespace Quarrel.Converters.Discord
@@ -10,12 +8,16 @@ namespace Quarrel.Converters.Discord
     /// <summary>
     /// A converter that returns a the default user profile color based on a user's Discriminator.
     /// </summary>
-    public sealed class DiscriminatorToBrushConverter : IValueConverter
+    public sealed class DiscriminatorToBrushConverter
     {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, string language)
+        /// <summary>
+        /// Converts a discrimintor to a background brush color.
+        /// </summary>
+        /// <param name="value">The user's discrimintor</param>
+        /// <returns>The backround brush to use.</returns>
+        public static SolidColorBrush Convert(int value)
         {
-            switch ((int)value % 5)
+            switch (value % 5)
             {
                 case 0: // Blurple
                     return new SolidColorBrush((Color)App.Current.Resources["DiscordBlurple"]);
@@ -32,10 +34,14 @@ namespace Quarrel.Converters.Discord
             return new SolidColorBrush((Color)App.Current.Resources["DiscordBlurple"]);
         }
 
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        /// <summary>
+        /// Converts a discrimintor to a background brush color.
+        /// </summary>
+        /// <param name="value">The user's discrimintor</param>
+        /// <returns>The backround brush to use.</returns>
+        public static SolidColorBrush ConvertString(string value)
         {
-            throw new NotImplementedException();
+            return Convert(System.Convert.ToInt32(value));
         }
     }
 }

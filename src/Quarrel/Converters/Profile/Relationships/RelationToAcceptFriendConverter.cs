@@ -1,26 +1,20 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using System;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Data;
-
 namespace Quarrel.Converters.Profile.Relationships
 {
     /// <summary>
-    /// A converter that returns an inverted <see cref="Visibility.Visible"/> if the FriendStatus is Incoming pending.
+    /// A converter that returns a bool if the FriendStatus is Incoming pending.
     /// </summary>
-    public sealed class RelationToAcceptFriendConverter : IValueConverter
+    public sealed class RelationToAcceptFriendConverter
     {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, string language)
+        /// <summary>
+        /// Converts the friend status to a bool indicating if incoming pending.
+        /// </summary>
+        /// <param name="value">The friend status.</param>
+        /// <returns>Whether or not to show accept friend button.</returns>
+        public static bool Convert(int value)
         {
-            return (int)value == 3 ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
+            return value == 3;
         }
     }
 }

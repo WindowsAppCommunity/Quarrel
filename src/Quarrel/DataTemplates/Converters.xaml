@@ -3,38 +3,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Quarrel.DataTemplates"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
-    xmlns:convertchannel="using:Quarrel.Converters.Channel"
     xmlns:discordconvert="using:Quarrel.Converters.Discord"
     xmlns:convertguild="using:Quarrel.Converters.Guild"
     xmlns:msgconvert="using:Quarrel.Converters.Messages"
     xmlns:profileconvert="using:Quarrel.Converters.Profile">
 
-    <baseconvert:DateTimeToTextConverter x:Key="DateTimeToTextConverter"/>
-    <baseconvert:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
-    
-    <baseconvert:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
-    <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
-
     <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
     <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
 
-    <baseconvert:MultipleWhiteSpaceCollapseConverter x:Key="MultipleWhiteSpaceCollapseConverter"/>
-
-    <convertchannel:MentionCountToVisiblityConverter x:Key="MentionCountToVisiblityConverter"/>
-    <convertchannel:SelectedToOpacityConverter x:Key="SelectedToOpacityConverter"/>
-    <convertchannel:TypeToForegroundBrushConverter x:Key="TypeToBrushConverter"/>
-    <convertchannel:TypeToMinHeightConverter x:Key="TypeToMinHeightConverter"/>
-
-    <discordconvert:DiscriminatorToBrushConverter x:Key="DiscriminatorToBrushConverter"/>
     <discordconvert:PresenseToBrushConverter x:Key="PresenseToBrushConverter"/>
-    <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
-    <discordconvert:UserToStringConverter x:Key="UserToStringConverter"/>
-    
-    <convertguild:IsDMToFontFamilyConverter x:Key="IsDMToFontFamilyConverter"/>
+
     <convertguild:MutedToOpacityConverter x:Key="MutedToOpacityConverter"/>
 
     <msgconvert:SizeToHumanizedSizeConverter x:Key="SizeToHumanizedSizeConverter"/>
     <msgconvert:EmbedFieldsConverter x:Key="EmbedFieldsConverter"/>
-
-    <profileconvert:PresenceTypeToStatusConverter x:Key="PresenceTypeToStatusConverter"/>
 </ResourceDictionary>
