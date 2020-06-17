@@ -9,6 +9,7 @@
     xmlns:channelcontrols="using:Quarrel.Controls.Channels"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     xmlns:channelconvert="using:Quarrel.Converters.Channel"
+    xmlns:discordconvert="using:Quarrel.Converters.Discord"
     xmlns:channelbindables="using:Quarrel.ViewModels.Models.Bindables.Channels"
     xmlns:behaviors="using:Quarrel.Xaml.Behaviors">
     <ResourceDictionary.MergedDictionaries>
@@ -638,7 +639,7 @@
             </Grid>
 
             <Rectangle Visibility="{x:Bind ShowIconBackdrop, Mode=OneWay}"
-                       Fill="{x:Bind FirstUserDiscriminator, Converter={StaticResource DiscriminatorToBrushConverter}, Mode=OneWay}"
+                       Fill="{x:Bind discordconvert:DiscriminatorToBrushConverter.Convert(FirstUserDiscriminator), Mode=OneWay}"
                        x:Name="ChannelImageBackdrop"
                        Width="36"
                        Height="36"
@@ -803,7 +804,7 @@
 
             <!--Icon-->
             <Rectangle Visibility="{x:Bind ShowIconBackdrop, Mode=OneWay}"
-                       Fill="{x:Bind FirstUserDiscriminator, Converter={StaticResource DiscriminatorToBrushConverter}, Mode=OneWay}"
+                       Fill="{x:Bind discordconvert:DiscriminatorToBrushConverter.Convert(FirstUserDiscriminator), Mode=OneWay}"
                        x:Name="ChannelImageBackdrop"
                        Width="36"
                        Height="36"

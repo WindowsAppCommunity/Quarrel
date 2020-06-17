@@ -619,7 +619,6 @@
                 </Setter>
             </Style>
 
-            <convertdiscord:DiscriminatorToBrushConverter x:Key="DiscriminatorToBrushConverter"/>
             <!--
                 NewsChannelTemplate and StoreChannelTemplate should be implemented properly
             -->

@@ -450,7 +450,6 @@
         </Style>
 
         <discordconvert:PresenseToBrushConverter x:Key="PresenseToBrushConverter" UseSystemAccentColor="True"/>
-        <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
     </UserControl.Resources>
 
     <Border x:Name="borderColor" Margin="0" BorderThickness="0" Grid.RowSpan="2" Width="248" BorderBrush="{x:Bind baseconvert:IntColorToBrushConverter.Convert(ViewModel.AccentColor), Mode=OneWay}">

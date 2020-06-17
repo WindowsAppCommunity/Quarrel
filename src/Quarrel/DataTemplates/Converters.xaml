@@ -11,11 +11,8 @@
     <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
     <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
 
-    <discordconvert:DiscriminatorToBrushConverter x:Key="DiscriminatorToBrushConverter"/>
     <discordconvert:PresenseToBrushConverter x:Key="PresenseToBrushConverter"/>
-    <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
-    <discordconvert:UserToStringConverter x:Key="UserToStringConverter"/>
-    
+
     <convertguild:IsDMToFontFamilyConverter x:Key="IsDMToFontFamilyConverter"/>
     <convertguild:MutedToOpacityConverter x:Key="MutedToOpacityConverter"/>
 

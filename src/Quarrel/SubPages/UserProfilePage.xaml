@@ -78,7 +78,6 @@
         <relationconvert:RelationToUnblockConverter x:Key="RelationToUnblockConverter"/>
         <relationconvert:RelationToSendMessageConverter x:Key="RelationToSendMessageConverter"/>
         <discordconvert:PresenseToBrushConverter x:Key="PresenseToBrushConverter" UseSystemAccentColor="True"/>
-        <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
     </UserControl.Resources>
     
     <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="0" CornerRadius="0">

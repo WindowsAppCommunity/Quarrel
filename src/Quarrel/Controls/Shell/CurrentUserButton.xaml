@@ -15,7 +15,6 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter" />
         <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter" />
     </UserControl.Resources>
     <Grid Background="{StaticResource AcrylicUserBackground}">
