@@ -17,6 +17,4 @@
 
     <msgconvert:SizeToHumanizedSizeConverter x:Key="SizeToHumanizedSizeConverter"/>
     <msgconvert:EmbedFieldsConverter x:Key="EmbedFieldsConverter"/>
-
-    <profileconvert:PresenceTypeToStatusConverter x:Key="PresenceTypeToStatusConverter"/>
 </ResourceDictionary>
