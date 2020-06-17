@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using DiscordAPI.API.Guild.Models;
+using myTube;
 using System;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml.Data;
@@ -159,11 +160,11 @@ namespace Quarrel.Converters.AuditLog
         public string GetFormat(Change change)
         {
             string append = change.OldValue != null ? "Change" : "Set";
-            string format = ResourceLoader.GetForCurrentView("AuditLog").GetString(change.Key + append);
+            string format = Helpers.Constants.Localization.GetLocalizedAuditLogString(change.Key + append);
 
             if (string.IsNullOrEmpty(format))
             {
-                format = ResourceLoader.GetForCurrentView("AuditLog").GetString("Generic" + append);
+                format = Helpers.Constants.Localization.GetLocalizedAuditLogString("Generic" + append);
             }
 
             return format;

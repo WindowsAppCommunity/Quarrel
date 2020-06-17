@@ -10,13 +10,16 @@
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:guildbindables="using:Quarrel.ViewModels.Models.Bindables.Guilds"
     xmlns:triggers="using:Quarrel.StateTriggers"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
+    xmlns:channelconvert="using:Quarrel.Converters.Channel"
+    xmlns:guildconvert="using:Quarrel.Converters.Guild"
     mc:Ignorable="d">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../Converters.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <DataTemplate x:Key="GuildTemplate" x:DataType="guildbindables:BindableGuild">
-        <UserControl Visibility="{x:Bind IsCollapsed, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}">
+        <UserControl Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsCollapsed), Mode=OneWay}">
             <UserControl.Resources>
                 <Storyboard x:Name="ShowBadge">
                     <DoubleAnimation Duration="0:0:0.6" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border" d:IsOptimized="True">
@@ -47,19 +50,19 @@
             <!--Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-                    <MenuFlyoutItem Icon="View" Text="Mark as read" Margin="-24,0,0,0"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/MarkAsReadMFI" Icon="View" Text="Mark as read" Margin="-24,0,0,0"
                                     IsEnabled="{x:Bind IsUnread, Mode=OneWay}" Command="{x:Bind MarkAsRead}"/>
-                    <ToggleMenuFlyoutItem Text="Mute" Style="{StaticResource GuildToggleButtonFlyoutItemStyle}"
-                                          IsChecked="{x:Bind IsMuted, Mode=OneWay}" Visibility="{x:Bind IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Command="{x:Bind MuteGuildCommand, Mode=OneWay}"/>
+                    <ToggleMenuFlyoutItem x:Uid="/DataTemplates/MuteMFI" Text="Mute" Style="{StaticResource GuildToggleButtonFlyoutItemStyle}"
+                                          IsChecked="{x:Bind IsMuted, Mode=OneWay}" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsDM), Mode=OneWay}" Command="{x:Bind MuteGuildCommand, Mode=OneWay}"/>
                     <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem Icon="Setting" Text="Server Settings" Margin="-24,0,0,0"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/GuildSettingsMFI" Icon="Setting" Text="Server Settings" Margin="-24,0,0,0"
                                     Command="{x:Bind OpenGuildSettings, Mode=OneWay}"/>
-                    <MenuFlyoutSeparator Visibility="{x:Bind IsOwner, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
-                    <MenuFlyoutItem Icon="Cancel" Text="Leave Server" Margin="-24,0,0,0" Foreground="{ThemeResource dnd}"
-                                    Visibility="{x:Bind IsOwner, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+                    <MenuFlyoutSeparator Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsOwner), Mode=OneWay}"/>
+                    <MenuFlyoutItem x:Uid="/DataTemplates/LeaveServerMFI" Icon="Cancel" Text="Leave Server" Margin="-24,0,0,0" Foreground="{ThemeResource dnd}"
+                                    Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsOwner), Mode=OneWay}"
                                     Command="{x:Bind LeaveGuild, Mode=OneWay}"/>
                     <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem Icon="Copy" Text="Copy Id" Margin="-24,0,0,0"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/CopyIdMFI" Icon="Copy" Text="Copy Id" Margin="-24,0,0,0"
                                     Command="{x:Bind CopyId, Mode=OneWay}"/>
                 </MenuFlyout>
             </UserControl.ContextFlyout>
@@ -112,18 +115,18 @@
                 
                 <!--Selected Highlight-->
                 <Grid.Background>
-                    <SolidColorBrush Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
+                    <SolidColorBrush Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
                 </Grid.Background>
 
                 <!--Folder-->
-                <Border x:Name="FolderIndicator" Visibility="{x:Bind FolderId, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" VerticalAlignment="Stretch" Width="2" Opacity="0.25" Background="{ThemeResource SystemAccentColor}" Margin="-6,-4,0,-4" HorizontalAlignment="Left"/>
+                <Border x:Name="FolderIndicator" Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.ConvertString(FolderId), Mode=OneWay}" VerticalAlignment="Stretch" Width="2" Opacity="0.25" Background="{ThemeResource SystemAccentColor}" Margin="-6,-4,0,-4" HorizontalAlignment="Left"/>
 
                 <!--Unread-->
                 <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="12" Width="2" Opacity="0.75" Background="{ThemeResource Foreground}" Margin="-6,2,4,0" HorizontalAlignment="Left"/>
 
                 <!--Icon-->
-                <Rectangle Visibility="{x:Bind IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" x:Name="GuildImageBackdrop" Width="50" Height="50" RadiusX="25" RadiusY="25" Fill="{ThemeResource Foreground}" Opacity="0.1"/>
-                <Border x:Name="GuildImage" CornerRadius="25" Width="50" Height="50" Visibility="{x:Bind HasIcon, Mode=OneWay}" Opacity="{x:Bind ShowMute, Converter={StaticResource MutedToOpacityConverter}, Mode=OneWay}">
+                <Rectangle Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsDM), Mode=OneWay}" x:Name="GuildImageBackdrop" Width="50" Height="50" RadiusX="25" RadiusY="25" Fill="{ThemeResource Foreground}" Opacity="0.1"/>
+                <Border x:Name="GuildImage" CornerRadius="25" Width="50" Height="50" Visibility="{x:Bind HasIcon, Mode=OneWay}" Opacity="{x:Bind guildconvert:MutedToOpacityConverter.Convert(ShowMute), Mode=OneWay}">
                     <animations:Implicit.Animations>
                         <animations:OpacityAnimation Duration="0:0:0.3"/>
                     </animations:Implicit.Animations>
@@ -132,13 +135,13 @@
                 <TextBlock x:Name="InvalidOverlay" Visibility="Collapsed" Text="" FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                 <!--Text Icon placeholder-->
-                <TextBlock Visibility="{x:Bind HasIcon, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Foreground="{ThemeResource Foreground}" 
-                   Text="{x:Bind DisplayText, Mode=OneWay}" FontFamily="{x:Bind IsDM, Converter={StaticResource IsDMToFontFamilyConverter}, Mode=OneWay}"
+                <TextBlock Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(HasIcon), Mode=OneWay}" Foreground="{ThemeResource Foreground}" 
+                   Text="{x:Bind DisplayText, Mode=OneWay}" FontFamily="{x:Bind guildconvert:IsDMToFontFamilyConverter.Convert(IsDM), Mode=OneWay}"
                    HorizontalAlignment="Center" VerticalAlignment="Center" 
                    FontSize="24" FontWeight="Light" Margin="0,-2,0,0"/>
 
                 <!--Notificiation Count-->
-                <Border x:Name="border" Visibility="{x:Bind NotificationCount, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}" Margin="0,0,-12,0" VerticalAlignment="Bottom">
+                <Border x:Name="border" x:Load="{x:Bind baseconvert:PositiveIntToBoolConverter.Convert(NotificationCount), Mode=OneWay}" Margin="0,0,-12,0" VerticalAlignment="Bottom">
                     <animations:Implicit.ShowAnimations>
                         <animations:OpacityAnimation Duration="0:0:0.3" To="1"/>
                     </animations:Implicit.ShowAnimations>

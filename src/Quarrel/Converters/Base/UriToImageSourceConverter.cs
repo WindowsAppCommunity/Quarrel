@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using System;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace Quarrel.Converters.Base
@@ -9,10 +8,14 @@ namespace Quarrel.Converters.Base
     /// <summary>
     /// A simple converter that converts a given <see cref="Uri"/> to an <see cref="BitmapImage"/>.
     /// </summary>
-    public sealed class UriToImageSourceConverter : IValueConverter
+    public sealed class UriToImageSourceConverter
     {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, string language)
+        /// <summary>
+        /// Converts a <see cref="Uri"/> or url string to an <see cref="BitmapImage"/>.
+        /// </summary>
+        /// <param name="value">The uri or url string.</param>
+        /// <returns>A <see cref="BitmapImage"/>.</returns>
+        public static BitmapImage Convert(object value)
         {
             Uri uri;
             if (value is Uri)
@@ -26,17 +29,6 @@ namespace Quarrel.Converters.Base
                 {
                     return new BitmapImage(uri);
                 }
-            }
-
-            return null;
-        }
-
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            if (value is BitmapImage image)
-            {
-                return image.UriSource;
             }
 
             return null;

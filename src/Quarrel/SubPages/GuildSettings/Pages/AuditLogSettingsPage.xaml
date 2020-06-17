@@ -18,13 +18,9 @@
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         </Style>
 
-        <auditlogconvert:AuditLogActionTypeToBrushConverter x:Key="AuditLogActionTypeToBrushConverter"/>
-        <auditlogconvert:AuditLogActionTypeToGlyphConverter x:Key="AuditLogActionTypeToGlyphConverter"/>
         <auditlogconvert:AuditLogEntryToMarkdownConverter x:Key="AuditLogEntryToMarkdownConverter"/>
         <auditlogconvert:ChangeToMarkdownConverter x:Key="ChangeToMarkdownConverter"/>
         <auditlogconvert:ChangeToVisibilityConveter x:Key="ChangeToVisibilityConveter"/>
-
-        <discordconvert:SnowflakeToTimeFormatConveter x:Key="SnowflakeToTimeFormatConveter"/>
 
         <DataTemplate x:Key="AuditLogChangeTemplate" x:DataType="guildmodels:Change">
             <quarrel:MarkdownTextBlock Text="{x:Bind Converter={StaticResource ChangeToMarkdownConverter}}"
@@ -42,8 +38,8 @@
                 </Grid.ColumnDefinitions>
 
                 <!--Icon for change-->
-                <FontIcon Glyph="{x:Bind ActionType, Converter={StaticResource AuditLogActionTypeToGlyphConverter}}"
-                          Foreground="{x:Bind ActionType, Converter={StaticResource AuditLogActionTypeToBrushConverter}}"
+                <FontIcon Glyph="{x:Bind auditlogconvert:AuditLogActionTypeToGlyphConverter.Convert(ActionType)}"
+                          Foreground="{x:Bind auditlogconvert:AuditLogActionTypeToBrushConverter.Convert(ActionType)}"
                           VerticalAlignment="Top"/>
 
                 <StackPanel Grid.Column="2">
@@ -55,7 +51,7 @@
                     <!--                       HalfOpacityMode="True" -->
 
                     <!--Time-->
-                    <TextBlock Text="{x:Bind Id, Converter={StaticResource SnowflakeToTimeFormatConveter}}"
+                    <TextBlock Text="{x:Bind discordconvert:SnowflakeToTimeFormatConveter.Convert(Id)}"
                                Margin="4,0,0,0" FontSize="11" Opacity="0.4"/>
 
                     <!--Details-->
@@ -75,9 +71,7 @@
     </Page.Resources>
 
     <Grid>
-        <ScrollViewer>
-            <ListView ItemsSource="{x:Bind ViewModel.Entries, Mode=OneWay}" SelectionMode="None"
+        <ListView ItemsSource="{x:Bind ViewModel.Entries, Mode=OneWay}" SelectionMode="None"
                   ItemTemplate="{StaticResource AuditLogEntryTemplate}" IsItemClickEnabled="False"/>
-        </ScrollViewer>
     </Grid>
 </Page>

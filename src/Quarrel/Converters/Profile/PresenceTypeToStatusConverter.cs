@@ -1,43 +1,32 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using System;
-using Windows.UI.Xaml.Data;
-
 namespace Quarrel.Converters.Profile
 {
     /// <summary>
     /// A converter that takes gets an activity type string.
     /// </summary>
-    public class PresenceTypeToStatusConverter : IValueConverter
+    public class PresenceTypeToStatusConverter
     {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, string language)
+        /// <summary>
+        /// Converts a presence type to an action prefix.
+        /// </summary>
+        /// <param name="value">The playing type.</param>
+        /// <returns>The activity prefix.</returns>
+        public static string Convert(int value)
         {
-            // TODO: Localization
-            if (value is int iValue)
+            switch (value)
             {
-                switch (iValue)
-                {
-                    case 0:
-                        return "Playing";
-                    case 1:
-                        return "Streaming";
-                    case 2:
-                        return "Listening to";
-                    case 3:
-                        return "Watching";
-                    default:
-                        return string.Empty;
-                }
+                case 0:
+                    return Helpers.Constants.Localization.GetLocalizedString("Playing");
+                case 1:
+                    return Helpers.Constants.Localization.GetLocalizedString("Streaming");
+                case 2:
+                    return Helpers.Constants.Localization.GetLocalizedString("ListeningTo");
+                case 3:
+                    return Helpers.Constants.Localization.GetLocalizedString("Watching");
+                default:
+                    return string.Empty;
             }
-
-            return string.Empty;
-        }
-
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
         }
     }
 }

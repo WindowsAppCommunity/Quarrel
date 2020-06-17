@@ -24,7 +24,7 @@
             <HyperlinkButton Margin="4,0" Style="{StaticResource PlainHyerlinkStyle}" Command="{x:Bind ViewModel.ShowAttachmentCommand}">
                 <StackPanel Margin="0,0,6,0">
                     <FontIcon x:Name="FileIcon" FontSize="32" Glyph="{x:Bind ViewModel.Model.Filename, Converter={StaticResource TypeToGlyphConverter}, Mode=OneWay}" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Show" HorizontalAlignment="Center"/>
+                    <TextBlock x:Uid="/Controls/ShowTB" Text="Show" HorizontalAlignment="Center"/>
                 </StackPanel>
             </HyperlinkButton>
             <StackPanel Grid.Column="1">

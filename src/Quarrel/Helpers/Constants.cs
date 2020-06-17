@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources;
 using Windows.Storage;
 
 namespace Quarrel.Helpers
@@ -97,6 +98,36 @@ namespace Quarrel.Helpers
                 /// Gets or sets the user credit.
                 /// </summary>
                 public string Credit { get; set; } = string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Gets localized strings.
+        /// </summary>
+        public static class Localization
+        {
+            private static ResourceLoader AuditLogResources { get; } = ResourceLoader.GetForCurrentView("AuditLog");
+
+            private static ResourceLoader StringResources { get; } = ResourceLoader.GetForCurrentView("MiscStrings");
+
+            /// <summary>
+            /// Gets a localized string.
+            /// </summary>
+            /// <param name="key">The identifier of the string the resources file.</param>
+            /// <returns>The localized string.</returns>
+            public static string GetLocalizedString(string key)
+            {
+                return StringResources.GetString(key);
+            }
+
+            /// <summary>
+            /// Gets a localized string for audit logs.
+            /// </summary>
+            /// <param name="key">The identifier of the string the resources file.</param>
+            /// <returns>The localized string.</returns>
+            public static string GetLocalizedAuditLogString(string key)
+            {
+                return AuditLogResources.GetString(key);
             }
         }
     }

@@ -13,13 +13,6 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <CommandBar.Resources>
-        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
-        <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
-        <baseconvert:RemoveNewLineConverter x:Key="RemoveNewLineConveter"/>
-    </CommandBar.Resources>
-    
     <CommandBar.Style>
         <Style TargetType="CommandBar">
             <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeMediumBrush}" />
@@ -808,14 +801,14 @@
         <Grid>
             <StackPanel Orientation="Horizontal" Height="40">
                 <!--Hamburger button-->
-                <AppBarButton Height="40" Visibility="{x:Bind ShowHamburger, Converter={StaticResource NotBoolToVisibilityConverter}}" Click="InvokeHumburgerClick" Canvas.ZIndex="1" Background="Transparent" Width="72">
+                <AppBarButton Height="40" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ShowHamburger)}" Click="InvokeHumburgerClick" Canvas.ZIndex="1" Background="Transparent" Width="72">
                     <AppBarButton.Content>
                         <FontIcon Glyph="&#xE700;" FontSize="24" Margin="0,4,0,0"/>
                     </AppBarButton.Content>
                 </AppBarButton>
                 
                 <!--Current Channel info-->
-                <StackPanel Height="40" Visibility="{x:Bind ViewModel.CurrentChannel, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
+                <StackPanel Height="40" Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.Convert(ViewModel.CurrentChannel), Mode=OneWay}"
                             Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0" HorizontalAlignment="Left" Tapped="ChannelNameTapped">
                     <!--Guild Channel-->
                     <TextBlock VerticalAlignment="Center" Text="#" Visibility="{x:Bind ViewModel.CurrentChannel.IsTextChannel, Mode=OneWay}" Opacity="{x:Bind ViewModel.CurrentChannel.TextOpacity, Mode=OneWay}" Foreground="{StaticResource Foreground}" FontSize="20" FontWeight="Light" Margin="0,0,4,0"/>
@@ -828,8 +821,8 @@
                     <!--Seperator-->
                     <AppBarSeparator/>
                     <!--Channel Description-->
-                    <controls:MarkdownTextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.CurrentChannel.AsGuildChannel.Topic, Converter={StaticResource RemoveNewLineConveter}, Mode=OneWay}" FontSize="18" FontWeight="Light" Margin="0,0,4,0" IsTextSelectionEnabled="False"
-                                                Visibility="{x:Bind ViewModel.CurrentGuild.IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
+                    <controls:MarkdownTextBlock VerticalAlignment="Center" Text="{x:Bind baseconvert:MultipleWhiteSpaceCollapseConverter.Convert(ViewModel.CurrentChannel.AsGuildChannel.Topic), Mode=OneWay}" FontSize="18" FontWeight="Light" Margin="0,0,4,0" IsTextSelectionEnabled="False"
+                                                Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.CurrentGuild.IsDM), Mode=OneWay}"/>
 
                 </StackPanel>
             </StackPanel>
@@ -857,9 +850,9 @@
     </CommandBar.PrimaryCommands>
 
     <CommandBar.SecondaryCommands>
-        <AppBarButton Label="Settings" Background="Transparent" Command="{x:Bind ViewModel.OpenSettings}"/>
-        <AppBarButton Label="Credit" Background="Transparent" Command="{x:Bind ViewModel.OpenCredit}"/>
-        <AppBarButton Label="What's New" Background="Transparent" Command="{x:Bind ViewModel.OpenWhatsNew}"/>
-        <AppBarButton Label="About" Background="Transparent" Command="{x:Bind ViewModel.OpenAbout}"/>
+        <AppBarButton x:Uid="/Controls/SettingsABB" Label="Settings" Background="Transparent" Command="{x:Bind ViewModel.OpenSettings}"/>
+        <AppBarButton x:Uid="/Controls/CreditABB" Label="Credit" Background="Transparent" Command="{x:Bind ViewModel.OpenCredit}"/>
+        <AppBarButton x:Uid="/Controls/WhatsNewABB" Label="What's New" Background="Transparent" Command="{x:Bind ViewModel.OpenWhatsNew}"/>
+        <AppBarButton x:Uid="Controls/AboutABB" Label="About" Background="Transparent" Command="{x:Bind ViewModel.OpenAbout}"/>
     </CommandBar.SecondaryCommands>
 </CommandBar>

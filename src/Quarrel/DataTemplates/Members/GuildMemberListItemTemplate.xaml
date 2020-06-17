@@ -5,6 +5,8 @@
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls="using:Quarrel.Controls"
     xmlns:userbindables="using:Quarrel.ViewModels.Models.Bindables.Users"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
+    xmlns:profileconvert="using:Quarrel.Converters.Profile"
     xmlns:membercontrols="using:Quarrel.Controls.Members"
     x:Class="Quarrel.DataTemplates.Members.GuildMemberListItemTemplate">
 
@@ -18,12 +20,12 @@
             <!--Secondary Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout>
-                    <MenuFlyoutItem Text="Profile" Command="{x:Bind OpenProfile, Mode=OneWay}"/>
-                    <MenuFlyoutItem Text="Message" Command="{x:Bind MessageCommand, Mode=OneWay}"/>
+                    <MenuFlyoutItem x:Uid="/DataTemplates/ProfileMFI" Text="Profile" Command="{x:Bind OpenProfile, Mode=OneWay}"/>
+                    <MenuFlyoutItem x:Uid="/DataTemplates/MessageMFI" Text="Message" Command="{x:Bind MessageCommand, Mode=OneWay}"/>
                     <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem Text="Change Nickname" IsEnabled="False"/>
+                    <MenuFlyoutItem x:Uid="/DataTemplates/ChangeNicknameMFI" Text="Change Nickname" IsEnabled="False"/>
                     <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem Text="Copy ID" Command="{x:Bind CopyId, Mode=OneWay}"/>
+                    <MenuFlyoutItem x:Uid="/DataTemplates/CopyIdMFI" Text="Copy ID" Command="{x:Bind CopyId, Mode=OneWay}"/>
                 </MenuFlyout>
             </UserControl.ContextFlyout>
             <Grid Padding="12,0,22,0">
@@ -41,7 +43,7 @@
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0">
                     <StackPanel Orientation="Horizontal">
                         <!--Username or Nickname-->
-                        <TextBlock Text="{x:Bind DisplayName, Mode=OneWay}" Foreground="{x:Bind RoleColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}"
+                        <TextBlock Text="{x:Bind DisplayName, Mode=OneWay}" Foreground="{x:Bind baseconvert:IntColorToBrushConverter.Convert(RoleColor), Mode=OneWay}"
                                VerticalAlignment="Center" FontSize="14" FontWeight="Normal"/>
                         <!--Guild Owner indicator-->
                         <Image x:Name="GuildOwnerindicator" Height="12" Source="/Assets/DiscordAssets/Crown.png" Stretch="UniformToFill" Margin="5,0,0,0" x:Load="{x:Bind IsOwner}" x:Phase="3"/>
@@ -52,8 +54,8 @@
                     </StackPanel>
                     
                     <!--Basic Rich Presence info-->
-                    <StackPanel Orientation="Horizontal" x:Name="richPresence" x:Phase="2" x:Load="{x:Bind Presence.Game, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
-                        <TextBlock Text="{x:Bind Presence.Game.Type, Converter={StaticResource PresenceTypeToStatusConverter}, Mode=OneWay}" Visibility="{x:Bind Presence.Game.IsCustom, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" VerticalAlignment="Center" FontSize="11" FontWeight="SemiLight" Opacity="0.6" Foreground="{ThemeResource Foreground}"/>
+                    <StackPanel Orientation="Horizontal" x:Name="richPresence" x:Phase="2" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Presence.Game), Mode=OneWay}">
+                        <TextBlock Text="{x:Bind profileconvert:PresenceTypeToStatusConverter.Convert(Presence.Game.Type), Mode=OneWay}" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(Presence.Game.IsCustom), Mode=OneWay}" VerticalAlignment="Center" FontSize="11" FontWeight="SemiLight" Opacity="0.6" Foreground="{ThemeResource Foreground}"/>
                         <TextBlock x:Name="game" Text="{x:Bind Presence.Game.Display, Mode=OneWay}" VerticalAlignment="Center" Opacity="0.8" FontSize="11" FontWeight="Normal" Margin="3,0,0,0" Foreground="{ThemeResource Foreground}"/>
                         <FontIcon Visibility="{x:Bind Presence.Game.IsRich, Mode=OneWay}" x:Name="rich" Glyph="" FontSize="11" Margin="4,0,0,-2" Foreground="{ThemeResource Foreground}"/>
                     </StackPanel>

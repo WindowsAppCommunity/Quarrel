@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using GalaSoft.MvvmLight.Ioc;
+using myTube;
 using Quarrel.SubPages.Interfaces;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Services.Analytics;
@@ -43,8 +44,9 @@ namespace Quarrel.SubPages
         /// <summary>
         /// Gets the last commit and branch used for build.
         /// </summary>
+        // TODO: Localization
         public string CommitStatus => string.Format(
-            "Commit {0} from {1}",
+            Helpers.Constants.Localization.GetLocalizedString("CommitFrom"),
             ThisAssembly.Git.Commit,
             ThisAssembly.Git.Branch);
 

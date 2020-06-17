@@ -13,31 +13,36 @@ namespace Quarrel.Converters.Messages.ActionMessage
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            // TODO: Localization
+            string key = "DidSomething";
             if (value is int iValue)
             {
                 switch (iValue)
                 {
                     case 1:
-                        return "Added a user";
+                        key = "AddedUser";
+                        break;
                     case 2:
-                        return "Removed a user";
+                        key = "RemovedUser";
+                        break;
                     case 3:
-                        return "Called";
+                        key = "Called";
+                        break;
                     case 4:
-                        return "Changed channel name";
+                        key = "ChangedChannelName";
+                        break;
                     case 5:
-                        return "Changed channel icon";
+                        key = "ChangedChannelIcon";
+                        break;
                     case 6:
-                        return "Pinned a message";
+                        key = "PinnedMessage";
+                        break;
                     case 7:
-                        return "Joined the server";
-                    default:
-                        return "Did something";
+                        key = "JoinedServer";
+                        break;
                 }
             }
 
-            return "Did something";
+            return Helpers.Constants.Localization.GetLocalizedString(key);
         }
 
         /// <inheritdoc/>

@@ -7,14 +7,14 @@
   IgnorableNamespaces="uap mp">
 
 	<Identity
-	  Name="38062AvishaiDernis.DiscordUWP"
+	  Name="38062AvishaiDernis.QuarrelDev"
 	  Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B"
-	  Version="20.6.13.0" />
+	  Version="20.6.17.0" />
 
 	<mp:PhoneIdentity PhoneProductId="d72cb53c-7904-44c8-a617-cf4dddbc7055" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
 	<Properties>
-		<DisplayName>Quarrel</DisplayName>
+		<DisplayName>Quarrel Dev</DisplayName>
 		<PublisherDisplayName>Adam Dernis</PublisherDisplayName>
 		<Logo>Assets\IconAssets\StoreLogo.png</Logo>
 	</Properties>
@@ -32,7 +32,7 @@
 		  Executable="$targetnametoken$.exe"
 		  EntryPoint="Quarrel.App">
 			<uap:VisualElements
-			  DisplayName="Quarrel"
+			  DisplayName="Quarrel Dev"
 			  Square150x150Logo="Assets\IconAssets\MediumTile.png"
 			  Square44x44Logo="Assets\IconAssets\AppIcon.png"
 			  Description="Quarrel"
