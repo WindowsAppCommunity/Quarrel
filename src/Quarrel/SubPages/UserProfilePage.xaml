@@ -71,12 +71,7 @@
             </Setter>
         </Style>
 
-        <relationconvert:RelationToAcceptFriendConverter x:Key="RelationToAcceptFriendConverter"/>
-        <relationconvert:RelationToAddFriendConverter x:Key="RelationToAddFriendConverter"/>
-        <relationconvert:RelationToBlockConverter x:Key="RelationToBlockConverter"/>
-        <relationconvert:RelationToRemoveFriendConverter x:Key="RelationToRemoveFriendConverter"/>
         <relationconvert:RelationToUnblockConverter x:Key="RelationToUnblockConverter"/>
-        <relationconvert:RelationToSendMessageConverter x:Key="RelationToSendMessageConverter"/>
         <discordconvert:PresenseToBrushConverter x:Key="PresenseToBrushConverter" UseSystemAccentColor="True"/>
     </UserControl.Resources>
     
@@ -185,19 +180,19 @@
                             </Border>
                         </StackPanel>
                         <tk:WrapPanel Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsLoadingProfile), Mode=OneWay}" Orientation="Horizontal" VerticalAlignment="Top" Margin="188,58,24,0" HorizontalAlignment="Left">
-                            <HyperlinkButton x:Name="sendFriendRequest" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToAddFriendConverter}, Mode=OneWay}">
+                            <HyperlinkButton x:Name="sendFriendRequest" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" x:Load="{x:Bind relationconvert:RelationToAddFriendConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE8FA;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/MiscSubs/SendFriendRequestTB" Text="Send Friend Request" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="acceptFriend" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToAcceptFriendConverter}, Mode=OneWay}">
+                            <HyperlinkButton x:Name="acceptFriend" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" x:Load="{x:Bind relationconvert:RelationToAcceptFriendConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE8FA;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/MiscSubs/AcceptFriendRequestTB" Text="Accept Friend Request" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton  x:Name="pendingFriend" Margin="0,0,24,0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource HyperlinkButtonStyle1}" Visibility="Collapsed">
+                            <HyperlinkButton  x:Name="pendingFriend" Margin="0,0,24,0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource HyperlinkButtonStyle1}" x:Load="False">
                                 <Grid>
                                     <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/MiscSubs/FriendRequestSentTB" Text="Friend Request Sent" Margin="28,0,0,0"/>
@@ -209,31 +204,31 @@
                                     <TextBlock x:Uid="/MiscSubs/UnblockTB" Text="Unblock" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToRemoveFriendConverter}, Mode=OneWay}">
+                            <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" x:Load="{x:Bind relationconvert:RelationToRemoveFriendConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/MiscSubs/RemoveFriendTB" Text="Remove Friend" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="AccountSettings" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" Visibility="Collapsed">
+                            <HyperlinkButton x:Name="AccountSettings" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" x:Load="False">
                                 <Grid>
                                     <FontIcon Glyph="&#xE779;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/MiscSubs/AccountSettingsTB" Text="Account Settings" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="ViewStats" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" Visibility="Collapsed">
+                            <HyperlinkButton x:Name="ViewStats" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" x:Load="False">
                                 <Grid>
                                     <FontIcon Glyph="&#xE9D2;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/MiscSubs/ServerStatsTB" Text="Server Stats" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToSendMessageConverter}, Mode=OneWay}">
+                            <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" x:Load="{x:Bind relationconvert:RelationToSendMessageConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE122;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/MiscSubs/SendMessageTB" Text="Send Message" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="Block" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Visibility="{x:Bind ViewModel.Profile.Friend.Type, Converter={StaticResource RelationToBlockConverter}, Mode=OneWay}">
+                            <HyperlinkButton x:Name="Block" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" x:Load="{x:Bind relationconvert:RelationToBlockConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/MiscSubs/BlockTB" Text="Block" Margin="28,0,0,0"/>
