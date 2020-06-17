@@ -17,14 +17,14 @@
         <!--Guild Flyout-->
         <Button.Flyout>
             <MenuFlyout Placement="Bottom" MenuFlyoutPresenterStyle="{StaticResource GuildButtonFlyoutStyle}">
-                <MenuFlyoutItem Icon="AddFriend" Text="Invite People" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource SystemAccentColor}" Visibility="{x:Bind ViewModel.Permissions.CreateInstantInvite, Mode=OneWay}"
+                <MenuFlyoutItem x:Uid="/Controls/AddChannelMFI" Icon="AddFriend" Text="Invite People" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource SystemAccentColor}" Visibility="{x:Bind ViewModel.Permissions.CreateInstantInvite, Mode=OneWay}"
                                 Command="{x:Bind ViewModel.CreateInvite, Mode=OneWay}"/>
                 <MenuFlyoutSeparator Visibility="{x:Bind ViewModel.Permissions.CreateInstantInvite, Mode=OneWay}" Width="224"/>
-                <MenuFlyoutItem Icon="Setting" Text="Settings" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Command="{x:Bind ViewModel.OpenGuildSettings}"/>
+                <MenuFlyoutItem x:Uid="/Controls/GuildSettingsMFI" Icon="Setting" Text="Settings" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Command="{x:Bind ViewModel.OpenGuildSettings}"/>
                 <MenuFlyoutSeparator Visibility="{x:Bind ViewModel.Permissions.ManageChannels, Mode=OneWay}"/>
-                <MenuFlyoutItem Icon="Add" Text="Add Channel" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Command="{x:Bind ViewModel.AddChannelCommand}" Visibility="{x:Bind ViewModel.Permissions.ManageChannels, Mode=OneWay}"/>
+                <MenuFlyoutItem x:Uid="/Controls/InvitePeopleMFI" Icon="Add" Text="Add Channel" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Command="{x:Bind ViewModel.AddChannelCommand}" Visibility="{x:Bind ViewModel.Permissions.ManageChannels, Mode=OneWay}"/>
                 <MenuFlyoutSeparator Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsOwner), Mode=OneWay}"/>
-                <MenuFlyoutItem Icon="Clear" Text="Leave Server" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource dnd}" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsOwner), Mode=OneWay}"/>
+                <MenuFlyoutItem x:Uid="/Controls/LeaveServerMFI" Icon="Clear" Text="Leave Server" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource dnd}" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsOwner), Mode=OneWay}"/>
             </MenuFlyout>
         </Button.Flyout>
 

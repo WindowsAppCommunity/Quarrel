@@ -17,9 +17,9 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Padding="12">
-            <Slider Header="Uses limit" Value="{x:Bind ViewModel.MaxUses, Mode=TwoWay}" Minimum="0" Maximum="100"/>
+            <Slider x:Uid="/MiscSubs/UsesLimitSlD" Header="Uses limit" Value="{x:Bind ViewModel.MaxUses, Mode=TwoWay}" Minimum="0" Maximum="100"/>
 
-            <Button Content="Generate Invite" Style="{StaticResource DiscordButton}" HorizontalAlignment="Right"
+            <Button x:Uid="/MiscSubs/GenerateInviteBTN" Content="Generate Invite" Style="{StaticResource DiscordButton}" HorizontalAlignment="Right"
                     Command="{x:Bind ViewModel.GenerateInvite, Mode=OneWay}"/>
         </StackPanel>
 

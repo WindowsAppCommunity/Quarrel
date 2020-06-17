@@ -239,7 +239,7 @@
             </TextBlock>
 
 
-            <TextBlock x:Uid="/About/QuarrelDescTB" Text="Discord client for the Universal Windows Platform" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
+            <TextBlock x:Uid="/MiscSubs/QuarrelDescTB" Text="Discord client for the Universal Windows Platform" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
             <Grid>
                 <StackPanel x:Name="TokenAuth" Visibility="Collapsed">
                     <PasswordBox x:Name="Token" VerticalAlignment="Center" Padding="12" TabIndex="0" InputScope="Password" PlaceholderText="Discord token" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="Token_KeyDown"/>
@@ -252,13 +252,13 @@
                     </TransitionCollection>
                 </Button.Transitions>
                 <Grid>
-                    <TextBlock x:Uid="/About/LoginTB" x:Name="LoginText" Text="LOGIN" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock x:Uid="/MiscSubs/LoginTB" x:Name="LoginText" Text="LOGIN" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <ProgressRing x:Name="ProgressRing" Margin="6,0,0,0" Foreground="White" Visibility="Collapsed"/>
                 </Grid>
             </Button>
             <Grid/>
         </StackPanel>
-        <HyperlinkButton Content="Privacy policy" TabIndex="6" HorizontalAlignment="Left" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" VerticalAlignment="Bottom" Margin="24,0,0,12" Click="ForgotPassword_Click">
+        <HyperlinkButton x:Uid="/MiscSubs/PrivacyPolicyHBTN" Content="Privacy Policy" TabIndex="6" HorizontalAlignment="Left" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" VerticalAlignment="Bottom" Margin="24,0,0,12" Click="ForgotPassword_Click">
             <HyperlinkButton.ContextFlyout>
                 <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
                     <Grid MaxWidth="256">
@@ -270,7 +270,7 @@
                 </Flyout>
             </HyperlinkButton.ContextFlyout>
         </HyperlinkButton>
-        <HyperlinkButton x:Name="LoginWithToken" TabIndex="7" Tag="Token" Content="Login with Discord Token" HorizontalAlignment="Right" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,32,24,12" VerticalAlignment="Bottom" Click="LoginWithToken_Click"/>
+        <HyperlinkButton x:Uid="/MiscSubs/LoginTokenHBTN" x:Name="LoginWithToken" TabIndex="7" Tag="Token" Content="Login with Discord Token" HorizontalAlignment="Right" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,32,24,12" VerticalAlignment="Bottom" Click="LoginWithToken_Click"/>
 
         <WebView x:Name="CaptchaView" NavigationCompleted="CaptchaView_OnNavigationCompleted" 
                  ScriptNotify="ScriptNotify" Visibility="Collapsed" Margin="50"/>

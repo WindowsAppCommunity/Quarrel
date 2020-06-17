@@ -14,11 +14,14 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+
+        <!--TODO: Provide English only notice-->
+
         <Grid Margin="0,0,0,4">
             <ScrollViewer>
                 <StackPanel Padding="0" Margin="12,0,0,0">
-                    <TextBlock x:Uid="/About/LicenseTB" x:Name="header" Text="LICENSES" FontWeight="SemiBold" FontSize="20"/>
-                    <TextBlock x:Uid="/About/QuarrelLicensesDesc" Text="Quarrel uses a few external libraries to function:" TextWrapping="Wrap" FontSize="13.333"/>
+                    <TextBlock x:Uid="/Meta/LicensesTB" x:Name="header" Text="LICENSES" FontWeight="SemiBold" FontSize="20"/>
+                    <TextBlock x:Uid="/Meta/QuarrelLicensesDescTB" Text="Quarrel uses a few external libraries to function:" TextWrapping="Wrap" FontSize="13.333"/>
                     <StackPanel Orientation="Horizontal">
                         <StackPanel.ChildrenTransitions>
                             <TransitionCollection>
@@ -26,7 +29,7 @@
                             </TransitionCollection>
                         </StackPanel.ChildrenTransitions>
                         <TextBlock Text="MIT License" FontSize="24" FontWeight="Light" Margin="0,24,0,0"/>
-                        <Button  ToolTipService.ToolTip="Read license" Style="{StaticResource DimButton}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="" VerticalAlignment="Bottom" FontFamily="Segoe MDL2 Assets" Margin="6,0,6,4" FontSize="18" Click="ToggleMIT"/>
+                        <Button ToolTipService.ToolTip="Read license" Style="{StaticResource DimButton}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="" VerticalAlignment="Bottom" FontFamily="Segoe MDL2 Assets" Margin="6,0,6,4" FontSize="18" Click="ToggleMIT"/>
                     </StackPanel>
                     <RichTextBlock x:Name="mitlicense" Visibility="Collapsed" Opacity="0.5" FontSize="11">
 

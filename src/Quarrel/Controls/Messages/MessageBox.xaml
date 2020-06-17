@@ -1099,7 +1099,7 @@
         </Popup>
         
         <!--TextBox-->
-        <local:SelectionBindingTextBox x:Name="MessageEditor" BindableText="{x:Bind ViewModel.MessageText, Mode=TwoWay}" BindableSelectionStart="{x:Bind ViewModel.SelectionStart, Mode=TwoWay}" BindableSelectionLength="{x:Bind ViewModel.SelectionLength, Mode=TwoWay}" Padding="52,12,96,12" VerticalAlignment="Stretch"
+        <local:SelectionBindingTextBox x:Uid="/Controls/SendMessageTBox" x:Name="MessageEditor" BindableText="{x:Bind ViewModel.MessageText, Mode=TwoWay}" BindableSelectionStart="{x:Bind ViewModel.SelectionStart, Mode=TwoWay}" BindableSelectionLength="{x:Bind ViewModel.SelectionLength, Mode=TwoWay}" Padding="52,12,96,12" VerticalAlignment="Stretch"
                                        PlaceholderText="Send message" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MinHeight="64" MaxHeight="256"
                                        Paste="PasteFromClipboard" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" LostFocus="MessageEditor_LostFocus" GotFocus="MessageEditor_GotFocus" SizeChanged="MessageEditor_SizeChanged">
             <interactivity:Interaction.Behaviors>
@@ -1131,7 +1131,7 @@
             </Grid>
             <Button.Flyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-                    <MenuFlyoutItem Text="Add attachement" Click="AddAttachment">
+                    <MenuFlyoutItem x:Uid="/Controls/AddAttachmentMFI" Text="Add attachement" Click="AddAttachment">
                         <MenuFlyoutItem.Icon>
                             <SymbolIcon Symbol="Attach"/>
                         </MenuFlyoutItem.Icon>

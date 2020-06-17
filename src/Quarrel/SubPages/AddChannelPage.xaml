@@ -18,12 +18,12 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Border Background="{ThemeResource DarkBG}" VerticalAlignment="Top" Padding="8">
-            <TextBlock Text="Add Channel" FontSize="20" FontWeight="SemiBold"/>
+            <TextBlock x:Uid="/MiscSubs/AddChannelTB" Text="Add Channel" FontSize="20" FontWeight="SemiBold"/>
         </Border>
 
         <ScrollViewer Grid.Row="1" Padding="8">
             <StackPanel>
-                <TextBox x:Name="ChannelNameBox" Text="{x:Bind ViewModel.ChannelName, Mode=TwoWay}"  Header="Channel Name" Style="{StaticResource TextBoxStyle1}"/>
+                <TextBox x:Uid="/MiscSubs/ChannelNameTBox" x:Name="ChannelNameBox" Text="{x:Bind ViewModel.ChannelName, Mode=TwoWay}" Header="Channel Name" Style="{StaticResource TextBoxStyle1}"/>
 
                 <controls:RadioButtons SelectedIndex="0" Margin="0,12,0,0" SelectedItem="{x:Bind ViewModel.SelectedChannelType, Mode=TwoWay}">
                     <controls:RadioButtons.ItemTemplate>
@@ -31,17 +31,17 @@
                             <RadioButton Content="{Binding}" Style="{StaticResource DiscordRadioButton}"/>
                         </DataTemplate>
                     </controls:RadioButtons.ItemTemplate>
-                    <x:String>Text Channel</x:String>
-                    <x:String>Voice Channel</x:String>
+                    <x:String x:Uid="/MiscSubs/TextChannelSTR">Text Channel</x:String>
+                    <x:String x:Uid="/MiscSubs/VoiceChannelSTR">Voice Channel</x:String>
                 </controls:RadioButtons>
 
             </StackPanel>
         </ScrollViewer>
 
         <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal">
-            <Button Content="Save" Style="{StaticResource DiscordButton}" Width="80" Margin="4" Command="{x:Bind ViewModel.CreateChannelCommand}"
+            <Button x:Uid="/MiscSubs/SaveBTN" Content="Save" Style="{StaticResource DiscordButton}" Width="80" Margin="4" Command="{x:Bind ViewModel.CreateChannelCommand}"
                     IsEnabled="{x:Bind baseconvert:NotNullToBoolConverter.ConvertString(ChannelNameBox.Text), Mode=OneWay}"/>
-            <Button Content="Cancel" Style="{StaticResource DiscordButton}" Background="{StaticResource dnd}" Width="80" Margin="4" Command="{x:Bind ViewModel.BackCommand}"/>
+            <Button x:Uid="/MiscSubs/CancelBTN" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{StaticResource dnd}" Width="80" Margin="4" Command="{x:Bind ViewModel.BackCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

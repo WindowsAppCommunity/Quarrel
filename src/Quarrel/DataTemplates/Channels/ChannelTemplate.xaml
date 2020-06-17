@@ -430,12 +430,12 @@
             <!--Flyout-->
             <Grid.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-                    <MenuFlyoutItem Text="Mark as read" IsEnabled="{x:Bind IsUnread, Mode=OneWay}" Command="{x:Bind MarkAsRead, Mode=OneWay}"/>
-                    <ToggleMenuFlyoutItem Text="Mute" IsChecked="{x:Bind Muted, Mode=OneWay}" Command="{x:Bind Mute, Mode=OneWay}"/>
+                    <MenuFlyoutItem x:Uid="/DataTemplates/MarkAsReadMFI" Text="Mark as read" IsEnabled="{x:Bind IsUnread, Mode=OneWay}" Command="{x:Bind MarkAsRead, Mode=OneWay}"/>
+                    <ToggleMenuFlyoutItem x:Uid="/DataTemplates/MuteMFI" Text="Mute" IsChecked="{x:Bind Muted, Mode=OneWay}" Command="{x:Bind Mute, Mode=OneWay}"/>
                     <!--<MenuFlyoutItem Text="Channel Settings"/>-->
-                    <MenuFlyoutSubItem Text="Notifications" IsEnabled="False"/>
+                    <MenuFlyoutSubItem x:Uid="/DataTemplates/NotificationsMFI" Text="Notifications" IsEnabled="False"/>
                     <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem Text="Copy Id" Command="{x:Bind CopyId, Mode=OneWay}"/>
+                    <MenuFlyoutItem x:Uid="/DataTemplates/CopyIdMFI" Text="Copy Id" Command="{x:Bind CopyId, Mode=OneWay}"/>
                 </MenuFlyout>
             </Grid.ContextFlyout>
             <Grid.Background>
@@ -464,12 +464,8 @@
                         <GradientStop Color="{ThemeResource SystemAccentColor}" Offset="0"/>
                     </LinearGradientBrush>
                 </Grid.Background>
-                
-                <TextBlock x:Name="NotificationCounter" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Text="{x:Bind MentionCount, Mode=OneWay}" FontWeight="SemiBold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="24,0,24,2" FontSize="15" RenderTransformOrigin="0.5,0.5">
-                            <!--<TextBlock.RenderTransform>
-                                <CompositeTransform TranslateX="24"/>
-                            </TextBlock.RenderTransform>-->
-                </TextBlock>
+
+                <TextBlock x:Name="NotificationCounter" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Text="{x:Bind MentionCount, Mode=OneWay}" FontWeight="SemiBold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="24,0,24,2" FontSize="15" RenderTransformOrigin="0.5,0.5"/>
             </Grid>
 
             <!--Main Details-->
@@ -494,10 +490,10 @@
             <Grid.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
                     <!--<MenuFlyoutItem Text="Channel Settings"/>-->
-                    <ToggleMenuFlyoutItem Text="Hide names"
+                    <ToggleMenuFlyoutItem x:Uid="/DataTemplates/HideNamesMFI" Text="Hide names"
                                           IsEnabled="False" />
-                    <MenuFlyoutSeparator />
-                    <MenuFlyoutItem Text="Copy Id"
+                    <MenuFlyoutSeparator/>
+                    <MenuFlyoutItem x:Uid="/DataTemplates/CopyIdMFI" Text="Copy Id"
                                     Command="{x:Bind CopyId, Mode=OneWay}" />
                 </MenuFlyout>
             </Grid.ContextFlyout>
@@ -556,19 +552,19 @@
             <!--Flyout-->
             <Grid.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-                    <MenuFlyoutItem Text="Profile"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/ProfileMFI" Text="Profile"
                                     Command="{x:Bind OpenProfile, Mode=OneWay}" />
-                    <MenuFlyoutItem Text="Mark as read"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/MarkAsReadMFI" Text="Mark as read"
                                     IsEnabled="{x:Bind IsUnread, Mode=OneWay}"
                                     Command="{x:Bind MarkAsRead, Mode=OneWay}" />
-                    <ToggleMenuFlyoutItem Text="Mute"
+                    <ToggleMenuFlyoutItem x:Uid="/DataTemplates/MuteMFI" Text="Mute"
                                           IsChecked="{x:Bind Muted, Mode=OneWay}"
                                           Command="{x:Bind Mute, Mode=OneWay}" />
-                    <MenuFlyoutItem Text="Close DM"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/CloseDMMFI" Text="Close DM"
                                     Foreground="{ThemeResource dnd}"
                                     Command="{x:Bind LeaveGroup, Mode=OneWay}" />
                     <MenuFlyoutSeparator />
-                    <MenuFlyoutItem Text="Copy Id"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/CopyIdMFI" Text="Copy Id"
                                     Command="{x:Bind CopyId, Mode=OneWay}" />
                 </MenuFlyout>
             </Grid.ContextFlyout>
@@ -721,17 +717,17 @@
             <!--Flyout-->
             <Grid.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-                    <MenuFlyoutItem Text="Mark as read"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/MarkAsReadMFI" Text="Mark as read"
                                     IsEnabled="{x:Bind IsUnread, Mode=OneWay}"
                                     Command="{x:Bind MarkAsRead, Mode=OneWay}" />
-                    <ToggleMenuFlyoutItem Text="Mute"
+                    <ToggleMenuFlyoutItem x:Uid="/DataTemplates/MuteMFI" Text="Mute"
                                           IsChecked="{x:Bind Muted, Mode=OneWay}"
                                           Command="{x:Bind Mute, Mode=OneWay}" />
-                    <MenuFlyoutItem Text="Leave Group"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/LeaveGroupMFI" Text="Leave Group"
                                     Foreground="{ThemeResource dnd}"
                                     Command="{x:Bind LeaveGroup, Mode=OneWay}" />
                     <MenuFlyoutSeparator />
-                    <MenuFlyoutItem Text="Copy Id"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/CopyIdMFI" Text="Copy Id"
                                     Command="{x:Bind CopyId, Mode=OneWay}" />
                 </MenuFlyout>
             </Grid.ContextFlyout>
@@ -888,7 +884,7 @@
                     <!--<ToggleMenuFlyoutItem Text="Mute" IsChecked="{x:Bind Muted, Mode=OneWay}" Command="{x:Bind Mute, Mode=OneWay}"/>-->
                     <!--<MenuFlyoutItem Text="Category Settings"/>-->
                     <!--<MenuFlyoutSeparator/>-->
-                    <MenuFlyoutItem Text="Copy Id"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/CopyIdMFI" Text="Copy Id"
                                     Command="{x:Bind CopyId, Mode=OneWay}" />
                 </MenuFlyout>
             </Grid.ContextFlyout>

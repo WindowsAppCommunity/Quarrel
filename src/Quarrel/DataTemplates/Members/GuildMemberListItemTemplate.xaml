@@ -19,12 +19,12 @@
             <!--Secondary Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout>
-                    <MenuFlyoutItem Text="Profile" Command="{x:Bind OpenProfile, Mode=OneWay}"/>
-                    <MenuFlyoutItem Text="Message" Command="{x:Bind MessageCommand, Mode=OneWay}"/>
+                    <MenuFlyoutItem x:Uid="/DataTemplates/ProfileMFI" Text="Profile" Command="{x:Bind OpenProfile, Mode=OneWay}"/>
+                    <MenuFlyoutItem x:Uid="/DataTemplates/MessageMFI" Text="Message" Command="{x:Bind MessageCommand, Mode=OneWay}"/>
                     <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem Text="Change Nickname" IsEnabled="False"/>
+                    <MenuFlyoutItem x:Uid="/DataTemplates/ChangeNicknameMFI" Text="Change Nickname" IsEnabled="False"/>
                     <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem Text="Copy ID" Command="{x:Bind CopyId, Mode=OneWay}"/>
+                    <MenuFlyoutItem x:Uid="/DataTemplates/CopyIdMFI" Text="Copy ID" Command="{x:Bind CopyId, Mode=OneWay}"/>
                 </MenuFlyout>
             </UserControl.ContextFlyout>
             <Grid Padding="12,0,22,0">

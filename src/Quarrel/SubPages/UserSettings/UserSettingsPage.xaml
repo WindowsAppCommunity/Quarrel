@@ -16,20 +16,20 @@
                         OpenPaneLength="180" CompactModeThresholdWidth="0"
                         SelectionChanged="NavigationView_SelectionChanged">
             <ctl:NavigationView.MenuItems>
-                <ctl:NavigationViewItemHeader Content="User Settings"/>
-                <ctl:NavigationViewItem x:Name="MyAccountItem" Icon="ContactInfo" Content="My Account"/>
-                <ctl:NavigationViewItem x:Name="PrivacyItem" Icon="Permissions" Content="Privacy"/>
-                <ctl:NavigationViewItem IsEnabled="False" x:Name="ConnectionsItem" Content="Connections">
+                <ctl:NavigationViewItemHeader x:Uid="/UserSettings/UserSettingsNVIH" Content="User Settings"/>
+                <ctl:NavigationViewItem x:Uid="/UserSettings/MyAccountNVI" x:Name="MyAccountItem" Icon="ContactInfo" Content="My Account"/>
+                <ctl:NavigationViewItem x:Uid="/UserSettings/PrivacyNVI" x:Name="PrivacyItem" Icon="Permissions" Content="Privacy"/>
+                <ctl:NavigationViewItem x:Uid="/UserSettings/ConnectionsNVI" IsEnabled="False" x:Name="ConnectionsItem" Content="Connections">
                     <ctl:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE72D;" FontFamily="Segoe MDL2 Assets" />
                     </ctl:NavigationViewItem.Icon>
                 </ctl:NavigationViewItem>
 
-                <ctl:NavigationViewItemHeader Content="App Settings"/>
-                <ctl:NavigationViewItem x:Name="DisplayItem" Icon="View" Content="Display"/>
-                <ctl:NavigationViewItem x:Name="BehaviorItem" Icon="TouchPointer" Content="Behavior"/>
-                <ctl:NavigationViewItem IsEnabled="False" x:Name="NotificationsItem" Icon="Important" Content="Notifications"/>
-                <ctl:NavigationViewItem x:Name="VoiceItem" Icon="Microphone" Content="Voice"/>
+                <ctl:NavigationViewItemHeader x:Uid="/UserSettings/AppSettingsNVIH" Content="App Settings"/>
+                <ctl:NavigationViewItem x:Uid="/UserSettings/DisplayNVI" x:Name="DisplayItem" Icon="View" Content="Display"/>
+                <ctl:NavigationViewItem x:Uid="/UserSettings/BehaviorNVI" x:Name="BehaviorItem" Icon="TouchPointer" Content="Behavior"/>
+                <ctl:NavigationViewItem x:Uid="/UserSettings/NotificationsNVI" IsEnabled="False" x:Name="NotificationsItem" Icon="Important" Content="Notifications"/>
+                <ctl:NavigationViewItem x:Uid="/UserSettings/VoiceNVI" x:Name="VoiceItem" Icon="Microphone" Content="Voice"/>
             </ctl:NavigationView.MenuItems>
 
             <Grid>
@@ -39,7 +39,7 @@
                 </Grid.RowDefinitions>
 
                 <Border>
-                    <TextBlock x:Name="HeaderTB" Text="My Account" Margin="16,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
+                    <TextBlock x:Name="HeaderTB" Margin="16,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
                 </Border>
 
                 <Frame x:Name="SettingsFrame" Grid.Row="1" Margin="12,8"/>

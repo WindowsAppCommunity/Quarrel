@@ -809,14 +809,14 @@
                     </Rectangle>
                     <CommandBar x:Name="commandBar" Background="Transparent" VerticalAlignment="Bottom" Style="{StaticResource CommandBarStyle2}">
                         <CommandBar.PrimaryCommands>
-                            <AppBarButton x:Uid="/Dialogs/SaveABB" Icon="Save" Label="Save" Click="Save"/>
-                            <AppBarButton x:Uid="/Dialogs/ShareABB" Label="Share" Click="Share">
+                            <AppBarButton x:Uid="/MiscSubs/SaveABB" Icon="Save" Label="Save" Click="Save"/>
+                            <AppBarButton x:Uid="/MiscSubs/ShareABB" Label="Share" Click="Share">
                                 <AppBarButton.Icon>
                                     <FontIcon Glyph="&#xE72D;"/>
                                 </AppBarButton.Icon>
                             </AppBarButton>
-                            <AppBarButton x:Uid="/Dialogs/OpenInBrowserABB" Icon="Globe" Label="Open in browser" Click="Open"/>
-                            <AppBarButton x:Uid="/Dialogs/CopyLinkABB" Icon="Link" Label="Copy link" Click="CopyLink"/>
+                            <AppBarButton x:Uid="/MiscSubs/OpenInBrowserABB" Icon="Globe" Label="Open In Browser" Click="Open"/>
+                            <AppBarButton x:Uid="/MiscSubs/CopyLinkABB" Icon="Link" Label="Copy Link" Click="CopyLink"/>
                         </CommandBar.PrimaryCommands>
                         <CommandBar.SecondaryCommands>
                             <AppBarButton Label="test"/>
@@ -828,10 +828,10 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="12,0,0,0">
-                                    <TextBlock x:Uid="/Dialogs/FileNameTB" FontSize="14" FontWeight="SemiBold" Text="File name:"/>
-                                    <TextBlock x:Uid="/Dialogs/FileSizeTB" FontSize="14" FontWeight="SemiBold" Text="File size:"/>
-                                    <TextBlock x:Uid="/Dialogs/WidthTB" FontSize="14" FontWeight="SemiBold" Text="Width:"/>
-                                    <TextBlock x:Uid="/Dialogs/HeightTB" FontSize="14" FontWeight="SemiBold" Text="Height:"/>
+                                    <TextBlock x:Uid="/MiscSubs/FileNameTB" FontSize="14" FontWeight="SemiBold" Text="File name:"/>
+                                    <TextBlock x:Uid="/MiscSubs/FileSizeTB" FontSize="14" FontWeight="SemiBold" Text="File size:"/>
+                                    <TextBlock x:Uid="/MiscSubs/WidthTB" FontSize="14" FontWeight="SemiBold" Text="Width:"/>
+                                    <TextBlock x:Uid="/MiscSubs/HeightTB" FontSize="14" FontWeight="SemiBold" Text="Height:"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" HorizontalAlignment="Right" Margin="48,0,12,0">
                                     <TextBlock FontSize="14" Text="{x:Bind ViewModel.AsFile.Filename, Mode=OneWay}"/>
