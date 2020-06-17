@@ -456,7 +456,7 @@
             <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="24" Width="2" Background="{ThemeResource Foreground}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="0.75"/>
 
             <!--Mention Notifications and Glow-->
-            <Grid x:Name="grid" Visibility="{x:Bind MentionCount, Converter={StaticResource MentionCountToVisiblityConverter}, Mode=OneWay}" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="-22,0,-24,0"
+            <Grid x:Name="grid" x:Load="{x:Bind baseconvert:PositiveIntToBoolConverter.Convert(MentionCount), Mode=OneWay}" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="-22,0,-24,0"
                   BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="2,0,0,0">
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0,0" StartPoint="1.3,0" ColorInterpolationMode="ScRgbLinearInterpolation" SpreadMethod="Pad">
@@ -600,7 +600,7 @@
 
             <!--Mention Notifications and Glow-->
             <Grid x:Name="grid"
-                  Visibility="{x:Bind MentionCount, Converter={StaticResource MentionCountToVisiblityConverter}, Mode=OneWay}"
+                  x:Load="{x:Bind baseconvert:PositiveIntToBoolConverter.Convert(MentionCount), Mode=OneWay}"
                   Grid.RowSpan="4"
                   Grid.ColumnSpan="4"
                   Margin="0,0,-24,0">
@@ -764,7 +764,7 @@
 
             <!--Mention Notifications and Glow-->
             <Grid x:Name="grid"
-                  Visibility="{x:Bind MentionCount, Converter={StaticResource MentionCountToVisiblityConverter}, Mode=OneWay}"
+                  x:Load="{x:Bind baseconvert:PositiveIntToBoolConverter.Convert(MentionCount), Mode=OneWay}"
                   Grid.RowSpan="4"
                   Grid.ColumnSpan="4"
                   Margin="0,0,-24,0">

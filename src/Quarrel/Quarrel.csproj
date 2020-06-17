@@ -289,7 +289,6 @@
     <Compile Include="Converters\Base\StreamToBitmapImageConverter.cs" />
     <Compile Include="Converters\Base\TimeSpanToTextConverter.cs" />
     <Compile Include="Converters\Base\UriToImageSourceConverter.cs" />
-    <Compile Include="Converters\Channel\MentionCountToVisiblityConverter.cs" />
     <Compile Include="Converters\Channel\SelectedToOpacityConverter.cs" />
     <Compile Include="Converters\Channel\TypeToForegroundBrushConverter.cs" />
     <Compile Include="Converters\Channel\TypeToMinHeightConverter.cs" />
