@@ -2,16 +2,16 @@
     x:Class="Quarrel.DataTemplates.Channels.ChannelTemplate"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:bindables="using:Quarrel.ViewModels.Models.Bindable"
-    xmlns:channelbindables="using:Quarrel.ViewModels.Models.Bindables.Channels"
-    xmlns:local="using:Quarrel.DataTemplates.Channels"
-    xmlns:baseconvert="using:Quarrel.Converters.Base"
-    xmlns:channelcontrols="using:Quarrel.Controls.Channels"
-    xmlns:controls="using:Quarrel.Controls"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:tkcontrols="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
-    xmlns:tkcontrols="using:Microsoft.Toolkit.Uwp.UI.Controls">
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:controls="using:Quarrel.Controls"
+    xmlns:channelcontrols="using:Quarrel.Controls.Channels"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
+    xmlns:channelconvert="using:Quarrel.Converters.Channel"
+    xmlns:discordconvert="using:Quarrel.Converters.Discord"
+    xmlns:channelbindables="using:Quarrel.ViewModels.Models.Bindables.Channels"
+    xmlns:behaviors="using:Quarrel.Xaml.Behaviors">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../Converters.xaml"/>
     </ResourceDictionary.MergedDictionaries>
@@ -439,7 +439,7 @@
                 </MenuFlyout>
             </Grid.ContextFlyout>
             <Grid.Background>
-                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
+                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -456,7 +456,7 @@
             <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="24" Width="2" Background="{ThemeResource Foreground}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="0.75"/>
 
             <!--Mention Notifications and Glow-->
-            <Grid x:Name="grid" Visibility="{x:Bind MentionCount, Converter={StaticResource MentionCountToVisiblityConverter}, Mode=OneWay}" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="-22,0,-24,0"
+            <Grid x:Name="grid" x:Load="{x:Bind baseconvert:PositiveIntToBoolConverter.Convert(MentionCount), Mode=OneWay}" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="-22,0,-24,0"
                   BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="2,0,0,0">
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0,0" StartPoint="1.3,0" ColorInterpolationMode="ScRgbLinearInterpolation" SpreadMethod="Pad">
@@ -477,10 +477,12 @@
             </StackPanel>
 
             <!--Typing-->
-            <controls:TypingIndicator Grid.Column="2"
-                                      Visibility="{x:Bind IsTyping, Mode=OneWay}"
-                                      HorizontalAlignment="Right"
-                                      Margin="6,0" />
+            <controls:TypingIndicator
+                x:Name="TypingIndicator" 
+                Grid.Column="2"
+                x:Load="{x:Bind IsTyping, Mode=OneWay}"
+                HorizontalAlignment="Right"
+                Margin="6,0" />
         </Grid>
     </DataTemplate>
 
@@ -498,7 +500,7 @@
                 </MenuFlyout>
             </Grid.ContextFlyout>
             <Grid.Background>
-                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
+                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -571,7 +573,7 @@
 
             <Grid.Background>
                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}"
-                                 Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}" />
+                                 Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}" />
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -598,7 +600,7 @@
 
             <!--Mention Notifications and Glow-->
             <Grid x:Name="grid"
-                  Visibility="{x:Bind MentionCount, Converter={StaticResource MentionCountToVisiblityConverter}, Mode=OneWay}"
+                  x:Load="{x:Bind baseconvert:PositiveIntToBoolConverter.Convert(MentionCount), Mode=OneWay}"
                   Grid.RowSpan="4"
                   Grid.ColumnSpan="4"
                   Margin="0,0,-24,0">
@@ -637,7 +639,7 @@
             </Grid>
 
             <Rectangle Visibility="{x:Bind ShowIconBackdrop, Mode=OneWay}"
-                       Fill="{x:Bind FirstUserDiscriminator, Converter={StaticResource DiscriminatorToBrushConverter}, Mode=OneWay}"
+                       Fill="{x:Bind discordconvert:DiscriminatorToBrushConverter.Convert(FirstUserDiscriminator), Mode=OneWay}"
                        x:Name="ChannelImageBackdrop"
                        Width="36"
                        Height="36"
@@ -703,8 +705,9 @@
             </StackPanel>
 
             <!--Typing-->
-            <controls:TypingIndicator Grid.Column="2"
-                                      Visibility="{x:Bind IsTyping, Mode=OneWay}"
+            <controls:TypingIndicator x:Name="TypingIndicator"
+                                      Grid.Column="2"
+                                      x:Load="{x:Bind IsTyping, Mode=OneWay}"
                                       HorizontalAlignment="Right"
                                       Margin="6,0" />
         </Grid>
@@ -734,7 +737,7 @@
 
             <Grid.Background>
                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}"
-                                 Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}" />
+                                 Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}" />
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -761,7 +764,7 @@
 
             <!--Mention Notifications and Glow-->
             <Grid x:Name="grid"
-                  Visibility="{x:Bind MentionCount, Converter={StaticResource MentionCountToVisiblityConverter}, Mode=OneWay}"
+                  x:Load="{x:Bind baseconvert:PositiveIntToBoolConverter.Convert(MentionCount), Mode=OneWay}"
                   Grid.RowSpan="4"
                   Grid.ColumnSpan="4"
                   Margin="0,0,-24,0">
@@ -801,7 +804,7 @@
 
             <!--Icon-->
             <Rectangle Visibility="{x:Bind ShowIconBackdrop, Mode=OneWay}"
-                       Fill="{x:Bind FirstUserDiscriminator, Converter={StaticResource DiscriminatorToBrushConverter}, Mode=OneWay}"
+                       Fill="{x:Bind discordconvert:DiscriminatorToBrushConverter.Convert(FirstUserDiscriminator), Mode=OneWay}"
                        x:Name="ChannelImageBackdrop"
                        Width="36"
                        Height="36"
@@ -824,7 +827,7 @@
                 <StackPanel Orientation="Horizontal"
                             VerticalAlignment="Center">
                     <SymbolIcon x:Name="MuteIcon"
-                                Visibility="{x:Bind Muted, Mode=OneWay}"
+                                x:Load="{x:Bind Muted, Mode=OneWay}"
                                 Symbol="Mute"
                                 Margin="0,0,4,0"
                                 Opacity="0.35" />
@@ -867,8 +870,9 @@
             </StackPanel>
 
             <!--Typing-->
-            <controls:TypingIndicator Grid.Column="2"
-                                      Visibility="{x:Bind IsTyping, Mode=OneWay}"
+            <controls:TypingIndicator x:Name="TypingIndicator"
+                                      Grid.Column="2"
+                                      x:Load="{x:Bind IsTyping, Mode=OneWay}"
                                       HorizontalAlignment="Right"
                                       Margin="6,0" />
         </Grid>
@@ -897,7 +901,7 @@
                 <!--Flyout-->
                 <StackPanel.Background>
                     <SolidColorBrush Color="{ThemeResource SystemAccentColor}"
-                                     Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}" />
+                                     Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}" />
                 </StackPanel.Background>
 
                 <TextBlock Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(Permissions.ReadMessages)}"

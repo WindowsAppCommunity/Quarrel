@@ -22,8 +22,6 @@
         <auditlogconvert:ChangeToMarkdownConverter x:Key="ChangeToMarkdownConverter"/>
         <auditlogconvert:ChangeToVisibilityConveter x:Key="ChangeToVisibilityConveter"/>
 
-        <discordconvert:SnowflakeToTimeFormatConveter x:Key="SnowflakeToTimeFormatConveter"/>
-
         <DataTemplate x:Key="AuditLogChangeTemplate" x:DataType="guildmodels:Change">
             <quarrel:MarkdownTextBlock Text="{x:Bind Converter={StaticResource ChangeToMarkdownConverter}}"
                                         FontSize="12"
@@ -53,7 +51,7 @@
                     <!--                       HalfOpacityMode="True" -->
 
                     <!--Time-->
-                    <TextBlock Text="{x:Bind Id, Converter={StaticResource SnowflakeToTimeFormatConveter}}"
+                    <TextBlock Text="{x:Bind discordconvert:SnowflakeToTimeFormatConveter.Convert(Id)}"
                                Margin="4,0,0,0" FontSize="11" Opacity="0.4"/>
 
                     <!--Details-->

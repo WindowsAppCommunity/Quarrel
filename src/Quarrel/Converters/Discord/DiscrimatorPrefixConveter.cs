@@ -1,25 +1,20 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using System;
-using Windows.UI.Xaml.Data;
-
 namespace Quarrel.Converters.Discord
 {
     /// <summary>
     /// A converter that adds a <see langword="'#'"/> to the front of a <see cref="string"/>.
     /// </summary>
-    public sealed class DiscrimatorPrefixConveter : IValueConverter
+    public sealed class DiscrimatorPrefixConveter
     {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, string language)
+        /// <summary>
+        /// Adds a <see langword="'#'"/> prefix to a <see cref="string"/>.
+        /// </summary>
+        /// <param name="value">The original string.</param>
+        /// <returns>The prefixed string</returns>
+        public static string Convert(string value)
         {
             return "#" + value.ToString();
-        }
-
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -82,7 +82,7 @@
 
         <!--Typing indicator-->
         <Grid Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.Convert(ViewModel.CurrentChannel), Mode=OneWay}" Margin="12,0,0,0">
-            <StackPanel Visibility="{x:Bind ViewModel.CurrentChannel.IsTyping, Mode=OneWay}" Orientation="Horizontal" VerticalAlignment="Bottom">
+            <StackPanel x:Name="TypingIndicator" x:Load="{x:Bind ViewModel.CurrentChannel.IsTyping, Mode=OneWay}" Orientation="Horizontal" VerticalAlignment="Bottom">
                 <controls:TypingIndicator/>
                 <TextBlock Text="{x:Bind ViewModel.CurrentChannel.TypingText, Mode=OneWay}" FontSize="12" Margin="8,0,0,0"/>
             </StackPanel>

@@ -15,7 +15,7 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter"/>
+        <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter" />
     </UserControl.Resources>
     <Grid Background="{StaticResource AcrylicUserBackground}">
         <!--Shadow-->
@@ -34,7 +34,7 @@
         </Rectangle>
         
         <!--Audio In Visualizer-->
-        <controls:AudioVisualizer Input="True"/>
+        <controls:AudioVisualizer x:Name="AudioVisualizer" x:Load="{x:Bind ViewModel.VoiceState.ChannelId, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Input="True"/>
 
         <!--Button-->
         <Button

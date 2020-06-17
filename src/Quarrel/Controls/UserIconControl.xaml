@@ -12,17 +12,13 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <UserControl.Resources>
-        <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter" />
-    </UserControl.Resources>
-
     <Grid>
         <toolkit:DropShadowPanel Width="{x:Bind Size, Mode=OneWay}"
                                  Height="{x:Bind Size, Mode=OneWay}"
                                  x:Name="presenceShadow"
                                  x:Load="{x:Bind ShowPresence, Mode=OneWay}"
                                  BlurRadius="10"
-                                 Color="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}">
+                                 Color="{x:Bind discordconvert:PresenseToColorConverter.Convert(ViewModel.Presence.Status), Mode=OneWay}">
             <Rectangle Width="{x:Bind Size, Mode=OneWay}"
                        Height="{x:Bind Size, Mode=OneWay}"
                        RadiusX="{x:Bind Size, Mode=OneWay}"
