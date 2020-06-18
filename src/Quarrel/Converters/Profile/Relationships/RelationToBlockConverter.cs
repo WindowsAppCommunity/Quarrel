@@ -1,26 +1,22 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using System;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Data;
 
 namespace Quarrel.Converters.Profile.Relationships
 {
     /// <summary>
-    /// A converter that returns a <see cref="Visibility.Visible"/> value if the user doesn't already have a blocked relation status.
+    /// A converter that returns true if the user doesn't already have a blocked relation status.
     /// </summary>
-    public sealed class RelationToBlockConverter : IValueConverter
+    public sealed class RelationToBlockConverter
     {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, string language)
+        /// <summary>
+        /// Whether or not to show the blocked button.
+        /// </summary>
+        /// <param name="value">The relation ship status.</param>
+        /// <returns>Whether or not to show the blocked button</returns>
+        public static bool Convert(int value)
         {
-            return ((int)value != 2 && (int)value != -1) ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
+            return value != 2 && value != -1;
         }
     }
 }

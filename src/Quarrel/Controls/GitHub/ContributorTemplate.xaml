@@ -63,7 +63,7 @@
                     <TranslateTransform x:Name="CommitTranslate"/>
                 </StackPanel.RenderTransform>
                 <TextBlock Text="{x:Bind ViewModel.CommitsCount}" FontSize="12" Opacity="0.9" VerticalAlignment="Center"/>
-                <TextBlock Text="Commits" Margin="2,0,0,0" FontSize="10" Opacity="0.7" VerticalAlignment="Center"/>
+                <TextBlock x:Uid="/Controls/CommitsTB" Text="Commits" Margin="2,0,0,0" FontSize="10" Opacity="0.7" VerticalAlignment="Center"/>
             </StackPanel>
             
             <!--Image-->

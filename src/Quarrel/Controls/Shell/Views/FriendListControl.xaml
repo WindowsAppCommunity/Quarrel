@@ -26,13 +26,13 @@
             
             <!--Friends Page Button-->
             <ListViewItem FontSize="13.333" FontWeight="SemiBold" Width="100" HorizontalContentAlignment="Center">
-                <TextBlock Text="FRIENDS" HorizontalAlignment="Center"/>
+                <TextBlock x:Uid="/Controls/FriendsTB2" Text="FRIENDS" HorizontalAlignment="Center"/>
             </ListViewItem>
 
             <!--Pending Page Button-->
             <ListViewItem FontSize="13.333" FontWeight="SemiBold" Width="100" HorizontalContentAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock Text="PENDING"/>
+                    <TextBlock x:Uid="/Controls/PendingTB" Text="PENDING"/>
                     
                     <!--Pending Page button indicator-->
                     <Border Margin="6,0,0,-2" Background="{ThemeResource InvertedBG}" CornerRadius="2">
@@ -44,7 +44,7 @@
 
             <!--Blocked Page Button-->
             <ListViewItem FontSize="13.333" FontWeight="SemiBold" Width="100" HorizontalContentAlignment="Center">
-                <TextBlock Text="BLOCKED" HorizontalAlignment="Center"/>
+                <TextBlock x:Uid="/Controls/BlockedTB" Text="BLOCKED" HorizontalAlignment="Center"/>
             </ListViewItem>
         </ListView>
 

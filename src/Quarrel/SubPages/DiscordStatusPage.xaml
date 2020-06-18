@@ -45,9 +45,6 @@
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
-
-        <apistatusconvert:StatusToBrushConverter x:Key="StatusToBrushConverter"/>
-        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
     </UserControl.Resources>
 
     <Grid x:Name="grid">
@@ -56,19 +53,19 @@
         </Grid.RenderTransform>
 
         <ProgressRing Visibility="{x:Bind ViewModel.Loading, Mode=OneWay}" IsActive="True" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBlock Visibility="{x:Bind ViewModel.FailedToLoad, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Text="FAILED TO GET DISCORD STATUS :/" TextWrapping="Wrap" FontWeight="SemiBold" Margin="12"/>
+        <TextBlock x:Uid="/MiscSubs/FailedToLoadTB" Visibility="{x:Bind ViewModel.FailedToLoad, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Text="FAILED TO GET DISCORD STATUS :/" TextWrapping="Wrap" FontWeight="SemiBold" Margin="12"/>
 
         <StackPanel>
             <Grid>
-                <TextBlock Text="DISCORD STATUS" FontWeight="SemiBold" Margin="24,14,0,0" FontSize="20"/>
-                <HyperlinkButton x:Name="detailsButton" NavigateUri="https://status.discordapp.com" HorizontalAlignment="Right" Content="Details" Style="{StaticResource PlainTextHyperlinkStyle}" VerticalAlignment="Center" FontSize="12" Opacity="0.75" Margin="0,17,24,0"/>
+                <TextBlock x:Uid="/MiscSubs/DiscordStatusTB" Text="DISCORD STATUS" FontWeight="SemiBold" Margin="24,14,0,0" FontSize="20"/>
+                <HyperlinkButton x:Uid="/MiscSubs/DetailsHBTN" x:Name="detailsButton" NavigateUri="https://status.discordapp.com" HorizontalAlignment="Right" Content="Details" Style="{StaticResource PlainTextHyperlinkStyle}" VerticalAlignment="Center" FontSize="12" Opacity="0.75" Margin="0,17,24,0"/>
             </Grid>
 
             <Border x:Name="StatusContainer" Visibility="{x:Bind ViewModel.Loaded, Mode=OneWay}" Margin="0,12,0,0" Padding="24,12" Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                 <TextBlock Text="{x:Bind ViewModel.Status.Status.Description, Mode=OneWay}" TextWrapping="Wrap" FontSize="16" FontWeight="SemiLight" Foreground="White"/>
             </Border>
 
-            <ScrollViewer x:Name="IncidentsScroller" Visibility="{x:Bind ViewModel.Incidents, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}">
+            <ScrollViewer x:Name="IncidentsScroller" x:Load="{x:Bind baseconvert:ContainsItemsToBoolConverter.Convert(ViewModel.Incidents), Mode=OneWay}">
                 <ItemsControl ItemsSource="{x:Bind ViewModel.Incidents, Mode=OneWay}" Margin="24,6,18,12">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="viewmodel:ComplexComponent">
@@ -113,19 +110,19 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Column="1" Opacity="0.6" FontWeight="Light" FontSize="14" Text="{x:Bind Name}"/>
-                            <TextBlock Grid.Column="2" Text="{x:Bind Status}" VerticalAlignment="Bottom" Foreground="{x:Bind Status, Converter={StaticResource StatusToBrushConverter}}" FontSize="11" Opacity="1" Margin="0,-2,0,0"/>
+                            <TextBlock Grid.Column="2" Text="{x:Bind Status}" VerticalAlignment="Bottom" Foreground="{x:Bind apistatusconvert:StatusToBrushConverter.Convert(Status)}" FontSize="11" Opacity="1" Margin="0,-2,0,0"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
             <Grid Margin="24,0,24,0" Visibility="{x:Bind ViewModel.Loaded, Mode=OneWay}">
-                <TextBlock Grid.Column="1" FontWeight="SemiLight" FontSize="16"  Text="API Response Time"/>
+                <TextBlock x:Uid="/MiscSubs/APIResponseTB" Grid.Column="1" FontWeight="SemiLight" FontSize="16" Text="API Response Time"/>
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Bottom">
-                    <HyperlinkButton x:Name="dayDuration" Content="Day" Margin="2,0" IsEnabled="False" FontSize="12" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowDayMetrics"/>
+                    <HyperlinkButton x:Uid="/MiscSubs/DayHBTN" x:Name="dayDuration" Content="Day" Margin="2,0" IsEnabled="False" FontSize="12" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowDayMetrics"/>
                     <TextBlock Text="/" FontSize="12" Margin="2,0" Opacity="0.2"/>
-                    <HyperlinkButton x:Name="weekDuration" Content="Week"  Margin="2,0" FontSize="12" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowWeekMetrics"/>
+                    <HyperlinkButton x:Uid="/MiscSubs/WeekHBTN" x:Name="weekDuration" Content="Week"  Margin="2,0" FontSize="12" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowWeekMetrics"/>
                     <TextBlock Text="/" FontSize="12" Margin="2,0" Opacity="0.2"/>
-                    <HyperlinkButton x:Name="monthDuration" Content="Month" Margin="2,0" FontSize="12" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowMonthMetrics"/>
+                    <HyperlinkButton x:Uid="/MiscSubs/MinthHBTN" x:Name="monthDuration" Content="Month" Margin="2,0" FontSize="12" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowMonthMetrics"/>
                 </StackPanel>
             </Grid>
             <Grid SizeChanged="FrameworkElement_OnSizeChanged"  Margin="0,12,0,6" PointerMoved="ChartCanvas_PointerMoved" PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">

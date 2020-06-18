@@ -7,26 +7,26 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
+    <ScrollViewer>
         <StackPanel Grid.Row="0" Margin="12,0,12,0" Padding="0,0,0,24">
-            <TextBlock x:Uid="/Settings/DMFilterTB" Text="DIRECT MESSAGE FILTERING" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0" TextWrapping="Wrap"/>
-            <TextBlock x:Uid="/Settings/DMFilterExpoTB" Text="Analyze and automatically delete direct messages containing explicit content" TextWrapping="Wrap"  FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.75"/>
+            <TextBlock x:Uid="/UserSettings/DMFilterTB" Text="DIRECT MESSAGE FILTERING" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0" TextWrapping="Wrap"/>
+            <TextBlock x:Uid="/UserSettings/DMFilterDescTB" Text="Analyze and automatically delete direct messages containing explicit content" TextWrapping="Wrap"  FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.75"/>
             <RadioButton IsChecked="{x:Bind ViewModel.FilterAll, Mode=TwoWay}" Style="{StaticResource DiscordRadioButton}" Foreground="{StaticResource online}" Margin="0,6,0,0" GroupName="Filtering">
                 <StackPanel>
-                    <TextBlock x:Uid="/Settings/ProtectMeTB" Text="Protect me"/>
-                    <TextBlock x:Uid="/Settings/ProtectMeExpoTB" FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Analyze all DMs" />
+                    <TextBlock x:Uid="/UserSettings/ProtectMeTB" Text="Protect me"/>
+                    <TextBlock x:Uid="/UserSettings/ProtectMeDescTB" FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Analyze all DMs" />
                 </StackPanel>
             </RadioButton>
             <RadioButton IsChecked="{x:Bind ViewModel.PublicFilter, Mode=TwoWay}" Style="{StaticResource DiscordRadioButton}" Foreground="{StaticResource idle}" GroupName="Filtering">
                 <StackPanel>
-                    <TextBlock x:Uid="/Settings/NiceFriendsTB" Text="My friends are nice"/>
-                    <TextBlock x:Uid="/Settings/NiceFriendsExpoTB" FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Analyze all DMs, except from my friends"/>
+                    <TextBlock x:Uid="/UserSettings/NiceFriendsTB" Text="My friends are nice"/>
+                    <TextBlock x:Uid="/UserSettings/NiceFriendsDescTB" FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Analyze all DMs, except from my friends"/>
                 </StackPanel>
             </RadioButton>
             <RadioButton IsChecked="{x:Bind ViewModel.NoFilter, Mode=TwoWay}" Style="{StaticResource DiscordRadioButton}" Foreground="{StaticResource dnd}" GroupName="Filtering">
                 <StackPanel>
-                    <TextBlock x:Uid="/Settings/DangerZoneTB" Text="I live dangerously"/>
-                    <TextBlock x:Uid="/Settings/DangerZoneExpoTB" FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Don't analyze any DMs"/>
+                    <TextBlock x:Uid="/UserSettings/DangerZoneTB" Text="I live dangerously"/>
+                    <TextBlock x:Uid="/UserSettings/DangerZoneDescTB" FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Don't analyze any DMs"/>
                 </StackPanel>
             </RadioButton>
             
@@ -36,5 +36,5 @@
                                         <CheckBox x:Uid="/Settings/MutualServerMembersCB" x:Name="FriendRequest2" Style="{StaticResource CheckBoxStyle1}" Margin="0,-4,0,0" Content="Mutual server members" Checked="FriendRequest_OnChecked" Unchecked="FriendRequest_OnChecked"/>
                                         <TextBlock x:Uid="/Settings/FullPrivacySettingsTB" Text="To access the rest of your privacy settings, please use the official Discord website or client" Margin="0,12,0,0" TextWrapping="Wrap" FontSize="12" Opacity="0.5"/>-->
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </Page>

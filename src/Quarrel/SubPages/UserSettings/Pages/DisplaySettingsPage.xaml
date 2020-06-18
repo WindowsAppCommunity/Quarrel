@@ -8,15 +8,15 @@
     xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     mc:Ignorable="d">
 
-    <ScrollViewer Windows10version1809:CanContentRenderOutsideBounds="True">
+    <ScrollViewer>
         <StackPanel>
-            <TextBlock Text="THEME" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0"/>
-            <TextBlock Text="(Restart required)" FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.75"/>
-            <RadioButton x:Name="radio_Dark" Style="{StaticResource DiscordRadioButton}" Content="Dark" GroupName="Theme" Margin="0,6,0,-4"
+            <TextBlock x:Uid="/UserSettings/ThemeTB" Text="THEME" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0"/>
+            <TextBlock x:Uid="/UserSettings/RestartRequiredTB" Text="(Restart required)" FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.75"/>
+            <RadioButton x:Uid="/UserSettings/DarkRBTN" x:Name="radio_Dark" Style="{StaticResource DiscordRadioButton}" Content="Dark" GroupName="Theme" Margin="0,6,0,-4"
                          IsChecked="{x:Bind ViewModel.Dark, Mode=TwoWay}"/>
-            <RadioButton x:Name="radio_Light" Style="{StaticResource DiscordRadioButton}" Content="Light" GroupName="Theme" Margin="0,0,0,-4"
+            <RadioButton x:Uid="/UserSettings/LightRBTN" x:Name="radio_Light" Style="{StaticResource DiscordRadioButton}" Content="Light" GroupName="Theme" Margin="0,0,0,-4"
                          IsChecked="{x:Bind ViewModel.Light, Mode=TwoWay}"/>
-            <RadioButton x:Name="radio_Windows" Style="{StaticResource DiscordRadioButton}" Content="Windows" GroupName="Theme" Margin="0,0,0,-4"
+            <RadioButton x:Uid="/UserSettings/WindowsRBTN" x:Name="radio_Windows" Style="{StaticResource DiscordRadioButton}" Content="Windows" GroupName="Theme" Margin="0,0,0,-4"
                          IsChecked="{x:Bind ViewModel.Windows, Mode=TwoWay}"/>
             <!--<RadioButton x:Name="radio_Discord" Style="{StaticResource DiscordRadioButton}" Content="Discord" GroupName="Theme"
                          IsEnabled="False" IsChecked="{x:Bind ViewModel.Discord, Mode=TwoWay}"/>
@@ -28,38 +28,38 @@
                 </StackPanel>
             </RadioButton>-->
 
-            <TextBlock Text="Accent color" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
-            <RadioButton x:Name="radioAccent_Discord" Style="{StaticResource DiscordRadioButton}" Foreground="#FF7289DA" Content="Discord Blurple" GroupName="Accent" Margin="0,6,0,-4"
+            <TextBlock x:Uid="/UserSettings/AccentColorTB" Text="Accent Color" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
+            <RadioButton x:Uid="/UserSettings/DiscordBlurpleRBTN" x:Name="radioAccent_Discord" Style="{StaticResource DiscordRadioButton}" Foreground="#FF7289DA" Content="Discord Blurple" GroupName="Accent" Margin="0,6,0,-4"
                          IsChecked="{x:Bind ViewModel.Blurple, Mode=TwoWay}"/>
-            <RadioButton x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource OGSystemAccentColorBrush}" Content="System accent color" GroupName="Accent"
+            <RadioButton x:Uid="/UserSettings/SystemAccountColorRBTN" x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource OGSystemAccentColorBrush}" Content="System Accent Color" GroupName="Accent"
                          IsChecked="{x:Bind ViewModel.SystemAccentColor, Mode=TwoWay}"/>
 
-            <Windows10version1809:TextBlock Text="Acrylic" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
-            <Windows10version1809:CheckBox Content="Message View" IsChecked="{x:Bind ViewModel.MessageViewAcrylic, Mode=TwoWay}" Style="{ThemeResource CheckBoxStyle1}"/>
-            <Windows10version1809:CheckBox Content="Channel and Member View" IsChecked="{x:Bind ViewModel.ChannelViewAcrylic, Mode=TwoWay}" Style="{ThemeResource CheckBoxStyle1}"/>
-            <Windows10version1809:CheckBox Content="Guild View" IsChecked="{x:Bind ViewModel.GuildViewAcrylic, Mode=TwoWay}" Style="{ThemeResource CheckBoxStyle1}"/>
-            <Windows10version1809:CheckBox Content="Command Bar" IsChecked="{x:Bind ViewModel.CommandBarAcrylic, Mode=TwoWay}" Style="{ThemeResource CheckBoxStyle1}"/>
+            <Windows10version1809:TextBlock x:Uid="/UserSettings/AcrylicTB" Text="Acrylic" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
+            <Windows10version1809:CheckBox x:Uid="/UserSettings/MessageViewCB" Content="Message View" IsChecked="{x:Bind ViewModel.MessageViewAcrylic, Mode=TwoWay}" Style="{ThemeResource CheckBoxStyle1}"/>
+            <Windows10version1809:CheckBox x:Uid="/UserSettings/ChannelViewCB" Content="Channel and Member View" IsChecked="{x:Bind ViewModel.ChannelViewAcrylic, Mode=TwoWay}" Style="{ThemeResource CheckBoxStyle1}"/>
+            <Windows10version1809:CheckBox x:Uid="/UserSettings/GuildViewCB" Content="Guild View" IsChecked="{x:Bind ViewModel.GuildViewAcrylic, Mode=TwoWay}" Style="{ThemeResource CheckBoxStyle1}"/>
+            <Windows10version1809:CheckBox x:Uid="/UserSettings/CommandBarCB" Content="Command Bar" IsChecked="{x:Bind ViewModel.CommandBarAcrylic, Mode=TwoWay}" Style="{ThemeResource CheckBoxStyle1}"/>
 
-            <TextBlock Text="OTHER" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
+            <TextBlock x:Uid="/UserSettings/OtherTB" Text="OTHER" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
             <CheckBox x:Name="ShowServerMute" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0"
                       IsChecked="{x:Bind ViewModel.ServerMuteIcons, Mode=TwoWay}">
                 <StackPanel Margin="0,2,0,0">
-                    <TextBlock Text="Server Mute Icon"/>
-                    <TextBlock Text="A mute icon that shows over muted servers on the server list" FontSize="11" Opacity="0.5"/>
+                    <TextBlock x:Uid="/UserSettings/ServerMuteIconTB" Text="Server Mute Icon"/>
+                    <TextBlock x:Uid="/UserSettings/ServerMuteIconDescTB" Text="A mute icon that shows over muted servers on the server list" FontSize="11" Opacity="0.5"/>
                 </StackPanel>
             </CheckBox>
             <CheckBox x:Name="ExpensiveUI" Style="{StaticResource CheckBoxStyle1}" MaxWidth="350"
                       IsChecked="{x:Bind ViewModel.ExpensiveRendering, Mode=TwoWay}">
                 <StackPanel Margin="0,2,0,0">
-                    <TextBlock Text="Expensive Rendering"/>
-                    <TextBlock Text="Enable various expensive graphics such as Blur Effects and Audio Visualizers" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Uid="/UserSettings/ExpensiveRenderingTB" Text="Expensive Rendering"/>
+                    <TextBlock x:Uid="/UserSettings/ExpensiveRenderingDescTB" Text="Enable various expensive graphics such as Blur Effects and Audio Visualizers" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
                 </StackPanel>
             </CheckBox>
             <CheckBox Style="{StaticResource CheckBoxStyle1}" MaxWidth="350"
                       IsChecked="{x:Bind ViewModel.FluentTheme, Mode=TwoWay}">
                 <StackPanel Margin="0,2,0,0">
-                    <TextBlock Text="Fluent Theme"/>
-                    <TextBlock Text="Enable an alternative fluent theme for Quarrel" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Uid="/UserSettings/FluentThemeTB" Text="Fluent Theme"/>
+                    <TextBlock x:Uid="/UserSettings/FluentThemeDescTB" Text="Enable an alternative fluent theme for Quarrel" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
                 </StackPanel>
             </CheckBox>
 

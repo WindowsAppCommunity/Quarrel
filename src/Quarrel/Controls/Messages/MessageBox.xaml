@@ -28,11 +28,6 @@
                                                           ChannelSuggestionTemplate="{StaticResource ChannelSuggestionTemplate}"
                                                           UserSuggestionTemplate="{StaticResource UserSuggestionTemplate}"/>
 
-            <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
-            <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
-            <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
-            <baseconvert:StreamToBitmapImageConverter x:Key="StreamToBitmapImageConverter"/>
-
             <Style x:Key="ContentButton" TargetType="Button">
                 <Setter Property="Foreground" Value="White"/>
                 <Setter Property="BorderThickness" Value="0"/>
@@ -1091,7 +1086,7 @@
         </Grid.RowDefinitions>
 
         <!--Disabled States-->
-        <Rectangle Visibility="{x:Bind IsEnabled, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" Fill="{ThemeResource Foreground}" Grid.RowSpan="2" Opacity="0.1"/>
+        <Rectangle Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsEnabled), Mode=OneWay}" Fill="{ThemeResource Foreground}" Grid.RowSpan="2" Opacity="0.1"/>
         <Rectangle Visibility="{x:Bind ViewModel.IsSending, Mode=OneWay}" Fill="{ThemeResource Background}" Grid.RowSpan="2" Opacity="0.5"/>
 
         <Popup x:Name="popup" IsOpen="True" VerticalOffset="-60"
@@ -1104,7 +1099,7 @@
         </Popup>
         
         <!--TextBox-->
-        <local:SelectionBindingTextBox x:Name="MessageEditor" BindableText="{x:Bind ViewModel.MessageText, Mode=TwoWay}" BindableSelectionStart="{x:Bind ViewModel.SelectionStart, Mode=TwoWay}" BindableSelectionLength="{x:Bind ViewModel.SelectionLength, Mode=TwoWay}" Padding="52,12,96,12" VerticalAlignment="Stretch"
+        <local:SelectionBindingTextBox x:Uid="/Controls/SendMessageTBox" x:Name="MessageEditor" BindableText="{x:Bind ViewModel.MessageText, Mode=TwoWay}" BindableSelectionStart="{x:Bind ViewModel.SelectionStart, Mode=TwoWay}" BindableSelectionLength="{x:Bind ViewModel.SelectionLength, Mode=TwoWay}" Padding="52,12,96,12" VerticalAlignment="Stretch"
                                        PlaceholderText="Send message" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MinHeight="64" MaxHeight="256"
                                        Paste="PasteFromClipboard" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" LostFocus="MessageEditor_LostFocus" GotFocus="MessageEditor_GotFocus" SizeChanged="MessageEditor_SizeChanged">
             <interactivity:Interaction.Behaviors>
@@ -1117,7 +1112,7 @@
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
         </local:SelectionBindingTextBox>
-        <Button x:Name="SendBox" IsEnabled="{x:Bind MessageEditor.Text, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}" Grid.Column="2"  Style="{StaticResource SendButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Stretch" Command="{x:Bind ViewModel.SendMessageCommand}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Width="48"/>
+        <Button x:Name="SendBox" IsEnabled="{x:Bind baseconvert:NotNullToBoolConverter.Convert(MessageEditor.Text), Mode=OneWay}" Grid.Column="2"  Style="{StaticResource SendButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Stretch" Command="{x:Bind ViewModel.SendMessageCommand}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Width="48"/>
 
         <!--Emoji Picker-->
         <Button HorizontalAlignment="Right" Margin="0,0,48,0" Foreground="{ThemeResource Foreground}" Style="{StaticResource ContentButton}" 
@@ -1136,7 +1131,7 @@
             </Grid>
             <Button.Flyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-                    <MenuFlyoutItem Text="Add attachement" Click="AddAttachment">
+                    <MenuFlyoutItem x:Uid="/Controls/AddAttachmentMFI" Text="Add attachement" Click="AddAttachment">
                         <MenuFlyoutItem.Icon>
                             <SymbolIcon Symbol="Attach"/>
                         </MenuFlyoutItem.Icon>
@@ -1156,7 +1151,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <tk:ImageEx Margin="8,0" Source="{x:Bind Value, Converter={StaticResource StreamToBitmapImageConverter}}"/>
+                        <tk:ImageEx Margin="8,0" Source="{x:Bind baseconvert:StreamToBitmapImageConverter.Convert(Value)}"/>
                         <Button Grid.Column="1" Style="{StaticResource TextBlockButtonStyle}" Foreground="{ThemeResource Foreground}" VerticalAlignment="Center"
                                 Click="RemoveAttachment" DataContext="{x:Bind}">
                             <FontIcon Glyph="" FontSize="16"/>

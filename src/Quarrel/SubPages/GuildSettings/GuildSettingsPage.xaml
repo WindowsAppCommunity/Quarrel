@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ctl="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    d:DesignHeight="300"
+    d:DesignHeight="550"
     d:DesignWidth="400">
 
     <Grid>
@@ -15,23 +15,23 @@
                         OpenPaneLength="180" CompactModeThresholdWidth="0"
                         SelectionChanged="NavigationView_SelectionChanged">
             <ctl:NavigationView.MenuItems>
-                <ctl:NavigationViewItem x:Name="OverviewItem" Icon="PreviewLink" Content="Overview"/>
+                <ctl:NavigationViewItem x:Uid="/GuildSettings/OverviewNVI" x:Name="OverviewItem" Icon="PreviewLink" Content="Overview"/>
 
-                <ctl:NavigationViewItemHeader Content="User's Server Settings"/>
-                <ctl:NavigationViewItem x:Name="PrivacyItem" Icon="Permissions" Content="Privacy"/>
-                <ctl:NavigationViewItem x:Name="NotificationsItem" Icon="Flag" Content="Notifications"/>
+                <ctl:NavigationViewItemHeader x:Uid="/GuildSettings/UserSettingsNVIH" Content="User's Server Settings"/>
+                <ctl:NavigationViewItem x:Uid="/GuildSettings/PrivacyNVIH" x:Name="PrivacyItem" Icon="Permissions" Content="Privacy"/>
+                <ctl:NavigationViewItem x:Uid="/GuildSettings/NotificationsMVIH" x:Name="NotificationsItem" Icon="Flag" Content="Notifications"/>
 
-                <ctl:NavigationViewItemHeader Content="Server Settings"/>
-                <ctl:NavigationViewItem x:Name="RolesItem" Icon="ContactPresence" Content="Roles" IsEnabled="False"/>
-                <ctl:NavigationViewItem x:Name="EmojisItem" Icon="Emoji" Content="Emojis" IsEnabled="False"/>
-                <ctl:NavigationViewItem x:Name="ModerationItem" Icon="Admin" Content="Moderation"/>
-                <ctl:NavigationViewItem x:Name="AuditLogItem" Icon="List" Content="Audit Log" IsEnabled="{x:Bind ViewModel.Permissions.ViewAuditLog, Mode=OneWay}"/>
+                <ctl:NavigationViewItemHeader x:Uid="/GuildSettings/ServerSettingsNVIH" Content="Server Settings"/>
+                <ctl:NavigationViewItem x:Uid="/GuildSettings/RolesNVI" x:Name="RolesItem" Icon="ContactPresence" Content="Roles" IsEnabled="False"/>
+                <ctl:NavigationViewItem x:Uid="/GuildSettings/EmojisNVI" x:Name="EmojisItem" Icon="Emoji" Content="Emojis" IsEnabled="False"/>
+                <ctl:NavigationViewItem x:Uid="/GuildSettings/ModerationNVI" x:Name="ModerationItem" Icon="Admin" Content="Moderation"/>
+                <ctl:NavigationViewItem x:Uid="/GuildSettings/AuditLogMVI" x:Name="AuditLogItem" Icon="List" Content="Audit Log" IsEnabled="{x:Bind ViewModel.Permissions.ViewAuditLog, Mode=OneWay}"/>
 
 
-                <ctl:NavigationViewItemHeader Content="User managment"/>
-                <ctl:NavigationViewItem IsEnabled="False" x:Name="MembersItem" Icon="People" Content="Members"/>
-                <ctl:NavigationViewItem x:Name="InvitesItem" Icon="AddFriend" Content="Invites" IsEnabled="{x:Bind ViewModel.Permissions.ManangeGuild, Mode=OneWay}"/>
-                <ctl:NavigationViewItem x:Name="BansItem" Icon="BlockContact" Content="Bans" IsEnabled="{x:Bind ViewModel.Permissions.BanMembers, Mode=OneWay}"/>
+                <ctl:NavigationViewItemHeader x:Uid="/GuildSettings/UserManagementNVIH" Content="User Managment"/>
+                <ctl:NavigationViewItem x:Uid="/GuildSettings/MembersNVI" x:Name="MembersItem" Icon="People" Content="Members" IsEnabled="False"/>
+                <ctl:NavigationViewItem x:Uid="/GuildSettings/InvitesNVI" x:Name="InvitesItem" Icon="AddFriend" Content="Invites" IsEnabled="{x:Bind ViewModel.Permissions.ManangeGuild, Mode=OneWay}"/>
+                <ctl:NavigationViewItem x:Uid="/GuildSettings/BansNVI" x:Name="BansItem" Icon="BlockContact" Content="Bans" IsEnabled="{x:Bind ViewModel.Permissions.BanMembers, Mode=OneWay}"/>
             </ctl:NavigationView.MenuItems>
 
             <Grid>
@@ -41,7 +41,7 @@
                 </Grid.RowDefinitions>
 
                 <Border>
-                    <TextBlock x:Name="HeaderTB" Text="Overview" Margin="16,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
+                    <TextBlock x:Name="HeaderTB" Margin="16,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
                 </Border>
 
                 <Frame x:Name="SettingsFrame" Grid.Row="1" Margin="12,8"/>

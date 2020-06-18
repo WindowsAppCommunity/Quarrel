@@ -1,25 +1,20 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using System;
-using Windows.UI.Xaml.Data;
-
 namespace Quarrel.Converters.Base
 {
     /// <summary>
     /// A converter that returns an inverted <see cref="bool"/>.
     /// </summary>
-    public sealed class NotBoolToBoolConverter : IValueConverter
+    public sealed class NotBoolToBoolConverter
     {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, string language)
+        /// <summary>
+        /// Inverts a boolean.
+        /// </summary>
+        /// <param name="value">The original boolean.</param>
+        /// <returns>The inverted boolean.</returns>
+        public static bool Convert(bool value)
         {
-            return !(bool)value;
-        }
-
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
+            return !value;
         }
     }
 }

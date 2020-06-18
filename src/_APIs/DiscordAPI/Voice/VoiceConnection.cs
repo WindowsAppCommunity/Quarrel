@@ -144,7 +144,7 @@ namespace DiscordAPI.Voice
             {
                 Type = EventNames.IDENTIFY,
                 Operation = OperationCode.Identify.ToInt(),
-                Payload = GetIdentityAsync()
+                Payload = GetIdentityAsync(),
             };
 
             await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
@@ -154,7 +154,7 @@ namespace DiscordAPI.Voice
         {
             DownstreamEvents.Speak Event = new DownstreamEvents.Speak
             {
-                Speaking = speaking
+                Speaking = speaking,
             };
             Speak?.Invoke(this, new VoiceConnectionEventArgs<DownstreamEvents.Speak>(Event));
 
@@ -201,7 +201,7 @@ namespace DiscordAPI.Voice
                 SessionId = _state.SessionId,
                 Token = _voiceServerConfig.Token,
                 UserId = _state.UserId,
-                Video = false
+                Video = false,
             };
         }
 
@@ -290,7 +290,7 @@ namespace DiscordAPI.Voice
                 var heartbeatEvent = new SocketFrame
                 {
                     Operation = OperationCode.Heartbeat.ToInt(),
-                    Payload = Math.Round(DateTime.Now.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds)
+                    Payload = Math.Round(DateTime.Now.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds),
                 };
 
                 await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);

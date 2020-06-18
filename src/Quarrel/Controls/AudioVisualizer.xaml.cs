@@ -16,6 +16,7 @@ using System.Numerics;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Quarrel.ViewModels.Services.Voice;
 using AcrylicBrush = Microsoft.UI.Xaml.Media.AcrylicBrush;
 
 namespace Quarrel.Controls
@@ -76,6 +77,8 @@ namespace Quarrel.Controls
 
         private bool _input;
 
+        private bool _expensiveRendering;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AudioVisualizer"/> class.
         /// </summary>
@@ -86,6 +89,9 @@ namespace Quarrel.Controls
             (Resources["AcrylicBlur"] as AcrylicBrush).TintLuminosityOpacity = 0;
             Loaded += FftInitialize;
             Unloaded += FftDipose;
+            _expensiveRendering = SettingsService.Roaming.GetValue<bool>(SettingKeys.ExpensiveRendering);
+
+            // Todo: handle settings changes
         }
 
         /// <summary>
@@ -99,18 +105,20 @@ namespace Quarrel.Controls
                 _input = value;
                 if (value)
                 {
-                    WebrtcManager.AudioInData += DataRecieved;
-                    WebrtcManager.AudioOutData -= DataRecieved;
+                    VoiceService.AudioInData += DataRecieved;
+                    VoiceService.AudioOutData -= DataRecieved;
                 }
                 else
                 {
-                    WebrtcManager.AudioInData -= DataRecieved;
-                    WebrtcManager.AudioOutData += DataRecieved;
+                    VoiceService.AudioInData -= DataRecieved;
+                    VoiceService.AudioOutData += DataRecieved;
                 }
             }
         }
 
-        private IWebrtcManager WebrtcManager { get; } = SimpleIoc.Default.GetInstance<IWebrtcManager>();
+        private ISettingsService SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
+        private IVoiceService VoiceService { get; } = SimpleIoc.Default.GetInstance<IVoiceService>();
+
 
         /// <summary>
         /// Setup FFT.
@@ -118,7 +126,7 @@ namespace Quarrel.Controls
         private void FftInitialize(object sender, RoutedEventArgs e)
         {
             // If FFT is enabled, setup render smoothers for each data point
-            if (SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<bool>(SettingKeys.ExpensiveRendering))
+            if (_expensiveRendering)
             {
                 _smoothers[0] = new Smoother(4, 6);
                 _smoothers[1] = new Smoother(4, 12);
@@ -164,8 +172,8 @@ namespace Quarrel.Controls
             initailized = false;
 
             // Unsubscribe from events
-            WebrtcManager.AudioInData -= DataRecieved;
-            WebrtcManager.AudioOutData -= DataRecieved;
+            VoiceService.AudioInData -= DataRecieved;
+            VoiceService.AudioOutData -= DataRecieved;
             Loaded -= FftInitialize;
             Unloaded -= FftDipose;
         }
@@ -237,7 +245,7 @@ namespace Quarrel.Controls
         /// </summary>
         private void CanvasAnimatedControl_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-            if (SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<bool>(SettingKeys.ExpensiveRendering))
+            if (_expensiveRendering)
             {
                 if (!initailized)
                 {

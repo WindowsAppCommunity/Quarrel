@@ -9,16 +9,12 @@
     xmlns:message="using:Quarrel.Controls.Messages"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
-    </Page.Resources>
-
     <StackPanel>
         <StackPanel Orientation="Horizontal" Margin="0,24,0,0"
                 VerticalAlignment="Top" HorizontalAlignment="Center">
-            <TextBox PlaceholderText="Join Code" Width="200" Style="{StaticResource TextBoxStyle1}"
+            <TextBox x:Uid="/AddServer/JoinCodeTB" PlaceholderText="Join Code" Width="200" Style="{StaticResource TextBoxStyle1}"
                  Text="{x:Bind ViewModel.JoinCode, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <Button Content="Join" Style="{StaticResource DiscordButton}"
+            <Button x:Uid="/AddServer/JoinBTN" Content="Join" Style="{StaticResource DiscordButton}"
                 Command="{x:Bind ViewModel.JoinServerCommand, Mode=OneWay}"/>
         </StackPanel>
 

@@ -11,35 +11,28 @@
     d:DesignHeight="48"
     d:DesignWidth="224">
 
-    <UserControl.Resources>
-        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter" />
-        <baseconvert:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
-        <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-        <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
-    </UserControl.Resources>
-
     <Button x:Name="rootButton" Style="{ThemeResource DiscordOpaqueButton}" Background="Transparent"
             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
             MinHeight="48" HorizontalContentAlignment="Left">
         <!--Guild Flyout-->
         <Button.Flyout>
             <MenuFlyout Placement="Bottom" MenuFlyoutPresenterStyle="{StaticResource GuildButtonFlyoutStyle}">
-                <MenuFlyoutItem Icon="AddFriend" Text="Invite People" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource SystemAccentColor}" Visibility="{x:Bind ViewModel.Permissions.CreateInstantInvite, Mode=OneWay}"
+                <MenuFlyoutItem x:Uid="/Controls/AddChannelMFI" Icon="AddFriend" Text="Invite People" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource SystemAccentColor}" Visibility="{x:Bind ViewModel.Permissions.CreateInstantInvite, Mode=OneWay}"
                                 Command="{x:Bind ViewModel.CreateInvite, Mode=OneWay}"/>
                 <MenuFlyoutSeparator Visibility="{x:Bind ViewModel.Permissions.CreateInstantInvite, Mode=OneWay}" Width="224"/>
-                <MenuFlyoutItem Icon="Setting" Text="Settings" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Command="{x:Bind ViewModel.OpenGuildSettings}"/>
+                <MenuFlyoutItem x:Uid="/Controls/GuildSettingsMFI" Icon="Setting" Text="Settings" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Command="{x:Bind ViewModel.OpenGuildSettings}"/>
                 <MenuFlyoutSeparator Visibility="{x:Bind ViewModel.Permissions.ManageChannels, Mode=OneWay}"/>
-                <MenuFlyoutItem Icon="Add" Text="Add Channel" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Command="{x:Bind ViewModel.AddChannelCommand}" Visibility="{x:Bind ViewModel.Permissions.ManageChannels, Mode=OneWay}"/>
-                <MenuFlyoutSeparator Visibility="{x:Bind ViewModel.IsOwner, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
-                <MenuFlyoutItem Icon="Clear" Text="Leave Server" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource dnd}" Visibility="{x:Bind ViewModel.IsOwner, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
+                <MenuFlyoutItem x:Uid="/Controls/InvitePeopleMFI" Icon="Add" Text="Add Channel" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Command="{x:Bind ViewModel.AddChannelCommand}" Visibility="{x:Bind ViewModel.Permissions.ManageChannels, Mode=OneWay}"/>
+                <MenuFlyoutSeparator Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsOwner), Mode=OneWay}"/>
+                <MenuFlyoutItem x:Uid="/Controls/LeaveServerMFI" Icon="Clear" Text="Leave Server" Style="{ThemeResource GuildButtonFlyoutItemStyle}" Foreground="{ThemeResource dnd}" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsOwner), Mode=OneWay}"/>
             </MenuFlyout>
         </Button.Flyout>
 
         <Grid>
             <!--Banner-->
             <Image x:Name="Banner"
-                        x:Load="{x:Bind ViewModel.Model.BannerUri, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
-                        Source="{x:Bind ViewModel.Model.BannerUri, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"
+                        x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(ViewModel.Model.BannerUri), Mode=OneWay}"
+                        Source="{x:Bind baseconvert:UriToImageSourceConverter.Convert(ViewModel.Model.BannerUri), Mode=OneWay}"
                         Stretch="UniformToFill"
                         Height="128"
                         Margin="-12" />

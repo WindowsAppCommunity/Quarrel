@@ -1,30 +1,27 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using System;
-using Windows.UI.Xaml.Data;
 
 namespace Quarrel.Converters.Base
 {
     /// <summary>
     /// A converter that returns a <see cref="string"/> form of a <see cref="DateTime"/>.
     /// </summary>
-    public sealed class DateTimeToTextConverter : IValueConverter
+    public class DateTimeToTextConverter
     {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, string language)
+        /// <summary>
+        /// Converts a date time to a humanized string form.
+        /// </summary>
+        /// <param name="dt">The date time to print.</param>
+        /// <returns>The date time in string form.</returns>
+        public static string Convert(DateTime? dt)
         {
-            if (value is DateTime dt)
+            if (dt.HasValue)
             {
-                return dt.Humanize();
+                return dt.Value.Humanize();
             }
 
             return string.Empty;
-        }
-
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -9,30 +9,28 @@
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <baseconvert:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
-    </Page.Resources>
+    <ScrollViewer>
+        <StackPanel>
+            <Grid HorizontalAlignment="Left" Margin="0,12,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="64" Visibility="{x:Bind ViewModel.Guild.HasIcon, Mode=OneWay}">
+                    <Image Width="128" Height="128" Source="{x:Bind ViewModel.Guild.IconUrl, Mode=OneWay}"/>
+                </Border>
 
-    <StackPanel>
-        <Grid HorizontalAlignment="Left" Margin="0,12,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Border VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="64" Visibility="{x:Bind ViewModel.Guild.HasIcon, Mode=OneWay}">
-                <Image Width="128" Height="128" Source="{x:Bind ViewModel.Guild.IconUrl, Mode=OneWay}"/>
-            </Border>
-
-            <StackPanel Visibility="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}" Margin="0,6,0,0" Grid.Row="1">
-                <TextBlock Text="We recommend you use an image which is at least 512x512px" TextWrapping="Wrap" FontWeight="SemiLight" FontSize="13.333" Opacity="0.75"/>
-                <HyperlinkButton Content="Upload image" Click="UploadAvatar"
+                <StackPanel Visibility="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}" Margin="0,6,0,0" Grid.Row="1">
+                    <TextBlock x:Uid="/GuildSettings/SizeRecommendationTB" Text="We recommend you use an image which is at least 512x512px" TextWrapping="Wrap" FontWeight="SemiLight" FontSize="13.333" Opacity="0.75"/>
+                    <HyperlinkButton x:Uid="/GuildSettings/UploadImageHBTN" Content="Upload Image" Click="UploadAvatar"
                                  Style="{StaticResource PlainTextHyperlinkStyle}" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
-                <HyperlinkButton Content="Delete" Command="{x:Bind ViewModel.DeleteIcon, Mode=OneWay}"
+                    <HyperlinkButton x:Uid="/GuildSettings/DeleteHBTN" Content="Delete" Command="{x:Bind ViewModel.DeleteIcon, Mode=OneWay}"
                                  Style="{StaticResource PlainTextHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}"/>
-            </StackPanel>
-        </Grid>
-        <TextBox Text="{x:Bind ViewModel.Name, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" Header="Server Name" Style="{StaticResource TextBoxStyle1}" Margin="0,24,0,0"
-                 IsReadOnly="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}"/>
-        <!--<TextBlock x:Name="NameCharCounter" Text="100" Foreground="{ThemeResource InvertedBG}" FontSize="11" Opacity="0.5" HorizontalAlignment="Right" Margin="0,4,0,0"/>-->
-    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <TextBox Text="{x:Bind ViewModel.Name, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" Header="Server Name" Style="{StaticResource TextBoxStyle1}" Margin="0,24,0,0"
+                 IsReadOnly="{x:Bind baseconvert:NotBoolToBoolConverter.Convert(ViewModel.Guild.Permissions.ManangeGuild), Mode=OneWay}"/>
+            <!--<TextBlock x:Name="NameCharCounter" Text="100" Foreground="{ThemeResource InvertedBG}" FontSize="11" Opacity="0.5" HorizontalAlignment="Right" Margin="0,4,0,0"/>-->
+        </StackPanel>
+    </ScrollViewer>
 </Page>

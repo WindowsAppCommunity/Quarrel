@@ -1,30 +1,22 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using System;
-using Windows.UI.Xaml.Data;
 
 namespace Quarrel.Converters.Discord
 {
     /// <summary>
     /// A converter that returns a humanized DateTime based on a Discord snowflake (ID).
     /// </summary>
-    public class SnowflakeToTimeFormatConveter : IValueConverter
+    public class SnowflakeToTimeFormatConveter
     {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, string language)
+        /// <summary>
+        /// Converts a snowflake to a humanized date time.
+        /// </summary>
+        /// <param name="value">The snowflake.</param>
+        /// <returns>The date time.</returns>
+        public static string Convert(string value)
         {
-            if (value is string sValue)
-            {
-                return sValue.AsSnowflakeToTime().LocalDateTime.Humanize();
-            }
-
-            return string.Empty;
-        }
-
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
+            return value.AsSnowflakeToTime().LocalDateTime.Humanize();
         }
     }
 }
