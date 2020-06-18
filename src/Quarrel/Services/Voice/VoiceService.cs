@@ -34,7 +34,8 @@ namespace Quarrel.ViewModels.Services.Voice
         private readonly IDispatcherHelper _dispatcherHelper;
         private readonly IGatewayService _gatewayService;
         private readonly IWebrtcManager _webrtcManager;
-        private VoiceConnection _voiceConnection;
+        private readonly ISettingsService _settingsService;
+
         private AppServiceConnection _serviceConnection;
 
         /// <summary>
@@ -49,12 +50,14 @@ namespace Quarrel.ViewModels.Services.Voice
             IChannelsService channelsService,
             IDiscordService discordService,
             IDispatcherHelper dispatcherHelper,
-            IGatewayService gatewayService)
+            IGatewayService gatewayService,
+            ISettingsService settingsService)
         {
             _channelsService = channelsService;
             _discordService = discordService;
             _dispatcherHelper = dispatcherHelper;
             _gatewayService = gatewayService;
+            _settingsService = settingsService;
             _ = CreateAppService();
             Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, m =>
             {
@@ -105,16 +108,16 @@ namespace Quarrel.ViewModels.Services.Voice
                 ConnectToVoiceChannel(m.VoiceServer, VoiceStates[_discordService.CurrentUser.Id]);
             });
 
-            Messenger.Default.Register<SettingChangedMessage<string>>(this, m =>
+            Messenger.Default.Register<SettingChangedMessage<string>>(this, async (m) =>
             {
                 // Todo: this
                 switch (m.Key)
                 {
                     case SettingKeys.InputDevice:
-                        //_webrtcManager.SetRecordingDevice(m.Value);
+                        SetInputDevice(m.Value);
                         break;
                     case SettingKeys.OutputDevice:
-                        //_webrtcManager.SetPlaybackDevice(m.Value);
+                        SetOutputDevice(m.Value);
                         break;
                 }
             });
@@ -126,46 +129,74 @@ namespace Quarrel.ViewModels.Services.Voice
         /// <inheritdoc/>
         public async void ToggleDeafen()
         {
-            if (_voiceConnection != null)
+            var state = VoiceStates[_discordService.CurrentUser.Id];
+            state.SelfDeaf = !state.SelfDeaf;
+            var message = new ValueSet
             {
-                var state = _voiceConnection._state;
-                state.SelfDeaf = !state.SelfDeaf;
-                await _gatewayService.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute, state.SelfDeaf);
-            }
+                ["type"] = "voiceStateUpdate",
+                ["state"] = JsonConvert.SerializeObject(state),
+            };
+            AppServiceResponse response = await SendServiceMessage(message);
+
+            await _gatewayService.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute, state.SelfDeaf);
         }
 
         /// <inheritdoc/>
         public async void ToggleMute()
         {
-            if (_voiceConnection != null)
+            var state = VoiceStates[_discordService.CurrentUser.Id];
+            state.SelfMute = !state.SelfMute;
+            var message = new ValueSet
             {
-                var state = _voiceConnection._state;
-                state.SelfMute = !state.SelfMute;
-                await _gatewayService.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute, state.SelfDeaf);
-            }
+                ["type"] = "voiceStateUpdate",
+                ["state"] = JsonConvert.SerializeObject(state),
+            };
+            AppServiceResponse response = await SendServiceMessage(message);
+
+            await _gatewayService.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute, state.SelfDeaf);
+        }
+
+        public event EventHandler<IList<float>> AudioInData;
+        public event EventHandler<IList<float>> AudioOutData;
+
+        private void SetInputDevice(string id)
+        {
+            Task.Run(async() =>
+            {
+                var message = new ValueSet
+                {
+                    ["type"] = "inputDevice",
+                    ["id"] = id,
+                };
+                AppServiceResponse response = await SendServiceMessage(message);
+
+            });
+        }
+
+        private void SetOutputDevice(string id)
+        {
+            Task.Run(async () =>
+            {
+                var message = new ValueSet
+                {
+                    ["type"] = "outputDevice",
+                    ["id"] = id,
+                };
+                AppServiceResponse response = await SendServiceMessage(message);
+            });
         }
 
         private async void ConnectToVoiceChannel(VoiceServerUpdate data, VoiceState state)
         {
-            if (_serviceConnection != null)
-            {
-                if (!await CreateAppService())
-                {
-                    return;
-                }
-            }
-
             var message = new ValueSet
             {
                 ["type"] = "connect",
                 ["config"] = JsonConvert.SerializeObject(data),
                 ["state"] = JsonConvert.SerializeObject(state),
+                ["inputId"] = _settingsService.Roaming.GetValue<string>(SettingKeys.InputDevice),
+                ["outputId"] = _settingsService.Roaming.GetValue<string>(SettingKeys.OutputDevice),
             };
-            AppServiceResponse response = await _serviceConnection.SendMessageAsync(message);
-            return;
-            _voiceConnection = new VoiceConnection(data, state, _webrtcManager);
-            _voiceConnection.Speak += Speak;
-            await _voiceConnection.ConnectAsync();
+            AppServiceResponse response = await SendServiceMessage(message);
         }
 
         private async Task<bool> CreateAppService()
@@ -177,31 +208,66 @@ namespace Quarrel.ViewModels.Services.Voice
             };
 
             var status = await _serviceConnection.OpenAsync();
+
+            _serviceConnection.RequestReceived += OnRequestReceived;
+            _serviceConnection.ServiceClosed += OnServiceClosed;
+
             return status == AppServiceConnectionStatus.Success;
         }
 
-        private void DisconnectFromVoiceChannel()
+        private void OnServiceClosed(AppServiceConnection sender, AppServiceClosedEventArgs args)
         {
-            // Todo: this
-            //_webrtcManager.Destroy();
+            _serviceConnection = null;
         }
 
-        private void InputRecieved(object sender, float[] e)
+        private async void OnRequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
         {
+            AppServiceDeferral deferral = args.GetDeferral();
+            ValueSet message = args.Request.Message;
+
+            if (message == null || !message.ContainsKey("type"))
+            {
+
+                return;
+            }
+
+            switch (message["type"])
+            {
+                case "speaking":
+                    Speak speak = JsonConvert.DeserializeObject<Speak>(message["payload"] as string);
+                    Messenger.Default.Send(new SpeakMessage(speak));
+                    break;
+                case "audioInData":
+                    AudioInData?.Invoke(this, message["data"] as float[]);
+                    break;
+                case "audioOutData":
+                    AudioOutData?.Invoke(this, message["data"] as float[]);
+                    break;
+            }
+            deferral.Complete();
         }
 
-        private void VoiceDataRecieved(object sender, VoiceConnectionEventArgs<VoiceData> e)
+        private async void DisconnectFromVoiceChannel()
         {
+            var message = new ValueSet
+            {
+                ["type"] = "disconnect",
+            };
+
+            AppServiceResponse response = await SendServiceMessage(message);
         }
 
-        private void Speak(object sender, VoiceConnectionEventArgs<Speak> e)
+        private async Task<AppServiceResponse> SendServiceMessage(ValueSet message)
         {
-            Messenger.Default.Send(new SpeakMessage(e.EventData));
-        }
+            if (_serviceConnection == null)
+            {
+                if (!await CreateAppService())
+                {
+                    return null;
+                }
+            }
 
-        private void SpeakingChanged(object sender, int e)
-        {
-            _voiceConnection.SendSpeaking(e);
+            return await _serviceConnection.SendMessageAsync(message);
         }
     }
 }

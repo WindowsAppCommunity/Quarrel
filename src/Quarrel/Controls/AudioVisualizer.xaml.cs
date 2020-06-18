@@ -16,6 +16,7 @@ using System.Numerics;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Quarrel.ViewModels.Services.Voice;
 using AcrylicBrush = Microsoft.UI.Xaml.Media.AcrylicBrush;
 
 namespace Quarrel.Controls
@@ -104,18 +105,20 @@ namespace Quarrel.Controls
                 _input = value;
                 if (value)
                 {
-                   // WebrtcManager.AudioInData += DataRecieved;
-                    //WebrtcManager.AudioOutData -= DataRecieved;
+                    VoiceService.AudioInData += DataRecieved;
+                    VoiceService.AudioOutData -= DataRecieved;
                 }
                 else
                 {
-                  //  WebrtcManager.AudioInData -= DataRecieved;
-                  //  WebrtcManager.AudioOutData += DataRecieved;
+                    VoiceService.AudioInData -= DataRecieved;
+                    VoiceService.AudioOutData += DataRecieved;
                 }
             }
         }
 
         private ISettingsService SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
+        private IVoiceService VoiceService { get; } = SimpleIoc.Default.GetInstance<IVoiceService>();
+
 
         /// <summary>
         /// Setup FFT.
@@ -169,8 +172,8 @@ namespace Quarrel.Controls
             initailized = false;
 
             // Unsubscribe from events
-         //   WebrtcManager.AudioInData -= DataRecieved;
-           // WebrtcManager.AudioOutData -= DataRecieved;
+            VoiceService.AudioInData -= DataRecieved;
+            VoiceService.AudioOutData -= DataRecieved;
             Loaded -= FftInitialize;
             Unloaded -= FftDipose;
         }

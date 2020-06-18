@@ -14,16 +14,15 @@ namespace WebRTCBackgroundTask
     internal class WebrtcManager : IWebrtcManager
     {
         private Webrtc.WebrtcManager manager;
-        private VoipPhoneCall voipCall;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WebrtcManager"/> class.
         /// </summary>
         /// <param name="inputDeviceId">The id of the input device.</param>
         /// <param name="outputDeviceId">The id of the output device.</param>
-        public WebrtcManager(string inputDeviceId, string outputDeviceId)
+        public WebrtcManager()
         {
-            manager = new Webrtc.WebrtcManager(inputDeviceId, outputDeviceId);
+            manager = new Webrtc.WebrtcManager();
             manager.IpAndPortObtained += (ip, port) => IpAndPortObtained.Invoke(this, new Tuple<string, ushort>(ip, port));
             manager.AudioInData += (sender, data) => AudioInData?.Invoke(sender, data);
             manager.AudioOutData += (sender, data) => AudioOutData?.Invoke(sender, data);
@@ -52,8 +51,6 @@ namespace WebRTCBackgroundTask
         public void Destroy()
         {
             manager.Destroy();
-            voipCall?.NotifyCallEnded();
-            voipCall = null;
         }
 
         /// <inheritdoc/>
