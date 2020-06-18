@@ -1,23 +1,20 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using DiscordAPI.Voice;
-using GalaSoft.MvvmLight.Ioc;
-using Quarrel.ViewModels.Services.Settings;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Calls;
+using DiscordAPI.Voice;
 
-namespace Quarrel.Services.Voice
+namespace WebRTCBackgroundTask
 {
     /// <summary>
     /// Wraps <see cref="Webrtc.WebrtcManager"/> so that the DiscordAPI project can access it.
     /// </summary>
-    public class WebrtcManager : IWebrtcManager
+    internal class WebrtcManager : IWebrtcManager
     {
         private Webrtc.WebrtcManager manager;
         private VoipPhoneCall voipCall;
-        private ISettingsService _settingsService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WebrtcManager"/> class.
@@ -45,8 +42,6 @@ namespace Quarrel.Services.Voice
         /// <inheritdoc/>
         public event EventHandler<bool> Speaking;
 
-        private ISettingsService SettingsService => _settingsService ?? (_settingsService = SimpleIoc.Default.GetInstance<ISettingsService>());
-
         /// <inheritdoc/>
         public void Create()
         {
@@ -64,10 +59,6 @@ namespace Quarrel.Services.Voice
         /// <inheritdoc/>
         public async Task ConnectAsync(string ip, string port, uint ssrc)
         {
-            // TODO: More info for Mobile
-            VoipCallCoordinator vcc = VoipCallCoordinator.GetDefault();
-            voipCall = vcc.RequestNewOutgoingCall(string.Empty, string.Empty, "Quarrel", VoipPhoneCallMedia.Audio);
-            voipCall.NotifyCallActive();
             await manager.ConnectAsync(ip, port, ssrc);
         }
 

@@ -104,18 +104,16 @@ namespace Quarrel.Controls
                 _input = value;
                 if (value)
                 {
-                    WebrtcManager.AudioInData += DataRecieved;
-                    WebrtcManager.AudioOutData -= DataRecieved;
+                   // WebrtcManager.AudioInData += DataRecieved;
+                    //WebrtcManager.AudioOutData -= DataRecieved;
                 }
                 else
                 {
-                    WebrtcManager.AudioInData -= DataRecieved;
-                    WebrtcManager.AudioOutData += DataRecieved;
+                  //  WebrtcManager.AudioInData -= DataRecieved;
+                  //  WebrtcManager.AudioOutData += DataRecieved;
                 }
             }
         }
-
-        private IWebrtcManager WebrtcManager { get; } = SimpleIoc.Default.GetInstance<IWebrtcManager>();
 
         private ISettingsService SettingsService { get; } = SimpleIoc.Default.GetInstance<ISettingsService>();
 
@@ -171,8 +169,8 @@ namespace Quarrel.Controls
             initailized = false;
 
             // Unsubscribe from events
-            WebrtcManager.AudioInData -= DataRecieved;
-            WebrtcManager.AudioOutData -= DataRecieved;
+         //   WebrtcManager.AudioInData -= DataRecieved;
+           // WebrtcManager.AudioOutData -= DataRecieved;
             Loaded -= FftInitialize;
             Unloaded -= FftDipose;
         }

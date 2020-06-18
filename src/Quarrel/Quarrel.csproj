@@ -363,7 +363,7 @@
     <Compile Include="Services\DispatcherHelper\DispatcherHelperEx.cs" />
     <Compile Include="Services\Resources\ResourceService.cs" />
     <Compile Include="Services\Settings\SettingsService.cs" />
-    <Compile Include="Services\Voice\WebrtcManager.cs" />
+    <Compile Include="Services\Voice\VoiceService.cs" />
     <Compile Include="StateTriggers\BooleanStateTrigger.cs" />
     <Compile Include="StateTriggers\DeviceFamilyStateTrigger.cs" />
     <Compile Include="SubPages\AboutPage.xaml.cs">
@@ -721,6 +721,10 @@
     <ProjectReference Include="..\_Libs\Webrtc\Webrtc.vcxproj">
       <Project>{09252cd6-2bbc-4e47-95aa-186e32707e6f}</Project>
       <Name>Webrtc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\_Tasks\WebRTCBackgroundTask\WebRTCBackgroundTask.csproj">
+      <Project>{efbcea90-8aa9-45d3-b321-eff91db9677d}</Project>
+      <Name>WebRTCBackgroundTask</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

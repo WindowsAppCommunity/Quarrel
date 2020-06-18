@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using System;
 using DiscordAPI.Models;
 using DiscordAPI.Voice;
 using DiscordAPI.Voice.DownstreamEvents;
@@ -14,6 +15,10 @@ using Quarrel.ViewModels.Services.DispatcherHelper;
 using Quarrel.ViewModels.Services.Gateway;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.AppService;
+using Windows.Foundation.Collections;
+using Newtonsoft.Json;
 using Quarrel.ViewModels.Messages.Services.Settings;
 using Quarrel.ViewModels.Services.Settings;
 
@@ -30,6 +35,7 @@ namespace Quarrel.ViewModels.Services.Voice
         private readonly IGatewayService _gatewayService;
         private readonly IWebrtcManager _webrtcManager;
         private VoiceConnection _voiceConnection;
+        private AppServiceConnection _serviceConnection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VoiceService"/> class.
@@ -43,15 +49,13 @@ namespace Quarrel.ViewModels.Services.Voice
             IChannelsService channelsService,
             IDiscordService discordService,
             IDispatcherHelper dispatcherHelper,
-            IGatewayService gatewayService,
-            IWebrtcManager webrtcManager)
+            IGatewayService gatewayService)
         {
             _channelsService = channelsService;
             _discordService = discordService;
             _dispatcherHelper = dispatcherHelper;
             _gatewayService = gatewayService;
-            _webrtcManager = webrtcManager;
-
+            _ = CreateAppService();
             Messenger.Default.Register<GatewayVoiceStateUpdateMessage>(this, m =>
             {
                 _dispatcherHelper.CheckBeginInvokeOnUi(() =>
@@ -103,13 +107,14 @@ namespace Quarrel.ViewModels.Services.Voice
 
             Messenger.Default.Register<SettingChangedMessage<string>>(this, m =>
             {
+                // Todo: this
                 switch (m.Key)
                 {
                     case SettingKeys.InputDevice:
-                        _webrtcManager.SetRecordingDevice(m.Value);
+                        //_webrtcManager.SetRecordingDevice(m.Value);
                         break;
                     case SettingKeys.OutputDevice:
-                        _webrtcManager.SetPlaybackDevice(m.Value);
+                        //_webrtcManager.SetPlaybackDevice(m.Value);
                         break;
                 }
             });
@@ -125,8 +130,7 @@ namespace Quarrel.ViewModels.Services.Voice
             {
                 var state = _voiceConnection._state;
                 state.SelfDeaf = !state.SelfDeaf;
-                await _gatewayService.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute,
-                    state.SelfDeaf);
+                await _gatewayService.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute, state.SelfDeaf);
             }
         }
 
@@ -137,21 +141,49 @@ namespace Quarrel.ViewModels.Services.Voice
             {
                 var state = _voiceConnection._state;
                 state.SelfMute = !state.SelfMute;
-                await _gatewayService.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute,
-                    state.SelfDeaf);
+                await _gatewayService.Gateway.VoiceStatusUpdate(state.GuildId, state.ChannelId, state.SelfMute, state.SelfDeaf);
             }
         }
 
         private async void ConnectToVoiceChannel(VoiceServerUpdate data, VoiceState state)
         {
+            if (_serviceConnection != null)
+            {
+                if (!await CreateAppService())
+                {
+                    return;
+                }
+            }
+
+            var message = new ValueSet
+            {
+                ["type"] = "connect",
+                ["config"] = JsonConvert.SerializeObject(data),
+                ["state"] = JsonConvert.SerializeObject(state),
+            };
+            AppServiceResponse response = await _serviceConnection.SendMessageAsync(message);
+            return;
             _voiceConnection = new VoiceConnection(data, state, _webrtcManager);
             _voiceConnection.Speak += Speak;
             await _voiceConnection.ConnectAsync();
         }
 
+        private async Task<bool> CreateAppService()
+        {
+            _serviceConnection = new AppServiceConnection
+            {
+                AppServiceName = "com.Quarrel.voip",
+                PackageFamilyName = Windows.ApplicationModel.Package.Current.Id.FamilyName,
+            };
+
+            var status = await _serviceConnection.OpenAsync();
+            return status == AppServiceConnectionStatus.Success;
+        }
+
         private void DisconnectFromVoiceChannel()
         {
-            _webrtcManager.Destroy();
+            // Todo: this
+            //_webrtcManager.Destroy();
         }
 
         private void InputRecieved(object sender, float[] e)
