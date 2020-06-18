@@ -60,6 +60,14 @@
 				<uap:Extension Category="windows.appService">
 					<uap:AppService Name="Quarrel.Presence"/>
 				</uap:Extension>
+        <uap:Extension Category="windows.appService" EntryPoint="WebRTCBackgroundTask.AppServiceBackgroundTask">
+          <uap:AppService Name="com.Quarrel.voip"/>
+        </uap:Extension>
+        <Extension Category="windows.backgroundTasks" EntryPoint="WebRTCBackgroundTask.VoipBackgroundTask">
+          <BackgroundTasks>
+            <Task Type="systemEvent" />
+          </BackgroundTasks>
+        </Extension>
 			</Extensions>
 		</Application>
 	</Applications>

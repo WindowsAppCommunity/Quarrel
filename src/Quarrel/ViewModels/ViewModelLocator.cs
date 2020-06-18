@@ -9,7 +9,6 @@ using Quarrel.Services.Clipboard;
 using Quarrel.Services.DispatcherHelperEx;
 using Quarrel.Services.Resources;
 using Quarrel.Services.Settings;
-using Quarrel.Services.Voice;
 using Quarrel.SubPages;
 using Quarrel.SubPages.AddServer;
 using Quarrel.SubPages.GuildSettings;
@@ -32,6 +31,7 @@ using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.Services.Voice;
 using System;
 using System.Threading.Tasks;
+using WebRTCBackgroundTask;
 
 namespace Quarrel.ViewModels
 {
@@ -93,11 +93,6 @@ namespace Quarrel.ViewModels
             SimpleIoc.Default.Register<IGuildsService, GuildsService>();
             SimpleIoc.Default.Register<ICurrentUserService, CurrentUsersService>();
             SimpleIoc.Default.Register<IVoiceService, VoiceService>();
-
-            SimpleIoc.Default.Register<IWebrtcManager>(() =>
-                new WebrtcManager(
-                    SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<string>(SettingKeys.OutputDevice),
-                    SimpleIoc.Default.GetInstance<ISettingsService>().Roaming.GetValue<string>(SettingKeys.InputDevice)));
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EmojiPickerViewModel>(() =>
