@@ -18,16 +18,23 @@
         <!--TODO: Provide English only notice-->
         
         <TextBlock Text="Insider" Margin="4,-2,0,0" FontSize="12" FontWeight="Black" CharacterSpacing="300" FontFamily="Bahnschrift" Opacity="0.5" Visibility="{x:Bind IsInsider}"/>
-        <TextBlock Text="Version 20.6.17" FontWeight="SemiBold" Margin="0,6" FontSize="20"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="36">
+            <TextBlock Text="Version" FontWeight="SemiBold" Opacity="0.8" Margin="0,6" FontSize="20"/>
+            <TextBlock Text="{x:Bind AppVersion}" FontWeight="SemiBold" Margin="4,6" FontSize="20"/>
+        </StackPanel>
         <StackPanel Margin="0,20">
             <ScrollViewer>
                 <RichTextBlock x:Name="notDetailed" TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,16,0,12">
+                    <Paragraph>
+                        <Run Text="• Moved voice to it's own background task"/>
+                    </Paragraph>
+                    <Paragraph FontSize="8"/>
                     <Paragraph>
                         <Run Text="• Russian and Swedish translations"/>
                     </Paragraph>
                     <Paragraph FontSize="8"/>
                     <Paragraph>
-                        <Run Text="• Significant memory usage cuts"/>
+                        <Run Text="• Cumulative optimziations"/>
                     </Paragraph>
                     <Paragraph FontSize="8"/>
                 </RichTextBlock>
