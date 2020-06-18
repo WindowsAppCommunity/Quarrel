@@ -3,6 +3,7 @@
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.SubPages.Interfaces;
 using Quarrel.ViewModels.Services.Navigation;
+using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -33,6 +34,15 @@ namespace Quarrel.SubPages
         /// Gets a value indicating whether or not to show the insider label.
         /// </summary>
         public bool IsInsider => App.IsInsiderBuild;
+
+        /// <summary>
+        /// Gets the app's version number.
+        /// </summary>
+        public string AppVersion => string.Format(
+            "{0}.{1}.{2}",
+            Package.Current.Id.Version.Major,
+            Package.Current.Id.Version.Minor,
+            Package.Current.Id.Version.Build);
 
         private ISubFrameNavigationService SubFrameNavigationService => _subFrameNavigationService ?? (_subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>());
 
