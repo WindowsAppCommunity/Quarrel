@@ -85,6 +85,7 @@ namespace WebRTCBackgroundTask
                 case "disconnect":
                     webrtcManager.Destroy();
                     voipCall?.NotifyCallEnded();
+                    voipCall = null;
                     voiceConnection = null;
                     break;
                 case "voiceStateUpdate":
@@ -106,9 +107,10 @@ namespace WebRTCBackgroundTask
 
         private async void ConnectToVoiceChannel(VoiceServerUpdate data, VoiceState state)
         {
-            // TODO: More info for Mobile
+            voipCall?.NotifyCallEnded();
             VoipCallCoordinator vcc = VoipCallCoordinator.GetDefault();
             var status = await vcc.ReserveCallResourcesAsync("WebRTCBackgroundTask.VoipBackgroundTask");
+            // TODO: More info for Mobile
             voipCall = vcc.RequestNewOutgoingCall(string.Empty, string.Empty, "Quarrel", VoipPhoneCallMedia.Audio);
             voipCall.NotifyCallActive();
 
