@@ -12,7 +12,7 @@ namespace Quarrel.Converters.Profile
         /// </summary>
         /// <param name="value">The playing type.</param>
         /// <returns>The activity prefix.</returns>
-        public object Convert(int value)
+        public static string Convert(int value)
         {
             switch (value)
             {

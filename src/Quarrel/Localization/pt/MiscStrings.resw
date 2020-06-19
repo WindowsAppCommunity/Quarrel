@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddedUser" xml:space="preserve">
-    <value>Added a user</value>
+    <value>Usuario adicionado</value>
     <comment>This is shown when a user is added to a channel</comment>
   </data>
   <data name="Called" xml:space="preserve">
@@ -126,11 +126,11 @@
     <comment>This is shown when a user has started a call</comment>
   </data>
   <data name="ChangedChannelIcon" xml:space="preserve">
-    <value>Changed channel icon</value>
+    <value>Icone do canal alterado</value>
     <comment>This is shown when a user changes a channel's icon</comment>
   </data>
   <data name="ChangedChannelName" xml:space="preserve">
-    <value>Changed channel name</value>
+    <value>Nome do canal alterado</value>
     <comment>This is shown when a user changes a channel's name</comment>
   </data>
   <data name="CommitFrom" xml:space="preserve">
@@ -138,19 +138,19 @@
     <comment>This is shown in the about page. {0} is the commit id and {1} is the branch name</comment>
   </data>
   <data name="DidSomething" xml:space="preserve">
-    <value>Did something</value>
+    <value>Fez algo</value>
     <comment>This is the default for when a user does something (and we don't know what)</comment>
   </data>
   <data name="JoinedServer" xml:space="preserve">
-    <value>Joined the server</value>
+    <value>Entrou no servidor</value>
     <comment>This is shown when a user joins a channel</comment>
   </data>
   <data name="PinnedMessage" xml:space="preserve">
-    <value>Pinned a message</value>
+    <value>Fixou uma mensagem</value>
     <comment>This is shown when a user pins a message</comment>
   </data>
   <data name="RemovedUser" xml:space="preserve">
-    <value>Removed a user</value>
+    <value>Removeu um usuario</value>
     <comment>This is shown when a user is remove from a channel</comment>
   </data>
 </root>

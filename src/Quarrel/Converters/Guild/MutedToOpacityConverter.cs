@@ -12,7 +12,7 @@ namespace Quarrel.Converters.Guild
         /// </summary>
         /// <param name="value">Whether or not the guild is muted.</param>
         /// <returns>The opacity of the icon.</returns>
-        public double Convert(bool value)
+        public static double Convert(bool value)
         {
             return value ? 0.5 : 1;
         }
