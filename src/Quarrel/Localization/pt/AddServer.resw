@@ -118,27 +118,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CreateServerBTN.Content" xml:space="preserve">
-    <value>Create Server</value>
+    <value>Criar Servidor</value>
     <comment>This is shown in the create server page</comment>
   </data>
   <data name="CreateServerNVI.Content" xml:space="preserve">
-    <value>Create Server</value>
+    <value>Criar Servidor</value>
     <comment>This is shown in the add server page</comment>
   </data>
   <data name="CreateServerPageTBox.PlaceholderText" xml:space="preserve">
-    <value>Server Name</value>
+    <value>Nome do Servidor</value>
     <comment>This is shown in the create server page</comment>
   </data>
   <data name="DeleteHBTN.Content" xml:space="preserve">
-    <value>Delete</value>
+    <value>Deletar</value>
     <comment>This is shown in the create server page</comment>
   </data>
   <data name="FindServerNVI.Content" xml:space="preserve">
-    <value>Find Server</value>
+    <value>Procurar Servidor</value>
     <comment>This is shown in the add server page</comment>
   </data>
   <data name="JoinBTN.Content" xml:space="preserve">
-    <value>Join</value>
+    <value>Ingressar</value>
     <comment>This is shown in the join server page</comment>
   </data>
   <data name="JoinCodeTB.Text" xml:space="preserve">
@@ -146,15 +146,15 @@
     <comment>This is shown in the join server page</comment>
   </data>
   <data name="JoinServerNVI.Content" xml:space="preserve">
-    <value>Join Server</value>
+    <value>Ingressar no Servidor</value>
     <comment>This is shown in the add server page</comment>
   </data>
   <data name="SizeRecommendationTB.Text" xml:space="preserve">
-    <value>We recommend you use an image which is at least 512x512px</value>
+    <value>Nós recomendamos o uso de imagem de pelo menos 512x512px</value>
     <comment>This is shown in the create server page</comment>
   </data>
   <data name="UploadImageHBTN.Content" xml:space="preserve">
-    <value>Upload Image</value>
+    <value>Upload de Imagem</value>
     <comment>This is shown in the create server page</comment>
   </data>
 </root>
