@@ -118,35 +118,35 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccentColorTB.Text" xml:space="preserve">
-    <value>Accent Color</value>
+    <value>Cor de Destaque</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="AcrylicTB.Text" xml:space="preserve">
-    <value>Acrylic</value>
+    <value>Acrilico</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="AppSettingsNVIH.Content" xml:space="preserve">
-    <value>App Settings</value>
+    <value>Preferências do Aplicativo</value>
     <comment>This is in the user settings page</comment>
   </data>
   <data name="AudioDevicesTB.Text" xml:space="preserve">
-    <value>Audio Devices</value>
+    <value>Dispositivos de Audio</value>
     <comment>This is in the voice page of the user settings</comment>
   </data>
   <data name="BehaviorNVI.Content" xml:space="preserve">
-    <value>Behavior</value>
+    <value>Comportamento</value>
     <comment>This is in the user settings page</comment>
   </data>
   <data name="CancelBTN.Content" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Cancelae</value>
     <comment>This is in the account page of the user settings</comment>
   </data>
   <data name="ChangePasswordHBTN.Content" xml:space="preserve">
-    <value>Change Password</value>
+    <value>Mudar a senha</value>
     <comment>This is in the account page of the user settings</comment>
   </data>
   <data name="ChannelsTB.Text" xml:space="preserve">
-    <value>CHANNELS</value>
+    <value>CANAIS</value>
     <comment>This is in the behavior page of the user settings</comment>
   </data>
   <data name="ChannelViewCB.Content" xml:space="preserve">
@@ -154,27 +154,27 @@
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="CommandBarCB.Content" xml:space="preserve">
-    <value>Command Bar</value>
+    <value>Barra de comando</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="ConnectionsNVI.Content" xml:space="preserve">
-    <value>Connections</value>
+    <value>Conexões</value>
     <comment>This is in the user settings page</comment>
   </data>
   <data name="CurrentPasswordPBox.Header" xml:space="preserve">
-    <value>Current Password</value>
+    <value>Senha Atual</value>
     <comment>This is in the account page of the user settings</comment>
   </data>
   <data name="DangerZoneDescTB.Text" xml:space="preserve">
-    <value>Don't analyze any DMs</value>
+    <value>Não analise minhas mensagens diretas (DMs)</value>
     <comment>This is in the privacy page of the user settings</comment>
   </data>
   <data name="DangerZoneTB.Text" xml:space="preserve">
-    <value>I live dangerously</value>
+    <value>Eu vivo perigosamente</value>
     <comment>This is in the privacy page of the user settings</comment>
   </data>
   <data name="DarkRBTN.Content" xml:space="preserve">
-    <value>Dark</value>
+    <value>Escuro</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="DataCompressionDescTB.Text" xml:space="preserve">
@@ -182,11 +182,11 @@
     <comment>This is in the behavior page of the user settings</comment>
   </data>
   <data name="DataCompressionTB.Text" xml:space="preserve">
-    <value>Data Compression</value>
+    <value>Compressão de dados</value>
     <comment>This is in the behavior page of the user settings</comment>
   </data>
   <data name="DeleteHBTN.Content" xml:space="preserve">
-    <value>Delete</value>
+    <value>Deletar</value>
     <comment>This is in the account page of the user settings</comment>
   </data>
   <data name="DiscordBlurpleRBTN.Content" xml:space="preserve">
@@ -194,7 +194,7 @@
     <comment>This is in the display page of the user settings (name the color whatever you'd like)</comment>
   </data>
   <data name="DisplayNVI.Content" xml:space="preserve">
-    <value>Display</value>
+    <value>Exibição</value>
     <comment>This is in the user settings page</comment>
   </data>
   <data name="DMFilterDescTB.Text" xml:space="preserve">
@@ -206,7 +206,7 @@
     <comment>This is in the privacy page of the user settings</comment>
   </data>
   <data name="EditBTN.Content" xml:space="preserve">
-    <value>Edit</value>
+    <value>Editar</value>
     <comment>This is in the account page of the user settings</comment>
   </data>
   <data name="EmailTBox.Header" xml:space="preserve">
@@ -226,7 +226,7 @@
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="FluentThemeTB.Text" xml:space="preserve">
-    <value>Fluent Theme</value>
+    <value>Tema Fluent</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="GuildViewCB.Content" xml:space="preserve">
@@ -234,27 +234,27 @@
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="InputDeviceTB.Text" xml:space="preserve">
-    <value>Input Device</value>
+    <value>Dispositivo de Entrada</value>
     <comment>This is in the voice page of the user settings</comment>
   </data>
   <data name="LightRBTN.Content" xml:space="preserve">
-    <value>Light</value>
+    <value>Claro</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="LogoutBTN.Content" xml:space="preserve">
-    <value>Log Out</value>
+    <value>Sair</value>
     <comment>This is in the account page of the user settings</comment>
   </data>
   <data name="MentionGlowDescTB.Text" xml:space="preserve">
-    <value>The left side of the screen glows when you are mentioned</value>
+    <value>O Lado esquerdo da tela exibido um alerta luminoso, quando você é mencionado</value>
     <comment>This is in the behavior page of the user settings</comment>
   </data>
   <data name="MentionGlowTB.Text" xml:space="preserve">
-    <value>Glow on Mention</value>
+    <value>Notificação luminosa com menções</value>
     <comment>This is in the behavior page of the user settings</comment>
   </data>
   <data name="MentionsRBTN.Content" xml:space="preserve">
-    <value>Mentions</value>
+    <value>Mençoes</value>
     <comment>This is in the behavior page of the user settings</comment>
   </data>
   <data name="MessageViewCB.Content" xml:space="preserve">
@@ -262,7 +262,7 @@
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="MeteredConnectionsTB.Text" xml:space="preserve">
-    <value>METERED CONNECTIONS</value>
+    <value>CONEXÕES LIMITADAS</value>
     <comment>This is in the behavior page of the user settings</comment>
   </data>
   <data name="MustFillOutTB.Text" xml:space="preserve">
@@ -270,15 +270,15 @@
     <comment>This is in the account page of the user settings</comment>
   </data>
   <data name="MyAccountNVI.Content" xml:space="preserve">
-    <value>My Account</value>
+    <value>Minha Conta</value>
     <comment>This is in the user settings page</comment>
   </data>
   <data name="NewPasswordPBox.Header" xml:space="preserve">
-    <value>New Password</value>
+    <value>Nova Senha</value>
     <comment>This is in the account page of the user settings</comment>
   </data>
   <data name="NiceFriendsDescTB.Text" xml:space="preserve">
-    <value>Analyze all DMs, except from my friends</value>
+    <value>Analisar todas as Mensagens Diretas (DMs), exceto dos meus amigos</value>
     <comment>This is in the privacy page of the user settings</comment>
   </data>
   <data name="NiceFriendsTB.Text" xml:space="preserve">
@@ -294,15 +294,15 @@
     <comment>This is in the behavior page of the user settings</comment>
   </data>
   <data name="NotificationsNVI.Content" xml:space="preserve">
-    <value>Notifications</value>
+    <value>Notificações</value>
     <comment>This is in the user settings page</comment>
   </data>
   <data name="OtherTB.Text" xml:space="preserve">
-    <value>OTHER</value>
+    <value>OUTROS</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="OutputDeviceTB.Text" xml:space="preserve">
-    <value>Output Device</value>
+    <value>Dispositivo de saída</value>
     <comment>This is in the voice page of the user settings</comment>
   </data>
   <data name="OverrideCollapseTB.Text" xml:space="preserve">
@@ -310,19 +310,19 @@
     <comment>This is in the behavior page of the user settings</comment>
   </data>
   <data name="PrivacyNVI.Content" xml:space="preserve">
-    <value>Privacy</value>
+    <value>Privacidade</value>
     <comment>This is in the user settings page</comment>
   </data>
   <data name="ProtectMeDescTB.Text" xml:space="preserve">
-    <value>Analyze all DMs</value>
+    <value>Analisar todas as Mensagens Diretas (DMs)</value>
     <comment>This is in the privacy page of the user settings</comment>
   </data>
   <data name="ProtectMeTB.Text" xml:space="preserve">
-    <value>Protect me</value>
+    <value>Me proteja</value>
     <comment>This is in the privacy page of the user settings</comment>
   </data>
   <data name="RestartRequiredTB.Text" xml:space="preserve">
-    <value>(Restart required)</value>
+    <value>(Reinicio Requerido)</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="SaveBTN.Content" xml:space="preserve">
@@ -330,47 +330,47 @@
     <comment>This is in the account page of the user settings</comment>
   </data>
   <data name="ServerMuteIconDescTB.Text" xml:space="preserve">
-    <value>A mute icon that shows over muted servers on the server list</value>
+    <value>O Icone de servidores mudos que é exibido na lista de servidor.</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="ServerMuteIconTB.Text" xml:space="preserve">
-    <value>Server Mute Icon</value>
+    <value>Icone de Servidor Mudo</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="SystemAccountColorRBTN.Content" xml:space="preserve">
-    <value>System Accent Color</value>
+    <value>Cor de Destaque do Sistema</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="TapToLoadDescTB.Text" xml:space="preserve">
-    <value>TTL (Tap To Load). Images, Audio or Videos in messages will not show unless you tap a replacement icon first</value>
+    <value>TPC (Toque para Carregar). Imagens, Audio ou Videos nas mensagens não serão exibidos, sendo exibidos apenas após você clicar.</value>
     <comment>This is in the behavior page of the user settings</comment>
   </data>
   <data name="TapToLoadTB.Text" xml:space="preserve">
-    <value>Tap To Load Attachments</value>
+    <value>Toque para carregar anexos</value>
     <comment>This is in the behavior page of the user settings</comment>
   </data>
   <data name="ThemeTB.Text" xml:space="preserve">
-    <value>THEME</value>
+    <value>TEMA</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="UnreadRBTN.Content" xml:space="preserve">
-    <value>Unread</value>
+    <value>Não lida</value>
     <comment>This is in the behavior page of the user settings</comment>
   </data>
   <data name="UploadImageHBTN.Content" xml:space="preserve">
-    <value>Upload Image</value>
+    <value>Upload de Imagem</value>
     <comment>This is in the account page of the user settings</comment>
   </data>
   <data name="UsernameTBox.Header" xml:space="preserve">
-    <value>Username</value>
+    <value>Usuario</value>
     <comment>This is in the account page of the user settings</comment>
   </data>
   <data name="UserSettingsNVIH.Content" xml:space="preserve">
-    <value>User Settings</value>
+    <value>Preferências do Usuario</value>
     <comment>This is in the user settings page</comment>
   </data>
   <data name="VoiceNVI.Content" xml:space="preserve">
-    <value>Voice</value>
+    <value>Voz</value>
     <comment>This is in the user settings page</comment>
   </data>
   <data name="WindowsRBTN.Content" xml:space="preserve">
