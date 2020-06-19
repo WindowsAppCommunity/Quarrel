@@ -118,79 +118,79 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AcceptFriendRequestTB.Text" xml:space="preserve">
-    <value>Accept Friend Request</value>
+    <value>Aceitar solicitação de amizade</value>
     <comment>This is shown on the user profile page</comment>
   </data>
   <data name="AccountSettingsTB.Text" xml:space="preserve">
-    <value>Account Settings</value>
+    <value>Preferências da Conta</value>
     <comment>This is shown on the user profile page</comment>
   </data>
   <data name="AddChannelTB.Text" xml:space="preserve">
-    <value>Add Channel</value>
+    <value>Add Chanal</value>
     <comment>This is the header of the add channel page</comment>
   </data>
   <data name="APIResponseTB.Text" xml:space="preserve">
-    <value>API Response Time</value>
+    <value>Tempo de resposta da API</value>
     <comment>This is shown in the discord status page</comment>
   </data>
   <data name="BlockTB.Text" xml:space="preserve">
-    <value>Block</value>
+    <value>Bloquear</value>
     <comment>This is shown on the user profile page</comment>
   </data>
   <data name="CancelBTN.Content" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Cancelar</value>
     <comment>This is shown in the add channel page</comment>
   </data>
   <data name="ChannelNameTBox.Header" xml:space="preserve">
-    <value>Channel Name</value>
+    <value>Nome do Canal</value>
     <comment>This is shown in the add channel page</comment>
   </data>
   <data name="CommonFriendsTB.Text" xml:space="preserve">
-    <value>COMMON FRIENDS</value>
+    <value>AMIGOS EM COMUM</value>
     <comment>This is shown on the user profile page</comment>
   </data>
   <data name="CommonServersTB.Text" xml:space="preserve">
-    <value>COMMON SERVERS</value>
+    <value>SERVIDORES EM COMUM</value>
     <comment>This is shown on the user profile page</comment>
   </data>
   <data name="CopyLinkABB.Content" xml:space="preserve">
-    <value>Copy Link</value>
+    <value>Copiar Link</value>
     <comment>This is shown in the attachment page</comment>
   </data>
   <data name="DayHBTN.Content" xml:space="preserve">
-    <value>Day</value>
+    <value>Dia</value>
     <comment>This is shown in the discord status page</comment>
   </data>
   <data name="DetailsHBTN.Content" xml:space="preserve">
-    <value>Details</value>
+    <value>Detalhes</value>
     <comment>This is shown in the discord status page</comment>
   </data>
   <data name="DiscordStatusTB.Text" xml:space="preserve">
-    <value>DISCORD STATUS</value>
+    <value>STATUS DO DISCORD</value>
     <comment>This is shown in the discord status page</comment>
   </data>
   <data name="FailedToLoadTB.Text" xml:space="preserve">
-    <value>FAILED TO GET DISCORD STATUS :/</value>
+    <value>FALHA EM OBTER O STATUS DO DISCORD :/</value>
     <comment>This is shown in the discord status page</comment>
   </data>
   <data name="FileNameTB.Text" xml:space="preserve">
-    <value>File name:</value>
+    <value>Nome do Arquivo:</value>
     <comment>This is shown in the attachment page</comment>
   </data>
   <data name="FileSizeTB.Text" xml:space="preserve">
-    <value>File size:</value>
+    <value>Tamanho do Arquivo:</value>
     <comment>This is shown in the attachment page</comment>
   </data>
   <data name="FriendRequestSentTB.Text" xml:space="preserve">
-    <value>Friend Request Sent</value>
+    <value>Solicitação de Amizade Enviada!</value>
     <comment>This is shown on the user profile page</comment>
   </data>
   <data name="GenerateInviteBTN.Content" xml:space="preserve">
-    <value>Generate Invite</value>
+    <value>Gerar Convite:</value>
     <comment>This is shown in the create invite page</comment>
   </data>
   <data name="HeightTB.Text" xml:space="preserve">
-    <value>Height:</value>
+    <value>Altura:</value>
     <comment>This is shown in the attachment page</comment>
   </data>
   <data name="LoginTB.Text" xml:space="preserve">
@@ -198,55 +198,55 @@
     <comment>This is shown on the login page</comment>
   </data>
   <data name="LoginTokenHBTN.Content" xml:space="preserve">
-    <value>Login with Discord Token</value>
+    <value>Login utilizando Discord Token</value>
     <comment>This is shown on the login page</comment>
   </data>
   <data name="MinthHBTN.Content" xml:space="preserve">
-    <value>Month</value>
+    <value>Mês</value>
     <comment>This is shown in the discord status page</comment>
   </data>
   <data name="NoteTB.Text" xml:space="preserve">
-    <value>NOTE</value>
+    <value>NOTA</value>
     <comment>This is shown on the user profile page</comment>
   </data>
   <data name="NoteTBox.PlaceholderText" xml:space="preserve">
-    <value>No Note</value>
+    <value>Sem notas</value>
     <comment>This is shown on the user profile page</comment>
   </data>
   <data name="OpenInBrowserABB.Content" xml:space="preserve">
-    <value>Open In Browser</value>
+    <value>Abrir no Navegador</value>
     <comment>This is shown in the attachment page</comment>
   </data>
   <data name="PlayingTB.Text" xml:space="preserve">
-    <value>PLAYING</value>
+    <value>TOCANDO</value>
     <comment>This is shown on the user profile page</comment>
   </data>
   <data name="PrivacyPolicyHBTN.Content" xml:space="preserve">
-    <value>Privacy Policy</value>
+    <value>Politica de Privacidade</value>
     <comment>This is shown on the login page</comment>
   </data>
   <data name="QuarrelDescTB.Text" xml:space="preserve">
-    <value>Discord client for the Universal Windows Platform</value>
+    <value>Cliente do Discord para Universal Windows Platform</value>
     <comment>This is shown on the login page</comment>
   </data>
   <data name="RemoveFriendTB.Text" xml:space="preserve">
-    <value>Remove Friend</value>
+    <value>Remover amigo</value>
     <comment>This is shown on the user profile page</comment>
   </data>
   <data name="SaveABB.Content" xml:space="preserve">
-    <value>Save</value>
+    <value>Salvar</value>
     <comment>This is shown in the attachment page</comment>
   </data>
   <data name="SaveBTN.Content" xml:space="preserve">
-    <value>Save</value>
+    <value>Salvar</value>
     <comment>This is shown in the add channel page</comment>
   </data>
   <data name="SendFriendRequestTB.Text" xml:space="preserve">
-    <value>Send Friend Request</value>
+    <value>Enviar solicitação de amizade</value>
     <comment>This is shown on the user profile page</comment>
   </data>
   <data name="SendMessageTB.Text" xml:space="preserve">
-    <value>Send Message</value>
+    <value>Enviar mensagem</value>
     <comment>This is shown on the user profile page</comment>
   </data>
   <data name="ServerStatsTB.Text" xml:space="preserve">
@@ -254,15 +254,15 @@
     <comment>This is shown on the user profile page</comment>
   </data>
   <data name="ShareABB.Content" xml:space="preserve">
-    <value>Share</value>
+    <value>Compartilhar</value>
     <comment>This is shown in the attachment page</comment>
   </data>
   <data name="TextChannelSTR" xml:space="preserve">
-    <value>Text Channel</value>
+    <value>Canal de Texto</value>
     <comment>This is shown in the add channel page</comment>
   </data>
   <data name="UnblockTB.Text" xml:space="preserve">
-    <value>Unblock</value>
+    <value>Desbloquear</value>
     <comment>This is shown on the user profile page</comment>
   </data>
   <data name="UsesLimitSlD.Header" xml:space="preserve">
@@ -270,15 +270,15 @@
     <comment>This is shown in the create invite page</comment>
   </data>
   <data name="VoiceChannelSTR" xml:space="preserve">
-    <value>Voice Channel</value>
+    <value>Canal de Voz</value>
     <comment>This is shown in the add channel page</comment>
   </data>
   <data name="WeekHBTN.Content" xml:space="preserve">
-    <value>Week</value>
+    <value>Semana</value>
     <comment>This is shown in the discord status page</comment>
   </data>
   <data name="WidthTB.Text" xml:space="preserve">
-    <value>Width:</value>
+    <value>Largura:</value>
     <comment>This is shown in the attachment page</comment>
   </data>
 </root>
