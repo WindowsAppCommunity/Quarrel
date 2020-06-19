@@ -37,6 +37,8 @@ namespace Quarrel
     {
         private static bool _resourcesLoaded;
 
+        private static bool _hasSetup;
+
         static App()
         {
             var services = new ServiceCollection();
@@ -114,7 +116,8 @@ namespace Quarrel
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
+            if (_hasSetup) return;
+           Frame rootFrame = Window.Current.Content as Frame;
 
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(400, 500));
             if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
@@ -174,6 +177,7 @@ namespace Quarrel
             {
                 rootFrame.SizeChanged += ScaleDown;
             }
+            _hasSetup = true;
         }
 
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
