@@ -118,32 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutABB.Label" xml:space="preserve">
-    <value>About</value>
+    <value>Sobre</value>
     <comment>This is shown if you expand the command bar (at the top)</comment>
   </data>
   <data name="AcceptFriendRequestTB.Text" xml:space="preserve">
-    <value>Accept Friend Request?</value>
+    <value>Aceitar Solicitação de Amizade?</value>
     <comment>This is shown on a friend request in the friend's list</comment>
   </data>
   <data name="AddAttachmentMFI.Text" xml:space="preserve">
-    <value>Add attachement</value>
+    <value>Add anexo</value>
     <comment>This is shown in the extras menu for the message box</comment>
   </data>
   <data name="AddChannelMFI.Text" xml:space="preserve">
-    <value>Add Channel</value>
+    <value>Add Canal</value>
     <comment>This is shown from the drop down from above the channel list</comment>
   </data>
   <data name="AddNoteTBox.PlaceholderText" xml:space="preserve">
-    <value>Add Note</value>
+    <value>Add Nota</value>
     <comment>This is shown in the user flyout</comment>
   </data>
   <data name="BlockedTB.Text" xml:space="preserve">
-    <value>BLOCKED
-</value>
+    <value>BLOQUEADO</value>
     <comment>This is shown on the header of the friend panel pivot</comment>
   </data>
   <data name="ByTB.Text" xml:space="preserve">
-    <value>By:</value>
+    <value>Por:</value>
     <comment>This shown on an invite control to say who made the invite</comment>
   </data>
   <data name="CommitsTB.Text" xml:space="preserve">
@@ -151,23 +150,23 @@
     <comment>This is shown in the contributor page </comment>
   </data>
   <data name="CopyIdMFI.Text" xml:space="preserve">
-    <value>Copy Id</value>
+    <value>Copiar Id</value>
     <comment>This is shown in the flyout for a sent message</comment>
   </data>
   <data name="CreditABB.Label" xml:space="preserve">
-    <value>Credit</value>
+    <value>Credito</value>
     <comment>This is shown if you expand the command bar (at the top)</comment>
   </data>
   <data name="DeleteMFI.Text" xml:space="preserve">
-    <value>Delete</value>
+    <value>Deletar</value>
     <comment>This is shown in the flyout for a sent message</comment>
   </data>
   <data name="DiscordStatusHBTN.Content" xml:space="preserve">
-    <value>Discord Status</value>
+    <value>Status do Discord</value>
     <comment>This is shown in the bottom right while connecting</comment>
   </data>
   <data name="EditMFI.Text" xml:space="preserve">
-    <value>Edit</value>
+    <value>Editar</value>
     <comment>This is shown in the flyout for a sent message</comment>
   </data>
   <data name="FriendRequestSentTB.Text" xml:space="preserve">
@@ -175,67 +174,67 @@
     <comment>This is shown on a friend request in the friend's list</comment>
   </data>
   <data name="FriendsTB.Text" xml:space="preserve">
-    <value>Friends</value>
+    <value>Amigos</value>
     <comment>This is shown in place of the guild name in DMs</comment>
   </data>
   <data name="FriendsTB2.Text" xml:space="preserve">
-    <value>FRIENDS</value>
+    <value>AMIGOS</value>
     <comment>This is shown on the header of the friend panel pivot</comment>
   </data>
   <data name="GuildSettingsMFI.Text" xml:space="preserve">
-    <value>Server Settings</value>
+    <value>Preferências do Servidor</value>
     <comment>This is shown from the drop down from above the channel list</comment>
   </data>
   <data name="InvitePeopleMFI.Text" xml:space="preserve">
-    <value>Invite People</value>
+    <value>Convidar Pessoas</value>
     <comment>This is shown from the drop down from above the channel list</comment>
   </data>
   <data name="JoinBTN.Content" xml:space="preserve">
-    <value>Join</value>
+    <value>Ingressar</value>
     <comment>This is shown on a unused invite embed</comment>
   </data>
   <data name="JoinCallBTN.Content" xml:space="preserve">
-    <value>Join Call</value>
+    <value>Ingressar na Chamada</value>
     <comment>This is shown on an action message for a call when the call is still open</comment>
   </data>
   <data name="LeaveServerMFI.Text" xml:space="preserve">
-    <value>Leave Server</value>
+    <value>Deixar Servidor</value>
     <comment>This is shown from the drop down from above the channel list</comment>
   </data>
   <data name="PendingTB.Text" xml:space="preserve">
-    <value>PENDING</value>
+    <value>PENDENTE</value>
     <comment>This is shown on the header of the friend panel pivot</comment>
   </data>
   <data name="PinMFI.Text" xml:space="preserve">
-    <value>Pin</value>
+    <value>Fixar</value>
     <comment>This is shown in the flyout for a sent message</comment>
   </data>
   <data name="QuoteMFI.Text" xml:space="preserve">
-    <value>Quote</value>
+    <value>Citar</value>
     <comment>This is shown in the flyout for a sent message</comment>
   </data>
   <data name="RetryHBTN.Content" xml:space="preserve">
-    <value>Retry</value>
+    <value>Tentar Novamente</value>
     <comment>This is shown on the loading screen when connection fails</comment>
   </data>
   <data name="SendMessageTBox.PlaceholderText" xml:space="preserve">
-    <value>Send message</value>
+    <value>Enviar mensagem</value>
     <comment>This is shown in the message box when empty</comment>
   </data>
   <data name="SettingsABB.Label" xml:space="preserve">
-    <value>Settings</value>
+    <value>Configurações</value>
     <comment>This is shown if you expand the command bar (at the top)</comment>
   </data>
   <data name="ShowTB.Text" xml:space="preserve">
-    <value>Show</value>
+    <value>Mostrar</value>
     <comment>This is shown on unloaded attachments</comment>
   </data>
   <data name="UnpinMFI.Text" xml:space="preserve">
-    <value>Unpin</value>
+    <value>Desafixar</value>
     <comment>This is shown in the flyout for a sent message</comment>
   </data>
   <data name="WhatsNewABB.Label" xml:space="preserve">
-    <value>What's New</value>
+    <value>O que há de novo?</value>
     <comment>This is shown if you expand the command bar (at the top)</comment>
   </data>
 </root>
