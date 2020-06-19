@@ -29,7 +29,7 @@
                     </StackPanel>
                 </Grid>
                 <Grid HorizontalAlignment="Left" MaxWidth="400" MaxHeight="225">
-                    <controls:ImageEx Source="{x:Bind ViewModel.Model.Thumbnail.ProxyUrl, Mode=OneWay}" x:Name="VideoPreviewImage" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(ViewModel.Playing), Mode=OneWay}"/>
+                    <controls:ImageEx Source="{x:Bind ViewModel.Model.Thumbnail.ProxyUrl, Mode=OneWay}" x:Name="VideoPreviewImage" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(ViewModel.Playing), Mode=OneWay, FallbackValue=False}"/>
                     <Grid Width="100" Height="75" CornerRadius="37.5"
                           Background="{ThemeResource AcrylicButtonBackground}" 
                           x:Name="VideoPreviewImageControls"
