@@ -119,7 +119,7 @@
                 </Grid.Background>
 
                 <!--Folder-->
-                <Border x:Name="FolderIndicator" Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.ConvertString(FolderId), Mode=OneWay}" VerticalAlignment="Stretch" Width="2" Opacity="0.25" Background="{ThemeResource SystemAccentColor}" Margin="-6,-4,0,-4" HorizontalAlignment="Left"/>
+                <Border x:Name="FolderIndicator" Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.ConvertString(FolderId), Mode=OneWay, FallbackValue=Collapsed}" VerticalAlignment="Stretch" Width="2" Opacity="0.25" Background="{ThemeResource SystemAccentColor}" Margin="-6,-4,0,-4" HorizontalAlignment="Left"/>
 
                 <!--Unread-->
                 <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="12" Width="2" Opacity="0.75" Background="{ThemeResource Foreground}" Margin="-6,2,4,0" HorizontalAlignment="Left"/>
