@@ -116,8 +116,12 @@ namespace Quarrel
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            if (_hasSetup) return;
-           Frame rootFrame = Window.Current.Content as Frame;
+            if (_hasSetup)
+            {
+                return;
+            }
+
+            Frame rootFrame = Window.Current.Content as Frame;
 
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(400, 500));
             if (Application.Current.RequestedTheme == ApplicationTheme.Dark)

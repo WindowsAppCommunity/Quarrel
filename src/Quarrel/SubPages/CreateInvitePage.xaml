@@ -23,7 +23,7 @@
                     Command="{x:Bind ViewModel.GenerateInvite, Mode=OneWay}"/>
         </StackPanel>
 
-        <messages:InviteControl Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.Convert(ViewModel.Invite.Model), Mode=OneWay}"
+        <messages:InviteControl Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.Convert(ViewModel.Invite.Model), Mode=OneWay, FallbackValue=Collapsed}"
                                 DataContext="{x:Bind ViewModel.Invite, Mode=OneWay}"
                                 Grid.Row="1" VerticalAlignment="Bottom" Margin="0,0,0,8"/>
     </Grid>

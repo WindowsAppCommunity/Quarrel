@@ -506,7 +506,7 @@
                 </StackPanel>
                 
                 <!--Rich Presence info-->
-                <Grid Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.Convert(ViewModel.Presence.Game), Mode=OneWay}">
+                <Grid Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.Convert(ViewModel.Presence.Game), Mode=OneWay, FallbackValue=Collapsed}">
                     <Rectangle Opacity="0.5">
                         <Rectangle.Fill>
                             <Windows10FallCreatorsUpdate:AcrylicBrush TintOpacity="0.9" TintColor="{x:Bind baseconvert:IntColorToColorConverter.Convert(ViewModel.AccentColor), Mode=OneWay}"

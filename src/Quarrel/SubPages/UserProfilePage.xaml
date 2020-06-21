@@ -106,7 +106,7 @@
                             <StackPanel x:Name="BadgePanel" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         </Grid>
                         <StackPanel>
-                            <TextBlock x:Uid="/MiscSubs/PlayingTB" Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.Convert(ViewModel.User.Presence.Game), Mode=OneWay}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,6"/>
+                            <TextBlock x:Uid="/MiscSubs/PlayingTB" Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.Convert(ViewModel.User.Presence.Game), Mode=OneWay, FallbackValue=Collapsed}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,6"/>
                             <Border Margin="-48,0" Padding="48,12">
                                 <Border.Background>
                                     <SolidColorBrush Opacity="0.5"/>
