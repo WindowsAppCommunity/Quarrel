@@ -6,6 +6,9 @@ using Quarrel.ViewModels.Services.Navigation;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Services.Analytics;
+using Quarrel.ViewModels.Services.Discord.Rest;
 
 namespace Quarrel.SubPages
 {
@@ -22,6 +25,7 @@ namespace Quarrel.SubPages
         public WhatsNewPage()
         {
             this.InitializeComponent();
+            SimpleIoc.Default.GetInstance<IAnalyticsService>().Log(Constants.Analytics.Events.OpenWhatsNew);
         }
 
         /// <inheritdoc/>
@@ -49,6 +53,19 @@ namespace Quarrel.SubPages
         private void Close(object sender, RoutedEventArgs e)
         {
             SubFrameNavigationService.GoBack();
+        }
+
+        private async void JoinQuarrelServer(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await SimpleIoc.Default.GetInstance<IDiscordService>().InviteService.AcceptInvite("wQmQgtq");
+                SimpleIoc.Default.GetInstance<IAnalyticsService>().Log(Constants.Analytics.Events.JoinedQuarrelServer);
+            }
+            catch
+            {
+                // TODO: State failure
+            }
         }
     }
 }
