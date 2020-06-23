@@ -20,33 +20,6 @@
 
     <DataTemplate x:Key="GuildTemplate" x:DataType="guildbindables:BindableGuild">
         <UserControl Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsCollapsed), Mode=OneWay}">
-            <UserControl.Resources>
-                <Storyboard x:Name="ShowBadge">
-                    <DoubleAnimation Duration="0:0:0.6" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border" d:IsOptimized="True">
-                        <DoubleAnimation.EasingFunction>
-                            <CircleEase EasingMode="EaseOut"/>
-                        </DoubleAnimation.EasingFunction>
-                    </DoubleAnimation>
-                    <DoubleAnimation Duration="0:0:0.6" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="NotificationCounter" d:IsOptimized="True">
-                        <DoubleAnimation.EasingFunction>
-                            <CircleEase EasingMode="EaseOut"/>
-                        </DoubleAnimation.EasingFunction>
-                    </DoubleAnimation>
-                </Storyboard>
-                <Storyboard x:Name="HideBadge">
-                    <DoubleAnimation Duration="0:0:0.6" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border" d:IsOptimized="True">
-                        <DoubleAnimation.EasingFunction>
-                            <CircleEase EasingMode="EaseIn"/>
-                        </DoubleAnimation.EasingFunction>
-                    </DoubleAnimation>
-                    <DoubleAnimation Duration="0:0:0.6" To="24" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="NotificationCounter" d:IsOptimized="True">
-                        <DoubleAnimation.EasingFunction>
-                            <CircleEase EasingMode="EaseIn"/>
-                        </DoubleAnimation.EasingFunction>
-                    </DoubleAnimation>
-                </Storyboard>
-            </UserControl.Resources>
-
             <!--Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
