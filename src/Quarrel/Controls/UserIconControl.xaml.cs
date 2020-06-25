@@ -2,6 +2,7 @@
 
 using Quarrel.ViewModels.Models.Interfaces;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace Quarrel.Controls
 {
@@ -36,5 +37,30 @@ namespace Quarrel.Controls
         /// Gets the user on display.
         /// </summary>
         public IBindableUser ViewModel => DataContext as IBindableUser;
+
+        private void Image_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            if (ShowPresence)
+            {
+                ImageSourceWithPresence?.Play();
+            }
+            else
+            {
+                ImageSourceWithoutPresence?.Play();
+            }
+        }
+
+        private void Image_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (ShowPresence)
+            {
+                ImageSourceWithPresence?.Stop();
+            }
+            else
+            {
+                ImageSourceWithoutPresence?.Stop();
+            }
+        }
+
     }
 }

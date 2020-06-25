@@ -20,33 +20,6 @@
 
     <DataTemplate x:Key="GuildTemplate" x:DataType="guildbindables:BindableGuild">
         <UserControl Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsCollapsed), Mode=OneWay}">
-            <UserControl.Resources>
-                <Storyboard x:Name="ShowBadge">
-                    <DoubleAnimation Duration="0:0:0.6" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border" d:IsOptimized="True">
-                        <DoubleAnimation.EasingFunction>
-                            <CircleEase EasingMode="EaseOut"/>
-                        </DoubleAnimation.EasingFunction>
-                    </DoubleAnimation>
-                    <DoubleAnimation Duration="0:0:0.6" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="NotificationCounter" d:IsOptimized="True">
-                        <DoubleAnimation.EasingFunction>
-                            <CircleEase EasingMode="EaseOut"/>
-                        </DoubleAnimation.EasingFunction>
-                    </DoubleAnimation>
-                </Storyboard>
-                <Storyboard x:Name="HideBadge">
-                    <DoubleAnimation Duration="0:0:0.6" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border" d:IsOptimized="True">
-                        <DoubleAnimation.EasingFunction>
-                            <CircleEase EasingMode="EaseIn"/>
-                        </DoubleAnimation.EasingFunction>
-                    </DoubleAnimation>
-                    <DoubleAnimation Duration="0:0:0.6" To="24" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="NotificationCounter" d:IsOptimized="True">
-                        <DoubleAnimation.EasingFunction>
-                            <CircleEase EasingMode="EaseIn"/>
-                        </DoubleAnimation.EasingFunction>
-                    </DoubleAnimation>
-                </Storyboard>
-            </UserControl.Resources>
-
             <!--Flyout-->
             <UserControl.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
@@ -141,7 +114,7 @@
                    FontSize="24" FontWeight="Light" Margin="0,-2,0,0"/>
 
                 <!--Notificiation Count-->
-                <Border x:Name="border" x:Load="{x:Bind baseconvert:PositiveIntToBoolConverter.Convert(NotificationCount), Mode=OneWay}" Margin="0,0,-12,0" VerticalAlignment="Bottom">
+                <Border x:Name="border" Visibility="{x:Bind baseconvert:PositiveIntToVisibilityConverter.Convert(NotificationCount), Mode=OneWay}" Margin="0,0,-12,0" VerticalAlignment="Bottom">
                     <animations:Implicit.ShowAnimations>
                         <animations:OpacityAnimation Duration="0:0:0.3" To="1"/>
                     </animations:Implicit.ShowAnimations>
