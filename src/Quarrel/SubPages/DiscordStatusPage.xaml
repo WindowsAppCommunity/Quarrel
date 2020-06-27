@@ -65,7 +65,7 @@
                 <TextBlock Text="{x:Bind ViewModel.Status.Status.Description, Mode=OneWay}" TextWrapping="Wrap" FontSize="16" FontWeight="SemiLight" Foreground="White"/>
             </Border>
 
-            <ScrollViewer x:Name="IncidentsScroller" x:Load="{x:Bind baseconvert:ContainsItemsToBoolConverter.Convert(ViewModel.Incidents), Mode=OneWay}">
+            <ScrollViewer x:Name="IncidentsScroller" Visibility="{x:Bind baseconvert:ContainsItemsToVisibilityConverter.Convert(ViewModel.Incidents), Mode=OneWay}">
                 <ItemsControl ItemsSource="{x:Bind ViewModel.Incidents, Mode=OneWay}" Margin="24,6,18,12">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="viewmodel:ComplexComponent">
