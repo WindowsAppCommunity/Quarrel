@@ -1190,4 +1190,44 @@ This is in the moderation page in guild settings</comment>
     <value>Windows</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
+  <data name="Connected" xml:space="preserve">
+    <value>Ansluten</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Connecting" xml:space="preserve">
+    <value>Ansluter</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Disconnected" xml:space="preserve">
+    <value>Frånkopplad</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Misslyckades</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="ListeningTo" xml:space="preserve">
+    <value>Lyssnar på</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>Offline</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Playing" xml:space="preserve">
+    <value>Spelar</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
+  <data name="Starting" xml:space="preserve">
+    <value>Startar</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Streaming" xml:space="preserve">
+    <value>Streamar</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
+  <data name="Watching" xml:space="preserve">
+    <value>Tittar på</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
 </root>
