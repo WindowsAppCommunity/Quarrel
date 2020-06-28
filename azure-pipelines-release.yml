@@ -76,6 +76,9 @@ steps:
   inputs:
     serviceEndpoint: 'Store releases'
     appId: '9NBRWJ777C8R'
+    metadataUpdateMethod: 'JsonMetadata'
+    metadataPath: '$(build.SourcesDirectory)\appMetadata\release\'
+    updateImages: false
     packagePath: '$(appxPackageDir)\*.appxupload'
     force: false
     skipPolling: true

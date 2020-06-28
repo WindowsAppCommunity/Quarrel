@@ -29,7 +29,7 @@
                        VerticalAlignment="Center" Margin="12,0,16,0"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.Convert(ViewModel.Model.Inviter)}">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.Convert(ViewModel.Model.Inviter), FallbackValue=Collapsed}">
             <TextBlock x:Uid="/Controls/ByTB" Text="By:" Opacity=".5" Margin="0,0,4,0"/>
             <TextBlock Text="{x:Bind ViewModel.Model.Inviter.Username}" Opacity=".8" FontSize="14"/>
         </StackPanel>

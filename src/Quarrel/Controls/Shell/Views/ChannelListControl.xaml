@@ -650,7 +650,7 @@
                     
                     <!--Friend Button (DM channel header)-->
                     <ToggleButton Style="{StaticResource FriendsButtonStyle}" Visibility="{x:Bind ViewModel.CurrentGuild.IsDM, Mode=OneWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
-                                  IsChecked="{x:Bind baseconvert:NullToBoolConverter.Convert(ViewModel.CurrentChannel), Mode=OneWay}" Height="48" Background="Transparent"
+                                  IsChecked="{x:Bind baseconvert:NullToBoolConverter.Convert(ViewModel.CurrentChannel), Mode=OneWay, FallbackValue=True}" Height="48" Background="Transparent"
                                   Command="{x:Bind ViewModel.NavigateToFriends}">
                         <Viewbox MaxHeight="24">
                             <TextBlock x:Uid="/Controls/FriendsTB" Text="Friends" Foreground="{ThemeResource Foreground}" FontSize="18" Margin="12,0,0,0"/>
