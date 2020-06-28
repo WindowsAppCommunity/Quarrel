@@ -27,7 +27,10 @@
                 <RichTextBlock x:Name="notDetailed" TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,16,0,12">
                     <Paragraph>
                         <Run Text="• Bug fixes" />
+                        <LineBreak />
                         <Run Text="• Improve CPU usage" />
+                        <LineBreak />
+                        <Run Text="• Improve localisation" />
                     </Paragraph>
                     <Paragraph FontSize="8" />
                 </RichTextBlock>
