@@ -194,9 +194,6 @@
     <Compile Include="Controls\Channels\ChannelListHeader.xaml.cs">
       <DependentUpon>ChannelListHeader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Channels\VoiceMemberControl.xaml.cs">
-      <DependentUpon>VoiceMemberControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Friends\FriendTemplate.xaml.cs">
       <DependentUpon>FriendTemplate.xaml</DependentUpon>
     </Compile>
@@ -742,10 +739,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Channels\ChannelListHeader.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Channels\VoiceMemberControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

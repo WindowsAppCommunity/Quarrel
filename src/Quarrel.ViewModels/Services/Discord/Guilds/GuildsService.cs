@@ -188,7 +188,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
                             // Find parent position
                             if (!string.IsNullOrEmpty(bChannel.ParentId) && bChannel.ParentId != bChannel.Model.Id)
                             {
-                                bChannel.ParentPostion = guild.Channels.First(x => x.Id == bChannel.ParentId).Position;
+                                bChannel.ParentPostion = guild.Channels.FirstOrDefault(x => x.Id == bChannel.ParentId)?.Position ?? -1;
                             }
                             else
                             {
