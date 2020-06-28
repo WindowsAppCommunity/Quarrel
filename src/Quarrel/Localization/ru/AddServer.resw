@@ -497,7 +497,7 @@ This is shown in a Group DM channel&apos;s flyout</comment>
 This is shown in a text channel&apos;s flyout</comment>
   </data>
   <data name="MessageMFI.Text" xml:space="preserve">
-    <value>ЛС с ним</value>
+    <value>Перейти к ЛС</value>
     <comment>This is shown in a guild member flyout on the member list. Message in this context means to DM the person
 This is shown in a guild member flyout on the member list. Message in this context means to DM the person</comment>
   </data>
@@ -719,7 +719,7 @@ This is in the moderation page in guild settings</comment>
     <comment>This is in the credit page</comment>
   </data>
   <data name="Disclosure.Text" xml:space="preserve">
-    <value>Quarrel **неофициальный** клиент Discord. **Разработчики никоим образом не связаны с Discord, Inc.** Если что-то пойдёт не так, пока вы используете это приложение, пожалуйста, свяжитесь с нами через способы ниже. Однако за любые вопросы, которые мы не можем решить, мы не несём ответственности.</value>
+    <value>Quarrel - **неофициальный** клиент Discord. **Разработчики никоим образом не связаны с Discord, Inc.** Если что-то пойдёт не так, пока вы используете это приложение, пожалуйста, свяжитесь с нами через способы ниже. Однако за любые вопросы, которые мы не можем решить, мы не несём ответственности.</value>
     <comment>This is the disclosure in the about page</comment>
   </data>
   <data name="DiscordServerStatusHBTN.Content" xml:space="preserve">
@@ -1051,7 +1051,7 @@ This is in the moderation page in guild settings</comment>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="FluentThemeDescTB.Text" xml:space="preserve">
-    <value>Включить альтернативную fluent тему для Quarrel</value>
+    <value>Включить альтернативную Fluent тему для Quarrel</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="FluentThemeTB.Text" xml:space="preserve">
@@ -1131,7 +1131,7 @@ This is in the moderation page in guild settings</comment>
     <comment>This is in the voice page of the user settings</comment>
   </data>
   <data name="OverrideCollapseTB.Text" xml:space="preserve">
-    <value>Преопределить сворачивание категории</value>
+    <value>Развернуть свёрнутую категорию от</value>
     <comment>This is in the behavior page of the user settings</comment>
   </data>
   <data name="PrivacyNVI.Content" xml:space="preserve">
@@ -1187,7 +1187,47 @@ This is in the moderation page in guild settings</comment>
     <comment>This is in the user settings page</comment>
   </data>
   <data name="WindowsRBTN.Content" xml:space="preserve">
-    <value>Окна</value>
+    <value>Из Windows</value>
     <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>ПОДКЛЮЧЕНО</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Connecting" xml:space="preserve">
+    <value>ПОДКЛЮЧЕНИЕ</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Disconnected" xml:space="preserve">
+    <value>ОТКЛЮЧЕНО</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>НЕУДАЧНО</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="ListeningTo" xml:space="preserve">
+    <value>Слушает</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>НЕ В СЕТИ</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Playing" xml:space="preserve">
+    <value>Играет в</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
+  <data name="Starting" xml:space="preserve">
+    <value>ЗАПУСК</value>
+    <comment>This is a connecting status on the loading screen</comment>
+  </data>
+  <data name="Streaming" xml:space="preserve">
+    <value>Стримит</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
+  </data>
+  <data name="Watching" xml:space="preserve">
+    <value>Смотрит</value>
+    <comment>This is shown as the prefix to a status in the member list</comment>
   </data>
 </root>
