@@ -37,6 +37,8 @@ namespace Quarrel
     {
         private static bool _resourcesLoaded;
 
+        private static bool _hasSetup;
+
         static App()
         {
             var services = new ServiceCollection();
@@ -114,6 +116,11 @@ namespace Quarrel
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            if (_hasSetup)
+            {
+                return;
+            }
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(400, 500));
@@ -174,17 +181,15 @@ namespace Quarrel
             {
                 rootFrame.SizeChanged += ScaleDown;
             }
+            _hasSetup = true;
         }
 
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            e.Handled = true;
             var logger = App.ServiceProvider.GetService<ILogger<App>>();
 
             logger?.LogCritical(default(EventId), e.Exception, "Unhandled exception crashed the app.");
-            Frame rootFrame = new Frame();
-            Window.Current.Content = rootFrame;
-            rootFrame.Navigate(typeof(BSOD), e);
+            // Todo: Detect crash on next launch and handle appropriately
         }
 
         /// <summary>

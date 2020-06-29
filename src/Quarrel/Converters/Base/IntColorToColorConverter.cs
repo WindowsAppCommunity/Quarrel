@@ -1,26 +1,23 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using QuarrelSmartColor.Extensions.Windows.UI;
-using System;
-using Windows.UI.Xaml.Data;
+using Windows.UI;
 
 namespace Quarrel.Converters.Base
 {
     /// <summary>
     /// A converter that returns a Color from an interger.
     /// </summary>
-    public sealed class IntColorToColorConverter : IValueConverter
+    public sealed class IntColorToColorConverter
     {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, string language)
+        /// <summary>
+        /// Converts an int to a <see cref="Color"/>.
+        /// </summary>
+        /// <param name="value">The int color.</param>
+        /// <returns>The <see cref="Color"/> result.</returns>
+        public static Color Convert(int value)
         {
-            return ColorExtensions.IntToColor((int)value);
-        }
-
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
+            return ColorExtensions.IntToColor(value);
         }
     }
 }

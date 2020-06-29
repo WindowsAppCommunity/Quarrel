@@ -155,13 +155,13 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         /// <summary>
         /// Gets a value indicating whether or not the edit button should be shown in the flyout.
         /// </summary>
-        public bool ShowEdit => Model.User.Id == SimpleIoc.Default.GetInstance<ICurrentUserService>().CurrentUser.Model.Id;
+        public bool ShowEdit => Model.User?.Id == CurrentUsersService?.CurrentUser?.Model.Id;
 
         /// <summary>
         /// Gets a value indicating whether or not the delete button should be shown in the flyout.
         /// </summary>
         public bool ShowDelete =>
-            Model.User.Id == SimpleIoc.Default.GetInstance<ICurrentUserService>().CurrentUser.Model.Id
+            Model.User?.Id == CurrentUsersService?.CurrentUser?.Model.Id
             || (Channel.Permissions.ManageMessages && !Channel.IsDirectChannel);
 
         /// <summary>

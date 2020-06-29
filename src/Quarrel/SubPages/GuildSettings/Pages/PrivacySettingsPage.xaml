@@ -9,7 +9,7 @@
 
     <ScrollViewer>
         <StackPanel>
-            <CheckBox IsChecked="{x:Bind ViewModel.AllowDMs, Mode=TwoWay}" Content="Allow Direct Messages from Server Members" Style="{StaticResource CheckBoxStyle1}" Margin="8,0,0,0"/>
+            <CheckBox x:Uid="/GuildSettings/AllowDMCB" IsChecked="{x:Bind ViewModel.AllowDMs, Mode=TwoWay}" Content="Allow Direct Messages from Server Members" Style="{StaticResource CheckBoxStyle1}" Margin="8,0,0,0"/>
         </StackPanel>
     </ScrollViewer>
 </Page>

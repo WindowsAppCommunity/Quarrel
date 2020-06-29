@@ -12,12 +12,6 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <UserControl.Resources>
-        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
-        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
-        <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-    </UserControl.Resources>
-
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="UISize" CurrentStateChanged="UISize_CurrentStateChanged">
@@ -64,7 +58,7 @@
         <Rectangle x:Name="TitleBarHolder" Canvas.ZIndex="1" Fill="{ThemeResource AcrylicCommandBarBackground}" Height="32"/>
 
         <!--Small View CommandBar-->
-        <local:QuarrelCommandBar x:Name="SmallViewCommandBar" Visibility="{x:Bind UseLargeCommandBar, Converter={StaticResource NotBoolToVisibilityConverter}}"
+        <local:QuarrelCommandBar x:Name="SmallViewCommandBar" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(UseLargeCommandBar)}"
                                  Grid.Row="1" Background="{ThemeResource AcrylicCommandBarBackground}" HamburgerClicked="HamburgerClicked" MemberListButtonClicked="MemberListButtonClicked"/>
 
         <local:SideDrawer x:Name="ContentContainer" Grid.Row="2">
@@ -105,7 +99,7 @@
                     <views:MessageListControl x:Name="MessageList" ManipulationMode="TranslateX,TranslateInertia,System" Grid.Row="1"/>
 
                     <!--Friends List-->
-                    <views:FriendListControl Grid.Row="1" Visibility="{x:Bind ViewModel.CurrentChannel, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"/>
+                    <views:FriendListControl Grid.Row="1" x:Name="FriendsList" x:Load="{x:Bind baseconvert:NullToBoolConverter.Convert(ViewModel.CurrentChannel), Mode=OneWay, FallbackValue=True}"/>
                 </Grid>
             </local:SideDrawer.ContentMain>
             <local:SideDrawer.ContentRight>

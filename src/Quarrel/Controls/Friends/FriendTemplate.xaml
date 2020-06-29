@@ -1,27 +1,18 @@
 ﻿<UserControl
     x:Class="Quarrel.Controls.Friends.FriendTemplate"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Quarrel.Controls.Friends"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:discordconvert="using:Quarrel.Converters.Discord"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
-    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:contorls="using:Quarrel.Controls"
-    xmlns:membercontrols="using:Quarrel.Controls.Members"
-    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
-    xmlns:extensions2="using:Microsoft.Toolkit.Uwp.UI.Extensions?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:discordconvert="using:Quarrel.Converters.Discord"
+    xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <UserControl.Resources>
-        <discordconvert:DiscrimatorPrefixConveter x:Key="DiscrimatorPrefixConveter"/>
-    </UserControl.Resources>
-    
     <Grid Padding="24,12,24,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -48,7 +39,7 @@
                 <!--Username and Discriminator-->
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{x:Bind ViewModel.Model.User.Username, Mode=OneWay}" VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold"/>
-                    <TextBlock Text="{x:Bind ViewModel.Model.User.Discriminator, Converter={StaticResource DiscrimatorPrefixConveter}, Mode=OneWay}" FontSize="13" Margin="4,0,0,0" Opacity="0.25" VerticalAlignment="Bottom"/>
+                    <TextBlock Text="{x:Bind discordconvert:DiscrimatorPrefixConveter.Convert(ViewModel.Model.User.Discriminator), Mode=OneWay}" FontSize="13" Margin="4,0,0,0" Opacity="0.25" VerticalAlignment="Bottom"/>
                 </StackPanel>
             </HyperlinkButton>
             <StackPanel Orientation="Horizontal" Visibility="Collapsed">
@@ -57,9 +48,9 @@
             </StackPanel>
             
             <!--Friend status-->
-            <TextBlock Text="Friend Request Sent" Visibility="{x:Bind ViewModel.IsOutgoing, Mode=OneWay}"
+            <TextBlock x:Uid="/Controls/FriendRequestSentTB" Text="Friend Request Sent" Visibility="{x:Bind ViewModel.IsOutgoing, Mode=OneWay}"
                        VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiLight" Opacity="0.6" Foreground="{ThemeResource Foreground}"/>
-            <TextBlock Text="Accept Friend Request?" Visibility="{x:Bind ViewModel.IsIncoming, Mode=OneWay}"
+            <TextBlock x:Uid="/Controls/AcceptFriendRequestTB" Text="Accept Friend Request?" Visibility="{x:Bind ViewModel.IsIncoming, Mode=OneWay}"
                        VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiLight" Opacity="0.6" Foreground="{ThemeResource Foreground}"/>
             <!--<StackPanel x:Name="SharedGuildContainer" Orientation="Horizontal" VerticalAlignment="center" Grid.Column="2" Padding="0,6" Margin="-2,0,0,0">
 

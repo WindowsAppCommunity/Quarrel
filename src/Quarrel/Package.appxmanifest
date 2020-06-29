@@ -9,7 +9,7 @@
 	<Identity
 	  Name="38062AvishaiDernis.QuarrelDev"
 	  Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B"
-	  Version="20.6.13.0" />
+	  Version="20.6.28.0" />
 
 	<mp:PhoneIdentity PhoneProductId="d72cb53c-7904-44c8-a617-cf4dddbc7055" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -60,6 +60,14 @@
 				<uap:Extension Category="windows.appService">
 					<uap:AppService Name="Quarrel.Presence"/>
 				</uap:Extension>
+        <uap:Extension Category="windows.appService" EntryPoint="WebRTCBackgroundTask.AppServiceBackgroundTask">
+          <uap:AppService Name="com.Quarrel.voip"/>
+        </uap:Extension>
+        <Extension Category="windows.backgroundTasks" EntryPoint="WebRTCBackgroundTask.VoipBackgroundTask">
+          <BackgroundTasks>
+            <Task Type="systemEvent" />
+          </BackgroundTasks>
+        </Extension>
 			</Extensions>
 		</Application>
 	</Applications>

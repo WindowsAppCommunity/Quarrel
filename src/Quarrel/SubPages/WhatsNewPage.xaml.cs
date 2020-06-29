@@ -3,8 +3,12 @@
 using GalaSoft.MvvmLight.Ioc;
 using Quarrel.SubPages.Interfaces;
 using Quarrel.ViewModels.Services.Navigation;
+using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Quarrel.ViewModels.Helpers;
+using Quarrel.ViewModels.Services.Analytics;
+using Quarrel.ViewModels.Services.Discord.Rest;
 
 namespace Quarrel.SubPages
 {
@@ -21,6 +25,7 @@ namespace Quarrel.SubPages
         public WhatsNewPage()
         {
             this.InitializeComponent();
+            SimpleIoc.Default.GetInstance<IAnalyticsService>().Log(Constants.Analytics.Events.OpenWhatsNew);
         }
 
         /// <inheritdoc/>
@@ -34,11 +39,33 @@ namespace Quarrel.SubPages
         /// </summary>
         public bool IsInsider => App.IsInsiderBuild;
 
+        /// <summary>
+        /// Gets the app's version number.
+        /// </summary>
+        public string AppVersion => string.Format(
+            "{0}.{1}.{2}",
+            Package.Current.Id.Version.Major,
+            Package.Current.Id.Version.Minor,
+            Package.Current.Id.Version.Build);
+
         private ISubFrameNavigationService SubFrameNavigationService => _subFrameNavigationService ?? (_subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>());
 
         private void Close(object sender, RoutedEventArgs e)
         {
             SubFrameNavigationService.GoBack();
+        }
+
+        private async void JoinQuarrelServer(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await SimpleIoc.Default.GetInstance<IDiscordService>().InviteService.AcceptInvite("wQmQgtq");
+                SimpleIoc.Default.GetInstance<IAnalyticsService>().Log(Constants.Analytics.Events.JoinedQuarrelServer);
+            }
+            catch
+            {
+                // TODO: State failure
+            }
         }
     }
 }

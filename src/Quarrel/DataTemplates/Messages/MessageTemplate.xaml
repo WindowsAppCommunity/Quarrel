@@ -24,7 +24,7 @@
     xmlns:system="using:System"
     xmlns:messageConverters="using:Quarrel.Converters.Messages"
     xmlns:uniformGrid="using:Quarrel.Controls.UniformGrid"
-    xmlns:baseConverter="using:Quarrel.Converters.Base"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
     x:Class="Quarrel.DataTemplates.Messages.MessageTemplate">
 
     <ResourceDictionary.MergedDictionaries>
@@ -51,7 +51,7 @@
     </DataTemplate>
     <DataTemplate x:Key="ImageAttachmentTemplate" x:DataType="embedbindables:BindableAttachment">
         <Grid HorizontalAlignment="Left">
-            <messagecontrols:HiddenAttachment DataContext="{x:Bind}" Visibility="{x:Bind IsShowing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
+            <messagecontrols:HiddenAttachment DataContext="{x:Bind}" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsShowing), Mode=OneWay}"/>
             <toolkit:ImageEx x:Name="media" Source="{x:Bind Model.Url}" x:Load="{x:Bind IsShowing, Mode=OneWay}"
                          Height="{x:Bind Model.ActualHeight}" DataContext="{x:Bind}"
                          Width="{x:Bind Model.ActualWidth}"
@@ -60,7 +60,7 @@
     </DataTemplate>
     <DataTemplate x:Key="VideoAttachmentTemplate" x:DataType="embedbindables:BindableAttachment">
         <Grid HorizontalAlignment="Left">
-            <messagecontrols:HiddenAttachment DataContext="{x:Bind}" Visibility="{x:Bind IsShowing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"/>
+            <messagecontrols:HiddenAttachment DataContext="{x:Bind}" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsShowing), Mode=OneWay}"/>
             <MediaElement x:Name="media" Source="{x:Bind Model.ProxyUrl}" x:Load="{x:Bind IsShowing, Mode=OneWay}"
                       MaxHeight="360" MaxWidth="640"
                       MinHeight="48" MinWidth="100" 
@@ -101,7 +101,7 @@
                 Background="{ThemeResource MidBG}"
                 HorizontalAlignment="Left">
             <Grid>
-                <Border x:Name="SideBorder" Width="4" HorizontalAlignment="Left" Background="{x:Bind Model.Color, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}" CornerRadius="4,0,0,4"/>
+                <Border x:Name="SideBorder" Width="4" HorizontalAlignment="Left" Background="{x:Bind baseconvert:IntColorToBrushConverter.Convert(Model.Color), Mode=OneWay}" CornerRadius="4,0,0,4"/>
                 <StackPanel x:Name="stacker" Margin="16,8,16,8">
                     <Grid x:Name="HeaderGrid">
                         <Grid.RowDefinitions>
@@ -113,20 +113,29 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,16,0" MaxWidth="400">
-                            <StackPanel Margin="0,4,0,10" Orientation="Horizontal" x:Name="AuthorSP" x:Load="{x:Bind Model.Author, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
-                                <Border CornerRadius="10" Margin="0,0,10,0" x:Name="AuthorRect" x:Load="{x:Bind Model.Author.IconUrl, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+                            <StackPanel Margin="0,4,0,10"
+                                        Orientation="Horizontal"
+                                        x:Name="AuthorSP"
+                                        x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Model.Author), Mode=OneWay, FallbackValue=False}">
+                                <Border CornerRadius="10"
+                                        Margin="0,0,10,0"
+                                        x:Name="AuthorRect"
+                                        x:Load="{x:Bind baseconvert:NotNullToBoolConverter.ConvertString(Model.Author.IconUrl), Mode=OneWay, FallbackValue=False}">
                                     <toolkit:ImageEx Width="20" Height="20" DecodePixelWidth="20" DecodePixelHeight="20" Source="{x:Bind Model.Author.ProxyIconUrl}"/>
                                 </Border>
-                                <TextBlock x:Name="AuthorText" Text="{x:Bind Model.Author.Name}" x:Load="{x:Bind Model.Author.Name, Converter={StaticResource NotNullToBoolConverter}}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}"
+                                <TextBlock x:Name="AuthorText"
+                                           Text="{x:Bind Model.Author.Name}"
+                                           x:Load="{x:Bind baseconvert:NotNullToBoolConverter.ConvertString(Model.Author.Name), FallbackValue=False}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}"
                                            VerticalAlignment="Center"/>
                             </StackPanel>
 
-                            <TextBlock Text="{x:Bind Model.Title}" x:Load="{x:Bind Model.Title, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
+                            <TextBlock Text="{x:Bind Model.Title}"
+                                       x:Load="{x:Bind baseconvert:NotNullToBoolConverter.ConvertString(Model.Title), Mode=OneWay, FallbackValue=False}"
                                        TextWrapping="WrapWholeWords" x:Name="TitleTB" FontSize="14" FontWeight="SemiBold"/>
 
                             <markdown:MarkdownTextBlock Text="{x:Bind Model.Description, Mode=OneWay}"
                                                         x:Name="ContentMDBlock"
-                                                        x:Load="{x:Bind Model.Description, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
+                                                        x:Load="{x:Bind baseconvert:NotNullToBoolConverter.ConvertString(Model.Description), Mode=OneWay, FallbackValue=False}"
                                                         Opacity="0.75"
                                                         FontSize="13"
                                                         Margin="0,0,0,0" />
@@ -147,14 +156,18 @@
                                                 <ItemsControl.ItemTemplate>                                                  
                                                     <DataTemplate x:DataType="embedmodels:EmbedField">
                                                         <StackPanel>
-                                                            <TextBlock x:Name="FieldName" TextWrapping="NoWrap" Text="{x:Bind Name}" FontSize="13" FontWeight="SemiBold" x:Load="{x:Bind Name, Converter={StaticResource NotNullToBoolConverter}}"/>
+                                                            <TextBlock x:Name="FieldName"
+                                                                       TextWrapping="NoWrap"
+                                                                       Text="{x:Bind Name}"
+                                                                       FontSize="13"
+                                                                       FontWeight="SemiBold"
+                                                                       x:Load="{x:Bind baseconvert:NotNullToBoolConverter.ConvertString(Name), FallbackValue=False}"/>
                                                             <toolkit:MarkdownTextBlock x:Name="Value"
                                                                                        TextWrapping="Wrap"
-                                                                                       Text="{x:Bind Value, Converter={StaticResource MultipleWhiteSpaceCollapseConverter}}"
+                                                                                       Text="{x:Bind baseconvert:MultipleWhiteSpaceCollapseConverter.Convert(Value)}"
                                                                                        FontSize="13"
                                                                                        Opacity="0.75"
-                                                                                       x:Load="{x:Bind Value, Converter={StaticResource NotNullToBoolConverter}}" />
-
+                                                                                       x:Load="{x:Bind baseconvert:NotNullToBoolConverter.ConvertString(Value), FallbackValue=False}" />
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
@@ -164,13 +177,19 @@
                                 </winui:ItemsRepeater>
                             </StackPanel>
                         </StackPanel>
-                        <Grid Grid.Row="0" Grid.Column="1" VerticalAlignment="Top"  x:Name="ThumbnailImage" x:Load="{x:Bind Model.Thumbnail, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}">
+                        <Grid Grid.Row="0"
+                              Grid.Column="1"
+                              VerticalAlignment="Top"
+                              x:Name="ThumbnailImage"
+                              x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Model.Thumbnail), Mode=OneWay, FallbackValue=False}">
                             <Border CornerRadius="3">
                                 <toolkit:ImageEx Source="{x:Bind Model.Thumbnail.ProxyUrl, Mode=OneWay}" DataContext="{x:Bind}" MaxWidth="80" MaxHeight="80" Stretch="Uniform" Tapped="Expand"/>
                             </Border>
                         </Grid>
                     </Grid>
-                    <Viewbox HorizontalAlignment="Left" x:Name="ImageVB" x:Load="{x:Bind Model.Image, Converter={StaticResource NotNullToBoolConverter}}" StretchDirection="DownOnly" MaxWidth="400" MaxHeight="250">
+                    <Viewbox HorizontalAlignment="Left"
+                             x:Name="ImageVB"
+                             x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(Model.Image), FallbackValue=False}" StretchDirection="DownOnly" MaxWidth="400" MaxHeight="250">
                         <toolkit:ImageEx Source="{x:Bind Model.Image.ProxyUrl}" DataContext="{x:Bind}" Tapped="Expand"/>
                     </Viewbox>
                     <Grid>
@@ -178,10 +197,6 @@
                             <ColumnDefinition/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <!--<StackPanel x:Name="FooterSP" x:Load="{x:Bind Model.Footer, Converter={StaticResource NotNullToBoolConverter}}" Orientation="Horizontal">
-                            <toolkit:ImageEx Source="{x:Bind Model.Footer.ProxyIconUrl}" x:Name="FooterImage" x:Load="{x:Bind Model.Footer.ProxyIconUrl, Converter={StaticResource NotNullToBoolConverter}}" Width="18" Height="18" Margin="0,0,8,0"/>
-                            <TextBlock Text="{x:Bind Model.Footer.Text}" FontSize="12" FontWeight="SemiBold" Opacity="0.4" VerticalAlignment="Center"/>
-                        </StackPanel>-->
                         <Button Visibility="Collapsed" Style="{StaticResource IntegratedButton}" Grid.Column="1" HorizontalAlignment="Right">
                             <FontIcon Glyph="&#xE72D;" FontFamily="Segoe MDL2 Assets" />
                         </Button>
@@ -257,7 +272,7 @@
                         RelativePanel.AlignTopWith="header"
                         Style="{StaticResource DimButton}" Padding="4" Margin="-4,10,-4,-4"
                         extensions2:Mouse.Cursor="Hand"
-                        Visibility="{x:Bind IsContinuation, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+                        Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsContinuation), Mode=OneWay}"
                         Flyout="{StaticResource MemberFlyout}">
                     <controls:UserIconControl Size="40" Width="40" Height="40" DataContext="{x:Bind Author, Mode=OneWay}" ShowPresence="False"/>
                 </Button>
@@ -265,12 +280,12 @@
                 <StackPanel x:Name="header"
                             Margin="52,8,0,2"
                             RelativePanel.Below="HeaderGrid"
-                            x:Load="{x:Bind IsContinuation, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}"
+                            x:Load="{x:Bind baseconvert:NotBoolToBoolConverter.Convert(IsContinuation), Mode=OneWay}"
                             Orientation="Horizontal">
                     <HyperlinkButton x:Name="AuthorHyperlink"
                                      Style="{StaticResource PlainTextHyperlinkStyle}"
                                      Content="{x:Bind AuthorDisplayName, Mode=OneWay}"
-                                     Foreground="{x:Bind AuthorColor, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}"
+                                     Foreground="{x:Bind baseconvert:IntColorToBrushConverter.Convert(AuthorColor), Mode=OneWay}"
                                      FlyoutBase.AttachedFlyout="{StaticResource MemberFlyout}">
                         <HyperlinkButton.ContextFlyout>
                             <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
@@ -300,12 +315,11 @@
                         </interactivity:Interaction.Behaviors>
                     </HyperlinkButton>
                     <TextBlock x:Phase="1"
-                               Text="{x:Bind Model.Timestamp, Converter={StaticResource DateTimeToTextConverter}}"
+                               Text="{x:Bind baseconvert:DateTimeToTextConverter.Convert(Model.Timestamp), Mode=OneWay}"
                                Margin="4,0,0,2"
                                VerticalAlignment="Bottom"
                                FontSize="11"
                                Opacity="0.3" />
-
                     <TextBlock x:Phase="1"
                                Text="(Edited"
                                Visibility="{x:Bind Model.EditedTimestamp, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
@@ -314,7 +328,7 @@
                                FontSize="9"
                                Opacity="0.25" />
                     <TextBlock x:Phase="1"
-                               Text="{x:Bind Model.EditedTimestamp, Converter={StaticResource DateTimeToTextConverter}, Mode=OneWay}"
+                               Text="{x:Bind baseconvert:DateTimeToTextConverter.Convert(Model.EditedTimestamp), Mode=OneWay}"
                                Visibility="{x:Bind Model.EditedTimestamp, Converter={StaticResource NotNullToVisibilityConverter}, Mode=OneWay}"
                                Margin="2,0,0,2"
                                VerticalAlignment="Bottom"
@@ -342,8 +356,8 @@
                     <markdown:MarkdownTextBlock Users="{x:Bind UsersMentioned}"
                                                 Roles="{x:Bind RolesMentioned}"
                                                 Channels="{x:Bind ChannelsMentioned}"
-                                                Text="{x:Bind Model.Content, Mode=OneWay}"
-                                                Visibility="{x:Bind IsEditing, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+                                                Text="{x:Bind Model.Content}"
+                                                Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(IsEditing), Mode=OneWay}"
                                                 TextWrapping="WrapWholeWords"
                                                 FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"
                                                 EmojiFontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"
@@ -405,7 +419,7 @@
                       RelativePanel.AlignLeftWith="body"
                       RelativePanel.AlignRightWithPanel="True">
                     <winui:ItemsRepeater x:Name="AttachmentList"
-                                         x:Load="{x:Bind baseConverter:ContainsItemsToBoolConverter.Convert(BindableAttachments), Mode=OneWay}"
+                                         x:Load="{x:Bind baseconvert:ContainsItemsToBoolConverter.Convert(BindableAttachments), Mode=OneWay}"
                                          ItemsSource="{x:Bind BindableAttachments, Mode=OneWay}"
                                          ItemTemplate="{StaticResource AttachmentTemplateSelector}">
                         <winui:ItemsRepeater.Layout>
@@ -413,7 +427,7 @@
                         </winui:ItemsRepeater.Layout>
                     </winui:ItemsRepeater>
                     <winui:ItemsRepeater x:Name="EmbedList"
-                                         x:Load="{x:Bind baseConverter:ContainsItemsToBoolConverter.Convert(Model.Embeds), Mode=OneWay}"
+                                         x:Load="{x:Bind baseconvert:ContainsItemsToBoolConverter.Convert(Model.Embeds), Mode=OneWay}"
                                          ItemsSource="{x:Bind BindableEmbeds, Mode=OneWay}"
                                          ItemTemplate="{StaticResource EmbedTemplateSelector}">
                         <winui:ItemsRepeater.Layout>
@@ -427,7 +441,7 @@
                             RelativePanel.Below="AttachmentEmbedList"
                             RelativePanel.AlignLeftWith="body"
                             Name="ReactionsStackPanel"
-                            x:Load="{x:Bind baseConverter:ContainsItemsToBoolConverter.Convert(BindableReactions), Mode=OneWay}">
+                            x:Load="{x:Bind baseconvert:ContainsItemsToBoolConverter.Convert(BindableReactions), Mode=OneWay}">
                     <StackPanel.Resources>
                         <Storyboard x:Name="ReactionsPointerEntered">
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AddReactionButton"

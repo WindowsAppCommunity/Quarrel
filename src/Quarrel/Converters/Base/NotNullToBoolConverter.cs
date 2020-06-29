@@ -10,24 +10,35 @@ namespace Quarrel.Converters.Base
     /// </summary>
     public sealed class NotNullToBoolConverter : IValueConverter
     {
+        /// <summary>
+        /// Check if a value is null.
+        /// </summary>
+        /// <param name="value">Item to check.</param>
+        /// <returns>Whether or not item is null.</returns>
+        public static bool Convert(object value)
+        {
+            return value != null;
+        }
+
+        /// <summary>
+        /// Check if a string is null.
+        /// </summary>
+        /// <param name="value">String to check.</param>
+        /// <returns>Whether or not item is null.</returns>
+        public static bool ConvertString(string value)
+        {
+            return !string.IsNullOrEmpty(value);
+        }
+
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            bool v;
             if (value is string sValue)
             {
-                v = !string.IsNullOrEmpty(sValue);
-            }
-            else if (value is int iValue)
-            {
-                v = iValue > 0;
-            }
-            else
-            {
-                v = value != null;
+                return ConvertString(sValue);
             }
 
-            return v;
+            return Convert(value);
         }
 
         /// <inheritdoc/>

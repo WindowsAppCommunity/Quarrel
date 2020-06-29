@@ -293,8 +293,17 @@ namespace Quarrel.ViewModels
         public VoiceState VoiceState
         {
             get => voiceState;
-            set => Set(ref voiceState, value);
+            set
+            {
+                Set(ref voiceState, value);
+                RaisePropertyChanged(nameof(IsConnectedToVoiceChannel));
+            }
         }
+
+        /// <summary>
+        /// Gets a value indicating whether a user is connected to a voice channel.
+        /// </summary>
+        public bool IsConnectedToVoiceChannel => VoiceState.ChannelId != null;
 
         [NotNull]
         public ObservableRangeCollection<BindableFriend> BindableCurrentFriends { get; set; } =

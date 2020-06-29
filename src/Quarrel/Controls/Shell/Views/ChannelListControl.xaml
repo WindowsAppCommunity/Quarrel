@@ -1,22 +1,15 @@
 ﻿<UserControl
     x:Class="Quarrel.Controls.Shell.Views.ChannelListControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Quarrel.Controls.Shell.Views"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:convertbase="using:Quarrel.Converters.Base"
-    xmlns:convertchannel="using:Quarrel.Converters.Channel"
-    xmlns:convertdiscord="using:Quarrel.Converters.Discord"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:DiscordAPI.Models"
-    xmlns:bindables="using:Quarrel.Models.Bindables"
     xmlns:tkcontrols="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:channelcontrols="using:Quarrel.Controls.Channels"
-    xmlns:membercontrols="using:Quarrel.Controls.Members"
-    xmlns:helpers="using:Quarrel.Helpers"
-    xmlns:media="using:Microsoft.Xaml.Interactions.Media"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
+    xmlns:convertdiscord="using:Quarrel.Converters.Discord"
     xmlns:channels="using:Quarrel.DataTemplates.Channels"
+    xmlns:helpers="using:Quarrel.Helpers"
     xmlns:templateSelectors="using:Quarrel.TemplateSelectors"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -626,14 +619,6 @@
                 </Setter>
             </Style>
 
-            <convertbase:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
-            <convertbase:NullToBoolConverter x:Key="NullToBoolConverter"/>
-            <convertbase:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-            <convertchannel:MentionCountToVisiblityConverter x:Key="MentionCountToVisiblityConverter"/>
-            <convertchannel:SelectedToOpacityConverter x:Key="SelectedToOpacityConverter"/>
-            <convertchannel:TypeToForegroundBrushConverter x:Key="TypeToBrushConverter"/>
-            <convertchannel:TypeToMinHeightConverter x:Key="TypeToMinHeightConverter"/>
-            <convertdiscord:DiscriminatorToBrushConverter x:Key="DiscriminatorToBrushConverter"/>
             <!--
                 NewsChannelTemplate and StoreChannelTemplate should be implemented properly
             -->
@@ -660,15 +645,15 @@
             <ListView.Header>
                 <Grid>
                     <!--Guild Button (Guild channel header)-->
-                    <channelcontrols:ChannelListHeader Visibility="{x:Bind ViewModel.CurrentGuild.IsDM, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+                    <channelcontrols:ChannelListHeader Visibility="{x:Bind Mode=OneWay, Path=baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.CurrentGuild.IsDM)}"
                                                        DataContext="{x:Bind ViewModel.CurrentGuild, Mode=OneWay}"/>
                     
                     <!--Friend Button (DM channel header)-->
                     <ToggleButton Style="{StaticResource FriendsButtonStyle}" Visibility="{x:Bind ViewModel.CurrentGuild.IsDM, Mode=OneWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
-                                  IsChecked="{x:Bind ViewModel.CurrentChannel, Converter={StaticResource NullToBoolConverter}, Mode=OneWay}" Height="48" Background="Transparent"
+                                  IsChecked="{x:Bind baseconvert:NullToBoolConverter.Convert(ViewModel.CurrentChannel), Mode=OneWay, FallbackValue=True}" Height="48" Background="Transparent"
                                   Command="{x:Bind ViewModel.NavigateToFriends}">
                         <Viewbox MaxHeight="24">
-                            <TextBlock Text="Friends" Foreground="{ThemeResource Foreground}" FontSize="18" Margin="12,0,0,0"/>
+                            <TextBlock x:Uid="/Controls/FriendsTB" Text="Friends" Foreground="{ThemeResource Foreground}" FontSize="18" Margin="12,0,0,0"/>
                         </Viewbox>
                     </ToggleButton>
                 </Grid>

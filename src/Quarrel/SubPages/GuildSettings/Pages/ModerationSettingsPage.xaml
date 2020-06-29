@@ -9,65 +9,65 @@
 
     <ScrollViewer>
         <StackPanel>
-            <TextBlock Text="Verification Levels" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="14" FontWeight="SemiBold" Margin="4,16,0,4"/>
+            <TextBlock x:Uid="/GuildSettings/VertificationLevelsTB" Text="Verification Levels" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="14" FontWeight="SemiBold" Margin="4,16,0,4"/>
             <RadioButton IsChecked="{x:Bind ViewModel.VerficationLevel0, Mode=TwoWay}" GroupName="VfLvl" IsEnabled="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}"
                      Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0">
                 <StackPanel>
-                    <TextBlock Text="None"/>
-                    <TextBlock FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Unrestricted"/>
+                    <TextBlock x:Uid="/GuildSettings/NoneTB" Text="None"/>
+                    <TextBlock x:Uid="/GuildSettings/NoneDescTB" FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Unrestricted"/>
                 </StackPanel>
             </RadioButton>
             <RadioButton IsChecked="{x:Bind ViewModel.VerficationLevel1, Mode=TwoWay}" GroupName="VfLvl" IsEnabled="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}"
                      Foreground="{ThemeResource online}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0">
                 <StackPanel>
-                    <TextBlock Text="Low"/>
-                    <TextBlock FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Must have a verified email attached to their account." />
+                    <TextBlock x:Uid="/GuildSettings/LowTB" Text="Low"/>
+                    <TextBlock x:Uid="/GuildSettings/LowDescTB" FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Must have a verified email attached to their account." />
                 </StackPanel>
             </RadioButton>
             <RadioButton IsChecked="{x:Bind ViewModel.VerficationLevel2, Mode=TwoWay}" GroupName="VfLvl" IsEnabled="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}"
                      Foreground="{ThemeResource idle}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0">
                 <StackPanel>
-                    <TextBlock Text="Medium"/>
-                    <TextBlock FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Must also be registered on Discord for longer than 5 minutes." />
+                    <TextBlock x:Uid="/GuildSettings/MediumTB" Text="Medium"/>
+                    <TextBlock x:Uid="/GuildSettings/MediumDescTB" FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Must also be registered on Discord for longer than 5 minutes." />
                 </StackPanel>
             </RadioButton>
             <RadioButton IsChecked="{x:Bind ViewModel.VerficationLevel3, Mode=TwoWay}"  GroupName="VfLvl" IsEnabled="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}"
                      Foreground="#F57731" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0">
                 <StackPanel>
-                    <TextBlock Text="(╯°□°）╯︵ ┻━┻"/>
-                    <TextBlock FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Must also be a member of this server longer than 10 minutes." />
+                    <TextBlock x:Uid="/GuildSettings/TableFlipTB" Text="(╯°□°）╯︵ ┻━┻"/>
+                    <TextBlock x:Uid="/GuildSettings/TableFlipDescTB" FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Must also be a member of this server longer than 10 minutes." />
                 </StackPanel>
             </RadioButton>
             <RadioButton IsChecked="{x:Bind ViewModel.VerficationLevel4, Mode=TwoWay}" GroupName="VfLvl" IsEnabled="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}"
                      Foreground="{ThemeResource dnd}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0">
                 <StackPanel>
-                    <TextBlock Text="┻━┻彡 ヽ(ಠ益ಠ)ノ彡┻━┻"/>
-                    <TextBlock FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Must have a verified phone on their discord account." />
+                    <TextBlock x:Uid="/GuildSettings/DoubleTableFlipTB" Text="┻━┻彡 ヽ(ಠ益ಠ)ノ彡┻━┻"/>
+                    <TextBlock x:Uid="/GuildSettings/DoubleTableFlipDescTB" FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Must have a verified phone on their discord account." />
                 </StackPanel>
             </RadioButton>
 
-            <TextBlock Text="Explicit Content Filter" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="14" FontWeight="SemiBold" Margin="4,16,0,4"/>
+            <TextBlock x:Uid="/GuildSettings/ExplictContentFilterTB" Text="Explicit Content Filter" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="14" FontWeight="SemiBold" Margin="4,16,0,4"/>
             <RadioButton IsChecked="{x:Bind ViewModel.FilterLevel0, Mode=TwoWay}" GroupName="EcfLvl" IsEnabled="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}"
                      Foreground="{ThemeResource online}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0">
                 <StackPanel>
-                    <TextBlock Text="Don't scan any messages."/>
-                    <TextBlock FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Ain't no party like my grandma's tea party."/>
+                    <TextBlock x:Uid="/GuildSettings/ECF0TB" Text="Don't scan any messages."/>
+                    <TextBlock x:Uid="/GuildSettings/ECF0DescTB" FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Ain't no party like my grandma's tea party."/>
                 </StackPanel>
             </RadioButton>
 
             <RadioButton IsChecked="{x:Bind ViewModel.FilterLevel1, Mode=TwoWay}" GroupName="EcfLvl" IsEnabled="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}"
                      Foreground="{ThemeResource idle}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0">
                 <StackPanel>
-                    <TextBlock Text="Scan messages from members without a role."/>
-                    <TextBlock FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Recommended option for servers that use roles for trusted membership." />
+                    <TextBlock x:Uid="/GuildSettings/ECF1TB" Text="Scan messages from members without a role."/>
+                    <TextBlock x:Uid="/GuildSettings/ECF1DescTB" FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Recommended option for servers that use roles for trusted membership." />
                 </StackPanel>
             </RadioButton>
 
             <RadioButton IsChecked="{x:Bind ViewModel.FilterLevel2, Mode=TwoWay}" GroupName="EcfLvl" IsEnabled="{x:Bind ViewModel.Guild.Permissions.ManangeGuild, Mode=OneWay}"
                      Foreground="{ThemeResource dnd}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0">
                 <StackPanel>
-                    <TextBlock Text="Scan messages send by all members."/>
-                    <TextBlock FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Recommended option for when you want that squeaky clean shine."/>
+                    <TextBlock x:Uid="/GuildSettings/ECF2TB" Text="Scan messages send by all members."/>
+                    <TextBlock x:Uid="/GuildSettings/ECF2DescTB" FontSize="11" Foreground="{ThemeResource Foreground}" Opacity="0.5" TextWrapping="Wrap" Text="Recommended option for when you want that squeaky clean shine."/>
                 </StackPanel>
             </RadioButton>
         </StackPanel>

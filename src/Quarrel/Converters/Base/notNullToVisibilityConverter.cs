@@ -1,9 +1,6 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
@@ -14,32 +11,35 @@ namespace Quarrel.Converters.Base
     /// </summary>
     public sealed class NotNullToVisibilityConverter : IValueConverter
     {
+        /// <summary>
+        /// Checks if a object is null, and returns the inverse visibility.
+        /// </summary>
+        /// <param name="value">Item to check.</param>
+        /// <returns>An inverse visibility for if the object is null.</returns>
+        public static Visibility Convert(object value)
+        {
+            return value == null ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Checks if a string is null or empty, and returns the inverse visibility.
+        /// </summary>
+        /// <param name="value">String to check.</param>
+        /// <returns>An inverse visibility for if the string is null or empty.</returns>
+        public static Visibility ConvertString(string value)
+        {
+            return string.IsNullOrEmpty(value) ? Visibility.Collapsed : Visibility.Visible;
+        }
+
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            bool v;
             if (value is string sValue)
             {
-                v = !string.IsNullOrEmpty(sValue);
-            }
-            else if (value is int iValue)
-            {
-                v = iValue > 0;
-            }
-            else if (value is ICollection cValue)
-            {
-                v = cValue.Count > 0;
-            }
-            else if (value is IEnumerable<object> eValue)
-            {
-                v = eValue.Any();
-            }
-            else
-            {
-                v = value != null;
+                return ConvertString(sValue);
             }
 
-            return v ? Visibility.Visible : Visibility.Collapsed;
+            return Convert(value);
         }
 
         /// <inheritdoc/>

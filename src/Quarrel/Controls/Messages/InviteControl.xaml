@@ -10,13 +10,6 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <UserControl.Resources>
-        <baseconvert:NotBoolToVisibilityConverter x:Key="NotBoolToVisibilityConverter"/>
-        <baseconvert:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
-        <baseconvert:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
-        <baseconvert:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
-    </UserControl.Resources>
-
     <Grid VerticalAlignment="Top" MaxWidth="360" Padding="12,0,0,12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -30,14 +23,14 @@
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
             <Border CornerRadius="24">
-                <Image Height="48" Width="48" Source="{x:Bind ViewModel.IconUrl, Converter={StaticResource UriToImageSourceConverter}, Mode=OneWay}"/>
+                <Image Height="48" Width="48" Source="{x:Bind baseconvert:UriToImageSourceConverter.Convert(ViewModel.IconUrl), Mode=OneWay}"/>
             </Border>
             <TextBlock Text="{x:Bind ViewModel.Model.Guild.Name, Mode=OneWay}" FontSize="16" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"
                        VerticalAlignment="Center" Margin="12,0,16,0"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Visibility="{x:Bind ViewModel.Model.Inviter, Converter={StaticResource NotNullToVisibilityConverter}}">
-            <TextBlock Text="By:" Opacity=".5" Margin="0,0,4,0"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Visibility="{x:Bind baseconvert:NotNullToVisibilityConverter.Convert(ViewModel.Model.Inviter), FallbackValue=Collapsed}">
+            <TextBlock x:Uid="/Controls/ByTB" Text="By:" Opacity=".5" Margin="0,0,4,0"/>
             <TextBlock Text="{x:Bind ViewModel.Model.Inviter.Username}" Opacity=".8" FontSize="14"/>
         </StackPanel>
 
@@ -59,9 +52,9 @@
             <TextBlock x:Name="Description" Text="0 uses, expires in 00:00:00" FontSize="13.333" />
         </StackPanel>-->
 
-        <Button x:Name="JoinButton" x:Load="{x:Bind InviteList, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}"
+        <Button x:Uid="/Controls/JoinBTN" x:Name="JoinButton" x:Load="{x:Bind baseconvert:NotBoolToBoolConverter.Convert(InviteList), Mode=OneWay}"
                 Content="Join" Style="{StaticResource DiscordButton}" Background="{ThemeResource online}" VerticalAlignment="Stretch"
-                Visibility="{x:Bind ViewModel.Joined, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+                Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.Joined), Mode=OneWay}"
                 Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Margin="16,8,16,8" Padding="16" Width="60" Height="60"
                 Command="{x:Bind ViewModel.AcceptInviteCommand, Mode=OneWay}"/>
     </Grid>

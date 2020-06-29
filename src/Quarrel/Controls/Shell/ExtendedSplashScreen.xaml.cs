@@ -39,7 +39,7 @@ namespace Quarrel.Controls.Shell
             {
                 await DispatcherHelper.RunAsync(() =>
                 {
-                    StatusBlock.Text = m.Status.ToString().ToUpper();
+                    StatusBlock.Text = Helpers.Constants.Localization.GetLocalizedString(m.Status.ToString());
                 });
 
                 if (m.Status == ConnectionStatus.Failed || m.Status == ConnectionStatus.Offline)

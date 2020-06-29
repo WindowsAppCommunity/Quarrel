@@ -32,8 +32,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <members:GuildMemberListItemTemplate/>
             </ResourceDictionary.MergedDictionaries>
-            <baseconverts:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
-
 
             <templateSelectors:GuildMemberListSelector 
                 MemberTemplate="{StaticResource GuildMemberListItemTemplate}"
@@ -112,7 +110,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{x:Bind Name}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Role.Color, Converter={StaticResource IntColorToBrushConverter}}" Opacity="0.75" Margin="0"/>
+                                <TextBlock Text="{x:Bind Name}" FontSize="13" FontWeight="SemiBold" Foreground="{x:Bind baseconverts:IntColorToBrushConverter.Convert(Role.Color)}" Opacity="0.75" Margin="0"/>
                                 <TextBlock Grid.Column="1" Text="{x:Bind Count}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Foreground}" Opacity="0.35"/>
                             </Grid>
                         </DataTemplate>

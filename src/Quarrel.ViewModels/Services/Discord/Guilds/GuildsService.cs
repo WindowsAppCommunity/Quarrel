@@ -56,7 +56,7 @@ namespace Quarrel.ViewModels.Services.Discord.Guilds
             _dispatcherHelper = dispatcherHelper;
             _presenceService = presenceService;
         }
-
+        
         /// <inheritdoc/>
         public BindableGuild CurrentGuild
         {

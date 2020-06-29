@@ -390,10 +390,10 @@
 
     <ScrollViewer>
         <StackPanel Padding="16">
-            <TextBlock Text="CREDIT" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,20"/>
+            <TextBlock x:Uid="/Meta/CreditTB" Text="CREDIT" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,20"/>
 
             <!--Developers-->
-            <TextBlock Text="Developers" FontSize="18" Margin="0,0,0,12"/>
+            <TextBlock x:Uid="/Meta/DevelopersTB" Text="Developers" FontSize="18" Margin="0,0,0,12"/>
             <Grid>
                 <ListView ItemsSource="{x:Bind ViewModel.Developers, Mode=OneWay}" ItemContainerStyle="{StaticResource DeveloperContainerStyle}"
                           SelectionMode="None" IsItemClickEnabled="True" ItemClick="DeveloperClicked">
@@ -406,7 +406,7 @@
             </Grid>
 
             <!--Contributors-->
-            <TextBlock Text="Contributors" FontSize="18" Margin="0,0,0,12"/>
+            <TextBlock x:Uid="/Meta/ContributorsTB" Text="Contributors" FontSize="18" Margin="0,0,0,12"/>
             <Grid>
                 <GridView ItemsSource="{x:Bind ViewModel.Contributors, Mode=OneWay}" ItemContainerStyle="{StaticResource ContributorContainerStyle}"
                           SelectionMode="None" IsItemClickEnabled="True" ItemClick="ContributorClicked">

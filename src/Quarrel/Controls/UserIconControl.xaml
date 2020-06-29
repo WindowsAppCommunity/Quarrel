@@ -7,15 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:discordconvert="using:Quarrel.Converters.Discord"
-    xmlns:base="using:Quarrel.Converters.Base"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-
-    <UserControl.Resources>
-        <discordconvert:PresenseToColorConverter x:Key="PresenseToColorConverter" />
-        <base:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter" />
-    </UserControl.Resources>
 
     <Grid>
         <toolkit:DropShadowPanel Width="{x:Bind Size, Mode=OneWay}"
@@ -23,25 +18,43 @@
                                  x:Name="presenceShadow"
                                  x:Load="{x:Bind ShowPresence, Mode=OneWay}"
                                  BlurRadius="10"
-                                 Color="{x:Bind ViewModel.Presence.Status, Converter={StaticResource PresenseToColorConverter}, Mode=OneWay}">
+                                 Color="{x:Bind discordconvert:PresenseToColorConverter.Convert(ViewModel.Presence.Status), Mode=OneWay}">
             <Rectangle Width="{x:Bind Size, Mode=OneWay}"
                        Height="{x:Bind Size, Mode=OneWay}"
                        RadiusX="{x:Bind Size, Mode=OneWay}"
-                       RadiusY="{x:Bind Size, Mode=OneWay}">
+                       RadiusY="{x:Bind Size, Mode=OneWay}"
+                       PointerEntered="Image_PointerEntered"
+                       PointerExited="Image_PointerExited">
                 <Rectangle.Fill>
                     <ImageBrush>
                         <ImageBrush.ImageSource>
-                            <BitmapImage UriSource="{x:Bind ViewModel.RawModel.AvatarUrl, Mode=OneWay}"
+                            <BitmapImage x:Name="ImageSourceWithPresence"
+                                         UriSource="{x:Bind ViewModel.RawModel.AvatarUrl, Mode=OneWay}"
                                          DecodePixelHeight="{x:Bind Size, Mode=OneWay}"
                                          DecodePixelWidth="{x:Bind Size, Mode=OneWay}"
-                                         DecodePixelType="Logical" />
+                                         DecodePixelType="Logical"
+                                         AutoPlay="False"/>
                         </ImageBrush.ImageSource>
                     </ImageBrush>
                 </Rectangle.Fill>
             </Rectangle>
         </toolkit:DropShadowPanel>
-        <Border x:Name="ProfileImageWithoutPresence" CornerRadius="999999" x:Load="{x:Bind ShowPresence, Mode=OneWay, Converter={StaticResource NotBoolToBoolConverter}}">
-            <Image Width="{x:Bind Size, Mode=OneWay}" Height="{x:Bind Size, Mode=OneWay}" Source="{x:Bind ViewModel.RawModel.AvatarUrl, Mode=OneWay}" />
+        <Border x:Name="ProfileImageWithoutPresence" 
+                CornerRadius="999999"
+                x:Load="{x:Bind baseconvert:NotBoolToBoolConverter.Convert(ShowPresence), Mode=OneWay}">
+            <Image Width="{x:Bind Size, Mode=OneWay}"
+                   Height="{x:Bind Size, Mode=OneWay}"
+                   PointerEntered="Image_PointerEntered"
+                   PointerExited="Image_PointerExited">
+                <Image.Source>
+                    <BitmapImage x:Name="ImageSourceWithoutPresence"
+                                 UriSource="{x:Bind ViewModel.RawModel.AvatarUrl, Mode=OneWay}"
+                                 DecodePixelHeight="{x:Bind Size, Mode=OneWay}"
+                                 DecodePixelWidth="{x:Bind Size, Mode=OneWay}"
+                                 DecodePixelType="Logical"
+                                 AutoPlay="False" />
+                </Image.Source>
+            </Image>
         </Border>
     </Grid>
 </UserControl>

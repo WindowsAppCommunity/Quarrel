@@ -6,20 +6,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls1="using:Quarrel.Controls"
-    xmlns:base="using:Quarrel.Converters.Base"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
     Unloaded="UserControl_Unloaded">
-    <UserControl.Resources>
-        <base:IntColorToBrushConverter x:Key="IntColorToBrushConverter"/>
-        <base:NotBoolToBoolConverter x:Key="NotBoolToBoolConverter"/>
-        <base:NotNullToBoolConverter x:Key="NotNullToBoolConverter"/>
-    </UserControl.Resources>
 
     <Border CornerRadius="4" Background="{ThemeResource MidBG}">
         <Grid>
-            <Border x:Name="SideBorder" Width="4" HorizontalAlignment="Left" Background="{x:Bind ViewModel.Model.Color, Converter={StaticResource IntColorToBrushConverter}, Mode=OneWay}" CornerRadius="4,0,0,4"/>
+            <Border x:Name="SideBorder" Width="4" HorizontalAlignment="Left" Background="{x:Bind baseconvert:IntColorToBrushConverter.Convert(ViewModel.Model.Color), Mode=OneWay}" CornerRadius="4,0,0,4"/>
             <StackPanel x:Name="stacker" Margin="16,8,4,8">
                 <Grid x:Name="HeaderGrid">
                     <Grid.ColumnDefinitions>
@@ -34,11 +29,11 @@
                     </StackPanel>
                 </Grid>
                 <Grid HorizontalAlignment="Left" MaxWidth="400" MaxHeight="225">
-                    <controls:ImageEx Source="{x:Bind ViewModel.Model.Thumbnail.ProxyUrl, Mode=OneWay}" x:Name="VideoPreviewImage" x:Load="{x:Bind ViewModel.Playing, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"/>
+                    <controls:ImageEx Source="{x:Bind ViewModel.Model.Thumbnail.ProxyUrl, Mode=OneWay}" x:Name="VideoPreviewImage" x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(ViewModel.Playing), Mode=OneWay, FallbackValue=False}"/>
                     <Grid Width="100" Height="75" CornerRadius="37.5"
                           Background="{ThemeResource AcrylicButtonBackground}" 
                           x:Name="VideoPreviewImageControls"
-                          x:Load="{x:Bind ViewModel.Playing, Converter={StaticResource NotBoolToBoolConverter}, Mode=OneWay}" 
+                          x:Load="{x:Bind baseconvert:NotBoolToBoolConverter.Convert(ViewModel.Playing), Mode=OneWay}" 
                           VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Button Style="{StaticResource DimButton}" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{x:Bind ViewModel.PlayCommand}">
                             <Viewbox MaxHeight="50"

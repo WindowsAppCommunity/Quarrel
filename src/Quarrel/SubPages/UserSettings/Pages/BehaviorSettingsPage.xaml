@@ -12,35 +12,35 @@
             <CheckBox x:Name="MentionGlow" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,6"
                       IsChecked="{x:Bind ViewModel.MentionGlow, Mode=TwoWay}">
                 <StackPanel Margin="0,2,0,0">
-                    <TextBlock Text="Glow on Mention"/>
-                    <TextBlock Text="The left side of the screen glows when you are mentioned" FontSize="11" Opacity="0.5"/>
+                    <TextBlock x:Uid="/UserSettings/MentionGlowTB" Text="Glow on Mention"/>
+                    <TextBlock x:Uid="/UserSettings/MentionGlowDescTB" Text="The left side of the screen glows when you are mentioned" FontSize="11" Opacity="0.5"/>
                 </StackPanel>
             </CheckBox>
 
 
-            <TextBlock Text="CHANNELS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
+            <TextBlock x:Uid="/UserSettings/ChannelsTB" Text="CHANNELS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
             <CheckBox x:Name="ShowNoPermissionsChannels" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0"
                       IsChecked="{x:Bind ViewModel.ShowNoPermissions, Mode=TwoWay}">
                 <StackPanel Margin="0,2,0,0">
-                    <TextBlock Text="Show No Permissions Channels"/>
-                    <TextBlock Text="Gaze upon that which yee cannot enter" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Uid="/UserSettings/NoPermissionChannelsTB" Text="Show No Permissions Channels"/>
+                    <TextBlock x:Uid="/UserSettings/NoPermissionChannelsDescTB" Text="Gaze upon that which yee cannot enter" FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
                 </StackPanel>
             </CheckBox>
 
-            <TextBlock Text="Override Category Collapse" FontSize="14" FontWeight="SemiBold" Margin="0,8,0,0"/>
-            <RadioButton Content="No Override" x:Name="NoOverride" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,0,0,-4"
+            <TextBlock x:Uid="/UserSettings/OverrideCollapseTB" Text="Override Category Collapse" FontSize="14" FontWeight="SemiBold" Margin="0,8,0,0"/>
+            <RadioButton x:Uid="/UserSettings/NoOverrideTB" Content="No Override" x:Name="NoOverride" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,0,0,-4"
                          IsChecked="{x:Bind ViewModel.NoCollapseOverride, Mode=TwoWay}"/>
-            <RadioButton Content="Mentions" x:Name="OverrideMention" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,0,0,-4"
+            <RadioButton x:Uid="/UserSettings/MentionsRBTN" Content="Mentions" x:Name="OverrideMention" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,0,0,-4"
                          IsChecked="{x:Bind ViewModel.MentionCollapseOverride, Mode=TwoWay}"/>
-            <RadioButton Content="Unread" x:Name="OverrideUnread" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,0,0,-4"
+            <RadioButton x:Uid="/UserSettings/UnreadRBTN" Content="Unread" x:Name="OverrideUnread" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,0,0,-4"
                          IsChecked="{x:Bind ViewModel.UnreadCollapseOverride, Mode=TwoWay}"/>
 
-            <TextBlock Text="METERED CONNECTIONS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
+            <TextBlock x:Uid="/UserSettings/MeteredConnectionsTB" Text="METERED CONNECTIONS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
             <CheckBox x:Name="TTLAttachments" Style="{StaticResource CheckBoxStyle1}" Margin="0,4,0,0" MaxWidth="450"
                       IsChecked="{x:Bind ViewModel.TTLAttachments, Mode=TwoWay}">
                 <StackPanel Margin="0,2,0,0">
-                    <TextBlock Text="Tap To Load Attachments"/>
-                    <TextBlock Text="TTL (Tap To Load). Images, Audio or Videos in messages will not show unless you tap a replacement icon first" TextWrapping="WrapWholeWords" FontSize="11" Opacity="0.5"/>
+                    <TextBlock x:Uid="/UserSettings/TapToLoadTB" Text="Tap To Load Attachments"/>
+                    <TextBlock x:Uid="/UserSettings/TapToLoadDescTB" Text="TTL (Tap To Load). Images, Audio or Videos in messages will not show unless you tap a replacement icon first" TextWrapping="WrapWholeWords" FontSize="11" Opacity="0.5"/>
                 </StackPanel>
             </CheckBox>
 
@@ -48,8 +48,8 @@
             <CheckBox x:Name="UseCompression" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0" MaxWidth="450"
                       IsChecked="{x:Bind ViewModel.DataCompression, Mode=TwoWay}">
                 <StackPanel Margin="0,2,0,0">
-                    <TextBlock Text="Data Compression"/>
-                    <TextBlock Text="Data compression makes gateway messages smaller and faster to recieve. This is a little more expensive on the CPU but significantly faster with lower internet speed." FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Uid="/UserSettings/DataCompressionTB" Text="Data Compression"/>
+                    <TextBlock x:Uid="/UserSettings/DataCompressionDescTB" Text="Data compression makes gateway messages smaller and faster to recieve. This is a little more expensive on the CPU but significantly faster with lower internet speed." FontSize="11" Opacity="0.5" TextWrapping="WrapWholeWords"/>
                 </StackPanel>
             </CheckBox>
         </StackPanel>

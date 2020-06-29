@@ -17,7 +17,6 @@
         <actmsgconvert:TypeToIconConverter x:Key="TypeToIconConverter"/>
         <actmsgconvert:TypeToTextConverter x:Key="TypeToTextConverter"/>
         <actmsgconvert:VoiceTypeToBoolConverter x:Key="VoiceTypeToBoolConverter"/>
-        <baseconvert:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
     </UserControl.Resources>
 
     <Grid Height="32">
@@ -37,8 +36,8 @@
             <TextBlock Text="{x:Bind ViewModel.Model.Type, Converter={StaticResource TypeToTextConverter}, Mode=OneWay}" FontWeight="SemiLight" Opacity="0.9" Margin="8,0,0,0"/>
         </StackPanel>
 
-        <HyperlinkButton x:Name="JoinCallButton" Content="Join Call" Grid.Column="2" Margin="8,0"
-                         Visibility="{x:Bind ViewModel.Model.Call.EndedTimestamp, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"
+        <HyperlinkButton x:Uid="JoinCallBTN" x:Name="JoinCallButton" Content="Join Call" Grid.Column="2" Margin="8,0"
+                         Visibility="{x:Bind baseconvert:NullToVisibilityConverter.Convert(ViewModel.Model.Call.EndedTimestamp), Mode=OneWay, FallbackValue=Visible}"
                          Command="{x:Bind ViewModel.JoinCallCommand, Mode=OneWay}" x:Load="{x:Bind ViewModel.Model.Type, Converter={StaticResource VoiceTypeToBoolConverter}, Mode=OneWay}"/>
     </Grid>
 </UserControl>

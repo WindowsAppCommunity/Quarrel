@@ -2,15 +2,17 @@
     x:Class="Quarrel.DataTemplates.Channels.ChannelTemplate"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:bindables="using:Quarrel.ViewModels.Models.Bindables"
-    xmlns:channelbindables="using:Quarrel.ViewModels.Models.Bindables.Channels"
-    xmlns:local="using:Quarrel.DataTemplates.Channels"
-    xmlns:channelcontrols="using:Quarrel.Controls.Channels"
-    xmlns:controls="using:Quarrel.Controls"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:tkcontrols="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:controls="using:Quarrel.Controls"
+    xmlns:channelcontrols="using:Quarrel.Controls.Channels"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
+    xmlns:channelconvert="using:Quarrel.Converters.Channel"
+    xmlns:discordconvert="using:Quarrel.Converters.Discord"
+    xmlns:channelbindables="using:Quarrel.ViewModels.Models.Bindables.Channels"
     xmlns:behaviors="using:Quarrel.Xaml.Behaviors"
-    xmlns:tkcontrols="using:Microsoft.Toolkit.Uwp.UI.Controls">
+    xmlns:media="using:Microsoft.Xaml.Interactions.Media">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../Converters.xaml"/>
     </ResourceDictionary.MergedDictionaries>
@@ -20,7 +22,7 @@
         <Setter Property="TabNavigation" Value="Local"/>
         <Setter Property="IsHoldingEnabled" Value="True"/>
         <Setter Property="Margin" Value="0"/>
-        <Setter Property="Padding" Value="24,0,24,0"/>
+        <Setter Property="Padding" Value="0,0,0,0"/>
         <Setter Property="MinHeight" Value="0"/>
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -423,22 +425,22 @@
     </Style>
 
     <DataTemplate x:Key="TextChannelTemplate" x:DataType="channelbindables:BindableChannel">
-        <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+        <Grid Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(Hidden), Mode=OneWay}"
               Height="40"
               Padding="22,0,24,0">
             <!--Flyout-->
             <Grid.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-                    <MenuFlyoutItem Text="Mark as read" IsEnabled="{x:Bind IsUnread, Mode=OneWay}" Command="{x:Bind MarkAsRead, Mode=OneWay}"/>
-                    <ToggleMenuFlyoutItem Text="Mute" IsChecked="{x:Bind Muted, Mode=OneWay}" Command="{x:Bind Mute, Mode=OneWay}"/>
+                    <MenuFlyoutItem x:Uid="/DataTemplates/MarkAsReadMFI" Text="Mark as read" IsEnabled="{x:Bind IsUnread, Mode=OneWay}" Command="{x:Bind MarkAsRead, Mode=OneWay}"/>
+                    <ToggleMenuFlyoutItem x:Uid="/DataTemplates/MuteMFI" Text="Mute" IsChecked="{x:Bind Muted, Mode=OneWay}" Command="{x:Bind Mute, Mode=OneWay}"/>
                     <!--<MenuFlyoutItem Text="Channel Settings"/>-->
-                    <MenuFlyoutSubItem Text="Notifications" IsEnabled="False"/>
+                    <MenuFlyoutSubItem x:Uid="/DataTemplates/NotificationsMFI" Text="Notifications" IsEnabled="False"/>
                     <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem Text="Copy Id" Command="{x:Bind CopyId, Mode=OneWay}"/>
+                    <MenuFlyoutItem x:Uid="/DataTemplates/CopyIdMFI" Text="Copy Id" Command="{x:Bind CopyId, Mode=OneWay}"/>
                 </MenuFlyout>
             </Grid.ContextFlyout>
             <Grid.Background>
-                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
+                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -455,7 +457,7 @@
             <Border x:Name="UnreadIndicator" Visibility="{x:Bind ShowUnread, Mode=OneWay}" Height="24" Width="2" Background="{ThemeResource Foreground}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="0.75"/>
 
             <!--Mention Notifications and Glow-->
-            <Grid x:Name="grid" Visibility="{x:Bind MentionCount, Converter={StaticResource MentionCountToVisiblityConverter}, Mode=OneWay}" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="-22,0,-24,0"
+            <Grid x:Name="grid" x:Load="{x:Bind baseconvert:PositiveIntToBoolConverter.Convert(MentionCount), Mode=OneWay}" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="-22,0,-24,0"
                   BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="2,0,0,0">
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0,0" StartPoint="1.3,0" ColorInterpolationMode="ScRgbLinearInterpolation" SpreadMethod="Pad">
@@ -463,45 +465,43 @@
                         <GradientStop Color="{ThemeResource SystemAccentColor}" Offset="0"/>
                     </LinearGradientBrush>
                 </Grid.Background>
-                
-                <TextBlock x:Name="NotificationCounter" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Text="{x:Bind MentionCount, Mode=OneWay}" FontWeight="SemiBold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="24,0,24,2" FontSize="15" RenderTransformOrigin="0.5,0.5">
-                            <!--<TextBlock.RenderTransform>
-                                <CompositeTransform TranslateX="24"/>
-                            </TextBlock.RenderTransform>-->
-                </TextBlock>
+
+                <TextBlock x:Name="NotificationCounter" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Text="{x:Bind MentionCount, Mode=OneWay}" FontWeight="SemiBold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="24,0,24,2" FontSize="15" RenderTransformOrigin="0.5,0.5"/>
             </Grid>
 
             <!--Main Details-->
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,6" Padding="0,0,-18,0">
-                <TextBlock Visibility="{x:Bind Permissions.ReadMessages, Converter={StaticResource NotBoolToVisibilityConverter}}" Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
+                <TextBlock Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(Permissions.ReadMessages)}" Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
                 <SymbolIcon x:Name="MuteIcon" Visibility="{x:Bind Muted, Mode=OneWay}" Symbol="Mute" Margin="0,0,4,0" Opacity="0.35"/>
                 <TextBlock Text="#" Opacity="{x:Bind TextOpacity, Mode=OneWay}" Foreground="{StaticResource Foreground}" FontSize="20" FontWeight="Light" Margin="0,-2,4,0"/>
-                <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}" Opacity="{x:Bind TextOpacity, Mode=OneWay}" Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}" Margin="0,1,0,0"/>
+                <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}" Opacity="{x:Bind TextOpacity, Mode=OneWay}" Margin="0,1,0,0"/>
             </StackPanel>
 
             <!--Typing-->
-            <controls:TypingIndicator Grid.Column="2"
-                                      Visibility="{x:Bind IsTyping, Mode=OneWay}"
-                                      HorizontalAlignment="Right"
-                                      Margin="6,0" />
+            <controls:TypingIndicator
+                x:Name="TypingIndicator" 
+                Grid.Column="2"
+                x:Load="{x:Bind IsTyping, Mode=OneWay}"
+                HorizontalAlignment="Right"
+                Margin="6,0" />
         </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="VoiceChannelTemplate" x:DataType="channelbindables:BindableChannel">
-        <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}" MinHeight="40" Padding="22,0,24,0">
+        <Grid Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(Hidden), Mode=OneWay}" MinHeight="40" Padding="22,0,24,0">
             <!--Flyout-->
             <Grid.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
                     <!--<MenuFlyoutItem Text="Channel Settings"/>-->
-                    <ToggleMenuFlyoutItem Text="Hide names"
+                    <ToggleMenuFlyoutItem x:Uid="/DataTemplates/HideNamesMFI" Text="Hide names"
                                           IsEnabled="False" />
-                    <MenuFlyoutSeparator />
-                    <MenuFlyoutItem Text="Copy Id"
+                    <MenuFlyoutSeparator/>
+                    <MenuFlyoutItem x:Uid="/DataTemplates/CopyIdMFI" Text="Copy Id"
                                     Command="{x:Bind CopyId, Mode=OneWay}" />
                 </MenuFlyout>
             </Grid.ContextFlyout>
             <Grid.Background>
-                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}"/>
+                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -514,16 +514,16 @@
 
             <!--Main Details-->
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,6" Padding="0,0,-18,0" Height="24">
-                <TextBlock Visibility="{x:Bind Permissions.ReadMessages, Converter={StaticResource NotBoolToVisibilityConverter}}" Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
+                <TextBlock Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(Permissions.ReadMessages)}" Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
                 <TextBlock Text="" Opacity="{x:Bind TextOpacity, Mode=OneWay}" FontSize="14" Margin="-2,4,6,6" FontFamily="Segoe MDL2 Assets" />
-                <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}" Opacity="{x:Bind TextOpacity, Mode=OneWay}" Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}" Margin="0,1,0,0"/>
+                <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}" Opacity="{x:Bind TextOpacity, Mode=OneWay}" Margin="0,1,0,0"/>
             </StackPanel>
 
             <!--Voice Members-->
             <ListView x:Name="MemberList"
                       ItemsSource="{x:Bind ConnectedUsers.Values, Mode=OneWay}"
-                      Margin="-24,0,-24,0"
-                      x:Load="{x:Bind ConnectedUsers.Values, Converter={StaticResource NotNullToBoolConverter}, Mode=OneWay}"
+                      Margin="12,0,0,0"
+                      x:Load="{x:Bind baseconvert:NotNullToBoolConverter.Convert(ConnectedUsers.Values), Mode=OneWay, FallbackValue=False}"
                       SelectionMode="None"
                       IsItemClickEnabled="True"
                       Grid.Row="1"
@@ -541,7 +541,197 @@
                 </ListView.Template>
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="channelbindables:BindableVoiceUser">
-                        <channelcontrols:VoiceMemberControl />
+                        <Grid VerticalAlignment="Top" Margin="6,6,6,6" FlyoutBase.AttachedFlyout="{StaticResource VoiceMemberFlyout}">
+                            <Grid.Resources>
+                                <Storyboard x:Name="Speaking">
+                                    <DoubleAnimation Duration="0:0:0.2"
+                                                     To="1"
+                                                     Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                     Storyboard.TargetName="username">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseOut" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                                <Storyboard x:Name="StopSpeaking">
+                                    <DoubleAnimation Duration="0:0:0.2"
+                                                     To="0.5"
+                                                     Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                     Storyboard.TargetName="username">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseIn" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                                <Storyboard x:Name="ShowMute">
+                                    <DoubleAnimation Duration="0:0:0.2"
+                                                     To="0.5"
+                                                     Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                     Storyboard.TargetName="Mute">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseOut" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                    <ObjectAnimationUsingKeyFrames BeginTime="0:0:0.2"
+                                                                   Storyboard.TargetProperty="(UIElement.Visibility)"
+                                                                   Storyboard.TargetName="Mute">
+                                        <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible" />
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                                <Storyboard x:Name="HideMute">
+                                    <DoubleAnimation Duration="0:0:0.2"
+                                                     To="0"
+                                                     Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                     Storyboard.TargetName="Mute">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseOut" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                    <ObjectAnimationUsingKeyFrames BeginTime="0:0:0.2"
+                                                                   Storyboard.TargetProperty="(UIElement.Visibility)"
+                                                                   Storyboard.TargetName="Mute">
+                                        <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed" />
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                                <Storyboard x:Name="ServerMute">
+                                    <ColorAnimation Duration="0:0:0.2"
+                                                    To="Red"
+                                                    Storyboard.TargetProperty="(UIElement.Foreground).(SolidColorBrush.Color)"
+                                                    Storyboard.TargetName="Mute">
+                                        <ColorAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseInOut" />
+                                        </ColorAnimation.EasingFunction>
+                                    </ColorAnimation>
+                                </Storyboard>
+                                <Storyboard x:Name="LocalMute">
+                                    <ColorAnimation Duration="0:0:0.2"
+                                                    To="White"
+                                                    Storyboard.TargetProperty="(UIElement.Foreground).(SolidColorBrush.Color)"
+                                                    Storyboard.TargetName="Mute">
+                                        <ColorAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseInOut" />
+                                        </ColorAnimation.EasingFunction>
+                                    </ColorAnimation>
+                                </Storyboard>
+                                <Storyboard x:Name="ShowDeaf">
+                                    <DoubleAnimation Duration="0:0:0.2"
+                                                     To="0.5"
+                                                     Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                     Storyboard.TargetName="Deaf">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseOut" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                    <ObjectAnimationUsingKeyFrames BeginTime="0:0:0.2"
+                                                                   Storyboard.TargetProperty="(UIElement.Visibility)"
+                                                                   Storyboard.TargetName="Deaf">
+                                        <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible" />
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                                <Storyboard x:Name="HideDeaf">
+                                    <DoubleAnimation Duration="0:0:0.2"
+                                                     To="0"
+                                                     Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                     Storyboard.TargetName="Deaf">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseOut" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                    <ObjectAnimationUsingKeyFrames BeginTime="0:0:0.2"
+                                                                   Storyboard.TargetProperty="(UIElement.Visibility)"
+                                                                   Storyboard.TargetName="Deaf">
+                                        <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed" />
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                                <Storyboard x:Name="ServerDeaf">
+                                    <ColorAnimation Duration="0:0:0.2"
+                                                    To="Red"
+                                                    Storyboard.TargetProperty="(UIElement.Foreground).(SolidColorBrush.Color)"
+                                                    Storyboard.TargetName="Deaf">
+                                        <ColorAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseInOut" />
+                                        </ColorAnimation.EasingFunction>
+                                    </ColorAnimation>
+                                </Storyboard>
+                                <Storyboard x:Name="LocalDeaf">
+                                    <ColorAnimation Duration="0:0:0.2"
+                                                    To="White"
+                                                    Storyboard.TargetProperty="(UIElement.Foreground).(SolidColorBrush.Color)"
+                                                    Storyboard.TargetName="Deaf">
+                                        <ColorAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseInOut" />
+                                        </ColorAnimation.EasingFunction>
+                                    </ColorAnimation>
+                                </Storyboard>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <!--Avater-->
+                            <controls:UserIconControl DataContext="{x:Bind GuildMember}" Size="24" ShowPresence="False"/>
+
+                            <!--Username-->
+                            <TextBlock x:Name="username"
+                                       Text="{x:Bind GuildMember.DisplayName, Mode=OneWay}"
+                                       Margin="8,0,0,0"
+                                       Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       FontSize="13.333"
+                                       FontWeight="SemiLight"
+                                       Opacity="0.5"
+                                       TextTrimming="CharacterEllipsis" />
+                            
+                            <!--Status icons-->
+                            <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
+                                <FontIcon x:Name="Mute" Glyph="&#xEC54;" FontFamily="Segoe MDL2 Assets" FontSize="16" Margin="0,0,8,0" Opacity="0" Visibility="Collapsed"/>
+                                <FontIcon x:Name="Deaf" Glyph="&#xE74F;" FontFamily="Segoe MDL2 Assets" FontSize="16" Opacity="0"/>
+                            </StackPanel>
+                            
+                            <!--Animations-->
+                            <interactivity:Interaction.Behaviors>
+                                <!--Deaf changed-->
+                                <core:DataTriggerBehavior Binding="{x:Bind ShowDeaf, Mode=OneWay}" Value="True">
+                                    <media:ControlStoryboardAction Storyboard="{StaticResource ShowDeaf}" ControlStoryboardOption="Play"/>
+                                </core:DataTriggerBehavior>
+                                <core:DataTriggerBehavior Binding="{x:Bind ShowDeaf, Mode=OneWay}" Value="False">
+                                    <media:ControlStoryboardAction Storyboard="{StaticResource HideDeaf}" ControlStoryboardOption="Play"/>
+                                </core:DataTriggerBehavior>
+                                <!--Server vs Local deaf-->
+                                <core:DataTriggerBehavior Binding="{x:Bind ServerDeaf, Mode=OneWay}" Value="True">
+                                    <media:ControlStoryboardAction Storyboard="{StaticResource ServerDeaf}" ControlStoryboardOption="Play"/>
+                                </core:DataTriggerBehavior>
+                                <core:DataTriggerBehavior Binding="{x:Bind LocalDeaf, Mode=OneWay}" Value="True">
+                                    <media:ControlStoryboardAction Storyboard="{StaticResource LocalDeaf}" ControlStoryboardOption="Play"/>
+                                </core:DataTriggerBehavior>
+
+                                <!--Mute changed-->
+                                <core:DataTriggerBehavior Binding="{x:Bind ShowMute, Mode=OneWay}" Value="True">
+                                    <media:ControlStoryboardAction Storyboard="{StaticResource ShowMute}" ControlStoryboardOption="Play"/>
+                                </core:DataTriggerBehavior>
+                                <core:DataTriggerBehavior Binding="{x:Bind ShowMute, Mode=OneWay}" Value="False">
+                                    <media:ControlStoryboardAction Storyboard="{StaticResource HideMute}" ControlStoryboardOption="Play"/>
+                                </core:DataTriggerBehavior>
+                                
+                                <!--Server vs Local mute-->
+                                <core:DataTriggerBehavior Binding="{x:Bind ServerMute, Mode=OneWay}" Value="True">
+                                    <media:ControlStoryboardAction Storyboard="{StaticResource ServerMute}" ControlStoryboardOption="Play"/>
+                                </core:DataTriggerBehavior>
+                                <core:DataTriggerBehavior Binding="{x:Bind LocalMute, Mode=OneWay}" Value="True">
+                                    <media:ControlStoryboardAction Storyboard="{StaticResource LocalMute}" ControlStoryboardOption="Play"/>
+                                </core:DataTriggerBehavior>
+                                
+                                <!--Speaking changed-->
+                                <core:DataTriggerBehavior Binding="{x:Bind Speaking, Mode=OneWay}" Value="True">
+                                    <media:ControlStoryboardAction Storyboard="{StaticResource Speaking}" ControlStoryboardOption="Play"/>
+                                </core:DataTriggerBehavior>
+                                <core:DataTriggerBehavior Binding="{x:Bind Speaking, Mode=OneWay}" Value="False">
+                                    <media:ControlStoryboardAction Storyboard="{StaticResource StopSpeaking}" ControlStoryboardOption="Play"/>
+                                </core:DataTriggerBehavior>
+                            </interactivity:Interaction.Behaviors>
+                        </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
@@ -549,32 +739,32 @@
     </DataTemplate>
 
     <DataTemplate x:Key="DMChannelTemplate" x:DataType="channelbindables:BindableChannel">
-        <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+        <Grid Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(Hidden), Mode=OneWay}"
               Padding="22,0,24,0"
               Height="48">
             <!--Flyout-->
             <Grid.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-                    <MenuFlyoutItem Text="Profile"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/ProfileMFI" Text="Profile"
                                     Command="{x:Bind OpenProfile, Mode=OneWay}" />
-                    <MenuFlyoutItem Text="Mark as read"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/MarkAsReadMFI" Text="Mark as read"
                                     IsEnabled="{x:Bind IsUnread, Mode=OneWay}"
                                     Command="{x:Bind MarkAsRead, Mode=OneWay}" />
-                    <ToggleMenuFlyoutItem Text="Mute"
+                    <ToggleMenuFlyoutItem x:Uid="/DataTemplates/MuteMFI" Text="Mute"
                                           IsChecked="{x:Bind Muted, Mode=OneWay}"
                                           Command="{x:Bind Mute, Mode=OneWay}" />
-                    <MenuFlyoutItem Text="Close DM"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/CloseDMMFI" Text="Close DM"
                                     Foreground="{ThemeResource dnd}"
                                     Command="{x:Bind LeaveGroup, Mode=OneWay}" />
                     <MenuFlyoutSeparator />
-                    <MenuFlyoutItem Text="Copy Id"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/CopyIdMFI" Text="Copy Id"
                                     Command="{x:Bind CopyId, Mode=OneWay}" />
                 </MenuFlyout>
             </Grid.ContextFlyout>
 
             <Grid.Background>
                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}"
-                                 Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}" />
+                                 Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}" />
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -601,7 +791,7 @@
 
             <!--Mention Notifications and Glow-->
             <Grid x:Name="grid"
-                  Visibility="{x:Bind MentionCount, Converter={StaticResource MentionCountToVisiblityConverter}, Mode=OneWay}"
+                  x:Load="{x:Bind baseconvert:PositiveIntToBoolConverter.Convert(MentionCount), Mode=OneWay}"
                   Grid.RowSpan="4"
                   Grid.ColumnSpan="4"
                   Margin="0,0,-24,0">
@@ -640,7 +830,7 @@
             </Grid>
 
             <Rectangle Visibility="{x:Bind ShowIconBackdrop, Mode=OneWay}"
-                       Fill="{x:Bind FirstUserDiscriminator, Converter={StaticResource DiscriminatorToBrushConverter}, Mode=OneWay}"
+                       Fill="{x:Bind discordconvert:DiscriminatorToBrushConverter.Convert(FirstUserDiscriminator), Mode=OneWay}"
                        x:Name="ChannelImageBackdrop"
                        Width="36"
                        Height="36"
@@ -669,7 +859,6 @@
                                 Opacity="0.35" />
                     <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}"
                                Opacity="{x:Bind TextOpacity, Mode=OneWay}"
-                               Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}"
                                Margin="0,1,0,0" />
                 </StackPanel>
                 <TextBlock x:Name="SubTitle"
@@ -706,38 +895,39 @@
             </StackPanel>
 
             <!--Typing-->
-            <controls:TypingIndicator Grid.Column="2"
-                                      Visibility="{x:Bind IsTyping, Mode=OneWay}"
+            <controls:TypingIndicator x:Name="TypingIndicator"
+                                      Grid.Column="2"
+                                      x:Load="{x:Bind IsTyping, Mode=OneWay}"
                                       HorizontalAlignment="Right"
                                       Margin="6,0" />
         </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="GroupDMChannelTemplate" x:DataType="channelbindables:BindableChannel">
-        <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
+        <Grid Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(Hidden), Mode=OneWay}"
               Height="48"
               Padding="22,0,24,0">
             <!--Flyout-->
             <Grid.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
-                    <MenuFlyoutItem Text="Mark as read"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/MarkAsReadMFI" Text="Mark as read"
                                     IsEnabled="{x:Bind IsUnread, Mode=OneWay}"
                                     Command="{x:Bind MarkAsRead, Mode=OneWay}" />
-                    <ToggleMenuFlyoutItem Text="Mute"
+                    <ToggleMenuFlyoutItem x:Uid="/DataTemplates/MuteMFI" Text="Mute"
                                           IsChecked="{x:Bind Muted, Mode=OneWay}"
                                           Command="{x:Bind Mute, Mode=OneWay}" />
-                    <MenuFlyoutItem Text="Leave Group"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/LeaveGroupMFI" Text="Leave Group"
                                     Foreground="{ThemeResource dnd}"
                                     Command="{x:Bind LeaveGroup, Mode=OneWay}" />
                     <MenuFlyoutSeparator />
-                    <MenuFlyoutItem Text="Copy Id"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/CopyIdMFI" Text="Copy Id"
                                     Command="{x:Bind CopyId, Mode=OneWay}" />
                 </MenuFlyout>
             </Grid.ContextFlyout>
 
             <Grid.Background>
                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}"
-                                 Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}" />
+                                 Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}" />
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -764,7 +954,7 @@
 
             <!--Mention Notifications and Glow-->
             <Grid x:Name="grid"
-                  Visibility="{x:Bind MentionCount, Converter={StaticResource MentionCountToVisiblityConverter}, Mode=OneWay}"
+                  x:Load="{x:Bind baseconvert:PositiveIntToBoolConverter.Convert(MentionCount), Mode=OneWay}"
                   Grid.RowSpan="4"
                   Grid.ColumnSpan="4"
                   Margin="0,0,-24,0">
@@ -804,7 +994,7 @@
 
             <!--Icon-->
             <Rectangle Visibility="{x:Bind ShowIconBackdrop, Mode=OneWay}"
-                       Fill="{x:Bind FirstUserDiscriminator, Converter={StaticResource DiscriminatorToBrushConverter}, Mode=OneWay}"
+                       Fill="{x:Bind discordconvert:DiscriminatorToBrushConverter.Convert(FirstUserDiscriminator), Mode=OneWay}"
                        x:Name="ChannelImageBackdrop"
                        Width="36"
                        Height="36"
@@ -827,13 +1017,12 @@
                 <StackPanel Orientation="Horizontal"
                             VerticalAlignment="Center">
                     <SymbolIcon x:Name="MuteIcon"
-                                Visibility="{x:Bind Muted, Mode=OneWay}"
+                                x:Load="{x:Bind Muted, Mode=OneWay}"
                                 Symbol="Mute"
                                 Margin="0,0,4,0"
                                 Opacity="0.35" />
                     <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}"
                                Opacity="{x:Bind TextOpacity, Mode=OneWay}"
-                               Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}"
                                Margin="0,1,0,0" />
                 </StackPanel>
                 <TextBlock x:Name="SubTitle"
@@ -870,24 +1059,23 @@
             </StackPanel>
 
             <!--Typing-->
-            <controls:TypingIndicator Grid.Column="2"
-                                      Visibility="{x:Bind IsTyping, Mode=OneWay}"
+            <controls:TypingIndicator x:Name="TypingIndicator"
+                                      Grid.Column="2"
+                                      x:Load="{x:Bind IsTyping, Mode=OneWay}"
                                       HorizontalAlignment="Right"
                                       Margin="6,0" />
         </Grid>
     </DataTemplate>
 
-    <DataTemplate x:Key="CategoryTemplate"
-                  x:DataType="channelbindables:BindableChannel">
-        <Grid Visibility="{x:Bind Hidden, Converter={StaticResource NotBoolToVisibilityConverter}, Mode=OneWay}"
-              Height="48">
+    <DataTemplate x:Key="CategoryTemplate" x:DataType="channelbindables:BindableChannel">
+        <Grid Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(Hidden), Mode=OneWay}" Height="48">
             <Grid.ContextFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource DefaultMenuFlyoutPresenterStyle}">
                     <!--<MenuFlyoutItem Text="Mark as read" IsEnabled="{x:Bind IsUnread, Mode=OneWay}" Command="{x:Bind MarkAsRead, Mode=OneWay}"/>-->
                     <!--<ToggleMenuFlyoutItem Text="Mute" IsChecked="{x:Bind Muted, Mode=OneWay}" Command="{x:Bind Mute, Mode=OneWay}"/>-->
                     <!--<MenuFlyoutItem Text="Category Settings"/>-->
                     <!--<MenuFlyoutSeparator/>-->
-                    <MenuFlyoutItem Text="Copy Id"
+                    <MenuFlyoutItem x:Uid="/DataTemplates/CopyIdMFI" Text="Copy Id"
                                     Command="{x:Bind CopyId, Mode=OneWay}" />
                 </MenuFlyout>
             </Grid.ContextFlyout>
@@ -900,10 +1088,11 @@
                 <!--Flyout-->
                 <StackPanel.Background>
                     <SolidColorBrush Color="{ThemeResource SystemAccentColor}"
-                                     Opacity="{x:Bind Selected, Converter={StaticResource SelectedToOpacityConverter}, Mode=OneWay}" />
+                                     Opacity="{x:Bind channelconvert:SelectedToOpacityConverter.Convert(Selected), Mode=OneWay}" />
                 </StackPanel.Background>
 
-                <TextBlock Visibility="{x:Bind Permissions.ReadMessages, Converter={StaticResource NotBoolToVisibilityConverter}}"
+                <TextBlock x:Name="TextBlock"
+                           x:Load="{x:Bind baseconvert:NotBoolToBoolConverter.Convert(Permissions.ReadMessages)}"
                            Text=""
                            Opacity="{x:Bind TextOpacity, Mode=OneWay}"
                            FontSize="14"
@@ -918,7 +1107,7 @@
                                           VerticalAlignment="Center" />
                 <TextBlock Text="{x:Bind FormattedName, Mode=OneWay}"
                            Opacity="{x:Bind TextOpacity, Mode=OneWay}"
-                           Foreground="{x:Bind Model.Type, Converter={StaticResource TypeToBrushConverter}, Mode=OneWay}"
+                           Foreground="{ThemeResource SystemAccentColor}"
                            VerticalAlignment="Center"
                            Margin="0,1,0,0" />
             </StackPanel>
