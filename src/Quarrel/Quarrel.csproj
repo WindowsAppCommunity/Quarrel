@@ -385,6 +385,9 @@
     <Compile Include="SubPages\BSOD.xaml.cs">
       <DependentUpon>BSOD.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\ChangeNicknamePage.xaml.cs">
+      <DependentUpon>ChangeNicknamePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\CreateInvitePage.xaml.cs">
       <DependentUpon>CreateInvitePage.xaml</DependentUpon>
     </Compile>
@@ -929,6 +932,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\BSOD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\ChangeNicknamePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

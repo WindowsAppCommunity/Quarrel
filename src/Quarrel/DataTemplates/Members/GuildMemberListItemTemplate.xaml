@@ -23,7 +23,7 @@
                     <MenuFlyoutItem x:Uid="/DataTemplates/ProfileMFI" Text="Profile" Command="{x:Bind OpenProfile, Mode=OneWay}"/>
                     <MenuFlyoutItem x:Uid="/DataTemplates/MessageMFI" Text="Message" Command="{x:Bind MessageCommand, Mode=OneWay}"/>
                     <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem x:Uid="/DataTemplates/ChangeNicknameMFI" Text="Change Nickname" IsEnabled="False"/>
+                    <MenuFlyoutItem x:Uid="/DataTemplates/ChangeNicknameMFI" Text="Change Nickname" IsEnabled="{x:Bind CanEditNickname, Mode=OneWay}" Command="{x:Bind ChangeNicknameCommand}"/>
                     <MenuFlyoutSeparator/>
                     <MenuFlyoutItem x:Uid="/DataTemplates/CopyIdMFI" Text="Copy ID" Command="{x:Bind CopyId, Mode=OneWay}"/>
                 </MenuFlyout>
