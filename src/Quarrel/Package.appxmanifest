@@ -74,9 +74,9 @@
 	</Applications>
 
 	<Capabilities>
+    <rescap:Capability Name="extendedBackgroundTaskTime"/>
 		<Capability Name="internetClient" />
 		<uap:Capability Name="voipCall"/>
 		<DeviceCapability Name="microphone"/>
-    <rescap:Capability Name="extendedBackgroundTaskTime"/>
 	</Capabilities>
 </Package>
