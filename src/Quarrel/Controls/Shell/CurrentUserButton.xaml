@@ -96,7 +96,7 @@
                 <MenuFlyout>
                     <MenuFlyoutItem Text="Profile" Command="{x:Bind ViewModel.CurrentGuildMember.OpenProfile, Mode=OneWay}"/>
                     <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem Text="Change Nickname" IsEnabled="False"/>
+                    <MenuFlyoutItem Text="Change Nickname" IsEnabled="{x:Bind baseconvert:NotBoolToBoolConverter.Convert(ViewModel.CurrentGuild.IsDM)}" Command="{x:Bind ViewModel.CurrentGuildMember.ChangeNicknameCommand, Mode=OneWay}"/>
                     <MenuFlyoutSeparator/>
                     <MenuFlyoutItem Text="Copy ID" Command="{x:Bind ViewModel.CurrentGuildMember.CopyId, Mode=OneWay}"/>
                 </MenuFlyout>

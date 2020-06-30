@@ -343,7 +343,7 @@ namespace DiscordAPI.Gateway
                 { EventNames.SESSIONS_REPLACE, OnSessionReplaced },
                 { EventNames.CHANNEL_RECIPIENT_ADD, OnChannelRecipientAdded },
                 { EventNames.CHANNEL_RECIPIENT_REMOVE, OnChannelRecipientRemoved },
-                { EventNames.RESUMED, OnResumeReceived }
+                { EventNames.RESUMED, OnResumeReceived },
             };
         }
 
