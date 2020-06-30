@@ -1230,4 +1230,48 @@ This is in the moderation page in guild settings</comment>
     <value>Tittar på</value>
     <comment>This is shown as the prefix to a status in the member list</comment>
   </data>
+  <data name="title" xml:space="preserve">
+    <value>Quarrel (Icke-officiel Discord klient)</value>
+    <comment>The name of the app in the store. &quot;Quarrel&quot; should stay the same, but &quot;Unofficial Discord Client&quot; should be changed</comment>
+  </data>
+  <data name="devStudio" xml:space="preserve">
+    <value>Adam Dernis and Matthew</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>En ofta uppdaterad Discord-klient för alla Windows-enheter skapad för att sprida användbarheten av Discord till Windows telefoner, Xbox, HoloLens och icke-Win32 surfplattor och datorer.</value>
+    <comment>The description of the app in the store</comment>
+  </data>
+  <data name="features" xml:space="preserve">
+    <value>Prata med vänner
+Textkanaler
+Röstkanaler
+Xbox-support, chatta medan du spelar!
+Ger UWP appar tillgång till Rich Presence</value>
+    <comment>The features of the app in the store listing
+.list</comment>
+  </data>
+  <data name="recommendedHardware" xml:space="preserve">
+    <value>Hörlurar/Högtalarmikrofon</value>
+    <comment>Recommended hardware listings to show in the store
+.list</comment>
+  </data>
+  <data name="keywords" xml:space="preserve">
+    <value>Discord
+Discord UWP
+Sociala medier</value>
+    <comment>Search terms the app can be found by in the store
+.list</comment>
+  </data>
+  <data name="AcceptFriendRequestTB.Text" xml:space="preserve">
+    <value>Acceptera vänförfrågan?</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="ChangeNicknameTB.Text" xml:space="preserve">
+    <value>Ändra smeknamn</value>
+    <comment>This is the header of the change nickname page</comment>
+  </data>
+  <data name="FriendRequestSentTB.Text" xml:space="preserve">
+    <value>Vänförfrågan skickad</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
 </root>
