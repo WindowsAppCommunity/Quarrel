@@ -1230,4 +1230,49 @@ This is in the moderation page in guild settings</comment>
     <value>Смотрит</value>
     <comment>This is shown as the prefix to a status in the member list</comment>
   </data>
+  <data name="title" xml:space="preserve">
+    <value>Quarrel (Неофициальный Discord клиент)</value>
+    <comment>The name of the app in the store. &quot;Quarrel&quot; should stay the same, but &quot;Unofficial Discord Client&quot; should be changed</comment>
+  </data>
+  <data name="devStudio" xml:space="preserve">
+    <value>Adam Dernis and Matthew</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Часто обновляющийся Discord клиент для всех Windows устройств, направленных на распространение Discord на телефоны, Xbox и HoloLens, а также планшеты и ПК без поддержки win32.</value>
+    <comment>The description of the app in the store</comment>
+  </data>
+  <data name="features" xml:space="preserve">
+    <value>Общаться с друзьями
+Текстовые каналы
+Голосовые каналы
+Поддержка Xbox, говорите пока играете!
+Обеспечивает Rich Presence для UWP приложений</value>
+    <comment>The features of the app in the store listing
+.list</comment>
+  </data>
+  <data name="recommendedHardware" xml:space="preserve">
+    <value>Наушники/Динамики
+Микрофон</value>
+    <comment>Recommended hardware listings to show in the store
+.list</comment>
+  </data>
+  <data name="keywords" xml:space="preserve">
+    <value>Discord
+Discord UWP
+Общение</value>
+    <comment>Search terms the app can be found by in the store
+.list</comment>
+  </data>
+  <data name="AcceptFriendRequestTB.Text" xml:space="preserve">
+    <value>Принять запрос в друзья?</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="ChangeNicknameTB.Text" xml:space="preserve">
+    <value>Изменить никнейм</value>
+    <comment>This is the header of the change nickname page</comment>
+  </data>
+  <data name="FriendRequestSentTB.Text" xml:space="preserve">
+    <value>Запрос в друзья отправлен</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
 </root>
