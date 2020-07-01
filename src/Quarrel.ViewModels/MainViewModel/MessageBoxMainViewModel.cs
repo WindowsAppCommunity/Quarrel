@@ -237,7 +237,7 @@ namespace Quarrel.ViewModels
                 MessageText += "\n";
             }
 
-            MessageText += ">" + message.Model.Content + "\n" + string.Format("@{0}#{1}", message.Model.User.Username, message.Model.User.Discriminator);
+            MessageText += "> " + message.Model.Content + "\n" + string.Format("@{0}#{1}", message.Model.User.Username, message.Model.User.Discriminator);
         });
 
         /// <summary>
