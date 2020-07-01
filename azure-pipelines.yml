@@ -25,16 +25,6 @@ variables:
   buildDir: '$(build.artifactStagingDirectory)\build\\'
 
 steps:
-- task: DownloadSecureFile@1
-  name: appCenterToken
-  inputs:
-    secureFile: 'AppCenter.json'
-
-- task: DownloadSecureFile@1
-  name: appCenterInsiderToken
-  inputs:
-    secureFile: 'AppCenterInsider.json'
-
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2

@@ -16,6 +16,7 @@ using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Cache;
 using Quarrel.ViewModels.Services.Clipboard;
 using Quarrel.ViewModels.Services.Discord.Channels;
+using Quarrel.ViewModels.Services.Discord.CurrentUser;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using Quarrel.ViewModels.Services.Discord.Rest;
 using Quarrel.ViewModels.Services.DispatcherHelper;
@@ -44,9 +45,11 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
         private RelayCommand _openProfile;
         private RelayCommand _copyId;
         private RelayCommand _messageCommand;
+        private RelayCommand _changeNicknameCommand;
         private IAnalyticsService _analyticsService = null;
         private ICacheService _cacheService = null;
         private IChannelsService _channelsService = null;
+        private ICurrentUserService _currentUserService = null;
         private IDiscordService _discordService = null;
         private IDispatcherHelper _dispatcherHelper = null;
         private IResourceService _resourceService = null;
@@ -133,6 +136,14 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
         });
 
         /// <summary>
+        /// Gets a command that opens the change nickname prompt for the memeber.
+        /// </summary>
+        public RelayCommand ChangeNicknameCommand => _changeNicknameCommand ?? new RelayCommand(() =>
+        {
+            SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("ChangeNicknamePage", new Tuple<string, GuildMember>(GuildId, Model));
+        });
+
+        /// <summary>
         /// Gets the name to display the guild member under.
         /// </summary>
         public string DisplayName => Model.Nick ?? Model.User.Username;
@@ -178,6 +189,12 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
             }
             set => Set(ref _userAccentColor, value);
         }
+
+        /// <summary>
+        /// Gets a value indicating whether or not the user can edit this user's nickname.
+        /// </summary>
+        // TODO: Handle other users
+        public bool CanEditNickname => Model.User.Id == CurrentUserService.CurrentUser.Model.Id && GuildsService.CurrentGuild.Permissions.ChangeNickname;
 
         /// <summary>
         /// Gets all roles the guild member belongs to.
@@ -263,6 +280,8 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
         private ICacheService CacheService => _cacheService ?? (_cacheService = SimpleIoc.Default.GetInstance<ICacheService>());
 
         private IChannelsService ChannelsService => _channelsService ?? (_channelsService = SimpleIoc.Default.GetInstance<IChannelsService>());
+
+        private ICurrentUserService CurrentUserService => _currentUserService ?? (_currentUserService = SimpleIoc.Default.GetInstance<ICurrentUserService>());
 
         private IDiscordService DiscordService => _discordService ?? (_discordService = SimpleIoc.Default.GetInstance<IDiscordService>());
 

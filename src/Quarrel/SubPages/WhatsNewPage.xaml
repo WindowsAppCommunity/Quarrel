@@ -28,9 +28,7 @@
                     <Paragraph>
                         <Run Text="• Bug fixes" />
                         <LineBreak />
-                        <Run Text="• Improve CPU usage" />
-                        <LineBreak />
-                        <Run Text="• Improve localisation" />
+                        <Run Text="• Support changing nickname" />
                     </Paragraph>
                     <Paragraph FontSize="8" />
                 </RichTextBlock>
