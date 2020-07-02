@@ -274,3 +274,4 @@ SodiumC.dll
 /src/_Libs/Webrtc/ARM/Insider
 /src/_Libs/Webrtc/Insider
 /src/_Libs/SodiumC/ARM/Insider
+!appMetadata/**

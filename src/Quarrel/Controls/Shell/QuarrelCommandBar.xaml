@@ -821,7 +821,7 @@
                     <!--Seperator-->
                     <AppBarSeparator/>
                     <!--Channel Description-->
-                    <controls:MarkdownTextBlock VerticalAlignment="Center" Text="{x:Bind baseconvert:MultipleWhiteSpaceCollapseConverter.Convert(ViewModel.CurrentChannel.AsGuildChannel.Topic), Mode=OneWay}" FontSize="18" FontWeight="Light" Margin="0,0,4,0" IsTextSelectionEnabled="False"
+                    <controls:MarkdownTextBlock VerticalAlignment="Center" Text="{x:Bind baseconvert:MultipleWhiteSpaceCollapseConverter.Convert(ViewModel.CurrentChannel.AsGuildChannel.Topic), FallbackValue={x:Null}, Mode=OneWay}" FontSize="18" FontWeight="Light" Margin="0,0,4,0" IsTextSelectionEnabled="False"
                                                 Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.CurrentGuild.IsDM), Mode=OneWay}"/>
 
                 </StackPanel>

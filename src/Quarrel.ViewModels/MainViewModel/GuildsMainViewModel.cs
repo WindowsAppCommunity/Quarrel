@@ -188,8 +188,20 @@ namespace Quarrel.ViewModels
             MessengerInstance.Register<GatewayGuildCreatedMessage>(this, m =>
             {
                 BindableGuild guild = new BindableGuild(m.Guild);
-                _guildsService.AllGuilds.Add(m.Guild.Id, guild);
-                _dispatcherHelper.CheckBeginInvokeOnUi(() => { BindableGuilds.Insert(1, guild); });
+                if (_guildsService.AllGuilds.ContainsKey(m.Guild.Id))
+                {
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() => {
+                        _guildsService.AllGuilds[m.Guild.Id].Model = m.Guild;
+                    });
+                }
+                else
+                {
+                    _guildsService.AllGuilds.Add(m.Guild.Id, guild);
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
+                        BindableGuilds.Insert(1, guild);
+                    });
+                }
             });
 
             MessengerInstance.Register<GatewayGuildDeletedMessage>(this, m =>

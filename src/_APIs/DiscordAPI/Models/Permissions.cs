@@ -36,7 +36,7 @@ namespace DiscordAPI.Models
         ManageNicknames = 0x8000000,
         ManageRoles = 0x10000000,
         ManageWebhooks = 0x20000000,
-        ManageEmojis = 0x40000000
+        ManageEmojis = 0x40000000,
     }
 
     public class Permissions

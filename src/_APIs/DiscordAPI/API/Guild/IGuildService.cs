@@ -53,7 +53,10 @@ namespace DiscordAPI.API.Guild
         [Patch("/v6/guilds/{guildId}/members/{userId}")]
         Task ModifyGuildMember([AliasAs("guildId")] string guildId, [AliasAs("userId")] string userId, [Body] ModifyGuildMember modifyGuildMember);
 
-        [Patch("/guilds/{guildId}/members/{userId}")]
+        [Patch("/v6/guilds/{guildId}/members/@me/nick")]
+        Task ModifySelfNickname([AliasAs("guildId")] string guildId, [Body] IModifyGuildMember modifyGuildMember);
+
+        [Patch("/v6/guilds/{guildId}/members/{userId}")]
         Task ModifyGuildMemberNickname([AliasAs("guildId")] string guildId, [AliasAs("userId")] string userId, [Body] IModifyGuildMember modifyGuildMember);
 
         [Delete("/guilds/{guildId}/members/{userId}")]

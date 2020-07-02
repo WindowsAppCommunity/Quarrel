@@ -26,16 +26,7 @@
                        PointerEntered="Image_PointerEntered"
                        PointerExited="Image_PointerExited">
                 <Rectangle.Fill>
-                    <ImageBrush>
-                        <ImageBrush.ImageSource>
-                            <BitmapImage x:Name="ImageSourceWithPresence"
-                                         UriSource="{x:Bind ViewModel.RawModel.AvatarUrl, Mode=OneWay}"
-                                         DecodePixelHeight="{x:Bind Size, Mode=OneWay}"
-                                         DecodePixelWidth="{x:Bind Size, Mode=OneWay}"
-                                         DecodePixelType="Logical"
-                                         AutoPlay="False"/>
-                        </ImageBrush.ImageSource>
-                    </ImageBrush>
+                    <ImageBrush x:Name="ImageWithPresence" />
                 </Rectangle.Fill>
             </Rectangle>
         </toolkit:DropShadowPanel>
@@ -45,16 +36,8 @@
             <Image Width="{x:Bind Size, Mode=OneWay}"
                    Height="{x:Bind Size, Mode=OneWay}"
                    PointerEntered="Image_PointerEntered"
-                   PointerExited="Image_PointerExited">
-                <Image.Source>
-                    <BitmapImage x:Name="ImageSourceWithoutPresence"
-                                 UriSource="{x:Bind ViewModel.RawModel.AvatarUrl, Mode=OneWay}"
-                                 DecodePixelHeight="{x:Bind Size, Mode=OneWay}"
-                                 DecodePixelWidth="{x:Bind Size, Mode=OneWay}"
-                                 DecodePixelType="Logical"
-                                 AutoPlay="False" />
-                </Image.Source>
-            </Image>
+                   PointerExited="Image_PointerExited"
+                   x:Name="ImageWithoutPresence" />
         </Border>
     </Grid>
 </UserControl>
