@@ -1,21 +1,12 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Models.Bindables.Channels;
 using Quarrel.ViewModels.Models.Bindables.Messages;
 using Quarrel.ViewModels.Models.Bindables.Users;
-using Quarrel.ViewModels.Models.Emojis;
 using Quarrel.ViewModels.Models.Suggesitons;
-using Quarrel.ViewModels.Services.Analytics;
-using Quarrel.ViewModels.Services.Discord.Channels;
-using Quarrel.ViewModels.Services.Discord.Guilds;
-using Quarrel.ViewModels.Services.Discord.Rest;
-using Quarrel.ViewModels.Services.DispatcherHelper;
 using Refit;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -28,11 +19,10 @@ namespace Quarrel.ViewModels
     public partial class MainViewModel
     {
         private RelayCommand<BindableMessage> _quote;
-        private RelayCommand _tiggerTyping;
+        private RelayCommand<char> _tiggerTyping;
         private RelayCommand _newLineCommand;
         private RelayCommand _sendMessageCommand;
         private RelayCommand _editLastMessageCommand;
-        private RelayCommand<List<Emoji>> _emojiPickedCommand;
 
         private bool _isSending;
         private string _messageText = string.Empty;
@@ -43,9 +33,13 @@ namespace Quarrel.ViewModels
         /// <summary>
         /// Gets the command to send an API message to indicate typing state.
         /// </summary>
-        public RelayCommand TriggerTyping => _tiggerTyping = _tiggerTyping ?? new RelayCommand(() =>
+        public RelayCommand<char> TriggerTyping => _tiggerTyping = _tiggerTyping ?? new RelayCommand<char>(m =>
         {
-            _discordService.ChannelService.TriggerTypingIndicator(_channelsService.CurrentChannel.Model.Id);
+            // Not control characters
+            if (m > 31 && m != 127)
+            {
+                _discordService.ChannelService.TriggerTypingIndicator(_channelsService.CurrentChannel.Model.Id);
+            }
         });
 
         /// <summary>
@@ -197,8 +191,8 @@ namespace Quarrel.ViewModels
                                 Attachments[8],
                                 Attachments[9]);
                             break;
-
                     }
+
                     Attachments.Clear();
                 }
 
