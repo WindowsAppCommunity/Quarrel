@@ -10,6 +10,8 @@ namespace DiscordAPI.Models
         public string ChannelId { get; set; }
         [JsonProperty("user_id")]
         public string UserId { get; set; }
+        [JsonProperty("member")]
+        public GuildMember Member { get; set; }
         [JsonProperty("session_id")]
         public string SessionId { get; set; }
         [JsonProperty("deaf")]
