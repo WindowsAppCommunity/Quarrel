@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,124 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddNoteTBox.PlaceholderText" xml:space="preserve">
+    <value>Notiz hinzufügen</value>
+    <comment>This is shown in the user flyout</comment>
+  </data>
+  <data name="BlockedTB.Text" xml:space="preserve">
+    <value>BLOCKIERT</value>
+    <comment>This is shown on the header of the friend panel pivot</comment>
+  </data>
+  <data name="ByTB.Text" xml:space="preserve">
+    <value>Von:</value>
+    <comment>This shown on an invite control to say who made the invite</comment>
+  </data>
+  <data name="AcceptFriendRequestTB.Text" xml:space="preserve">
+    <value>Freundschaftsanfrage annehmen?</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="FriendRequestSentTB.Text" xml:space="preserve">
+    <value>Freunschaftsanfrage verschickt</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="JoinBTN.Content" xml:space="preserve">
+    <value>Server beitreten</value>
+    <comment>This is shown in the join server page</comment>
+  </data>
+  <data name="AboutABB.Label" xml:space="preserve">
+    <value>Über uns</value>
+    <comment>This is shown if you expand the command bar (at the top)</comment>
+  </data>
+  <data name="AddAttachmentMFI.Text" xml:space="preserve">
+    <value>Datei anhängen</value>
+    <comment>This is shown in the extras menu for the message box</comment>
+  </data>
+  <data name="AddChannelMFI.Text" xml:space="preserve">
+    <value>Kanal hinzufügen</value>
+    <comment>This is shown from the drop down from above the channel list</comment>
+  </data>
+  <data name="CommitsTB.Text" xml:space="preserve">
+    <value>Commits</value>
+    <comment>This is shown in the contributor page</comment>
+  </data>
+  <data name="CopyIdMFI.Text" xml:space="preserve">
+    <value>ID kopieren</value>
+    <comment>This is shown in the flyout for a sent message</comment>
+  </data>
+  <data name="CreditABB.Label" xml:space="preserve">
+    <value>Entwickler</value>
+    <comment>This is shown if you expand the command bar (at the top)</comment>
+  </data>
+  <data name="DeleteMFI.Text" xml:space="preserve">
+    <value>Löschen</value>
+    <comment>This is shown in the flyout for a sent message</comment>
+  </data>
+  <data name="DiscordStatusHBTN.Content" xml:space="preserve">
+    <value>Discord-Status</value>
+    <comment>This is shown in the bottom right while connecting</comment>
+  </data>
+  <data name="EditMFI.Text" xml:space="preserve">
+    <value>Bearbeiten</value>
+    <comment>This is shown in the flyout for a sent message</comment>
+  </data>
+  <data name="FriendsTB.Text" xml:space="preserve">
+    <value>Freunde</value>
+    <comment>This is shown in place of the guild name in DMs</comment>
+  </data>
+  <data name="FriendsTB2.Text" xml:space="preserve">
+    <value>FREUNDE</value>
+    <comment>This is shown on the header of the friend panel pivot</comment>
+  </data>
+  <data name="GuildSettingsMFI.Text" xml:space="preserve">
+    <value>Servereinstellungen</value>
+    <comment>This is shown from the drop down from above the channel list</comment>
+  </data>
+  <data name="InvitePeopleMFI.Text" xml:space="preserve">
+    <value>Leute einladen</value>
+    <comment>This is shown from the drop down from above the channel list</comment>
+  </data>
+  <data name="JoinCallBTN.Content" xml:space="preserve">
+    <value>Anruf beitreten</value>
+    <comment>This is shown on an action message for a call when the call is still open</comment>
+  </data>
+  <data name="LeaveServerMFI.Text" xml:space="preserve">
+    <value>Server verlassen</value>
+    <comment>This is shown from the drop down from above the channel list</comment>
+  </data>
+  <data name="PendingTB.Text" xml:space="preserve">
+    <value>AUSSTEHEND</value>
+    <comment>This is shown on the header of the friend panel pivot</comment>
+  </data>
+  <data name="PinMFI.Text" xml:space="preserve">
+    <value>Anpinnen</value>
+    <comment>This is shown in the flyout for a sent message</comment>
+  </data>
+  <data name="QuoteMFI.Text" xml:space="preserve">
+    <value>Zitieren</value>
+    <comment>This is shown in the flyout for a sent message</comment>
+  </data>
+  <data name="RetryHBTN.Content" xml:space="preserve">
+    <value>Erneut versuchen</value>
+    <comment>This is shown on the loading screen when connection fails</comment>
+  </data>
+  <data name="SendMessageTBox.PlaceholderText" xml:space="preserve">
+    <value>Schreibe eine Nachricht</value>
+    <comment>This is shown in the message box when empty</comment>
+  </data>
+  <data name="SettingsABB.Label" xml:space="preserve">
+    <value>Einstellungen</value>
+    <comment>This is shown if you expand the command bar (at the top)</comment>
+  </data>
+  <data name="ShowTB.Text" xml:space="preserve">
+    <value>Anzeigen</value>
+    <comment>This is shown on unloaded attachments</comment>
+  </data>
+  <data name="UnpinMFI.Text" xml:space="preserve">
+    <value>Loslösen</value>
+    <comment>This is shown in the flyout for a sent message</comment>
+  </data>
+  <data name="WhatsNewABB.Label" xml:space="preserve">
+    <value>Was ist neu?</value>
+    <comment>This is shown if you expand the command bar (at the top)</comment>
+  </data>
 </root>
