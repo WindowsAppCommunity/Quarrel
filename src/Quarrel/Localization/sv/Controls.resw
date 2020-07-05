@@ -117,56 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreateServerBTN.Content" xml:space="preserve">
-    <value>Skapa en server</value>
-    <comment>This is shown in the create server page
-This is shown in the create server page</comment>
-  </data>
-  <data name="CreateServerNVI.Content" xml:space="preserve">
-    <value>Skapa en server</value>
-    <comment>This is shown in the add server page
-This is shown in the add server page</comment>
-  </data>
-  <data name="CreateServerPageTBox.PlaceholderText" xml:space="preserve">
-    <value>Severnamn</value>
-    <comment>This is shown in the create server page
-This is shown in the create server page</comment>
-  </data>
-  <data name="DeleteHBTN.Content" xml:space="preserve">
-    <value>Ta bort</value>
-    <comment>This is shown in the create server page
-This is shown in the create server page</comment>
-  </data>
-  <data name="FindServerNVI.Content" xml:space="preserve">
-    <value>Hitta server</value>
-    <comment>This is shown in the add server page
-This is shown in the add server page</comment>
-  </data>
-  <data name="JoinBTN.Content" xml:space="preserve">
-    <value>Gå med</value>
-    <comment>This is shown in the join server page
-This is shown in the join server page</comment>
-  </data>
-  <data name="JoinCodeTB.Text" xml:space="preserve">
-    <value>Inbjudan</value>
-    <comment>This is shown in the join server page
-This is shown in the join server page</comment>
-  </data>
-  <data name="JoinServerNVI.Content" xml:space="preserve">
-    <value>Anslut till en server</value>
-    <comment>This is shown in the add server page
-This is shown in the add server page</comment>
-  </data>
-  <data name="SizeRecommendationTB.Text" xml:space="preserve">
-    <value>Vi rekommenderar att du använder en bild som är minst 512x512px</value>
-    <comment>This is shown in the create server page
-This is shown in the create server page</comment>
-  </data>
-  <data name="UploadImageHBTN.Content" xml:space="preserve">
-    <value>Ladda upp bild</value>
-    <comment>This is shown in the create server page
-This is shown in the create server page</comment>
-  </data>
   <data name="bitrateChange" xml:space="preserve">
     <value>Ändrade bithastigheten från &lt;old&gt; till &lt;new&gt;</value>
   </data>
@@ -329,26 +279,6 @@ This is shown in the create server page</comment>
   <data name="WebhookUpdate" xml:space="preserve">
     <value>&lt;user&gt; uppdaterade webhooken &lt;webhook&gt;</value>
   </data>
-  <data name="AboutABB.Label" xml:space="preserve">
-    <value>Om</value>
-    <comment>This is shown if you expand the command bar (at the top)
-This is shown if you expand the command bar (at the top)</comment>
-  </data>
-  <data name="AcceptFriendRequestTB.Text" xml:space="preserve">
-    <value>Acceptera vänförfrågan</value>
-    <comment>This is shown on a friend request in the friend&apos;s list
-This is shown on a friend request in the friend&apos;s list</comment>
-  </data>
-  <data name="AddAttachmentMFI.Text" xml:space="preserve">
-    <value>Ladda upp en fil</value>
-    <comment>This is shown in the extras menu for the message box
-This is shown in the extras menu for the message box</comment>
-  </data>
-  <data name="AddChannelMFI.Text" xml:space="preserve">
-    <value>Skapa kanal</value>
-    <comment>This is shown from the drop down from above the channel list
-This is shown from the drop down from above the channel list</comment>
-  </data>
   <data name="AddNoteTBox.PlaceholderText" xml:space="preserve">
     <value>Lägg till anteckning</value>
     <comment>This is shown in the user flyout</comment>
@@ -361,254 +291,9 @@ This is shown from the drop down from above the channel list</comment>
     <value>Av:</value>
     <comment>This shown on an invite control to say who made the invite</comment>
   </data>
-  <data name="CommitsTB.Text" xml:space="preserve">
-    <value>Commits</value>
-    <comment>This is shown in the contributor page
-This is shown in the contributor page </comment>
-  </data>
-  <data name="CopyIdMFI.Text" xml:space="preserve">
-    <value>Kopiera ID</value>
-    <comment>This is shown in the flyout for a sent message
-This is shown in the flyout for a sent message</comment>
-  </data>
-  <data name="CreditABB.Label" xml:space="preserve">
-    <value>Kredit</value>
-    <comment>This is shown if you expand the command bar (at the top)
-This is shown if you expand the command bar (at the top)</comment>
-  </data>
-  <data name="DeleteMFI.Text" xml:space="preserve">
-    <value>Ta bort</value>
-    <comment>This is shown in the flyout for a sent message
-This is shown in the flyout for a sent message</comment>
-  </data>
-  <data name="DiscordStatusHBTN.Content" xml:space="preserve">
-    <value>Discord Status</value>
-    <comment>This is shown in the bottom right while connecting
-This is shown in the bottom right while connecting</comment>
-  </data>
-  <data name="EditMFI.Text" xml:space="preserve">
-    <value>Redigera</value>
-    <comment>This is shown in the flyout for a sent message
-This is shown in the flyout for a sent message</comment>
-  </data>
-  <data name="FriendRequestSentTB.Text" xml:space="preserve">
-    <value>Vanförfrågan skickad</value>
-    <comment>This is shown on a friend request in the friend&apos;s list
-This is shown on a friend request in the friend&apos;s list</comment>
-  </data>
-  <data name="FriendsTB.Text" xml:space="preserve">
-    <value>Vänner</value>
-    <comment>This is shown in place of the guild name in DMs
-This is shown in place of the guild name in DMs</comment>
-  </data>
-  <data name="FriendsTB2.Text" xml:space="preserve">
-    <value>VÄNNER</value>
-    <comment>This is shown on the header of the friend panel pivot
-This is shown on the header of the friend panel pivot</comment>
-  </data>
-  <data name="GuildSettingsMFI.Text" xml:space="preserve">
-    <value>Serverinställningar</value>
-    <comment>This is shown from the drop down from above the channel list
-This is shown from the drop down from above the channel list</comment>
-  </data>
-  <data name="InvitePeopleMFI.Text" xml:space="preserve">
-    <value>Bjud in personer</value>
-    <comment>This is shown from the drop down from above the channel list
-This is shown on a unused invite embed</comment>
-  </data>
-  <data name="JoinCallBTN.Content" xml:space="preserve">
-    <value>Gå med i samtal</value>
-    <comment>This is shown on an action message for a call when the call is still open
-This is shown on an action message for a call when the call is still open</comment>
-  </data>
-  <data name="LeaveServerMFI.Text" xml:space="preserve">
-    <value>Lämna server</value>
-    <comment>This is shown from the drop down from above the channel list
-This is shown from the drop down from above the channel list</comment>
-  </data>
-  <data name="PendingTB.Text" xml:space="preserve">
-    <value>FÖRFRÅGNINGAR</value>
-    <comment>This is shown on the header of the friend panel pivot
-This is shown on the header of the friend panel pivot</comment>
-  </data>
-  <data name="PinMFI.Text" xml:space="preserve">
-    <value>Fäst</value>
-    <comment>This is shown in the flyout for a sent message
-This is shown in the flyout for a sent message</comment>
-  </data>
-  <data name="QuoteMFI.Text" xml:space="preserve">
-    <value>Citera</value>
-    <comment>This is shown in the flyout for a sent message
-This is shown in the flyout for a sent message</comment>
-  </data>
-  <data name="RetryHBTN.Content" xml:space="preserve">
-    <value>Försök igen</value>
-    <comment>This is shown on the loading screen when connection fails
-This is shown on the loading screen when connection fails</comment>
-  </data>
-  <data name="SendMessageTBox.PlaceholderText" xml:space="preserve">
-    <value>Skicka meddelande</value>
-    <comment>This is shown in the message box when empty
-This is shown in the message box when empty</comment>
-  </data>
-  <data name="SettingsABB.Label" xml:space="preserve">
-    <value>Inställningar</value>
-    <comment>This is shown if you expand the command bar (at the top)
-This is shown if you expand the command bar (at the top)</comment>
-  </data>
-  <data name="ShowTB.Text" xml:space="preserve">
-    <value>Visa</value>
-    <comment>This is shown on unloaded attachments
-This is shown on unloaded attachments</comment>
-  </data>
-  <data name="UnpinMFI.Text" xml:space="preserve">
-    <value>Lossa</value>
-    <comment>This is shown in the flyout for a sent message
-This is shown in the flyout for a sent message</comment>
-  </data>
-  <data name="WhatsNewABB.Label" xml:space="preserve">
-    <value>Vad är nytt</value>
-    <comment>This is shown if you expand the command bar (at the top)
-This is shown if you expand the command bar (at the top)</comment>
-  </data>
-  <data name="ChangeNicknameMFI.Text" xml:space="preserve">
-    <value>Ändra smeknamn</value>
-    <comment>This is shown in a guild member flyout on the member list
-This is shown in a guild member flyout on the member list</comment>
-  </data>
-  <data name="CloseDMMFI.Text" xml:space="preserve">
-    <value>Stäng DM</value>
-    <comment>This is shown in a DM channel&apos;s flyout
-This is shown in a DM channel&apos;s flyout</comment>
-  </data>
-  <data name="HideNamesMFI.Text" xml:space="preserve">
-    <value>Dölj namn</value>
-    <comment>This is shown in a voice channel&apos;s flyout
-This is shown in a voice channel&apos;s flyout</comment>
-  </data>
-  <data name="LeaveGroupMFI.Text" xml:space="preserve">
-    <value>Lämna grupp</value>
-    <comment>This is shown in a Group DM channel&apos;s flyout
-This is shown in a Group DM channel&apos;s flyout</comment>
-  </data>
-  <data name="MarkAsReadMFI.Text" xml:space="preserve">
-    <value>Markera som läst</value>
-    <comment>This is shown in a text channel&apos;s flyout
-This is shown in a text channel&apos;s flyout</comment>
-  </data>
-  <data name="MessageMFI.Text" xml:space="preserve">
-    <value>Meddelande</value>
-    <comment>This is shown in a guild member flyout on the member list. Message in this context means to DM the person
-This is shown in a guild member flyout on the member list. Message in this context means to DM the person</comment>
-  </data>
-  <data name="MuteMFI.Text" xml:space="preserve">
-    <value>Tysta</value>
-    <comment>This is shown in a text channel&apos;s flyout
-This is shown in a text channel&apos;s flyout</comment>
-  </data>
-  <data name="NotificationsMFI.Text" xml:space="preserve">
-    <value>Aviseringar</value>
-    <comment>This is shown in a text channel&apos;s flyout
-This is shown in a text channel&apos;s flyout</comment>
-  </data>
-  <data name="ProfileMFI.Text" xml:space="preserve">
-    <value>Profil</value>
-    <comment>This is shown in a DM channel&apos;s flyout
-This is shown in a DM channel&apos;s flyout</comment>
-  </data>
-  <data name="AllMessagesRBTN.Content" xml:space="preserve">
-    <value>Alla meddelanden</value>
-    <comment>This is in the notifications page in guild settings
-This is in the notifications page in guild settings</comment>
-  </data>
-  <data name="AllowDMCB.Content" xml:space="preserve">
-    <value>Tillåt direktmeddelanden från servermedlemmar</value>
-    <comment>This is in the privacy page in guild settings
-This is in the privacy page in guild settings</comment>
-  </data>
-  <data name="AuditLogMVI.Content" xml:space="preserve">
-    <value>Granskningslogg</value>
-    <comment>This is in the guild settings page
-This is in the guild settings page</comment>
-  </data>
-  <data name="BansNVI.Content" xml:space="preserve">
-    <value>Bannlysningar</value>
-    <comment>This is in the guild settings page
-This is in the guild settings page</comment>
-  </data>
-  <data name="DoubleTableFlipDescTB.Text" xml:space="preserve">
-    <value>Måste ha ett verifierat telefonnummer på sitt Discord-konto.</value>
-    <comment>This is in the moderation page in guild settings
-This is in the moderation page in guild settings</comment>
-  </data>
-  <data name="DoubleTableFlipTB.Text" xml:space="preserve">
-    <value>┻━┻彡 ヽ(ಠ益ಠ)ノ彡┻━┻</value>
-    <comment>This is in the moderation page in guild settings (you can leave it alone)
-This is in the moderation page in guild settings (you can leave it alone)</comment>
-  </data>
-  <data name="ECF0DescTB.Text" xml:space="preserve">
-    <value>Ingen fest är som min mormors tebjudning.</value>
-    <comment>This is in the moderation page in guild settings (laugh a little)
-This is in the moderation page in guild settings (laugh a little)</comment>
-  </data>
-  <data name="ECF0TB.Text" xml:space="preserve">
-    <value>Skanna inget medieinnehåll.</value>
-    <comment>This is in the moderation page in guild settings
-This is in the moderation page in guild settings</comment>
-  </data>
-  <data name="ECF1DescTB.Text" xml:space="preserve">
-    <value>Rekommenderas för servrar som använder roller för betrodda medlemskap.</value>
-    <comment>This is in the moderation page in guild settings
-This is in the moderation page in guild settings</comment>
-  </data>
-  <data name="ECF1TB.Text" xml:space="preserve">
-    <value>Skanna medieinnehåll från medlemmar utan någon roll.</value>
-    <comment>This is in the moderation page in guild settings
-This is in the moderation page in guild settings</comment>
-  </data>
-  <data name="ECF2DescTB.Text" xml:space="preserve">
-    <value>Rekommenderas när du vill ha det riktigt skinande rent.</value>
-    <comment>This is in the moderation page in guild settings
-This is in the moderation page in guild settings</comment>
-  </data>
-  <data name="ECF2TB.Text" xml:space="preserve">
-    <value>Skanna medieinnehåll från alla medlemmar.</value>
-    <comment>This is in the moderation page in guild settings
-This is in the moderation page in guild settings</comment>
-  </data>
-  <data name="EmojisNVI.Content" xml:space="preserve">
-    <value>Emoji</value>
-    <comment>This is in the guild settings page
-This is in the guild settings page</comment>
-  </data>
-  <data name="ExplictContentFilterTB.Text" xml:space="preserve">
-    <value>Filter för stötande medieinnehåll</value>
-    <comment>This is in the moderation page in guild settings
-This is in the moderation page in guild settings</comment>
-  </data>
-  <data name="InvitesNVI.Content" xml:space="preserve">
-    <value>Inbjudningar</value>
-    <comment>This is in the guild settings page
-This is in the guild settings page</comment>
-  </data>
-  <data name="LowDescTB.Text" xml:space="preserve">
-    <value>Måste ha en verifierad e-post på sitt Discord-konto.</value>
-    <comment>This is in the moderation page in guild settings
-This is in the moderation page in guild settings</comment>
-  </data>
-  <data name="LowTB.Text" xml:space="preserve">
-    <value>Låg</value>
-    <comment>This is in the moderation page in guild settings
-This is in the moderation page in guild settings</comment>
-  </data>
   <data name="MediumDescTB.Text" xml:space="preserve">
     <value>Måste också ha varit registrerad på Discord längre än 5 minuter. </value>
     <comment>This is in the moderation page in guild settings</comment>
-  </data>
-  <data name="MediumTB.Text" xml:space="preserve">
-    <value>Medel</value>
-    <comment>This is in the moderation page in guild settings
-This is in the moderation page in guild settings</comment>
   </data>
   <data name="MembersNVI.Content" xml:space="preserve">
     <value>Medlemmar</value>
@@ -1273,5 +958,249 @@ Sociala medier</value>
   <data name="FriendRequestSentTB.Text" xml:space="preserve">
     <value>Vänförfrågan skickad</value>
     <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="CreateServerBTN.Content" xml:space="preserve">
+    <value>Skapa en server</value>
+    <comment>This is shown in the create server page</comment>
+  </data>
+  <data name="CreateServerNVI.Content" xml:space="preserve">
+    <value>Skapa en server</value>
+    <comment>This is shown in the add server page</comment>
+  </data>
+  <data name="CreateServerPageTBox.PlaceholderText" xml:space="preserve">
+    <value>Severnamn</value>
+    <comment>This is shown in the create server page</comment>
+  </data>
+  <data name="DeleteHBTN.Content" xml:space="preserve">
+    <value>Ta bort</value>
+    <comment>This is shown in the create server page</comment>
+  </data>
+  <data name="FindServerNVI.Content" xml:space="preserve">
+    <value>Hitta server</value>
+    <comment>This is shown in the add server page</comment>
+  </data>
+  <data name="JoinBTN.Content" xml:space="preserve">
+    <value>Gå med</value>
+    <comment>This is shown in the join server page</comment>
+  </data>
+  <data name="JoinCodeTB.Text" xml:space="preserve">
+    <value>Inbjudan</value>
+    <comment>This is shown in the join server page</comment>
+  </data>
+  <data name="JoinServerNVI.Content" xml:space="preserve">
+    <value>Anslut till en server</value>
+    <comment>This is shown in the add server page</comment>
+  </data>
+  <data name="SizeRecommendationTB.Text" xml:space="preserve">
+    <value>Vi rekommenderar att du använder en bild som är minst 512x512px</value>
+    <comment>This is shown in the create server page</comment>
+  </data>
+  <data name="UploadImageHBTN.Content" xml:space="preserve">
+    <value>Ladda upp bild</value>
+    <comment>This is shown in the create server page</comment>
+  </data>
+  <data name="AboutABB.Label" xml:space="preserve">
+    <value>Om</value>
+    <comment>This is shown if you expand the command bar (at the top)</comment>
+  </data>
+  <data name="AddAttachmentMFI.Text" xml:space="preserve">
+    <value>Ladda upp en fil</value>
+    <comment>This is shown in the extras menu for the message box</comment>
+  </data>
+  <data name="AddChannelMFI.Text" xml:space="preserve">
+    <value>Skapa kanal</value>
+    <comment>This is shown from the drop down from above the channel list</comment>
+  </data>
+  <data name="CommitsTB.Text" xml:space="preserve">
+    <value>Commits</value>
+    <comment>This is shown in the contributor page</comment>
+  </data>
+  <data name="CopyIdMFI.Text" xml:space="preserve">
+    <value>Kopiera ID</value>
+    <comment>This is shown in the flyout for a sent message</comment>
+  </data>
+  <data name="CreditABB.Label" xml:space="preserve">
+    <value>Kredit</value>
+    <comment>This is shown if you expand the command bar (at the top)</comment>
+  </data>
+  <data name="DeleteMFI.Text" xml:space="preserve">
+    <value>Ta bort</value>
+    <comment>This is shown in the flyout for a sent message</comment>
+  </data>
+  <data name="DiscordStatusHBTN.Content" xml:space="preserve">
+    <value>Discord Status</value>
+    <comment>This is shown in the bottom right while connecting</comment>
+  </data>
+  <data name="EditMFI.Text" xml:space="preserve">
+    <value>Redigera</value>
+    <comment>This is shown in the flyout for a sent message</comment>
+  </data>
+  <data name="FriendsTB.Text" xml:space="preserve">
+    <value>Vänner</value>
+    <comment>This is shown in place of the guild name in DMs</comment>
+  </data>
+  <data name="FriendsTB2.Text" xml:space="preserve">
+    <value>VÄNNER</value>
+    <comment>This is shown on the header of the friend panel pivot</comment>
+  </data>
+  <data name="GuildSettingsMFI.Text" xml:space="preserve">
+    <value>Serverinställningar</value>
+    <comment>This is shown from the drop down from above the channel list</comment>
+  </data>
+  <data name="InvitePeopleMFI.Text" xml:space="preserve">
+    <value>Bjud in personer</value>
+    <comment>This is shown from the drop down from above the channel list</comment>
+  </data>
+  <data name="JoinCallBTN.Content" xml:space="preserve">
+    <value>Gå med i samtal</value>
+    <comment>This is shown on an action message for a call when the call is still open</comment>
+  </data>
+  <data name="LeaveServerMFI.Text" xml:space="preserve">
+    <value>Lämna server</value>
+    <comment>This is shown from the drop down from above the channel list</comment>
+  </data>
+  <data name="PendingTB.Text" xml:space="preserve">
+    <value>FÖRFRÅGNINGAR</value>
+    <comment>This is shown on the header of the friend panel pivot</comment>
+  </data>
+  <data name="PinMFI.Text" xml:space="preserve">
+    <value>Fäst</value>
+    <comment>This is shown in the flyout for a sent message</comment>
+  </data>
+  <data name="QuoteMFI.Text" xml:space="preserve">
+    <value>Citera</value>
+    <comment>This is shown in the flyout for a sent message</comment>
+  </data>
+  <data name="RetryHBTN.Content" xml:space="preserve">
+    <value>Försök igen</value>
+    <comment>This is shown on the loading screen when connection fails</comment>
+  </data>
+  <data name="SendMessageTBox.PlaceholderText" xml:space="preserve">
+    <value>Skicka meddelande</value>
+    <comment>This is shown in the message box when empty</comment>
+  </data>
+  <data name="SettingsABB.Label" xml:space="preserve">
+    <value>Inställningar</value>
+    <comment>This is shown if you expand the command bar (at the top)</comment>
+  </data>
+  <data name="ShowTB.Text" xml:space="preserve">
+    <value>Visa</value>
+    <comment>This is shown on unloaded attachments</comment>
+  </data>
+  <data name="UnpinMFI.Text" xml:space="preserve">
+    <value>Lossa</value>
+    <comment>This is shown in the flyout for a sent message</comment>
+  </data>
+  <data name="WhatsNewABB.Label" xml:space="preserve">
+    <value>Vad är nytt</value>
+    <comment>This is shown if you expand the command bar (at the top)</comment>
+  </data>
+  <data name="ChangeNicknameMFI.Text" xml:space="preserve">
+    <value>Ändra smeknamn</value>
+    <comment>This is shown in a guild member flyout on the member list</comment>
+  </data>
+  <data name="CloseDMMFI.Text" xml:space="preserve">
+    <value>Stäng DM</value>
+    <comment>This is shown in a DM channel&apos;s flyout</comment>
+  </data>
+  <data name="HideNamesMFI.Text" xml:space="preserve">
+    <value>Dölj namn</value>
+    <comment>This is shown in a voice channel&apos;s flyout</comment>
+  </data>
+  <data name="LeaveGroupMFI.Text" xml:space="preserve">
+    <value>Lämna grupp</value>
+    <comment>This is shown in a Group DM channel&apos;s flyout</comment>
+  </data>
+  <data name="MarkAsReadMFI.Text" xml:space="preserve">
+    <value>Markera som läst</value>
+    <comment>This is shown in a text channel&apos;s flyout</comment>
+  </data>
+  <data name="MessageMFI.Text" xml:space="preserve">
+    <value>Meddelande</value>
+    <comment>This is shown in a guild member flyout on the member list. Message in this context means to DM the person</comment>
+  </data>
+  <data name="MuteMFI.Text" xml:space="preserve">
+    <value>Tysta</value>
+    <comment>This is shown in a text channel&apos;s flyout</comment>
+  </data>
+  <data name="NotificationsMFI.Text" xml:space="preserve">
+    <value>Aviseringar</value>
+    <comment>This is shown in a text channel&apos;s flyout</comment>
+  </data>
+  <data name="ProfileMFI.Text" xml:space="preserve">
+    <value>Profil</value>
+    <comment>This is shown in a DM channel&apos;s flyout</comment>
+  </data>
+  <data name="AllMessagesRBTN.Content" xml:space="preserve">
+    <value>Alla meddelanden</value>
+    <comment>This is in the notifications page in guild settings</comment>
+  </data>
+  <data name="AllowDMCB.Content" xml:space="preserve">
+    <value>Tillåt direktmeddelanden från servermedlemmar</value>
+    <comment>This is in the privacy page in guild settings</comment>
+  </data>
+  <data name="AuditLogMVI.Content" xml:space="preserve">
+    <value>Granskningslogg</value>
+    <comment>This is in the guild settings page</comment>
+  </data>
+  <data name="BansNVI.Content" xml:space="preserve">
+    <value>Bannlysningar</value>
+    <comment>This is in the guild settings page</comment>
+  </data>
+  <data name="DoubleTableFlipDescTB.Text" xml:space="preserve">
+    <value>Måste ha ett verifierat telefonnummer på sitt Discord-konto.</value>
+    <comment>This is in the moderation page in guild settings</comment>
+  </data>
+  <data name="DoubleTableFlipTB.Text" xml:space="preserve">
+    <value>┻━┻彡 ヽ(ಠ益ಠ)ノ彡┻━┻</value>
+    <comment>This is in the moderation page in guild settings (you can leave it alone)</comment>
+  </data>
+  <data name="ECF0DescTB.Text" xml:space="preserve">
+    <value>Ingen fest är som min mormors tebjudning.</value>
+    <comment>This is in the moderation page in guild settings (laugh a little)</comment>
+  </data>
+  <data name="ECF0TB.Text" xml:space="preserve">
+    <value>Skanna inget medieinnehåll.</value>
+    <comment>This is in the moderation page in guild settings</comment>
+  </data>
+  <data name="ECF1DescTB.Text" xml:space="preserve">
+    <value>Rekommenderas för servrar som använder roller för betrodda medlemskap.</value>
+    <comment>This is in the moderation page in guild settings</comment>
+  </data>
+  <data name="ECF1TB.Text" xml:space="preserve">
+    <value>Skanna medieinnehåll från medlemmar utan någon roll.</value>
+    <comment>This is in the moderation page in guild settings</comment>
+  </data>
+  <data name="ECF2DescTB.Text" xml:space="preserve">
+    <value>Rekommenderas när du vill ha det riktigt skinande rent.</value>
+    <comment>This is in the moderation page in guild settings</comment>
+  </data>
+  <data name="ECF2TB.Text" xml:space="preserve">
+    <value>Skanna medieinnehåll från alla medlemmar.</value>
+    <comment>This is in the moderation page in guild settings</comment>
+  </data>
+  <data name="EmojisNVI.Content" xml:space="preserve">
+    <value>Emoji</value>
+    <comment>This is in the guild settings page</comment>
+  </data>
+  <data name="ExplictContentFilterTB.Text" xml:space="preserve">
+    <value>Filter för stötande medieinnehåll</value>
+    <comment>This is in the moderation page in guild settings</comment>
+  </data>
+  <data name="InvitesNVI.Content" xml:space="preserve">
+    <value>Inbjudningar</value>
+    <comment>This is in the guild settings page</comment>
+  </data>
+  <data name="LowDescTB.Text" xml:space="preserve">
+    <value>Måste ha en verifierad e-post på sitt Discord-konto.</value>
+    <comment>This is in the moderation page in guild settings</comment>
+  </data>
+  <data name="LowTB.Text" xml:space="preserve">
+    <value>Låg</value>
+    <comment>This is in the moderation page in guild settings</comment>
+  </data>
+  <data name="MediumTB.Text" xml:space="preserve">
+    <value>Medel</value>
+    <comment>This is in the moderation page in guild settings</comment>
   </data>
 </root>
