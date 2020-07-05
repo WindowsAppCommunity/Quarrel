@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,72 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutTB.Text" xml:space="preserve">
+    <value>ÜBER DIESE APP</value>
+    <comment>This is the header of the about subpage</comment>
+  </data>
+  <data name="AustinAndelinTB.Text" xml:space="preserve">
+    <value>Austin Andelin, für das Entwerfen des App-Logos.</value>
+    <comment>This is in the about page</comment>
+  </data>
+  <data name="ContributorsTB.Text" xml:space="preserve">
+    <value>Mitwirkende</value>
+    <comment>This is in the credit page</comment>
+  </data>
+  <data name="CreditTB.Text" xml:space="preserve">
+    <value>CREDITS</value>
+    <comment>This is the header of the credit subpage</comment>
+  </data>
+  <data name="DevelopedByTB.Text" xml:space="preserve">
+    <value>Entwickelt von Adam Dernis und Matthew Collins</value>
+    <comment>This is in the about page</comment>
+  </data>
+  <data name="DevelopersTB.Text" xml:space="preserve">
+    <value>Entwickler</value>
+    <comment>This is in the credit page</comment>
+  </data>
+  <data name="Disclosure.Text" xml:space="preserve">
+    <value>Quarrel ist ein **inoffizieller** Klient für Discord. **Die Entwickler sind in keiner Weise mit Discord Inc. verbunden.** Sollten Probleme beim Benutzen dieser App auftreten, kontaktieren Sie uns bitte über die unten angegebenen Wege. Für Probleme, die wir nicht lösen können, sind wir nicht haftbar.</value>
+    <comment>This is the disclosure in the about page</comment>
+  </data>
+  <data name="DiscordServerStatusHBTN.Content" xml:space="preserve">
+    <value>Discord-Server Status</value>
+    <comment>This is in the about page</comment>
+  </data>
+  <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
+    <value>Auf Twitter diskutieren</value>
+    <comment>This is in the about page</comment>
+  </data>
+  <data name="GitHubTB.Text" xml:space="preserve">
+    <value>Code auf GitHub anschauen</value>
+    <comment>This is in the about page</comment>
+  </data>
+  <data name="LeaveFeedbackTB.Text" xml:space="preserve">
+    <value>Feedback hinterlassen</value>
+    <comment>This is in the about page</comment>
+  </data>
+  <data name="LicensedTB.Text" xml:space="preserve">
+    <value>LIZENZEN</value>
+    <comment>This is the header of the licenses subpage</comment>
+  </data>
+  <data name="LicensesHBTN.Content" xml:space="preserve">
+    <value>Lizenzen</value>
+    <comment>This is in the about page</comment>
+  </data>
+  <data name="QuarrelLicensesDescTB.Text" xml:space="preserve">
+    <value>Quarrel funktioniert mit ein paar externe Bibliotheken:</value>
+    <comment>This is under the header of the licenses page</comment>
+  </data>
+  <data name="QuarrelVersionTB.Text" xml:space="preserve">
+    <value>Quarrel Version:</value>
+    <comment>This is in the about page</comment>
+  </data>
+  <data name="SergioPerdiTB.Text" xml:space="preserve">
+    <value>Sergio Pedri, der erlaubt und/oder es akzeptiert, dass ich seine C# Bibliotheken nutze</value>
+    <comment>This is in the about page</comment>
+  </data>
+  <data name="SpecialThanksTB.Text" xml:space="preserve">
+    <value>Besonderer Dank gilt:</value>
+    <comment>This is in the about page</comment>
+  </data>
 </root>
