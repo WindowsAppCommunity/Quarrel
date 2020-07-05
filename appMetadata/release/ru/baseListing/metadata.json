@@ -17,8 +17,5 @@
         "Discord",
         "Discord UWP",
         "Общение"
-    ],
-    "AcceptFriendRequestTB.Text": "Принять запрос в друзья?",
-    "ChangeNicknameTB.Text": "Изменить никнейм",
-    "FriendRequestSentTB.Text": "Запрос в друзья отправлен"
+    ]
 }
