@@ -100,7 +100,8 @@ namespace Quarrel.ViewModels.Models.Bindables.Guilds
                 {
                     DispatcherHelper.CheckBeginInvokeOnUi(() =>
                     {
-                        if (GuildsService.GuildSettings.TryGetValue(Model.Id, out var guildSetting))
+                        GuildSetting guildSetting = GuildsService.GetGuildSetting(Model.Id);
+                        if (guildSetting != null)
                         {
                             IsMuted = guildSetting.Muted;
                         }

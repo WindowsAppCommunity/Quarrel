@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="bitrateChange" xml:space="preserve">
+    <value>Bitrate von &lt;old&gt; auf &lt;new&gt; geändert</value>
+  </data>
+  <data name="bitrateSet" xml:space="preserve">
+    <value>Bitrate auf &lt;new&gt; gesetzt</value>
+  </data>
+  <data name="ChannelCreate" xml:space="preserve">
+    <value>&lt;user&gt; hat &lt;channel&gt; erstellt</value>
+  </data>
+  <data name="ChannelDelete" xml:space="preserve">
+    <value>&lt;user&gt; hat &lt;channel&gt; gelöscht</value>
+  </data>
+  <data name="ChannelOverwriteCreate" xml:space="preserve">
+    <value>&lt;user&gt; hat Berechtigungen für &lt;channel&gt; hinzugefügt</value>
+  </data>
+  <data name="ChannelOverwriteDelete" xml:space="preserve">
+    <value>&lt;user&gt; hat Berechtigungen für &lt;channel&gt; entfernt</value>
+  </data>
+  <data name="ChannelOverwriteUpdate" xml:space="preserve">
+    <value>&lt;user&gt; hat Berechtigungen für &lt;channel&gt; geändert</value>
+  </data>
+  <data name="ChannelUpdate" xml:space="preserve">
+    <value>&lt;user&gt; hat Änderungen an &lt;channel&gt; vorgenommen</value>
+  </data>
+  <data name="channel_idChange" xml:space="preserve">
+    <value>Nach &lt;new&gt; einladen</value>
+  </data>
+  <data name="channel_idSet" xml:space="preserve">
+    <value>Nach &lt;new&gt; einladen</value>
+  </data>
+  <data name="codeChange" xml:space="preserve">
+    <value>Mit Code &lt;neu&gt;</value>
+  </data>
+  <data name="codeSet" xml:space="preserve">
+    <value>Mit Code &lt;neu&gt;</value>
+  </data>
+  <data name="colorChange" xml:space="preserve">
+    <value>Farbe von &lt;old&gt; auf &lt;new&gt; geändert</value>
+  </data>
+  <data name="colorSet" xml:space="preserve">
+    <value>Farbe auf &lt;new&gt; gesetzt</value>
+  </data>
+  <data name="EmojiCreate" xml:space="preserve">
+    <value>&lt;user&gt; hat &lt;emoji&gt; hinzugefügt</value>
+  </data>
+  <data name="EmojiDelete" xml:space="preserve">
+    <value>&lt;user&gt; hat &lt;emoji&gt; entfernt</value>
+  </data>
+  <data name="EmojiUpdate" xml:space="preserve">
+    <value>&lt;user&gt; hat &lt;emoji&gt; geändert</value>
+  </data>
+  <data name="GenericChange" xml:space="preserve">
+    <value>&lt;property&gt; von &lt;old&gt; auf &lt;new&gt; geändert</value>
+  </data>
+  <data name="GenericSet" xml:space="preserve">
+    <value>&lt;property&gt; auf &lt;new&gt; gesetzt</value>
+  </data>
+  <data name="GuildUpdate" xml:space="preserve">
+    <value>&lt;user&gt; hat Änderungen am Server vorgenommen</value>
+  </data>
+  <data name="InviteCreate" xml:space="preserve">
+    <value>&lt;user&gt; hat Einladungslink &lt;invite&gt; erstellt</value>
+  </data>
+  <data name="InviteDelete" xml:space="preserve">
+    <value>&lt;user&gt; hat Einladungslink &lt;invite&gt; gelöscht</value>
+  </data>
+  <data name="InviteUpdate" xml:space="preserve">
+    <value>&lt;user&gt; hat Einladungslink &lt;invite&gt; geändert</value>
+  </data>
+  <data name="max_age0" xml:space="preserve">
+    <value>Kein Limit</value>
+  </data>
+  <data name="max_ageChange" xml:space="preserve">
+    <value>Verfällt in: &lt;new&gt;</value>
+  </data>
+  <data name="max_ageSet" xml:space="preserve">
+    <value>Verfällt in: &lt;new&gt;</value>
+  </data>
+  <data name="max_uses0" xml:space="preserve">
+    <value>∞</value>
+  </data>
+  <data name="max_uses1" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="max_usesChange" xml:space="preserve">
+    <value>Verwendungen: &lt;new&gt;</value>
+  </data>
+  <data name="max_usesSet" xml:space="preserve">
+    <value>Verwendungen: &lt;new&gt;</value>
+  </data>
+  <data name="MemberBanAdd" xml:space="preserve">
+    <value>&lt;user&gt; hat &lt;recipient&gt; gebannt</value>
+  </data>
+  <data name="MemberBanRemove" xml:space="preserve">
+    <value>&lt;user&gt; hat Bann auf &lt;recipient&gt; aufgehoben</value>
+  </data>
+  <data name="MemberKick" xml:space="preserve">
+    <value>&lt;user&gt; hat &lt;recipient&gt; gekickt</value>
+  </data>
+  <data name="MemberPrune" xml:space="preserve">
+    <value>&lt;user&gt; hat inaktive Mitglieder entfernt</value>
+  </data>
+  <data name="MemberRoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; hat Rolle von &lt;recipient&gt; geändert</value>
+  </data>
+  <data name="MemberUpdate" xml:space="preserve">
+    <value>&lt;user&gt; hat &lt;recipient&gt; geändert</value>
+  </data>
+  <data name="MessageDelete" xml:space="preserve">
+    <value>&lt;user&gt; hat Nachricht von &lt;recipient&gt; in &lt;channel&gt; gelöscht</value>
+  </data>
+  <data name="nameChange" xml:space="preserve">
+    <value>Name von &lt;old&gt; auf &lt;new&gt; geändert</value>
+  </data>
+  <data name="nameSet" xml:space="preserve">
+    <value>Name auf &lt;new&gt; gesetzt</value>
+  </data>
+  <data name="nsfwChange" xml:space="preserve">
+    <value>Kanal ist jetzt &lt;new&gt;</value>
+  </data>
+  <data name="nsfwSet" xml:space="preserve">
+    <value>Kanal ist jetzt &lt;new&gt;</value>
+  </data>
+  <data name="regionChange" xml:space="preserve">
+    <value>Region von &lt;old&gt; auf &lt;new&gt; geändert</value>
+  </data>
+  <data name="regionSet" xml:space="preserve">
+    <value>Serverregion auf &lt;new&gt; gesetzt</value>
+  </data>
+  <data name="RoleCreate" xml:space="preserve">
+    <value>&lt;user&gt; hat die Rolle &lt;role&gt; erstellt</value>
+  </data>
+  <data name="RoleDelete" xml:space="preserve">
+    <value>&lt;user&gt; hat &lt;role&gt; gelöscht</value>
+  </data>
+  <data name="RoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; hat &lt;role&gt; geändert</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>&lt;user&gt; hat eine unbekannt Aktion durchgeführt</value>
+  </data>
+  <data name="uses0" xml:space="preserve">
+    <value>Ungenutzt</value>
+  </data>
+  <data name="uses1" xml:space="preserve">
+    <value>**1** mal genutzt</value>
+  </data>
+  <data name="usesChange" xml:space="preserve">
+    <value>&lt;new&gt; mal genutzt</value>
+  </data>
+  <data name="usesSet" xml:space="preserve">
+    <value>&lt;new&gt; mal genutzt</value>
+  </data>
+  <data name="WebhookCreate" xml:space="preserve">
+    <value>&lt;user&gt; hat &lt;webhook&gt; erstellt</value>
+  </data>
+  <data name="WebhookDelete" xml:space="preserve">
+    <value>&lt;user&gt; hat &lt;webhook&gt; gelöscht</value>
+  </data>
+  <data name="WebhookUpdate" xml:space="preserve">
+    <value>&lt;user&gt; hat &lt;webhook&gt; geändert</value>
+  </data>
+</root>

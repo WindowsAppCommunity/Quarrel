@@ -17,7 +17,7 @@ namespace DiscordAPI.Models
         /// </summary>
         /// <param name="mg">The <see cref="MutualGuild"/>.</param>
         /// <returns>The <see cref="BindableGuild"/> for the <see cref="MutualGuild"/>.</returns>
-        public static BindableGuild Guild(this MutualGuild mg) => SimpleIoc.Default.GetInstance<IGuildsService>().AllGuilds.TryGetValue(mg.Id, out var value) ? value : null;
+        public static BindableGuild Guild(this MutualGuild mg) => SimpleIoc.Default.GetInstance<IGuildsService>().GetGuild(mg.Id);
 
         /// <summary>
         /// Gets the guild's name of the <see cref="MutualGuild"/>.

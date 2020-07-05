@@ -13,8 +13,12 @@ using Quarrel.ViewModels.Services.Settings;
 using Quarrel.ViewModels.Services.Settings.Enums;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.AppService;
+using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Metadata;
@@ -70,6 +74,39 @@ namespace Quarrel
             ViewModelLocator = new ViewModelLocator();
         }
 
+        private async void RegisterTask(string taskName)
+        {
+            BackgroundTaskBuilder taskBuilder = new BackgroundTaskBuilder
+            {
+                Name = taskName,
+            };
+
+            var trigger = new ApplicationTrigger();
+            taskBuilder.SetTrigger(trigger);
+
+            var registration = taskBuilder.Register();
+            await trigger.RequestAsync();
+        }
+
+
+        private async void RegisterBackgroundTask()
+        {
+            var backgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync();
+
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+            {
+                if (task.Value.Name == "SuspendBackgroundTask")
+                {
+                    task.Value.Unregister(true);
+                }
+            }
+
+            if (BackgroundTaskRegistration.AllTasks.All(cur => cur.Value.Name != "SuspendBackgroundTask") && backgroundAccessStatus == BackgroundAccessStatus.AllowedSubjectToSystemPolicy)
+            {
+                RegisterTask("SuspendBackgroundTask");
+            }
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="App"/> class.
         /// This is the first line of authored code executed, and as such is the logical equivalent of main() or WinMain().
@@ -80,6 +117,8 @@ namespace Quarrel
             SetupRequestedTheme();
             Suspending += OnSuspending;
             UnhandledException += App_UnhandledException;
+
+            RegisterBackgroundTask();
         }
 
         /// <summary>
@@ -209,9 +248,12 @@ namespace Quarrel
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
+
+
+            var status = await new ApplicationTrigger().RequestAsync();
 
             // TODO: Save application state and stop any background activity
             deferral.Complete();

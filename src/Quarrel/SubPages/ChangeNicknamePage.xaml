@@ -16,7 +16,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Border Background="{ThemeResource DarkBG}" VerticalAlignment="Top" Padding="8">
-            <TextBlock Text="Change Nickname" FontSize="20" FontWeight="SemiBold"/>
+            <TextBlock x:Uid="/MiscSubs/ChangeNicknameTB" Text="Change Nickname" FontSize="20" FontWeight="SemiBold"/>
         </Border>
 
         <ScrollViewer Grid.Row="1" Padding="8">
