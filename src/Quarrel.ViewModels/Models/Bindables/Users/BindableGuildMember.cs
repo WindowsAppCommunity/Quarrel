@@ -129,7 +129,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
             if (bChannel == null)
             {
                 bChannel = new BindableChannel(channel);
-                ChannelsService.AllChannels.Add(channel.Id, bChannel);
+                ChannelsService.AddOrUpdateChannel(channel.Id, bChannel);
             }
 
             MessengerInstance.Send(new ChannelNavigateMessage(bChannel));
@@ -210,7 +210,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
                         return null;
                     }
 
-                    _cachedRoles = GuildsService.AllGuilds[GuildId].Model.Roles.Where(a => Model.Roles.Contains(a.Id)).OrderByDescending(x => x.Position).ToList();
+                    _cachedRoles = GuildsService.GetGuild(GuildId).Model.Roles.Where(a => Model.Roles.Contains(a.Id)).OrderByDescending(x => x.Position).ToList();
                 }
 
                 return _cachedRoles;

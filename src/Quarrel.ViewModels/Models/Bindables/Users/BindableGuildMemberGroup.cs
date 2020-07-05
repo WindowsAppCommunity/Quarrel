@@ -4,6 +4,7 @@ using DiscordAPI.Models;
 using GalaSoft.MvvmLight.Ioc;
 using JetBrains.Annotations;
 using Quarrel.ViewModels.Models.Bindables.Abstract;
+using Quarrel.ViewModels.Models.Bindables.Guilds;
 using Quarrel.ViewModels.Models.Interfaces;
 using Quarrel.ViewModels.Services.Discord.Guilds;
 using System.Linq;
@@ -35,7 +36,19 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
         /// <summary>
         /// Gets the role of the group.
         /// </summary>
-        public Role Role => GuildsService.AllGuilds.TryGetValue(_guildId, out var guild) ? guild.Model.Roles?.FirstOrDefault(x => x.Id == Model.Id) : null;
+        public Role Role
+        {
+            get
+            {
+                BindableGuild guild = GuildsService.GetGuild(_guildId);
+                if (guild != null)
+                {
+                    return guild.Model.Roles?.FirstOrDefault(x => x.Id == Model.Id);
+                }
+
+                return null;
+            }
+        }
 
         /// <summary>
         /// Gets the name of the group.

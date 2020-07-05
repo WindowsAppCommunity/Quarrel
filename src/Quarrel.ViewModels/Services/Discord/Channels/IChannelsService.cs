@@ -2,7 +2,6 @@
 
 using DiscordAPI.Models;
 using Quarrel.ViewModels.Models.Bindables.Channels;
-using System.Collections.Generic;
 
 namespace Quarrel.ViewModels.Services.Discord.Channels
 {
@@ -11,16 +10,6 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
     /// </summary>
     public interface IChannelsService
     {
-        /// <summary>
-        /// Gets a hashed collection of all channels in loaded by the client, by id.
-        /// </summary>
-        IDictionary<string, BindableChannel> AllChannels { get; }
-
-        /// <summary>
-        /// Gets a hashed collection all channel's settings, by id.
-        /// </summary>
-        IDictionary<string, ChannelOverride> ChannelSettings { get; }
-
         /// <summary>
         /// Gets the currently open channel.
         /// </summary>
@@ -32,5 +21,32 @@ namespace Quarrel.ViewModels.Services.Discord.Channels
         /// <param name="channelId">The id of the channel.</param>
         /// <returns>The <see cref="BindableChannel"/> with id <paramref name="channelId"/>, or null.</returns>
         BindableChannel GetChannel(string channelId);
+
+        /// <summary>
+        /// Adds or updates a channel in the channel list.
+        /// </summary>
+        /// <param name="channelId">The channel's id.</param>
+        /// <param name="channel">The <see cref="BindableChannel"/> object.</param>
+        void AddOrUpdateChannel(string channelId, BindableChannel channel);
+
+        /// <summary>
+        /// Removes a channel from the channel list.
+        /// </summary>
+        /// <param name="channelId">The channel's id</param>
+        void RemoveChannel(string channelId);
+
+        /// <summary>
+        /// Gets a channel's settings.
+        /// </summary>
+        /// <param name="channelId">The channel's id.</param>
+        /// <returns>The <see cref="ChannelOverride"/> for the channel.</returns>
+        ChannelOverride GetChannelSettings(string channelId);
+
+        /// <summary>
+        /// Adds or updates a channel's settings.
+        /// </summary>
+        /// <param name="channelId">The channel's id.</param>
+        /// <param name="channelOverride">The channel's new settings.</param>
+        void AddOrUpdateChannelSettings(string channelId, ChannelOverride channelOverride);
     }
 }

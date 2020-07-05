@@ -265,7 +265,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         /// </summary>
         public ObservableCollection<IEmbed> BindableEmbeds { get; set; } = new ObservableCollection<IEmbed>();
 
-        private BindableChannel Channel => ChannelsService.AllChannels[Model.ChannelId];
+        private BindableChannel Channel => ChannelsService.GetChannel(Model.ChannelId);
 
         private IAnalyticsService AnalyticsService => _analyticsService ?? (_analyticsService = SimpleIoc.Default.GetInstance<IAnalyticsService>());
 
@@ -347,7 +347,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
                     Invite invite = await DiscordService.InviteService.GetInvite(match.Groups[1].Value);
                     BindableEmbeds.Add(new BindableInvite(invite));
                 }
-                catch (Exception e)
+                catch
                 {
                 }
             }
@@ -356,7 +356,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
         private void CalculateMentions()
         {
             UsersMentioned = Model.Mentions?.ToDictionary(
-                x => x.Id, 
+                x => x.Id,
                 x => (x.Username, GuildsService.GetGuildMember(x.Id, GuildsService.CurrentGuild.Model.Id)?.TopRole?.Color ?? 0x18363));
 
             IDictionary<string, (string, int)> rolesMentionedDict = new Dictionary<string, (string, int)>();
@@ -374,12 +374,11 @@ namespace Quarrel.ViewModels.Models.Bindables.Messages
 
             RolesMentioned = rolesMentionedDict;
 
-
             IDictionary<string, string> channelsMentionedDict = new Dictionary<string, string>();
 
-            foreach (var channel in ChannelsService.AllChannels)
+            foreach (var channel in GuildsService.CurrentGuild.Channels)
             {
-                channelsMentionedDict[channel.Key] = channel.Value.Model.Name;
+                channelsMentionedDict[channel.Model.Id] = channel.Model.Name;
             }
 
             if (Model.MentionChannels != null)

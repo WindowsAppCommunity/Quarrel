@@ -109,6 +109,7 @@ namespace Quarrel.ViewModels.Controls
                     }
                 }
             });
+
             // TODO: Sort by accuracy
         }
     }
