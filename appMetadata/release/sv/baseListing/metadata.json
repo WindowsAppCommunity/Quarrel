@@ -1,0 +1,20 @@
+{
+    "title": "Quarrel (Icke-officiel Discord klient)",
+    "devStudio": "Adam Dernis and Matthew",
+    "description": "En ofta uppdaterad Discord-klient för alla Windows-enheter skapad för att sprida användbarheten av Discord till Windows telefoner, Xbox, HoloLens och icke-Win32 surfplattor och datorer.",
+    "features": [
+        "Prata med vänner",
+        "Textkanaler",
+        "Röstkanaler",
+        "Xbox-support, chatta medan du spelar!",
+        "Ger UWP appar tillgång till Rich Presence"
+    ],
+    "recommendedHardware": [
+        "Hörlurar/Högtalarmikrofon"
+    ],
+    "keywords": [
+        "Discord",
+        "Discord UWP",
+        "Sociala medier"
+    ]
+}

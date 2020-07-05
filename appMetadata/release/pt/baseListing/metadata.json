@@ -1,0 +1,21 @@
+{
+    "title": "Quarrel (Cliente Oficioso do Discord)",
+    "devStudio": "Adam Dernis and Matthew",
+    "description": "Um cliente do Discord frequentemente atualizado para todas as plataformas Windows destinado a espalhar a usabilidade do Discord para Mobile, Xbox e HoloLens e tablets non-Win32 e PCs.",
+    "features": [
+        "Converse com amigos",
+        "Canais de texto",
+        "Canais de voz",
+        "Suporte para Xbox, converse enquanto joga jogos!",
+        "Permite Rich Presence para apps UWP"
+    ],
+    "recommendedHardware": [
+        "Fones de Ouvido/Auto-falante",
+        "Microfone"
+    ],
+    "keywords": [
+        "DIscord",
+        "Discord UWP",
+        "Rede Social"
+    ]
+}

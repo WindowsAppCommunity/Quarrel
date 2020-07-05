@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountSettingsTB.Text" xml:space="preserve">
+    <value>Benutzereinstellungen</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="AddChannelTB.Text" xml:space="preserve">
+    <value>Kanal hinzufügen</value>
+    <comment>This is the header of the add channel page</comment>
+  </data>
+  <data name="APIResponseTB.Text" xml:space="preserve">
+    <value>API Antwortzeit</value>
+    <comment>This is shown in the discord status page</comment>
+  </data>
+  <data name="BlockTB.Text" xml:space="preserve">
+    <value>Blockieren</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="CancelBTN.Content" xml:space="preserve">
+    <value>Abbrechen</value>
+    <comment>This is shown in the add channel page</comment>
+  </data>
+  <data name="ChannelNameTBox.Header" xml:space="preserve">
+    <value>Kanalname</value>
+    <comment>This is shown in the add channel page</comment>
+  </data>
+  <data name="CommonFriendsTB.Text" xml:space="preserve">
+    <value>GEMEINSAME FREUNDE</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="CommonServersTB.Text" xml:space="preserve">
+    <value>GEMEINSAME SERVER</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="CopyLinkABB.Content" xml:space="preserve">
+    <value>Link kopieren</value>
+    <comment>This is shown in the attachment page</comment>
+  </data>
+  <data name="DayHBTN.Content" xml:space="preserve">
+    <value>Tag</value>
+    <comment>This is shown in the discord status page</comment>
+  </data>
+  <data name="DetailsHBTN.Content" xml:space="preserve">
+    <value>Details</value>
+    <comment>This is shown in the discord status page</comment>
+  </data>
+  <data name="DiscordStatusTB.Text" xml:space="preserve">
+    <value>DISCORD-STATUS</value>
+    <comment>This is shown in the discord status page</comment>
+  </data>
+  <data name="FailedToLoadTB.Text" xml:space="preserve">
+    <value>DISCORD-STATUS NICHT ERREICHT :/</value>
+    <comment>This is shown in the discord status page</comment>
+  </data>
+  <data name="FileNameTB.Text" xml:space="preserve">
+    <value>Dateiname:</value>
+    <comment>This is shown in the attachment page</comment>
+  </data>
+  <data name="FileSizeTB.Text" xml:space="preserve">
+    <value>Dateigröße:</value>
+    <comment>This is shown in the attachment page</comment>
+  </data>
+  <data name="GenerateInviteBTN.Content" xml:space="preserve">
+    <value>Link erstellen</value>
+    <comment>This is shown in the create invite page</comment>
+  </data>
+  <data name="HeightTB.Text" xml:space="preserve">
+    <value>Höhe:</value>
+    <comment>This is shown in the attachment page</comment>
+  </data>
+  <data name="LoginTB.Text" xml:space="preserve">
+    <value>EINLOGGEN</value>
+    <comment>This is shown on the login page</comment>
+  </data>
+  <data name="LoginTokenHBTN.Content" xml:space="preserve">
+    <value>Mit Discord Token einloggen</value>
+    <comment>This is shown on the login page</comment>
+  </data>
+  <data name="MinthHBTN.Content" xml:space="preserve">
+    <value>Monat</value>
+    <comment>This is shown in the discord status page</comment>
+  </data>
+  <data name="NoteTB.Text" xml:space="preserve">
+    <value>NOTIZ</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="NoteTBox.PlaceholderText" xml:space="preserve">
+    <value>Keine Notiz</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="OpenInBrowserABB.Content" xml:space="preserve">
+    <value>Im Browser öffnen</value>
+    <comment>This is shown in the attachment page</comment>
+  </data>
+  <data name="PlayingTB.Text" xml:space="preserve">
+    <value>SPIELT</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="PrivacyPolicyHBTN.Content" xml:space="preserve">
+    <value>Datenschutzerlärung</value>
+    <comment>This is shown on the login page</comment>
+  </data>
+  <data name="QuarrelDescTB.Text" xml:space="preserve">
+    <value>Discord-Klient für Universal Windows Platform</value>
+    <comment>This is shown on the login page</comment>
+  </data>
+  <data name="RemoveFriendTB.Text" xml:space="preserve">
+    <value>Freund entfernen</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="SaveABB.Content" xml:space="preserve">
+    <value>Speichern</value>
+    <comment>This is shown in the attachment page</comment>
+  </data>
+  <data name="SaveBTN.Content" xml:space="preserve">
+    <value>Speichern</value>
+    <comment>This is shown in the add channel page</comment>
+  </data>
+  <data name="SendFriendRequestTB.Text" xml:space="preserve">
+    <value>Frendschaftsanfrage verschickt</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="SendMessageTB.Text" xml:space="preserve">
+    <value>Nachricht schreiben</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="ServerStatsTB.Text" xml:space="preserve">
+    <value>Serverstatistik</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="ShareABB.Content" xml:space="preserve">
+    <value>Teilen</value>
+    <comment>This is shown in the attachment page</comment>
+  </data>
+  <data name="TextChannelSTR" xml:space="preserve">
+    <value>Textkanal</value>
+    <comment>This is shown in the add channel page</comment>
+  </data>
+  <data name="UnblockTB.Text" xml:space="preserve">
+    <value>Blockierung aufheben</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="UsesLimitSlD.Header" xml:space="preserve">
+    <value>Maximale Anzahl von Verwendungen</value>
+    <comment>This is shown in the create invite page</comment>
+  </data>
+  <data name="VoiceChannelSTR" xml:space="preserve">
+    <value>Sprachkanal</value>
+    <comment>This is shown in the add channel page</comment>
+  </data>
+  <data name="WeekHBTN.Content" xml:space="preserve">
+    <value>Woche</value>
+    <comment>This is shown in the discord status page</comment>
+  </data>
+  <data name="WidthTB.Text" xml:space="preserve">
+    <value>Weite:</value>
+    <comment>This is shown in the attachment page</comment>
+  </data>
+  <data name="AcceptFriendRequestTB.Text" xml:space="preserve">
+    <value>Freundschaftsanfrage annehmen?</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+  <data name="ChangeNicknameTB.Text" xml:space="preserve">
+    <value>Nickname ändern</value>
+    <comment>This is the header of the change nickname page</comment>
+  </data>
+  <data name="FriendRequestSentTB.Text" xml:space="preserve">
+    <value>Freunschaftsanfrage verschickt</value>
+    <comment>This is shown on the user profile page</comment>
+  </data>
+</root>
