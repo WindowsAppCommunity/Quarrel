@@ -26,9 +26,11 @@
             <ScrollViewer>
                 <RichTextBlock x:Name="notDetailed" TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,16,0,12">
                     <Paragraph>
-                        <Run Text="• Bug fixes" />
+                        <Run Text="• Improved background voice stability" />
                         <LineBreak />
-                        <Run Text="• Support changing nickname" />
+                        <Run Text="• Some optizations on startup" />
+                        <LineBreak />
+                        <Run Text="• Channel list headers are now pinned to the top of the list." />
                     </Paragraph>
                     <Paragraph FontSize="8" />
                 </RichTextBlock>
