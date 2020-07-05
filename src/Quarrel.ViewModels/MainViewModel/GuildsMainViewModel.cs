@@ -290,9 +290,12 @@ namespace Quarrel.ViewModels
                         foreach (var guildId in folder.GuildIds)
                         {
                             BindableGuild guild = _guildsService.GetGuild(guildId);
-                            guild.FolderId = folder.Id;
-                            guild.IsCollapsed = bindableFolder.IsCollapsed;
-                            BindableGuilds.Add(guild);
+                            if (guild != null)
+                            {
+                                guild.FolderId = folder.Id;
+                                guild.IsCollapsed = bindableFolder.IsCollapsed;
+                                BindableGuilds.Add(guild);
+                            }
                         }
                     }
 
