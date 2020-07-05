@@ -20,6 +20,7 @@ namespace Quarrel
     {
         private AppServiceConnection _appServiceConnection;
         private BackgroundTaskDeferral _appServiceDeferral;
+        private BackgroundTaskDeferral _suspendDeferral;
 
         /// <summary>
         /// Occurs when an app service connection opens.
@@ -35,12 +36,20 @@ namespace Quarrel
             base.OnBackgroundActivated(args);
 
             IBackgroundTaskInstance taskInstance = args.TaskInstance;
-            AppServiceTriggerDetails appService = taskInstance.TriggerDetails as AppServiceTriggerDetails;
-            _appServiceDeferral = taskInstance.GetDeferral();
-            taskInstance.Canceled += TaskInstance_Canceled;
-            _appServiceConnection = appService.AppServiceConnection;
-            _appServiceConnection.RequestReceived += HandleServiceRequest;
-            ConnectedToAppService?.Invoke(null, null);
+            if (taskInstance.Task.Name == "SuspendBackgroundTask")
+            {
+                _suspendDeferral = taskInstance.GetDeferral();
+                taskInstance.Canceled += SuspendTask_OnCanceled;
+            }
+            else
+            {
+                AppServiceTriggerDetails appService = taskInstance.TriggerDetails as AppServiceTriggerDetails;
+                _appServiceDeferral = taskInstance.GetDeferral();
+                taskInstance.Canceled += TaskInstance_OnCanceled;
+                _appServiceConnection = appService.AppServiceConnection;
+                _appServiceConnection.RequestReceived += HandleServiceRequest;
+                ConnectedToAppService?.Invoke(null, null);
+            }
         }
 
         /// <summary>
@@ -50,7 +59,8 @@ namespace Quarrel
         {
             if (SimpleIoc.Default.ContainsCreated<IDiscordService>())
             {
-                var game = JsonConvert.DeserializeObject<Game>(args.Request.Message[Constants.ConnectionServiceRequests.SetActivity].ToString());
+                var game = JsonConvert.DeserializeObject<Game>(args.Request
+                    .Message[Constants.ConnectionServiceRequests.SetActivity].ToString());
                 SimpleIoc.Default.GetInstance<IGatewayService>().Gateway.UpdateStatus(game);
             }
         }
@@ -58,9 +68,17 @@ namespace Quarrel
         /// <summary>
         /// Handles AppServiceConnection closing.
         /// </summary>
-        private void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
+        private void TaskInstance_OnCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
         {
             _appServiceDeferral.Complete();
+        }
+
+        /// <summary>
+        /// Handles suspend background task closing.
+        /// </summary>
+        private void SuspendTask_OnCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
+        {
+            _suspendDeferral.Complete();
         }
     }
 }

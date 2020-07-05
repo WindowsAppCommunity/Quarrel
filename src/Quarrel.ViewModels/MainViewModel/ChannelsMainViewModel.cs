@@ -11,6 +11,7 @@ using Quarrel.ViewModels.Models.Bindables.Channels;
 using Quarrel.ViewModels.Models.Bindables.Messages;
 using Quarrel.ViewModels.Models.Bindables.Users;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -93,8 +94,34 @@ namespace Quarrel.ViewModels
         public BindableChannel CurrentChannel
         {
             get => _currentChannel;
-            set => Set(ref _currentChannel, value);
+            set
+            {
+                // Deselect
+                if (_currentChannel != null)
+                {
+                    _currentChannel.Selected = false;
+                }
+
+                Set(ref _currentChannel, value);
+
+                // Select
+                if (_currentChannel != null)
+                {
+                    _currentChannel.Selected = true;
+                }
+            }
         }
+
+        /// <summary>
+        /// Gets a hashed collection of all channels in loaded by the client, by id.
+        /// </summary>
+        public IDictionary<string, BindableChannel> AllChannels { get; } = new ConcurrentDictionary<string, BindableChannel>();
+
+        /// <summary>
+        /// Gets a hashed collection all channel's settings, by id.
+        /// </summary>
+        public IDictionary<string, ChannelOverride> ChannelSettings { get; } =
+            new ConcurrentDictionary<string, ChannelOverride>();
 
         private void RegisterChannelsMessages()
         {
@@ -102,7 +129,7 @@ namespace Quarrel.ViewModels
             {
                 _dispatcherHelper.CheckBeginInvokeOnUi(() =>
                 {
-                    if (_channelsService.AllChannels.TryGetValue(m.TypingStart.ChannelId, out BindableChannel bChannel))
+                    if (AllChannels.TryGetValue(m.TypingStart.ChannelId, out BindableChannel bChannel))
                     {
                         if (bChannel.Typers.TryRemove(m.TypingStart.UserId, out Timer oldTimer))
                         {
@@ -140,8 +167,6 @@ namespace Quarrel.ViewModels
 
             MessengerInstance.Register<ChannelNavigateMessage>(this, async m =>
             {
-                _dispatcherHelper.CheckBeginInvokeOnUi(() => { CurrentChannel = m.Channel; });
-
                 await SemaphoreSlim.WaitAsync();
                 try
                 {
@@ -203,6 +228,12 @@ namespace Quarrel.ViewModels
                 {
                     SemaphoreSlim.Release();
                 }
+            });
+
+            MessengerInstance.Register<GatewayMessageAckMessage>(this, m =>
+            {
+                var channel = _channelsService.GetChannel(m.ChannelId);
+                channel?.UpdateLRMID(m.MessageId);
             });
         }
     }
