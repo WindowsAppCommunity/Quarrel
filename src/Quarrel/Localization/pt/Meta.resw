@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutTB.Text" xml:space="preserve">
-    <value>ABOUT</value>
+    <value>SOBRE</value>
     <comment>This is the header of the about subpage</comment>
   </data>
   <data name="AustinAndelinTB.Text" xml:space="preserve">
@@ -130,15 +130,15 @@
     <comment>This is in the credit page</comment>
   </data>
   <data name="CreditTB.Text" xml:space="preserve">
-    <value>CREDIT</value>
+    <value>CREDITOS</value>
     <comment>This is the header of the credit subpage</comment>
   </data>
   <data name="DevelopedByTB.Text" xml:space="preserve">
-    <value>Developed by Adam Dernis and Matthew Collins</value>
+    <value>Desenvolvido por Adam Dernis e Matthew Collins</value>
     <comment>This is in the about page</comment>
   </data>
   <data name="DevelopersTB.Text" xml:space="preserve">
-    <value>Developers</value>
+    <value>Desenvolvedores</value>
     <comment>This is in the credit page</comment>
   </data>
   <data name="Disclosure.Text" xml:space="preserve">
@@ -146,11 +146,11 @@
     <comment>This is the disclosure in the about page</comment>
   </data>
   <data name="DiscordServerStatusHBTN.Content" xml:space="preserve">
-    <value>Discord Server Status</value>
+    <value>Status do Servidor do Discord</value>
     <comment>This is in the about page</comment>
   </data>
   <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
-    <value>Discuss on Twitter</value>
+    <value>Discutir no Twitter</value>
     <comment>This is in the about page</comment>
   </data>
   <data name="GitHubTB.Text" xml:space="preserve">
@@ -158,15 +158,15 @@
     <comment>This is in the about page</comment>
   </data>
   <data name="LeaveFeedbackTB.Text" xml:space="preserve">
-    <value>Leave Feedback</value>
+    <value>Deixe um Feedback</value>
     <comment>This is in the about page</comment>
   </data>
   <data name="LicensedTB.Text" xml:space="preserve">
-    <value>LICENSES</value>
+    <value>LICENÇAS</value>
     <comment>This is the header of the licenses subpage</comment>
   </data>
   <data name="LicensesHBTN.Content" xml:space="preserve">
-    <value>Licenses</value>
+    <value>Licenças</value>
     <comment>This is in the about page</comment>
   </data>
   <data name="QuarrelLicensesDescTB.Text" xml:space="preserve">
@@ -174,7 +174,7 @@
     <comment>This is under the header of the licenses page</comment>
   </data>
   <data name="QuarrelVersionTB.Text" xml:space="preserve">
-    <value>Quarrel Version:</value>
+    <value>Versão do Quarrel:</value>
     <comment>This is in the about page</comment>
   </data>
   <data name="SergioPerdiTB.Text" xml:space="preserve">
@@ -182,7 +182,7 @@
     <comment>This is in the about page</comment>
   </data>
   <data name="SpecialThanksTB.Text" xml:space="preserve">
-    <value>Special Thanks:</value>
+    <value>Agradecimento especial:</value>
     <comment>This is in the about page</comment>
   </data>
 </root>
