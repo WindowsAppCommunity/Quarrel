@@ -170,7 +170,7 @@
     <comment>This is shown in the flyout for a sent message</comment>
   </data>
   <data name="DiscordStatusHBTN.Content" xml:space="preserve">
-    <value>Discord S</value>
+    <value>Status do Discord</value>
     <comment>This is shown in the bottom right while connecting</comment>
   </data>
   <data name="EditMFI.Text" xml:space="preserve">
