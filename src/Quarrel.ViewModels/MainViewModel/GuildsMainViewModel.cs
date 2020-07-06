@@ -313,7 +313,7 @@ namespace Quarrel.ViewModels
                         BindableGuild guild = _guildsService.GetGuild(guildIdsNotInFolder[i]);
                         if (guild != null)
                         {
-                            BindableGuilds.Add(guild);
+                            BindableGuilds.Insert(1, guild);
                         }
                     }
 
