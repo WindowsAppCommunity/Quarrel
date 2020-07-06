@@ -169,8 +169,11 @@ namespace Quarrel.ViewModels
                         dmGuild.Channels = new ObservableCollection<BindableChannel>(dmGuild.Channels.OrderByDescending(x => Convert.ToUInt64(x.Model.LastMessageId)).ToList());
                     }
 
+                    List<string> guildIdsNotInFolder = new List<string>();
+
                     foreach (var guild in m.EventData.Guilds)
                     {
+                        guildIdsNotInFolder.Add(guild.Id);
                         BindableGuild bGuild = new BindableGuild(guild);
 
                         // Handle guild settings
@@ -290,9 +293,28 @@ namespace Quarrel.ViewModels
                         foreach (var guildId in folder.GuildIds)
                         {
                             BindableGuild guild = _guildsService.GetGuild(guildId);
-                            guild.FolderId = folder.Id;
-                            guild.IsCollapsed = bindableFolder.IsCollapsed;
-                            BindableGuilds.Add(guild);
+                            int pos = guildIdsNotInFolder.IndexOf(guildId);
+                            if (pos >= 0)
+                            {
+                                guildIdsNotInFolder.RemoveAt(pos);
+                            }
+
+                            if (guild != null)
+                            {
+                                guild.FolderId = folder.Id;
+                                guild.IsCollapsed = bindableFolder.IsCollapsed;
+                                BindableGuilds.Add(guild);
+                            }
+                        }
+                    }
+
+                    foreach (string guildId in guildIdsNotInFolder)
+                    {
+
+                        BindableGuild guild = _guildsService.GetGuild(guildId);
+                        if (guild != null)
+                        {
+                            BindableGuilds.Insert(0, guild);
                         }
                     }
 
@@ -349,7 +371,8 @@ namespace Quarrel.ViewModels
                 var oldGuild = _guildsService.GetGuild(m.Guild.Id);
                 if (oldGuild != null)
                 {
-                    _dispatcherHelper.CheckBeginInvokeOnUi(() => {
+                    _dispatcherHelper.CheckBeginInvokeOnUi(() =>
+                    {
                         oldGuild.Model = m.Guild;
                     });
                 }

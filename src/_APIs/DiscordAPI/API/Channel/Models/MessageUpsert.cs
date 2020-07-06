@@ -20,5 +20,11 @@ namespace DiscordAPI.API.Channel.Models
         /// </summary>
         [JsonProperty("tts")]
         public bool TTS { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating this uniqueness of this message in order to prevent duplicates
+        /// </summary>
+        [JsonProperty("nonce")]
+        public string Nonce { get; set; }
     }
 }

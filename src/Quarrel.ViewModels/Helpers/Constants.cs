@@ -65,7 +65,7 @@ namespace Quarrel.ViewModels.Helpers
             /// <summary>
             /// A Regular Expression for finding a user mention.
             /// </summary>
-            public const string UserMentionSurrogateRegex = @"@(\w+)#([0-9]{4})";
+            public const string UserMentionSurrogateRegex = @"@([\w ]+\w)#([0-9]{4})";
 
             /// <summary>
             /// A Regular Expression for finding a channel mention.
