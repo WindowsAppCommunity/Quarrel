@@ -310,11 +310,10 @@ namespace Quarrel.ViewModels
 
                     foreach (string guildId in guildIdsNotInFolder)
                     {
-
                         BindableGuild guild = _guildsService.GetGuild(guildId);
                         if (guild != null)
                         {
-                            BindableGuilds.Insert(0, guild);
+                            BindableGuilds.Add(guild);
                         }
                     }
 
