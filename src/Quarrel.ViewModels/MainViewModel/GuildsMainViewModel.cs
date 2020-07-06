@@ -308,9 +308,9 @@ namespace Quarrel.ViewModels
                         }
                     }
 
-                    foreach (string guildId in guildIdsNotInFolder)
+                    for (int i = guildIdsNotInFolder.Count - 1; i >= 0; i--)
                     {
-                        BindableGuild guild = _guildsService.GetGuild(guildId);
+                        BindableGuild guild = _guildsService.GetGuild(guildIdsNotInFolder[i]);
                         if (guild != null)
                         {
                             BindableGuilds.Add(guild);
