@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Quarrel. All rights reserved.
 
+using System;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Quarrel.ViewModels.Helpers;
 using Quarrel.ViewModels.Models.Bindables.Channels;
@@ -10,6 +12,8 @@ using Refit;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace Quarrel.ViewModels
 {
@@ -71,15 +75,41 @@ namespace Quarrel.ViewModels
             IsSending = true;
 
             string text = ReplaceMessageDraftSurrogates();
+            _dispatcherHelper.CheckBeginInvokeOnUi(() => { MessageText = string.Empty; });
+
+            ulong nonce = (ulong)new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds() << 22;
 
             if ((!string.IsNullOrEmpty(text) && (!string.IsNullOrWhiteSpace(text))) || Attachments.Count > 0)
             {
                 if (Attachments.Count == 0)
                 {
-                    // Send message
-                    await _discordService.ChannelService.CreateMessage(
-                        _channelsService.CurrentChannel.Model.Id,
-                        new DiscordAPI.API.Channel.Models.MessageUpsert() { Content = text });
+                    try
+                    {
+                        // Send message
+                        await _discordService.ChannelService.CreateMessage(_channelsService.CurrentChannel.Model.Id, new DiscordAPI.API.Channel.Models.MessageUpsert()
+                                { Content = text, Nonce = nonce.ToString() });
+                    }
+                    catch (ApiException ex)
+                    {
+                        if ((int)ex.StatusCode >= 400 && (int)ex.StatusCode < 500 && ex.HasContent)
+                        {
+                            int? retryAfter = JObject.Parse(ex.Content).GetValue("retry_after")?.Value<int>();
+                            if (retryAfter != null)
+                            {
+                                await Task.Delay(retryAfter.Value);
+                            }
+
+                            try
+                            {
+                                await _discordService.ChannelService.CreateMessage(_channelsService.CurrentChannel.Model.Id, new DiscordAPI.API.Channel.Models.MessageUpsert()
+                                        { Content = text, Nonce = nonce.ToString() });
+                            }
+                            catch
+                            {
+                                // Todo: handle failed
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -196,7 +226,6 @@ namespace Quarrel.ViewModels
                     Attachments.Clear();
                 }
 
-                _dispatcherHelper.CheckBeginInvokeOnUi(() => { MessageText = string.Empty; });
             }
 
             _analyticsService.Log(
@@ -231,7 +260,7 @@ namespace Quarrel.ViewModels
                 MessageText += "\n";
             }
 
-            MessageText += "> " + message.Model.Content + "\n" + string.Format("@{0}#{1}", message.Model.User.Username, message.Model.User.Discriminator);
+            MessageText += "> " + message.Model.Content + "\n" + $"@{message.Model.User.Username}#{message.Model.User.Discriminator}";
         });
 
         /// <summary>
@@ -429,7 +458,7 @@ namespace Quarrel.ViewModels
                 // Replaces @name#disc format with <@!ID> format
                 if (user != null)
                 {
-                    formattedMessage = formattedMessage.Replace(match.Value, string.Format("<@!{0}>", user.Model.User.Id));
+                    formattedMessage = formattedMessage.Replace(match.Value, $"<@!{user.Model.User.Id}>");
                 }
             }
 
@@ -445,7 +474,7 @@ namespace Quarrel.ViewModels
                     // Replaces #channel-name
                     if (channel != null)
                     {
-                        formattedMessage = formattedMessage.Replace(match.Value, string.Format("<#{0}>", channel.Model.Id));
+                        formattedMessage = formattedMessage.Replace(match.Value, $"<#{channel.Model.Id}>");
                     }
                 }
             }

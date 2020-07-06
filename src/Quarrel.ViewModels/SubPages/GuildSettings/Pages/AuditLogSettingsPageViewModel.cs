@@ -79,11 +79,11 @@ namespace Quarrel.ViewModels.SubPages.GuildSettings.Pages
             }
 
             var users = Users.ToDictionary(x => x.Id, x =>
-                (x.Username, GuildsService.GetGuildMember(x.Id, GuildsService.AllGuilds[Guild.Model.Id].Model.Id)?.TopRole?.Color ?? 0x18363));
+                (x.Username, GuildsService.GetGuildMember(x.Id, GuildsService.GetGuild(Guild.Model.Id).Model.Id)?.TopRole?.Color ?? 0x18363));
 
-            var roles = GuildsService.AllGuilds[Guild.Model.Id].Model.Roles.ToDictionary(x => x.Id, x => (x.Name, x.Color));
+            var roles = GuildsService.GetGuild(Guild.Model.Id).Model.Roles.ToDictionary(x => x.Id, x => (x.Name, x.Color));
 
-            var channels = GuildsService.AllGuilds[Guild.Model.Id].Channels.ToDictionary(x => x.Model.Id, x => x.Model.Name);
+            var channels = GuildsService.GetGuild(Guild.Model.Id).Channels.ToDictionary(x => x.Model.Id, x => x.Model.Name);
 
             foreach (AuditLogEntry entry in log.AuditLogEntries)
             {

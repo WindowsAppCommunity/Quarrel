@@ -141,6 +141,10 @@
     <value>Cancel</value>
     <comment>This is shown in the add channel page</comment>
   </data>
+  <data name="ChangeNicknameTB.Text" xml:space="preserve">
+    <value>Change Nickname</value>
+    <comment>This is the header of the change nickname page</comment>
+  </data>
   <data name="ChannelNameTBox.Header" xml:space="preserve">
     <value>Channel Name</value>
     <comment>This is shown in the add channel page</comment>

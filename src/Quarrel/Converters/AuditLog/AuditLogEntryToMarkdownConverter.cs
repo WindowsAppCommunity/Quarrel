@@ -105,7 +105,7 @@ namespace Quarrel.Converters.AuditLog
         private string ReplaceChannel(string format, string channelId, Change[] changes)
         {
             string formattedChannel = string.Empty;
-            if (ChannelsService.AllChannels.ContainsKey(channelId))
+            if (ChannelsService.GetChannel(channelId) != null)
             {
                 formattedChannel = string.Format("<#{0}>", channelId);
             }

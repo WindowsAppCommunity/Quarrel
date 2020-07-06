@@ -1,0 +1,21 @@
+{
+    "title": "Quarrel (Неофициальный Discord клиент)",
+    "devStudio": "Adam Dernis and Matthew",
+    "description": "Часто обновляющийся Discord клиент для всех Windows устройств, направленных на распространение Discord на телефоны, Xbox и HoloLens, а также планшеты и ПК без поддержки win32.",
+    "features": [
+        "Общаться с друзьями",
+        "Текстовые каналы",
+        "Голосовые каналы",
+        "Поддержка Xbox, говорите пока играете!",
+        "Обеспечивает Rich Presence для UWP приложений"
+    ],
+    "recommendedHardware": [
+        "Наушники/Динамики",
+        "Микрофон"
+    ],
+    "keywords": [
+        "Discord",
+        "Discord UWP",
+        "Общение"
+    ]
+}
