@@ -324,11 +324,11 @@ namespace Quarrel.ViewModels.Services.Gateway
 
         private void Gateway_UserGuildSettingsUpdated(object sender, GatewayEventArgs<GuildSetting> e)
         {
-            _guildsService.GuildSettings.AddOrUpdate(e.EventData.GuildId ?? "DM", e.EventData);
+            _guildsService.AddOrUpdateGuildSettings(e.EventData.GuildId ?? "DM", e.EventData);
 
             foreach (var channel in e.EventData.ChannelOverrides)
             {
-                _channelsService.ChannelSettings.AddOrUpdate(channel.ChannelId, channel);
+                _channelsService.AddOrUpdateChannelSettings(channel.ChannelId, channel);
             }
 
             Messenger.Default.Send(new GatewayUserGuildSettingsUpdatedMessage(e.EventData));

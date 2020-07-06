@@ -72,7 +72,7 @@ namespace Quarrel.ViewModels.Models.Bindables.Channels
         /// <summary>
         /// Gets the guild member for the voice user.
         /// </summary>
-        public BindableGuildMember GuildMember => GuildsService.GetGuildMember(Model.UserId, Model.GuildId);
+        public BindableGuildMember GuildMember => Model.Member != null ? new BindableGuildMember(Model.Member, Model.GuildId) : GuildsService.GetGuildMember(Model.UserId, Model.GuildId);
 
         private ICurrentUserService CurrentUsersService => _currentUsersService ?? (_currentUsersService = SimpleIoc.Default.GetInstance<ICurrentUserService>());
 

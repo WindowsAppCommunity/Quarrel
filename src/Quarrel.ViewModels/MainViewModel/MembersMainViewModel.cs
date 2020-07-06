@@ -47,7 +47,7 @@ namespace Quarrel.ViewModels
                             CurrentChannel.Model.Id,
                             new List<int[]>
                             {
-                                new[] {0, 99},
+                                new[] { 0, 99 },
                             }
                         },
                     };
@@ -221,7 +221,7 @@ namespace Quarrel.ViewModels
                                         {
                                             CurrentBindableMembers.Insert(op.Index, new BindableGuildMember(op.Item.Member, guildId)
                                             {
-                                                IsOwner = op.Item.Member.User.Id == _guildsService.AllGuilds[_currentGuild.Model.Id].Model.OwnerId,
+                                                IsOwner = op.Item.Member.User.Id == _guildsService.GetGuild(_currentGuild.Model.Id).Model.OwnerId,
                                             });
                                             _presenceService.UpdateUserPrecense(op.Item.Member.User.Id, op.Item.Member.Presence);
                                         }
@@ -263,7 +263,7 @@ namespace Quarrel.ViewModels
             {
                 BindableGuildMember bGuildMember = new BindableGuildMember(item.Member, _currentGuild.Model.Id)
                 {
-                    IsOwner = item.Member.User.Id == _guildsService.AllGuilds[_currentGuild.Model.Id].Model.OwnerId,
+                    IsOwner = item.Member.User.Id == _guildsService.GetGuild(_currentGuild.Model.Id).Model.OwnerId,
                 };
                 CurrentBindableMembers[index] = bGuildMember;
                 _presenceService.UpdateUserPrecense(item.Member.User.Id, item.Member.Presence);
