@@ -46,6 +46,11 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
         private RelayCommand _copyId;
         private RelayCommand _messageCommand;
         private RelayCommand _changeNicknameCommand;
+        private RelayCommand _sendFriendRequestCommand;
+        private RelayCommand _acceptFriendRequestCommand;
+        private RelayCommand _removeFriendRequestCommand;
+        private RelayCommand _blockRequestCommand;
+        private RelayCommand _unblockRequestCommand;
         private IAnalyticsService _analyticsService = null;
         private ICacheService _cacheService = null;
         private IChannelsService _channelsService = null;
@@ -141,6 +146,46 @@ namespace Quarrel.ViewModels.Models.Bindables.Users
         public RelayCommand ChangeNicknameCommand => _changeNicknameCommand ?? new RelayCommand(() =>
         {
             SimpleIoc.Default.GetInstance<ISubFrameNavigationService>().NavigateTo("ChangeNicknamePage", new Tuple<string, GuildMember>(GuildId, Model));
+        });
+
+        /// <summary>
+        /// Gets a command that sends a friend request.
+        /// </summary>
+        public RelayCommand SendFriendRequestCommand => _sendFriendRequestCommand ?? new RelayCommand(async () =>
+        {
+            await DiscordService.UserService.SendFriendRequest(Model.User.Id);
+        });
+
+        /// <summary>
+        /// Gets a command that accepts a friend request.
+        /// </summary>
+        public RelayCommand AcceptFriendRequestCommand => _acceptFriendRequestCommand ?? new RelayCommand(async () =>
+        {
+            await DiscordService.UserService.SendFriendRequest(Model.User.Id);
+        });
+
+        /// <summary>
+        /// Gets a command that removes a friend.
+        /// </summary>
+        public RelayCommand RemoveFriendRequestCommand => _removeFriendRequestCommand ?? new RelayCommand(async () =>
+        {
+            await DiscordService.UserService.RemoveFriend(Model.User.Id);
+        });
+
+        /// <summary>
+        /// Gets a command that blocks the user.
+        /// </summary>
+        public RelayCommand BlockRequestCommand => _blockRequestCommand ?? new RelayCommand(async () =>
+        {
+            await DiscordService.UserService.BlockUser(Model.User.Id);
+        });
+
+        /// <summary>
+        /// Gets a command that unblocks the user.
+        /// </summary>
+        public RelayCommand UnblockRequestCommand => _unblockRequestCommand ?? new RelayCommand(async () =>
+        {
+            await DiscordService.UserService.RemoveFriend(Model.User.Id);
         });
 
         /// <summary>
