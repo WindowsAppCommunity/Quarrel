@@ -121,7 +121,7 @@
                                 </GridView>
                             </Border>
                             <TextBlock x:Uid="/MiscSubs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                            <TextBox x:Uid="/MiscSubs/NoteTBox" BorderThickness="0" x:Name="NoteBox" Style="{StaticResource TextBoxStyle1}" PlaceholderText="No Note" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>
+                            <TextBox x:Uid="/MiscSubs/NoteTBox" Text="{x:Bind ViewModel.User.Note}" BorderThickness="0" x:Name="NoteBox" Style="{StaticResource TextBoxStyle1}" PlaceholderText="No Note" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>
                         </StackPanel>
 
                         <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="200" Margin="-2,12,-7,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None">
