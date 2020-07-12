@@ -84,6 +84,19 @@ namespace DiscordAPI.Models.Messages.Embeds
                 return 0;
             }
         }
+
+        [JsonIgnore]
+        public string AnimatedImageUrl
+        {
+            get
+            {
+                if (Video != null)
+                {
+                    return Video.ProxyUrl;
+                }
+                return null;
+            }
+        }
     }
 
     public class EmbedThumbnail
@@ -120,6 +133,9 @@ namespace DiscordAPI.Models.Messages.Embeds
     {
         [JsonProperty("url")]
         public string Url { get; set; }
+
+        [JsonProperty("proxy_url")]
+        public string ProxyUrl { get; set; }
 
         [JsonProperty("height")]
         public int Height { get; set; }
