@@ -26,7 +26,9 @@
             <ScrollViewer>
                 <RichTextBlock x:Name="notDetailed" TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,16,0,12">
                     <Paragraph>
-                        <Run Text="• Bug fixes, quote function fixed, user profile commands implemented" />
+                        <Run Text="• Bug fixes
+                                   • Qoute function fixed
+                                   • Implemented userprofile commands" />
                     </Paragraph>
                     <Paragraph FontSize="8" />
                 </RichTextBlock>
