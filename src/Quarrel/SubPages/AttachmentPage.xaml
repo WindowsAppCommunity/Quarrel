@@ -10,7 +10,8 @@
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+    Loaded="ControlLoaded">
 
     <UserControl.Resources>
         <messageconvert:SizeToHumanizedSizeConverter x:Key="SizeToHumanizedSizeConverter"/>
@@ -792,8 +793,10 @@
                             <Rectangle Fill="Transparent" Tapped="Rectangle_Tapped"/>
                             <Grid>
                                 <StackPanel x:Name="MultiPageStacker" MinWidth="240" MaxWidth="1000" Margin="68,76,68,48"/>
-                                <tk:ImageEx x:Name="ImageViewer" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                <tk:ImageEx x:Name="ImageViewer" x:Load="{x:Bind baseconvert:NotBoolToBoolConverter.Convert(ViewModel.IsImageAnimated)}" HorizontalAlignment="Center" VerticalAlignment="Center"
                                             Opacity="0" ImageExOpened="ImageOpened" Margin="24"/>
+                                <MediaElement x:Name="VideoViewer" x:Load="{x:Bind ViewModel.IsImageAnimated}" IsLooping="True" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              Opacity="0" CurrentStateChanged="VideoStateChanged" Margin="24"/>
                             </Grid>
                         </Grid>
                     </ScrollViewer>

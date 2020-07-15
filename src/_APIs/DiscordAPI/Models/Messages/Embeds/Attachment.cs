@@ -76,5 +76,9 @@ namespace DiscordAPI.Models.Messages.Embeds
         /// <inheritdoc/>
         [JsonIgnore]
         public double ImageWidth { get => ActualWidth; }
+
+        /// <inheritdoc/>
+        [JsonIgnore]
+        public string AnimatedImageUrl { get => null; }
     }
 }
