@@ -27,8 +27,7 @@
                 <RichTextBlock x:Name="notDetailed" TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,16,0,12">
                     <Paragraph>
                         <Run Text="• Bug fixes
-                                   • Qoute function fixed
-                                   • Implemented userprofile commands" />
+                                   • Fixed notes missing in user profile page" />
                     </Paragraph>
                     <Paragraph FontSize="8" />
                 </RichTextBlock>
