@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Input;
 namespace Quarrel.Xaml.Behaviors
 {
     /// <summary>
-    /// Action for handling a Keydown event with a <see cref="Command"/>.
+    /// Action for handling a Keydown event with a <see cref="ICommand"/>.
     /// </summary>
     public class KeyDownCommandAction : DependencyObject, IAction
     {
@@ -81,35 +81,46 @@ namespace Quarrel.Xaml.Behaviors
         /// </summary>
         /// <param name="sender">The control invoking the Command.</param>
         /// <param name="parameter"><see cref="KeyRoutedEventArgs"/> parameters to KeyDown event.</param>
-        /// <returns><see langword="null"/>.</returns>
+        /// <returns>The character represented by the key press.</returns>
         public object Execute(object sender, object parameter)
         {
             var e = parameter as KeyRoutedEventArgs;
-            if (e.Key == (VirtualKey)Enum.Parse(typeof(VirtualKey), Key))
+            if (Key == null || e.Key == (VirtualKey)Enum.Parse(typeof(VirtualKey), Key))
             {
                 KeyboardCapabilities keyboardCapabilities = new KeyboardCapabilities();
                 if (keyboardCapabilities.KeyboardPresent > 0)
                 {
                     if (ShiftCommand != null && CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down))
                     {
-                        ShiftCommand.Execute(null);
+                        ShiftCommand.Execute(KeyToChar(e.Key, true));
                     }
                     else
                     {
-                        Command.Execute(null);
+                        Command.Execute(KeyToChar(e.Key, false));
                     }
                 }
                 else if (ExecuteShiftCommandIfNoKeyboard)
                 {
-                    ShiftCommand.Execute(null);
+                    ShiftCommand.Execute(KeyToChar(e.Key, true));
                 }
                 else
                 {
-                    Command.Execute(null);
+                    Command.Execute(KeyToChar(e.Key, false));
                 }
             }
 
             return null;
+        }
+
+        private char KeyToChar(VirtualKey key, bool shift)
+        {
+            int c = (int)key;
+            if (shift && char.IsLetter((char)c))
+            {
+                c += 32;
+            }
+
+            return (char)c;
         }
     }
 }
