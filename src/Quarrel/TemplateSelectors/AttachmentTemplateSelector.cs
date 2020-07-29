@@ -41,7 +41,7 @@ namespace Quarrel.TemplateSelectors
             if (item is BindableAttachment attachment)
             {
                 int index = attachment.Model.Filename.LastIndexOf('.');
-                string filetype = attachment.Model.Filename.Substring(index + 1);
+                string filetype = attachment.Model.Filename.Substring(index + 1).ToLowerInvariant();
                 switch (filetype)
                 {
                     case "png":

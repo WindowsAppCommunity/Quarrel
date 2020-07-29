@@ -15,7 +15,7 @@ namespace Quarrel.Converters.Messages
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var match = Regex.Match(value.ToString(), @"^.*\.(.*)$");
-            switch (match.Groups[1].Value.ToLower())
+            switch (match.Groups[1].Value.ToLowerInvariant())
             {
                 case "jpg":
                 case "jpeg":
