@@ -3,6 +3,7 @@
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Quarrel.Controls.Members;
+using Quarrel.ViewModels;
 using Quarrel.ViewModels.Messages.Navigation;
 using Quarrel.ViewModels.Models.Bindables.Messages.Embeds;
 using Quarrel.ViewModels.Models.Bindables.Users;
@@ -92,7 +93,7 @@ namespace Quarrel.DataTemplates.Messages
                 var channel = SimpleIoc.Default.GetInstance<IChannelsService>().GetChannel(channelId);
                 if (channel != null)
                 {
-                    Messenger.Default.Send(new ChannelNavigateMessage(channel));
+                    SimpleIoc.Default.GetInstance<MainViewModel>().CurrentChannel = channel;
                 }
             }
             else
