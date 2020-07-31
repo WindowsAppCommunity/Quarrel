@@ -92,7 +92,7 @@ namespace DiscordAPI.Models.Messages.Embeds
             {
                 if (Video != null)
                 {
-                    return Video.ProxyUrl;
+                    return Video.BindUrl;
                 }
                 return null;
             }
@@ -148,6 +148,9 @@ namespace DiscordAPI.Models.Messages.Embeds
 
         [JsonIgnore]
         public double ActualWidth { get => Width != 0 ? Width : double.NaN; }
+
+        [JsonIgnore]
+        public string BindUrl => ProxyUrl ?? Url;
     }
 
     public class EmbedProvider
