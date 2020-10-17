@@ -690,6 +690,15 @@
     <PRIResource Include="Localization\de\MiscStrings.resw" />
     <PRIResource Include="Localization\de\MiscSubs.resw" />
     <PRIResource Include="Localization\de\UserSettings.resw" />
+    <PRIResource Include="Localization\zh-cn\AddServer.resw" />
+    <PRIResource Include="Localization\zh-cn\AuditLog.resw" />
+    <PRIResource Include="Localization\zh-cn\Controls.resw" />
+    <PRIResource Include="Localization\zh-cn\DataTemplates.resw" />
+    <PRIResource Include="Localization\zh-cn\GuildSettings.resw" />
+    <PRIResource Include="Localization\zh-cn\Meta.resw" />
+    <PRIResource Include="Localization\zh-cn\MiscStrings.resw" />
+    <PRIResource Include="Localization\zh-cn\MiscSubs.resw" />
+    <PRIResource Include="Localization\zh-cn\UserSettings.resw" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\PayPal.png" />
     <Content Include="Properties\Default.rd.xml" />
