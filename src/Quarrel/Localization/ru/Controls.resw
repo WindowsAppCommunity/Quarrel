@@ -237,4 +237,36 @@
     <value>Что нового</value>
     <comment>This is shown if you expand the command bar (at the top)</comment>
   </data>
+  <data name="AddFriendTB.Text" xml:space="preserve">
+    <value>Добавить в друзья</value>
+    <comment>This is shown on the header of the friend panel pivot</comment>
+  </data>
+  <data name="AddFriendTB2.Text" xml:space="preserve">
+    <value>Добавить в друзья</value>
+    <comment>This is shown on the add friend page</comment>
+  </data>
+  <data name="AllInteger" xml:space="preserve">
+    <value>Мы больше чем цифры… мы люди! Введите имя пользователя и тег. Например: НикакоеНеВыдуманноеИмя#0000</value>
+    <comment>This is shown if input is all digits</comment>
+  </data>
+  <data name="FriendRequestStatusTB.Text" xml:space="preserve">
+    <value>Вы можете добавить друга по Discord Tag. Вводите с УчЁтОм РаСкЛаДкИ!</value>
+    <comment>This is shown on the add friend page</comment>
+  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>Хм, не сработало. Ещё раз проверьте правильность регистра, правописания, пробелов и цифр.</value>
+    <comment>This is shown if input is invalid</comment>
+  </data>
+  <data name="NeedDesc" xml:space="preserve">
+    <value>Нам нужен четырёхзначный цифровой тег {0}, чтобы найти его среди прочих.</value>
+    <comment>This is shown if input does not contain descriminator</comment>
+  </data>
+  <data name="SendFriendRequestBTN.Content" xml:space="preserve">
+    <value>Отправить запрос дружбы</value>
+    <comment>This is shown on the send friend request button</comment>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Получилось! Запрос дружбы отправлен {0}.</value>
+    <comment>This is shown if friend request was successfully sent</comment>
+  </data>
 </root>

@@ -133,9 +133,21 @@
     <value>添加频道</value>
     <comment>This is shown from the drop down from above the channel list</comment>
   </data>
+  <data name="AddFriendTB.Text" xml:space="preserve">
+    <value>添加好友</value>
+    <comment>This is shown on the header of the friend panel pivot</comment>
+  </data>
+  <data name="AddFriendTB2.Text" xml:space="preserve">
+    <value>添加好友</value>
+    <comment>This is shown on the add friend page</comment>
+  </data>
   <data name="AddNoteTBox.PlaceholderText" xml:space="preserve">
     <value>添加注记</value>
     <comment>This is shown in the user flyout</comment>
+  </data>
+  <data name="AllInteger" xml:space="preserve">
+    <value>我们不止是数字……我们是人！请输入用户名与标签，如：我真不是水军#0000</value>
+    <comment>This is shown if input is all digits</comment>
   </data>
   <data name="BlockedTB.Text" xml:space="preserve">
     <value>屏蔽</value>
@@ -173,6 +185,10 @@
     <value>好友请求已发送</value>
     <comment>This is shown on a friend request in the friend's list</comment>
   </data>
+  <data name="FriendRequestStatusTB.Text" xml:space="preserve">
+    <value>您可以用 Discord 标签来添加好友。记得区分大小写哦！</value>
+    <comment>This is shown on the add friend page</comment>
+  </data>
   <data name="FriendsTB.Text" xml:space="preserve">
     <value>好友</value>
     <comment>This is shown in place of the guild name in DMs</comment>
@@ -184,6 +200,10 @@
   <data name="GuildSettingsMFI.Text" xml:space="preserve">
     <value>服务器设置</value>
     <comment>This is shown from the drop down from above the channel list</comment>
+  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>唔，没起作用。请再次检查字母大小写，拼写，空格与数字是否正确。</value>
+    <comment>This is shown if input is invalid</comment>
   </data>
   <data name="InvitePeopleMFI.Text" xml:space="preserve">
     <value>邀请他人</value>
@@ -201,6 +221,10 @@
     <value>离开服务器</value>
     <comment>This is shown from the drop down from above the channel list</comment>
   </data>
+  <data name="NeedDesc" xml:space="preserve">
+    <value>我们需要 {0} 的四位数编号来筛选您要找的人。</value>
+    <comment>This is shown if input does not contain descriminator</comment>
+  </data>
   <data name="PendingTB.Text" xml:space="preserve">
     <value>等待</value>
     <comment>This is shown on the header of the friend panel pivot</comment>
@@ -217,6 +241,10 @@
     <value>重试</value>
     <comment>This is shown on the loading screen when connection fails</comment>
   </data>
+  <data name="SendFriendRequestBTN.Content" xml:space="preserve">
+    <value>发送好友请求</value>
+    <comment>This is shown on the send friend request button</comment>
+  </data>
   <data name="SendMessageTBox.PlaceholderText" xml:space="preserve">
     <value>发送信息</value>
     <comment>This is shown in the message box when empty</comment>
@@ -228,6 +256,10 @@
   <data name="ShowTB.Text" xml:space="preserve">
     <value>显示</value>
     <comment>This is shown on unloaded attachments</comment>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>成功啦！您给{0}的好友请求已发送。</value>
+    <comment>This is shown if friend request was successfully sent</comment>
   </data>
   <data name="UnpinMFI.Text" xml:space="preserve">
     <value>取消置顶</value>

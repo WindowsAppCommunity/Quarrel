@@ -237,4 +237,36 @@
     <value>O que há de novo</value>
     <comment>This is shown if you expand the command bar (at the top)</comment>
   </data>
+  <data name="AddFriendTB.Text" xml:space="preserve">
+    <value>Adicionar amigo</value>
+    <comment>This is shown on the header of the friend panel pivot</comment>
+  </data>
+  <data name="AddFriendTB2.Text" xml:space="preserve">
+    <value>Adicionar amigo</value>
+    <comment>This is shown on the add friend page</comment>
+  </data>
+  <data name="AllInteger" xml:space="preserve">
+    <value>Somos mais do que números... somos pessoas! Insira um nome de usuário e tag, que fique algo como: NomedeUsuárioSuperReal#0000</value>
+    <comment>This is shown if input is all digits</comment>
+  </data>
+  <data name="FriendRequestStatusTB.Text" xml:space="preserve">
+    <value>Você pode adicionar amigos com a Discord Tag deles. CuIdAdO cOm As MaIúScUlAs!</value>
+    <comment>This is shown on the add friend page</comment>
+  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>Hum, não funcionou. Verifique a caixa alta, ortografia, espaços e números pra ver se está tudo certo mesmo.</value>
+    <comment>This is shown if input is invalid</comment>
+  </data>
+  <data name="NeedDesc" xml:space="preserve">
+    <value>Precisamos do código de quatro dígitos de {0} para sabermos quem é.</value>
+    <comment>This is shown if input does not contain descriminator</comment>
+  </data>
+  <data name="SendFriendRequestBTN.Content" xml:space="preserve">
+    <value>Enviar pedido de amizade</value>
+    <comment>This is shown on the send friend request button</comment>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Sucesso! Seu pedido de amizade foi enviado para {0}.</value>
+    <comment>This is shown if friend request was successfully sent</comment>
+  </data>
 </root>

@@ -237,4 +237,32 @@
     <value>Vad är nytt</value>
     <comment>This is shown if you expand the command bar (at the top)</comment>
   </data>
+  <data name="AddFriendTB.Text" xml:space="preserve">
+    <value>Lägg till vän</value>
+    <comment>This is shown on the header of the friend panel pivot</comment>
+  </data>
+  <data name="AddFriendTB2.Text" xml:space="preserve">
+    <value>Lägg till vän</value>
+    <comment>This is shown on the add friend page</comment>
+  </data>
+  <data name="AllInteger" xml:space="preserve">
+    <value>Vi är mer än bara siffror ... vi är människor! Ange användarnamn och tagg. Den borde se ut ungefär så här: TotallyARealUsername#0000</value>
+    <comment>This is shown if input is all digits</comment>
+  </data>
+  <data name="FriendRequestStatusTB.Text" xml:space="preserve">
+    <value>Du kan lägga till en vän med hans eller hennes Discord-tagg. Den är sKiftlägesKänsliG!</value>
+    <comment>This is shown on the add friend page</comment>
+  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value />
+    <comment>This is shown if input is invalid</comment>
+  </data>
+  <data name="NeedDesc" xml:space="preserve">
+    <value>Vi behöver {0}s fyrsiffriga tagg för att lägga till rätt person.</value>
+    <comment>This is shown if input does not contain descriminator</comment>
+  </data>
+  <data name="SendFriendRequestBTN.Content" xml:space="preserve">
+    <value>Skicka vänförfrågan</value>
+    <comment>This is shown on the send friend request button</comment>
+  </data>
 </root>

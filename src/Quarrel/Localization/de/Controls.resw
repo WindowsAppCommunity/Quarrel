@@ -237,4 +237,36 @@
     <value>Was ist neu?</value>
     <comment>This is shown if you expand the command bar (at the top)</comment>
   </data>
+  <data name="AddFriendTB.Text" xml:space="preserve">
+    <value>Freund hinzufügen</value>
+    <comment>This is shown on the header of the friend panel pivot</comment>
+  </data>
+  <data name="AddFriendTB2.Text" xml:space="preserve">
+    <value>Freund hinzufügen</value>
+    <comment>This is shown on the add friend page</comment>
+  </data>
+  <data name="AllInteger" xml:space="preserve">
+    <value>Wir sind mehr als nur Nullen und Einsen … wir sind Menschen! Gib einen Benutzernamen und Tag ein. Das sollte dann etwa so aussehen: TotalEchterNutzername#0000</value>
+    <comment>This is shown if input is all digits</comment>
+  </data>
+  <data name="FriendRequestStatusTB.Text" xml:space="preserve">
+    <value>Du kannst einen Freund mithilfe seines Discord-Tags hinzufügen. Achte auf die Groß- und Kleinschreibung!</value>
+    <comment>This is shown on the add friend page</comment>
+  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>Hm, hat nicht funktioniert. Überprüfe nochmal, ob die Großschreibung, Buchstabierung, Leerzeichen und Zahlen korrekt sind.</value>
+    <comment>This is shown if input is invalid</comment>
+  </data>
+  <data name="NeedDesc" xml:space="preserve">
+    <value>Wir benötigen die vierstellige Tag-ID von {0}, damit wir wissen, wen du meinst.</value>
+    <comment>This is shown if input does not contain descriminator</comment>
+  </data>
+  <data name="SendFriendRequestBTN.Content" xml:space="preserve">
+    <value>Freund hinzufügen</value>
+    <comment>This is shown on the send friend request button</comment>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Ein voller Erfolg! Deine Freundschaftsanfrage wurde an {0} geschickt.</value>
+    <comment>This is shown if friend request was successfully sent</comment>
+  </data>
 </root>

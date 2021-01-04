@@ -133,9 +133,21 @@
     <value>Add Channel</value>
     <comment>This is shown from the drop down from above the channel list</comment>
   </data>
+  <data name="AddFriendTB.Text" xml:space="preserve">
+    <value>Aggiungi amico</value>
+    <comment>This is shown on the header of the friend panel pivot</comment>
+  </data>
+  <data name="AddFriendTB2.Text" xml:space="preserve">
+    <value>Aggiungi amico</value>
+    <comment>This is shown on the add friend page</comment>
+  </data>
   <data name="AddNoteTBox.PlaceholderText" xml:space="preserve">
     <value>Add Note</value>
     <comment>This is shown in the user flyout</comment>
+  </data>
+  <data name="AllInteger" xml:space="preserve">
+    <value />
+    <comment>This is shown if input is all digits</comment>
   </data>
   <data name="BlockedTB.Text" xml:space="preserve">
     <value>BLOCKED</value>
@@ -173,6 +185,10 @@
     <value>Friend Request Sent</value>
     <comment>This is shown on a friend request in the friend's list</comment>
   </data>
+  <data name="FriendRequestStatusTB.Text" xml:space="preserve">
+    <value />
+    <comment>This is shown on the add friend page</comment>
+  </data>
   <data name="FriendsTB.Text" xml:space="preserve">
     <value>Friends</value>
     <comment>This is shown in place of the guild name in DMs</comment>
@@ -184,6 +200,10 @@
   <data name="GuildSettingsMFI.Text" xml:space="preserve">
     <value>Server Settings</value>
     <comment>This is shown from the drop down from above the channel list</comment>
+  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value />
+    <comment>This is shown if input is invalid</comment>
   </data>
   <data name="InvitePeopleMFI.Text" xml:space="preserve">
     <value>Invite People</value>
@@ -201,6 +221,10 @@
     <value>Leave Server</value>
     <comment>This is shown from the drop down from above the channel list</comment>
   </data>
+  <data name="NeedDesc" xml:space="preserve">
+    <value>Devi aggiungere anche il tag identificativo di quattro cifre di {0} per inviare la richiesta.</value>
+    <comment>This is shown if input does not contain descriminator</comment>
+  </data>
   <data name="PendingTB.Text" xml:space="preserve">
     <value>PENDING</value>
     <comment>This is shown on the header of the friend panel pivot</comment>
@@ -217,6 +241,10 @@
     <value>Retry</value>
     <comment>This is shown on the loading screen when connection fails</comment>
   </data>
+  <data name="SendFriendRequestBTN.Content" xml:space="preserve">
+    <value>Invia richiesta di amicizia</value>
+    <comment>This is shown on the send friend request button</comment>
+  </data>
   <data name="SendMessageTBox.PlaceholderText" xml:space="preserve">
     <value>Send message</value>
     <comment>This is shown in the message box when empty</comment>
@@ -228,6 +256,14 @@
   <data name="ShowTB.Text" xml:space="preserve">
     <value>Show</value>
     <comment>This is shown on unloaded attachments</comment>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+    <comment>This is shown on the send friend request button</comment>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value />
+    <comment>This is shown if friend request was successfully sent</comment>
   </data>
   <data name="UnpinMFI.Text" xml:space="preserve">
     <value>Unpin</value>

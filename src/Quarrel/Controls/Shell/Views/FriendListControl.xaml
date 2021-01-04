@@ -41,10 +41,13 @@
                 </StackPanel>
             </ListViewItem>
 
-
             <!--Blocked Page Button-->
             <ListViewItem FontSize="13.333" FontWeight="SemiBold" Width="100" HorizontalContentAlignment="Center">
                 <TextBlock x:Uid="/Controls/BlockedTB" Text="BLOCKED" HorizontalAlignment="Center"/>
+            </ListViewItem>
+
+            <ListViewItem FontSize="13.333" FontWeight="SemiBold" Width="100" HorizontalContentAlignment="Center">
+                <TextBlock x:Uid="/Controls/AddFriendTB" Text="ADD FRIEND" HorizontalAlignment="Center"/>
             </ListViewItem>
         </ListView>
 
@@ -76,7 +79,7 @@
                 </ListView>
             </PivotItem>
             
-            <!--Blocked users list-->
+            <!--Blocked Users List-->
             <PivotItem>
                 <ListView Margin="0,-48,0,0" SelectionMode="None" ItemContainerStyle="{StaticResource ChannelListItemStyle}"
                           ItemsSource="{x:Bind ViewModel.BindableBlockedUsers, Mode=OneWay}">
@@ -86,6 +89,22 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+            </PivotItem>
+            
+            <!--Add friend Page-->
+            <PivotItem>
+                <StackPanel Margin="0,-48,0,0">
+                    <TextBlock x:Uid="/Controls/AddFriendTB2" FontWeight="Bold"/>
+                    <TextBlock x:Uid="/Controls/FriendRequestStatusTB" x:Name="FriendRequestStatus" Margin="0,12,0,0"/>
+                    <Grid Margin="0,12,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Uid="/Controls/SendFriendTB" x:Name="SendFriendTB" Style="{StaticResource TextBoxStyle1}" MaxLength="37" TextChanged="SendFriendTB_TextChanged"/>
+                        <Button Grid.Column="1" x:Uid="/Controls/SendFriendRequestBTN" x:Name="SendFriendRequestBTN" Style="{StaticResource DiscordButton}" Margin="12 0" IsEnabled="False" Click="SendFriendRequestBTN_Click"/>
+                    </Grid>
+                </StackPanel>
             </PivotItem>
         </Pivot>
     </Grid>
