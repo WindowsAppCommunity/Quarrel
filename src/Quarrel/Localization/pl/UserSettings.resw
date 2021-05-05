@@ -1,0 +1,380 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccentColorTB.Text" xml:space="preserve">
+    <value>Kolor Akcentu</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="AcrylicTB.Text" xml:space="preserve">
+    <value>Acrylic</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="AppSettingsNVIH.Content" xml:space="preserve">
+    <value>Ustawienia aplikacji</value>
+    <comment>This is in the user settings page</comment>
+  </data>
+  <data name="AudioDevicesTB.Text" xml:space="preserve">
+    <value>Urządzenia audio</value>
+    <comment>This is in the voice page of the user settings</comment>
+  </data>
+  <data name="BehaviorNVI.Content" xml:space="preserve">
+    <value>Zachowanie</value>
+    <comment>This is in the user settings page</comment>
+  </data>
+  <data name="CancelBTN.Content" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>This is in the account page of the user settings</comment>
+  </data>
+  <data name="ChangePasswordHBTN.Content" xml:space="preserve">
+    <value>Zmień hasło</value>
+    <comment>This is in the account page of the user settings</comment>
+  </data>
+  <data name="ChannelsTB.Text" xml:space="preserve">
+    <value>KANAŁY</value>
+    <comment>This is in the behavior page of the user settings</comment>
+  </data>
+  <data name="ChannelViewCB.Content" xml:space="preserve">
+    <value>Widok kanału i członków</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="CommandBarCB.Content" xml:space="preserve">
+    <value>Pasek komend</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="ConnectionsNVI.Content" xml:space="preserve">
+    <value>Integracje</value>
+    <comment>This is in the user settings page</comment>
+  </data>
+  <data name="CurrentPasswordPBox.Header" xml:space="preserve">
+    <value>Obecne hasło</value>
+    <comment>This is in the account page of the user settings</comment>
+  </data>
+  <data name="DangerZoneDescTB.Text" xml:space="preserve">
+    <value>Nie analizuj prywatnych wiadomości</value>
+    <comment>This is in the privacy page of the user settings</comment>
+  </data>
+  <data name="DangerZoneTB.Text" xml:space="preserve">
+    <value>Żyję niebezpiecznie</value>
+    <comment>This is in the privacy page of the user settings</comment>
+  </data>
+  <data name="DarkRBTN.Content" xml:space="preserve">
+    <value>Ciemny</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="DataCompressionDescTB.Text" xml:space="preserve">
+    <value>Kompresja danych sprawia, że wiadomości od gateway są mniejsze i szybsze do odebrania. To trochę bardziej używa procesora, ale jest szybsze przy niższych prędkościach internetu.</value>
+    <comment>This is in the behavior page of the user settings</comment>
+  </data>
+  <data name="DataCompressionTB.Text" xml:space="preserve">
+    <value>Kompresja danych</value>
+    <comment>This is in the behavior page of the user settings</comment>
+  </data>
+  <data name="DeleteHBTN.Content" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>This is in the account page of the user settings</comment>
+  </data>
+  <data name="DiscordBlurpleRBTN.Content" xml:space="preserve">
+    <value>Discordowy fiolet</value>
+    <comment>This is in the display page of the user settings (name the color whatever you'd like)</comment>
+  </data>
+  <data name="DisplayNVI.Content" xml:space="preserve">
+    <value>Wyświetlanie</value>
+    <comment>This is in the user settings page</comment>
+  </data>
+  <data name="DMFilterDescTB.Text" xml:space="preserve">
+    <value>Analizuj i automatycznie usuwaj wiadomości prywatne zawierające szkodliwe treści</value>
+    <comment>This is in the privacy page of the user settings</comment>
+  </data>
+  <data name="DMFilterTB.Text" xml:space="preserve">
+    <value>FILTROWANIE PRYWATNYCH WIADOMOŚCI</value>
+    <comment>This is in the privacy page of the user settings</comment>
+  </data>
+  <data name="EditBTN.Content" xml:space="preserve">
+    <value>Edytuj</value>
+    <comment>This is in the account page of the user settings</comment>
+  </data>
+  <data name="EmailTBox.Header" xml:space="preserve">
+    <value>Email</value>
+    <comment>This is in the account page of the user settings</comment>
+  </data>
+  <data name="ExpensiveRenderingDescTB.Text" xml:space="preserve">
+    <value>Włącz różne intensywne graficznie efekty, takie jak Efekty Rozmycia i Wizualizery Dźwięku</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="ExpensiveRenderingTB.Text" xml:space="preserve">
+    <value>Intensywne renderowanie</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="FluentThemeDescTB.Text" xml:space="preserve">
+    <value>Włącz alternatywny fluent motyw dla Quarrel</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="FluentThemeTB.Text" xml:space="preserve">
+    <value>Fluent Motyw</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="GuildViewCB.Content" xml:space="preserve">
+    <value>Widok guild</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="InputDeviceTB.Text" xml:space="preserve">
+    <value>Urządzenia wejścia</value>
+    <comment>This is in the voice page of the user settings</comment>
+  </data>
+  <data name="LightRBTN.Content" xml:space="preserve">
+    <value>Jasny</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="LogoutBTN.Content" xml:space="preserve">
+    <value>Wyloguj się</value>
+    <comment>This is in the account page of the user settings</comment>
+  </data>
+  <data name="MentionGlowDescTB.Text" xml:space="preserve">
+    <value>Gdy ktoś o tobie wspomni, lewa strona ekranu się podświetli</value>
+    <comment>This is in the behavior page of the user settings</comment>
+  </data>
+  <data name="MentionGlowTB.Text" xml:space="preserve">
+    <value>Podświetl przy wzmiankach</value>
+    <comment>This is in the behavior page of the user settings</comment>
+  </data>
+  <data name="MentionsRBTN.Content" xml:space="preserve">
+    <value>Wzmianki</value>
+    <comment>This is in the behavior page of the user settings</comment>
+  </data>
+  <data name="MessageViewCB.Content" xml:space="preserve">
+    <value>Widok wiadomości</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="MeteredConnectionsTB.Text" xml:space="preserve">
+    <value>MIERZONE POŁĄCZENIA</value>
+    <comment>This is in the behavior page of the user settings</comment>
+  </data>
+  <data name="MustFillOutTB.Text" xml:space="preserve">
+    <value>Trzeba wpisać obecne hasło</value>
+    <comment>This is in the account page of the user settings</comment>
+  </data>
+  <data name="MyAccountNVI.Content" xml:space="preserve">
+    <value>Moje konto</value>
+    <comment>This is in the user settings page</comment>
+  </data>
+  <data name="NewPasswordPBox.Header" xml:space="preserve">
+    <value>Nowe hasło</value>
+    <comment>This is in the account page of the user settings</comment>
+  </data>
+  <data name="NiceFriendsDescTB.Text" xml:space="preserve">
+    <value>Analizuj wszystkie wiadomości prywatne, oprócz tych od moich znajomych</value>
+    <comment>This is in the privacy page of the user settings</comment>
+  </data>
+  <data name="NiceFriendsTB.Text" xml:space="preserve">
+    <value>Moi znajomi są spoko</value>
+    <comment>This is in the privacy page of the user settings</comment>
+  </data>
+  <data name="NoPermissionChannelsDescTB.Text" xml:space="preserve">
+    <value>Pokaż kanały, do których nie możesz wejść</value>
+    <comment>This is in the behavior page of the user settings</comment>
+  </data>
+  <data name="NoPermissionChannelsTB.Text" xml:space="preserve">
+    <value>Pokaż kanały, do których nie masz uprawnień</value>
+    <comment>This is in the behavior page of the user settings</comment>
+  </data>
+  <data name="NotificationsNVI.Content" xml:space="preserve">
+    <value>Powiadomienia</value>
+    <comment>This is in the user settings page</comment>
+  </data>
+  <data name="OtherTB.Text" xml:space="preserve">
+    <value>INNE</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="OutputDeviceTB.Text" xml:space="preserve">
+    <value>Urządzenia wyjścia</value>
+    <comment>This is in the voice page of the user settings</comment>
+  </data>
+  <data name="OverrideCollapseTB.Text" xml:space="preserve">
+    <value>Nadpisz zwijanie kategorii</value>
+    <comment>This is in the behavior page of the user settings</comment>
+  </data>
+  <data name="PrivacyNVI.Content" xml:space="preserve">
+    <value>Prywatność</value>
+    <comment>This is in the user settings page</comment>
+  </data>
+  <data name="ProtectMeDescTB.Text" xml:space="preserve">
+    <value>Analizuj wszystkie wiadomości prywatne</value>
+    <comment>This is in the privacy page of the user settings</comment>
+  </data>
+  <data name="ProtectMeTB.Text" xml:space="preserve">
+    <value>Chroń mnie</value>
+    <comment>This is in the privacy page of the user settings</comment>
+  </data>
+  <data name="RestartRequiredTB.Text" xml:space="preserve">
+    <value>(Wymagany restart)</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="SaveBTN.Content" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>This is in the account page of the user settings</comment>
+  </data>
+  <data name="ServerMuteIconDescTB.Text" xml:space="preserve">
+    <value>Ikona wyciszenia, która pokazuje wyciszone serwery na liście serwerów</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="ServerMuteIconTB.Text" xml:space="preserve">
+    <value>Ikona wyciszenia serwera</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="SystemAccountColorRBTN.Content" xml:space="preserve">
+    <value>Kolor akcentu systemu</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="TapToLoadDescTB.Text" xml:space="preserve">
+    <value>TTL (Tap To Load). Obrazy, dźwięk lub wideo nie będzie się pokazywać dopuki naciśniesz ikonę.</value>
+    <comment>This is in the behavior page of the user settings</comment>
+  </data>
+  <data name="TapToLoadTB.Text" xml:space="preserve">
+    <value>Naciśnij, żeby załadować załączniki</value>
+    <comment>This is in the behavior page of the user settings</comment>
+  </data>
+  <data name="ThemeTB.Text" xml:space="preserve">
+    <value>MOTYW</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+  <data name="UnreadRBTN.Content" xml:space="preserve">
+    <value>Nieprzeczytane</value>
+    <comment>This is in the behavior page of the user settings</comment>
+  </data>
+  <data name="UploadImageHBTN.Content" xml:space="preserve">
+    <value>Prześlij obraz</value>
+    <comment>This is in the account page of the user settings</comment>
+  </data>
+  <data name="UsernameTBox.Header" xml:space="preserve">
+    <value>Nazwa użytkownika</value>
+    <comment>This is in the account page of the user settings</comment>
+  </data>
+  <data name="UserSettingsNVIH.Content" xml:space="preserve">
+    <value>Ustawienia użytkownika</value>
+    <comment>This is in the user settings page</comment>
+  </data>
+  <data name="VoiceNVI.Content" xml:space="preserve">
+    <value>Głos</value>
+    <comment>This is in the user settings page</comment>
+  </data>
+  <data name="WindowsRBTN.Content" xml:space="preserve">
+    <value>Windows</value>
+    <comment>This is in the display page of the user settings</comment>
+  </data>
+</root>
