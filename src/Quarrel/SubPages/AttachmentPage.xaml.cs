@@ -15,6 +15,7 @@ using System.Net.Http;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Data.Pdf;
 using Windows.Networking.BackgroundTransfer;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.System;
@@ -50,22 +51,6 @@ namespace Quarrel.SubPages
                     Constants.Analytics.Events.OpenAttachment,
                     ("image-url", image.ImageUrl));
             }
-
-            // Show SVGs in SVGImageSource
-            if (ViewModel.Image.ImageUrl.EndsWith(".svg"))
-            {
-                ImageViewer.Source = new SvgImageSource(new Uri(ViewModel.Image.ImageUrl));
-            }
-
-            // Show PDFs as images
-            else if (ViewModel.Image.ImageUrl.EndsWith(".pdf"))
-            {
-                LoadPDF();
-            }
-            else
-            {
-                ImageViewer.Source = new BitmapImage(new Uri(ViewModel.Image.ImageUrl));
-            }
         }
 
         /// <summary>
@@ -82,6 +67,32 @@ namespace Quarrel.SubPages
         private IAnalyticsService AnalyticsService => _analyticsService ?? (_analyticsService = SimpleIoc.Default.GetInstance<IAnalyticsService>());
 
         private ISubFrameNavigationService SubFrameNavigationService => _subFrameNavigationService ?? (_subFrameNavigationService = SimpleIoc.Default.GetInstance<ISubFrameNavigationService>());
+
+        private void ControlLoaded(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.IsImageAnimated)
+            {
+                VideoViewer.Source = new Uri(ViewModel.Image.AnimatedImageUrl);
+            }
+            else
+            {
+                // Show SVGs in SVGImageSource
+                if (ViewModel.Image.ImageUrl.EndsWith(".svg"))
+                {
+                    ImageViewer.Source = new SvgImageSource(new Uri(ViewModel.Image.ImageUrl));
+                }
+
+                // Show PDFs as images
+                else if (ViewModel.Image.ImageUrl.EndsWith(".pdf"))
+                {
+                    LoadPDF();
+                }
+                else
+                {
+                    ImageViewer.Source = new BitmapImage(new Uri(ViewModel.Image.ImageUrl));
+                }
+            }
+        }
 
         /// <summary>
         /// Converts a PDF to png and uses that as the image.
@@ -132,11 +143,23 @@ namespace Quarrel.SubPages
         }
 
         /// <summary>
+        /// Fades in video and hiding loading ring when it starts to play.
+        /// </summary>
+        private async void VideoStateChanged(object sender, RoutedEventArgs e)
+        {
+            if (VideoViewer.CurrentState == Windows.UI.Xaml.Media.MediaElementState.Playing)
+            {
+                await VideoViewer.Fade(1, 200).StartAsync();
+                LoadingRing.IsActive = false;
+            }
+        }
+
+        /// <summary>
         /// Copies Image Url to clipboard.
         /// </summary>
         private void CopyLink(object sender, RoutedEventArgs e)
         {
-            SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(ViewModel.Image.ImageUrl);
+            SimpleIoc.Default.GetInstance<IClipboardService>().CopyToClipboard(ViewModel.Image.AnimatedImageUrl ?? ViewModel.Image.ImageUrl);
         }
 
         /// <summary>
@@ -144,7 +167,7 @@ namespace Quarrel.SubPages
         /// </summary>
         private async void Open(object sender, RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri(ViewModel.Image.ImageUrl));
+            await Launcher.LaunchUriAsync(new Uri(ViewModel.Image.AnimatedImageUrl ?? ViewModel.Image.ImageUrl));
         }
 
         /// <summary>
@@ -156,10 +179,20 @@ namespace Quarrel.SubPages
             dataTransferManager.DataRequested += (sender1, args) =>
             {
                 DataRequest request = args.Request;
-                var rasr = RandomAccessStreamReference.CreateFromUri(new Uri(ViewModel.Image.ImageUrl));
-                request.Data.SetBitmap(rasr);
-                request.Data.Properties.Thumbnail = rasr;
-                request.Data.Properties.Title = "Image.png";
+                if (!ViewModel.IsImageAnimated)
+                {
+                    var rasr = RandomAccessStreamReference.CreateFromUri(new Uri(ViewModel.Image.ImageUrl));
+                    request.Data.SetBitmap(rasr);
+                    request.Data.Properties.Thumbnail = rasr;
+                    request.Data.Properties.Title = "Image.png";
+                }
+                else
+                {
+                    // It may be preferable to find some way to share the video file itself instead of a link
+                    request.Data.SetUri(new Uri(ViewModel.Image.AnimatedImageUrl));
+                    request.Data.Properties.Thumbnail = RandomAccessStreamReference.CreateFromUri(new Uri(ViewModel.Image.ImageUrl));
+                    request.Data.Properties.Title = "Animation.mp4";
+                }
             };
             DataTransferManager.ShowShareUI();
         }
@@ -169,14 +202,21 @@ namespace Quarrel.SubPages
         /// </summary>
         private async void Save(object sender, RoutedEventArgs e)
         {
-            var image = new BitmapImage(new Uri(ViewModel.Image.ImageUrl));
             var fileSave = new FileSavePicker();
-            fileSave.FileTypeChoices.Add("Image", new string[] { ".jpg", ".png" });
+
+            if (!ViewModel.IsImageAnimated)
+            {
+                fileSave.FileTypeChoices.Add("Image", new string[] { ".jpg", ".png" });
+            }
+            else
+            {
+                fileSave.FileTypeChoices.Add("Video", new string[] { ".mp4" });
+            }
+
             var storageFile = await fileSave.PickSaveFileAsync();
-            var uri = image.UriSource;
 
             var downloader = new BackgroundDownloader();
-            var download = downloader.CreateDownload(uri, storageFile);
+            var download = downloader.CreateDownload(new Uri(ViewModel.Image.AnimatedImageUrl ?? ViewModel.Image.ImageUrl), storageFile);
             await download.StartAsync();
         }
 
@@ -203,13 +243,27 @@ namespace Quarrel.SubPages
         {
             double imageRatio = ViewModel.Image.ImageHeight / ViewModel.Image.ImageWidth;
             double viewRatio = Container.ActualHeight / Container.ActualWidth;
-            if (imageRatio > viewRatio)
+            if (!ViewModel.IsImageAnimated)
             {
-                ImageViewer.Height = ActualHeight * .7;
+                if (imageRatio > viewRatio)
+                {
+                    ImageViewer.Height = ActualHeight * .7;
+                }
+                else
+                {
+                    ImageViewer.Width = ActualWidth * .7;
+                }
             }
             else
             {
-                ImageViewer.Width = ActualWidth * .7;
+                if (imageRatio > viewRatio)
+                {
+                    VideoViewer.Height = ActualHeight * .7;
+                }
+                else
+                {
+                    VideoViewer.Width = ActualWidth * .7;
+                }
             }
         }
     }

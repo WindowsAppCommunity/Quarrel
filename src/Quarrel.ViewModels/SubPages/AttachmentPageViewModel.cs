@@ -34,5 +34,10 @@ namespace Quarrel.ViewModels.ViewModels.SubPages
         /// Gets the image as an Attachment (if available).
         /// </summary>
         public Attachment AsFile { get => Image as Attachment; }
+
+        /// <summary>
+        /// Gets a value indicating whether or not the image is animated, such as a GIFV.
+        /// </summary>
+        public bool IsImageAnimated { get => Image.AnimatedImageUrl != null; }
     }
 }

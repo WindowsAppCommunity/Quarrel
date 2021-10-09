@@ -82,11 +82,13 @@
                                          InviteTemplate="{StaticResource InviteTemplate}"
                                              />
     <DataTemplate x:Key="GifvEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
-        <MediaElement Source="{x:Bind Model.Video.Url}" IsLooping="True"
-                      Height="{x:Bind Model.Video.ActualHeight}" Width="{x:Bind Model.Video.ActualWidth}"
+        <!---Needs to make sure it does not get clipped horizontally-->
+        <MediaElement Source="{x:Bind Model.Video.BindUrl}" IsLooping="True"
+                      Height="{x:Bind Model.Video.ActualHeight}"
                       MaxHeight="250"
                       Tapped="Expand"
-                      HorizontalAlignment="Left" />
+                      HorizontalAlignment="Left"
+                      DataContext="{x:Bind}" />
     </DataTemplate>
     <DataTemplate x:Key="YoutubeEmbedTemplate" x:DataType="embedbindables:BindableEmbed">
         <embeds:YoutubeEmbedTemplate DataContext="{x:Bind Model}"

@@ -1106,9 +1106,7 @@
                 <core:EventTriggerBehavior EventName="KeyDown">
                     <behaviors:KeyDownCommandAction Key="Enter" Command="{x:Bind ViewModel.SendMessageCommand}" ShiftCommand="{x:Bind ViewModel.NewLineCommand}" ExecuteShiftCommandIfNoKeyboard="True"/>
                     <behaviors:KeyDownCommandAction Key="Up" Command="{x:Bind ViewModel.EditLastMessageCommand}"/>
-                </core:EventTriggerBehavior>
-                <core:EventTriggerBehavior EventName="TextChanged">
-                    <core:InvokeCommandAction Command="{x:Bind ViewModel.TriggerTyping}"/>
+                    <behaviors:KeyDownCommandAction Command="{x:Bind ViewModel.TriggerTyping}"/>
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
         </local:SelectionBindingTextBox>

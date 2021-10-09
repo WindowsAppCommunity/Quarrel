@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="bitrateChange" xml:space="preserve">
+    <value>比特率已从 &lt;old&gt; 变更为 &lt;new&gt;</value>
+  </data>
+  <data name="bitrateSet" xml:space="preserve">
+    <value>比特率已设为 &lt;new&gt;</value>
+  </data>
+  <data name="ChannelCreate" xml:space="preserve">
+    <value>&lt;user&gt; 创建了 &lt;channel&gt;</value>
+  </data>
+  <data name="ChannelDelete" xml:space="preserve">
+    <value>&lt;user&gt; 删除了 &lt;channel&gt;</value>
+  </data>
+  <data name="ChannelOverwriteCreate" xml:space="preserve">
+    <value>&lt;user&gt; 添加了 &lt;channel&gt; 的权限</value>
+  </data>
+  <data name="ChannelOverwriteDelete" xml:space="preserve">
+    <value>&lt;user&gt; 移除了 &lt;channel&gt; 的权限</value>
+  </data>
+  <data name="ChannelOverwriteUpdate" xml:space="preserve">
+    <value>&lt;user&gt; 更新了 &lt;channel&gt; 的权限</value>
+  </data>
+  <data name="ChannelUpdate" xml:space="preserve">
+    <value>&lt;user&gt; 更新了 &lt;channel&gt;</value>
+  </data>
+  <data name="channel_idChange" xml:space="preserve">
+    <value>邀请至 &lt;new&gt;</value>
+  </data>
+  <data name="channel_idSet" xml:space="preserve">
+    <value>邀请至 &lt;new&gt;</value>
+  </data>
+  <data name="codeChange" xml:space="preserve">
+    <value>邀请码 &lt;new&gt;</value>
+  </data>
+  <data name="codeSet" xml:space="preserve">
+    <value>邀请码 &lt;new&gt;</value>
+  </data>
+  <data name="colorChange" xml:space="preserve">
+    <value>颜色已由 &lt;old&gt; 变更为 &lt;new&gt;</value>
+  </data>
+  <data name="colorSet" xml:space="preserve">
+    <value>颜色已设为 &lt;new&gt;</value>
+  </data>
+  <data name="EmojiCreate" xml:space="preserve">
+    <value>&lt;user&gt; 添加了 &lt;emoji&gt;</value>
+  </data>
+  <data name="EmojiDelete" xml:space="preserve">
+    <value>&lt;user&gt; 移除了 &lt;emoji&gt;</value>
+  </data>
+  <data name="EmojiUpdate" xml:space="preserve">
+    <value>&lt;user&gt; 更新了 &lt;emoji&gt;</value>
+  </data>
+  <data name="GenericChange" xml:space="preserve">
+    <value>&lt;property&gt; 已从 &lt;old&gt; 改为 &lt;new&gt;</value>
+  </data>
+  <data name="GenericSet" xml:space="preserve">
+    <value>&lt;property&gt; 已设为 &lt;new&gt;</value>
+  </data>
+  <data name="GuildUpdate" xml:space="preserve">
+    <value>&lt;user&gt; 更新了服务器</value>
+  </data>
+  <data name="InviteCreate" xml:space="preserve">
+    <value>&lt;user&gt; 创建了邀请码 &lt;invite&gt;</value>
+  </data>
+  <data name="InviteDelete" xml:space="preserve">
+    <value>&lt;user&gt; 删除了邀请码 &lt;invite&gt;</value>
+  </data>
+  <data name="InviteUpdate" xml:space="preserve">
+    <value>&lt;user&gt; 更新了邀请码 &lt;invite&gt;</value>
+  </data>
+  <data name="max_age0" xml:space="preserve">
+    <value>**永不**过期</value>
+  </data>
+  <data name="max_ageChange" xml:space="preserve">
+    <value>&lt;new&gt; 过期</value>
+  </data>
+  <data name="max_ageSet" xml:space="preserve">
+    <value>&lt;new&gt; 过期</value>
+  </data>
+  <data name="max_uses0" xml:space="preserve">
+    <value>**无限**次</value>
+  </data>
+  <data name="max_uses1" xml:space="preserve">
+    <value>1 次</value>
+  </data>
+  <data name="max_usesChange" xml:space="preserve">
+    <value>&lt;new&gt; 次</value>
+  </data>
+  <data name="max_usesSet" xml:space="preserve">
+    <value>&lt;new&gt; 次</value>
+  </data>
+  <data name="MemberBanAdd" xml:space="preserve">
+    <value>&lt;user&gt; 禁止了 &lt;recipient&gt;</value>
+  </data>
+  <data name="MemberBanRemove" xml:space="preserve">
+    <value>&lt;user&gt; 解除了 &lt;recipient&gt;</value>
+  </data>
+  <data name="MemberKick" xml:space="preserve">
+    <value>&lt;user&gt; 踢走了 &lt;recipient&gt;</value>
+  </data>
+  <data name="MemberPrune" xml:space="preserve">
+    <value>&lt;user&gt; 缩小了服务器</value>
+  </data>
+  <data name="MemberRoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; 更新了 &lt;recipient&gt; 的角色</value>
+  </data>
+  <data name="MemberUpdate" xml:space="preserve">
+    <value>&lt;user&gt; 更新了 &lt;recipient&gt;</value>
+  </data>
+  <data name="MessageDelete" xml:space="preserve">
+    <value>&lt;user&gt; 删除了 &lt;recipient&gt; 在 &lt;channel&gt; 的一条消息</value>
+  </data>
+  <data name="nameChange" xml:space="preserve">
+    <value>名称已由 &lt;old&gt; 变更为 &lt;new&gt;</value>
+  </data>
+  <data name="nameSet" xml:space="preserve">
+    <value>名称已设为 &lt;new&gt;</value>
+  </data>
+  <data name="nsfwChange" xml:space="preserve">
+    <value>建立了频道 &lt;new&gt;</value>
+  </data>
+  <data name="nsfwSet" xml:space="preserve">
+    <value>建立了频道 &lt;new&gt;</value>
+  </data>
+  <data name="regionChange" xml:space="preserve">
+    <value>地区已由 &lt;old&gt; 变更为 &lt;new&gt;</value>
+  </data>
+  <data name="regionSet" xml:space="preserve">
+    <value>地区已设为 &lt;new&gt;</value>
+  </data>
+  <data name="RoleCreate" xml:space="preserve">
+    <value>&lt;user&gt; 创建了 &lt;role&gt;</value>
+  </data>
+  <data name="RoleDelete" xml:space="preserve">
+    <value>&lt;user&gt; 删除了 &lt;role&gt;</value>
+  </data>
+  <data name="RoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; 更新了 &lt;role&gt;</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>&lt;user&gt; 执行了一项未知操作</value>
+  </data>
+  <data name="uses0" xml:space="preserve">
+    <value>未使用</value>
+  </data>
+  <data name="uses1" xml:space="preserve">
+    <value>已使用 **1** 次</value>
+  </data>
+  <data name="usesChange" xml:space="preserve">
+    <value>已使用 &lt;new&gt; 次</value>
+  </data>
+  <data name="usesSet" xml:space="preserve">
+    <value>已使用 &lt;new&gt; 次</value>
+  </data>
+  <data name="WebhookCreate" xml:space="preserve">
+    <value>&lt;user&gt; 创建了 &lt;webhook&gt;</value>
+  </data>
+  <data name="WebhookDelete" xml:space="preserve">
+    <value>&lt;user&gt; 删除了 &lt;webhook&gt;</value>
+  </data>
+  <data name="WebhookUpdate" xml:space="preserve">
+    <value>&lt;user&gt; 更新了 &lt;webhook&gt;</value>
+  </data>
+</root>

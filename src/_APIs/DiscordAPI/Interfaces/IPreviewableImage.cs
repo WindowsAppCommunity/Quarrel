@@ -21,5 +21,10 @@ namespace DiscordAPI.Interfaces
         /// Gets the image's width.
         /// </summary>
         double ImageWidth { get; }
+
+        /// <summary>
+        /// Gets the URL to a video file or null if the image is static.
+        /// </summary>
+        string AnimatedImageUrl { get; }
     }
 }

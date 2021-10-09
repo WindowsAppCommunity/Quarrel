@@ -121,7 +121,7 @@
                                 </GridView>
                             </Border>
                             <TextBlock x:Uid="/MiscSubs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                            <TextBox x:Uid="/MiscSubs/NoteTBox" BorderThickness="0" x:Name="NoteBox" Style="{StaticResource TextBoxStyle1}" PlaceholderText="No Note" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>
+                            <TextBox x:Uid="/MiscSubs/NoteTBox" Text="{x:Bind ViewModel.User.Note, Mode=OneWay}" BorderThickness="0" x:Name="NoteBox" Style="{StaticResource TextBoxStyle1}" PlaceholderText="No Note" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>
                         </StackPanel>
 
                         <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="200" Margin="-2,12,-7,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None">
@@ -179,31 +179,35 @@
                             </Border>
                         </StackPanel>
                         <tk:WrapPanel Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsLoadingProfile), Mode=OneWay}" Orientation="Horizontal" VerticalAlignment="Top" Margin="188,58,24,0" HorizontalAlignment="Left">
-                            <HyperlinkButton x:Name="sendFriendRequest" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" x:Load="{x:Bind relationconvert:RelationToAddFriendConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}">
+                            <HyperlinkButton x:Name="sendFriendRequest" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" x:Load="{x:Bind relationconvert:RelationToAddFriendConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}"
+                                             Command="{x:Bind ViewModel.User.SendFriendRequestCommand}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE8FA;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/MiscSubs/SendFriendRequestTB" Text="Send Friend Request" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="acceptFriend" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" x:Load="{x:Bind relationconvert:RelationToAcceptFriendConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}">
+                            <HyperlinkButton x:Name="acceptFriend" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" x:Load="{x:Bind relationconvert:RelationToAcceptFriendConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}"
+                                             Command="{x:Bind ViewModel.User.AcceptFriendRequestCommand}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE8FA;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/MiscSubs/AcceptFriendRequestTB" Text="Accept Friend Request" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton  x:Name="pendingFriend" Margin="0,0,24,0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource HyperlinkButtonStyle1}" x:Load="False">
+                            <HyperlinkButton x:Name="pendingFriend" Margin="0,0,24,0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource HyperlinkButtonStyle1}" x:Load="False">
                                 <Grid>
                                     <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/MiscSubs/FriendRequestSentTB" Text="Friend Request Sent" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="Unblock" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" x:Load="{x:Bind relationconvert:RelationToUnblockConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}">
+                            <HyperlinkButton x:Name="Unblock" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" x:Load="{x:Bind relationconvert:RelationToUnblockConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}"
+                                             Command="{x:Bind ViewModel.User.UnblockRequestCommand}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/MiscSubs/UnblockTB" Text="Unblock" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" x:Load="{x:Bind relationconvert:RelationToRemoveFriendConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}">
+                            <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" x:Load="{x:Bind relationconvert:RelationToRemoveFriendConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}"
+                                             Command="{x:Bind ViewModel.User.RemoveFriendRequestCommand}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/MiscSubs/RemoveFriendTB" Text="Remove Friend" Margin="28,0,0,0"/>
@@ -221,13 +225,15 @@
                                     <TextBlock x:Uid="/MiscSubs/ServerStatsTB" Text="Server Stats" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" x:Load="{x:Bind relationconvert:RelationToSendMessageConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}">
+                            <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" x:Load="{x:Bind relationconvert:RelationToSendMessageConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}"
+                                             Command="{x:Bind ViewModel.User.MessageCommand}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE122;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/MiscSubs/SendMessageTB" Text="Send Message" Margin="28,0,0,0"/>
                                 </Grid>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="Block" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" x:Load="{x:Bind relationconvert:RelationToBlockConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}">
+                            <HyperlinkButton x:Name="Block" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" x:Load="{x:Bind relationconvert:RelationToBlockConverter.Convert(ViewModel.Profile.Friend.Type), Mode=OneWay}"
+                                             Command="{x:Bind ViewModel.User.BlockRequestCommand}">
                                 <Grid>
                                     <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/MiscSubs/BlockTB" Text="Block" Margin="28,0,0,0"/>

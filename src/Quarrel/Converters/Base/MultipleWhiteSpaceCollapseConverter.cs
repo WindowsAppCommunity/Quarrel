@@ -16,6 +16,11 @@ namespace Quarrel.Converters.Base
         /// <returns>The string with new lines replaced.</returns>
         public static string Convert(string value)
         {
+            if (value == null)
+            {
+                return null;
+            }
+
             return new Regex("\n[ ]{1,}", RegexOptions.None).Replace(value, "\n");
         }
     }

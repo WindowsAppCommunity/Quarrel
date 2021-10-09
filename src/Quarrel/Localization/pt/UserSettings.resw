@@ -126,11 +126,11 @@
     <comment>This is in the guild settings page</comment>
   </data>
   <data name="CancelBTN.Content" xml:space="preserve">
-    <value>Cancelae</value>
+    <value>Cancelar</value>
     <comment>This is shown in the add channel page</comment>
   </data>
   <data name="SaveBTN.Content" xml:space="preserve">
-    <value>Save</value>
+    <value>Salvar</value>
     <comment>This is shown in the add channel page</comment>
   </data>
   <data name="AccentColorTB.Text" xml:space="preserve">
@@ -190,7 +190,7 @@
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="DataCompressionDescTB.Text" xml:space="preserve">
-    <value>Data compression makes gateway messages smaller and faster to recieve. This is a little more expensive on the CPU but significantly faster with lower internet speed.</value>
+    <value>A compressão de dados torna as mensagens do gateway menores e mais rápidas de serem recebidas. Esta opoção custa poder de processamento da CPU, entretanto é ideal para o uso com internet de baixa velocidade.</value>
     <comment>This is in the behavior page of the user settings</comment>
   </data>
   <data name="DataCompressionTB.Text" xml:space="preserve">
@@ -206,11 +206,11 @@
     <comment>This is in the user settings page</comment>
   </data>
   <data name="DMFilterDescTB.Text" xml:space="preserve">
-    <value>Analyze and automatically delete direct messages containing explicit content</value>
+    <value>Analisar e excluir automaticamente mensagens diretas recebidas com mídia explicita.</value>
     <comment>This is in the privacy page of the user settings</comment>
   </data>
   <data name="DMFilterTB.Text" xml:space="preserve">
-    <value>DIRECT MESSAGE FILTERING</value>
+    <value>FILTRO DE MENSAGENS DIRETAS</value>
     <comment>This is in the privacy page of the user settings</comment>
   </data>
   <data name="EditBTN.Content" xml:space="preserve">
@@ -222,15 +222,15 @@
     <comment>This is in the account page of the user settings</comment>
   </data>
   <data name="ExpensiveRenderingDescTB.Text" xml:space="preserve">
-    <value>Enable various expensive graphics such as Blur Effects and Audio Visualizers</value>
+    <value>Ativa varios efeitos graficos de alto custo de processamento como Efeitos de Blur e Visualizadores de Áudio.</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="ExpensiveRenderingTB.Text" xml:space="preserve">
-    <value>Expensive Rendering</value>
+    <value>Renderização de Alto Desempenho</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="FluentThemeDescTB.Text" xml:space="preserve">
-    <value>Enable an alternative fluent theme for Quarrel</value>
+    <value>Ativa um Tema Fluent Alternativo para o Quarrel</value>
     <comment>This is in the display page of the user settings</comment>
   </data>
   <data name="FluentThemeTB.Text" xml:space="preserve">
@@ -286,7 +286,7 @@
     <comment>This is in the privacy page of the user settings</comment>
   </data>
   <data name="NiceFriendsTB.Text" xml:space="preserve">
-    <value>My friends are nice</value>
+    <value>Meus amigos são legais</value>
     <comment>This is in the privacy page of the user settings</comment>
   </data>
   <data name="NoPermissionChannelsDescTB.Text" xml:space="preserve">
