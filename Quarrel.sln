@@ -5,11 +5,17 @@ VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quarrel", "src\Quarrel\Quarrel.csproj", "{0247C94D-5FD1-45D6-9312-7440317F6C40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quarrel.ViewModels", "src\Quarrel.ViewModels\Quarrel.ViewModels.csproj", "{E069A285-68FE-43C7-957F-9CC6BBF17BCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quarrel.ViewModels", "src\Quarrel.ViewModels\Quarrel.ViewModels.csproj", "{E069A285-68FE-43C7-957F-9CC6BBF17BCE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{511E4047-6CBD-4255-B153-06E3EF5361C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discord.API", "src\API\Discord.API\Discord.API.csproj", "{43360223-1CD9-4962-84CC-0698F6D11837}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discord.API", "src\API\Discord.API\Discord.API.csproj", "{43360223-1CD9-4962-84CC-0698F6D11837}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{369AE1E7-33F6-499A-99F8-BE052152FBF1}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
