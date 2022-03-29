@@ -1,9 +1,6 @@
 ﻿# C# files
 [*.cs]
 
-# CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
-dotnet_diagnostic.CS8632.severity = none
-
 #### Core EditorConfig Options ####
 
 # Indentation and spacing
@@ -232,3 +229,6 @@ dotnet_diagnostic.CS1584.severity = none
 
 # CS1658: Warning is overriding an error
 dotnet_diagnostic.CS1658.severity = none
+
+# CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+dotnet_diagnostic.CS8632.severity = none
