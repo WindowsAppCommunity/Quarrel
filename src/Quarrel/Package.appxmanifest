@@ -4,79 +4,46 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap mp rescap">
+  IgnorableNamespaces="uap mp">
 
-	<Identity
-	  Name="38062AvishaiDernis.QuarrelDev"
-	  Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B"
-	  Version="21.10.9.0" />
+  <Identity
+    Name="4e995084-856f-43f0-8bdb-ffd2dc5d98aa"
+    Publisher="CN=avid2"
+    Version="1.0.0.0" />
 
-	<mp:PhoneIdentity PhoneProductId="d72cb53c-7904-44c8-a617-cf4dddbc7055" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="4e995084-856f-43f0-8bdb-ffd2dc5d98aa" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
-	<Properties>
-		<DisplayName>Quarrel Dev</DisplayName>
-		<PublisherDisplayName>Adam Dernis</PublisherDisplayName>
-		<Logo>Assets\IconAssets\StoreLogo.png</Logo>
-	</Properties>
+  <Properties>
+    <DisplayName>Quarrel</DisplayName>
+    <PublisherDisplayName>avid2</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
 
-	<Dependencies>
-		<TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
-	</Dependencies>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
 
-	<Resources>
-		<Resource Language="x-generate"/>
-	</Resources>
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
 
-	<Applications>
-		<Application Id="App"
-		  Executable="$targetnametoken$.exe"
-		  EntryPoint="Quarrel.App">
-			<uap:VisualElements
-			  DisplayName="Quarrel Dev"
-			  Square150x150Logo="Assets\IconAssets\MediumTile.png"
-			  Square44x44Logo="Assets\IconAssets\AppIcon.png"
-			  Description="Quarrel"
-			  BackgroundColor="transparent">
-				<uap:DefaultTile Wide310x150Logo="Assets\IconAssets\WideTile.png" Square71x71Logo="Assets\IconAssets\SmallTile.png" ShortName="Quarrel" Square310x310Logo="Assets\IconAssets\LargeTile.png">
-					<uap:ShowNameOnTiles>
-						<uap:ShowOn Tile="square150x150Logo"/>
-						<uap:ShowOn Tile="wide310x150Logo"/>
-						<uap:ShowOn Tile="square310x310Logo"/>
-					</uap:ShowNameOnTiles>
-				</uap:DefaultTile >
-				<uap:SplashScreen Image="Assets\IconAssets\SplashScreen.png" />
-			</uap:VisualElements>
-			<uap:ApplicationContentUriRules>
-				<uap:Rule Type="include" Match="https://discord.com" WindowsRuntimeAccess="all"/>
-				<uap:Rule Type="include" Match="https://.discord.com" WindowsRuntimeAccess="all"/>
-				<uap:Rule Type="include" Match="https://discord.com/app" WindowsRuntimeAccess="all"/>
-				<uap:Rule Type="include" Match="https://.discord.com/app" WindowsRuntimeAccess="all"/>
-				<uap:Rule Type="include" Match="https://.discord.com/login" WindowsRuntimeAccess="all"/>
-				<uap:Rule Type="include" Match="https://discord.com/login" WindowsRuntimeAccess="all"/>
-			</uap:ApplicationContentUriRules>
-			<Extensions>
-				<uap:Extension Category="windows.voipCall">
-				</uap:Extension>
-				<uap:Extension Category="windows.appService">
-					<uap:AppService Name="Quarrel.Presence"/>
-				</uap:Extension>
-        <uap:Extension Category="windows.appService" EntryPoint="WebRTCBackgroundTask.AppServiceBackgroundTask">
-          <uap:AppService Name="com.Quarrel.voip"/>
-        </uap:Extension>
-        <Extension Category="windows.backgroundTasks" EntryPoint="WebRTCBackgroundTask.VoipBackgroundTask">
-          <BackgroundTasks>
-            <Task Type="systemEvent" />
-          </BackgroundTasks>
-        </Extension>
-			</Extensions>
-		</Application>
-	</Applications>
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="Quarrel.App">
+      <uap:VisualElements
+        DisplayName="Quarrel"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="Quarrel"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
 
-	<Capabilities>
-    <rescap:Capability Name="extendedBackgroundTaskTime"/>
-		<Capability Name="internetClient" />
-		<uap:Capability Name="voipCall"/>
-		<DeviceCapability Name="microphone"/>
-	</Capabilities>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
 </Package>
