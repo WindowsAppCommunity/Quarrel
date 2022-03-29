@@ -154,6 +154,12 @@
       <Version>6.2.13</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Quarrel.ViewModels\Quarrel.ViewModels.csproj">
+      <Project>{e069a285-68fe-43c7-957f-9cc6bbf17bce}</Project>
+      <Name>Quarrel.ViewModels</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
