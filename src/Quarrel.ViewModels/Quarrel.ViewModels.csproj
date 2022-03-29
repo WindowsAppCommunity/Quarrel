@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+    <PackageReference Include="OwlCore" Version="0.0.60" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\API\Discord.API\Discord.API.csproj" />
   </ItemGroup>
 

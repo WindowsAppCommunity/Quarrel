@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Adam Dernis © 2022
+
+using System;
 using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls
