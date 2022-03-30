@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Views
+namespace Quarrel.SubPages
 {
     /// <summary>
     /// The login page for Quarrel.
