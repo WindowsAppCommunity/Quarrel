@@ -11,6 +11,6 @@
     d:DesignWidth="400">
 
     <Grid>
-        <views:LoginPage/>
+        <local:ExtendedSplashScreen/>
     </Grid>
 </UserControl>

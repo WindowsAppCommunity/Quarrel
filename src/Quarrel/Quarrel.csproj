@@ -70,6 +70,9 @@
     <Compile Include="Controls\QuarrelIcon.xaml.cs">
       <DependentUpon>QuarrelIcon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Shell\ExtendedSplashScreen.xaml.cs">
+      <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Shell\QuarrelHost.xaml.cs">
       <DependentUpon>QuarrelHost.xaml</DependentUpon>
     </Compile>
@@ -100,6 +103,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\QuarrelIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Shell\ExtendedSplashScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
