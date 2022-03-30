@@ -1,0 +1,15 @@
+﻿// Adam Dernis © 2022
+
+using Quarrel.ViewModels.Services.Analytics;
+using System.Diagnostics;
+
+namespace Quarrel.Services.Analytics
+{
+    public class LoggingAnalyticsService : IAnalyticsService
+    {
+        public void Log(string title, params (string, string)[] data)
+        {
+            Debug.WriteLine($"Event: {title}");
+        }
+    }
+}
