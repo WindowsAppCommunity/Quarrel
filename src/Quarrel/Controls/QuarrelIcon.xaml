@@ -136,7 +136,7 @@
         </Storyboard>-->
     </UserControl.Resources>
 
-    <Viewbox Stretch="Uniform" RenderTransformOrigin="0.5,0.5">
+    <Viewbox Stretch="Uniform" RenderTransformOrigin="0.5,0.5" FlowDirection="LeftToRight">
         <Canvas x:Name="FullLayer" Height="1614" Width="1972" RenderTransformOrigin="0.5,0.5">
             <Canvas.RenderTransform>
                 <CompositeTransform/>

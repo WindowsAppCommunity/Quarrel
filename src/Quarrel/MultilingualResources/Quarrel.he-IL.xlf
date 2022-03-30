@@ -6,9 +6,13 @@
     </header>
     <body>
       <group id="QUARREL/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
-        <trans-unit id="Login/QuarrelHeader" translate="yes" xml:space="preserve">
+        <trans-unit id="Login/QuarrelHeader.Text" translate="yes" xml:space="preserve">
           <source>Quarrel</source>
           <target state="needs-review-translation">קווראל</target>
+        </trans-unit>
+        <trans-unit id="Login/LoginButton.Content" translate="yes" xml:space="preserve">
+          <source>Login</source>
+          <target state="translated">כניסה</target>
         </trans-unit>
       </group>
     </body>

@@ -21,10 +21,10 @@
                 <controls:QuarrelIcon Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
                                       Height="64" Width="64" HorizontalAlignment="Left"/>
 
-                <TextBlock Text="Quarrel" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Grid.Column="1"
+                <TextBlock x:Uid="Login/QuarrelHeader" Text="Quarrel" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Grid.Column="1"
                            FontSize="46" CharacterSpacing="250" HorizontalAlignment="Right"/>
             </Grid>
-            <Button Content="Login" HorizontalAlignment="Stretch" Foreground="{ThemeResource SystemChromeLowColor}"
+            <Button x:Uid="Login/LoginButton" Content="Login" HorizontalAlignment="Stretch" Foreground="{ThemeResource SystemChromeLowColor}"
                     Style="{StaticResource DiscordButton}"/>
         </StackPanel>
     </Grid>
