@@ -76,6 +76,7 @@
     <Compile Include="Controls\Shell\QuarrelHost.xaml.cs">
       <DependentUpon>QuarrelHost.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\Base\NotBoolToVisibilityConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
     <Compile Include="Services\Localization\LocalizationService.cs" />

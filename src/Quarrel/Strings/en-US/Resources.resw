@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Login/Disclaimer1.Text" xml:space="preserve">
+    <value>Logging in will intercept a token that allows Quarrel to interact with Discord through your account.</value>
+  </data>
+  <data name="Login/Disclaimer2.Text" xml:space="preserve">
+    <value>At no point does Quarrel read your password.</value>
+  </data>
   <data name="Login/LoginButton.Content" xml:space="preserve">
     <value>Login</value>
   </data>

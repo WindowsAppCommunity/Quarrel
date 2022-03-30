@@ -6,6 +6,7 @@ using Quarrel.Services.Analytics;
 using Quarrel.Services.Localization;
 using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Localization;
+using Quarrel.ViewModels.SubPages;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
@@ -17,7 +18,7 @@ namespace Quarrel
     sealed partial class App : Application
     {
         private ILocalizationService? _localizationService;
-        private IAnalyticsService _analyticsService;
+        private IAnalyticsService? _analyticsService;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -69,6 +70,10 @@ namespace Quarrel
             IServiceCollection services = new ServiceCollection();
             services.AddSingleton(_analyticsService);
             services.AddSingleton(_localizationService);
+
+            // Register ViewModel transients
+            services.AddTransient<LoginPageViewModel>();
+
             Ioc.Default.ConfigureServices(services.BuildServiceProvider());
         }
     }

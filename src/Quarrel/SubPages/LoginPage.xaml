@@ -6,12 +6,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Quarrel.Controls"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
     mc:Ignorable="d"
     d:DesignHeight="600"
     d:DesignWidth="800">
 
     <Grid Background="{ThemeResource PrimaryBackgroundHostBackdrop}">
-        <StackPanel VerticalAlignment="Center" MaxWidth="360">
+        <!--Disclaimer-->
+        <StackPanel Visibility="{x:Bind ViewModel.IsShowingDiscordPrompt, Mode=OneWay}" Margin="12" HorizontalAlignment="Center" Opacity=".6">
+            <TextBlock x:Uid="Login/Disclaimer1" Text="Logging in will intercept a token that allows Quarrel to interact with Discord through your account."
+                       FontSize="10" TextAlignment="Center"/>
+            <TextBlock x:Uid="Login/Disclaimer2" Text="At no point does Quarrel read your password."
+                       FontSize="10" TextAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsShowingDiscordPrompt), Mode=OneWay}" VerticalAlignment="Center" MaxWidth="360">
             <Grid Padding="16">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -24,8 +32,11 @@
                 <TextBlock x:Uid="Login/QuarrelHeader" Text="Quarrel" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Grid.Column="1"
                            FontSize="46" CharacterSpacing="250" HorizontalAlignment="Right"/>
             </Grid>
+            
             <Button x:Uid="Login/LoginButton" Content="Login" HorizontalAlignment="Stretch" Foreground="{ThemeResource SystemChromeLowColor}"
+                    Command="{x:Bind ViewModel.ShowDiscordPromptCommand}"
                     Style="{StaticResource DiscordButton}"/>
         </StackPanel>
+        <WebView x:Name="CaptchaView" Source="https://discord.com/app"  NavigationCompleted="CaptchaView_NavigationCompleted" Margin="48" Visibility="{x:Bind ViewModel.IsShowingDiscordPrompt, Mode=OneWay}"/>
     </Grid>
 </UserControl>
