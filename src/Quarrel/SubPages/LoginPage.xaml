@@ -37,6 +37,6 @@
                     Command="{x:Bind ViewModel.ShowDiscordPromptCommand}"
                     Style="{StaticResource DiscordButton}"/>
         </StackPanel>
-        <WebView x:Name="CaptchaView" Source="https://discord.com/app"  NavigationCompleted="CaptchaView_NavigationCompleted" Margin="48" Visibility="{x:Bind ViewModel.IsShowingDiscordPrompt, Mode=OneWay}"/>
+        <WebView x:Name="CaptchaView" Source="{x:Bind NavigationUrl}"  NavigationCompleted="CaptchaView_NavigationCompleted" Margin="48" Visibility="{x:Bind ViewModel.IsShowingDiscordPrompt, Mode=OneWay}"/>
     </Grid>
 </UserControl>

@@ -5,6 +5,8 @@ using Quarrel.ViewModels.SubPages;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using Windows.Web.Http;
+using Windows.Web.Http.Filters;
 
 namespace Quarrel.SubPages
 {
@@ -13,6 +15,7 @@ namespace Quarrel.SubPages
     /// </summary>
     public sealed partial class LoginPage : UserControl
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginPage"/> class.
         /// </summary>
@@ -22,7 +25,9 @@ namespace Quarrel.SubPages
             DataContext = Ioc.Default.GetRequiredService<LoginPageViewModel>();
         }
 
-        LoginPageViewModel ViewModel => (LoginPageViewModel)DataContext;
+        public LoginPageViewModel ViewModel => (LoginPageViewModel)DataContext;
+
+        private string NavigationUrl => "https://discord.com/app";
 
         private async void CaptchaView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
@@ -61,6 +66,14 @@ namespace Quarrel.SubPages
                     document.body.appendChild(iframe);
                     iframe.contentWindow.localStorage.getItem('token');
                     //'<<token>>'",
+                });
+
+            // Delete token for future
+            await CaptchaView.InvokeScriptAsync(
+                "eval",
+                new[]
+                {
+                    @"iframe.contentWindow.localStorage.removeItem('token')"
                 });
 
             return string.IsNullOrEmpty(token) ? string.Empty : token.Trim('"');
