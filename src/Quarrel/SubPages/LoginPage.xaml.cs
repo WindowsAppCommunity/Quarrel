@@ -5,8 +5,6 @@ using Quarrel.ViewModels.SubPages;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using Windows.Web.Http;
-using Windows.Web.Http.Filters;
 
 namespace Quarrel.SubPages
 {

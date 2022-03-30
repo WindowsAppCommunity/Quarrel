@@ -117,16 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Login/Disclaimer1.Text" xml:space="preserve">
+  <data name="Login/Disclaimer1TB.Text" xml:space="preserve">
     <value>Logging in will intercept a token that allows Quarrel to interact with Discord through your account.</value>
   </data>
-  <data name="Login/Disclaimer2.Text" xml:space="preserve">
+  <data name="Login/Disclaimer2TB.Text" xml:space="preserve">
     <value>At no point does Quarrel read your password.</value>
   </data>
-  <data name="Login/LoginButton.Content" xml:space="preserve">
+  <data name="Login/GoBackHLBTN.Content" xml:space="preserve">
+    <value>Go Back</value>
+  </data>
+  <data name="Login/LoginBTN.Content" xml:space="preserve">
     <value>Login</value>
   </data>
-  <data name="Login/QuarrelHeader.Text" xml:space="preserve">
+  <data name="Login/QuarrelTB.Text" xml:space="preserve">
     <value>Quarrel</value>
+  </data>
+  <data name="Login/TokenLoginHLBTN.Content" xml:space="preserve">
+    <value>Login with Token</value>
+  </data>
+  <data name="Login/TokenTBox.PlaceholderText" xml:space="preserve">
+    <value>Token</value>
   </data>
 </root>

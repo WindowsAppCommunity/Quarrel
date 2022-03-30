@@ -6,21 +6,33 @@
     </header>
     <body>
       <group id="QUARREL/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
-        <trans-unit id="Login/QuarrelHeader.Text" translate="yes" xml:space="preserve">
-          <source>Quarrel</source>
-          <target state="needs-review-translation">קווראל</target>
-        </trans-unit>
-        <trans-unit id="Login/LoginButton.Content" translate="yes" xml:space="preserve">
+        <trans-unit id="Login/LoginBTN.Content" translate="yes" xml:space="preserve">
           <source>Login</source>
           <target state="translated">כניסה</target>
         </trans-unit>
-        <trans-unit id="Login/Disclaimer1.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="Login/Disclaimer1TB.Text" translate="yes" xml:space="preserve">
           <source>Logging in will intercept a token that allows Quarrel to interact with Discord through your account.</source>
           <target state="new">Logging in will intercept a token that allows Quarrel to interact with Discord through your account.</target>
         </trans-unit>
-        <trans-unit id="Login/Disclaimer2.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="Login/Disclaimer2TB.Text" translate="yes" xml:space="preserve">
           <source>At no point does Quarrel read your password.</source>
           <target state="new">At no point does Quarrel read your password.</target>
+        </trans-unit>
+        <trans-unit id="Login/QuarrelTB.Text" translate="yes" xml:space="preserve">
+          <source>Quarrel</source>
+          <target state="translated">קווראל</target>
+        </trans-unit>
+        <trans-unit id="Login/TokenLoginHLBTN.Content" translate="yes" xml:space="preserve">
+          <source>Login with Token</source>
+          <target state="needs-review-translation">כניסה עם אסימון</target>
+        </trans-unit>
+        <trans-unit id="Login/GoBackHLBTN.Content" translate="yes" xml:space="preserve">
+          <source>Go Back</source>
+          <target state="needs-review-translation">תחזור</target>
+        </trans-unit>
+        <trans-unit id="Login/TokenTBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Token</source>
+          <target state="needs-review-translation">אסימון</target>
         </trans-unit>
       </group>
     </body>

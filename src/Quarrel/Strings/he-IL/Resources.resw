@@ -12,10 +12,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Login/QuarrelHeader.Text" xml:space="preserve">
+  <data name="Login/LoginBTN.Content" xml:space="preserve">
+    <value>כניסה</value>
+  </data>
+  <data name="Login/QuarrelTB.Text" xml:space="preserve">
     <value>קווראל</value>
   </data>
-  <data name="Login/LoginButton.Content" xml:space="preserve">
-    <value>כניסה</value>
+  <data name="Login/TokenLoginHLBTN.Content" xml:space="preserve">
+    <value>כניסה עם אסימון</value>
+  </data>
+  <data name="Login/GoBackHLBTN.Content" xml:space="preserve">
+    <value>תחזור</value>
+  </data>
+  <data name="Login/TokenTBox.PlaceholderText" xml:space="preserve">
+    <value>אסימון</value>
   </data>
 </root>

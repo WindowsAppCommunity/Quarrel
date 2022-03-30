@@ -2,7 +2,7 @@
     x:Class="Quarrel.SubPages.LoginPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Quarrel.Views"
+    xmlns:local="using:Quarrel.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Quarrel.Controls"
@@ -14,13 +14,13 @@
     <Grid Background="{ThemeResource PrimaryBackgroundHostBackdrop}">
         <!--Disclaimer-->
         <StackPanel Visibility="{x:Bind ViewModel.IsShowingDiscordPrompt, Mode=OneWay}" Margin="12" HorizontalAlignment="Center" Opacity=".6">
-            <TextBlock x:Uid="Login/Disclaimer1" Text="Logging in will intercept a token that allows Quarrel to interact with Discord through your account."
+            <TextBlock x:Uid="Login/DisclaimerTB1" Text="Logging in will intercept a token that allows Quarrel to interact with Discord through your account."
                        FontSize="10" TextAlignment="Center"/>
-            <TextBlock x:Uid="Login/Disclaimer2" Text="At no point does Quarrel read your password."
+            <TextBlock x:Uid="Login/DisclaimerTB2" Text="At no point does Quarrel read your password."
                        FontSize="10" TextAlignment="Center"/>
         </StackPanel>
-        <StackPanel Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsShowingDiscordPrompt), Mode=OneWay}" VerticalAlignment="Center" MaxWidth="360">
-            <Grid Padding="16">
+        <StackPanel Visibility="{x:Bind ViewModel.IsShowingGenericPrompt, Mode=OneWay}" VerticalAlignment="Center" MaxWidth="360">
+            <Grid Padding="16" Height="96">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
@@ -29,14 +29,42 @@
                 <controls:QuarrelIcon Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
                                       Height="64" Width="64" HorizontalAlignment="Left"/>
 
-                <TextBlock x:Uid="Login/QuarrelHeader" Text="Quarrel" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Grid.Column="1"
+                <TextBlock x:Uid="Login/QuarrelTB" Text="Quarrel" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Grid.Column="1"
                            FontSize="46" CharacterSpacing="250" HorizontalAlignment="Right"/>
             </Grid>
             
-            <Button x:Uid="Login/LoginButton" Content="Login" HorizontalAlignment="Stretch" Foreground="{ThemeResource SystemChromeLowColor}"
+            <Button x:Uid="Login/LoginBTN" Content="Login" HorizontalAlignment="Stretch" Foreground="{ThemeResource SystemChromeLowColor}"
                     Command="{x:Bind ViewModel.ShowDiscordPromptCommand}"
+                    TabIndex="1"
+                    Style="{StaticResource DiscordButton}"/>
+        </StackPanel>
+        <StackPanel Visibility="{x:Bind ViewModel.IsShowingTokenPrompt, Mode=OneWay}" VerticalAlignment="Center" MaxWidth="360">
+            <Grid Height="96">
+                <TextBox x:Uid="Login/TokenTBox" PlaceholderText="Token" Margin="16"
+                         Text="{x:Bind ViewModel.TokenText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                         Style="{StaticResource DiscordTextBox}" VerticalAlignment="Center"/>
+            </Grid>
+            <Button x:Uid="Login/LoginBTN" Content="Login" HorizontalAlignment="Stretch" Foreground="{ThemeResource SystemChromeLowColor}"
+                    Command="{x:Bind ViewModel.LoginWithTokenCommand}"
+                    TabIndex="1"
                     Style="{StaticResource DiscordButton}"/>
         </StackPanel>
         <WebView x:Name="CaptchaView" Source="{x:Bind NavigationUrl}"  NavigationCompleted="CaptchaView_NavigationCompleted" Margin="48" Visibility="{x:Bind ViewModel.IsShowingDiscordPrompt, Mode=OneWay}"/>
+
+        <HyperlinkButton x:Uid="Login/TokenLoginHLBTN"
+                         Content="Login with Token"
+                         HorizontalAlignment="Right"
+                         TabIndex="2" Margin="0,32,24,12"
+                         Visibility="{x:Bind ViewModel.IsShowingGenericPrompt, Mode=OneWay}"
+                         Command="{x:Bind ViewModel.ShowTokenPromptCommand}"
+                         VerticalAlignment="Bottom"/>
+
+        <HyperlinkButton x:Uid="Login/GoBackHLBTN"
+                         Content="Go Back"
+                         HorizontalAlignment="Right"
+                         TabIndex="2" Margin="0,32,24,12"
+                         Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsShowingGenericPrompt), Mode=OneWay}"
+                         Command="{x:Bind ViewModel.ShowGenericPromptCommand}"
+                         VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>
