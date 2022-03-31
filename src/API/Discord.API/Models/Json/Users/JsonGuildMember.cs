@@ -1,9 +1,31 @@
 ﻿// Adam Dernis © 2022
 
+using System;
+using System.Text.Json.Serialization;
+
 namespace Discord.API.Models.Json.Users
 {
     internal class JsonGuildMember
     {
+        [JsonPropertyName("user")]
+        public JsonUser User { get; set; }
 
+        [JsonPropertyName("nick")]
+        public string Nickname { get; set; }
+
+        [JsonPropertyName("roles")]
+        public string[] Roles { get; set; }
+
+        [JsonPropertyName("joined_at")]
+        public DateTimeOffset? JoinedAt { get; set; }
+
+        [JsonPropertyName("deaf")]
+        public bool? Deaf { get; set; }
+
+        [JsonPropertyName("mute")]
+        public bool? Mute { get; set; }
+
+        [JsonPropertyName("guild_id")]
+        public string? GuildId { get; set; }
     }
 }

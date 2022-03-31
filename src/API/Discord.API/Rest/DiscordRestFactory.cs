@@ -1,14 +1,21 @@
 ﻿using Discord.API.HttpHandlers;
+using Discord.API.Rest.Gateway;
+using Refit;
 using System;
 using System.Net.Http;
 
 namespace Discord.API.Rest
 {
-    public class DiscordRestFactory
+    internal class DiscordRestFactory
     {
         private const string BaseUrl = "https://discordapp.com/api";
 
         public string Token { get; set; }
+
+        internal IGatewayService GetGatewayService()
+        {
+            return RestService.For<IGatewayService>(GetHttpClient());
+        }
 
         private HttpClient GetHttpClient(bool authenticated = true)
         {

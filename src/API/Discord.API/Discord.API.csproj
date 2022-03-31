@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Gateway\" />
     <Folder Include="Models\Managed\Stickers\" />
   </ItemGroup>
 
