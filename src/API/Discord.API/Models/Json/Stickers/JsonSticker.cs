@@ -1,7 +1,7 @@
 ﻿// Adam Dernis © 2022
 
 using Discord.API.Models.Json.Users;
-using Discord.API.Models.Managed.Enums.Stickers;
+using Discord.API.Models.Enums.Stickers;
 using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Stickers

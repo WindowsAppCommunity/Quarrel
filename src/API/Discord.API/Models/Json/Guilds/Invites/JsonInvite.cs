@@ -1,7 +1,7 @@
 ﻿// Adam Dernis © 2022
 
 using Discord.API.Models.Json.Users;
-using Discord.API.Models.Managed.Enums.Invites;
+using Discord.API.Models.Enums.Invites;
 using System;
 using System.Text.Json.Serialization;
 

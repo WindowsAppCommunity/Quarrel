@@ -1,20 +1,20 @@
 ﻿// Adam Dernis © 2022
 
-using Discord;
+using Discord.API.Models.Base.Interfaces;
 using Microsoft.Toolkit.Diagnostics;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Quarrel.Services.Discord;
 
 namespace Quarrel.Models.Bindables.Abstract
 {
-    public abstract class BindableDiscordItemBase<T> : ObservableObject
-        where T : IEntity<ulong>
+    public abstract class BindableUnqiueItemBase<T> : ObservableObject
+        where T : ISnowflakeItem
     {
         private readonly IDiscordService _discordService;
 
         private T _model;
 
-        protected BindableDiscordItemBase(IDiscordService discordService, T model)
+        protected BindableUnqiueItemBase(IDiscordService discordService, T model)
         {
             _discordService = discordService;
 

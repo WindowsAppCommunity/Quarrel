@@ -1,6 +1,6 @@
 ﻿// Adam Dernis © 2022
 
-namespace Discord.API.Models.Managed.Enums.Invites
+namespace Discord.API.Models.Enums.Invites
 {
     public enum TargetUserType
     {

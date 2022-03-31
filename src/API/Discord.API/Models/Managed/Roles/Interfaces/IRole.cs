@@ -1,7 +1,7 @@
 ﻿// Adam Dernis © 2022
 
 using Discord.API.Models.Base.Interfaces;
-using Discord.API.Models.Permissions;
+using Discord.API.Models.Enums.Permissions;
 
 namespace Discord.API.Models.Roles.Interfaces
 {

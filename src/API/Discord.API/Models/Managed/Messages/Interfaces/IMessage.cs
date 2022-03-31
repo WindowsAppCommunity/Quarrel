@@ -4,7 +4,7 @@ using Discord.API.Models.Base.Interfaces;
 using Discord.API.Models.Enums.Messages;
 using System;
 
-namespace Discord.API.Models.Managed.Messages.Interfaces
+namespace Discord.API.Models.Messages.Interfaces
 {
     public interface IMessage : ISnowflakeItem
     {

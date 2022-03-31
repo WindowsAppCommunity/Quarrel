@@ -2,12 +2,11 @@
 
 using System;
 
-namespace Discord.API.Models.Permissions
+namespace Discord.API.Models.Enums.Permissions
 {
     [Flags]
-    public enum ChannelPermission : ulong
+    public enum GuildPermission : ulong
     {
-        None = 0,
         CreateInstantInvite = 1 << 0,
         KickMembers = (ulong)1 << 1,
         BanMembers = (ulong)1 << 2,

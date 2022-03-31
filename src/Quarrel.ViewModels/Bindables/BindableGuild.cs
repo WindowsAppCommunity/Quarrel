@@ -1,12 +1,12 @@
 ﻿// Adam Dernis © 2022
 
-using Discord;
+using Discord.API.Models.Guilds.Interfaces;
 using Quarrel.Models.Bindables.Abstract;
 using Quarrel.Services.Discord;
 
 namespace Quarrel.Models.Bindables
 {
-    public class BindableGuild : BindableDiscordItemBase<IGuild>
+    public class BindableGuild : BindableUnqiueItemBase<IGuild>
     {
         public BindableGuild(IDiscordService discordService, IGuild model) : base(discordService, model)
         {
@@ -14,7 +14,6 @@ namespace Quarrel.Models.Bindables
 
         public override async void UpdateFromServiceAsync()
         {
-            var guild = await DiscordService.DiscordClient.GetGuildAsync(Model.Id);
         }
     }
 }

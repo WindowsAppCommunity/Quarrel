@@ -1,6 +1,6 @@
 ﻿// Adam Dernis © 2022
 
-using Discord.API.Models.Managed.Enums.Messages;
+using Discord.API.Models.Enums.Messages;
 using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Messages

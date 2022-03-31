@@ -12,7 +12,11 @@
 
   <ItemGroup>
     <Folder Include="Messages\Discord\Guilds\" />
-    <Folder Include="Bindables\" />
+    <Folder Include="Services\Storage\Settings\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\API\Discord.API\Discord.API.csproj" />
   </ItemGroup>
 
 </Project>

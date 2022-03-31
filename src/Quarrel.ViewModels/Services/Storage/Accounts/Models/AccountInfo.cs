@@ -1,12 +1,14 @@
 ﻿// Adam Dernis © 2022
 
-namespace Quarrel.Services.Storage.Models
+namespace Quarrel.Services.Storage.Accounts.Models
 {
-    /// <summary>
-    /// A model containing 
-    /// </summary>
     public class AccountInfo
     {
+        public AccountInfo(string token)
+        {
+            Token = token;
+        }
+
         /// <summary>
         /// Gets or sets the user id.
         /// </summary>
@@ -23,13 +25,8 @@ namespace Quarrel.Services.Storage.Models
         public int? Discriminator { get; set; }
 
         /// <summary>
-        /// Gets or sets the last access token for the account.
+        /// Gets or sets the token for the account.
         /// </summary>
-        public string? LastAccessToken { get; set; }
-
-        /// <summary>
-        /// Gets or sets the refresh token for the account.
-        /// </summary>
-        public string? RefreshToken { get; set; }
+        public string Token { get; }
     }
 }

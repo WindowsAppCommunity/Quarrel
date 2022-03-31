@@ -1,6 +1,6 @@
 ﻿// Adam Dernis © 2022
 
-namespace Discord.API.Models.Managed.Enums.Messages
+namespace Discord.API.Models.Enums.Messages
 {
     public enum MessageActivityType
     {
