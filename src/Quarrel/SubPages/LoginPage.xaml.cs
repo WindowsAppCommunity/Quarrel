@@ -1,6 +1,6 @@
 ﻿// Adam Dernis © 2022
 
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Quarrel.ViewModels.SubPages;
 using System;
 using System.Threading.Tasks;
@@ -20,7 +20,7 @@ namespace Quarrel.SubPages
         public LoginPage()
         {
             this.InitializeComponent();
-            DataContext = Ioc.Default.GetRequiredService<LoginPageViewModel>();
+            DataContext = App.Current.Services.GetRequiredService<LoginPageViewModel>();
         }
 
         public LoginPageViewModel ViewModel => (LoginPageViewModel)DataContext;

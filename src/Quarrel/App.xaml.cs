@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Diagnostics;
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Controls.Shell;
 using Quarrel.Services.Analytics;
 using Quarrel.Services.Localization;
 using Quarrel.ViewModels.Services.Analytics;
 using Quarrel.ViewModels.Services.Localization;
 using Quarrel.ViewModels.SubPages;
+using System;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
@@ -17,8 +17,6 @@ namespace Quarrel
     /// </summary>
     sealed partial class App : Application
     {
-        private ILocalizationService? _localizationService;
-        private IAnalyticsService? _analyticsService;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -26,8 +24,20 @@ namespace Quarrel
         /// </summary>
         public App()
         {
+            Services = ConfigureServices();
+
             this.InitializeComponent();
         }
+
+        /// <summary>
+        /// Gets the current <see cref="App"/> instance in use.
+        /// </summary>
+        public new static App Current => (App)Application.Current;
+
+        /// <summary>
+        /// Gets the <see cref="IServiceProvider"/> instance to resolve application services
+        /// </summary>
+        public IServiceProvider Services { get; }
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -36,8 +46,6 @@ namespace Quarrel
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            InitailizeRequiredServices();
-
             if (!(Window.Current.Content is QuarrelHost))
             {
                 InitializeUI();
@@ -51,30 +59,28 @@ namespace Quarrel
 
         private void InitializeUI()
         {
-            Guard.IsNotNull(_localizationService, nameof(_localizationService));
-
             FrameworkElement root = new QuarrelHost();
             Window.Current.Content = root;
 
             // Handle flow direction
-            root.FlowDirection = _localizationService.IsRightToLeftLanguage ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+            ILocalizationService localizationService = Services.GetRequiredService<ILocalizationService>();
+            root.FlowDirection = localizationService.IsRightToLeftLanguage ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
         }
 
-        private void InitailizeRequiredServices()
+        private IServiceProvider ConfigureServices()
         {
-            // Initialize services
-            _analyticsService = new LoggingAnalyticsService(); // TODO: AppCenter Analytics
-            _localizationService = new LocalizationService();
-
             // Register Services
-            IServiceCollection services = new ServiceCollection();
-            services.AddSingleton(_analyticsService);
-            services.AddSingleton(_localizationService);
+            ServiceCollection services = new ServiceCollection();
+            services.AddSingleton<IMessenger, StrongReferenceMessenger>();
+            services.AddSingleton<ILocalizationService, LocalizationService>();
 
-            // Register ViewModel transients
+            // TODO: Release analytics services
+            services.AddSingleton<IAnalyticsService, LoggingAnalyticsService>();
+
+            // ViewModels
             services.AddTransient<LoginPageViewModel>();
 
-            Ioc.Default.ConfigureServices(services.BuildServiceProvider());
+            return services.BuildServiceProvider();
         }
     }
 }
