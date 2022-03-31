@@ -2,10 +2,10 @@
 
 using OwlCore.AbstractStorage;
 using OwlCore.Services;
-using Quarrel.ViewModels.Services.Storage.Models;
+using Quarrel.Services.Storage.Models;
 using System.IO;
 
-namespace Quarrel.ViewModels.Services.Storage
+namespace Quarrel.Services.Storage
 {
     /// <summary>
     /// A storage class that stores info about the user's account.

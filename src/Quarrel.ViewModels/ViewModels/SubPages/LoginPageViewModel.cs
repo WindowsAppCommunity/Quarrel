@@ -2,7 +2,7 @@
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
-using Quarrel.ViewModels.Services.Analytics;
+using Quarrel.Services.Analytics;
 
 namespace Quarrel.ViewModels.SubPages
 {

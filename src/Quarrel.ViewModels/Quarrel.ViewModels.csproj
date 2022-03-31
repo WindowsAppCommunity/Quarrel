@@ -2,14 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Quarrel.ViewModels</AssemblyName>
+    <RootNamespace>Quarrel</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OwlCore" Version="0.0.60" />
+    <PackageReference Include="OwlCore" Version="0.0.61" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\API\Discord.API\Discord.API.csproj" />
+    <Folder Include="Messages\Discord\Guilds\" />
+    <Folder Include="Bindables\" />
   </ItemGroup>
 
 </Project>

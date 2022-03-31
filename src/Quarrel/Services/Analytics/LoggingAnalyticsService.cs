@@ -1,6 +1,5 @@
 ﻿// Adam Dernis © 2022
 
-using Quarrel.ViewModels.Services.Analytics;
 using System.Diagnostics;
 
 namespace Quarrel.Services.Analytics

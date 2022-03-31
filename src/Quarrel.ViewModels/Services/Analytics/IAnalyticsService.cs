@@ -1,6 +1,6 @@
 ﻿// Adam Dernis © 2022
 
-namespace Quarrel.ViewModels.Services.Analytics
+namespace Quarrel.Services.Analytics
 {
     /// <summary>
     /// An interface for a service that logs analytics.

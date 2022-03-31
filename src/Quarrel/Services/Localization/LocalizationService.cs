@@ -1,6 +1,5 @@
 ﻿// Adam Dernis © 2022
 
-using Quarrel.ViewModels.Services.Localization;
 using Windows.ApplicationModel.Resources;
 using Windows.ApplicationModel.Resources.Core;
 

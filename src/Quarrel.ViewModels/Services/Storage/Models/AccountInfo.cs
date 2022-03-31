@@ -1,6 +1,6 @@
 ﻿// Adam Dernis © 2022
 
-namespace Quarrel.ViewModels.Services.Storage.Models
+namespace Quarrel.Services.Storage.Models
 {
     /// <summary>
     /// A model containing 

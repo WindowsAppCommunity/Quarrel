@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿// Adam Dernis © 2022
+
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Controls.Shell;
 using Quarrel.Services.Analytics;
 using Quarrel.Services.Localization;
-using Quarrel.ViewModels.Services.Analytics;
-using Quarrel.ViewModels.Services.Localization;
+using Quarrel.Services.Discord;
 using Quarrel.ViewModels.SubPages;
 using System;
 using Windows.ApplicationModel.Activation;
@@ -73,6 +74,7 @@ namespace Quarrel
             ServiceCollection services = new ServiceCollection();
             services.AddSingleton<IMessenger, StrongReferenceMessenger>();
             services.AddSingleton<ILocalizationService, LocalizationService>();
+            services.AddSingleton<IDiscordService, DiscordService>();
 
             // TODO: Release analytics services
             services.AddSingleton<IAnalyticsService, LoggingAnalyticsService>();

@@ -1,6 +1,6 @@
 ﻿// Adam Dernis © 2022
 
-namespace Quarrel.ViewModels.Services.Localization
+namespace Quarrel.Services.Localization
 {
     /// <summary>
     /// An interface for a localization service used in the app.
