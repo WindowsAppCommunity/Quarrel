@@ -15,7 +15,7 @@ namespace Quarrel.Services.Discord
         }
 
         /// <inheritdoc/>
-        public async Task Login(string token)
+        public async Task LoginAsync(string token)
         {
 
         }

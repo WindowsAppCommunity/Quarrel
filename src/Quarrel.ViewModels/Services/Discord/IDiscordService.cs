@@ -6,6 +6,6 @@ namespace Quarrel.Services.Discord
 {
     public interface IDiscordService
     {
-        Task Login(string token);
+        Task LoginAsync(string token);
     }
 }
