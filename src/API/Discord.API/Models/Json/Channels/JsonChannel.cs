@@ -1,14 +1,14 @@
 ﻿// Adam Dernis © 2022
 
-using Discord.API.Models.Channels.Enums;
-using Discord.API.Rest.Models.Permissions;
-using Discord.API.Rest.Models.Users;
+using Discord.API.Models.Enums.Channels;
+using Discord.API.Models.Json.Permissions;
+using Discord.API.Models.Json.Users;
 using System;
 using System.Text.Json.Serialization;
 
-namespace Discord.API.Rest.Models.Channels
+namespace Discord.API.Models.Json.Channels
 {
-    internal class RestChannel
+    internal class JsonChannel
     {
         // Universal
         [JsonPropertyName("id")]
@@ -37,7 +37,7 @@ namespace Discord.API.Rest.Models.Channels
         public int? Position { get; set; }
 
         [JsonPropertyName("permission_overwrites")]
-        public RestOverwrite[]? PermissionOverwrites { get; set; }
+        public JsonOverwrite[]? PermissionOverwrites { get; set; }
 
         [JsonPropertyName("parent_id")]
         public ulong? CategoryId { get; set; }
@@ -67,7 +67,7 @@ namespace Discord.API.Rest.Models.Channels
 
         // Direct
         [JsonPropertyName("recipient")]
-        public RestUser? Recipient { get; set; }
+        public JsonUser? Recipient { get; set; }
 
         // Group
         [JsonPropertyName("icon")]
@@ -75,14 +75,14 @@ namespace Discord.API.Rest.Models.Channels
 
         // Private
         [JsonPropertyName("recipients")]
-        public RestUser[]? Recipients { get; set; }
+        public JsonUser[]? Recipients { get; set; }
 
         // Thread
         [JsonPropertyName("member")]
-        public RestThreadMember? ThreadMember { get; set; }
+        public JsonThreadMember? ThreadMember { get; set; }
 
         [JsonPropertyName("thread_metadata")]
-        public RestThreadMetadata? ThreadMetadata { get; set; }
+        public JsonThreadMetadata? ThreadMetadata { get; set; }
 
         [JsonPropertyName("message_count")]
         public int MessageCount { get; set; }

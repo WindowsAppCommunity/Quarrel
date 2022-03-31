@@ -5,12 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Diagnostics" Version="7.1.2" />
     <PackageReference Include="Refit" Version="6.3.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Gateway\" />
+    <Folder Include="Models\Managed\Messages\" />
+    <Folder Include="Models\Managed\Stickers\" />
   </ItemGroup>
 
 </Project>

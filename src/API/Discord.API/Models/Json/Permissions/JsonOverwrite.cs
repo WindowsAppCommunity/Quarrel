@@ -3,9 +3,9 @@
 using Discord.API.Models.Permissions;
 using System.Text.Json.Serialization;
 
-namespace Discord.API.Rest.Models.Permissions
+namespace Discord.API.Models.Json.Permissions
 {
-    internal class RestOverwrite
+    internal class JsonOverwrite
     {
         [JsonPropertyName("id")]
         public ulong Id { get; set; }

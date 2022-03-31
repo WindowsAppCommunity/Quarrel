@@ -2,9 +2,9 @@
 
 using System.Text.Json.Serialization;
 
-namespace Discord.API.Rest.Models.Roles
+namespace Discord.API.Models.Json.Roles
 {
-    internal class RestRoleTags
+    internal class FullRoleTags
     {
         [JsonPropertyName("bot_id")]
         public ulong BotId { get; set; }

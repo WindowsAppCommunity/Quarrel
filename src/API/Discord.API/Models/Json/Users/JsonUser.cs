@@ -1,11 +1,11 @@
 ﻿// Adam Dernis © 2022
 
-using Discord.API.Models.Users.Enums;
+using Discord.API.Models.Enums.Users;
 using System.Text.Json.Serialization;
 
-namespace Discord.API.Rest.Models.Users
+namespace Discord.API.Models.Json.Users
 {
-    internal class RestUser
+    internal class JsonUser
     {
         [JsonPropertyName("id")]
         public ulong Id { get; set; }

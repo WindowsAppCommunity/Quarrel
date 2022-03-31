@@ -2,9 +2,9 @@
 
 using System.Text.Json.Serialization;
 
-namespace Discord.API.Rest.Models.Roles
+namespace Discord.API.Models.Json.Roles
 {
-    internal class RestRole
+    internal class JsonRole
     {
         [JsonPropertyName("id")]
         public ulong Id { get; set; }
@@ -37,6 +37,6 @@ namespace Discord.API.Rest.Models.Roles
         public bool Managed { get; set; }
 
         [JsonPropertyName("tags")]
-        public RestRoleTags Tags { get; set; }
+        public FullRoleTags Tags { get; set; }
     }
 }
