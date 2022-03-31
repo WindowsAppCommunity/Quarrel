@@ -80,6 +80,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
     <Compile Include="Services\Localization\LocalizationService.cs" />
+    <Compile Include="SubPages\Host\SubPageFrame.cs" />
+    <Compile Include="SubPages\Host\SubPageHost.xaml.cs">
+      <DependentUpon>SubPageHost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\Interfaces\IAdaptiveSubPage.cs" />
+    <Compile Include="SubPages\Interfaces\IConstrainedSubPage.cs" />
     <Compile Include="SubPages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -128,6 +134,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SubPages\Host\SubPageHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SubPages\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,6 +146,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.13</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
+      <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Nito.AsyncEx">
+      <Version>5.1.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
