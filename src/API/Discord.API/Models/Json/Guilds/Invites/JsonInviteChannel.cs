@@ -7,7 +7,7 @@ namespace Discord.API.Models.Json.Guilds.Invites
 {
     internal class JsonInviteChannel
     {
-        [JsonPropertyName("id")]
+        [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong Id { get; set; }
 
         [JsonPropertyName("name")]

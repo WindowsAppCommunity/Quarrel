@@ -7,7 +7,7 @@ namespace Discord.API.Models.Json.Permissions
 {
     internal class JsonOverwrite
     {
-        [JsonPropertyName("id")]
+        [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong Id { get; set; }
 
         [JsonPropertyName("type")]

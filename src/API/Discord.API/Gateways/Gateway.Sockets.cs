@@ -55,7 +55,10 @@ namespace Discord.API.Gateways
 
         private void HandleTextMessage(string message)
         {
-            HandleMessage(new StringReader(message));
+            using (TextReader reader = new StringReader(message))
+            {
+                HandleMessage(reader);
+            }
         }
 
         private void HandleBinaryMessage(byte[] bytes, int _, int count)
@@ -87,7 +90,10 @@ namespace Discord.API.Gateways
                     _decompressionBuffer.Position = 0;
                     decompressed.Position = 0;
 
-                    HandleMessage(new StreamReader(decompressed));
+                    using (var reader = new StreamReader(decompressed))
+                    {
+                        HandleMessage(reader);
+                    }
                 }
             }
         }
@@ -96,8 +102,6 @@ namespace Discord.API.Gateways
         {
             Stream stream = ((StreamReader)reader).BaseStream;
             SocketFrame? frame = JsonSerializer.Deserialize<SocketFrame>(stream);
-
-            Guard.IsNotNull(frame, nameof(frame));
 
             if (frame.SequenceNumber.HasValue)
             {

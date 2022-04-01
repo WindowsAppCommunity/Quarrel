@@ -40,7 +40,7 @@ namespace Discord.API.Gateways
             _gatewayStatus = GatewayStatus.Connecting;
             string append = string.Empty;
             append = "&compress=zlib-stream";
-            return await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "6", append));
+            return await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "9", append));
         }
 
         public async Task<bool> ResumeAsync()

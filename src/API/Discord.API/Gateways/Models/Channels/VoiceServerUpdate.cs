@@ -9,10 +9,10 @@ namespace Discord.API.Gateways.Models.Channels
         [JsonPropertyName("token")]
         public string Token { get; set; }
 
-        [JsonPropertyName("guild_id")]
+        [JsonPropertyName("guild_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? GuildId { get; set; }
 
-        [JsonPropertyName("channel_id")]
+        [JsonPropertyName("channel_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong ChannelId { get; set; }
 
         [JsonPropertyName("endpoint")]

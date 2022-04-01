@@ -11,19 +11,19 @@ namespace Discord.API.Models.Json.Messages
 {
     internal class JsonMessage
     {
-        [JsonPropertyName("id")]
+        [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong Id { get; set; }
 
         [JsonPropertyName("type")]
         public MessageType Type { get; set; }
 
-        [JsonPropertyName("channel_id")]
+        [JsonPropertyName("channel_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong ChannelId { get; set; }
 
-        [JsonPropertyName("guild_id")]
+        [JsonPropertyName("guild_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public string? GuildId { get; set; }
 
-        [JsonPropertyName("webhook_id")]
+        [JsonPropertyName("webhook_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? WebhookId { get; set; }
 
         [JsonPropertyName("author")]
@@ -50,7 +50,7 @@ namespace Discord.API.Models.Json.Messages
         [JsonPropertyName("mentions")]
         public JsonUser[]? UserMentions { get; set; }
 
-        [JsonPropertyName("mention_roles")]
+        [JsonPropertyName("mention_roles"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong[]? RoleMentions { get; set; }
 
         [JsonPropertyName("attachments")]

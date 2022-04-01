@@ -13,9 +13,9 @@ namespace Discord.API.Models.Json.Settings
         public string Status { get; set; }
 
         [JsonPropertyName("show_current_game")]
-        public string ShowCurrentGame { get; set; }
+        public bool ShowCurrentGame { get; set; }
 
-        [JsonPropertyName("restricted_guilds")]
+        [JsonPropertyName("restricted_guilds"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong[] RestrictedGuilds { get; set; }
 
         [JsonPropertyName("render_reactions")]
@@ -39,7 +39,7 @@ namespace Discord.API.Models.Json.Settings
         [JsonPropertyName("inline_attachment_media")]
         public bool InlineAttachementMedia { get; set; }
 
-        [JsonPropertyName("guild_positions")]
+        [JsonPropertyName("guild_positions"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong[] GuildOrder { get; set; }
 
         [JsonPropertyName("guild_folders")]

@@ -12,7 +12,7 @@ namespace Discord.API.Gateways.Models.GuildMember
         [JsonPropertyName("member_count")]
         public ulong MemberCount { get; set; }
 
-        [JsonPropertyName("guild_id")]
+        [JsonPropertyName("guild_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong GuildId { get; set; }
 
         [JsonPropertyName("groups")]

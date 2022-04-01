@@ -342,16 +342,15 @@ namespace Discord.API.Sockets
             }
             catch (Win32Exception ex) when (ex.HResult == _heartRateTimeout)
             {
-                var x = OnClosed(new Exception("Connection timed out.", ex));
+                _ = OnClosed(new Exception("Connection timed out.", ex));
             }
             catch (OperationCanceledException)
             {
             }
-            catch (Exception ex)
-            {
-                // This cannot be awaited otherwise we'll deadlock when DiscordApiClient waits for this task to complete.
-                var x = OnClosed(ex);
-            }
+            //catch (Exception ex)
+            //{
+            //    _ = OnClosed(ex);
+            //}
         }
     }
 }

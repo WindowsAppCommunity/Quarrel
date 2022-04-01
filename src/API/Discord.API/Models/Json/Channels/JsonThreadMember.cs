@@ -7,10 +7,10 @@ namespace Discord.API.Models.Json.Channels
 {
     internal class JsonThreadMember
     {
-        [JsonPropertyName("id")]
+        [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? Id { get; set; }
 
-        [JsonPropertyName("user_id")]
+        [JsonPropertyName("user_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? UserId { get; set; }
 
         [JsonPropertyName("join_timestamp")]

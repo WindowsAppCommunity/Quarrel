@@ -7,8 +7,8 @@ namespace Discord.API.Gateways.Models.Guilds
 {
     internal class GuildSync
     {
-        [JsonPropertyName("id")]
-        public string GuildId { get; set; }
+        [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong GuildId { get; set; }
 
         [JsonPropertyName("large")]
         public bool IsLarge { get; set; }

@@ -89,17 +89,17 @@ namespace Discord.API.Gateways
         {
             var properties = new IdentityProperties()
             {
-                OS = "Windows",
-                Device = "Quarrel",
-                Browser = "Quarrel",
-                Referrer = "",
-                ReferringDomain = ""
+                OS = "DISCORD-UWP",
+                Device = "DISCORD-UWP",
+                Browser = "DISCORD-UWP",
+                Referrer = string.Empty,
+                ReferringDomain = string.Empty,
             };
 
             var idenity = new Identity()
             {
                 Token = _token,
-                Compress = true,
+                Compress = false,
                 LargeThreshold = 250,
                 Properties = properties,
             };

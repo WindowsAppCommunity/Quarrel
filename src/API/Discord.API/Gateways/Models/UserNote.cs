@@ -6,10 +6,10 @@ namespace Discord.API.Gateways.Models
 {
     internal class UserNote
     {
-        [JsonPropertyName("id")]
+        [JsonPropertyName("id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
         public ulong UserId { get; set; }
 
-        [JsonPropertyName("note")]
-        public string Note { get; set; }
+        [JsonPropertyName("note"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
+        public ulong Note { get; set; }
     }
 }

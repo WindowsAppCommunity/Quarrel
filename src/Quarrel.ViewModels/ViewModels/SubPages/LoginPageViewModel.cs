@@ -3,6 +3,7 @@
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Quarrel.Services.Analytics;
+using Quarrel.Services.Discord;
 
 namespace Quarrel.ViewModels.SubPages
 {
@@ -12,6 +13,7 @@ namespace Quarrel.ViewModels.SubPages
     public class LoginPageViewModel : ObservableObject
     {
         private readonly IAnalyticsService _analyticsService;
+        private readonly IDiscordService _discordService;
 
         private bool _isShowingGenericPrompt;
         private bool _isShowingDiscordPrompt;
@@ -22,9 +24,10 @@ namespace Quarrel.ViewModels.SubPages
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginPageViewModel"/> class.
         /// </summary>
-        public LoginPageViewModel(IAnalyticsService analyticsService)
+        public LoginPageViewModel(IAnalyticsService analyticsService, IDiscordService discordService)
         {
             _analyticsService = analyticsService;
+            _discordService = discordService;
 
             ShowGenericPromptCommand = new RelayCommand(() => ShowGenericPrompt());
             ShowDiscordPromptCommand = new RelayCommand(() => ShowDiscordPrompt());
@@ -123,9 +126,13 @@ namespace Quarrel.ViewModels.SubPages
         /// </summary>
         public void LoginWithToken(string? token)
         {
-            _analyticsService.Log(Constants.Analytics.Events.LoggedInWithToken);
+            if (token is null)
+            {
+                return;
+            }
 
-            // TODO: Login to Discord service and cache token.
+            _analyticsService.Log(Constants.Analytics.Events.LoggedInWithToken);
+            _discordService.LoginAsync(token);
         }
 
         private void ShowGenericPrompt()

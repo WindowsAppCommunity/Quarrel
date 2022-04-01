@@ -6,8 +6,8 @@ namespace Discord.API.Models.Json.Settings
 {
     internal class JsonGuildSettings
     {
-        [JsonPropertyName("guild_id")]
-        public string GuildId { get; set; }
+        [JsonPropertyName("guild_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong? GuildId { get; set; }
 
         [JsonPropertyName("suppress_everyone")]
         public bool SuppressEveryone { get; set; }

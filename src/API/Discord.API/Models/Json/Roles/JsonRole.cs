@@ -1,12 +1,13 @@
 ﻿// Adam Dernis © 2022
 
+using Discord.API.Models.Enums.Permissions;
 using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Roles
 {
     internal class JsonRole
     {
-        [JsonPropertyName("id")]
+        [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong Id { get; set; }
         
         [JsonPropertyName("name")]
@@ -30,8 +31,8 @@ namespace Discord.API.Models.Json.Roles
         [JsonPropertyName("position")]
         public int Position { get; set; }
 
-        [JsonPropertyName("permissions")]
-        public uint Permissions { get; set; }
+        [JsonPropertyName("permissions"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong Permissions { get; set; }
 
         [JsonPropertyName("managed")]
         public bool Managed { get; set; }

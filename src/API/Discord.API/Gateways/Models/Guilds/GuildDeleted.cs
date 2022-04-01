@@ -6,8 +6,8 @@ namespace Discord.API.Gateways.Models.Guilds
 {
     internal class GuildDeleted
     {
-        [JsonPropertyName("id")]
-        public string GuildId { get; set; }
+        [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong GuildId { get; set; }
 
         [JsonPropertyName("unavailable")]
         public bool Unavailable { get; set; }

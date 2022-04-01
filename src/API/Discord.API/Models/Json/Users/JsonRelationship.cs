@@ -7,7 +7,7 @@ namespace Discord.API.Models.Json.Users
 {
     internal class JsonRelationship
     {
-        [JsonPropertyName("id")]
+        [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? Id { get; set; }
 
         [JsonPropertyName("user")]

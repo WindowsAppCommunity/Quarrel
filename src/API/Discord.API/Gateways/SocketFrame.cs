@@ -1,7 +1,7 @@
 ﻿// Adam Dernis © 2022
 
+using System;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
 namespace Discord.API.Gateways
@@ -22,12 +22,18 @@ namespace Discord.API.Gateways
 
         public T? GetData<T>()
         {
-            if (Payload is JsonElement jElement)
+            if (Payload is JsonElement jsonElement)
             {
-                return jElement.Deserialize<T>();
+                try
+                {
+                    return jsonElement.Deserialize<T>();
+                }
+                catch (Exception ex)
+                {
+                }
             }
 
-            return default(T);
+            return default;
         }
     }
 }

@@ -6,11 +6,11 @@ namespace Discord.API.Gateways.Models
 {
     internal class VoiceStatusUpdate
     {
-        [JsonPropertyName("guild_id")]
-        public string GuildId { get; set; }
+        [JsonPropertyName("guild_id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
+        public ulong GuildId { get; set; }
 
-        [JsonPropertyName("channel_id")]
-        public string ChannelId { get; set; }
+        [JsonPropertyName("channel_id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
+        public ulong ChannelId { get; set; }
         
         [JsonPropertyName("self_mute")]
         public bool Mute { get; set; }

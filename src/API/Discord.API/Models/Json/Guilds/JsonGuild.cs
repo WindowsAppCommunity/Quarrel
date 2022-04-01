@@ -12,8 +12,8 @@ namespace Discord.API.Models.Json.Guilds
 {
     internal class JsonGuild
     {
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
+        [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong Id { get; set; }
 
         [JsonPropertyName("name")]
         public string Name { get; set; }
@@ -28,13 +28,13 @@ namespace Discord.API.Models.Json.Guilds
         public string DiscoverySplash { get; set; }
 
         [JsonPropertyName("owner_id")]
-        public ulong OwnerId { get; set; }
+        public string OwnerId { get; set; }
 
         [JsonPropertyName("region")]
         public string Region { get; set; }
 
         [JsonPropertyName("afk_channel_id")]
-        public ulong? AFKChannelId { get; set; }
+        public string? AFKChannelId { get; set; }
 
         [JsonPropertyName("afk_timeout")]
         public int AFKTimeout { get; set; }
@@ -61,7 +61,7 @@ namespace Discord.API.Models.Json.Guilds
         public JsonEmoji[] Emojis { get; set; }
 
         [JsonPropertyName("features")]
-        public GuildFeature Features { get; set; }
+        public string[] Features { get; set; }
 
         [JsonPropertyName("mfa_level")]
         public MfaLevel MfaLevel { get; set; }
@@ -70,16 +70,16 @@ namespace Discord.API.Models.Json.Guilds
         public NsfwLevel NsfwLevel { get; set; }
 
         [JsonPropertyName("application_id")]
-        public ulong? ApplicationId { get; set; }
+        public string? ApplicationId { get; set; }
 
         [JsonPropertyName("widget_enabled")]
         public bool? WidgetEnabled { get; set; }
 
         [JsonPropertyName("widget_channel_id")]
-        public ulong? WidgetChannelId { get; set; }
+        public string? WidgetChannelId { get; set; }
 
         [JsonPropertyName("system_channel_id")]
-        public ulong? SystemChannelId { get; set; }
+        public string? SystemChannelId { get; set; }
 
         [JsonPropertyName("premium_tier")]
         public PremiumTier PremiumTier { get; set; }
@@ -97,7 +97,7 @@ namespace Discord.API.Models.Json.Guilds
         public SystemChannelMessageDeny SystemChannelFlags { get; set; }
 
         [JsonPropertyName("rules_channel_id")]
-        public ulong? RulesChannelId { get; set; }
+        public string? RulesChannelId { get; set; }
 
         [JsonPropertyName("max_presences")]
         public int? MaxPresences { get; set; }
@@ -112,7 +112,7 @@ namespace Discord.API.Models.Json.Guilds
         public string PreferredLocale { get; set; }
 
         [JsonPropertyName("public_updates_channel_id")]
-        public ulong? PublicUpdatesChannelId { get; set; }
+        public string? PublicUpdatesChannelId { get; set; }
 
         [JsonPropertyName("max_video_channel_users")]
         public int? MaxVideoChannelUsers { get; set; }

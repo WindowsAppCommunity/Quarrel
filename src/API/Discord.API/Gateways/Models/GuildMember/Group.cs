@@ -6,8 +6,8 @@ namespace Discord.API.Gateways.Models.GuildMember
 {
     internal class Group
     {
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
+        [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong Id { get; set; }
 
         [JsonPropertyName("count")]
         public int Count { get; set; }

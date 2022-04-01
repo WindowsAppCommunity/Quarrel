@@ -6,10 +6,10 @@ namespace Discord.API.Gateways.Models.Messages
 {
     internal class MessageDeleted
     {
-        [JsonPropertyName("id")]
-        public string MessageId { get; set; }
+        [JsonPropertyName("id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
+        public ulong MessageId { get; set; }
 
-        [JsonPropertyName("channel_id")]
-        public string ChannelId { get; set; }
+        [JsonPropertyName("channel_id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
+        public ulong ChannelId { get; set; }
     }
 }

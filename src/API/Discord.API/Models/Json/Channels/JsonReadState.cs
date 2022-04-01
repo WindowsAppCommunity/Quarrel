@@ -7,13 +7,13 @@ namespace Discord.API.Models.Json.Channels
 {
     internal class JsonReadState
     {
-        [JsonPropertyName("id")]
+        [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong ChannelId { get; set; }
 
         [JsonPropertyName("mention_count")]
         public int? MentionCount { get; set; }
 
-        [JsonPropertyName("last_pin_timestamp")]
+        [JsonPropertyName("last_message_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? LastMessageId{ get; set; }
 
         [JsonPropertyName("last_pin_timestamp")]

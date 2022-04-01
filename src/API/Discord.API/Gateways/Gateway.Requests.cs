@@ -7,7 +7,7 @@ namespace Discord.API.Gateways
 {
     internal partial class Gateway
     {
-        public async Task RequestGuildMembers(ulong[] guildIds, string query, int? limit = null, bool? presences = null, ulong[]? userIds = null)
+        public async Task RequestGuildMembers(ulong[] guildIds, string query, int limit = 0, bool? presences = null, ulong[]? userIds = null)
         {
             var payload = new GuildRequestMembers()
             {
@@ -34,7 +34,7 @@ namespace Discord.API.Gateways
 
         public async Task RequestAllGuildMembers(ulong guildId)
         {
-            await RequestGuildMembers(new ulong[] { guildId }, string.Empty, 0);
+            await RequestGuildMembers(new ulong[] { guildId }, string.Empty);
         }
 
         public async Task<bool> SubscribeToGuildAsync(ulong[] channelIds)
@@ -78,7 +78,7 @@ namespace Discord.API.Gateways
             await SendMessageAsync(frame);
         }
 
-        public async Task VoiceStatusUpdateAsync(string guildId, string channelId, bool selfMute, bool selfDeaf)
+        public async Task VoiceStatusUpdateAsync(ulong guildId, ulong channelId, bool selfMute, bool selfDeaf)
         {
             var payload = new VoiceStatusUpdate()
             {

@@ -7,7 +7,7 @@ namespace Discord.API.Models.Json.Emojis
 {
     internal class JsonEmoji
     {
-        [JsonPropertyName("id")]
+        [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? Id { get; set; }
 
         [JsonPropertyName("name")]
@@ -16,7 +16,7 @@ namespace Discord.API.Models.Json.Emojis
         [JsonPropertyName("animated")]
         public bool? IsAnimated { get; set; }
 
-        [JsonPropertyName("roles")]
+        [JsonPropertyName("roles"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong[] Roles { get; set; }
 
         [JsonPropertyName("require_colons")]

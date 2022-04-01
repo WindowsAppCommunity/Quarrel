@@ -6,10 +6,10 @@ namespace Discord.API.Gateways.Models.Messages
 {
     internal class MessageAck
     {
-        [JsonPropertyName("message_id")]
+        [JsonPropertyName("message_id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
         public ulong MessageId { get; set; }
 
-        [JsonPropertyName("channel_id")]
+        [JsonPropertyName("channel_id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
         public ulong ChannelId { get; set; }
     }
 }

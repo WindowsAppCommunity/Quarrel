@@ -7,7 +7,7 @@ namespace Discord.API.Gateways.Models.Guilds
 {
     internal class GuildBanUpdate
     {
-        [JsonPropertyName("guild_id")]
+        [JsonPropertyName("guild_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong GuildId { get; set; }
 
         [JsonPropertyName("user")]

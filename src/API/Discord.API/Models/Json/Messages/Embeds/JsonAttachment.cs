@@ -6,8 +6,8 @@ namespace Discord.API.Models.Json.Messages.Embeds
 {
     internal class JsonAttachment
     {
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
+        [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong Id { get; set; }
 
         [JsonPropertyName("filename")]
         public string Filename { get; set; }

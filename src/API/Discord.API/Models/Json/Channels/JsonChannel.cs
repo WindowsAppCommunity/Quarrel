@@ -11,7 +11,7 @@ namespace Discord.API.Models.Json.Channels
     internal class JsonChannel
     {
         // Universal
-        [JsonPropertyName("id")]
+        [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong Id { get; set; }
 
         [JsonPropertyName("type")]
@@ -22,7 +22,7 @@ namespace Discord.API.Models.Json.Channels
         [JsonPropertyName("name")]
         public string? Name { get; set; }
 
-        [JsonPropertyName("owner_id")]
+        [JsonPropertyName("owner_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? OwnerId { get; set; }
 
         // Messages
@@ -39,7 +39,7 @@ namespace Discord.API.Models.Json.Channels
         [JsonPropertyName("permission_overwrites")]
         public JsonOverwrite[]? PermissionOverwrites { get; set; }
 
-        [JsonPropertyName("parent_id")]
+        [JsonPropertyName("parent_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? CategoryId { get; set; }
 
         // Text

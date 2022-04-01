@@ -7,7 +7,7 @@ namespace Discord.API.Gateways.Models.GuildMember
 {
     internal class GuildMembersChunk
     {
-        [JsonPropertyName("guild_id")]
+        [JsonPropertyName("guild_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong GuildId { get; set; }
 
         [JsonPropertyName("members")]

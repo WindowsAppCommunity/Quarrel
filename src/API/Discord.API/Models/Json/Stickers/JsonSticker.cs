@@ -8,7 +8,7 @@ namespace Discord.API.Models.Json.Stickers
 {
     internal class JsonSticker
     {
-        [JsonPropertyName("id")]
+        [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong Id { get; set; }
 
         [JsonPropertyName("pack_id")]
@@ -32,7 +32,7 @@ namespace Discord.API.Models.Json.Stickers
         [JsonPropertyName("available")]
         public bool? Available { get; set; }
 
-        [JsonPropertyName("guild_id")]
+        [JsonPropertyName("guild_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? GuildId { get; set; }
 
         [JsonPropertyName("user")]

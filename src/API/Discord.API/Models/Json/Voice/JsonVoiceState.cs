@@ -8,13 +8,13 @@ namespace Discord.API.Models.Json.Voice
 {
     internal class JsonVoiceState
     {
-        [JsonPropertyName("guild_id")]
+        [JsonPropertyName("guild_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? GuildId { get; set; }
 
-        [JsonPropertyName("channel_id")]
+        [JsonPropertyName("channel_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? ChannelId { get; set; }
 
-        [JsonPropertyName("user_id")]
+        [JsonPropertyName("user_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong UserId { get; set; }
 
         [JsonPropertyName("member")]

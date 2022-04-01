@@ -6,7 +6,7 @@ namespace Discord.API.Gateways.Models
 {
     internal class GuildRequestMembers
     {
-        [JsonPropertyName("guild_id")]
+        [JsonPropertyName("guild_id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
         public ulong[] GuildIds { get; set; }
 
         [JsonPropertyName("query")]
@@ -18,7 +18,7 @@ namespace Discord.API.Gateways.Models
         [JsonPropertyName("presences")]
         public bool? Presences { get; set; }
 
-        [JsonPropertyName("user_ids")]
+        [JsonPropertyName("user_ids"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
         public ulong[]? UserIds { get; set; }
     }
 }

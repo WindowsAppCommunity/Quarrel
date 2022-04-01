@@ -10,6 +10,7 @@ namespace Discord.API.Models.Users
     {
         internal User(JsonUser restUser)
         {
+            Id = restUser.Id;
             Username = restUser.Username;
             Discriminator = restUser.Discriminator;
             Avatar = restUser.Avatar;
@@ -22,25 +23,25 @@ namespace Discord.API.Models.Users
             PublicFlags = restUser.PublicFlags;
         }
 
-        public string Username { get; private set; }
+        public string Username { get; protected set; }
 
-        public string Discriminator { get; private set; }
+        public string Discriminator { get; protected set; }
 
-        public string? Avatar { get; private set; }
+        public string? Avatar { get; protected set; }
 
-        public string? Bio { get; private set; }
+        public string? Bio { get; protected set; }
 
-        public string? Banner { get; private set; }
+        public string? Banner { get; protected set; }
 
-        public string? BannerColor { get; private set; }
+        public string? BannerColor { get; protected set; }
 
-        public uint? AccentColor { get; private set; }
+        public uint? AccentColor { get; protected set; }
 
-        public bool? Bot { get; private set; }
+        public bool? Bot { get; protected set; }
 
-        public UserProperties? Flags { get; private set; }
+        public UserProperties? Flags { get; protected set; }
 
-        public UserProperties? PublicFlags { get; private set; }
+        public UserProperties? PublicFlags { get; protected set; }
 
         public string? GetAvatarUrl(uint size)
         {

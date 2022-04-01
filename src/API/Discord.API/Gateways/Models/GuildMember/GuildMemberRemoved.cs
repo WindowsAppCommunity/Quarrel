@@ -7,8 +7,8 @@ namespace Discord.API.Gateways.Models.GuildMember
 {
     internal class GuildMemberRemoved
     {
-        [JsonPropertyName("guild_id")]
-        public string GuildId { get; set; }
+        [JsonPropertyName("guild_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong GuildId { get; set; }
 
         [JsonPropertyName("user")]
         public JsonUser User { get; set; }

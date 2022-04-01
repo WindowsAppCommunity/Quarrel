@@ -6,14 +6,14 @@ namespace Discord.API.Models.Json.Settings
 {
     internal class JsonGuildFolder
     {
-        [JsonPropertyName("id")]
-        public ulong Id { get; set; }
+        [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public long? Id { get; set; }
 
         [JsonPropertyName("name")]
         public string? Name { get; set; }
 
-        [JsonPropertyName("guild_ids")]
-        public string[] GuildIds { get; set; }
+        [JsonPropertyName("guild_ids"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong[] GuildIds { get; set; }
 
         [JsonPropertyName("color")]
         public uint? Color { get; set; }

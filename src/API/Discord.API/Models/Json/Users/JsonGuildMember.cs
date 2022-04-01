@@ -13,8 +13,8 @@ namespace Discord.API.Models.Json.Users
         [JsonPropertyName("nick")]
         public string Nickname { get; set; }
 
-        [JsonPropertyName("roles")]
-        public string[] Roles { get; set; }
+        [JsonPropertyName("roles"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong[] Roles { get; set; }
 
         [JsonPropertyName("joined_at")]
         public DateTimeOffset? JoinedAt { get; set; }
@@ -25,7 +25,7 @@ namespace Discord.API.Models.Json.Users
         [JsonPropertyName("mute")]
         public bool? Mute { get; set; }
 
-        [JsonPropertyName("guild_id")]
-        public string? GuildId { get; set; }
+        [JsonPropertyName("guild_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong? GuildId { get; set; }
     }
 }
