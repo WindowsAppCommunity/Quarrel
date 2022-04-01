@@ -33,11 +33,17 @@ namespace Discord.API.Gateway
             _decompressor = new DeflateStream(_decompressionBuffer, CompressionMode.Decompress);
         }
 
-        private async Task SendMessageAsync(SocketFrame frame)
+        private async Task SendMessageAsync(SocketFrame frame, bool includeNulls = false)
         {
+            JsonSerializerOptions options = new JsonSerializerOptions();
+            if (includeNulls)
+            {
+                options.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+            }
+
             try
             {
-                string? json = JsonSerializer.Serialize(frame);
+                string? json = JsonSerializer.Serialize(frame, options);
                 byte[] bytes = Encoding.UTF8.GetBytes(json);
                 await _socket.SendAsync(bytes, 0, bytes.Length, true);
             }

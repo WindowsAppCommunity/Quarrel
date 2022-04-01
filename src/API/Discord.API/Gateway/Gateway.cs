@@ -43,6 +43,12 @@ namespace Discord.API.Gateway
             return await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "6", append));
         }
 
+        public async Task<bool> ResumeAsync()
+        {
+            _socket = CreateSocket();
+            return await ConnectAsync();
+        }
+
         private async Task<bool> ConnectAsync(string connectionUrl)
         {
             try
