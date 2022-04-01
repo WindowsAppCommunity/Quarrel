@@ -53,9 +53,9 @@ namespace Discord.API.Gateway
         public const string VOICE_STATE_UPDATED = "VOICE_STATE_UPDATE";
         public const string VOICE_SERVER_UPDATED = "VOICE_SERVER_UPDATE";
 
-        public const string FRIEND_ADDED = "RELATIONSHIP_ADD";
-        public const string FRIEND_REMOVED = "RELATIONSHIP_REMOVE";
-        public const string FRIEND_UPDATE = "RELATIONSHIP_UPDATE";
+        public const string RELATIONSHIP_ADDED = "RELATIONSHIP_ADD";
+        public const string RELATIONSHIP_REMOVED = "RELATIONSHIP_REMOVE";
+        public const string RELATIONSHIP_UPDATE = "RELATIONSHIP_UPDATE";
 
         public const string SESSIONS_REPLACE = "SESSIONS_REPLACE";
     }

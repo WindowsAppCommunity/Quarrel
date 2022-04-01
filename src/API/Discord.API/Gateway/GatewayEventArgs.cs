@@ -6,9 +6,9 @@ namespace Discord.API.Gateway
 {
     internal class GatewayEventArgs<T> : EventArgs
     {
-        public T EventData { get; }
+        public T? EventData { get; }
 
-        public GatewayEventArgs(T eventData)
+        public GatewayEventArgs(T? eventData)
         {
             EventData = eventData;
         }
