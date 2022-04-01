@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Gateway.Models.GuildMember
 {
-    internal class GuildMembersCheck
+    internal class GuildMembersChunk
     {
         [JsonPropertyName("guild_id")]
         public ulong GuildId { get; set; }

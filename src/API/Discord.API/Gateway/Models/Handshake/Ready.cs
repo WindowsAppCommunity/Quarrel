@@ -6,7 +6,7 @@ using Discord.API.Models.Json.Settings;
 using Discord.API.Models.Json.Users;
 using System.Text.Json.Serialization;
 
-namespace Discord.API.Gateway.Models
+namespace Discord.API.Gateway.Models.Handshake
 {
     internal class Ready
     {
