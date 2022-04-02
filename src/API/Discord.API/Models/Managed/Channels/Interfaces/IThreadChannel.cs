@@ -5,7 +5,7 @@ using System;
 
 namespace Discord.API.Models.Channels.Interfaces
 {
-    public interface IThreadChannel : IGuildTextChannel
+    internal interface IThreadChannel : IGuildTextChannel
     {
         ThreadType ThreadType { get; }
 

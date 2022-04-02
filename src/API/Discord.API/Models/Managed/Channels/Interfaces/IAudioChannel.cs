@@ -2,7 +2,7 @@
 
 namespace Discord.API.Models.Channels.Interfaces
 {
-    public interface IAudioChannel
+    internal interface IAudioChannel
     {
         string? RTCRegion { get; }
     }

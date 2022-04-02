@@ -2,8 +2,8 @@
 
 namespace Discord.API.Models.Channels.Interfaces
 {
-    public interface INestedChannel : IGuildChannel
+    internal interface INestedChannel : IGuildChannel
     {
-        ulong CategoryId { get; }
+        ulong? CategoryId { get; }
     }
 }

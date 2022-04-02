@@ -1,6 +1,5 @@
 ﻿// Adam Dernis © 2022
 
-using Discord.API.Models.Enums.Permissions;
 using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Roles
@@ -23,7 +22,7 @@ namespace Discord.API.Models.Json.Roles
         public uint? Color{ get; set; }
 
         [JsonPropertyName("hoist")]
-        public bool Hoise { get; set; }
+        public bool Hoist { get; set; }
 
         [JsonPropertyName("mentionable")]
         public bool Mentionable { get; set; }

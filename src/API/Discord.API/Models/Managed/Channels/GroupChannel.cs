@@ -30,6 +30,22 @@ namespace Discord.API.Models.Channels
 
         IUser[] IGroupChannel.Recipients => Recipients;
 
+        public int? MentionCount { get; private set; }
+
+        public ulong? LastReadMessageId { get; private set; }
+
+        int? IMessageChannel.MentionCount
+        {
+            get => MentionCount;
+            set => MentionCount = value;
+        }
+
+        ulong? IMessageChannel.LastReadMessageId
+        {
+            get => LastReadMessageId;
+            set => LastReadMessageId = value;
+        }
+
         internal override JsonChannel ToRestChannel()
         {
             JsonChannel restChannel = base.ToRestChannel();

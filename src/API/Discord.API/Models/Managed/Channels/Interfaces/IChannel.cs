@@ -5,7 +5,7 @@ using Discord.API.Models.Enums.Channels;
 
 namespace Discord.API.Models.Channels.Interfaces
 {
-    public interface IChannel : ISnowflakeItem
+    internal interface IChannel : ISnowflakeItem
     {
         string? Name { get; }
 

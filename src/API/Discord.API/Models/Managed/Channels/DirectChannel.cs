@@ -19,6 +19,22 @@ namespace Discord.API.Models.Channels
 
         public ulong RecipientId { get; private set; }
 
+        public int? MentionCount { get; private set; }
+
+        public ulong? LastReadMessageId { get; private set; }
+
+        int? IMessageChannel.MentionCount
+        {
+            get => MentionCount;
+            set => MentionCount = value;
+        }
+
+        ulong? IMessageChannel.LastReadMessageId
+        {
+            get => LastReadMessageId;
+            set => LastReadMessageId = value;
+        }
+
         public User GetRecipient(DiscordClient context)
         {
             User? user = context.GetUserInternal(RecipientId);

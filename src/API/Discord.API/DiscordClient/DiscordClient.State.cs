@@ -1,5 +1,6 @@
 ﻿// Adam Dernis © 2022
 
+using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Channels.Abstract;
 using Discord.API.Models.Channels.Interfaces;
 using Discord.API.Models.Json.Channels;
@@ -60,6 +61,7 @@ namespace Discord.API
                     AddGuildMember(guild.Id, member);
                 }
 
+
                 return true;
             }
 
@@ -104,10 +106,11 @@ namespace Discord.API
 
         internal bool AddChannel(JsonChannel jsonChannel, ulong? guildId = null)
         {
-            Channel channel = Channel.FromRestChannel(jsonChannel, this, guildId);
-            if(_channelMap.TryAdd(channel.Id, channel))
+            guildId = jsonChannel.GuildId ?? guildId;
+            Channel? channel = Channel.FromRestChannel(jsonChannel, this, guildId);
+            if(channel != null && _channelMap.TryAdd(channel.Id, channel))
             {
-                if (jsonChannel.GuildId.HasValue && _guildMap.TryGetValue(jsonChannel.GuildId.Value, out Guild guild))
+                if (guildId.HasValue && _guildMap.TryGetValue(guildId.Value, out Guild guild))
                 {
                     guild.AddChannel(channel.Id);
                 }
@@ -144,6 +147,20 @@ namespace Discord.API
             return false;
         }
 
+        internal bool AddReadState(JsonReadState jsonReadState)
+        {
+            Channel? channel = GetChannelInternal(jsonReadState.ChannelId);
+
+            if (channel is IMessageChannel messageChannel)
+            {
+                messageChannel.MentionCount = jsonReadState.MentionCount;
+                messageChannel.LastReadMessageId = jsonReadState.LastMessageId;
+                return true;
+            }
+
+            return false;
+        }
+
         internal User? GetUserInternal(ulong userId)
         {
             if (_userMap.TryGetValue(userId, out User user))
@@ -152,6 +169,17 @@ namespace Discord.API
             }
 
             return null;
+        }
+
+        internal User? GetOrAddUserInternal(JsonUser jsonUser)
+        {
+            if(_userMap.TryGetValue(jsonUser.Id, out User user))
+            {
+                return user;
+            }
+
+            AddUser(jsonUser);
+            return GetUserInternal(jsonUser.Id);
         }
 
         internal bool AddUser(JsonUser jsonUser)
@@ -219,6 +247,64 @@ namespace Discord.API
         internal bool RemoveGuildMember(ulong guildId, JsonGuildMember jsonGuildMember)
         {
             return _guildsMemberMap.TryRemove((guildId, jsonGuildMember.User.Id), out GuildMember member);
+        }
+
+        internal bool AddPresence(ulong? guildId, JsonPresence jsonPresence)
+        {
+            Guard.IsNotNull(jsonPresence.User, nameof(jsonPresence.User));
+
+            if (guildId is null)
+            {
+                return AddPresence(jsonPresence);
+            }
+
+            ulong userId = jsonPresence.User.Id;
+            if (_guildsMemberMap.TryGetValue((guildId.Value, userId), out GuildMember member))
+            {
+                member.Presence = new Presence(jsonPresence);
+                return true;
+            }
+
+            return false;
+        }
+
+        internal bool AddPresence(JsonPresence jsonPresence)
+        {
+            Guard.IsNotNull(jsonPresence.User, nameof(jsonPresence.User));
+
+            if (GetUserInternal(jsonPresence.User.Id) is null)
+            {
+                AddUser(jsonPresence.User);
+            }
+
+            if(_userMap.TryGetValue(jsonPresence.User.Id, out User user))
+            {
+                user.Presence = new Presence(jsonPresence);
+                return true;
+            }
+
+            return false;
+        }
+
+        internal bool AddRelationship(JsonRelationship jsonRelationship)
+        {
+            Guard.IsNotNull(jsonRelationship.User, nameof(jsonRelationship.User));
+
+            User? user = GetOrAddUserInternal(jsonRelationship.User);
+
+            bool status = user is not null;
+            if (user is not null)
+            {
+                user.RelationshipType = jsonRelationship.Type;
+            }
+
+            if (jsonRelationship.Presence is not null)
+            {
+                bool added = AddPresence(jsonRelationship.Presence);
+                status = status && added;
+            }
+
+            return status;
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Discord.API.Models.Channels.Interfaces
 {
-    public interface ICategoryChannel : IGuildChannel
+    internal interface ICategoryChannel : IGuildChannel
     {
     }
 }

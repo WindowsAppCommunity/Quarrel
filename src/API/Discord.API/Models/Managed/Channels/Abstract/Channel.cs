@@ -31,16 +31,18 @@ namespace Discord.API.Models.Channels.Abstract
             Type = jsonChannel.Type;
         }
 
-        internal static Channel FromRestChannel(JsonChannel jsonChannel, DiscordClient context, ulong? guildId = null)
+        internal static Channel? FromRestChannel(JsonChannel jsonChannel, DiscordClient context, ulong? guildId = null)
         {
             return jsonChannel.Type switch
             {
                 ChannelType.GuildText => new GuildTextChannel(jsonChannel, guildId, context),
+                ChannelType.News => new GuildTextChannel(jsonChannel, guildId, context),
                 ChannelType.DirectMessage => new DirectChannel(jsonChannel, context),
                 ChannelType.GuildVoice => new VoiceChannel(jsonChannel, guildId, context),
+                ChannelType.StageVoice => new VoiceChannel(jsonChannel, guildId, context),
                 ChannelType.GroupDM => new GroupChannel(jsonChannel, context),
                 ChannelType.Category => new CategoryChannel(jsonChannel, guildId, context),
-                _ => throw new Exception(),
+                _ => null,
             };
         }
 

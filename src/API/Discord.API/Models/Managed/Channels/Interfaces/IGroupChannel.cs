@@ -4,7 +4,7 @@ using Discord.API.Models.Users;
 
 namespace Discord.API.Models.Channels.Interfaces
 {
-    public interface IGroupChannel : IMessageChannel, IPrivateChannel, IAudioChannel
+    internal interface IGroupChannel : IMessageChannel, IPrivateChannel, IAudioChannel
     {
         ulong OwnerId { get; }
 

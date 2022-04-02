@@ -16,6 +16,9 @@ namespace Discord.API.Gateways.Models.Messages
         [JsonPropertyName("message_id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
         public ulong MessageId { get; set; }
 
+        [JsonPropertyName("guild_id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
+        public ulong? GuildId { get; set; }
+
         [JsonPropertyName("emoji")]
         public JsonEmoji Emoji { get; set; }
     }

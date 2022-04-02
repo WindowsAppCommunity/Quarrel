@@ -5,6 +5,7 @@ using Discord.API.Models.Base;
 using Discord.API.Models.Enums.Guilds;
 using Discord.API.Models.Guilds.Interfaces;
 using Discord.API.Models.Json.Guilds;
+using Discord.API.Models.Managed.Roles;
 using System.Collections.Generic;
 
 namespace Discord.API.Models.Managed.Guilds
@@ -12,6 +13,7 @@ namespace Discord.API.Models.Managed.Guilds
     public class Guild : SnowflakeItem, IGuild
     {
         private HashSet<ulong> _channelIds;
+        private Dictionary<ulong, Role> _roles;
 
         internal Guild(JsonGuild restGuild, DiscordClient context)
             : base(context)
@@ -44,6 +46,12 @@ namespace Discord.API.Models.Managed.Guilds
             Available = true;
 
             _channelIds = new HashSet<ulong>();
+            _roles = new Dictionary<ulong, Role>();
+
+            foreach (var role in restGuild.Roles)
+            {
+                _roles.Add(role.Id, new Role(role, context));
+            }
         }
 
         public string Name { get; private set; }

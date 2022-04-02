@@ -20,6 +20,21 @@ namespace Discord.API
                 // All child members are handled here
                 AddGuild(guild);
             }
+
+            foreach (var readState in ready.ReadStates)
+            {
+                AddReadState(readState);
+            }
+
+            foreach (var presence in ready.Presences)
+            {
+                AddPresence(presence);
+            }
+
+            foreach (var relationship in ready.Relationships)
+            {
+                AddRelationship(relationship);
+            }
         }
     }
 }

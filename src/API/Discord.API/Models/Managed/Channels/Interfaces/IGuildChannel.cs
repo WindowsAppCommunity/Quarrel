@@ -2,7 +2,7 @@
 
 namespace Discord.API.Models.Channels.Interfaces
 {
-    public interface IGuildChannel : IChannel
+    internal interface IGuildChannel : IChannel
     {
         int Position { get; }
 

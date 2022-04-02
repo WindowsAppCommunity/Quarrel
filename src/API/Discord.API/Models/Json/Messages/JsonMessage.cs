@@ -21,7 +21,7 @@ namespace Discord.API.Models.Json.Messages
         public ulong ChannelId { get; set; }
 
         [JsonPropertyName("guild_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
-        public string? GuildId { get; set; }
+        public ulong? GuildId { get; set; }
 
         [JsonPropertyName("webhook_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? WebhookId { get; set; }

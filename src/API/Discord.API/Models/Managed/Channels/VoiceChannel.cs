@@ -14,13 +14,12 @@ namespace Discord.API.Models.Channels
         {
             guildId = restChannel.GuildId ?? guildId;
             Guard.IsNotNull(restChannel.Bitrate, nameof(restChannel.Bitrate));
-            Guard.IsNotNull(restChannel.CategoryId, nameof(restChannel.CategoryId));
             Guard.IsNotNull(restChannel.Position, nameof(restChannel.Position));
             Guard.IsNotNull(guildId, nameof(guildId));
 
             Bitrate = restChannel.Bitrate.Value;
             UserLimit = restChannel.UserLimit;
-            CategoryId = restChannel.CategoryId.Value;
+            CategoryId = restChannel.CategoryId;
             Position = restChannel.Position.Value;
             GuildId = guildId.Value;
             RTCRegion = restChannel.RTCRegion;
@@ -30,7 +29,7 @@ namespace Discord.API.Models.Channels
 
         public int? UserLimit { get; private set; }
 
-        public ulong CategoryId { get; private set; }
+        public ulong? CategoryId { get; private set; }
 
         public int Position { get; private set; }
 
