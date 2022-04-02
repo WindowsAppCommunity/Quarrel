@@ -26,11 +26,11 @@ namespace Discord.API.Models.Json.Channels
         public ulong? OwnerId { get; set; }
 
         // Messages
-        [JsonPropertyName("last_message_id")]
+        [JsonPropertyName("last_message_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? LastMessageId { get; set; }
 
         // Guild
-        [JsonPropertyName("guild_id")]
+        [JsonPropertyName("guild_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? GuildId { get; set; }
 
         [JsonPropertyName("position")]

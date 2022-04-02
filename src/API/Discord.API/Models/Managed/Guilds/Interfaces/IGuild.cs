@@ -9,7 +9,7 @@ namespace Discord.API.Models.Guilds.Interfaces
     {
         string Name { get; }
 
-        int AFKTimeout { get; }
+        int? AFKTimeout { get; }
 
         bool IsWidgetEnabled { get; }
 
@@ -45,12 +45,6 @@ namespace Discord.API.Models.Guilds.Interfaces
 
         string VoiceRegionId { get; }
 
-        int MaxBitrate { get; }
-
-        string PreferredLocale { get; }
-
         NsfwLevel NsfwLevel { get; }
-
-        ulong MaxUploadLimit { get; }
     }
 }

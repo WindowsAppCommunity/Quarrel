@@ -2,15 +2,13 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Gateways;
-using Discord.API.Gateways.Models.Handshake;
 using Discord.API.Rest;
 using Discord.API.Rest.Gateway;
-using System;
 using System.Threading.Tasks;
 
 namespace Discord.API
 {
-    public class DiscordClient
+    public partial class DiscordClient
     {
         private IGatewayService? _gatewayService;
         private Gateway? _gateway;
@@ -18,7 +16,7 @@ namespace Discord.API
         public async Task LoginAsync(string token)
         {
             InitializeServices(token);
-            SetupGateway(token);
+            await SetupGatewayAsync(token);
         }
 
         private void InitializeServices(string token)
@@ -28,19 +26,14 @@ namespace Discord.API
             _gatewayService = restFactory.GetGatewayService();
         }
 
-        private async void SetupGateway(string token)
+        private async Task SetupGatewayAsync(string token)
         {
             Guard.IsNotNull(_gatewayService, nameof(_gatewayService));
 
             var gatewayConfig = await _gatewayService.GetGatewayConfig();
             _gateway = new Gateway(gatewayConfig, token);
             await _gateway.ConnectAsync();
-            _gateway.Ready += OnReady;
-        }
-
-        private void OnReady(object sender, GatewayEventArgs<Ready> e)
-        {
-            throw new NotImplementedException();
+            RegisterEvents();
         }
     }
 }

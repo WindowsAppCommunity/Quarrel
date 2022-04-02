@@ -18,6 +18,6 @@ namespace Discord.API.Models.Users.Interfaces
 
         PremiumType PurchasedFlags { get; }
 
-        string Locale { get; }
+        string? Locale { get; }
     }
 }

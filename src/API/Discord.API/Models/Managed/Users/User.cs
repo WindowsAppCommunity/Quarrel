@@ -1,5 +1,6 @@
 ﻿// Adam Dernis © 2022
 
+using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Base;
 using Discord.API.Models.Enums.Users;
 using Discord.API.Models.Json.Users;
@@ -8,7 +9,8 @@ namespace Discord.API.Models.Users
 {
     public class User : SnowflakeItem, IUser
     {
-        internal User(JsonUser restUser)
+        internal User(JsonUser restUser, DiscordClient context) :
+            base(context)
         {
             Id = restUser.Id;
             Username = restUser.Username;
@@ -51,6 +53,22 @@ namespace Discord.API.Models.Users
             }
 
             return $"https://cdn.discordapp.com/avatars/{Id}/{Avatar}.png?size={size}";
+        }
+
+        internal virtual void UpdateFromRestUser(JsonUser jsonUser)
+        {
+            Guard.IsEqualTo(Id, jsonUser.Id, nameof(Id));
+
+            Username = jsonUser.Username;
+            Discriminator = jsonUser.Discriminator;
+            Avatar = jsonUser.Avatar ?? Avatar;
+            Bio = jsonUser.Bio ?? Bio;
+            Banner = jsonUser.Banner ?? Banner;
+            BannerColor = jsonUser.BannerColor ?? BannerColor;
+            AccentColor = jsonUser.AccentColor ?? AccentColor;
+            Bot = jsonUser.Bot ?? Bot;
+            Flags = jsonUser.Flags ?? Flags;
+            PublicFlags = jsonUser.PublicFlags ?? PublicFlags;
         }
 
         internal virtual JsonUser ToRestUser()

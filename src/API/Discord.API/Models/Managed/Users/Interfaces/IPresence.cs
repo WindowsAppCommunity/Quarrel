@@ -4,7 +4,7 @@ using Discord.API.Models.Enums.Users;
 
 namespace Discord.API.Models.Users.Interfaces
 {
-    public interface Presence
+    public interface IPresence
     {
         UserStatus Status { get; }
     }

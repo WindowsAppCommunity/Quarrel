@@ -9,10 +9,10 @@ namespace Discord.API.Models.Users
 {
     public class SelfUser : User, ISelfUser
     {
-        internal SelfUser(JsonUser restUser) : base(restUser)
+        internal SelfUser(JsonUser restUser, DiscordClient context) :
+            base(restUser, context)
         {
             Guard.IsNotNull(restUser.PurchasedFlags, nameof(restUser.PurchasedFlags));
-            Guard.IsNotNull(restUser.Locale, nameof(restUser.Locale));
 
             Email = restUser.Email;
             Phone = restUser.Phone;
@@ -35,7 +35,20 @@ namespace Discord.API.Models.Users
 
         public PremiumType PurchasedFlags { get; private set; }
 
-        public string Locale { get; private set; }
+        public string? Locale { get; private set; }
+
+        internal override void UpdateFromRestUser(JsonUser jsonUser)
+        {
+            base.UpdateFromRestUser(jsonUser);
+
+            Email = jsonUser.Email ?? Email;
+            Phone = jsonUser.Phone ?? Phone;
+            Verified = jsonUser.Verified ?? Verified;
+            MfaEnabled = jsonUser.MfaEnabled ?? MfaEnabled;
+            NSFWAllowed = jsonUser.NSFWAllowed ?? NSFWAllowed;
+            PurchasedFlags = jsonUser.PurchasedFlags ?? PurchasedFlags;
+            Locale = jsonUser.Locale ?? Locale;
+        }
 
         internal override JsonUser ToRestUser()
         {

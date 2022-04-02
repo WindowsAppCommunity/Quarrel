@@ -11,14 +11,15 @@ namespace Discord.API.Models.Channels
 {
     internal class GroupChannel : Channel, IGroupChannel
     {
-        public GroupChannel(JsonChannel restChannel) : base(restChannel)
+        public GroupChannel(JsonChannel restChannel, DiscordClient context) :
+            base(restChannel, context)
         {
             Guard.IsNotNull(restChannel.OwnerId, nameof(restChannel.OwnerId));
             Guard.IsNotNull(restChannel.Recipients, nameof(restChannel.Recipients));
 
             OwnerId = restChannel.OwnerId.Value;
             RTCRegion = restChannel.RTCRegion;
-            Recipients = restChannel.Recipients.Select(x => new User(x)).ToArray();
+            Recipients = restChannel.Recipients.Select(x => new User(x, context)).ToArray();
         }
 
         public ulong OwnerId { get; private set; }

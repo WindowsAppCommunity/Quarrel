@@ -3,30 +3,44 @@
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Channels.Abstract;
 using Discord.API.Models.Channels.Interfaces;
-using Discord.API.Models.Users;
 using Discord.API.Models.Json.Channels;
+using Discord.API.Models.Users;
 
 namespace Discord.API.Models.Channels
 {
     public class DirectChannel : Channel, IDirectChannel
     {
-        internal DirectChannel(JsonChannel restChannel) : base(restChannel)
+        internal DirectChannel(JsonChannel restChannel, DiscordClient context) : base(restChannel, context)
         {            
             Guard.IsNotNull(restChannel.Recipient, nameof(restChannel.Recipient));
 
-            Recipient = new User(restChannel.Recipient);
+            RecipientId = restChannel.Recipient.Id;
         }
 
-        public User Recipient { get; private set; }
+        public ulong RecipientId { get; private set; }
 
-        IUser IDirectChannel.Recipient => Recipient;
+        public User GetRecipient(DiscordClient context)
+        {
+            User? user = context.GetUserInternal(RecipientId);
+            Guard.IsNotNull(user, nameof(user));
+            return user;
+        }
+
+        internal override void UpdateFromRestChannel(JsonChannel jsonChannel)
+        {
+            base.UpdateFromRestChannel(jsonChannel);
+
+            if (jsonChannel.Recipient is not null)
+            {
+                Context.AddUser(jsonChannel.Recipient);
+            }
+        }
 
         internal override JsonChannel ToRestChannel()
         {
             JsonChannel restChannel = base.ToRestChannel();
-            restChannel.Recipient = Recipient.ToRestUser();
+            restChannel.Recipient = Context.GetUserInternal(RecipientId)?.ToRestUser();
             return restChannel;
         }
-
     }
 }

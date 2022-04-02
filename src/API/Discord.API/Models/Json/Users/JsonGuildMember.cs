@@ -10,8 +10,14 @@ namespace Discord.API.Models.Json.Users
         [JsonPropertyName("user")]
         public JsonUser User { get; set; }
 
+        [JsonPropertyName("avatar")]
+        public string Avatar { get; set; }
+
         [JsonPropertyName("nick")]
         public string Nickname { get; set; }
+
+        [JsonPropertyName("hoisted_role"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong? HoistedRole { get; set; }
 
         [JsonPropertyName("roles"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong[] Roles { get; set; }

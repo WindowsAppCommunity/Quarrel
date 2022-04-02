@@ -5,6 +5,7 @@ using Discord.API.Models.Json.Channels;
 using Discord.API.Models.Json.Emojis;
 using Discord.API.Models.Json.Roles;
 using Discord.API.Models.Json.Stickers;
+using Discord.API.Models.Json.Users;
 using Discord.API.Models.Json.Voice;
 using System.Text.Json.Serialization;
 
@@ -27,17 +28,17 @@ namespace Discord.API.Models.Json.Guilds
         [JsonPropertyName("discovery_splash")]
         public string DiscoverySplash { get; set; }
 
-        [JsonPropertyName("owner_id")]
-        public string OwnerId { get; set; }
+        [JsonPropertyName("owner_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong OwnerId { get; set; }
 
         [JsonPropertyName("region")]
         public string Region { get; set; }
 
-        [JsonPropertyName("afk_channel_id")]
-        public string? AFKChannelId { get; set; }
+        [JsonPropertyName("afk_channel_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong? AFKChannelId { get; set; }
 
         [JsonPropertyName("afk_timeout")]
-        public int AFKTimeout { get; set; }
+        public int? AFKTimeout { get; set; }
 
         [JsonPropertyName("verification_level")]
         public VerificationLevel VerificationLevel { get; set; }
@@ -48,8 +49,20 @@ namespace Discord.API.Models.Json.Guilds
         [JsonPropertyName("explicit_content_filter")]
         public ExplicitContentFilterLevel ExplicitContentFilter { get; set; }
 
+        [JsonPropertyName("mfa_level")]
+        public MfaLevel MfaLevel { get; set; }
+
+        [JsonPropertyName("nsfw_level")]
+        public NsfwLevel NsfwLevel { get; set; }
+
+        [JsonPropertyName("channels")]
+        public JsonChannel[] Channels { get; set; }
+
         [JsonPropertyName("threads")]
         public JsonChannel[] Threads { get; set; }
+
+        [JsonPropertyName("members")]
+        public JsonGuildMember[] Members { get; set; }
 
         [JsonPropertyName("voice_states")]
         public JsonVoiceState[] VoiceStates { get; set; }
@@ -63,23 +76,17 @@ namespace Discord.API.Models.Json.Guilds
         [JsonPropertyName("features")]
         public string[] Features { get; set; }
 
-        [JsonPropertyName("mfa_level")]
-        public MfaLevel MfaLevel { get; set; }
-
-        [JsonPropertyName("nsfw_level")]
-        public NsfwLevel NsfwLevel { get; set; }
-
         [JsonPropertyName("application_id")]
         public string? ApplicationId { get; set; }
 
         [JsonPropertyName("widget_enabled")]
-        public bool? WidgetEnabled { get; set; }
+        public bool? IsWidgetEnabled { get; set; }
 
-        [JsonPropertyName("widget_channel_id")]
-        public string? WidgetChannelId { get; set; }
+        [JsonPropertyName("widget_channel_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong? WidgetChannelId { get; set; }
 
-        [JsonPropertyName("system_channel_id")]
-        public string? SystemChannelId { get; set; }
+        [JsonPropertyName("system_channel_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong? SystemChannelId { get; set; }
 
         [JsonPropertyName("premium_tier")]
         public PremiumTier PremiumTier { get; set; }
@@ -96,8 +103,8 @@ namespace Discord.API.Models.Json.Guilds
         [JsonPropertyName("system_channel_flags")]
         public SystemChannelMessageDeny SystemChannelFlags { get; set; }
 
-        [JsonPropertyName("rules_channel_id")]
-        public string? RulesChannelId { get; set; }
+        [JsonPropertyName("rules_channel_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong? RulesChannelId { get; set; }
 
         [JsonPropertyName("max_presences")]
         public int? MaxPresences { get; set; }
@@ -111,8 +118,8 @@ namespace Discord.API.Models.Json.Guilds
         [JsonPropertyName("preferred_locale")]
         public string PreferredLocale { get; set; }
 
-        [JsonPropertyName("public_updates_channel_id")]
-        public string? PublicUpdatesChannelId { get; set; }
+        [JsonPropertyName("public_updates_channel_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong? PublicUpdatesChannelId { get; set; }
 
         [JsonPropertyName("max_video_channel_users")]
         public int? MaxVideoChannelUsers { get; set; }

@@ -9,18 +9,28 @@ namespace Discord.API.Models.Channels
 {
     public class CategoryChannel : Channel, ICategoryChannel
     {
-        internal CategoryChannel(JsonChannel restChannel) : base(restChannel)
+        internal CategoryChannel(JsonChannel restChannel, ulong? guildId, DiscordClient context) :
+            base(restChannel, context)
         {
+            guildId = restChannel.GuildId ?? guildId;
             Guard.IsNotNull(restChannel.Position, nameof(restChannel.Position));
-            Guard.IsNotNull(restChannel.GuildId, nameof(restChannel.GuildId));
+            Guard.IsNotNull(guildId, nameof(guildId));
 
             Position = restChannel.Position.Value;
-            GuildId = restChannel.GuildId.Value;
+            GuildId = guildId.Value;
         }
+
+        public ulong GuildId { get; private set; }
 
         public int Position { get; private set; }
 
-        public ulong GuildId { get; private set; }
+        internal override void UpdateFromRestChannel(JsonChannel jsonChannel)
+        {
+            base.UpdateFromRestChannel(jsonChannel);
+
+            Position = jsonChannel.Position ?? Position;
+            GuildId = jsonChannel.GuildId ?? GuildId;
+        }
 
         internal override JsonChannel ToRestChannel()
         {

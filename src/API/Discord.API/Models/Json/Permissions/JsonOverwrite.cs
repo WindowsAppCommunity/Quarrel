@@ -1,6 +1,5 @@
 ﻿// Adam Dernis © 2022
 
-using Discord.API.Models.Enums.Permissions;
 using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Permissions
@@ -11,12 +10,12 @@ namespace Discord.API.Models.Json.Permissions
         public ulong Id { get; set; }
 
         [JsonPropertyName("type")]
-        public string? Type { get; set; }
+        public int Type { get; set; }
 
-        [JsonPropertyName("allow")]
-        public ChannelPermission Allow { get; set; }
+        [JsonPropertyName("allow"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong Allow { get; set; }
 
-        [JsonPropertyName("deny")]
-        public ChannelPermission Deny { get; set; }
+        [JsonPropertyName("deny"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong Deny { get; set; }
     }
 }

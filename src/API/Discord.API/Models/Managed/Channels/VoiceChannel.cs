@@ -9,18 +9,20 @@ namespace Discord.API.Models.Channels
 {
     public class VoiceChannel : Channel, IGuildVoiceChannel
     {
-        internal VoiceChannel(JsonChannel restChannel) : base(restChannel)
+        internal VoiceChannel(JsonChannel restChannel, ulong? guildId, DiscordClient context) :
+            base(restChannel, context)
         {
+            guildId = restChannel.GuildId ?? guildId;
             Guard.IsNotNull(restChannel.Bitrate, nameof(restChannel.Bitrate));
             Guard.IsNotNull(restChannel.CategoryId, nameof(restChannel.CategoryId));
             Guard.IsNotNull(restChannel.Position, nameof(restChannel.Position));
-            Guard.IsNotNull(restChannel.GuildId, nameof(restChannel.GuildId));
+            Guard.IsNotNull(guildId, nameof(guildId));
 
             Bitrate = restChannel.Bitrate.Value;
             UserLimit = restChannel.UserLimit;
             CategoryId = restChannel.CategoryId.Value;
             Position = restChannel.Position.Value;
-            GuildId = restChannel.GuildId.Value;
+            GuildId = guildId.Value;
             RTCRegion = restChannel.RTCRegion;
         }
 

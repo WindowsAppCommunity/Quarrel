@@ -9,12 +9,15 @@ namespace Discord.API.Models.Channels
 {
     internal class GuildTextChannel : Channel, IGuildTextChannel
     {
-        public GuildTextChannel(JsonChannel restChannel) : base(restChannel)
+        public GuildTextChannel(JsonChannel restChannel, ulong? guildId, DiscordClient context) :
+            base(restChannel, context)
         {
+            guildId = guildId ?? restChannel.GuildId;
+
             Guard.IsNotNull(restChannel.SlowModeDelay, nameof(restChannel.SlowModeDelay));
             Guard.IsNotNull(restChannel.CategoryId, nameof(restChannel.CategoryId));
             Guard.IsNotNull(restChannel.Position, nameof(restChannel.Position));
-            Guard.IsNotNull(restChannel.GuildId, nameof(restChannel.GuildId));
+            Guard.IsNotNull(guildId, nameof(guildId));
 
             Topic = restChannel.Topic;
             IsNSFW = restChannel.IsNSFW;
@@ -22,7 +25,7 @@ namespace Discord.API.Models.Channels
             LastMessageId = restChannel.LastMessageId;
             CategoryId = restChannel.CategoryId.Value;
             Position = restChannel.Position.Value;
-            GuildId = restChannel.GuildId.Value;
+            GuildId = guildId.Value;
         }
 
         public string? Topic { get; private set; }
