@@ -7,16 +7,16 @@ namespace Discord.API.Gateways.Models.Messages
 {
     internal class MessageReactionUpdated
     {
-        [JsonPropertyName("user_id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
+        [JsonPropertyName("user_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong UserId { get; set; }
 
-        [JsonPropertyName("channel_id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
+        [JsonPropertyName("channel_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong ChannelId { get; set; }
 
-        [JsonPropertyName("message_id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
+        [JsonPropertyName("message_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong MessageId { get; set; }
 
-        [JsonPropertyName("guild_id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
+        [JsonPropertyName("guild_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? GuildId { get; set; }
 
         [JsonPropertyName("emoji")]

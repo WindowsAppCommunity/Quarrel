@@ -16,7 +16,7 @@ namespace Discord.API.Models.Settings
         }
 
         [JsonPropertyName("id")]
-        public ulong? Id { get; private set; }
+        public long? Id { get; private set; }
 
         [JsonPropertyName("name")]
         public string? Name { get; private set; }
