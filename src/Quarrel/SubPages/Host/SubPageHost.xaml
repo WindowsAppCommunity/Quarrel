@@ -10,6 +10,27 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <AcrylicBrush x:Key="SubFrameHostBackgroundBrush"
+                          BackgroundSource="Backdrop"
+                          TintColor="#A0000000"
+                          TintOpacity="0.7"
+                          FallbackColor="#A0000000"/>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <AcrylicBrush x:Key="SubFrameHostBackgroundBrush"
+                          BackgroundSource="Backdrop"
+                          TintColor="#A0FFFFFF"
+                          TintOpacity="0.7"
+                          FallbackColor="#A0FFFFFF"/>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid
         x:Name="RootGrid"
         Background="Transparent"
@@ -117,7 +138,6 @@
                     x:Name="CloseButton"
                     VerticalAlignment="Top"
                     Height="48" Width="48"
-                    Style="{StaticResource ExpandedSquareButtonRevealStyle}"
                     Click="{x:Bind CloseSubFramePage}"
                     ToolTipService.ToolTip="Esc">
                     <SymbolIcon Symbol="Back" Foreground="White"/>
@@ -127,8 +147,8 @@
                 <Border 
                     x:Name="ContentBorder"
                     Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                    BorderBrush="{StaticResource SubFrameBorderBrush}"
-                    Background="{ThemeResource SubFrameBackgroundBrush}" 
+                    BorderBrush="{StaticResource SystemControlBackgroundAccentBrush}"
+                    Background="{ThemeResource PrimaryBackground}" 
                     BorderThickness="1" CornerRadius="1">
                     <ContentControl 
                         x:Name="HostControl"

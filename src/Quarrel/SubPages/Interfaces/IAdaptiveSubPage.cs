@@ -1,6 +1,6 @@
-﻿// SubPage frame inspired by created by Sergio Pedri for BrainF*ck and Legere
+﻿// SubPage frame created by Sergio Pedri for BrainF*ck and Legere
 // View Code in BrainF*ck
-// https://github.com/Sergio0694/Brainf_ckSharp/blob/master/src/Brainf_ckSharp.Uwp/Controls/SubPages/Interfaces/IAdaptiveSubPage.cs
+// https://github.com/Sergio0694/Brainf_ckSharp
 
 namespace Quarrel.SubPages.Interfaces
 {

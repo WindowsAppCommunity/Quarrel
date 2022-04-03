@@ -1,6 +1,6 @@
-﻿// SubPage frame inspired by created by Sergio Pedri for BrainF*ck and Legere
+﻿// SubPage frame created by Sergio Pedri for BrainF*ck and Legere
 // View Code in BrainF*ck
-// https://github.com/Sergio0694/Brainf_ckSharp/blob/master/src/Brainf_ckSharp.Uwp/Controls/SubPages/Host/SubPageFrame.cs
+// https://github.com/Sergio0694/Brainf_ckSharp
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
