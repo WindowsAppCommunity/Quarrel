@@ -13,7 +13,6 @@ namespace Quarrel.SubPages
     /// </summary>
     public sealed partial class LoginPage : UserControl
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginPage"/> class.
         /// </summary>

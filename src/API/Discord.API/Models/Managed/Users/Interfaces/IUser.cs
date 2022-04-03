@@ -9,7 +9,7 @@ namespace Discord.API.Models.Users
     {
         string Username { get; }
 
-        string Discriminator { get; }
+        int Discriminator { get; }
 
         string? Avatar { get; }
 

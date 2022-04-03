@@ -6,15 +6,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:subpages="using:Quarrel.SubPages"
+    xmlns:baseconvert="using:Quarrel.Converters.Base"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
     <Grid>
-        <local:Shell x:Name="Shell"/>
-        <subpages:LoginPage x:Name="Login" x:DeferLoadStrategy="Lazy" Visibility="Collapsed"/>
-
-        <local:ExtendedSplashScreen Visibility="Collapsed"/>
+        <local:Shell/>
+        <subpages:LoginPage x:Name="LoginPage" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsLoggedIn), Mode=OneWay}"/>
+        <local:ExtendedSplashScreen Visibility="{x:Bind ViewModel.IsConnecting, Mode=OneWay}"/>
     </Grid>
 
 </UserControl>

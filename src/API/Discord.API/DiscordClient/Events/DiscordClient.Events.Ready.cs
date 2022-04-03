@@ -35,6 +35,10 @@ namespace Discord.API
             {
                 AddRelationship(relationship);
             }
+
+            Guard.IsNotNull(_selfUser, nameof(_selfUser));
+
+            LoggedIn?.Invoke(this, _selfUser);
         }
     }
 }

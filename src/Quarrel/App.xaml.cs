@@ -10,6 +10,12 @@ using Quarrel.ViewModels.SubPages;
 using System;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
+using Quarrel.ViewModels;
+using Quarrel.Services.Storage;
+using OwlCore.AbstractStorage;
+using Quarrel.Services.Storage.Models;
+using Windows.Storage;
+using Quarrel.Services.DispatcherService;
 
 namespace Quarrel
 {
@@ -70,16 +76,21 @@ namespace Quarrel
 
         private IServiceProvider ConfigureServices()
         {
+            IFolderData appDataFolder = new FolderData(ApplicationData.Current.LocalFolder);
+
             // Register Services
             ServiceCollection services = new ServiceCollection();
             services.AddSingleton<IMessenger, StrongReferenceMessenger>();
             services.AddSingleton<ILocalizationService, LocalizationService>();
             services.AddSingleton<IDiscordService, DiscordService>();
+            services.AddSingleton<IDispatcherService, DispatcherService>();
+            services.AddSingleton<IStorageService>(new StorageService(appDataFolder, JsonAsyncSerializer.Singleton));
 
             // TODO: Release analytics services
             services.AddSingleton<IAnalyticsService, LoggingAnalyticsService>();
 
             // ViewModels
+            services.AddSingleton<ShellViewModel>();
             services.AddTransient<LoginPageViewModel>();
 
             return services.BuildServiceProvider();

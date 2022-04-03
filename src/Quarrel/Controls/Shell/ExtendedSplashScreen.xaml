@@ -23,7 +23,7 @@
                        TextWrapping="WrapWholeWords"
                        Foreground="{ThemeResource SystemColorHighlightTextBrush}"/>
 
-            <TextBlock x:Name="StatusBlock" Text="LOADING"
+            <TextBlock x:Name="StatusBlock" Text="CONNECTING"
                        Opacity="0.6" FontWeight="SemiBold"
                        HorizontalAlignment="Center"
                        FontSize="13"

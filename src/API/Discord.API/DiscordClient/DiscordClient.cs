@@ -12,9 +12,13 @@ namespace Discord.API
     {
         private IGatewayService? _gatewayService;
         private Gateway? _gateway;
+        private string? _token;
+
+        public string? Token => _token;
 
         public async Task LoginAsync(string token)
         {
+            _token = token;
             InitializeServices(token);
             await SetupGatewayAsync(token);
         }

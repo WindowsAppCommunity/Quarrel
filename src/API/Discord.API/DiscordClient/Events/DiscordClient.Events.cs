@@ -3,12 +3,15 @@
 using CommunityToolkit.Diagnostics;
 using Discord.API.Gateways.Models.Messages;
 using Discord.API.Models.Messages;
+using Discord.API.Models.Users;
 using System;
 
 namespace Discord.API
 {
     public partial class DiscordClient
     {
+        public event EventHandler<SelfUser> LoggedIn;
+
         public event EventHandler<Message>? MessageCreated;
         public event EventHandler<Message>? MessageUpdated;
         public event EventHandler<MessageDeleted>? MessageDeleted;

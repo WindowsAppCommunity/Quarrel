@@ -14,7 +14,7 @@ namespace Discord.API.Models.Users
         {
             Id = restUser.Id;
             Username = restUser.Username;
-            Discriminator = restUser.Discriminator;
+            Discriminator = int.Parse(restUser.Discriminator);
             Avatar = restUser.Avatar;
             Bio = restUser.Bio;
             Banner = restUser.Banner;
@@ -27,7 +27,7 @@ namespace Discord.API.Models.Users
 
         public string Username { get; protected set; }
 
-        public string Discriminator { get; protected set; }
+        public int Discriminator { get; protected set; }
 
         public string? Avatar { get; protected set; }
 
@@ -64,7 +64,7 @@ namespace Discord.API.Models.Users
             Guard.IsEqualTo(Id, jsonUser.Id, nameof(Id));
 
             Username = jsonUser.Username;
-            Discriminator = jsonUser.Discriminator;
+            Discriminator = int.Parse(jsonUser.Discriminator);
             Avatar = jsonUser.Avatar ?? Avatar;
             Bio = jsonUser.Bio ?? Bio;
             Banner = jsonUser.Banner ?? Banner;
@@ -80,7 +80,7 @@ namespace Discord.API.Models.Users
             {
                 Id = Id,
                 Username = Username,
-                Discriminator = Discriminator,
+                Discriminator = Discriminator.ToString(),
                 Avatar = Avatar,
                 Bio = Bio,
                 Banner = Banner,

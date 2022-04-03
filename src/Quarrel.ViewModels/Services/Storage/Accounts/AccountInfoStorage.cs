@@ -3,7 +3,9 @@
 using OwlCore.AbstractStorage;
 using OwlCore.Services;
 using Quarrel.Services.Storage.Accounts.Models;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Quarrel.Services.Storage.Accounts
 {
@@ -15,7 +17,7 @@ namespace Quarrel.Services.Storage.Accounts
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountInfoStorage"/> class.
         /// </summary>
-        internal AccountInfoStorage(IFolderData folder, IAsyncSerializer<Stream> serializer) : base(folder, serializer)
+        public AccountInfoStorage(IFolderData folder, IAsyncSerializer<Stream> serializer) : base(folder, serializer)
         {
         }
 
@@ -31,9 +33,9 @@ namespace Quarrel.Services.Storage.Accounts
         /// <summary>
         /// Gets or sets the list of accounts in storage.
         /// </summary>
-        public AccountInfo[] Accounts
+        public Dictionary<ulong, AccountInfo> Accounts
         {
-            get => GetSetting(() => new AccountInfo[0]);
+            get => GetSetting(() => new Dictionary<ulong, AccountInfo>());
             set => SetSetting(value);
         }
 
@@ -41,5 +43,33 @@ namespace Quarrel.Services.Storage.Accounts
         /// Gets a value indicating whether or not the user is logged into an account.
         /// </summary>
         public bool IsLoggedIn => ActiveAccount is not null;
+
+        public bool SelectAccount(ulong id)
+        {
+            if (Accounts.ContainsKey(id))
+            {
+                ActiveAccount = Accounts[id];
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool RegisterAccount(AccountInfo accountInfo)
+        {
+            if (!Accounts.ContainsKey(accountInfo.Id))
+            {
+                Accounts.Add(accountInfo.Id, accountInfo);
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool UnregisterAccount(ulong id)
+        {
+            // TODO: Handle active account 
+            return Accounts.Remove(id);
+        }
     }
 }

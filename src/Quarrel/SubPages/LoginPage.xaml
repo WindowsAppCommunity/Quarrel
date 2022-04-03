@@ -11,7 +11,7 @@
     d:DesignHeight="600"
     d:DesignWidth="800">
 
-    <Grid Background="{ThemeResource PrimaryBackgroundHostBackdrop}">
+    <Grid Background="{ThemeResource PrimaryPaneBackground}">
         <!--Disclaimer-->
         <StackPanel Visibility="{x:Bind ViewModel.IsShowingDiscordPrompt, Mode=OneWay}" Margin="12" HorizontalAlignment="Center" Opacity=".6">
             <TextBlock x:Uid="Login/DisclaimerTB1" Text="Logging in will intercept a token that allows Quarrel to interact with Discord through your account."
