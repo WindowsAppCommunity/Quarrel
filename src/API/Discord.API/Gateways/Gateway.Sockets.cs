@@ -103,6 +103,8 @@ namespace Discord.API.Gateways
             Stream stream = ((StreamReader)reader).BaseStream;
             SocketFrame? frame = JsonSerializer.Deserialize<SocketFrame>(stream);
 
+            Guard.IsNotNull(frame, nameof(frame));
+
             if (frame.SequenceNumber.HasValue)
             {
                 _lastEventSequenceNumber = frame.SequenceNumber.Value;

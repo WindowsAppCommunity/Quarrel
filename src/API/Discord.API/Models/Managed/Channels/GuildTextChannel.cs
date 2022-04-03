@@ -21,7 +21,7 @@ namespace Discord.API.Models.Channels
             Topic = restChannel.Topic;
             IsNSFW = restChannel.IsNSFW;
             SlowModeDelay = restChannel.SlowModeDelay.Value;
-            LastReadMessageId = restChannel.LastMessageId;
+            LastMessageId = restChannel.LastMessageId;
             CategoryId = restChannel.CategoryId;
             Position = restChannel.Position.Value;
             GuildId = guildId.Value;
@@ -39,14 +39,24 @@ namespace Discord.API.Models.Channels
 
         public ulong GuildId { get; private set; }
 
-        public int? MentionCount { get; private set; }
+        public int? MentionCount { get; internal set; }
 
-        public ulong? LastReadMessageId { get; private set; }
+        public ulong? LastMessageId { get; internal set; }
+
+        public ulong? LastReadMessageId { get; internal set; }
+
+        public bool IsUnread => LastMessageId > LastReadMessageId;
 
         int? IMessageChannel.MentionCount
         {
             get => MentionCount;
             set => MentionCount = value;
+        }
+
+        ulong? IMessageChannel.LastMessageId
+        {
+            get => LastMessageId;
+            set => LastMessageId = value;
         }
 
         ulong? IMessageChannel.LastReadMessageId

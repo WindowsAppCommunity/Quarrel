@@ -3,11 +3,10 @@
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Channels.Abstract;
 using Discord.API.Models.Channels.Interfaces;
+using Discord.API.Models.Guilds;
 using Discord.API.Models.Json.Channels;
 using Discord.API.Models.Json.Guilds;
 using Discord.API.Models.Json.Users;
-using Discord.API.Models.Managed.Guilds;
-using Discord.API.Models.Managed.Users;
 using Discord.API.Models.Users;
 using System.Collections.Concurrent;
 

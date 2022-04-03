@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Gateways.Models.Messages
 {
-    internal class MessageDeleted
+    public class MessageDeleted
     {
         [JsonPropertyName("id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
         public ulong MessageId { get; set; }

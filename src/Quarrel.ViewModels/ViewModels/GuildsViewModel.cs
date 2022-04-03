@@ -1,11 +1,12 @@
 ﻿// Adam Dernis © 2022
 
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Services.Discord;
 
 namespace Quarrel.ViewModels
 {
-    public class GuildsViewModel
+    public class GuildsViewModel : ObservableObject
     {
         private readonly IDiscordService _discordService;
         private readonly IMessenger _messenger;

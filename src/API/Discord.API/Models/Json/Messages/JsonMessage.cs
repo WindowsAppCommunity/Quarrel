@@ -45,7 +45,7 @@ namespace Discord.API.Models.Json.Messages
         public bool? IsTextToSpeech { get; set; }
 
         [JsonPropertyName("mention_everyone")]
-        public bool MentionEveryone { get; set; }
+        public bool MentionsEveryone { get; set; }
 
         [JsonPropertyName("mentions")]
         public JsonUser[]? UserMentions { get; set; }

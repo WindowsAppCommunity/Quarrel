@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Gateways.Models.Messages
 {
-    internal class MessageAck
+    public class MessageAck
     {
         [JsonPropertyName("message_id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
         public ulong MessageId { get; set; }

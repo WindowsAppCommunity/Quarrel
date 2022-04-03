@@ -14,8 +14,6 @@ namespace Discord.API.Models.Messages.Interfaces
 
         bool IsPinned { get; }
 
-        bool IsSuppressed { get; }
-
         bool MentionsEveryone { get; }
 
         string Content { get; }

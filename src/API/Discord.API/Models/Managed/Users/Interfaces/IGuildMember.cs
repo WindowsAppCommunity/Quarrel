@@ -2,7 +2,7 @@
 
 using System;
 
-namespace Discord.API.Models.Guilds.Interfaces
+namespace Discord.API.Models.Users.Interfaces
 {
     public interface IGuildMember
     {

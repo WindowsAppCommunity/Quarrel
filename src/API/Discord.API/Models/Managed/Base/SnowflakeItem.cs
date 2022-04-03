@@ -1,6 +1,6 @@
 ﻿// Adam Dernis © 2022
 
-using Discord.API.Models.Managed.Base;
+using Discord.API.Models.Base;
 
 namespace Discord.API.Models.Base
 {

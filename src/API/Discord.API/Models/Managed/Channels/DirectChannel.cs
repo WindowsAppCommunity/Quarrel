@@ -15,18 +15,29 @@ namespace Discord.API.Models.Channels
             Guard.IsNotNull(restChannel.Recipient, nameof(restChannel.Recipient));
 
             RecipientId = restChannel.Recipient.Id;
+            LastMessageId = restChannel.LastMessageId;
         }
 
         public ulong RecipientId { get; private set; }
 
         public int? MentionCount { get; private set; }
 
+        public ulong? LastMessageId { get; private set; }
+
         public ulong? LastReadMessageId { get; private set; }
+
+        public bool IsUnread => LastMessageId > LastReadMessageId;
 
         int? IMessageChannel.MentionCount
         {
             get => MentionCount;
             set => MentionCount = value;
+        }
+
+        ulong? IMessageChannel.LastMessageId
+        {
+            get => LastMessageId;
+            set => LastMessageId = value;
         }
 
         ulong? IMessageChannel.LastReadMessageId

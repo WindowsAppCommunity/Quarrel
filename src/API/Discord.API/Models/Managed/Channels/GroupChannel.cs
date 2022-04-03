@@ -18,8 +18,10 @@ namespace Discord.API.Models.Channels
             Guard.IsNotNull(restChannel.Recipients, nameof(restChannel.Recipients));
 
             OwnerId = restChannel.OwnerId.Value;
+
             RTCRegion = restChannel.RTCRegion;
             Recipients = restChannel.Recipients.Select(x => new User(x, context)).ToArray();
+            LastMessageId = restChannel.LastMessageId;
         }
 
         public ulong OwnerId { get; private set; }
@@ -32,12 +34,22 @@ namespace Discord.API.Models.Channels
 
         public int? MentionCount { get; private set; }
 
+        public ulong? LastMessageId { get; private set; }
+
         public ulong? LastReadMessageId { get; private set; }
+
+        public bool IsUnread => LastMessageId > LastReadMessageId;
 
         int? IMessageChannel.MentionCount
         {
             get => MentionCount;
             set => MentionCount = value;
+        }
+
+        ulong? IMessageChannel.LastMessageId
+        {
+            get => LastMessageId;
+            set => LastMessageId = value;
         }
 
         ulong? IMessageChannel.LastReadMessageId

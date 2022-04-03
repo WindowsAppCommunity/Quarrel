@@ -2,10 +2,14 @@
 
 namespace Discord.API.Models.Channels.Interfaces
 {
-    public interface IMessageChannel
+    internal interface IMessageChannel : IChannel
     {
-        int? MentionCount { get; internal set; }
+        int? MentionCount { get; set; }
 
-        ulong? LastReadMessageId { get; internal set; }
+        ulong? LastMessageId { get; set; }
+
+        ulong? LastReadMessageId { get; set; }
+
+        bool IsUnread { get; }
     }
 }

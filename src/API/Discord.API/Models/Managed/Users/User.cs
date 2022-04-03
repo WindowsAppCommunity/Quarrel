@@ -4,7 +4,6 @@ using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Base;
 using Discord.API.Models.Enums.Users;
 using Discord.API.Models.Json.Users;
-using Discord.API.Models.Managed.Users;
 
 namespace Discord.API.Models.Users
 {

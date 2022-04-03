@@ -5,10 +5,10 @@ using Discord.API.Models.Base;
 using Discord.API.Models.Enums.Guilds;
 using Discord.API.Models.Guilds.Interfaces;
 using Discord.API.Models.Json.Guilds;
-using Discord.API.Models.Managed.Roles;
+using Discord.API.Models.Roles;
 using System.Collections.Generic;
 
-namespace Discord.API.Models.Managed.Guilds
+namespace Discord.API.Models.Guilds
 {
     public class Guild : SnowflakeItem, IGuild
     {

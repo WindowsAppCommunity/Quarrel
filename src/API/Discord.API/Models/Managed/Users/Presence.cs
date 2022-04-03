@@ -4,7 +4,7 @@ using Discord.API.Models.Enums.Users;
 using Discord.API.Models.Json.Users;
 using Discord.API.Models.Users.Interfaces;
 
-namespace Discord.API.Models.Managed.Users
+namespace Discord.API.Models.Users
 {
     public class Presence : IPresence
     {

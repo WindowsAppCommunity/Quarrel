@@ -1,6 +1,6 @@
 ﻿// Adam Dernis © 2022
 
-namespace Discord.API.Models.Managed.Base
+namespace Discord.API.Models.Base
 {
     public abstract class DiscordItem
     {

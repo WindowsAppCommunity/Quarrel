@@ -5,7 +5,7 @@ using Discord.API.Models.Enums.Permissions;
 using Discord.API.Models.Json.Roles;
 using Discord.API.Models.Roles.Interfaces;
 
-namespace Discord.API.Models.Managed.Roles
+namespace Discord.API.Models.Roles
 {
     internal class Role : SnowflakeItem, IRole
     {
