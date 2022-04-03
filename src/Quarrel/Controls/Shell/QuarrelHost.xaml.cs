@@ -1,8 +1,7 @@
 ﻿// Adam Dernis © 2022
 
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Quarrel.Controls.Shell
 {
@@ -11,6 +10,16 @@ namespace Quarrel.Controls.Shell
         public QuarrelHost()
         {
             this.InitializeComponent();
+        }
+
+        private void ToggleLeft(object sender, RoutedEventArgs e)
+        {
+            Drawer.ToggleLeft();
+        }
+
+        private void ToggleRight(object sender, RoutedEventArgs e)
+        {
+            Drawer.ToggleRight();
         }
     }
 }

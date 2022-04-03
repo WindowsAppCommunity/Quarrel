@@ -11,26 +11,38 @@
     d:DesignWidth="400"
     SizeChanged="OnSizeChanged">
 
-    <Grid x:Name="rootgrid" Background="White"
-          PointerPressed="OnPointerPressed">
+    <Grid x:Name="rootgrid" PointerPressed="OnPointerPressed">
         <Grid x:Name="leftwrap" HorizontalAlignment="Left">
-            <Grid x:Name="left1">
-                
+            <Grid x:Name="left1" Width="72" HorizontalAlignment="Left">
+                <ContentControl x:Name="LeftMainContentControl"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            IsTabStop="False"/>
             </Grid>
-            <Grid x:Name="left2">
-                
+            <Grid x:Name="left2" Width="228" HorizontalAlignment="Left">
+                <qc:Shadow HorizontalAlignment="Left" Direction="Left"
+                           Width="12" Margin="-12,0,0,0"/>
+                <ContentControl x:Name="LeftSecondaryContentControl"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            IsTabStop="False"/>
             </Grid>
         </Grid>
-        <Grid x:Name="right" HorizontalAlignment="Right">
-            
+        <Grid x:Name="right" Width="228" HorizontalAlignment="Right" Margin="0,0,-72,0">
+            <ContentControl x:Name="RightContentControl"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            IsTabStop="False"/>
         </Grid>
         <Grid x:Name="main" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <qc:Shadow HorizontalAlignment="Left" Direction="Left" Width="12" Margin="-12,0,0,0"/>
-            <qc:Shadow HorizontalAlignment="Right" Direction="Right" Width="12" Margin="0,0,-12,0"/>
+            <qc:Shadow HorizontalAlignment="Left" Direction="Left"
+                       Width="12" Margin="-12,0,0,0"/>
+            <qc:Shadow HorizontalAlignment="Right" Direction="Right"
+                       Width="12" Margin="0,0,-12,0"/>
             <ContentControl x:Name="MainContentControl"
                             HorizontalContentAlignment="Stretch"
                             VerticalContentAlignment="Stretch"
-                            Margin="0,0,0,0" IsTabStop="False"/>
+                            IsTabStop="False"/>
         </Grid>
     </Grid>
 </UserControl>
