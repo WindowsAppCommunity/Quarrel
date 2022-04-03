@@ -67,8 +67,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Direction.cs" />
     <Compile Include="Controls\QuarrelIcon.xaml.cs">
       <DependentUpon>QuarrelIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Shadow.xaml.cs">
+      <DependentUpon>Shadow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Shell\ExtendedSplashScreen.xaml.cs">
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
@@ -76,6 +80,10 @@
     <Compile Include="Controls\Shell\QuarrelHost.xaml.cs">
       <DependentUpon>QuarrelHost.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Shell\SideDrawer.xaml.cs">
+      <DependentUpon>SideDrawer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Shell\SideDrawerSize.cs" />
     <Compile Include="Converters\Base\NotBoolToVisibilityConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
@@ -114,11 +122,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Shadow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Shell\ExtendedSplashScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Shell\QuarrelHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Shell\SideDrawer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

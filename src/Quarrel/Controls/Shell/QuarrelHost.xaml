@@ -11,6 +11,6 @@
     d:DesignWidth="400">
 
     <Grid>
-        <subpages:LoginPage/>
+        <local:SideDrawer x:Name="Drawer"/>
     </Grid>
 </UserControl>
