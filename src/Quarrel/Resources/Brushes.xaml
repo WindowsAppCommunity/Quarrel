@@ -4,18 +4,48 @@
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Dark">
-            <AcrylicBrush x:Key="PrimaryBackgroundHostBackdrop"
+            <AcrylicBrush x:Key="PrimaryPaneBackground"
                           BackgroundSource="HostBackdrop"
-                          TintColor="#FF33353b"
+                          TintColor="#FF33353B"
                           TintOpacity="0.8"
-                          FallbackColor="#FF33353b"/>
+                          FallbackColor="#FF33353B"/>
+            <AcrylicBrush x:Key="SecondaryPaneBackground"
+                          BackgroundSource="HostBackdrop"
+                          TintColor="#FF2A2C31"
+                          TintOpacity="0.8"
+                          FallbackColor="#FF2F3136"/>
+            <AcrylicBrush x:Key="TertiaryPaneBackground"
+                          BackgroundSource="HostBackdrop"
+                          TintColor="#FF1E2124"
+                          TintOpacity="0.6"
+                          FallbackColor="#FF1E2124"/>
+            <AcrylicBrush x:Key="CommandBarBackground"
+                          BackgroundSource="HostBackdrop"
+                          TintColor="#FF1E2124"
+                          TintOpacity="0.7"
+                          FallbackColor="#FF1E2124"/>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
-            <AcrylicBrush x:Key="PrimaryBackgroundHostBackdrop"
+            <AcrylicBrush x:Key="PrimaryPaneBackground"
                           BackgroundSource="HostBackdrop"
                           TintColor="#FFFFFFFF"
                           TintOpacity="0.8"
                           FallbackColor="#FFFFFFFF"/>
+            <AcrylicBrush x:Key="SecondaryPaneBackground"
+                          BackgroundSource="HostBackdrop"
+                          TintColor="#FFE8E8ED"
+                          TintOpacity="0.8"
+                          FallbackColor="#FFE8E8ED"/>
+            <AcrylicBrush x:Key="TertiaryPaneBackground"
+                          BackgroundSource="HostBackdrop"
+                          TintColor="#FFE0E0E5"
+                          TintOpacity="0.6"
+                          FallbackColor="#FFE0E0E5"/>
+            <AcrylicBrush x:Key="CommandBarBackground"
+                          BackgroundSource="HostBackdrop"
+                          TintColor="#FFE0E0E5"
+                          TintOpacity="0.7"
+                          FallbackColor="#FFE0E0E5"/>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
     

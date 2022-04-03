@@ -10,7 +10,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
+    <Grid Background="{ThemeResource CommandBarBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
@@ -20,16 +20,16 @@
                 HorizontalAlignment="Right"/>
         <local:SideDrawer x:Name="Drawer" Grid.Row="1">
             <local:SideDrawer.LeftContent>
-                <Grid Background="Green"/>
+                <Grid Background="{ThemeResource TertiaryPaneBackground}"/>
             </local:SideDrawer.LeftContent>
             <local:SideDrawer.LeftSecondaryContent>
-                <Grid Background="Red"/>
+                <Grid Background="{ThemeResource SecondaryPaneBackground}"/>
             </local:SideDrawer.LeftSecondaryContent>
             <local:SideDrawer.MainContent>
-                <Grid Background="Blue"/>
+                <Grid Background="{ThemeResource PrimaryPaneBackground}"/>
             </local:SideDrawer.MainContent>
             <local:SideDrawer.RightContent>
-                <Grid Background="Yellow"/>
+                <Grid Background="{ThemeResource SecondaryPaneBackground}"/>
             </local:SideDrawer.RightContent>
         </local:SideDrawer>
     </Grid>

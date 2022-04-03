@@ -9,7 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400"
     IsHitTestVisible="False"
-    Opacity=".1">
+    Opacity=".25">
 
     <Rectangle x:Name="Rectangle">
         <Rectangle.Fill>
