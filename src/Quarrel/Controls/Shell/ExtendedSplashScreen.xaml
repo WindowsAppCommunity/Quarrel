@@ -10,7 +10,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid Background="{ThemeResource PrimaryBackgroundHostBackdrop}">
+    <Grid Background="{ThemeResource PrimaryBackground}">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 
             <controls:QuarrelIcon x:Name="QuarrelIcon"

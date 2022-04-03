@@ -47,7 +47,7 @@ namespace Quarrel
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            if (!(Window.Current.Content is QuarrelHost))
+            if (!(Window.Current.Content is WindowHost))
             {
                 InitializeUI();
             }
@@ -60,7 +60,7 @@ namespace Quarrel
 
         private void InitializeUI()
         {
-            FrameworkElement root = new QuarrelHost();
+            FrameworkElement root = new WindowHost();
             Window.Current.Content = root;
 
             // Handle flow direction

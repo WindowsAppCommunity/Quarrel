@@ -5,9 +5,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Shell
 {
-    public sealed partial class QuarrelHost : UserControl
+    public sealed partial class Shell : UserControl
     {
-        public QuarrelHost()
+        public Shell()
         {
             this.InitializeComponent();
         }

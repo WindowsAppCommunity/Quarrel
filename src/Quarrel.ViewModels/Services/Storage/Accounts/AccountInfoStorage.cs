@@ -36,5 +36,10 @@ namespace Quarrel.Services.Storage.Accounts
             get => GetSetting(() => new AccountInfo[0]);
             set => SetSetting(value);
         }
+
+        /// <summary>
+        /// Gets a value indicating whether or not the user is logged into an account.
+        /// </summary>
+        public bool IsLoggedIn => ActiveAccount is not null;
     }
 }

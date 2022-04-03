@@ -4,6 +4,7 @@
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Dark">
+            <!--Panel Backgrounds-->
             <AcrylicBrush x:Key="PrimaryPaneBackground"
                           BackgroundSource="HostBackdrop"
                           TintColor="#FF33353B"
@@ -24,8 +25,14 @@
                           TintColor="#FF1E2124"
                           TintOpacity="0.7"
                           FallbackColor="#FF1E2124"/>
+
+            <!--General backgrounds-->
+            <SolidColorBrush x:Key="PrimaryBackground" Color="#1e2124"/>
+            <SolidColorBrush x:Key="SecondaryBackground" Color="#2a2c31"/>
+            <SolidColorBrush x:Key="TertiaryBackground" Color="#2e3136"/>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
+            <!--Panel Backgrounds-->
             <AcrylicBrush x:Key="PrimaryPaneBackground"
                           BackgroundSource="HostBackdrop"
                           TintColor="#FFFFFFFF"
@@ -46,6 +53,11 @@
                           TintColor="#FFE0E0E5"
                           TintOpacity="0.7"
                           FallbackColor="#FFE0E0E5"/>
+
+            <!--General backgrounds-->
+            <SolidColorBrush x:Key="PrimaryBackground" Color="#e1e3e5"/>
+            <SolidColorBrush x:Key="SecondaryBackground" Color="#e3e8ed"/>
+            <SolidColorBrush x:Key="TertiaryBackground" Color="#f6f7f9"/>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
     

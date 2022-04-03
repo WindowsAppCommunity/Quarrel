@@ -77,8 +77,11 @@
     <Compile Include="Controls\Shell\ExtendedSplashScreen.xaml.cs">
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\QuarrelHost.xaml.cs">
-      <DependentUpon>QuarrelHost.xaml</DependentUpon>
+    <Compile Include="Controls\Shell\WindowHost.xaml.cs">
+      <DependentUpon>WindowHost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Shell\Shell.xaml.cs">
+      <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Shell\SideDrawer.xaml.cs">
       <DependentUpon>SideDrawer.xaml</DependentUpon>
@@ -88,12 +91,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
     <Compile Include="Services\Localization\LocalizationService.cs" />
-    <Compile Include="SubPages\Host\SubPageFrame.cs" />
-    <Compile Include="SubPages\Host\SubPageHost.xaml.cs">
-      <DependentUpon>SubPageHost.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SubPages\Interfaces\IAdaptiveSubPage.cs" />
-    <Compile Include="SubPages\Interfaces\IConstrainedSubPage.cs" />
     <Compile Include="SubPages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -130,7 +127,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\QuarrelHost.xaml">
+    <Page Include="Controls\Shell\WindowHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Shell\Shell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,10 +148,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\TextBoxStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SubPages\Host\SubPageHost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
