@@ -15,7 +15,8 @@
 
             <controls:QuarrelIcon x:Name="QuarrelIcon"
                                   MaxWidth="96" Margin="0,0,0,24"
-                                  Foreground="{ThemeResource SystemColorHighlightTextBrush}"/>
+                                  Foreground="{ThemeResource SystemColorHighlightTextBrush}"
+                                  AnimationFinished="QuarrelIcon_AnimationFinished"/>
 
             <TextBlock x:Name="MessageBlock" Text="Message."
                        FontStyle="Italic" FontSize="16"

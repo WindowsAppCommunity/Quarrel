@@ -14,7 +14,7 @@
     <Grid>
         <local:Shell/>
         <subpages:LoginPage x:Name="LoginPage" Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsLoggedIn), Mode=OneWay}"/>
-        <local:ExtendedSplashScreen Visibility="{x:Bind ViewModel.IsConnecting, Mode=OneWay}"/>
+        <local:ExtendedSplashScreen IsShowing="{x:Bind ViewModel.IsConnecting, Mode=OneWay}"/>
     </Grid>
 
 </UserControl>

@@ -65,7 +65,7 @@ namespace Quarrel.Controls
                 RepeatingAnimation.Stop();
                 if (!_encounteredError)
                 {
-                    EndingAnimation.Stop();
+                    EndingAnimation.Begin();
                 }
 
                 // TODO: Animation that runs when an error is encountered
