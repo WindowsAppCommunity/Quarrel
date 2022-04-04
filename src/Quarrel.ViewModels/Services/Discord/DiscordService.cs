@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Quarrel.Services.Discord
 {
-    public class DiscordService : IDiscordService
+    public partial class DiscordService : IDiscordService
     {
         private DiscordClient _discordClient;
         private IMessenger _messenger;

@@ -5,6 +5,7 @@
     xmlns:local="using:Quarrel.Controls.Shell"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:panels="using:Quarrel.Controls.Shell.Panels"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -18,7 +19,9 @@
                 HorizontalAlignment="Right"/>
         <local:SideDrawer x:Name="Drawer" Grid.Row="1">
             <local:SideDrawer.LeftContent>
-                <Grid Background="{ThemeResource TertiaryPaneBackground}"/>
+                <Grid Background="{ThemeResource TertiaryPaneBackground}">
+                    <panels:GuildPanel/>
+                </Grid>
             </local:SideDrawer.LeftContent>
             <local:SideDrawer.LeftSecondaryContent>
                 <Grid Background="{ThemeResource SecondaryPaneBackground}"/>

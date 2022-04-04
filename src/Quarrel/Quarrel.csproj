@@ -77,6 +77,9 @@
     <Compile Include="Controls\Shell\ExtendedSplashScreen.xaml.cs">
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Shell\Panels\GuildPanel.xaml.cs">
+      <DependentUpon>GuildPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Shell\WindowHost.xaml.cs">
       <DependentUpon>WindowHost.xaml</DependentUpon>
     </Compile>
@@ -130,6 +133,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Shell\ExtendedSplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Shell\Panels\GuildPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

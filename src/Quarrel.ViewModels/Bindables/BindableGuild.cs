@@ -1,14 +1,13 @@
 ﻿// Adam Dernis © 2022
 
-using Discord.API.Models.Guilds.Interfaces;
+using Discord.API.Models.Guilds;
 using Quarrel.Models.Bindables.Abstract;
-using Quarrel.Services.Discord;
 
 namespace Quarrel.Models.Bindables
 {
-    public class BindableGuild : BindableUnqiueItemBase<IGuild>
+    public class BindableGuild : BindableUnqiueItemBase<Guild>
     {
-        public BindableGuild(IDiscordService discordService, IGuild model) : base(discordService, model)
+        public BindableGuild(Guild model) : base(model)
         {
         }
 

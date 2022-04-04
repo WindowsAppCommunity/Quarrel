@@ -6,7 +6,9 @@ using Discord.API.Models.Channels.Interfaces;
 using Discord.API.Models.Guilds;
 using Discord.API.Models.Json.Channels;
 using Discord.API.Models.Json.Guilds;
+using Discord.API.Models.Json.Settings;
 using Discord.API.Models.Json.Users;
+using Discord.API.Models.Settings;
 using Discord.API.Models.Users;
 using System.Collections.Concurrent;
 
@@ -15,6 +17,7 @@ namespace Discord.API
     public partial class DiscordClient
     {
         private SelfUser? _selfUser;
+        private Settings _settings;
 
         private ConcurrentDictionary<ulong, Guild> _guildMap;
         private ConcurrentDictionary<ulong, Channel> _channelMap;
@@ -304,6 +307,12 @@ namespace Discord.API
             }
 
             return status;
+        }
+
+        internal void UpdateSettings(JsonUserSettings jsonUserSettings)
+        {
+            Settings settings = new Settings(jsonUserSettings, this);
+            _settings = settings;
         }
     }
 }

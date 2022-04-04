@@ -10,14 +10,10 @@ namespace Quarrel.Models.Bindables.Abstract
     public abstract class BindableUnqiueItemBase<T> : ObservableObject
         where T : ISnowflakeItem
     {
-        private readonly IDiscordService _discordService;
-
         private T _model;
 
-        protected BindableUnqiueItemBase(IDiscordService discordService, T model)
+        protected BindableUnqiueItemBase(T model)
         {
-            _discordService = discordService;
-
             _model = model;
         }
 
@@ -28,8 +24,6 @@ namespace Quarrel.Models.Bindables.Abstract
         }
 
         public ulong Id => _model.Id;
-
-        protected IDiscordService DiscordService => _discordService;
 
         public abstract void UpdateFromServiceAsync();
 

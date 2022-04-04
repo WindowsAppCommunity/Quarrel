@@ -91,6 +91,7 @@ namespace Quarrel
 
             // ViewModels
             services.AddSingleton<WindowViewModel>();
+            services.AddSingleton<GuildsViewModel>();
             services.AddTransient<LoginPageViewModel>();
 
             return services.BuildServiceProvider();
