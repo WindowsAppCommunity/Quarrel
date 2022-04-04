@@ -21,7 +21,6 @@
     <LangVersion>10.0</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
@@ -92,6 +91,9 @@
     <Compile Include="Controls\Shell\SideDrawerSize.cs" />
     <Compile Include="Converters\Base\InverseBoolConverter.cs" />
     <Compile Include="Converters\Base\NotBoolToVisibilityConverter.cs" />
+    <Compile Include="DataTemplates\GuildTemplate.xaml.cs">
+      <DependentUpon>GuildTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
     <Compile Include="Services\DispatcherService\DispatcherService.cs" />
@@ -152,11 +154,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DataTemplates\GuildTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Brushes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\ButtonStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ListViewItemStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -179,11 +189,18 @@
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
       <Version>7.1.2</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>7.1.2</Version>
+    </PackageReference>
     <PackageReference Include="Nito.AsyncEx">
       <Version>5.1.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\API\Discord.API\Discord.API.csproj">
+      <Project>{43360223-1cd9-4962-84cc-0698f6d11837}</Project>
+      <Name>Discord.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Quarrel.ViewModels\Quarrel.ViewModels.csproj">
       <Project>{e069a285-68fe-43c7-957f-9cc6bbf17bce}</Project>
       <Name>Quarrel.ViewModels</Name>

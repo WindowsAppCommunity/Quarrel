@@ -1,18 +1,25 @@
 ﻿// Adam Dernis © 2022
 
 using Discord.API.Models.Guilds;
-using Quarrel.Models.Bindables.Abstract;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using System;
 
 namespace Quarrel.Models.Bindables
 {
-    public class BindableGuild : BindableUnqiueItemBase<Guild>
+    public partial class BindableGuild : ObservableObject
     {
-        public BindableGuild(Guild model) : base(model)
+        [AlsoNotifyChangeFor(nameof(IconUrl))]
+        [AlsoNotifyChangeFor(nameof(IconUri))]
+        [ObservableProperty]
+        private Guild _guild;
+
+        public BindableGuild(Guild guild)
         {
+            _guild = guild;
         }
 
-        public override async void UpdateFromServiceAsync()
-        {
-        }
+        public string IconUrl => $"https://cdn.discordapp.com/icons/{Guild.Id}/{Guild.IconId}.png?size=128";
+
+        public Uri IconUri => new Uri(IconUrl);
     }
 }

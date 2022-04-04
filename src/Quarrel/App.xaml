@@ -2,14 +2,21 @@
     x:Class="Quarrel.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dt="using:Quarrel.DataTemplates"
     xmlns:local="using:Quarrel">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!--Resources-->
                 <ResourceDictionary Source="Resources/Brushes.xaml"/>
                 
+                <!--Styles-->
                 <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="Styles/ListViewItemStyles.xaml"/>
                 <ResourceDictionary Source="Styles/TextBoxStyles.xaml"/>
+
+                <!--Data Templates-->
+                <dt:GuildTemplate/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

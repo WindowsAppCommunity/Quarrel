@@ -9,7 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <ListView ItemsSource="{x:Bind ViewModel.Source}">
-        
-    </ListView>
+    <ListView ItemsSource="{x:Bind ViewModel.Source}"
+              ItemTemplate="{StaticResource GuildTemplate}"
+              ItemContainerStyle="{StaticResource GuildListItemStyle}"/>
 </UserControl>

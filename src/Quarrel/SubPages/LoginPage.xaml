@@ -5,7 +5,7 @@
     xmlns:local="using:Quarrel.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:Quarrel.Controls"
+    xmlns:qc="using:Quarrel.Controls"
     xmlns:baseconvert="using:Quarrel.Converters.Base"
     mc:Ignorable="d"
     d:DesignHeight="600"
@@ -26,7 +26,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 
-                <controls:QuarrelIcon Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
+                <qc:QuarrelIcon Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
                                       Height="64" Width="64" HorizontalAlignment="Left"/>
 
                 <TextBlock x:Uid="Login/QuarrelTB" Text="Quarrel" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Grid.Column="1"

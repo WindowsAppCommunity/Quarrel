@@ -30,6 +30,7 @@
             <SolidColorBrush x:Key="PrimaryBackground" Color="#1e2124"/>
             <SolidColorBrush x:Key="SecondaryBackground" Color="#2a2c31"/>
             <SolidColorBrush x:Key="TertiaryBackground" Color="#2e3136"/>
+            <SolidColorBrush x:Key="InvertedBackground" Color="#e2e7f7"/>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
             <!--Panel Backgrounds-->
@@ -58,6 +59,7 @@
             <SolidColorBrush x:Key="PrimaryBackground" Color="#e1e3e5"/>
             <SolidColorBrush x:Key="SecondaryBackground" Color="#e3e8ed"/>
             <SolidColorBrush x:Key="TertiaryBackground" Color="#f6f7f9"/>
+            <SolidColorBrush x:Key="InvertedBackground" Color="#161b2b"/>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
     
