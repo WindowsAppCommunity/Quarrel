@@ -6,6 +6,9 @@ using Discord.API.Models.Json.Users;
 using System;
 using System.Text.Json.Serialization;
 
+// JSON models don't need to respect standard nullable rules.
+#pragma warning disable CS8618
+
 namespace Discord.API.Models.Json.Channels
 {
     internal class JsonChannel
