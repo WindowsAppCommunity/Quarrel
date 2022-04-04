@@ -21,6 +21,11 @@
                        FontSize="10" TextAlignment="Center"/>
         </StackPanel>
         <StackPanel Visibility="{x:Bind convert:VisibleWhenEqualConverter.Convert(ViewModel.PageState, spvm:LoginPageState.Quarrel), Mode=OneWay}" VerticalAlignment="Center" MaxWidth="360">
+            <StackPanel.Transitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition FromVerticalOffset="-800"/>
+                </TransitionCollection>
+            </StackPanel.Transitions>
             <Grid Padding="16" Height="96">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -33,11 +38,17 @@
                 <TextBlock x:Uid="Login/QuarrelTB" Text="Quarrel" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Grid.Column="1"
                            FontSize="46" CharacterSpacing="250" HorizontalAlignment="Right"/>
             </Grid>
-            
+
             <Button x:Uid="Login/LoginBTN" Content="Login" HorizontalAlignment="Stretch" Foreground="{ThemeResource SystemChromeLowColor}"
                     Command="{x:Bind ViewModel.GoToDiscordLoginCommand}"
                     TabIndex="1"
-                    Style="{StaticResource DiscordButton}"/>
+                    Style="{StaticResource DiscordButton}">
+                <Button.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromVerticalOffset="250"/>
+                    </TransitionCollection>
+                </Button.Transitions>
+            </Button>
         </StackPanel>
         <StackPanel Visibility="{x:Bind convert:VisibleWhenEqualConverter.Convert(ViewModel.PageState, spvm:LoginPageState.Token), Mode=OneWay}" VerticalAlignment="Center" MaxWidth="360">
             <Grid Height="96">
