@@ -19,7 +19,7 @@
             <TextBlock x:Uid="Login/DisclaimerTB2" Text="At no point does Quarrel read your password."
                        FontSize="10" TextAlignment="Center"/>
         </StackPanel>
-        <StackPanel Visibility="{x:Bind ViewModel.IsShowingGenericPrompt, Mode=OneWay}" VerticalAlignment="Center" MaxWidth="360">
+        <StackPanel Visibility="{x:Bind ViewModel.IsShowingQuarrelPrompt, Mode=OneWay}" VerticalAlignment="Center" MaxWidth="360">
             <Grid Padding="16" Height="96">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -55,7 +55,7 @@
                          Content="Login with Token"
                          HorizontalAlignment="Right"
                          TabIndex="2" Margin="0,32,24,12"
-                         Visibility="{x:Bind ViewModel.IsShowingGenericPrompt, Mode=OneWay}"
+                         Visibility="{x:Bind ViewModel.IsShowingQuarrelPrompt, Mode=OneWay}"
                          Command="{x:Bind ViewModel.ShowTokenPromptCommand}"
                          VerticalAlignment="Bottom"/>
 
@@ -63,8 +63,8 @@
                          Content="Go Back"
                          HorizontalAlignment="Right"
                          TabIndex="2" Margin="0,32,24,12"
-                         Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsShowingGenericPrompt), Mode=OneWay}"
-                         Command="{x:Bind ViewModel.ShowGenericPromptCommand}"
+                         Visibility="{x:Bind baseconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsShowingQuarrelPrompt), Mode=OneWay}"
+                         Command="{x:Bind ViewModel.ShowQuarrelPromptCommand}"
                          VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>
