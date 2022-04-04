@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ExtendedSplash/Connected" xml:space="preserve">
+    <value>CONNECTED</value>
+  </data>
+  <data name="ExtendedSplash/Connecting" xml:space="preserve">
+    <value>CONNECTING</value>
+  </data>
   <data name="Login/Disclaimer1TB.Text" xml:space="preserve">
     <value>Logging in will intercept a token that allows Quarrel to interact with Discord through your account.</value>
   </data>

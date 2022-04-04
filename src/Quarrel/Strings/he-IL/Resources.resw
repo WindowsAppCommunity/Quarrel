@@ -15,6 +15,9 @@
   <data name="Login/LoginBTN.Content" xml:space="preserve">
     <value>כניסה</value>
   </data>
+  <data name="Login/Disclaimer2TB.Text" xml:space="preserve">
+    <value>בשום שלב קווראל לא קורא את הסיסמה שלך.</value>
+  </data>
   <data name="Login/QuarrelTB.Text" xml:space="preserve">
     <value>קווראל</value>
   </data>
@@ -26,5 +29,11 @@
   </data>
   <data name="Login/TokenTBox.PlaceholderText" xml:space="preserve">
     <value>אסימון</value>
+  </data>
+  <data name="ExtendedSplash/Connected" xml:space="preserve">
+    <value>מחובר</value>
+  </data>
+  <data name="ExtendedSplash/Connecting" xml:space="preserve">
+    <value>מתחבר</value>
   </data>
 </root>

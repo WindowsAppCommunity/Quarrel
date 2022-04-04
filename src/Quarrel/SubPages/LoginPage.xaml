@@ -14,9 +14,9 @@
     <Grid Background="{ThemeResource PrimaryPaneBackground}">
         <!--Disclaimer-->
         <StackPanel Visibility="{x:Bind ViewModel.IsShowingDiscordPrompt, Mode=OneWay}" Margin="12" HorizontalAlignment="Center" Opacity=".6">
-            <TextBlock x:Uid="Login/DisclaimerTB1" Text="Logging in will intercept a token that allows Quarrel to interact with Discord through your account."
+            <TextBlock x:Uid="Login/Disclaimer1TB" Text="Logging in will intercept a token that allows Quarrel to interact with Discord through your account."
                        FontSize="10" TextAlignment="Center"/>
-            <TextBlock x:Uid="Login/DisclaimerTB2" Text="At no point does Quarrel read your password."
+            <TextBlock x:Uid="Login/Disclaimer2TB" Text="At no point does Quarrel read your password."
                        FontSize="10" TextAlignment="Center"/>
         </StackPanel>
         <StackPanel Visibility="{x:Bind ViewModel.IsShowingQuarrelPrompt, Mode=OneWay}" VerticalAlignment="Center" MaxWidth="360">

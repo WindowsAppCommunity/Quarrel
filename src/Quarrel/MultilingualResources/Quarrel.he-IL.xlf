@@ -16,7 +16,7 @@
         </trans-unit>
         <trans-unit id="Login/Disclaimer2TB.Text" translate="yes" xml:space="preserve">
           <source>At no point does Quarrel read your password.</source>
-          <target state="new">At no point does Quarrel read your password.</target>
+          <target state="needs-review-translation">בשום שלב קווראל לא קורא את הסיסמה שלך.</target>
         </trans-unit>
         <trans-unit id="Login/QuarrelTB.Text" translate="yes" xml:space="preserve">
           <source>Quarrel</source>
@@ -33,6 +33,14 @@
         <trans-unit id="Login/TokenTBox.PlaceholderText" translate="yes" xml:space="preserve">
           <source>Token</source>
           <target state="needs-review-translation">אסימון</target>
+        </trans-unit>
+        <trans-unit id="ExtendedSplash/Connected" translate="yes" xml:space="preserve">
+          <source>CONNECTED</source>
+          <target state="needs-review-translation">מחובר</target>
+        </trans-unit>
+        <trans-unit id="ExtendedSplash/Connecting" translate="yes" xml:space="preserve">
+          <source>CONNECTING</source>
+          <target state="needs-review-translation">מתחבר</target>
         </trans-unit>
       </group>
     </body>
