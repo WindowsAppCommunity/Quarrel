@@ -1,6 +1,6 @@
 ﻿// Adam Dernis © 2022
 
-namespace Quarrel.Converters.Base
+namespace Quarrel.Converters
 {
     public sealed class InverseBoolConverter
     {

@@ -89,8 +89,11 @@
       <DependentUpon>SideDrawer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Shell\SideDrawerSize.cs" />
-    <Compile Include="Converters\Base\InverseBoolConverter.cs" />
-    <Compile Include="Converters\Base\NotBoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\EqualityConverter.cs" />
+    <Compile Include="Converters\InverseBoolConverter.cs" />
+    <Compile Include="Converters\NotBoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\VisibileWhenNotEqualConverter.cs" />
+    <Compile Include="Converters\VisibileWhenEqualConverter.cs" />
     <Compile Include="DataTemplates\GuildTemplate.xaml.cs">
       <DependentUpon>GuildTemplate.xaml</DependentUpon>
     </Compile>

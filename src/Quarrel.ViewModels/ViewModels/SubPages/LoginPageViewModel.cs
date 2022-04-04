@@ -12,24 +12,14 @@ namespace Quarrel.ViewModels.SubPages
     /// </summary>
     public partial class LoginPageViewModel : ObservableObject
     {
-        public enum LoginPageState
-        {
-            QuarrelPrompt,
-            DiscordPrompt,
-            TokenPrompt,
-        }
-
         private readonly IAnalyticsService _analyticsService;
         private readonly IDiscordService _discordService;
 
-        [AlsoNotifyChangeFor(nameof(IsShowingQuarrelPrompt))]
-        [AlsoNotifyChangeFor(nameof(IsShowingDiscordPrompt))]
-        [AlsoNotifyChangeFor(nameof(IsShowingTokenPrompt))]
-        [ObservableProperty]
-        private LoginPageState _pageState;
-
         [ObservableProperty]
         private string? _tokenText;
+
+        [ObservableProperty]
+        private LoginPageState _pageState;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginPageViewModel"/> class.
@@ -39,47 +29,23 @@ namespace Quarrel.ViewModels.SubPages
             _analyticsService = analyticsService;
             _discordService = discordService;
 
-            ShowQuarrelPromptCommand = new RelayCommand(() => ShowQuarrelPrompt());
-            ShowDiscordPromptCommand = new RelayCommand(() => ShowDiscordPrompt());
-            ShowTokenPromptCommand = new RelayCommand(() => ShowTokenPrompt());
+            PageState = LoginPageState.Quarrel;
             LoginWithTokenCommand = new RelayCommand(() => LoginWithToken(TokenText));
-            PageState = LoginPageState.QuarrelPrompt;
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether or not the generic login prompt is showing.
-        /// </summary>
-        public bool IsShowingQuarrelPrompt => _pageState == LoginPageState.QuarrelPrompt;
-
-        /// <summary>
-        /// Gets or sets a value indicating whether or not the Discord webview prompt is showing.
-        /// </summary>
-        public bool IsShowingDiscordPrompt => _pageState == LoginPageState.DiscordPrompt;
-
-        /// <summary>
-        /// Gets or sets a value indicating whether or not the token login prompt is showing.
-        /// </summary>
-        public bool IsShowingTokenPrompt => _pageState == LoginPageState.TokenPrompt;
-
-        /// <summary>
-        /// A command that shows the generic prompt.
-        /// </summary>
-        public IRelayCommand ShowQuarrelPromptCommand { get; }
-
-        /// <summary>
-        /// A command that shows the Discord webview prompt.
-        /// </summary>
-        public IRelayCommand ShowDiscordPromptCommand { get; }
-
-        /// <summary>
-        /// A command that shows the token login prompt.
-        /// </summary>
-        public IRelayCommand ShowTokenPromptCommand { get; }
-
-        /// <summary>
-        /// A command that logins in with the bound token.
-        /// </summary>
         public IRelayCommand LoginWithTokenCommand { get; }
+
+        [ICommand]
+        public void GoToDiscordLogin()
+            => PageState = LoginPageState.Discord;
+
+        [ICommand]
+        public void GoToTokenLogin()
+            => PageState = LoginPageState.Token;
+
+        [ICommand]
+        public void GoBack()
+            => PageState = LoginPageState.Quarrel;
 
         /// <summary>
         /// Logs the user in with a token.
@@ -94,11 +60,5 @@ namespace Quarrel.ViewModels.SubPages
             _analyticsService.Log(Constants.Analytics.Events.LoggedInWithToken);
             _discordService.LoginAsync(token);
         }
-
-        private void ShowQuarrelPrompt() => PageState = LoginPageState.QuarrelPrompt;
-
-        private void ShowDiscordPrompt() => PageState = LoginPageState.DiscordPrompt;
-
-        private void ShowTokenPrompt() => PageState = LoginPageState.TokenPrompt;
     }
 }

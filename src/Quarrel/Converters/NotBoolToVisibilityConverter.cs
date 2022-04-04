@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml;
 
-namespace Quarrel.Converters.Base
+namespace Quarrel.Converters
 {
     /// <summary>
     /// A converter that returns an inverted <see cref="Visibility"/> value for the input <see langword="bool"/> value.
