@@ -90,7 +90,7 @@ namespace Quarrel
             services.AddSingleton<IAnalyticsService, LoggingAnalyticsService>();
 
             // ViewModels
-            services.AddSingleton<ShellViewModel>();
+            services.AddSingleton<WindowViewModel>();
             services.AddTransient<LoginPageViewModel>();
 
             return services.BuildServiceProvider();

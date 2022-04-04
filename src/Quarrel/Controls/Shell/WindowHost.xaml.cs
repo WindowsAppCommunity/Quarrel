@@ -11,9 +11,9 @@ namespace Quarrel.Controls.Shell
         public WindowHost()
         {
             this.InitializeComponent();
-            DataContext = App.Current.Services.GetRequiredService<ShellViewModel>();
+            DataContext = App.Current.Services.GetRequiredService<WindowViewModel>();
         }
 
-        public ShellViewModel ViewModel => (ShellViewModel)DataContext;
+        public WindowViewModel ViewModel => (WindowViewModel)DataContext;
     }
 }
