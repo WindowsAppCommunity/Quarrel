@@ -33,10 +33,10 @@ namespace Quarrel.Controls.Shell
         private Visual _leftVisual;
         private Visual _left2Visual;
         private Visual _rightVisual;
-        private ExpressionAnimation _mainTranslateAnimation;
-        private ExpressionAnimation _leftTranslateAnimation;
-        private ExpressionAnimation _left2TranslateAnimation;
-        private ExpressionAnimation _rightTranslateAnimation;
+        private ExpressionAnimation? _mainTranslateAnimation;
+        private ExpressionAnimation? _leftTranslateAnimation;
+        private ExpressionAnimation? _left2TranslateAnimation;
+        private ExpressionAnimation? _rightTranslateAnimation;
         private InteractionTrackerInertiaRestingValue _startpoint;
         private InteractionTrackerInertiaRestingValue _midpoint;
         private InteractionTrackerInertiaRestingValue _endpoint;
@@ -71,17 +71,19 @@ namespace Quarrel.Controls.Shell
             _interactionSource.PositionXChainingMode = InteractionChainingMode.Always;
             _interactionSource.PositionXSourceMode = InteractionSourceMode.EnabledWithInertia;
 
-            // Animations
-            _mainTranslateAnimation = _compositor.CreateExpressionAnimation("-tracker.Position.X");
-            _leftTranslateAnimation = _compositor.CreateExpressionAnimation("-24+((-tracker.Position.X/width)*24)");
-            _left2TranslateAnimation = _compositor.CreateExpressionAnimation("-tracker.Position.X/width*72");
-            _rightTranslateAnimation = _compositor.CreateExpressionAnimation("-tracker.Position.X/width*72");
-
             // Inertia resting
             _startpoint = InteractionTrackerInertiaRestingValue.Create(_compositor);
             _midpoint = InteractionTrackerInertiaRestingValue.Create(_compositor);
             _endpoint = InteractionTrackerInertiaRestingValue.Create(_compositor);
 
+            Loading += OnLoading;
+        }
+
+        private void OnLoading(FrameworkElement sender, object args)
+        {
+            Loading -= OnLoading;
+
+            SetupAnimations();
             SetupComposition();
         }
 
@@ -169,6 +171,24 @@ namespace Quarrel.Controls.Shell
             _rightVisual.StartAnimation(TranslationX, _rightTranslateAnimation);
 
             SetSnapPoints(-TotalPanelWidth, 0, SecondaryPanelWidth);
+        }
+
+        private void SetupAnimations()
+        {
+            if (FlowDirection == FlowDirection.LeftToRight)
+            {
+                _mainTranslateAnimation = _compositor.CreateExpressionAnimation("-tracker.Position.X");
+                _leftTranslateAnimation = _compositor.CreateExpressionAnimation("-24+((-tracker.Position.X/width)*24)");
+                _left2TranslateAnimation = _compositor.CreateExpressionAnimation("-tracker.Position.X/width*72");
+                _rightTranslateAnimation = _compositor.CreateExpressionAnimation("-tracker.Position.X/width*72");
+            }
+            else
+            {
+                _mainTranslateAnimation = _compositor.CreateExpressionAnimation("tracker.Position.X");
+                _leftTranslateAnimation = _compositor.CreateExpressionAnimation("-24+((tracker.Position.X/width)*24)");
+                _left2TranslateAnimation = _compositor.CreateExpressionAnimation("tracker.Position.X/width*72");
+                _rightTranslateAnimation = _compositor.CreateExpressionAnimation("tracker.Position.X/width*72");
+            }
         }
 
         public void ToggleLeft()
