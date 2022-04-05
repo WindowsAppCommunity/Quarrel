@@ -5,7 +5,7 @@ using Discord.API.Models.Enums.Permissions;
 
 namespace Discord.API.Models.Roles.Interfaces
 {
-    public interface IRole : ISnowflakeItem
+    internal interface IRole : ISnowflakeItem
     {
         string Name { get; }
 
@@ -13,7 +13,7 @@ namespace Discord.API.Models.Roles.Interfaces
 
         int Position { get; }
 
-        GuildPermission Permissions { get; }
+        Permission Permissions { get; }
 
         bool IsHoisted { get; }
 

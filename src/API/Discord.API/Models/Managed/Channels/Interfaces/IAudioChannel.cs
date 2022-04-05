@@ -2,8 +2,14 @@
 
 namespace Discord.API.Models.Channels.Interfaces
 {
-    internal interface IAudioChannel
+    /// <summary>
+    /// An interface for channels voice channels or channels with calling.
+    /// </summary>
+    internal interface IAudioChannel : IChannel
     {
+        /// <summary>
+        /// The region of the voice server.
+        /// </summary>
         string? RTCRegion { get; }
     }
 }

@@ -5,7 +5,7 @@ using Discord.API.Models.Enums.Users;
 
 namespace Discord.API.Models.Users
 {
-    public interface IUser : ISnowflakeItem
+    internal interface IUser : ISnowflakeItem
     {
         string Username { get; }
 

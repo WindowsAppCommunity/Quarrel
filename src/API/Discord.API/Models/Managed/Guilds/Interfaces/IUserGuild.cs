@@ -5,7 +5,7 @@ using Discord.API.Models.Enums.Permissions;
 
 namespace Discord.API.Models.Guilds.Interfaces
 {
-    public interface IUserGuild : ISnowflakeItem
+    internal interface IUserGuild : ISnowflakeItem
     {
         string Name { get; }
 
@@ -13,6 +13,6 @@ namespace Discord.API.Models.Guilds.Interfaces
 
         bool IsOwner { get; }
 
-        GuildPermission Permissions { get; }
+        Permission Permissions { get; }
     }
 }

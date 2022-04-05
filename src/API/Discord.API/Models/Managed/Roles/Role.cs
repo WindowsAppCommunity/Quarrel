@@ -15,7 +15,7 @@ namespace Discord.API.Models.Roles
             Id = jsonRole.Id;
             Name = jsonRole.Name;
             Position = jsonRole.Position;
-            Permissions = (GuildPermission)jsonRole.Permissions;
+            Permissions = (Permission)jsonRole.Permissions;
             IsHoisted = jsonRole.Hoist;
             IsMangaged = jsonRole.Managed;
             IsMentionable = jsonRole.Mentionable;
@@ -27,7 +27,7 @@ namespace Discord.API.Models.Roles
 
         public int Position { get; private set; }
 
-        public GuildPermission Permissions { get; private set; }
+        public Permission Permissions { get; private set; }
 
         public bool IsHoisted { get; private set; }
 

@@ -2,11 +2,21 @@
 
 namespace Quarrel.Services.Storage.Accounts.Models
 {
+    /// <summary>
+    /// A class containing information about a user for the sake of login.
+    /// </summary>
     public class AccountInfo
     {
-        public AccountInfo(ulong Id, string username, int discriminator, string token)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountInfo"/> class.
+        /// </summary>
+        /// <param name="id">The ID of the user.</param>
+        /// <param name="username">The username of the user.</param>
+        /// <param name="discriminator">The discriminator of the user.</param>
+        /// <param name="token">A login token for the user.</param>
+        public AccountInfo(ulong id, string username, int discriminator, string token)
         {
-            Id = Id;
+            Id = id;
             Username = username;
             Discriminator = discriminator;
             Token = token;

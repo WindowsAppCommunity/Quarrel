@@ -7,8 +7,14 @@ namespace Discord.API.Models.Channels.Interfaces
 {
     internal interface IChannel : ISnowflakeItem
     {
+        /// <summary>
+        /// Gets the name of the channel.
+        /// </summary>
         string? Name { get; }
 
+        /// <summary>
+        /// Gets the channel type.
+        /// </summary>
         ChannelType Type { get; }
     }
 }

@@ -6,7 +6,7 @@ using System;
 
 namespace Discord.API.Models.Messages.Interfaces
 {
-    public interface IMessage : ISnowflakeItem
+    internal interface IMessage : ISnowflakeItem
     {
         MessageType Type { get; }
 

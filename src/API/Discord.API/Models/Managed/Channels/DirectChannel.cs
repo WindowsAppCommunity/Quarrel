@@ -8,6 +8,9 @@ using Discord.API.Models.Users;
 
 namespace Discord.API.Models.Channels
 {
+    /// <summary>
+    /// A direct message channel managed by a <see cref="DiscordClient"/>.
+    /// </summary>
     public class DirectChannel : Channel, IDirectChannel
     {
         internal DirectChannel(JsonChannel restChannel, DiscordClient context) : base(restChannel, context)
@@ -16,16 +19,22 @@ namespace Discord.API.Models.Channels
 
             RecipientId = restChannel.Recipient.Id;
             LastMessageId = restChannel.LastMessageId;
+            RTCRegion = restChannel.RTCRegion;
         }
 
+        /// <inheritdoc/>
         public ulong RecipientId { get; private set; }
 
+        /// <inheritdoc/>
         public int? MentionCount { get; private set; }
 
+        /// <inheritdoc/>
         public ulong? LastMessageId { get; private set; }
 
+        /// <inheritdoc/>
         public ulong? LastReadMessageId { get; private set; }
 
+        /// <inheritdoc/>
         public bool IsUnread => LastMessageId > LastReadMessageId;
 
         int? IMessageChannel.MentionCount
@@ -46,9 +55,16 @@ namespace Discord.API.Models.Channels
             set => LastReadMessageId = value;
         }
 
-        public User GetRecipient(DiscordClient context)
+        /// <inheritdoc/>
+        public string? RTCRegion { get; private set; }
+
+        /// <summary>
+        /// Gets the recipient of the direct message channel.
+        /// </summary>
+        /// <returns>The recipient of the channel.</returns>
+        public User GetRecipient()
         {
-            User? user = context.GetUserInternal(RecipientId);
+            User? user = Context.GetUserInternal(RecipientId);
             Guard.IsNotNull(user, nameof(user));
             return user;
         }

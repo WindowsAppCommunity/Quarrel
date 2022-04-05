@@ -1,6 +1,5 @@
 ﻿// Adam Dernis © 2022
 
-using System;
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Base;
 using Discord.API.Models.Channels.Interfaces;
@@ -9,6 +8,9 @@ using Discord.API.Models.Json.Channels;
 
 namespace Discord.API.Models.Channels.Abstract
 {
+    /// <summary>
+    /// A base class for a channel managed by a <see cref="DiscordClient"/>.
+    /// </summary>
     public abstract class Channel : SnowflakeItem, IChannel
     {
         internal Channel(JsonChannel restChannel, DiscordClient context) :
@@ -19,8 +21,10 @@ namespace Discord.API.Models.Channels.Abstract
             Type = restChannel.Type;
         }
 
+        /// <inheritdoc/>
         public string? Name { get; private set; }
 
+        /// <inheritdoc/>
         public ChannelType Type { get; private set; }
 
         internal virtual void UpdateFromRestChannel(JsonChannel jsonChannel)

@@ -7,9 +7,12 @@ using Discord.API.Models.Json.Channels;
 
 namespace Discord.API.Models.Channels
 {
-    internal class GuildTextChannel : Channel, IGuildTextChannel
+    /// <summary>
+    /// A text channel in a guild managed by a <see cref="DiscordClient"/>.
+    /// </summary>
+    public class GuildTextChannel : Channel, IGuildTextChannel
     {
-        public GuildTextChannel(JsonChannel restChannel, ulong? guildId, DiscordClient context) :
+        internal GuildTextChannel(JsonChannel restChannel, ulong? guildId, DiscordClient context) :
             base(restChannel, context)
         {
             guildId = guildId ?? restChannel.GuildId;
@@ -27,24 +30,34 @@ namespace Discord.API.Models.Channels
             GuildId = guildId.Value;
         }
 
+        /// <inheritdoc/>
         public string? Topic { get; private set; }
 
+        /// <inheritdoc/>
         public bool? IsNSFW { get; private set; }
 
+        /// <inheritdoc/>
         public int? SlowModeDelay { get; private set; }
 
+        /// <inheritdoc/>
         public ulong? CategoryId { get; private set; }
 
+        /// <inheritdoc/>
         public int Position { get; private set; }
 
+        /// <inheritdoc/>
         public ulong GuildId { get; private set; }
 
+        /// <inheritdoc/>
         public int? MentionCount { get; internal set; }
 
+        /// <inheritdoc/>
         public ulong? LastMessageId { get; internal set; }
 
+        /// <inheritdoc/>
         public ulong? LastReadMessageId { get; internal set; }
 
+        /// <inheritdoc/>
         public bool IsUnread => LastMessageId > LastReadMessageId;
 
         int? IMessageChannel.MentionCount

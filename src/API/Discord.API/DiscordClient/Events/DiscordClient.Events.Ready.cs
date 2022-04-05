@@ -6,6 +6,7 @@ using Discord.API.Gateways.Models.Handshake;
 
 namespace Discord.API
 {
+    /// <inheritdoc/>
     public partial class DiscordClient
     {
         private void OnReady(object sender, GatewayEventArgs<Ready> e)

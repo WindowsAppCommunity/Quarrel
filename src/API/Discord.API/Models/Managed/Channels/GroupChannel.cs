@@ -9,9 +9,12 @@ using System.Linq;
 
 namespace Discord.API.Models.Channels
 {
-    internal class GroupChannel : Channel, IGroupChannel
+    /// <summary>
+    /// A group dm channel managed by a <see cref="DiscordClient"/>.
+    /// </summary>
+    public class GroupChannel : Channel, IGroupChannel
     {
-        public GroupChannel(JsonChannel restChannel, DiscordClient context) :
+        internal GroupChannel(JsonChannel restChannel, DiscordClient context) :
             base(restChannel, context)
         {
             Guard.IsNotNull(restChannel.OwnerId, nameof(restChannel.OwnerId));
@@ -24,20 +27,27 @@ namespace Discord.API.Models.Channels
             LastMessageId = restChannel.LastMessageId;
         }
 
+        /// <inheritdoc/>
         public ulong OwnerId { get; private set; }
 
+        /// <inheritdoc/>
         public string? RTCRegion { get; private set; }
 
+        /// <inheritdoc/>
         public User[] Recipients { get; private set; }
 
         IUser[] IGroupChannel.Recipients => Recipients;
 
-        public int? MentionCount { get; private set; }
+        /// <inheritdoc/>
+        public int? MentionCount { get; internal set; }
 
-        public ulong? LastMessageId { get; private set; }
+        /// <inheritdoc/>
+        public ulong? LastMessageId { get; internal set; }
 
-        public ulong? LastReadMessageId { get; private set; }
+        /// <inheritdoc/>
+        public ulong? LastReadMessageId { get; internal set; }
 
+        /// <inheritdoc/>
         public bool IsUnread => LastMessageId > LastReadMessageId;
 
         int? IMessageChannel.MentionCount

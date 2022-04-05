@@ -14,6 +14,7 @@ using System.Collections.Concurrent;
 
 namespace Discord.API
 {
+    /// <inheritdoc/>
     public partial class DiscordClient
     {
         private SelfUser? _selfUser;
@@ -23,14 +24,6 @@ namespace Discord.API
         private ConcurrentDictionary<ulong, Channel> _channelMap;
         private ConcurrentDictionary<ulong, User> _userMap;
         private ConcurrentDictionary<(ulong GuildId, ulong UserId), GuildMember> _guildsMemberMap;
-
-        public DiscordClient()
-        {
-            _guildMap = new ConcurrentDictionary<ulong, Guild>();
-            _channelMap = new ConcurrentDictionary<ulong, Channel>();
-            _userMap = new ConcurrentDictionary<ulong, User>();
-            _guildsMemberMap = new ConcurrentDictionary<(ulong GuildId, ulong UserId), GuildMember>();
-        }
 
         internal SelfUser? CurrentUser => _selfUser;
 

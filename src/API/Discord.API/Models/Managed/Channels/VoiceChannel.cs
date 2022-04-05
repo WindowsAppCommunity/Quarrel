@@ -7,6 +7,9 @@ using Discord.API.Models.Json.Channels;
 
 namespace Discord.API.Models.Channels
 {
+    /// <summary>
+    /// A voice channel in a guild managed by a <see cref="DiscordClient"/>.
+    /// </summary>
     public class VoiceChannel : Channel, IGuildVoiceChannel
     {
         internal VoiceChannel(JsonChannel restChannel, ulong? guildId, DiscordClient context) :
@@ -25,16 +28,22 @@ namespace Discord.API.Models.Channels
             RTCRegion = restChannel.RTCRegion;
         }
 
+        /// <inheritdoc/>
         public int Bitrate { get; private set; }
 
+        /// <inheritdoc/>
         public int? UserLimit { get; private set; }
 
+        /// <inheritdoc/>
         public ulong? CategoryId { get; private set; }
 
+        /// <inheritdoc/>
         public int Position { get; private set; }
 
+        /// <inheritdoc/>
         public ulong GuildId { get; private set; }
 
+        /// <inheritdoc/>
         public string? RTCRegion { get; private set; }
 
         internal override JsonChannel ToRestChannel()

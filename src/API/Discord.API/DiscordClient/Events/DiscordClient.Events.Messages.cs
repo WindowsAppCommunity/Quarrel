@@ -9,6 +9,7 @@ using Discord.API.Models.Json.Messages;
 
 namespace Discord.API
 {
+    /// <inheritdoc/>
     public partial class DiscordClient
     {
         private void OnMessageCreated(object sender, GatewayEventArgs<JsonMessage> e)

@@ -5,7 +5,7 @@ using Discord.API.Models.Enums.Guilds;
 
 namespace Discord.API.Models.Guilds.Interfaces
 {
-    public interface IGuild : ISnowflakeItem
+    internal interface IGuild : ISnowflakeItem
     {
         string Name { get; }
 

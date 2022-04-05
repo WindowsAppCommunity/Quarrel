@@ -4,6 +4,12 @@ using System;
 
 namespace Discord.API.Models.Enums.Guilds
 {
+    /// <summary>
+    /// An enum containing flags for which system channel messages are dislayed.
+    /// </summary>
+    /// <remarks>
+    /// If a value is true the message will NOT be sent.
+    /// </remarks>
     [Flags]
     public enum SystemChannelMessageDeny
     {

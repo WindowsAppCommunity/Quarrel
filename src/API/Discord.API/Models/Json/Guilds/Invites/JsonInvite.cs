@@ -1,7 +1,6 @@
 ﻿// Adam Dernis © 2022
 
 using Discord.API.Models.Json.Users;
-using Discord.API.Models.Enums.Invites;
 using System;
 using System.Text.Json.Serialization;
 
@@ -29,9 +28,6 @@ namespace Discord.API.Models.Json.Guilds.Invites
 
         [JsonPropertyName("target_user")]
         public JsonUser? TargetUser { get; set; }
-
-        [JsonPropertyName("target_user_type")]
-        public TargetUserType TargetUserType { get; set; }
 
         [JsonPropertyName("uses")]
         public int? Uses { get; set; }

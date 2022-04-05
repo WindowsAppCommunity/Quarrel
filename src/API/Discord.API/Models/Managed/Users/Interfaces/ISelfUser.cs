@@ -4,7 +4,7 @@ using Discord.API.Models.Enums.Users;
 
 namespace Discord.API.Models.Users.Interfaces
 {
-    public interface ISelfUser : IUser
+    internal interface ISelfUser : IUser
     {
         string? Email { get; }
 

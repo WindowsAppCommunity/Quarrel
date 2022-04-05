@@ -2,7 +2,10 @@
 
 namespace Discord.API.Models.Channels.Interfaces
 {
-    internal interface IDirectChannel : IMessageChannel, IPrivateChannel
+    /// <summary>
+    /// An interface for direct message channels.
+    /// </summary>
+    internal interface IDirectChannel : IPrivateChannel, IMessageChannel, IAudioChannel
     {
         ulong RecipientId { get; }
     }

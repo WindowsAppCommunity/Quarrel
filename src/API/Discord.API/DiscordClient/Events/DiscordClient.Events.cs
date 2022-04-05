@@ -8,9 +8,10 @@ using System;
 
 namespace Discord.API
 {
+    /// <inheritdoc/>
     public partial class DiscordClient
     {
-        public event EventHandler<SelfUser> LoggedIn;
+        public event EventHandler<SelfUser>? LoggedIn;
 
         public event EventHandler<Message>? MessageCreated;
         public event EventHandler<Message>? MessageUpdated;

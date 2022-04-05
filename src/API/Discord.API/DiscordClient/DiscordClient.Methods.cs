@@ -5,8 +5,12 @@ using System;
 
 namespace Discord.API
 {
+    /// <inheritdoc/>
     public partial class DiscordClient
     {
+        /// <summary>
+        /// Gets the user's guild according to their order in settings.
+        /// </summary>
         public Guild[] GetMyGuilds()
         {
             ulong[] order = _settings.GuildOrder;

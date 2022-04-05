@@ -7,6 +7,9 @@ using Discord.API.Models.Json.Channels;
 
 namespace Discord.API.Models.Channels
 {
+    /// <summary>
+    /// A category channel managed by a <see cref="DiscordClient"/>.
+    /// </summary>
     public class CategoryChannel : Channel, ICategoryChannel
     {
         internal CategoryChannel(JsonChannel restChannel, ulong? guildId, DiscordClient context) :
@@ -20,8 +23,10 @@ namespace Discord.API.Models.Channels
             GuildId = guildId.Value;
         }
 
+        /// <inheritdoc/>
         public ulong GuildId { get; private set; }
 
+        /// <inheritdoc/>
         public int Position { get; private set; }
 
         internal override void UpdateFromRestChannel(JsonChannel jsonChannel)
