@@ -131,9 +131,9 @@ namespace Quarrel.Controls.Shell
 
         public float TotalPanelWidth => PrimaryPanelWidth + SecondaryPanelWidth;
 
-        public bool IsLeftOpen => _tracker.Position.X < 0;
+        public bool IsLeftOpen => FlowDirection == FlowDirection.LeftToRight ? _tracker.Position.X < 0 : _tracker.Position.X > 0;
 
-        public bool IsRightOpen => _tracker.Position.X > 0;
+        public bool IsRightOpen => FlowDirection == FlowDirection.LeftToRight ? _tracker.Position.X > 0 : _tracker.Position.X < 0;
 
         private SideDrawerSize Size
         {
@@ -144,7 +144,7 @@ namespace Quarrel.Controls.Shell
         private void SetupComposition()
         {
             main.Margin = new Thickness(0, 0, 0, 0);
-            right.Margin = new Thickness(0, 0, -72, 0);
+            right.Margin = new Thickness(0, 0, -PrimaryPanelWidth, 0);
 
             _tracker.MaxPosition = new Vector3(SecondaryPanelWidth, 0, 0);
             _tracker.MinPosition = new Vector3(-TotalPanelWidth, 0, 0);
@@ -163,11 +163,13 @@ namespace Quarrel.Controls.Shell
             // Left secondary panel
             _left2TranslateAnimation.SetReferenceParameter("tracker", _tracker);
             _left2TranslateAnimation.SetScalarParameter("width", TotalPanelWidth);
+            _left2TranslateAnimation.SetScalarParameter("primarywidth", PrimaryPanelWidth);
             _left2Visual.StartAnimation(TranslationX, _left2TranslateAnimation);
 
             // Right panel
             _rightTranslateAnimation.SetReferenceParameter("tracker", _tracker);
             _rightTranslateAnimation.SetScalarParameter("width", SecondaryPanelWidth);
+            _rightTranslateAnimation.SetScalarParameter("primarywidth", PrimaryPanelWidth);
             _rightVisual.StartAnimation(TranslationX, _rightTranslateAnimation);
 
             SetSnapPoints(-TotalPanelWidth, 0, SecondaryPanelWidth);
@@ -179,42 +181,42 @@ namespace Quarrel.Controls.Shell
             {
                 _mainTranslateAnimation = _compositor.CreateExpressionAnimation("-tracker.Position.X");
                 _leftTranslateAnimation = _compositor.CreateExpressionAnimation("-24+((-tracker.Position.X/width)*24)");
-                _left2TranslateAnimation = _compositor.CreateExpressionAnimation("-tracker.Position.X/width*72");
-                _rightTranslateAnimation = _compositor.CreateExpressionAnimation("-tracker.Position.X/width*72");
+                _left2TranslateAnimation = _compositor.CreateExpressionAnimation("-tracker.Position.X/width*primarywidth");
+                _rightTranslateAnimation = _compositor.CreateExpressionAnimation("-tracker.Position.X/width*primarywidth");
             }
             else
             {
                 _mainTranslateAnimation = _compositor.CreateExpressionAnimation("tracker.Position.X");
                 _leftTranslateAnimation = _compositor.CreateExpressionAnimation("-24+((tracker.Position.X/width)*24)");
-                _left2TranslateAnimation = _compositor.CreateExpressionAnimation("tracker.Position.X/width*72");
-                _rightTranslateAnimation = _compositor.CreateExpressionAnimation("tracker.Position.X/width*72");
+                _left2TranslateAnimation = _compositor.CreateExpressionAnimation("tracker.Position.X/width*primarywidth");
+                _rightTranslateAnimation = _compositor.CreateExpressionAnimation("tracker.Position.X/width*primarywidth");
             }
         }
 
         public void ToggleLeft()
         {
-            if (IsLeftOpen)
+            float closed = 0;
+            float open = _tracker.MinPosition.X;
+            if (FlowDirection == FlowDirection.RightToLeft)
             {
-                TrackerTranslate(0);
+                open = _tracker.MaxPosition.X;
             }
-            else
-            {
-                var x = _tracker.MinPosition.X;
-                TrackerTranslate(x);
-            }
+
+            float target = IsLeftOpen ? closed : open;
+            TrackerTranslate(target);
         }
 
         public void ToggleRight()
         {
-            if (IsRightOpen)
+            float closed = 0;
+            float open = _tracker.MaxPosition.X;
+            if (FlowDirection == FlowDirection.RightToLeft)
             {
-                TrackerTranslate(0);
+                open = _tracker.MinPosition.X;
             }
-            else
-            {
-                var x = _tracker.MaxPosition.X;
-                TrackerTranslate(x);
-            }
+
+            float target = IsRightOpen ? closed : open;
+            TrackerTranslate(target);
         }
 
         private void OnPointerPressed(object sender, PointerRoutedEventArgs e)
@@ -254,8 +256,9 @@ namespace Quarrel.Controls.Shell
         private async void SetSizeSmall(SideDrawerSize previous)
         {
             main.Margin = new Thickness(0, 0, 0, 0);
-            right.Margin = new Thickness(0, 0, -72, 0);
+            right.Margin = new Thickness(0, 0, -PrimaryPanelWidth, 0);
 
+            // Tracker bounds
             _tracker.MaxPosition = new Vector3(SecondaryPanelWidth, 0, 0);
             _tracker.MinPosition = new Vector3(-TotalPanelWidth, 0, 0);
 
@@ -270,7 +273,7 @@ namespace Quarrel.Controls.Shell
 
             if (previous == SideDrawerSize.Medium)
             {
-                Translate(_mainVisual, 0, 72);
+                Translate(_mainVisual, 0, PrimaryPanelWidth);
                 await Task.Delay(300);
                 _mainVisual.StartAnimation(TranslationX, _mainTranslateAnimation);
             }
@@ -280,11 +283,13 @@ namespace Quarrel.Controls.Shell
 
         private async void SetSizeMedium(SideDrawerSize previous)
         {
-            main.Margin = new Thickness(72, 0, 0, 0);
-            right.Margin = new Thickness(0, 0, -72, 0);
+            main.Margin = new Thickness(PrimaryPanelWidth, 0, 0, 0);
+            right.Margin = new Thickness(0, 0, -PrimaryPanelWidth, 0);
 
+            // Tracker bounds
             _tracker.MaxPosition = new Vector3(SecondaryPanelWidth, 0, 0);
             _tracker.MinPosition = new Vector3(-TotalPanelWidth + PrimaryPanelWidth, 0, 0);
+
             SetSnapPoints(-TotalPanelWidth + PrimaryPanelWidth, 0, SecondaryPanelWidth);
 
             // Main panel
@@ -294,11 +299,11 @@ namespace Quarrel.Controls.Shell
             _leftVisual.StopAnimation(TranslationX);
             _left2Visual.StopAnimation(TranslationX);
             Translate(_leftVisual, 0);
-            Translate(_left2Visual, 72);
+            Translate(_left2Visual, PrimaryPanelWidth);
 
             if (previous == SideDrawerSize.Small)
             {
-                Translate(_mainVisual, 0, -72);
+                Translate(_mainVisual, 0, -PrimaryPanelWidth);
                 await Task.Delay(300);
                 _mainVisual.StartAnimation(TranslationX, _mainTranslateAnimation);
             }
@@ -314,8 +319,9 @@ namespace Quarrel.Controls.Shell
         private async void SetSizeLarge(SideDrawerSize previous)
         {
             main.Margin = new Thickness(TotalPanelWidth, 0, 0, 0);
-            right.Margin = new Thickness(0, 0, -72, 0);
+            right.Margin = new Thickness(0, 0, -PrimaryPanelWidth, 0);
 
+            // Tracker bounds
             _tracker.MaxPosition = new Vector3(SecondaryPanelWidth, 0, 0);
             _tracker.MinPosition = new Vector3(0, 0, 0);
             SetSnapPoints(0, 0, SecondaryPanelWidth);
@@ -327,7 +333,7 @@ namespace Quarrel.Controls.Shell
             _leftVisual.StopAnimation(TranslationX);
             _left2Visual.StopAnimation(TranslationX);
             Translate(_leftVisual, 0);
-            Translate(_left2Visual, 72);
+            Translate(_left2Visual, PrimaryPanelWidth);
 
             if (previous == SideDrawerSize.Small || previous == SideDrawerSize.Medium)
             {
@@ -342,6 +348,7 @@ namespace Quarrel.Controls.Shell
             main.Margin = new Thickness(TotalPanelWidth, 0, SecondaryPanelWidth, 0);
             right.Margin = new Thickness(0);
 
+            // Tracker bounds
             _tracker.MaxPosition = Vector3.Zero;
             _tracker.MinPosition = Vector3.Zero;
             SetSnapPoints(0, 0, 0);
@@ -353,7 +360,7 @@ namespace Quarrel.Controls.Shell
             _leftVisual.StopAnimation(TranslationX);
             _left2Visual.StopAnimation(TranslationX);
             Translate(_leftVisual, 0);
-            Translate(_left2Visual, 72);
+            Translate(_left2Visual, PrimaryPanelWidth);
 
             if (previous == SideDrawerSize.Large)
             {
@@ -444,6 +451,15 @@ namespace Quarrel.Controls.Shell
                 case SideDrawerSize.ExtraLarge:
                     sideDrawer.SetSizeExtraLarge(oldSize);
                     break;
+            }
+
+            // Adjust tracker bounds for right to left flow direction
+            if (sideDrawer.FlowDirection == FlowDirection.RightToLeft)
+            {
+                float rawMin = sideDrawer._tracker.MinPosition.X;
+                float rawMax = sideDrawer._tracker.MaxPosition.X;
+                sideDrawer._tracker.MinPosition = -rawMax * Vector3.UnitX;
+                sideDrawer._tracker.MaxPosition = -rawMin * Vector3.UnitX;
             }
         }
 
