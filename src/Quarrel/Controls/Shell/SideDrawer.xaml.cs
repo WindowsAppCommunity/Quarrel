@@ -1,5 +1,6 @@
 ﻿// Adam Dernis © 2022
 
+using CommunityToolkit.Diagnostics;
 using System;
 using System.Numerics;
 using System.Threading.Tasks;
@@ -143,6 +144,11 @@ namespace Quarrel.Controls.Shell
 
         private void SetupComposition()
         {
+            Guard.IsNotNull(_mainTranslateAnimation, nameof(_mainTranslateAnimation));
+            Guard.IsNotNull(_leftTranslateAnimation, nameof(_leftTranslateAnimation));
+            Guard.IsNotNull(_left2TranslateAnimation, nameof(_left2TranslateAnimation));
+            Guard.IsNotNull(_rightTranslateAnimation, nameof(_rightTranslateAnimation));
+
             main.Margin = new Thickness(0, 0, 0, 0);
             right.Margin = new Thickness(0, 0, -PrimaryPanelWidth, 0);
 
