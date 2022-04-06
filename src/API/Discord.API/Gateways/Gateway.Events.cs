@@ -42,10 +42,10 @@ namespace Discord.API.Gateways
         public event EventHandler<GatewayEventArgs<ChannelRecipientUpdate>>? ChannelRecipientAdded;
         public event EventHandler<GatewayEventArgs<ChannelRecipientUpdate>>? ChannelRecipientRemoved;
 
-        public event EventHandler<GatewayEventArgs<MessageAck>>? MessageAck;
+        public event EventHandler<GatewayEventArgs<JsonMessageAck>>? MessageAck;
         public event EventHandler<GatewayEventArgs<JsonMessage>>? MessageCreated;
         public event EventHandler<GatewayEventArgs<JsonMessage>>? MessageUpdated;
-        public event EventHandler<GatewayEventArgs<MessageDeleted>>? MessageDeleted;
+        public event EventHandler<GatewayEventArgs<JsonMessageDeleted>>? MessageDeleted;
 
         public event EventHandler<GatewayEventArgs<MessageReactionUpdated>>? MessageReactionAdded;
         public event EventHandler<GatewayEventArgs<MessageReactionUpdated>>? MessageReactionRemoved;

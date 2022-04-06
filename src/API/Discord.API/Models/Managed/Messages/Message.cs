@@ -8,6 +8,9 @@ using System;
 
 namespace Discord.API.Models.Messages
 {
+    /// <summary>
+    /// A message managed by a <see cref="DiscordClient"/>.
+    /// </summary>
     public class Message : SnowflakeItem, IMessage
     {
         internal Message(JsonMessage jsonMessage, DiscordClient context) :
@@ -22,18 +25,25 @@ namespace Discord.API.Models.Messages
             Content = jsonMessage.Content ?? String.Empty;
         }
 
+        /// <inheritdoc/>
         public MessageType Type { get; private set; }
 
+        /// <inheritdoc/>
         public bool IsTextToSpeech { get; private set; }
 
+        /// <inheritdoc/>
         public bool IsPinned { get; private set; }
 
+        /// <inheritdoc/>
         public bool MentionsEveryone { get; private set; }
 
+        /// <inheritdoc/>
         public string Content { get; private set; }
 
+        /// <inheritdoc/>
         public DateTimeOffset Timestamp { get; private set; }
 
+        /// <inheritdoc/>
         public DateTimeOffset? EditedTimestamp { get; private set; }
     }
 }

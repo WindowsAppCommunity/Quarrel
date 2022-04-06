@@ -4,7 +4,7 @@ using System;
 
 namespace Discord.API.Models.Users.Interfaces
 {
-    public interface IVoiceState
+    internal interface IVoiceState
     {
         bool IsDeafened { get; }
 

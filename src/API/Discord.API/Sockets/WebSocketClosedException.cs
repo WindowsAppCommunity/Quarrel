@@ -4,9 +4,9 @@ using System;
 
 namespace Discord.API.Sockets
 {
-    public class WebSocketClosedException : Exception
+    internal class WebSocketClosedException : Exception
     {
-        public WebSocketClosedException(int closeCode, string reason = null)
+        public WebSocketClosedException(int closeCode, string? reason = null)
             : base($"The server sent close {closeCode}{(reason != null ? $": \"{reason}\"" : string.Empty)}")
         {
             CloseCode = closeCode;
@@ -15,6 +15,9 @@ namespace Discord.API.Sockets
 
         public int CloseCode { get; }
 
-        public string Reason { get; }
+        /// <summary>
+        /// The reason the websocket closed.
+        /// </summary>
+        public string? Reason { get; }
     }
 }

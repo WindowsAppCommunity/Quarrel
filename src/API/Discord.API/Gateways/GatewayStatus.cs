@@ -2,7 +2,7 @@
 
 namespace Discord.API.Gateways
 {
-    public enum GatewayStatus
+    internal enum GatewayStatus
     {
         Initialized,
         Connecting,

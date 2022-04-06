@@ -4,6 +4,9 @@ using System;
 
 namespace Discord.API.Models.Enums.Users
 {
+    /// <summary>
+    /// An enum for properties a user could have.
+    /// </summary>
     [Flags]
     public enum UserProperties
     {

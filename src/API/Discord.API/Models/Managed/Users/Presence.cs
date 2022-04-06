@@ -6,6 +6,9 @@ using Discord.API.Models.Users.Interfaces;
 
 namespace Discord.API.Models.Users
 {
+    /// <summary>
+    /// A user presence managed by a <see cref="DiscordClient"/>
+    /// </summary>
     public class Presence : IPresence
     {
         internal Presence(JsonPresence jsonPresence)
@@ -30,6 +33,9 @@ namespace Discord.API.Models.Users
             }
         }
 
+        /// <summary>
+        /// Gets the online status.
+        /// </summary>
         public UserStatus Status { get; set; }
     }
 }

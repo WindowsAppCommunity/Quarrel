@@ -1,4 +1,5 @@
-﻿using Discord.API.HttpHandlers;
+﻿using CommunityToolkit.Diagnostics;
+using Discord.API.HttpHandlers;
 using Discord.API.Rest.Gateway;
 using Refit;
 using System;
@@ -10,7 +11,7 @@ namespace Discord.API.Rest
     {
         private const string BaseUrl = "https://discordapp.com/api";
 
-        public string Token { get; set; }
+        public string? Token { get; set; }
 
         internal IGatewayService GetGatewayService()
         {
@@ -23,6 +24,7 @@ namespace Discord.API.Rest
 
             if (authenticated)
             {
+                Guard.IsNotNull(Token, nameof(Token));
                 handler = new AuthenticatedHttpClientHandler(Token);
             }
 

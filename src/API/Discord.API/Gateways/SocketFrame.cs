@@ -4,6 +4,9 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+// JSON models don't need to respect standard nullable rules.
+#pragma warning disable CS8618
+
 namespace Discord.API.Gateways
 {
     internal class SocketFrame
@@ -28,9 +31,7 @@ namespace Discord.API.Gateways
                 {
                     return jsonElement.Deserialize<T>();
                 }
-                catch (Exception ex)
-                {
-                }
+                catch { }
             }
 
             return default;

@@ -2,6 +2,7 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Gateways.Models.Messages;
+using Discord.API.Models.Managed.Messages;
 using Discord.API.Models.Messages;
 using Discord.API.Models.Users;
 using System;
@@ -11,11 +12,29 @@ namespace Discord.API
     /// <inheritdoc/>
     public partial class DiscordClient
     {
+        /// <summary>
+        /// Invoked when the user logs in.
+        /// </summary>
         public event EventHandler<SelfUser>? LoggedIn;
 
+        /// <summary>
+        /// Invoked when a message is created.
+        /// </summary>
         public event EventHandler<Message>? MessageCreated;
+        
+        /// <summary>
+        /// Invoked when a message is updated.
+        /// </summary>
         public event EventHandler<Message>? MessageUpdated;
+
+        /// <summary>
+        /// Invoked when a message is deleted.
+        /// </summary>
         public event EventHandler<MessageDeleted>? MessageDeleted;
+
+        /// <summary>
+        /// Invoked when a message is marked as read.
+        /// </summary>
         public event EventHandler<MessageAck>? MessageAck;
 
         private void RegisterEvents()
@@ -26,7 +45,7 @@ namespace Discord.API
 
             _gateway.MessageCreated += OnMessageCreated;
             _gateway.MessageUpdated += OnMessageUpdated;
-            _gateway.MessageDeleted += (s, e) => ForwardEvent(e.EventData, MessageDeleted);
+            _gateway.MessageDeleted += (s, e) => ForwardEvent(e.EventData is not null ? new MessageDeleted(e.EventData, this) : null, MessageDeleted);
             _gateway.MessageAck += OnMessageAck;
         }
 

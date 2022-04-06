@@ -6,6 +6,9 @@ using Discord.API.Models.Base;
 
 namespace Discord.API.Models.Settings
 {
+    /// <summary>
+    /// User settings managed by a <see cref="DiscordClient"/>.
+    /// </summary>
     public class Settings : DiscordItem
     {
         internal Settings(JsonUserSettings jsonUserSettings, DiscordClient context) :
@@ -37,24 +40,54 @@ namespace Discord.API.Models.Settings
             }
         }
 
+        /// <summary>
+        /// Gets the order of guilds for the user.
+        /// </summary>
         public ulong[] GuildOrder { get; private set; }
 
+        /// <summary>
+        /// Gets the folders in a guild.
+        /// </summary>
         public GuildFolder[] Folders { get; private set; }
 
+        /// <summary>
+        /// Gets if the user is in developer mode.
+        /// </summary>
         public bool IsDeveloperMode { get; private set; }
 
+        /// <summary>
+        /// Gets if reactions are shown.
+        /// </summary>
         public bool RenderReactions { get; private set; }
 
+        /// <summary>
+        /// Gets if embeds are shown.
+        /// </summary>
         public bool RenderEmbeds { get; private set; }
 
+        /// <summary>
+        /// Gets if embeds are displayed inline.
+        /// </summary>
         public bool InlineEmbedMedia { get; private set; }
 
+        /// <summary>
+        /// Gets if attachments are displayed inline.
+        /// </summary>
         public bool InlineAttachementMedia { get; private set; }
 
+        /// <summary>
+        /// Gets the user's locale.
+        /// </summary>
         public string Locale { get; private set; }
 
+        /// <summary>
+        /// Gets if the user's presence includes the current game.
+        /// </summary>
         public bool ShowCurrentGame { get; private set; }
 
+        /// <summary>
+        /// Gets the Discord theme for the user.
+        /// </summary>
         public Theme Theme { get; private set; }
     }
 }

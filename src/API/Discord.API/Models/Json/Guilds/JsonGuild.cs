@@ -41,7 +41,7 @@ namespace Discord.API.Models.Json.Guilds
         public ulong? AFKChannelId { get; set; }
 
         [JsonPropertyName("afk_timeout")]
-        public int? AFKTimeout { get; set; }
+        public AFKTimeout? AFKTimeout { get; set; }
 
         [JsonPropertyName("verification_level")]
         public VerificationLevel VerificationLevel { get; set; }

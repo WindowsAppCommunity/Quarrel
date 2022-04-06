@@ -1,11 +1,12 @@
 ﻿// Adam Dernis © 2022
 
 using Discord.API.Gateways;
-using Discord.API.Models.Messages;
 using Discord.API.Gateways.Models.Messages;
 using Discord.API.Models.Channels.Abstract;
 using Discord.API.Models.Channels.Interfaces;
 using Discord.API.Models.Json.Messages;
+using Discord.API.Models.Managed.Messages;
+using Discord.API.Models.Messages;
 
 namespace Discord.API
 {
@@ -24,6 +25,9 @@ namespace Discord.API
                         messageChannel.LastMessageId = message.Id;
                     }
                 }
+
+                // TODO: Channel registration
+                MessageCreated?.Invoke(this, new Message(message, this));
             }
         }
 
@@ -36,9 +40,9 @@ namespace Discord.API
             }
         }
 
-        private void OnMessageAck(object sender, GatewayEventArgs<MessageAck> e)
+        private void OnMessageAck(object sender, GatewayEventArgs<JsonMessageAck> e)
         {
-            MessageAck? messageAck = e.EventData;
+            JsonMessageAck? messageAck = e.EventData;
             if (messageAck is not null)
             {
                 if (_channelMap.TryGetValue(messageAck.ChannelId, out Channel channel))
@@ -48,6 +52,9 @@ namespace Discord.API
                         messageChannel.LastMessageId = messageAck.MessageId;
                     }
                 }
+
+                // TODO: Channel registration
+                MessageAck?.Invoke(this, new MessageAck(messageAck, this));
             }
         }
     }

@@ -7,6 +7,9 @@ using Discord.API.Models.Json.Users;
 
 namespace Discord.API.Models.Users
 {
+    /// <summary>
+    /// A user managed by a <see cref="DiscordClient"/>.
+    /// </summary>
     public class User : SnowflakeItem, IUser
     {
         internal User(JsonUser restUser, DiscordClient context) :
@@ -25,31 +28,44 @@ namespace Discord.API.Models.Users
             PublicFlags = restUser.PublicFlags;
         }
 
+        /// <inheritdoc/>
         public string Username { get; protected set; }
 
+        /// <inheritdoc/>
         public int Discriminator { get; protected set; }
 
+        /// <inheritdoc/>
         public string? Avatar { get; protected set; }
 
+        /// <inheritdoc/>
         public string? Bio { get; protected set; }
 
+        /// <inheritdoc/>
         public string? Banner { get; protected set; }
 
+        /// <inheritdoc/>
         public string? BannerColor { get; protected set; }
 
+        /// <inheritdoc/>
         public uint? AccentColor { get; protected set; }
 
+        /// <inheritdoc/>
         public bool? Bot { get; protected set; }
 
+        /// <inheritdoc/>
         public UserProperties? Flags { get; protected set; }
 
+        /// <inheritdoc/>
         public UserProperties? PublicFlags { get; protected set; }
 
+        /// <inheritdoc/>
         public RelationshipType RelationshipType { get; internal set; }
 
-        public Presence Presence { get; internal set; }
+        /// <inheritdoc/>
+        public Presence? Presence { get; internal set; }
 
-        public string? GetAvatarUrl(uint size)
+        /// <inheritdoc/>
+        public string? GetAvatarUrl(uint size = 128)
         {
             if (Avatar is null)
             {

@@ -10,11 +10,17 @@ using System.Collections.Generic;
 
 namespace Discord.API.Models.Guilds
 {
+    /// <summary>
+    /// A guild managed by a <see cref="DiscordClient"/>.
+    /// </summary>
     public class Guild : SnowflakeItem, IGuild
     {
         private HashSet<ulong> _channelIds;
         private Dictionary<ulong, Role> _roles;
 
+        /// <summary>
+        /// Initializes new instance of the <see cref="Guild"/> class.
+        /// </summary>
         internal Guild(JsonGuild restGuild, DiscordClient context)
             : base(context)
         {
@@ -41,6 +47,7 @@ namespace Discord.API.Models.Guilds
             SystemChannelId = restGuild.SystemChannelId;
             RulesChannelId = restGuild.RulesChannelId;
             PublicUpdatesChannelId = restGuild.PublicUpdatesChannelId;
+            VoiceRegionId = restGuild.Region;
 
             IsWidgetEnabled = restGuild.IsWidgetEnabled ?? false;
             Available = true;
@@ -54,69 +61,89 @@ namespace Discord.API.Models.Guilds
             }
         }
 
+        /// <inheritdoc/>
         public string Name { get; private set; }
 
+        /// <inheritdoc/>
         public ulong? AFKChannelId { get; private set; }
 
-        public int? AFKTimeout { get; private set; }
+        /// <inheritdoc/>
+        public AFKTimeout? AFKTimeout { get; private set; }
 
+        /// <inheritdoc/>
         public DefaultMessageNotifications DefaultMessageNotifications { get; private set; }
 
+        /// <inheritdoc/>
         public MfaLevel MfaLevel { get; private set; }
 
+        /// <inheritdoc/>
         public VerificationLevel VerificationLevel { get; private set; }
 
+        /// <inheritdoc/>
         public ExplicitContentFilterLevel ExplicitContentFilter { get; private set; }
 
+        /// <inheritdoc/>
         public NsfwLevel NsfwLevel { get; private set; }
 
+        /// <inheritdoc/>
         public int PremiumSubscriptionCount { get; private set; }
 
+        /// <inheritdoc/>
         public string IconId { get; private set; }
 
+        /// <inheritdoc/>
         public string SplashId { get; private set; }
 
+        /// <inheritdoc/>
         public string DiscoverySplashId { get; private set; }
 
+        /// <inheritdoc/>
         public bool Available { get; private set; }
 
+        /// <inheritdoc/>
         public ulong? WidgetChannelId { get; private set; }
 
+        /// <inheritdoc/>
         public ulong? SystemChannelId { get; private set; }
 
+        /// <inheritdoc/>
         public ulong? RulesChannelId { get; private set; }
 
+        /// <inheritdoc/>
         public ulong? PublicUpdatesChannelId { get; private set; }
 
+        /// <inheritdoc/>
         public bool IsWidgetEnabled { get; private set; }
 
+        /// <inheritdoc/>
         public ulong OwnerId { get; private set; }
 
+        /// <inheritdoc/>
         public string VoiceRegionId { get; private set; }
 
-        internal void UpdateFromRestGuild(JsonGuild jsonGuild)
+        internal void UpdateFromRestGuild(JsonGuild restGuild)
         {
-            Guard.IsEqualTo(Id, jsonGuild.Id, nameof(Id));
+            Guard.IsEqualTo(Id, restGuild.Id, nameof(Id));
 
-            Name = jsonGuild.Name;
-            AFKChannelId = jsonGuild.AFKChannelId ?? AFKChannelId;
-            AFKTimeout = jsonGuild.AFKTimeout ?? AFKTimeout;
-            DefaultMessageNotifications = jsonGuild.DefaultMessageNotifications;
-            MfaLevel = jsonGuild.MfaLevel;
-            VerificationLevel = jsonGuild.VerificationLevel;
-            ExplicitContentFilter = jsonGuild.ExplicitContentFilter;
-            NsfwLevel = jsonGuild.NsfwLevel;
-            PremiumSubscriptionCount = jsonGuild.PremiumSubscriptionCount ?? 0;
-            IconId = jsonGuild.Icon;
-            SplashId = jsonGuild.Splash;
-            DiscoverySplashId = jsonGuild.Splash;
-            WidgetChannelId = jsonGuild.WidgetChannelId;
-            SystemChannelId = jsonGuild.SystemChannelId;
-            RulesChannelId = jsonGuild.RulesChannelId;
-            PublicUpdatesChannelId = jsonGuild.PublicUpdatesChannelId;
-            IsWidgetEnabled = jsonGuild.IsWidgetEnabled ?? false;
-            OwnerId = jsonGuild.OwnerId;
-            VoiceRegionId = jsonGuild.Region;
+            Name = restGuild.Name;
+            AFKChannelId = restGuild.AFKChannelId ?? AFKChannelId;
+            AFKTimeout = restGuild.AFKTimeout ?? AFKTimeout;
+            DefaultMessageNotifications = restGuild.DefaultMessageNotifications;
+            MfaLevel = restGuild.MfaLevel;
+            VerificationLevel = restGuild.VerificationLevel;
+            ExplicitContentFilter = restGuild.ExplicitContentFilter;
+            NsfwLevel = restGuild.NsfwLevel;
+            PremiumSubscriptionCount = restGuild.PremiumSubscriptionCount ?? 0;
+            IconId = restGuild.Icon;
+            SplashId = restGuild.Splash;
+            DiscoverySplashId = restGuild.Splash;
+            WidgetChannelId = restGuild.WidgetChannelId;
+            SystemChannelId = restGuild.SystemChannelId;
+            RulesChannelId = restGuild.RulesChannelId;
+            PublicUpdatesChannelId = restGuild.PublicUpdatesChannelId;
+            IsWidgetEnabled = restGuild.IsWidgetEnabled ?? false;
+            OwnerId = restGuild.OwnerId;
+            VoiceRegionId = restGuild.Region;
 
             Available = true;
         }

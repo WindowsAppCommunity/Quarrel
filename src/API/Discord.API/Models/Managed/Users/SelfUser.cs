@@ -7,6 +7,9 @@ using Discord.API.Models.Users.Interfaces;
 
 namespace Discord.API.Models.Users
 {
+    /// <summary>
+    /// The current user's data managed by the <see cref="DiscordClient"/>.
+    /// </summary>
     public class SelfUser : User, ISelfUser
     {
         internal SelfUser(JsonUser restUser, DiscordClient context) :
@@ -23,18 +26,25 @@ namespace Discord.API.Models.Users
             Locale = restUser.Locale;
         }
 
+        /// <inheritdoc/>
         public string? Email { get; private set; }
 
+        /// <inheritdoc/>
         public string? Phone { get; private set; }
 
+        /// <inheritdoc/>
         public bool? Verified { get; private set; }
 
+        /// <inheritdoc/>
         public bool? MfaEnabled { get; private set; }
 
+        /// <inheritdoc/>
         public bool? NSFWAllowed { get; private set; }
 
+        /// <inheritdoc/>
         public PremiumType PurchasedFlags { get; private set; }
 
+        /// <inheritdoc/>
         public string? Locale { get; private set; }
 
         internal override void UpdateFromRestUser(JsonUser jsonUser)

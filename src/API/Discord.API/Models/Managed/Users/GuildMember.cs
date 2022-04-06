@@ -9,6 +9,9 @@ using System;
 
 namespace Discord.API.Models.Users
 {
+    /// <summary>
+    /// A guild member managed by a <see cref="DiscordClient"/>.
+    /// </summary>
     public class GuildMember : DiscordItem, IGuildMember
     {
         internal GuildMember(JsonGuildMember jsonMember, DiscordClient context)
@@ -31,20 +34,28 @@ namespace Discord.API.Models.Users
             HoistedRole = jsonMember.HoistedRole;
         }
 
+        /// <inheritdoc/>
         public ulong GuildId { get; protected set; }
 
+        /// <inheritdoc/>
         public ulong UserId { get; protected set; }
 
+        /// <inheritdoc/>
         public string Nickname { get; protected set; }
 
+        /// <inheritdoc/>
         public DateTimeOffset? JoinedAt { get; protected set; }
 
+        /// <inheritdoc/>
         public string? GuildAvatarId { get; protected set; }
 
+        /// <inheritdoc/>
         public ulong[] Roles { get; protected set; }
 
+        /// <inheritdoc/>
         public ulong? HoistedRole { get; protected set; }
 
+        /// <inheritdoc/>
         public Presence? Presence { get; internal set; }
 
         internal void UpdateFromJsonGuildMember(JsonGuildMember jsonGuildMember)
