@@ -39,4 +39,7 @@
   <data name="ExtendedSplash/Loading" xml:space="preserve">
     <value>טוען</value>
   </data>
+  <data name="Login/PrivacyPolicyHLBTN.Content" xml:space="preserve">
+    <value>מדיניות פרטיות</value>
+  </data>
 </root>

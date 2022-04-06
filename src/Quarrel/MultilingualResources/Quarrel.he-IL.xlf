@@ -46,6 +46,10 @@
           <source>Loading</source>
           <target state="translated">טוען</target>
         </trans-unit>
+        <trans-unit id="Login/PrivacyPolicyHLBTN.Content" translate="yes" xml:space="preserve">
+          <source>Privacy Policy</source>
+          <target state="translated">מדיניות פרטיות</target>
+        </trans-unit>
       </group>
     </body>
   </file>
