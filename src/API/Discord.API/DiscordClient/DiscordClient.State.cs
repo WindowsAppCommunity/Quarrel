@@ -18,7 +18,7 @@ namespace Discord.API
     public partial class DiscordClient
     {
         private SelfUser? _selfUser;
-        private Settings _settings;
+        private Settings? _settings;
 
         private ConcurrentDictionary<ulong, Guild> _guildMap;
         private ConcurrentDictionary<ulong, Channel> _channelMap;
