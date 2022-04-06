@@ -14,9 +14,6 @@ namespace Quarrel.SubPages
     /// </summary>
     public sealed partial class LoginPage : UserControl
     {
-        private DependencyProperty PageStateProperty =
-            DependencyProperty.Register(nameof(PageState), typeof(LoginPageState), typeof(LoginPage), new PropertyMetadata(LoginPageState.Quarrel));
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginPage"/> class.
         /// </summary>
@@ -27,12 +24,6 @@ namespace Quarrel.SubPages
         }
 
         public LoginPageViewModel ViewModel => (LoginPageViewModel)DataContext;
-
-        private LoginPageState PageState
-        {
-            get => (LoginPageState)GetValue(PageStateProperty);
-            set => SetValue(PageStateProperty, value);
-        }
 
         private string NavigationUrl => "https://discord.com/app";
 

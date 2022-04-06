@@ -18,9 +18,6 @@ namespace Quarrel.ViewModels.SubPages
         [ObservableProperty]
         private string? _tokenText;
 
-        [ObservableProperty]
-        private LoginPageState _pageState;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginPageViewModel"/> class.
         /// </summary>
@@ -29,23 +26,10 @@ namespace Quarrel.ViewModels.SubPages
             _analyticsService = analyticsService;
             _discordService = discordService;
 
-            PageState = LoginPageState.Quarrel;
             LoginWithTokenCommand = new RelayCommand(() => LoginWithToken(TokenText));
         }
 
         public IRelayCommand LoginWithTokenCommand { get; }
-
-        [ICommand]
-        public void GoToDiscordLogin()
-            => PageState = LoginPageState.Discord;
-
-        [ICommand]
-        public void GoToTokenLogin()
-            => PageState = LoginPageState.Token;
-
-        [ICommand]
-        public void GoBack()
-            => PageState = LoginPageState.Quarrel;
 
         /// <summary>
         /// Logs the user in with a token.

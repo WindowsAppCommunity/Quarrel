@@ -2,10 +2,4 @@
 
 namespace Quarrel.ViewModels.SubPages
 {
-    public enum LoginPageState
-    {
-        Quarrel,
-        Discord,
-        Token,
-    }
 }
