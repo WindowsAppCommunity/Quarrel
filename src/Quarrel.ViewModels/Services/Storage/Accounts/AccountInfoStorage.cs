@@ -6,6 +6,7 @@ using Quarrel.Services.Storage.Accounts.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Quarrel.Services.Storage.Accounts
 {
@@ -21,13 +22,11 @@ namespace Quarrel.Services.Storage.Accounts
         {
         }
 
-        /// <summary>
-        /// Gets or sets the account info in storage.
-        /// </summary>
+        /// <inheritdoc/>
         public AccountInfo? ActiveAccount
         {
-            get => GetSetting<AccountInfo?>(() => null);
-            set => SetSetting(value);
+            get => ActiveAccountId.HasValue ? Accounts[ActiveAccountId.Value] : null;
+            set => ActiveAccountId = value is not null ? value.Id : null;
         }
 
         /// <summary>
@@ -39,16 +38,20 @@ namespace Quarrel.Services.Storage.Accounts
             set => SetSetting(value);
         }
 
-        /// <summary>
-        /// Gets a value indicating whether or not the user is logged into an account.
-        /// </summary>
-        public bool IsLoggedIn => ActiveAccount is not null;
+        /// <inheritdoc/>
+        public bool IsLoggedIn => ActiveAccountId is not null;
+
+        private ulong? ActiveAccountId
+        {
+            get => GetSetting<ulong?>(() => null);
+            set => SetSetting(value);
+        }
 
         public bool SelectAccount(ulong id)
         {
             if (Accounts.ContainsKey(id))
             {
-                ActiveAccount = Accounts[id];
+                ActiveAccountId = id;
                 return true;
             }
 
@@ -71,5 +74,9 @@ namespace Quarrel.Services.Storage.Accounts
             // TODO: Handle active account 
             return Accounts.Remove(id);
         }
+
+        Task IAccountInfoStorage.LoadAsync() => LoadAsync();
+
+        Task IAccountInfoStorage.SaveAsync() => SaveAsync();
     }
 }

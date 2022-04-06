@@ -14,6 +14,8 @@ namespace Quarrel.Services.Storage
             AccountInfoStorage = new AccountInfoStorage(folder, serializer);
         }
 
-        public IAccountInfoStorage AccountInfoStorage { get; }
+        IAccountInfoStorage IStorageService.AccountInfoStorage => AccountInfoStorage;
+
+        public AccountInfoStorage AccountInfoStorage { get; }
     }
 }

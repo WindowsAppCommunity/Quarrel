@@ -24,12 +24,12 @@ namespace Quarrel.ViewModels
 
             Source = new ObservableCollection<BindableGuild>();
 
-            _messenger.Register<UserLoggedInMessage>(this, (_, _) => LoadGuildsAsync());
+            _messenger.Register<UserLoggedInMessage>(this, (_, _) => LoadGuilds());
         }
 
         public ObservableCollection<BindableGuild> Source { get; set; }
 
-        public async void LoadGuildsAsync()
+        public void LoadGuilds()
         {
             var guilds = _discordService.GetMyGuilds();
             _dispatcherService.RunOnUIThread(() =>
