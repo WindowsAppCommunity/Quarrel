@@ -52,11 +52,7 @@ namespace Quarrel.Controls.Shell
         {
             StatusBlock.Text = _localizationService[ConnectedString];
             QuarrelIcon.FinishAnimation();
-        }
-
-        private void QuarrelIcon_AnimationFinished(object sender, System.EventArgs e)
-        {
-            this.Visibility = Visibility.Collapsed;
+            HideAnimation.Begin();
         }
 
         private static void OnIsShowingChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
@@ -101,6 +97,11 @@ namespace Quarrel.Controls.Shell
 
             string messageText = splash._localizationService[messageString];
             splash.StatusBlock.Text = messageText;
+        }
+
+        private void HideAnimation_Completed(object sender, object e)
+        {
+            this.Visibility = Visibility.Collapsed;
         }
     }
 }
