@@ -42,6 +42,10 @@
           <source>CONNECTING</source>
           <target state="needs-review-translation">מתחבר</target>
         </trans-unit>
+        <trans-unit id="ExtendedSplash/Loading" translate="yes" xml:space="preserve">
+          <source>Loading</source>
+          <target state="translated">טוען</target>
+        </trans-unit>
       </group>
     </body>
   </file>

@@ -36,4 +36,7 @@
   <data name="ExtendedSplash/Connecting" xml:space="preserve">
     <value>מתחבר</value>
   </data>
+  <data name="ExtendedSplash/Loading" xml:space="preserve">
+    <value>טוען</value>
+  </data>
 </root>

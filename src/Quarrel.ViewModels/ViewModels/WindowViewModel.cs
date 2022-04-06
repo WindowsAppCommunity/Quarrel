@@ -2,24 +2,19 @@
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using Quarrel.Controls.Shell;
+using Quarrel.Controls.Shell.Enums;
 using Quarrel.Messages.Discord;
 using Quarrel.Services.Discord;
 using Quarrel.Services.DispatcherService;
 using Quarrel.Services.Storage;
 using Quarrel.Services.Storage.Accounts.Models;
+using Quarrel.ViewModels.Enums;
 
 namespace Quarrel.ViewModels
 {
     public partial class WindowViewModel : ObservableObject
     {
-        public enum WindowHostState
-        {
-            Initializing,
-            Connecting,
-            LoggedIn,
-            LoggedOut,
-        }
-
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
         private readonly IStorageService _storageService;
@@ -27,12 +22,13 @@ namespace Quarrel.ViewModels
 
         [AlsoNotifyChangeFor(nameof(IsLoading))]
         [AlsoNotifyChangeFor(nameof(IsLoggedOut))]
+        [AlsoNotifyChangeFor(nameof(SplashStatus))]
         [ObservableProperty]
         private WindowHostState _windowState;
 
         public WindowViewModel(IMessenger messenger, IDiscordService discordService, IStorageService storageService, IDispatcherService dispatcherService)
         {
-            WindowState = WindowHostState.Initializing;
+            WindowState = WindowHostState.Loading;
             _messenger = messenger;
             _discordService = discordService;
             _storageService = storageService;
@@ -44,7 +40,9 @@ namespace Quarrel.ViewModels
             InitializeLogin();
         }
 
-        public bool IsLoading => _windowState == WindowHostState.Connecting || _windowState == WindowHostState.Initializing;
+        public SplashStatus SplashStatus => (SplashStatus)_windowState;
+
+        public bool IsLoading => _windowState == WindowHostState.Connecting || _windowState == WindowHostState.Loading;
 
         public bool IsLoggedOut => _windowState == WindowHostState.LoggedOut;
 

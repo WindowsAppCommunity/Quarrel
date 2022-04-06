@@ -14,7 +14,7 @@
     <Grid>
         <local:Shell/>
         <subpages:LoginPage x:Name="LoginPage" Visibility="{x:Bind ViewModel.IsLoggedOut, Mode=OneWay}"/>
-        <local:ExtendedSplashScreen IsShowing="{x:Bind ViewModel.IsLoading, Mode=OneWay}"/>
+        <local:ExtendedSplashScreen IsShowing="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Status="{x:Bind ViewModel.SplashStatus, Mode=OneWay}"/>
     </Grid>
 
 </UserControl>

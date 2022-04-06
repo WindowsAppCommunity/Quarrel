@@ -123,6 +123,9 @@
   <data name="ExtendedSplash/Connecting" xml:space="preserve">
     <value>CONNECTING</value>
   </data>
+  <data name="ExtendedSplash/Loading" xml:space="preserve">
+    <value>Loading</value>
+  </data>
   <data name="Login/Disclaimer1TB.Text" xml:space="preserve">
     <value>Logging in will intercept a token that allows Quarrel to interact with Discord through your account.</value>
   </data>

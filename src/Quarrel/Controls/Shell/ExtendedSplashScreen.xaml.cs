@@ -1,6 +1,7 @@
 ﻿// Adam Dernis © 2022
 
 using Microsoft.Extensions.DependencyInjection;
+using Quarrel.Controls.Shell.Enums;
 using Quarrel.Services.Localization;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -9,11 +10,15 @@ namespace Quarrel.Controls.Shell
 {
     public sealed partial class ExtendedSplashScreen : UserControl
     {
-        private const string Connected = "ExtendedSplash/Connected";
-        private const string Connecting = "ExtendedSplash/Connecting";
+        private const string LoadingString = "ExtendedSplash/Loading";
+        private const string ConnectedString = "ExtendedSplash/Connected";
+        private const string ConnectingString = "ExtendedSplash/Connecting";
 
         private static readonly DependencyProperty IsShowingProperty =
             DependencyProperty.Register(nameof(IsShowing), typeof(bool), typeof(ExtendedSplashScreen), new PropertyMetadata(false, OnIsShowingChanged));
+
+        private static readonly DependencyProperty StatusProperty =
+            DependencyProperty.Register(nameof(Status), typeof(SplashStatus), typeof(ExtendedSplashScreen), new PropertyMetadata(false, OnStatusChanged));
 
         private ILocalizationService _localizationService;
 
@@ -30,16 +35,22 @@ namespace Quarrel.Controls.Shell
             set => SetValue(IsShowingProperty, value);
         }
 
+        public SplashStatus Status
+        {
+            get => (SplashStatus)GetValue(StatusProperty);
+            set => SetValue(StatusProperty, value);
+        }
+
         private void BeginAnimation()
         {
             this.Visibility = Visibility.Visible;
-            StatusBlock.Text = _localizationService[Connecting];
+            StatusBlock.Text = _localizationService[ConnectingString];
             QuarrelIcon.BeginAnimation();
         }
 
         private void FinishAnimation()
         {
-            StatusBlock.Text = _localizationService[Connected];
+            StatusBlock.Text = _localizationService[ConnectedString];
             QuarrelIcon.FinishAnimation();
         }
 
@@ -50,21 +61,46 @@ namespace Quarrel.Controls.Shell
 
         private static void OnIsShowingChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
-            ExtendedSplashScreen extendedSplashScreen = (ExtendedSplashScreen)d;
+            ExtendedSplashScreen splash = (ExtendedSplashScreen)d;
             bool newValue = (bool)args.NewValue;
             bool oldValue = (bool)args.OldValue;
 
             if (newValue != oldValue)
             {
-                if (extendedSplashScreen.IsShowing)
+                if (splash.IsShowing)
                 {
-                    extendedSplashScreen.BeginAnimation();
+                    splash.BeginAnimation();
                 }
                 else
                 {
-                    extendedSplashScreen.FinishAnimation();
+                    splash.FinishAnimation();
                 }
             }
+        }
+
+        private static void OnStatusChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
+        {
+            ExtendedSplashScreen splash = (ExtendedSplashScreen)d;
+            SplashStatus status = (SplashStatus)args.NewValue;
+
+            string messageString;
+            switch (status)
+            {
+                case SplashStatus.Connecting:
+                    messageString = ConnectingString;
+                    break;
+                case SplashStatus.Connected:
+                    messageString = ConnectedString;
+                    break;
+                case SplashStatus.Loading:
+                default:
+                    messageString = LoadingString;
+                    break;
+
+            }
+
+            string messageText = splash._localizationService[messageString];
+            splash.StatusBlock.Text = messageText;
         }
     }
 }
