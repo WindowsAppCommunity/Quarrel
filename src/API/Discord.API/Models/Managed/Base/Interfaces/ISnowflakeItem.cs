@@ -5,7 +5,7 @@ namespace Discord.API.Models.Base.Interfaces
     /// <summary>
     /// An interface for discord items containing a snowflake as an id.
     /// </summary>
-    internal interface ISnowflakeItem
+    public interface ISnowflakeItem
     {
         /// <summary>
         /// Gets or sets the id of the current item.

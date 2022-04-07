@@ -13,9 +13,9 @@ namespace Quarrel.Services.Discord
 {
     public partial class DiscordService : IDiscordService
     {
-        private DiscordClient _discordClient;
-        private IMessenger _messenger;
-        IStorageService _storageService;
+        private readonly DiscordClient _discordClient;
+        private readonly IMessenger _messenger;
+        private readonly IStorageService _storageService;
 
         public DiscordService(IMessenger messenger, IStorageService storageService)
         {

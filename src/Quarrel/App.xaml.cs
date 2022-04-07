@@ -19,6 +19,7 @@ using Quarrel.Services.Dispatcher;
 using Windows.UI.Core;
 using Windows.UI.Core.Preview;
 using Quarrel.ViewModels.Panels;
+using Windows.Globalization;
 
 namespace Quarrel
 {

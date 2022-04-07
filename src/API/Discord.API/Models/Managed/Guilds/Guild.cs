@@ -3,6 +3,7 @@
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Base;
 using Discord.API.Models.Channels.Abstract;
+using Discord.API.Models.Channels.Interfaces;
 using Discord.API.Models.Enums.Guilds;
 using Discord.API.Models.Guilds.Interfaces;
 using Discord.API.Models.Json.Guilds;
@@ -124,17 +125,18 @@ namespace Discord.API.Models.Guilds
         public string VoiceRegionId { get; private set; }
 
         /// <summary>
-        /// Gets the channels in a guild.
+        /// Gets the channels in a guild
         /// </summary>
-        public Channel[] GetChannels()
+        public IGuildChannel[] GetChannels()
         {
-            Channel[] channels = new Channel[_channelIds.Count];
+            IGuildChannel[] channels = new IGuildChannel[_channelIds.Count];
             int i = 0;
             foreach (var channelId in _channelIds)
             {
-                channels[i] = Context.GetChannelInternal(channelId)!;
-                if (channels[i] is not null)
+                Channel? channel = Context.GetChannelInternal(channelId)!;
+                if (channel is IGuildChannel guildChannel)
                 {
+                    channels[i] = guildChannel;
                     i++;
                 }
             }

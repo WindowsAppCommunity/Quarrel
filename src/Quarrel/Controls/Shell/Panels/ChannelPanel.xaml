@@ -1,12 +1,9 @@
 ﻿<UserControl
     x:Class="Quarrel.Controls.Shell.Panels.ChannelPanel"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Quarrel.Controls.Shell.Panels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:ts="using:Quarrel.TemplateSelectors"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -17,11 +14,9 @@
                                     TextChannelTemplate="{StaticResource TextChannelTemplate}"
                                     CategoryChannelTemplate="{StaticResource CategoryChannelTemplate}"/>
     </UserControl.Resources>
-    
+
     <ListView x:Name="ChannelList"
               ItemsSource="{x:Bind ViewModel.Source}"
               ItemTemplateSelector="{StaticResource ChannelTemplateSelector}"
-              SelectionMode="None"
-              IsItemClickEnabled="True">
-    </ListView>
+              SelectionMode="Single"/>
 </UserControl>

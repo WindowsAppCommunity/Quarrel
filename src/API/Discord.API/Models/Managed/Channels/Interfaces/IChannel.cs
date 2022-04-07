@@ -5,7 +5,10 @@ using Discord.API.Models.Enums.Channels;
 
 namespace Discord.API.Models.Channels.Interfaces
 {
-    internal interface IChannel : ISnowflakeItem
+    /// <summary>
+    /// An interface for channel.
+    /// </summary>
+    public interface IChannel : ISnowflakeItem
     {
         /// <summary>
         /// Gets the name of the channel.

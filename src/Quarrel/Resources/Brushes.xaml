@@ -9,7 +9,8 @@
                           BackgroundSource="HostBackdrop"
                           TintColor="#FF33353B"
                           TintOpacity="0.8"
-                          FallbackColor="#FF33353B"/>
+                          FallbackColor="#FF33353B"
+                          AlwaysUseFallback="True"/>
             <AcrylicBrush x:Key="SecondaryPaneBackground"
                           BackgroundSource="HostBackdrop"
                           TintColor="#FF2A2C31"
@@ -38,7 +39,8 @@
                           BackgroundSource="HostBackdrop"
                           TintColor="#FFFFFFFF"
                           TintOpacity="0.8"
-                          FallbackColor="#FFFFFFFF"/>
+                          FallbackColor="#FFFFFFFF"
+                          AlwaysUseFallback="True"/>
             <AcrylicBrush x:Key="SecondaryPaneBackground"
                           BackgroundSource="HostBackdrop"
                           TintColor="#FFE8E8ED"

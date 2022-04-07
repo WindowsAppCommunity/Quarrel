@@ -41,10 +41,10 @@ namespace Quarrel.ViewModels.Panels
             }
 
             _currentGuildId = guild.Id;
-            var channels = _discordService.GetChannels(guild);
-            Source.Clear();
+            var channels = _discordService.GetGuildChannels(guild);
             _dispatcherService.RunOnUIThread(() =>
             {
+                Source.Clear();
                 foreach (var channel in channels)
                 {
                     Source.Add(channel);

@@ -13,6 +13,8 @@ namespace Quarrel.Services.Discord
 
         BindableGuild[] GetMyGuilds();
 
-        BindableChannel[] GetChannels(Guild guild);
+        BindableChannel[] GetGuildChannels(Guild guild);
+
+        BindableChannel[] GetGuildChannelsHierarchy(Guild guild);
     }
 }
