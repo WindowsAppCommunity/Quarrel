@@ -18,7 +18,7 @@
 
         <selectors:ChannelTemplateSelector x:Key="ChannelTemplateSelector"
                                     TextChannelTemplate="{StaticResource TextChannelTemplate}"
-                                    CategoryChannelTemplate="{StaticResource CategoryChannelTemplate}"/>
+                                    CategoryChannelTemplate="{StaticResource CategoryZoomInChannelTemplate}"/>
 
     </UserControl.Resources>
 
@@ -33,7 +33,7 @@
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate x:DataType="bindablechannels:BindableChannelGroup">
                                 <ContentControl Content="{x:Bind Key}"
-                                                ContentTemplate="{StaticResource CategoryChannelTemplate}"/>
+                                                ContentTemplate="{StaticResource CategoryZoomInChannelTemplate}"/>
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
                     </GroupStyle>
@@ -41,12 +41,13 @@
             </ListView>
         </SemanticZoom.ZoomedInView>
         <SemanticZoom.ZoomedOutView>
-            <ListView ItemsSource="{x:Bind GroupedChannels.View.CollectionGroups, Mode=OneWay}"
+            <ListView VerticalAlignment="Center"
+                      ItemsSource="{x:Bind GroupedChannels.View.CollectionGroups, Mode=OneWay}"
                       SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="wuxdata:ICollectionViewGroup">
                         <ContentControl Content="{x:Bind ((bindablechannels:BindableChannelGroup)Group).Key}"
-                                        ContentTemplate="{StaticResource CategoryChannelTemplate}"/>
+                                        ContentTemplate="{StaticResource CategoryZoomOutChannelTemplate}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
