@@ -203,32 +203,66 @@ namespace Quarrel.Controls.Shell
         /// <summary>
         /// Opens the left panel if it is current closed, closes the left panel if it is currently open.
         /// </summary>
-        public void ToggleLeft()
-        {
-            float closed = 0;
-            float open = _tracker.MinPosition.X;
-            if (FlowDirection == FlowDirection.RightToLeft)
-            {
-                open = _tracker.MaxPosition.X;
-            }
-
-            float target = IsLeftOpen ? closed : open;
-            TrackerTranslate(target);
-        }
+        public void ToggleLeft() => ToggleLeft(null);
 
         /// <summary>
         /// Opens the right panel if it is current closed, closes the right panel if it is currently open.
         /// </summary>
-        public void ToggleRight()
+        public void ToggleRight() => ToggleRight(null);
+
+        /// <summary>
+        /// Opens the left panel.
+        /// </summary>
+        public void OpenLeft() => ToggleLeft(true);
+
+        /// <summary>
+        /// Opens the right panel.
+        /// </summary>
+        public void OpenRight() => ToggleRight(true);
+
+        /// <summary>
+        /// Closes the left panel.
+        /// </summary>
+        public void CloseLeft() => ToggleLeft(false);
+
+        /// <summary>
+        /// Closes the right panel.
+        /// </summary>
+        public void CloseRight() => ToggleRight(false);
+
+        private void ToggleLeft(bool? open)
         {
-            float closed = 0;
-            float open = _tracker.MaxPosition.X;
+            float xClosed = 0;
+            float xOpen = _tracker.MinPosition.X;
             if (FlowDirection == FlowDirection.RightToLeft)
             {
-                open = _tracker.MinPosition.X;
+                xOpen = _tracker.MaxPosition.X;
             }
 
-            float target = IsRightOpen ? closed : open;
+            if (!open.HasValue)
+            {
+                open = !IsLeftOpen;
+            }
+
+            float target = open.Value ? xOpen : xClosed;
+            TrackerTranslate(target);
+        }
+
+        private void ToggleRight(bool? open)
+        {
+            float xClosed = 0;
+            float xOpen = _tracker.MaxPosition.X;
+            if (FlowDirection == FlowDirection.RightToLeft)
+            {
+                xOpen = _tracker.MinPosition.X;
+            }
+
+            if (!open.HasValue)
+            {
+                open = !IsRightOpen;
+            }
+
+            float target = open.Value ? xOpen : xClosed;
             TrackerTranslate(target);
         }
 
