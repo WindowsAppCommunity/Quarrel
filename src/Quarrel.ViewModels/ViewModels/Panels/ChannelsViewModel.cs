@@ -17,6 +17,8 @@ namespace Quarrel.ViewModels.Panels
         private readonly IDiscordService _discordService;
         private readonly IDispatcherService _dispatcherService;
 
+        private ulong _currentGuildId;
+
         public ChannelsViewModel(IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
         {
             _messenger = messenger;
@@ -33,8 +35,14 @@ namespace Quarrel.ViewModels.Panels
 
         public void LoadChannels(Guild guild)
         {
-            Source.Clear();
+            if (guild.Id == _currentGuildId)
+            {
+                return;
+            }
+
+            _currentGuildId = guild.Id;
             var channels = _discordService.GetChannels(guild);
+            Source.Clear();
             _dispatcherService.RunOnUIThread(() =>
             {
                 foreach (var channel in channels)
