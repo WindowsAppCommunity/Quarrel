@@ -6,10 +6,10 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="TabNavigation" Value="Local" />
         <Setter Property="IsHoldingEnabled" Value="True" />
-        <Setter Property="Padding" Value="6,0,0,0" />
+        <Setter Property="Padding" Value="0,0,0,0" />
         <Setter Property="MinHeight" Value="0" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
         <Setter Property="UseSystemFocusVisuals" Value="False" />
         <Setter Property="FocusVisualPrimaryBrush" Value="{ThemeResource SystemControlBackgroundAccentBrush}" />
         <Setter Property="FocusVisualPrimaryThickness" Value="1" />
@@ -63,14 +63,6 @@
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="SelectedIndic"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         Duration="0:0:0.2"
-                                                         To="0">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="bgIndic"
                                                          Storyboard.TargetProperty="Opacity"
                                                          Duration="0:0:0.2"
@@ -84,14 +76,6 @@
                                 </VisualState>
                                 <VisualState x:Name="PointerOver">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="SelectedIndic"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         Duration="0:0:0.2"
-                                                         To="0">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="bgIndic"
                                                          Storyboard.TargetProperty="Opacity"
                                                          Duration="0:0:0.2"
@@ -115,14 +99,6 @@
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="SelectedIndic"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         Duration="0:0:0.2"
-                                                         To="0">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="bgIndic"
                                                          Storyboard.TargetProperty="Opacity"
                                                          Duration="0:0:0.2"
@@ -146,14 +122,6 @@
                                 </VisualState>
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="SelectedIndic"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         Duration="0:0:0.2"
-                                                         To="0.2">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="bgIndic"
                                                          Storyboard.TargetProperty="Opacity"
                                                          Duration="0:0:0.2"
@@ -167,14 +135,6 @@
                                 </VisualState>
                                 <VisualState x:Name="PointerOverSelected">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="SelectedIndic"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         Duration="0:0:0.2"
-                                                         To="0.2">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="bgIndic"
                                                          Storyboard.TargetProperty="Opacity"
                                                          Duration="0:0:0.2"
@@ -198,14 +158,6 @@
                                 </VisualState>
                                 <VisualState x:Name="PressedSelected">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="SelectedIndic"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         Duration="0:0:0.2"
-                                                         To="0.2">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CircleEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetName="bgIndic"
                                                          Storyboard.TargetProperty="Opacity"
                                                          Duration="0:0:0.2"
@@ -333,12 +285,6 @@
                                    Opacity="0"
                                    Control.IsTemplateFocusTarget="True"
                                    Visibility="Collapsed" />
-                        <Rectangle x:Name="SelectedIndic"
-                                   Opacity="0"
-                                   Fill="{ThemeResource SystemControlBackgroundAccentBrush}"
-                                   IsHitTestVisible="False"
-                                   HorizontalAlignment="Stretch"
-                                   VerticalAlignment="Stretch" />
                         <Grid x:Name="ContentPresenterGrid"
                               Background="Transparent"
                               Margin="0,0,0,0"

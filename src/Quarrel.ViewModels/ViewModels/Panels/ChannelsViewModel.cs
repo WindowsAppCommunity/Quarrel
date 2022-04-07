@@ -4,6 +4,7 @@ using Discord.API.Models.Guilds;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels;
+using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
@@ -19,6 +20,7 @@ namespace Quarrel.ViewModels.Panels
         private readonly IDispatcherService _dispatcherService;
 
         private ulong _currentGuildId;
+        private BindableChannel _selectedChannel;
 
         private IEnumerable<BindableChannelGroup>? _groupedSource;
 
@@ -30,6 +32,25 @@ namespace Quarrel.ViewModels.Panels
 
             _messenger.Register<NavigateToGuildMessage<BindableGuild>>(this, (_, m) => LoadChannels(m.Guild.Guild));
             _messenger.Register<NavigateToGuildMessage<Guild>>(this, (_, m) => LoadChannels(m.Guild));
+        }
+
+        public BindableChannel SelectedChannel
+        {
+            get => _selectedChannel;
+            set
+            {
+                if (!value.IsSelectable)
+                    return;
+
+                if (_selectedChannel is not null)
+                {
+                    _selectedChannel.IsSelected = false;
+
+                }
+
+                SetProperty(ref _selectedChannel, value);
+                value.IsSelected = true;
+            }
         }
 
         public IEnumerable<BindableChannelGroup>? GroupedSource
