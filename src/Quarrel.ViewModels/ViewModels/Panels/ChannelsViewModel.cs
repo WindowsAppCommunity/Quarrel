@@ -31,7 +31,7 @@ namespace Quarrel.ViewModels.Panels
             _messenger.Register<NavigateToGuildMessage<Guild>>(this, (_, m) => LoadChannels(m.Guild));
         }
 
-        public ObservableCollection<BindableChannel> Source { get; private set; }
+        public ObservableCollection<BindableChannel> Source { get; set; }
 
         public void LoadChannels(Guild guild)
         {
@@ -41,7 +41,7 @@ namespace Quarrel.ViewModels.Panels
             }
 
             _currentGuildId = guild.Id;
-            var channels = _discordService.GetGuildChannels(guild);
+            var channels = _discordService.GetGuildChannelsHierarchy(guild);
             _dispatcherService.RunOnUIThread(() =>
             {
                 Source.Clear();

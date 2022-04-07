@@ -10,10 +10,10 @@ namespace Quarrel.Bindables.Channels
     {
         public BindableCategoryChannel(Channel channel) : base(channel)
         {
-            Children = new ObservableCollection<BindableChannel>();
+            //Children = new ObservableCollection<BindableChannel>();
         }
 
-        public ObservableCollection<BindableChannel> Children { get; }
+        //public ObservableCollection<BindableChannel> Children { get; }
 
         public void AddChild(BindableChannel child)
         {

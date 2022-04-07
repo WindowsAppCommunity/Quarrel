@@ -7,7 +7,7 @@ namespace Quarrel.DataTemplates.Channels
     public sealed partial class TextChannelTemplate : ResourceDictionary
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GuildTemplate"/> class.
+        /// Initializes a new instance of the <see cref="TextChannelTemplate"/> class.
         /// </summary>
         public TextChannelTemplate()
         {

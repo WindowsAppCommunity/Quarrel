@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:bindablechannel="using:Quarrel.Bindables.Channels.Abstract"
     xmlns:ts="using:Quarrel.TemplateSelectors"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -13,10 +14,18 @@
         <ts:ChannelTemplateSelector x:Key="ChannelTemplateSelector"
                                     TextChannelTemplate="{StaticResource TextChannelTemplate}"
                                     CategoryChannelTemplate="{StaticResource CategoryChannelTemplate}"/>
+        
+        <DataTemplate x:Key="ChannelRootTemplate" x:DataType="bindablechannel:BindableChannel">
+            <TreeViewItem Content="{x:Bind}" IsExpanded="True"
+                          ContentTemplateSelector="{StaticResource ChannelTemplateSelector}"
+                          ItemsSource="{x:Bind Children}"/>
+        </DataTemplate>
+        
     </UserControl.Resources>
 
-    <ListView x:Name="ChannelList"
+    <TreeView x:Name="ChannelList"
               ItemsSource="{x:Bind ViewModel.Source}"
-              ItemTemplateSelector="{StaticResource ChannelTemplateSelector}"
+              ItemTemplate="{StaticResource ChannelRootTemplate}"
+              CanDragItems="False"
               SelectionMode="Single"/>
 </UserControl>
