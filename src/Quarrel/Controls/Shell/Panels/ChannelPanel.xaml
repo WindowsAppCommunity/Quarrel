@@ -43,6 +43,9 @@
                         </GroupStyle.HeaderTemplate>
                     </GroupStyle>
                 </ListView.GroupStyle>
+                <ListView.Footer>
+                    <Grid Height="{x:Bind BottomMargin, Mode=OneWay}"/>
+                </ListView.Footer>
             </ListView>
         </SemanticZoom.ZoomedInView>
         <SemanticZoom.ZoomedOutView>

@@ -3,6 +3,7 @@
 using Discord.API.Models.Channels.Interfaces;
 using Discord.API.Models.Enums.Channels;
 using Discord.API.Models.Guilds;
+using Discord.API.Models.Users;
 using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Guilds;
@@ -13,6 +14,11 @@ namespace Quarrel.Services.Discord
 {
     public partial class DiscordService
     {
+        public SelfUser? GetMe()
+        {
+            return _discordClient.GetMe();
+        }
+
         public BindableGuild[] GetMyGuilds()
         {
             Guild[] rawGuilds = _discordClient.GetMyGuilds();

@@ -27,6 +27,12 @@
                           TintOpacity="0.7"
                           FallbackColor="#FF1E2124"/>
 
+            <AcrylicBrush x:Key="UserButtonBackground"
+                          BackgroundSource="Backdrop"
+                          TintColor="#FF303238"
+                          TintOpacity="0.7"
+                          FallbackColor="#FF303238"/>
+
             <!--General backgrounds-->
             <SolidColorBrush x:Key="PrimaryBackground" Color="#1e2124"/>
             <SolidColorBrush x:Key="SecondaryBackground" Color="#2a2c31"/>
@@ -56,6 +62,12 @@
                           TintColor="#FFE0E0E5"
                           TintOpacity="0.7"
                           FallbackColor="#FFE0E0E5"/>
+
+            <AcrylicBrush x:Key="UserButtonBackground"
+                          BackgroundSource="Backdrop"
+                          TintColor="#FFF2F2F3"
+                          TintOpacity="0.7"
+                          FallbackColor="#FFF2F2F3"/>
 
             <!--General backgrounds-->
             <SolidColorBrush x:Key="PrimaryBackground" Color="#e1e3e5"/>

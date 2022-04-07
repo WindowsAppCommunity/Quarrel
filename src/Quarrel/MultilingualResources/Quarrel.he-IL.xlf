@@ -43,8 +43,8 @@
           <target state="needs-review-translation">מתחבר</target>
         </trans-unit>
         <trans-unit id="ExtendedSplash/Loading" translate="yes" xml:space="preserve">
-          <source>Loading</source>
-          <target state="translated">טוען</target>
+          <source>LOADING</source>
+          <target state="needs-review-translation">טוען</target>
         </trans-unit>
         <trans-unit id="Login/PrivacyPolicyHLBTN.Content" translate="yes" xml:space="preserve">
           <source>Privacy Policy</source>

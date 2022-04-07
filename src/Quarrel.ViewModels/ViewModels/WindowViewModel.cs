@@ -12,7 +12,7 @@ using Quarrel.ViewModels.Enums;
 
 namespace Quarrel.ViewModels
 {
-    public partial class WindowViewModel : ObservableObject
+    public partial class WindowViewModel : ObservableRecipient
     {
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;

@@ -74,6 +74,9 @@
     <Compile Include="Controls\Shadow.xaml.cs">
       <DependentUpon>Shadow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Shell\CurrentUserButton.xaml.cs">
+      <DependentUpon>CurrentUserButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Shell\ExtendedSplashScreen.xaml.cs">
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
     </Compile>
@@ -96,6 +99,7 @@
     <Compile Include="Converters\EqualityConverter.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\NotBoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\NotNullToVisibilityConverter.cs" />
     <Compile Include="Converters\VisibileWhenNotEqualConverter.cs" />
     <Compile Include="Converters\VisibileWhenEqualConverter.cs" />
     <Compile Include="DataTemplates\ChannelTemplates.xaml.cs">
@@ -144,6 +148,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Shadow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Shell\CurrentUserButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

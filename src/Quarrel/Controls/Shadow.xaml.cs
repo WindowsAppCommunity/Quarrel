@@ -51,7 +51,7 @@ namespace Quarrel.Controls
         {
             Shadow shadow = (Shadow)d;
             bool horizontal = shadow.Direction == Direction.Left || shadow.Direction == Direction.Right;
-            bool inverse = shadow.Direction == Direction.Up || shadow.Direction == Direction.Right;
+            bool inverse = shadow.Direction == Direction.Down || shadow.Direction == Direction.Right;
 
             float u = 0;
             float v = 1;

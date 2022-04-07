@@ -2,6 +2,7 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Guilds;
+using Discord.API.Models.Users;
 using System;
 
 namespace Discord.API
@@ -9,6 +10,11 @@ namespace Discord.API
     /// <inheritdoc/>
     public partial class DiscordClient
     {
+        public SelfUser? GetMe()
+        {
+            return _selfUser;
+        }
+
         /// <summary>
         /// Gets the user's guild according to their order in settings.
         /// </summary>

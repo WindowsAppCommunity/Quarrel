@@ -11,7 +11,7 @@ using System.Collections.ObjectModel;
 
 namespace Quarrel.ViewModels
 {
-    public partial class GuildsViewModel : ObservableObject
+    public partial class GuildsViewModel : ObservableRecipient
     {
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;

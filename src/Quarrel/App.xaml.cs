@@ -84,7 +84,7 @@ namespace Quarrel
 
             // Register Services
             ServiceCollection services = new ServiceCollection();
-            services.AddSingleton<IMessenger, StrongReferenceMessenger>();
+            services.AddSingleton<IMessenger, WeakReferenceMessenger>();
             services.AddSingleton<ILocalizationService, LocalizationService>();
             services.AddSingleton<IDiscordService, DiscordService>();
             services.AddSingleton<IDispatcherService, DispatcherService>();
@@ -97,6 +97,7 @@ namespace Quarrel
             services.AddSingleton<WindowViewModel>();
             services.AddSingleton<GuildsViewModel>();
             services.AddSingleton<ChannelsViewModel>();
+            services.AddSingleton<CurrentUserViewModel>();
             services.AddTransient<LoginPageViewModel>();
 
             return services.BuildServiceProvider();

@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace Quarrel.ViewModels.Panels
 {
-    public partial class ChannelsViewModel : ObservableObject
+    public partial class ChannelsViewModel : ObservableRecipient
     {
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
