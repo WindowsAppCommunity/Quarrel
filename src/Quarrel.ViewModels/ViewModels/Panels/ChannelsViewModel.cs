@@ -6,7 +6,7 @@ using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
-using Quarrel.Services.DispatcherService;
+using Quarrel.Services.Dispatcher;
 using System.Collections.ObjectModel;
 
 namespace Quarrel.ViewModels.Panels

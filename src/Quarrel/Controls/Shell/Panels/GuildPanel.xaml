@@ -17,6 +17,7 @@
               ItemTemplate="{StaticResource GuildTemplate}"
               ItemContainerStyle="{StaticResource GuildListItemStyle}"
               SelectionMode="Single"
+              SingleSelectionFollowsFocus="False"
               IsItemClickEnabled="True"
               ScrollViewer.VerticalScrollBarVisibility="Hidden"
               ItemClick="GuildList_ItemClick"/>

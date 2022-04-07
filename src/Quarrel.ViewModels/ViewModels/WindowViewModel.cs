@@ -5,7 +5,7 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Controls.Shell.Enums;
 using Quarrel.Messages.Discord;
 using Quarrel.Services.Discord;
-using Quarrel.Services.DispatcherService;
+using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Storage;
 using Quarrel.Services.Storage.Accounts.Models;
 using Quarrel.ViewModels.Enums;

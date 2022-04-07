@@ -106,7 +106,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
-    <Compile Include="Services\DispatcherService\DispatcherService.cs" />
+    <Compile Include="Services\Dispatcher\DispatcherService.cs" />
+    <Compile Include="Services\Keyboard\KeyboardService.cs" />
     <Compile Include="Services\Localization\LocalizationService.cs" />
     <Compile Include="Services\Storage\Models\FileData.cs" />
     <Compile Include="Services\Storage\Models\FileDataProperties.cs" />

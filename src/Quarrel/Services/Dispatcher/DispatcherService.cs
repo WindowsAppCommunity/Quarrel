@@ -3,7 +3,7 @@
 using System;
 using Windows.System;
 
-namespace Quarrel.Services.DispatcherService
+namespace Quarrel.Services.Dispatcher
 {
     public class DispatcherService : IDispatcherService
     {

@@ -15,7 +15,7 @@ using Quarrel.Services.Storage;
 using OwlCore.AbstractStorage;
 using Quarrel.Services.Storage.Models;
 using Windows.Storage;
-using Quarrel.Services.DispatcherService;
+using Quarrel.Services.Dispatcher;
 using Windows.UI.Core;
 using Windows.UI.Core.Preview;
 using Quarrel.ViewModels.Panels;

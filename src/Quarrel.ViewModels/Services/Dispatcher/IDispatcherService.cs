@@ -2,7 +2,7 @@
 
 using System;
 
-namespace Quarrel.Services.DispatcherService
+namespace Quarrel.Services.Dispatcher
 {
     public interface IDispatcherService
     {
