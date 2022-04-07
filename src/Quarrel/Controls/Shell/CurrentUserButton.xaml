@@ -1,9 +1,8 @@
 ﻿<UserControl
     x:Class="Quarrel.Controls.Shell.CurrentUserButton"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Quarrel.Controls.Shell"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:qc="using:Quarrel.Controls"
     mc:Ignorable="d"
@@ -51,6 +50,16 @@
                             Text="{x:Bind ViewModel.Me.Discriminator, Mode=OneWay}" />
                     </StackPanel>
                 </StackPanel>
+                
+                <Button
+                    Grid.Column="2"
+                    Margin="0,0,16,0"
+                    Padding="0"
+                    FontFamily="Segoe MDL2 Assets"
+                    Foreground="{ThemeResource SystemColorHighlightTextBrush}"
+                    Style="{ThemeResource TextBlockButtonStyle}">
+                    <FontIcon Glyph="" FontSize="16"/>
+                </Button>
             </Grid>
         </Button>
     </Grid>

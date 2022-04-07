@@ -99,7 +99,6 @@
     <Compile Include="Converters\EqualityConverter.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\NotBoolToVisibilityConverter.cs" />
-    <Compile Include="Converters\NotNullToVisibilityConverter.cs" />
     <Compile Include="Converters\VisibileWhenNotEqualConverter.cs" />
     <Compile Include="Converters\VisibileWhenEqualConverter.cs" />
     <Compile Include="DataTemplates\ChannelTemplates.xaml.cs">
