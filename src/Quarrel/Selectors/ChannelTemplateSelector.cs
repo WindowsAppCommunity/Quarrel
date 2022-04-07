@@ -5,7 +5,7 @@ using Quarrel.Bindables.Channels.Abstract;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.TemplateSelectors
+namespace Quarrel.Selectors
 {
     /// <summary>
     /// A template selector for the channel type.
@@ -22,12 +22,7 @@ namespace Quarrel.TemplateSelectors
         /// </summary>
         public DataTemplate CategoryChannelTemplate { get; set; }
 
-        /// <summary>
-        /// Selects a <see cref="DataTemplate"/> based on the details from <paramref name="item"/>.
-        /// </summary>
-        /// <param name="item">A <see cref="BindableChannel"/>.</param>
-        /// <param name="container">The parent of the resulting <see cref="DataTemplate"/>.</param>
-        /// <returns>A <see cref="DataTemplate"/> for the <paramref name="item"/>'s type.</returns>
+        /// <inheritdoc/>
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
             if (item is BindableChannel channel)

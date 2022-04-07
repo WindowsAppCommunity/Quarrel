@@ -5,22 +5,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:bindablechannel="using:Quarrel.Bindables.Channels.Abstract"
-    xmlns:ts="using:Quarrel.TemplateSelectors"
+    xmlns:selectors="using:Quarrel.Selectors"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
     <UserControl.Resources>
-        <ts:ChannelTemplateSelector x:Key="ChannelTemplateSelector"
+        <selectors:ChannelTemplateSelector x:Key="ChannelTemplateSelector"
                                     TextChannelTemplate="{StaticResource TextChannelTemplate}"
                                     CategoryChannelTemplate="{StaticResource CategoryChannelTemplate}"/>
-        
+
         <DataTemplate x:Key="ChannelRootTemplate" x:DataType="bindablechannel:BindableChannel">
             <TreeViewItem Content="{x:Bind}" IsExpanded="True"
                           ContentTemplateSelector="{StaticResource ChannelTemplateSelector}"
                           ItemsSource="{x:Bind Children}"/>
         </DataTemplate>
-        
+
     </UserControl.Resources>
 
     <TreeView x:Name="ChannelList"

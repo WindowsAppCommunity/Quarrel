@@ -105,6 +105,7 @@
       <DependentUpon>GuildTemplates.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Selectors\ChannelStyleSelector.cs" />
     <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
     <Compile Include="Services\Dispatcher\DispatcherService.cs" />
     <Compile Include="Services\Keyboard\KeyboardService.cs" />
@@ -116,7 +117,7 @@
     <Compile Include="SubPages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TemplateSelectors\ChannelTemplateSelector.cs" />
+    <Compile Include="Selectors\ChannelTemplateSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -186,7 +187,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\ListViewItemStyles.xaml">
+    <Page Include="Styles\Channels\TextChannelTreeViewItemStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Guilds\GuildListViewItemStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
