@@ -2,8 +2,7 @@
     x:Class="Quarrel.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:dtg="using:Quarrel.DataTemplates.Guilds"
-    xmlns:dtc="using:Quarrel.DataTemplates.Channels"
+    xmlns:dt="using:Quarrel.DataTemplates"
     xmlns:local="using:Quarrel">
     <Application.Resources>
         <ResourceDictionary>
@@ -17,9 +16,8 @@
                 <ResourceDictionary Source="Styles/TextBoxStyles.xaml"/>
 
                 <!--Data Templates-->
-                <dtg:GuildTemplate/>
-                <dtc:TextChannelTemplate/>
-                <dtc:CategoryChannelTemplate/>
+                <dt:GuildTemplates/>
+                <dt:ChannelTemplates/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

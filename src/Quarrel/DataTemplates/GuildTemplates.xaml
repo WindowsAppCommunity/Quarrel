@@ -1,5 +1,5 @@
 ﻿<ResourceDictionary
-    x:Class="Quarrel.DataTemplates.Guilds.GuildTemplate"
+    x:Class="Quarrel.DataTemplates.GuildTemplates"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:tc="using:Microsoft.Toolkit.Uwp.UI.Controls"

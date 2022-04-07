@@ -1,5 +1,5 @@
 ﻿<ResourceDictionary
-    x:Class="Quarrel.DataTemplates.Channels.TextChannelTemplate"
+    x:Class="Quarrel.DataTemplates.ChannelTemplates"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:bindablechannels="using:Quarrel.Bindables.Channels">
@@ -9,6 +9,15 @@
             <!--Main Details-->
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,6" Padding="0,0,-18,0">
                 <TextBlock Text="#" Foreground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" Opacity=".6" FontSize="20" FontWeight="Light" Margin="0,-2,4,0"/>
+                <TextBlock Text="{x:Bind Name, Mode=OneWay}" Opacity=".6" Margin="0,1,0,0"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CategoryChannelTemplate" x:DataType="bindablechannels:BindableCategoryChannel">
+        <Grid Height="48" Padding="0">
+            <!--Main Details-->
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,6" Padding="0,0,-18,0">
                 <TextBlock Text="{x:Bind Name, Mode=OneWay}" Opacity=".6" Margin="0,1,0,0"/>
             </StackPanel>
         </Grid>

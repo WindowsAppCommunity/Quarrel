@@ -26,6 +26,6 @@
     <TreeView x:Name="ChannelList"
               ItemsSource="{x:Bind ViewModel.Source}"
               ItemTemplate="{StaticResource ChannelRootTemplate}"
-              CanDragItems="False"
+              CanReorderItems="False"
               SelectionMode="Single"/>
 </UserControl>

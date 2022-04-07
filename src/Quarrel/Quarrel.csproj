@@ -98,14 +98,11 @@
     <Compile Include="Converters\NotBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\VisibileWhenNotEqualConverter.cs" />
     <Compile Include="Converters\VisibileWhenEqualConverter.cs" />
-    <Compile Include="DataTemplates\Channels\CategoryChannelTemplate.xaml.cs">
-      <DependentUpon>CategoryChannelTemplate.xaml</DependentUpon>
+    <Compile Include="DataTemplates\ChannelTemplates.xaml.cs">
+      <DependentUpon>ChannelTemplates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataTemplates\Channels\TextChannelTemplate.xaml.cs">
-      <DependentUpon>TextChannelTemplate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="DataTemplates\Guilds\GuildTemplate.xaml.cs">
-      <DependentUpon>GuildTemplate.xaml</DependentUpon>
+    <Compile Include="DataTemplates\GuildTemplates.xaml.cs">
+      <DependentUpon>GuildTemplates.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
@@ -173,15 +170,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DataTemplates\Channels\CategoryChannelTemplate.xaml">
+    <Page Include="DataTemplates\ChannelTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="DataTemplates\Channels\TextChannelTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DataTemplates\Guilds\GuildTemplate.xaml">
+    <Page Include="DataTemplates\GuildTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
