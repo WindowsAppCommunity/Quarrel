@@ -1,11 +1,11 @@
 ﻿<ResourceDictionary
-    x:Class="Quarrel.DataTemplates.GuildTemplate"
+    x:Class="Quarrel.DataTemplates.Guilds.GuildTemplate"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:tc="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:bindables="using:Quarrel.Models.Bindables">
+    xmlns:bindableguilds="using:Quarrel.Bindables.Guilds">
 
-    <DataTemplate x:Key="GuildTemplate" x:DataType="bindables:BindableGuild">
+    <DataTemplate x:Key="GuildTemplate" x:DataType="bindableguilds:BindableGuild">
         <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="48" Height="48" Margin="6">
             <Border Width="48" Height="48" CornerRadius="24">
                 <tc:ImageEx Width="48" Height="48" DecodePixelWidth="48" Source="{x:Bind IconUri, Mode=OneWay}"/>

@@ -18,6 +18,7 @@ using Windows.Storage;
 using Quarrel.Services.DispatcherService;
 using Windows.UI.Core;
 using Windows.UI.Core.Preview;
+using Quarrel.ViewModels.Panels;
 
 namespace Quarrel
 {
@@ -94,6 +95,7 @@ namespace Quarrel
             // ViewModels
             services.AddSingleton<WindowViewModel>();
             services.AddSingleton<GuildsViewModel>();
+            services.AddSingleton<ChannelsViewModel>();
             services.AddTransient<LoginPageViewModel>();
 
             return services.BuildServiceProvider();

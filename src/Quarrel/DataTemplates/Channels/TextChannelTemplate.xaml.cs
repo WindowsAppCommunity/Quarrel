@@ -2,14 +2,14 @@
 
 using Windows.UI.Xaml;
 
-namespace Quarrel.DataTemplates
+namespace Quarrel.DataTemplates.Channels
 {
-    public sealed partial class GuildTemplate : ResourceDictionary
+    public sealed partial class TextChannelTemplate : ResourceDictionary
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GuildTemplate"/> class.
         /// </summary>
-        public GuildTemplate()
+        public TextChannelTemplate()
         {
             this.InitializeComponent();
         }

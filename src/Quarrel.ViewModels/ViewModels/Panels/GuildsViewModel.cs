@@ -2,15 +2,16 @@
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using Quarrel.Bindables.Guilds;
 using Quarrel.Messages.Discord;
-using Quarrel.Models.Bindables;
+using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
 using Quarrel.Services.DispatcherService;
 using System.Collections.ObjectModel;
 
 namespace Quarrel.ViewModels
 {
-    public class GuildsViewModel : ObservableObject
+    public partial class GuildsViewModel : ObservableObject
     {
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
@@ -27,7 +28,7 @@ namespace Quarrel.ViewModels
             _messenger.Register<UserLoggedInMessage>(this, (_, _) => LoadGuilds());
         }
 
-        public ObservableCollection<BindableGuild> Source { get; set; }
+        public ObservableCollection<BindableGuild> Source { get; private set; }
 
         public void LoadGuilds()
         {
@@ -39,6 +40,14 @@ namespace Quarrel.ViewModels
                     Source.Add(guild);
                 }
             });
+        }
+
+        public void NavigateToGuild(BindableGuild? guild)
+        {
+            if (guild is not null)
+            {
+                _messenger.Send(new NavigateToGuildMessage<BindableGuild>(guild));
+            }
         }
     }
 }

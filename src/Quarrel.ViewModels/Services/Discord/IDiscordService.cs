@@ -1,6 +1,8 @@
 ﻿// Adam Dernis © 2022
 
-using Quarrel.Models.Bindables;
+using Discord.API.Models.Guilds;
+using Quarrel.Bindables.Channels.Abstract;
+using Quarrel.Bindables.Guilds;
 using System.Threading.Tasks;
 
 namespace Quarrel.Services.Discord
@@ -10,5 +12,7 @@ namespace Quarrel.Services.Discord
         Task LoginAsync(string token);
 
         BindableGuild[] GetMyGuilds();
+
+        BindableChannel[] GetChannels(Guild guild);
     }
 }

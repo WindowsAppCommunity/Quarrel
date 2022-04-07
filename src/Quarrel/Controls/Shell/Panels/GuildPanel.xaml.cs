@@ -1,6 +1,7 @@
 ﻿// Adam Dernis © 2022
 
 using Microsoft.Extensions.DependencyInjection;
+using Quarrel.Bindables.Guilds;
 using Quarrel.ViewModels;
 using Windows.UI.Xaml.Controls;
 
@@ -15,5 +16,13 @@ namespace Quarrel.Controls.Shell.Panels
         }
 
         public GuildsViewModel ViewModel => (GuildsViewModel)DataContext;
+
+        private void GuildList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (e.ClickedItem is BindableGuild guild)
+            {
+                ViewModel.NavigateToGuild(guild);
+            }
+        }
     }
 }

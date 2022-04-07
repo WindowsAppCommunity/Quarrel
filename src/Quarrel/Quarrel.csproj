@@ -77,6 +77,9 @@
     <Compile Include="Controls\Shell\ExtendedSplashScreen.xaml.cs">
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Shell\Panels\ChannelPanel.xaml.cs">
+      <DependentUpon>ChannelPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Shell\Panels\GuildPanel.xaml.cs">
       <DependentUpon>GuildPanel.xaml</DependentUpon>
     </Compile>
@@ -95,7 +98,10 @@
     <Compile Include="Converters\NotBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\VisibileWhenNotEqualConverter.cs" />
     <Compile Include="Converters\VisibileWhenEqualConverter.cs" />
-    <Compile Include="DataTemplates\GuildTemplate.xaml.cs">
+    <Compile Include="DataTemplates\Channels\TextChannelTemplate.xaml.cs">
+      <DependentUpon>TextChannelTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataTemplates\Guilds\GuildTemplate.xaml.cs">
       <DependentUpon>GuildTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,6 +115,7 @@
     <Compile Include="SubPages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TemplateSelectors\ChannelTemplateSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -142,6 +149,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Shell\Panels\ChannelPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Shell\Panels\GuildPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -158,7 +169,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DataTemplates\GuildTemplate.xaml">
+    <Page Include="DataTemplates\Channels\TextChannelTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataTemplates\Guilds\GuildTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -222,6 +237,7 @@
   <ItemGroup>
     <XliffResource Include="MultilingualResources\Quarrel.he-IL.xlf" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

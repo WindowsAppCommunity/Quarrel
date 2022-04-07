@@ -4,7 +4,7 @@ using Discord.API.Models.Guilds;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System;
 
-namespace Quarrel.Models.Bindables
+namespace Quarrel.Bindables.Guilds
 {
     public partial class BindableGuild : ObservableObject
     {
@@ -15,7 +15,7 @@ namespace Quarrel.Models.Bindables
 
         public BindableGuild(Guild guild)
         {
-            _guild = guild;
+            Guild = guild;
         }
 
         public string IconUrl => $"https://cdn.discordapp.com/icons/{Guild.Id}/{Guild.IconId}.png?size=128";
