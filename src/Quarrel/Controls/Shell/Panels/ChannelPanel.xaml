@@ -17,8 +17,9 @@
                               Source="{x:Bind ViewModel.GroupedSource, Mode=OneWay}"/>
 
         <selectors:ChannelTemplateSelector x:Key="ChannelTemplateSelector"
-                                    TextChannelTemplate="{StaticResource TextChannelTemplate}"
-                                    CategoryChannelTemplate="{StaticResource CategoryZoomInChannelTemplate}"/>
+                                           TextChannelTemplate="{StaticResource TextChannelTemplate}"
+                                           VoiceChannelTemplate="{StaticResource VoiceChannelTemplate}"
+                                           CategoryChannelTemplate="{StaticResource CategoryZoomInChannelTemplate}"/>
 
     </UserControl.Resources>
 

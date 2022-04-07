@@ -28,7 +28,7 @@ namespace Quarrel.Bindables.Channels.Abstract
             return channel switch
             {
                 GuildTextChannel c=> new BindableTextChannel(c),
-                // VoiceChannel c => new BindableVoiceChannel(c),
+                VoiceChannel c => new BindableVoiceChannel(c),
                 CategoryChannel c => new BindableCategoryChannel(c),
                 _ => null
             };

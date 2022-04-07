@@ -13,8 +13,8 @@
                 <!--Styles-->
                 <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
                 <ResourceDictionary Source="Styles/TextBoxStyles.xaml"/>
-                <ResourceDictionary Source="Styles/Channels/TextChannelTreeViewItemStyle.xaml"/>
-                <ResourceDictionary Source="Styles/Guilds/GuildListViewItemStyle.xaml"/>
+                <ResourceDictionary Source="Styles/ChannelItemStyles.xaml"/>
+                <ResourceDictionary Source="Styles/GuildItemStyles.xaml"/>
 
                 <!--Data Templates-->
                 <dt:GuildTemplates/>

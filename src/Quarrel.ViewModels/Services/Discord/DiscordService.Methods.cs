@@ -1,15 +1,13 @@
 ﻿// Adam Dernis © 2022
 
-using Discord.API.Models.Channels;
-using Discord.API.Models.Channels.Abstract;
 using Discord.API.Models.Channels.Interfaces;
+using Discord.API.Models.Enums.Channels;
 using Discord.API.Models.Guilds;
 using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Guilds;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Quarrel.Services.Discord
 {
@@ -32,6 +30,17 @@ namespace Quarrel.Services.Discord
             IGuildChannel[] rawChannels = guild.GetChannels();
             Array.Sort(rawChannels, Comparer<IGuildChannel>.Create((item1, item2) =>
             {
+                bool is1Voice = item1.Type == ChannelType.GuildVoice || item1.Type == ChannelType.StageVoice;
+                bool is2Voice = item2.Type == ChannelType.GuildVoice || item2.Type == ChannelType.StageVoice;
+                if (is1Voice && !is2Voice)
+                {
+                    return 1;
+                }
+                else if (is2Voice && !is1Voice)
+                {
+                    return -1;
+                }
+
                 return item1.Position.CompareTo(item2.Position);
             }));
 

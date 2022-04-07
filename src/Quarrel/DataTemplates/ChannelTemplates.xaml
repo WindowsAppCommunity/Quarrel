@@ -15,6 +15,17 @@
         </Grid>
     </DataTemplate>
 
+    <DataTemplate x:Key="VoiceChannelTemplate" x:DataType="bindablechannels:BindableVoiceChannel">
+        <Grid Height="40" Padding="6,0,0,0">
+            <Grid Visibility="{x:Bind IsSelected, Mode=OneWay}" Opacity=".2" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="-6,0,0,0"/>
+            <!--Main Details-->
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,6" Padding="0,0,-18,0">
+                <TextBlock Text="" Opacity=".6" FontSize="16" Margin="0,4,6,6" FontFamily="Segoe MDL2 Assets" />
+                <TextBlock Text="{x:Bind Name, Mode=OneWay}" Opacity=".6" Margin="0,1,0,0"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
     <DataTemplate x:Key="CategoryZoomInChannelTemplate" x:DataType="bindablechannels:BindableCategoryChannel">
         <Grid Padding="0">
             <!--Main Details-->
