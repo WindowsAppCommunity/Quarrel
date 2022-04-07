@@ -18,6 +18,11 @@ namespace Quarrel.TemplateSelectors
         public DataTemplate TextChannelTemplate { get; set; }
 
         /// <summary>
+        /// Gets or sets the category channel template.
+        /// </summary>
+        public DataTemplate CategoryChannelTemplate { get; set; }
+
+        /// <summary>
         /// Selects a <see cref="DataTemplate"/> based on the details from <paramref name="item"/>.
         /// </summary>
         /// <param name="item">A <see cref="BindableChannel"/>.</param>
@@ -30,6 +35,7 @@ namespace Quarrel.TemplateSelectors
                 return channel switch
                 {
                     BindableTextChannel => TextChannelTemplate,
+                    BindableCategoryChannel => CategoryChannelTemplate,
                     _ => null,
                 };
             }

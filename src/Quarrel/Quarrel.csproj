@@ -98,6 +98,9 @@
     <Compile Include="Converters\NotBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\VisibileWhenNotEqualConverter.cs" />
     <Compile Include="Converters\VisibileWhenEqualConverter.cs" />
+    <Compile Include="DataTemplates\Channels\CategoryChannelTemplate.xaml.cs">
+      <DependentUpon>CategoryChannelTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataTemplates\Channels\TextChannelTemplate.xaml.cs">
       <DependentUpon>TextChannelTemplate.xaml</DependentUpon>
     </Compile>
@@ -169,6 +172,10 @@
     <Page Include="Controls\Shell\SideDrawer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataTemplates\Channels\CategoryChannelTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="DataTemplates\Channels\TextChannelTemplate.xaml">
       <SubType>Designer</SubType>

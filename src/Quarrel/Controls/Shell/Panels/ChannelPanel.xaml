@@ -14,7 +14,8 @@
 
     <UserControl.Resources>
         <ts:ChannelTemplateSelector x:Key="ChannelTemplateSelector"
-                                    TextChannelTemplate="{StaticResource TextChannelTemplate}"/>
+                                    TextChannelTemplate="{StaticResource TextChannelTemplate}"
+                                    CategoryChannelTemplate="{StaticResource CategoryChannelTemplate}"/>
     </UserControl.Resources>
     
     <ListView x:Name="ChannelList"

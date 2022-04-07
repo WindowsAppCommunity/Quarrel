@@ -3,7 +3,6 @@
 using Discord.API.Models.Channels;
 using Discord.API.Models.Channels.Abstract;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
-using System;
 
 namespace Quarrel.Bindables.Channels.Abstract
 {
@@ -24,7 +23,8 @@ namespace Quarrel.Bindables.Channels.Abstract
         {
             return channel switch
             {
-                GuildTextChannel guildTextChannel => new BindableTextChannel(guildTextChannel),
+                GuildTextChannel c=> new BindableTextChannel(c),
+                CategoryChannel c => new BindableCategoryChannel(c),
                 _ => null
             };
         }

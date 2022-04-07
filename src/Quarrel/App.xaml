@@ -19,6 +19,7 @@
                 <!--Data Templates-->
                 <dtg:GuildTemplate/>
                 <dtc:TextChannelTemplate/>
+                <dtc:CategoryChannelTemplate/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
