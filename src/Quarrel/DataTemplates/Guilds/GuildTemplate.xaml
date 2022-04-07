@@ -6,7 +6,7 @@
     xmlns:bindableguilds="using:Quarrel.Bindables.Guilds">
 
     <DataTemplate x:Key="GuildTemplate" x:DataType="bindableguilds:BindableGuild">
-        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="48" Height="48" Margin="6">
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="6">
             <Border Width="48" Height="48" CornerRadius="24">
                 <tc:ImageEx Width="48" Height="48" DecodePixelWidth="48" Source="{x:Bind IconUri, Mode=OneWay}"/>
             </Border>

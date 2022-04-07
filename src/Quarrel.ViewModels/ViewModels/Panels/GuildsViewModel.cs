@@ -17,6 +17,8 @@ namespace Quarrel.ViewModels
         private readonly IDiscordService _discordService;
         private readonly IDispatcherService _dispatcherService;
 
+        private BindableGuild _selectedGuild;
+
         public GuildsViewModel(IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
         {
             _messenger = messenger;
@@ -26,6 +28,19 @@ namespace Quarrel.ViewModels
             Source = new ObservableCollection<BindableGuild>();
 
             _messenger.Register<UserLoggedInMessage>(this, (_, _) => LoadGuilds());
+        }
+
+        public BindableGuild SelectedGuild
+        {
+            get => _selectedGuild;
+            set
+            {
+                if (_selectedGuild is not null)
+                    _selectedGuild.IsSelected = false;
+
+                if (SetProperty(ref _selectedGuild, value) && value is not null)
+                    value.IsSelected = true;
+            }
         }
 
         public ObservableCollection<BindableGuild> Source { get; private set; }

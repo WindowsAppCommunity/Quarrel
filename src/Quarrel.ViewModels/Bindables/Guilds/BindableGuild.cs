@@ -2,11 +2,12 @@
 
 using Discord.API.Models.Guilds;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Quarrel.Bindables.Abstract;
 using System;
 
 namespace Quarrel.Bindables.Guilds
 {
-    public partial class BindableGuild : ObservableObject
+    public partial class BindableGuild : SelectableItem
     {
         [AlsoNotifyChangeFor(nameof(IconUrl))]
         [AlsoNotifyChangeFor(nameof(IconUri))]

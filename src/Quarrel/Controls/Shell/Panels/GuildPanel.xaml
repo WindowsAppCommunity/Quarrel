@@ -12,10 +12,11 @@
     d:DesignWidth="400">
 
     <ListView x:Name="GuildList"
+              SelectedItem="{x:Bind ViewModel.SelectedGuild, Mode=TwoWay}"
               ItemsSource="{x:Bind ViewModel.Source}"
               ItemTemplate="{StaticResource GuildTemplate}"
               ItemContainerStyle="{StaticResource GuildListItemStyle}"
-              SelectionMode="None"
+              SelectionMode="Single"
               IsItemClickEnabled="True"
               ScrollViewer.VerticalScrollBarVisibility="Hidden"
               ItemClick="GuildList_ItemClick"/>
