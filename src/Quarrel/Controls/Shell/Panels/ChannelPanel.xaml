@@ -25,9 +25,12 @@
     <SemanticZoom>
         <SemanticZoom.ZoomedInView>
             <ListView x:Name="ChannelList"
-              ItemsSource="{x:Bind GroupedChannels.View, Mode=OneWay}"
-              ItemTemplateSelector="{StaticResource ChannelTemplateSelector}"
-              SelectionMode="Single">
+                      ItemsSource="{x:Bind GroupedChannels.View, Mode=OneWay}"
+                      ItemTemplateSelector="{StaticResource ChannelTemplateSelector}"
+                      ItemContainerStyle="{StaticResource ChannelListItemStyle}"
+                      SelectionMode="Single"
+                      SingleSelectionFollowsFocus="False"
+                      IsItemClickEnabled="True">
                 <ListView.GroupStyle>
                     <GroupStyle HidesIfEmpty="False">
                         <GroupStyle.HeaderTemplate>
