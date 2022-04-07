@@ -1,17 +1,18 @@
 ﻿// Adam Dernis © 2022
 
 using Discord.API.Models.Guilds;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
-using Quarrel.Bindables.Channels.Abstract;
+using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace Quarrel.ViewModels.Panels
 {
-    public class ChannelsViewModel
+    public partial class ChannelsViewModel : ObservableObject
     {
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
@@ -19,19 +20,23 @@ namespace Quarrel.ViewModels.Panels
 
         private ulong _currentGuildId;
 
+        private IEnumerable<BindableChannelGroup>? _groupedSource;
+
         public ChannelsViewModel(IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
         {
             _messenger = messenger;
             _discordService = discordService;
             _dispatcherService = dispatcherService;
 
-            Source = new ObservableCollection<BindableChannel>();
-
             _messenger.Register<NavigateToGuildMessage<BindableGuild>>(this, (_, m) => LoadChannels(m.Guild.Guild));
             _messenger.Register<NavigateToGuildMessage<Guild>>(this, (_, m) => LoadChannels(m.Guild));
         }
 
-        public ObservableCollection<BindableChannel> Source { get; set; }
+        public IEnumerable<BindableChannelGroup>? GroupedSource
+        {
+            get => _groupedSource;
+            set => SetProperty(ref _groupedSource, value);
+        }
 
         public void LoadChannels(Guild guild)
         {
@@ -41,15 +46,8 @@ namespace Quarrel.ViewModels.Panels
             }
 
             _currentGuildId = guild.Id;
-            var channels = _discordService.GetGuildChannelsHierarchy(guild);
-            _dispatcherService.RunOnUIThread(() =>
-            {
-                Source.Clear();
-                foreach (var channel in channels)
-                {
-                    Source.Add(channel);
-                }
-            });
+            var channels = _discordService.GetGuildChannelsGrouped(guild);
+            GroupedSource = channels;
         }
     }
 }

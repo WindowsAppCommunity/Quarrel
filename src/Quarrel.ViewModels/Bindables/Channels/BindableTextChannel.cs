@@ -7,7 +7,7 @@ namespace Quarrel.Bindables.Channels
 {
     public class BindableTextChannel : BindableChannel
     {
-        public BindableTextChannel(Channel channel) : base(channel)
+        internal BindableTextChannel(Channel channel) : base(channel)
         {
         }
     }

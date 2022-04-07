@@ -9,6 +9,7 @@ using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Guilds;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Quarrel.Services.Discord
 {
@@ -43,50 +44,43 @@ namespace Quarrel.Services.Discord
             return channels;
         }
 
-        public BindableChannel?[] GetGuildChannelsHierarchy(Guild guild)
+        public IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(Guild guild)
         {
-            // Get raw channels
-            IGuildChannel[] rawChannels = guild.GetChannels();
-            Array.Sort(rawChannels, Comparer<IGuildChannel>.Create((item1, item2) =>
+            var channels = GetGuildChannels(guild);
+
+            Dictionary<ulong?, BindableChannelGroup> groups = new Dictionary<ulong?, BindableChannelGroup>();
+            groups.Add(0, new BindableChannelGroup(null));
+            foreach (var channel in channels)
             {
-                return item1.Position.CompareTo(item2.Position);
-            }));
-            
-            // Scan for categories
-            var categories = new Dictionary<ulong, BindableCategoryChannel>();
-            var rootChannels = new List<BindableChannel>();
-            foreach (var channel in rawChannels)
-            {
-                if (channel is CategoryChannel category)
+                if (channel is BindableCategoryChannel bindableCategory)
                 {
-                    BindableCategoryChannel bindableChannel = new BindableCategoryChannel(category);
-                    categories.Add(category.Id, bindableChannel);
-                    rootChannels.Add(bindableChannel);
+                    groups.Add(channel.Channel.Id, new BindableChannelGroup(bindableCategory));
                 }
             }
 
-            // Add remaining channels either as children or to the root
-            foreach (var channel in rawChannels)
+            foreach (var channel in channels)
             {
-                BindableChannel? bindableChannel = BindableChannel.Create(channel);
-                if (bindableChannel is null || categories.ContainsKey(channel.Id))
+                if (channel is not null && channel is not BindableCategoryChannel)
                 {
-                    continue;
-                }
-
-                if (channel is INestedChannel nestedChannel && nestedChannel.CategoryId is not null)
-                {
-                    if (categories.TryGetValue(nestedChannel.CategoryId.Value, out var nestedCategory))
+                    ulong parentId = 0;
+                    if (channel.Channel is INestedChannel nestedChannel)
                     {
-                        nestedCategory.AddChild(bindableChannel);
-                        continue;
+                        parentId = nestedChannel.CategoryId ?? 0;
+                    }
+
+                    if (groups.TryGetValue(parentId, out var group))
+                    {
+                        group.AddChild(channel);
                     }
                 }
-
-                rootChannels.Add(bindableChannel);
             }
 
-            return rootChannels.ToArray();
+            if (groups[0].Children.Count == 0)
+            {
+                groups.Remove(0);
+            }
+
+            return groups.Values;
         }
     }
 }

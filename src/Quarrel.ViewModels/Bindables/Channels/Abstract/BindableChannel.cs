@@ -4,7 +4,6 @@ using Discord.API.Models.Channels;
 using Discord.API.Models.Channels.Abstract;
 using Discord.API.Models.Channels.Interfaces;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
-using System.Collections.ObjectModel;
 
 namespace Quarrel.Bindables.Channels.Abstract
 {
@@ -14,15 +13,12 @@ namespace Quarrel.Bindables.Channels.Abstract
         [ObservableProperty]
         private Channel _channel;
 
-        public BindableChannel(Channel channel)
+        internal BindableChannel(Channel channel)
         {
             Channel = channel;
-            Children = new ObservableCollection<BindableChannel>();
         }
 
         public virtual string? Name => _channel.Name;
-
-        public ObservableCollection<BindableChannel> Children { get; }
 
         public static BindableChannel? Create(IChannel channel)
         {

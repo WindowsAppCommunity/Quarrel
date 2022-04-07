@@ -5,27 +5,51 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:bindablechannel="using:Quarrel.Bindables.Channels.Abstract"
+    xmlns:bindablechannels="using:Quarrel.Bindables.Channels"
     xmlns:selectors="using:Quarrel.Selectors"
+    xmlns:wuxdata="using:Windows.UI.Xaml.Data"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
     <UserControl.Resources>
+        <CollectionViewSource x:Name="GroupedChannels" IsSourceGrouped="True"
+                              Source="{x:Bind ViewModel.GroupedSource, Mode=OneWay}"/>
+
         <selectors:ChannelTemplateSelector x:Key="ChannelTemplateSelector"
                                     TextChannelTemplate="{StaticResource TextChannelTemplate}"
                                     CategoryChannelTemplate="{StaticResource CategoryChannelTemplate}"/>
 
-        <DataTemplate x:Key="ChannelRootTemplate" x:DataType="bindablechannel:BindableChannel">
-            <TreeViewItem Content="{x:Bind}" IsExpanded="True"
-                          ContentTemplateSelector="{StaticResource ChannelTemplateSelector}"
-                          ItemsSource="{x:Bind Children}"/>
-        </DataTemplate>
-
     </UserControl.Resources>
 
-    <TreeView x:Name="ChannelList"
-              ItemsSource="{x:Bind ViewModel.Source}"
-              ItemTemplate="{StaticResource ChannelRootTemplate}"
-              CanReorderItems="False"
-              SelectionMode="Single"/>
+    <SemanticZoom>
+        <SemanticZoom.ZoomedInView>
+            <ListView x:Name="ChannelList"
+              ItemsSource="{x:Bind GroupedChannels.View, Mode=OneWay}"
+              ItemTemplateSelector="{StaticResource ChannelTemplateSelector}"
+              SelectionMode="Single">
+                <ListView.GroupStyle>
+                    <GroupStyle HidesIfEmpty="False">
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate x:DataType="bindablechannels:BindableChannelGroup">
+                                <ContentControl Content="{x:Bind Key}"
+                                                ContentTemplate="{StaticResource CategoryChannelTemplate}"/>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+            </ListView>
+        </SemanticZoom.ZoomedInView>
+        <SemanticZoom.ZoomedOutView>
+            <ListView ItemsSource="{x:Bind GroupedChannels.View.CollectionGroups, Mode=OneWay}"
+                      SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="wuxdata:ICollectionViewGroup">
+                        <ContentControl Content="{x:Bind ((bindablechannels:BindableChannelGroup)Group).Key}"
+                                        ContentTemplate="{StaticResource CategoryChannelTemplate}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </SemanticZoom.ZoomedOutView>
+    </SemanticZoom>
 </UserControl>
