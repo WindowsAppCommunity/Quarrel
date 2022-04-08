@@ -19,6 +19,8 @@ namespace Quarrel.Bindables.Guilds
             Guild = guild;
         }
 
+        public ulong? SelectedChannel { get; set; }
+
         public string IconUrl => $"https://cdn.discordapp.com/icons/{Guild.Id}/{Guild.IconId}.png?size=128";
 
         public Uri IconUri => new Uri(IconUrl);

@@ -8,8 +8,8 @@ namespace Quarrel.Bindables.Channels
 {
     public class BindableTextChannel : BindableGuildChannel
     {
-        internal BindableTextChannel(GuildTextChannel channel, GuildMember selfMember) :
-            base(channel, selfMember)
+        internal BindableTextChannel(GuildTextChannel channel, GuildMember selfMember, BindableCategoryChannel? parent = null) :
+            base(channel, selfMember, parent)
         {
         }
 

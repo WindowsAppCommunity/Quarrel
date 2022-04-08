@@ -1,6 +1,5 @@
 ﻿// Adam Dernis © 2022
 
-using Discord.API.Models.Guilds;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels;
@@ -17,7 +16,7 @@ namespace Quarrel.ViewModels.Panels
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
 
-        private ulong _currentGuildId;
+        private BindableGuild _currentGuild;
         private BindableChannel? _selectedChannel;
 
         private IEnumerable<BindableChannelGroup>? _groupedSource;
@@ -27,8 +26,7 @@ namespace Quarrel.ViewModels.Panels
             _messenger = messenger;
             _discordService = discordService;
 
-            _messenger.Register<NavigateToGuildMessage<BindableGuild>>(this, (_, m) => LoadChannels(m.Guild.Guild));
-            _messenger.Register<NavigateToGuildMessage<Guild>>(this, (_, m) => LoadChannels(m.Guild));
+            _messenger.Register<NavigateToGuildMessage>(this, (_, m) => LoadChannels(m.Guild));
         }
 
         public BindableChannel? SelectedChannel
@@ -46,6 +44,7 @@ namespace Quarrel.ViewModels.Panels
 
                 SetProperty(ref _selectedChannel, value);
                 value.IsSelected = true;
+                _currentGuild.SelectedChannel = value.Channel.Id;
             }
         }
 
@@ -55,16 +54,20 @@ namespace Quarrel.ViewModels.Panels
             set => SetProperty(ref _groupedSource, value);
         }
 
-        public void LoadChannels(Guild guild)
+        public void LoadChannels(BindableGuild guild)
         {
-            if (guild.Id == _currentGuildId)
+            if (guild == _currentGuild)
             {
                 return;
             }
 
-            _currentGuildId = guild.Id;
-            var channels = _discordService.GetGuildChannelsGrouped(guild);
+            _currentGuild = guild;
+            var channels = _discordService.GetGuildChannelsGrouped(guild.Guild);
             GroupedSource = channels;
+
+            if (_currentGuild.SelectedChannel is not null)
+            {
+            }
         }
     }
 }

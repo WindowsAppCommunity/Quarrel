@@ -24,12 +24,12 @@ namespace Quarrel.Bindables.Channels.Abstract
         
         public abstract bool IsTextChannel { get; }
 
-        public static BindableChannel? Create(IChannel channel, GuildMember member)
+        public static BindableChannel? Create(IChannel channel, GuildMember member, BindableCategoryChannel? parent = null)
         {
             return channel switch
             {
-                GuildTextChannel c=> new BindableTextChannel(c, member),
-                VoiceChannel c => new BindableVoiceChannel(c, member),
+                GuildTextChannel c=> new BindableTextChannel(c, member, parent),
+                VoiceChannel c => new BindableVoiceChannel(c, member, parent),
                 CategoryChannel c => new BindableCategoryChannel(c, member),
                 _ => null
             };

@@ -1,6 +1,7 @@
 ﻿// Adam Dernis © 2022
 
 using CommunityToolkit.Diagnostics;
+using Discord.API.Models.Channels;
 using Discord.API.Models.Channels.Abstract;
 using Discord.API.Models.Channels.Interfaces;
 using Discord.API.Models.Enums.Channels;
@@ -69,9 +70,33 @@ namespace Quarrel.Services.Discord
             GuildMember? member = _discordClient.GetMyGuildMember(guild.Id);
             Guard.IsNotNull(member, nameof(member));
             BindableChannel?[] channels = new BindableChannel[rawChannels.Length];
+            var categories = new Dictionary<ulong, BindableCategoryChannel>();
+            
+            // Once for categories
             for (int i = 0; i < rawChannels.Length; i++)
             {
-                channels[i] = BindableChannel.Create(rawChannels[i], member);
+                var channel = rawChannels[i];
+                if (channel is CategoryChannel categoryChannel)
+                {
+                    var bindableCategoryChannel = new BindableCategoryChannel(categoryChannel, member);
+                    categories.Add(channel.Id, bindableCategoryChannel);
+                    channels[i] = bindableCategoryChannel;
+                }
+            }
+
+            for (int i = 0; i < rawChannels.Length; i++)
+            {
+                ref BindableChannel? channel = ref channels[i];
+                if (channel is null && rawChannels[i] is INestedChannel nestedChannel)
+                {
+                    BindableCategoryChannel? category = null;
+                    if (nestedChannel.CategoryId.HasValue)
+                    {
+                        category = categories[nestedChannel.CategoryId.Value];
+                    }
+
+                    channel = BindableChannel.Create(nestedChannel, member, category);
+                }
             }
 
             return channels;
@@ -81,8 +106,11 @@ namespace Quarrel.Services.Discord
         {
             var channels = GetGuildChannels(guild);
 
-            Dictionary<ulong?, BindableChannelGroup> groups = new Dictionary<ulong?, BindableChannelGroup>();
-            groups.Add(0, new BindableChannelGroup(null));
+            var groups = new Dictionary<ulong?, BindableChannelGroup>
+            {
+                { 0, new BindableChannelGroup(null) }
+            };
+
             foreach (var channel in channels)
             {
                 if (channel is BindableCategoryChannel bindableCategory)

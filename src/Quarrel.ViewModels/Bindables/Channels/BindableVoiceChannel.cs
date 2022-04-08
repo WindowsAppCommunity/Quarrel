@@ -8,8 +8,8 @@ namespace Quarrel.Bindables.Channels
 {
     public class BindableVoiceChannel : BindableGuildChannel
     {
-        internal BindableVoiceChannel(VoiceChannel channel, GuildMember selfMember) :
-            base(channel, selfMember)
+        internal BindableVoiceChannel(VoiceChannel channel, GuildMember selfMember, BindableCategoryChannel? parent = null) :
+            base(channel, selfMember, parent)
         {
         }
 

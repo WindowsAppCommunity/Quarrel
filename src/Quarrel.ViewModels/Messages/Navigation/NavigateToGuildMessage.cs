@@ -1,14 +1,16 @@
 ﻿// Adam Dernis © 2022
 
+using Quarrel.Bindables.Guilds;
+
 namespace Quarrel.Messages.Navigation
 {
-    public class NavigateToGuildMessage<T>
+    public class NavigateToGuildMessage
     {
-        public NavigateToGuildMessage(T guild)
+        public NavigateToGuildMessage(BindableGuild guild)
         {
             Guild = guild;
         }
 
-        public T Guild { get; }
+        public BindableGuild Guild { get; }
     }
 }

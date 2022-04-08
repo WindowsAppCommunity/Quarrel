@@ -8,17 +8,29 @@ namespace Quarrel.Bindables.Channels.Abstract
 {
     public abstract class BindableGuildChannel : BindableChannel
     {
-        internal BindableGuildChannel(GuildChannel channel, GuildMember selfMember) : base(channel)
+        internal BindableGuildChannel(GuildChannel channel, GuildMember selfMember, BindableCategoryChannel? parent = null) : base(channel)
         {
-            Permissions = new Permissions();
-            var roles = selfMember.GetRoles();
-            foreach (var role in roles)
+            CategoryChannel = parent;
+
+            if (CategoryChannel is null)
             {
-                Permissions += role.Permissions;
+                Permissions = new Permissions();
+                var roles = selfMember.GetRoles();
+                foreach (var role in roles)
+                {
+                    Permissions += role.Permissions;
+                }
+            }
+            else
+            {
+                Permissions = CategoryChannel.Permissions;
             }
 
             ApplyOverrides(channel.PermissionOverwrites, selfMember);
         }
+
+
+        public BindableCategoryChannel? CategoryChannel { get; }
 
         public Permissions Permissions { get; private set; }
 

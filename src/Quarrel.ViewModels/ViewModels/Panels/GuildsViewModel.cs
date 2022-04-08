@@ -61,7 +61,7 @@ namespace Quarrel.ViewModels
         {
             if (guild is not null)
             {
-                _messenger.Send(new NavigateToGuildMessage<BindableGuild>(guild));
+                _messenger.Send(new NavigateToGuildMessage(guild));
             }
         }
     }
