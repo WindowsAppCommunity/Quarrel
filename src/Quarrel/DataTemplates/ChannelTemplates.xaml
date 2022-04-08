@@ -2,6 +2,7 @@
     x:Class="Quarrel.DataTemplates.ChannelTemplates"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:a="using:Quarrel.Attached"
     xmlns:bindablechannels="using:Quarrel.Bindables.Channels">
 
     <DataTemplate x:Key="TextChannelTemplate" x:DataType="bindablechannels:BindableTextChannel">
@@ -30,7 +31,7 @@
         <Grid Padding="0">
             <!--Main Details-->
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,6" Padding="0,0,-18,0">
-                <TextBlock Text="{x:Bind Name, Mode=OneWay}" FontSize="16" Opacity=".6" Margin="0,1,0,0"/>
+                <TextBlock Text="{x:Bind Name, Mode=OneWay}" a:TextHelpers.CharacterCasing="Upper" FontSize="16" Opacity=".6" Margin="0,1,0,0"/>
             </StackPanel>
         </Grid>
     </DataTemplate>
@@ -39,7 +40,7 @@
         <Grid Height="40" Padding="0">
             <!--Main Details-->
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,6" Padding="0,0,-18,0">
-                <TextBlock Text="{x:Bind Name, Mode=OneWay}" Opacity=".6" Margin="0,1,0,0"/>
+                <TextBlock Text="{x:Bind Name, Mode=OneWay}" a:TextHelpers.CharacterCasing="Upper" Opacity=".6" Margin="0,1,0,0"/>
             </StackPanel>
         </Grid>
     </DataTemplate>

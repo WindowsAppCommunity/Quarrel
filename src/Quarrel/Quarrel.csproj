@@ -66,6 +66,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Attached\TextHelpers\CharacterCasing.cs" />
     <Compile Include="Behaviors\OpenFlyoutAction.cs" />
     <Compile Include="Controls\Direction.cs" />
     <Compile Include="Controls\QuarrelIcon.xaml.cs">
@@ -99,6 +100,7 @@
       <DependentUpon>SideDrawer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Shell\SideDrawerSize.cs" />
+    <Compile Include="Converters\CaseConverter.cs" />
     <Compile Include="Converters\EqualityConverter.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\NotBoolToVisibilityConverter.cs" />
