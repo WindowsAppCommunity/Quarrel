@@ -1,6 +1,7 @@
-﻿using CommunityToolkit.Diagnostics;
+﻿// Adam Dernis © 2022
+
+using CommunityToolkit.Diagnostics;
 using Discord.API.HttpHandlers;
-using Discord.API.Rest.Gateway;
 using Refit;
 using System;
 using System.Net.Http;
@@ -18,9 +19,14 @@ namespace Discord.API.Rest
             return RestService.For<IGatewayService>(GetHttpClient());
         }
 
+        internal IChannelService GetChannelService()
+        {
+            return RestService.For<IChannelService>(GetHttpClient());
+        }
+
         private HttpClient GetHttpClient(bool authenticated = true)
         {
-            HttpClientHandler handler = new HttpClientHandler();
+            var handler = new HttpClientHandler();
 
             if (authenticated)
             {

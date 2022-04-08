@@ -83,7 +83,7 @@ namespace Quarrel
             IFolderData appDataFolder = new FolderData(ApplicationData.Current.LocalFolder);
 
             // Register Services
-            ServiceCollection services = new ServiceCollection();
+            var services = new ServiceCollection();
             services.AddSingleton<IMessenger, WeakReferenceMessenger>();
             services.AddSingleton<ILocalizationService, LocalizationService>();
             services.AddSingleton<IDiscordService, DiscordService>();
@@ -97,6 +97,7 @@ namespace Quarrel
             services.AddSingleton<WindowViewModel>();
             services.AddSingleton<GuildsViewModel>();
             services.AddSingleton<ChannelsViewModel>();
+            services.AddSingleton<MessagesViewModel>();
             services.AddSingleton<CurrentUserViewModel>();
             services.AddTransient<LoginPageViewModel>();
 

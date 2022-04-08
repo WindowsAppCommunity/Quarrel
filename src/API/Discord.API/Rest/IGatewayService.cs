@@ -4,7 +4,7 @@ using Discord.API.Models.Json.Gateway;
 using Refit;
 using System.Threading.Tasks;
 
-namespace Discord.API.Rest.Gateway
+namespace Discord.API.Rest
 {
     internal interface IGatewayService
     {

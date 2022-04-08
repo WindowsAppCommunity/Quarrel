@@ -6,7 +6,6 @@ using Discord.API.Models.Channels.Abstract;
 using Discord.API.Models.Guilds;
 using Discord.API.Models.Users;
 using Discord.API.Rest;
-using Discord.API.Rest.Gateway;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
@@ -17,6 +16,7 @@ namespace Discord.API
     /// </summary>
     public partial class DiscordClient
     {
+        private IChannelService? _channelService;
         private IGatewayService? _gatewayService;
         private Gateway? _gateway;
         private string? _token;
@@ -40,7 +40,7 @@ namespace Discord.API
         /// <summary>
         /// Initializes authenticated services and opens the gateway.
         /// </summary>
-        /// <param name="token">The token used for autentication.</param>
+        /// <param name="token">The token used for authentication.</param>
         public async Task LoginAsync(string token)
         {
             _token = token;
@@ -50,8 +50,11 @@ namespace Discord.API
 
         private void InitializeServices(string token)
         {
-            DiscordRestFactory restFactory = new DiscordRestFactory();
-            restFactory.Token = token;
+            var restFactory = new DiscordRestFactory
+            {
+                Token = token
+            };
+            _channelService = restFactory.GetChannelService();
             _gatewayService = restFactory.GetGatewayService();
         }
 

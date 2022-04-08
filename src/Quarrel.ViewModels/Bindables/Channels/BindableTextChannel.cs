@@ -10,5 +10,7 @@ namespace Quarrel.Bindables.Channels
         internal BindableTextChannel(GuildTextChannel channel) : base(channel)
         {
         }
+
+        public override bool IsTextChannel => true;
     }
 }

@@ -5,7 +5,6 @@ using Discord.API;
 using Discord.API.Models.Users;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Messages.Discord;
-using Quarrel.Services.Storage;
 using Quarrel.Services.Storage.Accounts.Models;
 using System.Threading.Tasks;
 
@@ -15,12 +14,10 @@ namespace Quarrel.Services.Discord
     {
         private readonly DiscordClient _discordClient;
         private readonly IMessenger _messenger;
-        private readonly IStorageService _storageService;
 
-        public DiscordService(IMessenger messenger, IStorageService storageService)
+        public DiscordService(IMessenger messenger)
         {
             _messenger = messenger;
-            _storageService = storageService;
             _discordClient = new DiscordClient();
             _discordClient.LoggedIn += OnLoggedIn;
         }
@@ -38,7 +35,7 @@ namespace Quarrel.Services.Discord
             string? token = _discordClient.Token;
             
             Guard.IsNotNull(token, nameof(token));
-            AccountInfo info = new AccountInfo(e.Id, e.Username, e.Discriminator, token);
+            var info = new AccountInfo(e.Id, e.Username, e.Discriminator, token);
 
             _messenger.Send(new UserLoggedInMessage(info));
         }

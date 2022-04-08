@@ -15,6 +15,7 @@ namespace Quarrel.ViewModels
         private readonly IDiscordService _discordService;
         private readonly IDispatcherService _dispatcherService;
 
+        [ObservableProperty]
         private SelfUser? _me;
 
         public CurrentUserViewModel(IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
@@ -30,12 +31,6 @@ namespace Quarrel.ViewModels
                     Me = _discordService.GetMe();
                 });
             });
-        }
-
-        public SelfUser? Me
-        {
-            get => _me;
-            set => SetProperty(ref _me, value);
         }
     }
 }

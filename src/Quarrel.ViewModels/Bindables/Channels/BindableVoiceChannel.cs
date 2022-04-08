@@ -10,6 +10,7 @@ namespace Quarrel.Bindables.Channels
         internal BindableVoiceChannel(VoiceChannel channel) : base(channel)
         {
         }
-        public override bool IsSelectable => false;
+
+        public override bool IsTextChannel => false;
     }
 }

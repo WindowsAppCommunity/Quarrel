@@ -32,7 +32,9 @@
                 </Grid>
             </local:SideDrawer.LeftSecondaryContent>
             <local:SideDrawer.MainContent>
-                <Grid Background="{ThemeResource PrimaryPaneBackground}"/>
+                <Grid Background="{ThemeResource PrimaryPaneBackground}">
+                    <panels:MessagePanel/>
+                </Grid>
             </local:SideDrawer.MainContent>
             <local:SideDrawer.RightContent>
                 <Grid Background="{ThemeResource SecondaryPaneBackground}"/>

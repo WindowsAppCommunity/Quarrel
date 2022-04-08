@@ -1,5 +1,6 @@
 ﻿// Adam Dernis © 2022
 
+using Discord.API.Models.Channels.Abstract;
 using Discord.API.Models.Channels.Interfaces;
 using Discord.API.Models.Enums.Channels;
 using Discord.API.Models.Guilds;
@@ -7,8 +8,10 @@ using Discord.API.Models.Users;
 using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Guilds;
+using Quarrel.Bindables.Messages;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Quarrel.Services.Discord
 {
@@ -31,13 +34,25 @@ namespace Quarrel.Services.Discord
             return guilds;
         }
 
+        public async Task<BindableMessage[]> GetChannelMessagesAsync(Channel channel)
+        {
+            var rawMessages = await _discordClient.GetMessagesAsync(channel.Id);
+            BindableMessage[] messages = new BindableMessage[rawMessages.Length];
+            for (int i = 0; i < messages.Length; i++)
+            {
+                messages[i] = new BindableMessage(rawMessages[i]);
+            }
+
+            return messages;
+        }
+
         public BindableChannel?[] GetGuildChannels(Guild guild)
         {
             IGuildChannel[] rawChannels = guild.GetChannels();
             Array.Sort(rawChannels, Comparer<IGuildChannel>.Create((item1, item2) =>
             {
-                bool is1Voice = item1.Type == ChannelType.GuildVoice || item1.Type == ChannelType.StageVoice;
-                bool is2Voice = item2.Type == ChannelType.GuildVoice || item2.Type == ChannelType.StageVoice;
+                bool is1Voice = item1.Type is ChannelType.GuildVoice or ChannelType.StageVoice;
+                bool is2Voice = item2.Type is ChannelType.GuildVoice or ChannelType.StageVoice;
                 if (is1Voice && !is2Voice)
                 {
                     return 1;

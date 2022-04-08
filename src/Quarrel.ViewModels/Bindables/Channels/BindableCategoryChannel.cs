@@ -1,7 +1,6 @@
 ﻿// Adam Dernis © 2022
 
 using Discord.API.Models.Channels;
-using Discord.API.Models.Channels.Abstract;
 using Quarrel.Bindables.Channels.Abstract;
 
 namespace Quarrel.Bindables.Channels
@@ -11,5 +10,7 @@ namespace Quarrel.Bindables.Channels
         internal BindableCategoryChannel(CategoryChannel channel) : base(channel)
         {
         }
+
+        public override bool IsTextChannel => false;
     }
 }

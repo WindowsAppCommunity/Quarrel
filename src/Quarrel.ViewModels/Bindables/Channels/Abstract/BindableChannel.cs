@@ -20,8 +20,8 @@ namespace Quarrel.Bindables.Channels.Abstract
         }
 
         public virtual string? Name => _channel.Name;
-
-        public virtual bool IsSelectable => true;
+        
+        public abstract bool IsTextChannel { get; }
 
         public static BindableChannel? Create(IChannel channel)
         {

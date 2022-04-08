@@ -2,17 +2,33 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Guilds;
+using Discord.API.Models.Messages;
 using Discord.API.Models.Users;
 using System;
+using System.Threading.Tasks;
 
 namespace Discord.API
 {
-    /// <inheritdoc/>
     public partial class DiscordClient
     {
         public SelfUser? GetMe()
         {
             return _selfUser;
+        }
+
+        public async Task<Message[]> GetMessagesAsync(ulong channelId)
+        {
+            Guard.IsNotNull(_channelService, nameof(_channelService));
+
+            var jsonMessages = await _channelService.GetChannelMessages(channelId);
+
+            Message[] messages = new Message[jsonMessages.Length];
+            for (int i = 0; i < messages.Length; i++)
+            {
+                messages[i] = new Message(jsonMessages[i], this);
+            }
+
+            return messages;
         }
 
         /// <summary>
