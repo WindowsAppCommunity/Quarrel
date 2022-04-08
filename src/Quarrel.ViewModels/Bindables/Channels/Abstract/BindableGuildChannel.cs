@@ -22,12 +22,17 @@ namespace Quarrel.Bindables.Channels.Abstract
 
         public Permissions Permissions { get; private set; }
 
+        /// <summary>
+        /// Gets if the user has permission to open the channel.
+        /// </summary>
+        public abstract bool IsAccessible { get; }
+
         private void ApplyOverrides(PermissionOverwrite[] overwrites, GuildMember selfMember)
         {
             var roles = selfMember.GetRoles();
             foreach (var overwrite in overwrites)
             {
-                if (overwrite.Type == 0 && overwrite.Id == selfMember.GuildId || selfMember.HasRole(overwrite.Id))
+                if (overwrite.Type == 0 && selfMember.HasRole(overwrite.Id))
                 {
                     Permissions -= overwrite.Deny;
                     Permissions += overwrite.Allow;

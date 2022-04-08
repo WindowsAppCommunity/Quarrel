@@ -21,6 +21,16 @@
                                            VoiceChannelTemplate="{StaticResource VoiceChannelTemplate}"
                                            CategoryChannelTemplate="{StaticResource CategoryZoomInChannelTemplate}"/>
 
+        <selectors:ChannelEnabledStyleSelector x:Key="ChannelStyleSelector"
+                                               EnabledStyle="{StaticResource ChannelListItemStyle}">
+            <selectors:ChannelEnabledStyleSelector.DisabledStyle>
+                <Style BasedOn="{StaticResource ChannelListItemStyle}"
+                       TargetType="ListViewItem">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </Style>
+            </selectors:ChannelEnabledStyleSelector.DisabledStyle>
+        </selectors:ChannelEnabledStyleSelector>
+
     </UserControl.Resources>
 
     <SemanticZoom>
@@ -28,7 +38,7 @@
             <ListView x:Name="ChannelList"
                       ItemsSource="{x:Bind GroupedChannels.View, Mode=OneWay}"
                       ItemTemplateSelector="{StaticResource ChannelTemplateSelector}"
-                      ItemContainerStyle="{StaticResource ChannelListItemStyle}"
+                      ItemContainerStyleSelector="{StaticResource ChannelStyleSelector}"
                       SelectionMode="None"
                       SingleSelectionFollowsFocus="False"
                       IsItemClickEnabled="True"

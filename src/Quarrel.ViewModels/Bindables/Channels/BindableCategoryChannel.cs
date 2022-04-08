@@ -14,5 +14,8 @@ namespace Quarrel.Bindables.Channels
         }
 
         public override bool IsTextChannel => false;
+
+        /// <inheritdoc/>
+        public override bool IsAccessible => true;
     }
 }

@@ -8,10 +8,14 @@ namespace Quarrel.Bindables.Channels
 {
     public class BindableVoiceChannel : BindableGuildChannel
     {
-        internal BindableVoiceChannel(VoiceChannel channel, GuildMember selfMember) : base(channel, selfMember)
+        internal BindableVoiceChannel(VoiceChannel channel, GuildMember selfMember) :
+            base(channel, selfMember)
         {
         }
 
         public override bool IsTextChannel => false;
+
+        /// <inheritdoc/>
+        public override bool IsAccessible => Permissions.Connect;
     }
 }

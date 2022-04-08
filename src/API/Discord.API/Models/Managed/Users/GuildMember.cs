@@ -43,6 +43,8 @@ namespace Discord.API.Models.Users
             {
                 _roles.Add(role);
             }
+
+            _roles.Add(GuildId);
         }
 
         /// <inheritdoc/>
@@ -84,12 +86,12 @@ namespace Discord.API.Models.Users
             {
                 Role? role = guild.GetRole(Roles[i]);
                 Guard.IsNotNull(role, nameof(role));
-                roles[i] = role;
+                roles[i+1] = role;
             }
             
             Role? everyoneRole = guild.GetRole(guild.Id);
             Guard.IsNotNull(everyoneRole, nameof(everyoneRole));
-            roles[Roles.Length] = everyoneRole;
+            roles[0] = everyoneRole;
 
             return roles;
         }
