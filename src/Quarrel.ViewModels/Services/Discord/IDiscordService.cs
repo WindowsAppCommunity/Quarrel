@@ -20,6 +20,8 @@ namespace Quarrel.Services.Discord
 
         BindableGuild[] GetMyGuilds();
 
+        BindableGuildFolder[] GetMyGuildFolders();
+
         Task<BindableMessage[]> GetChannelMessagesAsync(Channel channel);
 
         BindableChannel[] GetGuildChannels(Guild guild);

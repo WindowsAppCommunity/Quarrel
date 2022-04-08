@@ -113,8 +113,9 @@
       <DependentUpon>GuildTemplates.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Selectors\ChannelStyleSelector.cs" />
     <Compile Include="Selectors\ChannelEnabledStyleSelector.cs" />
+    <Compile Include="Selectors\GuildStyleSelector.cs" />
+    <Compile Include="Selectors\GuildTemplateSelector.cs" />
     <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
     <Compile Include="Services\Dispatcher\DispatcherService.cs" />
     <Compile Include="Services\Keyboard\KeyboardService.cs" />

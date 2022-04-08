@@ -28,7 +28,7 @@ namespace Quarrel.Selectors
         public DataTemplate CategoryChannelTemplate { get; set; }
 
         /// <inheritdoc/>
-        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
+        protected override DataTemplate SelectTemplateCore(object item)
         {
             if (item is BindableChannel channel)
             {

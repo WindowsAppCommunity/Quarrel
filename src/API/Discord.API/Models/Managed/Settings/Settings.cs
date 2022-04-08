@@ -36,7 +36,7 @@ namespace Discord.API.Models.Settings
             Folders = new GuildFolder[jsonUserSettings.GuildFolders.Length];
             for (int i = 0; i < jsonUserSettings.GuildFolders.Length; i++)
             {
-                Folders[i] = new GuildFolder(jsonUserSettings.GuildFolders[i]);
+                Folders[i] = new GuildFolder(jsonUserSettings.GuildFolders[i], context);
             }
         }
 

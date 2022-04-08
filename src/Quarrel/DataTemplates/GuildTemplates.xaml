@@ -12,4 +12,10 @@
             </Border>
         </Grid>
     </DataTemplate>
+
+    <DataTemplate x:Key="GuildFolderTemplate" x:DataType="bindableguilds:BindableGuildFolder">
+        <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="True">
+            <Grid Height="48" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="6"/>
+        </TreeViewItem>
+    </DataTemplate>
 </ResourceDictionary>

@@ -6,6 +6,7 @@ using Discord.API.Models.Channels.Abstract;
 using Discord.API.Models.Channels.Interfaces;
 using Discord.API.Models.Enums.Channels;
 using Discord.API.Models.Guilds;
+using Discord.API.Models.Settings;
 using Discord.API.Models.Users;
 using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Abstract;
@@ -34,6 +35,18 @@ namespace Quarrel.Services.Discord
             }
 
             return guilds;
+        }
+
+        public BindableGuildFolder[] GetMyGuildFolders()
+        {
+            GuildFolder[] rawFolders = _discordClient.GetMyGuildFolders();
+            BindableGuildFolder[] folders = new BindableGuildFolder[rawFolders.Length];
+            for (int i = 0; i < rawFolders.Length; i++)
+            {
+                folders[i] = new BindableGuildFolder(rawFolders[i]);
+            }
+
+            return folders;
         }
 
         public async Task<BindableMessage[]> GetChannelMessagesAsync(Channel channel)

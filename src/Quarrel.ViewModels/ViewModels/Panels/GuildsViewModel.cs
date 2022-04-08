@@ -25,7 +25,7 @@ namespace Quarrel.ViewModels
             _discordService = discordService;
             _dispatcherService = dispatcherService;
 
-            Source = new ObservableCollection<BindableGuild>();
+            Source = new ObservableCollection<BindableGuildFolder>();
 
             _messenger.Register<UserLoggedInMessage>(this, (_, _) => LoadGuilds());
         }
@@ -43,16 +43,16 @@ namespace Quarrel.ViewModels
             }
         }
 
-        public ObservableCollection<BindableGuild> Source { get; private set; }
+        public ObservableCollection<BindableGuildFolder> Source { get; private set; }
 
         public void LoadGuilds()
         {
-            var guilds = _discordService.GetMyGuilds();
+            var folder = _discordService.GetMyGuildFolders();
             _dispatcherService.RunOnUIThread(() =>
             {
-                foreach (var guild in guilds)
+                foreach (var folder in folder)
                 {
-                    Source.Add(guild);
+                    Source.Add(folder);
                 }
             });
         }

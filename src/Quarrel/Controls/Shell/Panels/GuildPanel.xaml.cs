@@ -24,5 +24,18 @@ namespace Quarrel.Controls.Shell.Panels
                 ViewModel.NavigateToGuild(guild);
             }
         }
+
+        private void GuildList_OnItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs args)
+        {
+            var container = (TreeViewItem)sender.ContainerFromItem(args.InvokedItem);
+            if (args.InvokedItem is BindableGuild guild)
+            {
+                ViewModel.NavigateToGuild(guild);
+            }
+            else
+            {
+                args.Handled = true;
+            }
+        }
     }
 }

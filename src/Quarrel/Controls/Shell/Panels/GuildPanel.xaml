@@ -7,18 +7,57 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:selectors="using:Quarrel.Selectors"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="72">
 
-    <ListView x:Name="GuildList"
-              SelectedItem="{x:Bind ViewModel.SelectedGuild, Mode=TwoWay}"
+    <UserControl.Resources>
+        <selectors:GuildTemplateSelector x:Key="GuildTemplateSelector"
+                                         GuildTemplate="{StaticResource GuildTemplate}"
+                                         GuildFolderTemplate="{StaticResource GuildFolderTemplate}"/>
+
+        <selectors:GuildStyleSelector x:Key="GuildStyleSelector"
+                                      GuildStyle="{StaticResource GuildListItemStyle}"
+                                      GuildFolderStyle="{StaticResource GuildFolderItemStyle}"/>
+        <Style x:Key="TreeViewStyle1" TargetType="TreeView">
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="CanDragItems" Value="False"/>
+            <Setter Property="CanReorderItems" Value="False"/>
+            <Setter Property="AllowDrop" Value="False"/>
+            <Setter Property="ItemContainerTransitions">
+                <Setter.Value>
+                    <TransitionCollection>
+                        <ContentThemeTransition/>
+                        <ReorderThemeTransition/>
+                        <EntranceThemeTransition IsStaggeringEnabled="True"/>
+                    </TransitionCollection>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TreeView">
+                        <TreeViewList x:Name="ListControl"
+                                      AllowDrop="{TemplateBinding AllowDrop}"
+                                      CanReorderItems="{TemplateBinding CanReorderItems}"
+                                      CanDragItems="{TemplateBinding CanDragItems}"
+                                      ItemTemplate="{TemplateBinding ItemTemplate}"
+                                      ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
+                                      ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                      ItemContainerStyleSelector="{TemplateBinding ItemContainerStyleSelector}"
+                                      ItemContainerTransitions="{TemplateBinding ItemContainerTransitions}"
+                                      ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <TreeView Style="{StaticResource TreeViewStyle1}" x:Name="GuildList"
               ItemsSource="{x:Bind ViewModel.Source}"
-              ItemTemplate="{StaticResource GuildTemplate}"
-              ItemContainerStyle="{StaticResource GuildListItemStyle}"
+              ItemContainerStyleSelector="{StaticResource GuildStyleSelector}"
+              ItemTemplateSelector="{StaticResource GuildTemplateSelector}"
               SelectionMode="Single"
-              SingleSelectionFollowsFocus="False"
-              IsItemClickEnabled="True"
-              ScrollViewer.VerticalScrollBarVisibility="Hidden"
-              ItemClick="GuildList_ItemClick"/>
+              ItemInvoked="GuildList_OnItemInvoked"/>
+
 </UserControl>

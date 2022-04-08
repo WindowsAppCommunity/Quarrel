@@ -3,6 +3,7 @@
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Guilds;
 using Discord.API.Models.Messages;
+using Discord.API.Models.Settings;
 using Discord.API.Models.Users;
 using System;
 using System.Threading.Tasks;
@@ -71,6 +72,11 @@ namespace Discord.API
             Array.Resize(ref guildArray, realCount);
 
             return guildArray;
+        }
+
+        public GuildFolder[] GetMyGuildFolders()
+        {
+            return _settings.Folders;
         }
     }
 }
