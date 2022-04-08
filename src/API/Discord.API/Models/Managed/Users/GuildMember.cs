@@ -3,9 +3,12 @@
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Base;
 using Discord.API.Models.Enums.Users;
+using Discord.API.Models.Guilds;
 using Discord.API.Models.Json.Users;
+using Discord.API.Models.Roles;
 using Discord.API.Models.Users.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace Discord.API.Models.Users
 {
@@ -14,6 +17,8 @@ namespace Discord.API.Models.Users
     /// </summary>
     public class GuildMember : DiscordItem, IGuildMember
     {
+        private HashSet<ulong> _roles;
+
         internal GuildMember(JsonGuildMember jsonMember, DiscordClient context)
             : this(jsonMember, jsonMember.GuildId, context)
         {
@@ -32,6 +37,12 @@ namespace Discord.API.Models.Users
             GuildAvatarId = jsonMember.Avatar;
             Roles = jsonMember.Roles;
             HoistedRole = jsonMember.HoistedRole;
+
+            _roles = new HashSet<ulong>();
+            foreach (var role in Roles)
+            {
+                _roles.Add(role);
+            }
         }
 
         /// <inheritdoc/>
@@ -57,6 +68,31 @@ namespace Discord.API.Models.Users
 
         /// <inheritdoc/>
         public Presence? Presence { get; internal set; }
+
+        public bool HasRole(ulong roleId)
+        {
+            return _roles.Contains(roleId);
+        }
+
+        public Role[] GetRoles()
+        {
+            Guild? guild = Context.GetGuildInternal(GuildId);
+            Guard.IsNotNull(guild, nameof(guild));
+
+            Role[] roles = new Role[Roles.Length+1];
+            for (int i = 0; i < Roles.Length; i++)
+            {
+                Role? role = guild.GetRole(Roles[i]);
+                Guard.IsNotNull(role, nameof(role));
+                roles[i] = role;
+            }
+            
+            Role? everyoneRole = guild.GetRole(guild.Id);
+            Guard.IsNotNull(everyoneRole, nameof(everyoneRole));
+            roles[Roles.Length] = everyoneRole;
+
+            return roles;
+        }
 
         internal void UpdateFromJsonGuildMember(JsonGuildMember jsonGuildMember)
         {

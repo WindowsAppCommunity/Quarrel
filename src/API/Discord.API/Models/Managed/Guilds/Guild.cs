@@ -146,6 +146,16 @@ namespace Discord.API.Models.Guilds
             return channels;
         }
 
+        internal Role? GetRole(ulong roleId)
+        {
+            if (_roles.TryGetValue(roleId, out var role))
+            {
+                return role;
+            }
+
+            return null;
+        }
+
         internal void UpdateFromRestGuild(JsonGuild restGuild)
         {
             Guard.IsEqualTo(Id, restGuild.Id, nameof(Id));

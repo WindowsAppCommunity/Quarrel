@@ -16,5 +16,10 @@ namespace Discord.API.Models.Channels.Interfaces
         /// The ID of the guild the channel belongs to.
         /// </summary>
         ulong GuildId { get; }
+
+        /// <summary>
+        /// The permission overwrite set for the channel.
+        /// </summary>
+        PermissionOverwrite[] PermissionOverwrites { get; }
     }
 }

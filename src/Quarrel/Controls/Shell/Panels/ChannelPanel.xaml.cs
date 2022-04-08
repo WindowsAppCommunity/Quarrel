@@ -34,13 +34,15 @@ namespace Quarrel.Controls.Shell.Panels
 
         private void ChannelList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (e.ClickedItem is BindableChannel channel)
+            if (e.ClickedItem is BindableChannel {IsTextChannel: true} channel)
             {
-                if (channel.IsTextChannel)
+                if (channel is BindableGuildChannel {Permissions: {ReadMessages: false}})
                 {
-                    ViewModel.SelectedChannel = channel;
-                    _messenger.Send(new NavigateToChannelMessage<BindableChannel>(channel));
+                    return; 
                 }
+
+                ViewModel.SelectedChannel = channel;
+                _messenger.Send(new NavigateToChannelMessage<BindableChannel>(channel));
             }
         }
     }

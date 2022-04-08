@@ -1,7 +1,6 @@
 ﻿// Adam Dernis © 2022
 
 using Discord.API.Models.Base.Interfaces;
-using Discord.API.Models.Enums.Permissions;
 
 namespace Discord.API.Models.Roles.Interfaces
 {
@@ -25,17 +24,17 @@ namespace Discord.API.Models.Roles.Interfaces
         /// <summary>
         /// Gets the guild base permissions for the role.
         /// </summary>
-        Permission Permissions { get; }
+        Permissions Permissions { get; }
 
         /// <summary>
-        /// Gets whether or not the role is shown seperately in the memberlist.
+        /// Gets whether or not the role is shown separately in the member list.
         /// </summary>
         bool IsHoisted { get; }
 
         /// <summary>
         /// Gets whether or not the role is managed by integration.
         /// </summary>
-        bool IsMangaged { get; }
+        bool IsManaged { get; }
 
         /// <summary>
         /// Gets whether or not the role mentionable by anyone.

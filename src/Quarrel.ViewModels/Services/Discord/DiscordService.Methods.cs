@@ -1,5 +1,6 @@
 ﻿// Adam Dernis © 2022
 
+using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Channels.Abstract;
 using Discord.API.Models.Channels.Interfaces;
 using Discord.API.Models.Enums.Channels;
@@ -65,10 +66,12 @@ namespace Quarrel.Services.Discord
                 return item1.Position.CompareTo(item2.Position);
             }));
 
+            GuildMember? member = _discordClient.GetMyGuildMember(guild.Id);
+            Guard.IsNotNull(member, nameof(member));
             BindableChannel?[] channels = new BindableChannel[rawChannels.Length];
             for (int i = 0; i < rawChannels.Length; i++)
             {
-                channels[i] = BindableChannel.Create(rawChannels[i]);
+                channels[i] = BindableChannel.Create(rawChannels[i], member);
             }
 
             return channels;

@@ -1,13 +1,15 @@
 ﻿// Adam Dernis © 2022
 
 using Discord.API.Models.Channels;
+using Discord.API.Models.Users;
 using Quarrel.Bindables.Channels.Abstract;
 
 namespace Quarrel.Bindables.Channels
 {
-    public class BindableCategoryChannel : BindableChannel
+    public class BindableCategoryChannel : BindableGuildChannel
     {
-        internal BindableCategoryChannel(CategoryChannel channel) : base(channel)
+        internal BindableCategoryChannel(CategoryChannel channel, GuildMember selfMember) :
+            base(channel, selfMember)
         {
         }
 

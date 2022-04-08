@@ -1,31 +1,26 @@
 ﻿// Adam Dernis © 2022
 
 using CommunityToolkit.Diagnostics;
-using Discord.API.Models.Channels.Abstract;
 using Discord.API.Models.Channels.Interfaces;
 using Discord.API.Models.Json.Channels;
+using Discord.API.Models.Managed.Channels.Abstract;
 
 namespace Discord.API.Models.Channels
 {
     /// <summary>
     /// A voice channel in a guild managed by a <see cref="DiscordClient"/>.
     /// </summary>
-    public class VoiceChannel : Channel, IGuildVoiceChannel
+    public class VoiceChannel : GuildChannel, IGuildVoiceChannel
     {
         internal VoiceChannel(JsonChannel restChannel, ulong? guildId, DiscordClient context) :
-            base(restChannel, context)
+            base(restChannel, guildId, context)
         {
-            guildId = restChannel.GuildId ?? guildId;
             Guard.IsNotNull(restChannel.Bitrate, nameof(restChannel.Bitrate));
-            Guard.IsNotNull(restChannel.Position, nameof(restChannel.Position));
-            Guard.IsNotNull(guildId, nameof(guildId));
 
             Bitrate = restChannel.Bitrate.Value;
             UserLimit = restChannel.UserLimit;
-            CategoryId = restChannel.CategoryId;
-            Position = restChannel.Position.Value;
-            GuildId = guildId.Value;
             RTCRegion = restChannel.RTCRegion;
+            CategoryId = restChannel.CategoryId;
         }
 
         /// <inheritdoc/>
@@ -38,13 +33,16 @@ namespace Discord.API.Models.Channels
         public ulong? CategoryId { get; private set; }
 
         /// <inheritdoc/>
-        public int Position { get; private set; }
-
-        /// <inheritdoc/>
-        public ulong GuildId { get; private set; }
-
-        /// <inheritdoc/>
         public string? RTCRegion { get; private set; }
+
+        internal override void UpdateFromRestChannel(JsonChannel jsonChannel)
+        {
+            base.UpdateFromRestChannel(jsonChannel);
+            Bitrate = jsonChannel.Bitrate ?? Bitrate;
+            UserLimit = jsonChannel.UserLimit ?? UserLimit;
+            CategoryId = jsonChannel.CategoryId ?? CategoryId;
+            RTCRegion = jsonChannel.RTCRegion ?? RTCRegion;
+        }
 
         internal override JsonChannel ToRestChannel()
         {

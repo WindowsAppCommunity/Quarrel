@@ -10,7 +10,7 @@ namespace Discord.API.Models.Roles
     /// <summary>
     /// A role managed by a <see cref="DiscordClient"/>.
     /// </summary>
-    internal class Role : SnowflakeItem, IRole
+    public class Role : SnowflakeItem, IRole
     {
         internal Role(JsonRole jsonRole, DiscordClient context) :
             base(context)
@@ -21,7 +21,7 @@ namespace Discord.API.Models.Roles
             Icon = jsonRole.Icon;
             Permissions = (Permission)jsonRole.Permissions;
             IsHoisted = jsonRole.Hoist;
-            IsMangaged = jsonRole.Managed;
+            IsManaged = jsonRole.Managed;
             IsMentionable = jsonRole.Mentionable;
         }
 
@@ -35,13 +35,13 @@ namespace Discord.API.Models.Roles
         public int Position { get; private set; }
 
         /// <inheritdoc/>
-        public Permission Permissions { get; private set; }
+        public Permissions Permissions { get; private set; }
 
         /// <inheritdoc/>
         public bool IsHoisted { get; private set; }
 
         /// <inheritdoc/>
-        public bool IsMangaged { get; private set; }
+        public bool IsManaged { get; private set; }
 
         /// <inheritdoc/>
         public bool IsMentionable { get; private set; }

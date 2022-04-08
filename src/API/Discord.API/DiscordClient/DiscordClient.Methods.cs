@@ -31,6 +31,22 @@ namespace Discord.API
             return messages;
         }
 
+        public GuildMember? GetMyGuildMember(ulong guildId)
+        {
+            Guard.IsNotNull(_selfUser, nameof(_selfUser));
+            return GetGuildMember(guildId, _selfUser.Id);
+        }
+
+        public GuildMember? GetGuildMember(ulong guildId, ulong userId)
+        {
+            if (_guildsMemberMap.TryGetValue((guildId, userId), out var member))
+            {
+                return member;
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Gets the user's guild according to their order in settings.
         /// </summary>
