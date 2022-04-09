@@ -61,7 +61,7 @@ namespace Quarrel.Services.Discord
             return messages;
         }
 
-        public BindableChannel?[] GetGuildChannels(Guild guild)
+        public BindableGuildChannel?[] GetGuildChannels(Guild guild)
         {
             IGuildChannel[] rawChannels = guild.GetChannels();
             Array.Sort(rawChannels, Comparer<IGuildChannel>.Create((item1, item2) =>
@@ -82,7 +82,7 @@ namespace Quarrel.Services.Discord
 
             GuildMember? member = _discordClient.GetMyGuildMember(guild.Id);
             Guard.IsNotNull(member, nameof(member));
-            BindableChannel?[] channels = new BindableChannel[rawChannels.Length];
+            BindableGuildChannel?[] channels = new BindableGuildChannel[rawChannels.Length];
             var categories = new Dictionary<ulong, BindableCategoryChannel>();
             
             // Once for categories
@@ -99,7 +99,7 @@ namespace Quarrel.Services.Discord
 
             for (int i = 0; i < rawChannels.Length; i++)
             {
-                ref BindableChannel? channel = ref channels[i];
+                ref BindableGuildChannel? channel = ref channels[i];
                 if (channel is null && rawChannels[i] is INestedChannel nestedChannel)
                 {
                     BindableCategoryChannel? category = null;
@@ -108,15 +108,16 @@ namespace Quarrel.Services.Discord
                         category = categories[nestedChannel.CategoryId.Value];
                     }
 
-                    channel = BindableChannel.Create(nestedChannel, member, category);
+                    channel = BindableGuildChannel.Create(nestedChannel, member, category);
                 }
             }
 
             return channels;
         }
 
-        public IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(Guild guild)
+        public IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(Guild guild, out BindableGuildChannel? selectedChannel, ulong? selectedChannelId = null)
         {
+            selectedChannel = null;
             var channels = GetGuildChannels(guild);
 
             var groups = new Dictionary<ulong?, BindableChannelGroup>
@@ -140,6 +141,11 @@ namespace Quarrel.Services.Discord
                     if (channel.Channel is INestedChannel nestedChannel)
                     {
                         parentId = nestedChannel.CategoryId ?? 0;
+                    }
+
+                    if (channel.Channel.Id == selectedChannelId || (selectedChannel is null && channel.IsAccessible))
+                    {
+                        selectedChannel = channel;
                     }
 
                     if (groups.TryGetValue(parentId, out var group))

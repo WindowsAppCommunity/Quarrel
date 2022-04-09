@@ -1,6 +1,7 @@
 ﻿// Adam Dernis © 2022
 
 using Discord.API.Models;
+using Discord.API.Models.Channels.Interfaces;
 using Discord.API.Models.Managed.Channels.Abstract;
 using Discord.API.Models.Users;
 
@@ -38,6 +39,11 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// Gets if the user has permission to open the channel.
         /// </summary>
         public abstract bool IsAccessible { get; }
+
+        public static BindableGuildChannel? Create(IGuildChannel channel, GuildMember member, BindableCategoryChannel? parent = null)
+        {
+            return BindableChannel.Create(channel, member, parent) as BindableGuildChannel;
+        }
 
         private void ApplyOverrides(PermissionOverwrite[] overwrites, GuildMember selfMember)
         {

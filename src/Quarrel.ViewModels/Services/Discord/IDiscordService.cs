@@ -24,8 +24,8 @@ namespace Quarrel.Services.Discord
 
         Task<BindableMessage[]> GetChannelMessagesAsync(Channel channel);
 
-        BindableChannel[] GetGuildChannels(Guild guild);
+        BindableGuildChannel[] GetGuildChannels(Guild guild);
 
-        IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(Guild guild);
+        IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(Guild guild, out BindableGuildChannel? channel, ulong? selectedChannel = null);
     }
 }
