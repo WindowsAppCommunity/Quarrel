@@ -17,20 +17,12 @@ namespace Quarrel.Controls.Shell.Panels
 
         public GuildsViewModel ViewModel => (GuildsViewModel)DataContext;
 
-        private void GuildList_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            if (e.ClickedItem is BindableGuild guild)
-            {
-                ViewModel.NavigateToGuild(guild);
-            }
-        }
-
         private void GuildList_OnItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs args)
         {
             var container = (TreeViewItem)sender.ContainerFromItem(args.InvokedItem);
             if (args.InvokedItem is BindableGuild guild)
             {
-                ViewModel.NavigateToGuild(guild);
+                ViewModel.SelectedGuild = guild;
             }
             else
             {

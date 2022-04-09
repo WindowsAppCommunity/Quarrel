@@ -42,10 +42,12 @@ namespace Quarrel.ViewModels.Panels
                     _selectedChannel.IsSelected = false;
                 }
 
-                SetProperty(ref _selectedChannel, value);
-                value.IsSelected = true;
-                _currentGuild.SelectedChannel = value.Channel.Id;
-                _messenger.Send(new NavigateToChannelMessage<BindableChannel>(value));
+                if(SetProperty(ref _selectedChannel, value))
+                {
+                    value.IsSelected = true;
+                    _currentGuild.SelectedChannel = value.Channel.Id;
+                    _messenger.Send(new NavigateToChannelMessage<BindableChannel>(value));
+                }
             }
         }
 

@@ -39,7 +39,10 @@ namespace Quarrel.ViewModels
                     _selectedGuild.IsSelected = false;
 
                 if (SetProperty(ref _selectedGuild, value) && value is not null)
+                {
                     value.IsSelected = true;
+                    _messenger.Send(new NavigateToGuildMessage(value));
+                }
             }
         }
 
@@ -55,14 +58,6 @@ namespace Quarrel.ViewModels
                     Source.Add(folder);
                 }
             });
-        }
-
-        public void NavigateToGuild(BindableGuild? guild)
-        {
-            if (guild is not null)
-            {
-                _messenger.Send(new NavigateToGuildMessage(guild));
-            }
         }
     }
 }
