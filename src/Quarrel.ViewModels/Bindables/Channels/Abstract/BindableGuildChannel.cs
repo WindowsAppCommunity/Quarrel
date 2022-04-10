@@ -7,6 +7,9 @@ using Discord.API.Models.Users;
 
 namespace Quarrel.Bindables.Channels.Abstract
 {
+    /// <summary>
+    /// A wrapper of an <see cref="IGuildChannel"/> that can be bound to the UI.
+    /// </summary>
     public abstract class BindableGuildChannel : BindableChannel
     {
         internal BindableGuildChannel(GuildChannel channel, GuildMember selfMember, BindableCategoryChannel? parent = null) : base(channel)
@@ -30,9 +33,14 @@ namespace Quarrel.Bindables.Channels.Abstract
             ApplyOverrides(channel.PermissionOverwrites, selfMember);
         }
 
-
+        /// <summary>
+        /// The category the channel belongs to.
+        /// </summary>
         public BindableCategoryChannel? CategoryChannel { get; }
 
+        /// <summary>
+        /// The permissions the user has in the channel.
+        /// </summary>
         public Permissions Permissions { get; private set; }
 
         /// <summary>
@@ -40,6 +48,12 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// </summary>
         public abstract bool IsAccessible { get; }
 
+        /// <summary>
+        /// Creates a new <see cref="BindableGuildChannel"/> based on the type.
+        /// </summary>
+        /// <param name="channel">The channel to wrap.</param>
+        /// <param name="member">The current user's guild member for the channel's guild.</param>
+        /// <param name="parent">The channel's parent category.</param>
         public static BindableGuildChannel? Create(IGuildChannel channel, GuildMember member, BindableCategoryChannel? parent = null)
         {
             return BindableChannel.Create(channel, member, parent) as BindableGuildChannel;

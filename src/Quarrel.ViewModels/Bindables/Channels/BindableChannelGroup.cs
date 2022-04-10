@@ -8,24 +8,35 @@ using System.Linq;
 
 namespace Quarrel.Bindables.Channels
 {
+    /// <summary>
+    /// A wrapper for a <see cref="BindableCategoryChannel"/> that contains all child channels in a <see cref="IGrouping{BindableCategoryChannel, BindableChannel}"/>
+    /// </summary>
     public class BindableChannelGroup : IGrouping<BindableCategoryChannel?, BindableChannel?>
     {
-        public BindableChannelGroup(BindableCategoryChannel? key)
+        internal BindableChannelGroup(BindableCategoryChannel? key)
         {
             Key = key;
-
             Children = new ObservableCollection<BindableChannel>();
         }
 
         /// <inheritdoc/>
         public BindableCategoryChannel? Key { get; }
 
+        /// <summary>
+        /// Gets the <see cref="BindableChannel"/>s that belong to the <see cref="BindableCategoryChannel"/>.
+        /// </summary>
         public ObservableCollection<BindableChannel> Children { get; }
 
+        /// <inheritdoc/>
         public IEnumerator<BindableChannel> GetEnumerator() => Children.GetEnumerator();
 
+        /// <inheritdoc/>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
+        /// <summary>
+        /// Adds a child to the <see cref="BindableChannelGroup"/>.
+        /// </summary>
+        /// <param name="child">The <see cref="BindableChannel"/> to add.</param>
         public void AddChild(BindableChannel child)
         {
             Children.Add(child);
