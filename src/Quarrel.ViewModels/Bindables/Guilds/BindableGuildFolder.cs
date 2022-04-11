@@ -6,11 +6,14 @@ using System.Collections.ObjectModel;
 
 namespace Quarrel.Bindables.Guilds
 {
+    /// <summary>
+    /// A wrapper of a <see cref="GuildFolder"/> that can be bound to the UI.
+    /// </summary>
     public class BindableGuildFolder : ObservableObject
     {
         private GuildFolder _folder;
 
-        public BindableGuildFolder(GuildFolder folder)
+        internal BindableGuildFolder(GuildFolder folder)
         {
             _folder = folder;
 
@@ -22,6 +25,9 @@ namespace Quarrel.Bindables.Guilds
             }
         }
 
+        /// <summary>
+        /// A collection of the guilds contained in the guild folder.
+        /// </summary>
         public ObservableCollection<BindableGuild> Children { get; }
     }
 }

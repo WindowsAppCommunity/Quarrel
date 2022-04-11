@@ -6,14 +6,17 @@ using Quarrel.Bindables.Abstract;
 
 namespace Quarrel.Bindables.Messages
 {
+    /// <summary>
+    /// A wrapper of a <see cref="Discord.API.Models.Messages.Message"/> that can be bound to the UI.
+    /// </summary>
     public partial class BindableMessage : SelectableItem
     {
         [ObservableProperty]
         private Message _message;
 
-        public BindableMessage(Message message)
+        internal BindableMessage(Message message)
         {
-            Message = message;
+            _message = message;
         }
     }
 }
