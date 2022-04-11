@@ -13,9 +13,6 @@ namespace Discord.API.Gateways
         private readonly GatewayConfig _gatewayConfig;
         private readonly string _token;
 
-        private IReadOnlyDictionary<OperationCode, GatewayEventHandler> _operationHandlers;
-        private IReadOnlyDictionary<string, GatewayEventHandler> _eventHandlers;
-
         private GatewayStatus _gatewayStatus;
         private string? _connectionUrl;
         private string? _sessionId;
@@ -28,9 +25,6 @@ namespace Discord.API.Gateways
 
             _socket = CreateSocket();
             SetupCompression();
-
-            _operationHandlers = GetOperationHandlers();
-            _eventHandlers  = GetEventHandlers();
 
             _gatewayStatus = GatewayStatus.Initialized;
         }

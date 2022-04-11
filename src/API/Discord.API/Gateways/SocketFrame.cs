@@ -14,27 +14,15 @@ namespace Discord.API.Gateways
         [JsonPropertyName("op")]
         public OperationCode? Operation { get; set; }
 
-        [JsonPropertyName("d")]
-        public object Payload { get; set; }
-
         [JsonPropertyName("s")]
         public int? SequenceNumber { get; set; }
 
         [JsonPropertyName("t")]
         public string Type { get; set; }
-
-        public T? GetData<T>()
-        {
-            if (Payload is JsonElement jsonElement)
-            {
-                try
-                {
-                    return jsonElement.Deserialize<T>();
-                }
-                catch { }
-            }
-
-            return default;
-        }
+    }
+    internal class SocketFrame<T> : SocketFrame
+    {
+        [JsonPropertyName("d")]
+        public T Payload { get; set; }
     }
 }

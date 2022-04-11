@@ -15,6 +15,7 @@ using Discord.API.Models.Json.Users;
 using Discord.API.Models.Json.Voice;
 using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
 
 namespace Discord.API.Gateways
 {
@@ -73,83 +74,84 @@ namespace Discord.API.Gateways
 
         public event EventHandler<GatewayEventArgs<SessionReplace[]>>? SessionReplaced;
 
-        private void FireEventOnDelegate<T>(SocketFrame frame, EventHandler<GatewayEventArgs<T>>? eventHandler)
+        private bool FireEventOnDelegate<T>(SocketFrame frame, EventHandler<GatewayEventArgs<T>>? eventHandler)
         {
-            var eventArgs = new GatewayEventArgs<T>(frame.GetData<T>());
+            var eventArgs = new GatewayEventArgs<T>(((SocketFrame<T>)frame).Payload);
             eventHandler?.Invoke(this, eventArgs);
+            return true;
         }
-
-        private void OnReady(SocketFrame frame)
+        
+        private bool OnReady(SocketFrame<Ready> frame)
         {
-            var ready = frame.GetData<Ready>();
-            Guard.IsNotNull(ready, nameof(ready));
+            var ready = frame.Payload;
 
             _sessionId = ready.SessionId;
             FireEventOnDelegate(frame, Ready);
+            return true;
         }
-
-        private IReadOnlyDictionary<OperationCode, GatewayEventHandler> GetOperationHandlers()
+        
+        private void ProcessEvents(SocketFrame frame)
         {
-            return new Dictionary<OperationCode, GatewayEventHandler>()
+            bool suceeded = frame.Operation switch
             {
-                { OperationCode.Hello, OnHelloReceived },
-                { OperationCode.InvalidSession, OnInvalidSession },
+                OperationCode.Hello => OnHelloReceived((SocketFrame<Hello>)frame),
+                OperationCode.InvalidSession => OnInvalidSession(frame),
+                OperationCode.Dispatch => frame.Type switch {
+                    EventNames.READY => OnReady((SocketFrame<Ready>)frame),
+                    EventNames.RESUMED => FireEventOnDelegate(frame, Resumed),
+
+                    EventNames.GUILD_CREATED => FireEventOnDelegate(frame, GuildCreated),
+                    EventNames.GUILD_UPDATED => FireEventOnDelegate(frame, GuildUpdated),
+                    EventNames.GUILD_DELETED => FireEventOnDelegate(frame, GuildDeleted),
+                    EventNames.GUILD_SYNC => FireEventOnDelegate(frame, GuildSynced),
+
+                    EventNames.GUILD_BAN_ADDED => FireEventOnDelegate(frame, GuildBanAdded),
+                    EventNames.GUILD_BAN_REMOVED => FireEventOnDelegate(frame, GuildBanRemoved),
+
+                    EventNames.CHANNEL_CREATED => FireEventOnDelegate(frame, ChannelCreated),
+                    EventNames.CHANNEL_UPDATED => FireEventOnDelegate(frame, ChannelUpdated),
+                    EventNames.CHANNEL_DELETED => FireEventOnDelegate(frame, ChannelDeleted),
+
+                    EventNames.CHANNEL_RECIPIENT_ADD => FireEventOnDelegate(frame, ChannelRecipientAdded),
+                    EventNames.CHANNEL_RECIPIENT_REMOVE => FireEventOnDelegate(frame, ChannelRecipientRemoved),
+
+                    EventNames.MESSAGE_ACK => FireEventOnDelegate(frame, MessageAck),
+                    EventNames.MESSAGE_CREATED => FireEventOnDelegate(frame, MessageCreated),
+                    EventNames.MESSAGE_UPDATED => FireEventOnDelegate(frame, MessageUpdated),
+                    EventNames.MESSAGE_DELETED => FireEventOnDelegate(frame, MessageDeleted),
+
+                    EventNames.MESSAGE_REACTION_ADD => FireEventOnDelegate(frame, MessageReactionAdded),
+                    EventNames.MESSAGE_REACTION_REMOVE => FireEventOnDelegate(frame, MessageReactionRemoved),
+                    EventNames.MESSAGE_REACTION_REMOVE_ALL => FireEventOnDelegate(frame,
+                        MessageReactionRemovedAll),
+
+                    EventNames.GUILD_MEMBER_ADDED => FireEventOnDelegate(frame, GuildMemberAdded),
+                    EventNames.GUILD_MEMBER_UPDATED => FireEventOnDelegate(frame, GuildMemberUpdated),
+                    EventNames.GUILD_MEMBER_REMOVED => FireEventOnDelegate(frame, GuildMemberRemoved),
+                    EventNames.GUILD_MEMBER_LIST_UPDATE => FireEventOnDelegate(frame, GuildMemberListUpdated),
+                    EventNames.GUILD_MEMBERS_CHUNK => FireEventOnDelegate(frame, GuildMembersChunk),
+
+                    EventNames.RELATIONSHIP_ADDED => FireEventOnDelegate(frame, RelationshipAdded),
+                    EventNames.RELATIONSHIP_UPDATE => FireEventOnDelegate(frame, RelationshipUpdated),
+                    EventNames.RELATIONSHIP_REMOVED => FireEventOnDelegate(frame, RelationshipRemoved),
+
+                    EventNames.TYPING_START => FireEventOnDelegate(frame, TypingStarted),
+                    EventNames.PRESENCE_UPDATED => FireEventOnDelegate(frame, PresenceUpdated),
+
+                    EventNames.USER_NOTE_UPDATED => FireEventOnDelegate(frame, UserNoteUpdated),
+                    EventNames.USER_SETTINGS_UPDATED => FireEventOnDelegate(frame, UserSettingsUpdated),
+                    EventNames.USER_GUILD_SETTINGS_UPDATED => FireEventOnDelegate(frame,
+                        UserGuildSettingsUpdated),
+
+                    EventNames.VOICE_STATE_UPDATED => FireEventOnDelegate(frame, VoiceStateUpdated),
+                    EventNames.VOICE_SERVER_UPDATED => FireEventOnDelegate(frame, VoiceServerUpdated),
+
+                    EventNames.SESSIONS_REPLACE => FireEventOnDelegate(frame, SessionReplaced),
+                    _ => false
+                },
+                _ => false
             };
-        }
-
-        private IReadOnlyDictionary<string, GatewayEventHandler> GetEventHandlers()
-        {
-            return new Dictionary<string, GatewayEventHandler>()
-            {
-                { EventNames.READY, OnReady },
-                { EventNames.RESUMED, (x) => FireEventOnDelegate(x, Resumed) },
-
-                { EventNames.GUILD_CREATED, (x) => FireEventOnDelegate(x, GuildCreated) },
-                { EventNames.GUILD_UPDATED, (x) => FireEventOnDelegate(x, GuildUpdated) },
-                { EventNames.GUILD_DELETED, (x) => FireEventOnDelegate(x, GuildDeleted) },
-                { EventNames.GUILD_SYNC, (x) => FireEventOnDelegate(x, GuildSynced) },
-
-                { EventNames.GUILD_BAN_ADDED, (x) => FireEventOnDelegate(x, GuildBanAdded) },
-                { EventNames.GUILD_BAN_REMOVED, (x) => FireEventOnDelegate(x, GuildBanRemoved) },
-
-                { EventNames.CHANNEL_CREATED, (x) => FireEventOnDelegate(x, ChannelCreated) },
-                { EventNames.CHANNEL_UPDATED, (x) => FireEventOnDelegate(x, ChannelUpdated) },
-                { EventNames.CHANNEL_DELETED, (x) => FireEventOnDelegate(x, ChannelDeleted) },
-
-                { EventNames.CHANNEL_RECIPIENT_ADD, (x) => FireEventOnDelegate(x, ChannelRecipientAdded) },
-                { EventNames.CHANNEL_RECIPIENT_REMOVE, (x) => FireEventOnDelegate(x, ChannelRecipientRemoved) },
-
-                { EventNames.MESSAGE_ACK, (x) => FireEventOnDelegate(x, MessageAck) },
-                { EventNames.MESSAGE_CREATED, (x) => FireEventOnDelegate(x, MessageCreated) },
-                { EventNames.MESSAGE_UPDATED, (x) => FireEventOnDelegate(x, MessageUpdated) },
-                { EventNames.MESSAGE_DELETED, (x) => FireEventOnDelegate(x, MessageDeleted) },
-
-                { EventNames.MESSAGE_REACTION_ADD, (x) => FireEventOnDelegate(x, MessageReactionAdded) },
-                { EventNames.MESSAGE_REACTION_REMOVE, (x) => FireEventOnDelegate(x, MessageReactionRemoved) },
-                { EventNames.MESSAGE_REACTION_REMOVE_ALL, (x) => FireEventOnDelegate(x, MessageReactionRemovedAll) },
-
-                { EventNames.GUILD_MEMBER_ADDED, (x) => FireEventOnDelegate(x, GuildMemberAdded) },
-                { EventNames.GUILD_MEMBER_UPDATED, (x) => FireEventOnDelegate(x, GuildMemberUpdated) },
-                { EventNames.GUILD_MEMBER_REMOVED, (x) => FireEventOnDelegate(x, GuildMemberRemoved) },
-                { EventNames.GUILD_MEMBER_LIST_UPDATE, (x) => FireEventOnDelegate(x, GuildMemberListUpdated) },
-                { EventNames.GUILD_MEMBERS_CHUNK, (x) => FireEventOnDelegate(x, GuildMembersChunk) },
-
-                { EventNames.RELATIONSHIP_ADDED, (x) => FireEventOnDelegate(x, RelationshipAdded) },
-                { EventNames.RELATIONSHIP_UPDATE, (x) => FireEventOnDelegate(x, RelationshipUpdated) },
-                { EventNames.RELATIONSHIP_REMOVED, (x) => FireEventOnDelegate(x, RelationshipRemoved) },
-
-                { EventNames.TYPING_START, (x) => FireEventOnDelegate(x, TypingStarted) },
-                { EventNames.PRESENCE_UPDATED, (x) => FireEventOnDelegate(x, PresenceUpdated) },
-
-                { EventNames.USER_NOTE_UPDATED, (x) => FireEventOnDelegate(x, UserNoteUpdated) },
-                { EventNames.USER_SETTINGS_UPDATED, (x) => FireEventOnDelegate(x, UserSettingsUpdated) },
-                { EventNames.USER_GUILD_SETTINGS_UPDATED, (x) => FireEventOnDelegate(x, UserGuildSettingsUpdated) },
-
-                { EventNames.VOICE_STATE_UPDATED, (x) => FireEventOnDelegate(x, VoiceStateUpdated) },
-                { EventNames.VOICE_SERVER_UPDATED, (x) => FireEventOnDelegate(x, VoiceServerUpdated) },
-
-                { EventNames.SESSIONS_REPLACE, (x) => FireEventOnDelegate(x, SessionReplaced) },
-            };
+            if (!suceeded) UnhandledMessageEncountered?.Invoke(this, frame);
         }
     }
 }

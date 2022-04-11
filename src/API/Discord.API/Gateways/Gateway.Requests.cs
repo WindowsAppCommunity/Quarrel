@@ -23,7 +23,7 @@ namespace Discord.API.Gateways
 
         public async Task RequestGuildMembers(GuildRequestMembers payload)
         {
-            var frame = new SocketFrame()
+            var frame = new SocketFrame<GuildRequestMembers>()
             {
                 Operation = OperationCode.RequestGuildMembers,
                 Payload = payload,
@@ -45,7 +45,7 @@ namespace Discord.API.Gateways
                 return false;
             }
 
-            var frame = new SocketFrame()
+            var frame = new SocketFrame<ulong[]>()
             {
                 Operation = OperationCode.SubscribeToGuild,
                 Payload = channelIds,
@@ -69,7 +69,7 @@ namespace Discord.API.Gateways
 
         public async Task UpdateStatusAsync(StatusUpdate payload)
         {
-            var frame = new SocketFrame()
+            var frame = new SocketFrame<StatusUpdate>()
             {
                 Operation = OperationCode.StatusUpdate,
                 Payload = payload,
@@ -93,7 +93,7 @@ namespace Discord.API.Gateways
 
         public async Task VoiceStatusUpdateAsync(VoiceStatusUpdate payload)
         {
-            var frame = new SocketFrame()
+            var frame = new SocketFrame<VoiceStatusUpdate>()
             {
                 Operation = OperationCode.VoiceStateUpdate,
                 Payload = payload,

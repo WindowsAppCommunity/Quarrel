@@ -8,41 +8,47 @@ namespace Discord.API.Gateways
 {
     internal partial class Gateway
     {
-        private async void OnHelloReceived(SocketFrame frame)
+        private bool OnHelloReceived(SocketFrame<Hello> frame)
         {
-            if (_gatewayStatus == GatewayStatus.Connecting)
+            SetupGateway(frame.Payload.HeartbeatInterval);
+            return true;
+        }
+        
+        private async void SetupGateway(int interval)
+        {
+            switch (_gatewayStatus)
             {
-                await IdentifySelfToGateway();
-                _gatewayStatus = GatewayStatus.Connected;
-            }
-            else if (_gatewayStatus == GatewayStatus.Resuming)
-            {
-                await SendResumeRequestAsync();
-                _gatewayStatus = GatewayStatus.Connected;
-            }
-            else
-            {
-                _gatewayStatus = GatewayStatus.Error;
-                return;
+                case GatewayStatus.Connecting:
+                    await IdentifySelfToGateway();
+                    _gatewayStatus = GatewayStatus.Connected;
+                    break;
+                case GatewayStatus.Resuming:
+                    await SendResumeRequestAsync();
+                    _gatewayStatus = GatewayStatus.Connected;
+                    break;
+                default:
+                    _gatewayStatus = GatewayStatus.Error;
+                    return;
             }
 
-            Hello? data = frame.GetData<Hello>();
-            Guard.IsNotNull(data, nameof(data));
-            await BeginHeartbeatAsync(data.HeartbeatInterval);
+            await BeginHeartbeatAsync(interval);
         }
 
-        private async void OnInvalidSession(SocketFrame frame)
+        private bool OnInvalidSession(SocketFrame frame)
         {
-            if (_gatewayStatus == GatewayStatus.InvalidSession)
+            switch (_gatewayStatus)
             {
-                Guard.IsNotNull(_connectionUrl, nameof(_connectionUrl));
+                case GatewayStatus.InvalidSession:
+                    Guard.IsNotNull(_connectionUrl, nameof(_connectionUrl));
 
-                _ = await ConnectAsync(_connectionUrl);
+                    _ = ConnectAsync(_connectionUrl);
+                    break;
+                case GatewayStatus.Reconnecting:
+                    FireEventOnDelegate(frame, InvalidSession);
+                    break;
             }
-            else if (_gatewayStatus == GatewayStatus.Reconnecting)
-            {
-                FireEventOnDelegate(frame, InvalidSession);
-            }
+
+            return true;
         }
 
         private async Task BeginHeartbeatAsync(int interval)
@@ -72,10 +78,10 @@ namespace Discord.API.Gateways
         {
             try
             {
-                var frame = new SocketFrame()
+                var frame = new SocketFrame<int>()
                 {
                     Operation = OperationCode.Heartbeat,
-                    SequenceNumber = _lastEventSequenceNumber
+                    Payload = _lastEventSequenceNumber
                 };
 
                 await SendMessageAsync(frame);
@@ -104,7 +110,7 @@ namespace Discord.API.Gateways
                 Properties = properties,
             };
 
-            var payload = new SocketFrame()
+            var payload = new SocketFrame<Identity>()
             {
                 Type = EventNames.IDENTIFY,
                 Operation = OperationCode.Identify,
@@ -125,7 +131,7 @@ namespace Discord.API.Gateways
                 LastSequenceNumberReceived = _lastEventSequenceNumber,
             };
 
-            var request = new SocketFrame()
+            var request = new SocketFrame<GatewayResume>()
             {
                 Operation = OperationCode.Resume,
                 Payload = payload,
