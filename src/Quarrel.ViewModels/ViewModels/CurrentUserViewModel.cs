@@ -9,6 +9,9 @@ using Quarrel.Services.Dispatcher;
 
 namespace Quarrel.ViewModels
 {
+    /// <summary>
+    /// The view model for the current user button.
+    /// </summary>
     public partial class CurrentUserViewModel : ObservableRecipient
     {
         private readonly IMessenger _messenger;
@@ -18,6 +21,9 @@ namespace Quarrel.ViewModels
         [ObservableProperty]
         private SelfUser? _me;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CurrentUserViewModel"/> class.
+        /// </summary>
         public CurrentUserViewModel(IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
         {
             _messenger = messenger;

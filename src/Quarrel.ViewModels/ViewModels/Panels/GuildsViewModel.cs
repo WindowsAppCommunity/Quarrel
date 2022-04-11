@@ -11,14 +11,20 @@ using System.Collections.ObjectModel;
 
 namespace Quarrel.ViewModels
 {
+    /// <summary>
+    /// The view model for the guild list in the app.
+    /// </summary>
     public partial class GuildsViewModel : ObservableRecipient
     {
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
         private readonly IDispatcherService _dispatcherService;
 
-        private BindableGuild _selectedGuild;
-
+        private BindableGuild? _selectedGuild;
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GuildsViewModel"/> class.
+        /// </summary>
         public GuildsViewModel(IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
         {
             _messenger = messenger;
@@ -29,8 +35,11 @@ namespace Quarrel.ViewModels
 
             _messenger.Register<UserLoggedInMessage>(this, (_, _) => LoadGuilds());
         }
-
-        public BindableGuild SelectedGuild
+        
+        /// <summary>
+        /// Gets or sets the selected guild.
+        /// </summary>
+        public BindableGuild? SelectedGuild
         {
             get => _selectedGuild;
             set
@@ -45,9 +54,15 @@ namespace Quarrel.ViewModels
                 }
             }
         }
-
+        
+        /// <summary>
+        /// Gets the guild folders.
+        /// </summary>
         public ObservableCollection<BindableGuildFolder> Source { get; private set; }
 
+        /// <summary>
+        /// Loads the guilds for the user.
+        /// </summary>
         public void LoadGuilds()
         {
             var folder = _discordService.GetMyGuildFolders();

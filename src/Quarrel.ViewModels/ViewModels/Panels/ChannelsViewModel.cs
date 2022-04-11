@@ -11,16 +11,22 @@ using System.Collections.Generic;
 
 namespace Quarrel.ViewModels.Panels
 {
+    /// <summary>
+    /// The view model for the channel list in the app.
+    /// </summary>
     public partial class ChannelsViewModel : ObservableRecipient
     {
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
 
-        private BindableGuild _currentGuild;
+        private BindableGuild? _currentGuild;
         private BindableChannel? _selectedChannel;
 
         private IEnumerable<BindableChannelGroup>? _groupedSource;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChannelsViewModel"/> class.
+        /// </summary>
         public ChannelsViewModel(IMessenger messenger, IDiscordService discordService)
         {
             _messenger = messenger;
@@ -29,12 +35,15 @@ namespace Quarrel.ViewModels.Panels
             _messenger.Register<NavigateToGuildMessage>(this, (_, m) => LoadChannels(m.Guild));
         }
 
+        /// <summary>
+        /// Gets or sets the selected channel.
+        /// </summary>
         public BindableChannel? SelectedChannel
         {
             get => _selectedChannel;
             set
             {
-                if (value is null || !value.IsTextChannel)
+                if (value is null || _currentGuild is null || !value.IsTextChannel)
                     return;
 
                 if (_selectedChannel is not null)
@@ -51,12 +60,19 @@ namespace Quarrel.ViewModels.Panels
             }
         }
 
+        /// <summary>
+        /// Gets the grouped channels loaded in the guild.
+        /// </summary>
         public IEnumerable<BindableChannelGroup>? GroupedSource
         {
             get => _groupedSource;
-            set => SetProperty(ref _groupedSource, value);
+            private set => SetProperty(ref _groupedSource, value);
         }
 
+        /// <summary>
+        /// Loads the channels for a guild.
+        /// </summary>
+        /// <param name="guild">The guild to load.</param>
         public void LoadChannels(BindableGuild guild)
         {
             if (guild == _currentGuild)

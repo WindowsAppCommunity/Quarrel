@@ -8,11 +8,11 @@ namespace Quarrel.Selectors
 {
     public class ChannelEnabledStyleSelector : StyleSelector
     {
-        public Style EnabledStyle { get; set; }
+        public Style? EnabledStyle { get; set; }
 
-        public Style DisabledStyle { get; set; }
+        public Style? DisabledStyle { get; set; }
 
-        protected override Style SelectStyleCore(object item, DependencyObject container)
+        protected override Style? SelectStyleCore(object item, DependencyObject container)
         {
             if (item is BindableGuildChannel channel)
             {

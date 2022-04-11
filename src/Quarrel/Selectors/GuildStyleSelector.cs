@@ -8,11 +8,11 @@ namespace Quarrel.Selectors
 {
     public class GuildStyleSelector : StyleSelector
     {
-        public Style GuildFolderStyle { get; set; }
+        public Style? GuildFolderStyle { get; set; }
 
-        public Style GuildStyle { get; set; }
+        public Style? GuildStyle { get; set; }
 
-        protected override Style SelectStyleCore(object item, DependencyObject container)
+        protected override Style? SelectStyleCore(object item, DependencyObject container)
         {
             return item switch
             {

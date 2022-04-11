@@ -29,6 +29,9 @@ namespace Quarrel.ViewModels.SubPages
             LoginWithTokenCommand = new RelayCommand(() => LoginWithToken(TokenText));
         }
 
+        /// <summary>
+        /// Gets a relay command that logs in with the current text in the <see cref="TokenText"/>.
+        /// </summary>
         public IRelayCommand LoginWithTokenCommand { get; }
 
         /// <summary>

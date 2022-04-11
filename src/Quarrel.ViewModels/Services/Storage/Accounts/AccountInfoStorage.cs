@@ -5,7 +5,6 @@ using OwlCore.Services;
 using Quarrel.Services.Storage.Accounts.Models;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Quarrel.Services.Storage.Accounts
@@ -47,6 +46,11 @@ namespace Quarrel.Services.Storage.Accounts
             set => SetSetting(value);
         }
 
+        /// <summary>
+        /// Changes the active account.
+        /// </summary>
+        /// <param name="id">The if of the account to select.</param>
+        /// <returns>True if the account was selected. False otherwise.</returns>
         public bool SelectAccount(ulong id)
         {
             if (Accounts.ContainsKey(id))
@@ -58,6 +62,11 @@ namespace Quarrel.Services.Storage.Accounts
             return false;
         }
 
+        /// <summary>
+        /// Adds a new account to the account registry.
+        /// </summary>
+        /// <param name="accountInfo">The account to register.</param>
+        /// <returns>False if the account was already registered. True otherwise.</returns>
         public bool RegisterAccount(AccountInfo accountInfo)
         {
             if (!Accounts.ContainsKey(accountInfo.Id))
@@ -69,6 +78,11 @@ namespace Quarrel.Services.Storage.Accounts
             return false;
         }
 
+        /// <summary>
+        /// Removes an account from the registered account list.
+        /// </summary>
+        /// <param name="id">The id of the account to remove.</param>
+        /// <returns>True if the account was found and removed. False otherwise.</returns>
         public bool UnregisterAccount(ulong id)
         {
             // TODO: Handle active account 
@@ -80,3 +94,4 @@ namespace Quarrel.Services.Storage.Accounts
         Task IAccountInfoStorage.SaveAsync() => SaveAsync();
     }
 }
+   

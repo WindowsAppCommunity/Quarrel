@@ -31,7 +31,7 @@ namespace Quarrel.Controls.Shell.Panels
         {
             if (e.ClickedItem is BindableChannel {IsTextChannel: true} channel)
             {
-                if (channel is BindableGuildChannel {Permissions: {ReadMessages: false}})
+                if (channel is BindableGuildChannel { Permissions: { ReadMessages: false } })
                 {
                     return; 
                 }
