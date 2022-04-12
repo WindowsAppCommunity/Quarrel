@@ -29,7 +29,7 @@ namespace Discord.API.Gateways
                 Payload = payload,
             };
 
-            await SendMessageAsync(frame, true);
+            await SendMessageAsync(frame);
         }
 
         public async Task RequestAllGuildMembers(ulong guildId)

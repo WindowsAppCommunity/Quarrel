@@ -1,8 +1,10 @@
 ﻿// Adam Dernis © 2022
 
+using Discord.API.JsonConverters;
 using Discord.API.Models.Json.Gateway;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Text.Json;
 
 namespace Discord.API.Gateways
 {
@@ -27,14 +29,17 @@ namespace Discord.API.Gateways
             SetupCompression();
 
             _gatewayStatus = GatewayStatus.Initialized;
+
+            _serialiseOptions = new JsonSerializerOptions();
+            _serialiseOptions.AddContext<JsonModelsContext>();
+
+            _deserialiseOptions = new JsonSerializerOptions { Converters = { new SocketFrameConverter() } };
         }
 
         public async Task<bool> ConnectAsync()
         {
             _gatewayStatus = GatewayStatus.Connecting;
-            string append = string.Empty;
-            append = "&compress=zlib-stream";
-            return await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "9", append));
+            return await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "9", "&compress=zlib-stream"));
         }
 
         public async Task<bool> ResumeAsync()

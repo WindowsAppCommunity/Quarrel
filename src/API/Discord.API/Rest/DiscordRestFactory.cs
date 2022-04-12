@@ -2,9 +2,11 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.HttpHandlers;
+using Discord.API.JsonConverters;
 using Refit;
 using System;
 using System.Net.Http;
+using System.Text.Json;
 
 namespace Discord.API.Rest
 {
@@ -14,14 +16,23 @@ namespace Discord.API.Rest
 
         public string? Token { get; set; }
 
+        private readonly RefitSettings _settings;
+
+        public DiscordRestFactory()
+        {
+            var options = new JsonSerializerOptions();
+            options.AddContext<JsonModelsContext>();
+            _settings = new RefitSettings{ ContentSerializer = new SystemTextJsonContentSerializer(options) };
+        }
+        
         internal IGatewayService GetGatewayService()
         {
-            return RestService.For<IGatewayService>(GetHttpClient());
+            return RestService.For<IGatewayService>(GetHttpClient(), _settings);
         }
 
         internal IChannelService GetChannelService()
         {
-            return RestService.For<IChannelService>(GetHttpClient());
+            return RestService.For<IChannelService>(GetHttpClient(), _settings);
         }
 
         private HttpClient GetHttpClient(bool authenticated = true)

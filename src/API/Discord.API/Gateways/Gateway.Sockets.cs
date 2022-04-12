@@ -17,6 +17,8 @@ namespace Discord.API.Gateways
         private WebSocketClient _socket;
         private DeflateStream? _decompressor;
         private MemoryStream? _decompressionBuffer;
+        private readonly JsonSerializerOptions _serialiseOptions;
+        private readonly JsonSerializerOptions _deserialiseOptions;
 
         private WebSocketClient CreateSocket()
         {
@@ -34,16 +36,10 @@ namespace Discord.API.Gateways
             _decompressor = new DeflateStream(_decompressionBuffer, CompressionMode.Decompress);
         }
         
-        private async Task SendMessageAsync<T>(SocketFrame<T> frame, bool includeNulls = false)
+        private async Task SendMessageAsync<T>(SocketFrame<T> frame)
         {
-            JsonSerializerOptions options = new JsonSerializerOptions();
-            if (!includeNulls)
-            {
-                options.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
-            }
-
             var stream = new MemoryStream();
-            await JsonSerializer.SerializeAsync(stream, frame, options);
+            await JsonSerializer.SerializeAsync(stream, frame, _serialiseOptions);
             await SendMessageAsync(stream);
         }
 
@@ -96,10 +92,10 @@ namespace Discord.API.Gateways
             HandleMessage(reader);
         }
 
-        private void HandleMessage(TextReader reader)
+        private async void HandleMessage(TextReader reader)
         {
             Stream stream = ((StreamReader)reader).BaseStream;
-            SocketFrame? frame = JsonSerializer.Deserialize<SocketFrame>(stream, (new JsonSerializerOptions { Converters = { new SocketFrameConverter()} }));
+            SocketFrame? frame = await JsonSerializer.DeserializeAsync<SocketFrame>(stream, _deserialiseOptions);
 
             Guard.IsNotNull(frame, nameof(frame));
 
