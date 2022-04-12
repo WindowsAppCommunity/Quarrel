@@ -3,6 +3,7 @@
 using Discord.API.Models.Guilds;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Quarrel.Bindables.Abstract;
+using Quarrel.Bindables.Guilds.Interfaces;
 using System;
 
 namespace Quarrel.Bindables.Guilds
@@ -10,7 +11,7 @@ namespace Quarrel.Bindables.Guilds
     /// <summary>
     /// A wrapper of a <see cref="Discord.API.Models.Guilds.Guild"/> that can be bound to the UI.
     /// </summary>
-    public partial class BindableGuild : SelectableItem
+    public partial class BindableGuild : SelectableItem, IBindableGuildListItem
     {
         [AlsoNotifyChangeFor(nameof(IconUrl))]
         [AlsoNotifyChangeFor(nameof(IconUri))]
@@ -38,6 +39,9 @@ namespace Quarrel.Bindables.Guilds
         /// <summary>
         /// Gets the url of the guild's icon as a <see cref="Uri"/>.
         /// </summary>
-        public Uri IconUri => new Uri(IconUrl);
+        public Uri IconUri => new(IconUrl);
+
+        /// <inheritdoc/>
+        public string? Name => Guild.Name;
     }
 }

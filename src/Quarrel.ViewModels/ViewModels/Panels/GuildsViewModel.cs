@@ -3,6 +3,7 @@
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Guilds;
+using Quarrel.Bindables.Guilds.Interfaces;
 using Quarrel.Messages.Discord;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
@@ -21,7 +22,7 @@ namespace Quarrel.ViewModels
         private readonly IDispatcherService _dispatcherService;
 
         private BindableGuild? _selectedGuild;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GuildsViewModel"/> class.
         /// </summary>
@@ -31,11 +32,11 @@ namespace Quarrel.ViewModels
             _discordService = discordService;
             _dispatcherService = dispatcherService;
 
-            Source = new ObservableCollection<BindableGuildFolder>();
+            Source = new ObservableCollection<IBindableGuildListItem>();
 
             _messenger.Register<UserLoggedInMessage>(this, (_, _) => LoadGuilds());
         }
-        
+
         /// <summary>
         /// Gets or sets the selected guild.
         /// </summary>
@@ -54,23 +55,33 @@ namespace Quarrel.ViewModels
                 }
             }
         }
-        
+
         /// <summary>
         /// Gets the guild folders.
         /// </summary>
-        public ObservableCollection<BindableGuildFolder> Source { get; private set; }
+        public ObservableCollection<IBindableGuildListItem> Source { get; private set; }
 
         /// <summary>
         /// Loads the guilds for the user.
         /// </summary>
         public void LoadGuilds()
         {
-            var folder = _discordService.GetMyGuildFolders();
+            var folders = _discordService.GetMyGuildFolders();
             _dispatcherService.RunOnUIThread(() =>
             {
-                foreach (var folder in folder)
+                foreach (var folder in folders)
                 {
-                    Source.Add(folder);
+                    if (folder.Folder.Id == null)
+                    {
+                        foreach (var child in folder.Children)
+                        {
+                            Source.Add(child);
+                        }
+                    }
+                    else
+                    {
+                        Source.Add(folder);
+                    }
                 }
             });
         }
