@@ -1,4 +1,4 @@
-﻿// Adam Dernis © 2022
+﻿// Quarrel © 2022
 
 using Quarrel.Services.Storage.Accounts.Models;
 

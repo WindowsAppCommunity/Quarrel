@@ -1,4 +1,4 @@
-﻿// Adam Dernis © 2022
+﻿// Quarrel © 2022
 
 using Discord.API.Models.Enums.Channels;
 using Discord.API.Models.Json.Permissions;

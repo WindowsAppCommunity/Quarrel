@@ -1,4 +1,4 @@
-﻿// Adam Dernis © 2022
+﻿// Quarrel © 2022
 
 using Quarrel.Bindables.Guilds;
 using Windows.UI.Xaml;

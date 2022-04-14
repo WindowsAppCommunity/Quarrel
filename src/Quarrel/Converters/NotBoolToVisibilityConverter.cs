@@ -1,4 +1,4 @@
-﻿// Copyright (c) Quarrel. All rights reserved.
+﻿// Quarrel © 2022
 
 using Windows.UI.Xaml;
 

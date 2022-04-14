@@ -1,4 +1,4 @@
-﻿// Adam Dernis © 2022
+﻿// Quarrel © 2022
 
 using Quarrel.Bindables.Channels.Abstract;
 using System.Collections;

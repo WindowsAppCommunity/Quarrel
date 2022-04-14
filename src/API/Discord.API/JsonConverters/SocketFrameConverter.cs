@@ -1,4 +1,6 @@
-﻿using Discord.API.Gateways;
+﻿// Quarrel © 2022
+
+using Discord.API.Gateways;
 using Discord.API.Gateways.Models;
 using Discord.API.Gateways.Models.Channels;
 using Discord.API.Gateways.Models.GuildMember;

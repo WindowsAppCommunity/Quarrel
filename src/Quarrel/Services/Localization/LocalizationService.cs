@@ -1,4 +1,4 @@
-﻿// Adam Dernis © 2022
+﻿// Quarrel © 2022
 
 using Windows.ApplicationModel.Resources;
 using Windows.ApplicationModel.Resources.Core;

@@ -1,4 +1,4 @@
-﻿// Adam Dernis © 2022
+﻿// Quarrel © 2022
 
 using Discord.API.Gateways;
 using Discord.API.Gateways.Models.Messages;
