@@ -2,7 +2,6 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Channels;
-using Discord.API.Models.Channels.Abstract;
 using Discord.API.Models.Channels.Interfaces;
 using Discord.API.Models.Enums.Channels;
 using Discord.API.Models.Guilds;
@@ -10,8 +9,10 @@ using Discord.API.Models.Settings;
 using Discord.API.Models.Users;
 using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Abstract;
+using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Bindables.Messages;
+using Quarrel.Bindables.Users;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,11 +21,19 @@ namespace Quarrel.Services.Discord
 {
     public partial class DiscordService
     {
-        public SelfUser? GetMe()
+        /// <inheritdoc/>
+        public BindableSelfUser? GetMe()
         {
-            return _discordClient.GetMe();
-        }
+            SelfUser? user = _discordClient.GetMe();
+            if (user == null)
+            {
+                return null;
+            }
 
+            return new BindableSelfUser(user);
+        }
+        
+        /// <inheritdoc/>
         public BindableGuild[] GetMyGuilds()
         {
             Guild[] rawGuilds = _discordClient.GetMyGuilds();
@@ -36,7 +45,8 @@ namespace Quarrel.Services.Discord
 
             return guilds;
         }
-
+        
+        /// <inheritdoc/>
         public BindableGuildFolder[] GetMyGuildFolders()
         {
             GuildFolder[] rawFolders = _discordClient.GetMyGuildFolders();
@@ -48,8 +58,9 @@ namespace Quarrel.Services.Discord
 
             return folders;
         }
-
-        public async Task<BindableMessage[]> GetChannelMessagesAsync(Channel channel)
+        
+        /// <inheritdoc/>
+        public async Task<BindableMessage[]> GetChannelMessagesAsync(IMessageChannel channel)
         {
             var rawMessages = await _discordClient.GetMessagesAsync(channel.Id);
             BindableMessage[] messages = new BindableMessage[rawMessages.Length];
@@ -115,7 +126,7 @@ namespace Quarrel.Services.Discord
             return channels;
         }
 
-        public IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(Guild guild, out BindableGuildChannel? selectedChannel, ulong? selectedChannelId = null)
+        public IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(Guild guild, out IBindableMessageChannel? selectedChannel, ulong? selectedChannelId = null)
         {
             selectedChannel = null;
             var channels = GetGuildChannels(guild);
@@ -143,9 +154,10 @@ namespace Quarrel.Services.Discord
                         parentId = nestedChannel.CategoryId ?? 0;
                     }
 
-                    if (channel.Channel.Id == selectedChannelId || (selectedChannel is null && channel.IsAccessible))
+                    if ((channel.Channel.Id == selectedChannelId || (selectedChannel is null && channel.IsAccessible)) &&
+                        channel is IBindableMessageChannel messageChannel)
                     {
-                        selectedChannel = channel;
+                        selectedChannel = messageChannel;
                     }
 
                     if (groups.TryGetValue(parentId, out var group))

@@ -1,12 +1,13 @@
 ﻿// Adam Dernis © 2022
 
-using Discord.API.Models.Channels.Abstract;
+using Discord.API.Models.Channels.Interfaces;
 using Discord.API.Models.Guilds;
-using Discord.API.Models.Users;
 using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Abstract;
+using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Bindables.Messages;
+using Quarrel.Bindables.Users;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,18 +15,42 @@ namespace Quarrel.Services.Discord
 {
     public interface IDiscordService
     {
-        SelfUser GetMe();
+        /// <summary>
+        /// Gets the current user for the <see cref="DiscordService"/>.
+        /// </summary>
+        /// <returns>The current user as a <see cref="BindableSelfUser"/>.</returns>
+        BindableSelfUser? GetMe();
 
+        /// <summary>
+        /// Logs into the discord service by token.
+        /// </summary>
+        /// <param name="token">The token to use for login.</param>
         Task LoginAsync(string token);
-
+        
+        /// <summary>
+        /// Gets the current user's guilds.
+        /// </summary>
+        /// <returns>The array of <see cref="BindableGuild"/>s that the current user is in.</returns>
         BindableGuild[] GetMyGuilds();
-
+        
+        /// <summary>
+        /// Gets the current user's guild folders with children.
+        /// </summary>
+        /// <remarks>
+        /// Contains null folders, whose children should be treated as though they're in the roots.
+        /// </remarks>
+        /// <returns>The array of <see cref="BindableGuildFolder"/>s that the current user has.</returns>
         BindableGuildFolder[] GetMyGuildFolders();
-
-        Task<BindableMessage[]> GetChannelMessagesAsync(Channel channel);
+        
+        /// <summary>
+        /// Gets the messages in a channel.
+        /// </summary>
+        /// <param name="channel">The channel to get the messages for.</param>
+        /// <returns>An array of bindable messages from the channel.</returns>
+        Task<BindableMessage[]> GetChannelMessagesAsync(IMessageChannel channel);
 
         BindableGuildChannel[] GetGuildChannels(Guild guild);
 
-        IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(Guild guild, out BindableGuildChannel? channel, ulong? selectedChannel = null);
+        IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(Guild guild, out IBindableMessageChannel? channel, ulong? selectedChannel = null);
     }
 }

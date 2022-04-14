@@ -1,8 +1,8 @@
 ﻿// Adam Dernis © 2022
 
-using Discord.API.Models.Users;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using Quarrel.Bindables.Users;
 using Quarrel.Messages.Discord;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
@@ -19,7 +19,7 @@ namespace Quarrel.ViewModels
         private readonly IDispatcherService _dispatcherService;
 
         [ObservableProperty]
-        private SelfUser? _me;
+        private BindableSelfUser? _me;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CurrentUserViewModel"/> class.

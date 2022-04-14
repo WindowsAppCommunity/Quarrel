@@ -39,7 +39,7 @@
                         <TextBlock
                             FontSize="12"
                             Opacity="0.6"
-                            Text="{x:Bind ViewModel.Me.Username, Mode=OneWay}"/>
+                            Text="{x:Bind ViewModel.Me.SelfUser.Username, Mode=OneWay}"/>
                         <TextBlock
                             FontSize="12"
                             Opacity=".6"
@@ -47,7 +47,7 @@
                         <TextBlock
                             FontSize="12"
                             Opacity="0.6"
-                            Text="{x:Bind ViewModel.Me.Discriminator, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.Me.SelfUser.Discriminator, Mode=OneWay}" />
                     </StackPanel>
                 </StackPanel>
                 
