@@ -13,7 +13,10 @@ namespace Quarrel.Bindables.Messages
     {
         [ObservableProperty]
         private Message _message;
-
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BindableMessage"/> class.
+        /// </summary>
         internal BindableMessage(Message message)
         {
             _message = message;

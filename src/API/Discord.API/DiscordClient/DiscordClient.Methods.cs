@@ -12,11 +12,18 @@ namespace Discord.API
 {
     public partial class DiscordClient
     {
+        /// <summary>
+        /// Gets the current user for the <see cref="DiscordClient"/> instance.
+        /// </summary>
         public SelfUser? GetMe()
         {
-            return _selfUser;
+            return CurrentUser;
         }
 
+        /// <summary>
+        /// Gets messages in a channel.
+        /// </summary>
+        /// <param name="channelId">The channel's id.</param>
         public async Task<Message[]> GetMessagesAsync(ulong channelId)
         {
             Guard.IsNotNull(_channelService, nameof(_channelService));
@@ -32,12 +39,22 @@ namespace Discord.API
             return messages;
         }
 
+        /// <summary>
+        /// Gets the current user as a guild member in a specific guild.
+        /// </summary>
+        /// <param name="guildId">The id of the guild to get the guild member for.</param>
         public GuildMember? GetMyGuildMember(ulong guildId)
         {
             Guard.IsNotNull(_selfUser, nameof(_selfUser));
             return GetGuildMember(guildId, _selfUser.Id);
         }
 
+        /// <summary>
+        /// Gets a guild member by guild and user id.
+        /// </summary>
+        /// <param name="guildId">The id for the guild of the guild member.</param>
+        /// <param name="userId">The id for the user in the guild.</param>
+        /// <returns></returns>
         public GuildMember? GetGuildMember(ulong guildId, ulong userId)
         {
             if (_guildsMemberMap.TryGetValue((guildId, userId), out var member))
@@ -74,8 +91,15 @@ namespace Discord.API
             return guildArray;
         }
 
+        /// <summary>
+        /// Gets the guild folders for the current user.
+        /// </summary>
+        /// <remarks>
+        /// Folders with null id should be handled as if they didn't exist and their children are actually in the root list.
+        /// </remarks>
         public GuildFolder[] GetMyGuildFolders()
         {
+            Guard.IsNotNull(_settings, nameof(_settings));
             return _settings.Folders;
         }
     }

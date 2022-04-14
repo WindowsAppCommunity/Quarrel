@@ -10,11 +10,17 @@ using System.Threading.Tasks;
 
 namespace Quarrel.Services.Discord
 {
+    /// <summary>
+    /// A service for handling discord client state and requests.
+    /// </summary>
     public partial class DiscordService : IDiscordService
     {
         private readonly DiscordClient _discordClient;
         private readonly IMessenger _messenger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiscordService"/> class.
+        /// </summary>
         public DiscordService(IMessenger messenger)
         {
             _messenger = messenger;
