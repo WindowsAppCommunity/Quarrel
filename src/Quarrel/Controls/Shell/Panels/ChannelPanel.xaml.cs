@@ -2,6 +2,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Quarrel.Bindables.Channels.Abstract;
+using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.ViewModels.Panels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -29,9 +30,9 @@ namespace Quarrel.Controls.Shell.Panels
 
         private void ChannelList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (e.ClickedItem is BindableChannel {IsTextChannel: true} channel)
+            if (e.ClickedItem is IBindableSelectableChannel channel)
             {
-                if (channel is BindableGuildChannel { Permissions: { ReadMessages: false } })
+                if (!channel.IsAccessible)
                 {
                     return; 
                 }

@@ -1,14 +1,16 @@
 ﻿// Adam Dernis © 2022
 
+using Quarrel.Bindables.Channels.Interfaces;
+
 namespace Quarrel.Messages.Navigation
 {
-    public class NavigateToChannelMessage<T>
+    public class NavigateToChannelMessage
     {
-        public NavigateToChannelMessage(T channel)
+        public NavigateToChannelMessage(IBindableSelectableChannel channel)
         {
             Channel = channel;
         }
 
-        public T Channel { get; }
+        public IBindableSelectableChannel Channel { get; }
     }
 }

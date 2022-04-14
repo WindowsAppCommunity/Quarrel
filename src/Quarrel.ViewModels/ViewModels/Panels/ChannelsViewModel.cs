@@ -4,6 +4,7 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Abstract;
+using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
@@ -20,7 +21,7 @@ namespace Quarrel.ViewModels.Panels
         private readonly IDiscordService _discordService;
 
         private BindableGuild? _currentGuild;
-        private BindableChannel? _selectedChannel;
+        private IBindableSelectableChannel? _selectedChannel;
 
         private IEnumerable<BindableChannelGroup>? _groupedSource;
 
@@ -38,12 +39,12 @@ namespace Quarrel.ViewModels.Panels
         /// <summary>
         /// Gets or sets the selected channel.
         /// </summary>
-        public BindableChannel? SelectedChannel
+        public IBindableSelectableChannel? SelectedChannel
         {
             get => _selectedChannel;
             set
             {
-                if (value is null || _currentGuild is null || !value.IsTextChannel)
+                if (value is null || _currentGuild is null)
                     return;
 
                 if (_selectedChannel is not null)
@@ -54,8 +55,8 @@ namespace Quarrel.ViewModels.Panels
                 if(SetProperty(ref _selectedChannel, value))
                 {
                     value.IsSelected = true;
-                    _currentGuild.SelectedChannel = value.Channel.Id;
-                    _messenger.Send(new NavigateToChannelMessage<BindableChannel>(value));
+                    _currentGuild.SelectedChannel = value.Id;
+                    _messenger.Send(new NavigateToChannelMessage(value));
                 }
             }
         }
@@ -81,7 +82,7 @@ namespace Quarrel.ViewModels.Panels
             }
 
             _currentGuild = guild;
-            var channels = _discordService.GetGuildChannelsGrouped(guild.Guild, out BindableGuildChannel? selected, guild.SelectedChannel);
+            var channels = _discordService.GetGuildChannelsGrouped(guild.Guild, out IBindableMessageChannel? selected, guild.SelectedChannel);
             GroupedSource = channels;
             SelectedChannel = selected;
         }

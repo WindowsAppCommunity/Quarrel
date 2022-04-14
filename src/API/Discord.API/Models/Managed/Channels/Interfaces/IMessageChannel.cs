@@ -5,7 +5,7 @@ namespace Discord.API.Models.Channels.Interfaces
     /// <summary>
     /// An interface for text channels.
     /// </summary>
-    internal interface IMessageChannel : IChannel
+    public interface IMessageChannel : IChannel
     {
         /// <summary>
         /// The number of unread mentions the current user has in the channels.

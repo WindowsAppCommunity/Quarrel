@@ -4,7 +4,6 @@ using Discord.API.Models.Channels;
 using Discord.API.Models.Channels.Abstract;
 using Discord.API.Models.Channels.Interfaces;
 using Discord.API.Models.Users;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Quarrel.Bindables.Abstract;
 
 namespace Quarrel.Bindables.Channels.Abstract
@@ -14,8 +13,6 @@ namespace Quarrel.Bindables.Channels.Abstract
     /// </summary>
     public abstract partial class BindableChannel : SelectableItem
     {
-        [AlsoNotifyChangeFor(nameof(Name))]
-        [ObservableProperty]
         private Channel _channel;
 
         /// <summary>
@@ -31,11 +28,26 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// Gets the name of the channel as displayed.
         /// </summary>
         public virtual string? Name => _channel.Name;
-        
+
         /// <summary>
         /// Gets a bool representing whether or not the channel is a text channel.
         /// </summary>
         public abstract bool IsTextChannel { get; }
+
+        /// <summary>
+        /// Gets the wrapped <see cref="Discord.API.Models.Channels.Abstract.Channel"/>.
+        /// </summary>
+        public Channel Channel
+        {
+            get => _channel;
+            private set
+            {
+                if (SetProperty(ref _channel, value))
+                {
+                    OnPropertyChanged(nameof(Name));
+                }
+            }
+        }
 
         /// <summary>
         /// Creates a new instance of a <see cref="BindableChannel"/> based on the type.
@@ -47,7 +59,7 @@ namespace Quarrel.Bindables.Channels.Abstract
         {
             return channel switch
             {
-                GuildTextChannel c=> new BindableTextChannel(c, member, parent),
+                GuildTextChannel c => new BindableTextChannel(c, member, parent),
                 VoiceChannel c => new BindableVoiceChannel(c, member, parent),
                 CategoryChannel c => new BindableCategoryChannel(c, member),
                 _ => null
