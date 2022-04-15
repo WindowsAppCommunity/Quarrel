@@ -21,7 +21,9 @@ namespace Quarrel.ViewModels.Panels
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
         private readonly IDispatcherService _dispatcherService;
-        
+
+        private bool _isLoading;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MessagesViewModel"/> class.
         /// </summary>
@@ -32,6 +34,7 @@ namespace Quarrel.ViewModels.Panels
             _dispatcherService = dispatcherService;
 
             Source = new ObservableRangeCollection<BindableMessage>();
+            IsLoading = false;
 
             _messenger.Register<NavigateToChannelMessage>(this, (_, m) => LoadChannel(m.Channel));
         }
@@ -41,6 +44,15 @@ namespace Quarrel.ViewModels.Panels
         /// </summary>
         public ObservableRangeCollection<BindableMessage> Source;
 
+        /// <summary>
+        /// Gets a value indicating whether or not messages are loading.
+        /// </summary>
+        public bool IsLoading
+        {
+            get => _isLoading;
+            private set => SetProperty(ref _isLoading, value);
+        }
+
         private void LoadChannel(IBindableSelectableChannel channel)
         {
             if (channel is IBindableMessageChannel messageChannel)
@@ -49,14 +61,21 @@ namespace Quarrel.ViewModels.Panels
             }
         }
 
-        private async void LoadInitialMessages(IMessageChannel? channel)
+        private void LoadInitialMessages(IMessageChannel? channel)
         {
             Guard.IsNotNull(channel, nameof(channel));
-            var messages = await _discordService.GetChannelMessagesAsync(channel);
-            _dispatcherService.RunOnUIThread(() =>
+            _dispatcherService.RunOnUIThread(async () =>
             {
+                // Clear the messages and begin loading
                 Source.Clear();
+                IsLoading = true;
+
+                // Load messages
+                var messages = await _discordService.GetChannelMessagesAsync(channel);
+                
+                // Add messages to the UI and mark loading as finished
                 Source.AddRange(messages);
+                IsLoading = false;
             });
         }
     }
