@@ -2,12 +2,12 @@
 
 namespace Discord.API.Gateways
 {
-    internal enum OperationCode : int
+    internal enum GatewayOperation : int
     {
         Dispatch = 0,
         Heartbeat = 1,
         Identify = 2,
-        StatusUpdate = 3,
+        PresenceUpdate = 3,
         VoiceStateUpdate = 4,
         VoiceServerPing = 5,
         Resume = 6,
@@ -16,17 +16,22 @@ namespace Discord.API.Gateways
         InvalidSession = 9,
         Hello = 10,
         HeartbeatAck = 11,
-        SubscribeToGuild = 12,
+        //SubscribeToGuild = 12,
         CallConnect = 13,
         UpdateGuildSubscriptions = 14,
         LobbyConnect = 15,
         LobbyDisconnect = 16,
         LobbyVoiceStatesUpdate = 17,
-        GuildStreamCreate = 18,
+        StreamCreate = 18,
         StreamDelete = 19,
         StreamWatch = 20,
         StreamPing = 21,
         StreamSetPaused = 22,
-        FlushLfgSubscriptions = 23
+        //FlushLfgSubscriptions = 23,
+        RequestGuildApplicationCommands = 24,
+        EmbeddedActivityLaunch = 25,
+        EmbeddedActivityClose = 26,
+        EmbeddedActivityUpdate = 27,
+        RequestForumUnreads = 28,
     }
 }

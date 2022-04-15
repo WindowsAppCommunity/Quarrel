@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Gateways.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace Discord.API.Gateways
@@ -25,7 +26,7 @@ namespace Discord.API.Gateways
         {
             var frame = new SocketFrame<GuildRequestMembers>()
             {
-                Operation = OperationCode.RequestGuildMembers,
+                Operation = GatewayOperation.RequestGuildMembers,
                 Payload = payload,
             };
 
@@ -37,22 +38,9 @@ namespace Discord.API.Gateways
             await RequestGuildMembers(new ulong[] { guildId }, string.Empty);
         }
 
-        public async Task<bool> SubscribeToGuildAsync(ulong[] channelIds)
+        public void SubscribeToGuildAsync(ulong[] channelIds)
         {
-            // Maximum size 
-            if (channelIds.Length > 193)
-            {
-                return false;
-            }
-
-            var frame = new SocketFrame<ulong[]>()
-            {
-                Operation = OperationCode.SubscribeToGuild,
-                Payload = channelIds,
-            };
-
-            await SendMessageAsync(frame);
-            return true;
+            throw new NotImplementedException();
         }
 
         public async Task UpdateStatusAsync(string status, int? idleSince, bool isAfk)
@@ -71,7 +59,7 @@ namespace Discord.API.Gateways
         {
             var frame = new SocketFrame<StatusUpdate>()
             {
-                Operation = OperationCode.StatusUpdate,
+                Operation = GatewayOperation.PresenceUpdate,
                 Payload = payload,
             };
 
@@ -95,7 +83,7 @@ namespace Discord.API.Gateways
         {
             var frame = new SocketFrame<VoiceStatusUpdate>()
             {
-                Operation = OperationCode.VoiceStateUpdate,
+                Operation = GatewayOperation.VoiceStateUpdate,
                 Payload = payload,
             };
 

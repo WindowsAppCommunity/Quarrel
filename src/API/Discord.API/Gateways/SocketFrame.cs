@@ -10,12 +10,12 @@ namespace Discord.API.Gateways
     internal class SocketFrame
     {
         [JsonPropertyName("op")]
-        public OperationCode? Operation { get; set; }
+        public GatewayOperation Operation { get; set; }
 
         [JsonPropertyName("s")]
         public int? SequenceNumber { get; set; }
 
         [JsonPropertyName("t")]
-        public string Type { get; set; }
+        public GatewayEvent? Event { get; set; }
     }
 }

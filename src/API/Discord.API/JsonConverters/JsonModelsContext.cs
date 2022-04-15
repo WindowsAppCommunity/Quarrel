@@ -18,6 +18,10 @@ using System.Text.Json.Serialization;
 namespace Discord.API.JsonConverters.SocketFrames
 {
     [JsonSourceGenerationOptions(DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault)]
+    [JsonSerializable(typeof(GatewayEvent))]
+    [JsonSerializable(typeof(SocketFrame))]
+    [JsonSerializable(typeof(UnknownEventSocketFrame))]
+    [JsonSerializable(typeof(UnknownOperationSocketFrame))]
     [JsonSerializable(typeof(SocketFrame))]
     [JsonSerializable(typeof(SocketFrame<Hello>))]
     [JsonSerializable(typeof(SocketFrame<Ready>))]
@@ -58,7 +62,7 @@ namespace Discord.API.JsonConverters.SocketFrames
     [JsonSerializable(typeof(SocketFrame<SessionReplace[]>))]
     [JsonSerializable(typeof(SocketFrame<int>))]
     [JsonSerializable(typeof(SocketFrame<Identity>))]
-    internal partial class SocketFrameContext : JsonSerializerContext
+    internal partial class JsonModelsContext : JsonSerializerContext
     {
     }
 }

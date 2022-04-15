@@ -44,7 +44,7 @@ namespace Discord.API.Gateways
                     _ = ConnectAsync(_connectionUrl);
                     break;
                 case GatewayStatus.Reconnecting:
-                    FireEventOnDelegate(frame, InvalidSession);
+                    FireEvent(frame, InvalidSession);
                     break;
             }
 
@@ -80,7 +80,7 @@ namespace Discord.API.Gateways
             {
                 var frame = new SocketFrame<int>()
                 {
-                    Operation = OperationCode.Heartbeat,
+                    Operation = GatewayOperation.Heartbeat,
                     Payload = _lastEventSequenceNumber
                 };
 
@@ -112,8 +112,8 @@ namespace Discord.API.Gateways
 
             var payload = new SocketFrame<Identity>()
             {
-                Type = EventNames.IDENTIFY,
-                Operation = OperationCode.Identify,
+                Event = GatewayEvent.IDENTIFY,
+                Operation = GatewayOperation.Identify,
                 Payload = idenity,
             };
 
@@ -133,7 +133,7 @@ namespace Discord.API.Gateways
 
             var request = new SocketFrame<GatewayResume>()
             {
-                Operation = OperationCode.Resume,
+                Operation = GatewayOperation.Resume,
                 Payload = payload,
             };
 

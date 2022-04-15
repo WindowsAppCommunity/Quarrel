@@ -33,7 +33,7 @@ namespace Discord.API.Gateways
             _gatewayStatus = GatewayStatus.Initialized;
 
             _serialiseOptions = new JsonSerializerOptions();
-            _serialiseOptions.AddContext<SocketFrameContext>();
+            _serialiseOptions.AddContext<JsonModelsContext>();
 
             _deserialiseOptions = new JsonSerializerOptions { Converters = { new SocketFrameConverter() } };
         }

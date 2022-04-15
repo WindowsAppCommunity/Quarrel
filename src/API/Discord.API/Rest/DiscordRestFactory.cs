@@ -21,7 +21,7 @@ namespace Discord.API.Rest
         public DiscordRestFactory()
         {
             var options = new JsonSerializerOptions();
-            options.AddContext<SocketFrameContext>();
+            options.AddContext<JsonModelsContext>();
             _settings = new RefitSettings
             {
                 ContentSerializer = new SystemTextJsonContentSerializer(options)
