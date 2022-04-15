@@ -9,5 +9,9 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <ListView ItemsSource="{x:Bind ViewModel.Source}"/>
+    <ListView ItemsSource="{x:Bind ViewModel.Source}">
+        <ListView.Header>
+            <ProgressBar IsIndeterminate="True" Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}"/>
+        </ListView.Header>
+    </ListView>
 </UserControl>
