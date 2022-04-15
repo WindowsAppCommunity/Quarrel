@@ -37,18 +37,12 @@ namespace Quarrel.Converters
         {
             if (value != null)
             {
-                switch (characterCasing)
+                return characterCasing switch
                 {
-                    case CharacterCasing.Upper:
-                        return value.ToUpper();
-
-                    case CharacterCasing.Lower:
-                        return value.ToLower();
-
-                    case CharacterCasing.Normal:
-                    default:
-                        return value;
-                }
+                    CharacterCasing.Upper => value.ToUpper(),
+                    CharacterCasing.Lower => value.ToLower(),
+                    _ => value,
+                };
             }
 
             return string.Empty;

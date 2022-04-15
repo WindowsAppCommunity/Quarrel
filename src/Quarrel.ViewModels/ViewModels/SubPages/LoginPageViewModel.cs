@@ -13,7 +13,6 @@ namespace Quarrel.ViewModels.SubPages
     /// </summary>
     public partial class LoginPageViewModel : ObservableObject
     {
-        private readonly IAnalyticsService _analyticsService;
         private readonly IDiscordService _discordService;
 
         [ObservableProperty]
@@ -22,9 +21,8 @@ namespace Quarrel.ViewModels.SubPages
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginPageViewModel"/> class.
         /// </summary>
-        public LoginPageViewModel(IAnalyticsService analyticsService, IDiscordService discordService)
+        public LoginPageViewModel(IDiscordService discordService)
         {
-            _analyticsService = analyticsService;
             _discordService = discordService;
 
             LoginWithTokenCommand = new RelayCommand(() => LoginWithToken(TokenText));
@@ -45,8 +43,7 @@ namespace Quarrel.ViewModels.SubPages
                 return;
             }
 
-            bool wasSuccessful = await _discordService.LoginAsync(token, LoginType.Fresh);
-            // TODO: Handle error
+            await _discordService.LoginAsync(token, LoginType.Fresh);
         }
     }
 }

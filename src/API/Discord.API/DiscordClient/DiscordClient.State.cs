@@ -20,10 +20,10 @@ namespace Discord.API
         private SelfUser? _selfUser;
         private Settings? _settings;
 
-        private ConcurrentDictionary<ulong, Guild> _guildMap;
-        private ConcurrentDictionary<ulong, Channel> _channelMap;
-        private ConcurrentDictionary<ulong, User> _userMap;
-        private ConcurrentDictionary<(ulong GuildId, ulong UserId), GuildMember> _guildsMemberMap;
+        private readonly ConcurrentDictionary<ulong, Guild> _guildMap;
+        private readonly ConcurrentDictionary<ulong, Channel> _channelMap;
+        private readonly ConcurrentDictionary<ulong, User> _userMap;
+        private readonly ConcurrentDictionary<(ulong GuildId, ulong UserId), GuildMember> _guildsMemberMap;
 
         internal SelfUser? CurrentUser => _selfUser;
 
@@ -39,7 +39,7 @@ namespace Discord.API
 
         internal bool AddGuild(JsonGuild jsonGuild)
         {
-            Guild guild = new Guild(jsonGuild, this);
+            var guild = new Guild(jsonGuild, this);
             if(_guildMap.TryAdd(guild.Id, guild))
             {
                 foreach (var jsonChannel in jsonGuild.Channels)
@@ -179,13 +179,13 @@ namespace Discord.API
 
         internal bool AddUser(JsonUser jsonUser)
         {
-            User user = new User(jsonUser, this);
+            var user = new User(jsonUser, this);
             return _userMap.TryAdd(user.Id, user);
         }
 
         internal bool AddSelfUser(JsonUser jsonUser)
         {
-            SelfUser user = new SelfUser(jsonUser, this);
+            var user = new SelfUser(jsonUser, this);
             _selfUser = user;
             return _userMap.TryAdd(user.Id, user);
         }
@@ -203,7 +203,7 @@ namespace Discord.API
 
         internal bool RemoveUser(ulong userId)
         {
-            return _userMap.TryRemove(userId, out User user);
+            return _userMap.TryRemove(userId, out _);
         }
 
         internal GuildMember? GetGuildMemberInternal((ulong GuildId, ulong UserId) key)
@@ -218,7 +218,7 @@ namespace Discord.API
 
         internal bool AddGuildMember(ulong guildId, JsonGuildMember jsonGuildMember)
         {
-            GuildMember member = new GuildMember(jsonGuildMember, guildId, this);
+            var member = new GuildMember(jsonGuildMember, guildId, this);
             if (_guildsMemberMap.TryAdd((guildId, member.UserId), member))
             {
                 AddUser(jsonGuildMember.User);
@@ -241,7 +241,7 @@ namespace Discord.API
 
         internal bool RemoveGuildMember(ulong guildId, JsonGuildMember jsonGuildMember)
         {
-            return _guildsMemberMap.TryRemove((guildId, jsonGuildMember.User.Id), out GuildMember member);
+            return _guildsMemberMap.TryRemove((guildId, jsonGuildMember.User.Id), out _);
         }
 
         internal bool AddPresence(ulong? guildId, JsonPresence jsonPresence)
@@ -304,7 +304,7 @@ namespace Discord.API
 
         internal void UpdateSettings(JsonUserSettings jsonUserSettings)
         {
-            Settings settings = new Settings(jsonUserSettings, this);
+            var settings = new Settings(jsonUserSettings, this);
             _settings = settings;
         }
     }
