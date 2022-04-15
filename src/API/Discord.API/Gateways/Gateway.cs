@@ -6,7 +6,6 @@ using Discord.API.Models.Json.Gateway;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text.Json;
-using Discord.API.JsonConverters.SocketFrames;
 
 namespace Discord.API.Gateways
 {

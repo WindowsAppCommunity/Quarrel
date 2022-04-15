@@ -26,5 +26,31 @@ namespace Quarrel.Services.Analytics.Enums
         /// The gateway encountered an issue, but it was handled.
         /// </summary>
         GatewayExceptionHandled,
+
+        /// <summary>
+        /// The gateway encountered a unknown operation.
+        /// </summary>
+        UnknownGatewayOperationEncountered,
+
+        /// <summary>
+        /// The gateway encountered a unknown event.
+        /// </summary>
+        UnknownGatewayEventEncountered,
+
+        /// <summary>
+        /// The gateway encountered a known event.
+        /// </summary>
+        KnownGatewayEventEncountered,
+
+        /// <summary>
+        /// The gateway encountered a known operation but does not handle it.
+        /// </summary>
+        UnhandledGatewayOperationEncountered,
+
+        /// <summary>
+        /// The gateway encountered a known event but does not handle it.
+        /// </summary>
+        UnhandledGatewayEventEncountered,
+
     }
 }

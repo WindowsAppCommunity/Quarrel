@@ -34,6 +34,12 @@ namespace Quarrel.Services.Discord
             _discordClient.LoggedIn += OnLoggedIn;
             _discordClient.HttpExceptionHandled += OnHttpExceptionHandled;
             _discordClient.GatewayExceptionHandled += OnGatewayExceptionHandled;
+            
+            _discordClient.UnknownGatewayOperationEncountered += OnUnknownGatewayOperationEncountered;
+            _discordClient.UnknownGatewayEventEncountered += OnUnknownGatewayEventEncountered;
+            _discordClient.KnownGatewayEventEncountered += OnKnownGatewayEventEncountered;
+            _discordClient.UnhandledGatewayOperationEncountered += OnUnhandledGatewayOperationEncountered;
+            _discordClient.UnhandledGatewayEventEncountered += OnUnhandledGatewayEventEncountered;
         }
 
         /// <inheritdoc/>
@@ -69,6 +75,31 @@ namespace Quarrel.Services.Discord
 
         private void OnGatewayExceptionHandled(object sender, Exception e)
             => LogException(LoggedEvent.GatewayExceptionHandled, e);
+
+        private void OnUnknownGatewayOperationEncountered(object sender, int e)
+        {
+            _analyticsService.Log(LoggedEvent.UnknownGatewayOperationEncountered, ("Operation", e));
+        }
+
+        private void OnUnknownGatewayEventEncountered(object sender, string e)
+        {
+            _analyticsService.Log(LoggedEvent.UnknownGatewayEventEncountered, ("Event", e));
+        }
+
+        private void OnKnownGatewayEventEncountered(object sender, string e)
+        {
+            _analyticsService.Log(LoggedEvent.KnownGatewayEventEncountered, ("Event", e));
+        }
+
+        private void OnUnhandledGatewayOperationEncountered(object sender, int e)
+        {
+            _analyticsService.Log(LoggedEvent.UnhandledGatewayOperationEncountered, ("Operation", e));
+        }
+
+        private void OnUnhandledGatewayEventEncountered(object sender, string e)
+        {
+            _analyticsService.Log(LoggedEvent.UnhandledGatewayEventEncountered, ("Event", e));
+        }
 
         private void LogException(LoggedEvent type, Exception e)
             => _analyticsService.Log(type, ("Exception", e));
