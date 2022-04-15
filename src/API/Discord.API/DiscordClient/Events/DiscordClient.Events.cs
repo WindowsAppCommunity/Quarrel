@@ -2,6 +2,7 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Exceptions;
+using Discord.API.Gateways;
 using Discord.API.Gateways.Models.Messages;
 using Discord.API.Models.Managed.Messages;
 using Discord.API.Models.Messages;
@@ -22,6 +23,31 @@ namespace Discord.API
         /// Invoked when the gateway handles an exception.
         /// </summary>
         public event EventHandler<SocketFrameException>? GatewayExceptionHandled;
+
+        /// <summary>
+        /// Invoked when the gateway encounters a unknown operation
+        /// </summary>
+        public event EventHandler<int>? UnknownGatewayOperationEncountered;
+        
+        /// <summary>
+        /// Invoked when the gateway encounters a unknown event
+        /// </summary>
+        public event EventHandler<string>? UnknownGatewayEventEncountered;
+
+        /// <summary>
+        /// Invoked when the gateway encounters a known event
+        /// </summary>
+        public event EventHandler<string>? KnownGatewayEventEncountered;
+
+        /// <summary>
+        /// Invoked when the gateway encounters a known operation but does not handle it
+        /// </summary>
+        public event EventHandler<int>? UnhandledGatewayOperationEncountered;
+
+        /// <summary>
+        /// Invoked when the gateway encounters a known event but does not handle it
+        /// </summary>
+        public event EventHandler<string>? UnhandledGatewayEventEncountered;
 
         /// <summary>
         /// Invoked when the user logs in.
@@ -59,6 +85,11 @@ namespace Discord.API
             _gateway.MessageDeleted += (s, e) => ForwardEvent(e.EventData is not null ? new MessageDeleted(e.EventData, this) : null, MessageDeleted);
             _gateway.MessageAck += OnMessageAck;
             _gateway.UnhandledMessageEncountered += (s, e) => ForwardEvent(e, GatewayExceptionHandled);
+            _gateway.UnknownEventEncountered += (s, e) => ForwardEvent(e, UnknownGatewayEventEncountered);
+            _gateway.UnknownOperationEncountered += (s, e) => ForwardEvent(e, UnknownGatewayOperationEncountered);
+            _gateway.KnownEventEncountered += (s, e) => ForwardEvent(e, KnownGatewayEventEncountered);
+            _gateway.UnhandledOperationEncountered += (s, e) => ForwardEvent((int)e, UnhandledGatewayOperationEncountered);
+            _gateway.UnhandledEventEncountered += (s, e) => ForwardEvent(e.ToString(), UnhandledGatewayEventEncountered);
         }
 
         private void ForwardEvent<T>(T? arg, EventHandler<T>? eventHandler)
@@ -66,6 +97,13 @@ namespace Discord.API
         {
             Guard.IsNotNull(arg, nameof(arg));
             eventHandler?.Invoke(this, arg);
+        }
+
+        private void ForwardEvent<T>(T? arg, EventHandler<T>? eventHandler)
+            where T : struct
+        {
+            Guard.IsNotNull(arg, nameof(arg));
+            eventHandler?.Invoke(this, arg.Value);
         }
     }
 }

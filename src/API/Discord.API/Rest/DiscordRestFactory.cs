@@ -2,7 +2,7 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.HttpHandlers;
-using Discord.API.JsonConverters.SocketFrames;
+using Discord.API.JsonConverters;
 using Refit;
 using System;
 using System.Net.Http;

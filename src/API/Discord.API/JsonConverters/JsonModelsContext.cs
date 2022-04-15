@@ -15,7 +15,7 @@ using Discord.API.Models.Json.Users;
 using Discord.API.Models.Json.Voice;
 using System.Text.Json.Serialization;
 
-namespace Discord.API.JsonConverters.SocketFrames
+namespace Discord.API.JsonConverters
 {
     [JsonSourceGenerationOptions(DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault)]
     [JsonSerializable(typeof(GatewayEvent))]

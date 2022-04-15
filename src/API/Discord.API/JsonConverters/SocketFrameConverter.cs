@@ -18,7 +18,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Discord.API.JsonConverters.SocketFrames
+namespace Discord.API.JsonConverters
 {
     internal class SocketFrameConverter : JsonConverter<SocketFrame>
     {

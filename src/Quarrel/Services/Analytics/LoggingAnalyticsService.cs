@@ -11,9 +11,9 @@ namespace Quarrel.Services.Analytics
         public void Log(string title, params (string, object)[] data)
         {
             Debug.WriteLine($"Event: {title}");
-            foreach (var item in data)
+            foreach ((string item1, object item2) in data)
             {
-                Debug.WriteLine($"{item.Item1}: {item.Item2}");
+                Debug.WriteLine($"{item1}: {item2}");
             }
         }
 
