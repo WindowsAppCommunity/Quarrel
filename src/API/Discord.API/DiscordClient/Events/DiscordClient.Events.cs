@@ -14,6 +14,11 @@ namespace Discord.API
     public partial class DiscordClient
     {
         /// <summary>
+        /// Invoked when an http exception is handled.
+        /// </summary>
+        public event EventHandler<Exception>? HttpExceptionHandled;
+
+        /// <summary>
         /// Invoked when the gateway handles an exception.
         /// </summary>
         public event EventHandler<SocketFrameException>? GatewayExceptionHandled;

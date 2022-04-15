@@ -2,9 +2,11 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Guilds;
+using Discord.API.Models.Json.Messages;
 using Discord.API.Models.Messages;
 using Discord.API.Models.Settings;
 using Discord.API.Models.Users;
+using Refit;
 using System;
 using System.Threading.Tasks;
 
@@ -28,7 +30,8 @@ namespace Discord.API
         {
             Guard.IsNotNull(_channelService, nameof(_channelService));
 
-            var jsonMessages = await _channelService.GetChannelMessages(channelId);
+            JsonMessage[]? jsonMessages = await MakeRefitRequest(() => _channelService.GetChannelMessages(channelId));
+            Guard.IsNotNull(jsonMessages, nameof(jsonMessages));
 
             Message[] messages = new Message[jsonMessages.Length];
             for (int i = 0; i < messages.Length; i++)
@@ -101,6 +104,20 @@ namespace Discord.API
         {
             Guard.IsNotNull(_settings, nameof(_settings));
             return _settings.Folders;
+        }
+
+        private async Task<T?> MakeRefitRequest<T>(Func<Task<T>> request)
+        {
+            try
+            {
+                return await request();
+            }
+            catch (ApiException ex)
+            {
+                HttpExceptionHandled?.Invoke(this, ex);
+                return default;
+            }
+            catch { return default; }
         }
     }
 }

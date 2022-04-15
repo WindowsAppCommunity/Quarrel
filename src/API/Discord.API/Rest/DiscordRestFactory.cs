@@ -22,7 +22,10 @@ namespace Discord.API.Rest
         {
             var options = new JsonSerializerOptions();
             options.AddContext<SocketFrameContext>();
-            _settings = new RefitSettings{ ContentSerializer = new SystemTextJsonContentSerializer(options) };
+            _settings = new RefitSettings
+            {
+                ContentSerializer = new SystemTextJsonContentSerializer(options)
+            };
         }
         
         internal IGatewayService GetGatewayService()

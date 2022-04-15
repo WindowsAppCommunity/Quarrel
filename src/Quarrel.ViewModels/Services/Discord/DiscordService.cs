@@ -32,7 +32,8 @@ namespace Quarrel.Services.Discord
             _messenger = messenger;
             _discordClient = new DiscordClient();
             _discordClient.LoggedIn += OnLoggedIn;
-            _discordClient.GatewayExceptionHandled += OnExceptionHandled;
+            _discordClient.HttpExceptionHandled += OnHttpExceptionHandled;
+            _discordClient.GatewayExceptionHandled += OnGatewayExceptionHandled;
         }
 
         /// <inheritdoc/>
@@ -63,9 +64,13 @@ namespace Quarrel.Services.Discord
             _messenger.Send(new UserLoggedInMessage(info));
         }
 
-        private void OnExceptionHandled(object sender, global::Discord.API.Exceptions.SocketFrameException e)
-        {
-            _analyticsService.Log(LoggedEvent.GatewayExceptionHandled, ("Exception", e));
-        }
+        private void OnHttpExceptionHandled(object sender, Exception e)
+            => LogException(LoggedEvent.HttpExceptionHandled, e);
+
+        private void OnGatewayExceptionHandled(object sender, Exception e)
+            => LogException(LoggedEvent.GatewayExceptionHandled, e);
+
+        private void LogException(LoggedEvent type, Exception e)
+            => _analyticsService.Log(type, ("Exception", e));
     }
 }

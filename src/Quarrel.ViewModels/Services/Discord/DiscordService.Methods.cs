@@ -63,6 +63,7 @@ namespace Quarrel.Services.Discord
         public async Task<BindableMessage[]> GetChannelMessagesAsync(IMessageChannel channel)
         {
             var rawMessages = await _discordClient.GetMessagesAsync(channel.Id);
+            Guard.IsNotNull(rawMessages, nameof(rawMessages));
             BindableMessage[] messages = new BindableMessage[rawMessages.Length];
             for (int i = 0; i < messages.Length; i++)
             {

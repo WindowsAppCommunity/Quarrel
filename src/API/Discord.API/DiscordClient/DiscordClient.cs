@@ -63,8 +63,8 @@ namespace Discord.API
         private async Task SetupGatewayAsync(string token)
         {
             Guard.IsNotNull(_gatewayService, nameof(_gatewayService));
-
-            var gatewayConfig = await _gatewayService.GetGatewayConfig();
+            var gatewayConfig = await MakeRefitRequest(() => _gatewayService.GetGatewayConfig());
+            Guard.IsNotNull(gatewayConfig, nameof(_gatewayService));
             _gateway = new Gateway(gatewayConfig, token);
             await _gateway.ConnectAsync();
             RegisterEvents();

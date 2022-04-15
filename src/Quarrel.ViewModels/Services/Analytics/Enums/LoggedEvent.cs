@@ -18,6 +18,11 @@ namespace Quarrel.Services.Analytics.Enums
         LoginFailed,
 
         /// <summary>
+        /// Encountered an issue in an http request, but it was handled.
+        /// </summary>
+        HttpExceptionHandled,
+
+        /// <summary>
         /// The gateway encountered an issue, but it was handled.
         /// </summary>
         GatewayExceptionHandled,
