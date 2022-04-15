@@ -3,6 +3,7 @@
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Quarrel.Services.Analytics;
+using Quarrel.Services.Analytics.Enums;
 using Quarrel.Services.Discord;
 
 namespace Quarrel.ViewModels.SubPages
@@ -37,15 +38,15 @@ namespace Quarrel.ViewModels.SubPages
         /// <summary>
         /// Logs the user in with a token.
         /// </summary>
-        public void LoginWithToken(string? token)
+        public async void LoginWithToken(string? token)
         {
             if (token is null)
             {
                 return;
             }
 
-            _analyticsService.Log(Constants.Analytics.Events.LoggedInWithToken);
-            _discordService.LoginAsync(token);
+            bool wasSuccessful = await _discordService.LoginAsync(token);
+            _analyticsService.Log(LoggedEvent.FreshLogin, (nameof(wasSuccessful), $"{wasSuccessful}"));
         }
     }
 }

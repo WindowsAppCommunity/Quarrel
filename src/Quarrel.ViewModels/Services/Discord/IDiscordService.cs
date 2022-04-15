@@ -28,7 +28,7 @@ namespace Quarrel.Services.Discord
         /// Logs into the discord service by token.
         /// </summary>
         /// <param name="token">The token to use for login.</param>
-        Task LoginAsync(string token);
+        Task<bool> LoginAsync(string token);
         
         /// <summary>
         /// Gets the current user's guilds.

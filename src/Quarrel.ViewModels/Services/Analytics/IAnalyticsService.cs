@@ -1,5 +1,7 @@
 ﻿// Quarrel © 2022
 
+using Quarrel.Services.Analytics.Enums;
+
 namespace Quarrel.Services.Analytics
 {
     /// <summary>
@@ -13,5 +15,12 @@ namespace Quarrel.Services.Analytics
         /// <param name="title">The title of the event to track.</param>
         /// <param name="data">The optional event properties.</param>
         void Log(string title, params (string, string)[] data);
+
+        /// <summary>
+        /// Logs an event with a specified title and optional properties.
+        /// </summary>
+        /// <param name="eventType">The type of event to track.</param>
+        /// <param name="data">The optional event properties.</param>
+        void Log(LoggedEvent eventType, params (string, string)[] data);
     }
 }

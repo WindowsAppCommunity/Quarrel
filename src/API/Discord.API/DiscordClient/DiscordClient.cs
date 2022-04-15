@@ -41,11 +41,11 @@ namespace Discord.API
         /// Initializes authenticated services and opens the gateway.
         /// </summary>
         /// <param name="token">The token used for authentication.</param>
-        public async Task LoginAsync(string token)
+        public async Task<bool> LoginAsync(string token)
         {
             _token = token;
             InitializeServices(token);
-            await SetupGatewayAsync(token);
+            return await SetupGatewayAsync(token);
         }
 
         private void InitializeServices(string token)
@@ -58,14 +58,15 @@ namespace Discord.API
             _gatewayService = restFactory.GetGatewayService();
         }
 
-        private async Task SetupGatewayAsync(string token)
+        private async Task<bool> SetupGatewayAsync(string token)
         {
             Guard.IsNotNull(_gatewayService, nameof(_gatewayService));
 
             var gatewayConfig = await _gatewayService.GetGatewayConfig();
             _gateway = new Gateway(gatewayConfig, token);
-            await _gateway.ConnectAsync();
+            bool success = await _gateway.ConnectAsync();
             RegisterEvents();
+            return success;
         }
     }
 }

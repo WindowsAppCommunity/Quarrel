@@ -29,11 +29,12 @@ namespace Quarrel.Services.Discord
         }
 
         /// <inheritdoc/>
-        public async Task LoginAsync(string token)
+        public async Task<bool> LoginAsync(string token)
         {
-            await _discordClient.LoginAsync(token);
-
             _messenger.Send(new ConnectingMessage());
+            var success = await _discordClient.LoginAsync(token);
+            // TODO: Report error.
+            return success;
         }
 
         private void OnLoggedIn(object sender, SelfUser e)
