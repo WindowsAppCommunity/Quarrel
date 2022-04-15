@@ -8,14 +8,14 @@
 
   <Identity
     Name="4e995084-856f-43f0-8bdb-ffd2dc5d98aa"
-    Publisher="CN=avid2"
+    Publisher="CN=AdamDernis"
     Version="100.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="4e995084-856f-43f0-8bdb-ffd2dc5d98aa" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>Quarrel</DisplayName>
-    <PublisherDisplayName>avid2</PublisherDisplayName>
+    <PublisherDisplayName>Adam Dernis</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
