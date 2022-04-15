@@ -1,6 +1,5 @@
 ﻿// Quarrel © 2022
 
-using Quarrel.Services.Analytics;
 using Windows.Security.Credentials;
 
 namespace Quarrel.Services.Storage.Vault
@@ -15,27 +14,22 @@ namespace Quarrel.Services.Storage.Vault
             _vault = new PasswordVault();
         }
 
-        public string? GetUserToken(ulong userId)
+        /// <inheritdoc/>
+        public string GetUserToken(ulong userId)
         {
-            try
-            {
-                var credential = _vault.Retrieve(TokenResource, $"{userId}");
-                credential.RetrievePassword();
-                return credential.Password;
-            }
-            catch
-            {
-                // TODO: Log error
-                return null;
-            }
+            var credential = _vault.Retrieve(TokenResource, $"{userId}");
+            credential.RetrievePassword();
+            return credential.Password;
         }
-
+        
+        /// <inheritdoc/>
         public void RegisterUserToken(ulong userId, string token)
         {
             PasswordCredential credential = new(TokenResource, $"{userId}", token);
             _vault.Add(credential);
         }
-
+        
+        /// <inheritdoc/>
         public void UnregisterToken(ulong userId)
         {
             var credential = _vault.Retrieve(TokenResource, $"{userId}");

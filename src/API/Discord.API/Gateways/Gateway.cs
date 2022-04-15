@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using System;
 using Discord.API.JsonConverters;
 using Discord.API.Models.Json.Gateway;
 using System.Threading.Tasks;
@@ -36,31 +37,31 @@ namespace Discord.API.Gateways
             _deserialiseOptions = new JsonSerializerOptions { Converters = { new SocketFrameConverter() } };
         }
 
-        public async Task<bool> ConnectAsync()
+        /// <summary>
+        /// Sets up a connection to the gateway.
+        /// </summary>
+        /// <exception cref="Exception">An exception will be thrown when connection fails, but not when the handshake fails.</exception>
+        public async Task ConnectAsync()
         {
             _gatewayStatus = GatewayStatus.Connecting;
-            return await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "9", "&compress=zlib-stream"));
+            await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "9", "&compress=zlib-stream"));
         }
 
-        public async Task<bool> ResumeAsync()
+        /// <summary>
+        /// Resumes a connection to the gateway.
+        /// </summary>
+        /// <exception cref="Exception">An exception will be thrown when connection fails, but not when the handshake fails.</exception>
+        public async Task ResumeAsync()
         {
             _gatewayStatus = GatewayStatus.Resuming;
             _socket = CreateSocket();
-            return await ConnectAsync();
+            await ConnectAsync();
         }
 
-        private async Task<bool> ConnectAsync(string connectionUrl)
+        private async Task ConnectAsync(string connectionUrl)
         {
-            try
-            {
-                _connectionUrl = connectionUrl;
-                await _socket.ConnectAsync(connectionUrl);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            _connectionUrl = connectionUrl;
+            await _socket.ConnectAsync(connectionUrl);
         }
     }
 }

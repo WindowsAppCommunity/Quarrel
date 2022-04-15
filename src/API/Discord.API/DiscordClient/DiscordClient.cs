@@ -6,6 +6,7 @@ using Discord.API.Models.Channels.Abstract;
 using Discord.API.Models.Guilds;
 using Discord.API.Models.Users;
 using Discord.API.Rest;
+using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
@@ -41,11 +42,12 @@ namespace Discord.API
         /// Initializes authenticated services and opens the gateway.
         /// </summary>
         /// <param name="token">The token used for authentication.</param>
-        public async Task<bool> LoginAsync(string token)
+        /// <exception cref="Exception">An exception will be thrown when connection to the gateway fails, but not when the handshake fails.</exception>
+        public async Task LoginAsync(string token)
         {
             _token = token;
             InitializeServices(token);
-            return await SetupGatewayAsync(token);
+            await SetupGatewayAsync(token);
         }
 
         private void InitializeServices(string token)
@@ -58,15 +60,14 @@ namespace Discord.API
             _gatewayService = restFactory.GetGatewayService();
         }
 
-        private async Task<bool> SetupGatewayAsync(string token)
+        private async Task SetupGatewayAsync(string token)
         {
             Guard.IsNotNull(_gatewayService, nameof(_gatewayService));
 
             var gatewayConfig = await _gatewayService.GetGatewayConfig();
             _gateway = new Gateway(gatewayConfig, token);
-            bool success = await _gateway.ConnectAsync();
+            await _gateway.ConnectAsync();
             RegisterEvents();
-            return success;
         }
     }
 }

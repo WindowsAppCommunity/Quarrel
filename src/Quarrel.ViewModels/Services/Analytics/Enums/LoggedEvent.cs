@@ -8,13 +8,13 @@ namespace Quarrel.Services.Analytics.Enums
     public enum LoggedEvent
     {
         /// <summary>
-        /// A user has logged in with a new token.
+        /// The app logged in successfully.
         /// </summary>
-        FreshLogin,
+        SuccessfulLogin,
 
         /// <summary>
-        /// A user logged in as part of startup.
+        /// The app logged failed to login.
         /// </summary>
-        StartupLogin,
+        LoginFailed,
     }
 }

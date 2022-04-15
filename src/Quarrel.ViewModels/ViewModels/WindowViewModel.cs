@@ -76,8 +76,8 @@ namespace Quarrel.ViewModels
             AccountInfo? activeAccount = _storageService.AccountInfoStorage.ActiveAccount;
             if (activeAccount is not null)
             {
-                bool wasSuccessful = await _discordService.LoginAsync(activeAccount.Token);
-                _analyticsService.Log(LoggedEvent.StartupLogin, (nameof(wasSuccessful), $"{wasSuccessful}"));
+                bool wasSuccessful = await _discordService.LoginAsync(activeAccount.Token, LoginType.StartupLogin);
+                // TODO: Handle error in UI.
             }
             else
             {

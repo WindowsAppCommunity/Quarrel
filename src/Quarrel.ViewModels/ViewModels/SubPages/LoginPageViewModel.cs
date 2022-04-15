@@ -45,8 +45,8 @@ namespace Quarrel.ViewModels.SubPages
                 return;
             }
 
-            bool wasSuccessful = await _discordService.LoginAsync(token);
-            _analyticsService.Log(LoggedEvent.FreshLogin, (nameof(wasSuccessful), $"{wasSuccessful}"));
+            bool wasSuccessful = await _discordService.LoginAsync(token, LoginType.Fresh);
+            // TODO: Handle error
         }
     }
 }

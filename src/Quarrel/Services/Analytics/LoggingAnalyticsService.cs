@@ -8,7 +8,7 @@ namespace Quarrel.Services.Analytics
     public class LoggingAnalyticsService : IAnalyticsService
     {
         /// <inheritdoc/>
-        public void Log(string title, params (string, string)[] data)
+        public void Log(string title, params (string, object)[] data)
         {
             Debug.WriteLine($"Event: {title}");
             foreach (var item in data)
@@ -18,7 +18,7 @@ namespace Quarrel.Services.Analytics
         }
 
         /// <inheritdoc/>
-        public void Log(LoggedEvent eventType, params (string, string)[] data)
+        public void Log(LoggedEvent eventType, params (string, object)[] data)
         {
             Log($"{eventType}", data);
         }

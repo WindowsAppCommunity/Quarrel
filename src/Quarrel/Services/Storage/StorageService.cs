@@ -5,7 +5,6 @@ using OwlCore.Services;
 using Quarrel.Services.Storage.Accounts;
 using Quarrel.Services.Storage.Vault;
 using System.IO;
-using Windows.Security.Credentials;
 
 namespace Quarrel.Services.Storage
 {

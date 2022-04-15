@@ -101,7 +101,6 @@ namespace Quarrel.Services.Storage.Models
         /// <inheritdoc/>
         public async Task<IEnumerable<IFolderData>> GetFoldersAsync()
         {
-            // TODO
             var foldersData = await _storageFolder.GetFoldersAsync();
 
             return foldersData.Select(x => new FolderData(x));

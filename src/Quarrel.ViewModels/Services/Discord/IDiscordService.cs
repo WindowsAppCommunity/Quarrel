@@ -8,6 +8,7 @@ using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Bindables.Messages;
 using Quarrel.Bindables.Users;
+using Quarrel.Services.Analytics.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -28,7 +29,8 @@ namespace Quarrel.Services.Discord
         /// Logs into the discord service by token.
         /// </summary>
         /// <param name="token">The token to use for login.</param>
-        Task<bool> LoginAsync(string token);
+        /// <param name="source">The login source.</param>
+        Task<bool> LoginAsync(string token, LoginType source = LoginType.Unspecified);
         
         /// <summary>
         /// Gets the current user's guilds.

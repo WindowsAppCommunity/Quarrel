@@ -1,5 +1,7 @@
 ﻿// Quarrel © 2022
 
+using System;
+
 namespace Quarrel.Services.Storage.Vault
 {
     /// <summary>
@@ -11,6 +13,7 @@ namespace Quarrel.Services.Storage.Vault
         /// Gets a the token for a user from the password vault
         /// </summary>
         /// <param name="userId">The id of the user to get the token for.</param>
+        /// <exception cref="Exception">An exception will be thrown if the resource does not exist.</exception>
         /// <returns>The id of the user to get the token for.</returns>
         string? GetUserToken(ulong userId);
 
