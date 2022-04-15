@@ -1,5 +1,7 @@
 ﻿// Quarrel © 2022
 
+using System.Text.Json.Serialization;
+
 namespace Quarrel.Services.Storage.Accounts.Models
 {
     /// <summary>
@@ -40,6 +42,7 @@ namespace Quarrel.Services.Storage.Accounts.Models
         /// <summary>
         /// Gets or sets the token for the account.
         /// </summary>
-        public string Token { get; }
+        [JsonIgnore]
+        public string Token { get; internal set; }
     }
 }

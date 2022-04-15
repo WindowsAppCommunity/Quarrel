@@ -138,7 +138,7 @@ namespace Discord.API.Sockets
             await _lock.WaitAsync().ConfigureAwait(false);
             try
             {
-                if (_client == null)
+                if (_client is null)
                 {
                     return;
                 }
@@ -301,26 +301,24 @@ namespace Discord.API.Sockets
                     if (!socketResult.EndOfMessage)
                     {
                         // This is a large message (likely just READY), lets create a temporary expandable stream
-                        using (var stream = new MemoryStream())
+                        using var stream = new MemoryStream();
+                        stream.Write(buffer.Array, 0, socketResult.Count);
+                        do
                         {
-                            stream.Write(buffer.Array, 0, socketResult.Count);
-                            do
+                            if (cancelToken.IsCancellationRequested)
                             {
-                                if (cancelToken.IsCancellationRequested)
-                                {
-                                    return;
-                                }
-
-                                socketResult = await _client.ReceiveAsync(buffer, cancelToken).ConfigureAwait(false);
-                                stream.Write(buffer.Array, 0, socketResult.Count);
+                                return;
                             }
-                            while (socketResult == null || !socketResult.EndOfMessage);
 
-                            // Use the internal buffer if we can get it
-                            resultCount = (int)stream.Length;
-
-                            result = stream.TryGetBuffer(out var streamBuffer) ? streamBuffer.Array : stream.ToArray();
+                            socketResult = await _client.ReceiveAsync(buffer, cancelToken).ConfigureAwait(false);
+                            stream.Write(buffer.Array, 0, socketResult.Count);
                         }
+                        while (socketResult is null || !socketResult.EndOfMessage);
+
+                        // Use the internal buffer if we can get it
+                        resultCount = (int)stream.Length;
+
+                        result = stream.TryGetBuffer(out var streamBuffer) ? streamBuffer.Array : stream.ToArray();
                     }
                     else
                     {

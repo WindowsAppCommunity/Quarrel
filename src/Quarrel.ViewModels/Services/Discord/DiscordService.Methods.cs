@@ -25,7 +25,7 @@ namespace Quarrel.Services.Discord
         public BindableSelfUser? GetMe()
         {
             SelfUser? user = _discordClient.GetMe();
-            if (user == null)
+            if (user is null)
             {
                 return null;
             }

@@ -130,6 +130,7 @@
     <Compile Include="Services\Storage\Models\FileDataProperties.cs" />
     <Compile Include="Services\Storage\Models\FolderData.cs" />
     <Compile Include="Services\Storage\StorageService.cs" />
+    <Compile Include="Services\Storage\Vault\VaultService.cs" />
     <Compile Include="SubPages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>

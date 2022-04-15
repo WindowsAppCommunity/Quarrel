@@ -71,7 +71,7 @@ namespace Quarrel.ViewModels
             {
                 foreach (var folder in folders)
                 {
-                    if (folder.Folder.Id == null)
+                    if (folder.Folder.Id is null)
                     {
                         foreach (var child in folder.Children)
                         {

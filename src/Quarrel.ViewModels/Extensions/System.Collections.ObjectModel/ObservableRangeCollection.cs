@@ -53,7 +53,7 @@ namespace System.Collections.ObjectModel
                 throw new ArgumentException("Mode must be either Add or Reset for InsertRange.", "notificationMode");
             }
 
-            if (collection == null)
+            if (collection is null)
             {
                 throw new ArgumentNullException("collection");
             }
@@ -71,7 +71,7 @@ namespace System.Collections.ObjectModel
                 return;
             }
 
-            var changedItems = collection is List<T> ? (List<T>)collection : new List<T>(collection);
+            var changedItems = collection is List<T> list ? list : new List<T>(collection);
             ((List<T>)Items).InsertRange(index, changedItems);
 
             OnPropertyChanged(new PropertyChangedEventArgs("Count"));
@@ -94,7 +94,7 @@ namespace System.Collections.ObjectModel
                 throw new ArgumentException("Mode must be either Remove or Reset for RemoveRange.", "notificationMode");
             }
 
-            if (collection == null)
+            if (collection is null)
             {
                 throw new ArgumentNullException("collection");
             }
@@ -113,7 +113,7 @@ namespace System.Collections.ObjectModel
                 return;
             }
 
-            var changedItems = collection is List<T> ? (List<T>)collection : new List<T>(collection);
+            var changedItems = collection is List<T> list ? list : new List<T>(collection);
             for (int i = 0; i < changedItems.Count; i++)
             {
                 if (!Items.Remove(changedItems[i]))
@@ -135,7 +135,7 @@ namespace System.Collections.ObjectModel
         /// <param name="collection">New collection contents.</param>
         public void ReplaceCollection(IEnumerable<T> collection)
         {
-            if (collection == null)
+            if (collection is null)
             {
                 throw new ArgumentNullException("collection");
             }
