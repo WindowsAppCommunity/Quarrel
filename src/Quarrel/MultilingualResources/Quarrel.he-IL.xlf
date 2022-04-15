@@ -12,7 +12,7 @@
         </trans-unit>
         <trans-unit id="Login/Disclaimer1TB.Text" translate="yes" xml:space="preserve">
           <source>Logging in will intercept a token that allows Quarrel to interact with Discord through your account.</source>
-          <target state="new">Logging in will intercept a token that allows Quarrel to interact with Discord through your account.</target>
+          <target state="needs-review-translation">כניסה יירט אסימון המאפשר לריב לקיים אינטראקציה עם מחלוקת באמצעות החשבון שלך.</target>
         </trans-unit>
         <trans-unit id="Login/Disclaimer2TB.Text" translate="yes" xml:space="preserve">
           <source>At no point does Quarrel read your password.</source>

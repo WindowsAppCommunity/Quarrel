@@ -4,6 +4,9 @@ using Discord.API.Models.Enums.Permissions;
 
 namespace Discord.API.Models
 {
+    /// <summary>
+    /// A struct containing permissions.
+    /// </summary>
     public struct Permissions
     {
         private Permission _permission;

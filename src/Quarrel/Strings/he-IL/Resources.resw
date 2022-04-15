@@ -15,6 +15,9 @@
   <data name="Login/LoginBTN.Content" xml:space="preserve">
     <value>כניסה</value>
   </data>
+  <data name="Login/Disclaimer1TB.Text" xml:space="preserve">
+    <value>כניסה יירט אסימון המאפשר לריב לקיים אינטראקציה עם מחלוקת באמצעות החשבון שלך.</value>
+  </data>
   <data name="Login/Disclaimer2TB.Text" xml:space="preserve">
     <value>בשום שלב קווראל לא קורא את הסיסמה שלך.</value>
   </data>
