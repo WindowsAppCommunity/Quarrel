@@ -57,7 +57,7 @@ namespace Quarrel
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            if (!(Window.Current.Content is WindowHost))
+            if (Window.Current.Content is not WindowHost)
             {
                 InitializeUI();
             }

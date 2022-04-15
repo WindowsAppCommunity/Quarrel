@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using System.Globalization;
 using Windows.ApplicationModel.Resources;
 using Windows.ApplicationModel.Resources.Core;
 
@@ -38,5 +39,8 @@ namespace Quarrel.Services.Localization
                 return flowDirectionSetting == "RTL";
             }
         }
+        
+        /// <inheritdoc/>
+        public bool IsNeutralLanguage => CultureInfo.CurrentCulture.Name == "en-US";
     }
 }

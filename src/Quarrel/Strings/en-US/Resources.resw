@@ -141,6 +141,9 @@
   <data name="Login/PrivacyPolicyHLBTN.Content" xml:space="preserve">
     <value>Privacy Policy</value>
   </data>
+  <data name="Login/PrivacyPolicyOnlyInEnglishTB.Text" xml:space="preserve">
+    <value>The privacy policy is only available in English.</value>
+  </data>
   <data name="Login/QuarrelTB.Text" xml:space="preserve">
     <value>Quarrel</value>
   </data>

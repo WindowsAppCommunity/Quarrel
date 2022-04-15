@@ -2,9 +2,9 @@
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
-using Quarrel.Services.Analytics;
 using Quarrel.Services.Analytics.Enums;
 using Quarrel.Services.Discord;
+using Quarrel.Services.Localization;
 
 namespace Quarrel.ViewModels.SubPages
 {
@@ -14,6 +14,7 @@ namespace Quarrel.ViewModels.SubPages
     public partial class LoginPageViewModel : ObservableObject
     {
         private readonly IDiscordService _discordService;
+        private readonly ILocalizationService _localizationService;
 
         [ObservableProperty]
         private string? _tokenText;
@@ -21,9 +22,10 @@ namespace Quarrel.ViewModels.SubPages
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginPageViewModel"/> class.
         /// </summary>
-        public LoginPageViewModel(IDiscordService discordService)
+        public LoginPageViewModel(IDiscordService discordService, ILocalizationService localizationService)
         {
             _discordService = discordService;
+            _localizationService = localizationService;
 
             LoginWithTokenCommand = new RelayCommand(() => LoginWithToken(TokenText));
         }
@@ -32,6 +34,11 @@ namespace Quarrel.ViewModels.SubPages
         /// Gets a relay command that logs in with the current text in the <see cref="TokenText"/>.
         /// </summary>
         public IRelayCommand LoginWithTokenCommand { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether or not the app's current language is the neutral language.
+        /// </summary>
+        public bool IsNeutralLanguage => _localizationService.IsNeutralLanguage;
 
         /// <summary>
         /// Logs the user in with a token.

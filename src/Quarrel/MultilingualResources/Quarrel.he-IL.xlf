@@ -50,6 +50,10 @@
           <source>Privacy Policy</source>
           <target state="translated">מדיניות פרטיות</target>
         </trans-unit>
+        <trans-unit id="Login/PrivacyPolicyOnlyInEnglishTB.Text" translate="yes" xml:space="preserve">
+          <source>The privacy policy is only available in English.</source>
+          <target state="needs-review-translation">מדיניות הפרטיות זמינה רק באנגלית.</target>
+        </trans-unit>
       </group>
     </body>
   </file>

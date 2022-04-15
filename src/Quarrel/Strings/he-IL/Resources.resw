@@ -45,4 +45,7 @@
   <data name="Login/PrivacyPolicyHLBTN.Content" xml:space="preserve">
     <value>מדיניות פרטיות</value>
   </data>
+  <data name="Login/PrivacyPolicyOnlyInEnglishTB.Text" xml:space="preserve">
+    <value>מדיניות הפרטיות זמינה רק באנגלית.</value>
+  </data>
 </root>

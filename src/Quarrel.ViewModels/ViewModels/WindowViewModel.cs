@@ -19,7 +19,6 @@ namespace Quarrel.ViewModels
     /// </summary>
     public partial class WindowViewModel : ObservableRecipient
     {
-        private readonly IAnalyticsService _analyticsService;
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
         private readonly IStorageService _storageService;
@@ -35,14 +34,12 @@ namespace Quarrel.ViewModels
         /// Initializes a new instance of the <see cref="WindowViewModel"/> class.
         /// </summary>
         public WindowViewModel(
-            IAnalyticsService analyticsService,
             IMessenger messenger,
             IDiscordService discordService,
             IStorageService storageService,
             IDispatcherService dispatcherService)
         {
             WindowState = WindowHostState.Loading;
-            _analyticsService = analyticsService;
             _messenger = messenger;
             _discordService = discordService;
             _storageService = storageService;
@@ -76,7 +73,7 @@ namespace Quarrel.ViewModels
             AccountInfo? activeAccount = _storageService.AccountInfoStorage.ActiveAccount;
             if (activeAccount is not null)
             {
-                bool wasSuccessful = await _discordService.LoginAsync(activeAccount.Token, LoginType.StartupLogin);
+                await _discordService.LoginAsync(activeAccount.Token, LoginType.StartupLogin);
                 // TODO: Handle error in UI.
             }
             else

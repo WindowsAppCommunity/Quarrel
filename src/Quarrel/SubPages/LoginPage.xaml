@@ -34,7 +34,7 @@
                         <Setter Target="MainPrompt.Visibility" Value="Collapsed"/>
                         <Setter Target="CaptchaView.Visibility" Value="Visible"/>
                         <Setter Target="TokenPrompt.Visibility" Value="Collapsed"/>
-                        
+
                         <!--Button-->
                         <Setter Target="TokenLoginHLBTN.Visibility" Value="Collapsed"/>
                         <Setter Target="GoBackHLBTN.Visibility" Value="Visible"/>
@@ -45,7 +45,7 @@
                         <Setter Target="MainPrompt.Visibility" Value="Collapsed"/>
                         <Setter Target="CaptchaView.Visibility" Value="Collapsed"/>
                         <Setter Target="TokenPrompt.Visibility" Value="Visible"/>
-                        
+
                         <!--Button-->
                         <Setter Target="TokenLoginHLBTN.Visibility" Value="Collapsed"/>
                         <Setter Target="GoBackHLBTN.Visibility" Value="Visible"/>
@@ -53,7 +53,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        
+
         <!--Disclaimer-->
         <StackPanel x:Name="Disclaimer"
                     Margin="12" Opacity=".6"
@@ -65,7 +65,7 @@
             <TextBlock x:Uid="Login/Disclaimer2TB" Text="At no point does Quarrel read your password."
                        FontSize="10" TextAlignment="Center"/>
         </StackPanel>
-        
+
         <StackPanel x:Name="MainPrompt" VerticalAlignment="Center" MaxWidth="360">
             <StackPanel.Transitions>
                 <TransitionCollection>
@@ -77,7 +77,7 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                
+
                 <qc:QuarrelIcon Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
                                 Height="64" Width="64" HorizontalAlignment="Left"/>
 
@@ -101,7 +101,7 @@
                 </Button.Transitions>
             </Button>
         </StackPanel>
-        
+
         <StackPanel x:Name="TokenPrompt"
                     VerticalAlignment="Center"
                     Visibility="Collapsed"
@@ -133,11 +133,24 @@
             </Interactivity:Interaction.Behaviors>
             <FlyoutBase.AttachedFlyout>
                 <Flyout>
-                    <TextBlock>
-                        <Run>Quarrel is in absolutely no way endorsed by Discord, Inc.</Run>
-                        <LineBreak/>
-                        <Run>Quarrel guarantees that none of your personal data exists elsewhere than on your device.</Run>
-                    </TextBlock>
+                    <Grid MaxWidth="300">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Uid="Login/PrivacyPolicyOnlyInEnglishTB"
+                                   Text="The privacy policy is only available in English."
+                                   TextWrapping="WrapWholeWords"
+                                   Visibility="{x:Bind convert:NotBoolToVisibilityConverter.Convert(ViewModel.IsNeutralLanguage)}"
+                                   HorizontalAlignment="Center"
+                                   Opacity=".7"/>
+                        <TextBlock Grid.Row="1" TextWrapping="WrapWholeWords"
+                                   FlowDirection="LeftToRight"
+                                   HorizontalAlignment="Center">
+                            <Run>Quarrel is in no way endorsed by Discord, Inc.</Run>
+                            <Run>Quarrel guarantees that none of your personal data exists elsewhere than on your device.</Run>
+                        </TextBlock>
+                    </Grid>
                 </Flyout>
             </FlyoutBase.AttachedFlyout>
         </HyperlinkButton>

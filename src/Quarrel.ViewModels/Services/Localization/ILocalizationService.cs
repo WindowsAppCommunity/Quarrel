@@ -26,5 +26,10 @@ namespace Quarrel.Services.Localization
         /// Gets a value indicating whether or not the current language is written right to left.
         /// </summary>
         bool IsRightToLeftLanguage { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether or not the current language is the app's neutral language.
+        /// </summary>
+        bool IsNeutralLanguage { get; }
     }
 }
