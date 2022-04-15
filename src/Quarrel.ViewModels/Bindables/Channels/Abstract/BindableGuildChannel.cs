@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using CommunityToolkit.Diagnostics;
 using Discord.API.Models;
 using Discord.API.Models.Channels.Interfaces;
 using Discord.API.Models.Managed.Channels.Abstract;
@@ -30,6 +31,7 @@ namespace Quarrel.Bindables.Channels.Abstract
                 Permissions = CategoryChannel.Permissions;
             }
 
+            Guard.IsNotNull(channel.PermissionOverwrites, nameof(channel.PermissionOverwrites));
             ApplyOverrides(channel.PermissionOverwrites, selfMember);
         }
 
@@ -61,7 +63,6 @@ namespace Quarrel.Bindables.Channels.Abstract
 
         private void ApplyOverrides(PermissionOverwrite[] overwrites, GuildMember selfMember)
         {
-            var roles = selfMember.GetRoles();
             foreach (var overwrite in overwrites)
             {
                 if (overwrite.Type == 0 && selfMember.HasRole(overwrite.Id))

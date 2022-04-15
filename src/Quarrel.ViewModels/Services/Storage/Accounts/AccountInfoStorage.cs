@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Quarrel.Services.Storage.Accounts
 {
     /// <summary>
-    /// A storage class that stores info about the user's account.
+    /// A service that stores info about the user's account.
     /// </summary>
     public class AccountInfoStorage : SettingsBase, IAccountInfoStorage
     {
@@ -45,12 +45,8 @@ namespace Quarrel.Services.Storage.Accounts
             get => GetSetting<ulong?>(() => null);
             set => SetSetting(value);
         }
-
-        /// <summary>
-        /// Changes the active account.
-        /// </summary>
-        /// <param name="id">The if of the account to select.</param>
-        /// <returns>True if the account was selected. False otherwise.</returns>
+        
+        /// <inheritdoc/>
         public bool SelectAccount(ulong id)
         {
             if (Accounts.ContainsKey(id))
@@ -61,12 +57,8 @@ namespace Quarrel.Services.Storage.Accounts
 
             return false;
         }
-
-        /// <summary>
-        /// Adds a new account to the account registry.
-        /// </summary>
-        /// <param name="accountInfo">The account to register.</param>
-        /// <returns>False if the account was already registered. True otherwise.</returns>
+        
+        /// <inheritdoc/>
         public bool RegisterAccount(AccountInfo accountInfo)
         {
             if (!Accounts.ContainsKey(accountInfo.Id))
@@ -77,20 +69,18 @@ namespace Quarrel.Services.Storage.Accounts
 
             return false;
         }
-
-        /// <summary>
-        /// Removes an account from the registered account list.
-        /// </summary>
-        /// <param name="id">The id of the account to remove.</param>
-        /// <returns>True if the account was found and removed. False otherwise.</returns>
+        
+        /// <inheritdoc/>
         public bool UnregisterAccount(ulong id)
         {
             // TODO: Handle active account 
             return Accounts.Remove(id);
         }
-
+        
+        /// <inheritdoc/>
         Task IAccountInfoStorage.LoadAsync() => LoadAsync();
-
+        
+        /// <inheritdoc/>
         Task IAccountInfoStorage.SaveAsync() => SaveAsync();
     }
 }

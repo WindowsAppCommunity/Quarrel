@@ -20,6 +20,6 @@ namespace Discord.API.Models.Channels.Interfaces
         /// <summary>
         /// The permission overwrite set for the channel.
         /// </summary>
-        PermissionOverwrite[] PermissionOverwrites { get; }
+        PermissionOverwrite[]? PermissionOverwrites { get; }
     }
 }

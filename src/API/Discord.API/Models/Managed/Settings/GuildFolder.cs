@@ -41,6 +41,10 @@ namespace Discord.API.Models.Settings
         /// </summary>
         public ulong[] GuildIds { get; private set; }
 
+        /// <summary>
+        /// Gets the guilds in a guild folder.
+        /// </summary>
+        /// <returns>The array of guilds in the folder.</returns>
         public Guild[] GetGuilds()
         {
             Guild[] guilds = new Guild[GuildIds.Length];

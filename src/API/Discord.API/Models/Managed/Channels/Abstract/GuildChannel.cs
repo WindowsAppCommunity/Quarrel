@@ -8,6 +8,9 @@ using Discord.API.Models.Json.Permissions;
 
 namespace Discord.API.Models.Managed.Channels.Abstract
 {
+    /// <summary>
+    /// The base class for channels in a guild.
+    /// </summary>
     public abstract class GuildChannel : Channel, IGuildChannel
     {
         internal GuildChannel(JsonChannel restChannel, ulong? guildId, DiscordClient context) :
@@ -25,13 +28,17 @@ namespace Discord.API.Models.Managed.Channels.Abstract
                 PermissionOverwrites = CreateOverwrites(restChannel.PermissionOverwrites);
             }
         }
-
+        
+        /// <inheritdoc/>
         public int Position { get; private set; }
 
         /// <inheritdoc/>
         public ulong GuildId { get; private set; }
 
-        public PermissionOverwrite[] PermissionOverwrites { get; private set; }
+        /// <summary>
+        /// Gets the permission overwrites for the channel.
+        /// </summary>
+        public PermissionOverwrite[]? PermissionOverwrites { get; private set; }
 
         internal override void UpdateFromRestChannel(JsonChannel jsonChannel)
         {

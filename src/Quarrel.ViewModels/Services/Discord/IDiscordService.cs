@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace Quarrel.Services.Discord
 {
+    /// <summary>
+    /// An interface for a service that handles interactions with the discord client.
+    /// </summary>
     public interface IDiscordService
     {
         /// <summary>
@@ -46,11 +49,23 @@ namespace Quarrel.Services.Discord
         /// Gets the messages in a channel.
         /// </summary>
         /// <param name="channel">The channel to get the messages for.</param>
-        /// <returns>An array of bindable messages from the channel.</returns>
+        /// <returns>An array of <see cref="BindableMessage"/>s from the channel.</returns>
         Task<BindableMessage[]> GetChannelMessagesAsync(IMessageChannel channel);
+        
+        /// <summary>
+        /// Gets the channels in a guild.
+        /// </summary>
+        /// <param name="guild">The guild to get the channels for.</param>
+        /// <returns>An array of <see cref="IBindableChannel"/>s from the guild.</returns>
+        BindableGuildChannel?[] GetGuildChannels(Guild guild);
 
-        BindableGuildChannel[] GetGuildChannels(Guild guild);
-
-        IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(Guild guild, out IBindableMessageChannel? channel, ulong? selectedChannel = null);
+        /// <summary>
+        /// Gets the channels in a guild as channel groups by category.
+        /// </summary>
+        /// <param name="guild">The guild to get the channels from.</param>
+        /// <param name="selectedChannel">The selected channel as an <see cref="IBindableSelectableChannel"/>.</param>
+        /// <param name="selectedChannelId">The id of the <paramref name="selectedChannel"/>.</param>
+        /// <returns></returns>
+        IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(Guild guild, out IBindableSelectableChannel? selectedChannel, ulong? selectedChannelId = null);
     }
 }

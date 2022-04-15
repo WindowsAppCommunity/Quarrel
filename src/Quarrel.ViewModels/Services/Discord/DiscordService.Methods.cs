@@ -71,7 +71,8 @@ namespace Quarrel.Services.Discord
 
             return messages;
         }
-
+        
+        /// <inheritdoc/>
         public BindableGuildChannel?[] GetGuildChannels(Guild guild)
         {
             IGuildChannel[] rawChannels = guild.GetChannels();
@@ -125,8 +126,9 @@ namespace Quarrel.Services.Discord
 
             return channels;
         }
-
-        public IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(Guild guild, out IBindableMessageChannel? selectedChannel, ulong? selectedChannelId = null)
+        
+        /// <inheritdoc/>
+        public IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(Guild guild, out IBindableSelectableChannel? selectedChannel, ulong? selectedChannelId = null)
         {
             selectedChannel = null;
             var channels = GetGuildChannels(guild);
@@ -155,7 +157,7 @@ namespace Quarrel.Services.Discord
                     }
 
                     if ((channel.Channel.Id == selectedChannelId || (selectedChannel is null && channel.IsAccessible)) &&
-                        channel is IBindableMessageChannel messageChannel)
+                        channel is IBindableSelectableChannel messageChannel)
                     {
                         selectedChannel = messageChannel;
                     }

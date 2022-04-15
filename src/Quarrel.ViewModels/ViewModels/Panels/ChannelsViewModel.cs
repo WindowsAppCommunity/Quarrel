@@ -82,7 +82,7 @@ namespace Quarrel.ViewModels.Panels
             }
 
             _currentGuild = guild;
-            var channels = _discordService.GetGuildChannelsGrouped(guild.Guild, out IBindableMessageChannel? selected, guild.SelectedChannel);
+            var channels = _discordService.GetGuildChannelsGrouped(guild.Guild, out IBindableSelectableChannel? selected, guild.SelectedChannel);
             GroupedSource = channels;
             SelectedChannel = selected;
         }

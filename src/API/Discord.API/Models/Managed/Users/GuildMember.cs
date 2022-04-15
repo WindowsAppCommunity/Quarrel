@@ -17,7 +17,7 @@ namespace Discord.API.Models.Users
     /// </summary>
     public class GuildMember : DiscordItem, IGuildMember
     {
-        private HashSet<ulong> _roles;
+        private readonly HashSet<ulong> _roles;
 
         internal GuildMember(JsonGuildMember jsonMember, DiscordClient context)
             : this(jsonMember, jsonMember.GuildId, context)
@@ -71,11 +71,20 @@ namespace Discord.API.Models.Users
         /// <inheritdoc/>
         public Presence? Presence { get; internal set; }
 
+        /// <summary>
+        /// Get a value indicating whether or not the user has a role.
+        /// </summary>
+        /// <param name="roleId">The id of the role to check for the user.</param>
+        /// <returns>True if the user has the role, false otherwise.</returns>
         public bool HasRole(ulong roleId)
         {
             return _roles.Contains(roleId);
         }
 
+        /// <summary>
+        /// Gets an the roles the user has.
+        /// </summary>
+        /// <returns>An array of roles that the user has.</returns>
         public Role[] GetRoles()
         {
             Guild? guild = Context.GetGuildInternal(GuildId);
@@ -126,25 +135,15 @@ namespace Discord.API.Models.Users
 
             if (Presence is not null)
             {
-                switch (Presence.Status)
+                jsonPresence.Status = Presence.Status switch
                 {
-                    case UserStatus.Online:
-                        jsonPresence.Status = "online";
-                        break;
-                    case UserStatus.Idle:
-                        jsonPresence.Status = "idle";
-                        break;
-                    case UserStatus.AFK:
-                        jsonPresence.Status = "afk";
-                        break;
-                    case UserStatus.DoNotDisturb:
-                        jsonPresence.Status = "dnd";
-                        break;
-                    default:
-                    case UserStatus.Offline:
-                        jsonPresence.Status = "offline";
-                        break;
-                }
+                    UserStatus.Online => "online",
+                    UserStatus.Idle => "idle",
+                    UserStatus.AFK => "afk",
+                    UserStatus.DoNotDisturb => "dnd",
+                    UserStatus.Invisible => "invisible",
+                    _ => "offline",
+                };
             }
 
             return jsonPresence;
