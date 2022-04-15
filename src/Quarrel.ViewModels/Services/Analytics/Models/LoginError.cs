@@ -29,6 +29,7 @@ namespace Quarrel.Services.Analytics.Models
         /// </summary>
         public string? ExceptionMessage { get; set; }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
             return $"{ExceptionType.Name}: {ExceptionMessage}";
