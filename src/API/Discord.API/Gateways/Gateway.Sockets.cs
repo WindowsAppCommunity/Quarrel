@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
+using Discord.API.Exceptions;
 using Discord.API.JsonConverters;
 using Discord.API.Sockets;
 using System;
@@ -14,11 +15,11 @@ namespace Discord.API.Gateways
 {
     internal partial class Gateway
     {
+        private readonly JsonSerializerOptions _serialiseOptions;
+        private readonly JsonSerializerOptions _deserialiseOptions;
         private WebSocketClient _socket;
         private DeflateStream? _decompressor;
         private MemoryStream? _decompressionBuffer;
-        private readonly JsonSerializerOptions _serialiseOptions;
-        private readonly JsonSerializerOptions _deserialiseOptions;
 
         private WebSocketClient CreateSocket()
         {
@@ -57,7 +58,7 @@ namespace Discord.API.Gateways
 
         private void HandleTextMessage(string message)
         {
-            using StreamReader reader = new StreamReader(new MemoryStream(Encoding.ASCII.GetBytes(message)));
+            using var reader = new StreamReader(new MemoryStream(Encoding.ASCII.GetBytes(message)));
             HandleMessage(reader);
         }
 
@@ -95,9 +96,8 @@ namespace Discord.API.Gateways
         private async void HandleMessage(TextReader reader)
         {
             Stream stream = ((StreamReader)reader).BaseStream;
-            SocketFrame? frame = await JsonSerializer.DeserializeAsync<SocketFrame>(stream, _deserialiseOptions);
-
-            Guard.IsNotNull(frame, nameof(frame));
+            SocketFrame? frame = await ParseFrame(stream);
+            if (frame is null) return;
 
             if (frame.SequenceNumber.HasValue)
             {
@@ -110,6 +110,24 @@ namespace Discord.API.Gateways
         private void HandleClosed(Exception exception)
         {
             GatewayClosed?.Invoke(this, exception);
+        }
+
+        private async Task<SocketFrame?> ParseFrame(Stream stream)
+        {
+            try
+            {
+                return await JsonSerializer.DeserializeAsync<SocketFrame>(stream, _deserialiseOptions);
+            }
+            catch (SocketFrameException ex)
+            {
+                UnhandledMessageEncountered?.Invoke(this, ex);
+            }
+            catch
+            {
+                UnhandledMessageEncountered?.Invoke(this, null);
+            }
+
+            return null;
         }
     }
 }

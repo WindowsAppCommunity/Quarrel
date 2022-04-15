@@ -57,7 +57,7 @@ namespace Discord.API.Gateways
 
         public async Task UpdateStatusAsync(string status, int? idleSince, bool isAfk)
         {
-            StatusUpdate payload = new StatusUpdate()
+            var payload = new StatusUpdate()
             {
                 Status = status,
                 IdleSince = idleSince,

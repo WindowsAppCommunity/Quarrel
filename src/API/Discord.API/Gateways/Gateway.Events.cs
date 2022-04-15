@@ -1,6 +1,6 @@
 ﻿// Quarrel © 2022
 
-using CommunityToolkit.Diagnostics;
+using Discord.API.Exceptions;
 using Discord.API.Gateways.Models;
 using Discord.API.Gateways.Models.Channels;
 using Discord.API.Gateways.Models.GuildMember;
@@ -14,14 +14,12 @@ using Discord.API.Models.Json.Settings;
 using Discord.API.Models.Json.Users;
 using Discord.API.Models.Json.Voice;
 using System;
-using System.Collections.Generic;
-using System.Net.Sockets;
 
 namespace Discord.API.Gateways
 {
     internal partial class Gateway
     {
-        public event EventHandler<SocketFrame>? UnhandledMessageEncountered;
+        public event EventHandler<SocketFrameException?>? UnhandledMessageEncountered;
 
         public event EventHandler<GatewayEventArgs<Ready>>? Ready;
         public event EventHandler<GatewayEventArgs<Resumed>>? Resumed;
@@ -90,12 +88,19 @@ namespace Discord.API.Gateways
             return true;
         }
         
+        private bool OnHeartbeatAck()
+        {
+            // TODO: Wait for ack after heartbeat.
+            return true;
+        }
+
         private void ProcessEvents(SocketFrame frame)
         {
             bool suceeded = frame.Operation switch
             {
                 OperationCode.Hello => OnHelloReceived((SocketFrame<Hello>)frame),
                 OperationCode.InvalidSession => OnInvalidSession(frame),
+                OperationCode.HeartbeatAck => OnHeartbeatAck(),
                 OperationCode.Dispatch => frame.Type switch {
                     EventNames.READY => OnReady((SocketFrame<Ready>)frame),
                     EventNames.RESUMED => FireEventOnDelegate(frame, Resumed),
@@ -151,7 +156,7 @@ namespace Discord.API.Gateways
                 },
                 _ => false
             };
-            if (!suceeded) UnhandledMessageEncountered?.Invoke(this, frame);
+            if (!suceeded) UnhandledMessageEncountered?.Invoke(this, new SocketFrameException("Socket frame parsed, but unhandled.", (int?)frame.Operation, frame.Type));
         }
     }
 }

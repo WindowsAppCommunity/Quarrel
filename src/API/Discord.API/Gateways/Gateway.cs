@@ -6,6 +6,7 @@ using Discord.API.Models.Json.Gateway;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text.Json;
+using Discord.API.JsonConverters.SocketFrames;
 
 namespace Discord.API.Gateways
 {
@@ -32,7 +33,7 @@ namespace Discord.API.Gateways
             _gatewayStatus = GatewayStatus.Initialized;
 
             _serialiseOptions = new JsonSerializerOptions();
-            _serialiseOptions.AddContext<JsonModelsContext>();
+            _serialiseOptions.AddContext<SocketFrameContext>();
 
             _deserialiseOptions = new JsonSerializerOptions { Converters = { new SocketFrameConverter() } };
         }

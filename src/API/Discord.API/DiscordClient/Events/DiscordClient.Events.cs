@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
+using Discord.API.Exceptions;
 using Discord.API.Gateways.Models.Messages;
 using Discord.API.Models.Managed.Messages;
 using Discord.API.Models.Messages;
@@ -12,6 +13,11 @@ namespace Discord.API
     /// <inheritdoc/>
     public partial class DiscordClient
     {
+        /// <summary>
+        /// Invoked when the gateway handles an exception.
+        /// </summary>
+        public event EventHandler<SocketFrameException>? GatewayExceptionHandled;
+
         /// <summary>
         /// Invoked when the user logs in.
         /// </summary>
@@ -47,6 +53,7 @@ namespace Discord.API
             _gateway.MessageUpdated += OnMessageUpdated;
             _gateway.MessageDeleted += (s, e) => ForwardEvent(e.EventData is not null ? new MessageDeleted(e.EventData, this) : null, MessageDeleted);
             _gateway.MessageAck += OnMessageAck;
+            _gateway.UnhandledMessageEncountered += (s, e) => ForwardEvent(e, GatewayExceptionHandled);
         }
 
         private void ForwardEvent<T>(T? arg, EventHandler<T>? eventHandler)

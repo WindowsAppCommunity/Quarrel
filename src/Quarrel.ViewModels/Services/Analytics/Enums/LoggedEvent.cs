@@ -16,5 +16,10 @@ namespace Quarrel.Services.Analytics.Enums
         /// The app logged failed to login.
         /// </summary>
         LoginFailed,
+
+        /// <summary>
+        /// The gateway encountered an issue, but it was handled.
+        /// </summary>
+        GatewayExceptionHandled,
     }
 }

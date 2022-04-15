@@ -2,7 +2,7 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.HttpHandlers;
-using Discord.API.JsonConverters;
+using Discord.API.JsonConverters.SocketFrames;
 using Refit;
 using System;
 using System.Net.Http;
@@ -21,7 +21,7 @@ namespace Discord.API.Rest
         public DiscordRestFactory()
         {
             var options = new JsonSerializerOptions();
-            options.AddContext<JsonModelsContext>();
+            options.AddContext<SocketFrameContext>();
             _settings = new RefitSettings{ ContentSerializer = new SystemTextJsonContentSerializer(options) };
         }
         
