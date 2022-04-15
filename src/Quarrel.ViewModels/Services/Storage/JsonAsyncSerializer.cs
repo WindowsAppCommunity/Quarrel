@@ -9,8 +9,14 @@ using System.Threading.Tasks;
 
 namespace Quarrel.Services.Storage
 {
+    /// <summary>
+    /// A seralizer using <see cref="JsonSerializer"/>.
+    /// </summary>
     public class JsonAsyncSerializer : IAsyncSerializer<Stream>
     {
+        /// <summary>
+        /// A singular instance of the <see cref="JsonAsyncSerializer"/> provided.
+        /// </summary>
         public static JsonAsyncSerializer Singleton { get; } = new JsonAsyncSerializer();
 
         /// <inheritdoc />

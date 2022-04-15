@@ -12,6 +12,9 @@ using Quarrel.ViewModels.Enums;
 
 namespace Quarrel.ViewModels
 {
+    /// <summary>
+    /// The view model for the root window.
+    /// </summary>
     public partial class WindowViewModel : ObservableRecipient
     {
         private readonly IMessenger _messenger;
@@ -24,7 +27,10 @@ namespace Quarrel.ViewModels
         [AlsoNotifyChangeFor(nameof(SplashStatus))]
         [ObservableProperty]
         private WindowHostState _windowState;
-
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WindowViewModel"/> class.
+        /// </summary>
         public WindowViewModel(IMessenger messenger, IDiscordService discordService, IStorageService storageService, IDispatcherService dispatcherService)
         {
             WindowState = WindowHostState.Loading;
@@ -39,10 +45,19 @@ namespace Quarrel.ViewModels
             InitializeLogin();
         }
 
+        /// <summary>
+        /// Gets the status displayed by the splash screen.
+        /// </summary>
         public SplashStatus SplashStatus => (SplashStatus)_windowState;
 
+        /// <summary>
+        /// Gets a value indicating whether or not the app is loading.
+        /// </summary>
         public bool IsLoading => _windowState == WindowHostState.Connecting || _windowState == WindowHostState.Loading;
 
+        /// <summary>
+        /// Gets a value indicating whether or not the app is logged out.
+        /// </summary>
         public bool IsLoggedOut => _windowState == WindowHostState.LoggedOut;
 
         private async void InitializeLogin()

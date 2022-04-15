@@ -12,14 +12,10 @@ namespace Quarrel.Controls.Shell.Enums
     /// </remarks>
     public enum SplashStatus
     {
-        /// <summary>
-        /// The app is loading.
-        /// </summary>
+        /// <inheritdoc cref="WindowHostState.Loading"/>
         Loading = WindowHostState.Loading,
 
-        /// <summary>
-        /// Logging into an account.
-        /// </summary>
+        /// <inheritdoc cref="WindowHostState.Connecting"/>
         Connecting = WindowHostState.Connecting,
         
         /// <summary>
