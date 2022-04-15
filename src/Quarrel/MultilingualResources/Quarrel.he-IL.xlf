@@ -54,6 +54,23 @@
           <source>The privacy policy is only available in English.</source>
           <target state="needs-review-translation">מדיניות הפרטיות זמינה רק באנגלית.</target>
         </trans-unit>
+        <trans-unit id="CurrentUserButton/OnlineRBTN.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Online</source>
+          <target state="translated">זמין</target>
+        </trans-unit>
+        <trans-unit id="CurrentUserButton/IdleRBTN.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Idle</source>
+          <target state="needs-review-translation">לא נמצא</target>
+        </trans-unit>
+        <trans-unit id="CurrentUserButton/DndRBTN.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Do Not Disturb</source>
+          <target state="needs-review-translation">נא לא להפריע</target>
+        </trans-unit>
+        <trans-unit id="CurrentUserButton/OfflineRBTN.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Invisible</source>
+          <target state="needs-review-translation">בלתי נראה</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+        </trans-unit>
       </group>
     </body>
   </file>

@@ -48,4 +48,16 @@
   <data name="Login/PrivacyPolicyOnlyInEnglishTB.Text" xml:space="preserve">
     <value>מדיניות הפרטיות זמינה רק באנגלית.</value>
   </data>
+  <data name="CurrentUserButton/OnlineRBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>זמין</value>
+  </data>
+  <data name="CurrentUserButton/IdleRBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>לא נמצא</value>
+  </data>
+  <data name="CurrentUserButton/DndRBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>נא לא להפריע</value>
+  </data>
+  <data name="CurrentUserButton/OfflineRBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>בלתי נראה</value>
+  </data>
 </root>

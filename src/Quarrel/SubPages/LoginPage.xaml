@@ -88,7 +88,7 @@
             <Button x:Uid="Login/LoginBTN" Content="Login"
                     HorizontalAlignment="Stretch" TabIndex="1"
                     Foreground="{ThemeResource SystemChromeLowColor}"
-                    Style="{StaticResource DiscordButton}">
+                    Style="{StaticResource QuarrelButton}">
                 <Interactivity:Interaction.Behaviors>
                     <core:EventTriggerBehavior EventName="Click">
                         <core:GoToStateAction StateName="DiscordPromptState"/>
@@ -114,7 +114,7 @@
             <Button x:Uid="Login/LoginBTN" Content="Login" HorizontalAlignment="Stretch" Foreground="{ThemeResource SystemChromeLowColor}"
                     Command="{x:Bind ViewModel.LoginWithTokenCommand}"
                     TabIndex="1"
-                    Style="{StaticResource DiscordButton}"/>
+                    Style="{StaticResource QuarrelButton}"/>
         </StackPanel>
         <WebView x:Name="CaptchaView" Source="{x:Bind NavigationUrl}" 
                  NavigationCompleted="CaptchaView_NavigationCompleted"

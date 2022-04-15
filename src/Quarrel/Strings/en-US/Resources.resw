@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CurrentUserButton/DndRBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Do Not Disturb</value>
+  </data>
+  <data name="CurrentUserButton/IdleRBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Idle</value>
+  </data>
+  <data name="CurrentUserButton/OfflineRBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Invisible</value>
+  </data>
+  <data name="CurrentUserButton/OnlineRBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Online</value>
+  </data>
   <data name="ExtendedSplash/Connected" xml:space="preserve">
     <value>CONNECTED</value>
   </data>

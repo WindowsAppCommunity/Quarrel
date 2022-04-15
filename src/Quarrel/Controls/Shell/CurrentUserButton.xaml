@@ -20,6 +20,34 @@
                 VerticalContentAlignment="Stretch"
                 BorderThickness="0"
                 Background="Transparent">
+                
+                <Button.Flyout>
+                    <Flyout>
+                        <StackPanel Orientation="Horizontal">
+                           <RadioButton x:Uid="CurrentUserButton/OnlineRBTN"
+                                        ToolTipService.ToolTip="Online"
+                                        GroupName="Status" Tag="Online"
+                                        Foreground="{StaticResource OnlineBrush}"
+                                        Style="{StaticResource QuarrelRadioButton}"/>
+                           <RadioButton x:Uid="CurrentUserButton/IdleRBTN"
+                                        ToolTipService.ToolTip="Idle"
+                                        GroupName="Status" Tag="Idle"
+                                        Foreground="{StaticResource IdleBrush}"
+                                        Style="{StaticResource QuarrelRadioButton}"/> 
+                           <RadioButton x:Uid="CurrentUserButton/DndRBTN"
+                                        ToolTipService.ToolTip="Do Not Disturb"
+                                        GroupName="Status" Tag="Dnd"
+                                        Foreground="{StaticResource DndBrush}"
+                                        Style="{StaticResource QuarrelRadioButton}"/> 
+                           <RadioButton x:Uid="CurrentUserButton/OfflineRBTN"
+                                        ToolTipService.ToolTip="Offline"
+                                        GroupName="Status" Tag="Offline"
+                                        Foreground="{StaticResource OfflineBrush}"
+                                        Style="{StaticResource QuarrelRadioButton}"/> 
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
