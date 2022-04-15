@@ -4,6 +4,8 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Controls.Shell.Enums;
 using Quarrel.Messages.Discord;
+using Quarrel.Services.Analytics;
+using Quarrel.Services.Analytics.Enums;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Storage;
@@ -17,6 +19,7 @@ namespace Quarrel.ViewModels
     /// </summary>
     public partial class WindowViewModel : ObservableRecipient
     {
+        private readonly IAnalyticsService _analyticsService;
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
         private readonly IStorageService _storageService;
@@ -31,9 +34,15 @@ namespace Quarrel.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="WindowViewModel"/> class.
         /// </summary>
-        public WindowViewModel(IMessenger messenger, IDiscordService discordService, IStorageService storageService, IDispatcherService dispatcherService)
+        public WindowViewModel(
+            IAnalyticsService analyticsService,
+            IMessenger messenger,
+            IDiscordService discordService,
+            IStorageService storageService,
+            IDispatcherService dispatcherService)
         {
             WindowState = WindowHostState.Loading;
+            _analyticsService = analyticsService;
             _messenger = messenger;
             _discordService = discordService;
             _storageService = storageService;
@@ -67,7 +76,8 @@ namespace Quarrel.ViewModels
             AccountInfo? activeAccount = _storageService.AccountInfoStorage.ActiveAccount;
             if (activeAccount is not null)
             {
-                await _discordService.LoginAsync(activeAccount.Token);
+                bool wasSuccessful = await _discordService.LoginAsync(activeAccount.Token);
+                _analyticsService.Log(LoggedEvent.StartupLogin, (nameof(wasSuccessful), $"{wasSuccessful}"));
             }
             else
             {

@@ -11,5 +11,10 @@ namespace Quarrel.Services.Analytics.Enums
         /// A user has logged in with a new token.
         /// </summary>
         FreshLogin,
+
+        /// <summary>
+        /// A user logged in as part of startup.
+        /// </summary>
+        StartupLogin,
     }
 }
