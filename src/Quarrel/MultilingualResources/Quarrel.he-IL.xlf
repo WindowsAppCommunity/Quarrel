@@ -68,8 +68,7 @@
         </trans-unit>
         <trans-unit id="CurrentUserButton/OfflineRBTN.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
           <source>Invisible</source>
-          <target state="needs-review-translation">בלתי נראה</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="new">Invisible</target>
         </trans-unit>
       </group>
     </body>
