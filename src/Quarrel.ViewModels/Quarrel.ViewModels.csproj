@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\API\GitHub.API\GitHub.API.csproj" />
+    <ProjectReference Include="..\API\Patreon.API\Patreon.API.csproj" />
     <ProjectReference Include="..\Quarrel.Client\Quarrel.Client.csproj" />
   </ItemGroup>
 
