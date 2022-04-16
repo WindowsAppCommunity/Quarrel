@@ -24,9 +24,9 @@ namespace Quarrel.Services.APIs.PatreonService
             if (clientInfo is null)
             {
                 _analyticsService.Log(LoggedEvent.PatreonClientInfoNotFound);
-                Guard.IsNotNull(clientInfo);
             }
 
+            Guard.IsNotNull(clientInfo);
             _clientInfo = clientInfo;
         }
     }
