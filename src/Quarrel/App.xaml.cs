@@ -6,6 +6,7 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 using OwlCore.AbstractStorage;
 using Quarrel.Controls.Shell;
 using Quarrel.Services.Analytics;
+using Quarrel.Services.APIs.GitHubService;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
@@ -92,6 +93,9 @@ namespace Quarrel
             services.AddSingleton<IDiscordService, DiscordService>();
             services.AddSingleton<IDispatcherService, DispatcherService>();
             services.AddSingleton<IStorageService>(new StorageService(appDataFolder, JsonAsyncSerializer.Singleton));
+
+            // Other APIs
+            services.AddTransient<IGitHubService, GitHubService>();
 
             // TODO: Release analytics services
             services.AddSingleton<IAnalyticsService, LoggingAnalyticsService>();

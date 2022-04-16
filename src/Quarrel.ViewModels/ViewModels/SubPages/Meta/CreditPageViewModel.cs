@@ -16,6 +16,10 @@ namespace Quarrel.ViewModels.SubPages.Meta
         public CreditPageViewModel(IGitHubService gitHubService)
         {
             _gitHubService = gitHubService;
+            
+            Developers = new ObservableCollection<BindableDeveloper>();
+            Contributors = new ObservableRangeCollection<BindableContributor>();
+
             LoadLists();
         }
 

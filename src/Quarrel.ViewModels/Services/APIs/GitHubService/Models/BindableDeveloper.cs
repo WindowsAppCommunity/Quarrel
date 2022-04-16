@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using System;
 using GitHubContributor = GitHub.API.Models.Contributor;
 using GitHubUser = GitHub.API.Models.User;
 

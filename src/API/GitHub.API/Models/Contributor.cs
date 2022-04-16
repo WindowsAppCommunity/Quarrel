@@ -16,24 +16,24 @@ namespace GitHub.API.Models
         /// Gets the name of the current contributor
         /// </summary>
         [JsonPropertyName("login")]
-        public string Name { get; internal set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets the URL of the contributor profile image
         /// </summary>
         [JsonPropertyName("avatar_url")]
-        public string ProfileImageUrl { get; internal set; }
+        public string ProfileImageUrl { get; set; }
 
         /// <summary>
         /// Gets the URL of the contributor profile page
         /// </summary>
         [JsonPropertyName("html_url")]
-        public string ProfilePageUrl { get; internal set; }
+        public string ProfilePageUrl { get; set; }
 
         /// <summary>
         /// Gets the number of commits for the current contributor
         /// </summary>
         [JsonPropertyName("contributions")]
-        public int CommitsCount { get; internal set; }
+        public int CommitsCount { get; set; }
     }
 }
