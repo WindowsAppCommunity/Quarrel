@@ -275,3 +275,4 @@ SodiumC.dll
 /src/_Libs/Webrtc/Insider
 /src/_Libs/SodiumC/ARM/Insider
 !appMetadata/**
+/src/Quarrel/Assets/ServiceTokens
