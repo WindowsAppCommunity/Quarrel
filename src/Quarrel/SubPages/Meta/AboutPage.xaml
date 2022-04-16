@@ -5,6 +5,7 @@
     xmlns:local="using:Quarrel.Meta.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:convert="using:Quarrel.Converters"
     mc:Ignorable="d"
     d:DesignHeight="800"
     d:DesignWidth="400">
@@ -23,7 +24,7 @@
                                    Text="Disclaimer is only in English"
                                    Opacity=".5"
                                    HorizontalAlignment="Center"
-                                   Visibility="{x:Bind ViewModel.IsNeutralLanguage, Mode=OneWay}"/>
+                                   Visibility="{x:Bind convert:NotBoolToVisibilityConverter.Convert(ViewModel.IsNeutralLanguage), Mode=OneWay}"/>
                         
                         <TextBlock TextWrapping="WrapWholeWords"
                                    FlowDirection="LeftToRight">
