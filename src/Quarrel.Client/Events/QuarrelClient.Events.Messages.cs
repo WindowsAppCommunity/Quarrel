@@ -12,49 +12,37 @@ namespace Quarrel.Client
     /// <inheritdoc/>
     public partial class QuarrelClient
     {
-        private void OnMessageCreated(object sender, GatewayEventArgs<JsonMessage> e)
+        private void OnMessageCreated(JsonMessage message)
         {
-            JsonMessage? message = e.EventData;
-            if (message is not null)
+            if (_channelMap.TryGetValue(message.ChannelId, out Channel channel))
             {
-                if (_channelMap.TryGetValue(message.ChannelId, out Channel channel))
+                if (channel is IMessageChannel messageChannel)
                 {
-                    if (channel is IMessageChannel messageChannel)
-                    {
-                        messageChannel.LastMessageId = message.Id;
-                    }
+                    messageChannel.LastMessageId = message.Id;
                 }
-
-                // TODO: Channel registration
-                MessageCreated?.Invoke(this, new Message(message, this));
             }
+
+            // TODO: Channel registration
+            MessageCreated?.Invoke(this, new Message(message, this));
         }
 
-        private void OnMessageUpdated(object sender, GatewayEventArgs<JsonMessage> e)
+        private void OnMessageUpdated(JsonMessage message)
         {
-            JsonMessage? message = e.EventData;
-            if (message is not null)
-            {
-                MessageUpdated?.Invoke(this, new Message(message, this));
-            }
+            MessageUpdated?.Invoke(this, new Message(message, this));
         }
 
-        private void OnMessageAck(object sender, GatewayEventArgs<JsonMessageAck> e)
+        private void OnMessageAck(JsonMessageAck messageAck)
         {
-            JsonMessageAck? messageAck = e.EventData;
-            if (messageAck is not null)
+            if (_channelMap.TryGetValue(messageAck.ChannelId, out Channel channel))
             {
-                if (_channelMap.TryGetValue(messageAck.ChannelId, out Channel channel))
+                if (channel is IMessageChannel messageChannel)
                 {
-                    if (channel is IMessageChannel messageChannel)
-                    {
-                        messageChannel.LastMessageId = messageAck.MessageId;
-                    }
+                    messageChannel.LastMessageId = messageAck.MessageId;
                 }
-
-                // TODO: Channel registration
-                MessageAck?.Invoke(this, new MessageAck(messageAck, this));
             }
+
+            // TODO: Channel registration
+            MessageAck?.Invoke(this, new MessageAck(messageAck, this));
         }
     }
 }

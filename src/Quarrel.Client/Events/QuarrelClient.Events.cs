@@ -71,37 +71,5 @@ namespace Quarrel.Client
         /// Invoked when a message is marked as read.
         /// </summary>
         public event EventHandler<MessageAck>? MessageAck;
-
-        private void RegisterEvents()
-        {
-            Guard.IsNotNull<Gateway>(_gateway, nameof(Client.QuarrelClient._gateway));
-
-            _gateway.Ready += OnReady;
-
-            _gateway.MessageCreated += OnMessageCreated;
-            _gateway.MessageUpdated += OnMessageUpdated;
-            _gateway.MessageDeleted += (s, e) => ForwardEvent(e.EventData is not null ? new MessageDeleted(e.EventData, this) : null, MessageDeleted);
-            _gateway.MessageAck += OnMessageAck;
-            _gateway.UnhandledMessageEncountered += (s, e) => ForwardEvent(e, GatewayExceptionHandled);
-            _gateway.UnknownEventEncountered += (s, e) => ForwardEvent(e, UnknownGatewayEventEncountered);
-            _gateway.UnknownOperationEncountered += (s, e) => ForwardEvent(e, UnknownGatewayOperationEncountered);
-            _gateway.KnownEventEncountered += (s, e) => ForwardEvent(e, KnownGatewayEventEncountered);
-            _gateway.UnhandledOperationEncountered += (s, e) => ForwardEvent((int)e, UnhandledGatewayOperationEncountered);
-            _gateway.UnhandledEventEncountered += (s, e) => ForwardEvent(e.ToString(), UnhandledGatewayEventEncountered);
-        }
-
-        private void ForwardEvent<T>(T? arg, EventHandler<T>? eventHandler)
-            where T : class
-        {
-            Guard.IsNotNull(arg, nameof(arg));
-            eventHandler?.Invoke(this, arg);
-        }
-
-        private void ForwardEvent<T>(T? arg, EventHandler<T>? eventHandler)
-            where T : struct
-        {
-            Guard.IsNotNull(arg, nameof(arg));
-            eventHandler?.Invoke(this, arg.Value);
-        }
     }
 }

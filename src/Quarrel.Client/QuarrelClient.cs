@@ -5,6 +5,7 @@ using Discord.API.Gateways;
 using Discord.API.Rest;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Guilds;
+using Quarrel.Client.Models.Messages;
 using Quarrel.Client.Models.Users;
 using System;
 using System.Collections.Concurrent;
@@ -65,9 +66,64 @@ namespace Quarrel.Client
             Guard.IsNotNull(_gatewayService, nameof(_gatewayService));
             var gatewayConfig = await MakeRefitRequest(() => _gatewayService.GetGatewayConfig());
             Guard.IsNotNull(gatewayConfig, nameof(_gatewayService));
-            _gateway = new Gateway(gatewayConfig, token);
+            _gateway = new Gateway(gatewayConfig, token,
+                unhandledMessageEncountered: (e) => GatewayExceptionHandled?.Invoke(this, e),
+                unknownEventEncountered: e => UnknownGatewayEventEncountered?.Invoke(this, e),
+                unknownOperationEncountered: e => UnknownGatewayOperationEncountered?.Invoke(this, e),
+                knownEventEncountered: e => KnownGatewayEventEncountered?.Invoke(this, e),
+                unhandledOperationEncountered: e => UnhandledGatewayOperationEncountered?.Invoke(this, (int)e),
+                unhandledEventEncountered: e => UnhandledGatewayEventEncountered?.Invoke(this, e.ToString()),
+
+                ready: OnReady,
+                messageCreated: OnMessageCreated,
+                messageUpdated: OnMessageUpdated,
+                messageDeleted: e => MessageDeleted?.Invoke(this, new MessageDeleted(e, this)),
+                messageAck: OnMessageAck,
+
+                resumed: e => { },
+                invalidSession: e => { },
+                gatewayClosed: e => { },
+
+                guildCreated: e => { },
+                guildUpdated: e => { },
+                guildDeleted: e => { },
+
+                guildBanAdded: e => { },
+                guildBanRemoved: e => { },
+
+                channelCreated: e => { },
+                channelUpdated: e => { },
+                channelDeleted: e => { },
+
+                channelRecipientAdded: e => { },
+                channelRecipientRemoved: e => { },
+
+                messageReactionAdded: e => { },
+                messageReactionRemoved: e => { },
+                messageReactionRemovedAll: e => { },
+
+                guildMemberAdded: e => { },
+                guildMemberUpdated: e => { },
+                guildMemberRemoved: e => { },
+                guildMemberListUpdated: e => { },
+                guildMembersChunk: e => { },
+
+                relationshipAdded: e => { },
+                relationshipUpdated: e => { },
+                relationshipRemoved: e => { },
+
+                typingStarted: e => { },
+                presenceUpdated: e => { },
+
+                userNoteUpdated: e => { },
+                userSettingsUpdated: e => { },
+                userGuildSettingsUpdated: e => { },
+
+                voiceStateUpdated: e => { },
+                voiceServerUpdated: e => { },
+
+                sessionReplaced: e => { });
             await _gateway.ConnectAsync();
-            RegisterEvents();
         }
     }
 }
