@@ -120,6 +120,12 @@
   <data name="About/AboutTB.Text" xml:space="preserve">
     <value>ABOUT</value>
   </data>
+  <data name="About/Branch" xml:space="preserve">
+    <value>From {0}</value>
+  </data>
+  <data name="About/Commit" xml:space="preserve">
+    <value>Commit {0}</value>
+  </data>
   <data name="About/ContributionsHLBTN.Content" xml:space="preserve">
     <value>Contributions</value>
   </data>

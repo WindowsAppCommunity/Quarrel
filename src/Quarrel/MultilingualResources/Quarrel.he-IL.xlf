@@ -116,6 +116,14 @@
           <source>Developers</source>
           <target state="needs-review-translation">מפתחי</target>
         </trans-unit>
+        <trans-unit id="About/Branch" translate="yes" xml:space="preserve">
+          <source>From {0}</source>
+          <target state="needs-review-translation">מ-{0}</target>
+        </trans-unit>
+        <trans-unit id="About/Commit" translate="yes" xml:space="preserve">
+          <source>Commit {0}</source>
+          <target state="needs-review-translation">Commit {0}</target>
+        </trans-unit>
       </group>
     </body>
   </file>

@@ -95,4 +95,10 @@
   <data name="Credit/DevelopersTB.Text" xml:space="preserve">
     <value>מפתחי</value>
   </data>
+  <data name="About/Branch" xml:space="preserve">
+    <value>מ-{0}</value>
+  </data>
+  <data name="About/Commit" xml:space="preserve">
+    <value>Commit {0}</value>
+  </data>
 </root>

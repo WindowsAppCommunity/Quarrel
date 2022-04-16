@@ -40,7 +40,6 @@
 
             <Border x:Name="ContentBorder" Grid.Row="1"
                     BorderThickness="1" CornerRadius="2"
-                    Background="{ThemeResource PrimaryBackground}"
                     BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}">
                 <ContentControl Content="{x:Bind ViewModel.ContentViewModel, Mode=OneWay}"
                                 ContentTemplateSelector="{StaticResource SubPageTemplateSelector}"/>

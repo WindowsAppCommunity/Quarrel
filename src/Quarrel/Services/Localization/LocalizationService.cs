@@ -18,7 +18,9 @@ namespace Quarrel.Services.Localization
             get
             {
                 if (_loader is null)
+                {
                     _loader = ResourceLoader.GetForViewIndependentUse();
+                }
 
                 return _loader;
             }
