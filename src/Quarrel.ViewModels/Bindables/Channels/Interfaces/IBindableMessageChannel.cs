@@ -1,6 +1,5 @@
 ﻿// Quarrel © 2022
 
-using Quarrel.Bindables.Interfaces;
 using Quarrel.Client.Models.Channels.Interfaces;
 
 namespace Quarrel.Bindables.Channels.Interfaces

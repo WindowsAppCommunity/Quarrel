@@ -123,7 +123,7 @@
   <data name="CurrentUserButton/IdleRBTN.ToolTipService.ToolTip" xml:space="preserve">
     <value>Idle</value>
   </data>
-  <data name="CurrentUserButton/OfflineRBTN.ToolTipService.ToolTip" xml:space="preserve">
+  <data name="CurrentUserButton/InvisibleRBTN.ToolTipService.ToolTip" xml:space="preserve">
     <value>Invisible</value>
   </data>
   <data name="CurrentUserButton/OnlineRBTN.ToolTipService.ToolTip" xml:space="preserve">

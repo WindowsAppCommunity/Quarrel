@@ -39,9 +39,9 @@
                                         GroupName="Status" Tag="Dnd"
                                         Foreground="{StaticResource DndBrush}"
                                         Style="{StaticResource QuarrelRadioButton}"/> 
-                           <RadioButton x:Uid="CurrentUserButton/OfflineRBTN"
-                                        ToolTipService.ToolTip="Offline"
-                                        GroupName="Status" Tag="Offline"
+                           <RadioButton x:Uid="CurrentUserButton/InvisibleRBTN"
+                                        ToolTipService.ToolTip="Invisible"
+                                        GroupName="Status" Tag="Invisible"
                                         Foreground="{StaticResource OfflineBrush}"
                                         Style="{StaticResource QuarrelRadioButton}"/> 
                         </StackPanel>
@@ -50,11 +50,16 @@
             
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
+                <qc:UserIcon DataContext="{x:Bind ViewModel.Me, Mode=OneWay}"
+                             Margin="8" Width="40" Height="40"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"/>
+                
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <!--Display name-->
                     <!--<TextBlock
