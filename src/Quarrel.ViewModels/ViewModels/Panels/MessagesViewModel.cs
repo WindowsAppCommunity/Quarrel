@@ -1,11 +1,11 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
-using Discord.API.Models.Channels.Interfaces;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Messages;
+using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;

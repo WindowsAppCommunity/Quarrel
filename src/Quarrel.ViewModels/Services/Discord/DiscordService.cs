@@ -1,9 +1,9 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
-using Discord.API;
-using Discord.API.Models.Users;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using Quarrel.Client;
+using Quarrel.Client.Models.Users;
 using Quarrel.Messages.Discord;
 using Quarrel.Services.Analytics;
 using Quarrel.Services.Analytics.Enums;
@@ -19,7 +19,7 @@ namespace Quarrel.Services.Discord
     /// </summary>
     public partial class DiscordService : IDiscordService
     {
-        private readonly DiscordClient _discordClient;
+        private readonly QuarrelClient _quarrelClient;
         private readonly IAnalyticsService _analyticsService;
         private readonly IMessenger _messenger;
 
@@ -30,16 +30,16 @@ namespace Quarrel.Services.Discord
         {
             _analyticsService = analyticsService;
             _messenger = messenger;
-            _discordClient = new DiscordClient();
-            _discordClient.LoggedIn += OnLoggedIn;
-            _discordClient.HttpExceptionHandled += OnHttpExceptionHandled;
-            _discordClient.GatewayExceptionHandled += OnGatewayExceptionHandled;
+            _quarrelClient = new QuarrelClient();
+            _quarrelClient.LoggedIn += OnLoggedIn;
+            _quarrelClient.HttpExceptionHandled += OnHttpExceptionHandled;
+            _quarrelClient.GatewayExceptionHandled += OnGatewayExceptionHandled;
             
-            _discordClient.UnknownGatewayOperationEncountered += OnUnknownGatewayOperationEncountered;
-            _discordClient.UnknownGatewayEventEncountered += OnUnknownGatewayEventEncountered;
-            _discordClient.KnownGatewayEventEncountered += OnKnownGatewayEventEncountered;
-            _discordClient.UnhandledGatewayOperationEncountered += OnUnhandledGatewayOperationEncountered;
-            _discordClient.UnhandledGatewayEventEncountered += OnUnhandledGatewayEventEncountered;
+            _quarrelClient.UnknownGatewayOperationEncountered += OnUnknownGatewayOperationEncountered;
+            _quarrelClient.UnknownGatewayEventEncountered += OnUnknownGatewayEventEncountered;
+            _quarrelClient.KnownGatewayEventEncountered += OnKnownGatewayEventEncountered;
+            _quarrelClient.UnhandledGatewayOperationEncountered += OnUnhandledGatewayOperationEncountered;
+            _quarrelClient.UnhandledGatewayEventEncountered += OnUnhandledGatewayEventEncountered;
         }
 
         /// <inheritdoc/>
@@ -48,7 +48,7 @@ namespace Quarrel.Services.Discord
             _messenger.Send(new ConnectingMessage());
             try
             {
-                await _discordClient.LoginAsync(token);
+                await _quarrelClient.LoginAsync(token);
                 _analyticsService.Log(LoggedEvent.SuccessfulLogin, (nameof(source), source));
                 return true;
             }
@@ -62,7 +62,7 @@ namespace Quarrel.Services.Discord
 
         private void OnLoggedIn(object sender, SelfUser e)
         {
-            string? token = _discordClient.Token;
+            string? token = _quarrelClient.Token;
 
             Guard.IsNotNull(token, nameof(token));
             var info = new AccountInfo(e.Id, e.Username, e.Discriminator, token);

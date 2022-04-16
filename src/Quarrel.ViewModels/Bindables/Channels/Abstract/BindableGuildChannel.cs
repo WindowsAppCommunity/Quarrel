@@ -2,9 +2,10 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models;
-using Discord.API.Models.Channels.Interfaces;
-using Discord.API.Models.Managed.Channels.Abstract;
-using Discord.API.Models.Users;
+using Quarrel.Client.Models.Channels.Abstract;
+using Quarrel.Client.Models.Channels.Interfaces;
+using Quarrel.Client.Models.Permissions;
+using Quarrel.Client.Models.Users;
 
 namespace Quarrel.Bindables.Channels.Abstract
 {

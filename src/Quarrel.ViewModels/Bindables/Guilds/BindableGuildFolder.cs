@@ -1,8 +1,8 @@
 ﻿// Quarrel © 2022
 
-using Discord.API.Models.Settings;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Quarrel.Bindables.Guilds.Interfaces;
+using Quarrel.Client.Models.Settings;
 using System.Collections.ObjectModel;
 
 namespace Quarrel.Bindables.Guilds

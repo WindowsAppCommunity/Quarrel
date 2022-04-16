@@ -255,6 +255,10 @@
       <Project>{43360223-1cd9-4962-84cc-0698f6d11837}</Project>
       <Name>Discord.API</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Quarrel.Client\Quarrel.Client.csproj">
+      <Project>{e20b2927-0c9e-437f-9b51-b76bae2ef67c}</Project>
+      <Name>Quarrel.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Quarrel.ViewModels\Quarrel.ViewModels.csproj">
       <Project>{e069a285-68fe-43c7-957f-9cc6bbf17bce}</Project>
       <Name>Quarrel.ViewModels</Name>

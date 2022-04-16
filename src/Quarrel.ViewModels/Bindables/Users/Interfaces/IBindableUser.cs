@@ -1,17 +1,17 @@
 ﻿// Quarrel © 2022
 
-using Discord.API.Models.Users;
+using Quarrel.Client.Models.Users;
 using System;
 
 namespace Quarrel.Bindables.Users.Interfaces
 {
     /// <summary>
-    /// An interface for a wrapped <see cref="Discord.API.Models.Users.User"/>.
+    /// An interface for a wrapped <see cref="Client.Models.Users.User"/>.
     /// </summary>
     public interface IBindableUser
     {
         /// <summary>
-        /// Gets the wrapped <see cref="Discord.API.Models.Users.User"/>.
+        /// Gets the wrapped <see cref="Client.Models.Users.User"/>.
         /// </summary>
         User User { get; }
 

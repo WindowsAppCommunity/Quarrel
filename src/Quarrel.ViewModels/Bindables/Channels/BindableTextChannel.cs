@@ -1,10 +1,10 @@
 ﻿// Quarrel © 2022
 
-using Discord.API.Models.Channels;
-using Discord.API.Models.Channels.Interfaces;
-using Discord.API.Models.Users;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
+using Quarrel.Client.Models.Channels;
+using Quarrel.Client.Models.Channels.Interfaces;
+using Quarrel.Client.Models.Users;
 
 namespace Quarrel.Bindables.Channels
 {

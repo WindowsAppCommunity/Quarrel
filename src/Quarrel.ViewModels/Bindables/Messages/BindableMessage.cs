@@ -1,13 +1,13 @@
 ﻿// Quarrel © 2022
 
-using Discord.API.Models.Messages;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Quarrel.Bindables.Abstract;
+using Quarrel.Client.Models.Messages;
 
 namespace Quarrel.Bindables.Messages
 {
     /// <summary>
-    /// A wrapper of a <see cref="Discord.API.Models.Messages.Message"/> that can be bound to the UI.
+    /// A wrapper of a <see cref="Client.Models.Messages.Message"/> that can be bound to the UI.
     /// </summary>
     public partial class BindableMessage : SelectableItem
     {
