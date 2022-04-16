@@ -2,6 +2,7 @@
 
 using GitHub.API.Models;
 using Quarrel.Services.APIs.GitHubService.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Quarrel.Services.APIs.GitHubService
@@ -14,7 +15,7 @@ namespace Quarrel.Services.APIs.GitHubService
         /// <summary>
         /// Gets the list contributors to the repository.
         /// </summary>
-        Task<BindableContributor[]?> GetContributors();
+        Task<List<BindableContributor>?> GetContributors();
 
         /// <summary>
         /// Gets the full developer profile for a user in a repository.

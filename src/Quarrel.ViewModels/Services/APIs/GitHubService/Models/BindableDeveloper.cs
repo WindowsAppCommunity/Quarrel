@@ -1,6 +1,5 @@
 ﻿// Quarrel © 2022
 
-using System;
 using GitHubContributor = GitHub.API.Models.Contributor;
 using GitHubUser = GitHub.API.Models.User;
 
@@ -16,7 +15,8 @@ namespace Quarrel.Services.APIs.GitHubService.Models
         /// <summary>
         /// Initializes new instance of the <see cref="BindableDeveloper"/> class.
         /// </summary>
-        public BindableDeveloper(GitHubUser user, GitHubContributor contributor) : base(contributor)
+        public BindableDeveloper(GitHubUser user, GitHubContributor contributor) :
+            base(contributor)
         {
             _user = user;
         }

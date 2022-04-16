@@ -59,6 +59,11 @@ namespace Quarrel.Services.Analytics.Enums
         #region Other APIs
 
         /// <summary>
+        /// The patreon client info could not be found.
+        /// </summary>
+        PatreonClientInfoNotFound,
+
+        /// <summary>
         /// A request to the GitHub API failed.
         /// </summary>
         GitHubRequestFailed,

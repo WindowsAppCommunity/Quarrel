@@ -19,13 +19,13 @@ namespace Quarrel.SubPages.Meta
 
         private async void DeveloperClicked(object sender, ItemClickEventArgs e)
         {
-            BindableDeveloper developer = e.ClickedItem as BindableDeveloper;
+            BindableDeveloper? developer = (BindableDeveloper)e.ClickedItem;
             await Launcher.LaunchUriAsync(new Uri(developer.User.ProfilePageUrl));
         }
 
         private async void ContributorClicked(object sender, ItemClickEventArgs e)
         {
-            BindableContributor contributor = e.ClickedItem as BindableContributor;
+            BindableContributor contributor = (BindableContributor)e.ClickedItem;
             await Launcher.LaunchUriAsync(new Uri(contributor.Contributor.ProfilePageUrl));
         }
     }

@@ -34,7 +34,7 @@ namespace Quarrel.Services.APIs.GitHubService
         }
 
         /// <inheritdoc/>
-        public async Task<BindableContributor[]?> GetContributors()
+        public async Task<List<BindableContributor>?> GetContributors()
         {
             // Get contributors
             Contributor[]? contributors = null;
@@ -56,10 +56,10 @@ namespace Quarrel.Services.APIs.GitHubService
             Array.Sort(contributors, Comparer<Contributor>.Create((item1, item2) =>
                 item2.CommitsCount.CompareTo(item1.CommitsCount)));
 
-            BindableContributor[] result = new BindableContributor[contributors.Length];
-            for (int i = 0; i < result.Length; i++)
+            List<BindableContributor> result = new List<BindableContributor>(contributors.Length);
+            foreach (var contributor in contributors)
             {
-                result[i] = new BindableContributor(contributors[i]);
+                result.Add(new BindableContributor(contributor));
             }
 
             return result;

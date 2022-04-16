@@ -13,6 +13,307 @@
     MaxWidth="480" MinWidth="480">
 
     <UserControl.Resources>
+        <Style TargetType="ListViewItem" x:Key="DeveloperContainerStyle">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="IsHoldingEnabled" Value="True"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="UseSystemFocusVisuals" Value="false"/>
+            <Setter Property="FocusVisualPrimaryBrush" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+            <Setter Property="FocusVisualPrimaryThickness" Value="1"/>
+            <Setter Property="FocusVisualSecondaryThickness" Value="0"/>
+            <Setter Property="FocusVisualMargin" Value="-24,0,-24,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border CornerRadius="4">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseInOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetName="ContentPresenterTranslateTransform" Storyboard.TargetProperty="X" Duration="0:0:0.2" To="2">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseInOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetName="ContentPresenterTranslateTransform" Storyboard.TargetProperty="X" Duration="0:0:0.2" To="0">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                            <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseInOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.1" To="0.1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.3">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerDownThemeAnimation TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+
+                                    <VisualState x:Name="Selected">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseInOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOverSelected">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.1" To="0.1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PressedSelected">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerDownThemeAnimation TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid x:Name="ContentBorder"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}">
+                                <Border x:Name="Indic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource InvertedBackground}" Opacity="0" CornerRadius="0"/>
+
+                                <Grid x:Name="ContentPresenterGrid"
+                                      Background="Transparent"
+                                      Margin="0,0,0,0">
+                                    <Grid.RenderTransform>
+                                        <TranslateTransform x:Name="ContentPresenterTranslateTransform"/>
+                                    </Grid.RenderTransform>
+                                    <ContentPresenter x:Name="ContentPresenter"
+                                                      ContentTransitions="{TemplateBinding ContentTransitions}"
+                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                      Content="{TemplateBinding Content}"
+                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      Margin="{TemplateBinding Padding}" Control.IsTemplateFocusTarget="True"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="GridViewItem" x:Key="ContributorContainerStyle">
+            <Setter Property="Background" Value="{ThemeResource GridViewItemBackground}" />
+            <Setter Property="Foreground" Value="{ThemeResource GridViewItemForeground}" />
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="TabNavigation" Value="Local" />
+            <Setter Property="IsHoldingEnabled" Value="True" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,4,4" />
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="AllowDrop" Value="False" />
+            <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
+            <Setter Property="FocusVisualMargin" Value="-2" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridViewItem">
+                        <Border CornerRadius="4">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseInOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetName="ContentPresenterTranslateTransform" Storyboard.TargetProperty="X" Duration="0:0:0.2" To="2">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseInOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetName="ContentPresenterTranslateTransform" Storyboard.TargetProperty="X" Duration="0:0:0.2" To="0">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                            <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseInOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.1" To="0.1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.3">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerDownThemeAnimation TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Selected">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseInOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOverSelected">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.1" To="0.1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PressedSelected">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerDownThemeAnimation TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid x:Name="ContentBorder"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}">
+                                <Border x:Name="Indic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource InvertedBackground}" Opacity="0" CornerRadius="0"/>
+
+                                <Grid x:Name="ContentPresenterGrid"
+                                      Background="Transparent"
+                                      Margin="0,0,0,0">
+                                    <Grid.RenderTransform>
+                                        <TranslateTransform x:Name="ContentPresenterTranslateTransform"/>
+                                    </Grid.RenderTransform>
+                                    <ContentPresenter x:Name="ContentPresenter"
+                                                      ContentTransitions="{TemplateBinding ContentTransitions}"
+                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                      Content="{TemplateBinding Content}"
+                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      Margin="{TemplateBinding Padding}" Control.IsTemplateFocusTarget="True"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
         <DataTemplate x:Key="DeveloperTemplate"
                       x:DataType="models:BindableDeveloper">
             <Grid>
@@ -40,7 +341,9 @@
         <DataTemplate x:Key="ContributorTemplate"
                       x:DataType="models:BindableContributor">
             <StackPanel>
-                <TextBlock Text="{x:Bind Contributor.Name, Mode=OneWay}" HorizontalAlignment="Center"/>
+                <TextBlock Text="{x:Bind Contributor.Name, Mode=OneWay}"
+                           HorizontalAlignment="Center"
+                           TextTrimming="CharacterEllipsis"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBlock Text="{x:Bind Contributor.CommitsCount, Mode=OneWay}" FontSize="14" Opacity="0.9" VerticalAlignment="Center"/>
                     <TextBlock x:Uid="Credit/CommitsTB" Text="Commits" Margin="2,0,0,0" FontSize="12" Opacity="0.7" VerticalAlignment="Center"/>
@@ -60,13 +363,16 @@
             <ListView ItemsSource="{x:Bind ViewModel.Developers}"
                       SelectionMode="None" IsItemClickEnabled="True"
                       ItemTemplate="{StaticResource DeveloperTemplate}"
+                      ItemContainerStyle="{StaticResource DeveloperContainerStyle}"
                       ItemClick="DeveloperClicked"/>
 
             <TextBlock x:Uid="Credit/ContributorsTB" Text="Contributors" FontSize="18" Margin="0,0,0,12"/>
-            <GridView ItemsSource="{x:Bind ViewModel.Contributors}"
-                      SelectionMode="None" IsItemClickEnabled="True"
-                      ItemTemplate="{StaticResource ContributorTemplate}"
-                      ItemClick="ContributorClicked"/>
+            <tk:AdaptiveGridView ItemsSource="{x:Bind ViewModel.Contributors}"
+                                 DesiredWidth="96" ItemHeight="112"
+                                 SelectionMode="None" IsItemClickEnabled="True"
+                                 ItemTemplate="{StaticResource ContributorTemplate}"
+                                 ItemContainerStyle="{StaticResource ContributorContainerStyle}"
+                                 ItemClick="ContributorClicked"/>
         </StackPanel>
     </ScrollViewer>
 </UserControl>
