@@ -6,14 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:selectors="using:Quarrel.Selectors"
-    xmlns:subpages="using:Quarrel.SubPages"
+    xmlns:metapages="using:Quarrel.SubPages.Meta"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
     <UserControl.Resources>
         <DataTemplate x:Key="AboutPageTemplate">
-            <subpages:AboutPage/>
+            <metapages:AboutPage/>
         </DataTemplate>
 
         <selectors:SubPageTemplateSelector x:Key="SubPageTemplateSelector"
@@ -33,7 +33,7 @@
                     BorderThickness="1" CornerRadius="2"
                     Background="{ThemeResource PrimaryBackground}"
                     BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}">
-                <ContentControl Content="{x:Bind ContentViewModel, Mode=OneWay}"
+                <ContentControl Content="{x:Bind ContentViewModel}"
                                 ContentTemplateSelector="{StaticResource SubPageTemplateSelector}"/>
             </Border>
 

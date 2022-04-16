@@ -117,6 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About/AboutTB.Text" xml:space="preserve">
+    <value>ABOUT</value>
+  </data>
+  <data name="About/DevelopedByTB.Text" xml:space="preserve">
+    <value>Developed by Adam Dernis and Matthew Collins</value>
+  </data>
+  <data name="About/DisclaimerOnlyInEnglishTB.Text" xml:space="preserve">
+    <value>Disclaimer is only in English</value>
+    <comment>This text is above the Disclaimer in about, which will not be translated</comment>
+  </data>
+  <data name="About/DiscussOnTwitterTB.Text" xml:space="preserve">
+    <value>Discuss on Twitter</value>
+  </data>
+  <data name="About/LeaveFeedbackTB.Text" xml:space="preserve">
+    <value>Leave Feedback</value>
+  </data>
+  <data name="About/ViewOnGitHubTB.Text" xml:space="preserve">
+    <value>View code on GitHub</value>
+  </data>
   <data name="CurrentUserButton/DndRBTN.ToolTipService.ToolTip" xml:space="preserve">
     <value>Do Not Disturb</value>
   </data>
@@ -155,6 +174,7 @@
   </data>
   <data name="Login/PrivacyPolicyOnlyInEnglishTB.Text" xml:space="preserve">
     <value>The privacy policy is only available in English.</value>
+    <comment>This text is above the privacy policy, which will not be translated</comment>
   </data>
   <data name="Login/QuarrelTB.Text" xml:space="preserve">
     <value>Quarrel</value>

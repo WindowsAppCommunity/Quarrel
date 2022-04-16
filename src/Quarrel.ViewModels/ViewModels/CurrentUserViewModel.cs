@@ -8,7 +8,7 @@ using Quarrel.Messages.Discord;
 using Quarrel.Messages.Navigation.SubPages;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
-using Quarrel.ViewModels.SubPages;
+using Quarrel.ViewModels.SubPages.Meta;
 
 namespace Quarrel.ViewModels
 {

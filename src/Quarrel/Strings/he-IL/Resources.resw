@@ -47,6 +47,7 @@
   </data>
   <data name="Login/PrivacyPolicyOnlyInEnglishTB.Text" xml:space="preserve">
     <value>מדיניות הפרטיות זמינה רק באנגלית.</value>
+    <comment>This text is above the privacy policy, which will not be translated</comment>
   </data>
   <data name="CurrentUserButton/OnlineRBTN.ToolTipService.ToolTip" xml:space="preserve">
     <value>זמין</value>

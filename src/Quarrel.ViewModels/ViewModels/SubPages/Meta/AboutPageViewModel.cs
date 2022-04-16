@@ -3,7 +3,7 @@
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Quarrel.Services.Localization;
 
-namespace Quarrel.ViewModels.SubPages
+namespace Quarrel.ViewModels.SubPages.Meta
 {
     /// <summary>
     /// ViewModel for the AboutPage.

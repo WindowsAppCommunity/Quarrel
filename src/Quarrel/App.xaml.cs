@@ -2,24 +2,22 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using OwlCore.AbstractStorage;
 using Quarrel.Controls.Shell;
 using Quarrel.Services.Analytics;
-using Quarrel.Services.Localization;
 using Quarrel.Services.Discord;
+using Quarrel.Services.Dispatcher;
+using Quarrel.Services.Localization;
+using Quarrel.Services.Storage;
+using Quarrel.Services.Storage.Models;
+using Quarrel.ViewModels;
+using Quarrel.ViewModels.Panels;
 using Quarrel.ViewModels.SubPages;
+using Quarrel.ViewModels.SubPages.Meta;
 using System;
 using Windows.ApplicationModel.Activation;
-using Windows.UI.Xaml;
-using Quarrel.ViewModels;
-using Quarrel.Services.Storage;
-using OwlCore.AbstractStorage;
-using Quarrel.Services.Storage.Models;
 using Windows.Storage;
-using Quarrel.Services.Dispatcher;
-using Windows.UI.Core;
-using Windows.UI.Core.Preview;
-using Quarrel.ViewModels.Panels;
-using Windows.Globalization;
+using Windows.UI.Xaml;
 
 namespace Quarrel
 {

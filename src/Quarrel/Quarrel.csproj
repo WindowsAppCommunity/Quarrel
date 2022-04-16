@@ -136,7 +136,7 @@
     <Compile Include="Services\Storage\Models\FolderData.cs" />
     <Compile Include="Services\Storage\StorageService.cs" />
     <Compile Include="Services\Storage\Vault\VaultService.cs" />
-    <Compile Include="SubPages\AboutPage.xaml.cs">
+    <Compile Include="SubPages\Meta\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\Host\SubPageHost.xaml.cs">
@@ -154,6 +154,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Assets\Connections\battlenet.png" />
+    <Content Include="Assets\Connections\facebook.png" />
+    <Content Include="Assets\Connections\leagueoflegends.png" />
+    <Content Include="Assets\Connections\patreon.png" />
+    <Content Include="Assets\Connections\reddit.png" />
+    <Content Include="Assets\Connections\skype.png" />
+    <Content Include="Assets\Connections\spotify.png" />
+    <Content Include="Assets\Connections\steam_dark.png" />
+    <Content Include="Assets\Connections\steam_light.png" />
+    <Content Include="Assets\Connections\twitch.png" />
+    <Content Include="Assets\Connections\twitter.png" />
+    <Content Include="Assets\Connections\xbox.png" />
+    <Content Include="Assets\Connections\xbox_dark.png" />
+    <Content Include="Assets\Connections\xbox_light.png" />
+    <Content Include="Assets\Connections\youtube.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -240,7 +255,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SubPages\AboutPage.xaml">
+    <Page Include="SubPages\Meta\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

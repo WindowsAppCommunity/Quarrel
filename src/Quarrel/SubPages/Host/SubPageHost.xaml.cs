@@ -26,7 +26,7 @@ namespace Quarrel.SubPages.Host
             _messenger.Register<CloseSubPageMessage>(this, (s, e) => ContentViewModel = null);
         }
 
-        public object ContentViewModel
+        public object? ContentViewModel
         {
             get => GetValue(ContentViewModelProperty);
             set => SetValue(ContentViewModelProperty, value);
