@@ -50,11 +50,16 @@
             
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
+                <qc:UserIcon DataContext="{x:Bind ViewModel.Me, Mode=OneWay}"
+                             Margin="8" Width="40" Height="40"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"/>
+                
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <!--Display name-->
                     <!--<TextBlock

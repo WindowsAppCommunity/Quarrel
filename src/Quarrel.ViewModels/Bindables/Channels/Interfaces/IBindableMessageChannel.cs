@@ -1,7 +1,6 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Models.Channels.Interfaces;
-using Quarrel.Bindables.Interfaces;
 
 namespace Quarrel.Bindables.Channels.Interfaces
 {
