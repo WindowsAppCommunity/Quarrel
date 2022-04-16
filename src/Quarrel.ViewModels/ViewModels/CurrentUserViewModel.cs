@@ -1,11 +1,14 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Users;
 using Quarrel.Messages.Discord;
+using Quarrel.Messages.Navigation.SubPages;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
+using Quarrel.ViewModels.SubPages;
 
 namespace Quarrel.ViewModels
 {
@@ -37,6 +40,15 @@ namespace Quarrel.ViewModels
                     Me = _discordService.GetMe();
                 });
             });
+        }
+
+        /// <summary>
+        /// Sends a request to open the settings subpage.
+        /// </summary>
+        [ICommand]
+        public void NavigateToSettings()
+        {
+            _messenger.Send(new NavigateToSubPageMessage(typeof(AboutPageViewModel)));
         }
     }
 }

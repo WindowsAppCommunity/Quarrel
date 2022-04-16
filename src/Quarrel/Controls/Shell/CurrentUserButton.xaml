@@ -76,7 +76,7 @@
                         <TextBlock
                             FontSize="12"
                             Opacity=".6"
-                            Text="#" />
+                            Text="#"/>
                         <TextBlock
                             FontSize="12"
                             Opacity="0.6"
@@ -90,7 +90,8 @@
                     Padding="0"
                     FontFamily="Segoe MDL2 Assets"
                     Foreground="{ThemeResource SystemColorHighlightTextBrush}"
-                    Style="{ThemeResource TextBlockButtonStyle}">
+                    Style="{ThemeResource TextBlockButtonStyle}"
+                    Command="{x:Bind ViewModel.NavigateToSettingsCommand}">
                     <FontIcon Glyph="" FontSize="16"/>
                 </Button>
             </Grid>

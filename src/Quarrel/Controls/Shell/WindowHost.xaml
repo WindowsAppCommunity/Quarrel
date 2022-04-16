@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:subpages="using:Quarrel.SubPages"
+    xmlns:subpagehost="using:Quarrel.SubPages.Host"
     xmlns:convert="using:Quarrel.Converters"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -15,6 +16,7 @@
         <local:Shell/>
         <subpages:LoginPage x:Name="LoginPage" x:Load="{x:Bind ViewModel.IsLoggedOut, Mode=OneWay}"/>
         <local:ExtendedSplashScreen IsShowing="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Status="{x:Bind ViewModel.SplashStatus, Mode=OneWay}"/>
+        <subpagehost:SubPageHost x:Name="SubPageHost"/>
     </Grid>
 
 </UserControl>

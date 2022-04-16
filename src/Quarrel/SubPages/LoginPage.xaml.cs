@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Quarrel.ViewModels.SubPages;
 using System;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.SubPages

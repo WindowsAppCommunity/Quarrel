@@ -1,0 +1,51 @@
+﻿<UserControl
+    x:Class="Quarrel.SubPages.Host.SubPageHost"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Quarrel.SubPages.Host"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:selectors="using:Quarrel.Selectors"
+    xmlns:subpages="using:Quarrel.SubPages"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="AboutPageTemplate">
+            <subpages:AboutPage/>
+        </DataTemplate>
+
+        <selectors:SubPageTemplateSelector x:Key="SubPageTemplateSelector"
+                                           AboutTemplate="{StaticResource AboutPageTemplate}"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid x:Name="Backdrop" Background="{ThemeResource SupPageBackdropBrush}"/>
+
+        <Grid x:Name="ContainerGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border x:Name="ContentBorder" Grid.Row="1"
+                    BorderThickness="1" CornerRadius="2"
+                    Background="{ThemeResource PrimaryBackground}"
+                    BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}">
+                <ContentControl Content="{x:Bind ContentViewModel, Mode=OneWay}"
+                                ContentTemplateSelector="{StaticResource SubPageTemplateSelector}"/>
+            </Border>
+
+            <Button x:Name="CloseButton"
+                    BorderThickness="0"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Height="48" Width="48"
+                    Background="Transparent"
+                    Click="CloseButtonClicked">
+                <SymbolIcon Symbol="Clear"/>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

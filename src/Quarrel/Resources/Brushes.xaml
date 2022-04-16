@@ -33,6 +33,13 @@
                           TintOpacity="0.7"
                           FallbackColor="#FF303238"/>
 
+            <!--Other Backgrounds-->
+            <AcrylicBrush x:Key="SupPageBackdropBrush"
+                          BackgroundSource="Backdrop"
+                          TintColor="#A0000000"
+                          TintOpacity="0.7"
+                          FallbackColor="#A0000000"/>
+            
             <!--General backgrounds-->
             <SolidColorBrush x:Key="PrimaryBackground" Color="#1e2124"/>
             <SolidColorBrush x:Key="SecondaryBackground" Color="#2a2c31"/>
@@ -68,6 +75,13 @@
                           TintColor="#FFF2F2F3"
                           TintOpacity="0.7"
                           FallbackColor="#FFF2F2F3"/>
+
+            <!--Other Backgrounds-->
+            <AcrylicBrush x:Key="SupPageBackdropBrush"
+                          BackgroundSource="Backdrop"
+                          TintColor="#A0FFFFFF"
+                          TintOpacity="0.7"
+                          FallbackColor="#A0FFFFFF"/>
 
             <!--General backgrounds-->
             <SolidColorBrush x:Key="PrimaryBackground" Color="#e1e3e5"/>

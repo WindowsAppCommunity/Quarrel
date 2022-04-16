@@ -99,6 +99,7 @@ namespace Quarrel
             services.AddSingleton<ChannelsViewModel>();
             services.AddSingleton<MessagesViewModel>();
             services.AddSingleton<CurrentUserViewModel>();
+            services.AddTransient<AboutPageViewModel>();
             services.AddTransient<LoginPageViewModel>();
 
             return services.BuildServiceProvider();

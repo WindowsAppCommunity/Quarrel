@@ -126,6 +126,7 @@
     <Compile Include="Selectors\ChannelEnabledStyleSelector.cs" />
     <Compile Include="Selectors\GuildStyleSelector.cs" />
     <Compile Include="Selectors\GuildTemplateSelector.cs" />
+    <Compile Include="Selectors\SubPageTemplateSelector.cs" />
     <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
     <Compile Include="Services\Dispatcher\DispatcherService.cs" />
     <Compile Include="Services\Keyboard\KeyboardService.cs" />
@@ -135,6 +136,12 @@
     <Compile Include="Services\Storage\Models\FolderData.cs" />
     <Compile Include="Services\Storage\StorageService.cs" />
     <Compile Include="Services\Storage\Vault\VaultService.cs" />
+    <Compile Include="SubPages\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\Host\SubPageHost.xaml.cs">
+      <DependentUpon>SubPageHost.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -230,6 +237,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\TextBoxStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\Host\SubPageHost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
