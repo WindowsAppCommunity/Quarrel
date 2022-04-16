@@ -11,7 +11,7 @@
     d:DesignWidth="400">
 
     <Border MaxWidth="48" MaxHeight="48" CornerRadius="24">
-        <tc:ImageEx Source="{x:Bind ViewModel.AvatarUri, Mode=OneWay}"/>
+        <tc:ImageEx Source="{x:Bind ViewModel.AvatarUri}"/>
     </Border>
 
 </UserControl>

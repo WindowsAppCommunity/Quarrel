@@ -25,7 +25,7 @@ namespace Quarrel.Services.Quips
         /// <inheritdoc/>
         public Quip GetQuip()
         {
-            Random rand = new Random();
+            var rand = new Random();
             rand.Next(_sumWeight);
             throw new NotImplementedException();
         }
