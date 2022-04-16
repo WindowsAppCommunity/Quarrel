@@ -1,15 +1,15 @@
 ﻿// Quarrel © 2022
 
-using Discord.API.Models.Guilds;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Guilds.Interfaces;
+using Quarrel.Client.Models.Guilds;
 using System;
 
 namespace Quarrel.Bindables.Guilds
 {
     /// <summary>
-    /// A wrapper of a <see cref="Discord.API.Models.Guilds.Guild"/> that can be bound to the UI.
+    /// A wrapper of a <see cref="Client.Models.Guilds.Guild"/> that can be bound to the UI.
     /// </summary>
     public partial class BindableGuild : SelectableItem, IBindableGuildListItem
     {

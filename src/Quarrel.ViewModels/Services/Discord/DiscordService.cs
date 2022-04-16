@@ -1,9 +1,9 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
-using Discord.API;
-using Discord.API.Models.Users;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using Quarrel.Client;
+using Quarrel.Client.Models.Users;
 using Quarrel.Messages.Discord;
 using Quarrel.Services.Analytics;
 using Quarrel.Services.Analytics.Enums;

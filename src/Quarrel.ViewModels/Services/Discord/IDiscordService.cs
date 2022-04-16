@@ -1,13 +1,13 @@
 ﻿// Quarrel © 2022
 
-using Discord.API.Models.Channels.Interfaces;
-using Discord.API.Models.Guilds;
 using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Bindables.Messages;
 using Quarrel.Bindables.Users;
+using Quarrel.Client.Models.Channels.Interfaces;
+using Quarrel.Client.Models.Guilds;
 using Quarrel.Services.Analytics.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;

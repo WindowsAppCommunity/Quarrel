@@ -1,12 +1,12 @@
 ﻿// Quarrel © 2022
 
-using Discord.API.Models.Users;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Quarrel.Client.Models.Users;
 
 namespace Quarrel.Bindables.Users
 {
     /// <summary>
-    /// A wrapper of a <see cref="Discord.API.Models.Users.User"/> that can be bound to the UI.
+    /// A wrapper of a <see cref="Client.Models.Users.User"/> that can be bound to the UI.
     /// </summary>
     public partial class BindableUser : ObservableObject
     {

@@ -1,18 +1,18 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
-using Discord.API.Models.Channels;
-using Discord.API.Models.Channels.Interfaces;
 using Discord.API.Models.Enums.Channels;
-using Discord.API.Models.Guilds;
-using Discord.API.Models.Settings;
-using Discord.API.Models.Users;
 using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Bindables.Messages;
 using Quarrel.Bindables.Users;
+using Quarrel.Client.Models.Channels;
+using Quarrel.Client.Models.Channels.Interfaces;
+using Quarrel.Client.Models.Guilds;
+using Quarrel.Client.Models.Settings;
+using Quarrel.Client.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

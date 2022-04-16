@@ -1,15 +1,15 @@
 ﻿// Quarrel © 2022
 
-using Discord.API.Models.Channels;
-using Discord.API.Models.Channels.Abstract;
-using Discord.API.Models.Channels.Interfaces;
-using Discord.API.Models.Users;
 using Quarrel.Bindables.Abstract;
+using Quarrel.Client.Models.Channels;
+using Quarrel.Client.Models.Channels.Abstract;
+using Quarrel.Client.Models.Channels.Interfaces;
+using Quarrel.Client.Models.Users;
 
 namespace Quarrel.Bindables.Channels.Abstract
 {
     /// <summary>
-    /// A wrapper of a <see cref="Discord.API.Models.Channels.Abstract.Channel"/> that can be bound to the UI.
+    /// A wrapper of a <see cref="Client.Models.Channels.Abstract.Channel"/> that can be bound to the UI.
     /// </summary>
     public abstract partial class BindableChannel : SelectableItem
     {
@@ -18,7 +18,7 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableChannel"/> class.
         /// </summary>
-        /// <param name="channel">The <see cref="Discord.API.Models.Channels.Abstract.Channel"/> to wrap.</param>
+        /// <param name="channel">The <see cref="Client.Models.Channels.Abstract.Channel"/> to wrap.</param>
         internal BindableChannel(Channel channel)
         {
             _channel = channel;
@@ -35,7 +35,7 @@ namespace Quarrel.Bindables.Channels.Abstract
         public abstract bool IsTextChannel { get; }
 
         /// <summary>
-        /// Gets the wrapped <see cref="Discord.API.Models.Channels.Abstract.Channel"/>.
+        /// Gets the wrapped <see cref="Client.Models.Channels.Abstract.Channel"/>.
         /// </summary>
         public Channel Channel
         {

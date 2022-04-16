@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\API\Discord.API\Discord.API.csproj" />
+    <ProjectReference Include="..\Quarrel.Client\Quarrel.Client.csproj" />
   </ItemGroup>
 
 </Project>
