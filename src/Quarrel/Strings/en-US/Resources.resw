@@ -139,6 +139,18 @@
   <data name="About/ViewOnGitHubTB.Text" xml:space="preserve">
     <value>View code on GitHub</value>
   </data>
+  <data name="Credit/CommitsTB.Text" xml:space="preserve">
+    <value>Commits</value>
+  </data>
+  <data name="Credit/ContributorsTB.Text" xml:space="preserve">
+    <value>Contributors</value>
+  </data>
+  <data name="Credit/CreditTB.Text" xml:space="preserve">
+    <value>CREDIT</value>
+  </data>
+  <data name="Credit/DevelopersTB.Text" xml:space="preserve">
+    <value>Developers</value>
+  </data>
   <data name="CurrentUserButton/DndRBTN.ToolTipService.ToolTip" xml:space="preserve">
     <value>Do Not Disturb</value>
   </data>

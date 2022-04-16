@@ -83,4 +83,16 @@
   <data name="About/ContributionsHLBTN" xml:space="preserve">
     <value>תרומות</value>
   </data>
+  <data name="Credit/CommitsTB.Text" xml:space="preserve">
+    <value>Commits</value>
+  </data>
+  <data name="Credit/ContributorsTB.Text" xml:space="preserve">
+    <value>תורמים</value>
+  </data>
+  <data name="Credit/CreditTB.Text" xml:space="preserve">
+    <value>כבוד</value>
+  </data>
+  <data name="Credit/DevelopersTB.Text" xml:space="preserve">
+    <value>מפתחי</value>
+  </data>
 </root>

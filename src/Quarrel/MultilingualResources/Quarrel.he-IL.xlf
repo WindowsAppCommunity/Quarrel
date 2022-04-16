@@ -100,6 +100,22 @@
           <source>Contributions</source>
           <target state="needs-review-translation">תרומות</target>
         </trans-unit>
+        <trans-unit id="Credit/CommitsTB.Text" translate="yes" xml:space="preserve">
+          <source>Commits</source>
+          <target state="needs-review-translation">Commits</target>
+        </trans-unit>
+        <trans-unit id="Credit/ContributorsTB.Text" translate="yes" xml:space="preserve">
+          <source>Contributors</source>
+          <target state="needs-review-translation">תורמים</target>
+        </trans-unit>
+        <trans-unit id="Credit/CreditTB.Text" translate="yes" xml:space="preserve">
+          <source>CREDIT</source>
+          <target state="needs-review-translation">כבוד</target>
+        </trans-unit>
+        <trans-unit id="Credit/DevelopersTB.Text" translate="yes" xml:space="preserve">
+          <source>Developers</source>
+          <target state="needs-review-translation">מפתחי</target>
+        </trans-unit>
       </group>
     </body>
   </file>
