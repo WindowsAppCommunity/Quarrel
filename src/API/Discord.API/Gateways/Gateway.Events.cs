@@ -1,5 +1,4 @@
 ﻿// Quarrel © 2022
-
 using Discord.API.Exceptions;
 using Discord.API.Gateways.Models;
 using Discord.API.Gateways.Models.Channels;
@@ -19,75 +18,76 @@ namespace Discord.API.Gateways
 {
     internal partial class Gateway
     {
-        public event EventHandler<SocketFrameException?>? UnhandledMessageEncountered;
-        public event EventHandler<string>? UnknownEventEncountered;
-        public event EventHandler<int>? UnknownOperationEncountered;
-        public event EventHandler<string>? KnownEventEncountered;
-        public event EventHandler<GatewayOperation>? UnhandledOperationEncountered;
-        public event EventHandler<GatewayEvent>? UnhandledEventEncountered;
+        private Action<SocketFrameException> UnhandledMessageEncountered { get; }
+        private Action<string> UnknownEventEncountered { get; }
+        private Action<int> UnknownOperationEncountered { get; }
+        private Action<string> KnownEventEncountered { get; }
+        private Action<GatewayOperation> UnhandledOperationEncountered { get; }
+        private Action<GatewayEvent> UnhandledEventEncountered { get; }
 
-        public event EventHandler<GatewayEventArgs<Ready>>? Ready;
-        public event EventHandler<GatewayEventArgs<Resumed>>? Resumed;
-        public event EventHandler<GatewayEventArgs<InvalidSession>>? InvalidSession;
-        public event EventHandler<Exception>? GatewayClosed;
+        private Action<Ready> Ready { get; }
+        private Action<Resumed> Resumed { get; }
+        private Action<InvalidSession> InvalidSession { get; }
+        private Action<Exception> GatewayClosed { get; }
 
-        public event EventHandler<GatewayEventArgs<JsonGuild>>? GuildCreated;
-        public event EventHandler<GatewayEventArgs<JsonGuild>>? GuildUpdated;
-        public event EventHandler<GatewayEventArgs<GuildDeleted>>? GuildDeleted;
+        private Action<JsonGuild> GuildCreated { get; }
+        private Action<JsonGuild> GuildUpdated { get; }
+        private Action<GuildDeleted> GuildDeleted { get; }
 
-        public event EventHandler<GatewayEventArgs<GuildBanUpdate>>? GuildBanAdded;
-        public event EventHandler<GatewayEventArgs<GuildBanUpdate>>? GuildBanRemoved;
+        private Action<GuildBanUpdate> GuildBanAdded { get; }
+        private Action<GuildBanUpdate> GuildBanRemoved { get; }
 
-        public event EventHandler<GatewayEventArgs<JsonChannel>>? ChannelCreated;
-        public event EventHandler<GatewayEventArgs<JsonChannel>>? ChannelUpdated;
-        public event EventHandler<GatewayEventArgs<JsonChannel>>? ChannelDeleted;
+        private Action<JsonChannel> ChannelCreated { get; }
+        private Action<JsonChannel> ChannelUpdated { get; }
+        private Action<JsonChannel> ChannelDeleted { get; }
 
-        public event EventHandler<GatewayEventArgs<ChannelRecipientUpdate>>? ChannelRecipientAdded;
-        public event EventHandler<GatewayEventArgs<ChannelRecipientUpdate>>? ChannelRecipientRemoved;
+        private Action<ChannelRecipientUpdate> ChannelRecipientAdded { get; }
+        private Action<ChannelRecipientUpdate> ChannelRecipientRemoved { get; }
 
-        public event EventHandler<GatewayEventArgs<JsonMessageAck>>? MessageAck;
-        public event EventHandler<GatewayEventArgs<JsonMessage>>? MessageCreated;
-        public event EventHandler<GatewayEventArgs<JsonMessage>>? MessageUpdated;
-        public event EventHandler<GatewayEventArgs<JsonMessageDeleted>>? MessageDeleted;
+        private Action<JsonMessageAck> MessageAck { get; }
+        private Action<JsonMessage> MessageCreated { get; }
+        private Action<JsonMessage> MessageUpdated { get; }
+        private Action<JsonMessageDeleted> MessageDeleted { get; }
 
-        public event EventHandler<GatewayEventArgs<MessageReactionUpdated>>? MessageReactionAdded;
-        public event EventHandler<GatewayEventArgs<MessageReactionUpdated>>? MessageReactionRemoved;
-        public event EventHandler<GatewayEventArgs<MessageReactionRemoveAll>>? MessageReactionRemovedAll;
+        private Action<MessageReactionUpdated> MessageReactionAdded { get; }
+        private Action<MessageReactionUpdated> MessageReactionRemoved { get; }
+        private Action<MessageReactionRemoveAll> MessageReactionRemovedAll { get; }
 
-        public event EventHandler<GatewayEventArgs<JsonGuildMember>>? GuildMemberAdded;
-        public event EventHandler<GatewayEventArgs<JsonGuildMember>>? GuildMemberUpdated;
-        public event EventHandler<GatewayEventArgs<GuildMemberRemoved>>? GuildMemberRemoved;
-        public event EventHandler<GatewayEventArgs<GuildMemberListUpdated>>? GuildMemberListUpdated;
-        public event EventHandler<GatewayEventArgs<GuildMembersChunk>>? GuildMembersChunk;
+        private Action<JsonGuildMember> GuildMemberAdded { get; }
+        private Action<JsonGuildMember> GuildMemberUpdated { get; }
+        private Action<GuildMemberRemoved> GuildMemberRemoved { get; }
+        private Action<GuildMemberListUpdated> GuildMemberListUpdated { get; }
+        private Action<GuildMembersChunk> GuildMembersChunk { get; }
 
-        public event EventHandler<GatewayEventArgs<JsonRelationship>>? RelationshipAdded;
-        public event EventHandler<GatewayEventArgs<JsonRelationship>>? RelationshipUpdated;
-        public event EventHandler<GatewayEventArgs<JsonRelationship>>? RelationshipRemoved;
+        private Action<JsonRelationship> RelationshipAdded { get; }
+        private Action<JsonRelationship> RelationshipUpdated { get; }
+        private Action<JsonRelationship> RelationshipRemoved { get; }
 
-        public event EventHandler<GatewayEventArgs<TypingStart>>? TypingStarted;
-        public event EventHandler<GatewayEventArgs<JsonPresence>>? PresenceUpdated;
+        private Action<TypingStart> TypingStarted { get; }
+        private Action<JsonPresence> PresenceUpdated { get; }
 
-        public event EventHandler<GatewayEventArgs<UserNote>>? UserNoteUpdated;
-        public event EventHandler<GatewayEventArgs<JsonUserSettings>>? UserSettingsUpdated;
-        public event EventHandler<GatewayEventArgs<JsonGuildSettings>>? UserGuildSettingsUpdated;
+        private Action<UserNote> UserNoteUpdated { get; }
+        private Action<JsonUserSettings> UserSettingsUpdated { get; }
+        private Action<JsonGuildSettings> UserGuildSettingsUpdated { get; }
 
-        public event EventHandler<GatewayEventArgs<JsonVoiceState>>? VoiceStateUpdated;
-        public event EventHandler<GatewayEventArgs<VoiceServerUpdate>>? VoiceServerUpdated;
+        private Action<JsonVoiceState> VoiceStateUpdated { get; }
+        private Action<VoiceServerUpdate> VoiceServerUpdated { get; }
 
-        public event EventHandler<GatewayEventArgs<SessionReplace[]>>? SessionReplaced;
+        private Action<SessionReplace[]> SessionReplaced { get; }
 
-        private bool FireEvent<T>(SocketFrame frame, EventHandler<GatewayEventArgs<T>>? eventHandler)
+
+    private static bool FireEvent<T>(SocketFrame frame, Action<T> eventHandler)
         {
-            var eventArgs = new GatewayEventArgs<T>(((SocketFrame<T>)frame).Payload);
-            eventHandler?.Invoke(this, eventArgs);
+            var eventArgs = ((SocketFrame<T>)frame).Payload;
+            eventHandler(eventArgs);
             return true;
         }
-        private bool FireEvent<T>(T data, EventHandler<T>? eventHandler)
+
+        public static bool FireEvent<T>(T data, Action<T> eventHandler)
         {
-            eventHandler?.Invoke(this, data);
+            eventHandler(data);
             return true;
         }
-        
         private bool OnReady(SocketFrame<Ready> frame)
         {
             var ready = frame.Payload;
@@ -110,10 +110,12 @@ namespace Discord.API.Gateways
             {
                 UnknownOperationSocketFrame osf => FireEvent(osf.Operation, UnknownOperationEncountered),
                 UnknownEventSocketFrame osf => FireEvent(osf.Event, UnknownEventEncountered),
-                _ => frame.Operation switch {
+                _ => frame.Operation switch
+                {
                     GatewayOperation.Hello => OnHelloReceived((SocketFrame<Hello>)frame),
                     GatewayOperation.InvalidSession => OnInvalidSession(frame),
-                    GatewayOperation.Dispatch => FireEvent(frame.Event.ToString(), KnownEventEncountered) && frame.Event switch {
+                    GatewayOperation.Dispatch => FireEvent(frame.Event.ToString(), KnownEventEncountered) && frame.Event switch
+                    {
                         GatewayEvent.READY => OnReady((SocketFrame<Ready>)frame),
                         GatewayEvent.RESUMED => FireEvent(frame, Resumed),
 
@@ -161,7 +163,7 @@ namespace Discord.API.Gateways
                         GatewayEvent.VOICE_SERVER_UPDATE => FireEvent(frame, VoiceServerUpdated),
 
                         GatewayEvent.SESSIONS_REPLACE => FireEvent(frame, SessionReplaced),
-                        
+
                         null => FireEvent(new SocketFrameException("Received null event despite dispatch opcode.", (int?)frame.Operation, frame.Event.ToString()), UnhandledMessageEncountered),
                         _ => FireEvent(frame.Event.Value, UnhandledEventEncountered),
                     },

@@ -10,10 +10,9 @@ namespace Quarrel.Client
     /// <inheritdoc/>
     public partial class QuarrelClient
     {
-        private void OnReady(object sender, GatewayEventArgs<Ready> e)
+        private void OnReady(Ready ready)
         {
-            Guard.IsNotNull(e.EventData, nameof(e.EventData));
-            Ready ready = e.EventData;
+            Guard.IsNotNull(ready, nameof(ready));
 
             AddSelfUser(ready.User);
 

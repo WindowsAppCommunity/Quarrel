@@ -52,7 +52,7 @@ namespace Discord.API.Gateways
             }
             catch (WebSocketClosedException exception)
             {
-                GatewayClosed?.Invoke(this, exception);
+                GatewayClosed(exception);
             }
         }
 
@@ -109,7 +109,7 @@ namespace Discord.API.Gateways
 
         private void HandleClosed(Exception exception)
         {
-            GatewayClosed?.Invoke(this, exception);
+            GatewayClosed(exception);
         }
 
         private async Task<SocketFrame?> ParseFrame(Stream stream)
@@ -120,11 +120,11 @@ namespace Discord.API.Gateways
             }
             catch (SocketFrameException ex)
             {
-                UnhandledMessageEncountered?.Invoke(this, ex);
+                UnhandledMessageEncountered(ex);
             }
             catch
             {
-                UnhandledMessageEncountered?.Invoke(this, null);
+                UnhandledMessageEncountered(new SocketFrameException("Unknown Exception"));
             }
 
             return null;
