@@ -3,5 +3,6 @@
 		<LangVersion>10.0</LangVersion>
 		<Nullable>enable</Nullable>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<Configurations>Debug;Insider;Release</Configurations>
 	</PropertyGroup>
 </Project>

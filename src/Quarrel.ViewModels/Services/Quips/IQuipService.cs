@@ -1,6 +1,6 @@
 ﻿// Quarrel © 2022
 
-using Quarrel.Services.Quips.Model;
+using Quarrel.Services.Quips.Models;
 
 namespace Quarrel.Services.Quips
 {

@@ -1,6 +1,6 @@
 ﻿// Quarrel © 2022
 
-using Quarrel.Services.Quips.Model;
+using Quarrel.Services.Quips.Models;
 using System;
 using System.Collections.Generic;
 

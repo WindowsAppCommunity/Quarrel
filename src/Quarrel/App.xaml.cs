@@ -12,6 +12,7 @@ using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
 using Quarrel.Services.Storage;
 using Quarrel.Services.Storage.Models;
+using Quarrel.Services.Versioning;
 using Quarrel.ViewModels;
 using Quarrel.ViewModels.Panels;
 using Quarrel.ViewModels.SubPages;
@@ -90,6 +91,7 @@ namespace Quarrel
             var services = new ServiceCollection();
             services.AddSingleton<IMessenger, WeakReferenceMessenger>();
             services.AddSingleton<ILocalizationService, LocalizationService>();
+            services.AddSingleton<IVersioningService, VersioningService>();
             services.AddSingleton<IDiscordService, DiscordService>();
             services.AddSingleton<IDispatcherService, DispatcherService>();
             services.AddSingleton<IStorageService>(new StorageService(appDataFolder, JsonAsyncSerializer.Singleton));

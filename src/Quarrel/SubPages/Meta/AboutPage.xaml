@@ -74,7 +74,7 @@
                     <Run x:Uid="About/VersionRUN"
                          FontWeight="Bold"
                          Text="Version:"/>
-                    <Run Text="{x:Bind AppVersion}"/>
+                    <Run Text="{x:Bind ViewModel.AppVersion}"/>
                 </TextBlock>
 
                 <TextBlock Opacity=".5"
@@ -82,9 +82,9 @@
                            TextReadingOrder="UseFlowDirection"
                            HorizontalAlignment="Right"
                            VerticalAlignment="Center">
-                    <Run Text="{x:Bind CommitInfo}"/>
+                    <Run Text="{x:Bind ViewModel.CommitInfo}"/>
                     <LineBreak/>
-                    <Run Text="{x:Bind BranchInfo}"/>
+                    <Run Text="{x:Bind ViewModel.BranchInfo}"/>
                 </TextBlock>
             </Grid>
         </Grid>

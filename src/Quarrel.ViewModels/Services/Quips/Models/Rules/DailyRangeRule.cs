@@ -2,7 +2,7 @@
 
 using System;
 
-namespace Quarrel.Services.Quips.Model.Rules
+namespace Quarrel.Services.Quips.Models.Rules
 {
     /// <summary>
     /// A 

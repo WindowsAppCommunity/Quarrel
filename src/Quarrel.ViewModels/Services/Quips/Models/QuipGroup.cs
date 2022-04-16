@@ -1,6 +1,6 @@
 ﻿// Quarrel © 2022
 
-using Quarrel.Services.Quips.Model.Rules;
+using Quarrel.Services.Quips.Models.Rules;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 // JSON models don't need to respect standard nullable rules.
 #pragma warning disable CS8618
 
-namespace Quarrel.Services.Quips.Model
+namespace Quarrel.Services.Quips.Models
 {
     /// <summary>
     /// A group of quips chosen at random.

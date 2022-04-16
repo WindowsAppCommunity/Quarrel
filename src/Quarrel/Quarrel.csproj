@@ -41,10 +41,18 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DebugSymbols>true</DebugSymbols>
     <DefineConstants>DEBUG</DefineConstants>
+	<DefineConstants>DEV</DefineConstants>
     <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Insider'">
+    <Optimize>true</Optimize>
+	<DefineConstants>INSIDER</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <Optimize>true</Optimize>
+	<DefineConstants>RELEASE</DefineConstants>
     <DebugType>pdbonly</DebugType>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
@@ -137,6 +145,7 @@
     <Compile Include="Services\Storage\Models\FolderData.cs" />
     <Compile Include="Services\Storage\StorageService.cs" />
     <Compile Include="Services\Storage\Vault\VaultService.cs" />
+    <Compile Include="Services\Versioning\VersioningService.cs" />
     <Compile Include="SubPages\Meta\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
@@ -331,7 +340,6 @@
   <ItemGroup>
     <XliffResource Include="MultilingualResources\Quarrel.he-IL.xlf" />
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
