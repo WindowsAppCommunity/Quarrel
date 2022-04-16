@@ -57,4 +57,7 @@
   <data name="CurrentUserButton/DndRBTN.ToolTipService.ToolTip" xml:space="preserve">
     <value>נא לא להפריע</value>
   </data>
+  <data name="CurrentUserButton/InvisibleRBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>בלתי נראה</value>
+  </data>
 </root>
