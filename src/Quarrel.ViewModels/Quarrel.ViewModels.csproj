@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\API\GitHub.API\GitHub.API.csproj" />
     <ProjectReference Include="..\Quarrel.Client\Quarrel.Client.csproj" />
   </ItemGroup>
 

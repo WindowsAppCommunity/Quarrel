@@ -9,6 +9,8 @@ namespace Quarrel.Selectors
     public class SubPageTemplateSelector : DataTemplateSelector
     {
         public DataTemplate? AboutTemplate { get; set; }
+
+        public DataTemplate? CreditTemplate { get; set; }
         
         /// <inheritdoc/>
         protected override DataTemplate? SelectTemplateCore(object item, DependencyObject container)
@@ -16,6 +18,7 @@ namespace Quarrel.Selectors
             return item switch
             {
                 AboutPageViewModel => AboutTemplate,
+                CreditPageViewModel => CreditTemplate,
                 _ => null,
             };
         }

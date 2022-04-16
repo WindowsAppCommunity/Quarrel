@@ -96,6 +96,10 @@
           <source>View code on GitHub</source>
           <target state="needs-review-translation">צפה הקוד ב-GitHub</target>
         </trans-unit>
+        <trans-unit id="About/ContributionsHLBTN" translate="yes" xml:space="preserve">
+          <source>Contributions</source>
+          <target state="needs-review-translation">תרומות</target>
+        </trans-unit>
       </group>
     </body>
   </file>

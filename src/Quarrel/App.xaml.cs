@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using OwlCore.AbstractStorage;
 using Quarrel.Controls.Shell;
@@ -13,6 +14,7 @@ using Quarrel.Services.Storage.Models;
 using Quarrel.ViewModels;
 using Quarrel.ViewModels.Panels;
 using Quarrel.ViewModels.SubPages;
+using Quarrel.ViewModels.SubPages.Host;
 using Quarrel.ViewModels.SubPages.Meta;
 using System;
 using Windows.ApplicationModel.Activation;
@@ -34,6 +36,9 @@ namespace Quarrel
         public App()
         {
             Services = ConfigureServices();
+
+            // TODO: This should not be needed
+            Ioc.Default.ConfigureServices(Services);
 
             this.InitializeComponent();
         }
@@ -93,12 +98,16 @@ namespace Quarrel
 
             // ViewModels
             services.AddSingleton<WindowViewModel>();
+            services.AddSingleton<SubPageHostViewModel>();
+            services.AddTransient<LoginPageViewModel>();
             services.AddSingleton<GuildsViewModel>();
             services.AddSingleton<ChannelsViewModel>();
             services.AddSingleton<MessagesViewModel>();
             services.AddSingleton<CurrentUserViewModel>();
+
+            // SubPages
             services.AddTransient<AboutPageViewModel>();
-            services.AddTransient<LoginPageViewModel>();
+            services.AddTransient<CreditPageViewModel>();
 
             return services.BuildServiceProvider();
         }

@@ -13,24 +13,24 @@ namespace GitHub.API.Models
         /// Gets the repository id.
         /// </summary>
         [JsonPropertyName("id")]
-        public ulong Id { get; set; }
+        public ulong Id { get; internal set; }
 
         /// <summary>
         /// Gets the repository' name.
         /// </summary>
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name { get; internal set; }
 
         /// <summary>
         /// Gets the repository's full name.
         /// </summary>
         [JsonPropertyName("full_name")]
-        public string FullName { get; set; }
+        public string FullName { get; internal set; }
 
         /// <summary>
         /// Gets whether or not the reposity is private.
         /// </summary>
         [JsonPropertyName("private")]
-        public bool IsPrivate { get; set; }
+        public bool IsPrivate { get; internal set; }
     }
 }

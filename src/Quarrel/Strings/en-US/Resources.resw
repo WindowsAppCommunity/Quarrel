@@ -120,6 +120,9 @@
   <data name="About/AboutTB.Text" xml:space="preserve">
     <value>ABOUT</value>
   </data>
+  <data name="About/ContributionsHLBTN" xml:space="preserve">
+    <value>Contributions</value>
+  </data>
   <data name="About/DevelopedByTB.Text" xml:space="preserve">
     <value>Developed by Adam Dernis and Matthew Collins</value>
   </data>

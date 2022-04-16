@@ -5,19 +5,26 @@
     xmlns:local="using:Quarrel.SubPages.Host"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:convert="using:Quarrel.Converters"
     xmlns:selectors="using:Quarrel.Selectors"
     xmlns:metapages="using:Quarrel.SubPages.Meta"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+    Visibility="{x:Bind ViewModel.IsVisible, Mode=OneWay}">
 
     <UserControl.Resources>
         <DataTemplate x:Key="AboutPageTemplate">
             <metapages:AboutPage/>
         </DataTemplate>
+        
+        <DataTemplate x:Key="CreditPageTemplate">
+            <metapages:CreditPage/>
+        </DataTemplate>
 
         <selectors:SubPageTemplateSelector x:Key="SubPageTemplateSelector"
-                                           AboutTemplate="{StaticResource AboutPageTemplate}"/>
+                                           AboutTemplate="{StaticResource AboutPageTemplate}"
+                                           CreditTemplate="{StaticResource CreditPageTemplate}"/>
     </UserControl.Resources>
 
     <Grid>
@@ -35,7 +42,7 @@
                     BorderThickness="1" CornerRadius="2"
                     Background="{ThemeResource PrimaryBackground}"
                     BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}">
-                <ContentControl Content="{x:Bind ContentViewModel}"
+                <ContentControl Content="{x:Bind ViewModel.ContentViewModel, Mode=OneWay}"
                                 ContentTemplateSelector="{StaticResource SubPageTemplateSelector}"/>
             </Border>
 
@@ -45,8 +52,11 @@
                     HorizontalAlignment="Right"
                     Height="48" Width="48"
                     Background="Transparent"
-                    Click="CloseButtonClicked">
-                <SymbolIcon Symbol="Clear"/>
+                    Command="{x:Bind ViewModel.GoBackSubPageCommand}">
+                <Grid>
+                    <SymbolIcon Symbol="Clear" Visibility="{x:Bind convert:NotBoolToVisibilityConverter.Convert(ViewModel.IsStacked), Mode=OneWay}"/>
+                    <SymbolIcon Symbol="Back" Visibility="{x:Bind ViewModel.IsStacked, Mode=OneWay}"/>
+                </Grid>
             </Button>
         </Grid>
     </Grid>

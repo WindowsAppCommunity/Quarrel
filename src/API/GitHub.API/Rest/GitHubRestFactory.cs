@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using GitHub.API.HttpHandlers;
+using Refit;
 using System;
 using System.Net.Http;
 
@@ -21,6 +22,11 @@ namespace GitHub.API.Rest
         public GitHubRestFactory(string userAgent)
         {
             _userAgent = userAgent;
+        }
+        
+        public IGitHubService GetGitHubService()
+        {
+            return RestService.For<IGitHubService>(GetHttpClient());
         }
 
         private HttpClient GetHttpClient()

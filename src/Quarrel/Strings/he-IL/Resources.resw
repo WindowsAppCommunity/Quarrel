@@ -80,4 +80,7 @@
   <data name="About/ViewOnGitHubTB.Text" xml:space="preserve">
     <value>צפה הקוד ב-GitHub</value>
   </data>
+  <data name="About/ContributionsHLBTN" xml:space="preserve">
+    <value>תרומות</value>
+  </data>
 </root>
