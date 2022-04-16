@@ -8,7 +8,8 @@
     xmlns:convert="using:Quarrel.Converters"
     mc:Ignorable="d"
     d:DesignHeight="800"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+    MaxWidth="480">
 
     <Grid Padding="16">
         <ScrollViewer>

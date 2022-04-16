@@ -61,4 +61,23 @@
   <data name="CurrentUserButton/InvisibleRBTN.ToolTipService.ToolTip" xml:space="preserve">
     <value>בלתי נראה</value>
   </data>
+  <data name="About/AboutTB.Text" xml:space="preserve">
+    <value>אודות</value>
+  </data>
+  <data name="About/DevelopedByTB.Text" xml:space="preserve">
+    <value>פותח על ידי Adam Dernis ו-Matthew Collins</value>
+  </data>
+  <data name="About/DisclaimerOnlyInEnglishTB.Text" xml:space="preserve">
+    <value>כתב ויתור הוא רק באנגלית</value>
+    <comment>This text is above the Disclaimer in about, which will not be translated</comment>
+  </data>
+  <data name="About/DiscussOnTwitterTB.Text" xml:space="preserve">
+    <value>דיון בטוויטר</value>
+  </data>
+  <data name="About/LeaveFeedbackTB.Text" xml:space="preserve">
+    <value>השאר משוב</value>
+  </data>
+  <data name="About/ViewOnGitHubTB.Text" xml:space="preserve">
+    <value>צפה הקוד ב-GitHub</value>
+  </data>
 </root>

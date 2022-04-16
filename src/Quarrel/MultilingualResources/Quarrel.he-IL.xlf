@@ -73,28 +73,28 @@
         </trans-unit>
         <trans-unit id="About/AboutTB.Text" translate="yes" xml:space="preserve">
           <source>ABOUT</source>
-          <target state="new">ABOUT</target>
+          <target state="translated">אודות</target>
         </trans-unit>
         <trans-unit id="About/DevelopedByTB.Text" translate="yes" xml:space="preserve">
           <source>Developed by Adam Dernis and Matthew Collins</source>
-          <target state="new">Developed by Adam Dernis and Matthew Collins</target>
+          <target state="translated">פותח על ידי Adam Dernis ו-Matthew Collins</target>
         </trans-unit>
         <trans-unit id="About/DisclaimerOnlyInEnglishTB.Text" translate="yes" xml:space="preserve">
           <source>Disclaimer is only in English</source>
-          <target state="new">Disclaimer is only in English</target>
+          <target state="needs-review-translation">כתב ויתור הוא רק באנגלית</target>
           <note from="MultilingualBuild" annotates="source" priority="2">This text is above the Disclaimer in about, which will not be translated</note>
         </trans-unit>
         <trans-unit id="About/DiscussOnTwitterTB.Text" translate="yes" xml:space="preserve">
           <source>Discuss on Twitter</source>
-          <target state="new">Discuss on Twitter</target>
+          <target state="needs-review-translation">דיון בטוויטר</target>
         </trans-unit>
         <trans-unit id="About/LeaveFeedbackTB.Text" translate="yes" xml:space="preserve">
           <source>Leave Feedback</source>
-          <target state="new">Leave Feedback</target>
+          <target state="needs-review-translation">השאר משוב</target>
         </trans-unit>
         <trans-unit id="About/ViewOnGitHubTB.Text" translate="yes" xml:space="preserve">
           <source>View code on GitHub</source>
-          <target state="new">View code on GitHub</target>
+          <target state="needs-review-translation">צפה הקוד ב-GitHub</target>
         </trans-unit>
       </group>
     </body>

@@ -23,7 +23,9 @@
     <Grid>
         <Grid x:Name="Backdrop" Background="{ThemeResource SupPageBackdropBrush}"/>
 
-        <Grid x:Name="ContainerGrid">
+        <Grid x:Name="ContainerGrid"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition/>
