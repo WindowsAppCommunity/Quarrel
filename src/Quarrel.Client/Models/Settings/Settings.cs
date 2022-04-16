@@ -7,11 +7,11 @@ using Quarrel.Client.Models.Base;
 namespace Quarrel.Client.Models.Settings
 {
     /// <summary>
-    /// User settings managed by a <see cref="DiscordClient"/>.
+    /// User settings managed by a <see cref="QuarrelClient"/>.
     /// </summary>
     public class Settings : DiscordItem
     {
-        internal Settings(JsonUserSettings jsonUserSettings, DiscordClient context) :
+        internal Settings(JsonUserSettings jsonUserSettings, QuarrelClient context) :
             base(context)
         {
             GuildOrder = jsonUserSettings.GuildOrder;

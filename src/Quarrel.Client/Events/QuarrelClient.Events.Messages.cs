@@ -10,7 +10,7 @@ using Quarrel.Client.Models.Messages;
 namespace Quarrel.Client
 {
     /// <inheritdoc/>
-    public partial class DiscordClient
+    public partial class QuarrelClient
     {
         private void OnMessageCreated(object sender, GatewayEventArgs<JsonMessage> e)
         {

@@ -9,11 +9,11 @@ using Quarrel.Client.Models.Users;
 namespace Quarrel.Client.Models.Channels
 {
     /// <summary>
-    /// A direct message channel managed by a <see cref="DiscordClient"/>.
+    /// A direct message channel managed by a <see cref="QuarrelClient"/>.
     /// </summary>
     public class DirectChannel : Channel, IDirectChannel
     {
-        internal DirectChannel(JsonChannel restChannel, DiscordClient context) : base(restChannel, context)
+        internal DirectChannel(JsonChannel restChannel, QuarrelClient context) : base(restChannel, context)
         {            
             Guard.IsNotNull(restChannel.Recipient, nameof(restChannel.Recipient));
 

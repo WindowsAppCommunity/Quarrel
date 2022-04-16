@@ -8,11 +8,11 @@ using Quarrel.Client.Models.Roles.Interfaces;
 namespace Quarrel.Client.Models.Roles
 {
     /// <summary>
-    /// A role managed by a <see cref="DiscordClient"/>.
+    /// A role managed by a <see cref="QuarrelClient"/>.
     /// </summary>
     public class Role : SnowflakeItem, IRole
     {
-        internal Role(JsonRole jsonRole, DiscordClient context) :
+        internal Role(JsonRole jsonRole, QuarrelClient context) :
             base(context)
         {
             Id = jsonRole.Id;

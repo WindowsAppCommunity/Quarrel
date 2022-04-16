@@ -8,7 +8,7 @@ using Quarrel.Client.Models.Users;
 namespace Quarrel.Client
 {
     /// <inheritdoc/>
-    public partial class DiscordClient
+    public partial class QuarrelClient
     {
         private void OnReady(object sender, GatewayEventArgs<Ready> e)
         {
@@ -40,7 +40,7 @@ namespace Quarrel.Client
 
             UpdateSettings(ready.Settings);
 
-            Guard.IsNotNull<SelfUser>(_selfUser, nameof(Client.DiscordClient._selfUser));
+            Guard.IsNotNull<SelfUser>(_selfUser, nameof(Client.QuarrelClient._selfUser));
 
             LoggedIn?.Invoke(this, _selfUser);
         }

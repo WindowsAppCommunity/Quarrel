@@ -8,11 +8,11 @@ using Quarrel.Client.Models.Channels.Interfaces;
 namespace Quarrel.Client.Models.Channels
 {
     /// <summary>
-    /// A text channel in a guild managed by a <see cref="DiscordClient"/>.
+    /// A text channel in a guild managed by a <see cref="QuarrelClient"/>.
     /// </summary>
     public class GuildTextChannel : GuildChannel, IGuildTextChannel
     {
-        internal GuildTextChannel(JsonChannel restChannel, ulong? guildId, DiscordClient context) :
+        internal GuildTextChannel(JsonChannel restChannel, ulong? guildId, QuarrelClient context) :
             base(restChannel, guildId, context)
         {
             Guard.IsNotNull(restChannel.SlowModeDelay, nameof(restChannel.SlowModeDelay));

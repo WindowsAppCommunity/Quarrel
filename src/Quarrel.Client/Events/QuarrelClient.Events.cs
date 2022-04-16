@@ -10,7 +10,7 @@ using System;
 namespace Quarrel.Client
 {
     /// <inheritdoc/>
-    public partial class DiscordClient
+    public partial class QuarrelClient
     {
         /// <summary>
         /// Invoked when an http exception is handled.
@@ -74,7 +74,7 @@ namespace Quarrel.Client
 
         private void RegisterEvents()
         {
-            Guard.IsNotNull<Gateway>(_gateway, nameof(Client.DiscordClient._gateway));
+            Guard.IsNotNull<Gateway>(_gateway, nameof(Client.QuarrelClient._gateway));
 
             _gateway.Ready += OnReady;
 

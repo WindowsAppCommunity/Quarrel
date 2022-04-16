@@ -14,7 +14,7 @@ using System.Collections.Generic;
 namespace Quarrel.Client.Models.Guilds
 {
     /// <summary>
-    /// A guild managed by a <see cref="DiscordClient"/>.
+    /// A guild managed by a <see cref="QuarrelClient"/>.
     /// </summary>
     public class Guild : SnowflakeItem, IGuild
     {
@@ -24,7 +24,7 @@ namespace Quarrel.Client.Models.Guilds
         /// <summary>
         /// Initializes new instance of the <see cref="Guild"/> class.
         /// </summary>
-        internal Guild(JsonGuild restGuild, DiscordClient context)
+        internal Guild(JsonGuild restGuild, QuarrelClient context)
             : base(context)
         {
             Id = restGuild.Id;

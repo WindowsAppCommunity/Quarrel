@@ -8,16 +8,16 @@ namespace Quarrel.Client.Models.Base
     public abstract class DiscordItem
     {
         /// <summary>
-        /// Initializes a new instance of a <see cref="DiscordClient"/> class.
+        /// Initializes a new instance of a <see cref="QuarrelClient"/> class.
         /// </summary>
-        protected DiscordItem(DiscordClient context)
+        protected DiscordItem(QuarrelClient context)
         {
             Context = context;
         }
 
         /// <summary>
-        /// The <see cref="DiscordClient"/> containing the <see cref="DiscordItem"/>.
+        /// The <see cref="QuarrelClient"/> containing the <see cref="DiscordItem"/>.
         /// </summary>
-        protected DiscordClient Context { get; }
+        protected QuarrelClient Context { get; }
     }
 }

@@ -8,11 +8,11 @@ using Quarrel.Client.Models.Users.Interfaces;
 namespace Quarrel.Client.Models.Users
 {
     /// <summary>
-    /// The current user's data managed by the <see cref="DiscordClient"/>.
+    /// The current user's data managed by the <see cref="QuarrelClient"/>.
     /// </summary>
     public class SelfUser : User, ISelfUser
     {
-        internal SelfUser(JsonUser restUser, DiscordClient context) :
+        internal SelfUser(JsonUser restUser, QuarrelClient context) :
             base(restUser, context)
         {
             Guard.IsNotNull(restUser.PurchasedFlags, nameof(restUser.PurchasedFlags));

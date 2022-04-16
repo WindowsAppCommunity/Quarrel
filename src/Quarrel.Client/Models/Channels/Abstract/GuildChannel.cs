@@ -13,7 +13,7 @@ namespace Quarrel.Client.Models.Channels.Abstract
     /// </summary>
     public abstract class GuildChannel : Channel, IGuildChannel
     {
-        internal GuildChannel(JsonChannel restChannel, ulong? guildId, DiscordClient context) :
+        internal GuildChannel(JsonChannel restChannel, ulong? guildId, QuarrelClient context) :
             base(restChannel, context)
         {
             guildId = restChannel.GuildId ?? guildId;

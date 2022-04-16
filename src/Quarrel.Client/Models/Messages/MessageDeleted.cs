@@ -10,7 +10,7 @@ namespace Quarrel.Client.Models.Messages
     /// </summary>
     public class MessageDeleted : DiscordItem
     {
-        internal MessageDeleted(JsonMessageDeleted jsonMessageDeleted, DiscordClient context) : base(context)
+        internal MessageDeleted(JsonMessageDeleted jsonMessageDeleted, QuarrelClient context) : base(context)
         {
             ChannelId = jsonMessageDeleted.ChannelId;
             MessageId = jsonMessageDeleted.MessageId;

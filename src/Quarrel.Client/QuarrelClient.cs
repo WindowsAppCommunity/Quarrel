@@ -15,7 +15,7 @@ namespace Quarrel.Client
     /// <summary>
     /// A Discord client instance containing a Token, Gateway, and Cache.
     /// </summary>
-    public partial class DiscordClient
+    public partial class QuarrelClient
     {
         private IChannelService? _channelService;
         private IGatewayService? _gatewayService;
@@ -23,9 +23,9 @@ namespace Quarrel.Client
         private string? _token;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DiscordClient"/> class.
+        /// Initializes a new instance of the <see cref="QuarrelClient"/> class.
         /// </summary>
-        public DiscordClient()
+        public QuarrelClient()
         {
             _guildMap = new ConcurrentDictionary<ulong, Guild>();
             _channelMap = new ConcurrentDictionary<ulong, Channel>();

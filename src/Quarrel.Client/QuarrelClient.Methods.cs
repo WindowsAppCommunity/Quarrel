@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 
 namespace Quarrel.Client
 {
-    public partial class DiscordClient
+    public partial class QuarrelClient
     {
         /// <summary>
-        /// Gets the current user for the <see cref="DiscordClient"/> instance.
+        /// Gets the current user for the <see cref="QuarrelClient"/> instance.
         /// </summary>
         public SelfUser? GetMe()
         {

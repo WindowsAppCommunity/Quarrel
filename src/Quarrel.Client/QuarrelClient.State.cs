@@ -15,7 +15,7 @@ using System.Collections.Concurrent;
 namespace Quarrel.Client
 {
     /// <inheritdoc/>
-    public partial class DiscordClient
+    public partial class QuarrelClient
     {
         private SelfUser? _selfUser;
         private Settings? _settings;

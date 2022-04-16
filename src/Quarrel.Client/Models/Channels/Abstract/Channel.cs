@@ -9,11 +9,11 @@ using Quarrel.Client.Models.Channels.Interfaces;
 namespace Quarrel.Client.Models.Channels.Abstract
 {
     /// <summary>
-    /// A base class for a channel managed by a <see cref="DiscordClient"/>.
+    /// A base class for a channel managed by a <see cref="QuarrelClient"/>.
     /// </summary>
     public abstract class Channel : SnowflakeItem, IChannel
     {
-        internal Channel(JsonChannel restChannel, DiscordClient context) :
+        internal Channel(JsonChannel restChannel, QuarrelClient context) :
             base(context)
         {
             Id = restChannel.Id;
@@ -35,7 +35,7 @@ namespace Quarrel.Client.Models.Channels.Abstract
             Type = jsonChannel.Type;
         }
 
-        internal static Channel? FromRestChannel(JsonChannel jsonChannel, DiscordClient context, ulong? guildId = null)
+        internal static Channel? FromRestChannel(JsonChannel jsonChannel, QuarrelClient context, ulong? guildId = null)
         {
             return jsonChannel.Type switch
             {

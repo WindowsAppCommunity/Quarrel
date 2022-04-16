@@ -11,11 +11,11 @@ using System.Linq;
 namespace Quarrel.Client.Models.Channels
 {
     /// <summary>
-    /// A group dm channel managed by a <see cref="DiscordClient"/>.
+    /// A group dm channel managed by a <see cref="QuarrelClient"/>.
     /// </summary>
     public class GroupChannel : Channel, IGroupChannel
     {
-        internal GroupChannel(JsonChannel restChannel, DiscordClient context) :
+        internal GroupChannel(JsonChannel restChannel, QuarrelClient context) :
             base(restChannel, context)
         {
             Guard.IsNotNull(restChannel.OwnerId, nameof(restChannel.OwnerId));

@@ -7,7 +7,7 @@ using Quarrel.Client.Models.Users.Interfaces;
 namespace Quarrel.Client.Models.Users
 {
     /// <summary>
-    /// A user presence managed by a <see cref="DiscordClient"/>
+    /// A user presence managed by a <see cref="QuarrelClient"/>
     /// </summary>
     public class Presence : IPresence
     {

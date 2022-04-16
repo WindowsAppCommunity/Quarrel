@@ -24,7 +24,7 @@ namespace Quarrel.Services.Discord
         /// <inheritdoc/>
         public BindableSelfUser? GetMe()
         {
-            SelfUser? user = _discordClient.GetMe();
+            SelfUser? user = _quarrelClient.GetMe();
             if (user is null)
             {
                 return null;
@@ -36,7 +36,7 @@ namespace Quarrel.Services.Discord
         /// <inheritdoc/>
         public BindableGuild[] GetMyGuilds()
         {
-            Guild[] rawGuilds = _discordClient.GetMyGuilds();
+            Guild[] rawGuilds = _quarrelClient.GetMyGuilds();
             BindableGuild[] guilds = new BindableGuild[rawGuilds.Length];
             for (int i = 0; i < rawGuilds.Length; i++)
             {
@@ -49,7 +49,7 @@ namespace Quarrel.Services.Discord
         /// <inheritdoc/>
         public BindableGuildFolder[] GetMyGuildFolders()
         {
-            GuildFolder[] rawFolders = _discordClient.GetMyGuildFolders();
+            GuildFolder[] rawFolders = _quarrelClient.GetMyGuildFolders();
             BindableGuildFolder[] folders = new BindableGuildFolder[rawFolders.Length];
             for (int i = 0; i < rawFolders.Length; i++)
             {
@@ -62,7 +62,7 @@ namespace Quarrel.Services.Discord
         /// <inheritdoc/>
         public async Task<BindableMessage[]> GetChannelMessagesAsync(IMessageChannel channel)
         {
-            var rawMessages = await _discordClient.GetMessagesAsync(channel.Id);
+            var rawMessages = await _quarrelClient.GetMessagesAsync(channel.Id);
             Guard.IsNotNull(rawMessages, nameof(rawMessages));
             BindableMessage[] messages = new BindableMessage[rawMessages.Length];
             for (int i = 0; i < messages.Length; i++)
@@ -93,7 +93,7 @@ namespace Quarrel.Services.Discord
                 return item1.Position.CompareTo(item2.Position);
             }));
 
-            GuildMember? member = _discordClient.GetMyGuildMember(guild.Id);
+            GuildMember? member = _quarrelClient.GetMyGuildMember(guild.Id);
             Guard.IsNotNull(member, nameof(member));
             BindableGuildChannel?[] channels = new BindableGuildChannel[rawChannels.Length];
             var categories = new Dictionary<ulong, BindableCategoryChannel>();

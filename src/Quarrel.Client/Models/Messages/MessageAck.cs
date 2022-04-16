@@ -10,7 +10,7 @@ namespace Quarrel.Client.Models.Messages
     /// </summary>
     public class MessageAck : DiscordItem
     {
-        internal MessageAck(JsonMessageAck jsonMessageAck, DiscordClient context) : base(context)
+        internal MessageAck(JsonMessageAck jsonMessageAck, QuarrelClient context) : base(context)
         {
             ChannelId = jsonMessageAck.ChannelId;
             MessageId = jsonMessageAck.MessageId;

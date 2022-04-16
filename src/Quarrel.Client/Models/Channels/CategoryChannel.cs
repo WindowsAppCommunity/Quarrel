@@ -7,11 +7,11 @@ using Quarrel.Client.Models.Channels.Interfaces;
 namespace Quarrel.Client.Models.Channels
 {
     /// <summary>
-    /// A category channel managed by a <see cref="DiscordClient"/>.
+    /// A category channel managed by a <see cref="QuarrelClient"/>.
     /// </summary>
     public class CategoryChannel : GuildChannel, ICategoryChannel
     {
-        internal CategoryChannel(JsonChannel restChannel, ulong? guildId, DiscordClient context) :
+        internal CategoryChannel(JsonChannel restChannel, ulong? guildId, QuarrelClient context) :
             base(restChannel, guildId, context)
         {
         }

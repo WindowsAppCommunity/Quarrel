@@ -12,7 +12,7 @@ namespace Quarrel.Client.Models.Base
         /// <summary>
         /// Create a new instance of a <see cref="SnowflakeItem"/> class.
         /// </summary>
-        protected SnowflakeItem(DiscordClient context) :
+        protected SnowflakeItem(QuarrelClient context) :
             base(context)
         {
         }

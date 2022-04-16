@@ -8,11 +8,11 @@ using Quarrel.Client.Models.Channels.Interfaces;
 namespace Quarrel.Client.Models.Channels
 {
     /// <summary>
-    /// A voice channel in a guild managed by a <see cref="DiscordClient"/>.
+    /// A voice channel in a guild managed by a <see cref="QuarrelClient"/>.
     /// </summary>
     public class VoiceChannel : GuildChannel, IGuildVoiceChannel
     {
-        internal VoiceChannel(JsonChannel restChannel, ulong? guildId, DiscordClient context) :
+        internal VoiceChannel(JsonChannel restChannel, ulong? guildId, QuarrelClient context) :
             base(restChannel, guildId, context)
         {
             Guard.IsNotNull(restChannel.Bitrate, nameof(restChannel.Bitrate));

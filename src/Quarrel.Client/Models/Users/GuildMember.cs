@@ -13,18 +13,18 @@ using System.Collections.Generic;
 namespace Quarrel.Client.Models.Users
 {
     /// <summary>
-    /// A guild member managed by a <see cref="DiscordClient"/>.
+    /// A guild member managed by a <see cref="QuarrelClient"/>.
     /// </summary>
     public class GuildMember : DiscordItem, IGuildMember
     {
         private readonly HashSet<ulong> _roles;
 
-        internal GuildMember(JsonGuildMember jsonMember, DiscordClient context)
+        internal GuildMember(JsonGuildMember jsonMember, QuarrelClient context)
             : this(jsonMember, jsonMember.GuildId, context)
         {
         }
 
-        internal GuildMember(JsonGuildMember jsonMember, ulong? guildId, DiscordClient context) :
+        internal GuildMember(JsonGuildMember jsonMember, ulong? guildId, QuarrelClient context) :
             base(context)
         {
             Guard.IsNotNull(guildId, nameof(guildId));

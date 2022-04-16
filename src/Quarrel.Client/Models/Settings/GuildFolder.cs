@@ -8,11 +8,11 @@ using System;
 namespace Quarrel.Client.Models.Settings
 {
     /// <summary>
-    /// A guild folder managed by a <see cref="DiscordClient"/>.
+    /// A guild folder managed by a <see cref="QuarrelClient"/>.
     /// </summary>
     public class GuildFolder : DiscordItem
     {
-        internal GuildFolder(JsonGuildFolder jsonGuildFolder, DiscordClient context) :
+        internal GuildFolder(JsonGuildFolder jsonGuildFolder, QuarrelClient context) :
             base(context)
         {
             Id = jsonGuildFolder.Id;

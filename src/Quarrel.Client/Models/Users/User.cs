@@ -9,11 +9,11 @@ using Quarrel.Client.Models.Users.Interfaces;
 namespace Quarrel.Client.Models.Users
 {
     /// <summary>
-    /// A user managed by a <see cref="DiscordClient"/>.
+    /// A user managed by a <see cref="QuarrelClient"/>.
     /// </summary>
     public class User : SnowflakeItem, IUser
     {
-        internal User(JsonUser restUser, DiscordClient context) :
+        internal User(JsonUser restUser, QuarrelClient context) :
             base(context)
         {
             Id = restUser.Id;

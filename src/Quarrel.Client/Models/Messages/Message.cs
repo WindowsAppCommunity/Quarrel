@@ -9,11 +9,11 @@ using System;
 namespace Quarrel.Client.Models.Messages
 {
     /// <summary>
-    /// A message managed by a <see cref="DiscordClient"/>.
+    /// A message managed by a <see cref="QuarrelClient"/>.
     /// </summary>
     public class Message : SnowflakeItem, IMessage
     {
-        internal Message(JsonMessage jsonMessage, DiscordClient context) :
+        internal Message(JsonMessage jsonMessage, QuarrelClient context) :
             base(context)
         {
             Type = jsonMessage.Type;
