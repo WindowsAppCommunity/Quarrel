@@ -1,8 +1,10 @@
 ﻿// Quarrel © 2022
 
+using CommunityToolkit.Diagnostics;
 using Discord.API.Status.Models;
 using Discord.API.Status.Rest;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Quarrel.ViewModels.SubPages.DiscordStatus.Enums;
 using Quarrel.ViewModels.SubPages.DiscordStatus.Models;
 using System;
 using System.Collections.Generic;
@@ -10,58 +12,53 @@ using System.Collections.ObjectModel;
 
 namespace Quarrel.ViewModels.SubPages.DiscordStatus
 {
-    public class DiscordStatusViewModel : ObservableObject
+    /// <summary>
+    /// A ViewModel for the DiscordStatus subpage.
+    /// </summary>
+    public partial class DiscordStatusViewModel : ObservableObject
     {
-        private bool _failedToLoad = false;
-        private bool _loaded = false;
-        private bool _loading = false;
-        private Index _status;
-        private IStatusService _statusService;
+        private Index? _status;
+        private IStatusService? _statusService;
+
+        [AlsoNotifyChangeFor(nameof(IsLoaded))]
+        [AlsoNotifyChangeFor(nameof(IsLoading))]
+        [AlsoNotifyChangeFor(nameof(FailedToLoad))]
+        [ObservableProperty]
+        private DiscordStatusState _state;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DiscordStatusViewModel"/> class.
         /// </summary>
         public DiscordStatusViewModel()
         {
+            _state = DiscordStatusState.Loading;
             SetupAndLoad();
         }
 
         /// <summary>
         /// Fired when the status is loaded.
         /// </summary>
-        public event EventHandler StatusLoaded;
+        public event EventHandler? StatusLoaded;
 
         /// <summary>
         /// Fired when the chart data is loaded.
         /// </summary>
-        public event EventHandler ChartDataLoaded;
-
-        /// <summary>
-        /// Gets or sets a value indicating whether or not the status was able to load.
-        /// </summary>
-        public bool FailedToLoad
-        {
-            get => _failedToLoad;
-            set => SetProperty(ref _failedToLoad, value);
-        }
+        public event EventHandler? ChartDataLoaded;
 
         /// <summary>
         /// Gets or sets a value indicating whether or not the status has been loaded.
         /// </summary>
-        public bool Loaded
-        {
-            get => _loaded;
-            set => SetProperty(ref _loaded, value);
-        }
+        public bool IsLoaded => _state == DiscordStatusState.Loaded;
 
         /// <summary>
         /// Gets or sets a value indicating whether or not the status is being loaded.
         /// </summary>
-        public bool Loading
-        {
-            get => _loading;
-            set => SetProperty(ref _loading, value);
-        }
+        public bool IsLoading => _state == DiscordStatusState.Loading;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the status was able to load.
+        /// </summary>
+        public bool FailedToLoad => _state == DiscordStatusState.FailedToLoad;
 
         /// <summary>
         /// Gets or sets outage index information.
@@ -108,6 +105,8 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
         /// <param name="duration">day, week or month.</param>
         public async void ShowMetrics(string duration)
         {
+            Guard.IsNotNull(_statusService);
+
             var metrics = await _statusService.GetMetrics(duration);
             if (metrics != null && metrics.Metrics != null && metrics.Metrics.Length > 0)
             {
@@ -137,7 +136,7 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
 
         private async void SetupAndLoad()
         {
-            Loading = true;
+            State = DiscordStatusState.Loading;
 
             var factory = new DiscordStatusRestFactory();
             _statusService = factory.GetStatusService();
@@ -208,11 +207,13 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
                 }
 
                 ShowMetrics("day");
-                Loaded = true;
+                State = DiscordStatusState.Loaded;
             }
 
-            FailedToLoad = Status == null;
-            Loading = false;
+            if (Status is null)
+            {
+                State = DiscordStatusState.FailedToLoad;
+            }
         }
     }
 }

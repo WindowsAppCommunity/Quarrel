@@ -5,6 +5,7 @@ using Microsoft.Graphics.Canvas.Text;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Quarrel.Converters;
 using Quarrel.ViewModels.SubPages.DiscordStatus;
+using Quarrel.ViewModels.SubPages.DiscordStatus.Enums;
 using System;
 using System.Numerics;
 using Windows.Foundation;
@@ -112,7 +113,7 @@ namespace Quarrel.SubPages.DiscordStatus
 
         private void CanvasControl_OnDraw(CanvasControl sender, CanvasDrawEventArgs args)
         {
-            if (ViewModel.Loaded)
+            if (ViewModel.IsLoaded)
             {
                 RenderData(chartCanvas, args, StatusColor, DataStrokeThickness, ViewModel.Data, false, ViewModel.Max);
             }
