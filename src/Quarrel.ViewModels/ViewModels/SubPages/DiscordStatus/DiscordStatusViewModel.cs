@@ -99,41 +99,6 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
         /// </summary>
         public ObservableCollection<SimpleComponent> Components { get; set; } = new ObservableCollection<SimpleComponent>();
 
-        /// <summary>
-        /// Show metrics for a date range.
-        /// </summary>
-        /// <param name="duration">day, week or month.</param>
-        public async void ShowMetrics(string duration)
-        {
-            Guard.IsNotNull(_statusService);
-
-            var metrics = await _statusService.GetMetrics(duration);
-            if (metrics != null && metrics.Metrics != null && metrics.Metrics.Length > 0)
-            {
-                var metric = metrics.Metrics[0];
-                Data.Clear();
-                DataValues.Clear();
-                Max = 0;
-                Min = 0;
-                for (var i = 0; i < metric.Data.Length; i++)
-                {
-                    DataValues.Add(i, metric.Data[i]);
-                    Data.Add(metric.Data[i].Value);
-                    if (metric.Data[i].Value > Max)
-                    {
-                        Max = metric.Data[i].Value;
-                    }
-
-                    if (metric.Data[i].Value < Min || Min == 0)
-                    {
-                        Min = metric.Data[i].Value;
-                    }
-                }
-
-                ChartDataLoaded?.Invoke(this, null);
-            }
-        }
-
         private async void SetupAndLoad()
         {
             State = DiscordStatusState.Loading;
@@ -213,6 +178,47 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
             if (Status is null)
             {
                 State = DiscordStatusState.FailedToLoad;
+            }
+        }
+
+        /// <summary>
+        /// Show metrics for a date range.
+        /// </summary>
+        /// <param name="duration">day, week or month.</param>
+        public async void ShowMetrics(string duration)
+        {
+            AllMetrics? metrics = null;
+
+            try
+            {
+                Guard.IsNotNull(_statusService);
+                metrics = await _statusService.GetMetrics(duration);
+            }
+            catch { }
+
+            if (metrics != null && metrics.Metrics != null && metrics.Metrics.Length > 0)
+            {
+                var metric = metrics.Metrics[0];
+                Data.Clear();
+                DataValues.Clear();
+                Max = 0;
+                Min = 0;
+                for (var i = 0; i < metric.Data.Length; i++)
+                {
+                    DataValues.Add(i, metric.Data[i]);
+                    Data.Add(metric.Data[i].Value);
+                    if (metric.Data[i].Value > Max)
+                    {
+                        Max = metric.Data[i].Value;
+                    }
+
+                    if (metric.Data[i].Value < Min || Min == 0)
+                    {
+                        Min = metric.Data[i].Value;
+                    }
+                }
+
+                ChartDataLoaded?.Invoke(this, null);
             }
         }
     }
