@@ -13,10 +13,17 @@
     d:DesignWidth="400">
 
     <Grid>
-        <local:Shell/>
-        <subpages:LoginPage x:Name="LoginPage" x:Load="{x:Bind ViewModel.IsLoggedOut, Mode=OneWay}"/>
-        <local:ExtendedSplashScreen IsShowing="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Status="{x:Bind ViewModel.SplashStatus, Mode=OneWay}"/>
-        <subpagehost:SubPageHost x:Name="SubPageHost"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <local:TitleBar x:Name="TitleBar"/>
+        <Grid Grid.Row="1">
+            <local:Shell/>
+            <subpages:LoginPage x:Name="LoginPage" x:Load="{x:Bind ViewModel.IsLoggedOut, Mode=OneWay}"/>
+            <local:ExtendedSplashScreen IsShowing="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Status="{x:Bind ViewModel.SplashStatus, Mode=OneWay}"/>
+            <subpagehost:SubPageHost x:Name="SubPageHost"/>
+        </Grid>
     </Grid>
 
 </UserControl>
