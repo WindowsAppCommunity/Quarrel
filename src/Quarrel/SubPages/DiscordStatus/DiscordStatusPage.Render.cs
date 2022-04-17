@@ -36,33 +36,32 @@ namespace Quarrel.SubPages.DiscordStatus
             // Each data point gets equal area
             StepSize = Convert.ToSingle(canvas.ActualWidth / data.Count);
 
-            using (var cpb = new CanvasPathBuilder(args.DrawingSession))
+            using var cpb = new CanvasPathBuilder(args.DrawingSession);
+            
+            // Begin at bottom
+            cpb.BeginFigure(new Vector2(0, (float)(canvas.ActualHeight * (1 - (data[0] / max)))));
+
+            // Add data
+            for (int i = 1; i < data.Count; i++)
             {
-                // Begin at bottom
-                cpb.BeginFigure(new Vector2(0, (float)(canvas.ActualHeight * (1 - (data[0] / max)))));
+                cpb.AddLine(new Vector2(StepSize * i, (float)(canvas.ActualHeight * (1 - (data[i] / max)))));
+            }
 
-                // Add data
-                for (int i = 1; i < data.Count; i++)
-                {
-                    cpb.AddLine(new Vector2(StepSize * i, (float)(canvas.ActualHeight * (1 - (data[i] / max)))));
-                }
+            if (renderArea)
+            {
+                cpb.AddLine(new Vector2(data.Count, (float)canvas.ActualHeight));
+                cpb.AddLine(new Vector2(0, (float)canvas.ActualHeight));
+                cpb.EndFigure(CanvasFigureLoop.Closed);
 
-                if (renderArea)
-                {
-                    cpb.AddLine(new Vector2(data.Count, (float)canvas.ActualHeight));
-                    cpb.AddLine(new Vector2(0, (float)canvas.ActualHeight));
-                    cpb.EndFigure(CanvasFigureLoop.Closed);
+                // Draw shape
+                args.DrawingSession.FillGeometry(CanvasGeometry.CreatePath(cpb), Windows.UI.Colors.LightGreen);
+            }
+            else
+            {
+                cpb.EndFigure(CanvasFigureLoop.Open);
 
-                    // Draw shape
-                    args.DrawingSession.FillGeometry(CanvasGeometry.CreatePath(cpb), Windows.UI.Colors.LightGreen);
-                }
-                else
-                {
-                    cpb.EndFigure(CanvasFigureLoop.Open);
-
-                    // Draw line
-                    args.DrawingSession.DrawGeometry(CanvasGeometry.CreatePath(cpb), color, thickness);
-                }
+                // Draw line
+                args.DrawingSession.DrawGeometry(CanvasGeometry.CreatePath(cpb), color, thickness);
             }
         }
     }

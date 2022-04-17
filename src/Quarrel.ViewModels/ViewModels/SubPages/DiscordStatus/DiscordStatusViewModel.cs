@@ -63,7 +63,7 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
         /// <summary>
         /// Gets or sets outage index information.
         /// </summary>
-        public Index Status
+        public Index? Status
         {
             get => _status;
             set => SetProperty(ref _status, value);
@@ -165,7 +165,7 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
                     {
                         if (incident.Status != "resolved")
                         {
-                            List<SimpleComponent> updates = new List<SimpleComponent>();
+                            var updates = new List<SimpleComponent>();
                             for (int i = 0; i < incident.IncidentUpdates.Length; i++)
                             {
                                 updates.Add(new SimpleComponent()
@@ -176,7 +176,7 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
                                 });
                             }
 
-                            ComplexComponent component = new ComplexComponent()
+                            var component = new ComplexComponent()
                             {
                                 Name = incident.Name,
                                 Status = incident.Status,
@@ -196,7 +196,7 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
                 {
                     foreach (var component in Status.Components)
                     {
-                        SimpleComponent sc = new SimpleComponent()
+                        var sc = new SimpleComponent()
                         {
                             Name = component.Name,
                             Status = component.Status.Replace("_", " "),

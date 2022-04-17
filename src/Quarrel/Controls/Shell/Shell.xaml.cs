@@ -36,7 +36,7 @@ namespace Quarrel.Controls.Shell
                 _ => null,
             };
 
-            action();
+            action?.Invoke();
         }
     }
 }

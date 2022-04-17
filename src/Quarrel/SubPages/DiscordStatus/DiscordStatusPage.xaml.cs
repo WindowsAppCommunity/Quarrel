@@ -127,10 +127,8 @@ namespace Quarrel.SubPages.DiscordStatus
                 if (ViewModel.DataValues.ContainsKey(location))
                 {
                     var item = ViewModel.DataValues[location];
-                    CanvasTextFormat format = new CanvasTextFormat { FontSize = 12.0f, WordWrapping = CanvasWordWrapping.NoWrap };
-                    CanvasTextLayout textLayout = new CanvasTextLayout(args.DrawingSession, item.Value + "ms", format, 0.0f, 0.0f);
-
-                    CanvasTextFormat format2 = new CanvasTextFormat { FontSize = 12.0f, WordWrapping = CanvasWordWrapping.NoWrap };
+                    var format = new CanvasTextFormat { FontSize = 12.0f, WordWrapping = CanvasWordWrapping.NoWrap };
+                    var textLayout = new CanvasTextLayout(args.DrawingSession, item.Value + "ms", format, 0.0f, 0.0f);
 
                     DateTimeOffset date = DateTimeOffset.FromUnixTimeSeconds(item.Timestamp);
                     string durationText;
@@ -147,7 +145,7 @@ namespace Quarrel.SubPages.DiscordStatus
                         durationText = date.ToString("g");
                     }
 
-                    CanvasTextLayout textLayout2 = new CanvasTextLayout(args.DrawingSession, durationText, format, 0.0f, 0.0f);
+                    var textLayout2 = new CanvasTextLayout(args.DrawingSession, durationText, format, 0.0f, 0.0f);
 
                     if (_cursorPosition + textLayout2.DrawBounds.Width + 6 > chartIndicator.ActualWidth || _cursorPosition + textLayout.DrawBounds.Width + 6 > chartIndicator.ActualWidth)
                     {
