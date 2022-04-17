@@ -41,18 +41,18 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DebugSymbols>true</DebugSymbols>
     <DefineConstants>DEBUG</DefineConstants>
-	<DefineConstants>DEV</DefineConstants>
+    <DefineConstants>DEV</DefineConstants>
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Insider'">
     <Optimize>true</Optimize>
-	<DefineConstants>INSIDER</DefineConstants>
+    <DefineConstants>INSIDER</DefineConstants>
     <DebugType>pdbonly</DebugType>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <Optimize>true</Optimize>
-	<DefineConstants>RELEASE</DefineConstants>
+    <DefineConstants>RELEASE</DefineConstants>
     <DebugType>pdbonly</DebugType>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
@@ -262,6 +262,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\GuildItemStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\MiscStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

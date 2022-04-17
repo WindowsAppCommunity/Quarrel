@@ -22,7 +22,7 @@
                 Background="Transparent">
                 
                 <Button.Flyout>
-                    <Flyout>
+                    <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
                         <StackPanel Orientation="Horizontal">
                            <RadioButton x:Uid="CurrentUserButton/OnlineRBTN"
                                         ToolTipService.ToolTip="Online"
