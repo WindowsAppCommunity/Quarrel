@@ -49,4 +49,11 @@
             </AppBarButton.Content>
         </AppBarButton>
     </CommandBar.PrimaryCommands>
+    
+    <CommandBar.SecondaryCommands>
+        <AppBarButton x:Uid="CommandBar/DiscordStatusABB"
+                      Label="Discord Status"
+                      Background="Transparent"
+                      Click="GoToDiscordStatus"/>
+    </CommandBar.SecondaryCommands>
 </CommandBar>

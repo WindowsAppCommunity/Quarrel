@@ -128,6 +128,8 @@
     <Compile Include="Converters\EqualityConverter.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\NotBoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\StatusToBrushConverter.cs" />
+    <Compile Include="Converters\StatusToColorConverter.cs" />
     <Compile Include="Converters\VisibileWhenNotEqualConverter.cs" />
     <Compile Include="Converters\VisibileWhenEqualConverter.cs" />
     <Compile Include="DataTemplates\ChannelTemplates.xaml.cs">
@@ -152,6 +154,10 @@
     <Compile Include="Services\Storage\StorageService.cs" />
     <Compile Include="Services\Storage\Vault\VaultService.cs" />
     <Compile Include="Services\Versioning\VersioningService.cs" />
+    <Compile Include="SubPages\DiscordStatus\DiscordStatusPage.Render.cs" />
+    <Compile Include="SubPages\DiscordStatus\DiscordStatusPage.xaml.cs">
+      <DependentUpon>DiscordStatusPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\Meta\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
@@ -287,6 +293,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SubPages\DiscordStatus\DiscordStatusPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SubPages\Meta\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -328,6 +338,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\API\Discord.API.Status\Discord.API.Status.csproj">
+      <Project>{d34f80c0-0316-43c3-bbe9-7af099a1c6a0}</Project>
+      <Name>Discord.API.Status</Name>
+    </ProjectReference>
     <ProjectReference Include="..\API\Discord.API\Discord.API.csproj">
       <Project>{43360223-1cd9-4962-84cc-0698f6d11837}</Project>
       <Name>Discord.API</Name>

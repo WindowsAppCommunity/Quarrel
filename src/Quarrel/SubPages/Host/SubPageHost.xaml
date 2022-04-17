@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:convert="using:Quarrel.Converters"
     xmlns:selectors="using:Quarrel.Selectors"
+    xmlns:statuspage="using:Quarrel.SubPages.DiscordStatus"
     xmlns:metapages="using:Quarrel.SubPages.Meta"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -21,10 +22,15 @@
         <DataTemplate x:Key="CreditPageTemplate">
             <metapages:CreditPage/>
         </DataTemplate>
+        
+        <DataTemplate x:Key="DiscordStatusPageTemplate">
+            <statuspage:DiscordStatusPage/>
+        </DataTemplate>
 
         <selectors:SubPageTemplateSelector x:Key="SubPageTemplateSelector"
                                            AboutTemplate="{StaticResource AboutPageTemplate}"
-                                           CreditTemplate="{StaticResource CreditPageTemplate}"/>
+                                           CreditTemplate="{StaticResource CreditPageTemplate}"
+                                           DiscordStatusTemplate="{StaticResource DiscordStatusPageTemplate}"/>
     </UserControl.Resources>
 
     <Grid>
