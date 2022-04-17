@@ -14,9 +14,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Content="Toggle Left" Click="ToggleLeft"/>
-        <Button Content="Toggle Right" Click="ToggleRight"
-                HorizontalAlignment="Right"/>
+        <local:QuarrelCommandBar/>
         <local:SideDrawer x:Name="Drawer" Grid.Row="1">
             <local:SideDrawer.LeftContent>
                 <Grid Background="{ThemeResource TertiaryPaneBackground}">
