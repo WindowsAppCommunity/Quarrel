@@ -48,7 +48,6 @@ namespace Quarrel.ViewModels
         [ICommand]
         public void NavigateToSettings()
         {
-            _messenger.Send(new NavigateToSubPageMessage(typeof(AboutPageViewModel)));
         }
     }
 }

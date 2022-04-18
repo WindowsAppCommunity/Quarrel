@@ -8,29 +8,29 @@
     mc:Ignorable="d"
     d:DesignHeight="56"
     d:DesignWidth="800">
-    
+
     <CommandBar.Content>
         <Grid Height="40">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="72"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
+
             <!--Hamburger button-->
-                <AppBarButton Height="40"
+            <AppBarButton Height="40"
                               Canvas.ZIndex="1"
                               Background="Transparent"
                               HorizontalAlignment="Stretch"
                               Click="HamburgerClicked">
-                    <AppBarButton.Content>
-                        <FontIcon Glyph="&#xE700;"
+                <AppBarButton.Content>
+                    <FontIcon Glyph="&#xE700;"
                                   FontSize="24"
                                   Margin="0,4,0,0"/>
-                    </AppBarButton.Content>
-                </AppBarButton>
+                </AppBarButton.Content>
+            </AppBarButton>
         </Grid>
     </CommandBar.Content>
-    
+
     <CommandBar.PrimaryCommands>
         <AppBarButton x:Uid="CommandBar/CallABB"
                       Label="Call"
@@ -39,7 +39,7 @@
                 <FontIcon Glyph="&#xE13A;" FontSize="24" Margin="0,4,0,0"/>
             </AppBarButton.Content>
         </AppBarButton>
-        
+
         <AppBarButton x:Uid="CommandBar/ToggleMembersABB"
                       Label="Toggle Member List"
                       Background="Transparent"
@@ -49,11 +49,24 @@
             </AppBarButton.Content>
         </AppBarButton>
     </CommandBar.PrimaryCommands>
-    
+
     <CommandBar.SecondaryCommands>
         <AppBarButton x:Uid="CommandBar/DiscordStatusABB"
                       Label="Discord Status"
                       Background="Transparent"
-                      Click="GoToDiscordStatus"/>
+                      Click="GoToDiscordStatus">
+            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xECAD;"/>
+        </AppBarButton>
+        <AppBarButton x:Uid="CommandBar/SettingsABB"
+                      Label="Settings"
+                      Icon="Setting"
+                      Background="Transparent"
+                      IsEnabled="False"/>
+        <AppBarButton x:Uid="CommandBar/AboutABB"
+                      Label="About"
+                      Background="Transparent"
+                      Click="GoToAbout">
+            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xF142;" />
+        </AppBarButton>
     </CommandBar.SecondaryCommands>
 </CommandBar>

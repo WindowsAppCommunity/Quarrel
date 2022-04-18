@@ -6,6 +6,7 @@ using Quarrel.Messages;
 using Quarrel.Messages.Navigation.SubPages;
 using Quarrel.Messages.Panel;
 using Quarrel.ViewModels.SubPages.DiscordStatus;
+using Quarrel.ViewModels.SubPages.Meta;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -29,5 +30,8 @@ namespace Quarrel.Controls.Shell
 
         private void GoToDiscordStatus(object sender, RoutedEventArgs e)
             => _messenger.Send(new NavigateToSubPageMessage(typeof(DiscordStatusViewModel)));
+
+        private void GoToAbout(object sender, RoutedEventArgs e)
+            => _messenger.Send(new NavigateToSubPageMessage(typeof(AboutPageViewModel)));
     }
 }
