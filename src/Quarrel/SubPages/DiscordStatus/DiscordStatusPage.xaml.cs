@@ -132,18 +132,17 @@ namespace Quarrel.SubPages.DiscordStatus
 
                     DateTimeOffset date = DateTimeOffset.FromUnixTimeSeconds(item.Timestamp);
                     string durationText;
-                    var formatInfo = CultureInfo.CurrentUICulture.DateTimeFormat;
                     if (!dayDuration.IsEnabled)
                     {
-                        durationText = date.ToString(formatInfo.ShortTimePattern);
+                        durationText = date.ToString("t");
                     }
                     else if (!weekDuration.IsEnabled)
                     {
-                        durationText = date.ToString("dddd") + " " + date.ToString(formatInfo.ShortTimePattern);
+                        durationText = date.ToString("dddd") + " " + date.ToString("t");
                     }
                     else
                     {
-                        durationText = date.ToString(formatInfo.ShortDatePattern) + " " + date.ToString(formatInfo.ShortTimePattern);
+                        durationText = date.ToString("g");
                     }
 
                     var textLayout2 = new CanvasTextLayout(args.DrawingSession, durationText, format, 0.0f, 0.0f);
