@@ -101,4 +101,28 @@
   <data name="About/Commit" xml:space="preserve">
     <value>Commit {0}</value>
   </data>
+  <data name="DiscordStatus/APIResponseTB.Text" xml:space="preserve">
+    <value>זמן תגובה API</value>
+  </data>
+  <data name="DiscordStatus/DayHBTN.Content" xml:space="preserve">
+    <value>יום</value>
+  </data>
+  <data name="DiscordStatus/DetailsHBTN.Content" xml:space="preserve">
+    <value>פרטים</value>
+  </data>
+  <data name="DiscordStatus/DiscordStatusTB.Text" xml:space="preserve">
+    <value>סטטוס דיסקורד</value>
+  </data>
+  <data name="DiscordStatus/FailedToLoadTB.Text" xml:space="preserve">
+    <value>נכשל לקבל סטטוס דיסקורד :/</value>
+  </data>
+  <data name="DiscordStatus/MonthHBTN.Content" xml:space="preserve">
+    <value>חודש</value>
+  </data>
+  <data name="DiscordStatus/WeekHBTN.Content" xml:space="preserve">
+    <value>שבוע</value>
+  </data>
+  <data name="DiscordStatus/OnlyEnglishTB.Text" xml:space="preserve">
+    <value>מידע מסוים זמין רק באנגלית</value>
+  </data>
 </root>

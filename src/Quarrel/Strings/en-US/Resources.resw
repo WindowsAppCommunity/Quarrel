@@ -169,6 +169,30 @@
   <data name="CurrentUserButton/OnlineRBTN.ToolTipService.ToolTip" xml:space="preserve">
     <value>Online</value>
   </data>
+  <data name="DiscordStatus/APIResponseTB.Text" xml:space="preserve">
+    <value>API Response Time</value>
+  </data>
+  <data name="DiscordStatus/DayHBTN.Content" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="DiscordStatus/DetailsHBTN.Content" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="DiscordStatus/DiscordStatusTB.Text" xml:space="preserve">
+    <value>DISCORD STATUS</value>
+  </data>
+  <data name="DiscordStatus/FailedToLoadTB.Text" xml:space="preserve">
+    <value>FAILED TO GET DISCORD STATUS :/</value>
+  </data>
+  <data name="DiscordStatus/MonthHBTN.Content" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="DiscordStatus/OnlyEnglishTB.Text" xml:space="preserve">
+    <value>Some information is only available in English</value>
+  </data>
+  <data name="DiscordStatus/WeekHBTN.Content" xml:space="preserve">
+    <value>Week</value>
+  </data>
   <data name="ExtendedSplash/Connected" xml:space="preserve">
     <value>CONNECTED</value>
   </data>

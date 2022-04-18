@@ -124,6 +124,38 @@
           <source>Commit {0}</source>
           <target state="needs-review-translation">Commit {0}</target>
         </trans-unit>
+        <trans-unit id="DiscordStatus/APIResponseTB.Text" translate="yes" xml:space="preserve">
+          <source>API Response Time</source>
+          <target state="needs-review-translation">זמן תגובה API</target>
+        </trans-unit>
+        <trans-unit id="DiscordStatus/DayHBTN.Content" translate="yes" xml:space="preserve">
+          <source>Day</source>
+          <target state="translated">יום</target>
+        </trans-unit>
+        <trans-unit id="DiscordStatus/DetailsHBTN.Content" translate="yes" xml:space="preserve">
+          <source>Details</source>
+          <target state="translated">פרטים</target>
+        </trans-unit>
+        <trans-unit id="DiscordStatus/DiscordStatusTB.Text" translate="yes" xml:space="preserve">
+          <source>DISCORD STATUS</source>
+          <target state="needs-review-translation">סטטוס דיסקורד</target>
+        </trans-unit>
+        <trans-unit id="DiscordStatus/FailedToLoadTB.Text" translate="yes" xml:space="preserve">
+          <source>FAILED TO GET DISCORD STATUS :/</source>
+          <target state="needs-review-translation">נכשל לקבל סטטוס דיסקורד :/</target>
+        </trans-unit>
+        <trans-unit id="DiscordStatus/MonthHBTN.Content" translate="yes" xml:space="preserve">
+          <source>Month</source>
+          <target state="translated">חודש</target>
+        </trans-unit>
+        <trans-unit id="DiscordStatus/WeekHBTN.Content" translate="yes" xml:space="preserve">
+          <source>Week</source>
+          <target state="translated">שבוע</target>
+        </trans-unit>
+        <trans-unit id="DiscordStatus/OnlyEnglishTB.Text" translate="yes" xml:space="preserve">
+          <source>Some information is only available in English</source>
+          <target state="needs-review-translation">מידע מסוים זמין רק באנגלית</target>
+        </trans-unit>
       </group>
     </body>
   </file>

@@ -54,12 +54,20 @@
         </Grid.RenderTransform>
 
         <ProgressRing Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}" IsActive="True" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBlock x:Uid="Status/FailedToLoadTB" Visibility="{x:Bind ViewModel.FailedToLoad, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Text="FAILED TO GET DISCORD STATUS :/" TextWrapping="Wrap" FontWeight="SemiBold" Margin="12"/>
+        <TextBlock x:Uid="DiscordStatus/FailedToLoadTB" Visibility="{x:Bind ViewModel.FailedToLoad, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Text="FAILED TO GET DISCORD STATUS :/" TextWrapping="Wrap" FontWeight="SemiBold" Margin="12"/>
 
         <StackPanel>
             <Grid>
-                <TextBlock x:Uid="Status/DiscordStatusTB" Text="DISCORD STATUS" FontWeight="SemiBold" Margin="24,14,0,0" FontSize="20"/>
-                <HyperlinkButton x:Uid="Status/DetailsHBTN" x:Name="detailsButton" NavigateUri="https://status.discordapp.com" HorizontalAlignment="Right" Content="Details" Style="{StaticResource PlainTextHyperlinkStyle}" VerticalAlignment="Center" FontSize="12" Opacity="0.75" Margin="0,17,24,0"/>
+                <StackPanel Padding="24,14,24,0">
+                    <TextBlock x:Uid="DiscordStatus/DiscordStatusTB"
+                               Text="DISCORD STATUS"
+                               FontWeight="SemiBold"
+                               FontSize="20"/>
+                    <TextBlock x:Uid="DiscordStatus/OnlyEnglishTB"
+                               Text="Some information is only available in English"
+                               FontSize="10" Opacity=".6"/>
+                </StackPanel>
+                <HyperlinkButton x:Uid="DiscordStatus/DetailsHBTN" x:Name="detailsButton" NavigateUri="https://status.discordapp.com" HorizontalAlignment="Right" Content="Details" Style="{StaticResource PlainTextHyperlinkStyle}" VerticalAlignment="Center" FontSize="12" Opacity="0.75" Margin="0,17,24,0"/>
             </Grid>
 
             <Border x:Name="StatusContainer" Visibility="{x:Bind ViewModel.IsLoaded, Mode=OneWay}" Margin="0,12,0,0" Padding="24,12" Background="{ThemeResource SystemControlBackgroundAccentBrush}">
@@ -121,13 +129,13 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
             <Grid Margin="24,0,24,0" Visibility="{x:Bind ViewModel.IsLoaded, Mode=OneWay}">
-                <TextBlock x:Uid="Status/APIResponseTB" Grid.Column="1" FontWeight="SemiLight" FontSize="16" Text="API Response Time"/>
+                <TextBlock x:Uid="DiscordStatus/APIResponseTB" Grid.Column="1" FontWeight="SemiLight" FontSize="16" Text="API Response Time"/>
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Bottom">
-                    <HyperlinkButton x:Uid="Status/DayHBTN" x:Name="dayDuration" Content="Day" Margin="2,0" IsEnabled="False" FontSize="12" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowDayMetrics"/>
+                    <HyperlinkButton x:Uid="DiscordStatus/DayHBTN" x:Name="dayDuration" Content="Day" Margin="2,0" IsEnabled="False" FontSize="12" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowDayMetrics"/>
                     <TextBlock Text="/" FontSize="12" Margin="2,0" Opacity="0.2"/>
-                    <HyperlinkButton x:Uid="Status/WeekHBTN" x:Name="weekDuration" Content="Week"  Margin="2,0" FontSize="12" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowWeekMetrics"/>
+                    <HyperlinkButton x:Uid="DiscordStatus/WeekHBTN" x:Name="weekDuration" Content="Week"  Margin="2,0" FontSize="12" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowWeekMetrics"/>
                     <TextBlock Text="/" FontSize="12" Margin="2,0" Opacity="0.2"/>
-                    <HyperlinkButton x:Uid="Status/MonthHBTN" x:Name="monthDuration" Content="Month" Margin="2,0" FontSize="12" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowMonthMetrics"/>
+                    <HyperlinkButton x:Uid="DiscordStatus/MonthHBTN" x:Name="monthDuration" Content="Month" Margin="2,0" FontSize="12" Style="{StaticResource PlainTextHyperlinkStyle}" Click="ShowMonthMetrics"/>
                 </StackPanel>
             </Grid>
             <Grid FlowDirection="LeftToRight" SizeChanged="FrameworkElement_OnSizeChanged"  Margin="0,12,0,6" PointerMoved="ChartCanvas_PointerMoved" PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
