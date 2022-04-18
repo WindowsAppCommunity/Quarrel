@@ -133,20 +133,17 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
                             var updates = new List<SimpleComponent>();
                             for (int i = 0; i < incident.IncidentUpdates.Length; i++)
                             {
-                                updates.Add(new SimpleComponent()
-                                {
-                                    Status = incident.IncidentUpdates[i].Status,
-                                    Description = incident.IncidentUpdates[i].Body,
-                                    Name = incident.IncidentUpdates[i].UpdatedAt.ToString("t"),
-                                });
+                                updates.Add(
+                                    new SimpleComponent(
+                                        name: incident.IncidentUpdates[i].Status,
+                                        description: incident.IncidentUpdates[i].Body,
+                                        status: incident.IncidentUpdates[i].UpdatedAt.ToString("t")));
                             }
 
-                            var component = new ComplexComponent()
-                            {
-                                Name = incident.Name,
-                                Status = incident.Status,
-                                Items = updates,
-                            };
+                            var component = new ComplexComponent(
+                                name: incident.Name, 
+                                status: incident.Status, 
+                                items: updates);
 
                             if (!string.IsNullOrWhiteSpace(component.Name))
                             {
@@ -161,12 +158,11 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
                 {
                     foreach (var component in Status.Components)
                     {
-                        var sc = new SimpleComponent()
-                        {
-                            Name = component.Name,
-                            Status = component.Status.Replace("_", " "),
-                            Description = component.Description,
-                        };
+                        var sc = new SimpleComponent(
+                            name: component.Name,
+                            description: component.Status.Replace('_', ' '),
+                            status: component.Description);
+
                         Components.Add(sc);
                     }
                 }
