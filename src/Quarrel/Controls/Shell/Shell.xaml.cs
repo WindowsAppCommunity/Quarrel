@@ -6,6 +6,7 @@ using Quarrel.Messages;
 using Quarrel.Messages.Navigation;
 using Quarrel.Messages.Panel;
 using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Shell
@@ -23,6 +24,21 @@ namespace Quarrel.Controls.Shell
             _messenger.Register<TogglePanelMessage>(this, (_, e) => GoToPanelState(e));
         }
 
+        /// <summary>
+        /// Gets or sets the minimum size where the <see cref="SideDrawer"/> will enter the <see cref="SideDrawerSize.Medium"/> size UI.
+        /// </summary>
+        public double MediumMinSize { get; set; } = 600;
+
+        /// <summary>
+        /// Gets or sets the minimum size where the <see cref="SideDrawer"/> will enter the <see cref="SideDrawerSize.Large"/> size UI.
+        /// </summary>
+        public double LargeMinSize { get; set; } = 1100;
+
+        /// <summary>
+        /// Gets or sets the minimum size where the <see cref="SideDrawer"/> will enter the <see cref="SideDrawerSize.ExtraLarge"/> size UI.
+        /// </summary>
+        public double ExtraLargeMinSize { get; set; } = 1400;
+
         private void GoToPanelState(TogglePanelMessage state)
         {
             Action? action = state switch
@@ -37,6 +53,34 @@ namespace Quarrel.Controls.Shell
             };
 
             action?.Invoke();
+        }
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            double width = e.NewSize.Width;
+            string stateName = string.Empty;
+            if (width < MediumMinSize)
+            {
+                stateName = nameof(Small);
+                Drawer.Size = SideDrawerSize.Small;
+            }
+            else if (width < LargeMinSize)
+            {
+                stateName = nameof(Medium);
+                Drawer.Size = SideDrawerSize.Medium;
+            }
+            else if (width < ExtraLargeMinSize)
+            {
+                stateName = nameof(Large);
+                Drawer.Size = SideDrawerSize.Large;
+            }
+            else
+            {
+                stateName = nameof(ExtraLarge);
+                Drawer.Size = SideDrawerSize.ExtraLarge;
+            }
+
+            VisualStateManager.GoToState(this, stateName, true);
         }
     }
 }

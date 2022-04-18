@@ -27,14 +27,14 @@ namespace Quarrel.Controls.Shell
         private static readonly DependencyProperty SecondaryPanelWidthProperty =
             DependencyProperty.Register(nameof(SecondaryPanelWidth), typeof(float), typeof(Shadow), new PropertyMetadata(228f, OnPanelWidthPropertyChanged));
 
-        private InteractionTracker _tracker;
-        private VisualInteractionSource _interactionSource;
-        private Compositor _compositor;
+        private readonly InteractionTracker _tracker;
+        private readonly VisualInteractionSource _interactionSource;
+        private readonly Compositor _compositor;
 
-        private Visual _mainVisual;
-        private Visual _leftVisual;
-        private Visual _left2Visual;
-        private Visual _rightVisual;
+        private readonly Visual _mainVisual;
+        private readonly Visual _leftVisual;
+        private readonly Visual _left2Visual;
+        private readonly Visual _rightVisual;
 
         // These animations represent the position of the panes relative to the tracker position.
         private ExpressionAnimation? _mainTranslateAnimation;
@@ -46,9 +46,9 @@ namespace Quarrel.Controls.Shell
         // The start point is where the panel rests when the left panel is open
         // The mid point is where the panel rests when the panels are closed
         // The end point is where the panel rests when the right panel is open
-        private InteractionTrackerInertiaRestingValue _startPoint;
-        private InteractionTrackerInertiaRestingValue _midPoint;
-        private InteractionTrackerInertiaRestingValue _endPoint;
+        private readonly InteractionTrackerInertiaRestingValue _startPoint;
+        private readonly InteractionTrackerInertiaRestingValue _midPoint;
+        private readonly InteractionTrackerInertiaRestingValue _endPoint;
 
         /// <summary>
         /// Inializes a new instance of the <see cref="SideDrawer"/> class.
@@ -138,21 +138,6 @@ namespace Quarrel.Controls.Shell
         }
 
         /// <summary>
-        /// Gets or sets the minimum size where the <see cref="SideDrawer"/> will enter the <see cref="SideDrawerSize.Medium"/> size UI.
-        /// </summary>
-        public double MediumMinSize { get; set; } = 600;
-
-        /// <summary>
-        /// Gets or sets the minimum size where the <see cref="SideDrawer"/> will enter the <see cref="SideDrawerSize.Large"/> size UI.
-        /// </summary>
-        public double LargeMinSize { get; set; } = 1100;
-
-        /// <summary>
-        /// Gets or sets the minimum size where the <see cref="SideDrawer"/> will enter the <see cref="SideDrawerSize.ExtraLarge"/> size UI.
-        /// </summary>
-        public double ExtraLargeMinSize { get; set; } = 1400;
-
-        /// <summary>
         /// Gets or sets the width of the secondary panels.
         /// </summary>
         public float SecondaryPanelWidth
@@ -194,7 +179,10 @@ namespace Quarrel.Controls.Shell
         /// </remarks>
         public bool IsRightOpen => FlowDirection == FlowDirection.LeftToRight ? _tracker.Position.X > 0 : _tracker.Position.X < 0;
 
-        private SideDrawerSize Size
+        /// <summary>
+        /// Gets or sets the behavioral size of the side drawer control.
+        /// </summary>
+        public SideDrawerSize Size
         {
             get => (SideDrawerSize)GetValue(SizeProperty);
             set => SetValue(SizeProperty, value);
@@ -303,6 +291,11 @@ namespace Quarrel.Controls.Shell
             _rightVisual.StartAnimation(TranslationX, _rightTranslateAnimation);
 
             SetSnapPoints(-TotalPanelWidth, 0, SecondaryPanelWidth);
+
+            // Invoke size update
+            var cache = Size;
+            Size = SideDrawerSize.Small;
+            Size = cache;
         }
 
         private void SetupAnimations()
@@ -338,26 +331,6 @@ namespace Quarrel.Controls.Shell
                 {
                 }
             }
-        }
-
-        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            SideDrawerSize size = SideDrawerSize.ExtraLarge;
-            double width = e.NewSize.Width;
-            if (width < MediumMinSize)
-            {
-                size = SideDrawerSize.Small;
-            }
-            else if (width < LargeMinSize)
-            {
-                size = SideDrawerSize.Medium;
-            }
-            else if (width < ExtraLargeMinSize)
-            {
-                size = SideDrawerSize.Large;
-            }
-
-            Size = size;
         }
 
         private async void SetSizeSmall(SideDrawerSize previous)
@@ -545,28 +518,21 @@ namespace Quarrel.Controls.Shell
             SideDrawerSize newSize = (SideDrawerSize)args.NewValue;
             SideDrawerSize oldSize = (SideDrawerSize)args.OldValue;
 
-            if (newSize == oldSize)
-            {
-                return;
-            }
+            if (!sideDrawer.IsLoaded) return;
+            if (newSize == oldSize) return;
 
             sideDrawer.TrackerTranslate(0);
 
-            switch (newSize)
+            Action<SideDrawerSize> adjustment = newSize switch
             {
-                case SideDrawerSize.Small:
-                    sideDrawer.SetSizeSmall(oldSize);
-                    break;
-                case SideDrawerSize.Medium:
-                    sideDrawer.SetSizeMedium(oldSize);
-                    break;
-                case SideDrawerSize.Large:
-                    sideDrawer.SetSizeLarge(oldSize);
-                    break;
-                case SideDrawerSize.ExtraLarge:
-                    sideDrawer.SetSizeExtraLarge(oldSize);
-                    break;
-            }
+                SideDrawerSize.Small => sideDrawer.SetSizeSmall,
+                SideDrawerSize.Medium => sideDrawer.SetSizeMedium,
+                SideDrawerSize.Large => sideDrawer.SetSizeLarge,
+                SideDrawerSize.ExtraLarge => sideDrawer.SetSizeExtraLarge,
+                _ => sideDrawer.SetSizeSmall,
+            };
+
+            adjustment?.Invoke(oldSize);
 
             // Adjust tracker bounds for right to left flow direction
             if (sideDrawer.FlowDirection == FlowDirection.RightToLeft)
