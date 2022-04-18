@@ -10,6 +10,9 @@ using System.Text.Json;
 
 namespace Discord.API.Rest
 {
+    /// <summary>
+    /// A class for initializing Discord rest services.
+    /// </summary>
     internal class DiscordRestFactory
     {
         private const string BaseUrl = "https://discordapp.com/api";
@@ -28,11 +31,17 @@ namespace Discord.API.Rest
             };
         }
         
+        /// <summary>
+        /// Gets an instance of the <see cref="IGatewayService"/>.
+        /// </summary>
         internal IGatewayService GetGatewayService()
         {
             return RestService.For<IGatewayService>(GetHttpClient(), _settings);
         }
-
+        
+        /// <summary>
+        /// Gets an instance of the <see cref="IChannelService"/>.
+        /// </summary>
         internal IChannelService GetChannelService()
         {
             return RestService.For<IChannelService>(GetHttpClient(), _settings);

@@ -18,12 +18,14 @@ namespace GitHub.API.Rest
         /// <summary>
         /// Initializes a new instance of the <see cref="GitHubRestFactory"/> class.
         /// </summary>
-        /// <param name="userAgent"></param>
         public GitHubRestFactory(string userAgent)
         {
             _userAgent = userAgent;
         }
         
+        /// <summary>
+        /// Gets an instance of the <see cref="IGitHubService"/>.
+        /// </summary>
         public IGitHubService GetGitHubService()
         {
             return RestService.For<IGitHubService>(GetHttpClient());
