@@ -76,8 +76,8 @@
           <target state="translated">אודות</target>
         </trans-unit>
         <trans-unit id="About/DevelopedByTB.Text" translate="yes" xml:space="preserve">
-          <source>Developed by Adam Dernis and Matthew Collins</source>
-          <target state="translated">פותח על ידי Adam Dernis ו-Matthew Collins</target>
+          <source>Developed by Adam Dernis and Matthew</source>
+          <target state="needs-review-translation">פותח על ידי Adam Dernis ו-Matthew</target>
         </trans-unit>
         <trans-unit id="About/DisclaimerOnlyInEnglishTB.Text" translate="yes" xml:space="preserve">
           <source>Disclaimer is only in English</source>
