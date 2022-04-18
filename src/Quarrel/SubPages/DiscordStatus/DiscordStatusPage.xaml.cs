@@ -5,8 +5,8 @@ using Microsoft.Graphics.Canvas.Text;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Quarrel.Converters;
 using Quarrel.ViewModels.SubPages.DiscordStatus;
-using Quarrel.ViewModels.SubPages.DiscordStatus.Enums;
 using System;
+using System.Globalization;
 using System.Numerics;
 using Windows.Foundation;
 using Windows.UI;
@@ -132,17 +132,18 @@ namespace Quarrel.SubPages.DiscordStatus
 
                     DateTimeOffset date = DateTimeOffset.FromUnixTimeSeconds(item.Timestamp);
                     string durationText;
+                    var formatInfo = CultureInfo.CurrentUICulture.DateTimeFormat;
                     if (!dayDuration.IsEnabled)
                     {
-                        durationText = date.ToString("t");
+                        durationText = date.ToString(formatInfo.ShortTimePattern);
                     }
                     else if (!weekDuration.IsEnabled)
                     {
-                        durationText = date.DayOfWeek.ToString() + " " + date.ToString("t");
+                        durationText = date.ToString("dddd") + " " + date.ToString(formatInfo.ShortTimePattern);
                     }
                     else
                     {
-                        durationText = date.ToString("g");
+                        durationText = date.ToString(formatInfo.ShortDatePattern) + " " + date.ToString(formatInfo.ShortTimePattern);
                     }
 
                     var textLayout2 = new CanvasTextLayout(args.DrawingSession, durationText, format, 0.0f, 0.0f);
