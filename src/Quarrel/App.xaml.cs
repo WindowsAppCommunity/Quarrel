@@ -13,6 +13,7 @@ using Quarrel.Services.Localization;
 using Quarrel.Services.Storage;
 using Quarrel.Services.Storage.Models;
 using Quarrel.Services.Versioning;
+using Quarrel.Services.Windows;
 using Quarrel.ViewModels;
 using Quarrel.ViewModels.Panels;
 using Quarrel.ViewModels.SubPages;
@@ -96,6 +97,7 @@ namespace Quarrel
             services.AddSingleton<IDiscordService, DiscordService>();
             services.AddSingleton<IDispatcherService, DispatcherService>();
             services.AddSingleton<IStorageService>(new StorageService(appDataFolder, JsonAsyncSerializer.Singleton));
+            services.AddSingleton<IWindowService, WindowService>();
 
             // Other APIs
             services.AddTransient<IGitHubService, GitHubService>();

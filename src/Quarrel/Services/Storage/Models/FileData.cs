@@ -6,7 +6,10 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
-using FileAccessMode = OwlCore.AbstractStorage.FileAccessMode;
+using OwlFileAccessMode = OwlCore.AbstractStorage.FileAccessMode;
+using OwlThumbnailMode = OwlCore.AbstractStorage.ThumbnailMode;
+using WindowsFileAccessMode = Windows.Storage.FileAccessMode;
+using WindowsThumbnailMode = Windows.Storage.FileProperties.ThumbnailMode;
 
 namespace Quarrel.Services.Storage.Models
 {
@@ -55,9 +58,9 @@ namespace Quarrel.Services.Storage.Models
         }
 
         /// <inheritdoc />
-        public async Task<Stream> GetStreamAsync(FileAccessMode accessMode = FileAccessMode.Read)
+        public async Task<Stream> GetStreamAsync(OwlFileAccessMode accessMode = OwlFileAccessMode.Read)
         {
-            var stream = await _storageFile.OpenAsync((Windows.Storage.FileAccessMode)accessMode);
+            var stream = await _storageFile.OpenAsync((WindowsFileAccessMode)accessMode);
 
             return stream.AsStream();
         }
@@ -69,9 +72,9 @@ namespace Quarrel.Services.Storage.Models
         }
 
         /// <inheritdoc />
-        public async Task<Stream> GetThumbnailAsync(OwlCore.AbstractStorage.ThumbnailMode thumbnailMode, uint requiredSize)
+        public async Task<Stream> GetThumbnailAsync(OwlThumbnailMode thumbnailMode, uint requiredSize)
         {
-            var thumbnail = await _storageFile.GetThumbnailAsync((Windows.Storage.FileProperties.ThumbnailMode)thumbnailMode, requiredSize);
+            var thumbnail = await _storageFile.GetThumbnailAsync((WindowsThumbnailMode)thumbnailMode, requiredSize);
 
             return thumbnail.AsStream();
         }

@@ -154,6 +154,7 @@
     <Compile Include="Services\Storage\StorageService.cs" />
     <Compile Include="Services\Storage\Vault\VaultService.cs" />
     <Compile Include="Services\Versioning\VersioningService.cs" />
+    <Compile Include="Services\Windows\WindowService.cs" />
     <Compile Include="SubPages\DiscordStatus\DiscordStatusPage.Render.cs" />
     <Compile Include="SubPages\DiscordStatus\DiscordStatusPage.xaml.cs">
       <DependentUpon>DiscordStatusPage.xaml</DependentUpon>

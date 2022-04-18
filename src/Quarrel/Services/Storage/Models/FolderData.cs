@@ -6,7 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
-using CreationCollisionOption = OwlCore.AbstractStorage.CreationCollisionOption;
+using OwlCreationCollisionOption = OwlCore.AbstractStorage.CreationCollisionOption;
+using WindowsCreationCollisionOption = Windows.Storage.CreationCollisionOption;
 
 namespace Quarrel.Services.Storage.Models
 {
@@ -56,9 +57,9 @@ namespace Quarrel.Services.Storage.Models
         }
 
         /// <inheritdoc/>
-        public async Task<IFolderData> CreateFolderAsync(string desiredName, CreationCollisionOption options)
+        public async Task<IFolderData> CreateFolderAsync(string desiredName, OwlCreationCollisionOption options)
         {
-            var collisionOptions = (Windows.Storage.CreationCollisionOption)Enum.Parse(typeof(Windows.Storage.CreationCollisionOption), options.ToString());
+            var collisionOptions = (WindowsCreationCollisionOption)Enum.Parse(typeof(WindowsCreationCollisionOption), options.ToString());
 
             var storageFolder = await _storageFolder.CreateFolderAsync(desiredName, collisionOptions);
 
@@ -74,9 +75,9 @@ namespace Quarrel.Services.Storage.Models
         }
 
         /// <inheritdoc/>
-        public async Task<IFileData> CreateFileAsync(string desiredName, CreationCollisionOption options)
+        public async Task<IFileData> CreateFileAsync(string desiredName, OwlCreationCollisionOption options)
         {
-            var collisionOptions = (Windows.Storage.CreationCollisionOption)Enum.Parse(typeof(Windows.Storage.CreationCollisionOption), options.ToString());
+            var collisionOptions = (WindowsCreationCollisionOption)Enum.Parse(typeof(WindowsCreationCollisionOption), options.ToString());
             var storageFile = await _storageFolder.CreateFileAsync(desiredName, collisionOptions);
 
             return new FileData(storageFile);

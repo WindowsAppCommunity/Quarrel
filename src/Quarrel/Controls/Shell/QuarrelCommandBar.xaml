@@ -32,6 +32,15 @@
     </CommandBar.Content>
 
     <CommandBar.PrimaryCommands>
+        <AppBarButton x:Uid="CommandBar/NewWindowABB"
+                      Label="Open in New Window"
+                      Background="Transparent"
+                      Click="OpenInNewWindow">
+            <AppBarButton.Content>
+                <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE2B4;" />
+            </AppBarButton.Content>
+        </AppBarButton>
+        
         <AppBarButton x:Uid="CommandBar/CallABB"
                       Label="Call"
                       Background="Transparent">
