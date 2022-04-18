@@ -6,7 +6,7 @@
 trigger:
   branches:
     include:
-    - '*'
+    - 'rewrite/main'
   paths:
     include:
     - src/*
@@ -20,7 +20,7 @@ pool:
 
 variables:
   solution: '**/*.sln'
-  buildPlatform: 'x86|x64|ARM'
+  buildPlatform: 'x86|x64|ARM|ARM64'
   buildConfiguration: 'Release'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
   buildDir: '$(build.artifactStagingDirectory)\build\\'
