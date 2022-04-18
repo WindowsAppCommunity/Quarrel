@@ -10,6 +10,7 @@ using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Quarrel.ViewModels.Panels
 {
@@ -74,7 +75,7 @@ namespace Quarrel.ViewModels.Panels
                 var messages = await _discordService.GetChannelMessagesAsync(channel);
                 
                 // Add messages to the UI and mark loading as finished
-                Source.AddRange(messages);
+                Source.AddRange(messages.Reverse());
                 IsLoading = false;
             });
         }
