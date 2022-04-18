@@ -6,6 +6,7 @@ using Quarrel.Messages;
 using Quarrel.Messages.Navigation.SubPages;
 using Quarrel.Messages.Panel;
 using Quarrel.Services.Windows;
+using Quarrel.ViewModels.Panels;
 using Quarrel.ViewModels.SubPages.DiscordStatus;
 using Quarrel.ViewModels.SubPages.Meta;
 using Windows.UI.Xaml;
@@ -39,7 +40,7 @@ namespace Quarrel.Controls.Shell
 
         private void OpenInNewWindow(object sender, RoutedEventArgs e)
         {
-            _windowService.OpenSecondaryWindow();
+            _windowService.OpenSecondaryWindow(typeof(MessagesViewModel));
         }
     }
 }

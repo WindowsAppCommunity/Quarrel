@@ -1,10 +1,11 @@
 ﻿<UserControl
-    x:Class="Quarrel.Controls.Shell.WindowHost"
+    x:Class="Quarrel.Controls.Host.WindowHost"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Quarrel.Controls.Shell"
+    xmlns:local="using:Quarrel.Controls.Host"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:shell="using:Quarrel.Controls.Shell"
     xmlns:subpages="using:Quarrel.SubPages"
     xmlns:subpagehost="using:Quarrel.SubPages.Host"
     xmlns:convert="using:Quarrel.Converters"
@@ -19,9 +20,9 @@
         </Grid.RowDefinitions>
         <local:TitleBar x:Name="TitleBar"/>
         <Grid Grid.Row="1">
-            <local:Shell/>
+            <shell:Shell/>
             <subpages:LoginPage x:Name="LoginPage" x:Load="{x:Bind ViewModel.IsLoggedOut, Mode=OneWay}"/>
-            <local:ExtendedSplashScreen IsShowing="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Status="{x:Bind ViewModel.SplashStatus, Mode=OneWay}"/>
+            <shell:ExtendedSplashScreen IsShowing="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Status="{x:Bind ViewModel.SplashStatus, Mode=OneWay}"/>
             <subpagehost:SubPageHost x:Name="SubPageHost"/>
         </Grid>
     </Grid>

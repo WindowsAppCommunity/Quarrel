@@ -1,16 +1,24 @@
 ﻿// Quarrel © 2022
 
 using System;
+using Quarrel.Controls.Host;
+using Quarrel.Services.Localization;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Services.Windows
 {
     public class WindowService : IWindowService
     {
+        private readonly ILocalizationService _localizationService;
+
+        public WindowService(ILocalizationService localizationService)
+        {
+            _localizationService = localizationService;
+        }
+
         public async void OpenSecondaryWindow()
         {
             var currentAppView = ApplicationView.GetForCurrentView();
@@ -21,11 +29,10 @@ namespace Quarrel.Services.Windows
                 var newAppView = ApplicationView.GetForCurrentView();
                 newAppView.Title = "Secondary Window";
 
-                newWindow.Content = new TextBlock()
-                {
-                    Text = "Secondary Window Content",
-                };
+                FrameworkElement root = new SecondaryWindowHost();
+                root.FlowDirection = _localizationService.IsRightToLeftLanguage ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
 
+                newWindow.Content = root;
                 newWindow.Activate();
 
                 await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newAppView.Id);

@@ -7,11 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OwlCore" Version="0.0.61" />
+    <Compile Remove="Services\Storage\Settings\**" />
+    <EmbeddedResource Remove="Services\Storage\Settings\**" />
+    <None Remove="Services\Storage\Settings\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Storage\Settings\" />
+    <PackageReference Include="OwlCore" Version="0.0.61" />
   </ItemGroup>
 
   <ItemGroup>

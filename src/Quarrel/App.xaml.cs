@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using OwlCore.AbstractStorage;
-using Quarrel.Controls.Shell;
+using Quarrel.Controls.Host;
 using Quarrel.Services.Analytics;
 using Quarrel.Services.APIs.GitHubService;
 using Quarrel.Services.Discord;

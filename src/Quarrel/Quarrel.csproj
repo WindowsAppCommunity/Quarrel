@@ -84,6 +84,9 @@
     <Compile Include="Attached\TextHelpers\CharacterCasing.cs" />
     <Compile Include="Behaviors\OpenFlyoutAction.cs" />
     <Compile Include="Controls\Direction.cs" />
+    <Compile Include="Controls\Host\SecondaryWindowHost.xaml.cs">
+      <DependentUpon>SecondaryWindowHost.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\QuarrelIcon.xaml.cs">
       <DependentUpon>QuarrelIcon.xaml</DependentUpon>
     </Compile>
@@ -108,10 +111,10 @@
     <Compile Include="Controls\Shell\QuarrelCommandBar.xaml.cs">
       <DependentUpon>QuarrelCommandBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\TitleBar.xaml.cs">
+    <Compile Include="Controls\Host\TitleBar.xaml.cs">
       <DependentUpon>TitleBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\WindowHost.xaml.cs">
+    <Compile Include="Controls\Host\WindowHost.xaml.cs">
       <DependentUpon>WindowHost.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Shell\Shell.xaml.cs">
@@ -209,6 +212,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\Host\SecondaryWindowHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\QuarrelIcon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -241,11 +248,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\TitleBar.xaml">
+    <Page Include="Controls\Host\TitleBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\WindowHost.xaml">
+    <Page Include="Controls\Host\WindowHost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
