@@ -55,7 +55,7 @@
                 </HyperlinkButton>
 
                 <TextBlock x:Uid="About/DevelopedByTB"
-                           Text="Developed by Adam Dernis and Matthew Collins"
+                           Text="Developed by Adam Dernis and Matthew"
                            FontWeight="SemiBold"
                            FontSize="16"
                            Margin="0,12,0,0"/>
