@@ -178,7 +178,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\ServiceTokens\Patreon.json" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Connections\battlenet.png" />
     <Content Include="Assets\Connections\facebook.png" />
