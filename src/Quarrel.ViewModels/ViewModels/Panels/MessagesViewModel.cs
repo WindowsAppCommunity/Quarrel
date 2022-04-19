@@ -58,11 +58,11 @@ namespace Quarrel.ViewModels.Panels
         {
             if (channel is IBindableMessageChannel messageChannel)
             {
-                LoadInitialMessages(messageChannel.MessageChannel);
+                LoadInitialMessages(messageChannel);
             }
         }
 
-        private void LoadInitialMessages(IMessageChannel? channel)
+        private void LoadInitialMessages(IBindableMessageChannel? channel)
         {
             Guard.IsNotNull(channel, nameof(channel));
             _dispatcherService.RunOnUIThread(async () =>

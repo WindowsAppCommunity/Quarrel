@@ -29,7 +29,7 @@ namespace Quarrel.Bindables.Guilds
         /// <remarks>
         /// This is used to reopen a channel when navigating to a guild.
         /// </remarks>
-        public ulong? SelectedChannel { get; set; }
+        public ulong? SelectedChannelId { get; set; }
 
         /// <summary>
         /// Gets the url of the guild's icon.

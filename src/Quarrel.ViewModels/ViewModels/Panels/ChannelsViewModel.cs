@@ -54,7 +54,7 @@ namespace Quarrel.ViewModels.Panels
                 if(SetProperty(ref _selectedChannel, value))
                 {
                     value.IsSelected = true;
-                    _currentGuild.SelectedChannel = value.Id;
+                    _currentGuild.SelectedChannelId = value.Id;
                     _messenger.Send(new NavigateToChannelMessage<IBindableSelectableChannel>(value));
                 }
             }
@@ -81,7 +81,7 @@ namespace Quarrel.ViewModels.Panels
             }
 
             _currentGuild = guild;
-            var channels = _discordService.GetGuildChannelsGrouped(guild.Guild, out IBindableSelectableChannel? selected, guild.SelectedChannel);
+            var channels = _discordService.GetGuildChannelsGrouped(guild, out IBindableSelectableChannel? selected);
             GroupedSource = channels;
             SelectedChannel = selected;
         }

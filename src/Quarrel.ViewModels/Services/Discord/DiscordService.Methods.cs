@@ -60,7 +60,7 @@ namespace Quarrel.Services.Discord
         }
         
         /// <inheritdoc/>
-        public async Task<BindableMessage[]> GetChannelMessagesAsync(IMessageChannel channel)
+        public async Task<BindableMessage[]> GetChannelMessagesAsync(IBindableMessageChannel channel)
         {
             var rawMessages = await _quarrelClient.GetMessagesAsync(channel.Id);
             Guard.IsNotNull(rawMessages, nameof(rawMessages));
@@ -74,9 +74,10 @@ namespace Quarrel.Services.Discord
         }
         
         /// <inheritdoc/>
-        public BindableGuildChannel?[] GetGuildChannels(Guild guild)
+        public BindableGuildChannel?[] GetGuildChannels(BindableGuild guild, out IBindableSelectableChannel? selectedChannel)
         {
-            IGuildChannel[] rawChannels = guild.GetChannels();
+            selectedChannel = null;
+            IGuildChannel[] rawChannels = guild.Guild.GetChannels();
             Array.Sort(rawChannels, Comparer<IGuildChannel>.Create((item1, item2) =>
             {
                 bool is1Voice = item1.Type is ChannelType.GuildVoice or ChannelType.StageVoice;
@@ -93,7 +94,7 @@ namespace Quarrel.Services.Discord
                 return item1.Position.CompareTo(item2.Position);
             }));
 
-            GuildMember? member = _quarrelClient.GetMyGuildMember(guild.Id);
+            GuildMember? member = _quarrelClient.GetMyGuildMember(guild.Guild.Id);
             Guard.IsNotNull(member, nameof(member));
             BindableGuildChannel?[] channels = new BindableGuildChannel[rawChannels.Length];
             var categories = new Dictionary<ulong, BindableCategoryChannel>();
@@ -122,6 +123,12 @@ namespace Quarrel.Services.Discord
                     }
 
                     channel = BindableGuildChannel.Create(nestedChannel, member, category);
+
+                    if (channel is not null && (channel.Channel.Id == guild.SelectedChannelId || (selectedChannel is null && channel.IsAccessible)) &&
+                        channel is IBindableSelectableChannel messageChannel)
+                    {
+                        selectedChannel = messageChannel;
+                    }
                 }
             }
 
@@ -129,10 +136,9 @@ namespace Quarrel.Services.Discord
         }
         
         /// <inheritdoc/>
-        public IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(Guild guild, out IBindableSelectableChannel? selectedChannel, ulong? selectedChannelId = null)
+        public IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(BindableGuild guild, out IBindableSelectableChannel? selectedChannel)
         {
-            selectedChannel = null;
-            var channels = GetGuildChannels(guild);
+            var channels = GetGuildChannels(guild, out selectedChannel);
 
             var groups = new Dictionary<ulong?, BindableChannelGroup>
             {
@@ -155,12 +161,6 @@ namespace Quarrel.Services.Discord
                     if (channel.Channel is INestedChannel nestedChannel)
                     {
                         parentId = nestedChannel.CategoryId ?? 0;
-                    }
-
-                    if ((channel.Channel.Id == selectedChannelId || (selectedChannel is null && channel.IsAccessible)) &&
-                        channel is IBindableSelectableChannel messageChannel)
-                    {
-                        selectedChannel = messageChannel;
                     }
 
                     if (groups.TryGetValue(parentId, out var group))
