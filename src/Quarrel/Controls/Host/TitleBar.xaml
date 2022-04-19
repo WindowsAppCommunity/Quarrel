@@ -10,8 +10,8 @@
     d:DesignWidth="400">
 
     <Grid Background="{ThemeResource CommandBarBackground}" Height="32">
-        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"
-                   Margin="16,0,0,0"
-                   Text="{x:Bind TitleContent, Mode=OneWay}"/>
+        <TextBlock x:Name="TitleTextBlock" Text="{x:Bind TitleContent}"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"
+                   Margin="16,0,0,0"/>
     </Grid>
 </UserControl>

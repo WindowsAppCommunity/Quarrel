@@ -11,7 +11,7 @@ namespace Quarrel.Controls.Host
     public sealed partial class TitleBar : UserControl
     {
         private DependencyProperty TitleContentProperty =
-            DependencyProperty.Register(nameof(TitleContent), typeof(string), typeof(TitleBar), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(TitleContent), typeof(string), typeof(TitleBar), new PropertyMetadata(null, TitleContentPropertyUpdated));
 
         public TitleBar()
         {
@@ -38,6 +38,12 @@ namespace Quarrel.Controls.Host
         {
             get => (string?)GetValue(TitleContentProperty);
             set => SetValue(TitleContentProperty, value);
+        }
+
+        private static void TitleContentPropertyUpdated(DependencyObject d, DependencyPropertyChangedEventArgs args)
+        {
+            TitleBar titleBar = (TitleBar)d;
+            titleBar.TitleTextBlock.Text = (string)args.NewValue;
         }
     }
 }
