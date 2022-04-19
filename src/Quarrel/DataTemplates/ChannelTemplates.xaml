@@ -6,10 +6,18 @@
     xmlns:bindablechannels="using:Quarrel.Bindables.Channels">
 
     <DataTemplate x:Key="TextChannelTemplate" x:DataType="bindablechannels:BindableTextChannel">
-        <Grid Height="40" Padding="6,0,0,0">
-            <Grid Visibility="{x:Bind IsSelected, Mode=OneWay}" Opacity=".2" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="-6,0,0,0"/>
+        <Grid Height="40">
+            <Grid Visibility="{x:Bind IsSelected, Mode=OneWay}" Opacity=".2" Background="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+            
+            <Border x:Name="UnreadIndicator"
+                    Visibility="{x:Bind MessageChannel.IsUnread, Mode=OneWay}"
+                    Height="24" Width="2"
+                    Background="{ThemeResource InvertedBackground}"
+                    Margin="2,0,0,0"
+                    HorizontalAlignment="Left" Opacity=".75"/>
+            
             <!--Main Details-->
-            <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,6" Padding="0,0,-18,0">
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,6" Padding="6,0,-12,0">
                 <TextBlock Text="#" Foreground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" Opacity=".6" FontSize="20" FontWeight="Light" Margin="6,-2,4,0"/>
                 <TextBlock Text="{x:Bind Name, Mode=OneWay}" Opacity=".6" Margin="0,1,0,0"/>
             </StackPanel>
