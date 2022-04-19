@@ -3,7 +3,7 @@
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Controls.Shell.Enums;
-using Quarrel.Messages.Discord;
+using Quarrel.Messages;
 using Quarrel.Services.Analytics.Enums;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;

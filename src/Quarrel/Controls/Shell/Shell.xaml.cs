@@ -2,9 +2,11 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using Quarrel.Bindables.Guilds;
 using Quarrel.Messages;
 using Quarrel.Messages.Navigation;
 using Quarrel.Messages.Panel;
+using Quarrel.Services.Dispatcher;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -14,14 +16,22 @@ namespace Quarrel.Controls.Shell
     public sealed partial class Shell : UserControl
     {
         private readonly IMessenger _messenger;
+        private readonly IDispatcherService _dispatcherService;
 
         public Shell()
         {
             this.InitializeComponent();
             _messenger = App.Current.Services.GetRequiredService<IMessenger>();
+            _dispatcherService = App.Current.Services.GetRequiredService<IDispatcherService>();
 
-            _messenger.Register<NavigateToGuildMessage>(this, (_,_) => _messenger.Send(new TogglePanelMessage(PanelSide.Left, PanelState.Open)));
-            _messenger.Register<TogglePanelMessage>(this, (_, e) => GoToPanelState(e));
+            _messenger.Register<NavigateToGuildMessage<BindableGuild>>(this, (_,_) => _messenger.Send(new TogglePanelMessage(PanelSide.Left, PanelState.Open)));
+            _messenger.Register<TogglePanelMessage>(this, (_, e) =>
+            {
+                _dispatcherService.RunOnUIThread(() =>
+                {
+                    GoToPanelState(e);
+                });
+            });
         }
 
         /// <summary>

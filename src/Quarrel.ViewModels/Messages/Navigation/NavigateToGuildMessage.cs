@@ -1,18 +1,16 @@
 ﻿// Quarrel © 2022
 
-using Quarrel.Bindables.Guilds;
-
 namespace Quarrel.Messages.Navigation
 {
     /// <summary>
     /// A message sent when navigation to a guild is requested.
     /// </summary>
-    public class NavigateToGuildMessage
+    public class NavigateToGuildMessage<T>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NavigateToGuildMessage"/> class.
+        /// Initializes a new instance of the <see cref="NavigateToGuildMessage{T}"/> class.
         /// </summary>
-        public NavigateToGuildMessage(BindableGuild guild)
+        public NavigateToGuildMessage(T guild)
         {
             Guild = guild;
         }
@@ -20,6 +18,6 @@ namespace Quarrel.Messages.Navigation
         /// <summary>
         /// Gets the guild being navigated to.
         /// </summary>
-        public BindableGuild Guild { get; }
+        public T Guild { get; }
     }
 }

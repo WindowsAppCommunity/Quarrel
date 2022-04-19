@@ -2,7 +2,7 @@
 
 using Quarrel.Services.Storage.Accounts.Models;
 
-namespace Quarrel.Messages.Discord
+namespace Quarrel.Messages
 {
     /// <summary>
     /// A message sent when a user is logged in to the discord service.

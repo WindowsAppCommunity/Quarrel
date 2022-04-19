@@ -4,10 +4,11 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Bindables.Guilds.Interfaces;
-using Quarrel.Messages.Discord;
+using Quarrel.Messages;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 
 namespace Quarrel.ViewModels
@@ -20,6 +21,7 @@ namespace Quarrel.ViewModels
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
         private readonly IDispatcherService _dispatcherService;
+        private readonly ConcurrentDictionary<ulong, BindableGuild> _guilds;
 
         private BindableGuild? _selectedGuild;
 
@@ -33,8 +35,10 @@ namespace Quarrel.ViewModels
             _dispatcherService = dispatcherService;
 
             Source = new ObservableCollection<IBindableGuildListItem>();
+            _guilds = new ConcurrentDictionary<ulong, BindableGuild>();
 
             _messenger.Register<UserLoggedInMessage>(this, (_, _) => LoadGuilds());
+            _messenger.Register<NavigateToGuildMessage<ulong>>(this, (_, m) => ForwardNavigate(m.Guild));
         }
 
         /// <summary>
@@ -51,7 +55,7 @@ namespace Quarrel.ViewModels
                 if (SetProperty(ref _selectedGuild, value) && value is not null)
                 {
                     value.IsSelected = true;
-                    _messenger.Send(new NavigateToGuildMessage(value));
+                    _messenger.Send(new NavigateToGuildMessage<BindableGuild>(value));
                 }
             }
         }
@@ -75,6 +79,7 @@ namespace Quarrel.ViewModels
                     {
                         foreach (var child in folder.Children)
                         {
+                            _guilds.TryAdd(child.Guild.Id, child);
                             Source.Add(child);
                         }
                     }
@@ -83,7 +88,27 @@ namespace Quarrel.ViewModels
                         Source.Add(folder);
                     }
                 }
+                _messenger.Send(new GuildsLoadedMessage());
             });
+        }
+
+        private void ForwardNavigate(ulong guildId)
+        {
+            BindableGuild? guild = GetBindableGuild(guildId);
+            if (guild is not null)
+            {
+                SelectedGuild = guild;
+            }
+        }
+
+        private BindableGuild? GetBindableGuild(ulong guildId)
+        {
+            if (_guilds.TryGetValue(guildId, out var guild))
+            {
+                return guild;
+            }
+
+            return null;
         }
     }
 }

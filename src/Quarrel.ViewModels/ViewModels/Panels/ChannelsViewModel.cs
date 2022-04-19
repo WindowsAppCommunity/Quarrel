@@ -3,7 +3,6 @@
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels;
-using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Messages.Navigation;
@@ -33,7 +32,7 @@ namespace Quarrel.ViewModels.Panels
             _messenger = messenger;
             _discordService = discordService;
 
-            _messenger.Register<NavigateToGuildMessage>(this, (_, m) => LoadChannels(m.Guild));
+            _messenger.Register<NavigateToGuildMessage<BindableGuild>>(this, (_, m) => LoadChannels(m.Guild));
         }
 
         /// <summary>
@@ -56,7 +55,7 @@ namespace Quarrel.ViewModels.Panels
                 {
                     value.IsSelected = true;
                     _currentGuild.SelectedChannel = value.Id;
-                    _messenger.Send(new NavigateToChannelMessage(value));
+                    _messenger.Send(new NavigateToChannelMessage<IBindableSelectableChannel>(value));
                 }
             }
         }

@@ -5,6 +5,8 @@ using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using OwlCore.AbstractStorage;
 using Quarrel.Controls.Host;
+using Quarrel.Helpers.LaunchArgs.Models;
+using Quarrel.Messages;
 using Quarrel.Services.Analytics;
 using Quarrel.Services.APIs.GitHubService;
 using Quarrel.Services.Discord;
@@ -64,14 +66,38 @@ namespace Quarrel
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            Launch(e.PrelaunchActivated, null);
+        }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.Protocol && args is ProtocolActivatedEventArgs protocolArgs)
+            {
+                LaunchArgsBase? launchArgs = LaunchArgsBase.Parse(protocolArgs.Uri.ToString());
+                Launch(false, launchArgs);
+            }
+        }
+
+        private void Launch(bool isPrelaunchActivated, LaunchArgsBase? args = null)
+        {
             if (Window.Current.Content is not WindowHost)
             {
                 InitializeUI();
             }
 
-            if (!e.PrelaunchActivated)
+            if (!isPrelaunchActivated)
             {
                 Window.Current.Activate();
+            }
+
+            if (args is not null)
+            {
+                IMessenger messenger = Services.GetRequiredService<IMessenger>();
+                messenger.Register<GuildsLoadedMessage>(this, (_,_) =>
+                {
+                    messenger.Unregister<GuildsLoadedMessage>(this);
+                    args.RunPostLoad(Services);
+                });
             }
         }
 

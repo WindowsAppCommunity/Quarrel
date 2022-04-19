@@ -4,11 +4,9 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Users;
-using Quarrel.Messages.Discord;
-using Quarrel.Messages.Navigation.SubPages;
+using Quarrel.Messages;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
-using Quarrel.ViewModels.SubPages.Meta;
 
 namespace Quarrel.ViewModels
 {

@@ -4,7 +4,7 @@ using CommunityToolkit.Diagnostics;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Client;
 using Quarrel.Client.Models.Users;
-using Quarrel.Messages.Discord;
+using Quarrel.Messages;
 using Quarrel.Services.Analytics;
 using Quarrel.Services.Analytics.Enums;
 using Quarrel.Services.Analytics.Models;
@@ -34,7 +34,7 @@ namespace Quarrel.Services.Discord
             _quarrelClient.LoggedIn += OnLoggedIn;
             _quarrelClient.HttpExceptionHandled += OnHttpExceptionHandled;
             _quarrelClient.GatewayExceptionHandled += OnGatewayExceptionHandled;
-            
+
             _quarrelClient.UnknownGatewayOperationEncountered += OnUnknownGatewayOperationEncountered;
             _quarrelClient.UnknownGatewayEventEncountered += OnUnknownGatewayEventEncountered;
             _quarrelClient.KnownGatewayEventEncountered += OnKnownGatewayEventEncountered;
