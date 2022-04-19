@@ -3,6 +3,7 @@
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Users;
+using Quarrel.Services.Dispatcher;
 
 namespace Quarrel.Bindables.Channels
 {
@@ -11,8 +12,8 @@ namespace Quarrel.Bindables.Channels
     /// </summary>
     public class BindableCategoryChannel : BindableGuildChannel
     {
-        internal BindableCategoryChannel(CategoryChannel channel, GuildMember selfMember) :
-            base(channel, selfMember)
+        internal BindableCategoryChannel(IDispatcherService dispatcherService, CategoryChannel channel, GuildMember selfMember) :
+            base(dispatcherService, channel, selfMember)
         {
         }
         

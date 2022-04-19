@@ -1,6 +1,8 @@
 ﻿// Quarrel © 2022
 
+using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels.Abstract;
+using Quarrel.Services.Dispatcher;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,9 +13,10 @@ namespace Quarrel.Bindables.Channels
     /// <summary>
     /// A wrapper for a <see cref="BindableCategoryChannel"/> that contains all child channels in a <see cref="IGrouping{BindableCategoryChannel, BindableChannel}"/>
     /// </summary>
-    public class BindableChannelGroup : IGrouping<BindableCategoryChannel?, BindableChannel?>
+    public class BindableChannelGroup : BindableItem, IGrouping<BindableCategoryChannel?, BindableChannel?>
     {
-        internal BindableChannelGroup(BindableCategoryChannel? key)
+        internal BindableChannelGroup(IDispatcherService dispatcherService, BindableCategoryChannel? key) :
+            base(dispatcherService)
         {
             Key = key;
             Children = new ObservableCollection<BindableChannel>();

@@ -5,6 +5,7 @@ using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;
+using Quarrel.Services.Dispatcher;
 
 namespace Quarrel.Bindables.Channels
 {
@@ -13,8 +14,8 @@ namespace Quarrel.Bindables.Channels
     /// </summary>
     public class BindableTextChannel : BindableGuildChannel, IBindableMessageChannel
     {
-        internal BindableTextChannel(GuildTextChannel channel, GuildMember selfMember, BindableCategoryChannel? parent = null) :
-            base(channel, selfMember, parent)
+        internal BindableTextChannel(IDispatcherService dispatcherService, GuildTextChannel channel, GuildMember selfMember, BindableCategoryChannel? parent = null) :
+            base(dispatcherService, channel, selfMember, parent)
         {
         }
         
@@ -29,5 +30,12 @@ namespace Quarrel.Bindables.Channels
         
         /// <inheritdoc/>
         public IMessageChannel MessageChannel => (IMessageChannel)Channel;
+        
+        /// <inheritdoc/>
+        protected override void AckUpdate()
+        {
+            base.AckUpdate();
+            OnPropertyChanged(nameof(MessageChannel));
+        }
     }
 }

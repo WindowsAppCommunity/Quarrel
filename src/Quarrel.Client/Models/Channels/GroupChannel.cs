@@ -69,9 +69,9 @@ namespace Quarrel.Client.Models.Channels
             set => LastReadMessageId = value;
         }
 
-        internal override JsonChannel ToRestChannel()
+        internal override JsonChannel ToJsonChannel()
         {
-            JsonChannel restChannel = base.ToRestChannel();
+            JsonChannel restChannel = base.ToJsonChannel();
             restChannel.OwnerId = OwnerId;
             restChannel.RTCRegion = RTCRegion;
             restChannel.Recipients = Recipients.Select(x => x.ToRestUser()).ToArray();

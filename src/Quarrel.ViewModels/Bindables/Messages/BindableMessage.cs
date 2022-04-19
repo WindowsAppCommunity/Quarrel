@@ -3,6 +3,7 @@
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Client.Models.Messages;
+using Quarrel.Services.Dispatcher;
 
 namespace Quarrel.Bindables.Messages
 {
@@ -17,7 +18,8 @@ namespace Quarrel.Bindables.Messages
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableMessage"/> class.
         /// </summary>
-        internal BindableMessage(Message message)
+        internal BindableMessage(IDispatcherService dispatcherService, Message message) :
+            base(dispatcherService)
         {
             _message = message;
         }

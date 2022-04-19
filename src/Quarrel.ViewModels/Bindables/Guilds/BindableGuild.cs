@@ -4,6 +4,7 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Guilds.Interfaces;
 using Quarrel.Client.Models.Guilds;
+using Quarrel.Services.Dispatcher;
 using System;
 
 namespace Quarrel.Bindables.Guilds
@@ -18,7 +19,8 @@ namespace Quarrel.Bindables.Guilds
         [ObservableProperty]
         private Guild _guild;
 
-        internal BindableGuild(Guild guild)
+        internal BindableGuild(IDispatcherService dispatcherService, Guild guild) :
+            base(dispatcherService)
         {
             _guild = guild;
         }

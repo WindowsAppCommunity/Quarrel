@@ -35,18 +35,18 @@ namespace Quarrel.Client.Models.Channels
         /// <inheritdoc/>
         public string? RTCRegion { get; private set; }
 
-        internal override void UpdateFromRestChannel(JsonChannel jsonChannel)
+        internal override void PrivateUpdateFromJsonChannel(JsonChannel jsonChannel)
         {
-            base.UpdateFromRestChannel(jsonChannel);
+            base.PrivateUpdateFromJsonChannel(jsonChannel);
             Bitrate = jsonChannel.Bitrate ?? Bitrate;
             UserLimit = jsonChannel.UserLimit ?? UserLimit;
             CategoryId = jsonChannel.CategoryId ?? CategoryId;
             RTCRegion = jsonChannel.RTCRegion ?? RTCRegion;
         }
 
-        internal override JsonChannel ToRestChannel()
+        internal override JsonChannel ToJsonChannel()
         {
-            JsonChannel restChannel = base.ToRestChannel();
+            JsonChannel restChannel = base.ToJsonChannel();
             restChannel.Bitrate = Bitrate;
             restChannel.UserLimit = UserLimit;
             restChannel.CategoryId = CategoryId;

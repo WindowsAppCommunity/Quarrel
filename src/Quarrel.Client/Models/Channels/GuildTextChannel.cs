@@ -12,6 +12,9 @@ namespace Quarrel.Client.Models.Channels
     /// </summary>
     public class GuildTextChannel : GuildChannel, IGuildTextChannel
     {
+        private ulong? _lastMessageId;
+        private ulong? _lastReadMessageId;
+
         internal GuildTextChannel(JsonChannel restChannel, ulong? guildId, QuarrelClient context) :
             base(restChannel, guildId, context)
         {
@@ -40,10 +43,18 @@ namespace Quarrel.Client.Models.Channels
         public int? MentionCount { get; internal set; }
 
         /// <inheritdoc/>
-        public ulong? LastMessageId { get; internal set; }
+        public ulong? LastMessageId
+        {
+            get => _lastMessageId;
+            internal set => UpdateItem(ref _lastMessageId, value);
+        }
 
         /// <inheritdoc/>
-        public ulong? LastReadMessageId { get; internal set; }
+        public ulong? LastReadMessageId
+        {
+            get => _lastReadMessageId;
+            internal set => UpdateItem(ref _lastReadMessageId, value);
+        }
 
         /// <inheritdoc/>
         public bool IsUnread => LastMessageId > LastReadMessageId;
@@ -66,18 +77,18 @@ namespace Quarrel.Client.Models.Channels
             set => LastReadMessageId = value;
         }
 
-        internal override void UpdateFromRestChannel(JsonChannel jsonChannel)
+        internal override void PrivateUpdateFromJsonChannel(JsonChannel jsonChannel)
         {
-            base.UpdateFromRestChannel(jsonChannel);
+            base.PrivateUpdateFromJsonChannel(jsonChannel);
             Topic = jsonChannel.Topic ?? Topic;
             IsNSFW = jsonChannel.IsNSFW ?? IsNSFW;
             SlowModeDelay = jsonChannel.SlowModeDelay ?? SlowModeDelay;
             CategoryId = jsonChannel.CategoryId ?? CategoryId;
         }
 
-        internal override JsonChannel ToRestChannel()
+        internal override JsonChannel ToJsonChannel()
         {
-            JsonChannel restChannel = base.ToRestChannel();
+            JsonChannel restChannel = base.ToJsonChannel();
             restChannel.Topic = Topic;
             restChannel.IsNSFW = IsNSFW;
             restChannel.SlowModeDelay = SlowModeDelay;

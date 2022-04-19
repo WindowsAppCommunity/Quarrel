@@ -4,14 +4,16 @@ using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Enums.Channels;
 using Discord.API.Models.Json.Channels;
 using Quarrel.Client.Models.Base;
+using Quarrel.Client.Models.Base.Interfaces;
 using Quarrel.Client.Models.Channels.Interfaces;
+using System;
 
 namespace Quarrel.Client.Models.Channels.Abstract
 {
     /// <summary>
     /// A base class for a channel managed by a <see cref="QuarrelClient"/>.
     /// </summary>
-    public abstract class Channel : SnowflakeItem, IChannel
+    public abstract class Channel : SnowflakeItem, IChannel, IUpdatableItem
     {
         internal Channel(JsonChannel restChannel, QuarrelClient context) :
             base(context)
@@ -26,16 +28,24 @@ namespace Quarrel.Client.Models.Channels.Abstract
 
         /// <inheritdoc/>
         public ChannelType Type { get; private set; }
+        
+        /// <inheritdoc/>
+        public event EventHandler? ItemUpdated;
 
-        internal virtual void UpdateFromRestChannel(JsonChannel jsonChannel)
+        internal virtual void UpdateFromJsonChannel(JsonChannel jsonChannel)
         {
             Guard.IsEqualTo(Id, jsonChannel.Id, nameof(Id));
+            PrivateUpdateFromJsonChannel(jsonChannel);
+            InvokeUpdate();
+        }
 
+        internal virtual void PrivateUpdateFromJsonChannel(JsonChannel jsonChannel)
+        {
             Name = jsonChannel.Name ?? Name;
             Type = jsonChannel.Type;
         }
 
-        internal static Channel? FromRestChannel(JsonChannel jsonChannel, QuarrelClient context, ulong? guildId = null)
+        internal static Channel? FromJsonChannel(JsonChannel jsonChannel, QuarrelClient context, ulong? guildId = null)
         {
             return jsonChannel.Type switch
             {
@@ -50,7 +60,7 @@ namespace Quarrel.Client.Models.Channels.Abstract
             };
         }
 
-        internal virtual JsonChannel ToRestChannel()
+        internal virtual JsonChannel ToJsonChannel()
         {
             return new JsonChannel()
             {
@@ -59,5 +69,17 @@ namespace Quarrel.Client.Models.Channels.Abstract
                 Type = Type,
             };
         }
+
+        /// <summary>
+        /// Invokes item updated.
+        /// </summary>
+        protected void UpdateItem<T>(ref T field, T value)
+        {
+            field = value;
+            InvokeUpdate();
+        }
+
+        private void InvokeUpdate()
+            => ItemUpdated?.Invoke(this, EventArgs.Empty);
     }
 }

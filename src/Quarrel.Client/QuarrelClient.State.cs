@@ -102,7 +102,7 @@ namespace Quarrel.Client
         internal bool AddChannel(JsonChannel jsonChannel, ulong? guildId = null)
         {
             guildId = jsonChannel.GuildId ?? guildId;
-            Channel? channel = Channel.FromRestChannel(jsonChannel, this, guildId);
+            Channel? channel = Channel.FromJsonChannel(jsonChannel, this, guildId);
             if(channel != null && _channelMap.TryAdd(channel.Id, channel))
             {
                 if (guildId.HasValue && _guildMap.TryGetValue(guildId.Value, out Guild guild))
@@ -120,7 +120,7 @@ namespace Quarrel.Client
         {
             if (_channelMap.TryGetValue(jsonChannel.Id, out Channel channel))
             {
-                channel.UpdateFromRestChannel(jsonChannel);
+                channel.PrivateUpdateFromJsonChannel(jsonChannel);
                 return true;
             }
 

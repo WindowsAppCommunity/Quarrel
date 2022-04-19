@@ -1,8 +1,10 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Users.Interfaces;
 using Quarrel.Client.Models.Users;
+using Quarrel.Services.Dispatcher;
 using System;
 
 namespace Quarrel.Bindables.Users
@@ -10,7 +12,7 @@ namespace Quarrel.Bindables.Users
     /// <summary>
     /// A wrapper of a <see cref="Client.Models.Users.SelfUser"/> that can be bound to the UI.
     /// </summary>
-    public partial class BindableSelfUser : ObservableObject, IBindableUser
+    public partial class BindableSelfUser : BindableItem, IBindableUser
     {
         [ObservableProperty]
         [AlsoNotifyChangeFor(nameof(User))]
@@ -21,7 +23,8 @@ namespace Quarrel.Bindables.Users
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableSelfUser"/> class.
         /// </summary>
-        internal BindableSelfUser(SelfUser selfUser)
+        internal BindableSelfUser(IDispatcherService dispatcherService, SelfUser selfUser) :
+            base(dispatcherService)
         {
             _selfUser = selfUser;
         }

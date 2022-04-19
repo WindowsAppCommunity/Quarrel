@@ -18,8 +18,8 @@ namespace Quarrel.Client.Models.Guilds
     /// </summary>
     public class Guild : SnowflakeItem, IGuild
     {
-        private HashSet<ulong> _channelIds;
-        private Dictionary<ulong, Role> _roles;
+        private readonly HashSet<ulong> _channelIds;
+        private readonly Dictionary<ulong, Role> _roles;
 
         /// <summary>
         /// Initializes new instance of the <see cref="Guild"/> class.

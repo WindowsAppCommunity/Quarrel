@@ -40,10 +40,8 @@ namespace Quarrel.Client.Models.Channels.Abstract
         /// </summary>
         public PermissionOverwrite[]? PermissionOverwrites { get; private set; }
 
-        internal override void UpdateFromRestChannel(JsonChannel jsonChannel)
+        internal override void PrivateUpdateFromJsonChannel(JsonChannel jsonChannel)
         {
-            base.UpdateFromRestChannel(jsonChannel);
-
             Position = jsonChannel.Position ?? Position;
             GuildId = jsonChannel.GuildId ?? GuildId;
 
@@ -51,11 +49,13 @@ namespace Quarrel.Client.Models.Channels.Abstract
             {
                 PermissionOverwrites = CreateOverwrites(jsonChannel.PermissionOverwrites);
             }
+
+            base.PrivateUpdateFromJsonChannel(jsonChannel);
         }
 
-        internal override JsonChannel ToRestChannel()
+        internal override JsonChannel ToJsonChannel()
         {
-            JsonChannel restChannel = base.ToRestChannel();
+            JsonChannel restChannel = base.ToJsonChannel();
             restChannel.Position = Position;
             restChannel.GuildId = GuildId;
             return restChannel;

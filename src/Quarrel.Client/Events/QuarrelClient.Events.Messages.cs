@@ -1,6 +1,5 @@
 ﻿// Quarrel © 2022
 
-using Discord.API.Gateways;
 using Discord.API.Gateways.Models.Messages;
 using Discord.API.Models.Json.Messages;
 using Quarrel.Client.Models.Channels.Abstract;
@@ -37,7 +36,7 @@ namespace Quarrel.Client
             {
                 if (channel is IMessageChannel messageChannel)
                 {
-                    messageChannel.LastMessageId = messageAck.MessageId;
+                    messageChannel.LastReadMessageId = messageAck.MessageId;
                 }
             }
 

@@ -1,11 +1,11 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
-using Discord.API.Models;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Permissions;
 using Quarrel.Client.Models.Users;
+using Quarrel.Services.Dispatcher;
 
 namespace Quarrel.Bindables.Channels.Abstract
 {
@@ -14,7 +14,8 @@ namespace Quarrel.Bindables.Channels.Abstract
     /// </summary>
     public abstract class BindableGuildChannel : BindableChannel
     {
-        internal BindableGuildChannel(GuildChannel channel, GuildMember selfMember, BindableCategoryChannel? parent = null) : base(channel)
+        internal BindableGuildChannel(IDispatcherService dispatcherService, GuildChannel channel, GuildMember selfMember, BindableCategoryChannel? parent = null) :
+            base(dispatcherService, channel)
         {
             CategoryChannel = parent;
 
@@ -54,12 +55,20 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <summary>
         /// Creates a new <see cref="BindableGuildChannel"/> based on the type.
         /// </summary>
+        /// <param name="dispatcherService">The dispatcher service to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="channel">The channel to wrap.</param>
         /// <param name="member">The current user's guild member for the channel's guild.</param>
         /// <param name="parent">The channel's parent category.</param>
-        public static BindableGuildChannel? Create(IGuildChannel channel, GuildMember member, BindableCategoryChannel? parent = null)
+        public static BindableGuildChannel? Create(IDispatcherService dispatcherService, IGuildChannel channel, GuildMember member, BindableCategoryChannel? parent = null)
         {
-            return BindableChannel.Create(channel, member, parent) as BindableGuildChannel;
+            return BindableChannel.Create(dispatcherService, channel, member, parent) as BindableGuildChannel;
+        }
+        
+        /// <inheritdoc/>
+        protected override void AckUpdate()
+        {
+            base.AckUpdate();
+            OnPropertyChanged(nameof(IsAccessible));
         }
 
         private void ApplyOverrides(PermissionOverwrite[] overwrites, GuildMember selfMember)

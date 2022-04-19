@@ -69,9 +69,9 @@ namespace Quarrel.Client.Models.Channels
             return user;
         }
 
-        internal override void UpdateFromRestChannel(JsonChannel jsonChannel)
+        internal override void PrivateUpdateFromJsonChannel(JsonChannel jsonChannel)
         {
-            base.UpdateFromRestChannel(jsonChannel);
+            base.PrivateUpdateFromJsonChannel(jsonChannel);
 
             if (jsonChannel.Recipient is not null)
             {
@@ -79,9 +79,9 @@ namespace Quarrel.Client.Models.Channels
             }
         }
 
-        internal override JsonChannel ToRestChannel()
+        internal override JsonChannel ToJsonChannel()
         {
-            JsonChannel restChannel = base.ToRestChannel();
+            JsonChannel restChannel = base.ToJsonChannel();
             restChannel.Recipient = Context.GetUserInternal(RecipientId)?.ToRestUser();
             return restChannel;
         }

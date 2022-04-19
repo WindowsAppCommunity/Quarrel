@@ -5,6 +5,8 @@ using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;
+using Quarrel.Services.Dispatcher;
+using System;
 
 namespace Quarrel.Bindables.Channels.Abstract
 {
@@ -18,10 +20,11 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableChannel"/> class.
         /// </summary>
-        /// <param name="channel">The <see cref="Client.Models.Channels.Abstract.Channel"/> to wrap.</param>
-        internal BindableChannel(Channel channel)
+        internal BindableChannel(IDispatcherService dispatcherService, Channel channel) :
+            base(dispatcherService)
         {
             _channel = channel;
+            _channel.ItemUpdated += AckUpdateRoot;
         }
 
         /// <summary>
@@ -42,26 +45,50 @@ namespace Quarrel.Bindables.Channels.Abstract
             get => _channel;
             private set
             {
+                if (_channel is not null)
+                {
+                    _channel.ItemUpdated -= AckUpdateRoot;
+                }
+
                 if (SetProperty(ref _channel, value))
                 {
                     OnPropertyChanged(nameof(Name));
+                    _channel.ItemUpdated += AckUpdateRoot;
                 }
             }
         }
 
         /// <summary>
+        /// Invokes property changed for mutable properties when <see cref="Channel.ItemUpdated"/> is invoked.
+        /// </summary>
+        protected virtual void AckUpdate()
+        {
+            OnPropertyChanged(nameof(Channel));
+            OnPropertyChanged(nameof(Name));
+        }
+
+        private void AckUpdateRoot(object sender, EventArgs e)
+        {
+            _dispatcherService.RunOnUIThread(() =>
+            {
+                AckUpdate();
+            });
+        }
+
+        /// <summary>
         /// Creates a new instance of a <see cref="BindableChannel"/> based on the type.
         /// </summary>
+        /// <param name="dispatcherService">The dispatcher service to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="channel">The channel to wrap.</param>
         /// <param name="member">The current user's guild member for the channel's guild. Null if not a guild channel.</param>
         /// <param name="parent">The parent category of the channel.</param>
-        public static BindableChannel? Create(IChannel channel, GuildMember member, BindableCategoryChannel? parent = null)
+        public static BindableChannel? Create(IDispatcherService dispatcherService, IChannel channel, GuildMember member, BindableCategoryChannel? parent = null)
         {
             return channel switch
             {
-                GuildTextChannel c => new BindableTextChannel(c, member, parent),
-                VoiceChannel c => new BindableVoiceChannel(c, member, parent),
-                CategoryChannel c => new BindableCategoryChannel(c, member),
+                GuildTextChannel c => new BindableTextChannel(dispatcherService, c, member, parent),
+                VoiceChannel c => new BindableVoiceChannel(dispatcherService, c, member, parent),
+                CategoryChannel c => new BindableCategoryChannel(dispatcherService, c, member),
                 _ => null
             };
         }
