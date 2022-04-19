@@ -145,6 +145,9 @@
   <data name="About/ViewOnGitHubTB.Text" xml:space="preserve">
     <value>View code on GitHub</value>
   </data>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>Quarrel</value>
+  </data>
   <data name="Credit/CommitsTB.Text" xml:space="preserve">
     <value>Commits</value>
   </data>

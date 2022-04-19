@@ -156,6 +156,10 @@
           <source>Some information is only available in English</source>
           <target state="needs-review-translation">מידע מסוים זמין רק באנגלית</target>
         </trans-unit>
+        <trans-unit id="AppDisplayName" translate="yes" xml:space="preserve">
+          <source>Quarrel</source>
+          <target state="translated">קווראל</target>
+        </trans-unit>
       </group>
     </body>
   </file>

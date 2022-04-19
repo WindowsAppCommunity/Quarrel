@@ -125,4 +125,7 @@
   <data name="DiscordStatus/OnlyEnglishTB.Text" xml:space="preserve">
     <value>מידע מסוים זמין רק באנגלית</value>
   </data>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>קווראל</value>
+  </data>
 </root>
