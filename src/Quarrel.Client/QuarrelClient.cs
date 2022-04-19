@@ -92,7 +92,7 @@ namespace Quarrel.Client
                 guildBanRemoved: e => { },
 
                 channelCreated: e => { },
-                channelUpdated: e => { },
+                channelUpdated: OnChannelUpdated,
                 channelDeleted: e => { },
 
                 channelRecipientAdded: e => { },

@@ -1,8 +1,7 @@
 ﻿// Quarrel © 2022
 
-using CommunityToolkit.Diagnostics;
 using Discord.API.Exceptions;
-using Discord.API.Gateways;
+using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Messages;
 using Quarrel.Client.Models.Users;
 using System;
@@ -71,5 +70,10 @@ namespace Quarrel.Client
         /// Invoked when a message is marked as read.
         /// </summary>
         public event EventHandler<MessageAck>? MessageAck;
+
+        /// <summary>
+        /// Invoked when a message is marked as read.
+        /// </summary>
+        public event EventHandler<Channel>? ChannelUpdated;
     }
 }
