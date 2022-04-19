@@ -40,7 +40,7 @@ namespace Quarrel.Controls.Shell
 
         private void OpenInNewWindow(object sender, RoutedEventArgs e)
         {
-            _windowService.OpenSecondaryWindow(typeof(MessagesViewModel));
+            _windowService.OpenSecondaryWindow();
         }
     }
 }
