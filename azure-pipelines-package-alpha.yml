@@ -20,8 +20,10 @@ pool:
 
 variables:
   solution: '**/*.sln'
-  buildPlatform: 'x86|x64|ARM|ARM64'
-  buildConfiguration: 'Alpha'
+  buildPlatform: 'x64'
+  buildConfiguration: 'Debug'
+  # buildPlatform: 'x86|x64|ARM|ARM64'
+  # buildConfiguration: 'Alpha'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
   buildDir: '$(build.artifactStagingDirectory)\build\\'
 
@@ -62,6 +64,7 @@ steps:
     repositoryName: 'UWPCommunity/Quarrel'
     action: 'create'
     target: '$(Build.SourceVersion)'
+    tag: "Alpha"
     tagSource: 'gitTag'
     title: '$(Build.BuildNumber)'
     isPreRelease: true
