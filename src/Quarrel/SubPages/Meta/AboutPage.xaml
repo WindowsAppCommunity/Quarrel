@@ -94,10 +94,9 @@
                 </TextBlock>
 
                 <TextBlock Opacity=".5"
-                           FontSize="10"
-                           TextReadingOrder="UseFlowDirection"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Center">
+                           FontSize="10" TextReadingOrder="UseFlowDirection"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Visibility="{x:Bind convert:VisibleIfNotEqualConverter.Convert(ViewModel.AppVersionType, versionenums:VersionType.Release)}">
                     <Run Text="{x:Bind ViewModel.CommitInfo}"/>
                     <LineBreak/>
                     <Run Text="{x:Bind ViewModel.BranchInfo}"/>
