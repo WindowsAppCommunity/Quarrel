@@ -7,14 +7,14 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="38062AvishaiDernis.DiscordUWP-Alpha"
+    Name="38062AvishaiDernis.DiscordUWP"
     Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B"
     Version="99.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="2220b097-6a5f-4217-8577-119c7cc2f26d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="ad8ee882-b52e-43c1-9621-07c4c9beb65e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Quarrel Dev</DisplayName>
+    <DisplayName>Quarrel</DisplayName>
     <PublisherDisplayName>Adam Dernis</PublisherDisplayName>
     <Logo>Assets\Logo\Alpha\StoreLogo.png</Logo>
   </Properties>

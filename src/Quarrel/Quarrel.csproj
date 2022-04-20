@@ -22,10 +22,10 @@
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>x86|x64|arm|arm64</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
@@ -183,24 +183,24 @@
     </Compile>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-	<AppxManifest Include="Package.Dev.appxmanifest">
-	  <SubType>Designer</SubType>
+    <AppxManifest Include="Package.Dev.appxmanifest">
+      <SubType>Designer</SubType>
     </AppxManifest>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Alpha'">
-	<AppxManifest Include="Package.Alpha.appxmanifest">
-	  <SubType>Designer</SubType>
-	</AppxManifest>
+    <AppxManifest Include="Package.Alpha.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Insider'">
     <AppxManifest Include="Package.Insider.appxmanifest">
-	  <SubType>Designer</SubType>
+      <SubType>Designer</SubType>
     </AppxManifest>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-	<AppxManifest Include="Package.Release.appxmanifest">
-	  <SubType>Designer</SubType>
-	</AppxManifest>
+    <AppxManifest Include="Package.Release.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />

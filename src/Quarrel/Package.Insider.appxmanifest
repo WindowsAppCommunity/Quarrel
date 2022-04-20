@@ -14,7 +14,7 @@
   <mp:PhoneIdentity PhoneProductId="2220b097-6a5f-4217-8577-119c7cc2f26d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Quarrel Dev</DisplayName>
+    <DisplayName>Quarrel Insider</DisplayName>
     <PublisherDisplayName>Adam Dernis</PublisherDisplayName>
     <Logo>Assets\Logo\Insider\StoreLogo.png</Logo>
   </Properties>
