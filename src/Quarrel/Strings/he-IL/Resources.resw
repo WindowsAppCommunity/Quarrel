@@ -128,4 +128,13 @@
   <data name="AppDisplayName" xml:space="preserve">
     <value>קווראל</value>
   </data>
+  <data name="AppDisplayNameAlpha" xml:space="preserve">
+    <value>קווראל אלפא</value>
+  </data>
+  <data name="AppDisplayNameDev" xml:space="preserve">
+    <value>קווראל Dev</value>
+  </data>
+  <data name="AppDisplayNameInsider" xml:space="preserve">
+    <value>קווראל פנימאי</value>
+  </data>
 </root>

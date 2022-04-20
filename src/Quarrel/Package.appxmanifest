@@ -7,16 +7,16 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="4e995084-856f-43f0-8bdb-ffd2dc5d98aa"
-    Publisher="CN=AdamDernis"
-    Version="100.0.0.0" />
+    Name="38062AvishaiDernis.DiscordUWPDev"
+    Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B"
+    Version="99.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="4e995084-856f-43f0-8bdb-ffd2dc5d98aa" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="2220b097-6a5f-4217-8577-119c7cc2f26d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Quarrel</DisplayName>
+    <DisplayName>Quarrel Dev</DisplayName>
     <PublisherDisplayName>Adam Dernis</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <Logo>Assets\Logo\Dev\StoreLogo.png</Logo>
   </Properties>
 
   <Dependencies>
@@ -32,13 +32,14 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="Quarrel.App">
       <uap:VisualElements
-        DisplayName="ms-resource:AppDisplayName"
-        Square150x150Logo="Assets\Square150x150Logo.png"
-        Square44x44Logo="Assets\Square44x44Logo.png"
+        DisplayName="ms-resource:AppDisplayNameDev"
+        Square150x150Logo="Assets\Logo\Dev\Square150x150Logo.png"
+        Square44x44Logo="Assets\Logo\Dev\Square44x44Logo.png"
         Description="Quarrel"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:DefaultTile Wide310x150Logo="Assets\Logo\Dev\Wide310x150Logo.png" Square310x310Logo="Assets\Logo\Dev\LargeTile.png" Square71x71Logo="Assets\Logo\Dev\SmallTile.png">
+        </uap:DefaultTile >
+        <uap:SplashScreen Image="Assets\Logo\Dev\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
         <uap:Extension Category="windows.protocol">

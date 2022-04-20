@@ -160,6 +160,18 @@
           <source>Quarrel</source>
           <target state="translated">קווראל</target>
         </trans-unit>
+        <trans-unit id="AppDisplayNameAlpha" translate="yes" xml:space="preserve">
+          <source>Quarrel Alpha</source>
+          <target state="needs-review-translation">קווראל אלפא</target>
+        </trans-unit>
+        <trans-unit id="AppDisplayNameDev" translate="yes" xml:space="preserve">
+          <source>Quarrel Dev</source>
+          <target state="needs-review-translation">קווראל Dev</target>
+        </trans-unit>
+        <trans-unit id="AppDisplayNameInsider" translate="yes" xml:space="preserve">
+          <source>Quarrel Insider</source>
+          <target state="needs-review-translation">קווראל פנימאי</target>
+        </trans-unit>
       </group>
     </body>
   </file>

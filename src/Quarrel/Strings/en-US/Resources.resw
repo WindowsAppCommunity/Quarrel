@@ -148,6 +148,15 @@
   <data name="AppDisplayName" xml:space="preserve">
     <value>Quarrel</value>
   </data>
+  <data name="AppDisplayNameAlpha" xml:space="preserve">
+    <value>Quarrel Alpha</value>
+  </data>
+  <data name="AppDisplayNameDev" xml:space="preserve">
+    <value>Quarrel Dev</value>
+  </data>
+  <data name="AppDisplayNameInsider" xml:space="preserve">
+    <value>Quarrel Insider</value>
+  </data>
   <data name="Credit/CommitsTB.Text" xml:space="preserve">
     <value>Commits</value>
   </data>
