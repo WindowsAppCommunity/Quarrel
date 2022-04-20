@@ -68,29 +68,22 @@ namespace Quarrel.Controls.Shell
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             double width = e.NewSize.Width;
-            string stateName = string.Empty;
             if (width < MediumMinSize)
             {
-                stateName = nameof(Small);
                 Drawer.Size = SideDrawerSize.Small;
             }
             else if (width < LargeMinSize)
             {
-                stateName = nameof(Medium);
                 Drawer.Size = SideDrawerSize.Medium;
             }
             else if (width < ExtraLargeMinSize)
             {
-                stateName = nameof(Large);
                 Drawer.Size = SideDrawerSize.Large;
             }
             else
             {
-                stateName = nameof(ExtraLarge);
                 Drawer.Size = SideDrawerSize.ExtraLarge;
             }
-
-            VisualStateManager.GoToState(this, stateName, true);
         }
     }
 }

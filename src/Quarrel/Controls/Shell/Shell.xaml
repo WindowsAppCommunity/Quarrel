@@ -11,35 +11,11 @@
     d:DesignWidth="400"
     SizeChanged="OnSizeChanged">
     <Grid x:Name="root" Background="{ThemeResource CommandBarBackground}">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="Small">
-                    <VisualState.Setters>
-                        <!--<Setter Target="Drawer.Size" Value="Small"/>-->
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Medium">
-                    <VisualState.Setters>
-                        <!--<Setter Target="Drawer.Size" Value="Medium"/>-->
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Large">
-                    <VisualState.Setters>
-                        <!--<Setter Target="Drawer.Size" Value="Large"/>-->
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="ExtraLarge">
-                    <VisualState.Setters>
-                        <!--<Setter Target="Drawer.Size" Value="ExtraLarge"/>-->
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <local:QuarrelCommandBar/>
+        <local:QuarrelCommandBar x:Name="RootCommandBar"/>
         <local:SideDrawer x:Name="Drawer" Grid.Row="1" Size="Large">
             <local:SideDrawer.LeftContent>
                 <Grid Background="{ThemeResource TertiaryPaneBackground}">
@@ -56,7 +32,12 @@
             </local:SideDrawer.LeftSecondaryContent>
             <local:SideDrawer.MainContent>
                 <Grid Background="{ThemeResource PrimaryPaneBackground}">
-                    <panels:MessagePanel/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <local:QuarrelCommandBar x:Name="PanelCommandBar" Visibility="Collapsed"/>
+                    <panels:MessagePanel Grid.Row="1"/>
                 </Grid>
             </local:SideDrawer.MainContent>
             <local:SideDrawer.RightContent>

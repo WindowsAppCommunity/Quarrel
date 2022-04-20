@@ -17,11 +17,11 @@
             </Grid.ColumnDefinitions>
 
             <!--Hamburger button-->
-            <AppBarButton Height="40"
-                              Canvas.ZIndex="1"
-                              Background="Transparent"
-                              HorizontalAlignment="Stretch"
-                              Click="HamburgerClicked">
+            <AppBarButton x:Name="HamburgerButton"
+                          Height="40"
+                          Background="Transparent"
+                          HorizontalAlignment="Stretch"
+                          Click="HamburgerClicked">
                 <AppBarButton.Content>
                     <FontIcon Glyph="&#xE700;"
                                   FontSize="24"
