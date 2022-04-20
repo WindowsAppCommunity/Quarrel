@@ -29,6 +29,20 @@ variables:
   buildDir: '$(build.artifactStagingDirectory)\build\\'
 
 steps:
+- task: DownloadSecureFile@1
+  displayName: Get AppCenterToken
+  name: appCenterToken
+  inputs:
+    secureFile: 'AppCenterAlpha.json'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: 'Copy-Item $Env:APP_CENTER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/AppCenter/"'
+  env:
+    APP_CENTER_TOKEN_PATH: $(appCenterToken.secureFilePath)
+
+
 - task: NuGetToolInstaller@1
   displayName: 'NuGet Installer'
 
@@ -64,9 +78,9 @@ steps:
     repositoryName: 'UWPCommunity/Quarrel'
     action: 'create'
     target: '$(Build.SourceVersion)'
-    tag: "alpha"
+    tag: "alpha-v$(Build.BuildNumber)"
     tagSource: 'userSpecifiedTag'
-    title: 'Alpha-$(Build.BuildNumber)'
+    title: 'Alpha-v$(Build.BuildNumber)'
     isPreRelease: true
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
