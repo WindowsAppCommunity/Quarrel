@@ -44,7 +44,7 @@ namespace Quarrel.Services.APIs.GitHubService
             }
             catch (Exception ex)
             {
-                _analyticsService.Log(LoggedEvent.GitHubRequestFailed, ("Endpoint", "GetContributors"), ("Exception", ex));
+                _analyticsService.Log(LoggedEvent.GitHubRequestFailed, ("Endpoint", "GetContributors"), ("Exception", ex.Message));
             }
 
             if (contributors is null)

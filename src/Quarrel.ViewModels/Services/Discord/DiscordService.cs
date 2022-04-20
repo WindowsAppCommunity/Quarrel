@@ -49,16 +49,25 @@ namespace Quarrel.Services.Discord
         public async Task<bool> LoginAsync(string token, LoginType source = LoginType.Unspecified)
         {
             _messenger.Send(new ConnectingMessage());
+            _analyticsService.Log(LoggedEvent.LoginAttempted);
+
             try
             {
                 await _quarrelClient.LoginAsync(token);
-                _analyticsService.Log(LoggedEvent.SuccessfulLogin, (nameof(source), source));
+
+                _analyticsService.Log(LoggedEvent.SuccessfulLogin,
+                    (nameof(source), $"{source}"));
+
                 return true;
             }
             catch (Exception e)
             {
                 // TODO: Report error with messenger.
-                _analyticsService.Log(LoggedEvent.LoginFailed, (nameof(source), source), ("LoginError", new LoginError(e)));
+                _analyticsService.Log(LoggedEvent.LoginFailed,
+                    (nameof(source), $"{source}"),
+                    ("Exception Type", e.GetType().FullName),
+                    ("Exception Message", e.Message));
+
                 return false;
             }
         }
@@ -81,30 +90,39 @@ namespace Quarrel.Services.Discord
 
         private void OnUnknownGatewayOperationEncountered(object sender, int e)
         {
-            _analyticsService.Log(LoggedEvent.UnknownGatewayOperationEncountered, ("Operation", e));
+            _analyticsService.Log(LoggedEvent.UnknownGatewayOperationEncountered,
+                ("Operation", $"{e}"));
         }
 
         private void OnUnknownGatewayEventEncountered(object sender, string e)
         {
-            _analyticsService.Log(LoggedEvent.UnknownGatewayEventEncountered, ("Event", e));
+            _analyticsService.Log(LoggedEvent.UnknownGatewayEventEncountered,
+                ("Event", e));
         }
 
         private void OnKnownGatewayEventEncountered(object sender, string e)
         {
-            _analyticsService.Log(LoggedEvent.KnownGatewayEventEncountered, ("Event", e));
+            _analyticsService.Log(LoggedEvent.KnownGatewayEventEncountered,
+                ("Event", e));
         }
 
         private void OnUnhandledGatewayOperationEncountered(object sender, int e)
         {
-            _analyticsService.Log(LoggedEvent.UnhandledGatewayOperationEncountered, ("Operation", e));
+            _analyticsService.Log(LoggedEvent.UnhandledGatewayOperationEncountered,
+                ("Operation", $"{e}"));
         }
 
         private void OnUnhandledGatewayEventEncountered(object sender, string e)
         {
-            _analyticsService.Log(LoggedEvent.UnhandledGatewayEventEncountered, ("Event", e));
+            _analyticsService.Log(LoggedEvent.UnhandledGatewayEventEncountered,
+                ("Event", e));
         }
 
         private void LogException(LoggedEvent type, Exception e)
-            => _analyticsService.Log(type, ("Exception", e));
+        {
+            _analyticsService.Log(type,
+                    ("Exception Type", e.GetType().FullName),
+                    ("Exception Message", e.Message));
+        }
     }
 }
