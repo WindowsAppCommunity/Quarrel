@@ -45,10 +45,10 @@
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Alpha'">
-	<Optimize>true</Optimize>
+    <Optimize>true</Optimize>
     <DefineConstants>ALPHA</DefineConstants>
     <DebugType>pdbonly</DebugType>
-	<UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Insider'">
     <Optimize>true</Optimize>
@@ -154,6 +154,7 @@
     <Compile Include="Selectors\GuildStyleSelector.cs" />
     <Compile Include="Selectors\GuildTemplateSelector.cs" />
     <Compile Include="Selectors\SubPageTemplateSelector.cs" />
+    <Compile Include="Services\Analytics\AppCenterClientInfo.cs" />
     <Compile Include="Services\Analytics\AppCenterService.cs" />
     <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
     <Compile Include="Services\APIs\PatreonService\PatreonService.cs" />
@@ -206,9 +207,9 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Tokens\AppCenter\AppCenterInsider.json" />
-    <None Include="Assets\Tokens\AppCenter\AppCenterAlpha.json" />
-    <None Include="Assets\Tokens\AppCenter\AppCenter.json" />
+    <EmbeddedResource Include="Assets\Tokens\AppCenter\AppCenterInsider.json" />
+    <EmbeddedResource Include="Assets\Tokens\AppCenter\AppCenterAlpha.json" />
+    <EmbeddedResource Include="Assets\Tokens\AppCenter\AppCenter.json" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Connections\battlenet.png" />
     <Content Include="Assets\Connections\facebook.png" />
