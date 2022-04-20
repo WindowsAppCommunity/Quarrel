@@ -6,7 +6,7 @@
 trigger:
   branches:
     include:
-    - 'rewrite/main'
+    - '*'
   paths:
     include:
     - src/*
@@ -20,38 +20,21 @@ pool:
 
 variables:
   solution: '**/*.sln'
-  buildPlatform: 'x86|x64|ARM|ARM64'
-  buildConfiguration: 'Release'
-  appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
-  buildDir: '$(build.artifactStagingDirectory)\build\\'
+  buildPlatform: 'x64'
+  buildConfiguration: 'Debug'
 
 steps:
 - task: NuGetToolInstaller@1
+  displayName: "Install NuGet" 
 
 - task: NuGetCommand@2
+  displayName: "NuGet Restore" 
   inputs:
     restoreSolution: '$(solution)'
 
 - task: VSBuild@1
+  displayName: "Build" 
   inputs:
     solution: '$(solution)'
     platform: 'x86'
     configuration: '$(buildConfiguration)'
-    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)"
-                  /p:AppxPackageDir="$(appxPackageDir)"
-                  /p:OutputPath="$(buildDir)"
-                  /p:AppxBundle=Always
-                  /p:UapAppxPackageBuildMode=StoreUpload
-                  /t:Quarrel'
-
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactStagingDirectory)'
-  inputs:
-    SourceFolder: '$(appxPackageDir)'
-    Contents: '**'
-    TargetFolder: '$(build.artifactStagingDirectory)'
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-  inputs:
-    PathtoPublish: '$(build.artifactStagingDirectory)'
