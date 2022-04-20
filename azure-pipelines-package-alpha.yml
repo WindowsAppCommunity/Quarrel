@@ -64,7 +64,8 @@ steps:
     repositoryName: 'UWPCommunity/Quarrel'
     action: 'create'
     target: '$(Build.SourceVersion)'
-    tag: "Alpha"
+    tag: "alpha-v1.$(Build.BuildNumber)"
+    tagPattern: "alpha-v1.*"
     tagSource: 'gitTag'
     title: '$(Build.BuildNumber)'
     isPreRelease: true
