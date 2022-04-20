@@ -203,6 +203,9 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Tokens\AppCenter\AppCenterInsider.json" />
+    <None Include="Assets\Tokens\AppCenter\AppCenterAlpha.json" />
+    <None Include="Assets\Tokens\AppCenter\AppCenter.json" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Connections\battlenet.png" />
     <Content Include="Assets\Connections\facebook.png" />
