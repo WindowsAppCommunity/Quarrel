@@ -65,7 +65,7 @@ steps:
     action: 'create'
     target: '$(Build.SourceVersion)'
     tag: "alpha-v1.$(Build.BuildNumber)"
-    tagPattern: "alpha-v1.*"
+    tagPattern: ".*"
     tagSource: 'gitTag'
     title: '$(Build.BuildNumber)'
     isPreRelease: true
