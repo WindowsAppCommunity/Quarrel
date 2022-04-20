@@ -29,6 +29,7 @@ steps:
     secureFile: 'AppCenterAlpha.json'
 
 - task: PowerShell@2
+  displayName: Place AppCenterToken
   inputs:
     targetType: 'inline'
     script: 'Copy-Item $Env:APP_CENTER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/AppCenter/"'
