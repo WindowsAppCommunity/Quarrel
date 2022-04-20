@@ -128,8 +128,11 @@ namespace Quarrel
             // Other APIs
             services.AddTransient<IGitHubService, GitHubService>();
 
-            // TODO: Release analytics services
+            #if DEV
             services.AddSingleton<IAnalyticsService, LoggingAnalyticsService>();
+            #else
+            services.AddSingleton<IAnalyticsService, AppCenterService>();
+            #endif
 
             // ViewModels
             services.AddSingleton<WindowViewModel>();

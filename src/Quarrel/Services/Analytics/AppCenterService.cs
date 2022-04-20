@@ -9,16 +9,32 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Crashes;
 using Quarrel.Services.Analytics.Enums;
 using AppCenterAnalytics = Microsoft.AppCenter.Analytics.Analytics;
+using System.Reflection;
+using System.Text.Json;
 
 namespace Quarrel.Services.Analytics
 {
     public class AppCenterService : IAnalyticsService
     {
+        #if RELEASE
+        private const string ClientInfoFile = "AppCenter.json";
+        #elif INSIDER
+        private const string ClientInfoFile = "AppCenterInsider.json";
+        #elif ALPHA
+        private const string ClientInfoFile = "AppCenterAlpha.json";
+        #endif
+        private const string ClientInfoDirectory = "Assets/Tokens/AppCenter";
+        private const string ClientInfoPath = $"{ClientInfoDirectory}/{ClientInfoFile}";
+
         private const int PropertyValueMaxLength = 125;
+        private readonly AppCenterClientInfo _clientInfo;
 
         public AppCenterService()
         {
-            AppCenter.Start("",
+            string json = Assembly.GetExecutingAssembly().ReadEmbeddedFile(ClientInfoFile);
+            _clientInfo = JsonSerializer.Deserialize<AppCenterClientInfo>(json);
+
+            AppCenter.Start(_clientInfo.Secret,
                 typeof(AppCenterAnalytics),
                 typeof(Crashes));
         }

@@ -15,6 +15,8 @@ trigger:
     - src/Quarrel/MultilingualResources/*
     - src/Quarrel/Assets/*
 
+pr: none
+
 pool:
   vmImage: 'windows-latest'
 

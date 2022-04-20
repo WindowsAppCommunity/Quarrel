@@ -36,5 +36,5 @@ steps:
   displayName: "Build" 
   inputs:
     solution: '$(solution)'
-    platform: 'x86'
+    platform: 'x64'
     configuration: '$(buildConfiguration)'
