@@ -7,13 +7,6 @@ trigger:
   branches:
     include:
     - 'rewrite/alpha'
-  paths:
-    include:
-    - src/*
-    exclude:
-    - src/Quarrel/Strings/*
-    - src/Quarrel/MultilingualResources/*
-    - src/Quarrel/Assets/*
 
 pr: none
 
