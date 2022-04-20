@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
+using Quarrel.Bindables.Abstract;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Permissions;
