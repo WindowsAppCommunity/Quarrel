@@ -228,7 +228,6 @@
     <Content Include="Assets\Logo\Alpha\LargeTile.scale-125.png" />
     <Content Include="Assets\Logo\Alpha\LargeTile.scale-150.png" />
     <Content Include="Assets\Logo\Alpha\LargeTile.scale-200.png" />
-    <Content Include="Assets\Logo\Alpha\LargeTile.scale-400.png" />
     <Content Include="Assets\Logo\Alpha\SmallTile.scale-100.png" />
     <Content Include="Assets\Logo\Alpha\SmallTile.scale-125.png" />
     <Content Include="Assets\Logo\Alpha\SmallTile.scale-150.png" />
@@ -278,7 +277,6 @@
     <Content Include="Assets\Logo\Dev\LargeTile.scale-125.png" />
     <Content Include="Assets\Logo\Dev\LargeTile.scale-150.png" />
     <Content Include="Assets\Logo\Dev\LargeTile.scale-200.png" />
-    <Content Include="Assets\Logo\Dev\LargeTile.scale-400.png" />
     <Content Include="Assets\Logo\Dev\SmallTile.scale-100.png" />
     <Content Include="Assets\Logo\Dev\SmallTile.scale-125.png" />
     <Content Include="Assets\Logo\Dev\SmallTile.scale-150.png" />
@@ -328,7 +326,6 @@
     <Content Include="Assets\Logo\Insider\LargeTile.scale-125.png" />
     <Content Include="Assets\Logo\Insider\LargeTile.scale-150.png" />
     <Content Include="Assets\Logo\Insider\LargeTile.scale-200.png" />
-    <Content Include="Assets\Logo\Insider\LargeTile.scale-400.png" />
     <Content Include="Assets\Logo\Insider\SmallTile.scale-100.png" />
     <Content Include="Assets\Logo\Insider\SmallTile.scale-125.png" />
     <Content Include="Assets\Logo\Insider\SmallTile.scale-150.png" />
@@ -378,7 +375,6 @@
     <Content Include="Assets\Logo\LargeTile.scale-125.png" />
     <Content Include="Assets\Logo\LargeTile.scale-150.png" />
     <Content Include="Assets\Logo\LargeTile.scale-200.png" />
-    <Content Include="Assets\Logo\LargeTile.scale-400.png" />
     <Content Include="Assets\Logo\SmallTile.scale-100.png" />
     <Content Include="Assets\Logo\SmallTile.scale-125.png" />
     <Content Include="Assets\Logo\SmallTile.scale-150.png" />
