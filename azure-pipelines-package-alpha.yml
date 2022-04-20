@@ -55,3 +55,15 @@ steps:
   displayName: 'Publish Artifact: drop'
   inputs:
     PathtoPublish: '$(build.artifactStagingDirectory)'
+
+- task: GitHubRelease@1
+  inputs:
+    gitHubConnection: 'Avid29'
+    repositoryName: 'UWPCommunity/Quarrel'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'gitTag'
+    title: '$(Build.BuildNumber)'
+    isPreRelease: true
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
