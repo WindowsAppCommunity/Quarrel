@@ -64,7 +64,7 @@ steps:
     isPreRelease: true
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
-    assets: '$(misxPackages)'
+    assets: '$(Build.ArtifactStagingDirectory)/*.misxupload'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
