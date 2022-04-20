@@ -45,10 +45,10 @@
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Alpha'">
-    <Optimize>true</Optimize>
+    <DebugSymbols>true</DebugSymbols>
     <DefineConstants>ALPHA</DefineConstants>
+    <DefineConstants>DEV</DefineConstants>
     <DebugType>pdbonly</DebugType>
-    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Insider'">
     <Optimize>true</Optimize>
