@@ -44,6 +44,12 @@
     <DefineConstants>DEV</DefineConstants>
     <DebugType>full</DebugType>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Alpha'">
+    <Optimize>true</Optimize>
+    <DefineConstants>ALPHA</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Insider'">
     <Optimize>true</Optimize>
     <DefineConstants>INSIDER</DefineConstants>
@@ -176,10 +182,25 @@
       <DependentUpon>CreditPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest">
-      <SubType>Designer</SubType>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+	<AppxManifest Include="Package.Dev.appxmanifest">
+	  <SubType>Designer</SubType>
     </AppxManifest>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Alpha'">
+	<AppxManifest Include="Package.Alpha.appxmanifest">
+	  <SubType>Designer</SubType>
+	</AppxManifest>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Insider'">
+    <AppxManifest Include="Package.Insider.appxmanifest">
+	  <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+	<AppxManifest Include="Package.Release.appxmanifest">
+	  <SubType>Designer</SubType>
+	</AppxManifest>
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />
@@ -576,9 +597,6 @@
     <XliffResource Include="MultilingualResources\Quarrel.he-IL.xlf" />
   </ItemGroup>
   <ItemGroup />
-  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
-    <VisualStudioVersion>14.0</VisualStudioVersion>
-  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.PriResources.targets" Label="MultilingualAppToolkit" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\v$(MultilingualAppToolkitVersion)\Microsoft.Multilingual.PriResources.targets')" />
   <Target Name="MATPrerequisite" BeforeTargets="PrepareForBuild" Condition="!Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.PriResources.targets')" Label="MultilingualAppToolkit">

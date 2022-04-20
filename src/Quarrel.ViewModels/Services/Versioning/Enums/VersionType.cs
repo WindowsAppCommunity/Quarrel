@@ -18,18 +18,13 @@ namespace Quarrel.Services.Versioning.Enums
         Insider,
 
         /// <summary>
-        /// The app's version is development.
-        /// </summary>
-        Dev,
-
-        /// <summary>
-        /// The app's version is in beta.
-        /// </summary>
-        Beta,
-
-        /// <summary>
         /// The app's version is in alpha.
         /// </summary>
         Alpha,
+
+        /// <summary>
+        /// The app's version is development.
+        /// </summary>
+        Dev,
     }
 }

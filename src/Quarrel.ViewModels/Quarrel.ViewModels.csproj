@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Quarrel.ViewModels</AssemblyName>
     <RootNamespace>Quarrel</RootNamespace>
+    <Configurations>Debug;Insider;Alpha;Release</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

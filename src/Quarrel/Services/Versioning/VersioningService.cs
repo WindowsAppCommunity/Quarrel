@@ -12,6 +12,8 @@ namespace Quarrel.Services.Versioning
         private const VersionType ActiveVersionType = VersionType.Dev;
         #elif INSIDER
         private const VersionType ActiveVersionType = VersionType.Insider;
+        #elif ALPHA
+        private const VersionType ActiveVersionType = VersionType.Alpha;
         #elif RELEASE
         private const VersionType ActiveVersionType = VersionType.Release;
         #endif
