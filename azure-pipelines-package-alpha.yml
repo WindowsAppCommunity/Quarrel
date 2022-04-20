@@ -25,6 +25,7 @@ variables:
   # buildPlatform: 'x86|x64|ARM|ARM64'
   # buildConfiguration: 'Alpha'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
+  misxPackages: '$(appxPackageDir)\\*.misxupload'
   buildDir: '$(build.artifactStagingDirectory)\build\\'
 
 steps:
@@ -46,18 +47,6 @@ steps:
                   /p:UapAppxPackageBuildMode=StoreUpload
                   /t:Quarrel'
 
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactStagingDirectory)'
-  inputs:
-    SourceFolder: '$(appxPackageDir)'
-    Contents: '**'
-    TargetFolder: '$(build.artifactStagingDirectory)'
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-  inputs:
-    PathtoPublish: '$(build.artifactStagingDirectory)'
-
 - task: GitHubRelease@1
   inputs:
     gitHubConnection: 'Avid29'
@@ -70,4 +59,4 @@ steps:
     isPreRelease: true
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
-    assets: '$(build.artifactStagingDirectory)'
+    assets: '$(misxPackages)'
