@@ -20,10 +20,8 @@ pool:
 
 variables:
   solution: '**/*.sln'
-  buildPlatform: 'x86'
-  buildConfiguration: 'Debug'
-  # buildPlatform: 'x86|x64|ARM|ARM64'
-  # buildConfiguration: 'Alpha'
+  buildPlatform: 'x86|x64|ARM|ARM64'
+  buildConfiguration: 'Alpha'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
   misxPackages: '$(appxPackageDir)\\*.misxupload'
   buildDir: '$(build.artifactStagingDirectory)\build\\'
