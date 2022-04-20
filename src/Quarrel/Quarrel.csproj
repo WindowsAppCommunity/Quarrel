@@ -139,8 +139,10 @@
     <Compile Include="Converters\NotBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\StatusToBrushConverter.cs" />
     <Compile Include="Converters\StatusToColorConverter.cs" />
+    <Compile Include="Converters\VisibileIfEqualConverter.cs" />
     <Compile Include="Converters\VisibileWhenNotEqualConverter.cs" />
     <Compile Include="Converters\VisibileWhenEqualConverter.cs" />
+    <Compile Include="Converters\VisibleIfNotEqualConverter.cs" />
     <Compile Include="DataTemplates\ChannelTemplates.xaml.cs">
       <DependentUpon>ChannelTemplates.xaml</DependentUpon>
     </Compile>

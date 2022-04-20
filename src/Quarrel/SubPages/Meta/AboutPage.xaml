@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:convert="using:Quarrel.Converters"
+    xmlns:versionenums="using:Quarrel.Services.Versioning.Enums"
     mc:Ignorable="d"
     d:DesignHeight="800"
     d:DesignWidth="400"
@@ -19,21 +20,36 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <StackPanel>
-                <TextBlock x:Uid="About/AboutTB" x:Name="header" Text="ABOUT" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
+                <StackPanel>
+                    <TextBlock x:Uid="About/AboutTB"
+                               Text="ABOUT"
+                               FontWeight="SemiBold"
+                               FontSize="20"/>
+                    <TextBlock Text="{x:Bind ViewModel.AppVersionType}"
+                               Opacity=".5"
+                               FontSize="12"
+                               Margin="4,0,0,0"
+                               FontWeight="ExtraBold"
+                               FontStyle="Italic"
+                               Visibility="{x:Bind convert:VisibleIfNotEqualConverter.Convert(ViewModel.AppVersionType, versionenums:VersionType.Release)}"/>
+                </StackPanel>
+                
                 <TextBlock x:Uid="About/DisclaimerOnlyInEnglishTB"
                            Text="Disclaimer is only in English"
                            Opacity=".5"
                            HorizontalAlignment="Center"
                            Visibility="{x:Bind convert:NotBoolToVisibilityConverter.Convert(ViewModel.IsNeutralLanguage), Mode=OneWay}"/>
 
-                <TextBlock TextWrapping="WrapWholeWords"
+                <RichTextBlock TextWrapping="WrapWholeWords"
                            FlowDirection="LeftToRight">
-                    <Run>Quarrel is an</Run>
-                    <Run FontWeight="Bold">unofficial</Run>
-                    <Run>client for Discord. </Run>
-                    <Run FontWeight="Bold">The developers are in no way affiliated with Discord, Inc.</Run>
-                    <Run>If something goes wrong while you are using this app, please contact support via any of the methods below. However any issues we cannot resolve we are not liable for.</Run>
-                </TextBlock>
+                    <Paragraph TextIndent="16">
+                        <Run>Quarrel is an</Run>
+                        <Run FontWeight="Bold">unofficial</Run>
+                        <Run>client for Discord. </Run>
+                        <Run FontWeight="Bold">The developers are in no way affiliated with Discord, Inc.</Run>
+                        <Run>If something goes wrong while you are using this app, please contact support via any of the methods below. However any issues we cannot resolve we are not liable for.</Run>
+                    </Paragraph>
+                </RichTextBlock>
 
                 <HyperlinkButton NavigateUri="https://twitter.com/AdamDernis" Foreground="{ThemeResource TwitterColorBrush}" Margin="0,6,0,0">
                     <StackPanel Orientation="Horizontal">

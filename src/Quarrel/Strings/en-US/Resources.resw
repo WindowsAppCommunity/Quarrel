@@ -142,6 +142,18 @@
   <data name="About/LeaveFeedbackTB.Text" xml:space="preserve">
     <value>Leave Feedback</value>
   </data>
+  <data name="About/QuarrelAlpha" xml:space="preserve">
+    <value>Quarrel Alpha</value>
+  </data>
+  <data name="About/QuarrelDev" xml:space="preserve">
+    <value>Quarrel Dev</value>
+  </data>
+  <data name="About/QuarrelInsider" xml:space="preserve">
+    <value>Quarrel Insider</value>
+  </data>
+  <data name="About/QuarrelRelease" xml:space="preserve">
+    <value>Quarrel Release</value>
+  </data>
   <data name="About/ViewOnGitHubTB.Text" xml:space="preserve">
     <value>View code on GitHub</value>
   </data>

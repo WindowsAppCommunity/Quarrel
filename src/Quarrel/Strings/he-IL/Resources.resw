@@ -137,4 +137,16 @@
   <data name="AppDisplayNameInsider" xml:space="preserve">
     <value>קווראל פנימאי</value>
   </data>
+  <data name="About/QuarrelAlpha" xml:space="preserve">
+    <value>קווראל אלפא</value>
+  </data>
+  <data name="About/QuarrelDev" xml:space="preserve">
+    <value>קווראל Dev</value>
+  </data>
+  <data name="About/QuarrelInsider" xml:space="preserve">
+    <value>קווראל פנימאי</value>
+  </data>
+  <data name="About/QuarrelRelease" xml:space="preserve">
+    <value>קווראל שחרור</value>
+  </data>
 </root>

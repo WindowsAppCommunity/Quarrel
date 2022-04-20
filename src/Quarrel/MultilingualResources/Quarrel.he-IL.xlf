@@ -172,6 +172,22 @@
           <source>Quarrel Insider</source>
           <target state="needs-review-translation">קווראל פנימאי</target>
         </trans-unit>
+        <trans-unit id="About/QuarrelAlpha" translate="yes" xml:space="preserve">
+          <source>Quarrel Alpha</source>
+          <target state="needs-review-translation">קווראל אלפא</target>
+        </trans-unit>
+        <trans-unit id="About/QuarrelDev" translate="yes" xml:space="preserve">
+          <source>Quarrel Dev</source>
+          <target state="needs-review-translation">קווראל Dev</target>
+        </trans-unit>
+        <trans-unit id="About/QuarrelInsider" translate="yes" xml:space="preserve">
+          <source>Quarrel Insider</source>
+          <target state="needs-review-translation">קווראל פנימאי</target>
+        </trans-unit>
+        <trans-unit id="About/QuarrelRelease" translate="yes" xml:space="preserve">
+          <source>Quarrel Release</source>
+          <target state="needs-review-translation">קווראל שחרור</target>
+        </trans-unit>
       </group>
     </body>
   </file>
