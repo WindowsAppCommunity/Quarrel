@@ -7,7 +7,6 @@ trigger:
   branches:
     include:
     - 'rewrite/alpha'
-  pr: none
   paths:
     include:
     - src/*
@@ -15,6 +14,8 @@ trigger:
     - src/Quarrel/Strings/*
     - src/Quarrel/MultilingualResources/*
     - src/Quarrel/Assets/*
+
+pr: none
 
 pool:
   vmImage: 'windows-latest'
