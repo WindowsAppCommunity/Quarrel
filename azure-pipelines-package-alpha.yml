@@ -20,7 +20,7 @@ pool:
 
 variables:
   solution: '**/*.sln'
-  buildPlatform: 'x64'
+  buildPlatform: 'x86'
   buildConfiguration: 'Debug'
   # buildPlatform: 'x86|x64|ARM|ARM64'
   # buildConfiguration: 'Alpha'
