@@ -23,7 +23,7 @@ variables:
   buildPlatform: 'x64'
   buildConfiguration: 'Alpha'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
-  misxPackages: '$(appxPackageDir)\\*.misxupload'
+  msixPackages: '$(appxPackageDir)\\*.msixupload'
   buildDir: '$(build.artifactStagingDirectory)\build\\'
 
 steps:
@@ -64,7 +64,7 @@ steps:
     isPreRelease: true
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
-    assets: '$(Build.ArtifactStagingDirectory)/*.misxupload'
+    assets: '$(msixPackages)'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
