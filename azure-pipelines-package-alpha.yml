@@ -3,10 +3,16 @@
 # Add steps that test and distribute an app, save build artifacts, and more:
 # https://aka.ms/yaml
 
+#trigger:
+#  branches:
+#    include:
+#    - 'rewrite/alpha'
+
+
 trigger:
   branches:
     include:
-    - 'rewrite/alpha'
+    - '*'
 
 pr: none
 
@@ -112,7 +118,7 @@ steps:
     git commit -m "Update to $(Build.BuildNumber)"
     git push origin main
   displayName: Push to QuarrelInstaller repo
-  workingDirectory: $(System.DefaultWorkingDirectory)\QuarrelInstaller
+  workingDirectory: $(installerDirectory)
 
 #- task: PublishBuildArtifacts@1
 #  displayName: 'Publish Artifact: drop'
