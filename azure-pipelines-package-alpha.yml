@@ -120,8 +120,8 @@ steps:
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
     assets: |
-      '$(build.artifactStagingDirectory)/*.msixbundle'
-      '$(build.artifactStagingDirectory)/*.appx'
+      $(build.artifactStagingDirectory)\*.msixbundle
+      $(build.artifactStagingDirectory)\*.appx
 
 - script: |
     git config --global user.email $(GitHub-Email)
