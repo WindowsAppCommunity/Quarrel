@@ -12,7 +12,7 @@ resources:
   repositories:
   - repository: QuarrelInstaller
     type: github
-    endpoint: Test
+    endpoint: Avid29
     name: QuarrelForDiscord/QuarrelInstaller
 
 trigger:
@@ -121,8 +121,10 @@ steps:
     git config --global user.name "Azure Pipelines"
     git add *
     git commit -m "Update to $(Build.BuildNumber)"
+    git remote -v
+
     echo 'test'
-    git push origin HEAD:refs/heads/master
+    git push git@github.com:QuarrelForDiscord/QuarrelInstaller.git HEAD:refs/heads/master
   displayName: Push to QuarrelInstaller repo
   workingDirectory: $(installerDirectory)
 
