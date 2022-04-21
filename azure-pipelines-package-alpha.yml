@@ -97,14 +97,8 @@ steps:
       "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/$($bundle.Replace("/", "_"))";
       
     $xName = "{http://schemas.microsoft.com/appx/appinstaller/2017/2}Dependencies";
-    Write-Output $doc.Root.Elements($xName);
-    foreach ($element in $doc.Root.Elements($xName)){
-      Write-Output $element;
-      $a = $element.Attribute("Uri");
-      Write-Output $a;
-      $b = $a.Value;
-      Write-Output $b;
-      $dep = $b.Replace("$(siteUri)", "");
+    foreach ($element in $doc.Root.Element($xName).Elements())){
+      $dep = $element.Attribute("Uri").Value.Replace("$(siteUri)", "");
       Copy-Item "$(appxPackageDir)\$($dep)" -Destination "$(build.artifactStagingDirectory)\$($dep.Replace("/", "_"))";
       $element.Attribute("Uri").Value = 
         "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/$($dep.Replace("/", "_"))";
