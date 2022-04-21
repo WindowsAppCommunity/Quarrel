@@ -8,6 +8,12 @@
 #    include:
 #    - 'rewrite/alpha'
 
+resources:
+  repositories:
+  - repository: QuarrelInstaller
+    type: github
+    endpoint: MyGitHubServiceConnection
+    name: QuarrelForDiscord/QuarrelInstaller
 
 trigger:
   branches:
@@ -34,7 +40,7 @@ variables:
 steps:
 - checkout: self
   persistCredentials: true
-- checkout: https://github.com/QuarrelForDiscord/QuarrelInstaller.git
+- checkout: QuarrelInstaller
   persistCredentials: true
 #- task: DownloadSecureFile@1
 #  displayName: Get Signing Certificate
