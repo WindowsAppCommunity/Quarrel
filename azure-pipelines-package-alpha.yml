@@ -82,7 +82,8 @@ steps:
                   /p:PackageCertificatePassword="$(SignCertificatePassword-Alpha)"
                   /p:AppInstallerUri="${siteUri}"
                   /p:AppInstallerUpdateFrequency=1
-                  /p:AppInstallerCheckForUpdateFrequency=OnApplicationRun'
+                  /p:AppInstallerCheckForUpdateFrequency=OnApplicationRun
+                  /p:GenerateAppInstallerFile=true'
 
 - powershell: |
     [Reflection.Assembly]::LoadWithPartialName("System.Xml.Linq")
