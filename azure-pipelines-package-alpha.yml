@@ -112,7 +112,6 @@ steps:
 #    TargetFolder: '$(installerDirectory)'
 
 - script: |
-    git switch -
     echo 'This is a test' > test.txt
   displayName: Test add file
   workingDirectory: $(installerDirectory)
@@ -123,7 +122,7 @@ steps:
     git add *
     git commit -m "Update to $(Build.BuildNumber)"
     echo 'test'
-    git push
+    git push HEAD:refs/heads/master
   displayName: Push to QuarrelInstaller repo
   workingDirectory: $(installerDirectory)
 
