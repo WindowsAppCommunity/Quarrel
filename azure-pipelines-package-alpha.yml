@@ -53,9 +53,16 @@ steps:
   displayName: Place AppCenterToken
   inputs:
     targetType: 'inline'
-    script: 'Copy-Item $Env:APP_CENTER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/Quarrel/src/Quarrel/Assets/Tokens/AppCenter/"'
+    script: 'Copy-Item $Env:APP_CENTER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)\Quarrel\src\Quarrel\Assets\Tokens\AppCenter\"'
   env:
     APP_CENTER_TOKEN_PATH: $(appCenterToken.secureFilePath)
+
+- powershell: |
+     # Update appxmanifest. This must be done before the build.
+     [xml]$manifest= get-content "$($Env:BUILD_SOURCESDIRECTORY)\Quarrel\src\Quarrel\Package.Alpha.appxmanifest";
+     $manifest.Package.Identity.Version = "$(Date:yy.mm.dd).$(Rev:r)";
+     $manifest.save("$($Env:BUILD_SOURCESDIRECTORY)\Quarrel\src\Quarrel\Package.Alpha.appxmanifest");
+  displayName: 'Version Package Manifest'
 
 - task: NuGetToolInstaller@1
   displayName: 'NuGet Installer'
