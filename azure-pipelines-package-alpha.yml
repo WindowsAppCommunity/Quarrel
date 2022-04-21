@@ -92,9 +92,9 @@ steps:
     $xName = "{http://schemas.microsoft.com/appx/appinstaller/2017/2}MainBundle"
     $bundle = $doc.Root.Element($xName).Attribute("Uri").Value.Replace("$(siteUri)", "");
     Write-Output "$($bundle)"
-    Write-Output "$(build.artifactStagingDirectory)\$($bundle.Replace("\", "_"))"
+    Write-Output "$(build.artifactStagingDirectory)\$($bundle.Replace("/", "_"))"
     Write-Output "$($bundle)"
-    Copy-Item "$($bundle)" -Destination "$(build.artifactStagingDirectory)\$($bundle.Replace("\", "_"))";
+    Copy-Item "$(appxPackageDir)\$($bundle)" -Destination "$(build.artifactStagingDirectory)\$($bundle.Replace("/", "_"))";
     $doc.Root.Element($xName).Attribute("Uri").Value = 
       "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/$($bundle.Replace("/", "_"))";
       
@@ -102,7 +102,7 @@ steps:
 
     foreach ($element in $doc.Root.Elements($xName)){
       $dep = $element.Attribute("Uri").Value.Replace("$(siteUri)", "");
-      Copy-Item "$($dep)" -Destination "$(build.artifactStagingDirectory)\$($dep.Replace("\", "_"))";
+      Copy-Item "$(appxPackageDir)\$($dep)" -Destination "$(build.artifactStagingDirectory)\$($dep.Replace("/", "_"))";
       $element.Attribute("Uri").Value = 
         "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/$($dep.Replace("/", "_"))";
     }
