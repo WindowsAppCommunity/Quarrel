@@ -12,7 +12,7 @@ resources:
   repositories:
   - repository: QuarrelInstaller
     type: github
-    endpoint: Avid29
+    endpoint: Test
     name: QuarrelForDiscord/QuarrelInstaller
 
 trigger:
