@@ -21,13 +21,10 @@
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <GenerateAppInstallerFile>true</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>false</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>true</GenerateTestArtifacts>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <AppInstallerUri>https://github.com/QuarrelForDiscord/QuarrelInstaller/blob/main/Quarrel.appinstaller?raw=true</AppInstallerUri>
   </PropertyGroup>
   <PropertyGroup>
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
@@ -44,10 +41,9 @@
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Alpha'">
-    <Optimize>true</Optimize>
+    <DebugSymbols>true</DebugSymbols>
     <DefineConstants>ALPHA</DefineConstants>
-    <DebugType>pdbonly</DebugType>
-    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Insider'">
     <Optimize>true</Optimize>
