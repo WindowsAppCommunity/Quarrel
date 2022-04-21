@@ -26,8 +26,6 @@
     <GenerateTestArtifacts>true</GenerateTestArtifacts>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <AppInstallerUri>https://github.com/QuarrelForDiscord/QuarrelInstaller/blob/main/Quarrel.appinstaller?raw=true</AppInstallerUri>
   </PropertyGroup>
   <PropertyGroup>
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
@@ -44,10 +42,10 @@
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Alpha'">
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <DefineConstants>ALPHA</DefineConstants>
     <DebugType>pdbonly</DebugType>
-    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <UseDotNetNativeToolchain>false</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Insider'">
     <Optimize>true</Optimize>
