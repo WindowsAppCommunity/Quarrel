@@ -80,7 +80,7 @@ steps:
                   /p:PackageCertificateKeyFile="$(signingCertificate.secureFilePath)"
                   /p:PackageCertificateThumbprint="$(SignedCertificateThumbprint-Alpha)" 
                   /p:PackageCertificatePassword="$(SignCertificatePassword-Alpha)"
-                  /p:AppInstallerUri="${siteUri}"
+                  /p:AppInstallerUri="https://quarrelfordiscord.github.io/QuarrelInstaller/"
                   /p:AppInstallerUpdateFrequency=1
                   /p:AppInstallerCheckForUpdateFrequency=OnApplicationRun
                   /p:GenerateAppInstallerFile=true'
