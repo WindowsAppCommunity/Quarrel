@@ -32,6 +32,10 @@ variables:
   appInstaller: '$(appxPackageDir)\Quarrel.appinstaller'
 
 steps:
+- checkout: self
+  persistCredentials: true
+- checkout: https://github.com/QuarrelForDiscord/QuarrelInstaller.git
+  persistCredentials: true
 #- task: DownloadSecureFile@1
 #  displayName: Get Signing Certificate
 #  name: signingCertificate
@@ -96,7 +100,6 @@ steps:
 #      $(appInstaller)
 
 - script: |
-    git clone https://github.com/QuarrelForDiscord/QuarrelInstaller.git
     cd $(installerDirectory)
     git config --global user.email $(GitHub-Email)
     git config --global user.name "Adam Dernis"
