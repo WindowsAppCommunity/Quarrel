@@ -88,5 +88,15 @@ namespace Quarrel.Services.Analytics.Enums
         GitHubRequestFailed,
 
         #endregion
+
+        #region AppServiceConnection
+
+        /// <summary>
+        /// An app service connection was actived.
+        /// </summary>
+        [StringValue("App Service Connection Received")]
+        AppServiceConnectionReceived,
+
+        #endregion
     }
 }

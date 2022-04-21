@@ -7,7 +7,7 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="38062AvishaiDernis.DiscordUWP"
+    Name="38062AvishaiDernis.DiscordUWPAlpha"
     Publisher="CN=Adam Dernis"
     Version="99.0.0.0" />
 
@@ -51,6 +51,9 @@
           <uap:Protocol Name="quarrel">
             <uap:DisplayName>Quarrel</uap:DisplayName>
           </uap:Protocol>
+        </uap:Extension>
+        <uap:Extension Category="windows.appService">
+          <uap:AppService Name="Quarrel.RichPresenceAPI"/>
         </uap:Extension>
       </Extensions>
     </Application>
