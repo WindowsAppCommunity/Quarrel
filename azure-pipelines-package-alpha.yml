@@ -22,7 +22,7 @@ pool:
 
 variables:
   solution: '**/Quarrel.App.sln'
-  buildPlatform: 'x86|x64|arm'
+  buildPlatform: 'x86|x64|arm|arm64'
   buildConfiguration: 'Alpha'
   installerDirectory: './QuarrelInstaller'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
