@@ -21,7 +21,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
+  solution: '**/Quarrel.sln'
   buildPlatform: 'x64'
   buildConfiguration: 'Debug'
 
