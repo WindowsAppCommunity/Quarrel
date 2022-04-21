@@ -60,7 +60,7 @@ steps:
 - powershell: |
      # Update appxmanifest. This must be done before the build.
      [xml]$manifest= get-content "$($Env:BUILD_SOURCESDIRECTORY)\Quarrel\src\Quarrel\Package.Alpha.appxmanifest";
-     $manifest.Package.Identity.Version = "$(Date:yy.mm.dd).$(Rev:r)";
+     $manifest.Package.Identity.Version = "$(Year:yy).$(Month).$(DayOfMonth).$(Rev:r)";
      $manifest.save("$($Env:BUILD_SOURCESDIRECTORY)\Quarrel\src\Quarrel\Package.Alpha.appxmanifest");
   displayName: 'Version Package Manifest'
 
