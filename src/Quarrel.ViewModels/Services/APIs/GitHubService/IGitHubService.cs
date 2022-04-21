@@ -22,6 +22,6 @@ namespace Quarrel.Services.APIs.GitHubService
         /// </summary>
         /// <param name="contributor">The contributor to get the a full profile for.</param>
         /// <returns></returns>
-        Task<BindableDeveloper> GetDeveloper(Contributor contributor);
+        Task<BindableDeveloper?> GetDeveloper(Contributor contributor);
     }
 }
