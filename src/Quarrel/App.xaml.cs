@@ -24,6 +24,7 @@ using Quarrel.ViewModels.SubPages.Host;
 using Quarrel.ViewModels.SubPages.Meta;
 using System;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.AppService;
 using Windows.Storage;
 using Windows.UI.Xaml;
 
@@ -34,7 +35,6 @@ namespace Quarrel
     /// </summary>
     sealed partial class App : Application
     {
-
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -71,10 +71,22 @@ namespace Quarrel
 
         protected override void OnActivated(IActivatedEventArgs args)
         {
+            base.OnActivated(args);
+
             if (args.Kind == ActivationKind.Protocol && args is ProtocolActivatedEventArgs protocolArgs)
             {
                 LaunchArgsBase? launchArgs = LaunchArgsBase.Parse(protocolArgs.Uri.ToString());
                 Launch(false, launchArgs);
+            }
+        }
+
+        protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+            base.OnBackgroundActivated(args);
+
+            if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails appServiceTriggerDetails)
+            {
+                SetupAppServiceConnection(appServiceTriggerDetails);
             }
         }
 

@@ -28,6 +28,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Patreon.API", "src\API\Patr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discord.API.Status", "src\API\Discord.API.Status\Discord.API.Status.csproj", "{D34F80C0-0316-43C3-BBE9-7AF099A1C6A0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{29E0E840-B85F-4209-933B-8369DB2EA187}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Alpha|Any CPU = Alpha|Any CPU

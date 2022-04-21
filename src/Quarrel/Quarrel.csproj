@@ -83,6 +83,7 @@
     <SuppressPseudoWarning Condition="'$(Configuration)' == 'Debug'">true</SuppressPseudoWarning>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="App.AppService.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -157,6 +158,9 @@
     <Compile Include="Services\Analytics\AppCenterService.cs" />
     <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
     <Compile Include="Services\APIs\PatreonService\PatreonService.cs" />
+    <Compile Include="Services\AppConnections\Models\AppConnection.cs" />
+    <Compile Include="Services\AppConnections\AppConnectionService.cs" />
+    <Compile Include="Services\AppConnections\Models\RichPresenceConnection.cs" />
     <Compile Include="Services\Dispatcher\DispatcherService.cs" />
     <Compile Include="Services\Keyboard\KeyboardService.cs" />
     <Compile Include="Services\Localization\LocalizationService.cs" />
