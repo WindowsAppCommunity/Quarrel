@@ -110,7 +110,7 @@ steps:
 - script: |
     git add *
     git commit -m "Update to $(Build.BuildNumber)"
-    git push
+    git push origin main
   displayName: Push to QuarrelInstaller repo
   workingDirectory: $(System.DefaultWorkingDirectory)\QuarrelInstaller
 
