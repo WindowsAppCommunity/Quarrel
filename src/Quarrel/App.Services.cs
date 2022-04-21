@@ -12,7 +12,6 @@ using Quarrel.Services.Storage;
 using Quarrel.Services.Storage.Models;
 using Quarrel.Services.Versioning;
 using Quarrel.Services.Windows;
-using Quarrel.Testing.DirtyServices.APIs;
 using Quarrel.ViewModels;
 using Quarrel.ViewModels.Panels;
 using Quarrel.ViewModels.SubPages;
@@ -70,9 +69,11 @@ namespace Quarrel
             return services.BuildServiceProvider();
         }
 
+        #if DEV
         private void ApplyDitryOverrides(ServiceCollection services)
         {
             // Fill with dirty service overrides for stress testing.
         }
+        #endif
     }
 }
