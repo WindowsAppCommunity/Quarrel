@@ -122,7 +122,7 @@ steps:
     git add *
     git commit -m "Update to $(Build.BuildNumber)"
     echo 'test'
-    git push origin main
+    git push
   displayName: Push to QuarrelInstaller repo
   workingDirectory: $(installerDirectory)
 
