@@ -92,12 +92,12 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
         /// <summary>
         /// Gets or sets list of Incidents.
         /// </summary>
-        public ObservableCollection<ComplexComponent> Incidents { get; set; } = new ObservableCollection<ComplexComponent>();
+        public ObservableCollection<BindableIncident> Incidents { get; set; } = new ObservableCollection<BindableIncident>();
 
         /// <summary>
         /// Gets or sets status notifications.
         /// </summary>
-        public ObservableCollection<SimpleComponent> Components { get; set; } = new ObservableCollection<SimpleComponent>();
+        public ObservableCollection<BindableComponent> Components { get; set; } = new ObservableCollection<BindableComponent>();
 
         private async void SetupAndLoad()
         {
@@ -130,17 +130,17 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
                     {
                         if (incident.Status != "resolved")
                         {
-                            var updates = new List<SimpleComponent>();
+                            var updates = new List<BindableComponent>();
                             for (int i = 0; i < incident.IncidentUpdates.Length; i++)
                             {
                                 updates.Add(
-                                    new SimpleComponent(
+                                    new BindableComponent(
                                         name: incident.IncidentUpdates[i].Status,
-                                        description: incident.IncidentUpdates[i].Body,
-                                        status: incident.IncidentUpdates[i].UpdatedAt.ToString("t")));
+                                        status: incident.IncidentUpdates[i].UpdatedAt.ToString("t"),
+                                        description: incident.IncidentUpdates[i].Body));
                             }
 
-                            var component = new ComplexComponent(
+                            var component = new BindableIncident(
                                 name: incident.Name, 
                                 status: incident.Status, 
                                 items: updates);
@@ -158,10 +158,16 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
                 {
                     foreach (var component in Status.Components)
                     {
-                        var sc = new SimpleComponent(
+                        string? description = null;
+                        if (component.Description != null)
+                        {
+                            description = component.Description.Replace('_', ' ');
+                        }
+
+                        var sc = new BindableComponent(
                             name: component.Name,
-                            description: component.Status.Replace('_', ' '),
-                            status: component.Description);
+                            status: component.Status,
+                            description: description);
 
                         Components.Add(sc);
                     }

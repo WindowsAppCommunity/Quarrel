@@ -167,18 +167,18 @@ namespace Quarrel.SubPages.DiscordStatus
         {
             chartClip.Rect = new Rect(-chartCanvas.ActualWidth, 0, chartCanvas.ActualWidth, chartCanvas.ActualHeight);
             chartClipTransform.X = chartCanvas.ActualWidth;
-            ShowChartDa.To = chartCanvas.ActualWidth;
-            HideChartDa.From = chartCanvas.ActualWidth;
+            ShowChartDA.To = chartCanvas.ActualWidth;
+            HideChartDA.From = chartCanvas.ActualWidth;
         }
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            // TODO: Fade chart indicator
+            ShowIndicator.Begin();
         }
 
         private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            // TODO: Fade chart indicator
+            HideIndicator.Begin();
         }
     }
 }

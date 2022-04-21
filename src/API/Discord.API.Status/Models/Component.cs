@@ -26,7 +26,7 @@ namespace Discord.API.Status.Models
         public long Position { get; set; }
 
         [JsonPropertyName("description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [JsonPropertyName("showcase")]
         public bool Showcase { get; set; }

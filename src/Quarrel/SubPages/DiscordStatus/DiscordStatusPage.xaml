@@ -33,18 +33,28 @@
             </DoubleAnimation>
         </Storyboard>
         <Storyboard x:Name="ShowChart">
-            <DoubleAnimation x:Name="ShowChartDa" Duration="00:00:00.6" Storyboard.TargetProperty="X" From="0" Storyboard.TargetName="chartClipTransform">
+            <DoubleAnimation x:Name="ShowChartDA" Duration="00:00:00.6" Storyboard.TargetProperty="X" From="0" Storyboard.TargetName="chartClipTransform">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
         <Storyboard x:Name="HideChart">
-            <DoubleAnimation  x:Name="HideChartDa" Duration="00:00:00.3" Storyboard.TargetProperty="X" To="0"  Storyboard.TargetName="chartClipTransform">
+            <DoubleAnimation  x:Name="HideChartDA" Duration="00:00:00.3" Storyboard.TargetProperty="X" To="0"  Storyboard.TargetName="chartClipTransform">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase EasingMode="EaseIn"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Name="ShowIndicator">
+            <DoubleAnimation To="1" Duration="00:00:00.3"
+                             Storyboard.TargetProperty="Opacity"
+                             Storyboard.TargetName="chartIndicator"/>
+        </Storyboard>
+        <Storyboard x:Name="HideIndicator">
+            <DoubleAnimation To="0" Duration="00:00:00.1"
+                             Storyboard.TargetProperty="Opacity"
+                             Storyboard.TargetName="chartIndicator"/>
         </Storyboard>
     </UserControl.Resources>
 
@@ -69,7 +79,7 @@
                 </StackPanel>
                 <HyperlinkButton x:Uid="DiscordStatus/DetailsHBTN" x:Name="detailsButton" NavigateUri="https://status.discordapp.com" HorizontalAlignment="Right" Content="Details" Style="{StaticResource PlainTextHyperlinkStyle}" VerticalAlignment="Center" FontSize="12" Opacity="0.75" Margin="0,17,24,0"/>
             </Grid>
-
+            
             <Border x:Name="StatusContainer" Visibility="{x:Bind ViewModel.IsLoaded, Mode=OneWay}" Margin="0,12,0,0" Padding="24,12" Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                 <TextBlock Text="{x:Bind ViewModel.Status.Status.Description, Mode=OneWay}" TextWrapping="Wrap" FontSize="16" FontWeight="SemiLight" Foreground="White"/>
             </Border>
@@ -79,12 +89,12 @@
                               FlowDirection="LeftToRight"
                               Margin="24,6,18,12">
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="models:ComplexComponent">
+                        <DataTemplate x:DataType="models:BindableIncident">
                             <StackPanel Margin="0,6,0,6">
                                 <TextBlock FontSize="16" Text="{x:Bind Name}" TextWrapping="Wrap"/>
                                 <ItemsControl ItemsSource="{x:Bind Items}" Margin="0,4,0,0">
                                     <ItemsControl.ItemTemplate>
-                                        <DataTemplate x:DataType="models:SimpleComponent">
+                                        <DataTemplate x:DataType="models:BindableComponent">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto"/>
@@ -111,7 +121,7 @@
                           FlowDirection="LeftToRight"
                           Margin="18,12,18,12">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="models:SimpleComponent">
+                    <DataTemplate x:DataType="models:BindableComponent">
                         <Grid Margin="6,4" MaxWidth="200">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -148,7 +158,9 @@
                         </RectangleGeometry>
                     </canvas:CanvasControl.Clip>
                 </canvas:CanvasControl>
-                <canvas:CanvasControl x:Name="chartIndicator" Height="96" Draw="ChartIndicator_OnDraw"/>
+                <canvas:CanvasControl x:Name="chartIndicator"
+                                      Height="96" Opacity="0"
+                                      Draw="ChartIndicator_OnDraw"/>
             </Grid>
         </StackPanel>
     </Grid>
