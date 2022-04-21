@@ -12,7 +12,7 @@ resources:
   repositories:
   - repository: QuarrelInstaller
     type: github
-    endpoint: Avid29
+    endpoint: Connection
     name: QuarrelForDiscord/QuarrelInstaller
 
 trigger:
@@ -124,7 +124,7 @@ steps:
     git remote -v
 
     echo 'test'
-    git push git@github.com:QuarrelForDiscord/QuarrelInstaller.git HEAD:refs/heads/master
+    git push origin HEAD:refs/heads/master
   displayName: Push to QuarrelInstaller repo
   workingDirectory: $(installerDirectory)
 
