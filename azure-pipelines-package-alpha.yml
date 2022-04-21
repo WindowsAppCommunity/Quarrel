@@ -117,6 +117,8 @@ steps:
   workingDirectory: $(installerDirectory)
 
 - script: |
+    git config --global user.email $(GitHub-Email)
+    git config --global user.name "Azure Pipelines"
     git add *
     git commit -m "Update to $(Build.BuildNumber)"
     echo 'test'
