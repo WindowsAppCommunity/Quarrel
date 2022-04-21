@@ -32,6 +32,7 @@ variables:
   msixPackages: '$(appxPackageDir)\**\\*.msix'
   appInstaller: '$(installerDirectory)\Quarrel.appinstaller'
   siteUri: 'https://quarrelfordiscord.github.io/QuarrelInstaller/'
+  dailyNumber: $[counter(format('{0:yyyyMMdd}', pipeline.startTime), 255)]
 
 steps:
 - checkout: self
@@ -60,7 +61,7 @@ steps:
 - powershell: |
      # Update appxmanifest. This must be done before the build.
      [xml]$manifest= get-content "$($Env:BUILD_SOURCESDIRECTORY)\Quarrel\src\Quarrel\Package.Alpha.appxmanifest";
-     $manifest.Package.Identity.Version = "$(Year:yy).$(Month).$(DayOfMonth).$(Rev:r)";
+     $manifest.Package.Identity.Version = "$(Get-Date -format "yy.MM.dd").$(dailyNumber)";
      $manifest.save("$($Env:BUILD_SOURCESDIRECTORY)\Quarrel\src\Quarrel\Package.Alpha.appxmanifest");
   displayName: 'Version Package Manifest'
 
