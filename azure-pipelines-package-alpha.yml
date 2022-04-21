@@ -22,6 +22,7 @@ variables:
   msixUploads: '$(appxPackageDir)\**\\*.msixupload'
   msixBundles: '$(appxPackageDir)\**\\*.msixbundle'
   msixPackages: '$(appxPackageDir)\**\\*.msix'
+  appInstallers: '$(appxPackageDir)\**\\*.appinstaller'
 
 steps:
 - task: DownloadSecureFile@1
@@ -62,7 +63,6 @@ steps:
                   /p:AppxPackageDir="$(appxPackageDir)"
                   /p:OutputPath="$(buildDir)"
                   /p:AppxBundle=Always
-                  /p:UapAppxPackageBuildMode=StoreUpload
                   /p:AppxPackageSigningEnabled=true
                   /p:PackageCertificateKeyFile="$(signingCertificate.secureFilePath)"
                   /p:PackageCertificateThumbprint="$(SignedCertificateThumbprint-Alpha)" 
@@ -92,6 +92,7 @@ steps:
       $(msixUploads)
       $(msixBundles)
       $(msixPackages)
+      $(appInstallers)
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
