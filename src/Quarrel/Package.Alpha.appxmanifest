@@ -7,7 +7,7 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="38062AvishaiDernis.DiscordUWP"
+    Name="38062AvishaiDernis.DiscordUWPAlpha"
     Publisher="CN=Adam Dernis"
     Version="99.0.0.0" />
 
