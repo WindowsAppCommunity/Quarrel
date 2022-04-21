@@ -1,7 +1,5 @@
 ﻿// Quarrel © 2022
 
-using System.Text.Json.Serialization;
-
 namespace Quarrel.RichPresence.Models
 {
     /// <summary>
@@ -9,7 +7,17 @@ namespace Quarrel.RichPresence.Models
     /// </summary>
     public class Activity
     {
-        [JsonPropertyName("name")]
-        public string Name { get; }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Activity"/> class.
+        /// </summary>
+        public Activity(string name)
+        {
+            Name = name;
+        }
+
+        /// <summary>
+        /// Gets the name of the activity.
+        /// </summary>
+        public string Name { get; set; }
     }
 }

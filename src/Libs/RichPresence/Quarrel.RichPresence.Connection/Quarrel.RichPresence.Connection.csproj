@@ -121,6 +121,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AppConnectionInfo.cs" />
+    <Compile Include="AppVersionType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RichPresenceConnection.cs" />
     <EmbeddedResource Include="Properties\Quarrel.RichPresence.Connection.rd.xml" />

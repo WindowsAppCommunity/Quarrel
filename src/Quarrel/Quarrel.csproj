@@ -594,6 +594,10 @@
       <Project>{d5c342a2-fb47-4d19-8073-e7f15ee43f24}</Project>
       <Name>Patreon.API</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Libs\RichPresence\RichPresence.Models\Quarrel.RichPresence.Models.csproj">
+      <Project>{1e785d41-b6c7-44b0-b3d8-7fc2339de841}</Project>
+      <Name>Quarrel.RichPresence.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Quarrel.Client\Quarrel.Client.csproj">
       <Project>{e20b2927-0c9e-437f-9b51-b76bae2ef67c}</Project>
       <Name>Quarrel.Client</Name>
