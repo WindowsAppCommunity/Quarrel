@@ -22,7 +22,7 @@ variables:
   msixUploads: '$(appxPackageDir)\**\\*.msixupload'
   msixBundles: '$(appxPackageDir)\**\\*.msixbundle'
   msixPackages: '$(appxPackageDir)\**\\*.msix'
-  appInstallers: '$(appxPackageDir)\**\\*.appinstaller'
+  appInstaller: '$(appxPackageDir)\Quarrel.appinstaller'
 
 steps:
 - task: DownloadSecureFile@1
@@ -68,13 +68,6 @@ steps:
                   /p:PackageCertificateThumbprint="$(SignedCertificateThumbprint-Alpha)" 
                   /p:PackageCertificatePassword="$(SignCertificatePassword-Alpha)"'
 
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactStagingDirectory)'
-  inputs:
-    SourceFolder: '$(appxPackageDir)'
-    Contents: '**'
-    TargetFolder: '$(build.artifactStagingDirectory)'
-
 - task: GitHubRelease@1
   displayName: 'Create GitHub release'
   inputs:
@@ -92,7 +85,7 @@ steps:
       $(msixUploads)
       $(msixBundles)
       $(msixPackages)
-      $(appInstallers)
+      $(appInstaller)
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
