@@ -37,11 +37,18 @@ steps:
 #  name: signingCertificate
 #  inputs:
 #    secureFile: 'Quarrel-Alpha_Key.pfx'
+
 #- task: DownloadSecureFile@1
 #  displayName: Get AppCenterToken
 #  name: appCenterToken
 #  inputs:
 #    secureFile: 'AppCenterAlpha.json'
+
+- task: DownloadSecureFile@1
+  displayName: Get SSH-Key
+  name: sshKey
+  inputs:
+    secureFile: 'id_rsa'
 
 #- task: PowerShell@2
 #  displayName: Place AppCenterToken
@@ -95,10 +102,8 @@ steps:
 #      $(appInstaller)
 
 - script: |
-    git config --global user.email $(GitHub-Email)
-    git config --global user.name "Adam Dernis"
-    git config --global user.password $(GitHub-Token)
-    git clone https://github.com/QuarrelForDiscord/QuarrelInstaller.git
+    ssh-add $(sshKey.secureFilePath)
+    git clone git@github.com:QuarrelForDiscord/QuarrelInstaller.git
   displayName: Clone QuarrelInstaller repo
   workingDirectory: $(Agent.RootDirectory)
 
