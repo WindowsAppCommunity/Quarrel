@@ -3,29 +3,13 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
-using OwlCore.AbstractStorage;
 using Quarrel.Controls.Host;
 using Quarrel.Helpers.LaunchArgs.Models;
 using Quarrel.Messages;
-using Quarrel.Services.Analytics;
-using Quarrel.Services.APIs.GitHubService;
-using Quarrel.Services.Discord;
-using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
-using Quarrel.Services.Storage;
-using Quarrel.Services.Storage.Models;
-using Quarrel.Services.Versioning;
-using Quarrel.Services.Windows;
-using Quarrel.ViewModels;
-using Quarrel.ViewModels.Panels;
-using Quarrel.ViewModels.SubPages;
-using Quarrel.ViewModels.SubPages.DiscordStatus;
-using Quarrel.ViewModels.SubPages.Host;
-using Quarrel.ViewModels.SubPages.Meta;
 using System;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.AppService;
-using Windows.Storage;
 using Windows.UI.Xaml;
 
 namespace Quarrel
@@ -121,46 +105,6 @@ namespace Quarrel
             // Handle flow direction
             ILocalizationService localizationService = Services.GetRequiredService<ILocalizationService>();
             root.FlowDirection = localizationService.IsRightToLeftLanguage ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-        }
-
-        private IServiceProvider ConfigureServices()
-        {
-            IFolderData appDataFolder = new FolderData(ApplicationData.Current.LocalFolder);
-
-            // Register Services
-            var services = new ServiceCollection();
-            services.AddSingleton<IMessenger, WeakReferenceMessenger>();
-            services.AddSingleton<ILocalizationService, LocalizationService>();
-            services.AddSingleton<IVersioningService, VersioningService>();
-            services.AddSingleton<IDiscordService, DiscordService>();
-            services.AddSingleton<IDispatcherService, DispatcherService>();
-            services.AddSingleton<IStorageService>(new StorageService(appDataFolder, JsonAsyncSerializer.Singleton));
-            services.AddSingleton<IWindowService, WindowService>();
-
-            // Other APIs
-            services.AddTransient<IGitHubService, GitHubService>();
-
-            #if DEV
-            services.AddSingleton<IAnalyticsService, LoggingAnalyticsService>();
-            #else
-            services.AddSingleton<IAnalyticsService, AppCenterService>();
-            #endif
-
-            // ViewModels
-            services.AddSingleton<WindowViewModel>();
-            services.AddSingleton<SubPageHostViewModel>();
-            services.AddTransient<LoginPageViewModel>();
-            services.AddSingleton<GuildsViewModel>();
-            services.AddSingleton<ChannelsViewModel>();
-            services.AddSingleton<MessagesViewModel>();
-            services.AddSingleton<CurrentUserViewModel>();
-
-            // SubPages
-            services.AddTransient<AboutPageViewModel>();
-            services.AddTransient<CreditPageViewModel>();
-            services.AddTransient<DiscordStatusViewModel>();
-
-            return services.BuildServiceProvider();
         }
     }
 }

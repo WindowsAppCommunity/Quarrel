@@ -84,6 +84,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.AppService.cs" />
+    <Compile Include="App.Services.cs" />
     <Compile Include="App.ShareTarget.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -603,6 +604,12 @@
       <Name>Quarrel.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <ProjectReference Include="..\..\tests\Quarrel.Testing.DirtyServices\Quarrel.Testing.DirtyServices.csproj">
+      <Project>{8bd6bf36-6ecd-4103-b064-1cae37e954f2}</Project>
+      <Name>Quarrel.Testing.DirtyServices</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
@@ -611,6 +618,9 @@
   </ItemGroup>
   <ItemGroup>
     <XliffResource Include="MultilingualResources\Quarrel.he-IL.xlf" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />

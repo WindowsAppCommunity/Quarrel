@@ -64,12 +64,19 @@ namespace Quarrel.Services.APIs.GitHubService
 
             return result;
         }
-        
+
         /// <inheritdoc/>
-        public async Task<BindableDeveloper> GetDeveloper(Contributor contributor)
+        public async Task<BindableDeveloper?> GetDeveloper(Contributor contributor)
         {
-            var user = await _gitHubApiService.GetUserAsync(contributor.Name);
-            return new BindableDeveloper(user, contributor);
+            try
+            {
+                var user = await _gitHubApiService.GetUserAsync(contributor.Name);
+                return new BindableDeveloper(user, contributor);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
