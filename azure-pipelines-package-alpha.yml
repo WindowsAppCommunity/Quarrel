@@ -12,7 +12,7 @@ resources:
   repositories:
   - repository: QuarrelInstaller
     type: github
-    endpoint: MyGitHubServiceConnection
+    endpoint: QuarrelForDiscord
     name: QuarrelForDiscord/QuarrelInstaller
 
 trigger:
@@ -104,14 +104,6 @@ steps:
 #      $(msixBundles)
 #      $(msixPackages)
 #      $(appInstaller)
-
-- script: |
-    cd $(installerDirectory)
-    git config --global user.email $(GitHub-Email)
-    git config --global user.name "Adam Dernis"
-    git config --global user.password $(GitHub-Token)
-  displayName: Clone QuarrelInstaller repo
-  workingDirectory: $(Agent.RootDirectory)
 
 #- task: CopyFiles@2
 #  displayName: Copy artifacts to QuarrelInstaller repo
