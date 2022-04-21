@@ -23,7 +23,7 @@ variables:
   solution: '**/Quarrel.App.sln'
   buildPlatform: 'x86|x64|arm|arm64'
   buildConfiguration: 'Alpha'
-  installerDirectory: '$(System.DefaultWorkingDirectory)\QuarrelInstaller'
+  installerDirectory: '$(Agent.RootDirectory)\QuarrelInstaller'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
   buildDir: '$(build.artifactStagingDirectory)\build\\'
   msixUploads: '$(appxPackageDir)\**\\*.msixupload'
@@ -106,7 +106,7 @@ steps:
 #  inputs:
 #    SourceFolder: '$(build.artifactStagingDirectory)'
 #    Contents: '**'
-#    TargetFolder: '$(System.DefaultWorkingDirectory)\QuarrelInstaller'
+#    TargetFolder: '$(installerDirectory)'
 
 - script: |
    echo 'This is a test' > test.txt
