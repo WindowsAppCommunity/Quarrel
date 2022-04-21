@@ -120,14 +120,8 @@ steps:
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
     assets: |
-      '$(build.artifactStagingDirectory)/*'
-
-- task: CopyFiles@2
-  displayName: Copy artifacts to QuarrelInstaller repo
-  inputs:
-    SourceFolder: '$(build.artifactStagingDirectory)'
-    Contents: '**'
-    TargetFolder: '$(installerDirectory)'
+      '$(build.artifactStagingDirectory)/*.msixbundle'
+      '$(build.artifactStagingDirectory)/*.appx'
 
 - script: |
     git config --global user.email $(GitHub-Email)
