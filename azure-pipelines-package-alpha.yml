@@ -91,10 +91,12 @@ steps:
       "$(appxPackageDir)/Quarrel.appinstaller")
     $xName = "{http://schemas.microsoft.com/appx/appinstaller/2017/2}MainBundle"
     $bundle = $doc.Root.Element($xName).Attribute("Uri").Value.Replace("$(siteUri)", "");
+    Write-Output "$($bundle)"
+    Write-Output "$(build.artifactStagingDirectory)\$($bundle.Replace("\", "_"))"
+    Write-Output "$($bundle)"
     Copy-Item "$($bundle)" -Destination "$(build.artifactStagingDirectory)\$($bundle.Replace("\", "_"))";
     $doc.Root.Element($xName).Attribute("Uri").Value = 
-      "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/Quarrel.appinstaller" + 
-      $bundle.Replace("/", "_");
+      "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/$($bundle.Replace("/", "_"))";
       
     $xName = "{http://schemas.microsoft.com/appx/appinstaller/2017/2}Dependencies"
 
@@ -102,8 +104,7 @@ steps:
       $dep = $element.Attribute("Uri").Value.Replace("$(siteUri)", "");
       Copy-Item "$($dep)" -Destination "$(build.artifactStagingDirectory)\$($dep.Replace("\", "_"))";
       $element.Attribute("Uri").Value = 
-        "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/Quarrel.appinstaller" + 
-        $dep.Replace("/", "_");
+        "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/$($dep.Replace("/", "_"))";
     }
     $doc.Save("$(appInstaller)")
   displayName: 'Fix appinstaller'
