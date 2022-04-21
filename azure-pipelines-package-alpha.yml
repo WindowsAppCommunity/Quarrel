@@ -119,6 +119,10 @@ steps:
 - script: |
     git add *
     git commit -m "Update to $(Build.BuildNumber)"
+    echo 'test'
+    git config user.email $(GitHub-Email)
+    git config user.name "Adam Dernis"
+    git config user.password $(GitHub-Token)
     git push origin main
   displayName: Push to QuarrelInstaller repo
   workingDirectory: $(installerDirectory)
