@@ -8,7 +8,7 @@
 
   <Identity
     Name="38062AvishaiDernis.DiscordUWP"
-    Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B"
+    Publisher="CN=Adam Dernis"
     Version="99.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="ad8ee882-b52e-43c1-9621-07c4c9beb65e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>

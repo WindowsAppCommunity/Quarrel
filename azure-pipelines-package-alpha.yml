@@ -25,6 +25,11 @@ variables:
 
 steps:
 - task: DownloadSecureFile@1
+  displayName: Get Signing Certificate
+  name: signingCertificate
+  inputs:
+    secureFile: 'Quarrel-Alpha_Key.pfx'
+- task: DownloadSecureFile@1
   displayName: Get AppCenterToken
   name: appCenterToken
   inputs:
@@ -37,7 +42,6 @@ steps:
     script: 'Copy-Item $Env:APP_CENTER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/AppCenter/"'
   env:
     APP_CENTER_TOKEN_PATH: $(appCenterToken.secureFilePath)
-
 
 - task: NuGetToolInstaller@1
   displayName: 'NuGet Installer'
@@ -53,12 +57,16 @@ steps:
     solution: '$(solution)'
     platform: 'x64'
     configuration: '$(buildConfiguration)'
-    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)"
+    msbuildArgs: '/t:Quarrel
+                  /p:AppxBundlePlatforms="$(buildPlatform)"
                   /p:AppxPackageDir="$(appxPackageDir)"
                   /p:OutputPath="$(buildDir)"
                   /p:AppxBundle=Always
                   /p:UapAppxPackageBuildMode=StoreUpload
-                  /t:Quarrel'
+                  /p:AppxPackageSigningEnabled=true
+                  /p:PackageCertificateKeyFile="$(signingCertificate.secureFilePath)"
+                  /p:PackageCertificateThumbprint="$(SignedCertificateThumbprint-Alpha)" 
+                  /p:PackageCertificatePassword="$(SignCertificatePassword-Alpha)"'
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactStagingDirectory)'
