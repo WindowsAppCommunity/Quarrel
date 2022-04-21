@@ -18,8 +18,10 @@ variables:
   buildPlatform: 'x86|x64|arm|arm64'
   buildConfiguration: 'Alpha'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
-  msixPackages: '$(appxPackageDir)\\*.msixupload'
   buildDir: '$(build.artifactStagingDirectory)\build\\'
+  msixUploads: '$(appxPackageDir)\**\\*.msixupload'
+  msixBundles: '$(appxPackageDir)\**\\*.msixbundle'
+  msixPackages: '$(appxPackageDir)\**\\*.msix'
 
 steps:
 - task: DownloadSecureFile@1
@@ -29,6 +31,7 @@ steps:
     secureFile: 'AppCenterAlpha.json'
 
 - task: PowerShell@2
+  displayName: Place AppCenterToken
   inputs:
     targetType: 'inline'
     script: 'Copy-Item $Env:APP_CENTER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/AppCenter/"'
@@ -77,7 +80,10 @@ steps:
     isPreRelease: true
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
-    assets: '$(msixPackages)'
+    assets: |
+      $(msixUploads)
+      $(msixBundles)
+      $(msixPackages)
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
