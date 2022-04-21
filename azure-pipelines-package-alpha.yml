@@ -100,7 +100,11 @@ steps:
     Write-Output $doc.Root.Elements($xName);
     foreach ($element in $doc.Root.Elements($xName)){
       Write-Output $element;
-      $dep = $element.Attribute("Uri").Value.Replace("$(siteUri)", "");
+      $a = $element.Attribute("Uri");
+      Write-Output $a;
+      $b = $a.Value;
+      Write-Output $b;
+      $dep = $b.Replace("$(siteUri)", "");
       Copy-Item "$(appxPackageDir)\$($dep)" -Destination "$(build.artifactStagingDirectory)\$($dep.Replace("/", "_"))";
       $element.Attribute("Uri").Value = 
         "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/$($dep.Replace("/", "_"))";
