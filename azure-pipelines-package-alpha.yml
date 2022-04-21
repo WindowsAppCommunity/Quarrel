@@ -17,6 +17,7 @@ variables:
   solution: '**/Quarrel.App.sln'
   buildPlatform: 'x86|x64|arm|arm64'
   buildConfiguration: 'Alpha'
+  installerDirectory: '$(System.DefaultWorkingDirectory)\QuarrelInstaller'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
   buildDir: '$(build.artifactStagingDirectory)\build\\'
   msixUploads: '$(appxPackageDir)\**\\*.msixupload'
@@ -86,12 +87,13 @@ steps:
 #      $(msixBundles)
 #      $(msixPackages)
 #      $(appInstaller)
-      
+
 - script: |
+    md $(installerDirectory)
+    cd $(installerDirectory)
     git config --global user.email $(GitHub-Email) & git config --global user.password $(GitHub-Token)
     git checkout https://github.com/QuarrelForDiscord/QuarrelInstaller.git
   displayName: Clone QuarrelInstaller repo
-  workingDirectory: $(System.DefaultWorkingDirectory)\QuarrelInstaller
 
 #- task: CopyFiles@2
 #  displayName: Copy artifacts to QuarrelInstaller repo
@@ -103,7 +105,7 @@ steps:
 - script: |
    echo 'This is a test' > test.txt
   displayName: Test add file
-  workingDirectory: $(System.DefaultWorkingDirectory)\QuarrelInstaller
+  workingDirectory: $(installerDirectory)
 
 - script: |
     git add *
