@@ -14,7 +14,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
+  solution: '**/Quarrel.App.sln'
   buildPlatform: 'x86|x64|arm|arm64'
   buildConfiguration: 'Alpha'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
@@ -22,6 +22,7 @@ variables:
   msixUploads: '$(appxPackageDir)\**\\*.msixupload'
   msixBundles: '$(appxPackageDir)\**\\*.msixbundle'
   msixPackages: '$(appxPackageDir)\**\\*.msix'
+  appInstaller: '$(appxPackageDir)\Quarrel.appinstaller'
 
 steps:
 - task: DownloadSecureFile@1
@@ -62,18 +63,10 @@ steps:
                   /p:AppxPackageDir="$(appxPackageDir)"
                   /p:OutputPath="$(buildDir)"
                   /p:AppxBundle=Always
-                  /p:UapAppxPackageBuildMode=StoreUpload
                   /p:AppxPackageSigningEnabled=true
                   /p:PackageCertificateKeyFile="$(signingCertificate.secureFilePath)"
                   /p:PackageCertificateThumbprint="$(SignedCertificateThumbprint-Alpha)" 
                   /p:PackageCertificatePassword="$(SignCertificatePassword-Alpha)"'
-
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactStagingDirectory)'
-  inputs:
-    SourceFolder: '$(appxPackageDir)'
-    Contents: '**'
-    TargetFolder: '$(build.artifactStagingDirectory)'
 
 - task: GitHubRelease@1
   displayName: 'Create GitHub release'
@@ -92,6 +85,7 @@ steps:
       $(msixUploads)
       $(msixBundles)
       $(msixPackages)
+      $(appInstaller)
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
