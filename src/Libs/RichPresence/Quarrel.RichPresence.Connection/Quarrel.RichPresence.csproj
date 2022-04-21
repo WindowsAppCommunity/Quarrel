@@ -120,8 +120,11 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Models\Activity.cs" />
     <Compile Include="AppConnectionInfo.cs" />
     <Compile Include="AppVersionType.cs" />
+    <Compile Include="Models\Enums\ActivityType.cs" />
+    <Compile Include="Models\Enums\RequestType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RichPresenceConnection.cs" />
     <EmbeddedResource Include="Properties\Quarrel.RichPresence.Connection.rd.xml" />
@@ -133,12 +136,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RichPresence.Models\Quarrel.RichPresence.Models.csproj">
-      <Project>{1e785d41-b6c7-44b0-b3d8-7fc2339de841}</Project>
-      <Name>Quarrel.RichPresence.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -11,12 +11,19 @@ namespace Quarrel.RichPresence
 {
     public class RichPresenceConnection
     {
-        private readonly AppServiceConnection _connection;
+        private AppServiceConnection? _connection;
 
         /// <summary>
         /// Fired when the connection to the app service closes.
         /// </summary>
-        public event EventHandler ConnectionClosed;
+        public event EventHandler Closed;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RichPresenceConnection"/> class.
+        /// </summary>
+        public RichPresenceConnection()
+        {
+        }
 
         public AppServiceConnectionStatus? ConnectionStatus { get; private set; }
 
@@ -25,6 +32,7 @@ namespace Quarrel.RichPresence
             if (ConnectionStatus == AppServiceConnectionStatus.Success)
                 return true;
 
+            _connection = new AppServiceConnection();
             _connection.AppServiceName = AppConnectionInfo.RichPresenceServiceName;
             _connection.PackageFamilyName = AppConnectionInfo.GetPackageFamilyName(versionType);
             _connection.ServiceClosed += OnClosed;
@@ -57,7 +65,8 @@ namespace Quarrel.RichPresence
         private void OnClosed(AppServiceConnection sender, AppServiceClosedEventArgs args)
         {
             ConnectionStatus = null;
-            ConnectionClosed?.Invoke(this, EventArgs.Empty);
+            _connection = null;
+            Closed?.Invoke(this, EventArgs.Empty);
         }
     }
 }
