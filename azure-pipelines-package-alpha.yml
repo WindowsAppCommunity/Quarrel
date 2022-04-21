@@ -112,7 +112,7 @@ steps:
 #    TargetFolder: '$(installerDirectory)'
 
 - script: |
-    git checkout master
+    git switch -
     echo 'This is a test' > test.txt
   displayName: Test add file
   workingDirectory: $(installerDirectory)
