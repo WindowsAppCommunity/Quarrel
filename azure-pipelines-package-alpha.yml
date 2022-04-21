@@ -95,11 +95,10 @@ steps:
 #      $(appInstaller)
 
 - script: |
-    md $(installerDirectory)
-    cd $(installerDirectory)
     git config --global user.email $(GitHub-Email) & git config --global user.password $(GitHub-Token)
     git clone https://github.com/QuarrelForDiscord/QuarrelInstaller.git
   displayName: Clone QuarrelInstaller repo
+  workingDirectory: $(Agent.RootDirectory)
 
 #- task: CopyFiles@2
 #  displayName: Copy artifacts to QuarrelInstaller repo
