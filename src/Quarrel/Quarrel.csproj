@@ -21,7 +21,6 @@
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <GenerateAppInstallerFile>true</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>false</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>true</GenerateTestArtifacts>
     <AppxBundle>Always</AppxBundle>
