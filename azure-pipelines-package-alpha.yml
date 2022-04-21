@@ -112,7 +112,8 @@ steps:
 #    TargetFolder: '$(installerDirectory)'
 
 - script: |
-   echo 'This is a test' > test.txt
+    git checkout master
+    echo 'This is a test' > test.txt
   displayName: Test add file
   workingDirectory: $(installerDirectory)
 
