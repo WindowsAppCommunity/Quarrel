@@ -29,7 +29,7 @@ variables:
   solution: '**/Quarrel.App.sln'
   buildPlatform: 'x86|x64|arm|arm64'
   buildConfiguration: 'Alpha'
-  installerDirectory: '$(Agent.RootDirectory)\QuarrelInstaller'
+  installerDirectory: './QuarrelInstaller'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
   buildDir: '$(build.artifactStagingDirectory)\build\\'
   msixUploads: '$(appxPackageDir)\**\\*.msixupload'
@@ -39,7 +39,6 @@ variables:
 
 steps:
 - checkout: self
-  persistCredentials: true
 - checkout: QuarrelInstaller
   persistCredentials: true
 #- task: DownloadSecureFile@1
