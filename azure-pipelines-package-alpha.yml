@@ -92,7 +92,7 @@ steps:
     md $(installerDirectory)
     cd $(installerDirectory)
     git config --global user.email $(GitHub-Email) & git config --global user.password $(GitHub-Token)
-    git checkout https://github.com/QuarrelForDiscord/QuarrelInstaller.git
+    git clone https://github.com/QuarrelForDiscord/QuarrelInstaller.git
   displayName: Clone QuarrelInstaller repo
 
 #- task: CopyFiles@2
