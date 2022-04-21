@@ -3,11 +3,6 @@
 # Add steps that test and distribute an app, save build artifacts, and more:
 # https://aka.ms/yaml
 
-#trigger:
-#  branches:
-#    include:
-#    - 'rewrite/alpha'
-
 resources:
   repositories:
   - repository: QuarrelInstaller
@@ -18,7 +13,7 @@ resources:
 trigger:
   branches:
     include:
-    - '*'
+    - 'rewrite/alpha'
 
 pr: none
 
@@ -35,86 +30,105 @@ variables:
   msixUploads: '$(appxPackageDir)\**\\*.msixupload'
   msixBundles: '$(appxPackageDir)\**\\*.msixbundle'
   msixPackages: '$(appxPackageDir)\**\\*.msix'
-  appInstaller: '$(appxPackageDir)\Quarrel.appinstaller'
+  appInstaller: '$(installerDirectory)\Quarrel.appinstaller'
+  siteUri: 'https://quarrelfordiscord.github.io/QuarrelInstaller/'
 
 steps:
 - checkout: self
 - checkout: QuarrelInstaller
   persistCredentials: true
-#- task: DownloadSecureFile@1
-#  displayName: Get Signing Certificate
-#  name: signingCertificate
-#  inputs:
-#    secureFile: 'Quarrel-Alpha_Key.pfx'
+- task: DownloadSecureFile@1
+  displayName: Get Signing Certificate
+  name: signingCertificate
+  inputs:
+    secureFile: 'Quarrel-Alpha_Key.pfx'
 
-#- task: DownloadSecureFile@1
-#  displayName: Get AppCenterToken
-#  name: appCenterToken
-#  inputs:
-#    secureFile: 'AppCenterAlpha.json'
+- task: DownloadSecureFile@1
+  displayName: Get AppCenterToken
+  name: appCenterToken
+  inputs:
+    secureFile: 'AppCenterAlpha.json'
 
-#- task: PowerShell@2
-#  displayName: Place AppCenterToken
-#  inputs:
-#    targetType: 'inline'
-#    script: 'Copy-Item $Env:APP_CENTER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/AppCenter/"'
-#  env:
-#    APP_CENTER_TOKEN_PATH: $(appCenterToken.secureFilePath)
+- task: PowerShell@2
+  displayName: Place AppCenterToken
+  inputs:
+    targetType: 'inline'
+    script: 'Copy-Item $Env:APP_CENTER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/src/Quarrel/Assets/Tokens/AppCenter/"'
+  env:
+    APP_CENTER_TOKEN_PATH: $(appCenterToken.secureFilePath)
 
-#- task: NuGetToolInstaller@1
-#  displayName: 'NuGet Installer'
+- task: NuGetToolInstaller@1
+  displayName: 'NuGet Installer'
 
-#- task: NuGetCommand@2
-#  displayName: 'NuGet Restore'
-#  inputs:
-#    restoreSolution: '$(solution)'
+- task: NuGetCommand@2
+  displayName: 'NuGet Restore'
+  inputs:
+    restoreSolution: '$(solution)'
 
-#- task: VSBuild@1
-#  displayName: 'Build'
-#  inputs:
-#    solution: '$(solution)'
-#    platform: 'x64'
-#    configuration: '$(buildConfiguration)'
-#    msbuildArgs: '/t:Quarrel
-#                  /p:AppxBundlePlatforms="$(buildPlatform)"
-#                  /p:AppxPackageDir="$(appxPackageDir)"
-#                  /p:OutputPath="$(buildDir)"
-#                  /p:AppxBundle=Always
-#                  /p:AppxPackageSigningEnabled=true
-#                  /p:PackageCertificateKeyFile="$(signingCertificate.secureFilePath)"
-#                  /p:PackageCertificateThumbprint="$(SignedCertificateThumbprint-Alpha)" 
-#                  /p:PackageCertificatePassword="$(SignCertificatePassword-Alpha)"'
+- task: VSBuild@1
+  displayName: 'Build'
+  inputs:
+    solution: '$(solution)'
+    platform: 'x64'
+    configuration: '$(buildConfiguration)'
+    msbuildArgs: '/t:Quarrel
+                  /p:AppxBundlePlatforms="$(buildPlatform)"
+                  /p:AppxPackageDir="$(appxPackageDir)"
+                  /p:OutputPath="$(buildDir)"
+                  /p:AppxBundle=Always
+                  /p:AppxPackageSigningEnabled=true
+                  /p:PackageCertificateKeyFile="$(signingCertificate.secureFilePath)"
+                  /p:PackageCertificateThumbprint="$(SignedCertificateThumbprint-Alpha)" 
+                  /p:PackageCertificatePassword="$(SignCertificatePassword-Alpha)"
+                  /p:AppInstallerUri="${siteUri}"
+                  /p:AppInstallerUpdateFrequency=1
+                  /p:AppInstallerCheckForUpdateFrequency=OnApplicationRun'
 
-#- task: GitHubRelease@1
-#  displayName: 'Create GitHub release'
-#  inputs:
-#    gitHubConnection: 'Avid29'
-#    repositoryName: 'UWPCommunity/Quarrel'
-#    action: 'create'
-#    target: '$(Build.SourceVersion)'
-#    tag: "alpha-v$(Build.BuildNumber)"
-#    tagSource: 'userSpecifiedTag'
-#    title: 'Alpha-v$(Build.BuildNumber)'
-#    isPreRelease: true
-#    changeLogCompareToRelease: 'lastFullRelease'
-#    changeLogType: 'commitBased'
-#    assets: |
-#      $(msixUploads)
-#      $(msixBundles)
-#      $(msixPackages)
-#      $(appInstaller)
+- powershell: |
+    [Reflection.Assembly]::LoadWithPartialName("System.Xml.Linq")
+    $doc = [System.Xml.Linq.XDocument]::Load(
+      "$(appxPackageDir)/Quarrel.appinstaller")
+    $xName = "{http://schemas.microsoft.com/appx/appinstaller/2017/2}MainBundle"
+    $bundle = $doc.Root.Element($xName).Attribute("Uri").Value.Replace("${siteUri}", "");
+    Copy-Item $bundle -Destination ($(build.artifactStagingDirectory) + $bundle.Replace("/", "_"));
+    $doc.Root.Element($xName).Attribute("Uri").Value = 
+      "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/Quarrel.appinstaller" + 
+      $bundle.Replace("/", "_");
+      
+    $xName = "{http://schemas.microsoft.com/appx/appinstaller/2017/2}Dependencies"
 
-#- task: CopyFiles@2
-#  displayName: Copy artifacts to QuarrelInstaller repo
-#  inputs:
-#    SourceFolder: '$(build.artifactStagingDirectory)'
-#    Contents: '**'
-#    TargetFolder: '$(installerDirectory)'
+    foreach ($element in $doc.Root.Elements($xName)){
+      $dep = $element.Attribute("Uri").Value.Replace("${siteUri}", "");
+      Copy-Item $dep -Destination ($(build.artifactStagingDirectory) + $dep.Replace("/", "_"));
+      $element.Attribute("Uri").Value = 
+        "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/Quarrel.appinstaller" + 
+        $dep.Replace("/", "_");
+    }
+    $doc.Save("$(appInstaller)")
+  displayName: 'Fix appinstaller'
 
-- script: |
-    echo 'This is a test' > test.txt
-  displayName: Test add file
-  workingDirectory: $(installerDirectory)
+- task: GitHubRelease@1
+  displayName: 'Create GitHub release'
+  inputs:
+    gitHubConnection: 'Avid29'
+    repositoryName: 'UWPCommunity/Quarrel'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tag: "alpha-v$(Build.BuildNumber)"
+    tagSource: 'userSpecifiedTag'
+    title: 'Alpha-v$(Build.BuildNumber)'
+    isPreRelease: true
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
+    assets: |
+      '$(build.artifactStagingDirectory)/*'
+
+- task: CopyFiles@2
+  displayName: Copy artifacts to QuarrelInstaller repo
+  inputs:
+    SourceFolder: '$(build.artifactStagingDirectory)'
+    Contents: '**'
+    TargetFolder: '$(installerDirectory)'
 
 - script: |
     git config --global user.email $(GitHub-Email)
@@ -128,7 +142,7 @@ steps:
   displayName: Push to QuarrelInstaller repo
   workingDirectory: $(installerDirectory)
 
-#- task: PublishBuildArtifacts@1
-#  displayName: 'Publish Artifact: drop'
-#  inputs:
-#    PathtoPublish: '$(build.artifactStagingDirectory)'
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+  inputs:
+    PathtoPublish: '$(build.artifactStagingDirectory)'
