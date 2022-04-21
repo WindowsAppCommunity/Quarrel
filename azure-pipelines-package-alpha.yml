@@ -90,7 +90,7 @@ steps:
     $doc = [System.Xml.Linq.XDocument]::Load(
       "$(appxPackageDir)/Quarrel.appinstaller")
     $xName = "{http://schemas.microsoft.com/appx/appinstaller/2017/2}MainBundle"
-    $bundle = $doc.Root.Element($xName).Attribute("Uri").Value.Replace("${siteUri}", "");
+    $bundle = $doc.Root.Element($xName).Attribute("Uri").Value.Replace("https://quarrelfordiscord.github.io/QuarrelInstaller/", "");
     Copy-Item $bundle -Destination ($(build.artifactStagingDirectory) + $bundle.Replace("/", "_"));
     $doc.Root.Element($xName).Attribute("Uri").Value = 
       "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/Quarrel.appinstaller" + 
@@ -99,7 +99,7 @@ steps:
     $xName = "{http://schemas.microsoft.com/appx/appinstaller/2017/2}Dependencies"
 
     foreach ($element in $doc.Root.Elements($xName)){
-      $dep = $element.Attribute("Uri").Value.Replace("${siteUri}", "");
+      $dep = $element.Attribute("Uri").Value.Replace("https://quarrelfordiscord.github.io/QuarrelInstaller/", "");
       Copy-Item $dep -Destination ($(build.artifactStagingDirectory) + $dep.Replace("/", "_"));
       $element.Attribute("Uri").Value = 
         "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/Quarrel.appinstaller" + 
