@@ -80,7 +80,7 @@ steps:
                   /p:PackageCertificateKeyFile="$(signingCertificate.secureFilePath)"
                   /p:PackageCertificateThumbprint="$(SignedCertificateThumbprint-Alpha)" 
                   /p:PackageCertificatePassword="$(SignCertificatePassword-Alpha)"
-                  /p:AppInstallerUri="https://quarrelfordiscord.github.io/QuarrelInstaller/"
+                  /p:AppInstallerUri="$(siteUri)"
                   /p:AppInstallerUpdateFrequency=1
                   /p:AppInstallerCheckForUpdateFrequency=OnApplicationRun
                   /p:GenerateAppInstallerFile=true'
@@ -90,8 +90,8 @@ steps:
     $doc = [System.Xml.Linq.XDocument]::Load(
       "$(appxPackageDir)/Quarrel.appinstaller")
     $xName = "{http://schemas.microsoft.com/appx/appinstaller/2017/2}MainBundle"
-    $bundle = $doc.Root.Element($xName).Attribute("Uri").Value.Replace("https://quarrelfordiscord.github.io/QuarrelInstaller/", "");
-    Copy-Item $bundle -Destination ($(build.artifactStagingDirectory) + $bundle.Replace("/", "_"));
+    $bundle = $doc.Root.Element($xName).Attribute("Uri").Value.Replace("$(siteUri)", "");
+    Copy-Item "$(bundle)" -Destination "$(build.artifactStagingDirectory)$($bundle.Replace("/", "_"))";
     $doc.Root.Element($xName).Attribute("Uri").Value = 
       "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/Quarrel.appinstaller" + 
       $bundle.Replace("/", "_");
@@ -99,8 +99,8 @@ steps:
     $xName = "{http://schemas.microsoft.com/appx/appinstaller/2017/2}Dependencies"
 
     foreach ($element in $doc.Root.Elements($xName)){
-      $dep = $element.Attribute("Uri").Value.Replace("https://quarrelfordiscord.github.io/QuarrelInstaller/", "");
-      Copy-Item $dep -Destination ($(build.artifactStagingDirectory) + $dep.Replace("/", "_"));
+      $dep = $element.Attribute("Uri").Value.Replace("$(siteUri)", "");
+      Copy-Item "$(dep)" -Destination "$(build.artifactStagingDirectory)$($dep.Replace("/", "_"))";
       $element.Attribute("Uri").Value = 
         "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/Quarrel.appinstaller" + 
         $dep.Replace("/", "_");
