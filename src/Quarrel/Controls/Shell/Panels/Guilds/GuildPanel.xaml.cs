@@ -5,7 +5,7 @@ using Quarrel.Bindables.Guilds;
 using Quarrel.ViewModels;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Controls.Shell.Panels
+namespace Quarrel.Controls.Shell.Panels.Guilds
 {
     public sealed partial class GuildPanel : UserControl
     {

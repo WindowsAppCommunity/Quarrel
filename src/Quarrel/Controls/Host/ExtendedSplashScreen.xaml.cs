@@ -6,7 +6,7 @@ using Quarrel.Services.Localization;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Controls.Shell
+namespace Quarrel.Controls.Host
 {
     public sealed partial class ExtendedSplashScreen : UserControl
     {
