@@ -1,6 +1,5 @@
 ﻿// Quarrel © 2022
 
-using System;
 using Windows.ApplicationModel.AppService;
 
 namespace Quarrel.Services.AppConnections.Models

@@ -2,7 +2,6 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Quarrel.Services.AppConnections;
-using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
 
 namespace Quarrel
