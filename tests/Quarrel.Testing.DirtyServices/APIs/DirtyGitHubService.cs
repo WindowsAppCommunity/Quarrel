@@ -14,17 +14,15 @@ namespace Quarrel.Testing.DirtyServices.APIs
     public class DirtyGitHubService : IGitHubService
     {
         /// <inheritdoc/>
-        public async Task<List<BindableContributor>?> GetContributors()
+        public Task<List<BindableContributor>?> GetContributors()
         {
-            await Task.Run(() => {});
-            return null;
+            return Task.FromResult<List<BindableContributor>?>(null);
         }
         
         /// <inheritdoc/>
-        public async Task<BindableDeveloper?> GetDeveloper(Contributor contributor)
+        public Task<BindableDeveloper?> GetDeveloper(Contributor contributor)
         {
-            await Task.Run(() => {});
-            return null;
+            return Task.FromResult<BindableDeveloper?>(null);
         }
     }
 }
