@@ -5,6 +5,7 @@
     xmlns:local="using:Quarrel.Controls.Shell"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:qc="using:Quarrel.Controls"
     xmlns:panels="using:Quarrel.Controls.Shell.Panels"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -42,6 +43,9 @@
                                              ShowHamburgerButton="False"
                                              Background="{ThemeResource PrimaryPaneBackground}"
                                              Visibility="Collapsed"/>
+                    <qc:Shadow x:Name="Shadow"
+                               Direction="Down" Height="12"
+                               VerticalAlignment="Top" Grid.Row="1"/>
                     <panels:MessagePanel Grid.Row="1"/>
                 </Grid>
             </local:SideDrawer.MainContent>
