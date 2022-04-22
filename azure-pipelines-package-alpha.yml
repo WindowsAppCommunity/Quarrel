@@ -22,7 +22,7 @@ pool:
 
 variables:
   solution: '**/Quarrel.App.sln'
-  buildPlatform: 'x86|x64|arm'
+  buildPlatform: 'x86|x64|arm|arm64'
   buildConfiguration: 'Alpha'
   installerDirectory: './QuarrelInstaller'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
@@ -32,6 +32,7 @@ variables:
   msixPackages: '$(appxPackageDir)\**\\*.msix'
   appInstaller: '$(installerDirectory)\Quarrel.appinstaller'
   siteUri: 'https://quarrelfordiscord.github.io/QuarrelInstaller/'
+  dailyNumber: $[counter(format('{0:yyyyMMdd}', pipeline.startTime), 0)]
 
 steps:
 - checkout: self
@@ -53,9 +54,16 @@ steps:
   displayName: Place AppCenterToken
   inputs:
     targetType: 'inline'
-    script: 'Copy-Item $Env:APP_CENTER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)/Quarrel/src/Quarrel/Assets/Tokens/AppCenter/"'
+    script: 'Copy-Item $Env:APP_CENTER_TOKEN_PATH -Destination "$($Env:BUILD_SOURCESDIRECTORY)\Quarrel\src\Quarrel\Assets\Tokens\AppCenter\"'
   env:
     APP_CENTER_TOKEN_PATH: $(appCenterToken.secureFilePath)
+
+- powershell: |
+     # Update appxmanifest. This must be done before the build.
+     [xml]$manifest= get-content "$($Env:BUILD_SOURCESDIRECTORY)\Quarrel\src\Quarrel\Package.Alpha.appxmanifest";
+     $manifest.Package.Identity.Version = "$(Get-Date -format "y.M.d").$(dailyNumber)";
+     $manifest.save("$($Env:BUILD_SOURCESDIRECTORY)\Quarrel\src\Quarrel\Package.Alpha.appxmanifest");
+  displayName: 'Version Package Manifest'
 
 - task: NuGetToolInstaller@1
   displayName: 'NuGet Installer'
@@ -89,21 +97,19 @@ steps:
     [Reflection.Assembly]::LoadWithPartialName("System.Xml.Linq")
     $doc = [System.Xml.Linq.XDocument]::Load(
       "$(appxPackageDir)/Quarrel.appinstaller")
-    $xName = "{http://schemas.microsoft.com/appx/appinstaller/2017/2}MainBundle"
+    $xName = "{http://schemas.microsoft.com/appx/appinstaller/2017/2}MainBundle";
     $bundle = $doc.Root.Element($xName).Attribute("Uri").Value.Replace("$(siteUri)", "");
-    Copy-Item "$(bundle)" -Destination "$(build.artifactStagingDirectory)$($bundle.Replace("/", "_"))";
+    
+    Copy-Item "$(appxPackageDir)\$($bundle)" -Destination "$(build.artifactStagingDirectory)\$($bundle.Replace("/", "_"))";
     $doc.Root.Element($xName).Attribute("Uri").Value = 
-      "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/Quarrel.appinstaller" + 
-      $bundle.Replace("/", "_");
+      "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/$($bundle.Replace("/", "_"))";
       
-    $xName = "{http://schemas.microsoft.com/appx/appinstaller/2017/2}Dependencies"
-
-    foreach ($element in $doc.Root.Elements($xName)){
+    $xName = "{http://schemas.microsoft.com/appx/appinstaller/2017/2}Dependencies";
+    foreach ($element in $doc.Root.Element($xName).Elements()){
       $dep = $element.Attribute("Uri").Value.Replace("$(siteUri)", "");
-      Copy-Item "$(dep)" -Destination "$(build.artifactStagingDirectory)$($dep.Replace("/", "_"))";
+      Copy-Item "$(appxPackageDir)\$($dep)" -Destination "$(build.artifactStagingDirectory)\$($dep.Replace("/", "_"))";
       $element.Attribute("Uri").Value = 
-        "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/Quarrel.appinstaller" + 
-        $dep.Replace("/", "_");
+        "https://github.com/UWPCommunity/Quarrel/releases/download/alpha-v$(Build.BuildNumber)/$($dep.Replace("/", "_"))";
     }
     $doc.Save("$(appInstaller)")
   displayName: 'Fix appinstaller'
@@ -122,14 +128,8 @@ steps:
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
     assets: |
-      '$(build.artifactStagingDirectory)/*'
-
-- task: CopyFiles@2
-  displayName: Copy artifacts to QuarrelInstaller repo
-  inputs:
-    SourceFolder: '$(build.artifactStagingDirectory)'
-    Contents: '**'
-    TargetFolder: '$(installerDirectory)'
+      $(build.artifactStagingDirectory)\*.msixbundle
+      $(build.artifactStagingDirectory)\*.appx
 
 - script: |
     git config --global user.email $(GitHub-Email)
