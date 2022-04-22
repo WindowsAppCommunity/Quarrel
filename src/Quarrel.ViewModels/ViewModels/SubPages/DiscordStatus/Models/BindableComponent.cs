@@ -28,7 +28,7 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus.Models
         /// <summary>
         /// Gets the description of the component.
         /// </summary>
-        public string Description { get; }
+        public string? Description { get; }
         
         /// <summary>
         /// Gets the status of the component.

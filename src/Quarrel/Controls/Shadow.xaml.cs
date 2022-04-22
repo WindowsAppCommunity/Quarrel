@@ -62,8 +62,8 @@ namespace Quarrel.Controls
                 (u, v) = (v, u);
             }
 
-            Point start = new Point(u, v);
-            Point end = new Point(0, 0);
+            var start = new Point(u, v);
+            var end = new Point(0, 0);
 
             if (inverse)
             {

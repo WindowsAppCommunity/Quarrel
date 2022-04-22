@@ -66,7 +66,7 @@ namespace Quarrel
 
         protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
         {
-            if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails appServiceTriggerDetails)
+            if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails)
             {
                 SetupAppServiceConnection(args.TaskInstance);
             }

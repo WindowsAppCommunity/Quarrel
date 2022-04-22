@@ -43,7 +43,8 @@ namespace Quarrel.RichPresence
         
         public async Task<bool> SetActivity(Activity activity)
         {
-            ValueSet request = FormRequest(RequestType.SetActivity);
+            ValueSet request = FormRequest(RequestType.SetActivity,
+                (nameof(activity), activity));
 
             var response = await _connection.SendMessageAsync(request);
             return response.Status == AppServiceResponseStatus.Success;
@@ -51,7 +52,7 @@ namespace Quarrel.RichPresence
 
         private ValueSet FormRequest(RequestType type, params (string, object)[] data)
         {
-            ValueSet request = new ValueSet();
+            var request = new ValueSet();
             request.Add("type", type);
 
             foreach ((string property, object value) in data)

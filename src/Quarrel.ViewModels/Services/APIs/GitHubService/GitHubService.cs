@@ -21,7 +21,7 @@ namespace Quarrel.Services.APIs.GitHubService
         private const string RepoName = "Quarrel";
 
         private readonly IAnalyticsService _analyticsService;
-        private IGitHubApiService _gitHubApiService;
+        private readonly IGitHubApiService _gitHubApiService;
 
         /// <summary>
         /// Initializes new instance of the <see cref="GitHubService"/> class.
@@ -29,7 +29,7 @@ namespace Quarrel.Services.APIs.GitHubService
         public GitHubService(IAnalyticsService analyticsService)
         {
             _analyticsService = analyticsService;
-            GitHubRestFactory restFactory = new GitHubRestFactory("Quarrel");
+            var restFactory = new GitHubRestFactory("Quarrel");
             _gitHubApiService = restFactory.GetGitHubService();
         }
 
@@ -56,7 +56,7 @@ namespace Quarrel.Services.APIs.GitHubService
             Array.Sort(contributors, Comparer<Contributor>.Create((item1, item2) =>
                 item2.CommitsCount.CompareTo(item1.CommitsCount)));
 
-            List<BindableContributor> result = new List<BindableContributor>(contributors.Length);
+            var result = new List<BindableContributor>(contributors.Length);
             foreach (var contributor in contributors)
             {
                 result.Add(new BindableContributor(contributor));

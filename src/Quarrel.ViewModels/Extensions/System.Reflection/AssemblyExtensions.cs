@@ -19,7 +19,7 @@ namespace System.Reflection
         {
             string embeddedFilename = assembly.GetManifestResourceNames().FirstOrDefault(name => name.EndsWith(filename));
             using Stream stream = assembly.GetManifestResourceStream(embeddedFilename);
-            using StreamReader reader = new StreamReader(stream);
+            using var reader = new StreamReader(stream);
             return reader.ReadToEnd();
         }
     }

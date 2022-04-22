@@ -72,21 +72,21 @@ namespace Quarrel.Controls.Shell
             {
                 RootCommandBar.Visibility = Visibility.Visible;
                 PanelCommandBar.Visibility= Visibility.Collapsed;
-                Shadow.Visibility = Visibility.Collapsed;
+                MessageShadow.Visibility = Visibility.Collapsed;
                 Drawer.Size = SideDrawerSize.Small;
             }
             else if (width < LargeMinSize)
             {
                 RootCommandBar.Visibility = Visibility.Visible;
                 PanelCommandBar.Visibility = Visibility.Collapsed;
-                Shadow.Visibility = Visibility.Collapsed;
+                MessageShadow.Visibility = Visibility.Collapsed;
                 Drawer.Size = SideDrawerSize.Medium;
             }
             else if (width < ExtraLargeMinSize)
             {
                 RootCommandBar.Visibility = Visibility.Collapsed;
                 PanelCommandBar.Visibility = Visibility.Visible;
-                Shadow.Visibility = Visibility.Visible;
+                MessageShadow.Visibility = Visibility.Visible;
                 Drawer.Size = SideDrawerSize.Large;
                 PanelCommandBar.ShowToggleMemberButton = true;
             }
@@ -94,7 +94,7 @@ namespace Quarrel.Controls.Shell
             {
                 RootCommandBar.Visibility = Visibility.Collapsed;
                 PanelCommandBar.Visibility = Visibility.Visible;
-                Shadow.Visibility = Visibility.Visible;
+                MessageShadow.Visibility = Visibility.Visible;
                 Drawer.Size = SideDrawerSize.ExtraLarge;
                 PanelCommandBar.ShowToggleMemberButton = false;
             }

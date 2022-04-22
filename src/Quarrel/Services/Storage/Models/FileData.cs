@@ -15,7 +15,7 @@ namespace Quarrel.Services.Storage.Models
 {
     internal class FileData : IFileData
     {
-        private StorageFile _storageFile;
+        private readonly StorageFile _storageFile;
 
         public FileData(StorageFile storageFile)
         {

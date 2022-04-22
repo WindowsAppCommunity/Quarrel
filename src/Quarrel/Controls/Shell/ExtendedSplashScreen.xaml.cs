@@ -20,7 +20,7 @@ namespace Quarrel.Controls.Shell
         private static readonly DependencyProperty StatusProperty =
             DependencyProperty.Register(nameof(Status), typeof(SplashStatus), typeof(ExtendedSplashScreen), new PropertyMetadata(false, OnStatusChanged));
 
-        private ILocalizationService _localizationService;
+        private readonly ILocalizationService _localizationService;
 
         public ExtendedSplashScreen()
         {
@@ -78,23 +78,12 @@ namespace Quarrel.Controls.Shell
         {
             ExtendedSplashScreen splash = (ExtendedSplashScreen)d;
             SplashStatus status = (SplashStatus)args.NewValue;
-
-            string messageString;
-            switch (status)
+            string messageString = status switch
             {
-                case SplashStatus.Connecting:
-                    messageString = ConnectingString;
-                    break;
-                case SplashStatus.Connected:
-                    messageString = ConnectedString;
-                    break;
-                case SplashStatus.Loading:
-                default:
-                    messageString = LoadingString;
-                    break;
-
-            }
-
+                SplashStatus.Connecting => ConnectingString,
+                SplashStatus.Connected => ConnectedString,
+                _ => LoadingString,
+            };
             string messageText = splash._localizationService[messageString];
             splash.StatusBlock.Text = messageText;
         }

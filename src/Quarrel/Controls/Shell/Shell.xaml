@@ -43,7 +43,7 @@
                                              ShowHamburgerButton="False"
                                              Background="{ThemeResource PrimaryPaneBackground}"
                                              Visibility="Collapsed"/>
-                    <qc:Shadow x:Name="Shadow"
+                    <qc:Shadow x:Name="MessageShadow"
                                Direction="Down" Height="12"
                                VerticalAlignment="Top" Grid.Row="1"/>
                     <panels:MessagePanel Grid.Row="1"/>

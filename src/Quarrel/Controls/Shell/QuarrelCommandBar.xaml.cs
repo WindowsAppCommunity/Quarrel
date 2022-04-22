@@ -19,10 +19,10 @@ namespace Quarrel.Controls.Shell
         private readonly IWindowService _windowService;
         private readonly IMessenger _messenger;
 
-        private DependencyProperty ShowHamburgerButtonProperty =
+        private readonly DependencyProperty ShowHamburgerButtonProperty =
             DependencyProperty.Register(nameof(ShowHamburgerButton), typeof(bool), typeof(QuarrelCommandBar), new PropertyMetadata(true, OnShowHamburgerButtonPropertyChanged));
 
-        private DependencyProperty ShowToggleMemberButtonProperty =
+        private readonly DependencyProperty ShowToggleMemberButtonProperty =
             DependencyProperty.Register(nameof(ShowToggleMemberButton), typeof(bool), typeof(QuarrelCommandBar), new PropertyMetadata(true, OnToggleMemberButtonPropertyChanged));
 
         public QuarrelCommandBar()

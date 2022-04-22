@@ -10,7 +10,7 @@ namespace Quarrel.Controls.Host
 {
     public sealed partial class TitleBar : UserControl
     {
-        private DependencyProperty TitleContentProperty =
+        private readonly DependencyProperty TitleContentProperty =
             DependencyProperty.Register(nameof(TitleContent), typeof(string), typeof(TitleBar), new PropertyMetadata(null, TitleContentPropertyUpdated));
 
         public TitleBar()
