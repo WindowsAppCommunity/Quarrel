@@ -8,7 +8,6 @@ namespace Quarrel
     {
         protected override void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
         {
-            base.OnShareTargetActivated(args);
         }
     }
 }

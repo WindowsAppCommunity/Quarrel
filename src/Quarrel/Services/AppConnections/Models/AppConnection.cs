@@ -7,14 +7,17 @@ namespace Quarrel.Services.AppConnections.Models
 {
     public abstract class AppConnection
     {
-        protected readonly AppServiceConnection _appServiceConnection;
+        private readonly AppServiceConnection _appServiceConnection;
 
         public AppConnection(AppServiceConnection appServiceConnection)
         {
-            Id = $"{Guid.NewGuid()}";
             _appServiceConnection = appServiceConnection;
+            _appServiceConnection.RequestReceived += OnRequestReceived;
+            _appServiceConnection.ServiceClosed += OnServiceClosed;
         }
 
-        public string Id { get; }
+        protected virtual void OnRequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args) { }
+
+        protected virtual void OnServiceClosed(AppServiceConnection sender, AppServiceClosedEventArgs args) { }
     }
 }
