@@ -212,6 +212,10 @@
           <source>Settings</source>
           <target state="translated">הגדרות</target>
         </trans-unit>
+        <trans-unit id="MessageBox/MessageTBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Send message</source>
+          <target state="translated">שלח הודעה</target>
+        </trans-unit>
       </group>
     </body>
   </file>

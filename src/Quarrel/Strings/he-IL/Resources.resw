@@ -167,4 +167,7 @@
   <data name="CommandBar/SettingsMFI.Text" xml:space="preserve">
     <value>הגדרות</value>
   </data>
+  <data name="MessageBox/MessageTBox.PlaceholderText" xml:space="preserve">
+    <value>שלח הודעה</value>
+  </data>
 </root>

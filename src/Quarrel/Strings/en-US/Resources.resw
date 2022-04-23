@@ -272,4 +272,7 @@
   <data name="Login/TokenTBox.PlaceholderText" xml:space="preserve">
     <value>Token</value>
   </data>
+  <data name="MessageBox/MessageTBox.PlaceholderText" xml:space="preserve">
+    <value>Send message</value>
+  </data>
 </root>
