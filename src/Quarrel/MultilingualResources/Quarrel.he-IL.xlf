@@ -216,6 +216,10 @@
           <source>Send message</source>
           <target state="translated">שלח הודעה</target>
         </trans-unit>
+        <trans-unit id="Guilds/Home" translate="yes" xml:space="preserve">
+          <source>Home</source>
+          <target state="translated">בית</target>
+        </trans-unit>
       </group>
     </body>
   </file>

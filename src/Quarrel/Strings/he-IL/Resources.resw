@@ -170,4 +170,7 @@
   <data name="MessageBox/MessageTBox.PlaceholderText" xml:space="preserve">
     <value>שלח הודעה</value>
   </data>
+  <data name="Guilds/Home" xml:space="preserve">
+    <value>בית</value>
+  </data>
 </root>

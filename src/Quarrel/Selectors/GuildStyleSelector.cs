@@ -8,16 +8,19 @@ namespace Quarrel.Selectors
 {
     public class GuildStyleSelector : StyleSelector
     {
-        public Style? GuildFolderStyle { get; set; }
-
         public Style? GuildStyle { get; set; }
+
+        public Style? HomeItemStyle { get; set; }
+
+        public Style? GuildFolderStyle { get; set; }
 
         protected override Style? SelectStyleCore(object item, DependencyObject container)
         {
             return item switch
             {
-                BindableGuildFolder => GuildFolderStyle,
                 BindableGuild => GuildStyle,
+                BindableHomeItem => HomeItemStyle,
+                BindableGuildFolder => GuildFolderStyle,
                 _ => null,
             };
         }

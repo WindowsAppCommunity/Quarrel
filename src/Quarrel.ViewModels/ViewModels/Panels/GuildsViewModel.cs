@@ -8,6 +8,7 @@ using Quarrel.Messages;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
+using Quarrel.Services.Localization;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 
@@ -19,6 +20,7 @@ namespace Quarrel.ViewModels
     public partial class GuildsViewModel : ObservableRecipient
     {
         private readonly IMessenger _messenger;
+        private readonly ILocalizationService _localizationService;
         private readonly IDiscordService _discordService;
         private readonly IDispatcherService _dispatcherService;
         private readonly ConcurrentDictionary<ulong, BindableGuild> _guilds;
@@ -28,9 +30,10 @@ namespace Quarrel.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="GuildsViewModel"/> class.
         /// </summary>
-        public GuildsViewModel(IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
+        public GuildsViewModel(IMessenger messenger, ILocalizationService localizationService, IDiscordService discordService, IDispatcherService dispatcherService)
         {
             _messenger = messenger;
+            _localizationService = localizationService;
             _discordService = discordService;
             _dispatcherService = dispatcherService;
 
@@ -73,6 +76,8 @@ namespace Quarrel.ViewModels
             var folders = _discordService.GetMyGuildFolders();
             _dispatcherService.RunOnUIThread(() =>
             {
+                Source.Clear();
+                Source.Add(new BindableHomeItem(_localizationService));
                 foreach (var folder in folders)
                 {
                     if (folder.Folder.Id is null)
