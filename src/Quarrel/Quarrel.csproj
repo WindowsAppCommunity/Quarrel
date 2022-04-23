@@ -113,6 +113,9 @@
     <Compile Include="Controls\Shell\Panels\Guilds\GuildPanel.xaml.cs">
       <DependentUpon>GuildPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Shell\Panels\Messages\MessageBox.xaml.cs">
+      <DependentUpon>MessageBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Shell\Panels\Messages\MessagePanel.xaml.cs">
       <DependentUpon>MessagePanel.xaml</DependentUpon>
     </Compile>
@@ -463,6 +466,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Shell\Panels\Guilds\GuildPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Shell\Panels\Messages\MessageBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
