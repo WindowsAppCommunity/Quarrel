@@ -39,6 +39,8 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button x:Uid="CommandBar/NewWindowBTN"
+                    ToolTipService.ToolTip="Open Channel in New Window"
+                    ToolTipService.Placement="Bottom"
                     Style="{StaticResource CommandBarButton}"
                     Click="OpenInNewWindow">
                 <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -46,12 +48,16 @@
             </Button>
 
             <Button x:Uid="CommandBar/CallBTN"
+                    ToolTipService.ToolTip="Call"
+                    ToolTipService.Placement="Bottom"
                     Style="{StaticResource CommandBarButton}">
                 <FontIcon Glyph="&#xE13A;" FontSize="16"/>
             </Button>
 
             <Button x:Name="ToggleMembersBTN"
                     x:Uid="CommandBar/ToggleMembersABB"
+                    ToolTipService.ToolTip="Toggle Members Panel"
+                    ToolTipService.Placement="Bottom"
                     Style="{StaticResource CommandBarButton}"
                     Click="ToggleMemberList">
                 <FontIcon Glyph="&#xE125;" FontSize="16"/>
