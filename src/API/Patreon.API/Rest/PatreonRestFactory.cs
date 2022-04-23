@@ -17,7 +17,5 @@ namespace Patreon.API.Rest
         {
             _token = token;
         }
-
-
     }
 }

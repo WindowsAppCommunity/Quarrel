@@ -188,6 +188,34 @@
           <source>Quarrel Release</source>
           <target state="needs-review-translation">קווראל שחרור</target>
         </trans-unit>
+        <trans-unit id="CommandBar/CallBTN.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Call</source>
+          <target state="needs-review-translation">שיחה</target>
+        </trans-unit>
+        <trans-unit id="CommandBar/NewWindowBTN.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Open Channel in New Window</source>
+          <target state="needs-review-translation">פתח הערוץ בחלון חדש</target>
+        </trans-unit>
+        <trans-unit id="CommandBar/ToggleMembersBTN.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Toggle Members Panel</source>
+          <target state="needs-review-translation">פאנל חברים</target>
+        </trans-unit>
+        <trans-unit id="CommandBar/StatusMFI.Text" translate="yes" xml:space="preserve">
+          <source>Discord Status</source>
+          <target state="translated">סטטוס דיסקורד</target>
+        </trans-unit>
+        <trans-unit id="CommandBar/AboutMFI.Text" translate="yes" xml:space="preserve">
+          <source>About</source>
+          <target state="translated">אודות</target>
+        </trans-unit>
+        <trans-unit id="CommandBar/SettingsMFI.Text" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="translated">הגדרות</target>
+        </trans-unit>
+        <trans-unit id="MessageBox/MessageTBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Send message</source>
+          <target state="translated">שלח הודעה</target>
+        </trans-unit>
       </group>
     </body>
   </file>

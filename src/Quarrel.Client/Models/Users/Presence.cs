@@ -13,24 +13,14 @@ namespace Quarrel.Client.Models.Users
     {
         internal Presence(JsonPresence jsonPresence)
         {
-            switch (jsonPresence.Status)
+            Status = jsonPresence.Status switch
             {
-                case "online":
-                    Status = UserStatus.Online;
-                    break;
-                case "idle":
-                    Status = UserStatus.Idle;
-                    break;
-                case "dnd":
-                    Status = UserStatus.DoNotDisturb;
-                    break;
-                case "offline":
-                    Status = UserStatus.Offline;
-                    break;
-                default:
-                    Status = UserStatus.Offline;
-                    break;
-            }
+                "online" => UserStatus.Online,
+                "idle" => UserStatus.Idle,
+                "dnd" => UserStatus.DoNotDisturb,
+                "offline" => UserStatus.Offline,
+                _ => UserStatus.Offline,
+            };
         }
 
         /// <summary>

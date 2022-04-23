@@ -7,7 +7,7 @@ using Quarrel.ViewModels.Panels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Controls.Shell.Panels
+namespace Quarrel.Controls.Shell.Panels.Channels
 {
     public sealed partial class ChannelPanel : UserControl
     {

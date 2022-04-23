@@ -93,7 +93,7 @@ namespace Quarrel.Client.Models.Users
         }
 
         internal virtual JsonUser ToRestUser()
-            => new JsonUser()
+            => new()
             {
                 Id = Id,
                 Username = Username,

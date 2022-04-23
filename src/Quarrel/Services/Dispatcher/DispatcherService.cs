@@ -7,7 +7,7 @@ namespace Quarrel.Services.Dispatcher
 {
     public class DispatcherService : IDispatcherService
     {
-        private DispatcherQueue _dispatcherQueue;
+        private readonly DispatcherQueue _dispatcherQueue;
 
         public DispatcherService()
         {

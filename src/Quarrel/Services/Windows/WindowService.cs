@@ -19,6 +19,7 @@ namespace Quarrel.Services.Windows
             _localizationService = localizationService;
         }
 
+        /// <inheritdoc/>
         public async void OpenSecondaryWindow()
         {
             var currentAppView = ApplicationView.GetForCurrentView();
@@ -29,8 +30,10 @@ namespace Quarrel.Services.Windows
                 var newAppView = ApplicationView.GetForCurrentView();
                 newAppView.Title = "Secondary Window";
 
-                FrameworkElement root = new SecondaryWindowHost();
-                root.FlowDirection = _localizationService.IsRightToLeftLanguage ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+                FrameworkElement root = new SecondaryWindowHost
+                {
+                    FlowDirection = _localizationService.IsRightToLeftLanguage ? FlowDirection.RightToLeft : FlowDirection.LeftToRight
+                };
 
                 newWindow.Content = root;
                 newWindow.Activate();

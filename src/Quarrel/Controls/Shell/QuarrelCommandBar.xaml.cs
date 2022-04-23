@@ -6,6 +6,7 @@ using Quarrel.Messages;
 using Quarrel.Messages.Navigation.SubPages;
 using Quarrel.Messages.Panel;
 using Quarrel.Services.Windows;
+using Quarrel.ViewModels.Panels;
 using Quarrel.ViewModels.SubPages.DiscordStatus;
 using Quarrel.ViewModels.SubPages.Meta;
 using Windows.UI.Xaml;
@@ -13,23 +14,27 @@ using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Shell
 {
-    public sealed partial class QuarrelCommandBar : CommandBar
+    public sealed partial class QuarrelCommandBar : UserControl
     {
         private readonly IWindowService _windowService;
         private readonly IMessenger _messenger;
 
-        private DependencyProperty ShowHamburgerButtonProperty =
-            DependencyProperty.Register(nameof(ShowHamburgerButton), typeof(bool), typeof(QuarrelCommandBar), new PropertyMetadata(true));
+        private readonly DependencyProperty ShowHamburgerButtonProperty =
+            DependencyProperty.Register(nameof(ShowHamburgerButton), typeof(bool), typeof(QuarrelCommandBar), new PropertyMetadata(true, OnShowHamburgerButtonPropertyChanged));
 
-        private DependencyProperty ShowToggleMemberButtonProperty =
-            DependencyProperty.Register(nameof(ShowToggleMemberButton), typeof(bool), typeof(QuarrelCommandBar), new PropertyMetadata(true));
+        private readonly DependencyProperty ShowToggleMemberButtonProperty =
+            DependencyProperty.Register(nameof(ShowToggleMemberButton), typeof(bool), typeof(QuarrelCommandBar), new PropertyMetadata(true, OnToggleMemberButtonPropertyChanged));
 
         public QuarrelCommandBar()
         {
             this.InitializeComponent();
+            DataContext = App.Current.Services.GetRequiredService<ChannelsViewModel>();
+
             _messenger = App.Current.Services.GetRequiredService<IMessenger>();
             _windowService = App.Current.Services.GetRequiredService<IWindowService>();
         }
+
+        public ChannelsViewModel ViewModel => (ChannelsViewModel)DataContext;
 
         public bool ShowHamburgerButton
         {
@@ -54,6 +59,20 @@ namespace Quarrel.Controls.Shell
 
         private void GoToAbout(object sender, RoutedEventArgs e)
             => _messenger.Send(new NavigateToSubPageMessage(typeof(AboutPageViewModel)));
+
+        private static void OnShowHamburgerButtonPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
+        {
+            QuarrelCommandBar commandBar = (QuarrelCommandBar)d;
+            bool newValue = (bool)args.NewValue;
+            commandBar.HamburgerButton.Visibility = newValue ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private static void OnToggleMemberButtonPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
+        {
+            QuarrelCommandBar commandBar = (QuarrelCommandBar)d;
+            bool newValue = (bool)args.NewValue;
+            commandBar.ToggleMembersBTN.Visibility = newValue ? Visibility.Visible : Visibility.Collapsed;
+        }
 
         private void OpenInNewWindow(object sender, RoutedEventArgs e)
         {

@@ -70,19 +70,33 @@ namespace Quarrel.Controls.Shell
             double width = e.NewSize.Width;
             if (width < MediumMinSize)
             {
+                RootCommandBar.Visibility = Visibility.Visible;
+                PanelCommandBar.Visibility= Visibility.Collapsed;
+                MessageShadow.Visibility = Visibility.Collapsed;
                 Drawer.Size = SideDrawerSize.Small;
             }
             else if (width < LargeMinSize)
             {
+                RootCommandBar.Visibility = Visibility.Visible;
+                PanelCommandBar.Visibility = Visibility.Collapsed;
+                MessageShadow.Visibility = Visibility.Collapsed;
                 Drawer.Size = SideDrawerSize.Medium;
             }
             else if (width < ExtraLargeMinSize)
             {
+                RootCommandBar.Visibility = Visibility.Collapsed;
+                PanelCommandBar.Visibility = Visibility.Visible;
+                MessageShadow.Visibility = Visibility.Visible;
                 Drawer.Size = SideDrawerSize.Large;
+                PanelCommandBar.ShowToggleMemberButton = true;
             }
             else
             {
+                RootCommandBar.Visibility = Visibility.Collapsed;
+                PanelCommandBar.Visibility = Visibility.Visible;
+                MessageShadow.Visibility = Visibility.Visible;
                 Drawer.Size = SideDrawerSize.ExtraLarge;
+                PanelCommandBar.ShowToggleMemberButton = false;
             }
         }
     }

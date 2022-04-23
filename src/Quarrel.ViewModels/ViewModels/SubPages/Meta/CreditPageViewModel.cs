@@ -53,7 +53,11 @@ namespace Quarrel.ViewModels.SubPages.Meta
             {
                 var contributor = contributors.FirstOrDefault(x => x.Contributor.Name == dev);
                 contributors.Remove(contributor);
-                Developers.Add(await _gitHubService.GetDeveloper(contributor.Contributor));
+                BindableDeveloper? developer = await _gitHubService.GetDeveloper(contributor.Contributor);
+                if (developer != null)
+                {
+                    Developers.Add(developer);
+                }
             }
          
             Contributors.AddRange(contributors);
