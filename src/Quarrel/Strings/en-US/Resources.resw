@@ -169,6 +169,24 @@
   <data name="AppDisplayNameInsider" xml:space="preserve">
     <value>Quarrel Insider</value>
   </data>
+  <data name="CommandBar/AboutMFI.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="CommandBar/CallBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Call</value>
+  </data>
+  <data name="CommandBar/NewWindowBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Open Channel in New Window</value>
+  </data>
+  <data name="CommandBar/SettingsMFI.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="CommandBar/StatusMFI.Text" xml:space="preserve">
+    <value>Discord Status</value>
+  </data>
+  <data name="CommandBar/ToggleMembersBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Toggle Members Panel</value>
+  </data>
   <data name="Credit/CommitsTB.Text" xml:space="preserve">
     <value>Commits</value>
   </data>

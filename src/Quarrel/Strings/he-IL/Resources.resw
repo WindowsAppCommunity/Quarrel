@@ -149,4 +149,22 @@
   <data name="About/QuarrelRelease" xml:space="preserve">
     <value>קווראל שחרור</value>
   </data>
+  <data name="CommandBar/CallBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>שיחה</value>
+  </data>
+  <data name="CommandBar/NewWindowBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>פתח הערוץ בחלון חדש</value>
+  </data>
+  <data name="CommandBar/ToggleMembersBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>פאנל חברים</value>
+  </data>
+  <data name="CommandBar/StatusMFI.Text" xml:space="preserve">
+    <value>סטטוס דיסקורד</value>
+  </data>
+  <data name="CommandBar/AboutMFI.Text" xml:space="preserve">
+    <value>אודות</value>
+  </data>
+  <data name="CommandBar/SettingsMFI.Text" xml:space="preserve">
+    <value>הגדרות</value>
+  </data>
 </root>

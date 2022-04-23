@@ -55,7 +55,7 @@
             </Button>
 
             <Button x:Name="ToggleMembersBTN"
-                    x:Uid="CommandBar/ToggleMembersABB"
+                    x:Uid="CommandBar/ToggleMembersBTN"
                     ToolTipService.ToolTip="Toggle Members Panel"
                     ToolTipService.Placement="Bottom"
                     Style="{StaticResource CommandBarButton}"
