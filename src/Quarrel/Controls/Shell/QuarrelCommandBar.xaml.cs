@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Shell
 {
-    public sealed partial class QuarrelCommandBar : CommandBar
+    public sealed partial class QuarrelCommandBar : UserControl
     {
         private readonly IWindowService _windowService;
         private readonly IMessenger _messenger;
@@ -71,7 +71,7 @@ namespace Quarrel.Controls.Shell
         {
             QuarrelCommandBar commandBar = (QuarrelCommandBar)d;
             bool newValue = (bool)args.NewValue;
-            commandBar.ToggleMembersABB.Visibility = newValue ? Visibility.Visible : Visibility.Collapsed;
+            commandBar.ToggleMembersBTN.Visibility = newValue ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void OpenInNewWindow(object sender, RoutedEventArgs e)
