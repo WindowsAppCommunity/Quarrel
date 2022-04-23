@@ -93,7 +93,7 @@
                     Foreground="{ThemeResource SystemColorHighlightTextBrush}"
                     Style="{ThemeResource TextBlockButtonStyle}"
                     Command="{x:Bind ViewModel.NavigateToSettingsCommand}">
-                    <FontIcon Glyph="" FontSize="16"/>
+                    <SymbolIcon Symbol="Setting"/>
                 </Button>
             </Grid>
         </Button>
