@@ -66,8 +66,7 @@
             <Button Style="{StaticResource CommandBarButton}"
                     Width="56">
                 <Button.Flyout>
-                    <MenuFlyout Placement="BottomEdgeAlignedLeft"
-                                MenuFlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
+                    <MenuFlyout Placement="BottomEdgeAlignedLeft">
                         <MenuFlyoutItem x:Uid="CommandBar/StatusMFI"
                                         Text="Discord Status"
                                         Click="GoToDiscordStatus">
