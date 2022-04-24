@@ -176,4 +176,16 @@
   <data name="Channels/MemberCount" xml:space="preserve">
     <value>{0} חברים</value>
   </data>
+  <data name="And" xml:space="preserve">
+    <value>{0}ו {1}</value>
+    <comment>This is used for an and list of two items</comment>
+  </data>
+  <data name="AndConjunction" xml:space="preserve">
+    <value>{0}, {1}</value>
+    <comment>This is used to form a comma list {0}, {{1}, and {2}}</comment>
+  </data>
+  <data name="OxfordAnd" xml:space="preserve">
+    <value>{0}, ו{1}</value>
+    <comment>This is used for the base item of and conjunction</comment>
+  </data>
 </root>
