@@ -188,4 +188,25 @@
     <value>{0}, ו{1}</value>
     <comment>This is used for the base item of and conjunction</comment>
   </data>
+  <data name="UserSettings/MyAccount" xml:space="preserve">
+    <value>החשבון שלי</value>
+  </data>
+  <data name="UserSettings/Privacy" xml:space="preserve">
+    <value>פרטיות</value>
+  </data>
+  <data name="UserSettings/Connections" xml:space="preserve">
+    <value>חיבורים</value>
+  </data>
+  <data name="UserSettings/Display" xml:space="preserve">
+    <value>להציג</value>
+  </data>
+  <data name="UserSettings/Behavior" xml:space="preserve">
+    <value>התנהגות</value>
+  </data>
+  <data name="UserSettings/Notifications" xml:space="preserve">
+    <value>התראות</value>
+  </data>
+  <data name="UserSettings/Voice" xml:space="preserve">
+    <value>קול</value>
+  </data>
 </root>
