@@ -2,6 +2,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Quarrel.Bindables.Guilds;
+using Quarrel.Bindables.Guilds.Interfaces;
 using Quarrel.ViewModels;
 using Windows.UI.Xaml.Controls;
 
@@ -20,7 +21,7 @@ namespace Quarrel.Controls.Shell.Panels.Guilds
         private void GuildList_OnItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs args)
         {
             var container = (TreeViewItem)sender.ContainerFromItem(args.InvokedItem);
-            if (args.InvokedItem is BindableGuild guild)
+            if (args.InvokedItem is IBindableSelectableGuildItem guild)
             {
                 ViewModel.SelectedGuild = guild;
             }

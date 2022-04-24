@@ -1,9 +1,7 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
-using Discord.API.Gateways;
 using Discord.API.Gateways.Models.Handshake;
-using Quarrel.Client.Models.Users;
 
 namespace Quarrel.Client
 {
@@ -20,6 +18,11 @@ namespace Quarrel.Client
             {
                 // All child members are handled here
                 AddGuild(guild);
+            }
+
+            foreach (var channel in ready.PrivateChannels)
+            {
+                AddChannel(channel);
             }
 
             foreach (var readState in ready.ReadStates)
@@ -39,7 +42,7 @@ namespace Quarrel.Client
 
             UpdateSettings(ready.Settings);
 
-            Guard.IsNotNull<SelfUser>(_selfUser, nameof(Client.QuarrelClient._selfUser));
+            Guard.IsNotNull(_selfUser, nameof(_selfUser));
 
             LoggedIn?.Invoke(this, _selfUser);
         }

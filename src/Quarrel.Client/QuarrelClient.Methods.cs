@@ -2,6 +2,8 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Json.Messages;
+using Quarrel.Client.Models.Channels;
+using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Guilds;
 using Quarrel.Client.Models.Messages;
 using Quarrel.Client.Models.Settings;
@@ -104,6 +106,25 @@ namespace Quarrel.Client
         {
             Guard.IsNotNull(_settings, nameof(_settings));
             return _settings.Folders;
+        }
+
+        public IPrivateChannel[] GetPrivateChannels()
+        {
+            IPrivateChannel[] privateChannels = new IPrivateChannel[_privateChannels.Count];
+            int i = 0;
+            foreach (var channelId in _privateChannels)
+            {
+                var channel = GetChannelInternal(channelId);
+                if (channel is IPrivateChannel directChannel)
+                {
+                    privateChannels[i] = directChannel;
+                    i++;
+                }
+            }
+
+            Array.Resize(ref privateChannels, i);
+
+            return privateChannels;
         }
 
         private async Task<T?> MakeRefitRequest<T>(Func<Task<T>> request)

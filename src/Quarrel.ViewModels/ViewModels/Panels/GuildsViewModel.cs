@@ -25,7 +25,7 @@ namespace Quarrel.ViewModels
         private readonly IDispatcherService _dispatcherService;
         private readonly ConcurrentDictionary<ulong, BindableGuild> _guilds;
 
-        private BindableGuild? _selectedGuild;
+        private IBindableSelectableGuildItem? _selectedGuild;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuildsViewModel"/> class.
@@ -47,7 +47,7 @@ namespace Quarrel.ViewModels
         /// <summary>
         /// Gets or sets the selected guild.
         /// </summary>
-        public BindableGuild? SelectedGuild
+        public IBindableSelectableGuildItem? SelectedGuild
         {
             get => _selectedGuild;
             set
@@ -58,7 +58,7 @@ namespace Quarrel.ViewModels
                 if (SetProperty(ref _selectedGuild, value) && value is not null)
                 {
                     value.IsSelected = true;
-                    _messenger.Send(new NavigateToGuildMessage<BindableGuild>(value));
+                    _messenger.Send(new NavigateToGuildMessage<IBindableSelectableGuildItem>(value));
                 }
             }
         }
@@ -77,7 +77,7 @@ namespace Quarrel.ViewModels
             _dispatcherService.RunOnUIThread(() =>
             {
                 Source.Clear();
-                Source.Add(new BindableHomeItem(_localizationService));
+                Source.Add(new BindableHomeItem(_discordService, _dispatcherService, _localizationService));
                 foreach (var folder in folders)
                 {
                     if (folder.Folder.Id is null)

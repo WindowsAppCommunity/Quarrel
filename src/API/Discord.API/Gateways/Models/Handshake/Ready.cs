@@ -28,6 +28,9 @@ namespace Discord.API.Gateways.Models.Handshake
         [JsonPropertyName("guilds")]
         public JsonGuild[] Guilds { get; set; }
 
+        [JsonPropertyName("private_channels")]
+        public JsonChannel[] PrivateChannels { get; set; }
+
         [JsonPropertyName("session_id")]
         public string SessionId { get; set; }
 

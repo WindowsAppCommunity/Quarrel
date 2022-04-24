@@ -5,6 +5,7 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Guilds;
+using Quarrel.Bindables.Guilds.Interfaces;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace Quarrel.ViewModels.Panels
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
 
-        private BindableGuild? _currentGuild;
+        private IBindableSelectableGuildItem? _currentGuild;
         private IBindableSelectableChannel? _selectedChannel;
 
         private IEnumerable<BindableChannelGroup>? _groupedSource;
@@ -32,7 +33,7 @@ namespace Quarrel.ViewModels.Panels
             _messenger = messenger;
             _discordService = discordService;
 
-            _messenger.Register<NavigateToGuildMessage<BindableGuild>>(this, (_, m) => LoadChannels(m.Guild));
+            _messenger.Register<NavigateToGuildMessage<IBindableSelectableGuildItem>>(this, (_, m) => LoadChannels(m.Guild));
         }
 
         /// <summary>
@@ -73,7 +74,7 @@ namespace Quarrel.ViewModels.Panels
         /// Loads the channels for a guild.
         /// </summary>
         /// <param name="guild">The guild to load.</param>
-        public void LoadChannels(BindableGuild guild)
+        public void LoadChannels(IBindableSelectableGuildItem guild)
         {
             if (guild == _currentGuild)
             {
@@ -81,7 +82,7 @@ namespace Quarrel.ViewModels.Panels
             }
 
             _currentGuild = guild;
-            var channels = _discordService.GetGuildChannelsGrouped(guild, out IBindableSelectableChannel? selected);
+            var channels = guild.GetGroupedChannels(out IBindableSelectableChannel? selected);
             GroupedSource = channels;
             SelectedChannel = selected;
         }

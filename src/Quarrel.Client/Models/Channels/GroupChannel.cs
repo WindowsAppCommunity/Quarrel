@@ -13,7 +13,7 @@ namespace Quarrel.Client.Models.Channels
     /// <summary>
     /// A group dm channel managed by a <see cref="QuarrelClient"/>.
     /// </summary>
-    public class GroupChannel : Channel, IGroupChannel
+    public class GroupChannel : PrivateChannel, IGroupChannel
     {
         internal GroupChannel(JsonChannel restChannel, QuarrelClient context) :
             base(restChannel, context)
