@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:bindablechannel="using:Quarrel.Bindables.Channels.Abstract"
     xmlns:bindablechannels="using:Quarrel.Bindables.Channels"
-    xmlns:selectors="using:Quarrel.Selectors"
+    xmlns:cselectors="using:Quarrel.Selectors.Channels"
     xmlns:wuxdata="using:Windows.UI.Xaml.Data"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -16,22 +16,22 @@
         <CollectionViewSource x:Name="GroupedChannels" IsSourceGrouped="True"
                               Source="{x:Bind ViewModel.GroupedSource, Mode=OneWay}"/>
 
-        <selectors:ChannelTemplateSelector x:Key="ChannelTemplateSelector"
-                                           TextChannelTemplate="{StaticResource TextChannelTemplate}"
-                                           DirectChannelTemplate="{StaticResource DirectChannelTemplate}"
-                                           GroupChannelTemplate="{StaticResource GroupChannelTemplate}"
-                                           VoiceChannelTemplate="{StaticResource VoiceChannelTemplate}"
-                                           CategoryChannelTemplate="{StaticResource CategoryZoomInChannelTemplate}"/>
+        <cselectors:ChannelTemplateSelector x:Key="ChannelTemplateSelector"
+                                            TextChannelTemplate="{StaticResource TextChannelTemplate}"
+                                            DirectChannelTemplate="{StaticResource DirectChannelTemplate}"
+                                            GroupChannelTemplate="{StaticResource GroupChannelTemplate}"
+                                            VoiceChannelTemplate="{StaticResource VoiceChannelTemplate}"
+                                            CategoryChannelTemplate="{StaticResource CategoryZoomInChannelTemplate}"/>
 
-        <selectors:ChannelEnabledStyleSelector x:Key="ChannelStyleSelector"
-                                               EnabledStyle="{StaticResource ChannelListItemStyle}">
-            <selectors:ChannelEnabledStyleSelector.DisabledStyle>
+        <cselectors:ChannelEnabledStyleSelector x:Key="ChannelStyleSelector"
+                                                EnabledStyle="{StaticResource ChannelListItemStyle}">
+            <cselectors:ChannelEnabledStyleSelector.DisabledStyle>
                 <Style BasedOn="{StaticResource ChannelListItemStyle}"
                        TargetType="ListViewItem">
                     <Setter Property="IsEnabled" Value="False"/>
                 </Style>
-            </selectors:ChannelEnabledStyleSelector.DisabledStyle>
-        </selectors:ChannelEnabledStyleSelector>
+            </cselectors:ChannelEnabledStyleSelector.DisabledStyle>
+        </cselectors:ChannelEnabledStyleSelector>
 
     </UserControl.Resources>
 

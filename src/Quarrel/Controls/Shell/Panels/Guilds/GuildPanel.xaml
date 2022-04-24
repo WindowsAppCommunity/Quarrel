@@ -7,21 +7,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:selectors="using:Quarrel.Selectors"
+    xmlns:gselectors="using:Quarrel.Selectors.Guilds"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="72">
 
     <UserControl.Resources>
-        <selectors:GuildTemplateSelector x:Key="GuildTemplateSelector"
-                                         GuildTemplate="{StaticResource GuildTemplate}"
-                                         HomeItemTemplate="{StaticResource HomeItemTemplate}"
-                                         GuildFolderTemplate="{StaticResource GuildFolderTemplate}"/>
+        <gselectors:GuildTemplateSelector x:Key="GuildTemplateSelector"
+                                          GuildTemplate="{StaticResource GuildTemplate}"
+                                          HomeItemTemplate="{StaticResource HomeItemTemplate}"
+                                          GuildFolderTemplate="{StaticResource GuildFolderTemplate}"/>
 
-        <selectors:GuildStyleSelector x:Key="GuildStyleSelector"
-                                      GuildStyle="{StaticResource GuildListItemStyle}"
-                                      HomeItemStyle="{StaticResource GuildListItemStyle}"
-                                      GuildFolderStyle="{StaticResource GuildFolderItemStyle}"/>
+        <gselectors:GuildStyleSelector x:Key="GuildStyleSelector"
+                                       GuildStyle="{StaticResource GuildListItemStyle}"
+                                       HomeItemStyle="{StaticResource GuildListItemStyle}"
+                                       GuildFolderStyle="{StaticResource GuildFolderItemStyle}"/>
         <Style x:Key="TreeViewStyle1" TargetType="TreeView">
             <Setter Property="IsTabStop" Value="False"/>
             <Setter Property="CanDragItems" Value="False"/>

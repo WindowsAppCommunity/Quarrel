@@ -6,7 +6,7 @@ using Quarrel.ViewModels.SubPages.Settings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Selectors
+namespace Quarrel.Selectors.SubPages
 {
     public class SubPageTemplateSelector : DataTemplateSelector
     {

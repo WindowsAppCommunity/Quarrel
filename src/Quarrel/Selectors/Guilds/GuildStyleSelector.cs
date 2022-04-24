@@ -4,7 +4,7 @@ using Quarrel.Bindables.Guilds;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Selectors
+namespace Quarrel.Selectors.Guilds
 {
     public class GuildStyleSelector : StyleSelector
     {

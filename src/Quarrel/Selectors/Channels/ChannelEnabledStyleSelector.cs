@@ -4,7 +4,7 @@ using Quarrel.Bindables.Channels.Abstract;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Selectors
+namespace Quarrel.Selectors.Channels
 {
     public class ChannelEnabledStyleSelector : StyleSelector
     {
