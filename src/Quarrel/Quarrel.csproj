@@ -139,6 +139,7 @@
       <DependentUpon>UserIcon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\CaseConverter.cs" />
+    <Compile Include="Converters\DataTemplates\Channels\MemberCountConverter.cs" />
     <Compile Include="Converters\EqualityConverter.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\NotBoolToVisibilityConverter.cs" />

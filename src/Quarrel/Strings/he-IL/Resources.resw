@@ -173,4 +173,7 @@
   <data name="Guilds/Home" xml:space="preserve">
     <value>בית</value>
   </data>
+  <data name="Channels/MemberCount" xml:space="preserve">
+    <value>{0} חברים</value>
+  </data>
 </root>

@@ -44,5 +44,10 @@ namespace Quarrel.Bindables.Channels
         /// Gets the recipients of the group channel as a <see cref="BindableUser"/> array.
         /// </summary>
         public BindableUser[] Recipients { get; }
+
+        /// <summary>
+        /// Gets the number of members in the group channel.
+        /// </summary>
+        public int MemberCount => Recipients.Length + 1;
     }
 }

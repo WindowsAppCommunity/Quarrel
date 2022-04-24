@@ -169,6 +169,9 @@
   <data name="AppDisplayNameInsider" xml:space="preserve">
     <value>Quarrel Insider</value>
   </data>
+  <data name="Channels/MemberCount" xml:space="preserve">
+    <value>{0} Members</value>
+  </data>
   <data name="CommandBar/AboutMFI.Text" xml:space="preserve">
     <value>About</value>
   </data>

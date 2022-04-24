@@ -220,6 +220,10 @@
           <source>Home</source>
           <target state="translated">בית</target>
         </trans-unit>
+        <trans-unit id="Channels/MemberCount" translate="yes" xml:space="preserve">
+          <source>{0} Members</source>
+          <target state="needs-review-translation">{0} חברים</target>
+        </trans-unit>
       </group>
     </body>
   </file>
