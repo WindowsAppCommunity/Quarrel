@@ -5,6 +5,7 @@ using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
+using Quarrel.Services.Localization;
 
 namespace Quarrel.Bindables.Channels.Abstract
 {
@@ -27,9 +28,9 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <inheritdoc/>
         public IMessageChannel MessageChannel => (IMessageChannel)Channel;
 
-        public static BindablePrivateChannel? Create(IDiscordService discordService, IDispatcherService dispatcherService, IPrivateChannel channel)
+        public static BindablePrivateChannel? Create(IDiscordService discordService, ILocalizationService localizationService, IDispatcherService dispatcherService, IPrivateChannel channel)
         {
-            return BindableChannel.Create(discordService, dispatcherService, channel) as BindablePrivateChannel;
+            return BindableChannel.Create(discordService, localizationService, dispatcherService, channel) as BindablePrivateChannel;
         }
     }
 }

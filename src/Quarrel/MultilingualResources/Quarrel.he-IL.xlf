@@ -224,6 +224,21 @@
           <source>{0} Members</source>
           <target state="needs-review-translation">{0} חברים</target>
         </trans-unit>
+        <trans-unit id="And" translate="yes" xml:space="preserve">
+          <source>{0} and {1}</source>
+          <target state="new">{0} and {1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">This is used for an and list of two items</note>
+        </trans-unit>
+        <trans-unit id="AndConjunction" translate="yes" xml:space="preserve">
+          <source>{0}, {1}</source>
+          <target state="new">{0}, {1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">This is used to form a comma list {0}, {{1}, and {2}}</note>
+        </trans-unit>
+        <trans-unit id="OxfordAnd" translate="yes" xml:space="preserve">
+          <source>{0}, and {1}</source>
+          <target state="new">{0}, and {1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">This is used for the base item of and conjunction</note>
+        </trans-unit>
       </group>
     </body>
   </file>

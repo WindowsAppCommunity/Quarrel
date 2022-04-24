@@ -157,6 +157,14 @@
   <data name="About/ViewOnGitHubTB.Text" xml:space="preserve">
     <value>View code on GitHub</value>
   </data>
+  <data name="And" xml:space="preserve">
+    <value>{0} and {1}</value>
+    <comment>This is used for an and list of two items</comment>
+  </data>
+  <data name="AndConjunction" xml:space="preserve">
+    <value>{0}, {1}</value>
+    <comment>This is used to form a comma list {0}, {{1}, and {2}}</comment>
+  </data>
   <data name="AppDisplayName" xml:space="preserve">
     <value>Quarrel</value>
   </data>
@@ -280,5 +288,9 @@
   </data>
   <data name="MessageBox/MessageTBox.PlaceholderText" xml:space="preserve">
     <value>Send message</value>
+  </data>
+  <data name="OxfordAnd" xml:space="preserve">
+    <value>{0}, and {1}</value>
+    <comment>This is used for the base item of and conjunction</comment>
   </data>
 </root>

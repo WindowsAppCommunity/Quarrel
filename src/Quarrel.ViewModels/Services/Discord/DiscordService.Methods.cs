@@ -134,7 +134,7 @@ namespace Quarrel.Services.Discord
                         category = categories[nestedChannel.CategoryId.Value];
                     }
 
-                    channel = BindableGuildChannel.Create(this, _dispatcherService, nestedChannel, member, category);
+                    channel = BindableGuildChannel.Create(this, _localizationService, _dispatcherService, nestedChannel, member, category);
 
                     if (channel is not null && (channel.Channel.Id == guild.SelectedChannelId || (selectedChannel is null && channel.IsAccessible)) &&
                         channel is IBindableSelectableChannel messageChannel)
@@ -156,7 +156,7 @@ namespace Quarrel.Services.Discord
             int i = 0;
             foreach (var channel in rawChannels)
             {
-                channels[i] = BindablePrivateChannel.Create(this, _dispatcherService, channel);
+                channels[i] = BindablePrivateChannel.Create(this, _localizationService, _dispatcherService, channel);
 
                 if (channels[i] is IBindableSelectableChannel selectableChannel &&
                     selectableChannel.Id == home.SelectedChannelId)
