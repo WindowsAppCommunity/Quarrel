@@ -5,6 +5,7 @@ using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;
+using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 
 namespace Quarrel.Bindables.Channels
@@ -14,8 +15,8 @@ namespace Quarrel.Bindables.Channels
     /// </summary>
     public class BindableTextChannel : BindableGuildChannel, IBindableMessageChannel
     {
-        internal BindableTextChannel(IDispatcherService dispatcherService, GuildTextChannel channel, GuildMember selfMember, BindableCategoryChannel? parent = null) :
-            base(dispatcherService, channel, selfMember, parent)
+        internal BindableTextChannel(IDiscordService discordService, IDispatcherService dispatcherService, GuildTextChannel channel, GuildMember selfMember, BindableCategoryChannel? parent = null) :
+            base(discordService, dispatcherService, channel, selfMember, parent)
         {
         }
         

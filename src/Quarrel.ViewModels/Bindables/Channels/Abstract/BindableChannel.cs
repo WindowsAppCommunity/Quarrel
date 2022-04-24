@@ -5,6 +5,7 @@ using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;
+using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using System;
 
@@ -20,12 +21,17 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableChannel"/> class.
         /// </summary>
-        internal BindableChannel(IDispatcherService dispatcherService, Channel channel) :
-            base(dispatcherService)
+        internal BindableChannel(IDiscordService discordService, IDispatcherService dispatcherService, Channel channel) :
+            base(discordService, dispatcherService)
         {
             _channel = channel;
             _channel.ItemUpdated += AckUpdateRoot;
         }
+
+        /// <summary>
+        /// Gets the id of the channel.
+        /// </summary>
+        public ulong Id => Channel.Id;
 
         /// <summary>
         /// Gets the name of the channel as displayed.
@@ -35,7 +41,7 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <summary>
         /// Gets a bool representing whether or not the channel is a text channel.
         /// </summary>
-        public abstract bool IsTextChannel { get; }
+        public virtual bool IsTextChannel => true;
 
         /// <summary>
         /// Gets the wrapped <see cref="Client.Models.Channels.Abstract.Channel"/>.
@@ -78,17 +84,28 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <summary>
         /// Creates a new instance of a <see cref="BindableChannel"/> based on the type.
         /// </summary>
+        /// <param name="discordService">The discord service to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="dispatcherService">The dispatcher service to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="channel">The channel to wrap.</param>
         /// <param name="member">The current user's guild member for the channel's guild. Null if not a guild channel.</param>
         /// <param name="parent">The parent category of the channel.</param>
-        public static BindableChannel? Create(IDispatcherService dispatcherService, IChannel channel, GuildMember member, BindableCategoryChannel? parent = null)
+        public static BindableChannel? Create(IDiscordService discordService, IDispatcherService dispatcherService, IChannel channel, GuildMember? member = null, BindableCategoryChannel? parent = null)
         {
+            if (member is null)
+            {
+                return channel switch
+                {
+                    DirectChannel c => new BindableDirectChannel(discordService, dispatcherService, c),
+                    GroupChannel c => new BindableGroupChannel(discordService, dispatcherService, c),
+                    _ => null
+                };
+            }
+
             return channel switch
             {
-                GuildTextChannel c => new BindableTextChannel(dispatcherService, c, member, parent),
-                VoiceChannel c => new BindableVoiceChannel(dispatcherService, c, member, parent),
-                CategoryChannel c => new BindableCategoryChannel(dispatcherService, c, member),
+                GuildTextChannel c => new BindableTextChannel(discordService, dispatcherService, c, member, parent),
+                VoiceChannel c => new BindableVoiceChannel(discordService, dispatcherService, c, member, parent),
+                CategoryChannel c => new BindableCategoryChannel(discordService, dispatcherService, c, member),
                 _ => null
             };
         }

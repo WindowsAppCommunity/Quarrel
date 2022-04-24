@@ -30,9 +30,21 @@ namespace Quarrel.Services.Discord
                 return null;
             }
 
-            return new BindableSelfUser(_dispatcherService, user);
+            return new BindableSelfUser(this, _dispatcherService, user);
         }
-        
+
+        /// <inheritdoc/>
+        public BindableUser? GetUser(ulong id)
+        {
+            var user = _quarrelClient.GetUser(id);
+            if (user is not null)
+            {
+                return new BindableUser(this, _dispatcherService, user);
+            }
+
+            return null;
+        }
+
         /// <inheritdoc/>
         public BindableGuild[] GetMyGuilds()
         {
@@ -40,7 +52,7 @@ namespace Quarrel.Services.Discord
             BindableGuild[] guilds = new BindableGuild[rawGuilds.Length];
             for (int i = 0; i < rawGuilds.Length; i++)
             {
-                guilds[i] = new BindableGuild(_dispatcherService, rawGuilds[i]);
+                guilds[i] = new BindableGuild(this, _dispatcherService, rawGuilds[i]);
             }
 
             return guilds;
@@ -53,7 +65,7 @@ namespace Quarrel.Services.Discord
             BindableGuildFolder[] folders = new BindableGuildFolder[rawFolders.Length];
             for (int i = 0; i < rawFolders.Length; i++)
             {
-                folders[i] = new BindableGuildFolder(_dispatcherService, rawFolders[i]);
+                folders[i] = new BindableGuildFolder(this, _dispatcherService, rawFolders[i]);
             }
 
             return folders;
@@ -67,7 +79,7 @@ namespace Quarrel.Services.Discord
             BindableMessage[] messages = new BindableMessage[rawMessages.Length];
             for (int i = 0; i < messages.Length; i++)
             {
-                messages[i] = new BindableMessage(_dispatcherService, rawMessages[i]);
+                messages[i] = new BindableMessage(this, _dispatcherService, rawMessages[i]);
             }
 
             return messages;
@@ -105,7 +117,7 @@ namespace Quarrel.Services.Discord
                 var channel = rawChannels[i];
                 if (channel is CategoryChannel categoryChannel)
                 {
-                    var bindableCategoryChannel = new BindableCategoryChannel(_dispatcherService, categoryChannel, member);
+                    var bindableCategoryChannel = new BindableCategoryChannel(this, _dispatcherService, categoryChannel, member);
                     categories.Add(channel.Id, bindableCategoryChannel);
                     channels[i] = bindableCategoryChannel;
                 }
@@ -122,7 +134,7 @@ namespace Quarrel.Services.Discord
                         category = categories[nestedChannel.CategoryId.Value];
                     }
 
-                    channel = BindableGuildChannel.Create(_dispatcherService, nestedChannel, member, category);
+                    channel = BindableGuildChannel.Create(this, _dispatcherService, nestedChannel, member, category);
 
                     if (channel is not null && (channel.Channel.Id == guild.SelectedChannelId || (selectedChannel is null && channel.IsAccessible)) &&
                         channel is IBindableSelectableChannel messageChannel)
@@ -134,48 +146,28 @@ namespace Quarrel.Services.Discord
 
             return channels;
         }
-        
+
         /// <inheritdoc/>
-        public IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(BindableGuild guild, out IBindableSelectableChannel? selectedChannel)
+        public BindablePrivateChannel?[] GetPrivateChannels(BindableHomeItem home, out IBindableSelectableChannel? selectedChannel)
         {
-            var channels = GetGuildChannels(guild, out selectedChannel);
-
-            var groups = new Dictionary<ulong?, BindableChannelGroup>
+            selectedChannel = null;
+            IPrivateChannel[] rawChannels = _quarrelClient.GetPrivateChannels();
+            BindablePrivateChannel?[] channels = new BindablePrivateChannel[rawChannels.Length];
+            int i = 0;
+            foreach (var channel in rawChannels)
             {
-                { 0, new BindableChannelGroup(_dispatcherService, null) }
-            };
+                channels[i] = BindablePrivateChannel.Create(this, _dispatcherService, channel);
 
-            foreach (var channel in channels)
-            {
-                if (channel is BindableCategoryChannel bindableCategory)
+                if (channels[i] is IBindableSelectableChannel selectableChannel &&
+                    selectableChannel.Id == home.SelectedChannelId)
                 {
-                    groups.Add(channel.Channel.Id, new BindableChannelGroup(_dispatcherService, bindableCategory));
+                    selectedChannel = selectableChannel;
                 }
+
+                i++;
             }
 
-            foreach (var channel in channels)
-            {
-                if (channel is not null && channel is not BindableCategoryChannel)
-                {
-                    ulong parentId = 0;
-                    if (channel.Channel is INestedChannel nestedChannel)
-                    {
-                        parentId = nestedChannel.CategoryId ?? 0;
-                    }
-
-                    if (groups.TryGetValue(parentId, out var group))
-                    {
-                        group.AddChild(channel);
-                    }
-                }
-            }
-
-            if (groups[0].Children.Count == 0)
-            {
-                groups.Remove(0);
-            }
-
-            return groups.Values;
+            return channels;
         }
     }
 }

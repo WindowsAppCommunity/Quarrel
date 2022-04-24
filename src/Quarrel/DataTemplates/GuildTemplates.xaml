@@ -13,6 +13,14 @@
         </Grid>
     </DataTemplate>
 
+    <DataTemplate x:Key="HomeItemTemplate" x:DataType="bindableguilds:BindableHomeItem">
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="6">
+            <Border Width="48" Height="48" CornerRadius="24">
+                <SymbolIcon Symbol="Contact"/>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
     <DataTemplate x:Key="GuildFolderTemplate" x:DataType="bindableguilds:BindableGuildFolder">
         <TreeViewItem ItemsSource="{x:Bind Children, Mode=OneWay}" IsExpanded="True">
             <Grid Height="48" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="6"/>

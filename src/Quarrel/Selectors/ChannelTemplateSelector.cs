@@ -23,6 +23,16 @@ namespace Quarrel.Selectors
         public DataTemplate? VoiceChannelTemplate { get; set; }
 
         /// <summary>
+        /// Gets or sets the direct channel template.
+        /// </summary>
+        public DataTemplate? DirectChannelTemplate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the group channel template.
+        /// </summary>
+        public DataTemplate? GroupChannelTemplate { get; set; }
+
+        /// <summary>
         /// Gets or sets the category channel template.
         /// </summary>
         public DataTemplate? CategoryChannelTemplate { get; set; }
@@ -35,8 +45,10 @@ namespace Quarrel.Selectors
                 return channel switch
                 {
                     BindableTextChannel => TextChannelTemplate,
-                    BindableCategoryChannel => CategoryChannelTemplate,
                     BindableVoiceChannel => VoiceChannelTemplate,
+                    BindableDirectChannel => DirectChannelTemplate,
+                    BindableGroupChannel => GroupChannelTemplate,
+                    BindableCategoryChannel => CategoryChannelTemplate,
                     _ => null,
                 };
             }

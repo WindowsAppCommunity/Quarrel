@@ -2,6 +2,8 @@
 
 using CommunityToolkit.Diagnostics;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using Quarrel.Bindables.Channels.Abstract;
+using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Client;
 using Quarrel.Client.Models.Users;
 using Quarrel.Messages;

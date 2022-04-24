@@ -11,17 +11,20 @@ namespace Quarrel.Selectors
     /// </summary>
     public class GuildTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate? GuildFolderTemplate { get; set; }
-
         public DataTemplate? GuildTemplate { get; set; }
+        
+        public DataTemplate? HomeItemTemplate { get; set; }
+
+        public DataTemplate? GuildFolderTemplate { get; set; }
         
         /// <inheritdoc/>
         protected override DataTemplate? SelectTemplateCore(object item)
         {
             return item switch
             {
-                BindableGuildFolder => GuildFolderTemplate,
                 BindableGuild => GuildTemplate,
+                BindableHomeItem => HomeItemTemplate,
+                BindableGuildFolder => GuildFolderTemplate,
                 _ => null,
             };
         }

@@ -3,6 +3,7 @@
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Users;
+using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 
 namespace Quarrel.Bindables.Channels
@@ -12,8 +13,8 @@ namespace Quarrel.Bindables.Channels
     /// </summary>
     public class BindableVoiceChannel : BindableGuildChannel
     {
-        internal BindableVoiceChannel(IDispatcherService dispatcherService, VoiceChannel channel, GuildMember selfMember, BindableCategoryChannel? parent = null) :
-            base(dispatcherService, channel, selfMember, parent)
+        internal BindableVoiceChannel(IDiscordService discordService, IDispatcherService dispatcherService, VoiceChannel channel, GuildMember selfMember, BindableCategoryChannel? parent = null) :
+            base(discordService, dispatcherService, channel, selfMember, parent)
         {
         }
         

@@ -15,10 +15,12 @@
     <UserControl.Resources>
         <selectors:GuildTemplateSelector x:Key="GuildTemplateSelector"
                                          GuildTemplate="{StaticResource GuildTemplate}"
+                                         HomeItemTemplate="{StaticResource HomeItemTemplate}"
                                          GuildFolderTemplate="{StaticResource GuildFolderTemplate}"/>
 
         <selectors:GuildStyleSelector x:Key="GuildStyleSelector"
                                       GuildStyle="{StaticResource GuildListItemStyle}"
+                                      HomeItemStyle="{StaticResource GuildListItemStyle}"
                                       GuildFolderStyle="{StaticResource GuildFolderItemStyle}"/>
         <Style x:Key="TreeViewStyle1" TargetType="TreeView">
             <Setter Property="IsTabStop" Value="False"/>

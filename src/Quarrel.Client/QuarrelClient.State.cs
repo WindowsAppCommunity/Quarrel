@@ -11,6 +11,7 @@ using Quarrel.Client.Models.Guilds;
 using Quarrel.Client.Models.Settings;
 using Quarrel.Client.Models.Users;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace Quarrel.Client
 {
@@ -24,6 +25,7 @@ namespace Quarrel.Client
         private readonly ConcurrentDictionary<ulong, Channel> _channelMap;
         private readonly ConcurrentDictionary<ulong, User> _userMap;
         private readonly ConcurrentDictionary<(ulong GuildId, ulong UserId), GuildMember> _guildsMemberMap;
+        private readonly HashSet<ulong> _privateChannels;
 
         internal SelfUser? CurrentUser => _selfUser;
 
@@ -108,6 +110,15 @@ namespace Quarrel.Client
                 if (guildId.HasValue && _guildMap.TryGetValue(guildId.Value, out Guild guild))
                 {
                     guild.AddChannel(channel.Id);
+                }
+                else if (jsonChannel.Recipients is not null)
+                {
+                    foreach (var recipient in jsonChannel.Recipients)
+                    {
+                        AddUser(recipient);
+                    }
+
+                    _privateChannels.Add(channel.Id);
                 }
 
                 return true;

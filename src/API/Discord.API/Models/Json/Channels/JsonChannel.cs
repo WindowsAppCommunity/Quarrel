@@ -68,10 +68,6 @@ namespace Discord.API.Models.Json.Channels
         [JsonPropertyName("rtc_region")]
         public string? RTCRegion { get; set; }
 
-        // Direct
-        [JsonPropertyName("recipient")]
-        public JsonUser? Recipient { get; set; }
-
         // Group
         [JsonPropertyName("icon")]
         public string? Icon { get; set; }

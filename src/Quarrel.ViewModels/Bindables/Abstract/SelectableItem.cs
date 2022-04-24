@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Quarrel.Bindables.Interfaces;
+using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 
 namespace Quarrel.Bindables.Abstract
@@ -15,8 +16,8 @@ namespace Quarrel.Bindables.Abstract
         /// <summary>
         /// Initializes a new instance of the <see cref="SelectableItem"/> class.
         /// </summary>
-        public SelectableItem(IDispatcherService dispatcherService) :
-            base(dispatcherService)
+        public SelectableItem(IDiscordService discordService, IDispatcherService dispatcherService) :
+            base(discordService, dispatcherService)
         {
 
         }

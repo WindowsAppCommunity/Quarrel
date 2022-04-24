@@ -13,7 +13,7 @@ namespace Quarrel.Client.Models.Channels
     /// <summary>
     /// A group dm channel managed by a <see cref="QuarrelClient"/>.
     /// </summary>
-    public class GroupChannel : Channel, IGroupChannel
+    public class GroupChannel : PrivateChannel, IGroupChannel
     {
         internal GroupChannel(JsonChannel restChannel, QuarrelClient context) :
             base(restChannel, context)
@@ -25,6 +25,7 @@ namespace Quarrel.Client.Models.Channels
 
             RTCRegion = restChannel.RTCRegion;
             Recipients = restChannel.Recipients.Select(x => new User(x, context)).ToArray();
+            Icon = restChannel.Icon;
             LastMessageId = restChannel.LastMessageId;
         }
 
@@ -36,6 +37,9 @@ namespace Quarrel.Client.Models.Channels
 
         /// <inheritdoc/>
         public User[] Recipients { get; private set; }
+
+        /// <inheritdoc/>
+        public string? Icon { get; private set; }
 
         IUser[] IGroupChannel.Recipients => Recipients;
 
