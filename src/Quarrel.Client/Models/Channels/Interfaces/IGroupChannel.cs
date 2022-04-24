@@ -7,7 +7,7 @@ namespace Quarrel.Client.Models.Channels.Interfaces
     /// <summary>
     /// An interface for group channels.
     /// </summary>
-    public interface IGroupChannel : IPrivateChannel, IMessageChannel, IAudioChannel
+    public interface IGroupChannel : IPrivateChannel
     {
         /// <summary>
         /// The id of the user that owns the channel.

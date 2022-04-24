@@ -32,7 +32,19 @@ namespace Quarrel.Services.Discord
 
             return new BindableSelfUser(this, _dispatcherService, user);
         }
-        
+
+        /// <inheritdoc/>
+        public BindableUser? GetUser(ulong id)
+        {
+            var user = _quarrelClient.GetUser(id);
+            if (user is not null)
+            {
+                return new BindableUser(this, _dispatcherService, user);
+            }
+
+            return null;
+        }
+
         /// <inheritdoc/>
         public BindableGuild[] GetMyGuilds()
         {
@@ -145,6 +157,7 @@ namespace Quarrel.Services.Discord
             foreach (var channel in rawChannels)
             {
                 channels[i] = BindablePrivateChannel.Create(this, _dispatcherService, channel);
+
                 if (channels[i] is IBindableSelectableChannel selectableChannel &&
                     selectableChannel.Id == home.SelectedChannelId)
                 {

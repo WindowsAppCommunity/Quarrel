@@ -111,8 +111,13 @@ namespace Quarrel.Client
                 {
                     guild.AddChannel(channel.Id);
                 }
-                else
+                else if (jsonChannel.Recipients is not null)
                 {
+                    foreach (var recipient in jsonChannel.Recipients)
+                    {
+                        AddUser(recipient);
+                    }
+
                     _privateChannels.Add(channel.Id);
                 }
 

@@ -10,6 +10,8 @@ using Quarrel.Client.Models.Settings;
 using Quarrel.Client.Models.Users;
 using Refit;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Quarrel.Client
@@ -22,6 +24,12 @@ namespace Quarrel.Client
         public SelfUser? GetMe()
         {
             return CurrentUser;
+        }
+
+        public User? GetUser(ulong id)
+        {
+            _userMap.TryGetValue(id, out var user);
+            return user;
         }
 
         /// <summary>
@@ -123,6 +131,16 @@ namespace Quarrel.Client
             }
 
             Array.Resize(ref privateChannels, i);
+            Array.Sort(privateChannels, Comparer<IPrivateChannel>.Create((item1, item2) =>
+            {
+                if (!item2.LastMessageId.HasValue) return -1;
+                if (!item1.LastMessageId.HasValue) return 1;
+
+                long compare = (long)item2.LastMessageId.Value - (long)item1.LastMessageId.Value;
+                if (compare < 0) return -1;
+                if (compare > 0) return 1;
+                return 0;
+            }));
 
             return privateChannels;
         }

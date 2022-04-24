@@ -22,6 +22,13 @@ namespace Quarrel.Services.Discord
         BindableSelfUser? GetMe();
 
         /// <summary>
+        /// Gets a user by id.
+        /// </summary>
+        /// <param name="userId">The id of the user to get.</param>
+        /// <returns>The user of an id.</returns>
+        BindableUser? GetUser(ulong userId);
+
+        /// <summary>
         /// Logs into the discord service by token.
         /// </summary>
         /// <param name="token">The token to use for login.</param>

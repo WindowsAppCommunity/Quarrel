@@ -18,6 +18,7 @@
 
         <selectors:ChannelTemplateSelector x:Key="ChannelTemplateSelector"
                                            TextChannelTemplate="{StaticResource TextChannelTemplate}"
+                                           DirectChannelTemplate="{StaticResource DirectChannelTemplate}"
                                            VoiceChannelTemplate="{StaticResource VoiceChannelTemplate}"
                                            CategoryChannelTemplate="{StaticResource CategoryZoomInChannelTemplate}"/>
 
