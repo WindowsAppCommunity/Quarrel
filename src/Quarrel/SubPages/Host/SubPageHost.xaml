@@ -9,6 +9,7 @@
     xmlns:selectors="using:Quarrel.Selectors"
     xmlns:statuspage="using:Quarrel.SubPages.DiscordStatus"
     xmlns:metapages="using:Quarrel.SubPages.Meta"
+    xmlns:usersettings="using:Quarrel.SubPages.UserSettings"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -26,11 +27,16 @@
         <DataTemplate x:Key="DiscordStatusPageTemplate">
             <statuspage:DiscordStatusPage/>
         </DataTemplate>
+        
+        <DataTemplate x:Key="UserSettingsPageTemplate">
+            <usersettings:UserSettingsPage/>
+        </DataTemplate>
 
         <selectors:SubPageTemplateSelector x:Key="SubPageTemplateSelector"
                                            AboutTemplate="{StaticResource AboutPageTemplate}"
                                            CreditTemplate="{StaticResource CreditPageTemplate}"
-                                           DiscordStatusTemplate="{StaticResource DiscordStatusPageTemplate}"/>
+                                           DiscordStatusTemplate="{StaticResource DiscordStatusPageTemplate}"
+                                           UserSettingsTemplate="{StaticResource UserSettingsPageTemplate}"/>
     </UserControl.Resources>
 
     <Grid>

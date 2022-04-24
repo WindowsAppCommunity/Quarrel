@@ -194,6 +194,9 @@
     <Compile Include="SubPages\Meta\CreditPage.xaml.cs">
       <DependentUpon>CreditPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\UserSettings\UserSettingsPage.xaml.cs">
+      <DependentUpon>UserSettingsPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
     <AppxManifest Include="Package.Dev.appxmanifest">
@@ -551,6 +554,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\Meta\CreditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\UserSettings\UserSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

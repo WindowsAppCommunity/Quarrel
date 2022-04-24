@@ -239,6 +239,34 @@
           <target state="translated">{0}, ו{1}</target>
           <note from="MultilingualBuild" annotates="source" priority="2">This is used for the base item of and conjunction</note>
         </trans-unit>
+        <trans-unit id="UserSettings/MyAccount" translate="yes" xml:space="preserve">
+          <source>My Account</source>
+          <target state="new">My Account</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Privacy" translate="yes" xml:space="preserve">
+          <source>Privacy</source>
+          <target state="new">Privacy</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Connections" translate="yes" xml:space="preserve">
+          <source>Connections</source>
+          <target state="new">Connections</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Display" translate="yes" xml:space="preserve">
+          <source>Display</source>
+          <target state="new">Display</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Behavior" translate="yes" xml:space="preserve">
+          <source>Behavior</source>
+          <target state="new">Behavior</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Notifications" translate="yes" xml:space="preserve">
+          <source>Notifications</source>
+          <target state="new">Notifications</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Voice" translate="yes" xml:space="preserve">
+          <source>Voice</source>
+          <target state="new">Voice</target>
+        </trans-unit>
       </group>
     </body>
   </file>

@@ -293,4 +293,25 @@
     <value>{0}, and {1}</value>
     <comment>This is used for the base item of and conjunction</comment>
   </data>
+  <data name="UserSettings/Behavior" xml:space="preserve">
+    <value>Behavior</value>
+  </data>
+  <data name="UserSettings/Connections" xml:space="preserve">
+    <value>Connections</value>
+  </data>
+  <data name="UserSettings/Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="UserSettings/MyAccount" xml:space="preserve">
+    <value>My Account</value>
+  </data>
+  <data name="UserSettings/Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="UserSettings/Privacy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="UserSettings/Voice" xml:space="preserve">
+    <value>Voice</value>
+  </data>
 </root>
