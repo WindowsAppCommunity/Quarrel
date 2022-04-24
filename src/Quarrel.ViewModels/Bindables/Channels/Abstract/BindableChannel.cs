@@ -29,6 +29,11 @@ namespace Quarrel.Bindables.Channels.Abstract
         }
 
         /// <summary>
+        /// Gets the id of the channel.
+        /// </summary>
+        public ulong Id => Channel.Id;
+
+        /// <summary>
         /// Gets the name of the channel as displayed.
         /// </summary>
         public virtual string? Name => _channel.Name;

@@ -15,6 +15,11 @@ namespace Quarrel.Client.Models.Channels.Interfaces
         ulong OwnerId { get; }
 
         /// <summary>
+        /// Gets the icon id.
+        /// </summary>
+        string? Icon { get; }
+
+        /// <summary>
         /// The list of users in the channel.
         /// </summary>
         IUser[] Recipients { get; }

@@ -25,15 +25,6 @@ namespace Quarrel.Bindables.Channels
         }
 
         /// <inheritdoc/>
-        public ulong Id => Channel.Id;
-
-        /// <inheritdoc/>
-        public bool IsAccessible => true;
-
-        /// <inheritdoc/>
-        public IMessageChannel MessageChannel => (IMessageChannel)Channel;
-
-        /// <inheritdoc/>
         public IDirectChannel DirectChannel => (IDirectChannel)Channel;
 
         /// <inheritdoc/>
