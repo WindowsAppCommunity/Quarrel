@@ -5,8 +5,10 @@ using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Users;
 using Quarrel.Messages;
+using Quarrel.Messages.Navigation.SubPages;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
+using Quarrel.ViewModels.SubPages.Settings;
 
 namespace Quarrel.ViewModels
 {
@@ -46,6 +48,7 @@ namespace Quarrel.ViewModels
         [ICommand]
         public void NavigateToSettings()
         {
+            _messenger.Send(new NavigateToSubPageMessage(typeof(UserSettingsPageViewModel)));
         }
     }
 }

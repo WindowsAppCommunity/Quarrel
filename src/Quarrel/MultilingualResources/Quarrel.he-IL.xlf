@@ -220,6 +220,53 @@
           <source>Home</source>
           <target state="translated">בית</target>
         </trans-unit>
+        <trans-unit id="Channels/MemberCount" translate="yes" xml:space="preserve">
+          <source>{0} Members</source>
+          <target state="needs-review-translation">{0} חברים</target>
+        </trans-unit>
+        <trans-unit id="And" translate="yes" xml:space="preserve">
+          <source>{0} and {1}</source>
+          <target state="translated">{0}ו {1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">This is used for an and list of two items</note>
+        </trans-unit>
+        <trans-unit id="AndConjunction" translate="yes" xml:space="preserve">
+          <source>{0}, {1}</source>
+          <target state="translated">{0}, {1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">This is used to form a comma list {0}, {{1}, and {2}}</note>
+        </trans-unit>
+        <trans-unit id="OxfordAnd" translate="yes" xml:space="preserve">
+          <source>{0}, and {1}</source>
+          <target state="translated">{0}, ו{1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">This is used for the base item of and conjunction</note>
+        </trans-unit>
+        <trans-unit id="UserSettings/MyAccount" translate="yes" xml:space="preserve">
+          <source>My Account</source>
+          <target state="needs-review-translation">החשבון שלי</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Privacy" translate="yes" xml:space="preserve">
+          <source>Privacy</source>
+          <target state="needs-review-translation">פרטיות</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Connections" translate="yes" xml:space="preserve">
+          <source>Connections</source>
+          <target state="needs-review-translation">חיבורים</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Display" translate="yes" xml:space="preserve">
+          <source>Display</source>
+          <target state="needs-review-translation">להציג</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Behavior" translate="yes" xml:space="preserve">
+          <source>Behavior</source>
+          <target state="needs-review-translation">התנהגות</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Notifications" translate="yes" xml:space="preserve">
+          <source>Notifications</source>
+          <target state="needs-review-translation">התראות</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Voice" translate="yes" xml:space="preserve">
+          <source>Voice</source>
+          <target state="needs-review-translation">קול</target>
+        </trans-unit>
       </group>
     </body>
   </file>

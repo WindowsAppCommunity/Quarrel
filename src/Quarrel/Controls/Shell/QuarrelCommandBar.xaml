@@ -66,19 +66,19 @@
             <Button Style="{StaticResource CommandBarButton}"
                     Width="56">
                 <Button.Flyout>
-                    <MenuFlyout Placement="BottomEdgeAlignedLeft"
-                                MenuFlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
+                    <MenuFlyout Placement="BottomEdgeAlignedLeft">
                         <MenuFlyoutItem x:Uid="CommandBar/StatusMFI"
                                         Text="Discord Status"
                                         Click="GoToDiscordStatus">
                             <MenuFlyoutItem.Icon>
+                                <!--&#xE9D2;?-->
                                 <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
                                           Glyph="&#xECAD;"/>
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                         <MenuFlyoutItem x:Uid="CommandBar/SettingsMFI"
-                                        IsEnabled="False"
-                                        Text="Settings">
+                                        Text="Settings"
+                                        Click="GoToSettings">
                             <MenuFlyoutItem.Icon>
                                 <SymbolIcon Symbol="Setting"/>
                             </MenuFlyoutItem.Icon>
@@ -88,7 +88,7 @@
                                         Click="GoToAbout">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                          Glyph="&#xF142;" />
+                                          Glyph="&#xE9CE;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuFlyout>

@@ -173,4 +173,40 @@
   <data name="Guilds/Home" xml:space="preserve">
     <value>בית</value>
   </data>
+  <data name="Channels/MemberCount" xml:space="preserve">
+    <value>{0} חברים</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>{0}ו {1}</value>
+    <comment>This is used for an and list of two items</comment>
+  </data>
+  <data name="AndConjunction" xml:space="preserve">
+    <value>{0}, {1}</value>
+    <comment>This is used to form a comma list {0}, {{1}, and {2}}</comment>
+  </data>
+  <data name="OxfordAnd" xml:space="preserve">
+    <value>{0}, ו{1}</value>
+    <comment>This is used for the base item of and conjunction</comment>
+  </data>
+  <data name="UserSettings/MyAccount" xml:space="preserve">
+    <value>החשבון שלי</value>
+  </data>
+  <data name="UserSettings/Privacy" xml:space="preserve">
+    <value>פרטיות</value>
+  </data>
+  <data name="UserSettings/Connections" xml:space="preserve">
+    <value>חיבורים</value>
+  </data>
+  <data name="UserSettings/Display" xml:space="preserve">
+    <value>להציג</value>
+  </data>
+  <data name="UserSettings/Behavior" xml:space="preserve">
+    <value>התנהגות</value>
+  </data>
+  <data name="UserSettings/Notifications" xml:space="preserve">
+    <value>התראות</value>
+  </data>
+  <data name="UserSettings/Voice" xml:space="preserve">
+    <value>קול</value>
+  </data>
 </root>

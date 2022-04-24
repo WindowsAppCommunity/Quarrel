@@ -85,10 +85,10 @@
                 </StackPanel>
                 
                 <Button
-                    IsEnabled="False"
                     Grid.Column="2"
                     Margin="0,0,16,0"
                     Padding="0"
+                    Opacity=".5"
                     FontFamily="Segoe MDL2 Assets"
                     Foreground="{ThemeResource SystemColorHighlightTextBrush}"
                     Style="{ThemeResource TextBlockButtonStyle}"

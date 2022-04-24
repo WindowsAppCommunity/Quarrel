@@ -157,6 +157,14 @@
   <data name="About/ViewOnGitHubTB.Text" xml:space="preserve">
     <value>View code on GitHub</value>
   </data>
+  <data name="And" xml:space="preserve">
+    <value>{0} and {1}</value>
+    <comment>This is used for an and list of two items</comment>
+  </data>
+  <data name="AndConjunction" xml:space="preserve">
+    <value>{0}, {1}</value>
+    <comment>This is used to form a comma list {0}, {{1}, and {2}}</comment>
+  </data>
   <data name="AppDisplayName" xml:space="preserve">
     <value>Quarrel</value>
   </data>
@@ -168,6 +176,9 @@
   </data>
   <data name="AppDisplayNameInsider" xml:space="preserve">
     <value>Quarrel Insider</value>
+  </data>
+  <data name="Channels/MemberCount" xml:space="preserve">
+    <value>{0} Members</value>
   </data>
   <data name="CommandBar/AboutMFI.Text" xml:space="preserve">
     <value>About</value>
@@ -277,5 +288,30 @@
   </data>
   <data name="MessageBox/MessageTBox.PlaceholderText" xml:space="preserve">
     <value>Send message</value>
+  </data>
+  <data name="OxfordAnd" xml:space="preserve">
+    <value>{0}, and {1}</value>
+    <comment>This is used for the base item of and conjunction</comment>
+  </data>
+  <data name="UserSettings/Behavior" xml:space="preserve">
+    <value>Behavior</value>
+  </data>
+  <data name="UserSettings/Connections" xml:space="preserve">
+    <value>Connections</value>
+  </data>
+  <data name="UserSettings/Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="UserSettings/MyAccount" xml:space="preserve">
+    <value>My Account</value>
+  </data>
+  <data name="UserSettings/Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="UserSettings/Privacy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="UserSettings/Voice" xml:space="preserve">
+    <value>Voice</value>
   </data>
 </root>

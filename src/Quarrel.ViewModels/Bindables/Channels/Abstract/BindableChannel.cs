@@ -7,6 +7,7 @@ using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
+using Quarrel.Services.Localization;
 using System;
 
 namespace Quarrel.Bindables.Channels.Abstract
@@ -84,19 +85,20 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <summary>
         /// Creates a new instance of a <see cref="BindableChannel"/> based on the type.
         /// </summary>
-        /// <param name="discordService">The discord service to pass to the <see cref="BindableItem"/>.</param>
-        /// <param name="dispatcherService">The dispatcher service to pass to the <see cref="BindableItem"/>.</param>
+        /// <param name="discordService">The <see cref="IDiscordService"/> to pass to the <see cref="BindableItem"/>.</param>
+        /// <param name="localizationService">The <see cref="ILocalizationService"/> to pass to the <see cref="BindableItem"/>.</param>
+        /// <param name="dispatcherService">The <see cref="IDispatcherService"/> to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="channel">The channel to wrap.</param>
         /// <param name="member">The current user's guild member for the channel's guild. Null if not a guild channel.</param>
         /// <param name="parent">The parent category of the channel.</param>
-        public static BindableChannel? Create(IDiscordService discordService, IDispatcherService dispatcherService, IChannel channel, GuildMember? member = null, BindableCategoryChannel? parent = null)
+        public static BindableChannel? Create(IDiscordService discordService, ILocalizationService localizationService, IDispatcherService dispatcherService, IChannel channel, GuildMember? member = null, BindableCategoryChannel? parent = null)
         {
             if (member is null)
             {
                 return channel switch
                 {
                     DirectChannel c => new BindableDirectChannel(discordService, dispatcherService, c),
-                    GroupChannel c => new BindableGroupChannel(discordService, dispatcherService, c),
+                    GroupChannel c => new BindableGroupChannel(discordService, localizationService, dispatcherService, c),
                     _ => null
                 };
             }

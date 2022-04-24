@@ -9,6 +9,7 @@ using Quarrel.Services.Windows;
 using Quarrel.ViewModels.Panels;
 using Quarrel.ViewModels.SubPages.DiscordStatus;
 using Quarrel.ViewModels.SubPages.Meta;
+using Quarrel.ViewModels.SubPages.Settings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -59,6 +60,9 @@ namespace Quarrel.Controls.Shell
 
         private void GoToAbout(object sender, RoutedEventArgs e)
             => _messenger.Send(new NavigateToSubPageMessage(typeof(AboutPageViewModel)));
+
+        private void GoToSettings(object sender, RoutedEventArgs e)
+            => _messenger.Send(new NavigateToSubPageMessage(typeof(UserSettingsPageViewModel)));
 
         private static void OnShowHamburgerButtonPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
