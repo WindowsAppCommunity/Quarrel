@@ -11,7 +11,8 @@
     </DataTemplate>
     
     <DataTemplate x:Key="InfoMessageTemplate" x:DataType="bindablemessages:BindableMessage">
-        <FontIcon Glyph="{x:Bind mconvert:MessageIconConverter.Convert(Message.Type)}"/>
+        <FontIcon Glyph="{x:Bind mconvert:InfoMessageIconConverter.Convert(Message.Type)}"
+                  Foreground="{x:Bind mconvert:InfoMessageColorConverter.Convert(Message.Type)}"/>
     </DataTemplate>
     
 </ResourceDictionary>
