@@ -28,8 +28,13 @@
                          Margin="0,6,0,0"
                          GroupName="Filtering">
                 <StackPanel>
-                    <TextBlock x:Uid="UserSettings/ProtectMeTB" Text="Protect me"/>
-                    <TextBlock x:Uid="UserSettings/ProtectMeDescTB" FontSize="11" Foreground="{ThemeResource InvertedBackground}" Opacity="0.5" TextWrapping="Wrap" Text="Analyze all DMs" />
+                    <TextBlock x:Uid="UserSettings/ProtectMeTB"
+                               Text="Protect me"/>
+                    <TextBlock x:Uid="UserSettings/ProtectMeDescTB"
+                               Text="Analyze all DMs"
+                               FontSize="11" TextWrapping="Wrap"
+                               Opacity="0.5"
+                               Foreground="{ThemeResource InvertedBackground}"/>
                 </StackPanel>
             </RadioButton>
             <RadioButton IsChecked="{x:Bind ViewModel.FilterPublic, Mode=TwoWay}"
@@ -37,8 +42,13 @@
                          Foreground="{StaticResource DiscordYellowBrush}"
                          GroupName="Filtering">
                 <StackPanel>
-                    <TextBlock x:Uid="UserSettings/NiceFriendsTB" Text="My friends are nice"/>
-                    <TextBlock x:Uid="UserSettings/NiceFriendsDescTB" FontSize="11" Foreground="{ThemeResource InvertedBackground}" Opacity="0.5" TextWrapping="Wrap" Text="Analyze all DMs, except from my friends"/>
+                    <TextBlock x:Uid="UserSettings/NiceFriendsTB"
+                               Text="My friends are nice"/>
+                    <TextBlock x:Uid="UserSettings/NiceFriendsDescTB"
+                               Text="Analyze all DMs, except from my friends"
+                               FontSize="11" TextWrapping="Wrap"
+                               Opacity="0.5"
+                               Foreground="{ThemeResource InvertedBackground}"/>
                 </StackPanel>
             </RadioButton>
             <RadioButton IsChecked="{x:Bind ViewModel.FilterNone, Mode=TwoWay}"
@@ -46,8 +56,13 @@
                          Foreground="{StaticResource DiscordRedBrush}"
                          GroupName="Filtering">
                 <StackPanel>
-                    <TextBlock x:Uid="UserSettings/DangerZoneTB" Text="I live dangerously"/>
-                    <TextBlock x:Uid="UserSettings/DangerZoneDescTB" FontSize="11" Foreground="{ThemeResource InvertedBackground}" Opacity="0.5" TextWrapping="Wrap" Text="Don't analyze any DMs"/>
+                    <TextBlock x:Uid="UserSettings/DangerZoneTB"
+                               Text="I live dangerously"/>
+                    <TextBlock x:Uid="UserSettings/DangerZoneDescTB"
+                               Text="Don't analyze any DMs"
+                               FontSize="11" TextWrapping="Wrap"
+                               Opacity="0.5"
+                               Foreground="{ThemeResource InvertedBackground}"/>
                 </StackPanel>
             </RadioButton>
         </StackPanel>

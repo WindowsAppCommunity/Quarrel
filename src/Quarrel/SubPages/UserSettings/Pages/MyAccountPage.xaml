@@ -18,7 +18,7 @@
 
         <ScrollViewer>
             <StackPanel Padding="16">
-                <TextBox x:Uid="UserSettings/EmailTB"
+                <TextBox x:Uid="UserSettings/EmailTBox"
                          Header="Email"
                          Text="{x:Bind ViewModel.Email, Mode=TwoWay}"
                          IsReadOnly="True"
@@ -28,13 +28,13 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="128"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Uid="UserSettings/UsernameTB"
+                    <TextBox x:Uid="UserSettings/UsernameTBox"
                              Header="Username"
                              Text="{x:Bind ViewModel.Username, Mode=TwoWay}"
                              IsReadOnly="True"
                              Margin="0,0,8,0"
                              Style="{StaticResource DiscordTextBox}"/>
-                    <TextBox x:Uid="UserSettings/DiscriminatorTB"
+                    <TextBox x:Uid="UserSettings/DiscriminatorTBox"
                              Header="Discriminator"
                              Text="{x:Bind ViewModel.Discriminator, Mode=TwoWay}"
                              Grid.Column="1"
@@ -42,7 +42,7 @@
                              Style="{StaticResource DiscordTextBox}"/>
                 </Grid>
 
-                <TextBox x:Uid="UserSettings/AboutMeTB"
+                <TextBox x:Uid="UserSettings/AboutMeTBox"
                          Header="About Me"
                          Text="{x:Bind ViewModel.AboutMe, Mode=TwoWay}"
                          Style="{StaticResource DiscordTextBox}"
