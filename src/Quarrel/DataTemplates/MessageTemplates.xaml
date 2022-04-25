@@ -1,0 +1,17 @@
+﻿<ResourceDictionary
+    x:Class="Quarrel.DataTemplates.MessageTemplates"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:tc="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:mconvert="using:Quarrel.Converters.DataTemplates.Messages"
+    xmlns:bindablemessages="using:Quarrel.Bindables.Messages">
+
+    <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
+        <TextBlock Text="{x:Bind Message.Content}"/>
+    </DataTemplate>
+    
+    <DataTemplate x:Key="InfoMessageTemplate" x:DataType="bindablemessages:BindableMessage">
+        <FontIcon Glyph="{x:Bind mconvert:MessageIconConverter.Convert(Message.Type)}"/>
+    </DataTemplate>
+    
+</ResourceDictionary>
