@@ -18,8 +18,13 @@
             <pages:MyAccountPage/>
         </DataTemplate>
         
+        <DataTemplate x:Key="PrivacyPageTemplate" x:DataType="ssub:PrivacyPageViewModel">
+            <pages:PrivacyPage/>
+        </DataTemplate>
+        
         <usselector:UserSettingsPageSelector x:Key="UserPageSelector"
-                                             MyAccountTemplate="{StaticResource MyAccountPageTemplate}"/>
+                                             MyAccountTemplate="{StaticResource MyAccountPageTemplate}"
+                                             PrivacyTemplate="{StaticResource PrivacyPageTemplate}"/>
     </UserControl.Resources>
 
     <Grid Width="800" Height="620">

@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Models.Enums.Guilds;
+using Discord.API.Models.Enums.Settings;
 using Quarrel.Client.Models.Base.Interfaces;
 
 namespace Quarrel.Client.Models.Guilds.Interfaces

@@ -23,7 +23,7 @@ namespace Quarrel.ViewModels.SubPages.Settings
             Pages = new ObservableCollection<UserSettingsSubPageViewModel>();
 
             Pages.Add(new MyAccountPageViewModel(localizationService, storageService, discordService));
-            Pages.Add(new PrivacyPageViewModel(_localizationService, storageService));
+            Pages.Add(new PrivacyPageViewModel(_localizationService, storageService, discordService));
             Pages.Add(new ConnectionsPageViewModel(_localizationService, storageService));
 
             Pages.Add(new DisplayPageViewModel(_localizationService, storageService));

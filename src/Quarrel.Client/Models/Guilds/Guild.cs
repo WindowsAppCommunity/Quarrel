@@ -2,6 +2,7 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Enums.Guilds;
+using Discord.API.Models.Enums.Settings;
 using Discord.API.Models.Json.Guilds;
 using Quarrel.Client.Models.Base;
 using Quarrel.Client.Models.Channels.Abstract;

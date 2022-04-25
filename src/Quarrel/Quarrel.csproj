@@ -198,6 +198,9 @@
     <Compile Include="SubPages\UserSettings\Pages\MyAccountPage.xaml.cs">
       <DependentUpon>MyAccountPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\UserSettings\Pages\PrivacyPage.xaml.cs">
+      <DependentUpon>PrivacyPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\UserSettings\UserSettingsPage.xaml.cs">
       <DependentUpon>UserSettingsPage.xaml</DependentUpon>
     </Compile>
@@ -562,6 +565,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\UserSettings\Pages\MyAccountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\UserSettings\Pages\PrivacyPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

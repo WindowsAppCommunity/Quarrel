@@ -16,39 +16,41 @@
             <ColumnDefinition Width="256"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Padding="16">
-            <TextBox x:Uid="UserSettings/EmailTB"
-                     Header="Email"
-                     Text="{x:Bind ViewModel.Email, Mode=TwoWay}"
-                     IsReadOnly="True"
-                     Style="{StaticResource DiscordTextBox}"/>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="128"/>
-                </Grid.ColumnDefinitions>
-                <TextBox x:Uid="UserSettings/UsernameTB"
-                         Header="Username"
-                         Text="{x:Bind ViewModel.Username, Mode=TwoWay}"
-                         IsReadOnly="True"
-                         Margin="0,0,8,0"
-                         Style="{StaticResource DiscordTextBox}"/>
-                <TextBox x:Uid="UserSettings/DiscriminatorTB"
-                         Header="Discriminator"
-                         Text="{x:Bind ViewModel.Discriminator, Mode=TwoWay}"
-                         Grid.Column="1"
+        <ScrollViewer>
+            <StackPanel Padding="16">
+                <TextBox x:Uid="UserSettings/EmailTB"
+                         Header="Email"
+                         Text="{x:Bind ViewModel.Email, Mode=TwoWay}"
                          IsReadOnly="True"
                          Style="{StaticResource DiscordTextBox}"/>
-            </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="128"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Uid="UserSettings/UsernameTB"
+                             Header="Username"
+                             Text="{x:Bind ViewModel.Username, Mode=TwoWay}"
+                             IsReadOnly="True"
+                             Margin="0,0,8,0"
+                             Style="{StaticResource DiscordTextBox}"/>
+                    <TextBox x:Uid="UserSettings/DiscriminatorTB"
+                             Header="Discriminator"
+                             Text="{x:Bind ViewModel.Discriminator, Mode=TwoWay}"
+                             Grid.Column="1"
+                             IsReadOnly="True"
+                             Style="{StaticResource DiscordTextBox}"/>
+                </Grid>
 
-            <TextBox x:Uid="UserSettings/AboutMeTB"
-                     Header="About Me"
-                     Text="{x:Bind ViewModel.AboutMe, Mode=TwoWay}"
-                     Style="{StaticResource DiscordTextBox}"
-                     TextWrapping="Wrap"
-                     IsReadOnly="True"
-                     MinHeight="96"/>
-        </StackPanel>
+                <TextBox x:Uid="UserSettings/AboutMeTB"
+                         Header="About Me"
+                         Text="{x:Bind ViewModel.AboutMe, Mode=TwoWay}"
+                         Style="{StaticResource DiscordTextBox}"
+                         TextWrapping="Wrap"
+                         IsReadOnly="True"
+                         MinHeight="96"/>
+            </StackPanel>
+        </ScrollViewer>
 
         <Grid Grid.Column="1">
 
