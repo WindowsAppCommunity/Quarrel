@@ -32,7 +32,7 @@ namespace Quarrel.Client
             return user;
         }
 
-        public Settings GetSettings()
+        public Settings? GetSettings()
         {
             return _settings;
         }

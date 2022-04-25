@@ -23,17 +23,12 @@ namespace Quarrel.Client.Models.Channels
 
             OwnerId = restChannel.OwnerId.Value;
 
-            RTCRegion = restChannel.RTCRegion;
             Recipients = restChannel.Recipients.Select(x => new User(x, context)).ToArray();
             Icon = restChannel.Icon;
-            LastMessageId = restChannel.LastMessageId;
         }
 
         /// <inheritdoc/>
         public ulong OwnerId { get; private set; }
-
-        /// <inheritdoc/>
-        public string? RTCRegion { get; private set; }
 
         /// <inheritdoc/>
         public User[] Recipients { get; private set; }
@@ -42,36 +37,6 @@ namespace Quarrel.Client.Models.Channels
         public string? Icon { get; private set; }
 
         IUser[] IGroupChannel.Recipients => Recipients;
-
-        /// <inheritdoc/>
-        public int? MentionCount { get; internal set; }
-
-        /// <inheritdoc/>
-        public ulong? LastMessageId { get; internal set; }
-
-        /// <inheritdoc/>
-        public ulong? LastReadMessageId { get; internal set; }
-
-        /// <inheritdoc/>
-        public bool IsUnread => LastMessageId > LastReadMessageId;
-
-        int? IMessageChannel.MentionCount
-        {
-            get => MentionCount;
-            set => MentionCount = value;
-        }
-
-        ulong? IMessageChannel.LastMessageId
-        {
-            get => LastMessageId;
-            set => LastMessageId = value;
-        }
-
-        ulong? IMessageChannel.LastReadMessageId
-        {
-            get => LastReadMessageId;
-            set => LastReadMessageId = value;
-        }
 
         internal override JsonChannel ToJsonChannel()
         {
