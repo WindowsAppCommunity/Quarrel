@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Quarrel.ViewModels.Panels;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Controls.Shell.Panels.Messages
+namespace Quarrel.Controls.Panels.Messages
 {
     public sealed partial class MessagePanel : UserControl
     {

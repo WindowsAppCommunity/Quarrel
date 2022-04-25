@@ -1,13 +1,12 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Extensions.DependencyInjection;
-using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.ViewModels.Panels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Controls.Shell.Panels.Channels
+namespace Quarrel.Controls.Panels.Channels
 {
     public sealed partial class ChannelPanel : UserControl
     {

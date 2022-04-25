@@ -1,12 +1,11 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Extensions.DependencyInjection;
-using Quarrel.Bindables.Guilds;
 using Quarrel.Bindables.Guilds.Interfaces;
 using Quarrel.ViewModels;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Controls.Shell.Panels.Guilds
+namespace Quarrel.Controls.Panels.Guilds
 {
     public sealed partial class GuildPanel : UserControl
     {

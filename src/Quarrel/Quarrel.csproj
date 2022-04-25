@@ -98,25 +98,25 @@
     <Compile Include="Controls\Shadow.xaml.cs">
       <DependentUpon>Shadow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\Panels\Channels\CurrentUserButton.xaml.cs">
+    <Compile Include="Controls\Panels\Channels\CurrentUserButton.xaml.cs">
       <DependentUpon>CurrentUserButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Host\ExtendedSplashScreen.xaml.cs">
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\Panels\Channels\GuildHeader.xaml.cs">
+    <Compile Include="Controls\Panels\Channels\GuildHeader.xaml.cs">
       <DependentUpon>GuildHeader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\Panels\Channels\ChannelPanel.xaml.cs">
+    <Compile Include="Controls\Panels\Channels\ChannelPanel.xaml.cs">
       <DependentUpon>ChannelPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\Panels\Guilds\GuildPanel.xaml.cs">
+    <Compile Include="Controls\Panels\Guilds\GuildPanel.xaml.cs">
       <DependentUpon>GuildPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\Panels\Messages\MessageBox.xaml.cs">
+    <Compile Include="Controls\Panels\Messages\MessageBox.xaml.cs">
       <DependentUpon>MessageBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\Panels\Messages\MessagePanel.xaml.cs">
+    <Compile Include="Controls\Panels\Messages\MessagePanel.xaml.cs">
       <DependentUpon>MessagePanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Shell\QuarrelCommandBar.xaml.cs">
@@ -466,7 +466,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\Panels\Channels\CurrentUserButton.xaml">
+    <Page Include="Controls\Panels\Channels\CurrentUserButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -474,23 +474,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\Panels\Channels\GuildHeader.xaml">
+    <Page Include="Controls\Panels\Channels\GuildHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\Panels\Channels\ChannelPanel.xaml">
+    <Page Include="Controls\Panels\Channels\ChannelPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\Panels\Guilds\GuildPanel.xaml">
+    <Page Include="Controls\Panels\Guilds\GuildPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\Panels\Messages\MessageBox.xaml">
+    <Page Include="Controls\Panels\Messages\MessageBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\Panels\Messages\MessagePanel.xaml">
+    <Page Include="Controls\Panels\Messages\MessagePanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

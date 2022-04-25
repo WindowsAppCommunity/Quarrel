@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Quarrel.ViewModels;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Controls.Shell.Panels.Channels
+namespace Quarrel.Controls.Panels.Channels
 {
     public sealed partial class GuildHeader : UserControl
     {
