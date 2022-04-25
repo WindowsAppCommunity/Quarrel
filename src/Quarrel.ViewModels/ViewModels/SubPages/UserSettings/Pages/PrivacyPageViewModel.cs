@@ -24,6 +24,8 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 
         public override string Title => _localizationService[PrivacyResource];
 
+        public override bool IsActive => true;
+
         private ExplicitContentFilterLevel ContentFilterLevel
         {
             get => _contentFilterLevel;

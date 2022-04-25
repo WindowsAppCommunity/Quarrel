@@ -36,6 +36,8 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
         /// <inheritdoc/>
         public override string Title => _localizationService[MyAccountResource];
 
+        public override bool IsActive => true;
+
         public string? Email
         {
             get => _email;

@@ -37,9 +37,9 @@
                         MenuItemsSource="{x:Bind ViewModel.Pages, Mode=OneWay}">
             <NavigationView.MenuItemTemplate>
                 <DataTemplate x:DataType="assub:UserSettingsSubPageViewModel">
-                    <NavigationViewItem Content="{x:Bind Title}">
+                    <NavigationViewItem Content="{x:Bind Title}" IsEnabled="{x:Bind IsActive}">
                         <NavigationViewItem.Icon>
-                            <FontIcon Glyph="{x:Bind Glyph, Mode=OneWay}"/>
+                            <FontIcon Glyph="{x:Bind Glyph}"/>
                         </NavigationViewItem.Icon>
                     </NavigationViewItem>
                 </DataTemplate>

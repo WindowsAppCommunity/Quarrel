@@ -20,5 +20,7 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages.Abstract
         public abstract string Glyph { get; }
 
         public abstract string Title { get; }
+
+        public virtual bool IsActive => false;
     }
 }
