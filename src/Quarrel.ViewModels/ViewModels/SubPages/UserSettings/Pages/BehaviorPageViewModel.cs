@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Quarrel.Services.Localization;
+using Quarrel.Services.Storage;
 using Quarrel.ViewModels.SubPages.UserSettings.Pages.Abstract;
 
 namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
@@ -9,8 +10,8 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
     {
         private const string BehaviorResource = "UserSettings/Behavior";
 
-        public BehaviorPageViewModel(ILocalizationService localizationService) :
-            base(localizationService)
+        internal BehaviorPageViewModel(ILocalizationService localizationService, IStorageService storageService) :
+            base(localizationService, storageService)
         {
         }
 

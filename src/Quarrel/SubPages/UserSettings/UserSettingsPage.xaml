@@ -5,10 +5,22 @@
     xmlns:local="using:Quarrel.SubPages.UserSettings"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="using:Quarrel.SubPages.UserSettings.Pages"
+    xmlns:ssub="using:Quarrel.ViewModels.SubPages.UserSettings.Pages"
     xmlns:assub="using:Quarrel.ViewModels.SubPages.UserSettings.Pages.Abstract"
+    xmlns:usselector="using:Quarrel.Selectors.SubPages.UserSettings"
     mc:Ignorable="d"
     d:DesignHeight="600"
     d:DesignWidth="1008">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="MyAccountPageTemplate" x:DataType="ssub:MyAccountPageViewModel">
+            <pages:MyAccountPage/>
+        </DataTemplate>
+        
+        <usselector:UserSettingsPageSelector x:Key="UserPageSelector"
+                                             MyAccountTemplate="{StaticResource MyAccountPageTemplate}"/>
+    </UserControl.Resources>
 
     <Grid Width="800" Height="620">
         <NavigationView x:Name="NavigationControl"
@@ -27,6 +39,12 @@
                     </NavigationViewItem>
                 </DataTemplate>
             </NavigationView.MenuItemTemplate>
+
+            <ContentControl Content="{x:Bind ViewModel.SelectedSubPage, Mode=OneWay}"
+                            ContentTemplateSelector="{StaticResource UserPageSelector}"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"/>
+
         </NavigationView>
     </Grid>
 </UserControl>

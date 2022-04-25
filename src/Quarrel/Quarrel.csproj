@@ -160,6 +160,7 @@
     <Compile Include="Selectors\Guilds\GuildStyleSelector.cs" />
     <Compile Include="Selectors\Guilds\GuildTemplateSelector.cs" />
     <Compile Include="Selectors\SubPages\SubPageTemplateSelector.cs" />
+    <Compile Include="Selectors\SubPages\UserSettings\UserSettingsPageSelector.cs" />
     <Compile Include="Services\Analytics\AppCenterClientInfo.cs" />
     <Compile Include="Services\Analytics\AppCenterService.cs" />
     <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
@@ -193,6 +194,9 @@
     <Compile Include="Selectors\Channels\ChannelTemplateSelector.cs" />
     <Compile Include="SubPages\Meta\CreditPage.xaml.cs">
       <DependentUpon>CreditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\UserSettings\Pages\MyAccountPage.xaml.cs">
+      <DependentUpon>MyAccountPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\UserSettings\UserSettingsPage.xaml.cs">
       <DependentUpon>UserSettingsPage.xaml</DependentUpon>
@@ -557,6 +561,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SubPages\UserSettings\Pages\MyAccountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SubPages\UserSettings\UserSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -641,9 +649,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SubPages\UserSettings\Pages\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.PriResources.targets" Label="MultilingualAppToolkit" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\v$(MultilingualAppToolkitVersion)\Microsoft.Multilingual.PriResources.targets')" />
   <Target Name="MATPrerequisite" BeforeTargets="PrepareForBuild" Condition="!Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.PriResources.targets')" Label="MultilingualAppToolkit">
