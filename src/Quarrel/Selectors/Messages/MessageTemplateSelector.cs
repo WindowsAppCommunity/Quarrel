@@ -13,12 +13,13 @@ namespace Quarrel.Selectors.Messages
 
         public DataTemplate InfoTemplate { get; set; }
 
-        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
+        protected override DataTemplate? SelectTemplateCore(object item, DependencyObject container)
         {
             BindableMessage message = (BindableMessage)item;
             return message.Message.Type switch
             {
                 MessageType.Default or MessageType.Reply => DefaultTemplate,
+
                 MessageType.RecipientAdd or
                 MessageType.RecipientRemove or
                 MessageType.Call or
@@ -40,6 +41,7 @@ namespace Quarrel.Selectors.Messages
                 MessageType.ThreadStarterMessage or
                 MessageType.GuildInviteReminder or
                 MessageType.ContextMenuCommand => InfoTemplate,
+
                 _ => null,
             };
         }

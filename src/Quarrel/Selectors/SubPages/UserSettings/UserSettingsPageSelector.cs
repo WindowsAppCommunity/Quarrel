@@ -22,7 +22,7 @@ namespace Quarrel.Selectors.SubPages.UserSettings
 
         public DataTemplate VoiceTemplate { get; set; }
 
-        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
+        protected override DataTemplate? SelectTemplateCore(object item, DependencyObject container)
         {
             return item switch
             {

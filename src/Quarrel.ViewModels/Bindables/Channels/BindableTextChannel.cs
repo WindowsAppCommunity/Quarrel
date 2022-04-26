@@ -19,9 +19,6 @@ namespace Quarrel.Bindables.Channels
             base(discordService, dispatcherService, channel, selfMember, parent)
         {
         }
-        
-        /// <inheritdoc/>
-        public ulong Id => Channel.Id;
 
         /// <inheritdoc/>
         public override bool IsTextChannel => true;
