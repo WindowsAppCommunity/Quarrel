@@ -209,4 +209,40 @@
   <data name="UserSettings/Voice" xml:space="preserve">
     <value>קול</value>
   </data>
+  <data name="UserSettings/AboutMeTBox.Header" xml:space="preserve">
+    <value>עליי</value>
+  </data>
+  <data name="UserSettings/DangerZoneDescTB.Text" xml:space="preserve">
+    <value>אין לנתח הודעות ישירות</value>
+  </data>
+  <data name="UserSettings/DangerZoneTB.Text" xml:space="preserve">
+    <value>אני גר בצורה מסוכנת</value>
+  </data>
+  <data name="UserSettings/DiscriminatorTBox.Header" xml:space="preserve">
+    <value>מאבחן</value>
+  </data>
+  <data name="UserSettings/DMFilterDescTB.Text" xml:space="preserve">
+    <value>ניתוח ומחק באופן אוטומטי הודעות ישירות המכילות תוכן מפורשת</value>
+  </data>
+  <data name="UserSettings/DMFilterTB.Text" xml:space="preserve">
+    <value>מסנן הודעה ישירה</value>
+  </data>
+  <data name="UserSettings/EmailTBox.Header" xml:space="preserve">
+    <value>אימייל</value>
+  </data>
+  <data name="UserSettings/NiceFriendsDescTB.Text" xml:space="preserve">
+    <value>נתח את כל ההודעות הישירות, למעט מחבריי</value>
+  </data>
+  <data name="UserSettings/NiceFriendsTB.Text" xml:space="preserve">
+    <value>החברים שלי נחמדים</value>
+  </data>
+  <data name="UserSettings/ProtectMeDescTB.Text" xml:space="preserve">
+    <value>לנתח את כל ההודעות הישירות</value>
+  </data>
+  <data name="UserSettings/ProtectMeTB.Text" xml:space="preserve">
+    <value>הגן עליי</value>
+  </data>
+  <data name="UserSettings/UsernameTBox.Header" xml:space="preserve">
+    <value>שם משתמש</value>
+  </data>
 </root>

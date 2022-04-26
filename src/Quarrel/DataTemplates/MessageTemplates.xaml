@@ -1,0 +1,32 @@
+﻿<ResourceDictionary
+    x:Class="Quarrel.DataTemplates.MessageTemplates"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:tc="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:mconvert="using:Quarrel.Converters.DataTemplates.Messages"
+    xmlns:tconvert="using:Quarrel.Converters.Time"
+    xmlns:qc="using:Quarrel.Controls"
+    xmlns:bindablemessages="using:Quarrel.Bindables.Messages"
+    xmlns:message="using:Quarrel.Controls.Message">
+
+    <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
+        <message:MessageRenderer Text="{x:Bind Message.Content}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="InfoMessageTemplate" x:DataType="bindablemessages:BindableMessage">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="64"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <FontIcon Glyph="{x:Bind mconvert:InfoMessageIconConverter.Convert(Message.Type)}"
+                      Foreground="{x:Bind mconvert:InfoMessageColorConverter.Convert(Message.Type)}"/>
+            
+            <TextBlock Grid.Column="1" Text="{x:Bind mconvert:InfoMessageContentConverter.Convert((bindablemessages:BindableMessage))}"/>
+            <TextBlock Grid.Column="2" Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"
+                       Opacity=".5" Margin="8,0"/>
+        </Grid>
+    </DataTemplate>
+
+</ResourceDictionary>

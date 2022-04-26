@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Discord.API.Models.Enums.Settings;
 using System.Text.Json.Serialization;
 
 // JSON models don't need to respect standard nullable rules.
@@ -48,5 +49,7 @@ namespace Discord.API.Models.Json.Settings
         [JsonPropertyName("guild_folders")]
         public JsonGuildFolder[] GuildFolders { get; set; }
 
+        [JsonPropertyName("explicit_content_filter")]
+        public ExplicitContentFilterLevel ExplicitContentFilter { get; set; }
     }
 }

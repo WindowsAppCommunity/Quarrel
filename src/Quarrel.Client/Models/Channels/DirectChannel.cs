@@ -20,45 +20,10 @@ namespace Quarrel.Client.Models.Channels
             Guard.IsNotNull(restChannel.Recipients, nameof(restChannel.Recipients));
 
             RecipientId = restChannel.Recipients[0].Id;
-            LastMessageId = restChannel.LastMessageId;
-            RTCRegion = restChannel.RTCRegion;
         }
 
         /// <inheritdoc/>
         public ulong RecipientId { get; private set; }
-
-        /// <inheritdoc/>
-        public int? MentionCount { get; private set; }
-
-        /// <inheritdoc/>
-        public ulong? LastMessageId { get; private set; }
-
-        /// <inheritdoc/>
-        public ulong? LastReadMessageId { get; private set; }
-
-        /// <inheritdoc/>
-        public bool IsUnread => LastMessageId > LastReadMessageId;
-
-        int? IMessageChannel.MentionCount
-        {
-            get => MentionCount;
-            set => MentionCount = value;
-        }
-
-        ulong? IMessageChannel.LastMessageId
-        {
-            get => LastMessageId;
-            set => LastMessageId = value;
-        }
-
-        ulong? IMessageChannel.LastReadMessageId
-        {
-            get => LastReadMessageId;
-            set => LastReadMessageId = value;
-        }
-
-        /// <inheritdoc/>
-        public string? RTCRegion { get; private set; }
 
         /// <summary>
         /// Gets the recipient of the direct message channel.

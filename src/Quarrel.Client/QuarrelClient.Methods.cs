@@ -32,6 +32,11 @@ namespace Quarrel.Client
             return user;
         }
 
+        public Settings? GetSettings()
+        {
+            return _settings;
+        }
+
         /// <summary>
         /// Gets messages in a channel.
         /// </summary>

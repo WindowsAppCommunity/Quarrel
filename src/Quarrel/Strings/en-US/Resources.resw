@@ -258,6 +258,30 @@
   <data name="Guilds/Home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="InfoMessage/Call" xml:space="preserve">
+    <value>{author} started a call</value>
+  </data>
+  <data name="InfoMessage/ChannelIconChange" xml:space="preserve">
+    <value>{author} changed the channel icon</value>
+  </data>
+  <data name="InfoMessage/ChannelNameChange" xml:space="preserve">
+    <value>{author} changed the channel name to {content}</value>
+  </data>
+  <data name="InfoMessage/ChannelPinnedMessage" xml:space="preserve">
+    <value>{author pinned {message_reference} to the channel</value>
+  </data>
+  <data name="InfoMessage/GuildMemberJoin" xml:space="preserve">
+    <value>{author} joined the server</value>
+  </data>
+  <data name="InfoMessage/RecipientAdd" xml:space="preserve">
+    <value>{author} added {mention.0} to the group</value>
+  </data>
+  <data name="InfoMessage/RecipientRemove" xml:space="preserve">
+    <value>{author} removed {mention.0} from the group</value>
+  </data>
+  <data name="InfoMessage/Unknown" xml:space="preserve">
+    <value>Unknown message</value>
+  </data>
   <data name="Login/Disclaimer1TB.Text" xml:space="preserve">
     <value>Logging in will intercept a token that allows Quarrel to interact with Discord through your account.</value>
   </data>
@@ -293,23 +317,77 @@
     <value>{0}, and {1}</value>
     <comment>This is used for the base item of and conjunction</comment>
   </data>
+  <data name="Time/LTMinuteAgo" xml:space="preserve">
+    <value>Less than a minute ago</value>
+  </data>
+  <data name="Time/MinutesAgo" xml:space="preserve">
+    <value>{0} minutes ago</value>
+  </data>
+  <data name="Time/OneMinuteAgo" xml:space="preserve">
+    <value>A minute ago</value>
+  </data>
+  <data name="Time/TodayAt" xml:space="preserve">
+    <value>Today at {0}</value>
+  </data>
+  <data name="Time/TwoMinutesAgo" xml:space="preserve">
+    <value>2 minutes ago</value>
+  </data>
+  <data name="Time/YesterdayAt" xml:space="preserve">
+    <value>Yesterday at {0}</value>
+  </data>
+  <data name="UserSettings/AboutMeTBox.Header" xml:space="preserve">
+    <value>About Me</value>
+  </data>
   <data name="UserSettings/Behavior" xml:space="preserve">
     <value>Behavior</value>
   </data>
   <data name="UserSettings/Connections" xml:space="preserve">
     <value>Connections</value>
   </data>
+  <data name="UserSettings/DangerZoneDescTB.Text" xml:space="preserve">
+    <value>Don't analyze any DMs</value>
+  </data>
+  <data name="UserSettings/DangerZoneTB.Text" xml:space="preserve">
+    <value>I live dangerously</value>
+  </data>
+  <data name="UserSettings/DiscriminatorTBox.Header" xml:space="preserve">
+    <value>Discriminator</value>
+  </data>
   <data name="UserSettings/Display" xml:space="preserve">
     <value>Display</value>
   </data>
+  <data name="UserSettings/DMFilterDescTB.Text" xml:space="preserve">
+    <value>Analyze and automatically delete direct messages containing explicit content</value>
+  </data>
+  <data name="UserSettings/DMFilterTB.Text" xml:space="preserve">
+    <value>DIRECT MESSAGE FILTERING</value>
+  </data>
+  <data name="UserSettings/EmailTBox.Header" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="UserSettings/MyAccount" xml:space="preserve">
     <value>My Account</value>
+  </data>
+  <data name="UserSettings/NiceFriendsDescTB.Text" xml:space="preserve">
+    <value>Analyze all DMs, except from my friends</value>
+  </data>
+  <data name="UserSettings/NiceFriendsTB.Text" xml:space="preserve">
+    <value>My friends are nice</value>
   </data>
   <data name="UserSettings/Notifications" xml:space="preserve">
     <value>Notifications</value>
   </data>
   <data name="UserSettings/Privacy" xml:space="preserve">
     <value>Privacy</value>
+  </data>
+  <data name="UserSettings/ProtectMeDescTB.Text" xml:space="preserve">
+    <value>Analyze all DMs</value>
+  </data>
+  <data name="UserSettings/ProtectMeTB.Text" xml:space="preserve">
+    <value>Protect me</value>
+  </data>
+  <data name="UserSettings/UsernameTBox.Header" xml:space="preserve">
+    <value>Username</value>
   </data>
   <data name="UserSettings/Voice" xml:space="preserve">
     <value>Voice</value>

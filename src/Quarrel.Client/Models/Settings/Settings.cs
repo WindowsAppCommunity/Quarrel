@@ -22,6 +22,7 @@ namespace Quarrel.Client.Models.Settings
             InlineAttachementMedia = jsonUserSettings.InlineAttachementMedia;
             Locale = jsonUserSettings.Locale;
             ShowCurrentGame = jsonUserSettings.ShowCurrentGame;
+            ContentFilterLevel = jsonUserSettings.ExplicitContentFilter;
 
             switch (jsonUserSettings.Theme)
             {
@@ -84,6 +85,11 @@ namespace Quarrel.Client.Models.Settings
         /// Gets if the user's presence includes the current game.
         /// </summary>
         public bool ShowCurrentGame { get; private set; }
+
+        /// <summary>
+        /// Gets if the user's presence includes the current game.
+        /// </summary>
+        public ExplicitContentFilterLevel ContentFilterLevel { get; private set; }
 
         /// <summary>
         /// Gets the Discord theme for the user.

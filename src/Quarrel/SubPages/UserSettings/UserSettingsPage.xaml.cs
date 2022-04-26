@@ -12,6 +12,6 @@ namespace Quarrel.SubPages.UserSettings
             this.InitializeComponent();
         }
 
-        UserSettingsPageViewModel ViewModel => (UserSettingsPageViewModel)DataContext;
+        public UserSettingsPageViewModel ViewModel => (UserSettingsPageViewModel)DataContext;
     }
 }
