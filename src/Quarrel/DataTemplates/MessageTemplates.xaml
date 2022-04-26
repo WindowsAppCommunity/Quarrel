@@ -9,10 +9,18 @@
     <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
         <TextBlock Text="{x:Bind Message.Content}"/>
     </DataTemplate>
-    
+
     <DataTemplate x:Key="InfoMessageTemplate" x:DataType="bindablemessages:BindableMessage">
-        <FontIcon Glyph="{x:Bind mconvert:InfoMessageIconConverter.Convert(Message.Type)}"
-                  Foreground="{x:Bind mconvert:InfoMessageColorConverter.Convert(Message.Type)}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="64"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <FontIcon Glyph="{x:Bind mconvert:InfoMessageIconConverter.Convert(Message.Type)}"
+                      Foreground="{x:Bind mconvert:InfoMessageColorConverter.Convert(Message.Type)}"/>
+            
+            <TextBlock Grid.Column="1" Text="{x:Bind mconvert:InfoMessageContentConverter.Convert((bindablemessages:BindableMessage))}"/>
+        </Grid>
     </DataTemplate>
-    
+
 </ResourceDictionary>

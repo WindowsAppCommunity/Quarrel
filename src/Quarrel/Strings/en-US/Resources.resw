@@ -258,6 +258,30 @@
   <data name="Guilds/Home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="InfoMessage/Call" xml:space="preserve">
+    <value>{author} started a call</value>
+  </data>
+  <data name="InfoMessage/ChannelIconChange" xml:space="preserve">
+    <value>{author} changed the channel icon</value>
+  </data>
+  <data name="InfoMessage/ChannelNameChange" xml:space="preserve">
+    <value>{author} changed the channel name to {content}</value>
+  </data>
+  <data name="InfoMessage/ChannelPinnedMessage" xml:space="preserve">
+    <value>{author pinned {message_reference} to the channel</value>
+  </data>
+  <data name="InfoMessage/GuildMemberJoin" xml:space="preserve">
+    <value>{author} joined the server</value>
+  </data>
+  <data name="InfoMessage/RecipientAdd" xml:space="preserve">
+    <value>{author} added {mention.0} to the group</value>
+  </data>
+  <data name="InfoMessage/RecipientRemove" xml:space="preserve">
+    <value>{author} removed {mention.0} from the group</value>
+  </data>
+  <data name="InfoMessage/Unknown" xml:space="preserve">
+    <value>Unknown message</value>
+  </data>
   <data name="Login/Disclaimer1TB.Text" xml:space="preserve">
     <value>Logging in will intercept a token that allows Quarrel to interact with Discord through your account.</value>
   </data>

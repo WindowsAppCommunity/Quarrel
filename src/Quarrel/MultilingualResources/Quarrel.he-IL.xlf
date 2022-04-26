@@ -315,6 +315,38 @@
           <source>Username</source>
           <target state="translated">שם משתמש</target>
         </trans-unit>
+        <trans-unit id="InfoMessage/Call" translate="yes" xml:space="preserve">
+          <source>{author} started a call</source>
+          <target state="new">{author} started a call</target>
+        </trans-unit>
+        <trans-unit id="InfoMessage/RecipientAdd" translate="yes" xml:space="preserve">
+          <source>{author} added {mention.0} to the group</source>
+          <target state="new">{author} added {mention.0} to the group</target>
+        </trans-unit>
+        <trans-unit id="InfoMessage/RecipientRemove" translate="yes" xml:space="preserve">
+          <source>{author} removed {mention.0} from the group</source>
+          <target state="new">{author} removed {mention.0} from the group</target>
+        </trans-unit>
+        <trans-unit id="InfoMessage/Unknown" translate="yes" xml:space="preserve">
+          <source>Unknown message</source>
+          <target state="new">Unknown message</target>
+        </trans-unit>
+        <trans-unit id="InfoMessage/ChannelIconChange" translate="yes" xml:space="preserve">
+          <source>{author} changed the channel icon</source>
+          <target state="new">{author} changed the channel icon</target>
+        </trans-unit>
+        <trans-unit id="InfoMessage/ChannelNameChange" translate="yes" xml:space="preserve">
+          <source>{author} changed the channel name to {content}</source>
+          <target state="new">{author} changed the channel name to {content}</target>
+        </trans-unit>
+        <trans-unit id="InfoMessage/ChannelPinnedMessage" translate="yes" xml:space="preserve">
+          <source>{author pinned {message_reference} to the channel</source>
+          <target state="new">{author pinned {message_reference} to the channel</target>
+        </trans-unit>
+        <trans-unit id="InfoMessage/GuildMemberJoin" translate="yes" xml:space="preserve">
+          <source>{author} joined the server</source>
+          <target state="new">{author} joined the server</target>
+        </trans-unit>
       </group>
     </body>
   </file>
