@@ -317,6 +317,24 @@
     <value>{0}, and {1}</value>
     <comment>This is used for the base item of and conjunction</comment>
   </data>
+  <data name="Time/LTMinuteAgo" xml:space="preserve">
+    <value>Less than a minute ago</value>
+  </data>
+  <data name="Time/MinutesAgo" xml:space="preserve">
+    <value>{0} minutes ago</value>
+  </data>
+  <data name="Time/OneMinuteAgo" xml:space="preserve">
+    <value>A minute ago</value>
+  </data>
+  <data name="Time/TodayAt" xml:space="preserve">
+    <value>Today at {0}</value>
+  </data>
+  <data name="Time/TwoMinutesAgo" xml:space="preserve">
+    <value>2 minutes ago</value>
+  </data>
+  <data name="Time/YesterdayAt" xml:space="preserve">
+    <value>Yesterday at {0}</value>
+  </data>
   <data name="UserSettings/AboutMeTBox.Header" xml:space="preserve">
     <value>About Me</value>
   </data>
