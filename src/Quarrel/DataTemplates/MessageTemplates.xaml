@@ -6,10 +6,11 @@
     xmlns:mconvert="using:Quarrel.Converters.DataTemplates.Messages"
     xmlns:tconvert="using:Quarrel.Converters.Time"
     xmlns:qc="using:Quarrel.Controls"
-    xmlns:bindablemessages="using:Quarrel.Bindables.Messages">
+    xmlns:bindablemessages="using:Quarrel.Bindables.Messages"
+    xmlns:message="using:Quarrel.Controls.Message">
 
     <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
-        <TextBlock Text="{x:Bind Message.Content}"/>
+        <message:MessageRenderer Text="{x:Bind Message.Content}"/>
     </DataTemplate>
 
     <DataTemplate x:Key="InfoMessageTemplate" x:DataType="bindablemessages:BindableMessage">
