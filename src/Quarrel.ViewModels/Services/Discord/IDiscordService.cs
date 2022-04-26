@@ -1,15 +1,11 @@
 ﻿// Quarrel © 2022
 
-using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Bindables.Messages;
 using Quarrel.Bindables.Users;
-using Quarrel.Client.Models.Channels.Interfaces;
-using Quarrel.Client.Models.Guilds;
 using Quarrel.Services.Analytics.Enums;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Quarrel.Services.Discord
@@ -24,6 +20,13 @@ namespace Quarrel.Services.Discord
         /// </summary>
         /// <returns>The current user as a <see cref="BindableSelfUser"/>.</returns>
         BindableSelfUser? GetMe();
+
+        /// <summary>
+        /// Gets a user by id.
+        /// </summary>
+        /// <param name="userId">The id of the user to get.</param>
+        /// <returns>The user of an id.</returns>
+        BindableUser? GetUser(ulong userId);
 
         /// <summary>
         /// Logs into the discord service by token.
@@ -58,16 +61,16 @@ namespace Quarrel.Services.Discord
         /// Gets the channels in a guild.
         /// </summary>
         /// <param name="guild">The guild to get the channels for.</param>
-        /// <returns>An array of <see cref="IBindableChannel"/>s from the guild.</returns>
         /// <param name="selectedChannel">The selected channel as an <see cref="IBindableSelectableChannel"/>.</param>
+        /// <returns>An array of <see cref="IBindableChannel"/>s from the guild.</returns>
         BindableGuildChannel?[] GetGuildChannels(BindableGuild guild, out IBindableSelectableChannel? selectedChannel);
 
         /// <summary>
-        /// Gets the channels in a guild as channel groups by category.
+        /// Gets the user's direct message channels.
         /// </summary>
-        /// <param name="guild">The <see cref="BindableGuild"/> to get the channels from.</param>
+        /// <param name="home">The <see cref="BindableHomeItem"/>.</param>
         /// <param name="selectedChannel">The selected channel as an <see cref="IBindableSelectableChannel"/>.</param>
-        /// <returns>The <see cref="BindableChannel"/>s for the guild in category groups.</returns>
-        IEnumerable<BindableChannelGroup>? GetGuildChannelsGrouped(BindableGuild guild, out IBindableSelectableChannel? selectedChannel);
+        /// <returns>An array of <see cref="IBindableChannel"/>s.</returns>
+        BindablePrivateChannel?[] GetPrivateChannels(BindableHomeItem home, out IBindableSelectableChannel? selectedChannel);
     }
 }

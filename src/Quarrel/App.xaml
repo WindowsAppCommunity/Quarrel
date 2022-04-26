@@ -20,6 +20,7 @@
                 <!--Data Templates-->
                 <dt:GuildTemplates/>
                 <dt:ChannelTemplates/>
+                <dt:MessageTemplates/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

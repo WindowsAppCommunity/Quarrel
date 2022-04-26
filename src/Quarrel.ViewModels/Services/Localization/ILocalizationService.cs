@@ -23,6 +23,11 @@ namespace Quarrel.Services.Localization
         string this[string key, params object[] args] { get; }
 
         /// <summary>
+        /// Gets a list of items as as a string with and.
+        /// </summary>
+        string CommaList(params string[] args);
+
+        /// <summary>
         /// Gets a value indicating whether or not the current language is written right to left.
         /// </summary>
         bool IsRightToLeftLanguage { get; }

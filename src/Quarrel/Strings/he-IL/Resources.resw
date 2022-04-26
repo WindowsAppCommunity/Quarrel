@@ -149,4 +149,100 @@
   <data name="About/QuarrelRelease" xml:space="preserve">
     <value>קווראל שחרור</value>
   </data>
+  <data name="CommandBar/CallBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>שיחה</value>
+  </data>
+  <data name="CommandBar/NewWindowBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>פתח הערוץ בחלון חדש</value>
+  </data>
+  <data name="CommandBar/ToggleMembersBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>פאנל חברים</value>
+  </data>
+  <data name="CommandBar/StatusMFI.Text" xml:space="preserve">
+    <value>סטטוס דיסקורד</value>
+  </data>
+  <data name="CommandBar/AboutMFI.Text" xml:space="preserve">
+    <value>אודות</value>
+  </data>
+  <data name="CommandBar/SettingsMFI.Text" xml:space="preserve">
+    <value>הגדרות</value>
+  </data>
+  <data name="MessageBox/MessageTBox.PlaceholderText" xml:space="preserve">
+    <value>שלח הודעה</value>
+  </data>
+  <data name="Guilds/Home" xml:space="preserve">
+    <value>בית</value>
+  </data>
+  <data name="Channels/MemberCount" xml:space="preserve">
+    <value>{0} חברים</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>{0}ו {1}</value>
+    <comment>This is used for an and list of two items</comment>
+  </data>
+  <data name="AndConjunction" xml:space="preserve">
+    <value>{0}, {1}</value>
+    <comment>This is used to form a comma list {0}, {{1}, and {2}}</comment>
+  </data>
+  <data name="OxfordAnd" xml:space="preserve">
+    <value>{0}, ו{1}</value>
+    <comment>This is used for the base item of and conjunction</comment>
+  </data>
+  <data name="UserSettings/MyAccount" xml:space="preserve">
+    <value>החשבון שלי</value>
+  </data>
+  <data name="UserSettings/Privacy" xml:space="preserve">
+    <value>פרטיות</value>
+  </data>
+  <data name="UserSettings/Connections" xml:space="preserve">
+    <value>חיבורים</value>
+  </data>
+  <data name="UserSettings/Display" xml:space="preserve">
+    <value>להציג</value>
+  </data>
+  <data name="UserSettings/Behavior" xml:space="preserve">
+    <value>התנהגות</value>
+  </data>
+  <data name="UserSettings/Notifications" xml:space="preserve">
+    <value>התראות</value>
+  </data>
+  <data name="UserSettings/Voice" xml:space="preserve">
+    <value>קול</value>
+  </data>
+  <data name="UserSettings/AboutMeTBox.Header" xml:space="preserve">
+    <value>עליי</value>
+  </data>
+  <data name="UserSettings/DangerZoneDescTB.Text" xml:space="preserve">
+    <value>אין לנתח הודעות ישירות</value>
+  </data>
+  <data name="UserSettings/DangerZoneTB.Text" xml:space="preserve">
+    <value>אני גר בצורה מסוכנת</value>
+  </data>
+  <data name="UserSettings/DiscriminatorTBox.Header" xml:space="preserve">
+    <value>מאבחן</value>
+  </data>
+  <data name="UserSettings/DMFilterDescTB.Text" xml:space="preserve">
+    <value>ניתוח ומחק באופן אוטומטי הודעות ישירות המכילות תוכן מפורשת</value>
+  </data>
+  <data name="UserSettings/DMFilterTB.Text" xml:space="preserve">
+    <value>מסנן הודעה ישירה</value>
+  </data>
+  <data name="UserSettings/EmailTBox.Header" xml:space="preserve">
+    <value>אימייל</value>
+  </data>
+  <data name="UserSettings/NiceFriendsDescTB.Text" xml:space="preserve">
+    <value>נתח את כל ההודעות הישירות, למעט מחבריי</value>
+  </data>
+  <data name="UserSettings/NiceFriendsTB.Text" xml:space="preserve">
+    <value>החברים שלי נחמדים</value>
+  </data>
+  <data name="UserSettings/ProtectMeDescTB.Text" xml:space="preserve">
+    <value>לנתח את כל ההודעות הישירות</value>
+  </data>
+  <data name="UserSettings/ProtectMeTB.Text" xml:space="preserve">
+    <value>הגן עליי</value>
+  </data>
+  <data name="UserSettings/UsernameTBox.Header" xml:space="preserve">
+    <value>שם משתמש</value>
+  </data>
 </root>

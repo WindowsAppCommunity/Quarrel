@@ -1,0 +1,101 @@
+﻿<UserControl
+    x:Class="Quarrel.Controls.Panels.Channels.CurrentUserButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:qc="using:Quarrel.Controls"
+    mc:Ignorable="d"
+    d:DesignHeight="64"
+    d:DesignWidth="224">
+
+    <Grid Background="{ThemeResource UserButtonBackground}">
+        <qc:Shadow Direction="Up" VerticalAlignment="Top"
+                   Height="12" Margin="0,-12,0,0"/>
+        <Button Height="64"
+                Padding="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                BorderThickness="0"
+                Background="Transparent">
+                
+                <Button.Flyout>
+                    <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
+                        <StackPanel Orientation="Horizontal">
+                           <RadioButton x:Uid="CurrentUserButton/OnlineRBTN"
+                                        ToolTipService.ToolTip="Online"
+                                        GroupName="Status" Tag="Online"
+                                        Foreground="{StaticResource OnlineBrush}"
+                                        Style="{StaticResource QuarrelRadioButton}"/>
+                           <RadioButton x:Uid="CurrentUserButton/IdleRBTN"
+                                        ToolTipService.ToolTip="Idle"
+                                        GroupName="Status" Tag="Idle"
+                                        Foreground="{StaticResource IdleBrush}"
+                                        Style="{StaticResource QuarrelRadioButton}"/> 
+                           <RadioButton x:Uid="CurrentUserButton/DndRBTN"
+                                        ToolTipService.ToolTip="Do Not Disturb"
+                                        GroupName="Status" Tag="Dnd"
+                                        Foreground="{StaticResource DndBrush}"
+                                        Style="{StaticResource QuarrelRadioButton}"/> 
+                           <RadioButton x:Uid="CurrentUserButton/InvisibleRBTN"
+                                        ToolTipService.ToolTip="Invisible"
+                                        GroupName="Status" Tag="Invisible"
+                                        Foreground="{StaticResource OfflineBrush}"
+                                        Style="{StaticResource QuarrelRadioButton}"/> 
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+                <qc:UserIcon DataContext="{x:Bind ViewModel.Me, Mode=OneWay}"
+                             Margin="8" Width="40" Height="40"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"/>
+                
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <!--Display name-->
+                    <!--<TextBlock
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Text="{x:Bind ViewModel.Me.DisplayName, Mode=OneWay}"/>-->
+                    <!--Remaining user info-->
+                    <StackPanel Orientation="Horizontal">
+                        <!--Username if User has nickname in current guild-->
+                        <TextBlock
+                            FontSize="12"
+                            Opacity="0.6"
+                            Text="{x:Bind ViewModel.Me.SelfUser.Username, Mode=OneWay}"/>
+                        <TextBlock
+                            FontSize="12"
+                            Opacity=".6"
+                            Text="#"/>
+                        <TextBlock
+                            FontSize="12"
+                            Opacity="0.6"
+                            Text="{x:Bind ViewModel.Me.SelfUser.Discriminator, Mode=OneWay}" />
+                    </StackPanel>
+                </StackPanel>
+                
+                <Button
+                    Grid.Column="2"
+                    Margin="0,0,16,0"
+                    Padding="0"
+                    Opacity=".5"
+                    FontFamily="Segoe MDL2 Assets"
+                    Foreground="{ThemeResource SystemColorHighlightTextBrush}"
+                    Style="{ThemeResource TextBlockButtonStyle}"
+                    Command="{x:Bind ViewModel.NavigateToSettingsCommand}">
+                    <SymbolIcon Symbol="Setting"/>
+                </Button>
+            </Grid>
+        </Button>
+    </Grid>
+</UserControl>

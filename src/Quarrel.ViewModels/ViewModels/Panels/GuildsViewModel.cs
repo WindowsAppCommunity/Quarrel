@@ -8,6 +8,7 @@ using Quarrel.Messages;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
+using Quarrel.Services.Localization;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 
@@ -19,18 +20,20 @@ namespace Quarrel.ViewModels
     public partial class GuildsViewModel : ObservableRecipient
     {
         private readonly IMessenger _messenger;
+        private readonly ILocalizationService _localizationService;
         private readonly IDiscordService _discordService;
         private readonly IDispatcherService _dispatcherService;
         private readonly ConcurrentDictionary<ulong, BindableGuild> _guilds;
 
-        private BindableGuild? _selectedGuild;
+        private IBindableSelectableGuildItem? _selectedGuild;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuildsViewModel"/> class.
         /// </summary>
-        public GuildsViewModel(IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
+        public GuildsViewModel(IMessenger messenger, ILocalizationService localizationService, IDiscordService discordService, IDispatcherService dispatcherService)
         {
             _messenger = messenger;
+            _localizationService = localizationService;
             _discordService = discordService;
             _dispatcherService = dispatcherService;
 
@@ -44,7 +47,7 @@ namespace Quarrel.ViewModels
         /// <summary>
         /// Gets or sets the selected guild.
         /// </summary>
-        public BindableGuild? SelectedGuild
+        public IBindableSelectableGuildItem? SelectedGuild
         {
             get => _selectedGuild;
             set
@@ -55,7 +58,7 @@ namespace Quarrel.ViewModels
                 if (SetProperty(ref _selectedGuild, value) && value is not null)
                 {
                     value.IsSelected = true;
-                    _messenger.Send(new NavigateToGuildMessage<BindableGuild>(value));
+                    _messenger.Send(new NavigateToGuildMessage<IBindableSelectableGuildItem>(value));
                 }
             }
         }
@@ -73,6 +76,8 @@ namespace Quarrel.ViewModels
             var folders = _discordService.GetMyGuildFolders();
             _dispatcherService.RunOnUIThread(() =>
             {
+                Source.Clear();
+                Source.Add(new BindableHomeItem(_discordService, _dispatcherService, _localizationService));
                 foreach (var folder in folders)
                 {
                     if (folder.Folder.Id is null)

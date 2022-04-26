@@ -2,6 +2,8 @@
 
 using CommunityToolkit.Diagnostics;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using Quarrel.Bindables.Channels.Abstract;
+using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Client;
 using Quarrel.Client.Models.Users;
 using Quarrel.Messages;
@@ -9,6 +11,7 @@ using Quarrel.Services.Analytics;
 using Quarrel.Services.Analytics.Enums;
 using Quarrel.Services.Analytics.Models;
 using Quarrel.Services.Dispatcher;
+using Quarrel.Services.Localization;
 using Quarrel.Services.Storage.Accounts.Models;
 using System;
 using System.Threading.Tasks;
@@ -22,15 +25,17 @@ namespace Quarrel.Services.Discord
     {
         private readonly QuarrelClient _quarrelClient;
         private readonly IAnalyticsService _analyticsService;
+        private readonly ILocalizationService _localizationService;
         private readonly IDispatcherService _dispatcherService;
         private readonly IMessenger _messenger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DiscordService"/> class.
         /// </summary>
-        public DiscordService(IAnalyticsService analyticsService, IDispatcherService dispatcherService, IMessenger messenger)
+        public DiscordService(IAnalyticsService analyticsService, ILocalizationService localizationService, IDispatcherService dispatcherService, IMessenger messenger)
         {
             _analyticsService = analyticsService;
+            _localizationService = localizationService;
             _dispatcherService = dispatcherService;
             _messenger = messenger;
             _quarrelClient = new QuarrelClient();

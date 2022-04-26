@@ -4,6 +4,7 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Users.Interfaces;
 using Quarrel.Client.Models.Users;
+using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using System;
 
@@ -23,8 +24,8 @@ namespace Quarrel.Bindables.Users
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableSelfUser"/> class.
         /// </summary>
-        internal BindableSelfUser(IDispatcherService dispatcherService, SelfUser selfUser) :
-            base(dispatcherService)
+        internal BindableSelfUser(IDiscordService discordService, IDispatcherService dispatcherService, SelfUser selfUser) :
+            base(discordService, dispatcherService)
         {
             _selfUser = selfUser;
         }

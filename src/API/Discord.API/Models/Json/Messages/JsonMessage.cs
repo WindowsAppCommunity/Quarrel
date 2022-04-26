@@ -1,9 +1,9 @@
 ﻿// Quarrel © 2022
 
+using Discord.API.Models.Enums.Messages;
 using Discord.API.Models.Json.Messages.Embeds;
 using Discord.API.Models.Json.Reactions;
 using Discord.API.Models.Json.Users;
-using Discord.API.Models.Enums.Messages;
 using System;
 using System.Text.Json.Serialization;
 
@@ -32,6 +32,9 @@ namespace Discord.API.Models.Json.Messages
         [JsonPropertyName("author")]
         public JsonUser? Author { get; set; }
 
+        [JsonPropertyName("call")]
+        public JsonCall? Call { get; set; }
+
         [JsonPropertyName("member")]
         public JsonGuildMember? Member { get; set; }
 
@@ -55,6 +58,9 @@ namespace Discord.API.Models.Json.Messages
 
         [JsonPropertyName("mention_roles"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong[]? RoleMentions { get; set; }
+
+        [JsonPropertyName("mention_channels")]
+        public JsonChannelMention[]? ChannelMentions { get; set; }
 
         [JsonPropertyName("attachments")]
         public JsonAttachment[]? Attachments { get; set; }

@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Models.Enums.Guilds;
+using Discord.API.Models.Enums.Settings;
 using Discord.API.Models.Json.Channels;
 using Discord.API.Models.Json.Emojis;
 using Discord.API.Models.Json.Roles;

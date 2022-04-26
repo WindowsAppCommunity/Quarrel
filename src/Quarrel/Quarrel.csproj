@@ -104,19 +104,25 @@
     <Compile Include="Controls\Shadow.xaml.cs">
       <DependentUpon>Shadow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\CurrentUserButton.xaml.cs">
+    <Compile Include="Controls\Panels\Channels\CurrentUserButton.xaml.cs">
       <DependentUpon>CurrentUserButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\ExtendedSplashScreen.xaml.cs">
+    <Compile Include="Controls\Host\ExtendedSplashScreen.xaml.cs">
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\Panels\ChannelPanel.xaml.cs">
+    <Compile Include="Controls\Panels\Channels\GuildHeader.xaml.cs">
+      <DependentUpon>GuildHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Panels\Channels\ChannelPanel.xaml.cs">
       <DependentUpon>ChannelPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\Panels\GuildPanel.xaml.cs">
+    <Compile Include="Controls\Panels\Guilds\GuildPanel.xaml.cs">
       <DependentUpon>GuildPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Shell\Panels\MessagePanel.xaml.cs">
+    <Compile Include="Controls\Panels\Messages\MessageBox.xaml.cs">
+      <DependentUpon>MessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Panels\Messages\MessagePanel.xaml.cs">
       <DependentUpon>MessagePanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Shell\QuarrelCommandBar.xaml.cs">
@@ -139,11 +145,16 @@
       <DependentUpon>UserIcon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\CaseConverter.cs" />
+    <Compile Include="Converters\DataTemplates\Channels\MemberCountConverter.cs" />
+    <Compile Include="Converters\DataTemplates\Messages\InfoMessageColorConverter.cs" />
+    <Compile Include="Converters\DataTemplates\Messages\InfoMessageContentConverter.cs" />
+    <Compile Include="Converters\DataTemplates\Messages\InfoMessageIconConverter.cs" />
     <Compile Include="Converters\EqualityConverter.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\NotBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\StatusToBrushConverter.cs" />
     <Compile Include="Converters\StatusToColorConverter.cs" />
+    <Compile Include="Converters\Time\SmartTimeFormatConverter.cs" />
     <Compile Include="Converters\VisibileIfEqualConverter.cs" />
     <Compile Include="Converters\VisibileWhenNotEqualConverter.cs" />
     <Compile Include="Converters\VisibileWhenEqualConverter.cs" />
@@ -154,12 +165,17 @@
     <Compile Include="DataTemplates\GuildTemplates.xaml.cs">
       <DependentUpon>GuildTemplates.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataTemplates\MessageTemplates.xaml.cs">
+      <DependentUpon>MessageTemplates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IsExternalInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Selectors\ChannelEnabledStyleSelector.cs" />
-    <Compile Include="Selectors\GuildStyleSelector.cs" />
-    <Compile Include="Selectors\GuildTemplateSelector.cs" />
-    <Compile Include="Selectors\SubPageTemplateSelector.cs" />
+    <Compile Include="Selectors\Channels\ChannelEnabledStyleSelector.cs" />
+    <Compile Include="Selectors\Guilds\GuildStyleSelector.cs" />
+    <Compile Include="Selectors\Guilds\GuildTemplateSelector.cs" />
+    <Compile Include="Selectors\Messages\MessageTemplateSelector.cs" />
+    <Compile Include="Selectors\SubPages\SubPageTemplateSelector.cs" />
+    <Compile Include="Selectors\SubPages\UserSettings\UserSettingsPageSelector.cs" />
     <Compile Include="Services\Analytics\AppCenterClientInfo.cs" />
     <Compile Include="Services\Analytics\AppCenterService.cs" />
     <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
@@ -190,9 +206,18 @@
     <Compile Include="SubPages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Selectors\ChannelTemplateSelector.cs" />
+    <Compile Include="Selectors\Channels\ChannelTemplateSelector.cs" />
     <Compile Include="SubPages\Meta\CreditPage.xaml.cs">
       <DependentUpon>CreditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\UserSettings\Pages\MyAccountPage.xaml.cs">
+      <DependentUpon>MyAccountPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\UserSettings\Pages\PrivacyPage.xaml.cs">
+      <DependentUpon>PrivacyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\UserSettings\UserSettingsPage.xaml.cs">
+      <DependentUpon>UserSettingsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
@@ -4143,23 +4168,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\CurrentUserButton.xaml">
+    <Page Include="Controls\Panels\Channels\CurrentUserButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\ExtendedSplashScreen.xaml">
+    <Page Include="Controls\Host\ExtendedSplashScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\Panels\ChannelPanel.xaml">
+    <Page Include="Controls\Panels\Channels\GuildHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\Panels\GuildPanel.xaml">
+    <Page Include="Controls\Panels\Channels\ChannelPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Shell\Panels\MessagePanel.xaml">
+    <Page Include="Controls\Panels\Guilds\GuildPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Panels\Messages\MessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Panels\Messages\MessagePanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -4192,6 +4225,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="DataTemplates\GuildTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataTemplates\MessageTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -4236,6 +4273,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\Meta\CreditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\UserSettings\Pages\MyAccountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\UserSettings\Pages\PrivacyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\UserSettings\UserSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

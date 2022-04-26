@@ -10,6 +10,7 @@ using Quarrel.Client.Models.Users;
 using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Quarrel.Client
 {
@@ -32,6 +33,7 @@ namespace Quarrel.Client
             _channelMap = new ConcurrentDictionary<ulong, Channel>();
             _userMap = new ConcurrentDictionary<ulong, User>();
             _guildsMemberMap = new ConcurrentDictionary<(ulong GuildId, ulong UserId), GuildMember>();
+            _privateChannels = new HashSet<ulong>();
         }
 
         /// <summary>

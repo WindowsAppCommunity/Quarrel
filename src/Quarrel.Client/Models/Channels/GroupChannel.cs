@@ -13,7 +13,7 @@ namespace Quarrel.Client.Models.Channels
     /// <summary>
     /// A group dm channel managed by a <see cref="QuarrelClient"/>.
     /// </summary>
-    public class GroupChannel : Channel, IGroupChannel
+    public class GroupChannel : PrivateChannel, IGroupChannel
     {
         internal GroupChannel(JsonChannel restChannel, QuarrelClient context) :
             base(restChannel, context)
@@ -23,51 +23,20 @@ namespace Quarrel.Client.Models.Channels
 
             OwnerId = restChannel.OwnerId.Value;
 
-            RTCRegion = restChannel.RTCRegion;
             Recipients = restChannel.Recipients.Select(x => new User(x, context)).ToArray();
-            LastMessageId = restChannel.LastMessageId;
+            Icon = restChannel.Icon;
         }
 
         /// <inheritdoc/>
         public ulong OwnerId { get; private set; }
 
         /// <inheritdoc/>
-        public string? RTCRegion { get; private set; }
-
-        /// <inheritdoc/>
         public User[] Recipients { get; private set; }
 
+        /// <inheritdoc/>
+        public string? Icon { get; private set; }
+
         IUser[] IGroupChannel.Recipients => Recipients;
-
-        /// <inheritdoc/>
-        public int? MentionCount { get; internal set; }
-
-        /// <inheritdoc/>
-        public ulong? LastMessageId { get; internal set; }
-
-        /// <inheritdoc/>
-        public ulong? LastReadMessageId { get; internal set; }
-
-        /// <inheritdoc/>
-        public bool IsUnread => LastMessageId > LastReadMessageId;
-
-        int? IMessageChannel.MentionCount
-        {
-            get => MentionCount;
-            set => MentionCount = value;
-        }
-
-        ulong? IMessageChannel.LastMessageId
-        {
-            get => LastMessageId;
-            set => LastMessageId = value;
-        }
-
-        ulong? IMessageChannel.LastReadMessageId
-        {
-            get => LastReadMessageId;
-            set => LastReadMessageId = value;
-        }
 
         internal override JsonChannel ToJsonChannel()
         {

@@ -19,6 +19,7 @@ namespace Quarrel.Services.Windows
             _localizationService = localizationService;
         }
 
+        /// <inheritdoc/>
         public async void OpenSecondaryWindow()
         {
             var currentAppView = ApplicationView.GetForCurrentView();

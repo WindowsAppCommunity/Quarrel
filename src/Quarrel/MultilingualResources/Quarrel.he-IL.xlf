@@ -188,6 +188,189 @@
           <source>Quarrel Release</source>
           <target state="needs-review-translation">קווראל שחרור</target>
         </trans-unit>
+        <trans-unit id="CommandBar/CallBTN.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Call</source>
+          <target state="needs-review-translation">שיחה</target>
+        </trans-unit>
+        <trans-unit id="CommandBar/NewWindowBTN.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Open Channel in New Window</source>
+          <target state="needs-review-translation">פתח הערוץ בחלון חדש</target>
+        </trans-unit>
+        <trans-unit id="CommandBar/ToggleMembersBTN.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Toggle Members Panel</source>
+          <target state="needs-review-translation">פאנל חברים</target>
+        </trans-unit>
+        <trans-unit id="CommandBar/StatusMFI.Text" translate="yes" xml:space="preserve">
+          <source>Discord Status</source>
+          <target state="translated">סטטוס דיסקורד</target>
+        </trans-unit>
+        <trans-unit id="CommandBar/AboutMFI.Text" translate="yes" xml:space="preserve">
+          <source>About</source>
+          <target state="translated">אודות</target>
+        </trans-unit>
+        <trans-unit id="CommandBar/SettingsMFI.Text" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="translated">הגדרות</target>
+        </trans-unit>
+        <trans-unit id="MessageBox/MessageTBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Send message</source>
+          <target state="translated">שלח הודעה</target>
+        </trans-unit>
+        <trans-unit id="Guilds/Home" translate="yes" xml:space="preserve">
+          <source>Home</source>
+          <target state="translated">בית</target>
+        </trans-unit>
+        <trans-unit id="Channels/MemberCount" translate="yes" xml:space="preserve">
+          <source>{0} Members</source>
+          <target state="needs-review-translation">{0} חברים</target>
+        </trans-unit>
+        <trans-unit id="And" translate="yes" xml:space="preserve">
+          <source>{0} and {1}</source>
+          <target state="translated">{0}ו {1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">This is used for an and list of two items</note>
+        </trans-unit>
+        <trans-unit id="AndConjunction" translate="yes" xml:space="preserve">
+          <source>{0}, {1}</source>
+          <target state="translated">{0}, {1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">This is used to form a comma list {0}, {{1}, and {2}}</note>
+        </trans-unit>
+        <trans-unit id="OxfordAnd" translate="yes" xml:space="preserve">
+          <source>{0}, and {1}</source>
+          <target state="translated">{0}, ו{1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">This is used for the base item of and conjunction</note>
+        </trans-unit>
+        <trans-unit id="UserSettings/MyAccount" translate="yes" xml:space="preserve">
+          <source>My Account</source>
+          <target state="needs-review-translation">החשבון שלי</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Privacy" translate="yes" xml:space="preserve">
+          <source>Privacy</source>
+          <target state="needs-review-translation">פרטיות</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Connections" translate="yes" xml:space="preserve">
+          <source>Connections</source>
+          <target state="needs-review-translation">חיבורים</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Display" translate="yes" xml:space="preserve">
+          <source>Display</source>
+          <target state="needs-review-translation">להציג</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Behavior" translate="yes" xml:space="preserve">
+          <source>Behavior</source>
+          <target state="needs-review-translation">התנהגות</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Notifications" translate="yes" xml:space="preserve">
+          <source>Notifications</source>
+          <target state="needs-review-translation">התראות</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/Voice" translate="yes" xml:space="preserve">
+          <source>Voice</source>
+          <target state="needs-review-translation">קול</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/AboutMeTBox.Header" translate="yes" xml:space="preserve">
+          <source>About Me</source>
+          <target state="translated">עליי</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/DangerZoneDescTB.Text" translate="yes" xml:space="preserve">
+          <source>Don't analyze any DMs</source>
+          <target state="needs-review-translation">אין לנתח הודעות ישירות</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/DangerZoneTB.Text" translate="yes" xml:space="preserve">
+          <source>I live dangerously</source>
+          <target state="translated">אני גר בצורה מסוכנת</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/DiscriminatorTBox.Header" translate="yes" xml:space="preserve">
+          <source>Discriminator</source>
+          <target state="translated">מאבחן</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/DMFilterDescTB.Text" translate="yes" xml:space="preserve">
+          <source>Analyze and automatically delete direct messages containing explicit content</source>
+          <target state="needs-review-translation">ניתוח ומחק באופן אוטומטי הודעות ישירות המכילות תוכן מפורשת</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/DMFilterTB.Text" translate="yes" xml:space="preserve">
+          <source>DIRECT MESSAGE FILTERING</source>
+          <target state="needs-review-translation">מסנן הודעה ישירה</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/EmailTBox.Header" translate="yes" xml:space="preserve">
+          <source>Email</source>
+          <target state="translated">אימייל</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/NiceFriendsDescTB.Text" translate="yes" xml:space="preserve">
+          <source>Analyze all DMs, except from my friends</source>
+          <target state="needs-review-translation">נתח את כל ההודעות הישירות, למעט מחבריי</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/NiceFriendsTB.Text" translate="yes" xml:space="preserve">
+          <source>My friends are nice</source>
+          <target state="translated">החברים שלי נחמדים</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/ProtectMeDescTB.Text" translate="yes" xml:space="preserve">
+          <source>Analyze all DMs</source>
+          <target state="needs-review-translation">לנתח את כל ההודעות הישירות</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/ProtectMeTB.Text" translate="yes" xml:space="preserve">
+          <source>Protect me</source>
+          <target state="translated">הגן עליי</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/UsernameTBox.Header" translate="yes" xml:space="preserve">
+          <source>Username</source>
+          <target state="translated">שם משתמש</target>
+        </trans-unit>
+        <trans-unit id="InfoMessage/Call" translate="yes" xml:space="preserve">
+          <source>{author} started a call</source>
+          <target state="new">{author} started a call</target>
+        </trans-unit>
+        <trans-unit id="InfoMessage/RecipientAdd" translate="yes" xml:space="preserve">
+          <source>{author} added {mention.0} to the group</source>
+          <target state="new">{author} added {mention.0} to the group</target>
+        </trans-unit>
+        <trans-unit id="InfoMessage/RecipientRemove" translate="yes" xml:space="preserve">
+          <source>{author} removed {mention.0} from the group</source>
+          <target state="new">{author} removed {mention.0} from the group</target>
+        </trans-unit>
+        <trans-unit id="InfoMessage/Unknown" translate="yes" xml:space="preserve">
+          <source>Unknown message</source>
+          <target state="new">Unknown message</target>
+        </trans-unit>
+        <trans-unit id="InfoMessage/ChannelIconChange" translate="yes" xml:space="preserve">
+          <source>{author} changed the channel icon</source>
+          <target state="new">{author} changed the channel icon</target>
+        </trans-unit>
+        <trans-unit id="InfoMessage/ChannelNameChange" translate="yes" xml:space="preserve">
+          <source>{author} changed the channel name to {content}</source>
+          <target state="new">{author} changed the channel name to {content}</target>
+        </trans-unit>
+        <trans-unit id="InfoMessage/ChannelPinnedMessage" translate="yes" xml:space="preserve">
+          <source>{author pinned {message_reference} to the channel</source>
+          <target state="new">{author pinned {message_reference} to the channel</target>
+        </trans-unit>
+        <trans-unit id="InfoMessage/GuildMemberJoin" translate="yes" xml:space="preserve">
+          <source>{author} joined the server</source>
+          <target state="new">{author} joined the server</target>
+        </trans-unit>
+        <trans-unit id="Time/LTMinuteAgo" translate="yes" xml:space="preserve">
+          <source>Less than a minute ago</source>
+          <target state="new">Less than a minute ago</target>
+        </trans-unit>
+        <trans-unit id="Time/MinutesAgo" translate="yes" xml:space="preserve">
+          <source>{0} minutes ago</source>
+          <target state="new">{0} minutes ago</target>
+        </trans-unit>
+        <trans-unit id="Time/OneMinuteAgo" translate="yes" xml:space="preserve">
+          <source>A minute ago</source>
+          <target state="new">A minute ago</target>
+        </trans-unit>
+        <trans-unit id="Time/TodayAt" translate="yes" xml:space="preserve">
+          <source>Today at {0}</source>
+          <target state="new">Today at {0}</target>
+        </trans-unit>
+        <trans-unit id="Time/TwoMinutesAgo" translate="yes" xml:space="preserve">
+          <source>2 minutes ago</source>
+          <target state="new">2 minutes ago</target>
+        </trans-unit>
+        <trans-unit id="Time/YesterdayAt" translate="yes" xml:space="preserve">
+          <source>Yesterday at {0}</source>
+          <target state="new">Yesterday at {0}</target>
+        </trans-unit>
       </group>
     </body>
   </file>

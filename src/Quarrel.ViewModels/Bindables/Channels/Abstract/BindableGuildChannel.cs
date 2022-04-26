@@ -6,17 +6,19 @@ using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Permissions;
 using Quarrel.Client.Models.Users;
+using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
+using Quarrel.Services.Localization;
 
 namespace Quarrel.Bindables.Channels.Abstract
 {
     /// <summary>
-    /// A wrapper of an <see cref="IGuildChannel"/> that can be bound to the UI.
+    /// A wrapper of a <see cref="GuildChannel"/> that can be bound to the UI.
     /// </summary>
     public abstract class BindableGuildChannel : BindableChannel
     {
-        internal BindableGuildChannel(IDispatcherService dispatcherService, GuildChannel channel, GuildMember selfMember, BindableCategoryChannel? parent = null) :
-            base(dispatcherService, channel)
+        internal BindableGuildChannel(IDiscordService discordService, IDispatcherService dispatcherService, GuildChannel channel, GuildMember selfMember, BindableCategoryChannel? parent = null) :
+            base(discordService, dispatcherService, channel)
         {
             CategoryChannel = parent;
 
@@ -56,13 +58,15 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <summary>
         /// Creates a new <see cref="BindableGuildChannel"/> based on the type.
         /// </summary>
-        /// <param name="dispatcherService">The dispatcher service to pass to the <see cref="BindableItem"/>.</param>
+        /// <param name="discordService">The <see cref="IDiscordService"/> to pass to the <see cref="BindableItem"/>.</param>
+        /// <param name="localizationService">The <see cref="ILocalizationService"/> to pass to the <see cref="BindableItem"/>.</param>
+        /// <param name="dispatcherService">The <see cref="IDispatcherService"/> to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="channel">The channel to wrap.</param>
         /// <param name="member">The current user's guild member for the channel's guild.</param>
         /// <param name="parent">The channel's parent category.</param>
-        public static BindableGuildChannel? Create(IDispatcherService dispatcherService, IGuildChannel channel, GuildMember member, BindableCategoryChannel? parent = null)
+        public static BindableGuildChannel? Create(IDiscordService discordService, ILocalizationService localizationService, IDispatcherService dispatcherService, IGuildChannel channel, GuildMember member, BindableCategoryChannel? parent = null)
         {
-            return BindableChannel.Create(dispatcherService, channel, member, parent) as BindableGuildChannel;
+            return BindableChannel.Create(discordService, localizationService, dispatcherService, channel, member, parent) as BindableGuildChannel;
         }
         
         /// <inheritdoc/>

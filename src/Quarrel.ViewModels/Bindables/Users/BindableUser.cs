@@ -3,6 +3,7 @@
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Users.Interfaces;
 using Quarrel.Client.Models.Users;
+using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using System;
 
@@ -18,8 +19,8 @@ namespace Quarrel.Bindables.Users
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableUser"/> class.
         /// </summary>
-        internal BindableUser(IDispatcherService dispatcherService, User user) :
-            base(dispatcherService)
+        internal BindableUser(IDiscordService discordService, IDispatcherService dispatcherService, User user) :
+            base(discordService, dispatcherService)
         {
             _user = user;
         }

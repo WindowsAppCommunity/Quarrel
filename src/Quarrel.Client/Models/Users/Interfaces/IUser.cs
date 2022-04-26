@@ -5,7 +5,7 @@ using Quarrel.Client.Models.Base.Interfaces;
 
 namespace Quarrel.Client.Models.Users.Interfaces
 {
-    internal interface IUser : ISnowflakeItem
+    public interface IUser : ISnowflakeItem
     {
         /// <summary>
         /// Gets the user's username.

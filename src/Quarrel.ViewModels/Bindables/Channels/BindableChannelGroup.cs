@@ -2,6 +2,7 @@
 
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels.Abstract;
+using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,8 +16,8 @@ namespace Quarrel.Bindables.Channels
     /// </summary>
     public class BindableChannelGroup : BindableItem, IGrouping<BindableCategoryChannel?, BindableChannel?>
     {
-        internal BindableChannelGroup(IDispatcherService dispatcherService, BindableCategoryChannel? key) :
-            base(dispatcherService)
+        internal BindableChannelGroup(IDiscordService discordService, IDispatcherService dispatcherService, BindableCategoryChannel? key) :
+            base(discordService, dispatcherService)
         {
             Key = key;
             Children = new ObservableCollection<BindableChannel>();

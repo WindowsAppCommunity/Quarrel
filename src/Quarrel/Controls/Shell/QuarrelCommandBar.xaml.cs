@@ -9,12 +9,13 @@ using Quarrel.Services.Windows;
 using Quarrel.ViewModels.Panels;
 using Quarrel.ViewModels.SubPages.DiscordStatus;
 using Quarrel.ViewModels.SubPages.Meta;
+using Quarrel.ViewModels.SubPages.Settings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Shell
 {
-    public sealed partial class QuarrelCommandBar : CommandBar
+    public sealed partial class QuarrelCommandBar : UserControl
     {
         private readonly IWindowService _windowService;
         private readonly IMessenger _messenger;
@@ -60,6 +61,9 @@ namespace Quarrel.Controls.Shell
         private void GoToAbout(object sender, RoutedEventArgs e)
             => _messenger.Send(new NavigateToSubPageMessage(typeof(AboutPageViewModel)));
 
+        private void GoToSettings(object sender, RoutedEventArgs e)
+            => _messenger.Send(new NavigateToSubPageMessage(typeof(UserSettingsPageViewModel)));
+
         private static void OnShowHamburgerButtonPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
             QuarrelCommandBar commandBar = (QuarrelCommandBar)d;
@@ -71,7 +75,7 @@ namespace Quarrel.Controls.Shell
         {
             QuarrelCommandBar commandBar = (QuarrelCommandBar)d;
             bool newValue = (bool)args.NewValue;
-            commandBar.ToggleMembersABB.Visibility = newValue ? Visibility.Visible : Visibility.Collapsed;
+            commandBar.ToggleMembersBTN.Visibility = newValue ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void OpenInNewWindow(object sender, RoutedEventArgs e)

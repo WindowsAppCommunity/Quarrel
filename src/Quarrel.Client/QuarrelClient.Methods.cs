@@ -2,12 +2,16 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Json.Messages;
+using Quarrel.Client.Models.Channels;
+using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Guilds;
 using Quarrel.Client.Models.Messages;
 using Quarrel.Client.Models.Settings;
 using Quarrel.Client.Models.Users;
 using Refit;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Quarrel.Client
@@ -20,6 +24,17 @@ namespace Quarrel.Client
         public SelfUser? GetMe()
         {
             return CurrentUser;
+        }
+
+        public User? GetUser(ulong id)
+        {
+            _userMap.TryGetValue(id, out var user);
+            return user;
+        }
+
+        public Settings? GetSettings()
+        {
+            return _settings;
         }
 
         /// <summary>
@@ -104,6 +119,35 @@ namespace Quarrel.Client
         {
             Guard.IsNotNull(_settings, nameof(_settings));
             return _settings.Folders;
+        }
+
+        public IPrivateChannel[] GetPrivateChannels()
+        {
+            IPrivateChannel[] privateChannels = new IPrivateChannel[_privateChannels.Count];
+            int i = 0;
+            foreach (var channelId in _privateChannels)
+            {
+                var channel = GetChannelInternal(channelId);
+                if (channel is IPrivateChannel directChannel)
+                {
+                    privateChannels[i] = directChannel;
+                    i++;
+                }
+            }
+
+            Array.Resize(ref privateChannels, i);
+            Array.Sort(privateChannels, Comparer<IPrivateChannel>.Create((item1, item2) =>
+            {
+                if (!item2.LastMessageId.HasValue) return -1;
+                if (!item1.LastMessageId.HasValue) return 1;
+
+                long compare = (long)item2.LastMessageId.Value - (long)item1.LastMessageId.Value;
+                if (compare < 0) return -1;
+                if (compare > 0) return 1;
+                return 0;
+            }));
+
+            return privateChannels;
         }
 
         private async Task<T?> MakeRefitRequest<T>(Func<Task<T>> request)
