@@ -4,6 +4,7 @@ using Discord.API.Models.Enums.Messages;
 using Discord.API.Models.Json.Messages;
 using Quarrel.Client.Models.Base;
 using Quarrel.Client.Models.Messages.Interfaces;
+using Quarrel.Client.Models.Users;
 using System;
 
 namespace Quarrel.Client.Models.Messages
@@ -22,7 +23,9 @@ namespace Quarrel.Client.Models.Messages
             MentionsEveryone = jsonMessage.MentionsEveryone;
             Timestamp = jsonMessage.Timestamp ?? DateTimeOffset.MinValue;
             EditedTimestamp = jsonMessage.EditedTimestamp;
-            Content = jsonMessage.Content ?? String.Empty;
+            Content = jsonMessage.Content ?? string.Empty;
+
+            Author = context.GetOrAddUserInternal(jsonMessage.Author);
         }
 
         /// <inheritdoc/>
@@ -45,5 +48,8 @@ namespace Quarrel.Client.Models.Messages
 
         /// <inheritdoc/>
         public DateTimeOffset? EditedTimestamp { get; private set; }
+
+        /// <inheritdoc/>
+        public User Author { get; private set; }
     }
 }

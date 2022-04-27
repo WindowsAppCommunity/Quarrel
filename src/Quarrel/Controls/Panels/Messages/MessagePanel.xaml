@@ -26,6 +26,7 @@
         
         <ListView ItemsSource="{x:Bind ViewModel.Source}"
                   ItemTemplateSelector="{StaticResource MessageTemplateSelector}"
+                  ItemContainerStyle="{StaticResource MessageListItemStyle}"
                   ShowsScrollingPlaceholders="False">
             <ListView.Header>
                 <ProgressBar IsIndeterminate="True" Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}"/>

@@ -10,11 +10,39 @@
     xmlns:message="using:Quarrel.Controls.Message">
 
     <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
-        <message:MessageRenderer Text="{x:Bind Message.Content}"/>
+        <Grid Padding="2,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="64"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Image-->
+            <Border Width="36" Height="36"
+                    CornerRadius="18" VerticalAlignment="Top">
+                <tc:ImageEx Source="{x:Bind Author.AvatarUri}"/>
+            </Border>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" Margin="0,-4,0,0">
+                    <HyperlinkButton Content="{x:Bind Author.User.Username}" Style="{StaticResource PlainTextHyperlinkStyle}"
+                                     FontSize="14"/>
+                    <TextBlock Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"
+                               VerticalAlignment="Center"
+                               FontSize="11" Opacity=".5" Margin="6,0"/>
+                </StackPanel>
+
+                <message:MessageRenderer Text="{x:Bind Message.Content}" Grid.Row="1"/>
+            </Grid>
+        </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="InfoMessageTemplate" x:DataType="bindablemessages:BindableMessage">
-        <Grid>
+        <Grid VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="64"/>
                 <ColumnDefinition Width="auto"/>
@@ -22,7 +50,7 @@
             </Grid.ColumnDefinitions>
             <FontIcon Glyph="{x:Bind mconvert:InfoMessageIconConverter.Convert(Message.Type)}"
                       Foreground="{x:Bind mconvert:InfoMessageColorConverter.Convert(Message.Type)}"/>
-            
+
             <TextBlock Grid.Column="1" Text="{x:Bind mconvert:InfoMessageContentConverter.Convert((bindablemessages:BindableMessage))}"/>
             <TextBlock Grid.Column="2" Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"
                        Opacity=".5" Margin="8,0"/>

@@ -1,9 +1,11 @@
 ﻿// Quarrel © 2022
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Windows.ApplicationModel.Resources;
 using Windows.ApplicationModel.Resources.Core;
+using Windows.Globalization;
 
 namespace Quarrel.Services.Localization
 {
@@ -47,8 +49,17 @@ namespace Quarrel.Services.Localization
             }
         }
         
+        public string LanguageOverride
+        {
+            get => ApplicationLanguages.PrimaryLanguageOverride;
+            set => ApplicationLanguages.PrimaryLanguageOverride = value;
+        }
+
         /// <inheritdoc/>
         public bool IsNeutralLanguage => CultureInfo.CurrentCulture.Name == "en-US";
+
+        /// <inheritdoc/>
+        public IReadOnlyList<string> AvailableLanguages => ApplicationLanguages.ManifestLanguages;
 
         public string CommaList(params string[] args)
         {

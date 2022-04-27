@@ -349,27 +349,27 @@
         </trans-unit>
         <trans-unit id="Time/LTMinuteAgo" translate="yes" xml:space="preserve">
           <source>Less than a minute ago</source>
-          <target state="new">Less than a minute ago</target>
+          <target state="translated">לפני פחות מדקה</target>
         </trans-unit>
         <trans-unit id="Time/MinutesAgo" translate="yes" xml:space="preserve">
           <source>{0} minutes ago</source>
-          <target state="new">{0} minutes ago</target>
+          <target state="translated">לפני {0} דקות</target>
         </trans-unit>
         <trans-unit id="Time/OneMinuteAgo" translate="yes" xml:space="preserve">
           <source>A minute ago</source>
-          <target state="new">A minute ago</target>
+          <target state="translated">לפני דקה</target>
         </trans-unit>
         <trans-unit id="Time/TodayAt" translate="yes" xml:space="preserve">
           <source>Today at {0}</source>
-          <target state="new">Today at {0}</target>
+          <target state="translated">היום בשעה {0}</target>
         </trans-unit>
         <trans-unit id="Time/TwoMinutesAgo" translate="yes" xml:space="preserve">
           <source>2 minutes ago</source>
-          <target state="new">2 minutes ago</target>
+          <target state="translated">לפני 2 דקות</target>
         </trans-unit>
         <trans-unit id="Time/YesterdayAt" translate="yes" xml:space="preserve">
           <source>Yesterday at {0}</source>
-          <target state="new">Yesterday at {0}</target>
+          <target state="translated">אתמול בשעה {0}</target>
         </trans-unit>
       </group>
     </body>

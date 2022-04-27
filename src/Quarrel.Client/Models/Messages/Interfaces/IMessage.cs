@@ -2,6 +2,7 @@
 
 using Discord.API.Models.Enums.Messages;
 using Quarrel.Client.Models.Base.Interfaces;
+using Quarrel.Client.Models.Users;
 using System;
 
 namespace Quarrel.Client.Models.Messages.Interfaces
@@ -42,5 +43,10 @@ namespace Quarrel.Client.Models.Messages.Interfaces
         /// Gets the timestamp the message was last edited.
         /// </summary>
         DateTimeOffset? EditedTimestamp { get; }
+
+        /// <summary>
+        /// Gets the author of the message.
+        /// </summary>
+        User? Author { get; }
     }
 }
