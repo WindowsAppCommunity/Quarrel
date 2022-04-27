@@ -28,10 +28,12 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Horizontal">
-                    <HyperlinkButton Content="{x:Bind Author.User.Username}" Style="{StaticResource PlainTextHyperlinkStyle}"/>
+                <StackPanel Orientation="Horizontal" Margin="0,-4,0,0">
+                    <HyperlinkButton Content="{x:Bind Author.User.Username}" Style="{StaticResource PlainTextHyperlinkStyle}"
+                                     FontSize="14"/>
                     <TextBlock Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"
-                           Opacity=".5" Margin="8,0"/>
+                               VerticalAlignment="Center"
+                               FontSize="11" Opacity=".5" Margin="6,0"/>
                 </StackPanel>
 
                 <message:MessageRenderer Text="{x:Bind Message.Content}" Grid.Row="1"/>
