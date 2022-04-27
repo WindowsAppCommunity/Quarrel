@@ -177,15 +177,16 @@ namespace Quarrel.Client
             return null;
         }
 
-        internal User? GetOrAddUserInternal(JsonUser jsonUser)
+        internal User GetOrAddUserInternal(JsonUser jsonUser)
         {
             if(_userMap.TryGetValue(jsonUser.Id, out User user))
             {
                 return user;
             }
 
+            // This null override should really be safe
             AddUser(jsonUser);
-            return GetUserInternal(jsonUser.Id);
+            return GetUserInternal(jsonUser.Id)!;
         }
 
         internal bool AddUser(JsonUser jsonUser)

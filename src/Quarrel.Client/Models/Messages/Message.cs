@@ -24,11 +24,8 @@ namespace Quarrel.Client.Models.Messages
             Timestamp = jsonMessage.Timestamp ?? DateTimeOffset.MinValue;
             EditedTimestamp = jsonMessage.EditedTimestamp;
             Content = jsonMessage.Content ?? string.Empty;
-            
-            if (jsonMessage.Author is not null)
-            {
-                Author = context.GetOrAddUserInternal(jsonMessage.Author);
-            }
+
+            Author = context.GetOrAddUserInternal(jsonMessage.Author);
         }
 
         /// <inheritdoc/>
@@ -53,6 +50,6 @@ namespace Quarrel.Client.Models.Messages
         public DateTimeOffset? EditedTimestamp { get; private set; }
 
         /// <inheritdoc/>
-        public User? Author { get; private set; }
+        public User Author { get; private set; }
     }
 }

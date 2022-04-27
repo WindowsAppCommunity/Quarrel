@@ -10,7 +10,7 @@
     xmlns:message="using:Quarrel.Controls.Message">
 
     <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
-        <Grid>
+        <Grid Padding="2,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="64"/>
                 <ColumnDefinition Width="*"/>

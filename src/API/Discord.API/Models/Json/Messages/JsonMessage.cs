@@ -30,7 +30,7 @@ namespace Discord.API.Models.Json.Messages
         public ulong? WebhookId { get; set; }
 
         [JsonPropertyName("author")]
-        public JsonUser? Author { get; set; }
+        public JsonUser Author { get; set; }
 
         [JsonPropertyName("call")]
         public JsonCall? Call { get; set; }
