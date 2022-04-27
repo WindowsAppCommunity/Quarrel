@@ -96,12 +96,6 @@ namespace Discord.API.Gateways
             FireEvent(frame, Ready);
             return true;
         }
-        
-        private bool OnHeartbeatAck()
-        {
-            // TODO: Wait for ack after heartbeat.
-            return true;
-        }
 
         private void ProcessEvents(SocketFrame frame)
         {
@@ -114,6 +108,7 @@ namespace Discord.API.Gateways
                 {
                     GatewayOperation.Hello => OnHelloReceived((SocketFrame<Hello>)frame),
                     GatewayOperation.InvalidSession => OnInvalidSession(frame),
+                    GatewayOperation.HeartbeatAck => OnHeartbeatAck(),
                     GatewayOperation.Dispatch => FireEvent(frame.Event.ToString(), KnownEventEncountered) && frame.Event switch
                     {
                         GatewayEvent.READY => OnReady((SocketFrame<Ready>)frame),

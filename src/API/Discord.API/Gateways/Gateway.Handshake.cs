@@ -2,12 +2,15 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Gateways.Models.Handshake;
+using System;
 using System.Threading.Tasks;
 
 namespace Discord.API.Gateways
 {
     internal partial class Gateway
     {
+        private static bool _recievedAck = false;
+
         private bool OnHelloReceived(SocketFrame<Hello> frame)
         {
             SetupGateway(frame.Payload.HeartbeatInterval);
@@ -31,6 +34,8 @@ namespace Discord.API.Gateways
                     return;
             }
 
+            double jitter = (new Random()).NextDouble();
+            await Task.Delay((int)(interval * jitter));
             await BeginHeartbeatAsync(interval);
         }
 
@@ -51,25 +56,24 @@ namespace Discord.API.Gateways
             return true;
         }
 
+        private bool OnHeartbeatAck()
+        {
+            _recievedAck = true;
+            return true;
+        }
+
         private async Task BeginHeartbeatAsync(int interval)
         {
-            while (true)
+            while (_gatewayStatus == GatewayStatus.Connected)
             {
+                await SendHeartbeatAsync();
+                _recievedAck = false;
                 await Task.Delay(interval);
-                bool worked = false;
-                int tried = 3;
-                while (!worked && tried > 0)
+                if (!_recievedAck)
                 {
-                    try
-                    {
-                        await SendHeartbeatAsync();
-                        //await UpdateStatus();
-                        worked = true;
-                    }
-                    catch
-                    {
-                        tried--;
-                    }
+                    _gatewayStatus = GatewayStatus.Disconnected;
+                    await CloseSocket();
+                    await ResumeAsync();
                 }
             }
         }
@@ -123,18 +127,15 @@ namespace Discord.API.Gateways
         private async Task SendResumeRequestAsync()
         {
             Guard.IsNotNull(_sessionId, nameof(_sessionId));
-
-            var payload = new GatewayResume()
-            {
-                Token = _token,
-                SessionID = _sessionId,
-                LastSequenceNumberReceived = _lastEventSequenceNumber,
-            };
-
+            
             var request = new SocketFrame<GatewayResume>()
             {
                 Operation = GatewayOperation.Resume,
-                Payload = payload,
+                Payload = {
+                    Token = _token,
+                    SessionID = _sessionId,
+                    LastSequenceNumberReceived = _lastEventSequenceNumber,
+                },
             };
 
             await SendMessageAsync(request);

@@ -89,12 +89,12 @@ namespace Discord.API.Sockets
         /// Disconnect from host.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
-        public async Task DisconnectAsync()
+        public async Task DisconnectAsync(WebSocketCloseStatus closureStatus = WebSocketCloseStatus.NormalClosure)
         {
             await _lock.WaitAsync().ConfigureAwait(false);
             try
             {
-                await DisconnectInternalAsync().ConfigureAwait(false);
+                await DisconnectInternalAsync(false, closureStatus).ConfigureAwait(false);
             }
             finally
             {
@@ -176,7 +176,7 @@ namespace Discord.API.Sockets
                 if (disposing)
                 {
                     DisconnectInternalAsync(true).GetAwaiter().GetResult();
-                    _disconnectTokenSource?.Dispose();
+                    _disconnectTokenSource.Dispose();
                     _cancelTokenSource?.Dispose();
                     _lock?.Dispose();
                 }
@@ -189,7 +189,7 @@ namespace Discord.API.Sockets
         {
             await DisconnectInternalAsync().ConfigureAwait(false);
 
-            _disconnectTokenSource?.Dispose();
+            _disconnectTokenSource.Dispose();
             _cancelTokenSource?.Dispose();
 
             _disconnectTokenSource = new CancellationTokenSource();
@@ -212,11 +212,11 @@ namespace Discord.API.Sockets
             _task = RunAsync(_cancelToken);
         }
 
-        private async Task DisconnectInternalAsync(bool isDisposing = false)
+        private async Task DisconnectInternalAsync(bool isDisposing = false, WebSocketCloseStatus closureReason = WebSocketCloseStatus.NormalClosure)
         {
             try
             {
-                _disconnectTokenSource?.Cancel(false);
+                _disconnectTokenSource.Cancel(false);
             }
             catch
             {
@@ -230,7 +230,7 @@ namespace Discord.API.Sockets
                 {
                     try
                     {
-                        await _client.CloseOutputAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
+                        await _client.CloseOutputAsync(closureReason, string.Empty, CancellationToken.None);
                     }
                     catch
                     {
@@ -250,7 +250,8 @@ namespace Discord.API.Sockets
 
             try
             {
-                await (_task ?? Task.Delay(0)).ConfigureAwait(false);
+                if(_task != null)
+                    await _task.ConfigureAwait(false);
                 _task = null;
             }
             finally
@@ -313,7 +314,7 @@ namespace Discord.API.Sockets
                             socketResult = await _client.ReceiveAsync(buffer, cancelToken).ConfigureAwait(false);
                             stream.Write(buffer.Array, 0, socketResult.Count);
                         }
-                        while (socketResult is null || !socketResult.EndOfMessage);
+                        while (!socketResult.EndOfMessage);
 
                         // Use the internal buffer if we can get it
                         resultCount = (int)stream.Length;
