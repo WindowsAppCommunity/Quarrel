@@ -290,11 +290,12 @@ namespace Quarrel.Controls.Message
                             {
                                 InlineUIContainer container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                container.Child = new Border()
+                                container.Child = new HyperlinkButton()
                                 {
                                     RenderTransform = new TranslateTransform { Y = 4 },
                                     Background = new SolidColorBrush(Colors.DarkGray),
-                                    Child = new TextBlock()
+                                    Padding = new Thickness(0),
+                                    Content = new TextBlock()
                                     {
                                         FontWeight = container.FontWeight,
                                         FontSize = container.FontSize,
@@ -310,11 +311,12 @@ namespace Quarrel.Controls.Message
                             {
                                 InlineUIContainer container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                container.Child = new Border()
+                                container.Child = new HyperlinkButton()
                                 {
                                     RenderTransform = new TranslateTransform { Y = 4 },
                                     Background = new SolidColorBrush(Colors.DarkGray),
-                                    Child = new TextBlock()
+                                    Padding = new Thickness(0),
+                                    Content = new TextBlock()
                                     {
                                         FontWeight = container.FontWeight,
                                         FontSize = container.FontSize,
@@ -330,11 +332,12 @@ namespace Quarrel.Controls.Message
                             {
                                 InlineUIContainer container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                container.Child = new Border()
+                                container.Child = new HyperlinkButton()
                                 {
                                     RenderTransform = new TranslateTransform { Y = 4 },
                                     Background = new SolidColorBrush(Colors.DarkGray),
-                                    Child = new TextBlock()
+                                    Padding = new Thickness(0),
+                                    Content = new TextBlock()
                                     {
                                         FontWeight = container.FontWeight,
                                         FontSize = container.FontSize,
@@ -376,7 +379,6 @@ namespace Quarrel.Controls.Message
                             inlineCollection.Add(new Run() { Text = textNode.Content });
                             break;
                     }
-
                 }
             }
         }
