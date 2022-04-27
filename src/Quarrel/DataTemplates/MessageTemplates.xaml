@@ -51,7 +51,7 @@
             <FontIcon Glyph="{x:Bind mconvert:InfoMessageIconConverter.Convert(Message.Type)}"
                       Foreground="{x:Bind mconvert:InfoMessageColorConverter.Convert(Message.Type)}"/>
 
-            <TextBlock Grid.Column="1" Text="{x:Bind mconvert:InfoMessageContentConverter.Convert((bindablemessages:BindableMessage))}"/>
+            <message:MessageRenderer Grid.Column="1" Message="{x:Bind (bindablemessages:BindableMessage)}" Margin="0,-5,0,0"/>
             <TextBlock Grid.Column="2" Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"
                        Opacity=".5" Margin="8,0"/>
         </Grid>

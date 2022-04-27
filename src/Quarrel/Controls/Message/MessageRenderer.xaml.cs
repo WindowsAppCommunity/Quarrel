@@ -1,8 +1,10 @@
 ﻿// Quarrel © 2022
 
 using ColorCode;
+using Discord.API.Models.Enums.Messages;
 using Humanizer;
 using Quarrel.Bindables.Messages;
+using Quarrel.Converters.DataTemplates.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +34,7 @@ namespace Quarrel.Controls.Message
         {
             var messageRenderer = (MessageRenderer)d;
             BindableMessage newMessage = (BindableMessage)e.NewValue;
-            var tree = Parser.ParseAST(newMessage.Message.Content, true, false);
+            var tree = Parser.ParseAST(GetMessageContent(newMessage), true, false);
             var modTree = AdjustTree(tree);
             messageRenderer.RenderMarkdown(modTree);
         }
@@ -385,6 +387,16 @@ namespace Quarrel.Controls.Message
                     }
                 }
             }
+        }
+
+        private static string GetMessageContent(BindableMessage message)
+        {
+            return message.Message.Type switch
+            {
+                MessageType.Default or
+                MessageType.Reply => message.Message.Content,
+                _ => InfoMessageContentConverter.Convert(message),
+            };
         }
 
         /// <summary>
