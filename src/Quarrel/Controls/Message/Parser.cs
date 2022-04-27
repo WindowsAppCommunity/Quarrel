@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace Quarrel.Controls.Message
 {
-    public class Parser
+    public static class Parser
     {
         private static Regex heading = new Regex(@"^ *(#{1,3})(?:\s+)((?![#]+)[^\n]+?)#*\s*(?:\n|$)");
         private static Regex codeBlock = new Regex(@"^```(?:([a-z0-9_+\-.]+?)\n)?\n*([^\n][\s\S]*?)\n*```");

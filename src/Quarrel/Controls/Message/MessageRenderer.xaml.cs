@@ -18,7 +18,7 @@ namespace Quarrel.Controls.Message
     public sealed partial class MessageRenderer : UserControl
     {
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
-            "Text",
+            nameof(Text),
             typeof(string),
             typeof(MessageRenderer),
             new PropertyMetadata(null, OnTextChanged)
@@ -28,7 +28,6 @@ namespace Quarrel.Controls.Message
         {
             var messageRenderer = (MessageRenderer)d;
             messageRenderer.textBlock.Blocks.Clear();
-            var parser = new Parser();
             var tree = Parser.ParseAST((string)e.NewValue, true, false);
             var modTree = AdjustTree(tree);
             Parse(modTree, messageRenderer.textBlock.Blocks);
@@ -256,7 +255,6 @@ namespace Quarrel.Controls.Message
                             break;
                         case Timestamp timeStamp:
                             {
-
                                 InlineUIContainer container = new InlineUIContainer();
                                 inlineCollection.Add(container);
                                 container.Child = new Border()
@@ -360,7 +358,7 @@ namespace Quarrel.Controls.Message
                                         FontSize = container.FontSize,
                                         FontStretch = container.FontStretch,
                                         TextDecorations = container.TextDecorations,
-                                        Blocks = { codeParagraph }
+                                        Blocks = { codeParagraph },
                                     }
                                 };
                                 foreach (AST child in spoiler.Children.Reverse())

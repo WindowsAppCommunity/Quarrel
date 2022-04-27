@@ -10,7 +10,33 @@
     xmlns:message="using:Quarrel.Controls.Message">
 
     <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
-        <message:MessageRenderer Text="{x:Bind Message.Content}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="64"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Image-->
+            <Border Width="36" Height="36"
+                    CornerRadius="18" VerticalAlignment="Top">
+                <tc:ImageEx Source="{x:Bind Author.AvatarUri}"/>
+            </Border>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal">
+                    <HyperlinkButton Content="{x:Bind Author.User.Username}" Style="{StaticResource PlainTextHyperlinkStyle}"/>
+                    <TextBlock Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"
+                           Opacity=".5" Margin="8,0"/>
+                </StackPanel>
+
+                <message:MessageRenderer Text="{x:Bind Message.Content}" Grid.Row="1"/>
+            </Grid>
+        </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="InfoMessageTemplate" x:DataType="bindablemessages:BindableMessage">
@@ -22,7 +48,7 @@
             </Grid.ColumnDefinitions>
             <FontIcon Glyph="{x:Bind mconvert:InfoMessageIconConverter.Convert(Message.Type)}"
                       Foreground="{x:Bind mconvert:InfoMessageColorConverter.Convert(Message.Type)}"/>
-            
+
             <TextBlock Grid.Column="1" Text="{x:Bind mconvert:InfoMessageContentConverter.Convert((bindablemessages:BindableMessage))}"/>
             <TextBlock Grid.Column="2" Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"
                        Opacity=".5" Margin="8,0"/>
