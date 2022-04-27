@@ -210,6 +210,9 @@
     <Compile Include="SubPages\Meta\CreditPage.xaml.cs">
       <DependentUpon>CreditPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\UserSettings\Pages\DisplayPage.xaml.cs">
+      <DependentUpon>DisplayPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\UserSettings\Pages\MyAccountPage.xaml.cs">
       <DependentUpon>MyAccountPage.xaml</DependentUpon>
     </Compile>
@@ -4277,6 +4280,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\Meta\CreditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\UserSettings\Pages\DisplayPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

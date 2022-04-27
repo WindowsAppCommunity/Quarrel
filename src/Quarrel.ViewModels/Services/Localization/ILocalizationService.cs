@@ -1,5 +1,7 @@
 ﻿// Quarrel © 2022
 
+using System.Collections.Generic;
+
 namespace Quarrel.Services.Localization
 {
     /// <summary>
@@ -27,6 +29,8 @@ namespace Quarrel.Services.Localization
         /// </summary>
         string CommaList(params string[] args);
 
+        public string LanguageOverride { get; set; }
+
         /// <summary>
         /// Gets a value indicating whether or not the current language is written right to left.
         /// </summary>
@@ -36,5 +40,10 @@ namespace Quarrel.Services.Localization
         /// Gets a value indicating whether or not the current language is the app's neutral language.
         /// </summary>
         bool IsNeutralLanguage { get; }
+
+        /// <summary>
+        /// Gets the list of available languages.
+        /// </summary>
+        public IReadOnlyList<string> AvailableLanguages { get; }
     }
 }
