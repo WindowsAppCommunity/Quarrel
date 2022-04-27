@@ -9,5 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <RichTextBlock x:Name="textBlock" TextWrapping="WrapWholeWords"/>
+    <RichTextBlock x:Name="textBlock"
+                   IsTextSelectionEnabled="False"
+                   TextWrapping="WrapWholeWords"/>
 </UserControl>

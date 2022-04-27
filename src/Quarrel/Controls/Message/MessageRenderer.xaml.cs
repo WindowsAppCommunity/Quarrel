@@ -17,6 +17,9 @@ namespace Quarrel.Controls.Message
 {
     public sealed partial class MessageRenderer : UserControl
     {
+        private const bool IsTextSelectable = false;
+        private const bool IsCodeSelectable = true;
+
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
             nameof(Text),
             typeof(string),
@@ -80,6 +83,7 @@ namespace Quarrel.Controls.Message
                                         FontSize = container.FontSize,
                                         FontStretch = container.FontStretch,
                                         TextDecorations = container.TextDecorations,
+                                        IsTextSelectionEnabled = IsCodeSelectable,
                                         Blocks = { codeParagraph }
                                     }
                                 };
@@ -103,7 +107,7 @@ namespace Quarrel.Controls.Message
                                         FontSize = container.FontSize,
                                         FontStretch = container.FontStretch,
                                         TextDecorations = container.TextDecorations,
-                                        IsTextSelectionEnabled = true,
+                                        IsTextSelectionEnabled = IsCodeSelectable,
                                         Text = codeBlock.Content
                                     }
                                 };
@@ -247,7 +251,7 @@ namespace Quarrel.Controls.Message
                                         FontSize = container.FontSize,
                                         FontStretch = container.FontStretch,
                                         TextDecorations = container.TextDecorations,
-                                        IsTextSelectionEnabled = true,
+                                        IsTextSelectionEnabled = IsCodeSelectable,
                                         Text = inlineCode.Content
                                     }
                                 };
@@ -267,7 +271,7 @@ namespace Quarrel.Controls.Message
                                         FontSize = container.FontSize,
                                         FontStretch = container.FontStretch,
                                         TextDecorations = container.TextDecorations,
-                                        IsTextSelectionEnabled = true,
+                                        IsTextSelectionEnabled = IsTextSelectable,
                                         Text = timeStamp.Format switch
                                         {
                                             "F" or "" => timeStamp.Time.ToString("F"),
@@ -296,7 +300,7 @@ namespace Quarrel.Controls.Message
                                         FontSize = container.FontSize,
                                         FontStretch = container.FontStretch,
                                         TextDecorations = container.TextDecorations,
-                                        IsTextSelectionEnabled = true,
+                                        IsTextSelectionEnabled = IsTextSelectable,
                                         Text = roleMention.RoleID
                                     }
                                 };
@@ -316,7 +320,7 @@ namespace Quarrel.Controls.Message
                                         FontSize = container.FontSize,
                                         FontStretch = container.FontStretch,
                                         TextDecorations = container.TextDecorations,
-                                        IsTextSelectionEnabled = true,
+                                        IsTextSelectionEnabled = IsTextSelectable,
                                         Text = mention.UserID
                                     }
                                 };
@@ -336,7 +340,7 @@ namespace Quarrel.Controls.Message
                                         FontSize = container.FontSize,
                                         FontStretch = container.FontStretch,
                                         TextDecorations = container.TextDecorations,
-                                        IsTextSelectionEnabled = true,
+                                        IsTextSelectionEnabled = IsTextSelectable,
                                         Text = channel.ChannelID
                                     }
                                 };
@@ -358,6 +362,7 @@ namespace Quarrel.Controls.Message
                                         FontSize = container.FontSize,
                                         FontStretch = container.FontStretch,
                                         TextDecorations = container.TextDecorations,
+                                        IsTextSelectionEnabled = IsTextSelectable,
                                         Blocks = { codeParagraph },
                                     }
                                 };
