@@ -2,6 +2,7 @@
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Quarrel.Bindables.Abstract;
+using Quarrel.Bindables.Users;
 using Quarrel.Client.Models.Messages;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
@@ -15,7 +16,7 @@ namespace Quarrel.Bindables.Messages
     {
         [ObservableProperty]
         private Message _message;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableMessage"/> class.
         /// </summary>
@@ -23,6 +24,15 @@ namespace Quarrel.Bindables.Messages
             base(discordService, dispatcherService)
         {
             _message = message;
+            if (message.Author is not null)
+            {
+                Author = _discordService.GetUser(message.Author.Id);
+            }
         }
+
+        /// <summary>
+        /// Gets the author of the message as a bindable user.
+        /// </summary>
+        public BindableUser? Author { get; }
     }
 }
