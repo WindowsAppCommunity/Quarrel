@@ -14,7 +14,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="InfoMessageTemplate" x:DataType="bindablemessages:BindableMessage">
-        <Grid>
+        <Grid VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="64"/>
                 <ColumnDefinition Width="auto"/>

@@ -12,10 +12,11 @@
                 
                 <!--Styles-->
                 <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
-                <ResourceDictionary Source="Styles/TextBoxStyles.xaml"/>
                 <ResourceDictionary Source="Styles/ChannelItemStyles.xaml"/>
                 <ResourceDictionary Source="Styles/GuildItemStyles.xaml"/>
+                <ResourceDictionary Source="Styles/MessageItemStyles.xaml"/>
                 <ResourceDictionary Source="Styles/MiscStyles.xaml"/>
+                <ResourceDictionary Source="Styles/TextBoxStyles.xaml"/>
 
                 <!--Data Templates-->
                 <dt:GuildTemplates/>

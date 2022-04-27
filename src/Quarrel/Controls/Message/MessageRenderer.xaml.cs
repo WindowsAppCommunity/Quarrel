@@ -13,8 +13,6 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace Quarrel.Controls.Message
 {
     public sealed partial class MessageRenderer : UserControl
@@ -225,11 +223,11 @@ namespace Quarrel.Controls.Message
                                 }
                             }
                             break;
-                        case S u:
+                        case S s:
                             {
                                 var inline = new Span() { TextDecorations = TextDecorations.Strikethrough };
                                 inlineCollection.Add(inline);
-                                foreach (AST child in u.Children.Reverse())
+                                foreach (AST child in s.Children.Reverse())
                                 {
                                     stack.Push((child, inline.Inlines));
                                 }
