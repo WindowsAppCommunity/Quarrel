@@ -2,6 +2,7 @@
 
 using ColorCode;
 using Humanizer;
+using Quarrel.Bindables.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,26 +21,26 @@ namespace Quarrel.Controls.Message
         private const bool IsTextSelectable = false;
         private const bool IsCodeSelectable = true;
 
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
-            nameof(Text),
-            typeof(string),
+        public static readonly DependencyProperty MessageProperty = DependencyProperty.Register(
+            nameof(Message),
+            typeof(BindableMessage),
             typeof(MessageRenderer),
-            new PropertyMetadata(null, OnTextChanged)
+            new PropertyMetadata(null, OnMessageChanged)
         );
 
-        private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnMessageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var messageRenderer = (MessageRenderer)d;
-            messageRenderer.textBlock.Blocks.Clear();
-            var tree = Parser.ParseAST((string)e.NewValue, true, false);
+            BindableMessage newMessage = (BindableMessage)e.NewValue;
+            var tree = Parser.ParseAST(newMessage.Message.Content, true, false);
             var modTree = AdjustTree(tree);
-            Parse(modTree, messageRenderer.textBlock.Blocks);
+            messageRenderer.RenderMarkdown(modTree);
         }
 
-        public string Text
+        public BindableMessage Message
         {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get { return (BindableMessage)GetValue(MessageProperty); }
+            set { SetValue(MessageProperty, value); }
         }
 
         public MessageRenderer()
@@ -47,8 +48,11 @@ namespace Quarrel.Controls.Message
             this.InitializeComponent();
         }
 
-        private static void Parse(IList<ASTRoot> tree, BlockCollection blocks)
+        private void RenderMarkdown(IList<ASTRoot> tree)
         {
+            BlockCollection blocks = textBlock.Blocks;
+            blocks.Clear();
+
             foreach (var root in tree)
             {
                 var paragraph = new Paragraph();

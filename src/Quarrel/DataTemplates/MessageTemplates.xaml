@@ -36,7 +36,7 @@
                                FontSize="11" Opacity=".5" Margin="6,0"/>
                 </StackPanel>
 
-                <message:MessageRenderer Text="{x:Bind Message.Content}" Grid.Row="1"/>
+                <message:MessageRenderer Message="{x:Bind (bindablemessages:BindableMessage), Mode=OneWay}" Grid.Row="1"/>
             </Grid>
         </Grid>
     </DataTemplate>
