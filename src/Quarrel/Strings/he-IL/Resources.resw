@@ -245,4 +245,22 @@
   <data name="UserSettings/UsernameTBox.Header" xml:space="preserve">
     <value>שם משתמש</value>
   </data>
+  <data name="Time/LTMinuteAgo" xml:space="preserve">
+    <value>לפני פחות מדקה</value>
+  </data>
+  <data name="Time/MinutesAgo" xml:space="preserve">
+    <value>לפני {0} דקות</value>
+  </data>
+  <data name="Time/OneMinuteAgo" xml:space="preserve">
+    <value>לפני דקה</value>
+  </data>
+  <data name="Time/TodayAt" xml:space="preserve">
+    <value>היום בשעה {0}</value>
+  </data>
+  <data name="Time/TwoMinutesAgo" xml:space="preserve">
+    <value>לפני 2 דקות</value>
+  </data>
+  <data name="Time/YesterdayAt" xml:space="preserve">
+    <value>אתמול בשעה {0}</value>
+  </data>
 </root>
