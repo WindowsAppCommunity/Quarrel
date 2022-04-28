@@ -48,7 +48,7 @@ namespace Quarrel.Markdown
             set => SetValue(TextProperty, value);
         }
 
-        public BindableMessage Context
+        public BindableMessage? Context
         {
             get => (BindableMessage)GetValue(ContextProperty);
             set => SetValue(ContextProperty, value);
@@ -57,6 +57,13 @@ namespace Quarrel.Markdown
         private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var messageRenderer = (MessageRenderer)d;
+
+            if (messageRenderer.Context is null)
+            {
+                // TODO: Allow context free rendering
+                return;
+            }
+
             var tree = Parser.ParseAST(messageRenderer.Text, true, false);
             var modTree = AdjustTree(tree);
             messageRenderer.RenderMarkdown(modTree);
@@ -341,7 +348,7 @@ namespace Quarrel.Markdown
                                         FontStretch = container.FontStretch,
                                         TextDecorations = container.TextDecorations,
                                         IsTextSelectionEnabled = IsTextSelectable,
-                                        Text = Context.Users[mention.UserID].User.Username
+                                        Text = Context.Users[mention.UserID].User.Username,
                                     }
                                 };
                             }
