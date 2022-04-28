@@ -15,6 +15,9 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         Padding="{TemplateBinding Padding}">
+                        <Border.RenderTransform>
+                            <TranslateTransform Y="4"/>
+                        </Border.RenderTransform>
                         <RichTextBlock
                             x:Name="RichBlock"
                             FontFamily="{TemplateBinding FontFamily}"
@@ -28,7 +31,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style TargetType="local:CodeBlockElement">
         <Setter Property="FontFamily" Value="Consolas"/>
         <Setter Property="Padding" Value="4"/>
@@ -42,8 +45,40 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         Padding="{TemplateBinding Padding}">
+                        <Border.RenderTransform>
+                            <TranslateTransform Y="4"/>
+                        </Border.RenderTransform>
                         <RichTextBlock
                             x:Name="RichBlock"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontStretch="{TemplateBinding FontStretch}"
+                            TextDecorations="{TemplateBinding TextDecorations}"
+                            IsTextSelectionEnabled="{TemplateBinding IsTextSelectionEnabled}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:InlineCodeElement">
+        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="Background" Value="DarkGray"/>
+        <Setter Property="IsTextSelectionEnabled" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:InlineCodeElement">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}">
+                        <Border.RenderTransform>
+                            <TranslateTransform Y="4"/>
+                        </Border.RenderTransform>
+                        <TextBlock
+                            Text="{TemplateBinding Text}"
                             FontFamily="{TemplateBinding FontFamily}"
                             FontWeight="{TemplateBinding FontWeight}"
                             FontSize="{TemplateBinding FontSize}"
@@ -61,7 +96,63 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:EmojiElement">
-                    <Image x:Name="EmojiImage" Height="{TemplateBinding Height}"/>
+                    <Image x:Name="EmojiImage" Height="{TemplateBinding Height}">
+                        <Image.RenderTransform>
+                            <TranslateTransform Y="4"/>
+                        </Image.RenderTransform>
+                    </Image>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:SpoilerElement">
+        <Setter Property="Background" Value="Red"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SpoilerElement">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}">
+                        <Border.RenderTransform>
+                            <TranslateTransform Y="4"/>
+                        </Border.RenderTransform>
+                        <RichTextBlock
+                            x:Name="RichBlock"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontStretch="{TemplateBinding FontStretch}"
+                            TextDecorations="{TemplateBinding TextDecorations}"
+                            IsTextSelectionEnabled="{TemplateBinding IsTextSelectionEnabled}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:UserMentionElement">
+        <Setter Property="Background" Value="DarkGray"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:UserMentionElement">
+                    <HyperlinkButton
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}">
+                        <HyperlinkButton.RenderTransform>
+                            <TranslateTransform Y="4"/>
+                        </HyperlinkButton.RenderTransform>
+                        <TextBlock Text="{TemplateBinding UserName}"
+                                   FontFamily="{TemplateBinding FontFamily}"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   FontWeight="{TemplateBinding FontWeight}"/>
+                    </HyperlinkButton>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

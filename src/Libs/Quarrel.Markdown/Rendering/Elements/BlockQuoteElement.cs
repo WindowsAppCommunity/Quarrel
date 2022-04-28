@@ -11,15 +11,6 @@ namespace Quarrel.Markdown
         internal BlockQuoteElement(BlockQuote blockQuote) : base(blockQuote)
         {
             this.DefaultStyleKey = typeof(BlockQuoteElement);
-
-            Paragraph = new Paragraph();
         }
-
-        protected override void Render(RichTextBlock richBlock)
-        {
-            richBlock.Blocks.Add(Paragraph);
-        }
-
-        public Paragraph Paragraph { get; set; }
     }
 }

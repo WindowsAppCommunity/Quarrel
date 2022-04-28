@@ -1,6 +1,5 @@
 ﻿// Quarrel © 2022
 
-using ColorCode;
 using Humanizer;
 using Quarrel.Bindables.Messages;
 using Quarrel.Markdown.Parsing;
@@ -13,7 +12,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace Quarrel.Markdown
 {
@@ -98,6 +96,7 @@ namespace Quarrel.Markdown
                                 container.Child = new CodeBlockElement(codeBlock)
                                 {
                                     FontSize = container.FontSize,
+                                    FontWeight = container.FontWeight,
                                     FontStretch = container.FontStretch,
                                     TextDecorations = container.TextDecorations,
                                 };
@@ -110,6 +109,7 @@ namespace Quarrel.Markdown
                                 var element = new BlockQuoteElement(blockQuote)
                                 {
                                     FontSize = container.FontSize,
+                                    FontWeight = container.FontWeight,
                                     FontStretch = container.FontStretch,
                                     TextDecorations = container.TextDecorations,
                                 };
@@ -175,20 +175,12 @@ namespace Quarrel.Markdown
                             {
                                 InlineUIContainer container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                container.Child = new Border()
+                                container.Child = new InlineCodeElement(inlineCode)
                                 {
-                                    RenderTransform = new TranslateTransform { Y = 4 },
-                                    Background = new SolidColorBrush(Colors.DarkGray),
-                                    Child = new TextBlock()
-                                    {
-                                        FontFamily = new FontFamily("Consolas"),
-                                        FontWeight = container.FontWeight,
-                                        FontSize = container.FontSize,
-                                        FontStretch = container.FontStretch,
-                                        TextDecorations = container.TextDecorations,
-                                        IsTextSelectionEnabled = IsCodeSelectable,
-                                        Text = inlineCode.Content
-                                    }
+                                    FontSize = container.FontSize,
+                                    FontWeight = container.FontWeight,
+                                    FontStretch = container.FontStretch,
+                                    TextDecorations = container.TextDecorations,
                                 };
                             }
                             break;
@@ -246,21 +238,7 @@ namespace Quarrel.Markdown
                             {
                                 InlineUIContainer container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                container.Child = new HyperlinkButton()
-                                {
-                                    RenderTransform = new TranslateTransform { Y = 4 },
-                                    Background = new SolidColorBrush(Colors.DarkGray),
-                                    Padding = new Thickness(0),
-                                    Content = new TextBlock()
-                                    {
-                                        FontWeight = container.FontWeight,
-                                        FontSize = container.FontSize,
-                                        FontStretch = container.FontStretch,
-                                        TextDecorations = container.TextDecorations,
-                                        IsTextSelectionEnabled = IsTextSelectable,
-                                        Text = Context.Users[mention.UserID].User.Username,
-                                    }
-                                };
+                                container.Child = new UserMentionElement(mention, Context);
                             }
                             break;
                         case GlobalMention globalMention:
@@ -309,25 +287,20 @@ namespace Quarrel.Markdown
                             {
                                 InlineUIContainer container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                var codeParagraph = new Paragraph();
-                                container.Child = new Border()
+                                var element = new SpoilerElement(spoiler)
                                 {
-                                    RenderTransform = new TranslateTransform { Y = 4 },
-                                    Background = new SolidColorBrush(Colors.Red),
-                                    Child = new RichTextBlock()
-                                    {
-                                        FontFamily = container.FontFamily,
-                                        FontWeight = container.FontWeight,
-                                        FontSize = container.FontSize,
-                                        FontStretch = container.FontStretch,
-                                        TextDecorations = container.TextDecorations,
-                                        IsTextSelectionEnabled = IsTextSelectable,
-                                        Blocks = { codeParagraph },
-                                    }
+                                    FontFamily = container.FontFamily,
+                                    FontWeight = container.FontWeight,
+                                    FontSize = container.FontSize,
+                                    FontStretch = container.FontStretch,
+                                    TextDecorations = container.TextDecorations,
+                                    IsTextSelectionEnabled = IsTextSelectable,
                                 };
+                                container.Child = element;
+
                                 foreach (IAST child in spoiler.Children.Reverse())
                                 {
-                                    stack.Push((child, codeParagraph.Inlines));
+                                    stack.Push((child, element.Paragraph.Inlines));
                                 }
                             }
                             break;

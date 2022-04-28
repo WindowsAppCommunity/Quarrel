@@ -18,7 +18,6 @@ namespace Quarrel.Markdown
         internal EmojiElement(IEmojiAST emoji) : base(emoji)
         {
             this.DefaultStyleKey = typeof(EmojiElement);
-
             _emoji = emoji;
         }
 
