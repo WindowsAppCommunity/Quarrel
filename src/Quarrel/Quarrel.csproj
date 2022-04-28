@@ -92,12 +92,6 @@
     <Compile Include="Controls\Host\SecondaryWindowHost.xaml.cs">
       <DependentUpon>SecondaryWindowHost.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Message\AST.cs" />
-    <Compile Include="Controls\Message\EmojiTable.cs" />
-    <Compile Include="Controls\Message\MessageRenderer.xaml.cs">
-      <DependentUpon>MessageRenderer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Message\Parser.cs" />
     <Compile Include="Controls\QuarrelIcon.xaml.cs">
       <DependentUpon>QuarrelIcon.xaml</DependentUpon>
     </Compile>
@@ -168,7 +162,6 @@
     <Compile Include="DataTemplates\MessageTemplates.xaml.cs">
       <DependentUpon>MessageTemplates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IsExternalInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Selectors\Channels\ChannelEnabledStyleSelector.cs" />
     <Compile Include="Selectors\Guilds\GuildStyleSelector.cs" />
@@ -4159,10 +4152,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Message\MessageRenderer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\QuarrelIcon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -4354,6 +4343,10 @@
     <ProjectReference Include="..\API\Patreon.API\Patreon.API.csproj">
       <Project>{d5c342a2-fb47-4d19-8073-e7f15ee43f24}</Project>
       <Name>Patreon.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Libs\Quarrel.Markdown\Quarrel.Markdown.csproj">
+      <Project>{e4b6dfb8-b9b7-4ee7-9f86-afddc221ffb3}</Project>
+      <Name>Quarrel.Markdown</Name>
     </ProjectReference>
     <ProjectReference Include="..\Quarrel.Client\Quarrel.Client.csproj">
       <Project>{e20b2927-0c9e-437f-9b51-b76bae2ef67c}</Project>

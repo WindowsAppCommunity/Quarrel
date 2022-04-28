@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Quarrel.Controls.Message
+namespace Quarrel.Markdown.Parsing
 {
     public static class EmojiTable
     {

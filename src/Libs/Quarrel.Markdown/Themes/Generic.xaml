@@ -1,0 +1,18 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Quarrel.Markdown"
+    xmlns:markdown="using:Quarrel.Markdown">
+
+    <Style TargetType="markdown:MessageRenderer">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="markdown:MessageRenderer">
+                    <RichTextBlock x:Name="RichBlock"
+                                   IsTextSelectionEnabled="False"
+                                   TextWrapping="WrapWholeWords"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

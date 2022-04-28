@@ -1,10 +1,9 @@
 ﻿// Quarrel © 2022
 
 using ColorCode;
-using Discord.API.Models.Enums.Messages;
 using Humanizer;
 using Quarrel.Bindables.Messages;
-using Quarrel.Converters.DataTemplates.Messages;
+using Quarrel.Markdown.Parsing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,43 +15,56 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace Quarrel.Controls.Message
+namespace Quarrel.Markdown
 {
-    public sealed partial class MessageRenderer : UserControl
+    public sealed class MessageRenderer : Control
     {
+        private const string RichBlockPartName = "RichBlock";
+
         private const bool IsTextSelectable = false;
         private const bool IsCodeSelectable = true;
 
-        public static readonly DependencyProperty MessageProperty = DependencyProperty.Register(
-            nameof(Message),
-            typeof(BindableMessage),
-            typeof(MessageRenderer),
-            new PropertyMetadata(null, OnMessageChanged)
-        );
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
+            nameof(Text), typeof(string), typeof(MessageRenderer), new PropertyMetadata(null, OnPropertyChanged));
 
-        private static void OnMessageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static readonly DependencyProperty ContextProperty = DependencyProperty.Register(
+            nameof(Context), typeof(BindableMessage), typeof(MessageRenderer), new PropertyMetadata(null, OnPropertyChanged));
+
+        private RichTextBlock? _richBlock;
+
+        public MessageRenderer()
+        {
+            this.DefaultStyleKey = typeof(MessageRenderer);
+        }
+
+        protected override void OnApplyTemplate()
+        {
+            _richBlock = (RichTextBlock)GetTemplateChild(RichBlockPartName);
+        }
+
+        public string Text
+        {
+            get => (string)GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
+        }
+
+        public BindableMessage Context
+        {
+            get => (BindableMessage)GetValue(ContextProperty);
+            set => SetValue(ContextProperty, value);
+        }
+
+        private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var messageRenderer = (MessageRenderer)d;
-            BindableMessage newMessage = (BindableMessage)e.NewValue;
-            var tree = Parser.ParseAST(GetMessageContent(newMessage), true, false);
+            var tree = Parser.ParseAST(messageRenderer.Text, true, false);
             var modTree = AdjustTree(tree);
             messageRenderer.RenderMarkdown(modTree);
         }
 
-        public BindableMessage Message
-        {
-            get { return (BindableMessage)GetValue(MessageProperty); }
-            set { SetValue(MessageProperty, value); }
-        }
-
-        public MessageRenderer()
-        {
-            this.InitializeComponent();
-        }
-
         private void RenderMarkdown(IList<ASTRoot> tree)
         {
-            BlockCollection blocks = textBlock.Blocks;
+            BlockCollection blocks = _richBlock.Blocks;
             blocks.Clear();
 
             foreach (var root in tree)
@@ -329,7 +341,7 @@ namespace Quarrel.Controls.Message
                                         FontStretch = container.FontStretch,
                                         TextDecorations = container.TextDecorations,
                                         IsTextSelectionEnabled = IsTextSelectable,
-                                        Text = Message.Users[mention.UserID].User.Username
+                                        Text = Context.Users[mention.UserID].User.Username
                                     }
                                 };
                             }
@@ -387,16 +399,6 @@ namespace Quarrel.Controls.Message
                     }
                 }
             }
-        }
-
-        private static string GetMessageContent(BindableMessage message)
-        {
-            return message.Message.Type switch
-            {
-                MessageType.Default or
-                MessageType.Reply => message.Message.Content,
-                _ => InfoMessageContentConverter.Convert(message),
-            };
         }
 
         /// <summary>
