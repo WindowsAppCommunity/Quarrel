@@ -22,7 +22,7 @@ namespace Quarrel.Controls.Message
     public record InlineCode(string Content) : AST;
     public record Timestamp(DateTime Time, string Format) : AST;
     public record RoleMention(string RoleID) : AST;
-    public record Mention(string UserID) : AST;
+    public record Mention(ulong UserID) : AST;
     public record Channel(string ChannelID) : AST;
     public record Spoiler(IList<AST> Children) : ASTChildren(Children);
     public record Text(string Content) : AST;

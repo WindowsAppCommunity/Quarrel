@@ -150,7 +150,7 @@ namespace Quarrel.Controls.Message
                 }
                 else if (mention.Match(text) is { Success: true } mentionMatch)
                 {
-                    inline = new Mention(mentionMatch.Groups[1].Value);
+                    inline = new Mention(ulong.Parse(mentionMatch.Groups[1].Value));
                     text = text.Substring(mentionMatch.Length);
                 }
                 else if (channel.Match(text) is { Success: true } channelMatch)

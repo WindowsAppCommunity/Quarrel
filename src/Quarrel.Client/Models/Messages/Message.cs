@@ -26,6 +26,18 @@ namespace Quarrel.Client.Models.Messages
             Content = jsonMessage.Content ?? string.Empty;
 
             Author = context.GetOrAddUserInternal(jsonMessage.Author);
+
+            if (jsonMessage.UserMentions is not null)
+            {
+                Mentions = new User[jsonMessage.UserMentions.Length];
+                for (int i = 0; i < Mentions.Length; i++)
+                {
+                    Mentions[i] = context.GetOrAddUserInternal(jsonMessage.UserMentions[i]);
+                }
+            } else
+            {
+                Mentions = new User[0];
+            }
         }
 
         /// <inheritdoc/>
@@ -51,5 +63,8 @@ namespace Quarrel.Client.Models.Messages
 
         /// <inheritdoc/>
         public User Author { get; private set; }
+
+        /// <inheritdoc/>
+        public User[] Mentions { get; private set; }
     }
 }

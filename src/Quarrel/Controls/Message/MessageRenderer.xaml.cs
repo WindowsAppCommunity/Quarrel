@@ -329,7 +329,7 @@ namespace Quarrel.Controls.Message
                                         FontStretch = container.FontStretch,
                                         TextDecorations = container.TextDecorations,
                                         IsTextSelectionEnabled = IsTextSelectable,
-                                        Text = mention.UserID
+                                        Text = Message.Users[mention.UserID].User.Username
                                     }
                                 };
                             }
