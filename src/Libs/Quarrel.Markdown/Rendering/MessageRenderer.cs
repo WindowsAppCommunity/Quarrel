@@ -353,6 +353,27 @@ namespace Quarrel.Markdown
                                 };
                             }
                             break;
+                        case GlobalMention globalMention:
+                            {
+                                InlineUIContainer container = new InlineUIContainer();
+                                inlineCollection.Add(container);
+                                container.Child = new HyperlinkButton()
+                                {
+                                    RenderTransform = new TranslateTransform { Y = 4 },
+                                    Background = new SolidColorBrush(Colors.DarkGray),
+                                    Padding = new Thickness(0),
+                                    Content = new TextBlock()
+                                    {
+                                        FontWeight = container.FontWeight,
+                                        FontSize = container.FontSize,
+                                        FontStretch = container.FontStretch,
+                                        TextDecorations = container.TextDecorations,
+                                        IsTextSelectionEnabled = IsTextSelectable,
+                                        Text = globalMention.Target,
+                                    }
+                                };
+                            }
+                            break;
                         case Channel channel:
                             {
                                 InlineUIContainer container = new InlineUIContainer();

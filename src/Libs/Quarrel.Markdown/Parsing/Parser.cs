@@ -30,7 +30,8 @@ namespace Quarrel.Markdown.Parsing
         private static Regex timestamp = new Regex(@"^<t:(-?\d{1,17})(?::(t|T|d|D|f|F|R))?>");
         private static Regex emoticon = new Regex(@"^(¯\\_\(ツ\)_\/¯)");
         private static Regex roleMention = new Regex(@"^<@&(\d+)>");
-        private static Regex mention = new Regex(@"^<@!?(\d+)>|^(@(?:everyone|here))");
+        private static Regex mention = new Regex(@"^<@!?(\d+)>");
+        private static Regex globalMention = new Regex(@"^(@(?:everyone|here))");
         private static Regex channel = new Regex(@"^<#(\d+)>");
         private static Regex emoji = new Regex(@"^:([^\s:]+?(?:::skin-tone-\d)?):");
         private static Regex spoiler = new Regex(@"^\|\|([\s\S]+?)\|\|");
@@ -152,6 +153,11 @@ namespace Quarrel.Markdown.Parsing
                 {
                     inline = new Mention(ulong.Parse(mentionMatch.Groups[1].Value));
                     text = text.Substring(mentionMatch.Length);
+                }
+                else if (globalMention.Match(text) is { Success: true } globalMentionMatch)
+                {
+                    inline = new GlobalMention(globalMentionMatch.Groups[1].Value);
+                    text = text.Substring(globalMentionMatch.Length);
                 }
                 else if (channel.Match(text) is { Success: true } channelMatch)
                 {

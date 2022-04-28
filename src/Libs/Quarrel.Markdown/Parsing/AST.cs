@@ -23,6 +23,7 @@ namespace Quarrel.Markdown.Parsing
     internal record Timestamp(DateTime Time, string Format) : AST;
     internal record RoleMention(string RoleID) : AST;
     internal record Mention(ulong UserID) : AST;
+    internal record GlobalMention(string Target) : AST;
     internal record Channel(string ChannelID) : AST;
     internal record Spoiler(IList<AST> Children) : ASTChildren(Children);
     internal record Text(string Content) : AST;
