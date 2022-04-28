@@ -102,28 +102,13 @@ namespace Quarrel.Markdown
                             {
                                 InlineUIContainer container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                var codeParagraph = new Paragraph();
-                                container.Child = new Border()
-                                {
-                                    RenderTransform = new TranslateTransform { Y = 4 },
-                                    Padding = new Thickness(10, 0, 0, 0),
-                                    BorderBrush = new SolidColorBrush(Colors.DarkGray),
-                                    BorderThickness = new Thickness(2, 0, 0, 0),
-                                    Child = new RichTextBlock()
-                                    {
-                                        FontFamily = container.FontFamily,
-                                        FontWeight = container.FontWeight,
-                                        FontSize = container.FontSize,
-                                        FontStretch = container.FontStretch,
-                                        TextDecorations = container.TextDecorations,
-                                        Blocks = { codeParagraph }
-                                    }
-                                };
+                                var element = new BlockQuoteElement(blockQuote);
+                                container.Child = element;
+
                                 foreach (AST child in blockQuote.Children.Reverse())
                                 {
-                                    stack.Push((child, codeParagraph.Inlines));
+                                    stack.Push((child, element.Paragraph.Inlines));
                                 }
-
                             }
                             break;
                         case Url url:

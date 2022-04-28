@@ -2,20 +2,15 @@
 
 using ColorCode;
 using Quarrel.Markdown.Parsing;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 
 namespace Quarrel.Markdown
 {
-    [TemplatePart(Name = nameof(RichBlockPartName), Type = typeof(RichTextBlock))]
-    public sealed class CodeBlockElement : MarkdownElement
+    public sealed class CodeBlockElement : MarkdownBlockElement
     {
-        private const string RichBlockPartName = "RichBlock";
         private readonly CodeBlock _codeBlock;
         
-        private RichTextBlock? _richBlock;
-
         internal CodeBlockElement(CodeBlock codeBlock) : base(codeBlock)
         {
             this.DefaultStyleKey = typeof(CodeBlockElement);
@@ -23,19 +18,12 @@ namespace Quarrel.Markdown
             _codeBlock = codeBlock;
         }
 
-        protected override void OnApplyTemplate()
-        {
-            _richBlock = (RichTextBlock)GetTemplateChild(RichBlockPartName);
-
-            Render();
-        }
-
-        private void Render()
+        protected override void Render(RichTextBlock richBlock)
         {
             var paragraph = new Paragraph();
 
-            _richBlock.Blocks.Clear();
-            _richBlock.Blocks.Add(paragraph);
+            richBlock.Blocks.Clear();
+            richBlock.Blocks.Add(paragraph);
 
             if (!string.IsNullOrEmpty(_codeBlock.Language) && Languages.FindById(_codeBlock.Language) is { } language)
             {

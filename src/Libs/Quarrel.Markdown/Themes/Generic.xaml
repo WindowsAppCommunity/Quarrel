@@ -30,6 +30,32 @@
         </Setter>
     </Style>
 
+    <Style TargetType="local:BlockQuoteElement">
+        <Setter Property="Padding" Value="8,0,0,0"/>
+        <Setter Property="BorderBrush" Value="DarkGray"/>
+        <Setter Property="BorderThickness" Value="2,0,0,0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:BlockQuoteElement">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}">
+                        <RichTextBlock
+                            x:Name="RichBlock"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontStretch="{TemplateBinding FontStretch}"
+                            TextDecorations="{TemplateBinding TextDecorations}"
+                            IsTextSelectionEnabled="{TemplateBinding IsTextSelectionEnabled}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="local:MessageRenderer">
         <Setter Property="Template">
             <Setter.Value>
