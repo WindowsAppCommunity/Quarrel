@@ -98,6 +98,33 @@
         </Setter>
     </Style>
 
+    <Style TargetType="local:TimestampElement">
+        <Setter Property="Background" Value="DarkGray"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:TimestampElement">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}">
+                        <Border.RenderTransform>
+                            <TranslateTransform Y="4"/>
+                        </Border.RenderTransform>
+                        <TextBlock
+                            Text="{TemplateBinding Text}"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontStretch="{TemplateBinding FontStretch}"
+                            TextDecorations="{TemplateBinding TextDecorations}"
+                            IsTextSelectionEnabled="{TemplateBinding IsTextSelectionEnabled}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="local:EmojiElement">
         <Setter Property="Height" Value="22"/>
         <Setter Property="Template">

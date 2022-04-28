@@ -1,6 +1,5 @@
 ﻿// Quarrel © 2022
 
-using Humanizer;
 using Quarrel.Bindables.Messages;
 using Quarrel.Markdown.Parsing;
 using System;
@@ -21,7 +20,6 @@ namespace Quarrel.Markdown
         private const string RichBlockPartName = "RichBlock";
 
         private const bool IsTextSelectable = false;
-        private const bool IsCodeSelectable = true;
 
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
             nameof(Text), typeof(string), typeof(MessageRenderer), new PropertyMetadata(null, OnPropertyChanged));
@@ -188,29 +186,7 @@ namespace Quarrel.Markdown
                             {
                                 InlineUIContainer container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                container.Child = new Border()
-                                {
-                                    RenderTransform = new TranslateTransform { Y = 4 },
-                                    Background = new SolidColorBrush(Colors.DarkGray),
-                                    Child = new TextBlock()
-                                    {
-                                        FontWeight = container.FontWeight,
-                                        FontSize = container.FontSize,
-                                        FontStretch = container.FontStretch,
-                                        TextDecorations = container.TextDecorations,
-                                        IsTextSelectionEnabled = IsTextSelectable,
-                                        Text = timeStamp.Format switch
-                                        {
-                                            "F" or "" => timeStamp.Time.ToString("F"),
-                                            "D" => timeStamp.Time.ToString("d MMMM yyyy"),
-                                            "R" => timeStamp.Time.Humanize(),
-                                            "T" => timeStamp.Time.ToString("T"),
-                                            "d" => timeStamp.Time.ToString("d"),
-                                            "f" => timeStamp.Time.ToString("MMMM yyyy HH:mm"),
-                                            "t" => timeStamp.Time.ToString("t"),
-                                        }
-                                    }
-                                };
+                                container.Child = new TimestampElement(timeStamp);
                             }
                             break;
                         case RoleMention roleMention:
@@ -294,7 +270,6 @@ namespace Quarrel.Markdown
                                     FontSize = container.FontSize,
                                     FontStretch = container.FontStretch,
                                     TextDecorations = container.TextDecorations,
-                                    IsTextSelectionEnabled = IsTextSelectable,
                                 };
                                 container.Child = element;
 

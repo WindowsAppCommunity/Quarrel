@@ -125,13 +125,15 @@
     <Compile Include="Parsing\IAST.cs" />
     <Compile Include="Parsing\Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rendering\Elements\Abstract\MarkdownTextElement.cs" />
     <Compile Include="Rendering\Elements\CodeBlockElement.cs" />
     <Compile Include="Rendering\Elements\EmojiElement.cs" />
     <Compile Include="Rendering\Elements\InlineCodeElement.cs" />
-    <Compile Include="Rendering\Elements\MarkdownBlockElement.cs" />
-    <Compile Include="Rendering\Elements\MarkdownElement.cs" />
+    <Compile Include="Rendering\Elements\Abstract\MarkdownBlockElement.cs" />
+    <Compile Include="Rendering\Elements\Abstract\MarkdownElement.cs" />
     <Compile Include="Rendering\Elements\BlockQuoteElement.cs" />
     <Compile Include="Rendering\Elements\SpoilerElement.cs" />
+    <Compile Include="Rendering\Elements\TimestampElement.cs" />
     <Compile Include="Rendering\Elements\UserMentionElement.cs" />
     <Compile Include="Rendering\MessageRenderer.cs" />
     <EmbeddedResource Include="Properties\Quarrel.Markdown.rd.xml" />
