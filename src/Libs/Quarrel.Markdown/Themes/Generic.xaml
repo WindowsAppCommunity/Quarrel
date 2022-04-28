@@ -5,7 +5,7 @@
 
     <SolidColorBrush x:Key="CodeBlockBackgroundBrush" Color="#1E1E1E"/>
     <SolidColorBrush x:Key="CodeBlockBorderBrush" Color="#3C3C3C"/>
-    
+
     <Style TargetType="local:BlockQuoteElement">
         <Setter Property="Padding" Value="8,0,0,0"/>
         <Setter Property="BorderBrush" Value="DarkGray"/>
@@ -141,7 +141,8 @@
     </Style>
 
     <Style TargetType="local:UserMentionElement">
-        <Setter Property="Background" Value="DarkGray"/>
+        <Setter Property="Background" Value="{ThemeResource SystemColorControlAccentBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource SystemColorControlAccentBrush}"/>
         <Setter Property="Padding" Value="0"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Template">
@@ -151,14 +152,75 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        Padding="{TemplateBinding Padding}">
+                        FontFamily="{TemplateBinding FontFamily}"
+                        FontSize="{TemplateBinding FontSize}"
+                        FontWeight="{TemplateBinding FontWeight}"
+                        Padding="{TemplateBinding Padding}"
+                        Content="{TemplateBinding UserName}">
+                        <HyperlinkButton.Style>
+                            <Style TargetType="HyperlinkButton">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="HyperlinkButton">
+                                            <Grid x:Name="RootGrid">
+                                                <VisualStateManager.VisualStateGroups>
+                                                    <VisualStateGroup x:Name="CommonStates">
+                                                        <VisualState x:Name="Normal">
+                                                            <Storyboard>
+                                                                <DoubleAnimation To=".2" Duration="0:0:0.2" Storyboard.TargetName="bg" Storyboard.TargetProperty="Opacity">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <CircleEase/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                        <VisualState x:Name="PointerOver">
+                                                            <Storyboard>
+                                                                <DoubleAnimation To="0.5" Duration="0:0:0.2" Storyboard.TargetName="bg" Storyboard.TargetProperty="Opacity">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <CircleEase/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                        <VisualState x:Name="Pressed">
+                                                            <Storyboard>
+                                                                <DoubleAnimation To="0.6" Duration="0:0:0.2" Storyboard.TargetName="bg" Storyboard.TargetProperty="Opacity">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <CircleEase/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                        <VisualState x:Name="Disabled">
+                                                            <Storyboard>
+                                                                <DoubleAnimation To="0.1" Duration="0:0:0.2" Storyboard.TargetName="bg" Storyboard.TargetProperty="Opacity">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <CircleEase/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                    </VisualStateGroup>
+                                                </VisualStateManager.VisualStateGroups>
+                                                <Rectangle x:Name="bg" Fill="{TemplateBinding Background}"
+                                                           RadiusX="2" RadiusY="2" Opacity=".2"
+                                                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                
+                                                <TextBlock x:Name="ContentPresenter"
+                                                           Text="{TemplateBinding Content}"
+                                                           TextWrapping="Wrap"
+                                                           AutomationProperties.AccessibilityView="Raw"
+                                                           TextTrimming="CharacterEllipsis"/>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </HyperlinkButton.Style>
                         <HyperlinkButton.RenderTransform>
                             <TranslateTransform Y="4"/>
                         </HyperlinkButton.RenderTransform>
-                        <TextBlock Text="{TemplateBinding UserName}"
-                                   FontFamily="{TemplateBinding FontFamily}"
-                                   FontSize="{TemplateBinding FontSize}"
-                                   FontWeight="{TemplateBinding FontWeight}"/>
                     </HyperlinkButton>
                 </ControlTemplate>
             </Setter.Value>
