@@ -33,12 +33,19 @@ namespace Quarrel.Bindables.Messages
             {
                 Users.Add(user.Id, _discordService.GetUser(user.Id));
             }
+
+            if (message.GuildId.HasValue)
+            {
+                AuthorMember = _discordService.GetGuildMember(message.Author.Id, message.GuildId.Value);
+            }
         }
 
         /// <summary>
         /// Gets the author of the message as a bindable user.
         /// </summary>
         public BindableUser? Author { get; }
+
+        public BindableGuildMember? AuthorMember { get; }
 
         public Dictionary<ulong, BindableUser?> Users { get; }
     }

@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Quarrel.Bindables.Abstract;
+using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
@@ -15,7 +16,7 @@ namespace Quarrel.Bindables.Channels.Abstract
     /// <summary>
     /// A wrapper of a <see cref="Client.Models.Channels.Abstract.Channel"/> that can be bound to the UI.
     /// </summary>
-    public abstract partial class BindableChannel : SelectableItem
+    public abstract partial class BindableChannel : SelectableItem, IBindableChannel
     {
         private Channel _channel;
 
@@ -29,14 +30,10 @@ namespace Quarrel.Bindables.Channels.Abstract
             _channel.ItemUpdated += AckUpdateRoot;
         }
 
-        /// <summary>
-        /// Gets the id of the channel.
-        /// </summary>
+        /// <inheritdoc/>
         public ulong Id => Channel.Id;
 
-        /// <summary>
-        /// Gets the name of the channel as displayed.
-        /// </summary>
+        /// <inheritdoc/>
         public virtual string? Name => _channel.Name;
 
         /// <summary>
@@ -64,6 +61,12 @@ namespace Quarrel.Bindables.Channels.Abstract
                 }
             }
         }
+
+        /// <inheritdoc/>
+        public abstract ulong? GuildId { get; }
+
+        /// <inheritdoc/>
+        public abstract bool IsAccessible { get; }
 
         /// <summary>
         /// Invokes property changed for mutable properties when <see cref="Channel.ItemUpdated"/> is invoked.

@@ -41,7 +41,7 @@ namespace Quarrel.Client
         /// Gets messages in a channel.
         /// </summary>
         /// <param name="channelId">The channel's id.</param>
-        public async Task<Message[]> GetMessagesAsync(ulong channelId)
+        public async Task<Message[]> GetMessagesAsync(ulong channelId, ulong? guildId = null)
         {
             Guard.IsNotNull(_channelService, nameof(_channelService));
 
@@ -51,6 +51,7 @@ namespace Quarrel.Client
             Message[] messages = new Message[jsonMessages.Length];
             for (int i = 0; i < messages.Length; i++)
             {
+                jsonMessages[i].GuildId = jsonMessages[i].GuildId ?? guildId;
                 messages[i] = new Message(jsonMessages[i], this);
             }
 
