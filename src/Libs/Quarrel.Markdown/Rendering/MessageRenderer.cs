@@ -5,12 +5,16 @@ using Quarrel.Markdown.Parsing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Shapes;
 
 namespace Quarrel.Markdown
 {
@@ -28,6 +32,10 @@ namespace Quarrel.Markdown
             nameof(Context), typeof(BindableMessage), typeof(MessageRenderer), new PropertyMetadata(null, OnPropertyChanged));
 
         private RichTextBlock? _richBlock;
+        private Canvas? _canvas;
+        private Grid? _grid;
+
+        private List<Inline> _codeBlocks = new List<Inline>();
 
         public MessageRenderer()
         {
@@ -36,9 +44,39 @@ namespace Quarrel.Markdown
 
         protected override void OnApplyTemplate()
         {
-            _richBlock = (RichTextBlock)GetTemplateChild(RichBlockPartName);
+            //_richBlock = (RichTextBlock)GetTemplateChild(RichBlockPartName);
+            _canvas = (Canvas)GetTemplateChild("Canvas");
+            _grid = (Grid)GetTemplateChild("Grid");
+        }
+        
+        private int a;
+        private void RichBlock_SizeChanged(object sender, object e)
+        {
+            UpdateOverlays();
         }
 
+        private void UpdateOverlays()
+        {
+            _canvas.Children.Clear();
+            foreach (var inline in _codeBlocks)
+            {
+                var startRect = inline.ElementStart.GetCharacterRect(inline.ElementStart.LogicalDirection);
+                var endRect = inline.ElementEnd.GetCharacterRect(inline.ElementStart.LogicalDirection);
+                int heightPadding = 1;
+                var rec = new Rectangle()
+                {
+                    Width = Math.Max(endRect.Right - startRect.Left, 0),
+                    Height = Math.Max(endRect.Bottom - startRect.Top + heightPadding*2, 0),
+                    Fill = new SolidColorBrush(Color.FromArgb(255, 30, 30, 30)),
+                    RadiusX = 2,
+                    RadiusY = 2
+                };
+                _canvas.Children.Add(rec);
+                Canvas.SetTop(rec, startRect.Top - heightPadding);
+                Canvas.SetLeft(rec, startRect.Left);
+            }
+        }
+        
         public string Text
         {
             get => (string)GetValue(TextProperty);
@@ -60,7 +98,7 @@ namespace Quarrel.Markdown
                 // TODO: Allow context free rendering
                 return;
             }
-
+            
             var tree = Parser.ParseAST(messageRenderer.Text, true, false);
             var modTree = AdjustTree(tree);
             messageRenderer.RenderMarkdown(modTree);
@@ -68,8 +106,16 @@ namespace Quarrel.Markdown
 
         private void RenderMarkdown(IList<ASTRoot> tree)
         {
+            if (_richBlock != null)
+            {
+                _richBlock.SizeChanged -= RichBlock_SizeChanged;
+                _grid.Children.Remove(_richBlock);
+            }
+
+            _richBlock = new RichTextBlock();
+            _richBlock.SizeChanged += RichBlock_SizeChanged;
             BlockCollection blocks = _richBlock.Blocks;
-            blocks.Clear();
+            _codeBlocks.Clear();
 
             foreach (var root in tree)
             {
@@ -171,16 +217,17 @@ namespace Quarrel.Markdown
                             break;
                         case InlineCode inlineCode:
                             {
-                                InlineUIContainer container = new InlineUIContainer();
-                                inlineCollection.Add(container);
-                                container.Child = new InlineCodeElement(inlineCode)
+                                var inline = new Span();
+                                inlineCollection.Add(inline);
+                                inline.Inlines.Add(new Run() { Text = " " });
+                                inline.Inlines.Add(new Run()
                                 {
-                                    FontSize = container.FontSize,
-                                    FontWeight = container.FontWeight,
-                                    FontStretch = container.FontStretch,
-                                    TextDecorations = container.TextDecorations,
-                                };
-                            }
+                                    FontFamily = new FontFamily("Consolas"),
+                                    Text = inlineCode.Content,
+                                });
+                                inline.Inlines.Add(new Run() { Text = " " });
+                                _codeBlocks.Add(inline);
+                            }   
                             break;
                         case Timestamp timeStamp:
                             {
@@ -285,6 +332,7 @@ namespace Quarrel.Markdown
                     }
                 }
             }
+            _grid.Children.Add(_richBlock);
         }
 
         /// <summary>

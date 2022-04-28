@@ -258,9 +258,11 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:MessageRenderer">
-                    <RichTextBlock x:Name="RichBlock"
-                                   IsTextSelectionEnabled="False"
-                                   TextWrapping="WrapWholeWords"/>
+                    <Grid x:Name="Grid">
+                        <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="Canvas">
+                            
+                        </Canvas>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
