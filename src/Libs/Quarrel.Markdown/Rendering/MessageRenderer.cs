@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace Quarrel.Markdown
 {
+    [TemplatePart(Name = nameof(RichBlockPartName), Type = typeof(RichTextBlock))]
     public sealed class MessageRenderer : Control
     {
         private const string RichBlockPartName = "RichBlock";
@@ -90,52 +91,11 @@ namespace Quarrel.Markdown
                     (AST node, inlineCollection) = tuple;
                     switch (node)
                     {
-                        case CodeBlock codeBlock when !string.IsNullOrEmpty(codeBlock.Language) &&
-                                                      Languages.FindById(codeBlock.Language) is { } language:
-                            {
-                                InlineUIContainer container = new InlineUIContainer();
-                                inlineCollection.Add(container);
-                                var codeParagraph = new Paragraph();
-                                container.Child = new Border()
-                                {
-                                    RenderTransform = new TranslateTransform { Y = 4 },
-                                    Background = new SolidColorBrush(Colors.DarkGray),
-                                    Padding = new Thickness(4),
-                                    Child = new RichTextBlock()
-                                    {
-                                        FontFamily = new FontFamily("Consolas"),
-                                        FontWeight = container.FontWeight,
-                                        FontSize = container.FontSize,
-                                        FontStretch = container.FontStretch,
-                                        TextDecorations = container.TextDecorations,
-                                        IsTextSelectionEnabled = IsCodeSelectable,
-                                        Blocks = { codeParagraph }
-                                    }
-                                };
-                                RichTextBlockFormatter a = new RichTextBlockFormatter(ElementTheme.Dark);
-                                a.FormatInlines(codeBlock.Content, language, codeParagraph.Inlines);
-                            }
-                            break;
                         case CodeBlock codeBlock:
                             {
                                 InlineUIContainer container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                container.Child = new Border()
-                                {
-                                    RenderTransform = new TranslateTransform { Y = 4 },
-                                    Background = new SolidColorBrush(Colors.DarkGray),
-                                    Padding = new Thickness(4),
-                                    Child = new TextBlock()
-                                    {
-                                        FontFamily = new FontFamily("Consolas"),
-                                        FontWeight = container.FontWeight,
-                                        FontSize = container.FontSize,
-                                        FontStretch = container.FontStretch,
-                                        TextDecorations = container.TextDecorations,
-                                        IsTextSelectionEnabled = IsCodeSelectable,
-                                        Text = codeBlock.Content
-                                    }
-                                };
+                                container.Child = new CodeBlockElement(codeBlock);
                             }
                             break;
                         case BlockQuote blockQuote:

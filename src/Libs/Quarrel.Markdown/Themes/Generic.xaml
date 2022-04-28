@@ -1,13 +1,39 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Quarrel.Markdown"
-    xmlns:markdown="using:Quarrel.Markdown">
-
-    <Style TargetType="markdown:MessageRenderer">
+    xmlns:local="using:Quarrel.Markdown">
+    
+    <Style TargetType="local:CodeBlockElement">
+        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="Padding" Value="4"/>
+        <Setter Property="Background" Value="DarkGray"/>
+        <Setter Property="IsTextSelectionEnabled" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="markdown:MessageRenderer">
+                <ControlTemplate TargetType="local:CodeBlockElement">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}">
+                        <RichTextBlock
+                            x:Name="RichBlock"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontStretch="{TemplateBinding FontStretch}"
+                            TextDecorations="{TemplateBinding TextDecorations}"
+                            IsTextSelectionEnabled="{TemplateBinding IsTextSelectionEnabled}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:MessageRenderer">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:MessageRenderer">
                     <RichTextBlock x:Name="RichBlock"
                                    IsTextSelectionEnabled="False"
                                    TextWrapping="WrapWholeWords"/>
