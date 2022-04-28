@@ -2,11 +2,11 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Exceptions;
-using Discord.API.JsonConverters;
 using Discord.API.Sockets;
 using System;
 using System.IO;
 using System.IO.Compression;
+using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -110,6 +110,15 @@ namespace Discord.API.Gateways
         private void HandleClosed(Exception exception)
         {
             GatewayClosed(exception);
+        }
+
+        private async Task CloseSocket()
+        {
+            if (_socket != null)
+            {
+                await _socket.DisconnectAsync((WebSocketCloseStatus)4000);
+                await _socket.DisconnectAsync();
+            }
         }
 
         private async Task<SocketFrame?> ParseFrame(Stream stream)

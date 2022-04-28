@@ -13,7 +13,17 @@ namespace Quarrel.Bindables.Channels.Interfaces
         /// Gets the id of the channel.
         /// </summary>
         public ulong Id { get; }
-        
+
+        /// <summary>
+        /// Gets the id of the guild the channel belongs to, or null if a DM.
+        /// </summary>
+        public ulong? GuildId { get; }
+
+        /// <summary>
+        /// Gets the name of the channel as displayed.
+        /// </summary>
+        public string? Name { get; }
+
         /// <summary>
         /// Gets if the user has permission to open the channel.
         /// </summary>

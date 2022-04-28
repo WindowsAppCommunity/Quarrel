@@ -40,6 +40,11 @@ namespace Quarrel.Bindables.Channels.Abstract
             ApplyOverrides(channel.PermissionOverwrites, selfMember);
         }
 
+        private GuildChannel GuildChannel => (GuildChannel)Channel;
+
+        /// <inheritdoc/>
+        public override ulong? GuildId => GuildChannel.GuildId;
+
         /// <summary>
         /// The category the channel belongs to.
         /// </summary>
@@ -49,11 +54,6 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// The permissions the user has in the channel.
         /// </summary>
         public Permissions Permissions { get; private set; }
-
-        /// <summary>
-        /// Gets if the user has permission to open the channel.
-        /// </summary>
-        public abstract bool IsAccessible { get; }
 
         /// <summary>
         /// Creates a new <see cref="BindableGuildChannel"/> based on the type.

@@ -23,7 +23,11 @@ namespace Quarrel.Converters.DataTemplates.Messages
                 _ => "InfoMessage/Unknown",
             };
 
-            return App.Current.Services.GetRequiredService<ILocalizationService>()[resource];
+            string content = App.Current.Services.GetRequiredService<ILocalizationService>()[resource];
+
+            content = content.Replace(@"{author}", $"<@{message.Author.User.Id}>");
+
+            return content;
         }
     }
 }

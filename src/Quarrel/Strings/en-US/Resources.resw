@@ -268,7 +268,7 @@
     <value>{author} changed the channel name to {content}</value>
   </data>
   <data name="InfoMessage/ChannelPinnedMessage" xml:space="preserve">
-    <value>{author pinned {message_reference} to the channel</value>
+    <value>{author} pinned {message_reference} to the channel</value>
   </data>
   <data name="InfoMessage/GuildMemberJoin" xml:space="preserve">
     <value>{author} joined the server</value>

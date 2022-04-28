@@ -6,6 +6,7 @@ using Quarrel.Bindables.Users;
 using Quarrel.Client.Models.Messages;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
+using System.Collections.Generic;
 
 namespace Quarrel.Bindables.Messages
 {
@@ -24,9 +25,18 @@ namespace Quarrel.Bindables.Messages
             base(discordService, dispatcherService)
         {
             _message = message;
-            if (message.Author is not null)
+            Author = _discordService.GetUser(message.Author.Id);
+
+            Users = new Dictionary<ulong, BindableUser?>();
+            Users.Add(message.Author.Id, Author);
+            foreach (var user in _message.Mentions)
             {
-                Author = _discordService.GetUser(message.Author.Id);
+                Users.Add(user.Id, _discordService.GetUser(user.Id));
+            }
+
+            if (message.GuildId.HasValue)
+            {
+                AuthorMember = _discordService.GetGuildMember(message.Author.Id, message.GuildId.Value);
             }
         }
 
@@ -34,5 +44,9 @@ namespace Quarrel.Bindables.Messages
         /// Gets the author of the message as a bindable user.
         /// </summary>
         public BindableUser? Author { get; }
+
+        public BindableGuildMember? AuthorMember { get; }
+
+        public Dictionary<ulong, BindableUser?> Users { get; }
     }
 }

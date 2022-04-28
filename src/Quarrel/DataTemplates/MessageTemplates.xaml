@@ -7,7 +7,7 @@
     xmlns:tconvert="using:Quarrel.Converters.Time"
     xmlns:qc="using:Quarrel.Controls"
     xmlns:bindablemessages="using:Quarrel.Bindables.Messages"
-    xmlns:message="using:Quarrel.Controls.Message">
+    xmlns:markdown="using:Quarrel.Markdown">
 
     <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
         <Grid Padding="2,8">
@@ -36,7 +36,7 @@
                                FontSize="11" Opacity=".5" Margin="6,0"/>
                 </StackPanel>
 
-                <message:MessageRenderer Text="{x:Bind Message.Content}" Grid.Row="1"/>
+                <markdown:MessageRenderer Text="{x:Bind Message.Content}" Context="{x:Bind}" Grid.Row="1"/>
             </Grid>
         </Grid>
     </DataTemplate>
@@ -51,7 +51,9 @@
             <FontIcon Glyph="{x:Bind mconvert:InfoMessageIconConverter.Convert(Message.Type)}"
                       Foreground="{x:Bind mconvert:InfoMessageColorConverter.Convert(Message.Type)}"/>
 
-            <TextBlock Grid.Column="1" Text="{x:Bind mconvert:InfoMessageContentConverter.Convert((bindablemessages:BindableMessage))}"/>
+            <markdown:MessageRenderer Grid.Column="1" Margin="0,-5,0,0" Context="{x:Bind}" 
+                                      Text="{x:Bind mconvert:InfoMessageContentConverter.Convert((bindablemessages:BindableMessage))}"/>
+
             <TextBlock Grid.Column="2" Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"
                        Opacity=".5" Margin="8,0"/>
         </Grid>

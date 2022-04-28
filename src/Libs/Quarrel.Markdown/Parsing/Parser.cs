@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Quarrel.Controls.Message
+namespace Quarrel.Markdown.Parsing
 {
-    public static class Parser
+    internal static class Parser
     {
         private static Regex heading = new Regex(@"^ *(#{1,3})(?:\s+)((?![#]+)[^\n]+?)#*\s*(?:\n|$)");
         private static Regex codeBlock = new Regex(@"^```(?:([a-z0-9_+\-.]+?)\n)?\n*([^\n][\s\S]*?)\n*```");
@@ -30,7 +30,8 @@ namespace Quarrel.Controls.Message
         private static Regex timestamp = new Regex(@"^<t:(-?\d{1,17})(?::(t|T|d|D|f|F|R))?>");
         private static Regex emoticon = new Regex(@"^(¯\\_\(ツ\)_\/¯)");
         private static Regex roleMention = new Regex(@"^<@&(\d+)>");
-        private static Regex mention = new Regex(@"^<@!?(\d+)>|^(@(?:everyone|here))");
+        private static Regex mention = new Regex(@"^<@!?(\d+)>");
+        private static Regex globalMention = new Regex(@"^(@(?:everyone|here))");
         private static Regex channel = new Regex(@"^<#(\d+)>");
         private static Regex emoji = new Regex(@"^:([^\s:]+?(?:::skin-tone-\d)?):");
         private static Regex spoiler = new Regex(@"^\|\|([\s\S]+?)\|\|");
@@ -44,12 +45,12 @@ namespace Quarrel.Controls.Message
         private static Regex textUnicodeRange = new Regex("^(?:\uDB40[\uDC61-\uDC7A])$");
 
 
-        public static IList<AST> ParseAST(string text, bool inlineState, bool nested)
+        internal static IList<IAST> ParseAST(string text, bool inlineState, bool nested)
         {
-            List<AST> collection = new List<AST>();
+            List<IAST> collection = new List<IAST>();
             while (!string.IsNullOrEmpty(text))
             {
-                AST? inline = null;
+                IAST? inline = null;
                 if (codeBlock.Match(text) is { Success: true } codeBlockMatch)
                 {
                     inline = new CodeBlock(codeBlockMatch.Groups[2].Value, codeBlockMatch.Groups[1].Value);
@@ -150,12 +151,17 @@ namespace Quarrel.Controls.Message
                 }
                 else if (mention.Match(text) is { Success: true } mentionMatch)
                 {
-                    inline = new Mention(mentionMatch.Groups[1].Value);
+                    inline = new UserMention(ulong.Parse(mentionMatch.Groups[1].Value));
                     text = text.Substring(mentionMatch.Length);
+                }
+                else if (globalMention.Match(text) is { Success: true } globalMentionMatch)
+                {
+                    inline = new GlobalMention(globalMentionMatch.Groups[1].Value);
+                    text = text.Substring(globalMentionMatch.Length);
                 }
                 else if (channel.Match(text) is { Success: true } channelMatch)
                 {
-                    inline = new Channel(channelMatch.Groups[1].Value);
+                    inline = new ChannelMention(channelMatch.Groups[1].Value);
                     text = text.Substring(channelMatch.Length);
                 }
                 else if (emoji.Match(text) is { Success: true } emojiMatch && EmojiTable.SurrogateLookup.TryGetValue(emojiMatch.Groups[1].Value, out string surrogate))
