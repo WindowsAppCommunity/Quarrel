@@ -69,33 +69,6 @@ namespace Quarrel.Markdown
                 Canvas.SetLeft(rec, startRect.Left);
             }
         }
-        
-        public string Text
-        {
-            get => (string)GetValue(TextProperty);
-            set => SetValue(TextProperty, value);
-        }
-
-        public BindableMessage? Context
-        {
-            get => (BindableMessage)GetValue(ContextProperty);
-            set => SetValue(ContextProperty, value);
-        }
-
-        private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var messageRenderer = (MessageRenderer)d;
-
-            if (messageRenderer.Context is null)
-            {
-                // TODO: Allow context free rendering
-                return;
-            }
-            
-            var tree = Parser.ParseAST(messageRenderer.Text, true, false);
-            var modTree = AdjustTree(tree);
-            messageRenderer.RenderMarkdown(modTree);
-        }
 
         private void RenderMarkdown(IList<ASTRoot> tree)
         {
