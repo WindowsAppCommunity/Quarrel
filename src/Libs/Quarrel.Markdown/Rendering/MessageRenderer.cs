@@ -171,7 +171,7 @@ namespace Quarrel.Markdown
                                     {
                                         RenderTransform = new TranslateTransform { Y = 4 },
                                         Height = height,
-                                        Source = new SvgImageSource(new Uri($"ms-appx:///Assets/Emoji/{EmojiTable.ToCodePoint(surrogateEmoji.Surrogate).ToLower()}.svg"))
+                                        Source = new SvgImageSource(new Uri($"ms-appx:///Quarrel.Markdown/Assets/Emoji/{EmojiTable.ToCodePoint(surrogateEmoji.Surrogate).ToLower()}.svg"))
                                     }
                                 };
                                 inlineCollection.Add(container);
