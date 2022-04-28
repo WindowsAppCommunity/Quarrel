@@ -3,6 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Quarrel.Markdown">
 
+    <SolidColorBrush x:Key="CodeBlockBackgroundBrush" Color="#1E1E1E"/>
+    <SolidColorBrush x:Key="CodeBlockBorderBrush" Color="#3C3C3C"/>
+    
     <Style TargetType="local:BlockQuoteElement">
         <Setter Property="Padding" Value="8,0,0,0"/>
         <Setter Property="BorderBrush" Value="DarkGray"/>
@@ -35,7 +38,10 @@
     <Style TargetType="local:CodeBlockElement">
         <Setter Property="FontFamily" Value="Consolas"/>
         <Setter Property="Padding" Value="4"/>
-        <Setter Property="Background" Value="DarkGray"/>
+        <Setter Property="Background" Value="{StaticResource CodeBlockBackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource CodeBlockBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="4"/>
         <Setter Property="IsTextSelectionEnabled" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -44,6 +50,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
                         Padding="{TemplateBinding Padding}">
                         <Border.RenderTransform>
                             <TranslateTransform Y="4"/>
@@ -64,7 +71,7 @@
 
     <Style TargetType="local:InlineCodeElement">
         <Setter Property="FontFamily" Value="Consolas"/>
-        <Setter Property="Background" Value="DarkGray"/>
+        <Setter Property="Background" Value="{StaticResource CodeBlockBackgroundBrush}"/>
         <Setter Property="IsTextSelectionEnabled" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>

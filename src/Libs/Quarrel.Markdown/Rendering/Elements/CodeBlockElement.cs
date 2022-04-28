@@ -2,6 +2,7 @@
 
 using ColorCode;
 using Quarrel.Markdown.Parsing;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 
@@ -24,7 +25,7 @@ namespace Quarrel.Markdown
 
             if (!string.IsNullOrEmpty(_codeBlock.Language) && Languages.FindById(_codeBlock.Language) is { } language)
             {
-                var a = new RichTextBlockFormatter();
+                var a = new RichTextBlockFormatter(ElementTheme.Dark);
                 a.FormatInlines(_codeBlock.Content, language, Paragraph.Inlines);
             }
             else
