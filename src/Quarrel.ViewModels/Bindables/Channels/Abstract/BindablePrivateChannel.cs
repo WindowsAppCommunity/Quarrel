@@ -23,7 +23,10 @@ namespace Quarrel.Bindables.Channels.Abstract
         }
 
         /// <inheritdoc/>
-        public bool IsAccessible => true;
+        public override ulong? GuildId => null;
+
+        /// <inheritdoc/>
+        public override bool IsAccessible => true;
 
         /// <inheritdoc/>
         public IMessageChannel MessageChannel => (IMessageChannel)Channel;

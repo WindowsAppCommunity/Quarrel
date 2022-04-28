@@ -57,7 +57,7 @@
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="bgIndic"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         Duration="0:0:0.2"
+                                                         Duration="0:0:0.1"
                                                          To="0">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseIn" />
@@ -70,7 +70,7 @@
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="bgIndic"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         Duration="0:0:0.2"
+                                                         Duration="0:0:0.1"
                                                          To="0.075">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut" />
@@ -93,7 +93,7 @@
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="bgIndic"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         Duration="0:0:0.2"
+                                                         Duration="0:0:0.1"
                                                          To="0.15">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut" />
@@ -116,7 +116,7 @@
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="bgIndic"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         Duration="0:0:0.2"
+                                                         Duration="0:0:0.1"
                                                          To="0">
                                             <DoubleAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseIn" />

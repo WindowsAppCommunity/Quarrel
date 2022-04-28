@@ -72,5 +72,7 @@ namespace Quarrel.Services.Discord
         /// <param name="selectedChannel">The selected channel as an <see cref="IBindableSelectableChannel"/>.</param>
         /// <returns>An array of <see cref="IBindableChannel"/>s.</returns>
         BindablePrivateChannel?[] GetPrivateChannels(BindableHomeItem home, out IBindableSelectableChannel? selectedChannel);
+
+        BindableGuildMember GetGuildMember(ulong userId, ulong guildId);
     }
 }

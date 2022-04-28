@@ -70,11 +70,11 @@ namespace Quarrel.Services.Discord
 
             return folders;
         }
-        
+
         /// <inheritdoc/>
         public async Task<BindableMessage[]> GetChannelMessagesAsync(IBindableMessageChannel channel)
         {
-            var rawMessages = await _quarrelClient.GetMessagesAsync(channel.Id);
+            var rawMessages = await _quarrelClient.GetMessagesAsync(channel.Id, channel.GuildId);
             Guard.IsNotNull(rawMessages, nameof(rawMessages));
             BindableMessage[] messages = new BindableMessage[rawMessages.Length];
             for (int i = 0; i < messages.Length; i++)
@@ -168,6 +168,18 @@ namespace Quarrel.Services.Discord
             }
 
             return channels;
+        }
+
+        /// <inheritdoc/>
+        public BindableGuildMember? GetGuildMember(ulong userId, ulong guildId)
+        {
+            var member = _quarrelClient.GetGuildMember(userId, guildId);
+            if (member is not null)
+            {
+                return new BindableGuildMember(this, _dispatcherService, member);
+            }
+
+            return null;
         }
     }
 }

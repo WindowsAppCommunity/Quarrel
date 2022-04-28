@@ -17,6 +17,7 @@ namespace Quarrel.Client.Models.Messages
         internal Message(JsonMessage jsonMessage, QuarrelClient context) :
             base(context)
         {
+            GuildId = jsonMessage.GuildId;
             Type = jsonMessage.Type;
             IsTextToSpeech = jsonMessage.IsTextToSpeech ?? false;
             IsPinned = jsonMessage.Pinned ?? false;
@@ -39,6 +40,8 @@ namespace Quarrel.Client.Models.Messages
                 Mentions = new User[0];
             }
         }
+
+        public ulong? GuildId{ get; private set; }
 
         /// <inheritdoc/>
         public MessageType Type { get; private set; }

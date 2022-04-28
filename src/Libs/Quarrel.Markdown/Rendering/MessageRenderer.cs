@@ -1,6 +1,5 @@
 ﻿// Quarrel © 2022
 
-using Quarrel.Bindables.Messages;
 using Quarrel.Markdown.Parsing;
 using System;
 using System.Collections.Generic;
@@ -19,17 +18,11 @@ using Windows.UI.Xaml.Shapes;
 namespace Quarrel.Markdown
 {
     [TemplatePart(Name = nameof(RichBlockPartName), Type = typeof(RichTextBlock))]
-    public sealed class MessageRenderer : Control
+    public sealed partial class MessageRenderer : Control
     {
         private const string RichBlockPartName = "RichBlock";
 
         private const bool IsTextSelectable = false;
-
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
-            nameof(Text), typeof(string), typeof(MessageRenderer), new PropertyMetadata(null, OnPropertyChanged));
-
-        public static readonly DependencyProperty ContextProperty = DependencyProperty.Register(
-            nameof(Context), typeof(BindableMessage), typeof(MessageRenderer), new PropertyMetadata(null, OnPropertyChanged));
 
         private RichTextBlock? _richBlock;
         private Canvas? _canvas;
@@ -143,6 +136,7 @@ namespace Quarrel.Markdown
                                     FontWeight = container.FontWeight,
                                     FontStretch = container.FontStretch,
                                     TextDecorations = container.TextDecorations,
+                                    Style = CodeBlockStyle,
                                 };
                             }
                             break;
@@ -156,6 +150,7 @@ namespace Quarrel.Markdown
                                     FontWeight = container.FontWeight,
                                     FontStretch = container.FontStretch,
                                     TextDecorations = container.TextDecorations,
+                                    Style = BlockQuoteStyle,
                                 };
                                 container.Child = element;
 
@@ -172,7 +167,10 @@ namespace Quarrel.Markdown
                             {
                                 var container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                container.Child = new EmojiElement(emoji);
+                                container.Child = new EmojiElement(emoji)
+                                {
+                                    Style = EmojiStyle,
+                                };
                             }
                             break;
                         case Strong strong:
@@ -233,7 +231,10 @@ namespace Quarrel.Markdown
                             {
                                 InlineUIContainer container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                container.Child = new TimestampElement(timeStamp);
+                                container.Child = new TimestampElement(timeStamp)
+                                {
+                                    Style = TimestampStyle,
+                                };
                             }
                             break;
                         case RoleMention roleMention:
@@ -261,7 +262,10 @@ namespace Quarrel.Markdown
                             {
                                 InlineUIContainer container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                container.Child = new UserMentionElement(mention, Context);
+                                container.Child = new UserMentionElement(mention, Context)
+                                {
+                                    Style = UserMentionStyle,
+                                };
                             }
                             break;
                         case GlobalMention globalMention:
@@ -317,6 +321,7 @@ namespace Quarrel.Markdown
                                     FontSize = container.FontSize,
                                     FontStretch = container.FontStretch,
                                     TextDecorations = container.TextDecorations,
+                                    Style = SpoilerStyle,
                                 };
                                 container.Child = element;
 
