@@ -136,6 +136,7 @@
     <Compile Include="Rendering\Elements\TimestampElement.cs" />
     <Compile Include="Rendering\Elements\UserMentionElement.cs" />
     <Compile Include="Rendering\MessageRenderer.cs" />
+    <Compile Include="Rendering\MessageRenderer.Properties.cs" />
     <EmbeddedResource Include="Properties\Quarrel.Markdown.rd.xml" />
   </ItemGroup>
   <ItemGroup>

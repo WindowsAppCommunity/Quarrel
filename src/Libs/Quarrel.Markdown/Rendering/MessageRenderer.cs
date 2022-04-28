@@ -1,6 +1,5 @@
 ﻿// Quarrel © 2022
 
-using Quarrel.Bindables.Messages;
 using Quarrel.Markdown.Parsing;
 using System;
 using System.Collections.Generic;
@@ -15,17 +14,11 @@ using Windows.UI.Xaml.Media;
 namespace Quarrel.Markdown
 {
     [TemplatePart(Name = nameof(RichBlockPartName), Type = typeof(RichTextBlock))]
-    public sealed class MessageRenderer : Control
+    public sealed partial class MessageRenderer : Control
     {
         private const string RichBlockPartName = "RichBlock";
 
         private const bool IsTextSelectable = false;
-
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
-            nameof(Text), typeof(string), typeof(MessageRenderer), new PropertyMetadata(null, OnPropertyChanged));
-
-        public static readonly DependencyProperty ContextProperty = DependencyProperty.Register(
-            nameof(Context), typeof(BindableMessage), typeof(MessageRenderer), new PropertyMetadata(null, OnPropertyChanged));
 
         private RichTextBlock? _richBlock;
 
@@ -37,33 +30,6 @@ namespace Quarrel.Markdown
         protected override void OnApplyTemplate()
         {
             _richBlock = (RichTextBlock)GetTemplateChild(RichBlockPartName);
-        }
-
-        public string Text
-        {
-            get => (string)GetValue(TextProperty);
-            set => SetValue(TextProperty, value);
-        }
-
-        public BindableMessage? Context
-        {
-            get => (BindableMessage)GetValue(ContextProperty);
-            set => SetValue(ContextProperty, value);
-        }
-
-        private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var messageRenderer = (MessageRenderer)d;
-
-            if (messageRenderer.Context is null)
-            {
-                // TODO: Allow context free rendering
-                return;
-            }
-
-            var tree = Parser.ParseAST(messageRenderer.Text, true, false);
-            var modTree = AdjustTree(tree);
-            messageRenderer.RenderMarkdown(modTree);
         }
 
         private void RenderMarkdown(IList<ASTRoot> tree)
@@ -97,6 +63,7 @@ namespace Quarrel.Markdown
                                     FontWeight = container.FontWeight,
                                     FontStretch = container.FontStretch,
                                     TextDecorations = container.TextDecorations,
+                                    Style = CodeBlockStyle,
                                 };
                             }
                             break;
@@ -110,6 +77,7 @@ namespace Quarrel.Markdown
                                     FontWeight = container.FontWeight,
                                     FontStretch = container.FontStretch,
                                     TextDecorations = container.TextDecorations,
+                                    Style = BlockQuoteStyle,
                                 };
                                 container.Child = element;
 
@@ -126,7 +94,10 @@ namespace Quarrel.Markdown
                             {
                                 var container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                container.Child = new EmojiElement(emoji);
+                                container.Child = new EmojiElement(emoji)
+                                {
+                                    Style = EmojiStyle,
+                                };
                             }
                             break;
                         case Strong strong:
@@ -179,6 +150,7 @@ namespace Quarrel.Markdown
                                     FontWeight = container.FontWeight,
                                     FontStretch = container.FontStretch,
                                     TextDecorations = container.TextDecorations,
+                                    Style = InlineCodeStyle,
                                 };
                             }
                             break;
@@ -186,7 +158,10 @@ namespace Quarrel.Markdown
                             {
                                 InlineUIContainer container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                container.Child = new TimestampElement(timeStamp);
+                                container.Child = new TimestampElement(timeStamp)
+                                {
+                                    Style = TimestampStyle,
+                                };
                             }
                             break;
                         case RoleMention roleMention:
@@ -214,7 +189,10 @@ namespace Quarrel.Markdown
                             {
                                 InlineUIContainer container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                container.Child = new UserMentionElement(mention, Context);
+                                container.Child = new UserMentionElement(mention, Context)
+                                {
+                                    Style = UserMentionStyle,
+                                };
                             }
                             break;
                         case GlobalMention globalMention:
@@ -270,6 +248,7 @@ namespace Quarrel.Markdown
                                     FontSize = container.FontSize,
                                     FontStretch = container.FontStretch,
                                     TextDecorations = container.TextDecorations,
+                                    Style = SpoilerStyle,
                                 };
                                 container.Child = element;
 
