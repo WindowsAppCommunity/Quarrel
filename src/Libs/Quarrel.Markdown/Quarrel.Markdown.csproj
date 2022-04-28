@@ -122,10 +122,11 @@
   <ItemGroup>
     <Compile Include="Parsing\EmojiTable.cs" />
     <Compile Include="IsExternalInit.cs" />
-    <Compile Include="Parsing\AST.cs" />
+    <Compile Include="Parsing\IAST.cs" />
     <Compile Include="Parsing\Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rendering\Elements\CodeBlockElement.cs" />
+    <Compile Include="Rendering\Elements\EmojiElement.cs" />
     <Compile Include="Rendering\Elements\MarkdownBlockElement.cs" />
     <Compile Include="Rendering\Elements\MarkdownElement.cs" />
     <Compile Include="Rendering\Elements\BlockQuoteElement.cs" />

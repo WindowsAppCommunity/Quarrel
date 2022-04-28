@@ -2,6 +2,32 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Quarrel.Markdown">
+
+    <Style TargetType="local:BlockQuoteElement">
+        <Setter Property="Padding" Value="8,0,0,0"/>
+        <Setter Property="BorderBrush" Value="DarkGray"/>
+        <Setter Property="BorderThickness" Value="2,0,0,0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:BlockQuoteElement">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}">
+                        <RichTextBlock
+                            x:Name="RichBlock"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontStretch="{TemplateBinding FontStretch}"
+                            TextDecorations="{TemplateBinding TextDecorations}"
+                            IsTextSelectionEnabled="{TemplateBinding IsTextSelectionEnabled}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     
     <Style TargetType="local:CodeBlockElement">
         <Setter Property="FontFamily" Value="Consolas"/>
@@ -30,27 +56,12 @@
         </Setter>
     </Style>
 
-    <Style TargetType="local:BlockQuoteElement">
-        <Setter Property="Padding" Value="8,0,0,0"/>
-        <Setter Property="BorderBrush" Value="DarkGray"/>
-        <Setter Property="BorderThickness" Value="2,0,0,0"/>
+    <Style TargetType="local:EmojiElement">
+        <Setter Property="Height" Value="22"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="local:BlockQuoteElement">
-                    <Border
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        Padding="{TemplateBinding Padding}">
-                        <RichTextBlock
-                            x:Name="RichBlock"
-                            FontFamily="{TemplateBinding FontFamily}"
-                            FontWeight="{TemplateBinding FontWeight}"
-                            FontSize="{TemplateBinding FontSize}"
-                            FontStretch="{TemplateBinding FontStretch}"
-                            TextDecorations="{TemplateBinding TextDecorations}"
-                            IsTextSelectionEnabled="{TemplateBinding IsTextSelectionEnabled}"/>
-                    </Border>
+                <ControlTemplate TargetType="local:EmojiElement">
+                    <Image x:Name="EmojiImage" Height="{TemplateBinding Height}"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

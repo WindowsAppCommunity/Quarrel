@@ -80,32 +80,42 @@ namespace Quarrel.Markdown
                 var paragraph = new Paragraph();
                 blocks.Add(paragraph);
                 InlineCollection inlineCollection = paragraph.Inlines;
-                Stack<(AST, InlineCollection)> stack = new Stack<(AST, InlineCollection)>();
-                foreach (AST ast in root.Children.Reverse())
+                Stack<(IAST, InlineCollection)> stack = new Stack<(IAST, InlineCollection)>();
+                foreach (IAST ast in root.Children.Reverse())
                 {
                     stack.Push((ast, inlineCollection));
                 }
 
                 while (stack.TryPop(out var tuple))
                 {
-                    (AST node, inlineCollection) = tuple;
+                    (IAST node, inlineCollection) = tuple;
                     switch (node)
                     {
                         case CodeBlock codeBlock:
                             {
-                                InlineUIContainer container = new InlineUIContainer();
+                                var container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                container.Child = new CodeBlockElement(codeBlock);
+                                container.Child = new CodeBlockElement(codeBlock)
+                                {
+                                    FontSize = container.FontSize,
+                                    FontStretch = container.FontStretch,
+                                    TextDecorations = container.TextDecorations,
+                                };
                             }
                             break;
                         case BlockQuote blockQuote:
                             {
-                                InlineUIContainer container = new InlineUIContainer();
+                                var container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                                var element = new BlockQuoteElement(blockQuote);
+                                var element = new BlockQuoteElement(blockQuote)
+                                {
+                                    FontSize = container.FontSize,
+                                    FontStretch = container.FontStretch,
+                                    TextDecorations = container.TextDecorations,
+                                };
                                 container.Child = element;
 
-                                foreach (AST child in blockQuote.Children.Reverse())
+                                foreach (IAST child in blockQuote.Children.Reverse())
                                 {
                                     stack.Push((child, element.Paragraph.Inlines));
                                 }
@@ -114,63 +124,18 @@ namespace Quarrel.Markdown
                         case Url url:
                             inlineCollection.Add(new Hyperlink() { NavigateUri = new Uri(url.Content), Inlines = { new Run() { Text = url.Content } } });
                             break;
-                        case SurrogateEmoji surrogateEmoji:
+                        case IEmojiAST emoji:
                             {
-                                int height = 22;
-                                InlineUIContainer container = new InlineUIContainer()
-                                {
-                                    Child = new Image()
-                                    {
-                                        RenderTransform = new TranslateTransform { Y = 4 },
-                                        Height = height,
-                                        Source = new SvgImageSource(new Uri($"ms-appx:///Quarrel.Markdown/Assets/Emoji/{EmojiTable.ToCodePoint(surrogateEmoji.Surrogate).ToLower()}.svg"))
-                                    }
-                                };
+                                var container = new InlineUIContainer();
                                 inlineCollection.Add(container);
-                            }
-                            break;
-                        case Emoji emoji:
-                            {
-                                int height = 22;
-                                InlineUIContainer container = new InlineUIContainer()
-                                {
-                                    Child = new Image()
-                                    {
-                                        RenderTransform = new TranslateTransform { Y = 4 },
-                                        Height = height,
-                                        Source = new BitmapImage()
-                                        {
-                                            UriSource = new Uri($"https://cdn.discordapp.com/emojis/{emoji.Id}.webp?size={2 * height}&quality=lossless")
-                                        }
-                                    }
-                                };
-                                inlineCollection.Add(container);
-                            }
-                            break;
-                        case AnimatedEmoji emoji:
-                            {
-                                int height = 22;
-                                InlineUIContainer container = new InlineUIContainer()
-                                {
-                                    Child = new Image()
-                                    {
-                                        RenderTransform = new TranslateTransform { Y = 4 },
-                                        Height = height,
-                                        Source = new BitmapImage()
-                                        {
-                                            UriSource = new Uri($"https://cdn.discordapp.com/emojis/{emoji.Id}.gif?size={2 * height}&quality=lossless"),
-                                            AutoPlay = true
-                                        }
-                                    }
-                                };
-                                inlineCollection.Add(container);
+                                container.Child = new EmojiElement(emoji);
                             }
                             break;
                         case Strong strong:
                             {
                                 var inline = new Bold();
                                 inlineCollection.Add(inline);
-                                foreach (AST child in strong.Children.Reverse())
+                                foreach (IAST child in strong.Children.Reverse())
                                 {
                                     stack.Push((child, inline.Inlines));
                                 }
@@ -180,7 +145,7 @@ namespace Quarrel.Markdown
                             {
                                 var inline = new Italic();
                                 inlineCollection.Add(inline);
-                                foreach (AST child in em.Children.Reverse())
+                                foreach (IAST child in em.Children.Reverse())
                                 {
                                     stack.Push((child, inline.Inlines));
                                 }
@@ -190,7 +155,7 @@ namespace Quarrel.Markdown
                             {
                                 var inline = new Underline();
                                 inlineCollection.Add(inline);
-                                foreach (AST child in u.Children.Reverse())
+                                foreach (IAST child in u.Children.Reverse())
                                 {
                                     stack.Push((child, inline.Inlines));
                                 }
@@ -200,7 +165,7 @@ namespace Quarrel.Markdown
                             {
                                 var inline = new Span() { TextDecorations = TextDecorations.Strikethrough };
                                 inlineCollection.Add(inline);
-                                foreach (AST child in s.Children.Reverse())
+                                foreach (IAST child in s.Children.Reverse())
                                 {
                                     stack.Push((child, inline.Inlines));
                                 }
@@ -277,7 +242,7 @@ namespace Quarrel.Markdown
                                 };
                             }
                             break;
-                        case Mention mention:
+                        case UserMention mention:
                             {
                                 InlineUIContainer container = new InlineUIContainer();
                                 inlineCollection.Add(container);
@@ -319,7 +284,7 @@ namespace Quarrel.Markdown
                                 };
                             }
                             break;
-                        case Channel channel:
+                        case ChannelMention channel:
                             {
                                 InlineUIContainer container = new InlineUIContainer();
                                 inlineCollection.Add(container);
@@ -360,7 +325,7 @@ namespace Quarrel.Markdown
                                         Blocks = { codeParagraph },
                                     }
                                 };
-                                foreach (AST child in spoiler.Children.Reverse())
+                                foreach (IAST child in spoiler.Children.Reverse())
                                 {
                                     stack.Push((child, codeParagraph.Inlines));
                                 }
@@ -377,18 +342,18 @@ namespace Quarrel.Markdown
         /// <summary>
         /// Hacky function to force split code blocks and block quotes onto new lines
         /// </summary>
-        private static IList<ASTRoot> AdjustTree(IList<AST> tree)
+        private static IList<ASTRoot> AdjustTree(IList<IAST> tree)
         {
             // TODO: modify tree inpace
-            List<ASTRoot> newTree = new List<ASTRoot>() { new ASTRoot(new List<AST>()) };
-            Stack<AST> stack = new Stack<AST>();
-            foreach (AST child in tree.Reverse())
+            List<ASTRoot> newTree = new List<ASTRoot>() { new ASTRoot(new List<IAST>()) };
+            Stack<IAST> stack = new Stack<IAST>();
+            foreach (IAST child in tree.Reverse())
             {
                 stack.Push(child);
             }
             List<(int, ASTChildren)> depths = new List<(int, ASTChildren)>();
             depths.Add((stack.Count, newTree[0]));
-            while (stack.TryPop(out AST node))
+            while (stack.TryPop(out IAST node))
             {
                 int depth;
                 ASTChildren current;
@@ -408,19 +373,19 @@ namespace Quarrel.Markdown
 
                             ASTChildren currentCodeBlockNode = current with
                             {
-                                Children = new List<AST>() { node }
+                                Children = new List<IAST>() { node }
                             };
 
-                            newDepths[newDepths.Length - 1] = (depth, current with { Children = new List<AST>() });
+                            newDepths[newDepths.Length - 1] = (depth, current with { Children = new List<IAST>() });
                             for (int i = depths.Count - 2; i >= 0; i--)
                             {
                                 (int oldDepth, ASTChildren oldNode) = depths[i];
                                 newDepths[i] = (oldDepth,
-                                    oldNode with { Children = new List<AST>() { newDepths[i + 1].Item2 } });
+                                    oldNode with { Children = new List<IAST>() { newDepths[i + 1].Item2 } });
 
                                 currentCodeBlockNode = oldNode with
                                 {
-                                    Children = new List<AST>() { currentCodeBlockNode }
+                                    Children = new List<IAST>() { currentCodeBlockNode }
                                 };
                             }
 
@@ -431,12 +396,12 @@ namespace Quarrel.Markdown
                         break;
                     case ASTChildren astChildrenNode:
                         {
-                            foreach (AST child in astChildrenNode.Children.Reverse())
+                            foreach (IAST child in astChildrenNode.Children.Reverse())
                             {
                                 stack.Push(child);
                             }
 
-                            var tmp = astChildrenNode with { Children = new List<AST>() };
+                            var tmp = astChildrenNode with { Children = new List<IAST>() };
                             current.Children.Add(tmp);
                             depths.Add((astChildrenNode.Children.Count, tmp));
                         }

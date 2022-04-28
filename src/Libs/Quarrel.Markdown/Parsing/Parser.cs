@@ -45,12 +45,12 @@ namespace Quarrel.Markdown.Parsing
         private static Regex textUnicodeRange = new Regex("^(?:\uDB40[\uDC61-\uDC7A])$");
 
 
-        internal static IList<AST> ParseAST(string text, bool inlineState, bool nested)
+        internal static IList<IAST> ParseAST(string text, bool inlineState, bool nested)
         {
-            List<AST> collection = new List<AST>();
+            List<IAST> collection = new List<IAST>();
             while (!string.IsNullOrEmpty(text))
             {
-                AST? inline = null;
+                IAST? inline = null;
                 if (codeBlock.Match(text) is { Success: true } codeBlockMatch)
                 {
                     inline = new CodeBlock(codeBlockMatch.Groups[2].Value, codeBlockMatch.Groups[1].Value);
@@ -151,7 +151,7 @@ namespace Quarrel.Markdown.Parsing
                 }
                 else if (mention.Match(text) is { Success: true } mentionMatch)
                 {
-                    inline = new Mention(ulong.Parse(mentionMatch.Groups[1].Value));
+                    inline = new UserMention(ulong.Parse(mentionMatch.Groups[1].Value));
                     text = text.Substring(mentionMatch.Length);
                 }
                 else if (globalMention.Match(text) is { Success: true } globalMentionMatch)
@@ -161,7 +161,7 @@ namespace Quarrel.Markdown.Parsing
                 }
                 else if (channel.Match(text) is { Success: true } channelMatch)
                 {
-                    inline = new Channel(channelMatch.Groups[1].Value);
+                    inline = new ChannelMention(channelMatch.Groups[1].Value);
                     text = text.Substring(channelMatch.Length);
                 }
                 else if (emoji.Match(text) is { Success: true } emojiMatch && EmojiTable.SurrogateLookup.TryGetValue(emojiMatch.Groups[1].Value, out string surrogate))
