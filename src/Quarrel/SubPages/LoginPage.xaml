@@ -9,6 +9,7 @@
     xmlns:qc="using:Quarrel.Controls"
     xmlns:convert="using:Quarrel.Converters"
     xmlns:spvm="using:Quarrel.ViewModels.SubPages"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d"
@@ -107,13 +108,16 @@
                     Visibility="Collapsed"
                     MaxWidth="360">
             <Grid Height="96">
-                <TextBox x:Uid="Login/TokenTBox" PlaceholderText="Token" Margin="16"
+                <TextBox x:Uid="Login/TokenTBox" x:Name="TokenTBox"
+                         PlaceholderText="Token" Margin="16"
                          Text="{x:Bind ViewModel.TokenText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                         ui:TextBoxExtensions.Regex="^(?:mfa\.[\w-]{84})|(?:[\w-]{24}\.[\w-]{6}\.[\w-]{27})$"
                          Style="{StaticResource DiscordTextBox}" VerticalAlignment="Center"/>
             </Grid>
             <Button x:Uid="Login/LoginBTN" Content="Login" HorizontalAlignment="Stretch" Foreground="{ThemeResource SystemChromeLowColor}"
                     Command="{x:Bind ViewModel.LoginWithTokenCommand}"
                     TabIndex="1"
+                    IsEnabled="{Binding (ui:TextBoxExtensions.IsValid), ElementName=TokenTBox}"
                     Style="{StaticResource QuarrelButton}"/>
         </StackPanel>
         <WebView x:Name="CaptchaView" Source="{x:Bind NavigationUrl}" 
