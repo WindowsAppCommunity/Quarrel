@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Services.Discord;
@@ -16,8 +17,12 @@ namespace Quarrel.Bindables.Channels
     /// </summary>
     public class BindableChannelGroup : BindableItem, IGrouping<BindableCategoryChannel?, BindableChannel?>
     {
-        internal BindableChannelGroup(IDiscordService discordService, IDispatcherService dispatcherService, BindableCategoryChannel? key) :
-            base(discordService, dispatcherService)
+        internal BindableChannelGroup(
+            IMessenger messenger,
+            IDiscordService discordService,
+            IDispatcherService dispatcherService,
+            BindableCategoryChannel? key) :
+            base(messenger, discordService, dispatcherService)
         {
             Key = key;
             Children = new ObservableCollection<BindableChannel>();

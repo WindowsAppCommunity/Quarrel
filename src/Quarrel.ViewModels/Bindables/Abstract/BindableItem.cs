@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 
@@ -11,6 +12,11 @@ namespace Quarrel.Bindables.Abstract
     /// </summary>
     public abstract class BindableItem : ObservableObject
     {
+        /// <summary>
+        /// Gets the <see cref="IMessenger"/> for the <see cref="BindableItem"/>.
+        /// </summary>
+        protected readonly IMessenger _messenger;
+
         /// <summary>
         /// Gets the <see cref="IDiscordService"/> for the <see cref="BindableItem"/>.
         /// </summary>
@@ -24,8 +30,12 @@ namespace Quarrel.Bindables.Abstract
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableItem"/> class.
         /// </summary>
-        public BindableItem(IDiscordService discordService, IDispatcherService dispatcherService)
+        public BindableItem(
+            IMessenger messenger,
+            IDiscordService discordService,
+            IDispatcherService dispatcherService)
         {
+            _messenger = messenger;
             _discordService = discordService;
             _dispatcherService = dispatcherService;
         }

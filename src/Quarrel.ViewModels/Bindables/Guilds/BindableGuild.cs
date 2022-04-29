@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Interfaces;
@@ -24,8 +25,12 @@ namespace Quarrel.Bindables.Guilds
         [ObservableProperty]
         private Guild _guild;
 
-        internal BindableGuild(IDiscordService discordService, IDispatcherService dispatcherService, Guild guild) :
-            base(discordService, dispatcherService)
+        internal BindableGuild(
+            IMessenger messenger,
+            IDiscordService discordService,
+            IDispatcherService dispatcherService,
+            Guild guild) :
+            base(messenger, discordService, dispatcherService)
         {
             _guild = guild;
         }
@@ -53,14 +58,14 @@ namespace Quarrel.Bindables.Guilds
 
             var groups = new Dictionary<ulong?, BindableChannelGroup>
             {
-                { 0, new BindableChannelGroup(_discordService, _dispatcherService, null) }
+                { 0, new BindableChannelGroup(_messenger, _discordService, _dispatcherService, null) }
             };
 
             foreach (var channel in channels)
             {
                 if (channel is BindableCategoryChannel bindableCategory)
                 {
-                    groups.Add(channel.Channel.Id, new BindableChannelGroup(_discordService, _dispatcherService, bindableCategory));
+                    groups.Add(channel.Channel.Id, new BindableChannelGroup(_messenger, _discordService, _dispatcherService, bindableCategory));
                 }
             }
 

@@ -4,12 +4,16 @@ using Quarrel.Markdown.Parsing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Shapes;
 
 namespace Quarrel.Markdown
 {
@@ -17,8 +21,6 @@ namespace Quarrel.Markdown
     public sealed partial class MessageRenderer : Control
     {
         private const string RichBlockPartName = "RichBlock";
-
-        private const bool IsTextSelectable = false;
 
         private RichTextBlock? _richBlock;
 
@@ -150,7 +152,6 @@ namespace Quarrel.Markdown
                                     FontWeight = container.FontWeight,
                                     FontStretch = container.FontStretch,
                                     TextDecorations = container.TextDecorations,
-                                    Style = InlineCodeStyle,
                                 };
                             }
                             break;
@@ -179,7 +180,6 @@ namespace Quarrel.Markdown
                                         FontSize = container.FontSize,
                                         FontStretch = container.FontStretch,
                                         TextDecorations = container.TextDecorations,
-                                        IsTextSelectionEnabled = IsTextSelectable,
                                         Text = roleMention.RoleID
                                     }
                                 };
@@ -210,7 +210,6 @@ namespace Quarrel.Markdown
                                         FontSize = container.FontSize,
                                         FontStretch = container.FontStretch,
                                         TextDecorations = container.TextDecorations,
-                                        IsTextSelectionEnabled = IsTextSelectable,
                                         Text = globalMention.Target,
                                     }
                                 };
@@ -231,7 +230,6 @@ namespace Quarrel.Markdown
                                         FontSize = container.FontSize,
                                         FontStretch = container.FontStretch,
                                         TextDecorations = container.TextDecorations,
-                                        IsTextSelectionEnabled = IsTextSelectable,
                                         Text = channel.ChannelID
                                     }
                                 };

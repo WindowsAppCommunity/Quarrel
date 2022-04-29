@@ -77,7 +77,7 @@ namespace Quarrel.ViewModels
             _dispatcherService.RunOnUIThread(() =>
             {
                 Source.Clear();
-                Source.Add(new BindableHomeItem(_discordService, _dispatcherService, _localizationService));
+                Source.Add(new BindableHomeItem(_messenger, _discordService, _dispatcherService, _localizationService));
                 foreach (var folder in folders)
                 {
                     if (folder.Folder.Id is null)

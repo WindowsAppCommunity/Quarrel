@@ -2,14 +2,11 @@
 
 using CommunityToolkit.Diagnostics;
 using Microsoft.Toolkit.Mvvm.Messaging;
-using Quarrel.Bindables.Channels.Abstract;
-using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Client;
 using Quarrel.Client.Models.Users;
 using Quarrel.Messages;
 using Quarrel.Services.Analytics;
 using Quarrel.Services.Analytics.Enums;
-using Quarrel.Services.Analytics.Models;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
 using Quarrel.Services.Storage.Accounts.Models;
@@ -38,7 +35,13 @@ namespace Quarrel.Services.Discord
             _localizationService = localizationService;
             _dispatcherService = dispatcherService;
             _messenger = messenger;
+
             _quarrelClient = new QuarrelClient();
+            RegisterEvents();
+        }
+
+        private void RegisterEvents()
+        {
             _quarrelClient.LoggedIn += OnLoggedIn;
             _quarrelClient.HttpExceptionHandled += OnHttpExceptionHandled;
             _quarrelClient.GatewayExceptionHandled += OnGatewayExceptionHandled;
@@ -48,6 +51,8 @@ namespace Quarrel.Services.Discord
             _quarrelClient.KnownGatewayEventEncountered += OnKnownGatewayEventEncountered;
             _quarrelClient.UnhandledGatewayOperationEncountered += OnUnhandledGatewayOperationEncountered;
             _quarrelClient.UnhandledGatewayEventEncountered += OnUnhandledGatewayEventEncountered;
+
+            RegisterChannelEvents();
         }
 
         /// <inheritdoc/>

@@ -30,7 +30,7 @@ namespace Quarrel.Services.Discord
                 return null;
             }
 
-            return new BindableSelfUser(this, _dispatcherService, user);
+            return new BindableSelfUser(_messenger, this, _dispatcherService, user);
         }
 
         /// <inheritdoc/>
@@ -39,7 +39,7 @@ namespace Quarrel.Services.Discord
             var user = _quarrelClient.GetUser(id);
             if (user is not null)
             {
-                return new BindableUser(this, _dispatcherService, user);
+                return new BindableUser(_messenger, this, _dispatcherService, user);
             }
 
             return null;
@@ -52,7 +52,7 @@ namespace Quarrel.Services.Discord
             BindableGuild[] guilds = new BindableGuild[rawGuilds.Length];
             for (int i = 0; i < rawGuilds.Length; i++)
             {
-                guilds[i] = new BindableGuild(this, _dispatcherService, rawGuilds[i]);
+                guilds[i] = new BindableGuild(_messenger, this, _dispatcherService, rawGuilds[i]);
             }
 
             return guilds;
@@ -65,7 +65,7 @@ namespace Quarrel.Services.Discord
             BindableGuildFolder[] folders = new BindableGuildFolder[rawFolders.Length];
             for (int i = 0; i < rawFolders.Length; i++)
             {
-                folders[i] = new BindableGuildFolder(this, _dispatcherService, rawFolders[i]);
+                folders[i] = new BindableGuildFolder(_messenger, this, _dispatcherService, rawFolders[i]);
             }
 
             return folders;
@@ -79,7 +79,7 @@ namespace Quarrel.Services.Discord
             BindableMessage[] messages = new BindableMessage[rawMessages.Length];
             for (int i = 0; i < messages.Length; i++)
             {
-                messages[i] = new BindableMessage(this, _dispatcherService, rawMessages[i]);
+                messages[i] = new BindableMessage(_messenger, this, _dispatcherService, rawMessages[i]);
             }
 
             return messages;
@@ -117,7 +117,7 @@ namespace Quarrel.Services.Discord
                 var channel = rawChannels[i];
                 if (channel is CategoryChannel categoryChannel)
                 {
-                    var bindableCategoryChannel = new BindableCategoryChannel(this, _dispatcherService, categoryChannel, member);
+                    var bindableCategoryChannel = new BindableCategoryChannel(_messenger, this, _dispatcherService, categoryChannel, member);
                     categories.Add(channel.Id, bindableCategoryChannel);
                     channels[i] = bindableCategoryChannel;
                 }
@@ -134,7 +134,7 @@ namespace Quarrel.Services.Discord
                         category = categories[nestedChannel.CategoryId.Value];
                     }
 
-                    channel = BindableGuildChannel.Create(this, _localizationService, _dispatcherService, nestedChannel, member, category);
+                    channel = BindableGuildChannel.Create(_messenger, this, _localizationService, _dispatcherService, nestedChannel, member, category);
 
                     if (channel is not null && (channel.Channel.Id == guild.SelectedChannelId || (selectedChannel is null && channel.IsAccessible)) &&
                         channel is IBindableSelectableChannel messageChannel)
@@ -156,7 +156,7 @@ namespace Quarrel.Services.Discord
             int i = 0;
             foreach (var channel in rawChannels)
             {
-                channels[i] = BindablePrivateChannel.Create(this, _localizationService, _dispatcherService, channel);
+                channels[i] = BindablePrivateChannel.Create(_messenger, this, _localizationService, _dispatcherService, channel);
 
                 if (channels[i] is IBindableSelectableChannel selectableChannel &&
                     selectableChannel.Id == home.SelectedChannelId)
@@ -176,7 +176,7 @@ namespace Quarrel.Services.Discord
             var member = _quarrelClient.GetGuildMember(userId, guildId);
             if (member is not null)
             {
-                return new BindableGuildMember(this, _dispatcherService, member);
+                return new BindableGuildMember(_messenger, this, _dispatcherService, member);
             }
 
             return null;

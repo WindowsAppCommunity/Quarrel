@@ -46,14 +46,14 @@ namespace Quarrel.Client.Models.Channels
         public ulong? LastMessageId
         {
             get => _lastMessageId;
-            internal set => UpdateItem(ref _lastMessageId, value);
+            internal set => _lastMessageId = value;
         }
 
         /// <inheritdoc/>
         public ulong? LastReadMessageId
         {
             get => _lastReadMessageId;
-            internal set => UpdateItem(ref _lastReadMessageId, value);
+            internal set => _lastReadMessageId = value;
         }
 
         /// <inheritdoc/>

@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Users;
@@ -13,8 +14,13 @@ namespace Quarrel.Bindables.Channels
     /// </summary>
     public class BindableCategoryChannel : BindableGuildChannel
     {
-        internal BindableCategoryChannel(IDiscordService discordService, IDispatcherService dispatcherService, CategoryChannel channel, GuildMember selfMember) :
-            base(discordService, dispatcherService, channel, selfMember)
+        internal BindableCategoryChannel(
+            IMessenger messenger,
+            IDiscordService discordService,
+            IDispatcherService dispatcherService,
+            CategoryChannel channel,
+            GuildMember selfMember) :
+            base(messenger, discordService, dispatcherService, channel, selfMember)
         {
         }
         

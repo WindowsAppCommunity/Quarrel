@@ -10,6 +10,7 @@
         <Setter Property="Padding" Value="8,0,0,0"/>
         <Setter Property="BorderBrush" Value="DarkGray"/>
         <Setter Property="BorderThickness" Value="2,0,0,0"/>
+        <Setter Property="IsTextSelectionEnabled" Value="False"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:BlockQuoteElement">
@@ -100,6 +101,7 @@
 
     <Style TargetType="local:TimestampElement">
         <Setter Property="Background" Value="DarkGray"/>
+        <Setter Property="IsTextSelectionEnabled" Value="False"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:TimestampElement">
@@ -127,6 +129,7 @@
 
     <Style TargetType="local:EmojiElement">
         <Setter Property="Height" Value="22"/>
+        <Setter Property="IsTextSelectionEnabled" Value="False"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:EmojiElement">
@@ -142,6 +145,7 @@
 
     <Style TargetType="local:SpoilerElement">
         <Setter Property="Background" Value="Red"/>
+        <Setter Property="IsTextSelectionEnabled" Value="False"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:SpoilerElement">
@@ -172,6 +176,7 @@
         <Setter Property="Foreground" Value="{ThemeResource SystemColorControlAccentBrush}"/>
         <Setter Property="Padding" Value="0"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="IsTextSelectionEnabled" Value="False"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:UserMentionElement">
@@ -233,7 +238,7 @@
                                                 <Rectangle x:Name="bg" Fill="{TemplateBinding Background}"
                                                            RadiusX="2" RadiusY="2" Opacity=".2"
                                                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                                                
+
                                                 <TextBlock x:Name="ContentPresenter"
                                                            Text="{TemplateBinding Content}"
                                                            TextWrapping="Wrap"
