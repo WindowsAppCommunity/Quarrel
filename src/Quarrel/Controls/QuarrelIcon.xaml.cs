@@ -45,9 +45,9 @@ namespace Quarrel.Controls
         }
 
         /// <summary>
-        /// TODO: A function that tells the control to begin entering the error state.
+        /// A function that tells the control to begin entering the error state.
         /// </summary>
-        private void ErrorAnimation()
+        public void ErrorAnimation()
         {
             _encounteredError = true;
             _isAnimationEnding = true;
@@ -63,12 +63,16 @@ namespace Quarrel.Controls
             if (_isAnimationEnding)
             {
                 RepeatingAnimation.Stop();
-                if (!_encounteredError)
+
+                if (_encounteredError)
+                {
+                    FailureAnimation.Begin();
+                }
+                else
                 {
                     EndingAnimation.Begin();
                 }
 
-                // TODO: Animation that runs when an error is encountered
             } else
             {
                 RepeatingAnimation.Begin();

@@ -26,5 +26,10 @@ namespace Quarrel.ViewModels.Enums
         /// The app is logged out.
         /// </summary>
         LoggedOut,
+
+        /// <summary>
+        /// The app failed to login.
+        /// </summary>
+        LoginFailed,
     }
 }

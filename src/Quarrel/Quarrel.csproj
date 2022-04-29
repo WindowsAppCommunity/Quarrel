@@ -153,6 +153,7 @@
     <Compile Include="Converters\VisibileWhenNotEqualConverter.cs" />
     <Compile Include="Converters\VisibileWhenEqualConverter.cs" />
     <Compile Include="Converters\VisibleIfNotEqualConverter.cs" />
+    <Compile Include="Converters\WindowHost\ShowExtendedSplashConverter.cs" />
     <Compile Include="DataTemplates\ChannelTemplates.xaml.cs">
       <DependentUpon>ChannelTemplates.xaml</DependentUpon>
     </Compile>

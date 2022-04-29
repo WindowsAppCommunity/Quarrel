@@ -13,6 +13,7 @@ namespace Quarrel.Controls.Host
         private const string LoadingString = "ExtendedSplash/Loading";
         private const string ConnectedString = "ExtendedSplash/Connected";
         private const string ConnectingString = "ExtendedSplash/Connecting";
+        private const string FailedString = "ExtendedSplash/Failure";
 
         private static readonly DependencyProperty IsShowingProperty =
             DependencyProperty.Register(nameof(IsShowing), typeof(bool), typeof(ExtendedSplashScreen), new PropertyMetadata(false, OnIsShowingChanged));
@@ -55,6 +56,12 @@ namespace Quarrel.Controls.Host
             HideAnimation.Begin();
         }
 
+        private void FailureAnimation()
+        {
+            StatusBlock.Text = _localizationService[FailedString];
+            QuarrelIcon.ErrorAnimation();
+        }
+
         private static void OnIsShowingChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
             ExtendedSplashScreen splash = (ExtendedSplashScreen)d;
@@ -82,10 +89,17 @@ namespace Quarrel.Controls.Host
             {
                 SplashStatus.Connecting => ConnectingString,
                 SplashStatus.Connected => ConnectedString,
+                SplashStatus.Failed => FailedString,
+                SplashStatus.Loading or
                 _ => LoadingString,
             };
             string messageText = splash._localizationService[messageString];
             splash.StatusBlock.Text = messageText;
+
+            if (status == SplashStatus.Failed)
+            {
+                splash.FailureAnimation();
+            }
         }
 
         private void HideAnimation_Completed(object sender, object e)

@@ -22,5 +22,8 @@ namespace Quarrel.Controls.Shell.Enums
         /// Connected and playing the finishing animation.
         /// </summary>
         Connected = WindowHostState.LoggedIn,
+
+        /// <inheritdoc cref="WindowHostState.LoginFailed"/>
+        Failed = WindowHostState.LoginFailed,
     }
 }
