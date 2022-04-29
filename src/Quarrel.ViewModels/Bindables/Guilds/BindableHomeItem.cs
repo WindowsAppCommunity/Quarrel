@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Interfaces;
@@ -22,8 +23,12 @@ namespace Quarrel.Bindables.Guilds
         /// <summary>
         /// Initializes a new isntance of the <see cref="BindableHomeItem"/> class.
         /// </summary>
-        public BindableHomeItem(IDiscordService discordService, IDispatcherService dispatcherService, ILocalizationService localizationService) :
-            base(discordService, dispatcherService)
+        public BindableHomeItem(
+            IMessenger messenger,
+            IDiscordService discordService,
+            IDispatcherService dispatcherService,
+            ILocalizationService localizationService) :
+            base(messenger, discordService, dispatcherService)
         {
             _localizationService = localizationService;
         }
@@ -38,7 +43,7 @@ namespace Quarrel.Bindables.Guilds
         public IEnumerable<BindableChannelGroup>? GetGroupedChannels(out IBindableSelectableChannel? selected)
         {
             var channels = _discordService.GetPrivateChannels(this, out selected);
-            var group = new BindableChannelGroup(_discordService, _dispatcherService, null);
+            var group = new BindableChannelGroup(_messenger, _discordService, _dispatcherService, null);
             foreach (var channel in channels)
             {
                 if (channel is not null)

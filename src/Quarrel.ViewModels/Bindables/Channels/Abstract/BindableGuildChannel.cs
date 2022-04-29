@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
@@ -17,8 +18,14 @@ namespace Quarrel.Bindables.Channels.Abstract
     /// </summary>
     public abstract class BindableGuildChannel : BindableChannel
     {
-        internal BindableGuildChannel(IDiscordService discordService, IDispatcherService dispatcherService, GuildChannel channel, GuildMember selfMember, BindableCategoryChannel? parent = null) :
-            base(discordService, dispatcherService, channel)
+        internal BindableGuildChannel(
+            IMessenger messenger,
+            IDiscordService discordService,
+            IDispatcherService dispatcherService,
+            GuildChannel channel,
+            GuildMember selfMember,
+            BindableCategoryChannel? parent = null) :
+            base(messenger, discordService, dispatcherService, channel)
         {
             CategoryChannel = parent;
 
@@ -64,9 +71,16 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <param name="channel">The channel to wrap.</param>
         /// <param name="member">The current user's guild member for the channel's guild.</param>
         /// <param name="parent">The channel's parent category.</param>
-        public static BindableGuildChannel? Create(IDiscordService discordService, ILocalizationService localizationService, IDispatcherService dispatcherService, IGuildChannel channel, GuildMember member, BindableCategoryChannel? parent = null)
+        public static BindableGuildChannel? Create(
+            IMessenger messenger,
+            IDiscordService discordService,
+            ILocalizationService localizationService,
+            IDispatcherService dispatcherService,
+            IGuildChannel channel,
+            GuildMember member,
+            BindableCategoryChannel? parent = null)
         {
-            return BindableChannel.Create(discordService, localizationService, dispatcherService, channel, member, parent) as BindableGuildChannel;
+            return BindableChannel.Create(messenger, discordService, localizationService, dispatcherService, channel, member, parent) as BindableGuildChannel;
         }
         
         /// <inheritdoc/>

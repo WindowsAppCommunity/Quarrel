@@ -1,11 +1,13 @@
 ﻿// Quarrel © 2022
 
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;
+using Quarrel.Messages.Discord;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
@@ -23,11 +25,22 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableChannel"/> class.
         /// </summary>
-        internal BindableChannel(IDiscordService discordService, IDispatcherService dispatcherService, Channel channel) :
-            base(discordService, dispatcherService)
+        internal BindableChannel(
+            IMessenger messenger,
+            IDiscordService discordService,
+            IDispatcherService dispatcherService,
+            Channel channel) :
+            base(messenger, discordService, dispatcherService)
         {
             _channel = channel;
-            _channel.ItemUpdated += AckUpdateRoot;
+
+            messenger.Register<ChannelUpdatedMessage>(this, (_, e) =>
+            {
+                if (Id == e.Channel.Id)
+                {
+                    Channel = e.Channel;
+                }
+            });
         }
 
         /// <inheritdoc/>
@@ -49,16 +62,8 @@ namespace Quarrel.Bindables.Channels.Abstract
             get => _channel;
             private set
             {
-                if (_channel is not null)
-                {
-                    _channel.ItemUpdated -= AckUpdateRoot;
-                }
-
-                if (SetProperty(ref _channel, value))
-                {
-                    OnPropertyChanged(nameof(Name));
-                    _channel.ItemUpdated += AckUpdateRoot;
-                }
+                SetProperty(ref _channel, value);
+                AckUpdateRoot();
             }
         }
 
@@ -77,7 +82,7 @@ namespace Quarrel.Bindables.Channels.Abstract
             OnPropertyChanged(nameof(Name));
         }
 
-        private void AckUpdateRoot(object sender, EventArgs e)
+        private void AckUpdateRoot()
         {
             _dispatcherService.RunOnUIThread(() =>
             {
@@ -94,23 +99,30 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <param name="channel">The channel to wrap.</param>
         /// <param name="member">The current user's guild member for the channel's guild. Null if not a guild channel.</param>
         /// <param name="parent">The parent category of the channel.</param>
-        public static BindableChannel? Create(IDiscordService discordService, ILocalizationService localizationService, IDispatcherService dispatcherService, IChannel channel, GuildMember? member = null, BindableCategoryChannel? parent = null)
+        public static BindableChannel? Create(
+            IMessenger messenger,
+            IDiscordService discordService,
+            ILocalizationService localizationService,
+            IDispatcherService dispatcherService,
+            IChannel channel,
+            GuildMember? member = null,
+            BindableCategoryChannel? parent = null)
         {
             if (member is null)
             {
                 return channel switch
                 {
-                    DirectChannel c => new BindableDirectChannel(discordService, dispatcherService, c),
-                    GroupChannel c => new BindableGroupChannel(discordService, localizationService, dispatcherService, c),
+                    DirectChannel c => new BindableDirectChannel(messenger, discordService, dispatcherService, c),
+                    GroupChannel c => new BindableGroupChannel(messenger, discordService, localizationService, dispatcherService, c),
                     _ => null
                 };
             }
 
             return channel switch
             {
-                GuildTextChannel c => new BindableTextChannel(discordService, dispatcherService, c, member, parent),
-                VoiceChannel c => new BindableVoiceChannel(discordService, dispatcherService, c, member, parent),
-                CategoryChannel c => new BindableCategoryChannel(discordService, dispatcherService, c, member),
+                GuildTextChannel c => new BindableTextChannel(messenger, discordService, dispatcherService, c, member, parent),
+                VoiceChannel c => new BindableVoiceChannel(messenger, discordService, dispatcherService, c, member, parent),
+                CategoryChannel c => new BindableCategoryChannel(messenger, discordService, dispatcherService, c, member),
                 _ => null
             };
         }

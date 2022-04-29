@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Users;
@@ -16,8 +17,12 @@ namespace Quarrel.Bindables.Channels
     /// </summary>
     public class BindableDirectChannel : BindablePrivateChannel, IBindableMessageChannel
     {
-        internal BindableDirectChannel(IDiscordService discordService, IDispatcherService dispatcherService, DirectChannel directChannel) :
-            base(discordService, dispatcherService, directChannel)
+        internal BindableDirectChannel(
+            IMessenger messenger,
+            IDiscordService discordService,
+            IDispatcherService dispatcherService,
+            DirectChannel directChannel) :
+            base(messenger, discordService, dispatcherService, directChannel)
         {
             BindableUser? user = _discordService.GetUser(DirectChannel.RecipientId);
             Guard.IsNotNull(user);

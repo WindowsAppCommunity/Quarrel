@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Users;
 using Quarrel.Client.Models.Messages;
@@ -21,8 +22,12 @@ namespace Quarrel.Bindables.Messages
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableMessage"/> class.
         /// </summary>
-        internal BindableMessage(IDiscordService discordService, IDispatcherService dispatcherService, Message message) :
-            base(discordService, dispatcherService)
+        internal BindableMessage(
+            IMessenger messenger,
+            IDiscordService discordService,
+            IDispatcherService dispatcherService,
+            Message message) :
+            base(messenger, discordService, dispatcherService)
         {
             _message = message;
             Author = _discordService.GetUser(message.Author.Id);

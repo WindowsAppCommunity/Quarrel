@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Users;
@@ -20,8 +21,13 @@ namespace Quarrel.Bindables.Channels
     {
         private ILocalizationService _localizationService;
 
-        internal BindableGroupChannel(IDiscordService discordService, ILocalizationService localizationService, IDispatcherService dispatcherService, GroupChannel groupChannel) :
-            base(discordService, dispatcherService, groupChannel)
+        internal BindableGroupChannel(
+            IMessenger messenger,
+            IDiscordService discordService,
+            ILocalizationService localizationService,
+            IDispatcherService dispatcherService,
+            GroupChannel groupChannel) :
+            base(messenger, discordService, dispatcherService, groupChannel)
         {
             _localizationService = localizationService;
 

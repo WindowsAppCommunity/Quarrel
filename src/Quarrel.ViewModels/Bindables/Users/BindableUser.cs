@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Users.Interfaces;
 using Quarrel.Client.Models.Users;
@@ -19,8 +20,12 @@ namespace Quarrel.Bindables.Users
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableUser"/> class.
         /// </summary>
-        internal BindableUser(IDiscordService discordService, IDispatcherService dispatcherService, User user) :
-            base(discordService, dispatcherService)
+        internal BindableUser(
+            IMessenger messenger,
+            IDiscordService discordService,
+            IDispatcherService dispatcherService,
+            User user) :
+            base(messenger, discordService, dispatcherService)
         {
             _user = user;
         }

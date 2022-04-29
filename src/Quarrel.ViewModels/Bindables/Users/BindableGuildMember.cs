@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Client.Models.Users;
 using Quarrel.Services.Discord;
@@ -14,8 +15,12 @@ namespace Quarrel.Bindables.Users
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableGuildMember"/> class.
         /// </summary>
-        internal BindableGuildMember(IDiscordService discordService, IDispatcherService dispatcherService, GuildMember guildMember) :
-            base(discordService, dispatcherService)
+        internal BindableGuildMember(
+            IMessenger messenger,
+            IDiscordService discordService,
+            IDispatcherService dispatcherService,
+            GuildMember guildMember) :
+            base(messenger, discordService, dispatcherService)
         {
             _guildMember = guildMember;
         }

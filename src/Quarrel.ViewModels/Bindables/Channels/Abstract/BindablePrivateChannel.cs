@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
@@ -17,8 +18,12 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <summary>
         /// Initializes a new instance of the <see cref="BindablePrivateChannel"/> class.
         /// </summary>
-        internal BindablePrivateChannel(IDiscordService discordService, IDispatcherService dispatcherService, PrivateChannel privateChannel) :
-            base(discordService, dispatcherService, privateChannel)
+        internal BindablePrivateChannel(
+            IMessenger messenger,
+            IDiscordService discordService,
+            IDispatcherService dispatcherService,
+            PrivateChannel privateChannel) :
+            base(messenger, discordService, dispatcherService, privateChannel)
         {
         }
 
@@ -31,9 +36,14 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <inheritdoc/>
         public IMessageChannel MessageChannel => (IMessageChannel)Channel;
 
-        public static BindablePrivateChannel? Create(IDiscordService discordService, ILocalizationService localizationService, IDispatcherService dispatcherService, IPrivateChannel channel)
+        public static BindablePrivateChannel? Create(
+            IMessenger messenger,
+            IDiscordService discordService,
+            ILocalizationService localizationService,
+            IDispatcherService dispatcherService,
+            IPrivateChannel channel)
         {
-            return BindableChannel.Create(discordService, localizationService, dispatcherService, channel) as BindablePrivateChannel;
+            return BindableChannel.Create(messenger, discordService, localizationService, dispatcherService, channel) as BindablePrivateChannel;
         }
     }
 }

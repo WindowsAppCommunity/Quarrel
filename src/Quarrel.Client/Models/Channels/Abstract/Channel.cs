@@ -13,7 +13,7 @@ namespace Quarrel.Client.Models.Channels.Abstract
     /// <summary>
     /// A base class for a channel managed by a <see cref="QuarrelClient"/>.
     /// </summary>
-    public abstract class Channel : SnowflakeItem, IChannel, IUpdatableItem
+    public abstract class Channel : SnowflakeItem, IChannel
     {
         internal Channel(JsonChannel restChannel, QuarrelClient context) :
             base(context)
@@ -28,15 +28,11 @@ namespace Quarrel.Client.Models.Channels.Abstract
 
         /// <inheritdoc/>
         public ChannelType Type { get; private set; }
-        
-        /// <inheritdoc/>
-        public event EventHandler? ItemUpdated;
 
         internal virtual void UpdateFromJsonChannel(JsonChannel jsonChannel)
         {
             Guard.IsEqualTo(Id, jsonChannel.Id, nameof(Id));
             PrivateUpdateFromJsonChannel(jsonChannel);
-            InvokeUpdate();
         }
 
         internal virtual void PrivateUpdateFromJsonChannel(JsonChannel jsonChannel)
@@ -69,17 +65,5 @@ namespace Quarrel.Client.Models.Channels.Abstract
                 Type = Type,
             };
         }
-
-        /// <summary>
-        /// Invokes item updated.
-        /// </summary>
-        protected void UpdateItem<T>(ref T field, T value)
-        {
-            field = value;
-            InvokeUpdate();
-        }
-
-        private void InvokeUpdate()
-            => ItemUpdated?.Invoke(this, EventArgs.Empty);
     }
 }
