@@ -17,6 +17,8 @@ namespace Quarrel.Client.Models.Messages
         internal Message(JsonMessage jsonMessage, QuarrelClient context) :
             base(context)
         {
+            Id = jsonMessage.Id;
+            ChannelId = jsonMessage.ChannelId;
             GuildId = jsonMessage.GuildId;
             Type = jsonMessage.Type;
             IsTextToSpeech = jsonMessage.IsTextToSpeech ?? false;
@@ -26,7 +28,10 @@ namespace Quarrel.Client.Models.Messages
             EditedTimestamp = jsonMessage.EditedTimestamp;
             Content = jsonMessage.Content ?? string.Empty;
 
-            Author = context.GetOrAddUserInternal(jsonMessage.Author);
+            if (jsonMessage.Author is not null)
+            {
+                Author = context.GetOrAddUserInternal(jsonMessage.Author);
+            }
 
             if (jsonMessage.UserMentions is not null)
             {
@@ -41,7 +46,9 @@ namespace Quarrel.Client.Models.Messages
             }
         }
 
-        public ulong? GuildId{ get; private set; }
+        public ulong? ChannelId { get; private set; }
+
+        public ulong? GuildId { get; private set; }
 
         /// <inheritdoc/>
         public MessageType Type { get; private set; }
@@ -65,7 +72,7 @@ namespace Quarrel.Client.Models.Messages
         public DateTimeOffset? EditedTimestamp { get; private set; }
 
         /// <inheritdoc/>
-        public User Author { get; private set; }
+        public User? Author { get; private set; }
 
         /// <inheritdoc/>
         public User[] Mentions { get; private set; }
