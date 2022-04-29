@@ -11,7 +11,6 @@ using Quarrel.Messages.Discord;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
-using System;
 
 namespace Quarrel.Bindables.Channels.Abstract
 {
@@ -73,9 +72,6 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <inheritdoc/>
         public abstract bool IsAccessible { get; }
 
-        /// <summary>
-        /// Invokes property changed for mutable properties when <see cref="Channel.ItemUpdated"/> is invoked.
-        /// </summary>
         protected virtual void AckUpdate()
         {
             OnPropertyChanged(nameof(Channel));

@@ -36,7 +36,7 @@
                                FontSize="11" Opacity=".5" Margin="6,0"/>
                 </StackPanel>
 
-                <markdown:MessageRenderer Text="{x:Bind Message.Content}" Context="{x:Bind}" Grid.Row="1"/>
+                <markdown:MessageRenderer Text="{x:Bind Content, Mode=OneWay}" Context="{x:Bind}" Grid.Row="1"/>
             </Grid>
         </Grid>
     </DataTemplate>
