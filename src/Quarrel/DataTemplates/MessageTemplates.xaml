@@ -36,7 +36,9 @@
                                FontSize="11" Opacity=".5" Margin="6,0"/>
                 </StackPanel>
 
-                <markdown:MessageRenderer Text="{x:Bind Content, Mode=OneWay}" Context="{x:Bind}" Grid.Row="1"/>
+                <markdown:MessageRenderer Text="{x:Bind Content, Mode=OneWay}"
+                                          Context="{x:Bind}" Grid.Row="1"
+                                          HorizontalAlignment="Left"/>
             </Grid>
         </Grid>
     </DataTemplate>
@@ -51,7 +53,7 @@
             <FontIcon Glyph="{x:Bind mconvert:InfoMessageIconConverter.Convert(Message.Type)}"
                       Foreground="{x:Bind mconvert:InfoMessageColorConverter.Convert(Message.Type)}"/>
 
-            <markdown:MessageRenderer Grid.Column="1" Margin="0,-5,0,0" Context="{x:Bind}" 
+            <markdown:MessageRenderer Grid.Column="1" Margin="0,-5,0,0" Context="{x:Bind}" HorizontalAlignment="Left"
                                       Text="{x:Bind mconvert:InfoMessageContentConverter.Convert((bindablemessages:BindableMessage))}"/>
 
             <TextBlock Grid.Column="2" Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"
