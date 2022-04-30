@@ -7,7 +7,7 @@ using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;
-using Quarrel.Messages.Discord;
+using Quarrel.Messages.Discord.Channels;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;

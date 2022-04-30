@@ -4,7 +4,7 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Users;
 using Quarrel.Client.Models.Messages;
-using Quarrel.Messages.Discord;
+using Quarrel.Messages.Discord.Messages;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using System.Collections.Generic;

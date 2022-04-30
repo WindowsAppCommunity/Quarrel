@@ -5,7 +5,7 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Messages;
-using Quarrel.Client.Models.Channels.Interfaces;
+using Quarrel.Messages.Discord.Messages;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
@@ -24,6 +24,7 @@ namespace Quarrel.ViewModels.Panels
         private readonly IDispatcherService _dispatcherService;
 
         private bool _isLoading;
+        private IBindableSelectableChannel? _selectedChannel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MessagesViewModel"/> class.
@@ -37,13 +38,32 @@ namespace Quarrel.ViewModels.Panels
             Source = new ObservableRangeCollection<BindableMessage>();
             IsLoading = false;
 
-            _messenger.Register<NavigateToChannelMessage<IBindableSelectableChannel>>(this, (_, m) => LoadChannel(m.Channel));
+            _messenger.Register<NavigateToChannelMessage<IBindableSelectableChannel>>(this, (_, m) => SelectedChannel = m.Channel);
+            _messenger.Register<MessageCreatedMessage>(this, (_, m) =>
+            {
+                if (SelectedChannel?.Id == m.Message.Message.ChannelId)
+                {
+                    AppendMessage(m.Message);
+                }
+            });
         }
 
         /// <summary>
         /// The collection of loaded messages.
         /// </summary>
         public ObservableRangeCollection<BindableMessage> Source;
+
+        public IBindableSelectableChannel? SelectedChannel
+        {
+            get => _selectedChannel;
+            set
+            {
+                if (SetProperty(ref _selectedChannel, value))
+                {
+                    LoadChannel(value);
+                }
+            }
+        }
 
         /// <summary>
         /// Gets a value indicating whether or not messages are loading.
@@ -54,7 +74,7 @@ namespace Quarrel.ViewModels.Panels
             private set => SetProperty(ref _isLoading, value);
         }
 
-        private void LoadChannel(IBindableSelectableChannel channel)
+        private void LoadChannel(IBindableSelectableChannel? channel)
         {
             if (channel is IBindableMessageChannel messageChannel)
             {
@@ -77,6 +97,14 @@ namespace Quarrel.ViewModels.Panels
                 // Add messages to the UI and mark loading as finished
                 Source.AddRange(messages.Reverse());
                 IsLoading = false;
+            });
+        }
+
+        private void AppendMessage(BindableMessage message)
+        {
+            _dispatcherService.RunOnUIThread(() =>
+            {
+                Source?.Add(message);
             });
         }
     }
