@@ -29,13 +29,20 @@ namespace Quarrel.Bindables.Messages
             base(messenger, discordService, dispatcherService)
         {
             _message = message;
-            Author = _discordService.GetUser(message.Author.Id);
 
             Users = new Dictionary<ulong, BindableUser?>();
-            Users.Add(message.Author.Id, Author);
+            if (message.Author is not null)
+            {
+                Author = _discordService.GetUser(message.Author.Id);
+                Users.Add(message.Author.Id, Author);
+            }
+
             foreach (var user in _message.Mentions)
             {
-                Users.Add(user.Id, _discordService.GetUser(user.Id));
+                if (!Users.ContainsKey(user.Id))
+                {
+                    Users.Add(user.Id, _discordService.GetUser(user.Id));
+                }
             }
 
             if (message.GuildId.HasValue)
