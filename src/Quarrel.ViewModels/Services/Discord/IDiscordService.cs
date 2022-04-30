@@ -74,5 +74,7 @@ namespace Quarrel.Services.Discord
         BindablePrivateChannel?[] GetPrivateChannels(BindableHomeItem home, out IBindableSelectableChannel? selectedChannel);
 
         BindableGuildMember GetGuildMember(ulong userId, ulong guildId);
+
+        void SendMessage(ulong channelId, string content);
     }
 }

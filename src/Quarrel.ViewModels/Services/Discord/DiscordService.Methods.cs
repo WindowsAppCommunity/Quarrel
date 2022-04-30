@@ -181,5 +181,11 @@ namespace Quarrel.Services.Discord
 
             return null;
         }
+
+        /// <inheritdoc/>
+        public void SendMessage(ulong channelId, string content)
+        {
+            _quarrelClient.SendMessage(channelId, content);
+        }
     }
 }

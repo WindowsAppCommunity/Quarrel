@@ -151,6 +151,14 @@ namespace Quarrel.Client
             return privateChannels;
         }
 
+        public void SendMessage(ulong channelId, string content)
+        {
+            Guard.IsNotNull(_channelService, nameof(_channelService));
+            ulong nonce = (ulong)new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds() << 22;
+            JsonMessageUpsert message = new JsonMessageUpsert(content, false, $"{nonce}");
+            _channelService.CreateMessage(channelId, message);
+        }
+
         private async Task<T?> MakeRefitRequest<T>(Func<Task<T>> request)
         {
             try
