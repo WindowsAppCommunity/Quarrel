@@ -6,56 +6,100 @@
     xmlns:mconvert="using:Quarrel.Converters.DataTemplates.Messages"
     xmlns:tconvert="using:Quarrel.Converters.Time"
     xmlns:qc="using:Quarrel.Controls"
+    xmlns:mcontrols="using:Quarrel.Controls.Panels.Messages"
     xmlns:bindablemessages="using:Quarrel.Bindables.Messages"
-    xmlns:markdown="using:Quarrel.Markdown">
+    xmlns:bindableembeds="using:Quarrel.Bindables.Messages.Embeds"
+    xmlns:markdown="using:Quarrel.Markdown"
+    xmlns:converters="using:Quarrel.Converters">
 
     <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
-        <Grid Padding="2,8">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="64"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <!--Grid must be wrapped in a user control to enable the VisualStateManager-->
+        <UserControl>
+            <Grid x:Name="RootGrid" Padding="2,12,2,4">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup>
+                        <VisualState x:Name="Default">
+                            <VisualState.StateTriggers>
+                                <StateTrigger IsActive="{x:Bind converters:InverseBoolConverter.Convert(IsContinuation), Mode=OneWay}"/>
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="RootGrid.Padding" Value="2,12,2,4"/>
+                                <Setter Target="Header.Visibility" Value="Visible"/>
+                                <Setter Target="ProfileImageContainer.Visibility" Value="Visible"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Continuation">
+                            <VisualState.StateTriggers>
+                                <StateTrigger IsActive="{x:Bind IsContinuation, Mode=OneWay}"/>
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="RootGrid.Padding" Value="2,2,0,2"/>
+                                <Setter Target="Header.Visibility" Value="Collapsed"/>
+                                <Setter Target="ProfileImageContainer.Visibility" Value="Collapsed"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
 
-            <!--Image-->
-            <Border Width="36" Height="36"
-                    CornerRadius="18" VerticalAlignment="Top">
-                <tc:ImageEx Source="{x:Bind Author.AvatarUri}"/>
-            </Border>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="64"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+                <!--Image-->
+                <Border x:Name="ProfileImageContainer"  Width="36" Height="36"
+                        CornerRadius="18" VerticalAlignment="Top">
+                    <tc:ImageEx Source="{x:Bind Author.AvatarUri}"/>
+                </Border>
 
-                <StackPanel Orientation="Horizontal" Margin="0,-4,0,0">
-                    <HyperlinkButton Content="{x:Bind Author.User.Username}" Style="{StaticResource PlainTextHyperlinkStyle}"
-                                     FontSize="14"/>
-                    <TextBlock Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"
-                               VerticalAlignment="Center"
-                               FontSize="11" Opacity=".5" Margin="6,0"/>
-                </StackPanel>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
-                <markdown:MessageRenderer Text="{x:Bind Content, Mode=OneWay}" Context="{x:Bind}" Grid.Row="1"/>
+                    <StackPanel x:Name="Header" Orientation="Horizontal" Margin="0,-2,0,0">
+                        <HyperlinkButton Content="{x:Bind Author.User.Username}" Style="{StaticResource PlainTextHyperlinkStyle}"
+                                         FontSize="14"/>
+                        <TextBlock Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"
+                                   VerticalAlignment="Center" FontSize="12" Opacity=".5" Margin="6,0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1">
+                        <markdown:MessageRenderer Text="{x:Bind Message.Content, Mode=OneWay}" Context="{x:Bind}"
+                                                  HorizontalAlignment="Left"/>
+
+                        <ItemsControl ItemsSource="{x:Bind Message.Attachments}"
+                                      HorizontalAlignment="Left">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="bindableembeds:BindableAttachment">
+                                    <tc:ImageEx Source="{x:Bind Attachment.ProxyUrl}" MaxWidth="400" CornerRadius="2"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Grid>
             </Grid>
-        </Grid>
+        </UserControl>
     </DataTemplate>
 
     <DataTemplate x:Key="InfoMessageTemplate" x:DataType="bindablemessages:BindableMessage">
-        <Grid VerticalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="64"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            <FontIcon Glyph="{x:Bind mconvert:InfoMessageIconConverter.Convert(Message.Type)}"
-                      Foreground="{x:Bind mconvert:InfoMessageColorConverter.Convert(Message.Type)}"/>
+        <Grid Height="32">
+            <Grid VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="64"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <FontIcon Glyph="{x:Bind mconvert:InfoMessageIconConverter.Convert(Message.Type)}"
+                          Foreground="{x:Bind mconvert:InfoMessageColorConverter.Convert(Message.Type)}"/>
 
-            <markdown:MessageRenderer Grid.Column="1" Margin="0,-5,0,0" Context="{x:Bind}" 
-                                      Text="{x:Bind mconvert:InfoMessageContentConverter.Convert((bindablemessages:BindableMessage))}"/>
+                <markdown:MessageRenderer Grid.Column="1" Margin="0,-5,0,0" Context="{x:Bind}" HorizontalAlignment="Left"
+                                          Text="{x:Bind mconvert:InfoMessageContentConverter.Convert((bindablemessages:BindableMessage))}"/>
 
-            <TextBlock Grid.Column="2" Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"
-                       Opacity=".5" Margin="8,0"/>
+                <TextBlock Grid.Column="2" Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"
+                           Opacity=".5" Margin="8,0"/>
+            </Grid>
         </Grid>
     </DataTemplate>
 

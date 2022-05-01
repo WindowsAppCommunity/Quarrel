@@ -252,6 +252,9 @@
   <data name="ExtendedSplash/Connecting" xml:space="preserve">
     <value>CONNECTING</value>
   </data>
+  <data name="ExtendedSplash/Failure" xml:space="preserve">
+    <value>Failure</value>
+  </data>
   <data name="ExtendedSplash/Loading" xml:space="preserve">
     <value>LOADING</value>
   </data>

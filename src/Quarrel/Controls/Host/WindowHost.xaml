@@ -8,7 +8,7 @@
     xmlns:shell="using:Quarrel.Controls.Shell"
     xmlns:subpages="using:Quarrel.SubPages"
     xmlns:subpagehost="using:Quarrel.SubPages.Host"
-    xmlns:convert="using:Quarrel.Converters"
+    xmlns:hconvert="using:Quarrel.Converters.WindowHost"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -22,7 +22,7 @@
         <Grid Grid.Row="1">
             <shell:Shell/>
             <subpages:LoginPage x:Name="LoginPage" x:Load="{x:Bind ViewModel.IsLoggedOut, Mode=OneWay}"/>
-            <local:ExtendedSplashScreen IsShowing="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Status="{x:Bind ViewModel.SplashStatus, Mode=OneWay}"/>
+            <local:ExtendedSplashScreen IsShowing="{x:Bind hconvert:ShowExtendedSplashConverter.Convert(ViewModel.WindowState), Mode=OneWay}" Status="{x:Bind ViewModel.SplashStatus, Mode=OneWay}"/>
             <subpagehost:SubPageHost x:Name="SubPageHost"/>
         </Grid>
     </Grid>

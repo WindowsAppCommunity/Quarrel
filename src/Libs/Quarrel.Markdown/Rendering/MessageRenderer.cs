@@ -23,6 +23,12 @@ namespace Quarrel.Markdown
         private const string RichBlockPartName = "RichBlock";
 
         private RichTextBlock? _richBlock;
+        private Canvas? _backgroundCanvas;
+        private Canvas? _overlayCanvas;
+        private Grid? _grid;
+
+        private List<Inline> _inlineCodeBlocks = new List<Inline>();
+        private List<Inline> _spoilers = new List<Inline>();
 
         public MessageRenderer()
         {
@@ -31,13 +37,198 @@ namespace Quarrel.Markdown
 
         protected override void OnApplyTemplate()
         {
-            _richBlock = (RichTextBlock)GetTemplateChild(RichBlockPartName);
+            //_richBlock = (RichTextBlock)GetTemplateChild(RichBlockPartName);
+            _backgroundCanvas = (Canvas)GetTemplateChild("BackgroundCanvas");
+            _overlayCanvas = (Canvas)GetTemplateChild("OverlayCanvas");
+            _grid = (Grid)GetTemplateChild("Grid");
+        }
+
+        private void RichBlock_SizeChanged(object sender, object e)
+        {
+            UpdateOverlays();
+        }
+
+        private TextPointer FindFirstNewLine(TextPointer start, TextPointer end)
+        {
+            var direction = LogicalDirection.Forward;
+            
+            while (start.Offset + 1 < end.Offset)
+            {
+                var lastEnd = end;
+                var startRect = start.GetCharacterRect(direction);
+                var endRect = end.GetCharacterRect(direction);
+                while (Math.Abs(startRect.Top - endRect.Top) > 0.01)
+                {
+                    lastEnd = end;
+                    end = start.GetPositionAtOffset((end.Offset - start.Offset) / 2, direction);
+                    endRect = end.GetCharacterRect(direction);
+                }
+
+                start = end;
+                end = lastEnd;
+            }
+            return start;
+        }
+
+        private PathFigure CreatePathFigure(TextPointer start, TextPointer textEnd)
+        {
+            var direction = LogicalDirection.Forward;
+            int radius = 2;
+
+            var pathFigure = new PathFigure() { StartPoint = new Point(radius, 0) };
+            var segments = pathFigure.Segments;
+            var firstRect = start.GetCharacterRect(direction);
+            var lastPoint = new Point(0, 0);
+
+            bool first = true;
+            List<(Rect, Rect)> rects = new List<(Rect, Rect)>();
+            while (start.Offset < textEnd.Offset)
+            {
+                var end = FindFirstNewLine(start, textEnd);
+                var startRect = start.GetCharacterRect(direction);
+                var endRect = end.GetCharacterRect(direction);
+                rects.Add((startRect, endRect));
+
+                bool inwards = (lastPoint.X - (endRect.Right - firstRect.Left)) >= 0;
+                segments.Add(new ArcSegment()
+                {
+                    Point = new Point(lastPoint.X + (inwards ? -radius : radius), lastPoint.Y),
+                    Size = new Size(radius, radius),
+                    RotationAngle = 45,
+                    SweepDirection = first || inwards ? SweepDirection.Clockwise : SweepDirection.Counterclockwise
+
+                });
+                segments.Add(new LineSegment()
+                {
+                    Point = new Point(endRect.Right - firstRect.Left + (inwards ? radius : -radius), lastPoint.Y),
+                });
+                inwards = (lastPoint.X - (endRect.Right - firstRect.Left)) >= 0;
+                segments.Add(new ArcSegment()
+                {
+                    Point = new Point(endRect.Right - firstRect.Left, lastPoint.Y + radius),
+                    Size = new Size(radius, radius),
+                    RotationAngle = 45,
+                    SweepDirection = inwards ? SweepDirection.Counterclockwise : SweepDirection.Clockwise
+
+                });
+                lastPoint = new Point(endRect.Right - firstRect.Left, endRect.Bottom - firstRect.Top);
+                segments.Add(new LineSegment()
+                {
+                    Point = new Point(lastPoint.X, lastPoint.Y - radius)
+                });
+
+                start = end.GetPositionAtOffset(1, direction);
+                first = false;
+            }
+
+            first = true;
+            for (int i = rects.Count - 1; i >= 0; i--)
+            {
+                (Rect startRect, Rect endRect) = rects[i];
+                if (Math.Abs(lastPoint.X - (startRect.Left - firstRect.Left)) < 0.1)
+                {
+                    segments.Add(new LineSegment()
+                    {
+                        Point = new Point(startRect.Left - firstRect.Left, endRect.Bottom - firstRect.Top)
+                    });
+
+                    lastPoint = new Point(startRect.Left - firstRect.Left, endRect.Top - firstRect.Top);
+                    segments.Add(new LineSegment() { Point = lastPoint });
+                }
+                else
+                {
+                    bool inwards = (lastPoint.X - (startRect.Left - firstRect.Left)) < 0;
+                    segments.Add(new ArcSegment()
+                    {
+                        Point = new Point(lastPoint.X + (first ? -radius : radius), lastPoint.Y),
+                        Size = new Size(radius, radius),
+                        RotationAngle = 45,
+                        SweepDirection = SweepDirection.Clockwise
+                    });
+                    segments.Add(new LineSegment()
+                    {
+                        Point = new Point(startRect.Left - firstRect.Left + (inwards ? -radius : radius),
+                            endRect.Bottom - firstRect.Top)
+                    });
+
+                    segments.Add(new ArcSegment()
+                    {
+                        Point = new Point(startRect.Right - firstRect.Left, endRect.Bottom - firstRect.Top - radius),
+                        Size = new Size(radius, radius),
+                        RotationAngle = 45,
+                        SweepDirection = inwards ? SweepDirection.Counterclockwise : SweepDirection.Clockwise
+                    });
+                    lastPoint = new Point(startRect.Left - firstRect.Left, endRect.Top - firstRect.Top);
+                    segments.Add(new LineSegment() { Point = new Point(lastPoint.X, lastPoint.Y + radius) });
+                }
+
+                first = false;
+            }
+
+            return pathFigure;
+        }
+
+        private void UpdateOverlays()
+        {
+            _backgroundCanvas.Children.Clear();
+            _overlayCanvas.Children.Clear();
+            foreach (var inline in _inlineCodeBlocks)
+            {
+                var direction = inline.ElementStart.LogicalDirection;
+                var start = inline.ElementStart;
+                var firstRect = start.GetCharacterRect(direction);
+                var path = new InlineCodeElement()
+                {
+                    PathGeometry = new PathGeometry()
+                    {
+                        Figures =
+                        {
+                            CreatePathFigure(start, inline.ElementEnd)
+                        }
+                    }
+                };
+
+                _backgroundCanvas.Children.Add(path);
+                Canvas.SetTop(path, firstRect.Top);
+                Canvas.SetLeft(path, firstRect.Left);
+            }
+
+            foreach (var inline in _spoilers)
+            {
+                var direction = inline.ElementStart.LogicalDirection;
+                var start = inline.ElementStart;
+                var firstRect = start.GetCharacterRect(direction);
+                var path = new SpoilerElement()
+                {
+                    PathGeometry = new PathGeometry()
+                    {
+                        Figures =
+                        {
+                            CreatePathFigure(start, inline.ElementEnd)
+                        }
+                    }
+                };
+
+                _overlayCanvas.Children.Add(path);
+                Canvas.SetTop(path, firstRect.Top);
+                Canvas.SetLeft(path, firstRect.Left);
+            }
         }
 
         private void RenderMarkdown(IList<ASTRoot> tree)
         {
+
+            if (_richBlock != null)
+            {
+                _richBlock.SizeChanged -= RichBlock_SizeChanged;
+                _grid.Children.Remove(_richBlock);
+            }
+
+            _richBlock = new RichTextBlock() { Foreground = new SolidColorBrush(Color.FromArgb(255, 220, 222, 222))};
+            _richBlock.SizeChanged += RichBlock_SizeChanged;
+            _inlineCodeBlocks.Clear();
+            _spoilers.Clear();
             BlockCollection blocks = _richBlock.Blocks;
-            blocks.Clear();
 
             foreach (var root in tree)
             {
@@ -144,15 +335,21 @@ namespace Quarrel.Markdown
                             break;
                         case InlineCode inlineCode:
                             {
-                                InlineUIContainer container = new InlineUIContainer();
-                                inlineCollection.Add(container);
-                                container.Child = new InlineCodeElement(inlineCode)
+                                var inline = new Span()
                                 {
-                                    FontSize = container.FontSize,
-                                    FontWeight = container.FontWeight,
-                                    FontStretch = container.FontStretch,
-                                    TextDecorations = container.TextDecorations,
+                                    Inlines =
+                                    {
+                                        new Run() { Text = " " },
+                                        new Run()
+                                        {
+                                            FontFamily = new FontFamily("Consolas"),
+                                            Text = inlineCode.Content,
+                                        },
+                                        new Run() { Text = " " }
+                                    }
                                 };
+                                inlineCollection.Add(inline);
+                                _inlineCodeBlocks.Add(inline);
                             }
                             break;
                         case Timestamp timeStamp:
@@ -237,23 +434,14 @@ namespace Quarrel.Markdown
                             break;
                         case Spoiler spoiler:
                             {
-                                InlineUIContainer container = new InlineUIContainer();
-                                inlineCollection.Add(container);
-                                var element = new SpoilerElement(spoiler)
-                                {
-                                    FontFamily = container.FontFamily,
-                                    FontWeight = container.FontWeight,
-                                    FontSize = container.FontSize,
-                                    FontStretch = container.FontStretch,
-                                    TextDecorations = container.TextDecorations,
-                                    Style = SpoilerStyle,
-                                };
-                                container.Child = element;
+                                var inline = new Span();
 
                                 foreach (IAST child in spoiler.Children.Reverse())
                                 {
-                                    stack.Push((child, element.Paragraph.Inlines));
+                                    stack.Push((child, inline.Inlines));
                                 }
+                                inlineCollection.Add(inline);
+                                _spoilers.Add(inline);
                             }
                             break;
                         case Text textNode:
@@ -262,6 +450,7 @@ namespace Quarrel.Markdown
                     }
                 }
             }
+            _grid.Children.Insert(1, _richBlock);
         }
 
         /// <summary>

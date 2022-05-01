@@ -8,11 +8,6 @@ namespace Discord.API.Models.Enums.Stickers
     public enum StickerFormatType
     {
         /// <summary>
-        /// Not specified.
-        /// </summary>
-        None = 0,
-
-        /// <summary>
         /// PNG file.
         /// </summary>
         Png = 1,

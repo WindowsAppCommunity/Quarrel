@@ -45,7 +45,7 @@ namespace Quarrel.Markdown.Parsing
         private static Regex textUnicodeRange = new Regex("^(?:\uDB40[\uDC61-\uDC7A])$");
 
 
-        internal static IList<IAST> ParseAST(string text, bool inlineState, bool nested)
+        internal static IList<IAST> ParseAST(string text, bool inlineState, bool inQuote)
         {
             List<IAST> collection = new List<IAST>();
             while (!string.IsNullOrEmpty(text))
@@ -64,7 +64,7 @@ namespace Quarrel.Markdown.Parsing
                     inline = isAnimated ? new AnimatedEmoji(name, id) : new Emoji(name, id);
                     text = text.Substring(customEmojiMatch.Length);
                 }
-                else if (blockQuote.Match(text) is { Success: true } blockQuoteMatch && !nested)
+                else if (blockQuote.Match(text) is { Success: true } blockQuoteMatch && !inQuote)
                 {
                     string newStr = (codeBlockReplace.IsMatch(blockQuoteMatch.Value) ? codeBlockReplace : codeBlockReplaceSingle).Replace(blockQuoteMatch.Value, "");
 
@@ -77,7 +77,7 @@ namespace Quarrel.Markdown.Parsing
                 }
                 else if (paragraph.Match(text) is { Success: true } paragraphMatch && !inlineState)
                 {
-                    collection.AddRange(ParseAST(paragraphMatch.Groups[1].Value, inlineState, true));
+                    collection.AddRange(ParseAST(paragraphMatch.Groups[1].Value, inlineState, inQuote));
                     text = text.Substring(paragraphMatch.Length);
                 }
                 else if (escape.Match(text) is { Success: true } escapeMatch && inlineState)
@@ -98,31 +98,31 @@ namespace Quarrel.Markdown.Parsing
                 else if (strong.Match(text) is { Success: true } strongMatch && inlineState)
                 {
                     var group = strongMatch.Groups[1];
-                    inline = new Strong(ParseAST(group.Value, inlineState, true));
+                    inline = new Strong(ParseAST(group.Value, inlineState, inQuote));
                     text = text.Substring(strongMatch.Length);
                 }
                 else if (em.Match(text) is { Success: true } emMatch && inlineState)
                 {
                     var group = emMatch.Groups[1].Success ? emMatch.Groups[1] : emMatch.Groups[2];
-                    inline = new Em(ParseAST(group.Value, inlineState, true));
+                    inline = new Em(ParseAST(group.Value, inlineState, inQuote));
                     text = text.Substring(emMatch.Length);
                 }
                 else if (u.Match(text) is { Success: true } uMatch && inlineState)
                 {
                     var group = uMatch.Groups[1];
-                    inline = new U(ParseAST(group.Value, inlineState, true));
+                    inline = new U(ParseAST(group.Value, inlineState, inQuote));
                     text = text.Substring(uMatch.Length);
                 }
                 else if (s.Match(text) is { Success: true } sMatch && inlineState)
                 {
                     var group = sMatch.Groups[1];
-                    inline = new S(ParseAST(group.Value, inlineState, true));
+                    inline = new S(ParseAST(group.Value, inlineState, inQuote));
                     text = text.Substring(sMatch.Length);
                 }
                 else if (looseEm.Match(text) is { Success: true } looseEmMatch && inlineState)
                 {
                     var group = looseEmMatch.Groups[1];
-                    inline = new Em(ParseAST(group.Value, inlineState, true));
+                    inline = new Em(ParseAST(group.Value, inlineState, inQuote));
                     text = text.Substring(looseEmMatch.Length);
                 }
                 else if (inlineCode.Match(text) is { Success: true } inlineCodeMatch && inlineState)
@@ -171,7 +171,7 @@ namespace Quarrel.Markdown.Parsing
                 }
                 else if (spoiler.Match(text) is { Success: true } spoilerMatch)
                 {
-                    inline = new Spoiler(ParseAST(spoilerMatch.Groups[1].Value, inlineState, true));
+                    inline = new Spoiler(ParseAST(spoilerMatch.Groups[1].Value, inlineState, inQuote));
                     text = text.Substring(spoilerMatch.Length);
                 }
                 else if (Parser.text.Match(text) is { Success: true } textMatch)

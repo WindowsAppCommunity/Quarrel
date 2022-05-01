@@ -11,8 +11,10 @@ using Quarrel.Bindables.Users;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Guilds;
+using Quarrel.Client.Models.Messages;
 using Quarrel.Client.Models.Settings;
 using Quarrel.Client.Models.Users;
+using Quarrel.Services.Analytics.Enums;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -72,17 +74,11 @@ namespace Quarrel.Services.Discord
         }
 
         /// <inheritdoc/>
-        public async Task<BindableMessage[]> GetChannelMessagesAsync(IBindableMessageChannel channel)
+        public async Task<Message[]> GetChannelMessagesAsync(IBindableMessageChannel channel)
         {
             var rawMessages = await _quarrelClient.GetMessagesAsync(channel.Id, channel.GuildId);
             Guard.IsNotNull(rawMessages, nameof(rawMessages));
-            BindableMessage[] messages = new BindableMessage[rawMessages.Length];
-            for (int i = 0; i < messages.Length; i++)
-            {
-                messages[i] = new BindableMessage(_messenger, this, _dispatcherService, rawMessages[i]);
-            }
-
-            return messages;
+            return rawMessages;
         }
         
         /// <inheritdoc/>
@@ -180,6 +176,14 @@ namespace Quarrel.Services.Discord
             }
 
             return null;
+        }
+
+        /// <inheritdoc/>
+        public void SendMessage(ulong channelId, string content)
+        {
+            _analyticsService.Log(LoggedEvent.MessageSent);
+
+            _quarrelClient.SendMessage(channelId, content);
         }
     }
 }

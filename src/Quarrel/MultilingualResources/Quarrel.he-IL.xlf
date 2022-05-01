@@ -371,6 +371,10 @@
           <source>Yesterday at {0}</source>
           <target state="translated">אתמול בשעה {0}</target>
         </trans-unit>
+        <trans-unit id="ExtendedSplash/Failure" translate="yes" xml:space="preserve">
+          <source>Failure</source>
+          <target state="translated">כישלון</target>
+        </trans-unit>
       </group>
     </body>
   </file>

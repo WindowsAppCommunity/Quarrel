@@ -2,7 +2,7 @@
 
 using Quarrel.Client.Models.Channels.Abstract;
 
-namespace Quarrel.Messages.Discord
+namespace Quarrel.Messages.Discord.Channels
 {
     public class ChannelUpdatedMessage
     {

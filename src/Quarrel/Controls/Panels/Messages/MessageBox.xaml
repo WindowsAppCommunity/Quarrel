@@ -245,6 +245,7 @@
     <Grid>
         <TextBox x:Uid="MessageBox/MessageTBox"
                  x:Name="MessageEditor"
+                 Text="{x:Bind ViewModel.DraftText, Mode=TwoWay}"
                  PlaceholderText="Send message"
                  TextWrapping="Wrap"
                  SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}"
@@ -256,7 +257,8 @@
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Right"
                 Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
-                Style="{StaticResource SendButton}">
+                Style="{StaticResource SendButton}"
+                Command="{x:Bind ViewModel.SendMessageCommand}">
             <SymbolIcon Symbol="Send" />
         </Button>
     </Grid>

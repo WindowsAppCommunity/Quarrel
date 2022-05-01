@@ -1,0 +1,265 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="Quarrel.Markdown.Themes.Controls"
+    xmlns:local="using:Quarrel.Markdown"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core">
+
+    <SolidColorBrush x:Key="CodeBlockBackgroundBrush" Color="#1E1E1E"/>
+    <SolidColorBrush x:Key="CodeBlockBorderBrush" Color="#3C3C3C"/>
+
+    <Style TargetType="local:BlockQuoteElement">
+        <Setter Property="Padding" Value="8,0,0,0"/>
+        <Setter Property="BorderBrush" Value="DarkGray"/>
+        <Setter Property="BorderThickness" Value="2,0,0,0"/>
+        <Setter Property="IsTextSelectionEnabled" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:BlockQuoteElement">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}">
+                        <Border.RenderTransform>
+                            <TranslateTransform Y="4"/>
+                        </Border.RenderTransform>
+                        <RichTextBlock
+                            x:Name="RichBlock"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontStretch="{TemplateBinding FontStretch}"
+                            TextDecorations="{TemplateBinding TextDecorations}"
+                            IsTextSelectionEnabled="{TemplateBinding IsTextSelectionEnabled}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:CodeBlockElement">
+        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="Padding" Value="4"/>
+        <Setter Property="Background" Value="{StaticResource CodeBlockBackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource CodeBlockBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="IsTextSelectionEnabled" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:CodeBlockElement">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Padding="{TemplateBinding Padding}">
+                        <Border.RenderTransform>
+                            <TranslateTransform Y="4"/>
+                        </Border.RenderTransform>
+                        <RichTextBlock
+                            x:Name="RichBlock"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontStretch="{TemplateBinding FontStretch}"
+                            TextDecorations="{TemplateBinding TextDecorations}"
+                            IsTextSelectionEnabled="{TemplateBinding IsTextSelectionEnabled}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:InlineCodeElement">
+        <Setter Property="Background" Value="{StaticResource CodeBlockBackgroundBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:InlineCodeElement">
+                    <Path
+                        Fill="{x:Bind Background, Mode=OneWay}"
+                        Stroke="{x:Bind BorderBrush, Mode=OneWay}"
+                        StrokeThickness="{TemplateBinding BorderThickness}"
+                        Data="{x:Bind PathGeometry, Mode=OneWay}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:TimestampElement">
+        <Setter Property="Background" Value="DarkGray"/>
+        <Setter Property="IsTextSelectionEnabled" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:TimestampElement">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}">
+                        <Border.RenderTransform>
+                            <TranslateTransform Y="4"/>
+                        </Border.RenderTransform>
+                        <TextBlock
+                            Text="{TemplateBinding Text}"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontStretch="{TemplateBinding FontStretch}"
+                            TextDecorations="{TemplateBinding TextDecorations}"
+                            IsTextSelectionEnabled="{TemplateBinding IsTextSelectionEnabled}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:EmojiElement">
+        <Setter Property="Height" Value="22"/>
+        <Setter Property="IsTextSelectionEnabled" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:EmojiElement">
+                    <Image x:Name="EmojiImage" Height="{TemplateBinding Height}">
+                        <Image.RenderTransform>
+                            <TranslateTransform Y="4"/>
+                        </Image.RenderTransform>
+                    </Image>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:SpoilerElement">
+        <Setter Property="Overlay" Value="#1E1E1E"/>
+        <Setter Property="OverlayHover" Value="#3C3C3C"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SpoilerElement">
+                    <Path
+                        x:Name="Path"
+                        Fill="{x:Bind Overlay, Mode=OneWay}"
+                        Stroke="{x:Bind BorderBrush, Mode=OneWay}"
+                        StrokeThickness="{x:Bind BorderThickness.Top, Mode=OneWay}"
+                        Data="{x:Bind PathGeometry, Mode=OneWay}">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="PointerEntered">
+                                <core:ChangePropertyAction PropertyName="Fill" Value="{x:Bind OverlayHover, Mode=OneWay}"/>
+                            </core:EventTriggerBehavior>
+                            <core:EventTriggerBehavior EventName="PointerExited">
+                                <core:ChangePropertyAction PropertyName="Fill" Value="{x:Bind Overlay, Mode=OneWay}"/>
+                            </core:EventTriggerBehavior>
+                            <core:EventTriggerBehavior EventName="PointerPressed">
+                                <core:ChangePropertyAction PropertyName="Opacity" Value="0.5"/>
+                                <core:ChangePropertyAction PropertyName="IsHitTestVisible" Value="False"/>
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </Path>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:UserMentionElement">
+        <Setter Property="Background" Value="{ThemeResource SystemColorControlAccentBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource SystemColorControlAccentBrush}"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="IsTextSelectionEnabled" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:UserMentionElement">
+                    <HyperlinkButton
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        FontFamily="{TemplateBinding FontFamily}"
+                        FontSize="{TemplateBinding FontSize}"
+                        FontWeight="{TemplateBinding FontWeight}"
+                        Padding="{TemplateBinding Padding}"
+                        Content="{TemplateBinding UserName}">
+                        <HyperlinkButton.Style>
+                            <Style TargetType="HyperlinkButton">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="HyperlinkButton">
+                                            <Grid x:Name="RootGrid">
+                                                <VisualStateManager.VisualStateGroups>
+                                                    <VisualStateGroup x:Name="CommonStates">
+                                                        <VisualState x:Name="Normal">
+                                                            <Storyboard>
+                                                                <DoubleAnimation To=".2" Duration="0:0:0.2" Storyboard.TargetName="bg" Storyboard.TargetProperty="Opacity">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <CircleEase/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                        <VisualState x:Name="PointerOver">
+                                                            <Storyboard>
+                                                                <DoubleAnimation To="0.5" Duration="0:0:0.2" Storyboard.TargetName="bg" Storyboard.TargetProperty="Opacity">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <CircleEase/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                        <VisualState x:Name="Pressed">
+                                                            <Storyboard>
+                                                                <DoubleAnimation To="0.6" Duration="0:0:0.2" Storyboard.TargetName="bg" Storyboard.TargetProperty="Opacity">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <CircleEase/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                        <VisualState x:Name="Disabled">
+                                                            <Storyboard>
+                                                                <DoubleAnimation To="0.1" Duration="0:0:0.2" Storyboard.TargetName="bg" Storyboard.TargetProperty="Opacity">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <CircleEase/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                    </VisualStateGroup>
+                                                </VisualStateManager.VisualStateGroups>
+                                                <Rectangle x:Name="bg" Fill="{TemplateBinding Background}"
+                                                           RadiusX="2" RadiusY="2" Opacity=".2"
+                                                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+                                                <TextBlock x:Name="ContentPresenter"
+                                                           Text="{TemplateBinding Content}"
+                                                           TextWrapping="Wrap"
+                                                           AutomationProperties.AccessibilityView="Raw"
+                                                           TextTrimming="CharacterEllipsis"/>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </HyperlinkButton.Style>
+                        <HyperlinkButton.RenderTransform>
+                            <TranslateTransform Y="4"/>
+                        </HyperlinkButton.RenderTransform>
+                    </HyperlinkButton>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:MessageRenderer">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:MessageRenderer">
+                    <Grid x:Name="Grid">
+                        <Canvas x:Name="BackgroundCanvas"/>
+                        <Canvas x:Name="OverlayCanvas"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

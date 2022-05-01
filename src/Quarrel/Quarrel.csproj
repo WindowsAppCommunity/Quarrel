@@ -135,6 +135,9 @@
       <DependentUpon>SideDrawer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Shell\SideDrawerSize.cs" />
+    <Compile Include="Controls\TypingIndicator.xaml.cs">
+      <DependentUpon>TypingIndicator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UserIcon.xaml.cs">
       <DependentUpon>UserIcon.xaml</DependentUpon>
     </Compile>
@@ -153,6 +156,7 @@
     <Compile Include="Converters\VisibileWhenNotEqualConverter.cs" />
     <Compile Include="Converters\VisibileWhenEqualConverter.cs" />
     <Compile Include="Converters\VisibleIfNotEqualConverter.cs" />
+    <Compile Include="Converters\WindowHost\ShowExtendedSplashConverter.cs" />
     <Compile Include="DataTemplates\ChannelTemplates.xaml.cs">
       <DependentUpon>ChannelTemplates.xaml</DependentUpon>
     </Compile>
@@ -516,6 +520,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Shell\SideDrawer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TypingIndicator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

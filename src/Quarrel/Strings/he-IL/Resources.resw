@@ -263,4 +263,7 @@
   <data name="Time/YesterdayAt" xml:space="preserve">
     <value>אתמול בשעה {0}</value>
   </data>
+  <data name="ExtendedSplash/Failure" xml:space="preserve">
+    <value>כישלון</value>
+  </data>
 </root>

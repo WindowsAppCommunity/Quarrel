@@ -58,6 +58,7 @@ namespace Quarrel
             services.AddSingleton<GuildsViewModel>();
             services.AddSingleton<ChannelsViewModel>();
             services.AddSingleton<MessagesViewModel>();
+            services.AddSingleton<MessageBoxViewModel>();
             services.AddSingleton<CurrentUserViewModel>();
 
             // SubPages

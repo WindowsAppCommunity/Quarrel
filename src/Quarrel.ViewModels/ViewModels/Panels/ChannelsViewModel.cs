@@ -4,7 +4,6 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Interfaces;
-using Quarrel.Bindables.Guilds;
 using Quarrel.Bindables.Guilds.Interfaces;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;

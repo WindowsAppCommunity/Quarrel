@@ -3,6 +3,7 @@
 using Discord.API.Models.Enums.Messages;
 using Discord.API.Models.Json.Messages;
 using Quarrel.Client.Models.Base;
+using Quarrel.Client.Models.Messages.Embeds;
 using Quarrel.Client.Models.Messages.Interfaces;
 using Quarrel.Client.Models.Users;
 using System;
@@ -27,6 +28,8 @@ namespace Quarrel.Client.Models.Messages
             Timestamp = jsonMessage.Timestamp ?? DateTimeOffset.MinValue;
             EditedTimestamp = jsonMessage.EditedTimestamp;
             Content = jsonMessage.Content ?? string.Empty;
+            Flags = jsonMessage.Flags;
+            WebhookId = jsonMessage.WebhookId;
 
             if (jsonMessage.Author is not null)
             {
@@ -40,10 +43,27 @@ namespace Quarrel.Client.Models.Messages
                 {
                     Mentions[i] = context.GetOrAddUserInternal(jsonMessage.UserMentions[i]);
                 }
-            } else
-            {
-                Mentions = new User[0];
             }
+            else
+            {
+                Mentions = Array.Empty<User>();
+            }
+
+            if (jsonMessage.Attachments is not null)
+            {
+                Attachments = new Attachment[jsonMessage.Attachments.Length];
+                for (int i = 0; i < Attachments.Length; i++)
+                {
+                    Attachments[i] = new Attachment(jsonMessage.Attachments[i], context);
+                }
+            }
+            else
+            {
+                Attachments = Array.Empty<Attachment>();
+            }
+
+            // TODO: Create Interaction type
+            Interaction = jsonMessage.Interaction;
         }
 
         public ulong? ChannelId { get; private set; }
@@ -76,5 +96,17 @@ namespace Quarrel.Client.Models.Messages
 
         /// <inheritdoc/>
         public User[] Mentions { get; private set; }
+
+        /// <inheritdoc/>
+        public Attachment[] Attachments { get; private set; }
+
+        /// <inheritdoc/>
+        public MessageFlags? Flags { get; private set; }
+
+        /// <inheritdoc/>
+        public object? Interaction { get; private set; }
+
+        /// <inheritdoc/>
+        public ulong? WebhookId { get; private set; }
     }
 }
