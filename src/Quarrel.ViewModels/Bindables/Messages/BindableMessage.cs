@@ -2,8 +2,10 @@
 
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
+using Quarrel.Bindables.Messages.Embeds;
 using Quarrel.Bindables.Users;
 using Quarrel.Client.Models.Messages;
+using Quarrel.Client.Models.Messages.Embeds;
 using Quarrel.Messages.Discord.Messages;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
@@ -14,7 +16,7 @@ namespace Quarrel.Bindables.Messages
     /// <summary>
     /// A wrapper of a <see cref="Client.Models.Messages.Message"/> that can be bound to the UI.
     /// </summary>
-    public partial class BindableMessage : SelectableItem
+    public class BindableMessage : SelectableItem
     {
         private Message _message;
 
@@ -35,6 +37,11 @@ namespace Quarrel.Bindables.Messages
             {
                 Author = _discordService.GetUser(message.Author.Id);
                 Users.Add(message.Author.Id, Author);
+
+                if (message.GuildId.HasValue)
+                {
+                    AuthorMember = _discordService.GetGuildMember(message.Author.Id, message.GuildId.Value);
+                }
             }
 
             foreach (var user in _message.Mentions)
@@ -45,9 +52,10 @@ namespace Quarrel.Bindables.Messages
                 }
             }
 
-            if (message.GuildId.HasValue)
+            Attachments = new BindableAttachment[_message.Attachments.Length];
+            for (int i = 0; i < Attachments.Length; i++)
             {
-                AuthorMember = _discordService.GetGuildMember(message.Author.Id, message.GuildId.Value);
+                Attachments[i] = new BindableAttachment(messenger, discordService, dispatcherService, _message.Attachments[i]);
             }
 
             _messenger.Register<MessageUpdatedMessage>(this, (_, e) =>
@@ -82,6 +90,8 @@ namespace Quarrel.Bindables.Messages
         public BindableGuildMember? AuthorMember { get; }
 
         public Dictionary<ulong, BindableUser?> Users { get; }
+
+        public BindableAttachment[] Attachments { get; }
 
         protected virtual void AckUpdate()
         {

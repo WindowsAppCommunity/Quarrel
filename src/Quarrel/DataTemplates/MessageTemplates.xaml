@@ -7,6 +7,7 @@
     xmlns:tconvert="using:Quarrel.Converters.Time"
     xmlns:qc="using:Quarrel.Controls"
     xmlns:bindablemessages="using:Quarrel.Bindables.Messages"
+    xmlns:bindableembeds="using:Quarrel.Bindables.Messages.Embeds"
     xmlns:markdown="using:Quarrel.Markdown">
 
     <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
@@ -36,9 +37,21 @@
                                FontSize="11" Opacity=".5" Margin="6,0"/>
                 </StackPanel>
 
-                <markdown:MessageRenderer Text="{x:Bind Content, Mode=OneWay}"
-                                          Context="{x:Bind}" Grid.Row="1"
-                                          HorizontalAlignment="Left"/>
+                <StackPanel Grid.Row="1">
+                    <markdown:MessageRenderer Text="{x:Bind Content, Mode=OneWay}"
+                                              Context="{x:Bind}" Grid.Row="1"
+                                              HorizontalAlignment="Left"/>
+
+                    <ItemsControl ItemsSource="{x:Bind Attachments}"
+                                  HorizontalAlignment="Left">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="bindableembeds:BindableAttachment">
+                                    <tc:ImageEx Source="{x:Bind Attachment.ProxyUrl}" MaxWidth="400"
+                                                CornerRadius="2"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
             </Grid>
         </Grid>
     </DataTemplate>
