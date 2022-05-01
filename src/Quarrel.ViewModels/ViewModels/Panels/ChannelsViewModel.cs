@@ -6,7 +6,10 @@ using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Guilds.Interfaces;
 using Quarrel.Messages.Navigation;
+using Quarrel.Services.Analytics;
+using Quarrel.Services.Analytics.Enums;
 using Quarrel.Services.Discord;
+using System;
 using System.Collections.Generic;
 
 namespace Quarrel.ViewModels.Panels
@@ -16,6 +19,7 @@ namespace Quarrel.ViewModels.Panels
     /// </summary>
     public partial class ChannelsViewModel : ObservableRecipient
     {
+        private readonly IAnalyticsService _analyticsService;
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
 
@@ -27,8 +31,9 @@ namespace Quarrel.ViewModels.Panels
         /// <summary>
         /// Initializes a new instance of the <see cref="ChannelsViewModel"/> class.
         /// </summary>
-        public ChannelsViewModel(IMessenger messenger, IDiscordService discordService)
+        public ChannelsViewModel(IAnalyticsService analyticsService, IMessenger messenger, IDiscordService discordService)
         {
+            _analyticsService = analyticsService;
             _messenger = messenger;
             _discordService = discordService;
 
@@ -55,6 +60,10 @@ namespace Quarrel.ViewModels.Panels
                 {
                     value.IsSelected = true;
                     _currentGuild.SelectedChannelId = value.Id;
+
+                    _analyticsService.Log(LoggedEvent.ChannelOpened,
+                        ("Type", $"{_selectedChannel.Type}"));
+
                     _messenger.Send(new NavigateToChannelMessage<IBindableSelectableChannel>(value));
                 }
             }

@@ -6,6 +6,8 @@ using Quarrel.Bindables.Guilds;
 using Quarrel.Bindables.Guilds.Interfaces;
 using Quarrel.Messages;
 using Quarrel.Messages.Navigation;
+using Quarrel.Services.Analytics;
+using Quarrel.Services.Analytics.Enums;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
@@ -19,6 +21,7 @@ namespace Quarrel.ViewModels
     /// </summary>
     public partial class GuildsViewModel : ObservableRecipient
     {
+        private readonly IAnalyticsService _analyticsService;
         private readonly IMessenger _messenger;
         private readonly ILocalizationService _localizationService;
         private readonly IDiscordService _discordService;
@@ -30,8 +33,9 @@ namespace Quarrel.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="GuildsViewModel"/> class.
         /// </summary>
-        public GuildsViewModel(IMessenger messenger, ILocalizationService localizationService, IDiscordService discordService, IDispatcherService dispatcherService)
+        public GuildsViewModel(IAnalyticsService analyticsService, IMessenger messenger, ILocalizationService localizationService, IDiscordService discordService, IDispatcherService dispatcherService)
         {
+            _analyticsService = analyticsService;
             _messenger = messenger;
             _localizationService = localizationService;
             _discordService = discordService;
@@ -58,6 +62,7 @@ namespace Quarrel.ViewModels
                 if (SetProperty(ref _selectedGuild, value) && value is not null)
                 {
                     value.IsSelected = true;
+                    _analyticsService.Log(LoggedEvent.GuildOpened);
                     _messenger.Send(new NavigateToGuildMessage<IBindableSelectableGuildItem>(value));
                 }
             }

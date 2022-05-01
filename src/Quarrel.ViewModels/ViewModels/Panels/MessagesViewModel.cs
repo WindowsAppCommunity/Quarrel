@@ -10,9 +10,7 @@ using Quarrel.Messages.Discord.Messages;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Quarrel.ViewModels.Panels
 {

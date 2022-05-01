@@ -21,6 +21,18 @@ namespace Quarrel.Services.Analytics.Enums
         /// </summary>
         [StringValue("Message Sent")]
         MessageSent,
+
+        /// <summary>
+        /// Opened a channel.
+        /// </summary>
+        [StringValue("Guild Opened")]
+        GuildOpened,
+
+        /// <summary>
+        /// Opened a channel.
+        /// </summary>
+        [StringValue("Channel Opened")]
+        ChannelOpened,
         #endregion
 
         #region Login
