@@ -11,11 +11,19 @@ namespace Quarrel.Selectors.Messages
     {
         public DataTemplate DefaultTemplate { get; set; }
 
+        public DataTemplate ContinuationTemplate { get; set; }
+
         public DataTemplate InfoTemplate { get; set; }
 
         protected override DataTemplate? SelectTemplateCore(object item, DependencyObject container)
         {
             BindableMessage message = (BindableMessage)item;
+
+            if (message.IsContinuation)
+            {
+                return ContinuationTemplate;
+            }
+
             return message.Message.Type switch
             {
                 MessageType.Default or MessageType.Reply => DefaultTemplate,

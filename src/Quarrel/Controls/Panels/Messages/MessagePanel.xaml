@@ -15,6 +15,7 @@
     <UserControl.Resources>
         <mselectors:MessageTemplateSelector x:Key="MessageTemplateSelector"
                                             DefaultTemplate="{StaticResource DefaultMessageTemplate}"
+                                            ContinuationTemplate="{StaticResource ContinuationTemplate}"
                                             InfoTemplate="{StaticResource InfoMessageTemplate}"/>
     </UserControl.Resources>
     

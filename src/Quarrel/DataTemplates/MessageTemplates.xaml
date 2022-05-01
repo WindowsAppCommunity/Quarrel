@@ -12,7 +12,7 @@
     xmlns:converters="using:Quarrel.Converters">
 
     <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
-        <Grid Padding="2,8">
+        <Grid Padding="2,12,2,4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="64"/>
                 <ColumnDefinition Width="*"/>
@@ -20,7 +20,7 @@
 
             <!--Image-->
             <Border x:Name="ProfileImageContainer"  Width="36" Height="36"
-                    CornerRadius="18" VerticalAlignment="Top" x:Load="{x:Bind converters:InverseBoolConverter.Convert(IsContinuation), Mode=OneWay}">
+                    CornerRadius="18" VerticalAlignment="Top">
                 <tc:ImageEx Source="{x:Bind Author.AvatarUri}"/>
             </Border>
 
@@ -30,24 +30,23 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Horizontal" Margin="0,-4,0,0" x:Name="UsernameContainer"  x:Load="{x:Bind converters:InverseBoolConverter.Convert(IsContinuation), Mode=OneWay}">
+                <StackPanel Orientation="Horizontal" Margin="0,-2,0,0" x:Name="UsernameContainer">
                     <HyperlinkButton Content="{x:Bind Author.User.Username}" Style="{StaticResource PlainTextHyperlinkStyle}"
                                      FontSize="14"/>
                     <TextBlock Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"
                                VerticalAlignment="Center"
-                               FontSize="11" Opacity=".5" Margin="6,0"/>
+                               FontSize="12" Opacity=".5" Margin="6,0"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1">
-                    <markdown:MessageRenderer Text="{x:Bind Content, Mode=OneWay}"
-                                              Context="{x:Bind}" Grid.Row="1"
+                    <markdown:MessageRenderer Text="{x:Bind Content, Mode=OneWay}" Context="{x:Bind}"
                                               HorizontalAlignment="Left"/>
 
                     <ItemsControl ItemsSource="{x:Bind Attachments}"
                                   HorizontalAlignment="Left">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate x:DataType="bindableembeds:BindableAttachment">
-                                    <tc:ImageEx Source="{x:Bind Attachment.ProxyUrl}" MaxWidth="400"
+                                <tc:ImageEx Source="{x:Bind Attachment.ProxyUrl}" MaxWidth="400"
                                                 CornerRadius="2"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -55,6 +54,23 @@
                 </StackPanel>
             </Grid>
         </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ContinuationTemplate" x:DataType="bindablemessages:BindableMessage">
+            <StackPanel Margin="64,2,0,2">
+                <markdown:MessageRenderer Text="{x:Bind Content, Mode=OneWay}" Context="{x:Bind}"
+                                          HorizontalAlignment="Left"/>
+
+                <ItemsControl ItemsSource="{x:Bind Attachments}"
+                              HorizontalAlignment="Left">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="bindableembeds:BindableAttachment">
+                            <tc:ImageEx Source="{x:Bind Attachment.ProxyUrl}" MaxWidth="400"
+                                        CornerRadius="2"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="InfoMessageTemplate" x:DataType="bindablemessages:BindableMessage">
