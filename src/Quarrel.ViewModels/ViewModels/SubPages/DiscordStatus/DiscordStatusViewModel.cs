@@ -4,8 +4,11 @@ using CommunityToolkit.Diagnostics;
 using Discord.API.Status.Models;
 using Discord.API.Status.Rest;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Quarrel.Services.Analytics;
+using Quarrel.Services.Analytics.Enums;
 using Quarrel.ViewModels.SubPages.DiscordStatus.Enums;
 using Quarrel.ViewModels.SubPages.DiscordStatus.Models;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,6 +20,8 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
     /// </summary>
     public partial class DiscordStatusViewModel : ObservableObject
     {
+        private readonly IAnalyticsService _analyticsService;
+
         private Index? _status;
         private IStatusService? _statusService;
 
@@ -29,8 +34,9 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
         /// <summary>
         /// Initializes a new instance of the <see cref="DiscordStatusViewModel"/> class.
         /// </summary>
-        public DiscordStatusViewModel()
+        public DiscordStatusViewModel(IAnalyticsService analyticsService)
         {
+            _analyticsService = analyticsService;
             _state = DiscordStatusState.Loading;
             SetupAndLoad();
         }
@@ -110,8 +116,9 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
             {
                 Status = await _statusService.GetStatus();
             }
-            catch
+            catch (ApiException ex)
             {
+                _analyticsService.Log(LoggedEvent.DiscordStatusRequestFailed, ("Endpoint", "GetStatus"), ("Exception", ex.Message));
             }
 
             // Has Data
@@ -196,7 +203,10 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
                 Guard.IsNotNull(_statusService);
                 metrics = await _statusService.GetMetrics(duration);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                _analyticsService.Log(LoggedEvent.DiscordStatusRequestFailed, ("Endpoint", "GetMetrics"), ("Exception", ex.Message));
+            }
 
             if (metrics != null && metrics.Metrics != null && metrics.Metrics.Length > 0)
             {

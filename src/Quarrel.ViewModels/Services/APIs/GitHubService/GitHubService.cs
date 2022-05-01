@@ -73,8 +73,9 @@ namespace Quarrel.Services.APIs.GitHubService
                 var user = await _gitHubApiService.GetUserAsync(contributor.Name);
                 return new BindableDeveloper(user, contributor);
             }
-            catch
+            catch (Exception ex)
             {
+                _analyticsService.Log(LoggedEvent.GitHubRequestFailed, ("Endpoint", "GetDeveloper"), ("Exception", ex.Message));
                 return null;
             }
         }

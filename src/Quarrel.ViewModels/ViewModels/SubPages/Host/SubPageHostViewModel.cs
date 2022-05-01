@@ -6,6 +6,8 @@ using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Messages.Navigation.SubPages;
+using Quarrel.Services.Analytics;
+using Quarrel.Services.Analytics.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -16,6 +18,7 @@ namespace Quarrel.ViewModels.SubPages.Host
     /// </summary>
     public partial class SubPageHostViewModel : ObservableRecipient
     {
+        private readonly IAnalyticsService _analyticsService;
         private readonly IMessenger _messenger;
         private readonly Stack<object> _navStack;
 
@@ -24,8 +27,9 @@ namespace Quarrel.ViewModels.SubPages.Host
         /// <summary>
         /// Initializes a new instance of the <see cref="SubPageHostViewModel"/> class.
         /// </summary>
-        public SubPageHostViewModel(IMessenger messenger)
+        public SubPageHostViewModel(IAnalyticsService analyticsService, IMessenger messenger)
         {
+            _analyticsService = analyticsService;
             _messenger = messenger;
             _navStack = new Stack<object>();
 
@@ -68,6 +72,9 @@ namespace Quarrel.ViewModels.SubPages.Host
             {
                 _navStack.Push(ContentViewModel);
             }
+
+            _analyticsService.Log(LoggedEvent.SubPageOpened,
+                ("Type", viewModelType.Name));
 
             ContentViewModel = viewModel;
         }

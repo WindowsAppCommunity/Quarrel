@@ -14,6 +14,7 @@ using Quarrel.Client.Models.Guilds;
 using Quarrel.Client.Models.Messages;
 using Quarrel.Client.Models.Settings;
 using Quarrel.Client.Models.Users;
+using Quarrel.Services.Analytics.Enums;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -180,6 +181,8 @@ namespace Quarrel.Services.Discord
         /// <inheritdoc/>
         public void SendMessage(ulong channelId, string content)
         {
+            _analyticsService.Log(LoggedEvent.MessageSent);
+
             _quarrelClient.SendMessage(channelId, content);
         }
     }

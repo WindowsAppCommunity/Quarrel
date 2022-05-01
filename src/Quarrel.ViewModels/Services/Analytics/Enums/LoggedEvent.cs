@@ -9,6 +9,20 @@ namespace Quarrel.Services.Analytics.Enums
     /// </summary>
     public enum LoggedEvent
     {
+        #region App
+        /// <summary>
+        /// A subpage opened.
+        /// </summary>
+        [StringValue("SubPage Opened")]
+        SubPageOpened,
+
+        /// <summary>
+        /// A message was sent.
+        /// </summary>
+        [StringValue("Message Sent")]
+        MessageSent,
+        #endregion
+
         #region Login
         /// <summary>
         /// The app attempted to login.
@@ -29,11 +43,15 @@ namespace Quarrel.Services.Analytics.Enums
         LoginFailed,
         #endregion
 
+        #region API
+
         /// <summary>
         /// Encountered an issue in an http request, but it was handled.
         /// </summary>
         [StringValue("Http Exception Handled")]
         HttpExceptionHandled,
+
+        #endregion
 
         #region Gateway
         /// <summary>
@@ -86,6 +104,12 @@ namespace Quarrel.Services.Analytics.Enums
         /// </summary>
         [StringValue("GitHub Request Failed")]
         GitHubRequestFailed,
+
+        /// <summary>
+        /// A request to the Discord Status API failed.
+        /// </summary>
+        [StringValue("Discord Status Request Failed")]
+        DiscordStatusRequestFailed,
 
         #endregion
 
