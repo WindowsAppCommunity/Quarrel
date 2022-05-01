@@ -8,7 +8,8 @@
     xmlns:qc="using:Quarrel.Controls"
     xmlns:bindablemessages="using:Quarrel.Bindables.Messages"
     xmlns:bindableembeds="using:Quarrel.Bindables.Messages.Embeds"
-    xmlns:markdown="using:Quarrel.Markdown">
+    xmlns:markdown="using:Quarrel.Markdown"
+    xmlns:converters="using:Quarrel.Converters">
 
     <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
         <Grid Padding="2,8">
@@ -18,8 +19,8 @@
             </Grid.ColumnDefinitions>
 
             <!--Image-->
-            <Border Width="36" Height="36"
-                    CornerRadius="18" VerticalAlignment="Top">
+            <Border x:Name="ProfileImageContainer"  Width="36" Height="36"
+                    CornerRadius="18" VerticalAlignment="Top" x:Load="{x:Bind converters:InverseBoolConverter.Convert(IsContinuation), Mode=OneWay}">
                 <tc:ImageEx Source="{x:Bind Author.AvatarUri}"/>
             </Border>
 
@@ -29,7 +30,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Horizontal" Margin="0,-4,0,0">
+                <StackPanel Orientation="Horizontal" Margin="0,-4,0,0" x:Name="UsernameContainer"  x:Load="{x:Bind converters:InverseBoolConverter.Convert(IsContinuation), Mode=OneWay}">
                     <HyperlinkButton Content="{x:Bind Author.User.Username}" Style="{StaticResource PlainTextHyperlinkStyle}"
                                      FontSize="14"/>
                     <TextBlock Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"

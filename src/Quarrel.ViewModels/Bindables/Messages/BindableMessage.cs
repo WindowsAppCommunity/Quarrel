@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Discord.API.Models.Enums.Messages;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Messages.Embeds;
@@ -27,10 +28,12 @@ namespace Quarrel.Bindables.Messages
             IMessenger messenger,
             IDiscordService discordService,
             IDispatcherService dispatcherService,
-            Message message) :
+            Message message,
+            Message? previousMessage = null) :
             base(messenger, discordService, dispatcherService)
         {
             _message = message;
+            _previousMessage = previousMessage;
 
             Users = new Dictionary<ulong, BindableUser?>();
             if (message.Author is not null)
@@ -76,7 +79,7 @@ namespace Quarrel.Bindables.Messages
             set
             {
                 SetProperty(ref _message, value);
-                AckUpdateRoot();
+                _dispatcherService.RunOnUIThread(AckUpdate);
             }
         }
 
@@ -93,18 +96,26 @@ namespace Quarrel.Bindables.Messages
 
         public BindableAttachment[] Attachments { get; }
 
+        private Message? _previousMessage;
+
+        public bool IsContinuation => !(
+            _previousMessage == null ||
+            _message.Type is MessageType.ApplicationCommand or MessageType.ContextMenuCommand || 
+            (_message.Type != MessageType.Default && 
+                (_previousMessage.Type is MessageType.Default or MessageType.Reply ||
+                 _previousMessage is { Type: MessageType.ApplicationCommand or MessageType.ContextMenuCommand, Interaction: null })) ||
+            (_message.Type == MessageType.Default && 
+                ((_previousMessage.Type is not MessageType.Default or MessageType.Reply && 
+                 _previousMessage is not { Type: MessageType.ApplicationCommand or MessageType.ContextMenuCommand, Interaction: null }) ||
+                 _previousMessage.Author?.Id != _message.Author?.Id ||
+                 _previousMessage.Flags?.HasFlag(MessageFlags.EPHEMERAL) != _message.Flags?.HasFlag(MessageFlags.EPHEMERAL) ||
+                 _message.WebhookId != null && _previousMessage.Author?.Username != _message.Author?.Username ||
+                 _message.Timestamp.ToUnixTimeMilliseconds() - _previousMessage.Timestamp.ToUnixTimeMilliseconds() >  7 * 60 * 1000)));
+
         protected virtual void AckUpdate()
         {
             OnPropertyChanged(nameof(Message));
             OnPropertyChanged(nameof(Content));
-        }
-
-        private void AckUpdateRoot()
-        {
-            _dispatcherService.RunOnUIThread(() =>
-            {
-                AckUpdate();
-            });
         }
     }
 }

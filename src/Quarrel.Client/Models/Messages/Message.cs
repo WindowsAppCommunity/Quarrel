@@ -29,6 +29,7 @@ namespace Quarrel.Client.Models.Messages
             EditedTimestamp = jsonMessage.EditedTimestamp;
             Content = jsonMessage.Content ?? string.Empty;
             Flags = jsonMessage.Flags;
+            WebhookId = jsonMessage.WebhookId;
 
             if (jsonMessage.Author is not null)
             {
@@ -60,6 +61,9 @@ namespace Quarrel.Client.Models.Messages
             {
                 Attachments = Array.Empty<Attachment>();
             }
+
+            // TODO: Create Interaction type
+            Interaction = jsonMessage.Interaction;
         }
 
         public ulong? ChannelId { get; private set; }
@@ -98,5 +102,11 @@ namespace Quarrel.Client.Models.Messages
 
         /// <inheritdoc/>
         public MessageFlags? Flags { get; private set; }
+
+        /// <inheritdoc/>
+        public object? Interaction { get; private set; }
+
+        /// <inheritdoc/>
+        public ulong? WebhookId { get; private set; }
     }
 }

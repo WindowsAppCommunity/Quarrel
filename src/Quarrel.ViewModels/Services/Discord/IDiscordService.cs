@@ -5,6 +5,7 @@ using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Bindables.Messages;
 using Quarrel.Bindables.Users;
+using Quarrel.Client.Models.Messages;
 using Quarrel.Services.Analytics.Enums;
 using System.Threading.Tasks;
 
@@ -55,7 +56,7 @@ namespace Quarrel.Services.Discord
         /// </summary>
         /// <param name="channel">The channel to get the messages for.</param>
         /// <returns>An array of <see cref="BindableMessage"/>s from the channel.</returns>
-        Task<BindableMessage[]> GetChannelMessagesAsync(IBindableMessageChannel channel);
+        Task<Message[]> GetChannelMessagesAsync(IBindableMessageChannel channel);
         
         /// <summary>
         /// Gets the channels in a guild.

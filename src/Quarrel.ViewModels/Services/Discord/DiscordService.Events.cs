@@ -20,8 +20,7 @@ namespace Quarrel.Services.Discord
 
         private void OnMessageCreate(object sender, Message e)
         {
-            BindableMessage message = new BindableMessage(_messenger, this, _dispatcherService, e);
-            _messenger.Send(new MessageCreatedMessage(message));
+            _messenger.Send(new MessageCreatedMessage(e));
         }
 
         private void OnMessageUpdated(object sender, Message e)
