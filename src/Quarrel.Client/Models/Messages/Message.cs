@@ -28,6 +28,7 @@ namespace Quarrel.Client.Models.Messages
             Timestamp = jsonMessage.Timestamp ?? DateTimeOffset.MinValue;
             EditedTimestamp = jsonMessage.EditedTimestamp;
             Content = jsonMessage.Content ?? string.Empty;
+            Flags = jsonMessage.Flags;
 
             if (jsonMessage.Author is not null)
             {
@@ -44,7 +45,7 @@ namespace Quarrel.Client.Models.Messages
             }
             else
             {
-                Mentions = new User[0];
+                Mentions = Array.Empty<User>();
             }
 
             if (jsonMessage.Attachments is not null)
@@ -57,7 +58,7 @@ namespace Quarrel.Client.Models.Messages
             }
             else
             {
-                Attachments = new Attachment[0];
+                Attachments = Array.Empty<Attachment>();
             }
         }
 
@@ -94,5 +95,8 @@ namespace Quarrel.Client.Models.Messages
 
         /// <inheritdoc/>
         public Attachment[] Attachments { get; private set; }
+
+        /// <inheritdoc/>
+        public MessageFlags? Flags { get; private set; }
     }
 }

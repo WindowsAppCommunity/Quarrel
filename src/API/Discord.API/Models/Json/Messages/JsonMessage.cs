@@ -1,10 +1,14 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Models.Enums.Messages;
+using Discord.API.Models.Json.Applications;
+using Discord.API.Models.Json.Channels;
 using Discord.API.Models.Json.Messages.Embeds;
 using Discord.API.Models.Json.Reactions;
+using Discord.API.Models.Json.Stickers;
 using Discord.API.Models.Json.Users;
 using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 // JSON models don't need to respect standard nullable rules.
@@ -77,10 +81,31 @@ namespace Discord.API.Models.Json.Messages
         [JsonPropertyName("activity")]
         public JsonMessageActivity? Activity { get; set; }
 
+        [JsonPropertyName("application")]
+        public JsonApplication? Application { get; set; }
+
+        [JsonPropertyName("application_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public long? ApplicationId { get; set; }
+
         [JsonPropertyName("message_reference")]
         public JsonMessageReference? Reference { get; set; }
 
+        [JsonPropertyName("flags")]
+        public MessageFlags? Flags { get; set; }
+
         [JsonPropertyName("referenced_message")]
         public JsonMessage? ReferencedMessage { get; set; }
+
+        [JsonPropertyName("interaction")]
+        public JsonMessageInteraction? Interaction { get; set; }
+
+        [JsonPropertyName("thread")]
+        public JsonChannel? Thread { get; set; }
+
+        [JsonPropertyName("components")]
+        public List<JsonMessageComponent>? Components { get; set; }
+
+        [JsonPropertyName("sticker_items")]
+        public List<JsonMessageStickerItem>? StickerItems { get; set; }
     }
 }
