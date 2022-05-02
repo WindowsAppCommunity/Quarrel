@@ -141,22 +141,22 @@
     <Compile Include="Controls\UserIcon.xaml.cs">
       <DependentUpon>UserIcon.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\CaseConverter.cs" />
-    <Compile Include="Converters\DataTemplates\Channels\MemberCountConverter.cs" />
-    <Compile Include="Converters\DataTemplates\Messages\InfoMessageColorConverter.cs" />
-    <Compile Include="Converters\DataTemplates\Messages\InfoMessageContentConverter.cs" />
-    <Compile Include="Converters\DataTemplates\Messages\InfoMessageIconConverter.cs" />
-    <Compile Include="Converters\EqualityConverter.cs" />
-    <Compile Include="Converters\InverseBoolConverter.cs" />
-    <Compile Include="Converters\NotBoolToVisibilityConverter.cs" />
-    <Compile Include="Converters\StatusToBrushConverter.cs" />
-    <Compile Include="Converters\StatusToColorConverter.cs" />
-    <Compile Include="Converters\Time\SmartTimeFormatConverter.cs" />
-    <Compile Include="Converters\VisibileIfEqualConverter.cs" />
-    <Compile Include="Converters\VisibileWhenNotEqualConverter.cs" />
-    <Compile Include="Converters\VisibileWhenEqualConverter.cs" />
-    <Compile Include="Converters\VisibleIfNotEqualConverter.cs" />
-    <Compile Include="Converters\VisibleWhenNotNullConverter.cs" />
+    <Compile Include="Converters\Common\Text\CaseConverter.cs" />
+    <Compile Include="Converters\Discord\Channels\MemberCountConverter.cs" />
+    <Compile Include="Converters\Discord\Messages\InfoMessageColorConverter.cs" />
+    <Compile Include="Converters\Discord\Messages\InfoMessageContentConverter.cs" />
+    <Compile Include="Converters\Discord\Messages\InfoMessageIconConverter.cs" />
+    <Compile Include="Converters\Common\Boolean\EqualityConverter.cs" />
+    <Compile Include="Converters\Common\Boolean\InverseBoolConverter.cs" />
+    <Compile Include="Converters\Common\Visible\NotBoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\Discord\StatusToBrushConverter.cs" />
+    <Compile Include="Converters\Discord\StatusToColorConverter.cs" />
+    <Compile Include="Converters\Common\Time\SmartTimeFormatConverter.cs" />
+    <Compile Include="Converters\Common\Visible\VisibileIfEqualConverter.cs" />
+    <Compile Include="Converters\Common\Visible\VisibileWhenNotEqualConverter.cs" />
+    <Compile Include="Converters\Common\Visible\VisibileWhenEqualConverter.cs" />
+    <Compile Include="Converters\Common\Visible\VisibleIfNotEqualConverter.cs" />
+    <Compile Include="Converters\Common\Visible\VisibleWhenNotNullConverter.cs" />
     <Compile Include="Converters\WindowHost\ShowExtendedSplashConverter.cs" />
     <Compile Include="DataTemplates\ChannelTemplates.xaml.cs">
       <DependentUpon>ChannelTemplates.xaml</DependentUpon>

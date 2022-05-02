@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Quarrel.Bindables.Messages;
 using Quarrel.Services.Localization;
 
-namespace Quarrel.Converters.DataTemplates.Messages
+namespace Quarrel.Converters.Discord.Messages
 {
     public class InfoMessageContentConverter
     {

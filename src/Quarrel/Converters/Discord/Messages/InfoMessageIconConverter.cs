@@ -2,7 +2,7 @@
 
 using Discord.API.Models.Enums.Messages;
 
-namespace Quarrel.Converters.DataTemplates.Messages
+namespace Quarrel.Converters.Discord.Messages
 {
     public class InfoMessageIconConverter
     {

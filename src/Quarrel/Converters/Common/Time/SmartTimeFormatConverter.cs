@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Quarrel.Services.Localization;
 using System;
 
-namespace Quarrel.Converters.Time
+namespace Quarrel.Converters.Common.Time
 {
     public class SmartTimeFormatConverter
     {

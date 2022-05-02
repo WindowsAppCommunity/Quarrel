@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml;
 
-namespace Quarrel.Converters
+namespace Quarrel.Converters.Common.Visible
 {
     public class VisibleWhenNotNullConverter
     {

@@ -5,7 +5,7 @@
     xmlns:local="using:Quarrel.Meta.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:convert="using:Quarrel.Converters"
+    xmlns:vconvert="using:Quarrel.Converters.Common.Visible"
     xmlns:versionenums="using:Quarrel.Services.Versioning.Enums"
     mc:Ignorable="d"
     d:DesignHeight="800"
@@ -31,14 +31,14 @@
                                Margin="4,0,0,0"
                                FontWeight="ExtraBold"
                                FontStyle="Italic"
-                               Visibility="{x:Bind convert:VisibleIfNotEqualConverter.Convert(ViewModel.AppVersionType, versionenums:VersionType.Release)}"/>
+                               Visibility="{x:Bind vconvert:VisibleIfNotEqualConverter.Convert(ViewModel.AppVersionType, versionenums:VersionType.Release)}"/>
                 </StackPanel>
                 
                 <TextBlock x:Uid="About/DisclaimerOnlyInEnglishTB"
                            Text="Disclaimer is only in English"
                            Opacity=".5"
                            HorizontalAlignment="Center"
-                           Visibility="{x:Bind convert:NotBoolToVisibilityConverter.Convert(ViewModel.IsNeutralLanguage), Mode=OneWay}"/>
+                           Visibility="{x:Bind vconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsNeutralLanguage), Mode=OneWay}"/>
 
                 <RichTextBlock TextWrapping="WrapWholeWords"
                            FlowDirection="LeftToRight">
@@ -96,7 +96,7 @@
                 <TextBlock Opacity=".5"
                            FontSize="10" TextReadingOrder="UseFlowDirection"
                            HorizontalAlignment="Right" VerticalAlignment="Center"
-                           Visibility="{x:Bind convert:VisibleIfNotEqualConverter.Convert(ViewModel.AppVersionType, versionenums:VersionType.Release)}">
+                           Visibility="{x:Bind vconvert:VisibleIfNotEqualConverter.Convert(ViewModel.AppVersionType, versionenums:VersionType.Release)}">
                     <Run Text="{x:Bind ViewModel.CommitInfo}"/>
                     <LineBreak/>
                     <Run Text="{x:Bind ViewModel.BranchInfo}"/>

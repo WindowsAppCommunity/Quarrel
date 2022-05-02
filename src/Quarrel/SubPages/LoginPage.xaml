@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:qb="using:Quarrel.Behaviors"
     xmlns:qc="using:Quarrel.Controls"
-    xmlns:convert="using:Quarrel.Converters"
+    xmlns:vconvert="using:Quarrel.Converters.Common.Visible"
     xmlns:spvm="using:Quarrel.ViewModels.SubPages"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
@@ -145,7 +145,7 @@
                         <TextBlock x:Uid="Login/PrivacyPolicyOnlyInEnglishTB"
                                    Text="The privacy policy is only available in English."
                                    TextWrapping="WrapWholeWords"
-                                   Visibility="{x:Bind convert:NotBoolToVisibilityConverter.Convert(ViewModel.IsNeutralLanguage)}"
+                                   Visibility="{x:Bind vconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsNeutralLanguage)}"
                                    HorizontalAlignment="Center"
                                    Opacity=".7"/>
                         <TextBlock Grid.Row="1" TextWrapping="WrapWholeWords"

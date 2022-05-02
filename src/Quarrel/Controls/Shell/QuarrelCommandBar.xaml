@@ -8,7 +8,7 @@
     xmlns:qc="using:Quarrel.Controls"
     xmlns:bchannel="using:Quarrel.Bindables.Channels"
     xmlns:cselector="using:Quarrel.Selectors.Channels"
-    xmlns:convert="using:Quarrel.Converters"
+    xmlns:vconvert="using:Quarrel.Converters.Common.Visible"
     mc:Ignorable="d"
     Background="Transparent"
     d:DesignHeight="56"
@@ -27,7 +27,7 @@
             <StackPanel Padding="8,4" VerticalAlignment="Center">
                 <TextBlock Text="{x:Bind Name, Mode=OneWay}" FontSize="18"/>
                 <TextBlock Text="{x:Bind TextChannel.Topic, Mode=OneWay}"
-                           Visibility="{x:Bind convert:VisibleWhenNotNullConverter.Convert(TextChannel.Topic), Mode=OneWay}"
+                           Visibility="{x:Bind vconvert:VisibleWhenNotNullConverter.Convert(TextChannel.Topic), Mode=OneWay}"
                            Opacity=".7" FontSize="12"/>
             </StackPanel>
         </DataTemplate>

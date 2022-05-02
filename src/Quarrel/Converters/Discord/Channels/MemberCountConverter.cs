@@ -3,7 +3,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Quarrel.Services.Localization;
 
-namespace Quarrel.Converters.DataTemplates.Channels
+namespace Quarrel.Converters.Discord.Channels
 {
     /// <summary>
     /// Localizes the member count.
