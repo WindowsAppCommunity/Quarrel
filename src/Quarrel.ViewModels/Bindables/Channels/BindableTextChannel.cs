@@ -35,6 +35,9 @@ namespace Quarrel.Bindables.Channels
         
         /// <inheritdoc/>
         public IMessageChannel MessageChannel => (IMessageChannel)Channel;
+        
+        /// <inheritdoc/>
+        public GuildTextChannel TextChannel => (GuildTextChannel)Channel;
 
         /// <inheritdoc/>
         protected override void AckUpdate()

@@ -57,6 +57,7 @@ namespace Quarrel
             services.AddTransient<LoginPageViewModel>();
             services.AddSingleton<GuildsViewModel>();
             services.AddSingleton<ChannelsViewModel>();
+            services.AddSingleton<CommandBarViewModel>();
             services.AddSingleton<MessagesViewModel>();
             services.AddSingleton<MessageBoxViewModel>();
             services.AddSingleton<CurrentUserViewModel>();

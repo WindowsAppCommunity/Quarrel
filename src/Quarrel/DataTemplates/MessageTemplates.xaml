@@ -84,7 +84,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="InfoMessageTemplate" x:DataType="bindablemessages:BindableMessage">
-        <Grid Height="32">
+        <Grid Height="48">
             <Grid VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="64"/>
