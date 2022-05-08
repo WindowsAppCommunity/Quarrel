@@ -1,8 +1,9 @@
 ﻿// Quarrel © 2022
 
+using Quarrel.Converters.Common.Boolean;
 using Windows.UI.Xaml;
 
-namespace Quarrel.Converters
+namespace Quarrel.Converters.Common.Visible
 {
     public sealed class VisibleWhenNotEqualConverter
     {

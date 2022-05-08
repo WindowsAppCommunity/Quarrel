@@ -3,7 +3,7 @@
 using Discord.API.Models.Enums.Messages;
 using Windows.UI.Xaml.Media;
 
-namespace Quarrel.Converters.DataTemplates.Messages
+namespace Quarrel.Converters.Discord.Messages
 {
     public class InfoMessageColorConverter
     {

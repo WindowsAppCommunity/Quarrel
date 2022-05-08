@@ -6,6 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:qc="using:Quarrel.Controls"
+    xmlns:bchannel="using:Quarrel.Bindables.Channels"
+    xmlns:cselector="using:Quarrel.Selectors.Channels"
+    xmlns:vconvert="using:Quarrel.Converters.Common.Visible"
     mc:Ignorable="d"
     Background="Transparent"
     d:DesignHeight="56"
@@ -19,12 +22,35 @@
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="Background" Value="Transparent"/>
         </Style>
+        
+        <DataTemplate x:Key="TextChannelHeaderTemplate" x:DataType="bchannel:BindableTextChannel">
+            <StackPanel Padding="8,4" VerticalAlignment="Center">
+                <TextBlock Text="{x:Bind Name, Mode=OneWay}" FontSize="18"/>
+                <TextBlock Text="{x:Bind TextChannel.Topic, Mode=OneWay}"
+                           Visibility="{x:Bind vconvert:VisibleWhenNotNullConverter.Convert(TextChannel.Topic), Mode=OneWay}"
+                           Opacity=".7" FontSize="12"/>
+            </StackPanel>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="DirectChannelHeaderTemplate" x:DataType="bchannel:BindableDirectChannel">
+            <TextBlock Text="{x:Bind Name, Mode=OneWay}" FontSize="18" Padding="8,4"/>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="GroupChannelHeaderTemplate" x:DataType="bchannel:BindableGroupChannel">
+            <TextBlock Text="{x:Bind Name, Mode=OneWay}" FontSize="18" Padding="8,4"/>
+        </DataTemplate>
+        
+        <cselector:ChannelTemplateSelector x:Key="ChannelHeaderTemplateSelector"
+                                           TextChannelTemplate="{StaticResource TextChannelHeaderTemplate}"
+                                           DirectChannelTemplate="{StaticResource DirectChannelHeaderTemplate}"
+                                           GroupChannelTemplate="{StaticResource GroupChannelHeaderTemplate}"/>
     </UserControl.Resources>
 
     <Grid Height="48">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="72"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
         <!--Hamburger button-->
@@ -34,8 +60,12 @@
                 Click="HamburgerClicked">
             <FontIcon Glyph="&#xE700;" FontSize="16"/>
         </Button>
+        
+        <ContentControl Content="{x:Bind ViewModel.SelectedChannel, Mode=OneWay}"
+                        ContentTemplateSelector="{StaticResource ChannelHeaderTemplateSelector}"
+                        Grid.Column="1" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
 
-        <StackPanel Grid.Column="1"
+        <StackPanel Grid.Column="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button x:Uid="CommandBar/NewWindowBTN"

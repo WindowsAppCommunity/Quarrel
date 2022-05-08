@@ -1,6 +1,6 @@
 ﻿// Quarrel © 2022
 
-using Quarrel.Converters;
+using Quarrel.Converters.Common.Text;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

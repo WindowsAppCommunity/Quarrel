@@ -55,5 +55,10 @@ namespace Quarrel.Selectors.Channels
 
             return null;
         }
+
+        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
+        {
+            return SelectTemplateCore(item);
+        }
     }
 }

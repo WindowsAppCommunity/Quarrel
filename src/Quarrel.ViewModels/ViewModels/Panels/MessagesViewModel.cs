@@ -10,9 +10,7 @@ using Quarrel.Messages.Discord.Messages;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Quarrel.ViewModels.Panels
 {
@@ -96,10 +94,13 @@ namespace Quarrel.ViewModels.Panels
                 // Load messages
                 var messages = await _discordService.GetChannelMessagesAsync(channel);
                 BindableMessage[] bindableMessages = new BindableMessage[messages.Length];
-                bindableMessages[0] = new BindableMessage(_messenger, _discordService, _dispatcherService, messages[messages.Length-1]);
-                for (int i = 1; i < messages.Length; i++)
+                if (bindableMessages.Length > 0)
                 {
-                    bindableMessages[i] = new BindableMessage(_messenger, _discordService, _dispatcherService, messages[messages.Length-1-i], messages[messages.Length-i]);
+                    bindableMessages[0] = new BindableMessage(_messenger, _discordService, _dispatcherService, messages[messages.Length - 1]);
+                    for (int i = 1; i < messages.Length; i++)
+                    {
+                        bindableMessages[i] = new BindableMessage(_messenger, _discordService, _dispatcherService, messages[messages.Length - 1 - i], messages[messages.Length - i]);
+                    }
                 }
 
                 // Add messages to the UI and mark loading as finished

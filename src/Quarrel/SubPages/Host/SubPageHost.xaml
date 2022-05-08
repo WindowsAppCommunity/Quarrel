@@ -5,7 +5,7 @@
     xmlns:local="using:Quarrel.SubPages.Host"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:convert="using:Quarrel.Converters"
+    xmlns:vconvert="using:Quarrel.Converters.Common.Visible"
     xmlns:sselectors="using:Quarrel.Selectors.SubPages"
     xmlns:statuspage="using:Quarrel.SubPages.DiscordStatus"
     xmlns:metapages="using:Quarrel.SubPages.Meta"
@@ -65,7 +65,7 @@
                     Background="Transparent"
                     Command="{x:Bind ViewModel.GoBackSubPageCommand}">
                 <Grid>
-                    <SymbolIcon Symbol="Clear" Visibility="{x:Bind convert:NotBoolToVisibilityConverter.Convert(ViewModel.IsStacked), Mode=OneWay}"/>
+                    <SymbolIcon Symbol="Clear" Visibility="{x:Bind vconvert:NotBoolToVisibilityConverter.Convert(ViewModel.IsStacked), Mode=OneWay}"/>
                     <SymbolIcon Symbol="Back" Visibility="{x:Bind ViewModel.IsStacked, Mode=OneWay}"/>
                 </Grid>
             </Button>

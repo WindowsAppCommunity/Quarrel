@@ -7,7 +7,6 @@ using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
-using System.Collections.Generic;
 
 namespace Quarrel.ViewModels.Panels
 {

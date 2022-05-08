@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Discord.API.Models.Enums.Channels;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
@@ -44,6 +45,9 @@ namespace Quarrel.Bindables.Channels.Abstract
 
         /// <inheritdoc/>
         public ulong Id => Channel.Id;
+
+        /// <inheritdoc/>
+        public ChannelType Type => Channel.Type;
 
         /// <inheritdoc/>
         public virtual string? Name => _channel.Name;

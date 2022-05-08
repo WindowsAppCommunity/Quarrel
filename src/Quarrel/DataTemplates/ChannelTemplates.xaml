@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:cconvert="using:Quarrel.Converters.DataTemplates.Channels"
+    xmlns:cconvert="using:Quarrel.Converters.Discord.Channels"
     xmlns:a="using:Quarrel.Attached"
     xmlns:bindablechannels="using:Quarrel.Bindables.Channels">
 

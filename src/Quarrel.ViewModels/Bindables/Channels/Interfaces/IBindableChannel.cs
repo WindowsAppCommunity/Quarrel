@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Discord.API.Models.Enums.Channels;
 using Quarrel.Client.Models.Channels.Interfaces;
 
 namespace Quarrel.Bindables.Channels.Interfaces
@@ -13,6 +14,11 @@ namespace Quarrel.Bindables.Channels.Interfaces
         /// Gets the id of the channel.
         /// </summary>
         public ulong Id { get; }
+
+        /// <summary>
+        /// Gets the channel type.
+        /// </summary>
+        public ChannelType Type { get; }
 
         /// <summary>
         /// Gets the id of the guild the channel belongs to, or null if a DM.

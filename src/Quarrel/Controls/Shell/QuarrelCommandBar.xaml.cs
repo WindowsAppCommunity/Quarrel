@@ -29,13 +29,13 @@ namespace Quarrel.Controls.Shell
         public QuarrelCommandBar()
         {
             this.InitializeComponent();
-            DataContext = App.Current.Services.GetRequiredService<ChannelsViewModel>();
+            DataContext = App.Current.Services.GetRequiredService<CommandBarViewModel>();
 
             _messenger = App.Current.Services.GetRequiredService<IMessenger>();
             _windowService = App.Current.Services.GetRequiredService<IWindowService>();
         }
 
-        public ChannelsViewModel ViewModel => (ChannelsViewModel)DataContext;
+        public CommandBarViewModel ViewModel => (CommandBarViewModel)DataContext;
 
         public bool ShowHamburgerButton
         {

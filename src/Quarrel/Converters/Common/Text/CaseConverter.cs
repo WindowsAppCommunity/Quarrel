@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Converters
+namespace Quarrel.Converters.Common.Text
 {
     /// <summary>
     /// A converter that changes the casing of a string.

@@ -3,14 +3,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:tc="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:mconvert="using:Quarrel.Converters.DataTemplates.Messages"
-    xmlns:tconvert="using:Quarrel.Converters.Time"
+    xmlns:bconvert="using:Quarrel.Converters.Common.Boolean"
+    xmlns:tconvert="using:Quarrel.Converters.Common.Time"
+    xmlns:mconvert="using:Quarrel.Converters.Discord.Messages"
     xmlns:qc="using:Quarrel.Controls"
     xmlns:mcontrols="using:Quarrel.Controls.Panels.Messages"
     xmlns:bindablemessages="using:Quarrel.Bindables.Messages"
     xmlns:bindableembeds="using:Quarrel.Bindables.Messages.Embeds"
-    xmlns:markdown="using:Quarrel.Markdown"
-    xmlns:converters="using:Quarrel.Converters">
+    xmlns:markdown="using:Quarrel.Markdown">
 
     <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
         <!--Grid must be wrapped in a user control to enable the VisualStateManager-->
@@ -20,7 +20,7 @@
                     <VisualStateGroup>
                         <VisualState x:Name="Default">
                             <VisualState.StateTriggers>
-                                <StateTrigger IsActive="{x:Bind converters:InverseBoolConverter.Convert(IsContinuation), Mode=OneWay}"/>
+                                <StateTrigger IsActive="{x:Bind bconvert:InverseBoolConverter.Convert(IsContinuation), Mode=OneWay}"/>
                             </VisualState.StateTriggers>
                             <VisualState.Setters>
                                 <Setter Target="RootGrid.Padding" Value="2,12,2,4"/>
@@ -84,7 +84,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="InfoMessageTemplate" x:DataType="bindablemessages:BindableMessage">
-        <Grid Height="32">
+        <Grid Height="48">
             <Grid VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="64"/>

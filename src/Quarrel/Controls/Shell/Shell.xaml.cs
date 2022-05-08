@@ -2,7 +2,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
-using Quarrel.Bindables.Guilds;
+using Quarrel.Bindables.Guilds.Interfaces;
 using Quarrel.Messages;
 using Quarrel.Messages.Navigation;
 using Quarrel.Messages.Panel;
@@ -24,7 +24,7 @@ namespace Quarrel.Controls.Shell
             _messenger = App.Current.Services.GetRequiredService<IMessenger>();
             _dispatcherService = App.Current.Services.GetRequiredService<IDispatcherService>();
 
-            _messenger.Register<NavigateToGuildMessage<BindableGuild>>(this, (_,_) => _messenger.Send(new TogglePanelMessage(PanelSide.Left, PanelState.Open)));
+            _messenger.Register<NavigateToGuildMessage<IBindableSelectableGuildItem>>(this, (_,_) => _messenger.Send(new TogglePanelMessage(PanelSide.Left, PanelState.Open)));
             _messenger.Register<TogglePanelMessage>(this, (_, e) =>
             {
                 _dispatcherService.RunOnUIThread(() =>
