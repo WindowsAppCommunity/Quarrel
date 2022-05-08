@@ -136,17 +136,24 @@ namespace Quarrel.Client
                 }
             }
 
+            // Nullability is improperly accessed here
+#pragma warning disable CS8629
             Array.Resize(ref privateChannels, i);
             Array.Sort(privateChannels, Comparer<IPrivateChannel>.Create((item1, item2) =>
             {
-                if (!item2.LastMessageId.HasValue) return -1;
-                if (!item1.LastMessageId.HasValue) return 1;
+                bool i1Null = !item1.LastMessageId.HasValue;
+                bool i2Null = !item2.LastMessageId.HasValue;
+
+                if (i1Null && i2Null) return 0;
+                if (i2Null) return -1;
+                if (i1Null) return 1;
 
                 long compare = (long)item2.LastMessageId.Value - (long)item1.LastMessageId.Value;
                 if (compare < 0) return -1;
                 if (compare > 0) return 1;
                 return 0;
             }));
+#pragma warning restore CS8629
 
             return privateChannels;
         }
