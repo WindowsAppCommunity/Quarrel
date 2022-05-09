@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -92,8 +93,18 @@ namespace Quarrel.Markdown.Parsing
                 }
                 else if (url.Match(text) is { Success: true } urlMatch && inlineState)
                 {
-                    inline = new Url(urlMatch.Groups[1].Value);
-                    text = text.Substring(urlMatch.Length);
+                    string urlContent = urlMatch.Groups[1].Value;
+                    for (int i = urlContent.Length - 1; i >= 0; i--)
+                    {
+                        if (urlContent[i] != ')')
+                        {
+                            int count = urlContent.Count(c => c == '(');
+                            urlContent = urlContent.Substring(0, Math.Min(i + count + 1, urlContent.Length));
+                            break;
+                        }
+                    }
+                    inline = new Url(urlContent);
+                    text = text.Substring(urlContent.Length);
                 }
                 else if (strong.Match(text) is { Success: true } strongMatch && inlineState)
                 {

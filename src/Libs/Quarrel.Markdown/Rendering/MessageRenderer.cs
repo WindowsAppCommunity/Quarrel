@@ -281,7 +281,11 @@ namespace Quarrel.Markdown
                             }
                             break;
                         case Url url:
-                            inlineCollection.Add(new Hyperlink() { NavigateUri = new Uri(url.Content), Inlines = { new Run() { Text = url.Content } } });
+                            inlineCollection.Add(new Hyperlink()
+                            {
+                                NavigateUri = Uri.TryCreate(url.Content, UriKind.RelativeOrAbsolute, out Uri uri) ? uri : null,
+                                Inlines = { new Run() { Text = url.Content } }
+                            });
                             break;
                         case IEmojiAST emoji:
                             {
