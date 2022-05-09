@@ -50,18 +50,44 @@
                     <GroupStyle HidesIfEmpty="False">
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate x:DataType="bindablechannels:BindableChannelGroup">
-                                <ContentControl Content="{x:Bind Key}"
-                                                ContentTemplate="{StaticResource CategoryZoomInChannelTemplate}"
-                                                Visibility="{x:Bind convert:VisibleWhenNotNullConverter.Convert(Key)}"/>
+                                <StackPanel Visibility="{x:Bind convert:VisibleWhenNotNullConverter.Convert(Key)}">
+                                    <ContentControl Content="{x:Bind Key}"
+                                                    ContentTemplate="{StaticResource CategoryZoomInChannelTemplate}"/>
+                                    <Rectangle Stroke="{ThemeResource SystemControlForegroundBaseLowBrush}"
+                                               StrokeThickness="0.5"
+                                               Height="1"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Stretch"
+                                               Margin="12,8,12,0"/>
+                                </StackPanel>
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
                         <GroupStyle.HeaderContainerStyle>
                             <Style TargetType="ListViewHeaderItem">
                                 <Setter Property="MinHeight" Value="0"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListViewHeaderItem">
+                                            <ContentPresenter x:Name="ContentPresenter"
+                                                              Margin="{TemplateBinding Padding}"
+                                                              Content="{TemplateBinding Content}"
+                                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                              ContentTransitions="{TemplateBinding ContentTransitions}"
+                                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
                             </Style>
                         </GroupStyle.HeaderContainerStyle>
                     </GroupStyle>
                 </ListView.GroupStyle>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel AreStickyGroupHeadersEnabled="False"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
                 <ListView.Footer>
                     <Grid Height="{x:Bind BottomMargin, Mode=OneWay}"/>
                 </ListView.Footer>
