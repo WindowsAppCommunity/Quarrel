@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:bindablechannel="using:Quarrel.Bindables.Channels.Abstract"
+    xmlns:convert="using:Quarrel.Converters.Common.Visible"
     xmlns:bindablechannels="using:Quarrel.Bindables.Channels"
     xmlns:cselectors="using:Quarrel.Selectors.Channels"
     xmlns:wuxdata="using:Windows.UI.Xaml.Data"
@@ -50,9 +51,15 @@
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate x:DataType="bindablechannels:BindableChannelGroup">
                                 <ContentControl Content="{x:Bind Key}"
-                                                ContentTemplate="{StaticResource CategoryZoomInChannelTemplate}"/>
+                                                ContentTemplate="{StaticResource CategoryZoomInChannelTemplate}"
+                                                Visibility="{x:Bind convert:VisibleWhenNotNullConverter.Convert(Key)}"/>
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
+                        <GroupStyle.HeaderContainerStyle>
+                            <Style TargetType="ListViewHeaderItem">
+                                <Setter Property="MinHeight" Value="0"/>
+                            </Style>
+                        </GroupStyle.HeaderContainerStyle>
                     </GroupStyle>
                 </ListView.GroupStyle>
                 <ListView.Footer>
