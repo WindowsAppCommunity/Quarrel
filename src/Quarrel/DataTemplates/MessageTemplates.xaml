@@ -15,7 +15,8 @@
     <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
         <!--Grid must be wrapped in a user control to enable the VisualStateManager-->
         <UserControl>
-            <Grid x:Name="RootGrid" Padding="2,12,2,4">
+            <Grid x:Name="RootGrid" Padding="2,12,2,4"
+                  Opacity="{x:Bind mconvert:IsDeletedToOpacityConverter.Convert(IsDeleted), Mode=OneWay}">
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup>
                         <VisualState x:Name="Default">
@@ -45,7 +46,7 @@
                     <ColumnDefinition Width="64"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-
+                
                 <!--Image-->
                 <Border x:Name="ProfileImageContainer"  Width="36" Height="36"
                         CornerRadius="18" VerticalAlignment="Top">
@@ -84,13 +85,14 @@
     </DataTemplate>
 
     <DataTemplate x:Key="InfoMessageTemplate" x:DataType="bindablemessages:BindableMessage">
-        <Grid Height="48">
+        <Grid Height="48" Opacity="{x:Bind mconvert:IsDeletedToOpacityConverter.Convert(IsDeleted), Mode=OneWay}">
             <Grid VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="64"/>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
+                
                 <FontIcon Glyph="{x:Bind mconvert:InfoMessageIconConverter.Convert(Message.Type)}"
                           Foreground="{x:Bind mconvert:InfoMessageColorConverter.Convert(Message.Type)}"/>
 

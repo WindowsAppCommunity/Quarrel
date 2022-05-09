@@ -1,6 +1,5 @@
 ﻿// Quarrel © 2022
 
-using Quarrel.Bindables.Messages;
 using Quarrel.Client.Models.Messages;
 
 namespace Quarrel.Messages.Discord.Messages

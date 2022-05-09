@@ -1,7 +1,6 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Toolkit.Mvvm.Messaging;
-using Quarrel.Bindables.Messages;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Messages;
 using Quarrel.Messages.Discord.Channels;
@@ -15,6 +14,7 @@ namespace Quarrel.Services.Discord
         {
             _quarrelClient.MessageCreated += OnMessageCreate;
             _quarrelClient.MessageUpdated += OnMessageUpdated;
+            _quarrelClient.MessageDeleted += OnMessageDeleted;
             _quarrelClient.ChannelUpdated += OnChannelUpdated;
         }
 
@@ -26,6 +26,11 @@ namespace Quarrel.Services.Discord
         private void OnMessageUpdated(object sender, Message e)
         {
             _messenger.Send(new MessageUpdatedMessage(e));
+        }
+
+        private void OnMessageDeleted(object sender, MessageDeleted e)
+        {
+            _messenger.Send(new MessageDeletedMessage(e.ChannelId, e.MessageId));
         }
 
         private void OnChannelUpdated(object sender, Channel e)

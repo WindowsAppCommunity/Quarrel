@@ -20,6 +20,7 @@ namespace Quarrel.Bindables.Messages
     public class BindableMessage : SelectableItem
     {
         private Message _message;
+        private bool _isDeleted;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableMessage"/> class.
@@ -68,6 +69,14 @@ namespace Quarrel.Bindables.Messages
                     Message = e.Message;
                 }
             });
+
+            _messenger.Register<MessageDeletedMessage>(this, (_, e) =>
+            {
+                if (Id == e.MessageId)
+                {
+                    _dispatcherService.RunOnUIThread(() => IsDeleted = true);
+                }
+            });
         }
 
         /// <inheritdoc/>
@@ -84,6 +93,12 @@ namespace Quarrel.Bindables.Messages
         }
 
         public string Content => Message.Content;
+
+        public bool IsDeleted
+        {
+            get => _isDeleted;
+            set => SetProperty(ref _isDeleted, value);
+        }
 
         /// <summary>
         /// Gets the author of the message as a bindable user.
