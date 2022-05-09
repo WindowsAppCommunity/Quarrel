@@ -142,8 +142,3 @@ steps:
     git push origin HEAD:refs/heads/master
   displayName: Push to QuarrelInstaller repo
   workingDirectory: $(installerDirectory)
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-  inputs:
-    PathtoPublish: '$(build.artifactStagingDirectory)'
