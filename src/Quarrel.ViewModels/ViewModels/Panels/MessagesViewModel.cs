@@ -11,6 +11,7 @@ using Quarrel.Messages.Navigation;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using System.Collections.ObjectModel;
+using System.Threading;
 
 namespace Quarrel.ViewModels.Panels
 {
@@ -24,6 +25,7 @@ namespace Quarrel.ViewModels.Panels
         private readonly IDispatcherService _dispatcherService;
 
         private bool _isLoading;
+        private SemaphoreSlim _semaphore;
         private IBindableSelectableChannel? _selectedChannel;
 
         /// <summary>
@@ -79,18 +81,26 @@ namespace Quarrel.ViewModels.Panels
         {
             if (Source.Count == 0) return;
 
-            ulong beforeId = Source[0].Message.Id;
-            IBindableMessageChannel? channel = SelectedChannel as IBindableMessageChannel;
-            Guard.IsNotNull(channel, nameof(channel));
+            await _semaphore.WaitAsync();
+            try
+            {
+                ulong beforeId = Source[0].Message.Id;
+                IBindableMessageChannel? channel = SelectedChannel as IBindableMessageChannel;
+                Guard.IsNotNull(channel, nameof(channel));
 
-            // Load messages
-            IsLoading = true;
-            var messages = await _discordService.GetChannelMessagesAsync(channel, beforeId);
-            var bindableMessages = ParseMessages(messages);
+                // Load messages
+                IsLoading = true;
+                var messages = await _discordService.GetChannelMessagesAsync(channel, beforeId);
+                var bindableMessages = ParseMessages(messages);
 
-            // Add messages to the UI and mark loading as finished
-            Source.InsertRange(0, bindableMessages);
-            IsLoading = false;
+                // Add messages to the UI and mark loading as finished
+                Source.InsertRange(0, bindableMessages);
+                IsLoading = false;
+            }
+            finally
+            {
+                _semaphore.Release();
+            }
         }
 
         /// <remarks>
@@ -98,19 +108,27 @@ namespace Quarrel.ViewModels.Panels
         /// </remarks>
         private async void LoadInitialMessages()
         {
-            IBindableMessageChannel? channel = SelectedChannel as IBindableMessageChannel;
-            Guard.IsNotNull(channel, nameof(channel));
-            // Clear the messages and begin loading
-            Source.Clear();
+            await _semaphore.WaitAsync();
+            try
+            {
+                IBindableMessageChannel? channel = SelectedChannel as IBindableMessageChannel;
+                Guard.IsNotNull(channel, nameof(channel));
+                // Clear the messages and begin loading
+                Source.Clear();
 
-            // Load messages
-            IsLoading = true;
-            var messages = await _discordService.GetChannelMessagesAsync(channel);
-            var bindableMessages = ParseMessages(messages);
+                // Load messages
+                IsLoading = true;
+                var messages = await _discordService.GetChannelMessagesAsync(channel);
+                var bindableMessages = ParseMessages(messages);
 
-            // Add messages to the UI and mark loading as finished
-            Source.AddRange(bindableMessages);
-            IsLoading = false;
+                // Add messages to the UI and mark loading as finished
+                Source.AddRange(bindableMessages);
+                IsLoading = false;
+            }
+            finally
+            {
+                _semaphore.Release();
+            }
         }
 
         private void LoadChannel()
