@@ -32,7 +32,10 @@ namespace Quarrel.Controls.Panels.Messages
             var viewer = (ScrollViewer)sender;
             if (viewer.VerticalOffset <= ScrollPadding)
             {
-                // TODO: Scrolled to top
+                if (!ViewModel.IsLoading)
+                {
+                    ViewModel.LoadOlderMessages();
+                }
             }
             else if (viewer.VerticalOffset >= viewer.ScrollableHeight - ScrollPadding)
             {

@@ -72,12 +72,25 @@ namespace Quarrel.ViewModels.Panels
             private set => SetProperty(ref _isLoading, value);
         }
 
-        private void LoadChannel()
+        /// <remarks>
+        /// Must be called on the UI thread.
+        /// </remarks>
+        public async void LoadOlderMessages()
         {
-            if (SelectedChannel is IBindableMessageChannel)
-            {
-                LoadInitialMessages();
-            }
+            if (Source.Count == 0) return;
+
+            ulong beforeId = Source[0].Message.Id;
+            IBindableMessageChannel? channel = SelectedChannel as IBindableMessageChannel;
+            Guard.IsNotNull(channel, nameof(channel));
+
+            // Load messages
+            IsLoading = true;
+            var messages = await _discordService.GetChannelMessagesAsync(channel, beforeId);
+            var bindableMessages = ParseMessages(messages);
+
+            // Add messages to the UI and mark loading as finished
+            Source.InsertRange(0, bindableMessages);
+            IsLoading = false;
         }
 
         /// <remarks>
@@ -89,23 +102,36 @@ namespace Quarrel.ViewModels.Panels
             Guard.IsNotNull(channel, nameof(channel));
             // Clear the messages and begin loading
             Source.Clear();
-            IsLoading = true;
 
             // Load messages
+            IsLoading = true;
             var messages = await _discordService.GetChannelMessagesAsync(channel);
-            BindableMessage[] bindableMessages = new BindableMessage[messages.Length];
-            if (bindableMessages.Length > 0)
-            {
-                bindableMessages[0] = new BindableMessage(_messenger, _discordService, _dispatcherService, messages[messages.Length - 1]);
-                for (int i = 1; i < messages.Length; i++)
-                {
-                    bindableMessages[i] = new BindableMessage(_messenger, _discordService, _dispatcherService, messages[messages.Length - 1 - i], messages[messages.Length - i]);
-                }
-            }
+            var bindableMessages = ParseMessages(messages);
 
             // Add messages to the UI and mark loading as finished
             Source.AddRange(bindableMessages);
             IsLoading = false;
+        }
+
+        private void LoadChannel()
+        {
+            if (SelectedChannel is IBindableMessageChannel)
+            {
+                LoadInitialMessages();
+            }
+        }
+
+        private BindableMessage[] ParseMessages(Message[] messages)
+        {
+            BindableMessage[] bindableMessages = new BindableMessage[messages.Length];
+            if (bindableMessages.Length == 0) return bindableMessages;
+
+            bindableMessages[0] = new BindableMessage(_messenger, _discordService, _dispatcherService, messages[messages.Length - 1]);
+            for (int i = 1; i < messages.Length; i++)
+            {
+                bindableMessages[i] = new BindableMessage(_messenger, _discordService, _dispatcherService, messages[messages.Length - 1 - i], messages[messages.Length - i]);
+            }
+            return bindableMessages;
         }
 
         /// <remarks>

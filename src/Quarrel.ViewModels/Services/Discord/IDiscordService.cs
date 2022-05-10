@@ -50,13 +50,14 @@ namespace Quarrel.Services.Discord
         /// </remarks>
         /// <returns>The array of <see cref="BindableGuildFolder"/>s that the current user has.</returns>
         BindableGuildFolder[] GetMyGuildFolders();
-        
+
         /// <summary>
         /// Gets the messages in a channel.
         /// </summary>
         /// <param name="channel">The channel to get the messages for.</param>
+        /// <param name="beforeId">The if of the last message to load messages before, or null.</param>
         /// <returns>An array of <see cref="BindableMessage"/>s from the channel.</returns>
-        Task<Message[]> GetChannelMessagesAsync(IBindableMessageChannel channel);
+        Task<Message[]> GetChannelMessagesAsync(IBindableMessageChannel channel, ulong? beforeId = null);
         
         /// <summary>
         /// Gets the channels in a guild.

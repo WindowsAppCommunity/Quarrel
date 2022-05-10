@@ -74,9 +74,9 @@ namespace Quarrel.Services.Discord
         }
 
         /// <inheritdoc/>
-        public async Task<Message[]> GetChannelMessagesAsync(IBindableMessageChannel channel)
+        public async Task<Message[]> GetChannelMessagesAsync(IBindableMessageChannel channel, ulong? beforeId = null)
         {
-            var rawMessages = await _quarrelClient.GetMessagesAsync(channel.Id, channel.GuildId);
+            var rawMessages = await _quarrelClient.GetMessagesAsync(channel.Id, channel.GuildId, beforeId);
             Guard.IsNotNull(rawMessages, nameof(rawMessages));
             return rawMessages;
         }
