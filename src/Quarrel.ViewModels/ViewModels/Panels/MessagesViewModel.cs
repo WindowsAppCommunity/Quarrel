@@ -36,6 +36,7 @@ namespace Quarrel.ViewModels.Panels
             _messenger = messenger;
             _discordService = discordService;
             _dispatcherService = dispatcherService;
+            _semaphore = new SemaphoreSlim(1,1);
 
             Source = new ObservableRangeCollection<BindableMessage>();
             IsLoading = false;
