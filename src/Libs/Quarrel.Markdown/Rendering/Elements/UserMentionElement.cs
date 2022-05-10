@@ -31,9 +31,9 @@ namespace Quarrel.Markdown
 
         }
 
-        public BindableUser User
+        public BindableUser? User
         {
-            get => (BindableUser)GetValue(UserProperty);
+            get => (BindableUser?)GetValue(UserProperty);
             set => SetValue(UserProperty, value);
         }
 

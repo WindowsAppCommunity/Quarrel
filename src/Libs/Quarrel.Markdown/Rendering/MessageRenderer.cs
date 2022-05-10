@@ -217,7 +217,6 @@ namespace Quarrel.Markdown
 
         private void RenderMarkdown(IList<ASTRoot> tree)
         {
-
             if (_richBlock != null)
             {
                 _richBlock.SizeChanged -= RichBlock_SizeChanged;
