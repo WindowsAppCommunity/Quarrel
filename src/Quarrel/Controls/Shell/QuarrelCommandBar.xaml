@@ -8,6 +8,7 @@
     xmlns:qc="using:Quarrel.Controls"
     xmlns:bchannel="using:Quarrel.Bindables.Channels"
     xmlns:cselector="using:Quarrel.Selectors.Channels"
+    xmlns:cconvert="using:Quarrel.Converters.Discord.Channels"
     xmlns:vconvert="using:Quarrel.Converters.Common.Visible"
     mc:Ignorable="d"
     Background="Transparent"
@@ -80,7 +81,8 @@
             <Button x:Uid="CommandBar/CallBTN"
                     ToolTipService.ToolTip="Call"
                     ToolTipService.Placement="Bottom"
-                    Style="{StaticResource CommandBarButton}">
+                    Style="{StaticResource CommandBarButton}"
+                    Visibility="{x:Bind cconvert:IsPrivateChannelVisibleConverter.Convert(ViewModel.SelectedChannel), Mode=OneWay}">
                 <FontIcon Glyph="&#xE13A;" FontSize="16"/>
             </Button>
 
