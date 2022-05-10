@@ -41,10 +41,8 @@ namespace Quarrel.ViewModels.Panels
             _messenger.Register<NavigateToChannelMessage<IBindableSelectableChannel>>(this, (_, m) => SelectedChannel = m.Channel);
             _messenger.Register<MessageCreatedMessage>(this, (_, m) =>
             {
-                if (SelectedChannel?.Id == m.Message.ChannelId)
-                {
-                    AppendMessage(m.Message);
-                }
+                if (SelectedChannel?.Id != m.Message.ChannelId) return;
+                _dispatcherService.RunOnUIThread(() => AppendMessage(m.Message));
             });
         }
 
@@ -60,7 +58,7 @@ namespace Quarrel.ViewModels.Panels
             {
                 if (SetProperty(ref _selectedChannel, value))
                 {
-                    LoadChannel(value);
+                    LoadChannel();
                 }
             }
         }
@@ -74,47 +72,48 @@ namespace Quarrel.ViewModels.Panels
             private set => SetProperty(ref _isLoading, value);
         }
 
-        private void LoadChannel(IBindableSelectableChannel? channel)
+        private void LoadChannel()
         {
-            if (channel is IBindableMessageChannel messageChannel)
+            if (SelectedChannel is IBindableMessageChannel)
             {
-                LoadInitialMessages(messageChannel);
+                LoadInitialMessages();
             }
         }
 
-        private void LoadInitialMessages(IBindableMessageChannel? channel)
+        /// <remarks>
+        /// Must be called on the UI thread.
+        /// </remarks>
+        private async void LoadInitialMessages()
         {
+            IBindableMessageChannel? channel = SelectedChannel as IBindableMessageChannel;
             Guard.IsNotNull(channel, nameof(channel));
-            _dispatcherService.RunOnUIThread(async () =>
+            // Clear the messages and begin loading
+            Source.Clear();
+            IsLoading = true;
+
+            // Load messages
+            var messages = await _discordService.GetChannelMessagesAsync(channel);
+            BindableMessage[] bindableMessages = new BindableMessage[messages.Length];
+            if (bindableMessages.Length > 0)
             {
-                // Clear the messages and begin loading
-                Source.Clear();
-                IsLoading = true;
-
-                // Load messages
-                var messages = await _discordService.GetChannelMessagesAsync(channel);
-                BindableMessage[] bindableMessages = new BindableMessage[messages.Length];
-                if (bindableMessages.Length > 0)
+                bindableMessages[0] = new BindableMessage(_messenger, _discordService, _dispatcherService, messages[messages.Length - 1]);
+                for (int i = 1; i < messages.Length; i++)
                 {
-                    bindableMessages[0] = new BindableMessage(_messenger, _discordService, _dispatcherService, messages[messages.Length - 1]);
-                    for (int i = 1; i < messages.Length; i++)
-                    {
-                        bindableMessages[i] = new BindableMessage(_messenger, _discordService, _dispatcherService, messages[messages.Length - 1 - i], messages[messages.Length - i]);
-                    }
+                    bindableMessages[i] = new BindableMessage(_messenger, _discordService, _dispatcherService, messages[messages.Length - 1 - i], messages[messages.Length - i]);
                 }
+            }
 
-                // Add messages to the UI and mark loading as finished
-                Source.AddRange(bindableMessages);
-                IsLoading = false;
-            });
+            // Add messages to the UI and mark loading as finished
+            Source.AddRange(bindableMessages);
+            IsLoading = false;
         }
 
+        /// <remarks>
+        /// Must be called on the UI thread.
+        /// </remarks>
         private void AppendMessage(Message message)
         {
-            _dispatcherService.RunOnUIThread(() =>
-            {
-                Source.Add(new BindableMessage(_messenger, _discordService, _dispatcherService, message, Source.Count > 0 ? Source[Source.Count-1].Message : null));
-            });
+            Source.Add(new BindableMessage(_messenger, _discordService, _dispatcherService, message, Source.Count > 0 ? Source[Source.Count - 1].Message : null));
         }
     }
 }
