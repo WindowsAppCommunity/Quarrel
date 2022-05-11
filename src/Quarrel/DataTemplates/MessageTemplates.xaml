@@ -14,8 +14,9 @@
 
     <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
         <!--Grid must be wrapped in a user control to enable the VisualStateManager-->
-        <UserControl>
-            <Grid x:Name="RootGrid" Padding="2,12,2,4"
+        <UserControl HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                     VerticalAlignment="Stretch" VerticalContentAlignment="Stretch">
+            <Grid x:Name="RootGrid" Padding="2,12,2,4" Background="Transparent"
                   Opacity="{x:Bind mconvert:IsDeletedToOpacityConverter.Convert(IsDeleted), Mode=OneWay}">
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup>
@@ -42,6 +43,12 @@
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
 
+                <Grid.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Delete" Icon="Delete" Foreground="{StaticResource DiscordRedBrush}"/>
+                    </MenuFlyout>
+                </Grid.ContextFlyout>
+                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="64"/>
                     <ColumnDefinition Width="*"/>
