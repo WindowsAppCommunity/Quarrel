@@ -74,7 +74,7 @@
                     </StackPanel>
 
                     <StackPanel Grid.Row="1">
-                        <markdown:MessageRenderer Text="{x:Bind Message.Content, Mode=OneWay}" Context="{x:Bind}"
+                        <markdown:MessageRenderer Text="{x:Bind Content, Mode=OneWay}" Context="{x:Bind Mode=OneWay}"
                                                   HorizontalAlignment="Left"/>
 
                         <ItemsControl ItemsSource="{x:Bind Message.Attachments}"

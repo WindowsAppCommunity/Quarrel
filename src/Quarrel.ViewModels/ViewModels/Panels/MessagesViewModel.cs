@@ -81,8 +81,9 @@ namespace Quarrel.ViewModels.Panels
         public async void LoadOlderMessages()
         {
             if (Source.Count == 0) return;
-
+            if (IsLoading) return;
             await _semaphore.WaitAsync();
+            IsLoading = true;
             try
             {
                 ulong beforeId = Source[0].Message.Id;
@@ -90,16 +91,18 @@ namespace Quarrel.ViewModels.Panels
                 Guard.IsNotNull(channel, nameof(channel));
 
                 // Load messages
-                IsLoading = true;
                 var messages = await _discordService.GetChannelMessagesAsync(channel, beforeId);
-                var bindableMessages = ParseMessages(messages);
+                if (messages.Length > 0)
+                {
+                    var bindableMessages = ParseMessages(messages);
 
-                // Add messages to the UI and mark loading as finished
-                Source.InsertRange(0, bindableMessages);
-                IsLoading = false;
+                    // Add messages to the UI and mark loading as finished
+                    Source.InsertRange(0, bindableMessages);
+                }
             }
             finally
             {
+                IsLoading = false;
                 _semaphore.Release();
             }
         }
