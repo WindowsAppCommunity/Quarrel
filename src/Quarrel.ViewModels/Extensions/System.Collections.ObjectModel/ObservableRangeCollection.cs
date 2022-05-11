@@ -78,7 +78,10 @@ namespace System.Collections.ObjectModel
             OnPropertyChanged(new PropertyChangedEventArgs("Item[]"));
             if (changedItems.Count > 0)
             {
-                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, changedItems, index));
+                for (int i = changedItems.Count-1; i >= 0; i--)
+                {
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new List<T>{ changedItems[i] }, index));
+                }
             }
         }
 

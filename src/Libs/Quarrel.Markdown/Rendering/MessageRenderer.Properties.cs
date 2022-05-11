@@ -92,13 +92,6 @@ namespace Quarrel.Markdown
         private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var messageRenderer = (MessageRenderer)d;
-
-            if (messageRenderer.Context is null)
-            {
-                // TODO: Allow context free rendering
-                return;
-            }
-
             var tree = Parser.ParseAST(messageRenderer.Text, true, false);
             var modTree = AdjustTree(tree);
             messageRenderer.RenderMarkdown(modTree);

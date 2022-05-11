@@ -6,7 +6,6 @@ using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Messages.Embeds;
 using Quarrel.Bindables.Users;
 using Quarrel.Client.Models.Messages;
-using Quarrel.Client.Models.Messages.Embeds;
 using Quarrel.Messages.Discord.Messages;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
@@ -66,7 +65,7 @@ namespace Quarrel.Bindables.Messages
             {
                 if (Id == e.Message.Id)
                 {
-                    Message = e.Message;
+                    _dispatcherService.RunOnUIThread(() => Message = e.Message);
                 }
             });
 
@@ -88,7 +87,7 @@ namespace Quarrel.Bindables.Messages
             set
             {
                 SetProperty(ref _message, value);
-                _dispatcherService.RunOnUIThread(AckUpdate);
+                AckUpdate();
             }
         }
 

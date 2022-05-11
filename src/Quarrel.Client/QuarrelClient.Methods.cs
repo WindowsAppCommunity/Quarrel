@@ -41,11 +41,19 @@ namespace Quarrel.Client
         /// Gets messages in a channel.
         /// </summary>
         /// <param name="channelId">The channel's id.</param>
-        public async Task<Message[]> GetMessagesAsync(ulong channelId, ulong? guildId = null)
+        /// <param name="guildId">The id of the guild the channel belongs to.</param>
+        /// <param name="beforeId">The message to get the messages from before.</param>
+        public async Task<Message[]> GetMessagesAsync(ulong channelId, ulong? guildId = null, ulong? beforeId = null)
         {
             Guard.IsNotNull(_channelService, nameof(_channelService));
 
-            JsonMessage[]? jsonMessages = await MakeRefitRequest(() => _channelService.GetChannelMessages(channelId));
+            Func<Task<JsonMessage[]>> request = () => _channelService.GetChannelMessages(channelId);
+            if (beforeId.HasValue)
+            {
+                request = () => _channelService.GetChannelMessagesBefore(channelId, beforeId.Value);
+            }
+
+            JsonMessage[]? jsonMessages = await MakeRefitRequest(request);
             Guard.IsNotNull(jsonMessages, nameof(jsonMessages));
 
             Message[] messages = new Message[jsonMessages.Length];

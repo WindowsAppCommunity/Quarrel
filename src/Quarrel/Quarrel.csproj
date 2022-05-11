@@ -143,6 +143,8 @@
     </Compile>
     <Compile Include="Converters\Common\Text\CaseConverter.cs" />
     <Compile Include="Converters\Common\Visible\VisibleWhenNullConverter.cs" />
+    <Compile Include="Converters\Discord\Channels\IsPrivateChannelConverter.cs" />
+    <Compile Include="Converters\Discord\Channels\IsPrivateChannelVisibleConverter.cs" />
     <Compile Include="Converters\Discord\Channels\MemberCountConverter.cs" />
     <Compile Include="Converters\Discord\Messages\InfoMessageColorConverter.cs" />
     <Compile Include="Converters\Discord\Messages\InfoMessageContentConverter.cs" />
