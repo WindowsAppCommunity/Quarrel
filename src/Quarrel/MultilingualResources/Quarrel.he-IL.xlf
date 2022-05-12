@@ -377,15 +377,15 @@
         </trans-unit>
         <trans-unit id="Message/CopyId.Text" translate="yes" xml:space="preserve">
           <source>Copy ID</source>
-          <target state="new">Copy ID</target>
+          <target state="translated">העתק מזהה</target>
         </trans-unit>
         <trans-unit id="Message/CopyLink.Text" translate="yes" xml:space="preserve">
           <source>Copy Link</source>
-          <target state="new">Copy Link</target>
+          <target state="translated">העתק קישור</target>
         </trans-unit>
         <trans-unit id="Message/Delete.Text" translate="yes" xml:space="preserve">
           <source>Delete</source>
-          <target state="new">Delete</target>
+          <target state="translated">מחק</target>
         </trans-unit>
       </group>
     </body>
