@@ -45,15 +45,24 @@
 
                 <Grid.ContextFlyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Text="Delete" Icon="Delete" Foreground="{StaticResource DiscordRedBrush}"/>
+                        <MenuFlyoutItem x:Uid="Message/CopyLink" Text="Copy Message Link" Command="{x:Bind CopyLinkCommand}">
+                            <MenuFlyoutItem.Icon>
+                                <SymbolIcon Symbol="Link"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem x:Uid="Message/CopyId" Text="Copy ID" Command="{x:Bind CopyIdCommand}">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE8EC;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
                     </MenuFlyout>
                 </Grid.ContextFlyout>
-                
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="64"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <!--Image-->
                 <Border x:Name="ProfileImageContainer"  Width="36" Height="36"
                         CornerRadius="18" VerticalAlignment="Top">
@@ -99,7 +108,7 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <FontIcon Glyph="{x:Bind mconvert:InfoMessageIconConverter.Convert(Message.Type)}"
                           Foreground="{x:Bind mconvert:InfoMessageColorConverter.Convert(Message.Type)}"/>
 

@@ -185,6 +185,7 @@
     <Compile Include="Services\AppConnections\Models\AppConnection.cs" />
     <Compile Include="Services\AppConnections\AppConnectionService.cs" />
     <Compile Include="Services\AppConnections\Models\RichPresenceConnection.cs" />
+    <Compile Include="Services\Clipboard\ClipboardService.cs" />
     <Compile Include="Services\Dispatcher\DispatcherService.cs" />
     <Compile Include="Services\Keyboard\KeyboardService.cs" />
     <Compile Include="Services\Localization\LocalizationService.cs" />

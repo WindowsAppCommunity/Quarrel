@@ -313,6 +313,12 @@
   <data name="Login/TokenTBox.PlaceholderText" xml:space="preserve">
     <value>Token</value>
   </data>
+  <data name="Message/CopyId.Text" xml:space="preserve">
+    <value>Copy ID</value>
+  </data>
+  <data name="Message/CopyLink.Text" xml:space="preserve">
+    <value>Copy Link</value>
+  </data>
   <data name="MessageBox/MessageTBox.PlaceholderText" xml:space="preserve">
     <value>Send message</value>
   </data>

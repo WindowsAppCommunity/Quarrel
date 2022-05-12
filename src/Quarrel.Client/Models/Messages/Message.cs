@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Enums.Messages;
 using Discord.API.Models.Json.Messages;
 using Quarrel.Client.Models.Base;
@@ -66,8 +67,10 @@ namespace Quarrel.Client.Models.Messages
             Interaction = jsonMessage.Interaction;
         }
 
-        public ulong? ChannelId { get; private set; }
+        /// <inheritdoc/>
+        public ulong ChannelId { get; private set; }
 
+        /// <inheritdoc/>
         public ulong? GuildId { get; private set; }
 
         /// <inheritdoc/>
@@ -108,5 +111,11 @@ namespace Quarrel.Client.Models.Messages
 
         /// <inheritdoc/>
         public ulong? WebhookId { get; private set; }
+
+        /// <inheritdoc/>
+        public Uri MessageUri
+            => new Uri($"https://discord.com/channels/{GuildDisplayId}/{ChannelId}/{Id}");
+
+        private string GuildDisplayId => GuildId.HasValue ? $"{GuildId.Value}" : "@me";
     }
 }

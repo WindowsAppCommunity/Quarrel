@@ -6,6 +6,7 @@ using OwlCore.AbstractStorage;
 using Quarrel.Services.Analytics;
 using Quarrel.Services.APIs.GitHubService;
 using Quarrel.Services.AppConnections;
+using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
@@ -39,6 +40,7 @@ namespace Quarrel
             services.AddSingleton<IDiscordService, DiscordService>();
             services.AddSingleton<IDispatcherService, DispatcherService>();
             services.AddSingleton<IStorageService>(new StorageService(appDataFolder, JsonAsyncSerializer.Singleton));
+            services.AddSingleton<IClipboardService, ClipboardService>();
             services.AddSingleton<IWindowService, WindowService>();
             services.AddSingleton<AppConnectionService>();
 

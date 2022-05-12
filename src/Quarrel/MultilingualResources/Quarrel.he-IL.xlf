@@ -375,6 +375,14 @@
           <source>Failure</source>
           <target state="translated">כישלון</target>
         </trans-unit>
+        <trans-unit id="Message/CopyId.Text" translate="yes" xml:space="preserve">
+          <source>Copy ID</source>
+          <target state="new">Copy ID</target>
+        </trans-unit>
+        <trans-unit id="Message/CopyText" translate="yes" xml:space="preserve">
+          <source>Copy Text</source>
+          <target state="new">Copy Text</target>
+        </trans-unit>
       </group>
     </body>
   </file>

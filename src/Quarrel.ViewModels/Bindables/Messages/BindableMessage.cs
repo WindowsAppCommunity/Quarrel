@@ -1,12 +1,14 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Models.Enums.Messages;
+using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Messages.Embeds;
 using Quarrel.Bindables.Users;
 using Quarrel.Client.Models.Messages;
 using Quarrel.Messages.Discord.Messages;
+using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using System.Collections.Generic;
@@ -18,7 +20,10 @@ namespace Quarrel.Bindables.Messages
     /// </summary>
     public class BindableMessage : SelectableItem
     {
+        private readonly IClipboardService _clipboardService;
+
         private Message _message;
+        private Message? _previousMessage;
         private bool _isDeleted;
 
         /// <summary>
@@ -28,10 +33,13 @@ namespace Quarrel.Bindables.Messages
             IMessenger messenger,
             IDiscordService discordService,
             IDispatcherService dispatcherService,
+            IClipboardService clipboardService,
             Message message,
             Message? previousMessage = null) :
             base(messenger, discordService, dispatcherService)
         {
+            _clipboardService = clipboardService;
+
             _message = message;
             _previousMessage = previousMessage;
 
@@ -60,6 +68,9 @@ namespace Quarrel.Bindables.Messages
             {
                 Attachments[i] = new BindableAttachment(messenger, discordService, dispatcherService, _message.Attachments[i]);
             }
+
+            CopyIdCommand = new RelayCommand(() => _clipboardService.Copy($"{message.Id}"));
+            CopyLinkCommand = new RelayCommand(() => _clipboardService.Copy($"{message.MessageUri}"));
 
             _messenger.Register<MessageUpdatedMessage>(this, (_, e) =>
             {
@@ -110,8 +121,6 @@ namespace Quarrel.Bindables.Messages
 
         public BindableAttachment[] Attachments { get; }
 
-        private Message? _previousMessage;
-
         public bool IsContinuation => !(
             _previousMessage == null ||
             _message.Type is MessageType.ApplicationCommand or MessageType.ContextMenuCommand || 
@@ -125,6 +134,10 @@ namespace Quarrel.Bindables.Messages
                  _previousMessage.Flags?.HasFlag(MessageFlags.EPHEMERAL) != _message.Flags?.HasFlag(MessageFlags.EPHEMERAL) ||
                  _message.WebhookId != null && _previousMessage.Author?.Username != _message.Author?.Username ||
                  _message.Timestamp.ToUnixTimeMilliseconds() - _previousMessage.Timestamp.ToUnixTimeMilliseconds() >  7 * 60 * 1000)));
+
+        public RelayCommand CopyIdCommand { get; }
+
+        public RelayCommand CopyLinkCommand { get; }
 
         protected virtual void AckUpdate()
         {
