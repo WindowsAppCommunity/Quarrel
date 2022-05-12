@@ -4,6 +4,8 @@ using Discord.API.Models.Enums.Messages;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
+using Quarrel.Bindables.Channels.Abstract;
+using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Messages.Embeds;
 using Quarrel.Bindables.Users;
 using Quarrel.Client.Models.Messages;
@@ -34,6 +36,7 @@ namespace Quarrel.Bindables.Messages
             IDiscordService discordService,
             IDispatcherService dispatcherService,
             IClipboardService clipboardService,
+            IBindableMessageChannel channel,
             Message message,
             Message? previousMessage = null) :
             base(messenger, discordService, dispatcherService)
@@ -42,6 +45,7 @@ namespace Quarrel.Bindables.Messages
 
             _message = message;
             _previousMessage = previousMessage;
+            Channel = channel;
 
             Users = new Dictionary<ulong, BindableUser?>();
             if (message.Author is not null)
@@ -69,8 +73,9 @@ namespace Quarrel.Bindables.Messages
                 Attachments[i] = new BindableAttachment(messenger, discordService, dispatcherService, _message.Attachments[i]);
             }
 
-            CopyIdCommand = new RelayCommand(() => _clipboardService.Copy($"{message.Id}"));
+            CopyIdCommand = new RelayCommand(() => _clipboardService.Copy($"{Id}"));
             CopyLinkCommand = new RelayCommand(() => _clipboardService.Copy($"{message.MessageUri}"));
+            DeleteCommand = new RelayCommand(() => _discordService.DeleteMessage(ChannelId, Id));
 
             _messenger.Register<MessageUpdatedMessage>(this, (_, e) =>
             {
@@ -92,6 +97,9 @@ namespace Quarrel.Bindables.Messages
         /// <inheritdoc/>
         public ulong Id => Message.Id;
 
+        /// <inheritdoc/>
+        public ulong ChannelId => Message.ChannelId;
+
         public Message Message
         {
             get => _message;
@@ -109,6 +117,8 @@ namespace Quarrel.Bindables.Messages
             get => _isDeleted;
             set => SetProperty(ref _isDeleted, value);
         }
+
+        public IBindableMessageChannel Channel { get; }
 
         /// <summary>
         /// Gets the author of the message as a bindable user.
@@ -135,9 +145,14 @@ namespace Quarrel.Bindables.Messages
                  _message.WebhookId != null && _previousMessage.Author?.Username != _message.Author?.Username ||
                  _message.Timestamp.ToUnixTimeMilliseconds() - _previousMessage.Timestamp.ToUnixTimeMilliseconds() >  7 * 60 * 1000)));
 
+        // TODO: Properly handle deletable condition
+        public bool CanDelete => Message.IsOwn;
+
         public RelayCommand CopyIdCommand { get; }
 
         public RelayCommand CopyLinkCommand { get; }
+
+        public RelayCommand DeleteCommand { get; }
 
         protected virtual void AckUpdate()
         {

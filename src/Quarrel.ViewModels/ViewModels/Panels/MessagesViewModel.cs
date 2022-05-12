@@ -152,13 +152,16 @@ namespace Quarrel.ViewModels.Panels
 
         private BindableMessage[] ParseMessages(Message[] messages)
         {
+            IBindableMessageChannel? channel = SelectedChannel as IBindableMessageChannel;
+            Guard.IsNotNull(channel, nameof(channel));
+
             BindableMessage[] bindableMessages = new BindableMessage[messages.Length];
             if (bindableMessages.Length == 0) return bindableMessages;
 
-            bindableMessages[0] = new BindableMessage(_messenger, _discordService, _dispatcherService, _clipboardService, messages[messages.Length - 1]);
+            bindableMessages[0] = new BindableMessage(_messenger, _discordService, _dispatcherService, _clipboardService, channel, messages[messages.Length - 1]);
             for (int i = 1; i < messages.Length; i++)
             {
-                bindableMessages[i] = new BindableMessage(_messenger, _discordService, _dispatcherService, _clipboardService, messages[messages.Length - 1 - i], messages[messages.Length - i]);
+                bindableMessages[i] = new BindableMessage(_messenger, _discordService, _dispatcherService, _clipboardService, channel, messages[messages.Length - 1 - i], messages[messages.Length - i]);
             }
             return bindableMessages;
         }
@@ -168,7 +171,9 @@ namespace Quarrel.ViewModels.Panels
         /// </remarks>
         private void AppendMessage(Message message)
         {
-            Source.Add(new BindableMessage(_messenger, _discordService, _dispatcherService, _clipboardService, message, Source.Count > 0 ? Source[Source.Count - 1].Message : null));
+            IBindableMessageChannel? channel = SelectedChannel as IBindableMessageChannel;
+            Guard.IsNotNull(channel, nameof(channel));
+            Source.Add(new BindableMessage(_messenger, _discordService, _dispatcherService, _clipboardService, channel, message, Source.Count > 0 ? Source[Source.Count - 1].Message : null));
         }
     }
 }

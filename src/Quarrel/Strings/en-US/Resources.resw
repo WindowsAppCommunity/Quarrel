@@ -319,6 +319,9 @@
   <data name="Message/CopyLink.Text" xml:space="preserve">
     <value>Copy Link</value>
   </data>
+  <data name="Message/Delete.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="MessageBox/MessageTBox.PlaceholderText" xml:space="preserve">
     <value>Send message</value>
   </data>

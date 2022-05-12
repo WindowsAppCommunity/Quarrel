@@ -379,9 +379,13 @@
           <source>Copy ID</source>
           <target state="new">Copy ID</target>
         </trans-unit>
-        <trans-unit id="Message/CopyText" translate="yes" xml:space="preserve">
-          <source>Copy Text</source>
-          <target state="new">Copy Text</target>
+        <trans-unit id="Message/CopyLink.Text" translate="yes" xml:space="preserve">
+          <source>Copy Link</source>
+          <target state="new">Copy Link</target>
+        </trans-unit>
+        <trans-unit id="Message/Delete.Text" translate="yes" xml:space="preserve">
+          <source>Delete</source>
+          <target state="new">Delete</target>
         </trans-unit>
       </group>
     </body>

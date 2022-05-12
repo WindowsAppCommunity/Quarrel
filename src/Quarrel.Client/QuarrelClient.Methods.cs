@@ -166,12 +166,30 @@ namespace Quarrel.Client
             return privateChannels;
         }
 
-        public void SendMessage(ulong channelId, string content)
+        public async Task SendMessage(ulong channelId, string content)
         {
             Guard.IsNotNull(_channelService, nameof(_channelService));
             ulong nonce = (ulong)new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds() << 22;
             JsonMessageUpsert message = new JsonMessageUpsert(content, false, $"{nonce}");
-            _channelService.CreateMessage(channelId, message);
+            await MakeRefitRequest(() => _channelService.CreateMessage(channelId, message));
+        }
+
+        public async Task DeleteMessage(ulong channelId, ulong messageId)
+        {
+            Guard.IsNotNull(_channelService, nameof(_channelService));
+            await MakeRefitRequest(() => _channelService.DeleteMessage(channelId, messageId));
+        }
+
+        private async Task MakeRefitRequest(Func<Task> request)
+        {
+            try
+            {
+                await request();
+            }
+            catch (ApiException ex)
+            {
+                HttpExceptionHandled?.Invoke(this, ex);
+            }
         }
 
         private async Task<T?> MakeRefitRequest<T>(Func<Task<T>> request)

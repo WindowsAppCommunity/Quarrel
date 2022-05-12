@@ -1,6 +1,5 @@
 ﻿// Quarrel © 2022
 
-using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Enums.Messages;
 using Discord.API.Models.Json.Messages;
 using Quarrel.Client.Models.Base;
@@ -95,7 +94,10 @@ namespace Quarrel.Client.Models.Messages
         public DateTimeOffset? EditedTimestamp { get; private set; }
 
         /// <inheritdoc/>
-        public User? Author { get; private set; }
+        public User Author { get; private set; }
+
+        /// <inheritdoc/>
+        public bool IsOwn => Author.Id == Context.CurrentUser?.Id;
 
         /// <inheritdoc/>
         public User[] Mentions { get; private set; }

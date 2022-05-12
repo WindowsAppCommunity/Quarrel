@@ -185,5 +185,11 @@ namespace Quarrel.Services.Discord
 
             _quarrelClient.SendMessage(channelId, content);
         }
+
+        /// <inheritdoc/>
+        public void DeleteMessage(ulong channelId, ulong messageId)
+        {
+            _quarrelClient.DeleteMessage(channelId, messageId);
+        }
     }
 }

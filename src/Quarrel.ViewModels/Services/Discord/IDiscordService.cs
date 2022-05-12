@@ -78,5 +78,7 @@ namespace Quarrel.Services.Discord
         BindableGuildMember GetGuildMember(ulong userId, ulong guildId);
 
         void SendMessage(ulong channelId, string content);
+
+        void DeleteMessage(ulong channelId, ulong messageId);
     }
 }
