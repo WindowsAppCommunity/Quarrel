@@ -6,14 +6,14 @@ using System;
 
 namespace Quarrel.Converters.Common.Time
 {
-    public class SmartTimeFormatConverter
+    public class SmartDateTimeFormatConverter
     {
-        public static string Convert(DateTimeOffset time)
+        public static string Convert(DateTimeOffset dateTime)
         {
             ILocalizationService localizationService = App.Current.Services.GetRequiredService<ILocalizationService>();
             string resource;
             DateTimeOffset now = DateTimeOffset.Now;
-            var timeDiff = now - time;
+            var timeDiff = now - dateTime;
 
             // Minutes
             if (timeDiff.TotalMinutes < 1)
@@ -57,20 +57,20 @@ namespace Quarrel.Converters.Common.Time
             //}
 
             // Day + Time
-            string shortTime = time.ToString("t");
-            if (time.DayOfYear == now.DayOfYear && time.Year == now.Year)
+            string shortTime = dateTime.ToString("t");
+            if (dateTime.DayOfYear == now.DayOfYear && dateTime.Year == now.Year)
             {
                 resource = "Time/TodayAt";
                 return localizationService[resource, shortTime];
             }
             DateTime yesterday = (DateTime.Today - TimeSpan.FromDays(1)).Date;
-            if (time.DayOfYear == yesterday.DayOfYear && time.Year == yesterday.Year)
+            if (dateTime.DayOfYear == yesterday.DayOfYear && dateTime.Year == yesterday.Year)
             {
                 resource = "Time/YesterdayAt";
                 return localizationService[resource, shortTime];
             }
 
-            return time.ToString("d");
+            return dateTime.ToString("d");
         }
     }
 }
