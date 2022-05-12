@@ -85,7 +85,7 @@
                     <StackPanel x:Name="Header" Orientation="Horizontal" Margin="0,-2,0,0">
                         <HyperlinkButton Content="{x:Bind Author.User.Username}" Style="{StaticResource PlainTextHyperlinkStyle}"
                                          FontSize="14"/>
-                        <TextBlock Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"
+                        <TextBlock Text="{x:Bind tconvert:SmartDateTimeFormatConverter.Convert(Message.Timestamp)}"
                                    VerticalAlignment="Center" FontSize="12" Opacity=".5" Margin="6,0"/>
                     </StackPanel>
 
@@ -122,7 +122,7 @@
                 <markdown:MessageRenderer Grid.Column="1" Margin="0,-5,0,0" Context="{x:Bind}" HorizontalAlignment="Left"
                                           Text="{x:Bind mconvert:InfoMessageContentConverter.Convert((bindablemessages:BindableMessage))}"/>
 
-                <TextBlock Grid.Column="2" Text="{x:Bind tconvert:SmartTimeFormatConverter.Convert(Message.Timestamp)}"
+                <TextBlock Grid.Column="2" Text="{x:Bind tconvert:SmartDateTimeFormatConverter.Convert(Message.Timestamp)}"
                            Opacity=".5" Margin="8,0"/>
             </Grid>
         </Grid>
