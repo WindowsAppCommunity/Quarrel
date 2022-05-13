@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Discord.API.Models.Enums.Users;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Guilds;
@@ -77,8 +78,10 @@ namespace Quarrel.Services.Discord
 
         BindableGuildMember GetGuildMember(ulong userId, ulong guildId);
 
-        void SendMessage(ulong channelId, string content);
+        Task SendMessage(ulong channelId, string content);
 
-        void DeleteMessage(ulong channelId, ulong messageId);
+        Task DeleteMessage(ulong channelId, ulong messageId);
+
+        Task SetStatus(UserStatus status);
     }
 }

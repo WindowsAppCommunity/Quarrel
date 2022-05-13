@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Discord.API.Models.Enums.Users;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
@@ -21,7 +22,6 @@ namespace Quarrel.ViewModels
         private readonly IDiscordService _discordService;
         private readonly IDispatcherService _dispatcherService;
 
-        [ObservableProperty]
         private BindableSelfUser? _me;
 
         /// <summary>
@@ -33,6 +33,9 @@ namespace Quarrel.ViewModels
             _discordService = discordService;
             _dispatcherService = dispatcherService;
 
+            NavigateToSettingsCommand = new RelayCommand(NavigateToSettings);
+            SetStatusCommand = new RelayCommand<UserStatus>(SetStatus);
+
             _messenger.Register<UserLoggedInMessage>(this, (_, _) =>
             {
                 _dispatcherService.RunOnUIThread(() =>
@@ -42,13 +45,27 @@ namespace Quarrel.ViewModels
             });
         }
 
+        public BindableSelfUser? Me
+        {
+            get => _me;
+            set => SetProperty(ref _me, value);
+        }
+
+        public RelayCommand NavigateToSettingsCommand { get; }
+
+        public RelayCommand<UserStatus> SetStatusCommand { get; }
+
         /// <summary>
         /// Sends a request to open the settings subpage.
         /// </summary>
-        [ICommand]
         public void NavigateToSettings()
         {
             _messenger.Send(new NavigateToSubPageMessage(typeof(UserSettingsPageViewModel)));
+        }
+
+        public void SetStatus(UserStatus status)
+        {
+            _discordService.SetStatus(status);
         }
     }
 }

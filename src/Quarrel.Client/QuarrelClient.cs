@@ -20,6 +20,7 @@ namespace Quarrel.Client
     public partial class QuarrelClient
     {
         private IChannelService? _channelService;
+        private IUserService? _userService;
         private IGatewayService? _gatewayService;
         private Gateway? _gateway;
         private string? _token;
@@ -61,6 +62,7 @@ namespace Quarrel.Client
             };
             _channelService = restFactory.GetChannelService();
             _gatewayService = restFactory.GetGatewayService();
+            _userService = restFactory.GetUserService();
         }
 
         private async Task SetupGatewayAsync(string token)

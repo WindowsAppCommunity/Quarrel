@@ -5,6 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:qc="using:Quarrel.Controls"
+    xmlns:bconvert="using:Quarrel.Converters.Common.Boolean"
+    xmlns:uenum="using:Discord.API.Models.Enums.Users"
     mc:Ignorable="d"
     d:DesignHeight="64"
     d:DesignWidth="224">
@@ -25,25 +27,25 @@
                     <Flyout FlyoutPresenterStyle="{StaticResource GenericFlyoutStyle}">
                         <StackPanel Orientation="Horizontal">
                            <RadioButton x:Uid="CurrentUserButton/OnlineRBTN"
-                                        ToolTipService.ToolTip="Online"
-                                        GroupName="Status" Tag="Online"
-                                        Foreground="{StaticResource OnlineBrush}"
-                                        Style="{StaticResource QuarrelRadioButton}"/>
+                                        ToolTipService.ToolTip="Online" GroupName="Status" Tag="Online"
+                                        IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.Me.User.Presence.Status, uenum:UserStatus.Online), Mode=OneWay}"
+                                        Command="{x:Bind ViewModel.SetStatusCommand}" CommandParameter="{x:Bind uenum:UserStatus.Online}"
+                                        Foreground="{StaticResource OnlineBrush}" Style="{StaticResource QuarrelRadioButton}"/>
                            <RadioButton x:Uid="CurrentUserButton/IdleRBTN"
-                                        ToolTipService.ToolTip="Idle"
-                                        GroupName="Status" Tag="Idle"
-                                        Foreground="{StaticResource IdleBrush}"
-                                        Style="{StaticResource QuarrelRadioButton}"/> 
+                                        ToolTipService.ToolTip="Idle" GroupName="Status" Tag="Idle"
+                                        IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.Me.User.Presence.Status, uenum:UserStatus.Idle), Mode=OneWay}"
+                                        Command="{x:Bind ViewModel.SetStatusCommand}" CommandParameter="{x:Bind uenum:UserStatus.Idle}"
+                                        Foreground="{StaticResource IdleBrush}" Style="{StaticResource QuarrelRadioButton}"/> 
                            <RadioButton x:Uid="CurrentUserButton/DndRBTN"
-                                        ToolTipService.ToolTip="Do Not Disturb"
-                                        GroupName="Status" Tag="Dnd"
-                                        Foreground="{StaticResource DndBrush}"
-                                        Style="{StaticResource QuarrelRadioButton}"/> 
+                                        ToolTipService.ToolTip="Do Not Disturb" GroupName="Status" Tag="Dnd"
+                                        IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.Me.User.Presence.Status, uenum:UserStatus.DoNotDisturb), Mode=OneWay}"
+                                        Command="{x:Bind ViewModel.SetStatusCommand}" CommandParameter="{x:Bind uenum:UserStatus.DoNotDisturb}"
+                                        Foreground="{StaticResource DndBrush}" Style="{StaticResource QuarrelRadioButton}"/> 
                            <RadioButton x:Uid="CurrentUserButton/InvisibleRBTN"
-                                        ToolTipService.ToolTip="Invisible"
-                                        GroupName="Status" Tag="Invisible"
-                                        Foreground="{StaticResource OfflineBrush}"
-                                        Style="{StaticResource QuarrelRadioButton}"/> 
+                                        ToolTipService.ToolTip="Invisible" GroupName="Status" Tag="Invisible"
+                                        IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.Me.User.Presence.Status, uenum:UserStatus.Invisible), Mode=OneWay}"
+                                        Command="{x:Bind ViewModel.SetStatusCommand}" CommandParameter="{x:Bind uenum:UserStatus.Invisible}"
+                                        Foreground="{StaticResource OfflineBrush}" Style="{StaticResource QuarrelRadioButton}"/> 
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>

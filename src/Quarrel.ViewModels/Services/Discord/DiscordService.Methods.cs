@@ -2,11 +2,11 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Enums.Channels;
+using Discord.API.Models.Enums.Users;
 using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Guilds;
-using Quarrel.Bindables.Messages;
 using Quarrel.Bindables.Users;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Interfaces;
@@ -179,17 +179,23 @@ namespace Quarrel.Services.Discord
         }
 
         /// <inheritdoc/>
-        public void SendMessage(ulong channelId, string content)
+        public async Task SendMessage(ulong channelId, string content)
         {
             _analyticsService.Log(LoggedEvent.MessageSent);
 
-            _quarrelClient.SendMessage(channelId, content);
+            await _quarrelClient.SendMessage(channelId, content);
         }
 
         /// <inheritdoc/>
-        public void DeleteMessage(ulong channelId, ulong messageId)
+        public async Task DeleteMessage(ulong channelId, ulong messageId)
         {
-            _quarrelClient.DeleteMessage(channelId, messageId);
+            await _quarrelClient.DeleteMessage(channelId, messageId);
+        }
+
+        /// <inheritdoc/>
+        public async Task SetStatus(UserStatus status)
+        {
+            await _quarrelClient.UpdateStatus(status);
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
+using Discord.API.Models.Enums.Users;
 using Discord.API.Models.Json.Messages;
-using Quarrel.Client.Models.Channels;
+using Discord.API.Models.Json.Settings;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Guilds;
 using Quarrel.Client.Models.Messages;
@@ -10,7 +11,6 @@ using Quarrel.Client.Models.Settings;
 using Quarrel.Client.Models.Users;
 using Refit;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -178,6 +178,19 @@ namespace Quarrel.Client
         {
             Guard.IsNotNull(_channelService, nameof(_channelService));
             await MakeRefitRequest(() => _channelService.DeleteMessage(channelId, messageId));
+        }
+
+        public async Task UpdateStatus(UserStatus status)
+        {
+            Guard.IsNotNull(_gateway, nameof(_gateway));
+            Guard.IsNotNull(_userService, nameof(_userService));
+
+            await _gateway.UpdateStatusAsync(status);
+            var settingsUpdate = new JsonModifyUserSettings()
+            {
+                Status = status.GetStringValue(),
+            };
+            await _userService.UpdateSettings(settingsUpdate);
         }
 
         private async Task MakeRefitRequest(Func<Task> request)

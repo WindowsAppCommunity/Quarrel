@@ -46,6 +46,14 @@ namespace Discord.API.Rest
         {
             return RestService.For<IChannelService>(GetHttpClient(), _settings);
         }
+        
+        /// <summary>
+        /// Gets an instance of the <see cref="IUserService"/>.
+        /// </summary>
+        internal IUserService GetUserService()
+        {
+            return RestService.For<IUserService>(GetHttpClient(), _settings);
+        }
 
         private HttpClient GetHttpClient(bool authenticated = true)
         {
