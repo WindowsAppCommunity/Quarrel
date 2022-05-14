@@ -23,6 +23,12 @@ namespace Quarrel.Services.Analytics.Enums
         MessageSent,
 
         /// <summary>
+        /// The user's status was set.
+        /// </summary>
+        [StringValue("Status Set")]
+        StatusSet,
+
+        /// <summary>
         /// Opened a channel.
         /// </summary>
         [StringValue("Guild Opened")]

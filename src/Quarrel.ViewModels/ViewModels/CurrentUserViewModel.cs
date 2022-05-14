@@ -7,9 +7,12 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Users;
 using Quarrel.Messages;
 using Quarrel.Messages.Navigation.SubPages;
+using Quarrel.Services.Analytics;
+using Quarrel.Services.Analytics.Enums;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.ViewModels.SubPages.Settings;
+using System;
 
 namespace Quarrel.ViewModels
 {
@@ -18,6 +21,7 @@ namespace Quarrel.ViewModels
     /// </summary>
     public partial class CurrentUserViewModel : ObservableRecipient
     {
+        private readonly IAnalyticsService _analyticsService;
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
         private readonly IDispatcherService _dispatcherService;
@@ -27,8 +31,9 @@ namespace Quarrel.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="CurrentUserViewModel"/> class.
         /// </summary>
-        public CurrentUserViewModel(IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
+        public CurrentUserViewModel(IAnalyticsService analyticsService, IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
         {
+            _analyticsService = analyticsService;
             _messenger = messenger;
             _discordService = discordService;
             _dispatcherService = dispatcherService;
@@ -45,26 +50,35 @@ namespace Quarrel.ViewModels
             });
         }
 
+        /// <summary>
+        /// Gets the bindable current self user.
+        /// </summary>
         public BindableSelfUser? Me
         {
             get => _me;
             set => SetProperty(ref _me, value);
         }
 
+        /// <summary>
+        /// Gets a command that requests navigation to settings.
+        /// </summary>
         public RelayCommand NavigateToSettingsCommand { get; }
 
+        /// <summary>
+        /// Gets a command that sets the current user's status.
+        /// </summary>
         public RelayCommand<UserStatus> SetStatusCommand { get; }
 
-        /// <summary>
-        /// Sends a request to open the settings subpage.
-        /// </summary>
-        public void NavigateToSettings()
+        private void NavigateToSettings()
         {
             _messenger.Send(new NavigateToSubPageMessage(typeof(UserSettingsPageViewModel)));
         }
 
-        public void SetStatus(UserStatus status)
+        private void SetStatus(UserStatus status)
         {
+            _analyticsService.Log(LoggedEvent.StatusSet,
+                ("Status", status.GetStringValue()));
+
             _discordService.SetStatus(status);
         }
     }
