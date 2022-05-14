@@ -76,7 +76,7 @@ namespace Quarrel.Services.Discord
         /// <returns>An array of <see cref="IBindableChannel"/>s.</returns>
         BindablePrivateChannel?[] GetPrivateChannels(BindableHomeItem home, out IBindableSelectableChannel? selectedChannel);
 
-        BindableGuildMember GetGuildMember(ulong userId, ulong guildId);
+        BindableGuildMember? GetGuildMember(ulong userId, ulong guildId);
 
         Task SendMessage(ulong channelId, string content);
 

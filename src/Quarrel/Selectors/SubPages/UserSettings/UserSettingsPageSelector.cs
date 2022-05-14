@@ -8,19 +8,19 @@ namespace Quarrel.Selectors.SubPages.UserSettings
 {
     public class UserSettingsPageSelector : DataTemplateSelector
     {
-        public DataTemplate BehaviorsTemplate { get; set; }
+        public DataTemplate? BehaviorsTemplate { get; set; }
 
-        public DataTemplate ConnectionsTemplate { get; set; }
+        public DataTemplate? ConnectionsTemplate { get; set; }
 
-        public DataTemplate DisplayTemplate { get; set; }
+        public DataTemplate? DisplayTemplate { get; set; }
 
-        public DataTemplate MyAccountTemplate { get; set; }
+        public DataTemplate? MyAccountTemplate { get; set; }
 
-        public DataTemplate NotificationsTemplate { get; set; }
+        public DataTemplate? NotificationsTemplate { get; set; }
 
-        public DataTemplate PrivacyTemplate { get; set; }
+        public DataTemplate? PrivacyTemplate { get; set; }
 
-        public DataTemplate VoiceTemplate { get; set; }
+        public DataTemplate? VoiceTemplate { get; set; }
 
         protected override DataTemplate? SelectTemplateCore(object item, DependencyObject container)
         {
