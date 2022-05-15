@@ -8,6 +8,9 @@ using Quarrel.ViewModels.SubPages.UserSettings.Pages.Abstract;
 
 namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 {
+    /// <summary>
+    /// A view model for the privacy page in settings.
+    /// </summary>
     public class PrivacyPageViewModel : UserSettingsSubPageViewModel
     {
         private const string PrivacyResource = "UserSettings/Privacy";
@@ -43,6 +46,12 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             }
         }
 
+        /// <summary>
+        /// Gets or sets if the content filter level is all.
+        /// </summary>
+        /// <remarks>
+        /// Can only be set to <see langword="true"/>, clearing public and none.
+        /// </remarks>
         public bool FilterAll
         {
             get => ContentFilterLevel == ExplicitContentFilterLevel.All;
@@ -53,6 +62,12 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             }
         }
 
+        /// <summary>
+        /// Gets or sets if the content filter level is public.
+        /// </summary>
+        /// <remarks>
+        /// Can only be set to <see langword="true"/>, clearing all and none.
+        /// </remarks>
         public bool FilterPublic
         {
             get => ContentFilterLevel == ExplicitContentFilterLevel.Public;
@@ -63,6 +78,12 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             }
         }
 
+        /// <summary>
+        /// Gets or sets if the content filter level is none.
+        /// </summary>
+        /// <remarks>
+        /// Can only be set to <see langword="true"/>, clearing all and public.
+        /// </remarks>
         public bool FilterNone
         {
             get => ContentFilterLevel == ExplicitContentFilterLevel.None;

@@ -10,12 +10,18 @@ using System.Collections.ObjectModel;
 
 namespace Quarrel.ViewModels.SubPages.Settings
 {
+    /// <summary>
+    /// A view model for the user settings page.
+    /// </summary>
     public class UserSettingsPageViewModel : ObservableObject
     {
         private readonly ILocalizationService _localizationService;
 
-        private UserSettingsSubPageViewModel _selectedSubPage;
+        private UserSettingsSubPageViewModel? _selectedSubPage;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserSettingsPageViewModel"/>.
+        /// </summary>
         public UserSettingsPageViewModel(ILocalizationService localizationService, IStorageService storageService, IDiscordService discordService)
         {
             _localizationService = localizationService;
@@ -32,12 +38,18 @@ namespace Quarrel.ViewModels.SubPages.Settings
             Pages.Add(new VoicePageViewModel(_localizationService, storageService));
         }
 
-        public UserSettingsSubPageViewModel SelectedSubPage
+        /// <summary>
+        /// Gets the view model of the selected sub page.
+        /// </summary>
+        public UserSettingsSubPageViewModel? SelectedSubPage
         {
             get => _selectedSubPage;
             set => SetProperty(ref _selectedSubPage, value);
         }
 
+        /// <summary>
+        /// Gets the view models of all subpage options.
+        /// </summary>
         public ObservableCollection<UserSettingsSubPageViewModel> Pages { get; }
     }
 }

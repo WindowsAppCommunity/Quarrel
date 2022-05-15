@@ -6,6 +6,9 @@ using Quarrel.ViewModels.SubPages.UserSettings.Pages.Abstract;
 
 namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 {
+    /// <summary>
+    /// A view model for the voice page in settings.
+    /// </summary>
     public class VoicePageViewModel : UserSettingsSubPageViewModel
     {
         private const string VoiceResource = "UserSettings/Voice";
