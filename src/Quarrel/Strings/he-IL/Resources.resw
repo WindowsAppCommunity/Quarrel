@@ -275,4 +275,10 @@
   <data name="Message/Delete.Text" xml:space="preserve">
     <value>מחק</value>
   </data>
+  <data name="UserSettings/AccountSettings" xml:space="preserve">
+    <value>הגדרות חשבון</value>
+  </data>
+  <data name="UserSettings/AppSettings" xml:space="preserve">
+    <value>הגדרות אפליקציה</value>
+  </data>
 </root>

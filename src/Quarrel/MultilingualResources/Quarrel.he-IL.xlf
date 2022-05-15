@@ -389,11 +389,11 @@
         </trans-unit>
         <trans-unit id="UserSettings/AccountSettings" translate="yes" xml:space="preserve">
           <source>Account Settings</source>
-          <target state="new">Account Settings</target>
+          <target state="needs-review-translation">הגדרות חשבון</target>
         </trans-unit>
         <trans-unit id="UserSettings/AppSettings" translate="yes" xml:space="preserve">
           <source>App Settings</source>
-          <target state="new">App Settings</target>
+          <target state="needs-review-translation">הגדרות אפליקציה</target>
         </trans-unit>
       </group>
     </body>
