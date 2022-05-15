@@ -9,7 +9,7 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages.Abstract
     /// <summary>
     /// A base class for user settings sub-page view models.
     /// </summary>
-    public abstract class UserSettingsSubPageViewModel : ObservableObject
+    public abstract class UserSettingsSubPageViewModel : ObservableObject, IUserSettingsMenuItem
     {
         /// <summary>
         /// The localization service.

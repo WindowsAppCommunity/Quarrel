@@ -387,6 +387,14 @@
           <source>Delete</source>
           <target state="translated">מחק</target>
         </trans-unit>
+        <trans-unit id="UserSettings/AccountSettings" translate="yes" xml:space="preserve">
+          <source>Account Settings</source>
+          <target state="new">Account Settings</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/AppSettings" translate="yes" xml:space="preserve">
+          <source>App Settings</source>
+          <target state="new">App Settings</target>
+        </trans-unit>
       </group>
     </body>
   </file>

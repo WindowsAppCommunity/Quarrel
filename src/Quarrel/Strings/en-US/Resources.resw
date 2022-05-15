@@ -350,6 +350,12 @@
   <data name="UserSettings/AboutMeTBox.Header" xml:space="preserve">
     <value>About Me</value>
   </data>
+  <data name="UserSettings/AccountSettings" xml:space="preserve">
+    <value>Account Settings</value>
+  </data>
+  <data name="UserSettings/AppSettings" xml:space="preserve">
+    <value>App Settings</value>
+  </data>
   <data name="UserSettings/Behavior" xml:space="preserve">
     <value>Behavior</value>
   </data>

@@ -180,6 +180,7 @@
     <Compile Include="Selectors\Guilds\GuildTemplateSelector.cs" />
     <Compile Include="Selectors\Messages\MessageTemplateSelector.cs" />
     <Compile Include="Selectors\SubPages\SubPageTemplateSelector.cs" />
+    <Compile Include="Selectors\SubPages\UserSettings\UserSettingsMenuItemSelector.cs" />
     <Compile Include="Selectors\SubPages\UserSettings\UserSettingsPageSelector.cs" />
     <Compile Include="Services\Analytics\AppCenterClientInfo.cs" />
     <Compile Include="Services\Analytics\AppCenterService.cs" />
