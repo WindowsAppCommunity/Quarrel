@@ -395,6 +395,10 @@
           <source>App Settings</source>
           <target state="needs-review-translation">הגדרות אפליקציה</target>
         </trans-unit>
+        <trans-unit id="About/Version" translate="yes" xml:space="preserve">
+          <source>Version: {0}.{1}.{2}</source>
+          <target state="needs-review-translation">גרסת: {0}.{1}.{2}</target>
+        </trans-unit>
       </group>
     </body>
   </file>

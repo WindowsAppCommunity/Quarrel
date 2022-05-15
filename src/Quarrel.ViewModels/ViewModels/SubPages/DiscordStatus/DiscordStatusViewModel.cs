@@ -205,7 +205,9 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
             }
             catch (Exception ex)
             {
-                _analyticsService.Log(LoggedEvent.DiscordStatusRequestFailed, ("Endpoint", "GetMetrics"), ("Exception", ex.Message));
+                _analyticsService.Log(LoggedEvent.DiscordStatusRequestFailed,
+                    ("Endpoint", "GetMetrics"),
+                    ("Exception", ex.Message));
             }
 
             if (metrics != null && metrics.Metrics != null && metrics.Metrics.Length > 0)

@@ -154,6 +154,9 @@
   <data name="About/QuarrelRelease" xml:space="preserve">
     <value>Quarrel Release</value>
   </data>
+  <data name="About/Version" xml:space="preserve">
+    <value>Version: {0}.{1}.{2}</value>
+  </data>
   <data name="About/ViewOnGitHubTB.Text" xml:space="preserve">
     <value>View code on GitHub</value>
   </data>

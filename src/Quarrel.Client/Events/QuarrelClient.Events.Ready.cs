@@ -2,8 +2,6 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Gateways.Models.Handshake;
-using Discord.API.Models.Json.Users;
-using Quarrel.Client.Models.Users;
 
 namespace Quarrel.Client
 {
