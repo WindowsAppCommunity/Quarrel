@@ -43,7 +43,7 @@ namespace Quarrel.Samples.RichPresence
         private async void SetActivity(object sender, RoutedEventArgs e)
         {
             Activity activity = new Activity(ActivityName.Text);
-            bool success = await _connection.SetActivity(activity);
+            await _connection.SetActivity(activity);
         }
     }
 }

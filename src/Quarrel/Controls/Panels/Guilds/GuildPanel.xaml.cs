@@ -19,7 +19,6 @@ namespace Quarrel.Controls.Panels.Guilds
 
         private void GuildList_OnItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs args)
         {
-            var container = (TreeViewItem)sender.ContainerFromItem(args.InvokedItem);
             if (args.InvokedItem is IBindableSelectableGuildItem guild)
             {
                 ViewModel.SelectedGuild = guild;

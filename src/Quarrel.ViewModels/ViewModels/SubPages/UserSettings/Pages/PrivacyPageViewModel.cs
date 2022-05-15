@@ -19,11 +19,14 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
         {
             _discordService = discordService;
         }
-
+        
+        /// <inheritdoc/>
         public override string Glyph => "";
 
+        /// <inheritdoc/>
         public override string Title => _localizationService[PrivacyResource];
 
+        /// <inheritdoc/>
         public override bool IsActive => true;
 
         private ExplicitContentFilterLevel ContentFilterLevel
@@ -42,7 +45,7 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 
         public bool FilterAll
         {
-            get => _contentFilterLevel == ExplicitContentFilterLevel.All;
+            get => ContentFilterLevel == ExplicitContentFilterLevel.All;
             set
             {
                 if (!value) return;
@@ -52,7 +55,7 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 
         public bool FilterPublic
         {
-            get => _contentFilterLevel == ExplicitContentFilterLevel.Public;
+            get => ContentFilterLevel == ExplicitContentFilterLevel.Public;
             set
             {
                 if (!value) return;
@@ -62,7 +65,7 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 
         public bool FilterNone
         {
-            get => _contentFilterLevel == ExplicitContentFilterLevel.None;
+            get => ContentFilterLevel == ExplicitContentFilterLevel.None;
             set
             {
                 if (!value) return;

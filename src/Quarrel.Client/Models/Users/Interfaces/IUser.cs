@@ -5,6 +5,9 @@ using Quarrel.Client.Models.Base.Interfaces;
 
 namespace Quarrel.Client.Models.Users.Interfaces
 {
+    /// <summary>
+    /// An interface for an object representing a user.
+    /// </summary>
     public interface IUser : ISnowflakeItem
     {
         /// <summary>
