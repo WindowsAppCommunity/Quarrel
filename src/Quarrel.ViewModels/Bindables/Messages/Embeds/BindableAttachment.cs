@@ -5,6 +5,7 @@ using Quarrel.Bindables.Abstract;
 using Quarrel.Client.Models.Messages.Embeds;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
+using System.Text.RegularExpressions;
 
 namespace Quarrel.Bindables.Messages.Embeds
 {
@@ -13,6 +14,8 @@ namespace Quarrel.Bindables.Messages.Embeds
     /// </summary>
     public class BindableAttachment : BindableItem
     {
+        private const string FileExtensionRegex = @"\.([\w]+)$";
+
         private Attachment _attachment;
 
         internal BindableAttachment(
@@ -32,6 +35,18 @@ namespace Quarrel.Bindables.Messages.Embeds
         {
             get => _attachment;
             private set => SetProperty(ref _attachment, value);
+        }
+
+        /// <summary>
+        /// Gets the file's extension.
+        /// </summary>
+        public string FileExtension
+        {
+            get
+            {
+                var match = Regex.Match(Attachment.Filename, FileExtensionRegex);
+                return match.Groups[1].Value;
+            }
         }
     }
 }

@@ -26,7 +26,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <FontIcon x:Name="FileIcon" FontSize="36" Glyph="" HorizontalAlignment="Left" Margin="0,0,6,0"/>
+            <FontIcon x:Name="FileIcon" FontSize="36" Glyph="{x:Bind aconvert:AttachmentIconConverter.Convert(FileExtension)}" HorizontalAlignment="Left" Margin="0,0,6,0"/>
             <StackPanel Grid.Column="1">
                 <HyperlinkButton Content="{x:Bind Attachment.Filename}" NavigateUri="{x:Bind Attachment.ProxyUrl}" FontSize="18" Padding="0" Style="{StaticResource PlainTextHyperlinkStyle}"/>
                 <TextBlock Text="{x:Bind aconvert:HumanizeByteSizeConverter.Convert(Attachment.Size)}" FontSize="11" Opacity="0.5" Margin="0,-2,0,0"/>

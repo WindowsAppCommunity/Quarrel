@@ -16,9 +16,7 @@ namespace Quarrel.Selectors.Messages
         {
             if (item is BindableAttachment attachment)
             {
-                int index = attachment.Attachment.Filename.LastIndexOf('.');
-                string filetype = attachment.Attachment.Filename.Substring(index + 1).ToLowerInvariant();
-                return filetype switch
+                return attachment.FileExtension switch
                 {
                     "png" or
                     "jpg" or
