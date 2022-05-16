@@ -78,10 +78,24 @@ namespace Quarrel.Services.Discord
 
         BindableGuildMember? GetGuildMember(ulong userId, ulong guildId);
 
+        /// <summary>
+        /// Sends a message.
+        /// </summary>
+        /// <param name="channelId">The id of the channel to send the message in.</param>
+        /// <param name="content">The content of the message.</param>
         Task SendMessage(ulong channelId, string content);
 
+        /// <summary>
+        /// Deletes a message.
+        /// </summary>
+        /// <param name="channelId">The id of the channel the message is in.</param>
+        /// <param name="messageId">The id of the message to delete.</param>
         Task DeleteMessage(ulong channelId, ulong messageId);
 
+        /// <summary>
+        /// Updates the user's online status.
+        /// </summary>
+        /// <param name="status">The new online status to set.</param>
         Task SetStatus(UserStatus status);
     }
 }

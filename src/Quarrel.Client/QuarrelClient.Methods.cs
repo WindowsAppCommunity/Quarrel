@@ -26,12 +26,19 @@ namespace Quarrel.Client
             return CurrentUser;
         }
 
+        /// <summary>
+        /// Gets a user by id.
+        /// </summary>
+        /// <param name="id">The id of the user to get.</param>
         public User? GetUser(ulong id)
         {
             _userMap.TryGetValue(id, out var user);
             return user;
         }
 
+        /// <summary>
+        /// Gets the client settings.
+        /// </summary>
         public Settings? GetSettings()
         {
             return _settings;
@@ -166,6 +173,11 @@ namespace Quarrel.Client
             return privateChannels;
         }
 
+        /// <summary>
+        /// Sends a message.
+        /// </summary>
+        /// <param name="channelId">The channel to send the message in.</param>
+        /// <param name="content">The content of the message.</param>
         public async Task SendMessage(ulong channelId, string content)
         {
             Guard.IsNotNull(_channelService, nameof(_channelService));
@@ -174,12 +186,21 @@ namespace Quarrel.Client
             await MakeRefitRequest(() => _channelService.CreateMessage(channelId, message));
         }
 
+        /// <summary>
+        /// Deletes a message.
+        /// </summary>
+        /// <param name="channelId">The id of channel the message belongs to.</param>
+        /// <param name="messageId">The id of the message to delete.</param>
         public async Task DeleteMessage(ulong channelId, ulong messageId)
         {
             Guard.IsNotNull(_channelService, nameof(_channelService));
             await MakeRefitRequest(() => _channelService.DeleteMessage(channelId, messageId));
         }
 
+        /// <summary>
+        /// Updates the user's online status.
+        /// </summary>
+        /// <param name="status">The new online status to set.</param>
         public async Task UpdateStatus(UserStatus status)
         {
             Guard.IsNotNull(_gateway, nameof(_gateway));
