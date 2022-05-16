@@ -61,6 +61,9 @@ namespace Quarrel.ViewModels.Panels
         /// </summary>
         public ObservableRangeCollection<BindableMessage> Source;
 
+        /// <summary>
+        /// Gets the currently selected channel.
+        /// </summary>
         public IBindableSelectableChannel? SelectedChannel
         {
             get => _selectedChannel;

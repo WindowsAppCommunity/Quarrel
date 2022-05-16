@@ -9,6 +9,9 @@ using Quarrel.Services.Discord;
 
 namespace Quarrel.ViewModels.Panels
 {
+    /// <summary>
+    /// The view model for the command bar.
+    /// </summary>
     public class CommandBarViewModel : ObservableRecipient
     {
         private readonly IAnalyticsService _analyticsService;
@@ -17,6 +20,9 @@ namespace Quarrel.ViewModels.Panels
 
         private IBindableSelectableChannel? _selectedChannel;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommandBarViewModel"/> class.
+        /// </summary>
         public CommandBarViewModel(IAnalyticsService analyticsService, IMessenger messenger, IDiscordService discordService)
         {
             _analyticsService = analyticsService;
@@ -26,10 +32,13 @@ namespace Quarrel.ViewModels.Panels
             _messenger.Register<NavigateToChannelMessage<IBindableSelectableChannel>>(this, (_, m) => SelectedChannel = m.Channel);
         }
 
+        /// <summary>
+        /// Gets the selected channel.
+        /// </summary>
         public IBindableSelectableChannel? SelectedChannel
         {
             get => _selectedChannel;
-            set => SetProperty(ref _selectedChannel, value);
+            private set => SetProperty(ref _selectedChannel, value);
         }
     }
 }

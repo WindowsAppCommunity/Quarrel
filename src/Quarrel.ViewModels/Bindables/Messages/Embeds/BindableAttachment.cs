@@ -8,6 +8,9 @@ using Quarrel.Services.Dispatcher;
 
 namespace Quarrel.Bindables.Messages.Embeds
 {
+    /// <summary>
+    /// A wrapper of a <see cref="Client.Models.Messages.Embeds.Attachment"/> that can be bound to the UI.
+    /// </summary>
     public class BindableAttachment : BindableItem
     {
         private Attachment _attachment;
@@ -19,13 +22,16 @@ namespace Quarrel.Bindables.Messages.Embeds
             Attachment attachment) :
             base(messenger, discordService, dispatcherService)
         {
-            Attachment = attachment;
+            _attachment = attachment;
         }
 
+        /// <summary>
+        /// Gets the wrapped <see cref="Client.Models.Messages.Embeds.Attachment"/>.
+        /// </summary>
         public Attachment Attachment
         {
             get => _attachment;
-            set => SetProperty(ref _attachment, value);
+            private set => SetProperty(ref _attachment, value);
         }
     }
 }

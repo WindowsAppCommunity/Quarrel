@@ -6,6 +6,9 @@ using Quarrel.ViewModels.SubPages.UserSettings.Pages.Abstract;
 
 namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 {
+    /// <summary>
+    /// A view model for the behaviors page in settings.
+    /// </summary>
     public class BehaviorPageViewModel : UserSettingsSubPageViewModel
     {
         private const string BehaviorResource = "UserSettings/Behavior";

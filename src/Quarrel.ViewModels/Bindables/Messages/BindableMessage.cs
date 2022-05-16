@@ -100,6 +100,9 @@ namespace Quarrel.Bindables.Messages
         /// <inheritdoc/>
         public ulong ChannelId => Message.ChannelId;
 
+        /// <summary>
+        /// Gets the wrapped <see cref="Client.Models.Messages.Message"/>.
+        /// </summary>
         public Message Message
         {
             get => _message;
@@ -110,14 +113,18 @@ namespace Quarrel.Bindables.Messages
             }
         }
 
-        public string Content => Message.Content;
-
+        /// <summary>
+        /// Gets whether or not the message has been deleted.
+        /// </summary>
         public bool IsDeleted
         {
             get => _isDeleted;
-            set => SetProperty(ref _isDeleted, value);
+            private set => SetProperty(ref _isDeleted, value);
         }
 
+        /// <summary>
+        /// Gets the <see cref="IBindableMessageChannel"/> that the message belongs to.
+        /// </summary>
         public IBindableMessageChannel Channel { get; }
 
         /// <summary>
@@ -125,12 +132,24 @@ namespace Quarrel.Bindables.Messages
         /// </summary>
         public BindableUser? Author { get; }
 
+        /// <summary>
+        /// Gets the author of the message as a bindable guild memeber.
+        /// </summary>
         public BindableGuildMember? AuthorMember { get; }
 
+        /// <summary>
+        /// Gets a dictionary of bindable users relavent to 
+        /// </summary>
         public Dictionary<ulong, BindableUser?> Users { get; }
 
+        /// <summary>
+        /// Gets the message attachments.
+        /// </summary>
         public BindableAttachment[] Attachments { get; }
 
+        /// <summary>
+        /// Gets whether or not the message is a continuation.
+        /// </summary>
         public bool IsContinuation => !(
             _previousMessage == null ||
             _message.Type is MessageType.ApplicationCommand or MessageType.ContextMenuCommand || 
@@ -145,19 +164,31 @@ namespace Quarrel.Bindables.Messages
                  _message.WebhookId != null && _previousMessage.Author?.Username != _message.Author?.Username ||
                  _message.Timestamp.ToUnixTimeMilliseconds() - _previousMessage.Timestamp.ToUnixTimeMilliseconds() >  7 * 60 * 1000)));
 
+        /// <summary>
+        /// Gets whether or not the user can delete the message.
+        /// </summary>
         // TODO: Properly handle deletable condition
         public bool CanDelete => Message.IsOwn;
 
+        /// <summary>
+        /// Gets a command that copies the message id to the clipboard.
+        /// </summary>
         public RelayCommand CopyIdCommand { get; }
 
+        /// <summary>
+        /// Gets a command that copies the message link to the clipboard.
+        /// </summary>
         public RelayCommand CopyLinkCommand { get; }
 
+        /// <summary>
+        /// Gets a command that deletes the message.
+        /// </summary>
         public RelayCommand DeleteCommand { get; }
 
+        /// <inheritdoc/>
         protected virtual void AckUpdate()
         {
             OnPropertyChanged(nameof(Message));
-            OnPropertyChanged(nameof(Content));
         }
     }
 }

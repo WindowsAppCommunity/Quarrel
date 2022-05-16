@@ -89,7 +89,6 @@
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"/>
 
-
                 <TextBlock Opacity=".5"
                            FontSize="10" TextReadingOrder="UseFlowDirection"
                            HorizontalAlignment="Right" VerticalAlignment="Center"

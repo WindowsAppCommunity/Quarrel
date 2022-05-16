@@ -59,13 +59,13 @@ namespace Quarrel.Services.Discord
         /// <param name="beforeId">The if of the last message to load messages before, or null.</param>
         /// <returns>An array of <see cref="BindableMessage"/>s from the channel.</returns>
         Task<Message[]> GetChannelMessagesAsync(IBindableMessageChannel channel, ulong? beforeId = null);
-        
+
         /// <summary>
         /// Gets the channels in a guild.
         /// </summary>
         /// <param name="guild">The guild to get the channels for.</param>
         /// <param name="selectedChannel">The selected channel as an <see cref="IBindableSelectableChannel"/>.</param>
-        /// <returns>An array of <see cref="IBindableChannel"/>s from the guild.</returns>
+        /// <returns>An array of <see cref="BindableGuildChannel"/>s from the guild.</returns>
         BindableGuildChannel?[] GetGuildChannels(BindableGuild guild, out IBindableSelectableChannel? selectedChannel);
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Quarrel.Services.Discord
         /// </summary>
         /// <param name="home">The <see cref="BindableHomeItem"/>.</param>
         /// <param name="selectedChannel">The selected channel as an <see cref="IBindableSelectableChannel"/>.</param>
-        /// <returns>An array of <see cref="IBindableChannel"/>s.</returns>
+        /// <returns>An array of <see cref="BindablePrivateChannel"/>s.</returns>
         BindablePrivateChannel?[] GetPrivateChannels(BindableHomeItem home, out IBindableSelectableChannel? selectedChannel);
 
         BindableGuildMember? GetGuildMember(ulong userId, ulong guildId);
