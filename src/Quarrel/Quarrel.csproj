@@ -149,6 +149,7 @@
     <Compile Include="Converters\Discord\Channels\IsPrivateChannelConverter.cs" />
     <Compile Include="Converters\Discord\Channels\IsPrivateChannelVisibleConverter.cs" />
     <Compile Include="Converters\Discord\Channels\MemberCountConverter.cs" />
+    <Compile Include="Converters\Discord\Messages\Attachments\HumanizeByteSizeConverter.cs" />
     <Compile Include="Converters\Discord\Messages\InfoMessageColorConverter.cs" />
     <Compile Include="Converters\Discord\Messages\InfoMessageContentConverter.cs" />
     <Compile Include="Converters\Discord\Messages\InfoMessageIconConverter.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Selectors\Channels\ChannelEnabledStyleSelector.cs" />
     <Compile Include="Selectors\Guilds\GuildStyleSelector.cs" />
     <Compile Include="Selectors\Guilds\GuildTemplateSelector.cs" />
+    <Compile Include="Selectors\Messages\AttachmentTemplateSelector.cs" />
     <Compile Include="Selectors\Messages\MessageTemplateSelector.cs" />
     <Compile Include="Selectors\SubPages\SubPageTemplateSelector.cs" />
     <Compile Include="Selectors\SubPages\UserSettings\UserSettingsMenuItemSelector.cs" />

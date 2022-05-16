@@ -4,7 +4,6 @@ using Discord.API.Models.Enums.Messages;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
-using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Messages.Embeds;
 using Quarrel.Bindables.Users;

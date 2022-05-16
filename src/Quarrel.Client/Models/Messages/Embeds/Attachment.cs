@@ -15,6 +15,7 @@ namespace Quarrel.Client.Models.Messages.Embeds
         {
             Id = jsonAttachment.Id;
             Filename = jsonAttachment.Filename;
+            Size = jsonAttachment.Size;
             Url = jsonAttachment.Url;
             ProxyUrl = jsonAttachment.ProxyUrl;
             Height = jsonAttachment.Height;
