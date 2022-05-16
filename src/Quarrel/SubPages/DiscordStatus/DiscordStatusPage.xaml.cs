@@ -3,7 +3,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Graphics.Canvas.Text;
 using Microsoft.Graphics.Canvas.UI.Xaml;
-using Quarrel.Converters;
+using Quarrel.Converters.Discord.APIStatus;
 using Quarrel.ViewModels.SubPages.DiscordStatus;
 using System;
 using System.Globalization;

@@ -2,7 +2,7 @@
 
 using Windows.UI;
 
-namespace Quarrel.Converters
+namespace Quarrel.Converters.Discord.APIStatus
 {
     public static class StatusToColorConverter
     {

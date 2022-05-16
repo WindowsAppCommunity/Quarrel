@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml.Media;
 
-namespace Quarrel.Converters
+namespace Quarrel.Converters.Discord.APIStatus
 {
     public static class StatusToBrushConverter
     {
