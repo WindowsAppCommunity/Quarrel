@@ -676,6 +676,10 @@
       <Project>{d5c342a2-fb47-4d19-8073-e7f15ee43f24}</Project>
       <Name>Patreon.API</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Libs\Quarrel.Common\Quarrel.Common.csproj">
+      <Project>{da2758c2-8d98-46ef-8de3-833089af99c4}</Project>
+      <Name>Quarrel.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Libs\Quarrel.Markdown\Quarrel.Markdown.csproj">
       <Project>{e4b6dfb8-b9b7-4ee7-9f86-afddc221ffb3}</Project>
       <Name>Quarrel.Markdown</Name>
