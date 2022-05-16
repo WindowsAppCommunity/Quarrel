@@ -1,9 +1,5 @@
 ﻿// Quarrel © 2022
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Discord.API.Models.Enums.Messages
 {
     public enum ComponentType

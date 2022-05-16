@@ -8,6 +8,9 @@ using Quarrel.Services.Dispatcher;
 
 namespace Quarrel.Bindables.Users
 {
+    /// <summary>
+    /// A wrapper of a <see cref="Client.Models.Users.GuildMember"/> that can be bound to the UI.
+    /// </summary>
     public class BindableGuildMember : BindableItem
     {
         private GuildMember _guildMember;
@@ -25,6 +28,9 @@ namespace Quarrel.Bindables.Users
             _guildMember = guildMember;
         }
 
+        /// <summary>
+        /// Gets the wrapped <see cref="Client.Models.Users.GuildMember"/>.
+        /// </summary>
         public GuildMember GuildMember
         {
             get => _guildMember;

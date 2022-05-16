@@ -3814,11 +3814,6 @@
     <Content Include="Assets\Emoji\ae.svg" />
     <Content Include="Assets\Emoji\e50a.svg" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.Xaml.Interactivity">
-      <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.xaml.behaviors.uwp.managed\2.0.1\lib\uap10.0\Microsoft.Xaml.Interactivity.dll</HintPath>
-    </Reference>
-  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

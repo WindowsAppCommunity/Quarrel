@@ -8,6 +8,9 @@ using Quarrel.ViewModels.SubPages.UserSettings.Pages.Abstract;
 
 namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 {
+    /// <summary>
+    /// A view model for the privacy page in settings.
+    /// </summary>
     public class PrivacyPageViewModel : UserSettingsSubPageViewModel
     {
         private const string PrivacyResource = "UserSettings/Privacy";
@@ -19,11 +22,14 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
         {
             _discordService = discordService;
         }
-
+        
+        /// <inheritdoc/>
         public override string Glyph => "";
 
+        /// <inheritdoc/>
         public override string Title => _localizationService[PrivacyResource];
 
+        /// <inheritdoc/>
         public override bool IsActive => true;
 
         private ExplicitContentFilterLevel ContentFilterLevel
@@ -40,9 +46,15 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             }
         }
 
+        /// <summary>
+        /// Gets or sets if the content filter level is all.
+        /// </summary>
+        /// <remarks>
+        /// Can only be set to <see langword="true"/>, clearing public and none.
+        /// </remarks>
         public bool FilterAll
         {
-            get => _contentFilterLevel == ExplicitContentFilterLevel.All;
+            get => ContentFilterLevel == ExplicitContentFilterLevel.All;
             set
             {
                 if (!value) return;
@@ -50,9 +62,15 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             }
         }
 
+        /// <summary>
+        /// Gets or sets if the content filter level is public.
+        /// </summary>
+        /// <remarks>
+        /// Can only be set to <see langword="true"/>, clearing all and none.
+        /// </remarks>
         public bool FilterPublic
         {
-            get => _contentFilterLevel == ExplicitContentFilterLevel.Public;
+            get => ContentFilterLevel == ExplicitContentFilterLevel.Public;
             set
             {
                 if (!value) return;
@@ -60,9 +78,15 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
             }
         }
 
+        /// <summary>
+        /// Gets or sets if the content filter level is none.
+        /// </summary>
+        /// <remarks>
+        /// Can only be set to <see langword="true"/>, clearing all and public.
+        /// </remarks>
         public bool FilterNone
         {
-            get => _contentFilterLevel == ExplicitContentFilterLevel.None;
+            get => ContentFilterLevel == ExplicitContentFilterLevel.None;
             set
             {
                 if (!value) return;

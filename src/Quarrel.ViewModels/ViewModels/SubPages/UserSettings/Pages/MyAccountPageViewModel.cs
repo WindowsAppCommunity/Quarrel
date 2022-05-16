@@ -8,24 +8,31 @@ using Quarrel.ViewModels.SubPages.UserSettings.Pages.Abstract;
 
 namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 {
+    /// <summary>
+    /// A view model for the account page in settings.
+    /// </summary>
     public class MyAccountPageViewModel : UserSettingsSubPageViewModel
     {
         private const string MyAccountResource = "UserSettings/MyAccount";
         private readonly IDiscordService _discordService;
 
+        private bool _isLoggedIn;
         private string? _email;
-        private string _username;
+        private string? _username;
         private int _discriminator;
         private string? _aboutMe;
 
         internal MyAccountPageViewModel(ILocalizationService localizationService, IStorageService storageService, IDiscordService discordService) :
             base(localizationService, storageService)
         {
+            _isLoggedIn = false;
             _discordService = discordService;
 
             var user = _discordService.GetMe();
+
             if (user is not null)
             {
+                _isLoggedIn = true;
                 SetBaseValues(user);
             }
         }
@@ -36,26 +43,39 @@ namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
         /// <inheritdoc/>
         public override string Title => _localizationService[MyAccountResource];
 
-        public override bool IsActive => true;
+        /// <inheritdoc/>
+        public override bool IsActive => _isLoggedIn;
 
+        /// <summary>
+        /// Gets or sets the current user's email.
+        /// </summary>
         public string? Email
         {
             get => _email;
             set => SetProperty(ref _email, value);
         }
 
-        public string Username
+        /// <summary>
+        /// Gets or sets the current user's username.
+        /// </summary>
+        public string? Username
         {
             get => _username;
             set => SetProperty(ref _username, value);
         }
 
+        /// <summary>
+        /// Gets or sets the current user's discriminator.
+        /// </summary>
         public int Discriminator
         {
             get => _discriminator;
             set => SetProperty(ref _discriminator, value);
         }
 
+        /// <summary>
+        /// Gets or sets the current user's about me description.
+        /// </summary>
         public string? AboutMe
         {
             get => _aboutMe;

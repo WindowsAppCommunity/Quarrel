@@ -6,6 +6,9 @@ using Quarrel.ViewModels.SubPages.UserSettings.Pages.Abstract;
 
 namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 {
+    /// <summary>
+    /// A view model for the notifications page in settings.
+    /// </summary>
     public class NotificationsPageViewModel : UserSettingsSubPageViewModel
     {
         private const string NotificationsResource = "UserSettings/Notifications";

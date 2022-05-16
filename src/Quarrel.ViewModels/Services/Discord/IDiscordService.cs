@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Discord.API.Models.Enums.Users;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Guilds;
@@ -58,13 +59,13 @@ namespace Quarrel.Services.Discord
         /// <param name="beforeId">The if of the last message to load messages before, or null.</param>
         /// <returns>An array of <see cref="BindableMessage"/>s from the channel.</returns>
         Task<Message[]> GetChannelMessagesAsync(IBindableMessageChannel channel, ulong? beforeId = null);
-        
+
         /// <summary>
         /// Gets the channels in a guild.
         /// </summary>
         /// <param name="guild">The guild to get the channels for.</param>
         /// <param name="selectedChannel">The selected channel as an <see cref="IBindableSelectableChannel"/>.</param>
-        /// <returns>An array of <see cref="IBindableChannel"/>s from the guild.</returns>
+        /// <returns>An array of <see cref="BindableGuildChannel"/>s from the guild.</returns>
         BindableGuildChannel?[] GetGuildChannels(BindableGuild guild, out IBindableSelectableChannel? selectedChannel);
 
         /// <summary>
@@ -72,11 +73,29 @@ namespace Quarrel.Services.Discord
         /// </summary>
         /// <param name="home">The <see cref="BindableHomeItem"/>.</param>
         /// <param name="selectedChannel">The selected channel as an <see cref="IBindableSelectableChannel"/>.</param>
-        /// <returns>An array of <see cref="IBindableChannel"/>s.</returns>
+        /// <returns>An array of <see cref="BindablePrivateChannel"/>s.</returns>
         BindablePrivateChannel?[] GetPrivateChannels(BindableHomeItem home, out IBindableSelectableChannel? selectedChannel);
 
-        BindableGuildMember GetGuildMember(ulong userId, ulong guildId);
+        BindableGuildMember? GetGuildMember(ulong userId, ulong guildId);
 
-        void SendMessage(ulong channelId, string content);
+        /// <summary>
+        /// Sends a message.
+        /// </summary>
+        /// <param name="channelId">The id of the channel to send the message in.</param>
+        /// <param name="content">The content of the message.</param>
+        Task SendMessage(ulong channelId, string content);
+
+        /// <summary>
+        /// Deletes a message.
+        /// </summary>
+        /// <param name="channelId">The id of the channel the message is in.</param>
+        /// <param name="messageId">The id of the message to delete.</param>
+        Task DeleteMessage(ulong channelId, ulong messageId);
+
+        /// <summary>
+        /// Updates the user's online status.
+        /// </summary>
+        /// <param name="status">The new online status to set.</param>
+        Task SetStatus(UserStatus status);
     }
 }

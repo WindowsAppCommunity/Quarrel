@@ -1,8 +1,9 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
+using Discord.API.Models.Enums.Users;
 using Discord.API.Models.Json.Messages;
-using Quarrel.Client.Models.Channels;
+using Discord.API.Models.Json.Settings;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Guilds;
 using Quarrel.Client.Models.Messages;
@@ -10,7 +11,6 @@ using Quarrel.Client.Models.Settings;
 using Quarrel.Client.Models.Users;
 using Refit;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,12 +26,19 @@ namespace Quarrel.Client
             return CurrentUser;
         }
 
+        /// <summary>
+        /// Gets a user by id.
+        /// </summary>
+        /// <param name="id">The id of the user to get.</param>
         public User? GetUser(ulong id)
         {
             _userMap.TryGetValue(id, out var user);
             return user;
         }
 
+        /// <summary>
+        /// Gets the client settings.
+        /// </summary>
         public Settings? GetSettings()
         {
             return _settings;
@@ -166,12 +173,57 @@ namespace Quarrel.Client
             return privateChannels;
         }
 
-        public void SendMessage(ulong channelId, string content)
+        /// <summary>
+        /// Sends a message.
+        /// </summary>
+        /// <param name="channelId">The channel to send the message in.</param>
+        /// <param name="content">The content of the message.</param>
+        public async Task SendMessage(ulong channelId, string content)
         {
             Guard.IsNotNull(_channelService, nameof(_channelService));
             ulong nonce = (ulong)new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds() << 22;
             JsonMessageUpsert message = new JsonMessageUpsert(content, false, $"{nonce}");
-            _channelService.CreateMessage(channelId, message);
+            await MakeRefitRequest(() => _channelService.CreateMessage(channelId, message));
+        }
+
+        /// <summary>
+        /// Deletes a message.
+        /// </summary>
+        /// <param name="channelId">The id of channel the message belongs to.</param>
+        /// <param name="messageId">The id of the message to delete.</param>
+        public async Task DeleteMessage(ulong channelId, ulong messageId)
+        {
+            Guard.IsNotNull(_channelService, nameof(_channelService));
+            await MakeRefitRequest(() => _channelService.DeleteMessage(channelId, messageId));
+        }
+
+        /// <summary>
+        /// Updates the user's online status.
+        /// </summary>
+        /// <param name="status">The new online status to set.</param>
+        public async Task UpdateStatus(UserStatus status)
+        {
+            Guard.IsNotNull(_gateway, nameof(_gateway));
+            Guard.IsNotNull(_userService, nameof(_userService));
+
+            await _gateway.UpdateStatusAsync(status);
+            var settingsUpdate = new JsonModifyUserSettings()
+            {
+                Status = status.GetStringValue(),
+            };
+            await _userService.UpdateSettings(settingsUpdate);
+        }
+
+        private async Task MakeRefitRequest(Func<Task> request)
+        {
+            try
+            {
+                await request();
+            }
+            catch (ApiException ex)
+            {
+                HttpExceptionHandled?.Invoke(this, ex);
+            }
         }
 
         private async Task<T?> MakeRefitRequest<T>(Func<Task<T>> request)

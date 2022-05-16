@@ -9,9 +9,9 @@ namespace Quarrel.Selectors.Messages
 {
     public class MessageTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate DefaultTemplate { get; set; }
+        public DataTemplate? DefaultTemplate { get; set; }
 
-        public DataTemplate InfoTemplate { get; set; }
+        public DataTemplate? InfoTemplate { get; set; }
 
         protected override DataTemplate? SelectTemplateCore(object item, DependencyObject container)
         {

@@ -8,6 +8,9 @@ using Quarrel.Client.Models.Messages.Interfaces;
 using Quarrel.Client.Models.Users;
 using System;
 
+// JSON models don't need to respect standard nullable rules.
+#pragma warning disable CS8618
+
 namespace Quarrel.Client.Models.Messages
 {
     /// <summary>
@@ -66,8 +69,10 @@ namespace Quarrel.Client.Models.Messages
             Interaction = jsonMessage.Interaction;
         }
 
-        public ulong? ChannelId { get; private set; }
+        /// <inheritdoc/>
+        public ulong ChannelId { get; private set; }
 
+        /// <inheritdoc/>
         public ulong? GuildId { get; private set; }
 
         /// <inheritdoc/>
@@ -92,7 +97,10 @@ namespace Quarrel.Client.Models.Messages
         public DateTimeOffset? EditedTimestamp { get; private set; }
 
         /// <inheritdoc/>
-        public User? Author { get; private set; }
+        public User Author { get; private set; }
+
+        /// <inheritdoc/>
+        public bool IsOwn => Author.Id == Context.CurrentUser?.Id;
 
         /// <inheritdoc/>
         public User[] Mentions { get; private set; }
@@ -108,5 +116,11 @@ namespace Quarrel.Client.Models.Messages
 
         /// <inheritdoc/>
         public ulong? WebhookId { get; private set; }
+
+        /// <inheritdoc/>
+        public Uri MessageUri
+            => new Uri($"https://discord.com/channels/{GuildDisplayId}/{ChannelId}/{Id}");
+
+        private string GuildDisplayId => GuildId.HasValue ? $"{GuildId.Value}" : "@me";
     }
 }

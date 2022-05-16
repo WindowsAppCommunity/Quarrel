@@ -75,7 +75,10 @@ namespace Quarrel.Bindables.Channels.Abstract
 
         /// <inheritdoc/>
         public abstract bool IsAccessible { get; }
-
+        
+        /// <summary>
+        /// A virtual method that notifies property changed for a <see cref="BindableChannel"/>.
+        /// </summary>
         protected virtual void AckUpdate()
         {
             OnPropertyChanged(nameof(Channel));
@@ -93,6 +96,7 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <summary>
         /// Creates a new instance of a <see cref="BindableChannel"/> based on the type.
         /// </summary>
+        /// <param name="messenger">The <see cref="IMessenger"/> to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="discordService">The <see cref="IDiscordService"/> to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="localizationService">The <see cref="ILocalizationService"/> to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="dispatcherService">The <see cref="IDispatcherService"/> to pass to the <see cref="BindableItem"/>.</param>

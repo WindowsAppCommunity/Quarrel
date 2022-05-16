@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Toolkit.Mvvm.Messaging;
+using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
@@ -36,6 +37,14 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <inheritdoc/>
         public IMessageChannel MessageChannel => (IMessageChannel)Channel;
 
+        /// <summary>
+        /// Creates a new instance of a <see cref="BindablePrivateChannel"/> based on the type.
+        /// </summary>
+        /// <param name="messenger">The <see cref="IMessenger"/> to pass to the <see cref="BindableItem"/>.</param>
+        /// <param name="discordService">The <see cref="IDiscordService"/> to pass to the <see cref="BindableItem"/>.</param>
+        /// <param name="localizationService">The <see cref="ILocalizationService"/> to pass to the <see cref="BindableItem"/>.</param>
+        /// <param name="dispatcherService">The <see cref="IDispatcherService"/> to pass to the <see cref="BindableItem"/>.</param>
+        /// <param name="channel">The channel to wrap.</param>
         public static BindablePrivateChannel? Create(
             IMessenger messenger,
             IDiscordService discordService,

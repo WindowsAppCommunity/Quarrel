@@ -10,7 +10,7 @@ namespace Quarrel.Services.Discord
 {
     public partial class DiscordService
     {
-        public void RegisterChannelEvents()
+        private void RegisterChannelEvents()
         {
             _quarrelClient.MessageCreated += OnMessageCreate;
             _quarrelClient.MessageUpdated += OnMessageUpdated;

@@ -85,13 +85,9 @@
 
             <Grid Background="{StaticResource SecondaryBackground}"
                   Grid.Row="1" Margin="-16" Padding="16,0" Height="64">
-                <TextBlock HorizontalAlignment="Left"
-                           VerticalAlignment="Center">
-                    <Run x:Uid="About/VersionRUN"
-                         FontWeight="Bold"
-                         Text="Version:"/>
-                    <Run Text="{x:Bind ViewModel.AppVersion}"/>
-                </TextBlock>
+                <TextBlock Text="{x:Bind ViewModel.AppVersion}"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"/>
 
                 <TextBlock Opacity=".5"
                            FontSize="10" TextReadingOrder="UseFlowDirection"

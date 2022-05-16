@@ -29,6 +29,9 @@ namespace Quarrel.Services.Localization
         /// </summary>
         string CommaList(params string[] args);
 
+        /// <summary>
+        /// Gets or sets the app's language override.
+        /// </summary>
         public string LanguageOverride { get; set; }
 
         /// <summary>

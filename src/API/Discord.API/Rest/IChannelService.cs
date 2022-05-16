@@ -16,5 +16,8 @@ namespace Discord.API.Rest
 
         [Post("/v9/channels/{channelId}/messages")]
         Task<JsonMessage> CreateMessage([AliasAs("channelId")] ulong channelId, [Body] JsonMessageUpsert message);
+
+        [Delete("/v9/channels/{channelId}/messages/{messageId}")]
+        Task DeleteMessage([AliasAs("channelId")] ulong channelId, [AliasAs("messageId")] ulong messageId);
     }
 }

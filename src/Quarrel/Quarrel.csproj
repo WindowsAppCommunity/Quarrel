@@ -141,11 +141,16 @@
     <Compile Include="Controls\UserIcon.xaml.cs">
       <DependentUpon>UserIcon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\Common\Boolean\IsNotNullConverter.cs" />
+    <Compile Include="Converters\Common\Boolean\IsNullConverter.cs" />
     <Compile Include="Converters\Common\Text\CaseConverter.cs" />
+    <Compile Include="Converters\Common\Time\TimeFormatConverter.cs" />
     <Compile Include="Converters\Common\Visible\VisibleWhenNullConverter.cs" />
     <Compile Include="Converters\Discord\Channels\IsPrivateChannelConverter.cs" />
     <Compile Include="Converters\Discord\Channels\IsPrivateChannelVisibleConverter.cs" />
     <Compile Include="Converters\Discord\Channels\MemberCountConverter.cs" />
+    <Compile Include="Converters\Discord\Messages\Attachments\AttachmentIconConverter.cs" />
+    <Compile Include="Converters\Discord\Messages\Attachments\HumanizeByteSizeConverter.cs" />
     <Compile Include="Converters\Discord\Messages\InfoMessageColorConverter.cs" />
     <Compile Include="Converters\Discord\Messages\InfoMessageContentConverter.cs" />
     <Compile Include="Converters\Discord\Messages\InfoMessageIconConverter.cs" />
@@ -155,7 +160,7 @@
     <Compile Include="Converters\Discord\Messages\IsDeletedToOpacityConverter.cs" />
     <Compile Include="Converters\Discord\StatusToBrushConverter.cs" />
     <Compile Include="Converters\Discord\StatusToColorConverter.cs" />
-    <Compile Include="Converters\Common\Time\SmartTimeFormatConverter.cs" />
+    <Compile Include="Converters\Common\Time\SmartDateTimeFormatConverter.cs" />
     <Compile Include="Converters\Common\Visible\VisibileIfEqualConverter.cs" />
     <Compile Include="Converters\Common\Visible\VisibileWhenNotEqualConverter.cs" />
     <Compile Include="Converters\Common\Visible\VisibileWhenEqualConverter.cs" />
@@ -175,8 +180,10 @@
     <Compile Include="Selectors\Channels\ChannelEnabledStyleSelector.cs" />
     <Compile Include="Selectors\Guilds\GuildStyleSelector.cs" />
     <Compile Include="Selectors\Guilds\GuildTemplateSelector.cs" />
+    <Compile Include="Selectors\Messages\AttachmentTemplateSelector.cs" />
     <Compile Include="Selectors\Messages\MessageTemplateSelector.cs" />
     <Compile Include="Selectors\SubPages\SubPageTemplateSelector.cs" />
+    <Compile Include="Selectors\SubPages\UserSettings\UserSettingsMenuItemSelector.cs" />
     <Compile Include="Selectors\SubPages\UserSettings\UserSettingsPageSelector.cs" />
     <Compile Include="Services\Analytics\AppCenterClientInfo.cs" />
     <Compile Include="Services\Analytics\AppCenterService.cs" />
@@ -185,6 +192,7 @@
     <Compile Include="Services\AppConnections\Models\AppConnection.cs" />
     <Compile Include="Services\AppConnections\AppConnectionService.cs" />
     <Compile Include="Services\AppConnections\Models\RichPresenceConnection.cs" />
+    <Compile Include="Services\Clipboard\ClipboardService.cs" />
     <Compile Include="Services\Dispatcher\DispatcherService.cs" />
     <Compile Include="Services\Keyboard\KeyboardService.cs" />
     <Compile Include="Services\Localization\LocalizationService.cs" />

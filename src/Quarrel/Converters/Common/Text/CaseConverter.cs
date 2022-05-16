@@ -16,7 +16,6 @@ namespace Quarrel.Converters.Common.Text
         /// </summary>
         public CharacterCasing Case { get; set; }
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CaseConverter"/> class.
         /// </summary>

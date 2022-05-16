@@ -10,6 +10,9 @@ using Quarrel.Services.Dispatcher;
 
 namespace Quarrel.ViewModels.Panels
 {
+    /// <summary>
+    /// The view model for the message box.
+    /// </summary>
     public class MessageBoxViewModel : ObservableRecipient
     {
         private readonly IMessenger _messenger;
@@ -17,8 +20,11 @@ namespace Quarrel.ViewModels.Panels
         private readonly IDispatcherService _dispatcherService;
 
         private ulong? _channelId;
-        private string _draftText;
+        private string? _draftText;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageBoxViewModel"/> class.
+        /// </summary>
         public MessageBoxViewModel(IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
         {
             _messenger = messenger;
@@ -33,25 +39,34 @@ namespace Quarrel.ViewModels.Panels
             });
         }
 
+        /// <summary>
+        /// Gets a command that sends the drafted message.
+        /// </summary>
         public RelayCommand SendMessageCommand { get; }
 
-        public string DraftText
+        /// <summary>
+        /// Gets or sets the drafted text in the message box.
+        /// </summary>
+        public string? DraftText
         {
             get => _draftText;
             set => SetProperty(ref _draftText, value);
         }
 
+        /// <summary>
+        /// Gets the current channel id.
+        /// </summary>
         public ulong? ChannelId
         {
             get => _channelId;
-            set => SetProperty(ref _channelId, value);
+            private set => SetProperty(ref _channelId, value);
         }
 
-        public void SendMessage()
+        private void SendMessage()
         {
-            if (ChannelId.HasValue)
+            if (ChannelId.HasValue && !string.IsNullOrEmpty(DraftText))
             {
-                _discordService.SendMessage(ChannelId.Value, DraftText);
+                _discordService.SendMessage(ChannelId.Value, DraftText!);
                 DraftText = string.Empty;
             }
         }

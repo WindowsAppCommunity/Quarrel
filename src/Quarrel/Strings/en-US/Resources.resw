@@ -154,6 +154,9 @@
   <data name="About/QuarrelRelease" xml:space="preserve">
     <value>Quarrel Release</value>
   </data>
+  <data name="About/Version" xml:space="preserve">
+    <value>Version: {0}.{1}.{2}</value>
+  </data>
   <data name="About/ViewOnGitHubTB.Text" xml:space="preserve">
     <value>View code on GitHub</value>
   </data>
@@ -313,6 +316,15 @@
   <data name="Login/TokenTBox.PlaceholderText" xml:space="preserve">
     <value>Token</value>
   </data>
+  <data name="Message/CopyId.Text" xml:space="preserve">
+    <value>Copy ID</value>
+  </data>
+  <data name="Message/CopyLink.Text" xml:space="preserve">
+    <value>Copy Link</value>
+  </data>
+  <data name="Message/Delete.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="MessageBox/MessageTBox.PlaceholderText" xml:space="preserve">
     <value>Send message</value>
   </data>
@@ -340,6 +352,12 @@
   </data>
   <data name="UserSettings/AboutMeTBox.Header" xml:space="preserve">
     <value>About Me</value>
+  </data>
+  <data name="UserSettings/AccountSettings" xml:space="preserve">
+    <value>Account Settings</value>
+  </data>
+  <data name="UserSettings/AppSettings" xml:space="preserve">
+    <value>App Settings</value>
   </data>
   <data name="UserSettings/Behavior" xml:space="preserve">
     <value>Behavior</value>

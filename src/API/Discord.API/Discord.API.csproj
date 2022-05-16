@@ -10,4 +10,8 @@
     <PackageReference Include="Refit" Version="6.3.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libs\Quarrel.Common\Quarrel.Common.csproj" />
+  </ItemGroup>
+
 </Project>

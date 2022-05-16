@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Gateways.Models;
+using Discord.API.Models.Enums.Users;
 using System;
 using System.Threading.Tasks;
 
@@ -43,11 +44,11 @@ namespace Discord.API.Gateways
             throw new NotImplementedException();
         }
 
-        public async Task UpdateStatusAsync(string status, int? idleSince, bool isAfk)
+        public async Task UpdateStatusAsync(UserStatus status, int? idleSince = null, bool isAfk = false)
         {
             var payload = new StatusUpdate()
             {
-                Status = status,
+                Status = status.GetStringValue(),
                 IdleSince = idleSince,
                 IsAFK = isAfk,
             };
@@ -55,7 +56,7 @@ namespace Discord.API.Gateways
             await UpdateStatusAsync(payload);
         }
 
-        public async Task UpdateStatusAsync(StatusUpdate payload)
+        private async Task UpdateStatusAsync(StatusUpdate payload)
         {
             var frame = new SocketFrame<StatusUpdate>()
             {

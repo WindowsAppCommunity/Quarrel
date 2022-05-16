@@ -6,6 +6,9 @@ using Quarrel.ViewModels.SubPages.UserSettings.Pages.Abstract;
 
 namespace Quarrel.ViewModels.SubPages.UserSettings.Pages
 {
+    /// <summary>
+    /// A view model for the connections page in settings.
+    /// </summary>
     public class ConnectionsPageViewModel : UserSettingsSubPageViewModel
     {
         private const string ConnectionsResource = "UserSettings/Connections";

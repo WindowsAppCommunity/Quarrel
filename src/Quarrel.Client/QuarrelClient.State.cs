@@ -318,6 +318,13 @@ namespace Quarrel.Client
         {
             var settings = new Settings(jsonUserSettings, this);
             _settings = settings;
+
+            Guard.IsNotNull(_selfUser, nameof(_selfUser));
+
+            _selfUser.Presence = new Presence(new JsonPresence()
+            {
+                Status = jsonUserSettings.Status,
+            });
         }
     }
 }

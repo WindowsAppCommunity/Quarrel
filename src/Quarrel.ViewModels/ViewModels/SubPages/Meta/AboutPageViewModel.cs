@@ -17,6 +17,7 @@ namespace Quarrel.ViewModels.SubPages.Meta
     {
         private const string CommitResource = "About/Commit";
         private const string BranchResource = "About/Branch";
+        private const string VersionResource = "About/Version";
         private const string QuarrelDevResource = "About/QuarrelDev";
         private const string QuarrelAlphaResource = "About/QuarrelAlpha";
         private const string QuarrelInsiderResource = "About/QuarrelInsider";
@@ -42,10 +43,11 @@ namespace Quarrel.ViewModels.SubPages.Meta
         /// <summary>
         /// Gets the app version as a <see cref="string"/>.
         /// </summary>
-        public string AppVersion => string.Format("{0}.{1}.{2}",
+        public string AppVersion =>
+            _localizationService[VersionResource,
             _versioningService.AppVersion.MajorVersion,
             _versioningService.AppVersion.MinorVersion,
-            _versioningService.AppVersion.BuildNumber);
+            _versioningService.AppVersion.BuildNumber];
 
         /// <summary>
         /// Gets the app's version type.

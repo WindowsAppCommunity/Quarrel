@@ -266,4 +266,22 @@
   <data name="ExtendedSplash/Failure" xml:space="preserve">
     <value>כישלון</value>
   </data>
+  <data name="Message/CopyId.Text" xml:space="preserve">
+    <value>העתק מזהה</value>
+  </data>
+  <data name="Message/CopyLink.Text" xml:space="preserve">
+    <value>העתק קישור</value>
+  </data>
+  <data name="Message/Delete.Text" xml:space="preserve">
+    <value>מחק</value>
+  </data>
+  <data name="UserSettings/AccountSettings" xml:space="preserve">
+    <value>הגדרות חשבון</value>
+  </data>
+  <data name="UserSettings/AppSettings" xml:space="preserve">
+    <value>הגדרות אפליקציה</value>
+  </data>
+  <data name="About/Version" xml:space="preserve">
+    <value>גרסת: {0}.{1}.{2}</value>
+  </data>
 </root>
