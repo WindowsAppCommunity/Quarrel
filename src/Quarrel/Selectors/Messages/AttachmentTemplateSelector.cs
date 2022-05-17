@@ -12,6 +12,10 @@ namespace Quarrel.Selectors.Messages
 
         public DataTemplate? ImageAttachmentTemplate { get; set; }
 
+        public DataTemplate? AudioAttachmentTemplate { get; set; }
+
+        public DataTemplate? VideoAttachmentTemplate { get; set; }
+
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
             if (item is BindableAttachment attachment)
@@ -23,9 +27,12 @@ namespace Quarrel.Selectors.Messages
                     "jpeg" or
                     "gif" => ImageAttachmentTemplate,
 
-                    //"mp4" or
-                    //"mov" or
-                    //"wmv" => VideoAttachmentTemplate
+                    "mp3" or
+                    "wav" => AudioAttachmentTemplate,
+
+                    "mp4" or
+                    "mov" or
+                    "wmv" => VideoAttachmentTemplate,
 
                     _ => DefaultAttachmentTemplate,
                 };

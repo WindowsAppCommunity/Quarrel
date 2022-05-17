@@ -8,7 +8,6 @@
     xmlns:tconvert="using:Quarrel.Converters.Common.Time"
     xmlns:mconvert="using:Quarrel.Converters.Discord.Messages"
     xmlns:qc="using:Quarrel.Controls"
-    xmlns:mcontrols="using:Quarrel.Controls.Panels.Messages"
     xmlns:bindablemessages="using:Quarrel.Bindables.Messages"
     xmlns:bindableembeds="using:Quarrel.Bindables.Messages.Embeds"
     xmlns:mselector="using:Quarrel.Selectors.Messages"
@@ -55,9 +54,22 @@
         <tc:ImageEx Source="{x:Bind Attachment.ProxyUrl}" MaxWidth="400" CornerRadius="2"/>
     </DataTemplate>
 
+    <DataTemplate x:Key="VideoAttachmentTemplate" x:DataType="bindableembeds:BindableAttachment">
+        <Grid MaxWidth="400">
+            <MediaElement Source="{x:Bind Attachment.ProxyUrl}" AutoPlay="False"
+                          AreTransportControlsEnabled="True" AudioCategory="ForegroundOnlyMedia">
+                <MediaElement.TransportControls>
+                    <MediaTransportControls IsCompact="True" IsFullWindowButtonVisible="False"/>
+                </MediaElement.TransportControls>
+            </MediaElement>
+        </Grid>
+    </DataTemplate>
+
     <mselector:AttachmentTemplateSelector x:Key="AttachmentTemplateSelector"
                                           DefaultAttachmentTemplate="{StaticResource DefaultAttachmentTemplate}"
-                                          ImageAttachmentTemplate="{StaticResource ImageAttachmentTemplate}"/>
+                                          ImageAttachmentTemplate="{StaticResource ImageAttachmentTemplate}"
+                                          AudioAttachmentTemplate="{StaticResource DefaultAttachmentTemplate}"
+                                          VideoAttachmentTemplate="{StaticResource VideoAttachmentTemplate}"/>
 
     <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
         <!--Grid must be wrapped in a user control to enable the VisualStateManager-->
