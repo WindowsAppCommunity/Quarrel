@@ -5,6 +5,7 @@
     xmlns:local="using:Quarrel.Controls.Shell.Panels.Messages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:bconvert="using:Quarrel.Converters.Common.Boolean"
     mc:Ignorable="d"
     d:DesignHeight="64"
     d:DesignWidth="400">
@@ -245,7 +246,7 @@
     <Grid>
         <TextBox x:Uid="MessageBox/MessageTBox"
                  x:Name="MessageEditor"
-                 Text="{x:Bind ViewModel.DraftText, Mode=TwoWay}"
+                 Text="{x:Bind ViewModel.DraftText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                  PlaceholderText="Send message"
                  TextWrapping="Wrap"
                  SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}"
@@ -254,6 +255,7 @@
                  MinHeight="64" MaxHeight="256"
                  Style="{StaticResource MessageTextBox}"/>
         <Button Grid.Column="1" Width="48"
+                IsEnabled="{x:Bind bconvert:IsNotWhiteSpaceConverter.Convert(ViewModel.DraftText), Mode=OneWay}"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Right"
                 Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"

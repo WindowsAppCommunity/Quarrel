@@ -142,6 +142,7 @@
       <DependentUpon>UserIcon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\Common\Boolean\IsNotNullConverter.cs" />
+    <Compile Include="Converters\Common\Boolean\IsNotWhiteSpaceConverter.cs" />
     <Compile Include="Converters\Common\Boolean\IsNullConverter.cs" />
     <Compile Include="Converters\Common\Text\CaseConverter.cs" />
     <Compile Include="Converters\Common\Time\TimeFormatConverter.cs" />
