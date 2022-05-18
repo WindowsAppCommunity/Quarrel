@@ -63,7 +63,11 @@ namespace Quarrel.Services.Localization
 
         public string CommaList(params string[] args)
         {
-            if (args.Length == 1)
+            if (args.Length == 0)
+            {
+                return string.Empty;
+            }
+            else if (args.Length == 1)
             {
                 return args[0];
             }
