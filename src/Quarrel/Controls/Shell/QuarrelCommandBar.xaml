@@ -73,6 +73,7 @@
                     ToolTipService.ToolTip="Open Channel in New Window"
                     ToolTipService.Placement="Bottom"
                     Style="{StaticResource CommandBarButton}"
+                    Visibility="Collapsed"
                     Click="OpenInNewWindow">
                 <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
                           Glyph="&#xE2B4;" FontSize="16"/>
