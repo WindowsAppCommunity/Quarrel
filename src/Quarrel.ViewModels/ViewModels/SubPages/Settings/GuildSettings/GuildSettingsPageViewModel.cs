@@ -8,6 +8,7 @@ using Quarrel.Services.Storage;
 using Quarrel.ViewModels.SubPages.Settings.Abstract;
 using Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings
 {
@@ -49,6 +50,8 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings
                 new InvitesPageViewModel(localizationService, discordService, guild),
                 new BansPageViewModel(localizationService, discordService, guild)
             };
+
+            SelectedSubPage = (SettingsSubPageViewModel)Pages.FirstOrDefault(x => x is SettingsSubPageViewModel { IsActive: true });
         }
 
         /// <summary>

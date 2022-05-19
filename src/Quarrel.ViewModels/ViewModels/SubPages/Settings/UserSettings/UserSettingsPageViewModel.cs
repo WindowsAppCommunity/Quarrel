@@ -7,6 +7,7 @@ using Quarrel.Services.Storage;
 using Quarrel.ViewModels.SubPages.Settings.Abstract;
 using Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Quarrel.ViewModels.SubPages.Settings.UserSettings
 {
@@ -40,6 +41,8 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings
                 new NotificationsPageViewModel(localizationService, discordService, storageService),
                 new VoicePageViewModel(localizationService, discordService, storageService)
             };
+
+            SelectedSubPage = (SettingsSubPageViewModel)Pages.FirstOrDefault(x => x is SettingsSubPageViewModel { IsActive: true });
         }
 
         /// <summary>
