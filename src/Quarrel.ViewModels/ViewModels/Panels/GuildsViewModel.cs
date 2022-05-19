@@ -13,7 +13,7 @@ using Quarrel.Services.Analytics.Enums;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
-using Quarrel.ViewModels.SubPages.GuildSettings;
+using Quarrel.ViewModels.SubPages.Settings.GuildSettings;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 

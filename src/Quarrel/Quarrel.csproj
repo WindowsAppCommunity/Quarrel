@@ -184,11 +184,9 @@
     <Compile Include="Selectors\Guilds\GuildTemplateSelector.cs" />
     <Compile Include="Selectors\Messages\AttachmentTemplateSelector.cs" />
     <Compile Include="Selectors\Messages\MessageTemplateSelector.cs" />
-    <Compile Include="Selectors\SubPages\GuildSettings\GuildSettingsMenuItemSelector.cs" />
-    <Compile Include="Selectors\SubPages\GuildSettings\GuildSettingsPageSelector.cs" />
     <Compile Include="Selectors\SubPages\SubPageTemplateSelector.cs" />
-    <Compile Include="Selectors\SubPages\UserSettings\UserSettingsMenuItemSelector.cs" />
-    <Compile Include="Selectors\SubPages\UserSettings\UserSettingsPageSelector.cs" />
+    <Compile Include="Selectors\SubPages\Settings\SettingsMenuItemSelector.cs" />
+    <Compile Include="Selectors\SubPages\Settings\SettingsPageSelector.cs" />
     <Compile Include="Services\Analytics\AppCenterClientInfo.cs" />
     <Compile Include="Services\Analytics\AppCenterService.cs" />
     <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
@@ -211,7 +209,7 @@
     <Compile Include="SubPages\DiscordStatus\DiscordStatusPage.xaml.cs">
       <DependentUpon>DiscordStatusPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\GuildSettings\GuildSettingsPage.xaml.cs">
+    <Compile Include="SubPages\Settings\GuildSettings\GuildSettingsPage.xaml.cs">
       <DependentUpon>GuildSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\Meta\AboutPage.xaml.cs">
@@ -227,16 +225,16 @@
     <Compile Include="SubPages\Meta\CreditPage.xaml.cs">
       <DependentUpon>CreditPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\UserSettings\Pages\DisplayPage.xaml.cs">
+    <Compile Include="SubPages\Settings\UserSettings\Pages\DisplayPage.xaml.cs">
       <DependentUpon>DisplayPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\UserSettings\Pages\MyAccountPage.xaml.cs">
+    <Compile Include="SubPages\Settings\UserSettings\Pages\MyAccountPage.xaml.cs">
       <DependentUpon>MyAccountPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\UserSettings\Pages\PrivacyPage.xaml.cs">
+    <Compile Include="SubPages\Settings\UserSettings\Pages\PrivacyPage.xaml.cs">
       <DependentUpon>PrivacyPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\UserSettings\UserSettingsPage.xaml.cs">
+    <Compile Include="SubPages\Settings\UserSettings\UserSettingsPage.xaml.cs">
       <DependentUpon>UserSettingsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -595,7 +593,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SubPages\GuildSettings\GuildSettingsPage.xaml">
+    <Page Include="SubPages\Settings\GuildSettings\GuildSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -615,19 +613,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SubPages\UserSettings\Pages\DisplayPage.xaml">
+    <Page Include="SubPages\Settings\UserSettings\Pages\DisplayPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SubPages\UserSettings\Pages\MyAccountPage.xaml">
+    <Page Include="SubPages\Settings\UserSettings\Pages\MyAccountPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SubPages\UserSettings\Pages\PrivacyPage.xaml">
+    <Page Include="SubPages\Settings\UserSettings\Pages\PrivacyPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SubPages\UserSettings\UserSettingsPage.xaml">
+    <Page Include="SubPages\Settings\UserSettings\UserSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

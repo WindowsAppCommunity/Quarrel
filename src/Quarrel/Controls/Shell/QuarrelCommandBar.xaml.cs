@@ -9,7 +9,7 @@ using Quarrel.Services.Windows;
 using Quarrel.ViewModels.Panels;
 using Quarrel.ViewModels.SubPages.DiscordStatus;
 using Quarrel.ViewModels.SubPages.Meta;
-using Quarrel.ViewModels.SubPages.Settings;
+using Quarrel.ViewModels.SubPages.Settings.UserSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
