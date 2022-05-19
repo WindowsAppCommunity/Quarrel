@@ -24,5 +24,8 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
 
         /// <inheritdoc/>
         public override string Title => _localizationService[ModerationResource];
+
+        /// <inheritdoc/>
+        public override bool IsActive => true;
     }
 }

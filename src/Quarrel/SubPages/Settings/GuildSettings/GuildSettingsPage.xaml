@@ -4,7 +4,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="using:Quarrel.SubPages.Settings.GuildSettings.Pages"
     xmlns:sselector="using:Quarrel.Selectors.SubPages.Settings"
+    xmlns:gsselector="using:Quarrel.Selectors.SubPages.Settings.GuildSettings"
     xmlns:settings="using:Quarrel.ViewModels.SubPages.Settings"
     xmlns:asettings="using:Quarrel.ViewModels.SubPages.Settings.Abstract"
     mc:Ignorable="d"
@@ -12,6 +14,14 @@
     d:DesignWidth="1008">
 
     <UserControl.Resources>
+        
+        <DataTemplate x:Key="ModerationPageTemplate">
+            <pages:ModerationPage/>
+        </DataTemplate>
+        
+        <gsselector:GuildSettingsPageSelector x:Key="GuildPageSelector"
+                                             ModerationTemplate="{StaticResource ModerationPageTemplate}"/>
+
         <DataTemplate x:Key="SettingsMenuItem" x:DataType="asettings:SettingsSubPageViewModel">
             <NavigationViewItem Content="{x:Bind Title}" IsEnabled="{x:Bind IsActive}">
                 <NavigationViewItem.Icon>
@@ -39,10 +49,10 @@
                         MenuItemsSource="{x:Bind ViewModel.Pages, Mode=OneWay}"
                         MenuItemTemplateSelector="{StaticResource MenuItemSelector}">
             
-            <!--<ContentControl Content="{x:Bind ViewModel.SelectedSubPage, Mode=OneWay}"
-                            ContentTemplateSelector="{StaticResource UserPageSelector}"
+            <ContentControl Content="{x:Bind ViewModel.SelectedSubPage, Mode=OneWay}"
+                            ContentTemplateSelector="{StaticResource GuildPageSelector}"
                             HorizontalContentAlignment="Stretch"
-                            VerticalContentAlignment="Stretch"/>-->
+                            VerticalContentAlignment="Stretch"/>
             
         </NavigationView>
     </Grid>

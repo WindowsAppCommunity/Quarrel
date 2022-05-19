@@ -4,7 +4,6 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Localization;
-using Quarrel.Services.Storage;
 using Quarrel.ViewModels.SubPages.Settings.Abstract;
 using Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages;
 using System.Collections.ObjectModel;

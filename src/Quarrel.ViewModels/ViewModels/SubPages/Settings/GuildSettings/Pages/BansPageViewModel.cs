@@ -10,7 +10,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
     /// <summary>
     /// A view model for the bans page in guild settings.
     /// </summary>
-    internal class BansPageViewModel : GuildSettingsSubPageViewModel
+    public class BansPageViewModel : GuildSettingsSubPageViewModel
     {
         private const string BansResource = "GuildSettings/Bans";
 

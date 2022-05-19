@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sselector="using:Quarrel.Selectors.SubPages.Settings"
+    xmlns:usselector="using:Quarrel.Selectors.SubPages.Settings.UserSettings"
     xmlns:pages="using:Quarrel.SubPages.Settings.UserSettings.Pages"
     xmlns:settings="using:Quarrel.ViewModels.SubPages.Settings"
     xmlns:asettings="using:Quarrel.ViewModels.SubPages.Settings.Abstract"
@@ -26,10 +27,10 @@
             <pages:DisplayPage/>
         </DataTemplate>
 
-        <sselector:SettingsPageSelector x:Key="UserPageSelector"
-                                        MyAccountTemplate="{StaticResource MyAccountPageTemplate}"
-                                        PrivacyTemplate="{StaticResource PrivacyPageTemplate}"
-                                        DisplayTemplate="{StaticResource DisplayPageTemplate}"/>
+        <usselector:UserSettingsPageSelector x:Key="UserPageSelector"
+                                            MyAccountTemplate="{StaticResource MyAccountPageTemplate}"
+                                            PrivacyTemplate="{StaticResource PrivacyPageTemplate}"
+                                            DisplayTemplate="{StaticResource DisplayPageTemplate}"/>
         
         <DataTemplate x:Key="SettingsMenuItem" x:DataType="asettings:SettingsSubPageViewModel">
             <NavigationViewItem Content="{x:Bind Title}" IsEnabled="{x:Bind IsActive}">

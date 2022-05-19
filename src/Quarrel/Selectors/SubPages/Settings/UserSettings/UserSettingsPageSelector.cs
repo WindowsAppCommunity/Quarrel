@@ -4,9 +4,9 @@ using Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Selectors.SubPages.Settings
+namespace Quarrel.Selectors.SubPages.Settings.UserSettings
 {
-    public class SettingsPageSelector : DataTemplateSelector
+    public class UserSettingsPageSelector : DataTemplateSelector
     {
         public DataTemplate? BehaviorsTemplate { get; set; }
 

@@ -184,9 +184,10 @@
     <Compile Include="Selectors\Guilds\GuildTemplateSelector.cs" />
     <Compile Include="Selectors\Messages\AttachmentTemplateSelector.cs" />
     <Compile Include="Selectors\Messages\MessageTemplateSelector.cs" />
+    <Compile Include="Selectors\SubPages\Settings\GuildSettings\GuildSettingsPageSelector.cs" />
     <Compile Include="Selectors\SubPages\SubPageTemplateSelector.cs" />
     <Compile Include="Selectors\SubPages\Settings\SettingsMenuItemSelector.cs" />
-    <Compile Include="Selectors\SubPages\Settings\SettingsPageSelector.cs" />
+    <Compile Include="Selectors\SubPages\Settings\UserSettings\UserSettingsPageSelector.cs" />
     <Compile Include="Services\Analytics\AppCenterClientInfo.cs" />
     <Compile Include="Services\Analytics\AppCenterService.cs" />
     <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
@@ -224,6 +225,9 @@
     <Compile Include="Selectors\Channels\ChannelTemplateSelector.cs" />
     <Compile Include="SubPages\Meta\CreditPage.xaml.cs">
       <DependentUpon>CreditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\Settings\GuildSettings\Pages\ModerationPage.xaml.cs">
+      <DependentUpon>ModerationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\Settings\UserSettings\Pages\DisplayPage.xaml.cs">
       <DependentUpon>DisplayPage.xaml</DependentUpon>
@@ -610,6 +614,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\Meta\CreditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\Settings\GuildSettings\Pages\ModerationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
