@@ -19,7 +19,6 @@ namespace Quarrel.ViewModels.SubPages.Settings
         private const string AccountSettingsResource = "UserSettings/AccountSettings";
         private const string AppSettingsResource = "UserSettings/AppSettings";
 
-        private readonly ILocalizationService _localizationService;
         private UserSettingsSubPageViewModel? _selectedSubPage;
 
         /// <summary>
@@ -27,22 +26,20 @@ namespace Quarrel.ViewModels.SubPages.Settings
         /// </summary>
         public UserSettingsPageViewModel(ILocalizationService localizationService, IStorageService storageService, IDiscordService discordService)
         {
-            _localizationService = localizationService;
-
             Pages = new ObservableCollection<IUserSettingsMenuItem>();
 
             // Account settings
             Pages.Add(new UserSettingsHeader(localizationService, AccountSettingsResource));
-            Pages.Add(new MyAccountPageViewModel(_localizationService, storageService, discordService));
-            Pages.Add(new PrivacyPageViewModel(_localizationService, storageService, discordService));
-            Pages.Add(new ConnectionsPageViewModel(_localizationService, storageService));
+            Pages.Add(new MyAccountPageViewModel(localizationService, storageService, discordService));
+            Pages.Add(new PrivacyPageViewModel(localizationService, storageService, discordService));
+            Pages.Add(new ConnectionsPageViewModel(localizationService, storageService));
 
             // App Settings
             Pages.Add(new UserSettingsHeader(localizationService, AppSettingsResource));
-            Pages.Add(new DisplayPageViewModel(_localizationService, storageService));
-            Pages.Add(new BehaviorPageViewModel(_localizationService, storageService));
-            Pages.Add(new NotificationsPageViewModel(_localizationService, storageService));
-            Pages.Add(new VoicePageViewModel(_localizationService, storageService));
+            Pages.Add(new DisplayPageViewModel(localizationService, storageService));
+            Pages.Add(new BehaviorPageViewModel(localizationService, storageService));
+            Pages.Add(new NotificationsPageViewModel(localizationService, storageService));
+            Pages.Add(new VoicePageViewModel(localizationService, storageService));
         }
 
         /// <summary>

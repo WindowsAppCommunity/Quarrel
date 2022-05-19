@@ -399,6 +399,18 @@
           <source>Version: {0}.{1}.{2}</source>
           <target state="needs-review-translation">גרסת: {0}.{1}.{2}</target>
         </trans-unit>
+        <trans-unit id="GuildSettings/PersonalSettings" translate="yes" xml:space="preserve">
+          <source>Personal Settings</source>
+          <target state="new">Personal Settings</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/ServerSettings" translate="yes" xml:space="preserve">
+          <source>Server Settings</source>
+          <target state="new">Server Settings</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/UserManagement" translate="yes" xml:space="preserve">
+          <source>User Management</source>
+          <target state="new">User Management</target>
+        </trans-unit>
       </group>
     </body>
   </file>

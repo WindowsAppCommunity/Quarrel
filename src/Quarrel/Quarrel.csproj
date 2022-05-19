@@ -184,6 +184,8 @@
     <Compile Include="Selectors\Guilds\GuildTemplateSelector.cs" />
     <Compile Include="Selectors\Messages\AttachmentTemplateSelector.cs" />
     <Compile Include="Selectors\Messages\MessageTemplateSelector.cs" />
+    <Compile Include="Selectors\SubPages\GuildSettings\GuildSettingsMenuItemSelector.cs" />
+    <Compile Include="Selectors\SubPages\GuildSettings\GuildSettingsPageSelector.cs" />
     <Compile Include="Selectors\SubPages\SubPageTemplateSelector.cs" />
     <Compile Include="Selectors\SubPages\UserSettings\UserSettingsMenuItemSelector.cs" />
     <Compile Include="Selectors\SubPages\UserSettings\UserSettingsPageSelector.cs" />
@@ -208,6 +210,9 @@
     <Compile Include="SubPages\DiscordStatus\DiscordStatusPage.Render.cs" />
     <Compile Include="SubPages\DiscordStatus\DiscordStatusPage.xaml.cs">
       <DependentUpon>DiscordStatusPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\GuildSettings\GuildSettingsPage.xaml.cs">
+      <DependentUpon>GuildSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\Meta\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
@@ -587,6 +592,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\DiscordStatus\DiscordStatusPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\GuildSettings\GuildSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

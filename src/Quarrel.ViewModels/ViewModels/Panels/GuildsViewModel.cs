@@ -1,16 +1,19 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Bindables.Guilds.Interfaces;
 using Quarrel.Messages;
 using Quarrel.Messages.Navigation;
+using Quarrel.Messages.Navigation.SubPages;
 using Quarrel.Services.Analytics;
 using Quarrel.Services.Analytics.Enums;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
+using Quarrel.ViewModels.SubPages.GuildSettings;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 
@@ -44,6 +47,8 @@ namespace Quarrel.ViewModels
             Source = new ObservableCollection<IBindableGuildListItem>();
             _guilds = new ConcurrentDictionary<ulong, BindableGuild>();
 
+            OpenGuildSettingsCommand = new RelayCommand(OpenGuildSettings);
+
             _messenger.Register<UserLoggedInMessage>(this, (_, _) => LoadGuilds());
             _messenger.Register<NavigateToGuildMessage<ulong>>(this, (_, m) => ForwardNavigate(m.Guild));
         }
@@ -74,6 +79,11 @@ namespace Quarrel.ViewModels
         public ObservableCollection<IBindableGuildListItem> Source { get; private set; }
 
         /// <summary>
+        /// Gets a command that opens the guild settings page for this guild
+        /// </summary>
+        public RelayCommand OpenGuildSettingsCommand { get; }
+
+        /// <summary>
         /// Loads the guilds for the user.
         /// </summary>
         public void LoadGuilds()
@@ -100,6 +110,11 @@ namespace Quarrel.ViewModels
                 }
                 _messenger.Send(new GuildsLoadedMessage());
             });
+        }
+
+        private void OpenGuildSettings()
+        {
+            _messenger.Send(new NavigateToSubPageMessage(typeof(GuildSettingsPageViewModel)));
         }
 
         private void ForwardNavigate(ulong guildId)

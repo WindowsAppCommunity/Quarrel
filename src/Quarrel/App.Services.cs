@@ -18,6 +18,7 @@ using Quarrel.ViewModels;
 using Quarrel.ViewModels.Panels;
 using Quarrel.ViewModels.SubPages;
 using Quarrel.ViewModels.SubPages.DiscordStatus;
+using Quarrel.ViewModels.SubPages.GuildSettings;
 using Quarrel.ViewModels.SubPages.Host;
 using Quarrel.ViewModels.SubPages.Meta;
 using Quarrel.ViewModels.SubPages.Settings;
@@ -68,6 +69,7 @@ namespace Quarrel
             services.AddTransient<AboutPageViewModel>();
             services.AddTransient<CreditPageViewModel>();
             services.AddTransient<DiscordStatusViewModel>();
+            services.AddTransient<GuildSettingsPageViewModel>();
             services.AddTransient<UserSettingsPageViewModel>();
 
             #if DEV

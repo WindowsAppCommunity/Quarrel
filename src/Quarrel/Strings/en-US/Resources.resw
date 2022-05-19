@@ -264,6 +264,15 @@
   <data name="Guilds/Home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="GuildSettings/PersonalSettings" xml:space="preserve">
+    <value>Personal Settings</value>
+  </data>
+  <data name="GuildSettings/ServerSettings" xml:space="preserve">
+    <value>Server Settings</value>
+  </data>
+  <data name="GuildSettings/UserManagement" xml:space="preserve">
+    <value>User Management</value>
+  </data>
   <data name="InfoMessage/Call" xml:space="preserve">
     <value>{author} started a call</value>
   </data>
