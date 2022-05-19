@@ -12,7 +12,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
     /// </summary>
     public class PrivacyPageViewModel : GuildSettingsSubPageViewModel
     {
-        private const string PrivacyResource = "GuildSettingsSubPageViewModel/Privacy";
+        private const string PrivacyResource = "GuildSettings/Privacy";
 
         internal PrivacyPageViewModel(ILocalizationService localizationService, IDiscordService discordService, BindableGuild guild) :
             base(localizationService, discordService, guild)

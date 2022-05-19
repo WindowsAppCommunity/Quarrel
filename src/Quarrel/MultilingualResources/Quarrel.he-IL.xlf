@@ -411,6 +411,46 @@
           <source>User Management</source>
           <target state="new">User Management</target>
         </trans-unit>
+        <trans-unit id="GuildSettings/AuditLog" translate="yes" xml:space="preserve">
+          <source>Audit Log</source>
+          <target state="new">Audit Log</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Bans" translate="yes" xml:space="preserve">
+          <source>Bans</source>
+          <target state="new">Bans</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Emojis" translate="yes" xml:space="preserve">
+          <source>Emojis</source>
+          <target state="new">Emojis</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Invites" translate="yes" xml:space="preserve">
+          <source>Invites</source>
+          <target state="new">Invites</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Members" translate="yes" xml:space="preserve">
+          <source>Members</source>
+          <target state="new">Members</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Moderation" translate="yes" xml:space="preserve">
+          <source>Moderation</source>
+          <target state="new">Moderation</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Notifications" translate="yes" xml:space="preserve">
+          <source>Notifications</source>
+          <target state="new">Notifications</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Overview" translate="yes" xml:space="preserve">
+          <source>Overview</source>
+          <target state="new">Overview</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Privacy" translate="yes" xml:space="preserve">
+          <source>Privacy</source>
+          <target state="new">Privacy</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Roles" translate="yes" xml:space="preserve">
+          <source>Roles</source>
+          <target state="new">Roles</target>
+        </trans-unit>
       </group>
     </body>
   </file>
