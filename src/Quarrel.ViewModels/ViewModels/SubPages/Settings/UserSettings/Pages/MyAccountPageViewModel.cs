@@ -31,7 +31,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
             if (user is not null)
             {
                 _isLoggedIn = true;
-                SetBaseValues(user);
+                ResetValues(user);
             }
         }
 
@@ -80,7 +80,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
             set => SetProperty(ref _aboutMe, value);
         }
 
-        private void SetBaseValues(BindableSelfUser user)
+        private void ResetValues(BindableSelfUser user)
         {
             Email = user.SelfUser.Email;
             Username = user.SelfUser.Username;

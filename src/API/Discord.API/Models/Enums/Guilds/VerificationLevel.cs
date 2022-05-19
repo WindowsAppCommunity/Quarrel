@@ -30,6 +30,6 @@ namespace Discord.API.Models.Enums.Guilds
         /// <summary>
         /// Members must have a verified phone number for their Discord account.
         /// </summary>
-        Extreme = 4
+        Highest = 4
     }
 }

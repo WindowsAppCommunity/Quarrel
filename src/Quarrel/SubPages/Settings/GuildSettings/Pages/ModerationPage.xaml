@@ -5,6 +5,9 @@
     xmlns:local="using:Quarrel.SubPages.Settings.GuildSettings.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:bconvert="using:Quarrel.Converters.Common.Boolean"
+    xmlns:genum="using:Discord.API.Models.Enums.Guilds"
+    xmlns:senum="using:Discord.API.Models.Enums.Settings"
     mc:Ignorable="d"
     d:DesignHeight="500"
     d:DesignWidth="400">
@@ -24,8 +27,9 @@
             <TextBlock x:Uid="GuildSettings/VertificationLevelTB" Text="Verification Level"
                        FontSize="14" FontWeight="SemiBold" Margin="4,4,0,4"
                        Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
-            <RadioButton GroupName="VerificationLevel"
-                         Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
+            <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.VerificationLevel, genum:VerificationLevel.None), Mode=OneWay}"
+                         Command="{x:Bind ViewModel.SetVerificationLevelCommand}" CommandParameter="{x:Bind genum:VerificationLevel.None}"
+                         Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" GroupName="VerificationLevel"
                          Margin="8,0,0,0" Style="{StaticResource QuarrelRadioButton}">
                 <StackPanel>
                     <TextBlock x:Uid="GuildsSettings/Vertification0TB" Text="None"/>
@@ -33,8 +37,9 @@
                                Text="Unrestricted"/>
                 </StackPanel>
             </RadioButton>
-            <RadioButton GroupName="VerificationLevel"
-                         Foreground="{ThemeResource DiscordGreenBrush}"
+            <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.VerificationLevel, genum:VerificationLevel.Low), Mode=OneWay}"
+                         Command="{x:Bind ViewModel.SetVerificationLevelCommand}" CommandParameter="{x:Bind genum:VerificationLevel.Low}"
+                         Foreground="{ThemeResource DiscordGreenBrush}" GroupName="VerificationLevel"
                          Margin="8,0,0,0" Style="{StaticResource QuarrelRadioButton}">
                 <StackPanel>
                     <TextBlock x:Uid="GuildsSettings/Vertification1TB" Text="Low"/>
@@ -42,8 +47,9 @@
                                Text="Must have a verified email attached to their account."/>
                 </StackPanel>
             </RadioButton>
-            <RadioButton GroupName="VerificationLevel"
-                         Foreground="{ThemeResource DiscordYellowBrush}"
+            <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.VerificationLevel, genum:VerificationLevel.Medium), Mode=OneWay}"
+                         Command="{x:Bind ViewModel.SetVerificationLevelCommand}" CommandParameter="{x:Bind genum:VerificationLevel.Medium}"
+                         Foreground="{ThemeResource DiscordYellowBrush}" GroupName="VerificationLevel"
                          Margin="8,0,0,0" Style="{StaticResource QuarrelRadioButton}">
                 <StackPanel>
                     <TextBlock x:Uid="GuildsSettings/Vertification2TB" Text="Medium"/>
@@ -51,8 +57,9 @@
                                Text="Must also be registered on Discord for longer than 5 minutes."/>
                 </StackPanel>
             </RadioButton>
-            <RadioButton GroupName="VerificationLevel"
-                         Foreground="{ThemeResource DiscordOrangeBrush}"
+            <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.VerificationLevel, genum:VerificationLevel.High), Mode=OneWay}"
+                         Command="{x:Bind ViewModel.SetVerificationLevelCommand}" CommandParameter="{x:Bind genum:VerificationLevel.High}"
+                         Foreground="{ThemeResource DiscordOrangeBrush}" GroupName="VerificationLevel"
                          Margin="8,0,0,0" Style="{StaticResource QuarrelRadioButton}">
                 <StackPanel>
                     <TextBlock x:Uid="GuildsSettings/Vertification3TB" Text="High"/>
@@ -60,8 +67,9 @@
                                Text="Must also be a member of this server longer than 10 minutes."/>
                 </StackPanel>
             </RadioButton>
-            <RadioButton GroupName="VerificationLevel"
-                         Foreground="{ThemeResource DiscordRed}"
+            <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.VerificationLevel, genum:VerificationLevel.Highest), Mode=OneWay}"
+                         Command="{x:Bind ViewModel.SetVerificationLevelCommand}" CommandParameter="{x:Bind genum:VerificationLevel.Highest}"
+                         Foreground="{ThemeResource DiscordRed}" GroupName="VerificationLevel"
                          Margin="8,0,0,0" Style="{StaticResource QuarrelRadioButton}">
                 <StackPanel>
                     <TextBlock x:Uid="GuildsSettings/Vertification4TB" Text="Highest"/>
@@ -74,8 +82,9 @@
             <TextBlock x:Uid="GuildSettings/ExplicitContentFilterTB" Text="Explicit Content Filter"
                        FontSize="14" FontWeight="SemiBold" Margin="4,16,0,4"
                        Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
-            <RadioButton GroupName="ExplicitContentFilter"
-                         Foreground="{ThemeResource DiscordGreenBrush}"
+            <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.ExplicitContentFilterLevel, senum:ExplicitContentFilterLevel.None), Mode=OneWay}"
+                         Command="{x:Bind ViewModel.SetExplicitContentFilterLevelCommand}" CommandParameter="{x:Bind senum:ExplicitContentFilterLevel.None}"
+                         Foreground="{ThemeResource DiscordGreenBrush}" GroupName="ExplicitContentFilter"
                          Margin="8,0,0,0" Style="{StaticResource QuarrelRadioButton}">
                 <StackPanel>
                     <TextBlock x:Uid="GuildsSettings/ExplicitContentFilter0TB"
@@ -84,8 +93,9 @@
                                Text="Ain't no party like my grandma's tea party."/>
                 </StackPanel>
             </RadioButton>
-            <RadioButton GroupName="ExplicitContentFilter"
-                         Foreground="{ThemeResource DiscordYellowBrush}"
+            <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.ExplicitContentFilterLevel, senum:ExplicitContentFilterLevel.Public), Mode=OneWay}"
+                         Command="{x:Bind ViewModel.SetExplicitContentFilterLevelCommand}" CommandParameter="{x:Bind senum:ExplicitContentFilterLevel.Public}"
+                         Foreground="{ThemeResource DiscordYellowBrush}" GroupName="ExplicitContentFilter"
                          Margin="8,0,0,0" Style="{StaticResource QuarrelRadioButton}">
                 <StackPanel>
                     <TextBlock x:Uid="GuildsSettings/ExplicitContentFilter1TB"
@@ -94,8 +104,9 @@
                                Text="Recommended option for servers that use roles for trusted membership."/>
                 </StackPanel>
             </RadioButton>
-            <RadioButton GroupName="ExplicitContentFilter"
-                         Foreground="{ThemeResource DiscordRedBrush}"
+            <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.ExplicitContentFilterLevel, senum:ExplicitContentFilterLevel.All), Mode=OneWay}"
+                         Command="{x:Bind ViewModel.SetExplicitContentFilterLevelCommand}" CommandParameter="{x:Bind senum:ExplicitContentFilterLevel.All}"
+                         Foreground="{ThemeResource DiscordRedBrush}" GroupName="ExplicitContentFilter"
                          Margin="8,0,0,0" Style="{StaticResource QuarrelRadioButton}">
                 <StackPanel>
                     <TextBlock x:Uid="GuildsSettings/ExplicitContentFilter2TB"
