@@ -121,7 +121,7 @@ namespace Quarrel.ViewModels
         {
             if (SelectedGuild is BindableGuild guild)
             {
-                var viewModel = new GuildSettingsPageViewModel(_localizationService, guild);
+                var viewModel = new GuildSettingsPageViewModel(_localizationService, _discordService, guild);
                 _messenger.Send(new NavigateToSubPageMessage(viewModel));
             }
         }

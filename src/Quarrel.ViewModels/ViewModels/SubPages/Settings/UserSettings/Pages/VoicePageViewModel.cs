@@ -1,20 +1,21 @@
 ﻿// Quarrel © 2022
 
+using Quarrel.Services.Discord;
 using Quarrel.Services.Localization;
 using Quarrel.Services.Storage;
-using Quarrel.ViewModels.SubPages.Settings.Abstract;
+using Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages.Abstract;
 
 namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
 {
     /// <summary>
-    /// A view model for the voice page in settings.
+    /// A view model for the voice page in user settings.
     /// </summary>
-    public class VoicePageViewModel : SettingsSubPageViewModel
+    public class VoicePageViewModel : UserSettingsSubPageViewModel
     {
         private const string VoiceResource = "UserSettings/Voice";
 
-        internal VoicePageViewModel(ILocalizationService localizationService, IStorageService storageService) :
-            base(localizationService, storageService)
+        internal VoicePageViewModel(ILocalizationService localizationService, IDiscordService discordService, IStorageService storageService) :
+            base(localizationService, discordService, storageService)
         {
         }
 

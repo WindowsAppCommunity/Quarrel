@@ -2,7 +2,6 @@
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Quarrel.Services.Localization;
-using Quarrel.Services.Storage;
 
 namespace Quarrel.ViewModels.SubPages.Settings.Abstract
 {
@@ -16,15 +15,9 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         /// </summary>
         protected readonly ILocalizationService _localizationService;
 
-        /// <summary>
-        /// The storage service.
-        /// </summary>
-        protected readonly IStorageService _storageService;
-
-        internal SettingsSubPageViewModel(ILocalizationService localizationService, IStorageService storageService)
+        internal SettingsSubPageViewModel(ILocalizationService localizationService)
         {
             _localizationService = localizationService;
-            _storageService = storageService;
         }
 
         /// <summary>

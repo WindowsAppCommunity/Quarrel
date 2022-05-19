@@ -4,25 +4,23 @@ using Discord.API.Models.Enums.Settings;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Localization;
 using Quarrel.Services.Storage;
-using Quarrel.ViewModels.SubPages.Settings.Abstract;
+using Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages.Abstract;
 
 namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
 {
     /// <summary>
-    /// A view model for the privacy page in settings.
+    /// A view model for the privacy page in user settings.
     /// </summary>
-    public class PrivacyPageViewModel : SettingsSubPageViewModel
+    public class PrivacyPageViewModel : UserSettingsSubPageViewModel
     {
         private const string PrivacyResource = "UserSettings/Privacy";
-        private readonly IDiscordService _discordService;
         private ExplicitContentFilterLevel _contentFilterLevel;
 
-        internal PrivacyPageViewModel(ILocalizationService localizationService, IStorageService storageService, IDiscordService discordService) :
-            base(localizationService, storageService)
+        internal PrivacyPageViewModel(ILocalizationService localizationService, IDiscordService discordService, IStorageService storageService) :
+            base(localizationService, discordService, storageService)
         {
-            _discordService = discordService;
         }
-        
+
         /// <inheritdoc/>
         public override string Glyph => "";
 

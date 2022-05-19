@@ -4,17 +4,16 @@ using Quarrel.Bindables.Users;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Localization;
 using Quarrel.Services.Storage;
-using Quarrel.ViewModels.SubPages.Settings.Abstract;
+using Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages.Abstract;
 
 namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
 {
     /// <summary>
-    /// A view model for the account page in settings.
+    /// A view model for the account page in user settings.
     /// </summary>
-    public class MyAccountPageViewModel : SettingsSubPageViewModel
+    public class MyAccountPageViewModel : UserSettingsSubPageViewModel
     {
         private const string MyAccountResource = "UserSettings/MyAccount";
-        private readonly IDiscordService _discordService;
 
         private bool _isLoggedIn;
         private string? _email;
@@ -22,11 +21,10 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         private int _discriminator;
         private string? _aboutMe;
 
-        internal MyAccountPageViewModel(ILocalizationService localizationService, IStorageService storageService, IDiscordService discordService) :
-            base(localizationService, storageService)
+        internal MyAccountPageViewModel(ILocalizationService localizationService, IDiscordService discordService, IStorageService storageService) :
+            base(localizationService, discordService, storageService)
         {
             _isLoggedIn = false;
-            _discordService = discordService;
 
             var user = _discordService.GetMe();
 

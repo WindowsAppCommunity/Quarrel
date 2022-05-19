@@ -2,8 +2,11 @@
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Quarrel.Bindables.Guilds;
+using Quarrel.Services.Discord;
 using Quarrel.Services.Localization;
+using Quarrel.Services.Storage;
 using Quarrel.ViewModels.SubPages.Settings.Abstract;
+using Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages;
 using System.Collections.ObjectModel;
 
 namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings
@@ -22,18 +25,30 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings
         /// <summary>
         /// Initializes a new instance of the <see cref="GuildSettingsPageViewModel"/>.
         /// </summary>
-        public GuildSettingsPageViewModel(ILocalizationService localizationService, BindableGuild guild)
+        public GuildSettingsPageViewModel(ILocalizationService localizationService, IDiscordService discordService, BindableGuild guild)
         {
-            Pages = new ObservableCollection<ISettingsMenuItem>();
+            Pages = new ObservableCollection<ISettingsMenuItem>
+            {
+                new OverviewPageViewModel(localizationService, discordService, guild),
 
-            // Personal Settings
-            Pages.Add(new SettingsCategoryHeader(localizationService, PersonalSettingsResource));
+                // Personal Settings
+                new SettingsCategoryHeader(localizationService[PersonalSettingsResource]),
+                new PrivacyPageViewModel(localizationService, discordService, guild),
+                new NotificationsPageViewModel(localizationService, discordService, guild),
 
-            // Server Settings
-            Pages.Add(new SettingsCategoryHeader(localizationService, ServerSettingsResource));
+                // Server Settings
+                new SettingsCategoryHeader(localizationService[ServerSettingsResource]),
+                new RolesPageViewModel(localizationService, discordService, guild),
+                new EmojisPageViewModel(localizationService, discordService, guild),
+                new ModerationPageViewModel(localizationService, discordService, guild),
+                new AuditLogPageViewModel(localizationService, discordService, guild),
 
-            // User management
-            Pages.Add(new SettingsCategoryHeader(localizationService, UserManagementResource));
+                // User management
+                new SettingsCategoryHeader(localizationService[UserManagementResource]),
+                new MembersPageViewModel(localizationService, discordService, guild),
+                new InvitesPageViewModel(localizationService, discordService, guild),
+                new BansPageViewModel(localizationService, discordService, guild)
+            };
         }
 
         /// <summary>

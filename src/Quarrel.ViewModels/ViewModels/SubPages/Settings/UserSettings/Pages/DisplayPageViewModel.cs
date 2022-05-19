@@ -1,21 +1,22 @@
 ﻿// Quarrel © 2022
 
+using Quarrel.Services.Discord;
 using Quarrel.Services.Localization;
 using Quarrel.Services.Storage;
-using Quarrel.ViewModels.SubPages.Settings.Abstract;
+using Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages.Abstract;
 using System.Collections.Generic;
 
 namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
 {
     /// <summary>
-    /// A view model for the display page in settings.
+    /// A view model for the display page in user settings.
     /// </summary>
-    public class DisplayPageViewModel : SettingsSubPageViewModel
+    public class DisplayPageViewModel : UserSettingsSubPageViewModel
     {
         private const string ConnectionsResource = "UserSettings/Display";
 
-        internal DisplayPageViewModel(ILocalizationService localizationService, IStorageService storageService) :
-            base(localizationService, storageService)
+        internal DisplayPageViewModel(ILocalizationService localizationService, IDiscordService discordService, IStorageService storageService) :
+            base(localizationService, discordService, storageService)
         {
         }
 

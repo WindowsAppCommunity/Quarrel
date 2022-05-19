@@ -25,20 +25,21 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings
         /// </summary>
         public UserSettingsPageViewModel(ILocalizationService localizationService, IStorageService storageService, IDiscordService discordService)
         {
-            Pages = new ObservableCollection<ISettingsMenuItem>();
+            Pages = new ObservableCollection<ISettingsMenuItem>
+            {
+                // Account settings
+                new SettingsCategoryHeader(localizationService[AccountSettingsResource]),
+                new MyAccountPageViewModel(localizationService, discordService, storageService),
+                new PrivacyPageViewModel(localizationService, discordService, storageService),
+                new ConnectionsPageViewModel(localizationService, discordService, storageService),
 
-            // Account settings
-            Pages.Add(new SettingsCategoryHeader(localizationService, AccountSettingsResource));
-            Pages.Add(new MyAccountPageViewModel(localizationService, storageService, discordService));
-            Pages.Add(new PrivacyPageViewModel(localizationService, storageService, discordService));
-            Pages.Add(new ConnectionsPageViewModel(localizationService, storageService));
-
-            // App Settings
-            Pages.Add(new SettingsCategoryHeader(localizationService, AppSettingsResource));
-            Pages.Add(new DisplayPageViewModel(localizationService, storageService));
-            Pages.Add(new BehaviorPageViewModel(localizationService, storageService));
-            Pages.Add(new NotificationsPageViewModel(localizationService, storageService));
-            Pages.Add(new VoicePageViewModel(localizationService, storageService));
+                // App Settings
+                new SettingsCategoryHeader(localizationService[AppSettingsResource]),
+                new DisplayPageViewModel(localizationService, discordService, storageService),
+                new BehaviorPageViewModel(localizationService, discordService, storageService),
+                new NotificationsPageViewModel(localizationService, discordService, storageService),
+                new VoicePageViewModel(localizationService, discordService, storageService)
+            };
         }
 
         /// <summary>

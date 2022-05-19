@@ -9,9 +9,14 @@ namespace Quarrel.ViewModels.SubPages.Settings
     /// </summary>
     public class SettingsCategoryHeader : ISettingsMenuItem
     {
-        internal SettingsCategoryHeader(ILocalizationService localizationService, string resource)
+        internal SettingsCategoryHeader(string title)
         {
-            Title = localizationService[resource];
+            Title = title;
+        }
+
+        internal SettingsCategoryHeader(string resource, ILocalizationService localizationService) :
+            this(localizationService[resource])
+        {
         }
 
         /// <inheritdoc/>
