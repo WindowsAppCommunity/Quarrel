@@ -92,7 +92,6 @@
     </ResourceDictionary.ThemeDictionaries>
     
     <Color x:Key="ShadowColor">#FF000000</Color>
-    <Color x:Key="LightRed">#fff04747</Color>
 
     <!--Discord Colors-->
     <Color x:Key="DiscordBlurple">#7289DA</Color>
@@ -103,19 +102,21 @@
     <SolidColorBrush x:Key="DiscordGreenBrush" Color="{StaticResource DiscordGreen}"/>
     <Color x:Key="DiscordYellow">#FAA61A</Color>
     <SolidColorBrush x:Key="DiscordYellowBrush" Color="{StaticResource DiscordYellow}"/>
+    <Color x:Key="DiscordOrange">#F57731</Color>
+    <SolidColorBrush x:Key="DiscordOrangeBrush" Color="{StaticResource DiscordOrange}"/>
     <Color x:Key="DiscordRed">#FA4747</Color>
     <SolidColorBrush x:Key="DiscordRedBrush" Color="{StaticResource DiscordRed}"/>
 
     <!--Presence Colors-->
-    <Color x:Key="OnlineColor">#ff43b581</Color>
+    <Color x:Key="OnlineColor">#43B581</Color>
     <SolidColorBrush x:Key="OnlineBrush" Color="{StaticResource OnlineColor}"/>
-    <Color x:Key="IdleColor">#fffaa61a</Color>
+    <Color x:Key="IdleColor">#FAA61A</Color>
     <SolidColorBrush x:Key="IdleBrush" Color="{StaticResource IdleColor}"/>
-    <Color x:Key="DndColor">#fff04747</Color>
+    <Color x:Key="DndColor">#FA4747</Color>
     <SolidColorBrush x:Key="DndBrush" Color="{StaticResource DndColor}"/>
-    <Color x:Key="OfflineColor">#747f8d</Color>
+    <Color x:Key="OfflineColor">#747F8D</Color>
     <SolidColorBrush x:Key="OfflineBrush" Color="{StaticResource OfflineColor}"/>
-    <Color x:Key="InvisibleColor">#747f8d</Color>
+    <Color x:Key="InvisibleColor">#747F8D</Color>
     <SolidColorBrush x:Key="InvisibleBrush" Color="{StaticResource InvisibleColor}"/>
 
     <!--Service Colors-->
