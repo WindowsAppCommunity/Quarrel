@@ -1,8 +1,8 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Quarrel.Bindables.Guilds;
 using Quarrel.Services.Localization;
-using Quarrel.ViewModels.SubPages.Settings;
 using Quarrel.ViewModels.SubPages.Settings.Abstract;
 using System.Collections.ObjectModel;
 
@@ -22,7 +22,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings
         /// <summary>
         /// Initializes a new instance of the <see cref="GuildSettingsPageViewModel"/>.
         /// </summary>
-        public GuildSettingsPageViewModel(ILocalizationService localizationService)
+        public GuildSettingsPageViewModel(ILocalizationService localizationService, BindableGuild guild)
         {
             Pages = new ObservableCollection<ISettingsMenuItem>();
 

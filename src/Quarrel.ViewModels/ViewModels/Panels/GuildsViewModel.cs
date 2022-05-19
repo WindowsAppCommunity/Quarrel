@@ -36,7 +36,12 @@ namespace Quarrel.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="GuildsViewModel"/> class.
         /// </summary>
-        public GuildsViewModel(IAnalyticsService analyticsService, IMessenger messenger, ILocalizationService localizationService, IDiscordService discordService, IDispatcherService dispatcherService)
+        public GuildsViewModel(
+            IAnalyticsService analyticsService,
+            IMessenger messenger,
+            ILocalizationService localizationService,
+            IDiscordService discordService,
+            IDispatcherService dispatcherService)
         {
             _analyticsService = analyticsService;
             _messenger = messenger;
@@ -114,7 +119,11 @@ namespace Quarrel.ViewModels
 
         private void OpenGuildSettings()
         {
-            _messenger.Send(new NavigateToSubPageMessage(typeof(GuildSettingsPageViewModel)));
+            if (SelectedGuild is BindableGuild guild)
+            {
+                var viewModel = new GuildSettingsPageViewModel(_localizationService, guild);
+                _messenger.Send(new NavigateToSubPageMessage(viewModel));
+            }
         }
 
         private void ForwardNavigate(ulong guildId)

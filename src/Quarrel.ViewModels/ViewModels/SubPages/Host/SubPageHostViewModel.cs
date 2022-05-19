@@ -1,8 +1,6 @@
 ﻿// Quarrel © 2022
 
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Messages.Navigation.SubPages;
@@ -33,7 +31,7 @@ namespace Quarrel.ViewModels.SubPages.Host
             _messenger = messenger;
             _navStack = new Stack<object>();
 
-            _messenger.Register<NavigateToSubPageMessage>(this, (s, e) => NavigateToSubPage(e.TargetViewModelType));
+            _messenger.Register<NavigateToSubPageMessage>(this, (s, e) => NavigateToSubPage(e.ViewModel));
             _messenger.Register<GoBackSubPageMessage>(this, (s, e) => HandleGoBackSubPage());
         }
 
@@ -43,7 +41,7 @@ namespace Quarrel.ViewModels.SubPages.Host
         public object? ContentViewModel
         {
             get => _contentViewModel;
-            set
+            private set
             {
                 if (SetProperty(ref _contentViewModel, value))
                 {
@@ -64,17 +62,15 @@ namespace Quarrel.ViewModels.SubPages.Host
         public bool IsStacked => _navStack.Count > 0;
         
         [ICommand]
-        private void NavigateToSubPage(Type viewModelType)
+        private void NavigateToSubPage(object viewModel)
         {
-            // TODO: Investigate alternative to using Ioc
-            object viewModel = Ioc.Default.GetRequiredService(viewModelType);
             if (ContentViewModel is not null)
             {
                 _navStack.Push(ContentViewModel);
             }
 
             _analyticsService.Log(LoggedEvent.SubPageOpened,
-                ("Type", viewModelType.Name));
+                ("Type", viewModel.GetType().Name));
 
             ContentViewModel = viewModel;
         }
