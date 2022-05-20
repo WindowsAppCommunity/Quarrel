@@ -20,7 +20,7 @@
             <StackPanel Padding="16">
                 <TextBox x:Uid="UserSettings/EmailTBox"
                          Header="Email"
-                         Text="{x:Bind ViewModel.Email, Mode=TwoWay}"
+                         Text="{x:Bind ViewModel.Email.Value, Mode=TwoWay}"
                          IsReadOnly="True"
                          Style="{StaticResource DiscordTextBox}"/>
                 <Grid>
@@ -30,13 +30,13 @@
                     </Grid.ColumnDefinitions>
                     <TextBox x:Uid="UserSettings/UsernameTBox"
                              Header="Username"
-                             Text="{x:Bind ViewModel.Username, Mode=TwoWay}"
+                             Text="{x:Bind ViewModel.Username.Value, Mode=TwoWay}"
                              IsReadOnly="True"
                              Margin="0,0,8,0"
                              Style="{StaticResource DiscordTextBox}"/>
                     <TextBox x:Uid="UserSettings/DiscriminatorTBox"
                              Header="Discriminator"
-                             Text="{x:Bind ViewModel.Discriminator, Mode=TwoWay}"
+                             Text="{x:Bind ViewModel.Discriminator.Value, Mode=TwoWay}"
                              Grid.Column="1"
                              IsReadOnly="True"
                              Style="{StaticResource DiscordTextBox}"/>
@@ -44,7 +44,7 @@
 
                 <TextBox x:Uid="UserSettings/AboutMeTBox"
                          Header="About Me"
-                         Text="{x:Bind ViewModel.AboutMe, Mode=TwoWay}"
+                         Text="{x:Bind ViewModel.AboutMe.Value, Mode=TwoWay}"
                          Style="{StaticResource DiscordTextBox}"
                          TextWrapping="Wrap"
                          IsReadOnly="True"

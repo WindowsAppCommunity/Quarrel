@@ -6,7 +6,9 @@ using Microsoft.Toolkit.Mvvm.Input;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Localization;
+using Quarrel.ViewModels.SubPages.Settings.Abstract;
 using Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages.Abstract;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
 {
@@ -17,8 +19,8 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
     {
         private const string ModerationResource = "GuildSettings/Moderation";
 
-        private ExplicitContentFilterLevel _explicitContentFilterLevel;
-        private VerificationLevel _verificationLevel;
+        private DraftValue<ExplicitContentFilterLevel> _explicitContentFilterLevel;
+        private DraftValue<VerificationLevel> _verificationLevel;
 
         internal ModerationPageViewModel(ILocalizationService localizationService, IDiscordService discordService, BindableGuild guild) :
             base(localizationService, discordService, guild)
@@ -41,7 +43,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
         /// <summary>
         /// Gets or sets the verification level.
         /// </summary>
-        public VerificationLevel VerificationLevel
+        public DraftValue<VerificationLevel> VerificationLevel
         {
             get => _verificationLevel;
             set => SetProperty(ref _verificationLevel, value);
@@ -50,7 +52,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
         /// <summary>
         /// Gets or sets the explicit content filter level.
         /// </summary>
-        public ExplicitContentFilterLevel ExplicitContentFilterLevel
+        public DraftValue<ExplicitContentFilterLevel> ExplicitContentFilterLevel
         {
             get => _explicitContentFilterLevel;
             set => SetProperty(ref _explicitContentFilterLevel, value);
@@ -68,14 +70,14 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
 
         private void ResetValues(BindableGuild guild)
         {
-            VerificationLevel = guild.Guild.VerificationLevel;
-            ExplicitContentFilterLevel = guild.Guild.ExplicitContentFilter;
+            VerificationLevel = new(guild.Guild.VerificationLevel);
+            ExplicitContentFilterLevel = new(guild.Guild.ExplicitContentFilter);
         }
 
         private void SetVerificationLevel(VerificationLevel verificationLevel)
-            => VerificationLevel = verificationLevel;
+            => VerificationLevel.Value = verificationLevel;
 
         private void SetExplicitContentFilterLevel(ExplicitContentFilterLevel explicitContentFilterLevel)
-            => ExplicitContentFilterLevel = explicitContentFilterLevel;
+            => ExplicitContentFilterLevel.Value = explicitContentFilterLevel;
     }
 }
