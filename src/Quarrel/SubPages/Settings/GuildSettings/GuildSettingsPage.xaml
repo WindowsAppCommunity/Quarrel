@@ -15,12 +15,17 @@
 
     <UserControl.Resources>
         
+        <DataTemplate x:Key="OverviewPageTemplate">
+            <pages:OverviewPage/>
+        </DataTemplate>
+        
         <DataTemplate x:Key="ModerationPageTemplate">
             <pages:ModerationPage/>
         </DataTemplate>
         
         <gsselector:GuildSettingsPageSelector x:Key="GuildPageSelector"
-                                             ModerationTemplate="{StaticResource ModerationPageTemplate}"/>
+                                              OverviewTemplate="{StaticResource OverviewPageTemplate}"
+                                              ModerationTemplate="{StaticResource ModerationPageTemplate}"/>
 
         <DataTemplate x:Key="SettingsMenuItem" x:DataType="asettings:SettingsSubPageViewModel">
             <NavigationViewItem Content="{x:Bind Title}" IsEnabled="{x:Bind IsActive}">

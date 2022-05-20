@@ -229,6 +229,9 @@
     <Compile Include="SubPages\Settings\GuildSettings\Pages\ModerationPage.xaml.cs">
       <DependentUpon>ModerationPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\Settings\GuildSettings\Pages\OverviewPage.xaml.cs">
+      <DependentUpon>OverviewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\Settings\UserSettings\Pages\DisplayPage.xaml.cs">
       <DependentUpon>DisplayPage.xaml</DependentUpon>
     </Compile>
@@ -618,6 +621,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\Settings\GuildSettings\Pages\ModerationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\Settings\GuildSettings\Pages\OverviewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

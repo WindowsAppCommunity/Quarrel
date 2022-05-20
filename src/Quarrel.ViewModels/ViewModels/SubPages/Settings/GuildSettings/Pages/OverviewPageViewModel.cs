@@ -14,9 +14,12 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
     {
         private const string OverviewResource = "GuildSettings/Overview";
 
+        private string _name;
+
         internal OverviewPageViewModel(ILocalizationService localizationService, IDiscordService discordService, BindableGuild guild) :
             base(localizationService, discordService, guild)
         {
+            ResetValues(guild);
         }
 
         /// <inheritdoc/>
@@ -24,5 +27,22 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
 
         /// <inheritdoc/>
         public override string Title => _localizationService[OverviewResource];
+
+        /// <inheritdoc/>
+        public override bool IsActive => true;
+
+        /// <summary>
+        /// Gets or sets the guild's name.
+        /// </summary>
+        public string Name
+        {
+            get => _name;
+            set => SetProperty(ref _name, value);
+        }
+
+        private void ResetValues(BindableGuild guild)
+        {
+            Name = guild.Guild.Name;
+        }
     }
 }
