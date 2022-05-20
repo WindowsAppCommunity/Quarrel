@@ -90,6 +90,7 @@
     <Compile Include="Behaviors\KeyDownCommandAction.cs" />
     <Compile Include="Behaviors\OpenFlyoutAction.cs" />
     <Compile Include="Controls\Direction.cs" />
+    <Compile Include="Controls\DraftBlock.cs" />
     <Compile Include="Controls\Host\SecondaryWindowHost.xaml.cs">
       <DependentUpon>SecondaryWindowHost.xaml</DependentUpon>
     </Compile>
@@ -643,6 +644,10 @@
     <Page Include="SubPages\Settings\UserSettings\UserSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

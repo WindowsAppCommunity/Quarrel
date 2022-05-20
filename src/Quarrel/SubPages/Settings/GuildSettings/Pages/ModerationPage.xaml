@@ -5,6 +5,7 @@
     xmlns:local="using:Quarrel.SubPages.Settings.GuildSettings.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:qc="using:Quarrel.Controls"
     xmlns:bconvert="using:Quarrel.Converters.Common.Boolean"
     xmlns:genum="using:Discord.API.Models.Enums.Guilds"
     xmlns:senum="using:Discord.API.Models.Enums.Settings"
@@ -24,11 +25,9 @@
     <ScrollViewer>
         <StackPanel>
             <!--Verification Level-->
-            <Grid Margin="0,4,0,0">
-                <Rectangle Visibility="{x:Bind ViewModel.VerificationLevel.Drafted, Mode=OneWay}"
-                           Fill="{ThemeResource DiscordYellowBrush}" Opacity=".1"/>
+            <qc:DraftBlock IsDrafted="{x:Bind ViewModel.VerificationLevel.Drafted, Mode=OneWay}" Margin="0,4,0,0">
                 <StackPanel>
-                    <TextBlock x:Uid="GuildSettings/VertificationLevelTB" Text="Verification Level"
+                    <TextBlock x:Uid="GuildSettings/VertificationLevelTB" Text="VERIFICATION LEVEL"
                                FontSize="14" FontWeight="SemiBold" Margin="4,0,0,4"
                                Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
                     <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.VerificationLevel.Value, genum:VerificationLevel.None), Mode=OneWay}"
@@ -82,14 +81,12 @@
                         </StackPanel>
                     </RadioButton>
                 </StackPanel>
-            </Grid>
+            </qc:DraftBlock>
 
             <!--Explicit Content Filter-->
-            <Grid Margin="0,16,0,0">
-                <Rectangle Visibility="{x:Bind ViewModel.ExplicitContentFilterLevel.Drafted, Mode=OneWay}"
-                           Fill="{ThemeResource DiscordYellowBrush}" Opacity=".1"/>
+            <qc:DraftBlock IsDrafted="{x:Bind ViewModel.ExplicitContentFilterLevel.Drafted, Mode=OneWay}" Margin="0,16,0,0">
                 <StackPanel>
-                    <TextBlock x:Uid="GuildSettings/ExplicitContentFilterTB" Text="Explicit Content Filter"
+                    <TextBlock x:Uid="GuildSettings/ExplicitContentFilterTB" Text="EXPLICIT CONTENT FILTER"
                                FontSize="14" FontWeight="SemiBold" Margin="4,0,0,4"
                                Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
                     <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.ExplicitContentFilterLevel.Value, senum:ExplicitContentFilterLevel.None), Mode=OneWay}"
@@ -126,7 +123,7 @@
                         </StackPanel>
                     </RadioButton>
                 </StackPanel>
-            </Grid>
+            </qc:DraftBlock>
         </StackPanel>
     </ScrollViewer>
 </UserControl>
