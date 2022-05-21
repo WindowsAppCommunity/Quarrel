@@ -72,6 +72,7 @@ namespace Quarrel.Bindables.Messages
                 Attachments[i] = new BindableAttachment(messenger, discordService, dispatcherService, _message.Attachments[i]);
             }
 
+            MarkLastReadCommand = new RelayCommand(() => _discordService.MarkRead(ChannelId, Id));
             CopyIdCommand = new RelayCommand(() => _clipboardService.Copy($"{Id}"));
             CopyLinkCommand = new RelayCommand(() => _clipboardService.Copy($"{message.MessageUri}"));
             DeleteCommand = new RelayCommand(() => _discordService.DeleteMessage(ChannelId, Id));
@@ -168,6 +169,11 @@ namespace Quarrel.Bindables.Messages
         /// </summary>
         // TODO: Properly handle deletable condition
         public bool CanDelete => Message.IsOwn;
+
+        /// <summary>
+        /// Gets a command that marks the message as the last read message in the channel.
+        /// </summary>
+        public RelayCommand MarkLastReadCommand { get; }
 
         /// <summary>
         /// Gets a command that copies the message id to the clipboard.
