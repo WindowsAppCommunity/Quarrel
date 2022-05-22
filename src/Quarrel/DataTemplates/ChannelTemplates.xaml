@@ -11,6 +11,14 @@
 
     <DataTemplate x:Key="TextChannelTemplate" x:DataType="bindablechannels:BindableTextChannel">
         <Grid Height="40">
+
+            <Grid.ContextFlyout>
+                <MenuFlyout>
+                    <MenuFlyoutItem x:Uid="Channel/MarkAsRead" Text="Mark as Read"
+                                    Icon="View" Command="{x:Bind MarkAsReadCommand}"/>
+                </MenuFlyout>
+            </Grid.ContextFlyout>
+
             <Grid Visibility="{x:Bind IsSelected, Mode=OneWay}" Opacity=".2" Background="{ThemeResource SystemControlBackgroundAccentBrush}"/>
 
             <Border x:Name="UnreadIndicator"

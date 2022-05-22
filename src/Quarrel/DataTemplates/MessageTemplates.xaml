@@ -105,11 +105,7 @@
                 <Grid.ContextFlyout>
                     <MenuFlyout>
                         <MenuFlyoutItem x:Uid="Message/CopyLink" Text="Copy Message Link"
-                                        Command="{x:Bind CopyLinkCommand}">
-                            <MenuFlyoutItem.Icon>
-                                <SymbolIcon Symbol="Link"/>
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
+                                        Icon="Link" Command="{x:Bind CopyLinkCommand}"/>
                         <MenuFlyoutItem x:Uid="Message/CopyId" Text="Copy ID"
                                         Command="{x:Bind CopyIdCommand}">
                             <MenuFlyoutItem.Icon>
