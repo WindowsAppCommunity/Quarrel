@@ -25,6 +25,7 @@ namespace Quarrel.Services.Discord
         private readonly ILocalizationService _localizationService;
         private readonly IDispatcherService _dispatcherService;
         private readonly IMessenger _messenger;
+        private LoginType? _loginSource;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DiscordService"/> class.
@@ -66,10 +67,8 @@ namespace Quarrel.Services.Discord
 
             try
             {
+                _loginSource = source;
                 await _quarrelClient.LoginAsync(token);
-
-                _analyticsService.Log(LoggedEvent.SuccessfulLogin,
-                    (nameof(source), $"{source}"));
 
                 return true;
             }
@@ -87,6 +86,8 @@ namespace Quarrel.Services.Discord
 
         private void OnLoggedIn(object sender, SelfUser e)
         {
+            _analyticsService.Log(LoggedEvent.SuccessfulLogin, (nameof(_loginSource), $"{_loginSource}"));
+
             string? token = _quarrelClient.Token;
 
             Guard.IsNotNull(token, nameof(token));
