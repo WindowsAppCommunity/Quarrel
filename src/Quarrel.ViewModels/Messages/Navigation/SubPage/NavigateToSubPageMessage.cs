@@ -1,5 +1,8 @@
 ﻿// Quarrel © 2022
 
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using System;
 
 namespace Quarrel.Messages.Navigation.SubPages
@@ -14,12 +17,21 @@ namespace Quarrel.Messages.Navigation.SubPages
         /// </summary>
         public NavigateToSubPageMessage(Type targetViewModelType)
         {
-            TargetViewModelType = targetViewModelType;
+            // TODO: Investigate alternative to using Ioc
+            ViewModel = (ObservableObject)Ioc.Default.GetRequiredService(targetViewModelType);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NavigateToSubPageMessage"/> class.
+        /// </summary>
+        public NavigateToSubPageMessage(ObservableObject viewModel)
+        {
+            ViewModel = viewModel;
         }
 
         /// <summary>
         /// Gets the type of ViewModel for the target SubPage.
         /// </summary>
-        public Type TargetViewModelType { get; }
+        public ObservableObject ViewModel { get; }
     }
 }

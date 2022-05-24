@@ -11,7 +11,7 @@ using Quarrel.Services.Analytics;
 using Quarrel.Services.Analytics.Enums;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
-using Quarrel.ViewModels.SubPages.Settings;
+using Quarrel.ViewModels.SubPages.Settings.UserSettings;
 using System;
 
 namespace Quarrel.ViewModels

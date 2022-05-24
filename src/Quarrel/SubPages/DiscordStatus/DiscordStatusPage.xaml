@@ -5,7 +5,7 @@
     xmlns:local="using:Quarrel.SubPages.DiscordStatus"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:convert="using:Quarrel.Converters"
+    xmlns:sconvert="using:Quarrel.Converters.Discord.APIStatus"
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     xmlns:models="using:Quarrel.ViewModels.SubPages.DiscordStatus.Models"
     mc:Ignorable="d"
@@ -132,7 +132,7 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Column="1" Opacity="0.6" FontWeight="Light" FontSize="14" Text="{x:Bind Name}"/>
-                            <TextBlock Grid.Column="2" Text="{x:Bind Status}" VerticalAlignment="Bottom" Foreground="{x:Bind convert:StatusToBrushConverter.Convert(Status)}" FontSize="11" Opacity="1" Margin="0,-2,0,0"/>
+                            <TextBlock Grid.Column="2" Text="{x:Bind Status}" VerticalAlignment="Bottom" Foreground="{x:Bind sconvert:StatusToBrushConverter.Convert(Status)}" FontSize="11" Opacity="1" Margin="0,-2,0,0"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

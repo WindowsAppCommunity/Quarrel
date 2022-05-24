@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
@@ -26,6 +27,7 @@ namespace Quarrel.Bindables.Channels.Abstract
             PrivateChannel privateChannel) :
             base(messenger, discordService, dispatcherService, privateChannel)
         {
+            MarkAsReadCommand = new RelayCommand(() => _discordService.MarkRead(Id, MessageChannel.LastMessageId ?? 0));
         }
 
         /// <inheritdoc/>
@@ -36,6 +38,9 @@ namespace Quarrel.Bindables.Channels.Abstract
 
         /// <inheritdoc/>
         public IMessageChannel MessageChannel => (IMessageChannel)Channel;
+
+        /// <inheritdoc/>
+        public RelayCommand MarkAsReadCommand { get; }
 
         /// <summary>
         /// Creates a new instance of a <see cref="BindablePrivateChannel"/> based on the type.

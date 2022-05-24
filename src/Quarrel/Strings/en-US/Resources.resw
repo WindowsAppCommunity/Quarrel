@@ -264,6 +264,45 @@
   <data name="Guilds/Home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="GuildSettings/AuditLog" xml:space="preserve">
+    <value>Audit Log</value>
+  </data>
+  <data name="GuildSettings/Bans" xml:space="preserve">
+    <value>Bans</value>
+  </data>
+  <data name="GuildSettings/Emojis" xml:space="preserve">
+    <value>Emojis</value>
+  </data>
+  <data name="GuildSettings/Invites" xml:space="preserve">
+    <value>Invites</value>
+  </data>
+  <data name="GuildSettings/Members" xml:space="preserve">
+    <value>Members</value>
+  </data>
+  <data name="GuildSettings/Moderation" xml:space="preserve">
+    <value>Moderation</value>
+  </data>
+  <data name="GuildSettings/Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="GuildSettings/Overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="GuildSettings/PersonalSettings" xml:space="preserve">
+    <value>Personal Settings</value>
+  </data>
+  <data name="GuildSettings/Privacy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="GuildSettings/Roles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="GuildSettings/ServerSettings" xml:space="preserve">
+    <value>Server Settings</value>
+  </data>
+  <data name="GuildSettings/UserManagement" xml:space="preserve">
+    <value>User Management</value>
+  </data>
   <data name="InfoMessage/Call" xml:space="preserve">
     <value>{author} started a call</value>
   </data>

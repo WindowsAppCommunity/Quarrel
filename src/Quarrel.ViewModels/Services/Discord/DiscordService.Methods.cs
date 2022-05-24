@@ -179,16 +179,23 @@ namespace Quarrel.Services.Discord
         }
 
         /// <inheritdoc/>
+        public async Task MarkRead(ulong channelId, ulong messageId)
+        {
+            _analyticsService.Log(LoggedEvent.MarkRead);
+            await _quarrelClient.MarkRead(channelId, messageId);
+        }
+
+        /// <inheritdoc/>
         public async Task SendMessage(ulong channelId, string content)
         {
             _analyticsService.Log(LoggedEvent.MessageSent);
-
             await _quarrelClient.SendMessage(channelId, content);
         }
 
         /// <inheritdoc/>
         public async Task DeleteMessage(ulong channelId, ulong messageId)
         {
+            _analyticsService.Log(LoggedEvent.MessageDeleted);
             await _quarrelClient.DeleteMessage(channelId, messageId);
         }
 

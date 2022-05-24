@@ -1,0 +1,41 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:qc="using:Quarrel.Controls">
+
+    <Style TargetType="qc:DraftBlock">
+        <Setter Property="Background" Value="{ThemeResource DiscordYellowBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="qc:DraftBlock">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation To="0" Duration="0:0:0.2" Storyboard.TargetName="bg" Storyboard.TargetProperty="Opacity">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Drafted">
+                                    <Storyboard>
+                                        <DoubleAnimation To="0.1" Duration="0:0:0.2" Storyboard.TargetName="bg" Storyboard.TargetProperty="Opacity">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Rectangle x:Name="bg" Fill="{TemplateBinding Background}" Opacity="0"/>
+                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

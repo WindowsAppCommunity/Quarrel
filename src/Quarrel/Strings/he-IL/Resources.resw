@@ -237,7 +237,7 @@
     <value>החברים שלי נחמדים</value>
   </data>
   <data name="UserSettings/ProtectMeDescTB.Text" xml:space="preserve">
-    <value>לנתח את כל ההודעות הישירות</value>
+    <value>נתח את כל ההודעות הישירות</value>
   </data>
   <data name="UserSettings/ProtectMeTB.Text" xml:space="preserve">
     <value>הגן עליי</value>
@@ -283,5 +283,44 @@
   </data>
   <data name="About/Version" xml:space="preserve">
     <value>גרסת: {0}.{1}.{2}</value>
+  </data>
+  <data name="GuildSettings/PersonalSettings" xml:space="preserve">
+    <value>הגדרות אישיות</value>
+  </data>
+  <data name="GuildSettings/ServerSettings" xml:space="preserve">
+    <value>הגדרות שרת</value>
+  </data>
+  <data name="GuildSettings/UserManagement" xml:space="preserve">
+    <value>ניהול משתמשים</value>
+  </data>
+  <data name="GuildSettings/AuditLog" xml:space="preserve">
+    <value>יומן ביקורת</value>
+  </data>
+  <data name="GuildSettings/Bans" xml:space="preserve">
+    <value>איסורים</value>
+  </data>
+  <data name="GuildSettings/Emojis" xml:space="preserve">
+    <value>Emojis</value>
+  </data>
+  <data name="GuildSettings/Invites" xml:space="preserve">
+    <value>מזמין</value>
+  </data>
+  <data name="GuildSettings/Members" xml:space="preserve">
+    <value>חברים</value>
+  </data>
+  <data name="GuildSettings/Moderation" xml:space="preserve">
+    <value>מתינות</value>
+  </data>
+  <data name="GuildSettings/Notifications" xml:space="preserve">
+    <value>הודעות</value>
+  </data>
+  <data name="GuildSettings/Overview" xml:space="preserve">
+    <value>סקירה כללית</value>
+  </data>
+  <data name="GuildSettings/Privacy" xml:space="preserve">
+    <value>פרטיות</value>
+  </data>
+  <data name="GuildSettings/Roles" xml:space="preserve">
+    <value>תפקידים</value>
   </data>
 </root>

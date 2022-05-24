@@ -1,0 +1,129 @@
+﻿<UserControl
+    x:Class="Quarrel.SubPages.Settings.GuildSettings.Pages.ModerationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Quarrel.SubPages.Settings.GuildSettings.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:qc="using:Quarrel.Controls"
+    xmlns:bconvert="using:Quarrel.Converters.Common.Boolean"
+    xmlns:genum="using:Discord.API.Models.Enums.Guilds"
+    xmlns:senum="using:Discord.API.Models.Enums.Settings"
+    mc:Ignorable="d"
+    d:DesignHeight="500"
+    d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <Style x:Key="DescriptionStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}"/>
+            <Setter Property="TextWrapping" Value="WrapWholeWords"/>
+            <Setter Property="Opacity" Value="0.5"/>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer>
+        <StackPanel>
+            <!--Verification Level-->
+            <qc:DraftBlock IsDrafted="{x:Bind ViewModel.VerificationLevel.Drafted, Mode=OneWay}" Margin="0,4,0,0">
+                <StackPanel>
+                    <TextBlock x:Uid="GuildSettings/VertificationLevelTB" Text="VERIFICATION LEVEL"
+                               FontSize="14" FontWeight="SemiBold" Margin="4,0,0,4"
+                               Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+                    <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.VerificationLevel.Value, genum:VerificationLevel.None), Mode=OneWay}"
+                                 Command="{x:Bind ViewModel.SetVerificationLevelCommand}" CommandParameter="{x:Bind genum:VerificationLevel.None}"
+                                 Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" GroupName="VerificationLevel"
+                                 Margin="8,0,0,0" Style="{StaticResource QuarrelRadioButton}">
+                        <StackPanel>
+                            <TextBlock x:Uid="GuildsSettings/Vertification0TB" Text="None"/>
+                            <TextBlock x:Uid="GuildsSettings/Vertification0DescTB" Style="{StaticResource DescriptionStyle}"
+                                       Text="Unrestricted"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.VerificationLevel.Value, genum:VerificationLevel.Low), Mode=OneWay}"
+                                 Command="{x:Bind ViewModel.SetVerificationLevelCommand}" CommandParameter="{x:Bind genum:VerificationLevel.Low}"
+                                 Foreground="{ThemeResource DiscordGreenBrush}" GroupName="VerificationLevel"
+                                 Margin="8,0,0,0" Style="{StaticResource QuarrelRadioButton}">
+                        <StackPanel>
+                            <TextBlock x:Uid="GuildsSettings/Vertification1TB" Text="Low"/>
+                            <TextBlock x:Uid="GuildsSettings/Vertification1DescTB" Style="{StaticResource DescriptionStyle}"
+                                       Text="Must have a verified email attached to their account."/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.VerificationLevel.Value, genum:VerificationLevel.Medium), Mode=OneWay}"
+                                 Command="{x:Bind ViewModel.SetVerificationLevelCommand}" CommandParameter="{x:Bind genum:VerificationLevel.Medium}"
+                                 Foreground="{ThemeResource DiscordYellowBrush}" GroupName="VerificationLevel"
+                                 Margin="8,0,0,0" Style="{StaticResource QuarrelRadioButton}">
+                        <StackPanel>
+                            <TextBlock x:Uid="GuildsSettings/Vertification2TB" Text="Medium"/>
+                            <TextBlock x:Uid="GuildsSettings/Vertification2DescTB" Style="{StaticResource DescriptionStyle}"
+                                       Text="Must also be registered on Discord for longer than 5 minutes."/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.VerificationLevel.Value, genum:VerificationLevel.High), Mode=OneWay}"
+                                 Command="{x:Bind ViewModel.SetVerificationLevelCommand}" CommandParameter="{x:Bind genum:VerificationLevel.High}"
+                                 Foreground="{ThemeResource DiscordOrangeBrush}" GroupName="VerificationLevel"
+                                 Margin="8,0,0,0" Style="{StaticResource QuarrelRadioButton}">
+                        <StackPanel>
+                            <TextBlock x:Uid="GuildsSettings/Vertification3TB" Text="High"/>
+                            <TextBlock x:Uid="GuildsSettings/Vertification3DescTB" Style="{StaticResource DescriptionStyle}"
+                                       Text="Must also be a member of this server longer than 10 minutes."/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.VerificationLevel.Value, genum:VerificationLevel.Highest), Mode=OneWay}"
+                                 Command="{x:Bind ViewModel.SetVerificationLevelCommand}" CommandParameter="{x:Bind genum:VerificationLevel.Highest}"
+                                 Foreground="{ThemeResource DiscordRed}" GroupName="VerificationLevel"
+                                 Margin="8,0,0,0" Style="{StaticResource QuarrelRadioButton}">
+                        <StackPanel>
+                            <TextBlock x:Uid="GuildsSettings/Vertification4TB" Text="Highest"/>
+                            <TextBlock x:Uid="GuildsSettings/Vertification4DescTB" Style="{StaticResource DescriptionStyle}"
+                                       Text="Must have a verified phone on their discord account."/>
+                        </StackPanel>
+                    </RadioButton>
+                </StackPanel>
+            </qc:DraftBlock>
+
+            <!--Explicit Content Filter-->
+            <qc:DraftBlock IsDrafted="{x:Bind ViewModel.ExplicitContentFilterLevel.Drafted, Mode=OneWay}" Margin="0,16,0,0">
+                <StackPanel>
+                    <TextBlock x:Uid="GuildSettings/ExplicitContentFilterTB" Text="EXPLICIT CONTENT FILTER"
+                               FontSize="14" FontWeight="SemiBold" Margin="4,0,0,4"
+                               Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+                    <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.ExplicitContentFilterLevel.Value, senum:ExplicitContentFilterLevel.None), Mode=OneWay}"
+                                 Command="{x:Bind ViewModel.SetExplicitContentFilterLevelCommand}" CommandParameter="{x:Bind senum:ExplicitContentFilterLevel.None}"
+                                 Foreground="{ThemeResource DiscordGreenBrush}" GroupName="ExplicitContentFilter"
+                                 Margin="8,0,0,0" Style="{StaticResource QuarrelRadioButton}">
+                        <StackPanel>
+                            <TextBlock x:Uid="GuildsSettings/ExplicitContentFilter0TB"
+                                       Text="Don't scan any media content."/>
+                            <TextBlock x:Uid="GuildsSettings/ExplicitContentFilter0DescTB" Style="{StaticResource DescriptionStyle}"
+                                       Text="Ain't no party like my grandma's tea party."/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.ExplicitContentFilterLevel.Value, senum:ExplicitContentFilterLevel.Public), Mode=OneWay}"
+                                 Command="{x:Bind ViewModel.SetExplicitContentFilterLevelCommand}" CommandParameter="{x:Bind senum:ExplicitContentFilterLevel.Public}"
+                                 Foreground="{ThemeResource DiscordYellowBrush}" GroupName="ExplicitContentFilter"
+                                 Margin="8,0,0,0" Style="{StaticResource QuarrelRadioButton}">
+                        <StackPanel>
+                            <TextBlock x:Uid="GuildsSettings/ExplicitContentFilter1TB"
+                                       Text="Scan media content from members without a role."/>
+                            <TextBlock x:Uid="GuildsSettings/ExplicitContentFilter1DescTB" Style="{StaticResource DescriptionStyle}"
+                                       Text="Recommended option for servers that use roles for trusted membership."/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton IsChecked="{x:Bind bconvert:EqualityConverter.Convert(ViewModel.ExplicitContentFilterLevel.Value, senum:ExplicitContentFilterLevel.All), Mode=OneWay}"
+                                 Command="{x:Bind ViewModel.SetExplicitContentFilterLevelCommand}" CommandParameter="{x:Bind senum:ExplicitContentFilterLevel.All}"
+                                 Foreground="{ThemeResource DiscordRedBrush}" GroupName="ExplicitContentFilter"
+                                 Margin="8,0,0,0" Style="{StaticResource QuarrelRadioButton}">
+                        <StackPanel>
+                            <TextBlock x:Uid="GuildsSettings/ExplicitContentFilter2TB"
+                                       Text="Scan media content from all members."/>
+                            <TextBlock x:Uid="GuildsSettings/ExplicitContentFilter2DescTB" Style="{StaticResource DescriptionStyle}"
+                                       Text="Recommended option for when you want that squeaky clean shine."/>
+                        </StackPanel>
+                    </RadioButton>
+                </StackPanel>
+            </qc:DraftBlock>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

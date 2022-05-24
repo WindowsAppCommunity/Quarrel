@@ -1,0 +1,70 @@
+﻿<UserControl
+    x:Class="Quarrel.SubPages.Settings.UserSettings.Pages.PrivacyPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Quarrel.SubPages.Settings.UserSettings.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="800">
+
+    <ScrollViewer>
+        <StackPanel Padding="16">
+            <TextBlock x:Uid="UserSettings/DMFilterTB"
+                       Text="DIRECT MESSAGE FILTERING"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
+                       TextWrapping="Wrap"/>
+            <TextBlock x:Uid="UserSettings/DMFilterDescTB"
+                       Text="Analyze and automatically delete direct messages containing explicit content"
+                       TextWrapping="Wrap" FontSize="12" Opacity="0.75"
+                       Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+            
+            <RadioButton IsChecked="{x:Bind ViewModel.FilterAll, Mode=TwoWay}"
+                         Style="{StaticResource QuarrelRadioButton}"
+                         Foreground="{StaticResource DiscordGreenBrush}"
+                         Margin="0,6,0,0"
+                         GroupName="Filtering">
+                <StackPanel>
+                    <TextBlock x:Uid="UserSettings/ProtectMeTB"
+                               Text="Protect me"/>
+                    <TextBlock x:Uid="UserSettings/ProtectMeDescTB"
+                               Text="Analyze all DMs"
+                               FontSize="11" TextWrapping="Wrap"
+                               Opacity="0.5"
+                               Foreground="{ThemeResource InvertedBackground}"/>
+                </StackPanel>
+            </RadioButton>
+            <RadioButton IsChecked="{x:Bind ViewModel.FilterPublic, Mode=TwoWay}"
+                         Style="{StaticResource QuarrelRadioButton}"
+                         Foreground="{StaticResource DiscordYellowBrush}"
+                         GroupName="Filtering">
+                <StackPanel>
+                    <TextBlock x:Uid="UserSettings/NiceFriendsTB"
+                               Text="My friends are nice"/>
+                    <TextBlock x:Uid="UserSettings/NiceFriendsDescTB"
+                               Text="Analyze all DMs, except from my friends"
+                               FontSize="11" TextWrapping="Wrap"
+                               Opacity="0.5"
+                               Foreground="{ThemeResource InvertedBackground}"/>
+                </StackPanel>
+            </RadioButton>
+            <RadioButton IsChecked="{x:Bind ViewModel.FilterNone, Mode=TwoWay}"
+                         Style="{StaticResource QuarrelRadioButton}"
+                         Foreground="{StaticResource DiscordRedBrush}"
+                         GroupName="Filtering">
+                <StackPanel>
+                    <TextBlock x:Uid="UserSettings/DangerZoneTB"
+                               Text="I live dangerously"/>
+                    <TextBlock x:Uid="UserSettings/DangerZoneDescTB"
+                               Text="Don't analyze any DMs"
+                               FontSize="11" TextWrapping="Wrap"
+                               Opacity="0.5"
+                               Foreground="{ThemeResource InvertedBackground}"/>
+                </StackPanel>
+            </RadioButton>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

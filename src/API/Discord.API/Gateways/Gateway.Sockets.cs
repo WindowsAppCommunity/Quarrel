@@ -9,6 +9,7 @@ using System.IO.Compression;
 using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Discord.API.Gateways
@@ -17,26 +18,135 @@ namespace Discord.API.Gateways
     {
         private readonly JsonSerializerOptions _serialiseOptions;
         private readonly JsonSerializerOptions _deserialiseOptions;
-        private WebSocketClient _socket;
+        private ClientWebSocket? _socket;
+        private Task? _task;
+        private CancellationTokenSource _tokenSource = new CancellationTokenSource();
         private DeflateStream? _decompressor;
         private MemoryStream? _decompressionBuffer;
-
-        private WebSocketClient CreateSocket()
-        {
-            _socket?.Dispose();
-            _socket = new WebSocketClient();
-            _socket.TextMessage += HandleTextMessage;
-            _socket.BinaryMessage += HandleBinaryMessage;
-            _socket.Closed += HandleClosed;
-            return _socket;
-        }
+        
 
         private void SetupCompression()
         {
             _decompressionBuffer = new MemoryStream();
             _decompressor = new DeflateStream(_decompressionBuffer, CompressionMode.Decompress);
         }
-        
+
+        /// <summary>
+        /// Sets up a connection to the gateway.
+        /// </summary>
+        /// <exception cref="Exception">An exception will be thrown when connection fails, but not when the handshake fails.</exception>
+        public async Task Connect(string token)
+        {
+            _token = token;
+            await ConnectAsync();
+        }
+
+        public async Task ConnectAsync()
+        {
+            GatewayStatus = GatewayStatus == GatewayStatus.Initialized ? GatewayStatus.Connecting : GatewayStatus.Reconnecting;
+            await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "9", "&compress=zlib-stream"));
+            _task = Task.Run(async () =>
+            {
+                await ListenOnSocket();
+                _socket = null;
+            });
+        }
+
+        /// <summary>
+        /// Resumes a connection to the gateway.
+        /// </summary>
+        /// <exception cref="Exception">An exception will be thrown when connection fails, but not when the handshake fails.</exception>
+        public async Task ResumeAsync()
+        {
+            GatewayStatus = GatewayStatus.Resuming;
+            await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "9", "&compress=zlib-stream"));
+            _task = Task.Run(ListenOnSocket);
+        }
+
+        private async Task ListenOnSocket()
+        {
+            var buffer = new ArraySegment<byte>(new byte[16 * 1024]);
+            while (_tokenSource.IsCancellationRequested && _socket!.State == WebSocketState.Open)
+            {
+                WebSocketReceiveResult socketResult = await _socket.ReceiveAsync(buffer, _tokenSource.Token).ConfigureAwait(false);
+                if (socketResult.MessageType == WebSocketMessageType.Close)
+                {
+                    switch (socketResult.CloseStatus)
+                    {
+                        case (WebSocketCloseStatus)4000:
+                        case (WebSocketCloseStatus)4001:
+                        case (WebSocketCloseStatus)4002:
+                        case (WebSocketCloseStatus)4003:
+                        case (WebSocketCloseStatus)4005:
+                        case (WebSocketCloseStatus)4007:
+                        case (WebSocketCloseStatus)4008:
+                        case (WebSocketCloseStatus)4009:
+                            GatewayStatus = GatewayStatus.Reconnecting;
+                            _ = ConnectAsync();
+                            return;
+
+                        case (WebSocketCloseStatus)4004:
+                        default:
+                            GatewayStatus = GatewayStatus.Disconnected;
+                            return;
+
+                    }
+                }
+
+                byte[] bytes = buffer.Array;
+                int length = socketResult.Count;
+
+                if (!socketResult.EndOfMessage)
+                {
+                    // This is a large message (likely just READY), lets create a temporary expandable stream
+                    var stream = new MemoryStream();
+                    await stream.WriteAsync(buffer.Array, 0, socketResult.Count).ConfigureAwait(false);
+                    do
+                    {
+                        if (_tokenSource.Token.IsCancellationRequested)
+                        {
+                            return;
+                        }
+                        socketResult = await _socket.ReceiveAsync(buffer, _tokenSource.Token).ConfigureAwait(false);
+                        await stream.WriteAsync(buffer.Array, 0, socketResult.Count).ConfigureAwait(false);
+                    }
+                    while (!socketResult.EndOfMessage);
+
+                    bytes = stream.GetBuffer();
+                    length = (int)stream.Length;
+                }
+
+                if (socketResult.MessageType == WebSocketMessageType.Text)
+                {
+                    HandleTextMessage(bytes);
+                }
+                else
+                {
+                    HandleBinaryMessage(bytes, length);
+                }
+            }
+        }
+
+        private async Task ReconnectAsync()
+        {
+            await CloseSocket();
+            await ConnectAsync(_connectionUrl!);
+        }
+        private async Task ConnectAsync(string connectionUrl)
+        {
+            _connectionUrl = connectionUrl;
+            SetupCompression();
+            _tokenSource = new CancellationTokenSource();
+            _socket ??= new ClientWebSocket();
+
+
+            if (_socket.State is WebSocketState.Connecting or WebSocketState.Open)
+            {
+                throw new Exception("Tried to connect to socket while already connected");
+            }
+            await _socket.ConnectAsync(new Uri(connectionUrl), CancellationToken.None);
+        }
+
         private async Task SendMessageAsync<T>(SocketFrame<T> frame)
         {
             var stream = new MemoryStream();
@@ -46,56 +156,42 @@ namespace Discord.API.Gateways
 
         private async Task SendMessageAsync(MemoryStream stream)
         {
-            try
-            {
-                await _socket.SendAsync(stream.GetBuffer(), 0, (int)stream.Length, true);
-            }
-            catch (WebSocketClosedException exception)
-            {
-                GatewayClosed(exception);
-            }
+            await _socket!.SendAsync(new ArraySegment<byte>(stream.GetBuffer(), 0, (int)stream.Length), WebSocketMessageType.Text, true, _tokenSource.Token);
         }
 
-        private void HandleTextMessage(string message)
+        private void HandleTextMessage(byte[] buffer)
         {
-            using var reader = new StreamReader(new MemoryStream(Encoding.ASCII.GetBytes(message)));
-            HandleMessage(reader);
+            HandleMessage(new MemoryStream(buffer));
         }
 
-        private void HandleBinaryMessage(byte[] bytes, int _, int count)
+        private async void HandleBinaryMessage(byte[] buffer, int count)
         {
             Guard.IsNotNull(_decompressor, nameof(_decompressor));
             Guard.IsNotNull(_decompressionBuffer, nameof(_decompressionBuffer));
-
-            using var ms = new MemoryStream(bytes);
-            ms.Position = 0;
-            byte[] data = new byte[count];
-            ms.Read(data, 0, count);
-            int index = 0;
+            
             using var decompressed = new MemoryStream();
-            if (data[0] == 0x78)
+            
+            if (buffer[0] == 0x78)
             {
-                _decompressionBuffer.Write(data, index + 2, count - 2);
+                await _decompressionBuffer.WriteAsync(buffer, 2, count - 2);
                 _decompressionBuffer.SetLength(count - 2);
             }
             else
             {
-                _decompressionBuffer.Write(data, index, count);
+                await _decompressionBuffer.WriteAsync(buffer, 0, count);
                 _decompressionBuffer.SetLength(count);
             }
 
             _decompressionBuffer.Position = 0;
-            _decompressor.CopyTo(decompressed);
+            await _decompressor.CopyToAsync(decompressed);
             _decompressionBuffer.Position = 0;
             decompressed.Position = 0;
-
-            using var reader = new StreamReader(decompressed);
-            HandleMessage(reader);
+            
+            HandleMessage(decompressed);
         }
 
-        private async void HandleMessage(TextReader reader)
+        private async void HandleMessage(Stream stream)
         {
-            Stream stream = ((StreamReader)reader).BaseStream;
             SocketFrame? frame = await ParseFrame(stream);
             if (frame is null) return;
 
@@ -107,18 +203,14 @@ namespace Discord.API.Gateways
             ProcessEvents(frame);
         }
 
-        private void HandleClosed(Exception exception)
-        {
-            GatewayClosed(exception);
-        }
-
         private async Task CloseSocket()
         {
-            if (_socket != null)
-            {
-                await _socket.DisconnectAsync((WebSocketCloseStatus)4000);
-                await _socket.DisconnectAsync();
-            }
+            if(_socket is { State: WebSocketState.Open })
+                await _socket.CloseAsync((WebSocketCloseStatus)4000, string.Empty, CancellationToken.None);
+            _tokenSource.Cancel();
+            if(_task != null)
+                await _task;
+            _task = null;
         }
 
         private async Task<SocketFrame?> ParseFrame(Stream stream)

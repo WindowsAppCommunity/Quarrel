@@ -14,7 +14,8 @@
             BorderThickness="0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            HorizontalContentAlignment="Stretch">
+            HorizontalContentAlignment="Stretch"
+            Command="{x:Bind ViewModel.OpenGuildSettingsCommand}">
         <TextBlock Text="{x:Bind ViewModel.SelectedGuild.Name, Mode=OneWay}"
                    HorizontalAlignment="Left" FontSize="20"/>
     </Button>

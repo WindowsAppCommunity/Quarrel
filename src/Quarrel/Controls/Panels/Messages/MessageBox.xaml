@@ -5,6 +5,10 @@
     xmlns:local="using:Quarrel.Controls.Shell.Panels.Messages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:bconvert="using:Quarrel.Converters.Common.Boolean"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:behaviors="using:Quarrel.Behaviors"
     mc:Ignorable="d"
     d:DesignHeight="64"
     d:DesignWidth="400">
@@ -223,7 +227,7 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <Border x:Name="bg" Background="{ThemeResource InvertedBackground}" Opacity="0" CornerRadius="0,0,0,0"/>
-                            
+
                             <ContentPresenter x:Name="ContentPresenter"
                                               AutomationProperties.AccessibilityView="Raw"
                                               BorderBrush="{TemplateBinding BorderBrush}"
@@ -245,15 +249,24 @@
     <Grid>
         <TextBox x:Uid="MessageBox/MessageTBox"
                  x:Name="MessageEditor"
-                 Text="{x:Bind ViewModel.DraftText, Mode=TwoWay}"
+                 Text="{x:Bind ViewModel.DraftText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                  PlaceholderText="Send message"
                  TextWrapping="Wrap"
                  SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}"
                  VerticalAlignment="Stretch"
                  Padding="12,6,64,6"
                  MinHeight="64" MaxHeight="256"
-                 Style="{StaticResource MessageTextBox}"/>
+                 Style="{StaticResource MessageTextBox}">
+            <interactivity:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="KeyDown">
+                    <behaviors:KeyDownCommandAction Key="Enter" Command="{x:Bind ViewModel.SendMessageCommand}" ExecuteShiftCommandIfNoKeyboard="True"/>
+                    <!--<behaviors:KeyDownCommandAction Key="Up" Command="{x:Bind ViewModel.EditLastMessageCommand}"/>-->
+                    <!--<behaviors:KeyDownCommandAction Command="{x:Bind ViewModel.TriggerTyping}"/>-->
+                </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+        </TextBox>
         <Button Grid.Column="1" Width="48"
+                IsEnabled="{x:Bind bconvert:IsNotWhiteSpaceConverter.Convert(ViewModel.DraftText), Mode=OneWay}"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Right"
                 Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"

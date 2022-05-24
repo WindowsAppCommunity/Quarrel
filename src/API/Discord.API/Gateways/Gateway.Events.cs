@@ -28,7 +28,7 @@ namespace Discord.API.Gateways
         private Action<Ready> Ready { get; }
         private Action<Resumed> Resumed { get; }
         private Action<InvalidSession> InvalidSession { get; }
-        private Action<Exception> GatewayClosed { get; }
+        private Action<GatewayStatus> GatewayStateChanged { get; }
 
         private Action<JsonGuild> GuildCreated { get; }
         private Action<JsonGuild> GuildUpdated { get; }

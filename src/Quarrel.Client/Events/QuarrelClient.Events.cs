@@ -75,5 +75,20 @@ namespace Quarrel.Client
         /// Invoked when a message is marked as read.
         /// </summary>
         public event EventHandler<Channel>? ChannelUpdated;
+
+        /// <summary>
+        /// Invoked when a user logs out.
+        /// </summary>
+        public event Action? LoggedOut;
+
+        /// <summary>
+        /// Invoked when the gateway reconnects.
+        /// </summary>
+        public event Action? Reconnecting;
+
+        /// <summary>
+        /// Invoked when the gateway resumes.
+        /// </summary>
+        public event Action? Resuming;
     }
 }

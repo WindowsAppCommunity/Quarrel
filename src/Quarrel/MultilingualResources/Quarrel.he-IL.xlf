@@ -305,7 +305,7 @@
         </trans-unit>
         <trans-unit id="UserSettings/ProtectMeDescTB.Text" translate="yes" xml:space="preserve">
           <source>Analyze all DMs</source>
-          <target state="needs-review-translation">לנתח את כל ההודעות הישירות</target>
+          <target state="needs-review-translation">נתח את כל ההודעות הישירות</target>
         </trans-unit>
         <trans-unit id="UserSettings/ProtectMeTB.Text" translate="yes" xml:space="preserve">
           <source>Protect me</source>
@@ -398,6 +398,58 @@
         <trans-unit id="About/Version" translate="yes" xml:space="preserve">
           <source>Version: {0}.{1}.{2}</source>
           <target state="needs-review-translation">גרסת: {0}.{1}.{2}</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/PersonalSettings" translate="yes" xml:space="preserve">
+          <source>Personal Settings</source>
+          <target state="needs-review-translation">הגדרות אישיות</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/ServerSettings" translate="yes" xml:space="preserve">
+          <source>Server Settings</source>
+          <target state="needs-review-translation">הגדרות שרת</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/UserManagement" translate="yes" xml:space="preserve">
+          <source>User Management</source>
+          <target state="needs-review-translation">ניהול משתמשים</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/AuditLog" translate="yes" xml:space="preserve">
+          <source>Audit Log</source>
+          <target state="needs-review-translation">יומן ביקורת</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Bans" translate="yes" xml:space="preserve">
+          <source>Bans</source>
+          <target state="needs-review-translation">איסורים</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Emojis" translate="yes" xml:space="preserve">
+          <source>Emojis</source>
+          <target state="needs-review-translation">Emojis</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Invites" translate="yes" xml:space="preserve">
+          <source>Invites</source>
+          <target state="needs-review-translation">מזמין</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Members" translate="yes" xml:space="preserve">
+          <source>Members</source>
+          <target state="needs-review-translation">חברים</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Moderation" translate="yes" xml:space="preserve">
+          <source>Moderation</source>
+          <target state="needs-review-translation">מתינות</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Notifications" translate="yes" xml:space="preserve">
+          <source>Notifications</source>
+          <target state="needs-review-translation">הודעות</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Overview" translate="yes" xml:space="preserve">
+          <source>Overview</source>
+          <target state="needs-review-translation">סקירה כללית</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Privacy" translate="yes" xml:space="preserve">
+          <source>Privacy</source>
+          <target state="needs-review-translation">פרטיות</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/Roles" translate="yes" xml:space="preserve">
+          <source>Roles</source>
+          <target state="needs-review-translation">תפקידים</target>
         </trans-unit>
       </group>
     </body>

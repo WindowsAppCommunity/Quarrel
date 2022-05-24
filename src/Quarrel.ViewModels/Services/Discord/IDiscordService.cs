@@ -79,6 +79,13 @@ namespace Quarrel.Services.Discord
         BindableGuildMember? GetGuildMember(ulong userId, ulong guildId);
 
         /// <summary>
+        /// Marks a messages as the last read message in a channel.
+        /// </summary>
+        /// <param name="channelId">The id of the channel.</param>
+        /// <param name="messageId">The id of the message.</param>
+        Task MarkRead(ulong channelId, ulong messageId);
+
+        /// <summary>
         /// Sends a message.
         /// </summary>
         /// <param name="channelId">The id of the channel to send the message in.</param>

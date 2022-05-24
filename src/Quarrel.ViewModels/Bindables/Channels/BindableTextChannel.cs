@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
@@ -25,6 +26,7 @@ namespace Quarrel.Bindables.Channels
             BindableCategoryChannel? parent = null) :
             base(messenger, discordService, dispatcherService, channel, selfMember, parent)
         {
+            MarkAsReadCommand = new RelayCommand(() => _discordService.MarkRead(MessageChannel.Id, MessageChannel.LastMessageId ?? 0));
         }
 
         /// <inheritdoc/>
@@ -38,6 +40,9 @@ namespace Quarrel.Bindables.Channels
         
         /// <inheritdoc/>
         public GuildTextChannel TextChannel => (GuildTextChannel)Channel;
+
+        /// <inheritdoc/>
+        public RelayCommand MarkAsReadCommand { get; }
 
         /// <inheritdoc/>
         protected override void AckUpdate()
