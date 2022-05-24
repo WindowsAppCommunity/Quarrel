@@ -200,9 +200,7 @@
     <Compile Include="Services\Dispatcher\DispatcherService.cs" />
     <Compile Include="Services\Keyboard\KeyboardService.cs" />
     <Compile Include="Services\Localization\LocalizationService.cs" />
-    <Compile Include="Services\Storage\Models\FileData.cs" />
-    <Compile Include="Services\Storage\Models\FileDataProperties.cs" />
-    <Compile Include="Services\Storage\Models\FolderData.cs" />
+    <Compile Include="Services\Storage\FileStorageService.cs" />
     <Compile Include="Services\Storage\StorageService.cs" />
     <Compile Include="Services\Storage\Vault\VaultService.cs" />
     <Compile Include="Services\Versioning\VersioningService.cs" />

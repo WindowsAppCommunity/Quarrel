@@ -1,61 +1,58 @@
 ﻿// Quarrel © 2022
 
-using OwlCore.AbstractStorage;
-using OwlCore.Services;
 using Quarrel.Services.Storage.Accounts.Models;
 using Quarrel.Services.Storage.Vault;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Quarrel.Services.Storage.Accounts
 {
+    public record struct AccountStorageState(IEnumerable<AccountInfo>? Accounts, ulong? AccountId);
+
     /// <summary>
     /// A service that stores info about the user's account.
     /// </summary>
-    public class AccountInfoStorage : SettingsBase, IAccountInfoStorage
+    public class AccountInfoStorage : IAccountInfoStorage
     {
         private readonly IVaultService _vaultService;
+        private readonly IFileStorageService _fileStorageService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountInfoStorage"/> class.
         /// </summary>
-        public AccountInfoStorage(IVaultService vaultService, IFolderData folder, IAsyncSerializer<Stream> serializer) : base(folder, serializer)
+        public AccountInfoStorage(IVaultService vaultService, IFileStorageService fileStorageService)
         {
             _vaultService = vaultService;
+            _fileStorageService = fileStorageService;
         }
 
         /// <inheritdoc/>
         public AccountInfo? ActiveAccount
         {
-            get => ActiveAccountId.HasValue ? GetPopulatedAccountInfo(ActiveAccountId.Value) : null;
-            set => ActiveAccountId = value?.Id;
+            get => ActiveAccountId != null ? _accounts[ActiveAccountId.Value] : null;
+            set => _accountId = value?.Id;
         }
+
+        private Dictionary<ulong, AccountInfo> _accounts = new Dictionary<ulong, AccountInfo>();
+        private ulong? _accountId = null;
 
         /// <summary>
-        /// Gets or sets the list of accounts in storage.
+        /// Gets list of accounts in storage.
         /// </summary>
-        private Dictionary<ulong, AccountInfo> Accounts
-        {
-            get => GetSetting(() => new Dictionary<ulong, AccountInfo>());
-            set => SetSetting(value);
-        }
+        public IReadOnlyDictionary<ulong, AccountInfo> Accounts => _accounts;
 
-        /// <inheritdoc/>
-        public bool IsLoggedIn => ActiveAccountId is not null;
+        private ulong? ActiveAccountId => _accountId;
 
-        private ulong? ActiveAccountId
-        {
-            get => GetSetting<ulong?>(() => null);
-            set => SetSetting(value);
-        }
-        
         /// <inheritdoc/>
         public bool SelectAccount(ulong id)
         {
-            if (Accounts.ContainsKey(id))
+            if (_accounts.ContainsKey(id))
             {
-                ActiveAccountId = id;
+                _accountId = id;
                 return true;
             }
 
@@ -65,9 +62,9 @@ namespace Quarrel.Services.Storage.Accounts
         /// <inheritdoc/>
         public bool RegisterAccount(AccountInfo accountInfo)
         {
-            if (!Accounts.ContainsKey(accountInfo.Id))
+            if (!_accounts.ContainsKey(accountInfo.Id))
             {
-                Accounts.Add(accountInfo.Id, accountInfo);
+                _accounts.Add(accountInfo.Id, accountInfo with { Token = string.Empty });
                 _vaultService.RegisterUserToken(accountInfo.Id, accountInfo.Token);
                 return true;
             }
@@ -80,30 +77,45 @@ namespace Quarrel.Services.Storage.Accounts
         {
             // TODO: Handle active account 
             _vaultService.UnregisterToken(id);
-            return Accounts.Remove(id);
+            return _accounts.Remove(id);
         }
 
-        private AccountInfo? GetPopulatedAccountInfo(ulong id)
+        /// <inheritdoc/>
+        public async Task LoadAsync()
         {
-            // Get the account info from storage
-            // Ensure the account is actually registered 
-            AccountInfo accountInfo = Accounts[id];
-            if (accountInfo is null) return null;
+            string contents = await _fileStorageService.GetFileAsync("accounts.json");
+            if (string.IsNullOrEmpty(contents)) return;
+            try
+            {
+                var state = await JsonSerializer.DeserializeAsync<AccountStorageState>(new MemoryStream(Encoding.UTF8.GetBytes(contents)));
+                _accounts.Clear();
+                if (state.Accounts != null)
+                {
+                    foreach (var account in state.Accounts)
+                    {
+                        _accounts.Add(account.Id, account with { Token = _vaultService.GetUserToken(account.Id) ?? string.Empty });
+                    }
+                }
 
-            // Get the token from the vault
-            // Ensure the token was in the vault
-            string? token = _vaultService.GetUserToken(id);
-            if (token is null) return null;
-            accountInfo.Token = token;
+                _accountId = state.AccountId;
+            }
+            catch (JsonException e)
+            {
 
-            // Return the populated account info.
-            return accountInfo;
+            }
         }
         
         /// <inheritdoc/>
-        Task IAccountInfoStorage.LoadAsync() => LoadAsync();
-        
-        /// <inheritdoc/>
-        Task IAccountInfoStorage.SaveAsync() => SaveAsync();
+        public async Task SaveAsync()
+        {
+            var state = new AccountStorageState(_accounts.Values.Select(x => x with { Token = string.Empty }), _accountId);
+
+            var stream = new MemoryStream();
+            await JsonSerializer.SerializeAsync<AccountStorageState>(stream, state);
+            stream.Position = 0;
+            string contents = await new StreamReader(stream, Encoding.UTF8).ReadToEndAsync();
+
+            await _fileStorageService.WriteFileAsync("accounts.json", contents);
+        }
     }
 }

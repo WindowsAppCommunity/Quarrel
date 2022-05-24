@@ -2,7 +2,6 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
-using OwlCore.AbstractStorage;
 using Quarrel.Services.Analytics;
 using Quarrel.Services.APIs.GitHubService;
 using Quarrel.Services.AppConnections;
@@ -11,7 +10,8 @@ using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
 using Quarrel.Services.Storage;
-using Quarrel.Services.Storage.Models;
+using Quarrel.Services.Storage.Accounts;
+using Quarrel.Services.Storage.Vault;
 using Quarrel.Services.Versioning;
 using Quarrel.Services.Windows;
 using Quarrel.ViewModels;
@@ -31,59 +31,48 @@ namespace Quarrel
     {
         private IServiceProvider ConfigureServices()
         {
-            IFolderData appDataFolder = new FolderData(ApplicationData.Current.LocalFolder);
-
             // Register Services
-            var services = new ServiceCollection();
-            services.AddSingleton<IMessenger, WeakReferenceMessenger>();
-            services.AddSingleton<ILocalizationService, LocalizationService>();
-            services.AddSingleton<IVersioningService, VersioningService>();
-            services.AddSingleton<IDiscordService, DiscordService>();
-            services.AddSingleton<IDispatcherService, DispatcherService>();
-            services.AddSingleton<IStorageService>(new StorageService(appDataFolder, JsonAsyncSerializer.Singleton));
-            services.AddSingleton<IClipboardService, ClipboardService>();
-            services.AddSingleton<IWindowService, WindowService>();
-            services.AddSingleton<AppConnectionService>();
+            return new ServiceCollection()
+            .AddSingleton<IMessenger, WeakReferenceMessenger>()
+            .AddSingleton<ILocalizationService, LocalizationService>()
+            .AddSingleton<IVersioningService, VersioningService>()
+            .AddSingleton<IDiscordService, DiscordService>()
+            .AddSingleton<IDispatcherService, DispatcherService>()
+            .AddSingleton<IVaultService, VaultService>()
+            .AddSingleton<IAccountInfoStorage, AccountInfoStorage>()
+            .AddSingleton<IFileStorageService>(new FileStorageService(ApplicationData.Current.LocalFolder))
+            .AddSingleton<IStorageService, StorageService>()
+            .AddSingleton<IClipboardService, ClipboardService>()
+            .AddSingleton<IWindowService, WindowService>()
+            .AddSingleton<AppConnectionService>()
 
             // Other APIs
-            services.AddTransient<IGitHubService, GitHubService>();
+            .AddTransient<IGitHubService, GitHubService>()
 
             #if DEV
-            services.AddSingleton<IAnalyticsService, LoggingAnalyticsService>();
+            .AddSingleton<IAnalyticsService, LoggingAnalyticsService>()
             #else
-            services.AddSingleton<IAnalyticsService, AppCenterService>();
+            .AddSingleton<IAnalyticsService, AppCenterService>()
             #endif
 
             // ViewModels
-            services.AddSingleton<WindowViewModel>();
-            services.AddSingleton<SubPageHostViewModel>();
-            services.AddTransient<LoginPageViewModel>();
-            services.AddSingleton<GuildsViewModel>();
-            services.AddSingleton<ChannelsViewModel>();
-            services.AddSingleton<CommandBarViewModel>();
-            services.AddSingleton<MessagesViewModel>();
-            services.AddSingleton<MessageBoxViewModel>();
-            services.AddSingleton<CurrentUserViewModel>();
+            .AddSingleton<WindowViewModel>()
+            .AddSingleton<SubPageHostViewModel>()
+            .AddTransient<LoginPageViewModel>()
+            .AddSingleton<GuildsViewModel>()
+            .AddSingleton<ChannelsViewModel>()
+            .AddSingleton<CommandBarViewModel>()
+            .AddSingleton<MessagesViewModel>()
+            .AddSingleton<MessageBoxViewModel>()
+            .AddSingleton<CurrentUserViewModel>()
 
             // SubPages
-            services.AddTransient<AboutPageViewModel>();
-            services.AddTransient<CreditPageViewModel>();
-            services.AddTransient<DiscordStatusViewModel>();
-            services.AddTransient<GuildSettingsPageViewModel>();
-            services.AddTransient<UserSettingsPageViewModel>();
-
-            #if DEV
-            ApplyDitryOverrides(services);
-            #endif
-
-            return services.BuildServiceProvider();
+            .AddTransient<AboutPageViewModel>()
+            .AddTransient<CreditPageViewModel>()
+            .AddTransient<DiscordStatusViewModel>()
+            .AddTransient<GuildSettingsPageViewModel>()
+            .AddTransient<UserSettingsPageViewModel>()
+            .BuildServiceProvider();
         }
-
-        #if DEV
-        private void ApplyDitryOverrides(ServiceCollection services)
-        {
-            // Fill with dirty service overrides for stress testing.
-        }
-        #endif
     }
 }
