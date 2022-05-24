@@ -44,8 +44,10 @@ namespace Quarrel.ViewModels
             _storageService = storageService;
             _dispatcherService = dispatcherService;
 
-            _messenger.Register<ConnectingMessage>(this, (_, _) => WindowState = WindowHostState.Connecting);
+            // TODO: Should connecting and reconnecting be handled separately?
+            _messenger.Register<ConnectingMessage>(this, (_, _) => OnConnecting());
             _messenger.Register<UserLoggedInMessage>(this, (_, m) => OnLoggedIn(m.AccountInfo));
+            _messenger.Register<UserLoggedOutMessage>(this, (_, m) => OnLoggedOut());
 
             InitializeLogin();
         }
@@ -94,6 +96,22 @@ namespace Quarrel.ViewModels
             _dispatcherService.RunOnUIThread(() =>
             {
                 WindowState = WindowHostState.LoggedIn;
+            });
+        }
+
+        private void OnLoggedOut()
+        {
+            _dispatcherService.RunOnUIThread(() =>
+            {
+                WindowState = WindowHostState.LoggedOut;
+            });
+        }
+
+        private void OnConnecting()
+        {
+            _dispatcherService.RunOnUIThread(() =>
+            {
+                WindowState = WindowHostState.Connecting;
             });
         }
     }

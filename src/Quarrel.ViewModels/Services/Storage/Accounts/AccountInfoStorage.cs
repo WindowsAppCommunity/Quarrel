@@ -29,7 +29,7 @@ namespace Quarrel.Services.Storage.Accounts
         public AccountInfo? ActiveAccount
         {
             get => ActiveAccountId.HasValue ? GetPopulatedAccountInfo(ActiveAccountId.Value) : null;
-            set => ActiveAccountId = value is not null ? value.Id : null;
+            set => ActiveAccountId = value?.Id;
         }
 
         /// <summary>

@@ -13,40 +13,39 @@ namespace Discord.API.Gateways
 
         private bool OnHelloReceived(SocketFrame<Hello> frame)
         {
-            SetupGateway(frame.Payload.HeartbeatInterval);
+            _ = SetupGateway(frame.Payload.HeartbeatInterval);
             return true;
         }
         
-        private async void SetupGateway(int interval)
+        private async Task SetupGateway(int interval)
         {
-            switch (_gatewayStatus)
+            switch (GatewayStatus)
             {
+                case GatewayStatus.Reconnecting:
                 case GatewayStatus.Connecting:
                     await IdentifySelfToGateway();
-                    _gatewayStatus = GatewayStatus.Connected;
+                    GatewayStatus = GatewayStatus.Connected;
                     break;
                 case GatewayStatus.Resuming:
                     await SendResumeRequestAsync();
-                    _gatewayStatus = GatewayStatus.Connected;
+                    GatewayStatus = GatewayStatus.Connected;
                     break;
                 default:
-                    _gatewayStatus = GatewayStatus.Error;
+                    GatewayStatus = GatewayStatus.Error;
                     return;
             }
 
             double jitter = (new Random()).NextDouble();
             await Task.Delay((int)(interval * jitter));
-            await BeginHeartbeatAsync(interval);
+            _ = BeginHeartbeatAsync(interval);
         }
 
         private bool OnInvalidSession(SocketFrame frame)
         {
-            switch (_gatewayStatus)
+            switch (GatewayStatus)
             {
                 case GatewayStatus.InvalidSession:
-                    Guard.IsNotNull(_connectionUrl, nameof(_connectionUrl));
-
-                    _ = ConnectAsync(_connectionUrl);
+                    _ = ReconnectAsync();
                     break;
                 case GatewayStatus.Reconnecting:
                     FireEvent(frame, InvalidSession);
@@ -64,14 +63,14 @@ namespace Discord.API.Gateways
 
         private async Task BeginHeartbeatAsync(int interval)
         {
-            while (_gatewayStatus == GatewayStatus.Connected)
+            while (GatewayStatus == GatewayStatus.Connected)
             {
                 await SendHeartbeatAsync();
                 _recievedAck = false;
                 await Task.Delay(interval);
                 if (!_recievedAck)
                 {
-                    _gatewayStatus = GatewayStatus.Disconnected;
+                    GatewayStatus = GatewayStatus.Disconnected;
                     await CloseSocket();
                     await ResumeAsync();
                 }

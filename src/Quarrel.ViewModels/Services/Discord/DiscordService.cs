@@ -43,6 +43,9 @@ namespace Quarrel.Services.Discord
         private void RegisterEvents()
         {
             _quarrelClient.LoggedIn += OnLoggedIn;
+            _quarrelClient.LoggedOut += OnLoggedOut;
+            _quarrelClient.Reconnecting += OnReconnecting;
+            _quarrelClient.Resuming += OnResuming;
             _quarrelClient.HttpExceptionHandled += OnHttpExceptionHandled;
             _quarrelClient.GatewayExceptionHandled += OnGatewayExceptionHandled;
 
@@ -90,6 +93,21 @@ namespace Quarrel.Services.Discord
             var info = new AccountInfo(e.Id, e.Username, e.Discriminator, token);
 
             _messenger.Send(new UserLoggedInMessage(info));
+        }
+
+        private void OnLoggedOut()
+        {
+            _messenger.Send(new UserLoggedOutMessage());
+        }
+
+        private void OnReconnecting()
+        {
+            _messenger.Send(new ConnectingMessage());
+        }
+
+        private void OnResuming()
+        {
+            _messenger.Send(new ConnectingMessage());
         }
 
         private void OnHttpExceptionHandled(object sender, Exception e)
