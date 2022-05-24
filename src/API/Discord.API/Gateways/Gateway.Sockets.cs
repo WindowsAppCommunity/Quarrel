@@ -66,7 +66,7 @@ namespace Discord.API.Gateways
         private async Task ListenOnSocket()
         {
             var buffer = new ArraySegment<byte>(new byte[16 * 1024]);
-            while (_tokenSource.IsCancellationRequested && _socket!.State == WebSocketState.Open)
+            while (!_tokenSource.IsCancellationRequested && _socket!.State == WebSocketState.Open)
             {
                 WebSocketReceiveResult socketResult = await _socket.ReceiveAsync(buffer, _tokenSource.Token).ConfigureAwait(false);
                 if (socketResult.MessageType == WebSocketMessageType.Close)
