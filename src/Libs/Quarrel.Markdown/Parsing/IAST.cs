@@ -9,8 +9,7 @@ namespace Quarrel.Markdown.Parsing
     internal interface IEmojiAST : IAST { string Name { get; } }
     internal interface IMentionAST : IAST { }
     internal abstract record ASTChildren(IList<IAST> Children) : IAST;
-
-    internal record ASTRoot(IList<IAST> Children) : ASTChildren(Children);
+    
     internal record CodeBlock(string Content, string Language) : IAST;
     internal record BlockQuote(IList<IAST> Children) : ASTChildren(Children);
     internal record SurrogateEmoji(string Name, string Surrogate) : IEmojiAST;

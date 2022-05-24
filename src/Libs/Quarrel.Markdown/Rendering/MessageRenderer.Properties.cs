@@ -93,8 +93,7 @@ namespace Quarrel.Markdown
         {
             var messageRenderer = (MessageRenderer)d;
             var tree = Parser.ParseAST(messageRenderer.Text, true, false);
-            var modTree = AdjustTree(tree);
-            messageRenderer.RenderMarkdown(modTree);
+            messageRenderer.RenderMarkdown(tree);
         }
     }
 }
