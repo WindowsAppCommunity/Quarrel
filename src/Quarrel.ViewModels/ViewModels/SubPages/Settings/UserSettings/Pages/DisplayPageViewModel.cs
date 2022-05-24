@@ -5,6 +5,8 @@ using Quarrel.Services.Localization;
 using Quarrel.Services.Storage;
 using Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages.Abstract;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
 {
@@ -18,6 +20,8 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         internal DisplayPageViewModel(ILocalizationService localizationService, IDiscordService discordService, IStorageService storageService) :
             base(localizationService, discordService, storageService)
         {
+            SelectedLanguage = CultureInfo.GetCultureInfo(_localizationService.LanguageOverride);
+            LanguageOptions = _localizationService.AvailableLanguages.Select(x => CultureInfo.GetCultureInfo(x));
         }
 
         /// <inheritdoc/>
@@ -32,15 +36,15 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         /// <summary>
         /// Gets the app selected language.
         /// </summary>
-        public string SelectedLanguage
+        public CultureInfo SelectedLanguage
         {
-            get => _localizationService.LanguageOverride;
-            set => _localizationService.LanguageOverride = value;
+            get => CultureInfo.GetCultureInfo(_localizationService.LanguageOverride);
+            set => _localizationService.LanguageOverride = value.TwoLetterISOLanguageName;
         }
 
         /// <summary>
         /// Gets the list of languages available for the app.
         /// </summary>
-        public IReadOnlyList<string> LanguageOptions => _localizationService.AvailableLanguages;
+        public IEnumerable<CultureInfo> LanguageOptions { get; }
     }
 }
