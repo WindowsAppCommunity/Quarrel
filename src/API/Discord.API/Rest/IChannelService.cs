@@ -9,7 +9,8 @@ namespace Discord.API.Rest
     internal interface IChannelService
     {
         [Get("/v9/channels/{channelId}/messages/{messageId}/ack")]
-        Task MarkRead([AliasAs("channelId")] ulong channelId, [AliasAs("messageId")] ulong messageId);
+        [Headers("Content-Type: application/json;")]
+        Task MarkRead([AliasAs("channelId")] ulong channelId, [AliasAs("messageId")] ulong messageId, [Body] string body = "{token: null}");
 
         [Get("/v9/channels/{channelId}/messages?limit={limit}")]
         Task<JsonMessage[]> GetChannelMessages([AliasAs("channelId")] ulong channelId, [AliasAs("limit")] int limit = 50);
