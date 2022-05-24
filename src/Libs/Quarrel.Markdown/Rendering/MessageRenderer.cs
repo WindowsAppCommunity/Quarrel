@@ -188,9 +188,11 @@ namespace Quarrel.Markdown
                     }
                 };
 
+                var offset = start.VisualParent.TransformToVisual(_backgroundCanvas).TransformPoint(new Point(0, 0));
+
                 _backgroundCanvas.Children.Add(path);
-                Canvas.SetTop(path, firstRect.Top);
-                Canvas.SetLeft(path, firstRect.Left);
+                Canvas.SetTop(path, firstRect.Top + offset.Y);
+                Canvas.SetLeft(path, firstRect.Left + offset.X);
             }
 
             foreach (var inline in _spoilers)
@@ -209,9 +211,11 @@ namespace Quarrel.Markdown
                     }
                 };
 
+                var offset = start.VisualParent.TransformToVisual(_overlayCanvas).TransformPoint(new Point(0, 0));
+
                 _overlayCanvas.Children.Add(path);
-                Canvas.SetTop(path, firstRect.Top);
-                Canvas.SetLeft(path, firstRect.Left);
+                Canvas.SetTop(path, firstRect.Top + offset.Y);
+                Canvas.SetLeft(path, firstRect.Left + offset.X);
             }
         }
 
