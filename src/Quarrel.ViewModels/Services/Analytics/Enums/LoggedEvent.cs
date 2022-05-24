@@ -17,10 +17,22 @@ namespace Quarrel.Services.Analytics.Enums
         SubPageOpened,
 
         /// <summary>
+        /// A message was marked read.
+        /// </summary>
+        [StringValue("Message Marked as Read")]
+        MarkRead,
+
+        /// <summary>
         /// A message was sent.
         /// </summary>
         [StringValue("Message Sent")]
         MessageSent,
+
+        /// <summary>
+        /// A message was deleted.
+        /// </summary>
+        [StringValue("Message Deleted")]
+        MessageDeleted,
 
         /// <summary>
         /// The user's status was set.

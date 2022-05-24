@@ -174,6 +174,18 @@ namespace Quarrel.Client
         }
 
         /// <summary>
+        /// Marks a message as the last read message in the channel.
+        /// </summary>
+        /// <param name="channelId">The id of the channel.</param>
+        /// <param name="messageId">The id of the message.</param>
+        /// <returns></returns>
+        public async Task MarkRead(ulong channelId, ulong messageId)
+        {
+            Guard.IsNotNull(_channelService, nameof(_channelService));
+            await MakeRefitRequest(() => _channelService.MarkRead(channelId, messageId));
+        }
+
+        /// <summary>
         /// Sends a message.
         /// </summary>
         /// <param name="channelId">The channel to send the message in.</param>

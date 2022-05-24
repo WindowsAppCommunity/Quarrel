@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Microsoft.Toolkit.Mvvm.Input;
 using Quarrel.Client.Models.Channels.Interfaces;
 
 namespace Quarrel.Bindables.Channels.Interfaces
@@ -13,5 +14,10 @@ namespace Quarrel.Bindables.Channels.Interfaces
         /// Gets the wrapped <see cref="IMessageChannel"/>.
         /// </summary>
         IMessageChannel MessageChannel { get; }
+
+        /// <summary>
+        /// Gets a command that marks the channel as read.
+        /// </summary>
+        RelayCommand MarkAsReadCommand { get; }
     }
 }

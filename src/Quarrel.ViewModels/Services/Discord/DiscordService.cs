@@ -25,6 +25,7 @@ namespace Quarrel.Services.Discord
         private readonly ILocalizationService _localizationService;
         private readonly IDispatcherService _dispatcherService;
         private readonly IMessenger _messenger;
+        private LoginType? _loginSource;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DiscordService"/> class.
@@ -43,6 +44,9 @@ namespace Quarrel.Services.Discord
         private void RegisterEvents()
         {
             _quarrelClient.LoggedIn += OnLoggedIn;
+            _quarrelClient.LoggedOut += OnLoggedOut;
+            _quarrelClient.Reconnecting += OnReconnecting;
+            _quarrelClient.Resuming += OnResuming;
             _quarrelClient.HttpExceptionHandled += OnHttpExceptionHandled;
             _quarrelClient.GatewayExceptionHandled += OnGatewayExceptionHandled;
 
@@ -63,10 +67,8 @@ namespace Quarrel.Services.Discord
 
             try
             {
+                _loginSource = source;
                 await _quarrelClient.LoginAsync(token);
-
-                _analyticsService.Log(LoggedEvent.SuccessfulLogin,
-                    (nameof(source), $"{source}"));
 
                 return true;
             }
@@ -84,12 +86,29 @@ namespace Quarrel.Services.Discord
 
         private void OnLoggedIn(object sender, SelfUser e)
         {
+            _analyticsService.Log(LoggedEvent.SuccessfulLogin, (nameof(_loginSource), $"{_loginSource}"));
+
             string? token = _quarrelClient.Token;
 
             Guard.IsNotNull(token, nameof(token));
             var info = new AccountInfo(e.Id, e.Username, e.Discriminator, token);
 
             _messenger.Send(new UserLoggedInMessage(info));
+        }
+
+        private void OnLoggedOut()
+        {
+            _messenger.Send(new UserLoggedOutMessage());
+        }
+
+        private void OnReconnecting()
+        {
+            _messenger.Send(new ConnectingMessage());
+        }
+
+        private void OnResuming()
+        {
+            _messenger.Send(new ConnectingMessage());
         }
 
         private void OnHttpExceptionHandled(object sender, Exception e)

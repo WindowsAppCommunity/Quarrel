@@ -111,7 +111,7 @@
                 <TextBox x:Uid="Login/TokenTBox" x:Name="TokenTBox"
                          PlaceholderText="Token" Margin="16"
                          Text="{x:Bind ViewModel.TokenText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                         ui:TextBoxExtensions.Regex="^(?:mfa\.[A-Za-z0-9_-]{20,})|(?:[A-Za-z0-9_-]{23,28}\.[A-Za-z0-9_-]{6,7}\.[A-Za-z0-9_-]{27})$"
+                         ui:TextBoxExtensions.Regex="^[a-zA-Z0-9_-]{23,28}\.[a-zA-Z0-9_-]{6,7}\.[a-zA-Z0-9_-]{20,}$"
                          Style="{StaticResource DiscordTextBox}" VerticalAlignment="Center"/>
             </Grid>
             <Button x:Uid="Login/LoginBTN" Content="Login" HorizontalAlignment="Stretch" Foreground="{ThemeResource SystemChromeLowColor}"

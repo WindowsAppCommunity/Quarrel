@@ -51,7 +51,9 @@ namespace Quarrel.Client
         {
             _token = token;
             InitializeServices(token);
-            await SetupGatewayAsync(token);
+            if(_gateway == null)
+                await SetupGatewayAsync();
+            await _gateway!.Connect(token);
         }
 
         private void InitializeServices(string token)
@@ -65,12 +67,12 @@ namespace Quarrel.Client
             _userService = restFactory.GetUserService();
         }
 
-        private async Task SetupGatewayAsync(string token)
+        private async Task SetupGatewayAsync()
         {
             Guard.IsNotNull(_gatewayService, nameof(_gatewayService));
             var gatewayConfig = await MakeRefitRequest(() => _gatewayService.GetGatewayConfig());
             Guard.IsNotNull(gatewayConfig, nameof(_gatewayService));
-            _gateway = new Gateway(gatewayConfig, token,
+            _gateway = new Gateway(gatewayConfig,
                 unhandledMessageEncountered: (e) => GatewayExceptionHandled?.Invoke(this, e),
                 unknownEventEncountered: e => UnknownGatewayEventEncountered?.Invoke(this, e),
                 unknownOperationEncountered: e => UnknownGatewayOperationEncountered?.Invoke(this, e),
@@ -86,7 +88,7 @@ namespace Quarrel.Client
 
                 resumed: e => { },
                 invalidSession: e => { },
-                gatewayClosed: e => { },
+                gatewayStateChanged: OnGatewayStateChanged,
 
                 guildCreated: e => { },
                 guildUpdated: e => { },
@@ -127,7 +129,24 @@ namespace Quarrel.Client
                 voiceServerUpdated: e => { },
 
                 sessionReplaced: e => { });
-            await _gateway.ConnectAsync();
+        }
+
+        private void OnGatewayStateChanged(GatewayStatus newState)
+        {
+            switch (newState)
+            {
+                case GatewayStatus.Resuming:
+                    Resuming?.Invoke();
+                    break;
+
+                case GatewayStatus.Reconnecting:
+                    Resuming?.Invoke();
+                    break;
+
+                case GatewayStatus.Disconnected:
+                    LoggedOut?.Invoke();
+                    break;
+            }
         }
     }
 }
