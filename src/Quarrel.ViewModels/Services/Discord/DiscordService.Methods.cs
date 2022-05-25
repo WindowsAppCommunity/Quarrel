@@ -36,7 +36,7 @@ namespace Quarrel.Services.Discord
         }
 
         /// <inheritdoc/>
-        public Settings? GetSettings()
+        public UserSettings? GetSettings()
         {
             return _quarrelClient.GetSettings();
         }

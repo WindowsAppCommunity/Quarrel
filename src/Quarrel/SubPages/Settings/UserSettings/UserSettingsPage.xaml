@@ -11,7 +11,7 @@
     xmlns:asettings="using:Quarrel.ViewModels.SubPages.Settings.Abstract"
     xmlns:ussub="using:Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages"
     mc:Ignorable="d"
-    d:DesignHeight="600"
+    d:DesignHeight="620"
     d:DesignWidth="1008">
 
     <UserControl.Resources>
@@ -64,8 +64,23 @@
                             ContentTemplateSelector="{StaticResource UserPageSelector}"
                             HorizontalContentAlignment="Stretch"
                             VerticalContentAlignment="Stretch"/>
-                <TextBlock Text="Unhandled changes" Visibility="{x:Bind ViewModel.IsEdited, Mode=OneWay}"
-                           HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="8"/>
+                
+                <Grid Visibility="{x:Bind ViewModel.SelectedSubPage.IsEdited, Mode=OneWay}"
+                      HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="8"
+                      MaxWidth="300" Background="{ThemeResource PrimaryBackground}"
+                      Padding="8" CornerRadius="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Text="There are unsaved changes that must be handled before swapping pages."
+                               TextWrapping="WrapWholeWords" Grid.ColumnSpan="3"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,4,0,0">
+                        <Button Content="Save" IsEnabled="False" Command="{x:Bind ViewModel.SelectedSubPage.ApplyChangesCommand, Mode=OneWay}"/>
+                        <Button Content="Revert" Margin="8,0" Command="{x:Bind ViewModel.SelectedSubPage.RevertChangesCommand, Mode=OneWay}"/>
+                    </StackPanel>
+                </Grid>
             </Grid>
 
         </NavigationView>

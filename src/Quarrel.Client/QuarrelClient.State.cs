@@ -19,7 +19,7 @@ namespace Quarrel.Client
     public partial class QuarrelClient
     {
         private SelfUser? _selfUser;
-        private Settings? _settings;
+        private UserSettings? _settings;
 
         private readonly ConcurrentDictionary<ulong, Guild> _guildMap;
         private readonly ConcurrentDictionary<ulong, Channel> _channelMap;
@@ -316,7 +316,7 @@ namespace Quarrel.Client
 
         internal void UpdateSettings(JsonUserSettings jsonUserSettings)
         {
-            var settings = new Settings(jsonUserSettings, this);
+            var settings = new UserSettings(jsonUserSettings, this);
             _settings = settings;
 
             Guard.IsNotNull(_selfUser, nameof(_selfUser));

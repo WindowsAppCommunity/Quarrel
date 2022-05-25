@@ -39,7 +39,7 @@ namespace Quarrel.Client
         /// <summary>
         /// Gets the client settings.
         /// </summary>
-        public Settings? GetSettings()
+        public UserSettings? GetSettings()
         {
             return _settings;
         }

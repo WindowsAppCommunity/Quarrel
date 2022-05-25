@@ -27,7 +27,7 @@ namespace Quarrel.Services.Discord
         /// <summary>
         /// Gets the current discord settings.
         /// </summary>
-        Settings? GetSettings();
+        UserSettings? GetSettings();
 
         /// <summary>
         /// Gets a user by id.

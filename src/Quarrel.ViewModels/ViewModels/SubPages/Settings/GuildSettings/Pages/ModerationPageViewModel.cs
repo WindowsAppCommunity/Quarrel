@@ -18,14 +18,14 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
     {
         private const string ModerationResource = "GuildSettings/Moderation";
 
-        private DraftValue<ExplicitContentFilterLevel> _explicitContentFilterLevel;
         private DraftValue<VerificationLevel> _verificationLevel;
+        private DraftValue<ExplicitContentFilterLevel> _explicitContentFilterLevel;
 
         internal ModerationPageViewModel(ILocalizationService localizationService, IDiscordService discordService, BindableGuild guild) :
             base(localizationService, discordService, guild)
         {
-            VerificationLevel = new(guild.Guild.VerificationLevel);
-            ExplicitContentFilterLevel = new(guild.Guild.ExplicitContentFilter);
+            _verificationLevel = new(guild.Guild.VerificationLevel);
+            _explicitContentFilterLevel = new(guild.Guild.ExplicitContentFilter);
 
             SetVerificationLevelCommand = new RelayCommand<VerificationLevel>(SetVerificationLevel);
             SetExplicitContentFilterLevelCommand = new RelayCommand<ExplicitContentFilterLevel>(SetExplicitContentFilterLevel);
@@ -77,7 +77,12 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
             => ExplicitContentFilterLevel.Value = explicitContentFilterLevel;
 
         /// <inheritdoc/>
-        public override void ResetValues()
+        public override void ApplyChanges()
+        {
+        }
+
+        /// <inheritdoc/>
+        public override void RevertChanges()
         {
             ExplicitContentFilterLevel.Reset();
         }

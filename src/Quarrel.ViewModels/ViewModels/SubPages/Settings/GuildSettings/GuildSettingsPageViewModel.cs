@@ -5,7 +5,6 @@ using Quarrel.Services.Discord;
 using Quarrel.Services.Localization;
 using Quarrel.ViewModels.SubPages.Settings.Abstract;
 using Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages;
-using System.Linq;
 
 namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings
 {
@@ -17,8 +16,6 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings
         private const string PersonalSettingsResource = "GuildSettings/PersonalSettings";
         private const string ServerSettingsResource = "GuildSettings/ServerSettings";
         private const string UserManagementResource = "GuildSettings/UserManagement";
-
-        private SettingsSubPageViewModel? _selectedSubPage;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuildSettingsPageViewModel"/>.
@@ -47,7 +44,6 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings
                 new BansPageViewModel(localizationService, discordService, guild)
             })
         {
-            SelectedSubPage = (SettingsSubPageViewModel)Pages.FirstOrDefault(x => x is SettingsSubPageViewModel { IsActive: true });
         }
     }
 }

@@ -42,7 +42,12 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
         }
 
         /// <inheritdoc/>
-        public override void ResetValues()
+        public override void ApplyChanges()
+        {
+        }
+
+        /// <inheritdoc/>
+        public override void RevertChanges()
         {
             Name.Reset();
         }

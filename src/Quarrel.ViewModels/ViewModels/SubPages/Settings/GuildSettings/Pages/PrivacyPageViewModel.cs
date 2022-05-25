@@ -26,7 +26,12 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
         public override string Title => _localizationService[PrivacyResource];
 
         /// <inheritdoc/>
-        public override void ResetValues()
+        public override void ApplyChanges()
+        {
+        }
+
+        /// <inheritdoc/>
+        public override void RevertChanges()
         {
         }
     }

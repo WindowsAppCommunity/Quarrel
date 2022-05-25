@@ -53,7 +53,12 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         public IEnumerable<CultureInfo> LanguageOptions { get; }
 
         /// <inheritdoc/>
-        public override void ResetValues()
+        public override void ApplyChanges()
+        {
+        }
+
+        /// <inheritdoc/>
+        public override void RevertChanges()
         {
             SelectedLanguage.Reset();
         }

@@ -2,25 +2,21 @@
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Quarrel.ViewModels.SubPages.Settings.Abstract
 {
-    public class SettingsPageViewModel : ObservableObject
+    /// <summary>
+    /// A base class for settings pages.
+    /// </summary>
+    public abstract class SettingsPageViewModel : ObservableObject
     {
-        private int _editedCount;
         private SettingsSubPageViewModel? _selectedSubPage;
 
         internal SettingsPageViewModel(ISettingsMenuItem[] pages)
         {
-            foreach (var page in pages)
-            {
-                if (page is SettingsSubPageViewModel ssPage)
-                {
-                    ssPage.IsEditedChanged += IsEditedChanged;
-                }
-            }
-
             Pages = new ObservableCollection<ISettingsMenuItem>(pages);
+            SelectedSubPage = (SettingsSubPageViewModel)Pages.FirstOrDefault(x => x is SettingsSubPageViewModel { IsActive: true });
         }
 
         /// <summary>
@@ -35,19 +31,6 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         {
             get => _selectedSubPage;
             set => SetProperty(ref _selectedSubPage, value);
-        }
-
-        public bool IsEdited => _editedCount != 0;
-
-        private void IsEditedChanged(object sender, bool value)
-        {
-            bool oldEdited = IsEdited;
-            _editedCount += value ? 1 : -1;
-
-            if (IsEdited != oldEdited)
-            {
-                OnPropertyChanged(nameof(IsEdited));
-            }
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿// Quarrel © 2022
 
+using Quarrel.Attributes;
+
 namespace Discord.API.Models.Enums.Settings
 {
     /// <summary>
@@ -10,11 +12,13 @@ namespace Discord.API.Models.Enums.Settings
         /// <summary>
         /// Dark theme.
         /// </summary>
+        [StringValue("dark")]
         Dark,
 
         /// <summary>
         /// Light theme.
         /// </summary>
+        [StringValue("light")]
         Light,
     }
 }

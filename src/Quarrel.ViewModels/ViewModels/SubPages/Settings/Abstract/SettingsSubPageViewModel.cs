@@ -1,8 +1,8 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 using Quarrel.Services.Localization;
-using System;
 
 namespace Quarrel.ViewModels.SubPages.Settings.Abstract
 {
@@ -17,14 +17,12 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         protected readonly ILocalizationService _localizationService;
         private int _draftCount;
 
-        /// <summary>
-        /// An event raised when <see cref="IsEdited"/> is changed.
-        /// </summary>
-        public event EventHandler<bool>? IsEditedChanged;
-
         internal SettingsSubPageViewModel(ILocalizationService localizationService)
         {
             _localizationService = localizationService;
+
+            ApplyChangesCommand = new RelayCommand(ApplyChanges);
+            RevertChangesCommand = new RelayCommand(RevertChanges);
         }
 
         /// <summary>
@@ -48,9 +46,24 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         public bool IsEdited => _draftCount != 0;
 
         /// <summary>
-        /// Resets all unsaved changes in settings.
+        /// Gets a command that applies all changes from the sub page.
         /// </summary>
-        public abstract void ResetValues();
+        public RelayCommand ApplyChangesCommand { get; }
+
+        /// <summary>
+        /// Gets a command that reverts all changes in the sub page.
+        /// </summary>
+        public RelayCommand RevertChangesCommand { get; }
+
+        /// <summary>
+        /// Applies all changes made in settings.
+        /// </summary>
+        public abstract void ApplyChanges();
+
+        /// <summary>
+        /// Reverts all unsaved changes in settings.
+        /// </summary>
+        public abstract void RevertChanges();
 
         /// <summary>
         /// Increments or decrements the draft count when a value changes.
@@ -65,7 +78,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
 
             if (IsEdited != oldEdited)
             {
-                IsEditedChanged?.Invoke(this, IsEdited);
+                OnPropertyChanged(nameof(IsEdited));
             }
         }
     }

@@ -69,7 +69,12 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         }
 
         /// <inheritdoc/>
-        public override void ResetValues()
+        public override void ApplyChanges()
+        {
+        }
+
+        /// <inheritdoc/>
+        public override void RevertChanges()
         {
             ExplicitContentFilterLevel?.Reset();
         }
