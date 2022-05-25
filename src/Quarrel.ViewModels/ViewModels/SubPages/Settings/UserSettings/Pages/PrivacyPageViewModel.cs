@@ -1,9 +1,11 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Models.Enums.Settings;
+using Microsoft.Toolkit.Mvvm.Input;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Localization;
 using Quarrel.Services.Storage;
+using Quarrel.ViewModels.SubPages.Settings.Abstract;
 using Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages.Abstract;
 
 namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
@@ -14,11 +16,24 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
     public class PrivacyPageViewModel : UserSettingsSubPageViewModel
     {
         private const string PrivacyResource = "UserSettings/Privacy";
-        private ExplicitContentFilterLevel _contentFilterLevel;
+
+        private bool _isLoggedIn;
+        private DraftValue<ExplicitContentFilterLevel> _explicitContentFilterLevel;
 
         internal PrivacyPageViewModel(ILocalizationService localizationService, IDiscordService discordService, IStorageService storageService) :
             base(localizationService, discordService, storageService)
         {
+            _isLoggedIn = false;
+            var settings = _discordService.GetSettings();
+
+            if (settings is not null)
+            {
+                _isLoggedIn = true;
+
+                ExplicitContentFilterLevel = new(settings.ContentFilterLevel);
+            }
+
+            SetExplicitContentFilterLevelCommand = new RelayCommand<ExplicitContentFilterLevel>(SetExplicitContentFilterLevel);
         }
 
         /// <inheritdoc/>
@@ -28,68 +43,29 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         public override string Title => _localizationService[PrivacyResource];
 
         /// <inheritdoc/>
-        public override bool IsActive => true;
+        public override bool IsActive => _isLoggedIn;
 
-        private ExplicitContentFilterLevel ContentFilterLevel
+        /// <summary>
+        /// Gets or sets the explicit content filter level.
+        /// </summary>
+        public DraftValue<ExplicitContentFilterLevel> ExplicitContentFilterLevel
         {
-            get => _contentFilterLevel;
-            set
-            {
-                if (SetProperty(ref _contentFilterLevel, value))
-                {
-                    OnPropertyChanged(nameof(FilterNone));
-                    OnPropertyChanged(nameof(FilterPublic));
-                    OnPropertyChanged(nameof(FilterAll));
-                }
-            }
+            get => _explicitContentFilterLevel;
+            set => SetProperty(ref _explicitContentFilterLevel, value);
         }
 
         /// <summary>
-        /// Gets or sets if the content filter level is all.
+        /// Gets a command that sets the verification level.
         /// </summary>
-        /// <remarks>
-        /// Can only be set to <see langword="true"/>, clearing public and none.
-        /// </remarks>
-        public bool FilterAll
-        {
-            get => ContentFilterLevel == ExplicitContentFilterLevel.All;
-            set
-            {
-                if (!value) return;
-                ContentFilterLevel = ExplicitContentFilterLevel.All;
-            }
-        }
+        public RelayCommand<ExplicitContentFilterLevel> SetExplicitContentFilterLevelCommand { get; }
 
-        /// <summary>
-        /// Gets or sets if the content filter level is public.
-        /// </summary>
-        /// <remarks>
-        /// Can only be set to <see langword="true"/>, clearing all and none.
-        /// </remarks>
-        public bool FilterPublic
-        {
-            get => ContentFilterLevel == ExplicitContentFilterLevel.Public;
-            set
-            {
-                if (!value) return;
-                ContentFilterLevel = ExplicitContentFilterLevel.Public;
-            }
-        }
+        private void SetExplicitContentFilterLevel(ExplicitContentFilterLevel explicitContentFilterLevel)
+            => ExplicitContentFilterLevel.Value = explicitContentFilterLevel;
 
-        /// <summary>
-        /// Gets or sets if the content filter level is none.
-        /// </summary>
-        /// <remarks>
-        /// Can only be set to <see langword="true"/>, clearing all and public.
-        /// </remarks>
-        public bool FilterNone
+        /// <inheritdoc/>
+        public override void ResetValues()
         {
-            get => ContentFilterLevel == ExplicitContentFilterLevel.None;
-            set
-            {
-                if (!value) return;
-                ContentFilterLevel = ExplicitContentFilterLevel.None;
-            }
+            ExplicitContentFilterLevel.Reset();
         }
     }
 }

@@ -3,6 +3,7 @@
 using Quarrel.Services.Discord;
 using Quarrel.Services.Localization;
 using Quarrel.Services.Storage;
+using Quarrel.ViewModels.SubPages.Settings.Abstract;
 using Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages.Abstract;
 using System.Collections.Generic;
 using System.Globalization;
@@ -17,10 +18,12 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
     {
         private const string ConnectionsResource = "UserSettings/Display";
 
+        private DraftValue<CultureInfo> _selectedLanguage;
+
         internal DisplayPageViewModel(ILocalizationService localizationService, IDiscordService discordService, IStorageService storageService) :
             base(localizationService, discordService, storageService)
         {
-            SelectedLanguage = CultureInfo.GetCultureInfo(_localizationService.LanguageOverride);
+            _selectedLanguage = new(CultureInfo.GetCultureInfo(_localizationService.LanguageOverride));
             LanguageOptions = _localizationService.AvailableLanguages.Select(x => CultureInfo.GetCultureInfo(x));
         }
 
@@ -34,17 +37,23 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         public override bool IsActive => true;
 
         /// <summary>
-        /// Gets the app selected language.
+        /// Gets or sets the app selected language.
         /// </summary>
-        public CultureInfo SelectedLanguage
+        public DraftValue<CultureInfo> SelectedLanguage
         {
-            get => CultureInfo.GetCultureInfo(_localizationService.LanguageOverride);
-            set => _localizationService.LanguageOverride = value.TwoLetterISOLanguageName;
+            get => _selectedLanguage;
+            set => SetProperty(ref _selectedLanguage, value);
         }
 
         /// <summary>
         /// Gets the list of languages available for the app.
         /// </summary>
         public IEnumerable<CultureInfo> LanguageOptions { get; }
+
+        /// <inheritdoc/>
+        public override void ResetValues()
+        {
+            SelectedLanguage.Reset();
+        }
     }
 }

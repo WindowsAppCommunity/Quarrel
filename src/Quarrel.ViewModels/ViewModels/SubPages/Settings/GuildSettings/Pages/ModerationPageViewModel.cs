@@ -8,7 +8,6 @@ using Quarrel.Services.Discord;
 using Quarrel.Services.Localization;
 using Quarrel.ViewModels.SubPages.Settings.Abstract;
 using Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages.Abstract;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
 {
@@ -25,10 +24,11 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
         internal ModerationPageViewModel(ILocalizationService localizationService, IDiscordService discordService, BindableGuild guild) :
             base(localizationService, discordService, guild)
         {
+            VerificationLevel = new(guild.Guild.VerificationLevel);
+            ExplicitContentFilterLevel = new(guild.Guild.ExplicitContentFilter);
+
             SetVerificationLevelCommand = new RelayCommand<VerificationLevel>(SetVerificationLevel);
             SetExplicitContentFilterLevelCommand = new RelayCommand<ExplicitContentFilterLevel>(SetExplicitContentFilterLevel);
-
-            ResetValues(guild);
         }
 
         /// <inheritdoc/>
@@ -68,16 +68,16 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
         /// </summary>
         public RelayCommand<ExplicitContentFilterLevel> SetExplicitContentFilterLevelCommand { get; }
 
-        private void ResetValues(BindableGuild guild)
-        {
-            VerificationLevel = new(guild.Guild.VerificationLevel);
-            ExplicitContentFilterLevel = new(guild.Guild.ExplicitContentFilter);
-        }
-
         private void SetVerificationLevel(VerificationLevel verificationLevel)
             => VerificationLevel.Value = verificationLevel;
 
         private void SetExplicitContentFilterLevel(ExplicitContentFilterLevel explicitContentFilterLevel)
             => ExplicitContentFilterLevel.Value = explicitContentFilterLevel;
+
+        /// <inheritdoc/>
+        public override void ResetValues()
+        {
+            ExplicitContentFilterLevel.Reset();
+        }
     }
 }

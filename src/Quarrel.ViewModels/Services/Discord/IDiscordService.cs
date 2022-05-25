@@ -7,6 +7,7 @@ using Quarrel.Bindables.Guilds;
 using Quarrel.Bindables.Messages;
 using Quarrel.Bindables.Users;
 using Quarrel.Client.Models.Messages;
+using Quarrel.Client.Models.Settings;
 using Quarrel.Services.Analytics.Enums;
 using System.Threading.Tasks;
 
@@ -22,6 +23,11 @@ namespace Quarrel.Services.Discord
         /// </summary>
         /// <returns>The current user as a <see cref="BindableSelfUser"/>.</returns>
         BindableSelfUser? GetMe();
+
+        /// <summary>
+        /// Gets the current discord settings.
+        /// </summary>
+        Settings? GetSettings();
 
         /// <summary>
         /// Gets a user by id.

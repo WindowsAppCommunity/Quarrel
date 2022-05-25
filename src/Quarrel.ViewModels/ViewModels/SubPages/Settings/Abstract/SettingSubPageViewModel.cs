@@ -34,5 +34,10 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         /// Gets whether or not the page is currently active.
         /// </summary>
         public virtual bool IsActive => false;
+
+        /// <summary>
+        /// Resets all unsaved changes in settings.
+        /// </summary>
+        public abstract void ResetValues();
     }
 }

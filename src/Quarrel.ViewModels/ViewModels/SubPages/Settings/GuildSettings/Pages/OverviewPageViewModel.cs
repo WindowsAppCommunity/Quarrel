@@ -3,6 +3,7 @@
 using Quarrel.Bindables.Guilds;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Localization;
+using Quarrel.ViewModels.SubPages.Settings.Abstract;
 using Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages.Abstract;
 
 namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
@@ -14,12 +15,12 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
     {
         private const string OverviewResource = "GuildSettings/Overview";
 
-        private string _name;
+        private DraftValue<string> _name;
 
         internal OverviewPageViewModel(ILocalizationService localizationService, IDiscordService discordService, BindableGuild guild) :
             base(localizationService, discordService, guild)
         {
-            ResetValues(guild);
+            Name = new(guild.Guild.Name);
         }
 
         /// <inheritdoc/>
@@ -34,15 +35,16 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
         /// <summary>
         /// Gets or sets the guild's name.
         /// </summary>
-        public string Name
+        public DraftValue<string> Name
         {
             get => _name;
             set => SetProperty(ref _name, value);
         }
 
-        private void ResetValues(BindableGuild guild)
+        /// <inheritdoc/>
+        public override void ResetValues()
         {
-            Name = guild.Guild.Name;
+            Name.Reset();
         }
     }
 }

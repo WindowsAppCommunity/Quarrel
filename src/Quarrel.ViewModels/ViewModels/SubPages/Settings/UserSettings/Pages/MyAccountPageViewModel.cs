@@ -1,6 +1,5 @@
 ﻿// Quarrel © 2022
 
-using Quarrel.Bindables.Users;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Localization;
 using Quarrel.Services.Storage;
@@ -17,10 +16,10 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         private const string MyAccountResource = "UserSettings/MyAccount";
 
         private bool _isLoggedIn;
-        private DraftValue<string?> _email;
-        private DraftValue<string?> _username;
-        private DraftValue<int> _discriminator;
-        private DraftValue<string?> _aboutMe;
+        private DraftValue<string?>? _email;
+        private DraftValue<string?>? _username;
+        private DraftValue<int>? _discriminator;
+        private DraftValue<string?>? _aboutMe;
 
         internal MyAccountPageViewModel(ILocalizationService localizationService, IDiscordService discordService, IStorageService storageService) :
             base(localizationService, discordService, storageService)
@@ -32,7 +31,11 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
             if (user is not null)
             {
                 _isLoggedIn = true;
-                ResetValues(user);
+
+                Email = new(user.SelfUser.Email);
+                Username = new(user.SelfUser.Username);
+                Discriminator = new(user.SelfUser.Discriminator);
+                AboutMe = new(user.SelfUser.Bio);
             }
         }
 
@@ -48,7 +51,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         /// <summary>
         /// Gets or sets the current user's email.
         /// </summary>
-        public DraftValue<string?> Email
+        public DraftValue<string?>? Email
         {
             get => _email;
             set => SetProperty(ref _email, value);
@@ -57,7 +60,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         /// <summary>
         /// Gets or sets the current user's username.
         /// </summary>
-        public DraftValue<string?> Username
+        public DraftValue<string?>? Username
         {
             get => _username;
             set => SetProperty(ref _username, value);
@@ -66,7 +69,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         /// <summary>
         /// Gets or sets the current user's discriminator.
         /// </summary>
-        public DraftValue<int> Discriminator
+        public DraftValue<int>? Discriminator
         {
             get => _discriminator;
             set => SetProperty(ref _discriminator, value);
@@ -75,18 +78,19 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         /// <summary>
         /// Gets or sets the current user's about me description.
         /// </summary>
-        public DraftValue<string?> AboutMe
+        public DraftValue<string?>? AboutMe
         {
             get => _aboutMe;
             set => SetProperty(ref _aboutMe, value);
         }
 
-        private void ResetValues(BindableSelfUser user)
+        /// <inheritdoc/>
+        public override void ResetValues()
         {
-            Email = new(user.SelfUser.Email);
-            Username = new(user.SelfUser.Username);
-            Discriminator = new(user.SelfUser.Discriminator);
-            AboutMe = new(user.SelfUser.Bio);
+            Email?.Reset();
+            Username?.Reset();
+            Discriminator?.Reset();
+            AboutMe?.Reset();
         }
     }
 }

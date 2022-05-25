@@ -24,5 +24,10 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
 
         /// <inheritdoc/>
         public override string Title => _localizationService[ConnectionsResource];
+
+        /// <inheritdoc/>
+        public override void ResetValues()
+        {
+        }
     }
 }

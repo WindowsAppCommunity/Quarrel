@@ -18,7 +18,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         public DraftValue(T value)
         {
             _value = value;
-            CanonValue = value;
+            CanonicalValue = value;
         }
 
         /// <summary>
@@ -39,11 +39,19 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         /// <summary>
         /// The original value.
         /// </summary>
-        public T CanonValue { get; }
+        public T CanonicalValue { get; }
 
         /// <summary>
         /// Gets whether or not the value drafted.
         /// </summary>
-        public bool Drafted => !CanonValue?.Equals(Value) ?? false;
+        public bool Drafted => !CanonicalValue?.Equals(Value) ?? false;
+
+        /// <summary>
+        /// Resets the value to the canonical value.
+        /// </summary>
+        public void Reset()
+        {
+            Value = CanonicalValue;
+        }
     }
 }

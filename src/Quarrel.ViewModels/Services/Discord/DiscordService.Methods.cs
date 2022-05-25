@@ -36,6 +36,12 @@ namespace Quarrel.Services.Discord
         }
 
         /// <inheritdoc/>
+        public Settings? GetSettings()
+        {
+            return _quarrelClient.GetSettings();
+        }
+
+        /// <inheritdoc/>
         public BindableUser? GetUser(ulong id)
         {
             var user = _quarrelClient.GetUser(id);

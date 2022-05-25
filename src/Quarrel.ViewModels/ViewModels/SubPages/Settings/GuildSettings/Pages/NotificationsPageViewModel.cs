@@ -24,5 +24,10 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
 
         /// <inheritdoc/>
         public override string Title => _localizationService[NotificationsResource];
+
+        /// <inheritdoc/>
+        public override void ResetValues()
+        {
+        }
     }
 }
