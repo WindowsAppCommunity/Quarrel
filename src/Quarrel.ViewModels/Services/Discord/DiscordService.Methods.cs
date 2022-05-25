@@ -42,6 +42,12 @@ namespace Quarrel.Services.Discord
         }
 
         /// <inheritdoc/>
+        public async Task ModifySettings(ModifyUserSettings modifySettings)
+        {
+            await _quarrelClient.ModifySettings(modifySettings);
+        }
+
+        /// <inheritdoc/>
         public BindableUser? GetUser(ulong id)
         {
             var user = _quarrelClient.GetUser(id);

@@ -3,6 +3,7 @@
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Enums.Settings;
 using Microsoft.Toolkit.Mvvm.Input;
+using Quarrel.Client.Models.Settings;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Localization;
 using Quarrel.Services.Storage;
@@ -69,14 +70,27 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         }
 
         /// <inheritdoc/>
-        public override void ApplyChanges()
+        public override async void ApplyChanges()
         {
+            ModifyUserSettings modify = new ModifyUserSettings()
+            {
+                ExplicitContentFilterLevel = ExplicitContentFilterLevel?.Value,
+            };
+
+            await _discordService.ModifySettings(modify);
+
+            Guard.IsNotNull(ExplicitContentFilterLevel, nameof(ExplicitContentFilterLevel));
+            ExplicitContentFilterLevel.CanonicalValue = ExplicitContentFilterLevel.Value;
+
+            base.ApplyChanges();
         }
 
         /// <inheritdoc/>
         public override void RevertChanges()
         {
             ExplicitContentFilterLevel?.Reset();
+
+            base.RevertChanges();
         }
 
         private void RegisterEvents()

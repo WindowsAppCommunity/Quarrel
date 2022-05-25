@@ -12,6 +12,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
     public class DraftValue<T> : ObservableObject
     {
         private T _value;
+        private T _canonicalValue;
 
         /// <summary>
         /// An event raised when the value is updated.
@@ -28,7 +29,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         }
 
         /// <summary>
-        /// The drafted value.
+        /// Gets or sets the drafted value.
         /// </summary>
         public T Value
         {
@@ -45,9 +46,21 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         }
 
         /// <summary>
-        /// The original value.
+        /// Gets or sets the original value.
         /// </summary>
-        public T CanonicalValue { get; }
+        public T CanonicalValue
+        {
+            get => _canonicalValue;
+            set
+            {
+                bool oldIsDraft = IsDrafted;
+                if (SetProperty(ref _canonicalValue, value))
+                {
+                    OnPropertyChanged(nameof(IsDrafted));
+                    ValueChanged?.Invoke(this, new DraftValueUpdated<T>(Value, IsDrafted, oldIsDraft != IsDrafted));
+                }
+            }
+        }
 
         /// <summary>
         /// Gets whether or not the value drafted.

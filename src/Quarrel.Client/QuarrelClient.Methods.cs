@@ -45,6 +45,17 @@ namespace Quarrel.Client
         }
 
         /// <summary>
+        /// Modifies user settings.
+        /// </summary>
+        /// <param name="modifySettings">The settings adjustments.</param>
+        public async Task ModifySettings(ModifyUserSettings modifySettings)
+        {
+            Guard.IsNotNull(_userService, nameof(_userService));
+
+            await _userService.UpdateSettings(modifySettings.ToJsonModel());
+        }
+
+        /// <summary>
         /// Gets messages in a channel.
         /// </summary>
         /// <param name="channelId">The channel's id.</param>

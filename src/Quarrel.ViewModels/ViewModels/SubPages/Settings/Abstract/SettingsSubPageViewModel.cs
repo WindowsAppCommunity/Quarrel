@@ -43,7 +43,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         /// <summary>
         /// Gets whether or not the page contains edited value.
         /// </summary>
-        public bool IsEdited => _draftCount != 0;
+        public bool IsEdited => DraftCount != 0;
 
         /// <summary>
         /// Gets a command that applies all changes from the sub page.
@@ -55,30 +55,44 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         /// </summary>
         public RelayCommand RevertChangesCommand { get; }
 
+        private int DraftCount
+        {
+            get => _draftCount;
+            set
+            {
+                bool oldEdited = IsEdited;
+                _draftCount = value;
+                if (IsEdited != oldEdited)
+                {
+                    OnPropertyChanged(nameof(IsEdited));
+                }
+            }
+        }
+
         /// <summary>
         /// Applies all changes made in settings.
         /// </summary>
-        public abstract void ApplyChanges();
+        public virtual void ApplyChanges()
+        {
+            DraftCount = 0;
+        }
 
         /// <summary>
         /// Reverts all unsaved changes in settings.
         /// </summary>
-        public abstract void RevertChanges();
+        public virtual void RevertChanges()
+        {
+            DraftCount = 0;
+        }
 
         /// <summary>
         /// Increments or decrements the draft count when a value changes.
         /// </summary>
         protected void ValueChanged<T>(object sender, DraftValueUpdated<T> e)
         {
-            bool oldEdited = IsEdited;
             if (e.IsDraftChanged)
             {
-                _draftCount += e.IsDraft ? 1 : -1;
-            }
-
-            if (IsEdited != oldEdited)
-            {
-                OnPropertyChanged(nameof(IsEdited));
+                DraftCount += e.IsDraft ? 1 : -1;
             }
         }
     }

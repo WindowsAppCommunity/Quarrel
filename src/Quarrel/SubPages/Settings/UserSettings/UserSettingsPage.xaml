@@ -77,7 +77,7 @@
                     <TextBlock Text="There are unsaved changes that must be handled before swapping pages."
                                TextWrapping="WrapWholeWords" Grid.ColumnSpan="3"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,4,0,0">
-                        <Button Content="Save" IsEnabled="False" Command="{x:Bind ViewModel.SelectedSubPage.ApplyChangesCommand, Mode=OneWay}"/>
+                        <Button Content="Save" Command="{x:Bind ViewModel.SelectedSubPage.ApplyChangesCommand, Mode=OneWay}"/>
                         <Button Content="Revert" Margin="8,0" Command="{x:Bind ViewModel.SelectedSubPage.RevertChangesCommand, Mode=OneWay}"/>
                     </StackPanel>
                 </Grid>

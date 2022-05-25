@@ -30,6 +30,12 @@ namespace Quarrel.Services.Discord
         UserSettings? GetSettings();
 
         /// <summary>
+        /// Modifies user settings.
+        /// </summary>
+        /// <param name="modifySettings">The settings adjustments.</param>
+        Task ModifySettings(ModifyUserSettings modifySettings);
+
+        /// <summary>
         /// Gets a user by id.
         /// </summary>
         /// <param name="userId">The id of the user to get.</param>

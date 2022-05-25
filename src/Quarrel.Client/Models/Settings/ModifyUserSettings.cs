@@ -4,7 +4,6 @@ using Discord.API.Models.Enums.Settings;
 using Discord.API.Models.Enums.Users;
 using Discord.API.Models.Json.Settings;
 using System;
-using System.Text.Json.Serialization;
 
 namespace Quarrel.Client.Models.Settings
 {
@@ -16,20 +15,22 @@ namespace Quarrel.Client.Models.Settings
         /// <summary>
         /// Gets or sets the user's discord theme.
         /// </summary>
-        [JsonPropertyName("theme")]
         public Theme? Theme { get; set; }
 
         /// <summary>
         /// Gets or sets the user's status.
         /// </summary>
-        [JsonPropertyName("status")]
         public UserStatus? Status { get; set; }
 
         /// <summary>
         /// Gets or sets the list of guilds where users can DM from.
         /// </summary>
-        [JsonPropertyName("restricted_guilds")]
         public ulong[]? RestrictedGuilds { get; set; }
+
+        /// <summary>
+        /// Gets or sets the explicit content filter level.
+        /// </summary>
+        public ExplicitContentFilterLevel? ExplicitContentFilterLevel { get; set; }
 
         internal JsonModifyUserSettings ToJsonModel()
         {
@@ -38,6 +39,7 @@ namespace Quarrel.Client.Models.Settings
                 Status = Status?.GetStringValue(),
                 Theme = Theme?.GetStringValue(),
                 RestrictedGuilds = RestrictedGuilds,
+                ExplicitContentFilterLevel = ExplicitContentFilterLevel,
             };
 
             return json;

@@ -55,12 +55,18 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         /// <inheritdoc/>
         public override void ApplyChanges()
         {
+            _localizationService.LanguageOverride = SelectedLanguage.Value.Name;
+            SelectedLanguage.CanonicalValue = CultureInfo.GetCultureInfo(_localizationService.LanguageOverride);
+
+            base.ApplyChanges();
         }
 
         /// <inheritdoc/>
         public override void RevertChanges()
         {
             SelectedLanguage.Reset();
+
+            base.RevertChanges();
         }
 
         private void RegisterEvents()
