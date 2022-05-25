@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using CommunityToolkit.Diagnostics;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Localization;
 using Quarrel.Services.Storage;
@@ -36,6 +37,8 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
                 Username = new(user.SelfUser.Username);
                 Discriminator = new(user.SelfUser.Discriminator);
                 AboutMe = new(user.SelfUser.Bio);
+
+                RegisterEvents();
             }
         }
 
@@ -91,6 +94,19 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
             Username?.Reset();
             Discriminator?.Reset();
             AboutMe?.Reset();
+        }
+
+        private void RegisterEvents()
+        {
+            Guard.IsNotNull(Email);
+            Guard.IsNotNull(Username);
+            Guard.IsNotNull(Discriminator);
+            Guard.IsNotNull(AboutMe);
+
+            Email.ValueChanged += ValueChanged;
+            Username.ValueChanged += ValueChanged;
+            Discriminator.ValueChanged += ValueChanged;
+            AboutMe.ValueChanged += ValueChanged;
         }
     }
 }

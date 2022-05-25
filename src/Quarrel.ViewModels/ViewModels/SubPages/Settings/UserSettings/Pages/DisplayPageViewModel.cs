@@ -25,6 +25,8 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         {
             _selectedLanguage = new(CultureInfo.GetCultureInfo(_localizationService.LanguageOverride));
             LanguageOptions = _localizationService.AvailableLanguages.Select(x => CultureInfo.GetCultureInfo(x));
+
+            RegisterEvents();
         }
 
         /// <inheritdoc/>
@@ -54,6 +56,11 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         public override void ResetValues()
         {
             SelectedLanguage.Reset();
+        }
+
+        private void RegisterEvents()
+        {
+            SelectedLanguage.ValueChanged += ValueChanged;
         }
     }
 }

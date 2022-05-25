@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Enums.Settings;
 using Microsoft.Toolkit.Mvvm.Input;
 using Quarrel.Services.Discord;
@@ -18,7 +19,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         private const string PrivacyResource = "UserSettings/Privacy";
 
         private bool _isLoggedIn;
-        private DraftValue<ExplicitContentFilterLevel> _explicitContentFilterLevel;
+        private DraftValue<ExplicitContentFilterLevel>? _explicitContentFilterLevel;
 
         internal PrivacyPageViewModel(ILocalizationService localizationService, IDiscordService discordService, IStorageService storageService) :
             base(localizationService, discordService, storageService)
@@ -31,6 +32,8 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
                 _isLoggedIn = true;
 
                 ExplicitContentFilterLevel = new(settings.ContentFilterLevel);
+
+                RegisterEvents();
             }
 
             SetExplicitContentFilterLevelCommand = new RelayCommand<ExplicitContentFilterLevel>(SetExplicitContentFilterLevel);
@@ -48,7 +51,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         /// <summary>
         /// Gets or sets the explicit content filter level.
         /// </summary>
-        public DraftValue<ExplicitContentFilterLevel> ExplicitContentFilterLevel
+        public DraftValue<ExplicitContentFilterLevel>? ExplicitContentFilterLevel
         {
             get => _explicitContentFilterLevel;
             set => SetProperty(ref _explicitContentFilterLevel, value);
@@ -60,12 +63,21 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         public RelayCommand<ExplicitContentFilterLevel> SetExplicitContentFilterLevelCommand { get; }
 
         private void SetExplicitContentFilterLevel(ExplicitContentFilterLevel explicitContentFilterLevel)
-            => ExplicitContentFilterLevel.Value = explicitContentFilterLevel;
+        {
+            if (ExplicitContentFilterLevel is not null)
+                ExplicitContentFilterLevel.Value = explicitContentFilterLevel;
+        }
 
         /// <inheritdoc/>
         public override void ResetValues()
         {
-            ExplicitContentFilterLevel.Reset();
+            ExplicitContentFilterLevel?.Reset();
+        }
+
+        private void RegisterEvents()
+        {
+            Guard.IsNotNull(ExplicitContentFilterLevel);
+            ExplicitContentFilterLevel.ValueChanged += ValueChanged;
         }
     }
 }

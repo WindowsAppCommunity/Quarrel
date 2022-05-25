@@ -29,6 +29,8 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
 
             SetVerificationLevelCommand = new RelayCommand<VerificationLevel>(SetVerificationLevel);
             SetExplicitContentFilterLevelCommand = new RelayCommand<ExplicitContentFilterLevel>(SetExplicitContentFilterLevel);
+
+            RegisterEvents();
         }
 
         /// <inheritdoc/>
@@ -78,6 +80,11 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
         public override void ResetValues()
         {
             ExplicitContentFilterLevel.Reset();
+        }
+
+        private void RegisterEvents()
+        {
+            ExplicitContentFilterLevel.ValueChanged += ValueChanged;
         }
     }
 }

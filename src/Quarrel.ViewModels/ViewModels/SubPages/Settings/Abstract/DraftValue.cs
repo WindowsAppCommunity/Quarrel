@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using System;
 
 namespace Quarrel.ViewModels.SubPages.Settings.Abstract
 {
@@ -11,6 +12,11 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
     public class DraftValue<T> : ObservableObject
     {
         private T _value;
+
+        /// <summary>
+        /// An event raised when the value is updated.
+        /// </summary>
+        public event EventHandler<DraftValueUpdated<T>>? ValueChanged;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DraftValue{T}"/> class.
@@ -29,9 +35,11 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
             get => _value;
             set
             {
+                bool oldIsDraft = IsDrafted;
                 if (SetProperty(ref _value, value))
                 {
                     OnPropertyChanged(nameof(IsDrafted));
+                    ValueChanged?.Invoke(this, new DraftValueUpdated<T>(Value, IsDrafted, oldIsDraft != IsDrafted));
                 }
             }
         }

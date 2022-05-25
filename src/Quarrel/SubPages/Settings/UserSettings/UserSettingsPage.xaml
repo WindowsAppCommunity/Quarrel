@@ -59,10 +59,14 @@
                         MenuItemsSource="{x:Bind ViewModel.Pages, Mode=OneWay}"
                         MenuItemTemplateSelector="{StaticResource MenuItemSelector}">
 
-            <ContentControl Content="{x:Bind ViewModel.SelectedSubPage, Mode=OneWay}"
+            <Grid>
+                <ContentControl Content="{x:Bind ViewModel.SelectedSubPage, Mode=OneWay}"
                             ContentTemplateSelector="{StaticResource UserPageSelector}"
                             HorizontalContentAlignment="Stretch"
                             VerticalContentAlignment="Stretch"/>
+                <TextBlock Text="Unhandled changes" Visibility="{x:Bind ViewModel.IsEdited, Mode=OneWay}"
+                           HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="8"/>
+            </Grid>
 
         </NavigationView>
     </Grid>
