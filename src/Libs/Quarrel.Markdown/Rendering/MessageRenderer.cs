@@ -188,9 +188,11 @@ namespace Quarrel.Markdown
                     }
                 };
 
+                var offset = start.VisualParent.TransformToVisual(_backgroundCanvas).TransformPoint(new Point(0, 0));
+
                 _backgroundCanvas.Children.Add(path);
-                Canvas.SetTop(path, firstRect.Top);
-                Canvas.SetLeft(path, firstRect.Left);
+                Canvas.SetTop(path, firstRect.Top + offset.Y);
+                Canvas.SetLeft(path, firstRect.Left + offset.X);
             }
 
             foreach (var inline in _spoilers)
@@ -209,14 +211,18 @@ namespace Quarrel.Markdown
                     }
                 };
 
+                var offset = start.VisualParent.TransformToVisual(_overlayCanvas).TransformPoint(new Point(0, 0));
+
                 _overlayCanvas.Children.Add(path);
-                Canvas.SetTop(path, firstRect.Top);
-                Canvas.SetLeft(path, firstRect.Left);
+                Canvas.SetTop(path, firstRect.Top + offset.Y);
+                Canvas.SetLeft(path, firstRect.Left + offset.X);
             }
         }
 
-        private void RenderMarkdown(IList<ASTRoot> tree)
+        private void RenderMarkdown(IList<IAST> tree)
         {
+            AdjustTree(tree);
+            RemoveLeadingWhitespace(tree);
             if (_richBlock != null)
             {
                 _richBlock.SizeChanged -= RichBlock_SizeChanged;
@@ -228,308 +234,292 @@ namespace Quarrel.Markdown
             _inlineCodeBlocks.Clear();
             _spoilers.Clear();
             BlockCollection blocks = _richBlock.Blocks;
-
-            foreach (var root in tree)
+            
+            var paragraph = new Paragraph();
+            blocks.Add(paragraph);
+            InlineCollection inlineCollection = paragraph.Inlines;
+            Stack<(IAST, InlineCollection)> stack = new Stack<(IAST, InlineCollection)>();
+            foreach (IAST ast in tree.Reverse())
             {
-                var paragraph = new Paragraph();
-                blocks.Add(paragraph);
-                InlineCollection inlineCollection = paragraph.Inlines;
-                Stack<(IAST, InlineCollection)> stack = new Stack<(IAST, InlineCollection)>();
-                foreach (IAST ast in root.Children.Reverse())
-                {
-                    stack.Push((ast, inlineCollection));
-                }
+                stack.Push((ast, inlineCollection));
+            }
 
-                while (stack.TryPop(out var tuple))
+            while (stack.TryPop(out var tuple))
+            {
+                (IAST node, inlineCollection) = tuple;
+                switch (node)
                 {
-                    (IAST node, inlineCollection) = tuple;
-                    switch (node)
-                    {
-                        case CodeBlock codeBlock:
+                    case CodeBlock codeBlock:
+                        {
+                            var container = new InlineUIContainer();
+                            inlineCollection.Add(container);
+                            container.Child = new CodeBlockElement(codeBlock)
                             {
-                                var container = new InlineUIContainer();
-                                inlineCollection.Add(container);
-                                container.Child = new CodeBlockElement(codeBlock)
+                                FontSize = container.FontSize,
+                                FontWeight = container.FontWeight,
+                                FontStretch = container.FontStretch,
+                                TextDecorations = container.TextDecorations,
+                                Style = CodeBlockStyle,
+                            };
+                        }
+                        break;
+                    case BlockQuote blockQuote:
+                        {
+                            var container = new InlineUIContainer();
+                            inlineCollection.Add(container);
+                            var element = new BlockQuoteElement(blockQuote)
+                            {
+                                FontSize = container.FontSize,
+                                FontWeight = container.FontWeight,
+                                FontStretch = container.FontStretch,
+                                TextDecorations = container.TextDecorations,
+                                Style = BlockQuoteStyle,
+                            };
+                            container.Child = element;
+
+                            foreach (IAST child in blockQuote.Children.Reverse())
+                            {
+                                stack.Push((child, element.Paragraph.Inlines));
+                            }
+                        }
+                        break;
+                    case Url url:
+                        inlineCollection.Add(new Hyperlink()
+                        {
+                            NavigateUri = Uri.TryCreate(url.Content, UriKind.RelativeOrAbsolute, out Uri uri) ? uri : null,
+                            Inlines = { new Run() { Text = url.Content } }
+                        });
+                        break;
+                    case IEmojiAST emoji:
+                        {
+                            var container = new InlineUIContainer();
+                            inlineCollection.Add(container);
+                            container.Child = new EmojiElement(emoji)
+                            {
+                                Style = EmojiStyle,
+                            };
+                        }
+                        break;
+                    case Strong strong:
+                        {
+                            var inline = new Bold();
+                            inlineCollection.Add(inline);
+                            foreach (IAST child in strong.Children.Reverse())
+                            {
+                                stack.Push((child, inline.Inlines));
+                            }
+                        }
+                        break;
+                    case Em em:
+                        {
+                            var inline = new Italic();
+                            inlineCollection.Add(inline);
+                            foreach (IAST child in em.Children.Reverse())
+                            {
+                                stack.Push((child, inline.Inlines));
+                            }
+                        }
+                        break;
+                    case U u:
+                        {
+                            var inline = new Underline();
+                            inlineCollection.Add(inline);
+                            foreach (IAST child in u.Children.Reverse())
+                            {
+                                stack.Push((child, inline.Inlines));
+                            }
+                        }
+                        break;
+                    case S s:
+                        {
+                            var inline = new Span() { TextDecorations = TextDecorations.Strikethrough };
+                            inlineCollection.Add(inline);
+                            foreach (IAST child in s.Children.Reverse())
+                            {
+                                stack.Push((child, inline.Inlines));
+                            }
+                        }
+                        break;
+                    case InlineCode inlineCode:
+                        {
+                            var inline = new Span()
+                            {
+                                Inlines =
                                 {
-                                    FontSize = container.FontSize,
+                                    new Run() { Text = " " },
+                                    new Run()
+                                    {
+                                        FontFamily = new FontFamily("Consolas"),
+                                        Text = inlineCode.Content,
+                                    },
+                                    new Run() { Text = " " }
+                                }
+                            };
+                            inlineCollection.Add(inline);
+                            _inlineCodeBlocks.Add(inline);
+                        }
+                        break;
+                    case Timestamp timeStamp:
+                        {
+                            InlineUIContainer container = new InlineUIContainer();
+                            inlineCollection.Add(container);
+                            container.Child = new TimestampElement(timeStamp)
+                            {
+                                Style = TimestampStyle,
+                            };
+                        }
+                        break;
+                    case RoleMention roleMention:
+                        {
+                            InlineUIContainer container = new InlineUIContainer();
+                            inlineCollection.Add(container);
+                            container.Child = new HyperlinkButton()
+                            {
+                                RenderTransform = new TranslateTransform { Y = 4 },
+                                Background = new SolidColorBrush(Colors.DarkGray),
+                                Padding = new Thickness(0),
+                                Content = new TextBlock()
+                                {
                                     FontWeight = container.FontWeight,
+                                    FontSize = container.FontSize,
                                     FontStretch = container.FontStretch,
                                     TextDecorations = container.TextDecorations,
-                                    Style = CodeBlockStyle,
-                                };
-                            }
-                            break;
-                        case BlockQuote blockQuote:
+                                    Text = roleMention.RoleID
+                                }
+                            };
+                        }
+                        break;
+                    case UserMention mention:
+                        {
+                            InlineUIContainer container = new InlineUIContainer();
+                            inlineCollection.Add(container);
+                            container.Child = new UserMentionElement(mention, Context)
                             {
-                                var container = new InlineUIContainer();
-                                inlineCollection.Add(container);
-                                var element = new BlockQuoteElement(blockQuote)
+                                Style = UserMentionStyle,
+                            };
+                        }
+                        break;
+                    case GlobalMention globalMention:
+                        {
+                            InlineUIContainer container = new InlineUIContainer();
+                            inlineCollection.Add(container);
+                            container.Child = new HyperlinkButton()
+                            {
+                                RenderTransform = new TranslateTransform { Y = 4 },
+                                Background = new SolidColorBrush(Colors.DarkGray),
+                                Padding = new Thickness(0),
+                                Content = new TextBlock()
                                 {
-                                    FontSize = container.FontSize,
                                     FontWeight = container.FontWeight,
+                                    FontSize = container.FontSize,
                                     FontStretch = container.FontStretch,
                                     TextDecorations = container.TextDecorations,
-                                    Style = BlockQuoteStyle,
-                                };
-                                container.Child = element;
+                                    Text = globalMention.Target,
+                                }
+                            };
+                        }
+                        break;
+                    case ChannelMention channel:
+                        {
+                            InlineUIContainer container = new InlineUIContainer();
+                            inlineCollection.Add(container);
+                            container.Child = new HyperlinkButton()
+                            {
+                                RenderTransform = new TranslateTransform { Y = 4 },
+                                Background = new SolidColorBrush(Colors.DarkGray),
+                                Padding = new Thickness(0),
+                                Content = new TextBlock()
+                                {
+                                    FontWeight = container.FontWeight,
+                                    FontSize = container.FontSize,
+                                    FontStretch = container.FontStretch,
+                                    TextDecorations = container.TextDecorations,
+                                    Text = channel.ChannelID
+                                }
+                            };
+                        }
+                        break;
+                    case Spoiler spoiler:
+                        {
+                            var inline = new Span();
 
-                                foreach (IAST child in blockQuote.Children.Reverse())
-                                {
-                                    stack.Push((child, element.Paragraph.Inlines));
-                                }
-                            }
-                            break;
-                        case Url url:
-                            inlineCollection.Add(new Hyperlink()
+                            foreach (IAST child in spoiler.Children.Reverse())
                             {
-                                NavigateUri = Uri.TryCreate(url.Content, UriKind.RelativeOrAbsolute, out Uri uri) ? uri : null,
-                                Inlines = { new Run() { Text = url.Content } }
-                            });
-                            break;
-                        case IEmojiAST emoji:
-                            {
-                                var container = new InlineUIContainer();
-                                inlineCollection.Add(container);
-                                container.Child = new EmojiElement(emoji)
-                                {
-                                    Style = EmojiStyle,
-                                };
+                                stack.Push((child, inline.Inlines));
                             }
-                            break;
-                        case Strong strong:
-                            {
-                                var inline = new Bold();
-                                inlineCollection.Add(inline);
-                                foreach (IAST child in strong.Children.Reverse())
-                                {
-                                    stack.Push((child, inline.Inlines));
-                                }
-                            }
-                            break;
-                        case Em em:
-                            {
-                                var inline = new Italic();
-                                inlineCollection.Add(inline);
-                                foreach (IAST child in em.Children.Reverse())
-                                {
-                                    stack.Push((child, inline.Inlines));
-                                }
-                            }
-                            break;
-                        case U u:
-                            {
-                                var inline = new Underline();
-                                inlineCollection.Add(inline);
-                                foreach (IAST child in u.Children.Reverse())
-                                {
-                                    stack.Push((child, inline.Inlines));
-                                }
-                            }
-                            break;
-                        case S s:
-                            {
-                                var inline = new Span() { TextDecorations = TextDecorations.Strikethrough };
-                                inlineCollection.Add(inline);
-                                foreach (IAST child in s.Children.Reverse())
-                                {
-                                    stack.Push((child, inline.Inlines));
-                                }
-                            }
-                            break;
-                        case InlineCode inlineCode:
-                            {
-                                var inline = new Span()
-                                {
-                                    Inlines =
-                                    {
-                                        new Run() { Text = " " },
-                                        new Run()
-                                        {
-                                            FontFamily = new FontFamily("Consolas"),
-                                            Text = inlineCode.Content,
-                                        },
-                                        new Run() { Text = " " }
-                                    }
-                                };
-                                inlineCollection.Add(inline);
-                                _inlineCodeBlocks.Add(inline);
-                            }
-                            break;
-                        case Timestamp timeStamp:
-                            {
-                                InlineUIContainer container = new InlineUIContainer();
-                                inlineCollection.Add(container);
-                                container.Child = new TimestampElement(timeStamp)
-                                {
-                                    Style = TimestampStyle,
-                                };
-                            }
-                            break;
-                        case RoleMention roleMention:
-                            {
-                                InlineUIContainer container = new InlineUIContainer();
-                                inlineCollection.Add(container);
-                                container.Child = new HyperlinkButton()
-                                {
-                                    RenderTransform = new TranslateTransform { Y = 4 },
-                                    Background = new SolidColorBrush(Colors.DarkGray),
-                                    Padding = new Thickness(0),
-                                    Content = new TextBlock()
-                                    {
-                                        FontWeight = container.FontWeight,
-                                        FontSize = container.FontSize,
-                                        FontStretch = container.FontStretch,
-                                        TextDecorations = container.TextDecorations,
-                                        Text = roleMention.RoleID
-                                    }
-                                };
-                            }
-                            break;
-                        case UserMention mention:
-                            {
-                                InlineUIContainer container = new InlineUIContainer();
-                                inlineCollection.Add(container);
-                                container.Child = new UserMentionElement(mention, Context)
-                                {
-                                    Style = UserMentionStyle,
-                                };
-                            }
-                            break;
-                        case GlobalMention globalMention:
-                            {
-                                InlineUIContainer container = new InlineUIContainer();
-                                inlineCollection.Add(container);
-                                container.Child = new HyperlinkButton()
-                                {
-                                    RenderTransform = new TranslateTransform { Y = 4 },
-                                    Background = new SolidColorBrush(Colors.DarkGray),
-                                    Padding = new Thickness(0),
-                                    Content = new TextBlock()
-                                    {
-                                        FontWeight = container.FontWeight,
-                                        FontSize = container.FontSize,
-                                        FontStretch = container.FontStretch,
-                                        TextDecorations = container.TextDecorations,
-                                        Text = globalMention.Target,
-                                    }
-                                };
-                            }
-                            break;
-                        case ChannelMention channel:
-                            {
-                                InlineUIContainer container = new InlineUIContainer();
-                                inlineCollection.Add(container);
-                                container.Child = new HyperlinkButton()
-                                {
-                                    RenderTransform = new TranslateTransform { Y = 4 },
-                                    Background = new SolidColorBrush(Colors.DarkGray),
-                                    Padding = new Thickness(0),
-                                    Content = new TextBlock()
-                                    {
-                                        FontWeight = container.FontWeight,
-                                        FontSize = container.FontSize,
-                                        FontStretch = container.FontStretch,
-                                        TextDecorations = container.TextDecorations,
-                                        Text = channel.ChannelID
-                                    }
-                                };
-                            }
-                            break;
-                        case Spoiler spoiler:
-                            {
-                                var inline = new Span();
-
-                                foreach (IAST child in spoiler.Children.Reverse())
-                                {
-                                    stack.Push((child, inline.Inlines));
-                                }
-                                inlineCollection.Add(inline);
-                                _spoilers.Add(inline);
-                            }
-                            break;
-                        case Text textNode:
-                            inlineCollection.Add(new Run() { Text = textNode.Content });
-                            break;
-                    }
+                            inlineCollection.Add(inline);
+                            _spoilers.Add(inline);
+                        }
+                        break;
+                    case Text textNode:
+                        inlineCollection.Add(new Run() { Text = textNode.Content });
+                        break;
                 }
             }
             _grid.Children.Insert(1, _richBlock);
         }
 
-        /// <summary>
-        /// Hacky function to force split code blocks and block quotes onto new lines
-        /// </summary>
-        private static IList<ASTRoot> AdjustTree(IList<IAST> tree)
+        private static bool AdjustTree(IList<IAST> tree, bool newLine = true)
         {
-            // TODO: modify tree inpace
-            List<ASTRoot> newTree = new List<ASTRoot>() { new ASTRoot(new List<IAST>()) };
-            Stack<IAST> stack = new Stack<IAST>();
-            foreach (IAST child in tree.Reverse())
+            for(int i = 0; i < tree.Count; i++)
             {
-                stack.Push(child);
-            }
-            List<(int, ASTChildren)> depths = new List<(int, ASTChildren)>();
-            depths.Add((stack.Count, newTree[0]));
-            while (stack.TryPop(out IAST node))
-            {
-                int depth;
-                ASTChildren current;
-                do
-                {
-                    (depth, current) = depths[depths.Count - 1];
-                    depths.RemoveAt(depths.Count - 1);
-                } while (depth <= 0);
-                depth--;
-                depths.Add((depth, current));
-                switch (node)
+                switch (tree[i])
                 {
                     case BlockQuote:
                     case CodeBlock:
+                        if (!newLine)
                         {
-                            (int, ASTChildren)[] newDepths = new (int, ASTChildren)[depths.Count];
-
-                            ASTChildren currentCodeBlockNode = current with
-                            {
-                                Children = new List<IAST>() { node }
-                            };
-
-                            newDepths[newDepths.Length - 1] = (depth, current with { Children = new List<IAST>() });
-                            for (int i = depths.Count - 2; i >= 0; i--)
-                            {
-                                (int oldDepth, ASTChildren oldNode) = depths[i];
-                                newDepths[i] = (oldDepth,
-                                    oldNode with { Children = new List<IAST>() { newDepths[i + 1].Item2 } });
-
-                                currentCodeBlockNode = oldNode with
-                                {
-                                    Children = new List<IAST>() { currentCodeBlockNode }
-                                };
-                            }
-
-                            newTree.Add((ASTRoot)currentCodeBlockNode);
-                            depths = newDepths.ToList();
-                            newTree.Add((ASTRoot)newDepths[0].Item2);
+                            tree.Insert(i, new Text("\n"));
+                            i++;
                         }
+                        tree.Insert(i+1, new Text("\n"));
+                        i++;
+                        newLine = true;
+
                         break;
-                    case ASTChildren astChildrenNode:
-                        {
-                            foreach (IAST child in astChildrenNode.Children.Reverse())
-                            {
-                                stack.Push(child);
-                            }
+                    case Text text:
+                        if (string.IsNullOrEmpty(text.Content))
+                            break;
+                        newLine = text.Content[text.Content.Length - 1] is '\n' or '\r';
 
-                            var tmp = astChildrenNode with { Children = new List<IAST>() };
-                            current.Children.Add(tmp);
-                            depths.Add((astChildrenNode.Children.Count, tmp));
-                        }
+                        break;
+                    case ASTChildren astChildren:
+                        newLine = AdjustTree(astChildren.Children, newLine);
                         break;
                     default:
-                        current.Children.Add(node);
+                        newLine = false;
                         break;
                 }
             }
 
-            return newTree;
+            return newLine;
+        }
+
+        private static bool RemoveLeadingWhitespace(IList<IAST> tree)
+        {
+            for (int i = tree.Count-1; i >= 0; i--)
+            {
+                switch (tree[i])
+                {
+                    case Text text:
+                        if (string.IsNullOrWhiteSpace(text.Content))
+                        {
+                            tree.RemoveAt(i);
+                            break;
+                        }
+                        return false;
+                    case ASTChildren astChildren:
+                        if (!RemoveLeadingWhitespace(astChildren.Children))
+                        {
+                            return false;
+                        }
+                        break;
+                    default:
+                        return false;
+                }
+            }
+
+            return true;
         }
     }
 }

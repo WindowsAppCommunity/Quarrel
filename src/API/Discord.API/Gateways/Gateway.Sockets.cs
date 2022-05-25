@@ -47,8 +47,7 @@ namespace Discord.API.Gateways
             await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "9", "&compress=zlib-stream"));
             _task = Task.Run(async () =>
             {
-                await ListenOnSocket();
-                _socket = null;
+                await ListenOnSocket(_tokenSource.Token);
             });
         }
 
@@ -60,15 +59,18 @@ namespace Discord.API.Gateways
         {
             GatewayStatus = GatewayStatus.Resuming;
             await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "9", "&compress=zlib-stream"));
-            _task = Task.Run(ListenOnSocket);
+            _task = Task.Run(async () =>
+            {
+                await ListenOnSocket(_tokenSource.Token);
+            });
         }
 
-        private async Task ListenOnSocket()
+        private async Task ListenOnSocket(CancellationToken token)
         {
             var buffer = new ArraySegment<byte>(new byte[16 * 1024]);
-            while (!_tokenSource.IsCancellationRequested && _socket!.State == WebSocketState.Open)
+            while (!token.IsCancellationRequested && _socket!.State == WebSocketState.Open)
             {
-                WebSocketReceiveResult socketResult = await _socket.ReceiveAsync(buffer, _tokenSource.Token).ConfigureAwait(false);
+                WebSocketReceiveResult socketResult = await _socket.ReceiveAsync(buffer, token).ConfigureAwait(false);
                 if (socketResult.MessageType == WebSocketMessageType.Close)
                 {
                     switch (socketResult.CloseStatus)
@@ -82,12 +84,14 @@ namespace Discord.API.Gateways
                         case (WebSocketCloseStatus)4008:
                         case (WebSocketCloseStatus)4009:
                             GatewayStatus = GatewayStatus.Reconnecting;
+                            _socket = null;
                             _ = ConnectAsync();
                             return;
 
                         case (WebSocketCloseStatus)4004:
                         default:
                             GatewayStatus = GatewayStatus.Disconnected;
+                            _socket = null;
                             return;
 
                     }
@@ -100,15 +104,16 @@ namespace Discord.API.Gateways
                 {
                     // This is a large message (likely just READY), lets create a temporary expandable stream
                     var stream = new MemoryStream();
-                    await stream.WriteAsync(buffer.Array, 0, socketResult.Count).ConfigureAwait(false);
+                    await stream.WriteAsync(buffer.Array, 0, socketResult.Count, token).ConfigureAwait(false);
                     do
                     {
-                        if (_tokenSource.Token.IsCancellationRequested)
+                        if (token.IsCancellationRequested)
                         {
+                            _socket = null;
                             return;
                         }
-                        socketResult = await _socket.ReceiveAsync(buffer, _tokenSource.Token).ConfigureAwait(false);
-                        await stream.WriteAsync(buffer.Array, 0, socketResult.Count).ConfigureAwait(false);
+                        socketResult = await _socket.ReceiveAsync(buffer, token).ConfigureAwait(false);
+                        await stream.WriteAsync(buffer.Array, 0, socketResult.Count, token).ConfigureAwait(false);
                     }
                     while (!socketResult.EndOfMessage);
 
@@ -137,7 +142,7 @@ namespace Discord.API.Gateways
             _connectionUrl = connectionUrl;
             SetupCompression();
             _tokenSource = new CancellationTokenSource();
-            _socket ??= new ClientWebSocket();
+            _socket = new ClientWebSocket();
 
 
             if (_socket.State is WebSocketState.Connecting or WebSocketState.Open)

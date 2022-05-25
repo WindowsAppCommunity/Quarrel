@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Quarrel.Services.Storage.Accounts.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Quarrel.Services.Storage.Accounts
@@ -11,15 +12,14 @@ namespace Quarrel.Services.Storage.Accounts
     public interface IAccountInfoStorage
     {
         /// <summary>
-        /// Gets or sets the account info in storage.
+        /// Gets the account info in storage.
         /// </summary>
         AccountInfo? ActiveAccount { get; }
-
         /// <summary>
-        /// Gets a value indicating whether or not the user is logged into an account.
+        /// Gets a list of accounts
         /// </summary>
-        bool IsLoggedIn { get; }
-        
+        IReadOnlyDictionary<ulong, AccountInfo> Accounts { get; }
+
         /// <summary>
         /// Changes the active account.
         /// </summary>

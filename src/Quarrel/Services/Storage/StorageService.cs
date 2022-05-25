@@ -1,7 +1,5 @@
 ﻿// Quarrel © 2022
 
-using OwlCore.AbstractStorage;
-using OwlCore.Services;
 using Quarrel.Services.Storage.Accounts;
 using Quarrel.Services.Storage.Vault;
 using System.IO;
@@ -10,18 +8,14 @@ namespace Quarrel.Services.Storage
 {
     public class StorageService : IStorageService
     {
-        public StorageService(IFolderData folder, IAsyncSerializer<Stream> serializer)
+        public StorageService(IVaultService vaultService, IAccountInfoStorage accountInfoStorage)
         {
-            VaultService = new VaultService();
-            AccountInfoStorage = new AccountInfoStorage(VaultService, folder, serializer);
+            VaultService = vaultService;
+            AccountInfoStorage = accountInfoStorage;
         }
 
-        IAccountInfoStorage IStorageService.AccountInfoStorage => AccountInfoStorage;
+        public IAccountInfoStorage AccountInfoStorage { get; }
 
-        IVaultService IStorageService.VaultService => VaultService;
-
-        public AccountInfoStorage AccountInfoStorage { get; }
-
-        public VaultService VaultService { get; }
+        public IVaultService VaultService { get; }
     }
 }
