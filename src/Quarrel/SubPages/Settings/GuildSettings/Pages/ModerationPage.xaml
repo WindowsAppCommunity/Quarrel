@@ -25,7 +25,7 @@
     <ScrollViewer>
         <StackPanel>
             <!--Verification Level-->
-            <qc:DraftBlock IsDrafted="{x:Bind ViewModel.VerificationLevel.Drafted, Mode=OneWay}" Margin="0,4,0,0">
+            <qc:DraftBlock IsDrafted="{x:Bind ViewModel.VerificationLevel.IsDrafted, Mode=OneWay}" Margin="0,4,0,0">
                 <StackPanel>
                     <TextBlock x:Uid="GuildSettings/VertificationLevelTB" Text="VERIFICATION LEVEL"
                                FontSize="14" FontWeight="SemiBold" Margin="4,0,0,4"
@@ -84,7 +84,7 @@
             </qc:DraftBlock>
 
             <!--Explicit Content Filter-->
-            <qc:DraftBlock IsDrafted="{x:Bind ViewModel.ExplicitContentFilterLevel.Drafted, Mode=OneWay}" Margin="0,16,0,0">
+            <qc:DraftBlock IsDrafted="{x:Bind ViewModel.ExplicitContentFilterLevel.IsDrafted, Mode=OneWay}" Margin="0,16,0,0">
                 <StackPanel>
                     <TextBlock x:Uid="GuildSettings/ExplicitContentFilterTB" Text="EXPLICIT CONTENT FILTER"
                                FontSize="14" FontWeight="SemiBold" Margin="4,0,0,4"

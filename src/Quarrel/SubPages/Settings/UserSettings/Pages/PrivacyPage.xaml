@@ -14,7 +14,7 @@
 
     <ScrollViewer>
         <StackPanel Padding="16">
-            <qc:DraftBlock IsDrafted="{x:Bind ViewModel.ExplicitContentFilterLevel.Drafted, Mode=OneWay}">
+            <qc:DraftBlock IsDrafted="{x:Bind ViewModel.ExplicitContentFilterLevel.IsDrafted, Mode=OneWay}">
                 <StackPanel>
                     <TextBlock x:Uid="UserSettings/DMFilterTB"
                                Text="DIRECT MESSAGE FILTERING"

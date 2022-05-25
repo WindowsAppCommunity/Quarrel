@@ -31,7 +31,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
             {
                 if (SetProperty(ref _value, value))
                 {
-                    OnPropertyChanged(nameof(Drafted));
+                    OnPropertyChanged(nameof(IsDrafted));
                 }
             }
         }
@@ -44,7 +44,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         /// <summary>
         /// Gets whether or not the value drafted.
         /// </summary>
-        public bool Drafted => !CanonicalValue?.Equals(Value) ?? false;
+        public bool IsDrafted => !CanonicalValue?.Equals(Value) ?? false;
 
         /// <summary>
         /// Resets the value to the canonical value.
