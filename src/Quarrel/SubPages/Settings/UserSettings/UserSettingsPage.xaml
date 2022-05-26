@@ -12,7 +12,7 @@
     xmlns:ussub="using:Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages"
     mc:Ignorable="d"
     d:DesignHeight="620"
-    d:DesignWidth="1008">
+    d:DesignWidth="800">
 
     <UserControl.Resources>
         <DataTemplate x:Key="MyAccountPageTemplate" x:DataType="ussub:MyAccountPageViewModel">
@@ -68,21 +68,25 @@
                 <Grid Visibility="{x:Bind ViewModel.SelectedSubPage.IsEdited, Mode=OneWay}"
                       HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="8"
                       MaxWidth="300" Background="{ThemeResource PrimaryBackground}"
-                      Padding="8" CornerRadius="4">
+                      Padding="8" CornerRadius="8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     
-                    <TextBlock Text="There are unsaved changes that must be handled before swapping pages."
-                               TextWrapping="WrapWholeWords" Grid.ColumnSpan="3"/>
+                    <TextBlock x:Uid="Settings/UnsavedChangesTB" TextWrapping="WrapWholeWords" Grid.ColumnSpan="3"
+                               Text="There are unsaved changes that must be handled before swapping pages."/>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,4,0,0">
-                        <Button Content="Save" Command="{x:Bind ViewModel.SelectedSubPage.ApplyChangesCommand, Mode=OneWay}"/>
-                        <Button Content="Revert" Margin="8,0" Command="{x:Bind ViewModel.SelectedSubPage.RevertChangesCommand, Mode=OneWay}"/>
+                        <Button x:Uid="Settings/SaveBTN" Content="Save"
+                                Padding="16,8" Style="{StaticResource QuarrelButton}"
+                                Command="{x:Bind ViewModel.SelectedSubPage.ApplyChangesCommand, Mode=OneWay}"/>
+                        <Button x:Uid="Settings/RevertBTN" Content="Revert" Margin="8,0" 
+                                Padding="16,8" Style="{StaticResource QuarrelButton}"
+                                Background="{ThemeResource DiscordRedBrush}"
+                                Command="{x:Bind ViewModel.SelectedSubPage.RevertChangesCommand, Mode=OneWay}"/>
                     </StackPanel>
                 </Grid>
             </Grid>
-
         </NavigationView>
     </Grid>
 </UserControl>

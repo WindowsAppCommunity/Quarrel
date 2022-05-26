@@ -10,19 +10,19 @@
     xmlns:settings="using:Quarrel.ViewModels.SubPages.Settings"
     xmlns:asettings="using:Quarrel.ViewModels.SubPages.Settings.Abstract"
     mc:Ignorable="d"
-    d:DesignHeight="600"
-    d:DesignWidth="1008">
+    d:DesignHeight="620"
+    d:DesignWidth="800">
 
     <UserControl.Resources>
-        
+
         <DataTemplate x:Key="OverviewPageTemplate">
             <pages:OverviewPage/>
         </DataTemplate>
-        
+
         <DataTemplate x:Key="ModerationPageTemplate">
             <pages:ModerationPage/>
         </DataTemplate>
-        
+
         <gsselector:GuildSettingsPageSelector x:Key="GuildPageSelector"
                                               OverviewTemplate="{StaticResource OverviewPageTemplate}"
                                               ModerationTemplate="{StaticResource ModerationPageTemplate}"/>
@@ -34,7 +34,7 @@
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
         </DataTemplate>
-        
+
         <DataTemplate x:Key="SettingsHeaderItem" x:DataType="settings:SettingsCategoryHeader">
             <NavigationViewItemHeader Content="{x:Bind Title}"/>
         </DataTemplate>
@@ -53,12 +53,35 @@
                         IsSettingsVisible="False"
                         MenuItemsSource="{x:Bind ViewModel.Pages, Mode=OneWay}"
                         MenuItemTemplateSelector="{StaticResource MenuItemSelector}">
-            
-            <ContentControl Content="{x:Bind ViewModel.SelectedSubPage, Mode=OneWay}"
-                            ContentTemplateSelector="{StaticResource GuildPageSelector}"
-                            HorizontalContentAlignment="Stretch"
-                            VerticalContentAlignment="Stretch"/>
-            
+
+            <Grid>
+                <ContentControl Content="{x:Bind ViewModel.SelectedSubPage, Mode=OneWay}"
+                                ContentTemplateSelector="{StaticResource GuildPageSelector}"
+                                HorizontalContentAlignment="Stretch"
+                                VerticalContentAlignment="Stretch"/>
+
+                <Grid Visibility="{x:Bind ViewModel.SelectedSubPage.IsEdited, Mode=OneWay}"
+                      HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="8"
+                      MaxWidth="300" Background="{ThemeResource PrimaryBackground}"
+                      Padding="8" CornerRadius="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Uid="Settings/UnsavedChangesTB" TextWrapping="WrapWholeWords" Grid.ColumnSpan="3"
+                               Text="There are unsaved changes that must be handled before swapping pages."/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,4,0,0">
+                        <Button x:Uid="Settings/SaveBTN" Content="Save"
+                                Padding="16,8" Style="{StaticResource QuarrelButton}"
+                                Command="{x:Bind ViewModel.SelectedSubPage.ApplyChangesCommand, Mode=OneWay}"/>
+                        <Button x:Uid="Settings/RevertBTN" Content="Revert" Margin="8,0" 
+                                Padding="16,8" Style="{StaticResource QuarrelButton}"
+                                Background="{ThemeResource DiscordRedBrush}"
+                                Command="{x:Bind ViewModel.SelectedSubPage.RevertChangesCommand, Mode=OneWay}"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
         </NavigationView>
     </Grid>
 </UserControl>

@@ -13,18 +13,22 @@
     <ScrollViewer>
         <StackPanel Padding="16">
             <qc:DraftBlock IsDrafted="{x:Bind ViewModel.SelectedLanguage.IsDrafted, Mode=OneWay}">
-                <ComboBox SelectedItem="{x:Bind ViewModel.SelectedLanguage.Value, Mode=TwoWay}"
-                          ItemsSource="{x:Bind ViewModel.LanguageOptions}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate x:DataType="glob:CultureInfo">
-                            <TextBlock>
-                            <Run Text="{x:Bind NativeName}"/>
-                            <Run Text=" - "/>
-                            <Run Text="{x:Bind DisplayName}"/>
-                            </TextBlock>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                <StackPanel>
+                    <TextBlock x:Uid="UserSettings/LanguageTB" Text="LANGUAGE"
+                               Style="{StaticResource SettingsHeaderTextBlockStyle}"/>
+                    <ComboBox SelectedItem="{x:Bind ViewModel.SelectedLanguage.Value, Mode=TwoWay}"
+                              ItemsSource="{x:Bind ViewModel.LanguageOptions}" Margin="0,4,0,0">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate x:DataType="glob:CultureInfo">
+                                <TextBlock>
+                                    <Run Text="{x:Bind NativeName}"/>
+                                    <Run Text=" - "/>
+                                    <Run Text="{x:Bind DisplayName}"/>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
             </qc:DraftBlock>
         </StackPanel>
     </ScrollViewer>

@@ -451,6 +451,22 @@
           <source>Roles</source>
           <target state="needs-review-translation">תפקידים</target>
         </trans-unit>
+        <trans-unit id="Settings/RevertBTN.Content" translate="yes" xml:space="preserve">
+          <source>Revert</source>
+          <target state="needs-review-translation">החזר</target>
+        </trans-unit>
+        <trans-unit id="Settings/SaveBTN.Content" translate="yes" xml:space="preserve">
+          <source>Save</source>
+          <target state="translated">שומר</target>
+        </trans-unit>
+        <trans-unit id="Settings/UnsavedChangesTB.Text" translate="yes" xml:space="preserve">
+          <source>There are unsaved changes that must be handled before swapping pages.</source>
+          <target state="needs-review-translation">ישנם שינויים שלא נשמרו שיש לטפל בהם לפני החלפת עמודים.</target>
+        </trans-unit>
+        <trans-unit id="UserSettings/LanguageTB.Text" translate="yes" xml:space="preserve">
+          <source>Language</source>
+          <target state="new">Language</target>
+        </trans-unit>
       </group>
     </body>
   </file>

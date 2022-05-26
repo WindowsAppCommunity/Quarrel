@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="Styles/GuildItemStyles.xaml"/>
                 <ResourceDictionary Source="Styles/MessageItemStyles.xaml"/>
                 <ResourceDictionary Source="Styles/MiscStyles.xaml"/>
+                <ResourceDictionary Source="Styles/TextBlockStyles.xaml"/>
                 <ResourceDictionary Source="Styles/TextBoxStyles.xaml"/>
 
                 <!--Data Templates-->

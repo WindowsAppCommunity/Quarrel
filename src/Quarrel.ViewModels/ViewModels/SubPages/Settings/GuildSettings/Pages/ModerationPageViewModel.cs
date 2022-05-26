@@ -84,11 +84,13 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
         /// <inheritdoc/>
         public override void RevertChanges()
         {
+            VerificationLevel.Reset();
             ExplicitContentFilterLevel.Reset();
         }
 
         private void RegisterEvents()
         {
+            VerificationLevel.ValueChanged += ValueChanged;
             ExplicitContentFilterLevel.ValueChanged += ValueChanged;
         }
     }

@@ -323,4 +323,13 @@
   <data name="GuildSettings/Roles" xml:space="preserve">
     <value>תפקידים</value>
   </data>
+  <data name="Settings/RevertBTN.Content" xml:space="preserve">
+    <value>החזר</value>
+  </data>
+  <data name="Settings/SaveBTN.Content" xml:space="preserve">
+    <value>שומר</value>
+  </data>
+  <data name="Settings/UnsavedChangesTB.Text" xml:space="preserve">
+    <value>ישנם שינויים שלא נשמרו שיש לטפל בהם לפני החלפת עמודים.</value>
+  </data>
 </root>

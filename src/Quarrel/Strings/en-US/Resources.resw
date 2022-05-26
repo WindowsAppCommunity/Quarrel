@@ -371,6 +371,15 @@
     <value>{0}, and {1}</value>
     <comment>This is used for the base item of and conjunction</comment>
   </data>
+  <data name="Settings/RevertBTN.Content" xml:space="preserve">
+    <value>Revert</value>
+  </data>
+  <data name="Settings/SaveBTN.Content" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Settings/UnsavedChangesTB.Text" xml:space="preserve">
+    <value>There are unsaved changes that must be handled before swapping pages.</value>
+  </data>
   <data name="Time/LTMinuteAgo" xml:space="preserve">
     <value>Less than a minute ago</value>
   </data>
@@ -424,6 +433,9 @@
   </data>
   <data name="UserSettings/EmailTBox.Header" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="UserSettings/LanguageTB.Text" xml:space="preserve">
+    <value>Language</value>
   </data>
   <data name="UserSettings/MyAccount" xml:space="preserve">
     <value>My Account</value>

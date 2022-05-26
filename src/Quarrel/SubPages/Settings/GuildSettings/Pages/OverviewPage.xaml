@@ -9,8 +9,8 @@
     d:DesignWidth="400">
 
     <ScrollViewer>
-        <StackPanel>
-            <TextBox Text="{x:Bind ViewModel.Name, Mode=TwoWay}" Style="{StaticResource DiscordTextBox}"
+        <StackPanel Padding="16">
+            <TextBox Text="{x:Bind ViewModel.Name.Value, Mode=TwoWay}" Style="{StaticResource DiscordTextBox}"
                      IsReadOnly="True"/>
         </StackPanel>
     </ScrollViewer>
