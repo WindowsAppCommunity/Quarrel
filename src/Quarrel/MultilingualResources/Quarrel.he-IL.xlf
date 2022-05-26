@@ -375,15 +375,15 @@
           <source>Failure</source>
           <target state="translated">כישלון</target>
         </trans-unit>
-        <trans-unit id="Message/CopyId.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="Message/CopyIdMFI.Text" translate="yes" xml:space="preserve">
           <source>Copy ID</source>
           <target state="translated">העתק מזהה</target>
         </trans-unit>
-        <trans-unit id="Message/CopyLink.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="Message/CopyLinkMFI.Text" translate="yes" xml:space="preserve">
           <source>Copy Link</source>
           <target state="translated">העתק קישור</target>
         </trans-unit>
-        <trans-unit id="Message/Delete.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="Message/DeleteMFI.Text" translate="yes" xml:space="preserve">
           <source>Delete</source>
           <target state="translated">מחק</target>
         </trans-unit>

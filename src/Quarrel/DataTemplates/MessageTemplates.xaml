@@ -104,16 +104,16 @@
 
                 <Grid.ContextFlyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem x:Uid="Message/CopyLink" Text="Copy Message Link"
+                        <MenuFlyoutItem x:Uid="Message/CopyLinkMFI" Text="Copy Message Link"
                                         Icon="Link" Command="{x:Bind CopyLinkCommand}"/>
-                        <MenuFlyoutItem x:Uid="Message/CopyId" Text="Copy ID"
+                        <MenuFlyoutItem x:Uid="Message/CopyIdMFI" Text="Copy ID"
                                         Command="{x:Bind CopyIdCommand}">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE8EC;"/>
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                         <MenuFlyoutSeparator Visibility="{x:Bind CanDelete}"/>
-                        <MenuFlyoutItem x:Uid="Message/Delete" Text="Delete" Icon="Delete"
+                        <MenuFlyoutItem x:Uid="Message/DeleteMFI" Text="Delete" Icon="Delete"
                                         Command="{x:Bind DeleteCommand}"
                                         Foreground="{StaticResource DiscordRedBrush}"
                                         Visibility="{x:Bind CanDelete}"/>

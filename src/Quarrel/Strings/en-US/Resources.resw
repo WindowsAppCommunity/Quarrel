@@ -355,13 +355,13 @@
   <data name="Login/TokenTBox.PlaceholderText" xml:space="preserve">
     <value>Token</value>
   </data>
-  <data name="Message/CopyId.Text" xml:space="preserve">
+  <data name="Message/CopyIdMFI.Text" xml:space="preserve">
     <value>Copy ID</value>
   </data>
-  <data name="Message/CopyLink.Text" xml:space="preserve">
+  <data name="Message/CopyLinkMFI.Text" xml:space="preserve">
     <value>Copy Link</value>
   </data>
-  <data name="Message/Delete.Text" xml:space="preserve">
+  <data name="Message/DeleteMFI.Text" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="MessageBox/MessageTBox.PlaceholderText" xml:space="preserve">
