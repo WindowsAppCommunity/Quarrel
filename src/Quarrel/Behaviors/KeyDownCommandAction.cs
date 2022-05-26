@@ -79,7 +79,7 @@ namespace Quarrel.Behaviors
         /// <param name="sender">The control invoking the Command.</param>
         /// <param name="parameter"><see cref="KeyRoutedEventArgs"/> parameters to KeyDown event.</param>
         /// <returns>The character represented by the key press.</returns>
-        public object Execute(object sender, object parameter)
+        public object? Execute(object sender, object parameter)
         {
             var e = parameter as KeyRoutedEventArgs;
             if (Key == null || e.Key == (VirtualKey)Enum.Parse(typeof(VirtualKey), Key))

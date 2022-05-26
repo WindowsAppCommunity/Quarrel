@@ -4,9 +4,7 @@ using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Enums.Channels;
 using Discord.API.Models.Json.Channels;
 using Quarrel.Client.Models.Base;
-using Quarrel.Client.Models.Base.Interfaces;
 using Quarrel.Client.Models.Channels.Interfaces;
-using System;
 
 namespace Quarrel.Client.Models.Channels.Abstract
 {

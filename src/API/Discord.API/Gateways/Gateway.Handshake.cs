@@ -96,6 +96,8 @@ namespace Discord.API.Gateways
 
         private async Task IdentifySelfToGateway()
         {
+            Guard.IsNotNull(_token, nameof(_token));
+
             var properties = new IdentityProperties()
             {
                 OS = "DISCORD-UWP",
@@ -126,6 +128,7 @@ namespace Discord.API.Gateways
         private async Task SendResumeRequestAsync()
         {
             Guard.IsNotNull(_sessionId, nameof(_sessionId));
+            Guard.IsNotNull(_token, nameof(_token));
             
             var request = new SocketFrame<GatewayResume>()
             {
