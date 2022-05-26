@@ -26,12 +26,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
         public override string Title => _localizationService[NotificationsResource];
 
         /// <inheritdoc/>
-        public override void ApplyChanges()
-        {
-        }
-
-        /// <inheritdoc/>
-        public override void RevertChanges()
+        protected override void ApplyChanges()
         {
         }
     }

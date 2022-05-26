@@ -38,7 +38,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
                 Discriminator = new(user.SelfUser.Discriminator);
                 AboutMe = new(user.SelfUser.Bio);
 
-                RegisterEvents();
+                RegisterDraftValues(Email, Username, Discriminator, AboutMe);
             }
         }
 
@@ -88,30 +88,8 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         }
 
         /// <inheritdoc/>
-        public override void ApplyChanges()
+        protected override void ApplyChanges()
         {
-        }
-
-        /// <inheritdoc/>
-        public override void RevertChanges()
-        {
-            Email?.Reset();
-            Username?.Reset();
-            Discriminator?.Reset();
-            AboutMe?.Reset();
-        }
-
-        private void RegisterEvents()
-        {
-            Guard.IsNotNull(Email);
-            Guard.IsNotNull(Username);
-            Guard.IsNotNull(Discriminator);
-            Guard.IsNotNull(AboutMe);
-
-            Email.ValueChanged += ValueChanged;
-            Username.ValueChanged += ValueChanged;
-            Discriminator.ValueChanged += ValueChanged;
-            AboutMe.ValueChanged += ValueChanged;
         }
     }
 }

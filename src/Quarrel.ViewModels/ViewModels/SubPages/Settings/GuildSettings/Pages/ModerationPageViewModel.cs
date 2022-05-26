@@ -30,7 +30,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
             SetVerificationLevelCommand = new RelayCommand<VerificationLevel>(SetVerificationLevel);
             SetExplicitContentFilterLevelCommand = new RelayCommand<ExplicitContentFilterLevel>(SetExplicitContentFilterLevel);
 
-            RegisterEvents();
+            RegisterDraftValues(VerificationLevel, ExplicitContentFilterLevel);
         }
 
         /// <inheritdoc/>
@@ -77,21 +77,9 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
             => ExplicitContentFilterLevel.Value = explicitContentFilterLevel;
 
         /// <inheritdoc/>
-        public override void ApplyChanges()
+        protected override void ApplyChanges()
         {
-        }
-
-        /// <inheritdoc/>
-        public override void RevertChanges()
-        {
-            VerificationLevel.Reset();
-            ExplicitContentFilterLevel.Reset();
-        }
-
-        private void RegisterEvents()
-        {
-            VerificationLevel.ValueChanged += ValueChanged;
-            ExplicitContentFilterLevel.ValueChanged += ValueChanged;
         }
     }
 }
+  

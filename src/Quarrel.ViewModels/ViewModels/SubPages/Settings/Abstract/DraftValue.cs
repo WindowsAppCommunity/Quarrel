@@ -9,15 +9,13 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
     /// A value that can have an updated draft.
     /// </summary>
     /// <typeparam name="T">The type of value being drafted</typeparam>
-    public class DraftValue<T> : ObservableObject
+    public class DraftValue<T> : ObservableObject, IDraftValue
     {
         private T _value;
         private T _canonicalValue;
 
-        /// <summary>
-        /// An event raised when the value is updated.
-        /// </summary>
-        public event EventHandler<DraftValueUpdated<T>>? ValueChanged;
+        /// <inheritdoc/>
+        public event EventHandler<DraftValueUpdated>? ValueChanged;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DraftValue{T}"/> class.
@@ -25,7 +23,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         public DraftValue(T value)
         {
             _value = value;
-            CanonicalValue = value;
+            _canonicalValue = value;
         }
 
         /// <summary>
@@ -40,7 +38,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
                 if (SetProperty(ref _value, value))
                 {
                     OnPropertyChanged(nameof(IsDrafted));
-                    ValueChanged?.Invoke(this, new DraftValueUpdated<T>(Value, IsDrafted, oldIsDraft != IsDrafted));
+                    ValueChanged?.Invoke(this, new DraftValueUpdated(IsDrafted, oldIsDraft != IsDrafted));
                 }
             }
         }
@@ -57,7 +55,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
                 if (SetProperty(ref _canonicalValue, value))
                 {
                     OnPropertyChanged(nameof(IsDrafted));
-                    ValueChanged?.Invoke(this, new DraftValueUpdated<T>(Value, IsDrafted, oldIsDraft != IsDrafted));
+                    ValueChanged?.Invoke(this, new DraftValueUpdated(IsDrafted, oldIsDraft != IsDrafted));
                 }
             }
         }
@@ -67,9 +65,13 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         /// </summary>
         public bool IsDrafted => !CanonicalValue?.Equals(Value) ?? false;
 
-        /// <summary>
-        /// Resets the value to the canonical value.
-        /// </summary>
+        /// <inheritdoc/>
+        public void Apply()
+        {
+            CanonicalValue = Value;
+        }
+
+        /// <inheritdoc/>
         public void Reset()
         {
             Value = CanonicalValue;

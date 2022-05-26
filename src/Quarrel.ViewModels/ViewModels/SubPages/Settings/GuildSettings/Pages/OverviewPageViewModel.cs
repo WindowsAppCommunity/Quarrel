@@ -24,7 +24,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
         {
             _name = new(guild.Guild.Name);
 
-            RegisterEvents();
+            RegisterDraftValues(Name);
         }
 
         /// <inheritdoc/>
@@ -46,7 +46,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
         }
 
         /// <inheritdoc/>
-        public override async void ApplyChanges()
+        protected override async void ApplyChanges()
         {
             var modify = new ModifyGuild()
             {
@@ -54,23 +54,6 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
             };
 
             await _discordService.ModifyGuild(_guild.Guild.Id, modify);
-
-            Name.CanonicalValue = Name.Value;
-
-            base.ApplyChanges();
-        }
-
-        /// <inheritdoc/>
-        public override void RevertChanges()
-        {
-            Name.Reset();
-
-            base.RevertChanges();
-        }
-
-        private void RegisterEvents()
-        {
-            Name.ValueChanged += ValueChanged;
         }
     }
 }

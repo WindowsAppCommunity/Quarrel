@@ -15,13 +15,15 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         /// The localization service.
         /// </summary>
         protected readonly ILocalizationService _localizationService;
+        private IDraftValue[] _draftValues;
         private int _draftCount;
 
         internal SettingsSubPageViewModel(ILocalizationService localizationService)
         {
             _localizationService = localizationService;
+            _draftValues = new IDraftValue[0];
 
-            ApplyChangesCommand = new RelayCommand(ApplyChanges);
+            ApplyChangesCommand = new RelayCommand(ApplyChangesRoot);
             RevertChangesCommand = new RelayCommand(RevertChanges);
         }
 
@@ -72,23 +74,49 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         /// <summary>
         /// Applies all changes made in settings.
         /// </summary>
-        public virtual void ApplyChanges()
+        protected abstract void ApplyChanges();
+
+        private void ApplyChangesRoot()
         {
-            DraftCount = 0;
+            // Run polymorphic ApplyChanges
+            ApplyChanges();
+
+            // Apply draft values
+            foreach (var value in _draftValues)
+            {
+                value.Apply();
+            }
         }
 
         /// <summary>
         /// Reverts all unsaved changes in settings.
         /// </summary>
-        public virtual void RevertChanges()
+        private void RevertChanges()
         {
-            DraftCount = 0;
+            foreach (var value in _draftValues)
+            {
+                value.Reset();
+            }
+        }
+
+        /// <summary>
+        /// Registers <see cref="IDraftValue"/> to track for is edited, and to reset.
+        /// </summary>
+        /// <param name="draftValues">The <see cref="IDraftValue"/>s to track.</param>
+        protected void RegisterDraftValues(params IDraftValue[] draftValues)
+        {
+            _draftValues = draftValues;
+
+            foreach (var value in _draftValues)
+            {
+                value.ValueChanged += ValueChanged;
+            }
         }
 
         /// <summary>
         /// Increments or decrements the draft count when a value changes.
         /// </summary>
-        protected void ValueChanged<T>(object sender, DraftValueUpdated<T> e)
+        private void ValueChanged(object sender, DraftValueUpdated e)
         {
             if (e.IsDraftChanged)
             {

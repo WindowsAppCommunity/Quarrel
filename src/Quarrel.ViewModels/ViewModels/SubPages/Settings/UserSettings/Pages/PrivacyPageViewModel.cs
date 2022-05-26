@@ -34,7 +34,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
 
                 ExplicitContentFilterLevel = new(settings.ContentFilterLevel);
 
-                RegisterEvents();
+                RegisterDraftValues(ExplicitContentFilterLevel);
             }
 
             SetExplicitContentFilterLevelCommand = new RelayCommand<ExplicitContentFilterLevel>(SetExplicitContentFilterLevel);
@@ -70,7 +70,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         }
 
         /// <inheritdoc/>
-        public override async void ApplyChanges()
+        protected override async void ApplyChanges()
         {
             var modify = new ModifyUserSettings()
             {
@@ -78,25 +78,6 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
             };
 
             await _discordService.ModifySettings(modify);
-
-            Guard.IsNotNull(ExplicitContentFilterLevel, nameof(ExplicitContentFilterLevel));
-            ExplicitContentFilterLevel.CanonicalValue = ExplicitContentFilterLevel.Value;
-
-            base.ApplyChanges();
-        }
-
-        /// <inheritdoc/>
-        public override void RevertChanges()
-        {
-            ExplicitContentFilterLevel?.Reset();
-
-            base.RevertChanges();
-        }
-
-        private void RegisterEvents()
-        {
-            Guard.IsNotNull(ExplicitContentFilterLevel);
-            ExplicitContentFilterLevel.ValueChanged += ValueChanged;
         }
     }
 }

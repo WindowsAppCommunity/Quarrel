@@ -26,7 +26,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
             _selectedLanguage = new(CultureInfo.GetCultureInfo(_localizationService.LanguageOverride));
             LanguageOptions = _localizationService.AvailableLanguages.Select(x => CultureInfo.GetCultureInfo(x));
 
-            RegisterEvents();
+            RegisterDraftValues(SelectedLanguage);
         }
 
         /// <inheritdoc/>
@@ -53,25 +53,9 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         public IEnumerable<CultureInfo> LanguageOptions { get; }
 
         /// <inheritdoc/>
-        public override void ApplyChanges()
+        protected override void ApplyChanges()
         {
             _localizationService.LanguageOverride = SelectedLanguage.Value.Name;
-            SelectedLanguage.CanonicalValue = CultureInfo.GetCultureInfo(_localizationService.LanguageOverride);
-
-            base.ApplyChanges();
-        }
-
-        /// <inheritdoc/>
-        public override void RevertChanges()
-        {
-            SelectedLanguage.Reset();
-
-            base.RevertChanges();
-        }
-
-        private void RegisterEvents()
-        {
-            SelectedLanguage.ValueChanged += ValueChanged;
         }
     }
 }
