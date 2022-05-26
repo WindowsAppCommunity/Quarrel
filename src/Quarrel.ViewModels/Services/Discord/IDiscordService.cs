@@ -6,6 +6,7 @@ using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Bindables.Messages;
 using Quarrel.Bindables.Users;
+using Quarrel.Client.Models.Guilds;
 using Quarrel.Client.Models.Messages;
 using Quarrel.Client.Models.Settings;
 using Quarrel.Services.Analytics.Enums;
@@ -32,7 +33,7 @@ namespace Quarrel.Services.Discord
         /// <summary>
         /// Modifies user settings.
         /// </summary>
-        /// <param name="modifySettings">The settings adjustments.</param>
+        /// <param name="modifySettings">The settings modifications.</param>
         Task ModifySettings(ModifyUserSettings modifySettings);
 
         /// <summary>
@@ -54,7 +55,14 @@ namespace Quarrel.Services.Discord
         /// </summary>
         /// <returns>The array of <see cref="BindableGuild"/>s that the current user is in.</returns>
         BindableGuild[] GetMyGuilds();
-        
+
+        /// <summary>
+        /// Modifies a guild.
+        /// </summary>
+        /// <param name="id">The id of the guild to modify.</param>
+        /// <param name="modifyGuild">The guild modifications.</param>
+        Task ModifyGuild(ulong id, ModifyGuild modifyGuild);
+
         /// <summary>
         /// Gets the current user's guild folders with children.
         /// </summary>

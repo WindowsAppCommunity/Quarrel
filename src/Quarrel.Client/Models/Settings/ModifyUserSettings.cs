@@ -34,15 +34,13 @@ namespace Quarrel.Client.Models.Settings
 
         internal JsonModifyUserSettings ToJsonModel()
         {
-            var json = new JsonModifyUserSettings
+            return new JsonModifyUserSettings
             {
                 Status = Status?.GetStringValue(),
                 Theme = Theme?.GetStringValue(),
                 RestrictedGuilds = RestrictedGuilds,
                 ExplicitContentFilterLevel = ExplicitContentFilterLevel,
             };
-
-            return json;
         }
     }
 }

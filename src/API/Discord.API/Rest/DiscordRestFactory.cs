@@ -32,21 +32,29 @@ namespace Discord.API.Rest
         }
         
         /// <summary>
-        /// Gets an instance of the <see cref="IGatewayService"/>.
-        /// </summary>
-        internal IGatewayService GetGatewayService()
-        {
-            return RestService.For<IGatewayService>(GetHttpClient(), _settings);
-        }
-        
-        /// <summary>
         /// Gets an instance of the <see cref="IChannelService"/>.
         /// </summary>
         internal IChannelService GetChannelService()
         {
             return RestService.For<IChannelService>(GetHttpClient(), _settings);
         }
-        
+
+        /// <summary>
+        /// Gets an instance of the <see cref="IGatewayService"/>.
+        /// </summary>
+        internal IGatewayService GetGatewayService()
+        {
+            return RestService.For<IGatewayService>(GetHttpClient(), _settings);
+        }
+
+        /// <summary>
+        /// Gets an instance of the <see cref="IGuildService"/>.
+        /// </summary>
+        internal IGuildService GetGuildService()
+        {
+            return RestService.For<IGuildService>(GetHttpClient(), _settings);
+        }
+
         /// <summary>
         /// Gets an instance of the <see cref="IUserService"/>.
         /// </summary>

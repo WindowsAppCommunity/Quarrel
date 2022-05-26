@@ -137,6 +137,19 @@ namespace Quarrel.Client
         }
 
         /// <summary>
+        /// Modifes a guild.
+        /// </summary>
+        /// <param name="id">The id of the guild.</param>
+        /// <param name="modifyGuild"></param>
+        /// <returns></returns>
+        public async Task ModifyGuild(ulong id, ModifyGuild modifyGuild)
+        {
+            Guard.IsNotNull(_guildService, nameof(_guildService));
+
+            await _guildService.ModifyGuild(id, modifyGuild.ToJsonModel());
+        }
+
+        /// <summary>
         /// Gets the guild folders for the current user.
         /// </summary>
         /// <remarks>

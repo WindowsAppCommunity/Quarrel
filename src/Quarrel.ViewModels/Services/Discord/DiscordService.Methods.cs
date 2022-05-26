@@ -43,9 +43,7 @@ namespace Quarrel.Services.Discord
 
         /// <inheritdoc/>
         public async Task ModifySettings(ModifyUserSettings modifySettings)
-        {
-            await _quarrelClient.ModifySettings(modifySettings);
-        }
+            => await _quarrelClient.ModifySettings(modifySettings);
 
         /// <inheritdoc/>
         public BindableUser? GetUser(ulong id)
@@ -71,7 +69,11 @@ namespace Quarrel.Services.Discord
 
             return guilds;
         }
-        
+
+        /// <inheritdoc/>
+        public async Task ModifyGuild(ulong id, ModifyGuild modifyGuild)
+            => await _quarrelClient.ModifyGuild(id, modifyGuild);
+
         /// <inheritdoc/>
         public BindableGuildFolder[] GetMyGuildFolders()
         {

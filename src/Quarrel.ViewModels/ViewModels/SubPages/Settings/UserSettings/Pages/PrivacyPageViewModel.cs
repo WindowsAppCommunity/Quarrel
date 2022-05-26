@@ -72,7 +72,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         /// <inheritdoc/>
         public override async void ApplyChanges()
         {
-            ModifyUserSettings modify = new ModifyUserSettings()
+            var modify = new ModifyUserSettings()
             {
                 ExplicitContentFilterLevel = ExplicitContentFilterLevel?.Value,
             };

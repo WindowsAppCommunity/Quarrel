@@ -20,9 +20,9 @@ namespace Discord.API.Models.Json.Guilds
         public VerificationLevel? VerificationLevel { get; set; }
 
         [JsonPropertyName("afk_channel_id")]
-        public ulong AfkChannelId { get; set; }
+        public ulong? AfkChannelId { get; set; }
 
         [JsonPropertyName("afk_timeout")]
-        public int AfkTimeout { get; set; }
+        public int? AfkTimeout { get; set; }
     }
 }
