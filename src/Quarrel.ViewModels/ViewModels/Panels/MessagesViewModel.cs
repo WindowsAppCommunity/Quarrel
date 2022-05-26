@@ -54,6 +54,11 @@ namespace Quarrel.ViewModels.Panels
                 if (SelectedChannel?.Id != m.Message.ChannelId) return;
                 _dispatcherService.RunOnUIThread(() => AppendMessage(m.Message));
             });
+            _messenger.Register<MessageDeletedMessage>(this, (_, m) =>
+            {
+                if (SelectedChannel?.Id != m.ChannelId) return;
+                _dispatcherService.RunOnUIThread(() => RemoveMessage(m.MessageId));
+            });
         }
 
         /// <summary>
@@ -177,6 +182,21 @@ namespace Quarrel.ViewModels.Panels
             IBindableMessageChannel? channel = SelectedChannel as IBindableMessageChannel;
             Guard.IsNotNull(channel, nameof(channel));
             Source.Add(new BindableMessage(_messenger, _discordService, _dispatcherService, _clipboardService, channel, message, Source.Count > 0 ? Source[Source.Count - 1].Message : null));
+        }
+
+        /// <remarks>
+        /// Must be called on the UI thread.
+        /// </remarks>
+        private void RemoveMessage(ulong id)
+        {
+            for (int i = 0; i < Source.Count; i++)
+            {
+                if (Source[i].Id == id)
+                {
+                    Source.RemoveAt(i);
+                    return;
+                }
+            }
         }
     }
 }
