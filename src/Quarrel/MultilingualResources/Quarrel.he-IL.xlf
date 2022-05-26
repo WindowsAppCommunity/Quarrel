@@ -271,11 +271,11 @@
           <source>About Me</source>
           <target state="translated">עליי</target>
         </trans-unit>
-        <trans-unit id="UserSettings/DangerZoneDescTB.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="UserSettings/DMFilter2DescTB.Text" translate="yes" xml:space="preserve">
           <source>Don't analyze any DMs</source>
           <target state="needs-review-translation">אין לנתח הודעות ישירות</target>
         </trans-unit>
-        <trans-unit id="UserSettings/DangerZoneTB.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="UserSettings/DMFilter2TB.Text" translate="yes" xml:space="preserve">
           <source>I live dangerously</source>
           <target state="translated">אני גר בצורה מסוכנת</target>
         </trans-unit>
@@ -295,19 +295,19 @@
           <source>Email</source>
           <target state="translated">אימייל</target>
         </trans-unit>
-        <trans-unit id="UserSettings/NiceFriendsDescTB.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="UserSettings/DMFilter1DescTB.Text" translate="yes" xml:space="preserve">
           <source>Analyze all DMs, except from my friends</source>
           <target state="needs-review-translation">נתח את כל ההודעות הישירות, למעט מחבריי</target>
         </trans-unit>
-        <trans-unit id="UserSettings/NiceFriendsTB.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="UserSettings/DMFilter1TB.Text" translate="yes" xml:space="preserve">
           <source>My friends are nice</source>
           <target state="translated">החברים שלי נחמדים</target>
         </trans-unit>
-        <trans-unit id="UserSettings/ProtectMeDescTB.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="UserSettings/DMFilter0DescTB.Text" translate="yes" xml:space="preserve">
           <source>Analyze all DMs</source>
           <target state="needs-review-translation">נתח את כל ההודעות הישירות</target>
         </trans-unit>
-        <trans-unit id="UserSettings/ProtectMeTB.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="UserSettings/DMFilter0TB.Text" translate="yes" xml:space="preserve">
           <source>Protect me</source>
           <target state="translated">הגן עליי</target>
         </trans-unit>
@@ -465,7 +465,83 @@
         </trans-unit>
         <trans-unit id="UserSettings/LanguageTB.Text" translate="yes" xml:space="preserve">
           <source>Language</source>
-          <target state="new">Language</target>
+          <target state="translated">שפה</target>
+        </trans-unit>
+        <trans-unit id="GuildsSettings/ExplicitContentFilter0DescTB.Text" translate="yes" xml:space="preserve">
+          <source>Ain't no party like my grandma's tea party.</source>
+          <target state="needs-review-translation">אין מסיבה כמו מסיבת התה של סבתא שלי.</target>
+        </trans-unit>
+        <trans-unit id="GuildsSettings/ExplicitContentFilter0TB.Text" translate="yes" xml:space="preserve">
+          <source>Don't scan any media content.</source>
+          <target state="needs-review-translation">אל תסרוק שום תוכן מדיה.</target>
+        </trans-unit>
+        <trans-unit id="GuildsSettings/ExplicitContentFilter1DescTB.Text" translate="yes" xml:space="preserve">
+          <source>Recommended option for servers that use roles for trusted membership.</source>
+          <target state="needs-review-translation">אפשרות מומלצת לשרתים המשתמשים בתפקידים לחברות מהימנה.</target>
+        </trans-unit>
+        <trans-unit id="GuildsSettings/ExplicitContentFilter1TB.Text" translate="yes" xml:space="preserve">
+          <source>Scan media content from members without a role.</source>
+          <target state="needs-review-translation">סרוק תוכן מדיה מחברים ללא תפקיד.</target>
+        </trans-unit>
+        <trans-unit id="GuildsSettings/ExplicitContentFilter2DescTB.Text" translate="yes" xml:space="preserve">
+          <source>Recommended option for when you want that squeaky clean shine.</source>
+          <target state="needs-review-translation">אפשרות מומלצת כאשר אתה רוצה את הברק הצח והנקי הזה.</target>
+        </trans-unit>
+        <trans-unit id="GuildsSettings/ExplicitContentFilter2TB.Text" translate="yes" xml:space="preserve">
+          <source>Scan media content from all members.</source>
+          <target state="needs-review-translation">סרוק תוכן מדיה מכל החברים.</target>
+        </trans-unit>
+        <trans-unit id="GuildsSettings/Vertification0DescTB.Text" translate="yes" xml:space="preserve">
+          <source>Unrestricted</source>
+          <target state="needs-review-translation">ללא הגבלה</target>
+        </trans-unit>
+        <trans-unit id="GuildsSettings/Vertification0TB.Text" translate="yes" xml:space="preserve">
+          <source>None</source>
+          <target state="needs-review-translation">אף אחד</target>
+        </trans-unit>
+        <trans-unit id="GuildsSettings/Vertification1DescTB.Text" translate="yes" xml:space="preserve">
+          <source>Must have a verified email attached to their account.</source>
+          <target state="needs-review-translation">חייב לצרף דוא"ל מאומת לחשבון.</target>
+        </trans-unit>
+        <trans-unit id="GuildsSettings/Vertification1TB.Text" translate="yes" xml:space="preserve">
+          <source>Low</source>
+          <target state="needs-review-translation">נמוך</target>
+        </trans-unit>
+        <trans-unit id="GuildsSettings/Vertification2DescTB.Text" translate="yes" xml:space="preserve">
+          <source>Must also be registered on Discord for longer than 5 minutes.</source>
+          <target state="needs-review-translation">כמו כן חייב להיות רשום בדיסקורד למשך יותר מ-5 דקות.</target>
+        </trans-unit>
+        <trans-unit id="GuildsSettings/Vertification2TB.Text" translate="yes" xml:space="preserve">
+          <source>Medium</source>
+          <target state="needs-review-translation">בינוני</target>
+        </trans-unit>
+        <trans-unit id="GuildsSettings/Vertification3DescTB.Text" translate="yes" xml:space="preserve">
+          <source>Must also be a member of this server longer than 10 minutes.</source>
+          <target state="needs-review-translation">כמו כן חייב להיות חבר בשרת זה יותר מ-10 דקות.</target>
+        </trans-unit>
+        <trans-unit id="GuildsSettings/Vertification3TB.Text" translate="yes" xml:space="preserve">
+          <source>High</source>
+          <target state="needs-review-translation">גבוה</target>
+        </trans-unit>
+        <trans-unit id="GuildsSettings/Vertification4DescTB.Text" translate="yes" xml:space="preserve">
+          <source>Must have a verified phone on their discord account.</source>
+          <target state="needs-review-translation">חייב להיות טלפון מאומת בחשבון הדיסקורד שלהם.</target>
+        </trans-unit>
+        <trans-unit id="GuildsSettings/Vertification4TB.Text" translate="yes" xml:space="preserve">
+          <source>Highest</source>
+          <target state="needs-review-translation">הכי גבוה</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/ExplicitContentFilterTB.Text" translate="yes" xml:space="preserve">
+          <source>EXPLICIT CONTENT FILTER</source>
+          <target state="needs-review-translation">מסנן תוכן מפורש</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/VertificationLevelTB.Text" translate="yes" xml:space="preserve">
+          <source>VERIFICATION LEVEL</source>
+          <target state="needs-review-translation">רמת אימות</target>
+        </trans-unit>
+        <trans-unit id="GuildSettings/ServerNameTBox.Header" translate="yes" xml:space="preserve">
+          <source>Server name</source>
+          <target state="needs-review-translation">שם שרת</target>
         </trans-unit>
       </group>
     </body>

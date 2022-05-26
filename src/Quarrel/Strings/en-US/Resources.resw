@@ -273,6 +273,9 @@
   <data name="GuildSettings/Emojis" xml:space="preserve">
     <value>Emojis</value>
   </data>
+  <data name="GuildSettings/ExplicitContentFilterTB.Text" xml:space="preserve">
+    <value>EXPLICIT CONTENT FILTER</value>
+  </data>
   <data name="GuildSettings/Invites" xml:space="preserve">
     <value>Invites</value>
   </data>
@@ -297,11 +300,65 @@
   <data name="GuildSettings/Roles" xml:space="preserve">
     <value>Roles</value>
   </data>
+  <data name="GuildSettings/ServerNameTBox.Header" xml:space="preserve">
+    <value>Server name</value>
+  </data>
   <data name="GuildSettings/ServerSettings" xml:space="preserve">
     <value>Server Settings</value>
   </data>
   <data name="GuildSettings/UserManagement" xml:space="preserve">
     <value>User Management</value>
+  </data>
+  <data name="GuildSettings/VertificationLevelTB.Text" xml:space="preserve">
+    <value>VERIFICATION LEVEL</value>
+  </data>
+  <data name="GuildsSettings/ExplicitContentFilter0DescTB.Text" xml:space="preserve">
+    <value>Ain't no party like my grandma's tea party.</value>
+  </data>
+  <data name="GuildsSettings/ExplicitContentFilter0TB.Text" xml:space="preserve">
+    <value>Don't scan any media content.</value>
+  </data>
+  <data name="GuildsSettings/ExplicitContentFilter1DescTB.Text" xml:space="preserve">
+    <value>Recommended option for servers that use roles for trusted membership.</value>
+  </data>
+  <data name="GuildsSettings/ExplicitContentFilter1TB.Text" xml:space="preserve">
+    <value>Scan media content from members without a role.</value>
+  </data>
+  <data name="GuildsSettings/ExplicitContentFilter2DescTB.Text" xml:space="preserve">
+    <value>Recommended option for when you want that squeaky clean shine.</value>
+  </data>
+  <data name="GuildsSettings/ExplicitContentFilter2TB.Text" xml:space="preserve">
+    <value>Scan media content from all members.</value>
+  </data>
+  <data name="GuildsSettings/Vertification0DescTB.Text" xml:space="preserve">
+    <value>Unrestricted</value>
+  </data>
+  <data name="GuildsSettings/Vertification0TB.Text" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="GuildsSettings/Vertification1DescTB.Text" xml:space="preserve">
+    <value>Must have a verified email attached to their account.</value>
+  </data>
+  <data name="GuildsSettings/Vertification1TB.Text" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="GuildsSettings/Vertification2DescTB.Text" xml:space="preserve">
+    <value>Must also be registered on Discord for longer than 5 minutes.</value>
+  </data>
+  <data name="GuildsSettings/Vertification2TB.Text" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="GuildsSettings/Vertification3DescTB.Text" xml:space="preserve">
+    <value>Must also be a member of this server longer than 10 minutes.</value>
+  </data>
+  <data name="GuildsSettings/Vertification3TB.Text" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="GuildsSettings/Vertification4DescTB.Text" xml:space="preserve">
+    <value>Must have a verified phone on their discord account.</value>
+  </data>
+  <data name="GuildsSettings/Vertification4TB.Text" xml:space="preserve">
+    <value>Highest</value>
   </data>
   <data name="InfoMessage/Call" xml:space="preserve">
     <value>{author} started a call</value>
@@ -413,17 +470,29 @@
   <data name="UserSettings/Connections" xml:space="preserve">
     <value>Connections</value>
   </data>
-  <data name="UserSettings/DangerZoneDescTB.Text" xml:space="preserve">
-    <value>Don't analyze any DMs</value>
-  </data>
-  <data name="UserSettings/DangerZoneTB.Text" xml:space="preserve">
-    <value>I live dangerously</value>
-  </data>
   <data name="UserSettings/DiscriminatorTBox.Header" xml:space="preserve">
     <value>Discriminator</value>
   </data>
   <data name="UserSettings/Display" xml:space="preserve">
     <value>Display</value>
+  </data>
+  <data name="UserSettings/DMFilter0DescTB.Text" xml:space="preserve">
+    <value>Analyze all DMs</value>
+  </data>
+  <data name="UserSettings/DMFilter0TB.Text" xml:space="preserve">
+    <value>Protect me</value>
+  </data>
+  <data name="UserSettings/DMFilter1DescTB.Text" xml:space="preserve">
+    <value>Analyze all DMs, except from my friends</value>
+  </data>
+  <data name="UserSettings/DMFilter1TB.Text" xml:space="preserve">
+    <value>My friends are nice</value>
+  </data>
+  <data name="UserSettings/DMFilter2DescTB.Text" xml:space="preserve">
+    <value>Don't analyze any DMs</value>
+  </data>
+  <data name="UserSettings/DMFilter2TB.Text" xml:space="preserve">
+    <value>I live dangerously</value>
   </data>
   <data name="UserSettings/DMFilterDescTB.Text" xml:space="preserve">
     <value>Analyze and automatically delete direct messages containing explicit content</value>
@@ -440,23 +509,11 @@
   <data name="UserSettings/MyAccount" xml:space="preserve">
     <value>My Account</value>
   </data>
-  <data name="UserSettings/NiceFriendsDescTB.Text" xml:space="preserve">
-    <value>Analyze all DMs, except from my friends</value>
-  </data>
-  <data name="UserSettings/NiceFriendsTB.Text" xml:space="preserve">
-    <value>My friends are nice</value>
-  </data>
   <data name="UserSettings/Notifications" xml:space="preserve">
     <value>Notifications</value>
   </data>
   <data name="UserSettings/Privacy" xml:space="preserve">
     <value>Privacy</value>
-  </data>
-  <data name="UserSettings/ProtectMeDescTB.Text" xml:space="preserve">
-    <value>Analyze all DMs</value>
-  </data>
-  <data name="UserSettings/ProtectMeTB.Text" xml:space="preserve">
-    <value>Protect me</value>
   </data>
   <data name="UserSettings/UsernameTBox.Header" xml:space="preserve">
     <value>Username</value>

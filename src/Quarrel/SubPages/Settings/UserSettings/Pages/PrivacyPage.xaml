@@ -26,8 +26,8 @@
                                  Foreground="{StaticResource DiscordGreenBrush}"
                                  Margin="0,6,0,0" GroupName="Filtering">
                         <StackPanel>
-                            <TextBlock x:Uid="UserSettings/ProtectMeTB" Text="Protect me"/>
-                            <TextBlock x:Uid="UserSettings/ProtectMeDescTB" Text="Analyze all DMs"
+                            <TextBlock x:Uid="UserSettings/DMFilter0TB" Text="Protect me"/>
+                            <TextBlock x:Uid="UserSettings/DMFilter0DescTB" Text="Analyze all DMs"
                                        Style="{StaticResource SettingsDescriptionStyle}"/>
                         </StackPanel>
                     </RadioButton>
@@ -37,8 +37,8 @@
                                  Foreground="{StaticResource DiscordYellowBrush}"
                                  GroupName="Filtering">
                         <StackPanel>
-                            <TextBlock x:Uid="UserSettings/NiceFriendsTB" Text="My friends are nice"/>
-                            <TextBlock x:Uid="UserSettings/NiceFriendsDescTB" Text="Analyze all DMs, except from my friends"
+                            <TextBlock x:Uid="UserSettings/DMFilter1TB" Text="My friends are nice"/>
+                            <TextBlock x:Uid="UserSettings/DMFilter1DescTB" Text="Analyze all DMs, except from my friends"
                                        Style="{StaticResource SettingsDescriptionStyle}"/>
                         </StackPanel>
                     </RadioButton>
@@ -48,8 +48,8 @@
                                  Foreground="{StaticResource DiscordRedBrush}"
                                  GroupName="Filtering">
                         <StackPanel>
-                            <TextBlock x:Uid="UserSettings/DangerZoneTB" Text="I live dangerously"/>
-                            <TextBlock x:Uid="UserSettings/DangerZoneDescTB" Text="Don't analyze any DMs"
+                            <TextBlock x:Uid="UserSettings/DMFilter2TB" Text="I live dangerously"/>
+                            <TextBlock x:Uid="UserSettings/DMFilter2DescTB" Text="Don't analyze any DMs"
                                        Style="{StaticResource SettingsDescriptionStyle}"/>
                         </StackPanel>
                     </RadioButton>

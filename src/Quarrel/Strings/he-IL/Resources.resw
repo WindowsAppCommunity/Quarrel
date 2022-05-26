@@ -212,10 +212,10 @@
   <data name="UserSettings/AboutMeTBox.Header" xml:space="preserve">
     <value>עליי</value>
   </data>
-  <data name="UserSettings/DangerZoneDescTB.Text" xml:space="preserve">
+  <data name="UserSettings/DMFilter2DescTB.Text" xml:space="preserve">
     <value>אין לנתח הודעות ישירות</value>
   </data>
-  <data name="UserSettings/DangerZoneTB.Text" xml:space="preserve">
+  <data name="UserSettings/DMFilter2TB.Text" xml:space="preserve">
     <value>אני גר בצורה מסוכנת</value>
   </data>
   <data name="UserSettings/DiscriminatorTBox.Header" xml:space="preserve">
@@ -230,16 +230,16 @@
   <data name="UserSettings/EmailTBox.Header" xml:space="preserve">
     <value>אימייל</value>
   </data>
-  <data name="UserSettings/NiceFriendsDescTB.Text" xml:space="preserve">
+  <data name="UserSettings/DMFilter1DescTB.Text" xml:space="preserve">
     <value>נתח את כל ההודעות הישירות, למעט מחבריי</value>
   </data>
-  <data name="UserSettings/NiceFriendsTB.Text" xml:space="preserve">
+  <data name="UserSettings/DMFilter1TB.Text" xml:space="preserve">
     <value>החברים שלי נחמדים</value>
   </data>
-  <data name="UserSettings/ProtectMeDescTB.Text" xml:space="preserve">
+  <data name="UserSettings/DMFilter0DescTB.Text" xml:space="preserve">
     <value>נתח את כל ההודעות הישירות</value>
   </data>
-  <data name="UserSettings/ProtectMeTB.Text" xml:space="preserve">
+  <data name="UserSettings/DMFilter0TB.Text" xml:space="preserve">
     <value>הגן עליי</value>
   </data>
   <data name="UserSettings/UsernameTBox.Header" xml:space="preserve">
@@ -331,5 +331,65 @@
   </data>
   <data name="Settings/UnsavedChangesTB.Text" xml:space="preserve">
     <value>ישנם שינויים שלא נשמרו שיש לטפל בהם לפני החלפת עמודים.</value>
+  </data>
+  <data name="UserSettings/LanguageTB.Text" xml:space="preserve">
+    <value>שפה</value>
+  </data>
+  <data name="GuildsSettings/ExplicitContentFilter0DescTB.Text" xml:space="preserve">
+    <value>אין מסיבה כמו מסיבת התה של סבתא שלי.</value>
+  </data>
+  <data name="GuildsSettings/ExplicitContentFilter0TB.Text" xml:space="preserve">
+    <value>אל תסרוק שום תוכן מדיה.</value>
+  </data>
+  <data name="GuildsSettings/ExplicitContentFilter1DescTB.Text" xml:space="preserve">
+    <value>אפשרות מומלצת לשרתים המשתמשים בתפקידים לחברות מהימנה.</value>
+  </data>
+  <data name="GuildsSettings/ExplicitContentFilter1TB.Text" xml:space="preserve">
+    <value>סרוק תוכן מדיה מחברים ללא תפקיד.</value>
+  </data>
+  <data name="GuildsSettings/ExplicitContentFilter2DescTB.Text" xml:space="preserve">
+    <value>אפשרות מומלצת כאשר אתה רוצה את הברק הצח והנקי הזה.</value>
+  </data>
+  <data name="GuildsSettings/ExplicitContentFilter2TB.Text" xml:space="preserve">
+    <value>סרוק תוכן מדיה מכל החברים.</value>
+  </data>
+  <data name="GuildsSettings/Vertification0DescTB.Text" xml:space="preserve">
+    <value>ללא הגבלה</value>
+  </data>
+  <data name="GuildsSettings/Vertification0TB.Text" xml:space="preserve">
+    <value>אף אחד</value>
+  </data>
+  <data name="GuildsSettings/Vertification1DescTB.Text" xml:space="preserve">
+    <value>חייב לצרף דוא"ל מאומת לחשבון.</value>
+  </data>
+  <data name="GuildsSettings/Vertification1TB.Text" xml:space="preserve">
+    <value>נמוך</value>
+  </data>
+  <data name="GuildsSettings/Vertification2DescTB.Text" xml:space="preserve">
+    <value>כמו כן חייב להיות רשום בדיסקורד למשך יותר מ-5 דקות.</value>
+  </data>
+  <data name="GuildsSettings/Vertification2TB.Text" xml:space="preserve">
+    <value>בינוני</value>
+  </data>
+  <data name="GuildsSettings/Vertification3DescTB.Text" xml:space="preserve">
+    <value>כמו כן חייב להיות חבר בשרת זה יותר מ-10 דקות.</value>
+  </data>
+  <data name="GuildsSettings/Vertification3TB.Text" xml:space="preserve">
+    <value>גבוה</value>
+  </data>
+  <data name="GuildsSettings/Vertification4DescTB.Text" xml:space="preserve">
+    <value>חייב להיות טלפון מאומת בחשבון הדיסקורד שלהם.</value>
+  </data>
+  <data name="GuildsSettings/Vertification4TB.Text" xml:space="preserve">
+    <value>הכי גבוה</value>
+  </data>
+  <data name="GuildSettings/ExplicitContentFilterTB.Text" xml:space="preserve">
+    <value>מסנן תוכן מפורש</value>
+  </data>
+  <data name="GuildSettings/VertificationLevelTB.Text" xml:space="preserve">
+    <value>רמת אימות</value>
+  </data>
+  <data name="GuildSettings/ServerNameTBox.Header" xml:space="preserve">
+    <value>שם שרת</value>
   </data>
 </root>
