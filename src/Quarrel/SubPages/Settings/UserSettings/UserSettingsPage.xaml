@@ -10,6 +10,7 @@
     xmlns:settings="using:Quarrel.ViewModels.SubPages.Settings"
     xmlns:asettings="using:Quarrel.ViewModels.SubPages.Settings.Abstract"
     xmlns:ussub="using:Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     mc:Ignorable="d"
     d:DesignHeight="620"
     d:DesignWidth="800">
@@ -69,6 +70,14 @@
                       HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="8"
                       MaxWidth="300" Background="{ThemeResource PrimaryBackground}"
                       Padding="8" CornerRadius="8">
+                    <animations:Implicit.ShowAnimations>
+                        <animations:TranslationAnimation Duration="0:0:0.25" To="0,0,0" From="0,200,0"></animations:TranslationAnimation>
+                    </animations:Implicit.ShowAnimations>
+                    <animations:Implicit.HideAnimations>
+                        <animations:ScalarAnimation Target="Translation.Y" Duration="0:0:1" To="200">
+                            <animations:ScalarKeyFrame Key="0.2" Value="-20"/>
+                        </animations:ScalarAnimation>
+                    </animations:Implicit.HideAnimations>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
