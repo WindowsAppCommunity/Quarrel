@@ -20,7 +20,9 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
         internal OverviewPageViewModel(ILocalizationService localizationService, IDiscordService discordService, BindableGuild guild) :
             base(localizationService, discordService, guild)
         {
-            Name = new(guild.Guild.Name);
+            _name = new(guild.Guild.Name);
+
+            RegisterEvents();
         }
 
         /// <inheritdoc/>
@@ -50,6 +52,11 @@ namespace Quarrel.ViewModels.SubPages.Settings.GuildSettings.Pages
         public override void RevertChanges()
         {
             Name.Reset();
+        }
+
+        private void RegisterEvents()
+        {
+            Name.ValueChanged += ValueChanged;
         }
     }
 }
