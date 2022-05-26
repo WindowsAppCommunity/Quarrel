@@ -193,7 +193,15 @@ namespace Quarrel.ViewModels.Panels
             {
                 if (Source[i].Id == id)
                 {
+                    // Remove item
                     Source.RemoveAt(i);
+
+                    // Ensure next message is not continuation
+                    if (i < Source.Count && i != 0)
+                    {
+                        Source[i].PreviousMessage = Source[i-1].Message;
+                    }
+
                     return;
                 }
             }

@@ -101,7 +101,7 @@ namespace Quarrel.Bindables.Messages
         public ulong ChannelId => Message.ChannelId;
 
         /// <summary>
-        /// Gets the wrapped <see cref="Client.Models.Messages.Message"/>.
+        /// Gets or sets the wrapped <see cref="Client.Models.Messages.Message"/>.
         /// </summary>
         public Message Message
         {
@@ -110,6 +110,19 @@ namespace Quarrel.Bindables.Messages
             {
                 SetProperty(ref _message, value);
                 AckUpdate();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the previous message.
+        /// </summary>
+        public Message PreviousMessage
+        {
+            get => _message;
+            set
+            {
+                SetProperty(ref _previousMessage, value);
+                OnPropertyChanged(nameof(IsContinuation));
             }
         }
 
