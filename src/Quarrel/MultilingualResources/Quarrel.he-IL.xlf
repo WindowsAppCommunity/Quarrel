@@ -543,6 +543,10 @@
           <source>Server name</source>
           <target state="needs-review-translation">שם שרת</target>
         </trans-unit>
+        <trans-unit id="UserSettings/CopyIdBTN.Content" translate="yes" xml:space="preserve">
+          <source>Copy ID</source>
+          <target state="needs-review-translation">העתק מזהה</target>
+        </trans-unit>
       </group>
     </body>
   </file>

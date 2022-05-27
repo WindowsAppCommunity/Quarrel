@@ -27,6 +27,17 @@ namespace Quarrel.Client
         }
 
         /// <summary>
+        /// Modifies the current user.
+        /// </summary>
+        /// <param name="modifyUser">The self user modifications.</param>
+        public async Task ModifyMe(ModifySelfUser modifyUser)
+        {
+            Guard.IsNotNull(_userService, nameof(_userService));
+
+            await _userService.ModifyMe(modifyUser.ToJsonModel());
+        }
+
+        /// <summary>
         /// Gets a user by id.
         /// </summary>
         /// <param name="id">The id of the user to get.</param>
@@ -47,7 +58,7 @@ namespace Quarrel.Client
         /// <summary>
         /// Modifies user settings.
         /// </summary>
-        /// <param name="modifySettings">The settings adjustments.</param>
+        /// <param name="modifySettings">The settings modifications.</param>
         public async Task ModifySettings(ModifyUserSettings modifySettings)
         {
             Guard.IsNotNull(_userService, nameof(_userService));
@@ -140,8 +151,7 @@ namespace Quarrel.Client
         /// Modifes a guild.
         /// </summary>
         /// <param name="id">The id of the guild.</param>
-        /// <param name="modifyGuild"></param>
-        /// <returns></returns>
+        /// <param name="modifyGuild">The guidl modifications.</param>
         public async Task ModifyGuild(ulong id, ModifyGuild modifyGuild)
         {
             Guard.IsNotNull(_guildService, nameof(_guildService));

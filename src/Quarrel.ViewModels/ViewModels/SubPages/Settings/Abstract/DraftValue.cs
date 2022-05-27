@@ -65,6 +65,11 @@ namespace Quarrel.ViewModels.SubPages.Settings.Abstract
         /// </summary>
         public bool IsDrafted => !CanonicalValue?.Equals(Value) ?? false;
 
+        /// <summary>
+        /// Gets the edited value, or null if not edited.
+        /// </summary>
+        public T? EditedValue => IsDrafted ? Value : default;
+
         /// <inheritdoc/>
         public void Apply()
         {

@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Localization;
 using Quarrel.Services.Storage;
@@ -19,12 +20,12 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings
         /// <summary>
         /// Initializes a new instance of the <see cref="UserSettingsPageViewModel"/>.
         /// </summary>
-        public UserSettingsPageViewModel(ILocalizationService localizationService, IStorageService storageService, IDiscordService discordService) :
+        public UserSettingsPageViewModel(ILocalizationService localizationService, IStorageService storageService, IDiscordService discordService, IClipboardService clipboardService) :
             base(new ISettingsMenuItem[]
             {
                 // Account settings
                 new SettingsCategoryHeader(localizationService[AccountSettingsResource]),
-                new MyAccountPageViewModel(localizationService, discordService, storageService),
+                new MyAccountPageViewModel(localizationService, discordService, storageService, clipboardService),
                 new PrivacyPageViewModel(localizationService, discordService, storageService),
                 new ConnectionsPageViewModel(localizationService, discordService, storageService),
 

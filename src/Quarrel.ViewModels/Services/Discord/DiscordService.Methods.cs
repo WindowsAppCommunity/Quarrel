@@ -36,6 +36,10 @@ namespace Quarrel.Services.Discord
         }
 
         /// <inheritdoc/>
+        public async Task ModifyMe(ModifySelfUser modifyUser)
+            => await _quarrelClient.ModifyMe(modifyUser);
+
+        /// <inheritdoc/>
         public UserSettings? GetSettings()
         {
             return _quarrelClient.GetSettings();

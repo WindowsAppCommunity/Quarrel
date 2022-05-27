@@ -470,6 +470,9 @@
   <data name="UserSettings/Connections" xml:space="preserve">
     <value>Connections</value>
   </data>
+  <data name="UserSettings/CopyIdBTN.Content" xml:space="preserve">
+    <value>Copy ID</value>
+  </data>
   <data name="UserSettings/DiscriminatorTBox.Header" xml:space="preserve">
     <value>Discriminator</value>
   </data>
