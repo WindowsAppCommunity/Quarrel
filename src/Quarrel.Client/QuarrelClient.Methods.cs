@@ -82,7 +82,7 @@ namespace Quarrel.Client
                 request = () => _channelService.GetChannelMessagesBefore(channelId, beforeId.Value);
             }
 
-            JsonMessage[] jsonMessages = await MakeRefitRequest(request) ?? new JsonMessage[0];
+            JsonMessage[] jsonMessages = await MakeRefitRequest(request) ?? Array.Empty<JsonMessage>();
 
             Message[] messages = new Message[jsonMessages.Length];
             for (int i = 0; i < messages.Length; i++)
