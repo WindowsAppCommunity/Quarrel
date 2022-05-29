@@ -131,7 +131,7 @@ namespace Quarrel.Services.Discord
                 var channel = rawChannels[i];
                 if (channel is CategoryChannel categoryChannel)
                 {
-                    var bindableCategoryChannel = new BindableCategoryChannel(_messenger, this, _dispatcherService, categoryChannel, member);
+                    var bindableCategoryChannel = new BindableCategoryChannel(_messenger, _clipboardService, this, _dispatcherService, categoryChannel, member);
                     categories.Add(channel.Id, bindableCategoryChannel);
                     channels[i] = bindableCategoryChannel;
                 }
@@ -148,7 +148,7 @@ namespace Quarrel.Services.Discord
                         category = categories[nestedChannel.CategoryId.Value];
                     }
 
-                    channel = BindableGuildChannel.Create(_messenger, this, _localizationService, _dispatcherService, nestedChannel, member, category);
+                    channel = BindableGuildChannel.Create(_messenger, _clipboardService, this, _localizationService, _dispatcherService, nestedChannel, member, category);
 
                     if (channel is not null && (channel.Channel.Id == guild.SelectedChannelId || (selectedChannel is null && channel.IsAccessible)) &&
                         channel is IBindableSelectableChannel messageChannel)
@@ -170,7 +170,7 @@ namespace Quarrel.Services.Discord
             int i = 0;
             foreach (var channel in rawChannels)
             {
-                channels[i] = BindablePrivateChannel.Create(_messenger, this, _localizationService, _dispatcherService, channel);
+                channels[i] = BindablePrivateChannel.Create(_messenger, _clipboardService, this, _localizationService, _dispatcherService, channel);
 
                 if (channels[i] is IBindableSelectableChannel selectableChannel &&
                     selectableChannel.Id == home.SelectedChannelId)

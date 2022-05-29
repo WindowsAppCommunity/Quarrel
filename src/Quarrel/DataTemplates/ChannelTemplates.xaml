@@ -14,8 +14,17 @@
 
             <Grid.ContextFlyout>
                 <MenuFlyout>
-                    <MenuFlyoutItem x:Uid="Channel/MarkAsRead" Text="Mark as Read"
+                    <MenuFlyoutItem x:Uid="Channel/MarkAsReadMFI" Text="Mark as Read"
                                     Icon="View" Command="{x:Bind MarkAsReadCommand}"/>
+                    <MenuFlyoutSeparator/>
+                    <MenuFlyoutItem x:Uid="Channel/CopyLinkMFI" Text="Copy Link"
+                                    Icon="Link" Command="{x:Bind CopyLinkCommand}"/>
+                    <MenuFlyoutItem x:Uid="Channel/CopyIdMFI" Text="Copy ID"
+                                    Command="{x:Bind CopyIdCommand}">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE8EC;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
                 </MenuFlyout>
             </Grid.ContextFlyout>
 
@@ -33,11 +42,11 @@
                 <FontIcon Glyph="#" FontFamily="{StaticResource ContentControlThemeFontFamily}" FontWeight="Light" Margin="6,-2,4,0"
                           Foreground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" Opacity=".6" FontSize="20" 
                           Visibility="{x:Bind vconvert:VisibleWhenEqualConverter.Convert(Channel.Type, cenums:ChannelType.GuildText)}"/>
-                
+
                 <FontIcon Glyph="&#xE12A;" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontWeight="Light" Margin="6,4,4,0"
                           Foreground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" Opacity=".6" FontSize="14" VerticalAlignment="Center"
                           Visibility="{x:Bind vconvert:VisibleWhenEqualConverter.Convert(Channel.Type, cenums:ChannelType.News)}"/>
-                
+
                 <TextBlock Text="{x:Bind Name, Mode=OneWay}" Opacity=".6" Margin="0,1,0,0"/>
             </StackPanel>
         </Grid>

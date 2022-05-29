@@ -7,6 +7,7 @@ using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Users;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Interfaces;
+using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 
@@ -19,10 +20,11 @@ namespace Quarrel.Bindables.Channels
     {
         internal BindableDirectChannel(
             IMessenger messenger,
+            IClipboardService clipboardService,
             IDiscordService discordService,
             IDispatcherService dispatcherService,
             DirectChannel directChannel) :
-            base(messenger, discordService, dispatcherService, directChannel)
+            base(messenger, clipboardService, discordService, dispatcherService, directChannel)
         {
             BindableUser? user = _discordService.GetUser(DirectChannel.RecipientId);
             Guard.IsNotNull(user);

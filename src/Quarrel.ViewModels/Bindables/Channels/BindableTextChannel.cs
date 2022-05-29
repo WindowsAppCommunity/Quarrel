@@ -7,6 +7,7 @@ using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;
+using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 
@@ -19,12 +20,13 @@ namespace Quarrel.Bindables.Channels
     {
         internal BindableTextChannel(
             IMessenger messenger,
+            IClipboardService clipboardService,
             IDiscordService discordService,
             IDispatcherService dispatcherService,
             GuildTextChannel channel,
             GuildMember selfMember,
             BindableCategoryChannel? parent = null) :
-            base(messenger, discordService, dispatcherService, channel, selfMember, parent)
+            base(messenger, clipboardService, discordService, dispatcherService, channel, selfMember, parent)
         {
             MarkAsReadCommand = new RelayCommand(() => _discordService.MarkRead(MessageChannel.Id, MessageChannel.LastMessageId ?? 0));
         }

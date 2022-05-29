@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Models.Enums.Channels;
+using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
@@ -9,6 +10,7 @@ using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;
 using Quarrel.Messages.Discord.Channels;
+using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
@@ -20,6 +22,10 @@ namespace Quarrel.Bindables.Channels.Abstract
     /// </summary>
     public abstract partial class BindableChannel : SelectableItem, IBindableChannel
     {
+        /// <summary>
+        /// The <see cref="IClipboardService"/> service.
+        /// </summary>
+        protected readonly IClipboardService _clipboardService;
         private Channel _channel;
 
         /// <summary>
@@ -27,11 +33,13 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// </summary>
         internal BindableChannel(
             IMessenger messenger,
+            IClipboardService clipboardService,
             IDiscordService discordService,
             IDispatcherService dispatcherService,
             Channel channel) :
             base(messenger, discordService, dispatcherService)
         {
+            _clipboardService = clipboardService;
             _channel = channel;
 
             messenger.Register<ChannelUpdatedMessage>(this, (_, e) =>
@@ -41,6 +49,9 @@ namespace Quarrel.Bindables.Channels.Abstract
                     Channel = e.Channel;
                 }
             });
+
+            CopyIdCommand = new RelayCommand(() => _clipboardService.Copy($"{Id}"));
+            CopyLinkCommand = new RelayCommand(() => _clipboardService.Copy(Channel.Url));
         }
 
         /// <inheritdoc/>
@@ -75,7 +86,17 @@ namespace Quarrel.Bindables.Channels.Abstract
 
         /// <inheritdoc/>
         public abstract bool IsAccessible { get; }
-        
+
+        /// <summary>
+        /// Gets a command that copies the channel link to the clipboard.
+        /// </summary>
+        public RelayCommand CopyLinkCommand { get; }
+
+        /// <summary>
+        /// Gets a command that copies the channel id to the clipboard.
+        /// </summary>
+        public RelayCommand CopyIdCommand { get; }
+
         /// <summary>
         /// A virtual method that notifies property changed for a <see cref="BindableChannel"/>.
         /// </summary>
@@ -105,6 +126,7 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <param name="parent">The parent category of the channel.</param>
         public static BindableChannel? Create(
             IMessenger messenger,
+            IClipboardService clipboardService,
             IDiscordService discordService,
             ILocalizationService localizationService,
             IDispatcherService dispatcherService,
@@ -116,17 +138,17 @@ namespace Quarrel.Bindables.Channels.Abstract
             {
                 return channel switch
                 {
-                    DirectChannel c => new BindableDirectChannel(messenger, discordService, dispatcherService, c),
-                    GroupChannel c => new BindableGroupChannel(messenger, discordService, localizationService, dispatcherService, c),
+                    DirectChannel c => new BindableDirectChannel(messenger, clipboardService, discordService, dispatcherService, c),
+                    GroupChannel c => new BindableGroupChannel(messenger, clipboardService, discordService, localizationService, dispatcherService, c),
                     _ => null
                 };
             }
 
             return channel switch
             {
-                GuildTextChannel c => new BindableTextChannel(messenger, discordService, dispatcherService, c, member, parent),
-                VoiceChannel c => new BindableVoiceChannel(messenger, discordService, dispatcherService, c, member, parent),
-                CategoryChannel c => new BindableCategoryChannel(messenger, discordService, dispatcherService, c, member),
+                GuildTextChannel c => new BindableTextChannel(messenger, clipboardService, discordService, dispatcherService, c, member, parent),
+                VoiceChannel c => new BindableVoiceChannel(messenger, clipboardService, discordService, dispatcherService, c, member, parent),
+                CategoryChannel c => new BindableCategoryChannel(messenger, clipboardService, discordService, dispatcherService, c, member),
                 _ => null
             };
         }

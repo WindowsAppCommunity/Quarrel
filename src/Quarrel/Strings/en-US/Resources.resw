@@ -180,6 +180,15 @@
   <data name="AppDisplayNameInsider" xml:space="preserve">
     <value>Quarrel Insider</value>
   </data>
+  <data name="Channel/CopyIdMFI.Text" xml:space="preserve">
+    <value>Copy ID</value>
+  </data>
+  <data name="Channel/CopyLinkMFI.Text" xml:space="preserve">
+    <value>Copy Link</value>
+  </data>
+  <data name="Channel/MarkAsReadMFI.Text" xml:space="preserve">
+    <value>Mark as Read</value>
+  </data>
   <data name="Channels/MemberCount" xml:space="preserve">
     <value>{0} Members</value>
   </data>

@@ -4,6 +4,7 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Users;
+using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 
@@ -16,12 +17,13 @@ namespace Quarrel.Bindables.Channels
     {
         internal BindableVoiceChannel(
             IMessenger messenger,
+            IClipboardService clipboardService,
             IDiscordService discordService,
             IDispatcherService dispatcherService,
             VoiceChannel channel,
             GuildMember selfMember,
             BindableCategoryChannel? parent = null) :
-            base(messenger, discordService, dispatcherService, channel, selfMember, parent)
+            base(messenger, clipboardService, discordService, dispatcherService, channel, selfMember, parent)
         {
         }
         

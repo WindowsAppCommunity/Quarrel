@@ -27,6 +27,9 @@ namespace Quarrel.Client.Models.Channels.Abstract
         /// <inheritdoc/>
         public ChannelType Type { get; private set; }
 
+        /// <inheritdoc/>
+        public abstract string Url { get; }
+
         internal virtual void UpdateFromJsonChannel(JsonChannel jsonChannel)
         {
             Guard.IsEqualTo(Id, jsonChannel.Id, nameof(Id));

@@ -7,6 +7,7 @@ using Quarrel.Client.Models.Users;
 using Quarrel.Messages;
 using Quarrel.Services.Analytics;
 using Quarrel.Services.Analytics.Enums;
+using Quarrel.Services.Clipboard;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
 using Quarrel.Services.Storage.Accounts.Models;
@@ -22,6 +23,7 @@ namespace Quarrel.Services.Discord
     {
         private readonly QuarrelClient _quarrelClient;
         private readonly IAnalyticsService _analyticsService;
+        private readonly IClipboardService _clipboardService;
         private readonly ILocalizationService _localizationService;
         private readonly IDispatcherService _dispatcherService;
         private readonly IMessenger _messenger;
@@ -30,9 +32,15 @@ namespace Quarrel.Services.Discord
         /// <summary>
         /// Initializes a new instance of the <see cref="DiscordService"/> class.
         /// </summary>
-        public DiscordService(IAnalyticsService analyticsService, ILocalizationService localizationService, IDispatcherService dispatcherService, IMessenger messenger)
+        public DiscordService(
+            IAnalyticsService analyticsService,
+            IClipboardService clipboardService,
+            ILocalizationService localizationService,
+            IDispatcherService dispatcherService,
+            IMessenger messenger)
         {
             _analyticsService = analyticsService;
+            _clipboardService = clipboardService;
             _localizationService = localizationService;
             _dispatcherService = dispatcherService;
             _messenger = messenger;

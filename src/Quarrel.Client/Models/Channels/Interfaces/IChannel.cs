@@ -19,5 +19,10 @@ namespace Quarrel.Client.Models.Channels.Interfaces
         /// Gets the channel type.
         /// </summary>
         ChannelType Type { get; }
+
+        /// <summary>
+        /// Gets the url of the channel.
+        /// </summary>
+        string Url { get; }
     }
 }

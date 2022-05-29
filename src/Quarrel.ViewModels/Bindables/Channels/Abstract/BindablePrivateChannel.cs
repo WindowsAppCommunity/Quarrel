@@ -6,6 +6,7 @@ using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
+using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
@@ -22,10 +23,11 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// </summary>
         internal BindablePrivateChannel(
             IMessenger messenger,
+            IClipboardService clipboardService,
             IDiscordService discordService,
             IDispatcherService dispatcherService,
             PrivateChannel privateChannel) :
-            base(messenger, discordService, dispatcherService, privateChannel)
+            base(messenger, clipboardService, discordService, dispatcherService, privateChannel)
         {
             MarkAsReadCommand = new RelayCommand(() => _discordService.MarkRead(Id, MessageChannel.LastMessageId ?? 0));
         }
@@ -52,12 +54,13 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <param name="channel">The channel to wrap.</param>
         public static BindablePrivateChannel? Create(
             IMessenger messenger,
+            IClipboardService clipboardService,
             IDiscordService discordService,
             ILocalizationService localizationService,
             IDispatcherService dispatcherService,
             IPrivateChannel channel)
         {
-            return BindableChannel.Create(messenger, discordService, localizationService, dispatcherService, channel) as BindablePrivateChannel;
+            return BindableChannel.Create(messenger, clipboardService, discordService, localizationService, dispatcherService, channel) as BindablePrivateChannel;
         }
     }
 }

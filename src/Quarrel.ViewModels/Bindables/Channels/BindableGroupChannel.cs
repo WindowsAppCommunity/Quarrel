@@ -7,6 +7,7 @@ using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Users;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Interfaces;
+using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
@@ -23,11 +24,12 @@ namespace Quarrel.Bindables.Channels
 
         internal BindableGroupChannel(
             IMessenger messenger,
+            IClipboardService clipboardService,
             IDiscordService discordService,
             ILocalizationService localizationService,
             IDispatcherService dispatcherService,
             GroupChannel groupChannel) :
-            base(messenger, discordService, dispatcherService, groupChannel)
+            base(messenger, clipboardService, discordService, dispatcherService, groupChannel)
         {
             _localizationService = localizationService;
 

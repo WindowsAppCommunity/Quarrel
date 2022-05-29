@@ -32,6 +32,9 @@ namespace Quarrel.Client.Models.Channels.Abstract
         /// <inheritdoc/>
         public bool IsUnread => LastMessageId > LastReadMessageId;
 
+        /// <inheritdoc/>
+        public override string Url => $"https://discord.com/channels/@me/{Id}";
+
         int? IMessageChannel.MentionCount
         {
             get => MentionCount;

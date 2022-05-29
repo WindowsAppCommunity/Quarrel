@@ -35,6 +35,9 @@ namespace Quarrel.Client.Models.Channels.Abstract
         /// <inheritdoc/>
         public ulong GuildId { get; private set; }
 
+        /// <inheritdoc/>
+        public override string Url => $"https://discord.com/channels/{GuildId}/{Id}";
+
         /// <summary>
         /// Gets the permission overwrites for the channel.
         /// </summary>

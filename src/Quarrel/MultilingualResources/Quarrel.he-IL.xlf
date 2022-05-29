@@ -547,6 +547,18 @@
           <source>Copy ID</source>
           <target state="needs-review-translation">העתק מזהה</target>
         </trans-unit>
+        <trans-unit id="Channel/MarkAsReadMFI.Text" translate="yes" xml:space="preserve">
+          <source>Mark as Read</source>
+          <target state="needs-review-translation">סמן כנקרא</target>
+        </trans-unit>
+        <trans-unit id="Channel/CopyIdMFI.Text" translate="yes" xml:space="preserve">
+          <source>Copy ID</source>
+          <target state="needs-review-translation">העתק מזהה</target>
+        </trans-unit>
+        <trans-unit id="Channel/CopyLinkMFI.Text" translate="yes" xml:space="preserve">
+          <source>Copy Link</source>
+          <target state="needs-review-translation">העתק קישור</target>
+        </trans-unit>
       </group>
     </body>
   </file>

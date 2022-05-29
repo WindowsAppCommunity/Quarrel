@@ -395,4 +395,13 @@
   <data name="UserSettings/CopyIdBTN.Content" xml:space="preserve">
     <value>העתק מזהה</value>
   </data>
+  <data name="Channel/MarkAsReadMFI.Text" xml:space="preserve">
+    <value>סמן כנקרא</value>
+  </data>
+  <data name="Channel/CopyIdMFI.Text" xml:space="preserve">
+    <value>העתק מזהה</value>
+  </data>
+  <data name="Channel/CopyLinkMFI.Text" xml:space="preserve">
+    <value>העתק קישור</value>
+  </data>
 </root>

@@ -7,6 +7,7 @@ using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Permissions;
 using Quarrel.Client.Models.Users;
+using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
@@ -20,12 +21,13 @@ namespace Quarrel.Bindables.Channels.Abstract
     {
         internal BindableGuildChannel(
             IMessenger messenger,
+            IClipboardService clipboardService,
             IDiscordService discordService,
             IDispatcherService dispatcherService,
             GuildChannel channel,
             GuildMember selfMember,
             BindableCategoryChannel? parent = null) :
-            base(messenger, discordService, dispatcherService, channel)
+            base(messenger, clipboardService, discordService, dispatcherService, channel)
         {
             CategoryChannel = parent;
 
@@ -66,6 +68,7 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// Creates a new <see cref="BindableGuildChannel"/> based on the type.
         /// </summary>
         /// <param name="messenger">The <see cref="IMessenger"/> to pass to the <see cref="BindableItem"/>.</param>
+        /// <param name="clipboardService">The <see cref="IClipboardService"/> to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="discordService">The <see cref="IDiscordService"/> to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="localizationService">The <see cref="ILocalizationService"/> to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="dispatcherService">The <see cref="IDispatcherService"/> to pass to the <see cref="BindableItem"/>.</param>
@@ -74,6 +77,7 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <param name="parent">The channel's parent category.</param>
         public static BindableGuildChannel? Create(
             IMessenger messenger,
+            IClipboardService clipboardService,
             IDiscordService discordService,
             ILocalizationService localizationService,
             IDispatcherService dispatcherService,
@@ -81,7 +85,7 @@ namespace Quarrel.Bindables.Channels.Abstract
             GuildMember member,
             BindableCategoryChannel? parent = null)
         {
-            return BindableChannel.Create(messenger, discordService, localizationService, dispatcherService, channel, member, parent) as BindableGuildChannel;
+            return BindableChannel.Create(messenger, clipboardService, discordService, localizationService, dispatcherService, channel, member, parent) as BindableGuildChannel;
         }
         
         /// <inheritdoc/>
