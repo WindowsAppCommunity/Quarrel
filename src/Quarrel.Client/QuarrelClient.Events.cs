@@ -88,6 +88,11 @@ namespace Quarrel.Client
         public event EventHandler<Channel>? ChannelUpdated;
 
         /// <summary>
+        /// Invoked when a channel is deleted.
+        /// </summary>
+        public event EventHandler<Channel>? ChannelDeleted;
+
+        /// <summary>
         /// Invoked when a user logs out.
         /// </summary>
         public event Action? LoggedOut;
@@ -174,6 +179,16 @@ namespace Quarrel.Client
             MessageAck?.Invoke(this, new MessageAck(messageAck, this));
         }
 
+        private void OnChannelCreated(JsonChannel jsonChannel)
+        {
+            var channel = AddChannel(jsonChannel);
+
+            if (channel is not null)
+            {
+                ChannelCreated?.Invoke(this, channel);
+            }
+        }
+
         private void OnChannelUpdated(JsonChannel jsonChannel)
         {
             if (_channelMap.TryGetValue(jsonChannel.Id, out Channel channel))
@@ -181,6 +196,16 @@ namespace Quarrel.Client
                 channel.UpdateFromJsonChannel(jsonChannel);
 
                 ChannelUpdated?.Invoke(this, channel);
+            }
+        }
+
+        private void OnChannelDeleted(JsonChannel jsonChannel)
+        {
+            Channel? channel = RemoveChannel(jsonChannel.Id);
+
+            if (channel is not null)
+            {
+                ChannelDeleted?.Invoke(this, channel);
             }
         }
     }

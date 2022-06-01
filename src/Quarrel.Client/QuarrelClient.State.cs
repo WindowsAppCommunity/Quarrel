@@ -46,8 +46,8 @@ namespace Quarrel.Client
             {
                 foreach (var jsonChannel in jsonGuild.Channels)
                 {
-                    bool added = AddChannel(jsonChannel, jsonGuild.Id);
-                    if (added)
+                    var channel = AddChannel(jsonChannel, jsonGuild.Id);
+                    if (channel is not null)
                     {
                         guild.AddChannel(jsonChannel.Id);
                     }
@@ -101,7 +101,7 @@ namespace Quarrel.Client
             return null;
         }
 
-        internal bool AddChannel(JsonChannel jsonChannel, ulong? guildId = null)
+        internal Channel? AddChannel(JsonChannel jsonChannel, ulong? guildId = null)
         {
             guildId = jsonChannel.GuildId ?? guildId;
             Channel? channel = Channel.FromJsonChannel(jsonChannel, this, guildId);
@@ -121,10 +121,10 @@ namespace Quarrel.Client
                     _privateChannels.Add(channel.Id);
                 }
 
-                return true;
+                return channel;
             }
 
-            return false;
+            return null;
         }
 
         internal bool UpdateChannel(JsonChannel jsonChannel)
@@ -138,19 +138,23 @@ namespace Quarrel.Client
             return false;
         }
 
-        internal bool RemoveChannel(ulong channelId)
+        internal Channel? RemoveChannel(ulong channelId)
         {
-            if (_channelMap.TryGetValue(channelId, out Channel channel))
+            if (_channelMap.TryRemove(channelId, out Channel channel))
             {
                 if (channel is IGuildChannel guildChannel && _guildMap.TryGetValue(guildChannel.GuildId, out Guild guild))
                 {
                     guild.RemoveChannel(channelId);
                 }
+                else
+                {
+                    _privateChannels.Remove(channelId);
+                }
 
-                return true;
+                return channel;
             }
 
-            return false;
+            return null;
         }
 
         internal bool AddReadState(JsonReadState jsonReadState)

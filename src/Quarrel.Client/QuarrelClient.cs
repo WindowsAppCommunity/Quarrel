@@ -99,9 +99,9 @@ namespace Quarrel.Client
                 guildBanAdded: e => { },
                 guildBanRemoved: e => { },
 
-                channelCreated: e => { },
+                channelCreated: OnChannelCreated,
                 channelUpdated: OnChannelUpdated,
-                channelDeleted: e => { },
+                channelDeleted: OnChannelDeleted,
 
                 channelRecipientAdded: e => { },
                 channelRecipientRemoved: e => { },
