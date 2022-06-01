@@ -1,7 +1,13 @@
 ﻿// Quarrel © 2022
 
+using CommunityToolkit.Diagnostics;
 using Discord.API.Exceptions;
+using Discord.API.Gateways.Models.Handshake;
+using Discord.API.Gateways.Models.Messages;
+using Discord.API.Models.Json.Channels;
+using Discord.API.Models.Json.Messages;
 using Quarrel.Client.Models.Channels.Abstract;
+using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Messages;
 using Quarrel.Client.Models.Users;
 using System;
@@ -72,7 +78,12 @@ namespace Quarrel.Client
         public event EventHandler<MessageAck>? MessageAck;
 
         /// <summary>
-        /// Invoked when a message is marked as read.
+        /// Invoked when a channel is created.
+        /// </summary>
+        public event EventHandler<Channel>? ChannelCreated;
+
+        /// <summary>
+        /// Invoked when a channel is updated.
         /// </summary>
         public event EventHandler<Channel>? ChannelUpdated;
 
@@ -90,5 +101,87 @@ namespace Quarrel.Client
         /// Invoked when the gateway resumes.
         /// </summary>
         public event Action? Resuming;
+
+        private void OnReady(Ready ready)
+        {
+            Guard.IsNotNull(ready, nameof(ready));
+
+            AddSelfUser(ready.User);
+
+            foreach (var guild in ready.Guilds)
+            {
+                // All child members are handled here
+                AddGuild(guild);
+            }
+
+            foreach (var channel in ready.PrivateChannels)
+            {
+                AddChannel(channel);
+            }
+
+            foreach (var readState in ready.ReadStates)
+            {
+                AddReadState(readState);
+            }
+
+            foreach (var presence in ready.Presences)
+            {
+                AddPresence(presence);
+            }
+
+            foreach (var relationship in ready.Relationships)
+            {
+                AddRelationship(relationship);
+            }
+
+            UpdateSettings(ready.Settings);
+
+            Guard.IsNotNull(_selfUser, nameof(_selfUser));
+
+            LoggedIn?.Invoke(this, _selfUser);
+        }
+
+        private void OnMessageCreated(JsonMessage message)
+        {
+            if (_channelMap.TryGetValue(message.ChannelId, out Channel channel))
+            {
+                if (channel is IMessageChannel messageChannel)
+                {
+                    messageChannel.LastMessageId = message.Id;
+                }
+            }
+
+            // TODO: Channel registration
+            MessageCreated?.Invoke(this, new Message(message, this));
+        }
+
+        private void OnMessageUpdated(JsonMessage message)
+        {
+            MessageUpdated?.Invoke(this, new Message(message, this));
+        }
+
+        private void OnMessageAck(JsonMessageAck messageAck)
+        {
+            if (_channelMap.TryGetValue(messageAck.ChannelId, out Channel channel))
+            {
+                if (channel is IMessageChannel messageChannel)
+                {
+                    messageChannel.LastReadMessageId = messageAck.MessageId;
+                }
+            }
+
+            // TODO: Channel registration
+            MessageAck?.Invoke(this, new MessageAck(messageAck, this));
+        }
+
+        private void OnChannelUpdated(JsonChannel jsonChannel)
+        {
+            if (_channelMap.TryGetValue(jsonChannel.Id, out Channel channel))
+            {
+                channel.UpdateFromJsonChannel(jsonChannel);
+
+                ChannelUpdated?.Invoke(this, channel);
+            }
+        }
     }
 }
