@@ -197,9 +197,12 @@ namespace Quarrel.Client
                 if (i1Null) return 1;
 
                 long compare = (long)item2.LastMessageId.Value - (long)item1.LastMessageId.Value;
-                if (compare < 0) return -1;
-                if (compare > 0) return 1;
-                return 0;
+                return compare switch
+                {
+                    < 0 => -1,
+                    > 0 => 1,
+                    _ => 0
+                };
             }));
 #pragma warning restore CS8629
 
@@ -227,7 +230,7 @@ namespace Quarrel.Client
         {
             Guard.IsNotNull(_channelService, nameof(_channelService));
             ulong nonce = (ulong)new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds() << 22;
-            JsonMessageUpsert message = new JsonMessageUpsert(content, false, $"{nonce}");
+            var message = new JsonMessageUpsert(content, false, $"{nonce}");
             await MakeRefitRequest(() => _channelService.CreateMessage(channelId, message));
         }
 

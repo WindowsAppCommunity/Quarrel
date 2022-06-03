@@ -15,7 +15,7 @@ namespace Quarrel.Markdown
         public static readonly DependencyProperty IsTextSelectionEnabledProperty = DependencyProperty.Register(
             nameof(IsTextSelectionEnabled), typeof(bool), typeof(MarkdownElement), new PropertyMetadata(false));
 
-        internal MarkdownElement(IAST ast)
+        internal MarkdownElement(IAST iast)
         {
         }
 

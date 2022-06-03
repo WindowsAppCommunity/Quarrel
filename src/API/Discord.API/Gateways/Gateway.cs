@@ -137,10 +137,10 @@ namespace Discord.API.Gateways
 
             _gatewayStatus = GatewayStatus.Initialized;
 
-            _serialiseOptions = new JsonSerializerOptions();
-            _serialiseOptions.AddContext<JsonModelsContext>();
+            _serializeOptions = new JsonSerializerOptions();
+            _serializeOptions.AddContext<JsonModelsContext>();
 
-            _deserialiseOptions = new JsonSerializerOptions { Converters = { new SocketFrameConverter() } };
+            _deserializeOptions = new JsonSerializerOptions { Converters = { new SocketFrameConverter() } };
         }
     }
 }

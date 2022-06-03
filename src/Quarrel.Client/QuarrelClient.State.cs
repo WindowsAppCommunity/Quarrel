@@ -15,7 +15,6 @@ using System.Collections.Generic;
 
 namespace Quarrel.Client
 {
-    /// <inheritdoc/>
     public partial class QuarrelClient
     {
         private SelfUser? _selfUser;

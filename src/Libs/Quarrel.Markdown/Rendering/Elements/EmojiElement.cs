@@ -13,9 +13,9 @@ namespace Quarrel.Markdown
     {
         private const string ImagePartName = "EmojiImage";
 
-        private readonly IEmojiAST _emoji;
+        private readonly IEmojiAst _emoji;
 
-        internal EmojiElement(IEmojiAST emoji) : base(emoji)
+        internal EmojiElement(IEmojiAst emoji) : base(emoji)
         {
             this.DefaultStyleKey = typeof(EmojiElement);
             _emoji = emoji;

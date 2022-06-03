@@ -84,7 +84,7 @@ namespace Quarrel.Behaviors
             var e = parameter as KeyRoutedEventArgs;
             if (Key == null || e.Key == (VirtualKey)Enum.Parse(typeof(VirtualKey), Key))
             {
-                KeyboardCapabilities keyboardCapabilities = new KeyboardCapabilities();
+                var keyboardCapabilities = new KeyboardCapabilities();
                 if (keyboardCapabilities.KeyboardPresent > 0)
                 {
                     if (ShiftCommand != null && CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down))

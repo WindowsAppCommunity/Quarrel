@@ -119,7 +119,7 @@ namespace Quarrel.Client.Models.Messages
 
         /// <inheritdoc/>
         public Uri MessageUri
-            => new Uri($"https://discord.com/channels/{GuildDisplayId}/{ChannelId}/{Id}");
+            => new($"https://discord.com/channels/{GuildDisplayId}/{ChannelId}/{Id}");
 
         private string GuildDisplayId => GuildId.HasValue ? $"{GuildId.Value}" : "@me";
     }

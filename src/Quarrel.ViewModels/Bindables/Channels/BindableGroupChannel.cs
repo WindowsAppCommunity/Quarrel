@@ -20,7 +20,7 @@ namespace Quarrel.Bindables.Channels
     /// </summary>
     public class BindableGroupChannel : BindablePrivateChannel, IBindableMessageChannel
     {
-        private ILocalizationService _localizationService;
+        private readonly ILocalizationService _localizationService;
 
         internal BindableGroupChannel(
             IMessenger messenger,
@@ -45,7 +45,9 @@ namespace Quarrel.Bindables.Channels
             }
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the wrapped channel as a <see cref="IGroupChannel"/>.
+        /// </summary>
         public IGroupChannel GroupChannel => (IGroupChannel)Channel;
 
         /// <inheritdoc/>

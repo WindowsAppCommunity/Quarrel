@@ -12,7 +12,7 @@ namespace Quarrel.Markdown
     {
         private const string RichBlockPartName = "RichBlock";
 
-        internal MarkdownBlockElement(IAST ast) : base(ast)
+        internal MarkdownBlockElement(IAST iast) : base(iast)
         {
             Paragraph = new Paragraph();
         }

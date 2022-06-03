@@ -23,9 +23,9 @@ namespace Quarrel.Markdown
                 return;
             }
 
-            if (context.Users.ContainsKey(mention.UserID))
+            if (context.Users.ContainsKey(mention.UserId))
             {
-                User = context.Users[mention.UserID];
+                User = context.Users[mention.UserId];
                 UserName = User.User.Username;
             }
 

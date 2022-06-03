@@ -16,11 +16,11 @@ namespace Discord.API.Gateways
 {
     internal partial class Gateway
     {
-        private readonly JsonSerializerOptions _serialiseOptions;
-        private readonly JsonSerializerOptions _deserialiseOptions;
+        private readonly JsonSerializerOptions _serializeOptions;
+        private readonly JsonSerializerOptions _deserializeOptions;
         private ClientWebSocket? _socket;
         private Task? _task;
-        private CancellationTokenSource _tokenSource = new CancellationTokenSource();
+        private CancellationTokenSource _tokenSource = new();
         private DeflateStream? _decompressor;
         private MemoryStream? _decompressionBuffer;
         
@@ -155,7 +155,7 @@ namespace Discord.API.Gateways
         private async Task SendMessageAsync<T>(SocketFrame<T> frame)
         {
             var stream = new MemoryStream();
-            await JsonSerializer.SerializeAsync(stream, frame, _serialiseOptions);
+            await JsonSerializer.SerializeAsync(stream, frame, _serializeOptions);
             await SendMessageAsync(stream);
         }
 
@@ -222,7 +222,7 @@ namespace Discord.API.Gateways
         {
             try
             {
-                return await JsonSerializer.DeserializeAsync<SocketFrame>(stream, _deserialiseOptions);
+                return await JsonSerializer.DeserializeAsync<SocketFrame>(stream, _deserializeOptions);
             }
             catch (SocketFrameException ex)
             {

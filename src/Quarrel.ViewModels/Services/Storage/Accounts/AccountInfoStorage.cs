@@ -37,7 +37,7 @@ namespace Quarrel.Services.Storage.Accounts
             set => _accountId = value?.Id;
         }
 
-        private Dictionary<ulong, AccountInfo> _accounts = new Dictionary<ulong, AccountInfo>();
+        private readonly Dictionary<ulong, AccountInfo> _accounts = new();
         private ulong? _accountId = null;
 
         /// <summary>
