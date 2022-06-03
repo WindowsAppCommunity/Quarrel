@@ -10,7 +10,7 @@ namespace Quarrel.Controls.Panels.Messages
 {
     public sealed partial class MessagePanel : UserControl
     {
-        private const double ScrollPadding = 100;
+        private const double ScrollPadding = 350;
 
         public MessagePanel()
         {
