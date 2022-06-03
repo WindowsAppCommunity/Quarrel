@@ -14,7 +14,6 @@ using System;
 
 namespace Quarrel.Client
 {
-    /// <inheritdoc/>
     public partial class QuarrelClient
     {
         /// <summary>

@@ -19,7 +19,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
     {
         private const string PrivacyResource = "UserSettings/Privacy";
 
-        private bool _isLoggedIn;
+        private readonly bool _isLoggedIn;
         private DraftValue<ExplicitContentFilterLevel>? _explicitContentFilterLevel;
 
         internal PrivacyPageViewModel(ILocalizationService localizationService, IDiscordService discordService, IStorageService storageService) :

@@ -1,19 +1,17 @@
 ﻿// Quarrel © 2022
 
+using CommunityToolkit.Diagnostics;
 using Quarrel.Markdown.Parsing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI;
-using Windows.UI.Core;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Shapes;
 
 namespace Quarrel.Markdown
 {
@@ -27,8 +25,8 @@ namespace Quarrel.Markdown
         private Canvas? _overlayCanvas;
         private Grid? _grid;
 
-        private List<Inline> _inlineCodeBlocks = new List<Inline>();
-        private List<Inline> _spoilers = new List<Inline>();
+        private readonly List<Inline> _inlineCodeBlocks = new();
+        private readonly List<Inline> _spoilers = new();
 
         public MessageRenderer()
         {
@@ -50,7 +48,7 @@ namespace Quarrel.Markdown
 
         private TextPointer FindFirstNewLine(TextPointer start, TextPointer end)
         {
-            var direction = LogicalDirection.Forward;
+            const LogicalDirection direction = LogicalDirection.Forward;
             
             while (start.Offset + 1 < end.Offset)
             {
@@ -81,7 +79,7 @@ namespace Quarrel.Markdown
             var lastPoint = new Point(0, 0);
 
             bool first = true;
-            List<(Rect, Rect)> rects = new List<(Rect, Rect)>();
+            var rects = new List<(Rect, Rect)>();
             while (start.Offset < textEnd.Offset)
             {
                 var end = FindFirstNewLine(start, textEnd);
@@ -170,6 +168,9 @@ namespace Quarrel.Markdown
 
         private void UpdateOverlays()
         {
+            Guard.IsNotNull(_backgroundCanvas);
+            Guard.IsNotNull(_overlayCanvas);
+
             _backgroundCanvas.Children.Clear();
             _overlayCanvas.Children.Clear();
             foreach (var inline in _inlineCodeBlocks)
@@ -221,6 +222,8 @@ namespace Quarrel.Markdown
 
         private void RenderMarkdown(IList<IAST> tree)
         {
+            Guard.IsNotNull(_grid);
+
             AdjustTree(tree);
             RemoveLeadingWhitespace(tree);
             if (_richBlock != null)
@@ -238,7 +241,7 @@ namespace Quarrel.Markdown
             var paragraph = new Paragraph();
             blocks.Add(paragraph);
             InlineCollection inlineCollection = paragraph.Inlines;
-            Stack<(IAST, InlineCollection)> stack = new Stack<(IAST, InlineCollection)>();
+            var stack = new Stack<(IAST, InlineCollection)>();
             foreach (IAST ast in tree.Reverse())
             {
                 stack.Push((ast, inlineCollection));
@@ -290,7 +293,7 @@ namespace Quarrel.Markdown
                             Inlines = { new Run() { Text = url.Content } }
                         });
                         break;
-                    case IEmojiAST emoji:
+                    case IEmojiAst emoji:
                         {
                             var container = new InlineUIContainer();
                             inlineCollection.Add(container);
@@ -361,7 +364,7 @@ namespace Quarrel.Markdown
                         break;
                     case Timestamp timeStamp:
                         {
-                            InlineUIContainer container = new InlineUIContainer();
+                            var container = new InlineUIContainer();
                             inlineCollection.Add(container);
                             container.Child = new TimestampElement(timeStamp)
                             {
@@ -371,7 +374,7 @@ namespace Quarrel.Markdown
                         break;
                     case RoleMention roleMention:
                         {
-                            InlineUIContainer container = new InlineUIContainer();
+                            var container = new InlineUIContainer();
                             inlineCollection.Add(container);
                             container.Child = new HyperlinkButton()
                             {
@@ -384,14 +387,14 @@ namespace Quarrel.Markdown
                                     FontSize = container.FontSize,
                                     FontStretch = container.FontStretch,
                                     TextDecorations = container.TextDecorations,
-                                    Text = roleMention.RoleID
+                                    Text = roleMention.RoleId
                                 }
                             };
                         }
                         break;
                     case UserMention mention:
                         {
-                            InlineUIContainer container = new InlineUIContainer();
+                            var container = new InlineUIContainer();
                             inlineCollection.Add(container);
                             container.Child = new UserMentionElement(mention, Context)
                             {
@@ -401,7 +404,7 @@ namespace Quarrel.Markdown
                         break;
                     case GlobalMention globalMention:
                         {
-                            InlineUIContainer container = new InlineUIContainer();
+                            var container = new InlineUIContainer();
                             inlineCollection.Add(container);
                             container.Child = new HyperlinkButton()
                             {
@@ -421,7 +424,7 @@ namespace Quarrel.Markdown
                         break;
                     case ChannelMention channel:
                         {
-                            InlineUIContainer container = new InlineUIContainer();
+                            var container = new InlineUIContainer();
                             inlineCollection.Add(container);
                             container.Child = new HyperlinkButton()
                             {
@@ -434,7 +437,7 @@ namespace Quarrel.Markdown
                                     FontSize = container.FontSize,
                                     FontStretch = container.FontStretch,
                                     TextDecorations = container.TextDecorations,
-                                    Text = channel.ChannelID
+                                    Text = channel.ChannelId
                                 }
                             };
                         }
@@ -483,7 +486,7 @@ namespace Quarrel.Markdown
                         newLine = text.Content[text.Content.Length - 1] is '\n' or '\r';
 
                         break;
-                    case ASTChildren astChildren:
+                    case IASTChildren astChildren:
                         newLine = AdjustTree(astChildren.Children, newLine);
                         break;
                     default:
@@ -508,7 +511,7 @@ namespace Quarrel.Markdown
                             break;
                         }
                         return false;
-                    case ASTChildren astChildren:
+                    case IASTChildren astChildren:
                         if (!RemoveLeadingWhitespace(astChildren.Children))
                         {
                             return false;

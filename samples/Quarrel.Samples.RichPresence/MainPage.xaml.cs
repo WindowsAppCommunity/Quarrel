@@ -13,13 +13,13 @@ namespace Quarrel.Samples.RichPresence
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private RichPresenceConnection _connection;
+        private readonly RichPresenceConnection _connection;
 
         public MainPage()
         {
             this.InitializeComponent();
             _connection = new RichPresenceConnection();
-            _connection.Closed += async (o, e) =>
+            _connection.Closed += async (_, _) =>
             {
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
@@ -42,7 +42,7 @@ namespace Quarrel.Samples.RichPresence
 
         private async void SetActivity(object sender, RoutedEventArgs e)
         {
-            Activity activity = new Activity(ActivityName.Text);
+            var activity = new Activity(ActivityName.Text);
             await _connection.SetActivity(activity);
         }
     }

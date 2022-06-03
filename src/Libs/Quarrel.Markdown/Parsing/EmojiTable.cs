@@ -13227,7 +13227,7 @@ namespace Quarrel.Markdown.Parsing
         public static string ToCodePoint(string emoji)
         {
             string unicodeSurrogates = !emoji.Contains("\u200D") ? emoji.Replace("\uFE0F", "") : emoji;
-            StringBuilder r = new StringBuilder();
+            var r = new StringBuilder();
             int p = 0;
             foreach (int c in unicodeSurrogates)
             {

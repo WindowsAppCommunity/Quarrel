@@ -27,7 +27,7 @@ namespace Quarrel.ViewModels.Panels
         private readonly IClipboardService _clipboardService;
 
         private bool _isLoading;
-        private SemaphoreSlim _semaphore;
+        private readonly SemaphoreSlim _semaphore;
         private IBindableSelectableChannel? _selectedChannel;
 
         /// <summary>

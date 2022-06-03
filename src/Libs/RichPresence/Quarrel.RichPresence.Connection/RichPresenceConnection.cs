@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using CommunityToolkit.Diagnostics;
 using Quarrel.RichPresence.Models;
 using Quarrel.RichPresence.Models.Enums;
 using System;
@@ -43,6 +44,8 @@ namespace Quarrel.RichPresence
         
         public async Task<bool> SetActivity(Activity activity)
         {
+            Guard.IsNotNull(_connection, nameof(_connection));
+
             ValueSet request = FormRequest(RequestType.SetActivity,
                 (nameof(activity), activity));
 
@@ -50,10 +53,9 @@ namespace Quarrel.RichPresence
             return response.Status == AppServiceResponseStatus.Success;
         }
 
-        private ValueSet FormRequest(RequestType type, params (string, object)[] data)
+        private static ValueSet FormRequest(RequestType type, params (string, object)[] data)
         {
-            var request = new ValueSet();
-            request.Add("type", type);
+            var request = new ValueSet {{"type", type}};
 
             foreach ((string property, object value) in data)
             {

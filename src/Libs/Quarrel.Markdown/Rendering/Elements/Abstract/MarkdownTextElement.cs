@@ -10,7 +10,7 @@ namespace Quarrel.Markdown
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
             nameof(Text), typeof(string), typeof(MarkdownTextElement), new PropertyMetadata(string.Empty));
 
-        internal MarkdownTextElement(IAST ast) : base(ast)
+        internal MarkdownTextElement(IAST iast) : base(iast)
         {
         }
 

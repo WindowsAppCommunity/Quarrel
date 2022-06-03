@@ -1,6 +1,5 @@
 ﻿// Quarrel © 2022
 
-using CommunityToolkit.Diagnostics;
 using Microsoft.Toolkit.Mvvm.Input;
 using Quarrel.Client.Models.Users;
 using Quarrel.Services.Clipboard;
@@ -20,8 +19,8 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         private const string MyAccountResource = "UserSettings/MyAccount";
         private readonly IClipboardService _clipboardService;
 
-        private bool _isLoggedIn;
-        private ulong? _userId;
+        private readonly bool _isLoggedIn;
+        private readonly ulong? _userId;
         private DraftValue<string?>? _email;
         private DraftValue<string?>? _username;
         private DraftValue<int>? _discriminator;
@@ -46,10 +45,10 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
                 _isLoggedIn = true;
                 _userId = user.SelfUser.Id;
 
-                Email = new(user.SelfUser.Email);
-                Username = new(user.SelfUser.Username);
-                Discriminator = new(user.SelfUser.Discriminator);
-                AboutMe = new(user.SelfUser.Bio);
+                Email = new DraftValue<string?>(user.SelfUser.Email);
+                Username = new DraftValue<string?>(user.SelfUser.Username);
+                Discriminator = new DraftValue<int>(user.SelfUser.Discriminator);
+                AboutMe = new DraftValue<string?>(user.SelfUser.Bio);
 
                 RegisterDraftValues(AboutMe);
             }

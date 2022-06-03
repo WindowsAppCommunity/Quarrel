@@ -92,7 +92,7 @@ namespace Quarrel.Markdown
         private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var messageRenderer = (MessageRenderer)d;
-            var tree = Parser.ParseAST(messageRenderer.Text, true, false);
+            var tree = Parser.ParseAst(messageRenderer.Text, true, false);
             messageRenderer.RenderMarkdown(tree);
         }
     }

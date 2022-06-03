@@ -10,14 +10,14 @@ namespace Quarrel.Services.Clipboard
     {
         public void Copy(string text, bool flush = true)
         {
-            DataPackage package = new DataPackage();
+            var package = new DataPackage();
             package.SetText(text);
             Copy(package, flush);
         }
 
         public void Copy(Uri uri, bool flush = true)
         {
-            DataPackage package = new DataPackage();
+            var package = new DataPackage();
             package.SetWebLink(uri);
             Copy(package, flush);
         }
