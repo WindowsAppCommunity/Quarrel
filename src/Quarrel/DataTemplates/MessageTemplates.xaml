@@ -51,7 +51,11 @@
     </DataTemplate>
 
     <DataTemplate x:Key="ImageAttachmentTemplate" x:DataType="bindableembeds:BindableAttachment">
-        <tc:ImageEx Source="{x:Bind Attachment.ProxyUrl}" MaxWidth="400" CornerRadius="2"/>
+        <tc:ImageEx
+            Source="{x:Bind aconvert:AttachmentConverter.ConvertImageUrl(Attachment.ProxyUrl, Attachment.Width.Value, Attachment.Height.Value, 400, 300)}"
+            Width="{x:Bind aconvert:AttachmentConverter.ConvertWidth(Attachment.Width.Value, Attachment.Height.Value, 400, 300)}"
+            Height="{x:Bind aconvert:AttachmentConverter.ConvertHeight(Attachment.Width.Value, Attachment.Height.Value, 400, 300)}"
+            CornerRadius="2"/>
     </DataTemplate>
 
     <DataTemplate x:Key="VideoAttachmentTemplate" x:DataType="bindableembeds:BindableAttachment">

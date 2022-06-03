@@ -153,6 +153,7 @@
     <Compile Include="Converters\Discord\Channels\IsPrivateChannelVisibleConverter.cs" />
     <Compile Include="Converters\Discord\Channels\MemberCountConverter.cs" />
     <Compile Include="Converters\Discord\Messages\Attachments\AttachmentIconConverter.cs" />
+    <Compile Include="Converters\Discord\Messages\Attachments\AttachmentConverter.cs" />
     <Compile Include="Converters\Discord\Messages\Attachments\HumanizeByteSizeConverter.cs" />
     <Compile Include="Converters\Discord\Messages\InfoMessageColorConverter.cs" />
     <Compile Include="Converters\Discord\Messages\InfoMessageContentConverter.cs" />
