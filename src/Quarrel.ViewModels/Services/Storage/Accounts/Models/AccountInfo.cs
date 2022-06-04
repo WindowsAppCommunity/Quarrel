@@ -1,7 +1,5 @@
 ﻿// Quarrel © 2022
 
-using System.Text.Json.Serialization;
-
 namespace Quarrel.Services.Storage.Accounts.Models
 {
     /// <summary>

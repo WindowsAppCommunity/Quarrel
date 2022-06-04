@@ -118,13 +118,11 @@ namespace Quarrel.Client
 
             internal bool UpdateChannel(JsonChannel jsonChannel)
             {
-                if (_channelMap.TryGetValue(jsonChannel.Id, out Channel channel))
-                {
-                    channel.PrivateUpdateFromJsonChannel(jsonChannel);
-                    return true;
-                }
+                if (!_channelMap.TryGetValue(jsonChannel.Id, out Channel channel)) return false;
 
-                return false;
+                channel.PrivateUpdateFromJsonChannel(jsonChannel);
+                return true;
+
             }
 
             internal Channel? RemoveChannel(ulong channelId)

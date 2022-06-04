@@ -18,24 +18,16 @@ namespace Quarrel.Services.Discord
             _quarrelClient.ChannelUpdated += OnChannelUpdated;
         }
 
-        private void OnMessageCreate(object sender, Message e)
-        {
-            _messenger.Send(new MessageCreatedMessage(e));
-        }
+        private void OnMessageCreate(object sender, Message e) 
+            => _messenger.Send(new MessageCreatedMessage(e));
 
-        private void OnMessageUpdated(object sender, Message e)
-        {
-            _messenger.Send(new MessageUpdatedMessage(e));
-        }
+        private void OnMessageUpdated(object sender, Message e) 
+            => _messenger.Send(new MessageUpdatedMessage(e));
 
-        private void OnMessageDeleted(object sender, MessageDeleted e)
-        {
-            _messenger.Send(new MessageDeletedMessage(e.ChannelId, e.MessageId));
-        }
+        private void OnMessageDeleted(object sender, MessageDeleted e) 
+            => _messenger.Send(new MessageDeletedMessage(e.ChannelId, e.MessageId));
 
-        private void OnChannelUpdated(object sender, Channel e)
-        {
-            _messenger.Send(new ChannelUpdatedMessage(e));
-        }
+        private void OnChannelUpdated(object sender, Channel e) 
+            => _messenger.Send(new ChannelUpdatedMessage(e));
     }
 }

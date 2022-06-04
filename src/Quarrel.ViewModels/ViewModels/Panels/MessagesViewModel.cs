@@ -19,7 +19,7 @@ namespace Quarrel.ViewModels.Panels
     /// <summary>
     /// The view model for the message list in the app.
     /// </summary>
-    public partial class MessagesViewModel : ObservableRecipient
+    public class MessagesViewModel : ObservableRecipient
     {
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;

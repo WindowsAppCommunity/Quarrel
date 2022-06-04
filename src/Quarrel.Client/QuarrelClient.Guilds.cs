@@ -43,7 +43,7 @@ namespace Quarrel.Client
                 for (int i = 0; i < order.Length; i++)
                 {
                     Guild? guild = GetGuild(order[realCount]);
-                    if (guild != null)
+                    if (guild is not null)
                     {
                         guildArray[i] = guild;
                         realCount++;
@@ -111,21 +111,16 @@ namespace Quarrel.Client
 
             internal bool UpdateGuild(JsonGuild jsonGuild)
             {
-                if (_guildMap.TryGetValue(jsonGuild.Id, out Guild guild))
-                {
-                    guild.UpdateFromRestGuild(jsonGuild);
-                    return true;
-                }
+                if (!_guildMap.TryGetValue(jsonGuild.Id, out Guild guild)) return false;
 
-                return false;
+                guild.UpdateFromRestGuild(jsonGuild);
+                return true;
+
             }
 
             internal bool RemoveGuild(ulong guildId)
             {
-                if (!_guildMap.TryRemove(guildId, out Guild guild))
-                {
-                    return false;
-                }
+                if (!_guildMap.TryRemove(guildId, out Guild guild)) return false;
 
                 foreach (var channelId in guild.ChannelIds)
                 {
@@ -139,10 +134,7 @@ namespace Quarrel.Client
             internal bool AddChannel(ulong guildId, ulong channelId)
             {
                 var guild = GetGuild(guildId);
-                if (guild is null)
-                {
-                    return false;
-                }
+                if (guild is null) return false;
 
                 guild.RemoveChannel(channelId);
                 return true;
@@ -152,10 +144,7 @@ namespace Quarrel.Client
             internal bool RemoveChannel(ulong guildId, ulong channelId)
             {
                 var guild = GetGuild(guildId);
-                if (guild is null)
-                {
-                    return false;
-                }
+                if (guild is null) return false;
 
                 guild.RemoveChannel(channelId);
                 return true;

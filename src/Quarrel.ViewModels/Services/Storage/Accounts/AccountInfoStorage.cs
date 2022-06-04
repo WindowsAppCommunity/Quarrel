@@ -109,7 +109,7 @@ namespace Quarrel.Services.Storage.Accounts
             var state = new AccountStorageState(_accounts.Values.Select(x => x with { Token = string.Empty }), _accountId);
 
             var stream = new MemoryStream();
-            await JsonSerializer.SerializeAsync<AccountStorageState>(stream, state);
+            await JsonSerializer.SerializeAsync(stream, state);
             stream.Position = 0;
             string contents = await new StreamReader(stream, Encoding.UTF8).ReadToEndAsync();
 

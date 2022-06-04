@@ -34,10 +34,7 @@ namespace Quarrel.Client.Models.Messages
             Flags = jsonMessage.Flags;
             WebhookId = jsonMessage.WebhookId;
 
-            if (jsonMessage.Author is not null)
-            {
-                Author = context.Users.GetOrAddUser(jsonMessage.Author);
-            }
+            Author = context.Users.GetOrAddUser(jsonMessage.Author);
 
             if (jsonMessage.UserMentions is not null)
             {

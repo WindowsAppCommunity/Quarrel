@@ -35,7 +35,7 @@ namespace Quarrel.Client
             {
                 Guard.IsNotNull(_client.ChannelService, nameof(_client.ChannelService));
 
-                System.Func<Task<JsonMessage[]>> request = () => _client.ChannelService.GetChannelMessages(channelId);
+                Func<Task<JsonMessage[]>> request = () => _client.ChannelService.GetChannelMessages(channelId);
                 if (beforeId.HasValue)
                 {
                     request = () => _client.ChannelService.GetChannelMessagesBefore(channelId, beforeId.Value);
@@ -46,7 +46,7 @@ namespace Quarrel.Client
                 Message[] messages = new Message[jsonMessages.Length];
                 for (int i = 0; i < messages.Length; i++)
                 {
-                    jsonMessages[i].GuildId = jsonMessages[i].GuildId ?? guildId;
+                    jsonMessages[i].GuildId ??= guildId;
                     messages[i] = new Message(jsonMessages[i], _client);
                 }
 

@@ -2,7 +2,6 @@
 
 using Quarrel.Services.Storage.Accounts;
 using Quarrel.Services.Storage.Vault;
-using System.IO;
 
 namespace Quarrel.Services.Storage
 {

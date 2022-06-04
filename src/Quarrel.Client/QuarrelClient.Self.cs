@@ -46,8 +46,7 @@ namespace Quarrel.Client
             public async Task ModifyMe(ModifySelfUser modifyUser)
             {
                 Guard.IsNotNull(_client.UserService, nameof(UserService));
-
-                await _client.UserService.ModifyMe(modifyUser.ToJsonModel());
+                await _client.MakeRefitRequest(() => _client.UserService.ModifyMe(modifyUser.ToJsonModel()));
             }
 
             /// <summary>
@@ -57,8 +56,7 @@ namespace Quarrel.Client
             public async Task ModifySettings(ModifyUserSettings modifySettings)
             {
                 Guard.IsNotNull(_client.UserService, nameof(_client.UserService));
-
-                await _client.UserService.UpdateSettings(modifySettings.ToJsonModel());
+                await _client.MakeRefitRequest(() => _client.UserService.UpdateSettings(modifySettings.ToJsonModel()));
             }
 
             /// <summary>

@@ -33,15 +33,8 @@ namespace Quarrel.Client
             /// <param name="guildId">The id for the guild of the guild member.</param>
             /// <param name="userId">The id for the user in the guild.</param>
             /// <returns></returns>
-            public GuildMember? GetGuildMember(ulong guildId, ulong userId)
-            {
-                if (_guildsMemberMap.TryGetValue((guildId, userId), out var member))
-                {
-                    return member;
-                }
-
-                return null;
-            }
+            public GuildMember? GetGuildMember(ulong guildId, ulong userId) 
+                => _guildsMemberMap.TryGetValue((guildId, userId), out var member) ? member : null;
 
             /// <summary>
             /// Gets the current user as a guild member in a specific guild.
@@ -56,13 +49,10 @@ namespace Quarrel.Client
             internal bool AddGuildMember(ulong guildId, JsonGuildMember jsonGuildMember)
             {
                 var member = new GuildMember(jsonGuildMember, guildId, _client);
-                if (_guildsMemberMap.TryAdd((guildId, member.UserId), member))
-                {
-                    _client.Users.AddUser(jsonGuildMember.User);
+                if (!_guildsMemberMap.TryAdd((guildId, member.UserId), member)) return false;
 
-                    return true;
-                }
-                return false;
+                _client.Users.AddUser(jsonGuildMember.User);
+                return true;
             }
 
             internal bool UpdateGuildMember(ulong guildId, JsonGuildMember jsonGuildMember)
@@ -74,10 +64,8 @@ namespace Quarrel.Client
 
             }
 
-            internal bool RemoveGuildMember(ulong guildId, JsonGuildMember jsonGuildMember)
-            {
-                return _guildsMemberMap.TryRemove((guildId, jsonGuildMember.User.Id), out _);
-            }
+            internal bool RemoveGuildMember(ulong guildId, JsonGuildMember jsonGuildMember) 
+                => _guildsMemberMap.TryRemove((guildId, jsonGuildMember.User.Id), out _);
         }
     }
 }

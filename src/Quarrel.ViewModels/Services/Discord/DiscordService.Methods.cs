@@ -37,10 +37,8 @@ namespace Quarrel.Services.Discord
             => await _quarrelClient.Self.ModifyMe(modifyUser);
 
         /// <inheritdoc/>
-        public UserSettings? GetSettings()
-        {
-            return _quarrelClient.Self.Settings;
-        }
+        public UserSettings? GetSettings() 
+            => _quarrelClient.Self.Settings;
 
         /// <inheritdoc/>
         public async Task ModifySettings(ModifyUserSettings modifySettings)
@@ -50,12 +48,9 @@ namespace Quarrel.Services.Discord
         public BindableUser? GetUser(ulong id)
         {
             var user = _quarrelClient.Users.GetUser(id);
-            if (user is not null)
-            {
-                return new BindableUser(_messenger, this, _dispatcherService, user);
-            }
+            if (user is null) return null;
 
-            return null;
+            return new BindableUser(_messenger, this, _dispatcherService, user);
         }
 
         /// <inheritdoc/>
@@ -109,7 +104,7 @@ namespace Quarrel.Services.Discord
                 {
                     return 1;
                 }
-                else if (is2Voice && !is1Voice)
+                 if (is2Voice && !is1Voice)
                 {
                     return -1;
                 }

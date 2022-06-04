@@ -118,6 +118,7 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// Creates a new instance of a <see cref="BindableChannel"/> based on the type.
         /// </summary>
         /// <param name="messenger">The <see cref="IMessenger"/> to pass to the <see cref="BindableItem"/>.</param>
+        /// <param name="clipboardService">The <see cref="IClipboardService"/> to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="discordService">The <see cref="IDiscordService"/> to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="localizationService">The <see cref="ILocalizationService"/> to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="dispatcherService">The <see cref="IDispatcherService"/> to pass to the <see cref="BindableItem"/>.</param>

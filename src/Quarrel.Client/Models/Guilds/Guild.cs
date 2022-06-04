@@ -5,12 +5,12 @@ using Discord.API.Models.Enums.Guilds;
 using Discord.API.Models.Enums.Settings;
 using Discord.API.Models.Json.Guilds;
 using Quarrel.Client.Models.Base;
-using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Guilds.Interfaces;
 using Quarrel.Client.Models.Roles;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Quarrel.Client.Models.Guilds
 {
@@ -132,9 +132,8 @@ namespace Quarrel.Client.Models.Guilds
         {
             IGuildChannel[] channels = new IGuildChannel[_channelIds.Count];
             int i = 0;
-            foreach (var channelId in _channelIds)
+            foreach (var channel in _channelIds.Select(Context.Channels.GetChannel))
             {
-                Channel? channel = Context.Channels.GetChannel(channelId)!;
                 if (channel is IGuildChannel guildChannel)
                 {
                     channels[i] = guildChannel;
@@ -148,14 +147,7 @@ namespace Quarrel.Client.Models.Guilds
         }
 
         internal Role? GetRole(ulong roleId)
-        {
-            if (_roles.TryGetValue(roleId, out var role))
-            {
-                return role;
-            }
-
-            return null;
-        }
+            => _roles.TryGetValue(roleId, out var role) ? role : null;
 
         internal void UpdateFromRestGuild(JsonGuild restGuild)
         {
@@ -185,19 +177,13 @@ namespace Quarrel.Client.Models.Guilds
         }
 
         internal bool AddChannel(ulong channelId)
-        {
-            return _channelIds.Add(channelId);
-        }
+            => _channelIds.Add(channelId);
 
         internal bool ContainsChannel(ulong channelId)
-        {
-            return _channelIds.Contains(channelId);
-        }
+            => _channelIds.Contains(channelId);
 
         internal bool RemoveChannel(ulong channelId)
-        {
-            return _channelIds.Remove(channelId);
-        }
+            => _channelIds.Remove(channelId);
 
         internal IEnumerable<ulong> ChannelIds => _channelIds;
     }

@@ -135,15 +135,7 @@ namespace Quarrel.Client.Models.Users
 
             if (Presence is not null)
             {
-                jsonPresence.Status = Presence.Status switch
-                {
-                    UserStatus.Online => "online",
-                    UserStatus.Idle => "idle",
-                    UserStatus.AFK => "afk",
-                    UserStatus.DoNotDisturb => "dnd",
-                    UserStatus.Invisible => "invisible",
-                    _ => "offline",
-                };
+                jsonPresence.Status = Presence.Status.GetStringValue();
             }
 
             return jsonPresence;

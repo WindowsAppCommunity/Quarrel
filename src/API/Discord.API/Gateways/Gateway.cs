@@ -7,7 +7,6 @@ using Discord.API.Gateways.Models.GuildMember;
 using Discord.API.Gateways.Models.Guilds;
 using Discord.API.Gateways.Models.Handshake;
 using Discord.API.Gateways.Models.Messages;
-using System;
 using Discord.API.JsonConverters;
 using Discord.API.Models.Json.Channels;
 using Discord.API.Models.Json.Gateway;
@@ -16,8 +15,7 @@ using Discord.API.Models.Json.Messages;
 using Discord.API.Models.Json.Settings;
 using Discord.API.Models.Json.Users;
 using Discord.API.Models.Json.Voice;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using System;
 using System.Text.Json;
 
 namespace Discord.API.Gateways
