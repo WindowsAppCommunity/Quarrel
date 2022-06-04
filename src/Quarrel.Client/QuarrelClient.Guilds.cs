@@ -23,7 +23,7 @@ namespace Quarrel.Client
             /// <summary>
             /// Initializes a new instance of the <see cref="QuarrelClientGuilds"/> class.
             /// </summary>
-            public QuarrelClientGuilds(QuarrelClient client)
+            internal QuarrelClientGuilds(QuarrelClient client)
             { 
                 _client = client;
                 _guildMap = new ConcurrentDictionary<ulong, Guild>();

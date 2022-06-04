@@ -20,7 +20,7 @@ namespace Quarrel.Client
             /// <summary>
             /// Initializes a new instance of the <see cref="QuarrelClientUsers"/> class.
             /// </summary>
-            public QuarrelClientUsers(QuarrelClient client)
+            internal QuarrelClientUsers(QuarrelClient client)
             {
                 _client = client;
 

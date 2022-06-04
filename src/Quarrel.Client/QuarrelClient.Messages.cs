@@ -18,9 +18,9 @@ namespace Quarrel.Client
             private readonly QuarrelClient _client;
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="QuarrelClientUsers"/> class.
+            /// Initializes a new instance of the <see cref="QuarrelClientMessages"/> class.
             /// </summary>
-            public QuarrelClientMessages(QuarrelClient client)
+            internal QuarrelClientMessages(QuarrelClient client)
             {
                 _client = client;
             }

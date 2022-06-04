@@ -20,9 +20,11 @@ namespace Quarrel.Client
         public class QuarrelClientSelf
         {
             private readonly QuarrelClient _client;
-            private SelfUser? _currentUser;
 
-            public QuarrelClientSelf(QuarrelClient client)
+            /// <summary>
+            /// Initializes a new instance of <see cref="QuarrelClientSelf"/>
+            /// </summary>
+            internal QuarrelClientSelf(QuarrelClient client)
             {
                 _client = client;
             }

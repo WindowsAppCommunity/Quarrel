@@ -62,14 +62,12 @@ namespace Quarrel.Services.Storage.Accounts
         /// <inheritdoc/>
         public bool RegisterAccount(AccountInfo accountInfo)
         {
-            if (!_accounts.ContainsKey(accountInfo.Id))
-            {
-                _accounts.Add(accountInfo.Id, accountInfo with { Token = string.Empty });
-                _vaultService.RegisterUserToken(accountInfo.Id, accountInfo.Token);
-                return true;
-            }
+            if (_accounts.ContainsKey(accountInfo.Id)) return false;
 
-            return false;
+            _accounts.Add(accountInfo.Id, accountInfo with { Token = string.Empty });
+            _vaultService.RegisterUserToken(accountInfo.Id, accountInfo.Token);
+            return true;
+
         }
         
         /// <inheritdoc/>

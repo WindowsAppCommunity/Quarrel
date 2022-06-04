@@ -18,9 +18,9 @@ namespace Quarrel.Client
             private readonly ConcurrentDictionary<(ulong GuildId, ulong UserId), GuildMember> _guildsMemberMap;
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="QuarrelClientUsers"/> class.
+            /// Initializes a new instance of the <see cref="QuarrelClientMembers"/> class.
             /// </summary>
-            public QuarrelClientMembers(QuarrelClient client)
+            internal QuarrelClientMembers(QuarrelClient client)
             {
                 _client = client;
 

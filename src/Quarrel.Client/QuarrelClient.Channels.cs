@@ -22,9 +22,9 @@ namespace Quarrel.Client
             private readonly HashSet<ulong> _privateChannels;
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="QuarrelClientUsers"/> class.
+            /// Initializes a new instance of the <see cref="QuarrelClientChannels"/> class.
             /// </summary>
-            public QuarrelClientChannels(QuarrelClient client)
+            internal QuarrelClientChannels(QuarrelClient client)
             {
                 _client = client;
 

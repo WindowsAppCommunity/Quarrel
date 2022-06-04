@@ -3,15 +3,10 @@
 using CommunityToolkit.Diagnostics;
 using Discord.API.Gateways;
 using Discord.API.Rest;
-using Quarrel.Client.Models.Channels.Abstract;
-using Quarrel.Client.Models.Guilds;
 using Quarrel.Client.Models.Messages;
-using Quarrel.Client.Models.Users;
 using Refit;
 using System;
-using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace Quarrel.Client
 {
@@ -61,7 +56,7 @@ namespace Quarrel.Client
         public QuarrelClientSelf Self { get; }
 
         /// <summary>
-        /// Gets the client's <see cref="QuarrelClientSelf"/>.
+        /// Gets the client's <see cref="QuarrelClientUsers"/>.
         /// </summary>
         public QuarrelClientUsers Users { get; }
 
