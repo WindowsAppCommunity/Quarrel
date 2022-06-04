@@ -7,6 +7,7 @@ using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Guilds;
 using Quarrel.Client.Models.Messages;
 using Quarrel.Client.Models.Users;
+using Refit;
 using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
@@ -19,11 +20,6 @@ namespace Quarrel.Client
     /// </summary>
     public partial class QuarrelClient
     {
-        private IChannelService? _channelService;
-        private IGatewayService? _gatewayService;
-        private IGuildService? _guildService;
-        private IUserService? _userService;
-        private Gateway? _gateway;
         private string? _token;
 
         /// <summary>
@@ -31,17 +27,62 @@ namespace Quarrel.Client
         /// </summary>
         public QuarrelClient()
         {
-            _guildMap = new ConcurrentDictionary<ulong, Guild>();
-            _channelMap = new ConcurrentDictionary<ulong, Channel>();
-            _userMap = new ConcurrentDictionary<ulong, User>();
-            _guildsMemberMap = new ConcurrentDictionary<(ulong GuildId, ulong UserId), GuildMember>();
-            _privateChannels = new HashSet<ulong>();
+            Channels = new QuarrelClientChannels(this);
+            Guilds = new QuarrelClientGuilds(this);
+            Members = new QuarrelClientMembers(this);
+            Messages = new QuarrelClientMessages(this);
+            Self = new QuarrelClientSelf(this);
+            Users = new QuarrelClientUsers(this);
         }
+
+        /// <summary>
+        /// Gets the client's <see cref="QuarrelClientChannels"/>.
+        /// </summary>
+        public QuarrelClientChannels Channels { get; }
+
+        /// <summary>
+        /// Gets the client's <see cref="QuarrelClientGuilds"/>.
+        /// </summary>
+        public QuarrelClientGuilds Guilds { get; }
+
+        /// <summary>
+        /// Gets the client's <see cref="QuarrelClientMembers"/>.
+        /// </summary>
+        public QuarrelClientMembers Members { get; }
+
+        /// <summary>
+        /// Gets the client's <see cref="QuarrelClientMessages"/>.
+        /// </summary>
+        public QuarrelClientMessages Messages { get; }
+
+        /// <summary>
+        /// Gets the client's <see cref="QuarrelClientSelf"/>.
+        /// </summary>
+        public QuarrelClientSelf Self { get; }
+
+        /// <summary>
+        /// Gets the client's <see cref="QuarrelClientSelf"/>.
+        /// </summary>
+        public QuarrelClientUsers Users { get; }
+
 
         /// <summary>
         /// Gets the token used for authentication.
         /// </summary>
         public string? Token => _token;
+
+        /// <summary>
+        /// Gets the client's <see cref="Gateway"/>.
+        /// </summary>
+        private Gateway? Gateway { get; set; }
+
+        private IChannelService? ChannelService { get; set; }
+
+        private IGatewayService? GatewayService { get; set; }
+
+        private IGuildService? GuildService { get; set; }
+
+        private IUserService? UserService { get; set; }
 
         /// <summary>
         /// Initializes authenticated services and opens the gateway.
@@ -52,9 +93,9 @@ namespace Quarrel.Client
         {
             _token = token;
             InitializeServices(token);
-            if(_gateway == null)
+            if(Gateway == null)
                 await SetupGatewayAsync();
-            await _gateway!.Connect(token);
+            await Gateway!.Connect(token);
         }
 
         private void InitializeServices(string token)
@@ -63,18 +104,18 @@ namespace Quarrel.Client
             {
                 Token = token
             };
-            _channelService = restFactory.GetChannelService();
-            _gatewayService = restFactory.GetGatewayService();
-            _guildService = restFactory.GetGuildService();
-            _userService = restFactory.GetUserService();
+            ChannelService = restFactory.GetChannelService();
+            GatewayService = restFactory.GetGatewayService();
+            GuildService = restFactory.GetGuildService();
+            UserService = restFactory.GetUserService();
         }
 
         private async Task SetupGatewayAsync()
         {
-            Guard.IsNotNull(_gatewayService, nameof(_gatewayService));
-            var gatewayConfig = await MakeRefitRequest(() => _gatewayService.GetGatewayConfig());
-            Guard.IsNotNull(gatewayConfig, nameof(_gatewayService));
-            _gateway = new Gateway(gatewayConfig,
+            Guard.IsNotNull(GatewayService, nameof(GatewayService));
+            var gatewayConfig = await MakeRefitRequest(() => GatewayService.GetGatewayConfig());
+            Guard.IsNotNull(gatewayConfig, nameof(GatewayService));
+            Gateway = new Gateway(gatewayConfig,
                 unhandledMessageEncountered: (e) => GatewayExceptionHandled?.Invoke(this, e),
                 unknownEventEncountered: e => UnknownGatewayEventEncountered?.Invoke(this, e),
                 unknownOperationEncountered: e => UnknownGatewayOperationEncountered?.Invoke(this, e),
@@ -149,6 +190,32 @@ namespace Quarrel.Client
                     LoggedOut?.Invoke();
                     break;
             }
+        }
+
+        private async Task MakeRefitRequest(Func<Task> request)
+        {
+            try
+            {
+                await request();
+            }
+            catch (ApiException ex)
+            {
+                HttpExceptionHandled?.Invoke(this, ex);
+            }
+        }
+
+        private async Task<T?> MakeRefitRequest<T>(Func<Task<T>> request)
+        {
+            try
+            {
+                return await request();
+            }
+            catch (ApiException ex)
+            {
+                HttpExceptionHandled?.Invoke(this, ex);
+                return default;
+            }
+            catch { return default; }
         }
     }
 }

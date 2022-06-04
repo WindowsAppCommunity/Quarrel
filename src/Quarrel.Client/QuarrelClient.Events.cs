@@ -110,49 +110,47 @@ namespace Quarrel.Client
         {
             Guard.IsNotNull(ready, nameof(ready));
 
-            AddSelfUser(ready.User);
+            Self.SetSelfUser(ready.User);
 
             foreach (var guild in ready.Guilds)
             {
                 // All child members are handled here
-                AddGuild(guild);
+                Guilds.AddGuild(guild);
             }
 
             foreach (var channel in ready.PrivateChannels)
             {
-                AddChannel(channel);
+                Channels.AddChannel(channel);
             }
 
             foreach (var readState in ready.ReadStates)
             {
-                AddReadState(readState);
+                Channels.AddReadState(readState);
             }
 
             foreach (var presence in ready.Presences)
             {
-                AddPresence(presence);
+                Users.AddPresence(presence);
             }
 
             foreach (var relationship in ready.Relationships)
             {
-                AddRelationship(relationship);
+                Users.AddRelationship(relationship);
             }
 
-            UpdateSettings(ready.Settings);
+            Self.UpdateSettings(ready.Settings);
 
-            Guard.IsNotNull(_selfUser, nameof(_selfUser));
+            Guard.IsNotNull(Self.CurrentUser, nameof(Self.CurrentUser));
 
-            LoggedIn?.Invoke(this, _selfUser);
+            LoggedIn?.Invoke(this, Self.CurrentUser);
         }
 
         private void OnMessageCreated(JsonMessage message)
         {
-            if (_channelMap.TryGetValue(message.ChannelId, out Channel channel))
+            var channel = Channels.GetChannel(message.ChannelId);
+            if (channel is IMessageChannel messageChannel)
             {
-                if (channel is IMessageChannel messageChannel)
-                {
-                    messageChannel.LastMessageId = message.Id;
-                }
+                messageChannel.LastMessageId = message.Id;
             }
 
             // TODO: Channel registration
@@ -166,12 +164,10 @@ namespace Quarrel.Client
 
         private void OnMessageAck(JsonMessageAck messageAck)
         {
-            if (_channelMap.TryGetValue(messageAck.ChannelId, out Channel channel))
+            var channel = Channels.GetChannel(messageAck.ChannelId);
+            if (channel is IMessageChannel messageChannel)
             {
-                if (channel is IMessageChannel messageChannel)
-                {
-                    messageChannel.LastReadMessageId = messageAck.MessageId;
-                }
+                messageChannel.LastReadMessageId = messageAck.MessageId;
             }
 
             // TODO: Channel registration
@@ -180,32 +176,28 @@ namespace Quarrel.Client
 
         private void OnChannelCreated(JsonChannel jsonChannel)
         {
-            var channel = AddChannel(jsonChannel);
+            var channel = Channels.AddChannel(jsonChannel);
+            if (channel is null) return;
 
-            if (channel is not null)
-            {
-                ChannelCreated?.Invoke(this, channel);
-            }
+            ChannelCreated?.Invoke(this, channel);
         }
 
         private void OnChannelUpdated(JsonChannel jsonChannel)
         {
-            if (_channelMap.TryGetValue(jsonChannel.Id, out Channel channel))
-            {
-                channel.UpdateFromJsonChannel(jsonChannel);
+            var channel = Channels.GetChannel(jsonChannel.Id);
+            if (channel is null) return;
 
-                ChannelUpdated?.Invoke(this, channel);
-            }
+            channel.UpdateFromJsonChannel(jsonChannel);
+            ChannelUpdated?.Invoke(this, channel);
         }
 
         private void OnChannelDeleted(JsonChannel jsonChannel)
         {
-            Channel? channel = RemoveChannel(jsonChannel.Id);
+            Channel? channel = Channels.RemoveChannel(jsonChannel.Id);
 
-            if (channel is not null)
-            {
-                ChannelDeleted?.Invoke(this, channel);
-            }
+            if (channel is null) return;
+
+            ChannelDeleted?.Invoke(this, channel);
         }
     }
 }

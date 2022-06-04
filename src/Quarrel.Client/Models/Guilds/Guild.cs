@@ -134,7 +134,7 @@ namespace Quarrel.Client.Models.Guilds
             int i = 0;
             foreach (var channelId in _channelIds)
             {
-                Channel? channel = Context.GetChannelInternal(channelId)!;
+                Channel? channel = Context.Channels.GetChannel(channelId)!;
                 if (channel is IGuildChannel guildChannel)
                 {
                     channels[i] = guildChannel;

@@ -51,10 +51,10 @@ namespace Quarrel.Client.Models.Settings
             int i = 0;
             foreach (var guildId in GuildIds)
             {
-                Guild? guild = Context.GetGuildInternal(guildId)!;
-                if (guild is Guild guildChannel)
+                Guild? guild = Context.Guilds.GetGuild(guildId)!;
+                if (guild is not null)
                 {
-                    guilds[i] = guildChannel;
+                    guilds[i] = guild;
                     i++;
                 }
             }

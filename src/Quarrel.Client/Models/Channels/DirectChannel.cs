@@ -31,7 +31,7 @@ namespace Quarrel.Client.Models.Channels
         /// <returns>The recipient of the channel.</returns>
         public User GetRecipient()
         {
-            User? user = Context.GetUserInternal(RecipientId);
+            User? user = Context.Users.GetUser(RecipientId);
             Guard.IsNotNull(user, nameof(user));
             return user;
         }
@@ -42,17 +42,17 @@ namespace Quarrel.Client.Models.Channels
 
             if (jsonChannel.Recipients is not null)
             {
-                Context.AddUser(jsonChannel.Recipients[0]);
+                Context.Users.AddUser(jsonChannel.Recipients[0]);
             }
         }
 
         internal override JsonChannel ToJsonChannel()
         {
             JsonChannel restChannel = base.ToJsonChannel();
-            var recipient = Context.GetUserInternal(RecipientId)?.ToRestUser();
+            var recipient = Context.Users.GetUser(RecipientId)?.ToRestUser();
             if (recipient is not null)
             {
-                restChannel.Recipients = new JsonUser[] { recipient };
+                restChannel.Recipients = new[] { recipient };
             }
 
             return restChannel;

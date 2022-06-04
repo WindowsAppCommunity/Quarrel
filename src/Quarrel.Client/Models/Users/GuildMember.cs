@@ -87,7 +87,7 @@ namespace Quarrel.Client.Models.Users
         /// <returns>An array of roles that the user has.</returns>
         public Role[] GetRoles()
         {
-            Guild? guild = Context.GetGuildInternal(GuildId);
+            Guild? guild = Context.Guilds.GetGuild(GuildId);
             Guard.IsNotNull(guild, nameof(guild));
 
             Role[] roles = new Role[Roles.Length+1];
@@ -119,7 +119,7 @@ namespace Quarrel.Client.Models.Users
 
         internal JsonPresence? ToJsonPresence()
         {
-            User? user = Context.GetUserInternal(UserId);
+            User? user = Context.Users.GetUser(UserId);
 
             if (user is null)
             {

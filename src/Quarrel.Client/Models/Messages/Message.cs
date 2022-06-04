@@ -36,7 +36,7 @@ namespace Quarrel.Client.Models.Messages
 
             if (jsonMessage.Author is not null)
             {
-                Author = context.GetOrAddUserInternal(jsonMessage.Author);
+                Author = context.Users.GetOrAddUser(jsonMessage.Author);
             }
 
             if (jsonMessage.UserMentions is not null)
@@ -44,7 +44,7 @@ namespace Quarrel.Client.Models.Messages
                 Mentions = new User[jsonMessage.UserMentions.Length];
                 for (int i = 0; i < Mentions.Length; i++)
                 {
-                    Mentions[i] = context.GetOrAddUserInternal(jsonMessage.UserMentions[i]);
+                    Mentions[i] = context.Users.GetOrAddUser(jsonMessage.UserMentions[i]);
                 }
             }
             else
@@ -100,7 +100,7 @@ namespace Quarrel.Client.Models.Messages
         public User Author { get; private set; }
 
         /// <inheritdoc/>
-        public bool IsOwn => Author.Id == Context.CurrentUser?.Id;
+        public bool IsOwn => Author.Id == Context.Self.CurrentUser?.Id;
 
         /// <inheritdoc/>
         public User[] Mentions { get; private set; }
