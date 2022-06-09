@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Enums.Messages;
 using Discord.API.Models.Json.Messages;
 using Quarrel.Client.Models.Base;
@@ -34,6 +35,7 @@ namespace Quarrel.Client.Models.Messages
             Flags = jsonMessage.Flags;
             WebhookId = jsonMessage.WebhookId;
 
+            Guard.IsNotNull(jsonMessage.Author, nameof(jsonMessage.Author));
             Author = context.Users.GetOrAddUser(jsonMessage.Author);
 
             if (jsonMessage.UserMentions is not null)

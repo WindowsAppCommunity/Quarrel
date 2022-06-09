@@ -30,7 +30,7 @@ namespace Quarrel.Client.Models.Channels.Abstract
         /// <inheritdoc/>
         public abstract string Url { get; }
 
-        internal virtual void UpdateFromJsonChannel(JsonChannel jsonChannel)
+        internal void UpdateFromJsonChannel(JsonChannel jsonChannel)
         {
             Guard.IsEqualTo(Id, jsonChannel.Id, nameof(Id));
             PrivateUpdateFromJsonChannel(jsonChannel);
