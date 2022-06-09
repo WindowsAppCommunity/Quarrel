@@ -9,7 +9,7 @@ namespace Quarrel.RichPresence
         public const string QuarrelAlphaPackageFamilyName = "38062AvishaiDernis.DiscordUWPAlpha_6x7nhkcjyfy2y";
         public const string QuarrelDevPackageFamilyName = "38062AvishaiDernis.DiscordUWPDev_q72k3wbnqqnj6";
 
-        public const string RichPresenceServiceName = "Quarrel.RichPresenceAPI";
+        public const string RichPresenceServiceName = "com.Quarrel.RichPresence";
 
         public static string GetPackageFamilyName(AppVersionType versionType)
         {

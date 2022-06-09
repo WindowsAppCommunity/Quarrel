@@ -12,7 +12,7 @@ namespace Quarrel.Services.AppConnections
 {
     public class AppConnectionService
     {
-        private const string RichPresenceConnectionName = "Quarrel.RichPresenceAPI";
+        private const string RichPresenceConnectionName = "com.Quarrel.RichPresence";
 
         private readonly IAnalyticsService _analyticsService;
         private readonly Dictionary<Guid, (AppConnection, BackgroundTaskDeferral)> _connections;
