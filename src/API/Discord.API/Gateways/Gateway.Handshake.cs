@@ -107,7 +107,7 @@ namespace Discord.API.Gateways
                 ReferringDomain = string.Empty,
             };
 
-            var idenity = new Identity()
+            var identity = new Identity()
             {
                 Token = _token,
                 Compress = false,
@@ -119,7 +119,7 @@ namespace Discord.API.Gateways
             {
                 Event = GatewayEvent.IDENTIFY,
                 Operation = GatewayOperation.Identify,
-                Payload = idenity,
+                Payload = identity,
             };
 
             await SendMessageAsync(payload);

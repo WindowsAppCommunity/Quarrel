@@ -15,8 +15,6 @@ namespace Quarrel.Client
     /// </summary>
     public partial class QuarrelClient
     {
-        private string? _token;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="QuarrelClient"/> class.
         /// </summary>
@@ -64,7 +62,7 @@ namespace Quarrel.Client
         /// <summary>
         /// Gets the token used for authentication.
         /// </summary>
-        public string? Token => _token;
+        public string? Token { get; private set; }
 
         /// <summary>
         /// Gets the client's <see cref="Gateway"/>.
@@ -86,7 +84,7 @@ namespace Quarrel.Client
         /// <exception cref="Exception">An exception will be thrown when connection to the gateway fails, but not when the handshake fails.</exception>
         public async Task LoginAsync(string token)
         {
-            _token = token;
+            Token = token;
             InitializeServices(token);
             if(Gateway == null)
                 await SetupGatewayAsync();
@@ -121,52 +119,52 @@ namespace Quarrel.Client
                 ready: OnReady,
                 messageCreated: OnMessageCreated,
                 messageUpdated: OnMessageUpdated,
-                messageDeleted: e => MessageDeleted?.Invoke(this, new MessageDeleted(e, this)),
+                messageDeleted: OnMessageDeleted,
                 messageAck: OnMessageAck,
 
-                resumed: e => { },
-                invalidSession: e => { },
+                resumed: _ => { },
+                invalidSession: _ => { },
                 gatewayStateChanged: OnGatewayStateChanged,
 
-                guildCreated: e => { },
-                guildUpdated: e => { },
-                guildDeleted: e => { },
+                guildCreated: _ => { },
+                guildUpdated: _ => { },
+                guildDeleted: _ => { },
 
-                guildBanAdded: e => { },
-                guildBanRemoved: e => { },
+                guildBanAdded: _ => { },
+                guildBanRemoved: _ => { },
 
                 channelCreated: OnChannelCreated,
                 channelUpdated: OnChannelUpdated,
                 channelDeleted: OnChannelDeleted,
 
-                channelRecipientAdded: e => { },
-                channelRecipientRemoved: e => { },
+                channelRecipientAdded: _ => { },
+                channelRecipientRemoved: _ => { },
 
-                messageReactionAdded: e => { },
-                messageReactionRemoved: e => { },
-                messageReactionRemovedAll: e => { },
+                messageReactionAdded: _ => { },
+                messageReactionRemoved: _ => { },
+                messageReactionRemovedAll: _ => { },
 
-                guildMemberAdded: e => { },
-                guildMemberUpdated: e => { },
-                guildMemberRemoved: e => { },
-                guildMemberListUpdated: e => { },
-                guildMembersChunk: e => { },
+                guildMemberAdded: _ => { },
+                guildMemberUpdated: _ => { },
+                guildMemberRemoved: _ => { },
+                guildMemberListUpdated: _ => { },
+                guildMembersChunk: _ => { },
 
-                relationshipAdded: e => { },
-                relationshipUpdated: e => { },
-                relationshipRemoved: e => { },
+                relationshipAdded: _ => { },
+                relationshipUpdated: _ => { },
+                relationshipRemoved: _ => { },
 
-                typingStarted: e => { },
-                presenceUpdated: e => { },
+                typingStarted: _ => { },
+                presenceUpdated: _ => { },
 
-                userNoteUpdated: e => { },
-                userSettingsUpdated: e => { },
-                userGuildSettingsUpdated: e => { },
+                userNoteUpdated: _ => { },
+                userSettingsUpdated: _ => { },
+                userGuildSettingsUpdated: _ => { },
 
-                voiceStateUpdated: e => { },
-                voiceServerUpdated: e => { },
+                voiceStateUpdated: _ => { },
+                voiceServerUpdated: _ => { },
 
-                sessionReplaced: e => { });
+                sessionReplaced: _ => { });
         }
 
         private void OnGatewayStateChanged(GatewayStatus newState)
@@ -178,7 +176,7 @@ namespace Quarrel.Client
                     break;
 
                 case GatewayStatus.Reconnecting:
-                    Resuming?.Invoke();
+                    Reconnecting?.Invoke();
                     break;
 
                 case GatewayStatus.Disconnected:

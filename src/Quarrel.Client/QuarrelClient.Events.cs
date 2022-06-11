@@ -106,94 +106,95 @@ namespace Quarrel.Client
         /// </summary>
         public event Action? Resuming;
 
-        private void OnReady(Ready ready)
+        private void OnReady(Ready arg)
         {
-            Guard.IsNotNull(ready, nameof(ready));
+            Guard.IsNotNull(arg, nameof(arg));
 
-            Self.SetSelfUser(ready.User);
+            Self.SetSelfUser(arg.User);
 
-            foreach (var guild in ready.Guilds)
+            foreach (var guild in arg.Guilds)
             {
                 // All child members are handled here
                 Guilds.AddGuild(guild);
             }
 
-            foreach (var channel in ready.PrivateChannels)
+            foreach (var channel in arg.PrivateChannels)
             {
                 Channels.AddChannel(channel);
             }
 
-            foreach (var readState in ready.ReadStates)
+            foreach (var readState in arg.ReadStates)
             {
                 Channels.AddReadState(readState);
             }
 
-            foreach (var presence in ready.Presences)
+            foreach (var presence in arg.Presences)
             {
                 Users.AddPresence(presence);
             }
 
-            foreach (var relationship in ready.Relationships)
+            foreach (var relationship in arg.Relationships)
             {
                 Users.AddRelationship(relationship);
             }
 
-            Self.UpdateSettings(ready.Settings);
+            Self.UpdateSettings(arg.Settings);
 
             Guard.IsNotNull(Self.CurrentUser, nameof(Self.CurrentUser));
 
             LoggedIn?.Invoke(this, Self.CurrentUser);
         }
 
-        private void OnMessageCreated(JsonMessage message)
+        private void OnMessageCreated(JsonMessage arg)
         {
-            var channel = Channels.GetChannel(message.ChannelId);
+            var channel = Channels.GetChannel(arg.ChannelId);
             if (channel is IMessageChannel messageChannel)
             {
-                messageChannel.LastMessageId = message.Id;
+                messageChannel.LastMessageId = arg.Id;
             }
 
             // TODO: Channel registration
-            MessageCreated?.Invoke(this, new Message(message, this));
+            MessageCreated?.Invoke(this, new Message(arg, this));
         }
 
-        private void OnMessageUpdated(JsonMessage message)
-        {
-            MessageUpdated?.Invoke(this, new Message(message, this));
-        }
+        private void OnMessageUpdated(JsonMessage arg) 
+            => MessageUpdated?.Invoke(this, new Message(arg, this));
 
-        private void OnMessageAck(JsonMessageAck messageAck)
+        private void OnMessageDeleted(JsonMessageDeleted arg)
+            => MessageDeleted?.Invoke(this, new MessageDeleted(arg, this));
+
+        private void OnMessageAck(JsonMessageAck arg)
         {
-            var channel = Channels.GetChannel(messageAck.ChannelId);
+            var channel = Channels.GetChannel(arg.ChannelId);
             if (channel is IMessageChannel messageChannel)
             {
-                messageChannel.LastReadMessageId = messageAck.MessageId;
+                messageChannel.LastReadMessageId = arg.MessageId;
             }
 
             // TODO: Channel registration
-            MessageAck?.Invoke(this, new MessageAck(messageAck, this));
+            MessageAck?.Invoke(this, new MessageAck(arg, this));
         }
 
-        private void OnChannelCreated(JsonChannel jsonChannel)
+        private void OnChannelCreated(JsonChannel arg)
         {
-            var channel = Channels.AddChannel(jsonChannel);
+            var channel = Channels.AddChannel(arg);
             if (channel is null) return;
 
             ChannelCreated?.Invoke(this, channel);
         }
 
-        private void OnChannelUpdated(JsonChannel jsonChannel)
+        private void OnChannelUpdated(JsonChannel arg)
         {
-            var channel = Channels.GetChannel(jsonChannel.Id);
+            var channel = Channels.GetChannel(arg.Id);
             if (channel is null) return;
 
-            channel.UpdateFromJsonChannel(jsonChannel);
+            channel.UpdateFromJsonChannel(arg);
             ChannelUpdated?.Invoke(this, channel);
         }
 
-        private void OnChannelDeleted(JsonChannel jsonChannel)
+        private void OnChannelDeleted(JsonChannel arg)
         {
-            Channel? channel = Channels.RemoveChannel(jsonChannel.Id);
+            Channel? channel = Channels.RemoveChannel(arg.Id);
 
             if (channel is null) return;
 
