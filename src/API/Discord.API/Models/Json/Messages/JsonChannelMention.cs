@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Messages
 {
-    internal class JsonChannelMention
+    internal record JsonChannelMention
     {
         [JsonPropertyName("id")]
         public ulong Id { get; set; }

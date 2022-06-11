@@ -10,7 +10,7 @@ namespace Discord.API.Models.Json.Messages
     /// <summary>
     /// A model for creating a message.
     /// </summary>
-    internal class JsonMessageUpsert
+    internal record JsonMessageUpsert
     {
         public JsonMessageUpsert(string content, bool tts, string nonce)
         {

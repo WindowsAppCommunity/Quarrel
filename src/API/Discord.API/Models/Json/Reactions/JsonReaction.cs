@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Reactions
 {
-    internal class JsonReaction
+    internal record JsonReaction
     {
         [JsonPropertyName("count")]
         public int Count { get; set; }

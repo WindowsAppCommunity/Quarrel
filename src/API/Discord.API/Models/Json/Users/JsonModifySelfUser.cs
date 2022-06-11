@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Users
 {
-    internal class JsonModifySelfUser
+    internal record JsonModifySelfUser
     {
         [JsonPropertyName("bio")]
         public string? AboutMe { get; set; }

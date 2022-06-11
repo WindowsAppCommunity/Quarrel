@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Voice
 {
-    internal class JsonVoiceState
+    internal record JsonVoiceState
     {
         [JsonPropertyName("guild_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? GuildId { get; set; }

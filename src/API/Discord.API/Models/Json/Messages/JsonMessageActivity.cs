@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Messages
 {
-    internal class JsonMessageActivity
+    internal record JsonMessageActivity
     {
         [JsonPropertyName("type")]
         public MessageActivityType? Type { get; set; }

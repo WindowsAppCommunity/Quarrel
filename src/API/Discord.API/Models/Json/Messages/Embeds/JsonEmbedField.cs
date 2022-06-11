@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Messages.Embeds
 {
-    internal class JsonEmbedField
+    internal record JsonEmbedField
     {
         [JsonPropertyName("name")]
         public string Name { get; set; }

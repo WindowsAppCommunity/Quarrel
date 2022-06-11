@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Settings
 {
-    internal class JsonModifyUserSettings
+    internal record JsonModifyUserSettings
     {
         [JsonPropertyName("status")]
         public string? Status { get; set; }

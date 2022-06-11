@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Guilds
 {
-    internal class JsonBan
+    internal record JsonBan
     {
         [JsonPropertyName("user")]
         public JsonUser User { get; set; }

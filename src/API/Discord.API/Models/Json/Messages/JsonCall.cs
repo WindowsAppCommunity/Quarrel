@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Messages
 {
-    internal class JsonCall
+    internal record JsonCall
     {
         [JsonPropertyName("ended_timestamp")]
         public DateTimeOffset EndedTimestamp { get; set; }

@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Guilds.Invites
 {
-    internal class JsonInvite
+    internal record JsonInvite
     {
         [JsonPropertyName("code")]
         public string Code { get; set; }
