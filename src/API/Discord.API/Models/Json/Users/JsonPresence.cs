@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Users
 {
-    internal class JsonPresence
+    internal record JsonPresence
     {
         [JsonPropertyName("user")]
         public JsonUser? User { get; set; }

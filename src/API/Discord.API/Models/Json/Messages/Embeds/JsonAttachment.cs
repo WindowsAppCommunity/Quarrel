@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Messages.Embeds
 {
-    internal class JsonAttachment
+    internal record JsonAttachment
     {
         [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong Id { get; set; }

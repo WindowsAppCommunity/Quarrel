@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Users
 {
-    internal class JsonRelationship
+    internal record JsonRelationship
     {
         [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? Id { get; set; }

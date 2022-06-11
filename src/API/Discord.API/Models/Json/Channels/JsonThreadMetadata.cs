@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Channels
 {
-    internal class JsonThreadMetadata
+    internal record JsonThreadMetadata
     {
         [JsonPropertyName("archived")]
         public bool Archived { get; set; }

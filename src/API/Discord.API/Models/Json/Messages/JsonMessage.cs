@@ -16,7 +16,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Messages
 {
-    internal class JsonMessage
+    internal record JsonMessage
     {
         [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong Id { get; set; }

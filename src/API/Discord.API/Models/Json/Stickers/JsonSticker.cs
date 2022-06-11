@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Stickers
 {
-    internal class JsonSticker
+    internal record JsonSticker
     {
         [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong Id { get; set; }

@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Guilds
 {
-    internal class JsonModifyGuild
+    internal record JsonModifyGuild
     {
         [JsonPropertyName("name")]
         public string? Name { get; set; }

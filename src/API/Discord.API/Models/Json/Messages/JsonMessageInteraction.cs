@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Messages
 {
-    internal class JsonMessageInteraction
+    internal record JsonMessageInteraction
     {
         [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong Id { get; set; }

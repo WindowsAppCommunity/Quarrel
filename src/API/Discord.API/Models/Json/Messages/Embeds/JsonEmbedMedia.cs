@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Messages.Embeds
 {
-    internal class JsonEmbedMedia
+    internal record JsonEmbedMedia
     {
         [JsonPropertyName("url")]
         public string Url { get; set; }

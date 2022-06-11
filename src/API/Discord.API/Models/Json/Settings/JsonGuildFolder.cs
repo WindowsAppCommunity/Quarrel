@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Settings
 {
-    internal class JsonGuildFolder
+    internal record JsonGuildFolder
     {
         [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public long? Id { get; set; }

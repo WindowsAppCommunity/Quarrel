@@ -11,7 +11,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Channels
 {
-    internal class JsonChannel
+    internal record JsonChannel
     {
         // Universal
         [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]

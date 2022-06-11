@@ -15,7 +15,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Guilds
 {
-    internal class JsonGuild
+    internal record JsonGuild
     {
         [JsonPropertyName("id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong Id { get; set; }

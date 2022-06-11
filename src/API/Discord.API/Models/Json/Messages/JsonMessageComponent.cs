@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Messages
 {
-    internal class JsonMessageComponent
+    internal record JsonMessageComponent
     {
         [JsonPropertyName("type")]
         public ComponentType Type { get; set; }

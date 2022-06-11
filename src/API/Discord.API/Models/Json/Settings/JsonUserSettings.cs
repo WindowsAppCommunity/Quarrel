@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Models.Json.Settings
 {
-    internal class JsonUserSettings
+    internal record JsonUserSettings
     {
         [JsonPropertyName("theme")]
         public string Theme { get; set; }
