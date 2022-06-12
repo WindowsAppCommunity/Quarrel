@@ -76,13 +76,7 @@ namespace Discord.API.Voice
                 SSRC = _ssrc,
             };
 
-            var frame = new VoiceSocketFrame<Speaking>
-            {
-                Operation = VoiceOperation.Speaking,
-                Payload = payload,
-            };
-
-            await SendMessageAsync(frame);
+            await SendMessageAsync(VoiceOperation.Speaking, VoiceEvent.SPEAKING, payload);
         }
     }
 }

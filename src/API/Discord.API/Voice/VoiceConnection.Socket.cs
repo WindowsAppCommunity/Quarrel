@@ -1,11 +1,8 @@
 ﻿// Quarrel © 2022
 
-using Discord.API.Gateways;
 using Discord.API.Sockets;
 using System;
-using System.Collections.Generic;
 using System.Net.WebSockets;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -40,11 +37,22 @@ namespace Discord.API.Voice
             _socket = new DiscordSocketClient<VoiceSocketFrame>(_serializeOptions, _deserializeOptions, HandleMessage, HandleError, UnhandledMessageEncountered);
             await _socket.ConnectAsync(url);
         }
-        
-        private async Task SendMessageAsync<T>(VoiceSocketFrame<T> frame)
+
+        private async Task SendMessageAsync<T>(VoiceOperation op, T payload)
+            => await SendMessageAsync(op, null, payload);
+
+        private async Task SendMessageAsync<T>(VoiceOperation op, VoiceEvent? e, T payload)
         {
+            var frame = new VoiceSocketFrame<T>
+            {
+                Operation = op,
+                Event = e,
+                Payload = payload,
+            };
+
             await _socket!.SendMessageAsync(frame);
         }
+
         private void HandleMessage(VoiceSocketFrame frame)
         {
             if (frame.SequenceNumber.HasValue)
@@ -54,6 +62,7 @@ namespace Discord.API.Voice
 
             ProcessEvents(frame);
         }
+
         private void HandleError(WebSocketCloseStatus? status)
         {
             switch (status)

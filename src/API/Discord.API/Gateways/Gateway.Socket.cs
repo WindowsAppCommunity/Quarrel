@@ -59,10 +59,22 @@ namespace Discord.API.Gateways
             await _socket!.CloseSocket((WebSocketCloseStatus)4000);
             await ConnectAsync(_connectionUrl!);
         }
-        private async Task SendMessageAsync<T>(GatewaySocketFrame<T> frame)
+
+        private async Task SendMessageAsync<T>(GatewayOperation op, T payload)
+            => await SendMessageAsync(op, null, payload);
+
+        private async Task SendMessageAsync<T>(GatewayOperation op, GatewayEvent? e, T payload)
         {
+            var frame = new GatewaySocketFrame<T>
+            {
+                Operation = op,
+                Event = e,
+                Payload = payload,
+            };
+
             await _socket!.SendMessageAsync(frame);
         }
+
         private void HandleMessage(GatewaySocketFrame frame)
         {
             if (frame.SequenceNumber.HasValue)
@@ -72,6 +84,7 @@ namespace Discord.API.Gateways
 
             ProcessEvents(frame);
         }
+
         private void HandleError(WebSocketCloseStatus? status)
         {
             switch (status)

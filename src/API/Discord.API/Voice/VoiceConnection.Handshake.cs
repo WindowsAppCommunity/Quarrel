@@ -10,11 +10,46 @@ namespace Discord.API.Voice
 {
     internal partial class VoiceConnection
     {
-        private bool _recievedAck;
-        
+        private bool _receivedAck;
+
+        public async Task SelectProtocol(VoiceReady ready)
+        {
+            var protocolInfo = new UdpProtocolInfo
+            {
+                Address = ready.IP,
+                Port = ready.Port,
+                Codecs = new Codec[]
+                {
+                    new()
+                    {
+                        Name = "opus",
+                        PayloadType = 120,
+                        Priority = 1000,
+                        Type = "audio",
+                    },
+                    new()
+                    {
+                        Name = "VP8",
+                        PayloadType = 101,
+                        Priority = 1000,
+                        Type = "video"
+                    }
+                },
+                Mode = "xsalsa20_poly1305"
+            };
+            
+            var payload = new SelectProtocol<UdpProtocolInfo>
+            {
+                Protocol = "udp",
+                Data = protocolInfo,
+            };
+
+            await SendMessageAsync(VoiceOperation.SelectProtocol, VoiceEvent.SELECT_PROTOCOL, payload);
+        }
+
         private bool OnHeartbeatAck()
         {
-            _recievedAck = true;
+            _receivedAck = true;
             return true;
         }
 
@@ -23,26 +58,22 @@ namespace Discord.API.Voice
             while (!token.IsCancellationRequested)
             {
                 await SendHeartbeatAsync();
-                _recievedAck = false;
+                _receivedAck = false;
                 await Task.Delay(interval, token);
-                if (!token.IsCancellationRequested && !_recievedAck)
+                if (!token.IsCancellationRequested && !_receivedAck)
                 {
                     VoiceConnectionStatus = VoiceConnectionStatus.Disconnected;
                     //await ResumeAsync();
                 }
             }
         }
+
         protected async Task SendHeartbeatAsync()
         {
             try
             {
-                var frame = new VoiceSocketFrame<int>()
-                {
-                    Operation = VoiceOperation.Heartbeat,
-                    Payload = (int)Math.Round(DateTime.Now.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds),
-                };
-
-                await SendMessageAsync(frame);
+                int nonce = (int)Math.Round(DateTime.Now.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds);
+                await SendMessageAsync(VoiceOperation.Heartbeat, nonce);
             }
             catch
             {
@@ -92,15 +123,7 @@ namespace Discord.API.Voice
                 UserId = _state.UserId,
                 Video = false,
             };
-
-            var payload = new VoiceSocketFrame<VoiceIdentity>
-            {
-                Event = VoiceEvent.IDENTIFY,
-                Operation = VoiceOperation.Identify,
-                Payload = identity,
-            };
-
-            await SendMessageAsync(payload);
+            await SendMessageAsync(VoiceOperation.Identify, VoiceEvent.IDENTIFY, identity);
         }
     }
 }

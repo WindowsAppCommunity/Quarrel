@@ -25,13 +25,7 @@ namespace Discord.API.Gateways
 
         public async Task RequestGuildMembers(GuildRequestMembers payload)
         {
-            var frame = new GatewaySocketFrame<GuildRequestMembers>()
-            {
-                Operation = GatewayOperation.RequestGuildMembers,
-                Payload = payload,
-            };
-
-            await SendMessageAsync(frame);
+            await SendMessageAsync(GatewayOperation.RequestGuildMembers, payload);
         }
 
         public async Task RequestAllGuildMembers(ulong guildId)
@@ -58,13 +52,7 @@ namespace Discord.API.Gateways
 
         private async Task UpdateStatusAsync(StatusUpdate payload)
         {
-            var frame = new GatewaySocketFrame<StatusUpdate>()
-            {
-                Operation = GatewayOperation.PresenceUpdate,
-                Payload = payload,
-            };
-
-            await SendMessageAsync(frame);
+            await SendMessageAsync(GatewayOperation.PresenceUpdate, payload);
         }
 
         public async Task VoiceStatusUpdateAsync(ulong guildId, ulong channelId, bool selfMute, bool selfDeaf)
@@ -82,13 +70,7 @@ namespace Discord.API.Gateways
 
         public async Task VoiceStatusUpdateAsync(VoiceStatusUpdate payload)
         {
-            var frame = new GatewaySocketFrame<VoiceStatusUpdate>()
-            {
-                Operation = GatewayOperation.VoiceStateUpdate,
-                Payload = payload,
-            };
-
-            await SendMessageAsync(frame);
+            await SendMessageAsync(GatewayOperation.VoiceStateUpdate, payload);
         }
     }
 }

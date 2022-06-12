@@ -82,13 +82,7 @@ namespace Discord.API.Gateways
         {
             try
             {
-                var frame = new GatewaySocketFrame<int>()
-                {
-                    Operation = GatewayOperation.Heartbeat,
-                    Payload = _lastEventSequenceNumber
-                };
-
-                await SendMessageAsync(frame);
+                await SendMessageAsync(GatewayOperation.Heartbeat, _lastEventSequenceNumber);
             }
             catch
             {
@@ -116,14 +110,7 @@ namespace Discord.API.Gateways
                 Properties = properties,
             };
 
-            var payload = new GatewaySocketFrame<Identity>()
-            {
-                Event = GatewayEvent.IDENTIFY,
-                Operation = GatewayOperation.Identify,
-                Payload = identity,
-            };
-
-            await SendMessageAsync(payload);
+            await SendMessageAsync(GatewayOperation.Identify, GatewayEvent.IDENTIFY, identity);
         }
 
         private async Task SendResumeRequestAsync()
@@ -131,17 +118,14 @@ namespace Discord.API.Gateways
             Guard.IsNotNull(_sessionId, nameof(_sessionId));
             Guard.IsNotNull(_token, nameof(_token));
 
-            var request = new GatewaySocketFrame<GatewayResume>()
+            var resume = new GatewayResume
             {
-                Operation = GatewayOperation.Resume,
-                Payload = {
-                    Token = _token,
-                    SessionID = _sessionId,
-                    LastSequenceNumberReceived = _lastEventSequenceNumber,
-                },
+                Token = _token,
+                SessionID = _sessionId,
+                LastSequenceNumberReceived = _lastEventSequenceNumber,
             };
 
-            await SendMessageAsync(request);
+            await SendMessageAsync(GatewayOperation.Resume, resume);
         }
     }
 }

@@ -42,6 +42,7 @@ namespace Discord.API.Voice
                 {
                     VoiceOperation.Hello => OnHello((VoiceSocketFrame<VoiceHello>)frame),
                     VoiceOperation.Ready => OnReady((VoiceSocketFrame<VoiceReady>)frame),
+                    VoiceOperation.Heartbeat => OnHeartbeatAck(),
 
                     _ => FireEvent(frame.Operation, UnhandledOperationEncountered),
                 }
