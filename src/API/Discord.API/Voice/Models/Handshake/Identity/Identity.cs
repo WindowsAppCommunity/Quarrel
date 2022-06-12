@@ -9,14 +9,14 @@ namespace Discord.API.Voice.Models.Handshake.Identity
 {
     internal record Identity
     {
-        [JsonPropertyName("server_id")]
-        public string ServerId { get; set; }
+        [JsonPropertyName("server_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong ServerId { get; set; }
 
-        [JsonPropertyName("user_id")]
-        public string UserId { get; set; }
+        [JsonPropertyName("user_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong UserId { get; set; }
 
         [JsonPropertyName("session_id")]
-        public string SessionId { get; set; }
+        public string? SessionId { get; set; }
 
         [JsonPropertyName("token")]
         public string Token { get; set; }

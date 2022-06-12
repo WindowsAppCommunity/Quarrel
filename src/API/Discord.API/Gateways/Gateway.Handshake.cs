@@ -10,6 +10,23 @@ namespace Discord.API.Gateways
 {
     internal partial class Gateway
     {
+        protected override async Task SendHeartbeatAsync()
+        {
+            try
+            {
+                var frame = new GatewaySocketFrame<int>()
+                {
+                    Operation = GatewayOperation.Heartbeat,
+                    Payload = LastEventSequenceNumber,
+                };
+
+                await SendMessageAsync(frame);
+            }
+            catch
+            {
+            }
+        }
+
         private bool OnHelloReceived(GatewaySocketFrame<Hello> frame)
         {
             _ = SetupGateway(frame.Payload.HeartbeatInterval);

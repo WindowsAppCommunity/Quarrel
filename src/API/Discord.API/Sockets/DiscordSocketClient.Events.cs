@@ -5,9 +5,7 @@ using System;
 
 namespace Discord.API.Sockets
 {
-    internal partial class DiscordSocketClient<TOperation, TEvent> 
-        where TOperation : struct, Enum
-        where TEvent : struct, Enum
+    internal partial class DiscordSocketClient<TFrame, TOperation, TEvent>
     {
         protected Action<ConnectionStatus> ConnectionStatusChanged { get; }
 

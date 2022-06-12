@@ -6,17 +6,17 @@ using System.Text.Json.Serialization;
 // JSON models don't need to respect standard nullable rules.
 #pragma warning disable CS8618
 
-namespace Discord.API.Gateways
+namespace Discord.API.Voice
 {
-    internal class GatewaySocketFrame : ISocketFrame<GatewayOperation, GatewayEvent?>
+    internal class VoiceSocketFrame : ISocketFrame<VoiceOperation, VoiceEvent?>
     {
         [JsonPropertyName("op")]
-        public GatewayOperation Operation { get; set; }
+        public VoiceOperation Operation { get; set; }
 
         [JsonPropertyName("s")]
         public int? SequenceNumber { get; set; }
 
         [JsonPropertyName("t")]
-        public GatewayEvent? Event { get; set; }
+        public VoiceEvent? Event { get; set; }
     }
 }

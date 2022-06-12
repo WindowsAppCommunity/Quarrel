@@ -1,11 +1,10 @@
 ﻿// Quarrel © 2022
 
-using Discord.API.Gateways;
 using System.Threading.Tasks;
 
 namespace Discord.API.Sockets
 {
-    internal partial class DiscordSocketClient<TOperation, TEvent>
+    internal partial class DiscordSocketClient<TFrame, TOperation, TEvent>
     {
         private bool _receivedAck;
 
@@ -33,21 +32,6 @@ namespace Discord.API.Sockets
             }
         }
 
-        private async Task SendHeartbeatAsync()
-        {
-            try
-            {
-                var frame = new GatewaySocketFrame<int>()
-                {
-                    Operation = GatewayOperation.Heartbeat,
-                    Payload = LastEventSequenceNumber
-                };
-
-                await SendMessageAsync(frame);
-            }
-            catch
-            {
-            }
-        }
+        protected abstract Task SendHeartbeatAsync();
     }
 }

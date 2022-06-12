@@ -85,8 +85,7 @@ namespace Discord.API.Gateways
             var ready = frame.Payload;
 
             _sessionId = ready.SessionId;
-            FireEvent(frame, Ready);
-            return true;
+            return FireEvent(frame, Ready);
         }
 
         protected override void ProcessEvents(GatewaySocketFrame frame)
@@ -150,8 +149,7 @@ namespace Discord.API.Gateways
 
                         GatewayEvent.SESSIONS_REPLACE => FireEvent(frame, SessionReplaced),
 
-                        null => FireEvent(new SocketFrameException("Received null event despite dispatch opcode.", (int?)frame.Operation, frame.Event.ToString()), UnhandledMessageEncountered),
-                        _ => FireEvent(frame.Event.Value, UnhandledEventEncountered),
+                        _ => FireEvent(frame.Event, UnhandledEventEncountered),
                     },
                     _ => FireEvent(frame.Operation, UnhandledOperationEncountered),
                 }

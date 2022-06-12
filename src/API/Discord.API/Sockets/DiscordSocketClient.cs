@@ -14,7 +14,8 @@ using System.Threading.Tasks;
 
 namespace Discord.API.Sockets
 {
-    internal abstract partial class DiscordSocketClient<TOperation, TEvent>
+    internal abstract partial class DiscordSocketClient<TFrame, TOperation, TEvent>
+        where TFrame : class, ISocketFrame<TOperation, TEvent>
     {
         private readonly JsonSerializerOptions _serializeOptions;
         private ClientWebSocket? _socket;
@@ -92,7 +93,8 @@ namespace Discord.API.Sockets
             _task = null;
         }
 
-        protected async Task SendMessageAsync<T>(GatewaySocketFrame<T> frame)
+        protected async Task SendMessageAsync<TPayloadFrame>(TPayloadFrame frame)
+            where TPayloadFrame : ISocketFrame<TOperation, TEvent>
         {
             var stream = new MemoryStream();
             await JsonSerializer.SerializeAsync(stream, frame, _serializeOptions);
@@ -104,7 +106,7 @@ namespace Discord.API.Sockets
             await _socket!.SendAsync(new ArraySegment<byte>(stream.GetBuffer(), 0, (int)stream.Length), WebSocketMessageType.Text, true, _tokenSource.Token);
         }
 
-        protected abstract void ProcessEvents(GatewaySocketFrame frame);
+        protected abstract void ProcessEvents(TFrame frame);
 
         private async Task ConnectAsync(string connectionUrl, ConnectionStatus connectionStatus)
         {
@@ -232,7 +234,7 @@ namespace Discord.API.Sockets
 
         private async void HandleMessage(Stream stream)
         {
-            GatewaySocketFrame? frame = await ParseFrame(stream);
+            TFrame? frame = await ParseFrame(stream);
             if (frame is null) return;
 
             if (frame.SequenceNumber.HasValue)
@@ -243,11 +245,11 @@ namespace Discord.API.Sockets
             ProcessEvents(frame);
         }
 
-        private async Task<GatewaySocketFrame?> ParseFrame(Stream stream)
+        private async Task<TFrame?> ParseFrame(Stream stream)
         {
             try
             {
-                return await JsonSerializer.DeserializeAsync<GatewaySocketFrame>(stream, DeserializeOptions);
+                return await JsonSerializer.DeserializeAsync<TFrame>(stream, DeserializeOptions);
             }
             catch (SocketFrameException ex)
             {

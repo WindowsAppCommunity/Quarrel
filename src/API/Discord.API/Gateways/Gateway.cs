@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 
 namespace Discord.API.Gateways
 {
-    internal partial class Gateway : DiscordSocketClient<GatewayOperation, GatewayEvent>
+    internal partial class Gateway : DiscordSocketClient<GatewaySocketFrame, GatewayOperation, GatewayEvent?>
     {
         private delegate void GatewayEventHandler(GatewaySocketFrame gatewayEvent);
 
@@ -36,7 +36,7 @@ namespace Discord.API.Gateways
             Action<int> unknownOperationEncountered,
             Action<string> knownEventEncountered,
             Action<GatewayOperation> unhandledOperationEncountered,
-            Action<GatewayEvent> unhandledEventEncountered,
+            Action<GatewayEvent?> unhandledEventEncountered,
             Action<Ready> ready,
             Action<Resumed> resumed,
             Action<InvalidSession> invalidSession,

@@ -6,9 +6,9 @@ using System.Text.Json.Serialization;
 // JSON models don't need to respect standard nullable rules.
 #pragma warning disable CS8618
 
-namespace Discord.API.Gateways
+namespace Discord.API.Voice
 {
-    internal class GatewaySocketFrame<T> : GatewaySocketFrame, ISocketFrame<T, GatewayOperation, GatewayEvent?>
+    internal class VoiceSocketFrame<T> : VoiceSocketFrame, ISocketFrame<T, VoiceOperation, VoiceEvent?>
     {
         [JsonPropertyName("d")]
         public T Payload { get; set; }
