@@ -3,7 +3,7 @@
 using CommunityToolkit.Diagnostics;
 using Discord.API.Gateways;
 using Discord.API.Rest;
-using Quarrel.Client.Models.Messages;
+using Discord.API.Sockets;
 using Refit;
 using System;
 using System.Threading.Tasks;
@@ -124,7 +124,7 @@ namespace Quarrel.Client
 
                 resumed: _ => { },
                 invalidSession: _ => { },
-                gatewayStateChanged: OnGatewayStateChanged,
+                connectionStatusChanged: OnGatewayStateChanged,
 
                 guildCreated: _ => { },
                 guildUpdated: _ => { },
@@ -167,19 +167,19 @@ namespace Quarrel.Client
                 sessionReplaced: _ => { });
         }
 
-        private void OnGatewayStateChanged(GatewayStatus newState)
+        private void OnGatewayStateChanged(ConnectionStatus newState)
         {
             switch (newState)
             {
-                case GatewayStatus.Resuming:
+                case ConnectionStatus.Resuming:
                     Resuming?.Invoke();
                     break;
 
-                case GatewayStatus.Reconnecting:
+                case ConnectionStatus.Reconnecting:
                     Reconnecting?.Invoke();
                     break;
 
-                case GatewayStatus.Disconnected:
+                case ConnectionStatus.Disconnected:
                     LoggedOut?.Invoke();
                     break;
             }

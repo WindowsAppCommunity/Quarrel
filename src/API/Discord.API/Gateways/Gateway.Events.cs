@@ -18,17 +18,9 @@ namespace Discord.API.Gateways
 {
     internal partial class Gateway
     {
-        private Action<SocketFrameException> UnhandledMessageEncountered { get; }
-        private Action<string> UnknownEventEncountered { get; }
-        private Action<int> UnknownOperationEncountered { get; }
-        private Action<string> KnownEventEncountered { get; }
-        private Action<GatewayOperation> UnhandledOperationEncountered { get; }
-        private Action<GatewayEvent> UnhandledEventEncountered { get; }
-
         private Action<Ready> Ready { get; }
         private Action<Resumed> Resumed { get; }
         private Action<InvalidSession> InvalidSession { get; }
-        private Action<GatewayStatus> GatewayStateChanged { get; }
 
         private Action<JsonGuild> GuildCreated { get; }
         private Action<JsonGuild> GuildUpdated { get; }
@@ -75,8 +67,8 @@ namespace Discord.API.Gateways
 
         private Action<SessionReplace[]> SessionReplaced { get; }
 
-
-    private static bool FireEvent<T>(SocketFrame frame, Action<T> eventHandler)
+        
+        private static bool FireEvent<T>(SocketFrame frame, Action<T> eventHandler)
         {
             var eventArgs = ((SocketFrame<T>)frame).Payload;
             eventHandler(eventArgs);
@@ -97,7 +89,7 @@ namespace Discord.API.Gateways
             return true;
         }
 
-        private void ProcessEvents(SocketFrame frame)
+        protected override void ProcessEvents(SocketFrame frame)
         {
             bool succeeded = frame switch
             {

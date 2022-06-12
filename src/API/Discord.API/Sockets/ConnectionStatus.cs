@@ -1,8 +1,8 @@
 ﻿// Quarrel © 2022
 
-namespace Discord.API.Gateways
+namespace Discord.API.Sockets
 {
-    internal enum GatewayStatus
+    internal enum ConnectionStatus
     {
         Initialized,
         Connecting,

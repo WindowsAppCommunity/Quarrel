@@ -7,7 +7,6 @@ using Discord.API.Gateways.Models.GuildMember;
 using Discord.API.Gateways.Models.Guilds;
 using Discord.API.Gateways.Models.Handshake;
 using Discord.API.Gateways.Models.Messages;
-using Discord.API.JsonConverters;
 using Discord.API.Models.Json.Channels;
 using Discord.API.Models.Json.Gateway;
 using Discord.API.Models.Json.Guilds;
@@ -15,32 +14,19 @@ using Discord.API.Models.Json.Messages;
 using Discord.API.Models.Json.Settings;
 using Discord.API.Models.Json.Users;
 using Discord.API.Models.Json.Voice;
+using Discord.API.Sockets;
 using System;
-using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Discord.API.Gateways
 {
-    internal partial class Gateway
+    internal partial class Gateway : DiscordSocketClient<GatewayOperation, GatewayEvent>
     {
         private delegate void GatewayEventHandler(SocketFrame gatewayEvent);
 
         private readonly GatewayConfig _gatewayConfig;
         private string? _token;
-
-        private GatewayStatus _gatewayStatus;
-
-        private GatewayStatus GatewayStatus
-        {
-            get => _gatewayStatus;
-            set
-            {
-                _gatewayStatus = value;
-                GatewayStateChanged(_gatewayStatus);
-            }
-        }
-        private string? _connectionUrl;
         private string? _sessionId;
-        private int _lastEventSequenceNumber;
 
         public Gateway(GatewayConfig config,
             Action<SocketFrameException> unhandledMessageEncountered,
@@ -52,7 +38,7 @@ namespace Discord.API.Gateways
             Action<Ready> ready,
             Action<Resumed> resumed,
             Action<InvalidSession> invalidSession,
-            Action<GatewayStatus> gatewayStateChanged,
+            Action<ConnectionStatus> connectionStatusChanged,
             Action<JsonGuild> guildCreated,
             Action<JsonGuild> guildUpdated,
             Action<GuildDeleted> guildDeleted,
@@ -85,7 +71,14 @@ namespace Discord.API.Gateways
             Action<JsonGuildSettings> userGuildSettingsUpdated,
             Action<JsonVoiceState> voiceStateUpdated,
             Action<VoiceServerUpdate> voiceServerUpdated,
-            Action<SessionReplace[]> sessionReplaced)
+            Action<SessionReplace[]> sessionReplaced) :
+            base(connectionStatusChanged,
+                unhandledMessageEncountered,
+                unknownEventEncountered,
+                unknownOperationEncountered,
+                knownEventEncountered,
+                unhandledOperationEncountered,
+                unhandledEventEncountered)
         {
             _gatewayConfig = config;
 
@@ -122,23 +115,19 @@ namespace Discord.API.Gateways
             GuildDeleted = guildDeleted;
             GuildUpdated = guildUpdated;
             GuildCreated = guildCreated;
-            GatewayStateChanged = gatewayStateChanged;
             InvalidSession = invalidSession;
             Resumed = resumed;
             Ready = ready;
-            UnhandledEventEncountered = unhandledEventEncountered;
-            UnhandledOperationEncountered = unhandledOperationEncountered;
-            KnownEventEncountered = knownEventEncountered;
-            UnknownOperationEncountered = unknownOperationEncountered;
-            UnknownEventEncountered = unknownEventEncountered;
-            UnhandledMessageEncountered = unhandledMessageEncountered;
+        }
 
-            _gatewayStatus = GatewayStatus.Initialized;
-
-            _serializeOptions = new JsonSerializerOptions();
-            _serializeOptions.AddContext<JsonModelsContext>();
-
-            _deserializeOptions = new JsonSerializerOptions { Converters = { new SocketFrameConverter() } };
+        /// <summary>
+        /// Sets up a connection to the gateway.
+        /// </summary>
+        /// <exception cref="Exception">An exception will be thrown when connection fails, but not when the handshake fails.</exception>
+        public async Task Connect(string token)
+        {
+            _token = token;
+            await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "9", "&compress=zlib-stream"));
         }
     }
 }
