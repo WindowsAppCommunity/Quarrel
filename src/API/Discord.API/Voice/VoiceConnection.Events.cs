@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Exceptions;
+using Discord.API.Sockets;
 using Discord.API.Voice.Models.Handshake;
 using System;
 
@@ -8,6 +9,14 @@ namespace Discord.API.Voice
 {
     internal partial class VoiceConnection
     {
+        private Action<VoiceConnectionStatus> VoiceConnectionStatusChanged { get; }
+        private Action<SocketFrameException> UnhandledMessageEncountered { get; }
+        private Action<string> UnknownEventEncountered { get; }
+        private Action<int> UnknownOperationEncountered { get; }
+        private Action<string> KnownEventEncountered { get; }
+        private Action<VoiceOperation> UnhandledOperationEncountered { get; }
+        private Action<VoiceEvent> UnhandledEventEncountered { get; }
+        
         private Action<VoiceReady> Ready { get; }
 
         private static bool FireEvent<T>(VoiceSocketFrame frame, Action<T> eventHandler)
@@ -22,8 +31,8 @@ namespace Discord.API.Voice
             eventHandler(data);
             return true;
         }
-
-        protected override void ProcessEvents(VoiceSocketFrame frame)
+        
+        protected void ProcessEvents(VoiceSocketFrame frame)
         {
             bool succeeded = frame switch
             {

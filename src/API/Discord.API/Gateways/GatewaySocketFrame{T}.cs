@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Gateways
 {
-    internal class GatewaySocketFrame<T> : GatewaySocketFrame, ISocketFrame<T, GatewayOperation, GatewayEvent?>
+    internal class GatewaySocketFrame<T> : GatewaySocketFrame
     {
         [JsonPropertyName("d")]
         public T Payload { get; set; }

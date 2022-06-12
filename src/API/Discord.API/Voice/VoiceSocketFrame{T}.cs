@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Voice
 {
-    internal class VoiceSocketFrame<T> : VoiceSocketFrame, ISocketFrame<T, VoiceOperation, VoiceEvent?>
+    internal class VoiceSocketFrame<T> : VoiceSocketFrame
     {
         [JsonPropertyName("d")]
         public T Payload { get; set; }

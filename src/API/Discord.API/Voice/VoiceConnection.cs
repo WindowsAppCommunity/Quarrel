@@ -14,12 +14,27 @@ using System.Threading.Tasks;
 
 namespace Discord.API.Voice
 {
-    internal partial class VoiceConnection : DiscordSocketClient<VoiceSocketFrame, VoiceOperation, VoiceEvent?>
+    internal partial class VoiceConnection
     {
         private readonly VoiceServerUpdate _voiceConfig;
         public readonly JsonVoiceState _state;
 
         private uint _ssrc;
+        
+        private string? _connectionUrl;
+        private int _lastEventSequenceNumber;
+
+        private VoiceConnectionStatus _voiceConnectionStatus;
+
+        private VoiceConnectionStatus VoiceConnectionStatus
+        {
+            get => _voiceConnectionStatus;
+            set
+            {
+                _voiceConnectionStatus = value;
+                VoiceConnectionStatusChanged(_voiceConnectionStatus);
+            }
+        }
 
         public VoiceConnection(
             VoiceServerUpdate voiceConfig,
@@ -29,26 +44,28 @@ namespace Discord.API.Voice
             Action<int> unknownOperationEncountered,
             Action<string> knownEventEncountered,
             Action<VoiceOperation> unhandledOperationEncountered,
-            Action<VoiceEvent?> unhandledEventEncountered,
-            Action<ConnectionStatus> connectionStatusChanged,
-            Action<VoiceReady> ready) :
-            base(connectionStatusChanged,
-                unhandledMessageEncountered,
-                unknownEventEncountered,
-                unknownOperationEncountered,
-                knownEventEncountered,
-                unhandledOperationEncountered,
-                unhandledEventEncountered)
+            Action<VoiceEvent> unhandledEventEncountered,
+            Action<VoiceConnectionStatus> voiceConnectionStatusChanged,
+            Action<VoiceReady> ready)
         {
+            VoiceConnectionStatusChanged = voiceConnectionStatusChanged;
+            UnhandledEventEncountered = unhandledEventEncountered;
+            UnhandledOperationEncountered = unhandledOperationEncountered;
+            KnownEventEncountered = knownEventEncountered;
+            UnknownOperationEncountered = unknownOperationEncountered;
+            UnknownEventEncountered = unknownEventEncountered;
+            UnhandledMessageEncountered = unhandledMessageEncountered;
+            
             Ready = ready;
 
             _voiceConfig = voiceConfig;
             _state = state;
 
-            DeserializeOptions = new JsonSerializerOptions { Converters = { new VoiceSocketFrameConverter() } };
-        }
+            _serializeOptions = new JsonSerializerOptions();
+            _serializeOptions.AddContext<JsonModelsContext>();
 
-        protected override JsonSerializerOptions DeserializeOptions { get; }
+            _deserializeOptions = new JsonSerializerOptions { Converters = { new VoiceSocketFrameConverter() } };
+        }
 
         public async Task SendSpeaking(SpeakingState state)
         {

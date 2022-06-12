@@ -15,7 +15,6 @@ using Discord.API.Models.Json.Users;
 using Discord.API.Models.Json.Voice;
 using Discord.API.Voice;
 using Discord.API.Voice.Models.Handshake;
-using Discord.API.Voice.Models.Handshake.Identity;
 using System.Text.Json.Serialization;
 
 namespace Discord.API.JsonConverters
