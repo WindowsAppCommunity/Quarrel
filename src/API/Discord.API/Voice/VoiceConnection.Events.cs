@@ -8,9 +8,9 @@ namespace Discord.API.Voice
 {
     internal partial class VoiceConnection
     {
-        private Action<Ready> Ready { get; }
+        private Action<VoiceReady> Ready { get; }
 
-        private bool OnReady(VoiceSocketFrame<Ready> frame)
+        private bool OnReady(VoiceSocketFrame<VoiceReady> frame)
         {
             var ready = frame.Payload;
             _ssrc = ready.SSRC;
@@ -39,8 +39,8 @@ namespace Discord.API.Voice
                 UnknownEventVoiceSocketFrame osf => FireEvent(osf.Event, UnknownEventEncountered),
                 _ => frame.Operation switch
                 {
-                    VoiceOperation.Hello => OnHelloReceived((VoiceSocketFrame<Hello>)frame),
-                    VoiceOperation.Ready => OnReady((VoiceSocketFrame<Ready>)frame),
+                    VoiceOperation.Hello => OnHelloReceived((VoiceSocketFrame<VoiceHello>)frame),
+                    VoiceOperation.Ready => OnReady((VoiceSocketFrame<VoiceReady>)frame),
 
                     _ => FireEvent(frame.Operation, UnhandledOperationEncountered),
                 }

@@ -13,6 +13,9 @@ using Discord.API.Models.Json.Messages;
 using Discord.API.Models.Json.Settings;
 using Discord.API.Models.Json.Users;
 using Discord.API.Models.Json.Voice;
+using Discord.API.Voice;
+using Discord.API.Voice.Models.Handshake;
+using Discord.API.Voice.Models.Handshake.Identity;
 using System.Text.Json.Serialization;
 
 namespace Discord.API.JsonConverters
@@ -23,7 +26,9 @@ namespace Discord.API.JsonConverters
     [JsonSerializable(typeof(UnknownEventGatewaySocketFrame))]
     [JsonSerializable(typeof(UnknownOperationGatewaySocketFrame))]
     [JsonSerializable(typeof(GatewaySocketFrame))]
+    [JsonSerializable(typeof(GatewaySocketFrame<int>))]
     [JsonSerializable(typeof(GatewaySocketFrame<Hello>))]
+    [JsonSerializable(typeof(GatewaySocketFrame<Identity>))]
     [JsonSerializable(typeof(GatewaySocketFrame<Ready>))]
     [JsonSerializable(typeof(GatewaySocketFrame<Resumed>))]
     [JsonSerializable(typeof(GatewaySocketFrame<JsonGuild>))]
@@ -60,8 +65,15 @@ namespace Discord.API.JsonConverters
     [JsonSerializable(typeof(GatewaySocketFrame<JsonVoiceState>))]
     [JsonSerializable(typeof(GatewaySocketFrame<VoiceServerUpdate>))]
     [JsonSerializable(typeof(GatewaySocketFrame<SessionReplace[]>))]
-    [JsonSerializable(typeof(GatewaySocketFrame<int>))]
-    [JsonSerializable(typeof(GatewaySocketFrame<Identity>))]
+
+    [JsonSerializable(typeof(UnknownEventVoiceSocketFrame))]
+    [JsonSerializable(typeof(UnknownOperationVoiceSocketFrame))]
+    [JsonSerializable(typeof(VoiceEvent))]
+    [JsonSerializable(typeof(VoiceSocketFrame))]
+    [JsonSerializable(typeof(VoiceSocketFrame<VoiceHello>))]
+    [JsonSerializable(typeof(VoiceSocketFrame<VoiceIdentity>))]
+    [JsonSerializable(typeof(VoiceSocketFrame<VoiceReady>))]
+    [JsonSerializable(typeof(VoiceSocketFrame<SessionDescription>))]
     internal partial class JsonModelsContext : JsonSerializerContext
     {
     }

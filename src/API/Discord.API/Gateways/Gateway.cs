@@ -24,8 +24,6 @@ namespace Discord.API.Gateways
 {
     internal partial class Gateway : DiscordSocketClient<GatewaySocketFrame, GatewayOperation, GatewayEvent?>
     {
-        private delegate void GatewayEventHandler(GatewaySocketFrame gatewayEvent);
-
         private readonly GatewayConfig _gatewayConfig;
         private string? _token;
         private string? _sessionId;

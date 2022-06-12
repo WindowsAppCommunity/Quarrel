@@ -1,6 +1,5 @@
 ﻿// Quarrel © 2022
 
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 // JSON models don't need to respect standard nullable rules.
@@ -8,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Voice.Models.Handshake
 {
-    internal class Ready
+    internal class VoiceReady
     {
         [JsonPropertyName("ssrc")]
         public uint SSRC { get; set; }

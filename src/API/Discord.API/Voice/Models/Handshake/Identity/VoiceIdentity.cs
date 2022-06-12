@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Voice.Models.Handshake.Identity
 {
-    internal record Identity
+    internal record VoiceIdentity
     {
         [JsonPropertyName("server_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong ServerId { get; set; }

@@ -65,10 +65,10 @@ namespace Discord.API.JsonConverters
                     null => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.UnknownEventGatewaySocketFrame)!,
                     _ => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrame)!
                 },
-                GatewayOperation.Heartbeat => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrame)!,
                 GatewayOperation.Reconnect => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrame)!,
                 GatewayOperation.InvalidSession => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrame)!,
                 GatewayOperation.Hello => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameHello)!,
+                GatewayOperation.Heartbeat => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrame)!,
                 GatewayOperation.HeartbeatAck => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrame)!,
                 null => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.UnknownOperationGatewaySocketFrame)!,
                 _ => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrame)!

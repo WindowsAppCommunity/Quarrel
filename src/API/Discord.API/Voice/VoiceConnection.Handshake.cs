@@ -27,7 +27,7 @@ namespace Discord.API.Voice
             }
         }
 
-        private bool OnHelloReceived(VoiceSocketFrame<Hello> frame)
+        private bool OnHelloReceived(VoiceSocketFrame<VoiceHello> frame)
         {
             _ = SetupVoiceConnection(frame.Payload.HeartbeatInterval);
             return true;
@@ -54,7 +54,7 @@ namespace Discord.API.Voice
 
         private async Task IdentifySelfToVoiceConnection()
         {
-            var identity = new Identity()
+            var identity = new VoiceIdentity()
             {
                 ServerId = _voiceConfig.GuildId ?? _voiceConfig.ChannelId,
                 SessionId = _state.SessionId,
@@ -63,7 +63,7 @@ namespace Discord.API.Voice
                 Video = false,
             };
 
-            var payload = new VoiceSocketFrame<Identity>
+            var payload = new VoiceSocketFrame<VoiceIdentity>
             {
                 Event = VoiceEvent.IDENTIFY,
                 Operation = VoiceOperation.Identify,
