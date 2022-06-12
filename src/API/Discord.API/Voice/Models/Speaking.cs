@@ -1,8 +1,6 @@
 ﻿// Quarrel © 2022
 
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Discord.API.Voice.Models.Enums;
 using System.Text.Json.Serialization;
 
 // JSON models don't need to respect standard nullable rules.
@@ -10,10 +8,10 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Voice.Models
 {
-    internal class Speak
+    internal class Speaking
     {
         [JsonPropertyName("speaking")]
-        public int Speaking { get; set; }
+        public SpeakingState State { get; set; }
 
         [JsonPropertyName("delay")]
         public int Delay { get; set; }

@@ -2,7 +2,6 @@
 
 using Discord.API.Sockets;
 using Discord.API.Voice.Models.Handshake;
-using Discord.API.Voice.Models.Handshake.Identity;
 using System;
 using System.Threading.Tasks;
 
@@ -27,10 +26,18 @@ namespace Discord.API.Voice
             }
         }
 
-        private bool OnHelloReceived(VoiceSocketFrame<VoiceHello> frame)
+        private bool OnHello(VoiceSocketFrame<VoiceHello> frame)
         {
             _ = SetupVoiceConnection(frame.Payload.HeartbeatInterval);
             return true;
+        }
+
+        private bool OnReady(VoiceSocketFrame<VoiceReady> frame)
+        {
+            var ready = frame.Payload;
+            _ssrc = ready.SSRC;
+
+            return FireEvent(frame, Ready);
         }
 
         private async Task SetupVoiceConnection(int interval)
@@ -72,6 +79,5 @@ namespace Discord.API.Voice
 
             await SendMessageAsync(payload);
         }
-
     }
 }

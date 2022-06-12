@@ -10,14 +10,6 @@ namespace Discord.API.Voice
     {
         private Action<VoiceReady> Ready { get; }
 
-        private bool OnReady(VoiceSocketFrame<VoiceReady> frame)
-        {
-            var ready = frame.Payload;
-            _ssrc = ready.SSRC;
-
-            return FireEvent(frame, Ready);
-        }
-
         private static bool FireEvent<T>(VoiceSocketFrame frame, Action<T> eventHandler)
         {
             var eventArgs = ((VoiceSocketFrame<T>)frame).Payload;
@@ -39,7 +31,7 @@ namespace Discord.API.Voice
                 UnknownEventVoiceSocketFrame osf => FireEvent(osf.Event, UnknownEventEncountered),
                 _ => frame.Operation switch
                 {
-                    VoiceOperation.Hello => OnHelloReceived((VoiceSocketFrame<VoiceHello>)frame),
+                    VoiceOperation.Hello => OnHello((VoiceSocketFrame<VoiceHello>)frame),
                     VoiceOperation.Ready => OnReady((VoiceSocketFrame<VoiceReady>)frame),
 
                     _ => FireEvent(frame.Operation, UnhandledOperationEncountered),

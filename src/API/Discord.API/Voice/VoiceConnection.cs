@@ -5,9 +5,12 @@ using Discord.API.Gateways.Models.Channels;
 using Discord.API.JsonConverters;
 using Discord.API.Models.Json.Voice;
 using Discord.API.Sockets;
+using Discord.API.Voice.Models;
+using Discord.API.Voice.Models.Enums;
 using Discord.API.Voice.Models.Handshake;
 using System;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Discord.API.Voice
 {
@@ -46,5 +49,23 @@ namespace Discord.API.Voice
         }
 
         protected override JsonSerializerOptions DeserializeOptions { get; }
+
+        public async Task SendSpeaking(SpeakingState state)
+        {
+            var payload = new Speaking
+            {
+                State = state,
+                Delay = 0,
+                SSRC = _ssrc,
+            };
+
+            var frame = new VoiceSocketFrame<Speaking>
+            {
+                Operation = VoiceOperation.Speaking,
+                Payload = payload,
+            };
+
+            await SendMessageAsync(frame);
+        }
     }
 }
