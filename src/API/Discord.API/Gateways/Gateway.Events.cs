@@ -68,9 +68,9 @@ namespace Discord.API.Gateways
         private Action<SessionReplace[]> SessionReplaced { get; }
 
         
-        private static bool FireEvent<T>(SocketFrame frame, Action<T> eventHandler)
+        private static bool FireEvent<T>(GatewaySocketFrame frame, Action<T> eventHandler)
         {
-            var eventArgs = ((SocketFrame<T>)frame).Payload;
+            var eventArgs = ((GatewaySocketFrame<T>)frame).Payload;
             eventHandler(eventArgs);
             return true;
         }
@@ -80,7 +80,7 @@ namespace Discord.API.Gateways
             eventHandler(data);
             return true;
         }
-        private bool OnReady(SocketFrame<Ready> frame)
+        private bool OnReady(GatewaySocketFrame<Ready> frame)
         {
             var ready = frame.Payload;
 
@@ -89,20 +89,20 @@ namespace Discord.API.Gateways
             return true;
         }
 
-        protected override void ProcessEvents(SocketFrame frame)
+        protected override void ProcessEvents(GatewaySocketFrame frame)
         {
             bool succeeded = frame switch
             {
-                UnknownOperationSocketFrame osf => FireEvent(osf.Operation, UnknownOperationEncountered),
-                UnknownEventSocketFrame osf => FireEvent(osf.Event, UnknownEventEncountered),
+                UnknownOperationGatewaySocketFrame osf => FireEvent(osf.Operation, UnknownOperationEncountered),
+                UnknownEventGatewaySocketFrame osf => FireEvent(osf.Event, UnknownEventEncountered),
                 _ => frame.Operation switch
                 {
-                    GatewayOperation.Hello => OnHelloReceived((SocketFrame<Hello>)frame),
+                    GatewayOperation.Hello => OnHelloReceived((GatewaySocketFrame<Hello>)frame),
                     GatewayOperation.InvalidSession => OnInvalidSession(frame),
                     GatewayOperation.HeartbeatAck => OnHeartbeatAck(),
                     GatewayOperation.Dispatch => FireEvent(frame.Event.ToString(), KnownEventEncountered) && frame.Event switch
                     {
-                        GatewayEvent.READY => OnReady((SocketFrame<Ready>)frame),
+                        GatewayEvent.READY => OnReady((GatewaySocketFrame<Ready>)frame),
                         GatewayEvent.RESUMED => FireEvent(frame, Resumed),
 
                         GatewayEvent.GUILD_CREATE => FireEvent(frame, GuildCreated),

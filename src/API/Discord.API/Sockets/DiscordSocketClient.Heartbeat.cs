@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Discord.API.Sockets
 {
-    internal partial class DiscordSocketClient<TOpCode, TEvent>
+    internal partial class DiscordSocketClient<TOperation, TEvent>
     {
         private bool _receivedAck;
 
@@ -37,7 +37,7 @@ namespace Discord.API.Sockets
         {
             try
             {
-                var frame = new SocketFrame<int>()
+                var frame = new GatewaySocketFrame<int>()
                 {
                     Operation = GatewayOperation.Heartbeat,
                     Payload = LastEventSequenceNumber

@@ -1,12 +1,11 @@
 ﻿// Quarrel © 2022
 
-using Discord.API.Gateways;
 using System.Text.Json;
 
 namespace Discord.API.Exceptions
 {
     /// <summary>
-    /// A base class for exceptions thrown while parsing a <see cref="SocketFrame"/>.
+    /// A base class for exceptions thrown while parsing a socket frame.
     /// </summary>
     public class SocketFrameException : JsonException
     {

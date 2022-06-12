@@ -7,9 +7,9 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Gateways
 {
-    internal class UnknownEventSocketFrame : SocketFrame
+    internal class GatewaySocketFrame<T> : GatewaySocketFrame
     {
-        [JsonPropertyName("op")]
-        public new string Event { get; set; }
+        [JsonPropertyName("d")]
+        public T Payload { get; set; }
     }
 }

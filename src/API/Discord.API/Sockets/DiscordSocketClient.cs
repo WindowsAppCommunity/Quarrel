@@ -14,10 +14,9 @@ using System.Threading.Tasks;
 
 namespace Discord.API.Sockets
 {
-    internal abstract partial class DiscordSocketClient<TOpCode, TEvent>
+    internal abstract partial class DiscordSocketClient<TOperation, TEvent>
     {
         private readonly JsonSerializerOptions _serializeOptions;
-        private readonly JsonSerializerOptions _deserializeOptions;
         private ClientWebSocket? _socket;
         private Task? _task;
         private DeflateStream? _decompressor;
@@ -34,7 +33,7 @@ namespace Discord.API.Sockets
             Action<string> unknownEventEncountered,
             Action<int> unknownOperationEncountered,
             Action<string> knownEventEncountered,
-            Action<TOpCode> unhandledOperationEncountered,
+            Action<TOperation> unhandledOperationEncountered,
             Action<TEvent> unhandledEventEncountered)
         {
             ConnectionStatusChanged = connectionStatusChanged;
@@ -49,8 +48,6 @@ namespace Discord.API.Sockets
 
             _serializeOptions = new JsonSerializerOptions();
             _serializeOptions.AddContext<JsonModelsContext>();
-
-            _deserializeOptions = new JsonSerializerOptions { Converters = { new SocketFrameConverter() } };
         }
 
         protected ConnectionStatus ConnectionStatus
@@ -62,6 +59,8 @@ namespace Discord.API.Sockets
                 ConnectionStatusChanged(_connectionStatus);
             }
         }
+
+        protected abstract JsonSerializerOptions DeserializeOptions { get; }
 
         protected async Task ConnectAsync(string connectionUrl)
         {
@@ -93,7 +92,7 @@ namespace Discord.API.Sockets
             _task = null;
         }
 
-        protected async Task SendMessageAsync<T>(SocketFrame<T> frame)
+        protected async Task SendMessageAsync<T>(GatewaySocketFrame<T> frame)
         {
             var stream = new MemoryStream();
             await JsonSerializer.SerializeAsync(stream, frame, _serializeOptions);
@@ -105,7 +104,7 @@ namespace Discord.API.Sockets
             await _socket!.SendAsync(new ArraySegment<byte>(stream.GetBuffer(), 0, (int)stream.Length), WebSocketMessageType.Text, true, _tokenSource.Token);
         }
 
-        protected abstract void ProcessEvents(SocketFrame frame);
+        protected abstract void ProcessEvents(GatewaySocketFrame frame);
 
         private async Task ConnectAsync(string connectionUrl, ConnectionStatus connectionStatus)
         {
@@ -233,7 +232,7 @@ namespace Discord.API.Sockets
 
         private async void HandleMessage(Stream stream)
         {
-            SocketFrame? frame = await ParseFrame(stream);
+            GatewaySocketFrame? frame = await ParseFrame(stream);
             if (frame is null) return;
 
             if (frame.SequenceNumber.HasValue)
@@ -244,11 +243,11 @@ namespace Discord.API.Sockets
             ProcessEvents(frame);
         }
 
-        private async Task<SocketFrame?> ParseFrame(Stream stream)
+        private async Task<GatewaySocketFrame?> ParseFrame(Stream stream)
         {
             try
             {
-                return await JsonSerializer.DeserializeAsync<SocketFrame>(stream, _deserializeOptions);
+                return await JsonSerializer.DeserializeAsync<GatewaySocketFrame>(stream, DeserializeOptions);
             }
             catch (SocketFrameException ex)
             {

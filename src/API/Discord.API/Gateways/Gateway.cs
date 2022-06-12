@@ -7,6 +7,7 @@ using Discord.API.Gateways.Models.GuildMember;
 using Discord.API.Gateways.Models.Guilds;
 using Discord.API.Gateways.Models.Handshake;
 using Discord.API.Gateways.Models.Messages;
+using Discord.API.JsonConverters;
 using Discord.API.Models.Json.Channels;
 using Discord.API.Models.Json.Gateway;
 using Discord.API.Models.Json.Guilds;
@@ -16,13 +17,14 @@ using Discord.API.Models.Json.Users;
 using Discord.API.Models.Json.Voice;
 using Discord.API.Sockets;
 using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Discord.API.Gateways
 {
     internal partial class Gateway : DiscordSocketClient<GatewayOperation, GatewayEvent>
     {
-        private delegate void GatewayEventHandler(SocketFrame gatewayEvent);
+        private delegate void GatewayEventHandler(GatewaySocketFrame gatewayEvent);
 
         private readonly GatewayConfig _gatewayConfig;
         private string? _token;
@@ -118,6 +120,8 @@ namespace Discord.API.Gateways
             InvalidSession = invalidSession;
             Resumed = resumed;
             Ready = ready;
+
+            DeserializeOptions = new JsonSerializerOptions { Converters = { new GatewaySocketFrameConverter() } };
         }
 
         /// <summary>
@@ -129,5 +133,7 @@ namespace Discord.API.Gateways
             _token = token;
             await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "9", "&compress=zlib-stream"));
         }
+
+        protected override JsonSerializerOptions DeserializeOptions { get; }
     }
 }

@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Gateways
 {
-    internal class SocketFrame
+    internal class GatewaySocketFrame
     {
         [JsonPropertyName("op")]
         public GatewayOperation Operation { get; set; }

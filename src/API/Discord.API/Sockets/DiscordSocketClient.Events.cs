@@ -5,8 +5,8 @@ using System;
 
 namespace Discord.API.Sockets
 {
-    internal partial class DiscordSocketClient<TOpCode, TEvent> 
-        where TOpCode : struct, Enum
+    internal partial class DiscordSocketClient<TOperation, TEvent> 
+        where TOperation : struct, Enum
         where TEvent : struct, Enum
     {
         protected Action<ConnectionStatus> ConnectionStatusChanged { get; }
@@ -19,7 +19,7 @@ namespace Discord.API.Sockets
 
         protected Action<string> KnownEventEncountered { get; }
 
-        protected Action<TOpCode> UnhandledOperationEncountered { get; }
+        protected Action<TOperation> UnhandledOperationEncountered { get; }
 
         protected Action<TEvent> UnhandledEventEncountered { get; }
     }

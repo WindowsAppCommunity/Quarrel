@@ -10,7 +10,7 @@ namespace Discord.API.Gateways
 {
     internal partial class Gateway
     {
-        private bool OnHelloReceived(SocketFrame<Hello> frame)
+        private bool OnHelloReceived(GatewaySocketFrame<Hello> frame)
         {
             _ = SetupGateway(frame.Payload.HeartbeatInterval);
             return true;
@@ -39,7 +39,7 @@ namespace Discord.API.Gateways
             _ = BeginHeartbeatAsync(interval);
         }
 
-        private bool OnInvalidSession(SocketFrame frame)
+        private bool OnInvalidSession(GatewaySocketFrame frame)
         {
             switch (ConnectionStatus)
             {
@@ -75,7 +75,7 @@ namespace Discord.API.Gateways
                 Properties = properties,
             };
 
-            var payload = new SocketFrame<Identity>()
+            var payload = new GatewaySocketFrame<Identity>()
             {
                 Event = GatewayEvent.IDENTIFY,
                 Operation = GatewayOperation.Identify,
@@ -90,7 +90,7 @@ namespace Discord.API.Gateways
             Guard.IsNotNull(_sessionId, nameof(_sessionId));
             Guard.IsNotNull(_token, nameof(_token));
             
-            var request = new SocketFrame<GatewayResume>()
+            var request = new GatewaySocketFrame<GatewayResume>()
             {
                 Operation = GatewayOperation.Resume,
                 Payload = {
