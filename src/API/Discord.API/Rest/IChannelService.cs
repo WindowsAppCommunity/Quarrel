@@ -23,5 +23,8 @@ namespace Discord.API.Rest
 
         [Delete("/v9/channels/{channelId}/messages/{messageId}")]
         Task DeleteMessage([AliasAs("channelId")] ulong channelId, [AliasAs("messageId")] ulong messageId);
+
+        [Post("/v9/channels/{channelId}/call/ring")]
+        Task StartCall([AliasAs("channelId")] ulong channelId);
     }
 }

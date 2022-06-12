@@ -127,6 +127,12 @@ namespace Quarrel.Services.Discord
         Task DeleteMessage(ulong channelId, ulong messageId);
 
         /// <summary>
+        /// Starts a call in a private channel.
+        /// </summary>
+        /// <param name="channelId">The id of the private channel.</param>
+        Task StartCall(ulong channelId);
+
+        /// <summary>
         /// Updates the user's online status.
         /// </summary>
         /// <param name="status">The new online status to set.</param>

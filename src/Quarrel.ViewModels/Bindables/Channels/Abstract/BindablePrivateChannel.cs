@@ -29,6 +29,7 @@ namespace Quarrel.Bindables.Channels.Abstract
             PrivateChannel privateChannel) :
             base(messenger, clipboardService, discordService, dispatcherService, privateChannel)
         {
+            StartCallCommand = new RelayCommand(() => _discordService.StartCall(Id));
             MarkAsReadCommand = new RelayCommand(() => _discordService.MarkRead(Id, MessageChannel.LastMessageId ?? 0));
         }
 
@@ -40,6 +41,11 @@ namespace Quarrel.Bindables.Channels.Abstract
 
         /// <inheritdoc/>
         public IMessageChannel MessageChannel => (IMessageChannel)Channel;
+
+        /// <summary>
+        /// Gets a command that begins a call.
+        /// </summary>
+        public RelayCommand StartCallCommand { get; }
 
         /// <inheritdoc/>
         public RelayCommand MarkAsReadCommand { get; }

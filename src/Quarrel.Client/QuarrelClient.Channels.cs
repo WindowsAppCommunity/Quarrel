@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Json.Channels;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Quarrel.Client
 {
@@ -68,6 +70,13 @@ namespace Quarrel.Client
 #pragma warning restore CS8629
 
                 return privateChannels;
+            }
+
+            public async Task StartCall(ulong channelId)
+            {
+                Guard.IsNotNull(_client.ChannelService, nameof(_client.ChannelService));
+
+                await _client.ChannelService.StartCall(channelId);
             }
 
             internal Channel? GetChannel(ulong channelId)

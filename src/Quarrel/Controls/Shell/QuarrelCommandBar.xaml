@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:qc="using:Quarrel.Controls"
     xmlns:bchannel="using:Quarrel.Bindables.Channels"
+    xmlns:abchannel="using:Quarrel.Bindables.Channels.Abstract"
     xmlns:cselector="using:Quarrel.Selectors.Channels"
     xmlns:cconvert="using:Quarrel.Converters.Discord.Channels"
     xmlns:vconvert="using:Quarrel.Converters.Common.Visible"
@@ -83,6 +84,7 @@
                     ToolTipService.ToolTip="Call"
                     ToolTipService.Placement="Bottom"
                     Style="{StaticResource CommandBarButton}"
+                    Command="{x:Bind ((abchannel:BindablePrivateChannel)ViewModel.SelectedChannel).StartCallCommand, Mode=OneWay}"
                     Visibility="{x:Bind cconvert:IsPrivateChannelVisibleConverter.Convert(ViewModel.SelectedChannel), Mode=OneWay}">
                 <FontIcon Glyph="&#xE13A;" FontSize="16"/>
             </Button>

@@ -210,6 +210,13 @@ namespace Quarrel.Services.Discord
         }
 
         /// <inheritdoc/>
+        public async Task StartCall(ulong channelId)
+        {
+            _analyticsService.Log(LoggedEvent.CallStarted);
+            await _quarrelClient.Channels.StartCall(channelId);
+        }
+
+        /// <inheritdoc/>
         public async Task SetStatus(UserStatus status)
         {
             await _quarrelClient.Self.UpdateStatus(status);

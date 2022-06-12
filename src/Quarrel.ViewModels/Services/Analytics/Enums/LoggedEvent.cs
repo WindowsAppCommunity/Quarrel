@@ -35,6 +35,12 @@ namespace Quarrel.Services.Analytics.Enums
         MessageDeleted,
 
         /// <summary>
+        /// A class was started.
+        /// </summary>
+        [StringValue("Call Started")]
+        CallStarted,
+
+        /// <summary>
         /// The user's status was set.
         /// </summary>
         [StringValue("Status Set")]
