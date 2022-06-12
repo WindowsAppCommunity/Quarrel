@@ -2,22 +2,90 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Gateways.Models.Handshake;
-using Discord.API.Sockets;
 using System;
 using System.Threading.Tasks;
+using Discord.API.Sockets;
+using System.Threading;
 
 namespace Discord.API.Gateways
 {
     internal partial class Gateway
     {
-        protected override async Task SendHeartbeatAsync()
+        private static bool _recievedAck = false;
+
+        private bool OnHelloReceived(GatewaySocketFrame<Hello> frame)
+        {
+            _ = SetupGateway(frame.Payload.HeartbeatInterval);
+            return true;
+        }
+
+        private async Task SetupGateway(int interval)
+        {
+            switch (GatewayStatus)
+            {
+                case GatewayStatus.Reconnecting:
+                case GatewayStatus.Connecting:
+                    await IdentifySelfToGateway();
+                    GatewayStatus = GatewayStatus.Connected;
+                    break;
+                case GatewayStatus.Resuming:
+                    await SendResumeRequestAsync();
+                    GatewayStatus = GatewayStatus.Connected;
+                    break;
+                default:
+                    GatewayStatus = GatewayStatus.Error;
+                    return;
+            }
+
+            double jitter = (new Random()).NextDouble();
+            await Task.Delay((int)(interval * jitter));
+            _ = BeginHeartbeatAsync(interval, _socket!.Token);
+        }
+
+        private bool OnInvalidSession(GatewaySocketFrame frame)
+        {
+            switch (GatewayStatus)
+            {
+                case GatewayStatus.InvalidSession:
+                    _ = ReconnectAsync();
+                    break;
+                case GatewayStatus.Reconnecting:
+                    FireEvent(frame, InvalidSession);
+                    break;
+            }
+
+            return true;
+        }
+
+        private bool OnHeartbeatAck()
+        {
+            _recievedAck = true;
+            return true;
+        }
+
+        private async Task BeginHeartbeatAsync(int interval, CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                await SendHeartbeatAsync();
+                _recievedAck = false;
+                await Task.Delay(interval, token);
+                if (!token.IsCancellationRequested && !_recievedAck)
+                {
+                    GatewayStatus = GatewayStatus.Disconnected;
+                    await ResumeAsync();
+                }
+            }
+        }
+
+        private async Task SendHeartbeatAsync()
         {
             try
             {
                 var frame = new GatewaySocketFrame<int>()
                 {
                     Operation = GatewayOperation.Heartbeat,
-                    Payload = LastEventSequenceNumber,
+                    Payload = _lastEventSequenceNumber
                 };
 
                 await SendMessageAsync(frame);
@@ -25,50 +93,6 @@ namespace Discord.API.Gateways
             catch
             {
             }
-        }
-
-        private bool OnHelloReceived(GatewaySocketFrame<Hello> frame)
-        {
-            _ = SetupGateway(frame.Payload.HeartbeatInterval);
-            return true;
-        }
-        
-        private async Task SetupGateway(int interval)
-        {
-            switch (ConnectionStatus)
-            {
-                case ConnectionStatus.Reconnecting:
-                case ConnectionStatus.Connecting:
-                    await IdentifySelfToGateway();
-                    ConnectionStatus = ConnectionStatus.Connected;
-                    break;
-                case ConnectionStatus.Resuming:
-                    await SendResumeRequestAsync();
-                    ConnectionStatus = ConnectionStatus.Connected;
-                    break;
-                default:
-                    ConnectionStatus = ConnectionStatus.Error;
-                    return;
-            }
-
-            double jitter = new Random().NextDouble();
-            await Task.Delay((int)(interval * jitter));
-            _ = BeginHeartbeatAsync(interval);
-        }
-
-        private bool OnInvalidSession(GatewaySocketFrame frame)
-        {
-            switch (ConnectionStatus)
-            {
-                case ConnectionStatus.InvalidSession:
-                    _ = ReconnectAsync();
-                    break;
-                case ConnectionStatus.Reconnecting:
-                    FireEvent(frame, InvalidSession);
-                    break;
-            }
-
-            return true;
         }
 
         private async Task IdentifySelfToGateway()
@@ -106,14 +130,14 @@ namespace Discord.API.Gateways
         {
             Guard.IsNotNull(_sessionId, nameof(_sessionId));
             Guard.IsNotNull(_token, nameof(_token));
-            
+
             var request = new GatewaySocketFrame<GatewayResume>()
             {
                 Operation = GatewayOperation.Resume,
                 Payload = {
                     Token = _token,
                     SessionID = _sessionId,
-                    LastSequenceNumberReceived = LastEventSequenceNumber,
+                    LastSequenceNumberReceived = _lastEventSequenceNumber,
                 },
             };
 

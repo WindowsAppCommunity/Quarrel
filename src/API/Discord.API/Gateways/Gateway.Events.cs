@@ -12,12 +12,21 @@ using Discord.API.Models.Json.Messages;
 using Discord.API.Models.Json.Settings;
 using Discord.API.Models.Json.Users;
 using Discord.API.Models.Json.Voice;
+using Discord.API.Sockets;
 using System;
 
 namespace Discord.API.Gateways
 {
     internal partial class Gateway
     {
+        private Action<GatewayStatus> GatewayStatusChanged { get; }
+        private Action<SocketFrameException> UnhandledMessageEncountered { get; }
+        private Action<string> UnknownEventEncountered { get; }
+        private Action<int> UnknownOperationEncountered { get; }
+        private Action<string> KnownEventEncountered { get; }
+        private Action<GatewayOperation> UnhandledOperationEncountered { get; }
+        private Action<GatewayEvent> UnhandledEventEncountered { get; }
+
         private Action<Ready> Ready { get; }
         private Action<Resumed> Resumed { get; }
         private Action<InvalidSession> InvalidSession { get; }
@@ -88,7 +97,7 @@ namespace Discord.API.Gateways
             return FireEvent(frame, Ready);
         }
 
-        protected override void ProcessEvents(GatewaySocketFrame frame)
+        protected void ProcessEvents(GatewaySocketFrame frame)
         {
             bool succeeded = frame switch
             {
@@ -149,7 +158,7 @@ namespace Discord.API.Gateways
 
                         GatewayEvent.SESSIONS_REPLACE => FireEvent(frame, SessionReplaced),
 
-                        _ => FireEvent(frame.Event, UnhandledEventEncountered),
+                        _ => FireEvent(frame.Event.Value, UnhandledEventEncountered),
                     },
                     _ => FireEvent(frame.Operation, UnhandledOperationEncountered),
                 }

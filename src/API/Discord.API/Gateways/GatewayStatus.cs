@@ -2,7 +2,7 @@
 
 namespace Discord.API.Sockets
 {
-    internal enum ConnectionStatus
+    internal enum GatewayStatus
     {
         Initialized,
         Connecting,

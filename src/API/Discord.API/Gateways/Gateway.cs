@@ -22,23 +22,39 @@ using System.Threading.Tasks;
 
 namespace Discord.API.Gateways
 {
-    internal partial class Gateway : DiscordSocketClient<GatewaySocketFrame, GatewayOperation, GatewayEvent?>
+    internal partial class Gateway
     {
+        private delegate void GatewayEventHandler(GatewaySocketFrame gatewayEvent);
+        
         private readonly GatewayConfig _gatewayConfig;
         private string? _token;
-        private string? _sessionId;
 
+        private GatewayStatus _gatewayStatus;
+
+        private GatewayStatus GatewayStatus
+        {
+            get => _gatewayStatus;
+            set
+            {
+                _gatewayStatus = value;
+                GatewayStatusChanged(_gatewayStatus);
+            }
+        }
+        
+        private string? _connectionUrl;
+        private string? _sessionId;
+        private int _lastEventSequenceNumber;
         public Gateway(GatewayConfig config,
             Action<SocketFrameException> unhandledMessageEncountered,
             Action<string> unknownEventEncountered,
             Action<int> unknownOperationEncountered,
             Action<string> knownEventEncountered,
             Action<GatewayOperation> unhandledOperationEncountered,
-            Action<GatewayEvent?> unhandledEventEncountered,
+            Action<GatewayEvent> unhandledEventEncountered,
             Action<Ready> ready,
             Action<Resumed> resumed,
             Action<InvalidSession> invalidSession,
-            Action<ConnectionStatus> connectionStatusChanged,
+            Action<GatewayStatus> gatewayStatusChanged,
             Action<JsonGuild> guildCreated,
             Action<JsonGuild> guildUpdated,
             Action<GuildDeleted> guildDeleted,
@@ -71,14 +87,7 @@ namespace Discord.API.Gateways
             Action<JsonGuildSettings> userGuildSettingsUpdated,
             Action<JsonVoiceState> voiceStateUpdated,
             Action<VoiceServerUpdate> voiceServerUpdated,
-            Action<SessionReplace[]> sessionReplaced) :
-            base(connectionStatusChanged,
-                unhandledMessageEncountered,
-                unknownEventEncountered,
-                unknownOperationEncountered,
-                knownEventEncountered,
-                unhandledOperationEncountered,
-                unhandledEventEncountered)
+            Action<SessionReplace[]> sessionReplaced)
         {
             _gatewayConfig = config;
 
@@ -118,20 +127,21 @@ namespace Discord.API.Gateways
             InvalidSession = invalidSession;
             Resumed = resumed;
             Ready = ready;
+            
+            GatewayStatusChanged = gatewayStatusChanged;
+            UnhandledEventEncountered = unhandledEventEncountered;
+            UnhandledOperationEncountered = unhandledOperationEncountered;
+            KnownEventEncountered = knownEventEncountered;
+            UnknownOperationEncountered = unknownOperationEncountered;
+            UnknownEventEncountered = unknownEventEncountered;
+            UnhandledMessageEncountered = unhandledMessageEncountered;
 
-            DeserializeOptions = new JsonSerializerOptions { Converters = { new GatewaySocketFrameConverter() } };
+            _gatewayStatus = GatewayStatus.Initialized;
+
+            _serializeOptions = new JsonSerializerOptions();
+            _serializeOptions.AddContext<JsonModelsContext>();
+
+            _deserializeOptions = new JsonSerializerOptions { Converters = { new GatewaySocketFrameConverter() } };
         }
-
-        /// <summary>
-        /// Sets up a connection to the gateway.
-        /// </summary>
-        /// <exception cref="Exception">An exception will be thrown when connection fails, but not when the handshake fails.</exception>
-        public async Task Connect(string token)
-        {
-            _token = token;
-            await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "9", "&compress=zlib-stream"));
-        }
-
-        protected override JsonSerializerOptions DeserializeOptions { get; }
     }
 }

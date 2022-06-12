@@ -4,13 +4,36 @@ using Discord.API.Sockets;
 using Discord.API.Voice.Models.Handshake;
 using Discord.API.Voice.Models.Handshake.Identity;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Discord.API.Voice
 {
     internal partial class VoiceConnection
     {
-        protected override async Task SendHeartbeatAsync()
+        private bool _recievedAck;
+        
+        private bool OnHeartbeatAck()
+        {
+            _recievedAck = true;
+            return true;
+        }
+
+        private async Task BeginHeartbeatAsync(int interval, CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                await SendHeartbeatAsync();
+                _recievedAck = false;
+                await Task.Delay(interval, token);
+                if (!token.IsCancellationRequested && !_recievedAck)
+                {
+                    VoiceConnectionStatus = VoiceConnectionStatus.Disconnected;
+                    //await ResumeAsync();
+                }
+            }
+        }
+        protected async Task SendHeartbeatAsync()
         {
             try
             {
@@ -35,21 +58,21 @@ namespace Discord.API.Voice
 
         private async Task SetupVoiceConnection(int interval)
         {
-            switch (ConnectionStatus)
+            switch (VoiceConnectionStatus)
             {
-                case ConnectionStatus.Reconnecting:
-                case ConnectionStatus.Connecting:
-                case ConnectionStatus.Resuming:
-                    ConnectionStatus = ConnectionStatus.Connected;
+                case VoiceConnectionStatus.Reconnecting:
+                case VoiceConnectionStatus.Connecting:
+                case VoiceConnectionStatus.Resuming:
+                    VoiceConnectionStatus = VoiceConnectionStatus.Connected;
                     break;
                 default:
-                    ConnectionStatus = ConnectionStatus.Error;
+                    VoiceConnectionStatus = VoiceConnectionStatus.Error;
                     return;
             }
 
             double jitter = new Random().NextDouble();
             await Task.Delay((int)(interval * jitter));
-            _ = BeginHeartbeatAsync(interval);
+            _ = BeginHeartbeatAsync(interval, _socket!.Token);
         }
 
         private async Task IdentifySelfToVoiceConnection()

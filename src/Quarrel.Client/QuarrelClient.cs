@@ -124,7 +124,7 @@ namespace Quarrel.Client
 
                 resumed: _ => { },
                 invalidSession: _ => { },
-                connectionStatusChanged: OnGatewayStateChanged,
+                gatewayStatusChanged: OnGatewayStateChanged,
 
                 guildCreated: _ => { },
                 guildUpdated: _ => { },
@@ -167,19 +167,19 @@ namespace Quarrel.Client
                 sessionReplaced: _ => { });
         }
 
-        private void OnGatewayStateChanged(ConnectionStatus newState)
+        private void OnGatewayStateChanged(GatewayStatus newState)
         {
             switch (newState)
             {
-                case ConnectionStatus.Resuming:
+                case GatewayStatus.Resuming:
                     Resuming?.Invoke();
                     break;
 
-                case ConnectionStatus.Reconnecting:
+                case GatewayStatus.Reconnecting:
                     Reconnecting?.Invoke();
                     break;
 
-                case ConnectionStatus.Disconnected:
+                case GatewayStatus.Disconnected:
                     LoggedOut?.Invoke();
                     break;
             }
