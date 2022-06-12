@@ -99,8 +99,7 @@ namespace Discord.API.Gateways
 
         private void ProcessEvents(SocketFrame frame)
         {
-
-            bool suceeded = frame switch
+            bool succeeded = frame switch
             {
                 UnknownOperationSocketFrame osf => FireEvent(osf.Operation, UnknownOperationEncountered),
                 UnknownEventSocketFrame osf => FireEvent(osf.Event, UnknownEventEncountered),
@@ -165,7 +164,7 @@ namespace Discord.API.Gateways
                     _ => FireEvent(frame.Operation, UnhandledOperationEncountered),
                 }
             };
-            if (!suceeded) FireEvent(new SocketFrameException("Failed to handle socket frame.", (int?)frame.Operation, frame.Event.ToString()), UnhandledMessageEncountered);
+            if (!succeeded) FireEvent(new SocketFrameException("Failed to handle socket frame.", (int?)frame.Operation, frame.Event.ToString()), UnhandledMessageEncountered);
         }
     }
 }

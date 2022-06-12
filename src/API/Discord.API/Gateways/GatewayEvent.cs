@@ -1,6 +1,5 @@
 ﻿// Adam Dernis © 2022
 
-using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace Discord.API.Gateways
