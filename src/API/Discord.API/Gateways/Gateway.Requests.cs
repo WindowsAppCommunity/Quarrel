@@ -56,12 +56,7 @@ namespace Discord.API.Gateways
             await SendMessageAsync(GatewayOperation.PresenceUpdate, payload);
         }
 
-        public async Task VoiceStatusUpdateAsync(ulong channelId)
-        {
-            await VoiceStatusUpdateAsync(null, channelId, false, false);
-        }
-
-        public async Task VoiceStatusUpdateAsync(ulong? guildId, ulong channelId, bool selfMute, bool selfDeaf)
+        public async Task VoiceStatusUpdateAsync(ulong channelId, ulong? guildId = null, bool selfMute = false, bool selfDeaf = false)
         {
             var payload = new VoiceStatusUpdate()
             {

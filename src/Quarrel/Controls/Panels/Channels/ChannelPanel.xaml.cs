@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Extensions.DependencyInjection;
+using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.ViewModels.Panels;
 using Windows.UI.Xaml;
@@ -29,14 +30,18 @@ namespace Quarrel.Controls.Panels.Channels
 
         private void ChannelList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (e.ClickedItem is IBindableSelectableChannel channel)
+            if (e.ClickedItem is IBindableSelectableChannel selectableChannel)
             {
-                if (!channel.IsAccessible)
+                if (!selectableChannel.IsAccessible)
                 {
                     return; 
                 }
 
-                ViewModel.SelectedChannel = channel;
+                ViewModel.SelectedChannel = selectableChannel;
+            }
+            else if (e.ClickedItem is BindableVoiceChannel voiceChannel)
+            {
+                voiceChannel.JoinCall();
             }
         }
     }

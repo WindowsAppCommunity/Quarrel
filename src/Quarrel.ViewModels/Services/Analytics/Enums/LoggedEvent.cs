@@ -57,6 +57,12 @@ namespace Quarrel.Services.Analytics.Enums
         /// </summary>
         [StringValue("Channel Opened")]
         ChannelOpened,
+
+        /// <summary>
+        /// The user joined a call.
+        /// </summary>
+        [StringValue("Joined Call")]
+        JoinedCall,
         #endregion
 
         #region Login

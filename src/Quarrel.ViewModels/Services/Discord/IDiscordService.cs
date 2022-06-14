@@ -133,6 +133,13 @@ namespace Quarrel.Services.Discord
         Task StartCall(ulong channelId);
 
         /// <summary>
+        /// Joins a voice channel.
+        /// </summary>
+        /// <param name="channelId">The id of the voice or private channel.</param>
+        /// <param name="guildId">The guild if of the voice channel</param>
+        Task JoinCall(ulong channelId, ulong? guildId = null);
+
+        /// <summary>
         /// Updates the user's online status.
         /// </summary>
         /// <param name="status">The new online status to set.</param>

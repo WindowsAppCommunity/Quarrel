@@ -217,6 +217,14 @@ namespace Quarrel.Services.Discord
         }
 
         /// <inheritdoc/>
+        public async Task JoinCall(ulong channelId, ulong? guildId)
+        {
+            _analyticsService.Log(LoggedEvent.JoinedCall,
+                ("Private Call", $"{guildId is null}"));
+            await _quarrelClient.Channels.JoinCall(channelId, guildId);
+        }
+
+        /// <inheritdoc/>
         public async Task SetStatus(UserStatus status)
         {
             await _quarrelClient.Self.UpdateStatus(status);

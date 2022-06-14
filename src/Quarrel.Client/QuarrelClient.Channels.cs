@@ -82,6 +82,13 @@ namespace Quarrel.Client
                 await _client.Gateway.VoiceStatusUpdateAsync(channelId);
             }
 
+            public async Task JoinCall(ulong channelId, ulong? guildId)
+            {
+                Guard.IsNotNull(_client.Gateway, nameof(_client.Gateway));
+
+                await _client.Gateway.VoiceStatusUpdateAsync(channelId, guildId);
+            }
+
             internal Channel? GetChannel(ulong channelId)
             {
                 if (_channelMap.TryGetValue(channelId, out Channel channel))

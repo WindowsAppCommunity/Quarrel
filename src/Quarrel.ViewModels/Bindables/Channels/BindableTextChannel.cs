@@ -28,7 +28,7 @@ namespace Quarrel.Bindables.Channels
             BindableCategoryChannel? parent = null) :
             base(messenger, clipboardService, discordService, dispatcherService, channel, selfMember, parent)
         {
-            MarkAsReadCommand = new RelayCommand(() => _discordService.MarkRead(MessageChannel.Id, MessageChannel.LastMessageId ?? 0));
+            MarkAsReadCommand = new RelayCommand(MarkRead);
         }
 
         /// <inheritdoc/>
@@ -51,6 +51,11 @@ namespace Quarrel.Bindables.Channels
         {
             base.AckUpdate();
             OnPropertyChanged(nameof(MessageChannel));
+        }
+
+        private async void MarkRead()
+        {
+            await _discordService.MarkRead(MessageChannel.Id, MessageChannel.LastMessageId ?? 0);
         }
     }
 }
