@@ -1,7 +1,9 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Analytics;
@@ -29,6 +31,8 @@ namespace Quarrel.ViewModels.Panels
             _messenger = messenger;
             _discordService = discordService;
 
+            StartCallCommand = new RelayCommand(StartCall);
+
             _messenger.Register<NavigateToChannelMessage<IBindableSelectableChannel>>(this, (_, m) => SelectedChannel = m.Channel);
         }
 
@@ -39,6 +43,16 @@ namespace Quarrel.ViewModels.Panels
         {
             get => _selectedChannel;
             private set => SetProperty(ref _selectedChannel, value);
+        }
+
+        public RelayCommand StartCallCommand { get; }
+
+        private void StartCall()
+        {
+            if (SelectedChannel is BindablePrivateChannel privateChannel)
+            {
+                privateChannel.StartCall();
+            }
         }
     }
 }

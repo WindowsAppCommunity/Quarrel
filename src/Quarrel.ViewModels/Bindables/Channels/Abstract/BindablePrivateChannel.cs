@@ -29,7 +29,7 @@ namespace Quarrel.Bindables.Channels.Abstract
             PrivateChannel privateChannel) :
             base(messenger, clipboardService, discordService, dispatcherService, privateChannel)
         {
-            StartCallCommand = new RelayCommand(() => _discordService.StartCall(Id));
+            StartCallCommand = new RelayCommand(StartCall);
             MarkAsReadCommand = new RelayCommand(() => _discordService.MarkRead(Id, MessageChannel.LastMessageId ?? 0));
         }
 
@@ -69,5 +69,10 @@ namespace Quarrel.Bindables.Channels.Abstract
         {
             return BindableChannel.Create(messenger, clipboardService, discordService, localizationService, dispatcherService, channel) as BindablePrivateChannel;
         }
+
+        /// <summary>
+        /// Starts a call in this channel.
+        /// </summary>
+        public void StartCall() => _discordService.StartCall(Id);
     }
 }
