@@ -2,6 +2,7 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Exceptions;
+using Discord.API.Gateways.Models.Channels;
 using Discord.API.Gateways.Models.Handshake;
 using Discord.API.Gateways.Models.Messages;
 using Discord.API.Models.Json.Channels;
@@ -10,6 +11,7 @@ using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Messages;
 using Quarrel.Client.Models.Users;
+using Quarrel.Client.Models.Voice;
 using System;
 
 namespace Quarrel.Client
@@ -90,6 +92,11 @@ namespace Quarrel.Client
         /// Invoked when a channel is deleted.
         /// </summary>
         public event EventHandler<Channel>? ChannelDeleted;
+
+        /// <summary>
+        /// Invoked when the voice server is updated.
+        /// </summary>
+        public event EventHandler<VoiceServerConfig>? VoiceServerUpdated;
 
         /// <summary>
         /// Invoked when a user logs out.
@@ -199,6 +206,13 @@ namespace Quarrel.Client
             if (channel is null) return;
 
             ChannelDeleted?.Invoke(this, channel);
+        }
+
+        private void OnVoiceServerUpdated(JsonVoiceServerUpdate arg)
+        {
+            var config = new VoiceServerConfig(arg);
+
+            VoiceServerUpdated?.Invoke(this, config);
         }
     }
 }

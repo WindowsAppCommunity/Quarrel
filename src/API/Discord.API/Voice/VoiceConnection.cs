@@ -16,7 +16,7 @@ namespace Discord.API.Voice
 {
     internal partial class VoiceConnection
     {
-        private readonly VoiceServerUpdate _voiceConfig;
+        private readonly JsonVoiceServerUpdate _voiceConfig;
         public readonly JsonVoiceState _state;
 
         private uint _ssrc;
@@ -37,7 +37,7 @@ namespace Discord.API.Voice
         }
 
         public VoiceConnection(
-            VoiceServerUpdate voiceConfig,
+            JsonVoiceServerUpdate voiceConfig,
             JsonVoiceState state,
             Action<SocketFrameException> unhandledMessageEncountered,
             Action<string> unknownEventEncountered,

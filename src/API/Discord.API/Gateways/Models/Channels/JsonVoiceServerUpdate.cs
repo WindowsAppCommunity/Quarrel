@@ -7,11 +7,8 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Gateways.Models.Channels
 {
-    internal class VoiceServerUpdate
+    internal class JsonVoiceServerUpdate
     {
-        [JsonPropertyName("token")]
-        public string Token { get; set; }
-
         [JsonPropertyName("guild_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? GuildId { get; set; }
 
@@ -20,5 +17,8 @@ namespace Discord.API.Gateways.Models.Channels
 
         [JsonPropertyName("endpoint")]
         public string Endpoint { get; set; }
+
+        [JsonPropertyName("token")]
+        public string Token { get; set; }
     }
 }

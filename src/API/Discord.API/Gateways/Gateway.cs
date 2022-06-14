@@ -18,14 +18,11 @@ using Discord.API.Models.Json.Voice;
 using Discord.API.Sockets;
 using System;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Discord.API.Gateways
 {
     internal partial class Gateway
     {
-        private delegate void GatewayEventHandler(GatewaySocketFrame gatewayEvent);
-        
         private readonly GatewayConfig _gatewayConfig;
         private string? _token;
 
@@ -86,7 +83,7 @@ namespace Discord.API.Gateways
             Action<JsonUserSettings> userSettingsUpdated,
             Action<JsonGuildSettings> userGuildSettingsUpdated,
             Action<JsonVoiceState> voiceStateUpdated,
-            Action<VoiceServerUpdate> voiceServerUpdated,
+            Action<JsonVoiceServerUpdate> voiceServerUpdated,
             Action<SessionReplace[]> sessionReplaced)
         {
             _gatewayConfig = config;

@@ -162,7 +162,7 @@ namespace Quarrel.Client
                 userGuildSettingsUpdated: _ => { },
 
                 voiceStateUpdated: _ => { },
-                voiceServerUpdated: _ => { },
+                voiceServerUpdated: OnVoiceServerUpdated,
 
                 sessionReplaced: _ => { });
         }

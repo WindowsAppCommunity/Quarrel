@@ -72,7 +72,7 @@ namespace Discord.API.Gateways
         private Action<JsonGuildSettings> UserGuildSettingsUpdated { get; }
 
         private Action<JsonVoiceState> VoiceStateUpdated { get; }
-        private Action<VoiceServerUpdate> VoiceServerUpdated { get; }
+        private Action<JsonVoiceServerUpdate> VoiceServerUpdated { get; }
 
         private Action<SessionReplace[]> SessionReplaced { get; }
 

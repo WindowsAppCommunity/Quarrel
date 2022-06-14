@@ -57,7 +57,7 @@ namespace Discord.API.JsonConverters
                     GatewayEvent.USER_GUILD_SETTINGS_UPDATE => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameJsonGuildSettings)!,
 
                     GatewayEvent.VOICE_STATE_UPDATE => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameJsonVoiceState)!,
-                    GatewayEvent.VOICE_SERVER_UPDATE => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameVoiceServerUpdate)!,
+                    GatewayEvent.VOICE_SERVER_UPDATE => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameJsonVoiceServerUpdate)!,
 
                     GatewayEvent.SESSIONS_REPLACE => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameSessionReplaceArray)!,
 
