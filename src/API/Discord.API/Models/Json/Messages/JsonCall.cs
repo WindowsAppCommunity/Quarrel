@@ -11,7 +11,7 @@ namespace Discord.API.Models.Json.Messages
     internal record JsonCall
     {
         [JsonPropertyName("ended_timestamp")]
-        public DateTimeOffset EndedTimestamp { get; set; }
+        public DateTimeOffset? EndedTimestamp { get; set; }
 
         [JsonPropertyName("participants"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong[] Participants { get; set; }

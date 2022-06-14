@@ -17,13 +17,13 @@ namespace Quarrel.Services.Analytics.Enums
         SubPageOpened,
 
         /// <summary>
-        /// A message was marked read.
+        /// The user marked a message as read.
         /// </summary>
         [StringValue("Message Marked as Read")]
         MarkRead,
 
         /// <summary>
-        /// A message was sent.
+        /// The user sent a message.
         /// </summary>
         [StringValue("Message Sent")]
         MessageSent,
@@ -35,10 +35,10 @@ namespace Quarrel.Services.Analytics.Enums
         MessageDeleted,
 
         /// <summary>
-        /// A class was started.
+        /// The user started a call.
         /// </summary>
-        [StringValue("Call Started")]
-        CallStarted,
+        [StringValue("StartedCall")]
+        StartedCall,
 
         /// <summary>
         /// The user's status was set.
@@ -47,13 +47,13 @@ namespace Quarrel.Services.Analytics.Enums
         StatusSet,
 
         /// <summary>
-        /// Opened a channel.
+        /// The user opened a guild.
         /// </summary>
         [StringValue("Guild Opened")]
         GuildOpened,
 
         /// <summary>
-        /// Opened a channel.
+        /// The user opened a channel.
         /// </summary>
         [StringValue("Channel Opened")]
         ChannelOpened,

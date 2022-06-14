@@ -10,7 +10,7 @@ namespace Discord.API.Gateways.Models
     internal class VoiceStatusUpdate
     {
         [JsonPropertyName("guild_id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
-        public ulong GuildId { get; set; }
+        public ulong? GuildId { get; set; }
 
         [JsonPropertyName("channel_id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
         public ulong ChannelId { get; set; }

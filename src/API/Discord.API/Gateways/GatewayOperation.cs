@@ -1,5 +1,7 @@
 ﻿// Quarrel © 2022
 
+using System;
+
 namespace Discord.API.Gateways
 {
     internal enum GatewayOperation : int
@@ -16,6 +18,7 @@ namespace Discord.API.Gateways
         InvalidSession = 9,
         Hello = 10,
         HeartbeatAck = 11,
+        //[Obsolete("OP code 12 is deprecated in favor of OP code 14.")]
         //SubscribeToGuild = 12,
         CallConnect = 13,
         UpdateGuildSubscriptions = 14,

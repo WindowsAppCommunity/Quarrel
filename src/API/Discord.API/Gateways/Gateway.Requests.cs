@@ -33,10 +33,11 @@ namespace Discord.API.Gateways
             await RequestGuildMembers(new ulong[] { guildId }, string.Empty);
         }
 
-        public void SubscribeToGuildAsync(ulong[] channelIds)
-        {
-            throw new NotImplementedException();
-        }
+        //[Obsolete("Guild subscription is deprecated in favor of lazy guilds.")]
+        //public void SubscribeToGuildAsync(ulong[] channelIds)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public async Task UpdateStatusAsync(UserStatus status, int? idleSince = null, bool isAfk = false)
         {
@@ -55,14 +56,19 @@ namespace Discord.API.Gateways
             await SendMessageAsync(GatewayOperation.PresenceUpdate, payload);
         }
 
-        public async Task VoiceStatusUpdateAsync(ulong guildId, ulong channelId, bool selfMute, bool selfDeaf)
+        public async Task VoiceStatusUpdateAsync(ulong channelId)
+        {
+            await VoiceStatusUpdateAsync(null, channelId, false, false);
+        }
+
+        public async Task VoiceStatusUpdateAsync(ulong? guildId, ulong channelId, bool selfMute, bool selfDeaf)
         {
             var payload = new VoiceStatusUpdate()
             {
                 GuildId = guildId,
                 ChannelId = channelId,
                 Deaf = selfDeaf,
-                Mute = selfMute
+                Mute = selfMute,
             };
 
             await VoiceStatusUpdateAsync(payload);

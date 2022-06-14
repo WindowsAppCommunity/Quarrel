@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Models.Json.Messages;
+using Discord.API.Models.Json.Voice;
 using Refit;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace Discord.API.Rest
     {
         [Get("/v9/channels/{channelId}/messages/{messageId}/ack")]
         [Headers("Content-Type: application/json;")]
-        Task MarkRead([AliasAs("channelId")] ulong channelId, [AliasAs("messageId")] ulong messageId, [Body] string body = "{token: null}");
+        Task MarkRead([AliasAs("channelId")] ulong channelId, [AliasAs("messageId")] ulong messageId, [Body] string body = @"{token: null}");
 
         [Get("/v9/channels/{channelId}/messages?limit={limit}")]
         Task<JsonMessage[]> GetChannelMessages([AliasAs("channelId")] ulong channelId, [AliasAs("limit")] int limit = 50);
@@ -25,6 +26,7 @@ namespace Discord.API.Rest
         Task DeleteMessage([AliasAs("channelId")] ulong channelId, [AliasAs("messageId")] ulong messageId);
 
         [Post("/v9/channels/{channelId}/call/ring")]
-        Task StartCall([AliasAs("channelId")] ulong channelId);
+        [Headers("Content-Type: application/json;")]
+        Task StartCall([AliasAs("channelId")] ulong channelId, [Body] JsonRecipients recipients);
     }
 }

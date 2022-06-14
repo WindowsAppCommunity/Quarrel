@@ -2,6 +2,7 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Json.Channels;
+using Discord.API.Models.Json.Voice;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using System;
@@ -75,8 +76,10 @@ namespace Quarrel.Client
             public async Task StartCall(ulong channelId)
             {
                 Guard.IsNotNull(_client.ChannelService, nameof(_client.ChannelService));
+                Guard.IsNotNull(_client.Gateway, nameof(_client.Gateway));
 
-                await _client.ChannelService.StartCall(channelId);
+                await _client.MakeRefitRequest(() => _client.ChannelService.StartCall(channelId, new JsonRecipients()));
+                await _client.Gateway.VoiceStatusUpdateAsync(channelId);
             }
 
             internal Channel? GetChannel(ulong channelId)

@@ -212,7 +212,7 @@ namespace Quarrel.Services.Discord
         /// <inheritdoc/>
         public async Task StartCall(ulong channelId)
         {
-            _analyticsService.Log(LoggedEvent.CallStarted);
+            _analyticsService.Log(LoggedEvent.StartedCall);
             await _quarrelClient.Channels.StartCall(channelId);
         }
 
