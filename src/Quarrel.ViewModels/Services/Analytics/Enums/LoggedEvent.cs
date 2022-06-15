@@ -63,6 +63,12 @@ namespace Quarrel.Services.Analytics.Enums
         /// </summary>
         [StringValue("Joined Call")]
         JoinedCall,
+
+        /// <summary>
+        /// The user left a call.
+        /// </summary>
+        [StringValue("Left Call")]
+        LeftCall,
         #endregion
 
         #region Login

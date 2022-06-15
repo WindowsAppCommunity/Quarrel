@@ -67,7 +67,7 @@ namespace Quarrel.Client
                 await RequestJoinVoice(channelId);
             }
 
-            internal async Task RequestJoinVoice(ulong channelId, ulong? guildId = null)
+            internal async Task RequestJoinVoice(ulong? channelId, ulong? guildId = null)
             {
                 Guard.IsNotNull(_client.Gateway, nameof(_client.Gateway));
                 _voiceState = null;

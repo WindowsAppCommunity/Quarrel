@@ -23,12 +23,15 @@ namespace Quarrel.Client.Models.Voice
             Guard.IsNotNull(user, nameof(user));
             User = user;
 
-            var channel = context.Channels.GetChannel(restState.ChannelId!.Value);
-            Guard.IsAssignableToType<IAudioChannel>(channel!, nameof(channel));
-            Channel = (IAudioChannel)channel!;
+            if (restState.ChannelId.HasValue)
+            {
+                var channel = context.Channels.GetChannel(restState.ChannelId.Value);
+                Guard.IsAssignableToType<IAudioChannel>(channel!, nameof(channel));
+                Channel = (IAudioChannel)channel!;
+            }
         }
 
-        public IAudioChannel Channel { get; }
+        public IAudioChannel? Channel { get; }
 
         public User User { get; }
 

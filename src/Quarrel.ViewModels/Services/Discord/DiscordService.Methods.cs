@@ -225,6 +225,13 @@ namespace Quarrel.Services.Discord
         }
 
         /// <inheritdoc/>
+        public async Task LeaveCall()
+        {
+            _analyticsService.Log(LoggedEvent.LeftCall);
+            await _quarrelClient.Channels.LeaveCall();
+        }
+
+        /// <inheritdoc/>
         public async Task SetStatus(UserStatus status)
         {
             await _quarrelClient.Self.UpdateStatus(status);

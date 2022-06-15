@@ -49,9 +49,9 @@ namespace Discord.API.Voice
             {
                 default:
                     VoiceConnectionStatus = VoiceConnectionStatus.Disconnected;
+                    _ = _socket!.CloseSocket();
                     _socket = null;
                     return;
-
             }
         }
     }

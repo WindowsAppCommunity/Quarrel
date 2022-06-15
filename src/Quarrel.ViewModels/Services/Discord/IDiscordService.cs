@@ -140,6 +140,11 @@ namespace Quarrel.Services.Discord
         Task JoinCall(ulong channelId, ulong? guildId = null);
 
         /// <summary>
+        /// Leaves any current call.
+        /// </summary>
+        Task LeaveCall();
+
+        /// <summary>
         /// Updates the user's online status.
         /// </summary>
         /// <param name="status">The new online status to set.</param>

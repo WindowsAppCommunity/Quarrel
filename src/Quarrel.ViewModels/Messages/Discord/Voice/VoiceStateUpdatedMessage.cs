@@ -19,7 +19,7 @@ namespace Quarrel.Messages.Discord.Voice
         }
 
         /// <summary>
-        /// Gets the message created.
+        /// Gets the voice state updated.
         /// </summary>
         public VoiceState VoiceState { get; }
     }

@@ -81,6 +81,11 @@ namespace Quarrel.Client
                 await _client.Voice.RequestJoinVoice(channelId, guildId);
             }
 
+            public async Task LeaveCall()
+            {
+                await _client.Voice.RequestJoinVoice(null, null);
+            }
+
             internal Channel? GetChannel(ulong channelId)
             {
                 if (_channelMap.TryGetValue(channelId, out Channel channel))

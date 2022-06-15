@@ -13,7 +13,7 @@ namespace Discord.API.Gateways.Models
         public ulong? GuildId { get; set; }
 
         [JsonPropertyName("channel_id"), JsonNumberHandling(JsonNumberHandling.WriteAsString)]
-        public ulong ChannelId { get; set; }
+        public ulong? ChannelId { get; set; }
         
         [JsonPropertyName("self_mute")]
         public bool Mute { get; set; }
