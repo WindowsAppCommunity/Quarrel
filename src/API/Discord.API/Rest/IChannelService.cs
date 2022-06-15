@@ -11,30 +11,30 @@ namespace Discord.API.Rest
 {
     internal interface IChannelService
     {
-        [Post("/v9/channels/{channelId}/messages/{messageId}/ack")]
+        [Post("/channels/{channelId}/messages/{messageId}/ack")]
         [Headers("Content-Type: application/json;")]
         Task MarkRead([AliasAs("channelId")] ulong channelId, [AliasAs("messageId")] ulong messageId, [Body] JsonMarkRead markRead);
 
-        [Get("/v9/channels/{channelId}/messages?limit={limit}")]
+        [Get("/channels/{channelId}/messages?limit={limit}")]
         Task<JsonMessage[]> GetChannelMessages([AliasAs("channelId")] ulong channelId, [AliasAs("limit")] int limit = 50);
 
-        [Get("/v9/channels/{channelId}/messages?limit={limit}&before={before}")]
+        [Get("/channels/{channelId}/messages?limit={limit}&before={before}")]
         Task<JsonMessage[]> GetChannelMessagesBefore([AliasAs("channelId")] ulong channelId, [AliasAs("before")] ulong before, [AliasAs("limit")] int limit = 50);
 
-        [Post("/v9/channels/{channelId}/typing")]
+        [Post("/channels/{channelId}/typing")]
         Task TriggerTypingIndicator([AliasAs("channelId")] string channelId);
 
-        [Post("/v9/channels/{channelId}/messages")]
+        [Post("/channels/{channelId}/messages")]
         Task<JsonMessage> CreateMessage([AliasAs("channelId")] ulong channelId, [Body] JsonMessageUpsert message);
 
-        [Delete("/v9/channels/{channelId}/messages/{messageId}")]
+        [Delete("/channels/{channelId}/messages/{messageId}")]
         Task DeleteMessage([AliasAs("channelId")] ulong channelId, [AliasAs("messageId")] ulong messageId);
 
-        [Post("/v9/channels/{channelId}/call/ring")]
+        [Post("/channels/{channelId}/call/ring")]
         [Headers("Content-Type: application/json;")]
         Task StartCall([AliasAs("channelId")] ulong channelId, [Body] JsonRecipients recipients);
 
-        [Post("/v9/channels/{channelId}/invites")]
+        [Post("/channels/{channelId}/invites")]
         [Headers("Content-Type: application/json;")]
         Task<JsonInvite> CreateChannelInvite([AliasAs("channelId")] ulong channelId, [Body] JsonCreateInvite invite);
     }

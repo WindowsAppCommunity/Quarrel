@@ -8,7 +8,7 @@ namespace Discord.API.Rest
 {
     internal interface IGuildService
     {
-        [Patch("/v9/guilds/{guildId}")]
+        [Patch("/guilds/{guildId}")]
         Task<JsonGuild> ModifyGuild([AliasAs("guildId")] ulong guildId, [Body] JsonModifyGuild modifyGuild);
     }
 }

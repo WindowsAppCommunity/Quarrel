@@ -15,7 +15,7 @@ namespace Discord.API.Rest
     /// </summary>
     internal class DiscordRestFactory
     {
-        private const string BaseUrl = "https://discordapp.com/api";
+        private const string BaseUrl = "https://discordapp.com/api/v9";
 
         public string? Token { get; set; }
 
