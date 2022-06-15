@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
+using Discord.API.Models.Json.Channels;
 using Discord.API.Models.Json.Messages;
 using Quarrel.Client.Models.Messages;
 using System;
@@ -86,7 +87,7 @@ namespace Quarrel.Client
             public async Task MarkRead(ulong channelId, ulong messageId)
             {
                 Guard.IsNotNull(_client.ChannelService, nameof(ChannelService));
-                await _client.MakeRefitRequest(() => _client.ChannelService.MarkRead(channelId, messageId));
+                await _client.MakeRefitRequest(() => _client.ChannelService.MarkRead(channelId, messageId, new JsonMarkRead()));
             }
         }
     }

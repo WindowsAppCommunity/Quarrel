@@ -10,6 +10,7 @@ using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;
 using Quarrel.Messages.Discord.Channels;
+using Quarrel.Messages.Discord.Messages;
 using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
@@ -42,12 +43,17 @@ namespace Quarrel.Bindables.Channels.Abstract
             _clipboardService = clipboardService;
             _channel = channel;
 
-            messenger.Register<ChannelUpdatedMessage>(this, (_, e) =>
+            _messenger.Register<ChannelUpdatedMessage>(this, (_, m) =>
             {
-                if (Id == e.Channel.Id)
+                if (Id == m.Channel.Id)
                 {
-                    Channel = e.Channel;
+                    Channel = m.Channel;
                 }
+            });
+            _messenger.Register<MessageMarkedReadMessage>(this, (_, m) =>
+            {
+                if (m.ChannelId != Channel.Id) return;
+                AckUpdateRoot();
             });
 
             CopyIdCommand = new RelayCommand(() => _clipboardService.Copy($"{Id}"));
@@ -108,10 +114,7 @@ namespace Quarrel.Bindables.Channels.Abstract
 
         private void AckUpdateRoot()
         {
-            _dispatcherService.RunOnUIThread(() =>
-            {
-                AckUpdate();
-            });
+            _dispatcherService.RunOnUIThread(AckUpdate);
         }
 
         /// <summary>

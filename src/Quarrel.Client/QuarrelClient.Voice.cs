@@ -1,7 +1,6 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
-using Discord.API.Gateways.Models.Channels;
 using Discord.API.Models.Json.Voice;
 using Discord.API.Voice;
 using Quarrel.Client.Models.Voice;
@@ -17,10 +16,11 @@ namespace Quarrel.Client
         public class QuarrelClientVoice
         {
             private readonly QuarrelClient _client;
+            private readonly object _stateLock = new();
             private VoiceConnection? _voiceConnection;
             private JsonVoiceState? _voiceState;
             private VoiceServerConfig? _voiceServerConfig;
-            private readonly object _stateLock = new();
+
             /// <summary>
             /// Initializes a new instance of the <see cref="QuarrelClientVoice"/> class.
             /// </summary>

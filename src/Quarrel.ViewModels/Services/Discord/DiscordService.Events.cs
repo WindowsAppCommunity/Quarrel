@@ -17,6 +17,8 @@ namespace Quarrel.Services.Discord
             _quarrelClient.MessageCreated += OnMessageCreate;
             _quarrelClient.MessageUpdated += OnMessageUpdated;
             _quarrelClient.MessageDeleted += OnMessageDeleted;
+            _quarrelClient.MessageAck += OnMessageAck;
+
             _quarrelClient.ChannelUpdated += OnChannelUpdated;
 
             _quarrelClient.VoiceStateUpdated += OnVoiceStateUpdated;
@@ -30,6 +32,9 @@ namespace Quarrel.Services.Discord
 
         private void OnMessageDeleted(object sender, MessageDeleted e) 
             => _messenger.Send(new MessageDeletedMessage(e.ChannelId, e.MessageId));
+
+        private void OnMessageAck(object sender, MessageAck e)
+            => _messenger.Send(new MessageMarkedReadMessage(e.ChannelId, e.MessageId));
 
         private void OnChannelUpdated(object sender, Channel e) 
             => _messenger.Send(new ChannelUpdatedMessage(e));
