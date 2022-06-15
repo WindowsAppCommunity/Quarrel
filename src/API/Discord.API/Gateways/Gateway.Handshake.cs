@@ -37,8 +37,6 @@ namespace Discord.API.Gateways
                     return;
             }
 
-            double jitter = (new Random()).NextDouble();
-            await Task.Delay((int)(interval * jitter));
             _ = BeginHeartbeatAsync(interval, _socket!.Token);
         }
 
@@ -65,6 +63,8 @@ namespace Discord.API.Gateways
 
         private async Task BeginHeartbeatAsync(int interval, CancellationToken token)
         {
+            double jitter = (new Random()).NextDouble();
+            await Task.Delay((int)(interval * jitter), token);
             while (!token.IsCancellationRequested)
             {
                 await SendHeartbeatAsync();

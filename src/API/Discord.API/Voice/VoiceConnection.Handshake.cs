@@ -55,6 +55,8 @@ namespace Discord.API.Voice
 
         private async Task BeginHeartbeatAsync(int interval, CancellationToken token)
         {
+            double jitter = new Random().NextDouble();
+            await Task.Delay((int)(interval * jitter), token);
             while (!token.IsCancellationRequested)
             {
                 await SendHeartbeatAsync();
@@ -109,8 +111,6 @@ namespace Discord.API.Voice
                     return;
             }
 
-            double jitter = new Random().NextDouble();
-            await Task.Delay((int)(interval * jitter));
             _ = BeginHeartbeatAsync(interval, _socket!.Token);
         }
 
