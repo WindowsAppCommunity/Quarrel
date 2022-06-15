@@ -33,7 +33,7 @@ namespace Quarrel.Client
         /// Invoked when the gateway encounters a unknown operation
         /// </summary>
         public event EventHandler<int>? UnknownGatewayOperationEncountered;
-        
+
         /// <summary>
         /// Invoked when the gateway encounters a unknown event
         /// </summary>
@@ -78,7 +78,7 @@ namespace Quarrel.Client
         /// Invoked when a message is created.
         /// </summary>
         public event EventHandler<Message>? MessageCreated;
-        
+
         /// <summary>
         /// Invoked when a message is updated.
         /// </summary>
@@ -113,6 +113,11 @@ namespace Quarrel.Client
         /// Invoked when the voice server is updated.
         /// </summary>
         public event EventHandler<VoiceServerConfig>? VoiceServerUpdated;
+
+        /// <summary>
+        /// Invoked when a voice state is updated.
+        /// </summary>
+        public event EventHandler<VoiceState>? VoiceStateUpdated;
 
         /// <summary>
         /// Invoked when a user logs out.
@@ -180,7 +185,7 @@ namespace Quarrel.Client
             MessageCreated?.Invoke(this, new Message(arg, this));
         }
 
-        private void OnMessageUpdated(JsonMessage arg) 
+        private void OnMessageUpdated(JsonMessage arg)
             => MessageUpdated?.Invoke(this, new Message(arg, this));
 
         private void OnMessageDeleted(JsonMessageDeleted arg)
@@ -234,7 +239,10 @@ namespace Quarrel.Client
 
         private void OnVoiceStateUpdated(JsonVoiceState arg)
         {
+            var state = new VoiceState(arg, this);
             Voice.UpdateVoiceState(arg);
+
+            VoiceStateUpdated?.Invoke(this, state);
         }
     }
 }
