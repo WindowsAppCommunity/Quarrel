@@ -4,7 +4,6 @@ using Discord.API.Exceptions;
 using Discord.API.Gateways.Models.Channels;
 using Discord.API.JsonConverters;
 using Discord.API.Models.Json.Voice;
-using Discord.API.Sockets;
 using Discord.API.Voice.Models;
 using Discord.API.Voice.Models.Enums;
 using Discord.API.Voice.Models.Handshake;

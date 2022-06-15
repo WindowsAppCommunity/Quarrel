@@ -1,7 +1,6 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Exceptions;
-using Discord.API.Sockets;
 using Discord.API.Voice.Models.Handshake;
 using System;
 

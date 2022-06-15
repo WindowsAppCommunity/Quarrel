@@ -3,9 +3,8 @@
 using CommunityToolkit.Diagnostics;
 using Discord.API.Gateways.Models.Handshake;
 using System;
-using System.Threading.Tasks;
-using Discord.API.Sockets;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Discord.API.Gateways
 {

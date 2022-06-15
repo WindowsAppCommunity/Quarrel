@@ -1,6 +1,5 @@
 ﻿// Quarrel © 2022
 
-using Discord.API.Sockets;
 using Discord.API.Voice.Models.Handshake;
 using System;
 using System.Threading;
@@ -116,7 +115,7 @@ namespace Discord.API.Voice
 
         private async Task IdentifySelfToVoiceConnection()
         {
-            var identity = new VoiceIdentity()
+            var identity = new VoiceIdentity
             {
                 ServerId = _voiceConfig.GuildId ?? _voiceConfig.ChannelId,
                 SessionId = _state.SessionId,

@@ -1,6 +1,5 @@
 ﻿// Quarrel © 2022
 
-using Discord.API.Sockets;
 using System.Text.Json.Serialization;
 
 // JSON models don't need to respect standard nullable rules.

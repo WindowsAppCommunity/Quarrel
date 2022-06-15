@@ -1,7 +1,5 @@
 ﻿// Quarrel © 2022
 
-using System;
-
 namespace Discord.API.Gateways
 {
     internal enum GatewayOperation : int

@@ -1,15 +1,9 @@
 ﻿// Quarrel © 2022
 
-using CommunityToolkit.Diagnostics;
-using Discord.API.Exceptions;
 using Discord.API.Sockets;
 using System;
-using System.IO;
-using System.IO.Compression;
 using System.Net.WebSockets;
-using System.Text;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Discord.API.Gateways

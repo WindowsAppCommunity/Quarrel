@@ -15,7 +15,6 @@ using Discord.API.Models.Json.Messages;
 using Discord.API.Models.Json.Settings;
 using Discord.API.Models.Json.Users;
 using Discord.API.Models.Json.Voice;
-using Discord.API.Sockets;
 using System;
 using System.Text.Json;
 

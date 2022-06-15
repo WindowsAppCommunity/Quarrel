@@ -1,6 +1,6 @@
 ﻿// Quarrel © 2022
 
-namespace Discord.API.Sockets
+namespace Discord.API.Voice
 {
     internal enum VoiceConnectionStatus
     {
