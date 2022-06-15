@@ -15,7 +15,6 @@ namespace Discord.API.Voice
         private Action<int> UnknownOperationEncountered { get; }
         private Action<string> KnownEventEncountered { get; }
         private Action<VoiceOperation> UnhandledOperationEncountered { get; }
-        private Action<VoiceEvent> UnhandledEventEncountered { get; }
         
         private Action<VoiceReady> Ready { get; }
 
@@ -47,7 +46,7 @@ namespace Discord.API.Voice
                     _ => FireEvent(frame.Operation, UnhandledOperationEncountered),
                 }
             };
-            if (!succeeded) FireEvent(new SocketFrameException("Failed to handle socket frame.", (int?)frame.Operation, frame.Event.ToString()), UnhandledMessageEncountered);
+            if (!succeeded) FireEvent(new SocketFrameException("Failed to handle socket frame.", (int?)frame.Operation), UnhandledMessageEncountered);
         }
     }
 }

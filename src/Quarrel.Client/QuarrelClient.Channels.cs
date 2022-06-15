@@ -75,18 +75,12 @@ namespace Quarrel.Client
 
             public async Task StartCall(ulong channelId)
             {
-                Guard.IsNotNull(_client.ChannelService, nameof(_client.ChannelService));
-                Guard.IsNotNull(_client.Gateway, nameof(_client.Gateway));
-
-                await _client.MakeRefitRequest(() => _client.ChannelService.StartCall(channelId, new JsonRecipients()));
-                await _client.Gateway.VoiceStatusUpdateAsync(channelId);
+                await _client.Voice.RequestStartCall(channelId);
             }
 
-            public async Task JoinCall(ulong channelId, ulong? guildId)
+            public async Task JoinCall(ulong channelId, ulong? guildId = null)
             {
-                Guard.IsNotNull(_client.Gateway, nameof(_client.Gateway));
-
-                await _client.Gateway.VoiceStatusUpdateAsync(channelId, guildId);
+                await _client.Voice.RequestJoinVoice(channelId, guildId);
             }
 
             internal Channel? GetChannel(ulong channelId)

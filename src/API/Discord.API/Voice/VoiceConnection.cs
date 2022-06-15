@@ -22,7 +22,6 @@ namespace Discord.API.Voice
         private uint _ssrc;
         
         private string? _connectionUrl;
-        private int _lastEventSequenceNumber;
 
         private VoiceConnectionStatus _voiceConnectionStatus;
 
@@ -44,12 +43,10 @@ namespace Discord.API.Voice
             Action<int> unknownOperationEncountered,
             Action<string> knownEventEncountered,
             Action<VoiceOperation> unhandledOperationEncountered,
-            Action<VoiceEvent> unhandledEventEncountered,
             Action<VoiceConnectionStatus> voiceConnectionStatusChanged,
             Action<VoiceReady> ready)
         {
             VoiceConnectionStatusChanged = voiceConnectionStatusChanged;
-            UnhandledEventEncountered = unhandledEventEncountered;
             UnhandledOperationEncountered = unhandledOperationEncountered;
             KnownEventEncountered = knownEventEncountered;
             UnknownOperationEncountered = unknownOperationEncountered;
@@ -76,7 +73,7 @@ namespace Discord.API.Voice
                 SSRC = _ssrc,
             };
 
-            await SendMessageAsync(VoiceOperation.Speaking, VoiceEvent.SPEAKING, payload);
+            await SendMessageAsync(VoiceOperation.Speaking, payload);
         }
     }
 }

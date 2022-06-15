@@ -7,6 +7,7 @@ using Discord.API.Gateways.Models.Handshake;
 using Discord.API.Gateways.Models.Messages;
 using Discord.API.Models.Json.Channels;
 using Discord.API.Models.Json.Messages;
+using Discord.API.Models.Json.Voice;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Messages;
@@ -241,9 +242,14 @@ namespace Quarrel.Client
         private void OnVoiceServerUpdated(JsonVoiceServerUpdate arg)
         {
             var config = new VoiceServerConfig(arg);
-            _ = Voice.ConnectToCall(config);
+            Voice.UpdateVoiceServerConfig(config);
 
             VoiceServerUpdated?.Invoke(this, config);
+        }
+
+        private void OnVoiceStateUpdated(JsonVoiceState arg)
+        {
+            Voice.UpdateVoiceState(arg);
         }
     }
 }

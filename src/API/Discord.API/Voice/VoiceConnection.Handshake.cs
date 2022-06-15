@@ -44,7 +44,7 @@ namespace Discord.API.Voice
                 Data = protocolInfo,
             };
 
-            await SendMessageAsync(VoiceOperation.SelectProtocol, VoiceEvent.SELECT_PROTOCOL, payload);
+            await SendMessageAsync(VoiceOperation.SelectProtocol, payload);
         }
 
         private bool OnHeartbeatAck()
@@ -125,7 +125,7 @@ namespace Discord.API.Voice
                 Video = false,
             };
 
-            await SendMessageAsync(VoiceOperation.Identify, VoiceEvent.IDENTIFY, identity);
+            await SendMessageAsync(VoiceOperation.Identify, identity);
         }
     }
 }
