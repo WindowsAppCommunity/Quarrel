@@ -22,7 +22,7 @@ namespace Quarrel.Client
             private readonly QuarrelClient _client;
 
             /// <summary>
-            /// Initializes a new instance of <see cref="QuarrelClientSelf"/>
+            /// Initializes a new instance of the <see cref="QuarrelClientSelf"/> class.
             /// </summary>
             internal QuarrelClientSelf(QuarrelClient client)
             {

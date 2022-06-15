@@ -56,13 +56,19 @@ namespace Quarrel.Services.Discord
             _quarrelClient.Reconnecting += OnReconnecting;
             _quarrelClient.Resuming += OnResuming;
             _quarrelClient.HttpExceptionHandled += OnHttpExceptionHandled;
-            _quarrelClient.GatewayExceptionHandled += OnGatewayExceptionHandled;
 
+            _quarrelClient.GatewayExceptionHandled += OnGatewayExceptionHandled;
             _quarrelClient.UnknownGatewayOperationEncountered += OnUnknownGatewayOperationEncountered;
             _quarrelClient.UnknownGatewayEventEncountered += OnUnknownGatewayEventEncountered;
             _quarrelClient.KnownGatewayEventEncountered += OnKnownGatewayEventEncountered;
             _quarrelClient.UnhandledGatewayOperationEncountered += OnUnhandledGatewayOperationEncountered;
             _quarrelClient.UnhandledGatewayEventEncountered += OnUnhandledGatewayEventEncountered;
+            _quarrelClient.VoiceExceptionHandled += OnVoiceExceptionHandled;
+            _quarrelClient.UnknownVoiceOperationEncountered += OnUnknownVoiceOperationEncountered;
+            _quarrelClient.UnknownVoiceEventEncountered += OnUnknownVoiceEventEncountered;
+            _quarrelClient.KnownVoiceEventEncountered += OnKnownVoiceEventEncountered;
+            _quarrelClient.UnhandledVoiceOperationEncountered += OnUnhandledVoiceOperationEncountered;
+            _quarrelClient.UnhandledVoiceEventEncountered += OnUnhandledVoiceEventEncountered;
 
             RegisterChannelEvents();
         }
@@ -152,6 +158,39 @@ namespace Quarrel.Services.Discord
         private void OnUnhandledGatewayEventEncountered(object sender, string e)
         {
             _analyticsService.Log(LoggedEvent.UnhandledGatewayEventEncountered,
+                ("Event", e));
+        }
+
+        private void OnVoiceExceptionHandled(object sender, Exception e)
+            => LogException(LoggedEvent.VoiceExceptionHandled, e);
+
+        private void OnUnknownVoiceOperationEncountered(object sender, int e)
+        {
+            _analyticsService.Log(LoggedEvent.UnknownVoiceOperationEncountered,
+                ("Operation", $"{e}"));
+        }
+
+        private void OnUnknownVoiceEventEncountered(object sender, string e)
+        {
+            _analyticsService.Log(LoggedEvent.UnknownVoiceEventEncountered,
+                ("Event", e));
+        }
+
+        private void OnKnownVoiceEventEncountered(object sender, string e)
+        {
+            _analyticsService.Log(LoggedEvent.KnownVoiceEventEncountered,
+                ("Event", e));
+        }
+
+        private void OnUnhandledVoiceOperationEncountered(object sender, int e)
+        {
+            _analyticsService.Log(LoggedEvent.UnhandledVoiceOperationEncountered,
+                ("Operation", $"{e}"));
+        }
+
+        private void OnUnhandledVoiceEventEncountered(object sender, string e)
+        {
+            _analyticsService.Log(LoggedEvent.UnhandledVoiceEventEncountered,
                 ("Event", e));
         }
 

@@ -9,6 +9,9 @@ namespace Discord.API.Voice.Models.Handshake
 {
     internal class VoiceHello
     {
+        [JsonPropertyName("v")]
+        public int Version { get; set; }
+
         [JsonPropertyName("heartbeat_interval")]
         public int HeartbeatInterval { get; set; }
     }

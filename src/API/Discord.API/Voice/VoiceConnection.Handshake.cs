@@ -83,6 +83,7 @@ namespace Discord.API.Voice
         private bool OnHello(VoiceSocketFrame<VoiceHello> frame)
         {
             _ = SetupVoiceConnection(frame.Payload.HeartbeatInterval);
+
             return true;
         }
 
@@ -123,6 +124,7 @@ namespace Discord.API.Voice
                 UserId = _state.UserId,
                 Video = false,
             };
+
             await SendMessageAsync(VoiceOperation.Identify, VoiceEvent.IDENTIFY, identity);
         }
     }

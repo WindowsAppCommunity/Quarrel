@@ -46,9 +46,9 @@ namespace Quarrel.Bindables.Channels
         /// <inheritdoc/>
         public RelayCommand JoinCallCommand { get; }
 
-        public async void JoinCall()
+        public void JoinCall()
         {
-            await _discordService.JoinCall(Id, GuildId);
+            _ = _discordService.JoinCall(Id, GuildId);
         }
     }
 }

@@ -133,6 +133,44 @@ namespace Quarrel.Services.Analytics.Enums
         UnhandledGatewayEventEncountered,
         #endregion
 
+        #region Voice
+        /// <summary>
+        /// The voice connection encountered a known event.
+        /// </summary>
+        [StringValue("Known Voice Event Encountered")]
+        KnownVoiceEventEncountered,
+
+        /// <summary>
+        /// The voice connection encountered an issue, but it was handled.
+        /// </summary>
+        [StringValue("Voice Exception Handled")]
+        VoiceExceptionHandled,
+
+        /// <summary>
+        /// The voice connection encountered a unknown operation.
+        /// </summary>
+        [StringValue("Unknown Voice Operation Encountered")]
+        UnknownVoiceOperationEncountered,
+
+        /// <summary>
+        /// The voice connection encountered a unknown event.
+        /// </summary>
+        [StringValue("Unknown Voice Event Encountered")]
+        UnknownVoiceEventEncountered,
+
+        /// <summary>
+        /// The voice connection encountered a known operation but does not handle it.
+        /// </summary>
+        [StringValue("Unhandled Voice Operation Encountered")]
+        UnhandledVoiceOperationEncountered,
+
+        /// <summary>
+        /// The voice connection encountered a known event but does not handle it.
+        /// </summary>
+        [StringValue("Unhandled Voice Event Encountered")]
+        UnhandledVoiceEventEncountered,
+        #endregion
+
         #region Other APIs
 
         /// <summary>

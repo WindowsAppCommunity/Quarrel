@@ -170,11 +170,10 @@ namespace Discord.API.Sockets
             {
                 UnhandledMessageEncountered(ex);
             }
-            catch
+            catch (Exception e)
             {
-                UnhandledMessageEncountered(new SocketFrameException("Unknown Exception"));
+                UnhandledMessageEncountered(new SocketFrameException("Unknown Exception", null, null, e));
             }
         }
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using System;
 using System.Text.Json;
 
 namespace Discord.API.Exceptions
@@ -15,8 +16,9 @@ namespace Discord.API.Exceptions
         /// <param name="message">The exception message.</param>
         /// <param name="opcode">The op code of the message if available.</param>
         /// <param name="eventName">The name of the event type if available.</param>
-        public SocketFrameException(string? message = null, int? opcode = null, string? eventName = null) :
-            base(message)
+        /// <param name="innerException">The inner exception.</param>
+        public SocketFrameException(string? message = null, int? opcode = null, string? eventName = null, Exception? innerException = null) :
+            base(message, innerException)
         {
             OPCode = opcode;
             EventName = eventName;

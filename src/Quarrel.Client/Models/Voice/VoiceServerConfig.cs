@@ -6,7 +6,8 @@ namespace Quarrel.Client.Models.Voice
 {
     public class VoiceServerConfig
     {
-        private const int Version = 4;
+        // TODO: Investigate upgrade to version 7
+        private const int Version = 7;
 
         internal VoiceServerConfig(JsonVoiceServerUpdate json)
         {
@@ -14,6 +15,8 @@ namespace Quarrel.Client.Models.Voice
             ChannelId = json.ChannelId;
             Endpoint = json.Endpoint;
             Token = json.Token;
+
+            Json = json;
         }
 
         public ulong? GuildId { get; }
@@ -25,5 +28,7 @@ namespace Quarrel.Client.Models.Voice
         public string Token { get; }
 
         public string ConnectionUrl => $"wss://{Endpoint.Substring(0, Endpoint.LastIndexOf(':'))}?v={Version}";
+
+        internal JsonVoiceServerUpdate Json { get; }
     }
 }

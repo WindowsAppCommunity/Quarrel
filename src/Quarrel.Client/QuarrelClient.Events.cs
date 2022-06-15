@@ -54,6 +54,36 @@ namespace Quarrel.Client
         public event EventHandler<string>? UnhandledGatewayEventEncountered;
 
         /// <summary>
+        /// Invoked when the voice connection handles an exception.
+        /// </summary>
+        public event EventHandler<SocketFrameException>? VoiceExceptionHandled;
+
+        /// <summary>
+        /// Invoked when the voice connection encounters a unknown operation
+        /// </summary>
+        public event EventHandler<int>? UnknownVoiceOperationEncountered;
+
+        /// <summary>
+        /// Invoked when the voice connection encounters a unknown event
+        /// </summary>
+        public event EventHandler<string>? UnknownVoiceEventEncountered;
+
+        /// <summary>
+        /// Invoked when the voice connection encounters a known event
+        /// </summary>
+        public event EventHandler<string>? KnownVoiceEventEncountered;
+
+        /// <summary>
+        /// Invoked when the voice connection encounters a known operation but does not handle it
+        /// </summary>
+        public event EventHandler<int>? UnhandledVoiceOperationEncountered;
+
+        /// <summary>
+        /// Invoked when the voice connection encounters a known event but does not handle it
+        /// </summary>
+        public event EventHandler<string>? UnhandledVoiceEventEncountered;
+
+        /// <summary>
         /// Invoked when the user logs in.
         /// </summary>
         public event EventHandler<SelfUser>? LoggedIn;
@@ -211,6 +241,7 @@ namespace Quarrel.Client
         private void OnVoiceServerUpdated(JsonVoiceServerUpdate arg)
         {
             var config = new VoiceServerConfig(arg);
+            _ = Voice.ConnectToCall(config);
 
             VoiceServerUpdated?.Invoke(this, config);
         }

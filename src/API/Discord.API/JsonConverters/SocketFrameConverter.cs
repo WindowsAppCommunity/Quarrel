@@ -57,9 +57,11 @@ namespace Discord.API.JsonConverters
                         if (count++ == 2) goto end;
                         break;
                     case "s":
-                    case "d":
                         readerClone.Skip();
                         break;
+                    case "d":
+                        // TODO: Investigate skip alternative
+                        goto end;
                     default:
                         throw new SocketFrameException($"Unexpected property {propertyName}");
                 }

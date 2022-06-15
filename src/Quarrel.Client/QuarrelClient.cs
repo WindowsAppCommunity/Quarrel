@@ -1,9 +1,11 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
+using Discord.API.Exceptions;
 using Discord.API.Gateways;
 using Discord.API.Rest;
 using Discord.API.Sockets;
+using Discord.API.Voice;
 using Refit;
 using System;
 using System.Threading.Tasks;
@@ -26,6 +28,7 @@ namespace Quarrel.Client
             Messages = new QuarrelClientMessages(this);
             Self = new QuarrelClientSelf(this);
             Users = new QuarrelClientUsers(this);
+            Voice = new QuarrelClientVoice(this);
         }
 
         /// <summary>
@@ -58,6 +61,10 @@ namespace Quarrel.Client
         /// </summary>
         public QuarrelClientUsers Users { get; }
 
+        /// <summary>
+        /// Gets the client's <see cref="QuarrelClientVoice"/>.
+        /// </summary>
+        public QuarrelClientVoice Voice { get; }
 
         /// <summary>
         /// Gets the token used for authentication.
@@ -86,7 +93,7 @@ namespace Quarrel.Client
         {
             Token = token;
             InitializeServices(token);
-            if(Gateway == null)
+            if (Gateway == null)
                 await SetupGatewayAsync();
             await Gateway!.Connect(token);
         }
@@ -109,12 +116,12 @@ namespace Quarrel.Client
             var gatewayConfig = await MakeRefitRequest(() => GatewayService.GetGatewayConfig());
             Guard.IsNotNull(gatewayConfig, nameof(GatewayService));
             Gateway = new Gateway(gatewayConfig,
-                unhandledMessageEncountered: (e) => GatewayExceptionHandled?.Invoke(this, e),
-                unknownEventEncountered: e => UnknownGatewayEventEncountered?.Invoke(this, e),
-                unknownOperationEncountered: e => UnknownGatewayOperationEncountered?.Invoke(this, e),
-                knownEventEncountered: e => KnownGatewayEventEncountered?.Invoke(this, e),
-                unhandledOperationEncountered: e => UnhandledGatewayOperationEncountered?.Invoke(this, (int)e),
-                unhandledEventEncountered: e => UnhandledGatewayEventEncountered?.Invoke(this, e.ToString()),
+                unhandledMessageEncountered: OnUnhandledGatewayMessageEncountered,
+                unknownEventEncountered: OnUnknownGatewayEventEncountered,
+                unknownOperationEncountered: OnUnknownGatewayOperationEncountered,
+                knownEventEncountered: OnKnownGatewayEventEncountered,
+                unhandledOperationEncountered: OnUnhandledGatewayOperationEncountered,
+                unhandledEventEncountered: OnUnhandledGatewayEventEncountered,
 
                 ready: OnReady,
                 messageCreated: OnMessageCreated,
@@ -184,6 +191,42 @@ namespace Quarrel.Client
                     break;
             }
         }
+
+        private void OnUnhandledGatewayMessageEncountered(SocketFrameException e)
+            => GatewayExceptionHandled?.Invoke(this, e);
+
+        private void OnUnknownGatewayEventEncountered(string e)
+            => UnknownGatewayEventEncountered?.Invoke(this, e);
+
+        private void OnUnknownGatewayOperationEncountered(int e)
+            => UnknownGatewayOperationEncountered?.Invoke(this, e);
+
+        private void OnKnownGatewayEventEncountered(string e)
+            => KnownGatewayEventEncountered?.Invoke(this, e);
+
+        private void OnUnhandledGatewayOperationEncountered(GatewayOperation e)
+            => UnhandledGatewayOperationEncountered?.Invoke(this, (int)e);
+
+        private void OnUnhandledGatewayEventEncountered(GatewayEvent e)
+            => UnhandledGatewayEventEncountered?.Invoke(this, e.ToString());
+
+        private void OnUnhandledVoiceMessageEncountered(SocketFrameException e)
+            => VoiceExceptionHandled?.Invoke(this, e);
+
+        private void OnUnknownVoiceEventEncountered(string e)
+            => UnknownVoiceEventEncountered?.Invoke(this, e);
+
+        private void OnUnknownVoiceOperationEncountered(int e)
+            => UnknownVoiceOperationEncountered?.Invoke(this, e);
+
+        private void OnKnownVoiceEventEncountered(string e)
+            => KnownVoiceEventEncountered?.Invoke(this, e);
+
+        private void OnUnhandledVoiceOperationEncountered(VoiceOperation e)
+            => UnhandledVoiceOperationEncountered?.Invoke(this, (int)e);
+
+        private void OnUnhandledVoiceEventEncountered(VoiceEvent e)
+            => UnhandledVoiceEventEncountered?.Invoke(this, e.ToString());
 
         private async Task MakeRefitRequest(Func<Task> request)
         {
