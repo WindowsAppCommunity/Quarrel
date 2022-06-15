@@ -14,15 +14,15 @@ using System.Threading.Tasks;
 
 namespace Discord.API.Sockets
 {
-    public class DiscordSocketClient<TFrame>
+    internal class DiscordSocketClient<TFrame>
     {
         private readonly JsonSerializerOptions _serializeOptions;
         private readonly JsonSerializerOptions _deserializeOptions;
-        private readonly ClientWebSocket _socket = new ClientWebSocket();
+        private readonly ClientWebSocket _socket = new();
         private Task? _task;
         private DeflateStream? _decompressor;
         private MemoryStream? _decompressionBuffer;
-        private readonly CancellationTokenSource _tokenSource = new CancellationTokenSource();
+        private readonly CancellationTokenSource _tokenSource = new();
 
         private Action<TFrame> HandleMessage { get; }
         private Action<WebSocketCloseStatus?> HandleClose { get; }
@@ -71,7 +71,7 @@ namespace Discord.API.Sockets
             _task = Task.Run(async () =>
             {
                 await ListenOnSocket(_tokenSource.Token);
-            });
+            }, Token);
         }
 
         private async Task ListenOnSocket(CancellationToken token)

@@ -83,9 +83,7 @@ namespace Discord.API.Voice
 
         private bool OnHello(VoiceSocketFrame<VoiceHello> frame)
         {
-            _ = SetupVoiceConnection(frame.Payload.HeartbeatInterval);
-
-            return true;
+            return SetupVoiceConnection(frame.Payload.HeartbeatInterval);
         }
 
         private bool OnReady(VoiceSocketFrame<VoiceReady> frame)
@@ -96,7 +94,7 @@ namespace Discord.API.Voice
             return FireEvent(frame, Ready);
         }
 
-        private async Task SetupVoiceConnection(int interval)
+        private bool SetupVoiceConnection(int interval)
         {
             switch (VoiceConnectionStatus)
             {
@@ -107,10 +105,11 @@ namespace Discord.API.Voice
                     break;
                 default:
                     VoiceConnectionStatus = VoiceConnectionStatus.Error;
-                    return;
+                    return false;
             }
 
             _ = BeginHeartbeatAsync(interval, _socket!.Token);
+            return true;
         }
 
         private async Task IdentifySelfToVoiceConnection()

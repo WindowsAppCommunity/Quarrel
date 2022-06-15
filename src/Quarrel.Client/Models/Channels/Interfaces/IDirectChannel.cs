@@ -7,6 +7,9 @@ namespace Quarrel.Client.Models.Channels.Interfaces
     /// </summary>
     public interface IDirectChannel : IPrivateChannel
     {
+        /// <summary>
+        /// Gets the id of the other direct message channel member.
+        /// </summary>
         ulong RecipientId { get; }
     }
 }

@@ -10,6 +10,9 @@ using Quarrel.Services.Dispatcher;
 
 namespace Quarrel.ViewModels.Panels
 {
+    /// <summary>
+    /// The view model for the active voice channel in the app.
+    /// </summary>
     public partial class VoiceViewModel : ObservableRecipient
     {
         private readonly IMessenger _messenger;
@@ -39,8 +42,14 @@ namespace Quarrel.ViewModels.Panels
             HangupCommand = new RelayCommand(Hangup);
         }
 
+        /// <summary>
+        /// A command that hangs up the active call.
+        /// </summary>
         public RelayCommand HangupCommand { get; }
 
+        /// <summary>
+        /// Gets whether or not the user is connected to a call.
+        /// </summary>
         public bool IsConnected => _voiceState?.Channel != null;
 
         private void Hangup() => _discordService.LeaveCall();

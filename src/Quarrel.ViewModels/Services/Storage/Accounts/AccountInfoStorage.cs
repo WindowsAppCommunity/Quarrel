@@ -99,7 +99,6 @@ namespace Quarrel.Services.Storage.Accounts
             }
             catch (JsonException e)
             {
-
             }
         }
         

@@ -71,16 +71,28 @@ namespace Quarrel.Client
                 return privateChannels;
             }
 
+            /// <summary>
+            /// Starts a call in a private channel.
+            /// </summary>
+            /// <param name="channelId">The id of the audio channel.</param>
             public async Task StartCall(ulong channelId)
             {
                 await _client.Voice.RequestStartCall(channelId);
             }
 
+            /// <summary>
+            /// Joins a call in an audio channel.
+            /// </summary>
+            /// <param name="channelId">The id of the audio channel.</param>
+            /// <param name="guildId">The id of the guild of the audio channel.</param>
             public async Task JoinCall(ulong channelId, ulong? guildId = null)
             {
                 await _client.Voice.RequestJoinVoice(channelId, guildId);
             }
 
+            /// <summary>
+            /// Leaves any active call.
+            /// </summary>
             public async Task LeaveCall()
             {
                 await _client.Voice.RequestJoinVoice(null, null);

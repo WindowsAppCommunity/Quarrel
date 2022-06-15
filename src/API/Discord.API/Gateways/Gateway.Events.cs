@@ -157,7 +157,7 @@ namespace Discord.API.Gateways
 
                         GatewayEvent.SESSIONS_REPLACE => FireEvent(frame, SessionReplaced),
 
-                        _ => FireEvent(frame.Event.Value, UnhandledEventEncountered),
+                        _ => FireEvent(frame.Event!.Value, UnhandledEventEncountered),
                     },
                     _ => FireEvent(frame.Operation, UnhandledOperationEncountered),
                 }
