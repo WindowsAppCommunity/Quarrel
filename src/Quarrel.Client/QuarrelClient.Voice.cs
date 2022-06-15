@@ -20,7 +20,7 @@ namespace Quarrel.Client
             private VoiceConnection? _voiceConnection;
             private JsonVoiceState? _voiceState;
             private VoiceServerConfig? _voiceServerConfig;
-            private readonly object _stateLock = new object();
+            private readonly object _stateLock = new();
             /// <summary>
             /// Initializes a new instance of the <see cref="QuarrelClientVoice"/> class.
             /// </summary>
@@ -75,18 +75,16 @@ namespace Quarrel.Client
                 await _client.Gateway.VoiceStatusUpdateAsync(channelId, guildId);
             }
 
-
             private async Task ConnectToVoice()
             {
                 if (_voiceServerConfig == null || _voiceState == null && _voiceConnection == null)
                 {
                     return;
                 }
+
                 _voiceConnection = new VoiceConnection(_voiceServerConfig.Json, _voiceState,
                     unhandledMessageEncountered: _client.OnUnhandledVoiceMessageEncountered,
-                    unknownEventEncountered: _client.OnUnknownVoiceEventEncountered,
                     unknownOperationEncountered: _client.OnUnknownVoiceOperationEncountered,
-                    knownEventEncountered: _client.OnKnownVoiceEventEncountered,
                     unhandledOperationEncountered: _client.OnUnhandledVoiceOperationEncountered,
                     voiceConnectionStatusChanged: _ => { },
                     ready: _ => { });

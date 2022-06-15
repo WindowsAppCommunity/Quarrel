@@ -38,18 +38,14 @@ namespace Discord.API.Voice
             JsonVoiceServerUpdate voiceConfig,
             JsonVoiceState state,
             Action<SocketFrameException> unhandledMessageEncountered,
-            Action<string> unknownEventEncountered,
             Action<int> unknownOperationEncountered,
-            Action<string> knownEventEncountered,
             Action<VoiceOperation> unhandledOperationEncountered,
             Action<VoiceConnectionStatus> voiceConnectionStatusChanged,
             Action<VoiceReady> ready)
         {
             VoiceConnectionStatusChanged = voiceConnectionStatusChanged;
             UnhandledOperationEncountered = unhandledOperationEncountered;
-            KnownEventEncountered = knownEventEncountered;
             UnknownOperationEncountered = unknownOperationEncountered;
-            UnknownEventEncountered = unknownEventEncountered;
             UnhandledMessageEncountered = unhandledMessageEncountered;
             
             Ready = ready;

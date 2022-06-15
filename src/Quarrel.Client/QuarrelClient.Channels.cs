@@ -1,8 +1,6 @@
 ﻿// Quarrel © 2022
 
-using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Json.Channels;
-using Discord.API.Models.Json.Voice;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using System;

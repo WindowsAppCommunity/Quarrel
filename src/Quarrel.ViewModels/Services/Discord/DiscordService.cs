@@ -65,10 +65,7 @@ namespace Quarrel.Services.Discord
             _quarrelClient.UnhandledGatewayEventEncountered += OnUnhandledGatewayEventEncountered;
             _quarrelClient.VoiceExceptionHandled += OnVoiceExceptionHandled;
             _quarrelClient.UnknownVoiceOperationEncountered += OnUnknownVoiceOperationEncountered;
-            _quarrelClient.UnknownVoiceEventEncountered += OnUnknownVoiceEventEncountered;
-            _quarrelClient.KnownVoiceEventEncountered += OnKnownVoiceEventEncountered;
             _quarrelClient.UnhandledVoiceOperationEncountered += OnUnhandledVoiceOperationEncountered;
-            _quarrelClient.UnhandledVoiceEventEncountered += OnUnhandledVoiceEventEncountered;
 
             RegisterChannelEvents();
         }
@@ -170,28 +167,10 @@ namespace Quarrel.Services.Discord
                 ("Operation", $"{e}"));
         }
 
-        private void OnUnknownVoiceEventEncountered(object sender, string e)
-        {
-            _analyticsService.Log(LoggedEvent.UnknownVoiceEventEncountered,
-                ("Event", e));
-        }
-
-        private void OnKnownVoiceEventEncountered(object sender, string e)
-        {
-            _analyticsService.Log(LoggedEvent.KnownVoiceEventEncountered,
-                ("Event", e));
-        }
-
         private void OnUnhandledVoiceOperationEncountered(object sender, int e)
         {
             _analyticsService.Log(LoggedEvent.UnhandledVoiceOperationEncountered,
                 ("Operation", $"{e}"));
-        }
-
-        private void OnUnhandledVoiceEventEncountered(object sender, string e)
-        {
-            _analyticsService.Log(LoggedEvent.UnhandledVoiceEventEncountered,
-                ("Event", e));
         }
 
         private void LogException(LoggedEvent type, Exception e)

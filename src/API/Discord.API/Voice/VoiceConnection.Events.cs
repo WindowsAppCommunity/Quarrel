@@ -10,9 +10,7 @@ namespace Discord.API.Voice
     {
         private Action<VoiceConnectionStatus> VoiceConnectionStatusChanged { get; }
         private Action<SocketFrameException> UnhandledMessageEncountered { get; }
-        private Action<string> UnknownEventEncountered { get; }
         private Action<int> UnknownOperationEncountered { get; }
-        private Action<string> KnownEventEncountered { get; }
         private Action<VoiceOperation> UnhandledOperationEncountered { get; }
         
         private Action<VoiceReady> Ready { get; }
@@ -35,7 +33,6 @@ namespace Discord.API.Voice
             bool succeeded = frame switch
             {
                 UnknownOperationVoiceSocketFrame osf => FireEvent(osf.Operation, UnknownOperationEncountered),
-                UnknownEventVoiceSocketFrame osf => FireEvent(osf.Event, UnknownEventEncountered),
                 _ => frame.Operation switch
                 {
                     VoiceOperation.Hello => OnHello((VoiceSocketFrame<VoiceHello>)frame),

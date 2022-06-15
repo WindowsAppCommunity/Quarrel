@@ -6,7 +6,6 @@ namespace Quarrel.Client.Models.Voice
 {
     public class VoiceServerConfig
     {
-        // TODO: Investigate upgrade to version 7
         private const int Version = 7;
 
         internal VoiceServerConfig(JsonVoiceServerUpdate json)

@@ -66,7 +66,6 @@ namespace Discord.API.JsonConverters
     [JsonSerializable(typeof(GatewaySocketFrame<SessionReplace[]>))]
     
     [JsonSerializable(typeof(VoiceSocketFrame))]
-    [JsonSerializable(typeof(UnknownEventVoiceSocketFrame))]
     [JsonSerializable(typeof(UnknownOperationVoiceSocketFrame))]
     [JsonSerializable(typeof(VoiceSocketFrame<int>))]
     [JsonSerializable(typeof(VoiceSocketFrame<VoiceHello>))]

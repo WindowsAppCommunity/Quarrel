@@ -213,14 +213,8 @@ namespace Quarrel.Client
         private void OnUnhandledVoiceMessageEncountered(SocketFrameException e)
             => VoiceExceptionHandled?.Invoke(this, e);
 
-        private void OnUnknownVoiceEventEncountered(string e)
-            => UnknownVoiceEventEncountered?.Invoke(this, e);
-
         private void OnUnknownVoiceOperationEncountered(int e)
             => UnknownVoiceOperationEncountered?.Invoke(this, e);
-
-        private void OnKnownVoiceEventEncountered(string e)
-            => KnownVoiceEventEncountered?.Invoke(this, e);
 
         private void OnUnhandledVoiceOperationEncountered(VoiceOperation e)
             => UnhandledVoiceOperationEncountered?.Invoke(this, (int)e);

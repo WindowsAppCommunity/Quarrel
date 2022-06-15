@@ -65,24 +65,9 @@ namespace Quarrel.Client
         public event EventHandler<int>? UnknownVoiceOperationEncountered;
 
         /// <summary>
-        /// Invoked when the voice connection encounters a unknown event
-        /// </summary>
-        public event EventHandler<string>? UnknownVoiceEventEncountered;
-
-        /// <summary>
-        /// Invoked when the voice connection encounters a known event
-        /// </summary>
-        public event EventHandler<string>? KnownVoiceEventEncountered;
-
-        /// <summary>
         /// Invoked when the voice connection encounters a known operation but does not handle it
         /// </summary>
         public event EventHandler<int>? UnhandledVoiceOperationEncountered;
-
-        /// <summary>
-        /// Invoked when the voice connection encounters a known event but does not handle it
-        /// </summary>
-        public event EventHandler<string>? UnhandledVoiceEventEncountered;
 
         /// <summary>
         /// Invoked when the user logs in.
