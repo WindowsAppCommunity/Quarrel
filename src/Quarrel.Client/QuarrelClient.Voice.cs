@@ -45,17 +45,13 @@ namespace Quarrel.Client
             {
                 lock (_stateLock)
                 {
-                    if (_voiceState == null && _voiceServerConfig != null)
+                    _voiceState = state;
+
+                    if (_voiceServerConfig != null)
                     {
-                        _voiceState = state;
                         _ = ConnectToVoice();
                     }
-                    else
-                    {
-                        _voiceState = state;
-                    }
                 }
-
             }
 
             internal async Task RequestStartCall(ulong channelId, ulong? guildId = null)
@@ -82,7 +78,7 @@ namespace Quarrel.Client
                     return;
                 }
 
-                _voiceConnection = new VoiceConnection(_voiceServerConfig.Json, _voiceState,
+                _voiceConnection = new VoiceConnection(_voiceServerConfig.Json, _voiceState!,
                     unhandledMessageEncountered: _client.OnUnhandledVoiceMessageEncountered,
                     unknownOperationEncountered: _client.OnUnknownVoiceOperationEncountered,
                     unhandledOperationEncountered: _client.OnUnhandledVoiceOperationEncountered,

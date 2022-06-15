@@ -240,7 +240,11 @@ namespace Quarrel.Client
         private void OnVoiceStateUpdated(JsonVoiceState arg)
         {
             var state = new VoiceState(arg, this);
-            Voice.UpdateVoiceState(arg);
+
+            if (arg.UserId == Self.CurrentUser?.Id)
+            {
+                Voice.UpdateVoiceState(arg);
+            }
 
             VoiceStateUpdated?.Invoke(this, state);
         }
