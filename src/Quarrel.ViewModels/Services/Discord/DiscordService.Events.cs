@@ -3,8 +3,10 @@
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Messages;
+using Quarrel.Client.Models.Voice;
 using Quarrel.Messages.Discord.Channels;
 using Quarrel.Messages.Discord.Messages;
+using Quarrel.Messages.Discord.Voice;
 
 namespace Quarrel.Services.Discord
 {
@@ -16,6 +18,8 @@ namespace Quarrel.Services.Discord
             _quarrelClient.MessageUpdated += OnMessageUpdated;
             _quarrelClient.MessageDeleted += OnMessageDeleted;
             _quarrelClient.ChannelUpdated += OnChannelUpdated;
+
+            _quarrelClient.VoiceStateUpdated += OnVoiceStateUpdated;
         }
 
         private void OnMessageCreate(object sender, Message e) 
@@ -29,5 +33,8 @@ namespace Quarrel.Services.Discord
 
         private void OnChannelUpdated(object sender, Channel e) 
             => _messenger.Send(new ChannelUpdatedMessage(e));
+
+        private void OnVoiceStateUpdated(object sender, VoiceState e)
+            => _messenger.Send(new VoiceStateUpdatedMessage(e));
     }
 }
