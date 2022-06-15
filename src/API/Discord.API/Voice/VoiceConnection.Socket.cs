@@ -26,16 +26,12 @@ namespace Discord.API.Voice
             await _socket.ConnectAsync(url);
             await IdentifySelfToVoiceConnection();
         }
-
+        
         private async Task SendMessageAsync<T>(VoiceOperation op, T payload)
-            => await SendMessageAsync(op, null, payload);
-
-        private async Task SendMessageAsync<T>(VoiceOperation op, VoiceEvent? e, T payload)
         {
             var frame = new VoiceSocketFrame<T>
             {
                 Operation = op,
-                Event = e,
                 Payload = payload,
             };
 
@@ -44,11 +40,6 @@ namespace Discord.API.Voice
 
         private void HandleMessage(VoiceSocketFrame frame)
         {
-            if (frame.SequenceNumber.HasValue)
-            {
-                _lastEventSequenceNumber = frame.SequenceNumber.Value;
-            }
-
             ProcessEvents(frame);
         }
 

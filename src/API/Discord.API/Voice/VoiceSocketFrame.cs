@@ -11,11 +11,5 @@ namespace Discord.API.Voice
     {
         [JsonPropertyName("op")]
         public VoiceOperation Operation { get; set; }
-
-        [JsonPropertyName("s")]
-        public int? SequenceNumber { get; set; }
-
-        [JsonPropertyName("t")]
-        public VoiceEvent? Event { get; set; }
     }
 }

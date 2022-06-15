@@ -168,7 +168,7 @@ namespace Quarrel.Client
                 userSettingsUpdated: _ => { },
                 userGuildSettingsUpdated: _ => { },
 
-                voiceStateUpdated: _ => { },
+                voiceStateUpdated: OnVoiceStateUpdated,
                 voiceServerUpdated: OnVoiceServerUpdated,
 
                 sessionReplaced: _ => { });
@@ -224,9 +224,6 @@ namespace Quarrel.Client
 
         private void OnUnhandledVoiceOperationEncountered(VoiceOperation e)
             => UnhandledVoiceOperationEncountered?.Invoke(this, (int)e);
-
-        private void OnUnhandledVoiceEventEncountered(VoiceEvent e)
-            => UnhandledVoiceEventEncountered?.Invoke(this, e.ToString());
 
         private async Task MakeRefitRequest(Func<Task> request)
         {
