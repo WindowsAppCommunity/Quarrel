@@ -93,6 +93,9 @@
     <Compile Include="Controls\Host\SecondaryWindowHost.xaml.cs">
       <DependentUpon>SecondaryWindowHost.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Panels\Channels\VoiceController.xaml.cs">
+      <DependentUpon>VoiceController.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\QuarrelIcon.xaml.cs">
       <DependentUpon>QuarrelIcon.xaml</DependentUpon>
     </Compile>
@@ -488,6 +491,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\Host\SecondaryWindowHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Panels\Channels\VoiceController.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

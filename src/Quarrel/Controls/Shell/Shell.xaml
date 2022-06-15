@@ -40,10 +40,11 @@
                                VerticalAlignment="Top"/>
                     
                     <panelsc:ChannelPanel Grid.Row="1" BottomMargin="{Binding ElementName=UserSection, Path=ActualHeight, Mode=OneWay}"/>
-                    <Grid x:Name="UserSection" Grid.Row="1"
-                          VerticalAlignment="Bottom">
+                    <StackPanel x:Name="UserSection" Grid.Row="1"
+                                VerticalAlignment="Bottom">
+                        <panelsc:VoiceController/>
                         <panelsc:CurrentUserButton Height="64"/>
-                    </Grid>
+                    </StackPanel>
                 </Grid>
             </local:SideDrawer.LeftSecondaryContent>
             <local:SideDrawer.MainContent>
