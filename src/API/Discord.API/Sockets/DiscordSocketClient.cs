@@ -110,14 +110,11 @@ namespace Discord.API.Sockets
                     length = (int)stream.Length;
                 }
 
-                if (socketResult.MessageType == WebSocketMessageType.Text)
+                _ = socketResult.MessageType switch
                 {
-                    _ = HandleTextMessage(bytes);
-                }
-                else
-                {
-                    HandleBinaryMessage(bytes, length);
-                }
+                    WebSocketMessageType.Text => HandleTextMessage(bytes, length),
+                    WebSocketMessageType.Binary or _ => HandleBinaryMessage(bytes, length),
+                };
             }
         }
 
@@ -127,12 +124,12 @@ namespace Discord.API.Sockets
             _decompressor = new DeflateStream(_decompressionBuffer, CompressionMode.Decompress);
         }
 
-        private async Task HandleTextMessage(byte[] buffer)
+        private async Task HandleTextMessage(byte[] buffer, int count)
         {
-            await HandleStream(new MemoryStream(buffer));
+            await HandleStream(new MemoryStream(buffer, 0, count));
         }
 
-        private async void HandleBinaryMessage(byte[] buffer, int count)
+        private async Task HandleBinaryMessage(byte[] buffer, int count)
         {
             Guard.IsNotNull(_decompressor, nameof(_decompressor));
             Guard.IsNotNull(_decompressionBuffer, nameof(_decompressionBuffer));
