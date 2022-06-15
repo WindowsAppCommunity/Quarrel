@@ -54,7 +54,7 @@ namespace Quarrel.Client
                 }
             }
 
-            internal async Task RequestStartCall(ulong channelId, ulong? guildId = null)
+            internal async Task RequestStartCall(ulong channelId)
             {
                 Guard.IsNotNull(_client.ChannelService, nameof(_client.ChannelService));
                 Guard.IsNotNull(_client.Gateway, nameof(_client.Gateway));
