@@ -2,8 +2,6 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Exceptions;
-using Discord.API.Gateways;
-using Discord.API.JsonConverters;
 using System;
 using System.IO;
 using System.IO.Compression;

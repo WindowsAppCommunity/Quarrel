@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Models.Json.Channels;
+using Discord.API.Models.Json.Guilds.Invites;
 using Discord.API.Models.Json.Messages;
 using Discord.API.Models.Json.Voice;
 using Refit;
@@ -20,6 +21,9 @@ namespace Discord.API.Rest
         [Get("/v9/channels/{channelId}/messages?limit={limit}&before={before}")]
         Task<JsonMessage[]> GetChannelMessagesBefore([AliasAs("channelId")] ulong channelId, [AliasAs("before")] ulong before, [AliasAs("limit")] int limit = 50);
 
+        [Post("/v9/channels/{channelId}/typing")]
+        Task TriggerTypingIndicator([AliasAs("channelId")] string channelId);
+
         [Post("/v9/channels/{channelId}/messages")]
         Task<JsonMessage> CreateMessage([AliasAs("channelId")] ulong channelId, [Body] JsonMessageUpsert message);
 
@@ -29,5 +33,9 @@ namespace Discord.API.Rest
         [Post("/v9/channels/{channelId}/call/ring")]
         [Headers("Content-Type: application/json;")]
         Task StartCall([AliasAs("channelId")] ulong channelId, [Body] JsonRecipients recipients);
+
+        [Post("/v9/channels/{channelId}/invites")]
+        [Headers("Content-Type: application/json;")]
+        Task<JsonInvite> CreateChannelInvite([AliasAs("channelId")] ulong channelId, [Body] JsonCreateInvite invite);
     }
 }
