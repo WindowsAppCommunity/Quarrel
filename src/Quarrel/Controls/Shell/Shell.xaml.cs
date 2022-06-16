@@ -24,7 +24,7 @@ namespace Quarrel.Controls.Shell
             _messenger = App.Current.Services.GetRequiredService<IMessenger>();
             _dispatcherService = App.Current.Services.GetRequiredService<IDispatcherService>();
 
-            _messenger.Register<NavigateToGuildMessage<IBindableSelectableGuildItem>>(this, (_,_) => _messenger.Send(new TogglePanelMessage(PanelSide.Left, PanelState.Open)));
+            _messenger.Register<GuildSelectedMessage<IBindableSelectableGuildItem>>(this, (_,_) => _messenger.Send(new TogglePanelMessage(PanelSide.Left, PanelState.Open)));
             _messenger.Register<TogglePanelMessage>(this, (_, e) =>
             {
                 _dispatcherService.RunOnUIThread(() =>

@@ -48,7 +48,7 @@ namespace Quarrel.ViewModels.Panels
             Source = new ObservableRangeCollection<BindableMessage>();
             IsLoading = false;
 
-            _messenger.Register<NavigateToChannelMessage<IBindableSelectableChannel>>(this, (_, m) => SelectedChannel = m.Channel);
+            _messenger.Register<ChannelSelectedMessage<IBindableSelectableChannel>>(this, (_, m) => SelectedChannel = m.Channel);
             _messenger.Register<MessageCreatedMessage>(this, (_, m) =>
             {
                 if (SelectedChannel?.Id != m.Message.ChannelId) return;

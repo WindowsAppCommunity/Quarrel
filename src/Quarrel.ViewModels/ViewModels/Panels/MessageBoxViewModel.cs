@@ -33,7 +33,7 @@ namespace Quarrel.ViewModels.Panels
 
             SendMessageCommand = new RelayCommand(SendMessage);
 
-            _messenger.Register<NavigateToChannelMessage<IBindableSelectableChannel>>(this, (_, m) =>
+            _messenger.Register<ChannelSelectedMessage<IBindableSelectableChannel>>(this, (_, m) =>
             {
                 ChannelId = m.Channel.Id;
             });

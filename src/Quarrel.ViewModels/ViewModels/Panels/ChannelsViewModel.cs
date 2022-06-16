@@ -9,7 +9,6 @@ using Quarrel.Messages.Navigation;
 using Quarrel.Services.Analytics;
 using Quarrel.Services.Analytics.Enums;
 using Quarrel.Services.Discord;
-using System;
 using System.Collections.Generic;
 
 namespace Quarrel.ViewModels.Panels
@@ -37,7 +36,8 @@ namespace Quarrel.ViewModels.Panels
             _messenger = messenger;
             _discordService = discordService;
 
-            _messenger.Register<NavigateToGuildMessage<IBindableSelectableGuildItem>>(this, (_, m) => LoadChannels(m.Guild));
+            _messenger.Register<SelectChannelMessage<IBindableSelectableChannel>>(this, (_, m) => SelectedChannel = m.Channel);
+            _messenger.Register<GuildSelectedMessage<IBindableSelectableGuildItem>>(this, (_, m) => LoadChannels(m.Guild));
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Quarrel.ViewModels.Panels
                     _analyticsService.Log(LoggedEvent.ChannelOpened,
                         ("Type", $"{_selectedChannel.Type}"));
 
-                    _messenger.Send(new NavigateToChannelMessage<IBindableSelectableChannel>(value));
+                    _messenger.Send(new ChannelSelectedMessage<IBindableSelectableChannel>(value));
                 }
             }
         }

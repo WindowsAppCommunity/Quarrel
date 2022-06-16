@@ -55,7 +55,7 @@ namespace Quarrel.ViewModels
             OpenGuildSettingsCommand = new RelayCommand(OpenGuildSettings);
 
             _messenger.Register<UserLoggedInMessage>(this, (_, _) => LoadGuilds());
-            _messenger.Register<NavigateToGuildMessage<ulong>>(this, (_, m) => ForwardNavigate(m.Guild));
+            _messenger.Register<GuildSelectedMessage<ulong>>(this, (_, m) => ForwardNavigate(m.Guild));
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Quarrel.ViewModels
                 {
                     value.IsSelected = true;
                     _analyticsService.Log(LoggedEvent.GuildOpened);
-                    _messenger.Send(new NavigateToGuildMessage<IBindableSelectableGuildItem>(value));
+                    _messenger.Send(new GuildSelectedMessage<IBindableSelectableGuildItem>(value));
                 }
             }
         }

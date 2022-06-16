@@ -33,7 +33,7 @@ namespace Quarrel.ViewModels.Panels
 
             StartCallCommand = new RelayCommand(StartCall);
 
-            _messenger.Register<NavigateToChannelMessage<IBindableSelectableChannel>>(this, (_, m) => SelectedChannel = m.Channel);
+            _messenger.Register<ChannelSelectedMessage<IBindableSelectableChannel>>(this, (_, m) => SelectedChannel = m.Channel);
         }
 
         /// <summary>
