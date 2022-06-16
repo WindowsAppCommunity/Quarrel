@@ -65,7 +65,7 @@ namespace Quarrel.Helpers.LaunchArgs
             var messenger = serviceProvider.GetRequiredService<IMessenger>();
             if (GuildId.HasValue)
             {
-                messenger.Send(new GuildSelectedMessage<ulong>(GuildId.Value));
+                messenger.Send(new SelectGuildMessage<ulong>(GuildId.Value));
             }
         }
     }

@@ -55,7 +55,8 @@ namespace Quarrel.ViewModels
             OpenGuildSettingsCommand = new RelayCommand(OpenGuildSettings);
 
             _messenger.Register<UserLoggedInMessage>(this, (_, _) => LoadGuilds());
-            _messenger.Register<GuildSelectedMessage<ulong>>(this, (_, m) => ForwardNavigate(m.Guild));
+            _messenger.Register<SelectGuildMessage<ulong>>(this, (_, m) => SelectGuildById(m.Guild));
+            _messenger.Register<SelectGuildMessage<IBindableSelectableGuildItem>>(this, (_, m) => SelectedGuild = m.Guild);
         }
 
         /// <summary>
@@ -126,7 +127,7 @@ namespace Quarrel.ViewModels
             }
         }
 
-        private void ForwardNavigate(ulong guildId)
+        private void SelectGuildById(ulong guildId)
         {
             BindableGuild? guild = GetBindableGuild(guildId);
             if (guild is not null)
