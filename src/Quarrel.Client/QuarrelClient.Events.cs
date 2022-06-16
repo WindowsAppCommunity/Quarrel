@@ -213,10 +213,7 @@ namespace Quarrel.Client
 
         private void OnChannelUpdated(JsonChannel arg)
         {
-            var channel = Channels.GetChannel(arg.Id);
-            if (channel is null) return;
-
-            channel.UpdateFromJsonChannel(arg);
+            Channels.UpdateChannel(arg, out Channel channel);
             ChannelUpdated?.Invoke(this, channel);
         }
 
