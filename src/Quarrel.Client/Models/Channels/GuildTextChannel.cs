@@ -12,9 +12,6 @@ namespace Quarrel.Client.Models.Channels
     /// </summary>
     public class GuildTextChannel : GuildChannel, IGuildTextChannel
     {
-        private ulong? _lastMessageId;
-        private ulong? _lastReadMessageId;
-
         internal GuildTextChannel(JsonChannel restChannel, ulong? guildId, QuarrelClient context) :
             base(restChannel, guildId, context)
         {
@@ -39,22 +36,14 @@ namespace Quarrel.Client.Models.Channels
         /// <inheritdoc/>
         public ulong? CategoryId { get; private set; }
 
-        /// <inheritdoc/>
+        /// <inheritdoc cref="IMessageChannel.MentionCount"/>
         public int? MentionCount { get; internal set; }
 
-        /// <inheritdoc/>
-        public ulong? LastMessageId
-        {
-            get => _lastMessageId;
-            internal set => _lastMessageId = value;
-        }
+        /// <inheritdoc cref="IMessageChannel.LastMessageId"/>
+        public ulong? LastMessageId { get; internal set; }
 
-        /// <inheritdoc/>
-        public ulong? LastReadMessageId
-        {
-            get => _lastReadMessageId;
-            internal set => _lastReadMessageId = value;
-        }
+        /// <inheritdoc cref="IMessageChannel.LastReadMessageId"/>
+        public ulong? LastReadMessageId { get; internal set; }
 
         /// <inheritdoc/>
         public bool IsUnread => LastMessageId > LastReadMessageId;

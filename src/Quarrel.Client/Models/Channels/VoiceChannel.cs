@@ -32,8 +32,38 @@ namespace Quarrel.Client.Models.Channels
         /// <inheritdoc/>
         public ulong? CategoryId { get; private set; }
 
+        /// <inheritdoc cref="IMessageChannel.MentionCount"/>
+        public int? MentionCount { get; internal set; }
+
+        /// <inheritdoc cref="IMessageChannel.LastMessageId"/>
+        public ulong? LastMessageId { get; internal set; }
+
+        /// <inheritdoc cref="IMessageChannel.LastReadMessageId"/>
+        public ulong? LastReadMessageId { get; internal set; }
+
+        /// <inheritdoc/>
+        public bool IsUnread => LastMessageId > LastReadMessageId;
+
         /// <inheritdoc/>
         public string? RTCRegion { get; private set; }
+
+        int? IMessageChannel.MentionCount
+        {
+            get => MentionCount;
+            set => MentionCount = value;
+        }
+
+        ulong? IMessageChannel.LastMessageId
+        {
+            get => LastMessageId;
+            set => LastMessageId = value;
+        }
+
+        ulong? IMessageChannel.LastReadMessageId
+        {
+            get => LastReadMessageId;
+            set => LastReadMessageId = value;
+        }
 
         internal override void PrivateUpdateFromJsonChannel(JsonChannel jsonChannel)
         {

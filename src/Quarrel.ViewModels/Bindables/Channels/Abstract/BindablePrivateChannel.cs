@@ -30,7 +30,7 @@ namespace Quarrel.Bindables.Channels.Abstract
             base(messenger, clipboardService, discordService, dispatcherService, privateChannel)
         {
             StartCallCommand = new RelayCommand(StartCall);
-            MarkAsReadCommand = new RelayCommand(() => _discordService.MarkRead(Id, MessageChannel.LastMessageId ?? 0));
+            MarkAsReadCommand = new RelayCommand(MarkRead);
         }
 
         /// <inheritdoc/>
@@ -74,5 +74,10 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// Starts a call in this channel.
         /// </summary>
         public void StartCall() => _discordService.StartCall(Id);
+
+        private async void MarkRead()
+        {
+            await _discordService.MarkRead(MessageChannel.Id, MessageChannel.LastMessageId ?? 0);
+        }
     }
 }
