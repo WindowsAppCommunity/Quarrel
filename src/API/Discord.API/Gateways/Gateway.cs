@@ -40,11 +40,12 @@ namespace Discord.API.Gateways
         private string? _connectionUrl;
         private string? _sessionId;
         private int _lastEventSequenceNumber;
+
         public Gateway(GatewayConfig config,
             Action<SocketFrameException> unhandledMessageEncountered,
             Action<string> unknownEventEncountered,
             Action<int> unknownOperationEncountered,
-            Action<string> knownEventEncountered,
+            Action<GatewayEvent> knownEventEncountered,
             Action<GatewayOperation> unhandledOperationEncountered,
             Action<GatewayEvent> unhandledEventEncountered,
             Action<Ready> ready,

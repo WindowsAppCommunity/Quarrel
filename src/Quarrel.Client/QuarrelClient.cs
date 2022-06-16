@@ -4,7 +4,6 @@ using CommunityToolkit.Diagnostics;
 using Discord.API.Exceptions;
 using Discord.API.Gateways;
 using Discord.API.Rest;
-using Discord.API.Sockets;
 using Discord.API.Voice;
 using Refit;
 using System;
@@ -201,8 +200,8 @@ namespace Quarrel.Client
         private void OnUnknownGatewayOperationEncountered(int e)
             => UnknownGatewayOperationEncountered?.Invoke(this, e);
 
-        private void OnKnownGatewayEventEncountered(string e)
-            => KnownGatewayEventEncountered?.Invoke(this, e);
+        private void OnKnownGatewayEventEncountered(GatewayEvent e)
+            => KnownGatewayEventEncountered?.Invoke(this, e.ToString());
 
         private void OnUnhandledGatewayOperationEncountered(GatewayOperation e)
             => UnhandledGatewayOperationEncountered?.Invoke(this, (int)e);

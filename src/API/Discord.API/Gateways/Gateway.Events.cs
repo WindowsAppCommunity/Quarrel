@@ -22,7 +22,7 @@ namespace Discord.API.Gateways
         private Action<SocketFrameException> UnhandledMessageEncountered { get; }
         private Action<string> UnknownEventEncountered { get; }
         private Action<int> UnknownOperationEncountered { get; }
-        private Action<string> KnownEventEncountered { get; }
+        private Action<GatewayEvent> KnownEventEncountered { get; }
         private Action<GatewayOperation> UnhandledOperationEncountered { get; }
         private Action<GatewayEvent> UnhandledEventEncountered { get; }
 
@@ -75,7 +75,6 @@ namespace Discord.API.Gateways
 
         private Action<SessionReplace[]> SessionReplaced { get; }
 
-        
         private static bool FireEvent<T>(GatewaySocketFrame frame, Action<T> eventHandler)
         {
             var eventArgs = ((GatewaySocketFrame<T>)frame).Payload;
@@ -88,6 +87,7 @@ namespace Discord.API.Gateways
             eventHandler(data);
             return true;
         }
+
         private bool OnReady(GatewaySocketFrame<Ready> frame)
         {
             var ready = frame.Payload;
@@ -107,7 +107,7 @@ namespace Discord.API.Gateways
                     GatewayOperation.Hello => OnHelloReceived((GatewaySocketFrame<Hello>)frame),
                     GatewayOperation.InvalidSession => OnInvalidSession(frame),
                     GatewayOperation.HeartbeatAck => OnHeartbeatAck(),
-                    GatewayOperation.Dispatch => FireEvent(frame.Event.ToString(), KnownEventEncountered) && frame.Event switch
+                    GatewayOperation.Dispatch => FireEvent(frame.Event!.Value, KnownEventEncountered) && frame.Event switch
                     {
                         GatewayEvent.READY => OnReady((GatewaySocketFrame<Ready>)frame),
                         GatewayEvent.RESUMED => FireEvent(frame, Resumed),
