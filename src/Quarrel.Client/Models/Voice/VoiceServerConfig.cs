@@ -14,7 +14,6 @@ namespace Quarrel.Client.Models.Voice
         internal VoiceServerConfig(JsonVoiceServerUpdate json)
         {
             GuildId = json.GuildId;
-            ChannelId = json.ChannelId;
             Endpoint = json.Endpoint;
             Token = json.Token;
 
@@ -25,11 +24,6 @@ namespace Quarrel.Client.Models.Voice
         /// Gets the id of the guild the audio channel is in.
         /// </summary>
         public ulong? GuildId { get; }
-
-        /// <summary>
-        /// Gets the id of the audio channel.
-        /// </summary>
-        public ulong ChannelId { get; }
 
         /// <summary>
         /// Gets the voice server's endpoint.

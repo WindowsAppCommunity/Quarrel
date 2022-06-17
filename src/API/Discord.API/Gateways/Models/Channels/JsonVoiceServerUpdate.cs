@@ -12,9 +12,6 @@ namespace Discord.API.Gateways.Models.Channels
         [JsonPropertyName("guild_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong? GuildId { get; set; }
 
-        [JsonPropertyName("channel_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
-        public ulong ChannelId { get; set; }
-
         [JsonPropertyName("endpoint")]
         public string Endpoint { get; set; }
 
