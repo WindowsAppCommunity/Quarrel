@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Models.Enums.Channels;
+using Microsoft.Toolkit.Mvvm.Input;
 using Quarrel.Client.Models.Channels.Interfaces;
 
 namespace Quarrel.Bindables.Channels.Interfaces
@@ -34,5 +35,15 @@ namespace Quarrel.Bindables.Channels.Interfaces
         /// Gets if the user has permission to open the channel.
         /// </summary>
         public bool IsAccessible { get; }
+
+        /// <summary>
+        /// Gets a command that copies the channel link to the clipboard.
+        /// </summary>
+        public RelayCommand CopyLinkCommand { get; }
+
+        /// <summary>
+        /// Gets a command that copies the channel id to the clipboard.
+        /// </summary>
+        public RelayCommand CopyIdCommand { get; }
     }
 }

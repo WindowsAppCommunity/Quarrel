@@ -3,7 +3,6 @@
 using CommunityToolkit.Diagnostics;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels.Abstract;
-using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Users;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Interfaces;
@@ -18,7 +17,7 @@ namespace Quarrel.Bindables.Channels
     /// <summary>
     /// A wrapper of an <see cref="IGroupChannel"/> that can be bound to the UI.
     /// </summary>
-    public class BindableGroupChannel : BindablePrivateChannel, IBindableMessageChannel
+    public class BindableGroupChannel : BindablePrivateChannel
     {
         private readonly ILocalizationService _localizationService;
 
@@ -48,7 +47,7 @@ namespace Quarrel.Bindables.Channels
         /// <summary>
         /// Gets the wrapped channel as a <see cref="IGroupChannel"/>.
         /// </summary>
-        public IGroupChannel GroupChannel => (IGroupChannel)Channel;
+        public GroupChannel GroupChannel => (GroupChannel)Channel;
 
         /// <inheritdoc/>
         public override string? Name => Channel.Name ?? _localizationService.CommaList(Recipients.Select(x => x.User.Username).ToArray());

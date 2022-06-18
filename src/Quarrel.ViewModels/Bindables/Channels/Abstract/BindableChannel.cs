@@ -21,7 +21,7 @@ namespace Quarrel.Bindables.Channels.Abstract
     /// <summary>
     /// A wrapper of a <see cref="Client.Models.Channels.Abstract.Channel"/> that can be bound to the UI.
     /// </summary>
-    public abstract partial class BindableChannel : SelectableItem, IBindableChannel
+    public abstract class BindableChannel : SelectableItem, IBindableChannel
     {
         /// <summary>
         /// The <see cref="IClipboardService"/> service.
@@ -70,11 +70,6 @@ namespace Quarrel.Bindables.Channels.Abstract
         public virtual string? Name => _channel.Name;
 
         /// <summary>
-        /// Gets a bool representing whether or not the channel is a text channel.
-        /// </summary>
-        public virtual bool IsTextChannel => true;
-
-        /// <summary>
         /// Gets the wrapped <see cref="Client.Models.Channels.Abstract.Channel"/>.
         /// </summary>
         public Channel Channel
@@ -93,14 +88,10 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <inheritdoc/>
         public abstract bool IsAccessible { get; }
 
-        /// <summary>
-        /// Gets a command that copies the channel link to the clipboard.
-        /// </summary>
+        /// <inheritdoc/>
         public RelayCommand CopyLinkCommand { get; }
 
-        /// <summary>
-        /// Gets a command that copies the channel id to the clipboard.
-        /// </summary>
+        /// <inheritdoc/>
         public RelayCommand CopyIdCommand { get; }
 
         /// <summary>

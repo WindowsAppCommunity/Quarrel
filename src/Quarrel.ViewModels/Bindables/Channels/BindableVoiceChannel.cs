@@ -16,7 +16,7 @@ namespace Quarrel.Bindables.Channels
     /// <summary>
     /// A wrapper of a <see cref="Client.Models.Channels.VoiceChannel"/> that can be bound to the UI.
     /// </summary>
-    public class BindableVoiceChannel : BindableGuildChannel, IBindableAudioChannel
+    public class BindableVoiceChannel : BindableGuildChannel, IBindableAudioChannel, IBindableMessageChannel
     {
         internal BindableVoiceChannel(
             IMessenger messenger,
@@ -28,11 +28,10 @@ namespace Quarrel.Bindables.Channels
             BindableCategoryChannel? parent = null) :
             base(messenger, clipboardService, discordService, dispatcherService, channel, selfMember, parent)
         {
+            SelectionCommand = new RelayCommand(JoinCall);
             JoinCallCommand = new RelayCommand(JoinCall);
+            MarkAsReadCommand = new RelayCommand(MarkRead);
         }
-        
-        /// <inheritdoc/>
-        public override bool IsTextChannel => false;
 
         /// <inheritdoc/>
         public override bool IsAccessible => Permissions.Connect;
@@ -41,14 +40,33 @@ namespace Quarrel.Bindables.Channels
         public IAudioChannel AudioChannel => (IAudioChannel)Channel;
 
         /// <inheritdoc/>
+        public IMessageChannel MessageChannel => (IMessageChannel)Channel;
+
+        /// <inheritdoc/>
         public VoiceChannel VoiceChannel => (VoiceChannel)Channel;
+
+        /// <inheritdoc/>
+        public RelayCommand SelectionCommand { get; }
+
+        /// <inheritdoc/>
+        public void Select() => JoinCall();
 
         /// <inheritdoc/>
         public RelayCommand JoinCallCommand { get; }
 
+        /// <inheritdoc/>
+        public RelayCommand MarkAsReadCommand { get; }
+
+        /// <inheritdoc/>
         public void JoinCall()
         {
             _ = _discordService.JoinCall(Id, GuildId);
+        }
+
+        /// <inheritdoc/>
+        public void MarkRead()
+        {
+            _ = _discordService.MarkRead(MessageChannel.Id, MessageChannel.LastMessageId ?? 0);
         }
     }
 }

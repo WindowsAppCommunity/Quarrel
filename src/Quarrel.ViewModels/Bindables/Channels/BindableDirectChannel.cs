@@ -3,7 +3,6 @@
 using CommunityToolkit.Diagnostics;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels.Abstract;
-using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Users;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Interfaces;
@@ -16,7 +15,7 @@ namespace Quarrel.Bindables.Channels
     /// <summary>
     /// A wrapper of an <see cref="IDirectChannel"/> that can be bound to the UI.
     /// </summary>
-    public class BindableDirectChannel : BindablePrivateChannel, IBindableMessageChannel
+    public class BindableDirectChannel : BindablePrivateChannel
     {
         internal BindableDirectChannel(
             IMessenger messenger,
@@ -32,7 +31,7 @@ namespace Quarrel.Bindables.Channels
         }
 
         /// <inheritdoc/>
-        public IDirectChannel DirectChannel => (IDirectChannel)Channel;
+        public DirectChannel DirectChannel => (DirectChannel)Channel;
 
         /// <inheritdoc/>
         public override string? Name => Recipient.User.Username;

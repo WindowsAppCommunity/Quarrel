@@ -32,16 +32,7 @@ namespace Quarrel.Controls.Panels.Channels
         {
             if (e.ClickedItem is IBindableSelectableChannel selectableChannel)
             {
-                if (!selectableChannel.IsAccessible)
-                {
-                    return; 
-                }
-
-                ViewModel.SelectedChannel = selectableChannel;
-            }
-            else if (e.ClickedItem is BindableVoiceChannel voiceChannel)
-            {
-                voiceChannel.JoinCall();
+                selectableChannel.Select();
             }
         }
     }

@@ -7,6 +7,7 @@ using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;
+using Quarrel.Messages.Navigation;
 using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
@@ -28,11 +29,9 @@ namespace Quarrel.Bindables.Channels
             BindableCategoryChannel? parent = null) :
             base(messenger, clipboardService, discordService, dispatcherService, channel, selfMember, parent)
         {
+            SelectionCommand = new RelayCommand(Select);
             MarkAsReadCommand = new RelayCommand(MarkRead);
         }
-
-        /// <inheritdoc/>
-        public override bool IsTextChannel => true;
 
         /// <inheritdoc/>
         public override bool IsAccessible => Permissions.ReadMessages;
@@ -44,6 +43,9 @@ namespace Quarrel.Bindables.Channels
         public GuildTextChannel TextChannel => (GuildTextChannel)Channel;
 
         /// <inheritdoc/>
+        public RelayCommand SelectionCommand { get; }
+
+        /// <inheritdoc/>
         public RelayCommand MarkAsReadCommand { get; }
 
         /// <inheritdoc/>
@@ -53,9 +55,13 @@ namespace Quarrel.Bindables.Channels
             OnPropertyChanged(nameof(MessageChannel));
         }
 
-        private async void MarkRead()
+        /// <inheritdoc/>
+        public void Select() => _messenger.Send(new SelectChannelMessage<IBindableSelectableChannel>(this));
+
+        /// <inheritdoc/>
+        public void MarkRead()
         {
-            await _discordService.MarkRead(MessageChannel.Id, MessageChannel.LastMessageId ?? 0);
+            _ = _discordService.MarkRead(MessageChannel.Id, MessageChannel.LastMessageId ?? 0);
         }
     }
 }

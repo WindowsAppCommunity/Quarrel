@@ -6,6 +6,7 @@ using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
+using Quarrel.Messages.Navigation;
 using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
@@ -29,6 +30,7 @@ namespace Quarrel.Bindables.Channels.Abstract
             PrivateChannel privateChannel) :
             base(messenger, clipboardService, discordService, dispatcherService, privateChannel)
         {
+            SelectionCommand = new RelayCommand(Select);
             StartCallCommand = new RelayCommand(StartCall);
             MarkAsReadCommand = new RelayCommand(MarkRead);
         }
@@ -41,6 +43,9 @@ namespace Quarrel.Bindables.Channels.Abstract
 
         /// <inheritdoc/>
         public IMessageChannel MessageChannel => (IMessageChannel)Channel;
+
+        /// <inheritdoc/>
+        public RelayCommand SelectionCommand { get; }
 
         /// <summary>
         /// Gets a command that begins a call.
@@ -75,9 +80,13 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// </summary>
         public void StartCall() => _discordService.StartCall(Id);
 
-        private async void MarkRead()
+        /// <inheritdoc/>
+        public void MarkRead()
         {
-            await _discordService.MarkRead(MessageChannel.Id, MessageChannel.LastMessageId ?? 0);
+            _ = _discordService.MarkRead(MessageChannel.Id, MessageChannel.LastMessageId ?? 0);
         }
+
+        /// <inheritdoc/>
+        public void Select() => _messenger.Send(new SelectChannelMessage<IBindableSelectableChannel>(this));
     }
 }

@@ -19,5 +19,10 @@ namespace Quarrel.Bindables.Channels.Interfaces
         /// Gets a command that joins the call in the channel.
         /// </summary>
         RelayCommand JoinCallCommand { get; }
+
+        /// <summary>
+        /// Connects to the audio channel.
+        /// </summary>
+        void JoinCall();
     }
 }

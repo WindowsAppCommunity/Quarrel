@@ -25,9 +25,6 @@ namespace Quarrel.Bindables.Channels
             base(messenger, clipboardService, discordService, dispatcherService, channel, selfMember)
         {
         }
-        
-        /// <inheritdoc/>
-        public override bool IsTextChannel => false;
 
         /// <inheritdoc/>
         public override bool IsAccessible => true;

@@ -19,5 +19,10 @@ namespace Quarrel.Bindables.Channels.Interfaces
         /// Gets a command that marks the channel as read.
         /// </summary>
         RelayCommand MarkAsReadCommand { get; }
+
+        /// <summary>
+        /// Marks the last message in the channel as read.
+        /// </summary>
+        void MarkRead();
     }
 }
