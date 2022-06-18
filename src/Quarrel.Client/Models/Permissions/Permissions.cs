@@ -40,7 +40,7 @@ namespace Quarrel.Client.Models.Permissions
         /// <inheritdoc cref="Permission.Administrator"/>
         public bool Administrator
         {
-            get => GetPerm(Permission.Administrator);
+            get => (_permission & Permission.Administrator) == Permission.Administrator;
             set => SetPerm(Permission.Administrator, value);
         }
         
@@ -301,7 +301,7 @@ namespace Quarrel.Client.Models.Permissions
 
         private bool GetPerm(Permission perm)
         {
-            return ((_permission & perm) == perm || (_permission & Permission.Administrator) == Permission.Administrator);
+            return (_permission & perm) == perm || Administrator;
         }
 
         private void SetPerm(Permission perm, bool value)

@@ -7,6 +7,7 @@ using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;
+using Quarrel.Messages.Navigation;
 using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
@@ -28,7 +29,8 @@ namespace Quarrel.Bindables.Channels
             BindableCategoryChannel? parent = null) :
             base(messenger, clipboardService, discordService, dispatcherService, channel, selfMember, parent)
         {
-            SelectionCommand = new RelayCommand(JoinCall);
+            SelectionCommand = new RelayCommand(Select);
+            OpenChatCommand = new RelayCommand(OpenChat);
             JoinCallCommand = new RelayCommand(JoinCall);
             MarkAsReadCommand = new RelayCommand(MarkRead);
         }
@@ -48,14 +50,27 @@ namespace Quarrel.Bindables.Channels
         /// <inheritdoc/>
         public RelayCommand SelectionCommand { get; }
 
-        /// <inheritdoc/>
-        public void Select() => JoinCall();
+        /// <summary>
+        /// Gets a command that opens the voice channel as a text chat.
+        /// </summary>
+        public RelayCommand OpenChatCommand { get; }
 
         /// <inheritdoc/>
         public RelayCommand JoinCallCommand { get; }
 
         /// <inheritdoc/>
         public RelayCommand MarkAsReadCommand { get; }
+
+        /// <inheritdoc/>
+        public void Select() => JoinCall();
+
+        /// <summary>
+        /// Opens the voice channel as a text chat.
+        /// </summary>
+        public void OpenChat()
+        {
+            _messenger.Send(new SelectChannelMessage<IBindableSelectableChannel>(this));
+        }
 
         /// <inheritdoc/>
         public void JoinCall()

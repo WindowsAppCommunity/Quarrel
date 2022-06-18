@@ -64,7 +64,8 @@
             <Button Style="{StaticResource TextBlockButtonStyle}"
                     Foreground="{ThemeResource SystemColorHighlightTextBrush}"
                     Opacity=".25" Margin="0,0,8,0"
-                    HorizontalAlignment="Right">
+                    HorizontalAlignment="Right"
+                    Command="{x:Bind OpenChatCommand}">
                 <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE15F;" FontSize="14"/>
             </Button>
         </Grid>
