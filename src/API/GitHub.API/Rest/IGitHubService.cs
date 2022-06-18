@@ -25,5 +25,13 @@ namespace GitHub.API.Rest
         /// <param name="repo">The repository name.</param>
         [Get("/repos/{owner}/{repo}/contributors")]
         Task<Contributor[]> GetContributorsAsync([AliasAs("owner")] string owner, [AliasAs("repo")] string repo);
+
+        /// <summary>
+        /// Gets the list of releases for a given repository.
+        /// </summary>
+        /// <param name="owner">The repository owner name.</param>
+        /// <param name="repo">The repository name.</param>
+        [Get("/repos/{owner}/{repo}/releases")]
+        Task<Release[]> GetReleasesAsync([AliasAs("owner")] string owner, [AliasAs("repo")] string repo);
     }
 }
