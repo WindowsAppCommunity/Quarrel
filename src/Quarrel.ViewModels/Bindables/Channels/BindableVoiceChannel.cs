@@ -11,6 +11,7 @@ using Quarrel.Messages.Navigation;
 using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
+using Quarrel.Messages.Discord.Voice;
 
 namespace Quarrel.Bindables.Channels
 {
@@ -19,6 +20,8 @@ namespace Quarrel.Bindables.Channels
     /// </summary>
     public class BindableVoiceChannel : BindableGuildChannel, IBindableAudioChannel, IBindableMessageChannel
     {
+        private bool _isConnected;
+
         internal BindableVoiceChannel(
             IMessenger messenger,
             IClipboardService clipboardService,
@@ -33,10 +36,22 @@ namespace Quarrel.Bindables.Channels
             OpenChatCommand = new RelayCommand(OpenChat);
             JoinCallCommand = new RelayCommand(JoinCall);
             MarkAsReadCommand = new RelayCommand(MarkRead);
+
+            _messenger.Register<MyVoiceStateUpdatedMessage>(this, (_, m) =>
+            {
+                IsConnected = m.VoiceState.Channel?.Id == Id;
+            });
         }
 
         /// <inheritdoc/>
         public override bool IsAccessible => Permissions.Connect;
+
+        /// <inheritdoc/>
+        public bool IsConnected
+        {
+            get => _isConnected;
+            set => SetProperty(ref _isConnected, value);
+        }
 
         /// <inheritdoc/>
         public IAudioChannel AudioChannel => (IAudioChannel)Channel;
@@ -62,7 +77,17 @@ namespace Quarrel.Bindables.Channels
         public RelayCommand MarkAsReadCommand { get; }
 
         /// <inheritdoc/>
-        public void Select() => JoinCall();
+        public void Select()
+        {
+            if (IsConnected)
+            {
+                OpenChat();
+            }
+            else
+            {
+                JoinCall();
+            }
+        }
 
         /// <summary>
         /// Opens the voice channel as a text chat.
@@ -73,15 +98,17 @@ namespace Quarrel.Bindables.Channels
         }
 
         /// <inheritdoc/>
-        public void JoinCall()
-        {
-            _ = _discordService.JoinCall(Id, GuildId);
-        }
+        public void JoinCall() => _ = _discordService.JoinCall(Id, GuildId);
 
         /// <inheritdoc/>
-        public void MarkRead()
+        public void MarkRead() 
+            => _ = _discordService.MarkRead(MessageChannel.Id, MessageChannel.LastMessageId ?? 0);
+
+        /// <inheritdoc/>
+        protected override void AckUpdate()
         {
-            _ = _discordService.MarkRead(MessageChannel.Id, MessageChannel.LastMessageId ?? 0);
+            base.AckUpdate();
+            OnPropertyChanged(nameof(MessageChannel));
         }
     }
 }

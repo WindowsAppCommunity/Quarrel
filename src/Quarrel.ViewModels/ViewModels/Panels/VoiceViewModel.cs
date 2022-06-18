@@ -34,7 +34,7 @@ namespace Quarrel.ViewModels.Panels
 
             _messenger.Register<VoiceStateUpdatedMessage>(this, (_, m) =>
             {
-                if (m.VoiceState.User.Id != _discordService.GetMe()!.User.Id) return;
+                if (m.VoiceState.User.Id != _discordService.MyId) return;
 
                 _dispatcherService.RunOnUIThread(() => VoiceState = m.VoiceState);
             });

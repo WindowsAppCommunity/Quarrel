@@ -6,6 +6,7 @@ using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
+using Quarrel.Messages.Discord.Voice;
 using Quarrel.Messages.Navigation;
 using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
@@ -17,8 +18,10 @@ namespace Quarrel.Bindables.Channels.Abstract
     /// <summary>
     /// A wrapper of an <see cref="IPrivateChannel"/> that can be bound to the UI.
     /// </summary>
-    public abstract class BindablePrivateChannel : BindableChannel, IBindableMessageChannel
+    public abstract class BindablePrivateChannel : BindableChannel, IBindableMessageChannel, IBindableAudioChannel
     {
+        private bool _isConnected;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BindablePrivateChannel"/> class.
         /// </summary>
@@ -31,9 +34,15 @@ namespace Quarrel.Bindables.Channels.Abstract
             base(messenger, clipboardService, discordService, dispatcherService, privateChannel)
         {
             SelectionCommand = new RelayCommand(Select);
-            StartCallCommand = new RelayCommand(StartCall);
+            JoinCallCommand = new RelayCommand(JoinCall);
             MarkAsReadCommand = new RelayCommand(MarkRead);
+
+            _messenger.Register<MyVoiceStateUpdatedMessage>(this, (_, m) =>
+            {
+                IsConnected = m.VoiceState.Channel?.Id == Id;
+            });
         }
+
 
         /// <inheritdoc/>
         public override ulong? GuildId => null;
@@ -42,15 +51,23 @@ namespace Quarrel.Bindables.Channels.Abstract
         public override bool IsAccessible => true;
 
         /// <inheritdoc/>
+        public bool IsConnected
+        {
+            get => _isConnected;
+            set => SetProperty(ref _isConnected, value);
+        }
+
+        /// <inheritdoc/>
         public IMessageChannel MessageChannel => (IMessageChannel)Channel;
+
+        /// <inheritdoc/>
+        public IAudioChannel AudioChannel => (IAudioChannel)Channel;
 
         /// <inheritdoc/>
         public RelayCommand SelectionCommand { get; }
 
-        /// <summary>
-        /// Gets a command that begins a call.
-        /// </summary>
-        public RelayCommand StartCallCommand { get; }
+        /// <inheritdoc/>
+        public RelayCommand JoinCallCommand { get; }
 
         /// <inheritdoc/>
         public RelayCommand MarkAsReadCommand { get; }
@@ -75,18 +92,22 @@ namespace Quarrel.Bindables.Channels.Abstract
             return BindableChannel.Create(messenger, clipboardService, discordService, localizationService, dispatcherService, channel) as BindablePrivateChannel;
         }
 
-        /// <summary>
-        /// Starts a call in this channel.
-        /// </summary>
-        public void StartCall() => _discordService.StartCall(Id);
-
         /// <inheritdoc/>
         public void MarkRead()
-        {
-            _ = _discordService.MarkRead(MessageChannel.Id, MessageChannel.LastMessageId ?? 0);
-        }
+            => _ = _discordService.MarkRead(MessageChannel.Id, MessageChannel.LastMessageId ?? 0);
 
         /// <inheritdoc/>
         public void Select() => _messenger.Send(new SelectChannelMessage<IBindableSelectableChannel>(this));
+
+        /// <inheritdoc/>
+        // TODO: Ring if there's no open call.
+        public void JoinCall() => _ = _discordService.JoinCall(Id);
+
+        /// <inheritdoc/>
+        protected override void AckUpdate()
+        {
+            base.AckUpdate();
+            OnPropertyChanged(nameof(MessageChannel));
+        }
     }
 }

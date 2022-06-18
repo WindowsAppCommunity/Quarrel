@@ -40,6 +40,13 @@ namespace Quarrel.Services.Discord
             => _messenger.Send(new ChannelUpdatedMessage(e));
 
         private void OnVoiceStateUpdated(object sender, VoiceState e)
-            => _messenger.Send(new VoiceStateUpdatedMessage(e));
+        {
+            _messenger.Send(new VoiceStateUpdatedMessage(e));
+
+            if (e.User.Id == MyId)
+            {
+                _messenger.Send(new MyVoiceStateUpdatedMessage(e));
+            }
+        }
     }
 }

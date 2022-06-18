@@ -24,6 +24,9 @@ namespace Quarrel.Services.Discord
     public partial class DiscordService
     {
         /// <inheritdoc/>
+        public ulong? MyId => _quarrelClient.Self.CurrentUser?.Id;
+
+        /// <inheritdoc/>
         public BindableSelfUser? GetMe()
         {
             SelfUser? user = _quarrelClient.Self.CurrentUser;

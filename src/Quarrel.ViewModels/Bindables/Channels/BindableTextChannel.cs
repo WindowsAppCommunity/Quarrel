@@ -35,10 +35,10 @@ namespace Quarrel.Bindables.Channels
 
         /// <inheritdoc/>
         public override bool IsAccessible => Permissions.ReadMessages;
-        
+
         /// <inheritdoc/>
         public IMessageChannel MessageChannel => (IMessageChannel)Channel;
-        
+
         /// <inheritdoc/>
         public GuildTextChannel TextChannel => (GuildTextChannel)Channel;
 
@@ -49,19 +49,17 @@ namespace Quarrel.Bindables.Channels
         public RelayCommand MarkAsReadCommand { get; }
 
         /// <inheritdoc/>
-        protected override void AckUpdate()
-        {
-            base.AckUpdate();
-            OnPropertyChanged(nameof(MessageChannel));
-        }
-
-        /// <inheritdoc/>
         public void Select() => _messenger.Send(new SelectChannelMessage<IBindableSelectableChannel>(this));
 
         /// <inheritdoc/>
         public void MarkRead()
+            => _ = _discordService.MarkRead(MessageChannel.Id, MessageChannel.LastMessageId ?? 0);
+
+        /// <inheritdoc/>
+        protected override void AckUpdate()
         {
-            _ = _discordService.MarkRead(MessageChannel.Id, MessageChannel.LastMessageId ?? 0);
+            base.AckUpdate();
+            OnPropertyChanged(nameof(MessageChannel));
         }
     }
 }

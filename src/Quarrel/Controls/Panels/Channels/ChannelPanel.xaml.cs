@@ -1,7 +1,6 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Extensions.DependencyInjection;
-using Quarrel.Bindables.Channels;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.ViewModels.Panels;
 using Windows.UI.Xaml;

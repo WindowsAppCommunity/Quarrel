@@ -51,13 +51,12 @@ namespace Quarrel.ViewModels.Panels
                 if (value is null || _currentGuild is null)
                     return;
 
-                if (_selectedChannel is not null)
-                {
-                    _selectedChannel.IsSelected = false;
-                }
+                var old = _selectedChannel;
 
                 if(SetProperty(ref _selectedChannel, value))
                 {
+                    if (old is not null) old.IsSelected = false;
+
                     value.IsSelected = true;
                     _currentGuild.SelectedChannelId = value.Id;
 

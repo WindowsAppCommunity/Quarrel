@@ -51,7 +51,7 @@ namespace Quarrel.ViewModels.Panels
         {
             if (SelectedChannel is BindablePrivateChannel privateChannel)
             {
-                privateChannel.StartCall();
+                privateChannel.JoinCall();
             }
         }
     }

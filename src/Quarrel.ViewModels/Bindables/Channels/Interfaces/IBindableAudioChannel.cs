@@ -11,6 +11,11 @@ namespace Quarrel.Bindables.Channels.Interfaces
     public interface IBindableAudioChannel : IBindableChannel
     {
         /// <summary>
+        /// Gets a value indicating whether or not the voice channel is currently connected.
+        /// </summary>
+        bool IsConnected { get; }
+
+        /// <summary>
         /// Gets the wrapped <see cref="IAudioChannel"/>.
         /// </summary>
         IAudioChannel AudioChannel { get; }

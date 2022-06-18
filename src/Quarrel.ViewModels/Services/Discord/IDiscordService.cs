@@ -21,6 +21,11 @@ namespace Quarrel.Services.Discord
     public interface IDiscordService
     {
         /// <summary>
+        /// Gets the id of the current user.
+        /// </summary>
+        ulong? MyId { get; }
+
+        /// <summary>
         /// Gets the current user for the <see cref="DiscordService"/>.
         /// </summary>
         /// <returns>The current user as a <see cref="BindableSelfUser"/>.</returns>
