@@ -2,7 +2,6 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Json.Channels;
-using Discord.API.Models.Json.Users;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;

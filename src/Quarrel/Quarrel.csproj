@@ -153,6 +153,7 @@
     <Compile Include="Converters\Common\Visible\VisibleWhenNullConverter.cs" />
     <Compile Include="Converters\Discord\Channels\IsPrivateChannelConverter.cs" />
     <Compile Include="Converters\Discord\Channels\IsPrivateChannelVisibleConverter.cs" />
+    <Compile Include="Converters\Discord\Channels\IsUnreadOpacityConverter.cs" />
     <Compile Include="Converters\Discord\Channels\MemberCountConverter.cs" />
     <Compile Include="Converters\Discord\Messages\Attachments\AttachmentIconConverter.cs" />
     <Compile Include="Converters\Discord\Messages\Attachments\AttachmentConverter.cs" />
