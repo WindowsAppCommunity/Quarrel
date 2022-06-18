@@ -8,6 +8,8 @@
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">
@@ -280,7 +282,6 @@
                                    Visibility="Collapsed" />
                         <Grid x:Name="ContentPresenterGrid"
                               Background="Transparent"
-                              Margin="0,0,0,0"
                               VerticalAlignment="Center">
                             <ContentPresenter x:Name="ContentPresenter"
                                               ContentTransitions="{TemplateBinding ContentTransitions}"
@@ -300,8 +301,7 @@
                         <Rectangle x:Name="MultiArrangeOverlayBackground"
                                    IsHitTestVisible="False"
                                    Opacity="0"
-                                   Fill="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
-                                   Grid.ColumnSpan="2" />
+                                   Fill="{ThemeResource ListViewItemDragBackgroundThemeBrush}"/>
                         <Rectangle x:Name="bgIndic"
                                    Fill="{ThemeResource InvertedBackground}"
                                    Opacity="0"

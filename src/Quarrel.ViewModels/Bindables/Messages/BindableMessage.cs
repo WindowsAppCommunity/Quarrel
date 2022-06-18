@@ -13,6 +13,7 @@ using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Quarrel.Bindables.Messages
 {
@@ -176,6 +177,12 @@ namespace Quarrel.Bindables.Messages
                  _previousMessage.Flags?.HasFlag(MessageFlags.EPHEMERAL) != _message.Flags?.HasFlag(MessageFlags.EPHEMERAL) ||
                  _message.WebhookId != null && _previousMessage.Author?.Username != _message.Author?.Username ||
                  _message.Timestamp.ToUnixTimeMilliseconds() - _previousMessage.Timestamp.ToUnixTimeMilliseconds() >  7 * 60 * 1000)));
+
+        /// <summary>
+        /// Gets a value indicating whether or not the current user is mentioned in the message.
+        /// </summary>
+        public bool MentionsMe => Message.MentionsEveryone ||
+                                  Message.Mentions.Any(x => x.Id == _discordService.MyId);
 
         /// <summary>
         /// Gets whether or not the user can delete the message.

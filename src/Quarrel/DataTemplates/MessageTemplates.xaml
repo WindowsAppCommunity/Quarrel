@@ -79,8 +79,9 @@
         <!--Grid must be wrapped in a user control to enable the VisualStateManager-->
         <UserControl HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
                      VerticalAlignment="Stretch" VerticalContentAlignment="Stretch">
-            <Grid x:Name="RootGrid" Padding="2,12,2,4" Background="Transparent"
+            <Grid Background="Transparent"
                   Opacity="{x:Bind mconvert:IsDeletedToOpacityConverter.Convert(IsDeleted), Mode=OneWay}">
+
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup>
                         <VisualState x:Name="Default">
@@ -106,56 +107,62 @@
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
 
-                <Grid.ContextFlyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem x:Uid="Message/CopyLinkMFI" Text="Copy Message Link"
-                                        Icon="Link" Command="{x:Bind CopyLinkCommand}"/>
-                        <MenuFlyoutItem x:Uid="Message/CopyIdMFI" Text="Copy ID"
-                                        Command="{x:Bind CopyIdCommand}">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE8EC;"/>
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                        <MenuFlyoutSeparator Visibility="{x:Bind CanDelete}"/>
-                        <MenuFlyoutItem x:Uid="Message/DeleteMFI" Text="Delete" Icon="Delete"
-                                        Command="{x:Bind DeleteCommand}"
-                                        Foreground="{StaticResource DiscordRedBrush}"
-                                        Visibility="{x:Bind CanDelete}"/>
-                    </MenuFlyout>
-                </Grid.ContextFlyout>
+                <Border Visibility="{x:Bind MentionsMe, Mode=OneWay}"
+                        Background="#FFFFB400" Opacity=".25" Margin="0"/>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="64"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                <Grid x:Name="RootGrid" Padding="2,12,2,4">
 
-                <!--Image-->
-                <Border x:Name="ProfileImageContainer"  Width="36" Height="36"
-                        CornerRadius="18" VerticalAlignment="Top">
-                    <tc:ImageEx Source="{x:Bind Author.AvatarUri}"/>
-                </Border>
+                    <Grid.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem x:Uid="Message/CopyLinkMFI" Text="Copy Message Link"
+                                            Icon="Link" Command="{x:Bind CopyLinkCommand}"/>
+                            <MenuFlyoutItem x:Uid="Message/CopyIdMFI" Text="Copy ID"
+                                            Command="{x:Bind CopyIdCommand}">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE8EC;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutSeparator Visibility="{x:Bind CanDelete}"/>
+                            <MenuFlyoutItem x:Uid="Message/DeleteMFI" Text="Delete" Icon="Delete"
+                                            Command="{x:Bind DeleteCommand}"
+                                            Foreground="{StaticResource DiscordRedBrush}"
+                                            Visibility="{x:Bind CanDelete}"/>
+                        </MenuFlyout>
+                    </Grid.ContextFlyout>
 
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="64"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                    <StackPanel x:Name="Header" Orientation="Horizontal" Margin="0,-2,0,0">
-                        <HyperlinkButton Content="{x:Bind Author.User.Username}" Style="{StaticResource PlainTextHyperlinkStyle}"
-                                         FontSize="14"/>
-                        <TextBlock Text="{x:Bind tconvert:SmartDateTimeFormatConverter.Convert(Message.Timestamp)}"
-                                   VerticalAlignment="Center" FontSize="12" Opacity=".5" Margin="6,0"/>
-                    </StackPanel>
+                    <!--Image-->
+                    <Border x:Name="ProfileImageContainer"  Width="36" Height="36"
+                            CornerRadius="18" VerticalAlignment="Top">
+                        <tc:ImageEx Source="{x:Bind Author.AvatarUri}"/>
+                    </Border>
 
-                    <StackPanel Grid.Row="1">
-                        <markdown:MessageRenderer Text="{x:Bind Message.Content, Mode=OneWay}" Context="{x:Bind Mode=OneWay}"
-                                                  HorizontalAlignment="Left"/>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
 
-                        <ItemsControl ItemsSource="{x:Bind Attachments}"
-                                      ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"
-                                      HorizontalAlignment="Left"/>
-                    </StackPanel>
+                        <StackPanel x:Name="Header" Orientation="Horizontal" Margin="0,-2,0,0">
+                            <HyperlinkButton Content="{x:Bind Author.User.Username}" Style="{StaticResource PlainTextHyperlinkStyle}"
+                                             FontSize="14"/>
+                            <TextBlock Text="{x:Bind tconvert:SmartDateTimeFormatConverter.Convert(Message.Timestamp)}"
+                                       VerticalAlignment="Center" FontSize="12" Opacity=".5" Margin="6,0"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1">
+                            <markdown:MessageRenderer Text="{x:Bind Message.Content, Mode=OneWay}" Context="{x:Bind Mode=OneWay}"
+                                                      HorizontalAlignment="Left"/>
+
+                            <ItemsControl ItemsSource="{x:Bind Attachments}"
+                                          ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"
+                                          HorizontalAlignment="Left"/>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </Grid>
         </UserControl>
