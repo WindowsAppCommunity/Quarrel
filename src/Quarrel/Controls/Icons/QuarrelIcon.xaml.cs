@@ -3,7 +3,7 @@
 using System;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Controls
+namespace Quarrel.Controls.Icons
 {
     /// <summary>
     /// A control that displays an animated Quarrel icon.

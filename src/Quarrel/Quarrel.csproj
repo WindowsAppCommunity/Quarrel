@@ -96,7 +96,7 @@
     <Compile Include="Controls\Panels\Channels\VoiceController.xaml.cs">
       <DependentUpon>VoiceController.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\QuarrelIcon.xaml.cs">
+    <Compile Include="Controls\Icons\QuarrelIcon.xaml.cs">
       <DependentUpon>QuarrelIcon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Shadow.xaml.cs">
@@ -139,10 +139,10 @@
       <DependentUpon>SideDrawer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Shell\SideDrawerSize.cs" />
-    <Compile Include="Controls\TypingIndicator.xaml.cs">
+    <Compile Include="Controls\Icons\TypingIndicator.xaml.cs">
       <DependentUpon>TypingIndicator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\UserIcon.xaml.cs">
+    <Compile Include="Controls\Icons\UserIcon.xaml.cs">
       <DependentUpon>UserIcon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\Common\Boolean\IsNotNullConverter.cs" />
@@ -498,7 +498,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\QuarrelIcon.xaml">
+    <Page Include="Controls\Icons\QuarrelIcon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -554,11 +554,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\TypingIndicator.xaml">
+    <Page Include="Controls\Icons\TypingIndicator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\UserIcon.xaml">
+    <Page Include="Controls\Icons\UserIcon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

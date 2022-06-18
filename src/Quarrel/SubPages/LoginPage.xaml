@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:qb="using:Quarrel.Behaviors"
-    xmlns:qc="using:Quarrel.Controls"
+    xmlns:icons="using:Quarrel.Controls.Icons"
     xmlns:vconvert="using:Quarrel.Converters.Common.Visible"
     xmlns:spvm="using:Quarrel.ViewModels.SubPages"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
@@ -79,8 +79,8 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <qc:QuarrelIcon Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
-                                Height="64" Width="64" HorizontalAlignment="Left"/>
+                <icons:QuarrelIcon Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
+                                   Height="64" Width="64" HorizontalAlignment="Left"/>
 
                 <TextBlock x:Uid="Login/QuarrelTB" Text="Quarrel" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Grid.Column="1"
                            FontSize="46" CharacterSpacing="250" HorizontalAlignment="Right"/>

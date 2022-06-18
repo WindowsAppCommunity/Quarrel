@@ -3,7 +3,7 @@
 using Quarrel.Bindables.Users.Interfaces;
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Controls
+namespace Quarrel.Controls.Icons
 {
     public sealed partial class UserIcon : UserControl
     {

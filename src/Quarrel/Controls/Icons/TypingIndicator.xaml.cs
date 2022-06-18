@@ -2,7 +2,7 @@
 
 using Windows.UI.Xaml.Controls;
 
-namespace Quarrel.Controls
+namespace Quarrel.Controls.Icons
 {
     public sealed partial class TypingIndicator : UserControl
     {

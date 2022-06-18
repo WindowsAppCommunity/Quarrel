@@ -5,7 +5,7 @@
     xmlns:local="using:Quarrel.Controls.Host"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:qc="using:Quarrel.Controls"
+    xmlns:icons="using:Quarrel.Controls.Icons"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -24,9 +24,9 @@
         <Grid x:Name="Backdrop" Background="{ThemeResource PrimaryBackground}"/>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 
-            <qc:QuarrelIcon x:Name="QuarrelIcon"
-                                  MaxWidth="96" Margin="0,0,0,24"
-                                  Foreground="{ThemeResource SystemColorHighlightTextBrush}"/>
+            <icons:QuarrelIcon x:Name="QuarrelIcon"
+                               MaxWidth="96" Margin="0,0,0,24"
+                               Foreground="{ThemeResource SystemColorHighlightTextBrush}"/>
 
             <TextBlock x:Name="MessageBlock" Text="Message."
                        FontStyle="Italic" FontSize="16"
