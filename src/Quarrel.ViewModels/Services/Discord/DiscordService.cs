@@ -22,7 +22,7 @@ namespace Quarrel.Services.Discord
     public partial class DiscordService : IDiscordService
     {
         private readonly QuarrelClient _quarrelClient;
-        private readonly IAnalyticsService _analyticsService;
+        private readonly ILoggingService _loggingService;
         private readonly IClipboardService _clipboardService;
         private readonly ILocalizationService _localizationService;
         private readonly IDispatcherService _dispatcherService;
@@ -33,19 +33,19 @@ namespace Quarrel.Services.Discord
         /// Initializes a new instance of the <see cref="DiscordService"/> class.
         /// </summary>
         public DiscordService(
-            IAnalyticsService analyticsService,
+            ILoggingService loggingService,
             IClipboardService clipboardService,
             ILocalizationService localizationService,
             IDispatcherService dispatcherService,
             IMessenger messenger)
         {
-            _analyticsService = analyticsService;
+            _loggingService = loggingService;
             _clipboardService = clipboardService;
             _localizationService = localizationService;
             _dispatcherService = dispatcherService;
             _messenger = messenger;
 
-            _quarrelClient = new QuarrelClient();
+            _quarrelClient = new QuarrelClient(loggingService);
             RegisterEvents();
         }
 
@@ -55,17 +55,6 @@ namespace Quarrel.Services.Discord
             _quarrelClient.LoggedOut += OnLoggedOut;
             _quarrelClient.Reconnecting += OnReconnecting;
             _quarrelClient.Resuming += OnResuming;
-            _quarrelClient.HttpExceptionHandled += OnHttpExceptionHandled;
-
-            _quarrelClient.GatewayExceptionHandled += OnGatewayExceptionHandled;
-            _quarrelClient.UnknownGatewayOperationEncountered += OnUnknownGatewayOperationEncountered;
-            _quarrelClient.UnknownGatewayEventEncountered += OnUnknownGatewayEventEncountered;
-            _quarrelClient.KnownGatewayEventEncountered += OnKnownGatewayEventEncountered;
-            _quarrelClient.UnhandledGatewayOperationEncountered += OnUnhandledGatewayOperationEncountered;
-            _quarrelClient.UnhandledGatewayEventEncountered += OnUnhandledGatewayEventEncountered;
-            _quarrelClient.VoiceExceptionHandled += OnVoiceExceptionHandled;
-            _quarrelClient.UnknownVoiceOperationEncountered += OnUnknownVoiceOperationEncountered;
-            _quarrelClient.UnhandledVoiceOperationEncountered += OnUnhandledVoiceOperationEncountered;
 
             RegisterChannelEvents();
         }
@@ -74,7 +63,7 @@ namespace Quarrel.Services.Discord
         public async Task<bool> LoginAsync(string token, LoginType source = LoginType.Unspecified)
         {
             _messenger.Send(new ConnectingMessage());
-            _analyticsService.Log(LoggedEvent.LoginAttempted);
+            _loggingService.Log(LoggedEvent.LoginAttempted);
 
             try
             {
@@ -86,7 +75,7 @@ namespace Quarrel.Services.Discord
             catch (Exception e)
             {
                 // TODO: Report error with messenger.
-                _analyticsService.Log(LoggedEvent.LoginFailed,
+                _loggingService.Log(LoggedEvent.LoginFailed,
                     (nameof(source), $"{source}"),
                     ("Exception Type", e.GetType().FullName),
                     ("Exception Message", e.Message));
@@ -97,7 +86,7 @@ namespace Quarrel.Services.Discord
 
         private void OnLoggedIn(object sender, SelfUser e)
         {
-            _analyticsService.Log(LoggedEvent.SuccessfulLogin, (nameof(_loginSource), $"{_loginSource}"));
+            _loggingService.Log(LoggedEvent.SuccessfulLogin, (nameof(_loginSource), $"{_loginSource}"));
 
             string? token = _quarrelClient.Token;
 
@@ -120,64 +109,6 @@ namespace Quarrel.Services.Discord
         private void OnResuming()
         {
             _messenger.Send(new ConnectingMessage());
-        }
-
-        private void OnHttpExceptionHandled(object sender, Exception e)
-            => LogException(LoggedEvent.HttpExceptionHandled, e);
-
-        private void OnGatewayExceptionHandled(object sender, Exception e)
-            => LogException(LoggedEvent.GatewayExceptionHandled, e);
-
-        private void OnUnknownGatewayOperationEncountered(object sender, int e)
-        {
-            _analyticsService.Log(LoggedEvent.UnknownGatewayOperationEncountered,
-                ("Operation", $"{e}"));
-        }
-
-        private void OnUnknownGatewayEventEncountered(object sender, string e)
-        {
-            _analyticsService.Log(LoggedEvent.UnknownGatewayEventEncountered,
-                ("Event", e));
-        }
-
-        private void OnKnownGatewayEventEncountered(object sender, string e)
-        {
-            _analyticsService.Log(LoggedEvent.KnownGatewayEventEncountered,
-                ("Event", e));
-        }
-
-        private void OnUnhandledGatewayOperationEncountered(object sender, int e)
-        {
-            _analyticsService.Log(LoggedEvent.UnhandledGatewayOperationEncountered,
-                ("Operation", $"{e}"));
-        }
-
-        private void OnUnhandledGatewayEventEncountered(object sender, string e)
-        {
-            _analyticsService.Log(LoggedEvent.UnhandledGatewayEventEncountered,
-                ("Event", e));
-        }
-
-        private void OnVoiceExceptionHandled(object sender, Exception e)
-            => LogException(LoggedEvent.VoiceExceptionHandled, e);
-
-        private void OnUnknownVoiceOperationEncountered(object sender, int e)
-        {
-            _analyticsService.Log(LoggedEvent.UnknownVoiceOperationEncountered,
-                ("Operation", $"{e}"));
-        }
-
-        private void OnUnhandledVoiceOperationEncountered(object sender, int e)
-        {
-            _analyticsService.Log(LoggedEvent.UnhandledVoiceOperationEncountered,
-                ("Operation", $"{e}"));
-        }
-
-        private void LogException(LoggedEvent type, Exception e)
-        {
-            _analyticsService.Log(type,
-                    ("Exception Type", e.GetType().FullName),
-                    ("Exception Message", e.Message));
         }
     }
 }

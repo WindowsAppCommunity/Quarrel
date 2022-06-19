@@ -14,12 +14,12 @@ namespace Quarrel.Services.AppConnections
     {
         private const string RichPresenceConnectionName = "com.Quarrel.RichPresence";
 
-        private readonly IAnalyticsService _analyticsService;
+        private readonly ILoggingService _loggingService;
         private readonly Dictionary<Guid, (AppConnection, BackgroundTaskDeferral)> _connections;
 
-        public AppConnectionService(IAnalyticsService analyticsService)
+        public AppConnectionService(ILoggingService loggingService)
         {
-            _analyticsService = analyticsService;
+            _loggingService = loggingService;
             _connections = new Dictionary<Guid, (AppConnection, BackgroundTaskDeferral)>();
         }
 
@@ -28,7 +28,7 @@ namespace Quarrel.Services.AppConnections
             var triggerDetails = (AppServiceTriggerDetails)taskInstance.TriggerDetails;
             var connection = triggerDetails.AppServiceConnection;
 
-            _analyticsService.Log(LoggedEvent.AppServiceConnectionReceived,
+            _loggingService.Log(LoggedEvent.AppServiceConnectionReceived,
                 (nameof(triggerDetails.Name), triggerDetails.Name),
                 (nameof(triggerDetails.CallerPackageFamilyName), triggerDetails.CallerPackageFamilyName));
 

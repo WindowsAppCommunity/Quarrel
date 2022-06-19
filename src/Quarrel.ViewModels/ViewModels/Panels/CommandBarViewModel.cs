@@ -16,7 +16,7 @@ namespace Quarrel.ViewModels.Panels
     /// </summary>
     public class CommandBarViewModel : ObservableRecipient
     {
-        private readonly IAnalyticsService _analyticsService;
+        private readonly ILoggingService _loggingService;
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
 
@@ -25,9 +25,9 @@ namespace Quarrel.ViewModels.Panels
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandBarViewModel"/> class.
         /// </summary>
-        public CommandBarViewModel(IAnalyticsService analyticsService, IMessenger messenger, IDiscordService discordService)
+        public CommandBarViewModel(ILoggingService loggingService, IMessenger messenger, IDiscordService discordService)
         {
-            _analyticsService = analyticsService;
+            _loggingService = loggingService;
             _messenger = messenger;
             _discordService = discordService;
 

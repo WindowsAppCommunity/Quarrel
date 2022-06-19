@@ -50,9 +50,9 @@ namespace Quarrel
             .AddTransient<IGitHubService, GitHubService>()
 
             #if DEV
-            .AddSingleton<IAnalyticsService, LoggingAnalyticsService>()
+            .AddSingleton<ILoggingService, LoggingService>()
             #else
-            .AddSingleton<IAnalyticsService, AppCenterService>()
+            .AddSingleton<ILoggingService, AppCenterService>()
             #endif
 
             // ViewModels

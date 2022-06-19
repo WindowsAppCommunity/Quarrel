@@ -1,10 +1,9 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
-using Discord.API.Exceptions;
 using Discord.API.Gateways;
 using Discord.API.Rest;
-using Discord.API.Voice;
+using Quarrel.Client.Logger;
 using Refit;
 using System;
 using System.Threading.Tasks;
@@ -19,8 +18,10 @@ namespace Quarrel.Client
         /// <summary>
         /// Initializes a new instance of the <see cref="QuarrelClient"/> class.
         /// </summary>
-        public QuarrelClient()
+        public QuarrelClient(IClientLogger logger)
         {
+            Logger = logger;
+
             Channels = new QuarrelClientChannels(this);
             Guilds = new QuarrelClientGuilds(this);
             Members = new QuarrelClientMembers(this);
@@ -75,6 +76,11 @@ namespace Quarrel.Client
         /// </summary>
         private Gateway? Gateway { get; set; }
 
+        /// <summary>
+        /// Gets the client's logger.
+        /// </summary>
+        public IClientLogger Logger { get; }
+
         private IChannelService? ChannelService { get; set; }
 
         private IGatewayService? GatewayService { get; set; }
@@ -115,12 +121,12 @@ namespace Quarrel.Client
             var gatewayConfig = await MakeRefitRequest(() => GatewayService.GetGatewayConfig());
             Guard.IsNotNull(gatewayConfig, nameof(GatewayService));
             Gateway = new Gateway(gatewayConfig,
-                unhandledMessageEncountered: OnUnhandledGatewayMessageEncountered,
-                unknownEventEncountered: OnUnknownGatewayEventEncountered,
-                unknownOperationEncountered: OnUnknownGatewayOperationEncountered,
-                knownEventEncountered: OnKnownGatewayEventEncountered,
-                unhandledOperationEncountered: OnUnhandledGatewayOperationEncountered,
-                unhandledEventEncountered: OnUnhandledGatewayEventEncountered,
+                unhandledMessageEncountered: e => LogException(ClientLogEvent.GatewayExceptionHandled, e),
+                unknownEventEncountered: e => LogEvent(ClientLogEvent.UnknownGatewayEventEncountered, e),
+                unknownOperationEncountered: e => LogOperation(ClientLogEvent.UnknownGatewayOperationEncountered, e),
+                knownEventEncountered: e => LogEvent(ClientLogEvent.KnownGatewayEventEncountered, $"{e}"),
+                unhandledOperationEncountered: e => LogOperation(ClientLogEvent.UnhandledGatewayOperationEncountered, (int)e),
+                unhandledEventEncountered: e => LogEvent(ClientLogEvent.UnhandledGatewayEventEncountered, $"{e}"),
 
                 ready: OnReady,
                 messageCreated: OnMessageCreated,
@@ -191,32 +197,29 @@ namespace Quarrel.Client
             }
         }
 
-        private void OnUnhandledGatewayMessageEncountered(SocketFrameException e)
-            => GatewayExceptionHandled?.Invoke(this, e);
+        private void Log(ClientLogEvent logEvent)
+        {
+            Logger.Log(logEvent);
+        }
 
-        private void OnUnknownGatewayEventEncountered(string e)
-            => UnknownGatewayEventEncountered?.Invoke(this, e);
+        private void LogOperation(ClientLogEvent logEvent, int op)
+        {
+            Logger.Log(logEvent,
+                ("Operation", $"{op}"));
+        }
 
-        private void OnUnknownGatewayOperationEncountered(int e)
-            => UnknownGatewayOperationEncountered?.Invoke(this, e);
+        private void LogEvent(ClientLogEvent logEvent, string eventName)
+        {
+            Logger.Log(logEvent,
+                ("Event", eventName));
+        }
 
-        private void OnKnownGatewayEventEncountered(GatewayEvent e)
-            => KnownGatewayEventEncountered?.Invoke(this, e.ToString());
-
-        private void OnUnhandledGatewayOperationEncountered(GatewayOperation e)
-            => UnhandledGatewayOperationEncountered?.Invoke(this, (int)e);
-
-        private void OnUnhandledGatewayEventEncountered(GatewayEvent e)
-            => UnhandledGatewayEventEncountered?.Invoke(this, e.ToString());
-
-        private void OnUnhandledVoiceMessageEncountered(SocketFrameException e)
-            => VoiceExceptionHandled?.Invoke(this, e);
-
-        private void OnUnknownVoiceOperationEncountered(int e)
-            => UnknownVoiceOperationEncountered?.Invoke(this, e);
-
-        private void OnUnhandledVoiceOperationEncountered(VoiceOperation e)
-            => UnhandledVoiceOperationEncountered?.Invoke(this, (int)e);
+        private void LogException(ClientLogEvent logEvent, Exception e)
+        {
+            Logger.Log(logEvent,
+                ("Exception Type", e.GetType().FullName),
+                ("Exception Message", e.Message));
+        }
 
         private async Task MakeRefitRequest(Func<Task> request)
         {
@@ -224,9 +227,9 @@ namespace Quarrel.Client
             {
                 await request();
             }
-            catch (ApiException ex)
+            catch (ApiException e)
             {
-                HttpExceptionHandled?.Invoke(this, ex);
+                LogException(ClientLogEvent.HttpExceptionHandled, e);
             }
         }
 
@@ -236,9 +239,9 @@ namespace Quarrel.Client
             {
                 return await request();
             }
-            catch (ApiException ex)
+            catch (ApiException e)
             {
-                HttpExceptionHandled?.Invoke(this, ex);
+                LogException(ClientLogEvent.HttpExceptionHandled, e);
                 return default;
             }
             catch { return default; }

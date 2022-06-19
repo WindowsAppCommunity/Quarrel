@@ -24,7 +24,7 @@ namespace Quarrel.ViewModels
     /// </summary>
     public partial class GuildsViewModel : ObservableRecipient
     {
-        private readonly IAnalyticsService _analyticsService;
+        private readonly ILoggingService _loggingService;
         private readonly IMessenger _messenger;
         private readonly ILocalizationService _localizationService;
         private readonly IDiscordService _discordService;
@@ -37,13 +37,13 @@ namespace Quarrel.ViewModels
         /// Initializes a new instance of the <see cref="GuildsViewModel"/> class.
         /// </summary>
         public GuildsViewModel(
-            IAnalyticsService analyticsService,
+            ILoggingService loggingService,
             IMessenger messenger,
             ILocalizationService localizationService,
             IDiscordService discordService,
             IDispatcherService dispatcherService)
         {
-            _analyticsService = analyticsService;
+            _loggingService = loggingService;
             _messenger = messenger;
             _localizationService = localizationService;
             _discordService = discordService;
@@ -73,7 +73,7 @@ namespace Quarrel.ViewModels
                 if (SetProperty(ref _selectedGuild, value) && value is not null)
                 {
                     value.IsSelected = true;
-                    _analyticsService.Log(LoggedEvent.GuildOpened);
+                    _loggingService.Log(LoggedEvent.GuildOpened);
                     _messenger.Send(new GuildSelectedMessage<IBindableSelectableGuildItem>(value));
                 }
             }

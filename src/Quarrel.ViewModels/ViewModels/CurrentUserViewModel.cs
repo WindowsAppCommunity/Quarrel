@@ -21,7 +21,7 @@ namespace Quarrel.ViewModels
     /// </summary>
     public partial class CurrentUserViewModel : ObservableRecipient
     {
-        private readonly IAnalyticsService _analyticsService;
+        private readonly ILoggingService _loggingService;
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
         private readonly IDispatcherService _dispatcherService;
@@ -31,9 +31,9 @@ namespace Quarrel.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="CurrentUserViewModel"/> class.
         /// </summary>
-        public CurrentUserViewModel(IAnalyticsService analyticsService, IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
+        public CurrentUserViewModel(ILoggingService loggingService, IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
         {
-            _analyticsService = analyticsService;
+            _loggingService = loggingService;
             _messenger = messenger;
             _discordService = discordService;
             _dispatcherService = dispatcherService;
@@ -76,7 +76,7 @@ namespace Quarrel.ViewModels
 
         private void SetStatus(UserStatus status)
         {
-            _analyticsService.Log(LoggedEvent.StatusSet,
+            _loggingService.Log(LoggedEvent.StatusSet,
                 ("Status", status.GetStringValue()));
 
             _discordService.SetStatus(status);

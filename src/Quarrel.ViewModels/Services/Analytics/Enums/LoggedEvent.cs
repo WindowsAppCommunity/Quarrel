@@ -5,13 +5,13 @@ using Quarrel.Attributes;
 namespace Quarrel.Services.Analytics.Enums
 {
     /// <summary>
-    /// An enum for event types to log.
+    /// An enum for events to log.
     /// </summary>
     public enum LoggedEvent
     {
         #region App
         /// <summary>
-        /// A subpage opened.
+        /// A sub page opened.
         /// </summary>
         [StringValue("SubPage Opened")]
         SubPageOpened,
@@ -91,75 +91,6 @@ namespace Quarrel.Services.Analytics.Enums
         LoginFailed,
         #endregion
 
-        #region API
-
-        /// <summary>
-        /// Encountered an issue in an http request, but it was handled.
-        /// </summary>
-        [StringValue("Http Exception Handled")]
-        HttpExceptionHandled,
-
-        #endregion
-
-        #region Gateway
-        /// <summary>
-        /// The gateway encountered a known event.
-        /// </summary>
-        [StringValue("Known Gateway Event Encountered")]
-        KnownGatewayEventEncountered,
-
-        /// <summary>
-        /// The gateway encountered an issue, but it was handled.
-        /// </summary>
-        [StringValue("Gateway Exception Handled")]
-        GatewayExceptionHandled,
-
-        /// <summary>
-        /// The gateway encountered a unknown operation.
-        /// </summary>
-        [StringValue("Unknown Gateway Operation Encountered")]
-        UnknownGatewayOperationEncountered,
-
-        /// <summary>
-        /// The gateway encountered a unknown event.
-        /// </summary>
-        [StringValue("Unknown Gateway Event Encountered")]
-        UnknownGatewayEventEncountered,
-
-        /// <summary>
-        /// The gateway encountered a known operation but does not handle it.
-        /// </summary>
-        [StringValue("Unhandled Gateway Operation Encountered")]
-        UnhandledGatewayOperationEncountered,
-
-        /// <summary>
-        /// The gateway encountered a known event but does not handle it.
-        /// </summary>
-        [StringValue("Unhandled Gateway Event Encountered")]
-        UnhandledGatewayEventEncountered,
-        #endregion
-
-        #region Voice
-
-        /// <summary>
-        /// The voice connection encountered an issue, but it was handled.
-        /// </summary>
-        [StringValue("Voice Exception Handled")]
-        VoiceExceptionHandled,
-
-        /// <summary>
-        /// The voice connection encountered a unknown operation.
-        /// </summary>
-        [StringValue("Unknown Voice Operation Encountered")]
-        UnknownVoiceOperationEncountered,
-
-        /// <summary>
-        /// The voice connection encountered a known operation but does not handle it.
-        /// </summary>
-        [StringValue("Unhandled Voice Operation Encountered")]
-        UnhandledVoiceOperationEncountered,
-        #endregion
-
         #region Other APIs
 
         /// <summary>
@@ -185,7 +116,7 @@ namespace Quarrel.Services.Analytics.Enums
         #region AppServiceConnection
 
         /// <summary>
-        /// An app service connection was actived.
+        /// An app service connection was activated.
         /// </summary>
         [StringValue("App Service Connection Received")]
         AppServiceConnectionReceived,

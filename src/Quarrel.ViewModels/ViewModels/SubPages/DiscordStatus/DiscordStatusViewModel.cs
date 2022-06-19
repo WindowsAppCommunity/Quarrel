@@ -20,7 +20,7 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
     /// </summary>
     public partial class DiscordStatusViewModel : ObservableObject
     {
-        private readonly IAnalyticsService _analyticsService;
+        private readonly ILoggingService _loggingService;
 
         private Index? _status;
         private IStatusService? _statusService;
@@ -34,9 +34,9 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
         /// <summary>
         /// Initializes a new instance of the <see cref="DiscordStatusViewModel"/> class.
         /// </summary>
-        public DiscordStatusViewModel(IAnalyticsService analyticsService)
+        public DiscordStatusViewModel(ILoggingService loggingService)
         {
-            _analyticsService = analyticsService;
+            _loggingService = loggingService;
             _state = DiscordStatusState.Loading;
             SetupAndLoad();
         }
@@ -118,7 +118,7 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
             }
             catch (ApiException ex)
             {
-                _analyticsService.Log(LoggedEvent.DiscordStatusRequestFailed, ("Endpoint", "GetStatus"), ("Exception", ex.Message));
+                _loggingService.Log(LoggedEvent.DiscordStatusRequestFailed, ("Endpoint", "GetStatus"), ("Exception", ex.Message));
             }
 
             // Has Data
@@ -205,7 +205,7 @@ namespace Quarrel.ViewModels.SubPages.DiscordStatus
             }
             catch (Exception ex)
             {
-                _analyticsService.Log(LoggedEvent.DiscordStatusRequestFailed,
+                _loggingService.Log(LoggedEvent.DiscordStatusRequestFailed,
                     ("Endpoint", "GetMetrics"),
                     ("Exception", ex.Message));
             }

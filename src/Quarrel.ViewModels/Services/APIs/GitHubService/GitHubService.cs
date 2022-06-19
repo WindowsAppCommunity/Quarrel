@@ -20,15 +20,15 @@ namespace Quarrel.Services.APIs.GitHubService
         private const string RepoOwner = "UWPCommunity";
         private const string RepoName = "Quarrel";
 
-        private readonly IAnalyticsService _analyticsService;
+        private readonly ILoggingService _loggingService;
         private readonly IGitHubApiService _gitHubApiService;
 
         /// <summary>
         /// Initializes new instance of the <see cref="GitHubService"/> class.
         /// </summary>
-        public GitHubService(IAnalyticsService analyticsService)
+        public GitHubService(ILoggingService loggingService)
         {
-            _analyticsService = analyticsService;
+            _loggingService = loggingService;
             var restFactory = new GitHubRestFactory("Quarrel");
             _gitHubApiService = restFactory.GetGitHubService();
         }
@@ -44,7 +44,7 @@ namespace Quarrel.Services.APIs.GitHubService
             }
             catch (Exception ex)
             {
-                _analyticsService.Log(LoggedEvent.GitHubRequestFailed, ("Endpoint", "GetContributors"), ("Exception", ex.Message));
+                _loggingService.Log(LoggedEvent.GitHubRequestFailed, ("Endpoint", "GetContributors"), ("Exception", ex.Message));
             }
 
             if (contributors is null)
@@ -75,7 +75,7 @@ namespace Quarrel.Services.APIs.GitHubService
             }
             catch (Exception ex)
             {
-                _analyticsService.Log(LoggedEvent.GitHubRequestFailed, ("Endpoint", "GetDeveloper"), ("Exception", ex.Message));
+                _loggingService.Log(LoggedEvent.GitHubRequestFailed, ("Endpoint", "GetDeveloper"), ("Exception", ex.Message));
                 return null;
             }
         }

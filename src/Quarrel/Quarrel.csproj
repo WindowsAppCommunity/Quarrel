@@ -195,7 +195,7 @@
     <Compile Include="Selectors\SubPages\Settings\UserSettings\UserSettingsPageSelector.cs" />
     <Compile Include="Services\Analytics\AppCenterClientInfo.cs" />
     <Compile Include="Services\Analytics\AppCenterService.cs" />
-    <Compile Include="Services\Analytics\LoggingAnalyticsService.cs" />
+    <Compile Include="Services\Analytics\LoggingService.cs" />
     <Compile Include="Services\APIs\PatreonService\PatreonService.cs" />
     <Compile Include="Services\AppConnections\Models\AppConnection.cs" />
     <Compile Include="Services\AppConnections\AppConnectionService.cs" />

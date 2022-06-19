@@ -20,56 +20,6 @@ namespace Quarrel.Client
     public partial class QuarrelClient
     {
         /// <summary>
-        /// Invoked when an http exception is handled.
-        /// </summary>
-        public event EventHandler<Exception>? HttpExceptionHandled;
-
-        /// <summary>
-        /// Invoked when the gateway handles an exception.
-        /// </summary>
-        public event EventHandler<SocketFrameException>? GatewayExceptionHandled;
-
-        /// <summary>
-        /// Invoked when the gateway encounters a unknown operation
-        /// </summary>
-        public event EventHandler<int>? UnknownGatewayOperationEncountered;
-
-        /// <summary>
-        /// Invoked when the gateway encounters a unknown event
-        /// </summary>
-        public event EventHandler<string>? UnknownGatewayEventEncountered;
-
-        /// <summary>
-        /// Invoked when the gateway encounters a known event
-        /// </summary>
-        public event EventHandler<string>? KnownGatewayEventEncountered;
-
-        /// <summary>
-        /// Invoked when the gateway encounters a known operation but does not handle it
-        /// </summary>
-        public event EventHandler<int>? UnhandledGatewayOperationEncountered;
-
-        /// <summary>
-        /// Invoked when the gateway encounters a known event but does not handle it
-        /// </summary>
-        public event EventHandler<string>? UnhandledGatewayEventEncountered;
-
-        /// <summary>
-        /// Invoked when the voice connection handles an exception.
-        /// </summary>
-        public event EventHandler<SocketFrameException>? VoiceExceptionHandled;
-
-        /// <summary>
-        /// Invoked when the voice connection encounters a unknown operation
-        /// </summary>
-        public event EventHandler<int>? UnknownVoiceOperationEncountered;
-
-        /// <summary>
-        /// Invoked when the voice connection encounters a known operation but does not handle it
-        /// </summary>
-        public event EventHandler<int>? UnhandledVoiceOperationEncountered;
-
-        /// <summary>
         /// Invoked when the user logs in.
         /// </summary>
         public event EventHandler<SelfUser>? LoggedIn;

@@ -194,35 +194,35 @@ namespace Quarrel.Services.Discord
         /// <inheritdoc/>
         public async Task MarkRead(ulong channelId, ulong messageId)
         {
-            _analyticsService.Log(LoggedEvent.MarkRead);
+            _loggingService.Log(LoggedEvent.MarkRead);
             await _quarrelClient.Messages.MarkRead(channelId, messageId);
         }
 
         /// <inheritdoc/>
         public async Task SendMessage(ulong channelId, string content)
         {
-            _analyticsService.Log(LoggedEvent.MessageSent);
+            _loggingService.Log(LoggedEvent.MessageSent);
             await _quarrelClient.Messages.SendMessage(channelId, content);
         }
 
         /// <inheritdoc/>
         public async Task DeleteMessage(ulong channelId, ulong messageId)
         {
-            _analyticsService.Log(LoggedEvent.MessageDeleted);
+            _loggingService.Log(LoggedEvent.MessageDeleted);
             await _quarrelClient.Messages.DeleteMessage(channelId, messageId);
         }
 
         /// <inheritdoc/>
         public async Task StartCall(ulong channelId)
         {
-            _analyticsService.Log(LoggedEvent.StartedCall);
+            _loggingService.Log(LoggedEvent.StartedCall);
             await _quarrelClient.Channels.StartCall(channelId);
         }
 
         /// <inheritdoc/>
         public async Task JoinCall(ulong channelId, ulong? guildId)
         {
-            _analyticsService.Log(LoggedEvent.JoinedCall,
+            _loggingService.Log(LoggedEvent.JoinedCall,
                 ("Private Call", $"{guildId is null}"));
             await _quarrelClient.Channels.JoinCall(channelId, guildId);
         }
@@ -230,7 +230,7 @@ namespace Quarrel.Services.Discord
         /// <inheritdoc/>
         public async Task LeaveCall()
         {
-            _analyticsService.Log(LoggedEvent.LeftCall);
+            _loggingService.Log(LoggedEvent.LeftCall);
             await _quarrelClient.Channels.LeaveCall();
         }
 

@@ -12,18 +12,18 @@ namespace Quarrel.Services.APIs.PatreonService
     public class PatreonService : IPatreonService
     {
         private const string ClientInfoFile = "Patreon.json";
-        private readonly IAnalyticsService _analyticsService;
+        private readonly ILoggingService _loggingService;
         private readonly PatreonClientInfo _clientInfo;
 
-        public PatreonService(IAnalyticsService analyticsService)
+        public PatreonService(ILoggingService loggingService)
         {
-            _analyticsService = analyticsService;
+            _loggingService = loggingService;
 
             string clientInfoJson = Assembly.GetExecutingAssembly().ReadEmbeddedFile(ClientInfoFile);
             PatreonClientInfo? clientInfo = JsonSerializer.Deserialize<PatreonClientInfo>(clientInfoJson);
             if (clientInfo is null)
             {
-                _analyticsService.Log(LoggedEvent.PatreonClientInfoNotFound);
+                _loggingService.Log(LoggedEvent.PatreonClientInfoNotFound);
             }
 
             Guard.IsNotNull(clientInfo);

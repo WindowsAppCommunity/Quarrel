@@ -16,7 +16,7 @@ namespace Quarrel.ViewModels.SubPages.Host
     /// </summary>
     public partial class SubPageHostViewModel : ObservableRecipient
     {
-        private readonly IAnalyticsService _analyticsService;
+        private readonly ILoggingService _loggingService;
         private readonly IMessenger _messenger;
         private readonly Stack<object> _navStack;
 
@@ -25,9 +25,9 @@ namespace Quarrel.ViewModels.SubPages.Host
         /// <summary>
         /// Initializes a new instance of the <see cref="SubPageHostViewModel"/> class.
         /// </summary>
-        public SubPageHostViewModel(IAnalyticsService analyticsService, IMessenger messenger)
+        public SubPageHostViewModel(ILoggingService loggingService, IMessenger messenger)
         {
-            _analyticsService = analyticsService;
+            _loggingService = loggingService;
             _messenger = messenger;
             _navStack = new Stack<object>();
 
@@ -69,7 +69,7 @@ namespace Quarrel.ViewModels.SubPages.Host
                 _navStack.Push(ContentViewModel);
             }
 
-            _analyticsService.Log(LoggedEvent.SubPageOpened,
+            _loggingService.Log(LoggedEvent.SubPageOpened,
                 ("Type", viewModel.GetType().Name));
 
             ContentViewModel = viewModel;

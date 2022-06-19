@@ -10,6 +10,7 @@ namespace Discord.API.Voice
     {
         private Action<VoiceConnectionStatus> VoiceConnectionStatusChanged { get; }
         private Action<SocketFrameException> UnhandledMessageEncountered { get; }
+        private Action<VoiceOperation> KnownOperationEncountered { get; }
         private Action<int> UnknownOperationEncountered { get; }
         private Action<VoiceOperation> UnhandledOperationEncountered { get; }
         

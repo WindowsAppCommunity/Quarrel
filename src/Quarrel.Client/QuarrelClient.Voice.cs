@@ -3,6 +3,7 @@
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Json.Voice;
 using Discord.API.Voice;
+using Quarrel.Client.Logger;
 using Quarrel.Client.Models.Voice;
 using System.Threading.Tasks;
 
@@ -79,9 +80,10 @@ namespace Quarrel.Client
                 }
 
                 _voiceConnection = new VoiceConnection(_voiceServerConfig.Json, _voiceState!,
-                    unhandledMessageEncountered: _client.OnUnhandledVoiceMessageEncountered,
-                    unknownOperationEncountered: _client.OnUnknownVoiceOperationEncountered,
-                    unhandledOperationEncountered: _client.OnUnhandledVoiceOperationEncountered,
+                    unhandledMessageEncountered: e => _client.LogException(ClientLogEvent.VoiceExceptionHandled, e),
+                    knownOperationEncountered: e => _client.LogOperation(ClientLogEvent.KnownVoiceOperationEncountered, (int)e),
+                    unhandledOperationEncountered: e => _client.LogOperation(ClientLogEvent.UnhandledVoiceOperationEncountered, (int)e),
+                    unknownOperationEncountered: e => _client.LogOperation(ClientLogEvent.UnknownVoiceOperationEncountered, e),
                     voiceConnectionStatusChanged: _ => { },
                     ready: _ => { });
 
