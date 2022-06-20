@@ -559,6 +559,10 @@
           <source>Copy Link</source>
           <target state="needs-review-translation">העתק קישור</target>
         </trans-unit>
+        <trans-unit id="CommandBar/AddMemberBTN.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Add Members</source>
+          <target state="new">Add Members</target>
+        </trans-unit>
       </group>
     </body>
   </file>

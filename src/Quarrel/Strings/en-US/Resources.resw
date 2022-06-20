@@ -195,6 +195,9 @@
   <data name="CommandBar/AboutMFI.Text" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="CommandBar/AddMemberBTN.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Add Members</value>
+  </data>
   <data name="CommandBar/CallBTN.ToolTipService.ToolTip" xml:space="preserve">
     <value>Call</value>
   </data>

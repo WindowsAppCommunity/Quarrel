@@ -10,6 +10,7 @@
     xmlns:cselector="using:Quarrel.Selectors.Channels"
     xmlns:cconvert="using:Quarrel.Converters.Discord.Channels"
     xmlns:vconvert="using:Quarrel.Converters.Common.Visible"
+    xmlns:cenum="using:Discord.API.Models.Enums.Channels"
     mc:Ignorable="d"
     Background="Transparent"
     d:DesignHeight="56"
@@ -91,6 +92,15 @@
                     Command="{x:Bind ViewModel.StartCallCommand, Mode=OneWay}"
                     Visibility="{x:Bind cconvert:IsPrivateChannelVisibleConverter.Convert(ViewModel.SelectedChannel), Mode=OneWay}">
                 <FontIcon Glyph="&#xE13A;" FontSize="16"/>
+            </Button>
+
+            <Button x:Name="AddMemberBTN"
+                    x:Uid="CommandBar/AddMemberBTN"
+                    ToolTipService.ToolTip="Add Members"
+                    ToolTipService.Placement="Bottom"
+                    Style="{StaticResource CommandBarButton}"
+                    Visibility="{x:Bind vconvert:VisibileIfEqualConverter.Convert(ViewModel.SelectedChannel.Type, cenum:ChannelType.GroupDM), Mode=OneWay}">
+                <FontIcon Glyph="&#xE1E2;" FontSize="16"/>
             </Button>
 
             <Button x:Name="ToggleMembersBTN"
