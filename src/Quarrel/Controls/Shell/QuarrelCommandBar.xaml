@@ -94,14 +94,32 @@
                 <FontIcon Glyph="&#xE13A;" FontSize="16"/>
             </Button>
 
-            <Button x:Name="AddMemberBTN"
-                    x:Uid="CommandBar/AddMemberBTN"
+            <!--<Button x:Uid="CommandBar/VideoCallBTN"
+                    ToolTipService.ToolTip="Video Call"
+                    ToolTipService.Placement="Bottom"
+                    Style="{StaticResource CommandBarButton}"
+                    IsEnabled="False"
+                    Command="{x:Bind ViewModel.StartCallCommand, Mode=OneWay}"
+                    Visibility="{x:Bind cconvert:IsPrivateChannelVisibleConverter.Convert(ViewModel.SelectedChannel), Mode=OneWay}">
+                <FontIcon Glyph="&#xE116;" FontSize="16"/>
+            </Button>-->
+
+            <!--<Button x:Uid="CommandBar/PinnedMessagesBTN"
+                    ToolTipService.ToolTip="Pinned Messages"
+                    ToolTipService.Placement="Bottom"
+                    IsEnabled="False"
+                    Style="{StaticResource CommandBarButton}">
+                <FontIcon Glyph="&#xE141;" FontSize="16"/>
+            </Button>-->
+
+            <!--<Button x:Uid="CommandBar/AddMemberBTN"
                     ToolTipService.ToolTip="Add Members"
                     ToolTipService.Placement="Bottom"
                     Style="{StaticResource CommandBarButton}"
+                    IsEnabled="False"
                     Visibility="{x:Bind vconvert:VisibileIfEqualConverter.Convert(ViewModel.SelectedChannel.Type, cenum:ChannelType.GroupDM), Mode=OneWay}">
                 <FontIcon Glyph="&#xE1E2;" FontSize="16"/>
-            </Button>
+            </Button>-->
 
             <Button x:Name="ToggleMembersBTN"
                     x:Uid="CommandBar/ToggleMembersBTN"

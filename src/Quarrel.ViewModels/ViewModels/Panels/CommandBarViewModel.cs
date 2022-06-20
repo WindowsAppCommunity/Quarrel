@@ -45,6 +45,9 @@ namespace Quarrel.ViewModels.Panels
             private set => SetProperty(ref _selectedChannel, value);
         }
 
+        /// <summary>
+        /// Gets a command that starts a call.
+        /// </summary>
         public RelayCommand StartCallCommand { get; }
 
         private void StartCall()

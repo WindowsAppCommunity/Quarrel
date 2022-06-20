@@ -8,12 +8,12 @@ using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Panels.Channels
 {
-    public sealed partial class ChannelPanel : UserControl
+    public sealed partial class ChannelsPanel : UserControl
     {
         private static readonly DependencyProperty BottomMarginProperty =
-            DependencyProperty.Register(nameof(BottomMargin), typeof(double), typeof(ChannelPanel), new PropertyMetadata(0d));
+            DependencyProperty.Register(nameof(BottomMargin), typeof(double), typeof(ChannelsPanel), new PropertyMetadata(0d));
 
-        public ChannelPanel()
+        public ChannelsPanel()
         {
             this.InitializeComponent();
             DataContext = App.Current.Services.GetRequiredService<ChannelsViewModel>();

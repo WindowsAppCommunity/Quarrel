@@ -7,9 +7,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace Quarrel.Controls.Panels.Guilds
 {
-    public sealed partial class GuildPanel : UserControl
+    public sealed partial class GuildsPanel : UserControl
     {
-        public GuildPanel()
+        public GuildsPanel()
         {
             this.InitializeComponent();
             DataContext = App.Current.Services.GetRequiredService<GuildsViewModel>();

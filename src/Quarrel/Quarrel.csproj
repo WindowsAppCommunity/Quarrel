@@ -99,6 +99,12 @@
     <Compile Include="Controls\Icons\QuarrelIcon.xaml.cs">
       <DependentUpon>QuarrelIcon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Panels\Messages\ChannelPanel.xaml.cs">
+      <DependentUpon>ChannelPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Panels\Messages\VoicePanel.xaml.cs">
+      <DependentUpon>VoicePanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Shadow.xaml.cs">
       <DependentUpon>Shadow.xaml</DependentUpon>
     </Compile>
@@ -111,11 +117,11 @@
     <Compile Include="Controls\Panels\Channels\GuildHeader.xaml.cs">
       <DependentUpon>GuildHeader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Panels\Channels\ChannelPanel.xaml.cs">
-      <DependentUpon>ChannelPanel.xaml</DependentUpon>
+    <Compile Include="Controls\Panels\Channels\ChannelsPanel.xaml.cs">
+      <DependentUpon>ChannelsPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Panels\Guilds\GuildPanel.xaml.cs">
-      <DependentUpon>GuildPanel.xaml</DependentUpon>
+    <Compile Include="Controls\Panels\Guilds\GuildsPanel.xaml.cs">
+      <DependentUpon>GuildsPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Panels\Messages\MessageBox.xaml.cs">
       <DependentUpon>MessageBox.xaml</DependentUpon>
@@ -503,6 +509,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Panels\Messages\ChannelPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Panels\Messages\VoicePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Shadow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -519,11 +533,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Panels\Channels\ChannelPanel.xaml">
+    <Page Include="Controls\Panels\Channels\ChannelsPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Panels\Guilds\GuildPanel.xaml">
+    <Page Include="Controls\Panels\Guilds\GuildsPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

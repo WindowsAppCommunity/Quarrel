@@ -24,7 +24,7 @@
         <local:SideDrawer x:Name="Drawer" Grid.Row="1">
             <local:SideDrawer.LeftContent>
                 <Grid Background="{ThemeResource TertiaryPaneBackground}">
-                    <panelsg:GuildPanel/>
+                    <panelsg:GuildsPanel/>
                 </Grid>
             </local:SideDrawer.LeftContent>
             <local:SideDrawer.LeftSecondaryContent>
@@ -39,7 +39,7 @@
                                Grid.Row="1" Height="12"
                                VerticalAlignment="Top"/>
                     
-                    <panelsc:ChannelPanel Grid.Row="1" BottomMargin="{Binding ElementName=UserSection, Path=ActualHeight, Mode=OneWay}"/>
+                    <panelsc:ChannelsPanel Grid.Row="1" BottomMargin="{Binding ElementName=UserSection, Path=ActualHeight, Mode=OneWay}"/>
                     <StackPanel x:Name="UserSection" Grid.Row="1"
                                 VerticalAlignment="Bottom">
                         <panelsc:VoiceController/>
@@ -61,7 +61,7 @@
                                Opacity=".2"
                                Direction="Down" Height="12"
                                VerticalAlignment="Top" Grid.Row="1"/>
-                    <panelsm:MessagePanel Grid.Row="1"/>
+                    <panelsm:ChannelPanel Grid.Row="1"/>
                 </Grid>
             </local:SideDrawer.MainContent>
             <local:SideDrawer.RightContent>
