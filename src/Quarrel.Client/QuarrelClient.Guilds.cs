@@ -102,6 +102,10 @@ namespace Quarrel.Client
                         _client.Members.AddGuildMember(guild.Id, member);
                     }
 
+                    foreach (var voiceState in jsonGuild.VoiceStates)
+                    {
+                        _client.Voice.UpdateVoiceState(voiceState);
+                    }
 
                     return true;
                 }

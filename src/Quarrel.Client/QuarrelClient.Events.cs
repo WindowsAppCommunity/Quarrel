@@ -65,6 +65,16 @@ namespace Quarrel.Client
         public event EventHandler<VoiceServerConfig>? VoiceServerUpdated;
 
         /// <summary>
+        /// Invoked when a user joins a voice channel.
+        /// </summary>
+        public event EventHandler<VoiceState>? VoiceStateAdded;
+
+        /// <summary>
+        /// Invoked when a user leaves a voice channel.
+        /// </summary>
+        public event EventHandler<VoiceState>? VoiceStateRemoved;
+
+        /// <summary>
         /// Invoked when a voice state is updated.
         /// </summary>
         public event EventHandler<VoiceState>? VoiceStateUpdated;
@@ -186,14 +196,12 @@ namespace Quarrel.Client
 
         private void OnVoiceStateUpdated(JsonVoiceState arg)
         {
-            var state = new VoiceState(arg, this);
-
             if (arg.UserId == Self.CurrentUser?.Id)
             {
-                Voice.UpdateVoiceState(arg);
+                Voice.UpdateSelfVoiceState(arg);
             }
 
-            VoiceStateUpdated?.Invoke(this, state);
+            Voice.UpdateVoiceState(arg);
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
+using Quarrel.Bindables.Voice;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;
@@ -12,6 +13,8 @@ using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Messages.Discord.Voice;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Quarrel.Bindables.Channels
 {
@@ -37,9 +40,31 @@ namespace Quarrel.Bindables.Channels
             JoinCallCommand = new RelayCommand(JoinCall);
             MarkAsReadCommand = new RelayCommand(MarkRead);
 
+            VoiceMembers = new ObservableCollection<BindableVoiceState>();
+
             _messenger.Register<MyVoiceStateUpdatedMessage>(this, (_, m) =>
             {
                 IsConnected = m.VoiceState.Channel?.Id == Id;
+            });
+            _messenger.Register<VoiceStateAddedMessage>(this, (_, m) =>
+            {
+                if (m.VoiceState.Channel?.Id == Id)
+                {
+                    var state = new BindableVoiceState(
+                        _messenger,
+                        _discordService,
+                        _dispatcherService,
+                        m.VoiceState);
+
+                    VoiceMembers.Add(state);
+                }
+            });
+            _messenger.Register<VoiceStateRemovedMessage>(this, (_, m) =>
+            {
+                if (m.VoiceState.Channel?.Id == Id)
+                {
+                    VoiceMembers.Remove(VoiceMembers.FirstOrDefault(x => x.State.User?.Id == m.VoiceState.User?.Id));
+                }
             });
         }
 
@@ -72,6 +97,9 @@ namespace Quarrel.Bindables.Channels
 
         /// <inheritdoc/>
         public RelayCommand JoinCallCommand { get; }
+        
+        /// <inheritdoc/>
+        public ObservableCollection<BindableVoiceState> VoiceMembers { get; }
 
         /// <inheritdoc/>
         public RelayCommand MarkAsReadCommand { get; }

@@ -45,7 +45,7 @@ namespace Quarrel.Bindables.Users
         }
         
         /// <inheritdoc/>
-        public string? AvatarUrl => User.GetAvatarUrl(128);
+        public string? AvatarUrl => User.GetAvatarUrl();
         
         /// <inheritdoc/>
         public Uri? AvatarUri => AvatarUrl is null ? null : new(AvatarUrl);

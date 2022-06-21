@@ -4,6 +4,7 @@ using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
+using Quarrel.Bindables.Voice;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Messages.Discord.Voice;
@@ -12,6 +13,8 @@ using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Quarrel.Bindables.Channels.Abstract
 {
@@ -37,12 +40,33 @@ namespace Quarrel.Bindables.Channels.Abstract
             JoinCallCommand = new RelayCommand(JoinCall);
             MarkAsReadCommand = new RelayCommand(MarkRead);
 
+            VoiceMembers = new ObservableCollection<BindableVoiceState>();
+
             _messenger.Register<MyVoiceStateUpdatedMessage>(this, (_, m) =>
             {
                 IsConnected = m.VoiceState.Channel?.Id == Id;
             });
-        }
+            _messenger.Register<VoiceStateAddedMessage>(this, (_, m) =>
+            {
+                if (m.VoiceState.Channel?.Id == Id)
+                {
+                    var state = new BindableVoiceState(
+                        _messenger,
+                        _discordService,
+                        _dispatcherService,
+                        m.VoiceState);
 
+                    VoiceMembers.Add(state);
+                }
+            });
+            _messenger.Register<VoiceStateRemovedMessage>(this, (_, m) =>
+            {
+                if (m.VoiceState.Channel?.Id == Id)
+                {
+                    VoiceMembers.Remove(VoiceMembers.FirstOrDefault(x => x.State.User?.Id == m.VoiceState.User?.Id));
+                }
+            });
+        }
 
         /// <inheritdoc/>
         public override ulong? GuildId => null;
@@ -68,6 +92,9 @@ namespace Quarrel.Bindables.Channels.Abstract
 
         /// <inheritdoc/>
         public RelayCommand JoinCallCommand { get; }
+        
+        /// <inheritdoc/>
+        public ObservableCollection<BindableVoiceState> VoiceMembers { get; }
 
         /// <inheritdoc/>
         public RelayCommand MarkAsReadCommand { get; }

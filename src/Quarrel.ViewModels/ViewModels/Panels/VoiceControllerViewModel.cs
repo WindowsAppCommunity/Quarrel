@@ -3,7 +3,7 @@
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
-using Quarrel.Client.Models.Voice;
+using Quarrel.Bindables.Voice;
 using Quarrel.Messages.Discord.Voice;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
@@ -13,7 +13,7 @@ namespace Quarrel.ViewModels.Panels
     /// <summary>
     /// The view model for the active voice channel in the app.
     /// </summary>
-    public partial class VoiceViewModel : ObservableRecipient
+    public partial class VoiceControllerViewModel : ObservableRecipient
     {
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
@@ -21,22 +21,26 @@ namespace Quarrel.ViewModels.Panels
 
         [ObservableProperty]
         [AlsoNotifyChangeFor(nameof(IsConnected))]
-        private VoiceState? _voiceState;
+        private BindableVoiceState? _voiceState;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="VoiceViewModel"/> class.
+        /// Initializes a new instance of the <see cref="VoiceControllerViewModel"/> class.
         /// </summary>
-        public VoiceViewModel(IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
+        public VoiceControllerViewModel(IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
         {
             _messenger = messenger;
             _discordService = discordService;
             _dispatcherService = dispatcherService;
 
-            _messenger.Register<VoiceStateUpdatedMessage>(this, (_, m) =>
+            _messenger.Register<MyVoiceStateUpdatedMessage>(this, (_, m) =>
             {
-                if (m.VoiceState.User.Id != _discordService.MyId) return;
+                var state = new BindableVoiceState(
+                    _messenger,
+                    _discordService,
+                    _dispatcherService,
+                    m.VoiceState);
 
-                _dispatcherService.RunOnUIThread(() => VoiceState = m.VoiceState);
+                _dispatcherService.RunOnUIThread(() => VoiceState = state);
             });
 
             HangupCommand = new RelayCommand(Hangup);
@@ -50,7 +54,7 @@ namespace Quarrel.ViewModels.Panels
         /// <summary>
         /// Gets whether or not the user is connected to a call.
         /// </summary>
-        public bool IsConnected => _voiceState?.Channel != null;
+        public bool IsConnected => _voiceState?.State.Channel != null;
 
         private void Hangup() => _discordService.LeaveCall();
     }
