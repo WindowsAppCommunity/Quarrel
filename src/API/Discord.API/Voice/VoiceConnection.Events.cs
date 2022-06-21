@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Exceptions;
+using Discord.API.Voice.Models;
 using Discord.API.Voice.Models.Handshake;
 using System;
 
@@ -15,6 +16,9 @@ namespace Discord.API.Voice
         private Action<VoiceOperation> UnhandledOperationEncountered { get; }
         
         private Action<VoiceReady> Ready { get; }
+
+        private Action<VoiceSessionDescription> SessionDescription { get; }
+        private Action<Speaker> Speaking { get; }
 
         private static bool FireEvent<T>(VoiceSocketFrame frame, Action<T> eventHandler)
         {
@@ -38,7 +42,9 @@ namespace Discord.API.Voice
                 {
                     VoiceOperation.Hello => OnHello((VoiceSocketFrame<VoiceHello>)frame),
                     VoiceOperation.Ready => OnReady((VoiceSocketFrame<VoiceReady>)frame),
+                    VoiceOperation.SessionDescription => FireEvent(frame, SessionDescription),
                     VoiceOperation.Heartbeat => OnHeartbeatAck(),
+                    VoiceOperation.Speaking => FireEvent(frame, Speaking),
 
                     _ => FireEvent(frame.Operation, UnhandledOperationEncountered),
                 }

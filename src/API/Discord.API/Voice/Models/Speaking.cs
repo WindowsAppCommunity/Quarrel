@@ -10,13 +10,16 @@ namespace Discord.API.Voice.Models
 {
     internal class Speaking
     {
-        [JsonPropertyName("speaking")]
-        public SpeakingState State { get; set; }
+        //[JsonPropertyName("speaking")]
+        //public SpeakingState State { get; set; }
 
         [JsonPropertyName("delay")]
         public int Delay { get; set; }
 
         [JsonPropertyName("ssrc")]
         public uint SSRC { get; set; }
+
+        [JsonPropertyName("speaking")]
+        public int IsSpeaking { get; set; }
     }
 }

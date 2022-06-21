@@ -2,307 +2,190 @@
 #include "WebrtcManager.h"
 #include "WebrtcManager.g.cpp"
 
-class MyRtcEventLogOutput : public webrtc::RtcEventLogOutput
-{
-public:
-	explicit MyRtcEventLogOutput() {}
-	virtual ~MyRtcEventLogOutput() {}
-	bool IsActive() const { return true; }
+#include <winrt/Windows.Foundation.Collections.h>
+#include <api/rtc_event_log/rtc_event_log_factory.h>
+#include <modules/rtp_rtcp/source/rtp_utility.h>
+#include <api/audio_codecs/builtin_audio_encoder_factory.h>
+#include <modules/audio_mixer/audio_mixer_impl.h>
+#include <sodium/crypto_secretbox.h>
 
+#include "AudioSinkAnalyzer.h"
+#include "AudioSourceAnalyzer.h"
+#include "StreamTransport.h"
 
-	bool Write(const std::string& output) {
-		std::cout << output;
-		return true;
-	}
+const webrtc::SdpAudioFormat g_opusFormat = { "opus", 48000, 2, { {"stereo", "1"}, {"usedtx", "1"}, {"useinbandfec", "1" } } };
 
-	void Flush() {}
+const std::vector<webrtc::RtpExtension> g_rtpExtensions = {
+	{"urn:ietf:params:rtp-hdrext:ssrc-audio-level", 1},
+	{"https://discord.com/#rtp-hdrext/2018-07-29/speaker", 9},
+	{"urn:ietf:params:rtp-hdrext:sdes:mid", 10},
+	{"urn:ietf:params:rtp-hdrext:sdes:rtp-stream-id", 10},
+	{"urn:ietf:params:rtp-hdrext:sdes:repaired-rtp-stream-id", 12}
 };
 
-void WINAPIV DebugOut(const TCHAR* fmt, ...) {
-	TCHAR s[1025];
-	va_list args;
-	va_start(args, fmt);
-	vswprintf(s, 1025, fmt, args);
-	va_end(args);
-	OutputDebugString(s);
-}
-
-const webrtc::SdpAudioFormat kOpusFormat = { "opus", 48000, 2, { {"stereo", "1"}, {"usedtx", "1"}, {"useinbandfec", "1" } } };
-
-bool IsRtcp(const uint8_t* packet, size_t length) {
-	webrtc::RtpUtility::RtpHeaderParser rtp_parser(packet, length);
-	return rtp_parser.RTCP();
-}
-
-namespace Webrtc
+class EmptyConfig : public webrtc::WebRtcKeyValueConfig
 {
-
-	class AudioAnalyzer : public webrtc::CustomAudioAnalyzer {
-	private:
-		winrt::Webrtc::implementation::WebrtcManager* manager;
-	public:
-		AudioAnalyzer() {}
-		AudioAnalyzer(winrt::Webrtc::implementation::WebrtcManager* manager)
-		{
-			this->manager = manager;
-		}
-		void Initialize(int sample_rate_hz, int num_channels) override {}
-		void Analyze(const webrtc::AudioBuffer* audio) override {
-			std::vector<float> data(audio->num_frames());
-
-			webrtc::DownmixToMono<float, float>(audio->channels_const_f(), audio->num_frames(), audio->num_channels(), data.data());
-			/*
-			const webrtc::ChannelBuffer<float>* channel = audio->data_f();
-			std::vector<float> data(channel->num_frames());
-
-			webrtc::DownmixToMono<float, float>(channel->channels(), channel->num_frames(), channel->num_channels(), data.data());*/
-
-			double sum = 0;
-
-			for (int i = 0; i < data.size(); i++)
-			{
-				const double sample = data[i] / 32768.0;
-				sum += sample * sample;
-			}
-
-			double decibels = 10 * log10(2 * sum / data.size());
-
-			this->manager->SetCurrentVolume(decibels);
-
-			manager->UpdateInBytes(winrt::single_threaded_vector<float>(std::move(data)));
-		};
-		std::string ToString() const override { return "AudioAnalyzer"; }
-	};
-
-	class OutputAnalyzer : public webrtc::CustomProcessing
+	[[nodiscard]] std::string Lookup(absl::string_view) const override
 	{
-	private:
-		winrt::Webrtc::implementation::WebrtcManager* manager;
-	public:
-		OutputAnalyzer() {}
-		OutputAnalyzer(winrt::Webrtc::implementation::WebrtcManager* manager)
-		{
-			this->manager = manager;
-		}
-		void Initialize(int sample_rate_hz, int num_channels) override {}
-		void Process(webrtc::AudioBuffer* audio) override {
-			/*
-			const webrtc::ChannelBuffer<float>* channel = audio->data_f();
-			std::vector<float> data(channel->num_frames());
-
-			webrtc::DownmixToMono<float, float>(channel->channels(), channel->num_frames(), channel->num_channels(), data.data());
-			*/
-
-			std::vector<float> data(audio->num_frames());
-
-			webrtc::DownmixToMono<float, float>(audio->channels_const_f(), audio->num_frames(), audio->num_channels(), data.data());
-			manager->UpdateOutBytes(winrt::single_threaded_vector<float>(std::move(data)));
-		};
-		void SetRuntimeSetting(webrtc::AudioProcessing::RuntimeSetting setting) override {}
-		std::string ToString() const override { return "OutputAnalyzer"; }
-	};
-
-	StreamTransport::StreamTransport(winrt::Webrtc::implementation::WebrtcManager* manager) : manager(manager)
-	{
-		//this->call->SignalChannelNetworkState(webrtc::MediaType::VIDEO, webrtc::NetworkState::kNetworkUp);
+		return {};
 	}
+};
 
-	void StreamTransport::StopSend()
-	{
-		isSending = false;
-	}
-
-	void StreamTransport::StartSend()
-	{
-		isSending = true;
-	}
-
-	bool StreamTransport::SendRtp(const uint8_t* packet, size_t length, const webrtc::PacketOptions& options)
-	{
-		if (!this->isSending) return true;
-		uint8_t nonce[24]{ 0 };
-		memcpy(nonce, packet, 12);
-
-		std::vector<uint8_t> encrypted(length + 16);
-
-		memcpy(encrypted.data(), packet, 12);
-
-
-		crypto_secretbox_easy(encrypted.data() + 12, packet + 12, length - 12, nonce, this->manager->key);
-
-		this->manager->outputStream.WriteBytes(encrypted);
-		this->manager->outputStream.StoreAsync();
-		return true;
-	}
-
-	bool StreamTransport::SendRtcp(const uint8_t* packet, size_t length)
-	{
-		uint8_t nonce[24]{ 0 };
-		memcpy(nonce, packet, 8);
-
-		std::vector<uint8_t> encrypted(length + 16);
-
-		memcpy(encrypted.data(), packet, 8);
-
-
-		crypto_secretbox_easy(encrypted.data() + 8, packet + 8, length - 8, nonce, this->manager->key);
-
-		this->manager->outputStream.WriteBytes(encrypted);
-		this->manager->outputStream.StoreAsync();
-		return true;
-	}
-}
+const EmptyConfig* g_trials = new EmptyConfig();
 
 namespace winrt::Webrtc::implementation
 {
-	WebrtcManager::WebrtcManager()
+	WebrtcManager::WebrtcManager() : task_queue_factory(webrtc::CreateDefaultTaskQueueFactory()),
+	                                 task_queue(rtc::TaskQueue(
+		                                 this->task_queue_factory->CreateTaskQueue(
+			                                 "TaskQueue", webrtc::TaskQueueFactory::Priority::NORMAL)))
 	{
 	}
 
-	WebrtcManager::WebrtcManager(hstring outputDeviceId, hstring inputDeviceId)
+	WebrtcManager::WebrtcManager(hstring outputDeviceId, hstring inputDeviceId) : WebrtcManager()
 	{
-		output_device_id = to_string(outputDeviceId);
-		input_device_id = to_string(inputDeviceId);
-
-		task_queue_factory = webrtc::CreateDefaultTaskQueueFactory();
-	}
+		this->output_device_id = to_string(outputDeviceId);
+		this->input_device_id = to_string(inputDeviceId);
+	}	
 
 	void WebrtcManager::Create()
 	{
-		workerThread = rtc::Thread::Create();
-		workerThread->Start();
-
-		workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
+		this->task_queue.PostTask([this]() {
 			this->SetupCall();
-			});
-
+		});
 	}
 
 	void WebrtcManager::SetupCall()
 	{
 		this->CreateCall();
-		this->g_audioSendTransport = new ::Webrtc::StreamTransport(this);
-		this->audioSendStream = this->createAudioSendStream(this->ssrc, 120);
-		this->g_call->SignalChannelNetworkState(webrtc::MediaType::AUDIO, webrtc::NetworkState::kNetworkUp);
+		this->audio_send_transport = std::make_unique<::Webrtc::StreamTransport>(this);
+		this->audio_send_stream = this->CreateAudioSendStream(this->ssrc, 120);
+		this->call->SignalChannelNetworkState(webrtc::MediaType::AUDIO, webrtc::NetworkState::kNetworkUp);
 	}
 
 	void WebrtcManager::Destroy()
 	{
-		this->m_connected = false;
-		this->ssrc_to_create.clear();
-		if (this->audioReceiveStreams.size() > 0) {
-			for (auto it = this->audioReceiveStreams.cbegin(); it != this->audioReceiveStreams.cend();)
-			{
-				this->workerThread->Invoke<void>(RTC_FROM_HERE, [this, it]() {
-					this->g_call->DestroyAudioReceiveStream(it->second);
-					});
-				this->audioReceiveStreams.erase(it++);
-			}
-		}
-		if (this->audioSendStream) {
-			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
-				this->g_call->DestroyAudioSendStream(this->audioSendStream);
-				});
-		}
+		auto call = this->call.release();
 
-		if (this->outputStream) this->outputStream.Close();
-		this->outputStream = nullptr;
-		if (this->udpSocket) this->udpSocket.Close();
-		this->udpSocket = nullptr;
-
-		delete this->g_audioSendTransport;
-		this->g_audioSendTransport = nullptr;
-
-		this->audioSendStream = nullptr;
-
-		if (this->workerThread)
+		for (auto const& [key, stream] : this->audio_receive_streams)
 		{
-			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
-				delete this->g_call;
-				this->audioDevice = nullptr;
-				});
+			this->task_queue.PostTask([call, stream = stream] {
+				call->DestroyAudioReceiveStream(stream);
+			});
 		}
-		this->g_call = nullptr;
-		if (this->workerThread) this->workerThread.reset();
 
-		this->g_audioDecoderFactory = nullptr;
+		this->task_queue.PostTask([call, stream = this->audio_send_stream, audioDevice = this->audio_device.release(), audio_processing = this->audio_processing.release()]{
+			if (stream)
+				call->DestroyAudioSendStream(stream);
 
-		this->g_audioEncoderFactory = nullptr;
+			(void)audioDevice->Release();
+			(void)audio_processing->Release();
+			delete call;
+		});
+
+		if (this->output_stream) {
+			this->output_stream.Close();
+		}
+
+		if (this->udp_socket) {
+			this->udp_socket.Close();
+		}
+
+		this->connected = false;
+
+		this->ssrc_to_create.clear();
+		this->audio_receive_streams.clear();
+
+		this->audio_send_stream = nullptr;
+		this->output_stream = nullptr;
+		this->udp_socket = nullptr;
+		this->audio_send_transport = nullptr;
+		this->audio_processing = nullptr;
+		this->audio_decoder_factory = nullptr;
+		this->audio_encoder_factory = nullptr;
 
 	}
 
 	void WebrtcManager::CreateCall()
 	{
-		this->g_audioDecoderFactory = webrtc::CreateBuiltinAudioDecoderFactory();
-		this->g_audioEncoderFactory = webrtc::CreateBuiltinAudioEncoderFactory();
+		this->audio_decoder_factory = webrtc::CreateBuiltinAudioDecoderFactory();
+		this->audio_encoder_factory = webrtc::CreateBuiltinAudioEncoderFactory();
 
-		/*
-		::Webrtc::IAudioDeviceWasapi::CreationProperties props;
-		props.id_ = "";
-		props.playoutEnabled_ = true;
-		props.recordingEnabled_ = true;
-		*/
-		webrtc::AudioState::Config stateconfig;
-
-		stateconfig.audio_processing = webrtc::AudioProcessingBuilder()
-			.SetCaptureAnalyzer(std::make_unique<::Webrtc::AudioAnalyzer>(this))
-			.SetRenderPreProcessing(std::make_unique<::Webrtc::OutputAnalyzer>(this))
+		this->audio_processing = webrtc::AudioProcessingBuilder()
+			.SetCaptureAnalyzer(std::make_unique<::Webrtc::AudioSourceAnalyzer>(this))
+			.SetRenderPreProcessing(std::make_unique<::Webrtc::AudioSinkAnalyzer>(this))
 			.Create();
 
-		this->audioDevice = webrtc::AudioDeviceModule::Create(webrtc::AudioDeviceModule::kPlatformDefaultAudio, task_queue_factory.get());
+		{
+			webrtc::AudioProcessing::Config config = this->audio_processing->GetConfig();
+			config.voice_detection.enabled = true;
 
-		stateconfig.audio_device_module = this->audioDevice;
+			//config.echo_canceller.enabled = true;
 
+			//config.noise_suppression.enabled = true;
+			//config.noise_suppression.level = webrtc::AudioProcessing::Config::NoiseSuppression::Level::kHigh;
+
+			//config.gain_controller2.enabled = true;
+			//config.gain_controller2.adaptive_digital.enabled = true;
+			
+			this->audio_processing->ApplyConfig(config);
+		}
+
+		this->audio_device = webrtc::AudioDeviceModule::Create(webrtc::AudioDeviceModule::kPlatformDefaultAudio, task_queue_factory.get());
+
+		webrtc::AudioState::Config stateconfig;
+		stateconfig.audio_processing = this->audio_processing;
+		stateconfig.audio_device_module = this->audio_device;
 		stateconfig.audio_mixer = webrtc::AudioMixerImpl::Create();
 
-		rtc::scoped_refptr<webrtc::AudioState> audio_state = webrtc::AudioState::Create(stateconfig);
+		const rtc::scoped_refptr<webrtc::AudioState> audio_state = webrtc::AudioState::Create(stateconfig);
 
-		RTC_CHECK_EQ(0, this->audioDevice->Init()) << "Failed to initialize the ADM.";
+		RTC_CHECK_EQ(0, this->audio_device->Init()) << "Failed to initialize the ADM.";
 
-		if (this->audioDevice->PlayoutDevices() > 0)
+		if (this->audio_device->PlayoutDevices() > 0)
 		{
-			int deviceIndex = GetPlaybackDeviceIndexFromId(output_device_id);
+			uint16_t deviceIndex = GetPlaybackDeviceIndexFromId(this->output_device_id);
 
 			if (deviceIndex == -1) deviceIndex = 0;
 
-			if (this->audioDevice->SetPlayoutDevice(deviceIndex) != 0) {
+			if (this->audio_device->SetPlayoutDevice(deviceIndex) != 0) {
 				RTC_LOG(LS_ERROR) << "Unable to set playout device.";
 				return;
 			}
-			if (this->audioDevice->InitSpeaker() != 0) {
+			if (this->audio_device->InitSpeaker() != 0) {
 				RTC_LOG(LS_ERROR) << "Unable to access speaker.";
 			}
 
 			// Set number of channels
 			bool available = false;
-			if (this->audioDevice->StereoPlayoutIsAvailable(&available) != 0) {
+			if (this->audio_device->StereoPlayoutIsAvailable(&available) != 0) {
 				RTC_LOG(LS_ERROR) << "Failed to query stereo playout.";
 			}
-			if (this->audioDevice->SetStereoPlayout(available) != 0) {
+			if (this->audio_device->SetStereoPlayout(available) != 0) {
 				RTC_LOG(LS_ERROR) << "Failed to set stereo playout mode.";
 			}
 		}
 
-		if (this->audioDevice->RecordingDevices() > 0)
+		if (this->audio_device->RecordingDevices() > 0)
 		{
 			int deviceIndex = GetRecordingDeviceIndexFromId(input_device_id);
 
 			if (deviceIndex == -1) deviceIndex = 0;
 
-			if (this->audioDevice->SetRecordingDevice(deviceIndex) != 0) {
+			if (this->audio_device->SetRecordingDevice(deviceIndex) != 0) {
 				RTC_LOG(LS_ERROR) << "Unable to set recording device.";
 				return;
 			}
-			if (this->audioDevice->InitMicrophone() != 0) {
+			if (this->audio_device->InitMicrophone() != 0) {
 				RTC_LOG(LS_ERROR) << "Unable to access microphone.";
 			}
 
 			// Set number of channels
 			bool available = false;
-			if (this->audioDevice->StereoRecordingIsAvailable(&available) != 0) {
+			if (this->audio_device->StereoRecordingIsAvailable(&available) != 0) {
 				RTC_LOG(LS_ERROR) << "Failed to query stereo recording.";
 			}
-			if (this->audioDevice->SetStereoRecording(available) != 0) {
+			if (this->audio_device->SetStereoRecording(available) != 0) {
 				RTC_LOG(LS_ERROR) << "Failed to set stereo recording mode.";
 			}
 		}
@@ -310,24 +193,22 @@ namespace winrt::Webrtc::implementation
 		// webrtc::apm_helpers::Init(stateconfig.audio_processing);
 		stateconfig.audio_processing->Initialize();
 		
-		this->audioDevice->RegisterAudioCallback(audio_state->audio_transport());
+		this->audio_device->RegisterAudioCallback(audio_state->audio_transport());
 
-		std::unique_ptr<webrtc::RtcEventLog> log = std::make_unique<webrtc::RtcEventLogNull>();
-		std::unique_ptr<webrtc::RtcEventLogOutput> output = std::make_unique<MyRtcEventLogOutput>();
-		log->StartLogging(std::move(output), 100);
-
-		webrtc::Call::Config config(log.release());
+		webrtc::Call::Config config(new webrtc::RtcEventLogNull());
 
 		config.audio_state = audio_state;
 		config.audio_processing = stateconfig.audio_processing;
-
-		this->g_call = webrtc::Call::Create(config);
-		this->m_connected = true;
+		config.task_queue_factory = this->task_queue_factory.get();
+		config.trials = g_trials;
+				
+		this->call = std::unique_ptr<webrtc::Call>(webrtc::Call::Create(config));
+		this->connected = true;
 		for (auto const& [ssrc, speaking] : this->ssrc_to_create)
 		{
 			if (speaking != 0)
 			{
-				this->audioReceiveStreams[ssrc] = this->createAudioReceiveStream(this->ssrc, ssrc, 120);
+				this->audio_receive_streams[ssrc] = this->CreateAudioReceiveStream(this->ssrc, ssrc, 120);
 			}
 		}
 	}
@@ -337,30 +218,30 @@ namespace winrt::Webrtc::implementation
 		this->Destroy();
 	}
 
-	webrtc::AudioSendStream* WebrtcManager::createAudioSendStream(uint32_t ssrc, uint8_t payloadType)
+	webrtc::AudioSendStream* WebrtcManager::CreateAudioSendStream(uint32_t ssrc, uint8_t payload_type) const
 	{
-		webrtc::AudioSendStream::Config config{ this->g_audioSendTransport };
+		webrtc::AudioSendStream::Config config{ this->audio_send_transport.get() };
 		config.rtp.ssrc = ssrc;
-		config.rtp.extensions = { {"urn:ietf:params:rtp-hdrext:ssrc-audio-level", 1} };
-		config.encoder_factory = g_audioEncoderFactory;
-		config.send_codec_spec = webrtc::AudioSendStream::Config::SendCodecSpec(payloadType, kOpusFormat);
+		config.rtp.extensions = g_rtpExtensions;
+		config.encoder_factory = this->audio_encoder_factory;
+		config.send_codec_spec = webrtc::AudioSendStream::Config::SendCodecSpec(payload_type, g_opusFormat);
 
-		webrtc::AudioSendStream* audioStream = g_call->CreateAudioSendStream(config);
+		webrtc::AudioSendStream* audioStream = this->call->CreateAudioSendStream(config);
 		audioStream->Start();
 		return audioStream;
 	}
 
-	webrtc::AudioReceiveStream* WebrtcManager::createAudioReceiveStream(uint32_t local_ssrc, uint32_t remote_ssrc, uint8_t payloadType)
+	webrtc::AudioReceiveStream* WebrtcManager::CreateAudioReceiveStream(uint32_t local_ssrc, uint32_t remote_ssrc, uint8_t payload_type) const
 	{
 		webrtc::AudioReceiveStream::Config config;
 		config.rtp.local_ssrc = local_ssrc;
 		config.rtp.remote_ssrc = remote_ssrc;
-		config.rtp.extensions = { {"urn:ietf:params:rtp-hdrext:ssrc-audio-level", 1} };
-		config.decoder_factory = g_audioDecoderFactory;
-		config.decoder_map = { { payloadType, kOpusFormat } };
-		config.rtcp_send_transport = this->g_audioSendTransport;
+		config.rtp.extensions = g_rtpExtensions;
+		config.decoder_factory = this->audio_decoder_factory;
+		config.decoder_map = { { payload_type, g_opusFormat } };
+		config.rtcp_send_transport = this->audio_send_transport.get();
 
-		webrtc::AudioReceiveStream* audioStream = g_call->CreateAudioReceiveStream(config);
+		webrtc::AudioReceiveStream* audioStream = this->call->CreateAudioReceiveStream(config);
 		audioStream->Start();
 
 		return audioStream;
@@ -369,20 +250,21 @@ namespace winrt::Webrtc::implementation
 	void WebrtcManager::SetSpeaking(UINT32 ssrc, int speaking)
 	{
 		// Todo: handle priority speaker
-		if (!this->m_connected)
+		if (!this->connected)
 		{
 			this->ssrc_to_create[ssrc] = speaking;
 		}
 		else
 		{
-			auto it = this->audioReceiveStreams.find(ssrc);
+			const auto it = this->audio_receive_streams.find(ssrc);
 			if (speaking != 0)
 			{
-				if (it == this->audioReceiveStreams.end())
+				if (it == this->audio_receive_streams.end())
 				{
-					this->audioReceiveStreams[ssrc] = this->workerThread->Invoke<webrtc::AudioReceiveStream*>(RTC_FROM_HERE, [this, ssrc]() {
-						return this->createAudioReceiveStream(this->ssrc, ssrc, 120);
-						});
+					this->audio_receive_streams[ssrc] = nullptr;
+					this->task_queue.PostTask([this, ssrc]() {
+						this->audio_receive_streams[ssrc] = this->CreateAudioReceiveStream(this->ssrc, ssrc, 120);
+					});
 				}
 				else
 				{
@@ -391,56 +273,53 @@ namespace winrt::Webrtc::implementation
 			}
 			else
 			{
-				if (it != audioReceiveStreams.end())
+				if (it != audio_receive_streams.end())
 				{
-					this->workerThread->Invoke<void>(RTC_FROM_HERE, [this, it]() {
-						this->g_call->DestroyAudioReceiveStream(it->second);
-						});
-					audioReceiveStreams.erase(it);
+					auto stream = it->second;
+					this->task_queue.PostTask([this, stream]() {
+						this->call->DestroyAudioReceiveStream(stream);
+					});
+					audio_receive_streams.erase(it);
 				}
 			}
 		}
 	}
 
-	void WebrtcManager::SetCurrentVolume(double volume)
+	void WebrtcManager::UpdateSpeaking(bool speaking)
 	{
-		if (volume < -40)
+		if (!speaking)
 		{
 			// Not speaking
-			if (this->isSpeaking)
+			if (this->is_speaking)
 			{
-				this->frameCount++;
-				if (this->frameCount >= 50) {
-					this->isSpeaking = false;
-					this->g_audioSendTransport->StopSend();
-					this->m_speaking(*this, false);
-					this->frameCount = 0;
+				this->frame_count++;
+				if (this->frame_count >= 50) {
+					this->is_speaking = false;
+					this->audio_send_transport->StopSend();
+					this->speaking(false);
+					this->frame_count = 0;
 				}
 			}
 		}
 		else
 		{
 			// Are Speaking
-			if (!this->isSpeaking)
+			if (!this->is_speaking)
 			{
-				this->isSpeaking = true;
-				this->g_audioSendTransport->StartSend();
-				this->m_speaking(*this, true);
+				this->is_speaking = true;
+				this->audio_send_transport->StartSend();
+				this->speaking(true);
 			}
 		}
 	}
 
-	int WebrtcManager::GetPlaybackDeviceIndexFromId(std::string deviceId) const
+	uint16_t WebrtcManager::GetPlaybackDeviceIndexFromId(std::string deviceId) const
 	{
-		char target_id[webrtc::kAdmMaxGuidSize];
-
-		int target_device_index = -1;
-
-		for (unsigned int i = 0; i < this->audioDevice->PlayoutDevices(); ++i) {
+		for (uint16_t i = 0; i < this->audio_device->PlayoutDevices(); ++i) {
 
 			char name[webrtc::kAdmMaxDeviceNameSize];
 			char guid[webrtc::kAdmMaxGuidSize];
-			this->audioDevice->PlayoutDeviceName(i, name, guid);
+			this->audio_device->PlayoutDeviceName(i, name, guid);
 			if (deviceId == guid)
 			{
 				return i;
@@ -449,17 +328,13 @@ namespace winrt::Webrtc::implementation
 		return -1;
 	}
 
-	int WebrtcManager::GetRecordingDeviceIndexFromId(std::string deviceId) const
+	uint16_t WebrtcManager::GetRecordingDeviceIndexFromId(std::string deviceId) const
 	{
-		char target_id[webrtc::kAdmMaxGuidSize];
-
-		int target_device_index = -1;
-
-		for (unsigned int i = 0; i < this->audioDevice->RecordingDevices(); ++i) {
+		for (uint16_t i = 0; i < this->audio_device->RecordingDevices(); ++i) {
 
 			char name[webrtc::kAdmMaxDeviceNameSize];
 			char guid[webrtc::kAdmMaxGuidSize];
-			this->audioDevice->RecordingDeviceName(i, name, guid);
+			this->audio_device->RecordingDeviceName(i, name, guid);
 			if (deviceId == guid)
 			{
 				return i;
@@ -469,64 +344,64 @@ namespace winrt::Webrtc::implementation
 	}
 
 	void WebrtcManager::SetPlaybackDevice(hstring deviceId) {
-		output_device_id = to_string(deviceId);
+		this->output_device_id = to_string(deviceId);
 
-		if (!this->audioDevice) return;
+		if (!this->audio_device) return;
 
 		bool wasRecording = false;
 
-		if (this->audioDevice->SpeakerIsInitialized())
+		if (this->audio_device->SpeakerIsInitialized())
 		{
 			wasRecording = true;
-			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
-				this->audioDevice->StopPlayout();
-				});
+			this->task_queue.PostTask([this]() {
+				this->audio_device->StopPlayout();
+			});
 		}
 
-		const int target_device_index = GetPlaybackDeviceIndexFromId(output_device_id);
+		const int target_device_index = GetPlaybackDeviceIndexFromId(this->output_device_id);
 
 		if (target_device_index > -1)
 		{
-			this->audioDevice->SetPlayoutDevice(target_device_index);
+			this->audio_device->SetPlayoutDevice(target_device_index);
 		}
 
 		if (wasRecording)
 		{
-			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
-				this->audioDevice->InitPlayout();
-				this->audioDevice->StartPlayout();
-				});
+			this->task_queue.PostTask([this]() {
+				this->audio_device->InitPlayout();
+				this->audio_device->StartPlayout();
+			});
 		}
 	}
 
 	void WebrtcManager::SetRecordingDevice(hstring deviceId) {
-		input_device_id = to_string(deviceId);
+		this->input_device_id = to_string(deviceId);
 
-		if (!this->audioDevice) return;
+		if (!this->audio_device) return;
 
 		bool wasRecording = false;
 
-		if (this->audioDevice->MicrophoneIsInitialized())
+		if (this->audio_device->MicrophoneIsInitialized())
 		{
 			wasRecording = true;
-			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
-				this->audioDevice->StopRecording();
-				});
+			this->task_queue.PostTask([this]() {
+				this->audio_device->StopRecording();
+			});
 		}
 
-		const int target_device_index = GetRecordingDeviceIndexFromId(input_device_id);
+		const int target_device_index = GetRecordingDeviceIndexFromId(this->input_device_id);
 
 		if (target_device_index > -1)
 		{
-			this->audioDevice->SetRecordingDevice(target_device_index);
+			this->audio_device->SetRecordingDevice(target_device_index);
 		}
 
 		if (wasRecording)
 		{
-			this->workerThread->Invoke<void>(RTC_FROM_HERE, [this]() {
-				this->audioDevice->InitRecording();
-				this->audioDevice->StartRecording();
-				});
+			this->task_queue.PostTask([this]() {
+				this->audio_device->InitRecording();
+				this->audio_device->StartRecording();
+			});
 		}
 	}
 
@@ -535,132 +410,136 @@ namespace winrt::Webrtc::implementation
 		memcpy(this->key, key.begin(), 32);
 	}
 
-	void WebrtcManager::UpdateInBytes(Windows::Foundation::Collections::IVector<float> const& data)
+	void WebrtcManager::UpdateInBytes(Windows::Foundation::Collections::IVector<float> const& data) const
 	{
-		this->m_audioInData(*this, data);
+		this->audioInData(data);
 	}
 
-	void WebrtcManager::UpdateOutBytes(Windows::Foundation::Collections::IVector<float> const& data)
+	void WebrtcManager::UpdateOutBytes(Windows::Foundation::Collections::IVector<float> const& data) const
 	{
-		this->m_audioOutData(*this, data);
+		this->audioOutData(data);
 	}
 
-	Windows::Foundation::IAsyncAction WebrtcManager::ConnectAsync(hstring ip, hstring port, UINT32 ssrc)
+	winrt::fire_and_forget WebrtcManager::Connect(hstring ip, hstring port, UINT32 ssrc)
 	{
-		this->hasGotIp = false;
+		this->has_got_ip = false;
 		this->ssrc = ssrc;
 
-		udpSocket = Windows::Networking::Sockets::DatagramSocket();
-		udpSocket.MessageReceived({ this, &WebrtcManager::OnMessageReceived });
+		this->udp_socket = Windows::Networking::Sockets::DatagramSocket();
+		(void)this->udp_socket.MessageReceived({ this, &WebrtcManager::OnMessageReceived });
 
-		co_await this->udpSocket.ConnectAsync(Windows::Networking::HostName(ip), port);
+		co_await this->udp_socket.ConnectAsync(Windows::Networking::HostName(ip), port);
 
-		this->outputStream = Windows::Storage::Streams::DataWriter(this->udpSocket.OutputStream());
+		this->output_stream = Windows::Storage::Streams::DataWriter(this->udp_socket.OutputStream());
 		this->SendSelectProtocol(ssrc);
 		this->Create();
 	}
 
-	void WebrtcManager::SendSelectProtocol(UINT32 ssrc)
+	void WebrtcManager::SendSelectProtocol(UINT32 ssrc) const
 	{
-		std::array<unsigned char, 70> packet;
-		packet[0] = (BYTE)(ssrc >> 24);
-		packet[1] = (BYTE)(ssrc >> 16);
-		packet[2] = (BYTE)(ssrc >> 8);
-		packet[3] = (BYTE)(ssrc >> 0);
-		this->outputStream.WriteBytes(packet);
-		this->outputStream.StoreAsync();
-	}
+		std::array<uint8_t, 74> packet = {0};
+		packet[0] = 0;
+		packet[1] = 1;
+		packet[2] = 0;
+		packet[3] = 70;
 
+		packet[4] = (ssrc >> 24) & 0xFF;
+		packet[5] = (ssrc >> 16) & 0xFF;
+		packet[6] = (ssrc >> 8) & 0xFF;
+		packet[7] = (ssrc >> 0) & 0xFF;
+		this->output_stream.WriteBytes(packet);
+		(void)this->output_stream.StoreAsync();
+	}
+	
 	void WebrtcManager::OnMessageReceived(Windows::Networking::Sockets::DatagramSocket const& sender, Windows::Networking::Sockets::DatagramSocketMessageReceivedEventArgs const& args)
 	{
-		Windows::Storage::Streams::DataReader dr = args.GetDataReader();
-		unsigned int dataLength = dr.UnconsumedBufferLength();
-		if (this->hasGotIp)
+		auto time = rtc::TimeMicros();
+		const Windows::Storage::Streams::DataReader dr = args.GetDataReader();
+		const unsigned int dataLength = dr.UnconsumedBufferLength();
+		if (this->has_got_ip)
 		{
 			std::vector<BYTE> bytes = std::vector<BYTE>(dataLength);
 			dr.ReadBytes(bytes);
 
 			BYTE nonce[24] = { 0 };
-			BYTE* decrypted = new BYTE[dataLength - 16];
-			if (IsRtcp(bytes.data(), dataLength))
-			{
-				memcpy(nonce, bytes.data(), 8);
-				memcpy(decrypted, bytes.data(), 8);
-				crypto_secretbox_open_easy(decrypted + 8, bytes.data() + 8, dataLength - 8, nonce, key);
 
-				workerThread->Invoke<void>(RTC_FROM_HERE, [this, decrypted, dataLength]() {
-					webrtc::PacketReceiver::DeliveryStatus status = this->g_call->Receiver()->DeliverPacket(webrtc::MediaType::ANY, rtc::CopyOnWriteBuffer(decrypted, dataLength - 16), rtc::TimeMicros());
-					delete decrypted;
-					});
+			rtc::CopyOnWriteBuffer decrypted(dataLength - 16);
+
+
+			int header_size;
+			webrtc::MediaType mediaType;
+
+			const webrtc::RtpUtility::RtpHeaderParser rtp_parser(bytes.data(), dataLength);
+			if (rtp_parser.RTCP())
+			{
+				header_size = 8;
+				mediaType = webrtc::MediaType::ANY;
 			}
 			else
 			{
-
-				memcpy(nonce, bytes.data(), 12);
-				memcpy(decrypted, bytes.data(), 12);
-
-				crypto_secretbox_open_easy(decrypted + 12, bytes.data() + 12, dataLength - 12, nonce, key);
-
-				workerThread->Invoke<void>(RTC_FROM_HERE, [this, decrypted, dataLength]() {
-					webrtc::PacketReceiver::DeliveryStatus status = this->g_call->Receiver()->DeliverPacket(webrtc::MediaType::AUDIO, rtc::CopyOnWriteBuffer(decrypted, dataLength - 16), rtc::TimeMicros());
-					delete decrypted;
-					});
+				header_size = 12;
+				mediaType = webrtc::MediaType::AUDIO;
 			}
+
+			std::memcpy(nonce, bytes.data(), header_size);
+			std::memcpy(decrypted.data(), bytes.data(), header_size);
+
+			crypto_secretbox_open_easy(decrypted.data() + header_size, bytes.data() + header_size, dataLength - header_size, nonce, this->key);
+
+			this->task_queue.PostTask([this, mediaType, decrypted, time]{
+				this->call->Receiver()->DeliverPacket(mediaType, decrypted, time);
+			});
 
 		}
 		else {
-			this->hasGotIp = true;
-			dr.ReadInt32();
-			std::array<BYTE, 64> bytes{};
-			dr.ReadBytes(bytes);
+			this->has_got_ip = true;
+			if (dr.ReadInt16() == 0x2) {
+				(void)dr.ReadInt16();
+				(void)dr.ReadInt32();
+				std::array<BYTE, 64> bytes{};
+				dr.ReadBytes(bytes);
 
-			std::wstring ip(std::begin(bytes), std::end(bytes));
-			USHORT port = dr.ReadUInt16();
-			this->m_ipAndPortObtained(hstring(ip), port);
+				const std::wstring ip(std::begin(bytes), std::end(bytes));
+				const USHORT port = dr.ReadUInt16();
+				this->ipAndPortObtained(hstring(ip), port);
+			}
 		}
 	}
-
-
-#pragma region Events
-	void WebrtcManager::IpAndPortObtained(event_token const& token) noexcept
+		
+#pragma region Actions
+	IpAndPortObtainedDelegate WebrtcManager::IpAndPortObtained() noexcept
 	{
-		this->m_ipAndPortObtained.remove(token);
+		return this->ipAndPortObtained;
+	}
+	AudioOutDataDelegate WebrtcManager::AudioOutData() noexcept
+	{
+		return this->audioOutData;
+	}
+	AudioInDataDelegate WebrtcManager::AudioInData() noexcept
+	{
+		return this->audioInData;
+	}
+	SpeakingDelegate WebrtcManager::Speaking() noexcept
+	{
+		return this->speaking;
 	}
 
-	event_token WebrtcManager::IpAndPortObtained(Windows::Foundation::TypedEventHandler<hstring, USHORT> const& handler)
+	void WebrtcManager::IpAndPortObtained(const IpAndPortObtainedDelegate value) noexcept
 	{
-		return this->m_ipAndPortObtained.add(handler);
+		this->ipAndPortObtained = value;
+	}
+	void WebrtcManager::AudioOutData(const AudioOutDataDelegate value) noexcept
+	{
+		this->audioOutData = value;
+	}
+	void WebrtcManager::AudioInData(const AudioInDataDelegate value) noexcept
+	{
+		this->audioInData = value;
+	}
+	void WebrtcManager::Speaking(const SpeakingDelegate value) noexcept
+	{
+		this->speaking = value;
 	}
 
-	void WebrtcManager::AudioOutData(event_token const& token) noexcept
-	{
-		this->m_audioOutData.remove(token);
-	}
-
-	event_token WebrtcManager::AudioOutData(Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>> const& handler)
-	{
-		return this->m_audioOutData.add(handler);
-	}
-
-	void WebrtcManager::AudioInData(event_token const& token) noexcept
-	{
-		this->m_audioOutData.remove(token);
-	}
-
-	event_token WebrtcManager::AudioInData(Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>> const& handler)
-	{
-		return this->m_audioInData.add(handler);
-	}
-
-	void WebrtcManager::Speaking(event_token const& token) noexcept
-	{
-		this->m_speaking.remove(token);
-	}
-
-	event_token WebrtcManager::Speaking(Windows::Foundation::EventHandler<bool> const& handler)
-	{
-		return this->m_speaking.add(handler);
-	}
 #pragma endregion
-
 }

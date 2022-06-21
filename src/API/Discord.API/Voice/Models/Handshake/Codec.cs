@@ -12,7 +12,7 @@ namespace Discord.API.Voice.Models.Handshake
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [JsonPropertyName("payloadType")]
+        [JsonPropertyName("payload_type")]
         public int PayloadType { get; set; }
 
         [JsonPropertyName("priority")]

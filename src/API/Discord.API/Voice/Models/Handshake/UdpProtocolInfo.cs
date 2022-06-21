@@ -15,9 +15,6 @@ namespace Discord.API.Voice.Models.Handshake
         [JsonPropertyName("port")]
         public int Port { get; set; }
 
-        [JsonPropertyName("codecs")]
-        public Codec[] Codecs { get; set; }
-
         [JsonPropertyName("mode")]
         public string Mode { get; set; }
     }

@@ -737,6 +737,10 @@
       <Project>{e4b6dfb8-b9b7-4ee7-9f86-afddc221ffb3}</Project>
       <Name>Quarrel.Markdown</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Libs\Webrtc\Webrtc.vcxproj">
+      <Project>{c2dbe035-8f2a-4e10-8509-e3da08f441e2}</Project>
+      <Name>Webrtc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Quarrel.Client\Quarrel.Client.csproj">
       <Project>{e20b2927-0c9e-437f-9b51-b76bae2ef67c}</Project>
       <Name>Quarrel.Client</Name>

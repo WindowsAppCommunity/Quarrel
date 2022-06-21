@@ -56,9 +56,10 @@ namespace Discord.API.JsonConverters
             {
                 VoiceOperation.Hello => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.VoiceSocketFrameVoiceHello)!,
                 VoiceOperation.Ready => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.VoiceSocketFrameVoiceReady)!,
-                VoiceOperation.SessionDescription => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.VoiceSocketFrameSessionDescription)!,
+                VoiceOperation.SessionDescription => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.VoiceSocketFrameVoiceSessionDescription)!,
                 VoiceOperation.Heartbeat => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.VoiceSocketFrameInt32)!,
                 VoiceOperation.HeartbeatAck => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.VoiceSocketFrameInt32)!,
+                VoiceOperation.Speaking => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.VoiceSocketFrameSpeaker)!,
                 VoiceOperation.Identify => throw new JsonException("Server should not be sending us Identify"),
                 null => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.UnknownOperationVoiceSocketFrame)!,
                 _ => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.VoiceSocketFrame)!

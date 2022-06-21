@@ -3,28 +3,19 @@
 
 #include <winrt/Windows.Networking.Sockets.h>
 #include <winrt/Windows.Storage.Streams.h>
-#include <winrt/Windows.Foundation.Collections.h>
 #include <call/call.h>
 #include <api/task_queue/default_task_queue_factory.h>
 #include <media/engine/webrtc_voice_engine.h>
 #include <rtc_base/thread.h>
-#include <rtc_base/async_packet_socket.h>
-#include <modules/rtp_rtcp/source/rtp_utility.h>
-#include <api/audio_codecs/builtin_audio_encoder_factory.h>
 #include <api/audio_codecs/builtin_audio_decoder_factory.h>
 #include <modules/audio_device/include/audio_device.h>
 #include <modules/audio_processing/audio_buffer.h>
-#include <common_audio/include/audio_util.h>
-#include <media/engine/adm_helpers.h>
-#include <modules/audio_mixer/audio_mixer_impl.h>
 
 #include <iostream>
-//#include <IAudioDeviceWasapi.h>
-#include <sodium/crypto_secretbox.h>
-
 
 namespace Webrtc
 {
+	class AudioSourceAnalyzer;
 	class StreamTransport;
 }
 
@@ -36,84 +27,85 @@ namespace winrt::Webrtc::implementation
 
 		WebrtcManager();
 		WebrtcManager(hstring outputDeviceId, hstring inputDeviceId);
-		~WebrtcManager();
+		~WebrtcManager() override;
 
 		void Create();
 		void Destroy();
 
-		Windows::Foundation::IAsyncAction ConnectAsync(hstring ip, hstring port, UINT32 ssrc);
-		void SendSelectProtocol(UINT32 ssrc);
+		winrt::fire_and_forget Connect(hstring ip, hstring port, UINT32 ssrc);
+		void SendSelectProtocol(UINT32 ssrc) const;
 
 		void SetKey(array_view<const BYTE> key);
 		void SetSpeaking(UINT32 ssrc, int speaking);
+		
+		IpAndPortObtainedDelegate IpAndPortObtained() noexcept;
+		AudioOutDataDelegate AudioOutData() noexcept;
+		AudioInDataDelegate AudioInData() noexcept;
+		SpeakingDelegate Speaking() noexcept;
 
-		void IpAndPortObtained(event_token const& token) noexcept;
-		event_token IpAndPortObtained(Windows::Foundation::TypedEventHandler<hstring, USHORT> const& handler);
+		void IpAndPortObtained(IpAndPortObtainedDelegate value) noexcept;
+		void AudioOutData(AudioOutDataDelegate value) noexcept;
+		void AudioInData(AudioInDataDelegate value) noexcept;
+		void Speaking(SpeakingDelegate value) noexcept;
 
-		void AudioOutData(event_token const& token) noexcept;
-		event_token AudioOutData(Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>> const& handler);
+		void UpdateInBytes(Windows::Foundation::Collections::IVector<float> const& data) const;
+		void UpdateOutBytes(Windows::Foundation::Collections::IVector<float> const& data) const;
 
-		void AudioInData(event_token const& token) noexcept;
-		event_token AudioInData(Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>> const& handler);
-
-		void Speaking(event_token const& token) noexcept;
-		event_token Speaking(Windows::Foundation::EventHandler<bool> const& handler);
-
-		void UpdateInBytes(Windows::Foundation::Collections::IVector<float> const& data);
-		void UpdateOutBytes(Windows::Foundation::Collections::IVector<float> const& data);
-
-		void SetCurrentVolume(double volume);
+		void UpdateSpeaking(bool speaking);
 
 		void SetPlaybackDevice(hstring deviceId);
 		void SetRecordingDevice(hstring deviceId);
 	private:
 		friend class ::Webrtc::StreamTransport;
-		event<Windows::Foundation::TypedEventHandler<hstring, USHORT>> m_ipAndPortObtained;
-		event<Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>>> m_audioOutData;
-		event<Windows::Foundation::EventHandler<Windows::Foundation::Collections::IVector<float>>> m_audioInData;
-		event<Windows::Foundation::EventHandler<bool>> m_speaking;
+		friend class ::Webrtc::AudioSourceAnalyzer;
 
 		void CreateCall();
 		void SetupCall();
 
-		int WebrtcManager::GetPlaybackDeviceIndexFromId(std::string deviceId) const;
-		int WebrtcManager::GetRecordingDeviceIndexFromId(std::string deviceId) const;
+		uint16_t WebrtcManager::GetPlaybackDeviceIndexFromId(std::string device_id) const;
+		uint16_t WebrtcManager::GetRecordingDeviceIndexFromId(std::string device_id) const;
 
-		webrtc::AudioSendStream* createAudioSendStream(uint32_t ssrc, uint8_t payloadType);
-		webrtc::AudioReceiveStream* createAudioReceiveStream(uint32_t local_ssrc, uint32_t remote_ssrc, uint8_t payloadType);
+		webrtc::AudioSendStream* CreateAudioSendStream(uint32_t ssrc, uint8_t payload_type) const;
+		webrtc::AudioReceiveStream* CreateAudioReceiveStream(uint32_t local_ssrc, uint32_t remote_ssrc, uint8_t payload_type) const;
 		void OnMessageReceived(Windows::Networking::Sockets::DatagramSocket const& sender, Windows::Networking::Sockets::DatagramSocketMessageReceivedEventArgs const& args);
 
 		unsigned char key[32];
 		uint32_t ssrc = 0;
 
-		Windows::Networking::Sockets::DatagramSocket udpSocket{ nullptr };
-		Windows::Storage::Streams::DataWriter outputStream{ nullptr };
+		Windows::Networking::Sockets::DatagramSocket udp_socket{ nullptr };
+		Windows::Storage::Streams::DataWriter output_stream{ nullptr };
 
-		webrtc::Call* g_call = nullptr;
+		std::unique_ptr<webrtc::Call> call;
+		
+		std::map<short, webrtc::AudioReceiveStream*> audio_receive_streams{};
+		webrtc::AudioSendStream* audio_send_stream{ nullptr };
 
-		std::map<short, webrtc::AudioReceiveStream*> audioReceiveStreams;
-		webrtc::AudioSendStream* audioSendStream{ nullptr };
+		rtc::scoped_refptr<webrtc::AudioDecoderFactory> audio_decoder_factory;
+		rtc::scoped_refptr<webrtc::AudioEncoderFactory> audio_encoder_factory;
 
-		rtc::scoped_refptr<webrtc::AudioDecoderFactory> g_audioDecoderFactory;
-		rtc::scoped_refptr<webrtc::AudioEncoderFactory> g_audioEncoderFactory;
-
-		::Webrtc::StreamTransport* g_audioSendTransport = nullptr;
-
-		std::unique_ptr<rtc::Thread> workerThread;
-
-		bool isSpeaking = false;
-		int frameCount = 0;;
+		std::unique_ptr<::Webrtc::StreamTransport> audio_send_transport;
+		
+		bool is_speaking = false;
+		int frame_count = 0;;
 		int16_t output_device_index, input_device_index;
 		std::string output_device_id, input_device_id;
 
-		bool hasGotIp = false;
-		bool m_connected = false;
+		bool has_got_ip = false;
+		bool connected = false;
 
-		rtc::scoped_refptr<webrtc::AudioDeviceModule> audioDevice;
+		rtc::scoped_refptr<webrtc::AudioDeviceModule> audio_device;
+
+		rtc::scoped_refptr<webrtc::AudioProcessing> audio_processing;
 
 		std::map<uint32_t, uint32_t> ssrc_to_create;
 
 		std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory;
+		rtc::TaskQueue task_queue;
+
+		IpAndPortObtainedDelegate ipAndPortObtained;
+		AudioOutDataDelegate audioOutData;
+		AudioInDataDelegate audioInData;
+		SpeakingDelegate speaking;
 	};
 }
 
@@ -121,21 +113,5 @@ namespace winrt::Webrtc::factory_implementation
 {
 	struct WebrtcManager : WebrtcManagerT<WebrtcManager, implementation::WebrtcManager>
 	{
-	};
-}
-
-namespace Webrtc
-{
-	class StreamTransport : public webrtc::Transport
-	{
-	public:
-		StreamTransport(winrt::Webrtc::implementation::WebrtcManager* manager);
-		virtual bool SendRtp(const uint8_t* packet, size_t length, const webrtc::PacketOptions const& options);
-		virtual bool SendRtcp(const uint8_t* packet, size_t length);
-		void StopSend();
-		void StartSend();
-	private:
-		winrt::Webrtc::implementation::WebrtcManager* manager;
-		bool isSending;
 	};
 }

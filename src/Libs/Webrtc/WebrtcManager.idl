@@ -1,4 +1,10 @@
 namespace Webrtc{
+
+	delegate void IpAndPortObtainedDelegate(String ip, UInt16 port);
+	delegate void AudioInDataDelegate(Windows.Foundation.Collections.IVector<Single> data);
+	delegate void AudioOutDataDelegate(Windows.Foundation.Collections.IVector<Single> data);
+	delegate void SpeakingDelegate(Boolean speaking);
+		
 	[default_interface]
 	runtimeclass WebrtcManager
 	{
@@ -7,7 +13,7 @@ namespace Webrtc{
 		void Create();
 		void Destroy();
 
-		Windows.Foundation.IAsyncAction ConnectAsync(String ip, String port, UInt32 ssrc);
+		void Connect(String ip, String port, UInt32 ssrc);
 		void SendSelectProtocol(UInt32 ssrc);
 
 		void SetKey(UInt8[] key);
@@ -16,9 +22,9 @@ namespace Webrtc{
 		void SetPlaybackDevice(String deviceId);
 		void SetRecordingDevice(String deviceId);
 
-		event Windows.Foundation.TypedEventHandler<String, UInt16> IpAndPortObtained;
-		event Windows.Foundation.EventHandler<Windows.Foundation.Collections.IVector<Single> > AudioInData;
-		event Windows.Foundation.EventHandler<Windows.Foundation.Collections.IVector<Single> > AudioOutData;
-		event Windows.Foundation.EventHandler<Boolean> Speaking;
+		IpAndPortObtainedDelegate IpAndPortObtained;
+		AudioInDataDelegate AudioInData;
+		AudioOutDataDelegate AudioOutData;
+		SpeakingDelegate Speaking;
 	}
 }
