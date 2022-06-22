@@ -1,7 +1,9 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Toolkit.Mvvm.Input;
+using Quarrel.Bindables.Voice;
 using Quarrel.Client.Models.Channels.Interfaces;
+using System.Collections.ObjectModel;
 
 namespace Quarrel.Bindables.Channels.Interfaces
 {
@@ -24,6 +26,11 @@ namespace Quarrel.Bindables.Channels.Interfaces
         /// Gets a command that joins the call in the channel.
         /// </summary>
         RelayCommand JoinCallCommand { get; }
+        
+        /// <summary>
+        /// Gets the voice channel members.
+        /// </summary>
+        ObservableCollection<BindableVoiceState> VoiceMembers { get; }
 
         /// <summary>
         /// Connects to the audio channel.

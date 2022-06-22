@@ -21,7 +21,9 @@ namespace Quarrel.Services.Discord
 
             _quarrelClient.ChannelUpdated += OnChannelUpdated;
 
+            _quarrelClient.VoiceStateAdded += OnVoiceStateAdded;
             _quarrelClient.VoiceStateUpdated += OnVoiceStateUpdated;
+            _quarrelClient.VoiceStateRemoved += OnVoiceStateRemoved; ;
         }
 
         private void OnMessageCreate(object sender, Message e) 
@@ -39,6 +41,9 @@ namespace Quarrel.Services.Discord
         private void OnChannelUpdated(object sender, Channel e) 
             => _messenger.Send(new ChannelUpdatedMessage(e));
 
+        private void OnVoiceStateAdded(object sender, VoiceState e)
+            => _messenger.Send(new VoiceStateAddedMessage(e));
+
         private void OnVoiceStateUpdated(object sender, VoiceState e)
         {
             _messenger.Send(new VoiceStateUpdatedMessage(e));
@@ -48,5 +53,8 @@ namespace Quarrel.Services.Discord
                 _messenger.Send(new MyVoiceStateUpdatedMessage(e));
             }
         }
+
+        private void OnVoiceStateRemoved(object sender, VoiceState e)
+            => _messenger.Send(new VoiceStateRemovedMessage(e));
     }
 }

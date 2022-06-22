@@ -11,9 +11,9 @@ namespace Quarrel.Controls.Panels.Channels
         public VoiceController()
         {
             this.InitializeComponent();
-            DataContext = App.Current.Services.GetRequiredService<VoiceViewModel>();
+            DataContext = App.Current.Services.GetRequiredService<VoiceControllerViewModel>();
         }
 
-        public VoiceViewModel ViewModel => (VoiceViewModel)DataContext;
+        public VoiceControllerViewModel ViewModel => (VoiceControllerViewModel)DataContext;
     }
 }

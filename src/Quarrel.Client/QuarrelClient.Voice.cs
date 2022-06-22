@@ -7,6 +7,7 @@ using Discord.API.Voice.Models;
 using Discord.API.Voice.Models.Handshake;
 using Quarrel.Client.Logger;
 using Quarrel.Client.Models.Voice;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,10 +21,11 @@ namespace Quarrel.Client
         public class QuarrelClientVoice
         {
             private readonly QuarrelClient _client;
-            private VoiceConnection? _voiceConnection;
-            private JsonVoiceState? _voiceState;
-            private VoiceServerConfig? _voiceServerConfig;
             private readonly object _stateLock = new();
+            private readonly Dictionary<ulong, VoiceState> _stateDictionary;
+            private JsonVoiceState? _selfState;
+            private VoiceServerConfig? _voiceServerConfig;
+            private VoiceConnection? _voiceConnection;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="QuarrelClientVoice"/> class.
@@ -31,6 +33,7 @@ namespace Quarrel.Client
             internal QuarrelClientVoice(QuarrelClient client)
             {
                 _client = client;
+                _stateDictionary = new Dictionary<ulong, VoiceState>();
             }
 
             internal void UpdateVoiceServerConfig(VoiceServerConfig config)
@@ -38,7 +41,28 @@ namespace Quarrel.Client
                 lock (_stateLock)
                 {
                     _voiceServerConfig = config;
-                    if (_voiceState != null)
+                    if (_selfState != null)
+                    {
+                        _ = ConnectToVoice();
+                    }
+                }
+            }
+
+            internal void UpdateSelfVoiceState(JsonVoiceState state)
+            {
+                lock (_stateLock)
+                {
+                    _selfState = state;
+
+                    if (_selfState.ChannelId == null)
+                    {
+                        _voiceConnection?.Disconnect();
+                        _voiceConnection?.Dispose();
+                        _voiceConnection = null;
+                        _selfState = null;
+                        _voiceServerConfig = null;
+                    }
+                    else if (_voiceServerConfig != null)
                     {
                         _ = ConnectToVoice();
                     }
@@ -47,23 +71,29 @@ namespace Quarrel.Client
 
             internal void UpdateVoiceState(JsonVoiceState state)
             {
-                lock (_stateLock)
+                if (_stateDictionary.TryGetValue(state.UserId, out VoiceState voiceState))
                 {
-                    _voiceState = state;
+                    // The channel was not added
+                    bool channelChanged = state.ChannelId != voiceState.Channel?.Id;
 
-                    if (_voiceState.ChannelId == null)
+                    voiceState.Update(state);
+                    if (channelChanged)
                     {
-                        _voiceConnection?.Disconnect();
-                        _voiceConnection?.Dispose();
-                        _voiceConnection = null;
-                        _voiceState = null;
-                        _voiceServerConfig = null;
-                    }
-                    else if (_voiceServerConfig != null)
-                    {
-                        _ = ConnectToVoice();
+                        // The channel was moved or removed.
+                        _stateDictionary.Remove(state.UserId);
+                        _client.VoiceStateRemoved?.Invoke(_client, voiceState);
                     }
                 }
+
+                voiceState = new VoiceState(state, _client);
+
+                if (voiceState.Channel is not null)
+                {
+                    _stateDictionary.Add(state.UserId, voiceState);
+                    _client.VoiceStateAdded?.Invoke(_client, voiceState);
+                }
+
+                _client.VoiceStateUpdated?.Invoke(_client, voiceState);
             }
 
             internal async Task RequestStartCall(ulong channelId)
@@ -80,7 +110,7 @@ namespace Quarrel.Client
                 Guard.IsNotNull(_client.Gateway, nameof(_client.Gateway));
                 lock (_stateLock)
                 {
-                    _voiceState = null;
+                    _selfState = null;
                     _voiceConnection = null;
                 }
 
@@ -89,12 +119,12 @@ namespace Quarrel.Client
 
             private async Task ConnectToVoice()
             {
-                if (_voiceServerConfig == null || _voiceState == null && _voiceConnection == null)
+                if (_voiceServerConfig == null || _selfState == null && _voiceConnection == null)
                 {
                     return;
                 }
 
-                _voiceConnection = new VoiceConnection(_voiceServerConfig.Json, _voiceState!,
+                _voiceConnection = new VoiceConnection(_voiceServerConfig.Json, _selfState!,
                     unhandledMessageEncountered: e => _client.LogException(ClientLogEvent.VoiceExceptionHandled, e),
                     knownOperationEncountered: e => _client.LogOperation(ClientLogEvent.KnownVoiceOperationEncountered, (int)e),
                     unhandledOperationEncountered: e => _client.LogOperation(ClientLogEvent.UnhandledVoiceOperationEncountered, (int)e),
@@ -114,7 +144,6 @@ namespace Quarrel.Client
 
             private void OnSessionDescription(VoiceSessionDescription session)
             {
-
                 _voiceConnection!.SetKey(session.SecretKey.Select(x => (byte)x).ToArray());
             }
 

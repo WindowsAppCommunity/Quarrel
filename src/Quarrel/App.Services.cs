@@ -65,7 +65,8 @@ namespace Quarrel
             .AddSingleton<MessagesViewModel>()
             .AddSingleton<MessageBoxViewModel>()
             .AddSingleton<CurrentUserViewModel>()
-            .AddSingleton<VoiceViewModel>()
+            .AddSingleton<VoicePanelViewModel>()
+            .AddSingleton<VoiceControllerViewModel>()
 
             // SubPages
             .AddTransient<AboutPageViewModel>()
