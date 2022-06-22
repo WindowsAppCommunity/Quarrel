@@ -51,7 +51,15 @@ namespace Quarrel.Client
                 {
                     _voiceState = state;
 
-                    if (_voiceServerConfig != null)
+                    if (_voiceState.ChannelId == null)
+                    {
+                        _voiceConnection?.Disconnect();
+                        _voiceConnection?.Dispose();
+                        _voiceConnection = null;
+                        _voiceState = null;
+                        _voiceServerConfig = null;
+                    }
+                    else if (_voiceServerConfig != null)
                     {
                         _ = ConnectToVoice();
                     }
@@ -70,8 +78,12 @@ namespace Quarrel.Client
             internal async Task RequestJoinVoice(ulong? channelId, ulong? guildId = null)
             {
                 Guard.IsNotNull(_client.Gateway, nameof(_client.Gateway));
-                _voiceState = null;
-                _voiceConnection = null;
+                lock (_stateLock)
+                {
+                    _voiceState = null;
+                    _voiceConnection = null;
+                }
+
                 await _client.Gateway.VoiceStatusUpdateAsync(channelId, guildId);
             }
 

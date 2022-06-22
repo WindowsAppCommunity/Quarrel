@@ -65,44 +65,41 @@ namespace winrt::Webrtc::implementation
 
 	void WebrtcManager::Destroy()
 	{
-		auto call = this->call.release();
+		this->task_queue.PostTask([this] {
 
-		for (auto const& [key, stream] : this->audio_receive_streams)
-		{
-			this->task_queue.PostTask([call, stream = stream] {
-				call->DestroyAudioReceiveStream(stream);
-			});
-		}
+			for (auto const& [key, stream] : this->audio_receive_streams)
+			{
+				this->call->DestroyAudioReceiveStream(stream);
+			}
+			
+			if (this->audio_send_stream)
+				this->call->DestroyAudioSendStream(this->audio_send_stream);
 
-		this->task_queue.PostTask([call, stream = this->audio_send_stream, audioDevice = this->audio_device.release(), audio_processing = this->audio_processing.release()]{
-			if (stream)
-				call->DestroyAudioSendStream(stream);
+			if (this->udp_socket) {
+				this->udp_socket.Close();
+			}
 
-			(void)audioDevice->Release();
-			(void)audio_processing->Release();
-			delete call;
+			if (this->output_stream) {
+				this->output_stream.Close();
+			}
+
+			this->audio_device = nullptr;
+			this->audio_processing = nullptr;
+
+			this->connected = false;
+
+			this->ssrc_to_create.clear();
+			this->audio_receive_streams.clear();
+
+			this->call = nullptr;
+			this->audio_send_stream = nullptr;
+			this->output_stream = nullptr;
+			this->udp_socket = nullptr;
+			this->audio_send_transport = nullptr;
+			this->audio_processing = nullptr;
+			this->audio_decoder_factory = nullptr;
+			this->audio_encoder_factory = nullptr;
 		});
-
-		if (this->output_stream) {
-			this->output_stream.Close();
-		}
-
-		if (this->udp_socket) {
-			this->udp_socket.Close();
-		}
-
-		this->connected = false;
-
-		this->ssrc_to_create.clear();
-		this->audio_receive_streams.clear();
-
-		this->audio_send_stream = nullptr;
-		this->output_stream = nullptr;
-		this->udp_socket = nullptr;
-		this->audio_send_transport = nullptr;
-		this->audio_processing = nullptr;
-		this->audio_decoder_factory = nullptr;
-		this->audio_encoder_factory = nullptr;
 
 	}
 
