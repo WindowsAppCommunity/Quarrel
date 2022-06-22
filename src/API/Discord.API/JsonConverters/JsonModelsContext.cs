@@ -14,6 +14,7 @@ using Discord.API.Models.Json.Settings;
 using Discord.API.Models.Json.Users;
 using Discord.API.Models.Json.Voice;
 using Discord.API.Voice;
+using Discord.API.Voice.Models;
 using Discord.API.Voice.Models.Handshake;
 using System.Text.Json.Serialization;
 
@@ -71,7 +72,8 @@ namespace Discord.API.JsonConverters
     [JsonSerializable(typeof(VoiceSocketFrame<VoiceHello>))]
     [JsonSerializable(typeof(VoiceSocketFrame<VoiceIdentity>))]
     [JsonSerializable(typeof(VoiceSocketFrame<VoiceReady>))]
-    [JsonSerializable(typeof(VoiceSocketFrame<SessionDescription>))]
+    [JsonSerializable(typeof(VoiceSocketFrame<VoiceSessionDescription>))]
+    [JsonSerializable(typeof(VoiceSocketFrame<Speaker>))]
     internal partial class JsonModelsContext : JsonSerializerContext
     {
     }

@@ -19,7 +19,7 @@ namespace Quarrel.Samples.RichPresence
         {
             this.InitializeComponent();
             _connection = new RichPresenceConnection();
-            _connection.Closed += async (_, _) =>
+            _connection.Closed += async (object sender, EventArgs e) =>
             {
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {

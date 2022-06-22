@@ -3,9 +3,12 @@
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Json.Voice;
 using Discord.API.Voice;
+using Discord.API.Voice.Models;
+using Discord.API.Voice.Models.Handshake;
 using Quarrel.Client.Logger;
 using Quarrel.Client.Models.Voice;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Quarrel.Client
@@ -21,8 +24,8 @@ namespace Quarrel.Client
             private readonly object _stateLock = new();
             private readonly Dictionary<ulong, VoiceState> _stateDictionary;
             private JsonVoiceState? _selfState;
-            private VoiceConnection? _voiceConnection;
             private VoiceServerConfig? _voiceServerConfig;
+            private VoiceConnection? _voiceConnection;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="QuarrelClientVoice"/> class.
@@ -35,7 +38,7 @@ namespace Quarrel.Client
 
             internal void UpdateVoiceServerConfig(VoiceServerConfig config)
             {
-                lock(_stateLock)
+                lock (_stateLock)
                 {
                     _voiceServerConfig = config;
                     if (_selfState != null)
@@ -115,9 +118,26 @@ namespace Quarrel.Client
                     unhandledOperationEncountered: e => _client.LogOperation(ClientLogEvent.UnhandledVoiceOperationEncountered, (int)e),
                     unknownOperationEncountered: e => _client.LogOperation(ClientLogEvent.UnknownVoiceOperationEncountered, e),
                     voiceConnectionStatusChanged: _ => { },
-                    ready: _ => { });
+                    ready: OnReady,
+                    sessionDescription: OnSessionDescription,
+                    speaking: OnSpeaking);
 
                 await _voiceConnection.ConnectAsync(_voiceServerConfig.ConnectionUrl);
+            }
+
+            private void OnReady(VoiceReady ready)
+            {
+                _voiceConnection!.Connect(ready.IP, ready.Port.ToString(), ready.SSRC);
+            }
+
+            private void OnSessionDescription(VoiceSessionDescription session)
+            {
+                _voiceConnection!.SetKey(session.SecretKey.Select(x => (byte)x).ToArray());
+            }
+
+            private void OnSpeaking(Speaker speaking)
+            {
+                _voiceConnection!.SetSpeaking(speaking.SSRC, speaking.IsSpeaking);
             }
         }
     }

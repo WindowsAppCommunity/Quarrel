@@ -15,10 +15,16 @@
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="StreamTransport.cpp" />
+    <ClCompile Include="AudioSourceAnalyzer.cpp" />
+    <ClCompile Include="AudioSinkAnalyzer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="WebrtcManager.h" />
+    <ClInclude Include="StreamTransport.h" />
+    <ClInclude Include="AudioSourceAnalyzer.h" />
+    <ClInclude Include="AudioSinkAnalyzer.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="WebrtcManager.idl" />
@@ -29,8 +35,5 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="readme.txt" />
   </ItemGroup>
 </Project>

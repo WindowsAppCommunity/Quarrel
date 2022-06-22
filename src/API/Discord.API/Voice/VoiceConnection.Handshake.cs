@@ -11,12 +11,10 @@ namespace Discord.API.Voice
     {
         private bool _receivedAck;
 
-        public async Task SelectProtocol(VoiceReady ready)
+        public async Task SelectProtocol(string ip, int port)
         {
-            var protocolInfo = new UdpProtocolInfo
+            var payload = new SelectProtocol<UdpProtocolInfo>
             {
-                Address = ready.IP,
-                Port = ready.Port,
                 Codecs = new Codec[]
                 {
                     new()
@@ -34,13 +32,16 @@ namespace Discord.API.Voice
                         Type = "video"
                     }
                 },
-                Mode = "xsalsa20_poly1305"
-            };
-            
-            var payload = new SelectProtocol<UdpProtocolInfo>
-            {
+                Data = new UdpProtocolInfo
+                {
+                    Address = ip,
+                    Port = port,
+                    Mode = "xsalsa20_poly1305"
+                },
+                Address = ip,
+                Port = port,
+                Mode = "xsalsa20_poly1305",
                 Protocol = "udp",
-                Data = protocolInfo,
             };
 
             await SendMessageAsync(VoiceOperation.SelectProtocol, payload);
@@ -116,7 +117,7 @@ namespace Discord.API.Voice
         {
             var identity = new VoiceIdentity
             {
-                ServerId = _voiceConfig.GuildId ?? _voiceConfig.ChannelId,
+                ServerId = _voiceConfig.GuildId ?? _voiceConfig.ChannelId.GetValueOrDefault(),
                 SessionId = _state.SessionId,
                 Token = _voiceConfig.Token,
                 UserId = _state.UserId,

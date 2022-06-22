@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\packages\libwebrtc.uwp.84.0.0\build\native\libwebrtc.uwp.props" Condition="Exists('..\..\..\packages\libwebrtc.uwp.84.0.0\build\native\libwebrtc.uwp.props')" />
+  <Import Project="..\..\..\packages\libwebrtc.uwp.x86.84.0.0\build\native\libwebrtc.uwp.x86.props" Condition="Exists('..\..\..\packages\libwebrtc.uwp.x86.84.0.0\build\native\libwebrtc.uwp.x86.props')" />
+  <Import Project="..\..\..\packages\libwebrtc.uwp.x64.84.0.0\build\native\libwebrtc.uwp.x64.props" Condition="Exists('..\..\..\packages\libwebrtc.uwp.x64.84.0.0\build\native\libwebrtc.uwp.x64.props')" />
+  <Import Project="..\..\..\packages\libwebrtc.uwp.ARM64.84.0.0\build\native\libwebrtc.uwp.ARM64.props" Condition="Exists('..\..\..\packages\libwebrtc.uwp.ARM64.84.0.0\build\native\libwebrtc.uwp.ARM64.props')" />
   <Import Project="..\..\..\packages\Microsoft.Windows.CppWinRT.2.0.220608.4\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('..\..\..\packages\Microsoft.Windows.CppWinRT.2.0.220608.4\build\native\Microsoft.Windows.CppWinRT.props')" />
-  <Import Project="..\..\..\packages\Microsoft.WinRTC.libwebrtc.uwp.84.0.15580001-beta.2\build\native\Microsoft.WinRTC.libwebrtc.uwp.props" Condition="Exists('..\..\..\packages\Microsoft.WinRTC.libwebrtc.uwp.84.0.15580001-beta.2\build\native\Microsoft.WinRTC.libwebrtc.uwp.props')" />
   <PropertyGroup Label="Globals">
     <CppWinRTOptimized>true</CppWinRTOptimized>
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
@@ -20,12 +23,28 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|ARM64">
       <Configuration>Release</Configuration>
       <Platform>ARM64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -77,13 +96,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
-	  <ClCompile>
-		  <PreprocessorDefinitions> _SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-		  <LanguageStandard>stdcpp17</LanguageStandard>
-	  </ClCompile>
-	  <Link>
-		  <AdditionalDependencies>WindowsApp.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-	  </Link>
+    <ClCompile>
+      <PreprocessorDefinitions> _SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>WindowsApp.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
@@ -97,14 +116,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AudioSinkAnalyzer.h" />
+    <ClInclude Include="AudioSourceAnalyzer.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="StreamTransport.h" />
     <ClInclude Include="WebrtcManager.h">
       <DependentUpon>WebrtcManager.idl</DependentUpon>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AudioSinkAnalyzer.cpp">
+      <DependentUpon>AudioSinkAnalyzer.h</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="AudioSourceAnalyzer.cpp">
+      <DependentUpon>AudioSourceAnalyzer.h</DependentUpon>
+    </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="StreamTransport.cpp">
+      <DependentUpon>StreamTransport.h</DependentUpon>
     </ClCompile>
     <ClCompile Include="WebrtcManager.cpp">
       <DependentUpon>WebrtcManager.idl</DependentUpon>
@@ -120,9 +151,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />
-    <Text Include="readme.txt">
-      <DeploymentContent>false</DeploymentContent>
-    </Text>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SodiumC\SodiumC.vcxproj">
@@ -137,8 +165,11 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Microsoft.WinRTC.libwebrtc.uwp.84.0.15580001-beta.2\build\native\Microsoft.WinRTC.libwebrtc.uwp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.WinRTC.libwebrtc.uwp.84.0.15580001-beta.2\build\native\Microsoft.WinRTC.libwebrtc.uwp.props'))" />
     <Error Condition="!Exists('..\..\..\packages\Microsoft.Windows.CppWinRT.2.0.220608.4\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.Windows.CppWinRT.2.0.220608.4\build\native\Microsoft.Windows.CppWinRT.props'))" />
     <Error Condition="!Exists('..\..\..\packages\Microsoft.Windows.CppWinRT.2.0.220608.4\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.Windows.CppWinRT.2.0.220608.4\build\native\Microsoft.Windows.CppWinRT.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\libwebrtc.uwp.ARM64.84.0.0\build\native\libwebrtc.uwp.ARM64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\libwebrtc.uwp.ARM64.84.0.0\build\native\libwebrtc.uwp.ARM64.props'))" />
+    <Error Condition="!Exists('..\..\..\packages\libwebrtc.uwp.x64.84.0.0\build\native\libwebrtc.uwp.x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\libwebrtc.uwp.x64.84.0.0\build\native\libwebrtc.uwp.x64.props'))" />
+    <Error Condition="!Exists('..\..\..\packages\libwebrtc.uwp.x86.84.0.0\build\native\libwebrtc.uwp.x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\libwebrtc.uwp.x86.84.0.0\build\native\libwebrtc.uwp.x86.props'))" />
+    <Error Condition="!Exists('..\..\..\packages\libwebrtc.uwp.84.0.0\build\native\libwebrtc.uwp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\libwebrtc.uwp.84.0.0\build\native\libwebrtc.uwp.props'))" />
   </Target>
 </Project>

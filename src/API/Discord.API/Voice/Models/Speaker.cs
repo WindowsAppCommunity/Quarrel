@@ -10,13 +10,13 @@ namespace Discord.API.Voice.Models
 {
     internal record Speaker
     {
-        [JsonPropertyName("speaking")]
-        public SpeakingState State { get; set; }
-
         [JsonPropertyName("user_id")]
         public string UserId { get; set; }
 
         [JsonPropertyName("ssrc")]
-        public int SSRC { get; set; }
+        public uint SSRC { get; set; }
+
+        [JsonPropertyName("speaking")]
+        public int IsSpeaking { get; set; }
     }
 }
