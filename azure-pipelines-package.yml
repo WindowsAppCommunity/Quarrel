@@ -22,7 +22,6 @@ pool:
 
 variables:
   solution: '**/Quarrel.sln'
-  buildPlatform: 'x64'
   buildConfiguration: 'Debug'
 
 steps:
@@ -35,8 +34,17 @@ steps:
     restoreSolution: '$(solution)'
 
 - task: VSBuild@1
-  displayName: "Build" 
+  displayName: "Build.x64" 
   inputs:
     solution: '$(solution)'
     platform: 'x64'
     configuration: '$(buildConfiguration)'
+    msbuildArchitecture: 'x64'
+
+- task: VSBuild@1
+  displayName: "Build.ARM64" 
+  inputs:
+    solution: '$(solution)'
+    platform: 'ARM64'
+    configuration: '$(buildConfiguration)'
+    msbuildArchitecture: 'x64'
