@@ -65,6 +65,8 @@ namespace Quarrel.Client.Models.Users
         /// <inheritdoc/>
         public Presence? Presence { get; internal set; }
 
+        public string? AvatarUrl => GetAvatarUrl();
+
         /// <inheritdoc/>
         public string? GetAvatarUrl(uint size = 128)
         {

@@ -1,0 +1,17 @@
+﻿<ResourceDictionary
+    x:Class="Quarrel.DataTemplates.VoiceTemplates"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:icons="using:Quarrel.Controls.Icons"
+    xmlns:bindablevoice="using:Quarrel.Bindables.Voice"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
+
+    <DataTemplate x:Key="VoiceMemberTemplate" x:DataType="bindablevoice:BindableVoiceState">
+        <!--Image-->
+        <Border x:Name="ProfileImageContainer" Width="96" Height="96"
+                CornerRadius="48" VerticalAlignment="Top">
+            <controls:ImageEx Source="{x:Bind State.User.AvatarUrl}"/>
+        </Border>
+    </DataTemplate>
+
+</ResourceDictionary>

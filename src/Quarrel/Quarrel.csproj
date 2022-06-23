@@ -176,6 +176,9 @@
     <Compile Include="DataTemplates\GuildTemplates.xaml.cs">
       <DependentUpon>GuildTemplates.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataTemplates\VoiceTemplates.xaml.cs">
+      <DependentUpon>VoiceTemplates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataTemplates\MessageTemplates.xaml.cs">
       <DependentUpon>MessageTemplates.xaml</DependentUpon>
     </Compile>
@@ -574,6 +577,10 @@
     <Page Include="DataTemplates\GuildTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataTemplates\VoiceTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="DataTemplates\MessageTemplates.xaml">
       <SubType>Designer</SubType>

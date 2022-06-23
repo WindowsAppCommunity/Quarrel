@@ -136,7 +136,7 @@
                     </Grid.ColumnDefinitions>
 
                     <!--Image-->
-                    <Border x:Name="ProfileImageContainer"  Width="36" Height="36"
+                    <Border x:Name="ProfileImageContainer" Width="36" Height="36"
                             CornerRadius="18" VerticalAlignment="Top">
                         <tc:ImageEx Source="{x:Bind Author.AvatarUri}"/>
                     </Border>

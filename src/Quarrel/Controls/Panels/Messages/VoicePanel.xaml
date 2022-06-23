@@ -5,18 +5,17 @@
     xmlns:local="using:Quarrel.Controls.Panels.Messages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tc="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:bvoice="using:Quarrel.Bindables.Voice"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Border Background="Black" Opacity=".25" CornerRadius="0,0,8,8">
-        <ListView ItemsSource="{x:Bind ViewModel.SelectedChannel.VoiceMembers, Mode=OneWay}">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="bvoice:BindableVoiceState">
-                    <TextBlock Text="{x:Bind State.User.Id}"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Border>
+    <Grid>
+        <Border Background="Black" Opacity=".25" CornerRadius="0,0,8,8"/>
+        
+        <tc:AdaptiveGridView ItemsSource="{x:Bind ViewModel.SelectedChannel.VoiceMembers, Mode=OneWay}"
+                             ItemTemplate="{StaticResource VoiceMemberTemplate}"
+                             VerticalAlignment="Center" HorizontalAlignment="Center"/>
+    </Grid>
 </UserControl>

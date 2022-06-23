@@ -23,6 +23,7 @@
                 <dt:GuildTemplates/>
                 <dt:ChannelTemplates/>
                 <dt:MessageTemplates/>
+                <dt:VoiceTemplates/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
