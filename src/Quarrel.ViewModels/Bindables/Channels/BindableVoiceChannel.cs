@@ -50,20 +50,27 @@ namespace Quarrel.Bindables.Channels
             {
                 if (m.VoiceState.Channel?.Id == Id)
                 {
-                    var state = new BindableVoiceState(
-                        _messenger,
-                        _discordService,
-                        _dispatcherService,
-                        m.VoiceState);
+                    _dispatcherService.RunOnUIThread(() =>
+                    {
+                        var state = new BindableVoiceState(
+                            _messenger,
+                            _discordService,
+                            _dispatcherService,
+                            m.VoiceState);
 
-                    VoiceMembers.Add(state);
+                        VoiceMembers.Add(state);
+                    });
                 }
             });
             _messenger.Register<VoiceStateRemovedMessage>(this, (_, m) =>
             {
                 if (m.VoiceState.Channel?.Id == Id)
                 {
-                    VoiceMembers.Remove(VoiceMembers.FirstOrDefault(x => x.State.User?.Id == m.VoiceState.User?.Id));
+                    _dispatcherService.RunOnUIThread(() =>
+                    {
+                        VoiceMembers.Remove(VoiceMembers.FirstOrDefault(x =>
+                            x.State.User?.Id == m.VoiceState.User?.Id));
+                    });
                 }
             });
         }
