@@ -23,5 +23,11 @@ namespace Discord.API.Voice.Models.Handshake
 
         [JsonPropertyName("rtx_payload_type")]
         public int RtxPayloadType { get; set; }
+        
+        [JsonPropertyName("decode")]
+        public bool? Decode { get; set; }
+        
+        [JsonPropertyName("encode")]
+        public bool? Encoding { get; set; }
     }
 }

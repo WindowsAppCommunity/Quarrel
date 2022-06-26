@@ -9,6 +9,18 @@ namespace Discord.API.Voice.Models.Handshake
 {
     internal record VoiceIdentity
     {
+        internal record VoiceIdentityStream
+        {
+            [JsonPropertyName("quality")]
+            public int Quality { get; set; }
+
+            [JsonPropertyName("rid")]
+            public string Rid { get; set; }
+            
+            [JsonPropertyName("type")]
+            public string Type { get; set; }
+        }
+        
         [JsonPropertyName("server_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong ServerId { get; set; }
 
@@ -23,5 +35,8 @@ namespace Discord.API.Voice.Models.Handshake
 
         [JsonPropertyName("video")]
         public bool Video { get; set; }
+
+        [JsonPropertyName("streams"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public VoiceIdentityStream[]? Streams { get; set; }
     }
 }
