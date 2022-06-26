@@ -59,6 +59,10 @@ namespace Discord.API.JsonConverters
                     GatewayEvent.VOICE_STATE_UPDATE => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameJsonVoiceState)!,
                     GatewayEvent.VOICE_SERVER_UPDATE => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameJsonVoiceServerUpdate)!,
 
+                    GatewayEvent.STREAM_CREATE => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameStreamCreate)!,
+                    GatewayEvent.STREAM_SERVER_UPDATE => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameStreamServerUpdate)!,
+                    //GatewayEvent.STREAM_UPDATE => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameStreamUpdate)!,
+
                     GatewayEvent.SESSIONS_REPLACE => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameSessionReplaceArray)!,
 
                     GatewayEvent.IDENTIFY => throw new JsonException("Server should not be sending us IDENTIFY"),

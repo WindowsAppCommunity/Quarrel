@@ -64,6 +64,9 @@ namespace Discord.API.JsonConverters
     [JsonSerializable(typeof(GatewaySocketFrame<JsonGuildSettings>))]
     [JsonSerializable(typeof(GatewaySocketFrame<JsonVoiceState>))]
     [JsonSerializable(typeof(GatewaySocketFrame<JsonVoiceServerUpdate>))]
+    [JsonSerializable(typeof(GatewaySocketFrame<StreamWatch>))]
+    [JsonSerializable(typeof(GatewaySocketFrame<StreamCreate>))]
+    [JsonSerializable(typeof(GatewaySocketFrame<StreamServerUpdate>))]
     [JsonSerializable(typeof(GatewaySocketFrame<SessionReplace[]>))]
     
     [JsonSerializable(typeof(VoiceSocketFrame))]
@@ -74,6 +77,7 @@ namespace Discord.API.JsonConverters
     [JsonSerializable(typeof(VoiceSocketFrame<VoiceReady>))]
     [JsonSerializable(typeof(VoiceSocketFrame<VoiceSessionDescription>))]
     [JsonSerializable(typeof(VoiceSocketFrame<Speaker>))]
+    [JsonSerializable(typeof(VoiceSocketFrame<Video>))]
     internal partial class JsonModelsContext : JsonSerializerContext
     {
     }
