@@ -84,11 +84,15 @@ namespace Discord.API.Gateways
             Action<JsonGuildSettings> userGuildSettingsUpdated,
             Action<JsonVoiceState> voiceStateUpdated,
             Action<JsonVoiceServerUpdate> voiceServerUpdated,
+            Action<StreamCreate> streamCreate,
+            Action<StreamServerUpdate> streamServerUpdate,
             Action<SessionReplace[]> sessionReplaced)
         {
             _gatewayConfig = config;
 
             SessionReplaced = sessionReplaced;
+            StreamServerUpdate = streamServerUpdate;
+            StreamCreate = streamCreate;
             VoiceServerUpdated = voiceServerUpdated;
             VoiceStateUpdated = voiceStateUpdated;
             UserGuildSettingsUpdated = userGuildSettingsUpdated;

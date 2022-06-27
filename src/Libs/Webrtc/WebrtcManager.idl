@@ -22,6 +22,8 @@ namespace Webrtc{
 		void SetPlaybackDevice(String deviceId);
 		void SetRecordingDevice(String deviceId);
 
+		void CreateVideoStream(UInt32 ssrc);
+
 		IpAndPortObtainedDelegate IpAndPortObtained;
 		AudioInDataDelegate AudioInData;
 		AudioOutDataDelegate AudioOutData;

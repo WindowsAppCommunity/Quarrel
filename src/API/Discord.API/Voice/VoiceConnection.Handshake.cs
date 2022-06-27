@@ -1,7 +1,9 @@
 ﻿// Quarrel © 2022
 
+using Discord.API.Gateways.Models.Handshake;
 using Discord.API.Voice.Models.Handshake;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,10 +28,33 @@ namespace Discord.API.Voice
                     },
                     new()
                     {
-                        Name = "VP8",
+
+                        Name = "H264",
                         PayloadType = 101,
                         Priority = 1000,
-                        Type = "video"
+                        RtxPayloadType = 102,
+                        Type = "video",
+                        Decode = true
+                    },
+                    new()
+                    {
+
+                        Name = "VP8",
+                        PayloadType = 103,
+                        Priority = 2000,
+                        RtxPayloadType = 104,
+                        Type = "video",
+                        Decode = true
+                    },
+                    new()
+                    {
+
+                        Name = "VP9",
+                        PayloadType = 105,
+                        Priority = 3000,
+                        RtxPayloadType = 106,
+                        Type = "video",
+                        Decode = true
                     }
                 },
                 Data = new UdpProtocolInfo
@@ -45,6 +70,33 @@ namespace Discord.API.Voice
             };
 
             await SendMessageAsync(VoiceOperation.SelectProtocol, payload);
+        }
+
+        public async Task SendVideo(uint audioSSRC, VoiceReady.Stream[] streams)
+        {
+            await SendMessageAsync(VoiceOperation.Video, new Video
+            {
+                AudioSSRC = audioSSRC,
+                RtxSSRC = 0,
+                VideoSSRC = 0,
+                Streams = streams.Select(x => new Video.VideoStream
+                {
+                    Active = x.Active,
+                    MaxBitrate = 2500000,
+                    MaxFramerate = 30,
+                    MaxResolution = new Video.VideoStream.Resolution
+                    {
+                        Height = 720,
+                        Width = 1280,
+                        Type = "fixed"
+                    },
+                    Quality = x.Quality,
+                    Rid = x.Rid,
+                    RtxSSRC = x.RtxSSRC,
+                    SSRC = x.SSRC,
+                    Type = "Video"
+                }).ToArray()
+            });
         }
 
         private bool OnHeartbeatAck()
@@ -113,15 +165,16 @@ namespace Discord.API.Voice
             return true;
         }
 
-        private async Task IdentifySelfToVoiceConnection()
+        public async Task IdentifySelfToVoiceConnection(ulong serverId, string sessionId, string token, ulong userId, bool video, VoiceIdentity.VoiceIdentityStream[]? streams = null)
         {
             var identity = new VoiceIdentity
             {
-                ServerId = _voiceConfig.GuildId ?? _voiceConfig.ChannelId.GetValueOrDefault(),
-                SessionId = _state.SessionId,
-                Token = _voiceConfig.Token,
-                UserId = _state.UserId,
-                Video = false,
+                ServerId = serverId,
+                SessionId = sessionId,
+                Token = token,
+                UserId = userId,
+                Video = video,
+                Streams = streams
             };
 
             await SendMessageAsync(VoiceOperation.Identify, identity);

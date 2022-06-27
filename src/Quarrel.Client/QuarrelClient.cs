@@ -176,6 +176,9 @@ namespace Quarrel.Client
                 voiceStateUpdated: OnVoiceStateUpdated,
                 voiceServerUpdated: OnVoiceServerUpdated,
 
+                streamCreate: OnStreamCreate,
+                streamServerUpdate: OnStreamServerUpdate,
+
                 sessionReplaced: _ => { });
         }
 
@@ -197,24 +200,24 @@ namespace Quarrel.Client
             }
         }
 
-        private void Log(ClientLogEvent logEvent)
+        internal void Log(ClientLogEvent logEvent)
         {
             Logger.Log(logEvent);
         }
 
-        private void LogOperation(ClientLogEvent logEvent, int op)
+        internal void LogOperation(ClientLogEvent logEvent, int op)
         {
             Logger.Log(logEvent,
                 ("Operation", $"{op}"));
         }
 
-        private void LogEvent(ClientLogEvent logEvent, string eventName)
+        internal void LogEvent(ClientLogEvent logEvent, string eventName)
         {
             Logger.Log(logEvent,
                 ("Event", eventName));
         }
 
-        private void LogException(ClientLogEvent logEvent, Exception e)
+        internal void LogException(ClientLogEvent logEvent, Exception e)
         {
             Logger.Log(logEvent,
                 ("Exception Type", e.GetType().FullName),

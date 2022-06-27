@@ -73,5 +73,13 @@ namespace Discord.API.Gateways
         {
             await SendMessageAsync(GatewayOperation.VoiceStateUpdate, payload);
         }
+
+        public async Task StreamWatchAsync(string streamKey)
+        {
+            await SendMessageAsync(GatewayOperation.StreamWatch, new StreamWatch
+            {
+                StreamKey = streamKey
+            });
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
+using Discord.API.Gateways.Models;
 using Discord.API.Models.Json.Voice;
 using Discord.API.Voice;
 using Discord.API.Voice.Models;
@@ -26,6 +27,9 @@ namespace Quarrel.Client
             private JsonVoiceState? _selfState;
             private VoiceServerConfig? _voiceServerConfig;
             private VoiceConnection? _voiceConnection;
+            private ulong? _serverId;
+
+            private Dictionary<string, StreamConnection> _streamConnections = new Dictionary<string, StreamConnection>();
 
             /// <summary>
             /// Initializes a new instance of the <see cref="QuarrelClientVoice"/> class.
@@ -117,14 +121,32 @@ namespace Quarrel.Client
                 await _client.Gateway.VoiceStatusUpdateAsync(channelId, guildId);
             }
 
+            internal async Task RequestJoinStream(ulong userId)
+            {
+                await _client.Gateway!.StreamWatchAsync($"call:{_serverId}:{userId}");
+            }
+            
+            internal void StreamCreate(StreamCreate streamCreate)
+            {
+                _streamConnections[streamCreate.StreamKey] = new StreamConnection(_client, streamCreate.RtcServerId, _selfState!.SessionId, _selfState!.UserId);
+            }
+
+            internal void StreamServerUpdate(StreamServerUpdate streamServerUpdate)
+            {
+                if (_streamConnections.TryGetValue(streamServerUpdate.StreamKey, out StreamConnection streamConnection))
+                {
+                    streamConnection.UpdateServer(streamServerUpdate);
+                }
+            }
+
             private async Task ConnectToVoice()
             {
-                if (_voiceServerConfig == null || _selfState == null && _voiceConnection == null)
+                if (_voiceServerConfig == null || _selfState == null)
                 {
                     return;
                 }
 
-                _voiceConnection = new VoiceConnection(_voiceServerConfig.Json, _selfState!,
+                _voiceConnection = new VoiceConnection(
                     unhandledMessageEncountered: e => _client.LogException(ClientLogEvent.VoiceExceptionHandled, e),
                     knownOperationEncountered: e => _client.LogOperation(ClientLogEvent.KnownVoiceOperationEncountered, (int)e),
                     unhandledOperationEncountered: e => _client.LogOperation(ClientLogEvent.UnhandledVoiceOperationEncountered, (int)e),
@@ -132,14 +154,25 @@ namespace Quarrel.Client
                     voiceConnectionStatusChanged: _ => { },
                     ready: OnReady,
                     sessionDescription: OnSessionDescription,
-                    speaking: OnSpeaking);
-
+                    speaking: OnSpeaking,
+                    video: _ => {});
+                
+                _serverId = _voiceServerConfig.GuildId ?? _voiceServerConfig.ChannelId;
+                
                 await _voiceConnection.ConnectAsync(_voiceServerConfig.ConnectionUrl);
+                await _voiceConnection.IdentifySelfToVoiceConnection(_serverId.GetValueOrDefault(), _selfState.SessionId, _voiceServerConfig.Token, _selfState.UserId, true, 
+                    new VoiceIdentity.VoiceIdentityStream[]
+                    {
+                        new() { Quality = 100, Rid = "100", Type = "video" },
+                        new() { Quality = 50, Rid = "50", Type = "video" }
+                    });
             }
 
             private void OnReady(VoiceReady ready)
             {
                 _voiceConnection!.Connect(ready.IP, ready.Port.ToString(), ready.SSRC);
+
+                _ = _voiceConnection.SendVideo(ready.SSRC, ready.Streams);
             }
 
             private void OnSessionDescription(VoiceSessionDescription session)

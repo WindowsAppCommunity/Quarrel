@@ -37,6 +37,8 @@ namespace winrt::Webrtc::implementation
 
 		void SetKey(array_view<const BYTE> key);
 		void SetSpeaking(UINT32 ssrc, int speaking);
+
+		void CreateVideoStream(UINT32 ssrc);
 		
 		IpAndPortObtainedDelegate IpAndPortObtained() noexcept;
 		AudioOutDataDelegate AudioOutData() noexcept;
@@ -67,6 +69,9 @@ namespace winrt::Webrtc::implementation
 
 		webrtc::AudioSendStream* CreateAudioSendStream(uint32_t ssrc, uint8_t payload_type) const;
 		webrtc::AudioReceiveStream* CreateAudioReceiveStream(uint32_t local_ssrc, uint32_t remote_ssrc, uint8_t payload_type) const;
+
+		webrtc::VideoReceiveStream* CreateVideoReceiveStream(uint32_t local_ssrc, uint32_t remote_ssrc, uint8_t payload_type) const;
+
 		void OnMessageReceived(Windows::Networking::Sockets::DatagramSocket const& sender, Windows::Networking::Sockets::DatagramSocketMessageReceivedEventArgs const& args);
 
 		unsigned char key[32];
@@ -82,6 +87,8 @@ namespace winrt::Webrtc::implementation
 
 		rtc::scoped_refptr<webrtc::AudioDecoderFactory> audio_decoder_factory;
 		rtc::scoped_refptr<webrtc::AudioEncoderFactory> audio_encoder_factory;
+
+		std::unique_ptr<webrtc::VideoDecoderFactory> video_decoder_factory;
 
 		std::unique_ptr<::Webrtc::StreamTransport> audio_send_transport;
 		
