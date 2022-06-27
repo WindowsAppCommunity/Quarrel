@@ -8,7 +8,10 @@
 
     <DataTemplate x:Key="VoiceMemberTemplate" x:DataType="bindablevoice:BindableVoiceState">
         <Grid>
-            <Border Background="Black" CornerRadius="8" Width="256" Height="144"/>
+            <Border Background="Black" CornerRadius="8" Width="256" Height="144">
+                <MediaElement Visibility="{x:Bind IsWatching, Mode=OneWay}"/>
+            </Border>
+
             <!--Image-->
             <Border x:Name="ProfileImageContainer" Width="96" Height="96"
                     CornerRadius="48" VerticalAlignment="Center">
@@ -16,7 +19,7 @@
             </Border>
 
             <Button Content="Join Stream"
-                    Visibility="{x:Bind State.IsStreaming, Mode=OneWay}"
+                    Visibility="{x:Bind CanJoin, Mode=OneWay}"
                     Command="{x:Bind JoinStreamCommand}"
                     HorizontalAlignment="Right" VerticalAlignment="Bottom" CornerRadius="8"/>
         </Grid>

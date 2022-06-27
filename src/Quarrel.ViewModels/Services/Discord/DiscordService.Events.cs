@@ -6,6 +6,7 @@ using Quarrel.Client.Models.Messages;
 using Quarrel.Client.Models.Voice;
 using Quarrel.Messages.Discord.Channels;
 using Quarrel.Messages.Discord.Messages;
+using Quarrel.Messages.Discord.Stream;
 using Quarrel.Messages.Discord.Voice;
 
 namespace Quarrel.Services.Discord
@@ -23,7 +24,9 @@ namespace Quarrel.Services.Discord
 
             _quarrelClient.VoiceStateAdded += OnVoiceStateAdded;
             _quarrelClient.VoiceStateUpdated += OnVoiceStateUpdated;
-            _quarrelClient.VoiceStateRemoved += OnVoiceStateRemoved; ;
+            _quarrelClient.VoiceStateRemoved += OnVoiceStateRemoved;
+
+            _quarrelClient.StreamCreated += OnStreamCreated;
         }
 
         private void OnMessageCreate(object sender, Message e) 
@@ -56,5 +59,10 @@ namespace Quarrel.Services.Discord
 
         private void OnVoiceStateRemoved(object sender, VoiceState e)
             => _messenger.Send(new VoiceStateRemovedMessage(e));
+        
+        private void OnStreamCreated(object sender, ulong e)
+        {
+            _messenger.Send(new StreamCreatedMessage(e));
+        }
     }
 }

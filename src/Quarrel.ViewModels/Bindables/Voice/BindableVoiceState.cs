@@ -4,6 +4,7 @@ using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Client.Models.Voice;
+using Quarrel.Messages.Discord.Stream;
 using Quarrel.Messages.Discord.Voice;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
@@ -15,6 +16,7 @@ namespace Quarrel.Bindables.Voice
     /// </summary>
     public class BindableVoiceState : BindableItem
     {
+        private bool _isWatching;
         private VoiceState _state;
         
         /// <summary>
@@ -38,10 +40,41 @@ namespace Quarrel.Bindables.Voice
                     _dispatcherService.RunOnUIThread(() =>
                     {
                         OnPropertyChanged(nameof(State));
+                        OnPropertyChanged(nameof(CanJoin));
+                    });
+                }
+            });
+            _messenger.Register<StreamCreatedMessage>(this, (_, m) =>
+            {
+                if (m.UserId == State.User.Id)
+                {
+                    _dispatcherService.RunOnUIThread(() =>
+                    {
+                        IsWatching = true;
                     });
                 }
             });
         }
+
+        /// <summary>
+        /// Gets whether or not the stream is being watched.
+        /// </summary>
+        public bool IsWatching
+        {
+            get => _isWatching;
+            set
+            {
+                if (SetProperty(ref _isWatching, value))
+                {
+                    OnPropertyChanged(nameof(CanJoin));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets whether or not the user is streaming and the current user can join.
+        /// </summary>
+        public bool CanJoin => State.IsStreaming && !IsWatching;
 
         /// <summary>
         /// Gets the wrapped <see cref="VoiceState"/>.
