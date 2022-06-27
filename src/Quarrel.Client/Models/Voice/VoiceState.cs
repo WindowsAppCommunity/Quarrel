@@ -25,6 +25,8 @@ namespace Quarrel.Client.Models.Voice
             SelfMute = json.SelfMute;
             SelfDeaf = json.SelfDeaf;
             Suppress = json.Suppress;
+            HasVideo = json.SelfVideo;
+            IsStreaming = json.SelfStream ?? false;
 
             GetChannel(json.ChannelId);
         }
@@ -73,6 +75,16 @@ namespace Quarrel.Client.Models.Voice
         /// TODO: Investigate
         /// </summary>
         public bool Suppress { get; private set;}
+        
+        /// <summary>
+        /// Gets whether or not the user has their camera turned on.
+        /// </summary>
+        public bool HasVideo { get; private set; }
+        
+        /// <summary>
+        /// Gets whether or not the user is streaming their screen.
+        /// </summary>
+        public bool IsStreaming { get; private set; }
 
         internal void Update(JsonVoiceState json)
         {
@@ -83,6 +95,8 @@ namespace Quarrel.Client.Models.Voice
             SelfMute = json.SelfMute;
             SelfDeaf = json.SelfDeaf;
             Suppress = json.Suppress;
+            HasVideo = json.SelfVideo;
+            IsStreaming = json.SelfStream ?? false;
 
             GetChannel(json.ChannelId);
         }

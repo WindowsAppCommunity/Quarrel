@@ -150,6 +150,12 @@ namespace Quarrel.Services.Discord
         Task LeaveCall();
 
         /// <summary>
+        /// Joins a user's stream.
+        /// </summary>
+        /// <param name="userId">The id of the user who's stream to join.</param>
+        Task JoinStream(ulong userId);
+
+        /// <summary>
         /// Updates the user's online status.
         /// </summary>
         /// <param name="status">The new online status to set.</param>

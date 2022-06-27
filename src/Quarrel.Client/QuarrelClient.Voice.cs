@@ -75,8 +75,10 @@ namespace Quarrel.Client
 
             internal void UpdateVoiceState(JsonVoiceState state)
             {
+                bool added = true;
                 if (_stateDictionary.TryGetValue(state.UserId, out VoiceState voiceState))
                 {
+                    added = false;
                     // The channel was not added
                     bool channelChanged = state.ChannelId != voiceState.Channel?.Id;
 
@@ -91,7 +93,7 @@ namespace Quarrel.Client
 
                 voiceState = new VoiceState(state, _client);
 
-                if (voiceState.Channel is not null)
+                if (added && voiceState.Channel is not null)
                 {
                     _stateDictionary.Add(state.UserId, voiceState);
                     _client.VoiceStateAdded?.Invoke(_client, voiceState);
@@ -123,7 +125,11 @@ namespace Quarrel.Client
 
             internal async Task RequestJoinStream(ulong userId)
             {
-                await _client.Gateway!.StreamWatchAsync($"call:{_serverId}:{userId}");
+                string key = _selfState!.ChannelId == _serverId ? 
+                    $"call:{_serverId}:{userId}" :
+                    $"guild:{_serverId}:{_selfState!.ChannelId}:{userId}";
+
+                await _client.Gateway!.StreamWatchAsync(key);
             }
             
             internal void StreamCreate(StreamCreate streamCreate)

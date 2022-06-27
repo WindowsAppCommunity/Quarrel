@@ -1,5 +1,6 @@
 ﻿// Quarrel © 2022
 
+using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Client.Models.Voice;
@@ -28,11 +29,16 @@ namespace Quarrel.Bindables.Voice
         {
             _state = state;
 
+            JoinStreamCommand = new RelayCommand(JoinStream);
+
             _messenger.Register<VoiceStateUpdatedMessage>(this, (_, m) =>
             {
-                if (m.VoiceState == State)
+                if (m.VoiceState.User.Id == State.User.Id)
                 {
-                    OnPropertyChanged(nameof(State));
+                    _dispatcherService.RunOnUIThread(() =>
+                    {
+                        OnPropertyChanged(nameof(State));
+                    });
                 }
             });
         }
@@ -44,6 +50,13 @@ namespace Quarrel.Bindables.Voice
         {
             get => _state;
             set => SetProperty(ref _state, value);
+        }
+
+        public RelayCommand JoinStreamCommand { get; }
+
+        private void JoinStream()
+        {
+            _ = _discordService.JoinStream(State.User.Id);
         }
     }
 }

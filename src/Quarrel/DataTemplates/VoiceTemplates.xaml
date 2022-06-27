@@ -7,11 +7,19 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
 
     <DataTemplate x:Key="VoiceMemberTemplate" x:DataType="bindablevoice:BindableVoiceState">
-        <!--Image-->
-        <Border x:Name="ProfileImageContainer" Width="96" Height="96"
-                CornerRadius="48" VerticalAlignment="Top">
-            <controls:ImageEx Source="{x:Bind State.User.AvatarUrl}"/>
-        </Border>
+        <Grid>
+            <Border Background="Black" CornerRadius="8" Width="256" Height="144"/>
+            <!--Image-->
+            <Border x:Name="ProfileImageContainer" Width="96" Height="96"
+                    CornerRadius="48" VerticalAlignment="Center">
+                <controls:ImageEx Source="{x:Bind State.User.AvatarUrl}"/>
+            </Border>
+
+            <Button Content="Join Stream"
+                    Visibility="{x:Bind State.IsStreaming, Mode=OneWay}"
+                    Command="{x:Bind JoinStreamCommand}"
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom" CornerRadius="8"/>
+        </Grid>
     </DataTemplate>
 
 </ResourceDictionary>

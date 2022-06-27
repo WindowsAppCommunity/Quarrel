@@ -233,6 +233,13 @@ namespace Quarrel.Services.Discord
             _loggingService.Log(LoggedEvent.LeftCall);
             await _quarrelClient.Channels.LeaveCall();
         }
+        
+        /// <inheritdoc/>
+        public async Task JoinStream(ulong userId)
+        {
+            // TODO: Log event
+            await _quarrelClient.Channels.JoinStream(userId);
+        }
 
         /// <inheritdoc/>
         public async Task SetStatus(UserStatus status)

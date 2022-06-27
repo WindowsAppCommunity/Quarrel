@@ -98,6 +98,15 @@ namespace Quarrel.Client
                 await _client.Voice.RequestJoinVoice(null, null);
             }
 
+            /// <summary>
+            /// Joins a stream.
+            /// </summary>
+            /// <param name="userId">The id of the user's stream to join.</param>
+            public async Task JoinStream(ulong userId)
+            {
+                await _client.Voice.RequestJoinStream(userId);
+            }
+
             internal Channel? GetChannel(ulong channelId)
             {
                 if (_channelMap.TryGetValue(channelId, out Channel channel))
