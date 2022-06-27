@@ -3,6 +3,7 @@
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels.Abstract;
+using Quarrel.Bindables.Channels.Enums;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Voice;
 using Quarrel.Client.Models.Channels;
@@ -110,6 +111,17 @@ namespace Quarrel.Bindables.Channels
 
         /// <inheritdoc/>
         public RelayCommand MarkAsReadCommand { get; }
+        
+        /// <inheritdoc/>
+        public ReadState ReadState
+        {
+            get
+            {
+                // TODO: Handle muted.
+                if (MessageChannel.IsUnread) return ReadState.Unread;
+                return ReadState.Read;
+            }
+        }
 
         /// <inheritdoc/>
         public void Select()

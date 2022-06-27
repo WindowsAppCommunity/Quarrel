@@ -4,10 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ccontrols="using:Quarrel.Controls.DataTemplates"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:bconvert="using:Quarrel.Converters.Common.Boolean"
     xmlns:vconvert="using:Quarrel.Converters.Common.Visible"
     xmlns:cconvert="using:Quarrel.Converters.Discord.Channels"
+    xmlns:tt="using:Microsoft.Toolkit.Uwp.UI.Triggers"
     xmlns:a="using:Quarrel.Attached"
     xmlns:cenums="using:Discord.API.Models.Enums.Channels"
+    xmlns:bcenums="using:Quarrel.Bindables.Channels.Enums"
     xmlns:bindablechannels="using:Quarrel.Bindables.Channels">
 
     <Style x:Key="TextChannelStyle" TargetType="ccontrols:ChannelControl">
@@ -79,54 +82,77 @@
     </Style>
 
     <DataTemplate x:Key="TextChannelTemplate" x:DataType="bindablechannels:BindableTextChannel">
-        <!--<ccontrols:ChannelControl Style="{StaticResource TextChannelStyle}"
-                                  ChannelName="{x:Bind Name, Mode=OneWay}"
-                                  IsSelected="{x:Bind IsSelected, Mode=OneWay}"
-                                  IsUnread="{x:Bind MessageChannel.IsUnread, Mode=OneWay}"
-                                  MarkAsReadCommand="{x:Bind MarkAsReadCommand}"
-                                  CopyLinkCommand="{x:Bind CopyLinkCommand}"
-                                  CopyIdCommand="{x:Bind CopyIdCommand}"/>-->
+        <!--<UserControl>-->
+            <!--<VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="ReadState">
+                    <VisualState x:Name="Read">
+                        <VisualState.StateTriggers>
+                            <tt:IsEqualStateTrigger Value="{x:Bind ReadState, Mode=OneWay}" To="{x:Bind bcenums:ReadState.Read}"/>
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Target="UnreadIndicator.Visibility" Value="Collapsed"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Unread">
+                        <VisualState.StateTriggers>
+                            <tt:IsEqualStateTrigger Value="{x:Bind ReadState, Mode=OneWay}" To="{x:Bind bcenums:ReadState.Unread}"/>
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Target="UnreadIndicator.Visibility" Value="Visible"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Muted">
+                        <VisualState.StateTriggers>
+                            <tt:IsEqualStateTrigger Value="{x:Bind ReadState, Mode=OneWay}" To="{x:Bind bcenums:ReadState.Muted}"/>
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Target="UnreadIndicator.Visibility" Value="Collapsed"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>-->
 
-        <Grid Height="40">
-            <Grid.ContextFlyout>
-                <MenuFlyout>
-                    <MenuFlyoutItem x:Uid="Channel/MarkAsReadMFI" Text="Mark as Read"
+            <Grid Height="40">
+                <Grid.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem x:Uid="Channel/MarkAsReadMFI" Text="Mark as Read"
                                     Icon="View" Command="{x:Bind MarkAsReadCommand}"/>
-                    <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem x:Uid="Channel/CopyLinkMFI" Text="Copy Link"
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutItem x:Uid="Channel/CopyLinkMFI" Text="Copy Link"
                                     Icon="Link" Command="{x:Bind CopyLinkCommand}"/>
-                    <MenuFlyoutItem x:Uid="Channel/CopyIdMFI" Text="Copy ID"
+                        <MenuFlyoutItem x:Uid="Channel/CopyIdMFI" Text="Copy ID"
                                     Command="{x:Bind CopyIdCommand}">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE8EC;"/>
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-                </MenuFlyout>
-            </Grid.ContextFlyout>
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE8EC;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </Grid.ContextFlyout>
 
-            <Grid Visibility="{x:Bind IsSelected, Mode=OneWay}" Opacity=".2" Background="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+                <Grid Visibility="{x:Bind IsSelected, Mode=OneWay}" Opacity=".2" Background="{ThemeResource SystemControlBackgroundAccentBrush}"/>
 
-            <Border x:Name="UnreadIndicator"
+                <Border x:Name="UnreadIndicator"
                     Visibility="{x:Bind MessageChannel.IsUnread, Mode=OneWay}"
                     Height="24" Width="2"
                     Background="{ThemeResource InvertedBackground}"
                     Margin="2,0,0,0"
                     HorizontalAlignment="Left"/>
 
-            <!--Main Details-->
-            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,6" Padding="6,0,-12,0">
-                <FontIcon Glyph="#" FontFamily="{StaticResource ContentControlThemeFontFamily}" FontWeight="Light" Margin="6,-2,4,0" FontSize="20"
+                <!--Main Details-->
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,6" Padding="6,0,-12,0">
+                    <FontIcon Glyph="#" FontFamily="{StaticResource ContentControlThemeFontFamily}" FontWeight="Light" Margin="6,-2,4,0" FontSize="20"
                           Foreground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" Opacity="{x:Bind cconvert:IsUnreadOpacityConverter.Convert(MessageChannel.IsUnread), Mode=OneWay}" 
                           Visibility="{x:Bind vconvert:VisibleWhenEqualConverter.Convert(Channel.Type, cenums:ChannelType.GuildText)}"/>
 
-                <FontIcon Glyph="&#xE12A;" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontWeight="Light" Margin="6,4,4,0" FontSize="14" VerticalAlignment="Center"
+                    <FontIcon Glyph="&#xE12A;" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontWeight="Light" Margin="6,4,4,0" FontSize="14" VerticalAlignment="Center"
                           Foreground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" Opacity="{x:Bind cconvert:IsUnreadOpacityConverter.Convert(MessageChannel.IsUnread), Mode=OneWay}"
                           Visibility="{x:Bind vconvert:VisibleWhenEqualConverter.Convert(Channel.Type, cenums:ChannelType.News)}"/>
 
-                <TextBlock Text="{x:Bind Name, Mode=OneWay}" Margin="0,1,0,0"
+                    <TextBlock Text="{x:Bind Name, Mode=OneWay}" Margin="0,1,0,0"
                            Opacity="{x:Bind cconvert:IsUnreadOpacityConverter.Convert(MessageChannel.IsUnread), Mode=OneWay}" />
-            </StackPanel>
-        </Grid>
+                </StackPanel>
+            </Grid>
+        <!--</UserControl>-->
     </DataTemplate>
 
     <DataTemplate x:Key="VoiceChannelTemplate" x:DataType="bindablechannels:BindableVoiceChannel">

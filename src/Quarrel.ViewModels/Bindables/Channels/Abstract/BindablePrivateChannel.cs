@@ -3,6 +3,7 @@
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
+using Quarrel.Bindables.Channels.Enums;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Voice;
 using Quarrel.Client.Models.Channels.Abstract;
@@ -105,6 +106,17 @@ namespace Quarrel.Bindables.Channels.Abstract
 
         /// <inheritdoc/>
         public RelayCommand MarkAsReadCommand { get; }
+        
+        /// <inheritdoc/>
+        public ReadState ReadState
+        {
+            get
+            {
+                // TODO: Handle muted.
+                if (MessageChannel.IsUnread) return ReadState.Unread;
+                return ReadState.Read;
+            }
+        }
 
         /// <summary>
         /// Creates a new instance of a <see cref="BindablePrivateChannel"/> based on the type.

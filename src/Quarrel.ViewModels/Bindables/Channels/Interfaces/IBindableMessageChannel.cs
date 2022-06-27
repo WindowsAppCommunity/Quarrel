@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Toolkit.Mvvm.Input;
+using Quarrel.Bindables.Channels.Enums;
 using Quarrel.Client.Models.Channels.Interfaces;
 
 namespace Quarrel.Bindables.Channels.Interfaces
@@ -19,6 +20,11 @@ namespace Quarrel.Bindables.Channels.Interfaces
         /// Gets a command that marks the channel as read.
         /// </summary>
         RelayCommand MarkAsReadCommand { get; }
+
+        /// <summary>
+        /// Gets the read state of the channel.
+        /// </summary>
+        ReadState ReadState { get; }
 
         /// <summary>
         /// Marks the last message in the channel as read.
