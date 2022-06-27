@@ -14,10 +14,10 @@ namespace Discord.API.Voice
         Resume = 7,
         Hello = 8,
         Resumed = 9,
-        Signal = 10,
-        IDK1 = 11,
-        MediaSources = 12,
+        Video = 12,
         ClientDisconnect = 13,
-        IDK2 = 14
+        SessionUpdate = 14,
+        MediaSinkWants = 15,
+        VoiceBackendVersion = 16,
     }
 }
