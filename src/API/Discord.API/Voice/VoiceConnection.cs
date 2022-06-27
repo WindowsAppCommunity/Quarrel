@@ -18,8 +18,6 @@ namespace Discord.API.Voice
 {
     internal partial class VoiceConnection
     {
-        private readonly JsonVoiceServerUpdate _voiceConfig;
-        public readonly JsonVoiceState _state;
         private WebrtcManager _manager;
 
         private uint _ssrc;
@@ -39,8 +37,6 @@ namespace Discord.API.Voice
         }
 
         public VoiceConnection(
-            JsonVoiceServerUpdate voiceConfig,
-            JsonVoiceState state,
             Action<SocketFrameException> unhandledMessageEncountered,
             Action<int> unknownOperationEncountered,
             Action<VoiceOperation> knownOperationEncountered,
@@ -48,7 +44,8 @@ namespace Discord.API.Voice
             Action<VoiceConnectionStatus> voiceConnectionStatusChanged,
             Action<VoiceReady> ready,
             Action<VoiceSessionDescription> sessionDescription,
-            Action<Speaker> speaking)
+            Action<Speaker> speaking,
+            Action<Video> video)
         {
             UnhandledMessageEncountered = unhandledMessageEncountered;
             VoiceConnectionStatusChanged = voiceConnectionStatusChanged;
@@ -59,9 +56,7 @@ namespace Discord.API.Voice
             Ready = ready;
             SessionDescription = sessionDescription;
             Speaking = speaking;
-
-            _voiceConfig = voiceConfig;
-            _state = state;
+            Video = video;
 
             _serializeOptions = new JsonSerializerOptions();
             _serializeOptions.AddContext<JsonModelsContext>();
@@ -111,6 +106,11 @@ namespace Discord.API.Voice
         public void SetSpeaking(uint ssrc, int speaking)
         {
             _manager.SetSpeaking(ssrc, speaking);
+        }
+
+        public void CreateVideoStream(uint ssrc)
+        {
+            _manager.CreateVideoStream(ssrc);
         }
     }
 }

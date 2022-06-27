@@ -2,6 +2,7 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Exceptions;
+using Discord.API.Gateways.Models;
 using Discord.API.Gateways.Models.Channels;
 using Discord.API.Gateways.Models.Handshake;
 using Discord.API.Gateways.Models.Messages;
@@ -202,6 +203,14 @@ namespace Quarrel.Client
             }
 
             Voice.UpdateVoiceState(arg);
+        }
+        private void OnStreamCreate(StreamCreate arg)
+        {
+            Voice.StreamCreate(arg);
+        }
+        private void OnStreamServerUpdate(StreamServerUpdate arg)
+        {
+            Voice.StreamServerUpdate(arg);
         }
     }
 }

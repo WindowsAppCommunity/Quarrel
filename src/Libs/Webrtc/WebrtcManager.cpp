@@ -6,8 +6,16 @@
 #include <api/rtc_event_log/rtc_event_log_factory.h>
 #include <modules/rtp_rtcp/source/rtp_utility.h>
 #include <api/audio_codecs/builtin_audio_encoder_factory.h>
+#include <api/video_codecs/builtin_video_decoder_factory.h>
 #include <modules/audio_mixer/audio_mixer_impl.h>
+#include <modules/video_coding/codecs/h264/win/h264_mf_factory.h>
+#include <common_video/include/video_frame_buffer.h>
 #include <sodium/crypto_secretbox.h>
+#include <libyuv/convert.h>
+#include <mfapi.h>
+#pragma comment(lib, "mfreadwrite")
+#pragma comment(lib, "mfplat")
+#pragma comment(lib, "mfuuid")
 
 #include "AudioSinkAnalyzer.h"
 #include "AudioSourceAnalyzer.h"
@@ -57,10 +65,11 @@ namespace winrt::Webrtc::implementation
 
 	void WebrtcManager::SetupCall()
 	{
-		this->CreateCall();
 		this->audio_send_transport = std::make_unique<::Webrtc::StreamTransport>(this);
+		this->CreateCall();
 		this->audio_send_stream = this->CreateAudioSendStream(this->ssrc, 120);
 		this->call->SignalChannelNetworkState(webrtc::MediaType::AUDIO, webrtc::NetworkState::kNetworkUp);
+		this->call->SignalChannelNetworkState(webrtc::MediaType::VIDEO, webrtc::NetworkState::kNetworkUp);
 	}
 
 	void WebrtcManager::Destroy()
@@ -99,6 +108,7 @@ namespace winrt::Webrtc::implementation
 			this->audio_processing = nullptr;
 			this->audio_decoder_factory = nullptr;
 			this->audio_encoder_factory = nullptr;
+			this->video_decoder_factory = nullptr;
 		});
 
 	}
@@ -107,6 +117,8 @@ namespace winrt::Webrtc::implementation
 	{
 		this->audio_decoder_factory = webrtc::CreateBuiltinAudioDecoderFactory();
 		this->audio_encoder_factory = webrtc::CreateBuiltinAudioEncoderFactory();
+
+		this->video_decoder_factory = std::make_unique<webrtc::H264MFDecoderFactory>();
 
 		this->audio_processing = webrtc::AudioProcessingBuilder()
 			.SetCaptureAnalyzer(std::make_unique<::Webrtc::AudioSourceAnalyzer>(this))
@@ -241,6 +253,119 @@ namespace winrt::Webrtc::implementation
 		webrtc::AudioReceiveStream* audioStream = this->call->CreateAudioReceiveStream(config);
 		audioStream->Start();
 
+		return audioStream;
+	}
+
+	class SinkInterface : public rtc::VideoSinkInterface<webrtc::VideoFrame>
+	{
+	public:
+		SinkInterface() = default;
+
+		void OnFrame(const::webrtc::VideoFrame& frame) override
+		{
+			const auto frame_buffer = frame.video_frame_buffer();
+			switch(frame_buffer->type())
+			{
+				case webrtc::VideoFrameBuffer::Type::kI420:
+				default:
+					const auto i420 = frame_buffer->ToI420();
+
+					com_ptr<IMFSample> sample;
+					MFCreateSample(sample.put());
+
+					com_ptr<IMFMediaBuffer> mediaBuffer;
+					MFCreate2DMediaBuffer(
+						static_cast<DWORD>(frame_buffer->width()),
+						static_cast<DWORD>(frame_buffer->height()),
+						cricket::FOURCC_NV12,
+						FALSE,
+						mediaBuffer.put()
+					);
+
+					sample->AddBuffer(mediaBuffer.get());
+
+					const com_ptr<IMF2DBuffer2> image_buffer = mediaBuffer.as<IMF2DBuffer2>();
+
+					BYTE* destRawData;
+					BYTE* discard_buffer;
+					LONG pitch;
+					DWORD destMediaBufferSize;
+
+					image_buffer->Lock2DSize(MF2DBuffer_LockFlags_Write, &destRawData, &pitch, &discard_buffer, &destMediaBufferSize);
+
+					uint8_t* uv_dest = destRawData + (pitch * frame_buffer->height());
+					libyuv::I420ToNV12(
+						i420->DataY(), i420->StrideY(),
+						i420->DataU(), i420->StrideU(),
+						i420->DataV(), i420->StrideV(),
+						destRawData,
+						pitch,
+						uv_dest,
+						pitch,
+						frame_buffer->width(),
+						frame_buffer->height()
+					);
+
+					image_buffer->Unlock2D();
+
+					if (const com_ptr<IMFAttributes> sample_attributes = sample.as<IMFAttributes>()) {
+						sample_attributes->SetUINT32(MFSampleExtension_CleanPoint, TRUE);
+						sample_attributes->SetUINT32(MFSampleExtension_Discontinuity, TRUE);
+					}
+
+					constexpr auto duration = static_cast<LONGLONG>((1.0 / 30) * 1000 * 1000 * 10);
+					sample->SetSampleDuration(duration);
+
+					sample->SetSampleTime(frame.render_time_ms() * 10000);
+
+					break;
+			}
+			
+			
+		}
+		
+		void OnDiscardedFrame() override
+		{
+			
+		}
+		
+	};
+
+	void WebrtcManager::CreateVideoStream(UINT32 ssrc)
+	{
+		this->task_queue.PostTask([this, ssrc]() {
+			this->CreateVideoReceiveStream(this->ssrc, ssrc, 101);
+		});
+	}
+
+	webrtc::VideoReceiveStream* WebrtcManager::CreateVideoReceiveStream(uint32_t local_ssrc, uint32_t remote_ssrc, uint8_t payload_type) const
+	{
+		webrtc::VideoReceiveStream::Config config(this->audio_send_transport.get());
+		config.rtp.local_ssrc = local_ssrc;
+		config.rtp.remote_ssrc = remote_ssrc;
+		config.rtp.extensions = g_rtpExtensions;
+		
+		webrtc::VideoReceiveStream::Decoder H264Decoder = webrtc::VideoReceiveStream::Decoder();
+		H264Decoder.decoder_factory = this->video_decoder_factory.get();
+		H264Decoder.video_format = webrtc::SdpVideoFormat("H264");
+		H264Decoder.payload_type = 101;		
+
+		webrtc::VideoReceiveStream::Decoder VP8Decoder = webrtc::VideoReceiveStream::Decoder();
+		VP8Decoder.decoder_factory = this->video_decoder_factory.get();
+		VP8Decoder.video_format = webrtc::SdpVideoFormat("VP8");
+		VP8Decoder.payload_type = 103;
+
+		webrtc::VideoReceiveStream::Decoder VP9Decoder = webrtc::VideoReceiveStream::Decoder();
+		VP9Decoder.decoder_factory = this->video_decoder_factory.get();
+		VP9Decoder.video_format = webrtc::SdpVideoFormat("VP9");
+		VP9Decoder.payload_type = 105;
+
+		config.decoders = { H264Decoder, VP8Decoder, VP9Decoder };
+		config.renderer = new SinkInterface();
+
+		webrtc::VideoReceiveStream* audioStream = this->call->CreateVideoReceiveStream(std::move(config));
+		audioStream->Start();
+		
 		return audioStream;
 	}
 
@@ -475,7 +600,20 @@ namespace winrt::Webrtc::implementation
 			else
 			{
 				header_size = 12;
-				mediaType = webrtc::MediaType::AUDIO;
+				switch(bytes[1] & 127)
+				{
+				case 120:
+					mediaType = webrtc::MediaType::AUDIO;
+					break;
+				case 101:
+				case 103:
+				case 105:
+					mediaType = webrtc::MediaType::VIDEO;
+					break;
+				default:
+					mediaType = webrtc::MediaType::ANY;
+					break;
+				}
 			}
 
 			std::memcpy(nonce, bytes.data(), header_size);

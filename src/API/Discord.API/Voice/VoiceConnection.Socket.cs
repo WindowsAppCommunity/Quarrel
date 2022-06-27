@@ -25,7 +25,6 @@ namespace Discord.API.Voice
             _connectionUrl = url;
             _socket = new DiscordSocketClient<VoiceSocketFrame>(_serializeOptions, _deserializeOptions, HandleMessage, HandleError, UnhandledMessageEncountered);
             await _socket.ConnectAsync(url);
-            await IdentifySelfToVoiceConnection();
         }
         public void Disconnect()
         {

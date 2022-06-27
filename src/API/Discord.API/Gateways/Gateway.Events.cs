@@ -73,6 +73,10 @@ namespace Discord.API.Gateways
         private Action<JsonVoiceState> VoiceStateUpdated { get; }
         private Action<JsonVoiceServerUpdate> VoiceServerUpdated { get; }
 
+        private Action<StreamCreate> StreamCreate { get; }
+        private Action<StreamServerUpdate> StreamServerUpdate { get; }
+        //private Action<StreamUpdate> StreamUpdate { get; }
+
         private Action<SessionReplace[]> SessionReplaced { get; }
 
         private static bool FireEvent<T>(GatewaySocketFrame frame, Action<T> eventHandler)
@@ -154,6 +158,10 @@ namespace Discord.API.Gateways
 
                         GatewayEvent.VOICE_STATE_UPDATE => FireEvent(frame, VoiceStateUpdated),
                         GatewayEvent.VOICE_SERVER_UPDATE => FireEvent(frame, VoiceServerUpdated),
+
+                        GatewayEvent.STREAM_CREATE => FireEvent(frame, StreamCreate),
+                        GatewayEvent.STREAM_SERVER_UPDATE => FireEvent(frame, StreamServerUpdate),
+                       // GatewayEvent.STREAM_UPDATE => FireEvent(frame, StreamCreate),
 
                         GatewayEvent.SESSIONS_REPLACE => FireEvent(frame, SessionReplaced),
 

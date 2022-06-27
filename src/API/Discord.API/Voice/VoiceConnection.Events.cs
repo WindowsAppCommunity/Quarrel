@@ -19,6 +19,7 @@ namespace Discord.API.Voice
 
         private Action<VoiceSessionDescription> SessionDescription { get; }
         private Action<Speaker> Speaking { get; }
+        private Action<Video> Video { get; }
 
         private static bool FireEvent<T>(VoiceSocketFrame frame, Action<T> eventHandler)
         {
@@ -45,6 +46,7 @@ namespace Discord.API.Voice
                     VoiceOperation.SessionDescription => FireEvent(frame, SessionDescription),
                     VoiceOperation.Heartbeat => OnHeartbeatAck(),
                     VoiceOperation.Speaking => FireEvent(frame, Speaking),
+                    VoiceOperation.Video => FireEvent(frame, Video),
 
                     _ => FireEvent(frame.Operation, UnhandledOperationEncountered),
                 }
