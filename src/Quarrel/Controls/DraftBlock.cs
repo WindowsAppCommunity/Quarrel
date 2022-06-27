@@ -23,7 +23,7 @@ namespace Quarrel.Controls
 
         private static void OnIsDraftedUpdated(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            DraftBlock draftBlock = sender as DraftBlock;
+            DraftBlock draftBlock = (DraftBlock)sender;
             if ((bool)args.NewValue)
             {
                 VisualStateManager.GoToState(draftBlock, "Drafted", true);

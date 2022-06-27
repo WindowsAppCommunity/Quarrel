@@ -78,6 +78,7 @@
     <Compile Include="Attached\TextHelpers\CharacterCasing.cs" />
     <Compile Include="Behaviors\KeyDownCommandAction.cs" />
     <Compile Include="Behaviors\OpenFlyoutAction.cs" />
+    <Compile Include="Controls\DataTemplates\ChannelControl.cs" />
     <Compile Include="Controls\Direction.cs" />
     <Compile Include="Controls\DraftBlock.cs" />
     <Compile Include="Controls\Host\SecondaryWindowHost.xaml.cs">
