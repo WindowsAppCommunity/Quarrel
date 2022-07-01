@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Libs\Quarrel.Common\Quarrel.Common.csproj" />
-    <ProjectReference Include="..\..\Libs\Webrtc\Webrtc.vcxproj" />
   </ItemGroup>
 
 </Project>

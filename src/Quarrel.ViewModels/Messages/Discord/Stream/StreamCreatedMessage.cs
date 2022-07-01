@@ -10,15 +10,15 @@ namespace Quarrel.Messages.Discord.Stream
         /// <summary>
         /// Initializes a new instance of the <see cref="StreamCreatedMessage"/> class.
         /// </summary>
-        /// <param name="userId">The id of the user hosting the stream.</param>
-        public StreamCreatedMessage(ulong userId)
+        /// <param name="streamKey">The id of the stream.</param>
+        public StreamCreatedMessage(string streamKey)
         {
-            UserId = userId;
+            StreamKey = streamKey;
         }
         
         /// <summary>
         /// Gets the id of the user hosting the stream
         /// </summary>
-        public ulong UserId { get; }
+        public string StreamKey { get; }
     }
 }

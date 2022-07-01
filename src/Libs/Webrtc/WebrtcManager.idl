@@ -22,7 +22,9 @@ namespace Webrtc{
 		void SetPlaybackDevice(String deviceId);
 		void SetRecordingDevice(String deviceId);
 
-		void CreateVideoStream(UInt32 ssrc);
+		void SetVideoStream(UInt64 userId, UInt32 ssrc);
+
+		void GenerateSample(Windows.Media.Core.MediaStreamSourceSampleRequest request);
 
 		IpAndPortObtainedDelegate IpAndPortObtained;
 		AudioInDataDelegate AudioInData;

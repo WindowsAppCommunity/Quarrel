@@ -24,13 +24,7 @@ namespace Quarrel.Services.Discord
         /// Gets the id of the current user.
         /// </summary>
         ulong? MyId { get; }
-
-        /// <summary>
-        /// Gets the current user for the <see cref="DiscordService"/>.
-        /// </summary>
-        /// <returns>The current user as a <see cref="BindableSelfUser"/>.</returns>
-        BindableSelfUser? GetMe();
-
+        
         /// <summary>
         /// Modifies the current user.
         /// </summary>
@@ -47,14 +41,7 @@ namespace Quarrel.Services.Discord
         /// </summary>
         /// <param name="modifySettings">The settings modifications.</param>
         Task ModifySettings(ModifyUserSettings modifySettings);
-
-        /// <summary>
-        /// Gets a user by id.
-        /// </summary>
-        /// <param name="userId">The id of the user to get.</param>
-        /// <returns>The user of an id.</returns>
-        BindableUser? GetUser(ulong userId);
-
+        
         /// <summary>
         /// Logs into the discord service by token.
         /// </summary>
@@ -63,26 +50,11 @@ namespace Quarrel.Services.Discord
         Task<bool> LoginAsync(string token, LoginType source = LoginType.Unspecified);
         
         /// <summary>
-        /// Gets the current user's guilds.
-        /// </summary>
-        /// <returns>The array of <see cref="BindableGuild"/>s that the current user is in.</returns>
-        BindableGuild[] GetMyGuilds();
-
-        /// <summary>
         /// Modifies a guild.
         /// </summary>
         /// <param name="id">The id of the guild to modify.</param>
         /// <param name="modifyGuild">The guild modifications.</param>
         Task ModifyGuild(ulong id, ModifyGuild modifyGuild);
-
-        /// <summary>
-        /// Gets the current user's guild folders with children.
-        /// </summary>
-        /// <remarks>
-        /// Contains null folders, whose children should be treated as though they're in the roots.
-        /// </remarks>
-        /// <returns>The array of <see cref="BindableGuildFolder"/>s that the current user has.</returns>
-        BindableGuildFolder[] GetMyGuildFolders();
 
         /// <summary>
         /// Gets the messages in a channel.
@@ -91,15 +63,7 @@ namespace Quarrel.Services.Discord
         /// <param name="beforeId">The if of the last message to load messages before, or null.</param>
         /// <returns>An array of <see cref="BindableMessage"/>s from the channel.</returns>
         Task<Message[]> GetChannelMessagesAsync(IBindableMessageChannel channel, ulong? beforeId = null);
-
-        /// <summary>
-        /// Gets the channels in a guild.
-        /// </summary>
-        /// <param name="guild">The guild to get the channels for.</param>
-        /// <param name="selectedChannel">The selected channel as an <see cref="IBindableSelectableChannel"/>.</param>
-        /// <returns>An array of <see cref="BindableGuildChannel"/>s from the guild.</returns>
-        BindableGuildChannel?[] GetGuildChannels(BindableGuild guild, out IBindableSelectableChannel? selectedChannel);
-
+        
         /// <summary>
         /// Gets the user's direct message channels.
         /// </summary>
@@ -107,9 +71,7 @@ namespace Quarrel.Services.Discord
         /// <param name="selectedChannel">The selected channel as an <see cref="IBindableSelectableChannel"/>.</param>
         /// <returns>An array of <see cref="BindablePrivateChannel"/>s.</returns>
         BindablePrivateChannel?[] GetPrivateChannels(BindableHomeItem home, out IBindableSelectableChannel? selectedChannel);
-
-        BindableGuildMember? GetGuildMember(ulong userId, ulong guildId);
-
+        
         /// <summary>
         /// Marks a messages as the last read message in a channel.
         /// </summary>

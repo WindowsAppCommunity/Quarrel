@@ -12,7 +12,9 @@ using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
 using Quarrel.Services.Storage.Accounts.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Webrtc;
 
 namespace Quarrel.Services.Discord
 {
@@ -27,6 +29,9 @@ namespace Quarrel.Services.Discord
         private readonly ILocalizationService _localizationService;
         private readonly IDispatcherService _dispatcherService;
         private readonly IMessenger _messenger;
+        private WebrtcManager? _manager;
+        public Dictionary<string, WebrtcManager> Streams { get; } = new Dictionary<string, WebrtcManager>();
+
         private LoginType? _loginSource;
 
         /// <summary>
@@ -37,7 +42,8 @@ namespace Quarrel.Services.Discord
             IClipboardService clipboardService,
             ILocalizationService localizationService,
             IDispatcherService dispatcherService,
-            IMessenger messenger)
+            IMessenger messenger,
+            QuarrelClient quarrelClient)
         {
             _loggingService = loggingService;
             _clipboardService = clipboardService;
@@ -45,7 +51,7 @@ namespace Quarrel.Services.Discord
             _dispatcherService = dispatcherService;
             _messenger = messenger;
 
-            _quarrelClient = new QuarrelClient(loggingService);
+            _quarrelClient = quarrelClient;
             RegisterEvents();
         }
 
@@ -55,6 +61,74 @@ namespace Quarrel.Services.Discord
             _quarrelClient.LoggedOut += OnLoggedOut;
             _quarrelClient.Reconnecting += OnReconnecting;
             _quarrelClient.Resuming += OnResuming;
+            
+            _quarrelClient.Voice.Ready = (string IP, ushort port, uint SSRC) =>
+            {
+                _manager = new WebrtcManager();
+                _manager.IpAndPortObtained = _quarrelClient.Voice.SelectProtocol;
+                _manager.Speaking = _quarrelClient.Voice.SendSpeaking;
+                _manager.AudioInData = (IList<float> data) => { };
+                _manager.AudioOutData = (IList<float> data) => { };
+                _manager.Connect(IP, port.ToString(), SSRC);
+            };
+
+            _quarrelClient.Voice.SessionDescription = (string? audioCodec, string mediaSessionId, string mode, byte[] secretKey, string? videoCodec) =>
+            {
+                Guard.IsNotNull(_manager, nameof(_manager));
+                _manager!.SetKey(secretKey);
+            };
+            
+            _quarrelClient.Voice.Speaking = (string userId, uint SSRC, int isSpeaking) =>
+            {
+                Guard.IsNotNull(_manager, nameof(_manager));
+                _manager.SetSpeaking(SSRC, isSpeaking);
+            };
+
+            _quarrelClient.Voice.Disconnected = () =>
+            {
+                _manager?.Destroy();
+                _manager = null;
+            };
+
+            _quarrelClient.StreamCreated += (object sender, string streamKey) =>
+            {
+                WebrtcManager? manager = null;
+                _quarrelClient.Voice.StreamConnections[streamKey].Ready = (string IP, ushort port, uint SSRC) =>
+                {
+                    manager = new WebrtcManager();
+                    manager.IpAndPortObtained = _quarrelClient.Voice.StreamConnections[streamKey].SelectProtocol;
+                    manager.Speaking = _quarrelClient.Voice.StreamConnections[streamKey].SendSpeaking;
+                    manager.AudioInData = (IList<float> data) => { };
+                    manager.AudioOutData = (IList<float> data) => { };
+                    manager.Connect(IP, port.ToString(), SSRC);
+
+                    Streams[streamKey] = manager;
+                };
+
+                _quarrelClient.Voice.StreamConnections[streamKey].SessionDescription = (string? audioCodec, string mediaSessionId, string mode, byte[] secretKey, string? videoCodec) =>
+                {
+                    Guard.IsNotNull(manager, nameof(manager));
+                    manager!.SetKey(secretKey);
+                };
+
+                _quarrelClient.Voice.StreamConnections[streamKey].Speaking = (string userId, uint SSRC, int isSpeaking) =>
+                {
+                    Guard.IsNotNull(manager, nameof(manager));
+                    manager.SetSpeaking(SSRC, isSpeaking);
+                };
+
+                _quarrelClient.Voice.StreamConnections[streamKey].Video = (ulong userId, uint SSRC) =>
+                {
+                    manager.SetVideoStream(userId, SSRC);
+                };
+
+                _quarrelClient.Voice.StreamConnections[streamKey].Disconnected = () =>
+                {
+                    manager?.Destroy();
+                    manager = null;
+                    Streams.Remove(streamKey);
+                };
+            };
 
             RegisterChannelEvents();
         }

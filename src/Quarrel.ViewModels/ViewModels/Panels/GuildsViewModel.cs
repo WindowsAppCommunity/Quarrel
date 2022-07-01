@@ -5,11 +5,14 @@ using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Guilds;
 using Quarrel.Bindables.Guilds.Interfaces;
+using Quarrel.Client;
+using Quarrel.Client.Models.Settings;
 using Quarrel.Messages;
 using Quarrel.Messages.Navigation;
 using Quarrel.Messages.Navigation.SubPages;
 using Quarrel.Services.Analytics;
 using Quarrel.Services.Analytics.Enums;
+using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using Quarrel.Services.Localization;
@@ -27,7 +30,9 @@ namespace Quarrel.ViewModels
         private readonly ILoggingService _loggingService;
         private readonly IMessenger _messenger;
         private readonly ILocalizationService _localizationService;
+        private readonly IClipboardService _clipboardService;
         private readonly IDiscordService _discordService;
+        private readonly QuarrelClient _quarrelClient;
         private readonly IDispatcherService _dispatcherService;
         private readonly ConcurrentDictionary<ulong, BindableGuild> _guilds;
 
@@ -40,13 +45,17 @@ namespace Quarrel.ViewModels
             ILoggingService loggingService,
             IMessenger messenger,
             ILocalizationService localizationService,
+            IClipboardService clipboardService,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             IDispatcherService dispatcherService)
         {
             _loggingService = loggingService;
             _messenger = messenger;
             _localizationService = localizationService;
+            _clipboardService = clipboardService;
             _discordService = discordService;
+            _quarrelClient = quarrelClient;
             _dispatcherService = dispatcherService;
 
             Source = new ObservableCollection<IBindableGuildListItem>();
@@ -90,15 +99,34 @@ namespace Quarrel.ViewModels
         public RelayCommand OpenGuildSettingsCommand { get; }
 
         /// <summary>
+        /// Gets the current user's guild folders with children.
+        /// </summary>
+        /// <remarks>
+        /// Contains null folders, whose children should be treated as though they're in the roots.
+        /// </remarks>
+        /// <returns>The array of <see cref="BindableGuildFolder"/>s that the current user has.</returns>
+        public BindableGuildFolder[] GetMyGuildFolders()
+        {
+            GuildFolder[] rawFolders = _quarrelClient.Guilds.GetMyGuildFolders();
+            BindableGuildFolder[] folders = new BindableGuildFolder[rawFolders.Length];
+            for (int i = 0; i < rawFolders.Length; i++)
+            {
+                folders[i] = new BindableGuildFolder(_messenger, _discordService, _quarrelClient, _dispatcherService, _clipboardService, _localizationService, rawFolders[i]);
+            }
+
+            return folders;
+        }
+
+        /// <summary>
         /// Loads the guilds for the user.
         /// </summary>
         public void LoadGuilds()
         {
-            var folders = _discordService.GetMyGuildFolders();
+            var folders = GetMyGuildFolders();
             _dispatcherService.RunOnUIThread(() =>
             {
                 Source.Clear();
-                Source.Add(new BindableHomeItem(_messenger, _discordService, _dispatcherService, _localizationService));
+                Source.Add(new BindableHomeItem(_messenger, _discordService, _quarrelClient, _dispatcherService, _localizationService));
                 foreach (var folder in folders)
                 {
                     if (folder.Folder.Id is null)

@@ -12,11 +12,14 @@
 #include <modules/audio_processing/audio_buffer.h>
 
 #include <iostream>
+#include <mutex>
+#include <Windows.Media.Streaming.Adaptive.h>
 
 namespace Webrtc
 {
 	class AudioSourceAnalyzer;
 	class StreamTransport;
+	class SinkInterface;
 }
 
 namespace winrt::Webrtc::implementation
@@ -38,7 +41,7 @@ namespace winrt::Webrtc::implementation
 		void SetKey(array_view<const BYTE> key);
 		void SetSpeaking(UINT32 ssrc, int speaking);
 
-		void CreateVideoStream(UINT32 ssrc);
+		void SetVideoStream(UINT64 userId, UINT32 ssrc);
 		
 		IpAndPortObtainedDelegate IpAndPortObtained() noexcept;
 		AudioOutDataDelegate AudioOutData() noexcept;
@@ -52,6 +55,7 @@ namespace winrt::Webrtc::implementation
 
 		void UpdateInBytes(Windows::Foundation::Collections::IVector<float> const& data) const;
 		void UpdateOutBytes(Windows::Foundation::Collections::IVector<float> const& data) const;
+		void GenerateSample(Windows::Media::Core::MediaStreamSourceSampleRequest const& request);
 
 		void UpdateSpeaking(bool speaking);
 
@@ -70,7 +74,7 @@ namespace winrt::Webrtc::implementation
 		webrtc::AudioSendStream* CreateAudioSendStream(uint32_t ssrc, uint8_t payload_type) const;
 		webrtc::AudioReceiveStream* CreateAudioReceiveStream(uint32_t local_ssrc, uint32_t remote_ssrc, uint8_t payload_type) const;
 
-		webrtc::VideoReceiveStream* CreateVideoReceiveStream(uint32_t local_ssrc, uint32_t remote_ssrc, uint8_t payload_type) const;
+		webrtc::VideoReceiveStream* CreateVideoReceiveStream(uint32_t local_ssrc, uint32_t remote_ssrc);
 
 		void OnMessageReceived(Windows::Networking::Sockets::DatagramSocket const& sender, Windows::Networking::Sockets::DatagramSocketMessageReceivedEventArgs const& args);
 
@@ -83,6 +87,7 @@ namespace winrt::Webrtc::implementation
 		std::unique_ptr<webrtc::Call> call;
 		
 		std::map<short, webrtc::AudioReceiveStream*> audio_receive_streams{};
+		std::map<uint64_t, webrtc::VideoReceiveStream*> video_receive_streams{};
 		webrtc::AudioSendStream* audio_send_stream{ nullptr };
 
 		rtc::scoped_refptr<webrtc::AudioDecoderFactory> audio_decoder_factory;
@@ -113,6 +118,8 @@ namespace winrt::Webrtc::implementation
 		AudioOutDataDelegate audioOutData;
 		AudioInDataDelegate audioInData;
 		SpeakingDelegate speaking;
+
+		::Webrtc::SinkInterface* video_sink_interface = nullptr;
 	};
 }
 

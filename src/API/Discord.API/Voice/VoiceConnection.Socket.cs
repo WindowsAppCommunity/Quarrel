@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Discord.API.Voice
 {
-    internal partial class VoiceConnection : IDisposable
+    internal partial class VoiceConnection
     {
         private readonly JsonSerializerOptions _serializeOptions;
         private readonly JsonSerializerOptions _deserializeOptions;
@@ -53,16 +53,12 @@ namespace Discord.API.Voice
             {
                 default:
                     VoiceConnectionStatus = VoiceConnectionStatus.Disconnected;
-                    _manager.Destroy();
+                    //_manager.Destroy();
+                    //TODO: deal with this properly
                     _ = _socket!.CloseSocket();
                     _socket = null;
                     return;
             }
-        }
-
-        public void Dispose()
-        {
-            _manager.Destroy();
         }
     }
 }

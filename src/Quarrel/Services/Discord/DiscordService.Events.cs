@@ -60,9 +60,9 @@ namespace Quarrel.Services.Discord
         private void OnVoiceStateRemoved(object sender, VoiceState e)
             => _messenger.Send(new VoiceStateRemovedMessage(e));
         
-        private void OnStreamCreated(object sender, ulong e)
+        private void OnStreamCreated(object sender, string streamKey)
         {
-            _messenger.Send(new StreamCreatedMessage(e));
+            _messenger.Send(new StreamCreatedMessage(streamKey));
         }
     }
 }

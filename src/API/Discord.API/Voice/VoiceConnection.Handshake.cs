@@ -31,7 +31,7 @@ namespace Discord.API.Voice
 
                         Name = "H264",
                         PayloadType = 101,
-                        Priority = 1000,
+                        Priority = 3000,
                         RtxPayloadType = 102,
                         Type = "video",
                         Decode = true
@@ -82,7 +82,7 @@ namespace Discord.API.Voice
                 Streams = streams.Select(x => new Video.VideoStream
                 {
                     Active = x.Active,
-                    MaxBitrate = 2500000,
+                    MaxBitrate = 720 * 1280 * 4,
                     MaxFramerate = 30,
                     MaxResolution = new Video.VideoStream.Resolution
                     {

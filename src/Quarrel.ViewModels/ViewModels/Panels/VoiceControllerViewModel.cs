@@ -4,6 +4,7 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Voice;
+using Quarrel.Client;
 using Quarrel.Messages.Discord.Voice;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
@@ -17,6 +18,7 @@ namespace Quarrel.ViewModels.Panels
     {
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
+        private readonly QuarrelClient _quarrelClient;
         private readonly IDispatcherService _dispatcherService;
 
         [ObservableProperty]
@@ -26,10 +28,11 @@ namespace Quarrel.ViewModels.Panels
         /// <summary>
         /// Initializes a new instance of the <see cref="VoiceControllerViewModel"/> class.
         /// </summary>
-        public VoiceControllerViewModel(IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
+        public VoiceControllerViewModel(IMessenger messenger, IDiscordService discordService, QuarrelClient quarrelClient, IDispatcherService dispatcherService)
         {
             _messenger = messenger;
             _discordService = discordService;
+            _quarrelClient = quarrelClient;
             _dispatcherService = dispatcherService;
 
             _messenger.Register<MyVoiceStateUpdatedMessage>(this, (_, m) =>
@@ -37,6 +40,7 @@ namespace Quarrel.ViewModels.Panels
                 var state = new BindableVoiceState(
                     _messenger,
                     _discordService,
+                    _quarrelClient,
                     _dispatcherService,
                     m.VoiceState);
 

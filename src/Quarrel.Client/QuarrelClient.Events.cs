@@ -83,7 +83,7 @@ namespace Quarrel.Client
         /// <summary>
         /// Invoked when a stream is created.
         /// </summary>
-        public event EventHandler<ulong> StreamCreated;
+        public event EventHandler<string> StreamCreated;
 
         /// <summary>
         /// Invoked when a user logs out.
@@ -214,11 +214,7 @@ namespace Quarrel.Client
         {
             Voice.StreamCreate(arg);
 
-            int lastI = arg.StreamKey.LastIndexOf(':');
-            string sub = arg.StreamKey.Substring(lastI + 1);
-            ulong userId = ulong.Parse(sub);
-
-            StreamCreated?.Invoke(this, userId);
+            StreamCreated?.Invoke(this, arg.StreamKey);
         }
 
         private void OnStreamServerUpdate(StreamServerUpdate arg)

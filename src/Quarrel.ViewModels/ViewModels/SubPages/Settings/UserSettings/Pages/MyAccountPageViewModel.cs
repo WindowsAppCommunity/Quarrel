@@ -1,6 +1,8 @@
 ﻿// Quarrel © 2022
 
 using Microsoft.Toolkit.Mvvm.Input;
+using Quarrel.Bindables.Users;
+using Quarrel.Client;
 using Quarrel.Client.Models.Users;
 using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
@@ -18,6 +20,7 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
     {
         private const string MyAccountResource = "UserSettings/MyAccount";
         private readonly IClipboardService _clipboardService;
+        private readonly QuarrelClient _quarrelClient;
 
         private readonly bool _isLoggedIn;
         private readonly ulong? _userId;
@@ -29,26 +32,29 @@ namespace Quarrel.ViewModels.SubPages.Settings.UserSettings.Pages
         internal MyAccountPageViewModel(
             ILocalizationService localizationService,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             IStorageService storageService,
             IClipboardService clipboardService) :
             base(localizationService, discordService, storageService)
         {
+            _quarrelClient = quarrelClient;
             _clipboardService = clipboardService;
 
             _isLoggedIn = false;
             _userId = null;
+            
+            SelfUser? user = _quarrelClient.Self.CurrentUser;
 
-            var user = _discordService.GetMe();
 
             if (user is not null)
             {
                 _isLoggedIn = true;
-                _userId = user.SelfUser.Id;
+                _userId = user.Id;
 
-                Email = new DraftValue<string?>(user.SelfUser.Email);
-                Username = new DraftValue<string?>(user.SelfUser.Username);
-                Discriminator = new DraftValue<int>(user.SelfUser.Discriminator);
-                AboutMe = new DraftValue<string?>(user.SelfUser.Bio);
+                Email = new DraftValue<string?>(user.Email);
+                Username = new DraftValue<string?>(user.Username);
+                Discriminator = new DraftValue<int>(user.Discriminator);
+                AboutMe = new DraftValue<string?>(user.Bio);
 
                 RegisterDraftValues(AboutMe);
             }

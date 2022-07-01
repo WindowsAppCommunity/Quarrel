@@ -60,6 +60,9 @@ namespace Discord.API.Voice.Models.Handshake
         
         [JsonPropertyName("video_ssrc")]
         public uint VideoSSRC { get; set; }
+        
+        [JsonPropertyName("user_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
+        public ulong UserId { get; set; }
 
         [JsonPropertyName("streams")]
         public VideoStream[] Streams { get; set; }

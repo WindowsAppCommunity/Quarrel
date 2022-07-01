@@ -2,6 +2,8 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using Quarrel.Client;
+using Quarrel.Client.Logger;
 using Quarrel.Services.Analytics;
 using Quarrel.Services.APIs.GitHubService;
 using Quarrel.Services.AppConnections;
@@ -51,9 +53,10 @@ namespace Quarrel
 
             #if DEV
             .AddSingleton<ILoggingService, LoggingService>()
-            #else
+#else
             .AddSingleton<ILoggingService, AppCenterService>()
-            #endif
+#endif
+            .AddSingleton<IClientLogger>(x => x.GetRequiredService<ILoggingService>())
 
             // ViewModels
             .AddSingleton<WindowViewModel>()
@@ -74,6 +77,10 @@ namespace Quarrel
             .AddTransient<DiscordStatusViewModel>()
             .AddTransient<GuildSettingsPageViewModel>()
             .AddTransient<UserSettingsPageViewModel>()
+
+            // Other
+            .AddSingleton<QuarrelClient>()     
+            
             .BuildServiceProvider();
         }
     }

@@ -5,6 +5,8 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Users;
+using Quarrel.Client;
+using Quarrel.Client.Models.Users;
 using Quarrel.Messages;
 using Quarrel.Messages.Navigation.SubPages;
 using Quarrel.Services.Analytics;
@@ -24,6 +26,7 @@ namespace Quarrel.ViewModels
         private readonly ILoggingService _loggingService;
         private readonly IMessenger _messenger;
         private readonly IDiscordService _discordService;
+        private readonly QuarrelClient _quarrelClient;
         private readonly IDispatcherService _dispatcherService;
 
         private BindableSelfUser? _me;
@@ -31,11 +34,12 @@ namespace Quarrel.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="CurrentUserViewModel"/> class.
         /// </summary>
-        public CurrentUserViewModel(ILoggingService loggingService, IMessenger messenger, IDiscordService discordService, IDispatcherService dispatcherService)
+        public CurrentUserViewModel(ILoggingService loggingService, IMessenger messenger, IDiscordService discordService, QuarrelClient quarrelClient, IDispatcherService dispatcherService)
         {
             _loggingService = loggingService;
             _messenger = messenger;
             _discordService = discordService;
+            _quarrelClient = quarrelClient;
             _dispatcherService = dispatcherService;
 
             NavigateToSettingsCommand = new RelayCommand(NavigateToSettings);
@@ -45,7 +49,7 @@ namespace Quarrel.ViewModels
             {
                 _dispatcherService.RunOnUIThread(() =>
                 {
-                    Me = _discordService.GetMe();
+                    Me = new BindableSelfUser(_messenger, _discordService, _quarrelClient, _dispatcherService, _quarrelClient.Self.CurrentUser);
                 });
             });
         }

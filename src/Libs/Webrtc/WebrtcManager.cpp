@@ -13,6 +13,10 @@
 #include <sodium/crypto_secretbox.h>
 #include <libyuv/convert.h>
 #include <mfapi.h>
+#include <winrt/Windows.Media.Core.h>
+#include <mfidl.h>
+#include <ppl.h>
+
 #pragma comment(lib, "mfreadwrite")
 #pragma comment(lib, "mfplat")
 #pragma comment(lib, "mfuuid")
@@ -20,6 +24,7 @@
 #include "AudioSinkAnalyzer.h"
 #include "AudioSourceAnalyzer.h"
 #include "StreamTransport.h"
+#include <wrl/client.h>
 
 const webrtc::SdpAudioFormat g_opusFormat = { "opus", 48000, 2, { {"stereo", "1"}, {"usedtx", "1"}, {"useinbandfec", "1" } } };
 
@@ -40,6 +45,145 @@ class EmptyConfig : public webrtc::WebRtcKeyValueConfig
 };
 
 const EmptyConfig* g_trials = new EmptyConfig();
+
+class Webrtc::SinkInterface : public rtc::VideoSinkInterface<webrtc::VideoFrame>
+{
+public:
+	SinkInterface() = default;
+
+
+	std::unique_ptr<webrtc::VideoFrame> sample = nullptr;
+
+	winrt::Windows::Media::Core::MediaStreamSourceSampleRequest request = nullptr;
+	winrt::Windows::Media::Core::MediaStreamSourceSampleRequestDeferral defferal = nullptr;
+	std::mutex mutex;
+	uint64_t first_render_time = 0;
+
+	int last_width = 0;
+	int last_height = 0;
+
+	__declspec(noinline) void GenerateSample(winrt::Windows::Media::Core::MediaStreamSourceSampleRequest const& request)
+	{
+		/*if (g_queue.size() < 2) return;
+
+		auto frame = std::move(g_queue.front());
+		g_queue.pop();*/
+		std::lock_guard guard(this->mutex);
+		if (this->sample == nullptr)
+		{
+			this->defferal = request.GetDeferral();
+			this->request = request;
+			return;
+		}
+		ApplySample(request, *this->sample.release());
+	}
+
+	void ApplySample(winrt::Windows::Media::Core::MediaStreamSourceSampleRequest const& request, webrtc::VideoFrame const& frame)
+	{
+		if (0 == this->first_render_time) this->first_render_time = frame.render_time_ms() * 10000;
+
+		const auto frame_buffer = frame.video_frame_buffer();
+		winrt::com_ptr<IMFSample> sample;
+		switch (frame_buffer->type())
+		{
+		case webrtc::VideoFrameBuffer::Type::kI420:
+		default:
+			const auto i420 = frame_buffer->ToI420();
+
+			HRESULT hr = MFCreateSample(sample.put());
+			if (FAILED(hr)) {
+				return;
+			}
+
+			winrt::com_ptr<IMFMediaBuffer> mediaBuffer;
+			hr = MFCreate2DMediaBuffer(
+				static_cast<DWORD>(frame_buffer->width()),
+				static_cast<DWORD>(frame_buffer->height()),
+				cricket::FOURCC_NV12,
+				FALSE,
+				mediaBuffer.put()
+			);
+			if (FAILED(hr)) {
+				return;
+			}
+
+			sample->AddBuffer(mediaBuffer.get());
+
+			const winrt::com_ptr<IMF2DBuffer2> image_buffer = mediaBuffer.as<IMF2DBuffer2>();
+			if (!image_buffer) {
+				return;
+			}
+
+			BYTE* destRawData;
+			BYTE* discard_buffer;
+			LONG pitch;
+			DWORD destMediaBufferSize;
+
+			if (FAILED(image_buffer->Lock2DSize(MF2DBuffer_LockFlags_Write, &destRawData, &pitch, &discard_buffer, &destMediaBufferSize)))
+			{
+				return;
+			}
+
+			uint8_t* uv_dest = destRawData + (pitch * frame_buffer->height());
+			libyuv::I420ToNV12(
+				i420->DataY(), i420->StrideY(),
+				i420->DataU(), i420->StrideU(),
+				i420->DataV(), i420->StrideV(),
+				destRawData,
+				pitch,
+				uv_dest,
+				pitch,
+				frame_buffer->width(),
+				frame_buffer->height()
+			);
+
+			image_buffer->Unlock2D();
+
+			if (const winrt::com_ptr<IMFAttributes> sample_attributes = sample.as<IMFAttributes>()) {
+				sample_attributes->SetUINT32(MFSampleExtension_CleanPoint, TRUE);
+				sample_attributes->SetUINT32(MFSampleExtension_Discontinuity, TRUE);
+			}
+
+			constexpr auto duration = static_cast<LONGLONG>((1.0 / 30) * 1000 * 1000 * 10);
+			sample->SetSampleDuration(duration);
+
+			sample->SetSampleTime(frame.render_time_ms() * 10000 + 45 - this->first_render_time);
+
+			if ((frame_buffer->width() != this->last_width) || (frame_buffer->height() != this->last_height)) {
+				this->last_width = frame_buffer->width();
+				this->last_height = frame_buffer->height();
+			}
+
+			break;
+		}
+
+		Microsoft::WRL::ComPtr<IMFMediaStreamSourceSampleRequest> spRequest;
+		const auto imf_request = request.as<IMFMediaStreamSourceSampleRequest>();
+		imf_request->SetSample(sample.get());
+	}
+	__declspec(noinline) void OnFrame(const webrtc::VideoFrame& frame) override
+	{
+		//g_queue.push(frame);
+		std::lock_guard guard(this->mutex);
+		if (this->defferal != nullptr)
+		{
+			ApplySample(this->request, frame);
+			this->defferal.Complete();
+			this->defferal = nullptr;
+			this->request = nullptr;
+		}
+		else
+		{
+			this->sample = std::make_unique<webrtc::VideoFrame>(frame);
+		}
+	}
+
+	void OnDiscardedFrame() override
+	{
+
+	}
+
+};
 
 namespace winrt::Webrtc::implementation
 {
@@ -66,6 +210,7 @@ namespace winrt::Webrtc::implementation
 	void WebrtcManager::SetupCall()
 	{
 		this->audio_send_transport = std::make_unique<::Webrtc::StreamTransport>(this);
+		this->video_sink_interface = new ::Webrtc::SinkInterface();
 		this->CreateCall();
 		this->audio_send_stream = this->CreateAudioSendStream(this->ssrc, 120);
 		this->call->SignalChannelNetworkState(webrtc::MediaType::AUDIO, webrtc::NetworkState::kNetworkUp);
@@ -79,6 +224,11 @@ namespace winrt::Webrtc::implementation
 			for (auto const& [key, stream] : this->audio_receive_streams)
 			{
 				this->call->DestroyAudioReceiveStream(stream);
+			}
+
+			for (auto const& [key, stream] : this->video_receive_streams)
+			{
+				this->call->DestroyVideoReceiveStream(stream);
 			}
 			
 			if (this->audio_send_stream)
@@ -99,6 +249,7 @@ namespace winrt::Webrtc::implementation
 
 			this->ssrc_to_create.clear();
 			this->audio_receive_streams.clear();
+			this->video_receive_streams.clear();
 
 			this->call = nullptr;
 			this->audio_send_stream = nullptr;
@@ -256,89 +407,30 @@ namespace winrt::Webrtc::implementation
 		return audioStream;
 	}
 
-	class SinkInterface : public rtc::VideoSinkInterface<webrtc::VideoFrame>
+	void WebrtcManager::GenerateSample(Windows::Media::Core::MediaStreamSourceSampleRequest const& request)
 	{
-	public:
-		SinkInterface() = default;
+		this->video_sink_interface->GenerateSample(request);
+	}
 
-		void OnFrame(const::webrtc::VideoFrame& frame) override
-		{
-			const auto frame_buffer = frame.video_frame_buffer();
-			switch(frame_buffer->type())
+	void WebrtcManager::SetVideoStream(UINT64 userId, UINT32 ssrc)
+	{
+		this->task_queue.PostTask([this, userId, ssrc]() {
+			if(this->video_receive_streams.find(userId) == this->video_receive_streams.end())
 			{
-				case webrtc::VideoFrameBuffer::Type::kI420:
-				default:
-					const auto i420 = frame_buffer->ToI420();
-
-					com_ptr<IMFSample> sample;
-					MFCreateSample(sample.put());
-
-					com_ptr<IMFMediaBuffer> mediaBuffer;
-					MFCreate2DMediaBuffer(
-						static_cast<DWORD>(frame_buffer->width()),
-						static_cast<DWORD>(frame_buffer->height()),
-						cricket::FOURCC_NV12,
-						FALSE,
-						mediaBuffer.put()
-					);
-
-					sample->AddBuffer(mediaBuffer.get());
-
-					const com_ptr<IMF2DBuffer2> image_buffer = mediaBuffer.as<IMF2DBuffer2>();
-
-					BYTE* destRawData;
-					BYTE* discard_buffer;
-					LONG pitch;
-					DWORD destMediaBufferSize;
-
-					image_buffer->Lock2DSize(MF2DBuffer_LockFlags_Write, &destRawData, &pitch, &discard_buffer, &destMediaBufferSize);
-
-					uint8_t* uv_dest = destRawData + (pitch * frame_buffer->height());
-					libyuv::I420ToNV12(
-						i420->DataY(), i420->StrideY(),
-						i420->DataU(), i420->StrideU(),
-						i420->DataV(), i420->StrideV(),
-						destRawData,
-						pitch,
-						uv_dest,
-						pitch,
-						frame_buffer->width(),
-						frame_buffer->height()
-					);
-
-					image_buffer->Unlock2D();
-
-					if (const com_ptr<IMFAttributes> sample_attributes = sample.as<IMFAttributes>()) {
-						sample_attributes->SetUINT32(MFSampleExtension_CleanPoint, TRUE);
-						sample_attributes->SetUINT32(MFSampleExtension_Discontinuity, TRUE);
-					}
-
-					constexpr auto duration = static_cast<LONGLONG>((1.0 / 30) * 1000 * 1000 * 10);
-					sample->SetSampleDuration(duration);
-
-					sample->SetSampleTime(frame.render_time_ms() * 10000);
-
-					break;
+				this->video_receive_streams[userId] = this->CreateVideoReceiveStream(this->ssrc, ssrc);
 			}
-			
-			
-		}
-		
-		void OnDiscardedFrame() override
-		{
-			
-		}
-		
-	};
-
-	void WebrtcManager::CreateVideoStream(UINT32 ssrc)
-	{
-		this->task_queue.PostTask([this, ssrc]() {
-			this->CreateVideoReceiveStream(this->ssrc, ssrc, 101);
+			else if(ssrc == 0)
+			{
+				this->call->DestroyVideoReceiveStream(this->video_receive_streams[userId]);
+			}
+			else
+			{
+				// TODO: investigate if this can happen and how to deal with it.
+			}
 		});
 	}
 
-	webrtc::VideoReceiveStream* WebrtcManager::CreateVideoReceiveStream(uint32_t local_ssrc, uint32_t remote_ssrc, uint8_t payload_type) const
+	webrtc::VideoReceiveStream* WebrtcManager::CreateVideoReceiveStream(uint32_t local_ssrc, uint32_t remote_ssrc)
 	{
 		webrtc::VideoReceiveStream::Config config(this->audio_send_transport.get());
 		config.rtp.local_ssrc = local_ssrc;
@@ -361,7 +453,7 @@ namespace winrt::Webrtc::implementation
 		VP9Decoder.payload_type = 105;
 
 		config.decoders = { H264Decoder, VP8Decoder, VP9Decoder };
-		config.renderer = new SinkInterface();
+		config.renderer = this->video_sink_interface;
 
 		webrtc::VideoReceiveStream* audioStream = this->call->CreateVideoReceiveStream(std::move(config));
 		audioStream->Start();
@@ -544,6 +636,7 @@ namespace winrt::Webrtc::implementation
 
 	winrt::fire_and_forget WebrtcManager::Connect(hstring ip, hstring port, UINT32 ssrc)
 	{
+		this->Create();
 		this->has_got_ip = false;
 		this->ssrc = ssrc;
 
@@ -554,7 +647,6 @@ namespace winrt::Webrtc::implementation
 
 		this->output_stream = Windows::Storage::Streams::DataWriter(this->udp_socket.OutputStream());
 		this->SendSelectProtocol(ssrc);
-		this->Create();
 	}
 
 	void WebrtcManager::SendSelectProtocol(UINT32 ssrc) const

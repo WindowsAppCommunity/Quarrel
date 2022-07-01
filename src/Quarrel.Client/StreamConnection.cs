@@ -1,19 +1,18 @@
 ﻿// Quarrel © 2022
 
+using CommunityToolkit.Diagnostics;
 using Discord.API.Gateways.Models;
 using Discord.API.Voice;
 using Discord.API.Voice.Models;
 using Discord.API.Voice.Models.Handshake;
 using Quarrel.Client.Logger;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Quarrel.Client
 {
-    internal class StreamConnection
+    public class StreamConnection
     {
         private VoiceConnection _voiceConnection;
         private ulong _serverId;
@@ -23,8 +22,13 @@ namespace Quarrel.Client
         private string _connectionUrl;
 
         private readonly QuarrelClient _client;
+        public Action<string, ushort, uint>? Ready { get; set; }
+        public Action<string?, string, string, byte[], string?>? SessionDescription { get; set; }
+        public Action<string, uint, int>? Speaking { get; set; }
+        public Action<ulong, uint>? Video { get; set; }
+        public Action? Disconnected { get; set; }
 
-        public StreamConnection(QuarrelClient client, ulong serverId, string sessionId, ulong userId)
+        internal StreamConnection(QuarrelClient client, ulong serverId, string sessionId, ulong userId)
         {
             _client = client;
             _serverId = serverId;
@@ -48,6 +52,19 @@ namespace Quarrel.Client
             await _voiceConnection.ConnectAsync(_connectionUrl);
             await _voiceConnection.IdentifySelfToVoiceConnection(_serverId, _sessionId, _token, _userId, true, new VoiceIdentity.VoiceIdentityStream[] { new() { Quality = 100, Rid = "100", Type = "video" }});
         }
+        public void SelectProtocol(string ip, ushort port)
+        {
+            Guard.IsNotNull(_voiceConnection, nameof(_voiceConnection));
+
+            _ = _voiceConnection.SelectProtocol(ip, port);
+        }
+
+        public void SendSpeaking(bool speaking)
+        {
+            Guard.IsNotNull(_voiceConnection, nameof(_voiceConnection));
+
+            _ = _voiceConnection.SendSpeaking(speaking);
+        }        
 
         internal void UpdateServer(StreamServerUpdate serverUpdate)
         {
@@ -56,27 +73,24 @@ namespace Quarrel.Client
             _ = ConnectToStream();
         }
 
-
         private void OnReady(VoiceReady ready)
         {
-            _voiceConnection!.Connect(ready.IP, ready.Port.ToString(), ready.SSRC);
-
-            _ = _voiceConnection.SendVideo(ready.SSRC, ready.Streams);
+            Ready?.Invoke(ready.IP, (ushort)ready.Port, ready.SSRC);
         }
 
         private void OnSessionDescription(VoiceSessionDescription session)
         {
-            _voiceConnection!.SetKey(session.SecretKey.Select(x => (byte)x).ToArray());
+            SessionDescription?.Invoke(session.AudioCodec, session.MediaSessionId, session.Mode, session.SecretKey.Select(x => (byte)x).ToArray(), session.VideoCodec);
         }
 
         private void OnSpeaking(Speaker speaking)
         {
-            _voiceConnection!.SetSpeaking(speaking.SSRC, speaking.IsSpeaking);
+            Speaking?.Invoke(speaking.UserId, speaking.SSRC, speaking.IsSpeaking);
         }
 
         private void OnVideo(Video video)
         {
-            _voiceConnection.CreateVideoStream(video.VideoSSRC);
+            Video?.Invoke(video.UserId, video.VideoSSRC);
         }
     }
 }

@@ -8,6 +8,7 @@ using Discord.API.Voice.Models;
 using Discord.API.Voice.Models.Handshake;
 using Quarrel.Client.Logger;
 using Quarrel.Client.Models.Voice;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,7 +30,12 @@ namespace Quarrel.Client
             private VoiceConnection? _voiceConnection;
             private ulong? _serverId;
 
-            private Dictionary<string, StreamConnection> _streamConnections = new Dictionary<string, StreamConnection>();
+            public Dictionary<string, StreamConnection> StreamConnections { get; } = new Dictionary<string, StreamConnection>();
+            
+            public Action<string, ushort, uint>? Ready { get; set; }
+            public Action<string?, string, string, byte[], string?>? SessionDescription { get; set; }
+            public Action<string, uint, int>? Speaking { get; set; }
+            public Action? Disconnected { get; set; }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="QuarrelClientVoice"/> class.
@@ -61,7 +67,7 @@ namespace Quarrel.Client
                     if (_selfState.ChannelId == null)
                     {
                         _voiceConnection?.Disconnect();
-                        _voiceConnection?.Dispose();
+                        Disconnected?.Invoke();
                         _voiceConnection = null;
                         _selfState = null;
                         _voiceServerConfig = null;
@@ -134,12 +140,12 @@ namespace Quarrel.Client
             
             internal void StreamCreate(StreamCreate streamCreate)
             {
-                _streamConnections[streamCreate.StreamKey] = new StreamConnection(_client, streamCreate.RtcServerId, _selfState!.SessionId, _selfState!.UserId);
+                StreamConnections[streamCreate.StreamKey] = new StreamConnection(_client, streamCreate.RtcServerId, _selfState!.SessionId, _selfState!.UserId);
             }
 
             internal void StreamServerUpdate(StreamServerUpdate streamServerUpdate)
             {
-                if (_streamConnections.TryGetValue(streamServerUpdate.StreamKey, out StreamConnection streamConnection))
+                if (StreamConnections.TryGetValue(streamServerUpdate.StreamKey, out StreamConnection streamConnection))
                 {
                     streamConnection.UpdateServer(streamServerUpdate);
                 }
@@ -162,7 +168,7 @@ namespace Quarrel.Client
                     sessionDescription: OnSessionDescription,
                     speaking: OnSpeaking,
                     video: _ => {});
-                
+
                 _serverId = _voiceServerConfig.GuildId ?? _voiceServerConfig.ChannelId;
                 
                 await _voiceConnection.ConnectAsync(_voiceServerConfig.ConnectionUrl);
@@ -174,21 +180,36 @@ namespace Quarrel.Client
                     });
             }
 
+            public void SelectProtocol(string ip, ushort port)
+            {
+                Guard.IsNotNull(_voiceConnection, nameof(_voiceConnection));
+
+                _ = _voiceConnection.SelectProtocol(ip, port);
+            }
+
+            public void SendSpeaking(bool speaking)
+            {
+                Guard.IsNotNull(_voiceConnection, nameof(_voiceConnection));
+
+                _ = _voiceConnection.SendSpeaking(speaking);
+            }                
+
+
             private void OnReady(VoiceReady ready)
             {
-                _voiceConnection!.Connect(ready.IP, ready.Port.ToString(), ready.SSRC);
-
-                _ = _voiceConnection.SendVideo(ready.SSRC, ready.Streams);
+                Ready?.Invoke(ready.IP, (ushort)ready.Port, ready.SSRC);
+                
+                _ = _voiceConnection!.SendVideo(ready.SSRC, ready.Streams);
             }
 
             private void OnSessionDescription(VoiceSessionDescription session)
             {
-                _voiceConnection!.SetKey(session.SecretKey.Select(x => (byte)x).ToArray());
+                SessionDescription?.Invoke(session.AudioCodec, session.MediaSessionId, session.Mode, session.SecretKey.Select(x => (byte)x).ToArray(), session.VideoCodec);
             }
 
             private void OnSpeaking(Speaker speaking)
             {
-                _voiceConnection!.SetSpeaking(speaking.SSRC, speaking.IsSpeaking);
+                Speaking?.Invoke(speaking.UserId, speaking.SSRC, speaking.IsSpeaking);
             }
         }
     }

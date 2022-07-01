@@ -4,18 +4,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:icons="using:Quarrel.Controls.Icons"
     xmlns:bindablevoice="using:Quarrel.Bindables.Voice"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:controls="using:Quarrel.Controls">
 
     <DataTemplate x:Key="VoiceMemberTemplate" x:DataType="bindablevoice:BindableVoiceState">
         <Grid>
             <Border Background="Black" CornerRadius="8" Width="256" Height="144">
-                <MediaElement Visibility="{x:Bind IsWatching, Mode=OneWay}"/>
+                <controls:StreamPlayer x:Name="StreamPlayer" x:Load="{x:Bind IsWatching, Mode=OneWay}" UserId="{x:Bind State.User.Id}"/>
             </Border>
 
             <!--Image-->
             <Border x:Name="ProfileImageContainer" Width="96" Height="96"
                     CornerRadius="48" VerticalAlignment="Center">
-                <controls:ImageEx Source="{x:Bind State.User.AvatarUrl}"/>
+                <toolkit:ImageEx Source="{x:Bind State.User.AvatarUrl}"/>
             </Border>
 
             <Button Content="Join Stream"

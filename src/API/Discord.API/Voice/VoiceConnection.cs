@@ -12,14 +12,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Webrtc;
 
 namespace Discord.API.Voice
 {
     internal partial class VoiceConnection
     {
-        private WebrtcManager _manager;
-
         private uint _ssrc;
         
         private string? _connectionUrl;
@@ -62,23 +59,6 @@ namespace Discord.API.Voice
             _serializeOptions.AddContext<JsonModelsContext>();
 
             _deserializeOptions = new JsonSerializerOptions { Converters = { new VoiceSocketFrameConverter() } };
-            try
-            {
-                _manager = new WebrtcManager();
-                _manager.IpAndPortObtained = OnIpAndPortObtained;
-                _manager.Speaking = (bool speaking) => { _ = SendSpeaking(speaking); };
-                _manager.AudioInData = (IList<float> data) => { };
-                _manager.AudioOutData = (IList<float> data) => { };
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message);
-            }
-        }
-
-        private async void OnIpAndPortObtained(string ip, ushort port)
-        {
-            await SelectProtocol(ip, port);
         }
 
         public async Task SendSpeaking(bool speaking)
@@ -91,26 +71,6 @@ namespace Discord.API.Voice
             };
 
             await SendMessageAsync(VoiceOperation.Speaking, payload);
-        }
-
-        public void Connect(string ip, string port, uint src)
-        {
-            _manager.Connect(ip, port, src);
-        }
-
-        public void SetKey(byte[] array)
-        {
-            _manager.SetKey(array);
-        }
-
-        public void SetSpeaking(uint ssrc, int speaking)
-        {
-            _manager.SetSpeaking(ssrc, speaking);
-        }
-
-        public void CreateVideoStream(uint ssrc)
-        {
-            _manager.CreateVideoStream(ssrc);
         }
     }
 }

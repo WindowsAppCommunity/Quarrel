@@ -142,6 +142,9 @@
     <Compile Include="Controls\Icons\UserIcon.xaml.cs">
       <DependentUpon>UserIcon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\StreamPlayer.xaml.cs">
+      <DependentUpon>StreamPlayer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\Common\Boolean\IsNotNullConverter.cs" />
     <Compile Include="Converters\Common\Boolean\IsNotWhiteSpaceConverter.cs" />
     <Compile Include="Converters\Common\Boolean\IsNullConverter.cs" />
@@ -201,6 +204,9 @@
     <Compile Include="Services\AppConnections\AppConnectionService.cs" />
     <Compile Include="Services\AppConnections\Models\RichPresenceConnection.cs" />
     <Compile Include="Services\Clipboard\ClipboardService.cs" />
+    <Compile Include="Services\Discord\DiscordService.cs" />
+    <Compile Include="Services\Discord\DiscordService.Events.cs" />
+    <Compile Include="Services\Discord\DiscordService.Methods.cs" />
     <Compile Include="Services\Dispatcher\DispatcherService.cs" />
     <Compile Include="Services\Keyboard\KeyboardService.cs" />
     <Compile Include="Services\Localization\LocalizationService.cs" />
@@ -568,6 +574,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Icons\UserIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\StreamPlayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
