@@ -2,6 +2,7 @@
 
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
+using Quarrel.Client;
 using Quarrel.Client.Models.Users;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
@@ -21,9 +22,10 @@ namespace Quarrel.Bindables.Users
         internal BindableGuildMember(
             IMessenger messenger,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             IDispatcherService dispatcherService,
             GuildMember guildMember) :
-            base(messenger, discordService, dispatcherService)
+            base(messenger, discordService, quarrelClient, dispatcherService)
         {
             _guildMember = guildMember;
         }

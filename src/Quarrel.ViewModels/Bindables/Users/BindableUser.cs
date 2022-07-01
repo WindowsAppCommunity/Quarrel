@@ -3,6 +3,7 @@
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Users.Interfaces;
+using Quarrel.Client;
 using Quarrel.Client.Models.Users;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
@@ -23,9 +24,10 @@ namespace Quarrel.Bindables.Users
         internal BindableUser(
             IMessenger messenger,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             IDispatcherService dispatcherService,
             User user) :
-            base(messenger, discordService, dispatcherService)
+            base(messenger, discordService, quarrelClient, dispatcherService)
         {
             _user = user;
         }

@@ -3,6 +3,7 @@
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels.Abstract;
+using Quarrel.Client;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 using System.Collections;
@@ -20,11 +21,12 @@ namespace Quarrel.Bindables.Channels
         internal BindableChannelGroup(
             IMessenger messenger,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             IDispatcherService dispatcherService,
             BindableCategoryChannel? key) :
-            base(messenger, discordService, dispatcherService)
+            base(messenger, discordService, quarrelClient, dispatcherService)
         {
-            Key = key;
+            Key = key;            
             Children = new ObservableCollection<BindableChannel>();
         }
 

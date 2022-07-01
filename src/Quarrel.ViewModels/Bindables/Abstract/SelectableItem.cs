@@ -2,6 +2,7 @@
 
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Interfaces;
+using Quarrel.Client;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
 
@@ -20,8 +21,9 @@ namespace Quarrel.Bindables.Abstract
         public SelectableItem(
             IMessenger messenger,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             IDispatcherService dispatcherService) :
-            base(messenger, discordService, dispatcherService)
+            base(messenger, discordService, quarrelClient, dispatcherService)
         {
 
         }

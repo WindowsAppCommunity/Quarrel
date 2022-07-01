@@ -4,6 +4,7 @@ using CommunityToolkit.Diagnostics;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Users;
+using Quarrel.Client;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Services.Clipboard;
@@ -25,10 +26,11 @@ namespace Quarrel.Bindables.Channels
             IMessenger messenger,
             IClipboardService clipboardService,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             ILocalizationService localizationService,
             IDispatcherService dispatcherService,
             GroupChannel groupChannel) :
-            base(messenger, clipboardService, discordService, dispatcherService, groupChannel)
+            base(messenger, clipboardService, discordService, quarrelClient, dispatcherService, groupChannel)
         {
             _localizationService = localizationService;
 
@@ -37,9 +39,9 @@ namespace Quarrel.Bindables.Channels
             int i = 0;
             foreach (var recipient in groupChannel.Recipients)
             {
-                BindableUser? user = _discordService.GetUser(recipient.Id);
+                var user = _quarrelClient.Users.GetUser(recipient.Id);
                 Guard.IsNotNull(user);
-                Recipients[i] = user;
+                Recipients[i] = new BindableUser(_messenger, _discordService, _quarrelClient, _dispatcherService, user);
                 i++;
             }
         }

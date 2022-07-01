@@ -3,6 +3,7 @@
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
+using Quarrel.Client;
 using Quarrel.Client.Models.Voice;
 using Quarrel.Messages.Discord.Stream;
 using Quarrel.Messages.Discord.Voice;
@@ -25,9 +26,10 @@ namespace Quarrel.Bindables.Voice
         internal BindableVoiceState(
             IMessenger messenger,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             IDispatcherService dispatcherService,
             VoiceState state) :
-            base(messenger, discordService, dispatcherService)
+            base(messenger, discordService, quarrelClient, dispatcherService)
         {
             _state = state;
 
@@ -46,7 +48,7 @@ namespace Quarrel.Bindables.Voice
             });
             _messenger.Register<StreamCreatedMessage>(this, (_, m) =>
             {
-                if (m.UserId == State.User.Id)
+                if (m.StreamKey.EndsWith(State.User.Id.ToString()))
                 {
                     _dispatcherService.RunOnUIThread(() =>
                     {

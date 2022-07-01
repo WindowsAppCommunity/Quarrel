@@ -6,6 +6,7 @@ using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels.Enums;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Voice;
+using Quarrel.Client;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Messages.Discord.Voice;
@@ -33,9 +34,10 @@ namespace Quarrel.Bindables.Channels.Abstract
             IMessenger messenger,
             IClipboardService clipboardService,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             IDispatcherService dispatcherService,
             PrivateChannel privateChannel) :
-            base(messenger, clipboardService, discordService, dispatcherService, privateChannel)
+            base(messenger, clipboardService, discordService, quarrelClient, dispatcherService, privateChannel)
         {
             SelectionCommand = new RelayCommand(Select);
             JoinCallCommand = new RelayCommand(JoinCall);
@@ -56,6 +58,7 @@ namespace Quarrel.Bindables.Channels.Abstract
                         var state = new BindableVoiceState(
                             _messenger,
                             _discordService,
+                            _quarrelClient,
                             _dispatcherService,
                             m.VoiceState);
 
@@ -131,11 +134,12 @@ namespace Quarrel.Bindables.Channels.Abstract
             IMessenger messenger,
             IClipboardService clipboardService,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             ILocalizationService localizationService,
             IDispatcherService dispatcherService,
             IPrivateChannel channel)
         {
-            return BindableChannel.Create(messenger, clipboardService, discordService, localizationService, dispatcherService, channel) as BindablePrivateChannel;
+            return BindableChannel.Create(messenger, clipboardService, discordService, quarrelClient, localizationService, dispatcherService, channel) as BindablePrivateChannel;
         }
 
         /// <inheritdoc/>

@@ -5,6 +5,7 @@ using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
+using Quarrel.Client;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
@@ -36,9 +37,10 @@ namespace Quarrel.Bindables.Channels.Abstract
             IMessenger messenger,
             IClipboardService clipboardService,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             IDispatcherService dispatcherService,
             Channel channel) :
-            base(messenger, discordService, dispatcherService)
+            base(messenger, discordService, quarrelClient, dispatcherService)
         {
             _clipboardService = clipboardService;
             _channel = channel;
@@ -114,6 +116,7 @@ namespace Quarrel.Bindables.Channels.Abstract
         /// <param name="messenger">The <see cref="IMessenger"/> to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="clipboardService">The <see cref="IClipboardService"/> to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="discordService">The <see cref="IDiscordService"/> to pass to the <see cref="BindableItem"/>.</param>
+        /// <param name="quarrelClient">The <see cref="QuarrelClient"/> to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="localizationService">The <see cref="ILocalizationService"/> to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="dispatcherService">The <see cref="IDispatcherService"/> to pass to the <see cref="BindableItem"/>.</param>
         /// <param name="channel">The channel to wrap.</param>
@@ -123,6 +126,7 @@ namespace Quarrel.Bindables.Channels.Abstract
             IMessenger messenger,
             IClipboardService clipboardService,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             ILocalizationService localizationService,
             IDispatcherService dispatcherService,
             IChannel channel,
@@ -133,17 +137,17 @@ namespace Quarrel.Bindables.Channels.Abstract
             {
                 return channel switch
                 {
-                    DirectChannel c => new BindableDirectChannel(messenger, clipboardService, discordService, dispatcherService, c),
-                    GroupChannel c => new BindableGroupChannel(messenger, clipboardService, discordService, localizationService, dispatcherService, c),
+                    DirectChannel c => new BindableDirectChannel(messenger, clipboardService, discordService, quarrelClient, dispatcherService, c),
+                    GroupChannel c => new BindableGroupChannel(messenger, clipboardService, discordService, quarrelClient, localizationService, dispatcherService, c),
                     _ => null
                 };
             }
 
             return channel switch
             {
-                GuildTextChannel c => new BindableTextChannel(messenger, clipboardService, discordService, dispatcherService, c, member, parent),
-                VoiceChannel c => new BindableVoiceChannel(messenger, clipboardService, discordService, dispatcherService, c, member, parent),
-                CategoryChannel c => new BindableCategoryChannel(messenger, clipboardService, discordService, dispatcherService, c, member),
+                GuildTextChannel c => new BindableTextChannel(messenger, clipboardService, discordService, quarrelClient, dispatcherService, c, member, parent),
+                VoiceChannel c => new BindableVoiceChannel(messenger, clipboardService, discordService, quarrelClient, dispatcherService, c, member, parent),
+                CategoryChannel c => new BindableCategoryChannel(messenger, clipboardService, discordService, quarrelClient, dispatcherService, c, member),
                 _ => null
             };
         }

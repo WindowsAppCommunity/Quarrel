@@ -3,6 +3,7 @@
 using CommunityToolkit.Diagnostics;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
+using Quarrel.Client;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Permissions;
@@ -23,11 +24,12 @@ namespace Quarrel.Bindables.Channels.Abstract
             IMessenger messenger,
             IClipboardService clipboardService,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             IDispatcherService dispatcherService,
             GuildChannel channel,
             GuildMember selfMember,
             BindableCategoryChannel? parent = null) :
-            base(messenger, clipboardService, discordService, dispatcherService, channel)
+            base(messenger, clipboardService, discordService, quarrelClient, dispatcherService, channel)
         {
             CategoryChannel = parent;
 
@@ -79,13 +81,14 @@ namespace Quarrel.Bindables.Channels.Abstract
             IMessenger messenger,
             IClipboardService clipboardService,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             ILocalizationService localizationService,
             IDispatcherService dispatcherService,
             IGuildChannel channel,
             GuildMember member,
             BindableCategoryChannel? parent = null)
         {
-            return BindableChannel.Create(messenger, clipboardService, discordService, localizationService, dispatcherService, channel, member, parent) as BindableGuildChannel;
+            return BindableChannel.Create(messenger, clipboardService, discordService, quarrelClient, localizationService, dispatcherService, channel, member, parent) as BindableGuildChannel;
         }
         
         /// <inheritdoc/>

@@ -7,6 +7,7 @@ using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Messages.Embeds;
 using Quarrel.Bindables.Users;
+using Quarrel.Client;
 using Quarrel.Client.Models.Messages;
 using Quarrel.Messages.Discord.Messages;
 using Quarrel.Services.Clipboard;
@@ -34,12 +35,13 @@ namespace Quarrel.Bindables.Messages
         internal BindableMessage(
             IMessenger messenger,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             IDispatcherService dispatcherService,
             IClipboardService clipboardService,
             IBindableMessageChannel channel,
             Message message,
             Message? previousMessage = null) :
-            base(messenger, discordService, dispatcherService)
+            base(messenger, discordService, quarrelClient, dispatcherService)
         {
             _clipboardService = clipboardService;
 
@@ -50,12 +52,14 @@ namespace Quarrel.Bindables.Messages
             Users = new Dictionary<ulong, BindableUser?>();
             if (message.Author is not null)
             {
-                Author = _discordService.GetUser(message.Author.Id);
+
+                var user = _quarrelClient.Users.GetUser(message.Author.Id);
+                Author = user != null ? new BindableUser(_messenger, _discordService, _quarrelClient, _dispatcherService, user) : null;
                 Users.Add(message.Author.Id, Author);
 
                 if (message.GuildId.HasValue)
                 {
-                    AuthorMember = _discordService.GetGuildMember(message.Author.Id, message.GuildId.Value);
+                    AuthorMember = GetGuildMember(message.Author.Id, message.GuildId.Value);
                 }
             }
 
@@ -63,14 +67,15 @@ namespace Quarrel.Bindables.Messages
             {
                 if (!Users.ContainsKey(user.Id))
                 {
-                    Users.Add(user.Id, _discordService.GetUser(user.Id));
+                    var mentionedUser = _quarrelClient.Users.GetUser(user.Id);
+                    Users.Add(user.Id, mentionedUser != null ? new BindableUser(_messenger, _discordService, _quarrelClient, _dispatcherService, mentionedUser) : null);
                 }
             }
 
             Attachments = new BindableAttachment[_message.Attachments.Length];
             for (int i = 0; i < Attachments.Length; i++)
             {
-                Attachments[i] = new BindableAttachment(messenger, discordService, dispatcherService, _message.Attachments[i]);
+                Attachments[i] = new BindableAttachment(messenger, discordService, quarrelClient, dispatcherService, _message.Attachments[i]);
             }
 
             MarkLastReadCommand = new RelayCommand(() => _discordService.MarkRead(ChannelId, Id));
@@ -94,6 +99,17 @@ namespace Quarrel.Bindables.Messages
                 }
             });
         }
+        public BindableGuildMember? GetGuildMember(ulong userId, ulong guildId)
+        {
+            var member = _quarrelClient.Members.GetGuildMember(userId, guildId);
+            if (member is not null)
+            {
+                return new BindableGuildMember(_messenger, _discordService, _quarrelClient, _dispatcherService, member);
+            }
+
+            return null;
+        }
+
 
         /// <inheritdoc/>
         public ulong Id => Message.Id;

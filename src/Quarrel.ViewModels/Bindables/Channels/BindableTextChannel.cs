@@ -5,6 +5,7 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Enums;
 using Quarrel.Bindables.Channels.Interfaces;
+using Quarrel.Client;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;
@@ -24,11 +25,12 @@ namespace Quarrel.Bindables.Channels
             IMessenger messenger,
             IClipboardService clipboardService,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             IDispatcherService dispatcherService,
             GuildTextChannel channel,
             GuildMember selfMember,
             BindableCategoryChannel? parent = null) :
-            base(messenger, clipboardService, discordService, dispatcherService, channel, selfMember, parent)
+            base(messenger, clipboardService, discordService, quarrelClient, dispatcherService, channel, selfMember, parent)
         {
             SelectionCommand = new RelayCommand(Select);
             MarkAsReadCommand = new RelayCommand(MarkRead);

@@ -6,6 +6,7 @@ using Quarrel.Bindables.Channels.Abstract;
 using Quarrel.Bindables.Channels.Enums;
 using Quarrel.Bindables.Channels.Interfaces;
 using Quarrel.Bindables.Voice;
+using Quarrel.Client;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;
@@ -30,11 +31,12 @@ namespace Quarrel.Bindables.Channels
             IMessenger messenger,
             IClipboardService clipboardService,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             IDispatcherService dispatcherService,
             VoiceChannel channel,
             GuildMember selfMember,
             BindableCategoryChannel? parent = null) :
-            base(messenger, clipboardService, discordService, dispatcherService, channel, selfMember, parent)
+            base(messenger, clipboardService, discordService, quarrelClient, dispatcherService, channel, selfMember, parent)
         {
             SelectionCommand = new RelayCommand(Select);
             OpenChatCommand = new RelayCommand(OpenChat);
@@ -56,6 +58,7 @@ namespace Quarrel.Bindables.Channels
                         var state = new BindableVoiceState(
                             _messenger,
                             _discordService,
+                            _quarrelClient,
                             _dispatcherService,
                             m.VoiceState);
 

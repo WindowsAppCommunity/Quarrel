@@ -4,9 +4,12 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Abstract;
 using Quarrel.Bindables.Guilds.Interfaces;
+using Quarrel.Client;
 using Quarrel.Client.Models.Settings;
+using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
+using Quarrel.Services.Localization;
 using System.Collections.ObjectModel;
 
 namespace Quarrel.Bindables.Guilds
@@ -22,9 +25,12 @@ namespace Quarrel.Bindables.Guilds
         internal BindableGuildFolder(
             IMessenger messenger,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             IDispatcherService dispatcherService,
+            IClipboardService clipboardService,
+            ILocalizationService localizationService,
             GuildFolder folder) :
-            base(messenger, discordService, dispatcherService)
+            base(messenger, discordService, quarrelClient, dispatcherService)
         {
             _folder = folder;
 
@@ -32,7 +38,7 @@ namespace Quarrel.Bindables.Guilds
             Children = new ObservableCollection<BindableGuild>();
             foreach (var guild in guilds)
             {
-                Children.Add(new BindableGuild(messenger, discordService, dispatcherService, guild));
+                Children.Add(new BindableGuild(messenger, discordService, quarrelClient, dispatcherService, clipboardService, localizationService, guild));
             }
         }
 

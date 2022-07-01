@@ -2,6 +2,7 @@
 
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Quarrel.Bindables.Channels.Abstract;
+using Quarrel.Client;
 using Quarrel.Client.Models.Channels;
 using Quarrel.Client.Models.Users;
 using Quarrel.Services.Clipboard;
@@ -19,10 +20,11 @@ namespace Quarrel.Bindables.Channels
             IMessenger messenger,
             IClipboardService clipboardService,
             IDiscordService discordService,
+            QuarrelClient quarrelClient,
             IDispatcherService dispatcherService,
             CategoryChannel channel,
             GuildMember selfMember) :
-            base(messenger, clipboardService, discordService, dispatcherService, channel, selfMember)
+            base(messenger, clipboardService, discordService, quarrelClient, dispatcherService, channel, selfMember)
         {
         }
 
