@@ -42,8 +42,10 @@ namespace Quarrel.Bindables.Channels.Abstract
             SelectionCommand = new RelayCommand(Select);
             JoinCallCommand = new RelayCommand(JoinCall);
             MarkAsReadCommand = new RelayCommand(MarkRead);
-
-            VoiceMembers = new ObservableCollection<BindableVoiceState>();
+            
+            VoiceMembers = new ObservableCollection<BindableVoiceState>(
+                privateChannel.GetVoiceStates()
+                    .Select(x => new BindableVoiceState(messenger, discordService, quarrelClient, dispatcherService, x)));
 
             _messenger.Register<MyVoiceStateUpdatedMessage>(this, (_, m) =>
             {

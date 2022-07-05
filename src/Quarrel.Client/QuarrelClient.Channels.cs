@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Models.Json.Channels;
+using Discord.API.Models.Json.Voice;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using System;
@@ -117,18 +118,6 @@ namespace Quarrel.Client
                 return null;
             }
 
-            internal bool AddReadState(JsonReadState jsonReadState)
-            {
-                Channel? channel = GetChannel(jsonReadState.ChannelId);
-
-                if (channel is not IMessageChannel messageChannel) return false;
-
-                messageChannel.MentionCount = jsonReadState.MentionCount;
-                messageChannel.LastReadMessageId = jsonReadState.LastMessageId;
-                return true;
-
-            }
-
             internal Channel? AddChannel(JsonChannel jsonChannel, ulong? guildId = null)
             {
                 guildId = jsonChannel.GuildId ?? guildId;
@@ -179,6 +168,18 @@ namespace Quarrel.Client
                 }
 
                 return null;
+            }
+
+            internal bool AddReadState(JsonReadState jsonReadState)
+            {
+                Channel? channel = GetChannel(jsonReadState.ChannelId);
+
+                if (channel is not IMessageChannel messageChannel) return false;
+
+                messageChannel.MentionCount = jsonReadState.MentionCount;
+                messageChannel.LastReadMessageId = jsonReadState.LastMessageId;
+                return true;
+
             }
         }
     }

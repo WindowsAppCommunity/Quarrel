@@ -1,5 +1,7 @@
 ﻿// Quarrel © 2022
 
+using Quarrel.Client.Models.Voice;
+
 namespace Quarrel.Client.Models.Channels.Interfaces
 {
     /// <summary>
@@ -11,5 +13,11 @@ namespace Quarrel.Client.Models.Channels.Interfaces
         /// The region of the voice server.
         /// </summary>
         string? RTCRegion { get; }
+
+        VoiceState[] GetVoiceStates();
+
+        void AddVoiceMember(ulong userId);
+
+        void RemoveVoiceMember(ulong userId);
     }
 }

@@ -4,6 +4,9 @@ using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Json.Channels;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
+using Quarrel.Client.Models.Voice;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Quarrel.Client.Models.Channels
 {
@@ -12,6 +15,8 @@ namespace Quarrel.Client.Models.Channels
     /// </summary>
     public class VoiceChannel : GuildChannel, IGuildVoiceChannel
     {
+        private readonly HashSet<ulong> _users;
+
         internal VoiceChannel(JsonChannel restChannel, ulong? guildId, QuarrelClient context) :
             base(restChannel, guildId, context)
         {
@@ -21,6 +26,8 @@ namespace Quarrel.Client.Models.Channels
             UserLimit = restChannel.UserLimit;
             RTCRegion = restChannel.RTCRegion;
             CategoryId = restChannel.CategoryId;
+
+            _users = new HashSet<ulong>();
         }
 
         /// <inheritdoc/>
@@ -46,6 +53,28 @@ namespace Quarrel.Client.Models.Channels
 
         /// <inheritdoc/>
         public string? RTCRegion { get; private set; }
+        
+        /// <inheritdoc/>
+        public VoiceState[] GetVoiceStates()
+        {
+            VoiceState[] states = new VoiceState[_users.Count];
+            int i = 0;
+            foreach (var user in _users)
+            {
+                states[i] = Context.Voice.GetVoiceState(user)!;
+                i++;
+            }
+
+            return states;
+        }
+        
+        /// <inheritdoc/>
+        public void AddVoiceMember(ulong userId)
+            => _users.Add(userId);
+        
+        /// <inheritdoc/>
+        public void RemoveVoiceMember(ulong userId)
+            => _users.Remove(userId);
 
         int? IMessageChannel.MentionCount
         {

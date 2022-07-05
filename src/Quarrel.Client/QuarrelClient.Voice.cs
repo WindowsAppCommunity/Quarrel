@@ -7,6 +7,7 @@ using Discord.API.Voice;
 using Discord.API.Voice.Models;
 using Discord.API.Voice.Models.Handshake;
 using Quarrel.Client.Logger;
+using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Voice;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,14 @@ namespace Quarrel.Client
         /// </summary>
         public class QuarrelClientVoice
         {
+            private enum StatusChange
+            {
+                Added,
+                Removed,
+                Moved,
+                Updated,
+            }
+
             private readonly QuarrelClient _client;
             private readonly object _stateLock = new();
             private readonly Dictionary<ulong, VoiceState> _stateDictionary;
@@ -44,6 +53,35 @@ namespace Quarrel.Client
             {
                 _client = client;
                 _stateDictionary = new Dictionary<ulong, VoiceState>();
+            }
+
+            /// <summary>
+            /// Sends a protocol select request.
+            /// </summary>
+            /// <param name="ip">The ip address of connection.</param>
+            /// <param name="port">The port of connection.</param>
+            public void SelectProtocol(string ip, ushort port)
+            {
+                Guard.IsNotNull(_voiceConnection, nameof(_voiceConnection));
+
+                _ = _voiceConnection.SelectProtocol(ip, port);
+            }
+
+            /// <summary>
+            /// Sends a speaking request.
+            /// </summary>
+            /// <param name="speaking">Whether or not the user is speaking.</param>
+            public void SendSpeaking(bool speaking)
+            {
+                Guard.IsNotNull(_voiceConnection, nameof(_voiceConnection));
+
+                _ = _voiceConnection.SendSpeaking(speaking);
+            }
+
+            internal VoiceState? GetVoiceState(ulong userId)
+            {
+                _stateDictionary.TryGetValue(userId, out VoiceState? state);
+                return state;
             }
 
             internal void UpdateVoiceServerConfig(VoiceServerConfig config)
@@ -81,28 +119,57 @@ namespace Quarrel.Client
 
             internal void UpdateVoiceState(JsonVoiceState state)
             {
-                bool added = true;
+                StatusChange change = StatusChange.Added;
                 if (_stateDictionary.TryGetValue(state.UserId, out VoiceState voiceState))
                 {
-                    added = false;
-                    // The channel was not added
-                    bool channelChanged = state.ChannelId != voiceState.Channel?.Id;
-
-                    voiceState.Update(state);
-                    if (channelChanged)
+                    if (state.ChannelId != voiceState.Channel?.Id)
                     {
-                        // The channel was moved or removed.
-                        _stateDictionary.Remove(state.UserId);
-                        _client.VoiceStateRemoved?.Invoke(_client, voiceState);
+                        change = StatusChange.Updated;
+                    }
+                    else if (!state.ChannelId.HasValue)
+                    {
+                        change = StatusChange.Removed;
+                    }
+                    else
+                    {
+                        change = StatusChange.Moved;
                     }
                 }
 
-                voiceState = new VoiceState(state, _client);
+                IAudioChannel? channel = state.ChannelId.HasValue ? (IAudioChannel?)_client.Channels.GetChannel(state.ChannelId.Value) : null;
 
-                if (added && voiceState.Channel is not null)
+                void AddState()
                 {
                     _stateDictionary.Add(state.UserId, voiceState);
+                    channel?.AddVoiceMember(state.UserId);
                     _client.VoiceStateAdded?.Invoke(_client, voiceState);
+                }
+
+                void RemoveState()
+                {
+                    _stateDictionary.Remove(state.UserId);
+                    channel?.RemoveVoiceMember(state.UserId);
+                    _client.VoiceStateRemoved?.Invoke(_client, voiceState);
+                }
+
+                switch (change)
+                {
+                    case StatusChange.Added:
+                        voiceState = new VoiceState(state, _client);
+                        AddState();
+                        break;
+                    case StatusChange.Removed:
+                        voiceState!.Update(state);
+                        RemoveState();
+                        break;
+                    case StatusChange.Moved:
+                        voiceState!.Update(state);
+                        RemoveState();
+                        AddState();
+                        break;
+                    case StatusChange.Updated:
+                        voiceState!.Update(state);
+                        break;
                 }
 
                 _client.VoiceStateUpdated?.Invoke(_client, voiceState);
@@ -179,21 +246,6 @@ namespace Quarrel.Client
                         new() { Quality = 50, Rid = "50", Type = "video" }
                     });
             }
-
-            public void SelectProtocol(string ip, ushort port)
-            {
-                Guard.IsNotNull(_voiceConnection, nameof(_voiceConnection));
-
-                _ = _voiceConnection.SelectProtocol(ip, port);
-            }
-
-            public void SendSpeaking(bool speaking)
-            {
-                Guard.IsNotNull(_voiceConnection, nameof(_voiceConnection));
-
-                _ = _voiceConnection.SendSpeaking(speaking);
-            }                
-
 
             private void OnReady(VoiceReady ready)
             {
