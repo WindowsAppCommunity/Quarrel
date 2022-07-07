@@ -15,13 +15,23 @@ namespace Discord.API.Models.Json.Settings
         [JsonPropertyName("suppress_everyone")]
         public bool SuppressEveryone { get; set; }
 
+        [JsonPropertyName("suppress_roles")]
+        public bool SuppressRoles { get; set; }
+
         [JsonPropertyName("muted")]
         public bool Muted { get; set; }
 
         [JsonPropertyName("mobile_push")]
         public bool MobilePush { get; set; }
 
+        // TODO: Appropriate enum values
         [JsonPropertyName("message_notifications")]
         public int MessageNotifications { get; set; }
+        
+        [JsonPropertyName("mute_config")]
+        public JsonMuteConfig MuteConfig { get; set; }
+
+        [JsonPropertyName("channel_overrides")]
+        public JsonChannelOverride[] ChannelOverrides { get; set; }
     }
 }

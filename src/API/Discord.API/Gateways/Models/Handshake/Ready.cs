@@ -11,7 +11,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Gateways.Models.Handshake
 {
-    internal class Ready
+    internal record Ready
     {
         [JsonPropertyName("v")]
         public int GatewayVersion { get; set; }

@@ -20,7 +20,7 @@ namespace Quarrel.Client.Models.Settings
             RenderReactions = jsonUserSettings.RenderReactions;
             RenderEmbeds = jsonUserSettings.RenderEmbeds;
             InlineEmbedMedia = jsonUserSettings.InlineEmbedMedia;
-            InlineAttachementMedia = jsonUserSettings.InlineAttachementMedia;
+            InlineAttachmentMedia = jsonUserSettings.InlineAttachementMedia;
             Locale = jsonUserSettings.Locale;
             ShowCurrentGame = jsonUserSettings.ShowCurrentGame;
             ContentFilterLevel = jsonUserSettings.ExplicitContentFilter;
@@ -87,7 +87,7 @@ namespace Quarrel.Client.Models.Settings
         /// <summary>
         /// Gets if attachments are displayed inline.
         /// </summary>
-        public bool InlineAttachementMedia { get; private set; }
+        public bool InlineAttachmentMedia { get; private set; }
 
         /// <summary>
         /// Gets the user's locale.

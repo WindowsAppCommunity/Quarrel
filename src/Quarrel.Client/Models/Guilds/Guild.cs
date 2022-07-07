@@ -8,6 +8,7 @@ using Quarrel.Client.Models.Base;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Guilds.Interfaces;
 using Quarrel.Client.Models.Roles;
+using Quarrel.Client.Models.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +23,12 @@ namespace Quarrel.Client.Models.Guilds
         private readonly HashSet<ulong> _channelIds;
         private readonly Dictionary<ulong, Role> _roles;
 
+        internal Guild(JsonGuild restGuild, QuarrelClient context) : this(restGuild, null, context) { }
+
         /// <summary>
         /// Initializes new instance of the <see cref="Guild"/> class.
         /// </summary>
-        internal Guild(JsonGuild restGuild, QuarrelClient context)
+        internal Guild(JsonGuild restGuild, GuildSettings? settings, QuarrelClient context)
             : base(context)
         {
             Id = restGuild.Id;

@@ -83,9 +83,9 @@ namespace Quarrel.Client
                 return _guildMap.TryGetValue(guildId, out Guild guild) ? guild : null;
             }
 
-            internal bool AddGuild(JsonGuild jsonGuild)
+            internal bool AddGuild(JsonGuild jsonGuild, GuildSettings? settings = null)
             {
-                var guild = new Guild(jsonGuild, _client);
+                var guild = new Guild(jsonGuild, settings, _client);
                 if (_guildMap.TryAdd(guild.Id, guild))
                 {
                     foreach (var jsonChannel in jsonGuild.Channels)

@@ -8,13 +8,16 @@ using Discord.API.Gateways.Models.Handshake;
 using Discord.API.Gateways.Models.Messages;
 using Discord.API.Models.Json.Channels;
 using Discord.API.Models.Json.Messages;
+using Discord.API.Models.Json.Settings;
 using Discord.API.Models.Json.Voice;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Messages;
+using Quarrel.Client.Models.Settings;
 using Quarrel.Client.Models.Users;
 using Quarrel.Client.Models.Voice;
 using System;
+using System.Collections.Generic;
 
 namespace Quarrel.Client
 {
@@ -105,6 +108,19 @@ namespace Quarrel.Client
             Guard.IsNotNull(arg, nameof(arg));
 
             Self.SetSelfUser(arg.User);
+
+            var guildSettings = new Dictionary<ulong?, GuildSettings>();
+            var channelSettings = new Dictionary<ulong, ChannelSettings>();
+
+            foreach (var jsonGuildSettings in arg.GuildSettings)
+            {
+                var gs = new GuildSettings(jsonGuildSettings, out ChannelSettings[] css);
+                guildSettings.Add(gs.GuildId, gs);
+                foreach (var cs in css)
+                {
+                    channelSettings.Add(cs.ChannelId, cs);
+                }
+            }
 
             foreach (var guild in arg.Guilds)
             {
