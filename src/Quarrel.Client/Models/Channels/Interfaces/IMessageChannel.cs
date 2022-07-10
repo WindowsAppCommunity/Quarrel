@@ -23,6 +23,11 @@ namespace Quarrel.Client.Models.Channels.Interfaces
         ulong? LastReadMessageId { get; set; }
 
         /// <summary>
+        /// Gets whether or not the current user has muted the channel.
+        /// </summary>
+        bool IsMuted { get; }
+
+        /// <summary>
         /// Gets whether or not the current user has unread messages in the channel.
         /// </summary>
         bool IsUnread { get; }

@@ -2,6 +2,7 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Json.Channels;
+using Discord.API.Models.Json.Settings;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 
@@ -12,7 +13,11 @@ namespace Quarrel.Client.Models.Channels
     /// </summary>
     public class GuildTextChannel : GuildChannel, IGuildTextChannel
     {
-        internal GuildTextChannel(JsonChannel restChannel, ulong? guildId, QuarrelClient context) :
+        internal GuildTextChannel(
+            JsonChannel restChannel,
+            ulong? guildId,
+            ChannelSettings? settings,
+            QuarrelClient context) :
             base(restChannel, guildId, context)
         {
             Guard.IsNotNull(restChannel.SlowModeDelay, nameof(restChannel.SlowModeDelay));
@@ -22,6 +27,8 @@ namespace Quarrel.Client.Models.Channels
             SlowModeDelay = restChannel.SlowModeDelay.Value;
             LastMessageId = restChannel.LastMessageId;
             CategoryId = restChannel.CategoryId;
+
+            IsMuted = settings?.Muted ?? false;
         }
 
         /// <inheritdoc/>
@@ -44,6 +51,9 @@ namespace Quarrel.Client.Models.Channels
 
         /// <inheritdoc cref="IMessageChannel.LastReadMessageId"/>
         public ulong? LastReadMessageId { get; internal set; }
+        
+        /// <inheritdoc/>
+        public bool IsMuted { get; private set; }
 
         /// <inheritdoc/>
         public bool IsUnread => LastMessageId > LastReadMessageId;

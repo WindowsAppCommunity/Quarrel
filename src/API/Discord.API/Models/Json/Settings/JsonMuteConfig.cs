@@ -14,6 +14,6 @@ namespace Discord.API.Models.Json.Settings
         public int SelectedTimeWindow { get; set; }
 
         [JsonPropertyName("end_time")]
-        public DateTime EndTime { get; set; }
+        public DateTimeOffset? EndTime { get; set; }
     }
 }

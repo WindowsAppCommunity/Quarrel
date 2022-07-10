@@ -2,6 +2,7 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Json.Channels;
+using Discord.API.Models.Json.Settings;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Voice;
@@ -17,7 +18,10 @@ namespace Quarrel.Client.Models.Channels
     {
         private readonly HashSet<ulong> _users;
 
-        internal VoiceChannel(JsonChannel restChannel, ulong? guildId, QuarrelClient context) :
+        internal VoiceChannel(JsonChannel restChannel,
+            ulong? guildId, 
+            ChannelSettings? settings,
+            QuarrelClient context) :
             base(restChannel, guildId, context)
         {
             Guard.IsNotNull(restChannel.Bitrate, nameof(restChannel.Bitrate));
@@ -26,6 +30,8 @@ namespace Quarrel.Client.Models.Channels
             UserLimit = restChannel.UserLimit;
             RTCRegion = restChannel.RTCRegion;
             CategoryId = restChannel.CategoryId;
+
+            IsMuted = settings?.Muted ?? false;
 
             _users = new HashSet<ulong>();
         }
@@ -47,6 +53,9 @@ namespace Quarrel.Client.Models.Channels
 
         /// <inheritdoc cref="IMessageChannel.LastReadMessageId"/>
         public ulong? LastReadMessageId { get; internal set; }
+        
+        /// <inheritdoc/>
+        public bool IsMuted { get; private set; }
 
         /// <inheritdoc/>
         public bool IsUnread => LastMessageId > LastReadMessageId;

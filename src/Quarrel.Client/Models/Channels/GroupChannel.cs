@@ -2,6 +2,7 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Json.Channels;
+using Discord.API.Models.Json.Settings;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Users;
@@ -15,8 +16,8 @@ namespace Quarrel.Client.Models.Channels
     /// </summary>
     public class GroupChannel : PrivateChannel, IGroupChannel
     {
-        internal GroupChannel(JsonChannel restChannel, QuarrelClient context) :
-            base(restChannel, context)
+        internal GroupChannel(JsonChannel restChannel, ChannelSettings? settings, QuarrelClient context) :
+            base(restChannel, settings, context)
         {
             Guard.IsNotNull(restChannel.OwnerId, nameof(restChannel.OwnerId));
             Guard.IsNotNull(restChannel.Recipients, nameof(restChannel.Recipients));

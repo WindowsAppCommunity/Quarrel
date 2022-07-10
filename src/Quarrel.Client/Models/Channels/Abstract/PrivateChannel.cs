@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Models.Json.Channels;
+using Discord.API.Models.Json.Settings;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Voice;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace Quarrel.Client.Models.Channels.Abstract
     {
         private readonly HashSet<ulong> _users;
 
-        internal PrivateChannel(JsonChannel restChannel, QuarrelClient context) :
+        internal PrivateChannel(JsonChannel restChannel, ChannelSettings? settings, QuarrelClient context) :
             base(restChannel, context)
         {
             LastMessageId = restChannel.LastMessageId;
             RTCRegion = restChannel.RTCRegion;
+
+            IsMuted = settings?.Muted ?? false;
 
             _users = new HashSet<ulong>();
         }
@@ -32,6 +35,9 @@ namespace Quarrel.Client.Models.Channels.Abstract
 
         /// <inheritdoc/>
         public ulong? LastReadMessageId { get; private set; }
+        
+        /// <inheritdoc/>
+        public bool IsMuted { get; private set; }
 
         /// <inheritdoc/>
         public string? RTCRegion { get; private set; }

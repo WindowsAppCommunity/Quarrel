@@ -4,6 +4,7 @@ using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Enums.Guilds;
 using Discord.API.Models.Enums.Settings;
 using Discord.API.Models.Json.Guilds;
+using Discord.API.Models.Json.Settings;
 using Quarrel.Client.Models.Base;
 using Quarrel.Client.Models.Channels.Interfaces;
 using Quarrel.Client.Models.Guilds.Interfaces;
@@ -22,8 +23,6 @@ namespace Quarrel.Client.Models.Guilds
     {
         private readonly HashSet<ulong> _channelIds;
         private readonly Dictionary<ulong, Role> _roles;
-
-        internal Guild(JsonGuild restGuild, QuarrelClient context) : this(restGuild, null, context) { }
 
         /// <summary>
         /// Initializes new instance of the <see cref="Guild"/> class.
@@ -58,6 +57,8 @@ namespace Quarrel.Client.Models.Guilds
 
             IsWidgetEnabled = restGuild.IsWidgetEnabled ?? false;
             Available = true;
+
+            Muted = settings?.Muted ?? false;
 
             _channelIds = new HashSet<ulong>();
             _roles = new Dictionary<ulong, Role>();
@@ -127,6 +128,9 @@ namespace Quarrel.Client.Models.Guilds
 
         /// <inheritdoc/>
         public string VoiceRegionId { get; private set; }
+
+        /// <inheritdoc/>
+        public bool Muted { get; private set; }
 
         /// <summary>
         /// Gets the channels in a guild

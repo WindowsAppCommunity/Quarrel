@@ -6,6 +6,8 @@ namespace Quarrel.Client.Models.Settings
 {
     internal class GuildSettings
     {
+        private readonly ChannelSettings[] _channelSettings;
+
         public GuildSettings(JsonGuildSettings settings, out ChannelSettings[] channelSettings)
         {
             GuildId = settings.GuildId;
@@ -19,6 +21,8 @@ namespace Quarrel.Client.Models.Settings
             {
                 channelSettings[i] = new ChannelSettings(settings.ChannelOverrides[i]);
             }
+
+            _channelSettings = channelSettings;
         }
 
         public ulong? GuildId { get; }
@@ -30,5 +34,7 @@ namespace Quarrel.Client.Models.Settings
         public bool Muted { get; }
 
         public bool MobilePush { get; }
+
+        public ChannelSettings this[ulong channelId] => _channelSettings[channelId];
     }
 }

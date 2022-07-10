@@ -17,7 +17,7 @@ namespace Discord.API.Models.Json.Settings
 
         [JsonPropertyName("mute_config")]
         public JsonMuteConfig MuteConfig { get; set; }
-        
+
         // TODO: Appropriate enum values
         [JsonPropertyName("message_notifications")]
         public int MessageNotifications { get; set; }

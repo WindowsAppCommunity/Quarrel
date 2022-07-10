@@ -116,5 +116,10 @@ namespace Quarrel.Client.Models.Guilds.Interfaces
         /// Gets the nsfw level of the guild.
         /// </summary>
         NsfwLevel NsfwLevel { get; }
+
+        /// <summary>
+        /// Gets whether or not the guild is muted.
+        /// </summary>
+        bool Muted { get; }
     }
 }

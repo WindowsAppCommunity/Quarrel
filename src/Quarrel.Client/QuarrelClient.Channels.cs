@@ -1,6 +1,7 @@
 ﻿// Quarrel © 2022
 
 using Discord.API.Models.Json.Channels;
+using Discord.API.Models.Json.Settings;
 using Discord.API.Models.Json.Voice;
 using Quarrel.Client.Models.Channels.Abstract;
 using Quarrel.Client.Models.Channels.Interfaces;
@@ -118,10 +119,13 @@ namespace Quarrel.Client
                 return null;
             }
 
-            internal Channel? AddChannel(JsonChannel jsonChannel, ulong? guildId = null)
+            internal Channel? AddChannel(
+                JsonChannel jsonChannel,
+                ulong? guildId = null,
+                ChannelSettings? settings = null)
             {
                 guildId = jsonChannel.GuildId ?? guildId;
-                Channel? channel = Channel.FromJsonChannel(jsonChannel, _client, guildId);
+                Channel? channel = Channel.FromJsonChannel(jsonChannel, _client, guildId, settings);
                 if (channel == null || !_channelMap.TryAdd(channel.Id, channel)) return null;
 
                 if (guildId.HasValue)

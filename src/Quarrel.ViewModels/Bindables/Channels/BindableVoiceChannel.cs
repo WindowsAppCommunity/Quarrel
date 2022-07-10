@@ -122,7 +122,7 @@ namespace Quarrel.Bindables.Channels
         {
             get
             {
-                // TODO: Handle muted.
+                if (MessageChannel.IsMuted) return ReadState.Muted;
                 if (MessageChannel.IsUnread) return ReadState.Unread;
                 return ReadState.Read;
             }

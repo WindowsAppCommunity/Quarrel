@@ -3,6 +3,7 @@
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Enums.Channels;
 using Discord.API.Models.Json.Channels;
+using Discord.API.Models.Json.Settings;
 using Quarrel.Client.Models.Base;
 using Quarrel.Client.Models.Channels.Interfaces;
 
@@ -42,16 +43,20 @@ namespace Quarrel.Client.Models.Channels.Abstract
             Type = jsonChannel.Type;
         }
 
-        internal static Channel? FromJsonChannel(JsonChannel jsonChannel, QuarrelClient context, ulong? guildId = null)
+        internal static Channel? FromJsonChannel(
+            JsonChannel jsonChannel,
+            QuarrelClient context,
+            ulong? guildId = null,
+            ChannelSettings? settings = null)
         {
             return jsonChannel.Type switch
             {
-                ChannelType.GuildText => new GuildTextChannel(jsonChannel, guildId, context),
-                ChannelType.News => new GuildTextChannel(jsonChannel, guildId, context),
-                ChannelType.DirectMessage => new DirectChannel(jsonChannel, context),
-                ChannelType.GuildVoice => new VoiceChannel(jsonChannel, guildId, context),
-                ChannelType.StageVoice => new VoiceChannel(jsonChannel, guildId, context),
-                ChannelType.GroupDM => new GroupChannel(jsonChannel, context),
+                ChannelType.GuildText => new GuildTextChannel(jsonChannel, guildId, settings, context),
+                ChannelType.News => new GuildTextChannel(jsonChannel, guildId, settings, context),
+                ChannelType.DirectMessage => new DirectChannel(jsonChannel, settings, context),
+                ChannelType.GuildVoice => new VoiceChannel(jsonChannel, guildId, settings, context),
+                ChannelType.StageVoice => new VoiceChannel(jsonChannel, guildId, settings, context),
+                ChannelType.GroupDM => new GroupChannel(jsonChannel, settings, context),
                 ChannelType.Category => new CategoryChannel(jsonChannel, guildId, context),
                 _ => null,
             };

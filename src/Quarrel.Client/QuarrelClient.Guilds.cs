@@ -90,7 +90,7 @@ namespace Quarrel.Client
                 {
                     foreach (var jsonChannel in jsonGuild.Channels)
                     {
-                        var channel = _client.Channels.AddChannel(jsonChannel, jsonGuild.Id);
+                        var channel = _client.Channels.AddChannel(jsonChannel, guild.Id, settings?[jsonChannel.Id]);
                         if (channel is not null)
                         {
                             guild.AddChannel(jsonChannel.Id);
