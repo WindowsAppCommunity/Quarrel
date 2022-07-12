@@ -18,7 +18,6 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ccontrols:ChannelControl">
                     <Grid Height="40">
-
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="ReadState">
                                 <VisualState x:Name="Read">

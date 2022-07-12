@@ -23,6 +23,9 @@ namespace Quarrel.Controls.DataTemplates
         public static readonly DependencyProperty IsUnreadProperty =
             DependencyProperty.Register(nameof(IsUnread), typeof(bool), typeof(ChannelControl), new PropertyMetadata(false, OnIsUnreadUpdated));
         
+        public static readonly DependencyProperty IsMutedProperty =
+            DependencyProperty.Register(nameof(IsMuted), typeof(bool), typeof(ChannelControl), new PropertyMetadata(false, OnIsMutedUpdated));
+        
         public static readonly DependencyProperty MarkAsReadCommandProperty =
             DependencyProperty.Register(nameof(MarkAsReadCommand), typeof(RelayCommand), typeof(ChannelControl), new PropertyMetadata(null));
         
@@ -47,6 +50,12 @@ namespace Quarrel.Controls.DataTemplates
         {
             get => (bool)GetValue(IsUnreadProperty);
             set => SetValue(IsUnreadProperty, value);
+        }
+
+        public bool IsMuted
+        {
+            get => (bool)GetValue(IsMutedProperty);
+            set => SetValue(IsMutedProperty, value);
         }
 
         public bool IsSelected
@@ -77,18 +86,21 @@ namespace Quarrel.Controls.DataTemplates
         {
             var control = (ChannelControl)sender;
             bool isUnread = (bool)args.NewValue;
-            control.UpdateReadVisualState(isUnread);
+            control.UpdateReadVisualState(isUnread, control.IsMuted);
         }
 
-        private void UpdateReadVisualState(bool isUnread)
+        private static void OnIsMutedUpdated(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            var control = (ChannelControl)sender;
+            bool isMuted = (bool)args.NewValue;
+            control.UpdateReadVisualState(control.IsUnread, isMuted);
+        }
+
+        private void UpdateReadVisualState(bool isUnread, bool isMuted)
         {
             string state = ReadState_Read;
-
-            // TODO: Handle muted
-            if (isUnread)
-            {
-                state = ReadState_Unread;
-            }
+            if (isMuted) state = ReadState_Muted;
+            else if (isUnread) state = ReadState_Unread;
 
             VisualStateManager.GoToState(this, state, true);
         }
