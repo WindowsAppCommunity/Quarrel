@@ -2,10 +2,12 @@
 
 using CommunityToolkit.Diagnostics;
 using Discord.API.Models.Json.Guilds;
+using Discord.API.Models.Json.Settings;
 using Quarrel.Client.Models.Guilds;
 using Quarrel.Client.Models.Settings;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Quarrel.Client
@@ -83,14 +85,17 @@ namespace Quarrel.Client
                 return _guildMap.TryGetValue(guildId, out Guild guild) ? guild : null;
             }
 
-            internal bool AddGuild(JsonGuild jsonGuild, GuildSettings? settings = null)
+            internal bool AddGuild(JsonGuild jsonGuild, GuildSettings? settings = null, Dictionary<ulong, ChannelSettings>? channelSettings = null)
             {
                 var guild = new Guild(jsonGuild, settings, _client);
                 if (_guildMap.TryAdd(guild.Id, guild))
                 {
                     foreach (var jsonChannel in jsonGuild.Channels)
                     {
-                        var channel = _client.Channels.AddChannel(jsonChannel, guild.Id, settings?[jsonChannel.Id]);
+                        ChannelSettings? thisChannelSettings = null;
+                        channelSettings?.TryGetValue(jsonChannel.Id, out thisChannelSettings);
+
+                        var channel = _client.Channels.AddChannel(jsonChannel, guild.Id, thisChannelSettings);
                         if (channel is not null)
                         {
                             guild.AddChannel(jsonChannel.Id);

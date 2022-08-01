@@ -124,13 +124,19 @@ namespace Quarrel.Client
 
             foreach (var guild in arg.Guilds)
             {
+                GuildSettings? thisGuildSettings = null;
+                guildSettings.TryGetValue(guild.Id, out thisGuildSettings);
+
                 // All child members are handled here
-                Guilds.AddGuild(guild);
+                Guilds.AddGuild(guild, thisGuildSettings, channelSettings);
             }
 
             foreach (var channel in arg.PrivateChannels)
             {
-                Channels.AddChannel(channel);
+                ChannelSettings? thisChannelSettings = null;
+                channelSettings?.TryGetValue(channel.Id, out thisChannelSettings);
+
+                Channels.AddChannel(channel, null, thisChannelSettings);
             }
 
             foreach (var readState in arg.ReadStates)
