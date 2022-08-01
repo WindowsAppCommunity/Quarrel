@@ -81,37 +81,40 @@
     </Style>
 
     <DataTemplate x:Key="TextChannelTemplate" x:DataType="bindablechannels:BindableTextChannel">
-        <!--<UserControl>-->
-            <!--<VisualStateManager.VisualStateGroups>
-                <VisualStateGroup x:Name="ReadState">
-                    <VisualState x:Name="Read">
-                        <VisualState.StateTriggers>
-                            <tt:IsEqualStateTrigger Value="{x:Bind ReadState, Mode=OneWay}" To="{x:Bind bcenums:ReadState.Read}"/>
-                        </VisualState.StateTriggers>
-                        <VisualState.Setters>
-                            <Setter Target="UnreadIndicator.Visibility" Value="Collapsed"/>
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState x:Name="Unread">
-                        <VisualState.StateTriggers>
-                            <tt:IsEqualStateTrigger Value="{x:Bind ReadState, Mode=OneWay}" To="{x:Bind bcenums:ReadState.Unread}"/>
-                        </VisualState.StateTriggers>
-                        <VisualState.Setters>
-                            <Setter Target="UnreadIndicator.Visibility" Value="Visible"/>
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState x:Name="Muted">
-                        <VisualState.StateTriggers>
-                            <tt:IsEqualStateTrigger Value="{x:Bind ReadState, Mode=OneWay}" To="{x:Bind bcenums:ReadState.Muted}"/>
-                        </VisualState.StateTriggers>
-                        <VisualState.Setters>
-                            <Setter Target="UnreadIndicator.Visibility" Value="Collapsed"/>
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>-->
-
+        <UserControl>
             <Grid Height="40">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="ReadState">
+                        <VisualState x:Name="IsReadState">
+                            <VisualState.StateTriggers>
+                                <tt:IsEqualStateTrigger Value="{x:Bind ReadState, Mode=OneWay}" To="{x:Bind bcenums:ReadState.Read}"/>
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="UnreadIndicator.Visibility" Value="Collapsed"/>
+                                <Setter Target="TextPanel.Opacity" Value=".7"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="IsUnreadState">
+                            <VisualState.StateTriggers>
+                                <tt:IsEqualStateTrigger Value="{x:Bind ReadState, Mode=OneWay}" To="{x:Bind bcenums:ReadState.Unread}"/>
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="UnreadIndicator.Visibility" Value="Visible"/>
+                                <Setter Target="TextPanel.Opacity" Value="1"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="IsMutedState">
+                            <VisualState.StateTriggers>
+                                <tt:IsEqualStateTrigger Value="{x:Bind ReadState, Mode=OneWay}" To="{x:Bind bcenums:ReadState.Muted}"/>
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="UnreadIndicator.Visibility" Value="Collapsed"/>
+                                <Setter Target="TextPanel.Opacity" Value=".3"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+
                 <Grid.ContextFlyout>
                     <MenuFlyout>
                         <MenuFlyoutItem x:Uid="Channel/MarkAsReadMFI" Text="Mark as Read"
@@ -131,27 +134,25 @@
                 <Grid Visibility="{x:Bind IsSelected, Mode=OneWay}" Opacity=".2" Background="{ThemeResource SystemControlBackgroundAccentBrush}"/>
 
                 <Border x:Name="UnreadIndicator"
-                    Visibility="{x:Bind MessageChannel.IsUnread, Mode=OneWay}"
                     Height="24" Width="2"
                     Background="{ThemeResource InvertedBackground}"
                     Margin="2,0,0,0"
                     HorizontalAlignment="Left"/>
 
                 <!--Main Details-->
-                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0,6" Padding="6,0,-12,0">
+                <StackPanel x:Name="TextPanel" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,6" Padding="6,0,-12,0">
                     <FontIcon Glyph="#" FontFamily="{StaticResource ContentControlThemeFontFamily}" FontWeight="Light" Margin="6,-2,4,0" FontSize="20"
-                          Foreground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" Opacity="{x:Bind cconvert:IsUnreadOpacityConverter.Convert(MessageChannel.IsUnread), Mode=OneWay}" 
+                          Foreground="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
                           Visibility="{x:Bind vconvert:VisibleWhenEqualConverter.Convert(Channel.Type, cenums:ChannelType.GuildText)}"/>
 
                     <FontIcon Glyph="&#xE12A;" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontWeight="Light" Margin="6,4,4,0" FontSize="14" VerticalAlignment="Center"
-                          Foreground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" Opacity="{x:Bind cconvert:IsUnreadOpacityConverter.Convert(MessageChannel.IsUnread), Mode=OneWay}"
+                          Foreground="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
                           Visibility="{x:Bind vconvert:VisibleWhenEqualConverter.Convert(Channel.Type, cenums:ChannelType.News)}"/>
 
-                    <TextBlock Text="{x:Bind Name, Mode=OneWay}" Margin="0,1,0,0"
-                           Opacity="{x:Bind cconvert:IsUnreadOpacityConverter.Convert(MessageChannel.IsUnread), Mode=OneWay}" />
+                    <TextBlock Text="{x:Bind Name, Mode=OneWay}" Margin="0,1,0,0"/>
                 </StackPanel>
             </Grid>
-        <!--</UserControl>-->
+        </UserControl>
     </DataTemplate>
 
     <DataTemplate x:Key="VoiceChannelTemplate" x:DataType="bindablechannels:BindableVoiceChannel">
