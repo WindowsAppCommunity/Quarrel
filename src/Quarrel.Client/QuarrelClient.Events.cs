@@ -109,13 +109,13 @@ namespace Quarrel.Client
 
             Self.SetSelfUser(arg.User);
 
-            var guildSettings = new Dictionary<ulong?, GuildSettings>();
+            var guildSettings = new Dictionary<ulong, GuildSettings>();
             var channelSettings = new Dictionary<ulong, ChannelSettings>();
 
             foreach (var jsonGuildSettings in arg.GuildSettings)
             {
                 var gs = new GuildSettings(jsonGuildSettings, out ChannelSettings[] css);
-                guildSettings.Add(gs.GuildId, gs);
+                guildSettings.Add(gs.GuildId ?? 0, gs);
                 foreach (var cs in css)
                 {
                     channelSettings.Add(cs.ChannelId, cs);
