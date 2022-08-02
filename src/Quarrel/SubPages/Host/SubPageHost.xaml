@@ -59,7 +59,7 @@
             <Border x:Name="ContentBorder" Grid.Row="1"
                     BorderThickness="1" CornerRadius="2"
                     BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}">
-                <ContentControl Content="{x:Bind ViewModel.ContentViewModel, Mode=OneWay}"
+                <ContentControl x:Name="Content" x:Load="{x:Bind ViewModel.IsVisible, Mode=OneWay}" Content="{x:Bind ViewModel.ContentViewModel, Mode=OneWay}"
                                 ContentTemplateSelector="{StaticResource SubPageTemplateSelector}"/>
             </Border>
 
