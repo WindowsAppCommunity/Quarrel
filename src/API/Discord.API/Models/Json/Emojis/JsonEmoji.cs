@@ -20,13 +20,13 @@ namespace Discord.API.Models.Json.Emojis
         public bool? IsAnimated { get; set; }
 
         [JsonPropertyName("roles"), JsonNumberHandling(Constants.ReadWriteAsString)]
-        public ulong[] Roles { get; set; }
+        public ulong[]? Roles { get; set; }
 
         [JsonPropertyName("require_colons")]
-        public bool RequireColons { get; set; }
+        public bool? RequireColons { get; set; }
 
         [JsonPropertyName("managed")]
-        public bool Managed { get; set; }
+        public bool? Managed { get; set; }
 
         [JsonPropertyName("user")]
         public JsonUser? User { get; set; }

@@ -64,57 +64,73 @@ namespace Quarrel.Client.Models.Messages
                 Attachments = Array.Empty<Attachment>();
             }
 
+            if (jsonMessage.Reactions is not null)
+            {
+                Reactions = new Reaction[jsonMessage.Reactions.Length];
+                for (int i = 0; i < Reactions.Length; i++)
+                {
+                    Reactions[i] = new Reaction(jsonMessage.Reactions[i], this, context);
+                }
+            }
+            else
+            {
+                Reactions = Array.Empty<Reaction>();
+            }
+
             // TODO: Create Interaction type
             Interaction = jsonMessage.Interaction;
         }
 
         /// <inheritdoc/>
-        public ulong ChannelId { get; private set; }
+        public ulong ChannelId { get; }
 
         /// <inheritdoc/>
-        public ulong? GuildId { get; private set; }
+        public ulong? GuildId { get; }
 
         /// <inheritdoc/>
-        public MessageType Type { get; private set; }
+        public MessageType Type { get; }
 
         /// <inheritdoc/>
-        public bool IsTextToSpeech { get; private set; }
+        public bool IsTextToSpeech { get; }
 
         /// <inheritdoc/>
-        public bool IsPinned { get; private set; }
+        public bool IsPinned { get; }
 
         /// <inheritdoc/>
-        public bool MentionsEveryone { get; private set; }
+        public bool MentionsEveryone { get; }
 
         /// <inheritdoc/>
-        public string Content { get; private set; }
+        public string Content { get; }
 
         /// <inheritdoc/>
-        public DateTimeOffset Timestamp { get; private set; }
+        public DateTimeOffset Timestamp { get; }
 
         /// <inheritdoc/>
-        public DateTimeOffset? EditedTimestamp { get; private set; }
+        public DateTimeOffset? EditedTimestamp { get; }
 
         /// <inheritdoc/>
-        public User Author { get; private set; }
+        public User Author { get; }
 
         /// <inheritdoc/>
         public bool IsOwn => Author.Id == Context.Self.CurrentUser?.Id;
 
         /// <inheritdoc/>
-        public User[] Mentions { get; private set; }
+        public User[] Mentions { get; }
 
         /// <inheritdoc/>
-        public Attachment[] Attachments { get; private set; }
+        public Attachment[] Attachments { get; }
+        
+        /// <inheritdoc/>
+        public Reaction[] Reactions { get; }
 
         /// <inheritdoc/>
-        public MessageFlags? Flags { get; private set; }
+        public MessageFlags? Flags { get; }
 
         /// <inheritdoc/>
-        public object? Interaction { get; private set; }
+        public object? Interaction { get; }
 
         /// <inheritdoc/>
-        public ulong? WebhookId { get; private set; }
+        public ulong? WebhookId { get; }
 
         /// <inheritdoc/>
         public Uri MessageUri
