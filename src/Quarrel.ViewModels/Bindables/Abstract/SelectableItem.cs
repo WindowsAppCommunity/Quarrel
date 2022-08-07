@@ -25,7 +25,6 @@ namespace Quarrel.Bindables.Abstract
             IDispatcherService dispatcherService) :
             base(messenger, discordService, quarrelClient, dispatcherService)
         {
-
         }
 
         /// <summary>

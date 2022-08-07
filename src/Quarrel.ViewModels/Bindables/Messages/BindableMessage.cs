@@ -78,6 +78,12 @@ namespace Quarrel.Bindables.Messages
                 Attachments[i] = new BindableAttachment(messenger, discordService, quarrelClient, dispatcherService, _message.Attachments[i]);
             }
 
+            Reactions = new BindableReaction[_message.Reactions.Length];
+            for (int i = 0; i < Reactions.Length; i++)
+            {
+                Reactions[i] = new BindableReaction(messenger, discordService, quarrelClient, dispatcherService, _message.Reactions[i]);
+            }
+
             MarkLastReadCommand = new RelayCommand(() => _discordService.MarkRead(ChannelId, Id));
             CopyIdCommand = new RelayCommand(() => _clipboardService.Copy($"{Id}"));
             CopyLinkCommand = new RelayCommand(() => _clipboardService.Copy($"{message.MessageUri}"));
@@ -99,6 +105,7 @@ namespace Quarrel.Bindables.Messages
                 }
             });
         }
+
         public BindableGuildMember? GetGuildMember(ulong userId, ulong guildId)
         {
             var member = _quarrelClient.Members.GetGuildMember(userId, guildId);
@@ -109,7 +116,6 @@ namespace Quarrel.Bindables.Messages
 
             return null;
         }
-
 
         /// <inheritdoc/>
         public ulong Id => Message.Id;
@@ -176,6 +182,11 @@ namespace Quarrel.Bindables.Messages
         /// Gets the message attachments.
         /// </summary>
         public BindableAttachment[] Attachments { get; }
+
+        /// <summary>
+        /// Gets the message reactions.
+        /// </summary>
+        public BindableReaction[] Reactions { get; }
 
         /// <summary>
         /// Gets whether or not the message is a continuation.
