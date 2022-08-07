@@ -191,6 +191,7 @@
     <Compile Include="Selectors\Guilds\GuildTemplateSelector.cs" />
     <Compile Include="Selectors\Messages\AttachmentTemplateSelector.cs" />
     <Compile Include="Selectors\Messages\MessageTemplateSelector.cs" />
+    <Compile Include="Selectors\Messages\EmojiTemplateSelector.cs" />
     <Compile Include="Selectors\SubPages\Settings\GuildSettings\GuildSettingsPageSelector.cs" />
     <Compile Include="Selectors\SubPages\SubPageTemplateSelector.cs" />
     <Compile Include="Selectors\SubPages\Settings\SettingsMenuItemSelector.cs" />
@@ -277,6 +278,7 @@
     <EmbeddedResource Include="Assets\Tokens\AppCenter\AppCenterInsider.json" />
     <EmbeddedResource Include="Assets\Tokens\AppCenter\AppCenterAlpha.json" />
     <EmbeddedResource Include="Assets\Tokens\AppCenter\AppCenter.json" />
+    <Content Include="Assets\emojifont.ttf" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Connections\battlenet.png" />
     <Content Include="Assets\Connections\facebook.png" />

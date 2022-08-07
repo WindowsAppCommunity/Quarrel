@@ -11,7 +11,8 @@
     xmlns:bindablemessages="using:Quarrel.Bindables.Messages"
     xmlns:bindableembeds="using:Quarrel.Bindables.Messages.Embeds"
     xmlns:mselector="using:Quarrel.Selectors.Messages"
-    xmlns:markdown="using:Quarrel.Markdown">
+    xmlns:markdown="using:Quarrel.Markdown"
+    xmlns:emojis="using:Quarrel.Client.Models.Emojis">
 
     <SolidColorBrush x:Key="AttachmentBackgroundBrush" Color="#1E1E1E"/>
     <SolidColorBrush x:Key="AttachmentBorderBrush" Color="#3C3C3C"/>
@@ -74,6 +75,37 @@
                                           ImageAttachmentTemplate="{StaticResource ImageAttachmentTemplate}"
                                           AudioAttachmentTemplate="{StaticResource DefaultAttachmentTemplate}"
                                           VideoAttachmentTemplate="{StaticResource VideoAttachmentTemplate}"/>
+
+    <DataTemplate x:Key="EmojiTemplate" x:DataType="emojis:Emoji">
+        <TextBlock Text="{x:Bind Name, Mode=OneWay}"
+                   FontFamily="ms-appx://Assets/emojifont.ttf#Twitter Color Emoji"
+                   FontSize="16" VerticalAlignment="Center" Margin="0,0,2,0"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DiscordEmojiTemplate" x:DataType="emojis:DiscordEmoji">
+        <Image Source="{x:Bind DisplayUrl, Mode=OneWay}"
+               Height="16" Width="16" VerticalAlignment="Center" Margin="0,0,2,0"/>
+    </DataTemplate>
+
+    <mselector:EmojiTemplateSelector x:Key="EmojiTemplateSelector"
+                                     EmojiTemplate="{StaticResource EmojiTemplate}"
+                                     DiscordEmojiTemplate="{StaticResource DiscordEmojiTemplate}"/>
+
+    <DataTemplate x:Key="ReactionTemplate" x:DataType="bindablemessages:BindableReaction">
+        <ToggleButton IsChecked="{x:Bind IsSelected, Mode=OneWay}" Margin="4,0" Padding="4,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <ContentControl Content="{x:Bind Reaction.Emoji, Mode=OneWay}"
+                                ContentTemplateSelector="{StaticResource EmojiTemplateSelector}"
+                                VerticalAlignment="Center"/>
+                <TextBlock Text="{x:Bind Reaction.Count, Mode=OneWay}" Margin="2,0,0,0" Grid.Column="1" FontSize="14" VerticalAlignment="Center"/>
+            </Grid>
+        </ToggleButton>
+    </DataTemplate>
 
     <DataTemplate x:Key="DefaultMessageTemplate" x:DataType="bindablemessages:BindableMessage">
         <!--Grid must be wrapped in a user control to enable the VisualStateManager-->
@@ -161,6 +193,16 @@
                             <ItemsControl ItemsSource="{x:Bind Attachments}"
                                           ItemTemplateSelector="{StaticResource AttachmentTemplateSelector}"
                                           HorizontalAlignment="Left"/>
+
+                            <ItemsControl ItemsSource="{x:Bind Reactions}"
+                                          ItemTemplate="{StaticResource ReactionTemplate}"
+                                          HorizontalAlignment="Left" Margin="0,6,0,0">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
                         </StackPanel>
                     </Grid>
                 </Grid>
