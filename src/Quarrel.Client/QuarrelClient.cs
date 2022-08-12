@@ -154,7 +154,7 @@ namespace Quarrel.Client
 
                 messageReactionAdded: _ => { },
                 messageReactionRemoved: _ => { },
-                messageReactionRemovedAll: _ => { },
+                messageReactionRemovedAll: OnAllReactionsRemoved,
 
                 guildMemberAdded: _ => { },
                 guildMemberUpdated: _ => { },

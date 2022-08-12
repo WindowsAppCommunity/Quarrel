@@ -1,7 +1,6 @@
 ﻿// Quarrel © 2022
 
 using CommunityToolkit.Diagnostics;
-using Discord.API.Exceptions;
 using Discord.API.Gateways.Models;
 using Discord.API.Gateways.Models.Channels;
 using Discord.API.Gateways.Models.Handshake;
@@ -47,6 +46,11 @@ namespace Quarrel.Client
         /// Invoked when a message is marked as read.
         /// </summary>
         public event EventHandler<MessageAck>? MessageAck;
+
+        /// <summary>
+        /// Invoked when all reactions are removed from a message.
+        /// </summary>
+        public event EventHandler<AllReactionsRemoved> AllReactionsRemoved;
 
         /// <summary>
         /// Invoked when a channel is created.
@@ -190,6 +194,9 @@ namespace Quarrel.Client
             // TODO: Channel registration
             MessageAck?.Invoke(this, new MessageAck(arg, this));
         }
+
+        private void OnAllReactionsRemoved(JsonReactionRemoveAll arg) 
+            => AllReactionsRemoved?.Invoke(this, new AllReactionsRemoved(arg));
 
         private void OnChannelCreated(JsonChannel arg)
         {

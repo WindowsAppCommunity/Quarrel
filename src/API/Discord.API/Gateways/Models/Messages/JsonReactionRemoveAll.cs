@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Gateways.Models.Messages
 {
-    internal class MessageReactionRemoveAll
+    internal class JsonReactionRemoveAll
     {
         [JsonPropertyName("channel_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong ChannelId { get; set; }

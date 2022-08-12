@@ -11,7 +11,7 @@ namespace Quarrel.Bindables.Abstract
     /// <summary>
     /// An item that can be bound to the UI and contains an <see cref="IDispatcherService"/>.
     /// </summary>
-    public abstract class BindableItem : ObservableObject
+    public abstract class BindableItem : ObservableRecipient
     {
         /// <summary>
         /// Gets the <see cref="IMessenger"/> for the <see cref="BindableItem"/>.

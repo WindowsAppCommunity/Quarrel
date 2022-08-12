@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord.API.Gateways.Models.Messages
 {
-    internal class MessageReactionUpdated
+    internal class JsonReactionUpdated
     {
         [JsonPropertyName("user_id"), JsonNumberHandling(Constants.ReadWriteAsString)]
         public ulong UserId { get; set; }

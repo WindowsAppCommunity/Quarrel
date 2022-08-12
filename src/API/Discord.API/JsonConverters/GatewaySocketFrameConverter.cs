@@ -35,9 +35,9 @@ namespace Discord.API.JsonConverters
                     GatewayEvent.MESSAGE_UPDATE => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameJsonMessage)!,
                     GatewayEvent.MESSAGE_DELETE => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameJsonMessageDeleted)!,
 
-                    GatewayEvent.MESSAGE_REACTION_ADD => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameMessageReactionUpdated)!,
-                    GatewayEvent.MESSAGE_REACTION_REMOVE => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameMessageReactionUpdated)!,
-                    GatewayEvent.MESSAGE_REACTION_REMOVE_ALL => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameMessageReactionRemoveAll)!,
+                    GatewayEvent.MESSAGE_REACTION_ADD => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameJsonReactionUpdated)!,
+                    GatewayEvent.MESSAGE_REACTION_REMOVE => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameJsonReactionUpdated)!,
+                    GatewayEvent.MESSAGE_REACTION_REMOVE_ALL => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameJsonReactionRemoveAll)!,
 
                     GatewayEvent.GUILD_MEMBER_ADD => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameJsonGuildMember)!,
                     GatewayEvent.GUILD_MEMBER_UPDATE => JsonSerializer.Deserialize(ref reader, JsonModelsContext.Default.GatewaySocketFrameJsonGuildMember)!,

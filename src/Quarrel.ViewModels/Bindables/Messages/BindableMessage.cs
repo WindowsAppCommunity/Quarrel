@@ -10,10 +10,13 @@ using Quarrel.Bindables.Users;
 using Quarrel.Client;
 using Quarrel.Client.Models.Messages;
 using Quarrel.Messages.Discord.Messages;
+using Quarrel.Messages.Discord.Reactions;
 using Quarrel.Services.Clipboard;
 using Quarrel.Services.Discord;
 using Quarrel.Services.Dispatcher;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Quarrel.Bindables.Messages
@@ -78,10 +81,10 @@ namespace Quarrel.Bindables.Messages
                 Attachments[i] = new BindableAttachment(messenger, discordService, quarrelClient, dispatcherService, _message.Attachments[i]);
             }
 
-            Reactions = new BindableReaction[_message.Reactions.Length];
-            for (int i = 0; i < Reactions.Length; i++)
+            Reactions = new ObservableCollection<BindableReaction>();
+            foreach (var reaction in _message.Reactions)
             {
-                Reactions[i] = new BindableReaction(messenger, discordService, quarrelClient, dispatcherService, _message.Reactions[i]);
+                Reactions.Add(new BindableReaction(messenger, discordService, quarrelClient, dispatcherService, reaction));
             }
 
             MarkLastReadCommand = new RelayCommand(() => _discordService.MarkRead(ChannelId, Id));
@@ -102,6 +105,14 @@ namespace Quarrel.Bindables.Messages
                 if (Id == e.MessageId)
                 {
                     _dispatcherService.RunOnUIThread(() => IsDeleted = true);
+                }
+            });
+
+            _messenger.Register<AllReactionsRemovedMessage>(this, (_, e) =>
+            {
+                if (Id == e.MessageId)
+                {
+                    _dispatcherService.RunOnUIThread(() => Reactions.Clear());
                 }
             });
         }
@@ -186,7 +197,7 @@ namespace Quarrel.Bindables.Messages
         /// <summary>
         /// Gets the message reactions.
         /// </summary>
-        public BindableReaction[] Reactions { get; }
+        public ObservableCollection<BindableReaction> Reactions { get; set; }
 
         /// <summary>
         /// Gets whether or not the message is a continuation.

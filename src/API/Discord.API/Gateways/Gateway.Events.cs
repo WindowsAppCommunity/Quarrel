@@ -49,9 +49,9 @@ namespace Discord.API.Gateways
         private Action<JsonMessage> MessageUpdated { get; }
         private Action<JsonMessageDeleted> MessageDeleted { get; }
 
-        private Action<MessageReactionUpdated> MessageReactionAdded { get; }
-        private Action<MessageReactionUpdated> MessageReactionRemoved { get; }
-        private Action<MessageReactionRemoveAll> MessageReactionRemovedAll { get; }
+        private Action<JsonReactionUpdated> MessageReactionAdded { get; }
+        private Action<JsonReactionUpdated> MessageReactionRemoved { get; }
+        private Action<JsonReactionRemoveAll> MessageReactionRemovedAll { get; }
 
         private Action<JsonGuildMember> GuildMemberAdded { get; }
         private Action<JsonGuildMember> GuildMemberUpdated { get; }
